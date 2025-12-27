@@ -43,6 +43,18 @@ from .specialized_agents import (
     QualityReviewerAgent
 )
 
+# Programmatic Enforcement - CRITICAL for protocol faithfulness
+try:
+    from ..core.programmatic_enforcer import (
+        ProtocolVerbatimExtractor,
+        SAPOutputEnforcer
+    )
+    ENFORCER_AVAILABLE = True
+except ImportError:
+    ENFORCER_AVAILABLE = False
+    ProtocolVerbatimExtractor = None
+    SAPOutputEnforcer = None
+
 # RAG System for few-shot examples
 try:
     from ..core.rag_system import RAGSystem
@@ -141,6 +153,14 @@ class SAPGenerationOrchestrator:
             self.tlf_generator = TLFShellGenerator(llm_client=self.llm_client)
         if ProgrammingSpecGenerator is not None:
             self.programming_generator = ProgrammingSpecGenerator(llm_client=self.llm_client)
+
+        # Initialize Programmatic Enforcer - CRITICAL for protocol faithfulness
+        self.enforcer = None
+        self.extractor = None
+        if ENFORCER_AVAILABLE:
+            self.extractor = ProtocolVerbatimExtractor()
+            self.enforcer = SAPOutputEnforcer(self.extractor)
+            print("Programmatic enforcer initialized - will validate SAP against protocol")
 
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
@@ -298,6 +318,49 @@ class SAPGenerationOrchestrator:
                     parsed_protocol, estimands, methods,
                     None, combined_context, verbose  # Pass as context, not examples
                 )
+
+            # Step 5b: PROGRAMMATIC ENFORCEMENT - Validate and correct SAP
+            if self.enforcer and self.extractor:
+                if verbose:
+                    print("[5b/7] Applying programmatic enforcement...")
+
+                # Extract ground truth from protocol
+                protocol_extractions = self.extractor.extract_all(protocol_text)
+
+                # Report extracted values
+                if verbose:
+                    ratio = protocol_extractions.get('randomization', {})
+                    arms = protocol_extractions.get('treatment_arms', [])
+                    alpha = protocol_extractions.get('alpha', {})
+                    method = protocol_extractions.get('primary_analysis_method', {})
+
+                    print(f"      Randomization: {ratio.get('ratio')} ({ratio.get('num_arms')} arms)")
+                    print(f"      Treatment arms: {len(arms)} found")
+                    for arm in arms:
+                        print(f"        - {arm.get('name')}")
+                    print(f"      Alpha: {alpha.get('sidedness')} {alpha.get('primary_alpha')}")
+                    if alpha.get('additional_levels'):
+                        print(f"        Additional levels: {alpha.get('additional_levels')}")
+                    print(f"      Primary method: {method.get('method', 'Not specified')}")
+
+                # Apply enforcement to each section
+                total_violations = []
+                total_corrections = []
+
+                for section_name, section_content in sap_sections.items():
+                    enforcement_result = self.enforcer.enforce_all(section_content, protocol_text)
+                    sap_sections[section_name] = enforcement_result.corrected
+                    total_violations.extend(enforcement_result.violations_found)
+                    total_corrections.extend(enforcement_result.corrections_made)
+
+                if verbose:
+                    print(f"      Violations found: {len(total_violations)}")
+                    print(f"      Corrections made: {len(total_corrections)}")
+                    for corr in total_corrections[:5]:  # Show first 5
+                        print(f"        ✓ {corr[:60]}...")
+
+                # Store enforcement results in result
+                result.warnings.extend([f"ENFORCEMENT: {v}" for v in total_violations])
 
             # Step 6: Quality Review
             if verbose:

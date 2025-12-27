@@ -90,6 +90,47 @@ class ProtocolVerbatimExtractor:
         r'significance\s+level\s+(?:of\s+)?(\d+\.?\d*)\s*%?\s*(?:\(?(one[\s-]?sided|two[\s-]?sided)\)?)?',
     ]
 
+    # Patterns for randomization ratio (to detect 1:1:1 vs 1:1)
+    RANDOMIZATION_PATTERNS = [
+        r'random(?:ly|ized|isation)\s+(?:assigned\s+)?(?:to\s+)?(\d+)\s+(?:groups?|arms?)',
+        r'(\d+:\d+(?::\d+)?)\s*(?:ratio|randomiz)',
+        r'randomiz(?:ed|ation)\s+(?:in\s+a\s+)?(\d+:\d+(?::\d+)?)',
+    ]
+
+    # Patterns for treatment arms
+    TREATMENT_ARM_PATTERNS = [
+        # "600mg TJ301", "300mg TJ301", "placebo"
+        r'(\d+)\s*mg\s+(\w+)',
+        r'receive\s+(\d+\s*mg\s+\w+)',
+        r'(\d+\s*mg)\s+(?:of\s+)?(\w+)\s+(?:biweekly|Q\d+W|weekly|daily)',
+    ]
+
+    # Patterns for primary analysis method
+    PRIMARY_ANALYSIS_PATTERNS = [
+        r'(?:primary|main)\s+(?:analysis|efficacy\s+analysis)\s*[:\s]+(.+?)(?=\.|sensitivity)',
+        r'(?:will\s+be|is)\s+analys?ed\s+(?:by|using)\s+(?:a\s+)?(.+?)(?:model|test|method)',
+        r'primary\s+endpoint\s+will\s+be\s+analys?ed\s+(?:by|using)\s+(.+?)(?:\.|with)',
+        r'logistic\s+regression\s+model',
+        r'CMH\s+(?:test|method)',
+        r'Cochran[\s-]Mantel[\s-]Haenszel',
+    ]
+
+    # Patterns for visit windows
+    VISIT_WINDOW_PATTERNS = [
+        r'(?:week|visit)\s+(\d+)[:\s]+day\s+(\d+)\s*±\s*(\d+)',
+        r'day\s+(\d+)\s*±\s*(\d+)',
+    ]
+
+    # Patterns for sample size assumptions
+    SAMPLE_SIZE_ASSUMPTION_PATTERNS = [
+        r'placebo\s+(?:group\s+)?(?:rate|response)[:\s]+(\d+)\s*%',
+        r'(?:treatment|active)\s+(?:group\s+)?(?:rate|response)[:\s]+(\d+)\s*%',
+        r'(\d+)\s*%\s+(?:in\s+)?(?:the\s+)?placebo',
+        r'(\d+)\s*%\s+(?:in\s+)?(?:the\s+)?(?:treatment|active|high\s+dose)',
+        r'dropout\s+(?:rate)?[:\s]+(\d+)\s*%',
+        r'(\d+)\s*%\s+dropout',
+    ]
+
     def extract_primary_endpoint_verbatim(self, protocol_text: str) -> Optional[VerbatimDefinition]:
         """
         Extract the EXACT primary endpoint text from protocol.
@@ -227,6 +268,248 @@ class ProtocolVerbatimExtractor:
                                     result['additional_levels'].append(val)
 
         return result
+
+    def extract_randomization_ratio(self, protocol_text: str) -> Dict:
+        """
+        Extract randomization ratio (e.g., 1:1:1 for 3 arms).
+        CRITICAL: Must detect number of arms correctly.
+        """
+        result = {
+            'ratio': None,
+            'num_arms': None,
+            'arm_sizes_equal': True,
+        }
+
+        # Look for explicit ratio patterns
+        ratio_match = re.search(
+            r'(\d+:\d+(?::\d+)?)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if ratio_match:
+            result['ratio'] = ratio_match.group(1)
+            result['num_arms'] = len(ratio_match.group(1).split(':'))
+
+        # Look for "X groups" or "X arms"
+        groups_match = re.search(
+            r'(?:assigned\s+to|randomiz\w+\s+to)\s+(\d+)\s+(?:groups?|arms?|treatment\s+groups?)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if groups_match:
+            num = int(groups_match.group(1))
+            if result['num_arms'] is None or num > result['num_arms']:
+                result['num_arms'] = num
+                if result['ratio'] is None:
+                    result['ratio'] = ':'.join(['1'] * num)
+
+        return result
+
+    def extract_treatment_arms(self, protocol_text: str) -> List[Dict]:
+        """
+        Extract ALL treatment arms with doses.
+        CRITICAL: Must capture all arms (e.g., 600mg, 300mg, placebo).
+        """
+        arms = []
+
+        # Pattern for "Xmg DRUG" mentions
+        dose_matches = re.findall(
+            r'(\d+)\s*mg\s+(TJ301|drug|study\s+drug)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        seen_doses = set()
+        for dose, drug in dose_matches:
+            if dose not in seen_doses:
+                seen_doses.add(dose)
+                arms.append({
+                    'name': f'{dose}mg {drug}',
+                    'dose': f'{dose}mg',
+                    'type': 'active'
+                })
+
+        # Check for placebo
+        if re.search(r'\bplacebo\b', protocol_text, re.IGNORECASE):
+            arms.append({
+                'name': 'Placebo',
+                'dose': None,
+                'type': 'placebo'
+            })
+
+        # Verify arm count against ratio
+        ratio_info = self.extract_randomization_ratio(protocol_text)
+        if ratio_info['num_arms'] and len(arms) < ratio_info['num_arms']:
+            # We're missing arms - flag this
+            for arm in arms:
+                arm['_warning'] = f"Expected {ratio_info['num_arms']} arms but only found {len(arms)}"
+
+        return arms
+
+    def extract_primary_analysis_method(self, protocol_text: str) -> Dict:
+        """
+        Extract the PRIMARY analysis method (not sensitivity).
+        CRITICAL: Must distinguish primary from sensitivity methods.
+        """
+        result = {
+            'method': None,
+            'is_logistic_regression': False,
+            'is_cmh': False,
+            'covariates': [],
+            'confidence': 0.0,
+        }
+
+        # Look for explicit primary analysis statements
+        primary_match = re.search(
+            r'(?:primary|main)\s+(?:analysis|endpoint)[^.]*(?:will\s+be|is)\s+(?:analys?ed|performed)\s+(?:by|using)\s+(?:a\s+)?([^.]+)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if primary_match:
+            method_text = primary_match.group(1).lower()
+            result['method'] = method_text.strip()
+            result['confidence'] = 0.9
+
+        # Check for logistic regression
+        if re.search(r'logistic\s+regression', protocol_text, re.IGNORECASE):
+            result['is_logistic_regression'] = True
+            if result['method'] is None:
+                result['method'] = 'logistic regression'
+
+        # Check for CMH
+        if re.search(r'CMH|Cochran[\s-]?Mantel[\s-]?Haenszel', protocol_text, re.IGNORECASE):
+            result['is_cmh'] = True
+
+        # Extract covariates
+        covariate_match = re.search(
+            r'(?:covariate|adjusting\s+for|with)[:\s]+([^.]+)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if covariate_match:
+            cov_text = covariate_match.group(1)
+            result['covariates'] = [c.strip() for c in re.split(r',|and', cov_text) if c.strip()]
+
+        return result
+
+    def extract_visit_windows(self, protocol_text: str) -> Dict[str, Dict]:
+        """
+        Extract visit window definitions.
+        Returns {week_num: {target_day, window_plus_minus}}
+        """
+        windows = {}
+
+        # Pattern: "Week X: Day Y ± Z"
+        matches = re.findall(
+            r'(?:week|visit)\s*(\d+)[:\s]+day\s*(\d+)\s*±\s*(\d+)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        for week, day, window in matches:
+            windows[f'Week {week}'] = {
+                'target_day': int(day),
+                'window': int(window),
+                'min_day': int(day) - int(window),
+                'max_day': int(day) + int(window),
+            }
+
+        # Also look in tables - "Day X (Days Y-Z)"
+        table_matches = re.findall(
+            r'week\s*(\d+)[^\n]*day\s*(\d+)\s*\(days?\s*(\d+)[-–](\d+)\)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        for week, target, min_d, max_d in table_matches:
+            if f'Week {week}' not in windows:
+                windows[f'Week {week}'] = {
+                    'target_day': int(target),
+                    'min_day': int(min_d),
+                    'max_day': int(max_d),
+                    'window': (int(max_d) - int(min_d)) // 2,
+                }
+
+        return windows
+
+    def extract_sample_size_assumptions(self, protocol_text: str) -> Dict:
+        """
+        Extract sample size calculation assumptions.
+        """
+        result = {
+            'placebo_rate': None,
+            'treatment_rates': {},
+            'dropout_rate': None,
+            'per_arm_n': None,
+            'total_n': None,
+        }
+
+        # Placebo rate
+        placebo_match = re.search(
+            r'(\d+)\s*%\s+(?:in\s+)?(?:the\s+)?placebo|placebo[^.]*?(\d+)\s*%',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if placebo_match:
+            rate = placebo_match.group(1) or placebo_match.group(2)
+            result['placebo_rate'] = int(rate)
+
+        # Treatment rates
+        for match in re.finditer(
+            r'(\d+)\s*mg[^.]*?(\d+)\s*%|(\d+)\s*%[^.]*?(\d+)\s*mg',
+            protocol_text,
+            re.IGNORECASE
+        ):
+            groups = match.groups()
+            dose = groups[0] or groups[3]
+            rate = groups[1] or groups[2]
+            if dose and rate:
+                result['treatment_rates'][f'{dose}mg'] = int(rate)
+
+        # Dropout rate
+        dropout_match = re.search(
+            r'dropout[^.]*?(\d+)\s*%|(\d+)\s*%\s*dropout',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if dropout_match:
+            rate = dropout_match.group(1) or dropout_match.group(2)
+            result['dropout_rate'] = int(rate)
+
+        # Per-arm sample size
+        per_arm_match = re.search(
+            r'(\d+)\s+(?:patients?|subjects?)\s+per\s+(?:arm|group)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if per_arm_match:
+            result['per_arm_n'] = int(per_arm_match.group(1))
+
+        # Total sample size
+        total_match = re.search(
+            r'(\d+)\s+(?:patients?|subjects?)\s+will\s+be\s+(?:enrolled|randomized)',
+            protocol_text,
+            re.IGNORECASE
+        )
+        if total_match:
+            result['total_n'] = int(total_match.group(1))
+
+        return result
+
+    def extract_all(self, protocol_text: str) -> Dict[str, Any]:
+        """
+        Extract ALL critical values from protocol.
+        This is the master extraction method.
+        """
+        return {
+            'primary_endpoint': self.extract_primary_endpoint_verbatim(protocol_text),
+            'fas_definition': self.extract_population_verbatim(protocol_text, 'FAS'),
+            'itt_definition': self.extract_population_verbatim(protocol_text, 'ITT'),
+            'stratification_factors': self.extract_all_stratification_factors(protocol_text),
+            'alpha': self.extract_alpha_specification(protocol_text),
+            'randomization': self.extract_randomization_ratio(protocol_text),
+            'treatment_arms': self.extract_treatment_arms(protocol_text),
+            'primary_analysis_method': self.extract_primary_analysis_method(protocol_text),
+            'visit_windows': self.extract_visit_windows(protocol_text),
+            'sample_size_assumptions': self.extract_sample_size_assumptions(protocol_text),
+        }
 
 
 class SAPOutputEnforcer:
