@@ -628,6 +628,10 @@ Return the section content as a markdown-formatted string."""
             if methods.get("primary_analysis"):
                 parts.append(f"- Primary: {methods['primary_analysis'].get('method_name', 'TBD')}")
 
+        # Detect therapeutic area for filtering
+        ta = protocol.therapeutic_area.lower() if protocol.therapeutic_area else ""
+        is_immunology = any(t in ta for t in ['immunology', 'autoimmune', 'inflammatory'])
+
         # Add CRITICAL instructions
         parts.append("\n## CRITICAL INSTRUCTIONS - YOU MUST FOLLOW:")
         parts.append("1. Use the EXACT values from SAMPLE SIZE, TREATMENT ARMS, and STRATIFICATION above")
@@ -635,7 +639,13 @@ Return the section content as a markdown-formatted string."""
         parts.append("3. If route says 'intravenous', write 'intravenous' - NOT 'subcutaneous'")
         parts.append("4. If sample size says 90, write 90 - NOT 300 or any other number")
         parts.append("5. Copy stratification factors EXACTLY as listed above")
-        parts.append("6. This is an IMMUNOLOGY trial - do NOT use oncology terms like 'tumor'")
+        parts.append("6. If PRIMARY ANALYSIS METHOD is specified above, use it as THE PRIMARY method - NOT as sensitivity")
+        parts.append("7. If alpha says 'one-sided', use ONE-SIDED significance - NOT two-sided")
+        parts.append("8. Use the number of treatment arms shown above - do NOT invent extra arms")
+
+        if is_immunology:
+            parts.append("9. THIS IS AN IMMUNOLOGY TRIAL - NEVER use oncology terms like 'tumor', 'RECIST', 'progression-free'")
+            parts.append("   For intercurrent events, use 'Missing assessment' NOT 'Missing tumor assessment'")
 
         if examples:
             parts.append("\n## Example from Real SAP (use as style reference only, NOT values):")

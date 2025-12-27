@@ -62,8 +62,40 @@ class ClinicalTrialValidator:
         self._validate_sample_size(data, report)
         self._validate_stratification(data, report)
         self._validate_therapeutic_area(data, report)
+        self._validate_arms_consistency(data, report)
 
         return report
+
+    def _validate_arms_consistency(self, data: Dict, report: ValidationReport):
+        """Cross-validate arms count vs sample size"""
+        arms = data.get('arms', [])
+        ss = data.get('sample_size', {})
+        total_n = ss.get('total_n', 0)
+        n_arms = len(arms)
+
+        if n_arms == 0 or total_n == 0:
+            return
+
+        # Check if arms count is reasonable (typically 2-4)
+        if n_arms > 5:
+            report.add_issue(ValidationIssue(
+                rule_id="ARMS_001",
+                severity=ValidationSeverity.CRITICAL,
+                field="arms",
+                message=f"Suspicious: {n_arms} arms detected. Most trials have 2-4.",
+                suggestion="Verify arm extraction - may have duplicates"
+            ))
+
+        # Check per-arm N is reasonable
+        per_arm = total_n / n_arms if n_arms > 0 else 0
+        if per_arm < 10:
+            report.add_issue(ValidationIssue(
+                rule_id="ARMS_002",
+                severity=ValidationSeverity.ERROR,
+                field="arms",
+                message=f"Per-arm N ({per_arm:.0f}) too low for {n_arms} arms with N={total_n}",
+                suggestion="Check arm count or sample size"
+            ))
 
     def _to_dict(self, protocol: Any) -> Dict:
         data = {}

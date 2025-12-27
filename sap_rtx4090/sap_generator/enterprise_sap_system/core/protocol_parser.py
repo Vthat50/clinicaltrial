@@ -630,18 +630,31 @@ class ProtocolParser:
         return factors[:10]  # Limit
 
     def _extract_treatment_arms(self, text: str) -> List[TreatmentArm]:
-        """Extract treatment arms with route detection"""
+        """Extract treatment arms with route detection and deduplication"""
         arms = []
+        seen_ids = set()  # Prevent duplicates
 
-        # Look for arm descriptions
+        # First, try to find explicit number of groups
+        n_groups_match = re.search(r'(?:assigned|randomized)\s+to\s+(\d+)\s+(?:groups?|arms?)', text, re.IGNORECASE)
+        expected_n_groups = int(n_groups_match.group(1)) if n_groups_match else None
+
+        # Look for arm descriptions - more flexible patterns
         arm_patterns = [
-            r'(?:arm|group)\s*([A-Z1-9])[\s:]+([^.]+)',
-            r'(?:treatment|study)\s+(?:arm|group)\s*([A-Z1-9])?[\s:]+([^.]+)',
+            r'[-•]\s*(?:arm|group)\s*([A-Z1-9])[\s:]+([^\n.]+)',  # Bullet/dash format
+            r'(?:arm|group)\s+([A-Z1-9])[\s:]+([^\n.]+)',  # Arm A: description
+            r'(?:arm|group)\s*([A-Z1-9])[\s:]+([^\n.]+)',  # ArmA: description
+            r'(?:treatment|study)\s+(?:arm|group)\s*([A-Z1-9])?[\s:]+([^\n.]+)',
         ]
 
         for pattern in arm_patterns:
             for match in re.finditer(pattern, text, re.IGNORECASE):
                 arm_id = match.group(1) if match.group(1) else str(len(arms) + 1)
+
+                # Skip duplicates
+                if arm_id.upper() in seen_ids:
+                    continue
+                seen_ids.add(arm_id.upper())
+
                 description = match.group(2).strip()[:200]
 
                 # Extract route from description
@@ -657,8 +670,18 @@ class ProtocolParser:
                     route=route,
                     is_control="placebo" in description.lower() or "control" in description.lower()
                 ))
-                if len(arms) >= 6:
+
+                # Stop if we've reached expected number of groups
+                if expected_n_groups and len(arms) >= expected_n_groups:
                     break
+
+            # Stop outer loop too
+            if expected_n_groups and len(arms) >= expected_n_groups:
+                break
+
+        # Validate against expected
+        if expected_n_groups and len(arms) > expected_n_groups:
+            arms = arms[:expected_n_groups]
 
         return arms
 
