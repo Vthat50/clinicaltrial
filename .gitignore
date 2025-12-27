@@ -1,0 +1,11 @@
+.env.local
+.env
+__pycache__/
+*.pyc
+node_modules/
+
+# Large model files
+sap_rtx4090/sap_generator/models/
+*.gguf
+*.safetensors
+*.pt
