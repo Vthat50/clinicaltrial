@@ -514,16 +514,68 @@ class ProtocolParser:
         return ""
 
     def _extract_title(self, text: str) -> str:
-        """Extract study title"""
+        """Extract study title with improved accuracy"""
+        # Patterns in order of specificity (most specific first)
         patterns = [
-            r'(?:study\s+)?title[\s:]+(.+?)(?:\n\n|\n[A-Z])',
-            r'(?:brief\s+)?title[\s:]+(.+?)(?:\n)',
+            # Official/Protocol title patterns (highest priority)
+            r'(?:official|protocol|full)\s+title[\s:]+([^\n]{20,300})',
+            # Study title with clear context
+            r'(?:^|\n)\s*study\s+title[\s:]+([^\n]{20,300})',
+            # Brief title (common in ClinicalTrials.gov)
+            r'brief\s+title[\s:]+([^\n]{20,300})',
+            # Synopsis title
+            r'synopsis[:\s]*\n[^\n]*title[\s:]+([^\n]{20,300})',
+            # Title in header area (first 2000 chars)
+            r'^[^\n]*title[\s:]+([^\n]{20,300})',
         ]
+
+        # Exclusion patterns - titles that are NOT study titles
+        exclude_patterns = [
+            r'location\s+of\s+facility',
+            r'facility\s+(?:name|location|title)',
+            r'principal\s+investigator',
+            r'contact\s+(?:name|title)',
+            r'sponsor\s+(?:name|title)',
+        ]
+
         for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+            match = re.search(pattern, text[:5000], re.IGNORECASE | re.MULTILINE)
             if match:
                 title = match.group(1).strip()
-                return title[:500]  # Limit length
+                # Check if this is actually a study title (not facility/contact info)
+                title_lower = title.lower()
+                is_excluded = any(re.search(p, title_lower) for p in exclude_patterns)
+
+                # Valid titles usually contain drug/disease/phase info
+                has_study_keywords = any(kw in title_lower for kw in [
+                    'study', 'trial', 'phase', 'patients', 'subjects',
+                    'efficacy', 'safety', 'randomized', 'double-blind',
+                    'placebo', 'controlled', 'treatment', 'evaluate'
+                ])
+
+                if not is_excluded and (has_study_keywords or len(title) > 50):
+                    return title[:500]
+
+        # Fallback: Look for a long descriptive sentence in synopsis
+        synopsis_match = re.search(
+            r'synopsis[:\s]*\n(.{50,500}?)(?:\n\n|\n[A-Z]{2,})',
+            text[:3000], re.IGNORECASE | re.DOTALL
+        )
+        if synopsis_match:
+            synopsis_text = synopsis_match.group(1).strip()
+            # First substantial sentence is often the title/description
+            first_sentence = re.split(r'[.\n]', synopsis_text)[0].strip()
+            if len(first_sentence) > 30:
+                return first_sentence[:500]
+
+        # Last resort: Extract from "A Phase X study..." pattern
+        phase_study_match = re.search(
+            r'((?:a\s+)?phase\s+[1-4][ab]?(?:/[1-4][ab]?)?\s*,?\s*[^.]{20,200}(?:study|trial)[^.]*)',
+            text[:5000], re.IGNORECASE
+        )
+        if phase_study_match:
+            return phase_study_match.group(1).strip()[:500]
+
         return ""
 
     def _extract_indication(self, text: str) -> str:
