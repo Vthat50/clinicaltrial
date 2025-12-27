@@ -49,6 +49,18 @@ try:
 except ImportError:
     RAGSystem = None
 
+# Production-level specification generators
+try:
+    from ..specs import (
+        DerivationSpecGenerator,
+        TLFShellGenerator,
+        ProgrammingSpecGenerator
+    )
+except ImportError:
+    DerivationSpecGenerator = None
+    TLFShellGenerator = None
+    ProgrammingSpecGenerator = None
+
 
 @dataclass
 class GenerationResult:
@@ -63,6 +75,10 @@ class GenerationResult:
     warnings: List[str] = field(default_factory=list)
     execution_time: float = 0.0
     agent_states: Dict[str, Dict] = field(default_factory=dict)
+    # Production-level specifications
+    derivation_specs: Optional[str] = None
+    tlf_specs: Optional[str] = None
+    programming_specs: Optional[str] = None
 
 
 class SAPGenerationOrchestrator:
@@ -113,6 +129,18 @@ class SAPGenerationOrchestrator:
             except Exception as e:
                 # RAG is optional - proceed without it
                 self.rag_system = None
+
+        # Initialize production-level specification generators
+        self.derivation_generator = None
+        self.tlf_generator = None
+        self.programming_generator = None
+
+        if DerivationSpecGenerator is not None:
+            self.derivation_generator = DerivationSpecGenerator(llm_client=self.llm_client)
+        if TLFShellGenerator is not None:
+            self.tlf_generator = TLFShellGenerator(llm_client=self.llm_client)
+        if ProgrammingSpecGenerator is not None:
+            self.programming_generator = ProgrammingSpecGenerator(llm_client=self.llm_client)
 
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
@@ -166,7 +194,7 @@ class SAPGenerationOrchestrator:
         try:
             # Step 1: Parse Protocol
             if verbose:
-                print("[1/6] Parsing protocol...")
+                print("[1/7] Parsing protocol...")
 
             parsed_protocol = self.parser.parse(protocol_text, nct_id)
             result.parsed_protocol = parsed_protocol
@@ -180,12 +208,12 @@ class SAPGenerationOrchestrator:
             knowledge_context = ""
             if self.graph_rag:
                 if verbose:
-                    print("[2/6] Retrieving knowledge context...")
+                    print("[2/7] Retrieving knowledge context...")
                 knowledge_context = self.graph_rag.retrieve_context(parsed_protocol)
 
             # Step 3: Design Estimands
             if verbose:
-                print("[3/6] Designing estimands...")
+                print("[3/7] Designing estimands...")
 
             estimands = self.estimand_agent.execute(
                 parsed_protocol=parsed_protocol,
@@ -200,7 +228,7 @@ class SAPGenerationOrchestrator:
 
             # Step 4: Select Methods
             if verbose:
-                print("[4/6] Selecting statistical methods...")
+                print("[4/7] Selecting statistical methods...")
 
             methods = self.methods_agent.execute(
                 parsed_protocol=parsed_protocol,
@@ -215,7 +243,7 @@ class SAPGenerationOrchestrator:
 
             # Step 5: Generate SAP Sections
             if verbose:
-                print("[5/6] Generating SAP sections...")
+                print("[5/7] Generating SAP sections...")
 
             # Get few-shot examples from RAG system
             few_shot_examples = None
@@ -273,7 +301,7 @@ class SAPGenerationOrchestrator:
 
             # Step 6: Quality Review
             if verbose:
-                print("[6/6] Reviewing quality...")
+                print("[6/7] Reviewing quality...")
 
             quality_report = self.reviewer_agent.execute(
                 generated_sap=sap_sections,
@@ -287,9 +315,50 @@ class SAPGenerationOrchestrator:
                 if quality_report.issues:
                     print(f"      Issues: {len(quality_report.issues)}")
 
-            # Assemble final document
+            # Step 7: Generate Production-Level Specifications
+            if verbose:
+                print("[7/7] Generating production specifications...")
+
+            # Generate derivation specs
+            if self.derivation_generator:
+                try:
+                    result.derivation_specs = self.derivation_generator.generate_derivation_document(
+                        parsed_protocol, estimands
+                    )
+                    if verbose:
+                        print("      Generated ADaM derivation specifications")
+                except Exception as e:
+                    if verbose:
+                        print(f"      WARNING: Derivation specs failed: {e}")
+
+            # Generate TLF shells
+            if self.tlf_generator:
+                try:
+                    result.tlf_specs = self.tlf_generator.generate_tlf_document(
+                        parsed_protocol, estimands
+                    )
+                    if verbose:
+                        print("      Generated TLF shell specifications")
+                except Exception as e:
+                    if verbose:
+                        print(f"      WARNING: TLF specs failed: {e}")
+
+            # Generate programming specs
+            if self.programming_generator:
+                try:
+                    result.programming_specs = self.programming_generator.generate_programming_document(
+                        parsed_protocol, estimands
+                    )
+                    if verbose:
+                        print("      Generated SAS programming specifications")
+                except Exception as e:
+                    if verbose:
+                        print(f"      WARNING: Programming specs failed: {e}")
+
+            # Assemble final document with production appendices
             full_document = self._assemble_document(
-                sap_sections, parsed_protocol, estimands
+                sap_sections, parsed_protocol, estimands,
+                result.derivation_specs, result.tlf_specs, result.programming_specs
             )
 
             result.sap_document = GeneratedSAP(
@@ -416,9 +485,12 @@ class SAPGenerationOrchestrator:
         self,
         sections: Dict[str, str],
         protocol: ParsedProtocol,
-        estimands: Dict
+        estimands: Dict,
+        derivation_specs: Optional[str] = None,
+        tlf_specs: Optional[str] = None,
+        programming_specs: Optional[str] = None
     ) -> str:
-        """Assemble sections into complete SAP document"""
+        """Assemble sections into complete SAP document with production appendices"""
         header = f"""# STATISTICAL ANALYSIS PLAN
 
 **Study:** {protocol.nct_id}
@@ -435,20 +507,64 @@ class SAPGenerationOrchestrator:
         for key in sorted(sections.keys()):
             ordered_sections.append(sections[key])
 
-        footer = """
+        # Build appendices with real specifications (not placeholders)
+        appendix_parts = []
+
+        # Appendix A: TLF Shells
+        if tlf_specs:
+            appendix_parts.append(f"""
 ---
 
-## APPENDICES
+## APPENDIX A: TLF SHELL SPECIFICATIONS
 
-### Appendix A: TLF Shell Templates
-[To be added]
+{tlf_specs}
+""")
+        else:
+            appendix_parts.append("""
+---
 
-### Appendix B: Derivation Specifications
-[To be added]
+## APPENDIX A: TLF Shell Templates
 
-### Appendix C: Programming Specifications
-[To be added]
+*TLF shell specifications to be provided in separate document.*
+""")
 
+        # Appendix B: Derivation Specifications
+        if derivation_specs:
+            appendix_parts.append(f"""
+---
+
+## APPENDIX B: ADaM DERIVATION SPECIFICATIONS
+
+{derivation_specs}
+""")
+        else:
+            appendix_parts.append("""
+---
+
+## APPENDIX B: Derivation Specifications
+
+*ADaM derivation specifications to be provided in separate document.*
+""")
+
+        # Appendix C: Programming Specifications
+        if programming_specs:
+            appendix_parts.append(f"""
+---
+
+## APPENDIX C: SAS PROGRAMMING SPECIFICATIONS
+
+{programming_specs}
+""")
+        else:
+            appendix_parts.append("""
+---
+
+## APPENDIX C: Programming Specifications
+
+*SAS programming specifications to be provided in separate document.*
+""")
+
+        footer = """
 ---
 
 **Document History**
@@ -459,10 +575,10 @@ class SAPGenerationOrchestrator:
 
 ---
 
-*This SAP was generated using the Enterprise SAP Generation System.*
+*This SAP was generated using the Enterprise SAP Generation System with production-level specifications.*
 """.format(date=datetime.now().strftime('%d-%b-%Y'))
 
-        return header + "\n\n".join(ordered_sections) + footer
+        return header + "\n\n".join(ordered_sections) + "\n".join(appendix_parts) + footer
 
     def generate_from_file(
         self,
