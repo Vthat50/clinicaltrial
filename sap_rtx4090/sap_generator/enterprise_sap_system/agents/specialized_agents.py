@@ -579,6 +579,7 @@ Return the section content as a markdown-formatted string."""
         if protocol.sample_size:
             ss = protocol.sample_size
             alpha_side = ss.assumptions.get('alpha_sidedness', 'two-sided')
+            primary_method = ss.assumptions.get('primary_analysis_method')
             parts.append("\n## SAMPLE SIZE (USE EXACTLY - DO NOT CHANGE):")
             parts.append(f"- Total N: {ss.total_n}")
             parts.append(f"- Power: {ss.power * 100 if ss.power < 1 else ss.power}%")
@@ -586,6 +587,12 @@ Return the section content as a markdown-formatted string."""
             if ss.per_arm_n:
                 for arm, n in ss.per_arm_n.items():
                     parts.append(f"- {arm}: {n}")
+
+            # CRITICAL: Include primary analysis method if specified in protocol
+            if primary_method:
+                parts.append(f"\n## PRIMARY ANALYSIS METHOD (FROM PROTOCOL - USE THIS):")
+                parts.append(f"- {primary_method}")
+                parts.append("⚠️ This is the EXACT method specified in the protocol. USE IT.")
 
         # CRITICAL: Include treatment arms with route/dose
         if protocol.arms:

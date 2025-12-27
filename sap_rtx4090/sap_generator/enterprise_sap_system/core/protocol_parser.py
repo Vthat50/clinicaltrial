@@ -752,13 +752,42 @@ class ProtocolParser:
                     alpha /= 100
                 break
 
+        # Extract explicit primary analysis method
+        primary_method = self._extract_primary_analysis_method(text)
+
         return SampleSizeCalc(
             total_n=total_n,
             per_arm_n={},
             power=power,
             alpha=alpha,
-            assumptions={"alpha_sidedness": alpha_sidedness}
+            assumptions={
+                "alpha_sidedness": alpha_sidedness,
+                "primary_analysis_method": primary_method
+            }
         )
+
+    def _extract_primary_analysis_method(self, text: str) -> Optional[str]:
+        """Extract explicitly specified primary analysis method from protocol"""
+        patterns = [
+            # "Primary Analysis: logistic regression"
+            r'primary\s+(?:analysis|method)[:\s]+([^.]+(?:regression|model|test|anova|ancova)[^.]*)',
+            # "will be analyzed using logistic regression"
+            r'(?:will\s+be|is)\s+(?:analy[sz]ed|compared)\s+(?:using|by|with)\s+(?:a\s+)?([^.]+(?:regression|model|test)[^.]*)',
+            # "analysed by a logistic regression model"
+            r'analy[sz]ed\s+by\s+(?:a\s+)?([^.]+(?:regression|model)[^.]*)',
+            # "The statistical method is logistic regression"
+            r'statistical\s+(?:method|analysis)\s+(?:is|will\s+be)[:\s]+([^.]+)',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                method = match.group(1).strip()
+                # Validate it looks like an analysis method
+                method_keywords = ['regression', 'anova', 'ancova', 'test', 'model', 'chi-square', 'log-rank', 'cox', 'mmrm']
+                if any(kw in method.lower() for kw in method_keywords):
+                    return method[:100]  # Limit length
+        return None
 
     def _extract_populations(self, text: str) -> List[AnalysisPopulation]:
         """Extract analysis population definitions"""
