@@ -1,247 +1,314 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import ReactMarkdown from 'react-markdown'
+import { useState, useCallback, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
-type JobStatus = 'idle' | 'queued' | 'processing' | 'completed' | 'failed'
-
-interface JobResult {
-  job_id: string
-  status: JobStatus
-  generated_sap?: string
-  quality_score?: number
-  endpoint_type?: string
-  phase?: string
-  therapeutic_area?: string
-  processing_time?: number
-  error_message?: string
-}
+type UploadMode = 'file' | 'text'
 
 export default function Home() {
-  const [protocolText, setProtocolText] = useState('')
+  const router = useRouter()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const [mode, setMode] = useState<UploadMode>('file')
+  const [file, setFile] = useState<File | null>(null)
+  const [textInput, setTextInput] = useState('')
   const [nctId, setNctId] = useState('')
-  const [status, setStatus] = useState<JobStatus>('idle')
-  const [jobId, setJobId] = useState<string | null>(null)
-  const [result, setResult] = useState<JobResult | null>(null)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [dragActive, setDragActive] = useState(false)
 
-  // Poll for job status
-  useEffect(() => {
-    if (!jobId || status === 'completed' || status === 'failed') return
-
-    const interval = setInterval(async () => {
-      try {
-        const res = await fetch(`${API_URL}/status/${jobId}`)
-        const data: JobResult = await res.json()
-
-        setResult(data)
-        setStatus(data.status as JobStatus)
-
-        if (data.status === 'completed' || data.status === 'failed') {
-          clearInterval(interval)
-        }
-      } catch (e) {
-        console.error('Polling error:', e)
-      }
-    }, 3000) // Poll every 3 seconds
-
-    return () => clearInterval(interval)
-  }, [jobId, status])
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Handle drag events
+  const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault()
+    e.stopPropagation()
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true)
+    } else if (e.type === "dragleave") {
+      setDragActive(false)
+    }
+  }, [])
+
+  // Handle drop
+  const handleDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const droppedFile = e.dataTransfer.files[0]
+      validateAndSetFile(droppedFile)
+    }
+  }, [])
+
+  // Validate file
+  const validateAndSetFile = (file: File) => {
+    const allowedExtensions = ['pdf', 'docx', 'doc', 'txt']
+    const ext = file.name.split('.').pop()?.toLowerCase()
+
+    if (!allowedExtensions.includes(ext || '')) {
+      setError('Please upload a PDF, DOCX, or TXT file')
+      return
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setError('File size must be less than 10MB')
+      return
+    }
+
+    setFile(file)
     setError(null)
-    setResult(null)
-    setStatus('queued')
+  }
 
-    try {
-      const res = await fetch(`${API_URL}/generate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          protocol_text: protocolText,
-          nct_id: nctId || null
-        })
-      })
-
-      if (!res.ok) {
-        throw new Error(`API error: ${res.statusText}`)
-      }
-
-      const data = await res.json()
-      setJobId(data.job_id)
-    } catch (e: any) {
-      setError(e.message)
-      setStatus('failed')
+  // Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      validateAndSetFile(e.target.files[0])
     }
   }
 
-  const handleReset = () => {
-    setProtocolText('')
-    setNctId('')
-    setStatus('idle')
-    setJobId(null)
-    setResult(null)
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
     setError(null)
+
+    try {
+      let response
+
+      if (mode === 'file' && file) {
+        // Upload file
+        const formData = new FormData()
+        formData.append('file', file)
+        if (nctId) formData.append('nct_id', nctId)
+
+        response = await fetch(`${API_URL}/upload`, {
+          method: 'POST',
+          body: formData,
+        })
+      } else if (mode === 'text' && textInput.trim()) {
+        // Submit text
+        response = await fetch(`${API_URL}/generate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            protocol_text: textInput,
+            nct_id: nctId || null,
+          }),
+        })
+      } else {
+        throw new Error('Please provide a file or text')
+      }
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.detail || 'Upload failed')
+      }
+
+      const data = await response.json()
+
+      // Navigate to job status page
+      router.push(`/job/${data.job_id}`)
+
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Get file icon based on type
+  const getFileIcon = (filename: string) => {
+    const ext = filename.split('.').pop()?.toLowerCase()
+    if (ext === 'pdf') return '📄'
+    if (ext === 'docx' || ext === 'doc') return '📝'
+    return '📃'
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h1 className="text-2xl font-bold text-gray-900">Generate Statistical Analysis Plan</h1>
-        <p className="mt-2 text-gray-600">
-          Paste your clinical trial protocol text below to generate an ICH E9(R1) compliant SAP.
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          SAP Generator
+        </h1>
+        <p className="text-gray-600">
+          Upload a clinical trial protocol to generate a Statistical Analysis Plan
         </p>
       </div>
 
-      {/* Input Form */}
-      {status === 'idle' && (
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-4">
-          <div>
-            <label htmlFor="nctId" className="block text-sm font-medium text-gray-700">
-              NCT ID (optional)
-            </label>
-            <input
-              type="text"
-              id="nctId"
-              value={nctId}
-              onChange={(e) => setNctId(e.target.value)}
-              placeholder="e.g., NCT12345678"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2"
-            />
-          </div>
+      {/* Mode Toggle */}
+      <div className="flex justify-center mb-6">
+        <div className="inline-flex rounded-lg border border-gray-200 p-1 bg-gray-50">
+          <button
+            type="button"
+            onClick={() => setMode('file')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              mode === 'file'
+                ? 'bg-white shadow text-indigo-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Upload File
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode('text')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              mode === 'text'
+                ? 'bg-white shadow text-indigo-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Paste Text
+          </button>
+        </div>
+      </div>
 
-          <div>
-            <label htmlFor="protocol" className="block text-sm font-medium text-gray-700">
-              Protocol Text
-            </label>
-            <textarea
-              id="protocol"
-              rows={15}
-              value={protocolText}
-              onChange={(e) => setProtocolText(e.target.value)}
-              placeholder="Paste your clinical trial protocol text here..."
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border p-2 font-mono"
-              required
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* File Upload Mode */}
+        {mode === 'file' && (
+          <div
+            className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
+              dragActive
+                ? 'border-indigo-500 bg-indigo-50'
+                : file
+                ? 'border-green-400 bg-green-50'
+                : 'border-gray-300 hover:border-gray-400'
+            }`}
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={handleFileChange}
+              accept=".pdf,.docx,.doc,.txt"
+              className="hidden"
             />
-            <p className="mt-1 text-sm text-gray-500">
-              {protocolText.length.toLocaleString()} characters
+
+            {file ? (
+              <div className="space-y-3">
+                <div className="text-4xl">{getFileIcon(file.name)}</div>
+                <div>
+                  <p className="font-medium text-gray-900">{file.name}</p>
+                  <p className="text-sm text-gray-500">
+                    {(file.size / 1024 / 1024).toFixed(2)} MB
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFile(null)}
+                  className="text-sm text-red-600 hover:text-red-700"
+                >
+                  Remove file
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div className="text-4xl">📁</div>
+                <div>
+                  <p className="text-gray-700">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="text-indigo-600 hover:text-indigo-700 font-medium"
+                    >
+                      Click to upload
+                    </button>
+                    {' '}or drag and drop
+                  </p>
+                  <p className="text-sm text-gray-500 mt-1">
+                    PDF, DOCX, or TXT (max 10MB)
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Text Input Mode */}
+        {mode === 'text' && (
+          <div>
+            <textarea
+              value={textInput}
+              onChange={(e) => setTextInput(e.target.value)}
+              placeholder="Paste your clinical trial protocol text here..."
+              rows={12}
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
+            />
+            <p className="text-sm text-gray-500 mt-2">
+              {textInput.length.toLocaleString()} characters
             </p>
           </div>
+        )}
 
-          <button
-            type="submit"
-            disabled={!protocolText.trim()}
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-          >
-            Generate SAP
-          </button>
-        </form>
-      )}
+        {/* NCT ID (Optional) */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            NCT ID (Optional)
+          </label>
+          <input
+            type="text"
+            value={nctId}
+            onChange={(e) => setNctId(e.target.value)}
+            placeholder="NCT00000000"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </div>
 
-      {/* Processing Status */}
-      {(status === 'queued' || status === 'processing') && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center space-x-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-            <div>
-              <p className="text-lg font-medium text-gray-900">
-                {status === 'queued' ? 'Job queued...' : 'Generating SAP...'}
-              </p>
-              <p className="text-sm text-gray-500">
-                This typically takes 60-90 seconds. Please wait.
-              </p>
-            </div>
+        {/* Error Message */}
+        {error && (
+          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-700">{error}</p>
           </div>
-          {jobId && (
-            <p className="mt-4 text-xs text-gray-400">Job ID: {jobId}</p>
+        )}
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          disabled={loading || (mode === 'file' && !file) || (mode === 'text' && !textInput.trim())}
+          className={`w-full py-3 px-4 rounded-xl font-medium text-white transition-colors ${
+            loading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-indigo-600 hover:bg-indigo-700'
+          }`}
+        >
+          {loading ? (
+            <span className="flex items-center justify-center">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Processing...
+            </span>
+          ) : (
+            'Generate SAP'
           )}
+        </button>
+      </form>
+
+      {/* Features */}
+      <div className="mt-12 grid grid-cols-3 gap-4 text-center">
+        <div className="p-4">
+          <div className="text-2xl mb-2">📄</div>
+          <h3 className="font-medium text-gray-900">PDF Support</h3>
+          <p className="text-sm text-gray-500">Upload protocol PDFs directly</p>
         </div>
-      )}
-
-      {/* Error Display */}
-      {status === 'failed' && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-          <h3 className="text-lg font-medium text-red-800">Generation Failed</h3>
-          <p className="mt-2 text-red-700">{error || result?.error_message || 'Unknown error'}</p>
-          <button
-            onClick={handleReset}
-            className="mt-4 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700"
-          >
-            Try Again
-          </button>
+        <div className="p-4">
+          <div className="text-2xl mb-2">📝</div>
+          <h3 className="font-medium text-gray-900">Word Docs</h3>
+          <p className="text-sm text-gray-500">DOCX files are supported</p>
         </div>
-      )}
-
-      {/* Results Display */}
-      {status === 'completed' && result && (
-        <div className="space-y-6">
-          {/* Summary Card */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="text-xl font-bold text-gray-900">SAP Generated Successfully</h2>
-                <p className="mt-1 text-sm text-gray-500">
-                  Processed in {result.processing_time?.toFixed(1)} seconds
-                </p>
-              </div>
-              <button
-                onClick={handleReset}
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 text-sm"
-              >
-                Generate Another
-              </button>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-xs text-gray-500 uppercase">Quality Score</p>
-                <p className="text-lg font-semibold text-indigo-600">
-                  {result.quality_score?.toFixed(0)}/100
-                </p>
-              </div>
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-xs text-gray-500 uppercase">Endpoint Type</p>
-                <p className="text-lg font-semibold">{result.endpoint_type || 'N/A'}</p>
-              </div>
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-xs text-gray-500 uppercase">Phase</p>
-                <p className="text-lg font-semibold">{result.phase || 'N/A'}</p>
-              </div>
-              <div className="bg-gray-50 rounded p-3">
-                <p className="text-xs text-gray-500 uppercase">Therapeutic Area</p>
-                <p className="text-lg font-semibold">{result.therapeutic_area || 'N/A'}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* SAP Document */}
-          <div className="bg-white rounded-lg shadow">
-            <div className="border-b p-4 flex justify-between items-center">
-              <h3 className="font-medium">Generated SAP Document</h3>
-              <button
-                onClick={() => {
-                  const blob = new Blob([result.generated_sap || ''], { type: 'text/markdown' })
-                  const url = URL.createObjectURL(blob)
-                  const a = document.createElement('a')
-                  a.href = url
-                  a.download = `SAP_${nctId || 'document'}.md`
-                  a.click()
-                }}
-                className="text-sm text-indigo-600 hover:text-indigo-800"
-              >
-                Download as Markdown
-              </button>
-            </div>
-            <div className="p-6 prose max-w-none markdown-body overflow-auto max-h-[600px]">
-              <ReactMarkdown>{result.generated_sap || ''}</ReactMarkdown>
-            </div>
-          </div>
+        <div className="p-4">
+          <div className="text-2xl mb-2">🤖</div>
+          <h3 className="font-medium text-gray-900">AI-Powered</h3>
+          <p className="text-sm text-gray-500">83% accuracy on endpoint extraction</p>
         </div>
-      )}
+      </div>
     </div>
   )
 }

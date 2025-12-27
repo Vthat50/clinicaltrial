@@ -13,6 +13,7 @@ CREATE TABLE sap_jobs (
     -- Input
     protocol_text TEXT NOT NULL,
     nct_id VARCHAR(20),
+    filename VARCHAR(255),
 
     -- Output
     generated_sap TEXT,
