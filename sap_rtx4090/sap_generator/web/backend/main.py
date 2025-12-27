@@ -425,8 +425,8 @@ async def process_jobs_worker():
                 result = orchestrator.generate_sap(
                     protocol_text=job["protocol_text"][:50000],
                     nct_id=job.get("nct_id", ""),
-                    use_few_shot=False,
-                    verbose=False
+                    use_few_shot=True,  # Enable RAG few-shot examples
+                    verbose=True
                 )
 
                 processing_time = time.time() - start_time

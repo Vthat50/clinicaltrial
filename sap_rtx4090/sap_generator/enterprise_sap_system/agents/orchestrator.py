@@ -43,6 +43,12 @@ from .specialized_agents import (
     QualityReviewerAgent
 )
 
+# RAG System for few-shot examples
+try:
+    from ..core.rag_system import RAGSystem
+except ImportError:
+    RAGSystem = None
+
 
 @dataclass
 class GenerationResult:
@@ -93,8 +99,20 @@ class SAPGenerationOrchestrator:
         self.agent_registry = AgentRegistry()
         self._init_agents()
 
-        # Few-shot example selector (initialized lazily)
-        self._few_shot_selector = None
+        # Initialize RAG System for few-shot examples (optional enhancement)
+        self.rag_system = None
+        if RAGSystem is not None:
+            try:
+                self.rag_system = RAGSystem()
+                num_pairs = self.rag_system.load_and_filter_pairs()
+                if num_pairs > 0:
+                    self.rag_system.create_embeddings()
+                    print(f"RAG system ready with {num_pairs} protocol-SAP pairs")
+                else:
+                    self.rag_system = None
+            except Exception as e:
+                # RAG is optional - proceed without it
+                self.rag_system = None
 
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
@@ -199,19 +217,58 @@ class SAPGenerationOrchestrator:
             if verbose:
                 print("[5/6] Generating SAP sections...")
 
+            # Get few-shot examples from RAG system
             few_shot_examples = None
-            if use_few_shot and self._few_shot_selector:
-                few_shot_examples = self._few_shot_selector.get_examples(parsed_protocol)
+            if use_few_shot and self.rag_system:
+                try:
+                    if verbose:
+                        print("      Retrieving similar SAPs as examples...")
+
+                    # Get therapeutic area and phase for filtering
+                    ta = parsed_protocol.therapeutic_area or "OTHER"
+                    phase = str(parsed_protocol.phase.value) if hasattr(parsed_protocol.phase, 'value') else str(parsed_protocol.phase)
+
+                    # Retrieve similar protocols
+                    similar_pairs = self.rag_system.retrieve_similar(
+                        query_protocol=protocol_text[:10000],
+                        k=2,  # Get top 2 similar examples
+                        therapeutic_area=ta,
+                        phase=phase
+                    )
+
+                    if similar_pairs:
+                        # Format as few-shot context string
+                        few_shot_examples = self.rag_system.format_few_shot_examples(
+                            similar_pairs,
+                            max_protocol_chars=2000,
+                            max_sap_chars=6000
+                        )
+                        if verbose:
+                            print(f"      Found {len(similar_pairs)} similar SAPs: {[p.nct_id for p in similar_pairs]}")
+                except Exception as e:
+                    if verbose:
+                        print(f"      WARNING: RAG retrieval failed: {e}")
+
+            # Combine RAG few-shot examples with knowledge context
+            combined_context = knowledge_context or ""
+            if few_shot_examples:
+                combined_context = f"""## Similar Real SAPs (Use as Reference)
+
+{few_shot_examples}
+
+## Additional Context
+{combined_context}
+"""
 
             if parallel_sections:
                 sap_sections = self._generate_sections_parallel(
                     parsed_protocol, estimands, methods,
-                    few_shot_examples, knowledge_context, verbose
+                    None, combined_context, verbose  # Pass as context, not examples
                 )
             else:
                 sap_sections = self._generate_sections_sequential(
                     parsed_protocol, estimands, methods,
-                    few_shot_examples, knowledge_context, verbose
+                    None, combined_context, verbose  # Pass as context, not examples
                 )
 
             # Step 6: Quality Review
