@@ -25,6 +25,7 @@ from .schemas import (
     DesignType, BlindingType
 )
 from .config import get_config
+from .endpoint_extractor import StructuredEndpointExtractor
 
 
 class ProtocolParser:
@@ -259,6 +260,8 @@ class ProtocolParser:
         """Initialize parser with optional LLM client for enhanced extraction"""
         self.config = get_config()
         self.llm_client = llm_client
+        # Use advanced endpoint extractor with therapeutic area awareness
+        self.endpoint_extractor = StructuredEndpointExtractor(llm_client=llm_client)
 
     def parse(self, protocol_text: str, nct_id: str = "") -> ParsedProtocol:
         """
@@ -373,69 +376,34 @@ class ProtocolParser:
         return best_phase, confidence
 
     def _classify_endpoint(self, text: str) -> Tuple[EndpointType, float, str]:
-        """Classify primary endpoint type with improved detection"""
-        text_lower = text.lower()
+        """
+        Classify primary endpoint type using advanced two-stage extractor.
 
-        # Extract the most relevant section (objectives/endpoints section)
-        primary_section = self._extract_primary_section(text)
+        Stage 1: Detect therapeutic area (IBD, Oncology, etc.)
+        Stage 2: Classify endpoint with TA context and Bayesian priors
+        """
+        # Use the advanced endpoint extractor with therapeutic area awareness
+        result = self.endpoint_extractor.extract(text)
 
-        # Also get synopsis for additional context
-        synopsis = self._extract_synopsis(text)
+        # Map string endpoint type to EndpointType enum
+        endpoint_map = {
+            "SAFETY": EndpointType.SAFETY,
+            "ORR": EndpointType.ORR,
+            "PFS": EndpointType.PFS,
+            "OS": EndpointType.OS,
+            "DFS": EndpointType.DFS,
+            "EFS": EndpointType.EFS,
+            "PK": EndpointType.PK,
+            "EFFICACY": EndpointType.EFFICACY,
+            "OTHER": EndpointType.OTHER,
+        }
 
-        scores = {ep: 0 for ep in self.ENDPOINT_PATTERNS}
-        matches = {ep: [] for ep in self.ENDPOINT_PATTERNS}
+        endpoint_type = endpoint_map.get(result.endpoint_type, EndpointType.OTHER)
 
-        # Score patterns in primary section (higher weight)
-        if primary_section:
-            section_lower = primary_section.lower()
-            for endpoint, patterns in self.ENDPOINT_PATTERNS.items():
-                for pattern, weight in patterns:
-                    found = re.search(pattern, section_lower)
-                    if found:
-                        # Boost for primary section matches
-                        scores[endpoint] += int(weight * 1.5)
-                        matches[endpoint].append(found.group(0))
+        # Build evidence string
+        evidence = f"TA: {result.therapeutic_area}, Phase: {result.phase} - {result.reasoning}"
 
-        # Score patterns in synopsis (medium weight)
-        if synopsis:
-            synopsis_lower = synopsis.lower()
-            for endpoint, patterns in self.ENDPOINT_PATTERNS.items():
-                for pattern, weight in patterns:
-                    found = re.search(pattern, synopsis_lower)
-                    if found:
-                        scores[endpoint] += weight
-                        if found.group(0) not in matches[endpoint]:
-                            matches[endpoint].append(found.group(0))
-
-        # Score patterns in full text (lower weight for context)
-        for endpoint, patterns in self.ENDPOINT_PATTERNS.items():
-            for pattern, weight in patterns:
-                found = re.search(pattern, text_lower)
-                if found:
-                    # Lower weight for full text to avoid false positives
-                    scores[endpoint] += int(weight * 0.3)
-
-        # Apply phase-based adjustments
-        phase, _ = self._classify_phase(text)
-        if phase in [StudyPhase.PHASE_1, StudyPhase.PHASE_1A, StudyPhase.PHASE_1B]:
-            scores[EndpointType.SAFETY] += 100  # Phase 1 often has safety primary
-            scores[EndpointType.PK] += 50
-
-        # Find best endpoint
-        max_score = max(scores.values())
-        if max_score < 50:  # Minimum threshold
-            return EndpointType.OTHER, 0.0, ""
-
-        best_endpoint = max(scores, key=scores.get)
-
-        # Confidence based on score and margin over second best
-        sorted_scores = sorted(scores.values(), reverse=True)
-        margin = (sorted_scores[0] - sorted_scores[1]) / max(sorted_scores[0], 1)
-        confidence = min((max_score / 200) * (0.5 + margin * 0.5), 1.0)
-
-        evidence = "; ".join(matches[best_endpoint][:3])
-
-        return best_endpoint, confidence, evidence
+        return endpoint_type, result.confidence, evidence
 
     def _extract_synopsis(self, text: str, max_chars: int = 3000) -> str:
         """Extract synopsis section"""
@@ -784,6 +752,19 @@ class ProtocolParser:
                 rationale="Estimate PK parameters as if sampling was per protocol"
             ))
 
+        elif endpoint_type == EndpointType.EFFICACY:
+            # IBD/autoimmune disease-specific ICEs
+            strategies.append(InterCurrentEvent(
+                event="Use of rescue medication or prohibited therapy",
+                strategy=ICEStrategy.COMPOSITE,
+                rationale="Non-response captured through composite failure definition"
+            ))
+            strategies.append(InterCurrentEvent(
+                event="Missing efficacy assessment",
+                strategy=ICEStrategy.TREATMENT_POLICY,
+                rationale="Missing data handled using Non-Responder Imputation (NRI)"
+            ))
+
         return strategies
 
     def _extract_endpoint_variable(self, text: str, endpoint_type: EndpointType) -> str:
@@ -826,6 +807,7 @@ class ProtocolParser:
             EndpointType.DFS: "Hazard ratio with 95% CI",
             EndpointType.EFS: "Hazard ratio with 95% CI",
             EndpointType.ORR: "Difference in response rates with 95% CI",
+            EndpointType.EFFICACY: "Difference in proportions with 95% CI",  # IBD remission, ACR20, etc.
             EndpointType.SAFETY: "Incidence rates and 95% CI",
             EndpointType.PK: "Geometric mean ratios with 90% CI",
             EndpointType.OTHER: "Difference or ratio with 95% CI",
@@ -840,6 +822,7 @@ class ProtocolParser:
             EndpointType.DFS: "Kaplan-Meier estimation with stratified log-rank test; Cox proportional hazards model",
             EndpointType.EFS: "Kaplan-Meier estimation with stratified log-rank test",
             EndpointType.ORR: "Clopper-Pearson exact confidence interval; CMH test stratified by randomization factors",
+            EndpointType.EFFICACY: "CMH test stratified by randomization factors; logistic regression with covariates",
             EndpointType.SAFETY: "Descriptive statistics; exposure-adjusted incidence rates",
             EndpointType.PK: "Non-compartmental analysis; mixed-effects model for log-transformed parameters",
             EndpointType.OTHER: "Appropriate parametric or non-parametric test",
@@ -930,6 +913,31 @@ class ProtocolParser:
                 application="Safety comparison accounting for differential exposure",
                 assumptions=["Constant hazard within treatment groups"],
                 implementation="Custom programming"
+            ))
+
+        # EFFICACY endpoints (IBD remission, ACR20, PASI, etc.)
+        elif endpoint_type == EndpointType.EFFICACY:
+            methods.append(StatisticalMethod(
+                name="Cochran-Mantel-Haenszel Test",
+                description="Stratified analysis of binary efficacy outcomes",
+                application="Primary comparison of remission/response rates between treatment groups",
+                assumptions=["Homogeneity of odds ratios across strata", "Independent observations"],
+                implementation="PROC FREQ (SAS) / mantelhaen.test (R)"
+            ))
+            methods.append(StatisticalMethod(
+                name="Logistic Regression",
+                description="Binary outcome regression with covariate adjustment",
+                application="Estimation of treatment effect with adjustment for baseline covariates",
+                assumptions=["Binary outcome", "Independence of observations"],
+                implementation="PROC LOGISTIC (SAS) / glm (R)",
+                sensitivity_analyses=["Multiple imputation for missing data", "Tipping point analysis"]
+            ))
+            methods.append(StatisticalMethod(
+                name="Non-Responder Imputation (NRI)",
+                description="Missing responder data treated as non-responders",
+                application="Conservative handling of missing efficacy data",
+                assumptions=["Missing values indicate treatment failure"],
+                implementation="Custom programming / SAS macros"
             ))
 
         return methods

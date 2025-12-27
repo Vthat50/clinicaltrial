@@ -43,6 +43,7 @@ class EndpointType(Enum):
     DFS = "DFS"      # Disease-Free Survival
     EFS = "EFS"      # Event-Free Survival
     PK = "PK"        # Pharmacokinetic
+    EFFICACY = "EFFICACY"  # General efficacy (IBD remission, ACR20, PASI, etc.)
     OTHER = "OTHER"
 
 
