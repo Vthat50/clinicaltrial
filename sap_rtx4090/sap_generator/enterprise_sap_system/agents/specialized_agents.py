@@ -564,7 +564,7 @@ Return the section content as a markdown-formatted string."""
         examples: List[str],
         context: str
     ) -> str:
-        """Build prompt for section generation"""
+        """Build prompt for section generation with ALL extracted values"""
         parts = [
             f"## Task: Generate SAP Section - {section_name}\n",
             "## Study Information:",
@@ -574,6 +574,34 @@ Return the section content as a markdown-formatted string."""
             f"- Design: {protocol.design_type.value if hasattr(protocol.design_type, 'value') else protocol.design_type}",
             f"- Therapeutic Area: {protocol.therapeutic_area}",
         ]
+
+        # CRITICAL: Include sample size - MUST USE THESE VALUES
+        if protocol.sample_size:
+            ss = protocol.sample_size
+            alpha_side = ss.assumptions.get('alpha_sidedness', 'two-sided')
+            parts.append("\n## SAMPLE SIZE (USE EXACTLY - DO NOT CHANGE):")
+            parts.append(f"- Total N: {ss.total_n}")
+            parts.append(f"- Power: {ss.power * 100 if ss.power < 1 else ss.power}%")
+            parts.append(f"- Alpha: {ss.alpha} ({alpha_side})")
+            if ss.per_arm_n:
+                for arm, n in ss.per_arm_n.items():
+                    parts.append(f"- {arm}: {n}")
+
+        # CRITICAL: Include treatment arms with route/dose
+        if protocol.arms:
+            parts.append("\n## TREATMENT ARMS (USE EXACTLY - DO NOT CHANGE):")
+            for arm in protocol.arms:
+                route = arm.route or "[route not specified]"
+                dose = arm.dose or "[dose not specified]"
+                parts.append(f"- {arm.name}: {dose}, {route}")
+                if arm.is_control:
+                    parts.append(f"  (Control arm)")
+
+        # CRITICAL: Include stratification factors
+        if protocol.stratification_factors:
+            parts.append("\n## STRATIFICATION FACTORS (USE EXACTLY - DO NOT CHANGE):")
+            for factor in protocol.stratification_factors:
+                parts.append(f"- {factor}")
 
         if estimands.get("primary_estimand"):
             est = estimands["primary_estimand"]
@@ -593,15 +621,24 @@ Return the section content as a markdown-formatted string."""
             if methods.get("primary_analysis"):
                 parts.append(f"- Primary: {methods['primary_analysis'].get('method_name', 'TBD')}")
 
+        # Add CRITICAL instructions
+        parts.append("\n## CRITICAL INSTRUCTIONS - YOU MUST FOLLOW:")
+        parts.append("1. Use the EXACT values from SAMPLE SIZE, TREATMENT ARMS, and STRATIFICATION above")
+        parts.append("2. DO NOT invent, modify, or substitute ANY values")
+        parts.append("3. If route says 'intravenous', write 'intravenous' - NOT 'subcutaneous'")
+        parts.append("4. If sample size says 90, write 90 - NOT 300 or any other number")
+        parts.append("5. Copy stratification factors EXACTLY as listed above")
+        parts.append("6. This is an IMMUNOLOGY trial - do NOT use oncology terms like 'tumor'")
+
         if examples:
-            parts.append("\n## Example from Real SAP (use as style reference):")
-            parts.append(examples[0][:2000])  # Limit length
+            parts.append("\n## Example from Real SAP (use as style reference only, NOT values):")
+            parts.append(examples[0][:2000])
 
         if context:
             parts.append("\n## Relevant Knowledge:")
             parts.append(context[:1000])
 
-        parts.append(f"\n## Generate the {section_name} section:")
+        parts.append(f"\n## Generate the {section_name} section using ONLY the values provided above:")
 
         return "\n".join(parts)
 
