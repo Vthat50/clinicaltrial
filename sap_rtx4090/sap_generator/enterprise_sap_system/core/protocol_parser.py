@@ -281,7 +281,8 @@ class ProtocolParser:
         # Initialize result
         result = ParsedProtocol(
             nct_id=nct_id,
-            raw_text_length=len(protocol_text)
+            raw_text_length=len(protocol_text),
+            _raw_text=protocol_text[:50000]
         )
 
         # Extract text sections

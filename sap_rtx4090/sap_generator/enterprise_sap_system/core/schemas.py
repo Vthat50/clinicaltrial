@@ -245,6 +245,7 @@ class ParsedProtocol:
     extraction_confidence: Dict[str, float] = field(default_factory=dict)
     extraction_timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
     raw_text_length: int = 0
+    _raw_text: str = ""  # Store for downstream faithfulness checks
 
     def to_dict(self) -> Dict:
         """Convert to dictionary for serialization"""

@@ -274,11 +274,16 @@ class MethodsSelectorAgent(BaseAgent):
     """
     Agent for selecting appropriate statistical methods.
     Maps endpoints to appropriate analysis methods.
+    FIXED: Prioritizes protocol-specified methods over defaults.
     """
 
     SYSTEM_PROMPT = """You are an expert biostatistician selecting statistical methods for clinical trial analysis.
 
 Your task is to recommend appropriate statistical methods based on the study design and endpoints.
+
+## CRITICAL: Protocol-Specified Methods Take Priority
+If the protocol EXPLICITLY specifies an analysis method (e.g., "Primary Analysis: Logistic regression"),
+YOU MUST USE THAT METHOD. Do NOT default to generic methods when protocol specifies something else.
 
 ## Method Selection Guidelines
 
@@ -419,11 +424,19 @@ class SAPWriterAgent(BaseAgent):
     """
     Agent for generating SAP document sections.
     Produces TransCelerate-aligned content.
+    FIXED: Anti-hallucination rules to ensure protocol faithfulness.
     """
 
     SYSTEM_PROMPT = """You are an expert medical writer specializing in Statistical Analysis Plans (SAPs).
 
 Your task is to write professional, regulatory-compliant SAP sections aligned with TransCelerate template standards.
+
+## CRITICAL ANTI-HALLUCINATION RULES
+1. Use ONLY values explicitly provided in the protocol data below
+2. DO NOT invent sample sizes, routes, stratification factors, or analysis methods
+3. If a value is not provided, write "[TO BE CONFIRMED FROM PROTOCOL]"
+4. NEVER use generic defaults like "disease severity" for stratification
+5. The protocol values provided are EXTRACTED from the actual document - use them exactly
 
 ## SAP Section Requirements
 
