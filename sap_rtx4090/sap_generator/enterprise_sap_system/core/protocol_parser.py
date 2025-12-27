@@ -604,22 +604,33 @@ class ProtocolParser:
         return "1:1"  # Default
 
     def _extract_stratification_factors(self, text: str) -> List[str]:
-        """Extract stratification factors"""
+        """Extract stratification factors from protocol text"""
         factors = []
         patterns = [
             r'stratif(?:ied|ication)\s+(?:by|factors?)[\s:]+([^.]+)',
+            r'randomiz(?:ed|ation)\s+(?:will\s+be\s+)?stratified\s+by\s+([^.]+)',
+            r'stratification\s+factors?[\s:]+([^.]+)',
         ]
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
             if match:
                 factor_text = match.group(1)
+                # Clean up - remove trailing clauses
+                factor_text = re.sub(r'\s+and\s+consent\s+to\s+participate\s+in', ' and ', factor_text)
                 # Split by common delimiters
                 parts = re.split(r'[,;]|\band\b', factor_text)
-                factors.extend([p.strip() for p in parts if p.strip()])
+                for p in parts:
+                    p = p.strip()
+                    # Filter out non-factor text
+                    if p and len(p) > 3 and len(p) < 100:
+                        if not any(x in p.lower() for x in ['will be', 'using', 'performed']):
+                            factors.append(p)
+                if factors:
+                    break
         return factors[:10]  # Limit
 
     def _extract_treatment_arms(self, text: str) -> List[TreatmentArm]:
-        """Extract treatment arms"""
+        """Extract treatment arms with route detection"""
         arms = []
 
         # Look for arm descriptions
@@ -632,9 +643,18 @@ class ProtocolParser:
             for match in re.finditer(pattern, text, re.IGNORECASE):
                 arm_id = match.group(1) if match.group(1) else str(len(arms) + 1)
                 description = match.group(2).strip()[:200]
+
+                # Extract route from description
+                route = self._extract_route(description) or self._extract_route(text)
+
+                # Extract dose from description
+                dose = self._extract_dose(description)
+
                 arms.append(TreatmentArm(
                     name=f"Arm {arm_id}",
                     description=description,
+                    dose=dose,
+                    route=route,
                     is_control="placebo" in description.lower() or "control" in description.lower()
                 ))
                 if len(arms) >= 6:
@@ -642,45 +662,102 @@ class ProtocolParser:
 
         return arms
 
-    def _extract_sample_size(self, text: str) -> Optional[SampleSizeCalc]:
-        """Extract sample size calculation details"""
-        # Find total N
-        n_patterns = [
-            r'(?:approximately|total\s+of|sample\s+size[:\s]+)(\d+)\s*(?:patients?|subjects?|participants?)',
-            r'(\d+)\s*(?:patients?|subjects?|participants?)\s+(?:will\s+be|to\s+be)\s+(?:enrolled|randomized)',
-            r'enroll(?:ment|ing)?\s+(?:of\s+)?(\d+)',
+    def _extract_route(self, text: str) -> Optional[str]:
+        """Extract route of administration with IV variations"""
+        text_lower = text.lower()
+
+        # Priority order: specific patterns first
+        route_patterns = [
+            # IV patterns with variations (most specific first)
+            (r'intra[\-\s]?venous\s+infusion', 'intravenous infusion'),
+            (r'(?:i\.?v\.?|iv)\s+infusion', 'intravenous infusion'),
+            (r'infuse[ds]?\s+(?:over\s+\d+\s*(?:hours?|minutes?)|intravenously)', 'intravenous infusion'),
+            (r'administered\s+(?:via\s+)?intra[\-\s]?venous', 'intravenous infusion'),
+            (r'intra[\-\s]?venous(?:ly)?', 'intravenous'),
+            # SC patterns
+            (r'sub[\-\s]?cutaneous(?:ly)?', 'subcutaneous'),
+            (r'(?:s\.?c\.?|sc)\s+injection', 'subcutaneous injection'),
+            # Other routes
+            (r'oral(?:ly)?', 'oral'),
+            (r'intramuscular(?:ly)?', 'intramuscular'),
+            (r'topical(?:ly)?', 'topical'),
         ]
 
-        total_n = None
-        for pattern in n_patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                total_n = int(match.group(1))
-                break
+        for pattern, route_name in route_patterns:
+            if re.search(pattern, text_lower):
+                return route_name
 
-        if not total_n:
+        return None
+
+    def _extract_dose(self, text: str) -> Optional[str]:
+        """Extract dose from text"""
+        dose_match = re.search(r'(\d+(?:\.\d+)?)\s*(mg|g|mcg|μg|ug|ml|mL)', text, re.IGNORECASE)
+        if dose_match:
+            return f"{dose_match.group(1)}{dose_match.group(2)}"
+        return None
+
+    def _extract_sample_size(self, text: str) -> Optional[SampleSizeCalc]:
+        """Extract sample size with enrollment priority and alpha sidedness"""
+
+        # PRIORITY 1: Enrollment statements (highest confidence)
+        enrollment_patterns = [
+            (r'(\d+)\s*patients?\s*will\s*be\s*(?:enrolled|randomized|recruited)', 0.98),
+            (r'total\s*of\s*(\d+)\s*patients?\s*will\s*be', 0.97),
+            (r'(\d+)\s*patients?\s*(?:will\s*be\s*)?(?:centrally|dynamically)?\s*(?:randomly\s*)?assigned', 0.96),
+            (r'enroll(?:ment|ing)?\s*(?:of\s*)?(\d+)\s*(?:patients?|subjects?)', 0.95),
+            (r'sample\s*size\s*(?:of|is|:)\s*(\d+)', 0.90),
+        ]
+
+        candidates = []
+        for pattern, confidence in enrollment_patterns:
+            for match in re.finditer(pattern, text, re.IGNORECASE):
+                n = int(match.group(1))
+                if 10 <= n <= 5000:  # Sanity check
+                    candidates.append((n, confidence))
+
+        if not candidates:
             return None
 
+        # Pick highest confidence, or most common if tie
+        candidates.sort(key=lambda x: (-x[1], -x[0]))
+        total_n = candidates[0][0]
+
         # Extract power
-        power = 0.8  # Default
-        power_match = re.search(r'(?:power|powered)\s*(?:of)?\s*(\d{2,3})%?', text, re.IGNORECASE)
+        power = 0.8
+        power_match = re.search(r'(?:power|powered)\s*(?:of|to|at)?\s*(\d{2,3})%?', text, re.IGNORECASE)
         if power_match:
             power = int(power_match.group(1)) / 100
 
-        # Extract alpha
-        alpha = 0.05  # Default
-        alpha_match = re.search(r'(?:alpha|significance\s+level)\s*(?:of)?\s*(\d+\.?\d*)%?', text, re.IGNORECASE)
-        if alpha_match:
-            alpha = float(alpha_match.group(1))
-            if alpha > 1:
-                alpha /= 100
+        # Extract alpha with sidedness
+        alpha = 0.05
+        alpha_sidedness = "two-sided"
+
+        # Check for one-sided
+        if re.search(r'one[\-\s]?sided\s*(?:alpha|significance|α)', text, re.IGNORECASE):
+            alpha_sidedness = "one-sided"
+        elif re.search(r'one[\-\s]?sided', text, re.IGNORECASE):
+            alpha_sidedness = "one-sided"
+
+        # Extract alpha value
+        alpha_patterns = [
+            r'(?:alpha|α)\s*[=:]\s*(\d+\.?\d*)%?',
+            r'significance\s+level\s*(?:of)?\s*(\d+\.?\d*)%?',
+            r'one[\-\s]?sided\s*(?:alpha|α)?\s*[=:]\s*(\d+\.?\d*)%?',
+        ]
+        for pattern in alpha_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                alpha = float(match.group(1))
+                if alpha > 1:
+                    alpha /= 100
+                break
 
         return SampleSizeCalc(
             total_n=total_n,
             per_arm_n={},
             power=power,
             alpha=alpha,
-            assumptions={}
+            assumptions={"alpha_sidedness": alpha_sidedness}
         )
 
     def _extract_populations(self, text: str) -> List[AnalysisPopulation]:
