@@ -55,6 +55,16 @@ except ImportError:
     ProtocolVerbatimExtractor = None
     SAPOutputEnforcer = None
 
+# Clinical Trial-Specific Extraction - For domain details
+try:
+    from ..core.clinical_extractor import ClinicalTrialExtractor
+    from ..core.sap_section_templates import SAPSectionGenerator
+    CLINICAL_EXTRACTOR_AVAILABLE = True
+except ImportError:
+    CLINICAL_EXTRACTOR_AVAILABLE = False
+    ClinicalTrialExtractor = None
+    SAPSectionGenerator = None
+
 # RAG System for few-shot examples
 try:
     from ..core.rag_system import RAGSystem
@@ -161,6 +171,14 @@ class SAPGenerationOrchestrator:
             self.extractor = ProtocolVerbatimExtractor()
             self.enforcer = SAPOutputEnforcer(self.extractor)
             print("Programmatic enforcer initialized - will validate SAP against protocol")
+
+        # Initialize Clinical Extractor - For domain-specific details
+        self.clinical_extractor = None
+        self.section_generator = None
+        if CLINICAL_EXTRACTOR_AVAILABLE:
+            self.clinical_extractor = ClinicalTrialExtractor()
+            self.section_generator = SAPSectionGenerator()
+            print("Clinical extractor initialized - will extract domain-specific details")
 
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
@@ -361,6 +379,46 @@ class SAPGenerationOrchestrator:
 
                 # Store enforcement results in result
                 result.warnings.extend([f"ENFORCEMENT: {v}" for v in total_violations])
+
+            # Step 5c: CLINICAL EXTRACTION - Extract domain-specific details
+            if self.clinical_extractor and self.section_generator:
+                if verbose:
+                    print("[5c/7] Extracting clinical trial-specific details...")
+
+                # Extract all clinical details from protocol
+                clinical_details = self.clinical_extractor.extract_all_clinical_details(protocol_text)
+
+                if verbose:
+                    # Report what was extracted
+                    diary = clinical_details.get('diary_data_rules')
+                    pk = clinical_details.get('pk_analysis_spec')
+                    mods = clinical_details.get('scoring_modifications', [])
+                    alpha = clinical_details.get('alpha_assignments', {})
+
+                    if diary and diary.exclusion_rules:
+                        print(f"      Diary exclusions: {len(diary.exclusion_rules)} rules")
+                    if pk and pk.parameters:
+                        print(f"      PK parameters: {len(pk.parameters)} found")
+                    if mods:
+                        print(f"      Scoring modifications: {len(mods)} found")
+                    if alpha:
+                        print(f"      Alpha levels: {alpha.get('sidedness')} at {alpha.get('primary_alpha')}")
+                        if alpha.get('exploratory_alpha'):
+                            print(f"        Exploratory: {alpha.get('exploratory_alpha')}")
+
+                # Generate missing sections from templates
+                additional_sections = self.section_generator.generate_all_missing_sections(clinical_details)
+
+                if verbose:
+                    print(f"      Generated {len(additional_sections)} additional sections:")
+                    for section_name in additional_sections.keys():
+                        print(f"        + {section_name}")
+
+                # Append additional sections to SAP
+                for section_name, section_content in additional_sections.items():
+                    if section_content:  # Only add non-empty sections
+                        # Add to appropriate location in SAP
+                        sap_sections[f"additional_{section_name}"] = section_content
 
             # Step 6: Quality Review
             if verbose:
