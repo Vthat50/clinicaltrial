@@ -408,6 +408,7 @@ class StructuredFactExtractor:
     def _extract_arms(self, text: str) -> List[TreatmentArm]:
         """Extract treatment arms"""
         arms = []
+        seen_arm_ids = set()  # Track unique arm identifiers to avoid duplicates
 
         # Look for arm/group descriptions
         arm_patterns = [
@@ -419,13 +420,18 @@ class StructuredFactExtractor:
         for pattern in arm_patterns:
             matches = re.findall(pattern, text, re.IGNORECASE)
             for match in matches:
-                arm_name = match[0] if len(match) > 1 else match[0]
+                arm_id = match[0].upper() if len(match) > 1 else match[0].upper()
                 arm_desc = match[1] if len(match) > 1 else ""
+
+                # Skip if we've already seen this arm identifier
+                if arm_id in seen_arm_ids:
+                    continue
+                seen_arm_ids.add(arm_id)
 
                 is_placebo = 'placebo' in arm_desc.lower()
 
                 arm = TreatmentArm(
-                    name=arm_desc.strip() if arm_desc else f"Arm {arm_name}",
+                    name=arm_desc.strip() if arm_desc else f"Arm {arm_id}",
                     is_placebo=is_placebo
                 )
 

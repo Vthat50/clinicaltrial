@@ -524,6 +524,51 @@ class RAGSystem:
         for pattern in sponsor_patterns:
             sanitized = re.sub(pattern, '{SPONSOR}', sanitized, flags=re.IGNORECASE)
 
+        # 9. CRITICAL: Replace randomization ratios (1:1, 1:2:2, 2:1, etc.)
+        sanitized = re.sub(
+            r'\b(\d+:\d+(?::\d+)*)\b',
+            '{RATIO}',
+            sanitized
+        )
+
+        # 10. Replace per-arm sample sizes (e.g., "230, 460, 460 patients")
+        sanitized = re.sub(
+            r'\b(\d{2,4}),\s*(\d{2,4})(?:,\s*(\d{2,4}))?(?:\s+(?:patients?|subjects?|per\s+arm))?',
+            '{N_PER_ARM}',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+
+        # 11. Replace power percentages
+        sanitized = re.sub(
+            r'\b(\d{2})%?\s*power',
+            '{POWER}% power',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+        sanitized = re.sub(
+            r'power\s+(?:of\s+)?(\d{2})%?',
+            'power of {POWER}%',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+
+        # 12. Replace alpha values (but keep sidedness)
+        sanitized = re.sub(
+            r'alpha\s*(?:=|of)?\s*0\.\d+',
+            'alpha = {ALPHA}',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+
+        # 13. Replace standalone large numbers that might be sample sizes
+        # (numbers 50-9999 that aren't already part of other patterns)
+        sanitized = re.sub(
+            r'(?<![:\d])\b([1-9]\d{2,3})\b(?!\s*(?:mg|mcg|µg|g|%|days?|weeks?|months?))',
+            '{N}',
+            sanitized
+        )
+
         return sanitized
 
     def format_few_shot_examples(
