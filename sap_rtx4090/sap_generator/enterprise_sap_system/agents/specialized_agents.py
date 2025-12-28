@@ -867,6 +867,14 @@ Return the section content as a markdown-formatted string."""
         parts.append("5. Copy stratification factors EXACTLY as listed above")
         parts.append("6. If PRIMARY ANALYSIS METHOD is specified above, use it as THE PRIMARY method - NOT as sensitivity")
         parts.append("7. If alpha says 'one-sided', use ONE-SIDED significance - NOT two-sided")
+
+        # ANTI-CONTAMINATION: Explicit list of values to NEVER use
+        parts.append("\n## FORBIDDEN VALUES - NEVER USE THESE (from other studies):")
+        parts.append("- NEVER use: etrolizumab, vedolizumab, tocilizumab, adalimumab")
+        parts.append("- NEVER use study IDs: GA29144, GA29145, PRO145223, WA25615, ML42528")
+        parts.append("- NEVER use sample sizes: 1150, 769, 728, 600, 500, 400, 300")
+        parts.append("- NEVER use ratios: 1:2:2, 2:1, 3:1 (unless explicitly in YOUR protocol)")
+        parts.append("- If you find yourself writing any of these, STOP and use the protocol values instead")
         parts.append("8. Use the number of treatment arms shown above - do NOT invent extra arms")
 
         if is_immunology:

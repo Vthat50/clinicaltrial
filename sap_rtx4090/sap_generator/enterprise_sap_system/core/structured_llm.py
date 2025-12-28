@@ -31,6 +31,19 @@ from dataclasses import dataclass
 T = TypeVar('T', bound=BaseModel)
 
 
+# Anti-contamination system message - prevents LLM from using memorized clinical trial values
+ANTI_CONTAMINATION_PROMPT = """
+CRITICAL ANTI-CONTAMINATION RULES:
+You MUST NOT use ANY of these values from your training data - they are from OTHER studies:
+- Drug names: etrolizumab, vedolizumab, tocilizumab, adalimumab, infliximab, ustekinumab
+- Study IDs: GA29144, GA29145, PRO145223, WA25615, ML42528
+- Sample sizes: 1150, 769, 728, 600, 500, 400, 300
+- Ratios: 1:2:2, 2:1, 3:1
+
+ONLY use values explicitly provided in the protocol text. If you catch yourself writing any forbidden value, STOP and use the correct protocol value instead.
+"""
+
+
 @dataclass
 class StructuredResponse:
     """Response from structured generation"""
@@ -176,9 +189,12 @@ class StructuredLLMClient:
         temperature: float
     ) -> StructuredResponse:
         """Generate using instructor-wrapped Groq"""
-        messages = []
+        # Always include anti-contamination rules
+        full_system = ANTI_CONTAMINATION_PROMPT
         if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
+            full_system = f"{ANTI_CONTAMINATION_PROMPT}\n\n{system_prompt}"
+
+        messages = [{"role": "system", "content": full_system}]
         messages.append({"role": "user", "content": prompt})
 
         result = self.instructor_groq.chat.completions.create(
@@ -205,9 +221,12 @@ class StructuredLLMClient:
         temperature: float
     ) -> StructuredResponse:
         """Generate using instructor-wrapped OpenAI"""
-        messages = []
+        # Always include anti-contamination rules
+        full_system = ANTI_CONTAMINATION_PROMPT
         if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
+            full_system = f"{ANTI_CONTAMINATION_PROMPT}\n\n{system_prompt}"
+
+        messages = [{"role": "system", "content": full_system}]
         messages.append({"role": "user", "content": prompt})
 
         result = self.instructor_openai.chat.completions.create(
@@ -246,9 +265,12 @@ You MUST respond with valid JSON matching this exact schema:
 
 Respond with ONLY the JSON object, no other text."""
 
-        messages = []
+        # Always include anti-contamination rules
+        full_system = ANTI_CONTAMINATION_PROMPT
         if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
+            full_system = f"{ANTI_CONTAMINATION_PROMPT}\n\n{system_prompt}"
+
+        messages = [{"role": "system", "content": full_system}]
         messages.append({"role": "user", "content": enhanced_prompt})
 
         for attempt in range(max_retries):
