@@ -65,6 +65,14 @@ except ImportError:
     ClinicalTrialExtractor = None
     SAPSectionGenerator = None
 
+# Contamination Guard - Prevents cross-protocol contamination
+try:
+    from ..core.contamination_guard import ContaminationGuard
+    CONTAMINATION_GUARD_AVAILABLE = True
+except ImportError:
+    CONTAMINATION_GUARD_AVAILABLE = False
+    ContaminationGuard = None
+
 # RAG System for few-shot examples
 try:
     from ..core.rag_system import RAGSystem
@@ -179,6 +187,12 @@ class SAPGenerationOrchestrator:
             self.clinical_extractor = ClinicalTrialExtractor()
             self.section_generator = SAPSectionGenerator()
             print("Clinical extractor initialized - will extract domain-specific details")
+
+        # Initialize Contamination Guard - Prevents cross-protocol contamination
+        self.contamination_guard = None
+        if CONTAMINATION_GUARD_AVAILABLE:
+            self.contamination_guard = ContaminationGuard()
+            print("Contamination guard initialized - will detect and clean cross-protocol contamination")
 
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
@@ -419,6 +433,50 @@ class SAPGenerationOrchestrator:
                     if section_content:  # Only add non-empty sections
                         # Add to appropriate location in SAP
                         sap_sections[f"additional_{section_name}"] = section_content
+
+            # Step 5d: CONTAMINATION GUARD - Detect and clean cross-protocol contamination
+            if self.contamination_guard:
+                if verbose:
+                    print("[5d/7] Checking for cross-protocol contamination...")
+
+                # Extract protocol identity first
+                protocol_identity = self.contamination_guard.extract_protocol_identity(protocol_text)
+
+                if verbose:
+                    print(f"      Protocol identity:")
+                    print(f"        NCT ID: {protocol_identity.nct_id or 'Not found'}")
+                    print(f"        Drug: {protocol_identity.drug_name or 'Not found'}")
+                    print(f"        Sample size: {protocol_identity.sample_size or 'Not found'}")
+                    print(f"        Arms: {protocol_identity.num_arms or 'Not found'}")
+
+                # Check and clean each section
+                total_contamination_fixes = []
+                for section_name, section_content in sap_sections.items():
+                    cleaned_content, report, changes = self.contamination_guard.check_and_clean(
+                        section_content, protocol_text
+                    )
+                    sap_sections[section_name] = cleaned_content
+
+                    if report.is_contaminated:
+                        total_contamination_fixes.extend(changes)
+                        if verbose:
+                            print(f"      CONTAMINATION in {section_name}:")
+                            if report.wrong_drug_names:
+                                print(f"        Wrong drugs: {report.wrong_drug_names}")
+                            if report.wrong_sample_sizes:
+                                print(f"        Wrong sizes: {report.wrong_sample_sizes}")
+                            if report.wrong_study_ids:
+                                print(f"        Wrong IDs: {report.wrong_study_ids}")
+
+                if total_contamination_fixes:
+                    if verbose:
+                        print(f"      Fixed {len(total_contamination_fixes)} contamination issues:")
+                        for fix in total_contamination_fixes[:5]:
+                            print(f"        ✓ {fix}")
+                    result.warnings.extend([f"CONTAMINATION FIX: {fix}" for fix in total_contamination_fixes])
+                else:
+                    if verbose:
+                        print("      No contamination detected")
 
             # Step 6: Quality Review
             if verbose:
