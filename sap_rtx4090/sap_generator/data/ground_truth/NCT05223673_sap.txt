@@ -1,0 +1,2405 @@
+S95026 (Futuximab/modotuximab) 
+CL3-95026-001 
+© I.R.I.S. - Clinical Study Report - 
+ 
+16.1.9. Documentation of statistical methods 
+Hardware and software tools 
+Statistical analysis plan Version 2.0 dated 11 July 2023 
+1/64
+CCI
+Statistical analyses were performed using SAS®/PC Software version 9.2.  
+ 
+Coding was performed using Medical Dictionary for Regulatory Activities for the medical 
+events and World Health Drug Dictionary for the treatments. 
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+2/64
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  2/61 
+ 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+4/64
+CCI
+CCI
+CCI
+Follow up of versions 
+Version 
+Release date 
+(dd/mm/yyyy) Key modifications(*) 
+Impact 
+V1.0 
+04/02/2022 
+Not applicable. 
+V2.0 
+15/03/2023 
+As the Randomized part has been 
+cancelled due to study 
+discontinuation during the Safety 
+Lead-In part, all the methods and 
+analyses related to Randomized part 
+have been removed.  
+-
+In addition:Section 3.2.4:
+deletion of some descriptive
+tables of baseline
+characteristics
+-
+Section 3.3: deletion by
+class analyses
+-
+Section 3.4: deletion of
+efficacy analyses, except the
+BOR analysis
+-
+Section 3.5.1: addition of
+related TEAE leading to
+death description
+-
+Section 3.5.2: deletion of
+descriptive tables for deaths
+-
+Section 3.5.3: descriptive
+tables by visit restricted to
+cycle 1 and addition of shift
+tables for baseline vs last
+values under treatment
+-
+Section 3.5.4: descriptive
+tables by visit restricted to
+last value
+-
+Section 3.5.5: descriptive
+tables by visit restricted to
+last value
+-
+Section 5.1: update of the
+first and last IMP intakes
+definitions
+-
+Section 7.3 update Table -
+Gradable and non-gradable
+laboratory parameters
+(*) Main changes as compared to the statistical analyses planned in the protocol for the first 
+SAP signed version (1.0). Main changes from the previous signed version for the other SAP 
+signed version(s). 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+6/64
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+ 4/61 
+Table of contents 
+Table of contents ........................................................................................................................ 4
+List of tables ............................................................................................................................... 6
+List of figures ............................................................................................................................. 7
+List of abbreviations ................................................................................................................... 8
+1. INTRODUCTION ............................................................................................................. 11
+1.1.
+Study objectives .............................................................................................................. 11
+1.2.
+Study design .................................................................................................................... 11
+1.2.1. Study plan ..................................................................................................................... 11
+1.2.2. Randomisation .............................................................................................................. 15
+1.3.
+Determination of sample size ......................................................................................... 15
+2. ANALYSIS SETS AND SUBGROUPS / TREATMENT GROUPS ............................ 16
+2.1.
+Analysis sets ................................................................................................................... 16
+2.2.
+Treatment groups ............................................................................................................ 16
+2.3.
+Subgroups ....................................................................................................................... 16
+3. STATISTICAL METHODS ............................................................................................. 16
+3.1.
+General considerations .................................................................................................... 16
+3.2.
+Disposition and baseline characteristics ......................................................................... 16
+3.2.1. Disposition of patients .................................................................................................. 17
+3.2.2. Protocol deviations ....................................................................................................... 17
+3.2.3. Study population ........................................................................................................... 17
+3.2.4. Demographic data and other baseline characteristics ................................................... 17
+3.2.4.1.
+Demographic characteristics .................................................................................... 17
+3.2.4.2.
+History of cancer   .................................................................................................... 17
+3.2.4.3.
+Signs and symptoms related to colorectal cancer   .................................................. 18
+3.2.4.4.
+Medical and surgical history not related to colorectal cancer   ............................... 18
+3.2.4.5.
+Previous therapies related to colorectal cancer   ...................................................... 18
+3.2.4.6.
+Vital signs and clinical examination at baseline ...................................................... 18
+3.2.4.7.
+ECG at baseline ....................................................................................................... 19
+3.2.4.8.
+Clinical laboratory at baseline ................................................................................. 19
+3.3. Treatments ...................................................................................................................... 19
+3.3.1. Extent of exposure and treatment compliance .............................................................. 19
+3.3.1.1.
+Trifluridine/tipiracil   ............................................................................................... 19
+3.3.1.2.
+Futuximab/modotuximab    ...................................................................................... 20
+3.3.2. Concomitant treatments and new anti-cancer therapies   ............................................. 20
+3.4. Efficacy analysis ............................................................................................................. 20
+3.5. Safety analysis ................................................................................................................ 21
+3.5.1. Adverse events.............................................................................................................. 21
+3.5.2. Death  ........................................................................................................................... 21
+3.5.3. Clinical laboratory evaluation ...................................................................................... 22
+3.5.4. Vital signs, clinical examination and other observations related to safety ................... 22
+3.5.5. ECG   ............................................................................................................................ 22
+3.6. QoL ................................................................................................................................. 22
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+7/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  5/61 
+4. INTERIM ANALYSIS ...................................................................................................... 23
+5. APPENDIX A: DATA HANDLING AND PROGRAMMING
+SPECIFICATIONS ........................................................................................................... 23
+5.1. General analytic definitions ............................................................................................ 23
+5.1.1. Expressions ................................................................................................................... 23
+5.1.2. Value prior to treatment / under treatment ................................................................... 24
+5.1.3. General duration derivation and conversion ................................................................. 24
+5.1.4. Analysable value .......................................................................................................... 25
+5.1.5. First and last IMP intake dates ..................................................................................... 25
+5.1.6. Other dates .................................................................................................................... 26
+5.2. Specific analytic definitions and data handling conventions .......................................... 26
+5.2.1. Study patients: Disposition, baseline characteristics and follow-up ............................ 26
+5.2.1.1. 
+Disposition of patients ............................................................................................. 26
+5.2.1.2. 
+Protocol deviations .................................................................................................. 26
+5.2.1.3. 
+Demographic data and other baseline characteristics .............................................. 27
+5.2.1.3.1. Demographic data .................................................................................................. 27
+5.2.1.3.2. History of Colorectal cancer  ................................................................................. 27
+5.2.1.3.3. Previous therapies for colorectal cancer   .............................................................. 29
+5.2.1.3.4. Initial tumour assessment ...................................................................................... 29
+5.2.1.4. 
+Extent of exposure and treatment compliance ......................................................... 30
+5.2.1.5. 
+Concomitant treatments ........................................................................................... 33
+6. APPENDIX B: EFFICACY .............................................................................................. 36
+6.1. Non-confirmed Best overall response ............................................................................. 36
+7. APPENDIX C: SAFETY .................................................................................................. 37
+7.1. Adverse events ................................................................................................................ 37
+7.2. Death ............................................................................................................................... 39
+7.3. Clinical laboratory evaluation ......................................................................................... 39
+7.4. Vital signs and clinical examination ............................................................................... 43
+7.5. Electrocardiogram ........................................................................................................... 44
+8. APPENDIX D: QUALITY OF LIFE ............................................................................... 45
+9. APPENDIX E: SOFTWARE AND PROGRAMMING CODES .................................. 46
+10.
+APPENDIX F: EARLY FUTILITY (INTERIM 0) ................................................... 48
+11.
+REFERENCES .............................................................................................................. 61
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+8/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+ 6/61 
+List of tables 
+Table (5.1.2) 1 - Time frame .................................................................................................... 24
+Table (5.1.2) 2 - Time frame of cycle n ................................................................................... 24
+Table (5.1.4) 1 - Definition of analysable value ...................................................................... 25
+Table (5.1.5) 1 - Substitution rules of tIMP intake dates ......................................................... 25
+Table (5.1.6) 1 - Substitution rules of death date ..................................................................... 26
+Table (5.1.6) 2 - Substitution rules of dates if no specific management is defined ................. 26
+Table (5.2.1.3.2) 1 - Substitution rules of History of colorectal cancer ................................... 28
+Table (5.2.1.5) 1 - Substitution rules of concomitant treatments intake dates ......................... 34
+Table (5.2.1.5) 2 - Substitution rules of further anti-tumour therapy intake dates ................... 35
+Table (6.1) 1 - BOR when confirmation of CR and PR not required ...................................... 36
+Table (7.1) 1 - Treatment-emergence of adverse events in case of missing severity/grade 
+(if any) ...................................................................................................................................... 38
+Table (7.1) 2 - Substitution rules of AE dates .......................................................................... 39
+Table (7.1) 3 - Substitution rules of recovery date ................................................................... 39
+Table (7.3) 1 - Gradable and non-gradable laboratory parameters .......................................... 40
+Table (7.3) 2 - Definition of CTCAE grade - Version 5.0 - Gradable parameters 
+according to baseline value ...................................................................................................... 41
+Table (7.4) 1 - Patient Performance Status .............................................................................. 44
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+9/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  7/61 
+List of figures 
+Figure (1.2.1) 1 - CL3-95026-001 Study Design ..................................................................... 12
+Figure (1.2.1) 2 - Study plan for the Safety Lead-In Part ........................................................ 13
+Figure (1.2.1) 3 - Study plan for the randomised Part .............................................................. 14
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+10/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  8/61 
+List of abbreviations 
+ADA 
+: Anti-drug Antibody 
+AE 
+: Adverse Event 
+ALT 
+: ALanine (Amino)Transferase 
+ALP 
+: ALkaline Phosphatase 
+ANCOVA 
+: Analysis of Covariance  
+AST 
+: ASpartate (Amino)Transferase 
+AUC 
+: Area Under the Plasma Concentration-Time Curve  
+BID 
+: Twice Daily 
+BOR 
+: Best Overall Response 
+BPM 
+: Beats per Minute 
+BSA 
+: Body Surface Area 
+CI 
+: Confidence Interval 
+CLcr 
+: Creatinine clearance 
+cm 
+: Centimetre 
+CMH 
+: Cochran-Mantel-Haenszel 
+CR 
+: Complete Response 
+CRF 
+: Case Report Form 
+CTCAE 
+: Common Terminology Criteria for Adverse Events 
+ctDNA 
+: Circulating tumour DNA 
+DAP 
+: Data Analysis Plan 
+DBP 
+: Diastolic Blood Pressure 
+DCR 
+: Disease Control Rate 
+DI 
+: Dose Intensity 
+DLT 
+: Dose-Limiting Toxicity 
+DMC 
+: Data Monitoring Committee 
+DN 
+: Double-Negative 
+DoR 
+: Duration of Response 
+ECD 
+: Extracellular Domain  
+ECG 
+: ElectroCardioGram 
+ECOG PS 
+: Eastern Cooperative Oncology Group Performance Status 
+e-CRF
+: Electronic Case Report Form 
+EGFR
+: Epidermal Growth Factor Receptor 
+EORTC
+: European Organisation for Research and Treatment of Cancer 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+11/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  9/61 
+FAS 
+: Full Analysis Set 
+GCP 
+: Good Clinical Practice 
+GGT 
+: Gamma-Glutamyl Transferase (Gamma-Glutamyl Transpeptidase) 
+GHS 
+: Global Health Status 
+HR 
+: Heart Rate 
+HR 
+: Hazard Ratio 
+ICF 
+: Informed Consent Form 
+ICH 
+: International Conference on Harmonization 
+IE 
+: Intercurrent Event  
+IMP 
+: Investigational Medicinal Product 
+INR 
+: International Normalized Ratio 
+I.R.I.S.
+: Institut de Recherches Internationales Servier 
+ITT
+: Intention-To-Treat  
+IU
+: International Unit 
+IV
+: IntraVenous (route) 
+IWRS
+: Interactive Web Response System 
+KRAS
+: V-Ki-ras2 Kirsten rat sarcoma viral oncogene homolog 
+LDH
+: Lactate DeHydrogenase 
+LLN
+: Lower Limit of Normal laboratory reference range 
+MedDRA
+: Medical Dictionary for Regulatory Activities 
+MMRM
+: Mixed-effects Model Repeated Measures 
+NCI
+: National Cancer Institute 
+NCI-CTCAE 
+: National Cancer Institute - Common Terminology Criteria For Adverse 
+Events  
+NLR 
+: Neutrophils lymphocytes ratio 
+OR 
+: Objective Response  
+ORR 
+: Overall Response Rate 
+OS 
+: Overall Survival 
+PD 
+: Progressive Disease 
+PD 
+: Pharmacodynamics  
+PFS 
+: Progression Free Survival 
+PK 
+: Pharmacokinetics  
+PR 
+: Partial Response 
+PRO 
+: Patient Reported Outcome 
+PS 
+: Performance Status 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+12/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  10/61 
+PT 
+: Preferred Term 
+PV 
+: PharmacoVigilance 
+QLQ 
+: Quality of Life Questionary 
+QoL 
+: Quality of Life 
+QTc 
+: QT interval corrected for heart rate 
+QTcB 
+: Bazett’s corrected QT interval 
+QTcF 
+: Fridericia’s corrected QT interval  
+RDI 
+: Relative Dose Intensity 
+RECIST 
+: Response Evaluation Criteria In Solid Tumours  
+RMST 
+: Restricted mean survival time 
+SAE 
+: Serious Adverse Event 
+SAP 
+: Statistical Analysis Plan 
+SBP 
+: Systolic Blood Pressure 
+SD 
+: Standard Deviation 
+SD 
+: Stable Disease 
+SOC 
+: System Organ Class 
+SS 
+: Safety Set 
+TEAE 
+: Treatment Emergent Adverse Event 
+STEAE 
+: Serious Treatment Emergent Adverse Event 
+TLG 
+: Tables, Listings and Graphs 
+TN 
+: Triple Negative 
+TR 
+: Tumour Response  
+TtPS2 
+: Time to ECOG Performance Status ≥ 2 
+TTNT 
+: Time to Next Treatment  
+TTR 
+: Time to Response  
+TUDD 
+: Time until definitive deterioration 
+ULN 
+: Upper Limit of Normal laboratory reference range 
+VAS 
+: Visual Analogue Scale 
+VEGF 
+: Vascular Endothelial Growth Factor  
+WBC 
+: White Blood Cells 
+WHO 
+: World Health Organization 
+WT 
+: Wild Type 
+WV 
+: Withdrawal Visit 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+13/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  11/61 
+1.
+INTRODUCTION
+This Statistical Analysis Plan (SAP) details the planned analyses to be performed for the Safety 
+Lead-In part, in accordance with the main characteristics of the amended clinical study protocol 
+of 16th August 2022. 
+The randomised part has been cancelled due to study discontinuation during the Safety Lead-
+in part for strategic reasons. All information concerning the randomised part is described in the 
+protocol. 
+The templates for Tables, Listings and Graphs (TLG) are described in a separate document. 
+1.1. Study objectives  
+Safety Lead-In part  
+Primary 
+- To assess safety and tolerability of futuximab/modotuximab in combination with 
+trifluridine/tipiracil according to National Cancer Institute Comment Terminology Criteria 
+for Adverse Events (NCI-CTCAE) v5.0. 
+Secondary 
+- To assess anti-tumour activity of futuximab/modotuximab in combination with 
+trifluridine/tipiracil per investigator assessment using Response Evaluation Criteria in Solid 
+Tumours (RECIST) v1.1 in terms of: 
+Objective Response Rate (ORR).
+Best Overall Response (BOR).
+Disease Control Rate (DCR).
+Progression Free Survival (PFS).
+- To assess anti-tumour activity of futuximab/modotuximab in combination with 
+trifluridine/tipiracil in terms of: 
+Overall Survival (OS).
+- To characterise the pharmacokinetic (PK) profile of futuximab/modotuximab, trifluridine 
+and tipiracil in the combination of futuximab/modotuximab with trifluridine/tipiracil. 
+To evaluate the immunogenicity of futuximab/modotuximab (i.e. occurrence of anti-drug 
+antibody [ADA]).  
+Exploratory  
+- To explore biomarkers as potential predictors of response and to track the emergence of 
+resistance. 
+Thereafter, only the primary analysis and the BOR of the secondary analysis will be assessed. 
+1.2. Study design   
+1.2.1. 
+Study plan  
+This is a randomised, open label, multi-centre, two-arm Phase 3 study to evaluate 
+futuximab/modotuximab in combination with trifluridine/tipiracil versus trifluridine/tipiracil 
+monotherapy in participants ≥ 18 years of age with KRAS/NRAS and BRAF WT mCRC who 
+were previously treated by chemotherapy (including oxaliplatin, irinotecan and 5-fluorouracil, 
+anti-VEGF agents) and with anti-EGFR mAb therapy for ≥ 16 weeks. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+14/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  12/61 
+Initially, the study comprises two parts a Safety Lead-In part in approximately 25 participants. 
+The initial study design is depicted in Figure (1.2.1) 1, Figure (1.2.1) 2 and Figure (1.2.1) 3. 
+Figure (1.2.1) 1 - CL3-95026-001 Study Design 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+15/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  13/61 
+Figure (1.2.1) 2 - Study plan for the Safety Lead-In Part 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+16/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  14/61 
+Figure (1.2.1) 3 - Study plan for the randomised Part 
+The study start is defined as the date of the first visit of the first participant. 
+The study will be divided into the following periods for each participant: 
+- Screening visit/Screening period (maximum 28 days): 
+Screening visit: after signature of the Informed Consent Form(s) (ICF) to check screening
+criteria and decide if participant can be screened for the study.
+Screening period: if the participant is screened in the study, check the inclusion and
+exclusion criteria and decide if participant can be included in the study.
+- Treatment period: participants will be treated until they meet a discontinuation criterion as 
+described in Section 5.8.1 of the protocol. The participants should receive the first dose of 
+first IMP (Day 1 of Cycle 1) within 3 days after inclusion.  
+- Withdrawal visit (WV): should be conducted within approximately 4 weeks following the 
+date of study treatment withdrawal and before the start of a new anticancer therapy. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+17/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  15/61 
+- Follow-up period: after the WV the participant will be followed every 8 weeks (± 10 calendar 
+days): 
+For survival status until the end of the study. This follow-up can be done remotely by
+using various telecommunication technologies including but not limited to phone, internet
+and shared electronic medical records.
+For tumour assessment (if the patient was withdrawn from the study for another reason
+than radiologic disease progression) (compared to the last assessment) until radiologic
+progression regardless of initiation of new anticancer therapy.
+End of Trial is defined as the date of the last follow-up of the last participant (including a contact 
+phone), or the date of last contact attempt if the last participant is declared lost to follow-up, or 
+when the target number of OS events is reached, whichever occurs first. 
+Any participants still receiving IMPs at the end of the study will be allowed to continue at the 
+discretion of the investigator and as long as none of the treatment discontinuation criteria are 
+met. 
+If some participants are still receiving study treatments when the end of study is met, please see 
+Section 6.5 of the protocol for procedures to be followed. 
+Due to the exceptional circumstances in relation to the coronavirus disease pandemic, the 
+sponsor, in accordance with competent regulatory authority’s guidelines, could decide to 
+implement precautionary measures during the study to ensure participants safety, while 
+maintaining compliance with GCP and study data integrity. These precautionary measures will 
+remain in effect only for the duration of national public health emergency. 
+1.2.2. 
+Randomisation   
+Not applicable due to the cancellation of the randomised part. 
+1.3. Determination of sample size  
+Approximately 25 participants will be evaluated in Safety Lead-In part. The DMC will initially 
+determine tolerability after 6 evaluable participants have been treated. If ≤ 2 participants out of 
+the first 6 evaluable participants experience a DLT, and the DMC based on the totality of safety 
+data determines the doses to be tolerable, then the Safety Lead-In will be expanded by an 
+additional cohort of 6 participants. The DMC will again assess the tolerability when 12 
+participants have been enrolled and the 12th participant has completed the first treatment cycle. 
+If ≤ 3 participants experience a DLT, and the DMC based on the totality of safety data 
+determines the doses to be tolerable, the Safety Lead-In will be expanded to add another 13 
+participants, for a total of 25 participants. The DMC will meet again at the end of the Safety 
+Lead-In part when approximately 25 participants have been treated. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+18/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  16/61 
+2.
+ANALYSIS SETS AND SUBGROUPS / TREATMENT GROUPS
+2.1. Analysis sets   
+Screened set: All patients screened. 
+Safety Set (SS): All participants having taken at least one dose of IMPs.. SS will be used in all 
+analyses. 
+DLT Evaluable Set (DLTES): all participants in the SS who are evaluable for DLT. DLTES 
+will be used in safety analyses, when specified. 
+2.2. Treatment groups  
+Treatment considered for the analysis will be the following: 
+- Futuximab/modotuximab + trifluridine/tipiracil 
+2.3. Subgroups  
+Not applicable. 
+3.
+STATISTICAL METHODS
+3.1. General considerations  
+The following descriptive statistics will be provided depending on the nature of considered 
+data: 
+Qualitative data: number of observed values, number and percentage of patients per class. 
+Quantitative data: number of observed values, mean and standard deviation, median, first and 
+third quartiles, minimum and maximum. 
+Descriptive summary statistics (n, mean (SD), median, min and max) will be provided for 
+variables measured on a continuous scale. 
+The frequency distribution (n, %) will be provided for variables measured on a nominal scale. 
+3.2. Disposition and baseline characteristics   
+The participants’ disposition and baseline characteristics will be described in SS. 
+The number of participants in each study population and the reasons for exclusion will be 
+summarized as well as the disposition of participants, including reasons for discontinuation and 
+protocol deviations at baseline and during study. 
+Characteristics of participants including demography, characteristics of the disease at diagnosis 
+and study entry, medical history, prior therapy and concomitant medication at baseline will be 
+summarized. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+19/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  17/61 
+3.2.1. 
+Disposition of patients  
+Disposition of patients will be described in the Screened Set before and at inclusion and in the 
+SS after the inclusion. 
+3.2.2. 
+Protocol deviations  
+All important protocol deviations before or at inclusion, as well as after inclusion, will be 
+described in the SS, by category of deviations based on ICH E3 guideline and ICH E3 Q&A. 
+3.2.3. 
+Study population  
+The number of patients in each study population and the reasons for exclusion will be 
+summarized. 
+3.2.4. 
+Demographic data and other baseline characteristics  
+3.2.4.1. 
+Demographic characteristics  
+The following demographic and baseline variables will be summarized for patients in the SS: 
+- Age (years). 
+-  
+- Gender (Female, Male). 
+- Race (White, American Indian or Alaska native, Asian, Black or African American, Native 
+Hawaiian/Other Pacific Islander, Other). 
+- Ethnicity (Hispanic or Latino, Not Hispanic or Latino). 
+-  
+- Country. 
+- Pregnancy test. 
+3.2.4.2. 
+History of cancer  
+Nature and duration of cancer will be summarized in the SS according to the following 
+variables: 
+- Primary diagnosis (Adenocarcinoma of colorectal cancer, Other). 
+- Primary tumour site (Cecum, Appendix, Ascending colon, Hepatic flexure, Splenic flexure, 
+Descending colon, Sigmoid colon, Rectosigmoid segment, Right colon, Left colon, Rectum, 
+Transverse colon, Multilocalised right colon, Multilocalised left colon, Other). 
+- Primary tumour localisation (Right, Left) (5 Appendix A). 
+- Current tumour status: metastasis (Yes, No). 
+- Site of metastasis (regional lymph node, distant lymph node, lung, liver, bone, brain, skin, 
+peritoneal, soft tissue, other). 
+- Number of metastatic sites. 
+- Disease duration (years). 
+- Time from first metastasis diagnosis to inclusion (months). 
+- Progression free interval (months). 
+- Treatment free interval (months). 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+20/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  18/61 
+A listing of the history of colorectal cancer will also be provided. It will include the following 
+information: Disease duration (years), time from first metastasis diagnosis to inclusion 
+(months), primary diagnosis, primary tumour site, metastatic sites, progression free interval 
+(months) and treatment free interval (months). 
+3.2.4.3. 
+Signs and symptoms related to colorectal cancer  
+Not applicable. 
+3.2.4.4. 
+Medical and surgical history not related to colorectal cancer  
+Not applicable. 
+3.2.4.5. 
+Previous therapies related to colorectal cancer  
+ All previous therapies for the colorectal cancer will be summarized according to the following 
+variables for patients in the SS:  
+- Previous neo-adjuvant drug treatment (Yes, No). 
+- Previous adjuvant drug treatment (Yes, No). 
+- Previous adjuvant and neo-adjuvant drug treatment (Yes, No). 
+- Previous adjuvant or neo-adjuvant drug treatment (Yes, No). 
+- Previous metastatic drug treatment (Yes, No). 
+- Previous adjuvant or neo-adjuvant fluoropyrimidine (Yes, No). 
+- Previous metastatic fluoropyrimidine (Yes, No). 
+- Previous metastatic irinotecan (Yes, No). 
+- Previous adjuvant or neo-adjuvant oxaliplatin (Yes, No). 
+- Previous metastatic oxaliplatin (Yes, No). 
+- Previous metastatic anti-VEGF monoclonal Anti Body (Yes, No). 
+- Previous neo-adjuvant anti-EGFR monoclonal Anti Body (Yes, No) in RAS wild type 
+patients only as documented in the e-CRF. 
+- Previous metastatic anti-EGFR monoclonal Anti Body (Yes, No). 
+- Response to previous metastatic regimen containing anti-EGFR monoclonal Anti Body (CR, 
+PR, SD). 
+- Skin toxicity with previous metastatic regimen containing anti-EGFR monoclonal Anti Body 
+(Yes, No). 
+- Skin toxicity with previous metastatic regimen containing anti-EGFR monoclonal Anti Body 
+(Grade 1-2, Grade 3-4, No skin toxicity). 
+- Duration of previous metastatic regimen containing anti-EGFR monoclonal Anti Body. 
+- Number of prior regimens for mCRC. 
+- Number of prior adjuvant or neoadjuvant regimens. 
+- Reason for treatment discontinuation of the last regimen prior to randomisation (Toxicity, 
+Progressive disease, Other). 
+- Last regimen prior to randomisation containing anti-EGFR monoclonal Anti Body (Yes, 
+No). 
+3.2.4.6. 
+Vital signs and clinical examination at baseline  
+Refers to section 3.5.4.. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+21/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  19/61 
+3.2.4.7. 
+ECG at baseline  
+Refers to section 3.5.5. 
+3.2.4.8. 
+Clinical laboratory at baseline  
+All laboratory data will be analysed using NCI-CTCAE grade criteria. 
+Clinical laboratory parameters will be summarized in the SS according to the following classes: 
+- For highest and/or lowest gradable parameters at baseline: (Grade 0, Grade 1, Grade 2, 
+Grade 3, Grade 4). 
+- For non-gradable parameters and gradable parameters without baseline, except for creatinine 
+clearance: (< LLN, [LLN, ULN], > ULN). 
+- For urinalysis parameters, except for specific gravity and pH: (Absence, Trace, Presence (+, 
+More than one +)). 
+Creatinine clearance will be categorised in 4 levels of impairment and analysed by classes 
+(severe, moderate, mild, normal): 
+- Normal renal function (CLcr ≥ 90 mL/min). 
+- Mild renal impairment (CLcr 60-89 mL/min). 
+- Moderate renal impairment (CLcr 30-59 mL/min). 
+- Severe (CLcr < 30 mL/min). 
+3.3. Treatments   
+3.3.1. 
+Extent of exposure and treatment compliance  
+3.3.1.1. 
+Trifluridine/tipiracil  
+Extent of exposure and treatment compliance of trifluridine/tipiracil will be described in the SS 
+by patient overall including: 
+- Treatment duration (months). 
+- Follow-up duration (months) with median based on reverse Kaplan Meier method. 
+- Number of cycles per patient. 
+- Cumulative dose (mg/m2). 
+- Dose intensity (DI) (mg/m2/week). 
+- Relative Dose Intensity (RDI) (%). 
+- Patients with at least one dose reduction (Yes, No). 
+- Number of dose reductions per patient. 
+- Number of patients by actual dose level on day 1 of each cycle. 
+- Patients with at least one dispensation postponed (Yes, No). 
+- Number of dispensations postponed per patient. 
+- Patients with at least one unplanned treatment interruption (Yes, No). 
+- Number of unplanned treatment interruptions per patient. 
+Individual listings by cycle will be provided including: cumulative dose, planned dose intensity, 
+DI, RDI, total number of tablets given, estimated and returned (15 or 20 mg for 
+trifluridine/tipiracil), cycle duration (weeks), duration of unplanned treatment interruption 
+(days), reason for interruption, dispensation postponed (Yes, No), reason for dispensation 
+postponed (medical reason, non-medical reason) and dose reduction (Yes, No). 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+22/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  20/61 
+Individual listing per patient will be provided including: number of cycles, cumulative dose, 
+planned dose intensity, DI, RDI, treatment duration, unplanned treatment interruption (days), 
+number of dispensations postponed and number of dose reductions. 
+3.3.1.2. 
+Futuximab/modotuximab 
+Number of infusions per patient, patients with full dose administered, patients with at least one 
+missed infusion, number of cycles with at least one missed infusion, patients with infusion 
+interrupted, patients with infusion rate decreased, cumulative dose (mg/kg), DI (mg/kg/week) 
+and RDI (%)will be described by patient in the SS.  
+Individual listing by cycle will be provided including: number of infusions, reason for missed 
+infusion (medical reason, non-medical reason), cumulative dose, planned dose intensity, DI, 
+RDI, cycle duration (weeks), full dose administered (Yes, No), reason for incomplete volume 
+infusion (medical reason, non-medical reason), infusion postponed (Yes, No), reason for 
+postponed infusion (medical reason, non-medical reason), reason for infusion interrupted 
+(medical reason, non-medical reason) and infusion rate decreased (Yes, No). 
+Individual listing per patient will be provided including: number of cycles, number of infusions, 
+cumulative dose, planned dose intensity, DI, RDI, treatment duration (months), number of 
+cycles with at least one partial dose administered, number of cycles with infusion postponed, 
+number of cycles with infusion interrupted and number of cycles with infusion rate decreased. 
+3.3.2. 
+Concomitant treatments and new anti-cancer therapies  
+Drug treatments will be described by pharmacological class, pharmacological sub-class, 
+therapeutic class and preferred name (WHO-DD classification, latest available version at the 
+analysis date). All concomitant treatments and new anti-cancer therapies will be summarized 
+according to the following variables: 
+- Concomitant treatment (Yes, No). 
+- Received new drug treatment (Yes, No). 
+Concomitant treatments taken at inclusion, those taken before, during and after the treatment 
+period, as well as new anticancer therapies will be described in the SS. 
+For concomitant treatments as well as new drug treatments, individual listing will be provided 
+including pharmacological class, pharmacological sub-class, therapeutic class and preferred 
+name, medications start and end date, administration schedule and dose unit administered. The 
+listing will include medications starting on or after the start of study treatment or medications 
+starting prior to the start of study treatment and continuing after the start of study treatment. 
+3.4. Efficacy analysis  
+The proportion of participants with BOR according to RECIST version 1.1 criteria and using 
+investigator’s tumour assessment will be summarized descriptively. 
+A waterfall plot displaying the best relative change of the sum of the lesions diameters from 
+baseline will be performed. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+23/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  21/61 
+3.5. Safety analysis   
+All safety analyses will be performed in the SS unless otherwise specified. 
+Calculation rules for safety endpoints and other specific definitions are provided in 
+7 Appendix C. 
+Adverse events (AEs) will be graded using the National Cancer Institute (NCI) Common 
+Terminology Criteria for Adverse Events CTCAE version 5.0. 
+3.5.1. 
+Adverse events  
+Treatment-emergent adverse events (TEAE) are defined as any AEs reported from the date of 
+first administration of IMP to 30 days after the last date of IMP administration.  
+Number of events, number and percentage of patients reporting at least one event, presented by 
+SOC and/or PT (depending on the analysis) will be provided for serious adverse events (SAE) 
+and TEAE over the study and treatment periods, respectively.  
+TEAE and Serious TEAE (STEAE) will be described according to: 
+- Worst grade. 
+- Severity. 
+- Relationship (related to trifluridine/tipiracil, related to Futuximab/modotuximab, related to 
+the combination) (8 Appendix D). 
+- Outcome (recovered/resolved, recovered/resolved with sequelae, recovering/resolving, not 
+recovered/not resolved, fatal, unknown). 
+- Leading to drug withdrawal (leading to trifluridine/tipiracil withdrawal, leading to 
+Futuximab/modotuximab withdrawal). 
+TEAE will be also described according to:  
+- Action taken regarding IMPs (drug interrupted, dose reduced, dose delayed, dose reduced or 
+delayed, dose reduced and delayed, dose not changed, infusion rate reduced). 
+- TEAE related to disease progression.  
+- TEAE leading to death. 
+- TEAE related (related to trifluridine/tipiracil, related to Futuximab/modotuximab, related to 
+the combination) leading to death 
+- Requirement of added therapy. 
+Non-STEAE (EudraCT analyses) and Non-STEAE related to IMPs will be described by SOC 
+and PT. 
+Number and percentage of participants who experienced a DLT will be summarized and listed 
+in the DLTES. 
+3.5.2. 
+Death  
+Listing of patients who died during the treatment period or during the follow-up period will be 
+provided. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+24/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  22/61 
+3.5.3. 
+Clinical laboratory evaluation  
+For haematological, biochemistry, coagulation and urinary parameters, descriptive statistics on 
+value at baseline and on worst value at cycle 1 will be provided. 
+Number and percentage of patients for each laboratory parameter classified according to: 
+reference ranges (< LLN/≥ LLN or ≤ ULN/> ULN) for non-gradable parameters except 
+creatinine clearance, grade (Grade 0, Grade 1, Grade 2, Grade 3, Grade 4) for gradable 
+parameters, following classes for proteinuria (Absence, Trace, Presence (+, More than one +)) 
+and following classes for creatinine clearance (severe, mild, moderate, normal) and using shift 
+tables from baseline to the worst (high and/or low) and last class or value under treatment will 
+be described. 
+Some parameters with grade dependent on baseline value cannot be computed if there is no 
+value at baseline. 
+3.5.4. 
+Vital signs, clinical examination and other observations related to safety 
+Vital signs and clinical examination will be described in the SS, in terms of quantitative values 
+for Weight (Kg), and Temperature (°C) and by classes for ECOG, BSA (m2), Heart Rate - HR 
+(bpm), Supine Systolic Blood Pressure - SBP (mmHg), Supine Diastolic Blood Pressure - DBP 
+(mmHg), Respiratory rate (breaths/min), and Oxygen saturation (%): 
+- ECOG (0, 1, 2, 3, 4) documented in the e-CRF. 
+- BSA (< 1.07, [1.07,1.23), [1.23, 1.38), [1.38, 1.53), [1.53, 1.69), [1.69, 1.84), [1.84, 1.99), 
+[1.99, 2.15), [2.15, 2.30), ≥ 2.30). 
+- HR (< 60, [60, 100), ≥ 100 bpm). 
+- SBP (< 90, [90, 140), ≥ 140 mmHg). 
+- DBP (< 60, [60, 90), ≥ 90 mmHg). 
+- Respiratory rate (< 12, [12, 18], > 18 breaths/min). 
+- Oxygen saturation (< 90, [90, 95], > 95 %). 
+Vital signs and clinical examination will be described, in terms of value at baseline, value at 
+cycle 1 (worst value) under treatment, worst value under treatment and last post-baseline value 
+under treatment; as well as in terms of change from baseline to cycle 1 (worst value) under 
+treatment, to worst value under treatment, to last post-baseline value under treatment.  
+3.5.5. 
+ECG  
+The frequency distribution (n, %) of patients with an ECG performed will be described. ECG 
+parameters, as well as heart rate (bpm) (< 60, [60, 100), ≥ 100), will be described by classes, in 
+terms of value at baseline and last post-baseline value under treatment. Moreover values and 
+changes from baseline of uncorrected and corrected (Fridericia’s correction (𝑄𝑇𝑐𝐹 
+=𝑄𝑇/2√𝑅𝑅)) QT intervals, RR interval, PR interval and QRS duration will also be described in 
+classes, considering the thresholds defined in 7.5: 
+≤ 450, (450, 480], (480, 500] and > 500 msec for values. 
+≤ 30, (30, 60] and > 60 msec for changes.  
+3.6. QoL  
+Not applicable 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+25/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  23/61 
+4.
+INTERIM ANALYSIS
+Not applicable. 
+5.
+APPENDIX A: DATA HANDLING AND PROGRAMMING SPECIFICATIONS
+5.1. General analytic definitions  
+5.1.1. 
+Expressions   
+Reliable value for biological and coagulation samplings is identified in datasets with flag 
+BIOFG_parameter name (“Non analysable value”) different from 1 and non-missing result. 
+For other panels, reliable value is a non-missing result. 
+Value at baseline is defined as the last reliable value prior to treatment intake. 
+Note: In case of patient included and/or randomised but not treated (i.e. patients with treatment 
+duration equal to 0): value at baseline is defined as the last reliable value.  
+Post-baseline value is defined as a reliable value after the first study treatment intake. 
+Last value is defined as the last reliable post-baseline value of the criteria of interest during 
+treatment period. 
+Withdrawal value is defined as the reliable value of the criteria of interest during the 
+withdrawal visit. 
+Lowest value is defined as the lowest value during the treatment period. 
+Highest value is defined as the highest value during the treatment period. 
+Worst (lowest/highest) value at cycle i is defined as the worst (lowest/highest) value at cycle. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+26/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  27/61 
+For the description of protocol deviations, the 6 following categories are considered in 
+accordance with ICH E3 guideline and ICH E3 Q&A: 
+- Selection/inclusion criteria not fulfilled. 
+- Patient having withdrawal criteria but not withdrawn. 
+- Incorrect treatment or dose received. 
+- Forbidden concomitant treatment. 
+- Endpoint assessment possibly affected. 
+- Safety possibly affected. 
+5.2.1.3. 
+Demographic data and other baseline characteristics  
+5.2.1.3.1. 
+Demographic data   
+Age is calculated as difference between year of informed consent and year of date of birth. 
+5.2.1.3.2. 
+History of Colorectal cancer  
+Primary tumour localisation:  
+- Right if primary tumour site = right colon(1) or transverse or other* 
+- Left if primary tumour site = left colon(2) or rectum 
+(1) Right colon should include multilocalised right colon, ascending colon, cecum, appendix and hepatic flexure.
+(2) Left colon should include multilocalised left colon, descending colon, sigmoid colon, splenic flexure and rectosigmoid segment.
+*Other: in the case the patient present multiple tumours in both sides, the disease will be considered as “right-sided”. 
+Site of metastasis is defined from History of colorectal cancer e-CRF page. 
+Number of metastatic site is defined as the number of distinct site of metastasis (whether the 
+site is considered for target or non-target lesion) from History of colorectal cancer e-CRF page. 
+Sites filled in ‘Other’ will be counted as 1 site.  
+Disease duration 
+Disease duration (years) is defined as (Inclusion date – date of the first diagnosis of colorectal 
+cancer)/365.25 
+Time from first metastasis diagnosis to inclusion   
+Time from first metastasis diagnosis to inclusion (months) is defined as (inclusiondate – first 
+metastasis diagnosis date)/30.44 
+Progression free interval 
+Progression free interval (months) is defined as (Date of progression prior to the randomisation 
+date – date of end of the last prior anti-cancer therapy*)/30.44. 
+The progression free interval of patients progressing during the last regimen is estimated to last 
+one day. 
+*Including drug treatment, radiotherapy and surgery (whatever the intent). 
+Treatment free interval 
+Treatment free interval (months) is defined as (date of first IMP intake – date of end of the last 
+prior anti-cancer therapy*)/30.44. 
+*Including drug treatment, radiotherapy and surgery. 
+Of note, in case of partial or incomplete date: 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+30/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  28/61 
+Table (5.2.1.3.2) 1 - Substitution rules of History of colorectal cancer 
+Missing diagnosis date 
+Substituted diagnosis date 
+../mm/yyyy 
+
+Diagnosis date = 01/mm/yyyy 
+../…/yyyy 
+
+Diagnosis date = 01/01/yyyy 
+Missing metastasis date 
+Substituted metastasis date 
+../mm/yyyy 
+
+Metastasis date = 01/mm/yyyy 
+../…/yyyy 
+
+Metastasis date =01/01/yyyy 
+Missing start date of the last prior therapy 
+Substituted start date of the last prior therapy 
+../mm/yyyy 
+
+start date of the last prior therapy = 01/mm/yyyy 
+../…/yyyy 
+
+start date of the last prior therapy = 01/01/yyyy 
+Missing end date of the last prior therapy 
+Substituted end date of the last prior therapy 
+../mm/yyyy 
+
+end date of the last prior therapy = start date of the last 
+prior therapy + 1day if same month and year 
+otherwise: 
+end date of the last prior therapy = 01/mm/yyyy 
+../…/yyyy 
+
+end date of the last prior therapy = start date of the last 
+prior therapy + 1day if same year 
+otherwise: 
+end date of the last prior therapy = 01/01/yyyy  
+../…/… 
+
+end date of the last prior therapy = start date of the last 
+prior therapy + 1day   
+Missing start date of a previous treatment 
+Substituted start date of a previous treatment 
+../mmm/yyyy 
+
+01/mmm/yyyy 
+../…/yyyy 
+
+01/JAN/yyyy 
+../.../…. 
+
+Inclusion date 
+Note: 
+../mm/yyyy = missing day 
+../.../ yyyy = missing day and month 
+  ../.../....  = missing date 
+RAS status 
+Table (5.2.1.3.2) 2 - RAS status 
+KRAS 
+NRAS 
+RAS 
+MUTANT 
+whatever (mutant, wild, missing) 
+MUTANT 
+whatever (mutant, wild, missing) 
+MUTANT 
+MUTANT 
+WILD 
+WILD 
+WILD 
+MISSING 
+WILD 
+NE 
+WILD 
+MISSING 
+NE 
+MISSING 
+MISSING 
+NE 
+Stage at diagnosis 
+Table (5.2.1.3.2) 3 - Staging based on classification 
+Stage in classes 
+AJCC stage 
+Dukes’ classification 
+Astler-Coller modified Dukes’ classification 
+Stage 0 
+- 
+- 
+I-II
+Stage I 
+A 
+A 
+I-II
+Stage I 
+A 
+B1 
+I-II
+Stage II-A 
+B 
+B2 
+I-II
+Stage II-B 
+B
+B2 
+I-II
+Stage II-C 
+B 
+B3 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+31/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  29/61 
+III 
+Stage III-A 
+C
+C1 
+Stage III-B 
+C
+C2 
+C 
+C1/C2 
+C 
+C1 
+Stage III-C 
+C 
+C2 
+C 
+C2/C3 
+C 
+C3 
+IV 
+Stage IV-A 
+D 
+Stage IV-B 
+Stage IV-C 
+5.2.1.3.3. 
+Previous therapies for colorectal cancer  
+The existence of a previous drug treatment (Yes, No) is defined from the presence, or not of 
+an “anatomical therapeutic chemical classification” and/or a “preferred name” for the previous 
+drug treatment at inclusion visit.  
+The existence of a previous metastatic drug treatment (Yes, No) is defined from the 
+presence, or not of an “anatomical therapeutic chemical classification” and/or a “preferred 
+name” for the previous drug treatment after the date of 1st metastasis. 
+The existence of a previous adjuvant drug treatment (Yes, No) is defined from the presence 
+or not of a previous drug treatment with an adjuvant indication. 
+The existence of a previous neoadjuvant drug treatment (Yes, No) is defined from the 
+presence or not of a previous drug treatment with a neoadjuvant indication. 
+The existence of a previous fluoropyrimidine drug treatment (Yes, No) is defined from the 
+presence, or not of a previous drug treatment belonging to the list 3678.0. 
+The existence of a previous irinotecan drug treatment (Yes, No) is defined from the 
+presence, or not of a previous drug treatment belonging to the list 3674.0. 
+The existence of a previous oxaliplatin drug treatment (Yes, No) is defined from the 
+presence, or not of a previous drug treatment belonging to the list 3675.0. 
+The existence of a previous anti-VEGF monoclonal antibody drug treatment (Yes, No) is 
+defined from the presence, or not of a previous drug treatment belonging to the list 4281.0. 
+The existence of a previous anti-EGFR monoclonal antibody drug treatment (Yes, No) is 
+defined from the presence, or not of a previous drug treatment belonging to the list 4280.0. 
+Number of prior regimens for mCRC is calculated as the sum of previous drug treatments 
+for mCRC except if reported in a maintenance indication. 
+The duration of previous metastatic regimen containing anti-EGFR monoclonal Anti 
+Body (months) is defined as (last previous anti-EGFR monoclonal Anti Body drug treatment 
+end date – first previous anti-EGFR monoclonal Anti Body drug treatment start date)/30.44. 
+5.2.1.3.4. 
+Initial tumour assessment  
+Not applicable. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+32/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  30/61 
+5.2.1.4. 
+Extent of exposure and treatment compliance  
+Treatment duration for trifluridine/tipiracil  
+Treatment duration (months) for trifluridine/tipiracil is defined as ([min (first intake date of the 
+last cycle + 27 days, death date) - first trifluridine/tipiracil intake date] +1)/30.44. 
+Treatment duration for futuximab/modotuximab 
+Treatment duration (months) for futuximab/modotuximab is defined as [(min (first infusion 
+date of the last cycle + 27 days, death date) - first futuximab/modotuximab infusion date) +1] / 
+30.44. 
+For trifluridine/tipiracil and futuximab/modotuximab, in case of missing or incomplete first 
+intake date of the last cycle, the last intake date of the last cycle will be considered. 
+Cycle duration for trifluridine/tipiracil 
+Duration of cycle i (weeks) for trifluridine/tipiracil is defined as [[first trifluridine/tipiracil 
+intake of cycle (i+1)] – [first trifluridine/tipiracil intake of cycle i]] / 7. 
+Of note, the duration of the last cycle for trifluridine/tipiracil will be estimated to be 28 days 
+for the calculation of Dose Intensity and Relative Dose Intensity at the last cycle. 
+Cycle duration for futuximab/modotuximab 
+Duration of cycle i (weeks) for futuximab/modotuximab is defined as [[first 
+futuximab/modotuximab infusion of cycle (i+1)] – [first futuximab/modotuximab infusion of 
+cycle i]] / 7. 
+Of note, the duration of the last cycle for futuximab/modotuximab will be estimated to be 
+28 days for the calculation of Dose Intensity and Relative Dose Intensity at the last cycle. 
+Follow-up duration 
+The follow-up duration (months) is calculated as the duration between the last available date 
+and the inclusion date [last available date* – inclusion date +1]/30.44. The events of interest 
+are being alive or lost to follow-up and death is censored. 
+* Last available date is defined as date of death if patient died, and as maximum date among completed dates relative to patient’s information 
+otherwise. 
+Number of cycles for trifluridine/tipiracil 
+The number of cycles with trifluridine/tipiracil will be defined based on trifluridine/tipiracil 
+administration page. A patient is considered to enter in a cycle if there is at least one answer 
+‘Yes’ to the question ‘Has the patient taken his/her morning (or evening) intake?’. 
+Real administrated dose (mg) for trifluridine/tipiracil 
+On a time period, real administered dose for trifluridine/tipiracil (mg) = Number of capsules 
+15 mg taken*15 + Number of capsules 20 mg taken*20 
+With: 
+- Number of capsules taken = Number of capsules dispensed - Number of capsules returned 
+Else, if Number of capsules returned is missing, Number of capsules taken = Estimated number 
+of capsules taken. 
+Number of cycles for futuximab/modotuximab 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+33/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  31/61 
+The number of cycles with futuximab/modotuximab will be defined based on 
+futuximab/modotuximab administration page. A patient is considered to enter in a cycle if the 
+answer is "Yes" to the question "Did the patient receive the IMP infusion?’. 
+Real administrated dose (mg) for futuximab/modotuximab 
+On a time period, real administered dose for futuximab/modotuximab (mg) = sum of total dose 
+administrated (full + incomplete doses). 
+In case of incomplete dose administered, the real dose administered can be computed as: 
+planned dose to be given (mg) * actual volume administered (mL) / infusion volume planned 
+(mL)  
+Planned dose intensity (PDI) for trifluridine/tipiracil (mg/m²/week) 
+10 days of intake 
+per cycle 
+35 mg/m2 (bid) 
+(70 mg/m²/day) 
+𝟕𝟎(mg/m²/day) ∗𝟏𝟎
+4 (wk)
+Planned dose intensity (PDI) for futuximab/modotuximab (mg/kg/week) 
+4 weeks of infusion 
+per cycle 
+9 mg/kg (the first week) then 6 mg/kg (weekly) 
+for cycle 1 
+𝟗(mg/kg/week) + 𝟔(mg/kg/week) ∗𝟑
+4 (wk)
+6 mg/kg (weekly) for next cycles 
+𝟔(mg/kg/week) ∗4
+4 (wk)
+Cumulative dose 
+The cumulative dose (mg/m²) for trifluridine/tipiracil per patient in a time period (during the 
+treatment period or per cycle) is the sum of the total dose that the patient received within that 
+period according to the compliance. 
+𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑚²) = 
+∑
+(𝑅𝑒𝑎𝑙 𝐴𝑑𝑚𝑖𝑛𝑖𝑠𝑡𝑟𝑎𝑡𝑒𝑑 𝑑𝑜𝑠𝑒 (𝑚𝑔)
+𝐵𝑆𝐴 (𝑚2)
+)
+𝑡𝑖𝑚𝑒𝑝𝑒𝑟𝑖𝑜𝑑
+Where BSA is calculated in the ClinTrial database by the data management. 
+The cumulative dose (mg/kg) for the futuximab/modotuximab per patient in a time period 
+(during the treatment period or per cycle) is the sum of the total dose that the patient received 
+within that period according to the compliance. 
+𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑘𝑔) = 
+∑
+(𝑅𝑒𝑎𝑙 𝐴𝑑𝑚𝑖𝑛𝑖𝑠𝑡𝑟𝑎𝑡𝑒𝑑 𝑑𝑜𝑠𝑒 (𝑚𝑔)
+𝑤𝑒𝑖𝑔ℎ𝑡 (𝑘𝑔)
+)
+𝑡𝑖𝑚𝑒𝑝𝑒𝑟𝑖𝑜𝑑
+Dose intensity (DI) per patient 
+The dose intensity (mg/m²/week) for trifluridine/tipiracil per patient is defined as the 
+cumulative dose (mg/m²) received during the treatment period divided by the total treatment 
+duration in weeks. 
+𝐷𝐼 (𝑚𝑔/𝑚²/𝑤𝑘) 𝑝𝑒𝑟 𝑝𝑎𝑡𝑖𝑒𝑛𝑡 = 𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑚²)
+𝑇𝑟𝑒𝑎𝑡𝑚𝑒𝑛𝑡 𝑑𝑢𝑟𝑎𝑡𝑖𝑜𝑛 (𝑤𝑒𝑒𝑘𝑠)
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+34/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  32/61 
+The dose intensity (mg/kg/week) for the futuximab/modotuximab per patient is defined as the 
+cumulative dose (mg/kg) received during the treatment period divided by the total treatment 
+duration in weeks. 
+𝐷𝐼 (𝑚𝑔/𝑘𝑔/𝑤𝑘) 𝑝𝑒𝑟 𝑝𝑎𝑡𝑖𝑒𝑛𝑡 = 𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑘𝑔)
+𝑇𝑟𝑒𝑎𝑡𝑚𝑒𝑛𝑡 𝑑𝑢𝑟𝑎𝑡𝑖𝑜𝑛 (𝑤𝑒𝑒𝑘𝑠)
+Dose intensity (DI) per cycle 
+The dose intensity (mg/m²/week) for trifluridine/tipiracil per cycle is defined as the cumulative 
+dose (mg/m²) received during the cycle divided by the cycle duration in weeks. 
+𝐷𝐼 (𝑚𝑔/𝑚²/𝑤𝑘) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑚²) 𝑟𝑒𝑐𝑒𝑖𝑣𝑒𝑑 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖
+𝐷𝑢𝑟𝑎𝑡𝑖𝑜𝑛 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑤𝑒𝑒𝑘𝑠)
+The dose intensity (mg/kg/week) for the futuximab/modotuximab per cycle is defined as the 
+cumulative dose (mg/kg) received during the cycle divided by the cycle duration in weeks. 
+𝐷𝐼 (𝑚𝑔/𝑘𝑔/𝑤𝑘) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 𝐶𝑢𝑚𝑢𝑙𝑎𝑡𝑖𝑣𝑒 𝑑𝑜𝑠𝑒 (𝑚𝑔/𝑘𝑔) 𝑟𝑒𝑐𝑒𝑖𝑣𝑒𝑑 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖
+𝐷𝑢𝑟𝑎𝑡𝑖𝑜𝑛 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒 𝑖 (𝑤𝑒𝑒𝑘𝑠)
+RDI per patient 
+The RDI (%) per patient is defined as the ratio of the DI to the initial PDI. 
+𝑅𝐷𝐼 (%) 𝑝𝑒𝑟 𝑝𝑎𝑡𝑖𝑒𝑛𝑡 = 
+𝐷𝐼 
+𝑃𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦 ∗100
+RDI per cycle 
+The relative dose intensity (%) per cycle is defined as the ratio of the dose intensity at cycle i 
+to the planned dose intensity. 
+𝑅𝐷𝐼 (%) 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 = 
+𝐷𝐼 𝑎𝑡 𝑐𝑦𝑐𝑙𝑒 𝑖 
+𝑃𝑙𝑎𝑛𝑛𝑒𝑑 𝑑𝑜𝑠𝑒 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦∗100
+Dose reduction for trifluridine/tipiracil 
+A cycle with a dose reduction is defined according to the trifluridine/tipiracil dispensing e-CRF 
+page (dose modified since the last cycle (Yes, No)). 
+Partial dose administered for futuximab/modotuximab  
+Partial dose administered for the futuximab/modotuximab is defined by an answer “No” at the 
+eCRF interrogation “Was full dose administered?”. 
+Dispensation postponed for trifluridine/tipiracil 
+A cycle with a dispensation postponed is defined according to the trifluridine/tipiracil 
+dispensing e-CRF page (Dispensation postponed (Yes, No)). 
+Unplanned treatment interruption for trifluridine/tipiracil 
+A treatment interruption is defined according to the number of days between two consecutive 
+dates where the answer is ‘Yes’ to the questions ‘Has the patient taken his/her morning intake’ 
+or ‘Has the patient taken his/her evening intake’ when this duration is one day or longer 
+considering trifluridine/tipiracil administration schedule (5 days on/2 days off, over 14 days 
+followed by a 14-day rest). 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+35/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  33/61 
+Treatment interruption (days) = (date with an answer ‘Yes’ to the questions ‘Has the patient 
+taken his/her morning intake’ or ‘Has the patient taken his/her evening intake’ – following date 
+with an answer ‘Yes’ to the questions ‘Has the patient taken his/her morning intake’ or ‘Has 
+the patient taken his/her evening intake’) -1  
+Note: only intra-cycle interruptions will be considered 
+5.2.1.5. 
+Concomitant treatments  
+The anatomical therapeutic chemical classification (ATC code = 5 digits) is composed of 
+4 levels: 
+- The first (1 digit) represents the anatomo-physiological class. 
+- The second (2 digits) represents the pharmacological class. 
+- The third (1 digit) represents the pharmacological sub-class. 
+- The last (1 digit) represents the therapeutic class. 
+The existence of a concomitant treatment (Yes, No) is defined from the presence, or not, of 
+an Anatomical therapeutic chemical classification and/or Preferred name. 
+The periods considered for the analysis are: 
+At inclusion for which treatments: 
+- With start date ≤ inclusion date and stop date ≥ inclusion date or missing are taken into 
+account. Inclusion date is equal to the date of inclusion visit, i.e. A000/D000 visit date. 
+Before the treatment period for which treatments: 
+- With start date < first IMP intake date are taken into account.  
+During the treatment period for which treatments: 
+- With start date ≥ first IMP intake date and <  (*), or  
+- With start date ≤ first IMP intake date and stop date ≥ first IMP intake date or missing 
+After the treatment period for which treatments:  
+- With start date ≥ (*), or 
+- With start date ≤ (*) and stop date > (*) or missing. 
+(*)max (first intake date of last cycle + 28 days of trifluridine/tipiracil, first intake date of last cycle + 28 days of futuximab/modotuximab)  
+The following rules for substitution of missing or incomplete start and stop dates are so that 
+the concomitance period is maximised: 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+36/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  37/61 
+7.
+APPENDIX C: SAFETY
+The periods considered for the analysis of adverse events, deaths and clinical laboratory 
+evaluation are: 
+- During the treatment period: 
+With date ≥ first IMP intake date and <=last IMP intake date as defined in the
+Section 5.1.5 + 30 days.
+- After the treatment period: 
+With date > last IMP intake date as defined in the Section 5.1.5 + 30 days.
+7.1. Adverse events  
+Each medical concept of adverse events coded according to the internal "multiple medical 
+concept" process is taken into account as a single adverse event in the statistical analysis. 
+The modalities of the adverse event (onset and end dates, severity, seriousness, action taken, 
+additional therapy, relationship, outcome...) replicated by default to each medical concept are 
+also taken into account in the statistical analyses. 
+Emergent adverse events on treatment are defined as all adverse events: 
+- Which occur between the first IMP intake date (included) and the last IMP intake date "+ 
+30 days" (included), considering the definition of last study drug intake defined in 
+Section 5.1.5 
+or 
+- Which occur before the first IMP intake date and which worsen (in terms of severity) or 
+become serious according to the investigator opinion between the first IMP intake date 
+(included) and the last IMP intake date "+ 30 days" (included), considering the definition of 
+last study drug intake defined in Section 5.1.5. 
+Note: Adverse events occurring or worsening or becoming serious on the day of the first study 
+drug/associated agent intake (if any) is considered as emergent. 
+Serious adverse events are defined from investigator assessment as all adverse events fulfilling 
+at least one of the following seriousness criteria for immediate notification: death, 
+hospitalisation or prolongation of hospitalisation, medically important, life-threatening, 
+disability/incapacity or congenital anomaly. 
+A fatal adverse event corresponds to an adverse event with “Fatal” as outcome. 
+Adverse events related to Trifluridine/tipiracil correspond to adverse events associated with 
+the answer "Related" to the "Is this event related to Trifluridine/tipiracil" question. 
+Adverse events related to Futuximab/modotuximab correspond to adverse events associated 
+with the answer "Related" to the "Is this event related to Futuximab/modotuximab" question. 
+Adverse events related to the combination correspond to adverse events associated with the 
+answer "Related" to the "Is this event related to Trifluridine/tipiracil " question and/or with the 
+answer "Related" to the "Is this event related to Futuximab/modotuximab" question. 
+Adverse events related to disease progression correspond to adverse events associated with 
+the answer "Related" to the "Is this event related to disease progression" question. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+40/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  38/61 
+The following information will be taken into account: 
+- For the analyses where the severity of the adverse event is considered, the worst severity 
+from the day of emergence and during the studied period (i.e. between the first study 
+drug/associated agentintake date (included) and the last study drug/associated agent intake 
+date (as defined in Section 5.1.5) “+ 30 days” (included) will be taken into account. 
+- The number of patients by worst grade: for each patient, system organ class and preferred 
+term, we analyze the worst grade of events. 
+- The number of events by worst grade: for each patient, system organ class and preferred 
+term, we analyse the worst grade of each event. The percentage will be calculated as the 
+number of events of the PT concerned at grade X divided by the total number of events of 
+the PT concerned. 
+- For the analyses where the action taken regarding the study drug and the additional therapy 
+requirement are considered, all the actions taken and additional therapy requirements 
+recorded from the day of emergence and on the studied period will be taken into account. 
+- However, in case of an episode of an emergent adverse event leading to studied treatment 
+withdrawal reported after the last study drug/associated agent intake date (as defined in 
+Section 5.1.5) “+ 30 days”, the adverse event will be considered as leading to studied 
+treatment withdrawal during the studied period. 
+- Seriousness is judged by event: if one episode is serious (whatever the time it occurs), the 
+whole event will be considered as serious. 
+- A severe adverse event corresponds to an adverse event with NCI CTCAE grade 3, 4 or 5. 
+- Any grade corresponds to an adverse event with NCI CTCAE grade 1, 2, 3, 4 or 5. 
+- All multicoded events will be taken into account in the analyses. 
+- For the analysis of recovered emergent adverse event during / after treatment period, a TEAE 
+is considered as recovered "during treatment period" ("after end of treatment period", 
+respectively) if the associated outcome is recovered" or "recovered with sequelae" and 
+occurs between the first study drug/associated agent intake date and the last study 
+drug/associated agent intake date (as defined in Section 5.1.5) “+ 30 days” (included) 
+(strictly after the last study drug/associated agent intake date (as defined in Section 5.1.5) “+ 
+30 days”, respectively). 
+The following rules are applied in case of missing severity: 
+Table (7.1) 1 - Treatment-emergence of adverse events in case of missing severity/grade (if any) 
+Severity/Grade 
+Adverse event considered as 
+Nearest before the first study 
+drug/associated agent intake date 
+During the study 
+period 
+Missing 
+Missing 
+→
+Treatment-emergent
+Missing 
+Grade 1 
+→
+Non treatment-emergent
+Missing 
+Grade 2, 3, 4 or 5 
+→
+Treatment-emergent
+Grade 1, 2, 3 
+Missing 
+→
+Treatment-emergent
+Grade 4 
+Missing 
+→
+Non treatment-emergent
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+41/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  40/61 
+In case of multiple samples: 
+- For the description of the values at each planned post-baseline visit, only the first analysable 
+one measured under treatment at the visit is taken into account. 
+- Otherwise, each post-baseline value (test, re-test, planned, unplanned) measured under 
+treatment is taken into account for analyses. 
+Units 
+All parameters will be analysed in international units (IU). 
+Abnormal values 
+Abnormal values are described according to: 
+- Reference laboratory ranges for the non-gradable parameters. 
+- CTCAE grade for gradable parameters. 
+Table (7.3) 1 - Gradable and non-gradable laboratory parameters 
+Laboratory 
+parameters 
+Parameter 
+Highest 
+Lowest 
+Biochemistry 
+Gradable 
+Sodium 
+Hypernatremia 
+Hyponatremia 
+Biochemistry 
+Gradable 
+Potassium 
+Hyperkalemia 
+Hypokalemia 
+Biochemistry 
+Gradable 
+Total Calcium 
+Hypercalcemia 
+Hypocalcemia 
+Biochemistry 
+Gradable 
+Magnesium 
+Hypermagnesemia 
+Hypomagnesemia 
+Biochemistry 
+Gradable 
+Serum creatinine 
+High creatinine* 
+NA 
+Biochemistry 
+Gradable 
+Albumin 
+NA 
+Low albumin 
+Biochemistry 
+Gradable 
+Glucose 
+Hyperglycemia 
+Hypoglycemia 
+Biochemistry 
+Gradable 
+GGT 
+High GGT* 
+NA 
+Biochemistry 
+Gradable 
+AST 
+High AST* 
+NA 
+Biochemistry 
+Gradable 
+ALT 
+High ALT* 
+NA 
+Biochemistry 
+Gradable 
+Alkaline 
+phosphatase 
+High alkaline phosphatase* 
+NA 
+Biochemistry 
+Gradable 
+Total bilirubin 
+High total bilirubin* 
+NA 
+Haematology 
+Gradable 
+Haemoglobin 
+High haemoglobin* 
+anemia 
+Haematology 
+Gradable 
+White blood cells 
+NA 
+Low WBC 
+Haematology 
+Gradable 
+Neutrophils 
+NA 
+Low neutrophils 
+Haematology 
+Gradable 
+Lymphocytes 
+High lymphocytes 
+Low lymphocytes 
+Haematology 
+Gradable 
+Platelets 
+NA 
+Low platelets 
+Coagulation 
+Non-gradable Prothrombin Time 
+High Prothrombin Time 
+NA 
+Coagulation 
+Gradable 
+Activated Partial 
+Thromboplastin 
+Time (aPTT) 
+High aPTT 
+NA 
+Biochemistry 
+Non-gradable 
+Creatinine 
+clearance** 
+NA 
+Low creatinine clearance 
+Biochemistry 
+Non-gradable 
+Chloride 
+High chloride 
+Low chloride 
+Biochemistry 
+Non-gradable 
+Blood urea 
+nitrogen 
+High urea nitrogen 
+NA 
+Biochemistry 
+Non-gradable 
+LDH 
+High LDH 
+NA 
+Biochemistry 
+Non-gradable 
+Phosphate 
+NA 
+Hypophosphatemia 
+Haematology 
+Non-gradable 
+Red blood cells 
+High RBC 
+Low RBC 
+*: Parameter with grade dependent on baseline value (grade cannot be computed if there is no value at baseline) 
+**: Creatinine clearance is calculated in the ClinTrial database (by the data management department) if the data was not reported in the 
+e-CRF. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+43/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  41/61 
+Laboratory reference limits and CTCAE grades are reported in the database. Grades directly 
+derived in the database (CTCAE v5.0) will be used for analyses. For the parameters which are 
+gradable according to CTCAE v5.0 and for which the grade is not derived in the database, the 
+grades will be derived using the local laboratory reference limits in analysis datasets. 
+Table (7.3) 2 - Definition of CTCAE grade - Version 5.0 - 
+Gradable parameters according to baseline value 
+Parameter 
+Grade 1 
+Grade 2 
+Grade 3 
+Grade 4 
+Sodium (mmol/L) - 
+Hypernatremia 
+]ULN;150] 
+]150;155] 
+]155;160] 
+>160 
+Sodium (mmol/L) - 
+Hyponatremia 
+[130;LLN[ 
+[120;130[ 
+< 120 
+Potassium (mmol/L) 
+- 
+Hyperkalemia 
+]ULN;5.5] 
+]5.5;6]  
+]6;7] 
+>7
+Potassium (mmol/L) 
+- 
+Hypokalemia 
+[3.0;LLN[ 
+[2.5;3.0[ 
+<2.5 
+Total Calcium – 
+Hypercalcemia 
+]ULN ; 2.9] 
+]2.9 ; 3.1] 
+]3.1 ; 3.4] 
+> 3.4 
+Total Calcium - 
+Hypocalcemia 
+[2.0; LLN[ 
+[1.75;2.0[ 
+[1.5;1.75[ 
+< 1.5 
+Magnesium 
+(mmol/L) - 
+Hypermagnesemia 
+]ULN;1.23] 
+]1.23;3.30] 
+> 3.30
+Magnesium 
+(mmol/L) - 
+Hypomagnesemia 
+[0.5;LLN[ 
+[0.4;0.5[ 
+[0.3;0.4[ 
+<0.3 
+Serum creatinine 
+increased 
+>ULN – 1.5 x ULN 
+>1.5 x baseline – 3.0
+x 
+baseline 
+(if 
+baseline 
+available) 
+OR  
+>1.5 x ULN – 3.0 x 
+ULN
+>3.0 x baseline (if 
+baseline 
+available)
+OR 
+>3.0 x ULN – 6.0 x 
+ULN
+>6.0 x ULN
+Albumin (g/L) - 
+Low 
+[30; LLN[ 
+[20; 30[ 
+< 20 
+Glucose (mmol/L) - 
+Hypoglycemia 
+[3.0;LLN[ 
+[2.2;3.0[ 
+[1.7;2.2[ 
+< 1.7 
+Glucose (mmol/L) - 
+Hyperglycemia 
+>
+ULN and  >
+baseline
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+44/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  42/61 
+Parameter 
+Grade 1 
+Grade 2 
+Grade 3 
+Grade 4 
+GGT increased 
+> ULN – 2.5 x ULN 
+if baseline is normal 
+[≤ ULN]; 
+2.0 x baseline – 2.5 x 
+baseline if baseline is 
+abnormal [> ULN] 
+> 2.5 x ULN – 5.0 x 
+ULN if baseline is
+normal [≤ ULN];
+> 2.5 x baseline – 5.0
+x baseline if baseline
+is abnormal [> ULN]
+>5.0 x ULN – 20.0 x 
+ULN if baseline is
+normal [≤ULN];
+> 5.0 x baseline – 
+20.0 x baseline if
+baseline is abnormal
+[> ULN]
+> 20.0 x ULN if
+baseline is normal
+[≤ ULN];
+> 20.0 x baseline if
+baseline is abnormal
+[> ULN]
+ASAT increased 
+> ULN – 3.0 x ULN 
+if baseline is normal 
+[≤ ULN]; 
+1.5 x baseline – 3.0 x 
+baseline if baseline is 
+abnormal [ > ULN] 
+> 3.0 x ULN – 5.0 x 
+ULN if baseline is
+norma [≤ ULN]l;
+> 3.0 x baseline – 5.0
+x baseline if baseline
+is abnormal [> ULN]
+> 5.0 x ULN – 20.0 x 
+ULN if baseline is
+normal [≤ ULN];
+> 5.0 x baseline – 
+20.0 x baseline if
+baseline is abnormal
+[> ULN]
+> 20.0 x ULN if
+baseline is normal
+[≤ ULN];
+> 20.0 x baseline if
+baseline is abnormal
+[> ULN]
+ALAT increased 
+>ULN – 3.0 x ULN if 
+baseline is normal 
+[≤ULN];  
+1.5 x baseline – 3.0 x 
+baseline if baseline is 
+abnormal [ > ULN] 
+>3.0 x ULN – 5.0 x
+ULN if baseline is
+normal[≤ULN];
+>3.0 x baseline – 5.0
+x baseline if baseline
+is abnormal [ > ULN]
+>5.0 x ULN – 20.0 x 
+ULN if baseline is
+normal [≤ULN];
+>5.0 x baseline –
+20.0 x baseline if
+baseline is abnormal
+[ > ULN]
+>20.0 x ULN x ULN
+if baseline is normal
+[≤ULN];
+>20.0 x baseline if
+baseline is abnormal
+[ > ULN]
+ALP increased 
+> ULN – 2.5 x ULN
+if baseline is normal
+[≤ ULN]; 
+2.0 
+x 
+baseline – 2.5 x 
+baseline if baseline is
+abnormal [> ULN]
+> 2.5 x ULN – 5.0 x 
+ULN if baseline is
+normal [≤ ULN];
+2.5 x baseline – 5.0 x
+baseline if baseline is
+abnormal [> ULN]
+> 5.0 x ULN – 20.0 x 
+ULN if baseline is
+normal [≤ ULN];
+> 5.0 x baseline – 
+20.0 x baseline if
+baseline is abnormal
+[> ULN]
+> 20.0 x ULN if
+baseline is normal
+[≤ ULN];
+> 20.0 x baseline if
+baseline is abnormal
+[> ULN]
+Total bilirubin 
+increased 
+> ULN – 1.5 x ULN
+if baseline is normal
+[≤ ULN];
+1.0 x baseline – 1.5 x
+baseline if baseline is
+abnormal [> ULN]
+>1.5 x ULN – 3.0 x
+ULN if baseline is
+normal [≤ ULN];
+> 1.5 x baseline – 3.0
+x baseline if baseline
+is abnormal [> ULN]
+> 3.0 x ULN – 10.0 x 
+ULN if baseline is
+normal [≤ ULN];
+>
+3.0 – 10.0 x 
+baseline if baseline is
+abnormal [> ULN]
+> 10.0 x ULN if
+baseline is normal
+[≤ ULN];
+> 10.0 x baseline if
+baseline is abnormal
+[> ULN]
+Haemoglobin 
+increased 
+> ULN and increase
+from baseline ]0 ;20]
+(g/L)
+> ULN and increase
+from 
+baseline
+]20 ;40] (g/L)
+> ULN and increase
+from baseline > 40
+(g/L)
+Haemoglobin (g/L) - 
+Anemia 
+[100;LLN[ 
+[80;100[ 
+< 80 
+White Blood Cells 
+(G/L) - Low 
+[3.0;LLN[ 
+[2.0;3.0[ 
+[1.0;2.0[ 
+< 1.0 
+Neutrophils (G/L) - 
+Low 
+[1.5;LLN[ 
+[1.0;1.5[ 
+[0.5;1.0[ 
+<0.5 
+Lymphocytes (G/L) 
+- Low
+[0.8;LLN[ 
+[0.5;0.8[ 
+[0.2;0.5[ 
+<0.2 
+Lymphocytes (G/L) 
+- High
+]4.0;20.0] 
+>20 
+Platelets (G/L) - 
+Low 
+[75;LLN[ 
+[50;75[ 
+[25;50[ 
+<25 
+Prothrombin Time 
+increased 
+APTT increased 
+]ULN;1.5*ULN] 
+]1.5*ULN;2.5*ULN] >2.5*ULN 
+CREATCLR 
+increased 
+[60;LLN[ 
+[30;60[ 
+[15;30[ 
+< 15 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+45/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  43/61 
+Any grade corresponds to a laboratory value with NCI CTCAE grade 0, 1, 2, 3 or 4. 
+A grade 0 corresponds to a laboratory value within limit or reference range. 
+The LOWEST value for a patient is defined as the lowest absolute laboratory value during the 
+treatment period. A Lowest value for a cycle is defined as the lowest laboratory value in that 
+cycle.  
+The HIGHEST value for a patient is defined as the highest laboratory value during the 
+treatment period. A highest value for a cycle is defined as the highest laboratory value in that 
+cycle.  
+Urinary results 
+The category ‘Present’ corresponds to results ‘+’, ‘++’, ‘+++’ and ‘++++’. The category ‘More 
+than one +’ corresponds to results ‘++’, ‘+++’ and ‘++++’. 
+Worst value 
+For the urinalysis parameters except specific gravity and pH, the worst class will correspond to 
+‘Presence’ class, then ‘Trace’ and finally ‘Absence’ will be considered as normal class.  
+For specific gravity and pH, the worst highest value as well as the worst lowest value will be 
+derived. 
+For creatinine clearance, the worst class will correspond to “severe” category, then “moderate”, 
+then “mild” and finally “normal”. 
+Baseline and post baseline worst grade for High and Low:  
+- Low: If the result is below lower normal range limit, Low =grade (for gradable parameter), 
+Else Low = 0. 
+- High: If the result is above upper normal range limit, High =grade (for gradable parameter), 
+Else High = 0. 
+7.4. Vital signs and clinical examination  
+Last value under treatment 
+For ECOG, weight, BSA, respiratory rate, oxygen saturation, SBP, DBP and HR, the last value 
+under treatment will be derived. 
+Change from baseline 
+For weight, BSA, respiratory rate, oxygen saturation, SBP, DBP and HR, the change from 
+baseline to to last post-baseline value under treatment will be derived. 
+Body Surface Area 
+BSA is calculated in the ClinTrial database (by data management department) using the height 
+at inclusion visit and the weight at a corresponding cycle. This derived BSA will be used for 
+compliance/exposure calculations. 
+The BSA will be calculated using the following Dubois formula (all BSA calculations are 
+rounded to 2 decimal places) (Dubois, 1916). 
+BSA (m²) = ([Body Weight (kg)] 0 425 x [Height (cm)] 0 725) x 0.007184 
+ECOG performance status 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+46/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  45/61 
+8.
+APPENDIX D: QUALITY OF LIFE
+Not applicable. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+48/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  46/61 
+9.
+APPENDIX E: SOFTWARE AND PROGRAMMING CODES
+Kaplan Meier survival analysis 
+PROC LIFETEST data= work.data alpha=0.05 method=KM; 
+time TIME *CENSOR (censoredval);  
+strata ARM; 
+id USUBJID; 
+RUN; 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+49/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  47/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+50/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  48/61 
+10. APPENDIX F: EARLY FUTILITY (INTERIM 0)
+Not applicable 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+51/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  49/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+52/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  50/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+53/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  51/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+54/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  52/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+55/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  53/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+56/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  54/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+57/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  55/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+58/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  56/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+59/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  57/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+60/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  58/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+61/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  59/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+62/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+  60/61 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+63/64
+CCI
+CCI
+© I.R.I.S - 04 February 2022 - 
+ 
+ 61/61 
+11. REFERENCES
+Guidelines
+Guideline on Missing Data in Confirmatory Clinical Trials – Adopted by CHMP, June 2010, issued as 
+EMA/CPMP/EWP/1776/99 Rev. 1. 
+ICH E3 - Structure and Content of Clinical Study Reports – Adopted by CPMP, December 1995, issued as 
+CPMP/ICH/137/95/step 5. 
+ICH E3 Q&A - Structure and Content of Clinical Study Reports - Questions & Answers (R1) - July 2012, issued 
+as EMA/CHMP/ICH/435606/2012. 
+ICH E9 - Statistical Principles for Clinical Trials - Adopted by CPMP, March 1998, issued as 
+CPMP/ICH/363/96/step 5. 
+ICH E9(R1) – Addendum on estimands and sensitivity analysis in clinical trials to the guideline on statistical 
+principles for clinical trials - Adopted by CHMP, February 2020, issued as EMA/CHMP/ICH/436221/2017. 
+ICH E14 – The Clinical Evaluation of QT/QTc Interval Prolongation and Proarrhythmic Potential for Non-
+Antiarrhythmic drugs – Adopted by CHMP, May 2005, issued as CHMP/ICH/2/04. 
+CTCAE (Common Terminology Criteria for Adverse Events) version 5.0 
+Bibliography 
+. 
+Cox DR. Regression Models and Life-Tables Journal of the Royal Statistical Society. Series B (Methodological), 
+1972;Vol. 34, No. 2:187-220. 
+Dubois D, Dubois EF. A formula to estimate the approximate surface area if height and weight be known. Arch 
+Intern Med. 1916;17:863-871. 
+. 
+Kaplan EL, Meier P. Nonparametric estimation from incomplete observations. Journal of the American Statistical 
+Association 1958;53:457-481. 
+CL3-95026-001 -   Statistical Analysis Plan | VV-TMF-130355 | 1.0
+S95026 (Futuximab/modotuximab)
+CL3-95026-001
+________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________
+© I.R.I.S. - Clinical Study Report - 
+64/64
+CCI
+CCI

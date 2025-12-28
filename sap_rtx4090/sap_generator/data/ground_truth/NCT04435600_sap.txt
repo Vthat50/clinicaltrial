@@ -1,0 +1,1971 @@
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+1
+Statistical Analysis Plan for Study M19-977
+OptIMMize-1: A Randomized, Active-controlled, 
+Efficacy Assessor-blinded Study to Evaluate 
+Pharmacokinetics, Safety, and Efficacy of 
+Risankizumab in Patients From 6 to Less Than 
+18 Years of Age With Moderate to Severe 
+Plaque Psoriasis
+Date: 16 October 2023
+Version 4.0
+ 
+NCT04435600
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+2
+Table of Contents
+1.0
+Introduction...........................................................................5
+2.0
+Study Design and Objectives ................................................6
+2.1
+Objectives, Hypotheses and Estimands................................................... 6
+2.2
+Study Design Overview.......................................................................... 8
+2.3
+Treatment Assignment and Blinding..................................................... 14
+2.4
+Sample Size Determination .................................................................. 14
+3.0
+Endpoints.............................................................................16
+3.1
+Primary Endpoint(s) ............................................................................. 16
+3.2
+Secondary Endpoint(s) ......................................................................... 16
+3.3
+Other Efficacy Endpoint(s)................................................................... 17
+3.4
+Safety Endpoint(s)................................................................................ 18
+3.5
+Additional Endpoint(s) ......................................................................... 18
+4.0
+Analysis Populations ...........................................................18
+5.0
+Subject Disposition..............................................................19
+6.0
+Study Drug Duration and Compliance ..............................21
+7.0
+Demographics, Baseline Characteristics, Medical 
+History, and Prior/Concomitant Medications ...................22
+7.1
+Demographics and Baseline Characteristics.......................................... 23
+7.2
+Medical History.................................................................................... 23
+7.3
+Prior and Concomitant Medications...................................................... 24
+8.0
+Handling of Potential Intercurrent Events for the 
+Primary and Secondary Endpoints ....................................24
+9.0
+Efficacy Analyses.................................................................25
+9.1
+General Considerations......................................................................... 25
+9.2
+Handling of Missing Data..................................................................... 26
+9.3
+Primary Efficacy Endpoint(s) and Analyses.......................................... 26
+9.3.1
+Primary Efficacy Endpoint(s) ............................................................... 26
+9.3.2
+Main Analysis Primary Efficacy Endpoint(s)........................................ 27
+9.3.3
+Sensitivity and Supplementary Analyses of the Primary Efficacy 
+Endpoint(s)........................................................................................... 29
+9.4
+Secondary Efficacy Endpoints and Analyses ........................................ 29
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+3
+9.4.1
+Key Secondary Efficacy Endpoints....................................................... 29
+9.4.2
+Main Analyses of Key Secondary Efficacy Analyses............................ 29
+9.4.3
+Sensitivity and Supplementary Analyses for Key Secondary 
+Efficacy Endpoint(s)............................................................................. 32
+9.4.4
+Supportive Secondary Efficacy Endpoints and Analyses....................... 32
+9.5
+Additional Efficacy Analyses ............................................................... 32
+9.6
+Efficacy Subgroup Analyses................................................................. 32
+10.0
+Safety Analyses....................................................................33
+10.1
+General Considerations......................................................................... 33
+10.2
+Adverse Events..................................................................................... 34
+10.2.1
+Treatment-Emergent Adverse Events.................................................... 34
+10.2.2
+Adverse Event Overview...................................................................... 34
+10.2.3
+Treatment-Emergent Adverse Events by SOC and/or PT...................... 36
+10.2.4
+Treatment-Emergent Adverse Events per Patient-Years of 
+Risankizumab Exposure ....................................................................... 36
+10.2.5
+SAEs (Including Deaths) and Adverse Events Leading to Study 
+Drug Discontinuation ........................................................................... 37
+10.2.6
+Areas of Safety Interest ........................................................................ 37
+10.2.7
+Combined Analyses for Adolescents/Children...................................... 38
+10.3
+Analysis of Laboratory Data................................................................. 38
+10.4
+Analysis of Vital Signs......................................................................... 40
+10.5
+Safety Subgroup Analyses.................................................................... 41
+10.6
+Other Safety Analyses .......................................................................... 41
+11.0
+Other Analyses ....................................................................41
+12.0
+Interim Analyses..................................................................41
+12.1
+Data Monitoring Committee................................................................. 42
+13.0
+Overall Type-I Error Control.............................................43
+14.0
+Version History ...................................................................43
+15.0
+References............................................................................45
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+4
+List of Tables
+Table 1.
+Summary of the Estimand Attributes of the Co-Primary Efficacy 
+Endpoints ............................................................................................. 27
+Table 2.
+Summary of the Estimand Attributes of the Ranked Secondary 
+Efficacy Endpoints ............................................................................... 30
+Table 3.
+SAP Version History Summary ............................................................ 43
+List of Figures
+Figure 1.
+Part 1 Schematic..................................................................................... 9
+Figure 2.
+Part 2 Schematic................................................................................... 11
+Figure 3.
+Part 3 Schematic................................................................................... 12
+Figure 4.
+Part 4 Schematic................................................................................... 13
+List of Appendices
+Appendix A.
+Protocol Deviations .............................................................................. 46
+Appendix B.
+Definition of Area of Safety Interest..................................................... 47
+Appendix C.
+Potentially Clinically Significant Criteria for Safety Endpoints............. 48
+Appendix D.
+Criteria for Potentially Clinically Significant Vital Sign Values............ 50
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+5
+1.0
+Introduction
+This Statistical Analysis Plan (SAP) describes the statistical analyses for risankizumab 
+Study M19-977 "OptIMMize-1: A Randomized, Active-controlled, Efficacy Assessor-
+blinded Study to Evaluate Pharmacokinetics, Safety and Efficacy of Risankizumab in 
+Patients From 6 to Less Than 18 Years of Age With Moderate to Severe Plaque 
+Psoriasis."
+Study M19-977 examines the efficacy and safety of risankizumab in subjects from 6 to 
+less than 18 years of age with moderate to severe plaque psoriasis.
+The study consists of four parts with distinct subject populations (see Section 2.0).  The 
+analyses described here will be conducted for each of the parts separately as specified in 
+Section 12.0.
+The analyses of biomarker research endpoints, pharmacokinetic and immunogenicity 
+endpoints will not be covered in this SAP.
+The SAP will not be updated in case of administrative changes or amendments to the 
+protocol unless the changes impact the analyses.
+Unless noted otherwise, all analyses will be performed using SAS Version 9.4 (SAS 
+Institute Inc., Cary, NC  27513) or later under the UNIX operating system.
+This SAP includes no changes to analyses described in the protocol with following 
+exception:
+●
+For the other efficacy endpoints "Achievement of sPGA clear or almost clear 
+(0 or 1)" at Week 12 during the treatment or withdrawal period of Part 2 and at 
+all other visits collected "(US only: and ≥ 2 grade improvement from 
+baseline)" was added.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+6
+2.0
+Study Design and Objectives
+2.1
+Objectives, Hypotheses and Estimands
+The objective of this study is to evaluate the pharmacokinetics (PK), safety, and efficacy 
+of risankizumab in subjects from 6 to less than 18 years of age with moderate to severe 
+plaque psoriasis (Ps).
+Primary Efficacy
+The primary efficacy objective is to assess the rate of subjects who achieve a) PASI 75 
+(defined as at least 75% improvement from baseline in PASI) and b) sPGA clear or almost 
+clear (0 or 1) (US only: and ≥2 grade improvement from baseline) at Week 16 of initial 
+treatment with study drug based on the Intent-to-Treat (ITT) population (as defined in 
+Section 4.0).
+There are no statistical hypotheses corresponding to the co-primary efficacy objectives as 
+efficacy will be assessed descriptively, providing estimates with confidence intervals 
+without performing statistical testing.
+The estimands corresponding to the co-primary efficacy objectives are defined as follows 
+for Part 1, Part 3, and Part 4:
+●
+Percentage of subjects achieving at least 75% reduction in PASI (PASI75) 
+from Baseline at Week 16 of initial treatment with risankizumab without the 
+use of rescue medication and regardless of premature discontinuation of study 
+drug in the ITT population
+●
+Percentage of subjects achieving sPGA clear or almost clear (0 or 1) (US only: 
+and ≥2 grade improvement from baseline) at Week 16 of initial treatment with 
+risankizumab without the use of rescue medication and regardless of premature 
+discontinuation of study drug in the ITT population
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+7
+The estimands corresponding to the co-primary efficacy objectives are defined as follows 
+for Part 2:
+●
+Difference in the percentage of subjects achieving at least 75% reduction in 
+PASI (PASI75) from Baseline at Week 16 of initial treatment with 
+risankizumab compared to ustekinumab without the use of rescue medication 
+and regardless of premature discontinuation of study drug in the ITT 
+population
+●
+Difference in the percentage of subjects achieving sPGA clear or almost clear 
+(0 or 1) (US only: and ≥2 grade improvement from baseline) at Week 16 of 
+initial treatment with risankizumab compared to ustekinumab without the use 
+of rescue medication and regardless of premature discontinuation of study drug 
+in the ITT population
+Secondary Efficacy
+The secondary efficacy objectives are to assess the rate of subjects who achieve the 
+ranked secondary endpoints specified in Section 3.2 below in the ITT population.
+There are no statistical hypotheses corresponding to the secondary efficacy objectives as 
+efficacy will be assessed descriptively, providing estimates with confidence intervals 
+without performing statistical testing.
+The estimands corresponding to the secondary efficacy objectives are defined as follows 
+for Part 1, Part 3, and Part 4:
+●
+Percentage of subjects achieving at least 90% reduction in PASI (PASI90) 
+from Baseline at Week 16 of initial treatment with risankizumab without the 
+use of rescue medication and regardless of premature discontinuation of study 
+drug in the ITT population
+●
+Percentage of subjects achieving 100% reduction in PASI (PASI100) from 
+Baseline at Week 16 of initial treatment with risankizumab without the use of 
+rescue medication and regardless of premature discontinuation of study drug in 
+the ITT population
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+8
+The estimands corresponding to the secondary efficacy objectives are defined as follows 
+for Part 2:
+●
+Difference in the percentage of subjects achieving at least 90% reduction in 
+PASI (PASI90) from Baseline at Week 16 of initial treatment with 
+risankizumab compared to ustekinumab without the use of rescue medication 
+and regardless of premature discontinuation of study drug in the ITT 
+population
+●
+Difference in the percentage of subjects achieving 100% reduction in PASI 
+(PASI100) from Baseline at Week 16 of initial treatment with risankizumab 
+compared to ustekinumab without the use of rescue medication and regardless 
+of premature discontinuation of study drug in the ITT population
+●
+Percentage of subjects achieving sPGA clear or almost clear (0 or 1) (US only: 
+and ≥2 grade improvement from baseline) at Week 0 and Week 16 of the 
+re-treatment phase in Part 2 with risankizumab without the use of rescue 
+medication and regardless of premature discontinuation of study drug in the 
+ITT population
+Rescue medication for the purposes of this analysis will be considered any systemic (oral 
+or parenteral) medication used specifically for the treatment of psoriasis.
+Of note: the reference to the US in "sPGA clear or almost clear (0 or 1) (US only: and 
+≥2 grade improvement from baseline)" does not refer to the individual subjects' location 
+of residence but implies that this is an additional endpoint relevant for US regulatory 
+purposes, while the endpoint relevant ex-US does not require a minimum improvement 
+from baseline.
+2.2
+Study Design Overview
+The study consists of 4 parts, each with distinct patient populations.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+10
+Part 2
+Part 2 will be a randomized, evaluator-blinded assessment of efficacy, comparing 
+risankizumab with ustekinumab in at least 80 adolescents (age 12 to less than 18 years) 
+with moderate to severe disease.  A 16-week initial treatment period (Period A) will be 
+followed by an up to 36-week randomized treatment or withdrawal period (Period B) for 
+risankizumab responders, and then a 16-week re-treatment period (Period C) for subjects 
+who experience a disease flare (defined as sPGA ≥ 3 on or after Week 28).  Risankizumab 
+non-responders and subjects who received ustekinumab in Period A will receive 
+risankizumab (Period B) until Week 40.
+In Period A, subjects will be randomized (2:1) to receive risankizumab SC based on 
+weight (subjects who weigh ≥40 kg will receive 
+mg risankizumab, while subjects 
+who weigh < 40 kg will receive 
+mg risankizumab) or ustekinumab SC based on weight 
+(0.75 mg/kg for subjects < 60 kg; 45 mg for Subjects 60 to < 100 kg; 90 mg for subjects 
+≥100 kg) at Weeks 0 and 4.  At Week 16, risankizumab non-responders (sPGA ≥ 2) and 
+subjects initially randomized to ustekinumab will enter Period B and will receive 
+risankizumab every 12 weeks until Week 40.  Risankizumab responders (sPGA = 0 or 1) 
+will enter Period B and will be re-randomized (1:1) to receive no medication until a 
+disease flare (sPGA ≥ 3 on or after Week 28) or risankizumab every 12 weeks until 
+Week 40.  Subjects randomized to the withdrawal arm in Period B who experience a 
+disease flare on or after Week 28 will enter Re-Treatment Period C to receive 
+risankizumab at Weeks 0 and 4 of the 16-week re-treatment period.  Randomization and 
+re-randomization will not be stratified due to the small sample size.
+Subjects who complete either the Week 52 visit for those in Period B or 16 weeks of the 
+re-treatment Period C have the option to enroll into Study M19-973, the OLE study.
+A schematic of Part 2 is shown in Figure 2.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+14
+2.3
+Treatment Assignment and Blinding
+All subjects will be assigned a unique identification number by the IRT at the screening 
+visit.  For subjects who rescreen, the screening number assigned by the IRT at the initial 
+screening visit should be used.
+Study Parts 1, 3, and 4 are open-label single arm and all subjects will receive the same 
+dose exposure equivalent based on body weight (for Parts 3 and 4) and the same 
+frequency of study drug.
+For Part 2 only, the IRT will assign a randomization number that will encode the subject's 
+treatment group assignment in Period A according to the randomization schedule 
+generated by the statistics department at AbbVie.  For subjects re-randomized in Period B 
+of Part 2, the IRT will assign a separate randomization number that will encode the 
+subject's treatment group assignment in Period B according to a separate randomization 
+schedule generated by the statistics department at AbbVie.  Randomization for Period A 
+will be done in a 2:1 ratio of risankizumab vs. ustekinumab.  The re-randomization ratio 
+of continued treatment with risankizumab vs. no treatment for Period B will be 1:1.  
+Randomization and re-randomization will not be stratified due to the small number of 
+subjects.
+The blinded efficacy assessor must be independent from all other study activities.  The 
+efficacy assessor will remain blinded to each subject's treatment, clinical laboratory 
+results, and all subject safety data during the course of the study.
+2.4
+Sample Size Determination
+The sample sizes for the 4 study parts are per the risankizumab psoriasis pediatric 
+investigational plan (PIP), in which it has also been agreed the study does not need to be 
+powered to demonstrate superiority.  The current study design meets the PIP commitment 
+of at least 120 subjects evaluable for the primary endpoint of which at least 40 subjects 
+are age 6 to less than 12 years and at least 80 subjects are age 12 to less than 18 years.1
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+15
+All enrolled (for Part 2 all randomized) subjects will be considered evaluable for the 
+primary endpoint.  Subjects discontinued from the study prior to Week 16 will be 
+included in the analysis as non-responders.  Thus, the PIP commitment of at least 
+120 subjects evaluable for the primary endpoint of which at least 40 subjects are age 6 to 
+less than 12 years and at least 80 subjects are age 12 to less than 18 years will be fulfilled 
+with the current study.
+Part 1 (age 12 to less than 18 years with severe psoriasis) and Part 3 (age 6 to less than 
+12 years with severe psoriasis) are being conducted primarily for PK purposes and will 
+each enroll 12 subjects.  Enrollment of 12 subjects, a sample size typical of Phase 1 PK 
+and safety/tolerability studies, will be sufficient to evaluate and confirm if the dosing is 
+able to provide exposures in pediatric subjects consistent with exposures at the therapeutic 
+dose in adult subjects, and to provide sentinel efficacy and safety data before exposing 
+additional subjects with moderate to severe disease.
+Assuming observed response rates for each of the co-primary endpoints of 66.7% (8 of 
+12), 75% (9 of 12) or 83.3% (10 of 12), the 95% exact CI will have a width of 34.9 to 
+90.1, 42.8 to 94.5, or 51.6 to 97.9, respectively.
+Part 2 will enroll 80 subjects age 12 to less than 18 years in a 2:1 ratio (i.e., 53 subjects 
+will be randomized to risankizumab, 27 subjects to ustekinumab).  The assumptions for 
+response rates are based on the results for the 2 ustekinumab-controlled risankizumab 
+studies in adult subjects with moderate to severe plaque psoriasis and apply to both 
+co-primary endpoints, PASI75 and sPGA clear or almost clear (0 or 1).  Assuming an 
+observed response rate of 59% (16 of 27) or 70% (19 of 27) for the ustekinumab group 
+and a response rate of 79% (42 of 53) for the risankizumab group, the 95% exact CI for 
+the difference between treatment groups will have a width of –2.7 to 42.4 or –13.9 to 31.9, 
+respectively.
+Part 4 will enroll 28 subjects (age 6 to less than 12 years).  As the design of Parts 3 and 4 
+only differs by the intensity of the PK sampling, the 40 subjects enrolled into Parts 3 
+and 4 can be analyzed together if it is confirmed in Part 3 that the same dosing regimen is 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+16
+used for both Parts 3 and 4.  Assuming observed response rates for each of the co-primary 
+endpoints of 65% (26 of 40), 75% (30 of 40) or 85% (34 of 40), the 95% exact CI will 
+have a width of 48.3 to 79.4, 58.8 to 87.3, or 70.2 to 94.3, respectively.
+3.0
+Endpoints
+3.1
+Primary Endpoint(s)
+The co-primary endpoints of this study are:
+●
+Achievement of PASI 75 (defined as at least 75% improvement from baseline 
+in PASI) at Week 16 of initial treatment
+●
+Achievement of sPGA clear or almost clear (0 or 1) (US only: and ≥2 grade 
+improvement from baseline) at Week 16 of initial treatment.
+3.2
+Secondary Endpoint(s)
+The ranked secondary endpoints of this study are:
+●
+Achievement of PASI 90 (defined as at least 90% improvement from baseline 
+in PASI) at Week 16 of initial treatment
+●
+Achievement of PASI 100 (defined as 100% improvement from baseline in 
+PASI) at Week 16 of initial treatment
+●
+Achievement of sPGA clear or almost clear (0 or 1) (US only: and ≥2 grade 
+improvement from baseline) at Week 0 and Week 16 of the re-treatment phase 
+in Part 2
+The non-ranked secondary endpoints are:
+●
+Achievement of PASI 50 (defined as at least 50% improvement from baseline 
+in PASI) at Week 16 of initial treatment
+●
+Achievement of PASI 50 (defined as at least 50% improvement from baseline 
+in PASI) at Week 0 and Week 16 of the re-treatment phase in Part 2
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+17
+●
+Achievement of PASI 90 (defined as at least 90% improvement from baseline 
+in PASI) at Week 0 and Week 16 of the re-treatment phase in Part 2
+●
+Achievement of PASI 100 (defined as 100% improvement from baseline in 
+PASI) at Week 0 and Week 16 of the re-treatment phase in Part 2
+●
+Achievement of PASI 75 (defined as at least 75% improvement from baseline 
+in PASI) at Week 0 and Week 16 of the re-treatment phase in Part 2
+●
+Change in Children's Dermatology Life Quality Index (CDLQI) from Week 0 
+to Week 16 of initial treatment in Part 2
+●
+Change in CDLQI from Week 0 to Week 16 of re-treatment phase of Part 2
+●
+Change in Family Dermatology Life Quality Index (FDLQI) from Week 0 to 
+Week 16 of initial treatment in Part 2
+●
+Change in FDLQI from Week 0 to Week 16 of re-treatment phase of Part 2
+●
+Change in Itch Numeric Rating Scale (Itch NRS) from Week 0 to Week 16 of 
+initial treatment in Part 2
+●
+Change in Itch NRS from Week 0 to Week 16 of re-treatment phase of Part 2
+●
+Achievement of ≥ 4-point improvement from baseline in the Itch Numeric 
+Rating Scale (in patients with Baseline score ≥ 4) at Week 16 of initial 
+treatment in Part 2
+3.3
+Other Efficacy Endpoint(s)
+The other efficacy endpoints of this study are:
+●
+Achievement of PASI 75 at Week 12 during the treatment or withdrawal 
+period of Part 2
+●
+Achievement of sPGA clear or almost clear (0 or 1) (US only: and ≥2 grade 
+improvement from baseline) at Week 12 during the treatment or withdrawal 
+period of Part 2
+●
+Achievement of PASI 50/75/90/100 at all other visits collected
+●
+Achievement of sPGA clear (0) at all other visits collected
+●
+Achievement of sPGA clear or almost clear (0 or 1) (US only: and ≥2 grade 
+improvement from baseline) at all other visits collected
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+18
+●
+Change in Itch Numeric Rating Scale (Itch NRS) at each study visit from 
+Week 0
+●
+Achievement of ≥ 4-point improvement from baseline in the Itch Numeric 
+Rating Scale (in patients with Baseline score ≥ 4) at each study visit in Part 2
+●
+Change in CDLQI at each study visit from Week 0
+●
+Change in FDLQI at each study visit from Week 0
+3.4
+Safety Endpoint(s)
+The following endpoints will be included in the safety analyses:
+●
+Treatment emergent adverse events (TEAEs);
+●
+Serious adverse events (SAEs);
+●
+Areas of safety interest (ASI);
+●
+TEAEs leading to discontinuation;
+●
+Vital signs and laboratory tests (hematology, chemistry).
+3.5
+Additional Endpoint(s)
+Not applicable.
+4.0
+Analysis Populations
+The following population sets will be used for the analyses.
+Part 1, Part 3, Part 4:
+The Intent to Treat (ITT) Population in each study part includes all enrolled subjects.  
+The ITT Population will be used for all efficacy and baseline analyses.
+The Safety Analysis Population consists of all subjects who received at least 1 dose of 
+study drug.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+19
+For Part 4, the two Japanese adolescents aged 12 to <18 years, if enrolled, will not be 
+included in the Intent to Treat (ITT) and the Safety Analysis Population. Their results will 
+be listed separately.
+Part 2:
+The Intent to Treat (ITT) Population includes all randomized subjects.  The ITT 
+Population will be used for all efficacy and baseline analyses.  Subjects will be analyzed 
+according to treatment as randomized.
+The Safety Analysis Population in each study part consists of all subjects who received 
+at least 1 dose of study drug.  Subjects will be included in the analysis according to the 
+study drug that they actually received.  For Period A, a subject's actual treatment will be 
+determined by the first dose of study drug.  For subjects re-randomized in Period B, only 
+subjects who received no drug are included in the withdrawal arm, subjects who received 
+at least one dose of study drug are included in the treatment continuation arm.
+For analyses by study period in Part 2, only subjects enrolled into the respective study 
+period will be included for that period.
+For displays by treatment group for Part 2, treatment groups will be based on 
+randomization and re-randomization assignments.
+5.0
+Subject Disposition
+Part 1, Part 3, Part 4:
+A summary of subject accountability will be provided where the number of subjects in 
+each of the following categories will be summarized:
+●
+Subjects screened
+●
+Subjects enrolled
+●
+Subjects who took at least one dose of study drug
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+20
+●
+Only for analyses conducted prior to the completion of the respective study 
+part, see Section 12.0: Subjects who completed Week 16
+●
+Only for analyses conducted prior to the completion of the respective study 
+part, see Section 12.0: subjects ongoing at the time of analysis
+●
+Subjects who completed the study
+●
+Subjects who prematurely discontinued the study (all reasons and primary 
+reason)
+●
+Subjects who prematurely discontinued study drug (all reasons and primary 
+reason)
+Part 2:
+A summary of subject accountability will be provided where the number of subjects in 
+each of the following categories will be summarized overall and by treatment group:
+●
+Subjects screened
+●
+Subjects randomized
+●
+Subjects who completed Period A
+●
+Subjects enrolled (re-randomized) into Period B (note: subjects randomized to 
+ustekinumab and subjects randomized to risankizumab who are non-
+responders at Week 16 in Period A are enrolled for OL risankizumab 
+treatment, subjects randomized to risankizumab who are responders at 
+Week 16 in Period A are re-randomized between withdrawal/no treatment and 
+OL risankizumab treatment continuation)
+●
+Subjects who completed Period B
+●
+Only for subjects re-randomized to treatment withdrawal: Subjects completed 
+36 weeks in withdrawal Period B without disease flare
+●
+Only for subjects re-randomized to treatment withdrawal: Subjects completed 
+withdrawal Period B with disease flare
+●
+Subjects enrolled into re-treatment Period C
+●
+Subjects who completed re-treatment Period C
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+21
+●
+Subjects who prematurely discontinued the study by period and overall (all 
+reasons and primary reason)
+●
+Subjects who prematurely discontinued study drug by period and overall (all 
+reasons and primary reason)
+6.0
+Study Drug Duration and Compliance
+Part 1, Part 3, Part 4:
+For the ITT population, duration of treatment will be summarized using the number of 
+subjects treated, mean, standard deviation, median, minimum and maximum.  Duration of 
+treatment is defined for each subject as last dose date minus first dose date + 84 days.
+Treatment compliance will be summarized for the ITT population as follows:
+There will be a summary of the number of subjects receiving study drug and dose at each 
+study drug administration visit.  This will be repeated on the cumulative number of doses.
+When computing compliance at each study drug administration visit, the denominator will 
+include all subjects who have not prematurely discontinued the study drug prior to the 
+scheduled study drug injection.
+Part 2:
+For the ITT population, duration of treatment will be summarized by treatment group 
+using the number of subjects treated, mean, standard deviation, median, minimum and 
+maximum.  Duration of treatment is defined for each subject as last dose date minus 
+first dose date + 84 days.  For subjects re-randomized to treatment withdrawal in 
+Period B, treatment duration will be counted until last dose date in Period A + 84 days and 
+then restarted at the first re-treatment dose after the treatment withdrawal, if applicable.  
+Duration of risankizumab treatment is defined for each subject as last risankizumab 
+dose date minus first risankizumab dose date + 84 days.  For subjects re-randomized to 
+treatment withdrawal in Period B, risankizumab treatment duration will be counted until 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+22
+last risankizumab dose date in Period A + 84 days and then restarted at the 
+first risankizumab re-treatment dose after the treatment withdrawal, if applicable.
+Treatment compliance will be summarized for the ITT population by treatment group as 
+follows:
+There will be a summary of the number of subjects receiving study drug and dose at each 
+study drug administration visit.  This will be repeated on the cumulative number of doses.
+When computing compliance at each study drug administration visit, the denominator will 
+include all subjects in a specific study period who have not prematurely discontinued the 
+study drug prior to the scheduled study drug injection.
+In addition to the analyses by study part, analyses of duration of risankizumab treatment 
+will be created that combine subjects enrolled into Part 1 and Part 2 (adolescents) and 
+subjects enrolled into Part 3 and Part 4 (children), respectively. 
+The two Japanese adolescents aged 12 to < 18 years enrolled into Part 4 are not included 
+in the Safety Analysis Population (see Section 4.0) and listed separately throughout. They 
+are therefore not included in the above.
+7.0
+Demographics, Baseline Characteristics, Medical 
+History, and Prior/Concomitant Medications
+Demographics, baseline or disease characteristics and patient reported outcomes, medical 
+history, and prior and concomitant medications will be summarized for the ITT population 
+overall and by treatment group (for Part 2).
+Categorical variables will be summarized with the number and percentage of subjects; 
+percentages will be calculated based on the number of non-missing observations.  
+Continuous variables will be summarized with descriptive statistics (number of 
+non-missing observations, mean and standard deviation, median, minimum and 
+maximum).
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+23
+7.1
+Demographics and Baseline Characteristics
+Continuous demographic variables include age (years), weight (kg), height (cm), and 
+body mass index (BMI) (kg/m2).  Categorical demographic variables include sex, 
+ethnicity, race, age (12 to < 15, 15 to < 18 years for Part 1 and 2; 6 to < 9, 9 to < 12 years 
+for Part 3 and 4), weight (< 40 kg or ≥ 40 kg), region (Europe, North America, or rest of 
+world).
+Disease characteristics include prior systemic biologic for psoriasis (0 vs. ≥ 1), PASI 
+(Psoriasis Area and Severity Index), BSA (Body Surface Area), sPGA categories, history 
+of psoriatic arthritis (yes, no), duration of plaque psoriasis (in years).
+In addition to the analyses by study part, analyses of demographics will be created that 
+combine subjects enrolled into Part 1 and Part 2 (adolescents) and subjects enrolled into 
+Part 3 and Part 4 (children), respectively.
+The two Japanese adolescents aged 12 to < 18 years enrolled into Part 4 are not included 
+in the Safety Analysis Population (see Section 4.0) and listed separately throughout. They 
+are therefore not included in the above.
+Patient Reported Outcomes (PROs) analyzed at baseline include CDLQI (Children's 
+Dermatology Life Quality Index), FDLQI (Family's Dermatology Life Quality Index) and 
+Itch Numeric Rating Scale (Itch NRS).  In addition to the analysis of Itch Numeric Rating 
+Scale (Itch NRS) as a continuous variable, Itch NRS ≥ 4 will be analyzed as a categorical 
+baseline variable.
+7.2
+Medical History
+Medical history data will be coded using the Medical Dictionary for Regulatory Activities 
+(MedDRA).  The actual version of the MedDRA coding dictionary will be noted in the 
+statistical tables and clinical study report.  The number and percentage of subjects in each 
+medical history category (by MedDRA system organ class and preferred term) will be 
+summarized overall and by treatment group.  The system organ class (SOC) will be 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+24
+presented in alphabetical order, and the preferred terms will be presented in alphabetical 
+order within each SOC.  Subjects reporting more than one condition/diagnosis will be 
+counted only once in each row (SOC or preferred term).
+7.3
+Prior and Concomitant Medications
+Prior and concomitant medications will be summarized by generic name.  A prior 
+medication is defined as any medication taken prior to the date of the first dose of study 
+drug.  A concomitant medication is defined as any medication that started prior to the date 
+of the first dose of study drug and continued to be taken on or after the first dose of study 
+drug or any medication that started on or after the date of the first dose of study drug, but 
+not after the date of the last dose of study drug plus 140 days.  The number and percentage 
+of subjects taking medications will be summarized by generic drug name based on the 
+World Health Organization (WHO) Drug Dictionary for both prior and concomitant 
+medications.
+In addition, a table will be generated that displays the number of subjects by visit who 
+started rescue medication on or prior to the respective visit.  Rescue medication for the 
+purposes of this analysis will be considered any systemic (oral or parenteral) medication 
+used specifically for the treatment of psoriasis.
+8.0
+Handling of Potential Intercurrent Events for the 
+Primary and Secondary Endpoints
+The efficacy endpoints (defined in Section 3.1, Section 3.2, and Section 3.3) will be 
+analyzed on the ITT population to address the following potential intercurrent events:
+1.
+Binary Endpoints
+●
+For subjects with the use of rescue medication, values after the start of rescue 
+medication will be excluded from analysis and subjects will be considered 
+non-responders at all time points after the start of rescue medication.
+●
+Data collected will be used regardless of premature discontinuation of study 
+drug.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+25
+2.
+Continuous endpoints
+●
+Values after the use of rescue medication will be excluded.
+●
+Data collected will be used regardless of premature discontinuation of study 
+drug.
+9.0
+Efficacy Analyses
+9.1
+General Considerations
+All efficacy analyses will be conducted in the ITT Population separately for each study 
+part, as described in Section 12.0.  For analyses by study period in Part 2, only subjects 
+enrolled into the respective study period will be included.
+No statistical testing will be performed.  All confidence intervals will be two-sided with 
+95% confidence probability.
+Descriptive statistics will include counts and proportions for categorical data, and median, 
+mean, standard deviation, first and third quartiles, and minimum/maximum for continuous 
+data.  In addition, two-sided 95% confidence intervals (CI) will be reported.  For 
+continuous endpoints, CIs for means and differences between means, respectively, will be 
+based on the normal distribution.  For dichotomous endpoints, exact CIs will be provided 
+based on the Clopper-Pearson method for proportions and by the Miettinen-Nurminen 
+method for differences in proportions.2
+The primary analysis for each study part will be performed at the time points described in 
+Section 12.0.  This will be the only and final analysis for the co-primary efficacy 
+endpoints for each part.
+"Baseline" refers to the last non-missing observation before the first administration of 
+study drug or the date of enrollment (Part 1, 3, 4) or randomization (Part 2) if no study 
+drug is given.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+26
+9.2
+Handling of Missing Data
+Missing data will be imputed using the following methods for the efficacy analyses:
+●
+Non-Responder Imputation (NRI):  the NRI analysis will categorize any 
+subject who does not have evaluation during a specific visit window as a 
+non-responder for that visit.  NRI will be the primary approach in the analyses 
+of categorical variables.
+●
+Last Observation Carried Forward (LOCF): the LOCF analysis will impute a 
+missing value with the last value observed previously. Baseline observations 
+are not carried forward. LOCF will be the primary approach in the analyses of 
+continuous variables.
+●
+As Observed (AO): The AO analysis will not impute values for missing 
+evaluations, and thus a subject who does not have an evaluation on a scheduled 
+visit will be excluded from the AO analysis for that visit. AO will include all 
+values collected in the study.  AO will exclude all values collected in the study 
+after the first dose of rescue medication (see also Section 8.0).  AO will be 
+used as sensitivity analysis in the analyses of categorical and continuous 
+variables.
+9.3
+Primary Efficacy Endpoint(s) and Analyses
+9.3.1
+Primary Efficacy Endpoint(s)
+The co-primary endpoints to assess the efficacy of risankizumab for the treatment of 
+moderate to severe plaque psoriasis are:
+●
+Achievement of ≥ 75% improvement from baseline in PASI (PASI 75) at 
+Week 16 of initial treatment
+●
+Achievement of sPGA of clear or almost clear (0 or 1) (US only: and ≥2 grade 
+improvement from baseline) at Week 16 of initial treatment
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+27
+9.3.2
+Main Analysis Primary Efficacy Endpoint(s)
+The attributes of the estimands corresponding to the co-primary efficacy endpoints are 
+summarized in Table 1.
+Table 1.
+Summary of the Estimand Attributes of the Co-Primary Efficacy 
+Endpoints
+Estimand 
+Label
+Attributes of the Estimands
+Treatment
+Endpoint
+Population
+Handling of 
+Intercurrent 
+Events
+Statistical 
+Summary
+PASI75 at 
+Week 16 of 
+initial 
+treatment
+Risankizumab 
+and 
+Ustekinumab*
+PASI75 at 
+Week 16 of 
+initial 
+treatment
+ITT
+
+Subjects with 
+the use of 
+rescue 
+medication on 
+or prior to 
+Week 16 will be 
+considered as 
+non-responders
+
+For subjects 
+who 
+prematurely 
+discontinue 
+study drug on or 
+prior to 
+Week 16, data 
+will be used 
+regardless
+Part 1, 3 and 4:
+Percentage of 
+subjects 
+achieving 
+PASI75 at 
+Week 16 in the 
+Risankizumab 
+group
+Part 2:
+Difference in the 
+percentage of 
+subjects 
+achieving 
+PASI75 at 
+Week 16 in the 
+Risankizumab 
+group in 
+comparison with 
+the Ustekinumab 
+group
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+28
+Estimand 
+Label
+Attributes of the Estimands
+Treatment
+Endpoint
+Population
+Handling of 
+Intercurrent 
+Events
+Statistical 
+Summary
+sPGA clear 
+or almost 
+clear (0 or 1) 
+(US only: 
+and 
+≥2 grade 
+improvement 
+from 
+baseline) at 
+Week 16 of 
+initial 
+treatment
+sPGA clear 
+or almost 
+clear (0 or 1) 
+(US only: 
+and 
+≥2 grade 
+improvement 
+from 
+baseline) at 
+Week 16 of 
+initial 
+treatment
+Part 1, 3 and 4:
+Percentage of 
+subjects 
+achieving sPGA 
+0/1 (US only: 
+and ≥2 grade 
+improvement 
+from baseline) at 
+Week 16 in the 
+Risankizumab 
+group
+Part 2:
+Difference in the 
+percentage of 
+subjects 
+achieving sPGA 
+0/1 (US only: 
+and ≥2 grade 
+improvement 
+from baseline) at 
+Week 16 in the 
+Risankizumab 
+group in 
+comparison with 
+the Ustekinumab 
+group
+*
+Ustekinumab is only applicable for Part 2.
+For analysis of the co-primary endpoints, exact CIs will be provided based on the 
+Clopper-Pearson method for proportions (Part 1, 3 and 4) and by the Miettinen-Nurminen 
+method for differences in proportions2 (Part 2).
+NRI will be used as the primary approach for the analyses of the co-primary endpoints.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+29
+9.3.3
+Sensitivity and Supplementary Analyses of the Primary 
+Efficacy Endpoint(s)
+For dealing with missing data, AO will be used as sensitivity analysis for the analyses of 
+the co-primary endpoints.
+9.4
+Secondary Efficacy Endpoints and Analyses
+9.4.1
+Key Secondary Efficacy Endpoints
+The key (ranked) secondary efficacy endpoints are specified in Section 3.2.
+9.4.2
+Main Analyses of Key Secondary Efficacy Analyses
+The attributes of the estimands corresponding to the key secondary efficacy endpoints are 
+summarized in Table 2.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+30
+Table 2.
+Summary of the Estimand Attributes of the Ranked Secondary 
+Efficacy Endpoints
+Estimand 
+Label
+Attributes of the Estimands
+Treatment
+Endpoint
+Population
+Handling of 
+Intercurrent Events
+Statistical 
+Summary
+PASI90 at 
+Week 16 
+of initial 
+treatment
+Risankizumab 
+and 
+Ustekinumab*
+PASI90 
+at 
+Week 16 
+of initial 
+treatment
+ITT
+
+Subjects with the 
+use of rescue 
+medication on or 
+prior to Week 16 
+will be 
+considered as 
+non-responders
+
+For subjects who 
+prematurely 
+discontinue study 
+drug on or prior 
+to Week 16, data
+will be used 
+regardless
+Part 1, 3 and 4:
+Percentage of 
+subjects achieving 
+PASI90 at 
+Week 16 in the 
+Risankizumab 
+group
+Part 2:
+Difference in the 
+percentage of 
+subjects achieving 
+PASI90 at 
+Week 16 in the 
+Risankizumab 
+group in 
+comparison with 
+the Ustekinumab
+group
+PASI100 
+at 
+Week 16 
+of initial 
+treatment
+PASI100 
+at 
+Week 16 
+of initial 
+treatment
+Part 1, 3 and 4:
+Percentage of 
+subjects achieving 
+PASI100 at 
+Week 16 in the 
+Risankizumab 
+group
+Part 2:
+Difference in the 
+percentage of 
+subjects achieving 
+PASI100 at 
+Week 16 in the 
+Risankizumab 
+group in 
+comparison with 
+the Ustekinumab 
+group
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+31
+Table 2.
+Summary of the Estimand Attributes of the Ranked Secondary 
+Efficacy Endpoints (Continued)
+Estimand 
+Label
+Attributes of the Estimands
+Treatment
+Endpoint
+Population
+Handling of 
+Intercurrent Events
+Statistical 
+Summary
+sPGA 
+clear or 
+almost 
+clear (0 or 
+1) (US 
+only: and 
+≥2 grade 
+improve-
+ment from 
+baseline)
+at Week 0 
+of the re-
+treatment 
+phase in 
+Part 2
+Risankizumab
+sPGA 
+clear or 
+almost 
+clear (0 
+or 1) (US 
+only: and 
+≥2 grade 
+improve-
+ment 
+from 
+baseline)
+at Week 0 
+of the re-
+treatment 
+phase in 
+Part 2
+ITT
+
+Subjects with the 
+use of rescue 
+medication on or 
+prior to Week 0 
+of the re-
+treatment period 
+will be 
+considered as 
+non-responders
+
+For subjects who 
+prematurely 
+discontinue study 
+drug on or prior 
+to Week 0 of the 
+re-treatment 
+period, data will 
+be used 
+regardless
+Percentage of 
+subjects achieving 
+sPGA 0/1 (US 
+only: and ≥2 grade 
+improvement from 
+baseline) at 
+Week 0 of the re-
+treatment period in 
+the Risankizumab 
+group
+sPGA 
+clear or 
+almost 
+clear (0 or 
+1) (US 
+only: and 
+≥2 grade 
+improve-
+ment from 
+baseline)
+at 
+Week 16 
+of the re-
+treatment 
+phase in 
+Part 2
+sPGA 
+clear or 
+almost 
+clear (0 
+or 1) (US 
+only: and 
+≥2 grade 
+improve-
+ment 
+from 
+baseline)
+at Week 
+16 of the 
+re-
+treatment 
+phase in 
+Part 2
+
+Subjects with the
+use of rescue 
+medication on or 
+prior to Week 16 
+of the re-
+treatment period 
+will be 
+considered as 
+non-responders
+
+For subjects who 
+prematurely 
+discontinue study 
+drug on or prior 
+to Week 16 of the 
+re-treatment 
+period, data will 
+be used 
+regardless
+Percentage of 
+subjects achieving 
+sPGA 0/1 (US 
+only: and ≥2 grade 
+improvement from 
+baseline) at 
+Week 16 of the re-
+treatment period in 
+the Risankizumab 
+group
+*
+Ustekinumab is only applicable for Part 2
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+32
+For analysis of the ranked secondary endpoints, exact CIs will be provided based on the 
+Clopper-Pearson method for proportions (Part 1, 3 and 4) and by the Miettinen-Nurminen 
+method for differences in proportions2 (Part 2).
+9.4.3
+Sensitivity and Supplementary Analyses for Key Secondary
+Efficacy Endpoint(s)
+For dealing with missing data, AO will be used as sensitivity analysis for secondary 
+endpoints.
+9.4.4
+Supportive Secondary Efficacy Endpoints and Analyses
+The non-ranked secondary efficacy endpoints are specified in Section 3.2.
+Analyses of non-ranked secondary efficacy endpoints will be conducted by providing 
+descriptive statistics and 95% CI as described above.
+9.5
+Additional Efficacy Analyses
+The other efficacy endpoints are specified in Section 3.3.
+Analyses of other efficacy endpoints will be conducted by providing descriptive statistics 
+and 95% CI as described above.
+9.6
+Efficacy Subgroup Analyses
+Due to the small sample sizes and the uncontrolled design of Part 1, Part 3, and Part 4, no 
+efficacy subgroup analyses will be performed.
+For Part 2, the co-primary endpoints will be analyzed for the following subgroups, using 
+NRI for imputation of missing data:
+●
+age group (12 to < 15, 15 to < 18 years)
+●
+sex (male, female),
+●
+race (white, non-white)
+●
+weight group (< 40 kg, ≥ 40 kg),
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+33
+●
+region (Europe, North America, rest of world),
+●
+baseline PASI (< 20, ≥ 20)
+●
+baseline sPGA (≤ 3, 4)
+●
+baseline BSA (< 20, ≥ 20)
+●
+prior biologic Psoriasis therapy (yes, no)
+●
+prior systemic Psoriasis therapy (yes, no)
+●
+anti-drug antibodies (ADA) (positive, negative)
+●
+neutralizing antibodies (nAb) (positive, negative)
+Analyses within subgroups will be conducted providing descriptive statistics and 95% CI 
+as described above.
+10.0
+Safety Analyses
+10.1
+General Considerations
+Safety data will be summarized for the Safety Analysis Population.  Safety summaries 
+will be presented overall and by treatment group (Part 2).  For the safety analysis in 
+Part 2, subjects are assigned to a treatment group based on the treatment actually received, 
+regardless of the treatment randomized.  Safety analyses will include adverse events, 
+laboratory, and vital sign measurements.  For Part 2, safety analyses will be presented by 
+study period as well as overall, unless otherwise specified.
+For Part 2 Period A, a subject's actual treatment will be determined by the first dose of 
+study drug.  For subjects re-randomized in Part 2 Period B, only subjects who received no 
+drug are included in the withdrawal arm, subjects who received at least one dose of study 
+drug are included in the treatment continuation arm.
+Missing safety data will not be imputed.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+34
+10.2
+Adverse Events
+Adverse events (AEs) will be summarized and presented using primary MedDRA System 
+Organ Classes (SOCs) and preferred terms (PTs) according to the version of the MedDRA 
+coding dictionary used for the study at the time of database lock.  The actual version of 
+the MedDRA coding dictionary used will be noted in the AE tables and in the clinical 
+study report.  Specific adverse events will be counted once for each subject for calculating 
+percentages, unless stated otherwise.  In addition, if the same adverse event occurs 
+multiple times within a subject, the highest severity and level of relationship to 
+investigational product will be reported.
+10.2.1
+Treatment-Emergent Adverse Events
+Treatment-emergent adverse events (TEAEs) are defined as any event with an onset that 
+is after the first dose of study drug and with an onset date within 20 weeks (140 days) 
+after the last dose of study drug.  Events where the onset date is the same as the study 
+drug start date and no start times are available are assumed to be treatment-emergent.  For 
+subjects re-randomized to treatment withdrawal in Part 2 Period B, AEs are only 
+considered treatment emergent until last dose date in Period A + 140 days and then from 
+the first re-treatment dose after the treatment withdrawal onwards, if applicable.
+For the analysis of TEAEs as exposure-adjusted AEs per 100 patient-years of 
+risankizumab exposure, all TEAS prior to the first risankizumab dose will be excluded 
+(i.e., the TEAEs observed in the ustekinumab group in Part 2 Period A).
+Pre-treatment AEs will be summarized separately in a listing.
+10.2.2
+Adverse Event Overview
+An overview of TEAEs will be presented consisting of the number and percentage of 
+subjects experiencing at least one event for each of the following AE categories:
+●
+Any treatment-emergent AE
+●
+Any treatment-emergent AE related to study drug according to the investigator
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+35
+●
+Any severe treatment-emergent AE
+●
+Any serious treatment-emergent AE
+●
+Any treatment-emergent AE leading to discontinuation of study drug
+●
+Any serious infection
+●
+Opportunistic infection excluding tuberculosis and herpes zoster
+●
+Active tuberculosis
+●
+Herpes Zoster
+●
+Any malignant tumor
+●
+Any malignant tumor excluding NMSC
+●
+Any NMSC
+●
+Any hepatic event
+●
+Any serious hypersensitivity
+●
+Any injection site reaction
+●
+Any adjudicated Anaphylactic Reaction
+●
+Any Suicidal Ideation Behavior (SIB)
+●
+Any treatment-emergent AE leading to death
+●
+All deaths
+●
+Deaths occurring ≤ 140 days after last dose of study drug
+●
+Deaths occurring > 140 days after last dose of study drug
+An overview of TEAEs will also be presented as exposure-adjusted AEs per 100 patient-
+years of risankizumab exposure, where AEs per 100 patient-years of exposure are defined 
+as the number of AEs divided by the total exposure in 100 patient-years.  This analysis 
+will not be broken down by period in Part 2.
+Note that one event per preferred term per day per subject will be counted in the 
+calculation of the number of AEs (i.e., a preferred term will not be counted twice on the 
+same day for the same subject).  See the calculation method below.
+Years
+Patient 
+Total
+TEAEs
+of
+Number 
+100 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+36
+where total patient years is defined as the sum of the risankizumab exposure (defined as 
+date of last risankizumab dose – date of first risankizumab dose + 140 days (5 half-lives)) 
+of all subjects normalized by 365.25, and rounded to one decimal place.  For subjects 
+re-randomized to treatment withdrawal in Period B, risankizumab exposure will be 
+counted until last risankizumab dose date in Period A + 140 days and then restarted at the 
+first risankizumab re-treatment dose after the treatment withdrawal, if applicable.  For 
+subjects initially randomized to ustekinumab, only TEAEs from the date of 
+first risankizumab dose onwards will be included for this analysis which is exposure 
+adjusted for risankizumab exposure.
+10.2.3
+Treatment-Emergent Adverse Events by SOC and/or PT
+Treatment-emergent adverse events will be summarized by SOC and PT; by maximum 
+relationship to study drug as assessed by the investigator (e.g., reasonable possibility or no 
+reasonable possibility) and SOC and PT; by maximum severity and SOC and PT; and by 
+subject number and SOC and PT.  Specific adverse events will be counted once for each 
+subject for calculating percentages, unless stated otherwise.  In addition, if the same 
+adverse event occurs multiple times within a subject, the highest severity and level of 
+relationship to investigational product will be reported.
+In addition, treatment-emergent adverse events will be summarized by PT and sorted by 
+decreasing frequency.
+10.2.4
+Treatment-Emergent Adverse Events per Patient-Years of 
+Risankizumab Exposure
+In addition to the exposure-adjusted Overview of TEAS described in Section 10.2.2, 
+exposure-adjusted AEs per 100 patient-years of risankizumab exposure will also be 
+provided by SOC and PT, where AEs per 100 patient-years of exposure are defined as the 
+number of TEAEs divided by the total risankizumab exposure in 100 patient-years.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+37
+Note that one event per preferred term per day per subject will be counted in the 
+calculation of the number of AEs (i.e., a preferred term will not be counted twice on the 
+same day for the same subject).  See the calculation method below.
+where total patient years is defined as the sum of the risankizumab exposure (defined as 
+date of last risankizumab dose – date of first risankizumab dose + 140 days (5 half-lives)) 
+of all subjects normalized by 365.25, and rounded to one decimal place.  For subjects re-
+randomized to treatment withdrawal in Period B, risankizumab exposure will be counted 
+until last risankizumab dose date in Period A + 140 days and then restarted at the 
+first risankizumab re-treatment dose after the treatment withdrawal, if applicable.
+This analysis will not be broken down by period in Part 2.
+10.2.5
+SAEs (Including Deaths) and Adverse Events Leading to 
+Study Drug Discontinuation
+SAEs (including deaths) and AEs leading to study drug discontinuation will be 
+summarized by SOC and PT and in listing format.  Exposure-adjusted SAEs per 
+100 patient-years of risankizumab exposure will also be provided by SOC and PT.
+10.2.6
+Areas of Safety Interest
+Detailed information about the search criteria for areas of safety interest (ASIs) are 
+provided in Appendix B.
+The final list will be based on the most updated final version of risankizumab Product 
+Safety Statistical Analysis Plan.
+Tabular listings of selected area of safety interest will be provided.
+Years
+Patient 
+Total
+TEAEs
+of
+Number 
+100 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+38
+10.2.7
+Combined Analyses for Adolescents/Children
+In addition to the analyses by study part, the following tables of exposure-adjusted AEs 
+per 100 patient-years of risankizumab exposure will be created that combine subjects 
+enrolled into Part 1 and Part 2 (adolescents) and subjects enrolled into Part 3 and Part 4 
+(children), respectively:
+●
+Overview of TEAEs,
+●
+TEAEs summarized by SOC and PT,
+●
+TEAEs summarized by SOC and PT by decreasing frequency.
+The two Japanese adolescents aged 12 to < 18 years enrolled into Part 4 are not included 
+in the Safety Analysis Population (see Section 4.0) and listed separately throughout. They 
+are therefore not included in the above.
+10.3
+Analysis of Laboratory Data
+Data collected from central and local laboratories, including additional laboratory testing 
+due to an SAE, will be used in all analyses, except for Baseline where SAE-related 
+laboratory assessments on or before the first dose of study drug will be excluded.  The
+clinical laboratory tests defined in the protocol operations manual (e.g., hematology and 
+clinical chemistry) will be summarized.
+Mean change from baseline to each applicable post-baseline visit will be summarized for 
+selected laboratory variables, with the number of observations, baseline mean, and visit 
+mean.  The change from baseline mean, standard error, and 95% confidence interval will 
+be presented for the mean change from baseline within each treatment group and 
+difference between treatment groups (differences only applicable for Part 2 Period A).
+Changes in laboratory parameters will be tabulated using shift tables categorized as low, 
+normal, or high based on the normal ranges of the laboratory used for each sample.  A 
+shift table from baseline either to the worst value during treatment and to minimum and 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+39
+maximum value (based on normal range), will be created.  A similar shift table will be 
+provided to summarize shifts from baseline to the final post-baseline value.
+Laboratory abnormalities meeting CTC v4.03 criteria grade 3 and 4 will be summarized.
+The following analyses will be done combining subjects enrolled into Part 1 and Part 2 
+(adolescents) and subjects enrolled into Part 3 and Part 4 (children), respectively:
+The two Japanese adolescents aged 12 to < 18 years enrolled into Part 4 are not included 
+in the Safety Analysis Population (see Section 4.0) and listed separately throughout. They 
+are therefore not included in the above.
+Laboratory abnormalities will be evaluated based on Potentially Clinically Significant 
+(PCS) criteria (Appendix C).  For each laboratory PCS criterion, the number and 
+percentage of subjects who have a laboratory value meeting the criteria will be 
+summarized.  Listings will be provided to summarize subject-level laboratory data for 
+subjects meeting PCS criteria.
+In addition, the number and percentage of subjects meeting criteria for potential 
+hepatotoxicity will be provided.
+●
+ALT > 3 × ULN, > 5 × ULN, > 10 × ULN, > 20 × ULN
+●
+AST > 3 × ULN, > 5 × ULN, > 10 × ULN, > 20 × ULN
+●
+TBL > 1.5 × ULN, > 2 × ULN
+●
+ALT and/or AST > 3 × ULN and TBL > 1.5 × ULN
+●
+ALT and/or AST > 3 × ULN and TBL > 2 × ULN
+●
+ALT > 3 × ULN and TBL > 1.5 × ULN
+●
+ALT > 3 × ULN and TBL > 2 × ULN
+●
+Alkaline phosphatase > 1.5 × ULN
+For criteria involving multiple parameters, the values do not need to be concurrent to meet 
+the defined criteria.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+40
+A listing of potentially clinically important liver function laboratory values will include 
+all subjects who met any of the following four criteria:
+●
+ALT > 3 × ULN, or
+●
+AST > 3 × ULN, or
+●
+ALP > 1.5 × ULN, or 
+●
+Total bilirubin > 1.5 × ULN.
+A listing of potential biochemical Hy's Law cases, defined as those who meet all of the 
+following conditions at any post-baseline visit, not necessarily concurrent, will be 
+provided.
+●
+ALT of > 3 × ULN or AST of > 3 × ULN
+●
+Total bilirubin > 2 × ULN
+10.4
+Analysis of Vital Signs
+Vital sign measurements of systolic and diastolic blood pressure as well as height will be 
+summarized.
+Mean change from baseline to each applicable post-baseline visit will be summarized for 
+the above mentioned vital sign variables, with the number of observations, baseline mean, 
+and visit mean.  The change from baseline mean, standard error, and 95% confidence 
+interval will be presented for the mean change from baseline within each treatment group 
+and difference between treatment groups (Period A, Part 2).
+The following analyses will be done combining subjects enrolled into Part 1 and Part 2 
+(adolescents) and subjects enrolled into Part 3 and Part 4 (children), respectively:
+The two Japanese adolescents aged 12 to < 18 years enrolled into Part 4 are not included 
+in the Safety Analysis Population (see Section 4.0) and listed separately throughout. They 
+are therefore not included in the above.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+41
+Vital sign variables will be evaluated based on potentially clinically significant (PCS) 
+criteria (Appendix D).  For each vital sign PCS criterion, the number and percentage of 
+subjects who have a vital sign value meeting the criteria will be summarized.  Listings 
+will be provided to summarize subject-level vital sign data for subjects meeting PCS 
+criteria.
+10.5
+Safety Subgroup Analyses
+Counts and percentages of hypersensitivity reactions and injection site reactions will be 
+presented for the following subgroups:
+●
+Anti-drug antibodies (ADA) (positive, negative)
+●
+Neutralizing antibodies (nAb) (positive, negative)
+10.6
+Other Safety Analyses
+Not applicable.
+11.0
+Other Analyses
+Not applicable.
+12.0
+Interim Analyses
+No statistical test will be performed, therefore no formal interim analysis that would 
+require type 1 error control will be done.  Analyses will be performed at the following 
+timepoints:
+Part 1 data up to Week 16 will be cleaned and analyzed after all subjects have reached 
+Week 16 or have prematurely discontinued the study.  Week 16 data will inform the 
+dose(s) and the initiation for Part 2 and Part 3.  A final analysis of Part 1 and Part 2 will 
+be performed when all subjects have completed Part 2.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+42
+Part 2 data, Part 1 data, and all available Part 3 or Part 4 data will be analyzed separately 
+when all subjects have completed Part 2 and will be submitted for regulatory purposes.
+Part 3 data up to Week 16 will be cleaned and analyzed after all subjects have reached 
+Week 16 or have prematurely discontinued the study.  Week 16 data will inform the 
+dose(s) and the initiation for Part 4.  A final analysis of Parts 3 and 4 will be performed 
+together when all subjects have completed Part 4 or have prematurely discontinued from 
+the study.
+An external data monitoring committee (DMC) composed of persons independent of 
+AbbVie and with relevant expertise in their field will review unblinded safety data from 
+the ongoing study.  The primary responsibility of the DMC will be to protect the safety of 
+the subjects participating in this study.
+A separate DMC charter will be prepared outside of the protocol and will describe the 
+roles and responsibilities of the DMC members, frequency of data reviews, relevant safety 
+data to be assessed, and expectations for blinded communications.
+12.1
+Data Monitoring Committee
+An external data monitoring committee (DMC) composed of persons independent of 
+AbbVie and with relevant expertise in their field will review safety data from the ongoing 
+study.  The primary responsibility of the DMC will be to protect the safety of the subjects 
+participating in this study.
+A separate DMC charter will be prepared outside of the protocol and will describe the 
+roles and responsibilities of the IDMC members, frequency and triggers of data reviews, 
+and relevant safety data to be assessed.  Unblinded ASI events will be presented to the 
+IDMC for review on a periodic basis.
+Since there are no efficacy analyses for early stopping, no alpha adjustment is needed.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+43
+13.0
+Overall Type-I Error Control
+Not applicable for this study as no statistical testing will be performed.
+14.0
+Version History
+Table 3.
+SAP Version History Summary
+Version
+Date
+Summary
+1.0
+12 August 2020
+Original version
+2.0
+18 August 2021
+Updated SAP to align with edits in protocol version 3.0; 
+addition of Itch NRS endpoints; addition of estimands 
+language; updated Itch endpoint; updated safety (ASIs and 
+hepatotoxicity criteria) wording to align with most current 
+version of PSSAP (v4.1)
+3.0
+01 May 2023
+Updated SAP to align with edits in protocol version 4.0; 
+added ≥ 2-grade improvement from baseline of sPGA (US 
+only), update list of ASIs, summary for height added 
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+44
+4.0
+16 October 2023
+Section 6.0: 
+added analyses of duration of risankizumab treatment that 
+combine subjects enrolled into Part 1 and Part 2 
+(adolescents) and subjects enrolled into Part 3 and Part 4 
+(children)
+rationale: to provide integrated exposure information for 
+adolescents and children, respectively
+Section 7.1: 
+added analyses of demographics that combine subjects 
+enrolled into Part 1 and Part 2 (adolescents) and subjects 
+enrolled into Part 3 and Part 4 (children)
+rationale: to provide integrated demographics information 
+for adolescents and children, respectively
+Section 10.2.2:
+removed assessment of treatment-emergent COVID-19 
+related events and COVID-19 related deaths from Adverse 
+Event Overview
+rationale:  to align with general company approach
+Section 10.2.7: 
+added analyses of exposure-adjusted AEs per 100 patient-
+years of risankizumab exposure that combine subjects 
+enrolled into Part 1 and Part 2 (adolescents) and subjects 
+enrolled into Part 3 and Part 4 (children)
+rationale: to provide integrated safety information for 
+adolescents and children, respectively
+Section 10.3: 
+Replaced analyses of PCS hematology, chemistry, 
+hepatoxicity by Part with analyses by age cohort 
+(adolescents, children)
+rationale: to provide integrated safety information for 
+adolescents and children, respectively
+Section 10.4: 
+Replaced analyses of PCS for vital signs by Part with 
+analyses by age cohort (adolescents, children)
+rationale: to provide integrated safety information for 
+adolescents and children, respectively
+Section 10.5: 
+Removed subgroup analyses by gender
+rationale: small number of subjects
+Appendix D
+Updated criteria for potentially clinically significant vital 
+sign values
+rationale: to align with general company approach
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+45
+15.0
+References
+1.
+European Medicines Agency.  P/0205/2016.  Opinion of the Paediatric Committee 
+on the agreement of a Paediatric Investigation Plan and a deferral and a waiver.  
+2016.
+2.
+Miettinen O, Nurminen M.  Comparative analysis of two rates.  Stat Med.  
+1985;4(2):213-26.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+46
+Appendix A.
+Protocol Deviations
+The number and percentage of subjects who reported at least one of the following 
+protocol deviation categories will be provided.
+●
+Subject entered into the study even though s/he did not satisfy entry criteria.
+●
+Subject developed withdrawal criteria during the study and was not 
+withdrawn.
+●
+Subject received wrong treatment or incorrect dose of study.
+●
+Subject took prohibited concomitant medication.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+47
+Appendix B.
+Definition of Area of Safety Interest
+Area of safety interest (ASI) will be identified using the following search criteria:
+Area of Safety Interest
+Search Criteria
+Include in AE 
+Overview (Y/N)
+Serious Infections
+Serious AEs in the Infections and Infestations SOC 
+Y
+Tuberculosis
+Active TB CMQ (code 10000002)
+Y
+Opportunistic Infections
+Opportunistic Infection Excluding Tuberculosis and 
+Herpes Zoster CMQ (code 10000105)
+Y
+Herpes Zoster
+Herpes Zoster CMQ (code 10000079)
+Y
+Malignant Tumours
+Narrow
+Malignant tumours (SMQ 20000194)
+Y
+Non-melanoma Skin 
+Cancer (NMSC)
+Broad
+Skin malignant tumours (SMQ 20000204) 
+excluding terms identified by the Melanoma 
+CMQ (code 10000100)
+Y
+Malignant Tumours 
+excluding NMSC
+'Malignant Tumours excluding NMSC' is identified by 
+the 'Malignant Tumours' search excluding terms 
+identified by the 'Non-melanoma skin cancer (NMSC)' 
+search.
+Y
+Hypersensitivity 
+Narrow
+Hypersensitivity (SMQ 20000214)
+Y – serious events 
+only
+Adjudicated 
+Anaphylactic Reaction*
+Adjudicated terms will be identified using SDTM data 
+(e.g., CE and PR domains).
+Y
+Hepatic Events 
+Broad
+Hepatic failure, fibrosis and cirrhosis and 
+other liver damage-related conditions 
+(SMQ 20000013)
+Y
+Broad
+Hepatitis, non-infectious (SMQ 20000010)
+Broad
+Cholestasis and jaundice of hepatic origin 
+(SMQ 20000009)
+Broad
+Liver related investigations, signs and 
+symptoms (SMQ 20000008)
+Narrow
+Liver-related coagulation and bleeding 
+disturbances (SMQ 20000015)
+Injection Site Reaction
+Injection site reaction CMQ (code 10000091)
+Y
+Suicidal Ideation and 
+Behavior (SIB) 
+Narrow
+Suicide/self-injury (SMQ 20000037)
+Y
+*
+Events will be identified for adjudication by Anaphylactic Reaction SMQ Broad search as specified in the RISA 
+AAC Charter.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+48
+Appendix C.
+Potentially Clinically Significant Criteria for Safety Endpoints
+The criteria for Potentially Clinically Significant (PCS) laboratory findings are described 
+in Table C-1 and Table C-2.
+Table C-1.
+Potentially Clinically Significant Chemistry Values
+Chemistry Variables
+Units
+Definition of Potentially Clinically Significant Current 
+(Version 4) NCI CTCAE Grade 3 or Greater
+Very Low
+Very High
+TBL
+mcmol/L
+> 3.0 × ULN
+ALP
+U/L
+> 5.0 × ULN
+SGOT/AST
+U/L
+> 5.0 × ULN
+SGPT/ALT
+U/L
+> 5.0 × ULN
+Albumin
+g/L
+< 20
+Glucose
+mmol/L
+< 2.2
+> 13.9
+Triglycerides
+mmol/L
+> 5.7
+Creatinine
+mcmol/L
+> 3.0 × ULN
+(> 3.0 × BL)
+Sodium
+mmol/L
+< 130
+> 155
+Potassium
+mmol/L
+< 3.0
+> 6.0
+Calcium
+mmol/L
+< 1.75
+> 3.1
+CPK
+U/L
+> 5.0 × ULN
+Total Cholesterol
+mmol/L
+> 10.34
+GGT
+> 5.0 × ULN
+Note:
+A post-baseline value must be more extreme than the baseline value to be considered a potentially clinically 
+significant finding.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+49
+Table C-2.
+Potentially Clinically Significant Hematology Values
+Hematology Variables
+Units
+Definition of Potentially Clinically Significant 
+Current (Version 4) CTCAE Grade 3 or Greater
+Very Low
+Hemoglobin
+g/L
+< 80.0
+Platelets count
+109/L
+< 50.0
+WBC count
+109/L
+< 2.0
+Neutrophils
+109/L
+< 1.0
+Lymphocytes
+109/L
+< 0.5
+Note:
+A post-baseline value must be more extreme than the baseline value to be considered a potentially clinically 
+significant finding.
+ 
+Risankizumab
+M19-977 – Statistical Analysis Plan
+Version 4.0 – 16 October 2023
+50
+Appendix D.
+Criteria for Potentially Clinically Significant Vital Sign Values
+Vital signs values will be categorized as follows:
+Systolic Blood Pressure (mmHg)
+Age Group
+Category
+Criteria for Potentially Clinically Significant Vital Signs
+12 to 
+< 18 years
+Low
+High
+Value ≤ 90 mmHg and decrease ≥20 mmHg from baseline
+Value ≥ 160 mmHg and increase ≥20 mmHg from baseline
+10 and 11 
+years
+Low
+High
+Value ≤ 80 mmHg and decrease ≥20 mmHg from baseline
+Value ≥ 140 mmHg and increase ≥20 mmHg from baseline
+Less than 10 
+years
+Low
+High
+Value ≤ 80 mmHg and decrease ≥20 mmHg from baseline
+Value ≥ 130 mmHg and increase ≥20 mmHg from baseline
+Diastolic Blood Pressure (mmHg)
+Age Group
+Category
+Criteria for Potentially Clinically Significant Vital Signs
+12 to 
+< 18 years
+Low
+High
+Value ≤ 50 mmHg and decrease ≥10 mmHg from baseline
+Value ≥ 100 mmHg and increase ≥10 mmHg from baseline
+10 and 
+11 years
+Low
+High
+Value ≤ 50 mmHg and decrease ≥10 mmHg from baseline
+Value ≥ 90 mmHg and increase ≥10 mmHg from baseline
+Less than 
+10 years
+Low
+High
+Value ≤ 50mmHg and decrease ≥10 mmHg from baseline
+Value ≥ 85 mmHg and increase ≥10 mmHg from baseline
+For categorization purposes in case of age specific ranges, age at enrollment will be used.
+ 

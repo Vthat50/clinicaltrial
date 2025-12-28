@@ -1,0 +1,626 @@
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 1 of 18
+ 
+PFIZER CONFIDENTIAL
+Protocol C4671012
+A PHASE 1, OPEN-LABEL, 3-TREATMENT, 6-SEQUENCE, 3-PERIOD CROSSOVER 
+STUDY TO ESTIMATE THE EFFECT OF PF-07321332/RITONAVIR AND 
+RITONAVIR ON THE PHARMACOKINETICS OF DABIGATRAN IN HEALTHY 
+PARTICIPANTS
+Statistical Analysis Plan 
+(SAP)
+Version:
+1.0
+SAP Author: 
+                       (
+)
+Date:
+30-AUG-2021
+PPD
+PPD
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 2 of 18
+ 
+PFIZER CONFIDENTIAL
+Revision History
+Version
+Date
+Author(s)
+Summary of Changes/Comments
+1.0
+August 30, 2021
+Not Applicable
+NOTE: Italicized text within this document has been taken verbatim from the Protocol.
+PPD
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 3 of 18
+ 
+PFIZER CONFIDENTIAL
+TABLE OF CONTENTS
+LIST OF TABLES.....................................................................................................................5
+LIST OF FIGURES ...................................................................................................................5
+APPENDICES ...........................................................................................................................5
+1. AMENDMENTS FROM PREVIOUS VERSION(S) ...........................................................6
+2. INTRODUCTION .................................................................................................................6
+2.1. Study Design .............................................................................................................6
+2.2. Study Objectives .......................................................................................................7
+2.2.1. Primary Objective.........................................................................................7
+2.2.2. Secondary Objectives ...................................................................................7
+3. INTERIM ANALYSES, FINAL ANALYSES AND UNBLINDING..................................8
+4. HYPOTHESES AND DECISION RULES...........................................................................8
+4.1. Statistical Hypotheses ...............................................................................................8
+4.2. Statistical Decision Rules..........................................................................................8
+5. ANALYSIS SETS .................................................................................................................8
+5.1. Enrolled Set...............................................................................................................8
+5.2. Pharmacokinetic (PK) Analysis Set ..........................................................................8
+5.2.1. Concentration Analysis Set...........................................................................8
+5.2.2. Parameter Analysis Set.................................................................................8
+5.3. Pharmacodynamic Analysis Set................................................................................8
+5.4. Safety Analysis Set....................................................................................................9
+5.5. Other Analysis Sets ...................................................................................................9
+5.6. Treatment Misallocations..........................................................................................9
+5.7. Protocol Deviations...................................................................................................9
+5.7.1. Deviations Assessed Prior to Randomization...............................................9
+5.7.2. Deviations Assessed Post-Randomization....................................................9
+6. ENDPOINTS AND COVARIATES .....................................................................................9
+6.1. Efficacy Endpoint(s) .................................................................................................9
+6.2. Safety Endpoints .......................................................................................................9
+6.2.1. Adverse Events...........................................................................................10
+CCI
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 4 of 18
+ 
+PFIZER CONFIDENTIAL
+6.2.2. Laboratory Safety Tests..............................................................................10
+6.2.3. Vital Signs Data..........................................................................................10
+6.2.4. ECG Results................................................................................................11
+6.2.5. Other Safety Data .......................................................................................11
+6.3. Other Endpoints.......................................................................................................11
+6.3.1. PK Endpoints..............................................................................................11
+6.3.2. PD Endpoints..............................................................................................12
+6.4. Covariates................................................................................................................12
+7. HANDLING OF MISSING VALUES ................................................................................12
+7.1. Concentrations Below the Limit of Quantification.................................................12
+7.2. Deviations, Missing Concentrations and Anomalous Values .................................12
+7.3. Pharmacokinetic Parameters ...................................................................................13
+8. STATISTICAL METHODOLOGY AND STATISTICAL ANALYSES ..........................13
+8.1. Statistical Methods ..................................................................................................13
+8.2. Statistical Analyses .................................................................................................13
+8.3. Safety Analysis........................................................................................................15
+8.3.1. Treatment and Disposition of Participants .................................................15
+8.3.2. Demographic and Clinical Examination Data............................................15
+8.3.3. Discontinuation(s).......................................................................................15
+8.3.4. Adverse Events...........................................................................................15
+8.3.5. Laboratory Data..........................................................................................16
+8.3.6. Vital Signs Data..........................................................................................16
+8.3.7. ECG Data....................................................................................................16
+8.3.8. Other Safety Data .......................................................................................16
+8.3.9. Concomitant Treatments.............................................................................16
+8.3.10. COVID-19 Assessment Data....................................................................16
+8.3.11. Screening and Other Special Purpose Data ..............................................16
+9. REFERENCES ....................................................................................................................17
+APPENDICES .........................................................................................................................18
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 5 of 18
+ 
+PFIZER CONFIDENTIAL
+LIST OF TABLES
+Table 1.
+Study Schematic .........................................................................................6
+Table 2.
+Noncompartmental PK Parameters...........................................................12
+Table 3.
+PK Parameters to be Summarized Descriptively by Treatment ...............14
+LIST OF FIGURES
+None
+APPENDICES
+Appendix 1. SAS CODE FOR ANALYSES...........................................................................18
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 6 of 18
+ 
+PFIZER CONFIDENTIAL
+1. AMENDMENTS FROM PREVIOUS VERSION(S) 
+None.
+2. INTRODUCTION
+PF-07321332 is a potent and selective inhibitor of the SARS-CoV-2 3CL protease that is
+currently being developed as an oral treatment of COVID-19. Ritonavir is a strong CYP3A4
+inhibitor being used to inhibit the metabolism of PF-07321332 in order to increase plasma
+concentrations of PF-07321332 to values that are anticipated to be efficacious.
+The purpose of this study is to estimate the effect of PF-07321332/ritonavir and ritonavir on
+the PK of dabigatran in healthy participants.
+2.1. Study Design
+This is a Phase 1, open-label, randomized, 3-treatment, 6-sequence, 3-way crossover design
+to estimate the effect of PF-07321332/ritonavir or ritonavir on the PK of a P-gp substrate,
+dabigatran in healthy participants.
+This study will consist of 3 treatments. In T1, dabigatran will be administered orally as a
+75 mg single dose followed by a 3-day washout. In T2, PF-07321332/ritonavir
+300 mg/100 mg q12h will be administered as a multiple dose over a period of 2 days. In the
+morning on Day 2, 75 mg of dabigatran will be administered orally as a single dose.
+Treatment 2 will be followed by a 3-day washout. In T3, ritonavir 100 mg q12h will be
+administered as a multiple dose over a period of 2 days. In the morning on Day 2, 75 mg of
+dabigatran will be administered orally as a single dose. Each washout period will begin 
+after the first dose of study treatment. A total of approximately 24 healthy male and/or 
+female participants will be enrolled into the study. Participants who discontinue from the 
+study may be replaced at the sponsor’s discretion in collaboration with the Investigator.
+Participants will randomly be assigned to 1 of 6 sequences as follows:
+Table 1.
+Study Schematic
+Sequence
+Period 1
+Period 2
+Period 3
+Sequence 1
+Treatment 1
+Treatment 2
+Treatment 3
+Sequence 2
+Treatment 3
+Treatment 1
+Treatment 2
+Sequence 3
+Treatment 2
+Treatment 3
+Treatment 1
+Sequence 4
+Treatment 3
+Treatment 2
+Treatment 1
+Sequence 5
+Treatment 2
+Treatment 1
+Treatment 3
+Sequence 6
+Treatment 1
+Treatment 3
+Treatment 2
+The following describes the study design as an example for Sequence 1 (T1-T2-T3):
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 7 of 18
+ 
+PFIZER CONFIDENTIAL
+Participants in T1 (Day 1) will receive dabigatran orally administered as a 75 mg dose
+followed by a 3-day washout. Serial PK samples will be collected up to 48 hours after single
+dose administration to determine PK parameters.
+T2 will begin on Study Day 5 (referred to as T2 Day 1). Participants in T2 (Day 1) will
+receive multiple doses of PF-07321332/ritonavir 300 mg/100 mg q12h on Days 1 and 2
+followed by a single dose of 75 mg dabigatran administered orally on Day 2. A 3-day
+washout will ensue the co-administration of PF-07321332/ritonavir and dabigatran. Serial 
+PK samples will be collected up to 48 hours following the administration of
+PF-07321332/ritonavir co-administered with a single oral dose of 75 mg dabigatran.
+T3 will begin on Study Day 10 (referred to as T3 Day 1). Participants in T3 (Day 1) will
+receive multiple dose administration of ritonavir 100 mg q12h on Days 1 and 2. In the
+morning on Day 2, participants will be administered a single oral 75 mg dose of dabigatran.  
+Serial PK samples will be collected up to 48 hours following multiple dose administration of
+ritonavir 100 mg co-administered with a single oral dose of 75 mg dabigatran.
+The total planned duration of participation, from the Screening visit to the last Follow-up
+phone call, is approximately 11 weeks.
+2.2. Study Objectives
+2.2.1. Primary Objective
+•
+To estimate the effect of the multiple doses of PF-07321332/ritonavir co-administered 
+with dabigatran orally (test) compared to dabigatran administered orally as a single 
+dose (reference).
+2.2.2. Secondary Objectives
+•
+To estimate the effect of the multiple doses of ritonavir co-administered with 
+dabigatran orally (test) compared to dabigatran administered orally as a single dose 
+(reference).
+•
+To evaluate the safety and tolerability of dabigatran alone and following 
+co-administration with multiple dosing of PF-07321332/ritonavir or ritonavir.
+•
+To characterize the PK of dabigatran and PF-07321332 in study treatments.
+CCI
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 8 of 18
+ 
+PFIZER CONFIDENTIAL
+3. INTERIM ANALYSES, FINAL ANALYSES AND UNBLINDING
+No formal interim analysis will be conducted for this study. As this is an open-label study,
+the sponsor may conduct unblinded reviews of the data during the course of the study for the
+purpose of safety assessment, facilitating PK/PD modeling, and/or supporting clinical
+development.
+Final analysis will follow the official database release.  As this will be an open-label study, 
+there is no formal unblinding of the randomization code.
+4. HYPOTHESES AND DECISION RULES
+4.1. Statistical Hypotheses
+No statistical hypothesis will be tested in this study.
+4.2. Statistical Decision Rules
+There are no statistical decision rules.
+5. ANALYSIS SETS
+5.1. Enrolled Set
+“Enrolled” means a participant, or his or her legally authorized representative’s, agreement 
+to participate in a clinical study following completion of the informed consent process and 
+screening. A participant will be considered enrolled if the informed consent is not 
+withdrawn prior to participating in any study activity after screening. Potential participants 
+who are screened for the purpose of determining eligibility for the study, but do not 
+participate in the study, are not considered enrolled, unless otherwise specified by the
+protocol.
+5.2. Pharmacokinetic (PK) Analysis Set
+5.2.1. Concentration Analysis Set
+The PK concentration population is defined as all participants assigned to investigational 
+product and treated who have at least 1 concentration measured.
+5.2.2. Parameter Analysis Set
+The PK parameter analysis population is defined as all participants assigned to 
+investigational product and treated who have at least 1 of the PK parameters of primary 
+interest measured.
+5.3. Pharmacodynamic Analysis Set
+None.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 9 of 18
+ 
+PFIZER CONFIDENTIAL
+5.4. Safety Analysis Set
+All participants randomly assigned to study intervention and who take at least 1 dose of 
+study intervention. Participants will be analyzed according to the product they actually 
+received.
+5.5. Other Analysis Sets
+None.
+5.6. Treatment Misallocations 
+All analyses will be performed on an “as-treated” basis and will not include data from 
+participants who are randomized but not treated.
+If a participant takes a treatment that is not consistent with the treatment they are randomized 
+to, for example takes a treatment out of sequence or takes the same treatment twice, then they 
+will be reported under the treatment that they actually receive for all safety, and PK analyses, 
+where applicable.
+5.7. Protocol Deviations
+Participants who experience events that may affect their PK profile (eg lack of compliance 
+with dosing) may be excluded from the PK analysis.  At the discretion of the 
+pharmacokineticist a concentration value may also be excluded if the deviation in sampling 
+time is of sufficient concern or if the concentration is anomalous for any other reason.
+A full list of protocol deviations will be compiled and reviewed to identify major and minor 
+deviations prior to database closure.
+5.7.1. Deviations Assessed Prior to Randomization
+At Screening, the investigator will assess participants against the inclusion and exclusion 
+criteria as set out in Sections 5.1 and 5.2 of the protocol.
+5.7.2. Deviations Assessed Post-Randomization
+A full list of protocol deviations for the study report will be compiled prior to database 
+closure.  Any significant deviation from the protocol will be reviewed prior to database 
+closure and a decision taken regarding evaluation for each analysis population.
+6. ENDPOINTS AND COVARIATES
+6.1. Efficacy Endpoint(s)
+None.
+6.2. Safety Endpoints
+The following data are considered in standard safety summaries (see protocol for collection 
+days and list of parameters):
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 10 of 18
+ 
+PFIZER CONFIDENTIAL
+
+adverse events,
+
+laboratory data,
+
+vital signs data,
+
+ECG results.
+6.2.1. Adverse Events
+An adverse event will be considered a Treatment-Emergent Adverse Event (TEAE) if the 
+event started during the effective duration of treatment.  All events that start on or after the 
+first dosing day and time/start time, if collected, but before the last dose plus the lag time 
+(28 days) will be flagged as TEAEs.  The algorithm will not consider any events that started 
+prior to the first dose date.  Any events occurring following start of treatment or increasing in 
+severity will be counted as treatment emergent.
+Events that occur in a non-treatment period (for example, Washout or Follow-up) will be 
+counted as treatment emergent and attributed to the previous treatment taken.
+6.2.2. Laboratory Safety Tests
+Safety laboratory tests will be performed as described in the protocol.
+To determine if there are any clinically significant laboratory abnormalities, the 
+haematological, clinical chemistry (serum) and urinalysis safety tests will be assessed against 
+the criteria specified in the sponsor reporting standards.  The assessment will take into 
+account whether each participant’s baseline test result is within or outside the laboratory 
+reference range for the particular laboratory parameter.
+Baseline is defined as the last predose measurement taken in each study period.
+6.2.3. Vital Signs Data
+Supine measurements will be taken at times detailed in the Schedule of Activities given in 
+the protocol.
+Baseline is the last predose recording in each study period.
+The following vital signs endpoints will be determined:
+
+The minimum systolic and diastolic blood pressures and the minimum and maximum 
+pulse rates over all measurements taken postdose.
+
+The maximum increase and maximum decrease from baseline over all measurements 
+taken postdose for systolic and diastolic blood pressures.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 11 of 18
+ 
+PFIZER CONFIDENTIAL
+The maximum increase from baseline will be calculated by firstly subtracting the baseline 
+value from each postdose measurement to give the change from baseline.  The maximum of 
+these values will then be selected, except in the case where a participant does not show an 
+increase.  In such an instance, the minimum decrease should be taken.
+Similarly, the maximum decrease from baseline will be determined by selecting the 
+minimum value of the changes from baseline. In cases where a participant does not show a 
+decrease, the minimum increase should be taken.
+6.2.4. ECG Results
+QT interval, QTc, PR, RR, QRS and heart rate will be recorded at each assessment time 
+indicated in the Schedule of Activities given in the protocol.
+If not supplied, QTcF will be derived using Fridericia’s heart rate correction formula:
+QTcF = QT / (RR)1/3
+where RR = 60/HR (if not provided)
+If not supplied, QTcB will be derived using Bazett’s heart rate correction formula:
+QTcB = QT / (RR)1/2
+where RR = 60/HR (if not provided)
+The average of the triplicate measurements will be calculated prior to analyzing the data.  
+Baseline will be defined as the average of the triplicate predose recordings in each study 
+period.
+The maximum absolute value (postdose) and the maximum increase from baseline for QTcF, 
+PR and QRS, over all measurements taken postdose, will be determined.
+The maximum increase from baseline will be calculated by first subtracting the baseline 
+value from each postdose measurement to give the change from baseline.  The maximum of 
+these values will then be selected, except in the case where a participant does not show an 
+increase.  In such an instance, the minimum decrease should be taken.
+6.2.5. Other Safety Data
+Additional safety data will be collected as described in the protocol and will be listed if 
+collected in the sponsor’s database.
+6.3. Other Endpoints
+6.3.1. PK Endpoints
+Blood samples for PK analysis of PF-07321332, ritonavir, and dabigatran (total) will be 
+taken according to the Schedule of Activities given in the protocol.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 12 of 18
+ 
+PFIZER CONFIDENTIAL
+The following PK parameters will be calculated for PF-07321332, ritonavir, and dabigatran 
+(total) (if possible) from the concentration-time data using standard noncompartmental 
+methods:
+Table 2.
+Noncompartmental PK Parameters
+PK 
+Parameter
+Analysis 
+Scale
+PF-07321332
+Ritonavir
+Dabigatran 
+(Total)
+AUClast
+ln
+D
+D
+A, D
+AUCinf*
+ln
+NA
+NA
+A, D
+AUCtau
+ln
+D
+D
+NA
+Cmax
+ln
+D
+D
+A, D
+Tmax
+R
+D
+D
+D
+t1/2*
+R
+D
+D
+D
+CL/F*
+ln
+D
+D
+D
+Vz/F*
+ln
+D
+D
+D
+Key:
+A=analyzed using statistical model, D=displayed with descriptive statistics,
+ln=natural-log transformed, NA=not applicable, R=raw (untransformed), *=if data 
+permits
+6.3.2. PD Endpoints
+None.
+6.4. Covariates
+None.
+7. HANDLING OF MISSING VALUES
+For the analysis of safety endpoints, the sponsor data standard rules for imputation will be 
+applied.
+7.1. Concentrations Below the Limit of Quantification
+In all data presentations (except listings), concentrations below the limit of quantification 
+(BLQ) will be set to zero.  (In listings BLQ values will be reported as “<LLQ”, where LLQ 
+will be replaced with the value for the lower limit of quantification).
+7.2. Deviations, Missing Concentrations and Anomalous Values
+In summary tables and plots of median profiles, statistics will be calculated having set 
+concentrations to missing if 1 of the following cases is true:
+1. A concentration has been collected as ND (ie not done) or NS (ie no sample).
+2. A deviation in sampling time is of sufficient concern or a concentration has been 
+flagged anomalous by the pharmacokineticist.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 13 of 18
+ 
+PFIZER CONFIDENTIAL
+Note that summary statistics will not be presented at a particular time point if more than 50%
+of the data are missing.
+7.3. Pharmacokinetic Parameters
+Actual PK sampling times will be used in the derivation of PK parameters.
+If a PK parameter cannot be derived from a participant’s concentration data, the parameter 
+will be coded as NC (ie, not calculated). (Note that NC values will not be generated beyond 
+the day that a participant discontinues.)
+In summary tables, statistics will be calculated by setting NC values to missing; and statistics 
+will be presented for a particular treatment with ≥3 evaluable measurements.  For statistical 
+analyses (ie, analysis of variance), PK parameters coded as NC will also be set to missing; 
+and analyses will not be performed for a particular parameter if more than 50% of the data 
+are NC.
+If an individual participant has a known biased estimate of a PK parameter (due for example
+to an unexpected event such as vomiting before all the compound is adequately absorbed in 
+the body), this will be footnoted in summary tables and will not be included in the calculation 
+of summary statistics or statistical analyses.
+8. STATISTICAL METHODOLOGY AND STATISTICAL ANALYSES
+8.1. Statistical Methods
+The interactive effect on PK parameters will be determined by constructing 90% confidence 
+intervals around the estimated difference between the Test and Reference treatments using a 
+mixed effects model based on natural log transformed data.  The mixed effects model will be 
+implemented using SAS Proc Mixed, with REML estimation method and Kenward-Roger 
+degrees of freedom algorithm.
+8.2. Statistical Analyses
+The plasma concentrations of PF-07321332, ritonavir and dabigatran will be listed and
+descriptively summarized by nominal PK sampling time and treatment. Individual
+participant, as well as mean and median profiles of the plasma concentration time data will
+be plotted by treatment for each analyte using actual (for individual) and nominal (for mean
+and median) times respectively. Mean and median profiles will be presented on both linear
+and semi-log scales. For comparison of AUCinf and Cmax with and without dabigatran, box
+and whisker plots of these parameters will be plotted by treatment for each analyte.
+Natural log transformed parameters (AUCinf [if data permit)], AUClast, and Cmax) of
+dabigatran will be analyzed using a mixed effect model with treatment, period and sequence
+as fixed effects and participant within sequence as a random effect. Estimates of the adjusted
+mean differences (Test-Reference) and corresponding 90% CIs will be obtained from the
+model. The adjusted mean differences and 90% CIs for the differences will be exponentiated
+to provide estimates of the ratio of adjusted geometric means (Test/Reference) and 90% CI
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 14 of 18
+ 
+PFIZER CONFIDENTIAL
+for the ratios. Dabigatran administered alone will be the reference treatment and
+PF-07321332/ritonavir co-administered with dabigatran and ritonavir co-administered with
+dabigatran will be the test treatments.
+Residuals from the model will be examined for normality and the presence of outliers via 
+visual inspection of plots of residuals vs predicted values and normal probability plots of 
+residuals but these will not be included in the clinical study report.  If there are major 
+deviations from normality or outliers then the effect of these on the conclusions will be 
+investigated through alternative transformations and/or analyses excluding outliers.  
+Justification for any alternative to the planned analysis will be given in the report of the 
+study.
+Table 3.
+PK Parameters to be Summarized Descriptively by Treatment
+Parameter
+Summary Statistics
+AUCinf, AUClast,
+AUCtau, Cmax
+N, arithmetic mean, median, cv%, standard deviation, minimum, 
+maximum, geometric mean and geometric cv%.
+Tmax
+N, median, minimum, maximum.
+t1/2, CL/F, Vz/F
+N, arithmetic mean, median, cv%, standard deviation, minimum, 
+maximum.
+Box and whisker plots for individual participant parameters (AUCinf, AUClast and Cmax) will 
+be presented by treatment and overlaid with geometric means.
+Supporting data from the estimation of t½ and AUCinf will be listed by analyte and treatment:  
+terminal phase rate constant (kel); goodness of fit statistic from the log-linear regression (r2); 
+the percent of AUCinf based on extrapolation (AUCextrap%); and the first, last, and number of 
+time points used in the estimation of kel.  This data may be included in the clinical study 
+report.
+Presentations for PF-07321332, ritonavir and dabigatran concentrations will include:
+
+A listing of all concentrations sorted by participant ID, period and nominal time 
+postdose.  The concentration listing will also include the actual times.  Deviations 
+from the nominal time will be given in a separate listing.
+
+A summary of concentrations by treatment and nominal time postdose, where the set 
+of statistics will include n, mean, median, standard deviation, coefficient of variation 
+(cv), minimum, maximum and the number of concentrations above the lower limit of 
+quantification.
+
+Median concentrations time plots (on both linear and semi-log scales) against 
+nominal time postdose by treatment (all treatments on the same plot per scale, based 
+on the summary of concentrations by treatment and time postdose).
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 15 of 18
+ 
+PFIZER CONFIDENTIAL
+
+Mean concentrations time plots (on both linear and semi-log scales) against nominal 
+time postdose by treatment (all treatments on the same plot per scale, based on the 
+summary of concentrations by treatment and time postdose).
+
+Individual concentration time plots by treatment (on both linear and semi-log scales) 
+against actual time postdose (there will be separate spaghetti plots for each treatment 
+per scale).
+
+Individual concentration time plots by participant (on both linear and semi-log scales) 
+against actual time postdose [there will be separate plots for each participant
+(containing all treatments) per scale].
+For summary statistics, median and mean plots by sampling time, the nominal PK sampling 
+time will be used, for individual participant plots by time, the actual PK sampling time will 
+be used.
+8.3. Safety Analysis
+A set of summary tables split by treatment will be produced to evaluate any potential risk 
+associated with the safety and toleration of administering PF-07321332, ritonavir and 
+dabigatran.
+8.3.1. Treatment and Disposition of Participants
+Participant evaluation groups will show end of study participant disposition and will show 
+which participants were analyzed for pharmacokinetics, as well as for safety (adverse events 
+and laboratory data).  Frequency counts will be supplied for participant discontinuation(s) by 
+treatment.
+Data will be reported in accordance with the sponsor reporting standards.
+8.3.2. Demographic and Clinical Examination Data
+A break down of demographic data will be provided for age, race, weight, body mass index, 
+and height.  Each will be summarized by sex at birth and ‘All Participants’ in accordance 
+with the sponsor reporting standards.
+8.3.3. Discontinuation(s)
+Participant discontinuations, temporary discontinuations or dose reductions due to adverse 
+events will be detailed and summarized by treatment.
+Data will be reported in accordance with the sponsor reporting standards.
+8.3.4. Adverse Events
+Adverse events will be reported in accordance with the sponsor reporting standards by 
+treatment.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 16 of 18
+ 
+PFIZER CONFIDENTIAL
+8.3.5. Laboratory Data
+Laboratory data will be listed and summarized by treatment in accordance with the sponsor 
+reporting standards.  Baseline is as defined in Section 6.2.2.
+8.3.6. Vital Signs Data
+Blood pressure, pulse rate, respiratory rate and temperature will be measured at the time 
+points as mentioned in the schedule of activities in the protocol.
+These data will be listed in accordance with the sponsor reporting standards.
+8.3.7. ECG Data
+ECG data will be listed in accordance with the sponsor reporting standards.
+8.3.8. Other Safety Data
+None.
+8.3.9. Concomitant Treatments
+All concomitant medication(s) as well as non-drug treatment(s) will be provided in the 
+listings.
+8.3.10. COVID-19 Assessment Data
+Participants will be tested for SARS-COV-2 infection per the Schedule of Activities, or if 
+they develop COVID-19 like symptoms. Additional testing may be required by local
+regulations or by the Principal Investigator.
+These data will be listed in accordance with the sponsor reporting standards.
+8.3.11. Screening and Other Special Purpose Data
+Prior medication(s) and non-drug treatment(s), serum FSH concentrations, urine drug screen, 
+serum or urine B-hCG for all females of childbearing potential, urine or blood cotinine
+concentration, TSH &Free T4, HIV, HBsAg, HBsAb, HBcAb, HCVAb will be obtained at 
+Screening.
+If these data are brought in-house, then they will be listed.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 17 of 18
+ 
+PFIZER CONFIDENTIAL
+9. REFERENCES
+Not Applicable.
+Protocol C4671012 (PF-07321332) Statistical Analysis Plan
+Page 18 of 18
+ 
+PFIZER CONFIDENTIAL
+APPENDICES
+Appendix 1. SAS CODE FOR ANALYSES
+An example of the PROC MIXED code is provided below:
+proc mixed data=tab.pk;
+class seq period trt participant;
+model l&var=seq period trt/ ddfm=KR;
+random participant(seq) /participant=participant(seq);
+lsmeans trt;
+estimate 'T2 vs T1' trt -1  1 0 /cl alpha=0.1;
+            estimate 'T3 vs T1' trt -1  0 1 /cl alpha=0.1;
+ods 'Estimates' out=est&var;
+ods 'lsmeans' out=ls&var;
+ods 'covparms' out=cov&var;
+ods 'tests3' out=tst&var;
+run;
+/* Letter assignments for treatments (trt) within the estimate statement above are as follows;
+T1 = Dabigatran (Reference);
+T2 = PF-07321332/ritonavir + dabigatran (Test) 
+T3 = ritonavir + dabigatran (Test) */;

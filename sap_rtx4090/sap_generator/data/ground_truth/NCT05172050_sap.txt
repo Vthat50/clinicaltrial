@@ -1,0 +1,1944 @@
+ 
+Agati Clinical Informatics 
+ 
+Statistical Analysis Plan (Final 1.0) 
+ 
+ 
+Statistical Analysis Plan  
+ 
+Multicenter, adaptive, randomized, placebo-controlled, double blind, 
+parallel-group Phase 2/3 trial, to study efficacy and safety of two 
+doses of raloxifene in adult paucisymptomatic COVID-19 patients. 
+ 
+ 
+ 
+Statistical Analysis Plan: Version (Final 1.0), Date: 07 Jul 2021 
+ 
+ 
+ 
+ 
+Protocol Number: Version No. 3.0 – FINAL, Date: 22 Dec 2020 
+ 
+Name of the Drug: Raloxifene (RLX) 
+ 
+ 
+ 
+ 
+ 
+Sponsor Company: Dompé farmaceutici s.p.a. [Dompé] 
+Via Santa Lucia 6; 20122 Milan, Italy 
+ 
+ 
+ 
+ 
+ 
+Confidentiality Statement 
+Confidentiality Notice: This document contains confidential or legally privileged information that 
+is intended only for the use of Agati Clinical Informatics.  You are hereby notified that any 
+disclosure, copying, or distribution of the contents of this document is strictly prohibited. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Agati Clinical Informatics 
+ 
+Statistical Analysis Plan (Final 1.0) 
+ 
+ 
+TABLE OF CONTENTS 
+ 
+1 
+LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS .................................... 4 
+2 
+INTRODUCTION ........................................................................................................ 5 
+3 
+STUDY OBJECTIVES AND ENDPOINTS ................................................................. 5 
+3.1 
+STUDY OBJECTIVES ................................................................................................ 5 
+3.1.1 PRIMARY OBJECTIVES ........................................................................................... 5 
+3.1.2 SECONDARY OBJECTIVES ..................................................................................... 5 
+3.2 
+STUDY ENDPOINTS ................................................................................................. 5 
+3.2.1 PRIMARY ENDPOINTS ............................................................................................. 5 
+3.2.2 SECONDARY ENDPOINTS ....................................................................................... 5 
+4 
+STUDY DESIGN AND SCHEDULE OF EVENTS ...................................................... 6 
+4.1 
+STUDY DESIGN ........................................................................................................ 6 
+4.1.1 DESCRIPTION OF THE STUDY ................................................................................ 6 
+4.1.2 SAMPLE SIZE ........................................................................................................... 6 
+4.1.3 DESCRIPTION OF TREATMENTS ............................................................................ 7 
+4.1.4 DESCRIPTION OF THE STUDY FLOW ..................................................................... 8 
+4.1.5 SCHEDULE OF ASSESMENTS ................................................................................ 8 
+4.2 
+PLANNED ANALYSES .............................................................................................. 8 
+4.3 
+INTERIM ANALYSIS .................................................................................................. 9 
+4.4 
+OVERALL ANALYSIS ............................................................................................... 9 
+5 
+ANALYSES POPULATION ...................................................................................... 10 
+5.1 
+ALL PATIENTS ENROLLED [ENR] ........................................................................ 10 
+5.2 
+RANDOMIZED POPULATION [RND] ...................................................................... 10 
+5.3 
+FULL ANALYSIS SET [FAS] ................................................................................... 10 
+5.4 
+SAFETY POPULATION [SAF] ................................................................................ 10 
+5.5 
+PER PROTOCOL POPULATION [PP]..................................................................... 10 
+6 
+PROTOCOL DEVIATIONS ...................................................................................... 10 
+7 
+GENERAL CONSIDERATIONS ............................................................................... 11 
+7.1 
+REFERENCE START DATE AND STUDY DAY ...................................................... 11 
+7.2 
+STUDY BASELINE AND POST BASELINE ............................................................ 11 
+7.2.1 BASELINE ............................................................................................................... 11 
+7.2.2 POST-BASELINE .................................................................................................... 11 
+7.2.3 CHANGE FROM BASELINE ................................................................................... 11 
+7.3 
+EARLY WITHDRAWAL FROM THERAPY OR ASSESSMENT AND END OF 
+STUDY ............................................................................................................................... 11 
+7.3.1 EARLY TRIAL DISCONTINUATION VISIT AND UNSCHEDULED VISITS ............. 11 
+7.3.2 PREMATURE DISCONTINUATION ......................................................................... 12 
+7.3.3 END OF STUDY (EOS) ............................................................................................ 12 
+7.4 
+ALL LISTINGS ......................................................................................................... 12 
+7.5 
+SOFTWARE VERSION ............................................................................................ 13 
+8 
+STATISTICAL METHODOLOGY AND CONSIDERATIONS ................................... 13 
+8.1 
+ADJUSTMENTS FOR COVARIATES AND FACTORS TO BE INCLUDED IN 
+ANALYSES ........................................................................................................................ 13 
+8.2 
+MULTICENTRE STUDIES ....................................................................................... 13 
+8.3 
+SENSITIVITY AND SUPPORTIVE ANLYSES ......................................................... 13 
+8.4 
+MULTIPLE COMPARISONS/ MULTIPLICITY ......................................................... 13 
+8.5 
+EXAMINATION OF SUBGROUPS ........................................................................... 13 
+9 
+OUTPUT PRESENTATIONS ................................................................................... 14 
+10 
+PATIENT DISPOSITION, WITHDRAWALS AND PROTOCOL DEVIATIONS ......... 14 
+11 
+DEMOGRAPHIC AND OTHER BASELINE CHARACTERISTICS ........................... 14 
+11.1 
+MEDICAL HISTORY ................................................................................................ 15 
+12 
+PRIOR AND CONCOMITANT MEDICATIONS ........................................................ 15 
+13 
+STUDY MEDICATION EXPOSURE AND COMPLIANCE ........................................ 16 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 3 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+13.1 
+DURATION OF EXPOSURE AND TREATMENT COMPLIANCE ............................ 16 
+14 
+ANALYSES OF EFFICACY VARIABLES ................................................................ 17 
+14.1 
+EFFICACY ANALYSES ........................................................................................... 17 
+14.1.1 PRIMARY EFFICACY ENDPOINTS AND ANALYSES ............................................ 17 
+14.1.2 SECONDARY EFFICACY ENDPOINTS AND ANALYSES ..................................... 19 
+14.1.3 DERIVATION ........................................................................................................... 21 
+15 
+ANALYSIS OF SAFETY VARIABLES ..................................................................... 22 
+15.1 
+ADVERSE EVENTS (AE) ASSESSMENT ............................................................... 22 
+15.1.1 DERIVATION ........................................................................................................... 22 
+15.1.2 ADVERSE EVENT ANALYSIS ................................................................................ 22 
+15.2 
+VITAL SIGNS ........................................................................................................... 24 
+15.3 
+LABORATORY PARAMETERS: BLOOD (HEMATOLOGY & BIOCHEMISTRY), 
+COAGULATION, VIROLOGY AND OTHER MARKER ...................................................... 24 
+16 
+PREGNANCY TEST OVER THE STUDY ................................................................ 26 
+17 
+GENERAL PROGRAMMING SPECIFICATIONS .................................................... 26 
+18 
+CHANGES FROM PROTOCOL ............................................................................... 27 
+19 
+REFERENCES ......................................................................................................... 27 
+20 
+REVISION HISTORY ............................................................................................... 28 
+21 
+APPENDIX 1: PROGRAMMING CONVENTIONS FOR OUTPUTS ......................... 28 
+22 
+APPENDIX 2: PARTIAL DATE CONVENTIONS ..................................................... 29 
+22.1 
+ALGORITHM FOR ADVERSE EVENTS .................................................................. 29 
+22.1.1 ADVERSE EVENT END DATE IMPUTATION ......................................................... 29 
+22.1.2 ADVERSE EVENT START DATE IMPUTATION ..................................................... 29 
+22.2 
+ALGORITHM FOR CONCOMITANT MEDICATIONS: ............................................. 30 
+22.2.1 CONCOMITANT TREATMENT END DATE IMPUTATION ...................................... 30 
+22.2.2 CONCOMITANT TREATMENT START DATE IMPUTATION ................................. 30 
+23 
+APPENDIX 3:NEWS SCORE ................................................................................... 32 
+24 
+SIGNATURE PAGE ................................................................................................. 33 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 4 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+1 
+LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS 
+Abbreviation 
+Definition 
+ADR
+Adverse Drug Reaction
+AE
+Adverse Event
+AESI 
+Adverse Event of Special Interest
+ATC 
+Anatomic Therapeutic Chemical
+BMI
+Body Mass Index
+BP
+Blood Pressure
+BT
+Body Temperature
+CI
+Confidence Interval
+CP 
+Conditional Power
+CRF
+Case Report Form
+CTCAE
+Common Terminology Criteria for Adverse Events
+DB
+Data Base
+ENR
+Enrolled Analysis Set
+EOS
+End of Study
+ETDV
+Early Trial Discontinuation Visit
+FAS
+Full Analysis Set
+FDA
+Food and Drug Administration
+GCP
+Good Clinical Practice
+ICH
+International Conference on Harmonisation
+IP/IMP
+Investigational Product/ Investigational Medicinal Product
+MedDRA
+Medical Dictionary for Regulatory Activities
+NA
+Not Applicable
+NEWS 
+National Early Warning Score
+PCR
+Polymerase Chain Reaction
+PD
+Protocol Deviation
+PI
+Principal Investigator
+PP
+Per Protocol
+PR
+Pulse Rate 
+PT
+Preferred Term 
+QC
+Quality Control
+RTF
+Rich Text Format
+SAE
+Serious Adverse Event
+SAF
+Safety Analysis Set
+SAP
+Statistical Analysis Plan 
+SD
+Standard Deviation
+SOC
+System Organ Class 
+SpO2
+Oxygen Saturation
+TEAE
+Treatment Emergent Adverse Event 
+TESAE
+Treatment Emergent Serious Adverse Event 
+TLF
+Tables Listings Figures
+WHODD
+World Health Organization Drug Dictionary
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 5 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+2 
+INTRODUCTION 
+This document describes the rules and conventions to be used in the presentation 
+and analysis of efficacy and safety data for Protocol RLX0120. It describes the 
+data to be derived, summarized and the statistical analyses to be performed.  
+This Statistical Analysis Plan (SAP) is based on study protocol version 3.0, dated 
+22 Dec 2020.  
+3 
+STUDY OBJECTIVES AND ENDPOINTS 
+3.1 STUDY OBJECTIVES 
+The objective of this study is to evaluate the efficacy and safety of two different 
+doses of raloxifene orally administered compared to placebo in patients with early 
+diagnosis of paucisymptomatic COVID-19 
+3.1.1 PRIMARY OBJECTIVES 
+- 
+Evaluation of the effectiveness of therapy in reducing the proportion of patients 
+who still have viruses in the upper airways after 7 days of therapy. 
+- 
+Evaluation of the effectiveness of therapy in reducing the proportion of patients 
+who requires supplemental oxygen therapy and/or mechanical ventilation 
+within 14 days of starting therapy. 
+3.1.2 SECONDARY OBJECTIVES 
+- 
+Evaluation of the effectiveness of therapy in reducing the proportion of patients 
+who still have viruses in the upper airways after 14 and 28 days of therapy. 
+- 
+Evaluation of the effectiveness of therapy in reducing the proportion of patients 
+who requires supplemental oxygen therapy and/or mechanical ventilation 
+within 7 or 28 days of starting therapy. 
+- 
+7, 14 and 28 days drug safety and tolerability profile. 
+- 
+Assessment of body temperature, blood and biochemical parameters between 
+T0 and T28. 
+3.2 STUDY ENDPOINTS 
+3.2.1 PRIMARY ENDPOINTS 
+- 
+Virologic outcome - Proportion of patients with undetectable SARS-CoV-2 at 
+PCR at day 7 after randomization. 
+- 
+Clinical outcome - Proportion of patients who does not require supplemental 
+oxygen therapy (NEWS ≤2) and/or mechanical ventilation at day 14 after 
+randomization. 
+3.2.2 SECONDARY ENDPOINTS 
+- 
+Proportion of patients with undetectable SARS-CoV-2 at PCR at day 14 after 
+randomization at day 28 after randomization. 
+- 
+Proportion of patients who does not require supplemental oxygen therapy 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 6 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+(NEWS ≤2) and/or mechanical ventilation at day 7 and 28 after randomization. 
+- 
+Proportion of patients in each NEWS category at time 7, 14 and 28 after 
+randomization. 
+- 
+Mean value of NEWS category at time 7,14 and 28 after randomization. 
+- 
+Proportion of patients with any adverse event with grade ≤ 2 according to 
+CTCAE at day 7, 14 and 28 after randomization. 
+- 
+Proportion of patients with any severe adverse events (grade ≥ 3 according to 
+CTCAE) at day 7, 14 and 28 after randomization. 
+- 
+Proportion of hospitalized patients who at the beginning of the study were at 
+domicile isolation at day 7, 14 and 28 after randomization. 
+- 
+Proportion of patients admitted to intensive care at day 7, 14 and 28 after 
+randomization. 
+- 
+Proportion of survivors at day 7, 14 and 28 after randomization. 
+- 
+Mean variation of value of the following biomarker parameters, from baseline 
+to day 7, 14, 21 and 28 after randomization: 
+ Complete blood cell counts. 
+ Hepatic function (ALT, AST and bilirubin). 
+ Coagulation (PT, aPTT and INR). 
+ Other marker including (D-dimer, CPK, LDH). 
+- 
+Quality of life questionnaire 3 months after the randomization. 
+4 
+STUDY DESIGN AND SCHEDULE OF EVENTS 
+4.1 STUDY DESIGN 
+4.1.1 DESCRIPTION OF THE STUDY 
+This is a Multicenter, adaptive, double blind, randomized, placebo controlled, 
+parallel group, to study efficacy and safety, with the following adaptive 
+components: 
+ Parallel multi-arms (2 interventional arms and 1 placebo control arm). 
+ A 2-stage sequential design (1 interim analysis + 1 final analysis). 
+ Sample size re-calculation at interim stage. 
+ Stopping rule for efficacy or futility at interim stage. 
+4.1.2 SAMPLE SIZE 
+The sample size of the study has been based on the following assumptions: 
+- 
+Virologic assumption: Early treatment with antivirals increases the proportion 
+of patients with undetectable SARS-CoV-2 in upper respiratory tract at day 7 
+after therapy from 25% to 50%. 
+- 
+Clinical assumption: Early treatment with antivirals increases the proportion of 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 7 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+patients who recover without need of mechanical ventilation and/or 
+supplemental oxygen therapy by the day 14 after therapy from 50% to 75%. 
+Based on these assumptions and considering a randomization ratio 1:1:1, the 
+sample size will be adaptively determined to achieve a power greater than 80% to 
+show superiority of raloxifene vs placebo in terms of either one of primary endpoint 
+and controlling the one-sided alpha below 0.025. 
+Sample size will be determined through the following steps:  
+ an interim analysis will take place when 50 patients per arm (N=150) have 
+reached their primary endpoints (i.e. assessments available). 
+o In case of efficacy of at least one treatment arm or futility of both 
+arms (see criteria in protocol section 9.3) the study enrollment will 
+be stopped, 
+o otherwise the actual number of new patients in each arm may be 
+blindly reassessed according to observed efficacy of the best 
+favourable and promising arm;  
+ in case of continuation of the study to the final stage, it is expected to 
+randomize on average additional 174 patients, depending on sample size 
+reassessment and possible dropping of an ineffective treatment arm. 
+Expected sample size will be between 250 and 450 randomized patients;  
+ drop-outs of randomized subjects will not be replaced.  
+This approach allows either to minimize the number of enrolled patients if the 
+experimental assumptions are too conservative or to have a good power level if 
+they are too optimistic.  
+Pocock’s spending functions and conditional power (CP) will be used to control 
+the type I and II errors, considering that interim analysis will be performed when 
+half of the initial planned patients have been reached the primary endpoints (i.e. 
+assessments available).  
+Bonferroni method is used to adjust for multiple endpoint vs treatment 
+comparisons. Sample size calculation has been performed through simulation 
+(100000 replications). The statistical software used for simulation was SAS®, 
+Version 9.4. 
+4.1.3 DESCRIPTION OF TREATMENTS 
+After an administration of two oral doses in the first day of treatment (one dose in 
+the morning and one dose in the evening, each dose administered with 2 capsules 
+containing 60 mg of the active substance or placebo), a single daily oral dose of 
+raloxifene (60 mg Group 1, 120 mg Group 2 – treatment groups) or placebo (Group 
+3 - control group) will be taken on by the patients for two weeks.  
+The patients will be randomly (1:1:1) assigned to receive either raloxifene 
+treatment or placebo: 
+ Treatment groups: 
+o Group 1: will receive one capsule of raloxifene 60 mg and one 
+capsule of placebo. 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 8 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+o Group 2: will receive two capsules of raloxifene 60 mg. 
+ Control group: 
+o Group 3: will receive two capsules of placebo. 
+4.1.4 DESCRIPTION OF THE STUDY FLOW 
+This study will be performed in clinical centers located in Europe. At each study 
+center, the Principal Investigator (PI) will be responsible for ensuring that the 
+investigation is conducted according to the signed Investigator agreement, the 
+protocol, GCP guidelines, and local regulations.  
+Screening investigations on patient will be done only after signing of informed 
+consent.  
+At the end of the screening period, patients meeting the entry criteria for this study 
+will be randomized (1:1:1) to 1 of 3 treatment groups (group 1, group 2 or group 
+3) and instructed by a physician on the correct self-administration of the treatment 
+and completion of the patient diaries. 
+The study will be a total of 5 weeks in duration: 
+Screening Period
+10 days
+Treatment Period
+2 weeks (14 days)
+Follow-up Period
+2 weeks (14 days)
+ 
+A quality of life questionnaire will be submitted at 3 months after the 
+randomization.  
+4.1.5 SCHEDULE OF ASSESMENTS 
+Assessment of efficacy and safety will be done periodically during the study as 
+given in the schedule of assessment table in protocol section 2. 
+4.2 PLANNED ANALYSES 
+Statistical analysis and reporting will be performed by Agati Clinical Informatics, 
+India for this study. 
+SAS source (raw) data will be transferred as SAS dataset (.sas7bdat), together 
+with laboratory reference range, and any support datasets. Transfer will occur via 
+secured EXOM Group Share Point Portal with limited and restricted access.  
+The statistical analysis will be based on validated analysis datasets prepared by 
+Agati Clinical Informatics, India. 
+Production SAS programmers will create derived datasets from the Source (Raw) 
+datasets as per the mapping instructions given in the analysis mapping 
+specifications. Simultaneously, the Validation (QC) SAS programmer will create 
+the same derived datasets independently and will do a comparison with production 
+datasets to validate them.  
+Validated draft derived datasets will be sent to the Study Lead Biostatistician for 
+review and approval. When the final source data transfer is made available (after 
+database lock), the production and validation programs will be re-run to create the 
+final derived datasets deliverable to be used for the final statistical analysis. 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 9 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+The statistical SAS output generated after running SAS programs will be copied 
+in a Word file and paginated as specified in the Section 18 of this SAP. 
+Tables, Listings and Figures will be presented according to TFL Shells document 
+created and finalized based on approved version of the SAP. 
+4.3 INTERIM ANALYSIS 
+An interim analysis was planned for this study when half (i.e 50 participants per 
+arm (N=150)) of the planned evaluable patients would have reached the primary 
+endpoints at 7 and 14 days (i.e., assessments available). 
+The intent of the interim analysis was either for identification of early superiority of 
+raloxifene (early efficacy), or for an early stop of one or both treatment arms for 
+futility, or for blind sample size reassessment. 
+Due to the premature interruption of the enrolment (with 68 patients included in 
+the study), no interim analysis will be done.  
+4.4 OVERALL ANALYSIS 
+Final analyses identified in this SAP will be performed by Agati Clinical Informatics 
+following Sponsor Authorization of this Statistical Analysis Plan, Database Lock, 
+Sponsor Authorization of Analysis Population and Unblinding of Study Treatment. 
+For primary and secondary efficacy endpoints, p-value, lower and upper 95% 
+Confidence Limits (CL) will be also presented based on the statistical analysis 
+performed. 
+The default summary statistics for quantitative variables will be the number of 
+observations (n), mean, standard deviation (SD), median, minimum (min) and 
+maximum (max).  
+For qualitative variables, the number (n) and percentage (%) of patients with non-
+missing data per variable of interest will be the default summary presentation, if 
+appropriate and wherever required the number of missing values will be presented 
+as a “Missing” category. If appropriate, 95% confidence intervals around the 
+percentage will be presented. 
+Time-to-event endpoints will be assessed by the Kaplan-Meier (K-M) method. 
+Time to event curves will be compared (i.e comparisons of each active treatment 
+group versus placebo) using log-rank test and estimates of hazard ratio will be 
+obtained using Cox proportional hazards model after performing diagnostics of 
+proportional hazard assumption (investigated with a time dependent exploratory 
+variable treatment*{log[time to event ]}; if the p-value from the Wald Chi-squared 
+statistic for this variable is less than 5% there is evidence of a departure from the 
+adjusted model assumptions.). K-M estimates of median survival time associated 
+with each treatment group will be provided along with 25th and 75th percentiles 
+and their 2-sided 95% CIs (based on Greenwood’s method). K-M estimates will 
+be presented at Day 7, 14 and 28 for each treatment group. K-M curves will be 
+plotted comparing treatment groups with the number of patient-at-risk in each 
+treatment group at exact time points. Patients who are ongoing and who are free 
+from event at the time of DB lock will be censored at the DB lock date. Patients 
+who have discontinued without an event will be censored at the date of 
+discontinuation. Patients who are died will be considered as censored with death 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 10 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+date as date of censored. 
+5 
+ANALYSES POPULATION 
+Agreement and authorization of patients included/excluded from each analysis 
+Population will be performed on a case-by-case basis before the database 
+lock/un-blinding.  
+5.1 ALL PATIENTS ENROLLED [ENR] 
+The Enrolled (ENR) population will contain all patients who provided informed 
+consent for this study. 
+The Enrolled (ENR) population will be used for the Patient disposition Table and 
+Listings. And it will be analysed according to the randomized treatment, if 
+applicable.  
+5.2 RANDOMIZED POPULATION [RND] 
+The Randomized (RND) population will contain all patients in the ENR Population 
+who were randomized to the study, regardless of whether they received study 
+medication or not. Patients will be analysed according to the treatment they were 
+randomized. 
+5.3 FULL ANALYSIS SET [FAS] 
+The Full Analysis Set (FAS) population will consist of all randomized patients who 
+received at least one dose of the study medication (either Raloxifene or Placebo).  
+The Full Analysis Set (FAS) population will be used for Primary and secondary 
+efficacy analyses, all the demographics and baseline characteristics Tables and 
+Figures. Patients will be analysed according to the treatment they were 
+randomized. 
+5.4 SAFETY POPULATION [SAF] 
+The Safety (SAF) population will consist of all randomized patients who received 
+at least one dose of the study medication.  
+The Safety (SAF) population will be used to present results on safety data. Safety 
+data will be analysed according to the treatment which patients have received. 
+5.5 PER PROTOCOL POPULATION [PP] 
+The Per Protocol (PP) population will consist of all randomized patients who 
+received at least one dose of the study medication and do not have any Major 
+Protocol Deviations.  
+The Per Protocol (PP) population will be used for sensitivity analyses of the 
+efficacy endpoints. Patients will be analysed according to the treatment they were 
+randomized. 
+6 
+PROTOCOL DEVIATIONS 
+All the protocol deviations will be discussed on a case by case basis by the clinical 
+team prior to database lock. Any significant deviation from the protocol will be 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 11 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+reviewed and a decision taken regarding evaluation for each analysis population. 
+7 
+GENERAL CONSIDERATIONS 
+7.1 REFERENCE START DATE AND STUDY DAY 
+In general, reference start date is defined as the day of the first dose of study 
+medication (Study Day 1: first day) and will appear in every listing where an 
+assessment date or event date appears.  
+Study Day will be calculated from the reference start date and will be used to show 
+start / stop day of assessments and events. 
+If the date of the assessment/event is on or after the reference start date, then:  
+Study Day = (date of assessment/event – reference start date) + 1 
+If the date of the assessment/event is prior to the reference start date, then:  
+Study Day = (date of assessment/event – reference start date) 
+In the situation where the assessment/event date is partial or missing, the date 
+will appear partial or missing in the listings, and Study Day and any corresponding 
+duration will be presented based on the imputations specified in Appendix 2 
+(Partial Date Conventions). 
+7.2 STUDY BASELINE AND POST BASELINE 
+7.2.1 BASELINE 
+Unless otherwise specified, study baseline is defined as the last non-missing 
+measurement taken prior to first IMP administration. 
+7.2.2 POST-BASELINE 
+Post-Baseline is defined as the measurement taken after the first IMP 
+administration.  
+7.2.3 CHANGE FROM BASELINE 
+For some quantitative measurements, change from baseline will be calculated as: 
+      Change from baseline = Value at Post-Baseline Visit – Baseline Value 
+7.3 EARLY WITHDRAWAL FROM THERAPY OR ASSESSMENT AND 
+END OF STUDY 
+7.3.1 EARLY TRIAL DISCONTINUATION VISIT AND UNSCHEDULED 
+VISITS 
+In general, for by-visit summaries, data recorded at the nominal visit will be 
+presented. 
+Unscheduled measurements will not be included in by-visit summaries. Listings 
+will include scheduled, unscheduled, and early trial discontinuation visit (ETDV). 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 12 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+7.3.2 PREMATURE DISCONTINUATION 
+A premature discontinuation will occur when a patient who signed the ICF ceases 
+participation in the study, regardless of circumstances, before the completion of 
+the study protocol procedures. Patients can be prematurely discontinued from the 
+study for one of the following reasons: 
+Primary Reason for treatment discontinuation: 
+ Failure to meet inclusion/exclusion criteria or severe protocol violations 
+ Negative Nasopharyngeal swab 
+ Withdrawal of consent 
+ Lost to follow-up 
+ Study terminated by the Sponsor 
+ Documented disease progression 
+ Development of AE or unacceptable toxicity, precluding further therapy with 
+the study drug 
+ Pregnancy 
+ Hypoalbuminemia at a level considered clinically relevant by the 
+investigator 
+ Other reasons 
+Primary Reason for study discontinuation: 
+ Failure to meet inclusion/exclusion criteria or severe protocol violations 
+ Withdrawal of consent 
+ Lost to follow-up (Every effort must be made to contact the patient; a 
+registered letter must be sent) 
+ Study terminated by the Sponsor 
+ Development of AE or unacceptable toxicity, precluding further therapy with 
+the study drug 
+ Pregnancy 
+ Other reasons 
+In case of discontinuation, patients will undergo a remote Early Trial 
+Discontinuation Visit aimed to assess physical abnormalities, vital signs and 
+transdermal oxygen saturation measurement. 
+7.3.3 END OF STUDY (EOS) 
+The EOS is defined as the last day the last patient completes the last study 
+assessment, or retracts the consent to participate in the study, or withdraws from 
+the study, or is deceased or otherwise lost to follow-up. 
+7.4 ALL LISTINGS 
+All data will be listed by the patient. 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 13 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+7.5 SOFTWARE VERSION 
+All statistical analyses will be conducted using the SAS® System version 9.1.3 or 
+higher. 
+8 
+STATISTICAL METHODOLOGY AND CONSIDERATIONS 
+8.1 ADJUSTMENTS FOR COVARIATES AND FACTORS TO BE 
+INCLUDED IN ANALYSES 
+In the analysis of primary endpoints and secondary endpoints, the following 
+factors/covariates will be considered in the Binary Logistic regression and 
+Repeated Measures Logistic regression model as described in the SAP section 
+14.1 
+ Treatment group; 
+ Center; 
+ Age group; 
+ Status (Male, Female pre-menopausal status, Female post-menopausal 
+status); 
+ For Clinical outcome: Baseline NEWS value. 
+8.2 MULTICENTRE STUDIES 
+This study will be conducted by multiple investigators at multiple centres and 
+randomization will be stratified by site and gender. Both stratification factors will 
+be included in the primary efficacy analysis model. 
+8.3 SENSITIVITY AND SUPPORTIVE ANALYSES 
+The virologic and clinical primary efficacy endpoints will be analysed using the 
+same Binary Logistic regression procedure given in SAP section 14.1.1 on PP 
+Population using observed data only; these analyses will be performed to explore 
+the robustness of the primary results versus protocol adherence.  
+8.4 MULTIPLE COMPARISONS/ MULTIPLICITY 
+Bonferroni method is used to adjust for multiple endpoints and treatment 
+comparisons. 
+8.5 EXAMINATION OF SUBGROUPS 
+Statistical tests for interaction (between subgroup and treatment arm) will be 
+performed to decide about the need to further investigate subgroups of the trial 
+population based on the following variables:  
+ age group (< median vs ≥ median, where median is calculated based on 
+ENR population) 
+ gender (Male vs Female) 
+ Status (Male, Female pre-menopausal status, Female post-menopausal 
+status); 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 14 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+Subgroup analysis will be performed if interaction effects are statistically 
+significant at 0.15 level of significance.  
+Subgroup analysis will be performed for the primary efficacy endpoints. 
+Descriptive and appropriate inferential statistical tests will be used. All subgroups 
+will be analysed using FAS population. 
+9 
+OUTPUT PRESENTATIONS 
+SAP Section 17 and Appendix 1 includes conventions for presentation of data in 
+outputs.  
+The templates provided with this SAP describe the presentations shell for this 
+study and therefore the format and content of the summary tables, figures and 
+listings to be provided. 
+The reference analysis population of each table and line listing will be reported in 
+the corresponding table, listing and figures. 
+10 PATIENT DISPOSITION, WITHDRAWALS AND PROTOCOL 
+DEVIATIONS 
+A detailed description of the patient disposition will be provided. The number of 
+patients screened, screen failures, randomized, randomized but not dosed, 
+completed, as well as the number of dropouts, with reasons for treatment 
+discontinuation, study discontinuation and major protocol deviations. The 
+summary of analysis populations, a summary of reasons for exclusion from 
+analysis populations will be presented. 
+Patient disposition details will be presented in listing. 
+Furthermore, Summary of Protocol Deviations table and an individual data listing 
+of protocol deviations will be produced.  
+The Enrolled (ENR) population will be considered for this analysis. And data will 
+be summarized by randomized treatment group. 
+11 DEMOGRAPHIC AND OTHER BASELINE CHARACTERISTICS 
+Summary of demographic data and other baseline characteristics will be tabulated 
+for the Full analysis set (FAS) population and will be summarized by randomized 
+treatment group. 
+No statistical testing will be carried out for demographic or other baseline 
+characteristics. 
+The following demographic and baseline characteristics will be reported by 
+treatment for this study: 
+ Demographic variables: 
+o Age (years) 
+o Sex (Male, Female) 
+o Race (White, Black or African American, Asian, American Indian or 
+Alaska native, Native Hawaiian or other pacific islander, NA, Other) 
+o Height (cm) 
+o Weight (Kg) 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 15 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+o BMI 
+o Smoking habits  
+o Status (Male, Female pre-menopausal status and Female post-
+menopausal status) 
+ Female Patient childbearing potential (Yes/No) 
+Default frequency tabulations will be provided for categorical variables and 
+descriptive statistics will be provided for quantitative parameters. 
+11.1 MEDICAL HISTORY 
+Medical history information will be tabulated for both FAS and SAF analysis 
+populations and will be summarized accordingly (see SAP section 5).  
+All verbatim terms will be assigned to a Preferred Term (PT) and will be classified 
+by primary System Organ Class (SOC) according to MedDRA dictionary 
+September 2020, version 23.1 
+Medical conditions which are not ongoing at Screening visit will be considered as 
+previous diseases while those reported as “ongoing” in CRF will be considered as 
+concomitant diseases. 
+Medical History of special interest as per collected in CRF will be listed for ENR 
+population. 
+12 PRIOR AND CONCOMITANT MEDICATIONS 
+All medications taken by the patients during the Screening will be recorded by the 
+Investigator in the CRF. 
+Prior and concomitant medications will be tabulated for both the FAS and SAF 
+analysis populations and will be summarized accordingly. Prior and concomitant 
+medications will be coded using WHODD Global September2020 version. 
+See Appendix 2 for handling of partial dates for medications, in the case where it 
+is not possible to define a medication as prior or concomitant, the medication will 
+be classified by the worst case, i.e., concomitant.  
+Prior medications are those which stopped prior to the date of first study 
+medication administration. 
+Concomitant medications are those which 
+ started prior to, on or after the date of first study medication administration 
+and started no later than end date of the study, and 
+ ended on or after the date of first study medication administration or were 
+ongoing at the end of the study. 
+The following tables will be presented: 
+ A frequency tables of prior medications by primary therapeutic subgroup 
+(ATC level subgroup) and generic name. 
+ A frequency tables of concomitant medications by primary therapeutic 
+subgroup (ATC level subgroup) and generic name. 
+Listing of prior/concomitant medication will be provided.  
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 16 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+13 STUDY MEDICATION EXPOSURE AND COMPLIANCE 
+13.1 DURATION OF EXPOSURE AND TREATMENT COMPLIANCE 
+Data will be summarized by actual treatment groups for Safety (SAF) population 
+with descriptive statistics. 
+Total duration of study medication exposure considered in days and will be 
+summarized using descriptive statistics. 
+Study medication taken (# of capsules) will be summarized using descriptive 
+statistics. 
+Descriptive statistics will be presented separately by treatment group for the 
+overall compliance to study medication. The overall compliance categories 
+ <= 80%, 
+ >80 – <= 100%, and 
+ >100% 
+will be summarized using frequency and percent by treatment. 
+Additionally, the individual table will be provided for  
+ study medication taken (capsules)and overall compliance on Day 1 i.e., two 
+oral doses in the first day of treatment.  
+ study medication taken (capsules) and overall compliance after Day 1  i.e., a 
+single daily oral dose of patients for two weeks. 
+All the patient’s data will be listed. 
+The following derivation rules will be applied: 
+Total duration of exposure (days) = (Treatment end date – Treatment start date) 
++ 1. 
+ Overall Compliance (%)= (number of capsules taken / expected number of 
+capsules to be taken during the study (i.e.,30)) *100 
+ Overall Compliance on Day 1 (%) = (number of capsules taken in first day / 
+expected number of capsules taken in first day intake (i.e., 4)) *100  
+ Overall Compliance after Day 1 (%) = (number of capsules taken after the 
+first day / expected number of capsules to be taken after the first day (i.e., 
+26) *100 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 17 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+14 ANALYSES OF EFFICACY VARIABLES 
+14.1 EFFICACY ANALYSES 
+ 
+NEWS score evaluation will be performed at T0, T7, T14 and T28. NEWS score and 
+NEWS score parameters as per collected in CRF will be provided in Listing for FAS 
+population. Refer Appendix 3 for NEWS score. 
+ 
+Table 3: Summary of Analyses Strategies for efficacy endpoints: 
+Endpoint 
+Analysis 
+set 
+Statistical 
+method 
+Factors/Co
+variates 
+Missing 
+data 
+Handling
+Analyses 
+type 
+Virologic outcome -
+Proportion of patients with 
+undetectable SARS-CoV-2 
+at PCR at day 7 after 
+randomization.
+FAS 
+Binary 
+Logistic 
+regression 
+Treatment, 
+center, age 
+and status 
+Missing 
+data will 
+not be 
+imputed 
+Primary 
+analysis 
+Virologic outcome -
+Proportion of patients with 
+undetectable SARS-CoV-2 
+at PCR at day 7 after 
+randomization.
+PP 
+Binary 
+Logistic 
+regression 
+Treatment, 
+center, age 
+and status 
+Missing 
+data will 
+not be 
+imputed 
+Sensitivity 
+analysis 
+Clinical outcome -
+Proportion of patients who 
+does not require 
+supplemental oxygen 
+therapy (NEWS ≤2) and/or 
+mechanical ventilation at day 
+14 after randomization.
+FAS 
+Binary 
+Logistic 
+regression 
+Treatment, 
+center, 
+age, status 
+and 
+baseline 
+NEWS 
+Missing 
+data will 
+not be 
+imputed 
+Primary 
+analysis 
+Clinical outcome -
+Proportion of patients who 
+does not require 
+supplemental oxygen 
+therapy (NEWS ≤2) and/or 
+mechanical ventilation at day 
+14 after randomization. 
+PP 
+Binary 
+Logistic 
+regression 
+Treatment, 
+center, 
+age, status 
+and 
+baseline 
+NEWS 
+Missing 
+data will 
+not be 
+imputed 
+Sensitivity 
+analysis 
+14.1.1 
+PRIMARY EFFICACY ENDPOINTS AND ANALYSES 
+1. Proportion of patients with undetectable SARS-CoV-2 at PCR at day 7 after 
+randomization (virologic endpoint). This endpoint will be derived as below. 
+ Based on Approved molecular test (PCR) result at day 7, the responses 
+will be considered as “detectable” if PCR result is “Positive” otherwise 
+“undetectable” if PCR result is “Negative” (Missing PCR result will be 
+considered as missing in the main analysis). 
+The response (detectable / undetectable) at day 7 will be analysed using Binary 
+logistic regression model with treatment group and pre-defined baseline factors 
+(center, age, status and their interaction effects with treatment group). Odds ratio 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 18 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+will be computed for comparisons of each active treatment group versus placebo. 
+i.e., raloxifene (60 mg) versus placebo and raloxifene (120 mg) versus placebo. 
+2. The proportion of patients who does not require supplemental oxygen therapy 
+(NEWS ≤2) and mechanical ventilation at day 14 after randomization (clinical 
+endpoint). This endpoint will be derived as below. 
+ 
+ If collected NEWS score >2 or mechanical ventilation at day 14 result 
+“Yes” then the response will be considered as “Required”. If collected 
+NEWS score ≤ 2 and mechanical ventilation with result “No” then the 
+response will be considered as “Not Required” (if both NEWS score and 
+mechanical ventilation are missing, patient will be considered as 
+missing). 
+The response (Required/ Not required) at day 14 will be analysed using Binary 
+logistic regression model with treatment group and pre-defined baseline factors 
+(center, age, status, baseline NEWS and their interaction effects with treatment 
+group). Odds ratio will be computed for comparisons of each active treatment 
+group versus placebo. i.e., raloxifene (60 mg) versus placebo; and raloxifene (120 
+mg) versus placebo. 
+For both virologic and clinical endpoint, Binary Logistic regression will be 
+performed using PROC GENMOD in SAS® on the observed data only to estimate 
+difference in proportions between each active treatment versus placebo and its 
+corresponding 95% (2-sided) confidence intervals. Exponential transformation will 
+be used to obtain the odds ratio and corresponding 95% confidence interval. P-
+values will be reported based on the Wald tests from Type III analyses. Bonferroni 
+method will be considered to handle multiple treatment comparisons. 
+In the SAS® procedure PROC GENMOD, a Type III analysis will be performed by 
+adding the model options: TYPE3, DIST=BIN and LINK=LOGIT.  
+If the model does not converge then the following steps will be performed 
+subsequently: 
+ PROC GENMOD with EXACT statement will be used.  
+ If the model still does not converge, then remove the factors/covariates 
+from the model one by one (according to statistical significance) until 
+convergence reached. 
+ If the model still does not converge, then perform the Fisher’s exact using 
+the SAS procedure PROC FREQ without adjusting for any pre-defined 
+factor and covariates. 
+The following hypotheses will be tested: 
+- 
+The null hypothesis for the virologic endpoint is that proportion of treated 
+patients with undetectable SARS-CoV-2 at PCR at day 7 after randomization 
+(πRALOXIFENE) is lower or equal the placebo one (πPLACEBO). Two sets of null and 
+alternative hypotheses are provided, one for each treatment dosage: 
+H01-60mg: πRALOXIFENE-60mg ≤ πPLACEBO 
+H11-60mg: πRALOXIFENE-60mg> πPLACEBO 
+H01-120mg: πRALOXIFENE-120mg ≤ πPLACEBO
+H11-120mg: πRALOXIFENE-120mg> πPLACEBO 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 19 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+- 
+The null hypothesis for the clinical endpoint is that proportion of treated patients 
+who does not require supplemental oxygen therapy (NEWS ≤2) and/or 
+mechanical ventilation at day 14 after randomization (TRALOXIFENE) is lower or 
+equal the placebo one (TPLACEBO). Two sets of null and alternative hypotheses 
+are provided, one for each treatment dosage: 
+H02-60mg: TRALOXIFENE-60mg ≤ TPLACEBO 
+H12-60mg: TRALOXIFENE-60mg> TPLACEBO 
+H02-120mg: TRALOXIFENE-120mg ≤ TPLACEBO 
+H12-120mg: TRALOXIFENE-120mg> TPLACEBO 
+Superiority of raloxifene will be established if at least one null hypothesis is 
+rejected. 
+The frequency and percent will be presented by treatment and visit for both 
+primary endpoints results. 
+The following figures will be produced for both primary endpoints results: 
+ Bar chart for Proportion of Patients with undetectable SARS-CoV-2 at PCR 
+by treatment and visit 
+ Bar chart for Proportion of Patients who does not require supplemental 
+oxygen therapy (NEWS ≤2) and/or mechanical ventilation by treatment and 
+visit 
+The following listings will be presented: 
+ Listing for the Nasopharyngeal Swab Test (PCR) results 
+ Listing for the supplemental oxygen therapy (NEWS ≤2) and/or mechanical 
+ventilation 
+Refer the Appendix 3 for NEWS score. 
+14.1.2 
+SECONDARY EFFICACY ENDPOINTS AND ANALYSES 
+1. Proportion of patients with undetectable SARS-CoV-2 at PCR at day 14 after 
+randomization at day 28 after randomization. Analyses will be performed on 
+FAS population. This endpoint will be derived as below 
+ Based on Approved molecular test (PCR) result, the responses will be 
+considered as “detectable” if PCR result is “Positive” otherwise 
+“undetectable” if PCR result is “Negative” (Missing PCR result will be 
+considered as missing). 
+The response (detectable / undetectable) at day 14 and day 28 will be analysed 
+using repeated measures logistic regression model with treatment group, visit and 
+pre-defined baseline factors (center, age and status). Odds ratio will be computed 
+for comparisons of each active treatment group versus placebo at each 
+assessment day i.e., raloxifene (60 mg) versus placebo; and raloxifene (120 mg) 
+versus placebo. Analyses will be performed on FAS population using observed 
+data only. 
+2. Proportion of patients who does not require supplemental oxygen therapy 
+(NEWS ≤2) and mechanical ventilation at day 7 and 28 after randomization. 
+This endpoint will be derived as below 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 20 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+ If collected NEWS score > 2 or mechanical ventilation with result “Yes” 
+then the response will be considered as “Required”. If collected NEWS 
+score ≤ 2 and mechanical ventilation with result “No” then the response 
+will be considered as “Not Required” (if both NEWS score and 
+mechanical ventilation are missing, patient will be considered as 
+missing). 
+ 
+The response (Required / Not Required) at day 7 and day 28 will be analysed 
+using repeated measures logistic regression model with treatment group, visit 
+and pre-defined baseline factors (center, age, status and baseline NEWS). 
+Odds ratio will be computed for comparisons of each active treatment group 
+versus placebo at each assessment day. i.e., raloxifene (60 mg) versus 
+placebo; and raloxifene (120 mg) versus placebo. Analyses will be performed 
+on FAS population using observed data only. 
+For the above two secondary endpoints, Repeated Measures Logistic regression 
+will be performed using PROC GENMOD in SAS® on the observed data only to 
+estimate difference in proportions between each active treatment versus placebo 
+and its corresponding 95% (2-sided) confidence intervals. Exponential 
+transformation will be used to obtain the odds ratio and corresponding 95% 
+confidence interval. P-values will be reported based on the Wald tests from Type 
+III analyses.  
+In the SAS® procedure PROC GENMOD, a Type III analysis will be performed by 
+adding the model options: TYPE3, DIST=BIN and LINK=LOGIT. REPEATED 
+statement will be used to consider visit and TYPE=UN option used for correlation-
+matrix. If the model does not converge then appropriate TYPE would be applied 
+for correlation-matrix. 
+The following time-to-event endpoints will be analysed according to SAP section 
+4.4 methods. 
+i. 
+Time to reach undetectable SARS-CoV-2 at PCR 
+ii. 
+Time to get relieved from supplemental oxygen therapy (NEWS ≤ 2) 
+and/or mechanical ventilation 
+iii. 
+Overall survival 
+Analyses will be performed on FAS population. 
+3. Proportion of patients in each NEWS category at Day 7, 14 and 28 after 
+randomization will be summarized by frequency and percent by treatment and 
+visit for FAS population. 
+ 
+4. NEWS score at Day 7, 14 and 28 after randomization will also be summarized 
+using descriptive statistics by treatment and visit for FAS population. 
+ 
+5. Proportion of hospitalized patients who at the beginning of the study were at 
+domicile isolation at day 7, 14 and 28 after randomization will be analysed 
+using comparison of proportions (i.e comparisons of each active treatment 
+group versus placebo at each assessment day) through Fisher’s exact test and 
+will be summarized using frequency and percent by treatment and visit. 
+Analyses will be performed on FAS population. 
+ 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 21 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+6. Proportion of patients admitted to intensive care at Day 7, 14 and 28 after 
+randomization will be analysed using comparison of proportions (i.e 
+comparisons of each active treatment group versus placebo at each 
+assessment day) through Z-test and will be summarized using frequency and 
+percent by treatment and visit. Analyses will be performed on FAS population. 
+ 
+7. Overall survival will be analysed according to time-to-event methods described 
+in SAP section 4.4. 
+ 
+8. Quality of life questionnaire (EQ-5D-5L) at 3 months after the randomization 
+will be summarized using appropriate descriptive statistics by treatment. The 
+number and proportion of subjects of each level (1 - no problems, 2 - slight 
+problems, 3 - moderate problems, 4 - severe problems, 5 - extreme problems) 
+for each dimension (mobility, self-care, usual activities, pain/discomfort, and 
+anxiety/depression) will be reported. 
+Analyses will be performed on FAS population. 
+ 
+Patient’s data will be listed for all secondary endpoints. 
+Additionally, conformed SARS-COV-2 infection listing will be provided for ENR 
+population. Confirmation of SARS-CoV-2 infection must be available before the 
+screening visit i.e Pre-screening. Only diagnosed COVID-19 paucisymptomatic 
+patients will be evaluated for the trial participation. 
+14.1.3 
+DERIVATION 
+Pre-menopausal status – Female patients with child-bearing potential will be 
+considered. 
+Post-menopausal status – Female patients with non-child-bearing potential will be 
+considered. 
+Status – Male, Female with pre-menopausal status and Female with post-
+menopausal status will be considered for “Status” variable derivation for the 
+Analysis. 
+Time to reach undetectable SARS-CoV-2 at PCR: 
+Patients who have experienced the event (undetectable SARS-CoV-2 at PCR), 
+their date of PCR result confirmation will be used for time duration calculation. 
+Time to reach undetectable SARS-CoV-2 at PCR = (Date of undetectable SARS-
+CoV-2 at PCR / Censored date – Treatment Start date) + 1 
+Time to get relieved from supplemental oxygen therapy (NEWS ≤ 2) and/or 
+mechanical ventilation: 
+Patients who have experienced the event (relieved from supplemental oxygen 
+therapy (NEWS ≤ 2) and/or mechanical ventilation), their date of confirmation will 
+be used for time duration calculation. 
+Time to get relieved from supplemental oxygen therapy (NEWS ≤ 2) and/or 
+mechanical ventilation = (Date of relieved from supplemental oxygen therapy 
+(NEWS ≤ 2) and/or mechanical ventilation / Censored date - Treatment Start date) 
++ 1 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 22 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+Overall Survival: 
+Overall Survival = (Date of Death / Censored date - Treatment Start date) + 1 
+15 ANALYSIS OF SAFETY VARIABLES 
+For the safety analysis, the SAF population will be used.  
+Parameters for Assessment of Safety as follows:  
+ Adverse Events (AE) assessment 
+ Vital signs 
+ Laboratory parameters: Blood (haematology & biochemistry), Coagulation, 
+Virology and Other marker 
+15.1 ADVERSE EVENTS (AE) ASSESSMENT 
+15.1.1 
+DERIVATION 
+AEs started before administration of study treatment will be considered as Pre-
+treatment AEs. Any AE started on or after the date of the first dose of study 
+medication or started prior to first dose and worsened in severity after the first 
+dose will be considered as Treatment-Emergent Adverse Event (TEAE). If the 
+start date is missing for an AE, the AE will be considered as treatment emergent. 
+15.1.2 
+ADVERSE EVENT ANALYSIS 
+All AEs will be coded by System Organ Class (SOC) and Preferred Term (PT) 
+according to The Medical Dictionary for Regulatory Activities (MedDRA) 
+September 2020, version 23.1. 
+Pre-treatment AEs will be presented in the listings only. 
+ 
+ Proportion of patients with any adverse event (grade ≤ 2 according to 
+CTCAE) within Day 7, 14 and 28 after randomization will be analysed using 
+comparison of proportions (i.e comparisons of each active treatment group 
+versus placebo at each assessment day) through Fisher’s exact test and 
+will be summarized using frequency and percent by treatment and visit. 
+Analyses will be performed on FAS population. 
+ 
+ Proportion of patients with severe adverse events (grade ≥ 3 according to 
+CTCAE) within Day 7, 14 and 28 after randomization will be analysed using 
+comparison of proportions (i.e comparisons of each active treatment group 
+versus placebo at each assessment day) through Fisher’s exact test and 
+will be summarized using frequency and percent by treatment and visit. 
+Analyses will be performed on FAS population. 
+ 
+TEAE summaries will be presented, displaying frequencies and Percentages of 
+patients reporting AEs within each SOC in decreasing order of total frequency 
+according to the number of patients reporting the SOC and the AE within the SOC 
+by treatment.  Along with AEs, incidence will be reported. On each of these 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 23 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+summaries, patients will be counted only once per SOC, even if they experience 
+multiple AEs within the same SOC. Patients will be counted only once per 
+preferred term, even if they experienced the same adverse event more than once. 
+For the summary by severity (Mild, Moderate, Severe, Life-threatening or 
+disabling, Death), patients will be classified by the most severe level of the adverse 
+event experienced when they experienced the same adverse event (or AE within 
+SOC) more than once. 
+The severity of AEs and SAEs will be graded using the CTCAE version 5.0. Any 
+AE not listed in the CTCAE will be graded as follows: 
+1. Mild 
+2. Moderate 
+3. Severe 
+4. Life-threatening or disabling 
+5. Death 
+For summaries, the drug-event relationship will be assessed as “None”, “Unlikely”, 
+“Possible” “Probable” or “Highly probable”. Any AE reported in the study having a 
+possible, probable or highly probable relationship to study drug will be defined as 
+“Adverse Drug Reaction” (ADR). 
+The following events will be considered adverse events of special interest: 
+ Venous thromboembolic events (including deep vein thrombosis) 
+o pulmonary embolism 
+o retinal vein thrombosis 
+o superficial vein thrombophlebitis 
+ Arterial thromboembolic reactions 
+ Thrombocytopenia 
+TEAEs will be reported on a per-patient basis: even if a patient reported the same 
+event repeatedly (i.e., events mapped to the preferred term) the event will be 
+counted only once.  
+The following tables will be provided separately for all TEAEs by treatment. 
+1) An overview of TEAEs including, 
+ at least one TEAE 
+ at least one TESAE 
+ at least one non-serious TEAE 
+ at least one ADR 
+ at least one serious ADR 
+ number of TEAEs 
+ number of TESAEs 
+ number of non-serious TEAEs 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 24 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+ number of ADRs 
+ number of serious ADRs 
+ number of deaths 
+ number of patients who discontinued study drug due to a TEAE 
+2) Summary of TEAEs by Primary System Organ Class and Preferred Term 
+3) Summary of TEAEs by Primary System Organ Class, Preferred Term and 
+Severity 
+4) Summary of TESAEs by Primary System Organ Class and Preferred Term 
+5) Summary of ADRs by Primary System Organ Class and Preferred Term 
+6) Summary of TEAEs leading to Study Drug Discontinuation by Primary System 
+Organ Class and Preferred Term 
+7) Summary of TEAEs leading to Death by Primary System Organ Class and 
+Preferred Term 
+8) Summary of Adverse Event of Special Interest (AESI) by Primary System 
+Organ Class and Preferred Term 
+9) Listing of all AEs by Patient 
+10) Listing of SAEs by Patient 
+11) Listing of Adverse Drug Reactions by Patient 
+12) Listing of Deaths 
+13) Listing of AESI 
+15.2 VITAL SIGNS 
+The following vital signs (blood pressure [BP], pulse rate [PR], body temperature 
+[BT]), transdermal oxygen saturation (SpO2) will be collected for patients.  
+Vital signs measurements will be summarized by treatment using descriptive 
+statistics for each available visit, including change from baseline. 
+All vital signs findings will be listed, including data from the unscheduled visits. 
+15.3 LABORATORY PARAMETERS: BLOOD (HEMATOLOGY & 
+BIOCHEMISTRY), COAGULATION, VIROLOGY AND OTHER 
+MARKER 
+The following biomarker parameters at Day 7, 14, 21 and 28 after randomization 
+will be summarized using descriptive statistics by visit and treatment: 
+ Complete blood cell counts 
+ Hepatic function (ALT, AST and bilirubin) 
+ Coagulation (PT, aPTT and INR) 
+ Other marker including (D-dimer, CPK, LDH) 
+ 
+Depending on the nature of the variable (continuous or categorical) the change 
+from baseline values or shift tables comparing baseline and each post-baseline 
+qualitative results of laboratory findings will be presented. 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 25 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+ 
+Mean (+/-) Standard Error Plot will be plotted for the change from baseline results 
+of the above-mentioned laboratory parameters by visit and treatment. Analyses 
+will be performed on SAF population. 
+Actual results and change from baseline for quantitative laboratory parameters will 
+be summarised descriptively by treatment and visits. In addition, shift tables for 
+laboratory parameters comparing values (Low, Normal and High) using the 
+standard reference ranges will be presented for the baseline laboratory 
+measurements vs. each post-baseline visit measurements.  
+Additionally, the frequency of patients reporting an abnormal or abnormal clinically 
+significant laboratory value will be presented for each laboratory parameter. 
+For any Patient, if more than 1 results per visit and per lab parameters are 
+available then the latest one will be considered based the date and time.   
+All laboratory results will be listed. 
+The below list of lab parameters results will be collected for patients. 
+Table 4: List of Lab parameters 
+Biochemistry (T0, T7, 
+T14, T21, T28)
+Haematology (T0, T7, T14, 
+T21, T28)
+Coagulation (T0, T7, T14, 
+T21, T28) 
+Sodium 
+Potassium 
+Chloride 
+Urea 
+Uric acid 
+Creatinine 
+Calcium 
+Inorganic phosphorus 
+Total and direct bilirubin 
+Total protein 
+Albumin 
+Alpha-1 Globulins 
+Alpha-2 Globulins 
+Beta Globulins 
+Alkaline phosphatase 
+AST 
+ALT 
+Gamma glutamyl 
+transferase 
+Total Cholesterol 
+Triglycerides
+Haemoglobin 
+Red cell count 
+Packed cell volume 
+Mean cell volume 
+Mean cell haemoglobin 
+Mean cell haemoglobin 
+concentration 
+Platelet count 
+White cell count 
+Neutrophils 
+Lymphocytes 
+Monocytes 
+Eosinophils 
+Basophils 
+Prothrombin time 
+Activated partial 
+thromboplastin time 
+INR 
+Virology (T7, T14, T28) 
+Other markers (T0, T7, T14, 
+T21, T28) 
+ 
+PCR 
+D-dimer 
+Creatine phosphokinase 
+(CPK) 
+Lactate dehydrogenase(LDH)
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 26 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+16 PREGNANCY TEST OVER THE STUDY 
+Data will be summarized for the SAF population. Pregnancy tests will be 
+performed at T0, T7 and T14 visits.  
+A summary table showing test results (Negative/Positive) over the study will be 
+produced by treatment group. 
+17 GENERAL PROGRAMMING SPECIFICATIONS 
+Tables, Figures and Listings will be generated as per the shells template.  
+All statistical analysis and output will be generated using SAS, all the reports will 
+be printed in RTF format. All output will be in landscape orientation.  
+ 
+Table Format Specification: 
+a. In summary tables of quantitative variables, the minimum and maximum 
+statistics will be presented to the same number of decimal places as the raw 
+(observed) data. The estimated mean and median for a set of values will be 
+reported to one more decimal place than the raw (observed) data and rounded 
+appropriately. The standard errors (or standard deviations [SD]) and the 
+confidence intervals will be reported to two additional decimal places than the 
+raw (observed) data and rounded appropriately.  
+ 
+b. Data in columns of a table will be formatted as follows: 
+i. 
+Alphanumeric values will be left-justified (in mixed and upper- and lower-
+case) 
+ii. 
+Whole numbers (e.g. counts) will be right justified 
+iii. 
+Numbers containing fractional portions will be decimal aligned 
+ 
+c. All fractional numeric values will be reported with a zero to the left of the decimal 
+point (e.g. 0.12-0.3). 
+d. In summary tables of qualitative variables, counts and percentages will be used. 
+The denominator for each percentage will be the number of patients within the 
+population under respective treatment group unless otherwise specified. 
+Percentages will be reported to one decimal places 
+ 
+e. When no data are available for a table or Listings or figures, an empty page 
+with the title will be produced with suitable text. Example:  THERE WERE NO 
+SERIOUS ADVERSE EVENTS. 
+ 
+f. The default tables, figures and listings (TFL) layout will be as follows 
+ 
+Orientation
+Landscape
+Paper Size
+A4
+Margins 
+ 
+Top: 2.5 cm 
+Bottom: 2.5 cm 
+Left: 2 cm 
+Right: 2 cm
+Font
+Courier new8-point
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 27 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+Headers 
+ 
+1. The header will appear on the top left corner of each page 
+of the output, containing the protocol number (RLX0120) 
+and sponsor name (Dompé). The page number, in the 
+format of “Page x of y”, will appear on the top right corner of 
+the output, where y = last page of corresponding output. 
+Table status (draft or final). 
+2. Any TFLs generated prior to database lock or completion 
+of TFL validation will be marked “Draft”.
+Footers 
+For Tables 
+The SAS program name, Reference Listings and the date 
+and time of the creation of the output (run date and time) will 
+appear on the bottom left corner as follows:  
+1. Reference Listings: listing Number 
+2. Source:[program name].sas, Run on : 
+DDMMMYYY:hh:mm:ss
+Footers 
+For Listings 
+and 
+Graphs/Figures
+The SAS program name, and the date of the creation of the 
+output (run date) and CRF Source will appear on the bottom 
+left corner as follows:  
+1.CRF Source: 
+2.Source: [program name]. sas, Run on DDMMMYYYY
+18 CHANGES FROM PROTOCOL 
+Following are the changes from the protocol: 
+a. Specification of additional populations-All Patient Enrolled (ENR) and 
+Randomized Population (RND). 
+b. Text “Subjects”, “Participants” changed to “Patients”. 
+c. Baseline characteristics “gender” and “Child-bearing potential status” are 
+combined and derived a new categorical variable with categories Male, Female 
+pre-menopausal status and Female post-menopausal status to be included as 
+factor “Status” in the statistical model of analysis of efficacy endpoints. 
+d. Due to the premature interruption of the enrolment, no interim analysis will be 
+done. 
+19 REFERENCES 
+1. FDA Guidance on Conduct of Clinical Trials of Medical Products during 
+COVID-19 Pandemic. 
+2. Protocol No. RLX0120, Version No.: 3.0, dated 22 Dec 2020 and RLX0120 
+eCRF Final v.2.0, dated 20 Jan 2021 
+3. ICH-E3. (December 1995). Structure and content of clinical study reports. 
+Step 4 Guideline. 
+4. ICH-E6. (17 July 1996). Guideline for good clinical practice. Step 5 Guideline. 
+5. ICH-E9. (5 February 1998). Statistical principles for clinical trials. Step 4 
+guideline. 
+6. Support SAS® - https://support.sas.com/kb/42/728.html 
+7. SAS EXAMPLES - http://users.stat.ufl.edu/~aa/cda/Sas_web.pdf 
+8. PROC GENMOD with GEE to Analyze Correlated Outcomes Data Using SAS 
+https://stats.idre.ucla.edu/unlinked/sas-logistic/proc-logistic-and-logistic-
+regression-models/ 
+9. https://www.lexjansen.com/wuss/2006/tutorials/TUT-Smith.pdf 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 28 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+10. Survival Analysis 
+https://sphweb.bumc.bu.edu/otlt/mph 
+modules/bs/bs704_survival/BS704_Survival5.html 
+11. PharmaSUG 2013 - Paper SP03 , Combining Analysis Results from Multiply 
+Imputed Categorical Data 
+12. https://www.pharmasug.org/proceedings/2013/SP/PharmaSUG-2013-
+SP03.pdf 
+ 
+20 REVISION HISTORY 
+Revision
+Date
+Description
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+21 APPENDIX 1: PROGRAMMING CONVENTIONS FOR OUTPUTS 
+Dates & Times: 
+Depending on data available, dates and times will take the form 
+ddmmmyyyyhh:mm:ss (i.e. 01MAR2019 10:20:15) 
+Listings: 
+All listings will be ordered by the following (unless otherwise indicated in the 
+template): 
+ Randomized treatment group (or treatment received if it’s a safety output)  
+ Patient ID 
+ Date, Visit (where applicable) 
+ For listings where non-randomized patients are included, these will appear 
+in a category after the randomized treatment groups labeled ‘Not 
+Randomized’ 
+In all listings missing data will be reported, according to the variable type as 
+follows: 
+- 
+Character variables and dates will be presented as empty fields 
+- 
+Numerical variables will be presented with a “- “ 
+For Tables:  
+If any of the tables has missing summary statistics or estimate, then report it as 
+“NE” and add a note in the bottom of the table as NE = Not Estimable, not enough 
+data to estimate the parameter 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 29 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+22 APPENDIX 2: PARTIAL DATE CONVENTIONS 
+22.1 ALGORITHM FOR ADVERSE EVENTS 
+22.1.1 
+ADVERSE EVENT END DATE IMPUTATION 
+If the AE end date “Month” is missing, then the imputed end date “Month” should 
+be set to the earliest of the (Cutoff date, End of study date, 31DECYYYY).  
+If the AE end date “Day” is missing, the imputed end date “Day” should be set to 
+the earliest of the (Cutoff date, End of study date, last day of the month).  
+If AE “Year” is missing or AE is “Ongoing”, the end date will not be imputed.  
+If the imputed AE end date is before the corresponding AE start date, then the AE 
+end date will be set to the AE start date. 
+22.1.2 
+ADVERSE EVENT START DATE IMPUTATION 
+Adverse events with partially missing onset dates will also be included as 
+treatment emergent when the month (if it exists) and the year occur on or after the 
+month and year of the initial study treatment date. 
+Partial AE start dates are imputed with reference to the treatment start date 
+(TRTSDT) as outlined in the Imputation table below.  
+ 
+First find the AE start reference date, before imputing the AE start date.  
+1.  If the (imputed) AE end date is complete and the (imputed) AE end date < 
+treatment start date then AE start reference date = minimum (informed 
+consent date, earliest visit date).  
+2.  Else AE start reference date = treatment start date 
+Completely missing, start dates will not be imputed. As a conservative approach, 
+such adverse events will be defined as treatment emergent.  
+The date value is split into Day, 
+month, year sections and 
+referenced in the imputation table as 
+outlined below 
+Day 
+Month 
+Year 
+Partial AE Start Date
+01 or 15
+MMM
+YYYY
+Treatment Start Date (TRTSDT) 
+Not considered
+TRTM 
+TRTY 
+ 
+The following matrix explains the logic behind the imputation:  
+MMM Missing
+MMM < TRTM
+MMM = TRTM
+MMM> TRTM
+YYYY 
+Missing
+NI 
+NI 
+NI 
+NI 
+ 
+YYYY < 
+TRTY 
+ 
+(D)= 
+01JULYYYY 
+ 
+(C) = 
+15MMMYYYY 
+ 
+(C) = 
+15MMMYYYY 
+ 
+(C) = 
+15MMMYYYY
+YYYY = 
+TRTY 
+(B) = AE start 
+reference date 
++ 1 day
+ 
+(C) = 
+15MMMYYYY
+ 
+(A) = TRTSDT 
++1
+ 
+(A) = 
+01MMMYYYY
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 30 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+YYYY > 
+TRTY 
+(E) = 
+01JANYYYY 
+ 
+(A) = 
+01MMMYYYY 
+ 
+(A) = 
+01MMMYYYY 
+ 
+(A) = 
+01MMMYYYY
+ 
+The following table is the legend to the logic matrix 
+Relationship
+Before Treatment Start 
+Partial date indicates AE start date prior to 
+Treatment Start Date
+After Treatment Start 
+Partial date indicates AE start date after 
+Treatment Start Date
+Uncertain 
+Partial date insufficient to determine 
+relationship of AE start date to Treatment 
+Start Date
+Imputation Calculation
+NI
+No Imputation
+(A) After Treatment Start or Uncertain
+MAX(01MMMYYYY, TRTSDT+1 )
+(B) Uncertain
+AE start reference date+1
+(C) Before Treatment Start
+15MMMYYYY
+(D) Before Treatment Start
+01JULYYYY
+(E) After Treatment Start
+01JANYYYY
+If complete (imputed) AE end date is available and the imputed AE start date is 
+greater than the (imputed) AE end date, then imputed AE start date should be set 
+to the (imputed) AE end date. 
+22.2 ALGORITHM FOR CONCOMITANT MEDICATIONS: 
+22.2.1 
+CONCOMITANT TREATMENT END DATE IMPUTATION 
+If the concomitant treatment end date year value is missing, the date uncertainty 
+is too high to impute a reliable date. Therefore, if the concomitant treatment end 
+year value is missing or ongoing, the imputed concomitant treatment end date is 
+set to NULL. 
+ 
+Else, if the concomitant treatment end date month is missing, the imputed end 
+date should be set to the earliest of the (treatment follow up period 
+date31DECYYYY).  
+ 
+If the concomitant treatment end date day is missing, the imputed end date should 
+be set to the earliest of the (treatment follow up period date, last day of the month). 
+ 
+If the imputed concomitant treatment end date is before the existing concomitant 
+treatment start date, use the concomitant treatment start date as the imputed 
+concomitant treatment end date. 
+22.2.2 
+CONCOMITANT TREATMENT START DATE IMPUTATION 
+In order to classify a medication as prior and prior/concomitant, it may be 
+necessary to impute the start date. Completely missing start dates will be set to 
+one day prior to treatment start date.  
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 31 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+ 
+As a conservative approach, such treatments will be classified as prior and 
+concomitant (and summarized for each output). Concomitant treatments with 
+partial start dates will have the date or dates imputed.  
+ 
+Partial concomitant treatment start dates are imputed with reference to the 
+treatment start date (TRTSDT) in accordance with the rules outlined below 
+The date value is split into day, month, 
+year sections and referenced in the 
+imputation table as outlined below  
+Day  
+Month 
+Year 
+Partial CMD Start Date
+01 or 15
+MMM
+YYYY
+Treatment Start Date (TRTSDT) 
+TRTD 
+TRTM 
+TRTY 
+ 
+The following matrix explains the logic behind the imputation:  
+ 
+MMM Missing 
+MMM < TRTM 
+MMM = TRTM 
+MMM > TRTM 
+ 
+YYYY 
+Missing 
+ 
+(C) Uncertain 
+ 
+(C) Uncertain 
+ 
+(C) Uncertain 
+ 
+(C) Uncertain 
+YYYY < 
+TRTY
+ (D) = 
+01JULYYYY
+(A) = 
+15MMMYYYY
+(A) = 
+15MMMYYYY
+(A) = 
+15MMMYYYY
+YYYY = 
+TRTY
+(C) Uncertain 
+(A) = 
+15MMMYYYY
+(C) Uncertain 
+(B) = 
+01MMMYYYY
+YYYY > 
+TRTY
+(E) = 
+01JANYYYY
+(B) = 
+01MMMYYYY
+(B) = 
+01MMMYYYY
+(B) = 
+01MMMYYYY
+ 
+The following table is the legend to the logic matrix 
+Relationship 
+Before Treatment Start 
+Partial date indicates CMD start date prior to Treatment 
+Start Date 
+After Treatment Start 
+Partial date indicates CMD start date after Treatment Start 
+Date 
+Uncertain 
+Partial date insufficient to determine relationship of CMD 
+start date to Treatment Start Date 
+Imputation Calculation
+NI
+No Imputation
+(A) Before Treatment Start 
+15MMMYYYY 
+((B) After Treatment Start
+MAX( 01MMMYYYY, TRTSDT+1 )
+(C) Uncertain 
+TRTSDT-1 
+(D) Before Treatment Start
+01JULYYYY
+(E) After Treatment Start 
+01JANYYYY 
+ 
+If complete (imputed) CM end date is available and the imputed CM start date is 
+greater than the (imputed) CM end date, then imputed CM start date should be 
+set to the (imputed) CM end date. 
+ 
+ 
+ 
+ 
+ 
+ 
+Raloxifene (RLX)- Protocol No.:RLX0120                                                                                         Page 32 of 33 
+ 
+Agati Clinical Informatics                                                                                 Statistical Analysis Plan (Final 1.0) 
+23 APPENDIX 3: NEWS SCORE 
+Element 
+Score
+3 
+2 
+1 
+0 
+1 
+2 
+3 
+Respiratory rate
+≤ 8 
+9-11
+12-20 
+21-24 
+≥ 25 
+SpO2 
+≤ 91 
+92-93 
+94-95
+≥ 96 
+Oxygen 
+Yes 
+NO 
+Systolic Blood 
+Pressure 
+≤ 90  
+91-
+100
+101-
+110
+111-
+219 
+ 
+ 
+≥ 220  
+Pulse  
+≤ 40  
+ 
+41-50 
+51-90  
+91-
+110
+111-
+130 
+≥ 131  
+ACVPU 
+A 
+C,V,P,U 
+Temperature, oC 
+≤ 35.0 
+ 
+35.1-
+36.0 
+36.1-
+38.0 
+38.1-
+39.0 
+≥ 39.1 
+ 
+ 
+ACVPU: Alert, Confusion, Voice, Pain, Unresponsive 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

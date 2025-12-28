@@ -1,0 +1,631 @@
+Document title 
+STATISTICAL ANALYSIS PLAN 
+Study title 
+A multicentre, Phase II Randomized study, Open-label, with 2-
+arm Parallel Group, comparing the pharmacokinetics of the 
+Liquid and the Lyophilized Formulations of pegaspargase 
+(S95014) in Treatment of Paediatric Patients with Newly-
+Diagnosed Acute Lymphoblastic Leukemia (ALL) 
+Test drug code 
+S95014 / pegaspargase / Oncaspar® 
+Indication 
+Acute Lymphoblastic Leukemia 
+Development phase 
+Phase II 
+Protocol code 
+CL2-95014-002 
+EudraCT Number 
+2020-004894-29 
+Universal Trial Number 
+Not applicable 
+Sponsor 
+I.R.I.S.
+Date of the document 
+23 May 2022 
+Version of the document 
+Version 1.0 
+CONFIDENTIAL 
+I.R.I.S. 
+INSTITUT DE RECHERCHES INTERNATIONALE$ SEJRVIER 
+2/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+Table of contents 
+1. INTRODUCTION ............................................................................................................... 5 
+1.1. Study objectives ................................................................................................................ 5 
+1.1.1. Primary objective............................................................................................................ 5 
+1.1.2. Secondary objectives ...................................................................................................... 5 
+1.2. Study design ...................................................................................................................... 5 
+1.2.1. Study plan ....................................................................................................................... 5 
+1.2.2. Type of randomisation .................................................................................................... 6 
+1.3. Determination of sample size ........................................................................................... 6 
+2. ANALYSIS SETS / TREATMENT GROUPS .................................................................. 7 
+2.1. Analysis sets ..................................................................................................................... 7 
+2.2. Treatment groups .............................................................................................................. 7 
+3. STATISTICAL METHODS ............................................................................................... 8 
+3.1. General considerations ...................................................................................................... 8 
+3.1.1. Descriptive statistics ....................................................................................................... 8 
+3.1.2. General definitions ......................................................................................................... 8 
+3.2. Handling of Missing, Unused, and Spurious Data ............................................................ 8 
+3.3. Disposition and baseline characteristics ........................................................................... 9 
+3.3.1. Disposition of subjects ................................................................................................... 9 
+3.3.2. Protocol deviations ......................................................................................................... 9 
+3.3.3. Demographic data and other baseline characteristics ..................................................... 9 
+3.4. Treatments of subjects .................................................................................................... 10 
+3.4.1. Extent of exposure ........................................................................................................ 10 
+3.4.2. Concomitant treatments ................................................................................................ 10 
+3.5. Pharmacokinetics analysis .............................................................................................. 10 
+3.6. Safety analysis ................................................................................................................ 11 
+3.6.1. Adverse Events ............................................................................................................. 11 
+3.6.2. Other Safety Evaluations .............................................................................................. 12 
+3.7. Analysis of Plasma Asparaginase Activity ..................................................................... 13 
+3.8. Immunogenicity Analysis ............................................................................................... 13 
+4. INTERIM ANALYSIS ...................................................................................................... 13 
+5. APPENDICES .................................................................................................................... 14 
+6. CHANGES FROM THE PLANNED STATISTICAL ANALYSIS ............................. 14 
+7. REFERENCES .................................................................................................................. 14 
+ 
+ 
+ 
+3/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+List of figures 
+Figure (1.2.1) 1 - Study plan ...................................................................................................... 6 
+ 
+4/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+List of abbreviations 
+ADA 
+: Anti-Drug Antibodies 
+AE 
+: Adverse Event 
+AEOSI 
+: Adverse Event Of Special Interest 
+ALL 
+: Acute Lymphoblastic Leukemia 
+ALT 
+: Alanine aminotransferase 
+ANOVA 
+: Analysis of Variance 
+AUC 
+: Area Under the Curve 
+AST 
+: Aspartate aminotransferase 
+BMI 
+: Body Mass Index 
+BSA 
+: Body Surface Area 
+CBI 
+: Central Business Intelligence 
+CI 
+: Confidence Interval 
+Cmax 
+: maximum Concentration 
+CoV 
+: Coefficient of Variation 
+CTC 
+: Common Terminology Criteria 
+CTCAE 
+: Common Terminology Criteria for Adverse Events 
+DAP 
+: Data Analysis Plan 
+ECG 
+: ElectroCardioGram 
+FAS 
+: Full Analysis Set 
+GMR 
+: Geometric Mean Ratio 
+IAS 
+: Immunogenicity Analysis Set 
+IMP 
+: Investigational Medicinal Product: a pharmaceutical form of an 
+active ingredient or placebo being tested or used as a reference 
+in a clinical trial (test drug / placebo / reference product) 
+I.R.I.S. 
+: Institut de Recherches Internationales Servier 
+IRS 
+: Interactive Response System 
+MedDRA 
+: Medical Dictionary for Regulatory Activities 
+NCI 
+: National Cancer Institute 
+PAA 
+: Plasma Asparaginase Activity 
+PEG 
+: PolyEthylene Glycol 
+PK 
+: PharmacoKinetics 
+PKAS 
+: Pharmacokinetic Analysis Set 
+RDI 
+: Relative Dose Intensity 
+SAE 
+: Serious Adverse Event 
+SAP 
+: Statistical Analysis Plan 
+SAS 
+: Safety Analysis Set 
+SD 
+: Standard Deviation 
+TEAE 
+: Treatment Emergent Adverse Event 
+TLG 
+: Tables, Listings and Graphs 
+%CV 
+: Coefficient of Variation in percent 
+ 
+ 
+ 
+ 
+ 
+5/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+1. INTRODUCTION 
+This Statistical Analysis Plan (SAP) details the planned analyses to be performed, in accordance 
+with the main characteristics of the study protocol v2.0, dated on December 2nd, 2020, and the 
+non substantial Protocol Amendment, dated on Apr 7th, 2021. The templates for Tables, 
+Listings and Graphs (TLG) are described in a separate document. 
+1.1. Study objectives 
+1.1.1. Primary objective 
+To compare the pharmacokinetics (PK) of both lyophilized and liquid S95014 formulations 
+during the induction phase after a single IV dose in newly diagnosed paediatric patients with 
+ALL  
+1.1.2. Secondary objectives 
+­ To describe the PK of S95014 after administration of either lyophilized or liquid formulation  
+­ To evaluate the occurrence of treatment emergent adverse events (TEAEs) including serious 
+adverse events (SAEs), regardless of causality and severity, based on National Cancer 
+Institute (NCI) Common Terminology Criteria for Adverse Events (CTCAE) 5.0 
+­ To evaluate the achievement of plasma asparaginase activity (PAA) of ≥0.1 U/mL after the 
+administration of either lyophilized or liquid S95014  
+­ To assess the immunogenicity of both lyophilized and liquid S95014 formulations  
+1.2. Study design 
+This is a multicentre, national, randomized, open-label, phase II clinical study comparing the 
+pharmacokinetics of lyophilized and liquid Pegaspargase (Oncaspar®, S95014) formulations 
+in the treatment of newly diagnosed, untreated pediatric patients with ALL. 
+1.2.1. Study plan 
+Each patient will be randomly assigned (1:1) to either lyophilized (arm 1) or liquid (arm 2) 
+S95014 intravenously at the dose of 2500 U/m² at Day 3, in combination with other backbone 
+chemotherapy agents as per local practice. 
+The study duration will be approximately 1.5 month, including the screening (14 days) and the 
+treatment period consisting of the induction phase (approximately 30 days). After completing 
+the induction phase, patient will be discontinued from the study and, provided that the 
+inclusion/non-inclusion criteria are fulfilled, will be proposed to enter into a roll-over study 
+(CL2-95014-003) for the consolidation phase. 
+The study will be divided into the following periods for each participant: 
+­ Screening visit (up to 14 days prior to inclusion): to obtain informed consent and check 
+the screening/non-screening criteria. 
+­ Screening period (Day -14 to Day -1): to check the eligibility of the patient to be included  
+in the study within 14 days prior to the inclusion. 
+­ Inclusion visit (Day 0): to check inclusion/non-inclusion criteria and to confirm inclusion 
+of the patient in the study 
+6/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+­ Randomization (Day 0): the day of inclusion visit (i.e. Day 0), included subjects will be 
+randomly assigned to one of the two treatment groups: 
+ Lyophilized S95014 (arm 1) 
+ Liquid S95014 (arm 2) 
+­ Infusion (Day 3): the day of S95014 infusion, based on randomized treatment group. 
+­ Treatment period: treatment period will start from the day of S95014 infusion, 
+corresponding to Day 3 of the induction phase, until the withdrawal/end-of-study visit.  
+­ Withdrawal/End-of-study visit: at least 30 days after S95014 infusion (i.e. Day 33) and 
+before starting the consolidation phase. During the withdrawal/end-of-study visit, subjects 
+will be proposed to participate in a roll-over study (CL2-95014-003) for the consolidation 
+phase using lyophilized S95014 in combination with backbone regimen as per ALL-MB 
+2015 protocol. 
+The study plan is shown in Figure (1.2.1) 1. 
+Figure (1.2.1) 1 - Study plan 
+ 
+1.2.2. Type of randomisation 
+The treatment groups will be allocated via IRS using a central randomization (1:1) to either 
+lyophilized S95014 (arm 1) or liquid S95014 (arm 2) of the induction phase.  
+1.3. Determination of sample size 
+This study is a two-arm parallel 1:1 randomized trial to evaluate the PK comparability between 
+liquid and lyophilized S95014 formulations. For both AUC and Cmax, the coefficient of 
+variation (CoV) of 0.30 is assumed based on the estimation of CoV for liquid S95014 from a 
+previous study (Angiolillo, 2014). It is also reasonable to assume a geometric mean ratio (GMR) 
+of 100% for Cmax and AUC, since no impact of an absorption phase is expected because both 
+formulations are delivered intravenously. In addition, the CMC investigations have shown that 
+once the lyophilised formulation is reconstituted, the characteristics of the solution are 
+comparable to the ones of the liquid formulation. Assuming a CoV of 0.30 and a true GMR of 
+100%, a total of 78 evaluable subjects (39 subjects per arm) will provide approximately 90% 
+power to establish the PK comparability. Assuming that 10% of the included subjects could not 
+r 
+Screening 
+period 
+Lyophilized (arm 1) 
+or Liquid (arm 2) 
+S95014 infusion 
+l 
+D3 
+D10 
+® 
+r 
+lmmunogenicity 
+Screening 
+visit 
+ICF signed 
+assessment 
+Inclusion 
+R: randomization 
+D: Day 
+visit 
+D17 
+D28 
+End of study 
+Wit hdrawal 
+D36 
+CL2-95014-003 
+roll-over study 
+Induction phase 
+Consolidation phase 
+1 
+1 
+lmmunogenicity 
+lmmunogenicity 
+assessment 
+assessment 
+PK assessment (D3-D28) 
+PAA assessment (D10-D28) 
+Safety assessment 
+7/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+be evaluable (e.g. missing PK timepoint etc.), 88 subjects are expected to be included to allow 
+78 evaluable subjects. 
+2. ANALYSIS SETS / TREATMENT GROUPS 
+2.1. Analysis sets  
+Full Analysis Set 
+The full analysis set (FAS) will consist of all subjects who have been randomized in the study. 
+Subjects will be classified according to their assigned treatment arm. 
+ 
+Safety Analysis Set  
+The safety analysis set (SAS) is defined as the set of all subjects who have received at least one 
+dose of S95014 in the study. Subjects will be classified according to treatment received. The 
+safety endpoints will be analysed in the safety analysis set, unless otherwise specified. 
+ 
+Pharmacokinetic Analysis Set 
+The pharmacokinetic analysis set (PKAS) will include all subjects who have received at least 
+one dose of IMP and are evaluable for PK analysis. The PK dataset will include only the 
+subjects who had enough samples collected to provide interpretable PK results with no 
+deviations that might have affected the PK interpretation (e.g. infusion interrupted for any 
+reason, deviation in the theoretical administered dose > 10%, at least one missing PK sample 
+during the 48 first hours, ≥ 2 missing PK samples after the 48-hour time point). The ADA-
+positive subjects will be a priori included in the PKAS since no impact was identified based on 
+the population PK model. Nevertheless, if any evidence of such an impact can be identified in 
+the study, a second PKAS will be defined that will include the subjects for whom none of the 
+ADA assessment time points is positive. 
+ 
+Immunogenicity Analysis Set 
+The immunogenicity analysis set (IAS) will include all subjects who have received at least one 
+dose of IMP and have at least one post-dose sample evaluable for immunogenicity testing. 
+2.2. Treatment groups 
+S95014 liquid (reference drug) and S95014 lyophilizate (test drug) are both IMPs. 
+­ Arm 1: lyophilized S95014 reconstituted will provide 5 mL of extractable volume with the 
+concentration of 750 U/mL. The vial of lyophilized powder (3.750 U/vial) is reconstituted 
+with 5.2 mL of SWFI to obtain a 750 U/mL solution for single use. 
+­ Arm 2: liquid S95014 is provided as 3.750 U per 5 mL solution in a single use vial to obtain 
+a 750 U/mL solution for single use.  
+S95014 (either liquid or lyophilized) will be intravenously administered over 1 hour at the dose 
+of 2500 U/m2 at Day 3 of the induction phase. Subjects will receive other backbone 
+chemotherapy agents as per ALL-MB 2015 protocol. 
+8/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+3. STATISTICAL METHODS 
+3.1. General considerations 
+All data processing, summarization, and analyses will utilize SAS® software package, Version 
+9.3, unless otherwise specified. 
+3.1.1. Descriptive statistics 
+For qualitative data, number of observed values, number and percentage of subjects per class 
+will be presented. Unless otherwise specified in the TLG, no class "Missing" is considered. 
+For quantitative data, number of observed values, mean, standard deviation, median, first and 
+third quartiles, minimum and maximum will be presented. For lognormal-distributed PK 
+parameters, coefficient of variation (CoV), geometric mean and geometric CoV will also be 
+presented. 
+3.1.2. General definitions 
+Unless specified otherwise in section 3.3 to 3.5, the following definitions will be considered: 
+­ 
+Analysable value will be defined as any non-missing value. 
+­ 
+Baseline value will be defined as the last analysable value prior to the first IMP intake 
+(i.e. before or the same date as the first IMP intake date). 
+­ 
+Post-baseline value will be defined as any value recorded at a given timepoint after 
+baseline. 
+­ 
+Change from baseline will be defined as the arithmetic difference between a post-
+baseline value and the baseline value for a given variable at a given time point. 
+3.2. 
+Handling of Missing, Unused, and Spurious Data  
+No specific imputation method will be used for missing data, unless otherwise specified. 
+Adverse events (AEs) 
+­ Handling of unknown causality assessment: 
+o 
+If a subject experience an AE with a missing causality assessment, the relationship of 
+the AE will be counted as “related”. 
+­ Handling of unknown severity grades: 
+o 
+If a subject experiences more than one AE categorized under the same preferred term, 
+one of them is categorized as “severe” and one of them is categorized as “unknown”, 
+the severity of this AE should be counted as “severe”. 
+o 
+If a subject experiences more than one AE categorized under the same preferred term, 
+one of them is categorized as “mild” or “moderate” and one of them is categorized as 
+“unknown”, the severity of this AE should be counted as “unknown”. A column “UNK” 
+should be inserted for those AEs at the end of the table (before the “Total” column if 
+applicable). 
+ 
+Immunogenicity 
+Missing baseline anti-drug antibody results will be imputed as negative. 
+ 
+Missing dates 
+9/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+If no specific management of dates is defined, missing information is substituted as shown 
+below:  
+Table (3.1.2) 1 - Substitution rules of dates if no specific management is defined 
+Date to substitute 
+Substituted date  
+Date 
+../mmm/yyyy 
+01/mmm/yyyy 
+../…/yyyy 
+01/JAN/yyyy 
+../.../…. 
+No substitution 
+Note: 
+../mmm/yyyy = missing day 
+../.../ yyyy = missing day and month 
+../.../.... = missing date 
+ 
+3.3. Disposition and baseline characteristics  
+Disposition of subjects and baseline characteristics will be described by treatment group, to 
+assess their comparability, and overall. 
+3.3.1. Disposition of subjects 
+Subject disposition will be tabulated for all subjects by summarizing the number and percentage 
+of subjects who are included in each analysis set, randomized, completed study treatment, 
+discontinued from the study and by the primary reason for discontinuation. 
+A listing will present dates of study discontinuation and the primary reason, if applicable for 
+each subject. 
+3.3.2. Protocol deviations 
+Important protocol deviations will be summarized for the full analysis set by treatment group, 
+using the number and percentage of subjects who had each type of deviation for the SAS. 
+COVID-19 related protocol deviation will be also summarized. Protocol deviations will be 
+reviewed by the sponsor prior to the database lock. In addition, these protocol deviations will 
+be listed: 
+ Inclusion/Exclusion criteria not respected 
+ Study Withdrawal criteria not respected 
+ Study Treatment: incorrect dose or wrong treatment 
+ Primary Endpoint interpretation may be compromised 
+ Safety/Rights affected 
+3.3.3. Demographic data and other baseline characteristics 
+Demographic and baseline measurements will be summarized for the safety analysis set and the 
+pharmacokinetic analysis set, using standard descriptive summaries or categorical summaries, 
+as appropriate. In addition to the summary tables, a listing will be provided for all demographic 
+and baseline characteristics data. In addition, listing of medical history will be provided. 
+The following baseline characteristics will be summarized based on descriptive statistics: 
+ Age at screening (years; if not available, then it will be calculated as the biggest integer 
+<= [(ICF date – date of birth + 1) / 365.25]) 
+10/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+o As continuous variable 
+o By categories (age <10, 10 - <16, and >= 16 years) 
+ Sex 
+ Race 
+ Ethnicity 
+ Height (cm) 
+ Weight (kg) 
+ Body Mass Index (BMI (kg/m2) = weight (kg) / height (m)2) 
+ Body Surface Area (BSA(m2) = sqrt (height (cm) x weight (kg) / 3600)) 
+Baseline disease characteristics will be separately tabulated in a similar fashion for the 
+following variables: 
+ ALL subtype and therapeutic group (B-Cell type Acute Leukemia (therapeutic groups: 
+A/B/C/D1/D2/F/1221-SR/1221-IR)/E / T-Cell type Acute Leukemia (therapeutic 
+groups: F/T-SRG/T-ImRG/T-HRG)  
+ 
+3.4. Treatments of subjects 
+3.4.1. Extent of exposure 
+Each patient will receive either lyophilized (arm 1) or liquid (arm 2) S95014, per the 
+randomization at D000, intravenously over 1-hour at the dose of 2500 U/m² at Day 003 during 
+the induction phase. Exposure to test drug for each subject will be listed. The following metrics 
+will be summarized: 
+ Total exposure (U) 
+ Relative dose intensity (RDI): total exposure (U) / (2500 U/m2 x BSA) 
+The safety analysis set will be used for exposure analysis. Listings of all dose 
+change/interruption and reasons will be produced. 
+3.4.2. Concomitant treatments 
+Concomitant medication for each subject in the safety analysis set will be listed.  
+3.5. Pharmacokinetics analysis 
+The pharmacokinetic analysis will be performed on the Pharmacokinetic Analysis Set (PKAS). 
+The PKAS is defined as all included participants having completed the treatment period without 
+deviation affecting pharmacokinetic interpretation.  
+11/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+Final analysis will be performed after the database lock and the electronic transfer of PK data 
+(i.e. PAA). The dataset needed for final analysis will be prepared by extraction under the 
+supervision of Clinical Data Management Department from the I.R.I.S database.  
+A non-compartmental pharmacokinetic analysis will be performed on the individual PAA-time 
+profiles, using the actual administration and sampling times after IMP administration. 
+Calculated PK parameters will be described according to a separate Data Analysis Plan (DAP) 
+such as: area under the PAA-time curve from time 0 to the time of the last observed non-zero 
+PAA (AUC0-Tlast); area under the PAA-time curve from time 0 extrapolated to infinity (AUCinf); 
+percent of AUCinf extrapolated (AUC%ext) ; maximum observed PAA (Cmax); time to maximum 
+PAA (Tmax); observed PAA 14 days post-dose(Cday 14); last observed PAA (Clast); time to last 
+observed PAA (Tlast); terminal half-life (T1/2). The above PK parameters will be calculated for 
+each patient (details of the PK parameter derivation will be specified in a separate document) 
+and the corresponding descriptive statistics of PK parameters will be tabulated by treatment 
+group (e.g. number of subjects, arithmetic mean, SD, geometric mean, geometric CoV, median, 
+min, max). 
+Descriptive statistics of PAA (e.g. number of subjects, arithmetic mean, geometric mean, % 
+coefficient of variation [%CV], SD, minimum, median, and maximum) will be also calculated 
+and tabulated per nominal sampling time by treatment group. Plasma asparaginase activity over 
+time will be plotted in semilogarithmic and linear formats as mean  SD and as median (Q1, 
+Q3), using the nominal timepoints. 
+Bioequivalence tests will be used to compare the primary endpoints (AUC and Cmax) in 
+lyophilized formulation versus liquid formulation using the PKAS. Individual values of Cmax, 
+AUC0-Tlast and AUCinf will be logarithmically transformed prior to statistical analysis. An 
+additional comparison will also be performed on Cday 14 for information purpose. To be specific, 
+an analysis of variance (ANOVA) will be performed for the natural logarithms of PK 
+parameters (AUC0-Tlast, AUCinf, Cmax and Cday14). The ANOVA model will include fixed effect 
+for formulation. The two one-sided tests procedure will be performed on the geometric mean 
+ratio (GMR) between test (lyophilized pegaspargase) and reference (liquid pegaspargase) 
+treatments. This will be done via a 90% confidence interval for the ratio obtained in the 
+framework of the ANOVA for the logarithms. The confidence interval will be obtained by 
+exponentiation of the upper and lower 90% confidence limits for the difference of logarithm 
+means. PK comparability between the test treatment and the reference treatment will be 
+concluded if the 90% confidence interval for AUC and Cmax GMR is within the [80.00%; 
+125.00%] range.  
+Exploratory analysis may be performed to evaluate potential covariates impacting the PK 
+parameters. 
+3.6. Safety analysis 
+All subjects included in the safety analyses will be evaluated by the actual treatment arms unless 
+otherwise specified. 
+3.6.1. Adverse Events 
+A treatment-emergent adverse event (TEAE) is defined as any untoward medical occurrence in a 
+subject who received IMP, which occurs within the period from the S95014 Infusion (i.e. Day 3), 
+until the withdrawal/end-of-study visit, which is at least 30 days after S95014 infusion (i.e. Day 
+12/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+33) and before starting the consolidation phase. TEAE will be assessed according to the 
+National Cancer Institute (NCI) Common Terminology Criteria Adverse Events (CTCAE) 
+v5.0. Laboratory abnormalities will be classified into Common Terminology Criteria (CTC) 
+grade according to CTCAE v5.0 and will be reported as adverse events.  
+ 
+Adverse events will be summarized in hierarchical tables, presenting the number and 
+percentage of subjects having at least one AE, and having at least one AE in each primary 
+system organ class and for each preferred term using MedDRA coding. AEs will be sorted by 
+descending frequency, and alphabetically where frequency is tied. Such summaries will be 
+produced for all AEs, serious adverse events (SAEs), grades 3 or 4 AEs, AEs leading to study 
+discontinuation, and AEs leading to dose-adjustment or interruption of any of the drugs of the 
+treatment. All of these summaries will be by system organ class, preferred term, treatment group 
+and, in some case, maximum grade. Most of the summaries will be produced twice, once for all 
+events regardless of study treatment relationship, and once for events suspected to be study 
+treatment related. All deaths will be listed, and separate summaries will be produced by 
+treatment.  
+ 
+All adverse events will be listed, and any other information collected (e.g., start/end dates and 
+duration of adverse event, severity or relatedness to study medication or backbone therapies) 
+will be listed as appropriate.  
+ 
+Adverse events of special interest (AEOSI) will be summarized separately. AEOSI include: 
+ Grade ≥ 3 ALT/AST increase or grade ≥ 3 hyperbilirubinemia 
+ Grade ≥ 3 haemorrhage or grade ≥ 3 thromboembolic events 
+ Grade ≥ 3 pancreatitis 
+ Grade ≥ 3 hypersensitivity 
+ 
+All such events will be identified prior to database lock.  
+3.6.2. Other Safety Evaluations 
+Descriptive statistics of laboratory parameters and continuous variables of vital signs will be 
+calculated by treatment group for each time point. Shift tables for qualitative urinalysis results 
+at each time point after the start of administration will be created. Height, weight, body surface 
+area (BSA) and body mass index (BMI) will be summarized over visit by treatment group.   
+ 
+Shift tables will be provided for laboratory parameters to compare a subject’s baseline 
+laboratory evaluation relative to the worst value during the treatment period using Common 
+Terminology Criteria for Adverse Events (CTCAE) v5.0 grades. In addition, the normal 
+laboratory ranges will be used to evaluate whether a particular laboratory test value was normal, 
+low, or high for each visit value relative to whether or not the baseline value was normal, low, 
+or high. Subjects with abnormal laboratory values will be listed and values outside the normal 
+ranges will be flagged. 
+13/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+3.7. Analysis of Plasma Asparaginase Activity  
+Observed individual Plasma Asparaginase Activity (PAA) level 7 days (Day 10), 14 days (Day 
+17), 18 days (Day 21) and 25 days (Day 28) after administration of either liquid or lyophilized 
+S95014 will be tabulated by treatment group together with descriptive statistics (Arithmetic 
+mean, SD, geometric mean, geometric CV, median, min, max).  
+ 
+The number and proportion of subjects achieving a PAA of ≥ 0.1 U/mL after the administration 
+of either liquid or lyophilized S95014 among subjects with evaluable Day 10, Day 17, Day 21 
+and Day 28 PAA data will be summarized by treatment group along with a 2-sided 95% 
+Clopper-Pearson confidence interval (CI).  
+3.8. Immunogenicity Analysis 
+The immunogenicity analysis will be performed on the Immunogenicity Analysis Set (IAS). 
+The assessment of anti-drug antibodies includes binding and neutralizing antibodies to S95014 
+and binding anti-PEG antibodies.  
+ 
+The number and proportion of subjects in the immunogenicity analysis set having anti S95014 
+± anti-PEG antibodies at pre-dose, and 14 and 25 days (i.e. Day 17 and Day 28) after the 
+administration of either liquid or lyophilized S95014 during the induction phase will be 
+summarized by treatment group.  
+Results will be reported as follows: 
+­ Pre-existing anti-S95014 or anti-PEG antibodies: number and proportion of samples 
+confirmed positive at baseline.  
+­ Seroconversion upon treatment: number and proportion of samples converted from negative 
+at baseline to positive at Day 17 and Day 28. If a confirmed positive sample at baseline has 
+titer increase at Day 17 or Day 28 by at least 4-fold (boosted ADA responses) then it will be 
+included within the seroconverters. If a patient was negative at baseline, and ended up with 
+a positive titer of “2” for example, post-treatment, this case was considered as a 
+seroconversion despite the fact that the titer was not a 4 fold rise. 
+On a case-by-case approach, the impact of positive anti S95014 and anti-PEG antibodies will 
+be investigated: 
+­ On the pharmacokinetics through the temporal association of antibodies with the loss of 
+asparaginase activity (neutralizing antibodies) 
+­ On the safety through the temporal relationship with treatment-emergent hypersensitivity 
+and anaphylactic reactions. 
+A patient with missing baseline will be considered as negative baseline to be conservative. 
+4. INTERIM ANALYSIS 
+ 
+No interim analysis is planned for this study. 
+14/72
+S95014 
+Statistical Analysis Plan CL2-95014-002 Version 1.0 
+® I.R.I.S. – 23 May 2022 - Confidential 
+ 
+ 
+5. APPENDICES 
+6. CHANGES FROM THE PLANNED STATISTICAL ANALYSIS  
+Not applicable. 
+7. REFERENCES 
+Angiolillo AL, Schore RJ, Devidas M, Borowitz MJ, Carroll AJ, G astier-Foster JM, et al. Pharmacokinetic and 
+pharmacodynamic properties of calaspargase pegol Escherichia coli L-asparaginase in the treatment of patients 
+with acute lymphoblastic leukemia: Results from Children´s Oncology Group Study AALL07P4. J Clin Oncol 
+2014; 32: 3874-82 [PE0150550] 
+ 
+ 
+15/72

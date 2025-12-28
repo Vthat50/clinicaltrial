@@ -1,0 +1,2332 @@
+INHERIT 
+Statistical Analysis Plan 
+Page 1 of 31  
+ 
+ 
+ 
+IntraNasal HEpaRin Trial (INHERIT) 
+ 
+A randomised, placebo-controlled trial to Investigate the 
+efficacy of intranasal heparin treatment to reduce 
+transmission of SARS-CoV-2 infection and COVID disease 
+among household contacts of SARS-CoV-2+ adults and 
+children 
+ 
+ 
+Statistical Analysis Plan 
+ 
+Version 1 
+24 February 2025 
+ 
+Protocol number: NCT05204550 
+ 
+ 
+ 
+ 
+Author: Anneke Grobler, MCRI 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 2 of 31  
+CONTENTS 
+1. 
+Administrative Information ............................................................................................ 4 
+1.1 
+Document version history .................................................................................................................... 4 
+1.2 
+Approvals .............................................................................................................................................. 4 
+2. 
+Study Synopsis ............................................................................................................... 4 
+2.1. Primary objective .................................................................................................................................. 5 
+2.2. Secondary objectives ............................................................................................................................ 5 
+2.3 
+Study population .................................................................................................................................. 7 
+2.4 
+Intervention .......................................................................................................................................... 8 
+2.5 
+Randomisation and blinding ................................................................................................................. 8 
+2.6 
+Sample size ........................................................................................................................................... 9 
+2.7 
+Study procedures .................................................................................................................................. 9 
+2.8 
+Deviations from protocol ...................................................................................................................... 9 
+3. 
+General Statistical Methodology .................................................................................... 10 
+3.1. Objectives of analysis plan.................................................................................................................. 10 
+3.2. Analysis software ................................................................................................................................ 10 
+3.3. Definition of baseline .......................................................................................................................... 10 
+3.4. Definition of analysis populations ...................................................................................................... 10 
+3.5. Adjustment for multiplicity ................................................................................................................. 10 
+3.6. Interim analyses .................................................................................................................................. 10 
+3.7. Handling of missing data .................................................................................................................... 10 
+3.8. Assigning SARS CoV-2 infection status at day 1 and for all outcomes ............................................... 11 
+3.9. Baseline covariate set ......................................................................................................................... 11 
+4. 
+Descriptive Statistics ..................................................................................................... 12 
+4.1. Recruitment and follow-up ................................................................................................................. 12 
+4.2. Baseline characteristics ...................................................................................................................... 12 
+4.3. Protocol deviations ............................................................................................................................. 12 
+4.4. Compliance ......................................................................................................................................... 12 
+4.5. Concomitant therapies ....................................................................................................................... 13 
+5. 
+Analysis of the Primary Outcome(s) ............................................................................... 13 
+5.1. Main analysis ...................................................................................................................................... 13 
+5.2. Sensitivity analyses ............................................................................................................................. 14 
+5.3. Supplementary analyses ..................................................................................................................... 14 
+5.4. Subgroup analyses .............................................................................................................................. 15 
+6. 
+Secondary Outcomes ..................................................................................................... 15 
+6.1 
+Secondary outcome 1. Efficacy of intranasal heparin to reduce SARS-CoV-2 viral shedding ............ 15 
+6.2 
+Secondary outcome 2. Safety of intranasal heparin .......................................................................... 18 
+6.3 
+Secondary outcome 3. Reduction of symptomatic disease ............................................................... 18 
+6.4 
+Secondary outcome 4. Impact on peak severity of illness ................................................................. 19 
+6.5 
+Secondary outcome 5. Clinical symptoms of neurological long COVID ............................................. 21 
+7. 
+Safety Outcomes ........................................................................................................... 25 
+8. 
+Listings, Tables and Figures ............................................................................................ 26 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 3 of 31  
+List of abbreviations 
+CDC 
+Centers for Disease Control and Prevention 
+CCSSSS 
+COVID-19 Composite Subjective Symptom Severity Score 
+COVID-19 
+Coronavirus disease 2019 
+DASS 
+Depression, Anxiety, and Stress Scales 
+GLM 
+generalized linear mixed models 
+HIT 
+Heparin-Induced Thrombocytopenia 
+ISTH  
+International Society on Thrombosis and Haemostasis 
+ITT 
+Intent-To-Treat 
+IQR  
+Interquartile Range 
+NATA  
+National Association of Testing Authorities (Australia) 
+PAOFI  
+Patient’s Assessment of Own Functioning Inventory 
+PCR 
+Polymerase chain reaction  
+PI 
+Principal Investigator 
+RAT 
+Rapid Antigen test  
+SARS-CoV-2 Severe acute respiratory syndrome Coronavirus 2 
+SD 
+Standard Deviation 
+T-MoCA 
+Telephone Montreal Cognitive Assessment 
+UFH  
+Unfractionated Heparin 
+WAIS 
+Wechsler Adult Intelligence Scale 
+ 
+Clarification of terms used: 
+Day 1 swab: Day 1 swab is defined as the swab taken before starting study drug. This could be on the same 
+day as starting study drug. 
+Index case: The initial SARS-CoV-2 infected person who reached out for enrolment into the study. In the 
+analysis, the index case is not analysed separately from the other household members. The index case does 
+play a role in the randomisation by determining one of the randomisation strata. Some of the covariates 
+included in multivariate models are also determined at the index case level. 
+Household contact: A household contact is any household member other than the index case.  
+Household member: This is a synonym for study participant, and means index cases and household contacts 
+combined. For most analyses, we will include household members, by their SARS-CoV-2 status on day 1.  
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 4 of 31  
+1. 
+ADMINISTRATIVE INFORMATION 
+ 
+Protocol: Number: NCT05204550; Version: 10; date: 8 Feb 2024 
+ClinicalTrials.gov register Identifier: NCT05204550 
+ 
+1.1 
+Document version history 
+Version Date 
+Version 
+Author  
+Signature 
+Change Description 
+Reason/Comment 
+24 Feb 2025 
+1.0 
+ 
+Initial release. 
+Not applicable. 
+ 
+1.2 
+Approvals 
+The undersigned have reviewed this plan and approve it as final. They find it to be consistent with the 
+requirements of the protocol as it applies to their respective areas. They also find it to be compliant with ICH-E9 
+principles and confirm that this analysis plan was developed in a completely blinded manner (i.e. without 
+knowledge of the effect of the intervention being assessed)  
+Name 
+Role on Study 
+Affiliation 
+Signature 
+Date 
+Paul Monagle 
+Sponsor-Investigator
+Steering committee 
+member 
+University of Melbourne 
+Murdoch Childrens Research 
+Institute 
+25-02-2025 
+Don Campbell 
+Site- Investigator 
+Steering committee 
+member 
+Northern Health 
+Anneke Grobler Statistician 
+Steering committee 
+member 
+Murdoch Childrens Research 
+Institute 
+ 
+24-02-2025 
+Prahlad Ho 
+Associate 
+Investigator 
+Steering committee 
+member 
+Northern Health 
+ 
+25-02-2025 
+Gary Anderson 
+Steering committee 
+member 
+University of Melbourne 
+25-02-2025 
+Steven Tong 
+Steering 
+committee 
+member 
+Peter Doherty Institute for 
+Infection and Immunity 
+University of Melbourne 
+25-02-2025 
+Sarosh Sadiq 
+Clinical trial 
+associate 
+RMIT University 
+25-02-2025 
+Marion Kainer 
+Steering committee 
+member 
+Western Health 
+Vanderbilt University School 
+of Medicine 
+25-02-2025 
+ 
+2. 
+STUDY SYNOPSIS 
+The aim of this study is to address the question: Does early treatment of index case and early pre/post 
+exposure prophylaxis of household members with intranasal heparin reduce transmission to household family 
+contacts on Severe acute respiratory syndrome Coronavirus 2 (SARS-CoV-2) Polymerase chain reaction (PCR) 
+assay by day 10, and subsequently reduce the burden of severe Coronavirus disease 2019 (COVID-19) as 
+26/02/2025
+INHERIT 
+Statistical Analysis Plan 
+Page 5 of 31  
+measured by hospitalisation rates in exposed/infected people? A secondary outcome is whether intranasal 
+heparin reduces the duration of transmissibility within the index case.  
+Multi-centre, prospective, cluster randomised, placebo-controlled two-arm superiority clinical trial.  
+Individual households with at least one person with PCR or RAT confirmed SARS-CoV-2 infection will be 
+randomised so that all consenting people in that household receive intranasal heparin or placebo. Participants 
+will receive intervention for 10 days and undergo 12 months of follow-up. The primary outcomes are achieved 
+within 10 days. The majority of secondary outcomes related to primary COVID-19 infection are followed for 28 
+days from randomisation. The secondary outcomes related to “long COVID” are monitored at 6 and 12 months 
+post randomisation.  
+The target sample size for the primary outcome is 1100 individuals. We planned to enroll 268 households and 
+1072 individuals.  
+The rate of subsequent PCR confirmed SARS-CoV-2 infections in exposed households will be measured to 
+determine the effect of intranasal heparin on reducing transmission to close contacts. 
+The rate of symptom development in all participants will be used to determine effect of treatment in 
+preventing symptomatic disease. The rate of hospitalisation of all participants will be measured to determine 
+the effect of treatment on development of severe disease. The presence of clinical neurological long COVID 
+symptoms will be assessed at 6 and 12 months to determine the effect of treatment on long COVID. 
+2.1. 
+Primary objective 
+To test the efficacy of early treatment and post exposure prophylaxis to reduce transmission to household 
+family contacts on SARS-CoV-2 PCR assay by day 10.  
+Measure: Number of household contacts (swab negative on day 1) testing positive for SARS-CoV-2 by PCR on 
+either of three routine nasopharyngeal swabs on day 3, 5 and 10 after enrolment or on clinically driven swab in 
+the first 10 days. Day 1 swab is defined as the swab taken before starting study drug. This could be on the 
+same day as starting study drug. 
+2.2. 
+Secondary objectives 
+1. 
+To test the efficacy of intranasal heparin to reduce SARS-CoV-2 viral shedding over 10 days from day of 
+positive swab (health professional collected swab day 3 and 5, and day 10)   
+Measure:  
+1.1. Total number of index cases and household contacts combined (nasopharyngeal swab positive on 
+day 1), who remain swab positive on day 3 
+1.2. Total number of index cases and household contacts combined (nasopharyngeal swab positive on 
+day 1), who remain swab positive on day 5  
+1.3. Total number of index cases and household contacts combined (nasopharyngeal swab positive on 
+day 1), who remain swab positive on day 10  
+1.4. Time to swab negative  based on health care provider   collected nasal swab for household members 
+(index cases and household contacts)  who were  swab positive on day 1 by PCR 
+1.5. Mean Ct values on days 3, 5 and 10 
+1.6. Lowest Ct value amongst household members who become positive during the first 10 days 
+2. 
+To test the safety of intranasal heparin for treatment of adult and child outpatients with SARS-CoV-2 
+infection.  
+Measure:  
+2.1 
+The number of participants who discontinue treatment prior to day 10 from randomisation as a 
+measure of treatment tolerability  
+2.2:  Listing of adverse events and serious adverse events 
+INHERIT 
+Statistical Analysis Plan 
+Page 6 of 31  
+3. 
+To test whether intranasal heparin administration reduces symptomatic disease in index cases and 
+household contacts.  
+Measure:  
+3.1  
+Number of household contacts (swab negative on day 1 of study) becoming symptomatic of COVID-19 in 
+the next 28 days  
+Symptomatic COVID-19 is defined as:  
+• Fever or chills PLUS ≥1 respiratory symptom (sore throat, cough, shortness of breath);  
+• OR 2 respiratory symptoms (sore throat, cough, shortness of breath); 
+• OR 1 respiratory symptom (sore throat, cough, shortness of breath) PLUS ≥2 non-respiratory symptoms 
+(chills, nausea, vomiting, diarrhea, headache, conjunctivitis, myalgia, arthralgia, loss of taste or smell, 
+fatigue or general malaise). 
+ 
+3.2  
+Time to symptom resolution for index case and household contacts who were SARS-CoV-2 positive on 
+day 1, during the study period as measured with daily symptom diary until day 28  
+Common symptoms included in the symptom diary:  
+•    Fever or chills   
+•    Cough 
+•    Shortness of breath or difficulty breathing 
+•    Fatigue  
+•    Muscle or body aches  
+•    Headache  
+•    New loss of taste or smell  
+•    Sore throat  
+•    Congestion or runny nose  
+•    Nausea or vomiting  
+•    Diarrheoa  
+ 
+4. 
+To test the impact of intranasal heparin on peak severity of illness.  
+Measure:  
+4.1.  Number of index cases and household contacts swab positive on day 1, hospitalised with COVID-19 by day 
+28 from randomisation  
+4.2.  Number of household contacts swab negative on day 1, hospitalised with COVID-19 by day 28 from 
+randomisation  
+4.3   Maximum severity score of participants (index case and household contacts swab positive) during the 
+study period as recorded by daily symptom diary up to day 28.  
+A COVID-19 Composite Subjective Symptom Severity Score (CCSSSS) will be generated using the 11 common 
+symptoms for COVID-19 infection listed at the Centers for Disease Control and Prevention (CDC) website and a 
+self-rated symptom severity assessment generated for each symptom on a daily basis using a Likert scale for 
+each symptom (Scale 0-3: not present, mild, moderate, severe).  
+Common symptoms:  
+•    Fever or chills  
+•    Cough  
+•    Shortness of breath or difficulty breathing  
+•    Fatigue  
+•    Muscle or body aches  
+•    Headache  
+•    New loss of taste or smell  
+•    Sore throat  
+•    Congestion or runny nose  
+•    Nausea or vomiting  
+INHERIT 
+Statistical Analysis Plan 
+Page 7 of 31  
+•    Diarrhea  
+ 
+Each symptom will be assigned a score of 0 if not present, 1 if mild, 2 if moderate and 3 if severe.  These scores 
+for each symptom will be added together to get the CCSSSS for each day.  
+ 
+5. 
+To assess the impact of intranasal heparin on long COVID neurological symptoms. 
+Measure:  
+5.1  Number of participants with clinical symptoms of neurological long COVID at 6 months post 
+randomisation.  
+ 
+The following symptoms were rated via telehealth or in person using a self-rated symptom assessment using a 
+Likert scale (0-3: absent, mild, moderate, severe) for each symptom: 
+•    Fatigue  
+•    Malaise  
+•    Daytime tiredness  
+•    Impaired concentration  
+•    Brain fog  
+•    Sleep disturbance  
+•    Forgetfulness  
+•    Confusion  
+•    Headache  
+•    Dizziness  
+•    Nausea  
+•    Hypo/anosmia  
+•    Hypo/ageusia  
+•    Impaired walking  
+•    Tingling feet or hands  
+•    Burning feet or hands  
+•    Numb feet or hands  
+•    Impaired fine motor skills  
+•    Muscle pain  
+•    Epilepsy  
+•    Anxiety  
+•    Depression  
+ 
+For participants over 16 years of age, cognition and mood were assessed using the harmonised procedures 
+developed by the Neuro-COVID Neuropsychology International Task force. Included measures were: 
+•    Cognitive screening using Telephone Montreal Cognitive Assessment (T-MoCA) 
+•    Subjective cognitive complaints using Patient’s Assessment of Own Functioning Inventory (PAOFI) 
+•    Attention/working memory using the Wechsler Adult Intelligence Scale (WAIS) digit span 
+•    Mood using the Depression, Anxiety and Stress Scales (DASS)  
+ 
+5.2  
+Number of participants with clinical symptoms of neurological long COVID at 12 months post 
+participation in trial.  
+ 
+2.3 
+Study population 
+Adults or children in community setting with RAT or PCR-confirmed SARS-CoV-2 infection and their household 
+contacts.  All participants who enter the trial based on a positive RAT will have a confirmatory PCR test taken 
+prior to commencing study medication. This is referred to as the Day 1 swab.  Only participants who test PCR 
+negative to SARS-CoV-2 on day 1 swab contribute to the primary outcome measure in addition to relevant 
+secondary aims. Anyone testing PCR positive on day 1 contributes to relevant secondary aims only. 
+INHERIT 
+Statistical Analysis Plan 
+Page 8 of 31  
+A household contact is defined as anyone living in the same house (street address) regardless of their direct 
+biological relationships.  
+Children (<5 year old) in households are not treated but monitored only. For households in which the child is 
+the index case, only household contacts >5 years age are randomised to treatment. For households in which 
+the index case is an adult, and the child <5 years old tests PCR negative on day 1, then the child contribute to 
+primary and secondary outcomes even though they themselves are not treated.  
+Inclusion criteria:   
+• 
+Any person > 5 years of age who tests positive to SARS-CoV-2 or is a household contact of someone of any 
+age who tests positive is eligible for the trial.  
+• 
+Index case must be within 72 hours of positive test.  
+• 
+The positive test can be a RAT or a standard PCR nasal swab performed at a National Association of 
+Testing Authorities (Australia) (NATA) accredited laboratory for the diagnosis of COVID-19 as per the 
+department of health regulations. If initial test is a RAT, then a standard PCR nasal swab performed at a 
+NATA accredited laboratory for the diagnosis of COVID-19 as per the department of health regulations will 
+be collected prior to commencement of study medication but does not delay entry into the study 
+awaiting the confirmatory result.  
+• 
+All participants must provide a signed and dated consent form and for children < 16 years have a legally 
+acceptable representative capable of understanding the informed consent document and providing 
+consent on the participant’s behalf. Consent forms will be developed in multiple languages and provided 
+in a language that the participants are fluent in speaking.  
+• 
+At least one other person other than the index case in each household must consent to participation to 
+enable the consenting members of the household to be randomised. Household members who do not 
+consent to participate in the randomised trial but who consent to have their COVID-19 status recorded 
+can contribute to outcome measures where relevant.  
+Exclusion criteria:   
+• 
+Children age < 5 years are excluded from being randomised to therapy but can contribute to the outcome 
+measures if they are swab negative on day 1.  
+• 
+Documented Heparin allergy  
+• 
+Previous documented heparin induced thrombocytopenia (HIT)  
+• 
+Recurrent epistaxis that has required hospitalisation in last 3 months  
+• 
+>72 hours since index case tested positive  
+• 
+Inability to provide participant information and consent form and study instructions in a language in 
+which the patient is competent.  
+2.4 
+Intervention 
+Unfractionated heparin (UFH) 1400u each nostril (as heparin solution 5,000u/ml, 140microL/actuation, TWO 
+actuations each nostril) THREE times daily via a plastic nasal inhalator device (Aptar, UK) for 10 days. This is a 
+maximal dose per day of UFH of 8400u, 700 x 2 actuations per nostril (1400 x2) 3 times per day (1400x2x3 = 
+8400u). 
+Comparator 0.9% saline (as saline solution, 140 microlitres/actuation, TWO actuations each nostril) THREE 
+times daily via a plastic nasal inhalator device (Aptar, UK) for 10 days.  
+2.5 
+Randomisation and blinding 
+An independent statistician prepared the randomisation list using block randomisation. This list was provided 
+directly to Northern Health pharmacy. Once a household was enrolled, the pharmacy was notified directly and 
+prepared and dispensed the required study drug based on the randomisation schedule. The randomisation 
+was stratified by randomised within 48 hours of positive test done by the participant for the index case (time 
+of test being collected) versus those who were randomised between 48 and 72 hours, and by whether or not 
+the index case is a child < 5 years.  
+INHERIT 
+Statistical Analysis Plan 
+Page 9 of 31  
+The randomisation was a 1:1 randomisation by household. If the index case and at least one other person in 
+the household were eligible and consented then all consenting and eligible participants within that household 
+were randomised to the same arm of the study, either active treatment or comparator.  
+This is a double blind trial and both participants and researchers will be blinded throughout the study. The 
+bottles distributed to the patients were listed as trial medication and the active comparator and placebo are 
+both colourless, odourless and tasteless packaged in similar looking bottles. Both active drug and comparator 
+are stable at room temperature and need no specific storage requirements.  
+2.6 
+Sample size 
+For the primary research outcome, a sample size of 120 index cases per arm will provide 80% power. We 
+anticipate that the attack rate for within household transmission will be approximately 85% in the control arm 
+and 75% in the intervention arm. Under these assumptions, in a cluster randomised trial with a binary 
+outcome, assuming an intracluster correlation coefficient of 0.2, an alpha of 0.05 (two sided), and assuming 3 
+additional household members (in addition to the index case) we have 80% power to detect a reduction in 
+transmission to household contacts. The requisite sample size is then 120 index cases and 360 household 
+contacts per arm. Allowing for 10% loss to follow-up this is increased to 134 index cases (households) per arm, 
+approximately 536 persons per arm. We plan to enroll 268 households and approximately 1072 individuals.  
+If the household size is 2 additional people, rather than 3, and with all other assumptions the same, we would 
+require 334 households and approximately 1002 individuals.  The target sample size for the primary outcome 
+is 1100 individuals enrolled. 
+2.7 
+Study procedures 
+When a participant is confirmed to be SARS-CoV-2 positive all consenting household members are enrolled 
+and randomised to the same treatment arm. All consenting household members 5 years of age and older will 
+be given the same study treatment. Treatment is 10 days and follow up for primary outcome is 10 days. Follow 
+up for some secondary outcomes are 28 days and outcomes related to long COVID is 6 and 12 months post 
+randomisation.  
+Daily communication via SMS, online or phone will be conducted by a research team member who will be 
+trained in standard operating procedures as per trial manual. Paediatric or adult swabs (Rhinomed) will be 
+provided to all participants with detailed instructions for self-collection and storage until collected by a 
+research team member. Health care provider collected PCR nasopharyngeal swabs will be collected from all 
+participants prior to commencement of study medication and on day 3, 5 and 10 (+/- 1 day for all time points).  
+Phone call follow up at day 14 and 28 by a research team member will assess which participants became 
+symptomatic after the initial treatment period and whether participants required hospitalisation during that 
+time. Detailed medical information as to reasons for hospital admission will be sought to confirm if admission 
+was related to COVID-19 infection or for alternative reasons. Research team members will be trained 
+specifically in questions to ask according to trial manual, which will include an escalation process if a research 
+team member believes that additional clinical care is required for the participant or family member.  
+Telemedicine follow up at day 180 +/- 10 days and day 365 +/- 10 days to ascertain any evidence of long COVID 
+neurological symptoms.  
+2.8 
+Deviations from protocol 
+Secondary measures 1.5 and 1.6 were not specified in the protocol, but were added to the statistical analysis 
+plan. 
+ 
+Reference to consecutive daily swabs were removed, since only the healthcare provider swabs are used and 
+they are not collected daily.  
+ 
+No other large deviations from the protocol occurred. Where the text deviates from the protocol, the changes 
+were made to resolve inconsistencies and ambiguities, without the intention of diverging from the original 
+protocol. 
+INHERIT 
+Statistical Analysis Plan 
+Page 10 of 31  
+ 
+Full details of the background to the trial and its design are presented in the protocol. 
+ 
+3. 
+GENERAL STATISTICAL METHODOLOGY  
+ 
+3.1. 
+Objectives of analysis plan 
+This statistical analysis plan described the planned analyses of the primary and secondary objectives of the 
+INHERIT trial protocol in detail. Additional post hoc analyses are not included.  
+ 
+3.2. 
+Analysis software 
+Stata version 18.0 or later will be used to analyse the data.  
+ 
+3.3. 
+Definition of baseline 
+Baseline is defined as day 1 PCR and pre-Day 1 measures for other measures. Only measures taken prior to 
+dispending study drug will be used as baseline measures.   
+ 
+3.4. 
+Definition of analysis populations 
+Different study populations are defined to address the different research questions.  These are: 
+• All household members of households where at least one person tested positive and at least one person 
+tested negative for SARS-CoV-2 on day 1 on PCR testing. This includes children < 5years old who test 
+negative to SARS-CoV-2 on day 1. 
+• All household members who test negative for SARS-CoV-2 on day 1 (including children < 5 years old) on PCR 
+testing.  
+• All household members (index cases and household contacts) who test positive for SARS-CoV-2 on day 1 on 
+PCR testing. This excludes children < 5 years old who test positive to SARS-CoV-2 on day 1. 
+• All household members (index cases and household contacts; 5 years and older) prescribed study drug, 
+regardless of SARS-CoV-2 infection status 
+• All enrolled participants, regardless of SARS-CoV-2 status, who received at least one dose of study drug. 
+This excludes children < 5 years.  
+• All enrolled participants, regardless of SARS-CoV-2 status. 
+ 
+In Sections 5 and 6 we specify which population is used to assess each of the study objectives. Despite the 
+specific analysis populations described, all analyses will follow the Intention to treat (ITT) principle where 
+participants will be analysed in the arms they were randomised to, regardless of whether they received or 
+used study drug.  
+ 
+3.5. 
+Adjustment for multiplicity 
+No adjustment for multiplicity will be made.  
+ 
+3.6. 
+Interim analyses 
+No interim analyses were done or planned.  
+ 
+3.7. 
+Handling of missing data 
+If less than 10% of data is missing, the primary analysis will be conducted using the participants with available 
+data for each outcome. However, if there are >10% missing data in the primary or secondary outcomes, we 
+will conduct the analysis under a plausible assumption regarding the missingness mechanism that will be 
+guided using expert clinical knowledge prior to observing the data, which will be determined by generating 
+directed acyclic graphs. We suspect that the data will be recoverable (that is able to be estimated without bias 
+from the observed data alone), and multiple imputation will be used to handle the missing data in all 
+INHERIT 
+Statistical Analysis Plan 
+Page 11 of 31  
+outcomes. Imputations will be generated using chained equations, also known as fully conditional 
+specification, with 50 imputed datasets and 10 iterations between each imputation. Ideally this would be 
+conducted using a single regression model for all outcomes, although it may be necessary to impute 
+incomplete outcomes using separate models. Imputation will be carried out separately by arm, to ensure that 
+any treatment effects are maintained. Baseline characteristics as well as any variables that are predictors of 
+missingness and/or associated with the incomplete outcomes will be included as auxiliary variables in the 
+imputation model. Estimates of interest will be obtained using Rubin’s rules, and will be reported with 95% 
+confidence intervals and p-values.  
+ 
+3.8. 
+Assigning SARS CoV-2 infection status at day 1 and for all outcomes 
+The following algorithm will be used to determine whether a participant is regarded as positive or negative for 
+SARS CoV-2. In general, only the health care provider collected PCR result will be used to determine infection 
+status. The exception would be when the result was inconclusive.  
+SARS CoV-2 infection at the time point will be positive if the health care provider collected PCR result is 
+“Detected” and negative if the PCR result is “Not detected”.  
+If the result of the healthcare provider collected swab was inconclusive the following algorithm will be 
+followed: 
+The result of the self-collected Rhinomed swab collected on the same date as the inconclusive healthcare 
+provider collected swab will determine the final result. If the result of the self-collected Rhinomed swab is 
+“Detected” the result will be positive and if the result is “Not detected” the result will be negative. 
+If the self-collected Rhinomed swab was also inconclusive, or was missing, the following algorithm will be 
+followed (using the healthcare provider collected swab): 
+• If the inconclusive result was followed later by a “Detected” result (for example, Inconclusive on Day 3 and 
+Detected on Day 5) then the inconclusive result will be deemed to be positive. 
+• If the inconclusive result was followed later by a “Not detected” result, then the inconclusive result will be 
+deemed to be negative.  
+• If the inconclusive result was the last available result, then the inconclusive result will be deemed to be 
+negative.  
+This algorithm will be used to determine both the primary endpoint (positive on any of Day 3, 5 or 10) and all 
+secondary endpoints related to SARS-CoV-2 positivity.  
+ 
+For the primary objective only, the following two sensitivity analyses will also be done: 
+Sensitivity analysis 1: Only healthcare provider collected swabs will be used. If the result is inconclusive, it will 
+be regarded as positive. 
+Sensitivity analysis 2: Only healthcare provider collected swabs will be used. If the result is inconclusive, it will 
+be regarded as negative. 
+ 
+3.9. 
+Baseline covariate set 
+A set of covariates which will be included in models for all primary and secondary outcomes (unless specified 
+otherwise) are: stratification factors (time from positive test to randomisation (binary)) and whether the index 
+case is a child < 5 years(binary), participant age (continuous), inhaled steroid use at baseline (binary), days 
+since symptom onset for index case at randomisation (continuous), whether there are children in the 
+household (binary) and household size (continuous). This is referred to as the baseline covariate set. 
+ 
+Some of these covariates are correlated with each other and may also have sparse data in some of the cells, 
+which may lead to convergence problems with the models. If that is the case, we will exclude some of the 
+baseline covariate set until we can get a model that converges. We will first exclude the sparsest variables, and 
+secondly exclude the variables most correlated with other variables.  
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 12 of 31  
+We will also repeat each analysis with a model including only the two stratification variables.  
+ 
+4. 
+DESCRIPTIVE STATISTICS 
+ 
+4.1. 
+Recruitment and follow-up 
+We will summarise the number of households and participants enrolled. We will also detail how many index 
+cases, household members, SARS-CoV-2 positive and negative household members were enrolled. We will also 
+show how many households were enrolled and were eligible for the primary analysis. This will be summarised 
+in a CONSORT flowchart.  
+ 
+4.2. 
+Baseline characteristics 
+The following variables will be summarised at baseline by treatment arm. Categorical variables will be 
+summarised as the number and percentage, and continuous variables as mean, standard deviation (SD) and 
+range (minimum and maximum) or median and interquartile range (IQR) when continuous data is skewed.  
+ 
+Household information: Household size, number of children in household, household type, number of 
+bathrooms, number of bedrooms, number of household members enrolled.   
+Index case information: Time of positive test collection, index case <5 years old, age, interpreter required, sex, 
+COVID-19 vaccine history (number of doses received), had COVID-19 before (number of infections), COVID-19 
+symptoms present (yes/no and fever or chills, cough, shortness of breath, fatigue, muscle or body aches, 
+headache, loss of taste or smell, sore throat, congestion or runny nose, nausea or vomiting, diarrhea), number 
+of days with symptoms, nasal spray use   
+Household member information: Age, interpreter required, SARS-CoV-2 status at screening, sex, COVID-19 
+vaccine history (number of doses received), had COVID-19 before (number of infections), COVID-19 symptoms 
+present (fever or chills, cough, shortness of breath, fatigue, muscle or body aches, headache, loss of taste or 
+smell, sore throat, congestion or runny nose, nausea or vomiting, diarrhea)      
+ 
+Demographic data at baseline will be provided for the household, index case and household members. For 
+household members, the demographics will be provided overall, as well as by SARS-CoV-2   status.  
+       
+4.3. 
+Protocol deviations 
+Protocol deviations will be listed.  
+ 
+4.4. 
+Compliance 
+Participants will be asked about compliance and symptoms daily. Parents will act as a proxy for children <16 
+years old. They will be asked how many doses they have used in the previous day. We will provide the number 
+of participants who took 0, 1, 2 or 3 doses per day for 10 days.  
+We will also calculate the percentage of prescribed study dose that was taken. Each participant should take 3 
+doses per day, 30 doses over the 10 days. Participants could start the study late on the first day, in which 
+case one would expect them to only have used 1 or 2 doses, instead of 3. Starting late on the first day would 
+also distort reporting of study compliance on Day 2, since we ask “how many doses of study drug have you 
+taken in the last 24 hours”. We do not have the time of day when the study was started and thus cannot 
+determine how many doses a participant should have used on the first or second day. For this reason, we 
+will exclude Days 1 and 2 from the calculation of compliance. Thus, the percentage compliance will be 
+calculated as (number of doses taken from days 3 to 10/24) multiplied by 100. If compliance data is missing 
+for a day, the denominator will be reduced by 3. The mean percentage compliance will be summarised. All 
+compliance summaries will be provided in each treatment arm as well as for participants who were positive 
+and negative for COVID-19 at baseline by treatment arm.   
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 13 of 31  
+4.5. 
+Concomitant therapies 
+Concomitant therapies will be listed per treatment arm. Both the medication and the indication will be listed. 
+Concomitant therapies administered nasally and anti-virals used will also be summarised.   
+ 
+5. 
+ANALYSIS OF THE PRIMARY OUTCOME(S) 
+ 
+5.1. 
+Main analysis 
+The primary outcome will be the number (and proportion) of household members swab negative on day 1 
+(study timepoint called baseline) testing positive for SARS-CoV-2 by PCR on either of three routine 
+nasopharyngeal swabs on day 3, 5 and 10 after enrolment. 
+Primary estimand 
+Population: Household members (including children < 5 years) who test negative for SARS CoV-2 on day 1 
+(baseline) PCR testing using the health care provider swabs 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Testing positive for SARS-CoV-2 by PCR on any of three health care provider collected swabs at days 
+3, 5 and 10. The algorithm to determine SARS-CoV-2 positivity is described in detail in Section 3.8. If one of the 
+post-baseline swabs is missing, but all observed swabs were negative, the participant will be regarded to be 
+negative. If more than one post-baseline swab is missing and the observed swabs were all negative, the 
+outcome will be regarded to be missing.  
+Summary measure: Both relative (risk ratio) and absolute differences (risk difference) in proportions will be 
+reported with 95% confidence intervals 
+Potential intercurrent events:                
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant hospitalisation during first 10 days (removed from household) 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+In the primary analysis all intercurrent events will be handled through the treatment policy strategy, 
+which means that the intercurrent events will be ignored.  
+The analysis will follow the intention to treat principle, but only some households will be eligible for this 
+objective. A household will be eligible if there is at least one participant in the household who tested positive 
+to SARS-CoV-2 by PCR on Day 1 and one participant who tested negative to SARS-CoV-2 by PCR on Day 1, using 
+the health care provider collected swab. It does not matter whether it was the index case or another 
+household member who tested positive. Households where all participants test positive or where all 
+participants test negative will not be eligible for this analysis.  
+Treatment arms will be compared using generalised linear mixed models (GLM) with infection status as the 
+binary outcome, adjusting for stratification factors (time from positive test to randomisation, whether the 
+index case is a child < 5 years), participant age, inhaled steroid use at baseline, days since symptom onset at 
+randomisation, whether there are children in the household and household size (referred to as the defined 
+baseline covariate set, see Section 3.9), with household as random effect to take the clustering by household 
+into account. Both relative and absolute differences in proportions will be reported with 95% confidence 
+intervals. 
+Relative differences (risk ratios) between the treatment arms will be calculated using a Poisson regression with 
+robust standard errors in Stata as follows:  
+ 
+xtpoisson outcome i.arm baseline_covariates, re vce(robust) irr 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 14 of 31  
+Absolute differences (risk difference) between the treatment arms will be calculated in Stata as follows using a 
+mixed effects GLM with random intercepts:  
+meglm outcome i.arm baseline_covariates || household:, family(bin) link(logit) 
+ 
+The margins statement will be used to compute the risk difference by subtracting the probability of the 
+outcome in the control arm from the probability in the treatment arm 
+margins i.arm, atmeans post 
+lincom _b[1.arm] - _b[0.arm] 
+ 
+Both these models are fairly complicated models to fit and might not converge if sparse data is encountered, 
+given all the baseline covariates included. If the models do not converge, the following strategies will be tried: 
+• 
+Exclude some of the baseline covariates – especially binary covariates, covariates with sparse categories, 
+or covariates with little variability 
+• 
+Or, fit the following simpler models  
+ 
+Relative differences (risk ratios) between the treatment arms will be calculated in Stata as follows using robust 
+standard errors:  
+glm outcome i.arm baseline_covariates, fam(bin) link(log) nolog eform vce(cluster household)  
+Absolute differences (risk difference) between the treatment arms will be calculated in Stata as follows using 
+robust standard errors:  
+glm outcome i.arm baseline_covariates, fam(bin) link(identity) nolog vce(cluster household)  
+5.2. 
+Sensitivity analyses 
+Four sensitivity analyses are planned: 
+1. The analysis described above will be repeated using multiple imputation, if more than 10% of outcome data 
+is missing.  
+2. The analysis described above willbe repeated without the covariates participant age, inhaled steroid use at 
+baseline, days since symptom onset at randomisation, whether there are children in the household and 
+household size. 
+3. The algorithm to determine SARS-CoV-2 infection will be changed by deeming all inconclusive results 
+(including on Day 0) to be positive, using only healthcare provider collected swabs.  
+4. The algorithm to determine SARS-CoV-2 infection will be changed by deeming all inconclusive results 
+(including on Day 0) to be negative, using only healthcare provider collected swabs.  
+ 
+5.3. 
+Supplementary analyses  
+We define a supplementary estimand, through handing the intercurrent event of not taking study drug 
+differently.  
+ 
+Supplementary estimand 
+Population: Household contacts who test negative for SARS CoV-2 on day 1 (baseline) PCR testing using the 
+health care provider swabs 
+Treatment: Unfractionated intranasal heparin 1400u each nostril (as heparin solution 5,000u/ml, 
+140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic nasal inhalator device or 
+saline control 
+Outcome: Testing positive for SARS-CoV-2 by PCR on any of three health care provider collected swabs at days 
+3, 5 and 10 while participant and index case do not discontinue treatment due to adverse events. The 
+algorithm to determine SARS-CoV-2 positivity is described in detail in Section 3.8. If one of the post-baseline 
+swabs is missing, but all observed swabs were negative, the participant will be regarded to be negative. If 
+more than one post-baseline swab is missing and the observed swabs were all negative, the outcome will be 
+regarded to be missing. 
+INHERIT 
+Statistical Analysis Plan 
+Page 15 of 31  
+Summary measure: Both relative (risk ratio) and absolute differences (risk difference) in proportions will be 
+reported with 95% confidence intervals 
+Potential intercurrent events:                
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant hospitalisation during first 10 days (removed from household) 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+Index case in the household not taking study drug. This is defined as compliance <90%: This intercurrent 
+event will be handled following the hypothetical strategy. For index cases who used <90% of study drugs 
+we will set all SARS-CoV2 infections observed in the household to missing. We will use multiple 
+imputation to impute these outcomes.  
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90%: This 
+intercurrent event will be handled following the hypothetical strategy. We will set all SARS-CoV2 
+infections observed to missing. We will use multiple imputation to impute these outcomes. 
+Either participant (this household member) or index case stop treatment due to adverse event: We will 
+handle this intercurrent event using the while on treatment strategy. We will do this by excluding 
+outcomes after participants stop study treatment due to adverse events from the analysis.  
+All other intercurrent events will be handled by using the treatment policy strategy, which means that 
+those intercurrent events will be ignored.  
+This analysis will only be done if more than 7% of participants had the intercurrent events. 
+5.4. 
+Subgroup analyses 
+The following subgroup analyses will be done: 
+Age: <5, 5-<18, 18-65, >65 years 
+Anti-viral treatment: Use of anti-viral treatment by the index case at randomisation. These include Paxlovid, 
+Molnupiravir, Remdesivir and Favipiravir.  
+Number of SARS-CoV-2 exposures (vaccinations and infections) prior to the trial: 4 or less, vs > 4 
+Use any nasal treatment prior to coming into trial (Carrageenan or inhaled steroid, variables 
+cm_flonasalspray_yn and cm_inhaledsteroids_yn) 
+Number of people in house: 2-3 vs > 3 
+Ratio of people to bedrooms: < 1, 1, > 1 
+ 
+The subgroup analysis will be done by including an interaction term between the treatment arm and the 
+subgroup in the model described in Section 5.1. For example,  
+xtpoisson outcome i.arm##i.subgroup baseline_covariates, re vce(robust) irr 
+ 
+The p-value of the subgroup by arm interaction term will be assessed to determine whether there could be a 
+subgroup effect, with the understanding that the analysis is probably underpowered.  
+ 
+6. 
+SECONDARY OUTCOMES 
+ 
+For all secondary outcomes referring to SARS-CoV-2 status we will use the algorithm as discussed in Section 
+3.8 and used for the primary outcome to determine SARS-CoV-2 infection status at any time point.  
+ 
+6.1 
+Secondary outcome 1. Efficacy of intranasal heparin to reduce SARS-CoV-2 viral shedding 
+To test the efficacy of intranasal heparin to reduce SARS-CoV-2 viral shedding over 10 days from day of 
+positive swab (health professional collected swab day 3 and 5, and day 10) 
+Measure 
+1.1. Total number of index cases and household contacts combined (nasopharyngeal swab positive on day 1) 
+who remain swab positive on day 3 according to health care provider collected swab 
+INHERIT 
+Statistical Analysis Plan 
+Page 16 of 31  
+1.2.  Total number of index cases and household contacts combined (nasopharyngeal swab positive on day 1) 
+who remain swab positive on day 5 according to health care provider collected swab 
+1.3. Total number of index cases and household contacts combined (nasopharyngeal swab positive on day 1) 
+who remain swab positive on day 10 according to health care provider collected swab 
+Estimand 
+Population: Household members who tested positive for SARS CoV-2 on day 1 on a nasopharyngeal swab PCR 
+testing (health care provider collected swab) 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Three different analyses will be done with 3 different outcomes 
+a) 
+Testing positive for SARS-CoV-2 by PCR on day 3 (using health care provider collected swab) 
+b) 
+Testing positive for SARS-CoV-2 by PCR on day 5 (using a health care provider collected swab) 
+c) 
+Testing positive for SARS-CoV-2 by PCR on day 10 (using a health care provider collected swab) 
+Summary measure: Both relative (risk ratio) and absolute differences (risk difference) in proportions will be 
+reported with 95% confidence intervals 
+Potential intercurrent events:  
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant hospitalisation during first 10 days (removed from household) 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+The same analysis as described in Section 5.1 for the primary outcome will be done. We will do the same 
+sensitivity and supplementary analysis, but no subgroup analyses are planned.  
+ 
+Measure 
+1.4. Time to swab negative based on health care provider collected nasal swab for household members index 
+cases and household contacts) who were swab positive on day 1 by PCR 
+Estimand 
+Population: Household members who tested positive for SARS CoV-2 on day 1 on a nasopharyngeal swab PCR 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Days from randomisation to the date of the first negative nasal swab. Participants who still test 
+positive on day 10 will be censored on day 10 and regarded as not testing negative.  
+Summary measure: Median time to first negative test in each treatment arm. Hazard ratio. 
+Potential intercurrent events:                
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant hospitalisation during first 10 days (removed from household) 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+Days to first negative test will be calculated from baseline to the first negative PCR tests within the first 10 
+days after randomisation. Participants who still test positive at the last time point will be censored at the time 
+INHERIT 
+Statistical Analysis Plan 
+Page 17 of 31  
+of last test. Participants who are lost to follow-up without testing negative, will be censored at the time of the 
+last positive test. The days to negative test will be compared between the two treatment arms using a 
+proportional hazards models with clustered standard errors [using  vce(cluster) in Stata]. The model will be 
+adjusted for the same set of defined baseline covariates (Section 5.1). Days to negative test will be 
+summarised by reporting the median, with 95% confidence interval.  
+ 
+Measure 
+1.5  Mean Ct values on days 3, 5 and 10 
+ 
+Estimand 
+Population: Household members who tested positive for SARS CoV-2 on day 1 on a nasopharyngeal swab PCR 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: The mean Ct value at each time point on all genes (E, N, RdRp/S gene). Ct value for the virus that 
+was not detected will be set at the maximum number of cycles performed in the lab (40). 
+Summary measure: The mean difference between arms will be reported with 95% confidence interval 
+Potential intercurrent events:                
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant hospitalisation during first 10 days (removed from household) 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+Treatment arms will be compared using mixed effects linear regression with Ct value as the outcome, adjusting 
+for stratification factors (time from positive test to randomisation, whether the index case is a child < 5 years), 
+participant age, inhaled steroid use at baseline, days since symptom onset at randomisation, whether there 
+are children in the household and household size (referred to as the defined baseline covariate set), with 
+household as random effect to take the clustering by household into account.  
+Measure 
+1.6 
+Lowest Ct value amongst household members who become positive during the first 10 days 
+Estimand 
+Population: Household members who tested negative for SARS CoV-2 on day 1 on a nasopharyngeal swab PCR 
+and subsequently become SARS CoV-2 positive during the first 10 days 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: The mean Ct value at each time point at or after the first positive SARS-CoV-2 test on all genes (E, N, 
+RdRp/S gene). Ct value for the virus that was not detected will be set at the maximum number of cycles 
+performed in the lab (40). For each participant the lowest Ct value detected at or after the first positive test 
+will be used.  
+Summary measure: The mean difference between arms will be reported with 95% confidence interval 
+ 
+Treatment arms will be compared using mixed effects linear regression with lowest Ct value as the outcome, 
+adjusting for the defined baseline covariate set, with household as random effect to take the clustering by 
+household into account.  
+The mean difference between the treatment arms will be calculated in Stata as follows using a mixed effects 
+GLM:  
+INHERIT 
+Statistical Analysis Plan 
+Page 18 of 31  
+mixed outcome i.arm baseline_covariates || household: 
+ 
+6.2 
+Secondary outcome 2. Safety of intranasal heparin 
+To test the safety of intranasal heparin for treatment of adult and child outpatients with SARS-CoV-2 infection  
+Measure 
+2.1 The number of participants who discontinue treatment prior to day 10 from randomisation as a measure of 
+treatment tolerability  
+Estimand 
+Population: Household members (older than 5 years) prescribed study drug, regardless of SARS-CoV-2 
+infection status (all enrolled participants) 
+Treatment: Unfractionated intranasal heparin 1400u each nostril (as heparin solution 5,000u/ml, 140microL/ 
+actuation, TWO actuations each nostril) THREE times daily via a plastic nasal inhalator device or saline control 
+Outcome: The number of participants who discontinue treatment prior to day 10 
+Summary measure: Proportion in each arm, with 95% confidence interval.  
+Potential intercurrent events: None identified 
+ 
+No statistical comparison will be made between the treatment arms. We will simply provide the proportion, 
+with a 95% confidence interval, adjusted for clustering by household.  
+ 
+6.3 
+Secondary outcome 3. Reduction of symptomatic disease 
+To test whether intranasal heparin administration reduces symptomatic disease in household members  
+ 
+Measure 3.1 
+Number of household contacts (swab negative on day 1 by PCR) becoming symptomatic of COVID-19 in next 
+28 days.  
+ 
+Symptomatic COVID-19 is defined as:  
+• Fever or chills PLUS ≥1 respiratory symptom (sore throat, cough, shortness of breath);  
+• OR 2 respiratory symptoms (sore throat, cough, shortness of breath);  
+• OR 1 respiratory symptom (sore throat, cough, shortness of breath) PLUS ≥2 non-respiratory symptoms 
+(nausea or vomiting, diarrhea, headache, congestion or runny nose, sore throat, loss of taste or smell, 
+myalgia, fatigue). 
+Symptoms are recorded as not present, mild, moderate or severe. A symptom will be regarded as being 
+present if it is any of mild, moderate or severe. 
+ 
+Estimand 
+Population: Household contacts who test negative for SARS CoV-2 on day 1 by PCR 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Becoming symptomatic of COVID-19 as defined above in the first 28 days. 
+Summary measure: Both relative (risk ratio) and absolute differences (risk difference) in proportions will be 
+reported with 95% confidence intervals 
+Potential intercurrent events:                
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant hospitalisation during first 10 days (removed from household) 
+ 
+Participant received an anti-viral 
+INHERIT 
+Statistical Analysis Plan 
+Page 19 of 31  
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+The same analysis as described in Section 5.1 for the primary analysis will be done.  
+ 
+Measure 3.2 
+Days to symptom resolution for household members who were swab positive on day 1 by PCR, during the 
+study period as measured with daily symptom diary until day 28.  
+Common symptoms included in the symptom diary are: Fever or chills, cough, shortness of breath or difficulty 
+breathing, fatigue, muscle or body aches, headache, new loss of taste or smell, sore throat, congestion or 
+runny nose, nausea or vomiting, diarrhea. The symptoms are measured as not present, mild, moderate or 
+severe.  Symptom resolution is defined as a symptom improving by at least 2 categories from its first 
+measurement (on Day 1) or being not present. For example, a symptom measured as severe on Day 1 would 
+be resolved if it measured mild, all other symptoms would be resolved if it changed from moderate to not 
+present or from mild to not present. Symptom resolution had to be maintained for 2 consecutive days.   
+ 
+Estimand 
+Population: Household members who test positive for SARS CoV-2 on day 1 by PCR 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Days from randomisation to the first day with symptom resolution. Participants who still have 
+symptoms on day 28 will be censored on day 28 and regarded as not having symptom resolution. Participants 
+who had no symptoms at randomisation, will be regarded as having 0 days to symptom resolution.   
+Summary measure: Median days to symptom resolution in each treatment arm. Hazard ratio. If all participants 
+are symptom free at the end of follow-up, we will be able to estimate the difference in mean days to 
+resolution of symptoms between the arms 
+Potential intercurrent events:                
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+Days to symptom resolution will be calculated from baseline to the first (of 2 consecutive days) day with 
+symptom resolution (as defined above) for each of the symptoms individually. Participants who still have 
+symptoms at the last time point will be censored at the time of last symptom checklist completed. Participants 
+who are lost to follow-up will be censored at the last time a checklist was completed. The same analysis as 
+described in Section 6.1 for endpoint 1.4 will be done.  
+ 
+In addition, an analysis for resolution of all symptoms will be done. This will be defined as the first day with all 
+symptoms either mild or not present, maintained for 2 consecutive days. The analysis will be done in the same 
+manner as for each individual symptom.   
+ 
+6.4 
+Secondary outcome 4. Impact on peak severity of illness 
+Measure 4.1 
+Number of household members swab positive on day 1 by PCR, hospitalised with COVID-19 by day 28 from 
+randomisation  
+Estimand 
+Population: Household members who test positive for SARS CoV-2 on day 1 by PCR 
+INHERIT 
+Statistical Analysis Plan 
+Page 20 of 31  
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Participants reported being hospitalised in first 28 days 
+Summary measure: Both relative (risk ratio) and absolute differences (risk difference) in proportions will be 
+reported with 95% confidence intervals 
+Potential intercurrent events:                
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+The same analysis as described in Section 5.1 for the primary analysis will be done.  
+ 
+Measure 4.2 
+Number of household contacts swab negative on day 1 by PCR, hospitalised with COVID-19 by day 28 from 
+randomisation  
+Estimand 
+Population: Household contacts who test negative for SARS CoV-2 on day 1 by PCR 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Participants reported being hospitalised in first 28 days 
+Summary measure: Both relative (risk ratio) and absolute differences (risk difference) in proportions will be 
+reported with 95% confidence intervals 
+Potential intercurrent events:                
+ 
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+The same analysis as described in Section 5.1 for the primary analysis will be done.  
+ 
+Measure 4.3 
+Maximum severity score of participants (household members swab positive) during the study period as 
+recorded by daily symptom diary up to day 28.  
+A CCSSSS will be calculated using the 11 common symptoms for COVID-19 infection listed at the CDC website 
+(fever or chills, cough, shortness of breath or difficulty breathing, fatigue, muscle or body aches, headache, 
+new loss of taste or smell, sore throat, congestion or runny nose, nausea or vomiting, diarrhea) and a self-
+rated symptom severity assessment generated for each symptom on a daily basis using a Likert scale for each 
+symptom (Scale 0-3: not present, mild, moderate, severe).  
+Each symptom will be assigned a score of 0 if not present, 1 if mild, 2 if moderate and 3 if severe.  These scores 
+for each symptom will be added together to get the CCSSSS for each day. This highest score during the 28 days 
+after randomisation will be the maximum severity score. Scores on Day 1 and Day 2 will be excluded from this 
+calculation.   
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 21 of 31  
+Estimand 
+Population: Household members who test positive for SARS CoV-2 on day 1 by PCR  
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Maximum severity score calculated as the highest daily score on the CCSSSS during the 28 days after 
+randomisation  
+Summary measure: The mean difference between arms will be reported with 95% confidence interval 
+Potential intercurrent events:                
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+Treatment arms will be compared using mixed effects linear regression with maximum symptom severity as 
+the outcome, adjusting for stratification factors (time from positive test to randomisation, whether the index 
+case is a child < 5 years), participant age, inhaled steroid use at baseline, days since symptom onset at 
+randomisation, whether there are children in the household and household size (referred to as the defined 
+baseline covariate set), with household as random effect to take the clustering by household into account.  
+The mean difference between the treatment arms will be calculated in Stata as follows using a mixed effects 
+GLM with random intercepts:  
+mixed outcome i.arm baseline_covariates || household: 
+ 
+6.5 
+Secondary outcome 5. Clinical symptoms of neurological long COVID 
+Measure 5.1 
+Number of participants with clinical symptoms of neurological long COVID at 6 months post participation in 
+trial. 
+ 
+We have several measures of neurological long COVID 
+ 
+Measure 5.1.1 
+The following symptoms were rated via telehealth or in person using a self-rated symptom assessment using a 
+Likert scale (0-3: absent, mild, moderate, severe) for each symptom: 
+•    Fatigue  
+•    Malaise  
+•    Daytime tiredness  
+•    Impaired concentration  
+•    Brain fog  
+•    Sleep disturbance  
+•    Forgetfulness  
+•    Confusion  
+•    Headache  
+•    Dizziness  
+•    Nausea  
+•    Hypo/anosmia  
+•    Hypo/ageusia  
+•    Impaired walking  
+•    Tingling feet or hands  
+•    Burning feet or hands  
+INHERIT 
+Statistical Analysis Plan 
+Page 22 of 31  
+•    Numb feet or hands  
+•    Impaired fine motor skills  
+•    Muscle pain  
+•    Epilepsy  
+•    Anxiety  
+•    Depression  
+ 
+In the first instance, an estimate will be calculated to compare the two randomised treatment arms, on each of 
+the reported symptoms individually. The research question is: In individuals randomised to using heparin or 
+placebo (both SARS-CoV-2 positive and negative at baseline) does heparin use vs placebo over 10 days reduce 
+long covid symptoms at 6 months? 
+ 
+Estimand 
+Population: Household members (older than 5 years) enrolled in the study, regardless of SARS-CoV-2 infection 
+status (all enrolled participants) 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Ordinal Likert scale measurement of severity of each of the above symptoms at 6 months, with a 2 
+month window (i.e. including outcomes measured between 4 and 8 months) 
+Summary measure: The overall odds ratio will be reported with 95% confidence interval 
+Potential intercurrent events:                
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+We will summarise the number of participants in each of the 4 categories of the Likert scale in each treatment 
+arm. A mixed effects proportional odds logistic regression will be used to calculate the overall odds ratio, 
+adjusted for the stratification variables and clustered on household. The assumption of proportional odds will 
+be investigated. If it is violated, we will fit a multinomial regression and calculate an odds ratio for each 
+category.  
+ 
+This analysis will also be repeated in the subgroup of participants who tested positive to SARS-CoV-2 infection 
+at baseline.  
+ 
+The following subgroup analyses will be done with the symptom of fatigue as the outcome: 
+Age: Younger than 65 vs 65 and older 
+Pre-existing mental health problems: This will be measured by self-reported current comorbidities as mental 
+health disorder (variable mhcat___18). 
+Previous SARS-CoV-2 infections: Any vs none 
+ 
+These subgroup analyses will be done by including an interaction term between the treatment arm and the 
+subgroup in the mixed effects proportional odds logistic regression model described above. The p-value of the 
+subgroup by arm interaction term will be assessed to determine whether there could be a subgroup effect, 
+with the understanding that the analysis is probably underpowered.  
+ 
+Measure 5.1.2 
+Each symptom will be assigned a score of 0 if not present, 1 if mild, 2 if moderate and 3 if severe.  These scores 
+for each symptom will be added together to get the total neurological long COVID score, ranging from 0 to 66. 
+INHERIT 
+Statistical Analysis Plan 
+Page 23 of 31  
+Estimand 
+Population: Household members (older than 5 years) enrolled in the study, regardless of SARS-CoV-2 infection 
+status (all enrolled participants) 
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Continuous neurological long COVID score (described above) at 6 months, with a 2 month window 
+(i.e. including outcomes measured between 4 and 8 months) 
+Summary measure: The mean difference between arms will be reported with 95% confidence interval 
+Potential intercurrent events:                
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+The same analysis as described for Measure 4.3 will be done.  
+ 
+This analysis will also be repeated in the subgroup of participants who had SARS-CoV-2 infection. 
+ 
+The following subgroup analyses will be done: 
+Age: Younger than 65 vs 65 and older 
+Pre-existing mental health problems: This will be measured by self-reported current comorbidities as mental 
+health disorder (variable mhcat___18). 
+Previous SARS-CoV-2 infections: Any vs none 
+ 
+These subgroup analyses will be done by including an interaction term between the treatment arm and the 
+subgroup in the model described for Measure 4.3. For example, using the Stata code 
+mixed outcome i.arm##i.subgroup baseline_covariates || household: 
+ 
+The p-value of the subgroup by arm interaction term will be assessed to determine whether there could be a 
+subgroup effect, with the understanding that the analysis is probably underpowered.  
+ 
+Measure 5.1.3 
+In addition to assessing whether treatment assignment was associated with neurological long COVID we want 
+to investigate whether neurological long COVID outcomes were different for participants who tested positive 
+for SARS-CoV-2 vs those who tested negative.  
+ 
+Estimand 
+Population: Household members (older than 5 years) enrolled in the study, regardless of SARS-CoV-2 infection 
+status (all enrolled participants) 
+Exposures compared: Tested positive for SARS-CoV-2 any time during the study (baseline positive or positive 
+during the trial) vs tested negative for SARS-CoV-2 at all time points 
+Outcome: Ordinal Likert scale measurement of severity of each of the symptoms listed in Measure 5.1.1. at 6 
+months, with a 2 month window (i.e. including outcomes measured between 4 and 8 months) 
+Summary measure: The overall odds ratio will be reported with 95% confidence interval 
+Potential intercurrent events: None 
+Strategy for handling intercurrent event: Not applicable 
+We will summarise the number of participants in each of the 4 categories of the Likert scale in each exposure 
+group. A proportional odds logistic regression will be used to calculate the overall odds ratio, adjusted for the 
+stratification variables and randomised arm and clustered on household. The assumption of proportional odds 
+INHERIT 
+Statistical Analysis Plan 
+Page 24 of 31  
+will be investigated. If it is violated, we will fit a multinomial regression and calculate an odds ratio for each 
+category.  
+ 
+Measure 5.1.4 
+In addition to assessing whether treatment assignment was associated with neurological long COVID we want 
+to investigate whether neurological long COVID outcomes were different for participants who tested positive 
+for SARS-CoV-2 vs those who tested negative. The research question is: Does testing positive for SARS-CoV-2 at 
+baseline or during the 10 days of active treatment increase the severity of long COVID symptoms at 6 months? 
+ 
+Estimand 
+Population: Household members (older than 5 years) enrolled in the study, regardless of SARS-CoV-2 infection 
+status (all enrolled participants) 
+Exposures compared: Tested positive for SARS-CoV-2 any time during the study (baseline positive or positive 
+during the trial) vs tested negative for SARS-CoV-2 at all time points 
+Outcome: Continuous neurological long COVID score (described above) at 6 months, with a 2 month window 
+(i.e. including outcomes measured between 4 and 8 months) 
+Summary measure: The mean difference between SARS-CoV-2 infected and uninfected participants will be 
+reported with 95% confidence interval 
+Potential intercurrent events: None 
+Strategy for handling intercurrent event: Not applicable 
+The two exposures will be compared using mixed effects linear regression with neurological long COVID score 
+as the outcome, adjusting for stratification factors (time from positive test to randomisation, whether the 
+index case is a child < 5 years) randomised treatment arm and the defined baseline covariate set, with 
+household as random effect to take the clustering by household into account.  
+The mean difference between the exposures will be calculated in Stata as follows using a mixed effects GLM 
+with random intercepts:  
+mixed outcome i.infection_status i.arm baseline_covariates || household: 
+ 
+Measure 5.1.5 
+For participants over 16 years of age, cognition and mood were assessed using the harmonised procedures 
+developed by the Neuro-COVID Neuropsychology International Task force. Included measures were: 
+•    Cognitive screening using Telephone Montreal Cognitive Assessment (T-MoCA) Total Score 
+•    Subjective cognitive complaints using Patient’s assessment of Own Functioning Inventory (PAOFI) 
+o Total 
+o Memory 
+o Language and communication 
+o Use of hands 
+o Sensory-perception 
+o Higher-level cognitive and intellectual functions 
+o Work/recreation 
+•    Attention/working memory using the Wechsler Adult Intelligence Scale (WAIS) digit span 
+o Digit Span Forward 
+o Digit Span Backward 
+•    Mood using the Depression, Anxiety and Stress Scales (DASS)  
+o Depression 
+o Anxiety  
+o Stress 
+For each of the tests and scales listed above we will calculate the following estimand: 
+Estimand 
+Population: Household members (older than 16 years) enrolled in the study, regardless of SARS-CoV-2 
+infection status (all enrolled participants) 
+INHERIT 
+Statistical Analysis Plan 
+Page 25 of 31  
+Treatment: Initially randomised intervention to unfractionated intranasal heparin 1400u each nostril (as 
+heparin solution 5,000u/ml, 140microL/actuation, TWO actuations each nostril) THREE times daily via a plastic 
+nasal inhalator device or saline control and any subsequent deviations to the per protocol use of the 
+intervention over 10 days 
+Outcome: Each continuous scale measuring cognition or mood as listed above at 6 months, with a 2 month 
+window (i.e. including outcomes measured between 4 and 8 months) 
+Summary measure: The mean difference between arms will be reported with 95% confidence interval 
+Potential intercurrent events:                
+Index case in the household not taking study drug. This is defined as compliance <90% 
+ 
+Participant (this household member) not taking study drug. This is defined as compliance <90% 
+ 
+Either participant (this household member) or index case stop treatment due to adverse event 
+ 
+Participant received an anti-viral 
+Strategy for handling intercurrent event: 
+All intercurrent events will be handled through the treatment policy strategy, which means that the 
+intercurrent events will be ignored.  
+The same analysis as described for Measure 4.3 will be done.  
+ 
+This analysis will also be repeated in the subgroup of participants who had SARS-CoV-2 infection. 
+ 
+Measure 5.1.6 
+In addition to assessing whether treatment assignment was associated with neurological long COVID we want 
+to investigate whether neurological long COVID outcomes were different for participants who tested positive 
+for SARS-CoC-2 vs those who tested negative. 
+ 
+For each of the scales listed in Measure 5.1.5 we will also calculate the following estimand: 
+ 
+Estimand 
+Population: Household members (older than 16 years) enrolled in the study, regardless of SARS-CoV-2 
+infection status (all enrolled participants) 
+Exposures compared: Tested positive for SARS-CoV-2 any time during the study (baseline positive or positive 
+during the trial) vs tested negative for SARS-CoV-2 at all time points 
+Outcome: Each continuous scale measuring cognition or mood as listed in Section 5.1.5 at 6 months, with a 2 
+month window (i.e. including outcomes measured between 4 and 8 months) 
+Summary measure: The mean difference between SARS-CoV-2 infected and uninfected participants will be 
+reported with 95% confidence interval 
+Potential intercurrent events: None 
+Strategy for handling intercurrent event: Not applicable 
+The same analysis as described in Measure 5.1.5 will be done.  
+ 
+Measure 5.2 
+Number of participants with clinical symptoms of neurological long COVID at 12 months post participation in 
+trial. 
+ 
+The measures done at 6 months will be repeated at 12 months. The same analyses as described for 6 months 
+(Measures 5.1.1 to 5.1.6) will be repeated at 12 months.  
+ 
+7. 
+SAFETY OUTCOMES 
+Adverse events and serious adverse events will be summarised by treatment arm.  
+ 
+The following adverse events and reactions were reported:  
+• 
+Major bleeding or clinically relevant non major bleeding as defined by The International Society on 
+Thrombosis and Haemostasis (ISTH) for clinical trials involving anticoagulant drugs (Kaatz S, Ahmad D, 
+INHERIT 
+Statistical Analysis Plan 
+Page 26 of 31  
+Spyropoulos AC, Schulman S; Subcommittee on Control of Anticoagulation. Definition of clinically relevant 
+non-major bleeding in studies of anticoagulants in atrial fibrillation and venous thromboembolic disease 
+in non-surgical patients: communication from the SSC of the ISTH. J Thromb Haemost. 2015 
+Nov;13(11):2119-26. doi: 10.1111/jth.13140. PMID: 26764429). 
+• 
+Nasal itching 
+• 
+Any nose bleeding (free flowing blood vs not) 
+• 
+HIT, which is an unexplained fall in platelet count and a positive heparin antibody test  
+• 
+Local nasal irritation 
+• 
+Local or generalised oedema 
+• 
+Thrombosis 
+• 
+Sneezing 
+• 
+Other adverse events and reactions that, in the site Principal Investigator’s (PI) judgement, are not part of 
+the expected clinical course and could be related (at least possibly) to the study and are medically 
+significant or had serious sequelae  
+ 
+Nose bleeds will be further described by providing the mean duration of nose bleeds.  
+ 
+All adverse events and serious adverse events will be listed by treatment arm using the population of 
+household members (older than 5 years) prescribed study drug, regardless of SARS-CoV-2 infection status (all 
+enrolled participants) 
+ 
+8. 
+LISTINGS, TABLES AND FIGURES 
+ 
+Listing 1: Protocol deviations  
+Listing 2: Concomitant therapies 
+Arm PID Therapy Indication route Dose Frequency 
+ 
+Figure 1: CONSORT flow chart 
+ 
+Table 1: Participant recruitment and follow-up 
+ 
+Total 
+Heparin 
+Placebo 
+ 
+n (%) 
+n (%) 
+n (%) 
+Number of index participants screened 
+ 
+ 
+ 
+Reasons screened households not enrolled 
+ 
+ 
+ 
+Number of households randomised 
+ 
+ 
+ 
+Reasons screened participants not enrolled 
+ 
+ 
+ 
+Number of positive household members 
+ 
+ 
+ 
+Number of negative household members 
+ 
+ 
+ 
+Number completed 10 days of treatment 
+ 
+ 
+ 
+Number attended 28 day visit 
+ 
+ 
+ 
+Number attended 6 month visit 
+ 
+ 
+ 
+Number attended 12 month visit 
+ 
+ 
+ 
+ 
+Table 2: Baseline characteristics: Mean or number and proportion 
+ 
+Heparin 
+N = 
+Placebo 
+N = 
+Overall 
+N = 
+ 
+ 
+ 
+ 
+All variables listed in Section 4.2 
+ 
+ 
+ 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 27 of 31  
+Table 3: Baseline characteristics of household members by SARS-CoV-2 status: Mean or number and 
+proportion 
+ 
+Heparin 
+N = 
+Placebo 
+N = 
+ 
+SARS-CoV-2 
+positive 
+SARS-CoV-2 
+negative 
+SARS-CoV-2 
+positive 
+SARS-CoV-2 
+negative 
+All household member variables 
+listed in Section 4.2 
+ 
+ 
+ 
+ 
+ 
+Table 4: Compliance 
+Number of doses received  Day 1 2 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+10 
+Heparin 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Placebo 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 5: Compliance 
+ 
+Heparin 
+Placebo 
+Mean percentage compliance 
+ 
+ 
+ 
+Table 6: Concomitant therapy (Number of participants used) 
+Therapy 
+Heparin 
+Placebo 
+Therapy name 
+x 
+x 
+Etc 
+ 
+ 
+ 
+Table 7: Nasal concomitant therapies 
+Therapy 
+Heparin 
+Placebo 
+Therapy 
+x 
+x 
+Etc 
+ 
+ 
+ 
+Table 8: Primary outcome: Percentage (95% CI) testing positive for SARS-CoV-2  
+ 
+Percentage testing 
+positive N (%) 95% CI 
+Comparison between 
+arms (95% CI) 
+ 
+Heparin 
+Placebo 
+ 
+Treatment policy estimand 
+ 
+ 
+ 
+Complete case analysis with covariates 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Complete case analysis without covariates 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Analysis using multiple imputation 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Hypothetical estimand 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 28 of 31  
+Risk ratio 
+ 
+ 
+ 
+ 
+Table 9: Subgroup analyses for primary outcome 
+ 
+Percentage testing 
+positive N (%) 95% CI 
+Comparison between 
+arms (95% CI) 
+ 
+Heparin 
+Placebo 
+ 
+Subgroup 1 
+ 
+ 
+p-value 
+  Cat 1 n = 
+ 
+ 
+ 
+  Cat 2 n = 
+ 
+ 
+ 
+Subgroup 2 
+ 
+ 
+ 
+  Cat 1 n = 
+ 
+ 
+ 
+  Cat 2 n = 
+ 
+ 
+ 
+Etc 
+ 
+ 
+ 
+ 
+Table 10: Secondary outcome 1: Efficacy of intransal heparin to reduce SARS-CoV-2 viral shedding 
+Day 
+ 
+Percentage testing 
+positive N (%) 95% CI 
+Comparison between arms (95% CI) 
+ 
+Treatment policy estimand Heparin 
+Placebo 
+ 
+ 
+Complete case analysis with
+covariates 
+ 
+ 
+ 
+Day 3 
+Risk difference 
+ 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Day 5 
+Risk difference 
+ 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Day 10 
+Risk difference 
+ 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+ 
+Repeat for  
+Complete case analysis 
+without covariates 
+Analysis using multiple 
+imputation 
+Hypothetical estimand 
+ 
+ 
+ 
+ 
+Table 11: Secondary outcome 1: Time to swab negative 
+ 
+Heparin 
+Placebo 
+Hazard ratio (95% CI) 
+Median (95% CI) 
+ 
+ 
+- 
+ 
+Table 12: Secondary outcome 2: Safety of intranasal heparin 
+ 
+Heparin 
+Placebo 
+Number discontinued treatment prior to day 10  
+N (%) 95% CI  
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 29 of 31  
+Table 13: Secondary outcome 3.1: Reduction of symptomatic disease 
+ 
+Percentage testing 
+positive N (%) 95% CI 
+Comparison between 
+arms (95% CI) 
+ 
+Heparin 
+Placebo 
+ 
+Treatment policy estimand 
+ 
+ 
+ 
+Complete case analysis with covariates 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Complete case analysis without covariates 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+Analysis using multiple imputation 
+ 
+ 
+ 
+Risk difference 
+ 
+ 
+ 
+Risk ratio 
+ 
+ 
+ 
+ 
+Table 14: Secondary outcome 3.2: Reduction of symptomatic disease 
+Repeat Table 11 
+ 
+Table 15: Secondary outcomes 4.1 and 4.2: Hospitalisations 
+ 
+ 
+Percentage hospitalised
+N (%) 95% CI 
+Comparison between 
+arms (95% CI) 
+ 
+ 
+Heparin 
+Placebo 
+ 
+Household members 
+ 
+ 
+ 
+- 
+ 
+Risk difference 
+- 
+- 
+ 
+ 
+Risk ratio 
+- 
+- 
+ 
+Household members 
+ 
+ 
+ 
+- 
+ 
+Risk difference 
+- 
+- 
+ 
+ 
+Risk ratio 
+- 
+- 
+ 
+ 
+Table 16: Secondary outcome 4.1: Impact on peak severity of illness (maximum severity score) mean (95% 
+CI) 
+Heparin 
+Placebo 
+Mean difference (95% CI) 
+ 
+ 
+ 
+ 
+Table 17: Secondary outcome 5.1.1. Neurological long COVID at 6 months. Presence of symptoms 
+ 
+Heparin N (%) 
+Placebo N (%) 
+Overall odds 
+ratio 
+Symptom Not 
+present 
+Mild 
+Moderate Severe 
+Not present Mild 
+Moderate Severe 
+ 
+Fatigue 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Malaise 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Daytime 
+tiredness 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+etc 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 18: Secondary outcome 5.1.1. Neurological long COVID at 6 months. Presence of symptoms in 
+subgroup of participants who had SARS-CoV-2 infection 
+Repeat Table 17 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 30 of 31  
+Table 19: Secondary outcome 5.1.2. Neurological long COVID at 6 months. Continuous neurological long 
+COVID score 
+ 
+Heparin 
+Placebo 
+Mean difference (95% CI) 
+All participants 
+ 
+ 
+ 
+Subgroup of 
+participants who 
+had SARS-CoV-2 
+infection 
+ 
+ 
+ 
+ 
+Table 20: Secondary outcome 5.1.3. Neurological long COVID at 6 months. Presence of symptoms 
+ 
+SARS-CoV-2 positive 
+SARS-CoV-2 negative 
+Overall odds 
+ratio 
+Symptom Not 
+present 
+Mild 
+Moderate Severe 
+Not present Mild 
+Moderate Severe 
+ 
+Fatigue 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Malaise 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Daytime 
+tiredness 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+etc 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 21: Secondary outcome 5.1.4. Neurological long COVID at 6 months. Continuous neurological long 
+COVID score 
+Heparin 
+Placebo 
+Mean difference (95% CI) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 22: Secondary outcome 5.1.5. Neurological long COVID at 6 months 
+Scale 
+Mean (95% CI) 
+Mean difference 
+between arms (95% CI) 
+p-value 
+ 
+Heparin 
+Placebo 
+ 
+ 
+e.g. WAIS digit span 
+ 
+ 
+ 
+ 
+DASS etc 
+ 
+ 
+ 
+ 
+Repeat for subgroup of participants SARS-CoV--2 
+positive 
+ 
+ 
+ 
+ 
+ 
+Table 23: Secondary outcome 5.1.6. Neurological long COVID at 6 months.  
+Scale 
+Mean (95% CI) 
+Mean difference (95% 
+CI) 
+p-value 
+ 
+SARS-
+CoV-2 
+positive 
+SARS-CoV-
+2 negative 
+ 
+ 
+e.g. WAIS digit span 
+ 
+ 
+ 
+ 
+DASS etc 
+ 
+ 
+ 
+ 
+Repeat for subgroup of participants SARS-CoV--2 
+positive 
+ 
+ 
+ 
+ 
+ 
+Table 24: Secondary outcome 5.1.6. Neurological long COVID at 6 months. Subgroup analyses  
+Repeat Table 22 for each subgroup, also include p-value for subgroup 
+ 
+Table 25: Secondary outcome 5.2.1. Neurological long COVID at 6 months. Presence of symptoms 
+Repeat Table 17 
+ 
+INHERIT 
+Statistical Analysis Plan 
+Page 31 of 31  
+Table 26: Secondary outcome 5.2.1. Neurological long COVID at 6 months. Presence of symptoms in 
+subgroup of participants who had SARS-CoV-2 infection 
+Repeat Table 18 
+ 
+Table 27: Secondary outcome 5.2.2. Neurological long COVID at 6 months. Continuous neurological long 
+COVID score 
+Repeat Table 19 
+ 
+Table 28: Secondary outcome 5.2.3. Neurological long COVID at 6 months. Presence of symptoms 
+Repeat Table 20 
+ 
+Table 29: Secondary outcome 5.2.4. Neurological long COVID at 6 months. Continuous neurological long 
+COVID score 
+Repeat Table 21 
+ 
+Table 30: Secondary outcome 5.2.5. Neurological long COVID at 6 months.  
+Repeat Table 22 
+ 
+Table 31: Adverse events 
+ 
+Heparin 
+n (%) 
+Placebo 
+n (%) 
+Major bleed 
+ 
+ 
+Nasal itching 
+ 
+ 
+Nose bleed 
+ 
+ 
+HIT 
+ 
+ 
+Local nasal irritation 
+ 
+ 
+Loal or generalized oedema 
+ 
+ 
+Thrombosis 
+ 
+ 
+Sneezing 
+ 
+ 
+Other 
+ 
+ 
+Serious adverse events 
+ 
+ 
+Mean duration of nose bleeds 
+ 
+ 
+ 
+ 

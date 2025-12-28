@@ -1,0 +1,2318 @@
+Clinical Development 
+KJX839/Inclisiran 
+CKJX839A1GB01 / NCT04807400 
+A phase IIIb, multicentre, randomised controlled study to evaluate 
+the implementation, preference and utility for administration of 
+inclisiran sodium in participants with Atherosclerotic 
+Cardiovascular Disease (ASCVD) or ASCVD-risk equivalents and 
+elevated Low Density Lipoprotein Cholesterol (LDL-C) using a 
+primary care models in the NHS 
+Statistical Analysis Plan (SAP) 
+Property of Novartis 
+ Confidential 
+May not be used, divulged, published or otherwise disclosed 
+without the consent of Novartis 
+Template Version 4.0, Effective from 23-Apr-2021 
+Author: 
+Document type: 
+SAP Documentation 
+Document status: 
+Amendment v1.1 
+Release date: 
+15-May-2023
+Number of pages: 
+37 
+Novartis 
+Confidential 
+Page 2 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Document History – Changes compared to previous final version of SAP 
+ 
+Date 
+Time point 
+Reason for 
+update 
+Outcome for update 
+Section and title 
+impacted 
+(Current) 
+31-Mar-
+2023 
+Prior to DB 
+lock 
+Creation of 
+final version 1.0 
+N/A – First version 
+NA 
+15-May-
+2023 
+Prior to DB 
+lock 
+Creation of 
+amendment 1 
+version 1.1 
+• Updated number of 
+imputations from 100 to 
+500 
+Section 2.5.2 
+Section 5.5.1 & 
+5.5.2 
+• Removed text related to 
+line plot 
+• Added clarification text 
+about baseline 
+imputation values in 
+sensitivity analysis 
+Section 2.5.5 
+• Added clarification text 
+Section 2.10.1 
+Section 5.4 
+ 
+ 
+ 
+• Other minor format 
+changes 
+Section 2.5.2 & 
+2.6.2 
+ 
+ 
+ 
+ 
+ 
+ 
+Novartis 
+Confidential 
+Page 3 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Table of contents 
+Table of contents ................................................................................................................. 3 
+List of abbreviations ............................................................................................................ 5 
+1 
+Introduction ......................................................................................................................... 7 
+1.1 
+Study design............................................................................................................. 7 
+1.2 
+Study objectives, endpoints and estimands ............................................................. 9 
+2 
+Statistical methods ............................................................................................................. 11 
+2.1 
+Data analysis general information ......................................................................... 11 
+2.1.1 
+General definitions ................................................................................ 11 
+2.2 
+Analysis sets .......................................................................................................... 12 
+2.2.1 
+Subgroup of interest .............................................................................. 13 
+2.3 
+Patient disposition, demographics and other baseline characteristics ................... 13 
+2.3.1 
+Patient disposition ................................................................................. 13 
+2.3.2 
+Demographics and other baseline characteristics ................................. 13 
+2.3.3 
+Medical History ..................................................................................... 14 
+2.4 
+Treatments (study treatment, rescue medication, concomitant therapies, 
+compliance) ............................................................................................................ 14 
+2.4.1 
+Study treatment / compliance ................................................................ 14 
+2.4.2 
+Prior, concomitant and post therapies ................................................... 14 
+2.5 
+Analysis supporting primary objective(s) .............................................................. 15 
+2.5.1 
+Primary endpoint(s) ............................................................................... 15 
+2.5.2 
+Statistical hypothesis, model, and method of analysis .......................... 16 
+2.5.3 
+Handling of intercurrent events ............................................................. 16 
+2.5.4 
+Handling of missing values not related to intercurrent event ............... 17 
+2.5.5 
+Sensitivity analyses ............................................................................... 17 
+2.5.6 
+Supplementary analyses ........................................................................ 18 
+2.6 
+Analysis supporting secondary objectives ............................................................. 19 
+2.6.1 
+Secondary endpoint(s) ........................................................................... 19 
+2.6.2 
+Statistical hypothesis, model, and method of analysis .......................... 21 
+2.6.3 
+Handling of missing values ................................................................... 22 
+2.7 
+Safety analyses ....................................................................................................... 22 
+2.7.1 
+Adverse events (AEs) ............................................................................ 22 
+2.7.2 
+Deaths .................................................................................................... 24 
+2.7.3 
+Laboratory data ..................................................................................... 24 
+2.7.4 
+Other safety data ................................................................................... 24 
+2.8 
+Patient-reported outcomes ..................................................................................... 24 
+Novartis 
+Confidential 
+Page 4 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+2.8.1 
+The CSQ-8 PROMs Questionnaire ....................................................... 24 
+2.8.2 
+The PAM PROMs Questionnaire.......................................................... 24 
+2.8.3 
+ 
+2.9 
+ 
+2.10 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2.11 
+Interim analysis ...................................................................................................... 26 
+3 
+Sample size calculation ..................................................................................................... 26 
+4 
+Change to protocol specified analyses .............................................................................. 26 
+5 
+Appendix ........................................................................................................................... 26 
+5.1 
+Imputation rules ..................................................................................................... 26 
+5.1.1 
+Study drug ............................................................................................. 26 
+5.1.2 
+AE date imputation ............................................................................... 27 
+5.1.3 
+Concomitant medication date imputation ............................................. 28 
+5.2 
+AEs coding/grading ............................................................................................... 29 
+5.3 
+Search criteria for AE of special interest ............................................................... 29 
+5.4 
+Laboratory parameters derivations ........................................................................ 30 
+5.5 
+Statistical models ................................................................................................... 31 
+5.5.1 
+Multiple Imputation Wash-out model ................................................... 31 
+5.5.2 
+Imputation of undetectable data ............................................................ 33 
+5.6 
+Rule of exclusion criteria of analysis sets.............................................................. 34 
+6 
+Reference ........................................................................................................................... 36 
+ 
+List of tables 
+Table 2-1 
+Analysis windows for each scheduled visit .......................................... 12 
+Table 5-1 
+Clinical notable criteria for selected laboratory tests ............................ 30 
+Table 5-2 
+Notable Liver function test values ........................................................ 30 
+Table 5-3 
+Range determination ............................................................................. 33 
+Table 5-4 
+Protocol deviation criteria leading to exclusion from analysis sets ...... 34 
+ 
+PPD
+PPD
+PPD
+Novartis 
+Confidential 
+Page 5 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+List of abbreviations 
+AE(s) 
+Adverse event(s) 
+ALP 
+Alkaline phosphatase 
+ALT 
+Alanine aminotransferase 
+AST 
+Aspartate aminotransferase 
+ASCVD 
+Atherosclerotic Cardiovascular Disease 
+ATC 
+Anatomical Therapeutic Chemical 
+ 
+ 
+CFIR 
+Consolidated Framework for Implementation Research 
+CRO  
+Contract Research Organization 
+CSQ-8 
+Client Satisfaction Questionnaire 
+CSR 
+Clinical Study Report 
+CTC 
+Common Terminology Criteria 
+DBL 
+Direct Bilirubin 
+ 
+ 
+ 
+ 
+ECG 
+Electrocardiogram 
+EMR 
+Electonic Medical Record 
+EOS 
+End of Study 
+EudraCT  
+European Union Drug Regulating Authorities Clinical Trials 
+Database  
+eGFR 
+Estimated glomerular filtration rate 
+EudraCT 
+European Union Drug Regulating Authorities Clinical Trials 
+FAS 
+Full Analysis Set 
+HbA1C 
+Hemoglobin A1c 
+HDL-C 
+High density lipoprotein cholesterol 
+LDL 
+Low density lipoprotein 
+LDL-C 
+Low density lipoprotein cholesterol 
+MAR 
+Missing at random 
+MedDRA 
+Medical Dictionary for Regulatory Activities  
+MMRM 
+Mixed-effect model for repeated measures 
+MNAR 
+Missing not at random 
+NICE 
+National Institute for Health and Care Excellence 
+PAM 
+Patient Activation Measure  
+PT 
+Preferred term 
+PROM 
+Patient Reported Outcome Measure 
+RAN 
+Randomized set 
+REML 
+Restricted Maximum Likelihood 
+ 
+  
+s.c. 
+Subcutaneous 
+SAE 
+Serious adverse event 
+SAF 
+Safety analysis set 
+SAP 
+Statistical Analysis Plan 
+PPD
+PPD
+PPD
+PPD
+Novartis 
+Confidential 
+Page 6 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ 
+ 
+SCR 
+Screened set 
+SD 
+Standard deviation 
+SMC 
+Scottish Medicines Consortium 
+SMQ 
+Standardized MeDRA Query 
+SOC 
+System Organ Class 
+SPIRIT 
+Study 
+in 
+Primary 
+care 
+evaluating 
+Inclisiran 
+deliveRy 
+Implementation + enhanced SupporT  
+TBL 
+Total Bilirubin 
+ 
+ 
+ 
+ 
+TEAE 
+Treatment emergent adverse event 
+ULN 
+Upper limit of normal 
+ 
+ 
+PP
+D
+PPD
+Novartis 
+Confidential 
+Page 7 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+1 
+Introduction 
+This document includes the analysis details of study CKJX839A1GB01. Data will be analyzed 
+according to section 12 (data analysis and statistical methods) of CKJX839A1GB01 amended 
+protocol v02 dated 12-Sep-2022. 
+The  efficacy and safety  analyses  will  be  conducted  after  all  participants  have  completed  
+the Day 270 visit or discontinued prior to the Day 270 visit. There is no interim analysis planned 
+for this study. The final analyses will be conducted when the trial has ended, and the results will 
+be summarized in the final CSR.  
+The analysis of Process Evaluation Sub-study data is out of scope of this SAP. 
+1.1 
+Study design 
+A phase IIIb, multicentre, randomised controlled study to evaluate the implementation, 
+preference and utility for administration of inclisiran sodium in participants on established lipid 
+lowering medication or, have been recommended lipid lowering therapy by their healthcare 
+provider but are unable to tolerate treatment, with elevated low density lipoprotein cholesterol 
+(LDL-C) in a primary care population.  
+This study is an implementation research study that utilises implementation science 
+methodology with the primary focus being implementation and ‘transactability’ – how to 
+organise, deliver and maintain an innovative treatment for ASCVD in a primary care setting in 
+a sustainable way. 
+900 eligible participants will be randomised (300 per treatment group) at up to 30 primary care 
+centres across Greater Manchester.  
+At the baseline visit/screening on receipt of a signed consent form, eligible participants will be 
+randomised to one of the three treatment groups:  
+• Group 1: Participants will continue to receive their background lipid lowering therapy 
+plus behavioural support  
+• Group 2: Participants will continue to receive their background lipid lowering therapy, 
+plus inclisiran for injection (delivered in an injection-only model).  
+• Group 3: Participants will continue to receive their background lipid lowering therapy, 
+plus inclisiran for injection, plus behavioural support. 
+Subjects in treatment group 1 will be referred to as the control group in this study. 
+The study duration will be approximately 9 months. There are no interim analyses planned for 
+this study. 
+ 
+ 
+ 
+ 
+ 
+Novartis 
+Confidential 
+Page 8 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Schematic of study design 
+ 
+ 
+ 
+For elaborated details on study design please refer to the study design section of the protocol . 
+ 
+ 
+Novartis 
+Confidential 
+Page 9 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+1.2 
+Study objectives, endpoints and estimands  
+ 
+Objective(s) 
+Endpoint(s) 
+Primary objective(s) 
+Endpoint(s) for primary objective(s) 
+• The primary objective of this study is 
+to demonstrate superiority of inclisiran 
++/- behavioural support compared to 
+standard of care + behavioural support 
+in a primary care setting, in terms of the 
+percentage change in LDL-C from 
+baseline to Day 270 in adults with 
+elevated LDL-C.  
+• Percentage change in LDL-C from 
+baseline to Day 270. 
+Secondary objective(s) 
+Endpoint(s) for secondary objective(s) 
+The secondary objectives of this study are to 
+evaluate the implementation of inclisiran +/- 
+behavioural support compared to standard of 
+care + behavioural support in a primary care 
+setting using the following assessments:  
+ 
+• Measures of patient satisfaction using the 
+validated CSQ-8 
+(Client 
+Satisfaction 
+Questionnaire) 
+administered 
+after 
+treatment at day 90. 
+• Mean difference in total score using the 
+validated CSQ-8 (Client Satisfaction 
+Questionnaire) 
+administered 
+after 
+treatment at day 90.  
+• Measures 
+of 
+patient 
+activation 
+and 
+empowerment using the validated Patient 
+Activation Measure (PAM) questionnaire 
+administered after treatment at day 90.  
+• Mean difference in total score using the 
+validated Patient Activation Measure 
+(PAM) questionnaire administered after 
+treatment at day 90.  
+• Measures of adherence to cardiovascular 
+disease 
+self-management 
+using 
+the 
+validated Patient Activation Measure 
+(PAM) questionnaire administered after 
+treatment at day 90 and using assessment 
+of medication adherence during the study 
+period. 
+• The frequency and percentages of 
+subjects in the four levels of the PAM 
+scores (below) will be summarized. 
+Highly activated patients (level 3 and 
+level 4) are more likely to adhere to 
+cardiovascular self-management and 
+thus medication adherence. 
+Level 1: Disengaged and overwhelmed 
+Level 2: Become aware but still struggling 
+Level 3: Taking action 
+Novartis 
+Confidential 
+Page 10 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Level 4: Maintaining behaviors and 
+pushinng further. 
+• A process evaluation conducted using the 
+Consolidated 
+Framework 
+for 
+Implementation Research (CFIR) which 
+will explore inclisiran delivery at three 
+levels:  
+1. Level 1: Feasibility and acceptability of 
+delivery models for inclisiran to patients  
+2. Level 2: Feasibility and acceptability of 
+delivery models for inclisiran to providers 
+(inner setting)  
+3. Level 3: Wider ‘transactability’ of the 
+proposed delivery models (outer setting)  
+4. The service costs of each delivery model  
+5. The 
+acceptability 
+and 
+perceived 
+sustainability of patient identification and 
+referral routes  
+Data from the process evaluation will initially 
+analysed blind to trial outcomes (this analysis 
+will then be used to compare and explain any 
+differences in outcomes between intervention 
+arms). 
+This SAP does not intend to describe 
+methodology adopted for the Process 
+Evaluation Sub-study data analysis. This 
+study objective is listed for completeness 
+only. For further detail on the process 
+evaluation and planned analyses, please 
+refer to section 4.3 of the Protocol. The 
+analysis results will be reported in final 
+CSR. 
+• Serious adverse event profile  
+• Incidence, severity and relationship to 
+the study drug of treatment emergent 
+adverse events, serious adverse events 
+and adverse events leading to treatment 
+discontinuation. 
+• Incidence of on-treatment and post- 
+treatment deaths. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+PPD
+Novartis 
+Confidential 
+Page 11 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+2 
+Statistical methods 
+2.1 
+Data analysis general information 
+All analyses will be performed by Novartis or a designated CRO. The most recent version of 
+SAS available in the statistical programming environment of Novartis or the designated CRO 
+will be used for the analysis. 
+Final analysis will be conducted after all participants either complete the study or discontinued 
+early. Final analyses will be reported in Final CSR.  
+Additional analysis may be conducted to evaluate the impact of COVID-19 pandemic, if 
+required. 
+2.1.1 
+General definitions  
+Study day: 
+Study day will be defined as the number of days since the date of first dose of study treatment. 
+The date of first dose of study treatment will be defined as Day 1 and the day before the first 
+dose of study treatment will be defined as Day -1. 
+Therefore, for a particular date, study day will be calculated as follows: 
+P
+P
+D
+Novartis 
+Confidential 
+Page 12 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+For dates on or after the first date of study treatment, 
+Study day = Assessment date – Date of first dose of study treatment + 1; 
+For dates prior to the first date of study treatment, 
+Study day = Assessment date – Date of first dose of study treatment. 
+In case, participant has been randomized but has not received study treatment then 
+randomization visit day will be considered as Day 1. 
+Baseline definition: 
+The baseline assessment is defined as the last non-missing assessment (scheduled or 
+unscheduled) collected before the first dose of study treatment (Day 1) or randomization visit 
+day, if no study treatment has been received. 
+Post-baseline measurement: 
+Post-baseline values are defined as those measurements that were collected after the first dose 
+of study treatment or randomization visit if no study treatment has been received. 
+When change from baseline is of interest the following formula will be used for each scheduled 
+visit and time-point where baseline and post-baseline values are both available: 
+Change from baseline = post-baseline value – baseline value. 
+Percent change from baseline = (change from baseline / baseline value)*100. 
+Visit windows: 
+If there is more than one observation in a specific window, then the one closest to the target day 
+will be used for analysis. If there are two or more observations that are equally distant to the 
+target day and within the analysis window, the first of these observations will be selected for 
+analysis. Observations that are out of the analysis window below will be classified as 
+unscheduled visits and will not be included in the primary and key secondary efficacy analysis. 
+However, all data will be included in the subject data listings.  
+As shown in the table below, all visit will apply a window of ± 14 days. 
+Table 2-1 
+Analysis windows for each scheduled visit 
+Visit Name 
+Target day 
+Analysis window 
+Screening/Baseline 
+-1 
+Day -14 to -1 
+Visit 1 
+1 
+Day 1 to 14 
+Visit 2 
+90 
+Day 76 to 104 
+End of Study 
+270 
+Day 256 to 284 
+*Day 1 is defined as day of initiation of study drug administration or randomization visit day if no study 
+treatment has been received. 
+2.2 
+Analysis sets  
+Screened Set (SCR) will include all participants who provided study informed consent.  
+Randomized set (RAN) will consist of all participants who received a randomization number, 
+regardless of whether study treatment received or not. 
+Novartis 
+Confidential 
+Page 13 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Full Analysis Set (FAS) will consist of all randomised participants with the exception of those 
+mis-randomised participants who did not receive study drug. Mis-randomised participants are 
+defined as not qualified for randomisation and are inadvertently randomised into the study. 
+According to the intent to treat principle, participants will be analysed according to the 
+treatment they have been assigned to during the randomisation procedure. The FAS will be used 
+in analyses for the primary, secondary, 
+ efficacy objectives. 
+Safety Set (SAF) will consist of all participants who received at least one dose of study 
+treatment. Participants will be analysed according to the study treatment received. This will be 
+the primary population for the safety analyses. 
+2.2.1 
+Subgroup of interest 
+No subgroup analysis is planned. 
+2.3 
+Patient disposition, demographics and other baseline 
+characteristics 
+2.3.1 
+Patient disposition 
+The overall number of participants who entered, completed, and discontinued the study will be 
+summarized and listed, including the reasons for discontinuation. Duration on study is defined 
+as: date of last known visit on study – date of first dose of treatment/ randomization visit, if no 
+study treatment has been received.  
+The duration on study will be summarized by treatment group. The screening disposition will 
+be based on SCR. The FAS will be used for the summary and listing of patient disposition. The 
+number of participants in the FAS will be summarized by treatment group. Number of 
+participants with protocol deviations will be tabulated by category (e.g., selection criteria not 
+met, subject not withdrawn as per protocol, treatment deviation, prohibited concomitant 
+medication, other), deviation using FAS. Listing of participants with protocol deviation will be 
+provided.  
+The number of participants included in each analysis set will be tabulated using RAN. 
+Participants exclusion from analysis sets will be summarized for all patients with reasons for 
+exclusion (i.e. including both protocol and non-protocol deviations) and corresponding listing 
+will be provided. 
+2.3.2 
+Demographics and other baseline characteristics 
+Demographic and other baseline data including age, race, gender, baseline characteristics such 
+as body height, 
+ smoking history, Dietary advice status, Exercise status; baseline 
+disease characteristics like LDL-C, baseline use of other lipid-lowering therapies (yes, no), 
+statin intolerance history(yes, no), baseline diabetes status determined by the fasting glucose (≥ 
+7.0 mmol/L) or random glucose (≥ 11.1 mmol/L) or HbA1C (≥ 6.5% or 48 mmol/mol) or 
+medical history, baseline measurements 
+ will be summarized descriptively by 
+treatment group for FAS. Listings will also be provided. 
+PPD
+PPD
+PPD
+Novartis 
+Confidential 
+Page 14 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Categorical data will be presented as frequencies and percentages by treatment group. For 
+continuous data, non-missing observations, mean, standard deviation, median, 1st and 3rd 
+quartile, minimum, and maximum will be presented. 
+No inferential statistics will be provided for baseline comparability among the treatment groups. 
+In addition, the following categorizations of continuous variables will be done: 
+• 
+Age groups < 65, ≥ 65 and < 75, ≥ 75  
+• 
+  
+• 
+LDL-C subcategories Category 1: ≤ 2.6 mmol/L, > 2.6 mmol/L; Category 2: ≤ 2.1 
+mmol/L, > 2.1 - ≤ 2.6 mmol/L, > 2.6 - ≤ 3.3 mmol/L and > 3.3 mmol/L 
+• 
+  
+2.3.3 
+Medical History 
+Relevant medical histories and current medical conditions at baseline will be summarised 
+separately by system organ class and preferred term, by treatment group. Histories of statin 
+intolerance will be summarised by treatment group. FAS will be used for the analysis. 
+2.4 
+Treatments (study treatment, rescue medication, concomitant 
+therapies, compliance) 
+All summaries of treatments will be performed on the Safety Set, unless otherwise specified. 
+2.4.1 
+Study treatment / compliance 
+The number of study doses administered, duration of exposure, patient year of exposure will be 
+summarized by treatment group. Listings will be provided.  
+The number of participants dosed will also be summarized by study visit and treatment group.  
+Duration of exposure for inclisiran arms will be calculated as: minimum of (Date of last dose 
+of treatment – Date of first dose of treatment + 180, Date of last known visit – Date of first dose 
+of treatment).  
+Duration of exposure for lipid lowering therapies will be calculated as: minimum of (Date of 
+last dose of lipid lowering therapy – Date of first dose of lipid lowering therapy, Date of last 
+known visit – Date of first dose of lipid lowering therapy).  
+Patient-year of exposure will be calculated as duration of exposure/365.25. 
+2.4.2 
+Prior, concomitant and post therapies 
+Medications are collected through EMR and in this system medication end date is not available.   
+Lipid-lowering therapy use at screening and baseline/randomization visit (Day 1) will be 
+summarized by treatment group. Lipid-lowering therapy newly added or changed after 
+randomization will be summarized by treatment group. 
+PPD
+PPD
+Novartis 
+Confidential 
+Page 15 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Other medications will be listed and summarized according to the anatomical therapeutic 
+chemical (ATC) classification system and preferred term, by treatment group. 
+2.5 
+Analysis supporting primary objective(s) 
+The primary objective of this study is to demonstrate superiority of inclisiran +/- behavioural 
+support compared to standard of care + behavioural support in a primary care setting, in adults 
+with elevated LDL-C. Standard of care + behavioural support will be considered as control 
+group as mentioned in section 1.1. 
+2.5.1 
+Primary endpoint(s) 
+The primary endpoint is the percentage change in LDL-C from baseline to Day 270. 
+The primary estimand is defined as follows. The primary effectiveness question of interest is: 
+What is the effect of the test treatment inclisiran versus control on change in LDL-C after 270 
+days of treatment in adults on established lipid lowering medication or who have been 
+recommended lipid lowering therapy by their health care provider but are unable to tolerate 
+treatment, regardless of treatment discontinuation for any reason and regardless of unforeseen 
+change in the concomitant lipid lowering therapy. 
+The justification for the primary estimand is that it will capture both the effect of the study drug 
+and the effect of changes in additional medication(s) used for lipid lowering, if they occur, in a 
+primary care setting.  
+The primary estimand is described by the following attributes:  
+Population 
+Adults with elevated LDL-C on established lipid lowering 
+medication or, have been recommended lipid lowering therapy by 
+their health care provider but are unable to tolerate treatment. 
+Variable 
+Percentage change in LDL-C from baseline to Day 270 
+Treatment 
+The randomised treatment (inclisiran alone or inclisiran with 
+behavioural support) as add-on to the control treatment of lipid-
+lowering background therapy plus behavioural support, regardless of 
+treatment discontinuation for any reason and regardless of unforeseen 
+change in the concomitant lipid lowering therapy and regardless of 
+use of prohibited medications. 
+Summary measure 
+Difference between treatments in mean percentage change in LDL-C 
+from baseline to Day 270. 
+Intercurrent events 
+1. Study treatment discontinuation 
+2. Deviation in background treatment 
+3. Use of prohibited medications 
+Patients who took extra dose of inclisiran (who are identified through EMR) during the study 
+period will be excluded and additional analysis will  be provided. 
+Novartis 
+Confidential 
+Page 16 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+2.5.2 
+Statistical hypothesis, model, and method of analysis  
+The primary effectiveness objective of this study is to demonstrate superiority of each inclisiran 
+arm compared to control in terms of the percentage change from baseline in LDL-C to Day 270 
+in adults with elevated LDL-C. The statistical hypotheses that will be tested for each inclisiran 
+arm are as follows:  
+• 
+H0: The difference between participants treated with inclisiran and control in the least 
+squares mean percentage change from baseline to the Day 270 visit in LDL-C= 0 
+• 
+Ha: The difference between participants treated with inclisiran and control in the least 
+squares mean percentage change from baseline to the Day 270 visit in LDL-C < 0 
+The primary objective will be achieved if null hypothesis (H0) rejected at the one-sided 
+significance level of 0.025. 
+The primary analysis will use an analysis of covariance (ANCOVA) model on the percent 
+change in LDL-C from baseline to Day 270 to test the superiority of inclisiran over control after 
+missing data imputation.  
+Due to probable heterogeneity of variances between treatment groups, ANCOVA model which 
+assumes unequal variances for treatment group will be used. The model will include the fixed 
+effects of treatment group with baseline LDL-C as a covariate.  
+Multiple imputation will be used to impute missing data using a washout model specified in  
+Appendix 5.5.1. A total of 500 imputed datasets will be created. The ANCOVA model will be 
+fitted to each imputed dataset, and results will be combined using Rubin's combination rules. 
+The estimate and corresponding 2-sided 95% confidence intervals of mean difference between 
+treatment groups will be calculated. p-value for hypothesis test for mean difference will also be 
+provided. The FAS will be used for this analysis. The family-wise error rate for comparisons of 
+the two inclisiran arms with the lipid-lowering background therapy plus behavioural support 
+arm will be controlled using the Holm procedure. 
+2.5.3 
+Handling of intercurrent events  
+The approach of accounting for intercurrent events is as follows: 
+Primary estimand: 
+Intercurrent 
+events (ICEs) 
+Strategy and justification of 
+handling ICEs 
+Missing value imputation 
+Study 
+treatment 
+discontinuation 
+Here interest is in effect of 
+treatment regardless of treatment 
+discontinuations due to any 
+reasons other than intercurrent 
+event. This event will be handled 
+using a treatment policy 
+strategy. 
+The LDL-C data collected post 
+discontinuation of study treatment 
+will be included in the analysis. If 
+there is no off-treatment data 
+available, then missing data on Day 
+270 or after treatment 
+discontinuation will be imputed 
+using missing not at random 
+(MNAR) for inclisiran arms and 
+using missing at random (MAR) 
+Novartis 
+Confidential 
+Page 17 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Intercurrent 
+events (ICEs) 
+Strategy and justification of 
+handling ICEs 
+Missing value imputation 
+approach for placebo arm 
+participants.  
+Deviation in 
+background 
+treatment 
+Interest is in effect of treatment 
+regardless of substantial changes 
+to background therapy during 
+study treatment. This will be 
+handled with a treatment policy 
+strategy. 
+The LDL-C data collected after 
+deviation in background treatment 
+will be included in the analysis. 
+Missing values will be imputed in 
+same way as mentioned in Appendix 
+5.5.1 
+Use of 
+prohibited 
+medications  
+Interest is in effect of treatment 
+regardless of changes in 
+concomitant lipid lowering 
+medication during study treatment. 
+This will be handled with a 
+treatment policy strategy. 
+The LDL-C data collected after 
+deviation in background treatment 
+will be included in the analysis. 
+Missing values will be imputed in 
+same way as mentioned in Appendix 
+5.5.1 
+2.5.4 
+Handling of missing values not related to intercurrent event 
+The point of care device is used to measure lipid profile data at each visit. Any undetectable 
+calculated LDL-C data due to device sensitivity for a lipid parameter will be considered as 
+missing for the primary analysis.  
+Undetectable data will be imputed separately as per Appendix 5.5.1 and used in a sensitivity 
+analysis. 
+LDL-C data will be calculated using Friedwald’s formula as mentioned below: 
+LDL-C = Total cholesterol – HDL – Triglycerides/2.2 
+Friedewald’s formula valid only when Triglycerides < 4.52 mmol/L 
+ 
+ 
+ 
+ 
+ 
+ 
+Other missing data are expected to be intermittent missing data and will be assumed to be 
+missing at random. The post-death missing values will be treated in same way as other missing 
+data. Imputation details for data missing at random in the washout model has been provided in 
+Appendix 5.5.1. 
+2.5.5 
+Sensitivity analyses  
+The following sensitivity analyses will be performed for the primary estimand, to assess the 
+robustness of the estimation in the presence of deviations from the assumptions specified in the 
+primary analysis on the FAS only: 
+PPD
+Novartis 
+Confidential 
+Page 18 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+• 
+Linear mixed-effect model for repeated measures (MMRM) analysis without multiple 
+imputation  
+Analyses using the MMRM will include fixed effects for treatment, visits, interaction between 
+treatment and visits, baseline LDL-C and interaction between baseline LDL-C and visit. Day 
+90 and 270 will be included as visit. The Restricted Maximum Likelihood (REML) estimation 
+approach will be used with covariance structure set as "Unstructured". If the model does not 
+converge with unstructured covariance matrix, the compound symmetry covariance matrix will 
+be used in the mixed model.  
+As a sensitivity analysis, the imputation algorithm will be changed from a regression approach 
+to a multivariate normal model to include in the imputation information that is provided by 
+undetectable LDL-C values. An LDL-C value is undetectable when either 
+ 
+ are outside of the limit of detection. Based on the limit of detection and 
+through Friedewald’s formula, a range for an LDL-C value can be calculated. In this sensitivity 
+analysis, the LDL-C range is considered in the imputation model. As for the primary analysis, 
+undetectable LDL-C values for either study arm are imputed under a MAR assumption, missing 
+values in the placebo arm are imputed under a MAR assumption, and missing data on Day 270 
+or after treatment discontinuation in the inclisiran arm are imputed using a wash-out model (i.e., 
+using a jump-to-reference approach).  
+In the sensitivity analysis, imputed baseline values will be restricted to ≥ 0.1 to avoid imputed 
+values close to zero which can lead to numerical instabilities in the analysis of percentage LDL-
+C change from baseline. 
+The imputation will be carriedout using in SAS/R as mentioned in Appendix 5.5.2.  
+The analysis will be carried out using ANCOVA procedure as mentioned in section 2.5.2. 
+2.5.6 
+Supplementary analyses 
+Supplementary analysis of LDL-C change from baseline to Day 270 will be performed using 
+linear mixed-effect model for repeated measures (MMRM) analysis with multiple imputation 
+as specified in section 2.5.5. This supplementary analysis will be performed by assessing 
+supplementary estimand as mentioned  below. 
+ 
+Intercurrent events (Study treatment discontinuation and Deviation in background treatment) 
+will be handled similarly as mentioned in primary endpoint (Refer section 2.5.3) and 
+additionally below mentioned strategy will be used for “Use of prohibited medications”.  
+ 
+ICE 
+Strategy and justification of 
+handling ICEs 
+Missing value imputation 
+Use of 
+prohibited 
+medications  
+Interest is in effect of treatment 
+regardless of changes in 
+concomitant lipid lowering 
+medication during study treatment. 
+Use of prohibited medications 
+(includes treatments which are 
+LDL-C data after this event will be 
+set to missing. Missing data after 
+this event will be imputed in same 
+way as mentioned in Appendix 
+5.5.1. 
+PPD
+Novartis 
+Confidential 
+Page 19 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ICE 
+Strategy and justification of 
+handling ICEs 
+Missing value imputation 
+added to existing background 
+therapy during the study) will not 
+be allowed in the study and  will 
+lead to study treatment 
+discontinuation. 
+The LDL-C data collected after the 
+use of any prohibited medication 
+will not be included in the 
+analysis. 
+Hypothetical strategy with the 
+hypothetical scenario ‘as if 
+patients would have not received 
+any prohibited medication. 
+2.6 
+Analysis supporting secondary objectives  
+The secondary objectives of this study are to evaluate the implementation of inclisiran +/- 
+behavioural support compared to standard of care + behavioural support in a primary care 
+setting using the following assessments that will be reported based on this SAP are:  
+• 
+Measures of patient satisfaction using the validated CSQ-8 (Client Satisfaction 
+Questionnaire) administered after treatment at day 90.  
+• 
+Measures of patient activation and empowerment using the validated Patient Activation 
+Measure (PAM) questionnaire administered after treatment at day 90.  
+• 
+Measures of adherence to cardiovascular disease self-management using the validated 
+Patient Activation Measure (PAM) questionnaire administered after treatment at day 90 
+and using assessment of medication adherence during the study period.  
+• 
+Serious adverse event profile and adverse events leading to treatment discontinuation.  
+The following secondary endpoint will be analysed by Manchester University and are not 
+covered by this SAP: 
+• 
+A process evaluation conducted using the Consolidated Framework for Implementation 
+Research (CFIR) which will explore inclisiran delivery at three levels:  
+ Feasibility and acceptability of delivery models for inclisiran to patients  
+ Feasibility and acceptability of delivery models for inclisiran to providers (inner 
+setting)  
+ Wider ‘transactability’ of the proposed delivery models (outer setting)  
+ The service costs of each delivery model  
+ The acceptability and perceived sustainability of patient identification and referral 
+routes  
+2.6.1 
+Secondary endpoint(s) 
+The following are key secondary efficacy endpoints:  
+Novartis 
+Confidential 
+Page 20 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+• 
+Mean difference in total score using the validated CSQ-8 (Client Satisfaction 
+Questionnaire) administered after treatment at day 90.  
+• 
+Mean difference in total score using the validated Patient Activation Measure (PAM) 
+questionnaire administered after treatment at day 90.  
+• 
+Measures of adherence to cardiovascular disease self-management using the validated 
+Patient Activation Measure (PAM) questionnaire administered after treatment at day 90 
+and using assessment of medication adherence during the study period.  
+All the analyses on above endpoints will be based on observed data only. 
+2.6.1.1 
+The CSQ-8 PROMs Questionnaire 
+The Client Satisfaction Questionnaire© (CSQ) is a portfolio of measurement instruments 
+(CSQScales®) designed to assess consumer satisfaction with health and human services, 
+including governmental and public benefit programs and services. 
+Each scale measures the recipients’ direct satisfaction with specific services offered and 
+received within a particular time frame from a specific provider or service setting.  
+The CSQ-8 has 8 items and no subscales. and It reports a single score measuring a single 
+dimension of overall satisfaction. 
+A total score is produced by summing all item responses, with a higher scores indicating higher 
+satisfaction. The outcome is the mean difference in total score between treatment groups. For 
+the CSQ-8 version, scores range from 8 to 32, with higher values indicating higher satisfaction. 
+Scoring for other versions is similar after extrapolating for number of items. 
+The following endpoint will be analyzed with CSQ-8 PROMs Questionnaire data. 
+Endpoint: Mean difference in total score using the validated CSQ-8 (Client Satisfaction 
+Questionnaire) administered after treatment at day 90. Summary measure: Mean difference in 
+total scores between treatment groups. 
+2.6.1.2 
+The PAM PROMs Questionnaire 
+This study will use the 13-point PAM questionnaire, which will be complimented by data on 
+medication adherence to Inclisiran or standard of care recorded during the trial. The 13 item 
+PAM consists of 13 statements relating to patients beliefs about health care, confidence in their 
+management of health related tasks, and self-assessed knowledge of their condition.  
+For each statement patients are required to say how much they either agree or disagree on a 
+response scale of 1–4, where 1 represents “strongly disagree” and 4 represents “strongly agree”. 
+Patients may also answer “non-applicable” which is scored as 0. A total score is created by 
+summing the scores for the 13 statements and multiplying by 13/(13-n) where n is the number 
+of statements answered as “non-applicable” or missing. The total is rounded to the nearest 
+integer. The total score in the range [13,52] is then converted to a score in the range [0,100] 
+using a calibration table. Note that if n>3, the calibrated score defaults to 51.  
+The continuous PAM scores are then categorized into four levels for descriptive purposes: 
+according to the materials supplied by Insignia, scores less than 47.1 are level 1, scores between 
+Novartis 
+Confidential 
+Page 21 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+47.1 and 53.2 are level 2, scores between 53.3 and 70.2 are level 3, and scores above 70.2 are 
+level 4. 
+The following endpoints will be analyzed with PAM PROMs Questionnaire data. 
+• 
+Endpoint: Mean difference in total score using the validated Patient Activation Measure 
+(PAM) questionnaire administered after treatment at day 90. Summary measure: 
+Difference between treatment groups in mean change in total scores from baseline to Day 
+90. 
+• 
+Endpoint: Measures of adherence to cardiovascular disease self-management using the 
+validated Patient Activation Measure (PAM) questionnaire administered after treatment at 
+day 90 and using assessment of medication adherence during the study period. Summary 
+measure: The frequency and percentages of subjects in the four levels of the PAM scores 
+(below) will be summarized. Note that highly activated patients (level 3 and level 4) are 
+more likely to adhere to cardiovascular self-management and thus medication adherence. 
+Level 1: Disengaged and overwhelmed 
+Level 2: Become aware but still struggling 
+Level 3: Taking action 
+Level 4: Maintaining behaviors and pushinng further 
+2.6.2 
+Statistical hypothesis, model, and method of analysis 
+The key secondary variables will be analyzed as follows: 
+• 
+Mean difference in total score using the validated CSQ-8 (Client Satisfaction 
+Questionnaire) administered after treatment at day 90 between the groups will be 
+analyzed using ANOVA. The test statistics, mean difference,  95% confidence interval 
+and the p-value obtained using the ANOVA will be presented. 
+• 
+The comparison between inclisiran and inclisiran + behavioural support also will be 
+done and presented as mentioned above. Inclisiran arm will be considered as control for 
+this analysis. 
+• 
+The descriptive statistics for the total CSQ score will be provided for each treatment 
+group. 
+ 
+• 
+Mean difference in total score using the validated Patient Activation Measure (PAM) 
+questionnaire administered after treatment from baseline today 90 will be analyzed 
+using ANCOVA model. ANCOVA model which assumes unequal variances for 
+treatment group will be used. The model will include the fixed effects of treatment group 
+with baseline total scores as a covariate. The estimate and corresponding 2-sided 95% 
+confidence intervals of mean difference between treatment groups will be calculated. p-
+value for hypothesis test for mean difference will also be provided. The FAS will be 
+used for this analysis. 
+• 
+The comparison between inclisiran and inclisiran + behavioural support also will be 
+done and presented as mentioned above. Inclisiran arm will be considered as control for 
+this analysis. 
+Novartis 
+Confidential 
+Page 22 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+• 
+Measures of adherence to cardiovascular disease self-management using the validated 
+Patient Activation Measure (PAM) questionnaire administered after treatment at day 90 
+and using assessment of medication adherence during the study period will be 
+summarized by providing the frequency and percentages of subjects in the four levels 
+of the PAM scores (below) by visit and treatment. Note, highly activated patients (level 
+3 and level 4) are more likely to adhere to cardiovascular self-management and thus 
+medication adherence. 
+Level 1: Disengaged and overwhelmed 
+Level 2: Become aware but still struggling 
+Level 3: Taking action 
+Level 4: Maintaining behaviors and pushinng further 
+• 
+Also frequecncy and percentage of subjects completed each item of PAM questionnaire 
+will be summarized by visit and treatement. 
+2.6.3 
+Handling of missing values 
+No imputation will be applied if the scores are missing at a visit in any the questionnaire. The 
+proportion of missing data will be included in summaries to aid interpretation. 
+2.7 
+Safety analyses 
+For all safety analyses, the safety set will be used. 
+Safety summaries (tables, figures) will include only treatment emergent adverse events (i.e. 
+adverse events started after the first dose of study treatment or adverse events that were present 
+prior to start of study treatment but increased in severity during the course of the study). Listings 
+will include all data.  
+Vital signs values that have complete data and time values will be allocated to pre- or post-dose 
+assessment (as per protocol) based on the actual date/time. For values with missing date/time, 
+scheduled visit date and time will be used. This rule will be applied to data from scheduled 
+visits only. If a measurement scheduled as pre-dose is actually performed post-dose, or vice 
+versa, the data will not be used for by visit/time point summary. 
+2.7.1 
+Adverse events (AEs) 
+The number (and percentage) of participants with TEAEs will be summarized by treatment 
+groups and overall in the following ways:  
+• 
+By treatment, primary system organ class (SOC) and preferred term (PT).  
+• 
+By treatment, primary system organ class (SOC), PT and maximum severity.  
+• 
+By treatment, Standardized MeDRA query (SMQ) and PT.  
+Separate summaries will be provided for study medication related adverse events, death, serious 
+adverse events, other significant adverse events leading to treatment discontinuation.  
+Unless otherwise specified, SOCs will be sorted alphabetically and, within each SOC, the PTs 
+will be sorted in descending order of frequency in the total column. A participant with multiple 
+Novartis 
+Confidential 
+Page 23 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+adverse events within the same PT, the AE will be counted only once. A participant with 
+multiple adverse events within a primary system organ class is only counted once towards the 
+total of the primary system organ class. In case of summary by severity or relationship to study 
+drug, summary will be done using the most severe or related occurrence respectively. Listing 
+of all AEs and SAEs will be provided. 
+AE reporting for CT.gov and EudraCT: For the legal requirements of clinicaltrials.gov and 
+EudraCT, two required tables on treatment emergent adverse events which are not serious 
+adverse events, on treatment emergent serious adverse events and SAE suspected to be related 
+to study treatment will be provided by system organ class and preferred term on the safety set 
+population.  
+If for a same patient, several consecutive AEs (irrespective of study treatment causality, 
+seriousness and severity) occurred with the same SOC and PT: 
+• 
+a single occurrence will be counted if there is ≤ 1 day gap between the end date of the 
+preceding AE and the start date of the consecutive AE  
+• 
+more than one occurrence will be counted if there is > 1 day gap between the end date 
+of the preceding AE and the start date of the consecutive AE  
+For occurrence, the presence of at least one SAE / SAE suspected to be related to study 
+treatment / non SAE has to be checked in a block e.g., among AE's in a ≤ 1 day gap block, if at 
+least one SAE is occurring, then one occurrence is calculated for that SAE.  
+The number of deaths resulting from SAEs suspected to be related to study treatment and SAEs 
+irrespective of study treatment relationship will be provided by SOC and PT.  
+2.7.1.1 
+Adverse events of special interest / grouping of AEs 
+Adverse event of special interest (AESI): The number and percentage of participants who 
+reported TEAEs of special interest will be summarized by PT, treatment group. PTs will be 
+sorted in descending order of frequency in the total column. If a participant reported more than 
+one adverse event with the same PT, the AE will be counted only once. If a participant reported 
+more than one AE within the same AESI, the participant will be counted only once at that AESI. 
+Listing of participants with adverse event of special interest will be provided. 
+The Compound Case Retrieval Strategy (CRS) will be used to determine the MedDRA search 
+criteria to be used to identify events of special interest.  
+Adverse event of special interest will include the following:  
+• 
+Hepatotoxicity (Hepatic events) 
+• 
+New onset or worsening of diabetis mellitus 
+For search criteria of AE of special interest, refer to Appendix 5.3. 
+Novartis 
+Confidential 
+Page 24 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+The most recent list of adverse events of special interest at the time of database lock will be 
+used. CRS listing will be provided. 
+2.7.2 
+Deaths 
+Please refer section 2.7.1. 
+2.7.3 
+Laboratory data 
+There are no regular laboratory tests required by this protocol. All blood tests will be performed 
+locally by clinical pathology laboratories, in common with usual practice. Methods for 
+sampling, handling and analysis will be the same as usually applied in routine care.  
+Abnormal laboratory findings, that are detected during the study or are present at baseline and 
+significantly worsen following study drug administration, and are deemed as clinically 
+significant by the investigator will be recorded as AEs if they lead to treatment discontinuation. 
+2.7.4 
+Other safety data 
+2.7.4.1 
+Vital signs 
+Absolute values, change from baseline and percentage change from baseline will be 
+summarized for vital sign parameters by visit, time point and treatment group using overall data. 
+Baseline and change from baseline in height, 
+ will be summarized 
+by visit, treatment group using overall data.  
+All vital signs data will be listed by treatment group, participant, and visit/time and if ranges 
+are available, abnormalities will be flagged. 
+2.8 
+Patient-reported outcomes 
+2.8.1 
+The CSQ-8 PROMs Questionnaire 
+The details about Client Satisfaction Questionnaire (CSQ) and the endpoints were mentioned 
+in section 2.6.1.1. For more details on the questionnaire, please refer to the study protocol. 
+2.8.2 
+The PAM PROMs Questionnaire 
+The details about Patient Activation Measure (PAM) Questionnaire and the endpoints were 
+mentioned in section 2.6.1.2. For more details on the questionnaire, please refer to the study 
+protocol.  
+2.8.3 
+ 
+ 
+  
+2.9 
+ 
+ 
+ 
+PPD
+PPD
+PPD
+Novartis 
+Confidential 
+Page 25 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+2.10 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+2.10.1 
+Other efficacy data 
+A capillary blood sample will be taken for immediate analysis of the participants lipid 
+profile
+ for assessment of efficacy. This will be performed at screening/baseline visit, 
+day 90 visit and EOS (day 270) visit  in the following:  
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+Non-HDL (calculated)  
+• 
+LDL-C calculated using Friedwald  
+Descriptive summaries by treatment group will be presented. 
+ 
+ 
+Line-Plot displaying mean and SE of change from baseline will be provided for all parameters 
+using all available visits.  
+ 
+Descriptive summaries by treatment group will be presented. 
+Listing of all above endpoints for all available visits will be provided. 
+The threshold analysis on LDL-C data will be performed. Frequency and percentage of patients 
+with secondary prevention who achieved following threshold targets at day 270 will be 
+provided. 
+• 
+<1.8 mmol/L (<70 mg/dL) 
+• 
+<1.4 mmol/L (<55 mg/dL) 
+2.10.2 
+ 
+ 
+ 
+ 
+  
+PPD
+P
+P
+D
+PPD
+PPD
+PPD
+PPD
+Novartis 
+Confidential 
+Page 26 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ 
+ 
+2.10.3 
+ 
+ 
+ 
+ 
+2.11 
+Interim analysis 
+There are no interim analyses planned for this study. 
+3 
+Sample size calculation 
+The primary effectiveness endpoint of the study is percent change of LDL-C from baseline. 
+However, the sample size is driven by patient experience (CSQ-8) and patient activation 
+(PAM); two key secondary outcomes in this trial.  
+The trial has been powered to detect differences equivalent to a Cohen’s effect size of 0.3, 
+approximating a ‘small-to-medium’ effect in conventional terms  
+A sample size of 300 patients per arm would be able to detect this effect size with 90% power 
+using a one-sided significance level of 0.025 (this includes a 20% allowance for drop-out in this 
+primary care setting).  
+This sample size could also detect a reduction of at least 10% change of LDL-C from baseline 
+in the inclisiran group compared to the control group (assuming a standard deviation of 30% in 
+the control group and 20% in the inclisiran group based on observed results from previous 
+inclisiran studies).  
+The total sample size for the study will be 900 participants. 
+4 
+Change to protocol specified analyses 
+• 
+ 
+ 
+5 
+Appendix 
+5.1 
+Imputation rules 
+5.1.1 
+Study drug 
+Missing/partial start date or end date of treatment will not be imputed. 
+PPD
+PPD
+PPD
+Novartis 
+Confidential 
+Page 27 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+5.1.2 
+AE date imputation 
+5.1.2.1 
+AE start date imputation 
+The following table explains the notation used in the logic matrix. Please note that completely 
+missing start dates will not be imputed. 
+ 
+Day 
+Month 
+Year 
+Partial Adverse Event Start Date 
+Not used 
+MON 
+YYYY 
+Treatment Start Date 
+Not used 
+TRTM 
+TRTY 
+The following matrix explains the logic behind the imputation. 
+ 
+MON MISSING 
+MON < TRTM 
+MON = TRTM 
+MON > TRTM 
+YYYY MISSING 
+( 1 ) 
+No convention 
+( 1 ) 
+No convention 
+( 1 ) 
+No convention 
+( 1 ) 
+No convention 
+YYYY < TRTY 
+( 2.a ) 
+Before Treatment 
+Start 
+( 2.b ) 
+Before Treatment 
+Start 
+( 2.b ) 
+Before Treatment 
+Start 
+( 2.b ) 
+Before Treatment 
+Start 
+YYYY = TRTY 
+( 4.a ) 
+Uncertain 
+( 4.b ) 
+Before Treatment 
+Start 
+( 4.c ) 
+Uncertain 
+( 4.c ) 
+After Treatment 
+Start 
+YYYY > TRTY 
+( 3.a ) 
+After Treatment 
+Start 
+( 3.b ) 
+After Treatment 
+Start 
+( 3.b ) 
+After Treatment 
+Start 
+( 3.b ) 
+After Treatment 
+Start 
+Before imputing AE start date, find the AE start reference date. 
+• If the (imputed) AE end date is complete and the (imputed) AE end date < study drug 
+start date then AE start reference date = min(informed consent date, earliest visit date). 
+• Else AE start reference date = study drug start date 
+Impute AE start date: 
+1. If the AE start date year value is missing, the date uncertainty is too high to impute a 
+rational date. Therefore, if the AE year value is missing, the imputed AE start date is set 
+to NULL. 
+2. If the AE start date year value is less than the treatment start date year value, the AE 
+started before treatment. Therefore: 
+a. If AE month is missing, the imputed AE start date is set to the mid-year point 
+(01JULYYYY). 
+b. Else if AE month is not missing, the imputed AE start date is set to the mid-month 
+point (15MONYYYY). 
+3. If the AE start date year value is greater than the study drug start date year value, the 
+AE started after treatment. Therefore: 
+a. If the AE month is missing, the imputed AE start date is set to the year start point 
+(01JANYYYY). 
+b. Else if the AE month is not missing, the imputed AE start date is set to the later of 
+(month start point (01MONYYYY), AE start reference date + 1 day). 
+Novartis 
+Confidential 
+Page 28 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+4. If the AE start date year value is equal to the study drug start date year value: 
+a. And the AE month is missing the imputed AE start date is set to the AE reference 
+start date + 1 day. 
+b. Else if the AE month is less than the study drug start month, the imputed AE start 
+date is set to the mid-month point (15MONYYYY). 
+c. Else if the AE month is equal to the study drug start date month or greater than the 
+treatment start date month, the imputed AE start date is set to the later of (month 
+start point (01MONYYYY), AE start reference date + 1 day). 
+If complete (imputed) AE end date is available and the imputed AE start date is greater than the 
+(imputed) AE end date, then imputed AE start date should be set to the (imputed) AE end date. 
+5.1.2.2 
+AE end date imputaion 
+For the purpose of date imputation the treatment follow-up period date is defined as the last 
+available visit date. 
+1. If the AE end date month is missing, the imputed end date should be set to the earliest 
+of the (treatment follow up period date, 31DECYYYY, date of death). 
+2. If the AE end date day is missing, the imputed end date should be set to the earliest of 
+the (treatment follow up period date, last day of the month, date of death). 
+3. If AE year is missing or AE is ongoing, the end date will not be imputed. 
+4. If the imputed AE end date is less than the existing AE start date then use AE start date 
+as AE end date. 
+5.1.3 
+Concomitant medication date imputation 
+5.1.3.1 
+CM start date imputation 
+The following table explains the notation used in the logic matrix. 
+ 
+Day 
+Month 
+Year 
+Partial CM Start Date 
+Not used 
+MON 
+YYYY 
+Treatment Start Date 
+Not used 
+TRTM 
+TRTY 
+The following matrix explains the logic behind the imputation. 
+ 
+MON MISSING 
+MON < TRTM 
+MON = TRTM 
+MON > TRTM 
+YYYY MISSING 
+( 1 ) 
+Uncertain  
+( 1 ) 
+Uncertain 
+( 1 ) 
+Uncertain 
+( 1 ) 
+Uncertain 
+YYYY < TRTY 
+( 2.a ) 
+Before Treatment 
+Start 
+( 2.b ) 
+Before Treatment 
+Start 
+( 2.b ) 
+Before Treatment 
+Start 
+( 2.b ) 
+Before Treatment 
+Start 
+YYYY = TRTY 
+( 4.a ) 
+Uncertain 
+( 4.b ) 
+Before Treatment 
+Start 
+( 4.a ) 
+Uncertain 
+( 4.c ) 
+After Treatment 
+Start 
+YYYY > TRTY 
+( 3.a ) 
+( 3.b ) 
+( 3.b ) 
+( 3.b ) 
+Novartis 
+Confidential 
+Page 29 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ 
+MON MISSING 
+MON < TRTM 
+MON = TRTM 
+MON > TRTM 
+After Treatment 
+Start 
+After Treatment 
+Start 
+After Treatment 
+Start 
+After Treatment 
+Start 
+1. If the CM start date year value is missing, the imputed CM start date is set to one day prior 
+to treatment start date.  
+2. If the CM start date year value is less than the investigational study treatment start date year 
+value, the CM started before treatment. Therefore:  
+a. If the CM month is missing, the imputed CM start date is set to the mid –year point 
+(01JULYYYY).  
+b. Else if the CM month is not missing, the imputed CM start date is set to the mid-month 
+point (15MONYYYY).  
+3. If the CM start date year value is greater than the investigational study treatment start date 
+year value, the CM started after treatment. Therefore:  
+a. If the CM month is missing, the imputed CM start date is set to the year start point 
+(01JANYYYY).  
+b. Else if the CM month is not missing, the imputed CM start date is set to the month start 
+point (01MONYYYY).  
+4. If the CM start date year value is equal to the investigational study treatment start date year 
+value:  
+a. And the CM month is missing or the CM month is equal to the treatment start date month, 
+then the imputed CM start date is set to one day prior to treatment start date.  
+b. Else if the CM month is less than the treatment start date month, the imputed CM start 
+date is set to the mid-month point (15MONYYYY).  
+c. Else if the CM month is greater than the treatment start date month, the imputed CM 
+start date is set to the month start point (01MONYYYY).  
+If complete (imputed) CM end date is available and the imputed CM start date is greater than 
+the (imputed) CM end date, then imputed CM start date should be set to the (imputed) CM end 
+date. 
+5.2 
+AEs coding/grading 
+The MedDRA version which will be available at the time of database lock, will be used for the 
+coding purpose of the adverse events. 
+5.3 
+Search criteria for AE of special interest 
+The Adverse events of special interest (AESIs) based on MedDRA terms are defined in the 
+Case Retrieval Strategy (eCRS). To select the corresponding records from SAS dataset ECRS 
+in Novartis computing environment, use  
+• Compound name (DRGNAM)=” KJX839”,  
+• Compound indication (DRGINDC)=” Hypercholesterolemia”,  
+• Records with MDRAVER = 25.0 
+Novartis 
+Confidential 
+Page 30 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Safety topics flagged in the eCRS using the safety flag (PSURFL =YES) will be filtered and 
+further safety topics mentioned in section 2.7.1.1 will be considered for analyses. 
+5.4 
+Laboratory parameters derivations 
+The following table shows the criteria for clinically notable laboratory values. Not all 
+parameters have notable criteria defined: 
+Table 5-1 
+Clinical notable criteria for selected laboratory tests 
+Test 
+Notable post-baseline criteria 
+Glucose, fasting 
+≥ 5.5 to < 7.0 mmol/L 
+≥ 7.0 mmol/L 
+HbA1c 
+≥ 5.7 % to < 6.5 % (≥ 39 mmol/mol to < 48 
+mmol/mol) 
+≥ 6.5 % (≥ 48 mmol/mol) 
+Table 5-2 
+Notable Liver function test values 
+ 
+The liver function tests are not required as per the assessment schedule of the protocol. This 
+data collected from EMR based on the availability. Whatever data collected will be presented. 
+Novartis 
+Confidential 
+Page 31 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Normal ranges provided by medical team will be considered for this analysis since reference 
+ranges are not collected in source data. 
+5.5 
+Statistical models 
+5.5.1 
+Multiple Imputation Wash-out model 
+A multiple imputation washout model will be utilized for the primary efficacy analysis of the 
+percentage change in LDL-C from baseline to Day 270 endpoint. The washout model can be 
+thought of as a control-based PMM that will be used to explore the possibility of missing data 
+being MNAR for subjects who discontinued the study early. For subjects who discontinued the 
+study early, their missing values will be imputed under the assumption that their outcome would 
+be similar to those in the control group with similar background characteristics. For subjects in 
+the inclisiran groups only missing Day 270 values will be imputed. 
+For subjects whose LDL-C values are undetectable i.e., both baseline and post-baseline due to 
+device sensitivity for a lipid parameter in inclisiran groups will be considered as missing and 
+imputed under MAR assumption. 
+For subjects in the control group, their missing values over all visits after early termination as 
+well as undetectable values including both baseline and post-baseline due to device sensitivity 
+for a lipid parameter will be imputed based on the missing at random (MAR) assumption.  
+Multiple imputation will be used to account for uncertainty in the imputation process and results 
+from the imputed datasets will be combined using Rubin’s method. Further details are provided 
+below.  
+For the control group the following variables will be included in a multiple imputation 
+procedure (SAS PROC MI), this assumes missing data are MAR: 
+• 
+Baseline value of efficacy measurement (continuous)  
+• 
+Observed value of efficacy measurement at Day 90 (continuous) 
+• 
+Observed value of efficacy measurement at Day 270 (continuous) 
+For the subjects in the inclisiran group who completed the doses and with intermittent missing 
+as well as undetectable data, the following variables will be included in a multiple imputation 
+procedure (SAS PROC MI), this assumes missing data are MAR: 
+• 
+Baseline value of efficacy measurement (continuous) 
+• 
+Observed value of efficacy measurement at Day 90 (continuous) 
+• 
+Observed value of efficacy measurement at Day 270 from the inclisiran group 
+(continuous)  
+For the subjects in the inclisiran groups and with missing data at Day 270 which does not 
+includes undetectable data, the following variables will be included in a multiple imputation 
+procedure (SAS PROC MI), this assumes missing data are MNAR: 
+• 
+Baseline value of efficacy measurement (continuous)  
+Novartis 
+Confidential 
+Page 32 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+• 
+Observed value of efficacy measurement at Day 270 from the control group (continuous) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Novartis 
+Confidential 
+Page 33 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ 
+ 
+5.5.2 
+Imputation of undetectable data 
+For each undetectable LDL-C value, a range is determined based on Friedewald’s formula. 
+Below table will provide example range calculation when 
+ 
+ are distributed in different categories. 
+Table 5-3 
+Range determination 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+] 
+As a next step, the undetectable LDL-C values are baseline are imputed to create 500 complete 
+sets of baseline LDL-C values. The imputation is performed by fitting a normal distribution to 
+all available baseline LDL-C values including the LDL-C ranges. The imputed values are 
+obtained by sampling from the posterior predictive distribution. As prior distribution for mean 
+and the standard deviation a normal distribution (mean=0, sd=10) and a half-t-distribution (df=3, 
+scale=2.5) are chosen. 
+To create 500 complete data sets of baseline and post-baseline LDL-C data sets, the following 
+approach is performed for each of the 500 data sets with complete baseline LDL-C data. 
+1. Fit a Bayesian linear mixed model to all available post-baseline LDL-C data including 
+the LDL-C ranges from Day 90 and Day 270.  
+a. The model includes study arm, visit, and baseline LDL-C as well as all 
+interactions as fixed effects. 
+b. The model includes a normally distributed patient-specific random effect and a 
+normally distributed residual error. The variance of the residual error differs by 
+study arm and visit. 
+ 
+  
+PPD
+PPD
+Novartis 
+Confidential 
+Page 34 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+2. For the missing values or undetectable LDL-C values of patient 𝑖𝑖 at visit 𝑗𝑗 in study arm 
+𝑘𝑘 that are imputed under the MAR assumption, the imputed value is drawn from the 
+posterior predictive distribution of the outcome (i.e., LDL-C) of patient 𝑖𝑖 at visit 𝑗𝑗 in 
+study arm 𝑘𝑘. 
+3. For the missing values of patient 𝑖𝑖 at visit 𝑗𝑗 in the inclisiran arm that are imputed under 
+the jump-to-reference assumption, the imputed value is drawn from the posterior 
+predictive distribution of the outcome (i.e., LDL-C) of patient 𝑖𝑖 at visit 𝑗𝑗 whereas the 
+components (e.g., fixed effects and random effects) of the posterior predictive 
+distribution that are associated with the inclisiran arm are replaced by the corresponding 
+value from the placebo arm. 
+The above imputation will be carried out using R software. 
+Each of the 500 complete data sets is analyzed with an ANCOVA as specified for the primary 
+analysis. The resulting point estimates will be combined using Rubin’s method.  
+5.6 
+Rule of exclusion criteria of analysis sets  
+The protocol deviations (PD) and other criteria leading to complete exclusion from analyses 
+sets are provided in below table, which may be updated prospectively and will be finalized 
+before study DBL. 
+Table 5-4 
+Protocol deviation criteria leading to exclusion from analysis sets 
+Protocol Deviation 
+Excluding from 
+Analysis set 
+ID 
+Desctiption 
+RAN 
+FAS 
+SAF 
+INCL01A 
+No study informed consent prior to performing study 
+assessments 
+X 
+X 
+X 
+INCL01B 
+No signed informed consent exists at site 
+X 
+X 
+X 
+INCL02 
+Participant's age < 18 years at screening visit 
+ 
+ 
+ 
+INCL03A 
+Participant not on statin therapy and intolerance not 
+documented 
+ 
+ 
+ 
+INCL03B 
+Participant is indicated to have partial statin intolerance but 
+not documented 
+ 
+ 
+ 
+INCL04 
+Participant's total cholesterol not available at screening visit 
+or is <4mmol/L (160mg/dL) 
+ 
+ 
+ 
+INCL05 
+Participant's lipid-lowering therapy at study entry not stable 
+for ≥ 30 days before screening visit 
+ 
+ 
+ 
+EXCL01 
+Participant has medical or surgical history that might limit the 
+individual’s ability to take study treatments for the duration of 
+the study and/or put the participant at significant risk  
+ 
+ 
+ 
+EXCL02 
+Current or planned renal dialysis or transplantation  
+ 
+ 
+ 
+Novartis 
+Confidential 
+Page 35 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Protocol Deviation 
+Excluding from 
+Analysis set 
+ID 
+Desctiption 
+RAN 
+FAS 
+SAF 
+EXCL03 
+Participant had acute coronary syndrome or stroke less than 
+4 weeks before the screening visit 
+ 
+ 
+ 
+EXCL05 
+Participant is a female of child-bearing potential and NOT 
+agreeing to either abstinence or, if sexually active, to using 
+effective methods of contraception  
+ 
+ 
+ 
+EXCL06A 
+Participant confirmed to be pregnant or nursing and 
+randomized 
+ 
+ 
+ 
+EXCL06B 
+Pregnancy 
+test(s) 
+not 
+performed 
+at 
+screening 
+or 
+randomization visit 
+ 
+ 
+ 
+EXCL07 
+Treatment with monoclonal antibodies directed towards 
+PCSK9 initiated at any time during the course of the study 
+ 
+ 
+ 
+EXCL08 
+Participant 
+has 
+previous 
+exposure 
+to 
+inclisiran 
+or 
+participation in a randomised study of inclisiran 
+ 
+ 
+ 
+EXCL09 
+Participants treated with other investigational medicinal 
+products or devices within 30 days or five half lives 
+(whichever is longer) of the screening visit 
+ 
+ 
+ 
+EXCL10 
+Participant who plans to move away from the geographical 
+area where the study is being conducted during the study 
+period 
+ 
+ 
+ 
+EXCL11 
+The participant has a triglyceride value of greater than or 
+equal to 4.52 
+ 
+ 
+ 
+COMD01 
+Introduction of new lipid lowering therapy (either different 
+statin or new additional therapy) during the study 
+ 
+ 
+ 
+COMD02 
+Treatment with monoclonal antibodies directed towards 
+PCSK9 initiated at any time during the course of the study 
+ 
+ 
+ 
+COMD03 
+Another investigational treatment initiated at any time during 
+the course of the study 
+ 
+ 
+ 
+OTH01 
+Study treatment given and/or assessment(s) performed after 
+withdrawal of ICF  
+ 
+ 
+ 
+OTH02 
+Subject resumes study treatment after pregnancy but 
+continues breast feeding 
+ 
+ 
+ 
+OTH03 
+Site closed due to GCP reason 
+ 
+X 
+ 
+OTH04 
+Scheduled visit missed due to COVID-19 
+ 
+ 
+ 
+OTH05 
+Participant discontinues from study due to COVID-19 
+situation 
+ 
+ 
+ 
+OTH06 
+Assessment / procedure at visits changed due to COVID-19 
+ 
+ 
+ 
+OTH07 
+Drug supply method changed due to COVID-19 
+ 
+ 
+ 
+Novartis 
+Confidential 
+Page 36 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+Protocol Deviation 
+Excluding from 
+Analysis set 
+ID 
+Desctiption 
+RAN 
+FAS 
+SAF 
+OTH08 
+The participant has withdrawn from the Behavioural Support 
+calls so these calls are no longer being made 
+ 
+ 
+ 
+OTH09 
+Patient received behavioural support calls when they had not 
+been randomised to receive these 
+ 
+ 
+ 
+OTH10 
+Patient did not receive behavioural support calls when they 
+had been randomised to receive these 
+ 
+ 
+ 
+OTH11 
+Patient visits have occurred out of visit window and/or the 
+visit is very late 
+ 
+ 
+ 
+OTH12 
+Other protocol deviation 
+ 
+ 
+ 
+WITH01 
+Participant became pregnant during the course of the study 
+but study treatment was not discontinued 
+ 
+ 
+ 
+WITH02 
+Participant has been treated with monoclonal antibodies 
+directed  towards PCSK9 but study treatment was not 
+discontinued or re-started  
+ 
+ 
+ 
+WITH03 
+Participant has received other investigational treatments but 
+study treatment was not discontinued or re-started 
+ 
+ 
+ 
+WITH04 
+Participant had a severe and persistent (>14 days despite 
+appropriate treatment) injection site reaction but study 
+treatment was not discontinued 
+ 
+ 
+ 
+WITH05 
+Participant had a confirmed anaphylactic reaction but study 
+treatment was not discontinued 
+ 
+ 
+ 
+TRT01 
+Participant was given wrong medication number/pack or 
+administered with study drug that was not stored 
+appropriately or dosed with expired medication 
+ 
+ 
+ 
+TRT02 
+Participant was not randomized but took study drug 
+X 
+X 
+ 
+TRT03 
+Participant received study drug between screening visit and 
+randomization (Day 1) visit by mistake 
+ 
+ 
+ 
+TRT04 
+Missed dosing for any reason other than participant safety or 
+withdrawal (and non-COVID-19 related) 
+ 
+ 
+ 
+TRT05 
+Participant did not receive study treatment due to COVID-19 
+ 
+ 
+ 
+TRT06 
+Participant discontinues from treatment due to COVID-19 
+situation 
+ 
+ 
+ 
+6 
+Reference 
+CKJX839A1GB01 amended protocol v02 dated 12-Sep-2022. 
+Attkisson, C. C. & Zwick, R. The client satisfaction questionnaire. Psychometric properties 
+and correlations with service utilization and psychotherapy outcome. Eval. Program Plan. 5, 
+233–237 (1982) 
+Novartis 
+Confidential 
+Page 37 of 37 
+SAP 
+ 
+Study No. CKJX839A1GB01 
+ 
+ 
+ 
+ICH E9(R1) Harmonized Guideline: addendum on estimands and sensitivity analysis in 
+clinical trials to the guideline on statistical principles for clinical trials. Final version on 20 
+November 2019.  
+Hibbard J, Gilburt H. Supporting people to manage their health: An introduction to patient 
+activation. 2014. The King’s Fund. 25-12-0016. http:// 
+www.kingsfund.org.uk/publications/supporting-people-manage-their-health  
+Hibbard J, Mahoney E, Stockard J, Tusler M. Development and testing of a short form of the 
+patient activation measure (PAM). Health Serv Res. 2005; 40(6):1918–30.  
+Hibbard J, Stockard J, Mahoney E, Tusler M. Development of the Patient Activation Measure 
+(PAM): Conceptualizing and measuring activation in patients and consumers. Health Serv 
+Res. 2004;39(4):1005–26. 

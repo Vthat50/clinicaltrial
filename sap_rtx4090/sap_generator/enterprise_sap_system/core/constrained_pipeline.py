@@ -2143,18 +2143,26 @@ Footnotes:
 
 | Version | Date | Author | Description of Changes |
 |---------|------|--------|------------------------|
-| 1.0 | [DATE] | [Author] | Initial version |
+| 0.1 | {version_date} | Lead Biostatistician | Initial draft for internal review |
+| 0.2 | TBD | Lead Biostatistician | Revised based on internal comments |
+| 1.0 | TBD | Lead Biostatistician | Final version for regulatory submission |
+
+*Note: Version 1.0 will be finalized prior to database lock.*
 
 ### Signature Page
 
 This Statistical Analysis Plan has been reviewed and approved by:
 
-| Role | Name / Signature | Date |
-|------|------------------|------|
-| Biostatistician (Primary) | __________________ | __________ |
-| Biostatistician (QC Review) | __________________ | __________ |
-| Medical Monitor | __________________ | __________ |
-| Sponsor Representative | __________________ | __________ |
+| Role | Name | Signature | Date |
+|------|------|-----------|------|
+| Lead Biostatistician | ______________________ | __________________ | __________ |
+| Biostatistics QC Reviewer | ______________________ | __________________ | __________ |
+| Clinical Study Director | ______________________ | __________________ | __________ |
+| Medical Monitor | ______________________ | __________________ | __________ |
+| Sponsor Representative | ______________________ | __________________ | __________ |
+| Regulatory Affairs | ______________________ | __________________ | __________ |
+
+*All signatures must be obtained prior to database lock.*
 
 ============================================================
 

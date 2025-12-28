@@ -1,0 +1,3711 @@
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+I 
+Confidential 
+ 
+ 
+CELLTRION Inc. 
+CT-P59 3.2 
+ 
+A Phase 2/3, Randomized, Parallel-group, Placebo-controlled, Double-Blind Study to 
+Evaluate the Efficacy and Safety of CT-P59 in Combination with Standard of Care in 
+Outpatients with Severe Acute Respiratory Syndrome Coronavirus (SARS-CoV-2) 
+Infection 
+ 
+22nd July 2021 
+Statistical Analysis Plan 
+ 
+ 
+Part 1 – Final Version 2.0  
+ 
+ 
+Prepared by: 
+ 
+CELLTRION, Inc. 
+18F, IBS Building, 263, Central-ro, Yeonsu-gu, Incheon 
+22006 
+Republic of Korea 
+ 
+ 
+Prepared by: 
+____________________________      Date: ____/____/____ 
+ 
+ 
+Han Na Kim, M.S. 
+ 
+ 
+Biostatistician 
+ 
+ 
+CELLTRION, Inc 
+ 
+ 
+ 
+ 
+Approved by: 
+____________________________      Date: ____/____/____ 
+ 
+ 
+Il Sung Chang, Ph.D. 
+ 
+ 
+Head of Biometrics Department/ Senior Director 
+ 
+ 
+CELLTRION, Inc 
+ 
+ 
+ 
+ 
+Upon review of this document, including table, listing and figure shells, the undersigned 
+approves the final statistical analysis plan. The analysis methods and data presentation are 
+acceptable, and the table, listing and figure production can begin. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+II 
+Confidential 
+TABLE OF CONTENTS 
+1. 
+ADMINISTRATIVE STRUCTURE .......................................................................... 6 
+2. 
+INTRODUCTION........................................................................................................ 6 
+3. 
+STUDY OBJECTIVES ................................................................................................ 7 
+3.1. 
+Primary Objective .................................................................................................. 7 
+3.2. 
+Secondary Objective .............................................................................................. 7 
+3.3. 
+Exploratory Objective ............................................................................................ 7 
+4. 
+INVESTIGATIONAL PLAN ..................................................................................... 8 
+4.1. 
+Overall Study Design and Plan .............................................................................. 8 
+5. 
+GENERAL STATISTICAL CONSIDERATIONS ................................................ 11 
+5.1. 
+Software ............................................................................................................... 12 
+5.2. 
+Sample Size .......................................................................................................... 12 
+5.3. 
+Randomization, Stratification, and Blinding ....................................................... 13 
+5.4. 
+Analysis Sets ........................................................................................................ 14 
+5.4.1. 
+Intent-to-Treat Set ............................................................................................. 14 
+5.4.2. 
+Intent-to-treat Infected Set ................................................................................ 14 
+5.4.3. 
+Safety Set .......................................................................................................... 15 
+5.4.4. 
+Pharmacokinetic Set ......................................................................................... 15 
+5.5. 
+Definition of Baseline .......................................................................................... 15 
+5.6. 
+Protocol Deviations .............................................................................................. 15 
+5.7. 
+Outliers ................................................................................................................. 16 
+6. 
+PATIENT DISPOSITION......................................................................................... 16 
+7. 
+DEMOGRAPHICS, BASELINE, AND BACKGROUND CHARACTERISTICS
+ 
+17 
+7.1. 
+Demographics and Stratification Details ............................................................. 17 
+7.2. 
+SARS-CoV-2 Infection by Sponsor-supplied Rapid Diagnostic Test or RT-PCR
+ 
+18 
+7.3. 
+Congestive Heart Failure Assessment ................................................................. 18 
+7.4. 
+Hepatitis B and C and Human Immunodeficiency Virus Test ............................ 19 
+7.5. 
+Medical History ................................................................................................... 19 
+7.6. 
+Disease Characteristic .......................................................................................... 19 
+7.7. 
+Radiography ......................................................................................................... 20 
+7.8. 
+Urine Drug Abuse Check ..................................................................................... 20 
+8. 
+TREATMENTS AND MEDICATIONS .................................................................. 20 
+8.1. 
+Prior and Concomitant Medications .................................................................... 20 
+8.2. 
+Exposure to Study Drug ....................................................................................... 22 
+9. 
+EFFICACY ANALYSIS ............................................................................................ 22 
+9.1. 
+Primary Efficacy Analysis ................................................................................... 23 
+9.2. 
+Secondary Efficacy Analysis ............................................................................... 25 
+9.3. 
+Patient Diary ........................................................................................................ 26 
+9.3.1. 
+SARS-CoV-2 Infection Symptom Checklist 1 ................................................. 26 
+9.3.2. 
+SARS-CoV-2 Infection Symptom Checklist 2 ................................................. 27 
+9.4. 
+Disease Status Monitoring ................................................................................... 28 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+III 
+Confidential 
+9.5. 
+NEWS2 ................................................................................................................ 28 
+10. 
+SAFETY ANALYSIS................................................................................................. 29 
+10.1. 
+Adverse Events .................................................................................................... 29 
+10.1.1. 
+Incidence of Treatment-Emergent Adverse Events .......................................... 30 
+10.1.2. 
+Deaths ............................................................................................................... 30 
+10.1.3. 
+Serious Adverse Events .................................................................................... 31 
+10.1.4. 
+Treatment-Emergent Adverse Events Leading to Study Drug Discontinuation
+ 
+31 
+10.1.5. 
+Treatment-Emergent Adverse Events of Special Interest ................................. 31 
+10.2. 
+Clinical Laboratory Evaluations .......................................................................... 31 
+10.3. 
+Vital Signs and Weight ........................................................................................ 33 
+10.4. 
+Hypersensitivity Monitoring ................................................................................ 33 
+10.5. 
+Electrocardiograms .............................................................................................. 34 
+10.6. 
+Physical Examination........................................................................................... 34 
+10.7. 
+Pregnancy Test ..................................................................................................... 35 
+10.8. 
+Immunogenicity ................................................................................................... 35 
+10.9. 
+SARS-CoV-2 Infection Related Signs and Symptoms ........................................ 36 
+10.10. 
+Potential Effects of the Incidence of Antibody-dependent Enhancement ........... 36 
+11. 
+EXPLORATORY ANALYSIS ................................................................................. 37 
+11.1. 
+Pharmacokinetic Analysis .................................................................................... 37 
+11.1.1. 
+Serum Concentrations....................................................................................... 37 
+11.1.2. 
+Pharmacokinetic Parameters ............................................................................. 38 
+11.1.3. 
+Restriction Assessment ..................................................................................... 39 
+11.2. 
+Virology and Serology Analysis .......................................................................... 39 
+11.2.1. Viral Shedding ...................................................................................................... 39 
+11.2.2. Genotype and Phenotype of SARS-CoV-2 Viral Isolates .................................... 40 
+11.2.3. Viral Serology for SARS-CoV-2 Antibody ......................................................... 40 
+12. 
+CHANGES IN THE PLANNED ANALYSIS ......................................................... 41 
+13. 
+REFERENCE LIST ................................................................................................... 42 
+14. 
+APPENDICES ............................................................................................................ 43 
+Appendix 1: Schedule of Assessments ................................................................................ 43 
+Appendix 2: Schedule of Assessments for Patients with Suspicious ADE Occurrence 
+(Unscheduled Visits) .............................................................................................................. 48 
+Appendix 3: Table of CTCAE v5.0 Terms and Grades ....................................................... 49 
+Appendix 4: National Early Warning Score 2 (NEWS2) .................................................... 51 
+ 
+ 
+ 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+IV 
+Confidential 
+List of Abbreviations 
+Abbreviation Definition 
+%AUCext 
+Percentage of the area extrapolated for calculation of AUC0-inf 
+ADA 
+Anti-drug Antibody 
+ADE 
+Antibody-dependent Enhancement 
+ADR 
+Adverse Drug Reaction 
+AE 
+Adverse Event 
+ALT 
+Alanine Aminotransferase 
+ANOVA 
+Analysis of Variance 
+AST 
+Aspartate Aminotransferase 
+ATC 
+Anatomical Therapeutic Chemical 
+AUC 
+Area under the Curve 
+AUC0-inf 
+Area under the serum concentration-time curve from time zero to infinity 
+AUC0-last 
+Area under the serum concentration-time curve from time zero to the last 
+quantifiable concentration 
+BLQ 
+Below the Lower limit of Quantification 
+BMI 
+Body Mass Index 
+CI 
+Confidence Interval 
+CL 
+Total body clearance 
+Cmax 
+Maximum observed serum concentration 
+COVID 
+Corona Virus Disease 
+CPK 
+Creatine Kinase 
+CRO 
+Contract Research Organization 
+CRP 
+C-reactive Protein 
+CSR 
+Clinical Study Report 
+CT 
+Computed Tomography 
+CTCAE 
+Common Terminology Criteria for Adverse Events 
+CV% 
+Percent Coefficient of Variation 
+DRM 
+Data Review Meeting 
+DSMB 
+Data and Safety Monitoring Board 
+ECG 
+Electrocardiogram 
+eCRF 
+electronic Case Report Form 
+EOT 
+End-of-Treatment 
+ESR 
+Erythrocyte Sedimentation Rate 
+GCL 
+Global Central Labs 
+GCP 
+Good Clinical Practice 
+GGT 
+γ-Glutamyl Transferase 
+HBcAb 
+Hepatitis B Core Antibody 
+HBsAb 
+Hepatitis B Surface Antibody 
+HBsAg 
+Hepatitis B Surface Antigen 
+HIV 
+Human Immunodeficiency Virus 
+ICF 
+Informed Consent Form 
+ICH 
+International Council for Harmonisation 
+IRR 
+Infusion Related Reaction 
+ITT 
+Intent-to-Treat 
+ITTI 
+Intent-to-Treat Infected 
+IWRS 
+Interactive Web Response System 
+LLN 
+Lower Limit of Normal 
+LOD 
+Limit of Detection 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+V 
+Confidential 
+NAb 
+Neutralizing Antibody 
+NEWS2 
+National Early Warning Score 2 
+NYHA 
+New York Heart Association 
+PK 
+Pharmacokinetic 
+PT 
+Preferred Term 
+RT-PCR 
+Reverse Transcription Polymerase Chain Reaction 
+RT-qPCR 
+Reverse Transcription-quantitative Polymerase Chain Reaction 
+SAE 
+Serious Adverse Event 
+SAP 
+Statistical Analysis Plan 
+SARS-CoV-2 Severe Acute Respiratory Syndrome Coronavirus 2 
+SAS 
+Statistical Analysis System 
+SD 
+Standard Deviation 
+SI 
+System International 
+SoC 
+Standard of Care 
+SOC 
+System Organ Class 
+SpO2 
+Saturation Peripheral Oxygen 
+SUSAR 
+Suspected Unexpected Serious Adverse Reactions 
+t1/2 
+Terminal elimination half-life 
+TEAE 
+Treatment-emergent Adverse Event 
+TEAESI 
+Treatment-emergent Adverse Events of Special Interest 
+TESAE 
+Treatment-emergent Serious Adverse Event 
+TLF 
+Table, Listing and Figure 
+Tmax 
+Time to maximum observed serum concentration 
+ULN 
+Upper Limit of Normal 
+Vss 
+Volume of distribution during steady state 
+Vz 
+Volume of distribution during the terminal phase 
+WHO 
+World Health Organization 
+λz 
+Terminal elimination rate constant 
+ 
+ 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+6 
+Confidential 
+1. ADMINISTRATIVE STRUCTURE 
+This study is being conducted under the sponsorship of CELLTRION, Inc. (hereinafter 
+referred to as “CELLTRION”). The clinical monitoring, medical writing, bioanalytical lab 
+analysis and pharmacokinetic parameter calculation are being performed under contract 
+with PPD, in collaboration with CELLTRION. Randomization is being performed under 
+contract with LSK Global PS, in collaboration with CELLTRION. The data management 
+and statistical analysis are being performed by CELLTRION. 
+2. INTRODUCTION 
+This statistical analysis plan (SAP) defines the statistical methods and data presentations 
+to be used by CELLTRION Clinical Statistics team in the analysis and presentation of data 
+for Part 1 of CELLTRION study number CT-P59 3.2, entitled as “A Phase 2/3, 
+Randomized, Parallel-group, Placebo-controlled, Double-Blind Study to Evaluate the 
+Efficacy and Safety of CT-P59 in Combination with Standard of Care in Outpatients with 
+Severe Acute Respiratory Syndrome Coronavirus (SARS-CoV-2) Infection”.  
+Two clinical study reports (CSRs) will be generated during entire study period of Part 1 as 
+follows: 
+• 
+Synoptic CSR with available data up to and including Day 28 in Part 1. The 
+following data will be included. 
+  
+Ongoing at Day 28  
+Withdrawal prior 
+to Day 28  
+Scheduled Visit 
+(including EOT) 
+Up to and including Day 28 for each 
+patient  
+All available data  
+Unscheduled 
+Visit 
+On or before Day 28 visit date for each 
+patient 
+All available data 
+up to the latest date 
+of the all patient’s 
+Day 28 visit date.  
+Non-visit based 
+data 
+(e.g. adverse 
+events 
+and medications) 
+All available data having a start date or 
+imputed start date on or before Day 28 
+visit date for each patient. 
+ 
+• 
+Clinical study report with all data after completion of Part 1 
+If additional CSRs are required for regulatory or academic purposes, CSRs will be 
+generated after the first database lock and unblinding process. 
+This SAP covers all specified analysis for Part 1 and is based on the following documents: 
+• 
+Study Protocol Version 3.1 – 19th October 2020 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+7 
+Confidential 
+• 
+Study Protocol Version 3.1 F.0 (Italy) – 21st October 2020 
+• 
+Unique CRF for Version 3.0 – 23th October 2020 
+Table, Listing and Figure (TLF) mock shells will be presented as an addendum to this 
+document.  
+3. STUDY OBJECTIVES 
+Primary, secondary and exploratory objectives are described as below. 
+3.1. 
+Primary Objective 
+The primary objective of this study for Part 1 is as follows: 
+• 
+To assess the potential therapeutic efficacy of CT-P59 as determined by 
+proportion of patient with negative conversion in nasopharyngeal swab specimen 
+based on reverse transcription-quantitative polymerase chain reaction (RT-qPCR) 
+at each visit up to Day 14 OR 
+• 
+To assess the potential therapeutic efficacy of CT-P59 as determined by time to 
+negative conversion in nasopharyngeal swab specimen based on RT-qPCR up to 
+Day 14 OR 
+• 
+To assess the potential therapeutic efficacy of CT-P59 as determined by time to 
+clinical recovery up to Day 14 OR 
+• 
+To assess the clinically meaningful therapeutic efficacy of CT-P59 as determined 
+by proportion of patients with clinical symptom requiring hospitalization, oxygen 
+therapy, or experiencing mortality due to SARS-CoV-2 infection up to Day 28 
+3.2. 
+Secondary Objective 
+The secondary objectives of this study for Part 1 are as follows: 
+• 
+To evaluate the additional efficacy of CT-P59 
+• 
+To evaluate overall safety of CT-P59, including immunogenicity and potential 
+effects on the incidence of antibody-dependent enhancement (ADE) 
+3.3. 
+Exploratory Objective 
+The exploratory objectives of this study for Part 1 are as follows: 
+• 
+To assess the PK of CT-P59 
+• 
+To assess the viral efficacy, genotype and phenotype of SARS-CoV-2 viral 
+isolates 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+8 
+Confidential 
+• 
+To assess the serology of SARS-CoV-2 antibody 
+4. INVESTIGATIONAL PLAN 
+4.1. 
+Overall Study Design and Plan 
+This is a phase 2, randomized, parallel-group, placebo-controlled, double-blind study to 
+evaluate the efficacy, safety, PK and virology of CT-P59 in combination with SoC (except 
+potential antiviral drugs and/or possible anti-SARS-CoV-2 activity drugs) in outpatients 
+with mild to moderate symptoms of SARS-CoV-2 infection, not requiring supplemental 
+oxygen therapy. ‘Outpatient’ in this study includes patients visiting the study center, and 
+patients confined in the study center or quarantine at home due to local regulation or at 
+discretion of the investigator. 
+In Part 1, approximately 300 patients will be randomly assigned in a 1:1:1 ratio of CT-P59 
+80 mg/kg, 40 mg/kg or placebo. The actual dose of Part 2 will be determined based on the 
+result from Part 1. Part 2 will be initiated based upon the DSMB’s review of all available 
+data after all patients have reached Day 28 in Part 1. 
+The study will be unblinded to the predefined unblinded teams of sponsor and Contract 
+Research Organization (CRO) for reporting purposes after completion of the Day 28 
+assessments of the last enrolled patient in Part 1. However, the treatment assignment will 
+remain blinded to the investigators, all designated study staff (with the exception of the 
+unblinded study pharmacists or unblinded staff designated to prepare the study drug for 
+infusion), and patients until the final clinical study report (CSR) is generated. 
+The overview of study design for Part 1 is illustrated in Figure 1. 
+Figure 1. Schematic Diagram of Study Patients for Part 1 
+ 
+Note: In Part 1, patients with body weight at or above 100 kg and who are allocated to CT-P59 80 mg/kg 
+group or placebo group will receive 8,000 mg of CT-P59 or matching volume of placebo.  
+The study will comprise of 3 study periods (including Screening, Treatment Period and 
+Follow-up Period). An End-of-Treatment (EOT) visit will occur on Day 90 and the total 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+9 
+Confidential 
+study duration is planned as 180 days for each patient. The overview of the study is 
+presented in Figure 3. 
+Screening (Day-7 to 1): Screening will take place between Days −7 and 1, prior to the 
+study drug administration. No study procedures will be performed prior to informing the 
+patient about the study and obtaining written informed consent form (ICF). It is critical 
+that patients receive study drug no more than 7 days from the onset of symptoms.  
+Screening evaluations will be completed prior to the randomization on Day 1. Outpatients 
+with mild to moderate symptoms of SARS-CoV-2 infection not requiring supplemental 
+oxygen therapy will be eligible for enrollment. Patients must have a local confirmation of 
+SARS-CoV-2 infection by positive test result from a sponsor-supplied rapid SARS-CoV-
+2 diagnostic test or RT-PCR. If the patient had a RT-PCR result (within 72 hours prior to 
+the study drug administration) confirming SARS-CoV-2 infection even if before signing 
+the ICF, the patient can be enrolled without additional confirmation of SARS-CoV-2 
+infection at Screening.  
+If Screening visit date and the date of study drug administration (Day 1) are the same, all 
+assessments scheduled for the Screening and Day 1 visit can be performed only once on 
+the same day before randomization. 
+During the Screening Period, only one re-test for confirmation of SARS-CoV-2 infection 
+will be allowed, if study drug can be administered no more than 7 days from onset of 
+symptom based on the re-test result. The enrollment process is presented in Figure 2. 
+Figure 2. Enrollment Process 
+ 
+1. 
+Must be locally done by a sponsor-supplied rapid SARS-CoV-2 diagnostic test or RT-PCR. If the patient has a RT-
+PCR result (within 72 hours prior to the study drug administration) confirming SARS-CoV-2 infection even if 
+before signing the ICF, the patient can be enrolled without additional confirmation of SARS-CoV-2 infection at 
+Screening. 
+2. 
+During the Screening Period, only one re-test for confirmation of SARS-CoV-2 infection will be allowed, if study 
+drug can be administered no more than 7 days from onset of symptom based on the re-test result. 
+Abbreviation: RT-PCR = reverse transcription polymerase chain reaction; SARS-CoV-2 = severe acute respiratory 
+syndrome coronavirus 2. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+10 
+Confidential 
+Treatment Period (Day 1 to prior to End-of-Treatment Visit): In the Treatment Period, 
+the patients who meet all of the inclusion criteria and none of the exclusion criteria will be 
+randomized on Day 1. If it is concluded that the patients are not eligible in Day 1 
+assessments before randomization, the patients will be considered as screening failure even 
+if he/she was eligible based on assessments results performed during Screening Period. 
+Approximately 300 patients will be randomly assigned in a 1:1:1 ratio (100 patients, 
+respectively) to receive either a single dose of CT-P59 80 mg/kg, 40 mg/kg or placebo on 
+Day 1. All patients will be given optimal SoC. Optimal SoC can include rehydration 
+therapy, antipyretics or antitussives prescribed by the investigator’s discretion. Potential 
+antiviral drugs and/or possible anti-SARS-CoV-2 activity drugs are not allowed during the 
+study, unless specified in Protocol of Section 5.7. The routine use of antibiotics is not 
+recommended, but antibiotics may be used if bacterial infections are present or suspected. 
+The type of antibiotic will be selected based on the patient’s clinical disease status and 
+symptoms with discretion of investigator. 
+Randomization will be stratified by age (≥60 years vs. <60 years), baseline comorbidities 
+(Yes vs. No, having at least one of cardiovascular disease, chronic respiratory disease, 
+hypertension, diabetes mellitus, and pneumonia), region (United States vs. Asia vs. 
+European Union vs. other) and participation in PK sub-study (Yes vs. No) in Part 1. In 
+Part 1, a PK sub study will be performed on the patients who signed informed consent to 
+participate in a PK sub study. Of the total number of 300 patients from Part 1, 
+approximately 90 patients (30 patients per CT-P59 treatment groups and placebo group) 
+will be included in the subgroup (PK) cohort, and PK samples from the patients in this 
+cohort will be collected according to the schedule of assessments.   
+All enrolled patients in the study will complete the study visits during the treatment period 
+either by visiting the study center, confinement in the study center, or home visiting 
+services by health care professionals, whichever applicable according to the local 
+regulation or at discretion of investigator.  
+Patients will comply with all appropriate visits and assessments. If a patient withdraws 
+prematurely after the study drug administration, the patient will be asked to return to the 
+study site on the next scheduled visit for the EOT assessments. 
+Follow-Up Period (From End-of-Treatment Visit to Day 180): For all patients 
+including patients who withdraw prematurely after the study drug administration, each 
+telephone call follow-up will occur biweekly from EOT visit up to Day 180. During the 
+Follow-up Period, patients will be asked if they have any SARS-CoV-2 infection related 
+signs and symptoms by telephone calls to capture the suspicious ADE occurrence. 
+The schedule of events is presented in Appendix 1. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+11 
+Confidential 
+Figure 3. Study Design Scheme for Part 1 
+ 
+ 
+Note: In Part 1, patients with body weight at or above 100 kg and who are allocated to CT-P59 80 mg/kg 
+group or placebo group will receive 8,000 mg of CT-P59 or matching volume of placebo. The actual dose 
+of Part 2 will be determined based on the result from Part 1. 
+Abbreviations: SARS-CoV-2 = severe acute respiratory syndrome coronavirus 2; SoC = standard of care; 
+RT-qPCR = reverse transcription quantitative polymerase chain reaction. 
+ 
+5. GENERAL STATISTICAL CONSIDERATIONS 
+Continuous data will be summarized using descriptive statistics: number of subjects (n), 
+mean, standard deviation (SD), minimum, median and maximum unless otherwise 
+specified. The descriptive statistics will be calculated using raw data before rounding 
+although rounded values are listed. The following rules will be followed with regard to the 
+number of decimal places: 
+ 
+Minimum and maximum will be displayed without rounding from values in the 
+source listing. 
+ 
+Mean, median, geometric mean and percent coefficient of variation (CV%) will 
+be rounded to one more decimal place than the maximum decimal place of values 
+in the source listing. 
+ 
+SD will be rounded to one more decimal place than mean. 
+ 
+Point estimate and confidence intervals (CI) obtained from statistical procedures 
+will be displayed to two decimal places. 
+ 
+P-value will be displayed to four decimal places. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+12 
+Confidential 
+Geometric mean will not be reported if the dataset includes zero values and CV% will not 
+be reported if the mean is zero. 
+Categorical data will be summarized in a frequency table showing the numbers and 
+percentages of patients. Percentages will be rounded to one decimal place and will be 
+suppressed when the count is zero. The denominator for all percentages will be the number 
+of patients within each treatment group for the population of interest, unless otherwise 
+specified.  
+Unscheduled and EOT visit will not be summarized in visit-based tables, unless otherwise 
+specified. But, all data will be displayed in listings. Unless otherwise specified, listings 
+will be sorted by the treatment group, patient number, and visit, if applicable. In cases 
+where more ordering is required, other variables will be included in the sort order as 
+applicable. 
+For the purpose of summarization, any numeric values recorded below the lower limit or 
+above the upper limit of quantification will be set to the respective limit for all related 
+summaries. In listings, original results containing inequality sign will be displayed, unless 
+otherwise specified.  
+5.1. 
+Software 
+All analyses will be conducted using Statistical Analysis System (SAS®) software (SAS 
+Institute Inc., Cary, North Carolina, United States of America [USA]) Version 9.4 or 
+higher. PK parameters will be calculated by noncompartmental methods using the 
+appropriate validated software such as Phoenix® WinNonlin® Version 8.0 or higher 
+(Certara, LP, Princeton, NJ). 
+5.2. 
+Sample Size 
+A total sample size of 300 patients with SARS-CoV-2 infection will be randomly assigned 
+in a 1:1:1 ratio of CT-P59 80 mg/kg, 40 mg/kg or placebo. With 100 patients per group, in 
+the range of 30% to 90% of patients with negative conversion in nasopharyngeal swab 
+specimen based on RT-qPCR in the group, the half of the width of 95% confidence interval 
+(CI) of the point estimate of the percentage would be no more than ±9.8%. Table 1 shows 
+the half of the width based on various percentage of patients with negative conversion in 
+a group. 
+Table 1. Half of the Width of 95% CI for Various Percentage of Patients with 
+Negative Conversion 
+Number of patients in a group  Percentage of patients with 
+negative conversion (%)  
+Half-width 95% CI  
+(two-sided)  
+100  
+30  
+9.0  
+100  
+40  
+9.6  
+100  
+50  
+9.8  
+100  
+60  
+9.6  
+100  
+70  
+9.0  
+100  
+80  
+7.8  
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+13 
+Confidential 
+100  
+90  
+5.9  
+Abbreviations: CI = confidence interval  
+In addition, 100 patients per group would provide reasonable power to detect a 20% 
+absolute difference in percentage of patients with negative conversion for a range of 
+percentages with negative conversion in the group. The power was calculated for the 
+comparison of two proportions using a fisher’s exact test, with one-sided type I error rate 
+of 5%. Table 2 shows the power of over 86% is achieved regardless of the percentage of 
+patients with negative conversion in the placebo group. 
+Table 2. Power to Detect a 20% Absolute Difference for Various Percentage of 
+Patients with Negative Conversion 
+No. of 
+placebo 
+group  
+No. of 
+experimental 
+group1  
+Percentage of negative 
+conversion  
+in placebo group (%)  
+Percentage of negative 
+conversion  
+in experimental group1 (%)  
+Power 
+(%)  
+100  
+100  
+30  
+50  
+86.6  
+100  
+100  
+40  
+60  
+86.0  
+100  
+100  
+50  
+70  
+86.6  
+100  
+100  
+60  
+80  
+91.0  
+100  
+100  
+70  
+90  
+96.7  
+1The number of patient in experimental group implies CT-P59 80 mg/kg or CT-P59 40 mg/kg.  
+ 
+5.3. 
+Randomization, Stratification, and Blinding 
+On Day 1, eligible patients will be randomly assigned in a 1:1:1 ratio to receive either a 
+single dose of CT-P59 80 mg/kg, 40 mg/kg or placebo.  
+An Interactive Web Response System (IWRS) will be used for the randomization. 
+Unblinded biostatisticians will generate the randomization schedule for IWRS, which will 
+link sequential patient randomization numbers to treatment codes. The randomization 
+numbers will be blocked, and within each block the pre-specified ratio of patients will be 
+allocated to each treatment group. The block size will not be revealed. 
+Randomization will be stratified by age (≥60 years vs. <60 years), baseline comorbidities 
+(Yes vs. No, having at least one of cardiovascular disease, chronic respiratory disease, 
+hypertension, diabetes mellitus, and pneumonia), region (United States vs. Asia vs. 
+European Union vs. other) and participation in PK sub-study (Yes vs. No) in Part 1. 
+This study will be double-blind, and will remain blinded to the investigator, all designated 
+study staff (with the exception of the unblinded study pharmacists or unblinded staffs 
+designated to prepare the study drug for infusion and predefined unblinded teams in the 
+sponsor and CRO), and patients until the final CSR is generated.  
+Under normal circumstances, the blind should not be broken. The blind should be broken 
+only if specific emergency treatment would be dictated as knowing the study drug 
+assignment is required for medical management or regulatory requirement (e.g., for SAE, 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+14 
+Confidential 
+death or report the clinical activity from Part 1). In such cases, the investigator may, in an 
+emergency, determine the identity of the study drug by using the applicable procedure.  
+The date, time and reason for the unblinding must be documented in the source document 
+and appropriate field of the eCRF, and the medical monitor will be informed as soon as 
+possible. All unblinding events will be recorded and reported to the medial monitor and 
+the sponsor. Any patients for whom the blind is broken may continue in the study at the 
+investigator’s discretion. Suspected unexpected serious adverse reactions (SUSAR), 
+which are subject to expedited reporting, should be unblinded before submission to the 
+regulatory authorities if required. 
+The DSMB and the statistician(s) who provide the safety analyses for the DSMB will also 
+be unblinded upon request from DSMB members during closed session. The overall 
+randomization code will be broken only for reporting purposes. This will occur after 
+database lock for data up to Day 28 of the last enrolled patient in Part 1. The unblinded 
+personnel will be predefined and documented before performing the analyses. 
+5.4. 
+Analysis Sets 
+Analysis sets to be used in analysis will be specified in related sections. The following 
+patient analysis sets are defined: Intent-to-Treat (ITT), Intent-to-treat infected (ITTI), 
+Safety and Pharmacokinetic (PK) Sets. Patients who have any major protocol deviations 
+(as defined in Section 5.6) may be excluded from related analysis sets. The relevant 
+decision will be taken at the blinded Data Review Meeting (DRM) prior to database lock. 
+Analysis of the ITT Set will be performed according to the treatment they were randomized 
+to. The other sets will be analyzed according to actual treatment group. The actual 
+treatment group will be assigned according to their actual treatment, not according to the 
+randomized group, even if there is a discrepancy between the actual treatment 
+administered dose and the randomized group. If there is a patient who has the discrepancy, 
+the patient will be discussed during the DRM.  
+The number of patients in each analysis set will be tabulated by the treatment group. A 
+listing will also be produced displaying data on ITT Set, unless otherwise specified. 
+5.4.1. Intent-to-Treat Set 
+The ITT Set is defined as all randomly assigned patients to study drug. All patients 
+assigned randomization ID according to the ‘Randomization’ page of the eCRF will be 
+included.  
+5.4.2. Intent-to-treat Infected Set 
+The ITTI Set is defined as all randomly assigned patients with confirmed SARS-CoV-2 
+infection by pre-infusion result (Day 1) of RT-qPCR who receive a complete or partial 
+dose of the study drug. If the pre-infusion result at Day 1 is confirmed negative or missing 
+and the Day 2 result is confirmed positive, this patient will also be considered as confirmed 
+SARS-CoV-2 infection. A patient will be considered to have received a complete dose of 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+15 
+Confidential 
+the study drug, if the answer to “Was the study drug fully administered? (Part 1)” is “Yes” 
+on “Study Drug Administration” page of eCRF. If a patient doesn’t receive full dose, the 
+patient will be discussed during the DRM to confirm whether the patient can be considered 
+as receiving full dose or not. 
+5.4.3. Safety Set 
+The Safety Set is defined as all randomly assigned patients who receive a complete or 
+partial dose of study drug.  
+5.4.4. Pharmacokinetic Set 
+The PK Set is defined as all randomly assigned patients with confirmed SARS-CoV-2 
+infection by pre-infusion (Day 1) result of RT-qPCR and signed informed consent to 
+participate in a PK sub-study, who receive a complete dose of study drug and have at least 
+one evaluable post-treatment PK result. If the pre-infusion result at Day 1 is confirmed 
+negative or missing and the Day 2 result is confirmed positive, this patient will also be 
+considered as confirmed SARS-CoV-2 infection. 
+5.5. 
+Definition of Baseline 
+The baseline value will be considered to be the last non-missing value before the study 
+drug administration. Post-baseline values will be considered to be all values collected after 
+the study drug administration. 
+5.6. 
+Protocol Deviations 
+Protocol deviation will be categorized as “major” or “minor”. Category of protocol 
+deviation will be identified during the DRM. A major protocol deviation is one that may 
+affect the interpretation of study results or the patient’s rights, safety or welfare. 
+Major protocol deviations and analysis sets to be excluded are defined as follow (but not 
+limited to): 
+• 
+Mis-randomization (PK): defined as patients who received another treatment to 
+which they were assigned.  
+• 
+Significant GCP non-compliance (All Sets): CELLTRION will identify the sites 
+which have been closed or patients who have been affected due to suspected 
+scientific misconduct and/or serious GCP non-compliance. 
+The major protocol deviations used for exclusion will be summarized for ITT Set by 
+treatment group. A listing of major protocol deviations for each patient will also be 
+provided by treatment group for the ITT Set.   
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+16 
+Confidential 
+5.7. 
+Outliers 
+Any outliers that are detected during the review of the data will be investigated and 
+discussed during the DRM. In general, outliers will not be excluded. Sensitivity analyses 
+and exploratory analyses may be conducted using imputation or excluding outliers to 
+ensure robustness of study conclusions. Details of outliers detected will be presented in 
+the footnotes of the relevant outputs. 
+6. PATIENT DISPOSITION 
+The total number of patients who were screened and failed at screening will be displayed 
+along with the primary reason for screening failure based on the ‘Eligibility Criteria’ page 
+of eCRF.  
+The reasons for screening failure will be displayed using the following categories and 
+ordering: 
+• 
+Inclusion/Exclusion Criteria not met 
+• 
+Subject withdrew consent 
+• 
+Other 
+A listing of patients for eligibility criteria will be provided. 
+The number of patients who were randomized, treated study drug, discontinued and 
+completed in each period, and entered in follow-up period will also be displayed on the 
+ITT Set along with percentage, if applicable.  
+Patient disposition will be defined as follows: 
+• 
+A patient will be considered to be randomized if the patient was allocated a 
+randomization ID based on the ‘Randomization’ page of the eCRF.  
+• 
+A patient will be considered to have been treated study drug if it is recorded as 
+‘Yes’ on the ‘Study Drug Administration’ page of the eCRF.   
+• 
+A patient will be considered to have discontinued in Treatment Period if it is 
+recorded that they ended (box checked other than ‘Completion of Treatment 
+Period’) in the “End of Treatment Period” page of eCRF. 
+• 
+Conversely, a patient will be considered to have completed Treatment Period if it 
+is recorded that they completed (‘Completion of Treatment Period’ box checked) 
+in the “End of Treatment Period” page of eCRF. 
+• 
+A patient will be considered to have been entered in Follow-Up Period if it is 
+recorded in the “End of Treatment Period” page of eCRF that they enter the 
+Follow-Up Period (‘Yes’ box checked).  
+• 
+A patient will be considered to have discontinued in Follow-Up Period if it is 
+recorded that they ended (box checked other than ‘Completion of Follow-Up 
+Period’) in the “End of Follow-Up Period” page of eCRF. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+17 
+Confidential 
+• 
+Conversely, a patient will be considered to have completed Follow-Up Period if it 
+is recorded that they completed (‘Completion of Follow-Up Period’ box checked) 
+in the “End of Follow-Up Period” page of eCRF. 
+• 
+A patient will be considered to have completed the study if it is recorded that they 
+completed (‘Completion of Treatment Period’ box checked) in the “End of 
+Treatment Period” page of eCRF and they completed (‘Completion of Follow-Up 
+Period’ box checked) in the “End of Follow-Up Period” page of eCRF. 
+The total number of patients who discontinued the study in the Treatment Period will be 
+presented by primary reason and treatment group. The number and percentage of patients 
+who discontinued the study in the Follow-Up Period will also be displayed by primary 
+reason and treatment group. The reasons for discontinuation will be displayed using the 
+following categories and ordering: 
+• 
+Adverse Event 
+• 
+Lost to Follow-Up 
+• 
+Death 
+• 
+Investigator’s decision 
+• 
+Withdrawal by Subject 
+• 
+Other 
+In addition, the time on study prior to discontinuation will also be summarized using 
+descriptive statistics by treatment group, if applicable, for those patients who have 
+discontinued study treatment prematurely in the Treatment Period or Follow-Up Period, 
+respectively. The study duration in days will be calculated as (Date of last visit of each 
+period - Date of study drug administration + 1). 
+The date of administration will be taken as the date on the ‘Study Drug Administration’ 
+page of the eCRF. Date of last visit of each period will be taken as the date on the ‘End of 
+Treatment Period’ or ‘End of Follow-up Period’ page of the eCRF. 
+The patient disposition data collected for the ITT Set will be listed by treatment group. 
+7. DEMOGRAPHICS, BASELINE, AND BACKGROUND CHARACTERISTICS 
+7.1. 
+Demographics and Stratification Details 
+The following demographic measures will be summarized for the ITT Set by treatment 
+group: Age (years); Sex (male, female); Female fertility status (pre-menarche, surgically 
+sterilized, post-menopausal, potentially able to bear children); Race (white, black or 
+African American, American Indian or Alaska native, Asian, native Hawaiian or other 
+pacific islander, not allowed by investigator country regulations, other); Ethnicity 
+(Hispanic or Latino, non-Hispanic or non-Latino, unknown); Height (cm), Weight (kg) 
+and Body Mass Index (BMI) (kg/m2) as recorded at the screening visit.  
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+18 
+Confidential 
+Age will be automatically calculated in the eCRF system based on the date of the informed 
+consent visit and the year of birth considering whether birth date has passed the informed 
+consent date or not. 
+The following stratification details will also be summarized for the ITT Set by treatment 
+group: age (≥60 years vs. <60 years), baseline comorbidities (Yes vs. No, having at least 
+one of cardiovascular disease, chronic respiratory disease, hypertension, diabetes mellitus, 
+and pneumonia), region (United States vs. Asia vs. European Union vs. other), 
+participation in PK sub-study (Yes vs. No) for Part 1. If there is a difference for data 
+entered between IWRS and eCRF, the stratification factors will be summarized using the 
+final data collected on the eCRF. 
+Demographics and stratification details will be listed for the ITT Set by treatment group. 
+7.2. 
+SARS-CoV-2 Infection by Sponsor-supplied Rapid Diagnostic Test or RT-
+PCR 
+A Severe Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2) infection by 
+sponsor-supplied rapid diagnostic test or reverse transcription polymerase chain reaction 
+(RT-PCR) will be completed prior to the randomization on Day 1 to confirm patient is 
+infected to SARS-CoV-2. Patients must have a local confirmation of SARS-CoV-2 
+infection by positive test result from a sponsor-supplied rapid SARS-CoV-2 diagnostic 
+test or RT-PCR. If the patient had a RT-PCR result (within 72 hours prior to the study drug 
+administration) confirming SARS-CoV-2 infection even if before signing the ICF, the 
+patient can be enrolled without additional confirmation of SARS-CoV-2 infection at 
+Screening.  
+During the Screening Period, only one re-test for confirmation of SARS-CoV-2 infection 
+will be allowed, if study drug can be administered no more than 7 days from onset of 
+symptom based on the re-test result. 
+All results of SARS-CoV-2 Infection by sponsor-supplied rapid Diagnostic Test or RT-
+PCR will be listed by treatment group for the ITT Set.  
+7.3. 
+Congestive Heart Failure Assessment 
+Congestive heart failure will be assessed by New York Heart Association (NYHA) 
+functional criteria at the scheduled time points specified in Appendix 1. If a patient had 
+cardiac disease, corresponding NYHA class will be selected. The criteria for congestive 
+heart failure is defined as Table 3. 
+Table 3. New York Heart Association Functional Classification  
+Class 
+Symptoms 
+I 
+(Mild) 
+No limitation of physical activity. Ordinary physical activity does not 
+cause undue fatigue, palpitation, dyspnea (shortness of breath). 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+19 
+Confidential 
+   II 
+(Mild) 
+Slight limitation of physical activity. Comfortable at rest. Ordinary 
+physical activity results in fatigue, palpitation, dyspnea (shortness of 
+breath). 
+III 
+(Moderate) 
+Marked limitation of physical activity. Comfortable at rest. Less than 
+ordinary activity causes fatigue, palpitation, dyspnea. 
+IV 
+(Severe) 
+Unable to carry on any physical activity without discomfort. 
+Symptoms of heart failure at rest. If any physical activity is 
+undertaken, discomfort increases. 
+All NYHA criteria assessment data will be presented in a listing by treatment group for 
+the ITT Set. Patients who have no cardiac disease will be classed as “No Class” in the 
+listing. 
+7.4. 
+Hepatitis B and C and Human Immunodeficiency Virus Test 
+At Screening, the following assessments will be performed: 
+• 
+Hepatitis B Surface Antigen (HBsAg) 
+• 
+Hepatitis B Surface Antibody (HBsAb) 
+• 
+Hepatitis B Core Antibody (HBcAb) 
+• 
+Hepatitis C Virus Antibody 
+• 
+Hepatitis C Virus Ribonucleic Acid 
+• 
+Human Immunodeficiency Virus (HIV) 1&2 
+Hepatitis B/C and HIV test results will be summarized by treatment group for the ITT Set. 
+A listing will be produced by treatment group for the ITT Set. If confirmatory test is 
+conducted, the result of the confirmatory test will be used for the summary. All collected 
+results will be listed. 
+7.5. 
+Medical History 
+Medical history is captured at Screening and will be coded using Medical Dictionary for 
+Regulatory Activities (MedDRA version 23.0 or higher). Medical history will be 
+summarized by treatment group, system organ class (SOC) and preferred term (PT) for the 
+ITT Set. The total number of medical history and the number and percentage of patients 
+with at least one medical history will also be presented in the table by treatment group. 
+Medical history will also be listed for the ITT Set by treatment group. 
+7.6. 
+Disease Characteristic 
+Disease characteristic is captured at the Screening visit. If disease characteristic is recorded 
+on the ‘General Comments’ page of the eCRF, then it will be considered as ‘Other’ disease 
+characteristic. The symptoms and time since symptom start will be summarized by 
+treatment group for the ITT Set. Time (days) since the earliest symptom start will be 
+calculated as (date of study drug administration – date of the earliest symptom start).  
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+20 
+Confidential 
+7.7. 
+Radiography 
+Radiography (chest x-ray or chest computed tomography [CT]) will be performed at 
+Screening and when the investigator considers it is clinically necessary (e.g., abnormal 
+values of saturation peripheral oxygen [SpO2] or patient with clinical signs of pneumonia). 
+If the patient has a radiography result performed within 7 days prior to the study drug 
+administration even before signing the ICF, the result can be used for the Screening 
+assessment when this radiography is performed after the onset of first SARS-CoV-2 
+infection related symptom. 
+All radiography results will be listed by treatment group for the ITT Set. 
+7.8. 
+Urine Drug Abuse Check 
+A urine drug test will be performed at Screening for the patients included in the PK sub-
+study. The screen for drug abuse includes methamphetamine, barbiturates, 
+benzodiazepines, cocaine, tetrahydrocannabinol, and opiates. The urine drug test can be 
+repeated once at the discretion of the investigator. Patients with positive results at 
+Screening will not be eligible for the study if the patient is on drug abuse at the discretion 
+of the investigator. 
+All results of urine drug test will be listed by treatment group for the ITT Set. 
+8. TREATMENTS AND MEDICATIONS 
+8.1. 
+Prior and Concomitant Medications 
+All medications (including medications used as part of SoC) for the treatment of SARS-
+CoV-2 infection, from the diagnosis of disease until the EOT visit, will be collected on the 
+eCRF. Use of all concomitant medications for other purposes, from within 30 days prior 
+to the study drug administration of the study drug (Day 1) or from when the ICF is signed, 
+whichever is earlier, will be recorded until the EOT visit. All medications will be coded 
+according to the World Health Organization drug dictionary (WHO Drug Dictionary 
+March 2020 or later version). 
+Medications will be classified as either prior or concomitant. For the purpose of inclusion 
+in prior or concomitant medication tables, incomplete medication start and stop dates will 
+be imputed as follows: 
+If the stop date is incomplete the following rules will be applied: 
+• 
+Missing day: Assume the last day of the month.  
+• 
+Missing day and month: Assume December 31st. 
+• 
+Missing day, month and year: Leave it as Missing. 
+In the case of the death of a patient, and the imputed end date is after the date of death, the 
+end date will be imputed as the date of death. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+21 
+Confidential 
+If the start date is incomplete the following rules will be applied. If the stop date is 
+incomplete, imputed end date will be used instead of reported end date:  
+• Missing day: Assume the first day of the month.  
+However, if the partial date and the date of study drug administration lie within the 
+same month and year and the date of study drug administration is not after the stop 
+date of the medication, set to the date of study drug administration. Otherwise, set to 
+stop date of the medication. 
+• Missing day and month: Assume January 1st.  
+However, if the partial date and the date of study drug administration lie within the 
+same year and the date of study drug administration is not after the stop date of the 
+medication, set to the date of study drug administration. Otherwise, set to stop date of 
+the medication. 
+• Missing day, month and year: Assume date of study drug administration, if not after 
+the stop date for the medication. Otherwise, set to stop date for the medication. 
+For the missing day imputation, the following examples should be used for reference: 
+• Example 1:  
+Medication start: UNJUN2020  
+Medication end: 20OCT2020 
+Date of study drug administration: 16OCT2020 
+Medication start imputed: 01JUN2020 
+• Example 2:  
+Medication start: UNOCT2020  
+Medication end: 20OCT2020 
+Date of study drug administration: 16OCT2020 
+Medication start imputed: 16OCT2020 
+• Example 3:  
+Medication start: UNOCT2020 
+Medication end: 20OCT2020 
+Date of study drug administration: 24OCT2020 
+Medication start imputed: 20OCT2020 
+ 
+A prior medication is defined as following, and all other medications will be defined as 
+concomitant medication. 
+• 
+A medication having actual/imputed stop date of medication before the study 
+drug administration date, or 
+• 
+A medication checked as yes to “If stop date is unknown, was this drug stopped 
+before the study drug administration?” on eCRF. 
+The prior medications will be summarized by treatment groups, drug class (using 
+Anatomical Therapeutic Chemical [ATC] level 2), and PT along with the total number of 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+22 
+Confidential 
+prior medications and the number and percentage of patients with at least one prior 
+medication for the Safety Set. When ATC Level 2 for drug class is not available, Level 1 
+will be used instead. The summaries will be repeated in separate tables for concomitant 
+medications. 
+All prior and concomitant medications will be listed separately by treatment group for the 
+ITT Set. 
+8.2. 
+Exposure to Study Drug 
+Table will be provided displaying descriptive statistics of the planned dose per weight 
+(mg/kg), actual dose per weight (mg/kg) by treatment group.  
+For patients with body weight at or above 100 kg and who are allocated to CT-P59 80 
+mg/kg group or placebo group (receiving 8,000 mg of CT-P59 or matching volume of 
+placebo), Weight (kg) at Day 1 on the ‘Vital Signs’ page of eCRF will be used to calculated 
+planned dose per weight (mg/kg) and actual dose per weight (mg/kg).  
+Actual administered dose per weight (mg/kg) will be calculated as follows: 
+• 
+If patient checked as ‘study drug fully administered: Yes’ on the ‘Study Drug 
+Administration’ page of eCRF, then actual administered dose per weight will be 
+same as planned dose per weight. 
+• 
+If patient checked as ‘study drug fully administered: No’ on the ‘Study Drug 
+Administration’ page of eCRF, then actual administered dose per weight will be 
+calculated as: (planned dose [mg/kg] * actual administered volume [ml] / 250 
+[ml]).   
+(e.g. If a patient planned to be administered as CT-P59 80 mg/kg was administered 
+200 ml volume, then actual administered dose per weight will be 64 mg/kg.) 
+A listing will be provided by treatment group for the ITT Set showing the details of study 
+drug administration. This listing will include all data collected on the “Study Drug 
+Administration” page of eCRF. 
+ 
+9. EFFICACY ANALYSIS 
+All efficacy data will be listed for the ITT Set by treatment group unless otherwise 
+specified. Efficacy endpoints will be analyzed in the ITT Set and/or ITTI Set. In addition, 
+subgroup analysis will be conducted for patients at high risk. High risk will be defined as 
+patients who meet at least one of the following criteria and will be identified by medical 
+review: 
+ 
+Age > 50 (years) 
+ 
+Have a BMI > 30 (kg/m2) 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+23 
+Confidential 
+ 
+Have cardiovascular disease, including hypertension 
+ 
+Have chronic lung disease, including asthma 
+ 
+Have type 1 or type 2 diabetes mellitus 
+ 
+Have chronic kidney disease, including those on dialysis 
+ 
+Have chronic liver disease 
+ 
+Have immunosuppressed, based on prescriber’s assessment. Examples include: 
+cancer treatment, bone marrow or organ transplantation, immune deficiencies, 
+HIV (if poorly controlled or evidence of AIDS), sickle cell anaemia, thalassaemia, 
+and prolonged use of immune-weakening medications. 
+Endpoints assessed as time to event will be defined as the elapsed time (in days) from the 
+study drug administration to the earliest day satisfying condition for event. Patients who 
+are ongoing in the study without event, with death or early withdrawal for any reason, or 
+experienced the event but administered with the rescue therapy before the event will be 
+considered censored at their scheduled visit of interest (Day 7, 14 or 28). Time to event 
+(days) will be calculated as (Date/time of event or censoring – Date/time of study drug 
+administration). 
+9.1. 
+Primary Efficacy Analysis 
+The primary efficacy endpoints of Part 1 are as below: 
+• 
+Proportion of patients with clinical symptom requiring hospitalization, oxygen 
+therapy, or experiencing mortality due to SARS-CoV-2 infection up to Day 28 
+(after study drug administration) 
+- 
+Hospitalization (>=24 hours of acute care) and oxygen therapy (at least 24 
+hours of supplemental oxygen care and SpO2 measure in room air before 
+applying supplemental oxygen shows =<94%) due to SARS-CoV-2 infection 
+will be identified by medical review as discussed during the DRM. 
+- 
+Proportion of patients with clinical symptom requiring hospitalization (>=24 
+hours of acute care), oxygen therapy (at least 24 hours of supplemental oxygen 
+care and SpO2 measure in room air before applying supplemental oxygen 
+shows =<94%) due to SARS-CoV-2 infection or all-cause mortality up to Day 
+28 (after study drug administration) will be presented, if a death due to any 
+reason is occurred. 
+• 
+Proportion of patient with negative conversion in nasopharyngeal swab specimen 
+based on RT-qPCR at each visit up to Day 14 (after study drug administration) 
+- Patients who have negative result for at least two consecutive time points will be 
+considered as satisfying negative conversion at the first time point. The two 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+24 
+Confidential 
+consecutive time points will be determined excluding missing data. If patients who 
+have one negative result followed by all missing results will also be considered as 
+satisfying negative conversion. 
+• 
+Time to negative conversion in nasopharyngeal swab specimen based on RT-
+qPCR up to Day 14 (after study drug administration)  
+• 
+Time to clinical recovery up to Day 14 (after study drug administration)  
+- 
+Clinical recovery is defined as all symptoms on the SARS-CoV-2 Infection 
+Symptom Checklist 1 being recorded as ‘absent’ or ‘mild’ in intensity for both 
+at least 48 hours. To meet the clinical recovery, all symptoms of SARS-CoV-
+2 Infection Symptom Checklist 1 defined in Table 4 should satisfy one of the 
+following conditions. 
+ Symptoms ‘severe’ or ‘moderate’ in intensity at baseline should be 
+changed to ‘mild’ or ‘absent’ after the study drug administration for 
+at least 48 hours. 
+ Symptoms ‘mild’ in intensity at baseline should be changed to ‘absent’ 
+after the study drug administration for at least 48 hours. 
+ Symptoms ‘absent’ in intensity at baseline should maintain as ‘absent’ 
+for at least 48 hours.  
+ Symptoms ‘absent’ in intensity at baseline becomes ‘severe’, 
+‘moderate’, or ‘mild’ during the study and changes back to ‘absent’ 
+for at least 48 hours.  
+- 
+Patients who meet the clinical recovery criteria for at least four consecutive 
+time points (allowing one missing) at each symptom will be considered as 
+satisfying condition of 48 hours and achieving clinical recovery at the first 
+time point. Missing time in SARS-CoV-2 Infection Symptom Checklist 1 will 
+be imputed as 10AM or 10PM for calculation of time to recovery. 
+The primary analysis population is the ITTI set. Time to event endpoints will be analyzed 
+using Kaplan-Meier analysis presenting 25th percentile, 50th percentile (median) and 75th 
+percentile with 95% CI. Kaplan-Meier plots for time to event endpoints will also be 
+provided. The others will be summarized using frequency tables with 95% Wilson (score) 
+CI. For all primary efficacy endpoints, comparisons will be made between each of CT-P59 
+group and placebo, using log-rank and Wilcoxon test for time to event endpoints and 
+Fisher’s exact test for proportions, and corresponding p-values will be presented in a 
+descriptive manner. Hazard ratio (Clinical recovery ratio or negative conversion ratio) and 
+associated 95% confidence interval (CI) will also be estimated using cox proportional 
+hazard model. 
+ 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+25 
+Confidential 
+9.2. 
+Secondary Efficacy Analysis 
+The secondary efficacy endpoints will be analyzed on both ITTI and ITT sets. The 
+following secondary efficacy endpoints will be assessed up to Day 14 and up to Day 28: 
+• 
+Proportion of patients requiring supplemental oxygen due to SARS-CoV-2 
+infection (after study drug administration) 
+• 
+Proportion of patients with intensive care unit transfer due to SARS-CoV-2 
+infection (after study drug administration) 
+• 
+Proportion of patients with all-cause mortality (after study drug administration) 
+• 
+Time to clinical recovery (after study drug administration) 
+• 
+Duration of fever defined as the last day in the patient diary on which the 
+temperature >38 ℃ (100.4 °F) is recorded, or a potentially antipyretic drug 
+(acetaminophen or ibuprofen) is taken. 
+- 
+Duration of fever will be calculated for patients with the temperature >38 ℃ 
+(100.4 °F) or a potentially antipyretic drug on or before study drug 
+administration.  
+• 
+Proportion of patients with hospital admission due to SARS-CoV-2 infection 
+(after study drug administration) 
+• 
+Proportion of patients with mechanical ventilation due to SARS-CoV-2 infection 
+(after study drug administration) 
+• 
+Proportion of patients requiring rescue therapy due to SARS-CoV-2 infection 
+(after study drug administration) 
+- 
+Rescue therapy is defined as prohibited therapy on or after the study drug 
+administration on Day 1.  
+• 
+Proportion of patient with negative conversion in nasopharyngeal swab specimen 
+based on RT-qPCR at each visit (after study drug administration) 
+• 
+Time to negative conversion in nasopharyngeal swab specimen based on RT-
+qPCR (after study drug administration) 
+• 
+Time to National Early Warning Score 2 (NEWS2) of 0 (after study drug 
+administration) 
+- 
+Patients whose sum of each parameter score meet 0 will be considered as 
+satisfying NEWS2 of 0.  
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+26 
+Confidential 
+• 
+Scores of other known SARS-CoV-2 Infection symptoms such as vomiting, 
+diarrhea, loss of taste or smell 
+Patients who take a potentially antipyretic drug (including but not limited to 
+acetaminophen, paracetamol or ibuprofen) or prohibited therapy due to SARS-CoV-2 
+infection (including but not limited to remdesivir, chloroquine, hydroxychloroquine, 
+dexamethasone [alternative corticosteroids to dexamethasone], interferon beta-1b, 
+ribavirin, lopinavir-ritonavir, human intravenous immunoglobulin, convalescent plasma, 
+tocilizumab, sarilumab, SARS-CoV-2 vaccine) will be identified by medical review. 
+The secondary efficacy endpoints will be analyzed on both ITTI and ITT sets. Time to 
+event endpoints will be analyzed using Kaplan-Meier analysis presenting 25th percentile, 
+50th percentile (median) and 75th percentile. The others will be summarized using 
+descriptive statistics or frequency tables.  
+9.3. 
+Patient Diary 
+Patient diary consists of SARS-CoV-2 Infection Symptom Checklist 1 and 2. Patient diary 
+will be issued to all patients at Screening and patients will be required to record the diary 
+daily from Day 1 until Day 28, and after Day 28 if applicable (Protocol Section 6.1.1.1 
+and 6.1.1.2) after patients got instructed on how to appropriately complete the patient diary. 
+Signs and symptoms of SARS-CoV-2 infection recorded in the patient diary throughout 
+the study will not be reported as AEs. 
+9.3.1. SARS-CoV-2 Infection Symptom Checklist 1 
+SARS-CoV-2 Infection Symptom Checklist 1 consists of 7 symptoms and the intensity of 
+patient’s self-aware for each SARS-CoV-2 infection symptom. The 7 symptoms of SARS-
+CoV-2 infection are feeling feverish, cough, shortness of breath or difficulty breathing, 
+sore throat, body pain or muscle pain, fatigue, and headache. Scores for SARS-CoV-2 
+infection symptom are absent (0), mild (1), moderate (2), and severe (3), defined as below 
+Table 4: 
+Table 4. SARS-CoV-2 Infection Symptom Checklist 1 
+Intensity (score) 
+Symptoms 
+Absent 
+(0) 
+Mild 
+(1) 
+Moderate 
+(2) 
+Severe 
+(3) 
+1 
+Feeling feverish* 
+ 
+ 
+ 
+ 
+2 
+Cough 
+ 
+ 
+ 
+ 
+3 
+Shortness of breath or 
+difficulty breathing 
+ 
+ 
+ 
+ 
+4 
+Sore throat 
+ 
+ 
+ 
+ 
+5 
+Body pain or muscle pain 
+ 
+ 
+ 
+ 
+6 
+Fatigue 
+ 
+ 
+ 
+ 
+7 
+Headache 
+ 
+ 
+ 
+ 
+* If patient checks ‘Feeling feverish’ as Mild, Moderate, or Severe, body temperature will be recorded in the patient 
+diary. 
+Mild: no interference with normal daily activity 
+Moderate: interferes with normal daily activity 
+Severe: prevents normal daily activity 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+27 
+Confidential 
+The SARS-CoV-2 Infection Symptom Checklist 1 will be recorded once at Screening. On 
+the date of study drug administration (Day 1), the checklist will be recorded twice; before 
+and after the study drug administration. If Screening visit date and the date of study drug 
+administration are the same, the checklist will be also recorded twice; before and after the 
+study drug administration. From Day 2, the checklist will be recorded twice a day at 
+approximately 12-hour intervals in the morning (between 6 and 10 AM, approximately) 
+and in the evening (between 6 and 10 PM, approximately). 
+After Day 28, additional recording of the checklist will be required if following conditions 
+are met: 
+• 
+For patient who achieves the clinical recovery on Day 28 (or Day 27), the patient 
+will record the checklist until Day 30 (or Day 29) to confirm whether the patient’s 
+condition is maintained at least 48 hours. 
+• 
+For patient who shows deterioration (at the discretion of the investigator) or is still 
+not recovered, the patient will record the checklist until the achievement of clinical 
+recovery. 
+• 
+For patient with suspicious ADE occurrence, the patient will record the whole 
+patient diary for 7 days from the day of suspicious ADE occurrence. If suspicious 
+ADE has not resolved or has worsened during the 7 days, same procedure of 
+recording the whole patient diary for 7 days will be repeated from the beginning 
+until the symptoms are resolved and/or no SARS-CoV-2 infection is confirmed 
+by RT-PCR (local). 
+SARS-CoV-2 Infection Symptom Checklist 1 will be summarized by treatment group and 
+visit for the both ITTI and ITT sets, in the form of a shift table to detect changes from 
+baseline. 
+9.3.2. SARS-CoV-2 Infection Symptom Checklist 2 
+SARS-CoV-2 Infection Symptom Checklist 2 consists of 4 symptoms and the frequency 
+or intensity of patient’s self-aware for each SARS-CoV-2 infection symptom. The 4 
+symptoms of SARS-CoV-2 infection included are vomit, diarrhea, sense of smell, and 
+sense of taste. Frequency of vomit or diarrhea in the last 24 hours and intensity of the sense 
+of smell or taste in the last 24 hours will be recorded, defined as below Table 5: 
+Table 5. SARS-CoV-2 Infection Symptom Checklist 2 
+No. 
+Items 
+Score 
+1 
+How many times did you vomit (throw up) in the last 24 hours? 
+I did not vomit at all 
+0 
+1-2 times 
+1 
+3-4 times 
+2 
+5 or more times 
+3 
+2 
+How many times did you have diarrhea (loose or watery stools) in the last 24 hours? 
+I did not have diarrhea at all 
+0 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+28 
+Confidential 
+1-2 times 
+1 
+3-4 times 
+2 
+5 or more times 
+3 
+3 
+Rate your sense of smell in the last 24 hours. 
+My sense of smell is THE SAME AS usual 
+0 
+My sense of smell is LESS THAN usual 
+1 
+I have NO sense of smell 
+2 
+4 
+Rate your sense of taste in the last 24 hours. 
+My sense of taste is THE SAME AS usual 
+0 
+My sense of taste is LESS THAN usual 
+1 
+I have NO sense of taste 
+2 
+The SARS-CoV-2 Infection Symptom Checklist 2 will be recorded once a day in the 
+morning (between 6 and 10 AM, approximately) or in the evening (between 6 and 10 PM, 
+approximately) at Screening and from Day 1 to Day 28. If the patient recorded the checklist 
+in the morning at baseline, all checklists during the rest of the study period should be 
+recorded in the morning. If the patient recorded the checklist in the evening at baseline, all 
+checklists during the rest of the study period should be recorded in the evening. 
+After Day 28, additional recording of the checklist will be required if following conditions 
+are met: 
+• 
+For patient with suspicious ADE occurrence, the patient will record the whole 
+patient diary for 7 days from the day of suspicious ADE occurrence. If suspicious 
+ADE has not resolved or has worsened during the 7 days, same procedure of 
+recording the whole patient diary for 7 days will be repeated from the beginning 
+until the symptoms are resolved and/or no SARS-CoV-2 infection is confirmed 
+by RT-PCR (local). 
+9.4. 
+Disease Status Monitoring 
+Disease status including requirement of supplemental oxygen, intensive care unit transfer, 
+mechanical ventilation use, hospitalization, and rescue therapy due to SARS-CoV-2 
+infection will be monitored during the study period (from signing of ICF to EOT). 
+Disease status monitoring result will be summarized up to Day 14 and Day 28 by treatment 
+group for both ITTI and ITT sets.  
+9.5. 
+NEWS2 
+NEWS2 physiological parameter including respiratory rate (breaths per minute), SpO2 
+Scale 1 (%), SpO2 Scale 2 (%), Room air or oxygen, Systolic blood pressure (mmHg), 
+Heart rate (beats per minute), Consciousness, Body temperature (℃) will be assessed at 
+time points specified in the schedule of assessment in Appendix 1. 
+NEWS2 will be calculated by sum of each parameter score. If there is missing score in 
+some parameter, then NEWS2 will not be calculated. NEWS2 will be summarized by 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+29 
+Confidential 
+treatment group at each scheduled visit, displaying descriptive statistics and presented in 
+a data listing. 
+ 
+10. SAFETY ANALYSIS 
+All safety analyses will be performed in the Safety Set by each treatment group, and all 
+safety data will be listed for the ITT Set unless otherwise stated. 
+10.1. Adverse Events 
+An adverse event (AE) is defined as any untoward medical occurrence in any patient 
+during the study which does not necessarily have to have a causal relationship with the 
+study drug. Patients will be instructed to contact the investigator at any time after the ICF 
+was signed if any symptoms develop (in Section 6.2.1.3 of the protocol [CT-P59 3.2 
+version 1.0]). AEs will be collected from the date of the patient signs on the ICF until the 
+end of the patient’s participation in the study. All AEs will be coded to System Organ 
+Class (SOC) and Preferred Term (PT) using the Medical Dictionary for Regulatory 
+Activities (MedDRA) version 23.0 or higher, and will be graded for intensity according to 
+the National Cancer Institute Common Terminology Criteria for Adverse Events (CTCAE) 
+version 5.0.A treatment-emergent adverse event (TEAE) includes any untoward medical 
+occurrence in a patient after administration of a study drug, which does not necessarily 
+have to have a causal relationship with the study drug. This includes any occurrence that 
+is new or aggravated in severity or frequency from the baseline condition. A TEAE can 
+therefore be any unfavorable and unintended sign (including an abnormal laboratory 
+finding), symptom, or disease temporally associated with the use of the product, whether 
+or not related to the study drug.  
+For the purpose of inclusion in TEAE tables and categorization of treatment period or F/U 
+period, incomplete AE start and stop dates will be imputed as follows: 
+If the stop date of an AE is partial or missing, the following rules will be applied. 
+• Missing day (e.g. XXAUG2020): Assume the last day of the month. (e.g. 31AUG2020) 
+• Missing day and month (e.g. XXXXX2020): Assume December 31st. (e.g. 
+31DEC2020) 
+• Missing day, month and year (e.g. XXXXXXXXX): Leave it as Missing. 
+If the start date of an AE is partial or missing the following rules will be applied. If the 
+stop date of the AE is partial, imputed stop date will be used instead of reported stop date. 
+• If the day of an Adverse Event is missing (e.g. XXAUG2020), the month and year of 
+the partial date will be compared to the date of the first exposure to study drug.  
+o If the month and year are equal for both dates, the AE start date will be imputed as 
+the earlier date of: (i) the date of the first exposure to study drug, and (ii) the end 
+date of the AE. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+30 
+Confidential 
+o If the month and year are not equal, the AE start date will be imputed as the first 
+day of the month (e.g. 01AUG2020). 
+• If the day and month is missing (e.g. XXXXX2020), the year of the partial date will 
+be compared to the date of the first exposure to study drug.  
+o If the years of both dates are equal, start date will be imputed as the earlier date of: 
+(i) the date of the first exposure to study drug, and (ii) the end date of the AE. 
+o If the year is not equal, start date will be imputed as the 1st of January of the partial 
+date year (e.g. 01JAN2020). 
+• If the AE start date is missing (e.g. XXXXXXXXX), start date will be imputed as the 
+earlier date of: (i) the date of the first exposure to study drug, and (ii) the end date of 
+the AE.  
+In summaries, AEs will be considered to be related if relationship is possible, probable or 
+definite. AEs with no relationship or intensity will be summarized separately under a 
+missing category. 
+All AEs will be listed including the following information: Safety Set flag, SOC, PT and 
+Verbatim term; start and stop date/time; TEAE flag; intensity (CTCAE Grade 1 to 5); 
+outcome (recovered/resolved, recovering/resolving, recovered/resolved with sequelae, not 
+recovered/not resolved, fatal, unknown); relationship with study drug (unrelated, possible, 
+probable, definite); action taken with study drug (dose not changed, drug interrupted, drug 
+withdrawn); any treatment received (no, medication treatment, non-medication treatment, 
+both medication and non-medication treatment); whether the event was serious (yes, no); 
+whether the AE classified as infusion related reaction (IRR); period flag (Treatment Period, 
+Follow-up Period). 
+10.1.1. Incidence of Treatment-Emergent Adverse Events 
+The TEAEs during Treatment Period will be summarized by treatment group, SOC, PT, 
+relationship and intensity, displaying the number and percentage of patients with at least 
+one TEAE using only the worst intensity recorded at each level of summarization. The 
+total number of events and number of patients with at least one TEAE over all SOCs will 
+also be displayed. In addition, TEAEs regardless of relationship will be summarized.  
+10.1.2. Deaths 
+All patients who have a serious adverse event (SAE) with serious criteria of “Death” or 
+death during Follow-up Period will be presented in a listing and the following variables 
+will be included; Safety Set flag, ITTI Set flag, date of the study drug administration, date 
+of last visit, date of death, time to death from the study drug administration, TEAE flag, 
+SOC/PT, cause of death, whether an autopsy was performed (yes, no), whether a death 
+certificate was completed (yes, no), relationship to the study drug, period flag. Time (days) 
+to death from the study drug administration will be calculated as (date of death – date of 
+the study drug administration + 1). 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+31 
+Confidential 
+10.1.3. Serious Adverse Events 
+A serious adverse event (SAE) is defined as any event that results in death, is life 
+threatening, requires inpatient hospitalization or prolongation of existing hospitalization, 
+results in persistent or significant disability/incapacity, or is a congenital anomaly/birth 
+defect. Important medical events that may not result in death, be life threatening, or require 
+hospitalization may be considered an SAE when, based upon appropriate medical 
+judgment, they may jeopardize the patient and may require medical or surgical 
+intervention to prevent one of the outcomes listed in this definition. 
+Treatment-Emergent Serious Adverse Events (TESAEs) during Treatment Period will be 
+summarized by treatment group, SOC, PT, relationship, intensity or serious criteria, 
+displaying the number and percentage of patients with at least one TESAE using only the 
+worst intensity recorded at each level of summarization. The total number of events and 
+number of patients with at least one TESAE over all SOCs will also be displayed. 
+Serious criteria and SAE description will be presented in an additional information listing. 
+10.1.4. Treatment-Emergent Adverse Events Leading to Study Drug 
+Discontinuation 
+All patients who have a TEAE with an action taken with study drug of “Drug Withdrawn” 
+during Treatment Period will be summarized by treatment group and by SOC, PT, 
+relationship and intensity, displaying the number and percentage of patients with at least 
+one TEAE leading to study drug discontinuation, using only the most severe TEAE 
+recorded at each level of summarization. The total number of events and number of 
+patients with at least one TEAE leading to study drug discontinuation over all SOCs will 
+also be displayed. 
+10.1.5. Treatment-Emergent Adverse Events of Special Interest 
+The AEs checked as infusion related reactions (IRR) including hypersensitivity and 
+anaphylactic reactions on the “Adverse Event” eCRF page will be classified as treatment-
+emergent adverse events of special interest (TEAESI). All TEAESI during Treatment 
+Period will be summarized by treatment group, SOC, PT, relationship and intensity, 
+displaying number and percentage of patients with at least one TEAESI using only the 
+worst intensity recorded at each level of summarization. The total number of events and 
+number of patients with at least one TEAESI over all SOCs will also be displayed. In 
+addition, a table for signs and symptoms regarding IRR will be provided separately by 
+SOC, PT (as coded by the MedDRA version 23.0 or higher) and intensity. Signs and 
+symptoms of IRR including hypersensitivity and anaphylactic reactions will be presented 
+in an additional information listing. 
+10.2. Clinical Laboratory Evaluations 
+Blood and urine samples for clinical laboratory assessments (clinical chemistry, 
+hematology and urinalysis) will be collected at each scheduled visit specified in Appendix 
+1.  
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+32 
+Confidential 
+The following clinical laboratory assessment will be performed:  
+ 
+Clinical chemistry: Total protein, serum bilirubin (total, direct), ALT, AST, alkaline 
+phosphatase, γ-glutamyl transferase, blood urea nitrogen, 
+creatinine, creatine kinase, creatine kinase-myocardial band 
+isoenzyme, troponin (I or T, [only one applicable]), albumin, 
+sodium, potassium, calcium, chloride, inorganic phosphorus, 
+glucose, lactate dehydrogenase, total cholesterol, triglyceride, 
+high-density lipoprotein cholesterol, and CRP 
+Hematology: 
+Red blood cells, erythrocyte sedimentation rate (local), total 
+white blood cell count, absolute neutrophil count, eosinophil 
+count, lymphocyte count, platelet count, hemoglobin, mean 
+corpuscular volume, mean corpuscular hemoglobin, mean 
+corpuscular hemoglobin concentration, and hematocrit 
+Urinalysis: 
+Bilirubin, blood, glucose, ketones, leukocytes, nitrite, pH, 
+protein, specific gravity, urobilinogen, and microscopic 
+examination of white blood cell count, red blood cell count, and 
+bacteria 
+Clinical laboratory (clinical chemistry, hematology and urinalysis) test samples will be 
+analyzed at the central laboratory. Erythrocyte Sedimentation Rate (ESR) samples will be 
+analyzed at the local laboratory using kits supplied centrally. All summaries will be based 
+on the System International (SI) units provided by the central laboratory based on 
+Common Terminology Criteria for Adverse Events (CTCAE) v5.0, no unit conversion will 
+be done. 
+All parameters analyzed at the central laboratory, not limited as specified in the protocol, 
+will be included in summary tables. All parameter results regardless of central or local lab 
+will be presented in listings.  
+Actual value and change from baseline for clinical chemistry and hematology results will 
+be summarized by treatment group at each time point using descriptive statistics (n, mean, 
+SD, median, minimum, and maximum). For the purpose of summarization, any numeric 
+values recorded below the lower limit or above the upper limit of quantification will be set 
+to the respective limit for all related summaries. In listings, original results containing 
+inequality signs will be displayed. Shift tables from baseline visit to each scheduled post-
+baseline visit will be generated for urinalysis results using “Normal” or “Abnormal” 
+classification as appropriate by treatment group. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+33 
+Confidential 
+Some numeric parameters will be labeled with a CTCAE term, and grading will be applied 
+to post-baseline values for numeric parameters where possible according to CTCAE v 5.0. 
+Grades that require clinical input only will not be assigned to these parameters. Grades 
+which are part numeric and part clinical input will be assigned based on the numeric 
+portion only. If different grades share the same criteria due to exclusion of clinical input, 
+lower grade will be used. The CTCAE terms and ranges for applicable parameters are 
+listed in Appendix 3. The CTCAE grades for this analysis will be Grade 1 (Mild), Grade 
+2 (Moderate), Grade 3 (Severe) and Grade 4 (Life-threatening). The CTCAE Grade 5 
+(Death) will not be applied in this analysis since death cannot be determined from a 
+numeric laboratory result. If the post-baseline result for a patient does not satisfy any 
+CTCAE grade, it will be classified as “No Grade”. 
+The number and percentage of patients with a result for each grade will be summarized by 
+laboratory category, treatment group, CTCAE term and visit. Additional tables will be 
+generated using the most severe grade after study drug administration. The most severe 
+grade will be selected including unscheduled visits. 
+Clinical chemistry, hematology and urinalysis data will be presented in separate listings 
+along with high and low flags, if applicable, to show if a value was outside the normal 
+range and CTCAE results for applicable parameters. 
+ 
+10.3. Vital Signs and Weight  
+Vital signs (including systolic and diastolic blood pressure, heart and respiratory rate, 
+saturation peripheral oxygen [SpO2] and body temperature), will be measured at each 
+scheduled visit specified in Appendix 1. Body weight will be measured at screening, prior 
+to the study drug administration on Day 1 and on Day 90 (EOT). Height and BMI will be 
+assessed at screening only as a baseline measurement. 
+Actual values and change from baseline for vital signs including weight, except for 
+hypersensitivity monitoring results, will be summarized by treatment group at each time 
+point using descriptive statistics (n, mean, SD, median, minimum and maximum). 
+Individual vital sign measurements including body weight, except for hypersensitivity 
+monitoring, will be presented in a data listing. 
+10.4. Hypersensitivity Monitoring 
+For hypersensitivity monitoring, additional vital signs (including systolic and diastolic 
+blood pressure, heart and respiratory rate and body temperature) will be performed at the 
+following time points as specified in Appendix 1. 
+• Prior to the beginning of the study drug administration on Day 1 (within 30 minutes) 
+• Thirty minutes (±15 minutes), and 60 minutes (±15 minutes) after the start of the study 
+drug administration 
+• Fifteen minutes after the end of the study drug administration (+15 minutes) 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+34 
+Confidential 
+• Two hours (±15 minutes), and 4 hours (±15 minutes) after the start of the study drug 
+administration 
+Actual values and change from baseline for hypersensitivity monitoring will be 
+summarized by treatment group at each time point using descriptive statistics (n, mean, 
+SD, median, minimum and maximum). Clinically notable hypersensitivity results of each 
+parameter will be summarized by treatment group at each time point. The criteria for 
+clinically notable results are defined as below. 
+Table 6. The Criteria for Clinically Notable Results  
+Parameter 
+Low 
+High 
+Systolic blood pressure (mmHg) 
+≤ 90 
+≥ 160 
+Diastolic blood pressure (mmHg) 
+≤ 50 
+≥ 90 
+Heart rate (beats per minute) 
+≤ 50 
+≥ 100 
+Respiratory rate (breaths per minute) 
+≤ 12 
+≥ 20 
+Body temperature (oC) 
+≤ 35.0 
+≥ 38.0 
+Individual vital sign measurements for hypersensitivity monitoring will be presented in a 
+data listing. High and low flags will be included in this listing to show whether a 
+hypersensitivity result is outside of the clinically notable ranges. 
+10.5. Electrocardiograms 
+Twelve-lead electrocardiograms (ECG) will be performed at each scheduled visit specified 
+in Appendix 1 and if the patient experienced cardiac symptoms during the study drug 
+administration. Findings of 12-lead ECG will be classified as either “Normal”, “Abnormal, 
+Not Clinically Significant” or “Abnormal, Clinically Significant”. Any type of ECG can 
+be performed in case of hypersensitivity. 
+A shift table from baseline visit to each scheduled post-baseline visit will be summarized 
+by treatment group. Individual 12-lead ECG results will be presented in a data listing. 
+10.6. Physical Examination 
+Physical examinations will be performed at each scheduled visit specified in Appendix 1. 
+The following body systems will be examined: 
+• 
+ General Appearance 
+• 
+ Head and Neck 
+• 
+ Skin 
+• 
+ Cardiovascular System 
+• 
+ Respiratory System 
+• 
+ Abdominal System 
+• 
+ Neurological System 
+• 
+ Musculoskeletal System 
+• 
+ Lymphatic System 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+35 
+Confidential 
+Findings of physical examination will be classified as either “Normal”, “Abnormal, not 
+clinically significant” or “Abnormal, clinically significant”. 
+The physical examination results for each body system will be summarized by treatment 
+group. Individual physical examination results will be presented in a data listing. 
+10.7. Pregnancy Test 
+Only female patients of childbearing potential with a negative pregnancy test results can 
+be enrolled. Serum pregnancy test will be performed for female patients with childbearing 
+potential at each scheduled visit specified in Appendix 1. However, if serum pregnancy 
+test is not available at the study site, urine pregnancy test can be performed. 
+The serum (or urine) pregnancy test samples will be analyzed at the local laboratory, and 
+will be classified as either “Negative”, “Positive” or “Indeterminate”. 
+The pregnancy test results will be summarized by using the number of female patients with 
+childbearing potential as a denominator by treatment group at each scheduled visit, 
+displaying the number and percentage of patients. Individual pregnancy test results will be 
+presented in a data listing. 
+10.8. Immunogenicity 
+Blood samples for immunogenicity assessments will be collected at each scheduled visit 
+specified in Appendix 1. If the blood sample is unable to be analyzed or is missing, extra 
+blood samples collected for PK assessment at the same time point can be used for the 
+immunogenicity assessment. Additional immunogenicity test will be performed if a patient 
+experiences any immune-related AEs after the study drug administration. 
+The anti-drug antibody (ADA) assay will follow a three tiered approach consisting of (i) 
+screening assay, (ii) confirmatory assay, and (iii) titration. The test outcome for the 
+screening assay will be “Potential Positive” or “Negative”. Samples that are “Potential 
+Positive” in the screening assay will be undergone further testing in the confirmatory assay 
+to determine if patients are true positive. The test outcome for the confirmatory assay will 
+be “Reactive”, “Negative” or “Not applicable (N/A)”. “Reactive” indicates a true positive 
+test outcome and will be labeled as “Positive” in outputs, “Negative” is considered 
+negative and “N/A” indicates the assay was negative at the screening phase of the process. 
+Patients with a “Negative” test outcome for either screening or confirmatory assays will 
+be considered as negative for the overall ADA assessment. For further characterization, 
+the antibody level will be assessed by titration in confirmed positive samples. 
+Samples that are positive in the ADA assay will be analyzed further to conduct a 
+neutralizing antibody (NAb) assessment. The test outcome for the screening assay will be 
+“Positive” or “Negative”.  
+The results of the final ADA and the screening NAb assay at each scheduled visit will be 
+summarized by treatment group, displaying the number and percentage of patients. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+36 
+Confidential 
+In addition, the number of patients and percentages with positive ADA and NAb 
+conversion will be summarized. The rule of ADA and NAb conversion is as follows: 
+• 
+ADA Conversion is defined as patients who reported at least one ADA positive result 
+after study drug administration in patients who 
+o Have at least one ADA result after study drug administration, and 
+o Do not have any ADA positive result before study drug administration. 
+• 
+NAb Conversion is defined as patients who reported at least one NAb positive 
+result after study drug administration in patients who  
+o Have at least one ADA result after study drug administration, and 
+o Do not have any NAb positive result before study drug administration. 
+Actual values for ADA titration will be summarized by treatment group at each time point 
+using descriptive statistics (n, mean, SD, median, minimum, and maximum). Individual 
+immunogenicity test results will be presented in a data listing. 
+10.9. SARS-CoV-2 Infection Related Signs and Symptoms 
+During screening, treatment period and EOT visit, the investigator or designee will 
+perform a respiratory signs and symptoms assessment (including but not limited to the 
+examination of ears, nose, throat, sinuses and lungs, and the assessment for potential 
+complications of SARS-CoV-2 infection throughout the study) at each scheduled visit 
+specified in Appendix 1. During the follow-up period, patients will be asked if they have 
+any SARS-CoV-2 infection related signs and symptoms by telephone calls. The results 
+will be classified as either “Normal” or “Abnormal”.  
+A shift table from baseline visit to each scheduled post-baseline visit for each category, 
+except for the follow-up period, will be summarized by treatment group. Individual SARS-
+CoV-2 infection related sign and symptoms will be presented in a data listing. 
+10.10. Potential Effects of the Incidence of Antibody-dependent Enhancement 
+A patient will be considered to possibly have antibody-dependent enhancement (ADE) if 
+the date of occurrence of suspicious ADE is filled on the “ADE Occurrence” eCRF page. 
+If a patient has suspicious ADE, additional evaluations (including nasopharyngeal swab 
+test, patient diary, SARS-CoV-2 infection related signs and symptoms assessment, vital 
+signs, 12-lead ECG and troponin test) will be performed at each scheduled visit specified 
+in Appendix 2. If symptoms have not resolved or have worsened until 7 days after the day 
+of suspicious ADE occurrence, same procedure will be repeated from the beginning until 
+when the symptoms are resolved and/or no SARS-CoV-2 infection is confirmed by RT-
+PCR (local). 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+37 
+Confidential 
+Suspicious ADE will be summarized by treatment group, displaying the number and 
+percentage of patients. Individual date of occurrence of suspicious ADE will be presented 
+in a data listing, and additional evaluations will be included in the corresponding 
+assessment listings. 
+11. EXPLORATORY ANALYSIS 
+11.1. Pharmacokinetic Analysis 
+All pharmacokinetic (PK) analyses will be performed in the PK Set by each treatment 
+group, except for placebo group, unless otherwise stated. 
+11.1.1. Serum Concentrations 
+Blood samples will be collected from each patient participating PK sub-study in Part 1 at 
+the specific time points and acceptable tolerance windows (Table 7). If the PK blood 
+sample is unable to analyzed or is missing, extra blood samples collected for 
+immunogenicity assessment at the same time point can be used for PK assessment. 
+Table 7. Blood Sampling Time Points for Pharmacokinetic Assessment 
+Below the lower limit of quantification (BLQ) values that occur prior to study drug 
+administration will be treated as zero (0), and all other BLQ values will be treated as 
+missing.  
+Serum concentrations will be summarized by CT-P59 group at each time point, using 
+descriptive statistics (n, arithmetic mean, SD, percent of coefficient of variation [CV%], 
+geometric mean, minimum, median and maximum). If the minimum value from the data 
+is zero, then the geometric mean will not be calculated. 
+Individual serum concentrations, scheduled serum collection time, actual serum collection 
+time and deviations from scheduled collection time will be presented in a data listing in 
+the Safety Set. All concentrations on the BLQ will be indicated in the data listing. 
+Day 
+Time point 
+Window 
+Day 1 
+Pre-dose 
+Pre-dose within the day 
+End of infusion 
++ 15 minutes 
+1 hour after end of infusion 
+Day 2 
+24 hours after start of infusion 
+± 2 hours 
+Day 3 
+48 hours after start of infusion 
+Day 5 
+96 hours after start of infusion 
+± 4 hours 
+Day 7 
+144 hours after start of infusion 
+Day 10 
+216 hours after start of infusion 
+Day 14 
+312 hours after start of infusion 
+± 1 day 
+Day 28 
+648 hours after start of infusion 
+± 3 days 
+Day 56 
+1320 hours after start of infusion 
+± 5 days 
+Day 90 (or EOT visit) 
+2136 hours after start of infusion 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+38 
+Confidential 
+The mean (±SD) serum concentration versus time profiles will be presented graphically 
+on both linear and semi-logarithmic scales by CT-P59 group. For ease of presentation, 
+scheduled sampling time will be used to present results for the mean figures.  
+11.1.2. Pharmacokinetic Parameters 
+The following serum PK parameters will be calculated for CT-P59 by non-compartmental 
+methods using Phoenix WinNonlin version 8.0 or higher (Certara, Inc., Princeton, New 
+Jersey, USA) based on actual sampling time. 
+Table 8. PK Parameters 
+Parameter 
+Definition 
+AUC0-last 
+Area under the serum concentration-time curve from 
+time zero to the last quantifiable concentration, 
+calculated using the linear trapezoidal rule 
+AUC0-inf 
+Area under the serum concentration-time curve from 
+time zero to infinity, calculated using the linear 
+trapezoidal rule  
+Cmax 
+Maximum observed serum concentration 
+Tmax 
+Time to Cmax 
+t1/2 
+Terminal elimination half-life, calculated as: 
+t1/2 = ln2/λz   
+% AUCext 
+Percentage of the area extrapolated for calculation of 
+AUC0-inf.  
+λz 
+Terminal elimination rate constant estimated from the 
+linear regression of the natural log-transformed 
+concentration over time at the terminal phase. At least 3 
+time points and in general, adjusted correlation 
+coefficient (r2) greater than or equal to 0.85 is needed to 
+calculate and retain λz and its associated parameters (t1/2, 
+AUC0-inf, CL, and Vz). Values of adjusted r2 less than 0.85 
+will be examined on a case-by-case basis for reliability 
+to calculate and retain λz and its associated parameters 
+(t1/2, AUC0-inf, CL, and Vz).  
+CL 
+Total body clearance, calculated as: 
+CL = Dose/AUC0-inf where Dose is the total body dose 
+Vz 
+Volume of distribution during the terminal phase, 
+calculated as: 
+Vz = (CL)/λz 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+39 
+Confidential 
+Pharmacokinetic parameters for CT-P59 will be summarized by treatment group using 
+descriptive statistics (n, mean, SD, CV%, geometric mean, minimum, median, and 
+maximum values for all parameters. If the minimum value from the data is zero, then the 
+geometric mean will not be calculated. 
+Dose proportionality for CT-P59 will be assessed for log-transformed PK parameters 
+(Cmax and AUC0-last) using the Analysis of Variance (ANOVA) model with dose group as 
+fixed effect since there are only two dose levels being assessed. The ratio of geometric 
+means and 90% confidence interval (CI) from this model will be employed to assess 
+dose proportionality. 
+ 
+A plot of the parameter value against the dose will be constructed including individual 
+values, and geometric means. 
+11.1.3. Restriction Assessment 
+Restriction assessments will be performed only for patients participating PK sub-study in 
+Part 1 at each scheduled visit specified in Appendix 1. Individual restriction assessments 
+for each category will be presented in a data listing. 
+11.2. Virology and Serology Analysis 
+Exploratory virology (viral shedding based on RT-qPCR, genotyping and phenotyping of 
+SARS-CoV-2 viral isolates, and viral serology for SARS-CoV-2 antibody) analysis will 
+be conducted in the ITTI Set and listed ITT Set. Viral shedding will also be analyzed in 
+the ITT Set. Subgroup analysis will be conducted for patients at high risk in Section 9.  
+11.2.1. Viral Shedding 
+For viral shedding in nasopharyngeal swab specimen based on RT-qPCR, the actual values 
+and change from baseline for viral shedding, percentage of patients with positive/negative 
+viral shedding, duration of viral shedding, and AUC of viral levels will be summarized by 
+each treatment group at each scheduled visit using descriptive statistics or frequency tables. 
+Mean (±SD) viral load titer will be plotted for each scheduled time point in log scale. If 
+EOT result is available and the result from patient whose viral titer result at Day 28 is 
+greater than or equal to 2.33, the result of EOT visit will be included in summary table. 
+The following rules present how viral titers will be treated in descriptive summary and 
+AUC calculation, and categorized to Positive or Negative. 
+ 
+Table 9. Rules of Viral Titers 
+Reported Value 
+RT-qPCR 
+Vss 
+Volume of distribution during steady state, calculated as: 
+[(AUMCinf/AUCinf) – TI/2] x CL, where TI is the 
+length of infusion. 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+40 
+Confidential 
+Treated as 
+Treated as 
+≥LOD (≥2.33 log10cp/mL) 
+Reported value 
+Positive 
+<LOD (<2.33 log10cp/mL) 
+LOD=2.33 
+Negative 
+Negative 
+LOD=2.33 
+Negative 
+Abbreviations: RT-qPCR= reverse transcription-quantitative polymerase chain reaction; LOD=Limit of 
+Detection. 
+Duration (days) of viral shedding will be calculated as (Date/Time of post-baseline last 
+positive sample – Date/Time of study drug administration). 
+AUC of viral level is calculated from date/time of study drug administration to date/time 
+of last measurable value of patients who have at least one post-baseline result using linear 
+trapezoidal rule. Viral level at baseline will be considered as result at study drug 
+administration. 
+11.2.2. Genotype and Phenotype of SARS-CoV-2 Viral Isolates 
+Genotype result will be summarized on the ITTI Set by each treatment group at each 
+scheduled visit using frequency table. Genotype and phenotype result will be listed. 
+11.2.3. Viral Serology for SARS-CoV-2 Antibody 
+Viral serology for SARS-CoV-2 antibody test with assays detecting serum antibodies 
+against SARS-CoV-2 will be performed locally using the serum samples (if the assay is 
+available). Viral serology for SARS-CoV-2 antibody result will be summarized on the 
+ITTI Set by each treatment group at each scheduled visit using frequency table. 
+ 
+ 
+ 
+ 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+41 
+Confidential 
+12. Changes in the Planned Analysis 
+ 
+Section 7.7.3.2.1 of the protocol states that time to NEWS2 of 0 maintained for at 
+least 24 hours will be summarized by each treatment group. However, since 
+physiological parameters of NEWS2 will be assessed during patient visits and 
+visits after Day 7 are not scheduled daily, the confirmation of NEWS2 of 0 
+maintained for at least 24 hours is not applicable after Day 7. Therefore, 
+achievement of NEWS2 of 0 at least 24 hours will not be considered in analysis. 
+Instead, first time to meet sum of each parameter score of 0 will be considered as 
+satisfying NEWS2 of 0. 
+ 
+Section 6.1.1.1 of the protocol states “If a symptom ‘absent’ in intensity at 
+baseline becomes ‘severe’, ‘moderate’, or ‘mild’ during the study, this should be 
+changed back to ‘absent’ for at least 48 hours”. In order to clarify how to handle 
+maintenance of ‘absent’ symptom, condition of “Symptoms ‘absent’ in intensity 
+at baseline should maintain as ‘absent’ for at least 48 hours” is added in SAP in 
+definition of clinical recovery. 
+ 
+All analysis (except for PK) will be presented CT-P59 40 mg/kg vs. CT-P59 
+80mg/kg vs. CT-P59 vs. Placebo. CT-P59 will show just combined results in a 
+descriptive manner. 
+ 
+Subgroup analysis for high risk patients will be added in SAP. 
+ 
+For patients who had negative result at Day 1 or missing Day 1 result of RT-qPCR 
+or cell culture, the ITTI Set will also include these patients if they are confirmed 
+SARS-CoV-2 infection positive by Day 2. These patients can also be considered 
+as infected since the virus was detected at Day 2. 
+ 
+All expression or text regarding cell culture will be deleted in SAP since cell 
+culture was not analyzed. 
+ 
+ 
+ 
+CELLTRION, Inc. 
+ 
+Statistical Analysis Plan, Part 1 –Final Version 2.0 
+CT-P59 3.2 
+ 
+Date Issued: 22nd July 2021 
+ 
+ 
+ 
+42 
+Confidential 
+13. Reference List 
+Food and Drug Administration. CFR - Code Of Federal Regulations Title 21. Available 
+from: 
+https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfcfr/CFRSearch.cfm?fr=320.38. 
+ICH Assembly. Integrated Addendum to ICH E6(R2): Guideline for good clinical 
+practice E6(R2): ICH harmonised guideline. International Council for Harmonisation. 09 
+November 2016. 
+Tang X, Wu C, Li X, et al. On the origin and continuing evolution of SARS-CoV-2. 
+National Science Review. 03 March 2020;7(6):1012–23. 
+US Department of Health and Human Services. (2010). National Institutes of Health, 
+National Cancer Institute. Common Terminology Criteria for Adverse Events (CTCAE) 
+Version 5.0. Available from: http://evs.nci.nih.gov/ftp1/CTCAE/About.html. 
+Varga Z, Flammer AJ, Steiger P, et al. Endothelial cell infection and endotheliitis in 
+COVID-19. Lancet. 02 May 2020;395:1417-18. 
+World Health Organization. Coronavirus disease (COVID-2019) Situation Reports-135, 
+June 03, 2020. Available from: https://www.who.int/emergencies/diseases/novel-
+coronavirus-2019/situation-reports/. 
+World Health Organization. Disease outbreak news, January 05, 2020. Available from: 
+http://who.int/csr/don/05-january-2020-pneumonia-of-unkown-cause-china/en/. 
+World Health Organization Guidelines. Infection prevention and control of epidemic- 
+and pandemic-prone acute respiratory infections in health care, April, 2014. Available 
+from: https://www.who.int/csr/bioriskreduction/infection_control/publication/en/. 
+Zhang R, Ma S, Shanahan L, et al. Discovering and identifying New York Heart 
+Association classification from electronic health records. BMC medical informatics and 
+decision making. 23 July 2018;18(2):48. 
+ 
+ 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+43 
+Confidential 
+14. APPENDICES 
+Appendix 1: Schedule of Assessments 
+Study Day (Visit windows) 4 
+Screening 1 
+Treatment Period 
+EOT 2 
+Follow-Up 
+Period 3 
+-7 to 1 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+10 
+14 (±1) 17 (±1) 21 (±1) 28 (±3) 56 (±5) 90 (±5) 
+Biweekly 
+up to 180 (±5) 
+Telephone Follow-Up Visit 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+Informed consent 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Medical history 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Demographics 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Weight, BMI and height 5 
+X 
+X 6 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Urine drug abuse check (only subgroup [PK] 
+cohort) 7 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Hepatitis B/C and HIV test (central) 8 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Serum pregnancy test 9 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Inclusion/exclusion criteria  
+X 
+X 6 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Randomization 
+X 6 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Administration of study drug 10 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Nasopharyngeal swab 11 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+SARS-CoV-2 infection by sponsor-
+supplied rapid SARS-CoV-2 diagnostic 
+test or RT-PCR 12 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+• 
+Viral shedding (central, RT-qPCR and 
+cell culture), genotyping and 
+phenotyping of SARS-CoV-2 viral 
+isolates (central) 13 
+ 
+X 6 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+(X) 14 
+ 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+44 
+Confidential 
+Study Day (Visit windows) 4 
+Screening 1 
+Treatment Period 
+EOT 2 
+Follow-Up 
+Period 3 
+-7 to 1 
+1 
+2 
+3 
+4 
+5 
+6 
+7 
+10 
+14 (±1) 17 (±1) 21 (±1) 28 (±3) 56 (±5) 90 (±5) 
+Biweekly 
+up to 180 (±5) 
+Telephone Follow-Up Visit 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+Patient diary 15 
+X 
+X 
+(X) 
+ 
+SARS-CoV-2 infection related signs and 
+symptoms assessment 16 
+X 
+X 6 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+NEWS2 
+X 
+X 6 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+Immunogenicity sampling (central) 
+ 
+X 6 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+X 
+ 
+ 
+X 
+X 
+X 
+ 
+Viral serology for SARS-CoV-2 antibody 17 
+ 
+X 6 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+X 
+ 
+ 
+X 
+X 
+X 
+ 
+Pharmacokinetic sampling (central, only 
+subgroup [PK] cohort) 18 
+ 
+X 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+ 
+X 
+X 
+X 
+ 
+Physical Examination 
+X 
+X 6 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+X 
+ 
+Clinical laboratory analyses (central) 19 
+X 
+ 
+X 
+X 
+ 
+X 
+ 
+X 
+X 
+X 
+ 
+ 
+X 
+X 
+X 
+ 
+Vital Signs (blood pressure, heart rate, 
+respiratory rate, SpO2 and body temperature) 
+20 
+X 
+X 6 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+X 
+ 
+NYHA class assessment 
+X 
+X 6 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+12-lead ECG 21 
+X 
+X 6 
+X 
+ 
+ 
+ 
+ 
+X 
+ 
+X 
+ 
+ 
+X 
+X 
+X 
+ 
+Radiography 22 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Hypersensitivity monitoring 23 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Disease status monitoring 24 
+X 
+ 
+Restriction assessment 25 
+X 
+ 
+Prior, concomitant medication 26 
+X 
+ 
+Adverse events monitoring 27 
+X 
+ 
+Abbreviations: ADE=antibody-dependent enhancement; ADR=adverse drug reaction; AE=adverse event; ALT=alanine aminotransferase; AST=aspartate aminotransferase; BMI=body 
+mass index; CRP=c-reactive protein; CT=computed tomography; ECG=electrocardiogram; EOT=End-of-Treatment; ESR= erythrocyte sedimentation rate; HBcAb=hepatitis B core 
+antibody; HBsAb=hepatitis B surface antibody; HBsAg=hepatitis B surface antigen; HIV=Human immunodeficiency virus; ICF=informed consent form; NEWS2= National Early 
+Warning Score 2; NYHA=New York Heart Association; PK=pharmacokinetics; RT-PCR=reverse transcription polymerase chain reaction; RT-qPCR= reverse transcription quantitative 
+polymerase chain reaction ; SARS-CoV-2=severe acute respiratory syndrome coronavirus 2; SpO2= saturation of peripheral oxygen. 
+1. 
+If Screening visit date and the date of study drug administration are the same, all assessments scheduled for the Screening and Day 1 visit can be performed only once on the 
+same day before randomization. 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+45 
+Confidential 
+2. 
+End-of-Treatment visit assessments will be performed on Day 90. If a patient withdraws prematurely after the study drug administration, the patient will be asked to return to the 
+study site on the next scheduled visit for the EOT assessments. 
+3. 
+For all patients including patients who withdraws prematurely after the study drug administration, each telephone call follow-up will occur biweekly from EOT up to Day 180. 
+During the Follow-up Period, SARS-CoV-2 infection related signs and symptoms will be assessed by telephone calls to capture the suspicious ADE occurrence. For patients with 
+suspicious ADE occurrence, all assessments specified in protocol Table 11-2 will be conducted on unscheduled visit. 
+4. 
+All patients will complete the study visits during the treatment period either by visiting the study center, confinement in the study center, or home visiting services by health care 
+professionals, whichever applicable according to the local regulations or discretion of investigator.  
+5. 
+Measurement of height and BMI will be performed once at Screening. 
+6. 
+These assessments should be performed prior to the study drug administration. 
+7. 
+A urine drug tests will be performed at Screening for the patients from Part 1 who decide to participate the PK sub-study. The screening for drug abuse includes 
+methamphetamine, barbiturates, benzodiazepines, cocaine, tetrahydrocannabinol, and opiates. The urine test can be repeated once at the discretion of the investigator. Patients 
+with positive results at Screening will not be eligible for the study if the patient is on drug abuse in the discretion of investigator. 
+8. 
+HBsAg, HBsAb, HBcAb, hepatitis C virus antibody, hepatitis C virus ribonucleic acid, and HIV-1 and -2 tests will be performed in all patients. Hepatitis B, hepatitis C virus 
+antibody, and HIV analysis will be performed at the central laboratory.  
+9. 
+For females patients with childbearing potential, serum pregnancy test will be performed locally at Screening and EOT visit. However, if serum pregnancy test is not available at 
+study site, urine pregnancy test can be performed. Only female patients of childbearing potential with a negative pregnancy test results can be enrolled. 
+10. Study drug will be administered as an IV infusion over 90 minutes (±15 minutes) on Day 1. When calculating total volume of study drug to be administered, the body weight of 
+each patient measured on Day 1 will be used. In Part 1, patients with body weight at or above 100 kg and who are allocated to CT-P59 80 mg/kg group or placebo group will 
+receive 8,000 mg of CT-P59 or matching volume of placebo. 
+11. Nasopharyngeal swabbing will be performed by trained site personnel. A nasopharyngeal swab sampling time points and acceptable tolerance windows are specified in protocol 
+Table 6-2. 
+12. If the patient had a RT-PCR result (within 72 hours before the study drug administration) confirming SARS-CoV-2 infection even if before signing the informed consent, the 
+patient can be enrolled. During the Screening Period, only one re-test for confirmation of SARS-CoV-2 infection will be allowed, if study drug can be administered no more than 
+7 days from onset of symptom based on the re-test result.  
+13. Nasopharyngeal swabbing will be performed in each of the patient’s two nostrils; therefore, two nasopharyngeal swabs in one sample bottle will be collected for each assessment 
+visits.  
+14. If the RT-qPCR result on Day 28 shows positive of SARS-CoV-2 infection, additional viral shedding will be conducted on Day 90.  
+15. Patients will be instructed to complete the patient diary for SARS-CoV-2 Infection Symptom Checklist 1 twice a day at approximately 12-hour intervals in the morning (between 
+6 and 10 AM, approximately) and in the evening (between 6 and 10 PM, approximately), and SARS-CoV-2 Infection Symptom Checklist 2 once a day in the morning (between 6 
+and 10 AM, approximately) or in the evening (between 6 and 10 PM, approximately) from Day 1 until Day 28 (more details specified in protocol Section 6.1.1.1 and 6.1.1.2). 
+After Day 28, additional recording of the diary will be required if following conditions are met: 
+• 
+For patient who achieves clinical recovery on Day 28 (or Day 27), the patient will record the SARS-CoV-2 Infection Symptom Checklist 1 until Day 30 (or Day 29) to 
+confirm whether the patient’s condition is maintained at least 48 hours. For patient who shows deterioration (at the discretion of the investigator) or is still not recovered, 
+the patient will record the SARS-CoV-2 Infection Symptom Checklist 1 until achievement of clinical recovery. 
+• 
+For patients with suspicious ADE occurrence, the patient will record the whole patient diary for 7 days from the day of suspicious ADE occurrence (specified in protocol 
+Table 11-2). If suspicious ADE has not resolved or has worsened during the 7 days, same procedure of recording the whole patient diary for 7 days will be repeated until the 
+symptoms are resolved and/or no SARS-CoV-2 infection is confirmed by RT-PCR (local). 
+Body temperature will be collected in the SARS-CoV-2 Infection Symptom Checklist 1 for the patients who record feeling feverish as the baseline symptoms of SARS-CoV-2 
+infection at Screening, or for the patients who record feeling feverish at any time throughout the study. 
+However, if patient’s condition is not available to record the diary at the discretion of investigator (e.g. sedation state for mechanical ventilator therapy), recording can be 
+discontinued. Recording will be resumed when the patient’s condition becomes available to record the patient diary. 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+46 
+Confidential 
+16. SARS-CoV-2 infection related signs and symptoms should include, at a minimum, the examination of ear, nose, throat, sinuses, and lungs and the assessment for potential 
+complications of SARS-CoV-2 infection throughout the study. During the Follow-up Period, patients will be asked if they have any SARS-CoV-2 infection related signs and 
+symptoms by telephone calls. 
+17. Viral serology for SARS-CoV-2 antibody test with assays detecting serum antibodies against SARS-CoV-2 will be performed locally using the serum samples (if the assay is 
+available). 
+18. PK sub-analysis will be performed at the central laboratory on the patients in Part 1 who signed informed consent to participate in a PK sub-study. Blood sampling time points 
+and acceptable tolerance windows for PK assessments are specified in protocol Table 6-1 and below: 
+• Day 1: pre-dose, at the end of infusion (within 15 minutes after the end of study drug infusion), and 1 hour (+15 minutes) after the end of the study drug infusion. 
+• Day 2: 24 hours (±2 hours), Day 3: 48 hours (±2 hours), Day 5: 96 hours (±4 hours), Day 7: 144 hours (±4 hours), Day 10: 216 hours (±4 hours), and Day 14: 312 hours (±1 
+day) after the start of the study drug infusion.  
+• Day 28 (±3 days), Day 56 (±5 days), and Day 90 (±5 days)/EOT visit after the start of the study drug infusion. 
+19. To determine eligibility, clinical laboratory testing will be performed at the local laboratory at Screening. Clinical laboratory testing (clinical chemistry, hematology, and 
+urinalysis) for all visits including Screening will be analyzed at the central laboratory. 
+Clinical chemistry 
+Total protein, serum bilirubin (total, direct), ALT, AST, alkaline phosphatase, γ-glutamyl transferase, blood urea nitrogen, creatinine, creatine kinase, 
+creatine kinase-myocardial band isoenzyme, troponin (I or T, only one applicable), albumin, sodium, potassium, calcium, chloride, inorganic 
+phosphorus, glucose, lactate dehydrogenase, total cholesterol, triglyceride, high-density lipoprotein cholesterol, and CRP 
+Hematology 
+Red blood cells, ESR (local), total white blood cell count, absolute neutrophil count, eosinophil count, lymphocyte count, platelet count, hemoglobin, 
+mean corpuscular volume, mean corpuscular hemoglobin, mean corpuscular hemoglobin concentration, and hematocrit 
+Urinalysis 
+Bilirubin, blood, glucose, ketones, leukocytes, nitrite, pH, protein, specific gravity, urobilinogen, and microscopic examination of white blood cell 
+count, red blood cell count, and bacteria. 
+20. Blood pressure, heart and respiratory rates, SpO2 and body temperature will be measured after the patient has rested quietly for at least 5 minutes. SpO2 will be measured while 
+breathing normal room air. Temperature will be measured using tympanic thermometer throughout the study. 
+21. All scheduled 12-lead ECGs must be performed locally after the patient has rested quietly for at least 5 minutes. Regardless of the 12-lead ECG result, further cardiological 
+evaluation can be performed at the investigator’s discretion. If the patient has a 12-lead ECG result performed within 7 days prior to the study drug administration even before 
+signing the ICF, the result can be used for the Screening assessment. 
+22. Radiography (chest x-ray or chest CT) will be performed at Screening and when the investigator considers it is clinically necessary (e.g., abnormal values of SpO2 or patient with 
+clinical signs of pneumonia). An additional radiography can be performed at the investigator’s discretion based on the judgment per the signs and symptoms (e.g., abnormal 
+values of SpO2 or patient with clinical signs of pneumonia). If the patient has a radiography result performed within 7 days prior to the study drug administration even before 
+signing the ICF, the result can be used for the Screening assessment when this radiography is performed after the onset of first SARS-CoV-2 infection related symptom. 
+23. Hypersensitivity monitoring at Day 1 pre-dose (within 30 minutes), 30 minutes (±15 minutes) and 60 minutes (±15 minutes) after the start of the study drug administration, 15 
+minutes after the end of study drug administration (±15 minutes), 2 hours (±15 minutes) and 4 hours (±15 minutes) from the start of study drug administration (specified in 
+protocol Section 6.2.5). Additional vital signs including blood pressure, heart rate, respiratory rate and body temperature will be evaluated for possible hypersensitivity reactions. 
+Hypersensitivity will be monitored by routine continuous clinical monitoring, including patient-reported signs and symptoms. In case of hypersensitivity, emergency equipment, 
+such as adrenaline, antihistamines, corticosteroids, and respiratory support including inhalational therapy, oxygen, and artificial ventilation must be available; in addition, any 
+type of ECG can be performed.  
+24. Disease status including requirement of supplemental oxygen, intensive care unit transfer, mechanical ventilation use, hospitalization, and rescue therapy will be monitored 
+during the study period (from signing of ICF to EOT). 
+25. Restriction assessments will be performed only for the patients in the PK sub-study in Part 1. 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+47 
+Confidential 
+26. Use of all prior and concomitant medications for the treatment of SARS-CoV-2 infection from the diagnosis of disease until the EOT visit, will be recorded in both the source 
+documents and the eCRF. Use of all concomitant medications for other purposes, from within 30 days prior to the first administration of the study drug (Day 1) or from when the 
+ICF is signed, whichever is earlier, will be recorded until the EOT visit. 
+27. Adverse events will be assessed from the date the patient signs the ICF until the last assessment date or EOT visit. Where an ADR (e.g., related to study drug) is ongoing at the 
+EOT visit, the ADR will be followed up until one of the following: resolution or improvement from baseline, relationship reassessed as unrelated, confirmation from the 
+investigator that no further improvement can be expected, end of collection of clinical or safety data, or final database closure. AEs of special interest (infusion related reactions 
+[hypersensitivity/anaphylactic reactions]) should be closely monitored. 
+ 
+ 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+48 
+Confidential 
+Appendix 2: Schedule of Assessments for Patients with Suspicious ADE Occurrence (Unscheduled Visits) 
+Evaluation 
+Suspicious ADE Assessment 
+Day of occurrence 1 
+Day 2  
+Day 3 
+Day 5 
+Day 7 2 
+Nasopharyngeal swab  
+ 
+ 
+ 
+ 
+ 
+ 
+RT-PCR (local) 3 
+(X) 
+ 
+Viral shedding (central, RT-qPCR and Cell culture)  
+X 
+X 
+X 
+X 
+X 
+ 
+Genotype and phenotype of SARS-CoV-2 viral isolates 
+(central) 4 
+(X) 
+Patient diary 5 
+X 
+X 
+X 
+X 
+X 
+SARS-CoV-2 infection related signs & symptoms assessment 6 
+X 
+X 
+X 
+X 
+X 
+Vital Signs 7 
+X 
+X 
+X 
+X 
+X 
+12-lead ECG 8 
+X 
+ 
+X 
+ 
+X 
+Troponin test (I or T, only one applicable) (central) 9 
+X 
+ 
+X 
+ 
+X 
+Abbreviations: ADE=antibody-dependent enhancement; ECG=electrocardiogram; RT-qPCR= reverse transcription quantitative polymerase chain reaction; SARS-CoV-2=severe acute 
+respiratory syndrome coronavirus 2; SpO2= saturation peripheral oxygen. 
+Note: For suspicious ADE assessment, patients can be hospitalized based on the investigator’s decision. If required, additional assessments can be performed by investigator’s discretion 
+during the hospitalization period. Otherwise, the assessment will be done by outpatient visit. The assessments designated with an (X) will be performed in selected visits under the 
+conditions explained in the relevant document of virology analysis. 
+1. 
+The day of suspicious ADE occurrence. 
+• 
+If a patient has excessive progression of symptoms regarded as related to viral infection (e.g., excessive infiltration of inflammatory cells in the lung), OR 
+• 
+If a patient has other SARS-CoV-2 infection related signs and symptoms which are judged as possible manifestations of ADE according to the medical opinion of the 
+investigator. 
+2. 
+If symptoms have not resolved or have worsened until 7 days after the day of suspicious ADE occurrence, same procedure will be repeated from the beginning until when the 
+symptoms are resolved and/or no SARS-CoV-2 infection is confirmed by RT-PCR (local). 
+3. 
+If required, RT-PCR (local) can be performed at any time by investigator's discretion.  
+4. 
+The genotyping and phenotyping will be performed using the biologic samples for patients.  
+5. 
+For patients with suspicious ADE occurrence, patient will record the whole patient diary for 7 days from the day of suspicious ADE occurrence. Body temperature will be collected 
+for the patients who record feeling feverish as the baseline symptoms of SARS-CoV-2 infection in the SARS-CoV-2 Infection Symptom Checklist 1 on suspicious ADE occurrence, 
+or the patients who record feeling feverish in the SARS-CoV-2 Infection Symptom Checklist 1 at any time throughout the suspicious ADE assessment. 
+6. 
+The investigator or designee will perform a respiratory signs and symptoms assessment (which should include, at a minimum, the examination of ear, nose, throat, sinuses, and 
+lungs) and assessment for potential complications of SARS-CoV-2 infection. 
+7. 
+Blood pressure, heart rate and respiratory rate, SpO2 and body temperature will be measured after the patient has rested quietly for at least 5 minutes. SpO2 will be measured while 
+breathing normal room air. Temperature will be measured using tympanic thermometer throughout the study. 
+8. 
+All scheduled 12-lead ECGs must be performed after the patient has rested quietly for at least 5 minutes. Regardless of the 12-lead ECG result, further cardiological evaluation can 
+be performed at the investigator’s discretion. 
+9. 
+Troponin test will be analyzed at the central laboratory. However, analysis of the test can be also conducted at local laboratory at discretion of investigator. 
+ 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+49 
+Confidential 
+Appendix 3: Table of CTCAE v5.0 Terms and Grades 
+CTCAE Term 
+Laboratory 
+Parameter 
+Level 
+Grade 1 
+Grade 2 
+Grade 3 
+Grade 4 
+Blood bilirubin 
+increased 
+Serum Bilirubin 
+(Total) 
+High 
+>ULN - 1.5 x ULN if 
+baseline was normal; > 
+1.0 - 1.5 x baseline if 
+baseline was abnormal 
+>1.5 - 3.0 x ULN if 
+baseline was normal; 
+>1.5 - 3.0 x baseline if 
+baseline was abnormal 
+>3.0 - 10.0 x ULN if 
+baseline was normal; 
+>3.0 - 10.0 x baseline if 
+baseline was abnormal 
+>10.0 x ULN if baseline 
+was normal; >10.0 x 
+baseline if baseline was 
+abnormal 
+Alanine 
+aminotransferase 
+increased 
+Alanine 
+aminotransferase 
+(ALT) 
+High 
+>ULN - 3.0 x ULN if 
+baseline was normal; 
+1.5 - 3.0 x baseline if 
+baseline was abnormal 
+>3.0 - 5.0 x ULN if 
+baseline was normal; 
+>3.0 - 5.0 x baseline if 
+baseline was abnormal 
+>5.0 - 20.0 x ULN if 
+baseline was normal; 
+>5.0 - 20.0 x baseline if 
+baseline was abnormal 
+>20.0 x ULN if baseline 
+was normal; >20.0 x 
+baseline if baseline was 
+abnormal 
+Aspartate 
+aminotransferase 
+increased 
+Aspartate 
+aminotransferase 
+(AST) 
+High 
+>ULN - 3.0 x ULN if 
+baseline was normal; 
+1.5 - 3.0 x baseline if 
+baseline was abnormal 
+>3.0 - 5.0 x ULN if 
+baseline was normal; 
+>3.0 - 5.0 x baseline if 
+baseline was abnormal 
+>5.0 - 20.0 x ULN if 
+baseline was normal; 
+>5.0 - 20.0 x baseline if 
+baseline was abnormal 
+>20.0 x ULN if baseline 
+was normal; >20.0 x 
+baseline if baseline was 
+abnormal 
+Alkaline phosphatase 
+increased 
+Alkaline 
+Phosphatase 
+High 
+>ULN - 2.5 x ULN if 
+baseline was normal; 
+2.0 - 2.5 x baseline if 
+baseline was abnormal 
+>2.5 - 5.0 x ULN if 
+baseline was normal; 
+>2.5 - 5.0 x baseline if 
+baseline was abnormal 
+>5.0 - 20.0 x ULN if 
+baseline was normal; 
+>5.0 - 20.0 x baseline if 
+baseline was abnormal 
+>20.0 x ULN if baseline 
+was normal; >20.0 x 
+baseline if baseline was 
+abnormal 
+GGT increased 
+γ-Glutamyl 
+Transferase 
+High 
+>ULN - 2.5 x ULN if 
+baseline was normal; 
+2.0 - 2.5 x baseline if 
+baseline was abnormal 
+>2.5 - 5.0 x ULN if 
+baseline was normal; 
+>2.5 - 5.0 x baseline if 
+baseline was abnormal 
+>5.0 - 20.0 x ULN if 
+baseline was normal; 
+>5.0 - 20.0 x baseline if 
+baseline was abnormal 
+>20.0 x ULN if baseline 
+was normal; >20.0 x 
+baseline if baseline was 
+abnormal 
+Creatinine increased 
+Creatinine 
+High 
+>ULN - 1.5 x ULN 
+>1.5 - 3.0 x baseline; 
+>1.5 - 3.0 x ULN 
+>3.0 x baseline; >3.0 - 
+6.0 x ULN 
+>6.0 x ULN 
+CPK increased 
+Creatine Kinase 
+High 
+>ULN - 2.5 x ULN 
+>2.5 x ULN - 5 x ULN 
+>5 x ULN - 10 x ULN 
+>10 x ULN 
+Hypoalbuminemia 
+Albumin 
+Low 
+<LLN - 3 g/dL; <LLN - 
+30 g/L 
+<3 - 2 g/dL; <30 - 20 
+g/L 
+<2 g/dL; <20 g/L 
+ 
+Hypernatremia 
+Sodium 
+High 
+>ULN - 150 mmol/L 
+>150 - 155 mmol/L; 
+>155 - 160 mmol/L; 
+>160 mmol/L; 
+Hyponatremia 
+Sodium 
+Low 
+<LLN - 130 mmol/L 
+125-129 mmol/L  
+120-124 mmol/L  
+<120 mmol/L; 
+Hyperkalemia 
+Potassium 
+High 
+>ULN - 5.5 mmol/L 
+>5.5 - 6.0 mmol/L; 
+>6.0 - 7.0 mmol/L; 
+>7.0 mmol/L; 
+Hypokalemia 
+Potassium 
+Low 
+<LLN - 3.0 mmol/L 
+<LLN - 3.0 mmol/L; # 
+<3.0 - 2.5 mmol/L; 
+<2.5 mmol/L; 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+50 
+Confidential 
+Hypercalcemia 
+Calcium 
+High 
+Corrected serum 
+calcium of >ULN - 11.5 
+mg/dL; >ULN - 2.9 
+mmol/L; @ 
+Corrected serum 
+calcium of >11.5 - 12.5 
+mg/dL; >2.9 - 3.1 
+mmol/L; @ 
+Corrected serum 
+calcium of >12.5 - 13.5 
+mg/dL; >3.1 - 3.4 
+mmol/L; @ 
+Corrected serum 
+calcium of >13.5 
+mg/dL; >3.4 mmol/L; 
+@ 
+Hypocalcemia 
+Calcium 
+Low 
+Corrected serum 
+calcium of <LLN - 8.0 
+mg/dL; <LLN - 2.0 
+mmol/L; @ 
+Corrected serum 
+calcium of <8.0 - 7.0 
+mg/dL; <2.0 - 1.75 
+mmol/L; @ 
+Corrected serum 
+calcium of <7.0 - 6.0 
+mg/dL; <1.75 - 1.5 
+mmol/L; @ 
+Corrected serum 
+calcium of <6.0 mg/dL; 
+<1.5 mmol/L; @ 
+Hypoglycemia 
+Glucose 
+Low 
+<LLN - 55 mg/dL; 
+<LLN - 3.0 mmol/L 
+<55 - 40 mg/dL; <3.0 - 
+2.2 mmol/L 
+<40 - 30 mg/dL; <2.2 - 
+1.7 mmol/L 
+<30 mg/dL; <1.7 
+mmol/L; 
+Cholesterol high 
+Total Cholesterol 
+High 
+>ULN - 300 mg/dL; 
+>ULN - 7.75 mmol/L 
+>300 - 400 mg/dL; 
+>7.75 - 10.34 mmol/L 
+>400 - 500 mg/dL; 
+>10.34 - 12.92 
+mmol/L 
+>500 mg/dL; >12.92 
+mmol/L 
+Hypertriglyceridemia 
+Triglyceride 
+High 
+150 mg/dL - 300 
+mg/dL; 1.71 mmol/L - 
+3.42 mmol/L 
+>300 mg/dL - 500 
+mg/dL; >3.42 mmol/L 
+- 5.7 mmol/L 
+>500 mg/dL - 1000 
+mg/dL; >5.7 mmol/L - 
+11.4 mmol/L 
+>1000 mg/dL; >11.4 
+mmol/L; 
+Leukocytosis 
+Total White Blood 
+Cell Count 
+High 
+ 
+ 
+>100,000/mm3 
+ 
+White blood cell 
+decreased 
+Total White Blood 
+Cell Count 
+Low 
+<LLN - 3000/mm3; 
+<LLN - 3.0 x 10e9 /L 
+<3000 - 2000/mm3; 
+<3.0 - 2.0 x 10e9 /L 
+<2000 - 1000/mm3; 
+<2.0 - 1.0 x 10e9 /L 
+<1000/mm3; <1.0 x 
+10e9 /L 
+Neutrophil count 
+decreased 
+Absolute 
+Neutrophil Count 
+Low 
+<LLN - 1500/mm3; 
+<LLN - 1.5 x 10e9 /L 
+<1500 - 1000/mm3; 
+<1.5 - 1.0 x 10e9 /L 
+<1000 - 500/mm3; <1.0 
+- 0.5 x 10e9 /L 
+<500/mm3; <0.5 x 10e9 
+/L 
+Lymphocyte count 
+decreased 
+Lymphocyte 
+Count 
+Low 
+<LLN - 800/mm3; 
+<LLN - 0.8 x 10e9/L 
+<800 - 500/mm3; <0.8 - 
+0.5 x 10e9 /L 
+<500 - 200/mm3; <0.5 - 
+0.2 x 10e9 /L 
+<200/mm3; <0.2 x 10e9 
+/L 
+Lymphocyte count 
+increased 
+Lymphocyte 
+Count 
+High 
+ 
+>4000/mm3 - 
+20,000/mm3 
+>20,000/mm3 
+ 
+Platelet count decreased 
+Platelet Count 
+Low 
+<LLN - 75,000/mm3; 
+<LLN - 75.0 x 10e9 /L 
+<75,000 - 50,000/mm3; 
+<75.0 - 50.0 x 10e9 /L 
+<50,000 - 25,000/mm3; 
+<50.0 - 25.0 x 10e9 /L 
+<25,000/mm3; <25.0 x 
+10e9 /L 
+Anemia 
+Hemoglobin 
+Low 
+<LLN - 10.0 g/dL; 
+<LLN - 6.2 mmol/L; 
+<LLN - 100 g/L 
+<10.0 - 8.0 g/dL; <6.2 - 
+4.9 mmol/L; <100 - 
+80g/L 
+<8.0 g/dL; <4.9 
+mmol/L; <80 g/L 
+ 
+Hemoglobin increased 
+Hemoglobin 
+High 
+> ULN - Increase in >0 
+- 2 g/dL from ULN 
+Increase in >2 - 4 g/dL 
+from ULN 
+Increase in >4 g/dL 
+from ULN 
+ 
+Note: LLN = lower limit of normal, ULN = upper limit of normal. The LLN and ULN values will be the lower and upper limits of the normal ranges as provided by the 
+central laboratory. # indicates that this grade will not be used because this grade shares the same criteria due to exclusion of clinical input. @ indicates that corrected 
+CELLTRION, Inc. 
+ 
+ 
+Statistical Analysis Plan, Part 1 – Final Version 2.0 
+CT-P59 3.2 
+ 
+ 
+ 
+          Date Issued: 22nd July 2021 
+ 
+ 
+ 
+51 
+Confidential 
+calcium (mg/dL) = measured total calcium (mg/dL) + 0.8 (4.0 – serum albumin [g/dL]), where 4.0 represents the average albumin level. For SI units as: Corrected 
+calcium (mmol/l) = total Ca (mmol/l) + 0.02 (40 –serum albumin [g/l]). 
+Appendix 4: National Early Warning Score 2 (NEWS2) 
+ 
+Physiological 
+parameter 
+Score 
+3 
+2 
+1 
+0 
+1 
+2 
+3 
+Respiratory rate 
+(breaths per minute) 
+≤8 
+ 
+9-11 
+12-20 
+ 
+21-24 
+≥25 
+SpO2 Scale 1 (%) 
+≤91 
+92-93 
+94-95 
+≥96 
+ 
+ 
+ 
+SpO2 Scale 2 (%)* 
+≤83 
+84-85 
+86-87 
+88-92 
+≥93 on 
+room air 
+93-94 on 
+oxygen 
+95-96 on 
+oxygen 
+≥97 on 
+oxygen 
+Room air or 
+oxygen? 
+ 
+Oxygen 
+ 
+Room air 
+ 
+ 
+ 
+Systolic blood 
+pressure (mmHg) 
+≤90 
+91-100 
+101-110 
+111-219 
+ 
+ 
+≥220 
+Heart rate  
+(beats per minute) 
+≤40 
+ 
+41-50 
+51-90 
+91-110 
+111-130 
+≥131 
+Consciousness 
+ 
+ 
+ 
+Alert 
+ 
+ 
+CVPU 
+Body temperature 
+(℃) 
+≤35.0 
+ 
+35.1-36.0 
+36.1-38.0 
+38.1-39.0 
+≥39.1 
+ 
+Abbreviations: C = confusion; P = pain; U = unresponsive; SpO2 = Saturation peripheral oxygen; V= voice. 
+* For patients with hypercapnic respiratory failure (blood gas analysis may be locally done by the investigator’s discretion) and requiring supplemental oxygen, a 
+prescribed oxygen saturation target range of 88 to 92% is recommended, and SpO2 Scale 2 will be used to score the oxygen saturation of the NEWS2. The decision to 
+use SpO2 Scale 2 should be made by the investigator. In all other circumstances, SpO2 Scale 1 will be used for scoring NEWS2.  
+ 
