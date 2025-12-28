@@ -433,9 +433,34 @@ class SAPParser:
 
         # Lab tests - IMMUNOLOGY/BIOMARKERS (LB domain)
         'il-6': ('LB', 'Interleukin-6'),
+        'sil-6r': ('LB', 'Soluble IL-6 receptor'),
         'interleukin': ('LB', 'Interleukin levels'),
         'antibod': ('LB', 'Anti-drug antibodies'),
+        'ada': ('LB', 'Anti-drug antibodies'),
+        'nab': ('LB', 'Neutralizing antibodies'),
         'immunogenicity': ('LB', 'Immunogenicity testing'),
+        'esr': ('LB', 'Erythrocyte sedimentation rate'),
+
+        # Lab tests - SCREENING/INFECTIOUS DISEASE (LB domain)
+        'hiv': ('LB', 'HIV testing'),
+        'hepatitis': ('LB', 'Hepatitis testing'),
+        'hbsag': ('LB', 'Hepatitis B surface antigen'),
+        'hbv': ('LB', 'Hepatitis B testing'),
+        'hcv': ('LB', 'Hepatitis C testing'),
+        'ebv': ('LB', 'Epstein-Barr virus testing'),
+        'cmv': ('LB', 'Cytomegalovirus testing'),
+        'tuberculosis': ('LB', 'TB testing'),
+        'quantiferon': ('LB', 'QuantiFERON-TB Gold'),
+        'tb gold': ('LB', 'TB testing'),
+        'c. difficile': ('LB', 'C. difficile testing'),
+        'clostridium': ('LB', 'C. difficile testing'),
+        'stool culture': ('LB', 'Stool culture'),
+
+        # Lab tests - PREGNANCY (LB domain)
+        'pregnancy test': ('LB', 'Pregnancy testing'),
+        'beta-hcg': ('LB', 'Beta-HCG'),
+        'serum pregnancy': ('LB', 'Serum pregnancy test'),
+        'urine pregnancy': ('LB', 'Urine pregnancy test'),
 
         # Physical exam (PE domain)
         'physical exam': ('PE', 'Physical examination'),
@@ -461,6 +486,25 @@ class SAPParser:
         'treatment exposure': ('EX', 'Treatment exposure'),
         'q2w': ('EX', 'Dosing frequency (Q2W)'),
         'placebo': ('EX', 'Placebo treatment'),
+
+        # PK Concentrations (PC domain)
+        'pk concentration': ('PC', 'Drug concentration measurement'),
+        'serum concentration': ('PC', 'Serum drug concentration'),
+        'plasma concentration': ('PC', 'Plasma drug concentration'),
+        'pk sample': ('PC', 'PK sampling'),
+        'pk substudy': ('PC', 'PK substudy samples'),
+        'trough concentration': ('PC', 'Trough concentration'),
+        'cmin': ('PC', 'Minimum concentration'),
+
+        # PK Parameters (PP domain)
+        'auc': ('PP', 'Area under curve'),
+        'cmax': ('PP', 'Maximum concentration'),
+        'tmax': ('PP', 'Time to maximum concentration'),
+        'half-life': ('PP', 'Elimination half-life'),
+        't1/2': ('PP', 'Elimination half-life'),
+        'clearance': ('PP', 'Drug clearance'),
+        'volume of distribution': ('PP', 'Volume of distribution'),
+        'nca': ('PP', 'Non-compartmental analysis'),
 
         # Endoscopy/Procedures (FA domain) - NOT diary data
         'endoscop': ('FA', 'Endoscopy findings'),
@@ -723,6 +767,10 @@ class SAPParser:
         """Extract clinical assessments and map to SDTM domains."""
         assessments = []
         sap_lower = sap_text.lower()
+        seen_contexts = set()  # Avoid duplicate mappings
+
+        # Words that indicate QS domain (diary/PRO data) - should NOT go to FA
+        qs_indicators = ['diary', 'patient-reported', 'pro', 'questionnaire', 'subscore']
 
         for assessment_key, (domain, description) in self.ASSESSMENT_TO_DOMAIN.items():
             if assessment_key in sap_lower:
@@ -730,8 +778,23 @@ class SAPParser:
                 pattern = rf'[^\n]*{re.escape(assessment_key)}[^\n]*'
                 matches = re.findall(pattern, sap_text, re.IGNORECASE)
 
-                if matches:
-                    context = matches[0][:200]
+                for match in matches:
+                    context = match[:200]
+                    context_lower = context.lower()
+
+                    # Skip if we've already processed very similar context
+                    context_key = context_lower[:50]
+                    if context_key in seen_contexts:
+                        continue
+
+                    # CRITICAL: If mapping to FA but context contains QS indicators,
+                    # this is diary/PRO data that should go to QS, not FA
+                    if domain == 'FA':
+                        if any(qs_ind in context_lower for qs_ind in qs_indicators):
+                            # Skip this FA mapping - it's diary data
+                            continue
+
+                    seen_contexts.add(context_key)
 
                     assessments.append({
                         'name': description,
@@ -755,6 +818,8 @@ class SAPParser:
                         sdtm_element=f'{domain} - {description}',
                         rationale=f'SAP specifies {description}'
                     ))
+
+                    break  # Only use first valid match per assessment key
 
         return assessments
 
@@ -1289,7 +1354,7 @@ class SDTMSpecGenerator:
             label="Findings About Events or Interventions",
             domain_class=DomainClass.FINDINGS_ABOUT,
             structure="One record per finding about per event/intervention per subject",
-            purpose="Documents findings about other events or interventions (e.g., endoscopy)",
+            purpose="Documents findings about other events or interventions (e.g., endoscopy, biopsy)",
             variables=[
                 SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
@@ -1305,6 +1370,75 @@ class SDTMSpecGenerator:
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("FADTC", "Date/Time of Collection", "Char", 19, VariableCore.EXPECTED),
+                SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
+            ]
+        )
+
+        # ===== PK DOMAINS =====
+
+        self.DOMAIN_TEMPLATES["PC"] = SDTMDomain(
+            code="PC",
+            name="Pharmacokinetic Concentrations",
+            label="Pharmacokinetic Concentrations",
+            domain_class=DomainClass.FINDINGS,
+            structure="One record per analyte per timepoint per subject",
+            purpose="Documents drug concentration measurements over time",
+            variables=[
+                SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
+                SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
+                SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("PCSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
+                SDTMVariable("PCGRPID", "Group ID", "Char", 40, VariableCore.PERMISSIBLE),
+                SDTMVariable("PCTESTCD", "Pharmacokinetic Test Short Name", "Char", 8, VariableCore.REQUIRED),
+                SDTMVariable("PCTEST", "Pharmacokinetic Test Name", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("PCCAT", "Category for PK", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PCORRES", "Result or Finding in Original Units", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("PCORRESU", "Original Units", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PCSTRESC", "Character Result/Finding in Std Format", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("PCSTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("PCSTRESU", "Standard Units", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PCSTAT", "Completion Status", "Char", 8, VariableCore.PERMISSIBLE),
+                SDTMVariable("PCREASND", "Reason Not Done", "Char", 200, VariableCore.PERMISSIBLE),
+                SDTMVariable("PCSPEC", "Specimen Type", "Char", 40, VariableCore.EXPECTED, codelist="SPECTYPE"),
+                SDTMVariable("PCLLOQ", "Lower Limit of Quantitation", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PCDTC", "Date/Time of Specimen Collection", "Char", 19, VariableCore.EXPECTED),
+                SDTMVariable("PCDY", "Study Day of Specimen Collection", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("PCTPT", "Planned Time Point Name", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PCTPTNUM", "Planned Time Point Number", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("PCELTM", "Planned Elapsed Time from Reference", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PCTPTREF", "Time Point Reference", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
+            ]
+        )
+
+        self.DOMAIN_TEMPLATES["PP"] = SDTMDomain(
+            code="PP",
+            name="Pharmacokinetic Parameters",
+            label="Pharmacokinetic Parameters",
+            domain_class=DomainClass.FINDINGS,
+            structure="One record per PK parameter per analyte per subject",
+            purpose="Documents derived PK parameters from NCA analysis",
+            variables=[
+                SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
+                SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
+                SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("PPSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
+                SDTMVariable("PPGRPID", "Group ID", "Char", 40, VariableCore.PERMISSIBLE),
+                SDTMVariable("PPTESTCD", "Parameter Short Name", "Char", 8, VariableCore.REQUIRED),
+                SDTMVariable("PPTEST", "Parameter Name", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("PPCAT", "Category for Parameter", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PPORRES", "Result or Finding in Original Units", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("PPORRESU", "Original Units", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PPSTRESC", "Character Result/Finding in Std Format", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("PPSTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("PPSTRESU", "Standard Units", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PPSPEC", "Specimen Type", "Char", 40, VariableCore.EXPECTED, codelist="SPECTYPE"),
+                SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("PPDTC", "Date/Time of Parameter", "Char", 19, VariableCore.PERMISSIBLE),
+                SDTMVariable("PPRFTDTC", "Date/Time of Reference Point", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -1370,7 +1504,7 @@ class SDTMSpecGenerator:
                 spec.domains.append(domain)
 
         # Add Define-XML notes
-        spec.define_xml_notes = self._generate_define_notes(protocol_facts, sap_parsed, required_domains)
+        spec.define_xml_notes = self._generate_define_notes(protocol_facts, sap_parsed, required_domains, protocol_id)
 
         return spec
 
@@ -1486,26 +1620,35 @@ class SDTMSpecGenerator:
         return mapping.get(domain_code, [])
 
     def _generate_define_notes(self, protocol_facts: Dict[str, Any], sap_parsed: Dict,
-                              domains: List[str]) -> List[str]:
+                              domains: List[str], study_id: str) -> List[str]:
         """Generate notes for Define-XML preparation."""
         notes = [
             "Define-XML v2.1 should be used for FDA submissions",
+            f"Study identifier: {study_id}",
             f"Total domains: {len(domains)}",
             "Ensure all codelists are mapped to NCI CDISC controlled terminology",
             "MedDRA version should be documented in Define-XML",
         ]
 
+        # Add drug name if extracted
+        if sap_parsed.get('drug_name'):
+            notes.append(f"Study drug: {sap_parsed['drug_name']}")
+
         # Add SAP-derived notes
         if sap_parsed.get('primary_endpoint'):
-            notes.append(f"Primary endpoint: {sap_parsed['primary_endpoint']}")
+            endpoint = sap_parsed['primary_endpoint']
+            if len(endpoint) > 100:
+                endpoint = endpoint[:100] + "..."
+            notes.append(f"Primary endpoint: {endpoint}")
+
+        if sap_parsed.get('primary_timepoint'):
+            notes.append(f"Primary timepoint: {sap_parsed['primary_timepoint']}")
 
         if sap_parsed.get('populations'):
             notes.append(f"Analysis populations: {', '.join(sap_parsed['populations'])}")
 
-        # Protocol-specific notes
-        protocol_id = protocol_facts.get('protocol_id', '')
-        if protocol_id:
-            notes.append(f"Study identifier: {protocol_id}")
+        if sap_parsed.get('secondary_endpoints'):
+            notes.append(f"Secondary endpoints: {len(sap_parsed['secondary_endpoints'])} defined")
 
         return notes
 
