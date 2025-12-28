@@ -1467,6 +1467,58 @@ def generate_constrained_sap(
 
 
 # =============================================================================
+# INTEGRATED VALIDATION
+# =============================================================================
+
+def validate_sap(sap_text: str, protocol_text: str = None) -> Dict[str, Any]:
+    """
+    Run validation on generated SAP.
+
+    Returns dict with 'score', 'report', and 'issues'.
+    """
+    try:
+        # Import the validator
+        import sys
+        from pathlib import Path
+
+        # Add parent dir to path to import validate_sap module
+        parent_dir = Path(__file__).parent.parent.parent
+        if str(parent_dir) not in sys.path:
+            sys.path.insert(0, str(parent_dir))
+
+        from validate_sap import SAPValidator
+
+        validator = SAPValidator(sap_text, protocol_text)
+        validator.validate_all()
+
+        return {
+            'score': validator.overall_score,
+            'report': validator.generate_report(),
+            'results': validator.get_json_report(),
+            'issues': [
+                f"[{section.name}] {check.message}"
+                for section in validator.results.values()
+                for check in section.checks
+                if check.status in ("FAIL", "PARTIAL")
+            ]
+        }
+    except ImportError:
+        return {
+            'score': None,
+            'report': "Validation skipped - validate_sap.py not found",
+            'results': {},
+            'issues': []
+        }
+    except Exception as e:
+        return {
+            'score': None,
+            'report': f"Validation error: {str(e)}",
+            'results': {},
+            'issues': []
+        }
+
+
+# =============================================================================
 # CLI FOR TESTING
 # =============================================================================
 
@@ -1474,10 +1526,11 @@ if __name__ == "__main__":
     import sys
 
     if len(sys.argv) < 2:
-        print("Usage: python -m enterprise_sap_system.core.constrained_pipeline <protocol_file>")
+        print("Usage: python -m enterprise_sap_system.core.constrained_pipeline <protocol_file> [--validate]")
         sys.exit(1)
 
     protocol_file = sys.argv[1]
+    run_validation = "--validate" in sys.argv or "-v" in sys.argv
 
     with open(protocol_file, 'r') as f:
         protocol_text = f.read()
@@ -1489,6 +1542,21 @@ if __name__ == "__main__":
         print("GENERATED SAP")
         print("="*60)
         print(result.sap_text)
+
+        # Run validation if requested or always
+        if run_validation or True:  # Always validate for now
+            print("\n" + "="*60)
+            print("VALIDATION REPORT")
+            print("="*60)
+            validation = validate_sap(result.sap_text, protocol_text)
+            print(validation['report'])
+
+            if validation['score'] is not None:
+                print(f"\n>>> VALIDATION SCORE: {validation['score']}%")
+                if validation['score'] < 80:
+                    print(">>> SAP needs improvement before use")
+                else:
+                    print(">>> SAP meets quality threshold")
     else:
         print("\nGENERATION FAILED:")
         for error in result.errors:
