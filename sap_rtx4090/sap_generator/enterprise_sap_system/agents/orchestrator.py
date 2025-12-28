@@ -905,31 +905,65 @@ class SAPGenerationOrchestrator:
                     print("\n[2/5] RAG not available - generating without templates")
 
             # ================================================================
-            # STEP 3: GENERATE SAP SECTIONS (with facts + sanitized templates)
+            # STEP 3: GENERATE SAP SECTIONS (PURE FACTS - NO OLD PARSER)
             # ================================================================
             if verbose:
-                print("\n[3/5] GENERATING SAP SECTIONS (facts-constrained)...")
+                print("\n[3/5] GENERATING SAP SECTIONS (facts-only, no legacy parser)...")
 
-            # Also parse protocol for estimands/methods (still uses LLM but with guardrails)
-            parsed_protocol = self.parser.parse(protocol_text, nct_id)
+            # CRITICAL: DO NOT use the old parser - it causes contamination!
+            # Instead, create a minimal ParsedProtocol from extracted facts
+            from ..core.schemas import ParsedProtocol, SampleSize, TreatmentArm as SchemaArm
+
+            # Build clean ParsedProtocol from extracted facts
+            parsed_protocol = ParsedProtocol(
+                nct_id=protocol_facts.nct_id or nct_id,
+                study_title=f"Study of {protocol_facts.drug_name}" if protocol_facts.drug_name else "Clinical Trial",
+                phase=protocol_facts.phase,
+                therapeutic_area=protocol_facts.therapeutic_area or "Not specified",
+            )
+
+            # Add sample size from facts
+            if protocol_facts.sample_size and protocol_facts.sample_size.total_n > 0:
+                parsed_protocol.sample_size = SampleSize(
+                    total_n=protocol_facts.sample_size.total_n,
+                    power=protocol_facts.sample_size.power,
+                    alpha=protocol_facts.alpha.primary_alpha if protocol_facts.alpha else 0.05,
+                    per_arm_n={arm.name: protocol_facts.sample_size.total_n // protocol_facts.num_arms
+                               for arm in protocol_facts.arms} if protocol_facts.arms else {},
+                    assumptions={
+                        'alpha_sidedness': protocol_facts.alpha.sidedness if protocol_facts.alpha else 'two-sided',
+                        'randomization_ratio': protocol_facts.randomization_ratio,
+                    }
+                )
+
+            # Add treatment arms from facts
+            if protocol_facts.arms:
+                parsed_protocol.arms = [
+                    SchemaArm(
+                        name=arm.name,
+                        dose=arm.dose,
+                        route=protocol_facts.route_of_administration.value if protocol_facts.route_of_administration else None,
+                        is_control=arm.is_placebo
+                    ) for arm in protocol_facts.arms
+                ]
+
+            # Add stratification factors
+            parsed_protocol.stratification_factors = protocol_facts.stratification_factors
+
             result.parsed_protocol = parsed_protocol
 
-            # Design estimands
-            estimands = self.estimand_agent.execute(
-                parsed_protocol=parsed_protocol,
-                knowledge_context=""
-            )
-            result.estimands = estimands
+            # DO NOT call estimand_agent or methods_agent with contaminated data!
+            # Instead, pass None and let the writer derive from facts
+            estimands = None
+            methods = None
 
-            # Select methods
-            methods = self.methods_agent.execute(
-                parsed_protocol=parsed_protocol,
-                estimands=estimands,
-                knowledge_context=""
-            )
-            result.methods = methods
+            if verbose:
+                print(f"      Built clean ParsedProtocol from {len(protocol_facts.arms)} arms")
+                print(f"      Sample size: {protocol_facts.sample_size.total_n}")
+                print(f"      Ratio: {protocol_facts.randomization_ratio}")
+                print(f"      BYPASSED legacy parser to prevent contamination")
 
-            # Generate sections using PRODUCTION method (facts + sanitized templates)
+            # Generate sections using PRODUCTION method (FACTS ONLY)
             sap_sections = self.writer_agent.generate_all_sections_with_facts(
                 protocol_facts=protocol_facts,
                 sanitized_templates=sanitized_templates,
@@ -991,17 +1025,17 @@ class SAPGenerationOrchestrator:
             if verbose:
                 print("\n[5/5] ASSEMBLING FINAL SAP...")
 
-            # Quality review
+            # Quality review (pass empty dict if no estimands to avoid errors)
             quality_report = self.reviewer_agent.execute(
                 generated_sap=sap_sections,
                 parsed_protocol=parsed_protocol,
-                estimands=estimands
+                estimands=estimands or {}
             )
             result.quality_report = quality_report
 
             # Assemble document
             full_document = self._assemble_document(
-                sap_sections, parsed_protocol, estimands,
+                sap_sections, parsed_protocol, estimands or {},
                 None, None, None  # Skip production specs for now
             )
 
