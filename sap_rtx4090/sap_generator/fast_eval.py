@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
 Fast SAP Batch Evaluation
-~10x faster than original by using simple string matching instead of complex regex.
+Uses the SAME scoring logic as evaluate_sap.py but optimized for speed.
+~10x faster by using single-pass section detection instead of O(n²) regex.
 """
 
 import os
 import sys
 import json
+import re
 from pathlib import Path
 from dataclasses import dataclass
+from typing import Set, List
 
 # Supabase
 from supabase import create_client
@@ -17,19 +20,46 @@ SUPABASE_URL = "https://tnydsoojcoucmnxyfdsk.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRueWRzb29qY291Y21ueHlmZHNrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NjgzNzQ2NywiZXhwIjoyMDgyNDEzNDY3fQ.RWA-SPfjdpTmXKx2vA-vCuFjM0oW_tFS_hsGbOcJdq4"
 
 
-# Key sections to check (lowercase)
-SECTIONS = [
-    "introduction", "study design", "endpoints", "primary endpoint",
-    "secondary endpoint", "sample size", "analysis populations",
-    "statistical methods", "missing data", "safety", "appendix"
+# Same sections as evaluate_sap.py
+SAP_SECTIONS = [
+    "introduction",
+    "study design",
+    "study objectives",
+    "endpoints",
+    "primary endpoint",
+    "secondary endpoint",
+    "sample size",
+    "analysis populations",
+    "statistical methods",
+    "primary analysis",
+    "secondary analysis",
+    "sensitivity analysis",
+    "subgroup analysis",
+    "missing data",
+    "interim analysis",
+    "multiplicity",
+    "safety analysis",
+    "tables",
+    "figures",
+    "appendix",
 ]
 
-# Key statistical terms
-TERMS = [
-    "intent-to-treat", "itt", "per-protocol", "ancova", "anova",
-    "confidence interval", "p-value", "alpha", "power", "hypothesis",
-    "logistic regression", "cox", "kaplan-meier", "chi-square",
-    "hazard ratio", "odds ratio", "sensitivity analysis"
+# Same statistical terms as evaluate_sap.py
+STATISTICAL_TERMS = [
+    "intent-to-treat", "itt", "per-protocol", "full analysis set",
+    "modified intent-to-treat", "mitt", "safety population",
+    "primary efficacy", "type i error", "alpha", "power",
+    "confidence interval", "p-value", "hypothesis",
+    "null hypothesis", "alternative hypothesis",
+    "two-sided", "one-sided", "significance level",
+    "mixed model", "ancova", "anova", "logistic regression",
+    "cox regression", "kaplan-meier", "log-rank",
+    "chi-square", "fisher's exact", "t-test", "wilcoxon",
+    "last observation carried forward", "locf",
+    "multiple imputation", "sensitivity analysis",
+    "subgroup analysis", "forest plot",
+    "odds ratio", "hazard ratio", "relative risk",
+    "treatment difference", "least squares mean",
 ]
 
 
@@ -37,50 +67,116 @@ TERMS = [
 class Result:
     nct_id: str
     score: float
-    sections: float
-    keywords: float
+    section_coverage: float
+    keyword_overlap: float
+    structure_score: float
     quality: str
 
 
-def fast_evaluate(generated: str, ground_truth: str) -> tuple:
-    """Fast evaluation - simple string matching."""
+def extract_sections_fast(text: str) -> Set[str]:
+    """
+    Fast section extraction - single pass through text.
+    Returns set of section names found.
+    """
+    text_lower = text.lower()
+    found_sections = set()
+
+    for section_name in SAP_SECTIONS:
+        # Check for section header patterns (simplified but effective)
+        patterns = [
+            # Numbered section: "1. Introduction" or "1.1 Introduction"
+            rf'\n\s*\d+\.?\d*\.?\s*{re.escape(section_name)}',
+            # Header with colon: "Introduction:"
+            rf'\n\s*{re.escape(section_name)}\s*:',
+            # Standalone header (all caps or title case on its own line)
+            rf'\n\s*{re.escape(section_name)}\s*\n',
+            # Markdown header: "## Introduction" or "### Introduction"
+            rf'\n#+\s*{re.escape(section_name)}',
+        ]
+
+        for pattern in patterns:
+            if re.search(pattern, text_lower):
+                found_sections.add(section_name)
+                break
+
+    return found_sections
+
+
+def find_statistical_terms_fast(text: str) -> Set[str]:
+    """Find statistical terms - simple string matching."""
+    text_lower = text.lower()
+    return {term for term in STATISTICAL_TERMS if term in text_lower}
+
+
+def evaluate_fast(generated: str, ground_truth: str) -> tuple:
+    """
+    Fast evaluation using SAME scoring as evaluate_sap.py:
+    - Section coverage: 40 points
+    - Statistical terms overlap: 30 points
+    - Structure completeness: 30 points
+    """
     gen_lower = generated.lower()
-    gt_lower = ground_truth.lower()
 
-    # Count sections - how many required sections does generated have?
-    gen_sections = [s for s in SECTIONS if s in gen_lower]
-    gt_sections = [s for s in SECTIONS if s in gt_lower]
+    # 1. Section Coverage (40 points)
+    gt_sections = extract_sections_fast(ground_truth)
+    gen_sections = extract_sections_fast(generated)
 
-    # Section coverage: what % of ground truth sections are in generated?
     if gt_sections:
-        matched = sum(1 for s in gt_sections if s in gen_lower)
-        section_pct = (matched / len(gt_sections)) * 100
+        matched_sections = gt_sections & gen_sections
+        section_coverage_pct = (len(matched_sections) / len(gt_sections)) * 100
     else:
-        section_pct = 100 if gen_sections else 50
+        section_coverage_pct = 100 if gen_sections else 0
 
-    # Count statistical terms
-    gen_terms = [t for t in TERMS if t in gen_lower]
-    gt_terms = [t for t in TERMS if t in gt_lower]
+    section_score = section_coverage_pct * 0.4
 
-    # Keyword overlap: what % of ground truth terms are in generated?
+    # 2. Statistical Terms Overlap (30 points)
+    gt_terms = find_statistical_terms_fast(ground_truth)
+    gen_terms = find_statistical_terms_fast(generated)
+
     if gt_terms:
-        matched = sum(1 for t in gt_terms if t in gen_lower)
-        keyword_pct = (matched / len(gt_terms)) * 100
+        matched_terms = gt_terms & gen_terms
+        keyword_overlap_pct = (len(matched_terms) / len(gt_terms)) * 100
     else:
-        keyword_pct = min(100, len(gen_terms) * 10)  # Reward having terms
+        keyword_overlap_pct = 100 if gen_terms else 0
 
-    # Overall score (capped at 100)
-    score = min(100, (section_pct * 0.4) + (keyword_pct * 0.6))
+    keyword_score = keyword_overlap_pct * 0.3
 
-    return score, section_pct, keyword_pct
+    # 3. Structure Completeness (30 points) - same checks as evaluate_sap.py
+    has_primary = any(x in gen_lower for x in [
+        "primary endpoint", "primary efficacy", "primary outcome", "primary analysis"
+    ])
+    has_secondary = any(x in gen_lower for x in [
+        "secondary endpoint", "secondary efficacy", "secondary outcome"
+    ])
+    has_sample_size = any(x in gen_lower for x in [
+        "sample size", "power calculation", "statistical power"
+    ])
+    has_populations = any(x in gen_lower for x in [
+        "analysis population", "intent-to-treat", "per-protocol", "full analysis set"
+    ])
+    has_methods = any(x in gen_lower for x in [
+        "statistical method", "statistical model", "ancova", "anova", "mixed model", "regression"
+    ])
+    has_missing = any(x in gen_lower for x in [
+        "missing data", "imputation", "locf", "last observation"
+    ])
+
+    structure_checks = [has_primary, has_secondary, has_sample_size, has_populations, has_methods, has_missing]
+    structure_pct = (sum(structure_checks) / len(structure_checks)) * 100
+    structure_score = structure_pct * 0.3
+
+    # Total score (max 100)
+    total_score = section_score + keyword_score + structure_score
+
+    return total_score, section_coverage_pct, keyword_overlap_pct, structure_pct
 
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("job_id", nargs="?")
-    parser.add_argument("--limit", type=int, default=100)
-    parser.add_argument("--sap-file", help="Local SAP file path")
+    parser = argparse.ArgumentParser(description="Fast SAP batch evaluation (same scoring as UI)")
+    parser.add_argument("job_id", nargs="?", help="Supabase job ID")
+    parser.add_argument("--limit", type=int, default=100, help="Max comparisons")
+    parser.add_argument("--sap-file", help="Local SAP file path instead of job_id")
     args = parser.parse_args()
 
     # Get generated SAP
@@ -114,19 +210,20 @@ def main():
                       if f.stem.replace("_sap", "") not in seen])
 
     files = files[:args.limit]
-    print(f"\nEvaluating against {len(files)} ground truth SAPs...\n")
+    print(f"\nEvaluating against {len(files)} ground truth SAPs...")
+    print(f"(Using same scoring as UI: 40% sections + 30% keywords + 30% structure)\n")
 
     results = []
     for i, (f, quality) in enumerate(files):
         nct = f.stem.replace("_sap", "")
         try:
             gt = f.read_text(encoding='utf-8', errors='ignore')
-            score, sections, keywords = fast_evaluate(generated, gt)
-            results.append(Result(nct, score, sections, keywords, quality))
+            score, sections, keywords, structure = evaluate_fast(generated, gt)
+            results.append(Result(nct, score, sections, keywords, structure, quality))
 
             # Color code
             c = "\033[92m" if score >= 70 else "\033[93m" if score >= 50 else "\033[91m"
-            print(f"  [{i+1:3d}/{len(files)}] {nct}: {c}{score:5.1f}%\033[0m  (sec: {sections:.0f}%, kw: {keywords:.0f}%)")
+            print(f"  [{i+1:3d}/{len(files)}] {nct}: {c}{score:5.1f}%\033[0m  (sec: {sections:.0f}%, kw: {keywords:.0f}%, struct: {structure:.0f}%)")
         except Exception as e:
             print(f"  [{i+1:3d}/{len(files)}] {nct}: ERROR - {e}")
 
@@ -144,7 +241,7 @@ def main():
 
         print(f"""
 {'='*60}
-SUMMARY
+SUMMARY (Same scoring as UI)
 {'='*60}
 
   Total: {len(results)}
