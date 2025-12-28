@@ -508,17 +508,45 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         facts.sponsor = sponsor_match.group(1).strip()
 
     # === DRUG ===
+    # Common words to exclude from drug name matching
+    excluded_words = {
+        'NCT', 'THE', 'AND', 'FOR', 'FDA', 'ICH', 'IN', 'TO', 'OF', 'AT', 'BY', 'OR',
+        'IS', 'IT', 'AS', 'BE', 'WAS', 'ARE', 'WITH', 'THAT', 'THIS', 'FROM', 'WILL',
+        'AN', 'ON', 'NOT', 'HAVE', 'HAS', 'HAD', 'BUT', 'ALL', 'CAN', 'HER', 'HIS',
+        'ITS', 'MAY', 'NEW', 'NOW', 'OLD', 'SEE', 'WAY', 'WHO', 'BOY', 'DID', 'GET',
+        'HIM', 'LET', 'PUT', 'SAY', 'SHE', 'TOO', 'USE', 'DOSE', 'DRUG', 'DOSE',
+        'ADMINISTERED', 'GIVEN', 'TREATMENT', 'THERAPY', 'STUDY', 'TRIAL', 'PLACEBO',
+        'ACTIVE', 'CONTROL', 'GROUP', 'ARM', 'PATIENTS', 'SUBJECTS'
+    }
+
     drug_patterns = [
-        r'(?:Investigational\s+Product|IMP|Study\s+Drug)[:\s]+([A-Za-z][A-Za-z0-9-]+)',
-        r'\b([A-Z]{2,3}\d{3,4})\b',
+        # Pattern 1: Drug code format like TJ301, AB1234, XYZ123 (case-insensitive)
+        r'\b([A-Za-z]{2,4}\d{3,5})\b',
+        # Pattern 2: Named after "Investigational Product/IMP/Study Drug:" - capture alphanumeric word
+        r'(?:Investigational\s+Product|IMP|Study\s+Drug)[:\s]+([A-Za-z][A-Za-z0-9]{2,})',
+        # Pattern 3: Named drug with common suffixes (mab, nib, etc.)
+        r'\b([A-Za-z]{4,}(?:mab|nib|ib|zumab|ximab|tinib|ciclib))\b',
+        # Pattern 4: Drug code with hyphen like FE-999301
+        r'\b([A-Za-z]{2,3}[-]?\d{4,6})\b',
     ]
+
     for pattern in drug_patterns:
-        match = re.search(pattern, protocol_text, re.I)
-        if match:
-            drug = match.group(1).strip()
-            if drug.upper() not in ['NCT', 'THE', 'AND', 'FOR', 'FDA', 'ICH']:
-                facts.drug_name = drug
-                break
+        matches = re.findall(pattern, protocol_text, re.I)
+        for drug in matches:
+            drug = drug.strip()
+            # Skip if too short or in exclusion list
+            if len(drug) < 3:
+                continue
+            if drug.upper() in excluded_words:
+                continue
+            # Skip if it looks like a measurement (ends in mg, ml, etc.)
+            if re.match(r'^\d+\s*(mg|ml|mcg|g|kg)$', drug, re.I):
+                continue
+            # Valid drug name found
+            facts.drug_name = drug.upper() if re.match(r'^[A-Za-z]{2,4}\d{3,5}$', drug) else drug
+            break
+        if facts.drug_name:
+            break
 
     # Drug code (e.g., FE 999301)
     code_match = re.search(r'\b([A-Z]{2}[-\s]?\d{5,6})\b', protocol_text)
@@ -604,12 +632,43 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         facts.num_arms = len(facts.ratio.split(':'))
 
     # === ARMS (Improved extraction with doses) ===
-    # First, look for structured arm definitions like "- Arm A: TJ301 300 mg"
-    arm_pattern = r'[-•]\s*(?:Arm|Group)\s*([A-D1-4])[:\s]+([^\n]+?)(?:\n|$)'
-    arm_matches = list(re.finditer(arm_pattern, protocol_text, re.I))
+    # First extract all doses mentioned in the protocol for later use
+    all_doses_in_protocol = []
+    dose_extraction_patterns = [
+        r'(\d+)\s*mg',  # Just number + mg
+        r'(\d+)\s*mcg',
+        r'(\d+)\s*g\b',
+    ]
+    for pattern in dose_extraction_patterns:
+        matches = re.findall(pattern, protocol_text, re.I)
+        for m in matches:
+            try:
+                dose_val = int(m)
+                # Filter reasonable drug doses (typically 1-1000 for mg)
+                if 1 <= dose_val <= 2000:
+                    all_doses_in_protocol.append(dose_val)
+            except:
+                pass
+
+    # Get unique doses sorted by frequency (most common first)
+    from collections import Counter
+    dose_counts = Counter(all_doses_in_protocol)
+    # Get doses that appear multiple times (likely treatment doses, not random numbers)
+    common_doses = [dose for dose, count in dose_counts.most_common() if count >= 2]
+
+    # Look for structured arm definitions using multiple patterns
+    arm_patterns = [
+        # Pattern 1: "- Arm A: TJ301 300 mg"
+        r'[-•]\s*(?:Arm|Group)\s*([A-D1-4])[:\s]+([^\n]+?)(?:\n|$)',
+        # Pattern 2: "Arm A: TJ301 300 mg" (without bullet)
+        r'(?:^|\n)\s*(?:Arm|Group)\s*([A-D1-4])[:\s]+([^\n]+?)(?:\n|$)',
+        # Pattern 3: "Treatment Arm 1: ..."
+        r'Treatment\s+(?:Arm|Group)\s*(\d)[:\s]+([^\n]+?)(?:\n|$)',
+    ]
 
     seen_arms = set()
-    if arm_matches:
+    for arm_pattern in arm_patterns:
+        arm_matches = list(re.finditer(arm_pattern, protocol_text, re.I | re.MULTILINE))
         for match in arm_matches:
             arm_id = match.group(1).upper()
             arm_desc = match.group(2).strip()[:150]
@@ -637,33 +696,41 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
     if not facts.arm_names and facts.num_arms and facts.drug_name:
         drug = facts.drug_name
 
-        # Try multiple patterns to find doses
-        # Pattern 1: "drug_name XXX mg" (with or without space)
-        dose_pattern1 = rf'{re.escape(drug)}\s*(\d+\s*(?:mg|mcg|g))'
-        # Pattern 2: "XXX mg drug_name" or "XXXmg of drug_name"
-        dose_pattern2 = rf'(\d+\s*(?:mg|mcg|g))\s*(?:of\s+)?{re.escape(drug)}'
-        # Pattern 3: "XXX mg Q2W" or "XXX mg every 2 weeks" (dose with schedule)
-        dose_pattern3 = r'(\d+\s*(?:mg|mcg|g))\s*(?:Q\d+W|every\s+\d+\s+weeks?)?'
+        # Try multiple patterns to find doses associated with the drug
+        dose_patterns = [
+            # Pattern 1: "drug_name XXX mg" (with or without space)
+            rf'{re.escape(drug)}\s*(\d+)\s*mg',
+            # Pattern 2: "XXX mg drug_name" or "XXXmg of drug_name"
+            rf'(\d+)\s*mg\s*(?:of\s+)?{re.escape(drug)}',
+            # Pattern 3: "XXX mg" near drug name (within 50 chars)
+            rf'{re.escape(drug)}.{{0,30}}?(\d+)\s*mg',
+            rf'(\d+)\s*mg.{{0,30}}?{re.escape(drug)}',
+        ]
 
         dose_matches = []
-        # Try pattern 1
-        matches = re.findall(dose_pattern1, protocol_text, re.I)
-        dose_matches.extend(matches)
-        # Try pattern 2
-        matches = re.findall(dose_pattern2, protocol_text, re.I)
-        dose_matches.extend(matches)
+        for pattern in dose_patterns:
+            matches = re.findall(pattern, protocol_text, re.I)
+            dose_matches.extend(matches)
 
-        # Normalize and dedupe doses
+        # Convert to integers and dedupe
         unique_doses = []
         seen = set()
         for dose in dose_matches:
-            # Normalize: remove spaces, lowercase
-            normalized = re.sub(r'\s+', '', dose.lower())
-            if normalized not in seen:
-                seen.add(normalized)
-                # Format nicely
-                clean_dose = re.sub(r'\s+', ' ', dose).strip()
-                unique_doses.append(clean_dose)
+            try:
+                dose_val = int(dose)
+                if dose_val not in seen and 1 <= dose_val <= 2000:
+                    seen.add(dose_val)
+                    unique_doses.append(dose_val)
+            except:
+                pass
+
+        # If no doses found from drug patterns, use common doses from protocol
+        if not unique_doses and common_doses:
+            # Filter to reasonable treatment doses (typically > 50 for biologics)
+            unique_doses = [d for d in common_doses if d >= 50][:3]
+
+        # Sort doses descending (high dose first)
+        unique_doses = sorted(unique_doses, reverse=True)
 
         # Try to find dosing schedule (Q2W, every 2 weeks, etc.)
         schedule_match = re.search(r'(Q\d+W|every\s+\d+\s+weeks?)', protocol_text, re.I)
@@ -671,27 +738,27 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
 
         if facts.num_arms == 2:
             if unique_doses:
-                facts.arm_names = [f"{drug} {unique_doses[0]}", "Placebo"]
-                facts.arm_descriptions = [f"{drug} {unique_doses[0]} {schedule}".strip(), "Matching placebo"]
+                facts.arm_names = [f"{drug} {unique_doses[0]} mg", "Placebo"]
+                facts.arm_descriptions = [f"{drug} {unique_doses[0]} mg {schedule}".strip(), "Matching placebo"]
+                facts.arm_doses = [f"{unique_doses[0]} mg", ""]
             else:
                 facts.arm_names = [f"{drug}", "Placebo"]
                 facts.arm_descriptions = [f"{drug} active treatment", "Matching placebo"]
         elif facts.num_arms == 3:
             if len(unique_doses) >= 2:
-                # Sort doses to put higher dose first
-                try:
-                    sorted_doses = sorted(unique_doses, key=lambda x: int(re.search(r'(\d+)', x).group(1)), reverse=True)
-                except:
-                    sorted_doses = unique_doses[:2]
-                facts.arm_names = [f"{drug} {sorted_doses[0]}", f"{drug} {sorted_doses[1]}", "Placebo"]
+                high_dose = unique_doses[0]
+                low_dose = unique_doses[1]
+                facts.arm_names = [f"{drug} {high_dose} mg", f"{drug} {low_dose} mg", "Placebo"]
                 facts.arm_descriptions = [
-                    f"{drug} {sorted_doses[0]} {schedule} (High Dose)".strip(),
-                    f"{drug} {sorted_doses[1]} {schedule} (Low Dose)".strip(),
+                    f"{drug} {high_dose} mg {schedule} (High Dose)".strip(),
+                    f"{drug} {low_dose} mg {schedule} (Low Dose)".strip(),
                     "Matching placebo"
                 ]
+                facts.arm_doses = [f"{high_dose} mg", f"{low_dose} mg", ""]
             elif len(unique_doses) == 1:
-                facts.arm_names = [f"{drug} {unique_doses[0]} High", f"{drug} {unique_doses[0]} Low", "Placebo"]
+                facts.arm_names = [f"{drug} {unique_doses[0]} mg High", f"{drug} {unique_doses[0]} mg Low", "Placebo"]
                 facts.arm_descriptions = [f"{drug} high dose", f"{drug} low dose", "Matching placebo"]
+                facts.arm_doses = [f"{unique_doses[0]} mg", "", ""]
             else:
                 facts.arm_names = [f"{drug} High Dose", f"{drug} Low Dose", "Placebo"]
                 facts.arm_descriptions = [f"{drug} high dose", f"{drug} low dose", "Matching placebo"]
@@ -706,6 +773,41 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
 
     # === POWER ===
     # Extract ALL power values mentioned in the protocol (may have multiple scenarios)
+    # Look for power with associated effect sizes/differences
+    power_with_context_patterns = [
+        # "83% power for 30% difference" or "83% power for a 30 percentage point difference"
+        r'(\d{2})%?\s*power[^.]*?(?:for\s+(?:a\s+)?)?(\d{1,2})(?:\s*percentage\s+point|\s*%|\s*percent)?\s*(?:difference|improvement)',
+        # "power of 83% to detect a 30% difference"
+        r'power\s+(?:of\s+)?(\d{2})%?[^.]*?(?:detect|observe)[^.]*?(\d{1,2})(?:\s*%|\s*percent)?\s*(?:difference|improvement)',
+        # "30% difference with 83% power"
+        r'(\d{1,2})(?:\s*%|\s*percent)?\s*(?:difference|improvement)[^.]*?(\d{2})%?\s*power',
+    ]
+
+    power_scenario_list = []
+    for pattern in power_with_context_patterns:
+        matches = re.finditer(pattern, protocol_text, re.I)
+        for match in matches:
+            groups = match.groups()
+            # Determine which is power and which is effect size
+            if 'difference' in pattern.split('(')[0] or 'improvement' in pattern.split('(')[0]:
+                # Pattern has effect size first
+                effect_size = groups[0]
+                power_val = groups[1]
+            else:
+                # Pattern has power first
+                power_val = groups[0]
+                effect_size = groups[1] if len(groups) > 1 else None
+
+            if power_val:
+                pv = int(power_val)
+                if 70 <= pv <= 99:
+                    scenario = f"{pv}%"
+                    if effect_size:
+                        scenario += f" for {effect_size}% difference"
+                    if scenario not in power_scenario_list:
+                        power_scenario_list.append(scenario)
+
+    # Also extract standalone power values
     power_matches = re.findall(r'(\d{2})%?\s*power|power\s+(?:of\s+)?(\d{2})%?', protocol_text, re.I)
     power_values = []
     for match in power_matches:
@@ -719,8 +821,10 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         # Sort to get highest first
         sorted_powers = sorted(power_values, key=int, reverse=True)
         facts.power = f"{sorted_powers[0]}%"
-        # Store secondary power scenarios if available
-        if len(sorted_powers) > 1:
+        # Store all power scenarios (with context if available)
+        if power_scenario_list:
+            facts.power_scenarios = power_scenario_list
+        elif len(sorted_powers) > 1:
             facts.power_scenarios = [f"{p}%" for p in sorted_powers]
 
     # === POWER CALCULATION ASSUMPTIONS ===
