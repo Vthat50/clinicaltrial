@@ -349,19 +349,52 @@ class ConstrainedSAPPipeline:
     def _check_critical_facts_full(self, facts: FullProtocolFacts) -> List[str]:
         """Check for missing critical facts (full schema)"""
         missing = []
-        # High-priority facts that prevent contamination
-        if not facts.drug_name:
-            missing.append("drug_name (HIGH RISK)")
-        if not facts.total_n:
-            missing.append("total_n (HIGH RISK)")
-        if not facts.ratio:
-            missing.append("ratio (HIGH RISK)")
-        if not facts.nct_id:
-            missing.append("nct_id")
-        if not facts.indication:
-            missing.append("indication")
-        if not facts.num_arms:
-            missing.append("num_arms")
+
+        # HIGH PRIORITY - these prevent contamination from other protocols
+        high_priority = [
+            ('drug_name', 'Drug name missing - HIGH RISK for contamination'),
+            ('total_n', 'Sample size missing - HIGH RISK for wrong values'),
+            ('ratio', 'Randomization ratio missing - may use wrong ratio'),
+            ('num_arms', 'Number of arms missing - may use wrong design'),
+        ]
+
+        for field, message in high_priority:
+            value = getattr(facts, field, None)
+            if not value or (isinstance(value, (list, dict)) and len(value) == 0):
+                missing.append(f"{field} (HIGH RISK)")
+
+        # MEDIUM PRIORITY - important for SAP quality
+        medium_priority = [
+            'nct_id',
+            'indication',
+            'phase',
+            'primary_endpoint',
+            'primary_timepoint',
+            'alpha',
+            'alpha_sidedness',
+            'primary_analysis_method',
+            'primary_population',
+        ]
+
+        for field in medium_priority:
+            value = getattr(facts, field, None)
+            if not value:
+                missing.append(field)
+
+        # LOWER PRIORITY - nice to have
+        lower_priority = [
+            'stratification_factors',
+            'itt_definition',
+            'secondary_endpoints',
+            'arm_names',
+            'arm_descriptions',
+        ]
+
+        for field in lower_priority:
+            value = getattr(facts, field, None)
+            if not value or (isinstance(value, (list, dict)) and len(value) == 0):
+                missing.append(f"{field} (optional)")
+
         return missing
 
     def _count_constraints(self, facts: FullProtocolFacts) -> int:
