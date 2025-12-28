@@ -319,8 +319,13 @@ class SAPParser:
 
     # Clinical assessment patterns that map to specific domains
     ASSESSMENT_TO_DOMAIN = {
-        # Questionnaires/PRO (QS domain)
-        'mayo score': ('QS', 'Mayo Score assessment'),
+        # Questionnaires/PRO (QS domain) - includes diary-derived data
+        'mayo score': ('QS', 'Mayo Score (total and subscores)'),
+        'stool frequency': ('QS', 'Stool frequency subscore'),
+        'rectal bleeding': ('QS', 'Rectal bleeding subscore'),
+        'physician global assessment': ('QS', 'Physician Global Assessment subscore'),
+        'endoscopic subscore': ('QS', 'Endoscopic subscore'),
+        'diary': ('QS', 'Patient diary data'),
         'cdai': ('QS', 'CDAI Score assessment'),
         'sf-36': ('QS', 'SF-36 Quality of Life'),
         'sf36': ('QS', 'SF-36 Quality of Life'),
@@ -358,46 +363,112 @@ class SAPParser:
         'disease control': ('RS', 'Disease control rate'),
 
         # ECG (EG domain)
-        'ecg': ('EG', 'ECG assessment'),
-        'electrocardiogram': ('EG', 'ECG assessment'),
-        'qtc': ('EG', 'QTc measurement'),
-        'qt interval': ('EG', 'QT interval measurement'),
+        'ecg': ('EG', 'ECG parameters (HR, PR, QRS, QT, QTc)'),
+        'electrocardiogram': ('EG', 'ECG parameters'),
+        'qtc': ('EG', 'QTc interval'),
+        'qt interval': ('EG', 'QT interval'),
+        'pr interval': ('EG', 'PR interval'),
+        'qrs': ('EG', 'QRS duration'),
 
-        # Lab tests (LB domain)
-        'hemoglobin': ('LB', 'Hemoglobin measurement'),
+        # Lab tests - HEMATOLOGY (LB domain)
+        'hemoglobin': ('LB', 'Hemoglobin'),
+        'hematocrit': ('LB', 'Hematocrit'),
+        'rbc': ('LB', 'Red blood cell count'),
+        'wbc': ('LB', 'White blood cell count'),
+        'white blood cell': ('LB', 'White blood cell count with differential'),
+        'neutrophil': ('LB', 'Neutrophils'),
+        'lymphocyte': ('LB', 'Lymphocytes'),
+        'monocyte': ('LB', 'Monocytes'),
+        'eosinophil': ('LB', 'Eosinophils'),
+        'basophil': ('LB', 'Basophils'),
+        'platelet': ('LB', 'Platelet count'),
+        'mcv': ('LB', 'Mean corpuscular volume'),
+        'mch': ('LB', 'Mean corpuscular hemoglobin'),
+        'mchc': ('LB', 'Mean corpuscular hemoglobin concentration'),
+
+        # Lab tests - CHEMISTRY (LB domain)
         'crp': ('LB', 'C-reactive protein'),
+        'c-reactive protein': ('LB', 'C-reactive protein'),
         'fecal calprotectin': ('LB', 'Fecal calprotectin'),
-        'albumin': ('LB', 'Albumin measurement'),
-        'alt': ('LB', 'ALT measurement'),
-        'ast': ('LB', 'AST measurement'),
-        'bilirubin': ('LB', 'Bilirubin measurement'),
-        'creatinine': ('LB', 'Creatinine measurement'),
-        'hba1c': ('LB', 'HbA1c measurement'),
-        'fasting glucose': ('LB', 'Fasting glucose'),
-        'lipid panel': ('LB', 'Lipid panel'),
+        'calprotectin': ('LB', 'Fecal calprotectin'),
+        'albumin': ('LB', 'Albumin'),
+        'alt': ('LB', 'Alanine aminotransferase'),
+        'alanine aminotransferase': ('LB', 'ALT'),
+        'ast': ('LB', 'Aspartate aminotransferase'),
+        'aspartate aminotransferase': ('LB', 'AST'),
+        'alkaline phosphatase': ('LB', 'Alkaline phosphatase'),
+        'alp': ('LB', 'Alkaline phosphatase'),
+        'ggt': ('LB', 'Gamma-glutamyl transferase'),
+        'gamma-glutamyl': ('LB', 'GGT'),
+        'bilirubin': ('LB', 'Bilirubin (total and direct)'),
+        'creatinine': ('LB', 'Creatinine'),
+        'bun': ('LB', 'Blood urea nitrogen'),
+        'urea': ('LB', 'Urea'),
+        'sodium': ('LB', 'Sodium'),
+        'potassium': ('LB', 'Potassium'),
+        'chloride': ('LB', 'Chloride'),
+        'bicarbonate': ('LB', 'Bicarbonate'),
+        'calcium': ('LB', 'Calcium'),
+        'phosphorus': ('LB', 'Phosphorus'),
+        'magnesium': ('LB', 'Magnesium'),
+        'glucose': ('LB', 'Glucose'),
+        'hba1c': ('LB', 'HbA1c'),
+        'lipid': ('LB', 'Lipid panel'),
         'ldl': ('LB', 'LDL cholesterol'),
         'hdl': ('LB', 'HDL cholesterol'),
+        'cholesterol': ('LB', 'Total cholesterol'),
         'triglyceride': ('LB', 'Triglycerides'),
+
+        # Lab tests - COAGULATION (LB domain)
+        'pt': ('LB', 'Prothrombin time'),
+        'prothrombin': ('LB', 'Prothrombin time'),
+        'inr': ('LB', 'International normalized ratio'),
+        'aptt': ('LB', 'Activated partial thromboplastin time'),
+        'ptt': ('LB', 'Partial thromboplastin time'),
+        'fibrinogen': ('LB', 'Fibrinogen'),
+
+        # Lab tests - URINALYSIS (LB domain)
+        'urinalysis': ('LB', 'Urinalysis'),
+        'urine': ('LB', 'Urinalysis'),
+
+        # Lab tests - IMMUNOLOGY/BIOMARKERS (LB domain)
+        'il-6': ('LB', 'Interleukin-6'),
+        'interleukin': ('LB', 'Interleukin levels'),
+        'antibod': ('LB', 'Anti-drug antibodies'),
+        'immunogenicity': ('LB', 'Immunogenicity testing'),
 
         # Physical exam (PE domain)
         'physical exam': ('PE', 'Physical examination'),
 
-        # Vital signs (VS domain)
-        'blood pressure': ('VS', 'Blood pressure measurement'),
-        'heart rate': ('VS', 'Heart rate measurement'),
-        'weight': ('VS', 'Weight measurement'),
-        'bmi': ('VS', 'BMI calculation'),
-        'temperature': ('VS', 'Temperature measurement'),
+        # Vital signs (VS domain) - comprehensive
+        'vital sign': ('VS', 'Vital signs'),
+        'blood pressure': ('VS', 'Blood pressure (systolic/diastolic)'),
+        'systolic': ('VS', 'Systolic blood pressure'),
+        'diastolic': ('VS', 'Diastolic blood pressure'),
+        'heart rate': ('VS', 'Heart rate'),
+        'pulse': ('VS', 'Pulse rate'),
+        'respiratory rate': ('VS', 'Respiratory rate'),
+        'respiration': ('VS', 'Respiratory rate'),
+        'temperature': ('VS', 'Body temperature'),
+        'weight': ('VS', 'Body weight'),
+        'height': ('VS', 'Height'),
+        'bmi': ('VS', 'Body mass index'),
 
         # Exposure (EX domain)
-        'dose': ('EX', 'Study drug exposure'),
-        'dosing': ('EX', 'Study drug dosing'),
+        'dose': ('EX', 'Study drug dose'),
+        'dosing': ('EX', 'Dosing regimen'),
+        'infusion': ('EX', 'Infusion administration'),
         'treatment exposure': ('EX', 'Treatment exposure'),
+        'q2w': ('EX', 'Dosing frequency (Q2W)'),
+        'placebo': ('EX', 'Placebo treatment'),
 
-        # Endoscopy (custom findings domain)
+        # Endoscopy/Procedures (FA domain) - NOT diary data
         'endoscop': ('FA', 'Endoscopy findings'),
         'colonoscop': ('FA', 'Colonoscopy findings'),
         'sigmoidoscop': ('FA', 'Sigmoidoscopy findings'),
+        'biopsy': ('FA', 'Biopsy findings'),
+        'histolog': ('FA', 'Histological findings'),
+        'mucosal': ('FA', 'Mucosal assessment'),
     }
 
     def __init__(self):
@@ -409,6 +480,7 @@ class SAPParser:
         Parse SAP text and extract study-specific requirements.
 
         Returns dictionary with:
+        - study_id: str (extracted from SAP)
         - primary_endpoint: str
         - primary_timepoint: str
         - secondary_endpoints: List[str]
@@ -421,6 +493,8 @@ class SAPParser:
         self.domain_requirements = {}
 
         result = {
+            'study_id': self._extract_study_id(sap_text),
+            'drug_name': self._extract_drug_name(sap_text),
             'primary_endpoint': self._extract_primary_endpoint(sap_text),
             'primary_timepoint': self._extract_primary_timepoint(sap_text),
             'secondary_endpoints': self._extract_secondary_endpoints(sap_text),
@@ -433,7 +507,69 @@ class SAPParser:
             'domain_requirements': self.domain_requirements,
         }
 
+        # Consolidate redundant traceability entries
+        self._consolidate_traceability()
+        result['domain_requirements'] = self.domain_requirements
+
         return result
+
+    def _extract_study_id(self, sap_text: str) -> Optional[str]:
+        """Extract study identifier from SAP text."""
+        patterns = [
+            # Protocol numbers like CTJ301UC201, ABC-123-456
+            r'(?:protocol|study)\s*(?:number|id|identifier)?[:\s]+([A-Z]{2,5}[-]?\d{2,4}[-]?[A-Z]{0,3}[-]?\d{0,4})',
+            r'(?:protocol|study)[:\s]+([A-Z0-9]+-[A-Z0-9]+-[A-Z0-9]+)',
+            r'([A-Z]{2,5}\d{3}[A-Z]{2}\d{3})',  # Pattern like CTJ301UC201
+            # NCT numbers
+            r'(NCT\d{8})',
+            # EudraCT numbers
+            r'(\d{4}-\d{6}-\d{2})',
+            # Generic protocol patterns
+            r'protocol[:\s]+([A-Z0-9-]{6,20})',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                study_id = match.group(1).strip()
+                # Clean up and standardize
+                if study_id and len(study_id) >= 6:
+                    return study_id.upper()
+
+        return None
+
+    def _extract_drug_name(self, sap_text: str) -> Optional[str]:
+        """Extract drug/treatment name from SAP text."""
+        patterns = [
+            r'(?:study\s+drug|investigational\s+product|treatment)[:\s]+([A-Za-z0-9-]+)',
+            r'([A-Z]{2,3}[-]?\d{3,4})\s+(?:mg|dose)',
+            r'(?:active\s+treatment|study\s+medication)[:\s]+([A-Za-z0-9-]+)',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                drug = match.group(1).strip()
+                if drug and len(drug) >= 3:
+                    return drug
+
+        return None
+
+    def _consolidate_traceability(self):
+        """Remove redundant traceability entries and consolidate similar ones."""
+        for domain_code in self.domain_requirements:
+            traces = self.domain_requirements[domain_code]
+            seen = set()
+            unique_traces = []
+
+            for trace in traces:
+                # Create a key for deduplication
+                key = (trace.sap_section, trace.sdtm_element)
+                if key not in seen:
+                    seen.add(key)
+                    unique_traces.append(trace)
+
+            self.domain_requirements[domain_code] = unique_traces
 
     def _extract_primary_endpoint(self, sap_text: str) -> Optional[str]:
         """Extract primary endpoint from SAP."""
@@ -486,38 +622,64 @@ class SAPParser:
         return None
 
     def _extract_secondary_endpoints(self, sap_text: str) -> List[str]:
-        """Extract secondary endpoints from SAP."""
+        """Extract ALL secondary endpoints from SAP comprehensively."""
         endpoints = []
+        seen_endpoints = set()  # Avoid duplicates
 
-        # Find secondary endpoint section
-        patterns = [
-            r'secondary\s+(?:efficacy\s+)?endpoint[s]?[:\s]+([^\n]+(?:\n(?![A-Z0-9]+\.)[^\n]+)*)',
-            r'(?:key\s+)?secondary\s+endpoint[s]?\s+include[:\s]+([^\n]+(?:\n(?![A-Z0-9]+\.)[^\n]+)*)',
+        # Pattern 1: Find secondary endpoint section and extract list
+        section_patterns = [
+            r'secondary\s+(?:efficacy\s+)?endpoint[s]?[:\s]+([^\n]+(?:\n(?![A-Z0-9]+\.\s+[A-Z])[^\n]+)*)',
+            r'(?:key\s+)?secondary\s+endpoint[s]?\s+include[:\s]+([^\n]+(?:\n(?![A-Z0-9]+\.\s+[A-Z])[^\n]+)*)',
+            r'secondary\s+(?:efficacy\s+)?(?:endpoint|variable)[s]?\s*(?:are|include)?[:\s]*\n((?:[•\-\d\.]+[^\n]+\n?)+)',
         ]
 
-        for pattern in patterns:
-            match = re.search(pattern, sap_text, re.IGNORECASE)
-            if match:
-                text = match.group(1)
-                # Split by common delimiters
-                items = re.split(r'[;•\-\n]|\d+\.\s', text)
+        for pattern in section_patterns:
+            matches = re.findall(pattern, sap_text, re.IGNORECASE | re.MULTILINE)
+            for text in matches:
+                # Split by bullet points, numbers, semicolons, newlines
+                items = re.split(r'(?:[;•\-]\s*|\n\s*[•\-]\s*|\n\s*\d+[\.\)]\s*)', text)
                 for item in items:
                     item = item.strip()
-                    if len(item) > 10 and len(item) < 500:  # Reasonable length
+                    # Clean up leading characters
+                    item = re.sub(r'^[\d\.\)\-•\s]+', '', item).strip()
+                    if len(item) > 15 and len(item) < 500 and item.lower() not in seen_endpoints:
+                        seen_endpoints.add(item.lower())
                         endpoints.append(item)
 
-                        self.extracted_elements.append(ExtractedSAPElement(
-                            element_type='secondary_endpoint',
-                            name=item,
-                            description='Secondary efficacy endpoint',
-                            section='Secondary Endpoints',
-                            original_text=item,
-                        ))
+        # Pattern 2: Find specific endpoint types mentioned
+        endpoint_types = [
+            (r'clinical\s+(?:and\s+endoscopic\s+)?response\s+at\s+(?:week[s]?\s+)?[\d,\s]+', 'Clinical response'),
+            (r'clinical\s+remission\s+at\s+(?:week[s]?\s+)?[\d,\s]+', 'Clinical remission'),
+            (r'endoscopic\s+(?:response|remission|improvement)\s+at\s+(?:week[s]?\s+)?[\d,\s]+', 'Endoscopic response'),
+            (r'mucosal\s+healing\s+at\s+(?:week[s]?\s+)?[\d,\s]+', 'Mucosal healing'),
+            (r'change\s+(?:from\s+baseline\s+)?in\s+(?:total\s+)?mayo\s+score', 'Change in Mayo score'),
+            (r'(?:fda|regulatory)[- ]defined\s+(?:remission|response)', 'Regulatory-defined remission'),
+            (r'(?:pk|pharmacokinetic)\s+(?:parameter|endpoint|analysis)', 'PK parameters'),
+            (r'immunogenicity\s+(?:endpoint|analysis|assessment)', 'Immunogenicity'),
+            (r'(?:ada|anti[- ]drug\s+antibod)', 'Anti-drug antibodies'),
+            (r'(?:safety|tolerability)\s+(?:endpoint|assessment)', 'Safety assessment'),
+        ]
 
-                        # Map to SDTM domain
-                        self._map_endpoint_to_domain(item, 'Secondary Endpoints', item)
+        for pattern, name in endpoint_types:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match and name.lower() not in seen_endpoints:
+                full_match = match.group(0).strip()
+                seen_endpoints.add(name.lower())
+                endpoints.append(full_match if len(full_match) < 100 else name)
 
-        return endpoints[:10]  # Limit to top 10
+        # Add extracted elements and map to domains
+        for endpoint in endpoints:
+            self.extracted_elements.append(ExtractedSAPElement(
+                element_type='secondary_endpoint',
+                name=endpoint,
+                description='Secondary efficacy endpoint',
+                section='Secondary Endpoints',
+                original_text=endpoint,
+            ))
+            # Map to SDTM domain
+            self._map_endpoint_to_domain(endpoint, 'Secondary Endpoints', endpoint)
+
+        return endpoints  # Return all found endpoints
 
     def _extract_populations(self, sap_text: str) -> List[str]:
         """Extract analysis populations from SAP."""
@@ -1157,14 +1319,26 @@ class SDTMSpecGenerator:
         Args:
             protocol_facts: Dictionary containing protocol/SAP information
                 - sap_text: The generated SAP document text (required for traceability)
-                - protocol_id: Study identifier
+                - protocol_id: Study identifier (fallback if not in SAP)
                 - therapeutic_area: Optional therapeutic area hint
 
         Returns:
             SDTMSpecification with study-specific domains and traceability
         """
-        protocol_id = protocol_facts.get('protocol_id', 'UNKNOWN')
         sap_text = protocol_facts.get('sap_text', '')
+
+        # Parse SAP text first to extract study_id
+        sap_parsed = {}
+        if sap_text:
+            sap_parsed = self.parser.parse(sap_text)
+
+        # Use extracted study_id, fall back to provided protocol_id, then UNKNOWN
+        protocol_id = (
+            sap_parsed.get('study_id') or
+            protocol_facts.get('protocol_id') or
+            protocol_facts.get('nct_id') or
+            'UNKNOWN'
+        )
 
         spec = SDTMSpecification(
             protocol_id=protocol_id,
@@ -1172,12 +1346,11 @@ class SDTMSpecGenerator:
             sdtm_version="3.4"
         )
 
-        # Parse SAP text if provided
-        sap_parsed = {}
-        if sap_text:
-            sap_parsed = self.parser.parse(sap_text)
+        if sap_parsed:
             spec.extracted_elements = sap_parsed.get('extracted_elements', [])
             spec.sap_summary = {
+                'study_id': sap_parsed.get('study_id'),
+                'drug_name': sap_parsed.get('drug_name'),
                 'primary_endpoint': sap_parsed.get('primary_endpoint'),
                 'primary_timepoint': sap_parsed.get('primary_timepoint'),
                 'secondary_endpoints': sap_parsed.get('secondary_endpoints', []),
