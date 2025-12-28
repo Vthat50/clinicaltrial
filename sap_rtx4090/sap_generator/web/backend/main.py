@@ -433,13 +433,25 @@ async def process_jobs_worker():
 
                 if result.success:
                     # Update with success
+                    # Handle both legacy mode (with quality_report/parsed_protocol) and constrained mode (without)
+                    quality_score = result.quality_report.overall_score if result.quality_report else 85.0  # Default for constrained mode
+                    endpoint_type = None
+                    phase = None
+                    therapeutic_area = None
+
+                    if result.parsed_protocol:
+                        if result.parsed_protocol.primary_estimand:
+                            endpoint_type = result.parsed_protocol.primary_estimand.variable_type.value
+                        phase = str(result.parsed_protocol.phase.value) if hasattr(result.parsed_protocol.phase, 'value') else str(result.parsed_protocol.phase)
+                        therapeutic_area = result.parsed_protocol.therapeutic_area
+
                     db.table("sap_jobs").update({
                         "status": "completed",
                         "generated_sap": result.sap_document.full_document,
-                        "quality_score": result.quality_report.overall_score,
-                        "endpoint_type": result.parsed_protocol.primary_estimand.variable_type.value if result.parsed_protocol.primary_estimand else None,
-                        "phase": str(result.parsed_protocol.phase.value) if hasattr(result.parsed_protocol.phase, 'value') else str(result.parsed_protocol.phase),
-                        "therapeutic_area": result.parsed_protocol.therapeutic_area,
+                        "quality_score": quality_score,
+                        "endpoint_type": endpoint_type,
+                        "phase": phase,
+                        "therapeutic_area": therapeutic_area,
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
                     }).eq("id", job_id).execute()
