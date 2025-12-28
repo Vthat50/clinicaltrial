@@ -1201,7 +1201,7 @@ class SAPGenerationOrchestrator:
                 result.sap_document = GeneratedSAP(
                     sections=pipeline_result.sections,
                     full_document=pipeline_result.sap_text,
-                    protocol_id=nct_id or (pipeline_result.facts.nct_id.value if pipeline_result.facts and pipeline_result.facts.nct_id else "UNKNOWN"),
+                    protocol_id=nct_id or (pipeline_result.facts.nct_id if pipeline_result.facts and pipeline_result.facts.nct_id else "UNKNOWN"),
                     parsed_protocol=None,  # Not using legacy ParsedProtocol
                     estimands=[],
                     quality_report=None,
