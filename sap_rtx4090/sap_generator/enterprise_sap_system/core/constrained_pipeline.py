@@ -516,9 +516,14 @@ class ConstrainedSAPPipeline:
             'total_n': facts.total_n,
             'per_arm_n': facts.per_arm_n,
             'power': facts.power,
+            'power_scenarios': facts.power_scenarios if hasattr(facts, 'power_scenarios') else [],
             'alpha': facts.alpha,
             'alpha_sidedness': facts.alpha_sidedness,
             'dropout_rate': facts.dropout_rate,
+            # Power calculation assumptions
+            'expected_response_placebo': facts.expected_response_placebo if hasattr(facts, 'expected_response_placebo') else None,
+            'expected_response_active': facts.expected_response_active if hasattr(facts, 'expected_response_active') else None,
+            'primary_comparison': facts.primary_comparison if hasattr(facts, 'primary_comparison') else None,
             # Endpoints
             'primary_endpoint': facts.primary_endpoint,
             'primary_timepoint': facts.primary_timepoint,
@@ -630,6 +635,11 @@ class ConstrainedSAPPipeline:
         alpha = get_value(getattr(facts, 'alpha', None), 0.05)
         alpha_side = get_value(getattr(facts, 'alpha_sidedness', None), "one-sided")
 
+        # Get power calculation assumptions if available
+        expected_response_placebo = get_value(getattr(facts, 'expected_response_placebo', None), None)
+        expected_response_active = get_value(getattr(facts, 'expected_response_active', None), None)
+        power_scenarios = getattr(facts, 'power_scenarios', [])
+
         return {
             'total_n': total_n,
             'ratio': ratio,
@@ -638,6 +648,9 @@ class ConstrainedSAPPipeline:
             'alpha_sidedness': alpha_side,
             'num_arms': num_arms,
             'per_arm_n': per_arm_n,
+            'expected_response_placebo': expected_response_placebo,
+            'expected_response_active': expected_response_active,
+            'power_scenarios': power_scenarios,
             'introduction': "The sample size for this study was determined based on clinical and statistical considerations to ensure adequate power to detect a clinically meaningful treatment difference while accounting for expected dropout rates.",
             'power_calculation_narrative': f"Power calculations were performed using a {alpha_side} test at α = {alpha}. The power analysis was conducted for the primary comparison (high dose vs. placebo).",
             'conclusion': "The planned sample size provides adequate statistical power to achieve the study objectives while considering practical enrollment constraints and expected dropout."
@@ -1303,9 +1316,37 @@ If applicable, ECG parameters will be summarized using:
 
 ### 9.6 Immunogenicity
 
-Anti-drug antibody (ADA) assessments will be summarized:
-- Incidence of treatment-emergent ADA
-- Relationship between ADA status and efficacy/safety
+#### 9.6.1 Anti-Drug Antibody (ADA) Assessment
+
+ADA samples will be collected at protocol-specified timepoints for immunogenicity assessment.
+
+**Assessment Timepoints:** As specified in the protocol (typically pre-dose and at multiple visits during treatment and follow-up periods)
+
+#### 9.6.2 ADA Classification
+
+| Category | Definition |
+|----------|------------|
+| **Baseline Status** | ADA positive or negative at baseline (pre-dose) |
+| **Treatment-Emergent** | Negative at baseline → Positive post-baseline, OR ≥4-fold increase from baseline |
+| **Persistent ADA** | Treatment-emergent ADA positive at ≥2 consecutive post-baseline visits ≥16 weeks apart |
+| **Transient ADA** | Treatment-emergent ADA positive at only one visit, or positive at ≥2 visits <16 weeks apart |
+
+#### 9.6.3 ADA Analysis
+
+ADA results will be summarized by:
+- Incidence of treatment-emergent ADA by treatment group
+- Time to first positive ADA result
+- ADA titer (if applicable)
+- Relationship between ADA status and:
+  - Efficacy endpoints
+  - Safety endpoints (AEs, injection site reactions)
+  - PK parameters (exposure)
+
+#### 9.6.4 Neutralizing Antibodies (NAb)
+
+If applicable, NAb testing will be performed on ADA-positive samples:
+- Incidence of NAb by treatment group
+- Impact of NAb on efficacy and PK
 
 ### 9.7 Exposure
 

@@ -52,6 +52,7 @@ class FullProtocolFacts:
     total_n: Optional[int] = None
     per_arm_n: Optional[Dict[str, int]] = None
     power: Optional[str] = None
+    power_scenarios: List[str] = field(default_factory=list)  # All power values (e.g., ["83%", "70%"])
     alpha: Optional[float] = None
     alpha_sidedness: Optional[str] = None
     dropout_rate: Optional[str] = None
@@ -630,20 +631,66 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
 
     # If no structured arms found, try to infer from ratio and drug name
     if not facts.arm_names and facts.num_arms and facts.drug_name:
-        if facts.num_arms == 2:
-            facts.arm_names = [f"{facts.drug_name}", "Placebo"]
-            facts.arm_descriptions = [f"{facts.drug_name} active treatment", "Matching placebo"]
-        elif facts.num_arms == 3:
-            # Try to find doses in the protocol
-            dose_matches = re.findall(rf'{re.escape(facts.drug_name)}\s+(\d+\s*(?:mg|mcg|g))', protocol_text, re.I)
-            unique_doses = list(dict.fromkeys(dose_matches))[:2]  # Get up to 2 unique doses
+        drug = facts.drug_name
 
-            if len(unique_doses) >= 2:
-                facts.arm_names = [f"{facts.drug_name} {unique_doses[0]}", f"{facts.drug_name} {unique_doses[1]}", "Placebo"]
-                facts.arm_descriptions = [f"{facts.drug_name} {unique_doses[0]}", f"{facts.drug_name} {unique_doses[1]}", "Matching placebo"]
+        # Try multiple patterns to find doses
+        # Pattern 1: "drug_name XXX mg" (with or without space)
+        dose_pattern1 = rf'{re.escape(drug)}\s*(\d+\s*(?:mg|mcg|g))'
+        # Pattern 2: "XXX mg drug_name" or "XXXmg of drug_name"
+        dose_pattern2 = rf'(\d+\s*(?:mg|mcg|g))\s*(?:of\s+)?{re.escape(drug)}'
+        # Pattern 3: "XXX mg Q2W" or "XXX mg every 2 weeks" (dose with schedule)
+        dose_pattern3 = r'(\d+\s*(?:mg|mcg|g))\s*(?:Q\d+W|every\s+\d+\s+weeks?)?'
+
+        dose_matches = []
+        # Try pattern 1
+        matches = re.findall(dose_pattern1, protocol_text, re.I)
+        dose_matches.extend(matches)
+        # Try pattern 2
+        matches = re.findall(dose_pattern2, protocol_text, re.I)
+        dose_matches.extend(matches)
+
+        # Normalize and dedupe doses
+        unique_doses = []
+        seen = set()
+        for dose in dose_matches:
+            # Normalize: remove spaces, lowercase
+            normalized = re.sub(r'\s+', '', dose.lower())
+            if normalized not in seen:
+                seen.add(normalized)
+                # Format nicely
+                clean_dose = re.sub(r'\s+', ' ', dose).strip()
+                unique_doses.append(clean_dose)
+
+        # Try to find dosing schedule (Q2W, every 2 weeks, etc.)
+        schedule_match = re.search(r'(Q\d+W|every\s+\d+\s+weeks?)', protocol_text, re.I)
+        schedule = schedule_match.group(1) if schedule_match else ""
+
+        if facts.num_arms == 2:
+            if unique_doses:
+                facts.arm_names = [f"{drug} {unique_doses[0]}", "Placebo"]
+                facts.arm_descriptions = [f"{drug} {unique_doses[0]} {schedule}".strip(), "Matching placebo"]
             else:
-                facts.arm_names = [f"{facts.drug_name} High Dose", f"{facts.drug_name} Low Dose", "Placebo"]
-                facts.arm_descriptions = [f"{facts.drug_name} high dose", f"{facts.drug_name} low dose", "Matching placebo"]
+                facts.arm_names = [f"{drug}", "Placebo"]
+                facts.arm_descriptions = [f"{drug} active treatment", "Matching placebo"]
+        elif facts.num_arms == 3:
+            if len(unique_doses) >= 2:
+                # Sort doses to put higher dose first
+                try:
+                    sorted_doses = sorted(unique_doses, key=lambda x: int(re.search(r'(\d+)', x).group(1)), reverse=True)
+                except:
+                    sorted_doses = unique_doses[:2]
+                facts.arm_names = [f"{drug} {sorted_doses[0]}", f"{drug} {sorted_doses[1]}", "Placebo"]
+                facts.arm_descriptions = [
+                    f"{drug} {sorted_doses[0]} {schedule} (High Dose)".strip(),
+                    f"{drug} {sorted_doses[1]} {schedule} (Low Dose)".strip(),
+                    "Matching placebo"
+                ]
+            elif len(unique_doses) == 1:
+                facts.arm_names = [f"{drug} {unique_doses[0]} High", f"{drug} {unique_doses[0]} Low", "Placebo"]
+                facts.arm_descriptions = [f"{drug} high dose", f"{drug} low dose", "Matching placebo"]
+            else:
+                facts.arm_names = [f"{drug} High Dose", f"{drug} Low Dose", "Placebo"]
+                facts.arm_descriptions = [f"{drug} high dose", f"{drug} low dose", "Matching placebo"]
         else:
             facts.arm_names = [f"Treatment Arm {i+1}" for i in range(facts.num_arms)]
             facts.arm_descriptions = [f"Treatment arm {i+1}" for i in range(facts.num_arms)]
@@ -654,35 +701,66 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         facts.per_arm_n = {name: per_arm for name in facts.arm_names} if facts.arm_names else {}
 
     # === POWER ===
-    power_match = re.search(r'(\d{2})%?\s*power|power\s+(?:of\s+)?(\d{2})%?', protocol_text, re.I)
-    if power_match:
-        power = power_match.group(1) or power_match.group(2)
-        facts.power = f"{power}%"
+    # Extract ALL power values mentioned in the protocol (may have multiple scenarios)
+    power_matches = re.findall(r'(\d{2})%?\s*power|power\s+(?:of\s+)?(\d{2})%?', protocol_text, re.I)
+    power_values = []
+    for match in power_matches:
+        power_val = match[0] or match[1]
+        if power_val and int(power_val) >= 70 and int(power_val) <= 99:
+            if power_val not in power_values:
+                power_values.append(power_val)
+
+    # Use the HIGHEST power value as the primary (typically for primary comparison)
+    if power_values:
+        # Sort to get highest first
+        sorted_powers = sorted(power_values, key=int, reverse=True)
+        facts.power = f"{sorted_powers[0]}%"
+        # Store secondary power scenarios if available
+        if len(sorted_powers) > 1:
+            facts.power_scenarios = [f"{p}%" for p in sorted_powers]
 
     # === POWER CALCULATION ASSUMPTIONS ===
-    # Extract expected response rates for placebo
-    placebo_rate = re.search(
-        r'(?:placebo|control)\s+(?:group\s+)?(?:response\s+)?rate[:\s]+(?:of\s+)?(\d{1,2})%?|'
-        r'(\d{1,2})%?\s+(?:for\s+)?placebo|'
-        r'expected\s+(?:placebo\s+)?response[:\s]+(\d{1,2})%?',
+    # Extract expected response rates - look for patterns like "10% vs 40%"
+    rate_comparison = re.search(
+        r'(\d{1,2})%?\s*(?:vs\.?|versus|and|compared\s+to)\s*(\d{1,2})%?',
         protocol_text, re.I
     )
-    if placebo_rate:
-        rate = placebo_rate.group(1) or placebo_rate.group(2) or placebo_rate.group(3)
-        if rate:
-            facts.expected_response_placebo = f"{rate}%"
+    if rate_comparison:
+        rate1 = int(rate_comparison.group(1))
+        rate2 = int(rate_comparison.group(2))
+        # Assume lower rate is placebo, higher is active
+        if rate1 < rate2:
+            facts.expected_response_placebo = f"{rate1}%"
+            facts.expected_response_active = f"{rate2}%"
+        else:
+            facts.expected_response_placebo = f"{rate2}%"
+            facts.expected_response_active = f"{rate1}%"
 
-    # Extract expected response rates for active
-    active_rate = re.search(
-        r'(?:active|treatment|high\s+dose)\s+(?:group\s+)?(?:response\s+)?rate[:\s]+(?:of\s+)?(\d{1,2})%?|'
-        r'(\d{1,2})%?\s+(?:for\s+)?(?:active|treatment|high\s+dose)|'
-        r'expected\s+(?:active\s+)?response[:\s]+(\d{1,2})%?',
-        protocol_text, re.I
-    )
-    if active_rate:
-        rate = active_rate.group(1) or active_rate.group(2) or active_rate.group(3)
-        if rate:
-            facts.expected_response_active = f"{rate}%"
+    # Fallback: Extract expected response rates for placebo separately
+    if not facts.expected_response_placebo:
+        placebo_rate = re.search(
+            r'(?:placebo|control)\s+(?:group\s+)?(?:response\s+)?rate[:\s]+(?:of\s+)?(\d{1,2})%?|'
+            r'(\d{1,2})%?\s+(?:for\s+)?placebo|'
+            r'expected\s+(?:placebo\s+)?response[:\s]+(\d{1,2})%?',
+            protocol_text, re.I
+        )
+        if placebo_rate:
+            rate = placebo_rate.group(1) or placebo_rate.group(2) or placebo_rate.group(3)
+            if rate:
+                facts.expected_response_placebo = f"{rate}%"
+
+    # Fallback: Extract expected response rates for active separately
+    if not facts.expected_response_active:
+        active_rate = re.search(
+            r'(?:active|treatment|high\s+dose)\s+(?:group\s+)?(?:response\s+)?rate[:\s]+(?:of\s+)?(\d{1,2})%?|'
+            r'(\d{1,2})%?\s+(?:for\s+)?(?:active|treatment|high\s+dose)|'
+            r'expected\s+(?:active\s+)?response[:\s]+(\d{1,2})%?',
+            protocol_text, re.I
+        )
+        if active_rate:
+            rate = active_rate.group(1) or active_rate.group(2) or active_rate.group(3)
+            if rate:
+                facts.expected_response_active = f"{rate}%"
 
     # Extract primary comparison for power (e.g., placebo vs 600mg)
     comparison = re.search(
@@ -860,42 +938,49 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
             is_binary_endpoint = True
             break
 
-    method_patterns = [
-        (r'logistic\s+regression', 'Logistic Regression'),
-        (r'cox\s+(?:proportional\s+)?hazard', 'Cox Proportional Hazards'),
-        (r'kaplan[- ]meier', 'Kaplan-Meier'),
-        (r'log[- ]rank\s+test', 'Log-Rank Test'),
-        (r'CMH\s+test|cochran[- ]mantel[- ]haenszel', 'Cochran-Mantel-Haenszel Test'),
-        (r'ANCOVA|analysis\s+of\s+covariance', 'ANCOVA'),
-        (r'MMRM|mixed[- ]model\s+repeated\s+measures', 'MMRM'),
-        (r"fisher['\u2019]?s?\s+exact", "Fisher's Exact Test"),
-        (r'chi[- ]square|χ²', 'Chi-Square Test'),
-        (r'wilcoxon', 'Wilcoxon Test'),
-        (r't[- ]test', 't-Test'),
-        (r'GEE|generalized\s+estimating\s+equation', 'GEE'),
-    ]
-    for pattern, method_name in method_patterns:
-        # Look for method in context of primary analysis
-        primary_method = re.search(
-            rf'primary\s+(?:endpoint|analysis|efficacy)[^.]*?{pattern}',
-            protocol_text, re.I
-        )
-        if primary_method:
-            # If endpoint is binary but we found ANCOVA, skip it - ANCOVA is wrong for binary
-            if is_binary_endpoint and method_name == 'ANCOVA':
-                continue  # Skip ANCOVA for binary endpoints
-            facts.primary_analysis_method = method_name
-            break
-        # Fallback: any mention of the method
-        if not facts.primary_analysis_method and re.search(pattern, protocol_text, re.I):
-            # Again, skip ANCOVA for binary endpoints
-            if is_binary_endpoint and method_name == 'ANCOVA':
-                continue
-            facts.primary_analysis_method = method_name
-
-    # If we have a binary endpoint but no method found, default to Logistic Regression
-    if is_binary_endpoint and not facts.primary_analysis_method:
-        facts.primary_analysis_method = 'Logistic Regression'
+    # For binary endpoints, prioritize logistic regression
+    # Check explicitly for logistic regression first
+    if is_binary_endpoint:
+        # Strong preference for Logistic Regression when binary endpoint
+        if re.search(r'logistic\s+regression', protocol_text, re.I):
+            facts.primary_analysis_method = 'Logistic Regression'
+        elif re.search(r'CMH|cochran[- ]mantel[- ]haenszel', protocol_text, re.I):
+            facts.primary_analysis_method = 'Cochran-Mantel-Haenszel Test'
+        elif re.search(r"fisher['\u2019]?s?\s+exact", protocol_text, re.I):
+            facts.primary_analysis_method = "Fisher's Exact Test"
+        elif re.search(r'chi[- ]square|χ²', protocol_text, re.I):
+            facts.primary_analysis_method = 'Chi-Square Test'
+        else:
+            # Default to Logistic Regression for binary endpoints
+            facts.primary_analysis_method = 'Logistic Regression'
+    else:
+        # For continuous endpoints, use general pattern matching
+        method_patterns = [
+            (r'logistic\s+regression', 'Logistic Regression'),
+            (r'cox\s+(?:proportional\s+)?hazard', 'Cox Proportional Hazards'),
+            (r'kaplan[- ]meier', 'Kaplan-Meier'),
+            (r'log[- ]rank\s+test', 'Log-Rank Test'),
+            (r'CMH\s+test|cochran[- ]mantel[- ]haenszel', 'Cochran-Mantel-Haenszel Test'),
+            (r'ANCOVA|analysis\s+of\s+covariance', 'ANCOVA'),
+            (r'MMRM|mixed[- ]model\s+repeated\s+measures', 'MMRM'),
+            (r"fisher['\u2019]?s?\s+exact", "Fisher's Exact Test"),
+            (r'chi[- ]square|χ²', 'Chi-Square Test'),
+            (r'wilcoxon', 'Wilcoxon Test'),
+            (r't[- ]test', 't-Test'),
+            (r'GEE|generalized\s+estimating\s+equation', 'GEE'),
+        ]
+        for pattern, method_name in method_patterns:
+            # Look for method in context of primary analysis
+            primary_method = re.search(
+                rf'primary\s+(?:endpoint|analysis|efficacy)[^.]*?{pattern}',
+                protocol_text, re.I
+            )
+            if primary_method:
+                facts.primary_analysis_method = method_name
+                break
+            # Fallback: any mention of the method
+            if not facts.primary_analysis_method and re.search(pattern, protocol_text, re.I):
+                facts.primary_analysis_method = method_name
 
     # === PRIMARY ENDPOINT DEFINITION (Full with criteria) ===
     endpoint_def_patterns = [
@@ -913,6 +998,20 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
 
     # === DETAILED SECONDARY ENDPOINTS WITH TIMEPOINTS ===
     secondary_detailed = []
+
+    # Patterns to EXCLUDE - these are analysis methods, not endpoints
+    exclude_patterns = [
+        r'will\s+be\s+analy[sz]ed',  # "will be analyzed using..."
+        r'using\s+(?:a\s+)?(?:logistic|repeated|regression)',  # Method descriptions
+        r'model\s+(?:will|is|are)',  # Model descriptions
+        r'statistical\s+(?:analysis|method)',  # Analysis descriptions
+        r'GEE|ANCOVA|MMRM',  # Method abbreviations
+        r'^The\s+(?:analysis|primary|secondary)',  # Sentence starters about analysis
+        r'confidence\s+interval',  # CI descriptions
+        r'p[- ]value',  # p-value descriptions
+        r'test\s+will\s+be',  # Test descriptions
+    ]
+
     secondary_section = re.search(
         r'secondary\s+(?:efficacy\s+)?endpoints?[:\s]+(.+?)(?:(?:\n\s*\n)|(?:exploratory)|(?:\d+\.\s*[A-Z]))',
         protocol_text, re.I | re.DOTALL
@@ -923,11 +1022,22 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         bullet_items = re.findall(r'[-•]\s*([^\n]+)', section_text)
         for item in bullet_items[:20]:
             item = item.strip()
+
             # Skip items that don't look like endpoints
-            # (e.g., partial text, too short, or contains corrupted fragments)
             if len(item) < 10:
                 continue
-            if not re.search(r'(?:response|remission|score|change|healing|proportion|percent|rate)', item, re.I):
+
+            # Skip items that match exclusion patterns (method/analysis descriptions)
+            is_excluded = False
+            for excl_pattern in exclude_patterns:
+                if re.search(excl_pattern, item, re.I):
+                    is_excluded = True
+                    break
+            if is_excluded:
+                continue
+
+            # Must contain endpoint-like terms
+            if not re.search(r'(?:response|remission|score|change|healing|proportion|percent|rate|Mayo|endoscop|mucosal)', item, re.I):
                 # Only include if it looks like an endpoint
                 if not re.search(r'(?:week|day|month|at\s+\d)', item, re.I):
                     continue
@@ -936,6 +1046,10 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
             item = re.sub(r'\|.*$', '', item).strip()
             item = re.sub(r'\s+', ' ', item)  # Normalize whitespace
 
+            # Skip if still looks like analysis description after cleanup
+            if re.search(r'analy[sz]ed|regression|model', item, re.I):
+                continue
+
             # Try to extract timepoint
             timepoint_match = re.search(r'(?:at\s+)?(?:Week|Day|Month)\s+\d+(?:\s*,\s*(?:Week|Day|Month)\s+\d+)*', item, re.I)
             endpoint_info = {
@@ -943,6 +1057,36 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
                 'timepoint': timepoint_match.group(0) if timepoint_match else 'Various'
             }
             secondary_detailed.append(endpoint_info)
+
+    # If no secondary endpoints found, try alternate extraction patterns
+    if not secondary_detailed:
+        # Try to find common UC/GI endpoints directly
+        common_endpoints = [
+            (r'(?:clinical\s+(?:and\s+)?endoscopic\s+)?remission', 'Clinical/endoscopic remission'),
+            (r'clinical\s+response', 'Clinical response'),
+            (r'mucosal\s+healing', 'Mucosal healing'),
+            (r'endoscopic\s+(?:improvement|response)', 'Endoscopic response'),
+            (r'(?:full\s+)?mayo\s+score', 'Change in Mayo score'),
+            (r'partial\s+mayo', 'Partial Mayo score'),
+            (r'modified\s+mayo', 'Modified Mayo score'),
+            (r'(?:rectal\s+)?bleeding\s+(?:sub)?score', 'Rectal bleeding score'),
+            (r'stool\s+frequency', 'Stool frequency'),
+            (r'PGA\s+(?:score)?', 'PGA score'),
+        ]
+        for pattern, endpoint_name in common_endpoints:
+            if re.search(pattern, protocol_text, re.I):
+                # Find associated timepoints
+                context = re.search(rf'{pattern}[^.]*(?:at|week|day)[^.]*', protocol_text, re.I)
+                timepoint = 'Various'
+                if context:
+                    tp_match = re.search(r'(?:Week|Day)\s+\d+(?:\s*,\s*(?:Week|Day)\s+\d+)*', context.group(0), re.I)
+                    if tp_match:
+                        timepoint = tp_match.group(0)
+                secondary_detailed.append({
+                    'endpoint': endpoint_name,
+                    'timepoint': timepoint
+                })
+
     facts.secondary_endpoints_detailed = secondary_detailed
 
     # === PK ANALYSIS DETAILS ===

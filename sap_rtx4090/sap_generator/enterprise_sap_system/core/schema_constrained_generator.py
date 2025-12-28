@@ -482,6 +482,29 @@ class SectionAssembler:
 
     def assemble_sample_size_section(self, section: dict) -> str:
         """Convert structured SampleSizeSection to prose"""
+
+        # Build power assumptions section if available
+        power_assumptions = ""
+        if section.get('expected_response_placebo') or section.get('expected_response_active'):
+            placebo_rate = section.get('expected_response_placebo', 'X%')
+            active_rate = section.get('expected_response_active', 'Y%')
+            power_assumptions = f"""
+**Power Calculation Assumptions:**
+- Expected response rate in placebo group: {placebo_rate}
+- Expected response rate in active treatment group: {active_rate}
+- Effect size: {active_rate} - {placebo_rate} difference
+"""
+
+        # Build power scenarios if available
+        power_scenarios_text = ""
+        power_scenarios = section.get('power_scenarios', [])
+        if power_scenarios and len(power_scenarios) > 1:
+            power_scenarios_text = f"""
+**Power Scenarios:**
+- Primary comparison (high dose vs. placebo): {power_scenarios[0]} power
+- Secondary comparison (combined treatment vs. placebo): {power_scenarios[1] if len(power_scenarios) > 1 else 'N/A'} power
+"""
+
         return f"""6. SAMPLE SIZE CALCULATION
 
 {section.get('introduction', '')}
@@ -489,12 +512,12 @@ class SectionAssembler:
 6.1 Power Calculation
 
 {section.get('power_calculation_narrative', '')}
-
+{power_assumptions}
 The study will enroll a total of {section['total_n']} patients, randomized in a {section['ratio']} ratio
 across {section['num_arms']} treatment arms (approximately {section['per_arm_n']} patients per arm).
 The power calculation assumes {section['power_percent']}% power with a {section['alpha_sidedness']}
 alpha of {section['alpha']}.
-
+{power_scenarios_text}
 6.2 Summary
 
 {section.get('conclusion', '')}
