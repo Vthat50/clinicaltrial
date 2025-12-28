@@ -10,23 +10,19 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
 // Helper function to download text as a file
 function downloadTextFile(content: string, filename: string) {
-  try {
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' })
-    const url = window.URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.setAttribute('download', filename)
-    link.style.display = 'none'
-    document.body.appendChild(link)
-    link.click()
-    // Cleanup after a short delay
-    setTimeout(() => {
-      document.body.removeChild(link)
-      window.URL.revokeObjectURL(url)
-    }, 100)
-  } catch (err) {
-    console.error('Download failed:', err)
-    alert('Download failed. Please try copying the content instead.')
+  // Open in new tab as fallback - user can Ctrl+S to save
+  const newWindow = window.open('', '_blank')
+  if (newWindow) {
+    newWindow.document.write('<pre style="white-space: pre-wrap; word-wrap: break-word;">' + content.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>')
+    newWindow.document.title = filename
+    newWindow.document.close()
+  } else {
+    // If popup blocked, copy to clipboard
+    navigator.clipboard.writeText(content).then(() => {
+      alert('Content copied to clipboard! Paste into a text file and save as ' + filename)
+    }).catch(() => {
+      alert('Please enable popups or use the Copy button instead.')
+    })
   }
 }
 
