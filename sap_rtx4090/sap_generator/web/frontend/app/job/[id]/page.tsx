@@ -1,12 +1,34 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
+// Helper function to download text as a file
+function downloadTextFile(content: string, filename: string) {
+  try {
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', filename)
+    link.style.display = 'none'
+    document.body.appendChild(link)
+    link.click()
+    // Cleanup after a short delay
+    setTimeout(() => {
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    }, 100)
+  } catch (err) {
+    console.error('Download failed:', err)
+    alert('Download failed. Please try copying the content instead.')
+  }
+}
 
 interface JobResult {
   job_id: string
@@ -719,13 +741,12 @@ export default function JobDetailPage() {
               {activeTab === 'sap' && result.generated_sap && (
                 <div>
                   <div className="flex justify-end mb-4 gap-2">
-                    <a
-                      href={`data:text/markdown;charset=utf-8,${encodeURIComponent(result.generated_sap || '')}`}
-                      download={`SAP_${result.filename || jobId.slice(0, 8)}.md`}
-                      className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors inline-block"
+                    <button
+                      onClick={() => downloadTextFile(result.generated_sap || '', `SAP_${result.filename || jobId.slice(0, 8)}.md`)}
+                      className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
                     >
                       Download Markdown
-                    </a>
+                    </button>
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(result.generated_sap || '')
@@ -792,13 +813,12 @@ export default function JobDetailPage() {
                           </h3>
                           <p className="text-sm text-gray-500">{sdtmSpec.message}</p>
                         </div>
-                        <a
-                          href={`data:text/markdown;charset=utf-8,${encodeURIComponent(sdtmSpec.markdown || '')}`}
-                          download={`SDTM_Spec_${result?.filename || jobId.slice(0, 8)}.md`}
-                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors inline-block"
+                        <button
+                          onClick={() => downloadTextFile(sdtmSpec.markdown || '', `SDTM_Spec_${result?.filename || jobId.slice(0, 8)}.md`)}
+                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
                         >
                           Download Markdown
-                        </a>
+                        </button>
                       </div>
 
                       {/* SAP Summary - Extracted Information */}
