@@ -1176,13 +1176,14 @@ Sparse PK sampling will be collected at additional visits as per protocol.
             sampling_section = """
 ### 10.3 Sampling Schedule
 
-Intensive PK sampling will be performed according to the following schedule:
+PK sampling will be performed according to the schedule specified in the study protocol. The exact sampling timepoints are defined in the protocol to ensure adequate characterization of the drug's pharmacokinetic profile.
 
-| Day | Timepoints |
-|-----|------------|
-| Day 1 | Pre-dose, 0.5, 1, 2, 4, 6, 8, 12, 24 hours post-dose |
-| Day 2-7 | 48, 72, 96, 120, 144, 168 hours post-dose |
-| Subsequent visits | Pre-dose and end of infusion |
+**Typical elements of the sampling schedule include:**
+- Pre-dose sample at each relevant visit
+- Multiple samples during and after infusion for intensive PK days
+- Trough samples at subsequent visits
+
+The specific timepoints will be documented in the PK analysis plan appendix and align with the protocol-specified schedule.
 """
 
         return f"""## 10. PHARMACOKINETIC ANALYSIS

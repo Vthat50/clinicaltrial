@@ -421,7 +421,7 @@ def create_fully_constrained_schema(facts: FullProtocolFacts) -> Type[BaseModel]
     if facts.alpha_sidedness:
         field_definitions['alpha_sidedness'] = (Literal[facts.alpha_sidedness], facts.alpha_sidedness)
     else:
-        field_definitions['alpha_sidedness'] = (str, "two-sided")
+        field_definitions['alpha_sidedness'] = (str, "one-sided")  # Default to one-sided for efficacy trials
 
     if facts.dropout_rate:
         field_definitions['dropout_rate'] = (Literal[facts.dropout_rate], facts.dropout_rate)
@@ -841,6 +841,25 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
             break
 
     # === PRIMARY ANALYSIS METHOD ===
+    # First, determine if primary endpoint is binary or continuous
+    # Binary endpoints need Logistic Regression, not ANCOVA
+    is_binary_endpoint = False
+    binary_indicators = [
+        r'remission',
+        r'response',
+        r'responder',
+        r'yes\s*/\s*no',
+        r'success\s*/?\s*failure',
+        r'proportion\s+of\s+patients',
+        r'percentage\s+of\s+patients',
+        r'binary\s+endpoint',
+        r'dichotomous',
+    ]
+    for indicator in binary_indicators:
+        if re.search(rf'primary\s+(?:endpoint|efficacy|outcome)[^.]*{indicator}', protocol_text, re.I):
+            is_binary_endpoint = True
+            break
+
     method_patterns = [
         (r'logistic\s+regression', 'Logistic Regression'),
         (r'cox\s+(?:proportional\s+)?hazard', 'Cox Proportional Hazards'),
@@ -862,11 +881,21 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
             protocol_text, re.I
         )
         if primary_method:
+            # If endpoint is binary but we found ANCOVA, skip it - ANCOVA is wrong for binary
+            if is_binary_endpoint and method_name == 'ANCOVA':
+                continue  # Skip ANCOVA for binary endpoints
             facts.primary_analysis_method = method_name
             break
         # Fallback: any mention of the method
         if not facts.primary_analysis_method and re.search(pattern, protocol_text, re.I):
+            # Again, skip ANCOVA for binary endpoints
+            if is_binary_endpoint and method_name == 'ANCOVA':
+                continue
             facts.primary_analysis_method = method_name
+
+    # If we have a binary endpoint but no method found, default to Logistic Regression
+    if is_binary_endpoint and not facts.primary_analysis_method:
+        facts.primary_analysis_method = 'Logistic Regression'
 
     # === PRIMARY ENDPOINT DEFINITION (Full with criteria) ===
     endpoint_def_patterns = [
@@ -893,10 +922,24 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         # Extract bullet points
         bullet_items = re.findall(r'[-•]\s*([^\n]+)', section_text)
         for item in bullet_items[:20]:
+            item = item.strip()
+            # Skip items that don't look like endpoints
+            # (e.g., partial text, too short, or contains corrupted fragments)
+            if len(item) < 10:
+                continue
+            if not re.search(r'(?:response|remission|score|change|healing|proportion|percent|rate)', item, re.I):
+                # Only include if it looks like an endpoint
+                if not re.search(r'(?:week|day|month|at\s+\d)', item, re.I):
+                    continue
+
+            # Clean up the endpoint text - remove any pipe characters or table fragments
+            item = re.sub(r'\|.*$', '', item).strip()
+            item = re.sub(r'\s+', ' ', item)  # Normalize whitespace
+
             # Try to extract timepoint
             timepoint_match = re.search(r'(?:at\s+)?(?:Week|Day|Month)\s+\d+(?:\s*,\s*(?:Week|Day|Month)\s+\d+)*', item, re.I)
             endpoint_info = {
-                'endpoint': item.strip()[:200],
+                'endpoint': item[:150],  # Truncate to reasonable length
                 'timepoint': timepoint_match.group(0) if timepoint_match else 'Various'
             }
             secondary_detailed.append(endpoint_info)
@@ -944,14 +987,25 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
     if pk_n_match:
         facts.pk_population_size = int(pk_n_match.group(1))
 
-    # Extract PK sampling timepoints
-    pk_sampling = re.search(
-        r'(?:PK|pharmacokinetic)\s+sampling[^.]*?(?:at|include)[:\s]+([^.]+)',
-        protocol_text, re.I
-    )
-    if pk_sampling:
-        timepoints = re.findall(r'\d+(?:\.\d+)?\s*(?:hours?|h|minutes?|min)', pk_sampling.group(1), re.I)
-        facts.pk_sampling_timepoints = timepoints[:20]
+    # Extract PK sampling timepoints - try multiple patterns
+    pk_sampling_patterns = [
+        r'(?:PK|pharmacokinetic)\s+sampling[^.]*?(?:at|include|:)[:\s]+([^.]+)',
+        r'(?:blood\s+)?samples?\s+(?:will\s+be\s+)?(?:collected|drawn|obtained)[^.]*(?:at|:)\s+([^.]+)',
+        r'sampling\s+(?:times?|timepoints?|schedule)[:\s]+([^.]+)',
+        r'(?:pre-?dose|predose)[^.]*(?:and\s+at|,)\s+([^.]+)',
+    ]
+
+    for pattern in pk_sampling_patterns:
+        pk_sampling = re.search(pattern, protocol_text, re.I)
+        if pk_sampling:
+            # Look for time values (hours, minutes, or generic time points)
+            timepoints = re.findall(
+                r'(?:pre-?dose|predose|\d+(?:\.\d+)?\s*(?:hours?|h|minutes?|min|hrs?)|end\s+of\s+(?:infusion|dosing))',
+                pk_sampling.group(1), re.I
+            )
+            if timepoints:
+                facts.pk_sampling_timepoints = timepoints[:20]
+                break
 
     # === BIOMARKER ENDPOINTS ===
     biomarker_patterns = [
@@ -1183,7 +1237,7 @@ def generate_constrained_prompt(facts: FullProtocolFacts) -> str:
     if facts.power:
         constraints.append(f"Power: {facts.power}")
     if facts.alpha:
-        constraints.append(f"Alpha: {facts.alpha} ({facts.alpha_sidedness or 'two-sided'})")
+        constraints.append(f"Alpha: {facts.alpha} ({facts.alpha_sidedness or 'one-sided'})")
     if facts.primary_endpoint:
         constraints.append(f"Primary Endpoint: {facts.primary_endpoint}")
     if facts.primary_timepoint:
