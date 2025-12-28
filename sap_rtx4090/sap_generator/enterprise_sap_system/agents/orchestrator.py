@@ -1006,7 +1006,7 @@ class SAPGenerationOrchestrator:
                     per_arm_n={arm.name: protocol_facts.sample_size.total_n // protocol_facts.num_arms
                                for arm in protocol_facts.arms} if protocol_facts.arms else {},
                     assumptions={
-                        'alpha_sidedness': protocol_facts.alpha.sidedness if protocol_facts.alpha else 'two-sided',
+                        'alpha_sidedness': protocol_facts.alpha.sidedness if protocol_facts.alpha else 'one-sided',  # Default to one-sided for efficacy
                         'randomization_ratio': protocol_facts.randomization_ratio,
                     }
                 )

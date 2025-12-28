@@ -22,6 +22,20 @@ try:
 except ImportError:
     from structured_extractor import ProtocolFacts, RouteOfAdministration
 
+# Import configuration
+try:
+    from ..config import KNOWN_CONTAMINANTS, REQUIRED_SAP_SECTIONS
+except ImportError:
+    # Fallback for direct script execution
+    KNOWN_CONTAMINANTS = {
+        'etrolizumab': 'Roche UC study',
+        'vedolizumab': 'Entyvio study',
+        'ustekinumab': 'Stelara study',
+        'adalimumab': 'Humira study',
+        'infliximab': 'Remicade study',
+    }
+    REQUIRED_SAP_SECTIONS = {}
+
 
 class ValidationSeverity(str, Enum):
     """Severity of validation failure"""
@@ -77,16 +91,8 @@ class HardValidator:
     - Wrong NCT ID
     """
 
-    # Known contaminants from RAG examples
-    KNOWN_CONTAMINANTS = {
-        'etrolizumab': 'Roche UC study',
-        'vedolizumab': 'Entyvio study',
-        'ustekinumab': 'Stelara study',
-        'adalimumab': 'Humira study',
-        'infliximab': 'Remicade study',
-        'pembrolizumab': 'Keytruda study',
-        'nivolumab': 'Opdivo study',
-    }
+    # Use configuration for known contaminants
+    KNOWN_CONTAMINANTS = KNOWN_CONTAMINANTS
 
     def __init__(self, strict_mode: bool = True):
         """
