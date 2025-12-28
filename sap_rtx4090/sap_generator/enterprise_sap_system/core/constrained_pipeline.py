@@ -1843,17 +1843,30 @@ Duplicate CRF entries will be resolved using the most recent entry timestamp. Du
 """
 
     def _generate_appendix_table_shells(self, facts: FullProtocolFacts) -> str:
-        """Generate Appendix D: Table Shells"""
+        """Generate Appendix D: Table Shells (ASCII format for consistent rendering)"""
         drug_name = facts.drug_name or "[STUDY DRUG]"
         num_arms = facts.num_arms or 3
 
-        # Build column headers
+        # Build ASCII-style table shells that render consistently
         if num_arms == 3:
-            col_headers = f"| Statistic | {drug_name} High Dose\\n(N=XX) | {drug_name} Low Dose\\n(N=XX) | Placebo\\n(N=XX) | Total\\n(N=XX) |"
-            col_sep = "|-----------|------------|-----------|---------|-------|"
+            arm1 = f"{drug_name} High"
+            arm2 = f"{drug_name} Low"
+            arm3 = "Placebo"
+            header_row = f"""
++----------------------------------+----------------+----------------+----------------+----------------+
+| Statistic                        | {arm1:<14} | {arm2:<14} | {arm3:<14} | Total          |
+|                                  | (N=XXX)        | (N=XXX)        | (N=XXX)        | (N=XXX)        |
++----------------------------------+----------------+----------------+----------------+----------------+"""
+            data_row = "+----------------------------------+----------------+----------------+----------------+----------------+"
         else:
-            col_headers = f"| Statistic | {drug_name}\\n(N=XX) | Placebo\\n(N=XX) | Total\\n(N=XX) |"
-            col_sep = "|-----------|------------|---------|-------|"
+            arm1 = drug_name[:14]
+            arm2 = "Placebo"
+            header_row = f"""
++----------------------------------+----------------+----------------+----------------+
+| Statistic                        | {arm1:<14} | {arm2:<14} | Total          |
+|                                  | (N=XXX)        | (N=XXX)        | (N=XXX)        |
++----------------------------------+----------------+----------------+----------------+"""
+            data_row = "+----------------------------------+----------------+----------------+----------------+"
 
         return f"""## APPENDIX D: TABLE SHELLS
 
@@ -1862,120 +1875,115 @@ Duplicate CRF entries will be resolved using the most recent entry timestamp. Du
 **Population:** Full Analysis Set (FAS)
 
 #### D.1.1 Demographics
-
-{col_headers}
-{col_sep}
-| **Age (years)** | | | | |
-|   N | | | | |
-|   Mean (SD) | | | | |
-|   Median | | | | |
-|   Min, Max | | | | |
-| **Age Category** | | | | |
-|   <40 years, n (%) | | | | |
-|   40-64 years, n (%) | | | | |
-|   ≥65 years, n (%) | | | | |
-| **Sex, n (%)** | | | | |
-|   Male | | | | |
-|   Female | | | | |
-| **Race, n (%)** | | | | |
-|   Asian | | | | |
-|   White | | | | |
-|   Other | | | | |
-| **Weight (kg)** | | | | |
-|   N | | | | |
-|   Mean (SD) | | | | |
-| **BMI (kg/m²)** | | | | |
-|   N | | | | |
-|   Mean (SD) | | | | |
+{header_row}
+| Age (years)                      |                |                |                |                |
+|   N                              |                |                |                |                |
+|   Mean (SD)                      |                |                |                |                |
+|   Median                         |                |                |                |                |
+|   Min, Max                       |                |                |                |                |
+| Age Category, n (%)              |                |                |                |                |
+|   <40 years                      |                |                |                |                |
+|   40-64 years                    |                |                |                |                |
+|   ≥65 years                      |                |                |                |                |
+| Sex, n (%)                       |                |                |                |                |
+|   Male                           |                |                |                |                |
+|   Female                         |                |                |                |                |
+| Race, n (%)                      |                |                |                |                |
+|   Asian                          |                |                |                |                |
+|   White                          |                |                |                |                |
+|   Black or African American      |                |                |                |                |
+|   Other                          |                |                |                |                |
+| Weight (kg)                      |                |                |                |                |
+|   Mean (SD)                      |                |                |                |                |
+| BMI (kg/m²)                      |                |                |                |                |
+|   Mean (SD)                      |                |                |                |                |
+{data_row}
 
 #### D.1.2 Disease Characteristics
-
-{col_headers}
-{col_sep}
-| **Time Since Diagnosis (years)** | | | | |
-|   Mean (SD) | | | | |
-|   Median (Min, Max) | | | | |
-| **Disease Extent, n (%)** | | | | |
-|   Proctitis | | | | |
-|   Left-sided colitis | | | | |
-|   Extensive/Pancolitis | | | | |
-| **Baseline Full Mayo Score** | | | | |
-|   Mean (SD) | | | | |
-| **Baseline Endoscopy Subscore, n (%)** | | | | |
-|   2 | | | | |
-|   3 | | | | |
-| **Prior UC Medications, n (%)** | | | | |
-|   Corticosteroids | | | | |
-|   5-ASA | | | | |
-|   Immunomodulators | | | | |
+{header_row}
+| Time Since Diagnosis (years)     |                |                |                |                |
+|   Mean (SD)                      |                |                |                |                |
+|   Median (Min, Max)              |                |                |                |                |
+| Disease Extent, n (%)            |                |                |                |                |
+|   Proctitis                      |                |                |                |                |
+|   Left-sided colitis             |                |                |                |                |
+|   Extensive/Pancolitis           |                |                |                |                |
+| Baseline Disease Activity Score  |                |                |                |                |
+|   Mean (SD)                      |                |                |                |                |
+| Prior Medications, n (%)         |                |                |                |                |
+|   Corticosteroids                |                |                |                |                |
+|   5-ASA                          |                |                |                |                |
+|   Immunomodulators               |                |                |                |                |
+|   Prior biologic therapy         |                |                |                |                |
+{data_row}
 
 ### D.2 Primary Efficacy Analysis (Table 14.2.1)
 
-**Endpoint:** Clinical and Endoscopic Remission at Primary Timepoint
-**Population:** FAS
+**Endpoint:** Primary Endpoint at Primary Timepoint
+**Population:** Full Analysis Set (FAS)
+{header_row}
+| Primary Endpoint, n (%)          |                |                |                |                |
+|   Responders                     | xx (xx.x%)     | xx (xx.x%)     | xx (xx.x%)     |                |
+|   Non-responders                 | xx (xx.x%)     | xx (xx.x%)     | xx (xx.x%)     |                |
+| Difference vs Placebo            |                |                |                |                |
+|   Estimate (%)                   | xx.x           | xx.x           | --             |                |
+|   95% CI                         | (xx.x, xx.x)   | (xx.x, xx.x)   | --             |                |
+| Odds Ratio vs Placebo            |                |                |                |                |
+|   Estimate                       | x.xx           | x.xx           | --             |                |
+|   95% CI                         | (x.xx, x.xx)   | (x.xx, x.xx)   | --             |                |
+| P-value (one-sided)              | x.xxxx         | x.xxxx         | --             |                |
+{data_row}
 
-{col_headers}
-{col_sep}
-| **Remission, n (%)** | | | | |
-|   Yes | xx (xx.x) | xx (xx.x) | xx (xx.x) | |
-|   No | xx (xx.x) | xx (xx.x) | xx (xx.x) | |
-| **Difference vs Placebo** | | | | |
-|   Estimate (%) | xx.x | xx.x | - | |
-|   95% CI | (xx.x, xx.x) | (xx.x, xx.x) | - | |
-| **Odds Ratio vs Placebo** | | | | |
-|   Estimate | x.xx | x.xx | - | |
-|   95% CI | (x.xx, x.xx) | (x.xx, x.xx) | - | |
-|   P-value (one-sided) | x.xxxx | x.xxxx | - | |
-
-**Footnotes:**
+Footnotes:
 1. Percentages based on N in each treatment group
 2. Patients with missing data at primary timepoint counted as non-responders
-3. Odds ratios and p-values from logistic regression model with treatment, stratification factors, and baseline Mayo score
-4. One-sided p-value for superiority testing
+3. Odds ratios from logistic regression model with treatment, stratification factors, and baseline disease score
+4. P-value is one-sided for superiority testing
 
 ### D.3 Adverse Events Overview (Table 14.3.1)
 
 **Population:** Safety Population
+{header_row}
+| Any TEAE, n (%)                  |                |                |                |                |
+| Treatment-related TEAE, n (%)    |                |                |                |                |
+| TEAE by Maximum Severity, n (%)  |                |                |                |                |
+|   Mild                           |                |                |                |                |
+|   Moderate                       |                |                |                |                |
+|   Severe                         |                |                |                |                |
+| Serious TEAE, n (%)              |                |                |                |                |
+| Treatment-related SAE, n (%)     |                |                |                |                |
+| TEAE Leading to D/C, n (%)       |                |                |                |                |
+| TEAE Leading to Dose Mod, n (%)  |                |                |                |                |
+| Deaths, n (%)                    |                |                |                |                |
+{data_row}
 
-{col_headers}
-{col_sep}
-| **Any TEAE, n (%)** | | | | |
-| **Treatment-related TEAE, n (%)** | | | | |
-| **TEAE by Maximum Severity** | | | | |
-|   Mild | | | | |
-|   Moderate | | | | |
-|   Severe | | | | |
-| **Serious TEAE, n (%)** | | | | |
-| **Treatment-related Serious TEAE, n (%)** | | | | |
-| **TEAE Leading to Discontinuation, n (%)** | | | | |
-| **TEAE Leading to Dose Modification, n (%)** | | | | |
-| **Deaths, n (%)** | | | | |
+Footnotes:
+1. TEAE = Treatment-emergent adverse event (onset on or after first dose of study drug)
+2. Treatment-related = Possibly, probably, or definitely related per investigator assessment
+3. A patient is counted once per row regardless of number of events
+4. D/C = Discontinuation; SAE = Serious adverse event
 
-**Footnotes:**
-1. TEAE = Treatment-emergent adverse event (onset on or after first dose)
-2. Treatment-related = Possibly, probably, or definitely related per investigator
-3. A patient counted once per row regardless of number of events
-4. Percentages based on N in Safety Population
-
-### D.4 AEs by SOC and PT (Table 14.3.2)
+### D.4 AEs by System Organ Class and Preferred Term (Table 14.3.2)
 
 **Population:** Safety Population
 **Incidence Threshold:** ≥5% in any treatment group
 
-| System Organ Class | {drug_name} High | {drug_name} Low | Placebo |
-|   Preferred Term | n (%) | n (%) | n (%) |
-|--------------------|-------|-------|--------|
-| **Infections and infestations** | | | |
-|   Nasopharyngitis | | | |
-|   Upper respiratory tract infection | | | |
-| **Gastrointestinal disorders** | | | |
-|   Nausea | | | |
-|   Abdominal pain | | | |
-| **General disorders** | | | |
-|   Fatigue | | | |
-|   Injection site reaction | | | |
++----------------------------------+----------------+----------------+----------------+
+| System Organ Class               | {drug_name} High | {drug_name} Low | Placebo        |
+|   Preferred Term                 | n (%)          | n (%)          | n (%)          |
++----------------------------------+----------------+----------------+----------------+
+| Infections and infestations      |                |                |                |
+|   Nasopharyngitis                |                |                |                |
+|   Upper respiratory infection    |                |                |                |
+| Gastrointestinal disorders       |                |                |                |
+|   Nausea                         |                |                |                |
+|   Abdominal pain                 |                |                |                |
+| General disorders                |                |                |                |
+|   Fatigue                        |                |                |                |
+|   Injection site reaction        |                |                |                |
++----------------------------------+----------------+----------------+----------------+
 
-**Footnotes:**
+Footnotes:
 1. MedDRA version XX.X
 2. Sorted by decreasing frequency in High Dose group within each SOC
 3. SOCs sorted alphabetically
@@ -1984,27 +1992,34 @@ Duplicate CRF entries will be resolved using the most recent entry timestamp. Du
 
 **Population:** Safety Population
 
-| Parameter | {drug_name} High | {drug_name} Low | Placebo |
-|-----------|-----------------|-----------------|---------|
-| **Hematology** | | | |
-|   Neutropenia (Grade 3-4), n (%) | | | |
-|   Thrombocytopenia (Grade 3-4), n (%) | | | |
-| **Chemistry** | | | |
-|   ALT >3× ULN, n (%) | | | |
-|   AST >3× ULN, n (%) | | | |
-|   Bilirubin >2× ULN, n (%) | | | |
++----------------------------------+----------------+----------------+----------------+
+| Parameter                        | {drug_name} High | {drug_name} Low | Placebo        |
++----------------------------------+----------------+----------------+----------------+
+| Hematology                       |                |                |                |
+|   Neutropenia (Grade 3-4), n (%) |                |                |                |
+|   Thrombocytopenia (Gr 3-4), n(%)|                |                |                |
+|   Anemia (Grade 3-4), n (%)      |                |                |                |
+| Chemistry                        |                |                |                |
+|   ALT >3× ULN, n (%)             |                |                |                |
+|   AST >3× ULN, n (%)             |                |                |                |
+|   Bilirubin >2× ULN, n (%)       |                |                |                |
+|   Creatinine >1.5× ULN, n (%)    |                |                |                |
++----------------------------------+----------------+----------------+----------------+
 
 ### D.6 Formatting Conventions
 
-| Element | Format |
-|---------|--------|
-| Percentages | 1 decimal place (xx.x%) |
-| Means | Same precision as raw data or 1 decimal |
-| Standard Deviations | Same as means |
-| P-values | 4 decimal places; if <0.0001, display as "<0.0001" |
-| Confidence Intervals | Same precision as estimate |
-| n=0 | Display "0" not "0 (0.0%)" |
-| Missing | Display "-" or "NA" |
++---------------------------+------------------------------------------------+
+| Element                   | Format                                         |
++---------------------------+------------------------------------------------+
+| Percentages               | 1 decimal place (xx.x%)                        |
+| Means                     | Same precision as raw data or 1 decimal        |
+| Standard Deviations       | Same precision as means                        |
+| P-values                  | 4 decimals; if <0.0001 display as "<0.0001"    |
+| Confidence Intervals      | Same precision as estimate                     |
+| n=0                       | Display "0" not "0 (0.0%)"                     |
+| Missing values            | Display "--" or "NA"                           |
+| Dates                     | DDMMMYYYY format (e.g., 15JAN2024)             |
++---------------------------+------------------------------------------------+
 """
 
     def _assemble_sap(self, sections: Dict[str, str], facts) -> str:
