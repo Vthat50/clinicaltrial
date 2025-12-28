@@ -1006,17 +1006,14 @@ class SAPGenerationOrchestrator:
             )
 
             result.sap_document = GeneratedSAP(
-                nct_id=protocol_facts.nct_id or nct_id,
-                version="1.0",
                 sections=sap_sections,
                 full_document=full_document,
-                metadata={
-                    "generation_mode": "PRODUCTION",
-                    "facts_extracted": True,
-                    "templates_sanitized": bool(sanitized_templates),
-                    "validation_score": validation_result.score,
-                    "validation_passed": validation_result.valid,
-                }
+                protocol_id=protocol_facts.nct_id or nct_id,
+                parsed_protocol=parsed_protocol,
+                estimands=[estimands.get("primary_estimand")] + estimands.get("secondary_estimands", []) if estimands else [],
+                quality_report=quality_report,
+                model_used=self.config.model.primary_model,
+                rag_context_used=bool(sanitized_templates)
             )
 
             result.success = True
