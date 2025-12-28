@@ -22,6 +22,7 @@ try:
         ParsedProtocol, Estimand, InterCurrentEvent, StatisticalMethod,
         EndpointType, ICEStrategy, QualityReport, GeneratedSAP
     )
+    from ..core.structured_extractor import ProtocolFacts, StructuredFactExtractor
 except ImportError:
     import sys
     sys.path.append(str(Path(__file__).parent.parent))
@@ -29,6 +30,11 @@ except ImportError:
         ParsedProtocol, Estimand, InterCurrentEvent, StatisticalMethod,
         EndpointType, ICEStrategy, QualityReport, GeneratedSAP
     )
+    try:
+        from core.structured_extractor import ProtocolFacts, StructuredFactExtractor
+    except ImportError:
+        ProtocolFacts = None
+        StructuredFactExtractor = None
 
 from .base_agent import BaseAgent, AgentMessage
 
@@ -424,7 +430,11 @@ class SAPWriterAgent(BaseAgent):
     """
     Agent for generating SAP document sections.
     Produces TransCelerate-aligned content.
-    FIXED: Anti-hallucination rules to ensure protocol faithfulness.
+
+    PRODUCTION ARCHITECTURE:
+    - Uses ProtocolFacts (structured extraction) instead of raw protocol text
+    - Uses sanitized RAG examples (placeholders, not values)
+    - Validated by HardValidator before output
     """
 
     SYSTEM_PROMPT = """You are an expert medical writer specializing in Statistical Analysis Plans (SAPs).
@@ -555,6 +565,222 @@ Return the section content as a markdown-formatted string."""
             self.update_state(status="error")
             raise
 
+    def execute_with_facts(
+        self,
+        section_name: str,
+        protocol_facts: 'ProtocolFacts',
+        sanitized_template: str = "",
+        estimands: Dict[str, Any] = None,
+        methods: Dict[str, Any] = None,
+    ) -> str:
+        """
+        Generate SAP section using structured facts (PRODUCTION METHOD).
+
+        This is the PRODUCTION version that:
+        1. Uses ProtocolFacts (structured extraction) instead of raw protocol
+        2. Uses sanitized templates (placeholders) instead of raw examples
+        3. Injects facts as MANDATORY values
+
+        Args:
+            section_name: Name of section to generate
+            protocol_facts: ProtocolFacts from StructuredFactExtractor
+            sanitized_template: Sanitized RAG template (structure only)
+            estimands: Designed estimands (optional)
+            methods: Selected methods (optional)
+
+        Returns:
+            Generated section content
+        """
+        self.update_state(status="running", current_task=f"Writing {section_name} (production)")
+
+        prompt = self._build_prompt_from_facts(
+            section_name, protocol_facts, sanitized_template, estimands, methods
+        )
+
+        try:
+            response = self.call_llm(
+                prompt=prompt,
+                system_prompt=self.SYSTEM_PROMPT,
+                temperature=0.2,  # Lower temperature for more deterministic output
+                max_tokens=4000
+            )
+
+            self.update_state(
+                status="completed",
+                progress=1.0,
+                result_key=section_name,
+                result_value=response
+            )
+
+            return response
+
+        except Exception as e:
+            self.state.errors.append(str(e))
+            self.update_state(status="error")
+            raise
+
+    def _build_prompt_from_facts(
+        self,
+        section_name: str,
+        facts: 'ProtocolFacts',
+        sanitized_template: str,
+        estimands: Dict = None,
+        methods: Dict = None,
+    ) -> str:
+        """
+        Build prompt using ProtocolFacts (PRODUCTION METHOD).
+
+        This ensures the LLM only sees:
+        1. MANDATORY FACTS (must use exactly)
+        2. SANITIZED TEMPLATE (structure only, no values)
+        """
+        # Import the helper function
+        try:
+            from ..core.structured_extractor import StructuredFactExtractor
+            extractor = StructuredFactExtractor()
+            facts_context = extractor.to_prompt_context(facts)
+        except Exception:
+            # Fallback: manually build context
+            facts_context = self._manual_facts_context(facts)
+
+        parts = [
+            f"## Task: Generate SAP Section - {section_name}\n",
+            "=" * 60,
+            "## MANDATORY PROTOCOL FACTS",
+            "You MUST use these values EXACTLY. Do NOT change ANY value.",
+            "=" * 60,
+            "",
+            facts_context,
+            "",
+            "=" * 60,
+            "## CRITICAL RULES",
+            "=" * 60,
+            "",
+        ]
+
+        # Add specific mandatory rules based on facts
+        if facts.drug_name:
+            parts.append(f"1. Drug name MUST be: {facts.drug_name}")
+        if facts.sample_size and facts.sample_size.total_n > 0:
+            parts.append(f"2. Sample size MUST be: {facts.sample_size.total_n} patients")
+        if facts.num_arms > 0:
+            parts.append(f"3. Number of arms MUST be: {facts.num_arms}")
+        if facts.randomization_ratio:
+            parts.append(f"4. Randomization ratio MUST be: {facts.randomization_ratio}")
+        if facts.route_of_administration and facts.route_of_administration.value != "other":
+            parts.append(f"5. Route MUST be: {facts.route_of_administration.value}")
+        if facts.alpha:
+            parts.append(f"6. Alpha MUST be: {facts.alpha.primary_alpha} ({facts.alpha.sidedness})")
+
+        parts.append("")
+        parts.append("WARNING: NEVER use values from the template examples - they are PLACEHOLDERS")
+        parts.append("WARNING: NEVER invent or estimate values - use ONLY what is provided above")
+        parts.append("WARNING: If a value is not provided, write '[TO BE CONFIRMED FROM PROTOCOL]'")
+        parts.append("")
+
+        # Add estimands if available
+        if estimands and estimands.get("primary_estimand"):
+            est = estimands["primary_estimand"]
+            parts.append("## Primary Estimand:")
+            parts.append(f"- Objective: {est.objective}")
+            parts.append(f"- Population: {est.population}")
+            parts.append(f"- Variable: {est.variable}")
+            parts.append(f"- Summary Measure: {est.summary_measure}")
+            parts.append("")
+
+        # Add methods if available
+        if methods and methods.get("primary_analysis"):
+            parts.append("## Selected Methods:")
+            parts.append(f"- Primary: {methods['primary_analysis'].get('method_name', 'TBD')}")
+            parts.append("")
+
+        # Add sanitized template if provided
+        if sanitized_template:
+            parts.append("=" * 60)
+            parts.append("## TEMPLATE (STRUCTURE ONLY - DO NOT COPY VALUES)")
+            parts.append("The following shows SAP STRUCTURE. All values are {PLACEHOLDERS}.")
+            parts.append("Use the MANDATORY FACTS above, NOT these placeholder values.")
+            parts.append("=" * 60)
+            parts.append("")
+            parts.append(sanitized_template[:3000])  # Limit length
+            parts.append("")
+
+        parts.append(f"\n## Now generate the {section_name} section:")
+        parts.append("Use ONLY the MANDATORY FACTS provided above.")
+
+        return "\n".join(parts)
+
+    def _manual_facts_context(self, facts: 'ProtocolFacts') -> str:
+        """Fallback method to build facts context"""
+        lines = []
+        if facts.nct_id:
+            lines.append(f"- NCT ID: {facts.nct_id}")
+        if facts.drug_name:
+            lines.append(f"- Drug: {facts.drug_name}")
+        if facts.phase:
+            lines.append(f"- Phase: {facts.phase.value}")
+        if facts.therapeutic_area:
+            lines.append(f"- Therapeutic Area: {facts.therapeutic_area}")
+        if facts.indication:
+            lines.append(f"- Indication: {facts.indication}")
+        if facts.num_arms:
+            lines.append(f"- Number of Arms: {facts.num_arms}")
+        if facts.randomization_ratio:
+            lines.append(f"- Randomization: {facts.randomization_ratio}")
+        if facts.sample_size and facts.sample_size.total_n:
+            lines.append(f"- Sample Size: {facts.sample_size.total_n}")
+        if facts.route_of_administration:
+            lines.append(f"- Route: {facts.route_of_administration.value}")
+        if facts.alpha:
+            lines.append(f"- Alpha: {facts.alpha.primary_alpha} ({facts.alpha.sidedness})")
+        return "\n".join(lines)
+
+    def generate_all_sections_with_facts(
+        self,
+        protocol_facts: 'ProtocolFacts',
+        sanitized_templates: Dict[str, str] = None,
+        estimands: Dict[str, Any] = None,
+        methods: Dict[str, Any] = None,
+    ) -> Dict[str, str]:
+        """
+        Generate all SAP sections using ProtocolFacts (PRODUCTION METHOD).
+
+        Args:
+            protocol_facts: Structured facts from protocol
+            sanitized_templates: Sanitized RAG templates per section
+            estimands: Designed estimands
+            methods: Selected methods
+
+        Returns:
+            Dictionary of section_name -> content
+        """
+        sections = {}
+        section_names = [
+            "1_introduction",
+            "2_objectives_estimands",
+            "3_study_design",
+            "4_analysis_populations",
+            "5_statistical_methods",
+            "6_sample_size",
+            "7_data_handling",
+            "8_cdisc_alignment",
+            "9_tlf_specifications"
+        ]
+
+        sanitized_templates = sanitized_templates or {}
+
+        for section_name in section_names:
+            template = sanitized_templates.get(section_name, "")
+            sections[section_name] = self.execute_with_facts(
+                section_name=section_name,
+                protocol_facts=protocol_facts,
+                sanitized_template=template,
+                estimands=estimands,
+                methods=methods,
+            )
+
+        return sections
+
     def _build_prompt(
         self,
         section_name: str,
@@ -564,7 +790,7 @@ Return the section content as a markdown-formatted string."""
         examples: List[str],
         context: str
     ) -> str:
-        """Build prompt for section generation with ALL extracted values"""
+        """Build prompt for section generation with ALL extracted values (LEGACY)"""
         parts = [
             f"## Task: Generate SAP Section - {section_name}\n",
             "## Study Information:",

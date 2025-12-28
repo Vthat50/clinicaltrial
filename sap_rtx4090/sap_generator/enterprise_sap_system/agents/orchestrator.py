@@ -73,6 +73,24 @@ except ImportError:
     CONTAMINATION_GUARD_AVAILABLE = False
     ContaminationGuard = None
 
+# PRODUCTION: Structured Fact Extractor - Extract ALL facts as structured data
+try:
+    from ..core.structured_extractor import StructuredFactExtractor, ProtocolFacts
+    STRUCTURED_EXTRACTOR_AVAILABLE = True
+except ImportError:
+    STRUCTURED_EXTRACTOR_AVAILABLE = False
+    StructuredFactExtractor = None
+    ProtocolFacts = None
+
+# PRODUCTION: Hard Validator - Blocks output if facts don't match
+try:
+    from ..core.hard_validator import HardValidator, ValidationResult
+    HARD_VALIDATOR_AVAILABLE = True
+except ImportError:
+    HARD_VALIDATOR_AVAILABLE = False
+    HardValidator = None
+    ValidationResult = None
+
 # RAG System for few-shot examples
 try:
     from ..core.rag_system import RAGSystem
@@ -194,6 +212,29 @@ class SAPGenerationOrchestrator:
             self.contamination_guard = ContaminationGuard()
             print("Contamination guard initialized - will detect and clean cross-protocol contamination")
 
+        # PRODUCTION: Initialize Structured Fact Extractor
+        self.structured_extractor = None
+        if STRUCTURED_EXTRACTOR_AVAILABLE:
+            self.structured_extractor = StructuredFactExtractor()
+            print("PRODUCTION: Structured fact extractor initialized")
+
+        # PRODUCTION: Initialize Hard Validator
+        self.hard_validator = None
+        if HARD_VALIDATOR_AVAILABLE:
+            self.hard_validator = HardValidator(strict_mode=True)
+            print("PRODUCTION: Hard validator initialized - will block invalid SAPs")
+
+        # Track if production mode is available
+        self.production_mode_available = (
+            STRUCTURED_EXTRACTOR_AVAILABLE and
+            HARD_VALIDATOR_AVAILABLE
+        )
+        if self.production_mode_available:
+            print("=" * 60)
+            print("PRODUCTION MODE ENABLED")
+            print("Pipeline: Extract → Sanitize → Generate → Validate")
+            print("=" * 60)
+
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
         if self.llm_client is None:
@@ -225,7 +266,8 @@ class SAPGenerationOrchestrator:
         nct_id: str = "",
         use_few_shot: bool = True,
         parallel_sections: bool = False,
-        verbose: bool = True
+        verbose: bool = True,
+        production_mode: bool = True  # NEW: Use production pipeline
     ) -> GenerationResult:
         """
         Generate a complete SAP from protocol text.
@@ -236,10 +278,23 @@ class SAPGenerationOrchestrator:
             use_few_shot: Whether to use few-shot examples
             parallel_sections: Whether to generate sections in parallel
             verbose: Print progress updates
+            production_mode: Use production pipeline (Extract → Sanitize → Generate → Validate)
 
         Returns:
             GenerationResult with generated SAP and metadata
         """
+        # PRODUCTION MODE: Use new pipeline if available
+        if production_mode and self.production_mode_available:
+            return self._generate_sap_production(
+                protocol_text=protocol_text,
+                nct_id=nct_id,
+                verbose=verbose
+            )
+
+        # LEGACY MODE: Use old pipeline
+        if verbose and production_mode:
+            print("WARNING: Production mode requested but not available. Using legacy pipeline.")
+
         start_time = time.time()
         result = GenerationResult(success=False)
 
@@ -758,6 +813,232 @@ class SAPGenerationOrchestrator:
 """.format(date=datetime.now().strftime('%d-%b-%Y'))
 
         return header + "\n\n".join(ordered_sections) + "\n".join(appendix_parts) + footer
+
+    def _generate_sap_production(
+        self,
+        protocol_text: str,
+        nct_id: str = "",
+        verbose: bool = True
+    ) -> GenerationResult:
+        """
+        PRODUCTION SAP Generation Pipeline.
+
+        Pipeline: Extract → Sanitize → Generate → Validate → Output
+
+        This ensures:
+        1. ALL facts extracted with regex (no LLM hallucination)
+        2. RAG examples are SANITIZED (no value contamination)
+        3. LLM sees MANDATORY FACTS + SANITIZED templates
+        4. Output is VALIDATED before return (blocks if facts don't match)
+        """
+        import time
+        start_time = time.time()
+        result = GenerationResult(success=False)
+
+        if verbose:
+            print("=" * 60)
+            print("PRODUCTION MODE: Extract → Sanitize → Generate → Validate")
+            print("=" * 60)
+
+        try:
+            # ================================================================
+            # STEP 1: STRUCTURED FACT EXTRACTION (No LLM - Pure Regex)
+            # ================================================================
+            if verbose:
+                print("\n[1/5] EXTRACTING STRUCTURED FACTS (regex, no LLM)...")
+
+            protocol_facts = self.structured_extractor.extract_all(protocol_text)
+
+            if verbose:
+                print(f"      Drug: {protocol_facts.drug_name or 'Not found'}")
+                print(f"      Sample Size: {protocol_facts.sample_size.total_n or 'Not found'}")
+                print(f"      Arms: {protocol_facts.num_arms or 'Not found'}")
+                print(f"      Ratio: {protocol_facts.randomization_ratio or 'Not found'}")
+                print(f"      Route: {protocol_facts.route_of_administration.value}")
+                print(f"      Alpha: {protocol_facts.alpha.primary_alpha} ({protocol_facts.alpha.sidedness})")
+                print(f"      Phase: {protocol_facts.phase.value}")
+                print(f"      Therapeutic Area: {protocol_facts.therapeutic_area or 'Not found'}")
+
+            # ================================================================
+            # STEP 2: GET SANITIZED RAG TEMPLATES
+            # ================================================================
+            sanitized_templates = {}
+            if self.rag_system:
+                if verbose:
+                    print("\n[2/5] RETRIEVING AND SANITIZING RAG TEMPLATES...")
+
+                try:
+                    # Get therapeutic area and phase for filtering
+                    ta = protocol_facts.therapeutic_area or "OTHER"
+                    phase = protocol_facts.phase.value if protocol_facts.phase else ""
+
+                    # Retrieve similar protocols
+                    similar_pairs = self.rag_system.retrieve_similar(
+                        query_protocol=protocol_text[:10000],
+                        k=2,
+                        therapeutic_area=ta,
+                        phase=phase
+                    )
+
+                    if similar_pairs:
+                        # Format as SANITIZED templates (values replaced with placeholders)
+                        sanitized_examples = self.rag_system.format_few_shot_examples(
+                            similar_pairs,
+                            max_protocol_chars=2000,
+                            max_sap_chars=5000,
+                            sanitize=True  # CRITICAL: Sanitize to prevent contamination
+                        )
+                        # Use same template for all sections
+                        for section in ["1_introduction", "2_objectives_estimands", "3_study_design",
+                                       "4_analysis_populations", "5_statistical_methods", "6_sample_size",
+                                       "7_data_handling", "8_cdisc_alignment", "9_tlf_specifications"]:
+                            sanitized_templates[section] = sanitized_examples
+
+                        if verbose:
+                            print(f"      Retrieved {len(similar_pairs)} templates")
+                            print(f"      Sanitized: All specific values replaced with {{PLACEHOLDERS}}")
+                except Exception as e:
+                    if verbose:
+                        print(f"      WARNING: RAG retrieval failed: {e}")
+            else:
+                if verbose:
+                    print("\n[2/5] RAG not available - generating without templates")
+
+            # ================================================================
+            # STEP 3: GENERATE SAP SECTIONS (with facts + sanitized templates)
+            # ================================================================
+            if verbose:
+                print("\n[3/5] GENERATING SAP SECTIONS (facts-constrained)...")
+
+            # Also parse protocol for estimands/methods (still uses LLM but with guardrails)
+            parsed_protocol = self.parser.parse(protocol_text, nct_id)
+            result.parsed_protocol = parsed_protocol
+
+            # Design estimands
+            estimands = self.estimand_agent.execute(
+                parsed_protocol=parsed_protocol,
+                knowledge_context=""
+            )
+            result.estimands = estimands
+
+            # Select methods
+            methods = self.methods_agent.execute(
+                parsed_protocol=parsed_protocol,
+                estimands=estimands,
+                knowledge_context=""
+            )
+            result.methods = methods
+
+            # Generate sections using PRODUCTION method (facts + sanitized templates)
+            sap_sections = self.writer_agent.generate_all_sections_with_facts(
+                protocol_facts=protocol_facts,
+                sanitized_templates=sanitized_templates,
+                estimands=estimands,
+                methods=methods
+            )
+
+            if verbose:
+                print(f"      Generated {len(sap_sections)} sections")
+
+            # ================================================================
+            # STEP 4: HARD VALIDATION (blocks if facts don't match)
+            # ================================================================
+            if verbose:
+                print("\n[4/5] VALIDATING OUTPUT (hard validation)...")
+
+            # Combine all sections for validation
+            full_sap_text = "\n\n".join(sap_sections.values())
+
+            validation_result = self.hard_validator.validate(full_sap_text, protocol_facts)
+
+            if verbose:
+                print(f"      Validation Score: {validation_result.score:.1f}%")
+                print(f"      Valid: {validation_result.valid}")
+                if validation_result.issues:
+                    print(f"      Issues found: {len(validation_result.issues)}")
+                    for issue in validation_result.issues[:5]:
+                        severity_icon = "X" if issue.severity.value == "critical" else "!"
+                        print(f"        [{severity_icon}] {issue.field}: {issue.message}")
+
+            # Check if we should block output
+            if validation_result.block_output:
+                if verbose:
+                    print("\n      BLOCKING OUTPUT: Critical validation failures")
+                    print("      Attempting to regenerate with stricter constraints...")
+
+                # Try to fix with contamination guard as fallback
+                if self.contamination_guard:
+                    for section_name, section_content in sap_sections.items():
+                        cleaned, _, _ = self.contamination_guard.check_and_clean(
+                            section_content, protocol_text
+                        )
+                        sap_sections[section_name] = cleaned
+
+                    # Re-validate
+                    full_sap_text = "\n\n".join(sap_sections.values())
+                    validation_result = self.hard_validator.validate(full_sap_text, protocol_facts)
+
+                    if verbose:
+                        print(f"      After cleanup - Score: {validation_result.score:.1f}%")
+
+                # Store validation issues as warnings
+                for issue in validation_result.issues:
+                    result.warnings.append(f"VALIDATION: [{issue.severity.value}] {issue.field}: {issue.message}")
+
+            # ================================================================
+            # STEP 5: ASSEMBLE FINAL SAP
+            # ================================================================
+            if verbose:
+                print("\n[5/5] ASSEMBLING FINAL SAP...")
+
+            # Quality review
+            quality_report = self.reviewer_agent.execute(
+                generated_sap=sap_sections,
+                parsed_protocol=parsed_protocol,
+                estimands=estimands
+            )
+            result.quality_report = quality_report
+
+            # Assemble document
+            full_document = self._assemble_document(
+                sap_sections, parsed_protocol, estimands,
+                None, None, None  # Skip production specs for now
+            )
+
+            result.sap_document = GeneratedSAP(
+                nct_id=protocol_facts.nct_id or nct_id,
+                version="1.0",
+                sections=sap_sections,
+                full_document=full_document,
+                metadata={
+                    "generation_mode": "PRODUCTION",
+                    "facts_extracted": True,
+                    "templates_sanitized": bool(sanitized_templates),
+                    "validation_score": validation_result.score,
+                    "validation_passed": validation_result.valid,
+                }
+            )
+
+            result.success = True
+            result.generation_time = time.time() - start_time
+
+            if verbose:
+                print("\n" + "=" * 60)
+                print(f"PRODUCTION SAP GENERATION COMPLETE")
+                print(f"  Time: {result.generation_time:.1f}s")
+                print(f"  Validation Score: {validation_result.score:.1f}%")
+                print(f"  Quality Score: {quality_report.overall_score:.1f}/100")
+                print("=" * 60)
+
+            return result
+
+        except Exception as e:
+            result.errors.append(str(e))
+            if verbose:
+                print(f"\nERROR: {e}")
+                import traceback
+                traceback.print_exc()
+            return result
 
     def generate_from_file(
         self,

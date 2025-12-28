@@ -8,7 +8,11 @@ Architecture:
 1. Filter high-quality protocol-SAP pairs
 2. Create embeddings for protocols using sentence transformers
 3. At runtime: retrieve top-k similar protocols and their SAPs
-4. Use as few-shot examples in LLM prompt
+4. SANITIZE examples to remove specific values (prevent contamination)
+5. Use as few-shot examples in LLM prompt
+
+CRITICAL: Examples are SANITIZED before passing to LLM to prevent
+cross-protocol contamination (e.g., etrolizumab appearing in TJ301 SAP).
 """
 
 import os
@@ -448,11 +452,86 @@ class RAGSystem:
 
         return [self.pairs[i] for i in top_indices]
 
+    def sanitize_example(self, text: str) -> str:
+        """
+        Sanitize example text by replacing specific values with placeholders.
+
+        This PREVENTS cross-protocol contamination by ensuring the LLM
+        never sees specific drug names, sample sizes, or NCT IDs from examples.
+
+        Args:
+            text: Raw example text (protocol or SAP)
+
+        Returns:
+            Sanitized text with placeholders
+        """
+        sanitized = text
+
+        # 1. Replace NCT IDs
+        sanitized = re.sub(r'NCT\d{8}', '{NCT_ID}', sanitized, flags=re.IGNORECASE)
+
+        # 2. Replace drug codes (TJ301, PF-06480605, etc.)
+        sanitized = re.sub(r'\b[A-Z]{2,4}[-]?\d{5,8}\b', '{DRUG_CODE}', sanitized)
+        sanitized = re.sub(r'\b[A-Z]{2,3}\d{3,4}\b', '{DRUG_CODE}', sanitized)
+
+        # 3. Replace known drug names (biologics)
+        drug_patterns = [
+            r'\b(etrolizumab|vedolizumab|ustekinumab|adalimumab|infliximab)\b',
+            r'\b(golimumab|tofacitinib|filgotinib|ozanimod|risankizumab)\b',
+            r'\b(mirikizumab|guselkumab|etrasimod|obefazimod|ontamalimab)\b',
+            r'\b(brazikumab|olamkicept|pembrolizumab|nivolumab|atezolizumab)\b',
+            r'\b([a-z]+(?:mab|nib|lib|tinib|ciclib))\b',
+        ]
+        for pattern in drug_patterns:
+            sanitized = re.sub(pattern, '{DRUG_NAME}', sanitized, flags=re.IGNORECASE)
+
+        # 4. Replace sample sizes (numbers followed by patients/subjects)
+        sanitized = re.sub(
+            r'\b(\d{2,4})\s+(patients?|subjects?|participants?)',
+            '{SAMPLE_SIZE} \\2',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+
+        # 5. Replace specific sample sizes in context
+        sanitized = re.sub(
+            r'N\s*[=:]\s*\d{2,4}',
+            'N = {SAMPLE_SIZE}',
+            sanitized
+        )
+
+        # 6. Replace cohort references
+        sanitized = re.sub(
+            r'Cohort\s+\d+',
+            '{COHORT}',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+
+        # 7. Replace specific doses
+        sanitized = re.sub(
+            r'\b\d+\s*(?:mg|mcg|µg|g)\b',
+            '{DOSE}',
+            sanitized,
+            flags=re.IGNORECASE
+        )
+
+        # 8. Replace sponsor names
+        sponsor_patterns = [
+            r'\b(Roche|Pfizer|Merck|Novartis|AstraZeneca|BMS|Lilly|Amgen|Gilead|AbbVie)\b',
+            r'\b(Genentech|Johnson\s*&\s*Johnson|Sanofi|GSK|Takeda|Biogen)\b',
+        ]
+        for pattern in sponsor_patterns:
+            sanitized = re.sub(pattern, '{SPONSOR}', sanitized, flags=re.IGNORECASE)
+
+        return sanitized
+
     def format_few_shot_examples(
         self,
         similar_pairs: List[ProtocolSAPPair],
         max_protocol_chars: int = 3000,
-        max_sap_chars: int = 8000
+        max_sap_chars: int = 8000,
+        sanitize: bool = True
     ) -> str:
         """
         Format retrieved pairs as few-shot examples for the LLM prompt.
@@ -461,11 +540,21 @@ class RAGSystem:
             similar_pairs: List of similar protocol-SAP pairs
             max_protocol_chars: Max chars to include from each protocol
             max_sap_chars: Max chars to include from each SAP
+            sanitize: Whether to sanitize examples (HIGHLY RECOMMENDED)
 
         Returns:
             Formatted string with examples
         """
         examples = []
+
+        # Add warning header if sanitizing
+        if sanitize:
+            examples.append("""
+## TEMPLATE EXAMPLES (FOR STRUCTURE ONLY)
+The following examples show SAP STRUCTURE and FORMATTING only.
+All specific values have been replaced with {PLACEHOLDERS}.
+DO NOT copy these placeholder values - use the MANDATORY FACTS provided separately.
+""")
 
         for i, pair in enumerate(similar_pairs, 1):
             # Extract key sections from protocol
@@ -478,13 +567,18 @@ class RAGSystem:
                 pair.sap_text, max_sap_chars
             )
 
-            example = f"""
-=== EXAMPLE {i}: {pair.nct_id} ({pair.therapeutic_area}, Phase {pair.phase}) ===
+            # SANITIZE if enabled (default: True)
+            if sanitize:
+                protocol_excerpt = self.sanitize_example(protocol_excerpt)
+                sap_excerpt = self.sanitize_example(sap_excerpt)
 
-PROTOCOL EXCERPT:
+            example = f"""
+=== TEMPLATE {i}: {pair.therapeutic_area}, Phase {pair.phase} ===
+
+PROTOCOL STRUCTURE:
 {protocol_excerpt}
 
-STATISTICAL ANALYSIS PLAN:
+SAP STRUCTURE (copy format, NOT values):
 {sap_excerpt}
 """
             examples.append(example)
