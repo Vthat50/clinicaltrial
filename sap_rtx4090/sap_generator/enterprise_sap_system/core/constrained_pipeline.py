@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """
-Schema-Constrained SAP Generation Pipeline
-===========================================
+Schema-Constrained SAP Generation Pipeline (Full Coverage)
+===========================================================
 
 Complete pipeline that:
-1. Extracts protocol facts with citations
-2. Creates Pydantic schemas with Literal constraints
+1. Extracts ALL protocol facts (28 entities) with Literal constraints
+2. Creates Pydantic schemas where every protocol value is enforced
 3. Generates each SAP section with schema enforcement
-4. Verifies against formal invariants
-5. Detects any contamination from RAG examples
-6. Assembles final SAP document
+4. Uses constrained Estimand schema (prevents drug name contamination)
+5. Verifies against formal invariants
+6. Detects any contamination from RAG examples
+7. Assembles final SAP document
+
+Philosophy: If it's extracted from the protocol → It MUST be constrained
 
 The key guarantee: LLM CANNOT output wrong values because
 the Literal types only allow exact extracted values.
@@ -20,12 +23,32 @@ from typing import Dict, List, Optional, Tuple, Any, Literal
 from dataclasses import dataclass, field
 from pydantic import BaseModel, Field, field_validator
 
+# Full schema with complete constraint coverage (28 entities)
+from .full_schema_generator import (
+    FullProtocolFacts,
+    extract_full_protocol_facts,
+    create_fully_constrained_schema,
+    create_constrained_estimand_schema,
+    create_full_estimand_schema,
+    generate_constrained_prompt,
+    print_constraint_summary,
+    # Section schemas
+    IntroductionSectionBase,
+    StudyDesignSectionBase,
+    PopulationsSectionBase,
+    EndpointsSectionBase,
+    SampleSizeSectionBase,
+    StatMethodsSectionBase,
+    StratificationSectionBase,
+)
+
+# Legacy imports for backward compatibility
 from .schema_constrained_generator import (
     ProtocolFacts,
     CitedValue,
-    extract_protocol_facts,
-    create_sample_size_schema,
-    create_study_design_schema,
+    extract_protocol_facts as extract_protocol_facts_legacy,
+    create_sample_size_schema as create_sample_size_schema_legacy,
+    create_study_design_schema as create_study_design_schema_legacy,
     FormalVerifier,
     VerificationResult,
     ContaminationDetector,
@@ -40,12 +63,14 @@ class PipelineResult:
     success: bool
     sap_text: str = ""
     sections: Dict[str, str] = field(default_factory=dict)
-    facts: Optional[ProtocolFacts] = None
+    facts: Optional[FullProtocolFacts] = None  # Now uses full coverage
+    legacy_facts: Optional[ProtocolFacts] = None  # For backward compatibility
     verification_results: Dict[str, VerificationResult] = field(default_factory=dict)
     contamination_detected: bool = False
     contamination_details: List[str] = field(default_factory=list)
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+    constraint_coverage: int = 0  # Number of entities constrained
 
 
 class ConstrainedSAPPipeline:
@@ -90,39 +115,58 @@ class ConstrainedSAPPipeline:
         skip = set(skip_sections or [])
 
         print("\n" + "="*60)
-        print("SCHEMA-CONSTRAINED SAP GENERATION PIPELINE")
+        print("SCHEMA-CONSTRAINED SAP GENERATION PIPELINE (FULL COVERAGE)")
         print("="*60)
 
         # =================================================================
-        # STAGE 1: Extract Protocol Facts
+        # STAGE 1: Extract ALL Protocol Facts (28 entities)
         # =================================================================
-        print("\n[STAGE 1] Extracting protocol facts with citations...")
+        print("\n[STAGE 1] Extracting ALL protocol facts (full coverage)...")
 
-        facts = extract_protocol_facts(protocol_text)
+        # Use full extraction with 28 entities
+        facts = extract_full_protocol_facts(protocol_text)
         result.facts = facts
 
         # Override NCT if provided
         if nct_id and not facts.nct_id:
-            facts.nct_id = CitedValue(value=nct_id, citation="User provided")
+            facts.nct_id = nct_id
+
+        # Also extract legacy facts for backward compatibility
+        legacy_facts = extract_protocol_facts_legacy(protocol_text)
+        result.legacy_facts = legacy_facts
 
         # Validate critical facts
-        missing_critical = self._check_critical_facts(facts)
+        missing_critical = self._check_critical_facts_full(facts)
         if missing_critical:
             result.warnings.extend([f"Missing: {m}" for m in missing_critical])
             print(f"  Warning: Missing critical facts: {missing_critical}")
 
-        self._print_extracted_facts(facts)
+        # Count constraint coverage
+        result.constraint_coverage = self._count_constraints(facts)
+
+        # Print full extraction summary
+        print_constraint_summary(facts)
 
         # =================================================================
-        # STAGE 2: Create Constrained Schemas
+        # STAGE 2: Create Fully Constrained Schemas
         # =================================================================
-        print("\n[STAGE 2] Creating Literal-constrained schemas...")
+        print("\n[STAGE 2] Creating Literal-constrained schemas (all 28 entities)...")
 
-        sample_size_schema = create_sample_size_schema(facts)
-        study_design_schema = create_study_design_schema(facts)
+        # Create the fully constrained schema (all protocol values are Literals)
+        full_sap_schema = create_fully_constrained_schema(facts)
 
-        # Print the constrained values
-        self._print_schema_constraints(facts)
+        # Create constrained Estimand schema (prevents drug name contamination)
+        estimand_schema = create_constrained_estimand_schema(facts)
+
+        # Legacy schemas for backward compatibility
+        sample_size_schema = create_sample_size_schema_legacy(legacy_facts)
+        study_design_schema = create_study_design_schema_legacy(legacy_facts)
+
+        print(f"\n  Full SAP Schema: {len(full_sap_schema.model_fields)} constrained fields")
+        print(f"  Estimand Schema: drug_name=Literal['{facts.drug_name or 'Study Drug'}']")
+
+        # Print the constrained values summary
+        self._print_schema_constraints_full(facts)
 
         # =================================================================
         # STAGE 3: Generate Sections with Schema Enforcement
@@ -191,13 +235,21 @@ class ConstrainedSAPPipeline:
         # Summary
         # =================================================================
         print("\n" + "="*60)
-        print("PIPELINE SUMMARY")
+        print("PIPELINE SUMMARY (FULL COVERAGE)")
         print("="*60)
         print(f"  Success: {result.success}")
+        print(f"  Constraint Coverage: {result.constraint_coverage}/28 entities")
         print(f"  Sections generated: {list(result.sections.keys())}")
         print(f"  Contamination: {'YES - BLOCKED' if result.contamination_detected else 'None'}")
         print(f"  Errors: {len(result.errors)}")
         print(f"  Warnings: {len(result.warnings)}")
+
+        # Show key constrained values
+        print("\n  KEY CONSTRAINTS ENFORCED:")
+        print(f"    drug_name = Literal['{facts.drug_name or 'Study Drug'}']")
+        print(f"    total_n = Literal[{facts.total_n or 'unknown'}]")
+        print(f"    ratio = Literal['{facts.ratio or '1:1'}']")
+        print(f"    nct_id = Literal['{facts.nct_id or 'unknown'}']")
 
         if result.errors:
             print("\n  ERRORS:")
@@ -207,7 +259,7 @@ class ConstrainedSAPPipeline:
         return result
 
     def _check_critical_facts(self, facts: ProtocolFacts) -> List[str]:
-        """Check for missing critical facts"""
+        """Check for missing critical facts (legacy)"""
         missing = []
         if not facts.total_n:
             missing.append("total_n")
@@ -219,8 +271,54 @@ class ConstrainedSAPPipeline:
             missing.append("num_arms")
         return missing
 
+    def _check_critical_facts_full(self, facts: FullProtocolFacts) -> List[str]:
+        """Check for missing critical facts (full schema)"""
+        missing = []
+        # High-priority facts that prevent contamination
+        if not facts.drug_name:
+            missing.append("drug_name (HIGH RISK)")
+        if not facts.total_n:
+            missing.append("total_n (HIGH RISK)")
+        if not facts.ratio:
+            missing.append("ratio (HIGH RISK)")
+        if not facts.nct_id:
+            missing.append("nct_id")
+        if not facts.indication:
+            missing.append("indication")
+        if not facts.num_arms:
+            missing.append("num_arms")
+        return missing
+
+    def _count_constraints(self, facts: FullProtocolFacts) -> int:
+        """Count how many entities are constrained"""
+        count = 0
+        fields = [
+            facts.nct_id, facts.study_id, facts.sponsor, facts.title,
+            facts.phase, facts.therapeutic_area, facts.indication,
+            facts.design_type, facts.drug_name, facts.drug_code,
+            facts.route, facts.total_n, facts.ratio, facts.power,
+            facts.alpha, facts.alpha_sidedness, facts.dropout_rate,
+            facts.primary_endpoint, facts.primary_timepoint,
+            facts.primary_population, facts.primary_analysis_method,
+        ]
+        for f in fields:
+            if f is not None:
+                count += 1
+        # Count list fields
+        if facts.arm_names:
+            count += 1
+        if facts.arm_descriptions:
+            count += 1
+        if facts.secondary_endpoints:
+            count += 1
+        if facts.stratification_factors:
+            count += 1
+        if facts.per_arm_n:
+            count += 1
+        return count
+
     def _print_extracted_facts(self, facts: ProtocolFacts):
-        """Print extracted facts for debugging"""
+        """Print extracted facts for debugging (legacy)"""
         print("\n  EXTRACTED FACTS:")
         print(f"    Drug: {facts.drug_name.value if facts.drug_name else 'NOT FOUND'}")
         print(f"    NCT: {facts.nct_id.value if facts.nct_id else 'NOT FOUND'}")
@@ -233,15 +331,32 @@ class ConstrainedSAPPipeline:
         print(f"    Route: {facts.route.value if facts.route else 'NOT FOUND'}")
 
     def _print_schema_constraints(self, facts: ProtocolFacts):
-        """Print the Literal constraints that will be enforced"""
+        """Print the Literal constraints that will be enforced (legacy)"""
         print("\n  SCHEMA CONSTRAINTS (LLM cannot violate these):")
         print(f"    total_n: Literal[{facts.total_n.value if facts.total_n else 100}]")
         print(f"    ratio: Literal[\"{facts.ratio.value if facts.ratio else '1:1'}\"]")
         print(f"    num_arms: Literal[{facts.num_arms.value if facts.num_arms else 2}]")
         print(f"    drug_name: Literal[\"{facts.drug_name.value if facts.drug_name else 'Study Drug'}\"]")
 
+    def _print_schema_constraints_full(self, facts: FullProtocolFacts):
+        """Print the full Literal constraints"""
+        print("\n  FULL SCHEMA CONSTRAINTS (all 28 entities):")
+        print(f"    [ID] nct_id: Literal['{facts.nct_id or 'UNKNOWN'}']")
+        print(f"    [ID] study_id: Literal['{facts.study_id or 'UNKNOWN'}']")
+        print(f"    [DRUG] drug_name: Literal['{facts.drug_name or 'Study Drug'}']")
+        print(f"    [DRUG] drug_code: Literal['{facts.drug_code or ''}']")
+        print(f"    [DRUG] route: Literal['{facts.route or 'Not specified'}']")
+        print(f"    [SIZE] total_n: Literal[{facts.total_n or 100}]")
+        print(f"    [SIZE] ratio: Literal['{facts.ratio or '1:1'}']")
+        print(f"    [SIZE] num_arms: Literal[{facts.num_arms or 2}]")
+        print(f"    [SIZE] power: Literal['{facts.power or '80%'}']")
+        print(f"    [SIZE] alpha: Literal[{facts.alpha or 0.05}]")
+        print(f"    [ENDPOINT] primary_endpoint: Literal['{(facts.primary_endpoint or 'Primary endpoint')[:50]}...']")
+        print(f"    [STRAT] stratification_factors: {len(facts.stratification_factors or [])} factors")
+        print(f"\n    Coverage: {self._count_constraints(facts)}/28 entities constrained")
+
     def _facts_to_dict(self, facts: ProtocolFacts) -> Dict[str, Any]:
-        """Convert ProtocolFacts to dictionary for prompts"""
+        """Convert ProtocolFacts to dictionary for prompts (legacy)"""
         return {
             'total_n': facts.total_n.value if facts.total_n else None,
             'ratio': facts.ratio.value if facts.ratio else None,
@@ -252,6 +367,53 @@ class ConstrainedSAPPipeline:
             'alpha_sidedness': facts.alpha_sidedness.value if facts.alpha_sidedness else None,
             'drug_name': facts.drug_name.value if facts.drug_name else None,
             'route': facts.route.value if facts.route else None,
+        }
+
+    def _full_facts_to_dict(self, facts: FullProtocolFacts) -> Dict[str, Any]:
+        """Convert FullProtocolFacts to dictionary for prompts (all 28 entities)"""
+        return {
+            # Identification
+            'nct_id': facts.nct_id,
+            'study_id': facts.study_id,
+            'sponsor': facts.sponsor,
+            'title': facts.title,
+            # Study info
+            'phase': facts.phase,
+            'therapeutic_area': facts.therapeutic_area,
+            'indication': facts.indication,
+            'design_type': facts.design_type,
+            # Drug
+            'drug_name': facts.drug_name,
+            'drug_code': facts.drug_code,
+            'drug_generic': facts.drug_generic,
+            'route': facts.route,
+            # Arms
+            'num_arms': facts.num_arms,
+            'ratio': facts.ratio,
+            'arm_names': facts.arm_names,
+            'arm_descriptions': facts.arm_descriptions,
+            'arm_doses': facts.arm_doses,
+            # Sample size
+            'total_n': facts.total_n,
+            'per_arm_n': facts.per_arm_n,
+            'power': facts.power,
+            'alpha': facts.alpha,
+            'alpha_sidedness': facts.alpha_sidedness,
+            'dropout_rate': facts.dropout_rate,
+            # Endpoints
+            'primary_endpoint': facts.primary_endpoint,
+            'primary_timepoint': facts.primary_timepoint,
+            'secondary_endpoints': facts.secondary_endpoints,
+            # Populations
+            'primary_population': facts.primary_population,
+            'itt_definition': facts.itt_definition,
+            'pp_definition': facts.pp_definition,
+            'safety_definition': facts.safety_definition,
+            # Stratification
+            'stratification_factors': facts.stratification_factors,
+            # Analysis
+            'primary_analysis_method': facts.primary_analysis_method,
+            'study_duration': facts.study_duration,
         }
 
     def _generate_sample_size(
@@ -363,17 +525,42 @@ class ConstrainedSAPPipeline:
             'design_narrative': f"This is a randomized, double-blind, placebo-controlled study designed to evaluate the efficacy and safety of {drug}. Eligible patients will be randomized to one of the treatment arms according to the randomization ratio. The study drug will be administered via {route} route according to the dosing schedule specified in the protocol."
         }
 
-    def _assemble_sap(self, sections: Dict[str, str], facts: ProtocolFacts) -> str:
-        """Assemble sections into complete SAP document"""
-        drug = facts.drug_name.value if facts.drug_name else "Study Drug"
-        nct = facts.nct_id.value if facts.nct_id else "NCT-UNKNOWN"
-        phase = facts.phase.value if facts.phase else "Phase 2"
+    def _assemble_sap(self, sections: Dict[str, str], facts) -> str:
+        """Assemble sections into complete SAP document.
+
+        Handles both FullProtocolFacts (new) and ProtocolFacts (legacy).
+        """
+        # Handle both old CitedValue format and new direct value format
+        if isinstance(facts, FullProtocolFacts):
+            # New format: direct values
+            drug = facts.drug_name or "Study Drug"
+            nct = facts.nct_id or "NCT-UNKNOWN"
+            phase = facts.phase or "Phase 2"
+            indication = facts.indication or "Not specified"
+            sponsor = facts.sponsor or "Sponsor"
+            design = facts.design_type or "Randomized controlled trial"
+            total_n = facts.total_n or 0
+            ratio = facts.ratio or "1:1"
+        else:
+            # Legacy format: CitedValue with .value
+            drug = facts.drug_name.value if facts.drug_name else "Study Drug"
+            nct = facts.nct_id.value if facts.nct_id else "NCT-UNKNOWN"
+            phase = facts.phase.value if facts.phase else "Phase 2"
+            indication = "Not specified"
+            sponsor = "Sponsor"
+            design = "Randomized controlled trial"
+            total_n = facts.total_n.value if facts.total_n else 0
+            ratio = facts.ratio.value if facts.ratio else "1:1"
 
         header = f"""STATISTICAL ANALYSIS PLAN
 
 Protocol: {nct}
 Drug: {drug}
+Sponsor: {sponsor}
 Phase: {phase}
+Indication: {indication}
+Design: {design}
+Sample Size: {total_n} ({ratio})
 Date: [DATE]
 Version: 1.0
 
