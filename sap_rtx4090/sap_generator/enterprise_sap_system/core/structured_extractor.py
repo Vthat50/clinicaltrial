@@ -412,8 +412,9 @@ class StructuredFactExtractor:
 
         # Look for arm/group descriptions
         arm_patterns = [
-            r'(?:arm|group)\s*([A-C1-3])[:\s]+([^\n]+)',
-            r'(?:treatment\s+)?(?:arm|group)\s+([A-C1-3])[:\s]*([^\n]+)',
+            r'(?:arm|group)\s*([A-D1-9])[:\s]+([^\n]+)',
+            r'(?:treatment\s+)?(?:arm|group)\s+([A-D1-9])[:\s]*([^\n]+)',
+            r'-\s*(?:arm|group)\s*([A-D1-9])[:\s]*([^\n]+)',
             r'([A-Za-z0-9-]+)\s+(\d+\s*(?:mg|mcg|g))[^\n]*(?:arm|group)',
         ]
 
@@ -509,6 +510,9 @@ class StructuredFactExtractor:
             r'(?:sample\s+size)[:\s]+(?:approximately\s+)?(\d+)',
             r'(?:enroll|randomize)\s+(?:approximately\s+)?(\d+)',
             r'N\s*[=:]\s*(\d+)',
+            # Additional patterns for common phrasings
+            r'(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:in\s+a|randomized|across)',
+            r'(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:will\s+be\s+)?(?:assigned|allocated)',
         ]
 
         for pattern in total_patterns:
@@ -650,6 +654,10 @@ class StructuredFactExtractor:
         patterns = [
             r'(?:primary\s+analysis\s+(?:will\s+be\s+)?(?:performed|conducted)\s+(?:on|using)\s+(?:the\s+)?)(ITT|FAS|PP|mITT)',
             r'(?:primary\s+(?:analysis\s+)?population)[:\s]+(ITT|FAS|PP|mITT|intent[- ]to[- ]treat|full\s+analysis\s+set)',
+            # Simpler patterns for common phrasings
+            r'(?:primary\s+analysis)\s+(?:on|using)\s+(?:the\s+)?(ITT|FAS|PP|mITT)',
+            r'(?:primary\s+efficacy\s+analysis)[^.]*(?:on|using|for)\s+(?:the\s+)?(ITT|FAS|PP|mITT)',
+            r'(ITT|FAS|PP|mITT)\s+(?:population\s+)?(?:will\s+be\s+)?(?:used\s+)?(?:for|as)\s+(?:the\s+)?primary',
         ]
 
         for pattern in patterns:
