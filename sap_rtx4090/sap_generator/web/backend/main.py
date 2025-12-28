@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from enterprise_sap_system.agents import create_orchestrator
 from enterprise_sap_system.core import get_config
+from evaluate_sap import SAPEvaluator
 
 # Environment variables
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -549,9 +550,6 @@ async def evaluate_job(job_id: str, ground_truth_nct: str):
 
         ground_truth_sap = sap_path.read_text(encoding='utf-8', errors='ignore')
 
-        # Import evaluator
-        from evaluate_sap import SAPEvaluator
-
         evaluator = SAPEvaluator(str(sap_path.parent))
         eval_result = evaluator.evaluate(generated_sap, ground_truth_sap, ground_truth_nct)
 
@@ -612,9 +610,6 @@ async def evaluate_batch(job_id: str, limit: int = 50):
         base_dir = Path(__file__).parent.parent.parent / "data"
         ground_truth_dir = base_dir / "ground_truth"
         all_pairs_dir = base_dir / "all_pairs"
-
-        # Import evaluator
-        from evaluate_sap import SAPEvaluator
 
         results = []
 
