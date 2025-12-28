@@ -173,13 +173,15 @@ class ConstrainedSAPPipeline:
         # =================================================================
         print("\n[STAGE 3] Generating sections with schema enforcement...")
 
-        facts_summary = self._facts_to_dict(facts)
+        # Use legacy_facts for methods that expect CitedValue format
+        # Use facts (FullProtocolFacts) for new methods with direct values
+        facts_summary = self._full_facts_to_dict(facts)
 
         # Sample Size Section
         if 'sample_size' not in skip:
             print("\n  Generating Sample Size section...")
             section_data, verification = self._generate_sample_size(
-                sample_size_schema, facts, facts_summary
+                sample_size_schema, legacy_facts, facts_summary
             )
             if section_data:
                 result.sections['sample_size'] = section_data
@@ -194,7 +196,7 @@ class ConstrainedSAPPipeline:
         if 'study_design' not in skip:
             print("\n  Generating Study Design section...")
             section_data, verification = self._generate_study_design(
-                study_design_schema, facts, facts_summary
+                study_design_schema, legacy_facts, facts_summary
             )
             if section_data:
                 result.sections['study_design'] = section_data
@@ -211,8 +213,9 @@ class ConstrainedSAPPipeline:
         print("\n[STAGE 4] Checking for contamination...")
 
         full_text = "\n".join(result.sections.values())
+        # Use legacy_facts for contamination detector (expects CitedValue format)
         is_contaminated, contaminants = self.contamination_detector.check_contamination(
-            full_text, facts
+            full_text, legacy_facts
         )
 
         if is_contaminated:
