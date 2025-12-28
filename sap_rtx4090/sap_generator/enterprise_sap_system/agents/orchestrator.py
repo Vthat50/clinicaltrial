@@ -912,7 +912,7 @@ class SAPGenerationOrchestrator:
 
             # CRITICAL: DO NOT use the old parser - it causes contamination!
             # Instead, create a minimal ParsedProtocol from extracted facts
-            from ..core.schemas import ParsedProtocol, SampleSize, TreatmentArm as SchemaArm
+            from ..core.schemas import ParsedProtocol, SampleSizeCalc, TreatmentArm as SchemaArm
 
             # Build clean ParsedProtocol from extracted facts
             parsed_protocol = ParsedProtocol(
@@ -924,9 +924,9 @@ class SAPGenerationOrchestrator:
 
             # Add sample size from facts
             if protocol_facts.sample_size and protocol_facts.sample_size.total_n > 0:
-                parsed_protocol.sample_size = SampleSize(
+                parsed_protocol.sample_size = SampleSizeCalc(
                     total_n=protocol_facts.sample_size.total_n,
-                    power=protocol_facts.sample_size.power,
+                    power=protocol_facts.sample_size.power or 0.8,
                     alpha=protocol_facts.alpha.primary_alpha if protocol_facts.alpha else 0.05,
                     per_arm_n={arm.name: protocol_facts.sample_size.total_n // protocol_facts.num_arms
                                for arm in protocol_facts.arms} if protocol_facts.arms else {},
@@ -938,11 +938,13 @@ class SAPGenerationOrchestrator:
 
             # Add treatment arms from facts
             if protocol_facts.arms:
+                route_str = protocol_facts.route_of_administration.value if protocol_facts.route_of_administration else ""
                 parsed_protocol.arms = [
                     SchemaArm(
                         name=arm.name,
+                        description=f"{arm.name} - {arm.dose or 'dose TBD'} {route_str}".strip(),
                         dose=arm.dose,
-                        route=protocol_facts.route_of_administration.value if protocol_facts.route_of_administration else None,
+                        route=route_str,
                         is_control=arm.is_placebo
                     ) for arm in protocol_facts.arms
                 ]
