@@ -529,7 +529,20 @@ class ConstrainedSAPPipeline:
         facts_summary: Dict
     ) -> Tuple[str, VerificationResult]:
         """Generate and verify Study Design section"""
-        arm_details = [arm.value for arm in facts.arms] if facts.arms else []
+        # Handle multiple fact formats (CitedValue, TreatmentArm, or direct string)
+        arm_details = []
+        if hasattr(facts, 'arms') and facts.arms:
+            for arm in facts.arms:
+                if hasattr(arm, 'value'):  # CitedValue format
+                    arm_details.append(arm.value)
+                elif hasattr(arm, 'name'):  # TreatmentArm format
+                    arm_details.append(arm.name)
+                else:  # Direct string
+                    arm_details.append(str(arm))
+        elif hasattr(facts, 'arm_descriptions') and facts.arm_descriptions:
+            arm_details = facts.arm_descriptions
+        elif hasattr(facts, 'arm_names') and facts.arm_names:
+            arm_details = facts.arm_names
 
         response = self.section_generator.generate_study_design_section(
             schema_class, facts_summary, arm_details
@@ -550,13 +563,28 @@ class ConstrainedSAPPipeline:
 
     def _template_sample_size(self, facts: ProtocolFacts) -> Dict:
         """Create template-based Sample Size section data"""
-        total_n = facts.total_n.value if facts.total_n else 100
-        ratio = facts.ratio.value if facts.ratio else "1:1"
-        num_arms = facts.num_arms.value if facts.num_arms else 2
-        per_arm_n = facts.per_arm_n.value if facts.per_arm_n else total_n // num_arms
-        power = int(facts.power.value.replace('%', '')) if facts.power else 80
-        alpha = facts.alpha.value if facts.alpha else 0.05
-        alpha_side = facts.alpha_sidedness.value if facts.alpha_sidedness else "one-sided"  # Default to one-sided
+        # Handle multiple fact formats (CitedValue or direct values)
+        def get_value(attr, default):
+            if attr is None:
+                return default
+            if hasattr(attr, 'value'):  # CitedValue format
+                return attr.value
+            return attr  # Direct value
+
+        total_n = get_value(getattr(facts, 'total_n', None), 100)
+        ratio = get_value(getattr(facts, 'ratio', None), "1:1")
+        num_arms = get_value(getattr(facts, 'num_arms', None), 2)
+        per_arm_n = get_value(getattr(facts, 'per_arm_n', None), total_n // num_arms if num_arms else 50)
+
+        # Handle power - could be "80%" string or 80 int
+        power_raw = get_value(getattr(facts, 'power', None), "80%")
+        if isinstance(power_raw, str):
+            power = int(power_raw.replace('%', '')) if power_raw else 80
+        else:
+            power = power_raw if power_raw else 80
+
+        alpha = get_value(getattr(facts, 'alpha', None), 0.05)
+        alpha_side = get_value(getattr(facts, 'alpha_sidedness', None), "one-sided")
 
         return {
             'total_n': total_n,
@@ -573,15 +601,33 @@ class ConstrainedSAPPipeline:
 
     def _template_study_design(self, facts: ProtocolFacts) -> Dict:
         """Create template-based Study Design section data"""
-        drug = facts.drug_name.value if facts.drug_name else "Study Drug"
-        num_arms = facts.num_arms.value if facts.num_arms else 2
-        ratio = facts.ratio.value if facts.ratio else "1:1"
-        route = facts.route.value if facts.route else "intravenous"
+        # Handle multiple fact formats (CitedValue or direct values)
+        def get_value(attr, default):
+            if attr is None:
+                return default
+            if hasattr(attr, 'value'):  # CitedValue format
+                return attr.value
+            return attr  # Direct value
 
-        # Generate arm descriptions
+        drug = get_value(facts.drug_name, "Study Drug") if hasattr(facts, 'drug_name') else "Study Drug"
+        num_arms = get_value(facts.num_arms, 2) if hasattr(facts, 'num_arms') else 2
+        ratio = get_value(facts.ratio, "1:1") if hasattr(facts, 'ratio') else "1:1"
+        route = get_value(facts.route, "intravenous") if hasattr(facts, 'route') else "intravenous"
+
+        # Generate arm descriptions - handle multiple formats
         arm_descriptions = []
-        if facts.arms:
-            arm_descriptions = [arm.value for arm in facts.arms[:num_arms]]
+        if hasattr(facts, 'arms') and facts.arms:
+            for arm in facts.arms[:num_arms]:
+                if hasattr(arm, 'value'):  # CitedValue format
+                    arm_descriptions.append(arm.value)
+                elif hasattr(arm, 'name'):  # TreatmentArm format
+                    arm_descriptions.append(arm.name)
+                else:  # Direct string
+                    arm_descriptions.append(str(arm))
+        elif hasattr(facts, 'arm_descriptions') and facts.arm_descriptions:
+            arm_descriptions = facts.arm_descriptions[:num_arms]
+        elif hasattr(facts, 'arm_names') and facts.arm_names:
+            arm_descriptions = facts.arm_names[:num_arms]
         else:
             # Generate default arm descriptions
             if num_arms == 2:

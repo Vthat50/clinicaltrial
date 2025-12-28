@@ -318,50 +318,89 @@ class HardValidator:
 
     def _check_drug_name(self, sap_text: str, drug_name: str) -> bool:
         """Check if drug name appears in SAP"""
-        # Handle case insensitivity and common variations
-        pattern = rf'\b{re.escape(drug_name)}\b'
-        return bool(re.search(pattern, sap_text, re.IGNORECASE))
+        try:
+            if not sap_text or not drug_name:
+                return False
+            # Handle case insensitivity and common variations
+            pattern = rf'\b{re.escape(drug_name)}\b'
+            return bool(re.search(pattern, sap_text, re.IGNORECASE))
+        except (re.error, TypeError) as e:
+            print(f"[WARNING] Regex error in _check_drug_name: {e}")
+            return False
 
     def _check_sample_size(self, sap_text: str, expected_n: int) -> bool:
         """Check if correct sample size appears in SAP"""
-        # Look for the number in sample size context
-        patterns = [
-            rf'\b{expected_n}\s+(?:patients?|subjects?|participants?)',
-            rf'N\s*[=:]\s*{expected_n}\b',
-            rf'sample\s+size[:\s]+{expected_n}\b',
-        ]
-        for pattern in patterns:
-            if re.search(pattern, sap_text, re.IGNORECASE):
-                return True
-        return False
+        try:
+            if not sap_text or not expected_n or expected_n <= 0:
+                return False
+            # Look for the number in sample size context
+            patterns = [
+                rf'\b{expected_n}\s+(?:patients?|subjects?|participants?)',
+                rf'N\s*[=:]\s*{expected_n}\b',
+                rf'sample\s+size[:\s]+{expected_n}\b',
+            ]
+            for pattern in patterns:
+                if re.search(pattern, sap_text, re.IGNORECASE):
+                    return True
+            return False
+        except (re.error, TypeError) as e:
+            print(f"[WARNING] Regex error in _check_sample_size: {e}")
+            return False
 
     def _check_contamination(self, sap_text: str, facts: ProtocolFacts) -> List[Tuple[str, str]]:
         """Check for contamination from other protocols"""
         contamination = []
 
-        # Get all valid drug names from current protocol
-        valid_drugs = set(d.lower() for d in facts.drug_names_all)
-        if facts.drug_name:
-            valid_drugs.add(facts.drug_name.lower())
+        try:
+            if not sap_text or not facts:
+                return contamination
 
-        # Check for known contaminants
-        for drug, source in self.KNOWN_CONTAMINANTS.items():
-            if drug.lower() not in valid_drugs:
-                if re.search(rf'\b{drug}\b', sap_text, re.IGNORECASE):
-                    contamination.append((drug, source))
+            # Get all valid drug names from current protocol - handle multiple formats
+            valid_drugs = set()
+            if hasattr(facts, 'drug_names_all') and facts.drug_names_all:
+                valid_drugs = set(d.lower() for d in facts.drug_names_all)
+            if hasattr(facts, 'drug_name') and facts.drug_name:
+                drug_name = facts.drug_name
+                # Handle CitedValue format
+                if hasattr(drug_name, 'value'):
+                    drug_name = drug_name.value
+                if drug_name:
+                    valid_drugs.add(drug_name.lower())
 
-        # Check for wrong sample sizes (>20% different from expected)
-        if facts.sample_size.total_n > 0:
-            found_sizes = self._find_all_sample_sizes(sap_text)
-            for size in found_sizes:
-                if size > 50:  # Only check substantial numbers
-                    diff_pct = abs(size - facts.sample_size.total_n) / facts.sample_size.total_n
-                    if diff_pct > 0.5:  # More than 50% different
-                        # Check if it's a per-arm size
-                        if facts.num_arms > 0:
-                            per_arm = facts.sample_size.total_n // facts.num_arms
-                            if abs(size - per_arm) > per_arm * 0.2:
-                                contamination.append((f"sample_size_{size}", "Wrong study"))
+            # Check for known contaminants
+            for drug, source in self.KNOWN_CONTAMINANTS.items():
+                if drug.lower() not in valid_drugs:
+                    try:
+                        if re.search(rf'\b{re.escape(drug)}\b', sap_text, re.IGNORECASE):
+                            contamination.append((drug, source))
+                    except re.error:
+                        pass  # Skip invalid pattern
+
+            # Check for wrong sample sizes (>50% different from expected)
+            total_n = 0
+            if hasattr(facts, 'sample_size') and hasattr(facts.sample_size, 'total_n'):
+                total_n = facts.sample_size.total_n or 0
+            elif hasattr(facts, 'total_n'):
+                total_n = facts.total_n if isinstance(facts.total_n, int) else 0
+
+            if total_n > 0:
+                found_sizes = self._find_all_sample_sizes(sap_text)
+                num_arms = getattr(facts, 'num_arms', 0)
+                if hasattr(num_arms, 'value'):
+                    num_arms = num_arms.value or 0
+
+                for size in found_sizes:
+                    if size > 50:  # Only check substantial numbers
+                        diff_pct = abs(size - total_n) / total_n
+                        if diff_pct > 0.5:  # More than 50% different
+                            # Check if it's a per-arm size
+                            if num_arms > 0:
+                                per_arm = total_n // num_arms
+                                if per_arm > 0 and abs(size - per_arm) > per_arm * 0.2:
+                                    contamination.append((f"sample_size_{size}", "Wrong study"))
+
+        except Exception as e:
+            print(f"[WARNING] Error in _check_contamination: {e}")
 
         return contamination
 

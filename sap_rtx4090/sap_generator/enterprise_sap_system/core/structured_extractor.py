@@ -439,14 +439,23 @@ class StructuredFactExtractor:
         if drug_list:
             print(f"[DEBUG] All drug names found in protocol: {drug_list}")
 
-        # Prioritize drug codes - but prefer SHORTER codes (TJ301 over GA29144)
-        # to avoid picking up internal reference numbers
+        # Prioritize drug codes with specific patterns
         drug_codes = [d for d in drug_list if re.match(r'^[A-Z]{2,4}[-]?\d{3,}$', d)]
         if drug_codes:
-            # Sort by length - prefer shorter codes (more likely to be actual drug names)
-            drug_codes.sort(key=len)
-            print(f"[DEBUG] Drug codes found: {drug_codes}, selecting: {drug_codes[0]}")
-            return drug_codes[0], drug_list
+            # Prefer codes that look like INN codes (2-3 letters + 3-4 digits)
+            # e.g., TJ301, PF01234 - these are typically investigational product codes
+            # Avoid longer codes like GA29144 which may be internal reference numbers
+            inn_like = [d for d in drug_codes if re.match(r'^[A-Z]{2,3}\d{3,4}$', d)]
+            if inn_like:
+                # Sort by length - prefer shorter codes (more likely to be drug names)
+                inn_like.sort(key=len)
+                print(f"[DEBUG] INN-like drug codes found: {inn_like}, selecting: {inn_like[0]}")
+                return inn_like[0], drug_list
+            else:
+                # Fallback to longest code (more specific, less likely to be partial match)
+                drug_codes.sort(key=len, reverse=True)
+                print(f"[DEBUG] Drug codes found: {drug_codes}, selecting: {drug_codes[0]}")
+                return drug_codes[0], drug_list
         elif drug_list:
             return drug_list[0], drug_list
 
