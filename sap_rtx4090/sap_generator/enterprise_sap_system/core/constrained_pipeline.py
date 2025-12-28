@@ -304,7 +304,18 @@ class ConstrainedSAPPipeline:
         # =================================================================
         print("\n[STAGE 5] Assembling final SAP document...")
 
-        result.sap_text = self._assemble_sap(result.sections, facts)
+        # If contamination was detected, do NOT assemble - this is a critical failure
+        if result.contamination_detected:
+            result.sap_text = ""
+            result.success = False
+            print("  BLOCKED: SAP not assembled due to contamination detection")
+        else:
+            result.sap_text = self._assemble_sap(result.sections, facts)
+            # Check if any critical errors occurred
+            critical_errors = [e for e in result.errors if 'HIGH RISK' in e or 'CONTAMINATION' in e]
+            if critical_errors:
+                result.success = False
+                print(f"  WARNING: SAP assembled but {len(critical_errors)} critical errors found")
 
         # =================================================================
         # Summary
