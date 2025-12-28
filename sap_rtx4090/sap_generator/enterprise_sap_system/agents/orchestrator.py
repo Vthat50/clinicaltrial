@@ -849,15 +849,43 @@ class SAPGenerationOrchestrator:
 
             protocol_facts = self.structured_extractor.extract_all(protocol_text)
 
+            # Store extraction results for debugging
+            extraction_summary = {
+                "drug": protocol_facts.drug_name,
+                "sample_size": protocol_facts.sample_size.total_n if protocol_facts.sample_size else 0,
+                "num_arms": protocol_facts.num_arms,
+                "ratio": protocol_facts.randomization_ratio,
+                "route": protocol_facts.route_of_administration.value if protocol_facts.route_of_administration else None,
+                "alpha": f"{protocol_facts.alpha.primary_alpha} ({protocol_facts.alpha.sidedness})" if protocol_facts.alpha else None,
+            }
+
             if verbose:
-                print(f"      Drug: {protocol_facts.drug_name or 'Not found'}")
-                print(f"      Sample Size: {protocol_facts.sample_size.total_n or 'Not found'}")
-                print(f"      Arms: {protocol_facts.num_arms or 'Not found'}")
-                print(f"      Ratio: {protocol_facts.randomization_ratio or 'Not found'}")
-                print(f"      Route: {protocol_facts.route_of_administration.value}")
-                print(f"      Alpha: {protocol_facts.alpha.primary_alpha} ({protocol_facts.alpha.sidedness})")
-                print(f"      Phase: {protocol_facts.phase.value}")
+                print(f"      Drug: {protocol_facts.drug_name or 'NOT FOUND - CRITICAL!'}")
+                print(f"      Sample Size: {protocol_facts.sample_size.total_n if protocol_facts.sample_size else 'NOT FOUND - CRITICAL!'}")
+                print(f"      Arms: {protocol_facts.num_arms or 'NOT FOUND - CRITICAL!'}")
+                print(f"      Ratio: {protocol_facts.randomization_ratio or 'NOT FOUND - CRITICAL!'}")
+                print(f"      Route: {protocol_facts.route_of_administration.value if protocol_facts.route_of_administration else 'Not found'}")
+                print(f"      Alpha: {protocol_facts.alpha.primary_alpha if protocol_facts.alpha else 'Not found'} ({protocol_facts.alpha.sidedness if protocol_facts.alpha else 'unknown'})")
+                print(f"      Phase: {protocol_facts.phase.value if protocol_facts.phase else 'Not found'}")
                 print(f"      Therapeutic Area: {protocol_facts.therapeutic_area or 'Not found'}")
+
+            # CRITICAL: Check if key facts were extracted
+            # If not, we CANNOT proceed - the LLM will use contaminated template values
+            missing_critical = []
+            if not protocol_facts.drug_name:
+                missing_critical.append("drug_name")
+            if not protocol_facts.sample_size or protocol_facts.sample_size.total_n == 0:
+                missing_critical.append("sample_size")
+            if not protocol_facts.num_arms or protocol_facts.num_arms == 0:
+                missing_critical.append("num_arms")
+            if not protocol_facts.randomization_ratio:
+                missing_critical.append("randomization_ratio")
+
+            if missing_critical and verbose:
+                print(f"\n      ⚠️ WARNING: Missing critical facts: {missing_critical}")
+                print(f"      ⚠️ Extraction may have failed - checking protocol text...")
+                # Show first 500 chars of protocol for debugging
+                print(f"      Protocol preview: {protocol_text[:500].replace(chr(10), ' ')[:200]}...")
 
             # ================================================================
             # STEP 2: GET SANITIZED RAG TEMPLATES

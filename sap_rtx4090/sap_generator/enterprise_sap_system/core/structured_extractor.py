@@ -377,9 +377,17 @@ class StructuredFactExtractor:
 
         drug_list = list(drug_names)
 
-        # Prioritize drug codes
+        # DEBUG: Print all found drug names for troubleshooting
+        if drug_list:
+            print(f"[DEBUG] All drug names found in protocol: {drug_list}")
+
+        # Prioritize drug codes - but prefer SHORTER codes (TJ301 over GA29144)
+        # to avoid picking up internal reference numbers
         drug_codes = [d for d in drug_list if re.match(r'^[A-Z]{2,4}[-]?\d{3,}$', d)]
         if drug_codes:
+            # Sort by length - prefer shorter codes (more likely to be actual drug names)
+            drug_codes.sort(key=len)
+            print(f"[DEBUG] Drug codes found: {drug_codes}, selecting: {drug_codes[0]}")
             return drug_codes[0], drug_list
         elif drug_list:
             return drug_list[0], drug_list
