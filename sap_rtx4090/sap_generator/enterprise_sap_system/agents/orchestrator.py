@@ -590,10 +590,22 @@ class SAPGenerationOrchestrator:
                         print(f"      WARNING: Programming specs failed: {e}")
 
             # Assemble final document with production appendices
+            legacy_warning = """
+---
+## ⚠️ LEGACY MODE WARNING
+**Mode:** LEGACY (uses old parser with RAG examples)
+**This mode is DEPRECATED and may cause contamination!**
+
+*If you see wrong drug names, sample sizes, or ratios, this is why.*
+*Production mode should be used instead.*
+---
+"""
             full_document = self._assemble_document(
                 sap_sections, parsed_protocol, estimands,
                 result.derivation_specs, result.tlf_specs, result.programming_specs
             )
+            # Prepend legacy warning
+            full_document = legacy_warning + "\n" + full_document
 
             result.sap_document = GeneratedSAP(
                 sections=sap_sections,
@@ -1063,11 +1075,27 @@ class SAPGenerationOrchestrator:
             )
             result.quality_report = quality_report
 
-            # Assemble document
+            # Assemble document with extraction debug header
+            extraction_debug = f"""
+---
+## EXTRACTION DEBUG (PRODUCTION MODE)
+**Mode:** PRODUCTION (facts-only, no legacy parser)
+**Drug Extracted:** {protocol_facts.drug_name or 'NOT FOUND'}
+**Sample Size:** {protocol_facts.sample_size.total_n if protocol_facts.sample_size else 'NOT FOUND'}
+**Arms:** {protocol_facts.num_arms or 'NOT FOUND'}
+**Ratio:** {protocol_facts.randomization_ratio or 'NOT FOUND'}
+**Route:** {protocol_facts.route_of_administration.value if protocol_facts.route_of_administration else 'NOT FOUND'}
+**Alpha:** {protocol_facts.alpha.primary_alpha if protocol_facts.alpha else 'NOT FOUND'} ({protocol_facts.alpha.sidedness if protocol_facts.alpha else 'unknown'})
+
+*If values above are wrong, extraction failed. Check protocol text format.*
+---
+"""
             full_document = self._assemble_document(
                 sap_sections, parsed_protocol, estimands or {},
                 None, None, None  # Skip production specs for now
             )
+            # Prepend extraction debug to document
+            full_document = extraction_debug + "\n" + full_document
 
             result.sap_document = GeneratedSAP(
                 sections=sap_sections,
