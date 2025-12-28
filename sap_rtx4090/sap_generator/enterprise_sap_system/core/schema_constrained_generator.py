@@ -495,30 +495,46 @@ class SectionAssembler:
 - Effect size: {active_rate} - {placebo_rate} difference
 """
 
-        # Build power scenarios if available
+        # Build power scenarios section if available (handles both 83% and 70% power scenarios)
         power_scenarios_text = ""
         power_scenarios = section.get('power_scenarios', [])
-        if power_scenarios and len(power_scenarios) > 1:
-            power_scenarios_text = f"""
-**Power Scenarios:**
-- Primary comparison (high dose vs. placebo): {power_scenarios[0]} power
-- Secondary comparison (combined treatment vs. placebo): {power_scenarios[1] if len(power_scenarios) > 1 else 'N/A'} power
-"""
+        if power_scenarios and len(power_scenarios) > 0:
+            # Parse power scenarios - they may be dicts or strings
+            scenarios_list = []
+            for scenario in power_scenarios:
+                if isinstance(scenario, dict):
+                    comparison = scenario.get('comparison', 'Treatment comparison')
+                    power = scenario.get('power', 'N/A')
+                    effect = scenario.get('effect_size', '')
+                    if effect:
+                        scenarios_list.append(f"- {comparison}: {power} power to detect {effect}")
+                    else:
+                        scenarios_list.append(f"- {comparison}: {power} power")
+                else:
+                    scenarios_list.append(f"- {scenario}")
 
-        return f"""6. SAMPLE SIZE CALCULATION
+            if scenarios_list:
+                power_scenarios_text = "\n**Power Scenarios:**\n" + "\n".join(scenarios_list)
+
+        # Build dropout adjustment text if available
+        dropout_text = ""
+        dropout_rate = section.get('dropout_rate')
+        if dropout_rate:
+            dropout_text = f"\n\nThe sample size accounts for an anticipated dropout rate of approximately {dropout_rate}."
+
+        return f"""## 6. SAMPLE SIZE CALCULATION
 
 {section.get('introduction', '')}
 
-6.1 Power Calculation
+### 6.1 Power Calculation
 
 {section.get('power_calculation_narrative', '')}
 {power_assumptions}
-The study will enroll a total of {section['total_n']} patients, randomized in a {section['ratio']} ratio
-across {section['num_arms']} treatment arms (approximately {section['per_arm_n']} patients per arm).
-The power calculation assumes {section['power_percent']}% power with a {section['alpha_sidedness']}
-alpha of {section['alpha']}.
+The study will enroll a total of {section['total_n']} patients, randomized in a {section['ratio']} ratio across {section['num_arms']} treatment arms (approximately {section['per_arm_n']} patients per arm).
 {power_scenarios_text}
-6.2 Summary
+{dropout_text}
+
+### 6.2 Summary
 
 {section.get('conclusion', '')}
 """

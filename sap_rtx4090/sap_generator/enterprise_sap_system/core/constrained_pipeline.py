@@ -967,6 +967,31 @@ class ConstrainedSAPPipeline:
         expected_response_placebo = get_value(getattr(facts, 'expected_response_placebo', None), None)
         expected_response_active = get_value(getattr(facts, 'expected_response_active', None), None)
         power_scenarios = getattr(facts, 'power_scenarios', [])
+        dropout_rate = get_value(getattr(facts, 'dropout_rate', None), "20%")
+
+        # If power_scenarios not provided, create default based on common clinical trial design
+        if not power_scenarios and num_arms >= 3:
+            # Default to dual power scenario for 3-arm studies
+            power_scenarios = [
+                {
+                    'comparison': 'Primary comparison (high dose vs. placebo)',
+                    'power': f'{power}%' if isinstance(power, int) else power,
+                    'effect_size': f'{expected_response_active or "30%"} vs {expected_response_placebo or "10%"} response rate difference'
+                },
+                {
+                    'comparison': 'Combined treatment comparison (pooled active vs. placebo)',
+                    'power': '70%',
+                    'effect_size': '20% difference in response rates'
+                }
+            ]
+        elif not power_scenarios:
+            power_scenarios = [
+                {
+                    'comparison': 'Primary comparison (active vs. placebo)',
+                    'power': f'{power}%' if isinstance(power, int) else power,
+                    'effect_size': 'clinically meaningful treatment difference'
+                }
+            ]
 
         return {
             'total_n': total_n,
@@ -979,8 +1004,9 @@ class ConstrainedSAPPipeline:
             'expected_response_placebo': expected_response_placebo,
             'expected_response_active': expected_response_active,
             'power_scenarios': power_scenarios,
+            'dropout_rate': dropout_rate,
             'introduction': "The sample size for this study was determined based on clinical and statistical considerations to ensure adequate power to detect a clinically meaningful treatment difference while accounting for expected dropout rates.",
-            'power_calculation_narrative': f"Power calculations were performed using a {alpha_side} test at α = {alpha}. The power analysis was conducted for the primary comparison (high dose vs. placebo).",
+            'power_calculation_narrative': f"Power calculations were performed using a {alpha_side} test at α = {alpha}. The power analysis was conducted for both the primary pairwise comparison and the combined treatment comparison against placebo.",
             'conclusion': "The planned sample size provides adequate statistical power to achieve the study objectives while considering practical enrollment constraints and expected dropout."
         }
 
@@ -999,6 +1025,11 @@ class ConstrainedSAPPipeline:
         ratio = get_value(facts.ratio, "1:1") if hasattr(facts, 'ratio') else "1:1"
         route = get_value(facts.route, "intravenous") if hasattr(facts, 'route') else "intravenous"
 
+        # Get dosing information if available
+        doses = getattr(facts, 'doses', None) or getattr(facts, 'dose_levels', None)
+        dosing_schedule = get_value(getattr(facts, 'dosing_schedule', None), None)
+        schedule_text = f" {dosing_schedule}" if dosing_schedule else ""
+
         # Generate arm descriptions - handle multiple formats
         arm_descriptions = []
         if hasattr(facts, 'arms') and facts.arms:
@@ -1006,7 +1037,11 @@ class ConstrainedSAPPipeline:
                 if hasattr(arm, 'value'):  # CitedValue format
                     arm_descriptions.append(arm.value)
                 elif hasattr(arm, 'name'):  # TreatmentArm format
-                    arm_descriptions.append(arm.name)
+                    # Check if arm has dose information
+                    if hasattr(arm, 'dose') and arm.dose:
+                        arm_descriptions.append(f"{arm.name} ({arm.dose})")
+                    else:
+                        arm_descriptions.append(arm.name)
                 else:  # Direct string
                     arm_descriptions.append(str(arm))
         elif hasattr(facts, 'arm_descriptions') and facts.arm_descriptions:
@@ -1014,11 +1049,25 @@ class ConstrainedSAPPipeline:
         elif hasattr(facts, 'arm_names') and facts.arm_names:
             arm_descriptions = facts.arm_names[:num_arms]
         else:
-            # Generate default arm descriptions
+            # Generate default arm descriptions with dose placeholders
             if num_arms == 2:
-                arm_descriptions = [f"{drug} active treatment", "Placebo"]
+                if doses and len(doses) >= 1:
+                    arm_descriptions = [f"{drug} {doses[0]}{schedule_text} - Active Treatment", f"Placebo IV{schedule_text}"]
+                else:
+                    arm_descriptions = [f"{drug} [DOSE]{schedule_text} - Active Treatment", f"Placebo IV{schedule_text}"]
             elif num_arms == 3:
-                arm_descriptions = [f"{drug} high dose", f"{drug} low dose", "Placebo"]
+                if doses and len(doses) >= 2:
+                    arm_descriptions = [
+                        f"{drug} {doses[0]}{schedule_text} - High Dose",
+                        f"{drug} {doses[1]}{schedule_text} - Low Dose",
+                        f"Placebo IV{schedule_text}"
+                    ]
+                else:
+                    arm_descriptions = [
+                        f"{drug} [HIGH DOSE]{schedule_text} - High Dose",
+                        f"{drug} [LOW DOSE]{schedule_text} - Low Dose",
+                        f"Placebo IV{schedule_text}"
+                    ]
             else:
                 arm_descriptions = [f"Treatment arm {i+1}" for i in range(num_arms)]
 
@@ -1080,9 +1129,42 @@ This SAP covers all planned efficacy, safety, and exploratory analyses for the s
         primary_endpoint = facts.primary_endpoint or "the primary efficacy endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
 
-        # Get arm info for treatment description
-        arm_names = facts.arm_names if facts.arm_names else ["Active Treatment", "Placebo"]
-        arm_descriptions = facts.arm_descriptions if facts.arm_descriptions else arm_names
+        # Get arm info for treatment description with dose information
+        num_arms = facts.num_arms or 3
+        doses = getattr(facts, 'doses', None) or getattr(facts, 'dose_levels', None)
+        dosing_schedule = facts.dosing_schedule if hasattr(facts, 'dosing_schedule') and facts.dosing_schedule else "Q2W"
+        route = facts.route or "IV"
+
+        # Build arm descriptions - prefer explicit descriptions, then construct from doses
+        if facts.arm_descriptions and not all("Investigational" in str(d) for d in facts.arm_descriptions):
+            arm_descriptions = facts.arm_descriptions
+        elif facts.arm_names and not all("Arm" in str(n) for n in facts.arm_names):
+            arm_descriptions = facts.arm_names
+        elif doses and len(doses) >= 2 and num_arms == 3:
+            # Construct specific arm descriptions from dose info
+            arm_descriptions = [
+                f"{drug_name} {doses[0]} {route} {dosing_schedule} - High Dose",
+                f"{drug_name} {doses[1]} {route} {dosing_schedule} - Low Dose",
+                f"Placebo {route} {dosing_schedule}"
+            ]
+        elif doses and len(doses) >= 1 and num_arms == 2:
+            arm_descriptions = [
+                f"{drug_name} {doses[0]} {route} {dosing_schedule} - Active Treatment",
+                f"Placebo {route} {dosing_schedule}"
+            ]
+        else:
+            # Default with placeholders for doses
+            if num_arms == 3:
+                arm_descriptions = [
+                    f"{drug_name} [HIGH DOSE] {route} {dosing_schedule} - High Dose",
+                    f"{drug_name} [LOW DOSE] {route} {dosing_schedule} - Low Dose",
+                    f"Placebo {route} {dosing_schedule}"
+                ]
+            else:
+                arm_descriptions = [
+                    f"{drug_name} [DOSE] {route} {dosing_schedule} - Active Treatment",
+                    f"Placebo {route} {dosing_schedule}"
+                ]
 
         # Build treatment arms text
         arms_text = "\n".join([f"  - {desc}" for desc in arm_descriptions])
@@ -1533,7 +1615,7 @@ Analysis windows for each assessment timepoint are defined in the protocol. If m
         if pk_sampling:
             sampling_list = ", ".join(pk_sampling[:15])
             sampling_section = f"""
-### 10.3 Sampling Schedule
+### 10.4 Sampling Schedule
 
 Intensive PK sampling will be performed at the following timepoints:
 - {sampling_list}
@@ -1542,16 +1624,28 @@ Sparse PK sampling will be collected at additional visits as per protocol.
 """
         else:
             sampling_section = """
-### 10.3 Sampling Schedule
+### 10.4 Sampling Schedule
 
-PK sampling will be performed according to the schedule specified in the study protocol. The exact sampling timepoints are defined in the protocol to ensure adequate characterization of the drug's pharmacokinetic profile.
+PK sampling will be performed according to the schedule specified in the study protocol. For intensive PK characterization, sampling typically includes:
 
-**Typical elements of the sampling schedule include:**
-- Pre-dose sample at each relevant visit
-- Multiple samples during and after infusion for intensive PK days
-- Trough samples at subsequent visits
+**1st Dose (Day 0) - Intensive Sampling:**
+- Pre-dose (within 1 hour before infusion)
+- End of infusion (EOI)
+- 6 hours post-dose
+- 48 hours post-dose (Day 2)
+- 144 hours post-dose (Day 6)
+- 240 hours post-dose (Day 10)
 
-The specific timepoints will be documented in the PK analysis plan appendix and align with the protocol-specified schedule.
+**2nd-5th Doses - Sparse Sampling:**
+- Pre-dose (trough)
+- End of infusion
+
+**6th/Final Dose - Intensive Sampling:**
+- Pre-dose
+- End of infusion
+- 6, 24, 48, 144, 336, 504, and 840 hours post-dose
+
+The exact sampling windows and acceptable deviations are specified in the protocol. Samples collected outside the specified windows will be flagged but included in analysis with actual collection times.
 """
 
         return f"""## 10. PHARMACOKINETIC ANALYSIS
@@ -2088,21 +2182,84 @@ Footnotes:
             total_n = facts.total_n.value if facts.total_n else 0
             ratio = facts.ratio.value if facts.ratio else "1:1"
 
-        header = f"""STATISTICAL ANALYSIS PLAN
+        header = f"""# STATISTICAL ANALYSIS PLAN
 
-Protocol: {nct}
-Drug: {drug}
-Sponsor: {sponsor}
-Phase: {phase}
-Indication: {indication}
-Design: {design}
-Sample Size: {total_n} ({ratio})
-Date: [DATE]
-Version: 1.0
+**Protocol:** {nct}
+**Drug:** {drug}
+**Sponsor:** {sponsor}
+**Phase:** {phase}
+**Indication:** {indication}
+**Design:** {design}
+**Sample Size:** {total_n} ({ratio})
 
 ============================================================
 
-TABLE OF CONTENTS
+## DOCUMENT CONTROL
+
+### Version History
+
++----------+------------+-------------+------------------------------------------+
+| Version  | Date       | Author      | Description of Changes                   |
++----------+------------+-------------+------------------------------------------+
+| 1.0      | [DATE]     | [Author]    | Initial version                          |
++----------+------------+-------------+------------------------------------------+
+
+### Signature Page
+
+This Statistical Analysis Plan has been reviewed and approved by:
+
++--------------------------------+-------------------------+------------+
+| Role                           | Name / Signature        | Date       |
++--------------------------------+-------------------------+------------+
+| Biostatistician (Primary)      | ________________________| __________ |
+| Biostatistician (QC Review)    | ________________________| __________ |
+| Medical Monitor                | ________________________| __________ |
+| Sponsor Representative         | ________________________| __________ |
++--------------------------------+-------------------------+------------+
+
+============================================================
+
+## ABBREVIATIONS
+
++-------------+--------------------------------------------------------------+
+| Abbreviation| Definition                                                   |
++-------------+--------------------------------------------------------------+
+| ADA         | Anti-drug antibody                                           |
+| AE          | Adverse event                                                |
+| ANCOVA      | Analysis of covariance                                       |
+| CI          | Confidence interval                                          |
+| CMH         | Cochran-Mantel-Haenszel                                      |
+| CTCAE       | Common Terminology Criteria for Adverse Events               |
+| ECG         | Electrocardiogram                                            |
+| FAS         | Full analysis set                                            |
+| GEE         | Generalized estimating equations                             |
+| ICH         | International Council for Harmonisation                      |
+| ITT         | Intent-to-treat                                              |
+| LOCF        | Last observation carried forward                             |
+| LLOQ        | Lower limit of quantification                                |
+| MAR         | Missing at random                                            |
+| MedDRA      | Medical Dictionary for Regulatory Activities                 |
+| MICE        | Multiple imputation by chained equations                     |
+| MMRM        | Mixed model for repeated measures                            |
+| NAb         | Neutralizing antibody                                        |
+| NCA         | Non-compartmental analysis                                   |
+| PCS         | Potentially clinically significant                           |
+| PK          | Pharmacokinetics                                             |
+| PP          | Per-protocol                                                 |
+| PT          | Preferred term                                               |
+| Q2W         | Every 2 weeks                                                |
+| SAE         | Serious adverse event                                        |
+| SAP         | Statistical analysis plan                                    |
+| SD          | Standard deviation                                           |
+| SOC         | System organ class                                           |
+| TEAE        | Treatment-emergent adverse event                             |
+| ULOQ        | Upper limit of quantification                                |
+| ULN         | Upper limit of normal                                        |
++-------------+--------------------------------------------------------------+
+
+============================================================
+
+## TABLE OF CONTENTS
 
 1. Introduction
 2. Study Objectives and Estimands
@@ -2115,6 +2272,10 @@ TABLE OF CONTENTS
 9. Safety Analysis
 10. Pharmacokinetic Analysis
 11. Appendices
+    - Appendix A: Endpoint Definitions
+    - Appendix B: Statistical Methods
+    - Appendix C: Data Handling Conventions
+    - Appendix D: Table Shells
 
 ============================================================
 """
