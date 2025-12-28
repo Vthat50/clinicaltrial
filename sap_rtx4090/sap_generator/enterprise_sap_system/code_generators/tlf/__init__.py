@@ -23,9 +23,12 @@ from .t_demog import DemographicsTableGenerator
 from .t_ae_summary import AESummaryTableGenerator
 from .t_primary import PrimaryEfficacyTableGenerator
 from .t_secondary import SecondaryEfficacyTableGenerator
+from .t_disp import DispositionTableGenerator
 from .l_demog import DemographicsListingGenerator
 from .l_ae import AdverseEventsListingGenerator
+from .l_conmeds import ConcomitantMedsListingGenerator
 from .f_forest import ForestPlotGenerator
+from .f_km import KaplanMeierPlotGenerator
 
 __all__ = [
     # Tables
@@ -33,9 +36,12 @@ __all__ = [
     'AESummaryTableGenerator',
     'PrimaryEfficacyTableGenerator',
     'SecondaryEfficacyTableGenerator',
+    'DispositionTableGenerator',
     # Listings
     'DemographicsListingGenerator',
     'AdverseEventsListingGenerator',
+    'ConcomitantMedsListingGenerator',
     # Figures
     'ForestPlotGenerator',
+    'KaplanMeierPlotGenerator',
 ]

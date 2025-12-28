@@ -101,6 +101,7 @@ export default function JobDetailPage() {
   const [batchEvaluating, setBatchEvaluating] = useState(false)
   const [batchError, setBatchError] = useState<string | null>(null)
   const [showBatchDetails, setShowBatchDetails] = useState(false)
+  const [batchLimit, setBatchLimit] = useState<number>(30)
 
   // Fetch ground truth studies on mount
   useEffect(() => {
@@ -154,7 +155,7 @@ export default function JobDetailPage() {
     setBatchEvaluation(null)
 
     try {
-      const res = await fetch(`${API_URL}/evaluate-batch/${jobId}?limit=100`, {
+      const res = await fetch(`${API_URL}/evaluate-batch/${jobId}?limit=${batchLimit}`, {
         method: 'POST'
       })
 
@@ -431,19 +432,32 @@ export default function JobDetailPage() {
                   <div className="flex items-center gap-2">
                     <span className="text-lg">📊</span>
                     <h4 className="font-medium text-gray-800">Batch Evaluation</h4>
-                    <span className="text-xs text-gray-500">(Compare against all {groundTruthStudies.length} studies)</span>
                   </div>
-                  <button
-                    onClick={runBatchEvaluation}
-                    disabled={batchEvaluating}
-                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
-                      batchEvaluating
-                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : 'bg-indigo-600 text-white hover:bg-indigo-700'
-                    }`}
-                  >
-                    {batchEvaluating ? 'Running...' : 'Run Batch Evaluation'}
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={batchLimit}
+                      onChange={(e) => setBatchLimit(Number(e.target.value))}
+                      disabled={batchEvaluating}
+                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value={10}>10 studies</option>
+                      <option value={30}>30 studies</option>
+                      <option value={50}>50 studies</option>
+                      <option value={100}>100 studies</option>
+                      <option value={500}>All ({groundTruthStudies.length})</option>
+                    </select>
+                    <button
+                      onClick={runBatchEvaluation}
+                      disabled={batchEvaluating}
+                      className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+                        batchEvaluating
+                          ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      }`}
+                    >
+                      {batchEvaluating ? 'Running...' : 'Run Batch'}
+                    </button>
+                  </div>
                 </div>
 
                 {/* Batch Error */}

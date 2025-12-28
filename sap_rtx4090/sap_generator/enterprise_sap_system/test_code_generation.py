@@ -133,8 +133,8 @@ def run_test():
         # Step 4: Verify output files
         print("\n[4/5] Verifying output files...")
 
-        # Note: ADTTE is only generated for time-to-event endpoints (oncology)
-        # This IBD trial has binary endpoints, so ADTTE is correctly skipped
+        # Note: ADTTE and f_km.sas are only generated for time-to-event endpoints (oncology)
+        # This IBD trial has binary endpoints, so they are correctly skipped
         expected_files = [
             # ADaM programs
             "adam/adsl.sas",
@@ -142,14 +142,17 @@ def run_test():
             "adam/adeff.sas",
             # Tables
             "tlf/t_demog.sas",
+            "tlf/t_disp.sas",       # Disposition table
             "tlf/t_ae_summary.sas",
             "tlf/t_primary.sas",
-            "tlf/t_secondary.sas",  # NEW: Secondary efficacy
+            "tlf/t_secondary.sas",  # Secondary efficacy
             # Listings
-            "tlf/l_demog.sas",      # NEW: Demographics listing
-            "tlf/l_ae.sas",         # NEW: AE listing
+            "tlf/l_demog.sas",      # Demographics listing
+            "tlf/l_ae.sas",         # AE listing
+            "tlf/l_conmeds.sas",    # Concomitant medications listing
             # Figures
-            "tlf/f_forest.sas",     # NEW: Forest plot
+            "tlf/f_forest.sas",     # Forest plot
+            # Note: f_km.sas only generated for TTE endpoints
             # Infrastructure
             "driver.sas",
             "validation_checklist.txt"

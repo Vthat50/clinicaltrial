@@ -145,7 +145,13 @@ if frontend_url:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all for now
+    allow_origins=[
+        "http://localhost:3000",
+        "https://clinicaltrial-le7c7im7x-vthatte1-5467s-projects.vercel.app",
+        "https://clinicaltrial.vercel.app",
+        "https://*.vercel.app",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

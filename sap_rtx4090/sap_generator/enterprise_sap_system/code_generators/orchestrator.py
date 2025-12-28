@@ -29,13 +29,16 @@ from .tlf.t_demog import DemographicsTableGenerator
 from .tlf.t_ae_summary import AESummaryTableGenerator
 from .tlf.t_primary import PrimaryEfficacyTableGenerator
 from .tlf.t_secondary import SecondaryEfficacyTableGenerator
+from .tlf.t_disp import DispositionTableGenerator
 
 # TLF generators - Listings
 from .tlf.l_demog import DemographicsListingGenerator
 from .tlf.l_ae import AdverseEventsListingGenerator
+from .tlf.l_conmeds import ConcomitantMedsListingGenerator
 
 # TLF generators - Figures
 from .tlf.f_forest import ForestPlotGenerator
+from .tlf.f_km import KaplanMeierPlotGenerator
 
 from .base import CodeGenerationResult
 
@@ -87,11 +90,14 @@ class CodeGenerationOrchestrator:
             't_ae_summary': AESummaryTableGenerator(),
             't_primary': PrimaryEfficacyTableGenerator(),
             't_secondary': SecondaryEfficacyTableGenerator(),
+            't_disp': DispositionTableGenerator(),
             # Listings
             'l_demog': DemographicsListingGenerator(),
             'l_ae': AdverseEventsListingGenerator(),
+            'l_conmeds': ConcomitantMedsListingGenerator(),
             # Figures
             'f_forest': ForestPlotGenerator(),
+            'f_km': KaplanMeierPlotGenerator(),
         }
 
     def generate_all(self, protocol_facts: Dict[str, Any]) -> GenerationPackage:
@@ -179,6 +185,9 @@ class CodeGenerationOrchestrator:
         # Demographics table (always required)
         programs.append(self.tlf_generators['t_demog'].generate(protocol_facts))
 
+        # Disposition table (always required)
+        programs.append(self.tlf_generators['t_disp'].generate(protocol_facts))
+
         # AE summary table (always required for safety)
         programs.append(self.tlf_generators['t_ae_summary'].generate(protocol_facts))
 
@@ -198,10 +207,17 @@ class CodeGenerationOrchestrator:
         # AE listing (always required for safety)
         programs.append(self.tlf_generators['l_ae'].generate(protocol_facts))
 
+        # Concomitant medications listing (always required for safety)
+        programs.append(self.tlf_generators['l_conmeds'].generate(protocol_facts))
+
         # === FIGURES ===
 
         # Forest plot for subgroup analysis
         programs.append(self.tlf_generators['f_forest'].generate(protocol_facts))
+
+        # Kaplan-Meier plot (if time-to-event endpoints exist)
+        if self._has_tte_endpoints(protocol_facts):
+            programs.append(self.tlf_generators['f_km'].generate(protocol_facts))
 
         return programs
 
