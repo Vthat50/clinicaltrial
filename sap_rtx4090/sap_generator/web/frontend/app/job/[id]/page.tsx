@@ -719,22 +719,13 @@ export default function JobDetailPage() {
               {activeTab === 'sap' && result.generated_sap && (
                 <div>
                   <div className="flex justify-end mb-4 gap-2">
-                    <button
-                      onClick={() => {
-                        const blob = new Blob([result.generated_sap || ''], { type: 'text/markdown' })
-                        const url = URL.createObjectURL(blob)
-                        const a = document.createElement('a')
-                        a.href = url
-                        a.download = `SAP_${result.filename || jobId.slice(0, 8)}.md`
-                        document.body.appendChild(a)
-                        a.click()
-                        document.body.removeChild(a)
-                        URL.revokeObjectURL(url)
-                      }}
-                      className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+                    <a
+                      href={`data:text/markdown;charset=utf-8,${encodeURIComponent(result.generated_sap || '')}`}
+                      download={`SAP_${result.filename || jobId.slice(0, 8)}.md`}
+                      className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors inline-block"
                     >
                       Download Markdown
-                    </button>
+                    </a>
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(result.generated_sap || '')
@@ -801,22 +792,13 @@ export default function JobDetailPage() {
                           </h3>
                           <p className="text-sm text-gray-500">{sdtmSpec.message}</p>
                         </div>
-                        <button
-                          onClick={() => {
-                            const blob = new Blob([sdtmSpec.markdown], { type: 'text/markdown' })
-                            const url = URL.createObjectURL(blob)
-                            const a = document.createElement('a')
-                            a.href = url
-                            a.download = `SDTM_Spec_${result?.filename || jobId.slice(0, 8)}.md`
-                            document.body.appendChild(a)
-                            a.click()
-                            document.body.removeChild(a)
-                            URL.revokeObjectURL(url)
-                          }}
-                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+                        <a
+                          href={`data:text/markdown;charset=utf-8,${encodeURIComponent(sdtmSpec.markdown || '')}`}
+                          download={`SDTM_Spec_${result?.filename || jobId.slice(0, 8)}.md`}
+                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors inline-block"
                         >
                           Download Markdown
-                        </button>
+                        </a>
                       </div>
 
                       {/* SAP Summary - Extracted Information */}
