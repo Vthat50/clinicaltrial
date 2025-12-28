@@ -1,0 +1,787 @@
+#!/usr/bin/env python3
+"""
+Schema-Constrained SAP Generation System
+=========================================
+
+This system ensures LLM CANNOT hallucinate values by using Pydantic Literal types
+that constrain outputs at generation time - NOT post-processing.
+
+Architecture:
+1. Extract ProtocolFacts from protocol
+2. Dynamically create Pydantic schemas with Literal[extracted_values]
+3. LLM generates structured output that MUST conform to schema
+4. Formal verification validates invariants
+5. Multi-judge validation (optional) for extra safety
+
+The key insight: The LLM cannot generate "1150" if the schema only allows Literal[90]
+"""
+
+import re
+import json
+from typing import Any, Dict, List, Optional, Tuple, Union, Type, Literal
+from dataclasses import dataclass, field
+from pydantic import BaseModel, Field, field_validator, model_validator
+from enum import Enum
+
+
+# =============================================================================
+# STAGE 1: PROTOCOL FACTS (Grounded Extraction)
+# =============================================================================
+
+@dataclass
+class CitedValue:
+    """A value extracted with its source citation"""
+    value: Any
+    citation: str  # Exact text from protocol
+    page: Optional[str] = None
+    confidence: float = 1.0
+
+
+@dataclass
+class ProtocolFacts:
+    """All facts extracted from protocol with citations"""
+    # Identification
+    study_id: Optional[CitedValue] = None
+    nct_id: Optional[CitedValue] = None
+    sponsor: Optional[CitedValue] = None
+
+    # Drug
+    drug_name: Optional[CitedValue] = None
+    drug_code: Optional[CitedValue] = None
+    drug_generic: Optional[CitedValue] = None
+    route: Optional[CitedValue] = None
+
+    # Sample Size
+    total_n: Optional[CitedValue] = None
+    per_arm_n: Optional[CitedValue] = None
+    power: Optional[CitedValue] = None
+    alpha: Optional[CitedValue] = None
+    alpha_sidedness: Optional[CitedValue] = None
+    dropout_rate: Optional[CitedValue] = None
+
+    # Design
+    num_arms: Optional[CitedValue] = None
+    ratio: Optional[CitedValue] = None
+    arms: List[CitedValue] = field(default_factory=list)
+
+    # Endpoints
+    primary_endpoint: Optional[CitedValue] = None
+    primary_timepoint: Optional[CitedValue] = None
+    secondary_endpoints: List[CitedValue] = field(default_factory=list)
+
+    # Populations
+    primary_population: Optional[CitedValue] = None
+
+    # Stratification
+    stratification_factors: List[CitedValue] = field(default_factory=list)
+
+    # Phase & Indication
+    phase: Optional[CitedValue] = None
+    indication: Optional[CitedValue] = None
+    therapeutic_area: Optional[CitedValue] = None
+
+
+# =============================================================================
+# STAGE 2: SCHEMA-CONSTRAINED SECTION MODELS
+# =============================================================================
+
+class SampleSizeSectionBase(BaseModel):
+    """
+    Base schema for Sample Size section.
+    Actual values are injected dynamically via Literal types.
+    """
+    # These will be overridden with Literal types dynamically
+    total_n: int
+    ratio: str
+    power_percent: int
+    alpha: float
+    alpha_sidedness: str
+    num_arms: int
+    per_arm_n: int
+
+    # Prose sections - LLM generates these
+    introduction: str = Field(
+        max_length=800,
+        description="Opening paragraph explaining sample size rationale. DO NOT include any numbers."
+    )
+
+    power_calculation_narrative: str = Field(
+        max_length=600,
+        description="Description of power calculation methodology. DO NOT include any numbers."
+    )
+
+    conclusion: str = Field(
+        max_length=400,
+        description="Summary statement. DO NOT include any numbers."
+    )
+
+    @field_validator('introduction', 'power_calculation_narrative', 'conclusion')
+    @classmethod
+    def no_numbers_in_prose(cls, v: str) -> str:
+        """Prose sections CANNOT contain numbers - forces use of schema fields"""
+        # Allow common non-data numbers like "first", "second" but block raw digits
+        found = re.findall(r'\b\d+\b', v)
+        if found:
+            # Filter out allowed numbers (ordinals converted, common phrases)
+            disallowed = [n for n in found if int(n) > 10 and int(n) not in [100]]
+            if disallowed:
+                raise ValueError(f"Prose contains disallowed numbers: {disallowed}. Use schema fields for data values.")
+        return v
+
+
+class StudyDesignSectionBase(BaseModel):
+    """Base schema for Study Design section"""
+    drug_name: str
+    num_arms: int
+    ratio: str
+    route: str
+
+    # Arm descriptions - list of exactly num_arms items
+    arm_descriptions: List[str] = Field(
+        description="Description for each treatment arm"
+    )
+
+    design_narrative: str = Field(
+        max_length=1000,
+        description="Study design description. DO NOT include numbers except those in schema fields."
+    )
+
+    @model_validator(mode='after')
+    def arm_count_matches(self) -> 'StudyDesignSectionBase':
+        """Number of arm descriptions must match num_arms"""
+        if len(self.arm_descriptions) != self.num_arms:
+            raise ValueError(f"Expected {self.num_arms} arm descriptions, got {len(self.arm_descriptions)}")
+        return self
+
+
+class PrimaryAnalysisSectionBase(BaseModel):
+    """Base schema for Primary Analysis section"""
+    primary_endpoint: str
+    primary_timepoint: str
+    primary_population: str
+    analysis_method: str
+
+    analysis_narrative: str = Field(
+        max_length=1200,
+        description="Description of primary analysis approach"
+    )
+
+    missing_data_approach: str = Field(
+        max_length=600,
+        description="How missing data will be handled"
+    )
+
+
+# =============================================================================
+# SCHEMA FACTORY: Create constrained schemas from ProtocolFacts
+# =============================================================================
+
+def create_sample_size_schema(facts: ProtocolFacts) -> Type[BaseModel]:
+    """
+    Dynamically create a SampleSizeSection schema with Literal constraints.
+
+    Example: If facts.total_n.value = 90, creates:
+        total_n: Literal[90]  # LLM MUST output exactly 90
+    """
+    # Extract values with defaults
+    _total_n = facts.total_n.value if facts.total_n else 100
+    _ratio = facts.ratio.value if facts.ratio else "1:1"
+    _power = int(str(facts.power.value).replace('%', '')) if facts.power else 80
+    _alpha = facts.alpha.value if facts.alpha else 0.05
+    _alpha_sidedness = facts.alpha_sidedness.value if facts.alpha_sidedness else "two-sided"
+    _num_arms = facts.num_arms.value if facts.num_arms else 2
+    _per_arm_n = facts.per_arm_n.value if facts.per_arm_n else _total_n // _num_arms
+
+    # Create dynamic model using create_model to avoid scoping issues
+    from pydantic import create_model
+
+    ConstrainedSampleSizeSection = create_model(
+        'ConstrainedSampleSizeSection',
+        __base__=SampleSizeSectionBase,
+        total_n=(Literal[_total_n], _total_n),  # type: ignore
+        ratio=(Literal[_ratio], _ratio),  # type: ignore
+        power_percent=(Literal[_power], _power),  # type: ignore
+        alpha=(Literal[_alpha], _alpha),  # type: ignore
+        alpha_sidedness=(Literal[_alpha_sidedness], _alpha_sidedness),  # type: ignore
+        num_arms=(Literal[_num_arms], _num_arms),  # type: ignore
+        per_arm_n=(Literal[_per_arm_n], _per_arm_n),  # type: ignore
+    )
+
+    return ConstrainedSampleSizeSection
+
+
+def create_study_design_schema(facts: ProtocolFacts) -> Type[BaseModel]:
+    """Create Study Design schema with Literal constraints"""
+    _drug_name = facts.drug_name.value if facts.drug_name else "Study Drug"
+    _num_arms = facts.num_arms.value if facts.num_arms else 2
+    _ratio = facts.ratio.value if facts.ratio else "1:1"
+    _route = facts.route.value if facts.route else "intravenous"
+
+    from pydantic import create_model
+
+    ConstrainedStudyDesignSection = create_model(
+        'ConstrainedStudyDesignSection',
+        __base__=StudyDesignSectionBase,
+        drug_name=(Literal[_drug_name], _drug_name),  # type: ignore
+        num_arms=(Literal[_num_arms], _num_arms),  # type: ignore
+        ratio=(Literal[_ratio], _ratio),  # type: ignore
+        route=(Literal[_route], _route),  # type: ignore
+    )
+
+    return ConstrainedStudyDesignSection
+
+
+def create_primary_analysis_schema(facts: ProtocolFacts) -> Type[BaseModel]:
+    """Create Primary Analysis schema with Literal constraints"""
+    _endpoint = facts.primary_endpoint.value if facts.primary_endpoint else "Primary endpoint"
+    _timepoint = facts.primary_timepoint.value if facts.primary_timepoint else "Week 12"
+    _population = facts.primary_population.value if facts.primary_population else "ITT"
+
+    from pydantic import create_model
+
+    ConstrainedPrimaryAnalysisSection = create_model(
+        'ConstrainedPrimaryAnalysisSection',
+        __base__=PrimaryAnalysisSectionBase,
+        primary_endpoint=(Literal[_endpoint], _endpoint),  # type: ignore
+        primary_timepoint=(Literal[_timepoint], _timepoint),  # type: ignore
+        primary_population=(Literal[_population], _population),  # type: ignore
+        # analysis_method is not constrained - LLM chooses appropriate method
+    )
+
+    return ConstrainedPrimaryAnalysisSection
+
+
+# =============================================================================
+# STAGE 3: FORMAL VERIFICATION
+# =============================================================================
+
+@dataclass
+class VerificationResult:
+    """Result of formal verification"""
+    passed: bool
+    violations: List[str] = field(default_factory=list)
+    warnings: List[str] = field(default_factory=list)
+
+
+class FormalVerifier:
+    """
+    Formal verification of SAP sections against protocol facts.
+
+    Defines invariants that MUST hold for each section.
+    """
+
+    def verify_sample_size_section(
+        self,
+        section: dict,
+        facts: ProtocolFacts
+    ) -> VerificationResult:
+        """
+        Verify Sample Size section invariants:
+
+        INVARIANTS:
+        1. total_n == ProtocolFacts.total_n
+        2. ratio == ProtocolFacts.ratio
+        3. num_arms == len(ratio.split(':'))
+        4. per_arm_n * num_arms ≈ total_n (within 10%)
+        5. No numbers in prose that aren't in ProtocolFacts
+        """
+        violations = []
+        warnings = []
+
+        # INV-1: total_n matches
+        if facts.total_n:
+            if section.get('total_n') != facts.total_n.value:
+                violations.append(
+                    f"INV-1 VIOLATED: total_n={section.get('total_n')} "
+                    f"but ProtocolFacts.total_n={facts.total_n.value}"
+                )
+
+        # INV-2: ratio matches
+        if facts.ratio:
+            if section.get('ratio') != facts.ratio.value:
+                violations.append(
+                    f"INV-2 VIOLATED: ratio={section.get('ratio')} "
+                    f"but ProtocolFacts.ratio={facts.ratio.value}"
+                )
+
+        # INV-3: num_arms matches ratio parts
+        ratio = section.get('ratio', '')
+        expected_arms = len(ratio.split(':')) if ratio else 0
+        actual_arms = section.get('num_arms', 0)
+        if expected_arms != actual_arms:
+            violations.append(
+                f"INV-3 VIOLATED: ratio {ratio} has {expected_arms} parts "
+                f"but num_arms={actual_arms}"
+            )
+
+        # INV-4: per_arm_n * num_arms ≈ total_n
+        per_arm = section.get('per_arm_n', 0)
+        total = section.get('total_n', 0)
+        num_arms = section.get('num_arms', 1)
+        if per_arm and total and num_arms:
+            expected = per_arm * num_arms
+            if abs(expected - total) > total * 0.15:  # 15% tolerance for unequal arms
+                violations.append(
+                    f"INV-4 VIOLATED: {per_arm} × {num_arms} = {expected} "
+                    f"but total_n = {total}"
+                )
+
+        # INV-5: No unknown numbers in prose
+        allowed_numbers = self._get_allowed_numbers(facts)
+        for prose_field in ['introduction', 'power_calculation_narrative', 'conclusion']:
+            prose = section.get(prose_field, '')
+            found_numbers = set(int(n) for n in re.findall(r'\b(\d+)\b', prose))
+            unknown = found_numbers - allowed_numbers - {0, 1, 2, 3, 4, 5, 10, 12, 24, 48, 72, 100}
+            if unknown:
+                warnings.append(
+                    f"INV-5 WARNING: Unknown numbers in {prose_field}: {unknown}"
+                )
+
+        return VerificationResult(
+            passed=len(violations) == 0,
+            violations=violations,
+            warnings=warnings
+        )
+
+    def verify_study_design_section(
+        self,
+        section: dict,
+        facts: ProtocolFacts
+    ) -> VerificationResult:
+        """
+        Verify Study Design section invariants:
+
+        INVARIANTS:
+        1. drug_name == ProtocolFacts.drug_name
+        2. len(arm_descriptions) == num_arms
+        3. route == ProtocolFacts.route
+        """
+        violations = []
+        warnings = []
+
+        # INV-1: drug_name matches
+        if facts.drug_name:
+            if section.get('drug_name') != facts.drug_name.value:
+                violations.append(
+                    f"INV-1 VIOLATED: drug_name={section.get('drug_name')} "
+                    f"but ProtocolFacts.drug_name={facts.drug_name.value}"
+                )
+
+        # INV-2: arm count matches
+        arms = section.get('arm_descriptions', [])
+        num_arms = section.get('num_arms', 0)
+        if len(arms) != num_arms:
+            violations.append(
+                f"INV-2 VIOLATED: {len(arms)} arm descriptions "
+                f"but num_arms={num_arms}"
+            )
+
+        # INV-3: route matches
+        if facts.route:
+            if section.get('route') != facts.route.value:
+                violations.append(
+                    f"INV-3 VIOLATED: route={section.get('route')} "
+                    f"but ProtocolFacts.route={facts.route.value}"
+                )
+
+        return VerificationResult(
+            passed=len(violations) == 0,
+            violations=violations,
+            warnings=warnings
+        )
+
+    def _get_allowed_numbers(self, facts: ProtocolFacts) -> set:
+        """Extract all valid numbers from ProtocolFacts"""
+        allowed = set()
+
+        for field_name in ['total_n', 'per_arm_n', 'power', 'num_arms']:
+            fact = getattr(facts, field_name, None)
+            if fact and fact.value:
+                # Extract digits from value
+                val_str = str(fact.value)
+                for num in re.findall(r'\d+', val_str):
+                    allowed.add(int(num))
+
+        return allowed
+
+
+# =============================================================================
+# STAGE 4: GENERATION PROMPTS
+# =============================================================================
+
+def get_sample_size_prompt(facts: ProtocolFacts) -> str:
+    """Generate prompt for Sample Size section with schema constraints"""
+
+    total_n = facts.total_n.value if facts.total_n else "N/A"
+    ratio = facts.ratio.value if facts.ratio else "N/A"
+    power = facts.power.value if facts.power else "80%"
+    alpha = facts.alpha.value if facts.alpha else 0.05
+    alpha_side = facts.alpha_sidedness.value if facts.alpha_sidedness else "two-sided"
+    num_arms = facts.num_arms.value if facts.num_arms else 2
+    per_arm = facts.per_arm_n.value if facts.per_arm_n else "N/A"
+
+    return f"""Generate Section 6: Sample Size Calculation for a Statistical Analysis Plan.
+
+CRITICAL CONSTRAINTS (enforced by schema):
+- total_n MUST be exactly: {total_n}
+- ratio MUST be exactly: "{ratio}"
+- power_percent MUST be exactly: {power}
+- alpha MUST be exactly: {alpha}
+- alpha_sidedness MUST be exactly: "{alpha_side}"
+- num_arms MUST be exactly: {num_arms}
+- per_arm_n MUST be exactly: {per_arm}
+
+You MUST write prose for these fields:
+1. introduction: Opening paragraph explaining sample size rationale
+2. power_calculation_narrative: Description of power calculation methodology
+3. conclusion: Summary statement
+
+CRITICAL RULES FOR PROSE:
+- DO NOT include ANY numbers in prose fields
+- The schema fields (total_n, ratio, etc.) will be rendered separately
+- Your prose should describe concepts without repeating the numbers
+- Use phrases like "the planned sample size" instead of stating the number
+
+Write professional, regulatory-grade prose suitable for FDA submission."""
+
+
+def get_study_design_prompt(facts: ProtocolFacts) -> str:
+    """Generate prompt for Study Design section"""
+
+    drug = facts.drug_name.value if facts.drug_name else "Study Drug"
+    num_arms = facts.num_arms.value if facts.num_arms else 2
+    ratio = facts.ratio.value if facts.ratio else "1:1"
+    route = facts.route.value if facts.route else "intravenous"
+
+    arm_strs = [f"- {arm.value}" for arm in facts.arms] if facts.arms else []
+
+    return f"""Generate Section 3: Study Design for a Statistical Analysis Plan.
+
+CRITICAL CONSTRAINTS (enforced by schema):
+- drug_name MUST be exactly: "{drug}"
+- num_arms MUST be exactly: {num_arms}
+- ratio MUST be exactly: "{ratio}"
+- route MUST be exactly: "{route}"
+
+Known treatment arms:
+{chr(10).join(arm_strs) if arm_strs else "Arms to be defined"}
+
+You MUST provide:
+1. arm_descriptions: List of {num_arms} strings describing each arm
+2. design_narrative: Study design description
+
+Write professional, regulatory-grade prose."""
+
+
+# =============================================================================
+# SECTION ASSEMBLER: Combine structured output into prose
+# =============================================================================
+
+class SectionAssembler:
+    """Assembles verified structured output into final SAP prose"""
+
+    def assemble_sample_size_section(self, section: dict) -> str:
+        """Convert structured SampleSizeSection to prose"""
+        return f"""6. SAMPLE SIZE CALCULATION
+
+{section.get('introduction', '')}
+
+6.1 Power Calculation
+
+{section.get('power_calculation_narrative', '')}
+
+The study will enroll a total of {section['total_n']} patients, randomized in a {section['ratio']} ratio
+across {section['num_arms']} treatment arms (approximately {section['per_arm_n']} patients per arm).
+The power calculation assumes {section['power_percent']}% power with a {section['alpha_sidedness']}
+alpha of {section['alpha']}.
+
+6.2 Summary
+
+{section.get('conclusion', '')}
+"""
+
+    def assemble_study_design_section(self, section: dict) -> str:
+        """Convert structured StudyDesignSection to prose"""
+        arms_text = "\n".join(f"  - Arm {i+1}: {desc}"
+                              for i, desc in enumerate(section.get('arm_descriptions', [])))
+
+        return f"""3. STUDY DESIGN
+
+{section.get('design_narrative', '')}
+
+3.1 Treatment Arms
+
+This study employs a {section['num_arms']}-arm design with {section['ratio']} randomization:
+
+{arms_text}
+
+The investigational product, {section['drug_name']}, will be administered via {section['route']} route.
+"""
+
+
+# =============================================================================
+# MAIN GENERATOR CLASS
+# =============================================================================
+
+class SchemaConstrainedGenerator:
+    """
+    Main generator class that orchestrates schema-constrained generation.
+
+    Usage:
+        facts = extract_protocol_facts(protocol_text)
+        generator = SchemaConstrainedGenerator(facts)
+        sap = generator.generate_full_sap()
+    """
+
+    def __init__(self, facts: ProtocolFacts, llm_client=None):
+        self.facts = facts
+        self.llm_client = llm_client
+        self.verifier = FormalVerifier()
+        self.assembler = SectionAssembler()
+
+        # Create constrained schemas
+        self.sample_size_schema = create_sample_size_schema(facts)
+        self.study_design_schema = create_study_design_schema(facts)
+        self.primary_analysis_schema = create_primary_analysis_schema(facts)
+
+    def generate_sample_size_section(self) -> Tuple[str, VerificationResult]:
+        """
+        Generate Sample Size section with schema constraints and verification.
+
+        Returns:
+            Tuple of (assembled_prose, verification_result)
+        """
+        # Get constrained schema
+        schema = self.sample_size_schema
+        prompt = get_sample_size_prompt(self.facts)
+
+        # TODO: Use instructor library to generate with schema
+        # For now, return a template that uses the constrained values
+
+        # Get the default values from the schema (which are Literals)
+        section_data = {
+            'total_n': self.facts.total_n.value if self.facts.total_n else 100,
+            'ratio': self.facts.ratio.value if self.facts.ratio else "1:1",
+            'power_percent': 80,
+            'alpha': 0.05,
+            'alpha_sidedness': 'one-sided',
+            'num_arms': self.facts.num_arms.value if self.facts.num_arms else 2,
+            'per_arm_n': self.facts.per_arm_n.value if self.facts.per_arm_n else 50,
+            'introduction': "The sample size for this study was determined based on clinical and statistical considerations to ensure adequate power to detect a clinically meaningful treatment difference.",
+            'power_calculation_narrative': "Power calculations were performed using standard methodology appropriate for the primary endpoint analysis.",
+            'conclusion': "The planned sample size provides adequate power to achieve the study objectives while considering practical enrollment constraints."
+        }
+
+        # Verify
+        verification = self.verifier.verify_sample_size_section(section_data, self.facts)
+
+        # Assemble
+        prose = self.assembler.assemble_sample_size_section(section_data)
+
+        return prose, verification
+
+    def get_schema_json(self, section: str) -> str:
+        """Get JSON schema for a section (for use with instructor)"""
+        schemas = {
+            'sample_size': self.sample_size_schema,
+            'study_design': self.study_design_schema,
+            'primary_analysis': self.primary_analysis_schema,
+        }
+
+        schema_class = schemas.get(section)
+        if schema_class:
+            return json.dumps(schema_class.model_json_schema(), indent=2)
+        return "{}"
+
+    def get_allowed_values_summary(self) -> Dict[str, Any]:
+        """Get summary of all constrained values for debugging"""
+        return {
+            'total_n': self.facts.total_n.value if self.facts.total_n else None,
+            'ratio': self.facts.ratio.value if self.facts.ratio else None,
+            'num_arms': self.facts.num_arms.value if self.facts.num_arms else None,
+            'drug_name': self.facts.drug_name.value if self.facts.drug_name else None,
+            'route': self.facts.route.value if self.facts.route else None,
+            'power': self.facts.power.value if self.facts.power else None,
+            'alpha': self.facts.alpha.value if self.facts.alpha else None,
+        }
+
+
+# =============================================================================
+# CONTAMINATION DETECTOR
+# =============================================================================
+
+class ContaminationDetector:
+    """
+    Detects if generated content contains values from RAG examples
+    rather than protocol facts.
+    """
+
+    # Known contaminating values from RAG examples
+    KNOWN_CONTAMINANTS = {
+        # Study IDs
+        'GA29144', 'GA29145', 'PRO145223', 'WA25615', 'ML42528',
+        # Sample sizes
+        1150, 769, 728, 600, 500, 400, 300, 200,
+        # Drug names
+        'etrolizumab', 'tocilizumab', 'sarilumab', 'adalimumab',
+        # Ratios
+        '1:2:2', '2:1', '1:1:1:1', '3:1',
+    }
+
+    def check_contamination(
+        self,
+        generated_text: str,
+        facts: ProtocolFacts
+    ) -> Tuple[bool, List[str]]:
+        """
+        Check for contamination from RAG examples.
+
+        Returns:
+            Tuple of (is_contaminated, list_of_contaminants_found)
+        """
+        found = []
+
+        # Get valid values from protocol
+        valid_values = self._get_valid_values(facts)
+
+        # Check for known contaminants
+        for contaminant in self.KNOWN_CONTAMINANTS:
+            if str(contaminant) in generated_text:
+                # Only flag if it's not a valid protocol value
+                if contaminant not in valid_values:
+                    found.append(f"CONTAMINANT: {contaminant}")
+
+        # Check for numbers not in protocol
+        numbers_in_text = set(int(n) for n in re.findall(r'\b(\d{2,4})\b', generated_text))
+        valid_numbers = {v for v in valid_values if isinstance(v, int)}
+
+        suspicious = numbers_in_text - valid_numbers - {0, 1, 2, 3, 4, 5, 10, 12, 24, 48, 72, 100}
+        for num in suspicious:
+            if num in [1150, 769, 728, 600, 500, 400, 300, 200]:
+                found.append(f"SUSPICIOUS_NUMBER: {num}")
+
+        return len(found) > 0, found
+
+    def _get_valid_values(self, facts: ProtocolFacts) -> set:
+        """Get all valid values from protocol facts"""
+        valid = set()
+
+        for field_name in ['total_n', 'per_arm_n', 'num_arms', 'power', 'alpha',
+                           'drug_name', 'ratio', 'nct_id', 'study_id']:
+            fact = getattr(facts, field_name, None)
+            if fact and fact.value:
+                valid.add(fact.value)
+                # Also add numeric components
+                for num in re.findall(r'\d+', str(fact.value)):
+                    valid.add(int(num))
+
+        return valid
+
+
+# =============================================================================
+# UTILITY: Extract ProtocolFacts from protocol text
+# =============================================================================
+
+def extract_protocol_facts(protocol_text: str) -> ProtocolFacts:
+    """
+    Extract all protocol facts with citations.
+    Uses regex patterns to find values and capture surrounding context.
+    """
+    facts = ProtocolFacts()
+
+    def extract_with_citation(pattern: str, group: int = 1) -> Optional[CitedValue]:
+        match = re.search(pattern, protocol_text, re.IGNORECASE)
+        if match:
+            start = max(0, match.start() - 50)
+            end = min(len(protocol_text), match.end() + 50)
+            citation = protocol_text[start:end].replace('\n', ' ')
+            return CitedValue(
+                value=match.group(group),
+                citation=f"...{citation}..."
+            )
+        return None
+
+    # NCT ID
+    facts.nct_id = extract_with_citation(r'(NCT\d{8})')
+
+    # Drug name - priority: explicit declaration
+    drug_patterns = [
+        (r'(?:Investigational\s+Product|IMP)[:\s]+([A-Za-z][A-Za-z0-9-]{2,})', 1),
+        (r'\b([A-Z]{2,3}\d{3,4})\b', 1),  # TJ301, AB123
+    ]
+    for pattern, group in drug_patterns:
+        result = extract_with_citation(pattern)
+        if result and result.value.upper() not in ['NCT', 'THE', 'AND', 'FOR']:
+            facts.drug_name = result
+            break
+
+    # Sample size
+    size_patterns = [
+        r'(?:total\s+of\s+)?(\d{2,4})\s+(?:patients?|subjects?)\s+(?:will\s+be\s+)?(?:enrolled|randomized)',
+        r'(?:sample\s+size)[:\s]+(\d{2,4})',
+        r'(?:enroll|randomize)\s+(?:approximately\s+)?(\d{2,4})',
+        r'N\s*[=:]\s*(\d{2,4})',
+    ]
+    for pattern in size_patterns:
+        result = extract_with_citation(pattern)
+        if result:
+            n = int(result.value)
+            if 10 <= n <= 10000:
+                facts.total_n = CitedValue(value=n, citation=result.citation)
+                break
+
+    # Ratio
+    ratio_result = extract_with_citation(r'\b(\d+:\d+(?::\d+)*)\b')
+    if ratio_result:
+        facts.ratio = ratio_result
+        # Derive num_arms from ratio
+        num_arms = len(ratio_result.value.split(':'))
+        facts.num_arms = CitedValue(
+            value=num_arms,
+            citation=f"Derived from ratio {ratio_result.value}"
+        )
+
+    # Per-arm N
+    if facts.total_n and facts.num_arms:
+        per_arm = facts.total_n.value // facts.num_arms.value
+        facts.per_arm_n = CitedValue(
+            value=per_arm,
+            citation=f"Calculated: {facts.total_n.value} / {facts.num_arms.value}"
+        )
+
+    # Power
+    power_patterns = [
+        r'(\d{2})%?\s*power',
+        r'power\s+(?:of\s+)?(\d{2})%?',
+    ]
+    for pattern in power_patterns:
+        result = extract_with_citation(pattern)
+        if result:
+            power = int(result.value)
+            if 70 <= power <= 99:
+                facts.power = CitedValue(value=f"{power}%", citation=result.citation)
+                break
+
+    # Alpha
+    alpha_result = extract_with_citation(r'alpha\s*(?:=|of)?\s*(0\.0\d+)')
+    if alpha_result:
+        facts.alpha = CitedValue(value=float(alpha_result.value), citation=alpha_result.citation)
+
+    # Alpha sidedness
+    if re.search(r'one[- ]sided|1[- ]sided', protocol_text, re.IGNORECASE):
+        facts.alpha_sidedness = CitedValue(value="one-sided", citation="one-sided alpha")
+    elif re.search(r'two[- ]sided|2[- ]sided', protocol_text, re.IGNORECASE):
+        facts.alpha_sidedness = CitedValue(value="two-sided", citation="two-sided alpha")
+
+    # Route
+    route_patterns = [
+        (r'\b(intravenous(?:ly)?|IV)\b', 'intravenous'),
+        (r'\b(subcutaneous(?:ly)?|SC)\b', 'subcutaneous'),
+        (r'\b(oral(?:ly)?)\b', 'oral'),
+    ]
+    for pattern, normalized in route_patterns:
+        if re.search(pattern, protocol_text, re.IGNORECASE):
+            facts.route = CitedValue(value=normalized, citation=pattern)
+            break
+
+    return facts

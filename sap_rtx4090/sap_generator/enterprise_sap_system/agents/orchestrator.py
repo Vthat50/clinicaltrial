@@ -109,6 +109,20 @@ except ImportError:
     TLFShellGenerator = None
     ProgrammingSpecGenerator = None
 
+# SCHEMA-CONSTRAINED PIPELINE (BEST - Literal types prevent hallucination)
+try:
+    from ..core.constrained_pipeline import (
+        ConstrainedSAPPipeline,
+        generate_constrained_sap,
+        PipelineResult
+    )
+    CONSTRAINED_PIPELINE_AVAILABLE = True
+except ImportError:
+    CONSTRAINED_PIPELINE_AVAILABLE = False
+    ConstrainedSAPPipeline = None
+    generate_constrained_sap = None
+    PipelineResult = None
+
 
 @dataclass
 class GenerationResult:
@@ -235,6 +249,17 @@ class SAPGenerationOrchestrator:
             print("Pipeline: Extract → Sanitize → Generate → Validate")
             print("=" * 60)
 
+        # SCHEMA-CONSTRAINED PIPELINE (BEST - Type system prevents hallucination)
+        self.constrained_pipeline = None
+        self.constrained_mode_available = CONSTRAINED_PIPELINE_AVAILABLE
+        if self.constrained_mode_available:
+            self.constrained_pipeline = ConstrainedSAPPipeline()
+            print("=" * 60)
+            print("CONSTRAINED MODE AVAILABLE (RECOMMENDED)")
+            print("Pipeline: Extract → Literal[values] → Generate → Verify")
+            print("LLM cannot output wrong values - enforced by type system")
+            print("=" * 60)
+
     def _init_llm_client(self):
         """Initialize LLM client if not provided"""
         if self.llm_client is None:
@@ -267,7 +292,8 @@ class SAPGenerationOrchestrator:
         use_few_shot: bool = True,
         parallel_sections: bool = False,
         verbose: bool = True,
-        production_mode: bool = True  # NEW: Use production pipeline
+        production_mode: bool = True,  # Use production pipeline
+        constrained_mode: bool = True  # NEW: Use schema-constrained pipeline (BEST)
     ) -> GenerationResult:
         """
         Generate a complete SAP from protocol text.
@@ -279,11 +305,20 @@ class SAPGenerationOrchestrator:
             parallel_sections: Whether to generate sections in parallel
             verbose: Print progress updates
             production_mode: Use production pipeline (Extract → Sanitize → Generate → Validate)
+            constrained_mode: Use schema-constrained pipeline (BEST - Literal types prevent hallucination)
 
         Returns:
             GenerationResult with generated SAP and metadata
         """
-        # PRODUCTION MODE: Use new pipeline if available
+        # CONSTRAINED MODE: Use new schema-constrained pipeline (BEST)
+        if constrained_mode and self.constrained_mode_available:
+            return self._generate_sap_constrained(
+                protocol_text=protocol_text,
+                nct_id=nct_id,
+                verbose=verbose
+            )
+
+        # PRODUCTION MODE: Use structured fact extraction pipeline
         if production_mode and self.production_mode_available:
             return self._generate_sap_production(
                 protocol_text=protocol_text,
@@ -1118,6 +1153,79 @@ class SAPGenerationOrchestrator:
                 print(f"  Validation Score: {validation_result.score:.1f}%")
                 print(f"  Quality Score: {quality_report.overall_score:.1f}/100")
                 print("=" * 60)
+
+            return result
+
+        except Exception as e:
+            result.errors.append(str(e))
+            if verbose:
+                print(f"\nERROR: {e}")
+                import traceback
+                traceback.print_exc()
+            return result
+
+    def _generate_sap_constrained(
+        self,
+        protocol_text: str,
+        nct_id: str = "",
+        verbose: bool = True
+    ) -> GenerationResult:
+        """
+        SCHEMA-CONSTRAINED SAP Generation Pipeline (BEST).
+
+        Uses Pydantic Literal types to GUARANTEE correct values.
+        The LLM cannot output wrong values - they're enforced by the type system.
+
+        Pipeline: Extract → Create Literal Schema → Generate → Verify → Output
+        """
+        import time
+        start_time = time.time()
+        result = GenerationResult(success=False)
+
+        if verbose:
+            print("=" * 60)
+            print("SCHEMA-CONSTRAINED MODE (BEST)")
+            print("Using Literal types - LLM cannot hallucinate values")
+            print("=" * 60)
+
+        try:
+            # Run the constrained pipeline
+            pipeline_result = self.constrained_pipeline.generate(
+                protocol_text=protocol_text,
+                nct_id=nct_id
+            )
+
+            if pipeline_result.success:
+                # Convert PipelineResult to GenerationResult
+                result.success = True
+                result.sap_document = GeneratedSAP(
+                    sections=pipeline_result.sections,
+                    full_document=pipeline_result.sap_text,
+                    protocol_id=nct_id or (pipeline_result.facts.nct_id.value if pipeline_result.facts and pipeline_result.facts.nct_id else "UNKNOWN"),
+                    parsed_protocol=None,  # Not using legacy ParsedProtocol
+                    estimands=[],
+                    quality_report=None,
+                    model_used="schema-constrained",
+                    rag_context_used=False
+                )
+                result.warnings = pipeline_result.warnings
+            else:
+                result.success = False
+                result.errors = pipeline_result.errors
+
+            # Add contamination info if detected
+            if pipeline_result.contamination_detected:
+                result.errors.append("CONTAMINATION DETECTED - OUTPUT BLOCKED")
+                result.errors.extend(pipeline_result.contamination_details)
+
+            result.execution_time = time.time() - start_time
+
+            if verbose:
+                print(f"\nCompleted in {result.execution_time:.1f}s")
+                if result.success:
+                    print("SAP generated successfully with schema constraints!")
+                else:
+                    print(f"Generation failed: {result.errors}")
 
             return result
 
