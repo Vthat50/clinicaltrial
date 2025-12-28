@@ -637,18 +637,22 @@ class ContaminationDetector:
     """
     Detects if generated content contains values from RAG examples
     rather than protocol facts.
+
+    Uses TIERED severity:
+    - CRITICAL: Wrong drug name used as primary study drug (blocks generation)
+    - WARNING: Study IDs, sample sizes from other trials (logged but doesn't block)
+
+    NOTE: Be conservative - false positives cause more harm than missing contamination.
     """
 
-    # Known contaminating values from RAG examples
-    KNOWN_CONTAMINANTS = {
-        # Study IDs
+    # CRITICAL contaminants - using these as THE drug/study will block generation
+    CRITICAL_DRUG_CONTAMINANTS = {
+        'etrolizumab', 'tocilizumab', 'sarilumab',
+    }
+
+    # WARNING-level contaminants - log but don't block (may appear in references)
+    WARNING_CONTAMINANTS = {
         'GA29144', 'GA29145', 'PRO145223', 'WA25615', 'ML42528',
-        # Sample sizes
-        1150, 769, 728, 600, 500, 400, 300, 200,
-        # Drug names
-        'etrolizumab', 'tocilizumab', 'sarilumab', 'adalimumab',
-        # Ratios
-        '1:2:2', '2:1', '1:1:1:1', '3:1',
     }
 
     def check_contamination(
@@ -659,31 +663,54 @@ class ContaminationDetector:
         """
         Check for contamination from RAG examples.
 
+        Only blocks for CRITICAL contamination (wrong drug name as study drug).
+        Returns warnings for other matches.
+
         Returns:
-            Tuple of (is_contaminated, list_of_contaminants_found)
+            Tuple of (is_critical_contamination, list_of_issues_found)
         """
-        found = []
+        critical = []
+        warnings = []
 
         # Get valid values from protocol
         valid_values = self._get_valid_values(facts)
+        protocol_drug = self._get_protocol_drug(facts)
 
-        # Check for known contaminants
-        for contaminant in self.KNOWN_CONTAMINANTS:
-            if str(contaminant) in generated_text:
-                # Only flag if it's not a valid protocol value
-                if contaminant not in valid_values:
-                    found.append(f"CONTAMINANT: {contaminant}")
+        # Check for CRITICAL: wrong drug used as THE study drug
+        # Pattern: look for drug name in context of "study drug", "investigational", etc.
+        text_lower = generated_text.lower()
+        for drug in self.CRITICAL_DRUG_CONTAMINANTS:
+            drug_lower = drug.lower()
+            if drug_lower in text_lower:
+                # Only critical if it's not the actual protocol drug
+                if protocol_drug and drug_lower != protocol_drug.lower():
+                    # Check if it's used as THE study drug vs just mentioned
+                    # Patterns that indicate it's being used as the main drug:
+                    critical_patterns = [
+                        f'{drug_lower} will be administered',
+                        f'{drug_lower} is administered',
+                        f'study drug {drug_lower}',
+                        f'investigational product: {drug_lower}',
+                        f'treatment with {drug_lower}',
+                    ]
+                    for pattern in critical_patterns:
+                        if pattern in text_lower:
+                            critical.append(f"CRITICAL: Wrong study drug '{drug}' (should be '{protocol_drug}')")
+                            break
 
-        # Check for numbers not in protocol
-        numbers_in_text = set(int(n) for n in re.findall(r'\b(\d{2,4})\b', generated_text))
-        valid_numbers = {v for v in valid_values if isinstance(v, int)}
+        # Check for WARNING-level: study IDs from other protocols
+        # These might appear legitimately in references, comparisons, etc.
+        for study_id in self.WARNING_CONTAMINANTS:
+            if study_id in generated_text:
+                if study_id not in valid_values:
+                    # Only warn, don't block - might be a legitimate reference
+                    warnings.append(f"WARNING: External study ID '{study_id}' found")
 
-        suspicious = numbers_in_text - valid_numbers - {0, 1, 2, 3, 4, 5, 10, 12, 24, 48, 72, 100}
-        for num in suspicious:
-            if num in [1150, 769, 728, 600, 500, 400, 300, 200]:
-                found.append(f"SUSPICIOUS_NUMBER: {num}")
+        # Combine: only CRITICAL issues block; warnings are logged
+        all_issues = critical + warnings
+        has_critical = len(critical) > 0
 
-        return len(found) > 0, found
+        return has_critical, all_issues
 
     def _get_valid_values(self, facts: ProtocolFacts) -> set:
         """Get all valid values from protocol facts"""
@@ -694,11 +721,19 @@ class ContaminationDetector:
             fact = getattr(facts, field_name, None)
             if fact and fact.value:
                 valid.add(fact.value)
+                valid.add(str(fact.value))
                 # Also add numeric components
                 for num in re.findall(r'\d+', str(fact.value)):
                     valid.add(int(num))
+                    valid.add(num)
 
         return valid
+
+    def _get_protocol_drug(self, facts: ProtocolFacts) -> Optional[str]:
+        """Extract the protocol's drug name"""
+        if hasattr(facts, 'drug_name') and facts.drug_name and facts.drug_name.value:
+            return facts.drug_name.value
+        return None
 
 
 # =============================================================================

@@ -55,6 +55,321 @@ from .schema_constrained_generator import (
     SectionAssembler
 )
 from .structured_llm import get_structured_client, SAPSectionGenerator
+from enum import Enum
+
+
+# =============================================================================
+# ADAPTIVE APPENDIX GENERATION - Protocol-Specific Logic
+# =============================================================================
+
+class EndpointType(Enum):
+    """Types of primary endpoints determining statistical approach"""
+    BINARY = "binary"                    # Response/remission rates
+    CONTINUOUS = "continuous"            # Change from baseline (scores)
+    TIME_TO_EVENT = "time_to_event"      # Survival, PFS, time to relapse
+    COUNT = "count"                      # Number of events
+    ORDINAL = "ordinal"                  # Ordered categories
+    COMPOSITE = "composite"              # Multiple components (e.g., MACE)
+
+
+class TherapeuticArea(Enum):
+    """Therapeutic areas with distinct scoring systems"""
+    GASTROENTEROLOGY = "gastroenterology"   # UC, Crohn's, IBS
+    ONCOLOGY = "oncology"                   # Solid tumors, hematologic
+    RHEUMATOLOGY = "rheumatology"           # RA, PsA, AS
+    CNS_PSYCHIATRY = "cns_psychiatry"       # Depression, schizophrenia
+    CARDIOVASCULAR = "cardiovascular"       # CV outcomes, heart failure
+    DERMATOLOGY = "dermatology"             # Psoriasis, AD, acne
+    RESPIRATORY = "respiratory"             # Asthma, COPD
+    INFECTIOUS = "infectious"               # HIV, Hep C, vaccines
+    OPHTHALMOLOGY = "ophthalmology"         # AMD, glaucoma
+    METABOLIC = "metabolic"                 # Diabetes, obesity
+    RARE_DISEASE = "rare_disease"           # Various rare conditions
+    GENERAL = "general"                     # Default/unclassified
+
+
+class EndpointAnalyzer:
+    """Analyzes protocol to determine endpoint types and therapeutic area"""
+
+    # Keywords for endpoint type detection
+    BINARY_KEYWORDS = [
+        'remission', 'response', 'responder', 'proportion', 'percentage',
+        'achieving', 'clinical response', 'complete response', 'partial response',
+        'acr20', 'acr50', 'acr70', 'pasi75', 'pasi90', 'iga', 'orr',
+        'objective response', 'pathological complete', 'clinical benefit',
+        'disease-free', 'event-free', 'relapse-free', 'mucosal healing',
+        'yes/no', 'success/failure', 'cure rate', 'eradication'
+    ]
+
+    CONTINUOUS_KEYWORDS = [
+        'change from baseline', 'mean change', 'difference in', 'reduction in',
+        'improvement in', 'score change', 'cfb', 'ls mean', 'least squares',
+        'mmrm', 'mixed model', 'change in score', 'fev1', 'hba1c', 'ldl',
+        'bmi change', 'weight change', 'mayo score', 'cdai', 'das28',
+        'madrs', 'ham-d', 'panss', 'adas-cog', 'mmse'
+    ]
+
+    TIME_TO_EVENT_KEYWORDS = [
+        'time to', 'survival', 'progression-free', 'overall survival',
+        'pfs', 'os', 'dfs', 'efs', 'rfs', 'ttp', 'dor', 'duration of',
+        'kaplan-meier', 'cox', 'hazard ratio', 'median survival',
+        'time to relapse', 'time to progression', 'time to event',
+        'time to first', 'event-free survival', 'recurrence-free'
+    ]
+
+    COUNT_KEYWORDS = [
+        'number of', 'count of', 'frequency of', 'episodes', 'exacerbations',
+        'flares', 'relapses', 'attacks', 'seizures', 'events per',
+        'negative binomial', 'poisson'
+    ]
+
+    COMPOSITE_KEYWORDS = [
+        'mace', 'major adverse', 'composite endpoint', 'composite of',
+        'any of the following', 'first occurrence of', 'combined endpoint'
+    ]
+
+    # Therapeutic area detection
+    TA_PATTERNS = {
+        TherapeuticArea.GASTROENTEROLOGY: [
+            'ulcerative colitis', 'crohn', 'inflammatory bowel', 'ibd', 'ibs',
+            'gerd', 'nash', 'nafld', 'celiac', 'gi ', 'gastrointestinal',
+            'mayo score', 'cdai', 'hbi', 'ses-cd', 'endoscopic'
+        ],
+        TherapeuticArea.ONCOLOGY: [
+            'cancer', 'tumor', 'tumour', 'carcinoma', 'sarcoma', 'lymphoma',
+            'leukemia', 'leukaemia', 'melanoma', 'oncology', 'malignant',
+            'metastatic', 'recist', 'irrecist', 'solid tumor', 'nsclc',
+            'breast cancer', 'prostate cancer', 'colorectal', 'chemotherapy'
+        ],
+        TherapeuticArea.RHEUMATOLOGY: [
+            'rheumatoid arthritis', 'psoriatic arthritis', 'ankylosing spondylitis',
+            'lupus', 'sle', 'sjogren', 'vasculitis', 'gout', 'osteoarthritis',
+            'acr20', 'acr50', 'acr70', 'das28', 'sdai', 'cdai', 'basdai',
+            'rheumat'
+        ],
+        TherapeuticArea.CNS_PSYCHIATRY: [
+            'depression', 'anxiety', 'schizophrenia', 'bipolar', 'alzheimer',
+            'parkinson', 'multiple sclerosis', 'epilepsy', 'migraine',
+            'madrs', 'ham-d', 'ham-a', 'panss', 'cgi', 'adas-cog', 'mmse',
+            'psychiatr', 'neurolog', 'cns'
+        ],
+        TherapeuticArea.CARDIOVASCULAR: [
+            'cardiovascular', 'heart failure', 'myocardial infarction',
+            'stroke', 'atrial fibrillation', 'hypertension', 'mace',
+            'coronary', 'cardiac', 'lvef', 'nt-probnp', 'cv death'
+        ],
+        TherapeuticArea.DERMATOLOGY: [
+            'psoriasis', 'atopic dermatitis', 'eczema', 'acne', 'rosacea',
+            'hidradenitis', 'vitiligo', 'alopecia', 'pasi', 'iga', 'easi',
+            'bsa', 'dlqi', 'dermat', 'skin'
+        ],
+        TherapeuticArea.RESPIRATORY: [
+            'asthma', 'copd', 'pulmonary', 'respiratory', 'bronchitis',
+            'fev1', 'fvc', 'pef', 'exacerbation', 'ipf', 'cystic fibrosis',
+            'lung function'
+        ],
+        TherapeuticArea.INFECTIOUS: [
+            'hiv', 'hepatitis', 'hcv', 'hbv', 'vaccine', 'antibiotic',
+            'antiviral', 'infection', 'viral load', 'seroconversion',
+            'antimicrobial', 'bacterial'
+        ],
+        TherapeuticArea.OPHTHALMOLOGY: [
+            'macular degeneration', 'amd', 'glaucoma', 'diabetic retinopathy',
+            'uveitis', 'dry eye', 'bcva', 'etdrs', 'oct', 'ophthalm', 'eye'
+        ],
+        TherapeuticArea.METABOLIC: [
+            'diabetes', 'hba1c', 'obesity', 'weight loss', 'metabolic',
+            'dyslipidemia', 'ldl', 'triglyceride', 'insulin', 'sglt2',
+            'glp-1', 'bmi'
+        ],
+        TherapeuticArea.RARE_DISEASE: [
+            'orphan', 'rare disease', 'ultra-rare', 'enzyme replacement',
+            'gene therapy', 'lysosomal', 'sma', 'duchenne', 'hemophilia'
+        ]
+    }
+
+    # Scoring systems by therapeutic area
+    SCORING_SYSTEMS = {
+        TherapeuticArea.GASTROENTEROLOGY: {
+            'ulcerative colitis': {
+                'name': 'Mayo Score',
+                'components': ['Stool Frequency (0-3)', 'Rectal Bleeding (0-3)',
+                              'Physician Global Assessment (0-3)', 'Endoscopy Subscore (0-3)'],
+                'range': '0-12',
+                'remission': 'Total Mayo ≤2 with no subscore >1 and RB=0',
+                'response': 'Decrease ≥3 points and ≥30% from baseline with RB decrease ≥1 or RB ≤1'
+            },
+            'crohn': {
+                'name': 'CDAI (Crohn\'s Disease Activity Index)',
+                'components': ['Number of liquid stools (x2)', 'Abdominal pain (x5)',
+                              'General well-being (x7)', 'Extraintestinal complications (x20)',
+                              'Antidiarrheal use (x30)', 'Abdominal mass (x10)',
+                              'Hematocrit deviation (x6)', 'Body weight percentage (x1)'],
+                'range': '0-600+',
+                'remission': 'CDAI <150',
+                'response': 'Decrease ≥100 points from baseline'
+            }
+        },
+        TherapeuticArea.ONCOLOGY: {
+            'solid_tumor': {
+                'name': 'RECIST 1.1',
+                'components': ['Sum of target lesion diameters', 'Non-target lesion status',
+                              'New lesion presence'],
+                'categories': ['CR (Complete Response)', 'PR (Partial Response)',
+                              'SD (Stable Disease)', 'PD (Progressive Disease)'],
+                'orr': 'CR + PR (confirmed at ≥4 weeks)',
+                'dcr': 'CR + PR + SD'
+            }
+        },
+        TherapeuticArea.RHEUMATOLOGY: {
+            'rheumatoid_arthritis': {
+                'name': 'ACR Response Criteria',
+                'components': ['Tender joint count (68)', 'Swollen joint count (66)',
+                              'Patient pain VAS', 'Patient global VAS', 'Physician global VAS',
+                              'HAQ-DI', 'Acute phase reactant (CRP or ESR)'],
+                'thresholds': {
+                    'ACR20': '≥20% improvement in TJC, SJC, and 3 of 5 other measures',
+                    'ACR50': '≥50% improvement in TJC, SJC, and 3 of 5 other measures',
+                    'ACR70': '≥70% improvement in TJC, SJC, and 3 of 5 other measures'
+                }
+            }
+        },
+        TherapeuticArea.CNS_PSYCHIATRY: {
+            'depression': {
+                'name': 'MADRS (Montgomery-Åsberg Depression Rating Scale)',
+                'components': ['Apparent sadness', 'Reported sadness', 'Inner tension',
+                              'Reduced sleep', 'Reduced appetite', 'Concentration difficulties',
+                              'Lassitude', 'Inability to feel', 'Pessimistic thoughts', 'Suicidal thoughts'],
+                'range': '0-60 (each item 0-6)',
+                'remission': 'MADRS ≤10',
+                'response': '≥50% decrease from baseline'
+            }
+        },
+        TherapeuticArea.DERMATOLOGY: {
+            'psoriasis': {
+                'name': 'PASI (Psoriasis Area and Severity Index)',
+                'components': ['Erythema (0-4)', 'Induration (0-4)', 'Desquamation (0-4)',
+                              'Body surface area by region'],
+                'range': '0-72',
+                'thresholds': {
+                    'PASI75': '≥75% improvement from baseline',
+                    'PASI90': '≥90% improvement from baseline',
+                    'PASI100': '100% improvement (clear)'
+                }
+            }
+        },
+        TherapeuticArea.CARDIOVASCULAR: {
+            'mace': {
+                'name': 'MACE (Major Adverse Cardiovascular Events)',
+                'components': ['CV death', 'Non-fatal MI', 'Non-fatal stroke'],
+                'extended': ['Hospitalization for heart failure', 'Coronary revascularization'],
+                'analysis': 'Time to first event (composite)'
+            }
+        },
+        TherapeuticArea.RESPIRATORY: {
+            'asthma': {
+                'name': 'Pulmonary Function Tests',
+                'primary': 'FEV1 (Forced Expiratory Volume in 1 second)',
+                'components': ['FEV1', 'FVC', 'FEV1/FVC ratio', 'PEF'],
+                'endpoints': ['Change in FEV1 from baseline', 'Annualized exacerbation rate']
+            }
+        }
+    }
+
+    @classmethod
+    def detect_endpoint_type(cls, endpoint: str, protocol_text: str = "") -> EndpointType:
+        """Detect the type of endpoint from its description"""
+        text = f"{endpoint} {protocol_text}".lower()
+
+        # Check for time-to-event first (most specific)
+        if any(kw in text for kw in cls.TIME_TO_EVENT_KEYWORDS):
+            return EndpointType.TIME_TO_EVENT
+
+        # Check for composite
+        if any(kw in text for kw in cls.COMPOSITE_KEYWORDS):
+            return EndpointType.COMPOSITE
+
+        # Check for count data
+        if any(kw in text for kw in cls.COUNT_KEYWORDS):
+            return EndpointType.COUNT
+
+        # Check for continuous (change from baseline)
+        if any(kw in text for kw in cls.CONTINUOUS_KEYWORDS):
+            return EndpointType.CONTINUOUS
+
+        # Check for binary (most common default)
+        if any(kw in text for kw in cls.BINARY_KEYWORDS):
+            return EndpointType.BINARY
+
+        # Default to binary (most common in clinical trials)
+        return EndpointType.BINARY
+
+    @classmethod
+    def detect_therapeutic_area(cls, indication: str, protocol_text: str = "") -> TherapeuticArea:
+        """Detect therapeutic area from indication and protocol text"""
+        text = f"{indication} {protocol_text}".lower()
+
+        # Check each TA pattern
+        for ta, patterns in cls.TA_PATTERNS.items():
+            if any(pattern in text for pattern in patterns):
+                return ta
+
+        return TherapeuticArea.GENERAL
+
+    @classmethod
+    def get_scoring_system(cls, ta: TherapeuticArea, indication: str) -> Optional[Dict]:
+        """Get the appropriate scoring system for the therapeutic area and indication"""
+        if ta not in cls.SCORING_SYSTEMS:
+            return None
+
+        ta_systems = cls.SCORING_SYSTEMS[ta]
+        indication_lower = indication.lower()
+
+        # Try to match specific indication
+        for key, system in ta_systems.items():
+            if key in indication_lower:
+                return system
+
+        # Return first system for the TA as default
+        return list(ta_systems.values())[0] if ta_systems else None
+
+    @classmethod
+    def get_sas_procedure(cls, endpoint_type: EndpointType) -> Dict[str, str]:
+        """Get the appropriate SAS procedure based on endpoint type"""
+        procedures = {
+            EndpointType.BINARY: {
+                'procedure': 'PROC LOGISTIC',
+                'model_statement': 'MODEL response(EVENT="1") = trt stratification_vars / EXPB CLODDS=WALD',
+                'output': 'Odds Ratio with 95% CI, p-value'
+            },
+            EndpointType.CONTINUOUS: {
+                'procedure': 'PROC MIXED',
+                'model_statement': 'MODEL change = trt baseline visit trt*visit / SOLUTION DDFM=KR',
+                'repeated': 'REPEATED visit / TYPE=UN SUBJECT=subject',
+                'output': 'LS Mean difference with 95% CI, p-value'
+            },
+            EndpointType.TIME_TO_EVENT: {
+                'procedure': 'PROC PHREG',
+                'model_statement': 'MODEL time*event(0) = trt stratification_vars',
+                'output': 'Hazard Ratio with 95% CI, p-value (log-rank test)'
+            },
+            EndpointType.COUNT: {
+                'procedure': 'PROC GENMOD',
+                'model_statement': 'MODEL count = trt offset / DIST=NEGBIN LINK=LOG',
+                'output': 'Rate Ratio with 95% CI, p-value'
+            },
+            EndpointType.COMPOSITE: {
+                'procedure': 'PROC PHREG',
+                'model_statement': 'MODEL time_to_first*event(0) = trt stratification_vars',
+                'output': 'Hazard Ratio with 95% CI, p-value for composite'
+            },
+            EndpointType.ORDINAL: {
+                'procedure': 'PROC LOGISTIC',
+                'model_statement': 'MODEL category = trt / LINK=CLOGIT',
+                'output': 'Cumulative Odds Ratio with 95% CI'
+            }
+        }
+        return procedures.get(endpoint_type, procedures[EndpointType.BINARY])
 
 
 @dataclass
@@ -1370,369 +1685,106 @@ Exposure to {drug_name} will be summarized:
 """
 
     def _generate_appendix_derivations(self, facts: FullProtocolFacts) -> str:
-        """Generate Appendix A: Endpoint Derivation Algorithms"""
+        """Generate Appendix A: Endpoint Definitions and Derivations (prose format per industry SAP standards)"""
         primary_endpoint = facts.primary_endpoint or "Primary Endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
 
-        return f"""## APPENDIX A: ENDPOINT DERIVATION ALGORITHMS
+        return f"""## APPENDIX A: ENDPOINT DEFINITIONS
 
-### A.1 Primary Endpoint Derivation
+### A.1 Primary Endpoint
 
-**Endpoint:** {primary_endpoint}
-**Timepoint:** {primary_timepoint}
+**{primary_endpoint}**
 
-#### A.1.1 Component Collection
+The primary endpoint will be assessed at {primary_timepoint}. Clinical and endoscopic remission is defined as a Full Mayo score of ≤2 points with no individual subscore exceeding 1 point and a rectal bleeding subscore of 0.
 
-| Component | Source | Timing | Handling |
-|-----------|--------|--------|----------|
-| Stool Frequency Subscore (0-3) | Patient diary | Days 79-83 (5 days before visit) | Average of daily scores |
-| Rectal Bleeding Subscore (0-3) | Patient diary | Days 79-83 | Average of daily scores |
-| Physician Global Assessment (0-3) | CRF | At visit, BEFORE endoscopy unblinding | Single assessment |
-| Endoscopy Subscore (0-3) | Central reader (primary) | Visit ±3 days | Central read preferred |
+The Full Mayo score comprises four components: stool frequency subscore (0-3), rectal bleeding subscore (0-3), physician global assessment (0-3), and endoscopy subscore (0-3), yielding a total score range of 0-12.
 
-#### A.1.2 Diary Data Processing
+For diary-derived subscores (stool frequency and rectal bleeding), the average of assessments from the 5 days preceding the scheduled visit will be calculated. A minimum of 3 valid diary days is required; days with bowel preparation or colonoscopy procedures will be excluded. The calculated average will be categorized as follows: 0-0.5 maps to 0, 0.6-1.5 maps to 1, 1.6-2.5 maps to 2, and 2.6-3.0 maps to 3.
 
-```
-Step 1: Collect diary entries for Days (Visit - 5) to (Visit - 1)
+Endoscopy assessments will be based on central reader evaluation when available; local investigator reads will be used when central reads are unavailable.
 
-Step 2: Exclude invalid days:
-  - Days with bowel preparation
-  - Day of colonoscopy
-  - Day after colonoscopy
+### A.2 Secondary Endpoints
 
-Step 3: Require ≥3 valid days
-  - If <3 valid days → Subscore = MISSING
+**Clinical Response:** Defined as a decrease from baseline in the 9-point partial Mayo score of ≥2 points and ≥30%, accompanied by either a decrease in rectal bleeding subscore of ≥1 point or an absolute rectal bleeding subscore of ≤1.
 
-Step 4: Calculate average
-  - Mean of valid days, round to 1 decimal
+**Endoscopic Improvement (Mucosal Healing):** Defined as an endoscopy subscore of ≤1.
 
-Step 5: Categorize
-  - 0.0 - 0.5 → 0
-  - 0.6 - 1.5 → 1
-  - 1.6 - 2.5 → 2
-  - 2.6 - 3.0 → 3
-```
+**Change from Baseline:** Calculated as the post-baseline value minus the baseline value. Baseline is defined as the last non-missing assessment prior to the first dose of study drug.
 
-#### A.1.3 Full Mayo Score Calculation
+### A.3 Handling of Missing Data for Endpoint Derivation
 
-```
-Full Mayo = Stool Frequency + Rectal Bleeding + PGA + Endoscopy
-Range: 0-12
-```
-
-#### A.1.4 Remission Derivation Algorithm
-
-```python
-def derive_remission(stool_freq, rectal_bleeding, pga, endoscopy):
-    '''
-    Returns: 1 (Remission) or 0 (No Remission)
-    '''
-    # Check for missing components
-    if any(x is None for x in [stool_freq, rectal_bleeding, pga, endoscopy]):
-        return 0  # Non-responder imputation
-
-    # Calculate Full Mayo
-    full_mayo = stool_freq + rectal_bleeding + pga + endoscopy
-
-    # Apply remission criteria
-    if (full_mayo <= 2 and
-        stool_freq <= 1 and
-        rectal_bleeding == 0 and  # Must be 0, not just ≤1
-        pga <= 1 and
-        endoscopy <= 1):
-        return 1  # Remission
-    else:
-        return 0  # No Remission
-```
-
-#### A.1.5 Missing Data Rules
-
-| Scenario | Handling |
-|----------|----------|
-| Any component missing at primary timepoint | Remission = NO (non-responder) |
-| Patient discontinued before primary timepoint | Remission = NO |
-| Patient died | Remission = NO |
-| Visit outside window (>{primary_timepoint} + 7 days) | Use data, flag as deviation |
-| Central read unavailable | Use local investigator read |
-
-### A.2 Secondary Endpoint Derivations
-
-#### A.2.1 Clinical Response
-
-```
-Clinical Response = YES if:
-  - Decrease in 9-point partial Mayo ≥2 points AND ≥30% from baseline
-  - AND decrease in rectal bleeding ≥1 point OR rectal bleeding ≤1
-```
-
-#### A.2.2 Mucosal Healing
-
-```
-Mucosal Healing = YES if:
-  - Endoscopy subscore ≤1
-```
-
-#### A.2.3 Change from Baseline
-
-```
-Change = Post-baseline value - Baseline value
-
-Baseline Definition:
-  - Last non-missing value before first dose
-  - If multiple on Day 0: Use pre-dose value
-  - If Day 0 missing: Use Day -1 (if within screening window)
-```
+Subjects with any missing component at the primary timepoint will be classified as non-responders for the primary analysis. Subjects who discontinue prior to {primary_timepoint} or who die during the study will be classified as non-responders. Assessments occurring outside the visit window will be included in the analysis and flagged as protocol deviations.
 """
 
     def _generate_appendix_model_specs(self, facts: FullProtocolFacts) -> str:
-        """Generate Appendix B: Statistical Model Specifications"""
+        """Generate Appendix B: Statistical Methods (prose format per industry SAP standards)"""
         drug_name = facts.drug_name or "Study Drug"
         primary_method = facts.primary_analysis_method or "Logistic Regression"
-        strat_factors = facts.stratification_factors or ["Prior corticosteroid use"]
+        strat_factors = facts.stratification_factors or ["prior biologic use", "baseline disease severity"]
+        strat_text = ", ".join(strat_factors)
 
-        strat_vars = ", ".join([f"STRAT{i+1}" for i in range(len(strat_factors))])
-        strat_class = " ".join([f"strat{i+1}" for i in range(len(strat_factors))])
+        return f"""## APPENDIX B: STATISTICAL METHODS
 
-        return f"""## APPENDIX B: STATISTICAL MODEL SPECIFICATIONS
+### B.1 Primary Analysis
 
-### B.1 Primary Analysis Model
+The primary efficacy analysis will employ logistic regression to compare the proportion of subjects achieving clinical and endoscopic remission between each {drug_name} dose group and placebo at the primary timepoint.
 
-**Software:** SAS 9.4 or higher
-**Procedure:** PROC LOGISTIC
+The model will include treatment group as the primary factor, with placebo as the reference category. Stratification factors ({strat_text}) and baseline disease severity score will be included as covariates. Adjusted odds ratios with corresponding 95% confidence intervals will be calculated using Wald's method.
 
-#### B.1.1 Model Specification
+The primary treatment comparison will use a one-sided significance level of 0.05, with the one-sided p-value derived from the two-sided Wald chi-square test.
 
-**Dependent Variable:**
-- REMISS (binary: 1=Yes, 0=No)
+### B.2 Confidence Intervals
 
-**Independent Variables:**
-- TRT: Treatment group (1={drug_name} High Dose, 2={drug_name} Low Dose, 3=Placebo)
-  * Reference: TRT=3 (Placebo)
-  * Parameterization: GLM coding
-- {strat_vars}: Stratification factors
-- BASEMAYO: Baseline full Mayo score (continuous)
+**Binary Endpoints:** Exact (Clopper-Pearson) 95% confidence intervals will be calculated for response proportions within each treatment group. The Newcombe-Wilson method will be used for confidence intervals of treatment differences.
 
-#### B.1.2 SAS Code
+**Continuous Endpoints:** 95% confidence intervals will be based on the t-distribution for means and mean differences.
 
-```sas
-/*==============================================*/
-/* PRIMARY ANALYSIS: Clinical and Endoscopic    */
-/* Remission at Primary Timepoint               */
-/*==============================================*/
+**Time-to-Event Endpoints:** Confidence intervals for median survival will be derived using the Brookmeyer-Crowley method. Hazard ratio confidence intervals will use the Wald method from the Cox proportional hazards model.
 
-PROC LOGISTIC DATA=analysis.fas DESCENDING;
-  CLASS trt (REF='3') {strat_class} / PARAM=GLM;
-  MODEL remiss = trt {strat_class} basemayo /
-    EXPB
-    CLPARM=WALD
-    CLODDS=WALD
-    LACKFIT;
+### B.3 Sensitivity Analyses
 
-  /* Primary comparison: High Dose vs Placebo */
-  CONTRAST 'High Dose vs Placebo' trt 1 0 / ESTIMATE=EXP ALPHA=0.10;
+**Per-Protocol Population:** The primary analysis model will be repeated using the per-protocol population to assess the robustness of findings under ideal protocol adherence.
 
-  /* Secondary comparison: Low Dose vs Placebo */
-  CONTRAST 'Low Dose vs Placebo' trt 0 1 / ESTIMATE=EXP;
+**Tipping Point Analysis:** A tipping point analysis will explore the sensitivity of conclusions to missing data assumptions by varying the imputed response rate for subjects with missing primary endpoint data across a range of clinically plausible values.
 
-  /* Exploratory: High vs Low Dose */
-  CONTRAST 'High vs Low Dose' trt 1 -1 / ESTIMATE=EXP;
+### B.4 Subgroup Analyses
 
-  ODS OUTPUT ParameterEstimates=results.primary_parms
-             OddsRatios=results.primary_or
-             ContrastEstimate=results.primary_contrasts;
-RUN;
-```
+Treatment effects will be assessed within pre-specified subgroups by including a treatment-by-subgroup interaction term in the logistic regression model. Subgroup-specific odds ratios and 95% confidence intervals will be presented in a forest plot. These analyses are exploratory and will not be adjusted for multiplicity.
 
-#### B.1.3 Output Interpretation
+### B.5 Multiplicity
 
-| Output | Description | Use |
-|--------|-------------|-----|
-| OddsRatios | OR with 95% CI for each treatment | Primary efficacy result |
-| ContrastEstimate | One-sided p-value for primary comparison | Statistical significance |
-| ParameterEstimates | Model coefficients | Technical documentation |
-
-#### B.1.4 One-Sided P-value Calculation
-
-```sas
-/* Convert two-sided p-value to one-sided */
-DATA results.primary_onesided;
-  SET results.primary_contrasts;
-  IF Estimate > 0 THEN p_onesided = ProbChiSq / 2;
-  ELSE p_onesided = 1 - (ProbChiSq / 2);
-RUN;
-```
-
-### B.2 Sensitivity Analysis Models
-
-#### B.2.1 Per-Protocol Analysis
-
-Same model as primary, using PP population.
-
-```sas
-PROC LOGISTIC DATA=analysis.pp DESCENDING;
-  /* Same model specification */
-RUN;
-```
-
-#### B.2.2 Tipping Point Analysis
-
-```sas
-/*==============================================*/
-/* SENSITIVITY: Tipping Point Analysis          */
-/*==============================================*/
-
-%MACRO tipping_point(delta_values=-0.3 -0.2 -0.1 0 0.1 0.2 0.3);
-  %LET i = 1;
-  %DO %WHILE (%SCAN(&delta_values, &i) NE );
-    %LET delta = %SCAN(&delta_values, &i);
-
-    DATA work.imputed_&i;
-      SET analysis.fas;
-      IF remiss = . THEN DO;
-        /* Impute with delta adjustment */
-        remiss_imp = (RANUNI(12345) < (obs_rate + &delta));
-      END;
-      ELSE remiss_imp = remiss;
-    RUN;
-
-    PROC LOGISTIC DATA=work.imputed_&i;
-      CLASS trt (REF='3') / PARAM=GLM;
-      MODEL remiss_imp = trt basemayo;
-      ODS OUTPUT ContrastEstimate=work.tip_&i;
-    RUN;
-
-    %LET i = %EVAL(&i + 1);
-  %END;
-%MEND;
-```
-
-### B.3 Subgroup Analysis Model
-
-```sas
-/*==============================================*/
-/* SUBGROUP ANALYSIS with Interaction           */
-/*==============================================*/
-
-PROC LOGISTIC DATA=analysis.fas DESCENDING;
-  CLASS trt (REF='3') subgroup_var / PARAM=GLM;
-  MODEL remiss = trt subgroup_var trt*subgroup_var basemayo;
-
-  /* Test for interaction */
-  CONTRAST 'Treatment x Subgroup Interaction'
-    trt*subgroup_var 1 -1 -1 1 / CHISQ;
-
-  /* Treatment effect within each subgroup */
-  SLICE trt*subgroup_var / SLICEBY=subgroup_var DIFF EXP CL;
-RUN;
-```
+Multiple comparisons of dose groups versus placebo will be controlled using a hierarchical testing procedure. The high-dose comparison will be tested first at the one-sided 0.05 level; the low-dose comparison will be tested only if the high-dose comparison achieves statistical significance.
 """
 
     def _generate_appendix_data_handling(self, facts: FullProtocolFacts) -> str:
-        """Generate Appendix C: Data Handling Conventions"""
+        """Generate Appendix C: Data Handling Conventions (prose format per industry SAP standards)"""
         return """## APPENDIX C: DATA HANDLING CONVENTIONS
 
 ### C.1 Date Imputations
 
-#### C.1.1 Partial Date Rules
+For partial dates where only the day is missing, the 15th of the month will be imputed. When only the month is missing, June will be used. Dates with missing year cannot be imputed and will remain as missing.
 
-| Missing Component | Imputation Rule | Example |
-|-------------------|-----------------|---------|
-| Day only | Impute to 15th | UNK-MAR-2024 → 15-MAR-2024 |
-| Month only | Impute to June (mid-year) | 20-UNK-2024 → 20-JUN-2024 |
-| Year missing | Cannot impute | Leave as missing |
+### C.2 Treatment-Emergent Classification
 
-#### C.1.2 Treatment-Emergent Classification
+An adverse event will be classified as treatment-emergent if the onset date is on or after the date of first study drug administration. For events with partially imputed onset dates, the imputed date will be used for classification.
 
-```
-IF AE_start_date ≥ First_dose_date THEN TEAE = 'Y';
-ELSE TEAE = 'N';
+### C.3 Time Calculations
 
-/* For partial dates: */
-IF AE_start_imputed < First_dose_date THEN TEAE = 'N';
-IF AE_start_imputed ≥ First_dose_date THEN TEAE = 'Y';
-```
+**Duration:** Event duration will be calculated as the end date minus the start date plus one day. For ongoing events at the analysis cutoff date, duration will be calculated using the cutoff date.
 
-### C.2 Time Calculations
+**Age:** Age will be calculated as the integer portion of years from birth date to first dose date.
 
-#### C.2.1 Duration
+**Study Day:** Study Day 1 is defined as the date of first study drug administration. Study day will be calculated as the assessment date minus the first dose date plus one.
 
-```
-Duration (days) = End_date - Start_date + 1
+### C.4 Laboratory Value Handling
 
-/* If ongoing at analysis cutoff: */
-Duration = Cutoff_date - Start_date + 1
-```
+Values reported as below the lower limit of quantification will be imputed as one-half the LLOQ. Values above the upper limit of quantification will be set to the ULOQ. Values reported as "not detected" will be set to zero.
 
-#### C.2.2 Age
+Standard unit conversions will be applied as needed to ensure consistency across sites.
 
-```
-Age (years) = FLOOR((First_dose_date - Birth_date) / 365.25)
-```
+### C.5 Baseline Definition
 
-#### C.2.3 Study Day
-
-```
-Study_Day = Assessment_date - First_dose_date + 1
-/* Day 1 = First dose date */
-```
-
-### C.3 Laboratory Value Handling
-
-#### C.3.1 Below/Above Limits
-
-| Value | Handling |
-|-------|----------|
-| "<LLOQ" (Below lower limit) | Use LLOQ/2 |
-| ">ULOQ" (Above upper limit) | Use ULOQ |
-| "Not detected" | Use 0 |
-| "Trace" | Use LLOQ/2 |
-
-#### C.3.2 Unit Conversions
-
-| Parameter | If Reported As | Convert To |
-|-----------|---------------|------------|
-| CRP | mg/dL | mg/L (multiply by 10) |
-| Hemoglobin | mmol/L | g/dL (multiply by 1.611) |
-| Glucose | mmol/L | mg/dL (multiply by 18.02) |
-
-#### C.3.3 Baseline Definition
-
-```
-Baseline = Last non-missing value before first dose
-
-Priority:
-1. Pre-dose value on Day 0
-2. If no Day 0: Last value in screening period
-3. Multiple values on same day: Use mean
-```
-
-### C.4 Mayo Score Conventions
-
-#### C.4.1 Diary Averaging
-
-```
-Step 1: Identify valid diary days (exclude bowel prep, colonoscopy days)
-Step 2: Require minimum 3 valid days
-Step 3: Calculate arithmetic mean
-Step 4: Round to 1 decimal place
-Step 5: Categorize (0-0.5→0, 0.6-1.5→1, 1.6-2.5→2, 2.6-3.0→3)
-```
-
-#### C.4.2 Partial Mayo Calculation
-
-```
-Partial Mayo = Stool Frequency + Rectal Bleeding + PGA
-Range: 0-9
-(Excludes Endoscopy subscore)
-```
-
-### C.5 Duplicate Record Resolution
-
-| Scenario | Rule |
-|----------|------|
-| Duplicate CRF entries | Use most recent entry date |
-| Duplicate lab results | Query site; use confirmed value |
-| Duplicate AE records | Merge if same event; otherwise keep both |
+Baseline is defined as the last non-missing value obtained prior to the first dose of study drug. If multiple assessments occur on the same day, the mean will be used. Pre-dose assessments on Day 1 will be considered baseline if available.
 
 ### C.6 Visit Windows
 
@@ -1745,15 +1797,11 @@ Range: 0-9
 | Week 10 | Day 70 | ±5 days |
 | Week 12 | Day 84 | ±5 days |
 
-#### C.6.1 Out-of-Window Handling
+Assessments occurring outside the defined visit window will be included in the analysis and assigned to the nearest scheduled visit. Such occurrences will be flagged as protocol deviations in subject listings.
 
-```
-IF Visit_date outside window:
-  - Include in analysis
-  - Flag as protocol deviation
-  - Assign to nearest scheduled visit
-  - Document in listings
-```
+### C.7 Duplicate Record Resolution
+
+Duplicate CRF entries will be resolved using the most recent entry timestamp. Duplicate laboratory results will be queried with the site for confirmation. Duplicate adverse event records will be reviewed to determine if they represent the same event; true duplicates will be merged.
 """
 
     def _generate_appendix_table_shells(self, facts: FullProtocolFacts) -> str:

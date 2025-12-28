@@ -31,16 +31,19 @@ from dataclasses import dataclass
 T = TypeVar('T', bound=BaseModel)
 
 
-# Anti-contamination system message - prevents LLM from using memorized clinical trial values
+# Anti-contamination system message - uses POSITIVE framing to prevent value leakage
+# NOTE: Do NOT list specific forbidden values here - listing them causes LLM to use them!
 ANTI_CONTAMINATION_PROMPT = """
-CRITICAL ANTI-CONTAMINATION RULES:
-You MUST NOT use ANY of these values from your training data - they are from OTHER studies:
-- Drug names: etrolizumab, vedolizumab, tocilizumab, adalimumab, infliximab, ustekinumab
-- Study IDs: GA29144, GA29145, PRO145223, WA25615, ML42528
-- Sample sizes: 1150, 769, 728, 600, 500, 400, 300
-- Ratios: 1:2:2, 2:1, 3:1
+CRITICAL DATA INTEGRITY RULES:
+You MUST extract and use ONLY values that appear in the provided protocol document.
 
-ONLY use values explicitly provided in the protocol text. If you catch yourself writing any forbidden value, STOP and use the correct protocol value instead.
+For each value you write, verify it comes from the protocol:
+- Drug name: Use ONLY the drug name(s) from THIS protocol
+- Study ID: Use ONLY the NCT ID or study identifier from THIS protocol
+- Sample size: Use ONLY the enrollment number from THIS protocol
+- Randomization ratio: Use ONLY the ratio specified in THIS protocol
+
+If you cannot find a specific value in the protocol, write "[TO BE CONFIRMED]" rather than guessing or using memorized values from other studies.
 """
 
 

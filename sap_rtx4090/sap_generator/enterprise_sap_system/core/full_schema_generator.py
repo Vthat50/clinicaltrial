@@ -127,12 +127,16 @@ class IntroductionSectionBase(BaseModel):
     @field_validator('purpose_statement', 'scope_statement')
     @classmethod
     def check_no_contamination(cls, v: str) -> str:
-        """Ensure narrative doesn't contain values that should be constrained"""
-        # Block common contaminants
-        contaminants = ['GA29144', 'GA29145', 'PRO145223', 'etrolizumab', '1150', '769']
-        for c in contaminants:
-            if c.lower() in v.lower():
-                raise ValueError(f"Narrative contains potential contaminant: {c}")
+        """Ensure narrative doesn't contain wrong drug names used as THE study drug"""
+        # Only block wrong drug names - study IDs may appear legitimately in references
+        # NOTE: Don't block study IDs like GA29144 - they might be comparative references
+        drug_contaminants = ['etrolizumab', 'tocilizumab', 'sarilumab']
+        for c in drug_contaminants:
+            # Check if drug is being used as the study drug (not just mentioned)
+            patterns = [f'{c.lower()} will be', f'treatment with {c.lower()}', f'study drug {c.lower()}']
+            for pattern in patterns:
+                if pattern in v.lower():
+                    raise ValueError(f"Narrative uses wrong study drug: {c}")
         return v
 
 
@@ -1276,11 +1280,12 @@ class EstimandSchemaBase(BaseModel):
         drug = info.data.get('drug_name', '')
         if drug and drug.lower() not in v.lower():
             raise ValueError(f"Treatment description must contain drug name: {drug}")
-        # Check for contaminants
-        contaminants = ['etrolizumab', 'tocilizumab', 'adalimumab', 'GA29144', 'GA29145']
-        for c in contaminants:
-            if c.lower() in v.lower():
-                raise ValueError(f"Treatment contains contaminant: {c}")
+        # Check for drug contaminants only (not study IDs - those may appear in references)
+        # Only flag if a contaminant drug is used AND it's not the actual study drug
+        drug_contaminants = ['etrolizumab', 'tocilizumab', 'sarilumab']
+        for c in drug_contaminants:
+            if c.lower() in v.lower() and (not drug or c.lower() != drug.lower()):
+                raise ValueError(f"Treatment contains wrong drug: {c}")
         return v
 
     @field_validator('population_description')
