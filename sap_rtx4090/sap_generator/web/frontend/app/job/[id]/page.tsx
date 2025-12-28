@@ -79,6 +79,35 @@ interface BatchEvaluationResult {
   }>
 }
 
+interface SDTMVariable {
+  name: string
+  label: string
+  type: string
+  length: number | null
+  core: string
+  codelist: string | null
+}
+
+interface SDTMDomain {
+  code: string
+  name: string
+  label: string
+  class: string
+  structure: string
+  purpose: string
+  variables: SDTMVariable[]
+}
+
+interface SDTMSpecResult {
+  success: boolean
+  message: string
+  sdtm_version: string
+  domains: SDTMDomain[]
+  domain_count: number
+  markdown: string
+  errors: string[]
+}
+
 export default function JobDetailPage() {
   const params = useParams()
   const router = useRouter()
@@ -87,7 +116,13 @@ export default function JobDetailPage() {
   const [result, setResult] = useState<JobResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'sap' | 'protocol'>('sap')
+  const [activeTab, setActiveTab] = useState<'sap' | 'sdtm' | 'protocol'>('sap')
+
+  // SDTM Specs state
+  const [sdtmSpec, setSdtmSpec] = useState<SDTMSpecResult | null>(null)
+  const [sdtmLoading, setSdtmLoading] = useState(false)
+  const [sdtmError, setSdtmError] = useState<string | null>(null)
+  const [expandedDomain, setExpandedDomain] = useState<string | null>(null)
 
   // Evaluation state
   const [groundTruthStudies, setGroundTruthStudies] = useState<GroundTruthStudy[]>([])
@@ -170,6 +205,36 @@ export default function JobDetailPage() {
       setBatchError(e.message)
     } finally {
       setBatchEvaluating(false)
+    }
+  }
+
+  // Generate SDTM specifications
+  const generateSdtmSpecs = async () => {
+    if (!jobId) return
+
+    setSdtmLoading(true)
+    setSdtmError(null)
+
+    try {
+      const res = await fetch(`${API_URL}/generate-sdtm/${jobId}`, {
+        method: 'POST'
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.detail || 'SDTM generation failed')
+      }
+
+      const data = await res.json()
+      if (data.success) {
+        setSdtmSpec(data)
+      } else {
+        throw new Error(data.message || 'SDTM generation failed')
+      }
+    } catch (e: any) {
+      setSdtmError(e.message)
+    } finally {
+      setSdtmLoading(false)
     }
   }
 
@@ -609,6 +674,16 @@ export default function JobDetailPage() {
                 📄 Generated SAP
               </button>
               <button
+                onClick={() => setActiveTab('sdtm')}
+                className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'sdtm'
+                    ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                🗃️ SDTM Specs {sdtmSpec && <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">{sdtmSpec.domain_count}</span>}
+              </button>
+              <button
                 onClick={() => setActiveTab('protocol')}
                 className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === 'protocol'
@@ -650,6 +725,152 @@ export default function JobDetailPage() {
                   <div className="prose max-w-none markdown-body overflow-auto max-h-[600px] border rounded-lg p-6 bg-gray-50">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.generated_sap}</ReactMarkdown>
                   </div>
+                </div>
+              )}
+
+              {activeTab === 'sdtm' && (
+                <div>
+                  {/* Generate Button */}
+                  {!sdtmSpec && !sdtmLoading && (
+                    <div className="text-center py-8">
+                      <div className="text-4xl mb-4">🗃️</div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Generate SDTM Specifications</h3>
+                      <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                        Generate CDISC-compliant SDTM domain specifications based on the protocol and SAP.
+                      </p>
+                      <button
+                        onClick={generateSdtmSpecs}
+                        className="bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                      >
+                        Generate SDTM Specs
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Loading State */}
+                  {sdtmLoading && (
+                    <div className="text-center py-8">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600">Generating SDTM specifications...</p>
+                    </div>
+                  )}
+
+                  {/* Error State */}
+                  {sdtmError && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                      <p className="text-red-700">{sdtmError}</p>
+                      <button
+                        onClick={generateSdtmSpecs}
+                        className="mt-2 text-sm text-red-600 hover:text-red-800 font-medium"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  )}
+
+                  {/* SDTM Results */}
+                  {sdtmSpec && (
+                    <div className="space-y-4">
+                      {/* Header */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            SDTM Specification v{sdtmSpec.sdtm_version}
+                          </h3>
+                          <p className="text-sm text-gray-500">{sdtmSpec.domain_count} domains generated</p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const blob = new Blob([sdtmSpec.markdown], { type: 'text/markdown' })
+                            const url = URL.createObjectURL(blob)
+                            const a = document.createElement('a')
+                            a.href = url
+                            a.download = `SDTM_Spec_${result.filename || jobId.slice(0, 8)}.md`
+                            a.click()
+                          }}
+                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+                        >
+                          Download Markdown
+                        </button>
+                      </div>
+
+                      {/* Domain Cards */}
+                      <div className="grid gap-3">
+                        {sdtmSpec.domains.map((domain) => (
+                          <div key={domain.code} className="border rounded-lg overflow-hidden">
+                            <button
+                              onClick={() => setExpandedDomain(expandedDomain === domain.code ? null : domain.code)}
+                              className="w-full px-4 py-3 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="font-mono text-sm font-bold bg-indigo-100 text-indigo-700 px-2 py-1 rounded">
+                                  {domain.code}
+                                </span>
+                                <div className="text-left">
+                                  <p className="font-medium text-gray-900">{domain.name}</p>
+                                  <p className="text-xs text-gray-500">{domain.class} • {domain.variables.length} variables</p>
+                                </div>
+                              </div>
+                              <span className="text-gray-400">{expandedDomain === domain.code ? '▼' : '▶'}</span>
+                            </button>
+
+                            {expandedDomain === domain.code && (
+                              <div className="p-4 border-t bg-white">
+                                <p className="text-sm text-gray-600 mb-3">{domain.purpose}</p>
+                                <p className="text-xs text-gray-500 mb-3">Structure: {domain.structure}</p>
+
+                                {/* Variables Table */}
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-sm">
+                                    <thead className="bg-gray-50">
+                                      <tr>
+                                        <th className="px-3 py-2 text-left font-medium text-gray-600">Variable</th>
+                                        <th className="px-3 py-2 text-left font-medium text-gray-600">Label</th>
+                                        <th className="px-3 py-2 text-center font-medium text-gray-600">Type</th>
+                                        <th className="px-3 py-2 text-center font-medium text-gray-600">Core</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {domain.variables.map((v, i) => (
+                                        <tr key={v.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                          <td className="px-3 py-2 font-mono text-xs font-medium text-gray-900">{v.name}</td>
+                                          <td className="px-3 py-2 text-gray-700">{v.label}</td>
+                                          <td className="px-3 py-2 text-center text-gray-600">{v.type}</td>
+                                          <td className="px-3 py-2 text-center">
+                                            <span className={`text-xs px-2 py-0.5 rounded font-medium ${
+                                              v.core === 'Req' ? 'bg-red-100 text-red-700' :
+                                              v.core === 'Exp' ? 'bg-yellow-100 text-yellow-700' :
+                                              'bg-gray-100 text-gray-600'
+                                            }`}>
+                                              {v.core}
+                                            </span>
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Legend */}
+                      <div className="flex items-center gap-4 text-xs text-gray-500 pt-2 border-t">
+                        <span>Core Classifications:</span>
+                        <span className="flex items-center gap-1">
+                          <span className="bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-medium">Req</span> Required
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="bg-yellow-100 text-yellow-700 px-1.5 py-0.5 rounded font-medium">Exp</span> Expected
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">Perm</span> Permissible
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
