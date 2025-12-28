@@ -279,6 +279,19 @@ class ConstrainedSAPPipeline:
             else:
                 result.errors.append("Failed to generate PK Analysis section")
 
+        # Appendix sections (always generate)
+        print("\n  [11/14] Generating Appendix A: Endpoint Derivations...")
+        result.sections['11_appendix_derivations'] = self._generate_appendix_derivations(facts)
+
+        print("\n  [12/14] Generating Appendix B: Model Specifications...")
+        result.sections['12_appendix_model_specs'] = self._generate_appendix_model_specs(facts)
+
+        print("\n  [13/14] Generating Appendix C: Data Handling Rules...")
+        result.sections['13_appendix_data_handling'] = self._generate_appendix_data_handling(facts)
+
+        print("\n  [14/14] Generating Appendix D: Table Shells...")
+        result.sections['14_appendix_table_shells'] = self._generate_appendix_table_shells(facts)
+
         # =================================================================
         # STAGE 4: Contamination Detection
         # =================================================================
@@ -1356,6 +1369,558 @@ Exposure to {drug_name} will be summarized:
 - Cumulative dose
 """
 
+    def _generate_appendix_derivations(self, facts: FullProtocolFacts) -> str:
+        """Generate Appendix A: Endpoint Derivation Algorithms"""
+        primary_endpoint = facts.primary_endpoint or "Primary Endpoint"
+        primary_timepoint = facts.primary_timepoint or "Week 12"
+
+        return f"""## APPENDIX A: ENDPOINT DERIVATION ALGORITHMS
+
+### A.1 Primary Endpoint Derivation
+
+**Endpoint:** {primary_endpoint}
+**Timepoint:** {primary_timepoint}
+
+#### A.1.1 Component Collection
+
+| Component | Source | Timing | Handling |
+|-----------|--------|--------|----------|
+| Stool Frequency Subscore (0-3) | Patient diary | Days 79-83 (5 days before visit) | Average of daily scores |
+| Rectal Bleeding Subscore (0-3) | Patient diary | Days 79-83 | Average of daily scores |
+| Physician Global Assessment (0-3) | CRF | At visit, BEFORE endoscopy unblinding | Single assessment |
+| Endoscopy Subscore (0-3) | Central reader (primary) | Visit ±3 days | Central read preferred |
+
+#### A.1.2 Diary Data Processing
+
+```
+Step 1: Collect diary entries for Days (Visit - 5) to (Visit - 1)
+
+Step 2: Exclude invalid days:
+  - Days with bowel preparation
+  - Day of colonoscopy
+  - Day after colonoscopy
+
+Step 3: Require ≥3 valid days
+  - If <3 valid days → Subscore = MISSING
+
+Step 4: Calculate average
+  - Mean of valid days, round to 1 decimal
+
+Step 5: Categorize
+  - 0.0 - 0.5 → 0
+  - 0.6 - 1.5 → 1
+  - 1.6 - 2.5 → 2
+  - 2.6 - 3.0 → 3
+```
+
+#### A.1.3 Full Mayo Score Calculation
+
+```
+Full Mayo = Stool Frequency + Rectal Bleeding + PGA + Endoscopy
+Range: 0-12
+```
+
+#### A.1.4 Remission Derivation Algorithm
+
+```python
+def derive_remission(stool_freq, rectal_bleeding, pga, endoscopy):
+    '''
+    Returns: 1 (Remission) or 0 (No Remission)
+    '''
+    # Check for missing components
+    if any(x is None for x in [stool_freq, rectal_bleeding, pga, endoscopy]):
+        return 0  # Non-responder imputation
+
+    # Calculate Full Mayo
+    full_mayo = stool_freq + rectal_bleeding + pga + endoscopy
+
+    # Apply remission criteria
+    if (full_mayo <= 2 and
+        stool_freq <= 1 and
+        rectal_bleeding == 0 and  # Must be 0, not just ≤1
+        pga <= 1 and
+        endoscopy <= 1):
+        return 1  # Remission
+    else:
+        return 0  # No Remission
+```
+
+#### A.1.5 Missing Data Rules
+
+| Scenario | Handling |
+|----------|----------|
+| Any component missing at primary timepoint | Remission = NO (non-responder) |
+| Patient discontinued before primary timepoint | Remission = NO |
+| Patient died | Remission = NO |
+| Visit outside window (>{primary_timepoint} + 7 days) | Use data, flag as deviation |
+| Central read unavailable | Use local investigator read |
+
+### A.2 Secondary Endpoint Derivations
+
+#### A.2.1 Clinical Response
+
+```
+Clinical Response = YES if:
+  - Decrease in 9-point partial Mayo ≥2 points AND ≥30% from baseline
+  - AND decrease in rectal bleeding ≥1 point OR rectal bleeding ≤1
+```
+
+#### A.2.2 Mucosal Healing
+
+```
+Mucosal Healing = YES if:
+  - Endoscopy subscore ≤1
+```
+
+#### A.2.3 Change from Baseline
+
+```
+Change = Post-baseline value - Baseline value
+
+Baseline Definition:
+  - Last non-missing value before first dose
+  - If multiple on Day 0: Use pre-dose value
+  - If Day 0 missing: Use Day -1 (if within screening window)
+```
+"""
+
+    def _generate_appendix_model_specs(self, facts: FullProtocolFacts) -> str:
+        """Generate Appendix B: Statistical Model Specifications"""
+        drug_name = facts.drug_name or "Study Drug"
+        primary_method = facts.primary_analysis_method or "Logistic Regression"
+        strat_factors = facts.stratification_factors or ["Prior corticosteroid use"]
+
+        strat_vars = ", ".join([f"STRAT{i+1}" for i in range(len(strat_factors))])
+        strat_class = " ".join([f"strat{i+1}" for i in range(len(strat_factors))])
+
+        return f"""## APPENDIX B: STATISTICAL MODEL SPECIFICATIONS
+
+### B.1 Primary Analysis Model
+
+**Software:** SAS 9.4 or higher
+**Procedure:** PROC LOGISTIC
+
+#### B.1.1 Model Specification
+
+**Dependent Variable:**
+- REMISS (binary: 1=Yes, 0=No)
+
+**Independent Variables:**
+- TRT: Treatment group (1={drug_name} High Dose, 2={drug_name} Low Dose, 3=Placebo)
+  * Reference: TRT=3 (Placebo)
+  * Parameterization: GLM coding
+- {strat_vars}: Stratification factors
+- BASEMAYO: Baseline full Mayo score (continuous)
+
+#### B.1.2 SAS Code
+
+```sas
+/*==============================================*/
+/* PRIMARY ANALYSIS: Clinical and Endoscopic    */
+/* Remission at Primary Timepoint               */
+/*==============================================*/
+
+PROC LOGISTIC DATA=analysis.fas DESCENDING;
+  CLASS trt (REF='3') {strat_class} / PARAM=GLM;
+  MODEL remiss = trt {strat_class} basemayo /
+    EXPB
+    CLPARM=WALD
+    CLODDS=WALD
+    LACKFIT;
+
+  /* Primary comparison: High Dose vs Placebo */
+  CONTRAST 'High Dose vs Placebo' trt 1 0 / ESTIMATE=EXP ALPHA=0.10;
+
+  /* Secondary comparison: Low Dose vs Placebo */
+  CONTRAST 'Low Dose vs Placebo' trt 0 1 / ESTIMATE=EXP;
+
+  /* Exploratory: High vs Low Dose */
+  CONTRAST 'High vs Low Dose' trt 1 -1 / ESTIMATE=EXP;
+
+  ODS OUTPUT ParameterEstimates=results.primary_parms
+             OddsRatios=results.primary_or
+             ContrastEstimate=results.primary_contrasts;
+RUN;
+```
+
+#### B.1.3 Output Interpretation
+
+| Output | Description | Use |
+|--------|-------------|-----|
+| OddsRatios | OR with 95% CI for each treatment | Primary efficacy result |
+| ContrastEstimate | One-sided p-value for primary comparison | Statistical significance |
+| ParameterEstimates | Model coefficients | Technical documentation |
+
+#### B.1.4 One-Sided P-value Calculation
+
+```sas
+/* Convert two-sided p-value to one-sided */
+DATA results.primary_onesided;
+  SET results.primary_contrasts;
+  IF Estimate > 0 THEN p_onesided = ProbChiSq / 2;
+  ELSE p_onesided = 1 - (ProbChiSq / 2);
+RUN;
+```
+
+### B.2 Sensitivity Analysis Models
+
+#### B.2.1 Per-Protocol Analysis
+
+Same model as primary, using PP population.
+
+```sas
+PROC LOGISTIC DATA=analysis.pp DESCENDING;
+  /* Same model specification */
+RUN;
+```
+
+#### B.2.2 Tipping Point Analysis
+
+```sas
+/*==============================================*/
+/* SENSITIVITY: Tipping Point Analysis          */
+/*==============================================*/
+
+%MACRO tipping_point(delta_values=-0.3 -0.2 -0.1 0 0.1 0.2 0.3);
+  %LET i = 1;
+  %DO %WHILE (%SCAN(&delta_values, &i) NE );
+    %LET delta = %SCAN(&delta_values, &i);
+
+    DATA work.imputed_&i;
+      SET analysis.fas;
+      IF remiss = . THEN DO;
+        /* Impute with delta adjustment */
+        remiss_imp = (RANUNI(12345) < (obs_rate + &delta));
+      END;
+      ELSE remiss_imp = remiss;
+    RUN;
+
+    PROC LOGISTIC DATA=work.imputed_&i;
+      CLASS trt (REF='3') / PARAM=GLM;
+      MODEL remiss_imp = trt basemayo;
+      ODS OUTPUT ContrastEstimate=work.tip_&i;
+    RUN;
+
+    %LET i = %EVAL(&i + 1);
+  %END;
+%MEND;
+```
+
+### B.3 Subgroup Analysis Model
+
+```sas
+/*==============================================*/
+/* SUBGROUP ANALYSIS with Interaction           */
+/*==============================================*/
+
+PROC LOGISTIC DATA=analysis.fas DESCENDING;
+  CLASS trt (REF='3') subgroup_var / PARAM=GLM;
+  MODEL remiss = trt subgroup_var trt*subgroup_var basemayo;
+
+  /* Test for interaction */
+  CONTRAST 'Treatment x Subgroup Interaction'
+    trt*subgroup_var 1 -1 -1 1 / CHISQ;
+
+  /* Treatment effect within each subgroup */
+  SLICE trt*subgroup_var / SLICEBY=subgroup_var DIFF EXP CL;
+RUN;
+```
+"""
+
+    def _generate_appendix_data_handling(self, facts: FullProtocolFacts) -> str:
+        """Generate Appendix C: Data Handling Conventions"""
+        return """## APPENDIX C: DATA HANDLING CONVENTIONS
+
+### C.1 Date Imputations
+
+#### C.1.1 Partial Date Rules
+
+| Missing Component | Imputation Rule | Example |
+|-------------------|-----------------|---------|
+| Day only | Impute to 15th | UNK-MAR-2024 → 15-MAR-2024 |
+| Month only | Impute to June (mid-year) | 20-UNK-2024 → 20-JUN-2024 |
+| Year missing | Cannot impute | Leave as missing |
+
+#### C.1.2 Treatment-Emergent Classification
+
+```
+IF AE_start_date ≥ First_dose_date THEN TEAE = 'Y';
+ELSE TEAE = 'N';
+
+/* For partial dates: */
+IF AE_start_imputed < First_dose_date THEN TEAE = 'N';
+IF AE_start_imputed ≥ First_dose_date THEN TEAE = 'Y';
+```
+
+### C.2 Time Calculations
+
+#### C.2.1 Duration
+
+```
+Duration (days) = End_date - Start_date + 1
+
+/* If ongoing at analysis cutoff: */
+Duration = Cutoff_date - Start_date + 1
+```
+
+#### C.2.2 Age
+
+```
+Age (years) = FLOOR((First_dose_date - Birth_date) / 365.25)
+```
+
+#### C.2.3 Study Day
+
+```
+Study_Day = Assessment_date - First_dose_date + 1
+/* Day 1 = First dose date */
+```
+
+### C.3 Laboratory Value Handling
+
+#### C.3.1 Below/Above Limits
+
+| Value | Handling |
+|-------|----------|
+| "<LLOQ" (Below lower limit) | Use LLOQ/2 |
+| ">ULOQ" (Above upper limit) | Use ULOQ |
+| "Not detected" | Use 0 |
+| "Trace" | Use LLOQ/2 |
+
+#### C.3.2 Unit Conversions
+
+| Parameter | If Reported As | Convert To |
+|-----------|---------------|------------|
+| CRP | mg/dL | mg/L (multiply by 10) |
+| Hemoglobin | mmol/L | g/dL (multiply by 1.611) |
+| Glucose | mmol/L | mg/dL (multiply by 18.02) |
+
+#### C.3.3 Baseline Definition
+
+```
+Baseline = Last non-missing value before first dose
+
+Priority:
+1. Pre-dose value on Day 0
+2. If no Day 0: Last value in screening period
+3. Multiple values on same day: Use mean
+```
+
+### C.4 Mayo Score Conventions
+
+#### C.4.1 Diary Averaging
+
+```
+Step 1: Identify valid diary days (exclude bowel prep, colonoscopy days)
+Step 2: Require minimum 3 valid days
+Step 3: Calculate arithmetic mean
+Step 4: Round to 1 decimal place
+Step 5: Categorize (0-0.5→0, 0.6-1.5→1, 1.6-2.5→2, 2.6-3.0→3)
+```
+
+#### C.4.2 Partial Mayo Calculation
+
+```
+Partial Mayo = Stool Frequency + Rectal Bleeding + PGA
+Range: 0-9
+(Excludes Endoscopy subscore)
+```
+
+### C.5 Duplicate Record Resolution
+
+| Scenario | Rule |
+|----------|------|
+| Duplicate CRF entries | Use most recent entry date |
+| Duplicate lab results | Query site; use confirmed value |
+| Duplicate AE records | Merge if same event; otherwise keep both |
+
+### C.6 Visit Windows
+
+| Scheduled Visit | Target Day | Window |
+|-----------------|------------|--------|
+| Week 2 | Day 14 | ±3 days |
+| Week 4 | Day 28 | ±3 days |
+| Week 6 | Day 42 | ±3 days |
+| Week 8 | Day 56 | ±3 days |
+| Week 10 | Day 70 | ±5 days |
+| Week 12 | Day 84 | ±5 days |
+
+#### C.6.1 Out-of-Window Handling
+
+```
+IF Visit_date outside window:
+  - Include in analysis
+  - Flag as protocol deviation
+  - Assign to nearest scheduled visit
+  - Document in listings
+```
+"""
+
+    def _generate_appendix_table_shells(self, facts: FullProtocolFacts) -> str:
+        """Generate Appendix D: Table Shells"""
+        drug_name = facts.drug_name or "Study Drug"
+        num_arms = facts.num_arms or 3
+
+        # Build column headers
+        if num_arms == 3:
+            col_headers = f"| Statistic | {drug_name} High Dose\\n(N=XX) | {drug_name} Low Dose\\n(N=XX) | Placebo\\n(N=XX) | Total\\n(N=XX) |"
+            col_sep = "|-----------|------------|-----------|---------|-------|"
+        else:
+            col_headers = f"| Statistic | {drug_name}\\n(N=XX) | Placebo\\n(N=XX) | Total\\n(N=XX) |"
+            col_sep = "|-----------|------------|---------|-------|"
+
+        return f"""## APPENDIX D: TABLE SHELLS
+
+### D.1 Baseline Characteristics (Table 14.1.2)
+
+**Population:** Full Analysis Set (FAS)
+
+#### D.1.1 Demographics
+
+{col_headers}
+{col_sep}
+| **Age (years)** | | | | |
+|   N | | | | |
+|   Mean (SD) | | | | |
+|   Median | | | | |
+|   Min, Max | | | | |
+| **Age Category** | | | | |
+|   <40 years, n (%) | | | | |
+|   40-64 years, n (%) | | | | |
+|   ≥65 years, n (%) | | | | |
+| **Sex, n (%)** | | | | |
+|   Male | | | | |
+|   Female | | | | |
+| **Race, n (%)** | | | | |
+|   Asian | | | | |
+|   White | | | | |
+|   Other | | | | |
+| **Weight (kg)** | | | | |
+|   N | | | | |
+|   Mean (SD) | | | | |
+| **BMI (kg/m²)** | | | | |
+|   N | | | | |
+|   Mean (SD) | | | | |
+
+#### D.1.2 Disease Characteristics
+
+{col_headers}
+{col_sep}
+| **Time Since Diagnosis (years)** | | | | |
+|   Mean (SD) | | | | |
+|   Median (Min, Max) | | | | |
+| **Disease Extent, n (%)** | | | | |
+|   Proctitis | | | | |
+|   Left-sided colitis | | | | |
+|   Extensive/Pancolitis | | | | |
+| **Baseline Full Mayo Score** | | | | |
+|   Mean (SD) | | | | |
+| **Baseline Endoscopy Subscore, n (%)** | | | | |
+|   2 | | | | |
+|   3 | | | | |
+| **Prior UC Medications, n (%)** | | | | |
+|   Corticosteroids | | | | |
+|   5-ASA | | | | |
+|   Immunomodulators | | | | |
+
+### D.2 Primary Efficacy Analysis (Table 14.2.1)
+
+**Endpoint:** Clinical and Endoscopic Remission at Primary Timepoint
+**Population:** FAS
+
+{col_headers}
+{col_sep}
+| **Remission, n (%)** | | | | |
+|   Yes | xx (xx.x) | xx (xx.x) | xx (xx.x) | |
+|   No | xx (xx.x) | xx (xx.x) | xx (xx.x) | |
+| **Difference vs Placebo** | | | | |
+|   Estimate (%) | xx.x | xx.x | - | |
+|   95% CI | (xx.x, xx.x) | (xx.x, xx.x) | - | |
+| **Odds Ratio vs Placebo** | | | | |
+|   Estimate | x.xx | x.xx | - | |
+|   95% CI | (x.xx, x.xx) | (x.xx, x.xx) | - | |
+|   P-value (one-sided) | x.xxxx | x.xxxx | - | |
+
+**Footnotes:**
+1. Percentages based on N in each treatment group
+2. Patients with missing data at primary timepoint counted as non-responders
+3. Odds ratios and p-values from logistic regression model with treatment, stratification factors, and baseline Mayo score
+4. One-sided p-value for superiority testing
+
+### D.3 Adverse Events Overview (Table 14.3.1)
+
+**Population:** Safety Population
+
+{col_headers}
+{col_sep}
+| **Any TEAE, n (%)** | | | | |
+| **Treatment-related TEAE, n (%)** | | | | |
+| **TEAE by Maximum Severity** | | | | |
+|   Mild | | | | |
+|   Moderate | | | | |
+|   Severe | | | | |
+| **Serious TEAE, n (%)** | | | | |
+| **Treatment-related Serious TEAE, n (%)** | | | | |
+| **TEAE Leading to Discontinuation, n (%)** | | | | |
+| **TEAE Leading to Dose Modification, n (%)** | | | | |
+| **Deaths, n (%)** | | | | |
+
+**Footnotes:**
+1. TEAE = Treatment-emergent adverse event (onset on or after first dose)
+2. Treatment-related = Possibly, probably, or definitely related per investigator
+3. A patient counted once per row regardless of number of events
+4. Percentages based on N in Safety Population
+
+### D.4 AEs by SOC and PT (Table 14.3.2)
+
+**Population:** Safety Population
+**Incidence Threshold:** ≥5% in any treatment group
+
+| System Organ Class | {drug_name} High | {drug_name} Low | Placebo |
+|   Preferred Term | n (%) | n (%) | n (%) |
+|--------------------|-------|-------|--------|
+| **Infections and infestations** | | | |
+|   Nasopharyngitis | | | |
+|   Upper respiratory tract infection | | | |
+| **Gastrointestinal disorders** | | | |
+|   Nausea | | | |
+|   Abdominal pain | | | |
+| **General disorders** | | | |
+|   Fatigue | | | |
+|   Injection site reaction | | | |
+
+**Footnotes:**
+1. MedDRA version XX.X
+2. Sorted by decreasing frequency in High Dose group within each SOC
+3. SOCs sorted alphabetically
+
+### D.5 Laboratory Abnormalities (Table 14.3.5)
+
+**Population:** Safety Population
+
+| Parameter | {drug_name} High | {drug_name} Low | Placebo |
+|-----------|-----------------|-----------------|---------|
+| **Hematology** | | | |
+|   Neutropenia (Grade 3-4), n (%) | | | |
+|   Thrombocytopenia (Grade 3-4), n (%) | | | |
+| **Chemistry** | | | |
+|   ALT >3× ULN, n (%) | | | |
+|   AST >3× ULN, n (%) | | | |
+|   Bilirubin >2× ULN, n (%) | | | |
+
+### D.6 Formatting Conventions
+
+| Element | Format |
+|---------|--------|
+| Percentages | 1 decimal place (xx.x%) |
+| Means | Same precision as raw data or 1 decimal |
+| Standard Deviations | Same as means |
+| P-values | 4 decimal places; if <0.0001, display as "<0.0001" |
+| Confidence Intervals | Same precision as estimate |
+| n=0 | Display "0" not "0 (0.0%)" |
+| Missing | Display "-" or "NA" |
+"""
+
     def _assemble_sap(self, sections: Dict[str, str], facts) -> str:
         """Assemble sections into complete SAP document.
 
@@ -1429,6 +1994,10 @@ TABLE OF CONTENTS
             '8_missing_data',
             '9_safety_analysis',
             '10_pk_analysis',
+            '11_appendix_derivations',
+            '12_appendix_model_specs',
+            '13_appendix_data_handling',
+            '14_appendix_table_shells',
         ]
 
         for section_key in section_order:
