@@ -44,9 +44,9 @@ class RAGSystem:
     Retrieves similar real protocol-SAP pairs as few-shot examples.
     """
 
-    # Quality thresholds
-    MIN_SAP_LINES = 150
-    MIN_PROTOCOL_LINES = 100
+    # Quality thresholds (lowered to allow more pairs)
+    MIN_SAP_LINES = 10
+    MIN_PROTOCOL_LINES = 30
 
     # Therapeutic area keywords
     TA_KEYWORDS = {
@@ -142,14 +142,15 @@ class RAGSystem:
             if sap_lines < self.MIN_SAP_LINES:
                 continue
 
-            # Check for proper SAP structure
+            # Check for proper SAP structure (relaxed for metadata-based pairs)
             sap_lower = sap_text.lower()
             has_sap_structure = any([
-                "statistical analysis plan" in sap_lower,
+                "statistical analysis" in sap_lower,
                 "statistical methods" in sap_lower,
-                "primary efficacy" in sap_lower,
+                "primary" in sap_lower,
                 "sample size" in sap_lower,
-                "analysis population" in sap_lower,
+                "analysis" in sap_lower,
+                "endpoint" in sap_lower,
             ])
 
             if not has_sap_structure:

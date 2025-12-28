@@ -182,6 +182,34 @@ class JobStatusResponse(BaseModel):
     protocol_preview: Optional[str] = None
 
 
+class EvaluationResponse(BaseModel):
+    """Evaluation results comparing generated SAP to ground truth"""
+    nct_id: str
+    ground_truth_lines: int
+    generated_lines: int
+    section_coverage_pct: float
+    keyword_overlap_pct: float
+    has_primary_endpoint: bool
+    has_secondary_endpoint: bool
+    has_sample_size: bool
+    has_analysis_populations: bool
+    has_statistical_methods: bool
+    has_missing_data: bool
+    overall_score: float
+    sections_matched: list
+    sections_missing: list
+    statistical_terms_found: list
+    statistical_terms_missing: list
+
+
+class GroundTruthInfo(BaseModel):
+    """Ground truth study information"""
+    nct_id: str
+    title: str
+    sap_lines: int
+    therapeutic_area: str
+
+
 # API Endpoints
 @app.get("/")
 async def root():
@@ -344,6 +372,204 @@ async def delete_job(job_id: str):
         db = get_supabase()
         db.table("sap_jobs").delete().eq("id", job_id).execute()
         return {"message": "Job deleted"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/ground-truth")
+async def list_ground_truth():
+    """
+    List available ground truth SAPs for evaluation.
+    Includes all pairs from data/all_pairs directory.
+    """
+    try:
+        # Check both directories
+        base_dir = Path(__file__).parent.parent.parent / "data"
+        all_pairs_dir = base_dir / "all_pairs"
+        ground_truth_dir = base_dir / "ground_truth"
+
+        studies = []
+        seen_nct_ids = set()
+
+        # All ground_truth SAPs are now high quality (downloaded from real PDFs)
+
+        # Add all ground truth SAPs (all are high quality - from real PDFs)
+        if ground_truth_dir.exists():
+            for sap_file in ground_truth_dir.glob("*_sap.txt"):
+                nct_id = sap_file.stem.replace("_sap", "")
+                if nct_id in seen_nct_ids:
+                    continue
+                seen_nct_ids.add(nct_id)
+
+                try:
+                    sap_text = sap_file.read_text(encoding='utf-8', errors='ignore')
+                    lines = len(sap_text.split('\n'))
+
+                    # Detect therapeutic area
+                    sap_lower = sap_text.lower()
+                    if any(x in sap_lower for x in ["cancer", "tumor", "oncology", "carcinoma", "melanoma"]):
+                        area = "Oncology"
+                    elif any(x in sap_lower for x in ["heart", "cardiac", "cardiovascular", "coronary"]):
+                        area = "Cardiology"
+                    elif any(x in sap_lower for x in ["diabetes", "glucose", "metabolic", "obesity"]):
+                        area = "Metabolism"
+                    elif any(x in sap_lower for x in ["infection", "hiv", "hepatitis", "covid", "viral"]):
+                        area = "Infectious"
+                    elif any(x in sap_lower for x in ["psychiatric", "depression", "anxiety", "schizophrenia"]):
+                        area = "Psychiatry"
+                    else:
+                        area = "Other"
+
+                    # Get title from protocol if available
+                    protocol_file = ground_truth_dir / f"{nct_id}_protocol.txt"
+                    title = nct_id
+                    if protocol_file.exists():
+                        protocol_text = protocol_file.read_text(encoding='utf-8', errors='ignore')[:300]
+                        if "STUDY:" in protocol_text:
+                            title = protocol_text.split("STUDY:")[1].split("\n")[0].strip()[:60]
+
+                    studies.append({
+                        "nct_id": nct_id,
+                        "title": f"⭐ {title}" if lines > 500 else title,
+                        "sap_lines": lines,
+                        "therapeutic_area": area,
+                        "quality": "high"
+                    })
+                except:
+                    continue
+
+        # Then add all pairs from all_pairs directory
+        if all_pairs_dir.exists():
+            for sap_file in all_pairs_dir.glob("*_sap.txt"):
+                nct_id = sap_file.stem.replace("_sap", "")
+                if nct_id in seen_nct_ids:
+                    continue
+                seen_nct_ids.add(nct_id)
+
+                try:
+                    sap_text = sap_file.read_text(encoding='utf-8', errors='ignore')
+                    lines = len(sap_text.split('\n'))
+
+                    # Try to detect therapeutic area from content
+                    sap_lower = sap_text.lower()
+                    if any(x in sap_lower for x in ["cancer", "tumor", "oncology", "carcinoma"]):
+                        area = "Oncology"
+                    elif any(x in sap_lower for x in ["infection", "hiv", "hepatitis", "viral"]):
+                        area = "Infectious"
+                    elif any(x in sap_lower for x in ["heart", "cardiac", "cardiovascular"]):
+                        area = "Cardiology"
+                    elif any(x in sap_lower for x in ["diabetes", "glucose", "metabolic"]):
+                        area = "Metabolism"
+                    else:
+                        area = "Other"
+
+                    # Extract title from protocol if available
+                    protocol_file = all_pairs_dir / f"{nct_id}_protocol.txt"
+                    title = nct_id
+                    if protocol_file.exists():
+                        protocol_text = protocol_file.read_text(encoding='utf-8', errors='ignore')[:500]
+                        # Try to find title
+                        for line in protocol_text.split('\n'):
+                            if 'title:' in line.lower() or 'study:' in line.lower():
+                                title = line.split(':', 1)[-1].strip()[:60]
+                                if title:
+                                    break
+
+                    studies.append({
+                        "nct_id": nct_id,
+                        "title": title if title != nct_id else f"{nct_id} ({area})",
+                        "sap_lines": lines,
+                        "therapeutic_area": area,
+                        "quality": "standard"
+                    })
+                except Exception:
+                    continue
+
+        # Sort: high quality first, then by NCT ID
+        studies.sort(key=lambda x: (0 if x.get("quality") == "high" else 1, x["nct_id"]))
+
+        return {
+            "studies": studies,
+            "total": len(studies),
+            "high_quality": sum(1 for s in studies if s.get("quality") == "high")
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/evaluate/{job_id}")
+async def evaluate_job(job_id: str, ground_truth_nct: str):
+    """
+    Evaluate a completed job's SAP against a ground truth SAP.
+    Checks both ground_truth and all_pairs directories.
+    """
+    try:
+        db = get_supabase()
+
+        # Get the job
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(status_code=400, detail="Job must be completed to evaluate")
+
+        generated_sap = job.get("generated_sap", "")
+        if not generated_sap:
+            raise HTTPException(status_code=400, detail="No generated SAP found")
+
+        # Load ground truth - check both directories
+        base_dir = Path(__file__).parent.parent.parent / "data"
+        ground_truth_dir = base_dir / "ground_truth"
+        all_pairs_dir = base_dir / "all_pairs"
+
+        sap_path = None
+        # First check ground_truth directory (high quality)
+        gt_path = ground_truth_dir / f"{ground_truth_nct}_sap.txt"
+        if gt_path.exists():
+            sap_path = gt_path
+        else:
+            # Then check all_pairs directory
+            ap_path = all_pairs_dir / f"{ground_truth_nct}_sap.txt"
+            if ap_path.exists():
+                sap_path = ap_path
+
+        if not sap_path:
+            raise HTTPException(status_code=404, detail=f"Ground truth SAP not found: {ground_truth_nct}")
+
+        ground_truth_sap = sap_path.read_text(encoding='utf-8', errors='ignore')
+
+        # Import evaluator
+        from evaluate_sap import SAPEvaluator
+
+        evaluator = SAPEvaluator(str(sap_path.parent))
+        eval_result = evaluator.evaluate(generated_sap, ground_truth_sap, ground_truth_nct)
+
+        return {
+            "nct_id": eval_result.nct_id,
+            "ground_truth_lines": eval_result.ground_truth_lines,
+            "generated_lines": eval_result.generated_lines,
+            "section_coverage_pct": eval_result.section_coverage_pct,
+            "keyword_overlap_pct": eval_result.keyword_overlap_pct,
+            "has_primary_endpoint": eval_result.has_primary_endpoint,
+            "has_secondary_endpoint": eval_result.has_secondary_endpoint,
+            "has_sample_size": eval_result.has_sample_size,
+            "has_analysis_populations": eval_result.has_analysis_populations,
+            "has_statistical_methods": eval_result.has_statistical_methods,
+            "has_missing_data": eval_result.has_missing_data,
+            "overall_score": eval_result.overall_score,
+            "sections_matched": eval_result.sections_matched,
+            "sections_missing": eval_result.sections_missing,
+            "statistical_terms_found": eval_result.statistical_terms_found,
+            "statistical_terms_missing": eval_result.statistical_terms_missing,
+        }
+
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
