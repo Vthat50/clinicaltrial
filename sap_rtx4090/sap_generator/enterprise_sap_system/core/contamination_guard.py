@@ -196,8 +196,21 @@ class ProtocolIdentityExtractor:
             'endpoint', 'primary', 'secondary', 'baseline', 'visit', 'week',
             'month', 'day', 'dose', 'dosing', 'administration', 'infusion',
             'injection', 'oral', 'intravenous', 'subcutaneous', 'intramuscular',
+            # Numbers as words
+            'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+            'first', 'second', 'third', 'fourth', 'fifth',
+            # Common words that get picked up
+            'approximately', 'total', 'ratio', 'arms', 'groups', 'cohort', 'cohorts',
+            'active', 'comparator', 'reference', 'standard', 'care', 'best',
         }
         drug_names = {d for d in drug_names if d.lower() not in false_positives}
+
+        # Prioritize drug codes (XX-123 or XX123) over generic words
+        drug_codes = [d for d in drug_names if re.match(r'^[A-Z]{2,4}[-]?\d{3,}$', d.upper())]
+        if drug_codes:
+            # Put drug codes first
+            other_drugs = [d for d in drug_names if d not in drug_codes]
+            return drug_codes + other_drugs
 
         return list(drug_names)
 
@@ -445,6 +458,18 @@ class ContaminationCleaner:
                 if wrong_id.startswith('NCT') and wrong_id in cleaned:
                     cleaned = cleaned.replace(wrong_id, protocol_identity.nct_id)
                     changes.append(f"Replaced study ID {wrong_id} with {protocol_identity.nct_id}")
+
+        # Remove "Cohort X" contamination (from multi-cohort studies)
+        cohort_patterns = [
+            (r'for Cohort \d+', 'for this study'),
+            (r'Cohort \d+ is expected', 'This study is expected'),
+            (r'in Cohort \d+', 'in this study'),
+            (r'Cohort \d+', 'the study'),
+        ]
+        for pattern, replacement in cohort_patterns:
+            if re.search(pattern, cleaned, re.IGNORECASE):
+                cleaned = re.sub(pattern, replacement, cleaned, flags=re.IGNORECASE)
+                changes.append(f"Removed cohort contamination: {pattern}")
 
         return cleaned, changes
 
