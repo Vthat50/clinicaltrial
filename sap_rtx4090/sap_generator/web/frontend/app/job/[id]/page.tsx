@@ -88,6 +88,13 @@ interface SDTMVariable {
   codelist: string | null
 }
 
+interface SAPTraceability {
+  sap_section: string
+  sap_text: string
+  sdtm_element: string
+  rationale: string
+}
+
 interface SDTMDomain {
   code: string
   name: string
@@ -96,6 +103,17 @@ interface SDTMDomain {
   structure: string
   purpose: string
   variables: SDTMVariable[]
+  traceability?: SAPTraceability[]
+  study_specific_notes?: string[]
+}
+
+interface SAPSummary {
+  primary_endpoint?: string
+  primary_timepoint?: string
+  secondary_endpoints?: string[]
+  populations?: string[]
+  treatment_arms?: string[]
+  sample_size?: number
 }
 
 interface SDTMSpecResult {
@@ -105,6 +123,7 @@ interface SDTMSpecResult {
   domains: SDTMDomain[]
   domain_count: number
   markdown: string
+  sap_summary?: SAPSummary
   errors: string[]
 }
 
@@ -777,7 +796,7 @@ export default function JobDetailPage() {
                           <h3 className="text-lg font-semibold text-gray-900">
                             SDTM Specification v{sdtmSpec.sdtm_version}
                           </h3>
-                          <p className="text-sm text-gray-500">{sdtmSpec.domain_count} domains generated</p>
+                          <p className="text-sm text-gray-500">{sdtmSpec.message}</p>
                         </div>
                         <button
                           onClick={() => {
@@ -794,6 +813,41 @@ export default function JobDetailPage() {
                         </button>
                       </div>
 
+                      {/* SAP Summary - Extracted Information */}
+                      {sdtmSpec.sap_summary && (
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                          <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                            <span className="text-lg">📋</span> Extracted from SAP
+                          </h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                            {sdtmSpec.sap_summary.primary_endpoint && (
+                              <div>
+                                <span className="font-medium text-blue-800">Primary Endpoint:</span>
+                                <p className="text-blue-700 mt-0.5">{sdtmSpec.sap_summary.primary_endpoint}</p>
+                              </div>
+                            )}
+                            {sdtmSpec.sap_summary.primary_timepoint && (
+                              <div>
+                                <span className="font-medium text-blue-800">Primary Timepoint:</span>
+                                <p className="text-blue-700 mt-0.5">{sdtmSpec.sap_summary.primary_timepoint}</p>
+                              </div>
+                            )}
+                            {sdtmSpec.sap_summary.populations && sdtmSpec.sap_summary.populations.length > 0 && (
+                              <div>
+                                <span className="font-medium text-blue-800">Analysis Populations:</span>
+                                <p className="text-blue-700 mt-0.5">{sdtmSpec.sap_summary.populations.join(', ')}</p>
+                              </div>
+                            )}
+                            {sdtmSpec.sap_summary.sample_size && (
+                              <div>
+                                <span className="font-medium text-blue-800">Sample Size:</span>
+                                <p className="text-blue-700 mt-0.5">{sdtmSpec.sap_summary.sample_size} subjects</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
                       {/* Domain Cards */}
                       <div className="grid gap-3">
                         {sdtmSpec.domains.map((domain) => (
@@ -808,7 +862,14 @@ export default function JobDetailPage() {
                                 </span>
                                 <div className="text-left">
                                   <p className="font-medium text-gray-900">{domain.name}</p>
-                                  <p className="text-xs text-gray-500">{domain.class} • {domain.variables.length} variables</p>
+                                  <p className="text-xs text-gray-500">
+                                    {domain.class} • {domain.variables.length} variables
+                                    {domain.traceability && domain.traceability.length > 0 && (
+                                      <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                        {domain.traceability.length} SAP links
+                                      </span>
+                                    )}
+                                  </p>
                                 </div>
                               </div>
                               <span className="text-gray-400">{expandedDomain === domain.code ? '▼' : '▶'}</span>
@@ -818,6 +879,34 @@ export default function JobDetailPage() {
                               <div className="p-4 border-t bg-white">
                                 <p className="text-sm text-gray-600 mb-3">{domain.purpose}</p>
                                 <p className="text-xs text-gray-500 mb-3">Structure: {domain.structure}</p>
+
+                                {/* SAP Traceability */}
+                                {domain.traceability && domain.traceability.length > 0 && (
+                                  <div className="mb-4 bg-green-50 border border-green-200 rounded-lg p-3">
+                                    <h5 className="text-sm font-medium text-green-800 mb-2">SAP Traceability</h5>
+                                    <div className="space-y-2">
+                                      {domain.traceability.map((trace, idx) => (
+                                        <div key={idx} className="text-xs">
+                                          <span className="font-medium text-green-700">{trace.sap_section}:</span>
+                                          <span className="text-green-600 ml-1">{trace.sdtm_element}</span>
+                                          <p className="text-green-500 ml-2 mt-0.5 italic">&quot;{trace.sap_text.slice(0, 100)}{trace.sap_text.length > 100 ? '...' : ''}&quot;</p>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* Study-Specific Notes */}
+                                {domain.study_specific_notes && domain.study_specific_notes.length > 0 && (
+                                  <div className="mb-4 bg-amber-50 border border-amber-200 rounded-lg p-3">
+                                    <h5 className="text-sm font-medium text-amber-800 mb-1">Study-Specific Requirements</h5>
+                                    <ul className="text-xs text-amber-700 list-disc list-inside">
+                                      {domain.study_specific_notes.map((note, idx) => (
+                                        <li key={idx}>{note}</li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
 
                                 {/* Variables Table */}
                                 <div className="overflow-x-auto">

@@ -474,17 +474,14 @@ class SAPParser:
             r'week\s+(\d+)\s+(?:as\s+)?(?:the\s+)?primary\s+(?:timepoint|endpoint)',
             r'primary\s+analysis\s+(?:will\s+be\s+)?(?:performed\s+)?at\s+week\s+(\d+)',
             r'at\s+week\s+(\d+)[^\.]*primary',
+            r'primary[^\.]*at\s+week\s+(\d+)',  # "primary ... at Week 12"
+            r'primary[^\.]*week\s+(\d+)',  # Broader: "primary ... Week 12"
         ]
 
         for pattern in patterns:
             match = re.search(pattern, sap_text, re.IGNORECASE)
             if match:
                 return f"Week {match.group(1)}"
-
-        # Fallback: look for first week number in primary endpoint context
-        match = re.search(r'primary[^\.]{0,100}week\s+(\d+)', sap_text, re.IGNORECASE)
-        if match:
-            return f"Week {match.group(1)}"
 
         return None
 
