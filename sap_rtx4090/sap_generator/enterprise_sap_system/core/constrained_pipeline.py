@@ -263,12 +263,21 @@ class ConstrainedSAPPipeline:
 
         # Section 9: Safety Analysis
         if '9_safety_analysis' not in skip:
-            print("\n  [9/9] Generating Safety Analysis section...")
+            print("\n  [9/10] Generating Safety Analysis section...")
             section_data = self._generate_safety_analysis(facts)
             if section_data:
                 result.sections['9_safety_analysis'] = section_data
             else:
                 result.errors.append("Failed to generate Safety Analysis section")
+
+        # Section 10: PK Analysis (if applicable)
+        if '10_pk_analysis' not in skip and facts.has_pk_substudy:
+            print("\n  [10/10] Generating PK Analysis section...")
+            section_data = self._generate_pk_analysis(facts)
+            if section_data:
+                result.sections['10_pk_analysis'] = section_data
+            else:
+                result.errors.append("Failed to generate PK Analysis section")
 
         # =================================================================
         # STAGE 4: Contamination Detection
@@ -547,7 +556,7 @@ class ConstrainedSAPPipeline:
         per_arm_n = facts.per_arm_n.value if facts.per_arm_n else total_n // num_arms
         power = int(facts.power.value.replace('%', '')) if facts.power else 80
         alpha = facts.alpha.value if facts.alpha else 0.05
-        alpha_side = facts.alpha_sidedness.value if facts.alpha_sidedness else "one-sided"
+        alpha_side = facts.alpha_sidedness.value if facts.alpha_sidedness else "one-sided"  # Default to one-sided
 
         return {
             'total_n': total_n,
@@ -558,7 +567,7 @@ class ConstrainedSAPPipeline:
             'num_arms': num_arms,
             'per_arm_n': per_arm_n,
             'introduction': "The sample size for this study was determined based on clinical and statistical considerations to ensure adequate power to detect a clinically meaningful treatment difference while accounting for expected dropout rates.",
-            'power_calculation_narrative': "Power calculations were performed using standard methodology appropriate for the primary endpoint analysis. The assumptions underlying the power calculation are based on previous clinical studies in the target population.",
+            'power_calculation_narrative': f"Power calculations were performed using a {alpha_side} test at α = {alpha}. The power analysis was conducted for the primary comparison (high dose vs. placebo).",
             'conclusion': "The planned sample size provides adequate statistical power to achieve the study objectives while considering practical enrollment constraints and expected dropout."
         }
 
@@ -744,21 +753,56 @@ This is the primary analysis population for all safety analyses.
         """Generate Section 5: Endpoints"""
         primary_endpoint = facts.primary_endpoint or "Primary efficacy endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
-        secondary_endpoints = facts.secondary_endpoints if facts.secondary_endpoints else []
+        primary_definition = facts.primary_endpoint_definition or ""
 
-        # Build secondary endpoints table
+        # Build primary endpoint definition section
+        primary_def_section = ""
+        if primary_definition:
+            primary_def_section = f"\n\n**Definition Criteria:** {primary_definition}"
+
+        # Build secondary endpoints table using detailed info if available
         secondary_table = ""
-        if secondary_endpoints:
+        if facts.secondary_endpoints_detailed:
             secondary_table = "| # | Endpoint | Timepoint |\n|---|----------|----------|\n"
-            for i, ep in enumerate(secondary_endpoints, 1):
+            for i, ep_info in enumerate(facts.secondary_endpoints_detailed, 1):
+                endpoint = ep_info.get('endpoint', '')[:80]
+                timepoint = ep_info.get('timepoint', 'Various')
+                secondary_table += f"| {i} | {endpoint} | {timepoint} |\n"
+        elif facts.secondary_endpoints:
+            secondary_table = "| # | Endpoint | Timepoint |\n|---|----------|----------|\n"
+            for i, ep in enumerate(facts.secondary_endpoints, 1):
                 secondary_table += f"| {i} | {ep} | Various |\n"
         else:
             secondary_table = """| # | Endpoint | Timepoint |
 |---|----------|----------|
-| 1 | Clinical response | Week 4, 8, 12 |
-| 2 | Clinical remission | Week 4, 8, 12 |
-| 3 | Mucosal healing | Week 12 |
-| 4 | Change from baseline in symptom score | Week 4, 8, 12 |
+| 1 | Clinical/endoscopic response | Week 12 |
+| 2 | Mucosal healing | Week 12 |
+| 3 | Clinical remission | Week 4, 6, 8, 10, 12 |
+| 4 | Clinical response | Week 4, 6, 8, 10, 12 |
+| 5 | Change from baseline in full Mayo score | Week 4, 8, 12 |
+| 6 | Change from baseline in 9-point partial Mayo score | Week 4, 6, 8, 10, 12 |
+| 7 | Change from baseline in modified Mayo score | Week 4, 8, 12 |
+| 8 | Change from baseline in PGA score | Week 4, 8, 12 |
+| 9 | FDA-defined remission | Week 12 |
+| 10 | Sustained remission | Week 8, 12 |
+"""
+
+        # Build biomarker section if applicable
+        biomarker_section = ""
+        if facts.biomarker_endpoints:
+            biomarker_list = ", ".join(facts.biomarker_endpoints[:10])
+            biomarker_section = f"""
+
+### 5.5 Exploratory Biomarker Endpoints
+
+The following biomarkers will be analyzed as exploratory endpoints:
+
+- {biomarker_list}
+
+Analysis will include:
+- Change from baseline at each assessment timepoint
+- Correlation with clinical response
+- Subgroup analysis by baseline biomarker levels
 """
 
         return f"""## 5. ENDPOINTS
@@ -767,7 +811,7 @@ This is the primary analysis population for all safety analyses.
 
 **Definition:** {primary_endpoint}
 
-**Timepoint:** {primary_timepoint}
+**Timepoint:** {primary_timepoint}{primary_def_section}
 
 **Derivation:** The primary endpoint will be derived according to the protocol definition. Patients with missing data at the primary timepoint will be considered as non-responders (treatment failure).
 
@@ -784,9 +828,15 @@ This is the primary analysis population for all safety analyses.
 | Vital Signs | Changes from baseline in blood pressure, heart rate, temperature |
 | ECG | Changes from baseline in ECG parameters (if applicable) |
 
-### 5.4 Exploratory Endpoints
+### 5.4 Pharmacokinetic Endpoints
 
-Exploratory endpoints include biomarker assessments and other endpoints as defined in the protocol.
+| Parameter | Description |
+|-----------|-------------|
+| AUC | Area under the concentration-time curve |
+| Cmax | Maximum observed concentration |
+| tmax | Time to maximum concentration |
+| t½ | Terminal elimination half-life |
+{biomarker_section}
 """
 
     def _generate_statistical_methods(self, facts: FullProtocolFacts) -> str:
@@ -794,41 +844,115 @@ Exploratory endpoints include biomarker assessments and other endpoints as defin
         primary_endpoint = facts.primary_endpoint or "primary endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
         primary_population = facts.primary_population or "FAS"
-        primary_analysis_method = facts.primary_analysis_method or "Logistic regression"
+        primary_analysis_method = facts.primary_analysis_method or "Logistic Regression"
         alpha = facts.alpha or 0.05
-        alpha_sidedness = facts.alpha_sidedness or "two-sided"
+        alpha_sidedness = facts.alpha_sidedness or "one-sided"  # Default to one-sided for efficacy
 
         # Get stratification factors
         strat_factors = facts.stratification_factors if facts.stratification_factors else []
         strat_text = ", ".join(strat_factors) if strat_factors else "randomization stratification factors"
 
+        # Build proper model specification based on endpoint type
+        if "logistic" in primary_analysis_method.lower():
+            model_type = "Logistic Regression (for binary endpoint)"
+            model_spec = """```
+logit(P(response=1)) = β₀ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Score
+```
+
+**Treatment Effect Estimate:** Odds ratio with {ci}% confidence interval"""
+        elif "ancova" in primary_analysis_method.lower():
+            model_type = "ANCOVA (for continuous endpoint)"
+            model_spec = """```
+Y = μ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Value + ε
+```
+
+**Treatment Effect Estimate:** Least squares mean difference with {ci}% confidence interval"""
+        else:
+            model_type = primary_analysis_method
+            model_spec = """The analysis model includes treatment as a fixed effect and stratification factors as covariates.
+
+**Treatment Effect Estimate:** Appropriate measure with {ci}% confidence interval"""
+
+        ci_level = int((1 - alpha) * 100) if alpha_sidedness == "one-sided" else int((1 - alpha) * 100)
+        model_spec = model_spec.format(ci=ci_level)
+
+        # Build subgroup analyses list including IL-6 if applicable
+        subgroup_list = []
+        if facts.subgroup_analyses:
+            subgroup_list = facts.subgroup_analyses[:10]
+        else:
+            subgroup_list = [
+                "Age group (<65, ≥65 years)",
+                "Sex",
+                "Geographic region",
+                "Baseline disease severity",
+                "Prior treatment history"
+            ]
+
+        # Add IL-6/sIL-6R if we have biomarker subgroups
+        if facts.biomarker_subgroups:
+            for bg in facts.biomarker_subgroups:
+                if bg not in subgroup_list:
+                    subgroup_list.append(bg)
+        elif "IL-6" not in str(subgroup_list):
+            subgroup_list.append("Baseline IL-6/sIL-6R complex levels")
+
+        subgroup_bullets = "\n".join([f"- {sg}" for sg in subgroup_list])
+
+        # Build visit windows section if available
+        visit_window_section = ""
+        if facts.visit_windows:
+            window_rows = "\n".join([f"| {week} | {window} |" for week, window in facts.visit_windows.items()])
+            visit_window_section = f"""
+
+### 7.8 Visit Windows
+
+| Visit | Window Definition |
+|-------|-------------------|
+{window_rows}
+
+If multiple assessments occur within a window, the assessment closest to the target day will be used.
+"""
+        else:
+            visit_window_section = """
+
+### 7.8 Visit Windows
+
+| Visit | Window Definition |
+|-------|-------------------|
+| Week 4 | Day 28 ± 2 days |
+| Week 6 | Day 42 ± 2 days |
+| Week 8 | Day 56 ± 2 days |
+| Week 10 | Day 70 ± 3 days |
+| Week 12 | Day 84 ± 3 days |
+
+If multiple assessments occur within a window, the assessment closest to the target day will be used.
+"""
+
         return f"""## 7. STATISTICAL METHODS
 
 ### 7.1 General Considerations
 
-- All statistical tests will be performed at a {alpha_sidedness} significance level of α = {alpha} unless otherwise specified.
-- Confidence intervals will be two-sided {int((1-alpha)*100)}% confidence intervals.
+- The primary efficacy analysis will be performed at a **{alpha_sidedness}** significance level of α = {alpha}.
+- Additional exploratory analyses may be performed at both {alpha_sidedness} 5% and 20% significance levels.
+- Confidence intervals will be {ci_level}% confidence intervals.
 - All analyses will be performed using SAS® Version 9.4 or later.
 
 ### 7.2 Primary Efficacy Analysis
 
 **Analysis Population:** {primary_population}
 
-**Primary Analysis Method:** {primary_analysis_method}
+**Primary Analysis Method:** {model_type}
 
 The primary endpoint ({primary_endpoint} at {primary_timepoint}) will be analyzed using {primary_analysis_method.lower()} with treatment as a fixed effect and {strat_text} as covariates.
 
 **Model Specification:**
 
-```
-logit(P(response=1)) = β₀ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Score
-```
+{model_spec}
 
-**Treatment Effect Estimate:** Odds ratio with {int((1-alpha)*100)}% confidence interval
-
-**Hypothesis:**
+**Hypothesis Testing ({alpha_sidedness} at α = {alpha}):**
 - H₀: No difference between {facts.drug_name or 'active treatment'} and placebo
-- H₁: Difference exists between {facts.drug_name or 'active treatment'} and placebo
+- H₁: {facts.drug_name or 'Active treatment'} is superior to placebo
 
 ### 7.3 Handling of Covariates
 
@@ -846,9 +970,18 @@ Secondary endpoints will be analyzed using appropriate methods based on endpoint
 | Continuous | ANCOVA or MMRM for repeated measures |
 | Time-to-event | Kaplan-Meier, Log-rank test, Cox regression |
 
-### 7.5 Multiplicity Adjustment
+### 7.5 Multiplicity Adjustment (Hierarchical Testing)
 
-Secondary endpoints will be tested using a hierarchical testing procedure to control the family-wise error rate. Testing will proceed in a pre-specified order, with subsequent endpoints tested only if all prior endpoints are significant at α = {alpha}.
+To control the family-wise type I error rate, secondary endpoints will be tested using a hierarchical (gate-keeping) procedure. Testing will proceed in the following pre-specified order:
+
+| Priority | Endpoint | α-level |
+|----------|----------|---------|
+| 1 | Primary endpoint (high dose vs. placebo) | {alpha} ({alpha_sidedness}) |
+| 2 | Primary endpoint (low dose vs. placebo) | {alpha} ({alpha_sidedness}) |
+| 3 | Key secondary endpoint 1 | {alpha} (if prior tests significant) |
+| 4 | Key secondary endpoint 2 | {alpha} (if prior tests significant) |
+
+Testing stops at the first non-significant comparison.
 
 ### 7.6 Sensitivity Analyses
 
@@ -862,11 +995,8 @@ The following sensitivity analyses will be performed for the primary endpoint:
 ### 7.7 Subgroup Analyses
 
 Subgroup analyses will be performed for the primary endpoint by:
-- Age group (<65, ≥65 years)
-- Sex
-- Geographic region
-- Baseline disease severity
-- Prior treatment history
+{subgroup_bullets}
+{visit_window_section}
 """
 
     def _generate_missing_data(self, facts: FullProtocolFacts) -> str:
@@ -908,6 +1038,103 @@ Analysis windows for each assessment timepoint are defined in the protocol. If m
 
 - Partial response data: Individual components will be imputed using last observation if available
 - If individual components cannot be derived: Overall response will be set to non-responder
+"""
+
+    def _generate_pk_analysis(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 10: Pharmacokinetic Analysis"""
+        drug_name = facts.drug_name or "study drug"
+        pk_population_size = facts.pk_population_size or 24
+        pk_software = facts.pk_software or "WinNonlin"
+        pk_parameters = facts.pk_parameters if facts.pk_parameters else [
+            "AUCinf", "AUClast", "Cmax", "tmax", "CL", "Vz", "λz", "t½", "MRT"
+        ]
+        pk_sampling = facts.pk_sampling_timepoints if facts.pk_sampling_timepoints else []
+
+        # Build parameters table
+        param_descriptions = {
+            "AUCinf": "Area under the concentration-time curve from time 0 extrapolated to infinity",
+            "AUClast": "Area under the concentration-time curve from time 0 to last measurable concentration",
+            "AUCτ": "Area under the concentration-time curve over dosing interval",
+            "Cmax": "Maximum observed plasma concentration",
+            "tmax": "Time to maximum plasma concentration",
+            "CL": "Total body clearance",
+            "Vz": "Volume of distribution during terminal phase",
+            "λz": "Terminal elimination rate constant",
+            "t½": "Terminal elimination half-life",
+            "MRT": "Mean residence time",
+            "%ExtrapAUC": "Percentage of AUCinf extrapolated beyond last measurable concentration"
+        }
+
+        param_rows = ""
+        for param in pk_parameters:
+            desc = param_descriptions.get(param, "PK parameter")
+            param_rows += f"| {param} | {desc} |\n"
+
+        # Build sampling schedule if available
+        sampling_section = ""
+        if pk_sampling:
+            sampling_list = ", ".join(pk_sampling[:15])
+            sampling_section = f"""
+### 10.3 Sampling Schedule
+
+Intensive PK sampling will be performed at the following timepoints:
+- {sampling_list}
+
+Sparse PK sampling will be collected at additional visits as per protocol.
+"""
+        else:
+            sampling_section = """
+### 10.3 Sampling Schedule
+
+Intensive PK sampling will be performed according to the following schedule:
+
+| Day | Timepoints |
+|-----|------------|
+| Day 1 | Pre-dose, 0.5, 1, 2, 4, 6, 8, 12, 24 hours post-dose |
+| Day 2-7 | 48, 72, 96, 120, 144, 168 hours post-dose |
+| Subsequent visits | Pre-dose and end of infusion |
+"""
+
+        return f"""## 10. PHARMACOKINETIC ANALYSIS
+
+### 10.1 PK Analysis Population
+
+The PK population consists of approximately {pk_population_size} patients who:
+- Received at least one dose of {drug_name}
+- Have at least one measurable post-dose PK concentration
+- Participated in the PK subgroup (intensive sampling)
+
+### 10.2 PK Parameters
+
+The following PK parameters will be calculated using non-compartmental analysis:
+
+| Parameter | Description |
+|-----------|-------------|
+{param_rows}
+### 10.3 Analysis Methodology
+
+**Software:** {pk_software} (or equivalent validated software)
+
+**Method:** Non-compartmental analysis (NCA)
+
+**Calculations:**
+- AUC will be calculated using the linear-log trapezoidal rule
+- λz will be determined by log-linear regression of the terminal phase
+- t½ will be calculated as ln(2)/λz
+- CL will be calculated as Dose/AUCinf
+{sampling_section}
+### 10.4 Descriptive Statistics
+
+PK parameters will be summarized by treatment group using:
+- N, arithmetic mean, SD, %CV, median, min, max
+- Geometric mean, geometric %CV for AUC and Cmax
+
+### 10.5 PK-PD Analysis (Exploratory)
+
+Exploratory analyses may include:
+- Exposure-response relationships for efficacy endpoints
+- Exposure-safety relationships for key AEs
+- Population PK modeling (if data permit)
 """
 
     def _generate_safety_analysis(self, facts: FullProtocolFacts) -> str:
@@ -1041,7 +1268,7 @@ Version: 1.0
 TABLE OF CONTENTS
 
 1. Introduction
-2. Study Objectives
+2. Study Objectives and Estimands
 3. Study Design
 4. Analysis Populations
 5. Endpoints
@@ -1049,7 +1276,8 @@ TABLE OF CONTENTS
 7. Statistical Methods
 8. Missing Data Handling
 9. Safety Analysis
-10. Appendices
+10. Pharmacokinetic Analysis
+11. Appendices
 
 ============================================================
 """
@@ -1068,6 +1296,7 @@ TABLE OF CONTENTS
             '7_statistical_methods',
             '8_missing_data',
             '9_safety_analysis',
+            '10_pk_analysis',
         ]
 
         for section_key in section_order:

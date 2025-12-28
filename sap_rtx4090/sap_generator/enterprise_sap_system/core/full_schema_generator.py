@@ -56,16 +56,25 @@ class FullProtocolFacts:
     alpha_sidedness: Optional[str] = None
     dropout_rate: Optional[str] = None
 
+    # === POWER CALCULATION ASSUMPTIONS ===
+    expected_response_placebo: Optional[str] = None  # e.g., "10%"
+    expected_response_active: Optional[str] = None   # e.g., "40%"
+    primary_comparison: Optional[str] = None         # e.g., "Placebo vs. 600mg"
+
     # === ENDPOINTS ===
     primary_endpoint: Optional[str] = None
+    primary_endpoint_definition: Optional[str] = None  # Full definition with criteria
     primary_timepoint: Optional[str] = None
     secondary_endpoints: List[str] = field(default_factory=list)
+    secondary_endpoints_detailed: List[Dict[str, str]] = field(default_factory=list)  # With timepoints
 
     # === POPULATIONS ===
     primary_population: Optional[str] = None
     itt_definition: Optional[str] = None
     pp_definition: Optional[str] = None
     safety_definition: Optional[str] = None
+    pk_population_definition: Optional[str] = None
+    pk_population_size: Optional[int] = None
 
     # === STRATIFICATION ===
     stratification_factors: List[str] = field(default_factory=list)
@@ -75,6 +84,22 @@ class FullProtocolFacts:
 
     # === TIMING ===
     study_duration: Optional[str] = None
+
+    # === PK ANALYSIS ===
+    has_pk_substudy: bool = False
+    pk_parameters: List[str] = field(default_factory=list)
+    pk_software: Optional[str] = None
+    pk_sampling_timepoints: List[str] = field(default_factory=list)
+
+    # === BIOMARKERS ===
+    biomarker_endpoints: List[str] = field(default_factory=list)
+    biomarker_subgroups: List[str] = field(default_factory=list)
+
+    # === SUBGROUPS ===
+    subgroup_analyses: List[str] = field(default_factory=list)
+
+    # === VISIT WINDOWS ===
+    visit_windows: Dict[str, str] = field(default_factory=dict)
 
 
 # =============================================================================
@@ -634,6 +659,40 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         power = power_match.group(1) or power_match.group(2)
         facts.power = f"{power}%"
 
+    # === POWER CALCULATION ASSUMPTIONS ===
+    # Extract expected response rates for placebo
+    placebo_rate = re.search(
+        r'(?:placebo|control)\s+(?:group\s+)?(?:response\s+)?rate[:\s]+(?:of\s+)?(\d{1,2})%?|'
+        r'(\d{1,2})%?\s+(?:for\s+)?placebo|'
+        r'expected\s+(?:placebo\s+)?response[:\s]+(\d{1,2})%?',
+        protocol_text, re.I
+    )
+    if placebo_rate:
+        rate = placebo_rate.group(1) or placebo_rate.group(2) or placebo_rate.group(3)
+        if rate:
+            facts.expected_response_placebo = f"{rate}%"
+
+    # Extract expected response rates for active
+    active_rate = re.search(
+        r'(?:active|treatment|high\s+dose)\s+(?:group\s+)?(?:response\s+)?rate[:\s]+(?:of\s+)?(\d{1,2})%?|'
+        r'(\d{1,2})%?\s+(?:for\s+)?(?:active|treatment|high\s+dose)|'
+        r'expected\s+(?:active\s+)?response[:\s]+(\d{1,2})%?',
+        protocol_text, re.I
+    )
+    if active_rate:
+        rate = active_rate.group(1) or active_rate.group(2) or active_rate.group(3)
+        if rate:
+            facts.expected_response_active = f"{rate}%"
+
+    # Extract primary comparison for power (e.g., placebo vs 600mg)
+    comparison = re.search(
+        r'(?:primary\s+)?comparison[:\s]+([^.]+)|'
+        r'(?:power|sample\s+size)[^.]*?(?:for\s+)?(?:the\s+)?comparison\s+(?:of|between)\s+([^.]+)',
+        protocol_text, re.I
+    )
+    if comparison:
+        facts.primary_comparison = (comparison.group(1) or comparison.group(2) or "").strip()[:100]
+
     # === ALPHA ===
     alpha_patterns = [
         r'alpha\s*(?:=|of)?\s*(0\.0\d+)',
@@ -808,6 +867,146 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         # Fallback: any mention of the method
         if not facts.primary_analysis_method and re.search(pattern, protocol_text, re.I):
             facts.primary_analysis_method = method_name
+
+    # === PRIMARY ENDPOINT DEFINITION (Full with criteria) ===
+    endpoint_def_patterns = [
+        r'(?:primary\s+endpoint)[^.]*defined\s+as[:\s]+([^.]+(?:\.[^A-Z])*)',
+        r'(?:clinical\s+and\s+endoscopic\s+remission)[^.]*defined\s+as[:\s]+([^.]+)',
+        r'(?:remission)[^.]*defined\s+as[:\s]+([^.]+)',
+    ]
+    for pattern in endpoint_def_patterns:
+        match = re.search(pattern, protocol_text, re.I)
+        if match:
+            definition = match.group(1).strip()
+            if len(definition) > 20:
+                facts.primary_endpoint_definition = definition[:300]
+                break
+
+    # === DETAILED SECONDARY ENDPOINTS WITH TIMEPOINTS ===
+    secondary_detailed = []
+    secondary_section = re.search(
+        r'secondary\s+(?:efficacy\s+)?endpoints?[:\s]+(.+?)(?:(?:\n\s*\n)|(?:exploratory)|(?:\d+\.\s*[A-Z]))',
+        protocol_text, re.I | re.DOTALL
+    )
+    if secondary_section:
+        section_text = secondary_section.group(1)
+        # Extract bullet points
+        bullet_items = re.findall(r'[-•]\s*([^\n]+)', section_text)
+        for item in bullet_items[:20]:
+            # Try to extract timepoint
+            timepoint_match = re.search(r'(?:at\s+)?(?:Week|Day|Month)\s+\d+(?:\s*,\s*(?:Week|Day|Month)\s+\d+)*', item, re.I)
+            endpoint_info = {
+                'endpoint': item.strip()[:200],
+                'timepoint': timepoint_match.group(0) if timepoint_match else 'Various'
+            }
+            secondary_detailed.append(endpoint_info)
+    facts.secondary_endpoints_detailed = secondary_detailed
+
+    # === PK ANALYSIS DETAILS ===
+    # Check for PK substudy
+    if re.search(r'PK\s+(?:sub)?study|pharmacokinetic\s+(?:analysis|sampling|population)', protocol_text, re.I):
+        facts.has_pk_substudy = True
+
+    # Extract PK parameters
+    pk_params = []
+    pk_param_patterns = [
+        (r'AUCinf|AUC∞', 'AUCinf'),
+        (r'AUCt|AUClast', 'AUClast'),
+        (r'AUC0-\d+|AUCτ', 'AUCτ'),
+        (r'\bCmax\b', 'Cmax'),
+        (r'\btmax\b|\bt_max\b', 'tmax'),
+        (r'\bCL\b|clearance', 'CL'),
+        (r'\bVz\b|volume\s+of\s+distribution', 'Vz'),
+        (r't½|t1/2|half[- ]life', 't½'),
+        (r'\bMRT\b|mean\s+residence\s+time', 'MRT'),
+        (r'λz|terminal\s+elimination', 'λz'),
+        (r'%ExtrapAUC|extrapolated', '%ExtrapAUC'),
+    ]
+    for pattern, param_name in pk_param_patterns:
+        if re.search(pattern, protocol_text, re.I):
+            if param_name not in pk_params:
+                pk_params.append(param_name)
+    facts.pk_parameters = pk_params
+
+    # Extract PK software
+    if re.search(r'WinNonlin', protocol_text, re.I):
+        facts.pk_software = 'WinNonlin'
+    elif re.search(r'Phoenix', protocol_text, re.I):
+        facts.pk_software = 'Phoenix WinNonlin'
+    elif re.search(r'NONMEM', protocol_text, re.I):
+        facts.pk_software = 'NONMEM'
+
+    # Extract PK population size
+    pk_n_match = re.search(
+        r'(?:PK|pharmacokinetic)\s+(?:sub)?(?:study|population)[^.]*?(\d+)\s+(?:patients|subjects)',
+        protocol_text, re.I
+    )
+    if pk_n_match:
+        facts.pk_population_size = int(pk_n_match.group(1))
+
+    # Extract PK sampling timepoints
+    pk_sampling = re.search(
+        r'(?:PK|pharmacokinetic)\s+sampling[^.]*?(?:at|include)[:\s]+([^.]+)',
+        protocol_text, re.I
+    )
+    if pk_sampling:
+        timepoints = re.findall(r'\d+(?:\.\d+)?\s*(?:hours?|h|minutes?|min)', pk_sampling.group(1), re.I)
+        facts.pk_sampling_timepoints = timepoints[:20]
+
+    # === BIOMARKER ENDPOINTS ===
+    biomarker_patterns = [
+        r'ESR|erythrocyte\s+sedimentation\s+rate',
+        r'\bCRP\b|C-reactive\s+protein',
+        r'IL-6|interleukin[- ]6',
+        r'IL-6/sIL-6R|IL-6\s+receptor',
+        r'fecal\s+calprotectin|calprotectin',
+        r'neutrophil\s+count',
+        r'platelet\s+count',
+    ]
+    for pattern in biomarker_patterns:
+        if re.search(pattern, protocol_text, re.I):
+            # Extract the matched biomarker name
+            match = re.search(pattern, protocol_text, re.I)
+            if match:
+                biomarker = match.group(0)
+                if biomarker not in facts.biomarker_endpoints:
+                    facts.biomarker_endpoints.append(biomarker)
+
+    # === BIOMARKER SUBGROUPS (e.g., IL-6/sIL-6R levels) ===
+    biomarker_subgroup = re.search(
+        r'(?:subgroup|stratif)[^.]*(?:by|based\s+on)\s+(?:baseline\s+)?([^.]*(?:IL-6|biomarker|CRP)[^.]*)',
+        protocol_text, re.I
+    )
+    if biomarker_subgroup:
+        facts.biomarker_subgroups.append(biomarker_subgroup.group(1).strip()[:100])
+
+    # === SUBGROUP ANALYSES ===
+    subgroup_factors = [
+        ('age', 'Age group (<65, ≥65 years)'),
+        ('sex|gender', 'Sex'),
+        ('geographic\s+region', 'Geographic region'),
+        ('baseline\s+(?:disease\s+)?severity', 'Baseline disease severity'),
+        ('prior\s+(?:treatment|therapy|corticosteroid)', 'Prior treatment history'),
+        ('IL-6|interleukin', 'Baseline IL-6/sIL-6R complex levels'),
+        ('weight|BMI|body\s+mass', 'Body weight/BMI'),
+        ('race|ethnic', 'Race/Ethnicity'),
+    ]
+    for pattern, factor_name in subgroup_factors:
+        if re.search(rf'subgroup[^.]*{pattern}|{pattern}[^.]*subgroup', protocol_text, re.I):
+            if factor_name not in facts.subgroup_analyses:
+                facts.subgroup_analyses.append(factor_name)
+
+    # === VISIT WINDOWS ===
+    # Try to extract visit window definitions
+    window_pattern = re.search(
+        r'(?:visit|assessment)\s+windows?[:\s]+(.+?)(?:\n\s*\n|\Z)',
+        protocol_text, re.I | re.DOTALL
+    )
+    if window_pattern:
+        window_text = window_pattern.group(1)
+        week_windows = re.findall(r'Week\s*(\d+)[:\s]+(?:Day\s*)?(\d+)\s*[±+/-]\s*(\d+)', window_text, re.I)
+        for week, day, tolerance in week_windows:
+            facts.visit_windows[f"Week {week}"] = f"Day {day} ± {tolerance} days"
 
     return facts
 
