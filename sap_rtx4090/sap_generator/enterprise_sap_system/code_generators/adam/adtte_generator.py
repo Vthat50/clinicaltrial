@@ -38,22 +38,31 @@ class ADTTEGenerator(SASCodeGenerator):
     def program_purpose(self) -> str:
         return "Create ADTTE (Time-to-Event Analysis Dataset)"
 
+    def _get_fact(self, facts: Any, key: str, default: Any = None) -> Any:
+        """Get a fact from either dict or object."""
+        if isinstance(facts, dict):
+            return facts.get(key, default)
+        return getattr(facts, key, default)
+
     def generate(self, facts: Any) -> str:
         """
         Generate complete ADTTE.sas program.
 
         Args:
-            facts: FullProtocolFacts object with extracted protocol information
+            facts: FullProtocolFacts object or dictionary with protocol information
 
         Returns:
             Complete SAS program as string
         """
-        # Extract key information
-        nct_id = getattr(facts, 'nct_id', '') or 'UNKNOWN'
-        study_id = getattr(facts, 'study_id', '') or nct_id
-        drug_name = getattr(facts, 'drug_name', '') or 'STUDY_DRUG'
-        therapeutic_area = getattr(facts, 'therapeutic_area', '') or ''
-        primary_endpoint = getattr(facts, 'primary_endpoint', '') or ''
+        # Extract key information (supports both dict and object)
+        nct_id = self._get_fact(facts, 'nct_id', '') or self._get_fact(facts, 'protocol_id', '') or 'UNKNOWN'
+        study_id = self._get_fact(facts, 'study_id', '') or nct_id
+        drug_name = self._get_fact(facts, 'drug_name', '') or 'STUDY_DRUG'
+        therapeutic_area = self._get_fact(facts, 'therapeutic_area', '') or ''
+        primary_endpoint = self._get_fact(facts, 'primary_endpoint', '')
+        if isinstance(primary_endpoint, dict):
+            primary_endpoint = primary_endpoint.get('name', '')
+        primary_endpoint = primary_endpoint or ''
 
         # Determine which TTE endpoints to include
         tte_endpoints = self._determine_tte_endpoints(therapeutic_area, primary_endpoint)

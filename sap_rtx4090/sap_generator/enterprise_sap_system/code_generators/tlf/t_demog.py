@@ -32,13 +32,13 @@ class DemographicsTableGenerator(SASCodeGenerator):
 
         code_sections = []
 
-        # Header
+        # Header - macros are defined inline, no external dependencies
         code_sections.append(self.generate_header(
             program_name=f"{self.output_name}.sas",
             description=f"Table {self.table_number}: {self.table_title}",
             input_datasets=["ADSL"],
             output_datasets=[self.output_name.upper()],
-            macros_used=["statrow", "catrow", "rtftable"]
+            macros_used=["cont_stats (inline)", "cat_stats (inline)"]
         ))
 
         # Extract protocol information

@@ -51,6 +51,34 @@ interface EvaluationResult {
   statistical_terms_missing: string[]
 }
 
+interface BatchEvaluationResult {
+  total_comparisons: number
+  aggregate: {
+    avg_section_coverage_pct: number
+    avg_keyword_overlap_pct: number
+    avg_overall_score: number
+    primary_endpoint_pct: number
+    statistical_methods_pct: number
+  }
+  best_match: {
+    nct_id: string
+    overall_score: number
+    quality: string
+  } | null
+  worst_match: {
+    nct_id: string
+    overall_score: number
+    quality: string
+  } | null
+  results: Array<{
+    nct_id: string
+    quality: string
+    section_coverage_pct: number
+    keyword_overlap_pct: number
+    overall_score: number
+  }>
+}
+
 export default function JobDetailPage() {
   const params = useParams()
   const router = useRouter()
@@ -67,6 +95,12 @@ export default function JobDetailPage() {
   const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null)
   const [evaluating, setEvaluating] = useState(false)
   const [evalError, setEvalError] = useState<string | null>(null)
+
+  // Batch evaluation state
+  const [batchEvaluation, setBatchEvaluation] = useState<BatchEvaluationResult | null>(null)
+  const [batchEvaluating, setBatchEvaluating] = useState(false)
+  const [batchError, setBatchError] = useState<string | null>(null)
+  const [showBatchDetails, setShowBatchDetails] = useState(false)
 
   // Fetch ground truth studies on mount
   useEffect(() => {
@@ -108,6 +142,33 @@ export default function JobDetailPage() {
       setEvalError(e.message)
     } finally {
       setEvaluating(false)
+    }
+  }
+
+  // Run batch evaluation against all ground truth SAPs
+  const runBatchEvaluation = async () => {
+    if (!jobId) return
+
+    setBatchEvaluating(true)
+    setBatchError(null)
+    setBatchEvaluation(null)
+
+    try {
+      const res = await fetch(`${API_URL}/evaluate-batch/${jobId}?limit=100`, {
+        method: 'POST'
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.detail || 'Batch evaluation failed')
+      }
+
+      const data = await res.json()
+      setBatchEvaluation(data)
+    } catch (e: any) {
+      setBatchError(e.message)
+    } finally {
+      setBatchEvaluating(false)
     }
   }
 
@@ -363,6 +424,134 @@ export default function JobDetailPage() {
                   )}
                 </div>
               )}
+
+              {/* Batch Evaluation Section */}
+              <div className="mt-4 pt-4 border-t border-purple-200">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">📊</span>
+                    <h4 className="font-medium text-gray-800">Batch Evaluation</h4>
+                    <span className="text-xs text-gray-500">(Compare against all {groundTruthStudies.length} studies)</span>
+                  </div>
+                  <button
+                    onClick={runBatchEvaluation}
+                    disabled={batchEvaluating}
+                    className={`px-4 py-2 rounded-lg font-medium text-sm transition-colors ${
+                      batchEvaluating
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    }`}
+                  >
+                    {batchEvaluating ? 'Running...' : 'Run Batch Evaluation'}
+                  </button>
+                </div>
+
+                {/* Batch Error */}
+                {batchError && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm mb-3">
+                    {batchError}
+                  </div>
+                )}
+
+                {/* Batch Results */}
+                {batchEvaluation && (
+                  <div className="space-y-3">
+                    {/* Aggregate Score */}
+                    <div className="flex items-center gap-4 p-4 bg-white rounded-lg border">
+                      <div className={`px-5 py-3 rounded-xl font-bold text-2xl ${
+                        batchEvaluation.aggregate.avg_overall_score >= 70 ? 'bg-green-100 text-green-700' :
+                        batchEvaluation.aggregate.avg_overall_score >= 50 ? 'bg-yellow-100 text-yellow-700' :
+                        'bg-red-100 text-red-700'
+                      }`}>
+                        {batchEvaluation.aggregate.avg_overall_score}%
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">Average Accuracy Score</p>
+                        <p className="text-sm text-gray-500">Across {batchEvaluation.total_comparisons} ground truth SAPs</p>
+                      </div>
+                    </div>
+
+                    {/* Metrics Grid */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      <div className="bg-white rounded-lg p-3 border text-center">
+                        <p className="text-xs text-gray-500 uppercase">Avg Section Coverage</p>
+                        <p className="text-xl font-bold text-indigo-600">{batchEvaluation.aggregate.avg_section_coverage_pct}%</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3 border text-center">
+                        <p className="text-xs text-gray-500 uppercase">Avg Keyword Match</p>
+                        <p className="text-xl font-bold text-indigo-600">{batchEvaluation.aggregate.avg_keyword_overlap_pct}%</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3 border text-center">
+                        <p className="text-xs text-gray-500 uppercase">Has Primary Endpoint</p>
+                        <p className="text-xl font-bold text-green-600">{batchEvaluation.aggregate.primary_endpoint_pct}%</p>
+                      </div>
+                      <div className="bg-white rounded-lg p-3 border text-center">
+                        <p className="text-xs text-gray-500 uppercase">Has Stats Methods</p>
+                        <p className="text-xl font-bold text-green-600">{batchEvaluation.aggregate.statistical_methods_pct}%</p>
+                      </div>
+                    </div>
+
+                    {/* Best/Worst Match */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {batchEvaluation.best_match && (
+                        <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                          <p className="text-xs text-green-600 uppercase font-medium">Best Match</p>
+                          <p className="font-semibold text-green-800">{batchEvaluation.best_match.nct_id}</p>
+                          <p className="text-sm text-green-700">Score: {batchEvaluation.best_match.overall_score}%</p>
+                        </div>
+                      )}
+                      {batchEvaluation.worst_match && (
+                        <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
+                          <p className="text-xs text-orange-600 uppercase font-medium">Lowest Match</p>
+                          <p className="font-semibold text-orange-800">{batchEvaluation.worst_match.nct_id}</p>
+                          <p className="text-sm text-orange-700">Score: {batchEvaluation.worst_match.overall_score}%</p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Expandable Details */}
+                    <button
+                      onClick={() => setShowBatchDetails(!showBatchDetails)}
+                      className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+                    >
+                      {showBatchDetails ? '▼ Hide Details' : '▶ Show All Results'}
+                    </button>
+
+                    {showBatchDetails && (
+                      <div className="max-h-64 overflow-y-auto bg-white rounded-lg border">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50 sticky top-0">
+                            <tr>
+                              <th className="px-3 py-2 text-left font-medium text-gray-600">NCT ID</th>
+                              <th className="px-3 py-2 text-left font-medium text-gray-600">Quality</th>
+                              <th className="px-3 py-2 text-right font-medium text-gray-600">Score</th>
+                              <th className="px-3 py-2 text-right font-medium text-gray-600">Sections</th>
+                              <th className="px-3 py-2 text-right font-medium text-gray-600">Keywords</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {batchEvaluation.results.map((r, i) => (
+                              <tr key={r.nct_id} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                <td className="px-3 py-2 font-mono text-xs">{r.nct_id}</td>
+                                <td className="px-3 py-2">
+                                  <span className={`text-xs px-2 py-0.5 rounded ${r.quality === 'high' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-600'}`}>
+                                    {r.quality}
+                                  </span>
+                                </td>
+                                <td className={`px-3 py-2 text-right font-medium ${r.overall_score >= 70 ? 'text-green-600' : r.overall_score >= 50 ? 'text-yellow-600' : 'text-red-600'}`}>
+                                  {r.overall_score}%
+                                </td>
+                                <td className="px-3 py-2 text-right text-gray-600">{r.section_coverage_pct}%</td>
+                                <td className="px-3 py-2 text-right text-gray-600">{r.keyword_overlap_pct}%</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

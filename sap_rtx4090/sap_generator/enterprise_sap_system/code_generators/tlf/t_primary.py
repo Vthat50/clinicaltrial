@@ -39,13 +39,13 @@ class PrimaryEfficacyTableGenerator(SASCodeGenerator):
         population = self._extract_population(protocol_facts)
         timepoint = self._extract_timepoint(protocol_facts)
 
-        # Header
+        # Header - uses standard SAS/STAT procedures (no external macros)
         code_sections.append(self.generate_header(
             program_name=f"{self.output_name}.sas",
             description=f"Table {self.table_number}: {self.table_title}",
             input_datasets=["ADSL", "ADEFF"],
             output_datasets=[self.output_name.upper()],
-            macros_used=["mmrm_analysis", "responder_analysis", "ci_diff"]
+            macros_used=["None - uses PROC MIXED, PROC FREQ, PROC LIFETEST"]
         ))
 
         # Program setup

@@ -574,6 +574,137 @@ async def evaluate_job(job_id: str, ground_truth_nct: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.post("/evaluate-batch/{job_id}")
+async def evaluate_batch(job_id: str, limit: int = 50):
+    """
+    Evaluate a completed job's SAP against ALL ground truth SAPs.
+    Returns aggregate metrics and individual results.
+
+    Args:
+        job_id: The job to evaluate
+        limit: Max number of ground truth SAPs to compare (default 50)
+    """
+    try:
+        db = get_supabase()
+
+        # Get the job
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(status_code=400, detail="Job must be completed to evaluate")
+
+        generated_sap = job.get("generated_sap", "")
+        if not generated_sap:
+            raise HTTPException(status_code=400, detail="No generated SAP found")
+
+        # Load all ground truth SAPs
+        base_dir = Path(__file__).parent.parent.parent / "data"
+        ground_truth_dir = base_dir / "ground_truth"
+        all_pairs_dir = base_dir / "all_pairs"
+
+        # Import evaluator
+        from evaluate_sap import SAPEvaluator
+
+        results = []
+
+        # Evaluate against ground_truth first (high quality)
+        count = 0
+        if ground_truth_dir.exists():
+            for sap_file in sorted(ground_truth_dir.glob("*_sap.txt")):
+                if count >= limit:
+                    break
+                nct_id = sap_file.stem.replace("_sap", "")
+                try:
+                    ground_truth_sap = sap_file.read_text(encoding='utf-8', errors='ignore')
+                    evaluator = SAPEvaluator(str(ground_truth_dir))
+                    eval_result = evaluator.evaluate(generated_sap, ground_truth_sap, nct_id)
+                    results.append({
+                        "nct_id": nct_id,
+                        "quality": "high",
+                        "section_coverage_pct": eval_result.section_coverage_pct,
+                        "keyword_overlap_pct": eval_result.keyword_overlap_pct,
+                        "overall_score": eval_result.overall_score,
+                        "has_primary_endpoint": eval_result.has_primary_endpoint,
+                        "has_statistical_methods": eval_result.has_statistical_methods,
+                        "ground_truth_lines": eval_result.ground_truth_lines,
+                    })
+                    count += 1
+                except Exception as e:
+                    continue
+
+        # Then evaluate against all_pairs if we haven't hit limit
+        if count < limit and all_pairs_dir.exists():
+            seen = {r["nct_id"] for r in results}
+            for sap_file in sorted(all_pairs_dir.glob("*_sap.txt")):
+                if count >= limit:
+                    break
+                nct_id = sap_file.stem.replace("_sap", "")
+                if nct_id in seen:
+                    continue
+                try:
+                    ground_truth_sap = sap_file.read_text(encoding='utf-8', errors='ignore')
+                    evaluator = SAPEvaluator(str(all_pairs_dir))
+                    eval_result = evaluator.evaluate(generated_sap, ground_truth_sap, nct_id)
+                    results.append({
+                        "nct_id": nct_id,
+                        "quality": "standard",
+                        "section_coverage_pct": eval_result.section_coverage_pct,
+                        "keyword_overlap_pct": eval_result.keyword_overlap_pct,
+                        "overall_score": eval_result.overall_score,
+                        "has_primary_endpoint": eval_result.has_primary_endpoint,
+                        "has_statistical_methods": eval_result.has_statistical_methods,
+                        "ground_truth_lines": eval_result.ground_truth_lines,
+                    })
+                    count += 1
+                except Exception:
+                    continue
+
+        # Calculate aggregate metrics
+        if results:
+            avg_section_coverage = sum(r["section_coverage_pct"] for r in results) / len(results)
+            avg_keyword_overlap = sum(r["keyword_overlap_pct"] for r in results) / len(results)
+            avg_overall_score = sum(r["overall_score"] for r in results) / len(results)
+            primary_endpoint_pct = sum(1 for r in results if r["has_primary_endpoint"]) / len(results) * 100
+            statistical_methods_pct = sum(1 for r in results if r["has_statistical_methods"]) / len(results) * 100
+
+            # Find best and worst matches
+            sorted_by_score = sorted(results, key=lambda x: x["overall_score"], reverse=True)
+            best_match = sorted_by_score[0] if sorted_by_score else None
+            worst_match = sorted_by_score[-1] if sorted_by_score else None
+        else:
+            avg_section_coverage = 0
+            avg_keyword_overlap = 0
+            avg_overall_score = 0
+            primary_endpoint_pct = 0
+            statistical_methods_pct = 0
+            best_match = None
+            worst_match = None
+
+        return {
+            "total_comparisons": len(results),
+            "aggregate": {
+                "avg_section_coverage_pct": round(avg_section_coverage, 1),
+                "avg_keyword_overlap_pct": round(avg_keyword_overlap, 1),
+                "avg_overall_score": round(avg_overall_score, 1),
+                "primary_endpoint_pct": round(primary_endpoint_pct, 1),
+                "statistical_methods_pct": round(statistical_methods_pct, 1),
+            },
+            "best_match": best_match,
+            "worst_match": worst_match,
+            "results": results,
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/stats")
 async def get_stats():
     """
@@ -601,6 +732,189 @@ async def get_stats():
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# CODE GENERATION ENDPOINT (Additive - does not modify existing functionality)
+# =============================================================================
+
+class CodeGenerationResponse(BaseModel):
+    """Response model for code generation."""
+    success: bool
+    message: str
+    programs: dict = {}  # {filename: code}
+    total_lines: int = 0
+    errors: list = []
+
+
+@app.post("/generate-code/{job_id}", response_model=CodeGenerationResponse)
+async def generate_sas_code(job_id: str):
+    """
+    Generate SAS code from a completed SAP job.
+
+    This endpoint takes a job_id that has already completed SAP generation,
+    extracts the protocol facts, and generates production-ready SAS code.
+
+    Returns:
+        - ADaM dataset programs (ADSL, ADAE, ADTTE, ADEFF)
+        - TLF output programs (demographics, AE summary, primary efficacy)
+        - Driver program
+    """
+    try:
+        db = get_supabase()
+
+        # Get job and verify it's completed
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Job not ready for code generation. Status: {job['status']}"
+            )
+
+        if not job.get("sap_output"):
+            raise HTTPException(
+                status_code=400,
+                detail="Job has no SAP output to generate code from"
+            )
+
+        # Import code generator (lazy import to avoid startup issues)
+        try:
+            from enterprise_sap_system.code_generators import CodeGenerationOrchestrator
+        except ImportError as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Code generator not available: {e}"
+            )
+
+        # Build protocol facts from job data
+        # Note: In production, these would be stored with the job
+        protocol_facts = {
+            "protocol_id": job.get("nct_id") or "UNKNOWN",
+            "therapeutic_area": _detect_therapeutic_area(job.get("protocol_text", "")),
+            "drug_name": _extract_drug_name(job.get("sap_output", "")),
+            "treatments": _extract_treatments(job.get("sap_output", "")),
+            "primary_endpoint": _extract_primary_endpoint(job.get("sap_output", "")),
+            "total_n": _extract_sample_size(job.get("sap_output", "")),
+        }
+
+        # Generate code
+        orchestrator = CodeGenerationOrchestrator()
+        package = orchestrator.generate_all(protocol_facts)
+
+        # Build response
+        programs = {}
+        total_lines = 0
+
+        for prog in package.adam_programs:
+            programs[f"adam/{prog.program_name}"] = prog.code
+            total_lines += len(prog.code.split('\n'))
+
+        for prog in package.tlf_programs:
+            programs[f"tlf/{prog.program_name}"] = prog.code
+            total_lines += len(prog.code.split('\n'))
+
+        programs["driver.sas"] = package.driver_program
+        total_lines += len(package.driver_program.split('\n'))
+
+        return CodeGenerationResponse(
+            success=True,
+            message=f"Generated {len(package.adam_programs)} ADaM + {len(package.tlf_programs)} TLF programs",
+            programs=programs,
+            total_lines=total_lines,
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        return CodeGenerationResponse(
+            success=False,
+            message=f"Code generation failed: {str(e)}",
+            programs={},
+            total_lines=0,
+            errors=[str(e)]
+        )
+
+
+def _detect_therapeutic_area(text: str) -> str:
+    """Detect therapeutic area from protocol text."""
+    text_lower = text.lower()
+    if any(term in text_lower for term in ['crohn', 'colitis', 'ibd', 'ulcerative']):
+        return 'ibd'
+    elif any(term in text_lower for term in ['tumor', 'cancer', 'oncology', 'recist']):
+        return 'oncology'
+    elif any(term in text_lower for term in ['rheumatoid', 'arthritis', 'das28']):
+        return 'rheumatology'
+    elif any(term in text_lower for term in ['cardiac', 'heart', 'cardiovascular']):
+        return 'cardiovascular'
+    return 'general'
+
+
+def _extract_drug_name(sap_text: str) -> str:
+    """Extract drug name from SAP text."""
+    import re
+    # Look for common patterns
+    patterns = [
+        r'study drug[:\s]+([A-Za-z0-9-]+)',
+        r'investigational product[:\s]+([A-Za-z0-9-]+)',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, sap_text, re.IGNORECASE)
+        if match:
+            return match.group(1)
+    return "Study Drug"
+
+
+def _extract_treatments(sap_text: str) -> list:
+    """Extract treatment arms from SAP text."""
+    import re
+    treatments = []
+
+    # Look for arm patterns
+    arm_matches = re.findall(r'(?:arm|group)\s*\d*[:\s]*([^,\n]+(?:mg|placebo)[^,\n]*)', sap_text, re.IGNORECASE)
+    for match in arm_matches[:4]:  # Max 4 arms
+        name = match.strip()
+        if name and name not in [t['name'] for t in treatments]:
+            treatments.append({'name': name, 'code': f'TRT{len(treatments)+1}'})
+
+    # Default if none found
+    if not treatments:
+        treatments = [
+            {'name': 'Placebo', 'code': 'TRT1'},
+            {'name': 'Active Treatment', 'code': 'TRT2'}
+        ]
+
+    return treatments
+
+
+def _extract_primary_endpoint(sap_text: str) -> dict:
+    """Extract primary endpoint from SAP text."""
+    import re
+    match = re.search(r'primary\s+endpoint[:\s]+([^\n.]+)', sap_text, re.IGNORECASE)
+    if match:
+        return {'name': match.group(1).strip()[:100], 'type': 'binary'}
+    return {'name': 'Primary Endpoint', 'type': 'binary'}
+
+
+def _extract_sample_size(sap_text: str) -> int:
+    """Extract sample size from SAP text."""
+    import re
+    patterns = [
+        r'(\d+)\s*(?:patients|subjects|participants)',
+        r'n\s*=\s*(\d+)',
+        r'sample size[:\s]+(\d+)',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, sap_text, re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+    return 100
 
 
 # Background worker

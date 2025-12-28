@@ -24,10 +24,18 @@ from .adam.adae_generator import ADAEGenerator
 from .adam.adtte_generator import ADTTEGenerator
 from .adam.adeff_generator import ADEFFGenerator
 
-# TLF generators
+# TLF generators - Tables
 from .tlf.t_demog import DemographicsTableGenerator
 from .tlf.t_ae_summary import AESummaryTableGenerator
 from .tlf.t_primary import PrimaryEfficacyTableGenerator
+from .tlf.t_secondary import SecondaryEfficacyTableGenerator
+
+# TLF generators - Listings
+from .tlf.l_demog import DemographicsListingGenerator
+from .tlf.l_ae import AdverseEventsListingGenerator
+
+# TLF generators - Figures
+from .tlf.f_forest import ForestPlotGenerator
 
 from .base import CodeGenerationResult
 
@@ -74,9 +82,16 @@ class CodeGenerationOrchestrator:
         }
 
         self.tlf_generators = {
+            # Tables
             't_demog': DemographicsTableGenerator(),
             't_ae_summary': AESummaryTableGenerator(),
             't_primary': PrimaryEfficacyTableGenerator(),
+            't_secondary': SecondaryEfficacyTableGenerator(),
+            # Listings
+            'l_demog': DemographicsListingGenerator(),
+            'l_ae': AdverseEventsListingGenerator(),
+            # Figures
+            'f_forest': ForestPlotGenerator(),
         }
 
     def generate_all(self, protocol_facts: Dict[str, Any]) -> GenerationPackage:
@@ -122,24 +137,44 @@ class CodeGenerationOrchestrator:
         """Generate all ADaM dataset programs."""
         programs = []
 
+        # Helper to convert string results to CodeGenerationResult
+        def wrap_result(generator, code_or_result):
+            if isinstance(code_or_result, CodeGenerationResult):
+                return code_or_result
+            # Legacy generators return strings
+            return CodeGenerationResult(
+                program_name=generator.program_name,
+                code=code_or_result,
+                description=generator.program_purpose,
+                input_datasets=['SDTM'],
+                output_datasets=[generator.program_name.replace('.sas', '').upper()],
+                validation_notes=["Review generated code", "Verify variable derivations"]
+            )
+
         # Always generate ADSL first (other datasets depend on it)
-        programs.append(self.adam_generators['adsl'].generate(protocol_facts))
+        gen = self.adam_generators['adsl']
+        programs.append(wrap_result(gen, gen.generate(protocol_facts)))
 
         # Generate ADAE for safety analysis
-        programs.append(self.adam_generators['adae'].generate(protocol_facts))
+        gen = self.adam_generators['adae']
+        programs.append(wrap_result(gen, gen.generate(protocol_facts)))
 
         # Generate ADTTE if time-to-event endpoints exist
         if self._has_tte_endpoints(protocol_facts):
-            programs.append(self.adam_generators['adtte'].generate(protocol_facts))
+            gen = self.adam_generators['adtte']
+            programs.append(wrap_result(gen, gen.generate(protocol_facts)))
 
         # Generate ADEFF for efficacy analysis
-        programs.append(self.adam_generators['adeff'].generate(protocol_facts))
+        gen = self.adam_generators['adeff']
+        programs.append(wrap_result(gen, gen.generate(protocol_facts)))
 
         return programs
 
     def _generate_tlf_programs(self, protocol_facts: Dict[str, Any]) -> List[CodeGenerationResult]:
         """Generate all TLF output programs."""
         programs = []
+
+        # === TABLES ===
 
         # Demographics table (always required)
         programs.append(self.tlf_generators['t_demog'].generate(protocol_facts))
@@ -149,6 +184,24 @@ class CodeGenerationOrchestrator:
 
         # Primary efficacy table
         programs.append(self.tlf_generators['t_primary'].generate(protocol_facts))
+
+        # Secondary efficacy table (if secondary endpoints exist)
+        secondary_endpoints = protocol_facts.get('secondary_endpoints', [])
+        if secondary_endpoints:
+            programs.append(self.tlf_generators['t_secondary'].generate(protocol_facts))
+
+        # === LISTINGS ===
+
+        # Demographics listing (always required)
+        programs.append(self.tlf_generators['l_demog'].generate(protocol_facts))
+
+        # AE listing (always required for safety)
+        programs.append(self.tlf_generators['l_ae'].generate(protocol_facts))
+
+        # === FIGURES ===
+
+        # Forest plot for subgroup analysis
+        programs.append(self.tlf_generators['f_forest'].generate(protocol_facts))
 
         return programs
 

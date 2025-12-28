@@ -35,21 +35,31 @@ class ADAEGenerator(SASCodeGenerator):
     def program_purpose(self) -> str:
         return "Create ADAE (Adverse Events Analysis Dataset)"
 
+    def _get_fact(self, facts: Any, key: str, default: Any = None) -> Any:
+        """Get a fact from either dict or object."""
+        if isinstance(facts, dict):
+            return facts.get(key, default)
+        return getattr(facts, key, default)
+
     def generate(self, facts: Any) -> str:
         """
         Generate complete ADAE.sas program.
 
         Args:
-            facts: FullProtocolFacts object with extracted protocol information
+            facts: FullProtocolFacts object or dictionary with protocol information
 
         Returns:
             Complete SAS program as string
         """
-        # Extract key information
-        nct_id = getattr(facts, 'nct_id', '') or 'UNKNOWN'
-        study_id = getattr(facts, 'study_id', '') or nct_id
-        drug_name = getattr(facts, 'drug_name', '') or 'STUDY_DRUG'
-        arm_names = getattr(facts, 'arm_names', []) or ['Treatment', 'Placebo']
+        # Extract key information (supports both dict and object)
+        nct_id = self._get_fact(facts, 'nct_id', '') or self._get_fact(facts, 'protocol_id', '') or 'UNKNOWN'
+        study_id = self._get_fact(facts, 'study_id', '') or nct_id
+        drug_name = self._get_fact(facts, 'drug_name', '') or 'STUDY_DRUG'
+        treatments = self._get_fact(facts, 'treatments', [])
+        if treatments:
+            arm_names = [t.get('name', t) if isinstance(t, dict) else t for t in treatments]
+        else:
+            arm_names = self._get_fact(facts, 'arm_names', []) or ['Treatment', 'Placebo']
 
         # Build program sections
         sections = []

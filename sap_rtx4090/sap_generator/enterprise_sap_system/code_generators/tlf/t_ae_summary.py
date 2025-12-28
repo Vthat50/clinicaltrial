@@ -32,13 +32,13 @@ class AESummaryTableGenerator(SASCodeGenerator):
 
         code_sections = []
 
-        # Header
+        # Header - all macros defined inline
         code_sections.append(self.generate_header(
             program_name=f"{self.output_name}.sas",
             description=f"Table {self.table_number}: {self.table_title}",
             input_datasets=["ADSL", "ADAE"],
             output_datasets=[self.output_name.upper()],
-            macros_used=["ae_count", "ae_soc_pt", "rtftable"]
+            macros_used=["ae_subj_count (inline)"]
         ))
 
         # Extract protocol information
