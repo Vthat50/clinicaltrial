@@ -994,7 +994,7 @@ class ConstrainedSAPPipeline:
                 return attr.value
             return attr  # Direct value
 
-        drug = get_value(facts.drug_name, "Study Drug") if hasattr(facts, 'drug_name') else "Study Drug"
+        drug = get_value(facts.drug_name, "[STUDY DRUG]") if hasattr(facts, 'drug_name') else "[STUDY DRUG]"
         num_arms = get_value(facts.num_arms, 2) if hasattr(facts, 'num_arms') else 2
         ratio = get_value(facts.ratio, "1:1") if hasattr(facts, 'ratio') else "1:1"
         route = get_value(facts.route, "intravenous") if hasattr(facts, 'route') else "intravenous"
@@ -1204,18 +1204,16 @@ This is the primary analysis population for all safety analyses.
             for i, ep in enumerate(facts.secondary_endpoints, 1):
                 secondary_table += f"| {i} | {ep} | Various |\n"
         else:
-            secondary_table = """| # | Endpoint | Timepoint |
+            # Use primary timepoint for fallback - don't hardcode Week 12
+            tp = primary_timepoint  # e.g., "Week 12" or "Week 8"
+            secondary_table = f"""| # | Endpoint | Timepoint |
 |---|----------|----------|
-| 1 | Clinical/endoscopic response | Week 12 |
-| 2 | Mucosal healing | Week 12 |
-| 3 | Clinical remission | Week 4, 6, 8, 10, 12 |
-| 4 | Clinical response | Week 4, 6, 8, 10, 12 |
-| 5 | Change from baseline in full Mayo score | Week 4, 8, 12 |
-| 6 | Change from baseline in 9-point partial Mayo score | Week 4, 6, 8, 10, 12 |
-| 7 | Change from baseline in modified Mayo score | Week 4, 8, 12 |
-| 8 | Change from baseline in PGA score | Week 4, 8, 12 |
-| 9 | FDA-defined remission | Week 12 |
-| 10 | Sustained remission | Week 8, 12 |
+| 1 | Clinical/endoscopic response | {tp} |
+| 2 | Mucosal healing/endoscopic improvement | {tp} |
+| 3 | Clinical remission | Multiple visits through {tp} |
+| 4 | Clinical response | Multiple visits through {tp} |
+| 5 | Change from baseline in disease activity score | Multiple visits through {tp} |
+| 6 | Sustained response | {tp} |
 """
 
         # Build biomarker section if applicable
@@ -1685,9 +1683,57 @@ Exposure to {drug_name} will be summarized:
 """
 
     def _generate_appendix_derivations(self, facts: FullProtocolFacts) -> str:
-        """Generate Appendix A: Endpoint Definitions and Derivations (prose format per industry SAP standards)"""
+        """Generate Appendix A: Endpoint Definitions and Derivations (indication-aware, prose format)"""
         primary_endpoint = facts.primary_endpoint or "Primary Endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
+        indication = (facts.indication or "").lower()
+        drug_name = facts.drug_name or "[STUDY DRUG]"
+
+        # Determine indication type for appropriate scoring system
+        is_uc = any(term in indication for term in ['ulcerative colitis', 'uc', 'ulcerative'])
+        is_crohns = any(term in indication for term in ['crohn', 'cd'])
+        is_ibd = is_uc or is_crohns or 'ibd' in indication or 'inflammatory bowel' in indication
+
+        # Generate indication-appropriate endpoint derivation
+        if is_uc:
+            scoring_section = f"""The primary endpoint will be assessed at {primary_timepoint}. Clinical and endoscopic remission is defined as a Full Mayo score of ≤2 points with no individual subscore exceeding 1 point and a rectal bleeding subscore of 0.
+
+The Full Mayo score comprises four components: stool frequency subscore (0-3), rectal bleeding subscore (0-3), physician global assessment (0-3), and endoscopy subscore (0-3), yielding a total score range of 0-12.
+
+For diary-derived subscores (stool frequency and rectal bleeding), the average of assessments from the 5 days preceding the scheduled visit will be calculated. A minimum of 3 valid diary days is required; days with bowel preparation or colonoscopy procedures will be excluded. The calculated average will be categorized as follows: 0-0.5 maps to 0, 0.6-1.5 maps to 1, 1.6-2.5 maps to 2, and 2.6-3.0 maps to 3.
+
+Endoscopy assessments will be based on central reader evaluation when available; local investigator reads will be used when central reads are unavailable."""
+
+            secondary_section = """**Clinical Response:** Defined as a decrease from baseline in the 9-point partial Mayo score of ≥2 points and ≥30%, accompanied by either a decrease in rectal bleeding subscore of ≥1 point or an absolute rectal bleeding subscore of ≤1.
+
+**Endoscopic Improvement (Mucosal Healing):** Defined as an endoscopy subscore of ≤1."""
+
+        elif is_crohns:
+            scoring_section = f"""The primary endpoint will be assessed at {primary_timepoint}. Clinical remission is defined as a Crohn's Disease Activity Index (CDAI) score of <150 points.
+
+The CDAI is a composite score comprising eight factors: number of liquid stools, abdominal pain rating, general well-being, presence of complications, use of antidiarrheal medications, abdominal mass, hematocrit, and body weight. The total score ranges from 0 to approximately 600.
+
+For endoscopic endpoints, the Simple Endoscopic Score for Crohn's Disease (SES-CD) will be used. The SES-CD evaluates presence and size of ulcers, extent of ulcerated surface, extent of affected surface, and presence of narrowing across five ileocolonic segments.
+
+Endoscopy assessments will be based on central reader evaluation when available; local investigator reads will be used when central reads are unavailable."""
+
+            secondary_section = """**Clinical Response:** Defined as a decrease from baseline in CDAI of ≥100 points or achievement of clinical remission (CDAI <150).
+
+**Endoscopic Response:** Defined as a decrease from baseline in SES-CD of ≥50%.
+
+**Endoscopic Remission:** Defined as SES-CD ≤2 with no individual component score >1."""
+
+        else:
+            # Generic/other indications - use protocol-specified endpoint
+            scoring_section = f"""The primary endpoint ({primary_endpoint}) will be assessed at {primary_timepoint}. The endpoint will be derived according to the definitions specified in the protocol.
+
+Assessments will be performed according to the schedule of assessments. For endpoints requiring multiple components, all components must be available at the assessment timepoint for the composite to be calculated.
+
+When central reading is specified, central reader evaluation will be used as the primary source; local investigator reads will be used when central reads are unavailable."""
+
+            secondary_section = """Secondary endpoints will be derived according to their protocol-specified definitions. Binary endpoints will be assessed as responder (meeting criteria) or non-responder (not meeting criteria or missing).
+
+**Change from Baseline:** Calculated as the post-baseline value minus the baseline value."""
 
         return f"""## APPENDIX A: ENDPOINT DEFINITIONS
 
@@ -1695,21 +1741,13 @@ Exposure to {drug_name} will be summarized:
 
 **{primary_endpoint}**
 
-The primary endpoint will be assessed at {primary_timepoint}. Clinical and endoscopic remission is defined as a Full Mayo score of ≤2 points with no individual subscore exceeding 1 point and a rectal bleeding subscore of 0.
-
-The Full Mayo score comprises four components: stool frequency subscore (0-3), rectal bleeding subscore (0-3), physician global assessment (0-3), and endoscopy subscore (0-3), yielding a total score range of 0-12.
-
-For diary-derived subscores (stool frequency and rectal bleeding), the average of assessments from the 5 days preceding the scheduled visit will be calculated. A minimum of 3 valid diary days is required; days with bowel preparation or colonoscopy procedures will be excluded. The calculated average will be categorized as follows: 0-0.5 maps to 0, 0.6-1.5 maps to 1, 1.6-2.5 maps to 2, and 2.6-3.0 maps to 3.
-
-Endoscopy assessments will be based on central reader evaluation when available; local investigator reads will be used when central reads are unavailable.
+{scoring_section}
 
 ### A.2 Secondary Endpoints
 
-**Clinical Response:** Defined as a decrease from baseline in the 9-point partial Mayo score of ≥2 points and ≥30%, accompanied by either a decrease in rectal bleeding subscore of ≥1 point or an absolute rectal bleeding subscore of ≤1.
+{secondary_section}
 
-**Endoscopic Improvement (Mucosal Healing):** Defined as an endoscopy subscore of ≤1.
-
-**Change from Baseline:** Calculated as the post-baseline value minus the baseline value. Baseline is defined as the last non-missing assessment prior to the first dose of study drug.
+**Change from Baseline:** Calculated as the post-baseline value minus the baseline value. Baseline is defined as the last non-missing assessment prior to the first dose of {drug_name}.
 
 ### A.3 Handling of Missing Data for Endpoint Derivation
 
@@ -1718,7 +1756,7 @@ Subjects with any missing component at the primary timepoint will be classified 
 
     def _generate_appendix_model_specs(self, facts: FullProtocolFacts) -> str:
         """Generate Appendix B: Statistical Methods (prose format per industry SAP standards)"""
-        drug_name = facts.drug_name or "Study Drug"
+        drug_name = facts.drug_name or "[STUDY DRUG]"
         primary_method = facts.primary_analysis_method or "Logistic Regression"
         strat_factors = facts.stratification_factors or ["prior biologic use", "baseline disease severity"]
         strat_text = ", ".join(strat_factors)
@@ -1806,7 +1844,7 @@ Duplicate CRF entries will be resolved using the most recent entry timestamp. Du
 
     def _generate_appendix_table_shells(self, facts: FullProtocolFacts) -> str:
         """Generate Appendix D: Table Shells"""
-        drug_name = facts.drug_name or "Study Drug"
+        drug_name = facts.drug_name or "[STUDY DRUG]"
         num_arms = facts.num_arms or 3
 
         # Build column headers
@@ -1977,7 +2015,7 @@ Duplicate CRF entries will be resolved using the most recent entry timestamp. Du
         # Handle both old CitedValue format and new direct value format
         if isinstance(facts, FullProtocolFacts):
             # New format: direct values
-            drug = facts.drug_name or "Study Drug"
+            drug = facts.drug_name or "[STUDY DRUG]"
             nct = facts.nct_id or "NCT-UNKNOWN"
             phase = facts.phase or "Phase 2"
             indication = facts.indication or "Not specified"
@@ -1987,7 +2025,7 @@ Duplicate CRF entries will be resolved using the most recent entry timestamp. Du
             ratio = facts.ratio or "1:1"
         else:
             # Legacy format: CitedValue with .value
-            drug = facts.drug_name.value if facts.drug_name else "Study Drug"
+            drug = facts.drug_name.value if facts.drug_name else "[STUDY DRUG]"
             nct = facts.nct_id.value if facts.nct_id else "NCT-UNKNOWN"
             phase = facts.phase.value if facts.phase else "Phase 2"
             indication = "Not specified"
