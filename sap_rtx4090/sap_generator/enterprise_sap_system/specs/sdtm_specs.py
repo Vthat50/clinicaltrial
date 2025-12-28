@@ -1022,10 +1022,10 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("ARMCD", "Planned Arm Code", "Char", 20, VariableCore.REQUIRED),
                 SDTMVariable("ARM", "Description of Planned Arm", "Char", 200, VariableCore.REQUIRED),
-                SDTMVariable("TAESSION", "Planned Arm Code", "Num", 8, VariableCore.REQUIRED),
+                SDTMVariable("TAETORD", "Order of Element within Arm", "Num", 8, VariableCore.REQUIRED),
                 SDTMVariable("ETCD", "Element Code", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("ELEMENT", "Description of Element", "Char", 200, VariableCore.REQUIRED),
-                SDTMVariable("TABESSION", "Branch", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("TATRANS", "Transition Rule", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.REQUIRED, codelist="EPOCH"),
             ]
         )
@@ -1329,7 +1329,7 @@ class SDTMSpecGenerator:
             label="Disease Response",
             domain_class=DomainClass.FINDINGS,
             structure="One record per response assessment per subject",
-            purpose="Documents overall disease response (RECIST)",
+            purpose="Documents overall disease response and clinical assessments",
             variables=[
                 SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
