@@ -73,6 +73,38 @@ class SampleSizeSpec(BaseModel):
     dropout_rate: Optional[float] = None
 
 
+class PKSubstudy(BaseModel):
+    """PK substudy specification"""
+    has_pk_substudy: bool = False
+    pk_population_size: Optional[int] = None
+    pk_sampling_timepoints: List[str] = Field(default_factory=list)
+    pk_parameters: List[str] = Field(default_factory=list)  # AUC, Cmax, etc.
+    pk_analysis_software: Optional[str] = None  # WinNonlin, Phoenix, etc.
+
+
+class ImmunogenicityAssessment(BaseModel):
+    """Immunogenicity/ADA specification"""
+    has_immunogenicity: bool = False
+    ada_sampling_timepoints: List[str] = Field(default_factory=list)
+    antibody_type: Optional[str] = None  # Anti-drug antibodies
+    assay_method: Optional[str] = None
+
+
+class SubgroupAnalysis(BaseModel):
+    """Subgroup analysis specification"""
+    factor: str
+    categories: List[str] = Field(default_factory=list)
+    rationale: Optional[str] = None
+
+
+class InterimAnalysis(BaseModel):
+    """Interim analysis specification"""
+    has_interim: bool = False
+    interim_timepoints: List[str] = Field(default_factory=list)
+    monitoring_committee: Optional[str] = None  # DMC, SRC, etc.
+    stopping_rules: List[str] = Field(default_factory=list)
+
+
 class ProtocolFacts(BaseModel):
     """
     Complete structured facts extracted from protocol.
@@ -120,11 +152,24 @@ class ProtocolFacts(BaseModel):
     fas_definition: Optional[str] = None
     pp_definition: Optional[str] = None
     safety_population_definition: Optional[str] = None
+    pk_population_definition: Optional[str] = None
 
     # Timepoints
     primary_timepoint: Optional[str] = None
     study_duration: Optional[str] = None
     treatment_duration: Optional[str] = None
+
+    # PK Analysis (NEW)
+    pk_substudy: PKSubstudy = Field(default_factory=PKSubstudy)
+
+    # Immunogenicity (NEW)
+    immunogenicity: ImmunogenicityAssessment = Field(default_factory=ImmunogenicityAssessment)
+
+    # Subgroup Analyses (NEW)
+    subgroup_analyses: List[SubgroupAnalysis] = Field(default_factory=list)
+
+    # Interim Analysis (NEW)
+    interim_analysis: InterimAnalysis = Field(default_factory=InterimAnalysis)
 
 
 class StructuredFactExtractor:
@@ -194,6 +239,19 @@ class StructuredFactExtractor:
         # Timepoints
         facts.primary_timepoint = self._extract_primary_timepoint(protocol_text)
         facts.study_duration = self._extract_study_duration(protocol_text)
+
+        # PK Substudy (NEW)
+        facts.pk_substudy = self._extract_pk_substudy(protocol_text)
+        facts.pk_population_definition = self._extract_population_definition(protocol_text, "PK")
+
+        # Immunogenicity (NEW)
+        facts.immunogenicity = self._extract_immunogenicity(protocol_text)
+
+        # Subgroup Analyses (NEW)
+        facts.subgroup_analyses = self._extract_subgroup_analyses(protocol_text)
+
+        # Interim Analysis (NEW)
+        facts.interim_analysis = self._extract_interim_analysis(protocol_text)
 
         return facts
 
@@ -724,6 +782,194 @@ class StructuredFactExtractor:
                 return match.group(1)
 
         return None
+
+    def _extract_pk_substudy(self, text: str) -> PKSubstudy:
+        """Extract PK substudy information"""
+        pk = PKSubstudy()
+
+        # Check if PK substudy exists
+        pk_patterns = [
+            r'(?:PK|pharmacokinetic)\s+(?:sub)?study',
+            r'(?:PK|pharmacokinetic)\s+(?:population|subgroup|sampling)',
+            r'(?:PK|pharmacokinetic)\s+analysis',
+            r'intensive\s+PK\s+sampling',
+        ]
+        for pattern in pk_patterns:
+            if re.search(pattern, text, re.I):
+                pk.has_pk_substudy = True
+                break
+
+        if not pk.has_pk_substudy:
+            return pk
+
+        # Extract PK population size
+        pk_n_patterns = [
+            r'(?:PK|pharmacokinetic)\s+(?:sub)?(?:study|group|population)[^.]*?(\d+)\s+(?:patients?|subjects?)',
+            r'(\d+)\s+(?:patients?|subjects?)[^.]*?(?:PK|pharmacokinetic)',
+        ]
+        for pattern in pk_n_patterns:
+            match = re.search(pattern, text, re.I)
+            if match:
+                n = int(match.group(1))
+                if 5 <= n <= 500:
+                    pk.pk_population_size = n
+                    break
+
+        # Extract PK parameters
+        pk_param_patterns = [
+            r'AUC(?:inf|τ|last|0-\d+)?',
+            r'Cmax',
+            r'Tmax',
+            r'CL(?:/F)?',
+            r'Vz(?:/F)?',
+            r't½|t1/2|half[- ]life',
+            r'MRT',
+            r'λz|lambda',
+        ]
+        for pattern in pk_param_patterns:
+            if re.search(pattern, text, re.I):
+                # Normalize parameter name
+                param = pattern.replace('(?:', '').replace(')?', '').replace('|', '/')
+                if param not in pk.pk_parameters:
+                    pk.pk_parameters.append(param)
+
+        # Extract PK software
+        software_patterns = [
+            (r'WinNonlin', 'WinNonlin'),
+            (r'Phoenix', 'Phoenix WinNonlin'),
+            (r'NONMEM', 'NONMEM'),
+            (r'Monolix', 'Monolix'),
+        ]
+        for pattern, name in software_patterns:
+            if re.search(pattern, text, re.I):
+                pk.pk_analysis_software = name
+                break
+
+        return pk
+
+    def _extract_immunogenicity(self, text: str) -> ImmunogenicityAssessment:
+        """Extract immunogenicity/ADA assessment information"""
+        immuno = ImmunogenicityAssessment()
+
+        # Check if immunogenicity assessment exists
+        immuno_patterns = [
+            r'immunogenicity',
+            r'anti[- ]drug\s+antibod(?:y|ies)',
+            r'ADA\s+(?:testing|assessment|analysis)',
+            r'anti[- ]\w+\s+antibod(?:y|ies)',
+        ]
+        for pattern in immuno_patterns:
+            if re.search(pattern, text, re.I):
+                immuno.has_immunogenicity = True
+                break
+
+        if not immuno.has_immunogenicity:
+            return immuno
+
+        # Extract antibody type
+        ab_match = re.search(r'anti[- ](\w+)\s+antibod(?:y|ies)', text, re.I)
+        if ab_match:
+            immuno.antibody_type = f"Anti-{ab_match.group(1)} antibodies"
+
+        # Extract sampling timepoints
+        timepoint_match = re.search(
+            r'(?:ADA|immunogenicity|antibod(?:y|ies))[^.]*?(?:visits?|weeks?)[:\s]+([^.]+)',
+            text, re.I
+        )
+        if timepoint_match:
+            timepoints = re.findall(r'(?:Visit|Week)\s*\d+', timepoint_match.group(1), re.I)
+            immuno.ada_sampling_timepoints = timepoints[:10]
+
+        return immuno
+
+    def _extract_subgroup_analyses(self, text: str) -> List[SubgroupAnalysis]:
+        """Extract planned subgroup analyses"""
+        subgroups = []
+
+        # Common subgroup factors
+        subgroup_patterns = [
+            (r'age\s+(?:group|subgroup)', 'Age', ['<65 years', '≥65 years']),
+            (r'sex|gender', 'Sex', ['Male', 'Female']),
+            (r'race|ethnic', 'Race/Ethnicity', []),
+            (r'geographic\s+region', 'Geographic Region', []),
+            (r'baseline\s+(?:disease\s+)?severity', 'Baseline Severity', []),
+            (r'prior\s+(?:treatment|therapy)', 'Prior Treatment', ['Yes', 'No']),
+            (r'biomarker', 'Biomarker Status', []),
+            (r'IL-6|interleukin', 'IL-6 Levels', ['High', 'Low']),
+        ]
+
+        # Check for explicit subgroup analysis section
+        subgroup_section = re.search(
+            r'subgroup\s+analy(?:sis|ses)[:\s]+([^#]+?)(?:(?:\d+\.\s)|$)',
+            text, re.I | re.DOTALL
+        )
+
+        text_to_search = subgroup_section.group(1) if subgroup_section else text
+
+        for pattern, factor_name, default_categories in subgroup_patterns:
+            if re.search(pattern, text_to_search, re.I):
+                subgroup = SubgroupAnalysis(
+                    factor=factor_name,
+                    categories=default_categories
+                )
+                subgroups.append(subgroup)
+
+        return subgroups
+
+    def _extract_interim_analysis(self, text: str) -> InterimAnalysis:
+        """Extract interim analysis and monitoring information"""
+        interim = InterimAnalysis()
+
+        # Check for interim analysis
+        interim_patterns = [
+            r'interim\s+analysis',
+            r'DMC|DSMB|data\s+(?:monitoring|safety)\s+(?:committee|board)',
+            r'SRC|safety\s+review\s+committee',
+            r'stopping\s+rules?',
+            r'futility\s+analysis',
+        ]
+
+        for pattern in interim_patterns:
+            if re.search(pattern, text, re.I):
+                interim.has_interim = True
+                break
+
+        if not interim.has_interim:
+            return interim
+
+        # Extract monitoring committee
+        committee_patterns = [
+            (r'DMC|data\s+monitoring\s+committee', 'Data Monitoring Committee (DMC)'),
+            (r'DSMB|data\s+safety\s+monitoring\s+board', 'Data Safety Monitoring Board (DSMB)'),
+            (r'SRC|safety\s+review\s+committee', 'Safety Review Committee (SRC)'),
+            (r'IDMC|independent\s+data\s+monitoring', 'Independent Data Monitoring Committee (IDMC)'),
+        ]
+        for pattern, name in committee_patterns:
+            if re.search(pattern, text, re.I):
+                interim.monitoring_committee = name
+                break
+
+        # Extract interim timepoints
+        interim_tp_match = re.search(
+            r'interim\s+analysis[^.]*?(?:at|after)\s+(\d+\s+(?:patients?|subjects?|events?|%|percent))',
+            text, re.I
+        )
+        if interim_tp_match:
+            interim.interim_timepoints.append(interim_tp_match.group(1))
+
+        # Extract stopping rules
+        stopping_patterns = [
+            r'(?:stop|terminate)[^.]*?(?:for|due\s+to)\s+([^.]+)',
+            r'futility[^.]*?(?:if|when)\s+([^.]+)',
+        ]
+        for pattern in stopping_patterns:
+            match = re.search(pattern, text, re.I)
+            if match:
+                rule = match.group(1).strip()[:100]
+                if rule and rule not in interim.stopping_rules:
+                    interim.stopping_rules.append(rule)
+
+        return interim
 
     def to_prompt_context(self, facts: ProtocolFacts) -> str:
         """

@@ -241,6 +241,59 @@ class HardValidator:
                     message=f"Phase '{facts.phase.value}' not found in SAP"
                 ))
 
+        # 10. CRITICAL: Check for empty sections
+        empty_sections = self._check_empty_sections(sap_text)
+        if empty_sections:
+            total_checks += 1
+            for section in empty_sections:
+                issues.append(ValidationIssue(
+                    field=f"section_{section}",
+                    expected="Non-empty section content",
+                    found="Empty or missing",
+                    severity=ValidationSeverity.CRITICAL,
+                    message=f"Required section '{section}' is empty or missing"
+                ))
+        else:
+            total_checks += 1
+            checks_passed += 1
+
+        # 11. HIGH: Check for required SAP structure elements
+        structure_issues = self._check_sap_structure(sap_text)
+        total_checks += 1
+        if not structure_issues:
+            checks_passed += 1
+        else:
+            for element in structure_issues:
+                issues.append(ValidationIssue(
+                    field=f"structure_{element}",
+                    expected=f"Section '{element}' content",
+                    found="Missing or inadequate",
+                    severity=ValidationSeverity.HIGH,
+                    message=f"SAP structure issue: '{element}' section content is inadequate"
+                ))
+
+        # 12. MEDIUM: Check stratification factors mentioned
+        if facts.stratification_factors:
+            total_checks += 1
+            strat_found = False
+            for factor in facts.stratification_factors:
+                # Check if factor or key words from factor are in SAP
+                factor_words = [w for w in factor.lower().split() if len(w) > 3]
+                for word in factor_words:
+                    if word in sap_text.lower():
+                        strat_found = True
+                        break
+            if strat_found:
+                checks_passed += 1
+            else:
+                issues.append(ValidationIssue(
+                    field="stratification_factors",
+                    expected=", ".join(facts.stratification_factors),
+                    found="Not mentioned",
+                    severity=ValidationSeverity.MEDIUM,
+                    message=f"Stratification factors not found in SAP"
+                ))
+
         # Calculate score
         score = (checks_passed / total_checks * 100) if total_checks > 0 else 0
 
@@ -437,6 +490,108 @@ class HardValidator:
             if re.search(pattern, sap_text, re.IGNORECASE):
                 return name
         return None
+
+    def _check_empty_sections(self, sap_text: str) -> List[str]:
+        """
+        Check for empty or missing required SAP sections.
+        Returns list of section names that are empty or missing.
+        """
+        empty_sections = []
+
+        # Required sections and their expected headers/markers (more flexible patterns)
+        # Each entry: name -> (header patterns, content patterns that indicate the section exists)
+        required_sections = {
+            'Introduction': (
+                [r'#+\s*\d*\.?\s*introduction', r'\bintroduction\b'],
+                [r'statistical\s+analysis\s+plan', r'SAP\s+describes', r'study\s+overview']
+            ),
+            'Objectives': (
+                [r'#+\s*\d*\.?\s*(?:objectives|estimands)', r'\bobjectives?\b.*\bestimand'],
+                [r'primary\s+objective', r'estimand', r'treatment\s+effect']
+            ),
+            'Study Design': (
+                [r'#+\s*\d*\.?\s*study\s*design', r'\bstudy\s+design\b'],
+                [r'randomized', r'double[- ]blind', r'treatment\s+arms?', r'\d+:\d+']
+            ),
+            'Analysis Populations': (
+                [r'#+\s*\d*\.?\s*(?:analysis\s*)?populations?', r'\bpopulations?\b'],
+                [r'ITT\s+(?:population)?', r'FAS', r'PP\s+(?:population)?', r'safety\s+population']
+            ),
+            'Endpoints': (
+                [r'#+\s*\d*\.?\s*endpoints?', r'\bendpoints?\b'],
+                [r'primary\s+(?:efficacy\s+)?endpoint', r'secondary\s+endpoint']
+            ),
+            'Sample Size': (
+                [r'#+\s*\d*\.?\s*sample\s*size', r'\bsample\s+size\b'],
+                [r'\d+\s+patients?', r'power', r'alpha', r'N\s*[=:]']
+            ),
+            'Statistical Methods': (
+                [r'#+\s*\d*\.?\s*statistical\s*(?:methods?|analysis)?', r'\bstatistical\s+(?:methods?|analysis)\b'],
+                [r'logistic\s+regression', r'ANCOVA', r'MMRM', r'chi[- ]square', r'significance\s+level']
+            ),
+            'Missing Data': (
+                [r'#+\s*\d*\.?\s*missing\s*data', r'\bmissing\s+data\b'],
+                [r'imputation', r'non[- ]responder', r'LOCF', r'MAR', r'MCAR']
+            ),
+            'Safety Analysis': (
+                [r'#+\s*\d*\.?\s*safety', r'\bsafety\s+analysis\b'],
+                [r'adverse\s+events?', r'AE', r'TEAE', r'MedDRA', r'SOC', r'laboratory']
+            ),
+        }
+
+        for section_name, (header_patterns, content_patterns) in required_sections.items():
+            section_found = False
+
+            # First check if any header pattern matches
+            for pattern in header_patterns:
+                if re.search(pattern, sap_text, re.IGNORECASE):
+                    section_found = True
+                    break
+
+            # If header not found, check if content patterns indicate section exists
+            if not section_found:
+                content_matches = sum(1 for p in content_patterns if re.search(p, sap_text, re.I))
+                # If at least 2 content patterns match, section likely exists
+                if content_matches >= 2:
+                    section_found = True
+
+            if not section_found:
+                empty_sections.append(section_name)
+
+        return empty_sections
+
+    def _check_sap_structure(self, sap_text: str) -> List[str]:
+        """
+        Check for structural issues in SAP.
+        Returns list of structural elements that are missing or inadequate.
+        """
+        issues = []
+
+        # Check for minimal required content
+        min_requirements = {
+            'primary_endpoint_definition': (
+                r'primary\s+(?:efficacy\s+)?endpoint[:\s]+\w{10,}',
+                'Primary endpoint definition is missing or too short'
+            ),
+            'population_definitions': (
+                r'(?:ITT|FAS|PP|Safety)\s+(?:population|set)[:\s]+\w{10,}',
+                'Population definitions are missing or too short'
+            ),
+            'statistical_method': (
+                r'(?:logistic\s+regression|ANCOVA|MMRM|chi[- ]square|t[- ]test|cox|kaplan)',
+                'Statistical analysis method not specified'
+            ),
+            'alpha_level': (
+                r'(?:alpha|significance\s+level)[:\s]*(?:0\.0\d+|\d+\s*%)',
+                'Alpha/significance level not specified'
+            ),
+        }
+
+        for element, (pattern, message) in min_requirements.items():
+            if not re.search(pattern, sap_text, re.IGNORECASE):
+                issues.append(element)
+
+        return issues
 
 
 def validate_sap(sap_text: str, facts: ProtocolFacts, strict: bool = True) -> ValidationResult:

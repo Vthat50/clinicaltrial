@@ -169,22 +169,73 @@ class ConstrainedSAPPipeline:
         self._print_schema_constraints_full(facts)
 
         # =================================================================
-        # STAGE 3: Generate Sections with Schema Enforcement
+        # STAGE 3: Generate ALL Sections with Schema Enforcement
         # =================================================================
-        print("\n[STAGE 3] Generating sections with schema enforcement...")
+        print("\n[STAGE 3] Generating ALL 9 SAP sections with schema enforcement...")
 
         # Use legacy_facts for methods that expect CitedValue format
         # Use facts (FullProtocolFacts) for new methods with direct values
         facts_summary = self._full_facts_to_dict(facts)
 
-        # Sample Size Section
-        if 'sample_size' not in skip:
-            print("\n  Generating Sample Size section...")
+        # Section 1: Introduction
+        if '1_introduction' not in skip:
+            print("\n  [1/9] Generating Introduction section...")
+            section_data = self._generate_introduction(facts)
+            if section_data:
+                result.sections['1_introduction'] = section_data
+            else:
+                result.errors.append("Failed to generate Introduction section")
+
+        # Section 2: Objectives and Estimands
+        if '2_objectives_estimands' not in skip:
+            print("\n  [2/9] Generating Objectives & Estimands section...")
+            section_data = self._generate_objectives_estimands(facts)
+            if section_data:
+                result.sections['2_objectives_estimands'] = section_data
+            else:
+                result.errors.append("Failed to generate Objectives & Estimands section")
+
+        # Section 3: Study Design
+        if 'study_design' not in skip and '3_study_design' not in skip:
+            print("\n  [3/9] Generating Study Design section...")
+            section_data, verification = self._generate_study_design(
+                study_design_schema, legacy_facts, facts_summary
+            )
+            if section_data:
+                result.sections['3_study_design'] = section_data
+                result.verification_results['study_design'] = verification
+                if not verification.passed:
+                    result.errors.extend(verification.violations)
+                    result.success = False
+            else:
+                result.errors.append("Failed to generate Study Design section")
+
+        # Section 4: Analysis Populations
+        if '4_analysis_populations' not in skip:
+            print("\n  [4/9] Generating Analysis Populations section...")
+            section_data = self._generate_analysis_populations(facts)
+            if section_data:
+                result.sections['4_analysis_populations'] = section_data
+            else:
+                result.errors.append("Failed to generate Analysis Populations section")
+
+        # Section 5: Endpoints
+        if '5_endpoints' not in skip:
+            print("\n  [5/9] Generating Endpoints section...")
+            section_data = self._generate_endpoints(facts)
+            if section_data:
+                result.sections['5_endpoints'] = section_data
+            else:
+                result.errors.append("Failed to generate Endpoints section")
+
+        # Section 6: Sample Size Section
+        if 'sample_size' not in skip and '6_sample_size' not in skip:
+            print("\n  [6/9] Generating Sample Size section...")
             section_data, verification = self._generate_sample_size(
                 sample_size_schema, legacy_facts, facts_summary
             )
             if section_data:
-                result.sections['sample_size'] = section_data
+                result.sections['6_sample_size'] = section_data
                 result.verification_results['sample_size'] = verification
                 if not verification.passed:
                     result.errors.extend(verification.violations)
@@ -192,20 +243,32 @@ class ConstrainedSAPPipeline:
             else:
                 result.errors.append("Failed to generate Sample Size section")
 
-        # Study Design Section
-        if 'study_design' not in skip:
-            print("\n  Generating Study Design section...")
-            section_data, verification = self._generate_study_design(
-                study_design_schema, legacy_facts, facts_summary
-            )
+        # Section 7: Statistical Methods
+        if '7_statistical_methods' not in skip:
+            print("\n  [7/9] Generating Statistical Methods section...")
+            section_data = self._generate_statistical_methods(facts)
             if section_data:
-                result.sections['study_design'] = section_data
-                result.verification_results['study_design'] = verification
-                if not verification.passed:
-                    result.errors.extend(verification.violations)
-                    result.success = False
+                result.sections['7_statistical_methods'] = section_data
             else:
-                result.errors.append("Failed to generate Study Design section")
+                result.errors.append("Failed to generate Statistical Methods section")
+
+        # Section 8: Missing Data Handling
+        if '8_missing_data' not in skip:
+            print("\n  [8/9] Generating Missing Data Handling section...")
+            section_data = self._generate_missing_data(facts)
+            if section_data:
+                result.sections['8_missing_data'] = section_data
+            else:
+                result.errors.append("Failed to generate Missing Data section")
+
+        # Section 9: Safety Analysis
+        if '9_safety_analysis' not in skip:
+            print("\n  [9/9] Generating Safety Analysis section...")
+            section_data = self._generate_safety_analysis(facts)
+            if section_data:
+                result.sections['9_safety_analysis'] = section_data
+            else:
+                result.errors.append("Failed to generate Safety Analysis section")
 
         # =================================================================
         # STAGE 4: Contamination Detection
@@ -528,6 +591,412 @@ class ConstrainedSAPPipeline:
             'design_narrative': f"This is a randomized, double-blind, placebo-controlled study designed to evaluate the efficacy and safety of {drug}. Eligible patients will be randomized to one of the treatment arms according to the randomization ratio. The study drug will be administered via {route} route according to the dosing schedule specified in the protocol."
         }
 
+    # =========================================================================
+    # NEW SECTION GENERATORS (Full Coverage)
+    # =========================================================================
+
+    def _generate_introduction(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 1: Introduction"""
+        nct_id = facts.nct_id or "NCT-UNKNOWN"
+        study_id = facts.study_id or "STUDY-ID"
+        sponsor = facts.sponsor or "Sponsor"
+        title = facts.title or "Clinical Trial"
+        phase = facts.phase or "Phase 2"
+        drug_name = facts.drug_name or "Investigational Product"
+        indication = facts.indication or "target indication"
+
+        return f"""## 1. INTRODUCTION
+
+### 1.1 Purpose
+
+This Statistical Analysis Plan (SAP) describes the planned statistical analyses for the clinical trial {nct_id} ({study_id}). This document provides detailed specifications for the statistical methodology to be used in the analysis of data from this study.
+
+### 1.2 Study Overview
+
+**Protocol:** {nct_id}
+**Study ID:** {study_id}
+**Sponsor:** {sponsor}
+**Title:** {title}
+**Phase:** {phase}
+**Investigational Product:** {drug_name}
+**Indication:** {indication}
+
+### 1.3 Scope
+
+This SAP covers all planned efficacy, safety, and exploratory analyses for the study. Any deviations from this plan will be documented and justified in the clinical study report.
+
+### 1.4 Reference Documents
+
+- Protocol: {study_id}
+- ICH E9 Statistical Principles for Clinical Trials
+- ICH E9(R1) Addendum on Estimands and Sensitivity Analysis
+- CDISC ADaM Implementation Guide
+"""
+
+    def _generate_objectives_estimands(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 2: Objectives and Estimands"""
+        drug_name = facts.drug_name or "Investigational Product"
+        indication = facts.indication or "the target indication"
+        primary_endpoint = facts.primary_endpoint or "the primary efficacy endpoint"
+        primary_timepoint = facts.primary_timepoint or "Week 12"
+
+        # Get arm info for treatment description
+        arm_names = facts.arm_names if facts.arm_names else ["Active Treatment", "Placebo"]
+        arm_descriptions = facts.arm_descriptions if facts.arm_descriptions else arm_names
+
+        # Build treatment arms text
+        arms_text = "\n".join([f"  - {desc}" for desc in arm_descriptions])
+
+        return f"""## 2. STUDY OBJECTIVES AND ESTIMANDS
+
+### 2.1 Primary Objective
+
+To evaluate the efficacy of {drug_name} compared to placebo in patients with {indication}.
+
+### 2.2 Primary Estimand (ICH E9(R1) Framework)
+
+The primary estimand is defined according to ICH E9(R1) with the following attributes:
+
+| Attribute | Specification |
+|-----------|---------------|
+| **Population** | Adult patients with {indication} who meet all inclusion criteria and none of the exclusion criteria |
+| **Treatment** | {drug_name} vs. Placebo |
+| **Variable** | {primary_endpoint} at {primary_timepoint} |
+| **Intercurrent Events** | See Section 2.2.1 |
+| **Summary Measure** | Difference in proportions (or appropriate measure) |
+
+#### 2.2.1 Intercurrent Events and Strategies
+
+| Intercurrent Event | Strategy | Rationale |
+|-------------------|----------|-----------|
+| Treatment discontinuation due to adverse event | Treatment Policy | Captures real-world treatment effect |
+| Use of rescue medication | Treatment Policy | Part of intended treatment strategy |
+| Missing assessment | Treatment Policy (imputed as non-responder) | Conservative approach for efficacy |
+
+### 2.3 Secondary Objectives
+
+1. To evaluate the safety and tolerability of {drug_name}
+2. To evaluate secondary efficacy endpoints
+3. To characterize the pharmacokinetics of {drug_name} (if applicable)
+
+### 2.4 Secondary Estimands
+
+Secondary estimands follow the same framework as the primary estimand with appropriate modifications for each secondary endpoint.
+
+### 2.5 Treatment Arms
+
+{arms_text}
+"""
+
+    def _generate_analysis_populations(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 4: Analysis Populations"""
+        primary_population = facts.primary_population or "FAS"
+        itt_def = facts.itt_definition or "All randomized patients"
+        pp_def = facts.pp_definition or "All patients in the ITT population who complete the study without major protocol violations"
+        safety_def = facts.safety_definition or "All patients who received at least one dose of study medication"
+
+        # Build PK population if applicable
+        pk_section = ""
+        if facts.therapeutic_area and "pk" in str(facts).lower():
+            pk_section = """
+### 4.5 Pharmacokinetic (PK) Population
+
+The PK population includes all patients in the PK subgroup who received at least one dose of study medication and have at least one measurable post-dose PK sample.
+"""
+
+        return f"""## 4. ANALYSIS POPULATIONS
+
+### 4.1 Intent-to-Treat (ITT) Population
+
+{itt_def}
+
+This population will be used for sensitivity analyses of efficacy endpoints.
+
+### 4.2 Full Analysis Set (FAS)
+
+All randomized patients who received at least one dose of study medication and have at least one post-baseline efficacy assessment.
+
+This is the **primary analysis population** for efficacy analyses.
+
+### 4.3 Per-Protocol (PP) Population
+
+{pp_def}
+
+This population will be used for supportive efficacy analyses.
+
+### 4.4 Safety Population
+
+{safety_def}
+
+This is the primary analysis population for all safety analyses.
+{pk_section}
+### 4.6 Population Derivation
+
+| Population | Inclusion Criteria | Exclusion Criteria | Primary Use |
+|------------|-------------------|-------------------|-------------|
+| ITT | All randomized | None | Sensitivity analysis |
+| FAS | ITT + ≥1 dose + ≥1 post-baseline assessment | None | **Primary efficacy** |
+| PP | FAS | Major protocol violations | Supportive efficacy |
+| Safety | ≥1 dose of study medication | None | **Safety analysis** |
+"""
+
+    def _generate_endpoints(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 5: Endpoints"""
+        primary_endpoint = facts.primary_endpoint or "Primary efficacy endpoint"
+        primary_timepoint = facts.primary_timepoint or "Week 12"
+        secondary_endpoints = facts.secondary_endpoints if facts.secondary_endpoints else []
+
+        # Build secondary endpoints table
+        secondary_table = ""
+        if secondary_endpoints:
+            secondary_table = "| # | Endpoint | Timepoint |\n|---|----------|----------|\n"
+            for i, ep in enumerate(secondary_endpoints, 1):
+                secondary_table += f"| {i} | {ep} | Various |\n"
+        else:
+            secondary_table = """| # | Endpoint | Timepoint |
+|---|----------|----------|
+| 1 | Clinical response | Week 4, 8, 12 |
+| 2 | Clinical remission | Week 4, 8, 12 |
+| 3 | Mucosal healing | Week 12 |
+| 4 | Change from baseline in symptom score | Week 4, 8, 12 |
+"""
+
+        return f"""## 5. ENDPOINTS
+
+### 5.1 Primary Endpoint
+
+**Definition:** {primary_endpoint}
+
+**Timepoint:** {primary_timepoint}
+
+**Derivation:** The primary endpoint will be derived according to the protocol definition. Patients with missing data at the primary timepoint will be considered as non-responders (treatment failure).
+
+### 5.2 Secondary Efficacy Endpoints
+
+{secondary_table}
+
+### 5.3 Safety Endpoints
+
+| Category | Endpoints |
+|----------|-----------|
+| Adverse Events | TEAEs, SAEs, AEs leading to discontinuation, AEs by severity |
+| Laboratory | Clinical chemistry, hematology, urinalysis abnormalities |
+| Vital Signs | Changes from baseline in blood pressure, heart rate, temperature |
+| ECG | Changes from baseline in ECG parameters (if applicable) |
+
+### 5.4 Exploratory Endpoints
+
+Exploratory endpoints include biomarker assessments and other endpoints as defined in the protocol.
+"""
+
+    def _generate_statistical_methods(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 7: Statistical Methods"""
+        primary_endpoint = facts.primary_endpoint or "primary endpoint"
+        primary_timepoint = facts.primary_timepoint or "Week 12"
+        primary_population = facts.primary_population or "FAS"
+        primary_analysis_method = facts.primary_analysis_method or "Logistic regression"
+        alpha = facts.alpha or 0.05
+        alpha_sidedness = facts.alpha_sidedness or "two-sided"
+
+        # Get stratification factors
+        strat_factors = facts.stratification_factors if facts.stratification_factors else []
+        strat_text = ", ".join(strat_factors) if strat_factors else "randomization stratification factors"
+
+        return f"""## 7. STATISTICAL METHODS
+
+### 7.1 General Considerations
+
+- All statistical tests will be performed at a {alpha_sidedness} significance level of α = {alpha} unless otherwise specified.
+- Confidence intervals will be two-sided {int((1-alpha)*100)}% confidence intervals.
+- All analyses will be performed using SAS® Version 9.4 or later.
+
+### 7.2 Primary Efficacy Analysis
+
+**Analysis Population:** {primary_population}
+
+**Primary Analysis Method:** {primary_analysis_method}
+
+The primary endpoint ({primary_endpoint} at {primary_timepoint}) will be analyzed using {primary_analysis_method.lower()} with treatment as a fixed effect and {strat_text} as covariates.
+
+**Model Specification:**
+
+```
+logit(P(response=1)) = β₀ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Score
+```
+
+**Treatment Effect Estimate:** Odds ratio with {int((1-alpha)*100)}% confidence interval
+
+**Hypothesis:**
+- H₀: No difference between {facts.drug_name or 'active treatment'} and placebo
+- H₁: Difference exists between {facts.drug_name or 'active treatment'} and placebo
+
+### 7.3 Handling of Covariates
+
+**Stratification Factors:** {strat_text}
+
+The primary analysis will adjust for the stratification factors used in randomization.
+
+### 7.4 Secondary Efficacy Analyses
+
+Secondary endpoints will be analyzed using appropriate methods based on endpoint type:
+
+| Endpoint Type | Analysis Method |
+|--------------|-----------------|
+| Binary | Logistic regression with GEE for repeated measures |
+| Continuous | ANCOVA or MMRM for repeated measures |
+| Time-to-event | Kaplan-Meier, Log-rank test, Cox regression |
+
+### 7.5 Multiplicity Adjustment
+
+Secondary endpoints will be tested using a hierarchical testing procedure to control the family-wise error rate. Testing will proceed in a pre-specified order, with subsequent endpoints tested only if all prior endpoints are significant at α = {alpha}.
+
+### 7.6 Sensitivity Analyses
+
+The following sensitivity analyses will be performed for the primary endpoint:
+
+1. **Per-Protocol Analysis:** Analysis in PP population
+2. **Tipping Point Analysis:** Assess robustness to missing data assumptions
+3. **Multiple Imputation:** MICE with treatment group-specific imputation
+4. **As-Observed Analysis:** Excluding patients with missing data
+
+### 7.7 Subgroup Analyses
+
+Subgroup analyses will be performed for the primary endpoint by:
+- Age group (<65, ≥65 years)
+- Sex
+- Geographic region
+- Baseline disease severity
+- Prior treatment history
+"""
+
+    def _generate_missing_data(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 8: Missing Data Handling"""
+        primary_endpoint = facts.primary_endpoint or "primary endpoint"
+
+        return f"""## 8. MISSING DATA HANDLING
+
+### 8.1 General Principles
+
+Missing data handling follows ICH E9(R1) guidance on estimands and sensitivity analysis in clinical trials.
+
+### 8.2 Primary Approach
+
+**Treatment Policy Strategy:** For the primary analysis, patients with missing data for the {primary_endpoint} will be classified as non-responders (treatment failure). This approach is consistent with the treatment policy estimand strategy.
+
+### 8.3 Missing Data Rules by Endpoint Type
+
+| Endpoint Type | Primary Rule | Rationale |
+|--------------|--------------|-----------|
+| Binary efficacy | Non-responder imputation | Conservative for efficacy |
+| Continuous | Last observation carried forward (LOCF) | Sensitivity: MMRM |
+| Time-to-event | Censored at last known status | Standard survival analysis |
+
+### 8.4 Sensitivity Analyses for Missing Data
+
+To assess the robustness of the primary analysis conclusions, the following sensitivity analyses will be performed:
+
+1. **Complete Case Analysis:** Analysis restricted to patients with observed primary endpoint
+2. **Multiple Imputation:** Using MICE methodology under MAR assumption
+3. **Tipping Point Analysis:** To determine how extreme assumptions about missing data would need to be to change conclusions
+4. **Pattern Mixture Models:** Sensitivity to MNAR assumptions
+
+### 8.5 Visit Windows
+
+Analysis windows for each assessment timepoint are defined in the protocol. If multiple assessments occur within a window, the assessment closest to the target day will be used.
+
+### 8.6 Partial Data
+
+- Partial response data: Individual components will be imputed using last observation if available
+- If individual components cannot be derived: Overall response will be set to non-responder
+"""
+
+    def _generate_safety_analysis(self, facts: FullProtocolFacts) -> str:
+        """Generate Section 9: Safety Analysis"""
+        drug_name = facts.drug_name or "study drug"
+        num_arms = facts.num_arms or 2
+
+        # Build arm column headers
+        arm_names = facts.arm_names if facts.arm_names else [f"Arm {i+1}" for i in range(num_arms)]
+        arm_headers = " | ".join(arm_names)
+        arm_cols = " | ".join(["n (%)" for _ in arm_names])
+
+        return f"""## 9. SAFETY ANALYSIS
+
+### 9.1 General Principles
+
+Safety analyses will be performed on the Safety Population (all patients who received at least one dose of study medication). No formal statistical testing will be performed for safety endpoints; descriptive statistics and listings will be provided.
+
+### 9.2 Adverse Events
+
+#### 9.2.1 Adverse Event Coding
+
+Adverse events will be coded using MedDRA (latest version available at database lock). Events will be summarized by System Organ Class (SOC) and Preferred Term (PT).
+
+#### 9.2.2 Treatment-Emergent Adverse Events (TEAEs)
+
+TEAEs are defined as AEs that started or worsened after the first dose of study medication.
+
+#### 9.2.3 Adverse Event Summaries
+
+The following tables will be produced:
+
+| Table | Description |
+|-------|-------------|
+| AE.01 | Overview of adverse events |
+| AE.02 | TEAEs by SOC and PT |
+| AE.03 | TEAEs by relationship to study drug |
+| AE.04 | TEAEs by severity |
+| AE.05 | TEAEs leading to discontinuation |
+| AE.06 | Serious adverse events |
+| AE.07 | Deaths |
+
+#### 9.2.4 Table Shell Example: Overview of Adverse Events
+
+| Category | {arm_headers} | Total |
+|----------|{arm_cols}|-------|
+| Any TEAE | | |
+| Any treatment-related TEAE | | |
+| Any SAE | | |
+| Any TEAE leading to discontinuation | | |
+| Deaths | | |
+
+### 9.3 Laboratory Parameters
+
+Clinical laboratory data (hematology, chemistry, urinalysis) will be summarized using:
+
+1. Descriptive statistics (n, mean, SD, median, min, max) by timepoint
+2. Change from baseline statistics
+3. Shift tables (baseline vs. worst post-baseline value)
+4. Patients with potentially clinically significant (PCS) values
+
+### 9.4 Vital Signs
+
+Vital signs will be summarized using:
+- Descriptive statistics by timepoint
+- Change from baseline
+- Patients with PCS values
+
+### 9.5 Electrocardiogram (ECG)
+
+If applicable, ECG parameters will be summarized using:
+- Descriptive statistics by timepoint
+- Change from baseline
+- Categorical analysis of QTcF changes
+
+### 9.6 Immunogenicity
+
+Anti-drug antibody (ADA) assessments will be summarized:
+- Incidence of treatment-emergent ADA
+- Relationship between ADA status and efficacy/safety
+
+### 9.7 Exposure
+
+Exposure to {drug_name} will be summarized:
+- Duration of treatment
+- Number of doses received
+- Cumulative dose
+"""
+
     def _assemble_sap(self, sections: Dict[str, str], facts) -> str:
         """Assemble sections into complete SAP document.
 
@@ -585,11 +1054,25 @@ TABLE OF CONTENTS
 ============================================================
 """
 
+        # Assemble body in correct section order
         body = ""
-        if 'study_design' in sections:
-            body += sections['study_design'] + "\n\n"
-        if 'sample_size' in sections:
-            body += sections['sample_size'] + "\n\n"
+        section_order = [
+            '1_introduction',
+            '2_objectives_estimands',
+            '3_study_design',
+            'study_design',  # Legacy key
+            '4_analysis_populations',
+            '5_endpoints',
+            '6_sample_size',
+            'sample_size',  # Legacy key
+            '7_statistical_methods',
+            '8_missing_data',
+            '9_safety_analysis',
+        ]
+
+        for section_key in section_order:
+            if section_key in sections:
+                body += sections[section_key] + "\n\n"
 
         footer = """
 ============================================================

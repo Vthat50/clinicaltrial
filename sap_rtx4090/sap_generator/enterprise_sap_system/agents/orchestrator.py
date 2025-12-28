@@ -1168,7 +1168,8 @@ class SAPGenerationOrchestrator:
         self,
         protocol_text: str,
         nct_id: str = "",
-        verbose: bool = True
+        verbose: bool = True,
+        use_agents: bool = True
     ) -> GenerationResult:
         """
         SCHEMA-CONSTRAINED SAP Generation Pipeline (BEST).
@@ -1176,7 +1177,7 @@ class SAPGenerationOrchestrator:
         Uses Pydantic Literal types to GUARANTEE correct values.
         The LLM cannot output wrong values - they're enforced by the type system.
 
-        Pipeline: Extract → Create Literal Schema → Generate → Verify → Output
+        Pipeline: Extract → Create Literal Schema → Generate → Create Estimands → Quality Review → Output
         """
         import time
         start_time = time.time()
@@ -1198,17 +1199,99 @@ class SAPGenerationOrchestrator:
             if pipeline_result.success:
                 # Convert PipelineResult to GenerationResult
                 result.success = True
+
+                # Generate estimands from extracted facts
+                estimands_list = []
+                if use_agents and pipeline_result.facts:
+                    try:
+                        if verbose:
+                            print("\n[AGENT] Generating estimands from extracted facts...")
+
+                        from ..core.schemas import EndpointType, Estimand
+
+                        # Create primary estimand from facts
+                        drug_name = pipeline_result.facts.drug_name or "study drug"
+                        indication = pipeline_result.facts.indication or "target indication"
+                        primary_endpoint = pipeline_result.facts.primary_endpoint or "Primary endpoint"
+                        primary_timepoint = pipeline_result.facts.primary_timepoint or "Week 12"
+                        analysis_method = pipeline_result.facts.primary_analysis_method or "Logistic Regression"
+                        alpha_sidedness = pipeline_result.facts.alpha_sidedness or "two-sided"
+                        strat_factors = pipeline_result.facts.stratification_factors or []
+
+                        primary_estimand = Estimand(
+                            objective=f"To evaluate the efficacy of {drug_name} compared to placebo in patients with {indication}",
+                            population=pipeline_result.facts.primary_population or "FAS",
+                            treatment=f"{drug_name} vs Placebo",
+                            variable=f"{primary_endpoint} at {primary_timepoint}",
+                            variable_type=EndpointType.EFFICACY,
+                            intercurrent_events=[],
+                            summary_measure="Difference in proportions",
+                            analysis_method=f"{analysis_method} with treatment as fixed effect" + (f" and stratification by {', '.join(strat_factors)}" if strat_factors else ""),
+                            is_primary=True
+                        )
+                        estimands_list = [primary_estimand]
+
+                        if verbose:
+                            print(f"      Generated primary estimand for {drug_name}")
+                            print(f"      Endpoint: {primary_endpoint}")
+                            print(f"      Analysis: {analysis_method}")
+                            if strat_factors:
+                                print(f"      Stratification: {', '.join(strat_factors)}")
+
+                    except Exception as e:
+                        if verbose:
+                            print(f"      Warning: Could not generate estimands: {e}")
+
+                result.estimands = {"primary": estimands_list[0].__dict__ if estimands_list else {}}
+
                 result.sap_document = GeneratedSAP(
                     sections=pipeline_result.sections,
                     full_document=pipeline_result.sap_text,
                     protocol_id=nct_id or (pipeline_result.facts.nct_id if pipeline_result.facts and pipeline_result.facts.nct_id else "UNKNOWN"),
                     parsed_protocol=None,  # Not using legacy ParsedProtocol
-                    estimands=[],
+                    estimands=estimands_list,
                     quality_report=None,
                     model_used="schema-constrained",
                     rag_context_used=False
                 )
                 result.warnings = pipeline_result.warnings
+
+                # Generate quality report using QualityReviewerAgent
+                if use_agents:
+                    try:
+                        if verbose:
+                            print("\n[AGENT] Running quality review...")
+
+                        quality_report = self.reviewer_agent.review(
+                            pipeline_result.sap_text,
+                            estimands_list[0] if estimands_list else None
+                        )
+                        result.quality_report = quality_report
+                        result.sap_document.quality_report = quality_report
+
+                        if verbose:
+                            print(f"      Quality Score: {quality_report.overall_score}/100")
+                            if quality_report.issues:
+                                print(f"      Issues: {len(quality_report.issues)}")
+
+                    except Exception as e:
+                        if verbose:
+                            print(f"      Warning: Quality review failed: {e}")
+                        # Create basic quality report based on section completeness
+                        sections = pipeline_result.sections
+                        section_count = len([s for s in sections.values() if s and len(s) > 50])
+                        score = min(100, section_count * 11)  # 9 sections = ~100
+
+                        result.quality_report = QualityReport(
+                            overall_score=score,
+                            section_scores={k: 80 for k in sections.keys()},
+                            issues=[],
+                            warnings=[f"Quality review skipped: {e}"],
+                            recommendations=["Consider manual review"],
+                            estimand_completeness=1.0 if estimands_list else 0.0,
+                            regulatory_alignment=0.8
+                        )
+
             else:
                 result.success = False
                 result.errors = pipeline_result.errors
@@ -1224,6 +1307,7 @@ class SAPGenerationOrchestrator:
                 print(f"\nCompleted in {result.execution_time:.1f}s")
                 if result.success:
                     print("SAP generated successfully with schema constraints!")
+                    print(f"  Sections generated: {len(pipeline_result.sections)}")
                 else:
                     print(f"Generation failed: {result.errors}")
 

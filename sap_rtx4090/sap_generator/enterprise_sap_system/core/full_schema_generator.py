@@ -573,16 +573,55 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         facts.ratio = ratio_match.group(1)
         facts.num_arms = len(facts.ratio.split(':'))
 
-    # === ARMS ===
-    arm_pattern = r'(?:Arm|Group)\s*([A-D1-4])[:\s]+([^\n]+)'
-    arm_matches = re.finditer(arm_pattern, protocol_text, re.I)
+    # === ARMS (Improved extraction with doses) ===
+    # First, look for structured arm definitions like "- Arm A: TJ301 300 mg"
+    arm_pattern = r'[-•]\s*(?:Arm|Group)\s*([A-D1-4])[:\s]+([^\n]+?)(?:\n|$)'
+    arm_matches = list(re.finditer(arm_pattern, protocol_text, re.I))
+
     seen_arms = set()
-    for match in arm_matches:
-        arm_id = match.group(1).upper()
-        if arm_id not in seen_arms:
+    if arm_matches:
+        for match in arm_matches:
+            arm_id = match.group(1).upper()
+            arm_desc = match.group(2).strip()[:150]
+
+            # Skip if already seen or too short or looks like title
+            if arm_id in seen_arms or len(arm_desc) < 5:
+                continue
+            if 'study' in arm_desc.lower() and 'patient' in arm_desc.lower():
+                continue  # Skip title-like text
+
             seen_arms.add(arm_id)
             facts.arm_names.append(f"Arm {arm_id}")
-            facts.arm_descriptions.append(match.group(2).strip()[:100])
+
+            # Extract dose from description
+            dose_match = re.search(r'(\d+\s*(?:mg|mcg|g|mL)(?:\s*(?:Q\d+W|every\s+\d+\s+weeks?))?)', arm_desc, re.I)
+            if dose_match:
+                dose = dose_match.group(1)
+                facts.arm_doses.append(dose)
+                facts.arm_descriptions.append(arm_desc)
+            else:
+                facts.arm_descriptions.append(arm_desc)
+                facts.arm_doses.append("")
+
+    # If no structured arms found, try to infer from ratio and drug name
+    if not facts.arm_names and facts.num_arms and facts.drug_name:
+        if facts.num_arms == 2:
+            facts.arm_names = [f"{facts.drug_name}", "Placebo"]
+            facts.arm_descriptions = [f"{facts.drug_name} active treatment", "Matching placebo"]
+        elif facts.num_arms == 3:
+            # Try to find doses in the protocol
+            dose_matches = re.findall(rf'{re.escape(facts.drug_name)}\s+(\d+\s*(?:mg|mcg|g))', protocol_text, re.I)
+            unique_doses = list(dict.fromkeys(dose_matches))[:2]  # Get up to 2 unique doses
+
+            if len(unique_doses) >= 2:
+                facts.arm_names = [f"{facts.drug_name} {unique_doses[0]}", f"{facts.drug_name} {unique_doses[1]}", "Placebo"]
+                facts.arm_descriptions = [f"{facts.drug_name} {unique_doses[0]}", f"{facts.drug_name} {unique_doses[1]}", "Matching placebo"]
+            else:
+                facts.arm_names = [f"{facts.drug_name} High Dose", f"{facts.drug_name} Low Dose", "Placebo"]
+                facts.arm_descriptions = [f"{facts.drug_name} high dose", f"{facts.drug_name} low dose", "Matching placebo"]
+        else:
+            facts.arm_names = [f"Treatment Arm {i+1}" for i in range(facts.num_arms)]
+            facts.arm_descriptions = [f"Treatment arm {i+1}" for i in range(facts.num_arms)]
 
     # Calculate per-arm N
     if facts.total_n and facts.num_arms:
@@ -596,14 +635,33 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         facts.power = f"{power}%"
 
     # === ALPHA ===
-    alpha_match = re.search(r'alpha\s*(?:=|of)?\s*(0\.0\d+)', protocol_text, re.I)
-    if alpha_match:
-        facts.alpha = float(alpha_match.group(1))
+    alpha_patterns = [
+        r'alpha\s*(?:=|of)?\s*(0\.0\d+)',
+        r'significance\s+level\s*(?:=|of)?\s*(0\.0\d+)',
+        r'p\s*[<≤]\s*(0\.0\d+)',
+        r'type\s+I\s+error[:\s]*(0\.0\d+)',
+    ]
+    for pattern in alpha_patterns:
+        alpha_match = re.search(pattern, protocol_text, re.I)
+        if alpha_match:
+            facts.alpha = float(alpha_match.group(1))
+            break
 
-    if re.search(r'one[- ]sided|1[- ]sided', protocol_text, re.I):
-        facts.alpha_sidedness = "one-sided"
-    elif re.search(r'two[- ]sided|2[- ]sided', protocol_text, re.I):
-        facts.alpha_sidedness = "two-sided"
+    # Alpha sidedness - prioritize context near "primary" analysis
+    # First check for specific primary analysis context
+    primary_context = re.search(
+        r'primary\s+(?:endpoint|analysis|efficacy)[^.]*?(one[- ]sided|two[- ]sided|1[- ]sided|2[- ]sided)',
+        protocol_text, re.I
+    )
+    if primary_context:
+        sidedness = primary_context.group(1).lower()
+        facts.alpha_sidedness = "one-sided" if "one" in sidedness or "1" in sidedness else "two-sided"
+    else:
+        # Fallback to general detection
+        if re.search(r'one[- ]sided|1[- ]sided', protocol_text, re.I):
+            facts.alpha_sidedness = "one-sided"
+        elif re.search(r'two[- ]sided|2[- ]sided', protocol_text, re.I):
+            facts.alpha_sidedness = "two-sided"
 
     # === DROPOUT ===
     dropout_match = re.search(r'(\d{1,2})%?\s*(?:dropout|discontinuation|withdrawal)', protocol_text, re.I)
@@ -628,18 +686,128 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
     if pop_match:
         facts.primary_population = pop_match.group(1).upper()
 
-    # === STRATIFICATION ===
-    strat_match = re.search(
-        r'(?:stratif(?:y|ied|ication)\s+(?:by|factors?)[:\s]+)([^\n.]+)',
+    # === STRATIFICATION (Improved extraction) ===
+    # Look for stratification section with bullet points
+    strat_section = re.search(
+        r'(?:stratif(?:y|ied|ication)|randomization\s+(?:will\s+be\s+)?stratif(?:y|ied))\s+(?:by|according\s+to)?[:\s]*\n?([-•][^\n]+(?:\n[-•][^\n]+)*)',
         protocol_text, re.I
     )
-    if strat_match:
-        factors_text = strat_match.group(1)
-        factors = re.split(r'[,;]|\band\b', factors_text)
-        for f in factors:
-            f = f.strip()
-            if 5 < len(f) < 100:
-                facts.stratification_factors.append(f)
+
+    if strat_section:
+        # Extract bullet points
+        bullets = re.findall(r'[-•]\s*([^\n]+)', strat_section.group(1))
+        for bullet in bullets:
+            factor = bullet.strip()
+            # Clean up but keep (yes/no) annotations
+            factor = re.sub(r'^\d+\.\s*', '', factor)
+            if 5 < len(factor) < 100:
+                # Normalize to prevent duplicates
+                normalized = factor.lower().strip()
+                existing_normalized = [f.lower().strip() for f in facts.stratification_factors]
+                if normalized not in existing_normalized:
+                    facts.stratification_factors.append(factor)
+    else:
+        # Fallback: look for inline stratification
+        strat_inline = re.search(
+            r'stratif(?:y|ied|ication)\s+(?:by|according\s+to)[:\s]+([^.]+)',
+            protocol_text, re.I
+        )
+        if strat_inline:
+            factors_text = strat_inline.group(1)
+            # Split by "and" or comma, but not if inside parentheses
+            factors = re.split(r'\s+and\s+|,\s*(?![^()]*\))', factors_text)
+            for f in factors:
+                f = f.strip()
+                if 5 < len(f) < 100 and 'covariate' not in f.lower():
+                    normalized = f.lower().strip()
+                    existing_normalized = [x.lower().strip() for x in facts.stratification_factors]
+                    if normalized not in existing_normalized:
+                        facts.stratification_factors.append(f)
+
+    # === SECONDARY ENDPOINTS ===
+    secondary_patterns = [
+        r'secondary\s+(?:efficacy\s+)?endpoints?[:\s]+([^\n]+(?:\n(?![A-Z0-9])[^\n]+)*)',
+        r'secondary\s+objectives?[:\s]+([^\n]+)',
+    ]
+    for pattern in secondary_patterns:
+        sec_matches = re.finditer(pattern, protocol_text, re.I)
+        for sec_match in sec_matches:
+            endpoint_text = sec_match.group(1)
+            # Split if multiple endpoints listed
+            endpoints = re.split(r'[;]|\n[-•]|\d+\.\s+', endpoint_text)
+            for ep in endpoints[:5]:  # Limit to 5
+                ep = ep.strip()
+                if 10 < len(ep) < 200 and ep not in facts.secondary_endpoints:
+                    facts.secondary_endpoints.append(ep)
+
+    # === POPULATION DEFINITIONS ===
+    # ITT definition - look for specific line format "- ITT: All randomized patients"
+    itt_bullet = re.search(r'[-•]\s*ITT[:\s]+([^\n]+)', protocol_text, re.I)
+    if itt_bullet:
+        facts.itt_definition = itt_bullet.group(1).strip()[:150]
+    else:
+        itt_patterns = [
+            r'ITT\s+(?:population)?[:\s]+([^.\n]+)',
+            r'intent[- ]to[- ]treat[^:]*:[:\s]*([^.\n]+)',
+        ]
+        for pattern in itt_patterns:
+            itt_match = re.search(pattern, protocol_text, re.I)
+            if itt_match:
+                defn = itt_match.group(1).strip()
+                # Stop at next bullet point or section
+                defn = re.split(r'\n[-•]|\n[A-Z]', defn)[0]
+                facts.itt_definition = defn[:150]
+                break
+
+    # PP definition
+    pp_patterns = [
+        r'(?:PP|per[- ]protocol)\s+(?:population)?[:\s]+([^.]+)',
+        r'(?:PP|per[- ]protocol)[^.]*(?:defined\s+as|includes?|consists?\s+of)[:\s]+([^.]+)',
+    ]
+    for pattern in pp_patterns:
+        pp_match = re.search(pattern, protocol_text, re.I)
+        if pp_match:
+            facts.pp_definition = pp_match.group(1).strip()[:200]
+            break
+
+    # Safety population
+    safety_patterns = [
+        r'safety\s+(?:population|analysis\s+set)[:\s]+([^.]+)',
+        r'safety\s+(?:population|set)[^.]*(?:defined\s+as|includes?|consists?\s+of)[:\s]+([^.]+)',
+    ]
+    for pattern in safety_patterns:
+        safety_match = re.search(pattern, protocol_text, re.I)
+        if safety_match:
+            facts.safety_definition = safety_match.group(1).strip()[:200]
+            break
+
+    # === PRIMARY ANALYSIS METHOD ===
+    method_patterns = [
+        (r'logistic\s+regression', 'Logistic Regression'),
+        (r'cox\s+(?:proportional\s+)?hazard', 'Cox Proportional Hazards'),
+        (r'kaplan[- ]meier', 'Kaplan-Meier'),
+        (r'log[- ]rank\s+test', 'Log-Rank Test'),
+        (r'CMH\s+test|cochran[- ]mantel[- ]haenszel', 'Cochran-Mantel-Haenszel Test'),
+        (r'ANCOVA|analysis\s+of\s+covariance', 'ANCOVA'),
+        (r'MMRM|mixed[- ]model\s+repeated\s+measures', 'MMRM'),
+        (r"fisher['\u2019]?s?\s+exact", "Fisher's Exact Test"),
+        (r'chi[- ]square|χ²', 'Chi-Square Test'),
+        (r'wilcoxon', 'Wilcoxon Test'),
+        (r't[- ]test', 't-Test'),
+        (r'GEE|generalized\s+estimating\s+equation', 'GEE'),
+    ]
+    for pattern, method_name in method_patterns:
+        # Look for method in context of primary analysis
+        primary_method = re.search(
+            rf'primary\s+(?:endpoint|analysis|efficacy)[^.]*?{pattern}',
+            protocol_text, re.I
+        )
+        if primary_method:
+            facts.primary_analysis_method = method_name
+            break
+        # Fallback: any mention of the method
+        if not facts.primary_analysis_method and re.search(pattern, protocol_text, re.I):
+            facts.primary_analysis_method = method_name
 
     return facts
 
