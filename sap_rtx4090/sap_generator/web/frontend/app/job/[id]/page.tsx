@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
@@ -23,6 +24,33 @@ interface JobResult {
   protocol_preview?: string
 }
 
+interface GroundTruthStudy {
+  nct_id: string
+  title: string
+  sap_lines: number
+  therapeutic_area: string
+  quality?: 'high' | 'standard'
+}
+
+interface EvaluationResult {
+  nct_id: string
+  ground_truth_lines: number
+  generated_lines: number
+  section_coverage_pct: number
+  keyword_overlap_pct: number
+  has_primary_endpoint: boolean
+  has_secondary_endpoint: boolean
+  has_sample_size: boolean
+  has_analysis_populations: boolean
+  has_statistical_methods: boolean
+  has_missing_data: boolean
+  overall_score: number
+  sections_matched: string[]
+  sections_missing: string[]
+  statistical_terms_found: string[]
+  statistical_terms_missing: string[]
+}
+
 export default function JobDetailPage() {
   const params = useParams()
   const router = useRouter()
@@ -32,6 +60,56 @@ export default function JobDetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'sap' | 'protocol'>('sap')
+
+  // Evaluation state
+  const [groundTruthStudies, setGroundTruthStudies] = useState<GroundTruthStudy[]>([])
+  const [selectedStudy, setSelectedStudy] = useState<string>('')
+  const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null)
+  const [evaluating, setEvaluating] = useState(false)
+  const [evalError, setEvalError] = useState<string | null>(null)
+
+  // Fetch ground truth studies on mount
+  useEffect(() => {
+    async function fetchGroundTruth() {
+      try {
+        const res = await fetch(`${API_URL}/ground-truth`)
+        if (res.ok) {
+          const data = await res.json()
+          setGroundTruthStudies(data.studies || [])
+        }
+      } catch (e) {
+        console.error('Failed to fetch ground truth studies:', e)
+      }
+    }
+    fetchGroundTruth()
+  }, [])
+
+  // Run evaluation
+  const runEvaluation = async () => {
+    if (!selectedStudy || !jobId) return
+
+    setEvaluating(true)
+    setEvalError(null)
+    setEvaluation(null)
+
+    try {
+      const res = await fetch(`${API_URL}/evaluate/${jobId}?ground_truth_nct=${selectedStudy}`, {
+        method: 'POST'
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.detail || 'Evaluation failed')
+      }
+
+      const data = await res.json()
+      setEvaluation(data)
+    } catch (e: any) {
+      setEvalError(e.message)
+    } finally {
+      setEvaluating(false)
+    }
+  }
 
   // Poll for status updates
   useEffect(() => {
@@ -169,6 +247,125 @@ export default function JobDetailPage() {
       {/* Completed State */}
       {result.status === 'completed' && (
         <>
+          {/* Evaluation Panel - At Top */}
+          {groundTruthStudies.length > 0 && (
+            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl shadow-sm border border-purple-200 p-5">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">🎯</span>
+                  <h3 className="text-lg font-semibold text-gray-900">Evaluate Against Ground Truth</h3>
+                </div>
+                {evaluation && (
+                  <div className={`px-4 py-2 rounded-full font-bold text-lg ${
+                    evaluation.overall_score >= 70 ? 'bg-green-100 text-green-700' :
+                    evaluation.overall_score >= 50 ? 'bg-yellow-100 text-yellow-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    Score: {evaluation.overall_score}/100
+                  </div>
+                )}
+              </div>
+
+              {/* Study Selector */}
+              <div className="flex gap-3 mb-4">
+                <select
+                  value={selectedStudy}
+                  onChange={(e) => setSelectedStudy(e.target.value)}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm"
+                >
+                  <option value="">Select from {groundTruthStudies.length} ground truth studies...</option>
+                  <optgroup label="High Quality (Real SAP PDFs)">
+                    {groundTruthStudies.filter(s => s.quality === 'high').map((study) => (
+                      <option key={study.nct_id} value={study.nct_id}>
+                        {study.nct_id} - {study.title} ({study.sap_lines} lines)
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Standard (AACT Database)">
+                    {groundTruthStudies.filter(s => s.quality !== 'high').map((study) => (
+                      <option key={study.nct_id} value={study.nct_id}>
+                        {study.nct_id} - {study.therapeutic_area} ({study.sap_lines} lines)
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+                <button
+                  onClick={runEvaluation}
+                  disabled={!selectedStudy || evaluating}
+                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                    !selectedStudy || evaluating
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-purple-600 text-white hover:bg-purple-700'
+                  }`}
+                >
+                  {evaluating ? 'Evaluating...' : 'Compare'}
+                </button>
+              </div>
+
+              {/* Error */}
+              {evalError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm mb-4">
+                  {evalError}
+                </div>
+              )}
+
+              {/* Evaluation Results */}
+              {evaluation && (
+                <div className="space-y-4">
+                  {/* Metrics Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="bg-white rounded-lg p-3 border">
+                      <p className="text-xs text-gray-500 uppercase">Section Coverage</p>
+                      <p className="text-xl font-bold text-purple-600">{evaluation.section_coverage_pct}%</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 border">
+                      <p className="text-xs text-gray-500 uppercase">Keyword Match</p>
+                      <p className="text-xl font-bold text-purple-600">{evaluation.keyword_overlap_pct}%</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 border">
+                      <p className="text-xs text-gray-500 uppercase">Ground Truth</p>
+                      <p className="text-xl font-bold text-gray-700">{evaluation.ground_truth_lines} lines</p>
+                    </div>
+                    <div className="bg-white rounded-lg p-3 border">
+                      <p className="text-xs text-gray-500 uppercase">Generated</p>
+                      <p className="text-xl font-bold text-gray-700">{evaluation.generated_lines} lines</p>
+                    </div>
+                  </div>
+
+                  {/* Structure Checklist */}
+                  <div className="bg-white rounded-lg p-4 border">
+                    <p className="text-sm font-medium text-gray-700 mb-3">Structure Checklist</p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                      {[
+                        { label: 'Primary Endpoint', value: evaluation.has_primary_endpoint },
+                        { label: 'Secondary Endpoint', value: evaluation.has_secondary_endpoint },
+                        { label: 'Sample Size', value: evaluation.has_sample_size },
+                        { label: 'Analysis Populations', value: evaluation.has_analysis_populations },
+                        { label: 'Statistical Methods', value: evaluation.has_statistical_methods },
+                        { label: 'Missing Data', value: evaluation.has_missing_data },
+                      ].map((item) => (
+                        <div key={item.label} className="flex items-center gap-2">
+                          <span className={item.value ? 'text-green-500' : 'text-red-400'}>
+                            {item.value ? '✓' : '✗'}
+                          </span>
+                          <span className={item.value ? 'text-gray-700' : 'text-gray-400'}>{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Missing Sections */}
+                  {evaluation.sections_missing.length > 0 && (
+                    <div className="bg-yellow-50 rounded-lg p-3 border border-yellow-200">
+                      <p className="text-sm font-medium text-yellow-800 mb-1">Missing Sections:</p>
+                      <p className="text-sm text-yellow-700">{evaluation.sections_missing.join(', ')}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             <div className="bg-white rounded-xl shadow-sm border p-4">
@@ -248,7 +445,7 @@ export default function JobDetailPage() {
                     </button>
                   </div>
                   <div className="prose max-w-none markdown-body overflow-auto max-h-[600px] border rounded-lg p-6 bg-gray-50">
-                    <ReactMarkdown>{result.generated_sap}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.generated_sap}</ReactMarkdown>
                   </div>
                 </div>
               )}
