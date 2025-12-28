@@ -734,6 +734,176 @@ async def get_stats():
 
 
 # =============================================================================
+# SDTM SPECIFICATION ENDPOINT
+# =============================================================================
+
+class SDTMSpecResponse(BaseModel):
+    """Response model for SDTM specification generation."""
+    success: bool
+    message: str
+    sdtm_version: str = "3.4"
+    domains: list = []  # List of domain specs
+    domain_count: int = 0
+    markdown: str = ""  # Full markdown specification
+    errors: list = []
+
+
+@app.post("/generate-sdtm/{job_id}", response_model=SDTMSpecResponse)
+async def generate_sdtm_specs(job_id: str):
+    """
+    Generate SDTM domain specifications from a completed SAP job.
+
+    This endpoint takes a job_id that has already completed SAP generation,
+    extracts the protocol facts, and generates CDISC-compliant SDTM specs.
+
+    Returns:
+        - List of required SDTM domains (DM, AE, EX, DS, etc.)
+        - Variable-level specifications for each domain
+        - Core classifications (Req/Exp/Perm) per CDISC SDTMIG v3.4
+    """
+    try:
+        db = get_supabase()
+
+        # Get job and verify it's completed
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Job not ready for SDTM generation. Status: {job['status']}"
+            )
+
+        # Import SDTM generator
+        try:
+            from enterprise_sap_system.specs.sdtm_specs import SDTMSpecGenerator
+        except ImportError as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"SDTM generator not available: {e}"
+            )
+
+        # Build protocol facts from job data
+        protocol_text = job.get("protocol_text", "")
+        sap_text = job.get("generated_sap", "")
+
+        protocol_facts = {
+            "protocol_id": job.get("nct_id") or "UNKNOWN",
+            "study_id": job.get("nct_id") or "UNKNOWN",
+            "therapeutic_area": _detect_therapeutic_area(protocol_text),
+            "indication": _detect_indication(protocol_text),
+            "drug_name": _extract_drug_name(sap_text),
+            "treatments": _extract_treatments(sap_text),
+            "primary_endpoint": _extract_primary_endpoint(sap_text),
+            "primary_timepoint": _extract_timepoint(sap_text),
+            "secondary_endpoints": _extract_secondary_endpoints(sap_text),
+            "total_n": _extract_sample_size(sap_text),
+        }
+
+        # Generate SDTM specs
+        generator = SDTMSpecGenerator()
+        spec = generator.generate(protocol_facts)
+
+        # Convert domains to JSON-serializable format
+        domains_json = []
+        for domain in spec.domains:
+            domain_dict = {
+                "code": domain.code,
+                "name": domain.name,
+                "label": domain.label,
+                "class": domain.domain_class.value,
+                "structure": domain.structure,
+                "purpose": domain.purpose,
+                "variables": [
+                    {
+                        "name": v.name,
+                        "label": v.label,
+                        "type": v.type,
+                        "length": v.length,
+                        "core": v.core.value,
+                        "codelist": v.codelist,
+                    }
+                    for v in domain.variables
+                ]
+            }
+            domains_json.append(domain_dict)
+
+        # Generate markdown
+        markdown = spec.to_markdown()
+
+        return SDTMSpecResponse(
+            success=True,
+            message=f"Generated SDTM specs for {len(spec.domains)} domains",
+            sdtm_version=spec.sdtm_version,
+            domains=domains_json,
+            domain_count=len(spec.domains),
+            markdown=markdown,
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        return SDTMSpecResponse(
+            success=False,
+            message=f"SDTM generation failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
+def _detect_indication(text: str) -> str:
+    """Detect indication from protocol text."""
+    text_lower = text.lower()
+    if 'ulcerative colitis' in text_lower:
+        return 'Ulcerative Colitis'
+    elif 'crohn' in text_lower:
+        return "Crohn's Disease"
+    elif 'melanoma' in text_lower:
+        return 'Melanoma'
+    elif 'breast cancer' in text_lower:
+        return 'Breast Cancer'
+    elif 'lung cancer' in text_lower or 'nsclc' in text_lower:
+        return 'Non-Small Cell Lung Cancer'
+    elif 'rheumatoid arthritis' in text_lower:
+        return 'Rheumatoid Arthritis'
+    return ''
+
+
+def _extract_timepoint(sap_text: str) -> str:
+    """Extract primary timepoint from SAP text."""
+    import re
+    patterns = [
+        r'(?:primary|week)\s*(\d+)',
+        r'at\s+week\s+(\d+)',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, sap_text, re.IGNORECASE)
+        if match:
+            return f"Week {match.group(1)}"
+    return "Week 12"
+
+
+def _extract_secondary_endpoints(sap_text: str) -> list:
+    """Extract secondary endpoints from SAP text."""
+    import re
+    endpoints = []
+    # Look for secondary endpoint section
+    match = re.search(r'secondary\s+endpoint[s]?[:\s]+([^\n]+(?:\n[^\n]+)*?)(?=\n\n|\Z)', sap_text, re.IGNORECASE)
+    if match:
+        text = match.group(1)
+        # Split by common delimiters
+        for item in re.split(r'[;•\n]', text):
+            item = item.strip()
+            if item and len(item) > 5 and len(item) < 200:
+                endpoints.append({"name": item[:100]})
+    return endpoints[:5]  # Max 5
+
+
+# =============================================================================
 # CODE GENERATION ENDPOINT (Additive - does not modify existing functionality)
 # =============================================================================
 

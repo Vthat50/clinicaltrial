@@ -27,15 +27,23 @@ from core.full_schema_generator import FullProtocolFacts
 # Import new code generators (additive)
 from code_generators import CodeGenerationOrchestrator, GenerationPackage
 
+# Import SDTM specification generator
+from specs.sdtm_specs import SDTMSpecGenerator, SDTMSpecification
+
 
 @dataclass
 class FullGenerationResult:
-    """Combined result: SAP + SAS Code"""
+    """Combined result: SAP + SDTM Specs + SAS Code"""
     # SAP Generation
     sap_success: bool = False
     sap_text: str = ""
     facts: Optional[FullProtocolFacts] = None
     sap_errors: list = field(default_factory=list)
+
+    # SDTM Specification Generation
+    sdtm_success: bool = False
+    sdtm_spec: Optional[SDTMSpecification] = None
+    sdtm_errors: list = field(default_factory=list)
 
     # Code Generation
     code_success: bool = False
@@ -44,6 +52,7 @@ class FullGenerationResult:
 
     # Output paths
     sap_path: str = ""
+    sdtm_path: str = ""
     code_paths: Dict[str, str] = field(default_factory=dict)
 
 
@@ -221,6 +230,37 @@ def _extract_week_number(timepoint: str) -> int:
     return 12  # Default
 
 
+def generate_sdtm_specs_from_facts(
+    facts: FullProtocolFacts,
+    output_dir: str = None
+) -> SDTMSpecification:
+    """
+    Generate SDTM domain specifications from FullProtocolFacts.
+
+    This implements Sandy's vision: Protocol/SAP → SDTM Specs
+
+    Args:
+        facts: FullProtocolFacts from SAP generation
+        output_dir: Optional directory to save specs
+
+    Returns:
+        SDTMSpecification with all required domains
+    """
+    # Convert facts to dict format
+    facts_dict = facts_to_dict(facts)
+
+    # Generate SDTM specs
+    generator = SDTMSpecGenerator()
+    spec = generator.generate(facts_dict)
+
+    # Save if output dir provided
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+        generator.save_specification(spec, output_dir)
+
+    return spec
+
+
 def generate_code_from_facts(
     facts: FullProtocolFacts,
     output_dir: str = None
@@ -257,12 +297,13 @@ def generate_sap_with_code(
     skip_sections: list = None
 ) -> FullGenerationResult:
     """
-    Full pipeline: Protocol → SAP → SAS Code
+    Full pipeline: Protocol → SAP → SDTM Specs → SAS Code
 
-    This is the main integration function that:
+    This is the main integration function implementing Sandy's vision:
     1. Generates SAP using existing pipeline (unchanged)
     2. Extracts protocol facts
-    3. Generates SAS code from facts
+    3. Generates SDTM domain specifications from facts
+    4. Generates SAS code from facts
 
     Args:
         protocol_text: Full protocol document text
@@ -271,15 +312,15 @@ def generate_sap_with_code(
         skip_sections: SAP sections to skip
 
     Returns:
-        FullGenerationResult with SAP and code
+        FullGenerationResult with SAP, SDTM specs, and code
     """
     result = FullGenerationResult()
 
     # Step 1: Generate SAP using existing pipeline
     print("\n" + "="*60)
-    print("INTEGRATED SAP + CODE GENERATION")
+    print("INTEGRATED SAP + SDTM + CODE GENERATION")
     print("="*60)
-    print("\n[1/2] Generating SAP...")
+    print("\n[1/3] Generating SAP...")
 
     pipeline = ConstrainedSAPPipeline()
     sap_result = pipeline.generate(
@@ -299,8 +340,39 @@ def generate_sap_with_code(
 
     print(f"[✓] SAP generated successfully ({len(sap_result.sap_text):,} characters)")
 
-    # Step 2: Generate SAS code from facts
-    print("\n[2/2] Generating SAS code...")
+    # Step 2: Generate SDTM Specifications from facts
+    print("\n[2/3] Generating SDTM specifications...")
+
+    if sap_result.facts:
+        try:
+            sdtm_output_dir = None
+            if output_dir:
+                sdtm_output_dir = os.path.join(output_dir, "sdtm_specs")
+
+            sdtm_spec = generate_sdtm_specs_from_facts(
+                facts=sap_result.facts,
+                output_dir=sdtm_output_dir
+            )
+
+            result.sdtm_success = True
+            result.sdtm_spec = sdtm_spec
+
+            if output_dir:
+                result.sdtm_path = os.path.join(sdtm_output_dir, "sdtm_specification.md")
+
+            print(f"[✓] Generated SDTM specs for {len(sdtm_spec.domains)} domains")
+            print(f"    Domains: {', '.join(sdtm_spec.get_all_domain_codes())}")
+
+        except Exception as e:
+            result.sdtm_success = False
+            result.sdtm_errors.append(str(e))
+            print(f"[!] SDTM spec generation failed: {e}")
+    else:
+        result.sdtm_errors.append("No protocol facts available")
+        print("[!] No protocol facts extracted - cannot generate SDTM specs")
+
+    # Step 3: Generate SAS code from facts
+    print("\n[3/3] Generating SAS code...")
 
     if sap_result.facts:
         try:
@@ -348,8 +420,9 @@ def generate_sap_with_code(
     print("\n" + "="*60)
     print("GENERATION COMPLETE")
     print("="*60)
-    print(f"SAP: {'✓' if result.sap_success else '✗'}")
-    print(f"Code: {'✓' if result.code_success else '✗'}")
+    print(f"SAP:       {'✓' if result.sap_success else '✗'}")
+    print(f"SDTM Specs: {'✓' if result.sdtm_success else '✗'}")
+    print(f"SAS Code:  {'✓' if result.code_success else '✗'}")
 
     if output_dir:
         print(f"\nOutputs saved to: {output_dir}")

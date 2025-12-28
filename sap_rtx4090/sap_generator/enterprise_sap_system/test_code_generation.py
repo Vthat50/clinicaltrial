@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test script for code generation integration.
-Tests the full pipeline: FullProtocolFacts → SAS Code
+Tests the full pipeline: FullProtocolFacts → SDTM Specs → SAS Code
 
 This validates the code generation works correctly without requiring API keys.
 """
@@ -15,7 +15,7 @@ import shutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from core.full_schema_generator import FullProtocolFacts
-from sap_to_code import generate_code_from_facts, facts_to_dict
+from sap_to_code import generate_code_from_facts, generate_sdtm_specs_from_facts, facts_to_dict
 
 
 def create_test_facts() -> FullProtocolFacts:
@@ -84,11 +84,11 @@ def create_test_facts() -> FullProtocolFacts:
 def run_test():
     """Run the code generation test."""
     print("=" * 70)
-    print("CODE GENERATION INTEGRATION TEST")
+    print("CODE GENERATION INTEGRATION TEST (with SDTM Specs)")
     print("=" * 70)
 
     # Step 1: Create test facts
-    print("\n[1/5] Creating test protocol facts...")
+    print("\n[1/6] Creating test protocol facts...")
     facts = create_test_facts()
     print(f"      Protocol: {facts.nct_id} - {facts.drug_name}")
     print(f"      Arms: {', '.join(facts.arm_names)}")
@@ -96,7 +96,7 @@ def run_test():
     print("      ✓ Facts created")
 
     # Step 2: Test facts_to_dict conversion
-    print("\n[2/5] Testing facts_to_dict conversion...")
+    print("\n[2/6] Testing facts_to_dict conversion...")
     facts_dict = facts_to_dict(facts)
 
     required_keys = [
@@ -113,9 +113,53 @@ def run_test():
     print(f"      Primary endpoint type: {facts_dict['primary_endpoint']['type']}")
     print("      ✓ Conversion successful")
 
-    # Step 3: Generate code to temp directory
-    print("\n[3/5] Generating SAS code...")
+    # Step 3: Generate SDTM specifications
+    print("\n[3/6] Generating SDTM specifications...")
     temp_dir = tempfile.mkdtemp(prefix="sas_test_")
+
+    try:
+        sdtm_dir = os.path.join(temp_dir, "sdtm_specs")
+        sdtm_spec = generate_sdtm_specs_from_facts(facts, output_dir=sdtm_dir)
+
+        print(f"      SDTM Version: {sdtm_spec.sdtm_version}")
+        print(f"      Domains generated: {len(sdtm_spec.domains)}")
+        print(f"      Domain codes: {', '.join(sdtm_spec.get_all_domain_codes())}")
+
+        # Verify required domains for IBD trial
+        required_domains = ["DM", "AE", "DS", "EX", "CM", "QS"]  # QS for Mayo Score
+        missing_domains = [d for d in required_domains if d not in sdtm_spec.get_all_domain_codes()]
+
+        if missing_domains:
+            print(f"      ✗ Missing expected domains: {missing_domains}")
+        else:
+            print(f"      ✓ All expected domains present")
+
+        # Verify SDTM files created
+        sdtm_md = os.path.join(sdtm_dir, "sdtm_specification.md")
+        sdtm_json = os.path.join(sdtm_dir, "sdtm_specification.json")
+
+        if os.path.exists(sdtm_md):
+            size = os.path.getsize(sdtm_md)
+            print(f"      ✓ sdtm_specification.md ({size:,} bytes)")
+        else:
+            print(f"      ✗ sdtm_specification.md (MISSING)")
+
+        if os.path.exists(sdtm_json):
+            size = os.path.getsize(sdtm_json)
+            print(f"      ✓ sdtm_specification.json ({size:,} bytes)")
+        else:
+            print(f"      ✗ sdtm_specification.json (MISSING)")
+
+        print("      ✓ SDTM specification generation successful")
+
+    except Exception as e:
+        print(f"      ✗ SDTM spec generation error: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+    # Step 4: Generate code to temp directory
+    print("\n[4/6] Generating SAS code...")
 
     try:
         package = generate_code_from_facts(facts, output_dir=temp_dir)
@@ -130,8 +174,8 @@ def run_test():
 
         print("      ✓ Code generation successful")
 
-        # Step 4: Verify output files
-        print("\n[4/5] Verifying output files...")
+        # Step 5: Verify output files
+        print("\n[5/6] Verifying output files...")
 
         # Note: ADTTE and f_km.sas are only generated for time-to-event endpoints (oncology)
         # This IBD trial has binary endpoints, so they are correctly skipped
@@ -172,8 +216,8 @@ def run_test():
             print("\n      Some files missing!")
             return False
 
-        # Step 5: Validate code content
-        print("\n[5/5] Validating code content...")
+        # Step 6: Validate code content
+        print("\n[6/6] Validating code content...")
 
         # Check ADSL has correct treatment derivation
         adsl_path = os.path.join(temp_dir, "adam/adsl.sas")
