@@ -2125,6 +2125,10 @@ Footnotes:
             total_n = facts.total_n.value if facts.total_n else 0
             ratio = facts.ratio.value if facts.ratio else "1:1"
 
+        # Generate version date for document control
+        from datetime import datetime
+        version_date = datetime.now().strftime("%d%b%Y").upper()
+
         header = f"""# STATISTICAL ANALYSIS PLAN
 
 **Protocol:** {nct}
