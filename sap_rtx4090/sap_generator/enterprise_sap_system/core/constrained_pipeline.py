@@ -1097,21 +1097,25 @@ To evaluate the efficacy of {drug_name} compared to placebo in patients with {in
 
 The primary estimand is defined according to ICH E9(R1) with the following attributes:
 
-| Attribute | Specification |
-|-----------|---------------|
-| **Population** | Adult patients with {indication} who meet all inclusion criteria and none of the exclusion criteria |
-| **Treatment** | {drug_name} vs. Placebo |
-| **Variable** | {primary_endpoint} at {primary_timepoint} |
-| **Intercurrent Events** | See Section 2.2.1 |
-| **Summary Measure** | Difference in proportions (or appropriate measure) |
++------------------------+-------------------------------------------------------------------------+
+| Attribute              | Specification                                                           |
++------------------------+-------------------------------------------------------------------------+
+| Population             | Adult patients with {indication} meeting inclusion/exclusion criteria   |
+| Treatment              | {drug_name} vs. Placebo                                                 |
+| Variable               | {primary_endpoint} at {primary_timepoint}                               |
+| Intercurrent Events    | See Section 2.2.1 below                                                 |
+| Summary Measure        | Difference in proportions (or appropriate measure)                      |
++------------------------+-------------------------------------------------------------------------+
 
 #### 2.2.1 Intercurrent Events and Strategies
 
-| Intercurrent Event | Strategy | Rationale |
-|-------------------|----------|-----------|
-| Treatment discontinuation due to adverse event | Treatment Policy | Captures real-world treatment effect |
-| Use of rescue medication | Treatment Policy | Part of intended treatment strategy |
-| Missing assessment | Treatment Policy (imputed as non-responder) | Conservative approach for efficacy |
++------------------------------------------+------------------+-------------------------------------+
+| Intercurrent Event                       | Strategy         | Rationale                           |
++------------------------------------------+------------------+-------------------------------------+
+| Treatment discontinuation due to AE      | Treatment Policy | Captures real-world treatment effect|
+| Use of rescue medication                 | Treatment Policy | Part of intended treatment strategy |
+| Missing assessment                       | Non-responder    | Conservative approach for efficacy  |
++------------------------------------------+------------------+-------------------------------------+
 
 ### 2.3 Secondary Objectives
 
@@ -1172,12 +1176,14 @@ This is the primary analysis population for all safety analyses.
 {pk_section}
 ### 4.6 Population Derivation
 
-| Population | Inclusion Criteria | Exclusion Criteria | Primary Use |
-|------------|-------------------|-------------------|-------------|
-| ITT | All randomized | None | Sensitivity analysis |
-| FAS | ITT + ≥1 dose + ≥1 post-baseline assessment | None | **Primary efficacy** |
-| PP | FAS | Major protocol violations | Supportive efficacy |
-| Safety | ≥1 dose of study medication | None | **Safety analysis** |
++------------+----------------------------------------+---------------------------+----------------------+
+| Population | Inclusion Criteria                     | Exclusion Criteria        | Primary Use          |
++------------+----------------------------------------+---------------------------+----------------------+
+| ITT        | All randomized                         | None                      | Sensitivity analysis |
+| FAS        | ITT + ≥1 dose + ≥1 post-baseline       | None                      | PRIMARY EFFICACY     |
+| PP         | FAS patients                           | Major protocol violations | Supportive efficacy  |
+| Safety     | ≥1 dose of study medication            | None                      | SAFETY ANALYSIS      |
++------------+----------------------------------------+---------------------------+----------------------+
 """
 
     def _generate_endpoints(self, facts: FullProtocolFacts) -> str:
@@ -1191,30 +1197,37 @@ This is the primary analysis population for all safety analyses.
         if primary_definition:
             primary_def_section = f"\n\n**Definition Criteria:** {primary_definition}"
 
-        # Build secondary endpoints table using detailed info if available
+        # Build secondary endpoints table using detailed info if available (ASCII format)
         secondary_table = ""
         if facts.secondary_endpoints_detailed:
-            secondary_table = "| # | Endpoint | Timepoint |\n|---|----------|----------|\n"
+            secondary_table = "+---+---------------------------------------------------------------------------------+----------------------+\n"
+            secondary_table += "| # | Endpoint                                                                        | Timepoint            |\n"
+            secondary_table += "+---+---------------------------------------------------------------------------------+----------------------+\n"
             for i, ep_info in enumerate(facts.secondary_endpoints_detailed, 1):
                 endpoint = ep_info.get('endpoint', '')[:80]
                 timepoint = ep_info.get('timepoint', 'Various')
-                secondary_table += f"| {i} | {endpoint} | {timepoint} |\n"
+                secondary_table += f"| {i} | {endpoint:<79} | {timepoint:<20} |\n"
+            secondary_table += "+---+---------------------------------------------------------------------------------+----------------------+"
         elif facts.secondary_endpoints:
-            secondary_table = "| # | Endpoint | Timepoint |\n|---|----------|----------|\n"
+            secondary_table = "+---+---------------------------------------------------------------------------------+----------------------+\n"
+            secondary_table += "| # | Endpoint                                                                        | Timepoint            |\n"
+            secondary_table += "+---+---------------------------------------------------------------------------------+----------------------+\n"
             for i, ep in enumerate(facts.secondary_endpoints, 1):
-                secondary_table += f"| {i} | {ep} | Various |\n"
+                secondary_table += f"| {i} | {ep[:79]:<79} | {'Various':<20} |\n"
+            secondary_table += "+---+---------------------------------------------------------------------------------+----------------------+"
         else:
             # Use primary timepoint for fallback - don't hardcode Week 12
             tp = primary_timepoint  # e.g., "Week 12" or "Week 8"
-            secondary_table = f"""| # | Endpoint | Timepoint |
-|---|----------|----------|
-| 1 | Clinical/endoscopic response | {tp} |
-| 2 | Mucosal healing/endoscopic improvement | {tp} |
-| 3 | Clinical remission | Multiple visits through {tp} |
-| 4 | Clinical response | Multiple visits through {tp} |
-| 5 | Change from baseline in disease activity score | Multiple visits through {tp} |
-| 6 | Sustained response | {tp} |
-"""
+            secondary_table = f"""+---+---------------------------------------------------+----------------------------+
+| # | Endpoint                                          | Timepoint                  |
++---+---------------------------------------------------+----------------------------+
+| 1 | Clinical/endoscopic response                      | {tp:<26} |
+| 2 | Mucosal healing/endoscopic improvement            | {tp:<26} |
+| 3 | Clinical remission                                | Multiple visits through {tp:<2} |
+| 4 | Clinical response                                 | Multiple visits through {tp:<2} |
+| 5 | Change from baseline in disease activity score    | Multiple visits through {tp:<2} |
+| 6 | Sustained response                                | {tp:<26} |
++---+---------------------------------------------------+----------------------------+"""
 
         # Build biomarker section if applicable
         biomarker_section = ""
@@ -1250,21 +1263,27 @@ Analysis will include:
 
 ### 5.3 Safety Endpoints
 
-| Category | Endpoints |
-|----------|-----------|
-| Adverse Events | TEAEs, SAEs, AEs leading to discontinuation, AEs by severity |
-| Laboratory | Clinical chemistry, hematology, urinalysis abnormalities |
-| Vital Signs | Changes from baseline in blood pressure, heart rate, temperature |
-| ECG | Changes from baseline in ECG parameters (if applicable) |
++------------------+------------------------------------------------------------------+
+| Category         | Endpoints                                                        |
++------------------+------------------------------------------------------------------+
+| Adverse Events   | TEAEs, SAEs, AEs leading to discontinuation, AEs by severity     |
+| Laboratory       | Clinical chemistry, hematology, urinalysis abnormalities         |
+| Vital Signs      | Changes from baseline in BP, heart rate, temperature             |
+| ECG              | Changes from baseline in ECG parameters (if applicable)          |
++------------------+------------------------------------------------------------------+
 
 ### 5.4 Pharmacokinetic Endpoints
 
-| Parameter | Description |
-|-----------|-------------|
-| AUC | Area under the concentration-time curve |
-| Cmax | Maximum observed concentration |
-| tmax | Time to maximum concentration |
-| t½ | Terminal elimination half-life |
++-----------+--------------------------------------------------------------+
+| Parameter | Description                                                  |
++-----------+--------------------------------------------------------------+
+| AUC       | Area under the concentration-time curve                      |
+| Cmax      | Maximum observed concentration                               |
+| tmax      | Time to maximum concentration                                |
+| t½        | Terminal elimination half-life                               |
+| CL/F      | Apparent clearance (if applicable)                           |
+| Vz/F      | Apparent volume of distribution (if applicable)              |
++-----------+--------------------------------------------------------------+
 {biomarker_section}
 """
 
@@ -1328,17 +1347,19 @@ Y = μ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Valu
 
         subgroup_bullets = "\n".join([f"- {sg}" for sg in subgroup_list])
 
-        # Build visit windows section if available
+        # Build visit windows section if available (ASCII format)
         visit_window_section = ""
         if facts.visit_windows:
-            window_rows = "\n".join([f"| {week} | {window} |" for week, window in facts.visit_windows.items()])
+            window_rows = "\n".join([f"| {week:<9} | {window:<19} |" for week, window in facts.visit_windows.items()])
             visit_window_section = f"""
 
 ### 7.8 Visit Windows
 
-| Visit | Window Definition |
-|-------|-------------------|
++-----------+---------------------+
+| Visit     | Window Definition   |
++-----------+---------------------+
 {window_rows}
++-----------+---------------------+
 
 If multiple assessments occur within a window, the assessment closest to the target day will be used.
 """
@@ -1347,13 +1368,15 @@ If multiple assessments occur within a window, the assessment closest to the tar
 
 ### 7.8 Visit Windows
 
-| Visit | Window Definition |
-|-------|-------------------|
-| Week 4 | Day 28 ± 2 days |
-| Week 6 | Day 42 ± 2 days |
-| Week 8 | Day 56 ± 2 days |
-| Week 10 | Day 70 ± 3 days |
-| Week 12 | Day 84 ± 3 days |
++-----------+---------------------+
+| Visit     | Window Definition   |
++-----------+---------------------+
+| Week 4    | Day 28 ± 2 days     |
+| Week 6    | Day 42 ± 2 days     |
+| Week 8    | Day 56 ± 2 days     |
+| Week 10   | Day 70 ± 3 days     |
+| Week 12   | Day 84 ± 3 days     |
++-----------+---------------------+
 
 If multiple assessments occur within a window, the assessment closest to the target day will be used.
 """
@@ -1393,22 +1416,26 @@ The primary analysis will adjust for the stratification factors used in randomiz
 
 Secondary endpoints will be analyzed using appropriate methods based on endpoint type:
 
-| Endpoint Type | Analysis Method |
-|--------------|-----------------|
-| Binary | Logistic regression with GEE for repeated measures |
-| Continuous | ANCOVA or MMRM for repeated measures |
-| Time-to-event | Kaplan-Meier, Log-rank test, Cox regression |
++---------------+----------------------------------------------------+
+| Endpoint Type | Analysis Method                                    |
++---------------+----------------------------------------------------+
+| Binary        | Logistic regression with GEE for repeated measures |
+| Continuous    | ANCOVA or MMRM for repeated measures               |
+| Time-to-event | Kaplan-Meier, Log-rank test, Cox regression        |
++---------------+----------------------------------------------------+
 
 ### 7.5 Multiplicity Adjustment (Hierarchical Testing)
 
 To control the family-wise type I error rate, secondary endpoints will be tested using a hierarchical (gate-keeping) procedure. Testing will proceed in the following pre-specified order:
 
-| Priority | Endpoint | α-level |
-|----------|----------|---------|
-| 1 | Primary endpoint (high dose vs. placebo) | {alpha} ({alpha_sidedness}) |
-| 2 | Primary endpoint (low dose vs. placebo) | {alpha} ({alpha_sidedness}) |
-| 3 | Key secondary endpoint 1 | {alpha} (if prior tests significant) |
-| 4 | Key secondary endpoint 2 | {alpha} (if prior tests significant) |
++----------+------------------------------------------+----------------------------------+
+| Priority | Endpoint                                 | α-level                          |
++----------+------------------------------------------+----------------------------------+
+| 1        | Primary endpoint (high dose vs. placebo) | {alpha} ({alpha_sidedness})              |
+| 2        | Primary endpoint (low dose vs. placebo)  | {alpha} ({alpha_sidedness})              |
+| 3        | Key secondary endpoint 1                 | {alpha} (if prior tests significant)     |
+| 4        | Key secondary endpoint 2                 | {alpha} (if prior tests significant)     |
++----------+------------------------------------------+----------------------------------+
 
 Testing stops at the first non-significant comparison.
 
@@ -1444,11 +1471,13 @@ Missing data handling follows ICH E9(R1) guidance on estimands and sensitivity a
 
 ### 8.3 Missing Data Rules by Endpoint Type
 
-| Endpoint Type | Primary Rule | Rationale |
-|--------------|--------------|-----------|
-| Binary efficacy | Non-responder imputation | Conservative for efficacy |
-| Continuous | Last observation carried forward (LOCF) | Sensitivity: MMRM |
-| Time-to-event | Censored at last known status | Standard survival analysis |
++------------------+------------------------------------------+---------------------------+
+| Endpoint Type    | Primary Rule                             | Rationale                 |
++------------------+------------------------------------------+---------------------------+
+| Binary efficacy  | Non-responder imputation                 | Conservative for efficacy |
+| Continuous       | Last observation carried forward (LOCF)  | Sensitivity: MMRM         |
+| Time-to-event    | Censored at last known status            | Standard survival analysis|
++------------------+------------------------------------------+---------------------------+
 
 ### 8.4 Sensitivity Analyses for Missing Data
 
@@ -1497,7 +1526,7 @@ Analysis windows for each assessment timepoint are defined in the protocol. If m
         param_rows = ""
         for param in pk_parameters:
             desc = param_descriptions.get(param, "PK parameter")
-            param_rows += f"| {param} | {desc} |\n"
+            param_rows += f"| {param:<12} | {desc:<70} |\n"
 
         # Build sampling schedule if available
         sampling_section = ""
@@ -1538,9 +1567,11 @@ The PK population consists of approximately {pk_population_size} patients who:
 
 The following PK parameters will be calculated using non-compartmental analysis:
 
-| Parameter | Description |
-|-----------|-------------|
-{param_rows}
++--------------+------------------------------------------------------------------------+
+| Parameter    | Description                                                            |
++--------------+------------------------------------------------------------------------+
+{param_rows}+--------------+------------------------------------------------------------------------+
+
 ### 10.3 Analysis Methodology
 
 **Software:** {pk_software} (or equivalent validated software)
@@ -1597,25 +1628,29 @@ TEAEs are defined as AEs that started or worsened after the first dose of study 
 
 The following tables will be produced:
 
-| Table | Description |
-|-------|-------------|
-| AE.01 | Overview of adverse events |
-| AE.02 | TEAEs by SOC and PT |
-| AE.03 | TEAEs by relationship to study drug |
-| AE.04 | TEAEs by severity |
-| AE.05 | TEAEs leading to discontinuation |
-| AE.06 | Serious adverse events |
-| AE.07 | Deaths |
++-------+--------------------------------------+
+| Table | Description                          |
++-------+--------------------------------------+
+| AE.01 | Overview of adverse events           |
+| AE.02 | TEAEs by SOC and PT                  |
+| AE.03 | TEAEs by relationship to study drug  |
+| AE.04 | TEAEs by severity                    |
+| AE.05 | TEAEs leading to discontinuation     |
+| AE.06 | Serious adverse events               |
+| AE.07 | Deaths                               |
++-------+--------------------------------------+
 
 #### 9.2.4 Table Shell Example: Overview of Adverse Events
 
-| Category | {arm_headers} | Total |
-|----------|{arm_cols}|-------|
-| Any TEAE | | |
-| Any treatment-related TEAE | | |
-| Any SAE | | |
-| Any TEAE leading to discontinuation | | |
-| Deaths | | |
++--------------------------------------+------------------+------------------+------------------+
+| Category                             | Treatment Groups | (continued)      | Total            |
++--------------------------------------+------------------+------------------+------------------+
+| Any TEAE                             |                  |                  |                  |
+| Any treatment-related TEAE           |                  |                  |                  |
+| Any SAE                              |                  |                  |                  |
+| Any TEAE leading to discontinuation  |                  |                  |                  |
+| Deaths                               |                  |                  |                  |
++--------------------------------------+------------------+------------------+------------------+
 
 ### 9.3 Laboratory Parameters
 
@@ -1650,12 +1685,14 @@ ADA samples will be collected at protocol-specified timepoints for immunogenicit
 
 #### 9.6.2 ADA Classification
 
-| Category | Definition |
-|----------|------------|
-| **Baseline Status** | ADA positive or negative at baseline (pre-dose) |
-| **Treatment-Emergent** | Negative at baseline → Positive post-baseline, OR ≥4-fold increase from baseline |
-| **Persistent ADA** | Treatment-emergent ADA positive at ≥2 consecutive post-baseline visits ≥16 weeks apart |
-| **Transient ADA** | Treatment-emergent ADA positive at only one visit, or positive at ≥2 visits <16 weeks apart |
++----------------------+-----------------------------------------------------------------------------------+
+| Category             | Definition                                                                        |
++----------------------+-----------------------------------------------------------------------------------+
+| Baseline Status      | ADA positive or negative at baseline (pre-dose)                                   |
+| Treatment-Emergent   | Negative at baseline → Positive post-baseline, OR ≥4-fold increase from baseline  |
+| Persistent ADA       | Treatment-emergent ADA positive at ≥2 consecutive post-baseline visits ≥16 weeks  |
+| Transient ADA        | Treatment-emergent ADA positive at only one visit, or at ≥2 visits <16 weeks apart|
++----------------------+-----------------------------------------------------------------------------------+
 
 #### 9.6.3 ADA Analysis
 
@@ -1826,14 +1863,16 @@ Baseline is defined as the last non-missing value obtained prior to the first do
 
 ### C.6 Visit Windows
 
-| Scheduled Visit | Target Day | Window |
-|-----------------|------------|--------|
-| Week 2 | Day 14 | ±3 days |
-| Week 4 | Day 28 | ±3 days |
-| Week 6 | Day 42 | ±3 days |
-| Week 8 | Day 56 | ±3 days |
-| Week 10 | Day 70 | ±5 days |
-| Week 12 | Day 84 | ±5 days |
++-----------------+------------+----------+
+| Scheduled Visit | Target Day | Window   |
++-----------------+------------+----------+
+| Week 2          | Day 14     | ±3 days  |
+| Week 4          | Day 28     | ±3 days  |
+| Week 6          | Day 42     | ±3 days  |
+| Week 8          | Day 56     | ±3 days  |
+| Week 10         | Day 70     | ±5 days  |
+| Week 12         | Day 84     | ±5 days  |
++-----------------+------------+----------+
 
 Assessments occurring outside the defined visit window will be included in the analysis and assigned to the nearest scheduled visit. Such occurrences will be flagged as protocol deviations in subject listings.
 
