@@ -745,6 +745,7 @@ class SDTMSpecResponse(BaseModel):
     domains: list = []  # List of domain specs
     domain_count: int = 0
     markdown: str = ""  # Full markdown specification
+    sap_summary: dict = {}  # Extracted SAP information (endpoints, populations, etc.)
     errors: list = []
 
 
@@ -787,28 +788,21 @@ async def generate_sdtm_specs(job_id: str):
                 detail=f"SDTM generator not available: {e}"
             )
 
-        # Build protocol facts from job data
+        # Build protocol facts from job data - now passes SAP text for parsing
         protocol_text = job.get("protocol_text", "")
         sap_text = job.get("generated_sap", "")
 
+        # The new generator parses the SAP text to extract study-specific requirements
         protocol_facts = {
             "protocol_id": job.get("nct_id") or "UNKNOWN",
-            "study_id": job.get("nct_id") or "UNKNOWN",
-            "therapeutic_area": _detect_therapeutic_area(protocol_text),
-            "indication": _detect_indication(protocol_text),
-            "drug_name": _extract_drug_name(sap_text),
-            "treatments": _extract_treatments(sap_text),
-            "primary_endpoint": _extract_primary_endpoint(sap_text),
-            "primary_timepoint": _extract_timepoint(sap_text),
-            "secondary_endpoints": _extract_secondary_endpoints(sap_text),
-            "total_n": _extract_sample_size(sap_text),
+            "sap_text": sap_text,  # Key: pass SAP text for parsing
         }
 
-        # Generate SDTM specs
+        # Generate SDTM specs by parsing SAP text
         generator = SDTMSpecGenerator()
         spec = generator.generate(protocol_facts)
 
-        # Convert domains to JSON-serializable format
+        # Convert domains to JSON-serializable format with traceability
         domains_json = []
         for domain in spec.domains:
             domain_dict = {
@@ -818,6 +812,16 @@ async def generate_sdtm_specs(job_id: str):
                 "class": domain.domain_class.value,
                 "structure": domain.structure,
                 "purpose": domain.purpose,
+                "study_specific_notes": domain.study_specific_notes,
+                "traceability": [
+                    {
+                        "sap_section": t.sap_section,
+                        "sap_text": t.sap_text[:200] + "..." if len(t.sap_text) > 200 else t.sap_text,
+                        "sdtm_element": t.sdtm_element,
+                        "rationale": t.rationale
+                    }
+                    for t in domain.traceability
+                ],
                 "variables": [
                     {
                         "name": v.name,
@@ -835,13 +839,17 @@ async def generate_sdtm_specs(job_id: str):
         # Generate markdown
         markdown = spec.to_markdown()
 
+        # Count domains with SAP traceability
+        traced_domains = sum(1 for d in spec.domains if d.traceability)
+
         return SDTMSpecResponse(
             success=True,
-            message=f"Generated SDTM specs for {len(spec.domains)} domains",
+            message=f"Generated SDTM specs for {len(spec.domains)} domains ({traced_domains} with SAP traceability)",
             sdtm_version=spec.sdtm_version,
             domains=domains_json,
             domain_count=len(spec.domains),
             markdown=markdown,
+            sap_summary=spec.sap_summary,
             errors=[]
         )
 

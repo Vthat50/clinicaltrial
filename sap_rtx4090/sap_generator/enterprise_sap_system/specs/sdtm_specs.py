@@ -1,31 +1,28 @@
 #!/usr/bin/env python3
 """
-SDTM Specification Generator
-=============================
+SDTM Specification Generator - SAP-Driven Implementation
+=========================================================
 
-Generates CDISC SDTM domain specifications from protocol facts.
-Based on SDTM Implementation Guide v3.4 and FDA Technical Conformance Guide.
+Generates CDISC SDTM domain specifications by parsing the generated SAP document.
+This implements Sandy's vision: SAP text → SDTM Specs with traceability.
 
-This module implements Sandy's vision: Protocol → SAP → SDTM Specs
-The SDTM specs define what standardized data domains are needed for the study.
+Key features:
+1. Parses SAP text to extract endpoints, populations, variables
+2. Maps extracted elements to specific SDTM domains
+3. Creates traceable links (SAP section → SDTM domain)
+4. Generates study-specific variable requirements
 
 References:
 - CDISC SDTM v1.7: https://www.cdisc.org/standards/foundational/sdtm
 - SDTMIG v3.4: https://www.cdisc.org/standards/foundational/sdtmig
 - FDA Study Data Technical Conformance Guide
-
-Domain Classes:
-- Special Purpose: DM, CO, SE, SV
-- Trial Design: TS, TA, TV, TI, TE
-- Interventions: EX, CM, SU, EC, PR
-- Events: AE, DS, MH, DV, CE
-- Findings: VS, LB, PE, EG, QS, SC
 """
 
-from typing import Dict, List, Optional, Any, Set
+from typing import Dict, List, Optional, Any, Set, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime
+import re
 
 
 class VariableCore(Enum):
@@ -47,6 +44,15 @@ class DomainClass(Enum):
 
 
 @dataclass
+class SAPTraceability:
+    """Links an SDTM element back to its source in the SAP."""
+    sap_section: str           # e.g., "4.1 Primary Endpoint"
+    sap_text: str              # The actual text from SAP
+    sdtm_element: str          # e.g., "QS domain - CDAI Score"
+    rationale: str             # Why this mapping was made
+
+
+@dataclass
 class SDTMVariable:
     """Specification for a single SDTM variable."""
     name: str
@@ -57,6 +63,7 @@ class SDTMVariable:
     codelist: Optional[str] = None
     description: str = ""
     source: str = ""  # Where data comes from (CRF, derived, etc.)
+    sap_source: Optional[str] = None  # SAP section that requires this
 
     def to_dict(self) -> Dict:
         return {
@@ -67,7 +74,8 @@ class SDTMVariable:
             "core": self.core.value,
             "codelist": self.codelist,
             "description": self.description,
-            "source": self.source
+            "source": self.source,
+            "sap_source": self.sap_source
         }
 
 
@@ -83,14 +91,8 @@ class SDTMDomain:
     description: str = ""
     purpose: str = ""
     required_for: List[str] = field(default_factory=list)  # Which TLFs need this
-
-    def get_required_variables(self) -> List[SDTMVariable]:
-        """Return only required variables."""
-        return [v for v in self.variables if v.core == VariableCore.REQUIRED]
-
-    def get_expected_variables(self) -> List[SDTMVariable]:
-        """Return expected variables."""
-        return [v for v in self.variables if v.core == VariableCore.EXPECTED]
+    traceability: List[SAPTraceability] = field(default_factory=list)  # SAP links
+    study_specific_notes: List[str] = field(default_factory=list)  # Study-specific requirements
 
     def to_dict(self) -> Dict:
         return {
@@ -102,7 +104,17 @@ class SDTMDomain:
             "description": self.description,
             "purpose": self.purpose,
             "required_for": self.required_for,
-            "variables": [v.to_dict() for v in self.variables]
+            "variables": [v.to_dict() for v in self.variables],
+            "traceability": [
+                {
+                    "sap_section": t.sap_section,
+                    "sap_text": t.sap_text[:200] + "..." if len(t.sap_text) > 200 else t.sap_text,
+                    "sdtm_element": t.sdtm_element,
+                    "rationale": t.rationale
+                }
+                for t in self.traceability
+            ],
+            "study_specific_notes": self.study_specific_notes
         }
 
     def to_markdown(self) -> str:
@@ -116,15 +128,35 @@ class SDTMDomain:
             "",
             f"**Purpose:** {self.purpose}",
             "",
-            "#### Variables",
-            "",
-            "| Variable | Label | Type | Core | Codelist |",
-            "|----------|-------|------|------|----------|",
         ]
 
+        # Add study-specific notes
+        if self.study_specific_notes:
+            lines.append("**Study-Specific Requirements:**")
+            for note in self.study_specific_notes:
+                lines.append(f"- {note}")
+            lines.append("")
+
+        # Add traceability
+        if self.traceability:
+            lines.append("**SAP Traceability:**")
+            lines.append("")
+            lines.append("| SAP Section | SAP Requirement | SDTM Element |")
+            lines.append("|-------------|-----------------|--------------|")
+            for t in self.traceability:
+                sap_text_short = t.sap_text[:80] + "..." if len(t.sap_text) > 80 else t.sap_text
+                lines.append(f"| {t.sap_section} | {sap_text_short} | {t.sdtm_element} |")
+            lines.append("")
+
+        # Variables table
+        lines.append("#### Variables")
+        lines.append("")
+        lines.append("| Variable | Label | Type | Core | SAP Source |")
+        lines.append("|----------|-------|------|------|------------|")
+
         for var in self.variables:
-            codelist = var.codelist or "-"
-            lines.append(f"| {var.name} | {var.label} | {var.type} | {var.core.value} | {codelist} |")
+            sap_src = var.sap_source or "-"
+            lines.append(f"| {var.name} | {var.label} | {var.type} | {var.core.value} | {sap_src} |")
 
         if self.required_for:
             lines.extend([
@@ -136,6 +168,17 @@ class SDTMDomain:
 
 
 @dataclass
+class ExtractedSAPElement:
+    """An element extracted from SAP text."""
+    element_type: str  # "endpoint", "population", "variable", "timepoint", etc.
+    name: str
+    description: str
+    section: str  # SAP section where found
+    original_text: str  # Original SAP text
+    sdtm_domains: List[str] = field(default_factory=list)  # Mapped domains
+
+
+@dataclass
 class SDTMSpecification:
     """Complete SDTM specification for a study."""
     protocol_id: str
@@ -143,6 +186,8 @@ class SDTMSpecification:
     sdtm_version: str = "3.4"
     domains: List[SDTMDomain] = field(default_factory=list)
     define_xml_notes: List[str] = field(default_factory=list)
+    extracted_elements: List[ExtractedSAPElement] = field(default_factory=list)
+    sap_summary: Dict[str, Any] = field(default_factory=dict)
 
     def get_domain(self, code: str) -> Optional[SDTMDomain]:
         """Get domain by code."""
@@ -166,14 +211,36 @@ class SDTMSpecification:
             "",
             "---",
             "",
-            "## Domains Required for This Study",
+            "## SAP-Derived Requirements",
             "",
-            "| Domain | Name | Class | Purpose |",
-            "|--------|------|-------|---------|",
         ]
 
+        # Add SAP summary
+        if self.sap_summary:
+            if self.sap_summary.get('primary_endpoint'):
+                lines.append(f"**Primary Endpoint:** {self.sap_summary['primary_endpoint']}")
+            if self.sap_summary.get('primary_timepoint'):
+                lines.append(f"**Primary Timepoint:** {self.sap_summary['primary_timepoint']}")
+            if self.sap_summary.get('populations'):
+                lines.append(f"**Analysis Populations:** {', '.join(self.sap_summary['populations'])}")
+            if self.sap_summary.get('secondary_endpoints'):
+                lines.append(f"**Secondary Endpoints:** {len(self.sap_summary['secondary_endpoints'])} defined")
+            lines.append("")
+
+        # Domains summary
+        lines.extend([
+            "---",
+            "",
+            "## SDTM Domains Required",
+            "",
+            "| Domain | Name | Class | SAP-Derived Requirements |",
+            "|--------|------|-------|--------------------------|",
+        ])
+
         for domain in self.domains:
-            lines.append(f"| {domain.code} | {domain.name} | {domain.domain_class.value} | {domain.purpose[:50]}... |")
+            trace_count = len(domain.traceability)
+            trace_info = f"{trace_count} SAP links" if trace_count > 0 else "Standard"
+            lines.append(f"| {domain.code} | {domain.name} | {domain.domain_class.value} | {trace_info} |")
 
         lines.extend(["", "---", ""])
 
@@ -196,23 +263,466 @@ class SDTMSpecification:
         return "\n".join(lines)
 
 
+class SAPParser:
+    """
+    Parses SAP text to extract study-specific requirements.
+    """
+
+    # SAP Section patterns
+    SECTION_PATTERNS = {
+        'population': [
+            r'(?:analysis\s+)?population[s]?\s*(?:definition)?',
+            r'study\s+population',
+            r'subject\s+population',
+            r'(?:itt|mITT|pp|safety)\s+(?:population|analysis\s+set)',
+        ],
+        'primary_endpoint': [
+            r'primary\s+(?:endpoint|efficacy\s+endpoint|outcome)',
+            r'primary\s+analysis',
+        ],
+        'secondary_endpoint': [
+            r'secondary\s+(?:endpoint|efficacy\s+endpoint|outcome)',
+            r'key\s+secondary',
+        ],
+        'safety': [
+            r'safety\s+(?:analysis|endpoint|assessment)',
+            r'adverse\s+event',
+        ],
+        'demographics': [
+            r'demographic',
+            r'baseline\s+characteristic',
+        ],
+        'disposition': [
+            r'disposition',
+            r'study\s+completion',
+            r'discontinuation',
+        ],
+        'efficacy': [
+            r'efficacy\s+(?:analysis|endpoint)',
+        ],
+        'laboratory': [
+            r'laboratory',
+            r'lab\s+(?:test|value|parameter)',
+        ],
+        'vital_signs': [
+            r'vital\s+sign',
+        ],
+        'concomitant_medications': [
+            r'concomitant\s+medication',
+            r'prior\s+medication',
+        ],
+        'medical_history': [
+            r'medical\s+history',
+            r'prior\s+(?:condition|disease)',
+        ],
+    }
+
+    # Clinical assessment patterns that map to specific domains
+    ASSESSMENT_TO_DOMAIN = {
+        # Questionnaires/PRO (QS domain)
+        'mayo score': ('QS', 'Mayo Score assessment'),
+        'cdai': ('QS', 'CDAI Score assessment'),
+        'sf-36': ('QS', 'SF-36 Quality of Life'),
+        'sf36': ('QS', 'SF-36 Quality of Life'),
+        'eq-5d': ('QS', 'EQ-5D Quality of Life'),
+        'eq5d': ('QS', 'EQ-5D Quality of Life'),
+        'ibdq': ('QS', 'IBDQ assessment'),
+        'dlqi': ('QS', 'Dermatology Life Quality Index'),
+        'pasi': ('QS', 'PASI Score'),
+        'das28': ('QS', 'DAS28 Score'),
+        'cdlqi': ('QS', 'CDLQI assessment'),
+        'patient reported': ('QS', 'Patient Reported Outcomes'),
+        'quality of life': ('QS', 'Quality of Life assessment'),
+        'qol': ('QS', 'Quality of Life assessment'),
+        'ham-d': ('QS', 'Hamilton Depression Scale'),
+        'hamd': ('QS', 'Hamilton Depression Scale'),
+        'madrs': ('QS', 'MADRS Depression Scale'),
+        'adas-cog': ('QS', 'ADAS-Cog assessment'),
+        'mmse': ('QS', 'MMSE assessment'),
+        'cgi-s': ('QS', 'CGI-S assessment'),
+        'cgi-i': ('QS', 'CGI-I assessment'),
+        'pain score': ('QS', 'Pain assessment'),
+        'vas score': ('QS', 'VAS assessment'),
+        'nancy score': ('QS', 'Nancy Histological Score'),
+        'geboes score': ('QS', 'Geboes Histological Score'),
+
+        # Tumor assessments (TR/RS domains)
+        'recist': ('TR', 'RECIST tumor assessment'),
+        'tumor response': ('RS', 'Tumor response assessment'),
+        'objective response': ('RS', 'Objective response rate'),
+        'orr': ('RS', 'Objective Response Rate'),
+        'complete response': ('RS', 'Complete response'),
+        'partial response': ('RS', 'Partial response'),
+        'progression-free': ('RS', 'Progression-free survival'),
+        'pfs': ('RS', 'Progression-free survival'),
+        'disease control': ('RS', 'Disease control rate'),
+
+        # ECG (EG domain)
+        'ecg': ('EG', 'ECG assessment'),
+        'electrocardiogram': ('EG', 'ECG assessment'),
+        'qtc': ('EG', 'QTc measurement'),
+        'qt interval': ('EG', 'QT interval measurement'),
+
+        # Lab tests (LB domain)
+        'hemoglobin': ('LB', 'Hemoglobin measurement'),
+        'crp': ('LB', 'C-reactive protein'),
+        'fecal calprotectin': ('LB', 'Fecal calprotectin'),
+        'albumin': ('LB', 'Albumin measurement'),
+        'alt': ('LB', 'ALT measurement'),
+        'ast': ('LB', 'AST measurement'),
+        'bilirubin': ('LB', 'Bilirubin measurement'),
+        'creatinine': ('LB', 'Creatinine measurement'),
+        'hba1c': ('LB', 'HbA1c measurement'),
+        'fasting glucose': ('LB', 'Fasting glucose'),
+        'lipid panel': ('LB', 'Lipid panel'),
+        'ldl': ('LB', 'LDL cholesterol'),
+        'hdl': ('LB', 'HDL cholesterol'),
+        'triglyceride': ('LB', 'Triglycerides'),
+
+        # Physical exam (PE domain)
+        'physical exam': ('PE', 'Physical examination'),
+
+        # Vital signs (VS domain)
+        'blood pressure': ('VS', 'Blood pressure measurement'),
+        'heart rate': ('VS', 'Heart rate measurement'),
+        'weight': ('VS', 'Weight measurement'),
+        'bmi': ('VS', 'BMI calculation'),
+        'temperature': ('VS', 'Temperature measurement'),
+
+        # Exposure (EX domain)
+        'dose': ('EX', 'Study drug exposure'),
+        'dosing': ('EX', 'Study drug dosing'),
+        'treatment exposure': ('EX', 'Treatment exposure'),
+
+        # Endoscopy (custom findings domain)
+        'endoscop': ('FA', 'Endoscopy findings'),
+        'colonoscop': ('FA', 'Colonoscopy findings'),
+        'sigmoidoscop': ('FA', 'Sigmoidoscopy findings'),
+    }
+
+    def __init__(self):
+        self.extracted_elements: List[ExtractedSAPElement] = []
+        self.domain_requirements: Dict[str, List[SAPTraceability]] = {}
+
+    def parse(self, sap_text: str) -> Dict[str, Any]:
+        """
+        Parse SAP text and extract study-specific requirements.
+
+        Returns dictionary with:
+        - primary_endpoint: str
+        - primary_timepoint: str
+        - secondary_endpoints: List[str]
+        - populations: List[str]
+        - assessments: List[Dict] with domain mappings
+        - variables_mentioned: List[str]
+        - traceability: Dict[domain_code -> List[SAPTraceability]]
+        """
+        self.extracted_elements = []
+        self.domain_requirements = {}
+
+        result = {
+            'primary_endpoint': self._extract_primary_endpoint(sap_text),
+            'primary_timepoint': self._extract_primary_timepoint(sap_text),
+            'secondary_endpoints': self._extract_secondary_endpoints(sap_text),
+            'populations': self._extract_populations(sap_text),
+            'assessments': self._extract_assessments(sap_text),
+            'variables_mentioned': self._extract_variables(sap_text),
+            'treatment_arms': self._extract_treatment_arms(sap_text),
+            'sample_size': self._extract_sample_size(sap_text),
+            'extracted_elements': self.extracted_elements,
+            'domain_requirements': self.domain_requirements,
+        }
+
+        return result
+
+    def _extract_primary_endpoint(self, sap_text: str) -> Optional[str]:
+        """Extract primary endpoint from SAP."""
+        patterns = [
+            r'primary\s+(?:efficacy\s+)?endpoint[:\s]+([^\n]+)',
+            r'primary\s+endpoint\s+is\s+([^\n\.]+)',
+            r'primary\s+outcome[:\s]+([^\n]+)',
+            r'the\s+primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will be)\s+([^\n\.]+)',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                endpoint = match.group(1).strip()
+                # Clean up
+                endpoint = re.sub(r'\s+', ' ', endpoint)
+                endpoint = endpoint.rstrip('.')
+
+                self.extracted_elements.append(ExtractedSAPElement(
+                    element_type='primary_endpoint',
+                    name=endpoint,
+                    description='Primary efficacy endpoint',
+                    section='Primary Endpoint',
+                    original_text=match.group(0),
+                ))
+
+                # Map to SDTM domain based on endpoint type
+                self._map_endpoint_to_domain(endpoint, 'Primary Endpoint', match.group(0))
+
+                return endpoint
+
+        return None
+
+    def _extract_primary_timepoint(self, sap_text: str) -> Optional[str]:
+        """Extract primary analysis timepoint."""
+        patterns = [
+            r'(?:primary\s+(?:analysis\s+)?timepoint|primary\s+endpoint\s+at)\s*(?:is\s+)?(?:at\s+)?week\s+(\d+)',
+            r'week\s+(\d+)\s+(?:as\s+)?(?:the\s+)?primary\s+(?:timepoint|endpoint)',
+            r'primary\s+analysis\s+(?:will\s+be\s+)?(?:performed\s+)?at\s+week\s+(\d+)',
+            r'at\s+week\s+(\d+)[^\.]*primary',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                return f"Week {match.group(1)}"
+
+        # Fallback: look for first week number in primary endpoint context
+        match = re.search(r'primary[^\.]{0,100}week\s+(\d+)', sap_text, re.IGNORECASE)
+        if match:
+            return f"Week {match.group(1)}"
+
+        return None
+
+    def _extract_secondary_endpoints(self, sap_text: str) -> List[str]:
+        """Extract secondary endpoints from SAP."""
+        endpoints = []
+
+        # Find secondary endpoint section
+        patterns = [
+            r'secondary\s+(?:efficacy\s+)?endpoint[s]?[:\s]+([^\n]+(?:\n(?![A-Z0-9]+\.)[^\n]+)*)',
+            r'(?:key\s+)?secondary\s+endpoint[s]?\s+include[:\s]+([^\n]+(?:\n(?![A-Z0-9]+\.)[^\n]+)*)',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                text = match.group(1)
+                # Split by common delimiters
+                items = re.split(r'[;•\-\n]|\d+\.\s', text)
+                for item in items:
+                    item = item.strip()
+                    if len(item) > 10 and len(item) < 500:  # Reasonable length
+                        endpoints.append(item)
+
+                        self.extracted_elements.append(ExtractedSAPElement(
+                            element_type='secondary_endpoint',
+                            name=item,
+                            description='Secondary efficacy endpoint',
+                            section='Secondary Endpoints',
+                            original_text=item,
+                        ))
+
+                        # Map to SDTM domain
+                        self._map_endpoint_to_domain(item, 'Secondary Endpoints', item)
+
+        return endpoints[:10]  # Limit to top 10
+
+    def _extract_populations(self, sap_text: str) -> List[str]:
+        """Extract analysis populations from SAP."""
+        populations = []
+
+        # Common population patterns
+        pop_patterns = [
+            (r'intent[- ]to[- ]treat\s*\(?ITT\)?', 'Intent-to-Treat (ITT)'),
+            (r'modified\s+intent[- ]to[- ]treat\s*\(?mITT\)?', 'Modified Intent-to-Treat (mITT)'),
+            (r'(?:full\s+)?analysis\s+set\s*\(?FAS\)?', 'Full Analysis Set (FAS)'),
+            (r'per[- ]protocol\s*\(?PP\)?', 'Per-Protocol (PP)'),
+            (r'safety\s+(?:population|analysis\s+set)', 'Safety Population'),
+            (r'efficacy\s+(?:evaluable|population)', 'Efficacy Evaluable'),
+            (r'pharmacokinetic\s*\(?PK\)?\s+(?:population|analysis)', 'PK Population'),
+        ]
+
+        for pattern, name in pop_patterns:
+            if re.search(pattern, sap_text, re.IGNORECASE):
+                populations.append(name)
+
+                self.extracted_elements.append(ExtractedSAPElement(
+                    element_type='population',
+                    name=name,
+                    description='Analysis population',
+                    section='Analysis Populations',
+                    original_text=name,
+                    sdtm_domains=['DM', 'DS']
+                ))
+
+                # Add DM traceability
+                self._add_domain_requirement('DM', SAPTraceability(
+                    sap_section='Analysis Populations',
+                    sap_text=f'{name} population defined',
+                    sdtm_element='DM - Subject identifier',
+                    rationale=f'Required to define {name} population membership'
+                ))
+
+        return populations
+
+    def _extract_assessments(self, sap_text: str) -> List[Dict]:
+        """Extract clinical assessments and map to SDTM domains."""
+        assessments = []
+        sap_lower = sap_text.lower()
+
+        for assessment_key, (domain, description) in self.ASSESSMENT_TO_DOMAIN.items():
+            if assessment_key in sap_lower:
+                # Find the context
+                pattern = rf'[^\n]*{re.escape(assessment_key)}[^\n]*'
+                matches = re.findall(pattern, sap_text, re.IGNORECASE)
+
+                if matches:
+                    context = matches[0][:200]
+
+                    assessments.append({
+                        'name': description,
+                        'domain': domain,
+                        'context': context
+                    })
+
+                    self.extracted_elements.append(ExtractedSAPElement(
+                        element_type='assessment',
+                        name=description,
+                        description=f'Maps to {domain} domain',
+                        section='Assessments',
+                        original_text=context,
+                        sdtm_domains=[domain]
+                    ))
+
+                    # Add domain traceability
+                    self._add_domain_requirement(domain, SAPTraceability(
+                        sap_section='Assessments',
+                        sap_text=context,
+                        sdtm_element=f'{domain} - {description}',
+                        rationale=f'SAP specifies {description}'
+                    ))
+
+        return assessments
+
+    def _extract_variables(self, sap_text: str) -> List[str]:
+        """Extract specific variables mentioned in SAP."""
+        variables = []
+
+        # Common variable patterns
+        var_patterns = [
+            (r'(?:baseline|screening)\s+([a-zA-Z\s]+?)(?:\s+will|\s+is|\s+are)', 'baseline'),
+            (r'change\s+from\s+baseline\s+in\s+([a-zA-Z\s]+?)(?:\s+at|\s+will|\s*\.)', 'change'),
+            (r'(?:proportion|percentage)\s+of\s+(?:subjects|patients)\s+(?:with|achieving)\s+([a-zA-Z\s]+?)(?:\s+at|\s+will|\s*\.)', 'proportion'),
+        ]
+
+        for pattern, var_type in var_patterns:
+            matches = re.findall(pattern, sap_text, re.IGNORECASE)
+            for match in matches:
+                clean_var = match.strip()
+                if 3 < len(clean_var) < 100:
+                    variables.append(clean_var)
+
+        return list(set(variables))[:20]
+
+    def _extract_treatment_arms(self, sap_text: str) -> List[str]:
+        """Extract treatment arms from SAP."""
+        arms = []
+
+        # Look for treatment arm patterns
+        patterns = [
+            r'(?:treatment\s+)?arm[s]?[:\s]+([^\n]+)',
+            r'(?:randomized|assigned)\s+to\s+([^\n\.]+)',
+            r'placebo\s+(?:group|arm)',
+            r'(\d+\s*mg)\s+(?:group|arm|dose)',
+        ]
+
+        for pattern in patterns:
+            matches = re.findall(pattern, sap_text, re.IGNORECASE)
+            for match in matches:
+                if isinstance(match, str) and len(match) > 3:
+                    arms.append(match.strip())
+
+        return list(set(arms))[:5]
+
+    def _extract_sample_size(self, sap_text: str) -> Optional[int]:
+        """Extract sample size from SAP."""
+        patterns = [
+            r'(?:total\s+of\s+)?(\d+)\s+(?:subjects|patients)\s+(?:will\s+be\s+)?(?:enrolled|randomized)',
+            r'sample\s+size[:\s]+(\d+)',
+            r'n\s*=\s*(\d+)',
+            r'(\d+)\s+(?:subjects|patients)\s+per\s+(?:group|arm)',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                try:
+                    return int(match.group(1))
+                except ValueError:
+                    continue
+
+        return None
+
+    def _map_endpoint_to_domain(self, endpoint: str, section: str, original_text: str):
+        """Map an endpoint to SDTM domains."""
+        endpoint_lower = endpoint.lower()
+
+        # Check against assessment mappings
+        for assessment_key, (domain, description) in self.ASSESSMENT_TO_DOMAIN.items():
+            if assessment_key in endpoint_lower:
+                self._add_domain_requirement(domain, SAPTraceability(
+                    sap_section=section,
+                    sap_text=original_text,
+                    sdtm_element=f'{domain} - {description}',
+                    rationale=f'Endpoint requires {description}'
+                ))
+
+        # Default mappings based on keywords
+        if any(kw in endpoint_lower for kw in ['remission', 'response', 'clinical']):
+            # Usually requires questionnaires or findings
+            self._add_domain_requirement('QS', SAPTraceability(
+                sap_section=section,
+                sap_text=original_text,
+                sdtm_element='QS - Clinical assessment',
+                rationale='Clinical endpoint typically uses questionnaire data'
+            ))
+
+        if any(kw in endpoint_lower for kw in ['adverse', 'safety', 'tolerability']):
+            self._add_domain_requirement('AE', SAPTraceability(
+                sap_section=section,
+                sap_text=original_text,
+                sdtm_element='AE - Adverse Events',
+                rationale='Safety endpoint requires AE data'
+            ))
+
+        if any(kw in endpoint_lower for kw in ['survival', 'death', 'mortality']):
+            self._add_domain_requirement('DS', SAPTraceability(
+                sap_section=section,
+                sap_text=original_text,
+                sdtm_element='DS - Disposition',
+                rationale='Survival endpoint requires disposition data'
+            ))
+
+    def _add_domain_requirement(self, domain_code: str, traceability: SAPTraceability):
+        """Add a traceability requirement for a domain."""
+        if domain_code not in self.domain_requirements:
+            self.domain_requirements[domain_code] = []
+        self.domain_requirements[domain_code].append(traceability)
+
+
 class SDTMSpecGenerator:
     """
-    Generates SDTM specifications from protocol facts.
+    Generates SDTM specifications by parsing SAP text.
 
-    This implements the biostatistician's workflow:
-    1. Analyze protocol/SAP requirements
-    2. Determine which SDTM domains are needed
-    3. Specify variables for each domain
-    4. Document for Define-XML preparation
+    This implements Sandy's vision:
+    1. Parse the generated SAP document
+    2. Extract specific endpoints, populations, variables
+    3. Map those to SDTM domains/variables
+    4. Create traceable links (SAP section → SDTM domain)
     """
 
     # Standard domain templates with CDISC-compliant variables
-    DOMAIN_TEMPLATES = {}
+    DOMAIN_TEMPLATES: Dict[str, SDTMDomain] = {}
 
     def __init__(self):
         """Initialize with standard domain templates."""
         self._init_domain_templates()
+        self.parser = SAPParser()
 
     def _init_domain_templates(self):
         """Initialize all standard SDTM domain templates."""
@@ -232,19 +742,15 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("SUBJID", "Subject Identifier for the Study", "Char", 20, VariableCore.REQUIRED),
-                SDTMVariable("RFSTDTC", "Subject Reference Start Date/Time", "Char", 19, VariableCore.EXPECTED,
-                            description="First dose date for most studies"),
-                SDTMVariable("RFENDTC", "Subject Reference End Date/Time", "Char", 19, VariableCore.EXPECTED,
-                            description="Last dose date or study completion"),
+                SDTMVariable("RFSTDTC", "Subject Reference Start Date/Time", "Char", 19, VariableCore.EXPECTED),
+                SDTMVariable("RFENDTC", "Subject Reference End Date/Time", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("RFXSTDTC", "Date/Time of First Study Treatment", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("RFXENDTC", "Date/Time of Last Study Treatment", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("RFICDTC", "Date/Time of Informed Consent", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("RFPENDTC", "Date/Time of End of Participation", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("SITEID", "Study Site Identifier", "Char", 20, VariableCore.REQUIRED),
-                SDTMVariable("INVID", "Investigator Identifier", "Char", 20, VariableCore.PERMISSIBLE),
-                SDTMVariable("INVNAM", "Investigator Name", "Char", 100, VariableCore.PERMISSIBLE),
                 SDTMVariable("BRTHDTC", "Date/Time of Birth", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("AGE", "Age", "Num", 8, VariableCore.EXPECTED, description="Age at informed consent"),
+                SDTMVariable("AGE", "Age", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("AGEU", "Age Units", "Char", 10, VariableCore.EXPECTED, codelist="AGEU"),
                 SDTMVariable("SEX", "Sex", "Char", 1, VariableCore.REQUIRED, codelist="SEX"),
                 SDTMVariable("RACE", "Race", "Char", 60, VariableCore.EXPECTED, codelist="RACE"),
@@ -272,14 +778,11 @@ class SDTMSpecGenerator:
                 SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("TSSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("TSGRPID", "Group ID", "Char", 20, VariableCore.PERMISSIBLE),
                 SDTMVariable("TSPARMCD", "Trial Summary Parameter Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("TSPARM", "Trial Summary Parameter", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("TSVAL", "Parameter Value", "Char", 200, VariableCore.REQUIRED),
                 SDTMVariable("TSVALNF", "Parameter Null Flavor", "Char", 2, VariableCore.EXPECTED),
                 SDTMVariable("TSVALCD", "Parameter Value Code", "Char", 200, VariableCore.EXPECTED),
-                SDTMVariable("TSVCDREF", "Name of Reference Terminology", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("TSVCDVER", "Version of Reference Terminology", "Char", 200, VariableCore.PERMISSIBLE),
             ]
         )
 
@@ -299,7 +802,6 @@ class SDTMSpecGenerator:
                 SDTMVariable("ETCD", "Element Code", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("ELEMENT", "Description of Element", "Char", 200, VariableCore.REQUIRED),
                 SDTMVariable("TABESSION", "Branch", "Char", 200, VariableCore.EXPECTED),
-                SDTMVariable("TATRANS", "Transition Rule", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.REQUIRED, codelist="EPOCH"),
             ]
         )
@@ -318,22 +820,14 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("EXSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("EXSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("EXTRT", "Name of Treatment", "Char", 200, VariableCore.REQUIRED),
-                SDTMVariable("EXCAT", "Category for Treatment", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("EXDOSE", "Dose", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("EXDOSTXT", "Dose Description", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("EXDOSU", "Dose Units", "Char", 40, VariableCore.EXPECTED, codelist="UNIT"),
                 SDTMVariable("EXDOSFRM", "Dose Form", "Char", 40, VariableCore.EXPECTED, codelist="FRM"),
                 SDTMVariable("EXDOSFRQ", "Dosing Frequency per Interval", "Char", 40, VariableCore.EXPECTED, codelist="FREQ"),
                 SDTMVariable("EXROUTE", "Route of Administration", "Char", 40, VariableCore.EXPECTED, codelist="ROUTE"),
-                SDTMVariable("EXLOT", "Lot Number", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("EXLOC", "Location of Dose Administration", "Char", 40, VariableCore.PERMISSIBLE, codelist="LOC"),
                 SDTMVariable("EXSTDTC", "Start Date/Time of Treatment", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("EXENDTC", "End Date/Time of Treatment", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("EXDY", "Study Day of Start of Treatment", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("EXENDY", "Study Day of End of Treatment", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("EXDUR", "Duration", "Char", 20, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -350,28 +844,15 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("CMSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("CMSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("CMTRT", "Reported Name of Drug or Therapy", "Char", 200, VariableCore.REQUIRED),
-                SDTMVariable("CMMODIFY", "Modified Reported Name", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("CMDECOD", "Standardized Medication Name", "Char", 200, VariableCore.EXPECTED,
-                            description="WHODrug preferred name"),
+                SDTMVariable("CMDECOD", "Standardized Medication Name", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("CMCAT", "Category for Medication", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("CMSCAT", "Subcategory for Medication", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("CMPRESP", "Pre-Specified", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("CMOCCUR", "Occurrence", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
                 SDTMVariable("CMDOSE", "Dose per Administration", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("CMDOSU", "Dose Units", "Char", 40, VariableCore.EXPECTED, codelist="UNIT"),
-                SDTMVariable("CMDOSFRM", "Dose Form", "Char", 40, VariableCore.PERMISSIBLE, codelist="FRM"),
-                SDTMVariable("CMDOSFRQ", "Dosing Frequency per Interval", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("CMROUTE", "Route of Administration", "Char", 40, VariableCore.EXPECTED, codelist="ROUTE"),
                 SDTMVariable("CMSTDTC", "Start Date/Time of Medication", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("CMENDTC", "End Date/Time of Medication", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("CMSTDY", "Study Day of Start of Medication", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("CMENDY", "Study Day of End of Medication", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("CMINDC", "Indication", "Char", 200, VariableCore.EXPECTED),
-                SDTMVariable("CMCLAS", "Medication Class", "Char", 200, VariableCore.PERMISSIBLE,
-                            description="ATC class"),
-                SDTMVariable("CMCLASCD", "Medication Class Code", "Char", 40, VariableCore.PERMISSIBLE),
             ]
         )
 
@@ -390,49 +871,17 @@ class SDTMSpecGenerator:
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("AESEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
                 SDTMVariable("AESPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("AETERM", "Reported Term for the Adverse Event", "Char", 200, VariableCore.REQUIRED,
-                            description="Verbatim term as reported"),
-                SDTMVariable("AEMODIFY", "Modified Reported Term", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("AELLT", "Lowest Level Term", "Char", 200, VariableCore.PERMISSIBLE,
-                            description="MedDRA LLT"),
-                SDTMVariable("AELLTCD", "Lowest Level Term Code", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEDECOD", "Dictionary-Derived Term", "Char", 200, VariableCore.REQUIRED,
-                            description="MedDRA Preferred Term"),
-                SDTMVariable("AEPTCD", "Preferred Term Code", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("AEHLT", "High Level Term", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEHLTCD", "High Level Term Code", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEHLGT", "High Level Group Term", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEHLGTCD", "High Level Group Term Code", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEBODSYS", "Body System or Organ Class", "Char", 200, VariableCore.EXPECTED,
-                            description="MedDRA System Organ Class"),
+                SDTMVariable("AETERM", "Reported Term for the Adverse Event", "Char", 200, VariableCore.REQUIRED),
+                SDTMVariable("AEDECOD", "Dictionary-Derived Term", "Char", 200, VariableCore.REQUIRED),
+                SDTMVariable("AEBODSYS", "Body System or Organ Class", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("AEBDSYCD", "Body System or Organ Class Code", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("AESOC", "Primary System Organ Class", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("AESOCCD", "Primary System Organ Class Code", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("AELOC", "Location of Event", "Char", 40, VariableCore.PERMISSIBLE, codelist="LOC"),
                 SDTMVariable("AESEV", "Severity/Intensity", "Char", 20, VariableCore.EXPECTED, codelist="AESEV"),
                 SDTMVariable("AESER", "Serious Event", "Char", 1, VariableCore.REQUIRED, codelist="NY"),
                 SDTMVariable("AEACN", "Action Taken with Study Treatment", "Char", 40, VariableCore.EXPECTED, codelist="ACN"),
-                SDTMVariable("AEACNOTH", "Other Action Taken", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("AEREL", "Causality", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("AEPATT", "Pattern of Event", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("AEOUT", "Outcome of Adverse Event", "Char", 40, VariableCore.EXPECTED, codelist="OUT"),
-                SDTMVariable("AESCAN", "Involves Cancer", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESCONG", "Congenital Anomaly or Birth Defect", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESDISAB", "Persist/Signif Disability/Incapacity", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESDTH", "Results in Death", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESHOSP", "Requires or Prolongs Hospitalization", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESLIFE", "Is Life Threatening", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESOD", "Other Serious Event", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AESMIE", "Other Medically Important Event", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("AECONTRT", "Concomitant Treatment Given", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
                 SDTMVariable("AESTDTC", "Start Date/Time of Adverse Event", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("AEENDTC", "End Date/Time of Adverse Event", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("AESTDY", "Study Day of Start of Event", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEENDY", "Study Day of End of Event", "Num", 8, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEDUR", "Duration of Event", "Char", 20, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEENRF", "End Relative to Reference Period", "Char", 10, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEENRTPT", "End Relative to Reference Time Point", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("AEENTPT", "End Reference Time Point", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -449,13 +898,11 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("DSSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("DSSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("DSTERM", "Reported Term for Disposition Event", "Char", 200, VariableCore.REQUIRED),
                 SDTMVariable("DSDECOD", "Standardized Disposition Term", "Char", 200, VariableCore.REQUIRED),
                 SDTMVariable("DSCAT", "Category for Disposition Event", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("DSSCAT", "Subcategory for Disposition Event", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("DSSTDTC", "Start Date/Time of Disposition Event", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("DSSTDY", "Study Day of Start of Event", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -472,14 +919,9 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("MHSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("MHSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("MHTERM", "Reported Term for the Medical History", "Char", 200, VariableCore.REQUIRED),
-                SDTMVariable("MHMODIFY", "Modified Reported Term", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("MHDECOD", "Dictionary-Derived Term", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("MHCAT", "Category for Medical History", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("MHSCAT", "Subcategory for Medical History", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("MHPRESP", "Pre-Specified", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("MHOCCUR", "Occurrence", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
                 SDTMVariable("MHBODSYS", "Body System or Organ Class", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("MHSTDTC", "Start Date/Time of History Event", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("MHENDTC", "End Date/Time of History Event", "Char", 19, VariableCore.EXPECTED),
@@ -499,7 +941,6 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("DVSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("DVSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("DVTERM", "Protocol Deviation Term", "Char", 200, VariableCore.REQUIRED),
                 SDTMVariable("DVDECOD", "Standardized Protocol Deviation Term", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("DVCAT", "Category for Protocol Deviation", "Char", 40, VariableCore.EXPECTED),
@@ -524,11 +965,9 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("LBSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("LBSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("LBTESTCD", "Lab Test or Examination Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("LBTEST", "Lab Test or Examination Name", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("LBCAT", "Category for Lab Test", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("LBSCAT", "Subcategory for Lab Test", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("LBORRES", "Result or Finding in Original Units", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("LBORRESU", "Original Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("LBORNRLO", "Reference Range Lower Limit-Orig Unit", "Char", 40, VariableCore.EXPECTED),
@@ -536,28 +975,13 @@ class SDTMSpecGenerator:
                 SDTMVariable("LBSTRESC", "Character Result/Finding in Std Format", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("LBSTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("LBSTRESU", "Standard Units", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("LBSTNRLO", "Reference Range Lower Limit-Std Units", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("LBSTNRHI", "Reference Range Upper Limit-Std Units", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("LBSTNRC", "Reference Range for Char Rslt-Std Units", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("LBNRIND", "Reference Range Indicator", "Char", 10, VariableCore.EXPECTED),
-                SDTMVariable("LBSTAT", "Completion Status", "Char", 10, VariableCore.PERMISSIBLE),
-                SDTMVariable("LBREASND", "Reason Not Done", "Char", 200, VariableCore.PERMISSIBLE),
-                SDTMVariable("LBNAM", "Vendor Name", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("LBSPEC", "Specimen Type", "Char", 40, VariableCore.EXPECTED, codelist="SPECTYPE"),
-                SDTMVariable("LBSPCCND", "Specimen Condition", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("LBMETHOD", "Method of Test or Examination", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("LBBLFL", "Baseline Flag", "Char", 1, VariableCore.EXPECTED, codelist="NY"),
-                SDTMVariable("LBFAST", "Fasting Status", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("LBDRVFL", "Derived Flag", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
-                SDTMVariable("LBTOX", "Toxicity", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("LBTOXGR", "Standard Toxicity Grade", "Char", 10, VariableCore.PERMISSIBLE),
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("VISITDY", "Planned Study Day of Visit", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("LBDTC", "Date/Time of Specimen Collection", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("LBDY", "Study Day of Specimen Collection", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("LBTPT", "Planned Time Point Name", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("LBTPTNUM", "Planned Time Point Number", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -574,28 +998,20 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("VSSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("VSSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("VSTESTCD", "Vital Signs Test Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("VSTEST", "Vital Signs Test Name", "Char", 40, VariableCore.REQUIRED),
-                SDTMVariable("VSCAT", "Category for Vital Signs", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("VSSCAT", "Subcategory for Vital Signs", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("VSPOS", "Vital Signs Position of Subject", "Char", 40, VariableCore.EXPECTED, codelist="POSITION"),
                 SDTMVariable("VSORRES", "Result or Finding in Original Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("VSORRESU", "Original Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("VSSTRESC", "Character Result/Finding in Std Format", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("VSSTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VSSTRESU", "Standard Units", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("VSSTAT", "Completion Status", "Char", 10, VariableCore.PERMISSIBLE),
-                SDTMVariable("VSREASND", "Reason Not Done", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("VSLOC", "Location of Vital Signs Measurement", "Char", 40, VariableCore.EXPECTED, codelist="LOC"),
                 SDTMVariable("VSBLFL", "Baseline Flag", "Char", 1, VariableCore.EXPECTED, codelist="NY"),
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("VISITDY", "Planned Study Day of Visit", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("VSDTC", "Date/Time of Measurements", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("VSDY", "Study Day of Vital Signs", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("VSTPT", "Planned Time Point Name", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("VSTPTNUM", "Planned Time Point Number", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -614,24 +1030,19 @@ class SDTMSpecGenerator:
                 SDTMVariable("EGSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
                 SDTMVariable("EGTESTCD", "ECG Test Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("EGTEST", "ECG Test Name", "Char", 40, VariableCore.REQUIRED),
-                SDTMVariable("EGCAT", "Category for ECG", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("EGORRES", "Result or Finding in Original Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("EGORRESU", "Original Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("EGSTRESC", "Character Result/Finding in Std Format", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("EGSTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("EGSTRESU", "Standard Units", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("EGSTAT", "Completion Status", "Char", 10, VariableCore.PERMISSIBLE),
-                SDTMVariable("EGREASND", "Reason Not Done", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("EGBLFL", "Baseline Flag", "Char", 1, VariableCore.EXPECTED, codelist="NY"),
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("EGDTC", "Date/Time of ECG", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("EGDY", "Study Day of ECG", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
 
-        # Questionnaires domain for patient-reported outcomes
         self.DOMAIN_TEMPLATES["QS"] = SDTMDomain(
             code="QS",
             name="Questionnaires",
@@ -644,29 +1055,21 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("QSSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("QSSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("QSTESTCD", "Question Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("QSTEST", "Question Name", "Char", 40, VariableCore.REQUIRED),
-                SDTMVariable("QSCAT", "Category for Questionnaire", "Char", 40, VariableCore.REQUIRED,
-                            description="Questionnaire name, e.g., 'MAYO SCORE', 'SF-36'"),
+                SDTMVariable("QSCAT", "Category for Questionnaire", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("QSSCAT", "Subcategory for Questionnaire", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("QSORRES", "Result or Finding in Original Units", "Char", 200, VariableCore.EXPECTED),
-                SDTMVariable("QSORRESU", "Original Units", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("QSSTRESC", "Character Result/Finding in Std Format", "Char", 200, VariableCore.EXPECTED),
                 SDTMVariable("QSSTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
-                SDTMVariable("QSSTRESU", "Standard Units", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("QSSTAT", "Completion Status", "Char", 10, VariableCore.PERMISSIBLE),
-                SDTMVariable("QSREASND", "Reason Not Done", "Char", 200, VariableCore.PERMISSIBLE),
                 SDTMVariable("QSBLFL", "Baseline Flag", "Char", 1, VariableCore.EXPECTED, codelist="NY"),
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("QSDTC", "Date/Time of Assessment", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("QSDY", "Study Day of Assessment", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
 
-        # Tumor Results for oncology
         self.DOMAIN_TEMPLATES["TR"] = SDTMDomain(
             code="TR",
             name="Tumor Results",
@@ -679,11 +1082,7 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("TRSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("TRGRPID", "Group ID", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("TRREFID", "Reference ID", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("TRSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("TRLNKID", "Link ID", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("TRLNKGRP", "Link Group ID", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("TRTESTCD", "Tumor Test Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("TRTEST", "Tumor Test Name", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("TRORRES", "Result or Finding in Original Units", "Char", 40, VariableCore.EXPECTED),
@@ -696,12 +1095,10 @@ class SDTMSpecGenerator:
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("TRDTC", "Date/Time of Tumor Assessment", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("TRDY", "Study Day of Tumor Assessment", "Num", 8, VariableCore.PERMISSIBLE),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
 
-        # Tumor Response for oncology
         self.DOMAIN_TEMPLATES["RS"] = SDTMDomain(
             code="RS",
             name="Disease Response",
@@ -714,21 +1111,41 @@ class SDTMSpecGenerator:
                 SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
                 SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("RSSEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
-                SDTMVariable("RSGRPID", "Group ID", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("RSREFID", "Reference ID", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("RSSPID", "Sponsor-Defined Identifier", "Char", 40, VariableCore.PERMISSIBLE),
                 SDTMVariable("RSTESTCD", "Response Test Short Name", "Char", 8, VariableCore.REQUIRED),
                 SDTMVariable("RSTEST", "Response Test Name", "Char", 40, VariableCore.REQUIRED),
                 SDTMVariable("RSCAT", "Category for Response", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("RSORRES", "Result or Finding in Original Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("RSSTRESC", "Character Result in Standard Format", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("RSEVAL", "Evaluator", "Char", 40, VariableCore.EXPECTED),
-                SDTMVariable("RSEVALID", "Evaluator Identifier", "Char", 40, VariableCore.PERMISSIBLE),
-                SDTMVariable("RSACPTFL", "Accepted Record Flag", "Char", 1, VariableCore.PERMISSIBLE, codelist="NY"),
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("RSDTC", "Date/Time of Response Assessment", "Char", 19, VariableCore.EXPECTED),
-                SDTMVariable("RSDY", "Study Day of Response Assessment", "Num", 8, VariableCore.PERMISSIBLE),
+                SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
+            ]
+        )
+
+        self.DOMAIN_TEMPLATES["FA"] = SDTMDomain(
+            code="FA",
+            name="Findings About",
+            label="Findings About Events or Interventions",
+            domain_class=DomainClass.FINDINGS_ABOUT,
+            structure="One record per finding about per event/intervention per subject",
+            purpose="Documents findings about other events or interventions (e.g., endoscopy)",
+            variables=[
+                SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
+                SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
+                SDTMVariable("USUBJID", "Unique Subject Identifier", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("FASEQ", "Sequence Number", "Num", 8, VariableCore.REQUIRED),
+                SDTMVariable("FATESTCD", "Findings About Test Short Name", "Char", 8, VariableCore.REQUIRED),
+                SDTMVariable("FATEST", "Findings About Test Name", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("FACAT", "Category for Findings About", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("FAOBJ", "Object of the Observation", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("FAORRES", "Result or Finding in Original Units", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("FASTRESC", "Character Result/Finding in Std Format", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("FASTRESN", "Numeric Result/Finding in Standard Units", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
+                SDTMVariable("FADTC", "Date/Time of Collection", "Char", 19, VariableCore.EXPECTED),
                 SDTMVariable("EPOCH", "Epoch", "Char", 40, VariableCore.EXPECTED, codelist="EPOCH"),
             ]
         )
@@ -737,13 +1154,20 @@ class SDTMSpecGenerator:
         """
         Generate SDTM specification from protocol facts.
 
+        This is the main entry point. If SAP text is provided, it parses it to
+        extract study-specific requirements and create traceable links.
+
         Args:
             protocol_facts: Dictionary containing protocol/SAP information
+                - sap_text: The generated SAP document text (required for traceability)
+                - protocol_id: Study identifier
+                - therapeutic_area: Optional therapeutic area hint
 
         Returns:
-            SDTMSpecification with all required domains
+            SDTMSpecification with study-specific domains and traceability
         """
         protocol_id = protocol_facts.get('protocol_id', 'UNKNOWN')
+        sap_text = protocol_facts.get('sap_text', '')
 
         spec = SDTMSpecification(
             protocol_id=protocol_id,
@@ -751,26 +1175,40 @@ class SDTMSpecGenerator:
             sdtm_version="3.4"
         )
 
+        # Parse SAP text if provided
+        sap_parsed = {}
+        if sap_text:
+            sap_parsed = self.parser.parse(sap_text)
+            spec.extracted_elements = sap_parsed.get('extracted_elements', [])
+            spec.sap_summary = {
+                'primary_endpoint': sap_parsed.get('primary_endpoint'),
+                'primary_timepoint': sap_parsed.get('primary_timepoint'),
+                'secondary_endpoints': sap_parsed.get('secondary_endpoints', []),
+                'populations': sap_parsed.get('populations', []),
+                'treatment_arms': sap_parsed.get('treatment_arms', []),
+                'sample_size': sap_parsed.get('sample_size'),
+            }
+
         # Determine which domains are needed
-        required_domains = self._determine_required_domains(protocol_facts)
+        required_domains = self._determine_required_domains(protocol_facts, sap_parsed)
 
         # Generate specification for each domain
+        domain_requirements = sap_parsed.get('domain_requirements', {})
         for domain_code in required_domains:
-            domain = self._generate_domain_spec(domain_code, protocol_facts)
+            domain = self._generate_domain_spec(domain_code, protocol_facts, domain_requirements)
             if domain:
                 spec.domains.append(domain)
 
         # Add Define-XML notes
-        spec.define_xml_notes = self._generate_define_notes(protocol_facts, required_domains)
+        spec.define_xml_notes = self._generate_define_notes(protocol_facts, sap_parsed, required_domains)
 
         return spec
 
-    def _determine_required_domains(self, protocol_facts: Dict[str, Any]) -> List[str]:
-        """Determine which SDTM domains are required based on protocol."""
+    def _determine_required_domains(self, protocol_facts: Dict[str, Any], sap_parsed: Dict) -> List[str]:
+        """Determine which SDTM domains are required based on SAP parsing."""
         required = set()
 
         # ===== ALWAYS REQUIRED =====
-        # These are required for every FDA submission
         required.add("DM")   # Demographics - always required
         required.add("AE")   # Adverse Events - always required for safety
         required.add("DS")   # Disposition - always required
@@ -783,54 +1221,30 @@ class SDTMSpecGenerator:
         required.add("MH")   # Medical History - usually collected
         required.add("VS")   # Vital Signs - standard safety measure
         required.add("LB")   # Labs - standard safety measure
+        required.add("DV")   # Protocol deviations - required by FDA
 
-        # ===== CONDITIONAL BASED ON PROTOCOL =====
+        # ===== SAP-DERIVED REQUIREMENTS =====
+        # Add domains based on what was found in the SAP
+        domain_requirements = sap_parsed.get('domain_requirements', {})
+        for domain_code in domain_requirements.keys():
+            if domain_code in self.DOMAIN_TEMPLATES:
+                required.add(domain_code)
 
-        # Therapeutic area specific
-        therapeutic_area = protocol_facts.get('therapeutic_area', '').lower()
-
-        if 'oncology' in therapeutic_area or 'cancer' in therapeutic_area:
-            required.add("TR")  # Tumor Results
-            required.add("RS")  # Disease Response (RECIST)
-
-        if 'cardio' in therapeutic_area or 'cardiac' in therapeutic_area:
-            required.add("EG")  # ECG
-
-        # Check endpoints for PRO/questionnaires
-        endpoints = protocol_facts.get('endpoints', [])
-        primary_endpoint = protocol_facts.get('primary_endpoint', {})
-
-        # IBD/GI studies often use Mayo Score, other questionnaires
-        indication = protocol_facts.get('indication', '').lower()
-        if any(term in therapeutic_area for term in ['ibd', 'colitis', 'crohn', 'gastro']):
-            required.add("QS")  # Questionnaires for Mayo Score etc.
-        elif any(term in indication for term in ['colitis', 'crohn', 'ibd', 'inflammatory bowel']):
-            required.add("QS")  # Questionnaires for IBD assessments
-
-        # Check for PRO endpoints
-        endpoint_names = []
-        if isinstance(primary_endpoint, dict):
-            endpoint_names.append(primary_endpoint.get('name', '').lower())
-        if isinstance(endpoints, list):
-            for ep in endpoints:
-                if isinstance(ep, dict):
-                    endpoint_names.append(ep.get('name', '').lower())
-
-        for name in endpoint_names:
-            if any(term in name for term in ['score', 'questionnaire', 'pro', 'quality of life', 'qol', 'mayo']):
-                required.add("QS")
-
-        # Protocol deviations - required by FDA for BIMO
-        required.add("DV")
+        # Check assessments found in SAP
+        assessments = sap_parsed.get('assessments', [])
+        for assessment in assessments:
+            domain = assessment.get('domain')
+            if domain and domain in self.DOMAIN_TEMPLATES:
+                required.add(domain)
 
         return sorted(list(required))
 
-    def _generate_domain_spec(self, domain_code: str, protocol_facts: Dict[str, Any]) -> Optional[SDTMDomain]:
-        """Generate specification for a specific domain."""
+    def _generate_domain_spec(self, domain_code: str, protocol_facts: Dict[str, Any],
+                             domain_requirements: Dict[str, List[SAPTraceability]]) -> Optional[SDTMDomain]:
+        """Generate specification for a specific domain with traceability."""
         if domain_code not in self.DOMAIN_TEMPLATES:
             return None
 
-        # Get template and customize based on protocol
         template = self.DOMAIN_TEMPLATES[domain_code]
 
         # Create a copy with protocol-specific customizations
@@ -842,37 +1256,44 @@ class SDTMSpecGenerator:
             structure=template.structure,
             purpose=template.purpose,
             description=template.description,
-            variables=template.variables.copy()
+            variables=[
+                SDTMVariable(
+                    name=v.name,
+                    label=v.label,
+                    type=v.type,
+                    length=v.length,
+                    core=v.core,
+                    codelist=v.codelist,
+                    description=v.description,
+                    source=v.source,
+                )
+                for v in template.variables
+            ]
         )
 
-        # Customize based on protocol
-        domain = self._customize_domain(domain, protocol_facts)
+        # Add traceability from SAP parsing
+        if domain_code in domain_requirements:
+            domain.traceability = domain_requirements[domain_code]
+
+        # Add study-specific notes based on SAP
+        domain.study_specific_notes = self._get_study_specific_notes(domain_code, protocol_facts, domain_requirements)
 
         # Map to TLFs
         domain.required_for = self._map_domain_to_tlf(domain_code, protocol_facts)
 
         return domain
 
-    def _customize_domain(self, domain: SDTMDomain, protocol_facts: Dict[str, Any]) -> SDTMDomain:
-        """Customize domain based on protocol specifics."""
+    def _get_study_specific_notes(self, domain_code: str, protocol_facts: Dict[str, Any],
+                                  domain_requirements: Dict[str, List[SAPTraceability]]) -> List[str]:
+        """Generate study-specific notes for a domain based on SAP analysis."""
+        notes = []
 
-        # Add treatment arm values to DM
-        if domain.code == "DM":
-            treatments = protocol_facts.get('treatments', [])
-            if treatments:
-                arm_values = [t.get('name', '') for t in treatments if isinstance(t, dict)]
-                # Update ARM variable description with actual values
-                for var in domain.variables:
-                    if var.name == "ARM":
-                        var.description = f"Values: {', '.join(arm_values)}"
+        if domain_code in domain_requirements:
+            traces = domain_requirements[domain_code]
+            for trace in traces[:3]:  # Limit to top 3
+                notes.append(f"Required for: {trace.sdtm_element} (from {trace.sap_section})")
 
-        # Add stratification factors to supplemental qualifiers note
-        if domain.code == "DM":
-            strat_factors = protocol_facts.get('stratification_factors', [])
-            if strat_factors:
-                domain.description += f"\n\nStratification factors (capture in SUPPDM): {', '.join(strat_factors)}"
-
-        return domain
+        return notes
 
     def _map_domain_to_tlf(self, domain_code: str, protocol_facts: Dict[str, Any]) -> List[str]:
         """Map domain to TLFs that require it."""
@@ -890,30 +1311,31 @@ class SDTMSpecGenerator:
             "TR": ["Table 14.2.x Tumor Response"],
             "RS": ["Table 14.2.x Disease Response (RECIST)"],
             "DV": ["Listing 16.1.2 Protocol Deviations"],
+            "FA": ["Listing 16.2.x Findings About Events"],
         }
         return mapping.get(domain_code, [])
 
-    def _generate_define_notes(self, protocol_facts: Dict[str, Any], domains: List[str]) -> List[str]:
+    def _generate_define_notes(self, protocol_facts: Dict[str, Any], sap_parsed: Dict,
+                              domains: List[str]) -> List[str]:
         """Generate notes for Define-XML preparation."""
         notes = [
             "Define-XML v2.1 should be used for FDA submissions",
             f"Total domains: {len(domains)}",
             "Ensure all codelists are mapped to NCI CDISC controlled terminology",
             "MedDRA version should be documented in Define-XML",
-            "WHODrug version should be documented for CM domain",
         ]
+
+        # Add SAP-derived notes
+        if sap_parsed.get('primary_endpoint'):
+            notes.append(f"Primary endpoint: {sap_parsed['primary_endpoint']}")
+
+        if sap_parsed.get('populations'):
+            notes.append(f"Analysis populations: {', '.join(sap_parsed['populations'])}")
 
         # Protocol-specific notes
         protocol_id = protocol_facts.get('protocol_id', '')
         if protocol_id:
             notes.append(f"Study identifier: {protocol_id}")
-
-        # Add therapeutic area specific notes
-        ta = protocol_facts.get('therapeutic_area', '').lower()
-        if 'oncology' in ta:
-            notes.append("RECIST version should be documented for tumor assessments")
-        if 'ibd' in ta or 'colitis' in ta:
-            notes.append("Mayo Score components should be mapped to QS domain")
 
         return notes
 
@@ -938,6 +1360,7 @@ class SDTMSpecGenerator:
                 "protocol_id": spec.protocol_id,
                 "generated_at": spec.generated_at,
                 "sdtm_version": spec.sdtm_version,
+                "sap_summary": spec.sap_summary,
                 "domains": [d.to_dict() for d in spec.domains],
                 "define_xml_notes": spec.define_xml_notes
             }, f, indent=2)
