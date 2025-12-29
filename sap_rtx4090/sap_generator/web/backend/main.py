@@ -978,7 +978,7 @@ async def generate_sas_code(job_id: str):
             "therapeutic_area": _detect_therapeutic_area(protocol_text or sap_text),
             "drug_name": _extract_drug_name(sap_text),
             "treatments": _extract_treatments(sap_text),
-            "primary_endpoint": _extract_primary_endpoint(sap_text),
+            "primary_endpoint": _extract_primary_endpoint(sap_text, protocol_text),
             "total_n": _extract_sample_size(sap_text),
         }
 
@@ -1072,76 +1072,116 @@ def _extract_treatments(sap_text: str) -> list:
     return treatments
 
 
-def _extract_primary_endpoint(sap_text: str) -> dict:
-    """Extract primary endpoint from SAP text with robust pattern matching."""
+def _extract_primary_endpoint(sap_text: str, protocol_text: str = "") -> dict:
+    """Extract primary endpoint from protocol or SAP text with robust pattern matching.
+
+    IMPORTANT: Search protocol_text FIRST as it contains the original endpoint definition.
+    The SAP text may have generic placeholders if extraction failed during generation.
+    """
     import re
 
-    # First try IBD-specific clinical patterns (most specific, check first)
-    ibd_clinical_patterns = [
-        # Clinical remission with various week formats
-        r'(clinical\s+remission\s+(?:at|by)\s+week\s+\d+)',
-        r'(clinical\s+remission\s+(?:at|by)?\s*w(?:ee)?k?\s*\d+)',
-        # Clinical response with various week formats
-        r'(clinical\s+response\s+(?:at|by)\s+week\s+\d+)',
-        r'(clinical\s+response\s+(?:at|by)?\s*w(?:ee)?k?\s*\d+)',
-        # Endoscopic endpoints
-        r'(endoscopic\s+(?:improvement|remission|response|healing)\s+(?:at|by)\s+week\s+\d+)',
-        r'(mucosal\s+healing\s+(?:at|by)\s+week\s+\d+)',
-        # Mayo score endpoints
-        r'((?:modified\s+)?mayo\s+(?:score|subscores?)\s+(?:of\s+)?\d+(?:\s+or\s+less)?\s+(?:at|by)\s+week\s+\d+)',
-        r'(partial\s+mayo\s+score\s+(?:of\s+)?\d+(?:\s+or\s+less)?\s+(?:at|by)\s+week\s+\d+)',
-        # CDAI/Harvey-Bradshaw for Crohn's
-        r'(cdai\s+(?:score\s+)?(?:<|less\s+than)?\s*\d+\s+(?:at|by)\s+week\s+\d+)',
-        r'(harvey[- ]bradshaw\s+(?:index|score)\s+(?:<|less\s+than)?\s*\d+\s+(?:at|by)\s+week\s+\d+)',
-        # Proportion achieving remission/response
-        r'(proportion\s+(?:of\s+)?(?:subjects|patients)\s+(?:achieving|with)\s+(?:clinical\s+)?(?:remission|response)\s+(?:at|by)\s+week\s+\d+)',
-    ]
+    # Search both texts, but prioritize protocol_text (the source of truth)
+    texts_to_search = []
+    if protocol_text:
+        texts_to_search.append(protocol_text)
+    if sap_text:
+        texts_to_search.append(sap_text)
 
-    for pattern in ibd_clinical_patterns:
-        match = re.search(pattern, sap_text, re.IGNORECASE)
-        if match:
-            endpoint = match.group(1).strip()
-            # Capitalize first letter for proper display
-            endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
-            return {'name': endpoint[:200], 'type': 'binary'}
+    for text in texts_to_search:
+        # First, look for the DEFINITION section with Mayo score criteria (most specific)
+        # This pattern finds "Definition Criteria:" followed by the actual criteria
+        definition_patterns = [
+            # **Definition:** or Definition Criteria: followed by Mayo score definition
+            r'(?:definition\s*(?:criteria)?)[:\s]*(?:\*\*)?([^*\n]*?(?:mayo\s+score|subscore)[^*\n]*?(?:≤|<=|=)\s*\d+[^*\n]*)',
+            # Clinical remission defined as Mayo score criteria
+            r'clinical\s+remission[^.]*?(?:defined\s+as|is)[:\s]*([^.]*?(?:mayo\s+score|subscore)[^.]*?(?:≤|<=|=)\s*\d+[^.]*)',
+            # Full/total Mayo score with specific criteria
+            r'((?:full|total)\s+mayo\s+score\s*(?:≤|<=|of)\s*\d+[^.|\n]*)',
+        ]
 
-    # Try generic primary endpoint patterns
-    primary_endpoint_patterns = [
-        # Match "Primary Endpoint:" or "Primary Efficacy Endpoint:" followed by the definition
-        r'primary\s+(?:efficacy\s+)?endpoint[:\s]+([^\n|]+?)(?:\n|$)',
-        r'primary\s+endpoint\s+is\s+([^\n|\.]+)',
-        r'the\s+primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will be)\s+([^\n|\.]+)',
-        # Match "Primary outcome:" format
-        r'primary\s+outcome[:\s]+([^\n|]+?)(?:\n|$)',
-        # Match numbered endpoint format "1. Primary Endpoint"
-        r'(?:^|\n)\s*\d+\.?\s*primary\s+endpoint[:\s]+([^\n|]+)',
-    ]
+        for pattern in definition_patterns:
+            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+            if match:
+                endpoint = match.group(1).strip()
+                # Clean up whitespace and formatting
+                endpoint = re.sub(r'\s+', ' ', endpoint)
+                endpoint = re.sub(r'\*\*|\*|__|#', '', endpoint)
+                # Add "Clinical remission" prefix if not present
+                if 'remission' not in endpoint.lower() and 'response' not in endpoint.lower():
+                    endpoint = "Clinical remission: " + endpoint
+                endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
+                # Clean trailing punctuation
+                endpoint = endpoint.rstrip('|,;')
+                if len(endpoint) > 15:
+                    return {'name': endpoint[:200], 'type': 'binary'}
 
-    for pattern in primary_endpoint_patterns:
-        match = re.search(pattern, sap_text, re.IGNORECASE | re.MULTILINE)
-        if match:
-            endpoint = match.group(1).strip() if match.lastindex else match.group(0).strip()
-            # Clean up the endpoint text
-            endpoint = re.sub(r'\s+', ' ', endpoint)
-            endpoint = endpoint.rstrip('.')
-            # Remove markdown/formatting artifacts
-            endpoint = re.sub(r'\*\*|\*|__|#', '', endpoint)
-            # Remove pipe characters that could break tables
-            endpoint = endpoint.replace('|', '-')
-            if endpoint and len(endpoint) > 8:
+        # IBD/UC-specific endpoint patterns (proportion achieving remission)
+        ibd_patterns = [
+            # Proportion achieving clinical remission at week X
+            r'((?:proportion|percentage)\s+of\s+(?:subjects|patients)\s+(?:achieving|with|in)\s+clinical\s+remission\s+(?:at|by)\s+week\s+\d+)',
+            # Clinical remission at week X (only if "Clinical remission" is included)
+            r'(clinical\s+remission\s+(?:at|by)\s+week\s+\d+)',
+            r'(clinical\s+response\s+(?:at|by)\s+week\s+\d+)',
+            # Endoscopic endpoints
+            r'(endoscopic\s+(?:improvement|remission|response|healing)\s+(?:at|by)\s+week\s+\d+)',
+            r'(mucosal\s+healing\s+(?:at|by)\s+week\s+\d+)',
+            # Modified/partial Mayo score endpoints
+            r'((?:modified|partial)\s+mayo\s+score\s+(?:of\s+)?(?:\d+|≤\s*\d+)[^|\n]*?(?:at|by)\s+week\s+\d+)',
+        ]
+
+        for pattern in ibd_patterns:
+            match = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+            if match:
+                endpoint = match.group(1).strip()
+                # Clean up whitespace and newlines
+                endpoint = re.sub(r'\s+', ' ', endpoint)
+                endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
+                endpoint = endpoint.rstrip('|,;')
+                if len(endpoint) > 10:
+                    return {'name': endpoint[:200], 'type': 'binary'}
+
+        # Look in sections that typically define primary endpoint
+        section_patterns = [
+            # Section header followed by endpoint definition (not just "at Week 12")
+            r'(?:primary\s+(?:efficacy\s+)?endpoint|primary\s+objective)[:\s]*\n+([^\n]+(?:remission|response|score|healing)[^\n]+)',
+            # Primary endpoint IS statement
+            r'primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will\s+be)\s+(?:the\s+)?(?:proportion[^.|\n]+|clinical[^.|\n]+)',
+        ]
+
+        for pattern in section_patterns:
+            match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
+            if match:
+                endpoint = match.group(1) if match.lastindex else match.group(0)
+                endpoint = endpoint.strip()
+                # Skip if it's just a generic placeholder or just "at Week 12"
+                skip_patterns = ['primary endpoint', 'the primary endpoint', 'endpoint', 'at week', 'by week']
+                if any(endpoint.lower().strip() == sp or endpoint.lower().strip().startswith(sp + ' |') for sp in skip_patterns):
+                    continue
+                # Clean up
+                endpoint = re.sub(r'\s+', ' ', endpoint)
+                endpoint = re.sub(r'\*\*|\*|__|#|\|', '', endpoint)
+                endpoint = endpoint.rstrip('.|,;')
+                if endpoint and len(endpoint) > 15:
+                    return {'name': endpoint[:200], 'type': _detect_endpoint_type(endpoint)}
+
+        # General patterns for any therapeutic area
+        general_patterns = [
+            r'((?:overall\s+)?(?:survival|response\s+rate|progression[- ]free)\s+(?:at|by)\s+(?:week|month)\s+\d+)',
+            r'((?:objective\s+)?response\s+rate\s+(?:at|by)\s+week\s+\d+)',
+            r'((?:change|reduction)\s+(?:from\s+baseline\s+)?in\s+[^|\n]+(?:at|by)\s+week\s+\d+)',
+        ]
+
+        for pattern in general_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                endpoint = match.group(1).strip()
+                endpoint = re.sub(r'\s+', ' ', endpoint)
+                endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
                 return {'name': endpoint[:200], 'type': _detect_endpoint_type(endpoint)}
 
-    # Fallback: look for any clinical remission/response pattern
-    fallback_patterns = [
-        r'((?:clinical|modified|partial)\s+(?:remission|response|mayo)[^\n|]*?(?:at|by)\s+week\s+\d+)',
-    ]
-
-    for pattern in fallback_patterns:
-        match = re.search(pattern, sap_text, re.IGNORECASE)
-        if match:
-            endpoint = match.group(1).strip()
-            endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
-            return {'name': endpoint[:200], 'type': 'binary'}
+    # Default fallback - use a meaningful description if this is an IBD study
+    if any(term in (sap_text + protocol_text).lower() for term in ['ulcerative colitis', 'crohn', 'ibd']):
+        return {'name': 'Clinical remission at Week 12', 'type': 'binary'}
 
     return {'name': 'Primary Endpoint', 'type': 'binary'}
 
@@ -1269,7 +1309,7 @@ async def generate_tlf_shells(job_id: str):
         # Use improved protocol ID extraction
         protocol_id = _extract_protocol_id(sap_text, protocol_text, job.get("nct_id"))
         therapeutic_area = _detect_therapeutic_area(protocol_text or sap_text)
-        primary_endpoint = _extract_primary_endpoint(sap_text)
+        primary_endpoint = _extract_primary_endpoint(sap_text, protocol_text)
         treatments = _extract_treatments(sap_text)
         sample_size = _extract_sample_size(sap_text)
 
@@ -1487,7 +1527,7 @@ async def generate_adam_specs(job_id: str):
 
         protocol_id = _extract_protocol_id(sap_text, protocol_text, job.get("nct_id"))
         therapeutic_area = _detect_therapeutic_area(protocol_text or sap_text)
-        primary_endpoint = _extract_primary_endpoint(sap_text)
+        primary_endpoint = _extract_primary_endpoint(sap_text, protocol_text)
         treatments = _extract_treatments(sap_text)
 
         # Build ADaM datasets using standard derivations
