@@ -1030,6 +1030,26 @@ class SDTMSpecGenerator:
             ]
         )
 
+        self.DOMAIN_TEMPLATES["TV"] = SDTMDomain(
+            code="TV",
+            name="Trial Visits",
+            label="Trial Visits",
+            domain_class=DomainClass.TRIAL_DESIGN,
+            structure="One record per planned Visit per Arm",
+            purpose="Describes planned visits and visit windows for each arm",
+            variables=[
+                SDTMVariable("STUDYID", "Study Identifier", "Char", 20, VariableCore.REQUIRED),
+                SDTMVariable("DOMAIN", "Domain Abbreviation", "Char", 2, VariableCore.REQUIRED),
+                SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.REQUIRED),
+                SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.REQUIRED),
+                SDTMVariable("VISITDY", "Planned Study Day of Visit", "Num", 8, VariableCore.EXPECTED),
+                SDTMVariable("ARMCD", "Planned Arm Code", "Char", 20, VariableCore.REQUIRED),
+                SDTMVariable("ARM", "Description of Planned Arm", "Char", 200, VariableCore.EXPECTED),
+                SDTMVariable("TVSTRL", "Visit Start Rule", "Char", 200, VariableCore.PERMISSIBLE),
+                SDTMVariable("TVENRL", "Visit End Rule", "Char", 200, VariableCore.PERMISSIBLE),
+            ]
+        )
+
         # ===== INTERVENTIONS DOMAINS =====
 
         self.DOMAIN_TEMPLATES["EX"] = SDTMDomain(
@@ -1201,6 +1221,7 @@ class SDTMSpecGenerator:
                 SDTMVariable("LBSTRESU", "Standard Units", "Char", 40, VariableCore.EXPECTED),
                 SDTMVariable("LBNRIND", "Reference Range Indicator", "Char", 10, VariableCore.EXPECTED),
                 SDTMVariable("LBSPEC", "Specimen Type", "Char", 40, VariableCore.EXPECTED, codelist="SPECTYPE"),
+                SDTMVariable("LBFAST", "Fasting Status", "Char", 1, VariableCore.EXPECTED, codelist="NY"),
                 SDTMVariable("LBBLFL", "Baseline Flag", "Char", 1, VariableCore.EXPECTED, codelist="NY"),
                 SDTMVariable("VISITNUM", "Visit Number", "Num", 8, VariableCore.EXPECTED),
                 SDTMVariable("VISIT", "Visit Name", "Char", 40, VariableCore.EXPECTED),
@@ -1526,6 +1547,7 @@ class SDTMSpecGenerator:
         required.add("VS")   # Vital Signs - standard safety measure
         required.add("LB")   # Labs - standard safety measure
         required.add("DV")   # Protocol deviations - required by FDA
+        required.add("TV")   # Trial Visits - documents visit windows
 
         # ===== SAP-DERIVED REQUIREMENTS =====
         # Add domains based on what was found in the SAP
@@ -1591,11 +1613,184 @@ class SDTMSpecGenerator:
                                   domain_requirements: Dict[str, List[SAPTraceability]]) -> List[str]:
         """Generate study-specific notes for a domain based on SAP analysis."""
         notes = []
+        sap_text = protocol_facts.get('sap_text', '').lower()
 
+        # Add domain-specific comprehensive guidance
+        if domain_code == "LB":
+            notes.extend(self._get_lb_specific_notes(sap_text))
+        elif domain_code == "VS":
+            notes.extend(self._get_vs_specific_notes(sap_text))
+        elif domain_code == "DM":
+            notes.extend(self._get_dm_specific_notes(sap_text))
+        elif domain_code == "QS":
+            notes.extend(self._get_qs_specific_notes(sap_text))
+        elif domain_code == "PC":
+            notes.extend(self._get_pc_specific_notes(sap_text))
+        elif domain_code == "PP":
+            notes.extend(self._get_pp_specific_notes(sap_text))
+        elif domain_code == "TV":
+            notes.extend(self._get_tv_specific_notes(sap_text))
+
+        # Add traceability-derived notes
         if domain_code in domain_requirements:
             traces = domain_requirements[domain_code]
             for trace in traces[:3]:  # Limit to top 3
-                notes.append(f"Required for: {trace.sdtm_element} (from {trace.sap_section})")
+                notes.append(f"SAP Reference: {trace.sdtm_element} (from {trace.sap_section})")
+
+        return notes
+
+    def _get_lb_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive LB domain notes with all required lab panels."""
+        notes = []
+
+        # Core lab panel categories - always include these
+        notes.append("**HEMATOLOGY Panel (LBCAT='HEMATOLOGY'):** Hemoglobin, Hematocrit, RBC, WBC with differential (Neutrophils, Lymphocytes, Monocytes, Eosinophils, Basophils), Platelets, MCV, MCH, MCHC")
+        notes.append("**CHEMISTRY Panel (LBCAT='CHEMISTRY'):** ALT, AST, ALP, GGT, Bilirubin (Total/Direct), Creatinine, BUN, Albumin, Total Protein, Glucose, Electrolytes (Sodium, Potassium, Chloride, Calcium, Bicarbonate, Phosphorus, Magnesium)")
+        notes.append("**COAGULATION Panel (LBCAT='COAGULATION'):** PT, aPTT, INR, Fibrinogen")
+        notes.append("**URINALYSIS (LBCAT='URINALYSIS'):** pH, Specific Gravity, Protein, Glucose, Blood, Leukocytes")
+
+        # Check for lipid panel mentions
+        if any(term in sap_text for term in ['lipid', 'cholesterol', 'ldl', 'hdl', 'triglyceride']):
+            notes.append("**LIPID Panel (LBCAT='CHEMISTRY'):** Total Cholesterol, LDL, HDL, Triglycerides")
+
+        # Check for screening/infectious disease tests
+        if any(term in sap_text for term in ['hiv', 'hepatitis', 'hbv', 'hcv', 'ebv', 'cmv', 'tuberculosis', 'tb ', 'quantiferon']):
+            notes.append("**SCREENING Tests (LBCAT='SEROLOGY'):** HIV-1/2 Antibodies, HBsAg, HCV Antibody, EBV (VCA-IgM/IgG), CMV (if applicable), QuantiFERON-TB Gold, C. difficile toxin")
+
+        # Check for immunogenicity
+        if any(term in sap_text for term in ['ada', 'anti-drug', 'antibod', 'immunogenic', 'nab']):
+            notes.append("**IMMUNOGENICITY (LBCAT='IMMUNOLOGY'):** Anti-drug Antibodies (ADA), Neutralizing Antibodies (NAb)")
+
+        # Check for biomarkers
+        if any(term in sap_text for term in ['il-6', 'interleukin', 'crp', 'c-reactive', 'calprotectin', 'biomarker']):
+            notes.append("**BIOMARKERS (LBCAT='BIOMARKER'):** IL-6, sIL-6R, CRP, Fecal Calprotectin (as applicable)")
+
+        # LBSPEC guidance
+        notes.append("**LBSPEC Values:** SERUM (chemistry, serology, immunogenicity), PLASMA (PK, some biomarkers), WHOLE BLOOD (hematology, TB testing), URINE (urinalysis, pregnancy), FECES/STOOL (calprotectin, C. difficile)")
+
+        # LBFAST guidance
+        if any(term in sap_text for term in ['fasting', 'fasted']):
+            notes.append("**LBFAST='Y':** Required for biomarker samples collected in fasting state (≥8 hours)")
+        else:
+            notes.append("**LBFAST:** Set to 'Y' for any tests requiring fasting status per protocol")
+
+        return notes
+
+    def _get_vs_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive VS domain notes with all vital signs."""
+        notes = []
+
+        # Standard vital signs panel
+        notes.append("**Required Vital Signs:** Systolic Blood Pressure (SYSBP), Diastolic Blood Pressure (DIABP), Heart Rate (HR), Pulse Rate (PULSE), Respiratory Rate (RESP), Body Temperature (TEMP)")
+        notes.append("**Additional Measurements:** Body Weight (WEIGHT), Height (HEIGHT), BMI (calculated)")
+        notes.append("**VSPOS:** Document position (STANDING, SITTING, SUPINE) especially for blood pressure measurements")
+        notes.append("**VSLOC:** Document location for temperature (ORAL, AXILLARY, TYMPANIC) and blood pressure (LEFT ARM, RIGHT ARM)")
+
+        return notes
+
+    def _get_dm_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive DM domain notes including stratification factors."""
+        notes = []
+
+        notes.append("**Core Demographics:** Age, Sex, Race, Ethnicity, Country")
+
+        # Extract stratification factors from SAP text
+        strat_factors = []
+        if 'stratif' in sap_text:
+            # Look for common stratification patterns
+            if any(term in sap_text for term in ['prior corticosteroid', 'corticosteroid treatment', 'prior steroid']):
+                strat_factors.append("Prior Corticosteroid Treatment (Y/N)")
+            if any(term in sap_text for term in ['pk substudy', 'pk sub-study', 'pharmacokinetic substudy']):
+                strat_factors.append("Consent to PK Substudy (Y/N)")
+            if any(term in sap_text for term in ['disease severity', 'baseline severity']):
+                strat_factors.append("Baseline Disease Severity")
+            if any(term in sap_text for term in ['geographic region', 'region']):
+                strat_factors.append("Geographic Region")
+            if any(term in sap_text for term in ['prior biologic', 'biologic failure', 'bio-failure']):
+                strat_factors.append("Prior Biologic Use/Failure")
+
+        if strat_factors:
+            notes.append(f"**Stratification Factors (SUPPDM):** {', '.join(strat_factors)}")
+            notes.append("**SUPPDM Variables:** Use QNAM/QLABEL/QVAL for stratification factors not in standard DM")
+        else:
+            notes.append("**Stratification Factors:** Document in SUPPDM using QNAM/QLABEL/QVAL structure")
+
+        return notes
+
+    def _get_qs_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive QS domain notes for questionnaires."""
+        notes = []
+
+        # Check for Mayo Score variants
+        if any(term in sap_text for term in ['mayo', 'partial mayo', 'modified mayo']):
+            notes.append("**Mayo Score Variants:** Full Mayo Score (0-12, all 4 subscores), 9-point Partial Mayo (0-9, Stool+Bleeding+PGA), 6-point Partial Mayo (0-6, Stool+Bleeding only)")
+            notes.append("**Mayo Subscores:** Stool Frequency (0-3), Rectal Bleeding (0-3), Mucosal Appearance/Endoscopy (0-3), Physician Global Assessment (0-3)")
+
+        # Check for CDAI
+        if 'cdai' in sap_text:
+            notes.append("**CDAI (Crohn's Disease Activity Index):** Document all component scores and total score")
+
+        # Check for quality of life instruments
+        if any(term in sap_text for term in ['sf-36', 'eq-5d', 'ibdq', 'quality of life', 'qol']):
+            notes.append("**PRO Instruments:** Document all validated questionnaire instruments with proper QSCAT categorization")
+
+        # Patient diary data
+        if any(term in sap_text for term in ['diary', 'patient diary', 'daily diary']):
+            notes.append("**Patient Diary Data:** Collected via QS domain with appropriate QSCAT='PATIENT DIARY'")
+
+        return notes
+
+    def _get_pc_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive PC domain notes for PK concentrations."""
+        notes = []
+
+        notes.append("**Required Variables:** PCTESTCD, PCTEST, PCORRES, PCORRESU, PCSTRESC, PCSTRESN, PCSTRESU, PCLLOQ, PCSPEC, PCDTC")
+
+        # Look for PK sampling schedule details
+        if any(term in sap_text for term in ['intensive sampling', 'pk sampling', 'pharmacokinetic sampling']):
+            notes.append("**Intensive PK Sampling:** Document all nominal timepoints (pre-dose, EOI, post-dose hours)")
+            notes.append("**Sparse PK Sampling:** Pre-dose and end-of-infusion samples at non-intensive visits")
+
+        # LLOQ handling
+        if any(term in sap_text for term in ['lloq', 'limit of quantification', 'blq', 'below quantification']):
+            notes.append("**PCLLOQ:** Lower Limit of Quantification - values below LLOQ may be imputed as LLOQ/2 per SAP")
+
+        notes.append("**PCSPEC Values:** SERUM or PLASMA as specified in protocol")
+        notes.append("**Nominal vs Actual Time:** PCNOMTPT for planned timepoints, PCTPT for actual collection timing")
+
+        return notes
+
+    def _get_pp_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive PP domain notes for PK parameters."""
+        notes = []
+
+        notes.append("**Standard PK Parameters:** AUC (various intervals), Cmax, Tmax, t½, CL/F, Vz/F")
+        notes.append("**Derived from:** Non-compartmental analysis (NCA) of PC domain concentration data")
+
+        if any(term in sap_text for term in ['population pk', 'popk', 'pop-pk']):
+            notes.append("**Population PK:** Parameters may also be derived from population PK modeling")
+
+        return notes
+
+    def _get_tv_specific_notes(self, sap_text: str) -> List[str]:
+        """Generate comprehensive TV domain notes for trial visits."""
+        notes = []
+
+        notes.append("**Visit Schedule:** Document all planned visits with study day and windows")
+        notes.append("**VISITDY:** Planned study day for each visit (Day 1 = first dose)")
+        notes.append("**TVSTRL/TVENRL:** Visit window rules (e.g., 'Day 14 ± 1 day', 'Day 28 ± 2 days')")
+
+        # Extract visit windows if mentioned
+        if any(term in sap_text for term in ['visit window', 'window', '± day', '+/- day']):
+            notes.append("**Visit Windows:** Define acceptable windows around planned visit days")
+
+        # Check for specific visit types
+        if 'screening' in sap_text:
+            notes.append("**Screening Visit:** Typically Day -28 to Day -1")
+        if 'baseline' in sap_text:
+            notes.append("**Baseline Visit:** Day 1 (pre-dose assessments)")
+        if any(term in sap_text for term in ['follow-up', 'follow up', 'end of study', 'end-of-study']):
+            notes.append("**End of Study/Follow-up:** Final assessments per protocol schedule")
 
         return notes
 
@@ -1616,6 +1811,9 @@ class SDTMSpecGenerator:
             "RS": ["Table 14.2.x Disease Response (RECIST)"],
             "DV": ["Listing 16.1.2 Protocol Deviations"],
             "FA": ["Listing 16.2.x Findings About Events"],
+            "PC": ["Table 14.4.x PK Concentration Summary", "Listing 16.2.x PK Concentrations"],
+            "PP": ["Table 14.4.x PK Parameters Summary"],
+            "TV": ["Listing 16.1.1 Protocol Summary - Visit Schedule"],
         }
         return mapping.get(domain_code, [])
 
