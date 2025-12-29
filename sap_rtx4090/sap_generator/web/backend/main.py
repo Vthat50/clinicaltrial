@@ -1076,20 +1076,48 @@ def _extract_primary_endpoint(sap_text: str) -> dict:
     """Extract primary endpoint from SAP text with robust pattern matching."""
     import re
 
-    patterns = [
-        # Match "Primary Endpoint:" or "Primary Efficacy Endpoint:" followed by the definition
-        r'primary\s+(?:efficacy\s+)?endpoint[:\s]+([^\n]+?)(?:\n|$)',
-        r'primary\s+endpoint\s+is\s+([^\n\.]+)',
-        r'the\s+primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will be)\s+([^\n\.]+)',
-        # Match "Primary outcome:" format
-        r'primary\s+outcome[:\s]+([^\n]+?)(?:\n|$)',
-        # Match numbered endpoint format "1. Primary Endpoint"
-        r'(?:^|\n)\s*\d+\.?\s*primary\s+endpoint[:\s]+([^\n]+)',
-        # Match endpoint in definition format
-        r'(?:clinical|modified|partial)\s+(?:remission|response|mayo)[^\n]*?(?:at|by)\s+week\s+\d+',
+    # First try IBD-specific clinical patterns (most specific, check first)
+    ibd_clinical_patterns = [
+        # Clinical remission with various week formats
+        r'(clinical\s+remission\s+(?:at|by)\s+week\s+\d+)',
+        r'(clinical\s+remission\s+(?:at|by)?\s*w(?:ee)?k?\s*\d+)',
+        # Clinical response with various week formats
+        r'(clinical\s+response\s+(?:at|by)\s+week\s+\d+)',
+        r'(clinical\s+response\s+(?:at|by)?\s*w(?:ee)?k?\s*\d+)',
+        # Endoscopic endpoints
+        r'(endoscopic\s+(?:improvement|remission|response|healing)\s+(?:at|by)\s+week\s+\d+)',
+        r'(mucosal\s+healing\s+(?:at|by)\s+week\s+\d+)',
+        # Mayo score endpoints
+        r'((?:modified\s+)?mayo\s+(?:score|subscores?)\s+(?:of\s+)?\d+(?:\s+or\s+less)?\s+(?:at|by)\s+week\s+\d+)',
+        r'(partial\s+mayo\s+score\s+(?:of\s+)?\d+(?:\s+or\s+less)?\s+(?:at|by)\s+week\s+\d+)',
+        # CDAI/Harvey-Bradshaw for Crohn's
+        r'(cdai\s+(?:score\s+)?(?:<|less\s+than)?\s*\d+\s+(?:at|by)\s+week\s+\d+)',
+        r'(harvey[- ]bradshaw\s+(?:index|score)\s+(?:<|less\s+than)?\s*\d+\s+(?:at|by)\s+week\s+\d+)',
+        # Proportion achieving remission/response
+        r'(proportion\s+(?:of\s+)?(?:subjects|patients)\s+(?:achieving|with)\s+(?:clinical\s+)?(?:remission|response)\s+(?:at|by)\s+week\s+\d+)',
     ]
 
-    for pattern in patterns:
+    for pattern in ibd_clinical_patterns:
+        match = re.search(pattern, sap_text, re.IGNORECASE)
+        if match:
+            endpoint = match.group(1).strip()
+            # Capitalize first letter for proper display
+            endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
+            return {'name': endpoint[:200], 'type': 'binary'}
+
+    # Try generic primary endpoint patterns
+    primary_endpoint_patterns = [
+        # Match "Primary Endpoint:" or "Primary Efficacy Endpoint:" followed by the definition
+        r'primary\s+(?:efficacy\s+)?endpoint[:\s]+([^\n|]+?)(?:\n|$)',
+        r'primary\s+endpoint\s+is\s+([^\n|\.]+)',
+        r'the\s+primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will be)\s+([^\n|\.]+)',
+        # Match "Primary outcome:" format
+        r'primary\s+outcome[:\s]+([^\n|]+?)(?:\n|$)',
+        # Match numbered endpoint format "1. Primary Endpoint"
+        r'(?:^|\n)\s*\d+\.?\s*primary\s+endpoint[:\s]+([^\n|]+)',
+    ]
+
+    for pattern in primary_endpoint_patterns:
         match = re.search(pattern, sap_text, re.IGNORECASE | re.MULTILINE)
         if match:
             endpoint = match.group(1).strip() if match.lastindex else match.group(0).strip()
@@ -1097,23 +1125,22 @@ def _extract_primary_endpoint(sap_text: str) -> dict:
             endpoint = re.sub(r'\s+', ' ', endpoint)
             endpoint = endpoint.rstrip('.')
             # Remove markdown/formatting artifacts
-            endpoint = re.sub(r'\*\*|\*|__', '', endpoint)
-            if endpoint and len(endpoint) > 10:
+            endpoint = re.sub(r'\*\*|\*|__|#', '', endpoint)
+            # Remove pipe characters that could break tables
+            endpoint = endpoint.replace('|', '-')
+            if endpoint and len(endpoint) > 8:
                 return {'name': endpoint[:200], 'type': _detect_endpoint_type(endpoint)}
 
-    # Try to find clinical remission/response patterns
-    clinical_patterns = [
-        r'(clinical\s+remission\s+at\s+week\s+\d+)',
-        r'(clinical\s+response\s+at\s+week\s+\d+)',
-        r'(modified\s+mayo\s+(?:score|subscores?)[^\n]*?(?:at|by)\s+week\s+\d+)',
-        r'(partial\s+mayo\s+score[^\n]*?(?:at|by)\s+week\s+\d+)',
-        r'(endoscopic\s+(?:improvement|remission|response)[^\n]*?(?:at|by)\s+week\s+\d+)',
+    # Fallback: look for any clinical remission/response pattern
+    fallback_patterns = [
+        r'((?:clinical|modified|partial)\s+(?:remission|response|mayo)[^\n|]*?(?:at|by)\s+week\s+\d+)',
     ]
 
-    for pattern in clinical_patterns:
+    for pattern in fallback_patterns:
         match = re.search(pattern, sap_text, re.IGNORECASE)
         if match:
             endpoint = match.group(1).strip()
+            endpoint = endpoint[0].upper() + endpoint[1:] if endpoint else endpoint
             return {'name': endpoint[:200], 'type': 'binary'}
 
     return {'name': 'Primary Endpoint', 'type': 'binary'}
@@ -1358,6 +1385,13 @@ async def generate_tlf_shells(job_id: str):
             "markdown": ""
         })
 
+        # Helper to escape pipe characters and clean titles for markdown tables
+        def escape_md_table(text: str) -> str:
+            if not text:
+                return ""
+            # Escape pipe characters and remove newlines
+            return text.replace("|", "\\|").replace("\n", " ").replace("\r", "").strip()
+
         # Generate markdown document
         full_markdown = f"""# TLF SHELL SPECIFICATIONS
 **Protocol:** {protocol_id}
@@ -1371,15 +1405,15 @@ async def generate_tlf_shells(job_id: str):
 |-----------|-------|------------|
 """
         for t in tables_json:
-            full_markdown += f"| {t['output_id']} | {t['title']} | {t['population']} |\n"
+            full_markdown += f"| {escape_md_table(t['output_id'])} | {escape_md_table(t['title'])} | {escape_md_table(t['population'])} |\n"
 
         full_markdown += "\n## Listings\n\n| Output ID | Title | Population |\n|-----------|-------|------------|\n"
         for l in listings_json:
-            full_markdown += f"| {l['output_id']} | {l['title']} | {l['population']} |\n"
+            full_markdown += f"| {escape_md_table(l['output_id'])} | {escape_md_table(l['title'])} | {escape_md_table(l['population'])} |\n"
 
         full_markdown += "\n## Figures\n\n| Output ID | Title | Population |\n|-----------|-------|------------|\n"
         for f in figures_json:
-            full_markdown += f"| {f['output_id']} | {f['title']} | {f['population']} |\n"
+            full_markdown += f"| {escape_md_table(f['output_id'])} | {escape_md_table(f['title'])} | {escape_md_table(f['population'])} |\n"
 
         total_outputs = len(tables_json) + len(listings_json) + len(figures_json)
 
