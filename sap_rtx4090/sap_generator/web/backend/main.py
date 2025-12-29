@@ -794,7 +794,7 @@ async def generate_sdtm_specs(job_id: str):
 
         # The new generator parses the SAP text to extract study-specific requirements
         protocol_facts = {
-            "protocol_id": job.get("nct_id") or "UNKNOWN",
+            "protocol_id": _extract_protocol_id(sap_text, protocol_text, job.get("nct_id")),
             "sap_text": sap_text,  # Key: pass SAP text for parsing
         }
 
@@ -972,9 +972,10 @@ async def generate_sas_code(job_id: str):
         # Build protocol facts from job data
         # Note: In production, these would be stored with the job
         sap_text = job.get("generated_sap", "")
+        protocol_text = job.get("protocol_text", "")
         protocol_facts = {
-            "protocol_id": job.get("nct_id") or "UNKNOWN",
-            "therapeutic_area": _detect_therapeutic_area(job.get("protocol_text", "")),
+            "protocol_id": _extract_protocol_id(sap_text, protocol_text, job.get("nct_id")),
+            "therapeutic_area": _detect_therapeutic_area(protocol_text or sap_text),
             "drug_name": _extract_drug_name(sap_text),
             "treatments": _extract_treatments(sap_text),
             "primary_endpoint": _extract_primary_endpoint(sap_text),
@@ -1072,12 +1073,102 @@ def _extract_treatments(sap_text: str) -> list:
 
 
 def _extract_primary_endpoint(sap_text: str) -> dict:
-    """Extract primary endpoint from SAP text."""
+    """Extract primary endpoint from SAP text with robust pattern matching."""
     import re
-    match = re.search(r'primary\s+endpoint[:\s]+([^\n.]+)', sap_text, re.IGNORECASE)
-    if match:
-        return {'name': match.group(1).strip()[:100], 'type': 'binary'}
+
+    patterns = [
+        # Match "Primary Endpoint:" or "Primary Efficacy Endpoint:" followed by the definition
+        r'primary\s+(?:efficacy\s+)?endpoint[:\s]+([^\n]+?)(?:\n|$)',
+        r'primary\s+endpoint\s+is\s+([^\n\.]+)',
+        r'the\s+primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will be)\s+([^\n\.]+)',
+        # Match "Primary outcome:" format
+        r'primary\s+outcome[:\s]+([^\n]+?)(?:\n|$)',
+        # Match numbered endpoint format "1. Primary Endpoint"
+        r'(?:^|\n)\s*\d+\.?\s*primary\s+endpoint[:\s]+([^\n]+)',
+        # Match endpoint in definition format
+        r'(?:clinical|modified|partial)\s+(?:remission|response|mayo)[^\n]*?(?:at|by)\s+week\s+\d+',
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, sap_text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            endpoint = match.group(1).strip() if match.lastindex else match.group(0).strip()
+            # Clean up the endpoint text
+            endpoint = re.sub(r'\s+', ' ', endpoint)
+            endpoint = endpoint.rstrip('.')
+            # Remove markdown/formatting artifacts
+            endpoint = re.sub(r'\*\*|\*|__', '', endpoint)
+            if endpoint and len(endpoint) > 10:
+                return {'name': endpoint[:200], 'type': _detect_endpoint_type(endpoint)}
+
+    # Try to find clinical remission/response patterns
+    clinical_patterns = [
+        r'(clinical\s+remission\s+at\s+week\s+\d+)',
+        r'(clinical\s+response\s+at\s+week\s+\d+)',
+        r'(modified\s+mayo\s+(?:score|subscores?)[^\n]*?(?:at|by)\s+week\s+\d+)',
+        r'(partial\s+mayo\s+score[^\n]*?(?:at|by)\s+week\s+\d+)',
+        r'(endoscopic\s+(?:improvement|remission|response)[^\n]*?(?:at|by)\s+week\s+\d+)',
+    ]
+
+    for pattern in clinical_patterns:
+        match = re.search(pattern, sap_text, re.IGNORECASE)
+        if match:
+            endpoint = match.group(1).strip()
+            return {'name': endpoint[:200], 'type': 'binary'}
+
     return {'name': 'Primary Endpoint', 'type': 'binary'}
+
+
+def _detect_endpoint_type(endpoint_text: str) -> str:
+    """Detect the type of endpoint from its description."""
+    endpoint_lower = endpoint_text.lower()
+
+    if any(term in endpoint_lower for term in ['remission', 'response', 'proportion', 'percentage', 'rate']):
+        return 'binary'
+    if any(term in endpoint_lower for term in ['change from baseline', 'mean change', 'difference']):
+        return 'continuous'
+    if any(term in endpoint_lower for term in ['time to', 'survival', 'duration']):
+        return 'time-to-event'
+    if any(term in endpoint_lower for term in ['score', 'index', 'scale']):
+        return 'continuous'
+
+    return 'binary'
+
+
+def _extract_protocol_id(sap_text: str, protocol_text: str = "", job_nct_id: str = None) -> str:
+    """Extract protocol/study ID from available sources."""
+    import re
+
+    # First check if job has nct_id
+    if job_nct_id and job_nct_id != "UNKNOWN" and len(job_nct_id) > 3:
+        return job_nct_id
+
+    # Try to extract from SAP text
+    patterns = [
+        # Protocol numbers like CTJ301UC201, ABC-123-456
+        r'(?:protocol|study)\s*(?:number|id|identifier)?[:\s]+([A-Z]{2,5}[-]?\d{2,4}[-]?[A-Z]{0,3}[-]?\d{0,4})',
+        r'(?:protocol|study)[:\s]+([A-Z0-9]+-[A-Z0-9]+-[A-Z0-9]+)',
+        r'([A-Z]{2,5}\d{3}[A-Z]{2}\d{3})',  # Pattern like CTJ301UC201
+        # NCT numbers
+        r'(NCT\d{8})',
+        # EudraCT numbers
+        r'(\d{4}-\d{6}-\d{2})',
+        # Generic protocol patterns
+        r'protocol[:\s]+([A-Z0-9-]{6,20})',
+    ]
+
+    # Try SAP text first, then protocol text
+    for text in [sap_text, protocol_text]:
+        if not text:
+            continue
+        for pattern in patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                study_id = match.group(1).strip()
+                if study_id and len(study_id) >= 6:
+                    return study_id.upper()
+
+    return "UNKNOWN"
 
 
 def _extract_sample_size(sap_text: str) -> int:
@@ -1087,11 +1178,15 @@ def _extract_sample_size(sap_text: str) -> int:
         r'(\d+)\s*(?:patients|subjects|participants)',
         r'n\s*=\s*(\d+)',
         r'sample size[:\s]+(\d+)',
+        r'total\s+of\s+(\d+)\s+(?:patients|subjects)',
+        r'(\d+)\s+(?:patients|subjects)\s+will be\s+(?:enrolled|randomized)',
     ]
     for pattern in patterns:
         match = re.search(pattern, sap_text, re.IGNORECASE)
         if match:
-            return int(match.group(1))
+            size = int(match.group(1))
+            if size >= 10:  # Reasonable minimum
+                return size
     return 100
 
 
@@ -1144,8 +1239,9 @@ async def generate_tlf_shells(job_id: str):
         protocol_text = job.get("protocol_text", "")
         sap_text = job.get("generated_sap", "")
 
-        protocol_id = job.get("nct_id") or "UNKNOWN"
-        therapeutic_area = _detect_therapeutic_area(protocol_text)
+        # Use improved protocol ID extraction
+        protocol_id = _extract_protocol_id(sap_text, protocol_text, job.get("nct_id"))
+        therapeutic_area = _detect_therapeutic_area(protocol_text or sap_text)
         primary_endpoint = _extract_primary_endpoint(sap_text)
         treatments = _extract_treatments(sap_text)
         sample_size = _extract_sample_size(sap_text)
@@ -1355,8 +1451,8 @@ async def generate_adam_specs(job_id: str):
         protocol_text = job.get("protocol_text", "")
         sap_text = job.get("generated_sap", "")
 
-        protocol_id = job.get("nct_id") or "UNKNOWN"
-        therapeutic_area = _detect_therapeutic_area(protocol_text)
+        protocol_id = _extract_protocol_id(sap_text, protocol_text, job.get("nct_id"))
+        therapeutic_area = _detect_therapeutic_area(protocol_text or sap_text)
         primary_endpoint = _extract_primary_endpoint(sap_text)
         treatments = _extract_treatments(sap_text)
 
@@ -1562,8 +1658,12 @@ async def generate_define_xml(job_id: str, standard: str = "adam"):
                 detail=f"Define-XML generator not available: {e}"
             )
 
-        # Extract protocol info
-        protocol_id = job.get("nct_id") or "STUDY-001"
+        # Extract protocol info using improved extraction
+        protocol_text = job.get("protocol_text", "")
+        sap_text = job.get("generated_sap", "")
+        protocol_id = _extract_protocol_id(sap_text, protocol_text, job.get("nct_id"))
+        if protocol_id == "UNKNOWN":
+            protocol_id = "STUDY-001"
         study_name = f"Study {protocol_id}"
 
         # Generate based on standard type
