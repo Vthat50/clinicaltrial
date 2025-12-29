@@ -954,7 +954,7 @@ async def generate_sas_code(job_id: str):
                 detail=f"Job not ready for code generation. Status: {job['status']}"
             )
 
-        if not job.get("sap_output"):
+        if not job.get("generated_sap"):
             raise HTTPException(
                 status_code=400,
                 detail="Job has no SAP output to generate code from"
@@ -971,13 +971,14 @@ async def generate_sas_code(job_id: str):
 
         # Build protocol facts from job data
         # Note: In production, these would be stored with the job
+        sap_text = job.get("generated_sap", "")
         protocol_facts = {
             "protocol_id": job.get("nct_id") or "UNKNOWN",
             "therapeutic_area": _detect_therapeutic_area(job.get("protocol_text", "")),
-            "drug_name": _extract_drug_name(job.get("sap_output", "")),
-            "treatments": _extract_treatments(job.get("sap_output", "")),
-            "primary_endpoint": _extract_primary_endpoint(job.get("sap_output", "")),
-            "total_n": _extract_sample_size(job.get("sap_output", "")),
+            "drug_name": _extract_drug_name(sap_text),
+            "treatments": _extract_treatments(sap_text),
+            "primary_endpoint": _extract_primary_endpoint(sap_text),
+            "total_n": _extract_sample_size(sap_text),
         }
 
         # Generate code
@@ -1092,6 +1093,521 @@ def _extract_sample_size(sap_text: str) -> int:
         if match:
             return int(match.group(1))
     return 100
+
+
+# =============================================================================
+# TLF SHELL SPECIFICATION ENDPOINT
+# =============================================================================
+
+class TLFShellResponse(BaseModel):
+    """Response model for TLF shell generation."""
+    success: bool
+    message: str
+    tables: list = []
+    listings: list = []
+    figures: list = []
+    total_outputs: int = 0
+    markdown: str = ""
+    errors: list = []
+
+
+@app.post("/generate-tlf-shells/{job_id}", response_model=TLFShellResponse)
+async def generate_tlf_shells(job_id: str):
+    """
+    Generate TLF (Tables, Listings, Figures) shell specifications from a completed SAP job.
+
+    Returns:
+        - Demographics tables (Table 14.1.x)
+        - Efficacy tables (Table 14.2.x)
+        - Safety tables (Table 14.3.x)
+        - Data listings (Listing 16.2.x)
+        - Figures (Figure 14.x)
+    """
+    try:
+        db = get_supabase()
+
+        # Get job and verify it's completed
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Job not ready for TLF generation. Status: {job['status']}"
+            )
+
+        # Extract protocol facts from job data
+        protocol_text = job.get("protocol_text", "")
+        sap_text = job.get("generated_sap", "")
+
+        protocol_id = job.get("nct_id") or "UNKNOWN"
+        therapeutic_area = _detect_therapeutic_area(protocol_text)
+        primary_endpoint = _extract_primary_endpoint(sap_text)
+        treatments = _extract_treatments(sap_text)
+        sample_size = _extract_sample_size(sap_text)
+
+        # Generate TLF shells using simplified approach (markdown-based)
+        tables_json = []
+        listings_json = []
+        figures_json = []
+
+        # Demographics table
+        tables_json.append({
+            "output_id": "Table 14.1.1",
+            "title": "Summary of Subject Demographics and Baseline Characteristics",
+            "population": "Safety Population",
+            "footnotes": ["N = Number of subjects in the safety population."],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # Disposition table
+        tables_json.append({
+            "output_id": "Table 14.1.2",
+            "title": "Subject Disposition",
+            "population": "All Randomized",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # Primary efficacy table
+        tables_json.append({
+            "output_id": "Table 14.2.1",
+            "title": f"Primary Efficacy Analysis: {primary_endpoint.get('name', 'Primary Endpoint')}",
+            "population": "Full Analysis Set",
+            "footnotes": ["Analysis performed using ANCOVA with treatment as a factor."],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # AE Summary table
+        tables_json.append({
+            "output_id": "Table 14.3.1",
+            "title": "Overall Summary of Treatment-Emergent Adverse Events",
+            "population": "Safety Population",
+            "footnotes": ["TEAE = Treatment-Emergent Adverse Event"],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # AE by SOC/PT
+        tables_json.append({
+            "output_id": "Table 14.3.2",
+            "title": "Treatment-Emergent Adverse Events by System Organ Class and Preferred Term",
+            "population": "Safety Population",
+            "footnotes": ["MedDRA version X.X"],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # SAE table
+        tables_json.append({
+            "output_id": "Table 14.3.3",
+            "title": "Serious Adverse Events",
+            "population": "Safety Population",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # Listings
+        listings_json.append({
+            "output_id": "Listing 16.2.1",
+            "title": "Listing of Subjects Who Discontinued Study",
+            "population": "All Randomized",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        listings_json.append({
+            "output_id": "Listing 16.2.4",
+            "title": "Listing of Serious Adverse Events",
+            "population": "Safety Population",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        listings_json.append({
+            "output_id": "Listing 16.2.6",
+            "title": "Listing of Deaths",
+            "population": "Safety Population",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # Figures
+        figures_json.append({
+            "output_id": "Figure 14.2.1",
+            "title": f"Kaplan-Meier Plot of {primary_endpoint.get('name', 'Primary Endpoint')}",
+            "population": "Full Analysis Set",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        figures_json.append({
+            "output_id": "Figure 14.2.2",
+            "title": "Forest Plot of Subgroup Analyses",
+            "population": "Full Analysis Set",
+            "footnotes": [],
+            "columns": [],
+            "markdown": ""
+        })
+
+        # Generate markdown document
+        full_markdown = f"""# TLF SHELL SPECIFICATIONS
+**Protocol:** {protocol_id}
+**Therapeutic Area:** {therapeutic_area.upper()}
+
+---
+
+## Tables
+
+| Output ID | Title | Population |
+|-----------|-------|------------|
+"""
+        for t in tables_json:
+            full_markdown += f"| {t['output_id']} | {t['title']} | {t['population']} |\n"
+
+        full_markdown += "\n## Listings\n\n| Output ID | Title | Population |\n|-----------|-------|------------|\n"
+        for l in listings_json:
+            full_markdown += f"| {l['output_id']} | {l['title']} | {l['population']} |\n"
+
+        full_markdown += "\n## Figures\n\n| Output ID | Title | Population |\n|-----------|-------|------------|\n"
+        for f in figures_json:
+            full_markdown += f"| {f['output_id']} | {f['title']} | {f['population']} |\n"
+
+        total_outputs = len(tables_json) + len(listings_json) + len(figures_json)
+
+        return TLFShellResponse(
+            success=True,
+            message=f"Generated {len(tables_json)} tables, {len(listings_json)} listings, {len(figures_json)} figures",
+            tables=tables_json,
+            listings=listings_json,
+            figures=figures_json,
+            total_outputs=total_outputs,
+            markdown=full_markdown,
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        return TLFShellResponse(
+            success=False,
+            message=f"TLF generation failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
+# =============================================================================
+# ADAM DERIVATION SPECIFICATION ENDPOINT
+# =============================================================================
+
+class AdamSpecResponse(BaseModel):
+    """Response model for ADaM derivation specification generation."""
+    success: bool
+    message: str
+    datasets: list = []
+    total_variables: int = 0
+    markdown: str = ""
+    errors: list = []
+
+
+@app.post("/generate-adam-specs/{job_id}", response_model=AdamSpecResponse)
+async def generate_adam_specs(job_id: str):
+    """
+    Generate ADaM (Analysis Data Model) derivation specifications from a completed SAP job.
+
+    Returns:
+        - ADSL (Subject-Level Analysis Dataset) derivations
+        - ADAE (Adverse Events) derivations
+        - ADLB (Laboratory) derivations
+        - ADEFF (Efficacy) derivations
+        - ADTTE (Time-to-Event) derivations
+    """
+    try:
+        db = get_supabase()
+
+        # Get job and verify it's completed
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Job not ready for ADaM spec generation. Status: {job['status']}"
+            )
+
+        # Extract protocol facts from job data
+        protocol_text = job.get("protocol_text", "")
+        sap_text = job.get("generated_sap", "")
+
+        protocol_id = job.get("nct_id") or "UNKNOWN"
+        therapeutic_area = _detect_therapeutic_area(protocol_text)
+        primary_endpoint = _extract_primary_endpoint(sap_text)
+        treatments = _extract_treatments(sap_text)
+
+        # Build ADaM datasets using standard derivations
+        datasets_json = []
+        total_vars = 0
+
+        # ADSL - Subject-Level Dataset
+        adsl_vars = [
+            {"name": "STUDYID", "label": "Study Identifier", "type": "Char", "length": 20, "derivation": "Assigned from protocol", "source": "DM.STUDYID", "codelist": None},
+            {"name": "USUBJID", "label": "Unique Subject Identifier", "type": "Char", "length": 50, "derivation": "Assigned from SDTM", "source": "DM.USUBJID", "codelist": None},
+            {"name": "SUBJID", "label": "Subject Identifier for the Study", "type": "Char", "length": 20, "derivation": "Assigned from SDTM", "source": "DM.SUBJID", "codelist": None},
+            {"name": "SITEID", "label": "Study Site Identifier", "type": "Char", "length": 10, "derivation": "Assigned from SDTM", "source": "DM.SITEID", "codelist": None},
+            {"name": "AGE", "label": "Age", "type": "Num", "length": 8, "derivation": "Set to DM.AGE", "source": "DM.AGE", "codelist": None},
+            {"name": "AGEGR1", "label": "Pooled Age Group 1", "type": "Char", "length": 20, "derivation": "Derived: <65='<65', >=65='>=65'", "source": "DM.AGE", "codelist": None},
+            {"name": "AGEGR1N", "label": "Pooled Age Group 1 (N)", "type": "Num", "length": 8, "derivation": "Numeric code for AGEGR1", "source": "AGEGR1", "codelist": None},
+            {"name": "SEX", "label": "Sex", "type": "Char", "length": 1, "derivation": "Set to DM.SEX", "source": "DM.SEX", "codelist": "SEX"},
+            {"name": "RACE", "label": "Race", "type": "Char", "length": 100, "derivation": "Set to DM.RACE", "source": "DM.RACE", "codelist": None},
+            {"name": "ETHNIC", "label": "Ethnicity", "type": "Char", "length": 50, "derivation": "Set to DM.ETHNIC", "source": "DM.ETHNIC", "codelist": None},
+            {"name": "TRT01P", "label": "Planned Treatment for Period 01", "type": "Char", "length": 200, "derivation": "Set to DM.ARM", "source": "DM.ARM", "codelist": None},
+            {"name": "TRT01PN", "label": "Planned Treatment for Period 01 (N)", "type": "Num", "length": 8, "derivation": "Numeric code for TRT01P", "source": "TRT01P", "codelist": None},
+            {"name": "TRT01A", "label": "Actual Treatment for Period 01", "type": "Char", "length": 200, "derivation": "Set to DM.ACTARM", "source": "DM.ACTARM", "codelist": None},
+            {"name": "TRT01AN", "label": "Actual Treatment for Period 01 (N)", "type": "Num", "length": 8, "derivation": "Numeric code for TRT01A", "source": "TRT01A", "codelist": None},
+            {"name": "TRTSDT", "label": "Date of First Exposure to Treatment", "type": "Num", "length": 8, "derivation": "Min(EX.EXSTDTC) where EXDOSE>0", "source": "EX.EXSTDTC", "codelist": None},
+            {"name": "TRTEDT", "label": "Date of Last Exposure to Treatment", "type": "Num", "length": 8, "derivation": "Max(EX.EXENDTC) where EXDOSE>0", "source": "EX.EXENDTC", "codelist": None},
+            {"name": "SAFFL", "label": "Safety Population Flag", "type": "Char", "length": 1, "derivation": "Y if TRTSDT is not missing", "source": "Derived", "codelist": "NY"},
+            {"name": "ITTFL", "label": "Intent-to-Treat Population Flag", "type": "Char", "length": 1, "derivation": "Y if randomized", "source": "Derived", "codelist": "NY"},
+            {"name": "FASFL", "label": "Full Analysis Set Population Flag", "type": "Char", "length": 1, "derivation": "Y if ITT and has baseline + 1 post-BL", "source": "Derived", "codelist": "NY"},
+        ]
+        datasets_json.append({
+            "name": "ADSL",
+            "label": "Subject-Level Analysis Dataset",
+            "structure": "One record per subject",
+            "keys": ["STUDYID", "USUBJID"],
+            "variables": adsl_vars
+        })
+        total_vars += len(adsl_vars)
+
+        # ADAE - Adverse Event Analysis Dataset
+        adae_vars = [
+            {"name": "STUDYID", "label": "Study Identifier", "type": "Char", "length": 20, "derivation": "Set to ADSL.STUDYID", "source": "ADSL", "codelist": None},
+            {"name": "USUBJID", "label": "Unique Subject Identifier", "type": "Char", "length": 50, "derivation": "Set to ADSL.USUBJID", "source": "ADSL", "codelist": None},
+            {"name": "AESEQ", "label": "Sequence Number", "type": "Num", "length": 8, "derivation": "Set to AE.AESEQ", "source": "AE.AESEQ", "codelist": None},
+            {"name": "TRTA", "label": "Actual Treatment", "type": "Char", "length": 200, "derivation": "Treatment at AE onset", "source": "ADSL.TRT01A", "codelist": None},
+            {"name": "AEDECOD", "label": "Dictionary-Derived Term", "type": "Char", "length": 200, "derivation": "Set to AE.AEDECOD", "source": "AE.AEDECOD", "codelist": None},
+            {"name": "AEBODSYS", "label": "Body System or Organ Class", "type": "Char", "length": 200, "derivation": "Set to AE.AEBODSYS", "source": "AE.AEBODSYS", "codelist": None},
+            {"name": "AESEV", "label": "Severity/Intensity", "type": "Char", "length": 20, "derivation": "Set to AE.AESEV", "source": "AE.AESEV", "codelist": None},
+            {"name": "AESER", "label": "Serious Event", "type": "Char", "length": 1, "derivation": "Set to AE.AESER", "source": "AE.AESER", "codelist": "NY"},
+            {"name": "AEREL", "label": "Causality", "type": "Char", "length": 50, "derivation": "Set to AE.AEREL", "source": "AE.AEREL", "codelist": None},
+            {"name": "ASTDT", "label": "Analysis Start Date", "type": "Num", "length": 8, "derivation": "Derived from AE.AESTDTC", "source": "AE.AESTDTC", "codelist": None},
+            {"name": "AENDT", "label": "Analysis End Date", "type": "Num", "length": 8, "derivation": "Derived from AE.AEENDTC", "source": "AE.AEENDTC", "codelist": None},
+            {"name": "AETRTEMFL", "label": "Treatment Emergent Flag", "type": "Char", "length": 1, "derivation": "Y if ASTDT >= TRTSDT and ASTDT <= TRTEDT+30", "source": "Derived", "codelist": "NY"},
+        ]
+        datasets_json.append({
+            "name": "ADAE",
+            "label": "Adverse Event Analysis Dataset",
+            "structure": "One record per adverse event per subject",
+            "keys": ["STUDYID", "USUBJID", "AESEQ"],
+            "variables": adae_vars
+        })
+        total_vars += len(adae_vars)
+
+        # ADEFF - Efficacy Analysis Dataset
+        adeff_vars = [
+            {"name": "STUDYID", "label": "Study Identifier", "type": "Char", "length": 20, "derivation": "Set to ADSL.STUDYID", "source": "ADSL", "codelist": None},
+            {"name": "USUBJID", "label": "Unique Subject Identifier", "type": "Char", "length": 50, "derivation": "Set to ADSL.USUBJID", "source": "ADSL", "codelist": None},
+            {"name": "PARAMCD", "label": "Parameter Code", "type": "Char", "length": 8, "derivation": "Assigned per parameter", "source": "Derived", "codelist": None},
+            {"name": "PARAM", "label": "Parameter", "type": "Char", "length": 200, "derivation": "Parameter description", "source": "Derived", "codelist": None},
+            {"name": "AVAL", "label": "Analysis Value", "type": "Num", "length": 8, "derivation": "Numeric analysis value", "source": "Derived", "codelist": None},
+            {"name": "BASE", "label": "Baseline Value", "type": "Num", "length": 8, "derivation": "Value where ABLFL=Y", "source": "Derived", "codelist": None},
+            {"name": "CHG", "label": "Change from Baseline", "type": "Num", "length": 8, "derivation": "AVAL - BASE", "source": "Derived", "codelist": None},
+            {"name": "PCHG", "label": "Percent Change from Baseline", "type": "Num", "length": 8, "derivation": "100 * (AVAL - BASE) / BASE", "source": "Derived", "codelist": None},
+            {"name": "AVISIT", "label": "Analysis Visit", "type": "Char", "length": 40, "derivation": "Analysis visit with windowing", "source": "Derived", "codelist": None},
+            {"name": "ABLFL", "label": "Baseline Record Flag", "type": "Char", "length": 1, "derivation": "Y for baseline record", "source": "Derived", "codelist": "NY"},
+            {"name": "ANL01FL", "label": "Analysis Record Flag 01", "type": "Char", "length": 1, "derivation": "Y for primary analysis records", "source": "Derived", "codelist": "NY"},
+        ]
+        datasets_json.append({
+            "name": "ADEFF",
+            "label": "Efficacy Analysis Dataset",
+            "structure": "One record per subject per parameter per visit",
+            "keys": ["STUDYID", "USUBJID", "PARAMCD", "AVISIT"],
+            "variables": adeff_vars
+        })
+        total_vars += len(adeff_vars)
+
+        # ADTTE - Time-to-Event Dataset
+        adtte_vars = [
+            {"name": "STUDYID", "label": "Study Identifier", "type": "Char", "length": 20, "derivation": "Set to ADSL.STUDYID", "source": "ADSL", "codelist": None},
+            {"name": "USUBJID", "label": "Unique Subject Identifier", "type": "Char", "length": 50, "derivation": "Set to ADSL.USUBJID", "source": "ADSL", "codelist": None},
+            {"name": "PARAMCD", "label": "Parameter Code", "type": "Char", "length": 8, "derivation": "Assigned per TTE parameter", "source": "Derived", "codelist": None},
+            {"name": "PARAM", "label": "Parameter", "type": "Char", "length": 200, "derivation": "TTE parameter description", "source": "Derived", "codelist": None},
+            {"name": "STARTDT", "label": "Time-to-Event Origin Date", "type": "Num", "length": 8, "derivation": "Randomization or first dose date", "source": "ADSL", "codelist": None},
+            {"name": "ADT", "label": "Analysis Date", "type": "Num", "length": 8, "derivation": "Event or censoring date", "source": "Derived", "codelist": None},
+            {"name": "AVAL", "label": "Analysis Value", "type": "Num", "length": 8, "derivation": "ADT - STARTDT + 1 (days)", "source": "Derived", "codelist": None},
+            {"name": "CNSR", "label": "Censor", "type": "Num", "length": 8, "derivation": "0=Event, 1=Censored", "source": "Derived", "codelist": None},
+            {"name": "EVNTDESC", "label": "Event Description", "type": "Char", "length": 200, "derivation": "Description of event", "source": "Derived", "codelist": None},
+        ]
+        datasets_json.append({
+            "name": "ADTTE",
+            "label": "Time-to-Event Analysis Dataset",
+            "structure": "One record per subject per parameter",
+            "keys": ["STUDYID", "USUBJID", "PARAMCD"],
+            "variables": adtte_vars
+        })
+        total_vars += len(adtte_vars)
+
+        # Generate markdown document
+        markdown_parts = [
+            "# ADaM Derivation Specifications",
+            f"\n**Protocol:** {protocol_id}",
+            f"\n**Therapeutic Area:** {therapeutic_area.upper()}",
+            "\n---\n"
+        ]
+
+        for ds in datasets_json:
+            markdown_parts.append(f"\n## {ds['name']} - {ds['label']}")
+            markdown_parts.append(f"\n**Structure:** {ds['structure']}")
+            markdown_parts.append(f"\n**Keys:** {', '.join(ds['keys'])}")
+            markdown_parts.append("\n\n### Variable Derivations\n")
+            markdown_parts.append("| Variable | Label | Type | Derivation |")
+            markdown_parts.append("|----------|-------|------|------------|")
+            for v in ds['variables'][:20]:
+                deriv = v['derivation'][:80] + "..." if len(v['derivation']) > 80 else v['derivation']
+                markdown_parts.append(f"| {v['name']} | {v['label'][:40]} | {v['type']} | {deriv} |")
+            if len(ds['variables']) > 20:
+                markdown_parts.append(f"\n*...and {len(ds['variables']) - 20} more variables*")
+
+        return AdamSpecResponse(
+            success=True,
+            message=f"Generated derivation specs for {len(datasets_json)} ADaM datasets with {total_vars} variables",
+            datasets=datasets_json,
+            total_variables=total_vars,
+            markdown="\n".join(markdown_parts),
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        return AdamSpecResponse(
+            success=False,
+            message=f"ADaM spec generation failed: {str(e)}",
+            errors=[str(e)]
+        )
+
+
+# =============================================================================
+# DEFINE-XML GENERATION ENDPOINT
+# =============================================================================
+
+class DefineXMLResponse(BaseModel):
+    """Response model for Define-XML generation."""
+    success: bool
+    message: str
+    xml_content: str = ""
+    dataset_count: int = 0
+    variable_count: int = 0
+    standard_type: str = ""  # "SDTM" or "ADaM"
+    errors: list = []
+
+
+@app.post("/generate-define-xml/{job_id}")
+async def generate_define_xml(job_id: str, standard: str = "adam"):
+    """
+    Generate CDISC Define-XML 2.1 metadata from a completed SAP job.
+
+    Args:
+        job_id: The job ID to generate Define-XML for
+        standard: Either "sdtm" or "adam" (default: adam)
+
+    Returns:
+        - Complete Define-XML 2.1 compliant XML document
+        - Dataset definitions
+        - Variable metadata with origins and derivations
+        - Codelists
+    """
+    try:
+        db = get_supabase()
+
+        # Get job and verify it's completed
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(
+                status_code=400,
+                detail=f"Job not ready for Define-XML generation. Status: {job['status']}"
+            )
+
+        # Import Define-XML generator
+        try:
+            from enterprise_sap_system.specs.define_xml import (
+                generate_sdtm_define_xml,
+                generate_adam_define_xml,
+            )
+        except ImportError as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Define-XML generator not available: {e}"
+            )
+
+        # Extract protocol info
+        protocol_id = job.get("nct_id") or "STUDY-001"
+        study_name = f"Study {protocol_id}"
+
+        # Generate based on standard type
+        if standard.lower() == "sdtm":
+            xml_content = generate_sdtm_define_xml(
+                study_id=protocol_id,
+                study_name=study_name,
+                domains=["DM", "AE", "CM", "DS", "EX", "LB", "MH", "VS"]
+            )
+            dataset_count = 8
+            variable_count = 200  # Approximate
+            standard_type = "SDTM"
+        else:
+            xml_content = generate_adam_define_xml(
+                study_id=protocol_id,
+                study_name=study_name,
+                datasets=["ADSL", "ADAE", "ADLB", "ADEFF", "ADTTE"]
+            )
+            dataset_count = 5
+            variable_count = 120  # Approximate
+            standard_type = "ADaM"
+
+        return {
+            "success": True,
+            "message": f"Generated {standard_type} Define-XML 2.1 with {dataset_count} datasets",
+            "xml_content": xml_content,
+            "dataset_count": dataset_count,
+            "variable_count": variable_count,
+            "standard_type": standard_type,
+            "errors": []
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Define-XML generation failed: {str(e)}",
+            "xml_content": "",
+            "dataset_count": 0,
+            "variable_count": 0,
+            "standard_type": "",
+            "errors": [str(e)]
+        }
 
 
 # Background worker

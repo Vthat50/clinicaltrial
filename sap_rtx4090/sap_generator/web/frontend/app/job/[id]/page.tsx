@@ -150,6 +150,72 @@ interface SDTMSpecResult {
   errors: string[]
 }
 
+// TLF Shell interfaces
+interface TLFColumn {
+  header: string
+  width: number
+  align: string
+}
+
+interface TLFShell {
+  output_id: string
+  title: string
+  population: string
+  footnotes: string[]
+  columns: TLFColumn[]
+  markdown: string
+}
+
+interface TLFShellResult {
+  success: boolean
+  message: string
+  tables: TLFShell[]
+  listings: TLFShell[]
+  figures: TLFShell[]
+  total_outputs: number
+  markdown: string
+  errors: string[]
+}
+
+// ADaM Spec interfaces
+interface AdamVariable {
+  name: string
+  label: string
+  type: string
+  length: number
+  derivation: string
+  source: string
+  codelist: string | null
+}
+
+interface AdamDataset {
+  name: string
+  label: string
+  structure: string
+  keys: string[]
+  variables: AdamVariable[]
+}
+
+interface AdamSpecResult {
+  success: boolean
+  message: string
+  datasets: AdamDataset[]
+  total_variables: number
+  markdown: string
+  errors: string[]
+}
+
+// Define-XML interfaces
+interface DefineXMLResult {
+  success: boolean
+  message: string
+  xml_content: string
+  dataset_count: number
+  variable_count: number
+  standard_type: string
+  errors: string[]
+}
+
 export default function JobDetailPage() {
   const params = useParams()
   const router = useRouter()
@@ -158,13 +224,30 @@ export default function JobDetailPage() {
   const [result, setResult] = useState<JobResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'sap' | 'sdtm' | 'protocol'>('sap')
+  const [activeTab, setActiveTab] = useState<'sap' | 'sdtm' | 'tlf' | 'adam' | 'definexml' | 'protocol'>('sap')
 
   // SDTM Specs state
   const [sdtmSpec, setSdtmSpec] = useState<SDTMSpecResult | null>(null)
   const [sdtmLoading, setSdtmLoading] = useState(false)
   const [sdtmError, setSdtmError] = useState<string | null>(null)
   const [expandedDomain, setExpandedDomain] = useState<string | null>(null)
+
+  // TLF Shells state
+  const [tlfResult, setTlfResult] = useState<TLFShellResult | null>(null)
+  const [tlfLoading, setTlfLoading] = useState(false)
+  const [tlfError, setTlfError] = useState<string | null>(null)
+
+  // ADaM Specs state
+  const [adamResult, setAdamResult] = useState<AdamSpecResult | null>(null)
+  const [adamLoading, setAdamLoading] = useState(false)
+  const [adamError, setAdamError] = useState<string | null>(null)
+  const [expandedDataset, setExpandedDataset] = useState<string | null>(null)
+
+  // Define-XML state
+  const [defineXmlResult, setDefineXmlResult] = useState<DefineXMLResult | null>(null)
+  const [defineXmlLoading, setDefineXmlLoading] = useState(false)
+  const [defineXmlError, setDefineXmlError] = useState<string | null>(null)
+  const [defineXmlStandard, setDefineXmlStandard] = useState<'adam' | 'sdtm'>('adam')
 
   // Evaluation state
   const [groundTruthStudies, setGroundTruthStudies] = useState<GroundTruthStudy[]>([])
@@ -277,6 +360,96 @@ export default function JobDetailPage() {
       setSdtmError(e.message)
     } finally {
       setSdtmLoading(false)
+    }
+  }
+
+  // Generate TLF shells
+  const generateTlfShells = async () => {
+    if (!jobId) return
+
+    setTlfLoading(true)
+    setTlfError(null)
+
+    try {
+      const res = await fetch(`${API_URL}/generate-tlf-shells/${jobId}`, {
+        method: 'POST'
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.detail || 'TLF generation failed')
+      }
+
+      const data = await res.json()
+      if (data.success) {
+        setTlfResult(data)
+      } else {
+        throw new Error(data.message || 'TLF generation failed')
+      }
+    } catch (e: any) {
+      setTlfError(e.message)
+    } finally {
+      setTlfLoading(false)
+    }
+  }
+
+  // Generate ADaM derivation specs
+  const generateAdamSpecs = async () => {
+    if (!jobId) return
+
+    setAdamLoading(true)
+    setAdamError(null)
+
+    try {
+      const res = await fetch(`${API_URL}/generate-adam-specs/${jobId}`, {
+        method: 'POST'
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.detail || 'ADaM spec generation failed')
+      }
+
+      const data = await res.json()
+      if (data.success) {
+        setAdamResult(data)
+      } else {
+        throw new Error(data.message || 'ADaM spec generation failed')
+      }
+    } catch (e: any) {
+      setAdamError(e.message)
+    } finally {
+      setAdamLoading(false)
+    }
+  }
+
+  // Generate Define-XML
+  const generateDefineXml = async () => {
+    if (!jobId) return
+
+    setDefineXmlLoading(true)
+    setDefineXmlError(null)
+
+    try {
+      const res = await fetch(`${API_URL}/generate-define-xml/${jobId}?standard=${defineXmlStandard}`, {
+        method: 'POST'
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.detail || 'Define-XML generation failed')
+      }
+
+      const data = await res.json()
+      if (data.success) {
+        setDefineXmlResult(data)
+      } else {
+        throw new Error(data.message || 'Define-XML generation failed')
+      }
+    } catch (e: any) {
+      setDefineXmlError(e.message)
+    } finally {
+      setDefineXmlLoading(false)
     }
   }
 
@@ -704,36 +877,66 @@ export default function JobDetailPage() {
 
           {/* Tabs */}
           <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
-            <div className="border-b flex">
+            <div className="border-b flex flex-wrap">
               <button
                 onClick={() => setActiveTab('sap')}
-                className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
+                className={`flex-1 min-w-[100px] py-3 px-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === 'sap'
                     ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
-                📄 Generated SAP
+                📄 SAP
               </button>
               <button
                 onClick={() => setActiveTab('sdtm')}
-                className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
+                className={`flex-1 min-w-[100px] py-3 px-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === 'sdtm'
                     ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
-                🗃️ SDTM Specs {sdtmSpec && <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">{sdtmSpec.domain_count}</span>}
+                🗃️ SDTM {sdtmSpec && <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">{sdtmSpec.domain_count}</span>}
+              </button>
+              <button
+                onClick={() => setActiveTab('tlf')}
+                className={`flex-1 min-w-[100px] py-3 px-3 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'tlf'
+                    ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                📊 TLF {tlfResult && <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">{tlfResult.total_outputs}</span>}
+              </button>
+              <button
+                onClick={() => setActiveTab('adam')}
+                className={`flex-1 min-w-[100px] py-3 px-3 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'adam'
+                    ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                📐 ADaM {adamResult && <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">{adamResult.datasets.length}</span>}
+              </button>
+              <button
+                onClick={() => setActiveTab('definexml')}
+                className={`flex-1 min-w-[100px] py-3 px-3 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'definexml'
+                    ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                📋 Define-XML {defineXmlResult && <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">✓</span>}
               </button>
               <button
                 onClick={() => setActiveTab('protocol')}
-                className={`flex-1 py-3 px-4 text-sm font-medium border-b-2 transition-colors ${
+                className={`flex-1 min-w-[100px] py-3 px-3 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === 'protocol'
                     ? 'border-indigo-600 text-indigo-600 bg-indigo-50'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
-                📋 Source Protocol
+                📝 Protocol
               </button>
             </div>
 
@@ -966,6 +1169,402 @@ export default function JobDetailPage() {
                         <span className="flex items-center gap-1">
                           <span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded font-medium">Perm</span> Permissible
                         </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* TLF Shells Tab */}
+              {activeTab === 'tlf' && (
+                <div>
+                  {/* Generate Button */}
+                  {!tlfResult && !tlfLoading && (
+                    <div className="text-center py-8">
+                      <div className="text-4xl mb-4">📊</div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Generate TLF Shells</h3>
+                      <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                        Generate Tables, Listings, and Figures shell specifications based on the SAP.
+                      </p>
+                      <button
+                        onClick={generateTlfShells}
+                        className="bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                      >
+                        Generate TLF Shells
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Loading State */}
+                  {tlfLoading && (
+                    <div className="text-center py-8">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600">Generating TLF shells...</p>
+                    </div>
+                  )}
+
+                  {/* Error State */}
+                  {tlfError && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                      <p className="text-red-700">{tlfError}</p>
+                      <button
+                        onClick={generateTlfShells}
+                        className="mt-2 text-sm text-red-600 hover:text-red-800 font-medium"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  )}
+
+                  {/* TLF Results */}
+                  {tlfResult && (
+                    <div className="space-y-4">
+                      {/* Header */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">TLF Shell Specifications</h3>
+                          <p className="text-sm text-gray-500">{tlfResult.message}</p>
+                        </div>
+                        <button
+                          onClick={() => downloadTextFile(tlfResult.markdown || '', `TLF_Shells_${result?.filename || jobId.slice(0, 8)}.md`)}
+                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+                        >
+                          Download Markdown
+                        </button>
+                      </div>
+
+                      {/* Summary Cards */}
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                          <p className="text-2xl font-bold text-blue-700">{tlfResult.tables.length}</p>
+                          <p className="text-sm text-blue-600">Tables</p>
+                        </div>
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                          <p className="text-2xl font-bold text-green-700">{tlfResult.listings.length}</p>
+                          <p className="text-sm text-green-600">Listings</p>
+                        </div>
+                        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+                          <p className="text-2xl font-bold text-purple-700">{tlfResult.figures.length}</p>
+                          <p className="text-sm text-purple-600">Figures</p>
+                        </div>
+                      </div>
+
+                      {/* Tables Section */}
+                      {tlfResult.tables.length > 0 && (
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">TABLES</span>
+                          </h4>
+                          <div className="space-y-2">
+                            {tlfResult.tables.map((table) => (
+                              <div key={table.output_id} className="border rounded-lg p-3 hover:bg-gray-50">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <span className="font-mono text-sm font-medium text-gray-900">{table.output_id}</span>
+                                    <p className="text-sm text-gray-600">{table.title}</p>
+                                  </div>
+                                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">{table.population}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Listings Section */}
+                      {tlfResult.listings.length > 0 && (
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">LISTINGS</span>
+                          </h4>
+                          <div className="space-y-2">
+                            {tlfResult.listings.map((listing) => (
+                              <div key={listing.output_id} className="border rounded-lg p-3 hover:bg-gray-50">
+                                <span className="font-mono text-sm font-medium text-gray-900">{listing.output_id}</span>
+                                <p className="text-sm text-gray-600">{listing.title}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Figures Section */}
+                      {tlfResult.figures.length > 0 && (
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                            <span className="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">FIGURES</span>
+                          </h4>
+                          <div className="space-y-2">
+                            {tlfResult.figures.map((figure) => (
+                              <div key={figure.output_id} className="border rounded-lg p-3 hover:bg-gray-50">
+                                <span className="font-mono text-sm font-medium text-gray-900">{figure.output_id}</span>
+                                <p className="text-sm text-gray-600">{figure.title}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ADaM Specs Tab */}
+              {activeTab === 'adam' && (
+                <div>
+                  {/* Generate Button */}
+                  {!adamResult && !adamLoading && (
+                    <div className="text-center py-8">
+                      <div className="text-4xl mb-4">📐</div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Generate ADaM Derivation Specs</h3>
+                      <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                        Generate Analysis Data Model (ADaM) variable derivation specifications.
+                      </p>
+                      <button
+                        onClick={generateAdamSpecs}
+                        className="bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                      >
+                        Generate ADaM Specs
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Loading State */}
+                  {adamLoading && (
+                    <div className="text-center py-8">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600">Generating ADaM derivation specs...</p>
+                    </div>
+                  )}
+
+                  {/* Error State */}
+                  {adamError && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                      <p className="text-red-700">{adamError}</p>
+                      <button
+                        onClick={generateAdamSpecs}
+                        className="mt-2 text-sm text-red-600 hover:text-red-800 font-medium"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  )}
+
+                  {/* ADaM Results */}
+                  {adamResult && (
+                    <div className="space-y-4">
+                      {/* Header */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">ADaM Derivation Specifications</h3>
+                          <p className="text-sm text-gray-500">{adamResult.message}</p>
+                        </div>
+                        <button
+                          onClick={() => downloadTextFile(adamResult.markdown || '', `ADaM_Specs_${result?.filename || jobId.slice(0, 8)}.md`)}
+                          className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+                        >
+                          Download Markdown
+                        </button>
+                      </div>
+
+                      {/* Summary */}
+                      <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="text-center">
+                            <p className="text-2xl font-bold text-indigo-700">{adamResult.datasets.length}</p>
+                            <p className="text-xs text-indigo-600">Datasets</p>
+                          </div>
+                          <div className="text-center">
+                            <p className="text-2xl font-bold text-indigo-700">{adamResult.total_variables}</p>
+                            <p className="text-xs text-indigo-600">Variables</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Dataset Cards */}
+                      <div className="grid gap-3">
+                        {adamResult.datasets.map((dataset) => (
+                          <div key={dataset.name} className="border rounded-lg overflow-hidden">
+                            <button
+                              onClick={() => setExpandedDataset(expandedDataset === dataset.name ? null : dataset.name)}
+                              className="w-full px-4 py-3 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="font-mono text-sm font-bold bg-indigo-100 text-indigo-700 px-2 py-1 rounded">
+                                  {dataset.name}
+                                </span>
+                                <div className="text-left">
+                                  <p className="font-medium text-gray-900">{dataset.label}</p>
+                                  <p className="text-xs text-gray-500">
+                                    {dataset.structure} • {dataset.variables.length} variables
+                                  </p>
+                                </div>
+                              </div>
+                              <span className="text-gray-400">{expandedDataset === dataset.name ? '▼' : '▶'}</span>
+                            </button>
+
+                            {expandedDataset === dataset.name && (
+                              <div className="p-4 border-t bg-white">
+                                <p className="text-xs text-gray-500 mb-3">Keys: {dataset.keys.join(', ')}</p>
+
+                                {/* Variables Table */}
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-sm">
+                                    <thead className="bg-gray-50">
+                                      <tr>
+                                        <th className="px-3 py-2 text-left font-medium text-gray-600">Variable</th>
+                                        <th className="px-3 py-2 text-left font-medium text-gray-600">Label</th>
+                                        <th className="px-3 py-2 text-left font-medium text-gray-600">Derivation</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {dataset.variables.slice(0, 15).map((v, i) => (
+                                        <tr key={v.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                          <td className="px-3 py-2 font-mono text-xs font-medium text-gray-900">{v.name}</td>
+                                          <td className="px-3 py-2 text-gray-700 text-xs">{v.label}</td>
+                                          <td className="px-3 py-2 text-gray-600 text-xs">{v.derivation.slice(0, 60)}...</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                  {dataset.variables.length > 15 && (
+                                    <p className="text-xs text-gray-500 text-center py-2">
+                                      ...and {dataset.variables.length - 15} more variables
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Define-XML Tab */}
+              {activeTab === 'definexml' && (
+                <div>
+                  {/* Generate Button */}
+                  {!defineXmlResult && !defineXmlLoading && (
+                    <div className="text-center py-8">
+                      <div className="text-4xl mb-4">📋</div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Generate Define-XML</h3>
+                      <p className="text-gray-600 mb-4 max-w-md mx-auto">
+                        Generate CDISC Define-XML 2.1 compliant metadata for regulatory submission.
+                      </p>
+
+                      {/* Standard Selector */}
+                      <div className="flex items-center justify-center gap-4 mb-6">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="standard"
+                            checked={defineXmlStandard === 'adam'}
+                            onChange={() => setDefineXmlStandard('adam')}
+                            className="w-4 h-4 text-indigo-600"
+                          />
+                          <span className="text-sm text-gray-700">ADaM (Analysis)</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="standard"
+                            checked={defineXmlStandard === 'sdtm'}
+                            onChange={() => setDefineXmlStandard('sdtm')}
+                            className="w-4 h-4 text-indigo-600"
+                          />
+                          <span className="text-sm text-gray-700">SDTM (Tabulation)</span>
+                        </label>
+                      </div>
+
+                      <button
+                        onClick={generateDefineXml}
+                        className="bg-indigo-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                      >
+                        Generate Define-XML
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Loading State */}
+                  {defineXmlLoading && (
+                    <div className="text-center py-8">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600">Generating Define-XML...</p>
+                    </div>
+                  )}
+
+                  {/* Error State */}
+                  {defineXmlError && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                      <p className="text-red-700">{defineXmlError}</p>
+                      <button
+                        onClick={generateDefineXml}
+                        className="mt-2 text-sm text-red-600 hover:text-red-800 font-medium"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Define-XML Results */}
+                  {defineXmlResult && (
+                    <div className="space-y-4">
+                      {/* Header */}
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">Define-XML 2.1 Metadata</h3>
+                          <p className="text-sm text-gray-500">{defineXmlResult.message}</p>
+                        </div>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => downloadTextFile(defineXmlResult.xml_content || '', `define_${defineXmlResult.standard_type.toLowerCase()}_${result?.filename || jobId.slice(0, 8)}.xml`)}
+                            className="text-sm bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
+                          >
+                            Download XML
+                          </button>
+                          <button
+                            onClick={() => {
+                              setDefineXmlResult(null)
+                              setDefineXmlStandard(defineXmlStandard === 'adam' ? 'sdtm' : 'adam')
+                            }}
+                            className="text-sm border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors"
+                          >
+                            Generate {defineXmlStandard === 'adam' ? 'SDTM' : 'ADaM'}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Summary Cards */}
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-center">
+                          <p className="text-2xl font-bold text-indigo-700">{defineXmlResult.standard_type}</p>
+                          <p className="text-sm text-indigo-600">Standard</p>
+                        </div>
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                          <p className="text-2xl font-bold text-green-700">{defineXmlResult.dataset_count}</p>
+                          <p className="text-sm text-green-600">Datasets</p>
+                        </div>
+                        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+                          <p className="text-2xl font-bold text-purple-700">{defineXmlResult.variable_count}</p>
+                          <p className="text-sm text-purple-600">Variables</p>
+                        </div>
+                      </div>
+
+                      {/* XML Preview */}
+                      <div className="border rounded-lg overflow-hidden">
+                        <div className="bg-gray-100 px-4 py-2 border-b flex items-center justify-between">
+                          <span className="text-sm font-medium text-gray-700">XML Preview</span>
+                          <span className="text-xs text-gray-500">
+                            {(defineXmlResult.xml_content?.length || 0).toLocaleString()} characters
+                          </span>
+                        </div>
+                        <pre className="p-4 bg-gray-50 overflow-auto max-h-[400px] text-xs font-mono text-gray-700">
+                          {defineXmlResult.xml_content?.slice(0, 5000)}
+                          {(defineXmlResult.xml_content?.length || 0) > 5000 && '\n\n... (truncated - download for full XML)'}
+                        </pre>
                       </div>
                     </div>
                   )}
