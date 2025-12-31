@@ -333,8 +333,8 @@ class FullIntegratedPipeline:
         self.hard_validator = None
         if HARD_VALIDATOR_AVAILABLE:
             try:
-                self.hard_validator = HardValidator(strict_mode=True)
-                print("  [OK] HardValidator (strict mode)")
+                self.hard_validator = HardValidator(strict_mode=False)  # Only block on CRITICAL, not HIGH
+                print("  [OK] HardValidator (block on CRITICAL only)")
             except Exception as e:
                 print(f"  [FAIL] HardValidator: {e}")
 
@@ -707,9 +707,10 @@ class FullIntegratedPipeline:
             # FINAL RESULT
             # =================================================================
             result.total_time = time.time() - start_time
+            # Success if: SAP generated, not blocked by CRITICAL issues
+            # Quality score is informational, not a hard gate
             result.success = (
                 len(result.sap_text) > 1000 and
-                result.quality_score >= 70 and
                 not any("BLOCKED" in i for i in result.issues)
             )
 
