@@ -32,6 +32,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from enterprise_sap_system.agents import create_orchestrator
 from enterprise_sap_system.core import get_config
+from enterprise_sap_system.core.integrated_pipeline import create_integrated_pipeline, IntegratedPipeline
 from evaluate_sap import SAPEvaluator
 
 # Environment variables
@@ -1787,14 +1788,22 @@ async def generate_define_xml(job_id: str, standard: str = "adam"):
 # Background worker
 async def process_jobs_worker():
     """
-    Background worker that processes queued jobs.
+    Background worker that processes queued jobs using INTEGRATED PIPELINE.
+
+    The integrated pipeline uses ALL components:
+    1. Regex extraction (no hallucination)
+    2. RAG retrieval (1,198 sections)
+    3. Knowledge graph (method selection)
+    4. Specialized templates (oncology, Phase 1, etc.)
+    5. Constrained LLM generation
+    6. QA validation
     """
     global worker_running
 
-    print("Starting background job worker...")
+    print("Starting background job worker with INTEGRATED PIPELINE...")
 
-    # Initialize orchestrator once
-    orchestrator = None
+    # Initialize integrated pipeline once
+    pipeline: IntegratedPipeline = None
 
     while worker_running:
         try:
@@ -1821,49 +1830,40 @@ async def process_jobs_worker():
                 "started_at": datetime.utcnow().isoformat()
             }).eq("id", job_id).execute()
 
-            # Initialize orchestrator if needed
-            if orchestrator is None:
-                orchestrator = create_orchestrator(use_rag=True)
+            # Initialize integrated pipeline if needed
+            if pipeline is None:
+                pipeline = create_integrated_pipeline()
 
-            # Generate SAP
+            # Generate SAP using integrated pipeline
             start_time = time.time()
 
             try:
-                result = orchestrator.generate_sap(
+                result = pipeline.generate(
                     protocol_text=job["protocol_text"][:50000],
-                    nct_id=job.get("nct_id", ""),
-                    use_few_shot=True,  # Enable RAG few-shot examples
-                    verbose=True
+                    nct_id=job.get("nct_id", "")
                 )
 
                 processing_time = time.time() - start_time
 
                 if result.success:
-                    # Update with success
-                    # Handle both legacy mode (with quality_report/parsed_protocol) and constrained mode (without)
-                    quality_score = result.quality_report.overall_score if result.quality_report else 85.0  # Default for constrained mode
-                    endpoint_type = None
-                    phase = None
-                    therapeutic_area = None
-
-                    if result.parsed_protocol:
-                        if result.parsed_protocol.primary_estimand:
-                            endpoint_type = result.parsed_protocol.primary_estimand.variable_type.value
-                        phase = str(result.parsed_protocol.phase.value) if hasattr(result.parsed_protocol.phase, 'value') else str(result.parsed_protocol.phase)
-                        therapeutic_area = result.parsed_protocol.therapeutic_area
-
+                    # Update with success - integrated pipeline provides all metadata
                     db.table("sap_jobs").update({
                         "status": "completed",
-                        "generated_sap": result.sap_document.full_document,
-                        "quality_score": quality_score,
-                        "endpoint_type": endpoint_type,
-                        "phase": phase,
-                        "therapeutic_area": therapeutic_area,
+                        "generated_sap": result.sap_text,
+                        "quality_score": result.quality_score,
+                        "endpoint_type": result.endpoint_type,
+                        "phase": result.phase,
+                        "therapeutic_area": result.therapeutic_area,
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
                     }).eq("id", job_id).execute()
 
                     print(f"Job {job_id} completed in {processing_time:.1f}s")
+                    print(f"  Drug: {result.drug_name}")
+                    print(f"  N: {result.sample_size}")
+                    print(f"  RAG examples: {result.rag_examples_used}")
+                    print(f"  Templates: {result.templates_applied}")
+                    print(f"  Quality: {result.quality_score:.1f}/100")
                 else:
                     raise Exception("; ".join(result.errors))
 
