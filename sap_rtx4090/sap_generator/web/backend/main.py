@@ -453,8 +453,8 @@ async def generate_full_pipeline(request: GenerateRequest):
             constrained_schema_used=result.constrained_schema_used,
             rag_examples_count=len(result.rag_examples),
             templates_applied=result.templates_applied,
-            validation_issues=len(result.hard_validation.get("issues", [])) if result.hard_validation else 0,
-            contamination_detected=result.contamination_report.get("contaminated", False) if result.contamination_report else False,
+            validation_issues=len(result.hard_validation.issues) if result.hard_validation and hasattr(result.hard_validation, 'issues') else 0,
+            contamination_detected=result.contamination_report.is_contaminated if result.contamination_report and hasattr(result.contamination_report, 'is_contaminated') else False,
             processing_time=processing_time,
             errors=result.errors
         )
@@ -2033,23 +2033,23 @@ async def process_jobs_worker():
 
                     # Add validation metadata if available - include actual issues for display
                     if result.hard_validation:
-                        issues = result.hard_validation.get("issues", [])
+                        # ValidationResult is a dataclass, access attributes directly
+                        issues = result.hard_validation.issues if hasattr(result.hard_validation, 'issues') else []
                         update_data["validation_issues"] = len(issues)
+                        update_data["validation_score"] = result.hard_validation.score if hasattr(result.hard_validation, 'score') else 0
                         # Store issue details for frontend display
                         if issues:
                             issue_details = []
                             for issue in issues[:10]:  # Limit to 10 issues
-                                if hasattr(issue, 'message'):
-                                    issue_details.append({
-                                        "severity": str(issue.severity.value) if hasattr(issue, 'severity') else "HIGH",
-                                        "message": issue.message,
-                                        "field": issue.field if hasattr(issue, 'field') else ""
-                                    })
-                                elif isinstance(issue, dict):
-                                    issue_details.append(issue)
+                                issue_details.append({
+                                    "severity": issue.severity.value if hasattr(issue, 'severity') else "HIGH",
+                                    "message": issue.message if hasattr(issue, 'message') else str(issue),
+                                    "field": issue.field if hasattr(issue, 'field') else ""
+                                })
                             update_data["validation_details"] = issue_details
                     if result.contamination_report:
-                        update_data["contamination_detected"] = result.contamination_report.get("contaminated", False)
+                        is_contaminated = result.contamination_report.is_contaminated if hasattr(result.contamination_report, 'is_contaminated') else False
+                        update_data["contamination_detected"] = is_contaminated
 
                     db.table("sap_jobs").update(update_data).eq("id", job_id).execute()
 
@@ -2069,9 +2069,9 @@ async def process_jobs_worker():
                     print(f"  LAYER 4 - Validation:")
                     print(f"    Quality: {result.quality_score:.1f}/100")
                     if result.hard_validation:
-                        print(f"    Issues: {len(result.hard_validation.get('issues', []))}")
+                        print(f"    Issues: {len(result.hard_validation.issues) if hasattr(result.hard_validation, 'issues') else 0}")
                     if result.contamination_report:
-                        print(f"    Contaminated: {result.contamination_report.get('contaminated', False)}")
+                        print(f"    Contaminated: {result.contamination_report.is_contaminated if hasattr(result.contamination_report, 'is_contaminated') else False}")
                 else:
                     raise Exception("; ".join(result.errors))
 
