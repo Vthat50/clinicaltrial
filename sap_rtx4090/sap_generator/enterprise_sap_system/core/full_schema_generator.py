@@ -914,12 +914,30 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         facts.dropout_rate = f"{dropout_match.group(1)}%"
 
     # === PRIMARY ENDPOINT ===
-    endpoint_match = re.search(
-        r'(?:primary\s+(?:efficacy\s+)?endpoint)[:\s]+([^\n.]{20,150})',
-        protocol_text, re.I
-    )
-    if endpoint_match:
-        facts.primary_endpoint = endpoint_match.group(1).strip()
+    # Try multiple patterns to catch different formats
+    endpoint_patterns = [
+        # Pattern 1: "Primary Endpoint= Overall Survival (OS)" - with equals sign
+        r'(?:primary\s+(?:efficacy\s+)?endpoint)\s*[=:]\s*([^\n]{10,150})',
+        # Pattern 2: "Primary endpoint is Overall Survival" - with "is"
+        r'(?:primary\s+(?:efficacy\s+)?endpoint)\s+(?:is|will\s+be)\s+([^\n.]{10,150})',
+        # Pattern 3: Standard colon format
+        r'(?:primary\s+(?:efficacy\s+)?endpoint)[:\s]+([^\n.]{10,150})',
+        # Pattern 4: "will use X as the primary endpoint"
+        r'(?:use|using)\s+([A-Z][^.]{10,80})\s+as\s+(?:the\s+)?primary\s+endpoint',
+        # Pattern 5: Endpoint on next line after "Primary Endpoint"
+        r'Primary\s+Endpoint\s*\n\s*([A-Z][^\n]{5,100})',
+    ]
+
+    for pattern in endpoint_patterns:
+        endpoint_match = re.search(pattern, protocol_text, re.I)
+        if endpoint_match:
+            endpoint_text = endpoint_match.group(1).strip()
+            # Clean up: remove trailing punctuation, excessive whitespace
+            endpoint_text = re.sub(r'\s+', ' ', endpoint_text).strip()
+            endpoint_text = endpoint_text.rstrip('.,;:')
+            if len(endpoint_text) >= 10:
+                facts.primary_endpoint = endpoint_text
+                break
 
     # === PRIMARY TIMEPOINT ===
     timepoint_match = re.search(r'(?:at|through)\s+(Week\s+\d+)', protocol_text, re.I)

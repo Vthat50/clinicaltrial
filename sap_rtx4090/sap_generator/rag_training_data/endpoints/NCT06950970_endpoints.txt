@@ -1,0 +1,20 @@
+PRIMARY ANALYSIS
+Measure: Reduction of depressive symptoms
+Frame: 
+Method: Assessment of the severity of depressive symptoms using the Beck Depression Inventory II (BDI-II), a self-report questionnaire with 21 items, each scored from 0 to 3. The total score ranges from 0 to 63, with interpretive ranges defined as:
+
+0-13: Minimal depression 14-19: Mild depression 20-28: Moderate depression 29-63: Severe depression Unit of Measure: Total score on the BDI-II.
+
+All statistical analyses were performed in R (v4.3) using:
+
+* ordinal: for modeling with a mixed ordinal regressi
+Measure: Improvement in anxiety symptoms
+Frame: 
+Method: Measured using the Beck Anxiety Inventory (BAI), a self-report questionnaire consisting of 21 questions. Each item is scored from 0 to 3, yielding a total score range of 0 to 63. The suggested cut-off points for anxiety levels are:
+
+0-21: Very low anxiety 22-35: Moderate anxiety 36 and above: Severe anxiety Unit of Measure: Total score on the BAI.
+
+All statistical analyses were performed in R (v4.3) using:
+
+* ordinal: for modeling with a mixed ordinal regression approach
+* em means: for post hoc

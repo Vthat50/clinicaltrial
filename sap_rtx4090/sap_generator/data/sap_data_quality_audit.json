@@ -1,0 +1,197 @@
+{
+  "audit_date": "2024-12-31",
+  "audit_type": "RAG Training Data Quality Assessment",
+  "summary": {
+    "total_sap_files": 352,
+    "tier_1_full_saps": 124,
+    "tier_2_partial_saps": 63,
+    "tier_3_incomplete_saps": 165,
+    "usable_for_rag": 187,
+    "recommended_action": "Use ground_truth (116 files) + all_pairs Tier 1-2 (71 files) = 187 SAPs for RAG"
+  },
+  "directories": {
+    "all_pairs": {
+      "path": "data/all_pairs/",
+      "total_files": 236,
+      "total_size_mb": 3.2,
+      "tier_breakdown": {
+        "tier_1_full": {
+          "count": 11,
+          "percentage": "4.7%",
+          "criteria": "100+ lines with structured sections",
+          "files": [
+            "NCT03226275_sap.txt (1981 lines)",
+            "NCT05071430_sap.txt (1129 lines)",
+            "NCT04253171_sap.txt (736 lines)",
+            "NCT03558139_sap.txt (633 lines)",
+            "NCT02985684_sap.txt (476 lines)",
+            "NCT03422848_sap.txt (308 lines)",
+            "NCT00502593_sap.txt (203 lines)",
+            "NCT01725126_sap.txt (168 lines)",
+            "NCT01018017_sap.txt (132 lines)",
+            "NCT01128621_sap.txt (127 lines)",
+            "NCT00586339_sap.txt (102 lines)"
+          ]
+        },
+        "tier_2_partial": {
+          "count": 60,
+          "percentage": "25.4%",
+          "criteria": "20-99 lines with basic endpoint info"
+        },
+        "tier_3_incomplete": {
+          "count": 165,
+          "percentage": "69.9%",
+          "criteria": "<20 lines, metadata-only stubs"
+        }
+      },
+      "section_coverage": {
+        "primary_endpoint": 6,
+        "statistical_method": 1,
+        "stratification": 1,
+        "sample_size": 6,
+        "missing_data": 3,
+        "safety_analysis": 2,
+        "population": 14
+      },
+      "quality_assessment": "POOR - Mostly ClinicalTrials.gov metadata stubs, not real SAPs"
+    },
+    "ground_truth": {
+      "path": "data/ground_truth/",
+      "total_files": 116,
+      "total_size_mb": 11.0,
+      "tier_breakdown": {
+        "tier_1_full": {
+          "count": 113,
+          "percentage": "97.4%",
+          "criteria": "100+ lines with structured sections"
+        },
+        "tier_2_partial": {
+          "count": 3,
+          "percentage": "2.6%",
+          "criteria": "20-99 lines"
+        },
+        "tier_3_incomplete": {
+          "count": 0,
+          "percentage": "0%",
+          "criteria": "<20 lines"
+        }
+      },
+      "section_coverage": {
+        "primary_endpoint": 57,
+        "statistical_method": 45,
+        "stratification": 30,
+        "sample_size": 95,
+        "missing_data": 62,
+        "safety_analysis": 48,
+        "population": 96
+      },
+      "quality_assessment": "EXCELLENT - Real industry SAPs with full structure"
+    }
+  },
+  "rag_recommendations": {
+    "primary_source": {
+      "directory": "ground_truth",
+      "files": 116,
+      "rationale": "High-quality real SAPs with full section structure"
+    },
+    "secondary_source": {
+      "directory": "all_pairs (Tier 1-2 only)",
+      "files": 71,
+      "rationale": "Additional examples for endpoint patterns"
+    },
+    "exclude": {
+      "directory": "all_pairs (Tier 3)",
+      "files": 165,
+      "rationale": "Metadata stubs with no statistical content"
+    },
+    "section_priorities": {
+      "endpoints": {
+        "available_examples": 124,
+        "coverage": "GOOD",
+        "notes": "Strong endpoint extraction patterns available"
+      },
+      "methods": {
+        "available_examples": 45,
+        "coverage": "MODERATE",
+        "notes": "Focus on time-to-event, binary, continuous methods"
+      },
+      "stratification": {
+        "available_examples": 30,
+        "coverage": "LIMITED",
+        "notes": "Will need to extract from protocol sections"
+      },
+      "safety": {
+        "available_examples": 48,
+        "coverage": "MODERATE",
+        "notes": "Standard safety analysis patterns"
+      },
+      "populations": {
+        "available_examples": 96,
+        "coverage": "GOOD",
+        "notes": "ITT, mITT, PP, Safety populations well-defined"
+      },
+      "sample_size": {
+        "available_examples": 95,
+        "coverage": "GOOD",
+        "notes": "Power calculations and justifications available"
+      },
+      "missing_data": {
+        "available_examples": 62,
+        "coverage": "MODERATE",
+        "notes": "MCAR, MAR, MNAR handling patterns"
+      }
+    }
+  },
+  "quality_criteria": {
+    "tier_1_full": {
+      "line_count": "100+",
+      "requirements": [
+        "Has section headers (numbered or named)",
+        "Contains statistical methods description",
+        "Includes endpoint definitions",
+        "Has population definitions",
+        "Contains analysis procedures"
+      ]
+    },
+    "tier_2_partial": {
+      "line_count": "20-99",
+      "requirements": [
+        "Has basic study information",
+        "Contains endpoint names/descriptions",
+        "May have partial method information",
+        "Useful for endpoint extraction patterns"
+      ]
+    },
+    "tier_3_incomplete": {
+      "line_count": "<20",
+      "requirements": [
+        "Metadata header only",
+        "Single endpoint mention",
+        "No statistical content",
+        "NOT useful for RAG training"
+      ]
+    }
+  },
+  "action_items": [
+    {
+      "priority": 1,
+      "action": "Parse ground_truth SAPs (116 files) for RAG training",
+      "status": "READY"
+    },
+    {
+      "priority": 2,
+      "action": "Parse all_pairs Tier 1-2 SAPs (71 files) for additional examples",
+      "status": "READY"
+    },
+    {
+      "priority": 3,
+      "action": "Generate metadata for therapeutic area classification",
+      "status": "PENDING"
+    },
+    {
+      "priority": 4,
+      "action": "Populate Chroma vector store with parsed sections",
+      "status": "PENDING"
+    }
+  ]
+}

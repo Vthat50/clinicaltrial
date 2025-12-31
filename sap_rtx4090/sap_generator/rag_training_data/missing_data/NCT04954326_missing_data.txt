@@ -1,0 +1,24 @@
+imputation method will be used for missing data, unless otherwise specified. 
+Adverse events (AEs) 
+­ Handling of unknown causality assessment: 
+o 
+If a subject experience an AE with a missing causality assessment, the relationship of 
+the AE will be counted as “related”. 
+­ Handling of unknown severity grades: 
+o 
+If a subject experiences more than one AE categorized under the same preferred term, 
+one of them is categorized as “severe” and one of them is categorized as “unknown”, 
+the severity of this AE should be counted as “severe”. 
+o 
+If a subject experiences more than one AE categorized under the same preferred term, 
+one of them is categorized as “mild” or “moderate” and one of them is categorized as 
+“unknown”, the severity of this AE should be counted as “unknown”. A column “UNK” 
+should be inserted for those AEs at the end of the table (before the “Total” column if 
+applicable). 
+ 
+Immunogenicity 
+Missing baseline anti-drug antibody results will be imputed as negative. 
+ 
+Missing dates 
+9/72
+S95014

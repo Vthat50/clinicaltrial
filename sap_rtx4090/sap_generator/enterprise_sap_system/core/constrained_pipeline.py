@@ -23,6 +23,13 @@ from typing import Dict, List, Optional, Tuple, Any, Literal
 from dataclasses import dataclass, field
 from pydantic import BaseModel, Field, field_validator
 
+# RAG Integration (optional)
+try:
+    from ..rag.pipeline_integration import RAGPipelineIntegration
+    RAG_AVAILABLE = True
+except ImportError:
+    RAG_AVAILABLE = False
+
 # Full schema with complete constraint coverage (28 entities)
 from .full_schema_generator import (
     FullProtocolFacts,
@@ -402,12 +409,43 @@ class ConstrainedSAPPipeline:
             print(f"Errors: {result.errors}")
     """
 
-    def __init__(self):
+    def __init__(self, use_rag: bool = True):
         self.structured_client = get_structured_client()
         self.section_generator = SAPSectionGenerator(self.structured_client)
         self.verifier = FormalVerifier()
         self.contamination_detector = ContaminationDetector()
         self.assembler = SectionAssembler()
+
+        # Initialize RAG if available and enabled
+        self.use_rag = use_rag and RAG_AVAILABLE
+        self.rag = None
+        if self.use_rag:
+            try:
+                self.rag = RAGPipelineIntegration()
+                print("[RAG] RAG system initialized (1,198 sections available)")
+            except Exception as e:
+                print(f"[RAG] Warning: Could not initialize RAG: {e}")
+                self.use_rag = False
+
+    def _get_rag_context(self, facts: 'FullProtocolFacts') -> Dict[str, str]:
+        """Get RAG context for generation enhancement"""
+        if not self.use_rag or not self.rag:
+            return {}
+
+        try:
+            # Build protocol data for RAG query
+            protocol_data = {
+                'nct_id': getattr(facts, 'nct_id', 'unknown'),
+                'therapeutic_area': getattr(facts, 'therapeutic_area', None),
+                'phase': getattr(facts, 'phase', None),
+                'indication': getattr(facts, 'indication', None),
+                'primary_endpoint': getattr(facts, 'primary_endpoint', None),
+                'endpoint_type': getattr(facts, 'endpoint_type', None),
+            }
+            return self.rag.get_context_for_generation(protocol_data)
+        except Exception as e:
+            print(f"[RAG] Warning: Could not get RAG context: {e}")
+            return {}
 
     def generate(
         self,
@@ -1263,15 +1301,32 @@ This is the primary analysis population for all safety analyses.
 """
 
     def _generate_endpoints(self, facts: FullProtocolFacts) -> str:
-        """Generate Section 5: Endpoints"""
+        """Generate Section 5: Endpoints (RAG-enhanced)"""
         primary_endpoint = facts.primary_endpoint or "Primary efficacy endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
         primary_definition = facts.primary_endpoint_definition or ""
+
+        # Get RAG context for enhanced details
+        rag_context = self._get_rag_context(facts)
+        rag_endpoint_context = rag_context.get('endpoints', '')
 
         # Build primary endpoint definition section
         primary_def_section = ""
         if primary_definition:
             primary_def_section = f"\n\n**Definition Criteria:** {primary_definition}"
+
+        # RAG-enhanced: Add censoring rules for time-to-event endpoints
+        rag_enhanced_section = ""
+        endpoint_lower = primary_endpoint.lower()
+        if any(term in endpoint_lower for term in ['survival', 'pfs', 'efs', 'dfs', 'time to', 'duration']):
+            rag_enhanced_section = """
+
+**Censoring Rules:**
+- Subjects alive/without event at data cutoff: censored at last known alive date
+- Subjects lost to follow-up: censored at date of last contact
+- Events occurring after subsequent therapy: censored at start of new therapy
+
+**Data Collection:** Event data will be collected for all randomized subjects regardless of treatment discontinuation."""
 
         # Build secondary endpoints table using detailed info if available (ASCII format)
         secondary_table = ""
@@ -1321,7 +1376,7 @@ Analysis will include:
 
 **Definition:** {primary_endpoint}
 
-**Timepoint:** {primary_timepoint}{primary_def_section}
+**Timepoint:** {primary_timepoint}{primary_def_section}{rag_enhanced_section}
 
 **Derivation:** The primary endpoint will be derived according to the protocol definition. Patients with missing data at the primary timepoint will be considered as non-responders (treatment failure).
 
@@ -1352,7 +1407,7 @@ Analysis will include:
 """
 
     def _generate_statistical_methods(self, facts: FullProtocolFacts) -> str:
-        """Generate Section 7: Statistical Methods"""
+        """Generate Section 7: Statistical Methods (RAG-enhanced)"""
         primary_endpoint = facts.primary_endpoint or "primary endpoint"
         primary_timepoint = facts.primary_timepoint or "Week 12"
         primary_population = facts.primary_population or "FAS"
@@ -1360,12 +1415,34 @@ Analysis will include:
         alpha = facts.alpha or 0.05
         alpha_sidedness = facts.alpha_sidedness or "one-sided"  # Default to one-sided for efficacy
 
+        # Get RAG context for enhanced method details
+        rag_context = self._get_rag_context(facts)
+        rag_methods_context = rag_context.get('methods', '')
+
         # Get stratification factors
         strat_factors = facts.stratification_factors if facts.stratification_factors else []
         strat_text = ", ".join(strat_factors) if strat_factors else "randomization stratification factors"
 
         # Build proper model specification based on endpoint type
-        if "logistic" in primary_analysis_method.lower():
+        # RAG-enhanced: Detect time-to-event endpoints and add appropriate methods
+        endpoint_lower = primary_endpoint.lower()
+        is_tte = any(term in endpoint_lower for term in ['survival', 'pfs', 'efs', 'dfs', 'time to', 'duration'])
+
+        if is_tte or "kaplan" in primary_analysis_method.lower() or "cox" in primary_analysis_method.lower():
+            model_type = "Time-to-Event Analysis (Kaplan-Meier + Cox)"
+            model_spec = """**Primary Analysis:** Kaplan-Meier method to estimate median survival and survival rates at landmark timepoints (6, 12, 18, 24 months).
+
+**Stratified Log-Rank Test:** Treatment comparison using log-rank test stratified by randomization stratification factors at {alpha_text} alpha={alpha_val}.
+
+**Hazard Ratio Estimation:**
+```
+h(t|X) = h₀(t) × exp(β₁×Treatment + β₂×Stratification_Factors)
+```
+
+**Treatment Effect Estimate:** Hazard ratio with {ci}% confidence interval from Cox proportional hazards model.
+
+**Model Assumptions:** The proportional hazards assumption will be assessed using Schoenfeld residuals and log-log survival plots. If violated, time-varying effects will be explored."""
+        elif "logistic" in primary_analysis_method.lower():
             model_type = "Logistic Regression (for binary endpoint)"
             model_spec = """```
 logit(P(response=1)) = β₀ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Score
@@ -1386,7 +1463,7 @@ Y = μ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Valu
 **Treatment Effect Estimate:** Appropriate measure with {ci}% confidence interval"""
 
         ci_level = int((1 - alpha) * 100) if alpha_sidedness == "one-sided" else int((1 - alpha) * 100)
-        model_spec = model_spec.format(ci=ci_level)
+        model_spec = model_spec.format(ci=ci_level, alpha_text=alpha_sidedness, alpha_val=alpha)
 
         # Build subgroup analyses list including IL-6 if applicable
         subgroup_list = []

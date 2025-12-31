@@ -1,0 +1,27 @@
+exploratory analysis to assess DSN in Treatment Cycle 1 in patients treated 
+with docetaxel (75 mg/m2) + plinabulin (5, 10 or 20 mg/ m2) will be performed, using the 
+Jonckheere-Terpstra Test for Ordered Alternatives (Hollander, Wolfe and Chicken, 2013). 
+With this statistical procedure, the null hypothesis of equality among treatment group means 
+will be tested (μj's, j = 2, 3, 4) 
+H0: μ2 = μ3 = μ4 
+against the alternative in which order is specified 
+H1: μ2 ≥ μ3 ≥ μ4, 
+where at least 1 of the inequalities is strict. The mean indices have the following 
+interpretation: 2 = docetaxel (75 mg/m2) + plinabulin (5 mg/m2), 3 = docetaxel (75 mg/m2) + 
+plinabulin (10 mg/m2), and 4 = docetaxel (75 mg/m2) + plinabulin (20 mg/m2). The 
+statistically significant rejection of the null hypothesis will be interpreted, that there is an 
+ordered alternative of responses as indicated by the alternative hypothesis H1. If the null 
+hypothesis is rejected, then pair wise Wilcoxon tests will be performed to aid in the 
+assessment of which treatment(s) contributed to the rejection of the null hypothesis. 
+Since the Jonckheere-Terpstra Test for Ordered Alternatives is a non-parametric test, this 
+will be performed in SAS using PROC FREQ with JT option. The DSN for this analysis is 
+calculated as in Section 6.10, and since this is an exploratory, non-parametric analysis, no 
+adjustment will be made for the potential number of 0 values of the DSN. The 
+non-parametric nature of the test factors these into consideration. Missing ANC values will 
+not be imputed. 
+ 
+6.12.2. 
+Secondary Efficacy Pharmacodynamic Analysis 
+The secondary efficacy pharmacodynamic marker is DMN, defined as the number of days 
+with a neutrophil count of < 1.0 x 109 neutrophils/L. 
+In addition, an

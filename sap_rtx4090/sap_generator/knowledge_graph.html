@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#e74c3c", "font": {"color": "white"}, "id": "OS", "label": "Overall Survival", "shape": "dot", "size": 25, "title": "Overall Survival\n\nTime from randomization to death from any cause. Gold standard endpoint in oncology.\n\nSource: ICH E9"}, {"color": "#e74c3c", "font": {"color": "white"}, "id": "PFS", "label": "Progression-Free Survival", "shape": "dot", "size": 25, "title": "Progression-Free Survival\n\nTime from randomization to objective tumor progression or death. Commonly used surrogate endpoint.\n\nSource: FDA Oncology Guidance"}, {"color": "#e74c3c", "font": {"color": "white"}, "id": "ORR", "label": "Objective Response Rate", "shape": "dot", "size": 25, "title": "Objective Response Rate\n\nProportion of patients with complete or partial response per RECIST criteria.\n\nSource: RECIST 1.1"}, {"color": "#e74c3c", "font": {"color": "white"}, "id": "DFS", "label": "Disease-Free Survival", "shape": "dot", "size": 25, "title": "Disease-Free Survival\n\nTime from randomization to disease recurrence or death. Used in adjuvant settings.\n\nSource: FDA Guidance"}, {"color": "#e74c3c", "font": {"color": "white"}, "id": "EFS", "label": "Event-Free Survival", "shape": "dot", "size": 25, "title": "Event-Free Survival\n\nTime from randomization to any protocol-defined event. Composite endpoint.\n\nSource: Clinical Practice"}, {"color": "#e74c3c", "font": {"color": "white"}, "id": "SAFETY", "label": "Safety Endpoint", "shape": "dot", "size": 25, "title": "Safety Endpoint\n\nAssessment of adverse events, DLTs, MTD. Primary in Phase 1 studies.\n\nSource: ICH E6"}, {"color": "#e74c3c", "font": {"color": "white"}, "id": "PK", "label": "Pharmacokinetic Endpoint", "shape": "dot", "size": 25, "title": "Pharmacokinetic Endpoint\n\nDrug concentration-time profiles including AUC, Cmax, Tmax, half-life.\n\nSource: FDA BA/BE Guidance"}, {"color": "#3498db", "font": {"color": "white"}, "id": "KAPLAN_MEIER", "label": "Kaplan-Meier Method", "shape": "dot", "size": 25, "title": "Kaplan-Meier Method\n\nNon-parametric estimator of survival function. Handles censored data. Standard for TTE endpoints.\n\nSource: Kaplan \u0026 Meier, JASA 1958"}, {"color": "#3498db", "font": {"color": "white"}, "id": "COX_PH", "label": "Cox Proportional Hazards Model", "shape": "dot", "size": 25, "title": "Cox Proportional Hazards Model\n\nSemi-parametric regression for hazard ratios. Allows covariate adjustment. Assumes proportional hazards.\n\nSource: Cox, JRSSB 1972"}, {"color": "#3498db", "font": {"color": "white"}, "id": "LOG_RANK", "label": "Log-Rank Test", "shape": "dot", "size": 25, "title": "Log-Rank Test\n\nNon-parametric test for comparing survival curves. Optimal under proportional hazards.\n\nSource: Mantel, Cancer Chemotherapy Reports 1966"}, {"color": "#3498db", "font": {"color": "white"}, "id": "CMH", "label": "Cochran-Mantel-Haenszel Test", "shape": "dot", "size": 25, "title": "Cochran-Mantel-Haenszel Test\n\nStratified analysis of 2x2 tables. Controls for confounding factors.\n\nSource: Cochran 1954; Mantel \u0026 Haenszel 1959"}, {"color": "#3498db", "font": {"color": "white"}, "id": "CLOPPER_PEARSON", "label": "Clopper-Pearson Exact CI", "shape": "dot", "size": 25, "title": "Clopper-Pearson Exact CI\n\nExact binomial confidence interval. Conservative coverage. Standard for response rates.\n\nSource: Clopper \u0026 Pearson, Biometrika 1934"}, {"color": "#3498db", "font": {"color": "white"}, "id": "MMRM", "label": "Mixed Model Repeated Measures", "shape": "dot", "size": 25, "title": "Mixed Model Repeated Measures\n\nLikelihood-based analysis of longitudinal data. Handles missing data under MAR assumption.\n\nSource: Mallinckrodt et al., 2008"}, {"color": "#3498db", "font": {"color": "white"}, "id": "NCA", "label": "Non-Compartmental Analysis", "shape": "dot", "size": 25, "title": "Non-Compartmental Analysis\n\nModel-independent PK analysis. Calculates AUC, Cmax from concentration-time data.\n\nSource: FDA BE Guidance"}, {"color": "#3498db", "font": {"color": "white"}, "id": "ANOVA", "label": "Analysis of Variance", "shape": "dot", "size": 25, "title": "Analysis of Variance\n\nComparison of means across groups. Linear model framework.\n\nSource: Fisher, 1925"}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "HR", "label": "Hazard Ratio", "shape": "dot", "size": 25, "title": "Hazard Ratio\n\nRatio of hazard rates between treatment groups. HR\u003c1 favors treatment. Derived from Cox model.\n\nSource: Cox Model"}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "OR", "label": "Odds Ratio", "shape": "dot", "size": 25, "title": "Odds Ratio\n\nRatio of odds of event between groups. Used for rare events and case-control studies.\n\nSource: Epidemiology"}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "RR", "label": "Risk Ratio", "shape": "dot", "size": 25, "title": "Risk Ratio\n\nRatio of event probabilities. More interpretable than OR for common events.\n\nSource: Epidemiology"}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "RD", "label": "Risk Difference", "shape": "dot", "size": 25, "title": "Risk Difference\n\nAbsolute difference in event probabilities. Useful for NNT calculation.\n\nSource: Epidemiology"}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "GMR", "label": "Geometric Mean Ratio", "shape": "dot", "size": 25, "title": "Geometric Mean Ratio\n\nRatio of geometric means. Standard for PK parameters (AUC, Cmax).\n\nSource: FDA BE Guidance"}, {"color": "#9b59b6", "font": {"color": "white"}, "id": "ITT", "label": "Intent-to-Treat Population", "shape": "dot", "size": 25, "title": "Intent-to-Treat Population\n\nAll randomized patients analyzed as randomized. Preserves randomization. Primary for efficacy.\n\nSource: ICH E9"}, {"color": "#9b59b6", "font": {"color": "white"}, "id": "mITT", "label": "Modified Intent-to-Treat", "shape": "dot", "size": 25, "title": "Modified Intent-to-Treat\n\nITT with additional requirements (e.g., received treatment, baseline assessment).\n\nSource: ICH E9"}, {"color": "#9b59b6", "font": {"color": "white"}, "id": "PP", "label": "Per-Protocol Population", "shape": "dot", "size": 25, "title": "Per-Protocol Population\n\nPatients without major protocol deviations. Supportive analysis. May overestimate effect.\n\nSource: ICH E9"}, {"color": "#9b59b6", "font": {"color": "white"}, "id": "SAFETY_POP", "label": "Safety Population", "shape": "dot", "size": 25, "title": "Safety Population\n\nAll patients who received at least one dose. Analyzed as treated. Primary for safety.\n\nSource: ICH E9"}, {"color": "#f39c12", "font": {"color": "white"}, "id": "ICH_E9", "label": "ICH E9 Statistical Principles", "shape": "dot", "size": 25, "title": "ICH E9 Statistical Principles\n\nFundamental principles for clinical trial statistics. Covers design, analysis, reporting.\n\nSource: ICH"}, {"color": "#f39c12", "font": {"color": "white"}, "id": "ICH_E9R1", "label": "ICH E9(R1) Estimands Addendum", "shape": "dot", "size": 25, "title": "ICH E9(R1) Estimands Addendum\n\nFramework for estimands and sensitivity analysis. Defines 5 estimand attributes and ICE strategies.\n\nSource: ICH 2019"}, {"color": "#f39c12", "font": {"color": "white"}, "id": "ICH_E6", "label": "ICH E6 GCP", "shape": "dot", "size": 25, "title": "ICH E6 GCP\n\nGood Clinical Practice guidelines. SAP timing and documentation requirements.\n\nSource: ICH"}, {"color": "#f39c12", "font": {"color": "white"}, "id": "FDA_ONCOLOGY", "label": "FDA Oncology Endpoints Guidance", "shape": "dot", "size": 25, "title": "FDA Oncology Endpoints Guidance\n\nGuidance on endpoints for oncology trials. OS, PFS, ORR considerations.\n\nSource: FDA 2018"}, {"color": "#1abc9c", "font": {"color": "white"}, "id": "ADSL", "label": "Subject-Level Analysis Dataset", "shape": "dot", "size": 25, "title": "Subject-Level Analysis Dataset\n\nOne record per subject. Contains demographics, treatment, population flags.\n\nSource: CDISC ADaM IG"}, {"color": "#1abc9c", "font": {"color": "white"}, "id": "ADTTE", "label": "Time-to-Event Analysis Dataset", "shape": "dot", "size": 25, "title": "Time-to-Event Analysis Dataset\n\nAnalysis dataset for OS, PFS, DFS. Contains AVAL (time), CNSR (censor), PARAMCD.\n\nSource: CDISC ADaM IG"}, {"color": "#1abc9c", "font": {"color": "white"}, "id": "ADRS", "label": "Response Analysis Dataset", "shape": "dot", "size": 25, "title": "Response Analysis Dataset\n\nTumor response data. AVALC for response category, AVAL for numeric response indicator.\n\nSource: CDISC ADaM IG"}, {"color": "#1abc9c", "font": {"color": "white"}, "id": "ADAE", "label": "Adverse Event Analysis Dataset", "shape": "dot", "size": 25, "title": "Adverse Event Analysis Dataset\n\nAnalysis dataset for AEs. Contains AEDECOD (MedDRA PT), AESEV, AEREL.\n\nSource: CDISC ADaM IG"}, {"color": "#1abc9c", "font": {"color": "white"}, "id": "ADPC", "label": "PK Concentration Dataset", "shape": "dot", "size": 25, "title": "PK Concentration Dataset\n\nAnalysis dataset for PK concentrations. AVAL for concentration, PCTPT for timepoint.\n\nSource: CDISC ADaM IG"}, {"color": "#1abc9c", "font": {"color": "white"}, "id": "ADPP", "label": "PK Parameters Dataset", "shape": "dot", "size": 25, "title": "PK Parameters Dataset\n\nAnalysis dataset for derived PK parameters. PARAMCD for parameter (AUC, CMAX).\n\nSource: CDISC ADaM IG"}, {"color": "#e67e22", "font": {"color": "white"}, "id": "ICE_TREATMENT_POLICY", "label": "Treatment Policy Strategy", "shape": "dot", "size": 25, "title": "Treatment Policy Strategy\n\nAnalyze outcome regardless of ICE occurrence. Reflects real-world treatment effect.\n\nSource: ICH E9(R1)"}, {"color": "#e67e22", "font": {"color": "white"}, "id": "ICE_COMPOSITE", "label": "Composite Strategy", "shape": "dot", "size": 25, "title": "Composite Strategy\n\nICE is incorporated into endpoint definition (e.g., death in PFS).\n\nSource: ICH E9(R1)"}, {"color": "#e67e22", "font": {"color": "white"}, "id": "ICE_HYPOTHETICAL", "label": "Hypothetical Strategy", "shape": "dot", "size": 25, "title": "Hypothetical Strategy\n\nEstimate effect if ICE had not occurred. Requires causal assumptions.\n\nSource: ICH E9(R1)"}, {"color": "#e67e22", "font": {"color": "white"}, "id": "ICE_PRINCIPAL_STRATUM", "label": "Principal Stratum Strategy", "shape": "dot", "size": 25, "title": "Principal Stratum Strategy\n\nEffect in subgroup where ICE would not occur regardless of treatment.\n\nSource: ICH E9(R1)"}, {"color": "#e67e22", "font": {"color": "white"}, "id": "ICE_WHILE_ON_TREATMENT", "label": "While on Treatment Strategy", "shape": "dot", "size": 25, "title": "While on Treatment Strategy\n\nOutcome assessed only during active treatment period.\n\nSource: ICH E9(R1)"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "OS", "label": "analyzed_by", "title": "OS is analyzed using Kaplan-Meier curves", "to": "KAPLAN_MEIER"}, {"arrows": "to", "from": "OS", "label": "requires", "title": "OS uses Cox model for HR estimation", "to": "COX_PH"}, {"arrows": "to", "from": "OS", "label": "tested_by", "title": "OS uses log-rank test for group comparison", "to": "LOG_RANK"}, {"arrows": "to", "from": "OS", "label": "measure_is", "title": "Primary effect measure for OS is hazard ratio", "to": "HR"}, {"arrows": "to", "from": "OS", "label": "maps_to_adam", "title": "OS maps to ADTTE dataset with PARAMCD=OS", "to": "ADTTE"}, {"arrows": "to", "from": "PFS", "label": "analyzed_by", "title": "PFS is analyzed using Kaplan-Meier curves", "to": "KAPLAN_MEIER"}, {"arrows": "to", "from": "PFS", "label": "requires", "title": "PFS uses Cox model for HR estimation", "to": "COX_PH"}, {"arrows": "to", "from": "PFS", "label": "tested_by", "title": "PFS uses log-rank test for group comparison", "to": "LOG_RANK"}, {"arrows": "to", "from": "PFS", "label": "measure_is", "title": "Primary effect measure for PFS is hazard ratio", "to": "HR"}, {"arrows": "to", "from": "PFS", "label": "maps_to_adam", "title": "PFS maps to ADTTE dataset with PARAMCD=PFS", "to": "ADTTE"}, {"arrows": "to", "from": "ORR", "label": "analyzed_by", "title": "ORR uses exact binomial CI", "to": "CLOPPER_PEARSON"}, {"arrows": "to", "from": "ORR", "label": "tested_by", "title": "ORR uses CMH test for stratified comparison", "to": "CMH"}, {"arrows": "to", "from": "ORR", "label": "measure_is", "title": "ORR uses risk difference as effect measure", "to": "RD"}, {"arrows": "to", "from": "ORR", "label": "maps_to_adam", "title": "ORR maps to ADRS dataset with PARAMCD=BOR", "to": "ADRS"}, {"arrows": "to", "from": "DFS", "label": "analyzed_by", "title": "DFS analyzed using Kaplan-Meier method", "to": "KAPLAN_MEIER"}, {"arrows": "to", "from": "DFS", "label": "requires", "title": "DFS uses Cox model", "to": "COX_PH"}, {"arrows": "to", "from": "DFS", "label": "maps_to_adam", "title": "DFS maps to ADTTE dataset", "to": "ADTTE"}, {"arrows": "to", "from": "SAFETY", "label": "maps_to_adam", "title": "Safety endpoints map to ADAE dataset", "to": "ADAE"}, {"arrows": "to", "from": "SAFETY", "label": "requires_population", "title": "Safety often analyzed in Safety Population", "to": "ITT"}, {"arrows": "to", "from": "PK", "label": "analyzed_by", "title": "PK uses non-compartmental analysis", "to": "NCA"}, {"arrows": "to", "from": "PK", "label": "measure_is", "title": "PK uses geometric mean ratio for comparison", "to": "GMR"}, {"arrows": "to", "from": "PK", "label": "maps_to_adam", "title": "PK concentrations map to ADPC", "to": "ADPC"}, {"arrows": "to", "from": "PK", "label": "maps_to_adam", "title": "PK parameters map to ADPP", "to": "ADPP"}, {"arrows": "to", "from": "KAPLAN_MEIER", "label": "guideline_for", "title": "KM method standard per ICH E9", "to": "ICH_E9"}, {"arrows": "to", "from": "COX_PH", "label": "guideline_for", "title": "Cox model recommended per ICH E9", "to": "ICH_E9"}, {"arrows": "to", "from": "ITT", "label": "defined_in", "title": "ITT population defined in ICH E9", "to": "ICH_E9"}, {"arrows": "to", "from": "PP", "label": "defined_in", "title": "Per-protocol population defined in ICH E9", "to": "ICH_E9"}, {"arrows": "to", "from": "SAFETY_POP", "label": "defined_in", "title": "Safety population defined in ICH E9", "to": "ICH_E9"}, {"arrows": "to", "from": "ADTTE", "label": "derived_from", "title": "ADTTE merges with ADSL for demographics", "to": "ADSL"}, {"arrows": "to", "from": "ADRS", "label": "derived_from", "title": "ADRS merges with ADSL", "to": "ADSL"}, {"arrows": "to", "from": "ADAE", "label": "derived_from", "title": "ADAE merges with ADSL", "to": "ADSL"}, {"arrows": "to", "from": "ICE_TREATMENT_POLICY", "label": "defined_in", "title": "Treatment policy strategy from ICH E9(R1)", "to": "ICH_E9R1"}, {"arrows": "to", "from": "ICE_COMPOSITE", "label": "defined_in", "title": "Composite strategy from ICH E9(R1)", "to": "ICH_E9R1"}, {"arrows": "to", "from": "ICE_HYPOTHETICAL", "label": "defined_in", "title": "Hypothetical strategy from ICH E9(R1)", "to": "ICH_E9R1"}, {"arrows": "to", "from": "ICE_PRINCIPAL_STRATUM", "label": "defined_in", "title": "Principal stratum from ICH E9(R1)", "to": "ICH_E9R1"}, {"arrows": "to", "from": "ICE_WHILE_ON_TREATMENT", "label": "defined_in", "title": "While on treatment from ICH E9(R1)", "to": "ICH_E9R1"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

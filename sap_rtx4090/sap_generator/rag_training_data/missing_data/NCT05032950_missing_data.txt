@@ -1,0 +1,23 @@
+imputation will be 
+applied.
+7.1. Concentrations Below the Limit of Quantification
+In all data presentations (except listings), concentrations below the limit of quantification 
+(BLQ) will be set to zero.  (In listings BLQ values will be reported as “<LLQ”, where LLQ 
+will be replaced with the value for the lower limit of quantification). 
+7.2. Deviations, Missing Concentrations and Anomalous Values
+In summary tables and plots of median profiles, statistics will be calculated having set 
+concentrations to missing if 1 of the following cases is true:
+1. A concentration has been collected as ND (ie, not done) or NS (ie, no sample),
+2. A deviation in sampling time is of sufficient concern or a concentration has been 
+flagged anomalous by the pharmacokineticist.
+Note that summary statistics will not be presented at a particular time point if more than
+50% of the data are missing.
+7.3. Pharmacokinetic Parameters
+Actual PK sampling times will be used in the derivation of PK parameters.
+If a PK parameter cannot be derived from a participant’s concentration data, the parameter 
+will be coded as NC (ie, not calculated). (Note that NC values will not be generated beyond 
+the day that a participant discontinues). 
+In summary tables, statistics will be calculated by setting NC values to missing; and statistics 
+will be presented for a particular treatment with ≥3 evaluable measurements.  For statistical 
+analyses (ie, analysis of variance), PK parameters coded as NC will also be set to missing; 
+Protocol C4671013 (PF-07321332)
