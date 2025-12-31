@@ -2031,9 +2031,23 @@ async def process_jobs_worker():
                         "completed_at": datetime.utcnow().isoformat()
                     }
 
-                    # Add validation metadata if available
+                    # Add validation metadata if available - include actual issues for display
                     if result.hard_validation:
-                        update_data["validation_issues"] = len(result.hard_validation.get("issues", []))
+                        issues = result.hard_validation.get("issues", [])
+                        update_data["validation_issues"] = len(issues)
+                        # Store issue details for frontend display
+                        if issues:
+                            issue_details = []
+                            for issue in issues[:10]:  # Limit to 10 issues
+                                if hasattr(issue, 'message'):
+                                    issue_details.append({
+                                        "severity": str(issue.severity.value) if hasattr(issue, 'severity') else "HIGH",
+                                        "message": issue.message,
+                                        "field": issue.field if hasattr(issue, 'field') else ""
+                                    })
+                                elif isinstance(issue, dict):
+                                    issue_details.append(issue)
+                            update_data["validation_details"] = issue_details
                     if result.contamination_report:
                         update_data["contamination_detected"] = result.contamination_report.get("contaminated", False)
 
