@@ -524,10 +524,21 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         r'\b([A-Za-z]{2,4}\d{3,5})\b',
         # Pattern 2: Named after "Investigational Product/IMP/Study Drug:" - capture alphanumeric word
         r'(?:Investigational\s+Product|IMP|Study\s+Drug)[:\s]+([A-Za-z][A-Za-z0-9]{2,})',
-        # Pattern 3: Named drug with common suffixes (mab, nib, etc.)
-        r'\b([A-Za-z]{4,}(?:mab|nib|ib|zumab|ximab|tinib|ciclib))\b',
-        # Pattern 4: Drug code with hyphen like FE-999301
+        # Pattern 3: Named drug with comprehensive INN suffixes
+        r'\b([A-Za-z]{4,}(?:mab|nib|lib|zumab|ximab|tinib|ciclib|rafenib|lisib|metinib))\b',
+        # Pattern 4: S1P modulators and immunomodulators (-simod, -limod, -imod)
+        r'\b([A-Za-z]{4,}(?:simod|limod|imod|nimod|rimod))\b',
+        # Pattern 5: Small molecules - cardiovascular, GI, metabolic
+        r'\b([A-Za-z]{4,}(?:pril|sartan|olol|dipine|statin|prazole|gliptin|glutide|gliflozin))\b',
+        # Pattern 6: Oncology drugs
+        r'\b([A-Za-z]{4,}(?:parib|platin|taxel|bine|rubicin))\b',
+        # Pattern 7: Study of [DRUG] or Trial of [DRUG]
+        r'(?:Study\s+of|Trial\s+of)\s+([A-Za-z][A-Za-z0-9-]{3,})',
+        # Pattern 8: Drug code with hyphen like FE-999301
         r'\b([A-Za-z]{2,3}[-]?\d{4,6})\b',
+        # Pattern 9: receive [DRUG] or [DRUG] 2mg patterns
+        r'(?:receive|receiving)\s+(?:either\s+)?([A-Za-z][A-Za-z0-9-]{3,})\s+(?:\d+\s*mg)?',
+        r'([A-Za-z][A-Za-z0-9-]{3,})\s+\d+\s*(?:mg|mcg)\s+(?:once|twice|daily)',
     ]
 
     for pattern in drug_patterns:

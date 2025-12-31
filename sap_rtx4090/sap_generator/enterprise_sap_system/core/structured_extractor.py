@@ -408,19 +408,48 @@ class StructuredFactExtractor:
                     drug_names.add(match.upper())
 
         # Pattern 2: INN names (biologics: -mab, -nib; small molecules: -statin, etc.)
+        # Comprehensive list of INN stems covering all drug classes
         inn_patterns = [
-            r'\b([A-Za-z]{4,}(?:mab|nib|lib|zumab|ximab|tinib|ciclib))\b',
-            r'\b([A-Za-z]{4,}(?:cillin|mycin|statin|pril|sartan|olol|dipine|azole|prazole))\b',
+            # Biologics (monoclonal antibodies, fusion proteins)
+            r'\b([A-Za-z]{4,}(?:mab|nib|lib|zumab|ximab|tinib|ciclib|rafenib|lisib|metinib))\b',
+            # S1P modulators and immunomodulators
+            r'\b([A-Za-z]{4,}(?:simod|limod|imod|nimod|rimod))\b',
+            # Small molecules - cardiovascular
+            r'\b([A-Za-z]{4,}(?:pril|sartan|olol|dipine|afil|tadil|denafil))\b',
+            # Small molecules - anti-infective
+            r'\b([A-Za-z]{4,}(?:cillin|mycin|cycline|floxacin|azole|conazole|fungin))\b',
+            # Small molecules - metabolic
+            r'\b([A-Za-z]{4,}(?:statin|fibrate|gliptin|glutide|gliflozin|formin))\b',
+            # Small molecules - GI/acid
+            r'\b([A-Za-z]{4,}(?:prazole|tidine|pride))\b',
+            # Oncology - targeted therapy
+            r'\b([A-Za-z]{4,}(?:parib|platin|taxel|mustine|bine|rubicin|mycin))\b',
+            # Oncology - kinase inhibitors
+            r'\b([A-Za-z]{4,}(?:tinib|nib|fenib|ertinib|afenib|anib))\b',
+            # JAK inhibitors
+            r'\b([A-Za-z]{4,}(?:citinib|itinib))\b',
+            # Other common stems
+            r'\b([A-Za-z]{4,}(?:vir|navir|tegravir|buvir))\b',  # Antivirals
+            r'\b([A-Za-z]{4,}(?:lukast|zumab|ximab))\b',  # Anti-inflammatory
         ]
         for pattern in inn_patterns:
             matches = re.findall(pattern, text, re.IGNORECASE)
             for match in matches:
                 drug_names.add(match.lower())
 
-        # Pattern 3: Named as investigational product
+        # Pattern 3: Named as investigational product or in study title
         ip_patterns = [
             r'(?:investigational\s+(?:product|drug|medicinal\s+product)|IMP)[:\s]+([A-Za-z][A-Za-z0-9-]{2,})',
             r'(?:study\s+drug)[:\s]+([A-Za-z][A-Za-z0-9-]{2,})',
+            # Study title patterns
+            r'(?:Study\s+of|Trial\s+of)\s+([A-Za-z][A-Za-z0-9-]{3,})',
+            r'(?:Controlled\s+Study\s+of)\s+([A-Za-z][A-Za-z0-9-]{3,})',
+            # Receive patterns
+            r'(?:receive|receiving)\s+(?:either\s+)?([A-Za-z][A-Za-z0-9-]{3,})\s+(?:\d+\s*mg)?',
+            r'(?:randomized\s+to)\s+(?:receive\s+)?([A-Za-z][A-Za-z0-9-]{3,})',
+            # Drug vs placebo patterns
+            r'([A-Za-z][A-Za-z0-9-]{3,})\s+(?:versus|vs\.?)\s+placebo',
+            r'([A-Za-z][A-Za-z0-9-]{3,})\s+\d+\s*(?:mg|mcg|ug)\s+(?:once|twice|daily|weekly)',
         ]
         for pattern in ip_patterns:
             match = re.search(pattern, text, re.IGNORECASE)
@@ -578,8 +607,9 @@ class StructuredFactExtractor:
         """Extract sample size specification"""
         spec = SampleSizeSpec(total_n=0)
 
-        # Total sample size
+        # Total sample size - comprehensive patterns
         total_patterns = [
+            # Standard enrollment statements
             r'(?:approximately\s+)?(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:will\s+be\s+)?(?:enrolled|randomized|recruited)',
             r'(?:total\s+(?:of\s+)?)?(\d+)\s+(?:patients?|subjects?)\s+(?:planned|expected)',
             r'(?:sample\s+size)[:\s]+(?:approximately\s+)?(\d+)',
@@ -588,6 +618,18 @@ class StructuredFactExtractor:
             # Additional patterns for common phrasings
             r'(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:in\s+a|randomized|across)',
             r'(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:will\s+be\s+)?(?:assigned|allocated)',
+            # Ratio-based patterns (e.g., "400 patients will be randomized in a 2:1 ratio")
+            r'(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:will\s+be\s+)?randomized\s+in\s+a\s+\d+:\d+',
+            # "A total of X" patterns
+            r'[Aa]\s+total\s+of\s+(\d+)\s+(?:patients?|subjects?|participants?)',
+            # "Up to X patients"
+            r'[Uu]p\s+to\s+(\d+)\s+(?:patients?|subjects?|participants?)',
+            # "Enroll approximately X"
+            r'[Ee]nroll\s+(?:approximately\s+)?(\d+)',
+            # Just "X patients" at start of sentence
+            r'^\s*(\d+)\s+(?:patients?|subjects?|participants?)\s+will',
+            # "will include X patients"
+            r'(?:will\s+)?include\s+(?:approximately\s+)?(\d+)\s+(?:patients?|subjects?)',
         ]
 
         for pattern in total_patterns:

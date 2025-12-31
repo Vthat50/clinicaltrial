@@ -395,9 +395,11 @@ class FullIntegratedPipeline:
                     result.protocol_facts = self.fact_extractor.extract_all(protocol_text)
                     result.drug_name = result.protocol_facts.drug_name or ""
                     result.sample_size = result.protocol_facts.sample_size.total_n if result.protocol_facts.sample_size else 0
-                    result.randomization_ratio = result.protocol_facts.randomization.ratio if result.protocol_facts.randomization else ""
+                    result.randomization_ratio = result.protocol_facts.randomization_ratio or ""
                     result.num_arms = len(result.protocol_facts.treatment_arms) if result.protocol_facts.treatment_arms else 2
                     result.phase = str(result.protocol_facts.phase) if result.protocol_facts.phase else ""
+                    result.therapeutic_area = result.protocol_facts.therapeutic_area if hasattr(result.protocol_facts, 'therapeutic_area') else ""
+                    result.primary_endpoint = str(result.protocol_facts.primary_endpoint) if hasattr(result.protocol_facts, 'primary_endpoint') and result.protocol_facts.primary_endpoint else ""
                 except Exception as e:
                     if self.verbose:
                         print(f"  [WARN] StructuredFactExtractor failed: {e}")
