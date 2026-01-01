@@ -39,9 +39,11 @@ class ExtractedProtocol:
     is_randomized: bool = False
     is_blinded: bool = False
     blinding_type: str = ""  # "double-blind", "open-label", etc.
+    is_pilot_study: bool = False  # True for feasibility/pilot studies (no hypothesis testing)
 
     # Sample
     sample_size: int = 0
+    sample_size_justification: str = ""  # Captures if formal power calc vs pragmatic
 
     # Arms
     num_arms: int = 0
@@ -52,15 +54,29 @@ class ExtractedProtocol:
     drug_name: str = ""
     comparator: str = ""
 
-    # Endpoints
-    primary_endpoint: str = ""
-    primary_timepoint: str = ""
+    # Endpoints - NOW SUPPORTS MULTIPLE CO-PRIMARY ENDPOINTS
+    primary_endpoints: List[Dict[str, str]] = field(default_factory=list)
+    # Each dict: {"definition": "...", "type": "safety|efficacy|tumor_response", "timepoint": "..."}
+    primary_endpoint: str = ""  # DEPRECATED - kept for backwards compatibility
+    primary_timepoint: str = ""  # DEPRECATED - kept for backwards compatibility
     secondary_endpoints: List[str] = field(default_factory=list)
+
+    # Oncology Response Criteria (NEW)
+    response_criteria: str = ""  # "RECIST 1.1", "mRECIST", "Lugano", "IMWG", "iRECIST", etc.
+    pathologic_response_criteria: str = ""  # "Junker", "Miller-Payne", "TRG", etc.
+    response_assessor: str = ""  # "investigator", "IRRC", "BICR"
 
     # Statistical
     statistical_method: str = ""
     alpha_level: float = 0.05
     power: float = 0.0
+    hypothesis_testing_planned: bool = True  # False for pilot/feasibility studies
+
+    # Analysis Populations - Protocol-Specific Definitions (NEW)
+    itt_definition: str = ""  # Protocol's exact ITT definition
+    pp_definition: str = ""   # Protocol's exact PP definition
+    safety_definition: str = ""  # Protocol's exact Safety population definition
+    fas_definition: str = ""  # Protocol's exact FAS definition (if different from ITT)
 
     # Other
     therapeutic_area: str = ""
@@ -87,7 +103,9 @@ Extract the following fields and return ONLY valid JSON (no other text):
   "is_randomized": true or false,
   "is_blinded": true or false,
   "blinding_type": "double-blind, single-blind, open-label, or empty",
+  "is_pilot_study": true or false (true if explicitly described as pilot, feasibility, exploratory, hypothesis-generating, or if no formal power calculation),
   "sample_size": number (total planned enrollment),
+  "sample_size_justification": "formal_power_calculation OR pragmatic OR feasibility (indicate which type)",
   "num_arms": number of treatment arms,
   "arms": [
     {{"name": "Arm A", "treatment": "Drug X 100mg", "n": 50}},
@@ -96,12 +114,30 @@ Extract the following fields and return ONLY valid JSON (no other text):
   "randomization_ratio": "1:1, 2:1, etc. or empty if not randomized",
   "drug_name": "Primary study drug/investigational product name",
   "comparator": "Comparator drug or placebo if applicable",
-  "primary_endpoint": "Exact definition of the primary endpoint",
-  "primary_timepoint": "When primary endpoint is measured (e.g., Week 12)",
+
+  "primary_endpoints": [
+    {{
+      "definition": "Full definition of the primary endpoint",
+      "type": "safety OR efficacy OR tumor_response OR feasibility OR pk",
+      "timepoint": "When measured (e.g., Week 12, at surgery)",
+      "criteria": "Assessment criteria if applicable (e.g., RECIST 1.1, NCI-CTCAE v4.03)"
+    }}
+  ],
   "secondary_endpoints": ["List of secondary endpoints"],
-  "statistical_method": "Primary statistical analysis method (e.g., ANCOVA, MMRM, logistic regression)",
+
+  "response_criteria": "For oncology: RECIST 1.1, mRECIST, iRECIST, Lugano, IMWG, ELN, etc. Empty if not oncology.",
+  "pathologic_response_criteria": "Pathologic grading system if mentioned (Junker, Miller-Payne, TRG, pCR definition, etc.)",
+  "response_assessor": "Who assesses response: investigator, IRRC, BICR, central review",
+
+  "statistical_method": "Primary statistical analysis method (e.g., ANCOVA, MMRM, Kaplan-Meier, logistic regression)",
   "alpha_level": 0.05 (significance level as decimal),
-  "power": 0.80 (statistical power as decimal if mentioned),
+  "power": 0.80 (statistical power as decimal if mentioned, 0 if no formal power calculation),
+  "hypothesis_testing_planned": true or false (false if pilot/feasibility study with only descriptive statistics),
+
+  "itt_definition": "Protocol's exact definition of Intent-to-Treat or Full Analysis Set population",
+  "pp_definition": "Protocol's exact definition of Per-Protocol population",
+  "safety_definition": "Protocol's exact definition of Safety population",
+
   "therapeutic_area": "oncology, immunology, cardiology, etc.",
   "indication": "Specific disease/condition being studied",
   "stratification_factors": ["List of stratification factors if randomized"],
@@ -111,9 +147,13 @@ Extract the following fields and return ONLY valid JSON (no other text):
 IMPORTANT RULES:
 1. Extract ONLY what is explicitly stated in the document
 2. If a field is not found, use empty string "" or 0 or empty array []
-3. For primary_endpoint, extract the COMPLETE definition, not just a fragment
-4. For drug_name, identify the investigational product, not standard of care
-5. Return ONLY the JSON object, no explanations
+3. For primary_endpoints, extract ALL co-primary endpoints - many studies have 2-3 (e.g., safety + efficacy + tumor response)
+4. For each primary endpoint, classify its TYPE: safety (AE rates), efficacy (clinical benefit), tumor_response (RECIST/pathologic), feasibility (compliance), pk (pharmacokinetic)
+5. For drug_name, identify the investigational product, not standard of care
+6. Set is_pilot_study=true if: no formal power calculation, described as pilot/feasibility/exploratory, or sample size justified by pragmatic/feasibility rationale
+7. Set hypothesis_testing_planned=false for pilot studies - they use descriptive statistics only
+8. For oncology studies, extract response_criteria (RECIST version) and pathologic_response_criteria if tumor assessment is an endpoint
+9. Return ONLY the JSON object, no explanations
 
 PROTOCOL TEXT:
 {protocol_text}
@@ -202,9 +242,11 @@ class ClaudeProtocolExtractor:
         result.is_randomized = bool(response.get("is_randomized", False))
         result.is_blinded = bool(response.get("is_blinded", False))
         result.blinding_type = response.get("blinding_type", "") or ""
+        result.is_pilot_study = bool(response.get("is_pilot_study", False))
 
         # Sample
         result.sample_size = int(response.get("sample_size", 0) or 0)
+        result.sample_size_justification = response.get("sample_size_justification", "") or ""
 
         # Arms
         result.num_arms = int(response.get("num_arms", 0) or 0)
@@ -215,15 +257,44 @@ class ClaudeProtocolExtractor:
         result.drug_name = response.get("drug_name", "") or ""
         result.comparator = response.get("comparator", "") or ""
 
-        # Endpoints
-        result.primary_endpoint = response.get("primary_endpoint", "") or ""
-        result.primary_timepoint = response.get("primary_timepoint", "") or ""
+        # Endpoints - NEW: Support multiple co-primary endpoints
+        result.primary_endpoints = response.get("primary_endpoints", []) or []
         result.secondary_endpoints = response.get("secondary_endpoints", []) or []
+
+        # Backwards compatibility: populate deprecated single-value fields
+        if result.primary_endpoints:
+            first_endpoint = result.primary_endpoints[0]
+            result.primary_endpoint = first_endpoint.get("definition", "") if isinstance(first_endpoint, dict) else str(first_endpoint)
+            result.primary_timepoint = first_endpoint.get("timepoint", "") if isinstance(first_endpoint, dict) else ""
+        else:
+            # Fallback to old format if LLM returns old format
+            result.primary_endpoint = response.get("primary_endpoint", "") or ""
+            result.primary_timepoint = response.get("primary_timepoint", "") or ""
+            # Convert old format to new format
+            if result.primary_endpoint:
+                result.primary_endpoints = [{
+                    "definition": result.primary_endpoint,
+                    "type": "efficacy",  # Default, will be inferred
+                    "timepoint": result.primary_timepoint,
+                    "criteria": ""
+                }]
+
+        # Oncology Response Criteria (NEW)
+        result.response_criteria = response.get("response_criteria", "") or ""
+        result.pathologic_response_criteria = response.get("pathologic_response_criteria", "") or ""
+        result.response_assessor = response.get("response_assessor", "") or ""
 
         # Statistical
         result.statistical_method = response.get("statistical_method", "") or ""
         result.alpha_level = float(response.get("alpha_level", 0.05) or 0.05)
         result.power = float(response.get("power", 0) or 0)
+        result.hypothesis_testing_planned = bool(response.get("hypothesis_testing_planned", True))
+
+        # Population Definitions (NEW)
+        result.itt_definition = response.get("itt_definition", "") or ""
+        result.pp_definition = response.get("pp_definition", "") or ""
+        result.safety_definition = response.get("safety_definition", "") or ""
+        result.fas_definition = response.get("fas_definition", "") or ""
 
         # Other
         result.therapeutic_area = response.get("therapeutic_area", "") or ""
@@ -241,6 +312,22 @@ class ClaudeProtocolExtractor:
         if "single" in result.design_type.lower():
             result.num_arms = 1
             result.is_randomized = False
+
+        # Infer pilot study from various indicators
+        if not result.is_pilot_study:
+            pilot_indicators = [
+                "pilot" in result.design_type.lower(),
+                "feasibility" in result.design_type.lower(),
+                "exploratory" in result.design_type.lower(),
+                result.sample_size_justification.lower() in ["pragmatic", "feasibility"],
+                result.power == 0 and result.sample_size < 50,  # Small study with no power calc
+                "phase 1" in result.phase.lower() and not result.is_randomized,
+            ]
+            result.is_pilot_study = any(pilot_indicators)
+
+        # If pilot study, hypothesis testing should be false
+        if result.is_pilot_study:
+            result.hypothesis_testing_planned = False
 
         return result
 

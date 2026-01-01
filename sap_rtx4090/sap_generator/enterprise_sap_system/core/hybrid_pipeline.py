@@ -80,6 +80,14 @@ except ImportError as e:
     CONTAMINATION_GUARD_AVAILABLE = False
     logger.warning("ContaminationGuard not available - contamination checking disabled", error=str(e))
 
+# Try to import TLF generator
+try:
+    from ..specs.tlf_shells import TLFShellGenerator, create_tlf_generator
+    TLF_GENERATOR_AVAILABLE = True
+except ImportError as e:
+    TLF_GENERATOR_AVAILABLE = False
+    logger.warning("TLFShellGenerator not available - TLF generation disabled", error=str(e))
+
 
 @dataclass
 class HybridPipelineResult:
@@ -92,6 +100,10 @@ class HybridPipelineResult:
     validation: Optional[Any] = None
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+
+    # TLF specifications
+    tlf_text: str = ""  # Markdown TLF shell specifications
+    tlf_shells: Dict[str, Any] = field(default_factory=dict)  # Raw TLF shell objects
 
     # Metrics
     decision_tree_sections: int = 0
@@ -137,6 +149,7 @@ class HybridSAPPipeline:
         use_rag: bool = True,
         use_validation: bool = True,
         strict_validation: bool = False,
+        use_tlf: bool = True,
         verbose: bool = True
     ):
         """
@@ -146,11 +159,13 @@ class HybridSAPPipeline:
             use_rag: Enable RAG for enhanced sections
             use_validation: Enable post-generation validation
             strict_validation: Block output on validation failures
+            use_tlf: Enable TLF shell specification generation
             verbose: Print progress messages
         """
         self.verbose = verbose
         self.use_validation = use_validation
         self.strict_validation = strict_validation
+        self.use_tlf = use_tlf
 
         # Initialize LLM extractor (NO regex fallback)
         if CLAUDE_EXTRACTOR_AVAILABLE:
@@ -181,12 +196,19 @@ class HybridSAPPipeline:
             self.llm_generator = None
             self.use_llm_generation = False
 
+        # Initialize TLF shell generator
+        if TLF_GENERATOR_AVAILABLE and use_tlf:
+            self.tlf_generator = create_tlf_generator()
+        else:
+            self.tlf_generator = None
+
         logger.info(
             "HybridSAPPipeline initialized",
             extraction="LLM" if self.use_llm_extraction else "DISABLED",
             generation="LLM" if self.use_llm_generation else "TEMPLATES",
             rag="enabled" if use_rag and self.rag_adapter else "disabled",
-            validation="enabled" if use_validation else "disabled"
+            validation="enabled" if use_validation else "disabled",
+            tlf="enabled" if self.tlf_generator else "disabled"
         )
 
     def generate(
@@ -393,13 +415,43 @@ class HybridSAPPipeline:
                     result.sap_text = cleaned
                     logger.warning("Contamination cleaned", sources=report.contamination_sources)
 
+            # =================================================================
+            # LAYER 6: TLF SHELL GENERATION
+            # =================================================================
+            if self.use_tlf and self.tlf_generator:
+                logger.info("LAYER 6: Generating TLF shell specifications")
+                try:
+                    # Convert facts to ParsedProtocol for TLF generator
+                    parsed_protocol = self._facts_to_parsed_protocol(facts, facts_dict)
+                    estimands = self._build_estimands_dict(facts_dict)
+
+                    # Generate TLF shells
+                    tlf_shells = self.tlf_generator.generate_all_shells(parsed_protocol, estimands)
+                    result.tlf_shells = tlf_shells
+
+                    # Generate TLF document text
+                    result.tlf_text = self.tlf_generator.generate_tlf_document(parsed_protocol, estimands)
+
+                    logger.info(
+                        "TLF generation complete",
+                        demographics=len(tlf_shells.get('demographics', [])),
+                        efficacy=len(tlf_shells.get('efficacy', [])),
+                        safety=len(tlf_shells.get('safety', [])),
+                        figures=len(tlf_shells.get('figures', [])),
+                        listings=len(tlf_shells.get('listings', []))
+                    )
+                except Exception as e:
+                    result.warnings.append(f"TLF generation failed: {e}")
+                    logger.warning("TLF generation failed", exc_info=True, error=str(e))
+
             result.success = True  # Always succeed if we got here
             logger.info(
                 "SAP generation complete",
                 sections_count=len(result.sections),
                 decision_tree=result.decision_tree_sections,
                 rag=result.rag_sections,
-                warnings_count=len(result.warnings)
+                warnings_count=len(result.warnings),
+                tlf_generated=bool(result.tlf_text)
             )
 
         except Exception as e:
@@ -477,12 +529,41 @@ class HybridSAPPipeline:
             object.__setattr__(facts, '_llm_facts', {
                 'comparator': extracted.comparator,
                 'statistical_method': extracted.statistical_method,
+                # NEW: Include pilot study and hypothesis testing flags
+                'is_pilot_study': extracted.is_pilot_study,
+                'hypothesis_testing_planned': extracted.hypothesis_testing_planned,
+                'sample_size_justification': extracted.sample_size_justification,
+                # NEW: Include multiple co-primary endpoints
+                'primary_endpoints': extracted.primary_endpoints,
+                # NEW: Include oncology response criteria
+                'response_criteria': extracted.response_criteria,
+                'pathologic_response_criteria': extracted.pathologic_response_criteria,
+                'response_assessor': extracted.response_assessor,
+                # NEW: Include protocol-specific population definitions
+                'itt_definition': extracted.itt_definition,
+                'pp_definition': extracted.pp_definition,
+                'safety_definition': extracted.safety_definition,
+                'fas_definition': extracted.fas_definition,
             })
         except Exception:
             pass  # Ignore if we can't set this attribute
 
-        # Endpoints
-        if extracted.primary_endpoint:
+        # Endpoints - Handle multiple co-primary endpoints
+        if extracted.primary_endpoints:
+            # Use first endpoint for backwards compatibility
+            first_ep = extracted.primary_endpoints[0]
+            if isinstance(first_ep, dict):
+                facts.primary_endpoint = EndpointDefinition(
+                    name="Primary Endpoint",
+                    definition=first_ep.get("definition", ""),
+                    timepoint=first_ep.get("timepoint", "")
+                )
+            else:
+                facts.primary_endpoint = EndpointDefinition(
+                    name="Primary Endpoint",
+                    definition=str(first_ep)
+                )
+        elif extracted.primary_endpoint:
             facts.primary_endpoint = EndpointDefinition(
                 name="Primary Endpoint",
                 definition=extracted.primary_endpoint,
@@ -503,6 +584,19 @@ class HybridSAPPipeline:
         facts.therapeutic_area = extracted.therapeutic_area
         facts.indication = extracted.indication
         facts.stratification_factors = extracted.stratification_factors
+
+        # NEW: Set population definitions on facts object if available
+        try:
+            if extracted.itt_definition:
+                object.__setattr__(facts, 'itt_definition', extracted.itt_definition)
+            if extracted.pp_definition:
+                object.__setattr__(facts, 'pp_definition', extracted.pp_definition)
+            if extracted.safety_definition:
+                object.__setattr__(facts, 'safety_definition', extracted.safety_definition)
+            if extracted.fas_definition:
+                object.__setattr__(facts, 'fas_definition', extracted.fas_definition)
+        except Exception:
+            pass
 
         return facts
 
@@ -892,7 +986,125 @@ class HybridSAPPipeline:
             if llm.get('comparator') and not result['comparator']:
                 result['comparator'] = llm['comparator']
 
+            # NEW: Include pilot study detection flags
+            result['is_pilot_study'] = llm.get('is_pilot_study', False)
+            result['hypothesis_testing_planned'] = llm.get('hypothesis_testing_planned', True)
+            result['sample_size_justification'] = llm.get('sample_size_justification', '')
+
+            # NEW: Include multiple co-primary endpoints
+            result['primary_endpoints'] = llm.get('primary_endpoints', [])
+
+            # NEW: Include oncology response criteria
+            result['response_criteria'] = llm.get('response_criteria', '')
+            result['pathologic_response_criteria'] = llm.get('pathologic_response_criteria', '')
+            result['response_assessor'] = llm.get('response_assessor', '')
+
+            # NEW: Include protocol-specific population definitions
+            if llm.get('itt_definition'):
+                result['itt_definition'] = llm['itt_definition']
+            if llm.get('pp_definition'):
+                result['pp_definition'] = llm['pp_definition']
+            if llm.get('safety_definition'):
+                result['safety_definition'] = llm['safety_definition']
+            if llm.get('fas_definition'):
+                result['fas_definition'] = llm['fas_definition']
+
         return result
+
+    def _facts_to_parsed_protocol(self, facts: ProtocolFacts, facts_dict: Dict[str, Any]) -> 'ParsedProtocol':
+        """Convert ProtocolFacts to ParsedProtocol for TLF generator"""
+        from .schemas import (
+            ParsedProtocol, Estimand, DesignType, BlindingType,
+            StudyPhase, EndpointType
+        )
+
+        # Determine endpoint type from primary endpoint
+        primary_ep = facts_dict.get('primary_endpoint', '').lower()
+        endpoint_type = EndpointType.EFFICACY  # Default
+        if any(kw in primary_ep for kw in ['orr', 'objective response', 'response rate', 'recist']):
+            endpoint_type = EndpointType.ORR
+        elif any(kw in primary_ep for kw in ['overall survival', 'os', 'death']):
+            endpoint_type = EndpointType.OS
+        elif any(kw in primary_ep for kw in ['progression-free', 'pfs', 'progression']):
+            endpoint_type = EndpointType.PFS
+        elif any(kw in primary_ep for kw in ['disease-free', 'dfs', 'relapse']):
+            endpoint_type = EndpointType.DFS
+        elif any(kw in primary_ep for kw in ['safety', 'adverse event', 'tolerability', 'teae']):
+            endpoint_type = EndpointType.SAFETY
+
+        # Create primary estimand
+        primary_estimand = Estimand(
+            name="Primary",
+            population="ITT",
+            treatment=facts_dict.get('drug_name', ''),
+            variable=facts_dict.get('primary_endpoint', ''),
+            variable_type=endpoint_type,
+            intercurrent_events={"treatment_discontinuation": "treatment_policy"},
+            summary_measure="difference_in_proportions" if endpoint_type == EndpointType.ORR else "hazard_ratio"
+        )
+
+        # Determine design type
+        design_str = facts_dict.get('design_type', '').lower()
+        if 'single' in design_str:
+            design_type = DesignType.SINGLE_ARM
+        elif 'crossover' in design_str:
+            design_type = DesignType.CROSSOVER
+        else:
+            design_type = DesignType.PARALLEL
+
+        # Determine blinding
+        if facts_dict.get('is_blinded'):
+            blinding = BlindingType.DOUBLE_BLIND
+        else:
+            blinding = BlindingType.OPEN_LABEL
+
+        # Get treatment arms
+        arms = facts_dict.get('arms', [])
+        if not arms:
+            drug = facts_dict.get('drug_name', 'Treatment')
+            if facts_dict.get('is_single_arm'):
+                arms = [drug]
+            else:
+                comparator = facts_dict.get('comparator', 'Control')
+                arms = [drug, comparator]
+
+        return ParsedProtocol(
+            nct_id=facts_dict.get('nct_id', ''),
+            sponsor=facts_dict.get('sponsor', ''),
+            study_title=facts_dict.get('protocol_title', ''),
+            therapeutic_area=facts_dict.get('therapeutic_area', ''),
+            indication=facts_dict.get('indication', ''),
+            phase=facts.phase if facts.phase else StudyPhase.UNKNOWN,
+            primary_estimand=primary_estimand,
+            design_type=design_type,
+            randomization_ratio=facts_dict.get('randomization_ratio', ''),
+            stratification_factors=facts_dict.get('stratification_factors', []),
+            blinding=blinding,
+            treatment_arms=arms
+        )
+
+    def _build_estimands_dict(self, facts_dict: Dict[str, Any]) -> Dict[str, Any]:
+        """Build estimands dictionary for TLF generator"""
+        primary_ep = facts_dict.get('primary_endpoint', '')
+
+        return {
+            'primary': {
+                'name': 'Primary',
+                'population': 'ITT',
+                'treatment': facts_dict.get('drug_name', ''),
+                'variable': primary_ep,
+                'intercurrent_events': {'treatment_discontinuation': 'treatment_policy'},
+                'summary_measure': 'difference'
+            },
+            'secondary': [
+                {
+                    'name': f'Secondary {i+1}',
+                    'population': 'ITT',
+                    'variable': ep
+                }
+                for i, ep in enumerate(facts_dict.get('secondary_endpoints', []))
+            ]
+        }
 
     def _generate_introduction(self, facts: Dict[str, Any]) -> str:
         """Generate introduction section"""
@@ -1203,6 +1415,7 @@ def create_hybrid_pipeline(
     use_rag: bool = True,
     use_validation: bool = True,
     strict_validation: bool = False,
+    use_tlf: bool = True,
     verbose: bool = True
 ) -> HybridSAPPipeline:
     """Create a hybrid SAP pipeline instance.
@@ -1211,12 +1424,14 @@ def create_hybrid_pipeline(
         use_rag: Whether to use RAG for section generation
         use_validation: Whether to run validation on output
         strict_validation: If True, block output on HIGH severity issues
+        use_tlf: Whether to generate TLF shell specifications
         verbose: Whether to print progress messages
     """
     return HybridSAPPipeline(
         use_rag=use_rag,
         use_validation=use_validation,
         strict_validation=strict_validation,
+        use_tlf=use_tlf,
         verbose=verbose
     )
 

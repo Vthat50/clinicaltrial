@@ -75,6 +75,12 @@ class PopulationDecisionTree:
         is_single_arm = facts.get('is_single_arm', False)
         drug_name = facts.get('drug_name')
 
+        # NEW: Get protocol-specific definitions if extracted
+        protocol_itt_def = facts.get('itt_definition', '')
+        protocol_pp_def = facts.get('pp_definition', '')
+        protocol_safety_def = facts.get('safety_definition', '')
+        protocol_fas_def = facts.get('fas_definition', '')
+
         # Validate num_arms
         if num_arms is None or num_arms < 1:
             warnings.append(f"num_arms invalid ({num_arms}), defaulting to 1")
@@ -101,29 +107,43 @@ class PopulationDecisionTree:
         is_randomized = num_arms > 1 and not is_single_arm
         has_pk = self._has_pk_endpoints(facts)
 
-        # RULE 1: ITT Population definition
-        if is_randomized:
+        # RULE 1: ITT Population definition - USE PROTOCOL-SPECIFIC IF AVAILABLE
+        if protocol_itt_def:
+            itt_def = protocol_itt_def
+            rules_applied.append("RULE: Using protocol-specific ITT definition")
+        elif is_randomized:
             itt_def = "All patients who were randomized to treatment, regardless of whether they received study medication."
             rules_applied.append("RULE: Randomized trial -> ITT = All randomized")
         else:
             itt_def = f"All patients who were enrolled and received at least one dose of {drug_name}."
             rules_applied.append("RULE: Single-arm trial -> ITT = All enrolled + treated")
 
-        # RULE 2: FAS Population (primary efficacy)
-        if is_randomized:
+        # RULE 2: FAS Population (primary efficacy) - USE PROTOCOL-SPECIFIC IF AVAILABLE
+        if protocol_fas_def:
+            fas_def = protocol_fas_def
+            rules_applied.append("RULE: Using protocol-specific FAS definition")
+        elif is_randomized:
             fas_def = "All randomized patients who received at least one dose of study medication and have at least one post-baseline efficacy assessment."
         else:
             fas_def = "All enrolled patients who received at least one dose of study medication and have at least one post-baseline efficacy assessment."
         rules_applied.append("RULE: FAS = ITT + dose + post-baseline assessment")
 
-        # RULE 3: Per-Protocol Population
-        pp_def = "All patients in the FAS who completed the study without major protocol deviations that could affect efficacy assessment."
+        # RULE 3: Per-Protocol Population - USE PROTOCOL-SPECIFIC IF AVAILABLE
+        if protocol_pp_def:
+            pp_def = protocol_pp_def
+            rules_applied.append("RULE: Using protocol-specific PP definition")
+        else:
+            pp_def = "All patients in the FAS who completed the study without major protocol deviations that could affect efficacy assessment."
         pp_exclusions = self._get_pp_exclusions(facts)
         rules_applied.append("RULE: PP = FAS - protocol violations")
 
-        # RULE 4: Safety Population
-        safety_def = f"All patients who received at least one dose of {drug_name}."
-        rules_applied.append("RULE: Safety = All who received >= 1 dose")
+        # RULE 4: Safety Population - USE PROTOCOL-SPECIFIC IF AVAILABLE
+        if protocol_safety_def:
+            safety_def = protocol_safety_def
+            rules_applied.append("RULE: Using protocol-specific Safety population definition")
+        else:
+            safety_def = f"All patients who received at least one dose of {drug_name}."
+            rules_applied.append("RULE: Safety = All who received >= 1 dose")
 
         # RULE 5: PK Population (conditional)
         pk_section = ""
@@ -859,7 +879,27 @@ class MethodsRAGGenerator(RAGEnhancedGenerator):
         alpha_sidedness = facts.get('alpha_sidedness', 'two-sided')
         is_single_arm = facts.get('is_single_arm', False)
 
-        # RETRIEVE similar methods examples
+        # NEW: Phase-aware detection for pilot/feasibility studies
+        is_pilot_study = facts.get('is_pilot_study', False)
+        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+        sample_size = facts.get('sample_size', 0)
+        phase = facts.get('phase', '').lower()
+
+        # Infer pilot study from multiple signals
+        if not is_pilot_study:
+            pilot_signals = [
+                'pilot' in phase or 'feasibility' in str(facts).lower(),
+                'phase 1' in phase and is_single_arm,
+                sample_size > 0 and sample_size <= 50 and facts.get('power', 0) == 0,
+                facts.get('sample_size_justification', '').lower() in ['pragmatic', 'feasibility'],
+            ]
+            is_pilot_study = any(pilot_signals)
+
+        # If pilot study, hypothesis testing should NOT be planned
+        if is_pilot_study:
+            hypothesis_testing_planned = False
+
+        # RETRIEVE similar methods examples (filter by phase for relevance)
         methods_examples = self._get_rag_examples(
             query=f"{therapeutic_area} {endpoint_type} statistical analysis",
             section_type='methods',
@@ -872,8 +912,11 @@ class MethodsRAGGenerator(RAGEnhancedGenerator):
         # Extract method patterns from RAG
         rag_methods = self._extract_method_patterns(methods_examples, endpoint_type)
 
-        # Build method specification
-        if is_single_arm:
+        # Build method specification - PHASE AWARE
+        if is_pilot_study or not hypothesis_testing_planned:
+            # PILOT/FEASIBILITY STUDY: Descriptive statistics ONLY
+            method_content = self._build_pilot_study_methods(facts, rag_methods, endpoint_type)
+        elif is_single_arm:
             method_content = self._build_single_arm_methods(facts, rag_methods)
         else:
             method_content = self._build_comparative_methods(facts, rag_methods, endpoint_type)
@@ -890,14 +933,68 @@ class MethodsRAGGenerator(RAGEnhancedGenerator):
 {self._format_rag_examples(methods_examples)}
 """
 
-        content = f"""## 7. STATISTICAL METHODS
+        # PHASE-AWARE General Considerations section
+        if is_pilot_study or not hypothesis_testing_planned:
+            general_considerations = """### 7.1 General Statistical Principles
 
-### 7.1 General Considerations
+**This is a pilot/feasibility study. No formal hypothesis testing will be performed.**
+
+- All analyses will be **descriptive** in nature
+- Point estimates will be accompanied by 95% confidence intervals
+- No formal statistical tests or p-values will be reported for efficacy endpoints
+- Sample size was not based on a formal power calculation
+- Results are intended for hypothesis generation and planning of future confirmatory studies
+- Analyses will be performed using SAS version 9.4 or later"""
+
+            secondary_methods = """Secondary endpoints will be summarized using descriptive statistics appropriate to the endpoint type:
+- Binary endpoints: Proportions with exact (Clopper-Pearson) 95% confidence intervals
+- Continuous endpoints: Summary statistics (n, mean, SD, median, Q1, Q3, min, max)
+- Time-to-event: Kaplan-Meier estimates with 95% confidence intervals
+
+**No formal statistical testing will be performed for secondary endpoints.**"""
+
+            sensitivity_for_pilot = """For this pilot study, sensitivity analyses are exploratory:
+- Available-case analysis (primary approach)
+- Assessment of patterns of missing data
+- Descriptive comparison of completers vs. non-completers"""
+
+            subgroup_for_pilot = """Subgroup analyses will be **exploratory and descriptive only**:
+- Age group (<65, ≥65 years)
+- Sex
+- Baseline disease severity
+
+Results will be presented as point estimates with 95% CIs. No formal interaction tests will be performed due to the small sample size."""
+
+            multiplicity_for_pilot = "**Not applicable.** No formal hypothesis testing is planned for this pilot study."
+        else:
+            general_considerations = f"""### 7.1 General Considerations
 
 - Significance level: {alpha_sidedness} alpha = {alpha}
 - Confidence intervals: {int((1 - alpha) * 100)}% confidence level
 - All p-values will be rounded to 4 decimal places
-- Analyses will be performed using SAS version 9.4 or later
+- Analyses will be performed using SAS version 9.4 or later"""
+
+            secondary_methods = """Secondary endpoints will be analyzed using methods appropriate to the endpoint type:
+- Binary endpoints: Logistic regression or CMH test
+- Continuous endpoints: ANCOVA or MMRM
+- Time-to-event: Kaplan-Meier and Cox regression"""
+
+            sensitivity_for_pilot = sensitivity_section
+
+            subgroup_for_pilot = """Subgroup analyses will be performed for the primary endpoint:
+- Age group (<65, ≥65 years)
+- Sex
+- Geographic region
+- Baseline disease severity
+- Prior treatment history
+
+Forest plots will display treatment effects across subgroups."""
+
+            multiplicity_for_pilot = self._get_multiplicity_approach(facts)
+
+        content = f"""## 7. STATISTICAL METHODS
+
+{general_considerations}
 
 ### 7.2 Analysis of Primary Endpoint
 
@@ -905,29 +1002,19 @@ class MethodsRAGGenerator(RAGEnhancedGenerator):
 
 ### 7.3 Analysis of Secondary Endpoints
 
-Secondary endpoints will be analyzed using methods appropriate to the endpoint type:
-- Binary endpoints: Logistic regression or CMH test
-- Continuous endpoints: ANCOVA or MMRM
-- Time-to-event: Kaplan-Meier and Cox regression
+{secondary_methods}
 
 ### 7.4 Sensitivity Analyses
 
-{sensitivity_section}
+{sensitivity_for_pilot}
 
 ### 7.5 Subgroup Analyses
 
-Subgroup analyses will be performed for the primary endpoint:
-- Age group (<65, ≥65 years)
-- Sex
-- Geographic region
-- Baseline disease severity
-- Prior treatment history
-
-Forest plots will display treatment effects across subgroups.
+{subgroup_for_pilot}
 
 ### 7.6 Multiplicity Adjustment
 
-{self._get_multiplicity_approach(facts)}
+{multiplicity_for_pilot}
 {rag_evidence}"""
 
         return ReasoningResult(
@@ -972,11 +1059,87 @@ Forest plots will display treatment effects across subgroups.
 
         return patterns
 
+    def _build_pilot_study_methods(self, facts: Dict[str, Any], rag_methods: Dict, endpoint_type: str) -> str:
+        """
+        Build methods for pilot/feasibility study - DESCRIPTIVE ONLY, NO HYPOTHESIS TESTING.
+
+        This is the correct approach for:
+        - Phase 1 single-arm studies
+        - Pilot/feasibility studies
+        - Studies with pragmatic sample sizes (no formal power calculation)
+        - Exploratory/hypothesis-generating studies
+        """
+        drug_name = facts.get('drug_name', 'study drug')
+
+        if endpoint_type == 'time_to_event':
+            return f"""**Descriptive Time-to-Event Analysis (Pilot Study):**
+
+**No formal hypothesis testing will be performed.** This pilot study uses descriptive statistics only.
+
+**Primary Analysis Method:** Kaplan-Meier estimation
+
+**Summary Statistics:**
+- Kaplan-Meier survival curves with 95% confidence intervals
+- Median time-to-event with 95% CI (if estimable)
+- Event-free rates at clinically relevant time points (e.g., 6, 12, 24 months) with 95% CIs
+
+**Descriptive Outputs:**
+- Number and percentage of patients with events
+- Number and percentage censored
+- Kaplan-Meier plots
+- At-risk tables
+
+**Note:** Log-rank tests, hazard ratios, and Cox regression models are NOT planned for this pilot study."""
+
+        elif endpoint_type == 'binary':
+            return f"""**Descriptive Binary Endpoint Analysis (Pilot Study):**
+
+**No formal hypothesis testing will be performed.** This pilot study uses descriptive statistics only.
+
+**Primary Analysis Method:** Point estimate with exact confidence interval
+
+**Summary Statistics:**
+- Number and percentage of responders
+- Response rate with exact (Clopper-Pearson) 95% confidence interval
+- Number and percentage by response category (if applicable)
+
+**Descriptive Outputs:**
+- Waterfall plot of best percentage change (for tumor response)
+- Response by subgroup (descriptive only)
+
+**Note:** Binomial tests, chi-square tests, and logistic regression are NOT planned for this pilot study."""
+
+        else:  # continuous or feasibility
+            return f"""**Descriptive Analysis (Pilot Study):**
+
+**No formal hypothesis testing will be performed.** This pilot study uses descriptive statistics only.
+
+**Primary Analysis Method:** Summary statistics
+
+**Summary Statistics:**
+- n, mean, standard deviation (SD)
+- Median, Q1, Q3
+- Minimum, maximum
+- 95% confidence interval for the mean
+
+**Descriptive Outputs:**
+- Summary tables by visit/timepoint
+- Individual patient profiles (spaghetti plots)
+- Change from baseline summaries
+
+**Note:** ANCOVA, t-tests, and other comparative tests are NOT planned for this pilot study.
+
+**Feasibility Metrics (if applicable):**
+- Enrollment rate and screen failure reasons
+- Protocol compliance rate
+- Treatment completion rate
+- Dropout rate and reasons for discontinuation"""
+
     def _build_single_arm_methods(self, facts: Dict[str, Any], rag_methods: Dict) -> str:
-        """Build methods for single-arm study"""
+        """Build methods for single-arm study (non-pilot, with hypothesis testing)"""
         return """**Single-Arm Analysis Approach:**
 
-Since this is a single-arm study, the primary analysis will be descriptive:
+Since this is a single-arm study, the primary analysis will be descriptive with optional historical comparison:
 
 **Point Estimate:**
 - Response rate with exact (Clopper-Pearson) 95% confidence interval
