@@ -385,7 +385,8 @@ class RAGRetriever:
                                 'length': len(content)
                             }
                             total_sections += 1
-                except:
+                except Exception as e:
+                    print(f"[RAG] Warning: Could not load {nct_id}: {e}")
                     continue
 
         self.indexed = total_sections > 0

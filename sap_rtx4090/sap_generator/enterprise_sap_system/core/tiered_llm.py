@@ -370,8 +370,8 @@ class TieredLLMClient:
                 try:
                     data = json.loads(match.group())
                     return data, response.source
-                except:
-                    pass
+                except json.JSONDecodeError:
+                    pass  # JSON parsing failed, fall through to return None
 
         return None, response.source
 

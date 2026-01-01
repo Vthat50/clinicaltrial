@@ -36,14 +36,16 @@ from .rag_adapter import create_rag_adapter, HybridRAGAdapter
 try:
     from .hard_validator import HardValidator, ValidationResult
     VALIDATOR_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     VALIDATOR_AVAILABLE = False
+    print(f"[HybridPipeline] ⚠️ WARNING: HardValidator not available - validation disabled: {e}")
 
 try:
     from .contamination_guard import ContaminationGuard
     CONTAMINATION_GUARD_AVAILABLE = True
-except ImportError:
+except ImportError as e:
     CONTAMINATION_GUARD_AVAILABLE = False
+    print(f"[HybridPipeline] ⚠️ WARNING: ContaminationGuard not available - contamination checking disabled: {e}")
 
 
 @dataclass

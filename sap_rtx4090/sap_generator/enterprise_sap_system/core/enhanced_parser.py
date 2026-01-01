@@ -242,8 +242,8 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
                 if llm_phase in phase_mapping:
                     result.phase = phase_mapping[llm_phase]
                     result.extraction_confidence['phase'] = llm_conf
-            except:
-                pass
+            except Exception as e:
+                print(f"[Enhanced Parser] Warning: Phase extraction failed: {e}")
 
         # Update endpoint type if LLM is confident
         llm_endpoint = llm_result.get('primary_endpoint_type', 'OTHER')
@@ -266,8 +266,8 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
                     result.primary_estimand.variable_type = endpoint_type
 
                 result.extraction_confidence['endpoint_type'] = llm_conf
-            except:
-                pass
+            except Exception as e:
+                print(f"[Enhanced Parser] Warning: Endpoint type extraction failed: {e}")
 
         # Update therapeutic area
         if llm_result.get('therapeutic_area') and llm_result['therapeutic_area'] != 'Other':

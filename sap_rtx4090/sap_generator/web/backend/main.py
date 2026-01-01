@@ -30,20 +30,10 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from enterprise_sap_system.agents import create_orchestrator
-from enterprise_sap_system.core import get_config
-
 # HYBRID PIPELINE - Single source of truth for SAP generation
+# This is the ONLY pipeline used in production. All extraction, validation,
+# and contamination checking happens INSIDE HybridSAPPipeline.
 from enterprise_sap_system.core.hybrid_pipeline import HybridSAPPipeline, create_hybrid_pipeline
-
-# Legacy pipelines (kept for reference, not used in production)
-# from enterprise_sap_system.core.full_integrated_pipeline import FullIntegratedPipeline
-# from enterprise_sap_system.core.integrated_pipeline import create_integrated_pipeline, IntegratedPipeline
-
-# Additional production components (now connected)
-from enterprise_sap_system.core.hard_validator import HardValidator
-from enterprise_sap_system.core.contamination_guard import ContaminationGuard
-from enterprise_sap_system.core.structured_extractor import StructuredFactExtractor
 
 from evaluate_sap import SAPEvaluator
 
@@ -105,8 +95,8 @@ def extract_text_from_txt(file_content: bytes) -> str:
     except UnicodeDecodeError:
         try:
             return file_content.decode('latin-1')
-        except:
-            raise ValueError("Failed to decode text file")
+        except Exception as e:
+            raise ValueError(f"Failed to decode text file: {e}")
 
 
 def extract_text_from_file(filename: str, content: bytes) -> str:
@@ -123,8 +113,8 @@ def extract_text_from_file(filename: str, content: bytes) -> str:
         # Try to decode as text
         try:
             return content.decode('utf-8')
-        except:
-            raise ValueError(f"Unsupported file format: {ext}")
+        except Exception as e:
+            raise ValueError(f"Unsupported file format: {ext} (decode error: {e})")
 
 
 # Background worker flag
@@ -293,7 +283,7 @@ async def upload_file(
 @app.get("/pipeline-info")
 async def get_pipeline_info():
     """
-    Get information about the FULL INTEGRATED PIPELINE architecture.
+    Get information about the HYBRID SAP PIPELINE architecture.
 
     Returns details about all 4 layers and their components.
     """
@@ -615,7 +605,8 @@ async def list_ground_truth():
                         "therapeutic_area": area,
                         "quality": "high"
                     })
-                except:
+                except Exception as e:
+                    print(f"[Ground Truth] Warning: Could not process {nct_id}: {e}")
                     continue
 
         # Then add all pairs from all_pairs directory
@@ -1962,35 +1953,33 @@ async def generate_define_xml(job_id: str, standard: str = "adam"):
 # Background worker
 async def process_jobs_worker():
     """
-    Background worker that processes queued jobs using FULL INTEGRATED PIPELINE.
+    Background worker that processes queued jobs using HYBRID SAP PIPELINE.
 
-    The FULL integrated pipeline uses ALL 4 LAYERS:
+    The HYBRID pipeline uses 4 layers with Decision Trees + RAG:
 
     LAYER 1 - EXTRACTION:
     - StructuredFactExtractor (regex-only, no hallucination)
-    - ProtocolIdentityExtractor (NCT ID, sponsor)
+    - ProtocolIdentityExtractor (NCT ID, drug names)
 
-    LAYER 2 - KNOWLEDGE:
-    - BiostatisticsKnowledgeGraph (39 nodes, 36 edges)
-    - RAG System (1,198 sections from real SAPs)
-    - Specialized Templates (Phase 2/3, oncology, IBD)
+    LAYER 2 - HYBRID REASONING:
+    - Decision Trees for: populations, derivations, TEAE logic
+    - RAG retrieval for: endpoints, methods, stratification, windows
+    - Regex for: treatment arms
 
     LAYER 3 - GENERATION:
-    - ConstrainedSAPPipeline (Literal type enforcement)
-    - Schema-based output (Pydantic validation)
+    - HybridReasoningEngine (section-specific generators)
+    - Template-based output with RAG enhancement
 
     LAYER 4 - VALIDATION:
     - HardValidator (CRITICAL/HIGH/MEDIUM severity)
     - ContaminationGuard (cross-protocol detection)
-    - Blocks output if critical facts missing
+    - Blocks output if critical facts missing (strict_validation=True)
     """
     global worker_running
 
-    print("Starting background job worker with FULL INTEGRATED PIPELINE...")
+    print("Starting background job worker with HYBRID SAP PIPELINE...")
     print("  [OK] StructuredFactExtractor - regex-only extraction")
-    print("  [OK] BiostatisticsKnowledgeGraph - method recommendations")
-    print("  [OK] RAG System - 1,198 sections")
-    print("  [OK] ConstrainedSAPPipeline - Literal type enforcement")
+    print("  [OK] HybridReasoningEngine - Decision Trees + RAG")
     print("  [OK] HardValidator - severity-based validation")
     print("  [OK] ContaminationGuard - cross-protocol detection")
 
@@ -2051,8 +2040,19 @@ async def process_jobs_worker():
                     phase_str = ""
                     if facts and facts.phase:
                         phase_str = facts.phase.value if hasattr(facts.phase, 'value') else str(facts.phase)
-                    if "." in phase_str:  # Handle enum like "StudyPhase.PHASE_3"
+                    if phase_str and "." in phase_str:  # Handle enum like "StudyPhase.PHASE_3"
                         phase_str = phase_str.split(".")[-1].replace("_", " ").title()
+
+                    # Get endpoint type from facts
+                    endpoint_type_str = ""
+                    if facts and hasattr(facts, 'primary_endpoint') and facts.primary_endpoint:
+                        pe = facts.primary_endpoint
+                        if hasattr(pe, 'type') and pe.type:
+                            endpoint_type_str = pe.type.value if hasattr(pe.type, 'value') else str(pe.type)
+                        elif hasattr(pe, 'endpoint_type') and pe.endpoint_type:
+                            endpoint_type_str = pe.endpoint_type
+                    if endpoint_type_str and "." in endpoint_type_str:
+                        endpoint_type_str = endpoint_type_str.split(".")[-1]
 
                     # Calculate quality score from validation
                     quality_score = 0.0
@@ -2063,8 +2063,8 @@ async def process_jobs_worker():
                         "status": "completed",
                         "generated_sap": result.sap_text,
                         "quality_score": quality_score,
-                        "endpoint_type": ""[:10],  # varchar(10) - extracted from endpoint
-                        "phase": phase_str[:10],  # varchar(10)
+                        "endpoint_type": (endpoint_type_str or "")[:10],  # varchar(10)
+                        "phase": (phase_str or "")[:10],  # varchar(10)
                         "therapeutic_area": (getattr(facts, 'therapeutic_area', '') or "")[:20] if facts else "",
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
