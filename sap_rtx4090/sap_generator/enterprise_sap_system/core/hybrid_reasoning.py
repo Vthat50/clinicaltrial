@@ -409,11 +409,14 @@ RESPFL = 'N' OTHERWISE (including NE treated as non-responder)
 
     def _get_window_rules(self, facts: Dict[str, Any]) -> str:
         """Generate analysis window rules"""
-        timepoint = facts.get('primary_timepoint', 'Week 12')
+        timepoint = facts.get('primary_timepoint') or 'Week 12'
 
-        # Parse week number if possible
-        week_match = re.search(r'week\s*(\d+)', timepoint.lower())
-        week_num = int(week_match.group(1)) if week_match else 12
+        # Parse week number if possible (handle None safely)
+        week_num = 12  # Default
+        if timepoint:
+            week_match = re.search(r'week\s*(\d+)', str(timepoint).lower())
+            if week_match:
+                week_num = int(week_match.group(1))
 
         return f"""**Analysis Visit Windows:**
 
@@ -1095,6 +1098,26 @@ class StratificationRAGGenerator(RAGEnhancedGenerator):
 
     def generate(self, facts: Dict[str, Any]) -> ReasoningResult:
         """Generate stratification section with RAG enhancement"""
+        # Skip stratification for single-arm studies (no randomization)
+        is_single_arm = facts.get('is_single_arm', False)
+        design_type = str(facts.get('design_type', '')).lower()
+        num_arms = facts.get('num_arms', 0)
+
+        if is_single_arm or 'single-arm' in design_type or num_arms == 1:
+            content = """### 3.4 Stratification Factors
+
+**Not Applicable**
+
+This is a single-arm study without randomization. Stratification factors are not applicable.
+
+Analyses will be performed on the overall study population without stratification."""
+            return ReasoningResult(
+                content=content,
+                reasoning_type=ReasoningType.RAG,
+                confidence=1.0,
+                rules_applied=["RULE: Single-arm study -> No stratification"]
+            )
+
         rag_examples_used = []
 
         therapeutic_area = facts.get('therapeutic_area', '')
@@ -1274,9 +1297,12 @@ class FollowUpWindowRAGGenerator(RAGEnhancedGenerator):
         - Week 2 = Day 15
         - etc.
         """
-        # Parse primary timepoint
-        week_match = re.search(r'week\s*(\d+)', primary_timepoint.lower())
-        max_week = int(week_match.group(1)) if week_match else 12
+        # Parse primary timepoint (handle None safely)
+        max_week = 12  # Default
+        if primary_timepoint:
+            week_match = re.search(r'week\s*(\d+)', str(primary_timepoint).lower())
+            if week_match:
+                max_week = int(week_match.group(1))
 
         rows = ["| Visit | Target Day | Window |", "|-------|------------|--------|"]
 

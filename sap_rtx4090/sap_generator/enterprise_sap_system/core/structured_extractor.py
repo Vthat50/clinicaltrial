@@ -663,12 +663,14 @@ class StructuredFactExtractor:
         arms = []
         seen_arm_ids = set()  # Track unique arm identifiers to avoid duplicates
 
-        # Look for arm/group descriptions
+        # Look for arm/group descriptions - more restrictive patterns
         arm_patterns = [
-            r'(?:arm|group)\s*([A-D1-9])[:\s]+([^\n]+)',
-            r'(?:treatment\s+)?(?:arm|group)\s+([A-D1-9])[:\s]*([^\n]+)',
-            r'-\s*(?:arm|group)\s*([A-D1-9])[:\s]*([^\n]+)',
-            r'([A-Za-z0-9-]+)\s+(\d+\s*(?:mg|mcg|g))[^\n]*(?:arm|group)',
+            # "Arm A: description" or "Group 1: description"
+            r'(?:arm|group)\s*([A-D1-4])[:\s]+([^\n]{5,100})',
+            # "treatment arm A: description"
+            r'(?:treatment\s+)?(?:arm|group)\s+([A-D1-4])[:\s]+([^\n]{5,100})',
+            # "- Arm A: description"
+            r'-\s*(?:arm|group)\s*([A-D1-4])[:\s]+([^\n]{5,100})',
         ]
 
         for pattern in arm_patterns:
@@ -680,6 +682,15 @@ class StructuredFactExtractor:
                 # Skip if we've already seen this arm identifier
                 if arm_id in seen_arm_ids:
                     continue
+
+                # VALIDATION: Skip garbage text
+                # Must have at least one letter, not just numbers/punctuation
+                if not re.search(r'[a-zA-Z]{3,}', arm_desc):
+                    continue
+                # Skip if it looks like a sentence fragment
+                if arm_desc.strip().startswith(('nd ', 'of ', 'in ', 'to ', 'or ')):
+                    continue
+
                 seen_arm_ids.add(arm_id)
 
                 is_placebo = 'placebo' in arm_desc.lower()
@@ -849,12 +860,15 @@ class StructuredFactExtractor:
     def _extract_primary_endpoint(self, text: str) -> Optional[EndpointDefinition]:
         """Extract primary endpoint definition"""
         patterns = [
-            # More specific patterns first
-            r'(?:primary\s+(?:efficacy\s+)?endpoint)[:\s]+([^\n]+(?:\n(?![A-Z0-9•\-])[^\n]+)*)',
-            r'(?:primary\s+(?:efficacy\s+)?outcome)[:\s]+([^\n]+)',
-            r'(?:primary\s+objective)[:\s]+([^\n]+)',
+            # More specific patterns - capture until sentence end or section break
+            r'(?:primary\s+(?:efficacy\s+)?endpoint)[:\s]+([^.]+\.(?:\s+[^.]+\.)?)',
+            r'(?:primary\s+(?:efficacy\s+)?outcome)[:\s]+([^.]+\.(?:\s+[^.]+\.)?)',
+            r'(?:primary\s+objective)[:\s]+([^.]+\.(?:\s+[^.]+\.)?)',
             # Oncology-specific
-            r'(?:primary\s+(?:efficacy\s+)?variable)[:\s]+([^\n]+)',
+            r'(?:primary\s+(?:efficacy\s+)?variable)[:\s]+([^.]+\.(?:\s+[^.]+\.)?)',
+            # Fallback: capture to end of line with continuation
+            r'(?:primary\s+(?:efficacy\s+)?endpoint)[:\s]+([^\n]+(?:\n(?![A-Z0-9•\-\d])[^\n]+)*)',
+            # Named endpoints
             r'(?:objective\s+response\s+rate|ORR)[:\s]*([^\n]*)',
             r'(?:overall\s+survival|OS)[:\s]*([^\n]*)',
             r'(?:progression[- ]free\s+survival|PFS)[:\s]*([^\n]*)',
@@ -864,6 +878,14 @@ class StructuredFactExtractor:
             match = re.search(pattern, text, re.IGNORECASE)
             if match:
                 endpoint_text = match.group(1).strip()
+
+                # Clean up: remove trailing partial sentences
+                # If text ends mid-word (no space after last char) and no period, it's truncated
+                if endpoint_text and not endpoint_text.endswith('.') and len(endpoint_text) > 50:
+                    # Find last complete sentence
+                    last_period = endpoint_text.rfind('.')
+                    if last_period > 20:  # Keep if substantial text before period
+                        endpoint_text = endpoint_text[:last_period + 1]
 
                 # VALIDATION: Skip if definition is too short or just a number
                 if len(endpoint_text) < 10:
@@ -918,15 +940,30 @@ class StructuredFactExtractor:
         endpoints = []
 
         patterns = [
-            r'(?:secondary\s+(?:endpoint|efficacy\s+endpoint|outcome)s?)[:\s]+([^\n]+(?:\n(?![A-Z0-9])[^\n]+)*)',
+            # Capture until sentence end
+            r'(?:secondary\s+(?:endpoint|efficacy\s+endpoint|outcome)s?)[:\s]+([^.]+\.)',
+            # Fallback: capture to end of line
+            r'(?:secondary\s+(?:endpoint|efficacy\s+endpoint|outcome)s?)[:\s]+([^\n]+)',
         ]
 
         for pattern in patterns:
             matches = re.findall(pattern, text, re.IGNORECASE)
             for match in matches[:5]:  # Limit to 5
+                endpoint_text = match.strip()
+
+                # VALIDATION: Skip garbage text
+                if len(endpoint_text) < 10:
+                    continue  # Too short
+                if endpoint_text.isdigit() or re.match(r'^[\d.%]+$', endpoint_text):
+                    continue  # Just numbers
+                if not re.search(r'[a-zA-Z]{3,}', endpoint_text):
+                    continue  # Must have at least one word
+                if endpoint_text.startswith(('of ', 'in ', 'to ', 'or ', 'and ')):
+                    continue  # Fragment
+
                 endpoints.append(EndpointDefinition(
                     name="Secondary Endpoint",
-                    definition=match.strip()[:300]
+                    definition=endpoint_text[:300]
                 ))
 
         return endpoints
