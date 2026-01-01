@@ -322,6 +322,154 @@ class HardValidator:
             block_output=block_output
         )
 
+    def validate_against_protocol(self, sap_text: str, protocol_text: str) -> ValidationResult:
+        """
+        Validate SAP against ORIGINAL protocol text (not extracted facts).
+
+        This is more robust than validate() because it re-extracts facts
+        from the protocol, avoiding issues where initial extraction was wrong.
+
+        Args:
+            sap_text: Generated SAP text
+            protocol_text: ORIGINAL protocol document text
+
+        Returns:
+            ValidationResult with pass/fail and issues
+        """
+        # Import extractor here to avoid circular imports
+        try:
+            from .structured_extractor import StructuredFactExtractor
+        except ImportError:
+            from structured_extractor import StructuredFactExtractor
+
+        # Fresh extraction from original protocol
+        extractor = StructuredFactExtractor()
+        fresh_facts = extractor.extract_all(protocol_text)
+
+        # Also do direct pattern matching on protocol for critical facts
+        issues = []
+        checks_passed = 0
+        total_checks = 0
+
+        # 1. CRITICAL: Drug name from protocol must be in SAP
+        # Do independent extraction to double-check
+        protocol_drug = self._extract_drug_from_text(protocol_text)
+        sap_drug = self._find_drug_in_sap(sap_text)
+
+        if protocol_drug:
+            total_checks += 1
+            if self._check_drug_name(sap_text, protocol_drug):
+                checks_passed += 1
+            else:
+                issues.append(ValidationIssue(
+                    field="drug_name",
+                    expected=protocol_drug,
+                    found=sap_drug or "Not found",
+                    severity=ValidationSeverity.CRITICAL,
+                    message=f"PROTOCOL says drug is '{protocol_drug}' but SAP has '{sap_drug}'"
+                ))
+
+        # 2. CRITICAL: Sample size from protocol must be in SAP
+        protocol_n = self._extract_sample_size_from_text(protocol_text)
+        sap_n = self._find_sample_size_in_sap(sap_text)
+
+        if protocol_n and protocol_n > 0:
+            total_checks += 1
+            if self._check_sample_size(sap_text, protocol_n):
+                checks_passed += 1
+            else:
+                issues.append(ValidationIssue(
+                    field="sample_size",
+                    expected=protocol_n,
+                    found=sap_n or "Not found",
+                    severity=ValidationSeverity.CRITICAL,
+                    message=f"PROTOCOL says N={protocol_n} but SAP has N={sap_n}"
+                ))
+
+        # 3. CRITICAL: NCT ID from protocol must be in SAP
+        protocol_nct = self._extract_nct_from_text(protocol_text)
+        if protocol_nct:
+            total_checks += 1
+            if protocol_nct.upper() in sap_text.upper():
+                checks_passed += 1
+            else:
+                issues.append(ValidationIssue(
+                    field="nct_id",
+                    expected=protocol_nct,
+                    found="Not found",
+                    severity=ValidationSeverity.HIGH,
+                    message=f"PROTOCOL NCT ID '{protocol_nct}' not found in SAP"
+                ))
+
+        # Run standard validation with fresh facts
+        standard_result = self.validate(sap_text, fresh_facts)
+
+        # Merge issues (avoid duplicates)
+        existing_fields = {i.field for i in issues}
+        for issue in standard_result.issues:
+            if issue.field not in existing_fields:
+                issues.append(issue)
+
+        # Calculate score
+        score = (checks_passed / max(total_checks, 1)) * 100 if total_checks > 0 else standard_result.score
+
+        # Determine if we should block
+        has_critical = any(i.severity == ValidationSeverity.CRITICAL for i in issues)
+        has_high = any(i.severity == ValidationSeverity.HIGH for i in issues)
+
+        if self.strict_mode:
+            block_output = has_critical or has_high
+        else:
+            block_output = has_critical
+
+        return ValidationResult(
+            valid=len(issues) == 0,
+            issues=issues,
+            score=score,
+            block_output=block_output
+        )
+
+    def _extract_drug_from_text(self, text: str) -> Optional[str]:
+        """Extract drug name directly from text"""
+        # INN suffixes for drug names
+        inn_pattern = r'\b([A-Za-z]{4,}(?:mab|nib|lib|mod|vir|pril|statin|sartan|olol|prazole|tinib|ciclib|parib|platin|taxel))\b'
+        matches = re.findall(inn_pattern, text, re.IGNORECASE)
+        if matches:
+            # Return longest match (most specific)
+            return max(matches, key=len)
+        return None
+
+    def _extract_sample_size_from_text(self, text: str) -> Optional[int]:
+        """Extract sample size directly from text"""
+        patterns = [
+            r'(\d+)\s+(?:patients?|subjects?|participants?)\s+(?:will\s+be\s+)?randomized',
+            r'[Aa]\s+total\s+of\s+(\d+)\s+(?:patients?|subjects?|participants?)',
+            r'[Nn]\s*[=:]\s*(\d+)',
+            r'sample\s+size[:\s]+(\d+)',
+            r'enroll\s+(?:up\s+to\s+)?(\d+)\s+(?:patients?|subjects?)',
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                n = int(match.group(1))
+                if 10 <= n <= 100000:  # Reasonable sample size
+                    return n
+        return None
+
+    def _extract_nct_from_text(self, text: str) -> Optional[str]:
+        """Extract NCT ID directly from text"""
+        patterns = [
+            r'NCT\d{8}',
+            r'NCT[-\s]?\d{8}',
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                digits = re.sub(r'[^\d]', '', match.group(0))
+                if len(digits) == 8:
+                    return f"NCT{digits}"
+        return None
+
     def _check_drug_name(self, sap_text: str, drug_name: str) -> bool:
         """Check if drug name appears in SAP"""
         try:

@@ -601,16 +601,22 @@ class FullIntegratedPipeline:
 
             t0 = time.time()
 
-            # Hard Validation
-            if self.hard_validator and result.protocol_facts:
+            # Hard Validation - compare against ORIGINAL protocol, not extracted facts
+            if self.hard_validator:
                 try:
-                    validation = self.hard_validator.validate(result.sap_text, result.protocol_facts)
+                    # Use validate_against_protocol for robust validation
+                    # This re-extracts from protocol to catch extraction errors
+                    validation = self.hard_validator.validate_against_protocol(
+                        result.sap_text, protocol_text
+                    )
                     result.hard_validation = validation
 
                     if validation.block_output:
                         result.issues.append("BLOCKED: Hard validation failed")
                         if self.verbose:
                             print(f"  [BLOCKED] {validation.summary()}")
+                            for issue in validation.issues[:5]:
+                                print(f"    - [{issue.severity.value}] {issue.message}")
                     else:
                         if self.verbose:
                             print(f"  [HardValidator] {validation.summary()}")

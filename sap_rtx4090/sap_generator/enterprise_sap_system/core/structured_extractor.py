@@ -256,9 +256,22 @@ class StructuredFactExtractor:
         return facts
 
     def _extract_nct_id(self, text: str) -> Optional[str]:
-        """Extract NCT ID"""
-        match = re.search(r'NCT\d{8}', text, re.IGNORECASE)
-        return match.group(0).upper() if match else None
+        """Extract NCT ID - handles various formats"""
+        # Try multiple patterns for NCT ID
+        patterns = [
+            r'NCT\d{8}',              # Standard: NCT02613507
+            r'NCT[-\s]?\d{8}',        # With dash/space: NCT-02613507 or NCT 02613507
+            r'NCT[-\s]?\d{2}[-\s]?\d{6}',  # Split: NCT02-613507
+            r'NCT\s*#?\s*\d{8}',      # With hash: NCT# 02613507
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                # Extract just the digits and format properly
+                digits = re.sub(r'[^\d]', '', match.group(0))
+                if len(digits) == 8:
+                    return f"NCT{digits}"
+        return None
 
     def _extract_study_id(self, text: str) -> Optional[str]:
         """Extract internal study ID (e.g., CTJ301UC201)"""
@@ -290,15 +303,40 @@ class StructuredFactExtractor:
         return None
 
     def _extract_sponsor(self, text: str) -> Optional[str]:
-        """Extract sponsor name"""
+        """Extract sponsor name - handles hyphens and complex names"""
+        # Known pharma company names (direct match first)
+        known_sponsors = [
+            'Bristol-Myers Squibb', 'Bristol Myers Squibb', 'BMS',
+            'Pfizer', 'Merck', 'Novartis', 'Roche', 'Genentech',
+            'AstraZeneca', 'Johnson & Johnson', 'Janssen', 'Eli Lilly',
+            'Sanofi', 'GlaxoSmithKline', 'GSK', 'AbbVie', 'Amgen',
+            'Gilead', 'Biogen', 'Regeneron', 'Takeda', 'Bayer',
+            'Boehringer Ingelheim', 'Novo Nordisk', 'Astellas',
+        ]
+        text_lower = text.lower()
+        for sponsor in known_sponsors:
+            if sponsor.lower() in text_lower:
+                return sponsor
+
+        # Pattern-based extraction (handles hyphens and various formats)
         patterns = [
-            r'(?:sponsor|sponsored\s+by)[:\s]+([A-Z][A-Za-z\s&,]+(?:Inc|LLC|Ltd|Corp|Pharma|Therapeutics)?)',
-            r'(?:conducted\s+by|supported\s+by)[:\s]+([A-Z][A-Za-z\s&,]+)',
+            # "Sponsor: Company Name" or "Sponsored by Company Name"
+            r'(?:sponsor|sponsored\s+by)[:\s]+([A-Za-z][A-Za-z\s&,\-\.]+(?:Inc\.?|LLC|Ltd\.?|Corp\.?|Company|Pharma(?:ceuticals)?|Therapeutics|Sciences)?)',
+            # "conducted by" or "supported by"
+            r'(?:conducted\s+by|supported\s+by)[:\s]+([A-Za-z][A-Za-z\s&,\-\.]+)',
+            # Company name followed by "is the sponsor"
+            r'([A-Z][A-Za-z\s&,\-\.]+(?:Inc\.?|LLC|Ltd\.?|Corp\.?|Company))\s+(?:is\s+the\s+)?sponsor',
         ]
         for pattern in patterns:
-            match = re.search(pattern, text[:5000], re.IGNORECASE)
+            match = re.search(pattern, text[:10000], re.IGNORECASE)
             if match:
-                return match.group(1).strip()[:100]
+                sponsor = match.group(1).strip()
+                # Clean up and validate
+                sponsor = re.sub(r'\s+', ' ', sponsor)  # Normalize whitespace
+                if len(sponsor) > 3 and len(sponsor) < 100:
+                    # Filter out false positives
+                    if sponsor.lower() not in ['the', 'this', 'a', 'an', 'study', 'trial']:
+                        return sponsor
         return None
 
     def _extract_phase(self, text: str) -> StudyPhase:
@@ -458,9 +496,13 @@ class StructuredFactExtractor:
                 if len(name) > 2 and name.lower() not in ['the', 'and', 'or', 'with']:
                     drug_names.add(name)
 
-        # Filter out common false positives
+        # Filter out common false positives and biomarker codes
         false_positives = {'patients', 'subjects', 'treatment', 'placebo', 'study', 'trial'}
-        drug_names = {d for d in drug_names if d.lower() not in false_positives}
+        # CD### patterns are usually biomarkers (CD137, CD19, CD20), not drug names
+        biomarker_pattern = re.compile(r'^CD\d{1,3}$', re.IGNORECASE)
+        drug_names = {d for d in drug_names
+                      if d.lower() not in false_positives
+                      and not biomarker_pattern.match(d)}
 
         drug_list = list(drug_names)
 
@@ -468,24 +510,60 @@ class StructuredFactExtractor:
         if drug_list:
             print(f"[DEBUG] All drug names found in protocol: {drug_list}")
 
-        # Prioritize drug codes with specific patterns
+        # PRIORITY 0: Investigational Product explicitly named
+        # Look for "Study of X" or "investigational product: X" patterns
+        investigational_patterns = [
+            r'(?:investigational\s+(?:product|drug|medicinal\s+product)|IMP)[:\s]+([A-Za-z][A-Za-z0-9-]{2,})',
+            r'(?:study\s+drug)[:\s]+([A-Za-z][A-Za-z0-9-]{2,})',
+            r'BMS-\d+\s*\(([A-Za-z]+)\)',  # BMS-936558 (Nivolumab)
+            r'Study\s+of\s+([A-Za-z]+(?:mab|nib|mod))\s+(?:versus|vs)',  # Study of Nivolumab vs
+        ]
+        for pattern in investigational_patterns:
+            match = re.search(pattern, text, re.IGNORECASE)
+            if match:
+                inv_drug = match.group(1).strip()
+                if inv_drug.lower() in [d.lower() for d in drug_list]:
+                    print(f"[DEBUG] Investigational product found: {inv_drug}")
+                    return inv_drug, drug_list
+
+        # PRIORITY 1: INN drug names (end in -mab, -nib, -mod, etc.) - HIGHEST PRIORITY
+        # These are actual drug names, not codes
+        inn_suffixes = ('mab', 'nib', 'lib', 'mod', 'vir', 'pril', 'statin', 'sartan',
+                        'olol', 'prazole', 'tidine', 'cillin', 'mycin', 'zole', 'parib',
+                        'platin', 'taxel', 'tinib', 'ciclib', 'lukast', 'gliptin', 'glutide')
+        inn_names = [d for d in drug_list if any(d.lower().endswith(s) for s in inn_suffixes)]
+        if inn_names:
+            # Prefer monoclonal antibodies (-mab) as they're usually investigational
+            mab_drugs = [d for d in inn_names if d.lower().endswith('mab')]
+            if mab_drugs:
+                print(f"[DEBUG] MAB drugs found: {mab_drugs}, selecting: {mab_drugs[0]}")
+                return mab_drugs[0], drug_list
+            # Then prefer other targeted therapies (-nib, -mod)
+            targeted = [d for d in inn_names if d.lower().endswith(('nib', 'mod', 'tinib'))]
+            if targeted:
+                print(f"[DEBUG] Targeted therapy drugs found: {targeted}, selecting: {targeted[0]}")
+                return targeted[0], drug_list
+            # Fallback to any INN name
+            inn_names.sort(key=len, reverse=True)
+            print(f"[DEBUG] INN drug names found: {inn_names}, selecting: {inn_names[0]}")
+            return inn_names[0], drug_list
+
+        # PRIORITY 2: Drug codes (BMS-936558, PF-06480605, etc.)
         drug_codes = [d for d in drug_list if re.match(r'^[A-Z]{2,4}[-]?\d{3,}$', d)]
         if drug_codes:
-            # Prefer codes that look like INN codes (2-3 letters + 3-4 digits)
-            # e.g., TJ301, PF01234 - these are typically investigational product codes
-            # Avoid longer codes like GA29144 which may be internal reference numbers
-            inn_like = [d for d in drug_codes if re.match(r'^[A-Z]{2,3}\d{3,4}$', d)]
-            if inn_like:
-                # Sort by length - prefer shorter codes (more likely to be drug names)
-                inn_like.sort(key=len)
-                print(f"[DEBUG] INN-like drug codes found: {inn_like}, selecting: {inn_like[0]}")
-                return inn_like[0], drug_list
-            else:
-                # Fallback to longest code (more specific, less likely to be partial match)
-                drug_codes.sort(key=len, reverse=True)
-                print(f"[DEBUG] Drug codes found: {drug_codes}, selecting: {drug_codes[0]}")
-                return drug_codes[0], drug_list
-        elif drug_list:
+            # Prefer codes with company prefix pattern (BMS-, PF-, etc.)
+            company_codes = [d for d in drug_codes if re.match(r'^[A-Z]{2,3}[-]\d{5,}$', d)]
+            if company_codes:
+                print(f"[DEBUG] Company drug codes found: {company_codes}, selecting: {company_codes[0]}")
+                return company_codes[0], drug_list
+            # Fallback to any drug code
+            drug_codes.sort(key=len, reverse=True)
+            print(f"[DEBUG] Drug codes found: {drug_codes}, selecting: {drug_codes[0]}")
+            return drug_codes[0], drug_list
+
+        # PRIORITY 3: Any remaining drug name
+        if drug_list:
+            print(f"[DEBUG] Fallback drug names: {drug_list}, selecting: {drug_list[0]}")
             return drug_list[0], drug_list
 
         return None, []
