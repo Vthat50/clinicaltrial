@@ -97,11 +97,18 @@ except ImportError:
 
 # LAYER 3: Generation
 try:
+    from .hybrid_pipeline import HybridSAPPipeline, create_hybrid_pipeline
+    HYBRID_PIPELINE_AVAILABLE = True
+except ImportError:
+    HYBRID_PIPELINE_AVAILABLE = False
+    print("Warning: hybrid_pipeline not available")
+
+# Legacy constrained pipeline (kept for fallback only)
+try:
     from .constrained_pipeline import ConstrainedSAPPipeline
     CONSTRAINED_PIPELINE_AVAILABLE = True
 except ImportError:
     CONSTRAINED_PIPELINE_AVAILABLE = False
-    print("Warning: constrained_pipeline not available")
 
 try:
     from ..agents.specialized_agents import (
@@ -293,12 +300,25 @@ class FullIntegratedPipeline:
         """Initialize Layer 3: Generation components"""
         print("\nLAYER 3: GENERATION")
 
-        # Constrained Pipeline (Literal types)
+        # Hybrid Pipeline (Decision Trees + RAG) - PRIMARY
+        self.hybrid_pipeline = None
+        if HYBRID_PIPELINE_AVAILABLE:
+            try:
+                self.hybrid_pipeline = create_hybrid_pipeline(
+                    use_rag=True,
+                    use_validation=False,  # We do validation in layer 4
+                    verbose=self.verbose
+                )
+                print("  [OK] HybridSAPPipeline (Decision Trees + RAG)")
+            except Exception as e:
+                print(f"  [FAIL] HybridSAPPipeline: {e}")
+
+        # Legacy Constrained Pipeline (fallback only)
         self.constrained_pipeline = None
-        if CONSTRAINED_PIPELINE_AVAILABLE:
+        if CONSTRAINED_PIPELINE_AVAILABLE and not self.hybrid_pipeline:
             try:
                 self.constrained_pipeline = ConstrainedSAPPipeline()
-                print("  [OK] ConstrainedSAPPipeline (Literal types)")
+                print("  [OK] ConstrainedSAPPipeline (fallback)")
             except Exception as e:
                 print(f"  [FAIL] ConstrainedSAPPipeline: {e}")
 

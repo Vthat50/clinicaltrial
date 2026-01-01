@@ -157,7 +157,7 @@ class HybridSAPPipeline:
 
         try:
             # =================================================================
-            # LAYER 1: EXTRACTION
+            # LAYER 1: EXTRACTION (with fail-fast validation)
             # =================================================================
             if self.verbose:
                 print("\n[LAYER 1] Extracting protocol facts...")
@@ -167,14 +167,42 @@ class HybridSAPPipeline:
                 facts.nct_id = nct_id
             result.facts = facts
 
+            # FAIL-FAST: Validate critical facts are present
+            missing_critical = []
+            if not facts.drug_name:
+                missing_critical.append("drug_name")
+            if not facts.primary_endpoint:
+                missing_critical.append("primary_endpoint")
+            if not facts.sample_size or not facts.sample_size.total_n:
+                missing_critical.append("sample_size")
+
+            if missing_critical:
+                error_msg = f"EXTRACTION FAILED: Missing critical facts: {', '.join(missing_critical)}"
+                result.errors.append(error_msg)
+                result.success = False
+                if self.verbose:
+                    print(f"  ❌ {error_msg}")
+                return result
+
+            # Track warnings for non-critical missing data
+            if not facts.design_type:
+                result.warnings.append("design_type not extracted - defaulting to 'randomized'")
+            if not facts.phase:
+                result.warnings.append("phase not extracted")
+            if not facts.therapeutic_area:
+                result.warnings.append("therapeutic_area not extracted")
+
             # Convert to dict for reasoning engine
             facts_dict = self._facts_to_dict(facts)
 
             if self.verbose:
-                print(f"  Drug: {facts.drug_name}")
-                print(f"  Design: {facts.design_type} (single-arm: {facts_dict.get('is_single_arm', False)})")
-                print(f"  Sample Size: {facts.sample_size.total_n if facts.sample_size else 0}")
-                print(f"  Primary Endpoint: {facts.primary_endpoint}")
+                print(f"  ✓ Drug: {facts.drug_name}")
+                print(f"  ✓ Design: {facts.design_type} (single-arm: {facts_dict.get('is_single_arm', False)})")
+                print(f"  ✓ Sample Size: {facts.sample_size.total_n if facts.sample_size else 0}")
+                print(f"  ✓ Primary Endpoint: {facts.primary_endpoint}")
+                if result.warnings:
+                    for w in result.warnings:
+                        print(f"  ⚠ {w}")
 
             # =================================================================
             # LAYER 2: HYBRID REASONING

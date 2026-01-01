@@ -33,9 +33,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from enterprise_sap_system.agents import create_orchestrator
 from enterprise_sap_system.core import get_config
 
-# FULL PRODUCTION PIPELINE - All components connected
-from enterprise_sap_system.core.full_integrated_pipeline import FullIntegratedPipeline
-from enterprise_sap_system.core.integrated_pipeline import create_integrated_pipeline, IntegratedPipeline
+# HYBRID PIPELINE - Single source of truth for SAP generation
+from enterprise_sap_system.core.hybrid_pipeline import HybridSAPPipeline, create_hybrid_pipeline
+
+# Legacy pipelines (kept for reference, not used in production)
+# from enterprise_sap_system.core.full_integrated_pipeline import FullIntegratedPipeline
+# from enterprise_sap_system.core.integrated_pipeline import create_integrated_pipeline, IntegratedPipeline
 
 # Additional production components (now connected)
 from enterprise_sap_system.core.hard_validator import HardValidator
@@ -295,7 +298,7 @@ async def get_pipeline_info():
     Returns details about all 4 layers and their components.
     """
     return {
-        "pipeline": "FullIntegratedPipeline",
+        "pipeline": "HybridSAPPipeline",
         "version": "2.0.0",
         "architecture": {
             "layer_1_extraction": {
@@ -377,14 +380,24 @@ async def create_job(request: GenerateRequest):
 
 
 # Global instance for direct generation (reused across requests)
-_full_pipeline: FullIntegratedPipeline = None
+_hybrid_pipeline: HybridSAPPipeline = None
 
-def get_full_pipeline() -> FullIntegratedPipeline:
-    """Get or create the full integrated pipeline instance."""
-    global _full_pipeline
-    if _full_pipeline is None:
-        _full_pipeline = FullIntegratedPipeline(verbose=False)
-    return _full_pipeline
+def get_hybrid_pipeline() -> HybridSAPPipeline:
+    """Get or create the hybrid pipeline instance."""
+    global _hybrid_pipeline
+    if _hybrid_pipeline is None:
+        _hybrid_pipeline = create_hybrid_pipeline(
+            use_rag=True,
+            use_validation=True,
+            strict_validation=False,
+            verbose=False
+        )
+    return _hybrid_pipeline
+
+# Alias for backward compatibility
+def get_full_pipeline() -> HybridSAPPipeline:
+    """Alias for get_hybrid_pipeline (backward compatibility)."""
+    return get_hybrid_pipeline()
 
 
 class FullPipelineResponse(BaseModel):
@@ -411,13 +424,12 @@ class FullPipelineResponse(BaseModel):
 @app.post("/generate-full", response_model=FullPipelineResponse)
 async def generate_full_pipeline(request: GenerateRequest):
     """
-    Generate SAP synchronously using the FULL INTEGRATED PIPELINE.
+    Generate SAP synchronously using the HYBRID PIPELINE.
 
-    This endpoint uses ALL 4 LAYERS:
+    This endpoint uses:
     - Layer 1: StructuredFactExtractor (regex-only, no hallucination)
-    - Layer 2: RAG (1,198 sections) + Knowledge Graph (39 nodes) + Templates
-    - Layer 3: ConstrainedSAPPipeline (Literal type enforcement)
-    - Layer 4: HardValidator + ContaminationGuard
+    - Layer 2: Hybrid Reasoning (Decision Trees + RAG)
+    - Layer 3: HardValidator + ContaminationGuard
 
     Returns immediately with the generated SAP (no queuing).
     Use for testing or when immediate results are needed.
@@ -429,32 +441,41 @@ async def generate_full_pipeline(request: GenerateRequest):
         if not request.protocol_text.strip():
             raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
 
-        pipeline = get_full_pipeline()
+        pipeline = get_hybrid_pipeline()
 
         result = pipeline.generate(
             protocol_text=request.protocol_text[:50000],
-            nct_id=request.nct_id or "",
-            mode="constrained"
+            nct_id=request.nct_id or ""
         )
 
         processing_time = time.time() - start_time
 
+        # Extract values from facts
+        facts = result.facts
+        drug_name = facts.drug_name if facts else ""
+        sample_size = facts.sample_size.total_n if facts and facts.sample_size else 0
+        ratio = facts.randomization_ratio if facts else ""
+        phase = facts.phase.value if facts and facts.phase and hasattr(facts.phase, 'value') else str(facts.phase) if facts and facts.phase else ""
+        therapeutic_area = getattr(facts, 'therapeutic_area', '') if facts else ""
+        quality_score = result.validation.score if result.validation and hasattr(result.validation, 'score') else 0.0
+        validation_issues = len(result.validation.issues) if result.validation and hasattr(result.validation, 'issues') else 0
+
         return FullPipelineResponse(
             success=result.success,
             sap_text=result.sap_text,
-            drug_name=result.drug_name,
-            sample_size=result.sample_size,
-            randomization_ratio=result.randomization_ratio,
-            phase=result.phase,
-            therapeutic_area=result.therapeutic_area,
-            endpoint_type=result.endpoint_type,
-            quality_score=result.quality_score,
-            generation_mode=result.generation_mode,
-            constrained_schema_used=result.constrained_schema_used,
-            rag_examples_count=len(result.rag_examples),
-            templates_applied=result.templates_applied,
-            validation_issues=len(result.hard_validation.issues) if result.hard_validation and hasattr(result.hard_validation, 'issues') else 0,
-            contamination_detected=result.contamination_report.is_contaminated if result.contamination_report and hasattr(result.contamination_report, 'is_contaminated') else False,
+            drug_name=drug_name,
+            sample_size=sample_size,
+            randomization_ratio=ratio,
+            phase=phase,
+            therapeutic_area=therapeutic_area,
+            endpoint_type="",  # TODO: extract from endpoint
+            quality_score=quality_score,
+            generation_mode=f"hybrid (DT:{result.decision_tree_sections}, RAG:{result.rag_sections})",
+            constrained_schema_used=False,  # Not using constrained pipeline
+            rag_examples_count=result.rag_sections,
+            templates_applied=[],
+            validation_issues=validation_issues,
+            contamination_detected=bool(result.warnings),
             processing_time=processing_time,
             errors=result.errors
         )
@@ -1973,8 +1994,8 @@ async def process_jobs_worker():
     print("  [OK] HardValidator - severity-based validation")
     print("  [OK] ContaminationGuard - cross-protocol detection")
 
-    # Initialize FULL integrated pipeline once (all components)
-    pipeline: FullIntegratedPipeline = None
+    # Initialize HYBRID pipeline once (Decision Trees + RAG + Validation)
+    pipeline: HybridSAPPipeline = None
 
     while worker_running:
         try:
@@ -2001,44 +2022,57 @@ async def process_jobs_worker():
                 "started_at": datetime.utcnow().isoformat()
             }).eq("id", job_id).execute()
 
-            # Initialize FULL integrated pipeline if needed (all 4 layers)
+            # Initialize HYBRID pipeline if needed (Decision Trees + RAG + Validation)
             if pipeline is None:
-                pipeline = FullIntegratedPipeline(verbose=True)
-                print("  [INIT] Full Integrated Pipeline initialized with all components")
+                pipeline = create_hybrid_pipeline(
+                    use_rag=True,
+                    use_validation=True,
+                    strict_validation=False,
+                    verbose=True
+                )
+                print("  [INIT] Hybrid Pipeline initialized (Decision Trees + RAG)")
 
-            # Generate SAP using FULL integrated pipeline (all 4 layers)
+            # Generate SAP using HYBRID pipeline
             start_time = time.time()
 
             try:
                 result = pipeline.generate(
                     protocol_text=job["protocol_text"][:50000],
-                    nct_id=job.get("nct_id", ""),
-                    mode="constrained"  # Use Literal type enforcement
+                    nct_id=job.get("nct_id", "")
                 )
 
                 processing_time = time.time() - start_time
 
                 if result.success:
-                    # Update with success - FULL pipeline provides comprehensive metadata
-                    # Truncate string fields to fit DB column limits (some are varchar(10))
-                    phase_str = str(result.phase) if result.phase else ""
+                    # Extract facts from hybrid pipeline result
+                    facts = result.facts
+
+                    # Get phase string from facts
+                    phase_str = ""
+                    if facts and facts.phase:
+                        phase_str = facts.phase.value if hasattr(facts.phase, 'value') else str(facts.phase)
                     if "." in phase_str:  # Handle enum like "StudyPhase.PHASE_3"
                         phase_str = phase_str.split(".")[-1].replace("_", " ").title()
+
+                    # Calculate quality score from validation
+                    quality_score = 0.0
+                    if result.validation and hasattr(result.validation, 'score'):
+                        quality_score = result.validation.score
 
                     update_data = {
                         "status": "completed",
                         "generated_sap": result.sap_text,
-                        "quality_score": result.quality_score,
-                        "endpoint_type": (result.endpoint_type or "")[:10],  # varchar(10)
+                        "quality_score": quality_score,
+                        "endpoint_type": ""[:10],  # varchar(10) - extracted from endpoint
                         "phase": phase_str[:10],  # varchar(10)
-                        "therapeutic_area": (result.therapeutic_area or "")[:20],
+                        "therapeutic_area": (getattr(facts, 'therapeutic_area', '') or "")[:20] if facts else "",
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
                     }
 
-                    # Log validation info (don't save to DB - columns may not exist)
-                    if result.hard_validation and hasattr(result.hard_validation, 'issues'):
-                        issues = result.hard_validation.issues
+                    # Log validation info
+                    if result.validation and hasattr(result.validation, 'issues'):
+                        issues = result.validation.issues
                         if issues:
                             print(f"  Validation issues ({len(issues)}):")
                             for issue in issues[:5]:
@@ -2048,25 +2082,24 @@ async def process_jobs_worker():
 
                     db.table("sap_jobs").update(update_data).eq("id", job_id).execute()
 
-                    # Detailed logging for FULL pipeline
+                    # Detailed logging for HYBRID pipeline
                     print(f"Job {job_id} completed in {processing_time:.1f}s")
-                    print(f"  LAYER 1 - Extraction:")
-                    print(f"    Drug: {result.drug_name}")
-                    print(f"    N: {result.sample_size}")
-                    print(f"    Ratio: {result.randomization_ratio}")
-                    print(f"  LAYER 2 - Knowledge:")
-                    print(f"    RAG examples: {len(result.rag_examples)}")
-                    print(f"    Templates: {result.templates_applied}")
-                    print(f"    KG paths: {len(result.knowledge_graph_paths)}")
-                    print(f"  LAYER 3 - Generation:")
-                    print(f"    Mode: {result.generation_mode}")
-                    print(f"    Constrained: {result.constrained_schema_used}")
-                    print(f"  LAYER 4 - Validation:")
-                    print(f"    Quality: {result.quality_score:.1f}/100")
-                    if result.hard_validation:
-                        print(f"    Issues: {len(result.hard_validation.issues) if hasattr(result.hard_validation, 'issues') else 0}")
-                    if result.contamination_report:
-                        print(f"    Contaminated: {result.contamination_report.is_contaminated if hasattr(result.contamination_report, 'is_contaminated') else False}")
+                    print(f"  EXTRACTION:")
+                    if facts:
+                        print(f"    Drug: {facts.drug_name}")
+                        print(f"    N: {facts.sample_size.total_n if facts.sample_size else 'N/A'}")
+                        print(f"    Ratio: {facts.randomization_ratio}")
+                    print(f"  HYBRID REASONING:")
+                    print(f"    Decision Tree sections: {result.decision_tree_sections}")
+                    print(f"    RAG sections: {result.rag_sections}")
+                    print(f"    Template fallback: {result.template_fallback_sections}")
+                    print(f"  VALIDATION:")
+                    print(f"    Quality: {quality_score:.1f}/100")
+                    if result.validation:
+                        issue_count = len(result.validation.issues) if hasattr(result.validation, 'issues') else 0
+                        print(f"    Issues: {issue_count}")
+                    if result.warnings:
+                        print(f"    Warnings: {result.warnings}")
                 else:
                     raise Exception("; ".join(result.errors))
 
