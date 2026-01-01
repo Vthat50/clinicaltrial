@@ -519,16 +519,46 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         'ACTIVE', 'CONTROL', 'GROUP', 'ARM', 'PATIENTS', 'SUBJECTS'
     }
 
+    # === BIOMARKER FILTERING: CD137, CD19, CD20, etc. are NOT drugs ===
+    biomarker_pattern = re.compile(r'^CD\d{1,3}$', re.IGNORECASE)
+
+    # === STEP 1: Look for INVESTIGATIONAL PRODUCT patterns FIRST ===
+    # These are the most reliable - they explicitly say what the study drug is
+    investigational_patterns = [
+        # "BMS-936558 (Nivolumab)" or "BMS-936558 (nivolumab)"
+        r'BMS-\d+\s*\(([A-Za-z]+)\)',
+        # "Study of Pembrolizumab versus" or "Trial of Nivolumab in"
+        r'Study\s+of\s+([A-Za-z]+(?:mab|nib|mod|lib))\s+(?:versus|vs|in|for)',
+        r'Trial\s+of\s+([A-Za-z]+(?:mab|nib|mod|lib))\s+(?:versus|vs|in|for)',
+        # "Investigational Product: Pembrolizumab" or "Study Drug: Nivolumab"
+        r'(?:Investigational\s+Product|Study\s+Drug)[:\s]+([A-Za-z]+(?:mab|nib|mod|lib))',
+        # "randomized to pembrolizumab" or "assigned to nivolumab"
+        r'(?:randomized|assigned)\s+to\s+([A-Za-z]+(?:mab|nib|mod|lib))',
+    ]
+
+    investigational_drug = None
+    for pattern in investigational_patterns:
+        match = re.search(pattern, protocol_text, re.I)
+        if match:
+            candidate = match.group(1).strip()
+            # Normalize case (capitalize first letter)
+            investigational_drug = candidate.capitalize()
+            print(f"[DEBUG] Investigational product found: {investigational_drug}")
+            break
+
+    # === STEP 2: Collect ALL candidate drug names ===
+    all_drug_candidates = set()
+
     drug_patterns = [
-        # Pattern 1: Drug code format like TJ301, AB1234, XYZ123 (case-insensitive)
-        r'\b([A-Za-z]{2,4}\d{3,5})\b',
-        # Pattern 2: Named after "Investigational Product/IMP/Study Drug:" - capture alphanumeric word
-        r'(?:Investigational\s+Product|IMP|Study\s+Drug)[:\s]+([A-Za-z][A-Za-z0-9]{2,})',
-        # Pattern 3: Named drug with comprehensive INN suffixes
+        # Pattern 1: Named drug with INN suffixes (HIGHEST PRIORITY)
         r'\b([A-Za-z]{4,}(?:mab|nib|lib|zumab|ximab|tinib|ciclib|rafenib|lisib|metinib))\b',
-        # Pattern 4: S1P modulators and immunomodulators (-simod, -limod, -imod)
+        # Pattern 2: S1P modulators and immunomodulators
         r'\b([A-Za-z]{4,}(?:simod|limod|imod|nimod|rimod))\b',
-        # Pattern 5: Small molecules - cardiovascular, GI, metabolic
+        # Pattern 3: Drug code format like TJ301, AB1234, XYZ123
+        r'\b([A-Za-z]{2,4}\d{3,5})\b',
+        # Pattern 4: Named after "Investigational Product/IMP/Study Drug:"
+        r'(?:Investigational\s+Product|IMP|Study\s+Drug)[:\s]+([A-Za-z][A-Za-z0-9]{2,})',
+        # Pattern 5: Small molecules
         r'\b([A-Za-z]{4,}(?:pril|sartan|olol|dipine|statin|prazole|gliptin|glutide|gliflozin))\b',
         # Pattern 6: Oncology drugs
         r'\b([A-Za-z]{4,}(?:parib|platin|taxel|bine|rubicin))\b',
@@ -536,28 +566,45 @@ def extract_full_protocol_facts(protocol_text: str) -> FullProtocolFacts:
         r'(?:Study\s+of|Trial\s+of)\s+([A-Za-z][A-Za-z0-9-]{3,})',
         # Pattern 8: Drug code with hyphen like FE-999301
         r'\b([A-Za-z]{2,3}[-]?\d{4,6})\b',
-        # Pattern 9: receive [DRUG] or [DRUG] 2mg patterns
-        r'(?:receive|receiving)\s+(?:either\s+)?([A-Za-z][A-Za-z0-9-]{3,})\s+(?:\d+\s*mg)?',
-        r'([A-Za-z][A-Za-z0-9-]{3,})\s+\d+\s*(?:mg|mcg)\s+(?:once|twice|daily)',
     ]
 
     for pattern in drug_patterns:
         matches = re.findall(pattern, protocol_text, re.I)
         for drug in matches:
             drug = drug.strip()
-            # Skip if too short or in exclusion list
-            if len(drug) < 3:
-                continue
-            if drug.upper() in excluded_words:
-                continue
-            # Skip if it looks like a measurement (ends in mg, ml, etc.)
-            if re.match(r'^\d+\s*(mg|ml|mcg|g|kg)$', drug, re.I):
-                continue
-            # Valid drug name found
-            facts.drug_name = drug.upper() if re.match(r'^[A-Za-z]{2,4}\d{3,5}$', drug) else drug
-            break
-        if facts.drug_name:
-            break
+            if len(drug) >= 3 and drug.upper() not in excluded_words:
+                all_drug_candidates.add(drug)
+
+    # === STEP 3: Filter out biomarkers (CD137, CD19, CD20, etc.) ===
+    filtered_candidates = {d for d in all_drug_candidates if not biomarker_pattern.match(d)}
+    print(f"[DEBUG] Drug candidates after biomarker filtering: {filtered_candidates}")
+
+    # === STEP 4: Prioritize INN drug names (-mab, -nib, etc.) ===
+    inn_suffixes = ('mab', 'nib', 'lib', 'mod', 'pril', 'sartan', 'olol', 'statin', 'parib', 'platin')
+    inn_drugs = [d for d in filtered_candidates if d.lower().endswith(inn_suffixes)]
+
+    # Prefer -mab drugs (monoclonal antibodies) over others like -taxel (comparators)
+    mab_drugs = [d for d in inn_drugs if d.lower().endswith('mab')]
+
+    # === STEP 5: Select the best drug name ===
+    if investigational_drug:
+        # If we found an explicit investigational product, use it
+        facts.drug_name = investigational_drug
+    elif mab_drugs:
+        # Prefer monoclonal antibody (-mab) drugs
+        facts.drug_name = mab_drugs[0].capitalize()
+    elif inn_drugs:
+        # Use any INN drug
+        facts.drug_name = inn_drugs[0].capitalize()
+    elif filtered_candidates:
+        # Fall back to first non-biomarker candidate
+        for candidate in filtered_candidates:
+            if not re.match(r'^\d+\s*(mg|ml|mcg|g|kg)$', candidate, re.I):
+                facts.drug_name = candidate.upper() if re.match(r'^[A-Za-z]{2,4}\d{3,5}$', candidate) else candidate.capitalize()
+                break
+
+    if facts.drug_name:
+        print(f"[DEBUG] Final drug name selected: {facts.drug_name}")
 
     # Drug code (e.g., FE 999301)
     code_match = re.search(r'\b([A-Z]{2}[-\s]?\d{5,6})\b', protocol_text)
