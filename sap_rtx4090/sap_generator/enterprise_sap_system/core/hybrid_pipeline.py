@@ -34,6 +34,14 @@ from .hybrid_reasoning import (
 )
 from .rag_adapter import create_rag_adapter, HybridRAGAdapter
 
+# Import LLM section generator (replaces template-based generation)
+try:
+    from .llm_section_generator import LLMSectionGenerator, create_llm_generator
+    LLM_GENERATOR_AVAILABLE = True
+except ImportError as e:
+    LLM_GENERATOR_AVAILABLE = False
+    print(f"[HybridPipeline] ⚠️ WARNING: LLMSectionGenerator not available: {e}")
+
 # Import Claude extractor (LLM-based - REQUIRED, no regex fallback)
 try:
     from .claude_extractor import ClaudeProtocolExtractor, ExtractedProtocol
@@ -150,9 +158,18 @@ class HybridSAPPipeline:
         self.validator = HardValidator(strict_mode=strict_validation) if VALIDATOR_AVAILABLE and use_validation else None
         self.contamination_guard = ContaminationGuard() if CONTAMINATION_GUARD_AVAILABLE else None
 
+        # Initialize LLM section generator (replaces template-based generation)
+        if LLM_GENERATOR_AVAILABLE:
+            self.llm_generator = create_llm_generator(rag_adapter=self.rag_adapter)
+            self.use_llm_generation = True
+        else:
+            self.llm_generator = None
+            self.use_llm_generation = False
+
         if self.verbose:
             print("[Hybrid Pipeline] Initialized")
             print(f"  Extraction: {'LLM (Claude)' if self.use_llm_extraction else 'DISABLED (set ANTHROPIC_API_KEY)'}")
+            print(f"  Section Generation: {'LLM' if self.use_llm_generation else 'TEMPLATES (fallback)'}")
             print(f"  RAG: {'enabled' if use_rag and self.rag_adapter else 'disabled'}")
             print(f"  Validation: {'enabled' if use_validation else 'disabled'}")
 
@@ -283,17 +300,45 @@ class HybridSAPPipeline:
                     print(f"  {icon} {section}: {rr.reasoning_type.value} ({rr.confidence:.0%})")
 
             # =================================================================
-            # LAYER 3: ADDITIONAL SECTIONS (LLM-based)
+            # LAYER 3: LLM-GENERATED SECTIONS (no templates)
             # =================================================================
             if self.verbose:
-                print("\n[LAYER 3] Generating additional sections...")
+                print("\n[LAYER 3] Generating sections with LLM...")
 
-            # Generate sections not covered by hybrid engine
-            result.sections['introduction'] = self._generate_introduction(facts_dict)
-            result.sections['objectives'] = self._generate_objectives(facts_dict)
-            result.sections['study_design'] = self._generate_study_design(facts_dict)
-            result.sections['sample_size'] = self._generate_sample_size(facts_dict)
-            result.sections['missing_data'] = self._generate_missing_data(facts_dict)
+            if self.use_llm_generation and self.llm_generator:
+                # Generate sections using actual LLM calls (no templates)
+                llm_sections = [
+                    ('introduction', self.llm_generator.generate_introduction),
+                    ('objectives', self.llm_generator.generate_objectives),
+                    ('study_design', self.llm_generator.generate_study_design),
+                    ('sample_size', self.llm_generator.generate_sample_size),
+                    ('missing_data', self.llm_generator.generate_missing_data),
+                    ('endpoints', self.llm_generator.generate_endpoints),
+                    ('methods', self.llm_generator.generate_methods),
+                    ('stratification', self.llm_generator.generate_stratification),
+                ]
+
+                for section_name, generator_func in llm_sections:
+                    try:
+                        gen_result = generator_func(facts_dict)
+                        result.sections[section_name] = gen_result.content
+                        if self.verbose:
+                            src = gen_result.llm_source
+                            rag_count = len(gen_result.rag_examples_used)
+                            print(f"  🤖 {section_name}: LLM ({src}) + {rag_count} RAG examples")
+                    except Exception as e:
+                        result.warnings.append(f"LLM generation failed for {section_name}: {e}")
+                        if self.verbose:
+                            print(f"  ❌ {section_name}: LLM failed - {e}")
+            else:
+                # Fallback to template-based generation (deprecated)
+                if self.verbose:
+                    print("  ⚠️ Using template fallback (LLM generator unavailable)")
+                result.sections['introduction'] = self._generate_introduction(facts_dict)
+                result.sections['objectives'] = self._generate_objectives(facts_dict)
+                result.sections['study_design'] = self._generate_study_design(facts_dict)
+                result.sections['sample_size'] = self._generate_sample_size(facts_dict)
+                result.sections['missing_data'] = self._generate_missing_data(facts_dict)
 
             # =================================================================
             # LAYER 4: ASSEMBLY
@@ -400,11 +445,21 @@ class HybridSAPPipeline:
             ]
         facts.randomization_ratio = extracted.randomization_ratio
 
-        # Drug
+        # Drug and Comparator
         facts.drug_name = extracted.drug_name
         facts.drug_names_all = [extracted.drug_name] if extracted.drug_name else []
         if extracted.comparator:
             facts.drug_names_all.append(extracted.comparator)
+
+        # Store LLM-extracted facts for use in _facts_to_dict
+        # Use object.__setattr__ because ProtocolFacts might be a Pydantic model
+        try:
+            object.__setattr__(facts, '_llm_facts', {
+                'comparator': extracted.comparator,
+                'statistical_method': extracted.statistical_method,
+            })
+        except Exception:
+            pass  # Ignore if we can't set this attribute
 
         # Endpoints
         if extracted.primary_endpoint:
@@ -728,9 +783,33 @@ class HybridSAPPipeline:
         def safe_get(obj, attr, default=None):
             return getattr(obj, attr, default) if obj else default
 
-        return {
+        # Extract comparator from arms or drug_names_all
+        comparator = None
+        if facts.arms:
+            for arm in facts.arms:
+                arm_name = arm.name.lower() if hasattr(arm, 'name') else str(arm).lower()
+                # Check if this is a control arm (not the study drug)
+                if any(x in arm_name for x in ['control', 'comparator', 'placebo', 'standard']):
+                    comparator = arm.name if hasattr(arm, 'name') else str(arm)
+                    break
+                # Check for known drug names that aren't the primary drug
+                if facts.drug_name and facts.drug_name.lower() not in arm_name:
+                    comparator = arm.name if hasattr(arm, 'name') else str(arm)
+
+        # Fallback: check drug_names_all for comparator
+        if not comparator and facts.drug_names_all and len(facts.drug_names_all) > 1:
+            for drug in facts.drug_names_all:
+                if drug.lower() != facts.drug_name.lower() if facts.drug_name else True:
+                    comparator = drug
+                    break
+
+        # Build result dictionary
+        result = {
             'nct_id': facts.nct_id,
+            'protocol_title': safe_get(facts, 'protocol_title', ''),
+            'sponsor': safe_get(facts, 'sponsor', ''),
             'drug_name': facts.drug_name,
+            'comparator': comparator or '',  # CRITICAL: Include comparator
             'drug_names_all': facts.drug_names_all if facts.drug_names_all else [],
             'design_type': facts.design_type,
             'is_single_arm': is_single_arm,
@@ -738,6 +817,7 @@ class HybridSAPPipeline:
             'blinding_type': safe_get(facts, 'blinding_type'),
             'num_arms': facts.num_arms if facts.num_arms else (1 if is_single_arm else 2),
             'arms': [arm.name for arm in facts.arms] if facts.arms else [],
+            'arms_detailed': [{'name': arm.name, 'description': arm.description} for arm in facts.arms] if facts.arms else [],
             'randomization_ratio': facts.randomization_ratio,
             'stratification_factors': facts.stratification_factors if facts.stratification_factors else [],
             'sample_size': facts.sample_size.total_n if facts.sample_size else 0,
@@ -779,6 +859,9 @@ class HybridSAPPipeline:
                 result['baseline_definition'] = llm['baseline_definition']
             if llm.get('visit_windows'):
                 result['visit_windows'] = llm['visit_windows']
+            # Also check for comparator in LLM facts
+            if llm.get('comparator') and not result['comparator']:
+                result['comparator'] = llm['comparator']
 
         return result
 
