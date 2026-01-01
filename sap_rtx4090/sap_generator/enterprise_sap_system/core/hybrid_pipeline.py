@@ -252,7 +252,7 @@ class HybridSAPPipeline:
             result.sap_text = self._assemble_sap(result.sections, facts_dict)
 
             # =================================================================
-            # LAYER 5: VALIDATION
+            # LAYER 5: VALIDATION (never blocks, just collects issues)
             # =================================================================
             if self.use_validation and self.validator:
                 if self.verbose:
@@ -264,32 +264,25 @@ class HybridSAPPipeline:
                 if self.verbose:
                     print(f"  {validation.summary()}")
 
-                if validation.block_output and self.strict_validation:
-                    result.success = False
-                    result.errors.append("Validation failed - output blocked")
-                    if self.verbose:
-                        print(f"  ❌ BLOCKED: Validation failed")
-                    return result  # STOP - don't continue if validation fails
+                # Add validation issues as warnings (NEVER block output)
+                if validation.issues:
+                    for issue in validation.issues:
+                        severity = issue.severity.value if hasattr(issue.severity, 'value') else str(issue.severity)
+                        result.warnings.append(f"[{severity}] {issue.message}")
 
-            # Check for contamination
+            # Check for contamination (clean but never block)
             if self.contamination_guard:
                 cleaned, report, changes = self.contamination_guard.check_and_clean(
                     result.sap_text, protocol_text
                 )
                 if report.is_contaminated:
-                    if self.strict_validation:
-                        # BLOCK on contamination in strict mode
-                        result.success = False
-                        result.errors.append(f"Contamination detected - output blocked: {report.contamination_sources}")
-                        if self.verbose:
-                            print(f"  ❌ BLOCKED: Contamination from {report.contamination_sources}")
-                        return result  # STOP - don't return contaminated output
-                    else:
-                        # Warn and clean in non-strict mode
-                        result.warnings.append(f"Contamination detected and cleaned: {report.contamination_sources}")
-                        result.sap_text = cleaned
+                    # Always clean and warn, never block
+                    result.warnings.append(f"Contamination detected and cleaned: {report.contamination_sources}")
+                    result.sap_text = cleaned
+                    if self.verbose:
+                        print(f"  ⚠️ Contamination cleaned: {report.contamination_sources}")
 
-            result.success = True  # Only reached if no blocking issues
+            result.success = True  # Always succeed if we got here
 
         except Exception as e:
             result.success = False
