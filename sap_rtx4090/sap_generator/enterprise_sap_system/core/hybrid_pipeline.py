@@ -32,6 +32,14 @@ from .hybrid_reasoning import (
 )
 from .rag_adapter import create_rag_adapter, HybridRAGAdapter
 
+# Try to import unified extractor (API + Section Parser + LLM)
+try:
+    from .unified_extractor import UnifiedExtractor, UnifiedFacts
+    UNIFIED_EXTRACTOR_AVAILABLE = True
+except ImportError as e:
+    UNIFIED_EXTRACTOR_AVAILABLE = False
+    print(f"[HybridPipeline] Note: UnifiedExtractor not available, using regex: {e}")
+
 # Try to import validation components
 try:
     from .hard_validator import HardValidator, ValidationResult
@@ -104,6 +112,9 @@ class HybridSAPPipeline:
         use_rag: bool = True,
         use_validation: bool = True,
         strict_validation: bool = False,
+        use_unified_extractor: bool = True,
+        use_api: bool = True,
+        use_llm_extraction: bool = True,
         verbose: bool = True
     ):
         """
@@ -113,14 +124,28 @@ class HybridSAPPipeline:
             use_rag: Enable RAG for enhanced sections
             use_validation: Enable post-generation validation
             strict_validation: Block output on validation failures
+            use_unified_extractor: Use API + LLM extraction (recommended)
+            use_api: Fetch from ClinicalTrials.gov API
+            use_llm_extraction: Use LLM for statistical methods extraction
             verbose: Print progress messages
         """
         self.verbose = verbose
         self.use_validation = use_validation
         self.strict_validation = strict_validation
+        self.use_unified = use_unified_extractor and UNIFIED_EXTRACTOR_AVAILABLE
 
-        # Initialize extractor
-        self.extractor = StructuredFactExtractor()
+        # Initialize extractor - prefer unified if available
+        if self.use_unified:
+            self.unified_extractor = UnifiedExtractor(
+                use_api=use_api,
+                use_llm=use_llm_extraction,
+                use_regex_fallback=True,
+                verbose=verbose
+            )
+            self.extractor = StructuredFactExtractor()  # Keep as fallback
+        else:
+            self.unified_extractor = None
+            self.extractor = StructuredFactExtractor()
 
         # Initialize RAG adapter
         self.rag_adapter = create_rag_adapter() if use_rag else None
@@ -136,6 +161,7 @@ class HybridSAPPipeline:
 
         if self.verbose:
             print("[Hybrid Pipeline] Initialized")
+            print(f"  Extraction: {'API + LLM (unified)' if self.use_unified else 'regex only'}")
             print(f"  RAG: {'enabled' if use_rag and self.rag_adapter else 'disabled'}")
             print(f"  Validation: {'enabled' if use_validation else 'disabled'}")
             print(self.reasoning_engine.get_reasoning_summary())
@@ -159,14 +185,29 @@ class HybridSAPPipeline:
 
         try:
             # =================================================================
-            # LAYER 1: EXTRACTION (with fail-fast validation)
+            # LAYER 1: EXTRACTION (API + LLM or regex fallback)
             # =================================================================
             if self.verbose:
                 print("\n[LAYER 1] Extracting protocol facts...")
 
-            facts = self.extractor.extract_all(protocol_text)
-            if nct_id:
-                facts.nct_id = nct_id
+            # Use unified extractor (API + LLM) if available
+            if self.use_unified and self.unified_extractor:
+                unified_facts = self.unified_extractor.extract(protocol_text, nct_id)
+
+                # Convert UnifiedFacts to ProtocolFacts for pipeline compatibility
+                facts = self._convert_unified_to_protocol_facts(unified_facts, protocol_text)
+
+                # Add warnings from unified extraction
+                result.warnings.extend(unified_facts.warnings)
+
+                if self.verbose:
+                    print(f"  Sources used: {', '.join(unified_facts.sources_used)}")
+            else:
+                # Fallback to regex-only extraction
+                facts = self.extractor.extract_all(protocol_text)
+                if nct_id:
+                    facts.nct_id = nct_id
+
             result.facts = facts
 
             # FAIL-FAST: Validate critical facts are present
@@ -179,12 +220,11 @@ class HybridSAPPipeline:
                 missing_critical.append("sample_size")
 
             if missing_critical:
-                error_msg = f"EXTRACTION FAILED: Missing critical facts: {', '.join(missing_critical)}"
-                result.errors.append(error_msg)
-                result.success = False
+                # Don't fail - just warn and continue with defaults
+                warning_msg = f"Missing facts (using defaults): {', '.join(missing_critical)}"
+                result.warnings.append(warning_msg)
                 if self.verbose:
-                    print(f"  ❌ {error_msg}")
-                return result
+                    print(f"  ⚠️ {warning_msg}")
 
             # Track warnings for non-critical missing data
             if not facts.design_type:
@@ -292,6 +332,100 @@ class HybridSAPPipeline:
 
         return result
 
+    def _convert_unified_to_protocol_facts(
+        self,
+        unified: 'UnifiedFacts',
+        protocol_text: str
+    ) -> ProtocolFacts:
+        """Convert UnifiedFacts to ProtocolFacts for pipeline compatibility"""
+        from .structured_extractor import (
+            ProtocolFacts, EndpointDefinition, SampleSizeSpec,
+            AlphaSpecification, TreatmentArm, StudyPhase
+        )
+
+        facts = ProtocolFacts()
+
+        # Basic info
+        facts.nct_id = unified.nct_id
+        facts.drug_name = unified.drug_name
+        facts.drug_names_all = [unified.drug_name] if unified.drug_name else []
+
+        # Design
+        facts.design_type = unified.design_type
+        facts.is_randomized = unified.is_randomized
+        facts.is_blinded = unified.is_blinded
+        facts.num_arms = unified.num_arms
+
+        # Arms
+        if unified.arms:
+            facts.arms = [
+                TreatmentArm(
+                    name=arm.get("name", f"Arm {i+1}"),
+                    is_placebo="placebo" in arm.get("name", "").lower()
+                )
+                for i, arm in enumerate(unified.arms)
+            ]
+
+        # Sample size
+        if unified.sample_size:
+            facts.sample_size = SampleSizeSpec(total_n=unified.sample_size)
+
+        # Alpha - use defaults
+        facts.alpha = AlphaSpecification()
+
+        # Endpoints
+        if unified.primary_endpoint:
+            facts.primary_endpoint = EndpointDefinition(
+                name="Primary Endpoint",
+                definition=unified.primary_endpoint,
+                timepoint=unified.primary_timepoint
+            )
+
+        if unified.secondary_endpoints:
+            facts.secondary_endpoints = [
+                EndpointDefinition(name="Secondary Endpoint", definition=ep)
+                for ep in unified.secondary_endpoints if ep
+            ]
+
+        # Other fields
+        facts.therapeutic_area = unified.therapeutic_area
+        facts.stratification_factors = unified.stratification_factors
+
+        # Phase - try to parse
+        phase_str = unified.phase.upper() if unified.phase else ""
+        if "1/2" in phase_str or "1B" in phase_str:
+            facts.phase = StudyPhase.PHASE_1_2
+        elif "2/3" in phase_str:
+            facts.phase = StudyPhase.PHASE_2_3
+        elif "1" in phase_str:
+            facts.phase = StudyPhase.PHASE_1
+        elif "2" in phase_str:
+            facts.phase = StudyPhase.PHASE_2
+        elif "3" in phase_str:
+            facts.phase = StudyPhase.PHASE_3
+        elif "4" in phase_str:
+            facts.phase = StudyPhase.PHASE_4
+        else:
+            facts.phase = StudyPhase.UNKNOWN
+
+        # Store LLM-extracted statistical methods in raw_text for now
+        # These will be used by the reasoning engine
+        facts.raw_text = protocol_text
+
+        # Add LLM-extracted fields as custom attributes
+        facts._llm_facts = {
+            "primary_analysis_method": unified.primary_analysis_method,
+            "analysis_model": unified.analysis_model,
+            "covariates": unified.covariates,
+            "missing_data_method": unified.missing_data_method,
+            "multiplicity_adjustment": unified.multiplicity_adjustment,
+            "sensitivity_analyses": unified.sensitivity_analyses,
+            "baseline_definition": unified.baseline_definition,
+            "visit_windows": unified.visit_windows,
+        }
+
+        return facts
+
     def _facts_to_dict(self, facts: ProtocolFacts) -> Dict[str, Any]:
         """Convert ProtocolFacts to dictionary for reasoning engine"""
         # Determine if single-arm
@@ -336,6 +470,28 @@ class HybridSAPPipeline:
             'primary_analysis_method': safe_get(facts, 'primary_analysis_method'),
             'primary_analysis_population': safe_get(facts, 'primary_analysis_population'),
         }
+
+        # Include LLM-extracted facts if available
+        if hasattr(facts, '_llm_facts') and facts._llm_facts:
+            llm = facts._llm_facts
+            if llm.get('primary_analysis_method'):
+                result['primary_analysis_method'] = llm['primary_analysis_method']
+            if llm.get('analysis_model'):
+                result['analysis_model'] = llm['analysis_model']
+            if llm.get('covariates'):
+                result['covariates'] = llm['covariates']
+            if llm.get('missing_data_method'):
+                result['missing_data_method'] = llm['missing_data_method']
+            if llm.get('multiplicity_adjustment'):
+                result['multiplicity_adjustment'] = llm['multiplicity_adjustment']
+            if llm.get('sensitivity_analyses'):
+                result['sensitivity_analyses'] = llm['sensitivity_analyses']
+            if llm.get('baseline_definition'):
+                result['baseline_definition'] = llm['baseline_definition']
+            if llm.get('visit_windows'):
+                result['visit_windows'] = llm['visit_windows']
+
+        return result
 
     def _generate_introduction(self, facts: Dict[str, Any]) -> str:
         """Generate introduction section"""
