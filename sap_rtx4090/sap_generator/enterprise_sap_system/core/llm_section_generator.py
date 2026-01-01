@@ -120,14 +120,54 @@ class LLMSectionGenerator:
             ('is_single_arm', 'Single-Arm Study'),
             ('num_arms', 'Number of Arms'),
             ('arms', 'Treatment Arms'),
+            # NEW: Pilot/feasibility study fields
+            ('is_pilot_study', 'Pilot/Feasibility Study'),
+            ('hypothesis_testing_planned', 'Hypothesis Testing Planned'),
+            ('sample_size_justification', 'Sample Size Justification'),
+            # NEW: Co-primary endpoints
+            ('primary_endpoints', 'Primary Endpoints (All)'),
+            # NEW: Oncology response criteria
+            ('response_criteria', 'Tumor Response Criteria'),
+            ('pathologic_response_criteria', 'Pathologic Response Criteria'),
+            ('response_assessor', 'Response Assessor'),
+            # NEW: Population definitions from protocol
+            ('itt_definition', 'ITT Population Definition'),
+            ('pp_definition', 'Per-Protocol Population Definition'),
+            ('safety_definition', 'Safety Population Definition'),
+            # NEW: Statistical details
+            ('alpha_level', 'Alpha Level'),
+            ('power', 'Statistical Power'),
+            ('statistical_method', 'Statistical Method'),
         ]
 
         lines = []
         for key, label in important_facts:
             value = facts.get(key)
             if value is not None and value != '' and value != []:
-                if isinstance(value, list):
+                # Format list of dicts (primary_endpoints)
+                if isinstance(value, list) and value and isinstance(value[0], dict):
+                    formatted_items = []
+                    for i, item in enumerate(value, 1):
+                        if isinstance(item, dict):
+                            defn = item.get('definition', str(item))
+                            ep_type = item.get('type', '')
+                            timepoint = item.get('timepoint', '')
+                            criteria = item.get('criteria', '')
+                            parts = [defn]
+                            if ep_type:
+                                parts.append(f"[Type: {ep_type}]")
+                            if timepoint:
+                                parts.append(f"[Timepoint: {timepoint}]")
+                            if criteria:
+                                parts.append(f"[Criteria: {criteria}]")
+                            formatted_items.append(f"  {i}. {' '.join(parts)}")
+                        else:
+                            formatted_items.append(f"  {i}. {item}")
+                    value = '\n' + '\n'.join(formatted_items)
+                elif isinstance(value, list):
                     value = ', '.join(str(v) for v in value)
+                elif isinstance(value, bool):
+                    value = 'Yes' if value else 'No'
                 lines.append(f"- {label}: {value}")
 
         return "\n".join(lines) if lines else "No protocol facts available."
@@ -178,7 +218,60 @@ Write the Introduction section now. Start with "## 1. INTRODUCTION" as the heade
         """Generate Objectives/Estimands section using LLM."""
         examples = self._retrieve_examples('endpoints', facts, n_results=3)
 
-        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+        # Check for pilot study and co-primary endpoints
+        is_pilot_study = facts.get('is_pilot_study', False)
+        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+        primary_endpoints = facts.get('primary_endpoints', [])
+        has_multiple_primary = len(primary_endpoints) > 1
+
+        # Build co-primary context
+        coprimary_context = ""
+        if has_multiple_primary:
+            coprimary_context = f"""
+
+CO-PRIMARY ENDPOINTS ({len(primary_endpoints)}):
+This study has MULTIPLE co-primary endpoints. Create a separate PRIMARY OBJECTIVE for EACH endpoint.
+Each co-primary endpoint requires its own estimand definition."""
+
+        if is_pilot_study or not hypothesis_testing_planned:
+            system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP) for a PILOT/FEASIBILITY STUDY.
+
+Write the Objectives section for a pilot study. Note:
+- Pilot studies have EXPLORATORY objectives, not confirmatory
+- The primary objective is typically to evaluate FEASIBILITY, SAFETY, or PRELIMINARY EFFICACY
+- NO hypothesis testing is planned - objectives are descriptive
+
+For pilot studies, objectives should focus on:
+1. Feasibility of recruitment, treatment delivery, outcome assessment
+2. Safety profile characterization
+3. Preliminary efficacy signals (descriptive only)
+4. Informing design of future confirmatory trials
+
+Do NOT include formal estimands with hypothesis testing for pilot studies.
+Instead, describe what will be ESTIMATED and DESCRIBED (not tested).
+{coprimary_context}"""
+
+            user_prompt = f"""Write the Objectives section for this PILOT/FEASIBILITY SAP.
+
+CRITICAL: This is a pilot study. Objectives are EXPLORATORY and DESCRIPTIVE.
+NO formal hypothesis testing will be performed.
+
+PROTOCOL FACTS:
+{self._format_facts_for_prompt(facts)}
+
+EXAMPLES FROM SIMILAR SAPs:
+{self._format_examples_for_prompt(examples)}
+
+IMPORTANT:
+- Frame objectives as exploratory/descriptive (e.g., "To evaluate...", "To describe...", "To assess feasibility of...")
+- Do NOT include formal estimands with treatment effect summary measures
+- Focus on feasibility, safety characterization, and preliminary efficacy estimates
+
+Write the section now. Start with "## 2. OBJECTIVES" as the header."""
+
+        else:
+            # Standard confirmatory trial
+            system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP).
 Write the Objectives and Estimands section following ICH E9(R1) guidelines.
 
 For each objective, define the estimand with these 5 attributes:
@@ -189,9 +282,10 @@ For each objective, define the estimand with these 5 attributes:
 5. Summary measure: How treatment effect is quantified (HR, OR, mean difference, etc.)
 
 Use the actual comparator from the protocol - do NOT default to "placebo" unless it's actually a placebo-controlled study.
-Write in formal scientific language with proper statistical terminology."""
+Write in formal scientific language with proper statistical terminology.
+{coprimary_context}"""
 
-        user_prompt = f"""Write the Objectives and Estimands section for this SAP.
+            user_prompt = f"""Write the Objectives and Estimands section for this SAP.
 
 PROTOCOL FACTS:
 {self._format_facts_for_prompt(facts)}
@@ -203,6 +297,7 @@ IMPORTANT:
 - Use the actual comparator drug name, not "placebo" unless it IS a placebo study
 - Follow ICH E9(R1) estimand framework exactly
 - Include primary AND secondary objectives
+- If there are CO-PRIMARY ENDPOINTS, create a separate objective and estimand for EACH
 
 Write the section now. Start with "## 2. OBJECTIVES AND ESTIMANDS" as the header."""
 
@@ -268,7 +363,61 @@ Include a table showing treatment arms if multiple arms exist."""
         """Generate Sample Size section using LLM."""
         examples = self._retrieve_examples('methods', facts, n_results=3)
 
-        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+        # Check if this is a pilot/feasibility study
+        is_pilot_study = facts.get('is_pilot_study', False)
+        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+        sample_size_justification = facts.get('sample_size_justification', '').lower()
+
+        # Determine if formal power calculation was done
+        is_pragmatic = sample_size_justification in ['pragmatic', 'feasibility'] or \
+                       'pragmatic' in sample_size_justification or \
+                       'feasibility' in sample_size_justification
+
+        if is_pilot_study or not hypothesis_testing_planned or is_pragmatic:
+            system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP) for a PILOT/FEASIBILITY STUDY.
+
+CRITICAL: This is a pilot study. NO FORMAL SAMPLE SIZE CALCULATION has been performed.
+
+Write the Sample Size section including:
+1. Statement that NO formal sample size estimation has been performed
+2. Target sample size (pragmatically determined)
+3. Rationale for the chosen sample size (feasibility, resource constraints, exploratory nature)
+4. Statement that this is NOT powered for hypothesis testing
+5. Note that this study is for feasibility/exploratory purposes
+
+DO NOT include:
+- Power calculations
+- Effect size assumptions for testing
+- Type I/II error specifications
+- Dropout rate adjustments for power
+
+Use phrases like:
+- "No formal sample size estimation has been performed"
+- "Target sample size of N=X is based on feasibility considerations"
+- "This study is not powered for formal hypothesis testing"
+- "Sample size was pragmatically determined" """
+
+            user_prompt = f"""Write the Sample Size section for this PILOT/FEASIBILITY SAP.
+
+CRITICAL: This is a pilot/feasibility study. NO FORMAL SAMPLE SIZE CALCULATION was performed.
+Sample size was determined pragmatically for feasibility purposes.
+
+PROTOCOL FACTS:
+{self._format_facts_for_prompt(facts)}
+
+EXAMPLES FROM SIMILAR SAPs:
+{self._format_examples_for_prompt(examples)}
+
+IMPORTANT:
+- State that NO formal sample size estimation has been performed
+- Explain that target sample size is based on feasibility/pragmatic considerations
+- Do NOT include power calculations or effect size assumptions
+
+Write the section now. Start with "## 6. SAMPLE SIZE" as the header (NOT "Sample Size and Power")."""
+
+        else:
+            # Standard confirmatory trial with power calculation
+            system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
 Write the Sample Size and Power section including:
 1. Total sample size and per-arm breakdown
 2. Primary endpoint for power calculation
@@ -281,7 +430,7 @@ Use actual values from the protocol. Show the calculation logic.
 If sample size is provided, explain the justification.
 If not provided, note that it should be calculated based on the primary endpoint."""
 
-        user_prompt = f"""Write the Sample Size and Power section for this SAP.
+            user_prompt = f"""Write the Sample Size and Power section for this SAP.
 
 PROTOCOL FACTS:
 {self._format_facts_for_prompt(facts)}
@@ -354,6 +503,10 @@ Write the section now. Start with "## 9. MISSING DATA" as the header."""
         """Generate Statistical Methods section using LLM with RAG examples."""
         examples = self._retrieve_examples('methods', facts, n_results=3)
 
+        # Check if this is a pilot/feasibility study
+        is_pilot_study = facts.get('is_pilot_study', False)
+        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+
         # Determine endpoint type for method selection
         primary_endpoint = str(facts.get('primary_endpoint', '')).lower()
         if any(x in primary_endpoint for x in ['survival', 'pfs', 'os', 'time to', 'tte']):
@@ -363,7 +516,57 @@ Write the section now. Start with "## 9. MISSING DATA" as the header."""
         else:
             endpoint_type = "continuous"
 
-        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+        # Different prompts for pilot vs confirmatory studies
+        if is_pilot_study or not hypothesis_testing_planned:
+            system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP) for a PILOT/FEASIBILITY STUDY.
+
+CRITICAL: This is a pilot study with a small sample size. NO FORMAL HYPOTHESIS TESTING will be performed.
+
+Write the Statistical Methods section including:
+1. General statistical principles (descriptive statistics ONLY)
+2. Statement that NO statistical hypothesis tests are performed due to small sample size
+3. Descriptive analyses for all endpoints
+4. For binary endpoints: proportions with 95% Wilson confidence intervals
+5. For continuous endpoints: means, medians, standard deviations, ranges
+6. For time-to-event endpoints: Kaplan-Meier estimates (descriptive only, no log-rank)
+7. Subgroup analyses will be descriptive only
+
+DO NOT include:
+- p-values or hypothesis tests
+- Power calculations or effect size estimations for future trials
+- Multiplicity adjustments (not needed without hypothesis testing)
+- Statistical comparisons between groups
+
+Use phrases like:
+- "No statistical tests are performed due to the small sample size"
+- "All analyses will be descriptive"
+- "Confidence intervals according to Wilson method for proportions"
+- "Kaplan-Meier estimates for descriptive purposes only" """
+
+            user_prompt = f"""Write the Statistical Methods section for this PILOT/FEASIBILITY SAP.
+
+CRITICAL: This study has a SMALL SAMPLE SIZE ({facts.get('sample_size', 'N/A')} patients) and is designed as a PILOT/FEASIBILITY study.
+NO FORMAL HYPOTHESIS TESTING is planned. All analyses are DESCRIPTIVE ONLY.
+
+PROTOCOL FACTS:
+{self._format_facts_for_prompt(facts)}
+
+ENDPOINT TYPE DETECTED: {endpoint_type}
+
+EXAMPLES FROM SIMILAR SAPs:
+{self._format_examples_for_prompt(examples)}
+
+IMPORTANT:
+- State explicitly that NO STATISTICAL TESTS are performed due to small sample size
+- Use Wilson confidence intervals for proportions/event rates
+- Kaplan-Meier for time-to-event but NO log-rank tests
+- All analyses are descriptive (means, medians, proportions with CIs)
+
+Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
+
+        else:
+            # Standard confirmatory trial prompt
+            system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
 Write the Statistical Methods section including:
 1. General statistical principles (significance level, confidence intervals)
 2. Primary endpoint analysis method (appropriate for endpoint type)
@@ -384,7 +587,7 @@ For oncology/immunotherapy with delayed treatment effects, consider:
 Use the actual comparator drug name, not "placebo" unless it IS placebo.
 Write specific model specifications with covariates."""
 
-        user_prompt = f"""Write the Statistical Methods section for this SAP.
+            user_prompt = f"""Write the Statistical Methods section for this SAP.
 
 PROTOCOL FACTS:
 {self._format_facts_for_prompt(facts)}
@@ -421,16 +624,51 @@ Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
         """Generate Endpoints section using LLM with RAG examples."""
         examples = self._retrieve_examples('endpoints', facts, n_results=3)
 
-        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+        # Check for co-primary endpoints
+        primary_endpoints = facts.get('primary_endpoints', [])
+        has_multiple_primary = len(primary_endpoints) > 1
+
+        # Check for oncology response criteria
+        response_criteria = facts.get('response_criteria', '')
+        pathologic_response_criteria = facts.get('pathologic_response_criteria', '')
+        response_assessor = facts.get('response_assessor', '')
+
+        # Build context about response criteria
+        response_context = ""
+        if response_criteria or pathologic_response_criteria:
+            response_context = "\n\nONCOLOGY RESPONSE CRITERIA:\n"
+            if response_criteria:
+                response_context += f"- Tumor Response Criteria: {response_criteria}\n"
+            if pathologic_response_criteria:
+                response_context += f"- Pathologic Response Criteria: {pathologic_response_criteria}\n"
+            if response_assessor:
+                response_context += f"- Response Assessor: {response_assessor}\n"
+
+        # Build context about co-primary endpoints
+        coprimary_context = ""
+        if has_multiple_primary:
+            coprimary_context = f"""
+
+CO-PRIMARY ENDPOINTS DETECTED ({len(primary_endpoints)} endpoints):
+This study has MULTIPLE co-primary endpoints. List ALL of them separately in the SAP.
+Each co-primary endpoint should have its own subsection with definition, type, and assessment criteria."""
+
+        system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP).
 Write the Endpoints section including:
-1. Primary endpoint definition and assessment timepoint
-2. Secondary endpoints with definitions
-3. Exploratory endpoints
-4. Endpoint derivation rules
-5. For time-to-event endpoints: censoring rules
+1. Primary endpoint(s) - definition and assessment timepoint for EACH
+2. For studies with CO-PRIMARY ENDPOINTS: list each separately with its own definition
+3. Secondary endpoints with definitions
+4. Exploratory endpoints
+5. Endpoint derivation rules
+6. For tumor response endpoints: specify EXACT criteria version (e.g., RECIST 1.1, not just "RECIST")
+7. For pathologic response: specify grading system (e.g., Junker, Miller-Payne, TRG)
+8. For safety endpoints: specify CTCAE version (e.g., NCI-CTCAE v4.03 or v5.0)
+9. For time-to-event endpoints: censoring rules
 
 Be specific about how each endpoint is measured and derived.
-Use the actual values from the protocol."""
+Use the EXACT assessment criteria version from the protocol (e.g., "NCI-CTCAE v4.03" not just "CTCAE").
+{coprimary_context}
+{response_context}"""
 
         user_prompt = f"""Write the Endpoints section for this SAP.
 
@@ -440,13 +678,20 @@ PROTOCOL FACTS:
 EXAMPLES FROM SIMILAR SAPs:
 {self._format_examples_for_prompt(examples)}
 
+IMPORTANT:
+- If there are multiple co-primary endpoints, list ALL of them as separate subsections
+- Use the EXACT version of assessment criteria from the protocol
+- For oncology: specify exact RECIST version (1.1, mRECIST, iRECIST, etc.)
+- For AE grading: use exact CTCAE version (v4.03 or v5.0)
+- For pathologic response: specify exact grading system
+
 Write the section now. Start with "## 5. ENDPOINTS" as the header."""
 
         response = self.llm_client.chat(
             prompt=user_prompt,
             system_prompt=system_prompt,
             temperature=0.3,
-            max_tokens=2000
+            max_tokens=2500
         )
 
         return GeneratedSection(
@@ -555,7 +800,27 @@ All analyses will be conducted in accordance with ICH E9 and ICH E9(R1) guidelin
         drug = facts.get('drug_name', 'study drug')
         comparator = facts.get('comparator', 'control')
         endpoint = facts.get('primary_endpoint', 'the primary endpoint')
-        return f"""## 2. OBJECTIVES AND ESTIMANDS
+        is_pilot = facts.get('is_pilot_study', False)
+        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+
+        if is_pilot or not hypothesis_testing:
+            return f"""## 2. OBJECTIVES
+
+### 2.1 Primary Objective
+
+To evaluate the feasibility, safety, and preliminary efficacy of {drug} in this patient population.
+
+### 2.2 Secondary Objectives
+
+- To describe the safety profile of {drug}
+- To estimate the preliminary efficacy of {drug} as measured by {endpoint}
+- To assess compliance with the treatment regimen
+
+Note: This is a pilot/feasibility study. No formal hypothesis testing will be performed. All analyses are exploratory and descriptive.
+
+[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
+        else:
+            return f"""## 2. OBJECTIVES AND ESTIMANDS
 
 ### 2.1 Primary Objective
 
@@ -593,7 +858,23 @@ Patients will be randomized in a {ratio} ratio.
         """Minimal fallback when LLM fails for sample size."""
         n = facts.get('sample_size', {})
         total = n.get('total_n', 'TBD') if isinstance(n, dict) else n
-        return f"""## 6. SAMPLE SIZE AND POWER
+        is_pilot = facts.get('is_pilot_study', False)
+        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+
+        if is_pilot or not hypothesis_testing:
+            return f"""## 6. SAMPLE SIZE
+
+### 6.1 Sample Size
+
+No formal sample size estimation has been performed.
+
+Target sample size: {total} patients
+
+This sample size was pragmatically determined based on feasibility considerations. This study is not powered for formal hypothesis testing.
+
+[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
+        else:
+            return f"""## 6. SAMPLE SIZE AND POWER
 
 ### 6.1 Sample Size
 
@@ -625,7 +906,29 @@ Sensitivity analyses will include tipping point analysis and multiple imputation
 
     def _fallback_methods(self, facts: Dict[str, Any]) -> str:
         """Minimal fallback when LLM fails for methods."""
-        return """## 7. STATISTICAL METHODS
+        is_pilot = facts.get('is_pilot_study', False)
+        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+
+        if is_pilot or not hypothesis_testing:
+            return """## 7. STATISTICAL METHODS
+
+### 7.1 General Considerations
+
+No statistical tests are performed due to the small sample size. All analyses will be descriptive.
+
+- 95% confidence intervals (Wilson method for proportions)
+- Analyses performed using SAS 9.4
+
+### 7.2 Descriptive Analyses
+
+All endpoints will be summarized using descriptive statistics:
+- Continuous variables: n, mean, standard deviation, median, minimum, maximum
+- Categorical variables: counts and percentages with 95% Wilson confidence intervals
+- Time-to-event variables: Kaplan-Meier estimates (descriptive only)
+
+[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
+        else:
+            return """## 7. STATISTICAL METHODS
 
 ### 7.1 General Considerations
 
