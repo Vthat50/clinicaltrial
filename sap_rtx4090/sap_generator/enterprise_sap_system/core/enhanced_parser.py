@@ -3,6 +3,11 @@
 Enhanced Protocol Parser with LLM Fallback
 ============================================
 Improves accuracy by using LLM when pattern-based confidence is low.
+
+Production Features:
+- Structured logging for all operations
+- Specific exception handling (no silent failures)
+- Graceful degradation with fallback to pattern matching
 """
 
 import os
@@ -17,6 +22,18 @@ from .schemas import (
     ICEStrategy, InterCurrentEvent, DesignType, BlindingType
 )
 from .config import get_config
+
+# Import logging
+try:
+    from .logging_config import get_logger, ExtractionError
+except ImportError:
+    import logging
+    def get_logger(name):
+        return logging.getLogger(name)
+    class ExtractionError(Exception):
+        pass
+
+logger = get_logger(__name__)
 
 
 class EnhancedProtocolParser(ProtocolParser):
@@ -71,14 +88,23 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
         super().__init__(llm_client)
         self.use_llm_fallback = use_llm_fallback
         self.config = get_config()
+        self._use_tiered = False
 
         # Confidence threshold for LLM fallback (lower = more LLM usage)
         self.confidence_threshold = 0.6  # Trigger LLM if below 60% confidence
+
+        logger.info(
+            "EnhancedProtocolParser initialized",
+            use_llm_fallback=use_llm_fallback,
+            confidence_threshold=self.confidence_threshold
+        )
 
     def parse(self, protocol_text: str, nct_id: str = "") -> ParsedProtocol:
         """
         Parse protocol with LLM enhancement for low-confidence fields.
         """
+        logger.debug("Starting enhanced parse", nct_id=nct_id, text_length=len(protocol_text))
+
         # First, use pattern-based parsing
         result = super().parse(protocol_text, nct_id)
 
@@ -92,10 +118,17 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
 
             if endpoint_conf < self.confidence_threshold or phase_conf < self.confidence_threshold:
                 needs_llm = True
+                logger.debug(
+                    "Low confidence triggers LLM fallback",
+                    endpoint_confidence=endpoint_conf,
+                    phase_confidence=phase_conf,
+                    threshold=self.confidence_threshold
+                )
 
             # Also trigger LLM if endpoint is OTHER with low confidence
             if result.primary_estimand and result.primary_estimand.variable_type == EndpointType.OTHER:
                 needs_llm = True
+                logger.debug("OTHER endpoint type triggers LLM fallback")
 
         if needs_llm and self._has_llm_client():
             result = self._enhance_with_llm(result, protocol_text)
@@ -111,12 +144,18 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
         try:
             from .tiered_llm import get_tiered_client
             tiered_client = get_tiered_client()
-            if tiered_client.get_available_tiers():
+            available_tiers = tiered_client.get_available_tiers()
+            if available_tiers:
                 self.llm_client = tiered_client
                 self._use_tiered = True
+                logger.debug("Using TieredLLMClient", available_tiers=available_tiers)
                 return True
-        except Exception:
-            pass
+            else:
+                logger.warning("TieredLLMClient has no available tiers")
+        except ImportError as e:
+            logger.warning("Failed to import TieredLLMClient", error=str(e))
+        except Exception as e:
+            logger.error("Error initializing TieredLLMClient", exc_info=True, error=str(e))
 
         # Fallback to Groq-only if tiered fails
         api_key = os.getenv("GROQ_API_KEY")
@@ -125,16 +164,22 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
                 from groq import Groq
                 self.llm_client = Groq(api_key=api_key)
                 self._use_tiered = False
+                logger.info("Using direct Groq client as fallback")
                 return True
             except ImportError:
-                pass
+                logger.warning("groq package not installed", install_cmd="pip install groq")
+
+        logger.warning("No LLM client available - pattern matching only")
         return False
 
     def _enhance_with_llm(self, result: ParsedProtocol, protocol_text: str) -> ParsedProtocol:
         """Use LLM to enhance low-confidence extractions (supports tiered fallback)"""
+        logger.debug("Enhancing extraction with LLM")
+
         try:
             # Extract relevant section for LLM
             relevant_text = self._extract_relevant_section(protocol_text)
+            logger.debug("Extracted relevant section", section_length=len(relevant_text))
 
             # Call LLM
             prompt = self.LLM_EXTRACTION_PROMPT.format(text=relevant_text)
@@ -149,26 +194,84 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
                     json_mode=True
                 )
                 if response.success:
-                    llm_result = json.loads(response.content)
+                    try:
+                        llm_result = json.loads(response.content)
+                        logger.info(
+                            "LLM extraction successful",
+                            source=response.source,
+                            latency_ms=response.latency_ms
+                        )
+                    except json.JSONDecodeError as e:
+                        logger.warning(
+                            "LLM returned invalid JSON",
+                            error=str(e),
+                            content_preview=response.content[:100] if response.content else ""
+                        )
+                        return result  # Keep pattern-based result
                 else:
+                    logger.warning("LLM call failed", error=response.error)
                     return result  # Keep pattern-based result
             else:
-                # Legacy single-client mode
-                response = self.llm_client.chat.completions.create(
-                    model=self.config.model.fast_model,
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.1,
-                    max_tokens=500,
-                    response_format={"type": "json_object"}
-                )
-                llm_result = json.loads(response.choices[0].message.content)
+                # Legacy single-client mode (Groq direct)
+                try:
+                    response = self.llm_client.chat.completions.create(
+                        model=self.config.model.fast_model,
+                        messages=[{"role": "user", "content": prompt}],
+                        temperature=0.1,
+                        max_tokens=500,
+                        response_format={"type": "json_object"}
+                    )
+
+                    # Null-safe response extraction
+                    if response is None or not hasattr(response, 'choices') or not response.choices:
+                        logger.warning("Groq returned empty response")
+                        return result
+
+                    message = response.choices[0].message
+                    if message is None or not hasattr(message, 'content') or message.content is None:
+                        logger.warning("Groq message has no content")
+                        return result
+
+                    llm_result = json.loads(message.content)
+                    logger.info("Groq extraction successful")
+
+                except json.JSONDecodeError as e:
+                    logger.warning("Groq returned invalid JSON", error=str(e))
+                    return result
+                except AttributeError as e:
+                    logger.error("Groq response structure error", exc_info=True, error=str(e))
+                    return result
 
             # Update result with LLM extractions
             result = self._merge_llm_result(result, llm_result)
+            logger.debug("Merged LLM result with pattern-based extraction")
 
+        except json.JSONDecodeError as e:
+            logger.warning(
+                "JSON parsing failed in LLM enhancement",
+                error=str(e),
+                error_type="JSONDecodeError"
+            )
+        except ConnectionError as e:
+            logger.error(
+                "Network error during LLM call",
+                error=str(e),
+                error_type="ConnectionError"
+            )
+        except TimeoutError as e:
+            logger.error(
+                "Timeout during LLM call",
+                error=str(e),
+                error_type="TimeoutError"
+            )
         except Exception as e:
-            # Log but don't fail - keep pattern-based result
-            pass
+            # Log unexpected errors with full traceback
+            logger.error(
+                "Unexpected error in LLM enhancement - falling back to pattern matching",
+                exc_info=True,
+                error_type=type(e).__name__,
+                error=str(e)
+            )
 
         return result
 
@@ -213,6 +316,7 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
             return combined[:max_chars]
 
         # Fallback: first part of document
+        logger.debug("No specific sections found, using document start")
         return "PROTOCOL EXCERPT:\n" + text[:max_chars]
 
     def _merge_llm_result(self, result: ParsedProtocol, llm_result: Dict) -> ParsedProtocol:
@@ -242,8 +346,13 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
                 if llm_phase in phase_mapping:
                     result.phase = phase_mapping[llm_phase]
                     result.extraction_confidence['phase'] = llm_conf
-            except Exception as e:
-                print(f"[Enhanced Parser] Warning: Phase extraction failed: {e}")
+                    logger.debug("Updated phase from LLM", phase=llm_phase, confidence=llm_conf)
+                else:
+                    logger.debug("Unknown phase value from LLM", phase=llm_phase)
+            except ValueError as e:
+                logger.warning("Invalid phase value from LLM", phase=llm_phase, error=str(e))
+            except KeyError as e:
+                logger.warning("Phase mapping error", phase=llm_phase, error=str(e))
 
         # Update endpoint type if LLM is confident
         llm_endpoint = llm_result.get('primary_endpoint_type', 'OTHER')
@@ -266,13 +375,23 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
                     result.primary_estimand.variable_type = endpoint_type
 
                 result.extraction_confidence['endpoint_type'] = llm_conf
-            except Exception as e:
-                print(f"[Enhanced Parser] Warning: Endpoint type extraction failed: {e}")
+                logger.debug(
+                    "Updated endpoint type from LLM",
+                    endpoint_type=llm_endpoint,
+                    confidence=llm_conf
+                )
+            except ValueError as e:
+                logger.warning(
+                    "Invalid endpoint type from LLM",
+                    endpoint_type=llm_endpoint,
+                    error=str(e)
+                )
 
         # Update therapeutic area
         if llm_result.get('therapeutic_area') and llm_result['therapeutic_area'] != 'Other':
             result.therapeutic_area = llm_result['therapeutic_area']
             result.extraction_confidence['therapeutic_area'] = llm_conf
+            logger.debug("Updated therapeutic area from LLM", area=llm_result['therapeutic_area'])
 
         # Update design type
         design_mapping = {
@@ -284,6 +403,7 @@ IMPORTANT: Be specific. Avoid defaulting to OTHER unless truly necessary."""
         if llm_result.get('design_type') in design_mapping:
             result.design_type = design_mapping[llm_result['design_type']]
             result.extraction_confidence['design_type'] = llm_conf
+            logger.debug("Updated design type from LLM", design=llm_result['design_type'])
 
         return result
 

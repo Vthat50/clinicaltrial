@@ -12,6 +12,11 @@ This replaces the fragmented template-based approach with proper reasoning:
 
 NO REGEX - LLM extraction is the only method.
 
+Production Features:
+- Structured logging
+- Proper error handling
+- No silent failures
+
 Usage:
     from hybrid_pipeline import HybridSAPPipeline
 
@@ -23,6 +28,16 @@ import re
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, field
 from pathlib import Path
+
+# Import logging first
+try:
+    from .logging_config import get_logger
+except ImportError:
+    import logging
+    def get_logger(name):
+        return logging.getLogger(name)
+
+logger = get_logger(__name__)
 
 # Import components (ProtocolFacts for data structure only - NO regex extraction)
 from .structured_extractor import ProtocolFacts
@@ -40,7 +55,7 @@ try:
     LLM_GENERATOR_AVAILABLE = True
 except ImportError as e:
     LLM_GENERATOR_AVAILABLE = False
-    print(f"[HybridPipeline] ⚠️ WARNING: LLMSectionGenerator not available: {e}")
+    logger.warning("LLMSectionGenerator not available", error=str(e))
 
 # Import Claude extractor (LLM-based - REQUIRED, no regex fallback)
 try:
@@ -48,7 +63,7 @@ try:
     CLAUDE_EXTRACTOR_AVAILABLE = True
 except ImportError as e:
     CLAUDE_EXTRACTOR_AVAILABLE = False
-    print(f"[HybridPipeline] CRITICAL: ClaudeExtractor not available - LLM extraction disabled: {e}")
+    logger.error("ClaudeExtractor not available - LLM extraction disabled", error=str(e))
 
 # Try to import validation components
 try:
@@ -56,14 +71,14 @@ try:
     VALIDATOR_AVAILABLE = True
 except ImportError as e:
     VALIDATOR_AVAILABLE = False
-    print(f"[HybridPipeline] ⚠️ WARNING: HardValidator not available - validation disabled: {e}")
+    logger.warning("HardValidator not available - validation disabled", error=str(e))
 
 try:
     from .contamination_guard import ContaminationGuard
     CONTAMINATION_GUARD_AVAILABLE = True
 except ImportError as e:
     CONTAMINATION_GUARD_AVAILABLE = False
-    print(f"[HybridPipeline] ⚠️ WARNING: ContaminationGuard not available - contamination checking disabled: {e}")
+    logger.warning("ContaminationGuard not available - contamination checking disabled", error=str(e))
 
 
 @dataclass
@@ -144,7 +159,7 @@ class HybridSAPPipeline:
         else:
             self.claude_extractor = None
             self.use_llm_extraction = False
-            print("[Hybrid Pipeline] WARNING: LLM extraction unavailable - set ANTHROPIC_API_KEY")
+            logger.warning("LLM extraction unavailable - set ANTHROPIC_API_KEY")
 
         # Initialize RAG adapter
         self.rag_adapter = create_rag_adapter() if use_rag else None
@@ -166,12 +181,13 @@ class HybridSAPPipeline:
             self.llm_generator = None
             self.use_llm_generation = False
 
-        if self.verbose:
-            print("[Hybrid Pipeline] Initialized")
-            print(f"  Extraction: {'LLM (Claude)' if self.use_llm_extraction else 'DISABLED (set ANTHROPIC_API_KEY)'}")
-            print(f"  Section Generation: {'LLM' if self.use_llm_generation else 'TEMPLATES (fallback)'}")
-            print(f"  RAG: {'enabled' if use_rag and self.rag_adapter else 'disabled'}")
-            print(f"  Validation: {'enabled' if use_validation else 'disabled'}")
+        logger.info(
+            "HybridSAPPipeline initialized",
+            extraction="LLM" if self.use_llm_extraction else "DISABLED",
+            generation="LLM" if self.use_llm_generation else "TEMPLATES",
+            rag="enabled" if use_rag and self.rag_adapter else "disabled",
+            validation="enabled" if use_validation else "disabled"
+        )
 
     def generate(
         self,
@@ -194,8 +210,7 @@ class HybridSAPPipeline:
             # =================================================================
             # LAYER 1: EXTRACTION (API + LLM or regex fallback)
             # =================================================================
-            if self.verbose:
-                print("\n[LAYER 1] Extracting protocol facts...")
+            logger.info("LAYER 1: Extracting protocol facts")
 
             # Use LLM extraction (NO regex fallback)
             facts = None
@@ -208,26 +223,25 @@ class HybridSAPPipeline:
                     # Convert to ProtocolFacts for compatibility
                     facts = self._convert_extracted_to_facts(extracted)
                     result.warnings.extend(extracted.warnings)
-                    if self.verbose:
-                        print(f"  ✓ LLM extraction via {extracted.extraction_source}")
-                        print(f"    Drug: {extracted.drug_name}")
-                        print(f"    Primary Endpoint: {extracted.primary_endpoint[:60]}..." if extracted.primary_endpoint else "    Primary Endpoint: Not found")
+                    logger.info(
+                        "LLM extraction successful",
+                        source=extracted.extraction_source,
+                        drug=extracted.drug_name,
+                        endpoint=extracted.primary_endpoint[:60] if extracted.primary_endpoint else None
+                    )
                 else:
                     # LLM failed - try API if NCT ID available
                     result.warnings.extend(extracted.warnings)
-                    if self.verbose:
-                        print(f"  ⚠️ LLM extraction failed: {extracted.warnings}")
+                    logger.warning("LLM extraction failed", warnings=extracted.warnings)
 
             # If no facts yet and NCT ID available, try API-only extraction
             if facts is None and nct_id:
-                if self.verbose:
-                    print("  Attempting API-only extraction...")
+                logger.info("Attempting API-only extraction", nct_id=nct_id)
                 facts = self._extract_from_api_only(nct_id, result)
 
             # If still no facts, create empty structure
             if facts is None:
-                if self.verbose:
-                    print("  ⚠️ No extraction method available - using empty facts")
+                logger.warning("No extraction method available - using empty facts")
                 facts = ProtocolFacts()
                 result.warnings.append("Extraction failed - set ANTHROPIC_API_KEY for LLM extraction")
 
@@ -254,8 +268,7 @@ class HybridSAPPipeline:
                 # Don't fail - just warn and continue with defaults
                 warning_msg = f"Missing facts (using defaults): {', '.join(missing_critical)}"
                 result.warnings.append(warning_msg)
-                if self.verbose:
-                    print(f"  ⚠️ {warning_msg}")
+                logger.warning("Missing critical facts", missing=missing_critical)
 
             # Track warnings for non-critical missing data
             if not facts.design_type:
@@ -268,20 +281,19 @@ class HybridSAPPipeline:
             # Convert to dict for reasoning engine
             facts_dict = self._facts_to_dict(facts)
 
-            if self.verbose:
-                print(f"  ✓ Drug: {facts.drug_name}")
-                print(f"  ✓ Design: {facts.design_type} (single-arm: {facts_dict.get('is_single_arm', False)})")
-                print(f"  ✓ Sample Size: {facts.sample_size.total_n if facts.sample_size else 0}")
-                print(f"  ✓ Primary Endpoint: {facts.primary_endpoint}")
-                if result.warnings:
-                    for w in result.warnings:
-                        print(f"  ⚠ {w}")
+            logger.info(
+                "Extraction complete",
+                drug=facts.drug_name,
+                design=facts.design_type,
+                is_single_arm=facts_dict.get('is_single_arm', False),
+                sample_size=facts.sample_size.total_n if facts.sample_size else 0,
+                warnings_count=len(result.warnings)
+            )
 
             # =================================================================
             # LAYER 2: HYBRID REASONING
             # =================================================================
-            if self.verbose:
-                print("\n[LAYER 2] Generating sections with hybrid reasoning...")
+            logger.info("LAYER 2: Generating sections with hybrid reasoning")
 
             # Generate sections using hybrid engine
             reasoning_results = self.reasoning_engine.generate_all_sections(facts_dict)
@@ -297,15 +309,16 @@ class HybridSAPPipeline:
                 else:
                     result.template_fallback_sections += 1
 
-                if self.verbose:
-                    icon = "🌳" if rr.reasoning_type == ReasoningType.DECISION_TREE else "📚" if rr.reasoning_type == ReasoningType.RAG else "📄"
-                    print(f"  {icon} {section}: {rr.reasoning_type.value} ({rr.confidence:.0%})")
+                logger.debug(
+                    f"Section generated: {section}",
+                    reasoning_type=rr.reasoning_type.value,
+                    confidence=f"{rr.confidence:.0%}"
+                )
 
             # =================================================================
             # LAYER 3: LLM-GENERATED SECTIONS (no templates)
             # =================================================================
-            if self.verbose:
-                print("\n[LAYER 3] Generating sections with LLM...")
+            logger.info("LAYER 3: Generating sections with LLM")
 
             if self.use_llm_generation and self.llm_generator:
                 # Generate sections using actual LLM calls (no templates)
@@ -324,18 +337,21 @@ class HybridSAPPipeline:
                     try:
                         gen_result = generator_func(facts_dict)
                         result.sections[section_name] = gen_result.content
-                        if self.verbose:
-                            src = gen_result.llm_source
-                            rag_count = len(gen_result.rag_examples_used)
-                            print(f"  🤖 {section_name}: LLM ({src}) + {rag_count} RAG examples")
+                        logger.debug(
+                            f"LLM section generated: {section_name}",
+                            llm_source=gen_result.llm_source,
+                            rag_examples=len(gen_result.rag_examples_used)
+                        )
                     except Exception as e:
                         result.warnings.append(f"LLM generation failed for {section_name}: {e}")
-                        if self.verbose:
-                            print(f"  ❌ {section_name}: LLM failed - {e}")
+                        logger.error(
+                            f"LLM generation failed for {section_name}",
+                            exc_info=True,
+                            error=str(e)
+                        )
             else:
                 # Fallback to template-based generation (deprecated)
-                if self.verbose:
-                    print("  ⚠️ Using template fallback (LLM generator unavailable)")
+                logger.warning("Using template fallback - LLM generator unavailable")
                 result.sections['introduction'] = self._generate_introduction(facts_dict)
                 result.sections['objectives'] = self._generate_objectives(facts_dict)
                 result.sections['study_design'] = self._generate_study_design(facts_dict)
@@ -345,8 +361,7 @@ class HybridSAPPipeline:
             # =================================================================
             # LAYER 4: ASSEMBLY
             # =================================================================
-            if self.verbose:
-                print("\n[LAYER 4] Assembling SAP document...")
+            logger.info("LAYER 4: Assembling SAP document")
 
             result.sap_text = self._assemble_sap(result.sections, facts_dict)
 
@@ -354,14 +369,12 @@ class HybridSAPPipeline:
             # LAYER 5: VALIDATION (never blocks, just collects issues)
             # =================================================================
             if self.use_validation and self.validator:
-                if self.verbose:
-                    print("\n[LAYER 5] Validating SAP...")
+                logger.info("LAYER 5: Validating SAP")
 
                 validation = self.validator.validate(result.sap_text, facts)
                 result.validation = validation
 
-                if self.verbose:
-                    print(f"  {validation.summary()}")
+                logger.info("Validation complete", summary=validation.summary())
 
                 # Add validation issues as warnings (NEVER block output)
                 if validation.issues:
@@ -378,16 +391,21 @@ class HybridSAPPipeline:
                     # Always clean and warn, never block
                     result.warnings.append(f"Contamination detected and cleaned: {report.contamination_sources}")
                     result.sap_text = cleaned
-                    if self.verbose:
-                        print(f"  ⚠️ Contamination cleaned: {report.contamination_sources}")
+                    logger.warning("Contamination cleaned", sources=report.contamination_sources)
 
             result.success = True  # Always succeed if we got here
+            logger.info(
+                "SAP generation complete",
+                sections_count=len(result.sections),
+                decision_tree=result.decision_tree_sections,
+                rag=result.rag_sections,
+                warnings_count=len(result.warnings)
+            )
 
         except Exception as e:
             result.success = False
             result.errors.append(str(e))
-            if self.verbose:
-                print(f"\n[ERROR] Pipeline failed: {e}")
+            logger.error("Pipeline failed", exc_info=True, error=str(e))
 
         return result
 
@@ -575,11 +593,11 @@ class HybridSAPPipeline:
                 ]
                 facts.num_arms = len(facts.arms)
 
-            if self.verbose:
-                print(f"  ✓ API enhanced: {facts.nct_id}")
+            logger.info("API enhancement successful", nct_id=facts.nct_id)
 
         except Exception as e:
             result.warnings.append(f"API enhancement failed: {e}")
+            logger.warning("API enhancement failed", exc_info=True, error=str(e))
 
         return facts
 
@@ -672,13 +690,13 @@ class HybridSAPPipeline:
                 ]
                 facts.num_arms = len(facts.arms)
 
-            if self.verbose:
-                print(f"  ✓ API-only extraction: {nct_id}")
+            logger.info("API-only extraction successful", nct_id=nct_id)
 
             return facts
 
         except Exception as e:
             result.warnings.append(f"API-only extraction failed: {e}")
+            logger.warning("API-only extraction failed", exc_info=True, nct_id=nct_id, error=str(e))
             return None
 
     def _convert_unified_to_protocol_facts(
