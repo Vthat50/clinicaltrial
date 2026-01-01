@@ -136,10 +136,155 @@ class ClinicalTrialsAPIExtractor:
     def __init__(self, timeout: int = 10):
         self.timeout = timeout
 
+        # Reference study patterns - NCT IDs near these are likely NOT the current study
+        self._reference_patterns = [
+            r'(?:prior|previous|reference|supporting|related)\s+(?:study|studies|trial|trials)',
+            r'(?:checkmate|keynote|impower|attraction|javelin)\s*[-\s]?\d+',  # Named trials
+            r'(?:in|from)\s+(?:the\s+)?(?:phase|study|trial)',
+            r'(?:similar(?:ly)?|consistent|comparable)\s+(?:to|with)',
+            r'(?:has|have|was|were)\s+(?:shown|demonstrated|reported)',
+            r'(?:nct\d{8})\s*(?:and|,)\s*(?:nct\d{8})',  # Multiple NCT IDs listed together (references)
+        ]
+        self._reference_regex = re.compile(
+            '|'.join(self._reference_patterns),
+            re.IGNORECASE
+        )
+
+        # Current study patterns - NCT IDs near these are likely THE current study
+        self._current_study_patterns = [
+            r'(?:this|current|present)\s+(?:study|trial|protocol)',
+            r'(?:protocol|study)\s+(?:number|id|identifier)',
+            r'ca209[-\s]?\d{3}',  # BMS protocol numbers
+            r'(?:sponsor|company)\s+(?:protocol|study)',
+            r'statistical\s+analysis\s+plan',
+            r'(?:title|name)\s*(?:of|:)\s*(?:the\s+)?(?:study|protocol)',
+        ]
+        self._current_study_regex = re.compile(
+            '|'.join(self._current_study_patterns),
+            re.IGNORECASE
+        )
+
     def extract_nct_id(self, text: str) -> Optional[str]:
-        """Extract NCT ID from text"""
-        match = re.search(r'NCT\d{8}', text, re.IGNORECASE)
-        return match.group().upper() if match else None
+        """
+        Extract NCT ID from text with smart disambiguation.
+
+        The root problem: Protocols often mention OTHER studies as references
+        (e.g., "consistent with CheckMate 057" or "similar to NCT01234567").
+        This method scores each NCT ID by context to find the ACTUAL study.
+        """
+        return self.extract_nct_id_smart(text)
+
+    def extract_nct_id_smart(self, text: str) -> Optional[str]:
+        """
+        Smart NCT ID extraction that distinguishes current study from references.
+
+        Scoring logic:
+        - NCT ID near "this study/protocol" -> +10 points
+        - NCT ID in first 2000 chars -> +5 points (likely title/header)
+        - NCT ID near protocol number (CA209-xxx) -> +8 points
+        - NCT ID near "reference/prior study" -> -10 points
+        - NCT ID mentioned with other NCT IDs (list of refs) -> -5 points
+
+        Returns the highest-scoring NCT ID.
+        """
+        if not text:
+            return None
+
+        # Find all NCT IDs with their positions
+        nct_pattern = re.compile(r'NCT\d{8}', re.IGNORECASE)
+        matches = list(nct_pattern.finditer(text))
+
+        if not matches:
+            return None
+
+        if len(matches) == 1:
+            # Only one NCT ID - return it
+            return matches[0].group().upper()
+
+        # Multiple NCT IDs - score each one
+        scores = {}
+        text_lower = text.lower()
+
+        for match in matches:
+            nct_id = match.group().upper()
+            pos = match.start()
+
+            # Initialize score
+            if nct_id not in scores:
+                scores[nct_id] = 0
+
+            # Context window: 500 chars before and after
+            context_start = max(0, pos - 500)
+            context_end = min(len(text), pos + 500)
+            context = text[context_start:context_end].lower()
+
+            # Positive signals: current study indicators
+            if self._current_study_regex.search(context):
+                scores[nct_id] += 10
+
+            # Positive: Near the beginning of document (likely title page)
+            if pos < 2000:
+                scores[nct_id] += 5
+            elif pos < 5000:
+                scores[nct_id] += 2
+
+            # Positive: Near sponsor protocol number (e.g., CA209-078)
+            if re.search(r'ca209[-\s]?\d{3}', context, re.IGNORECASE):
+                scores[nct_id] += 8
+
+            # Negative signals: reference study indicators
+            if self._reference_regex.search(context):
+                scores[nct_id] -= 10
+
+            # Negative: Multiple NCT IDs mentioned together (likely a reference list)
+            nearby_ncts = len(nct_pattern.findall(context))
+            if nearby_ncts > 2:
+                scores[nct_id] -= 5 * (nearby_ncts - 1)
+
+            # Negative: Mentioned after "such as", "e.g.", "including" (examples)
+            example_pattern = r'(?:such as|e\.g\.|including|for example)[^.]*' + nct_id.lower()
+            if re.search(example_pattern, context):
+                scores[nct_id] -= 8
+
+        # Return highest-scoring NCT ID
+        if scores:
+            best_nct = max(scores, key=scores.get)
+            # Log for debugging
+            print(f"[NCT Extractor] Found {len(scores)} NCT IDs. Scores: {scores}")
+            print(f"[NCT Extractor] Selected: {best_nct} (score: {scores[best_nct]})")
+            return best_nct
+
+        # Fallback to first match
+        return matches[0].group().upper()
+
+    def extract_all_nct_ids(self, text: str) -> List[Dict[str, Any]]:
+        """
+        Extract all NCT IDs with their scores for debugging.
+
+        Returns:
+            List of dicts with nct_id, score, and context
+        """
+        if not text:
+            return []
+
+        nct_pattern = re.compile(r'NCT\d{8}', re.IGNORECASE)
+        matches = list(nct_pattern.finditer(text))
+
+        results = []
+        for match in matches:
+            nct_id = match.group().upper()
+            pos = match.start()
+            context_start = max(0, pos - 100)
+            context_end = min(len(text), pos + 100)
+            context = text[context_start:context_end]
+
+            results.append({
+                "nct_id": nct_id,
+                "position": pos,
+                "context": context.replace('\n', ' ')[:200]
+            })
+
+        return results
 
     def fetch(self, nct_id: str) -> APIExtractedFacts:
         """
@@ -348,6 +493,121 @@ class ClinicalTrialsAPIExtractor:
                 return area
 
         return "general"
+
+    def validate_nct_id(self, nct_id: str, document_text: str, threshold: float = 0.3) -> Dict[str, Any]:
+        """
+        Validate NCT ID by cross-checking API data against document.
+
+        This prevents using a reference study's NCT ID by verifying
+        the API's protocol info matches the document content.
+
+        Args:
+            nct_id: NCT ID to validate
+            document_text: Full document text to match against
+            threshold: Minimum match score (0-1) to consider valid
+
+        Returns:
+            Dict with: valid (bool), confidence (float), reason (str), suggested_nct (str or None)
+        """
+        result = {
+            "valid": False,
+            "confidence": 0.0,
+            "reason": "",
+            "suggested_nct": None
+        }
+
+        # Fetch API data
+        api_facts = self.fetch(nct_id)
+        if not api_facts.api_success:
+            result["reason"] = f"API fetch failed: {api_facts.api_error}"
+            return result
+
+        doc_lower = document_text.lower()
+
+        # Calculate match score based on key identifiers
+        match_signals = []
+
+        # Check if API title appears in document
+        if api_facts.brief_title:
+            title_words = api_facts.brief_title.lower().split()
+            title_words = [w for w in title_words if len(w) > 3]  # Skip short words
+            if title_words:
+                matches = sum(1 for w in title_words if w in doc_lower)
+                title_score = matches / len(title_words)
+                match_signals.append(("title", title_score))
+
+        # Check if sponsor appears in document
+        if api_facts.sponsor:
+            sponsor_lower = api_facts.sponsor.lower()
+            sponsor_in_doc = sponsor_lower in doc_lower
+            match_signals.append(("sponsor", 1.0 if sponsor_in_doc else 0.0))
+
+        # Check if drug name appears in document
+        if api_facts.drug_name:
+            drug_lower = api_facts.drug_name.lower()
+            drug_in_doc = drug_lower in doc_lower
+            match_signals.append(("drug", 1.0 if drug_in_doc else 0.0))
+
+        # Check if indication/conditions appear
+        if api_facts.conditions:
+            conditions_lower = [c.lower() for c in api_facts.conditions]
+            condition_matches = sum(1 for c in conditions_lower if c in doc_lower)
+            if conditions_lower:
+                condition_score = condition_matches / len(conditions_lower)
+                match_signals.append(("conditions", condition_score))
+
+        # Check if org_study_id (sponsor protocol number) appears
+        if api_facts.org_study_id:
+            org_id_lower = api_facts.org_study_id.lower()
+            org_id_in_doc = org_id_lower in doc_lower
+            match_signals.append(("org_study_id", 1.0 if org_id_in_doc else 0.0))
+
+        # Calculate overall confidence
+        if match_signals:
+            # Weight: org_study_id and drug are most important
+            weights = {"org_study_id": 3.0, "drug": 2.0, "sponsor": 1.5, "title": 1.0, "conditions": 1.0}
+            weighted_sum = sum(score * weights.get(name, 1.0) for name, score in match_signals)
+            total_weight = sum(weights.get(name, 1.0) for name, _ in match_signals)
+            result["confidence"] = weighted_sum / total_weight
+        else:
+            result["confidence"] = 0.0
+
+        # Determine validity
+        result["valid"] = result["confidence"] >= threshold
+
+        if result["valid"]:
+            result["reason"] = f"NCT ID validated (confidence: {result['confidence']:.1%})"
+        else:
+            result["reason"] = f"NCT ID may be incorrect (confidence: {result['confidence']:.1%}). " \
+                               f"API title '{api_facts.brief_title[:50]}...' may not match document."
+
+            # Try to find a better NCT ID
+            all_ncts = self.extract_all_nct_ids(document_text)
+            for nct_info in all_ncts:
+                candidate = nct_info["nct_id"]
+                if candidate != nct_id:
+                    candidate_result = self.validate_nct_id(candidate, document_text, threshold)
+                    if candidate_result["valid"] and candidate_result["confidence"] > result["confidence"]:
+                        result["suggested_nct"] = candidate
+                        result["reason"] += f" Consider using {candidate} instead."
+                        break
+
+        print(f"[NCT Validator] {nct_id}: valid={result['valid']}, confidence={result['confidence']:.1%}")
+        return result
+
+    def extract_and_validate(self, text: str) -> tuple[Optional[str], Dict[str, Any]]:
+        """
+        Extract NCT ID and validate it against the document.
+
+        Returns:
+            Tuple of (nct_id, validation_result)
+        """
+        nct_id = self.extract_nct_id(text)
+        if not nct_id:
+            return None, {"valid": False, "confidence": 0.0, "reason": "No NCT ID found"}
+
+        validation = self.validate_nct_id(nct_id, text)
+        return nct_id, validation
 
 
 # Convenience function

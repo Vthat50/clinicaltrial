@@ -66,11 +66,29 @@ class ExtractedProtocol:
     pathologic_response_criteria: str = ""  # "Junker", "Miller-Payne", "TRG", etc.
     response_assessor: str = ""  # "investigator", "IRRC", "BICR"
 
-    # Statistical
-    statistical_method: str = ""
+    # Statistical - ENHANCED for complex trial designs
+    statistical_method: str = ""  # Primary method (e.g., "log-rank", "MMRM")
+    statistical_method_details: str = ""  # Full details (e.g., "Fleming-Harrington weighted log-rank G(rho=0, gamma=1)")
     alpha_level: float = 0.05
     power: float = 0.0
     hypothesis_testing_planned: bool = True  # False for pilot/feasibility studies
+
+    # Interim Analysis (NEW)
+    has_interim_analysis: bool = False
+    num_interim_analyses: int = 0
+    interim_analysis_method: str = ""  # "Lan-DeMets", "O'Brien-Fleming", "Pocock", etc.
+    error_spending_function: str = ""  # e.g., "alpha-spending with rho=1"
+    interim_events: List[int] = field(default_factory=list)  # Events at each interim
+    final_events: int = 0  # Events at final analysis
+
+    # Consistency/Non-Inferiority Objectives (NEW)
+    has_consistency_objective: bool = False  # True if comparing to prior studies
+    consistency_margin: str = ""  # e.g., "HR upper bound < 1.29"
+    consistency_reference_studies: List[str] = field(default_factory=list)  # e.g., ["CheckMate 057", "CheckMate 017"]
+
+    # Regulatory-Specific Endpoints (NEW)
+    regulatory_endpoints: List[Dict[str, str]] = field(default_factory=list)
+    # e.g., [{"endpoint": "TTF", "region": "China", "purpose": "NDA filing"}]
 
     # Analysis Populations - Protocol-Specific Definitions (NEW)
     itt_definition: str = ""  # Protocol's exact ITT definition
@@ -95,7 +113,7 @@ EXTRACTION_PROMPT = '''You are extracting structured information from a clinical
 Extract the following fields and return ONLY valid JSON (no other text):
 
 {{
-  "nct_id": "NCT number if present (e.g., NCT01234567)",
+  "nct_id": "NCT ID of THIS study only (NOT reference studies). Look for the NCT ID associated with the protocol title, study ID, or CA209-xxx number. If multiple NCT IDs appear, identify which one belongs to THIS protocol.",
   "protocol_title": "Full title of the study",
   "sponsor": "Sponsor company/organization",
   "phase": "Phase 1, Phase 2, Phase 3, Phase 4, or Phase 1/2, etc.",
@@ -129,10 +147,26 @@ Extract the following fields and return ONLY valid JSON (no other text):
   "pathologic_response_criteria": "Pathologic grading system if mentioned (Junker, Miller-Payne, TRG, pCR definition, etc.)",
   "response_assessor": "Who assesses response: investigator, IRRC, BICR, central review",
 
-  "statistical_method": "Primary statistical analysis method (e.g., ANCOVA, MMRM, Kaplan-Meier, logistic regression)",
+  "statistical_method": "Primary statistical analysis method (e.g., log-rank, MMRM, Cox regression)",
+  "statistical_method_details": "Full method specification including weights/parameters (e.g., 'Fleming-Harrington weighted log-rank G(rho=0, gamma=1)', 'stratified log-rank')",
   "alpha_level": 0.05 (significance level as decimal),
   "power": 0.80 (statistical power as decimal if mentioned, 0 if no formal power calculation),
   "hypothesis_testing_planned": true or false (false if pilot/feasibility study with only descriptive statistics),
+
+  "has_interim_analysis": true or false,
+  "num_interim_analyses": number of planned interim analyses (0 if none),
+  "interim_analysis_method": "Lan-DeMets, O'Brien-Fleming, Pocock, Haybittle-Peto, or other",
+  "error_spending_function": "Alpha spending function details if specified (e.g., 'rho=1', 'gamma=-4')",
+  "interim_events": [number of events at each interim analysis],
+  "final_events": number of events at final analysis,
+
+  "has_consistency_objective": true or false (true if study must show consistency with prior studies),
+  "consistency_margin": "HR upper bound or margin for consistency (e.g., 'HR < 1.29', 'delta = 0.1')",
+  "consistency_reference_studies": ["Names of reference studies for consistency check (e.g., 'CheckMate 057', 'CheckMate 017')"],
+
+  "regulatory_endpoints": [
+    {{"endpoint": "TTF or other regulatory-specific endpoint", "region": "China, Japan, EU, etc.", "purpose": "NDA filing, bridging study, etc."}}
+  ],
 
   "itt_definition": "Protocol's exact definition of Intent-to-Treat or Full Analysis Set population",
   "pp_definition": "Protocol's exact definition of Per-Protocol population",
@@ -147,13 +181,33 @@ Extract the following fields and return ONLY valid JSON (no other text):
 IMPORTANT RULES:
 1. Extract ONLY what is explicitly stated in the document
 2. If a field is not found, use empty string "" or 0 or empty array []
-3. For primary_endpoints, extract ALL co-primary endpoints - many studies have 2-3 (e.g., safety + efficacy + tumor response)
-4. For each primary endpoint, classify its TYPE: safety (AE rates), efficacy (clinical benefit), tumor_response (RECIST/pathologic), feasibility (compliance), pk (pharmacokinetic)
-5. For drug_name, identify the investigational product, not standard of care
-6. Set is_pilot_study=true if: no formal power calculation, described as pilot/feasibility/exploratory, or sample size justified by pragmatic/feasibility rationale
-7. Set hypothesis_testing_planned=false for pilot studies - they use descriptive statistics only
-8. For oncology studies, extract response_criteria (RECIST version) and pathologic_response_criteria if tumor assessment is an endpoint
-9. Return ONLY the JSON object, no explanations
+3. CRITICAL for nct_id: Many protocols mention REFERENCE studies (prior trials, supporting data). You MUST identify the NCT ID for THIS specific study:
+   - Look for NCT ID near: protocol title, sponsor ID (e.g., CA209-xxx), "this study", "current trial"
+   - IGNORE NCT IDs mentioned with: "prior study", "reference", "CheckMate 057", "similar to", "consistent with"
+   - IGNORE NCT IDs listed together (e.g., "NCT01234567 and NCT02345678") - those are usually references
+   - If you see "CA209-078" or similar sponsor protocol number, find the NCT ID associated with THAT number
+4. For primary_endpoints, extract ALL co-primary endpoints - many studies have 2-3 (e.g., safety + efficacy + tumor response)
+5. For each primary endpoint, classify its TYPE: safety (AE rates), efficacy (clinical benefit), tumor_response (RECIST/pathologic), feasibility (compliance), pk (pharmacokinetic)
+6. For drug_name, identify the investigational product, not standard of care
+7. Set is_pilot_study=true if: no formal power calculation, described as pilot/feasibility/exploratory, or sample size justified by pragmatic/feasibility rationale
+8. Set hypothesis_testing_planned=false for pilot studies - they use descriptive statistics only
+9. For oncology studies, extract response_criteria (RECIST version) and pathologic_response_criteria if tumor assessment is an endpoint
+10. STATISTICAL METHOD: Extract FULL specification including:
+    - Weighted tests: "Fleming-Harrington G(rho=X, gamma=Y)", "Gehan-Wilcoxon"
+    - Stratification: "stratified log-rank by X, Y, Z"
+    - Parameters: any rho, gamma, or other weighting parameters
+11. INTERIM ANALYSIS: Look for Lan-DeMets, O'Brien-Fleming, alpha-spending functions. Extract:
+    - Number of interim analyses
+    - Events/deaths at each analysis
+    - Error spending function parameters (rho, gamma values)
+12. CONSISTENCY OBJECTIVES: If the study must demonstrate "consistency" with prior trials:
+    - Set has_consistency_objective=true
+    - Extract the consistency margin (e.g., "HR upper bound < 1.29")
+    - List the reference studies (e.g., "CheckMate 057", "CheckMate 017")
+13. REGULATORY ENDPOINTS: Look for endpoints required for specific regions (China NDA, Japan PMDA):
+    - TTF (Time to Treatment Failure) for China
+    - Any bridging study endpoints
+14. Return ONLY the JSON object, no explanations
 
 PROTOCOL TEXT:
 {protocol_text}
@@ -284,11 +338,28 @@ class ClaudeProtocolExtractor:
         result.pathologic_response_criteria = response.get("pathologic_response_criteria", "") or ""
         result.response_assessor = response.get("response_assessor", "") or ""
 
-        # Statistical
+        # Statistical - ENHANCED
         result.statistical_method = response.get("statistical_method", "") or ""
+        result.statistical_method_details = response.get("statistical_method_details", "") or ""
         result.alpha_level = float(response.get("alpha_level", 0.05) or 0.05)
         result.power = float(response.get("power", 0) or 0)
         result.hypothesis_testing_planned = bool(response.get("hypothesis_testing_planned", True))
+
+        # Interim Analysis (NEW)
+        result.has_interim_analysis = bool(response.get("has_interim_analysis", False))
+        result.num_interim_analyses = int(response.get("num_interim_analyses", 0) or 0)
+        result.interim_analysis_method = response.get("interim_analysis_method", "") or ""
+        result.error_spending_function = response.get("error_spending_function", "") or ""
+        result.interim_events = response.get("interim_events", []) or []
+        result.final_events = int(response.get("final_events", 0) or 0)
+
+        # Consistency Objectives (NEW)
+        result.has_consistency_objective = bool(response.get("has_consistency_objective", False))
+        result.consistency_margin = response.get("consistency_margin", "") or ""
+        result.consistency_reference_studies = response.get("consistency_reference_studies", []) or []
+
+        # Regulatory Endpoints (NEW)
+        result.regulatory_endpoints = response.get("regulatory_endpoints", []) or []
 
         # Population Definitions (NEW)
         result.itt_definition = response.get("itt_definition", "") or ""

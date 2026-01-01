@@ -138,6 +138,20 @@ class LLMSectionGenerator:
             ('alpha_level', 'Alpha Level'),
             ('power', 'Statistical Power'),
             ('statistical_method', 'Statistical Method'),
+            ('statistical_method_details', 'Statistical Method (Full Specification)'),
+            # NEW: Interim analysis
+            ('has_interim_analysis', 'Interim Analysis Planned'),
+            ('num_interim_analyses', 'Number of Interim Analyses'),
+            ('interim_analysis_method', 'Interim Analysis Method'),
+            ('error_spending_function', 'Error Spending Function'),
+            ('interim_events', 'Events at Interim Analyses'),
+            ('final_events', 'Events at Final Analysis'),
+            # NEW: Consistency/non-inferiority objectives
+            ('has_consistency_objective', 'Consistency Objective'),
+            ('consistency_margin', 'Consistency Margin'),
+            ('consistency_reference_studies', 'Reference Studies for Consistency'),
+            # NEW: Regulatory-specific endpoints
+            ('regulatory_endpoints', 'Regulatory-Specific Endpoints'),
         ]
 
         lines = []
@@ -566,7 +580,44 @@ Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
 
         else:
             # Standard confirmatory trial prompt
-            system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+            # Check for protocol-specific statistical details
+            stat_method = facts.get('statistical_method', '')
+            stat_method_details = facts.get('statistical_method_details', '')
+            has_interim = facts.get('has_interim_analysis', False)
+            interim_method = facts.get('interim_analysis_method', '')
+            error_spending = facts.get('error_spending_function', '')
+            interim_events = facts.get('interim_events', [])
+            final_events = facts.get('final_events', 0)
+            has_consistency = facts.get('has_consistency_objective', False)
+            consistency_margin = facts.get('consistency_margin', '')
+            consistency_refs = facts.get('consistency_reference_studies', [])
+
+            # Build interim analysis context
+            interim_context = ""
+            if has_interim:
+                interim_context = f"""
+INTERIM ANALYSIS DESIGN:
+- Method: {interim_method}
+- Error Spending Function: {error_spending}
+- Number of Interim Analyses: {facts.get('num_interim_analyses', 1)}
+- Events at Interim: {interim_events}
+- Events at Final: {final_events}
+
+Include detailed interim analysis section with alpha allocation."""
+
+            # Build consistency objective context
+            consistency_context = ""
+            if has_consistency:
+                consistency_context = f"""
+CONSISTENCY OBJECTIVE:
+This study has a CONSISTENCY OBJECTIVE with prior studies.
+- Consistency Margin: {consistency_margin}
+- Reference Studies: {', '.join(consistency_refs)}
+
+This means the primary objective includes demonstrating consistency with these prior trials.
+Include a hierarchical testing procedure where consistency is tested BEFORE the main efficacy hypothesis."""
+
+            system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP).
 Write the Statistical Methods section including:
 1. General statistical principles (significance level, confidence intervals)
 2. Primary endpoint analysis method (appropriate for endpoint type)
@@ -580,12 +631,26 @@ Choose methods appropriate for the endpoint type:
 - Binary: CMH test, logistic regression, Fisher's exact
 - Continuous: ANCOVA, MMRM, t-test
 
-For oncology/immunotherapy with delayed treatment effects, consider:
-- Fleming-Harrington weighted log-rank test
-- Restricted mean survival time (RMST)
+IMPORTANT - USE PROTOCOL-SPECIFIED METHODS:
+- If the protocol specifies a weighted log-rank test (e.g., Fleming-Harrington), USE THAT EXACT METHOD
+- If rho/gamma parameters are given (e.g., G(rho=0, gamma=1)), include them
+- If interim analysis uses Lan-DeMets or O'Brien-Fleming, describe the error spending function
+- If there is a consistency objective, describe the hierarchical testing procedure
 
 Use the actual comparator drug name, not "placebo" unless it IS placebo.
-Write specific model specifications with covariates."""
+Write specific model specifications with covariates.
+{interim_context}
+{consistency_context}"""
+
+            # Build statistical method instruction
+            stat_method_instruction = ""
+            if stat_method_details:
+                stat_method_instruction = f"""
+PROTOCOL-SPECIFIED STATISTICAL METHOD: {stat_method_details}
+You MUST use this exact method as specified in the protocol."""
+            elif stat_method:
+                stat_method_instruction = f"""
+PROTOCOL-SPECIFIED STATISTICAL METHOD: {stat_method}"""
 
             user_prompt = f"""Write the Statistical Methods section for this SAP.
 
@@ -593,6 +658,7 @@ PROTOCOL FACTS:
 {self._format_facts_for_prompt(facts)}
 
 ENDPOINT TYPE DETECTED: {endpoint_type}
+{stat_method_instruction}
 
 EXAMPLES FROM SIMILAR SAPs:
 {self._format_examples_for_prompt(examples)}
@@ -600,7 +666,9 @@ EXAMPLES FROM SIMILAR SAPs:
 IMPORTANT:
 - Use the actual comparator (not "placebo" unless it really is)
 - Be specific about model covariates and stratification
-- Include the appropriate test for the endpoint type
+- Use the EXACT statistical method specified in the protocol (if provided)
+- If interim analysis is planned, include full alpha-spending details
+- If consistency objective exists, describe hierarchical testing
 
 Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
 

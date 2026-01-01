@@ -271,6 +271,12 @@ class HybridSAPPipeline:
             if nct_id:
                 facts.nct_id = nct_id
 
+            # Validate NCT ID before using it (prevents using reference study NCT IDs)
+            if facts.nct_id and protocol_text:
+                facts.nct_id = self._validate_and_correct_nct_id(
+                    facts.nct_id, protocol_text, result
+                )
+
             # Enhance with API if NCT ID available
             if facts.nct_id:
                 facts = self._enhance_with_api(facts, result)
@@ -599,6 +605,93 @@ class HybridSAPPipeline:
             pass
 
         return facts
+
+    def _validate_and_correct_nct_id(
+        self,
+        nct_id: str,
+        protocol_text: str,
+        result: HybridPipelineResult
+    ) -> str:
+        """
+        Validate NCT ID and correct if it appears to be a reference study.
+
+        Root issue: Protocols often mention OTHER studies as references
+        (e.g., "consistent with CheckMate 057"). This method validates
+        by cross-checking API data against the document.
+
+        Args:
+            nct_id: Extracted NCT ID to validate
+            protocol_text: Full protocol text for validation
+            result: Pipeline result to add warnings to
+
+        Returns:
+            Validated NCT ID (may be different if correction needed)
+        """
+        try:
+            from .api_extractor import ClinicalTrialsAPIExtractor
+            extractor = ClinicalTrialsAPIExtractor()
+
+            # First, validate the current NCT ID
+            validation = extractor.validate_nct_id(nct_id, protocol_text)
+
+            if validation["valid"]:
+                logger.info(
+                    "NCT ID validated",
+                    nct_id=nct_id,
+                    confidence=f"{validation['confidence']:.1%}"
+                )
+                return nct_id
+
+            # Validation failed - NCT ID might be a reference study
+            result.warnings.append(
+                f"NCT ID validation warning: {validation['reason']}"
+            )
+
+            # Try to find the correct NCT ID using smart extraction
+            smart_nct = extractor.extract_nct_id_smart(protocol_text)
+
+            if smart_nct and smart_nct != nct_id:
+                # Validate the alternative
+                alt_validation = extractor.validate_nct_id(smart_nct, protocol_text)
+
+                if alt_validation["valid"] and alt_validation["confidence"] > validation["confidence"]:
+                    logger.warning(
+                        "NCT ID corrected",
+                        original=nct_id,
+                        corrected=smart_nct,
+                        confidence=f"{alt_validation['confidence']:.1%}"
+                    )
+                    result.warnings.append(
+                        f"NCT ID auto-corrected: {nct_id} -> {smart_nct} "
+                        f"(original appeared to be a reference study)"
+                    )
+                    return smart_nct
+
+            # If suggested_nct was found during validation, try that
+            if validation.get("suggested_nct"):
+                suggested = validation["suggested_nct"]
+                logger.warning(
+                    "Using suggested NCT ID",
+                    original=nct_id,
+                    suggested=suggested
+                )
+                result.warnings.append(
+                    f"Using suggested NCT ID: {suggested} (instead of {nct_id})"
+                )
+                return suggested
+
+            # Couldn't find a better NCT ID - use original with warning
+            logger.warning(
+                "NCT ID validation failed but no alternative found",
+                nct_id=nct_id,
+                confidence=f"{validation['confidence']:.1%}"
+            )
+            return nct_id
+
+        except Exception as e:
+            logger.warning("NCT ID validation error", error=str(e))
+            result.warnings.append(f"NCT ID validation skipped: {str(e)}")
+            return nct_id
 
     def _enhance_with_api(self, facts: ProtocolFacts, result: HybridPipelineResult) -> ProtocolFacts:
         """Fetch from ClinicalTrials.gov API and override regex-extracted fields"""
@@ -1008,6 +1101,26 @@ class HybridSAPPipeline:
                 result['safety_definition'] = llm['safety_definition']
             if llm.get('fas_definition'):
                 result['fas_definition'] = llm['fas_definition']
+
+            # NEW: Statistical method details (e.g., Fleming-Harrington weighted log-rank)
+            result['statistical_method'] = llm.get('statistical_method', '')
+            result['statistical_method_details'] = llm.get('statistical_method_details', '')
+
+            # NEW: Interim analysis details
+            result['has_interim_analysis'] = llm.get('has_interim_analysis', False)
+            result['num_interim_analyses'] = llm.get('num_interim_analyses', 0)
+            result['interim_analysis_method'] = llm.get('interim_analysis_method', '')
+            result['error_spending_function'] = llm.get('error_spending_function', '')
+            result['interim_events'] = llm.get('interim_events', [])
+            result['final_events'] = llm.get('final_events', 0)
+
+            # NEW: Consistency/non-inferiority objectives
+            result['has_consistency_objective'] = llm.get('has_consistency_objective', False)
+            result['consistency_margin'] = llm.get('consistency_margin', '')
+            result['consistency_reference_studies'] = llm.get('consistency_reference_studies', [])
+
+            # NEW: Regulatory-specific endpoints (e.g., TTF for China)
+            result['regulatory_endpoints'] = llm.get('regulatory_endpoints', [])
 
         return result
 
