@@ -154,14 +154,28 @@ class Estimand:
 
 @dataclass
 class TreatmentArm:
-    """Treatment arm definition"""
+    """
+    Treatment arm definition.
+
+    DEPRECATED: Use TreatmentArm from structured_extractor.py instead.
+    This class is kept for backwards compatibility only.
+    The canonical definition is in structured_extractor.py which is a Pydantic model.
+    """
     name: str
-    description: str
+    description: str = ""  # Made optional with default for compatibility
     dose: Optional[str] = None
     schedule: Optional[str] = None
     route: Optional[str] = None
+    frequency: Optional[str] = None  # Added for compatibility
+    n_patients: Optional[int] = None  # Added for compatibility
     is_control: bool = False
+    is_placebo: bool = False  # Added for compatibility
     is_active_comparator: bool = False
+
+    def __post_init__(self):
+        # Auto-populate description if not provided
+        if not self.description:
+            self.description = self.name
 
 
 @dataclass

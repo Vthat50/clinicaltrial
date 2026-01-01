@@ -46,14 +46,28 @@ class TrialDesignType(str, Enum):
 
 
 class TreatmentArm(BaseModel):
-    """A treatment arm in the study"""
+    """
+    A treatment arm in the study.
+
+    Note: This is the canonical TreatmentArm definition used throughout the pipeline.
+    The schemas.py version is deprecated - use this one.
+    """
     name: str
+    description: Optional[str] = None  # Added for compatibility with schemas.py
     dose: Optional[str] = None
+    schedule: Optional[str] = None     # Added for compatibility with schemas.py
     route: Optional[str] = None
     frequency: Optional[str] = None
     n_patients: Optional[int] = None
     is_placebo: bool = False
+    is_control: bool = False           # Added for compatibility with schemas.py
     is_active_comparator: bool = False
+
+    def __init__(self, **data):
+        # Auto-populate description from name if not provided
+        if 'description' not in data or data['description'] is None:
+            data['description'] = data.get('name', '')
+        super().__init__(**data)
 
 
 class EndpointDefinition(BaseModel):
