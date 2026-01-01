@@ -2020,13 +2020,18 @@ async def process_jobs_worker():
 
                 if result.success:
                     # Update with success - FULL pipeline provides comprehensive metadata
+                    # Truncate string fields to fit DB column limits (some are varchar(10))
+                    phase_str = str(result.phase) if result.phase else ""
+                    if "." in phase_str:  # Handle enum like "StudyPhase.PHASE_3"
+                        phase_str = phase_str.split(".")[-1].replace("_", " ").title()
+
                     update_data = {
                         "status": "completed",
                         "generated_sap": result.sap_text,
                         "quality_score": result.quality_score,
-                        "endpoint_type": result.endpoint_type,
-                        "phase": result.phase,
-                        "therapeutic_area": result.therapeutic_area,
+                        "endpoint_type": (result.endpoint_type or "")[:10],  # varchar(10)
+                        "phase": phase_str[:10],  # varchar(10)
+                        "therapeutic_area": (result.therapeutic_area or "")[:20],
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
                     }
