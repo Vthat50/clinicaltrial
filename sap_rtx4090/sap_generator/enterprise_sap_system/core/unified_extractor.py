@@ -308,7 +308,7 @@ class UnifiedExtractor:
         if self.verbose:
             print("[Layer 3] Filling gaps with regex extraction...")
 
-        regex_facts = self.regex_extractor.extract(protocol_text)
+        regex_facts = self.regex_extractor.extract_all(protocol_text)
 
         filled = []
 
