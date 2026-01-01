@@ -619,10 +619,16 @@ class HardValidator:
             r'\b([A-Z]{2,3}\d{3,4})\b',
             r'\b([a-z]+(?:mab|nib|lib))\b',
         ]
+        # Biomarker filter - CD137, CD19, CD20, etc. are NOT drugs
+        biomarker_pattern = re.compile(r'^CD\d{1,3}$', re.IGNORECASE)
+
         for pattern in patterns:
             match = re.search(pattern, sap_text)
             if match:
-                return match.group(1)
+                candidate = match.group(1)
+                # Skip biomarkers
+                if not biomarker_pattern.match(candidate):
+                    return candidate
         return "None found"
 
     def _find_sample_size_in_sap(self, sap_text: str) -> Optional[int]:

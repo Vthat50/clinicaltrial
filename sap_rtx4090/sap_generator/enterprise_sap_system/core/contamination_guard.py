@@ -205,6 +205,11 @@ class ProtocolIdentityExtractor:
         }
         drug_names = {d for d in drug_names if d.lower() not in false_positives}
 
+        # CRITICAL: Filter out biomarkers (CD137, CD19, CD20, etc.) - these are NOT drugs
+        # Biomarkers are cell surface markers used for targeting, not the drug itself
+        biomarker_pattern = re.compile(r'^CD\d{1,3}$', re.IGNORECASE)
+        drug_names = {d for d in drug_names if not biomarker_pattern.match(d)}
+
         # Prioritize drug codes (XX-123 or XX123) over generic words
         drug_codes = [d for d in drug_names if re.match(r'^[A-Z]{2,4}[-]?\d{3,}$', d.upper())]
         if drug_codes:

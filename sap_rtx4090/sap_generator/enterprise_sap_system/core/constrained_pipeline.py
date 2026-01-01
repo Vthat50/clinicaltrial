@@ -2188,9 +2188,22 @@ Footnotes:
             phase = facts.phase or "Phase 2"
             indication = facts.indication or "Not specified"
             sponsor = facts.sponsor or "Sponsor"
-            design = facts.design_type or "Randomized controlled trial"
             total_n = facts.total_n or 0
-            ratio = facts.ratio or "1:1"
+
+            # CRITICAL FIX: Detect single-arm trials properly
+            num_arms = facts.num_arms or 0
+            is_single_arm = (
+                num_arms == 1 or
+                (facts.design_type and "single" in facts.design_type.lower()) or
+                not facts.ratio  # No ratio = likely single-arm
+            )
+
+            if is_single_arm:
+                design = facts.design_type or "Single-arm, open-label"
+                ratio = "N/A (single-arm)"
+            else:
+                design = facts.design_type or "Randomized controlled trial"
+                ratio = facts.ratio or "1:1"
         else:
             # Legacy format: CitedValue with .value
             drug = facts.drug_name.value if facts.drug_name else "[STUDY DRUG]"
@@ -2198,9 +2211,18 @@ Footnotes:
             phase = facts.phase.value if facts.phase else "Phase 2"
             indication = "Not specified"
             sponsor = "Sponsor"
-            design = "Randomized controlled trial"
             total_n = facts.total_n.value if facts.total_n else 0
-            ratio = facts.ratio.value if facts.ratio else "1:1"
+
+            # CRITICAL FIX: Detect single-arm from legacy format
+            num_arms = facts.num_arms.value if facts.num_arms else 0
+            is_single_arm = getattr(facts, 'is_single_arm', False) or num_arms == 1
+
+            if is_single_arm:
+                design = facts.design_type.value if facts.design_type else "Single-arm, open-label"
+                ratio = "N/A (single-arm)"
+            else:
+                design = facts.design_type.value if facts.design_type else "Randomized controlled trial"
+                ratio = facts.ratio.value if facts.ratio else "1:1"
 
         # Generate version date for document control
         from datetime import datetime

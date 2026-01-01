@@ -224,12 +224,18 @@ class AnchorExtractor:
             (r'\b([A-Z]{2,3}\d{3,4})\b', 'Drug code format'),  # TJ301, AB123
         ]
 
+        # Biomarker filter - CD137, CD19, CD20, etc. are NOT drugs
+        biomarker_pattern = re.compile(r'^CD\d{1,3}$', re.IGNORECASE)
+
         for pattern, source in patterns:
             matches = re.finditer(pattern, text, re.IGNORECASE)
             for match in matches:
                 name = match.group(1).strip()
-                # Filter out false positives
+                # Filter out false positives and biomarkers
                 if name.upper() not in ['NCT', 'THE', 'AND', 'FOR', 'WITH']:
+                    # Skip biomarkers (CD137, CD19, etc.)
+                    if biomarker_pattern.match(name):
+                        continue
                     start = max(0, match.start() - 50)
                     end = min(len(text), match.end() + 50)
                     citation = text[start:end].replace('\n', ' ')

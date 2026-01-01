@@ -36,6 +36,15 @@ class StudyPhase(str, Enum):
     UNKNOWN = "Unknown"
 
 
+class TrialDesignType(str, Enum):
+    """Critical: Determines template selection and statistical approach"""
+    SINGLE_ARM = "single_arm"                    # No control, descriptive stats only
+    RANDOMIZED_CONTROLLED = "randomized_controlled"  # RCT with control arm
+    RANDOMIZED_OPEN_LABEL = "randomized_open_label"  # Randomized but not blinded
+    NON_RANDOMIZED_COMPARATIVE = "non_randomized_comparative"  # Comparative but not randomized
+    UNKNOWN = "unknown"
+
+
 class TreatmentArm(BaseModel):
     """A treatment arm in the study"""
     name: str
@@ -400,8 +409,18 @@ class StructuredFactExtractor:
         text_lower = text.lower()
 
         design_parts = []
-        if 'randomized' in text_lower or 'randomised' in text_lower:
+
+        # CRITICAL: Check for single-arm FIRST (takes priority)
+        is_single_arm = any(x in text_lower for x in [
+            'single-arm', 'single arm', 'one-arm', 'one arm',
+            'non-randomized', 'nonrandomized'
+        ])
+
+        if is_single_arm:
+            design_parts.append('single-arm')
+        elif 'randomized' in text_lower or 'randomised' in text_lower:
             design_parts.append('randomized')
+
         if 'double-blind' in text_lower or 'double blind' in text_lower:
             design_parts.append('double-blind')
         elif 'single-blind' in text_lower or 'single blind' in text_lower:
@@ -637,6 +656,15 @@ class StructuredFactExtractor:
 
     def _extract_num_arms(self, text: str) -> int:
         """Extract number of treatment arms"""
+        text_lower = text.lower()
+
+        # CRITICAL: Check for single-arm FIRST
+        if any(x in text_lower for x in [
+            'single-arm', 'single arm', 'one-arm', 'one arm',
+            'non-randomized', 'nonrandomized'
+        ]):
+            return 1
+
         # From ratio
         ratio_match = re.search(r'(\d+:\d+(?::\d+)*)', text)
         if ratio_match:

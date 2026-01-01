@@ -23,6 +23,9 @@ from dataclasses import dataclass, field
 from pydantic import BaseModel, Field, field_validator, model_validator
 from enum import Enum
 
+# Import the SINGLE SOURCE OF TRUTH for extraction
+from .structured_extractor import StructuredFactExtractor, ProtocolFacts as StructuredProtocolFacts
+
 
 # =============================================================================
 # STAGE 1: PROTOCOL FACTS (Grounded Extraction)
@@ -63,6 +66,8 @@ class ProtocolFacts:
     num_arms: Optional[CitedValue] = None
     ratio: Optional[CitedValue] = None
     arms: List[CitedValue] = field(default_factory=list)
+    design_type: Optional[CitedValue] = None  # "single_arm", "randomized", etc.
+    is_single_arm: bool = False  # Critical flag for template selection
 
     # Endpoints
     primary_endpoint: Optional[CitedValue] = None
@@ -756,106 +761,136 @@ class ContaminationDetector:
 # UTILITY: Extract ProtocolFacts from protocol text
 # =============================================================================
 
+# Singleton extractor instance
+_extractor = None
+
+def _get_extractor() -> StructuredFactExtractor:
+    """Get or create the singleton extractor instance."""
+    global _extractor
+    if _extractor is None:
+        _extractor = StructuredFactExtractor()
+    return _extractor
+
+
 def extract_protocol_facts(protocol_text: str) -> ProtocolFacts:
     """
     Extract all protocol facts with citations.
-    Uses regex patterns to find values and capture surrounding context.
+
+    CONSOLIDATED: Uses StructuredFactExtractor as the single source of truth.
+    Converts to CitedValue format for backward compatibility.
     """
+    # Use the single source of truth for extraction
+    extractor = _get_extractor()
+    structured_facts = extractor.extract_all(protocol_text)
+
+    # Convert to legacy CitedValue format
     facts = ProtocolFacts()
 
-    def extract_with_citation(pattern: str, group: int = 1) -> Optional[CitedValue]:
-        match = re.search(pattern, protocol_text, re.IGNORECASE)
-        if match:
-            start = max(0, match.start() - 50)
-            end = min(len(protocol_text), match.end() + 50)
-            citation = protocol_text[start:end].replace('\n', ' ')
-            return CitedValue(
-                value=match.group(group),
-                citation=f"...{citation}..."
-            )
-        return None
-
     # NCT ID
-    facts.nct_id = extract_with_citation(r'(NCT\d{8})')
+    if structured_facts.nct_id:
+        facts.nct_id = CitedValue(value=structured_facts.nct_id, citation="Extracted from protocol")
 
-    # Drug name - priority: explicit declaration
-    drug_patterns = [
-        (r'(?:Investigational\s+Product|IMP)[:\s]+([A-Za-z][A-Za-z0-9-]{2,})', 1),
-        (r'\b([A-Z]{2,3}\d{3,4})\b', 1),  # TJ301, AB123
-    ]
-    for pattern, group in drug_patterns:
-        result = extract_with_citation(pattern)
-        if result and result.value.upper() not in ['NCT', 'THE', 'AND', 'FOR']:
-            facts.drug_name = result
-            break
+    # Drug name (now correctly filtered for biomarkers like CD137)
+    if structured_facts.drug_name:
+        facts.drug_name = CitedValue(value=structured_facts.drug_name, citation="Extracted from protocol")
+        print(f"[DEBUG] Consolidated extraction (legacy) - drug: {structured_facts.drug_name}")
 
     # Sample size
-    size_patterns = [
-        r'(?:total\s+of\s+)?(\d{2,4})\s+(?:patients?|subjects?)\s+(?:will\s+be\s+)?(?:enrolled|randomized)',
-        r'(?:sample\s+size)[:\s]+(\d{2,4})',
-        r'(?:enroll|randomize)\s+(?:approximately\s+)?(\d{2,4})',
-        r'N\s*[=:]\s*(\d{2,4})',
-    ]
-    for pattern in size_patterns:
-        result = extract_with_citation(pattern)
-        if result:
-            n = int(result.value)
-            if 10 <= n <= 10000:
-                facts.total_n = CitedValue(value=n, citation=result.citation)
-                break
+    if structured_facts.sample_size and structured_facts.sample_size.total_n:
+        facts.total_n = CitedValue(
+            value=structured_facts.sample_size.total_n,
+            citation="Extracted from protocol"
+        )
 
     # Ratio
-    ratio_result = extract_with_citation(r'\b(\d+:\d+(?::\d+)*)\b')
-    if ratio_result:
-        facts.ratio = ratio_result
-        # Derive num_arms from ratio
-        num_arms = len(ratio_result.value.split(':'))
+    if structured_facts.randomization_ratio:
+        facts.ratio = CitedValue(
+            value=structured_facts.randomization_ratio,
+            citation="Extracted from protocol"
+        )
+
+    # Num arms
+    if structured_facts.num_arms:
         facts.num_arms = CitedValue(
-            value=num_arms,
-            citation=f"Derived from ratio {ratio_result.value}"
+            value=structured_facts.num_arms,
+            citation="Extracted from protocol"
         )
 
     # Per-arm N
-    if facts.total_n and facts.num_arms:
-        per_arm = facts.total_n.value // facts.num_arms.value
-        facts.per_arm_n = CitedValue(
-            value=per_arm,
-            citation=f"Calculated: {facts.total_n.value} / {facts.num_arms.value}"
-        )
+    if structured_facts.sample_size and structured_facts.sample_size.per_arm:
+        per_arm_values = list(structured_facts.sample_size.per_arm.values())
+        if per_arm_values:
+            facts.per_arm_n = CitedValue(
+                value=per_arm_values[0],
+                citation="Extracted from protocol"
+            )
 
     # Power
-    power_patterns = [
-        r'(\d{2})%?\s*power',
-        r'power\s+(?:of\s+)?(\d{2})%?',
-    ]
-    for pattern in power_patterns:
-        result = extract_with_citation(pattern)
-        if result:
-            power = int(result.value)
-            if 70 <= power <= 99:
-                facts.power = CitedValue(value=f"{power}%", citation=result.citation)
-                break
+    if structured_facts.sample_size and structured_facts.sample_size.power:
+        power_val = structured_facts.sample_size.power
+        if power_val < 1:
+            power_val = int(power_val * 100)
+        facts.power = CitedValue(value=f"{power_val}%", citation="Extracted from protocol")
 
     # Alpha
-    alpha_result = extract_with_citation(r'alpha\s*(?:=|of)?\s*(0\.0\d+)')
-    if alpha_result:
-        facts.alpha = CitedValue(value=float(alpha_result.value), citation=alpha_result.citation)
-
-    # Alpha sidedness
-    if re.search(r'one[- ]sided|1[- ]sided', protocol_text, re.IGNORECASE):
-        facts.alpha_sidedness = CitedValue(value="one-sided", citation="one-sided alpha")
-    elif re.search(r'two[- ]sided|2[- ]sided', protocol_text, re.IGNORECASE):
-        facts.alpha_sidedness = CitedValue(value="two-sided", citation="two-sided alpha")
+    if structured_facts.alpha:
+        facts.alpha = CitedValue(
+            value=structured_facts.alpha.primary_alpha,
+            citation="Extracted from protocol"
+        )
+        facts.alpha_sidedness = CitedValue(
+            value=structured_facts.alpha.sidedness,
+            citation="Extracted from protocol"
+        )
 
     # Route
-    route_patterns = [
-        (r'\b(intravenous(?:ly)?|IV)\b', 'intravenous'),
-        (r'\b(subcutaneous(?:ly)?|SC)\b', 'subcutaneous'),
-        (r'\b(oral(?:ly)?)\b', 'oral'),
-    ]
-    for pattern, normalized in route_patterns:
-        if re.search(pattern, protocol_text, re.IGNORECASE):
-            facts.route = CitedValue(value=normalized, citation=pattern)
-            break
+    if structured_facts.route_of_administration:
+        facts.route = CitedValue(
+            value=structured_facts.route_of_administration.value,
+            citation="Extracted from protocol"
+        )
+
+    # Primary endpoint
+    if structured_facts.primary_endpoint:
+        facts.primary_endpoint = CitedValue(
+            value=structured_facts.primary_endpoint.name,
+            citation="Extracted from protocol"
+        )
+        if structured_facts.primary_endpoint.timepoint:
+            facts.primary_timepoint = CitedValue(
+                value=structured_facts.primary_endpoint.timepoint,
+                citation="Extracted from protocol"
+            )
+
+    # Population
+    if structured_facts.primary_analysis_population:
+        facts.primary_population = CitedValue(
+            value=structured_facts.primary_analysis_population,
+            citation="Extracted from protocol"
+        )
+
+    # Design type (NEW - critical for single-arm detection)
+    if structured_facts.design_type:
+        facts.design_type = CitedValue(
+            value=structured_facts.design_type,
+            citation="Extracted from protocol"
+        )
+        # Set single-arm flag based on design type or num_arms
+        design_lower = structured_facts.design_type.lower() if structured_facts.design_type else ""
+        facts.is_single_arm = (
+            "single" in design_lower or
+            "single-arm" in design_lower or
+            "one-arm" in design_lower or
+            structured_facts.num_arms == 1
+        )
+    elif structured_facts.num_arms == 1:
+        facts.is_single_arm = True
+
+    # Additional check: if no randomization mentioned and num_arms is 1
+    if structured_facts.num_arms == 1 and not structured_facts.randomization_ratio:
+        facts.is_single_arm = True
+
+    if facts.is_single_arm:
+        print(f"[DEBUG] Single-arm trial detected!")
 
     return facts

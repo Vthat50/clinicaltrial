@@ -149,22 +149,39 @@ class FactExtractor:
         if 'sample_size' not in facts:
             facts['sample_size'] = 0
 
+        # CRITICAL: Detect single-arm trials FIRST
+        text_lower = protocol_text.lower()
+        is_single_arm = any(x in text_lower for x in [
+            'single-arm', 'single arm', 'one-arm', 'one arm',
+            'non-randomized', 'nonrandomized', 'open-label single'
+        ])
+
         # Randomization ratio
         ratio_patterns = [
             r'(\d+:\d+(?::\d+)?)\s*(?:randomization|ratio)',
             r'randomiz(?:ed|ation)\s*(?:in a)?\s*(\d+:\d+(?::\d+)?)',
             r'(\d+:\d+)\s*(?:to|allocation)',
         ]
+        ratio_found = False
         for pattern in ratio_patterns:
             match = re.search(pattern, protocol_text, re.IGNORECASE)
             if match:
                 facts['randomization_ratio'] = match.group(1)
+                ratio_found = True
                 break
-        if 'randomization_ratio' not in facts:
-            facts['randomization_ratio'] = "1:1"
 
-        # Number of arms
-        facts['num_arms'] = facts['randomization_ratio'].count(':') + 1
+        # Set ratio and arms based on single-arm detection
+        if is_single_arm or not ratio_found:
+            if is_single_arm:
+                facts['randomization_ratio'] = "N/A (single-arm)"
+                facts['num_arms'] = 1
+            else:
+                # Only default to 1:1 if NOT single-arm
+                facts['randomization_ratio'] = "1:1"
+                facts['num_arms'] = 2
+        else:
+            # Number of arms from ratio
+            facts['num_arms'] = facts['randomization_ratio'].count(':') + 1
 
         # Phase
         phase_match = re.search(r'phase\s*([1-4](?:/[2-4])?|[IiVv]+(?:/[IiVv]+)?)', protocol_text, re.IGNORECASE)
