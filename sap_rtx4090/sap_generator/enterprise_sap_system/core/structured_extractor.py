@@ -227,6 +227,14 @@ class StructuredFactExtractor:
         facts.randomization_ratio = self._extract_randomization_ratio(protocol_text)
         facts.stratification_factors = self._extract_stratification_factors(protocol_text)
 
+        # CRITICAL: Ensure consistency between design_type and num_arms
+        # If design says "single-arm", force num_arms=1 regardless of arm extraction
+        if facts.design_type and 'single-arm' in facts.design_type.lower():
+            if facts.num_arms != 1:
+                print(f"[DEBUG] Design says single-arm but found {facts.num_arms} arms - forcing num_arms=1")
+                facts.num_arms = 1
+                facts.arms = facts.arms[:1] if facts.arms else []  # Keep only first arm if any
+
         # Sample Size
         facts.sample_size = self._extract_sample_size(protocol_text, facts.num_arms)
 
@@ -841,8 +849,15 @@ class StructuredFactExtractor:
     def _extract_primary_endpoint(self, text: str) -> Optional[EndpointDefinition]:
         """Extract primary endpoint definition"""
         patterns = [
-            r'(?:primary\s+(?:endpoint|efficacy\s+endpoint|outcome))[:\s]+([^\n]+(?:\n(?![A-Z0-9])[^\n]+)*)',
+            # More specific patterns first
+            r'(?:primary\s+(?:efficacy\s+)?endpoint)[:\s]+([^\n]+(?:\n(?![A-Z0-9•\-])[^\n]+)*)',
+            r'(?:primary\s+(?:efficacy\s+)?outcome)[:\s]+([^\n]+)',
             r'(?:primary\s+objective)[:\s]+([^\n]+)',
+            # Oncology-specific
+            r'(?:primary\s+(?:efficacy\s+)?variable)[:\s]+([^\n]+)',
+            r'(?:objective\s+response\s+rate|ORR)[:\s]*([^\n]*)',
+            r'(?:overall\s+survival|OS)[:\s]*([^\n]*)',
+            r'(?:progression[- ]free\s+survival|PFS)[:\s]*([^\n]*)',
         ]
 
         for pattern in patterns:
@@ -850,15 +865,23 @@ class StructuredFactExtractor:
             if match:
                 endpoint_text = match.group(1).strip()
 
+                # VALIDATION: Skip if definition is too short or just a number
+                if len(endpoint_text) < 10:
+                    continue  # Too short to be a real endpoint definition
+                if endpoint_text.isdigit():
+                    continue  # Just a number, not a definition
+                if re.match(r'^[\d.%]+$', endpoint_text):
+                    continue  # Just numbers/percentages
+
                 # Extract timepoint if present
                 timepoint = None
-                time_match = re.search(r'(?:at|by)\s+(?:week|day|month)\s+(\d+)', endpoint_text, re.IGNORECASE)
+                time_match = re.search(r'(?:at|by|week)\s*(\d+)', endpoint_text, re.IGNORECASE)
                 if time_match:
                     timepoint = f"Week {time_match.group(1)}"
 
                 # Extract scoring system if present
                 scoring = None
-                scoring_patterns = ['CDAI', 'Mayo', 'PASI', 'ACR', 'DAS28', 'RECIST', 'ECOG']
+                scoring_patterns = ['CDAI', 'Mayo', 'PASI', 'ACR', 'DAS28', 'RECIST', 'ECOG', 'irRC', 'iRECIST']
                 for score in scoring_patterns:
                     if score.lower() in endpoint_text.lower():
                         scoring = score
@@ -869,6 +892,23 @@ class StructuredFactExtractor:
                     definition=endpoint_text[:500],
                     timepoint=timepoint,
                     scoring_system=scoring
+                )
+
+        # Fallback: Look for common oncology endpoints in the full text
+        oncology_endpoints = [
+            (r'objective\s+response\s+rate\s*\(?\s*ORR\s*\)?', 'Objective Response Rate (ORR)'),
+            (r'overall\s+survival\s*\(?\s*OS\s*\)?', 'Overall Survival (OS)'),
+            (r'progression[- ]free\s+survival\s*\(?\s*PFS\s*\)?', 'Progression-Free Survival (PFS)'),
+            (r'disease[- ]free\s+survival\s*\(?\s*DFS\s*\)?', 'Disease-Free Survival (DFS)'),
+            (r'duration\s+of\s+response\s*\(?\s*DOR\s*\)?', 'Duration of Response (DOR)'),
+        ]
+
+        for pattern, name in oncology_endpoints:
+            if re.search(pattern, text, re.IGNORECASE):
+                return EndpointDefinition(
+                    name="Primary Endpoint",
+                    definition=name,
+                    scoring_system='RECIST' if 'response' in name.lower() else None
                 )
 
         return None

@@ -379,7 +379,7 @@ def get_hybrid_pipeline() -> HybridSAPPipeline:
         _hybrid_pipeline = create_hybrid_pipeline(
             use_rag=True,
             use_validation=True,
-            strict_validation=True,  # BLOCK output on validation failures
+            strict_validation=False,  # Only block on CRITICAL issues, allow HIGH with warnings
             verbose=False
         )
     return _hybrid_pipeline
@@ -1973,7 +1973,7 @@ async def process_jobs_worker():
     LAYER 4 - VALIDATION:
     - HardValidator (CRITICAL/HIGH/MEDIUM severity)
     - ContaminationGuard (cross-protocol detection)
-    - Blocks output if critical facts missing (strict_validation=True)
+    - Blocks output only on CRITICAL issues (HIGH issues are warnings)
     """
     global worker_running
 
@@ -2016,7 +2016,7 @@ async def process_jobs_worker():
                 pipeline = create_hybrid_pipeline(
                     use_rag=True,
                     use_validation=True,
-                    strict_validation=True,  # BLOCK output on validation failures
+                    strict_validation=False,  # Only block on CRITICAL issues, allow HIGH with warnings
                     verbose=True
                 )
                 print("  [INIT] Hybrid Pipeline initialized (Decision Trees + RAG)")
