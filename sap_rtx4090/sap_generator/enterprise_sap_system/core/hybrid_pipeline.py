@@ -535,21 +535,62 @@ class HybridSAPPipeline:
             object.__setattr__(facts, '_llm_facts', {
                 'comparator': extracted.comparator,
                 'statistical_method': extracted.statistical_method,
-                # NEW: Include pilot study and hypothesis testing flags
+                # Pilot study and hypothesis testing flags
                 'is_pilot_study': extracted.is_pilot_study,
                 'hypothesis_testing_planned': extracted.hypothesis_testing_planned,
                 'sample_size_justification': extracted.sample_size_justification,
-                # NEW: Include multiple co-primary endpoints
+                # Multiple co-primary endpoints
                 'primary_endpoints': extracted.primary_endpoints,
-                # NEW: Include oncology response criteria
+                # Oncology response criteria
                 'response_criteria': extracted.response_criteria,
                 'pathologic_response_criteria': extracted.pathologic_response_criteria,
                 'response_assessor': extracted.response_assessor,
-                # NEW: Include protocol-specific population definitions
+                # Protocol-specific population definitions
                 'itt_definition': extracted.itt_definition,
                 'pp_definition': extracted.pp_definition,
                 'safety_definition': extracted.safety_definition,
                 'fas_definition': extracted.fas_definition,
+
+                # ========== CRITICAL: Previously missing fields ==========
+
+                # INTERIM ANALYSIS fields (for OS/PFS trials with DMC oversight)
+                'has_interim_analysis': getattr(extracted, 'has_interim_analysis', False),
+                'num_interim_analyses': getattr(extracted, 'num_interim_analyses', 0),
+                'interim_analysis_method': getattr(extracted, 'interim_analysis_method', None),
+                'error_spending_function': getattr(extracted, 'error_spending_function', None),
+                'alpha_spending_params': getattr(extracted, 'alpha_spending_params', None),
+                'interim_events': getattr(extracted, 'interim_events', None),
+                'interim_alpha_spent': getattr(extracted, 'interim_alpha_spent', None),
+                'interim_information_fraction': getattr(extracted, 'interim_information_fraction', None),
+                'final_events': getattr(extracted, 'final_events', None),
+                'stopping_boundaries': getattr(extracted, 'stopping_boundaries', None),
+
+                # HIERARCHICAL TESTING fields (for multiple endpoints)
+                'has_hierarchical_testing': getattr(extracted, 'has_hierarchical_testing', False),
+                'hierarchical_testing_order': getattr(extracted, 'hierarchical_testing_order', None),
+                'hierarchical_testing_description': getattr(extracted, 'hierarchical_testing_description', None),
+
+                # CONSISTENCY/BRIDGING STUDY fields (for regional regulatory)
+                'has_consistency_objective': getattr(extracted, 'has_consistency_objective', False),
+                'consistency_type': getattr(extracted, 'consistency_type', None),
+                'consistency_margin': getattr(extracted, 'consistency_margin', None),
+                'consistency_reference_studies': getattr(extracted, 'consistency_reference_studies', None),
+                'consistency_reference_effect': getattr(extracted, 'consistency_reference_effect', None),
+                'consistency_test_description': getattr(extracted, 'consistency_test_description', None),
+                'consistency_is_primary': getattr(extracted, 'consistency_is_primary', False),
+
+                # REGULATORY/REGIONAL ENDPOINTS (e.g., TTF for China)
+                'regulatory_endpoints': getattr(extracted, 'regulatory_endpoints', None),
+                'is_bridging_study': getattr(extracted, 'is_bridging_study', False),
+                'target_regions': getattr(extracted, 'target_regions', None),
+
+                # STATISTICAL METHOD DETAILS (weighted log-rank, etc.)
+                'statistical_method_details': getattr(extracted, 'statistical_method_details', None),
+                'primary_test_type': getattr(extracted, 'primary_test_type', None),
+                'test_parameters': getattr(extracted, 'test_parameters', None),
+
+                # DOCUMENT TYPE (SAP vs Protocol)
+                'document_type': getattr(extracted, 'document_type', 'protocol'),
             })
         except Exception:
             pass  # Ignore if we can't set this attribute
