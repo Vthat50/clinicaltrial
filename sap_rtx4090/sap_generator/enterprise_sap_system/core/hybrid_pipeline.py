@@ -32,13 +32,6 @@ from .hybrid_reasoning import (
 )
 from .rag_adapter import create_rag_adapter, HybridRAGAdapter
 
-# Try to import unified extractor (API + Section Parser + LLM)
-try:
-    from .unified_extractor import UnifiedExtractor, UnifiedFacts
-    UNIFIED_EXTRACTOR_AVAILABLE = True
-except ImportError as e:
-    UNIFIED_EXTRACTOR_AVAILABLE = False
-    print(f"[HybridPipeline] Note: UnifiedExtractor not available, using regex: {e}")
 
 # Try to import validation components
 try:
@@ -112,9 +105,6 @@ class HybridSAPPipeline:
         use_rag: bool = True,
         use_validation: bool = True,
         strict_validation: bool = False,
-        use_unified_extractor: bool = True,
-        use_api: bool = True,
-        use_llm_extraction: bool = True,
         verbose: bool = True
     ):
         """
@@ -124,28 +114,14 @@ class HybridSAPPipeline:
             use_rag: Enable RAG for enhanced sections
             use_validation: Enable post-generation validation
             strict_validation: Block output on validation failures
-            use_unified_extractor: Use API + LLM extraction (recommended)
-            use_api: Fetch from ClinicalTrials.gov API
-            use_llm_extraction: Use LLM for statistical methods extraction
             verbose: Print progress messages
         """
         self.verbose = verbose
         self.use_validation = use_validation
         self.strict_validation = strict_validation
-        self.use_unified = use_unified_extractor and UNIFIED_EXTRACTOR_AVAILABLE
 
-        # Initialize extractor - prefer unified if available
-        if self.use_unified:
-            self.unified_extractor = UnifiedExtractor(
-                use_api=use_api,
-                use_llm=use_llm_extraction,
-                use_regex_fallback=True,
-                verbose=verbose
-            )
-            self.extractor = StructuredFactExtractor()  # Keep as fallback
-        else:
-            self.unified_extractor = None
-            self.extractor = StructuredFactExtractor()
+        # Initialize extractor
+        self.extractor = StructuredFactExtractor()
 
         # Initialize RAG adapter
         self.rag_adapter = create_rag_adapter() if use_rag else None
@@ -161,10 +137,9 @@ class HybridSAPPipeline:
 
         if self.verbose:
             print("[Hybrid Pipeline] Initialized")
-            print(f"  Extraction: {'API + LLM (unified)' if self.use_unified else 'regex only'}")
+            print(f"  Extraction: regex + API enhancement")
             print(f"  RAG: {'enabled' if use_rag and self.rag_adapter else 'disabled'}")
             print(f"  Validation: {'enabled' if use_validation else 'disabled'}")
-            print(self.reasoning_engine.get_reasoning_summary())
 
     def generate(
         self,
@@ -190,23 +165,14 @@ class HybridSAPPipeline:
             if self.verbose:
                 print("\n[LAYER 1] Extracting protocol facts...")
 
-            # Use unified extractor (API + LLM) if available
-            if self.use_unified and self.unified_extractor:
-                unified_facts = self.unified_extractor.extract(protocol_text, nct_id)
+            # Step 1: Regex extraction (existing)
+            facts = self.extractor.extract_all(protocol_text)
+            if nct_id:
+                facts.nct_id = nct_id
 
-                # Convert UnifiedFacts to ProtocolFacts for pipeline compatibility
-                facts = self._convert_unified_to_protocol_facts(unified_facts, protocol_text)
-
-                # Add warnings from unified extraction
-                result.warnings.extend(unified_facts.warnings)
-
-                if self.verbose:
-                    print(f"  Sources used: {', '.join(unified_facts.sources_used)}")
-            else:
-                # Fallback to regex-only extraction
-                facts = self.extractor.extract_all(protocol_text)
-                if nct_id:
-                    facts.nct_id = nct_id
+            # Step 2: If we have NCT ID, fetch from API and override
+            if facts.nct_id:
+                facts = self._enhance_with_api(facts, result)
 
             result.facts = facts
 
@@ -331,6 +297,101 @@ class HybridSAPPipeline:
                 print(f"\n[ERROR] Pipeline failed: {e}")
 
         return result
+
+    def _enhance_with_api(self, facts: ProtocolFacts, result: HybridPipelineResult) -> ProtocolFacts:
+        """Fetch from ClinicalTrials.gov API and override regex-extracted fields"""
+        import requests
+
+        try:
+            url = f"https://clinicaltrials.gov/api/v2/studies/{facts.nct_id}"
+            resp = requests.get(url, timeout=10)
+
+            if resp.status_code != 200:
+                result.warnings.append(f"API fetch failed: {resp.status_code}")
+                return facts
+
+            data = resp.json()
+            protocol = data.get("protocolSection", {})
+
+            # Override with API data (more accurate than regex)
+            design = protocol.get("designModule", {})
+            design_info = design.get("designInfo", {})
+
+            # Sample size
+            enrollment = design.get("enrollmentInfo", {}).get("count", 0)
+            if enrollment:
+                from .structured_extractor import SampleSizeSpec
+                facts.sample_size = SampleSizeSpec(total_n=enrollment)
+
+            # Phase
+            phases = design.get("phases", [])
+            if phases:
+                from .structured_extractor import StudyPhase
+                phase_map = {
+                    "PHASE1": StudyPhase.PHASE_1,
+                    "PHASE2": StudyPhase.PHASE_2,
+                    "PHASE3": StudyPhase.PHASE_3,
+                    "PHASE4": StudyPhase.PHASE_4,
+                }
+                facts.phase = phase_map.get(phases[0], StudyPhase.UNKNOWN)
+
+            # Design type
+            model = design_info.get("interventionModel", "")
+            allocation = design_info.get("allocation", "")
+            if model == "SINGLE_GROUP":
+                facts.design_type = "single-arm"
+                facts.num_arms = 1
+            elif allocation == "RANDOMIZED":
+                facts.design_type = "randomized"
+
+            # Drug name
+            arms_module = protocol.get("armsInterventionsModule", {})
+            interventions = arms_module.get("interventions", [])
+            for intv in interventions:
+                if intv.get("type") in ["DRUG", "BIOLOGICAL"]:
+                    facts.drug_name = intv.get("name", "")
+                    break
+
+            # Primary endpoint
+            outcomes = protocol.get("outcomesModule", {})
+            primary = outcomes.get("primaryOutcomes", [])
+            if primary:
+                from .structured_extractor import EndpointDefinition
+                facts.primary_endpoint = EndpointDefinition(
+                    name="Primary Endpoint",
+                    definition=primary[0].get("measure", ""),
+                    timepoint=primary[0].get("timeFrame", "")
+                )
+
+            # Secondary endpoints
+            secondary = outcomes.get("secondaryOutcomes", [])
+            if secondary:
+                from .structured_extractor import EndpointDefinition
+                facts.secondary_endpoints = [
+                    EndpointDefinition(name="Secondary", definition=s.get("measure", ""))
+                    for s in secondary[:5]
+                ]
+
+            # Arms
+            arm_groups = arms_module.get("armGroups", [])
+            if arm_groups:
+                from .structured_extractor import TreatmentArm
+                facts.arms = [
+                    TreatmentArm(
+                        name=a.get("label", ""),
+                        is_placebo="placebo" in a.get("label", "").lower()
+                    )
+                    for a in arm_groups
+                ]
+                facts.num_arms = len(facts.arms)
+
+            if self.verbose:
+                print(f"  ✓ API enhanced: {facts.nct_id}")
+
+        except Exception as e:
+            result.warnings.append(f"API enhancement failed: {e}")
+
+        return facts
 
     def _convert_unified_to_protocol_facts(
         self,
