@@ -2031,25 +2031,15 @@ async def process_jobs_worker():
                         "completed_at": datetime.utcnow().isoformat()
                     }
 
-                    # Add validation metadata if available - include actual issues for display
-                    if result.hard_validation:
-                        # ValidationResult is a dataclass, access attributes directly
-                        issues = result.hard_validation.issues if hasattr(result.hard_validation, 'issues') else []
-                        update_data["validation_issues"] = len(issues)
-                        update_data["validation_score"] = result.hard_validation.score if hasattr(result.hard_validation, 'score') else 0
-                        # Store issue details for frontend display
+                    # Log validation info (don't save to DB - columns may not exist)
+                    if result.hard_validation and hasattr(result.hard_validation, 'issues'):
+                        issues = result.hard_validation.issues
                         if issues:
-                            issue_details = []
-                            for issue in issues[:10]:  # Limit to 10 issues
-                                issue_details.append({
-                                    "severity": issue.severity.value if hasattr(issue, 'severity') else "HIGH",
-                                    "message": issue.message if hasattr(issue, 'message') else str(issue),
-                                    "field": issue.field if hasattr(issue, 'field') else ""
-                                })
-                            update_data["validation_details"] = issue_details
-                    if result.contamination_report:
-                        is_contaminated = result.contamination_report.is_contaminated if hasattr(result.contamination_report, 'is_contaminated') else False
-                        update_data["contamination_detected"] = is_contaminated
+                            print(f"  Validation issues ({len(issues)}):")
+                            for issue in issues[:5]:
+                                severity = issue.severity.value if hasattr(issue, 'severity') else "HIGH"
+                                message = issue.message if hasattr(issue, 'message') else str(issue)
+                                print(f"    [{severity}] {message}")
 
                     db.table("sap_jobs").update(update_data).eq("id", job_id).execute()
 
