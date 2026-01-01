@@ -352,9 +352,9 @@ class HybridSAPPipeline:
 
         # Design
         facts.design_type = unified.design_type
-        facts.is_randomized = unified.is_randomized
         facts.is_blinded = unified.is_blinded
         facts.num_arms = unified.num_arms
+        # Note: is_randomized is derived from design_type in _facts_to_dict
 
         # Arms
         if unified.arms:
@@ -408,12 +408,9 @@ class HybridSAPPipeline:
         else:
             facts.phase = StudyPhase.UNKNOWN
 
-        # Store LLM-extracted statistical methods in raw_text for now
-        # These will be used by the reasoning engine
-        facts.raw_text = protocol_text
-
-        # Add LLM-extracted fields as custom attributes
-        facts._llm_facts = {
+        # Store LLM-extracted fields for the reasoning engine
+        # Using object.__setattr__ to bypass Pydantic validation
+        object.__setattr__(facts, '_llm_facts', {
             "primary_analysis_method": unified.primary_analysis_method,
             "analysis_model": unified.analysis_model,
             "covariates": unified.covariates,
@@ -422,7 +419,7 @@ class HybridSAPPipeline:
             "sensitivity_analyses": unified.sensitivity_analyses,
             "baseline_definition": unified.baseline_definition,
             "visit_windows": unified.visit_windows,
-        }
+        })
 
         return facts
 
