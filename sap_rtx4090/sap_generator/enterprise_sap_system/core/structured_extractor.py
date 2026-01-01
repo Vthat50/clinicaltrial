@@ -550,24 +550,44 @@ class StructuredFactExtractor:
         inn_suffixes = ('mab', 'nib', 'lib', 'mod', 'vir', 'pril', 'statin', 'sartan',
                         'olol', 'prazole', 'tidine', 'cillin', 'mycin', 'zole', 'parib',
                         'platin', 'taxel', 'tinib', 'ciclib', 'lukast', 'gliptin', 'glutide')
-        inn_names = [d for d in drug_list if any(d.lower().endswith(s) for s in inn_suffixes)]
-        if inn_names:
-            # Prefer monoclonal antibodies (-mab) as they're usually investigational
-            mab_drugs = [d for d in inn_names if d.lower().endswith('mab')]
-            if mab_drugs:
-                print(f"[DEBUG] MAB drugs found: {mab_drugs}, selecting: {mab_drugs[0]}")
-                return mab_drugs[0], drug_list
-            # Then prefer other targeted therapies (-nib, -mod)
-            targeted = [d for d in inn_names if d.lower().endswith(('nib', 'mod', 'tinib'))]
-            if targeted:
-                print(f"[DEBUG] Targeted therapy drugs found: {targeted}, selecting: {targeted[0]}")
-                return targeted[0], drug_list
-            # Fallback to any INN name
-            inn_names.sort(key=len, reverse=True)
-            print(f"[DEBUG] INN drug names found: {inn_names}, selecting: {inn_names[0]}")
-            return inn_names[0], drug_list
 
-        # PRIORITY 2: Drug codes (BMS-936558, PF-06480605, etc.)
+        # KNOWN REFERENCE/COMPARATOR drugs - these are NOT the investigational drug
+        # These are commonly used as comparators or mentioned as prior therapy
+        known_reference_drugs = {
+            # IBD/Rheumatology reference drugs
+            'adalimumab', 'infliximab', 'vedolizumab', 'ustekinumab', 'golimumab',
+            'certolizumab', 'natalizumab', 'etanercept', 'rituximab', 'tocilizumab',
+            'sarilumab', 'secukinumab', 'ixekizumab', 'guselkumab', 'risankizumab',
+            'tofacitinib', 'baricitinib', 'upadacitinib', 'filgotinib',
+            # Oncology - Checkpoint inhibitors
+            'ipilimumab', 'pembrolizumab', 'nivolumab', 'atezolizumab', 'durvalumab',
+            'avelumab', 'cemiplimab', 'tremelimumab',
+            # Oncology - Other targeted antibodies
+            'bevacizumab', 'trastuzumab', 'cetuximab', 'panitumumab', 'pertuzumab',
+            'ramucirumab', 'necitumumab', 'obinutuzumab', 'daratumumab', 'elotuzumab',
+            # Oncology - Small molecule targeted therapies
+            'erlotinib', 'gefitinib', 'afatinib', 'osimertinib', 'crizotinib',
+            'alectinib', 'ceritinib', 'brigatinib', 'lorlatinib', 'entrectinib',
+            'imatinib', 'dasatinib', 'nilotinib', 'bosutinib', 'ponatinib',
+            'vemurafenib', 'dabrafenib', 'trametinib', 'cobimetinib', 'binimetinib',
+            'olaparib', 'rucaparib', 'niraparib', 'talazoparib',
+            'palbociclib', 'ribociclib', 'abemaciclib',
+            'sorafenib', 'sunitinib', 'pazopanib', 'axitinib', 'cabozantinib', 'lenvatinib',
+            'lapatinib', 'neratinib', 'tucatinib',
+            # Oncology - Chemotherapy (commonly compared against)
+            'carboplatin', 'cisplatin', 'oxaliplatin', 'paclitaxel', 'docetaxel',
+            'gemcitabine', 'pemetrexed', 'capecitabine', 'fluorouracil', 'irinotecan',
+            'doxorubicin', 'epirubicin', 'cyclophosphamide', 'etoposide', 'vinorelbine',
+            # Oncology - Hormone therapies
+            'tamoxifen', 'letrozole', 'anastrozole', 'exemestane', 'fulvestrant',
+            'enzalutamide', 'abiraterone', 'apalutamide', 'darolutamide',
+            # Other common reference drugs
+            'methotrexate', 'azathioprine', 'mercaptopurine', 'prednisone', 'budesonide',
+            'leflunomide', 'sulfasalazine', 'hydroxychloroquine',
+        }
+
+        # PRIORITY 1: Drug codes (TJ301, BMS-936558, PF-06480605, etc.)
+        # Check these FIRST because they're clearly investigational products
         drug_codes = [d for d in drug_list if re.match(r'^[A-Z]{2,4}[-]?\d{3,}$', d)]
         if drug_codes:
             # Prefer codes with company prefix pattern (BMS-, PF-, etc.)
@@ -580,7 +600,31 @@ class StructuredFactExtractor:
             print(f"[DEBUG] Drug codes found: {drug_codes}, selecting: {drug_codes[0]}")
             return drug_codes[0], drug_list
 
-        # PRIORITY 3: Any remaining drug name
+        # PRIORITY 2: INN names that are NOT known reference drugs
+        inn_names = [d for d in drug_list if any(d.lower().endswith(s) for s in inn_suffixes)]
+        if inn_names:
+            # EXCLUDE known reference drugs - they're not the investigational drug
+            investigational_inn = [d for d in inn_names if d.lower() not in known_reference_drugs]
+
+            if investigational_inn:
+                # Prefer monoclonal antibodies (-mab) as they're usually investigational
+                mab_drugs = [d for d in investigational_inn if d.lower().endswith('mab')]
+                if mab_drugs:
+                    print(f"[DEBUG] MAB drugs found: {mab_drugs}, selecting: {mab_drugs[0]}")
+                    return mab_drugs[0], drug_list
+                # Then prefer other targeted therapies (-nib, -mod)
+                targeted = [d for d in investigational_inn if d.lower().endswith(('nib', 'mod', 'tinib'))]
+                if targeted:
+                    print(f"[DEBUG] Targeted therapy drugs found: {targeted}, selecting: {targeted[0]}")
+                    return targeted[0], drug_list
+                # Fallback to any non-reference INN name
+                investigational_inn.sort(key=len, reverse=True)
+                print(f"[DEBUG] INN drug names found: {investigational_inn}, selecting: {investigational_inn[0]}")
+                return investigational_inn[0], drug_list
+            # If only reference drugs found, DON'T return them - fall through to fallback
+            print(f"[DEBUG] Only reference drugs found in INN: {inn_names}, skipping to fallback")
+
+        # PRIORITY 3: Any remaining drug name (last resort)
         if drug_list:
             print(f"[DEBUG] Fallback drug names: {drug_list}, selecting: {drug_list[0]}")
             return drug_list[0], drug_list
@@ -694,18 +738,41 @@ class StructuredFactExtractor:
         patterns = [
             r'(?:stratif(?:y|ied|ication)\s+(?:by|factors?)[:\s]+)([^\n.]+)',
             r'(?:randomization\s+stratif(?:y|ied|ication)[:\s]+)([^\n.]+)',
+            r'(?:stratified\s+by)[:\s]+([^\n.]+)',
         ]
 
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
             if match:
                 factor_text = match.group(1)
-                # Split by common delimiters
-                parts = re.split(r'[,;]|\band\b', factor_text)
-                for part in parts:
-                    part = part.strip()
-                    if len(part) > 3 and len(part) < 100:
-                        factors.append(part)
+
+                # Smart splitting: Don't break on "and" within parentheses or within factor names
+                # First, try to identify complete factors by looking for patterns like "X (yes/no)"
+                # Pattern: factor name optionally followed by (levels)
+                factor_pattern = r'([^,;]+?\s*(?:\([^)]+\))?)'
+                potential_factors = re.findall(factor_pattern, factor_text)
+
+                if potential_factors:
+                    for part in potential_factors:
+                        part = part.strip().strip(',').strip(';').strip()
+                        # Remove leading "and " but keep "and" within the factor name
+                        if part.lower().startswith('and '):
+                            part = part[4:].strip()
+                        if len(part) > 3 and len(part) < 100:
+                            # Don't add duplicates
+                            if part not in factors:
+                                factors.append(part)
+                else:
+                    # Fallback: split only on comma and semicolon, NOT on "and"
+                    parts = re.split(r'[,;]', factor_text)
+                    for part in parts:
+                        part = part.strip()
+                        # Remove leading "and " but keep compound names
+                        if part.lower().startswith('and '):
+                            part = part[4:].strip()
+                        if len(part) > 3 and len(part) < 100:
+                            if part not in factors:
+                                factors.append(part)
 
         return factors
 
@@ -738,13 +805,20 @@ class StructuredFactExtractor:
             r'(?:will\s+)?include\s+(?:approximately\s+)?(\d+)\s+(?:patients?|subjects?)',
         ]
 
+        # Collect ALL matches and take the LARGEST (not first)
+        # This handles cases where background mentions "100 patients" but actual size is "400 randomized"
+        all_sizes = []
         for pattern in total_patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
+            for match in re.finditer(pattern, text, re.IGNORECASE):
                 n = int(match.group(1))
                 if 10 <= n <= 100000:  # Reasonable range
-                    spec.total_n = n
-                    break
+                    all_sizes.append(n)
+
+        if all_sizes:
+            # Take the LARGEST sample size found (usually the actual total)
+            spec.total_n = max(all_sizes)
+            if len(set(all_sizes)) > 1:
+                print(f"[DEBUG] Multiple sample sizes found: {sorted(set(all_sizes))}, using largest: {spec.total_n}")
 
         # Per-arm if available
         if spec.total_n > 0 and num_arms > 0:

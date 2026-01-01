@@ -300,6 +300,39 @@ class HardValidator:
                     message=f"Stratification factors not found in SAP"
                 ))
 
+        # 13. HIGH: Primary endpoint definition present
+        if facts.primary_endpoint:
+            total_checks += 1
+            endpoint_def = facts.primary_endpoint.definition if hasattr(facts.primary_endpoint, 'definition') else str(facts.primary_endpoint)
+            # Check if key words from endpoint definition are in SAP
+            endpoint_keywords = [w.lower() for w in endpoint_def.split() if len(w) > 3]
+            keywords_found = sum(1 for kw in endpoint_keywords[:5] if kw in sap_text.lower())
+            if keywords_found >= 2:  # At least 2 key words should match
+                checks_passed += 1
+            else:
+                issues.append(ValidationIssue(
+                    field="primary_endpoint",
+                    expected=endpoint_def[:100],
+                    found=self._find_primary_endpoint_in_sap(sap_text),
+                    severity=ValidationSeverity.HIGH,
+                    message=f"Primary endpoint definition not adequately described in SAP"
+                ))
+
+        # 14. MEDIUM: Primary timepoint mentioned
+        if facts.primary_endpoint and hasattr(facts.primary_endpoint, 'timepoint') and facts.primary_endpoint.timepoint:
+            total_checks += 1
+            timepoint = facts.primary_endpoint.timepoint.lower()
+            if timepoint in sap_text.lower() or self._check_timepoint_present(sap_text, timepoint):
+                checks_passed += 1
+            else:
+                issues.append(ValidationIssue(
+                    field="primary_timepoint",
+                    expected=facts.primary_endpoint.timepoint,
+                    found="Not found or different",
+                    severity=ValidationSeverity.MEDIUM,
+                    message=f"Primary timepoint '{facts.primary_endpoint.timepoint}' not found in SAP"
+                ))
+
         # Calculate score
         score = (checks_passed / total_checks * 100) if total_checks > 0 else 0
 
@@ -671,6 +704,37 @@ class HardValidator:
             return int(arm_match.group(1))
 
         return None
+
+    def _find_primary_endpoint_in_sap(self, sap_text: str) -> str:
+        """Find primary endpoint mentioned in SAP"""
+        patterns = [
+            r'(?:primary\s+endpoint)[:\s]+([^\n.]+)',
+            r'(?:primary\s+efficacy\s+endpoint)[:\s]+([^\n.]+)',
+            r'(?:primary\s+outcome)[:\s]+([^\n.]+)',
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, sap_text, re.IGNORECASE)
+            if match:
+                return match.group(1).strip()[:100]
+        return "Not found"
+
+    def _check_timepoint_present(self, sap_text: str, expected_timepoint: str) -> bool:
+        """Check if a timepoint (e.g., 'Week 12') is present in SAP"""
+        # Extract week number from expected timepoint
+        week_match = re.search(r'week\s*(\d+)', expected_timepoint, re.IGNORECASE)
+        if week_match:
+            week_num = week_match.group(1)
+            # Check various formats: Week 12, Week-12, W12, at 12 weeks
+            patterns = [
+                rf'week\s*{week_num}\b',
+                rf'w{week_num}\b',
+                rf'{week_num}\s*weeks?\b',
+                rf'at\s+{week_num}\s*weeks?\b',
+            ]
+            for pattern in patterns:
+                if re.search(pattern, sap_text, re.IGNORECASE):
+                    return True
+        return False
 
     def _find_ratio_in_sap(self, sap_text: str) -> Optional[str]:
         """Find randomization ratio in SAP"""

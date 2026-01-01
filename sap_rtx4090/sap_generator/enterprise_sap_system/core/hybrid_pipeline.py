@@ -265,6 +265,9 @@ class HybridSAPPipeline:
                 if validation.block_output and self.strict_validation:
                     result.success = False
                     result.errors.append("Validation failed - output blocked")
+                    if self.verbose:
+                        print(f"  ❌ BLOCKED: Validation failed")
+                    return result  # STOP - don't continue if validation fails
 
             # Check for contamination
             if self.contamination_guard:
@@ -272,10 +275,19 @@ class HybridSAPPipeline:
                     result.sap_text, protocol_text
                 )
                 if report.is_contaminated:
-                    result.warnings.append(f"Contamination detected: {report.contamination_sources}")
-                    result.sap_text = cleaned
+                    if self.strict_validation:
+                        # BLOCK on contamination in strict mode
+                        result.success = False
+                        result.errors.append(f"Contamination detected - output blocked: {report.contamination_sources}")
+                        if self.verbose:
+                            print(f"  ❌ BLOCKED: Contamination from {report.contamination_sources}")
+                        return result  # STOP - don't return contaminated output
+                    else:
+                        # Warn and clean in non-strict mode
+                        result.warnings.append(f"Contamination detected and cleaned: {report.contamination_sources}")
+                        result.sap_text = cleaned
 
-            result.success = True
+            result.success = True  # Only reached if no blocking issues
 
         except Exception as e:
             result.success = False
@@ -624,12 +636,21 @@ Appendix A: Variable Derivations
 def create_hybrid_pipeline(
     use_rag: bool = True,
     use_validation: bool = True,
+    strict_validation: bool = False,
     verbose: bool = True
 ) -> HybridSAPPipeline:
-    """Create a hybrid SAP pipeline instance"""
+    """Create a hybrid SAP pipeline instance.
+
+    Args:
+        use_rag: Whether to use RAG for section generation
+        use_validation: Whether to run validation on output
+        strict_validation: If True, block output on HIGH severity issues
+        verbose: Whether to print progress messages
+    """
     return HybridSAPPipeline(
         use_rag=use_rag,
         use_validation=use_validation,
+        strict_validation=strict_validation,
         verbose=verbose
     )
 

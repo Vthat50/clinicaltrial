@@ -68,12 +68,38 @@ class PopulationDecisionTree:
     def generate(self, facts: Dict[str, Any]) -> ReasoningResult:
         """Generate populations section using decision tree logic"""
         rules_applied = []
+        warnings = []
 
-        # Extract key facts
+        # INPUT VALIDATION: Check for required fields
+        num_arms = facts.get('num_arms')
         is_single_arm = facts.get('is_single_arm', False)
-        is_randomized = facts.get('num_arms', 1) > 1 and not is_single_arm
+        drug_name = facts.get('drug_name')
+
+        # Validate num_arms
+        if num_arms is None or num_arms < 1:
+            warnings.append(f"num_arms invalid ({num_arms}), defaulting to 1")
+            num_arms = 1 if is_single_arm else 2
+
+        # Validate consistency between is_single_arm and num_arms
+        if is_single_arm and num_arms > 1:
+            warnings.append(f"Inconsistent: is_single_arm=True but num_arms={num_arms}, treating as single-arm")
+            num_arms = 1
+        elif not is_single_arm and num_arms == 1:
+            warnings.append(f"Inconsistent: is_single_arm=False but num_arms=1, treating as single-arm")
+            is_single_arm = True
+
+        # Validate drug_name
+        if not drug_name:
+            warnings.append("drug_name missing, using 'study drug'")
+            drug_name = 'study drug'
+
+        # Log warnings
+        for w in warnings:
+            print(f"[PopulationDecisionTree] ⚠️ {w}")
+
+        # Derive randomization status
+        is_randomized = num_arms > 1 and not is_single_arm
         has_pk = self._has_pk_endpoints(facts)
-        drug_name = facts.get('drug_name', 'study drug')
 
         # RULE 1: ITT Population definition
         if is_randomized:
@@ -583,8 +609,15 @@ class RAGEnhancedGenerator:
         facts: Dict[str, Any],
         n_results: int = 3
     ) -> List[Dict[str, Any]]:
-        """Retrieve relevant examples from RAG"""
+        """Retrieve relevant examples from RAG.
+
+        Returns list of examples. Logs warnings when:
+        - RAG is not available (MockRAGAdapter or not initialized)
+        - No results found for query
+        """
         if not self._rag_available:
+            # CRITICAL WARNING: RAG not available means no grounding
+            print(f"[RAG] ⚠️ WARNING: RAG not available for {section_type} - using default templates only")
             return []
 
         try:
@@ -601,9 +634,17 @@ class RAGEnhancedGenerator:
                 protocol_data=protocol_data,
                 n_results=n_results
             )
+
+            # Log when no results found
+            if not results:
+                print(f"[RAG] ⚠️ No examples found for {section_type} (query: '{query[:60]}...')")
+                print(f"[RAG]    → Content will use default templates without RAG grounding")
+            else:
+                print(f"[RAG] ✓ Found {len(results)} examples for {section_type}")
+
             return results
         except Exception as e:
-            print(f"[RAG] Warning: Could not retrieve examples: {e}")
+            print(f"[RAG] ❌ Error retrieving examples for {section_type}: {e}")
             return []
 
     def _format_rag_examples(self, examples: List[Dict[str, Any]], max_chars: int = 2000) -> str:
@@ -1225,28 +1266,43 @@ class FollowUpWindowRAGGenerator(RAGEnhancedGenerator):
         return patterns
 
     def _build_window_table(self, rag_windows: Dict[str, str], primary_timepoint: str) -> str:
-        """Build visit window table"""
+        """Build visit window table with proper day calculations.
+
+        Day calculation: Week N = Day (N*7 + 1)
+        - Day 1 = Baseline/first dose
+        - Week 1 = Day 8 (7 days after baseline)
+        - Week 2 = Day 15
+        - etc.
+        """
         # Parse primary timepoint
         week_match = re.search(r'week\s*(\d+)', primary_timepoint.lower())
         max_week = int(week_match.group(1)) if week_match else 12
 
         rows = ["| Visit | Target Day | Window |", "|-------|------------|--------|"]
 
-        # Standard windows or RAG-informed
-        standard_weeks = [2, 4, 8] + [max_week]
+        # Include Week 1 for trials with early assessments, plus standard timepoints
+        # Week 1 is common for safety assessments
+        standard_weeks = [1, 2, 4, 8] + [max_week]
         standard_weeks = sorted(set(w for w in standard_weeks if w <= max_week))
 
         rows.append("| Baseline | Day 1 | Day -7 to Day 1 |")
 
         for week in standard_weeks:
+            target_day = week * 7 + 1  # Week 1 = Day 8, Week 2 = Day 15, etc.
+
             if f"Week {week}" in rag_windows:
                 window = rag_windows[f"Week {week}"]
             else:
-                target_day = week * 7 + 1
-                window_size = 3 if week <= 4 else 7
+                # Tighter windows early, looser windows later
+                if week <= 2:
+                    window_size = 3  # ±3 days for Week 1-2
+                elif week <= 8:
+                    window_size = 5  # ±5 days for Week 4-8
+                else:
+                    window_size = 7  # ±7 days for later visits
                 window = f"Day {target_day} ± {window_size} days"
 
-            rows.append(f"| Week {week} | Day {week * 7 + 1} | {window} |")
+            rows.append(f"| Week {week} | Day {target_day} | {window} |")
 
         return "\n".join(rows)
 

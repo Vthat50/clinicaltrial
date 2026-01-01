@@ -425,10 +425,72 @@ class ContaminationCleaner:
     """
     Cleans contamination from generated SAP.
     Removes or replaces contaminated content.
+
+    CONTEXT-AWARE: Only replaces drug names when they appear as the study drug,
+    NOT when legitimately mentioned as comparators, prior therapies, or references.
     """
 
     def __init__(self, detector: ContaminationDetector):
         self.detector = detector
+
+    # Patterns that indicate a drug is being used as the STUDY DRUG (should be replaced)
+    STUDY_DRUG_CONTEXTS = [
+        r'(?:study\s+drug|investigational\s+(?:product|drug)|IMP)[:\s]+{drug}',
+        r'{drug}\s+(?:will\s+be\s+)?(?:administered|given|infused|dosed)',
+        r'(?:receive|receiving)\s+{drug}',
+        r'{drug}\s+(?:arm|group|treatment\s+arm)',
+        r'(?:randomized?\s+to|assigned\s+to)\s+{drug}',
+        r'{drug}\s+(?:\d+\s*(?:mg|mcg|µg|g|ml|mL))',  # Drug with dose
+    ]
+
+    # Patterns that indicate a drug is a COMPARATOR/REFERENCE (should NOT be replaced)
+    COMPARATOR_CONTEXTS = [
+        r'(?:failed|intolerant|inadequate\s+response)\s+(?:to\s+)?(?:prior\s+)?{drug}',
+        r'(?:previous|prior)\s+(?:treatment\s+with\s+)?{drug}',
+        r'(?:compared\s+to|versus|vs\.?)\s+{drug}',
+        r'{drug}\s+(?:as\s+)?(?:comparator|reference|control)',
+        r'(?:similar\s+to|like)\s+{drug}',
+        r'(?:anti-TNF|anti-IL|biologic)s?\s+(?:such\s+as|including)\s+{drug}',
+        r'{drug}\s+(?:or\s+other)',
+        r'(?:history\s+of|exposed\s+to)\s+{drug}',
+        r'(?:switch(?:ed|ing)?\s+from)\s+{drug}',
+        r'(?:background|concomitant)\s+{drug}',
+    ]
+
+    def _is_study_drug_context(self, text: str, drug: str, match_pos: int) -> bool:
+        """
+        Check if a drug mention at match_pos is in a study drug context.
+        Returns True if it looks like it's referring to the main study drug.
+        """
+        # Get context window around the match (100 chars before and after)
+        start = max(0, match_pos - 100)
+        end = min(len(text), match_pos + len(drug) + 100)
+        context = text[start:end].lower()
+        drug_lower = drug.lower()
+
+        # Check comparator contexts FIRST (these should NOT be replaced)
+        for pattern_template in self.COMPARATOR_CONTEXTS:
+            pattern = pattern_template.format(drug=re.escape(drug_lower))
+            if re.search(pattern, context, re.IGNORECASE):
+                return False  # This is a comparator mention, don't replace
+
+        # Check study drug contexts (these SHOULD be replaced)
+        for pattern_template in self.STUDY_DRUG_CONTEXTS:
+            pattern = pattern_template.format(drug=re.escape(drug_lower))
+            if re.search(pattern, context, re.IGNORECASE):
+                return True  # This is a study drug mention, should replace
+
+        # Default: If mentioned at beginning of sentences or as subject, likely study drug
+        # Look for sentence boundary before the drug
+        sentence_start = context.rfind('.', 0, 100) + 1
+        before_drug = context[sentence_start:100].strip()
+
+        # If drug is at sentence start, likely study drug contamination
+        if before_drug == '' or before_drug.lower().endswith(('the', 'a', 'an')):
+            return True
+
+        # Conservative default: don't replace if unsure
+        return False
 
     def clean_sap(
         self,
@@ -436,17 +498,33 @@ class ContaminationCleaner:
         protocol_identity: ProtocolIdentity,
         contamination_report: ContaminationReport
     ) -> Tuple[str, List[str]]:
-        """Clean contamination from SAP."""
+        """Clean contamination from SAP with CONTEXT AWARENESS."""
         changes = []
         cleaned = sap_text
 
-        # Replace wrong drug names with correct drug name
+        # Replace wrong drug names with correct drug name - CONTEXT AWARE
         if contamination_report.wrong_drug_names and protocol_identity.drug_name:
             for wrong_drug in contamination_report.wrong_drug_names:
                 pattern = rf'\b{re.escape(wrong_drug)}\b'
-                if re.search(pattern, cleaned, re.IGNORECASE):
-                    cleaned = re.sub(pattern, protocol_identity.drug_name, cleaned, flags=re.IGNORECASE)
-                    changes.append(f"Replaced '{wrong_drug}' with '{protocol_identity.drug_name}'")
+
+                # Find all matches and process each with context awareness
+                replacements_made = 0
+                offset = 0
+
+                for match in list(re.finditer(pattern, sap_text, re.IGNORECASE)):
+                    match_pos = match.start()
+
+                    # Check if this occurrence is in a study drug context
+                    if self._is_study_drug_context(sap_text, wrong_drug, match_pos):
+                        # This is a contaminated study drug reference - replace it
+                        adjusted_pos = match_pos + offset
+                        cleaned = cleaned[:adjusted_pos] + protocol_identity.drug_name + cleaned[adjusted_pos + len(wrong_drug):]
+                        offset += len(protocol_identity.drug_name) - len(wrong_drug)
+                        replacements_made += 1
+                    # else: This is a legitimate comparator/reference mention - leave it alone
+
+                if replacements_made > 0:
+                    changes.append(f"Replaced {replacements_made} study drug occurrence(s) of '{wrong_drug}' with '{protocol_identity.drug_name}'")
 
         # Replace wrong sample sizes
         if contamination_report.wrong_sample_sizes and protocol_identity.sample_size > 0:

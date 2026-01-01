@@ -146,7 +146,7 @@ class HybridRAGAdapter:
             )
 
             # Convert to simple dict format expected by hybrid engine
-            return [
+            filtered_results = [
                 {
                     'content': r.content,
                     'nct_id': r.nct_id,
@@ -158,8 +158,16 @@ class HybridRAGAdapter:
                 if r.relevance_score >= 0.3  # Minimum relevance threshold
             ]
 
+            # WARN if no results found (helps debug RAG issues)
+            if not filtered_results:
+                print(f"[RAG Adapter] ⚠️ No examples found for {section_type} (query: '{query[:50]}...')")
+            else:
+                print(f"[RAG Adapter] Found {len(filtered_results)} examples for {section_type}")
+
+            return filtered_results
+
         except Exception as e:
-            print(f"[RAG Adapter] Error retrieving for {section_type}: {e}")
+            print(f"[RAG Adapter] ❌ Error retrieving for {section_type}: {e}")
             return []
 
     def _build_filters(self, protocol_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
@@ -214,6 +222,9 @@ class MockRAGAdapter:
     Returns empty results for all queries.
     """
 
+    def __init__(self):
+        print("[RAG Adapter] ⚠️ WARNING: RAG not available - using MockRAGAdapter (empty results)")
+
     def retrieve_for_section(
         self,
         section_type: str,
@@ -221,6 +232,7 @@ class MockRAGAdapter:
         n_results: int = 3
     ) -> List[Dict[str, Any]]:
         """Return empty results"""
+        print(f"[RAG Adapter] ⚠️ MockRAGAdapter returning empty for {section_type}")
         return []
 
     def get_full_context(

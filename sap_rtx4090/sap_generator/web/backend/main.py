@@ -389,7 +389,7 @@ def get_hybrid_pipeline() -> HybridSAPPipeline:
         _hybrid_pipeline = create_hybrid_pipeline(
             use_rag=True,
             use_validation=True,
-            strict_validation=False,
+            strict_validation=True,  # BLOCK output on validation failures
             verbose=False
         )
     return _hybrid_pipeline
@@ -2027,7 +2027,7 @@ async def process_jobs_worker():
                 pipeline = create_hybrid_pipeline(
                     use_rag=True,
                     use_validation=True,
-                    strict_validation=False,
+                    strict_validation=True,  # BLOCK output on validation failures
                     verbose=True
                 )
                 print("  [INIT] Hybrid Pipeline initialized (Decision Trees + RAG)")
