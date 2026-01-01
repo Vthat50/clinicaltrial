@@ -229,9 +229,11 @@ class HybridSAPPipeline:
                 if self.verbose:
                     print("  ⚠️ No extraction method available - using empty facts")
                 facts = ProtocolFacts()
-                if nct_id:
-                    facts.nct_id = nct_id
                 result.warnings.append("Extraction failed - set ANTHROPIC_API_KEY for LLM extraction")
+
+            # ALWAYS use user-provided NCT ID if available (takes precedence over extracted)
+            if nct_id:
+                facts.nct_id = nct_id
 
             # Enhance with API if NCT ID available
             if facts.nct_id:
@@ -783,25 +785,34 @@ class HybridSAPPipeline:
         def safe_get(obj, attr, default=None):
             return getattr(obj, attr, default) if obj else default
 
-        # Extract comparator from arms or drug_names_all
+        # PRIORITY 1: Get comparator from LLM-extracted facts (most reliable)
         comparator = None
-        if facts.arms:
-            for arm in facts.arms:
-                arm_name = arm.name.lower() if hasattr(arm, 'name') else str(arm).lower()
-                # Check if this is a control arm (not the study drug)
-                if any(x in arm_name for x in ['control', 'comparator', 'placebo', 'standard']):
-                    comparator = arm.name if hasattr(arm, 'name') else str(arm)
-                    break
-                # Check for known drug names that aren't the primary drug
-                if facts.drug_name and facts.drug_name.lower() not in arm_name:
-                    comparator = arm.name if hasattr(arm, 'name') else str(arm)
+        if hasattr(facts, '_llm_facts') and facts._llm_facts:
+            comparator = facts._llm_facts.get('comparator', '')
 
-        # Fallback: check drug_names_all for comparator
+        # PRIORITY 2: Check drug_names_all for second drug (if not study drug)
         if not comparator and facts.drug_names_all and len(facts.drug_names_all) > 1:
             for drug in facts.drug_names_all:
-                if drug.lower() != facts.drug_name.lower() if facts.drug_name else True:
+                if facts.drug_name and drug.lower() != facts.drug_name.lower():
                     comparator = drug
                     break
+
+        # PRIORITY 3: Check arms for control/comparator arm
+        if not comparator and facts.arms:
+            for arm in facts.arms:
+                arm_name = arm.name.lower() if hasattr(arm, 'name') else str(arm).lower()
+                # Skip if this is the study drug
+                if facts.drug_name and facts.drug_name.lower() in arm_name:
+                    continue
+                # Check for control indicators
+                if any(x in arm_name for x in ['control', 'comparator', 'standard of care', 'soc']):
+                    comparator = arm.name if hasattr(arm, 'name') else str(arm)
+                    break
+                # Check for active comparator drugs (not placebo)
+                is_placebo = getattr(arm, 'is_placebo', False) or 'placebo' in arm_name
+                if not is_placebo and arm_name:
+                    comparator = arm.name if hasattr(arm, 'name') else str(arm)
+                    # Don't break - keep looking for more specific matches
 
         # Build result dictionary
         result = {
@@ -817,7 +828,7 @@ class HybridSAPPipeline:
             'blinding_type': safe_get(facts, 'blinding_type'),
             'num_arms': facts.num_arms if facts.num_arms else (1 if is_single_arm else 2),
             'arms': [arm.name for arm in facts.arms] if facts.arms else [],
-            'arms_detailed': [{'name': arm.name, 'description': arm.description} for arm in facts.arms] if facts.arms else [],
+            'arms_detailed': [{'name': arm.name, 'description': getattr(arm, 'description', arm.name)} for arm in facts.arms] if facts.arms else [],
             'randomization_ratio': facts.randomization_ratio,
             'stratification_factors': facts.stratification_factors if facts.stratification_factors else [],
             'sample_size': facts.sample_size.total_n if facts.sample_size else 0,
@@ -900,16 +911,21 @@ The Biostatistics team is responsible for:
     def _generate_objectives(self, facts: Dict[str, Any]) -> str:
         """Generate objectives section"""
         drug = facts.get('drug_name', 'study drug')
+        comparator = facts.get('comparator', '')  # Get actual comparator
         indication = facts.get('indication', 'the target indication')
         primary_endpoint = facts.get('primary_endpoint', 'the primary efficacy endpoint')
         is_single_arm = facts.get('is_single_arm', False)
 
+        # Determine comparator text - use actual comparator, not hardcoded "placebo"
         if is_single_arm:
             comparison = f"in patients with {indication}"
             estimand_target = f"the effect of {drug}"
+            treatment_text = f"{drug} at specified dose"
         else:
-            comparison = f"compared to placebo in patients with {indication}"
-            estimand_target = f"the treatment effect of {drug} versus placebo"
+            comparator_text = comparator if comparator else 'control'
+            comparison = f"compared to {comparator_text} in patients with {indication}"
+            estimand_target = f"the treatment effect of {drug} versus {comparator_text}"
+            treatment_text = f"{drug} vs {comparator_text}"
 
         return f"""## 2. OBJECTIVES AND ESTIMANDS
 
@@ -924,7 +940,7 @@ Following ICH E9(R1), the primary estimand is defined as:
 | Attribute | Specification |
 |-----------|---------------|
 | **Population** | Patients with {indication} meeting eligibility criteria |
-| **Treatment** | {drug} {'at specified dose' if is_single_arm else 'vs placebo'} |
+| **Treatment** | {treatment_text} |
 | **Variable** | {primary_endpoint} |
 | **Intercurrent Events** | Treatment discontinuation: Treatment policy strategy |
 | **Summary Measure** | {'Proportion of responders' if 'response' in primary_endpoint.lower() else 'Difference in means'} |
@@ -939,7 +955,10 @@ Following ICH E9(R1), the primary estimand is defined as:
     def _generate_study_design(self, facts: Dict[str, Any]) -> str:
         """Generate study design section"""
         drug = facts.get('drug_name', 'study drug')
-        design_type = facts.get('design_type', 'randomized, double-blind, placebo-controlled')
+        comparator = facts.get('comparator', '')
+        # Default design type - use 'controlled' instead of 'placebo-controlled'
+        default_design = 'randomized, double-blind, controlled' if not comparator else f'randomized, controlled'
+        design_type = facts.get('design_type', default_design)
         is_single_arm = facts.get('is_single_arm', False)
         num_arms = facts.get('num_arms', 2)
         ratio = facts.get('randomization_ratio', '1:1')
@@ -991,12 +1010,15 @@ Following ICH E9(R1), the primary estimand is defined as:
         """Format treatment arms list"""
         arms = facts.get('arms', [])
         drug = facts.get('drug_name', 'study drug')
+        comparator = facts.get('comparator', '')  # Get actual comparator
 
         if not arms:
             if facts.get('is_single_arm'):
                 return f"- {drug} (single arm)"
             else:
-                return f"- {drug}\n- Placebo"
+                # Use actual comparator, not hardcoded "Placebo"
+                comparator_text = comparator if comparator else 'Control'
+                return f"- {drug}\n- {comparator_text}"
 
         return "\n".join([f"- {arm}" for arm in arms])
 
@@ -1004,6 +1026,7 @@ Following ICH E9(R1), the primary estimand is defined as:
         """Format arms table rows"""
         arms = facts.get('arms', [])
         drug = facts.get('drug_name', 'study drug')
+        comparator = facts.get('comparator', '')  # Get actual comparator
         n = facts.get('sample_size', 0)
         num_arms = facts.get('num_arms', 2)
 
@@ -1012,7 +1035,9 @@ Following ICH E9(R1), the primary estimand is defined as:
                 return f"| 1 | {drug} | {n} |"
             else:
                 per_arm = n // num_arms if n and num_arms else 'TBD'
-                return f"| 1 | {drug} | {per_arm} |\n| 2 | Placebo | {per_arm} |"
+                # Use actual comparator, not hardcoded "Placebo"
+                comparator_text = comparator if comparator else 'Control'
+                return f"| 1 | {drug} | {per_arm} |\n| 2 | {comparator_text} | {per_arm} |"
 
         per_arm = n // len(arms) if n and arms else 'TBD'
         return "\n".join([f"| {i+1} | {arm} | {per_arm} |" for i, arm in enumerate(arms)])
