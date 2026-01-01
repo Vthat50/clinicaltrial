@@ -1106,21 +1106,39 @@ class HybridSAPPipeline:
             result['statistical_method'] = llm.get('statistical_method', '')
             result['statistical_method_details'] = llm.get('statistical_method_details', '')
 
-            # NEW: Interim analysis details
+            # NEW: Interim analysis details - COMPREHENSIVE
             result['has_interim_analysis'] = llm.get('has_interim_analysis', False)
             result['num_interim_analyses'] = llm.get('num_interim_analyses', 0)
             result['interim_analysis_method'] = llm.get('interim_analysis_method', '')
             result['error_spending_function'] = llm.get('error_spending_function', '')
+            result['alpha_spending_params'] = llm.get('alpha_spending_params', '')
             result['interim_events'] = llm.get('interim_events', [])
+            result['interim_alpha_spent'] = llm.get('interim_alpha_spent', [])
+            result['interim_information_fraction'] = llm.get('interim_information_fraction', [])
             result['final_events'] = llm.get('final_events', 0)
+            result['stopping_boundaries'] = llm.get('stopping_boundaries', '')
 
-            # NEW: Consistency/non-inferiority objectives
+            # NEW: Hierarchical testing procedure
+            result['has_hierarchical_testing'] = llm.get('has_hierarchical_testing', False)
+            result['hierarchical_testing_order'] = llm.get('hierarchical_testing_order', [])
+            result['hierarchical_testing_description'] = llm.get('hierarchical_testing_description', '')
+
+            # NEW: Consistency/non-inferiority objectives - ENHANCED
             result['has_consistency_objective'] = llm.get('has_consistency_objective', False)
+            result['consistency_type'] = llm.get('consistency_type', '')
             result['consistency_margin'] = llm.get('consistency_margin', '')
             result['consistency_reference_studies'] = llm.get('consistency_reference_studies', [])
+            result['consistency_reference_effect'] = llm.get('consistency_reference_effect', '')
+            result['consistency_test_description'] = llm.get('consistency_test_description', '')
+            result['consistency_is_primary'] = llm.get('consistency_is_primary', False)
 
-            # NEW: Regulatory-specific endpoints (e.g., TTF for China)
+            # NEW: Regulatory-specific endpoints (e.g., TTF for China) - ENHANCED
             result['regulatory_endpoints'] = llm.get('regulatory_endpoints', [])
+            result['is_bridging_study'] = llm.get('is_bridging_study', False)
+            result['target_regions'] = llm.get('target_regions', [])
+
+            # NEW: Document type
+            result['document_type'] = llm.get('document_type', '')
 
         return result
 

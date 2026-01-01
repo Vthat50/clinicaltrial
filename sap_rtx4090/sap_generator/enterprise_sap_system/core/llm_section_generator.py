@@ -139,19 +139,34 @@ class LLMSectionGenerator:
             ('power', 'Statistical Power'),
             ('statistical_method', 'Statistical Method'),
             ('statistical_method_details', 'Statistical Method (Full Specification)'),
-            # NEW: Interim analysis
+            # NEW: Interim analysis - COMPREHENSIVE
             ('has_interim_analysis', 'Interim Analysis Planned'),
             ('num_interim_analyses', 'Number of Interim Analyses'),
             ('interim_analysis_method', 'Interim Analysis Method'),
             ('error_spending_function', 'Error Spending Function'),
+            ('alpha_spending_params', 'Alpha Spending Parameters'),
             ('interim_events', 'Events at Interim Analyses'),
+            ('interim_alpha_spent', 'Alpha Spent at Each Interim'),
+            ('interim_information_fraction', 'Information Fraction at Interim'),
             ('final_events', 'Events at Final Analysis'),
-            # NEW: Consistency/non-inferiority objectives
+            ('stopping_boundaries', 'Stopping Boundaries'),
+            # NEW: Hierarchical testing
+            ('has_hierarchical_testing', 'Hierarchical Testing Procedure'),
+            ('hierarchical_testing_order', 'Testing Order'),
+            ('hierarchical_testing_description', 'Hierarchical Testing Description'),
+            # NEW: Consistency/non-inferiority objectives - ENHANCED
             ('has_consistency_objective', 'Consistency Objective'),
+            ('consistency_type', 'Consistency Type'),
             ('consistency_margin', 'Consistency Margin'),
             ('consistency_reference_studies', 'Reference Studies for Consistency'),
-            # NEW: Regulatory-specific endpoints
+            ('consistency_reference_effect', 'Reference Effect Size'),
+            ('consistency_test_description', 'Consistency Test Description'),
+            ('consistency_is_primary', 'Consistency is Primary Objective'),
+            # NEW: Regulatory/bridging
             ('regulatory_endpoints', 'Regulatory-Specific Endpoints'),
+            ('is_bridging_study', 'Bridging Study'),
+            ('target_regions', 'Target Regions'),
+            ('document_type', 'Document Type'),
         ]
 
         lines = []
@@ -586,36 +601,79 @@ Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
             has_interim = facts.get('has_interim_analysis', False)
             interim_method = facts.get('interim_analysis_method', '')
             error_spending = facts.get('error_spending_function', '')
+            alpha_spending_params = facts.get('alpha_spending_params', '')
             interim_events = facts.get('interim_events', [])
+            interim_alpha_spent = facts.get('interim_alpha_spent', [])
+            interim_info_fraction = facts.get('interim_information_fraction', [])
             final_events = facts.get('final_events', 0)
+            stopping_boundaries = facts.get('stopping_boundaries', '')
+            has_hierarchical = facts.get('has_hierarchical_testing', False)
+            hierarchical_order = facts.get('hierarchical_testing_order', [])
+            hierarchical_desc = facts.get('hierarchical_testing_description', '')
             has_consistency = facts.get('has_consistency_objective', False)
+            consistency_type = facts.get('consistency_type', '')
             consistency_margin = facts.get('consistency_margin', '')
             consistency_refs = facts.get('consistency_reference_studies', [])
+            consistency_ref_effect = facts.get('consistency_reference_effect', '')
+            consistency_test_desc = facts.get('consistency_test_description', '')
+            consistency_is_primary = facts.get('consistency_is_primary', False)
 
-            # Build interim analysis context
+            # Build interim analysis context - COMPREHENSIVE
             interim_context = ""
             if has_interim:
                 interim_context = f"""
-INTERIM ANALYSIS DESIGN:
+INTERIM ANALYSIS DESIGN - CRITICAL SECTION:
 - Method: {interim_method}
 - Error Spending Function: {error_spending}
+- Alpha Spending Parameters: {alpha_spending_params}
 - Number of Interim Analyses: {facts.get('num_interim_analyses', 1)}
 - Events at Interim: {interim_events}
+- Alpha Spent at Interim: {interim_alpha_spent}
+- Information Fraction at Interim: {interim_info_fraction}
 - Events at Final: {final_events}
+- Stopping Boundaries: {stopping_boundaries}
 
-Include detailed interim analysis section with alpha allocation."""
+YOU MUST include a detailed interim analysis subsection with:
+1. The exact alpha-spending function and parameters
+2. The number of events/deaths triggering each analysis
+3. The alpha allocated at each look (e.g., 0.0001 at interim, 0.0499 at final)
+4. The stopping boundaries (p-value thresholds)
+5. Decision rules for stopping early"""
 
-            # Build consistency objective context
+            # Build hierarchical testing context
+            hierarchical_context = ""
+            if has_hierarchical:
+                hierarchical_context = f"""
+HIERARCHICAL TESTING PROCEDURE - CRITICAL:
+This study uses a hierarchical (gatekeeping) testing procedure.
+- Testing Order: {' -> '.join(hierarchical_order) if hierarchical_order else 'Not specified'}
+- Description: {hierarchical_desc}
+
+YOU MUST describe:
+1. The exact order in which hypotheses are tested
+2. The rule for proceeding to the next test (only if previous passes)
+3. How alpha is preserved across tests"""
+
+            # Build consistency objective context - ENHANCED
             consistency_context = ""
             if has_consistency:
+                primary_text = "PRIMARY" if consistency_is_primary else "SECONDARY"
                 consistency_context = f"""
-CONSISTENCY OBJECTIVE:
+CONSISTENCY OBJECTIVE - THIS IS A {primary_text} OBJECTIVE:
 This study has a CONSISTENCY OBJECTIVE with prior studies.
+- Type: {consistency_type}
 - Consistency Margin: {consistency_margin}
-- Reference Studies: {', '.join(consistency_refs)}
+- Reference Studies: {', '.join(consistency_refs) if consistency_refs else 'Prior studies'}
+- Reference Effect Size: {consistency_ref_effect}
+- Test Description: {consistency_test_desc}
 
-This means the primary objective includes demonstrating consistency with these prior trials.
-Include a hierarchical testing procedure where consistency is tested BEFORE the main efficacy hypothesis."""
+{'THIS IS A PRIMARY OBJECTIVE. Consistency must be demonstrated BEFORE the main efficacy hypothesis can be tested.' if consistency_is_primary else ''}
+
+YOU MUST include:
+1. A clear statement of the consistency hypothesis
+2. How consistency is tested (e.g., upper bound of 95% CI < margin)
+3. The consistency margin and its justification
+4. The hierarchical relationship with other objectives"""
 
             system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP).
 Write the Statistical Methods section including:
@@ -640,6 +698,7 @@ IMPORTANT - USE PROTOCOL-SPECIFIED METHODS:
 Use the actual comparator drug name, not "placebo" unless it IS placebo.
 Write specific model specifications with covariates.
 {interim_context}
+{hierarchical_context}
 {consistency_context}"""
 
             # Build statistical method instruction
