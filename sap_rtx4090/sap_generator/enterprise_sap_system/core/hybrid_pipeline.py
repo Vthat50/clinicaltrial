@@ -32,6 +32,13 @@ from .hybrid_reasoning import (
 )
 from .rag_adapter import create_rag_adapter, HybridRAGAdapter
 
+# Try to import Claude extractor (LLM-based, replaces regex)
+try:
+    from .claude_extractor import ClaudeProtocolExtractor, ExtractedProtocol
+    CLAUDE_EXTRACTOR_AVAILABLE = True
+except ImportError as e:
+    CLAUDE_EXTRACTOR_AVAILABLE = False
+    print(f"[HybridPipeline] Note: ClaudeExtractor not available, using regex fallback: {e}")
 
 # Try to import validation components
 try:
@@ -120,8 +127,15 @@ class HybridSAPPipeline:
         self.use_validation = use_validation
         self.strict_validation = strict_validation
 
-        # Initialize extractor
-        self.extractor = StructuredFactExtractor()
+        # Initialize LLM extractor (primary) and regex extractor (fallback)
+        if CLAUDE_EXTRACTOR_AVAILABLE:
+            self.claude_extractor = ClaudeProtocolExtractor()
+            self.use_llm_extraction = True
+        else:
+            self.claude_extractor = None
+            self.use_llm_extraction = False
+
+        self.extractor = StructuredFactExtractor()  # Fallback only
 
         # Initialize RAG adapter
         self.rag_adapter = create_rag_adapter() if use_rag else None
@@ -137,7 +151,7 @@ class HybridSAPPipeline:
 
         if self.verbose:
             print("[Hybrid Pipeline] Initialized")
-            print(f"  Extraction: regex + API enhancement")
+            print(f"  Extraction: {'LLM (Claude)' if self.use_llm_extraction else 'regex (fallback)'}")
             print(f"  RAG: {'enabled' if use_rag and self.rag_adapter else 'disabled'}")
             print(f"  Validation: {'enabled' if use_validation else 'disabled'}")
 
@@ -165,12 +179,33 @@ class HybridSAPPipeline:
             if self.verbose:
                 print("\n[LAYER 1] Extracting protocol facts...")
 
-            # Step 1: Regex extraction (existing)
-            facts = self.extractor.extract_all(protocol_text)
-            if nct_id:
-                facts.nct_id = nct_id
+            # Use LLM extraction (primary) or regex fallback
+            if self.use_llm_extraction and self.claude_extractor:
+                # LLM-based extraction (99.5% accuracy per research)
+                extracted = self.claude_extractor.extract(protocol_text)
 
-            # Step 2: If we have NCT ID, fetch from API and override
+                if extracted.extraction_success:
+                    # Convert to ProtocolFacts for compatibility
+                    facts = self._convert_extracted_to_facts(extracted)
+                    result.warnings.extend(extracted.warnings)
+                    if self.verbose:
+                        print(f"  ✓ LLM extraction via {extracted.extraction_source}")
+                        print(f"    Drug: {extracted.drug_name}")
+                        print(f"    Primary Endpoint: {extracted.primary_endpoint[:60]}..." if extracted.primary_endpoint else "    Primary Endpoint: Not found")
+                else:
+                    # Fall back to regex if LLM fails
+                    if self.verbose:
+                        print("  ⚠️ LLM extraction failed, falling back to regex")
+                    facts = self.extractor.extract_all(protocol_text)
+                    if nct_id:
+                        facts.nct_id = nct_id
+            else:
+                # Regex fallback
+                facts = self.extractor.extract_all(protocol_text)
+                if nct_id:
+                    facts.nct_id = nct_id
+
+            # Enhance with API if NCT ID available
             if facts.nct_id:
                 facts = self._enhance_with_api(facts, result)
 
@@ -297,6 +332,93 @@ class HybridSAPPipeline:
                 print(f"\n[ERROR] Pipeline failed: {e}")
 
         return result
+
+    def _convert_extracted_to_facts(self, extracted: 'ExtractedProtocol') -> ProtocolFacts:
+        """Convert LLM-extracted data to ProtocolFacts for pipeline compatibility"""
+        from .structured_extractor import (
+            ProtocolFacts, EndpointDefinition, SampleSizeSpec,
+            AlphaSpecification, TreatmentArm, StudyPhase
+        )
+
+        facts = ProtocolFacts()
+
+        # Identifiers
+        facts.nct_id = extracted.nct_id
+        facts.protocol_title = extracted.protocol_title
+        facts.sponsor = extracted.sponsor
+
+        # Design
+        facts.design_type = extracted.design_type
+        facts.is_blinded = extracted.is_blinded
+        facts.blinding_type = extracted.blinding_type
+
+        # Phase
+        phase_str = extracted.phase.upper() if extracted.phase else ""
+        phase_map = {
+            "PHASE 1": StudyPhase.PHASE_1,
+            "PHASE1": StudyPhase.PHASE_1,
+            "PHASE 2": StudyPhase.PHASE_2,
+            "PHASE2": StudyPhase.PHASE_2,
+            "PHASE 3": StudyPhase.PHASE_3,
+            "PHASE3": StudyPhase.PHASE_3,
+            "PHASE 4": StudyPhase.PHASE_4,
+            "PHASE4": StudyPhase.PHASE_4,
+            "PHASE 1/2": StudyPhase.PHASE_1_2,
+            "PHASE1/2": StudyPhase.PHASE_1_2,
+            "PHASE 2/3": StudyPhase.PHASE_2_3,
+            "PHASE2/3": StudyPhase.PHASE_2_3,
+        }
+        facts.phase = phase_map.get(phase_str, StudyPhase.UNKNOWN)
+
+        # Sample size
+        if extracted.sample_size:
+            facts.sample_size = SampleSizeSpec(
+                total_n=extracted.sample_size,
+                power=extracted.power if extracted.power else None
+            )
+
+        # Arms
+        facts.num_arms = extracted.num_arms or len(extracted.arms) or (1 if "single" in extracted.design_type.lower() else 2)
+        if extracted.arms:
+            facts.arms = [
+                TreatmentArm(
+                    name=arm.get("name", f"Arm {i+1}"),
+                    is_placebo="placebo" in str(arm.get("treatment", "")).lower()
+                )
+                for i, arm in enumerate(extracted.arms)
+            ]
+        facts.randomization_ratio = extracted.randomization_ratio
+
+        # Drug
+        facts.drug_name = extracted.drug_name
+        facts.drug_names_all = [extracted.drug_name] if extracted.drug_name else []
+        if extracted.comparator:
+            facts.drug_names_all.append(extracted.comparator)
+
+        # Endpoints
+        if extracted.primary_endpoint:
+            facts.primary_endpoint = EndpointDefinition(
+                name="Primary Endpoint",
+                definition=extracted.primary_endpoint,
+                timepoint=extracted.primary_timepoint
+            )
+
+        if extracted.secondary_endpoints:
+            facts.secondary_endpoints = [
+                EndpointDefinition(name="Secondary Endpoint", definition=ep)
+                for ep in extracted.secondary_endpoints if ep
+            ]
+
+        # Statistical
+        facts.alpha = AlphaSpecification(primary_alpha=extracted.alpha_level)
+        facts.primary_analysis_method = extracted.statistical_method
+
+        # Other
+        facts.therapeutic_area = extracted.therapeutic_area
+        facts.indication = extracted.indication
+        facts.stratification_factors = extracted.stratification_factors
+
+        return facts
 
     def _enhance_with_api(self, facts: ProtocolFacts, result: HybridPipelineResult) -> ProtocolFacts:
         """Fetch from ClinicalTrials.gov API and override regex-extracted fields"""

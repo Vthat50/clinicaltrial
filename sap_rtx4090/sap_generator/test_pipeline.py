@@ -98,9 +98,6 @@ def test_full_pipeline(nct_id: str = "NCT03197467"):
     pipeline = HybridSAPPipeline(
         use_rag=False,  # Skip RAG for faster testing
         use_validation=False,
-        use_unified_extractor=True,
-        use_api=True,
-        use_llm_extraction=False,  # Skip LLM for faster testing
         verbose=False
     )
 
