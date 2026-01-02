@@ -30,7 +30,14 @@ try:
     SENTENCE_TRANSFORMERS_AVAILABLE = True
 except ImportError:
     SENTENCE_TRANSFORMERS_AVAILABLE = False
-    print("Warning: sentence-transformers not installed. Run: pip install sentence-transformers")
+    SentenceTransformer = None
+
+# OpenAI embeddings (lighter, no torch required)
+try:
+    import openai
+    OPENAI_AVAILABLE = bool(os.getenv("OPENAI_API_KEY"))
+except ImportError:
+    OPENAI_AVAILABLE = False
 
 
 @dataclass
@@ -55,6 +62,7 @@ class SAPVectorStore:
     """
 
     COLLECTION_NAMES = [
+        # Standard SAP sections
         "endpoints",
         "methods",
         "stratification",
@@ -62,7 +70,19 @@ class SAPVectorStore:
         "populations",
         "study_design",
         "missing_data",
-        "sample_size"
+        "sample_size",
+        # Specialized section types
+        "interim_analysis",
+        "pro_endpoints",
+        # Additional methodology sections from real SAPs
+        "primary_analysis",
+        "secondary_endpoints",
+        "sensitivity_analysis",
+        "multiplicity",
+        "subgroup_analysis",
+        "statistical_methods",
+        "safety_analysis",
+        "time_to_event",
     ]
 
     def __init__(
@@ -90,8 +110,11 @@ class SAPVectorStore:
         )
 
         # Initialize embedding model
+        # Prefer OpenAI embeddings (no torch needed) for production
         self.embedding_model_name = embedding_model
         self._embedder = None
+        self._openai_client = None
+        self.use_openai = OPENAI_AVAILABLE  # Use OpenAI if available (lighter than torch)
 
         # Initialize collections
         self.collections: Dict[str, Any] = {}
@@ -109,21 +132,40 @@ class SAPVectorStore:
                 print(f"Error creating collection {name}: {e}")
 
     @property
+    def openai_client(self):
+        """Lazy load OpenAI client"""
+        if self._openai_client is None:
+            self._openai_client = openai.OpenAI()
+        return self._openai_client
+
+    @property
     def embedder(self):
-        """Lazy load embedding model"""
+        """Lazy load sentence-transformer embedding model"""
         if self._embedder is None:
             if SENTENCE_TRANSFORMERS_AVAILABLE:
                 self._embedder = SentenceTransformer(self.embedding_model_name)
             else:
-                raise ImportError("sentence-transformers required for embeddings")
+                raise ImportError("sentence-transformers required for embeddings (or set OPENAI_API_KEY)")
         return self._embedder
 
     def embed_text(self, text: str) -> List[float]:
-        """Generate embedding for text"""
+        """Generate embedding for text using OpenAI or sentence-transformers"""
+        if self.use_openai:
+            response = self.openai_client.embeddings.create(
+                model="text-embedding-3-small",
+                input=text
+            )
+            return response.data[0].embedding
         return self.embedder.encode(text).tolist()
 
     def embed_batch(self, texts: List[str]) -> List[List[float]]:
         """Generate embeddings for batch of texts"""
+        if self.use_openai:
+            response = self.openai_client.embeddings.create(
+                model="text-embedding-3-small",
+                input=texts
+            )
+            return [item.embedding for item in response.data]
         return self.embedder.encode(texts).tolist()
 
     def add_section(
