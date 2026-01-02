@@ -2205,19 +2205,19 @@ async def process_jobs_worker():
                         else:
                             print(f"    N: {sample_size or 'N/A'}")
                         print(f"    Ratio: {facts.get('randomization_ratio', 'N/A')}")
-                    print(f"  HYBRID REASONING:")
-                    print(f"    Decision Tree sections: {result.decision_tree_sections}")
-                    print(f"    RAG sections: {result.rag_sections}")
-                    print(f"    Template fallback: {result.template_fallback_sections}")
+                    print(f"  GENERATION:")
+                    print(f"    Sections: {list(result.sections.keys()) if result.sections else 'None'}")
+                    if result.slot_constraints:
+                        print(f"    Slot constraints applied: Yes")
                     print(f"  VALIDATION:")
                     print(f"    Quality: {quality_score:.1f}/100")
-                    if result.validation:
-                        issue_count = len(result.validation.issues) if hasattr(result.validation, 'issues') else 0
-                        print(f"    Issues: {issue_count}")
+                    if result.verification:
+                        missing = len(result.verification.missing_slots) if hasattr(result.verification, 'missing_slots') else 0
+                        print(f"    Missing slots: {missing}")
                     if result.warnings:
-                        print(f"    Warnings: {result.warnings}")
+                        print(f"    Warnings: {len(result.warnings)}")
                 else:
-                    raise Exception("; ".join(result.errors))
+                    raise Exception(result.error or "Generation failed")
 
             except Exception as e:
                 # Update with failure
