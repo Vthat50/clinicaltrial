@@ -68,6 +68,20 @@ except ImportError:
     HybridSAPPipeline = None
     create_hybrid_pipeline = None
 
+# NEW: Regulatory-grade SAP Generator (ICH E9 compliant, 45+ pages)
+try:
+    from enterprise_sap_system.core.regulatory_sap_generator import (
+        RegulatorySAPGenerator,
+        create_regulatory_sap_generator,
+        ProtocolFacts,
+        SAPDocument
+    )
+    REGULATORY_GENERATOR_AVAILABLE = True
+except ImportError as e:
+    REGULATORY_GENERATOR_AVAILABLE = False
+    RegulatorySAPGenerator = None
+    print(f"Warning: RegulatorySAPGenerator not available: {e}")
+
 # Import LLM client for health check
 try:
     from enterprise_sap_system.core.tiered_llm import get_tiered_client
@@ -662,6 +676,125 @@ async def generate_full_pipeline(request: GenerateRequest):
     except HTTPException:
         raise
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Global instance for regulatory generator
+_regulatory_generator: RegulatorySAPGenerator = None
+
+
+def get_regulatory_generator():
+    """Get or create the regulatory SAP generator."""
+    global _regulatory_generator
+    if _regulatory_generator is None and REGULATORY_GENERATOR_AVAILABLE:
+        _regulatory_generator = create_regulatory_sap_generator()
+        logger.info("RegulatorySAPGenerator initialized (ICH E9 compliant, Claude extraction)")
+    return _regulatory_generator
+
+
+class RegulatorySAPResponse(BaseModel):
+    """Response from regulatory-grade SAP generation."""
+    success: bool
+    sap_text: str
+    # Extracted facts
+    nct_id: str
+    protocol_number: str
+    drug_name: str
+    comparator_drug: str
+    sample_size: int
+    events_required: int
+    primary_endpoint: str
+    primary_test: str
+    alpha_interim: float
+    alpha_final: float
+    stratification_factors: list
+    has_interim: bool
+    dmc_oversight: bool
+    # Metadata
+    sections_generated: int
+    character_count: int
+    processing_time: float
+    extraction_method: str  # "claude" or "regex"
+    errors: list
+
+
+@app.post("/generate-regulatory", response_model=RegulatorySAPResponse)
+async def generate_regulatory_sap(request: GenerateRequest):
+    """
+    Generate a REGULATORY-GRADE SAP using Claude API extraction.
+
+    This endpoint produces SAPs that match real pharmaceutical SAPs:
+    - ICH E9(R1) compliant structure (10 major sections)
+    - 45+ pages with proper formatting
+    - Protocol-specific statistical methods (Fleming-Harrington, Lan-DeMets)
+    - Proper censoring schemes, analysis populations, subgroup analyses
+
+    Uses Claude API for accurate protocol fact extraction.
+    """
+    import time
+    start_time = time.time()
+
+    try:
+        if not request.protocol_text.strip():
+            raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
+
+        if not REGULATORY_GENERATOR_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="RegulatorySAPGenerator not available. Check imports."
+            )
+
+        generator = get_regulatory_generator()
+        if generator is None:
+            raise HTTPException(
+                status_code=503,
+                detail="Could not initialize RegulatorySAPGenerator"
+            )
+
+        # Extract facts (uses Claude API if available)
+        facts = generator.extract_protocol_facts(request.protocol_text[:100000])
+
+        # Generate SAP document
+        doc = generator.generate(request.protocol_text[:100000], facts)
+
+        # Assemble full document
+        sap_text = generator.assemble_document(doc)
+
+        processing_time = time.time() - start_time
+
+        # Determine extraction method
+        extraction_method = "claude" if generator.llm else "regex"
+
+        return RegulatorySAPResponse(
+            success=True,
+            sap_text=sap_text,
+            nct_id=facts.nct_id or "",
+            protocol_number=facts.protocol_number or "",
+            drug_name=facts.experimental_drug or "",
+            comparator_drug=facts.comparator_drug or "",
+            sample_size=facts.total_sample_size or 0,
+            events_required=facts.events_required_final or 0,
+            primary_endpoint=facts.primary_endpoint or "",
+            primary_test=facts.primary_test or "",
+            alpha_interim=facts.alpha_interim or 0.0,
+            alpha_final=facts.alpha_final or 0.05,
+            stratification_factors=facts.stratification_factors or [],
+            has_interim=facts.has_interim,
+            dmc_oversight=facts.dmc_oversight,
+            sections_generated=len([s for s in [
+                doc.cover_page, doc.sec1_1_hypothesis, doc.sec2_1_design,
+                doc.sec5_sample_size, doc.sec7_5_1_primary_analysis, doc.sec7_6_safety
+            ] if s]),
+            character_count=len(sap_text),
+            processing_time=processing_time,
+            extraction_method=extraction_method,
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Regulatory SAP generation failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
