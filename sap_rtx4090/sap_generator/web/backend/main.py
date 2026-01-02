@@ -512,23 +512,15 @@ def get_pipeline():
     """
     Get or create the production pipeline instance.
 
-    Uses AgenticSAPPipeline (data-driven, learns from 23K chunks) if available,
-    otherwise falls back to RuleBasedSAPPipeline.
+    Uses AgenticSAPPipeline (data-driven, learns from 23K SAP chunks).
+    Requires: chromadb, sentence-transformers, networkx
     """
-    global _agentic_pipeline, _rule_pipeline
+    global _agentic_pipeline
 
-    # Prefer AgenticSAPPipeline
-    if AGENTIC_PIPELINE_AVAILABLE:
-        if _agentic_pipeline is None:
-            _agentic_pipeline = create_agentic_pipeline()
-            logger.info("AgenticSAPPipeline initialized (HybridRAG + Knowledge Graph + 23K chunks)")
-        return _agentic_pipeline
-
-    # Fallback to RuleBasedSAPPipeline
-    if _rule_pipeline is None:
-        _rule_pipeline = create_rule_based_pipeline()
-        logger.info("RuleBasedSAPPipeline initialized (fallback)")
-    return _rule_pipeline
+    if _agentic_pipeline is None:
+        _agentic_pipeline = create_agentic_pipeline()
+        logger.info("AgenticSAPPipeline initialized (HybridRAG + Knowledge Graph + 23K chunks)")
+    return _agentic_pipeline
 
 # Aliases for backward compatibility
 def get_hybrid_pipeline():
