@@ -519,22 +519,30 @@ async def create_job(request: GenerateRequest):
 
 
 # Global instance for direct generation (reused across requests)
-_agentic_pipeline: AgenticSAPPipeline = None
-_rule_pipeline: RuleBasedSAPPipeline = None  # Fallback
+_rule_pipeline: RuleBasedSAPPipeline = None  # PRIMARY
+_agentic_pipeline: AgenticSAPPipeline = None  # Fallback (not used)
 
 def get_pipeline():
     """
     Get or create the production pipeline instance.
 
-    Uses AgenticSAPPipeline (data-driven, learns from 23K SAP chunks).
-    Requires: chromadb, sentence-transformers, networkx
-    """
-    global _agentic_pipeline
+    Uses RuleBasedSAPPipeline (Claude + 99 rules + RAG + slot verification).
+    More accurate than AgenticSAPPipeline for method selection.
 
-    if _agentic_pipeline is None:
-        _agentic_pipeline = create_agentic_pipeline()
-        logger.info("AgenticSAPPipeline initialized (HybridRAG + Knowledge Graph + 23K chunks)")
-    return _agentic_pipeline
+    Architecture:
+    - Step 1: Claude LLM extraction (NCT ID, drug, sample size, etc.)
+    - Step 2: Condition detection (immunotherapy, crossover, interim, etc.)
+    - Step 3: Knowledge Graph with 99 rules for method selection
+    - Step 4: ChromaDB RAG with 17K+ chunks for examples
+    - Step 5: Claude LLM generation with slot constraints
+    - Step 6: Slot verification for required methods
+    """
+    global _rule_pipeline
+
+    if _rule_pipeline is None:
+        _rule_pipeline = create_rule_based_pipeline()
+        logger.info("RuleBasedSAPPipeline initialized (Claude + 99 rules + RAG + slot verification)")
+    return _rule_pipeline
 
 # Aliases for backward compatibility
 def get_hybrid_pipeline():
@@ -570,16 +578,16 @@ class FullPipelineResponse(BaseModel):
 @app.post("/generate-full", response_model=FullPipelineResponse)
 async def generate_full_pipeline(request: GenerateRequest):
     """
-    Generate SAP synchronously using the AGENTIC HYBRIDRAG PIPELINE.
+    Generate SAP synchronously using the RULE-BASED PIPELINE.
 
     This endpoint uses:
-    - Agent 1: Protocol Analyzer (Claude-based extraction)
-    - Agent 2: Hybrid Retriever (Vector + Knowledge Graph)
-    - Agent 3: Method Extractor (learns from 23K SAP chunks)
-    - Agent 4: SAP Generator (templates + RAG examples)
-    - Agent 5: Validator (reflection-based verification)
+    - Step 1: Claude LLM extraction (NCT ID, drug, sample size, etc.)
+    - Step 2: Condition detection (immunotherapy, crossover, interim, etc.)
+    - Step 3: Knowledge Graph with 99 rules for method selection
+    - Step 4: ChromaDB RAG with 17K+ chunks for examples
+    - Step 5: Claude LLM generation with slot constraints
+    - Step 6: Slot verification for required methods
 
-    Falls back to RuleBasedSAPPipeline if AgenticSAPPipeline unavailable.
     Returns immediately with the generated SAP (no queuing).
     """
     import time
@@ -595,9 +603,28 @@ async def generate_full_pipeline(request: GenerateRequest):
 
         processing_time = time.time() - start_time
 
-        # Handle AgenticSAPPipeline result (has characteristics) vs RuleBasedSAPPipeline (has facts)
-        if hasattr(result, 'characteristics') and result.characteristics:
-            # New AgenticSAPPipeline format
+        # Handle RuleBasedSAPPipeline result (PRIMARY - has facts) vs AgenticSAPPipeline (fallback - has characteristics)
+        if hasattr(result, 'facts') and result.facts:
+            # PRIMARY: RuleBasedSAPPipeline format
+            facts = result.facts
+            drug_name = facts.get('drug_name', '') or ''
+            sample_size_val = facts.get('sample_size', 0)
+            if isinstance(sample_size_val, dict):
+                sample_size = sample_size_val.get('total_n', 0) or 0
+            else:
+                sample_size = int(sample_size_val) if sample_size_val else 0
+            ratio = facts.get('randomization_ratio', '') or ''
+            phase = facts.get('phase', '') or ''
+            therapeutic_area = facts.get('therapeutic_area', '') or facts.get('indication', '') or ''
+            endpoint_type = facts.get('primary_endpoint', '')[:100] if facts.get('primary_endpoint') else ""
+
+            quality_score = 1.0 if result.verification and result.verification.passed else 0.5
+            validation_issues = len(result.verification.missing_slots) if result.verification else 0
+            generation_mode = "rule-based (Claude + 99 rules + RAG + slot verification)"
+            source_trials = []
+
+        elif hasattr(result, 'characteristics') and result.characteristics:
+            # FALLBACK: AgenticSAPPipeline format
             chars = result.characteristics
             drug_name = chars.drug_classes[0] if chars.drug_classes else ""
             phase = chars.phase or ""
@@ -618,25 +645,6 @@ async def generate_full_pipeline(request: GenerateRequest):
 
             generation_mode = "agentic-hybridrag (5-agent + Knowledge Graph + 23K chunks)"
             source_trials = result.source_trials or []
-
-        elif hasattr(result, 'facts') and result.facts:
-            # Legacy RuleBasedSAPPipeline format
-            facts = result.facts
-            drug_name = facts.get('drug_name', '') or ''
-            sample_size_val = facts.get('sample_size', 0)
-            if isinstance(sample_size_val, dict):
-                sample_size = sample_size_val.get('total_n', 0) or 0
-            else:
-                sample_size = int(sample_size_val) if sample_size_val else 0
-            ratio = facts.get('randomization_ratio', '') or ''
-            phase = facts.get('phase', '') or ''
-            therapeutic_area = facts.get('therapeutic_area', '') or facts.get('indication', '') or ''
-            endpoint_type = facts.get('primary_endpoint', '')[:100] if facts.get('primary_endpoint') else ""
-
-            quality_score = 1.0 if result.verification and result.verification.passed else 0.5
-            validation_issues = len(result.verification.missing_slots) if result.verification else 0
-            generation_mode = "rule-based (Claude + KnowledgeGraph + RAG)"
-            source_trials = []
 
         else:
             # Minimal fallback
@@ -2303,14 +2311,15 @@ async def process_jobs_worker():
     """
     global worker_running
 
-    print("Starting background job worker with AGENTIC HYBRIDRAG PIPELINE...")
-    print("  [OK] Agent 1: Protocol Analyzer (Claude extraction)")
-    print("  [OK] Agent 2: Hybrid Retriever (Vector + Graph)")
-    print("  [OK] Agent 3: Method Extractor (learns from 23K chunks)")
-    print("  [OK] Agent 4: SAP Generator (templates + RAG)")
-    print("  [OK] Agent 5: Validator (reflection)")
+    print("Starting background job worker with RULE-BASED PIPELINE...")
+    print("  [OK] Step 1: Claude LLM extraction")
+    print("  [OK] Step 2: Condition detection (immunotherapy, crossover, etc.)")
+    print("  [OK] Step 3: Knowledge Graph with 99 rules")
+    print("  [OK] Step 4: ChromaDB RAG with 17K+ chunks")
+    print("  [OK] Step 5: Claude LLM generation with slot constraints")
+    print("  [OK] Step 6: Slot verification")
 
-    # Use get_pipeline() to prefer AgenticSAPPipeline if available
+    # Use get_pipeline() - now returns RuleBasedSAPPipeline
     pipeline = None
 
     while worker_running:
@@ -2338,13 +2347,10 @@ async def process_jobs_worker():
                 "started_at": datetime.utcnow().isoformat()
             }).eq("id", job_id).execute()
 
-            # Initialize pipeline if needed - prefers AgenticSAPPipeline
+            # Initialize pipeline if needed - uses RuleBasedSAPPipeline
             if pipeline is None:
                 pipeline = get_pipeline()
-                if AGENTIC_PIPELINE_AVAILABLE:
-                    print("  [INIT] AgenticSAPPipeline initialized (5-agent + KnowledgeGraph + 23K chunks)")
-                else:
-                    print("  [INIT] RuleBasedSAPPipeline initialized (fallback)")
+                print("  [INIT] RuleBasedSAPPipeline initialized (Claude + 99 rules + RAG + slot verification)")
 
             # Generate SAP using pipeline
             start_time = time.time()
@@ -2355,24 +2361,9 @@ async def process_jobs_worker():
                 processing_time = time.time() - start_time
 
                 if result.success:
-                    # Handle AgenticSAPPipeline result (has characteristics) vs RuleBasedSAPPipeline (has facts)
-                    if hasattr(result, 'characteristics') and result.characteristics:
-                        # New AgenticSAPPipeline format
-                        chars = result.characteristics
-                        drug_name = chars.drug_classes[0] if chars.drug_classes else ""
-                        phase_str = chars.phase or ""
-                        therapeutic_area = chars.indication or ""
-                        endpoint_type_str = (chars.endpoint_type or "")[:10]
-
-                        # Validation from agentic pipeline
-                        quality_score = result.confidence if result.confidence else 0.8
-                        if result.validation:
-                            quality_score = result.validation.confidence
-
-                        pipeline_type = "agentic"
-
-                    elif hasattr(result, 'facts') and result.facts:
-                        # Legacy RuleBasedSAPPipeline format
+                    # Handle RuleBasedSAPPipeline result (PRIMARY - has facts) vs AgenticSAPPipeline (fallback - has characteristics)
+                    if hasattr(result, 'facts') and result.facts:
+                        # PRIMARY: RuleBasedSAPPipeline format
                         facts = result.facts
 
                         drug_name = facts.get('drug_name', '') or ''
@@ -2392,6 +2383,21 @@ async def process_jobs_worker():
 
                         quality_score = 1.0 if result.verification and result.verification.passed else 0.5
                         pipeline_type = "rule-based"
+
+                    elif hasattr(result, 'characteristics') and result.characteristics:
+                        # FALLBACK: AgenticSAPPipeline format
+                        chars = result.characteristics
+                        drug_name = chars.drug_classes[0] if chars.drug_classes else ""
+                        phase_str = chars.phase or ""
+                        therapeutic_area = chars.indication or ""
+                        endpoint_type_str = (chars.endpoint_type or "")[:10]
+
+                        # Validation from agentic pipeline
+                        quality_score = result.confidence if result.confidence else 0.8
+                        if result.validation:
+                            quality_score = result.validation.confidence
+
+                        pipeline_type = "agentic"
 
                     else:
                         # Minimal fallback
