@@ -211,7 +211,8 @@ Section:"""
     ) -> str:
         """Generate a section using LLM with chunk examples."""
         if self.llm is None:
-            return self._generate_section_fallback(section_name, characteristics, methods)
+            # NO FALLBACK TEMPLATES - use actual chunk content
+            return self._use_real_chunk_content(section_name, chunks, methods)
 
         # Format characteristics
         chars_text = f"""
@@ -254,69 +255,64 @@ Multiplicity: {methods.multiplicity.get('method', 'none') if isinstance(methods.
         except Exception as e:
             print(f"LLM error generating {section_name}: {e}")
 
-        return self._generate_section_fallback(section_name, characteristics, methods)
+        # NO FALLBACK TEMPLATES - use actual chunk content
+        return self._use_real_chunk_content(section_name, chunks, methods)
 
-    def _generate_section_fallback(
+    def _use_real_chunk_content(
         self,
         section_name: str,
-        characteristics: ProtocolCharacteristics,
+        chunks: List[HybridResult],
         methods: ExtractedMethods
     ) -> str:
-        """Fallback template-based generation when LLM unavailable."""
-        primary = methods.primary_analysis.get('method', 'log_rank')
-        interim = methods.interim_analysis.get('method', 'none')
-
-        templates = {
-            "primary_analysis": f"""## Primary Analysis
-
-The primary endpoint will be analyzed using a {self._format_method_name(primary)} test, stratified by randomization factors.
-
-The primary estimand is the treatment effect on the primary endpoint, comparing the investigational arm to the control arm.
-
-{"A weighted log-rank test (Fleming-Harrington) will be used to account for potential delayed treatment effect given the mechanism of action of the study drug." if primary == "fleming_harrington" else ""}
-
-The hazard ratio and corresponding 95% confidence interval will be estimated using a stratified Cox proportional hazards model.
-""",
-            "interim_analysis": f"""## Interim Analysis
-
-{"An interim analysis will be conducted using the Lan-DeMets alpha spending function with O'Brien-Fleming boundaries." if interim == "lan_demets" else "No formal interim analysis is planned."}
-
-The Data Monitoring Committee will review unblinded efficacy and safety data at the interim analysis and make recommendations regarding study continuation.
-""",
-            "sensitivity_analysis": f"""## Sensitivity Analyses
-
-The following sensitivity analyses will be conducted to assess the robustness of the primary analysis:
-
-1. Per-protocol analysis excluding major protocol deviations
-2. Analysis using alternative censoring rules
-{"3. RPSFT (Rank Preserving Structural Failure Time) analysis to adjust for treatment crossover" if "rpsft" in str(methods.sensitivity_analysis) else ""}
-{"4. IPCW (Inverse Probability of Censoring Weighting) analysis" if "ipcw" in str(methods.sensitivity_analysis) else ""}
-""",
-            "multiplicity": self._generate_multiplicity_section(methods)
+        """
+        USE REAL SAP CONTENT from retrieved chunks.
+        NO TEMPLATES - actual methodology from similar trials.
+        """
+        # Find chunks matching this section type
+        section_keywords = {
+            "primary_analysis": ["primary analysis", "primary endpoint", "efficacy analysis", "log-rank", "fleming-harrington", "hazard ratio"],
+            "interim_analysis": ["interim analysis", "interim look", "alpha spending", "lan-demets", "o'brien-fleming", "data monitoring"],
+            "sensitivity_analysis": ["sensitivity analysis", "sensitivity analyses", "robustness", "rpsft", "ipcw", "censoring"],
+            "multiplicity": ["multiplicity", "multiple endpoints", "hierarchical", "gatekeeping", "type i error", "alpha allocation"]
         }
 
-        return templates.get(section_name, f"## {section_name}\n\n[Section content to be generated]")
+        keywords = section_keywords.get(section_name, [section_name])
 
-    def _generate_multiplicity_section(self, methods: ExtractedMethods) -> str:
-        """Generate multiplicity section."""
-        is_hierarchical = False
-        if isinstance(methods.multiplicity, dict):
-            is_hierarchical = methods.multiplicity.get('method') == 'hierarchical'
+        # Score chunks by relevance to this section
+        scored_chunks = []
+        for chunk in chunks:
+            content_lower = chunk.content.lower()
+            score = sum(1 for kw in keywords if kw in content_lower)
+            # Boost score if method matches
+            if methods.primary_analysis.get('method') == 'fleming_harrington':
+                if 'fleming' in content_lower or 'harrington' in content_lower:
+                    score += 5
+            if methods.interim_analysis.get('method') == 'lan_demets':
+                if 'lan-demets' in content_lower or 'alpha spending' in content_lower:
+                    score += 5
+            if score > 0:
+                scored_chunks.append((score, chunk))
 
-        if is_hierarchical:
-            return """## Multiplicity Adjustment
+        # Sort by score, get best matches
+        scored_chunks.sort(key=lambda x: x[0], reverse=True)
+        best_chunks = [c for _, c in scored_chunks[:3]]
 
-A hierarchical testing procedure will be used to control the overall Type I error rate at 0.05 (two-sided).
+        if not best_chunks:
+            # No matching chunks - use any chunks
+            best_chunks = chunks[:2]
 
-The primary endpoint will be tested first. If statistically significant, the key secondary endpoints will be tested in a pre-specified order.
-"""
-        else:
-            return """## Multiplicity Adjustment
+        # Combine real chunk content
+        section_title = section_name.replace("_", " ").title()
+        content_parts = [f"## {section_title}\n"]
 
-No formal multiplicity adjustment is required for this study.
+        for chunk in best_chunks:
+            # Clean and use the ACTUAL content
+            content = chunk.content.strip()
+            # Add source attribution
+            content_parts.append(f"\n{content}\n")
+            content_parts.append(f"\n[Source: {chunk.nct_id}]\n")
 
-The primary endpoint will be tested at the 0.05 significance level (two-sided).
-"""
+        return "\n".join(content_parts)
 
     def _format_method_name(self, method: str) -> str:
         """Format method name for display."""
