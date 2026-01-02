@@ -2198,9 +2198,13 @@ async def process_jobs_worker():
                     print(f"Job {job_id} completed in {processing_time:.1f}s")
                     print(f"  EXTRACTION:")
                     if facts:
-                        print(f"    Drug: {facts.drug_name}")
-                        print(f"    N: {facts.sample_size.total_n if facts.sample_size else 'N/A'}")
-                        print(f"    Ratio: {facts.randomization_ratio}")
+                        print(f"    Drug: {facts.get('drug_name', 'N/A')}")
+                        sample_size = facts.get('sample_size')
+                        if isinstance(sample_size, dict):
+                            print(f"    N: {sample_size.get('total_n', 'N/A')}")
+                        else:
+                            print(f"    N: {sample_size or 'N/A'}")
+                        print(f"    Ratio: {facts.get('randomization_ratio', 'N/A')}")
                     print(f"  HYBRID REASONING:")
                     print(f"    Decision Tree sections: {result.decision_tree_sections}")
                     print(f"    RAG sections: {result.rag_sections}")
