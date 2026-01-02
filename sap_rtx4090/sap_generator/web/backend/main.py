@@ -714,7 +714,7 @@ class RegulatorySAPResponse(BaseModel):
     sections_generated: int
     character_count: int
     processing_time: float
-    extraction_method: str  # "claude" or "regex"
+    extraction_method: str  # Always "claude" (no regex fallback)
     errors: list
 
 
@@ -762,8 +762,8 @@ async def generate_regulatory_sap(request: GenerateRequest):
 
         processing_time = time.time() - start_time
 
-        # Determine extraction method
-        extraction_method = "claude" if generator.llm else "regex"
+        # Extraction method is always Claude (no regex fallback)
+        extraction_method = "claude"
 
         return RegulatorySAPResponse(
             success=True,

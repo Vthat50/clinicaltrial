@@ -287,24 +287,19 @@ PROTOCOL TEXT:
 
     def extract_protocol_facts(self, protocol_text: str) -> ProtocolFacts:
         """
-        Extract comprehensive facts from protocol text.
+        Extract comprehensive facts from protocol text using Claude API.
 
-        Uses Claude API if available for accurate extraction,
-        falls back to regex patterns if LLM unavailable.
+        Requires Claude API - no regex fallback.
         """
-        # Try Claude API extraction first
-        if self.llm:
-            try:
-                facts = self._extract_with_llm(protocol_text)
-                if facts.nct_id or facts.primary_endpoint or facts.total_sample_size:
-                    print("[SAP Generator] Successfully extracted facts using Claude API")
-                    return facts
-            except Exception as e:
-                print(f"[SAP Generator] Claude extraction failed, falling back to regex: {e}")
+        if not self.llm:
+            raise RuntimeError(
+                "Claude API required for protocol extraction. "
+                "Set ANTHROPIC_API_KEY environment variable."
+            )
 
-        # Fallback to regex extraction
-        print("[SAP Generator] Using regex extraction (Claude unavailable)")
-        return self._extract_with_regex(protocol_text)
+        facts = self._extract_with_llm(protocol_text)
+        print("[SAP Generator] Successfully extracted facts using Claude API")
+        return facts
 
     def _extract_with_llm(self, protocol_text: str) -> ProtocolFacts:
         """Extract protocol facts using Claude API."""
@@ -393,164 +388,6 @@ PROTOCOL TEXT:
                 facts.primary_endpoint_definition = "OS is defined as the time from randomization to the date of death. A subject who has not died will be censored at last known date alive."
             elif "progression-free survival" in facts.primary_endpoint.lower() or "pfs" in facts.primary_endpoint.lower():
                 facts.primary_endpoint_definition = "PFS is defined as the time from randomization to the date of the first documented tumor progression as determined by the investigator using RECIST 1.1 criteria or death due to any cause."
-
-        return facts
-
-    def _extract_with_regex(self, protocol_text: str) -> ProtocolFacts:
-        """Extract protocol facts using regex patterns (fallback)."""
-        facts = ProtocolFacts()
-        text_lower = protocol_text.lower()
-
-        # NCT ID
-        nct_match = re.search(r'NCT\d{8}', protocol_text, re.IGNORECASE)
-        if nct_match:
-            facts.nct_id = nct_match.group(0).upper()
-
-        # Protocol number (e.g., CA209-078)
-        proto_match = re.search(r'(?:protocol|study)\s*(?:#|number|no\.?)?\s*[:\s]*([A-Z]{2,}\d{2,}[-\d]*)',
-                                protocol_text, re.IGNORECASE)
-        if proto_match:
-            facts.protocol_number = proto_match.group(1)
-
-        # Phase
-        phase_match = re.search(r'phase\s*([123]|[IiVv]+)', protocol_text, re.IGNORECASE)
-        if phase_match:
-            phase = phase_match.group(1).upper()
-            phase_map = {'1': '1', '2': '2', '3': '3', 'I': '1', 'II': '2', 'III': '3',
-                        'IV': '4', 'i': '1', 'ii': '2', 'iii': '3'}
-            facts.phase = phase_map.get(phase, phase)
-
-        # Design type
-        if 'open-label' in text_lower or 'open label' in text_lower:
-            facts.design_type = "Open-label"
-        elif 'double-blind' in text_lower or 'double blind' in text_lower:
-            facts.design_type = "Double-blind"
-        elif 'single-blind' in text_lower:
-            facts.design_type = "Single-blind"
-
-        # Randomization
-        facts.is_randomized = 'randomiz' in text_lower
-        ratio_match = re.search(r'(\d+)\s*:\s*(\d+)\s*(?:ratio|randomiz)', protocol_text, re.IGNORECASE)
-        if ratio_match:
-            facts.randomization_ratio = f"{ratio_match.group(1)}:{ratio_match.group(2)}"
-
-        # Sample size
-        sample_patterns = [
-            r'(?:approximately|about|~)?\s*(\d{2,4})\s*(?:subjects|patients|participants)',
-            r'sample\s*size[:\s]+(\d{2,4})',
-            r'enroll[^\d]*(\d{2,4})\s*(?:subjects|patients)',
-        ]
-        for pattern in sample_patterns:
-            match = re.search(pattern, protocol_text, re.IGNORECASE)
-            if match:
-                facts.total_sample_size = int(match.group(1))
-                break
-
-        # Events required
-        events_match = re.search(r'(\d{2,4})\s*(?:deaths|events|OS events)', protocol_text, re.IGNORECASE)
-        if events_match:
-            facts.events_required_final = int(events_match.group(1))
-
-        # Stratification factors
-        strat_match = re.search(r'stratif(?:y|ied|ication)[^.]*?(?:by|factors?)[:\s]*([^.]+)',
-                               protocol_text, re.IGNORECASE)
-        if strat_match:
-            factors_text = strat_match.group(1)
-            # Parse factors
-            if 'histology' in factors_text.lower():
-                facts.stratification_factors.append("Histology (squamous vs. non-squamous)")
-            if 'pd-l1' in factors_text.lower() or 'pdl1' in factors_text.lower():
-                facts.stratification_factors.append("PD-L1 Status (positive vs. negative/unevaluable)")
-            if 'ecog' in factors_text.lower():
-                facts.stratification_factors.append("ECOG Performance Status (0 vs. 1)")
-            if 'region' in factors_text.lower():
-                facts.stratification_factors.append("Geographic Region")
-
-        # Primary endpoint
-        endpoint_patterns = [
-            r'primary\s+endpoint[:\s]+([^.]+)',
-            r'primary\s+(?:efficacy\s+)?endpoint\s+(?:is|will be)[:\s]*([^.]+)',
-        ]
-        for pattern in endpoint_patterns:
-            match = re.search(pattern, protocol_text, re.IGNORECASE)
-            if match:
-                facts.primary_endpoint = match.group(1).strip()
-                break
-
-        # Determine endpoint type and definition
-        if 'overall survival' in text_lower or facts.primary_endpoint.lower().startswith('os'):
-            facts.primary_endpoint = "Overall Survival (OS)"
-            facts.primary_endpoint_definition = "OS is defined as the time from randomization to the date of death. A subject who has not died will be censored at last known date alive."
-        elif 'progression-free survival' in text_lower or 'pfs' in facts.primary_endpoint.lower():
-            facts.primary_endpoint = "Progression-Free Survival (PFS)"
-            facts.primary_endpoint_definition = "PFS is defined as the time from randomization to the date of the first documented tumor progression as determined by the investigator using RECIST 1.1 criteria or death due to any cause."
-
-        # Drug names
-        drug_patterns = [
-            (r'(nivolumab|opdivo)', 'Nivolumab'),
-            (r'(pembrolizumab|keytruda)', 'Pembrolizumab'),
-            (r'(atezolizumab|tecentriq)', 'Atezolizumab'),
-            (r'(durvalumab|imfinzi)', 'Durvalumab'),
-            (r'(ipilimumab|yervoy)', 'Ipilimumab'),
-        ]
-        for pattern, name in drug_patterns:
-            if re.search(pattern, protocol_text, re.IGNORECASE):
-                facts.experimental_drug = name
-                facts.drug_class = "checkpoint_inhibitor"
-                break
-
-        # Comparator
-        comparator_patterns = [
-            (r'(docetaxel|taxotere)', 'Docetaxel'),
-            (r'(paclitaxel|taxol)', 'Paclitaxel'),
-            (r'(carboplatin)', 'Carboplatin'),
-            (r'(cisplatin)', 'Cisplatin'),
-            (r'placebo', 'Placebo'),
-        ]
-        for pattern, name in comparator_patterns:
-            if re.search(pattern, protocol_text, re.IGNORECASE):
-                facts.comparator_drug = name
-                break
-
-        # Indication
-        indication_patterns = [
-            (r'non-small cell lung cancer|nsclc', 'Advanced or Metastatic Non-Small Cell Lung Cancer (NSCLC)'),
-            (r'melanoma', 'Melanoma'),
-            (r'renal cell carcinoma|rcc', 'Renal Cell Carcinoma'),
-            (r'urothelial', 'Urothelial Carcinoma'),
-            (r'head and neck', 'Head and Neck Squamous Cell Carcinoma'),
-        ]
-        for pattern, name in indication_patterns:
-            if re.search(pattern, protocol_text, re.IGNORECASE):
-                facts.indication = name
-                break
-
-        # Interim analysis
-        facts.has_interim = 'interim analysis' in text_lower or 'interim analyses' in text_lower
-        if facts.has_interim:
-            interim_count = len(re.findall(r'interim\s+analysis', text_lower))
-            facts.num_interim_analyses = max(1, interim_count)
-
-        # DMC
-        facts.dmc_oversight = 'data monitoring committee' in text_lower or 'dmc' in text_lower
-
-        # Therapeutic area
-        if any(x in text_lower for x in ['cancer', 'tumor', 'oncology', 'carcinoma', 'melanoma']):
-            facts.therapeutic_area = "Oncology"
-
-        # Statistical test based on drug class and endpoint
-        if facts.drug_class == "checkpoint_inhibitor" and "survival" in facts.primary_endpoint.lower():
-            facts.primary_test = "Fleming-Harrington weighted log-rank test G(rho=0, gamma=1)"
-            facts.error_spending_function = "Lan-DeMets error spending function with O'Brien-Fleming boundaries"
-        else:
-            facts.primary_test = "Stratified log-rank test"
-
-        # Alpha levels for interim
-        if facts.has_interim:
-            facts.alpha_interim = 0.020
-            facts.alpha_final = 0.044
-        else:
-            facts.alpha_final = 0.05
 
         return facts
 
