@@ -276,7 +276,20 @@ class KnowledgeRuleEngine:
 
         # Primary test selection
         if 'time_to_event' in conditions:
-            if 'stratified' in conditions:
+            # IMMUNOTHERAPY + TIME-TO-EVENT = Fleming-Harrington as PRIMARY
+            if 'immunotherapy' in conditions or 'delayed_effect' in conditions:
+                recommendations['primary_test'] = {
+                    'method': 'fleming_harrington',
+                    'description': 'Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)',
+                    'reason': 'Immunotherapy/checkpoint inhibitor with delayed treatment effect - weighted log-rank is more powerful'
+                }
+                # Add stratified log-rank as sensitivity
+                recommendations['sensitivity_analyses'].append({
+                    'method': 'stratified_logrank',
+                    'description': 'Stratified log-rank test (unweighted)',
+                    'reason': 'Sensitivity analysis using standard log-rank'
+                })
+            elif 'stratified' in conditions:
                 recommendations['primary_test'] = {
                     'method': 'stratified_logrank',
                     'description': 'Stratified log-rank test',
@@ -303,12 +316,9 @@ class KnowledgeRuleEngine:
 
         # NPH-specific methods for immunotherapy
         if 'immunotherapy' in conditions and 'time_to_event' in conditions:
+            # Note: Fleming-Harrington is now PRIMARY, so don't add as sensitivity
+            # Only add RMST and landmark as additional sensitivity analyses
             recommendations['sensitivity_analyses'].extend([
-                {
-                    'method': 'fleming_harrington',
-                    'description': 'Fleming-Harrington weighted log-rank G(ρ=0, γ=1)',
-                    'reason': 'Accounts for delayed treatment effect in immunotherapy'
-                },
                 {
                     'method': 'rmst',
                     'description': 'Restricted Mean Survival Time difference',
@@ -323,7 +333,7 @@ class KnowledgeRuleEngine:
 
             recommendations['reasoning'].append(
                 "Immunotherapy trial with time-to-event endpoint: "
-                "Added NPH-robust methods (Fleming-Harrington, RMST, landmarks)"
+                "Fleming-Harrington as primary test, with RMST and landmarks as sensitivity"
             )
 
         # Multiplicity adjustment
