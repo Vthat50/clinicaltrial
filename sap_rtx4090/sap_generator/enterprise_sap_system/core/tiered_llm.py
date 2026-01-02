@@ -142,6 +142,11 @@ class TieredLLMClient:
         self.openai_key = os.getenv("OPENAI_API_KEY")
         self.groq_key = os.getenv("GROQ_API_KEY")
 
+        # DEBUG: Print key status at startup
+        print(f"[LLM INIT] ANTHROPIC_API_KEY: {'SET (' + self.anthropic_key[:15] + '...)' if self.anthropic_key else 'NOT SET'}")
+        print(f"[LLM INIT] OPENAI_API_KEY: {'SET' if self.openai_key else 'NOT SET'}")
+        print(f"[LLM INIT] GROQ_API_KEY: {'SET' if self.groq_key else 'NOT SET'}")
+
         # API status tracking with circuit breaker
         self.api_status: Dict[str, APIStatus] = {
             "claude": APIStatus(available=bool(self.anthropic_key)),
@@ -528,9 +533,12 @@ class TieredLLMClient:
         error_str = str(error).lower()
         error_type = type(error).__name__
 
-        # Detect error type
+        # DEBUG: Print full error
+        print(f"[DEBUG] {tier.upper()} ERROR: {type(error).__name__}: {error}")
+
+        # Detect error type - be more specific
         is_rate_limit = "rate" in error_str or "429" in error_str
-        is_auth_error = "401" in error_str or "403" in error_str or "auth" in error_str
+        is_auth_error = "401" in error_str or "403" in error_str or "authentication" in error_str or "api_key" in error_str
         is_invalid_request = "400" in error_str or "invalid" in error_str
 
         # Record error and get cooldown
