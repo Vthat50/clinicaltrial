@@ -21,5 +21,4 @@ numpy>=1.24.0
 
 # Agentic HybridRAG Pipeline dependencies
 chromadb>=0.4.0
-# Note: Uses OpenAI embeddings (text-embedding-3-small) by default
-# sentence-transformers and torch are optional (only for offline use)
+sentence-transformers>=2.2.0

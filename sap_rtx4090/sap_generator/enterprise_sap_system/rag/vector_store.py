@@ -109,12 +109,11 @@ class SAPVectorStore:
             settings=Settings(anonymized_telemetry=False)
         )
 
-        # Initialize embedding model
-        # Prefer OpenAI embeddings (no torch needed) for production
+        # Initialize embedding model - MUST use sentence-transformers (384 dim)
+        # to match the indexed ChromaDB data
         self.embedding_model_name = embedding_model
         self._embedder = None
-        self._openai_client = None
-        self.use_openai = OPENAI_AVAILABLE  # Use OpenAI if available (lighter than torch)
+        self.use_openai = False  # Always use sentence-transformers for consistency
 
         # Initialize collections
         self.collections: Dict[str, Any] = {}
@@ -132,40 +131,22 @@ class SAPVectorStore:
                 print(f"Error creating collection {name}: {e}")
 
     @property
-    def openai_client(self):
-        """Lazy load OpenAI client"""
-        if self._openai_client is None:
-            self._openai_client = openai.OpenAI()
-        return self._openai_client
-
-    @property
     def embedder(self):
-        """Lazy load sentence-transformer embedding model"""
+        """Lazy load sentence-transformer embedding model (all-MiniLM-L6-v2 = 384 dim)"""
         if self._embedder is None:
             if SENTENCE_TRANSFORMERS_AVAILABLE:
                 self._embedder = SentenceTransformer(self.embedding_model_name)
+                print(f"[EMBEDDER] Loaded {self.embedding_model_name} (384 dimensions)")
             else:
-                raise ImportError("sentence-transformers required for embeddings (or set OPENAI_API_KEY)")
+                raise ImportError("sentence-transformers required. Install with: pip install sentence-transformers")
         return self._embedder
 
     def embed_text(self, text: str) -> List[float]:
-        """Generate embedding for text using OpenAI or sentence-transformers"""
-        if self.use_openai:
-            response = self.openai_client.embeddings.create(
-                model="text-embedding-3-small",
-                input=text
-            )
-            return response.data[0].embedding
+        """Generate embedding for text using sentence-transformers (384 dim)"""
         return self.embedder.encode(text).tolist()
 
     def embed_batch(self, texts: List[str]) -> List[List[float]]:
         """Generate embeddings for batch of texts"""
-        if self.use_openai:
-            response = self.openai_client.embeddings.create(
-                model="text-embedding-3-small",
-                input=texts
-            )
-            return [item.embedding for item in response.data]
         return self.embedder.encode(texts).tolist()
 
     def add_section(
