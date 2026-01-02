@@ -450,9 +450,40 @@ class SAPVectorStore:
         return total_loaded
 
 
-def create_vector_store(persist_directory: Path = None) -> SAPVectorStore:
-    """Factory function to create vector store"""
-    return SAPVectorStore(persist_directory=persist_directory)
+def create_vector_store(persist_directory: Path = None, auto_index: bool = True) -> SAPVectorStore:
+    """Factory function to create vector store.
+
+    If auto_index=True and store is empty, automatically indexes from rag_training_data.
+    """
+    store = SAPVectorStore(persist_directory=persist_directory)
+
+    # Check if store is empty and auto-index from rag_training_data
+    if auto_index:
+        total_chunks = sum(store.get_collection_stats().values())
+        if total_chunks == 0:
+            print("[AUTO-INDEX] ChromaDB is empty, indexing from rag_training_data...")
+
+            # Find rag_training_data directory
+            rag_dir = Path(__file__).parent.parent.parent / "rag_training_data"
+            if not rag_dir.exists():
+                # Try alternative paths
+                for alt in [
+                    Path("/app/rag_training_data"),
+                    Path("./rag_training_data"),
+                    Path(__file__).parent.parent.parent.parent / "rag_training_data",
+                ]:
+                    if alt.exists():
+                        rag_dir = alt
+                        break
+
+            if rag_dir.exists():
+                print(f"[AUTO-INDEX] Found rag_training_data at: {rag_dir}")
+                loaded = store.load_training_data(str(rag_dir))
+                print(f"[AUTO-INDEX] Indexed {loaded} chunks from rag_training_data")
+            else:
+                print(f"[AUTO-INDEX] WARNING: rag_training_data not found at {rag_dir}")
+
+    return store
 
 
 # CLI interface
