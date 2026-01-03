@@ -65,6 +65,14 @@ except ImportError:
     DrugClassification = None
     create_drug_classifier = None
 
+try:
+    from .study_design_classifier import StudyDesignClassifier, StudyDesignResult, StudyDesignType, StatisticalApproach
+except ImportError:
+    StudyDesignClassifier = None
+    StudyDesignResult = None
+    StudyDesignType = None
+    StatisticalApproach = None
+
 
 # =============================================================================
 # DATA CLASSES
@@ -103,6 +111,7 @@ class GenerationResult:
     constraints: Optional[MethodConstraints] = None
     verification: Optional[VerificationResult] = None
     drug_classification: Optional[Any] = None  # DrugClassification from ontology
+    study_design: Optional[Any] = None  # StudyDesignResult from classifier
     regeneration_count: int = 0
     warnings: List[str] = field(default_factory=list)
     error: str = ""
@@ -208,6 +217,15 @@ class ProductionSAPPipeline:
             except Exception as e:
                 print(f"[ProductionPipeline] ✗ Drug classifier failed: {e}")
 
+        # 8. Study Design Classifier (Multi-signal classification)
+        self.study_design_classifier = None
+        if StudyDesignClassifier:
+            try:
+                self.study_design_classifier = StudyDesignClassifier()
+                print("[ProductionPipeline] ✓ StudyDesignClassifier initialized (multi-signal detection)")
+            except Exception as e:
+                print(f"[ProductionPipeline] ✗ Study design classifier failed: {e}")
+
     def generate(self, protocol_text: str) -> GenerationResult:
         """
         Generate SAP using production pipeline.
@@ -225,10 +243,34 @@ class ProductionSAPPipeline:
             facts = self._extract_facts(protocol_text)
             print(f"[Step 1] Extracted: {facts.get('nct_id')}, {facts.get('sample_size')} patients, {facts.get('final_events')} events")
 
+            # STEP 1.5: Classify study design (multi-signal detection)
+            study_design_result = None
+            if self.study_design_classifier:
+                print("\n[Step 1.5] Classifying study design (multi-signal)...")
+                study_design_result = self.study_design_classifier.classify(protocol_text, facts)
+                print(f"[Step 1.5] Design: {study_design_result.design_type.value}")
+                print(f"[Step 1.5] Approach: {study_design_result.statistical_approach.value}")
+                print(f"[Step 1.5] Confidence: {study_design_result.confidence:.1%}")
+                if study_design_result.requires_review:
+                    print(f"[Step 1.5] ⚠ REQUIRES REVIEW: {study_design_result.review_reasons}")
+
+                # CRITICAL: Update facts with classifier results (more reliable than keyword-based)
+                facts['phase'] = study_design_result.phase
+                facts['is_single_arm'] = not study_design_result.is_randomized
+                facts['is_pilot_study'] = study_design_result.is_pilot
+                facts['treatment_setting'] = study_design_result.treatment_setting
+                facts['time_origin'] = study_design_result.time_origin
+                facts['has_interim_analysis'] = study_design_result.has_interim_analysis
+                facts['hypothesis_testing_planned'] = (
+                    study_design_result.statistical_approach != StatisticalApproach.DESCRIPTIVE_ONLY
+                )
+                facts['study_design_confidence'] = study_design_result.confidence
+                facts['study_design_requires_review'] = study_design_result.requires_review
+
             # STEP 2: Get method constraints (with Drug Classification)
             print("\n[Step 2] Getting method constraints from Knowledge Graph...")
             conditions, drug_classification = self._detect_conditions(facts, protocol_text)
-            constraints = self._get_constraints(facts, conditions)
+            constraints = self._get_constraints_from_design(facts, conditions, study_design_result)
             print(f"[Step 2] Primary test: {constraints.primary_test}")
             print(f"[Step 2] Conditions: {conditions}")
             if drug_classification:
@@ -265,6 +307,7 @@ class ProductionSAPPipeline:
                 constraints=constraints,
                 verification=verification,
                 drug_classification=drug_classification,
+                study_design=study_design_result,
                 regeneration_count=regeneration_count
             )
 
@@ -767,6 +810,134 @@ class ProductionSAPPipeline:
         if has_interim and 'interim_analysis' in conditions and not constraints.interim_method:
             constraints.interim_method = "Lan-DeMets"
             constraints.alpha_spending = "O'Brien-Fleming"
+
+        return constraints
+
+    def _get_constraints_from_design(
+        self,
+        facts: Dict[str, Any],
+        conditions: List[str],
+        study_design_result: Optional[Any]
+    ) -> MethodConstraints:
+        """
+        Get method constraints using the StudyDesignClassifier result.
+
+        This is the production-grade approach that uses multi-signal classification
+        rather than simple keyword matching.
+
+        Args:
+            facts: Extracted protocol facts
+            conditions: Detected conditions (immunotherapy, crossover, etc.)
+            study_design_result: Result from StudyDesignClassifier
+
+        Returns:
+            MethodConstraints with appropriate methods for the study design
+        """
+        # If no classifier result, fall back to keyword-based approach
+        if not study_design_result:
+            return self._get_constraints(facts, conditions)
+
+        constraints = MethodConstraints(conditions_detected=conditions)
+
+        # Get statistical constraints from the classifier
+        stat_constraints = study_design_result.get_statistical_constraints()
+
+        # =====================================================================
+        # DESCRIPTIVE STUDIES (Phase II single-arm, pilot, etc.)
+        # =====================================================================
+        if study_design_result.statistical_approach == StatisticalApproach.DESCRIPTIVE_ONLY:
+            print(f"[Constraints] Using DESCRIPTIVE approach from classifier (confidence: {study_design_result.confidence:.1%})")
+
+            constraints.primary_test = stat_constraints.get('primary_test', 'Descriptive statistics only')
+            constraints.forbidden_primary = ', '.join(stat_constraints.get('forbidden', []))
+            constraints.sample_size_approach = stat_constraints.get('sample_size_approach', '')
+
+            # Time-to-event descriptive methods
+            if 'time_to_event' in conditions:
+                constraints.descriptive_methods = [
+                    "Kaplan-Meier survival curves",
+                    "Median survival with 95% CI",
+                    "Survival rates at landmark timepoints (6, 12, 24 months)"
+                ]
+
+            # Binary endpoint methods
+            constraints.binary_methods = [
+                "Response rate with exact binomial 95% CI (Clopper-Pearson)",
+                "Descriptive proportions"
+            ]
+
+            # Neoadjuvant-specific
+            if study_design_result.treatment_setting == 'neoadjuvant':
+                constraints.time_origin = "surgery (not enrollment)"
+                constraints.neoadjuvant_methods = [
+                    "Pathologic response grading per protocol-specified criteria",
+                    "DFS/OS measured from date of surgery"
+                ]
+                if facts.get('pathologic_response_criteria'):
+                    constraints.pathologic_criteria = facts['pathologic_response_criteria']
+
+            # No interim for descriptive studies unless explicit
+            if not study_design_result.has_interim_analysis:
+                constraints.interim_method = None
+                constraints.alpha_spending = None
+
+            return constraints
+
+        # =====================================================================
+        # SIMON'S TWO-STAGE DESIGN
+        # =====================================================================
+        if study_design_result.statistical_approach == StatisticalApproach.SIMON_TWO_STAGE:
+            print(f"[Constraints] Using SIMON TWO-STAGE approach from classifier")
+
+            constraints.primary_test = "Simon's two-stage design"
+            constraints.forbidden_primary = "log-rank test, Cox regression (not appropriate for binary endpoint)"
+            constraints.binary_methods = [
+                "Stage 1 analysis with stopping rule",
+                "Stage 2 final analysis",
+                "Response rate with exact binomial 95% CI"
+            ]
+            constraints.sample_size_approach = "Simon's optimal or minimax design"
+            constraints.interim_method = "Simon's two-stage stopping rule"
+
+            return constraints
+
+        # =====================================================================
+        # COMPARATIVE STUDIES (Phase III RCT, Phase II RCT)
+        # =====================================================================
+        print(f"[Constraints] Using COMPARATIVE approach from classifier (confidence: {study_design_result.confidence:.1%})")
+
+        # Use knowledge graph for comparative study methods
+        if self.knowledge_graph:
+            methods = self.knowledge_graph.get_primary_analysis_methods(facts)
+
+            if methods:
+                primary = methods.get('primary_test', {})
+                if primary:
+                    constraints.primary_test = primary.get('description', primary.get('method', ''))
+
+                # NPH methods
+                nph = methods.get('nph_methods', [])
+                constraints.nph_methods = [m.get('method', m) if isinstance(m, dict) else m for m in nph]
+
+                # Interim - only if explicitly in protocol
+                if study_design_result.has_interim_analysis:
+                    interim = methods.get('interim_analysis_method', {})
+                    if interim:
+                        constraints.interim_method = interim.get('method', '')
+                        constraints.alpha_spending = "O'Brien-Fleming"
+
+        # Apply immunotherapy-specific constraints for comparative studies
+        if 'immunotherapy' in conditions and 'time_to_event' in conditions:
+            constraints.primary_test = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
+            constraints.forbidden_primary = "stratified log-rank"
+            constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
+            constraints.sensitivity_methods = ['stratified log-rank (unweighted)']
+
+        # Interim analysis for comparative studies
+        if study_design_result.has_interim_analysis and 'interim_analysis' in conditions:
+            if not constraints.interim_method:
+                constraints.interim_method = "Lan-DeMets"
+                constraints.alpha_spending = "O'Brien-Fleming"
 
         return constraints
 
