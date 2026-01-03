@@ -656,7 +656,7 @@ class SpecializedOncologyGenerator:
 
     def is_hematologic(self, indication: str) -> bool:
         """Check if indication is hematologic malignancy"""
-        indication_lower = indication.lower()
+        indication_lower = str(indication or '').lower()
         return any(kw in indication_lower for kw in self.hematologic_keywords)
 
     def is_cart_trial(self, treatment: str, indication: str = "") -> bool:
@@ -671,7 +671,7 @@ class SpecializedOncologyGenerator:
 
     def get_hematologic_criteria(self, indication: str) -> Optional[Dict]:
         """Get appropriate response criteria for hematologic indication"""
-        indication_lower = indication.lower()
+        indication_lower = str(indication or '').lower()
 
         if any(kw in indication_lower for kw in ['lymphoma', 'hodgkin', 'dlbcl', 'follicular', 'nhl']):
             return HEMATOLOGIC_TEMPLATES[HematologicCriteria.LUGANO]
@@ -690,7 +690,7 @@ class SpecializedOncologyGenerator:
             "boin": Phase1Design.BOIN,
             "mtpi": Phase1Design.MTPI
         }
-        design_key = design_map.get(design.lower(), Phase1Design.RULE_3_3)
+        design_key = design_map.get(str(design or '3+3').lower(), Phase1Design.RULE_3_3)
         return PHASE1_TEMPLATES[design_key]
 
     def get_cart_safety_section(self) -> str:

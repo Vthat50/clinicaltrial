@@ -284,7 +284,7 @@ class HardValidator:
             strat_found = False
             for factor in facts.stratification_factors:
                 # Check if factor or key words from factor are in SAP
-                factor_words = [w for w in factor.lower().split() if len(w) > 3]
+                factor_words = [w for w in str(factor or '').lower().split() if len(w) > 3]
                 for word in factor_words:
                     if word in sap_text.lower():
                         strat_found = True

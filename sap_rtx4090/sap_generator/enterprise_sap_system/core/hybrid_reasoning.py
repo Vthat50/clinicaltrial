@@ -794,7 +794,7 @@ Exploratory endpoints will include:
 
     def _build_censoring_rules(self, endpoint: str, examples: List[Dict[str, Any]]) -> str:
         """Build censoring rules from RAG examples for TTE endpoints"""
-        endpoint_lower = endpoint.lower()
+        endpoint_lower = str(endpoint or '').lower()
 
         if not any(x in endpoint_lower for x in ['survival', 'pfs', 'efs', 'dfs', 'time to']):
             return ""
@@ -891,7 +891,7 @@ class MethodsRAGGenerator(RAGEnhancedGenerator):
                 'pilot' in phase or 'feasibility' in str(facts).lower(),
                 'phase 1' in phase and is_single_arm,
                 sample_size > 0 and sample_size <= 50 and facts.get('power', 0) == 0,
-                facts.get('sample_size_justification', '').lower() in ['pragmatic', 'feasibility'],
+                str(facts.get('sample_size_justification') or '').lower() in ['pragmatic', 'feasibility'],
             ]
             is_pilot_study = any(pilot_signals)
 
@@ -1027,7 +1027,7 @@ Forest plots will display treatment effects across subgroups."""
 
     def _classify_endpoint_type(self, endpoint: str) -> str:
         """Classify endpoint for method selection"""
-        endpoint_lower = endpoint.lower()
+        endpoint_lower = str(endpoint or '').lower()
         if any(x in endpoint_lower for x in ['survival', 'pfs', 'os', 'efs', 'dfs', 'time to']):
             return 'time_to_event'
         elif any(x in endpoint_lower for x in ['response', 'remission', 'rate', 'proportion']):
@@ -1365,7 +1365,7 @@ Randomization will be stratified by the following factors:
 
     def _infer_levels(self, factor: str) -> str:
         """Infer factor levels from name"""
-        factor_lower = factor.lower()
+        factor_lower = str(factor or '').lower()
         if 'age' in factor_lower:
             return "<65, ≥65 years"
         elif 'region' in factor_lower:
@@ -1379,7 +1379,7 @@ Randomization will be stratified by the following factors:
 
     def _infer_rationale(self, factor: str) -> str:
         """Infer rationale for factor"""
-        factor_lower = factor.lower()
+        factor_lower = str(factor or '').lower()
         if 'age' in factor_lower:
             return "Potential effect modifier"
         elif 'region' in factor_lower:

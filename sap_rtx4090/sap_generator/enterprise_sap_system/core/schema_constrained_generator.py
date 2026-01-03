@@ -876,7 +876,7 @@ def extract_protocol_facts(protocol_text: str) -> ProtocolFacts:
             citation="Extracted from protocol"
         )
         # Set single-arm flag based on design type or num_arms
-        design_lower = structured_facts.design_type.lower() if structured_facts.design_type else ""
+        design_lower = str(structured_facts.design_type).lower() if structured_facts.design_type else ""
         facts.is_single_arm = (
             "single" in design_lower or
             "single-arm" in design_lower or

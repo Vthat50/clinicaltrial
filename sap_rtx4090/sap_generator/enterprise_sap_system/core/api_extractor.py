@@ -529,7 +529,7 @@ class ClinicalTrialsAPIExtractor:
 
         # Check if API title appears in document
         if api_facts.brief_title:
-            title_words = api_facts.brief_title.lower().split()
+            title_words = str(api_facts.brief_title).lower().split()
             title_words = [w for w in title_words if len(w) > 3]  # Skip short words
             if title_words:
                 matches = sum(1 for w in title_words if w in doc_lower)
@@ -538,19 +538,19 @@ class ClinicalTrialsAPIExtractor:
 
         # Check if sponsor appears in document
         if api_facts.sponsor:
-            sponsor_lower = api_facts.sponsor.lower()
+            sponsor_lower = str(api_facts.sponsor).lower()
             sponsor_in_doc = sponsor_lower in doc_lower
             match_signals.append(("sponsor", 1.0 if sponsor_in_doc else 0.0))
 
         # Check if drug name appears in document
         if api_facts.drug_name:
-            drug_lower = api_facts.drug_name.lower()
+            drug_lower = str(api_facts.drug_name).lower()
             drug_in_doc = drug_lower in doc_lower
             match_signals.append(("drug", 1.0 if drug_in_doc else 0.0))
 
         # Check if indication/conditions appear
         if api_facts.conditions:
-            conditions_lower = [c.lower() for c in api_facts.conditions]
+            conditions_lower = [str(c).lower() for c in api_facts.conditions]
             condition_matches = sum(1 for c in conditions_lower if c in doc_lower)
             if conditions_lower:
                 condition_score = condition_matches / len(conditions_lower)
@@ -558,7 +558,7 @@ class ClinicalTrialsAPIExtractor:
 
         # Check if org_study_id (sponsor protocol number) appears
         if api_facts.org_study_id:
-            org_id_lower = api_facts.org_study_id.lower()
+            org_id_lower = str(api_facts.org_study_id).lower()
             org_id_in_doc = org_id_lower in doc_lower
             match_signals.append(("org_study_id", 1.0 if org_id_in_doc else 0.0))
 

@@ -543,7 +543,7 @@ class HybridSAPPipeline:
         facts.blinding_type = extracted.blinding_type
 
         # Phase
-        phase_str = extracted.phase.upper() if extracted.phase else ""
+        phase_str = str(extracted.phase).upper() if extracted.phase else ""
         phase_map = {
             "PHASE 1": StudyPhase.PHASE_1,
             "PHASE1": StudyPhase.PHASE_1,
@@ -1073,7 +1073,7 @@ class HybridSAPPipeline:
         facts.stratification_factors = unified.stratification_factors
 
         # Phase - try to parse
-        phase_str = unified.phase.upper() if unified.phase else ""
+        phase_str = str(unified.phase).upper() if unified.phase else ""
         if "1/2" in phase_str or "1B" in phase_str:
             facts.phase = StudyPhase.PHASE_1_2
         elif "2/3" in phase_str:
@@ -1125,16 +1125,16 @@ class HybridSAPPipeline:
         # PRIORITY 2: Check drug_names_all for second drug (if not study drug)
         if not comparator and facts.drug_names_all and len(facts.drug_names_all) > 1:
             for drug in facts.drug_names_all:
-                if facts.drug_name and drug.lower() != facts.drug_name.lower():
+                if facts.drug_name and str(drug).lower() != str(facts.drug_name).lower():
                     comparator = drug
                     break
 
         # PRIORITY 3: Check arms for control/comparator arm
         if not comparator and facts.arms:
             for arm in facts.arms:
-                arm_name = arm.name.lower() if hasattr(arm, 'name') else str(arm).lower()
+                arm_name = str(arm.name).lower() if hasattr(arm, 'name') else str(arm).lower()
                 # Skip if this is the study drug
-                if facts.drug_name and facts.drug_name.lower() in arm_name:
+                if facts.drug_name and str(facts.drug_name).lower() in arm_name:
                     continue
                 # Check for control indicators
                 if any(x in arm_name for x in ['control', 'comparator', 'standard of care', 'soc']):
@@ -1463,7 +1463,7 @@ Following ICH E9(R1), the primary estimand is defined as:
 | **Treatment** | {treatment_text} |
 | **Variable** | {primary_endpoint} |
 | **Intercurrent Events** | Treatment discontinuation: Treatment policy strategy |
-| **Summary Measure** | {'Proportion of responders' if 'response' in primary_endpoint.lower() else 'Difference in means'} |
+| **Summary Measure** | {'Proportion of responders' if 'response' in str(primary_endpoint or '').lower() else 'Difference in means'} |
 
 ### 2.3 Secondary Objectives
 
@@ -1659,7 +1659,7 @@ Extent of missing data will be summarized:
             'immune checkpoint inhibitor', 'ici', 'car-t', 'car t'
         ]
 
-        combined_text = (protocol_text + " " + facts.get('drug_name', '')).lower()
+        combined_text = (protocol_text + " " + str(facts.get('drug_name') or '')).lower()
 
         # Check if this is an IO trial
         is_io_trial = any(kw in combined_text for kw in io_keywords)

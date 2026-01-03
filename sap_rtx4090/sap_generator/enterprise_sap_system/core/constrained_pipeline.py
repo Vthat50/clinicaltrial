@@ -330,7 +330,7 @@ class EndpointAnalyzer:
             return None
 
         ta_systems = cls.SCORING_SYSTEMS[ta]
-        indication_lower = indication.lower()
+        indication_lower = str(indication or '').lower()
 
         # Try to match specific indication
         for key, system in ta_systems.items():
@@ -1317,7 +1317,7 @@ This is the primary analysis population for all safety analyses.
 
         # RAG-enhanced: Add censoring rules for time-to-event endpoints
         rag_enhanced_section = ""
-        endpoint_lower = primary_endpoint.lower()
+        endpoint_lower = str(primary_endpoint or '').lower()
         if any(term in endpoint_lower for term in ['survival', 'pfs', 'efs', 'dfs', 'time to', 'duration']):
             rag_enhanced_section = """
 
@@ -1425,10 +1425,10 @@ Analysis will include:
 
         # Build proper model specification based on endpoint type
         # RAG-enhanced: Detect time-to-event endpoints and add appropriate methods
-        endpoint_lower = primary_endpoint.lower()
+        endpoint_lower = str(primary_endpoint or '').lower()
         is_tte = any(term in endpoint_lower for term in ['survival', 'pfs', 'efs', 'dfs', 'time to', 'duration'])
 
-        if is_tte or "kaplan" in primary_analysis_method.lower() or "cox" in primary_analysis_method.lower():
+        if is_tte or "kaplan" in str(primary_analysis_method or '').lower() or "cox" in str(primary_analysis_method or '').lower():
             model_type = "Time-to-Event Analysis (Kaplan-Meier + Cox)"
             model_spec = """**Primary Analysis:** Kaplan-Meier method to estimate median survival and survival rates at landmark timepoints (6, 12, 18, 24 months).
 
@@ -1442,14 +1442,14 @@ h(t|X) = h₀(t) × exp(β₁×Treatment + β₂×Stratification_Factors)
 **Treatment Effect Estimate:** Hazard ratio with {ci}% confidence interval from Cox proportional hazards model.
 
 **Model Assumptions:** The proportional hazards assumption will be assessed using Schoenfeld residuals and log-log survival plots. If violated, time-varying effects will be explored."""
-        elif "logistic" in primary_analysis_method.lower():
+        elif "logistic" in str(primary_analysis_method or '').lower():
             model_type = "Logistic Regression (for binary endpoint)"
             model_spec = """```
 logit(P(response=1)) = β₀ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Score
 ```
 
 **Treatment Effect Estimate:** Odds ratio with {ci}% confidence interval"""
-        elif "ancova" in primary_analysis_method.lower():
+        elif "ancova" in str(primary_analysis_method or '').lower():
             model_type = "ANCOVA (for continuous endpoint)"
             model_spec = """```
 Y = μ + β₁×Treatment + β₂×Stratification_Factors + β₃×Baseline_Value + ε
@@ -1533,7 +1533,7 @@ If multiple assessments occur within a window, the assessment closest to the tar
 
 **Primary Analysis Method:** {model_type}
 
-The primary endpoint ({primary_endpoint} at {primary_timepoint}) will be analyzed using {primary_analysis_method.lower()} with treatment as a fixed effect and {strat_text} as covariates.
+The primary endpoint ({primary_endpoint} at {primary_timepoint}) will be analyzed using {str(primary_analysis_method or '').lower()} with treatment as a fixed effect and {strat_text} as covariates.
 
 **Model Specification:**
 

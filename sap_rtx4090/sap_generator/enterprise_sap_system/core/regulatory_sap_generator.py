@@ -514,7 +514,7 @@ The primary analysis will be performed when at least {facts.events_required_fina
 
 2.1     Study Design
 
-This is {"an " + facts.design_type.lower() if facts.design_type else "a"}, {"randomized, " if facts.is_randomized else ""}{"Phase " + facts.phase + " " if facts.phase else ""}study in adult (≥ 18 years old) male and female subjects with {facts.indication or '[indication]'}.
+This is {"an " + str(facts.design_type).lower() if facts.design_type else "a"}, {"randomized, " if facts.is_randomized else ""}{"Phase " + str(facts.phase) + " " if facts.phase else ""}study in adult (≥ 18 years old) male and female subjects with {facts.indication or '[indication]'}.
 
 {"Approximately " + str(facts.total_sample_size) + " subjects will be randomized to " + facts.experimental_drug + " vs. " + facts.comparator_drug + " in a " + facts.randomization_ratio + " ratio." if facts.total_sample_size and facts.experimental_drug and facts.comparator_drug and facts.randomization_ratio else ""}
 
