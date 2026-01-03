@@ -3,7 +3,7 @@
 Tiered LLM Client with Automatic Fallback
 ==========================================
 
-Tier 1: Claude Sonnet (most accurate, ~90%)
+Tier 1: Claude Opus 4.5 (most accurate, best extraction)
 Tier 2: OpenAI GPT-4o-mini (fast, ~80%)
 Tier 3: Groq Llama 3.3 70B (free, ~75%)
 
@@ -118,10 +118,10 @@ class TieredLLMClient:
     """
 
     # Model configurations
-    # CRITICAL: Use Sonnet for accurate extraction (Haiku was causing wrong disease, missing drugs)
+    # CRITICAL: Use Opus 4.5 for most accurate extraction
     MODELS = {
         "claude": {
-            "name": "claude-sonnet-4-20250514",  # Upgraded from Haiku for better extraction accuracy
+            "name": "claude-opus-4-5-20251101",  # Upgraded to Opus 4.5 for best extraction accuracy
             "max_tokens": 4096,
             "temperature": 0.1,  # Lower temp for more precise extraction
         },
