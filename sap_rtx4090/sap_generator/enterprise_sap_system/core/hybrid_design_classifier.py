@@ -82,8 +82,15 @@ class HybridClassificationResult:
     phase: int = 0
     is_randomized: bool = False
     is_controlled: bool = False
+    is_blinded: bool = False  # Added for compatibility
     num_arms: int = 0
     treatment_setting: str = ""
+    time_origin: str = ""  # Added: "randomization", "surgery", "enrollment"
+
+    # Special characteristics (Added for compatibility with rule-based)
+    is_pilot: bool = False
+    is_adaptive: bool = False
+    has_interim_analysis: bool = False
 
     # Human review
     requires_review: bool = False
@@ -358,6 +365,19 @@ CRITICAL RULES:
                         weight=0.9  # LLM-extracted evidence is high quality
                     ))
 
+            # Determine is_pilot from design type
+            is_pilot = design_type in [StudyDesignType.PILOT_FEASIBILITY]
+
+            # Determine has_interim from approach or explicit field
+            has_interim = data.get('has_interim_analysis', False)
+            if statistical_approach == StatisticalApproach.INFERENTIAL_COMPARATIVE:
+                has_interim = data.get('has_interim_analysis', True)  # Default true for Phase III
+
+            # Determine time_origin from treatment setting
+            time_origin = data.get('time_origin', '')
+            if not time_origin and data.get('treatment_setting') == 'neoadjuvant':
+                time_origin = 'surgery'
+
             return HybridClassificationResult(
                 design_type=design_type,
                 statistical_approach=statistical_approach,
@@ -367,8 +387,13 @@ CRITICAL RULES:
                 phase=int(data.get('phase', 0)),
                 is_randomized=bool(data.get('is_randomized', False)),
                 is_controlled=bool(data.get('is_controlled', False)),
+                is_blinded=bool(data.get('is_blinded', False)),
                 num_arms=int(data.get('num_arms', 1)),
                 treatment_setting=data.get('treatment_setting', ''),
+                time_origin=time_origin,
+                is_pilot=is_pilot,
+                is_adaptive=bool(data.get('is_adaptive', False)),
+                has_interim_analysis=has_interim,
                 requires_review=bool(data.get('requires_review', False)),
                 review_reasons=data.get('review_reasons', []),
                 forbidden_methods=data.get('forbidden_methods', []),
@@ -393,7 +418,7 @@ CRITICAL RULES:
             # Use existing rule-based classifier
             rule_result = self.rule_fallback.classify(protocol_text, extracted_facts)
 
-            # Convert to hybrid result format
+            # Convert to hybrid result format (copy ALL attributes)
             return HybridClassificationResult(
                 design_type=StudyDesignType(rule_result.design_type.value),
                 statistical_approach=StatisticalApproach(rule_result.statistical_approach.value),
@@ -408,8 +433,13 @@ CRITICAL RULES:
                 phase=rule_result.phase,
                 is_randomized=rule_result.is_randomized,
                 is_controlled=rule_result.is_controlled,
+                is_blinded=getattr(rule_result, 'is_blinded', False),
                 num_arms=rule_result.num_arms,
                 treatment_setting=rule_result.treatment_setting,
+                time_origin=getattr(rule_result, 'time_origin', ''),
+                is_pilot=getattr(rule_result, 'is_pilot', False),
+                is_adaptive=getattr(rule_result, 'is_adaptive', False),
+                has_interim_analysis=getattr(rule_result, 'has_interim_analysis', False),
                 requires_review=True,  # Always review when using fallback
                 review_reasons=["Classification based on rules only (LLM unavailable)"],
                 forbidden_methods=rule_result.forbidden_methods,
@@ -448,6 +478,16 @@ CRITICAL RULES:
             statistical_approach=approach,
             confidence=0.4,  # Low confidence for minimal fallback
             confidence_reasoning="Minimal keyword detection only (no LLM or rules available)",
+            phase=2 if is_phase2 else (3 if is_phase3 else 0),
+            is_randomized=not is_single_arm,
+            is_controlled=not is_single_arm,
+            is_blinded=False,
+            num_arms=1 if is_single_arm else 2,
+            treatment_setting='',
+            time_origin='',
+            is_pilot=is_pilot,
+            is_adaptive=False,
+            has_interim_analysis=False,
             requires_review=True,
             review_reasons=["Very low confidence - human review required"],
             forbidden_methods=['log-rank test', 'Cox regression'] if approach == StatisticalApproach.DESCRIPTIVE_ONLY else [],
