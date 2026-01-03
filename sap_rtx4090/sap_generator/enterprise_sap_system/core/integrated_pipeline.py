@@ -313,8 +313,8 @@ class FactExtractor:
     def _classify_trial_type(self, text: str, facts: Dict) -> TrialType:
         """Classify trial type for template selection"""
         text_lower = text.lower()
-        ta = facts.get('therapeutic_area', '').lower()
-        phase = str(facts.get('phase', '')).lower()
+        ta = str(facts.get('therapeutic_area') or '').lower()
+        phase = str(facts.get('phase') or '').lower()
 
         if ta == 'oncology' or 'cancer' in text_lower:
             if 'car-t' in text_lower or 'chimeric antigen' in text_lower:
@@ -445,7 +445,7 @@ class RAGRetriever:
         if not self.indexed:
             return []
 
-        ta = facts.get('therapeutic_area', '').lower()
+        ta = str(facts.get('therapeutic_area') or '').lower()
         results = []
 
         for key, section_data in self.sections_db.items():

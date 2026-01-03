@@ -1309,7 +1309,7 @@ class HybridSAPPipeline:
         )
 
         # Determine endpoint type from primary endpoint
-        primary_ep = facts_dict.get('primary_endpoint', '').lower()
+        primary_ep = str(facts_dict.get('primary_endpoint') or '').lower()
         endpoint_type = EndpointType.EFFICACY  # Default
         if any(kw in primary_ep for kw in ['orr', 'objective response', 'response rate', 'recist']):
             endpoint_type = EndpointType.ORR
@@ -1326,15 +1326,15 @@ class HybridSAPPipeline:
         primary_estimand = Estimand(
             name="Primary",
             population="ITT",
-            treatment=facts_dict.get('drug_name', ''),
-            variable=facts_dict.get('primary_endpoint', ''),
+            treatment=str(facts_dict.get('drug_name') or ''),
+            variable=str(facts_dict.get('primary_endpoint') or ''),
             variable_type=endpoint_type,
             intercurrent_events={"treatment_discontinuation": "treatment_policy"},
             summary_measure="difference_in_proportions" if endpoint_type == EndpointType.ORR else "hazard_ratio"
         )
 
         # Determine design type
-        design_str = facts_dict.get('design_type', '').lower()
+        design_str = str(facts_dict.get('design_type') or '').lower()
         if 'single' in design_str:
             design_type = DesignType.SINGLE_ARM
         elif 'crossover' in design_str:

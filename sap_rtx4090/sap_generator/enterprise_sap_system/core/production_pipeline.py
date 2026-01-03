@@ -1050,14 +1050,14 @@ class ProductionSAPPipeline:
         print(f"[RAG] Query: '{query[:50]}...' with filters: {filters}")
 
         # Detect if this is monotherapy or combination
-        drug_name = facts.get('drug_name', '').lower()
+        drug_name = str(facts.get('drug_name') or '').lower()
         is_monotherapy = 'mono' in drug_name or facts.get('num_arms', 0) == 2
 
         # Get current indication for post-filter
-        indication = facts.get('indication', '').upper()
+        indication = str(facts.get('indication') or '').upper()
         if not indication:
             # Try to infer from therapeutic area
-            ta = facts.get('therapeutic_area', '').upper()
+            ta = str(facts.get('therapeutic_area') or '').upper()
             if 'LUNG' in ta:
                 indication = 'NSCLC'
             elif 'RENAL' in ta or 'KIDNEY' in ta:

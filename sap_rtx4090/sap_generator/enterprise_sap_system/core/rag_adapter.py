@@ -247,10 +247,10 @@ class HybridRAGAdapter:
             )
 
             # Get current indication for filtering
-            current_indication = protocol_data.get('indication', '').upper()
+            current_indication = str(protocol_data.get('indication') or '').upper()
             if not current_indication and protocol_data.get('therapeutic_area'):
                 # Try to infer from therapeutic area
-                ta = protocol_data['therapeutic_area'].upper()
+                ta = str(protocol_data['therapeutic_area']).upper()
                 if 'LUNG' in ta:
                     current_indication = 'NSCLC'
                 elif 'RENAL' in ta or 'KIDNEY' in ta:

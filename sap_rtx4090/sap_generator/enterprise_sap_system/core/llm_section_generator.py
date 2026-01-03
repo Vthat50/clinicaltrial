@@ -167,6 +167,31 @@ class LLMSectionGenerator:
             ('is_bridging_study', 'Bridging Study'),
             ('target_regions', 'Target Regions'),
             ('document_type', 'Document Type'),
+            # NEW: Regulatory Interim Analysis (e.g., TTF for China)
+            ('has_regulatory_interim', 'Regulatory Interim Analysis Planned'),
+            ('regulatory_interim_endpoint', 'Regulatory Interim Endpoint'),
+            ('regulatory_interim_region', 'Regulatory Interim Region'),
+            ('regulatory_interim_purpose', 'Regulatory Interim Purpose'),
+            ('regulatory_interim_timing', 'Regulatory Interim Timing'),
+            ('regulatory_interim_alpha', 'Regulatory Interim Alpha'),
+            ('regulatory_interim_method', 'Regulatory Interim Method'),
+            ('regulatory_interim_analyses', 'Analyses at Regulatory Interim'),
+            # NEW: PRO/QoL Endpoints
+            ('has_pro_endpoint', 'Patient-Reported Outcomes'),
+            ('pro_endpoints', 'PRO Endpoint Details'),
+            ('pro_instruments', 'PRO Instruments'),
+            # NEW: Non-Proportional Hazards Model
+            ('has_nph_model', 'Non-Proportional Hazards Model'),
+            ('nph_model_type', 'NPH Model Type'),
+            ('delayed_effect_months', 'Delayed Effect (months)'),
+            ('piecewise_hazards', 'Piecewise Hazard Assumptions'),
+            ('subgroup_specific_assumptions', 'Subgroup-Specific Assumptions'),
+            # NEW: Crossover Impact Modeling
+            ('has_crossover_modeling', 'Crossover Impact Modeling'),
+            ('crossover_rates_modeled', 'Crossover Rates Modeled'),
+            ('crossover_impact_on_hr', 'Crossover Impact on HR'),
+            # NEW: Subgroup Analyses
+            ('subgroup_analyses', 'Planned Subgroup Analyses'),
         ]
 
         lines = []
@@ -253,6 +278,10 @@ Write the Introduction section now. Start with "## 1. INTRODUCTION" as the heade
         primary_endpoints = facts.get('primary_endpoints', [])
         has_multiple_primary = len(primary_endpoints) > 1
 
+        # Check for consistency as PRIMARY objective
+        consistency_is_primary = facts.get('consistency_is_primary', False)
+        has_consistency = facts.get('has_consistency_objective', False)
+
         # Build co-primary context
         coprimary_context = ""
         if has_multiple_primary:
@@ -261,6 +290,30 @@ Write the Introduction section now. Start with "## 1. INTRODUCTION" as the heade
 CO-PRIMARY ENDPOINTS ({len(primary_endpoints)}):
 This study has MULTIPLE co-primary endpoints. Create a separate PRIMARY OBJECTIVE for EACH endpoint.
 Each co-primary endpoint requires its own estimand definition."""
+
+        # Build consistency context - CRITICAL for regional studies
+        consistency_context = ""
+        if consistency_is_primary:
+            ref_studies = facts.get('consistency_reference_studies', [])
+            ref_effect = facts.get('consistency_reference_effect', '')
+            margin = facts.get('consistency_margin', '')
+            consistency_context = f"""
+
+CRITICAL - CONSISTENCY IS A PRIMARY OBJECTIVE:
+The PRIMARY objective of this study is to demonstrate consistency with prior studies.
+Reference studies: {', '.join(ref_studies) if ref_studies else 'Global studies'}
+Reference effect: {ref_effect if ref_effect else 'See protocol'}
+Consistency margin: {margin if margin else 'Protocol-defined threshold'}
+
+The hierarchy is:
+1. FIRST PRIMARY: Demonstrate consistency with reference studies
+2. SECOND PRIMARY: Demonstrate superiority of experimental vs comparator (only tested if consistency met)
+
+Write the consistency objective as PRIMARY OBJECTIVE #1, not secondary."""
+        elif has_consistency:
+            consistency_context = """
+
+Note: This study has a consistency objective (secondary). Include it after primary objectives."""
 
         if is_pilot_study or not hypothesis_testing_planned:
             system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP) for a PILOT/FEASIBILITY STUDY.
@@ -312,7 +365,8 @@ For each objective, define the estimand with these 5 attributes:
 
 Use the actual comparator from the protocol - do NOT default to "placebo" unless it's actually a placebo-controlled study.
 Write in formal scientific language with proper statistical terminology.
-{coprimary_context}"""
+{coprimary_context}
+{consistency_context}"""
 
             user_prompt = f"""Write the Objectives and Estimands section for this SAP.
 
@@ -327,6 +381,7 @@ IMPORTANT:
 - Follow ICH E9(R1) estimand framework exactly
 - Include primary AND secondary objectives
 - If there are CO-PRIMARY ENDPOINTS, create a separate objective and estimand for EACH
+- If CONSISTENCY IS A PRIMARY OBJECTIVE, list it as PRIMARY OBJECTIVE #1 before the efficacy objective
 
 Write the section now. Start with "## 2. OBJECTIVES AND ESTIMANDS" as the header."""
 
@@ -395,7 +450,7 @@ Include a table showing treatment arms if multiple arms exist."""
         # Check if this is a pilot/feasibility study
         is_pilot_study = facts.get('is_pilot_study', False)
         hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
-        sample_size_justification = facts.get('sample_size_justification', '').lower()
+        sample_size_justification = str(facts.get('sample_size_justification') or '').lower()
 
         # Determine if formal power calculation was done
         is_pragmatic = sample_size_justification in ['pragmatic', 'feasibility'] or \
@@ -1080,6 +1135,259 @@ The primary endpoint will be analyzed using appropriate statistical methods.
 {endpoint}
 
 Assessment timepoint: {timepoint}
+
+[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
+
+    def generate_regulatory_interim(self, facts: Dict[str, Any]) -> GeneratedSection:
+        """Generate Regulatory Interim Analysis section (e.g., TTF for China)."""
+        if not facts.get('has_regulatory_interim', False):
+            return GeneratedSection(
+                content="",
+                section_name="regulatory_interim",
+                llm_source="none",
+                success=True,
+                error=None
+            )
+
+        examples = self._retrieve_examples('methods', facts, n_results=2)
+
+        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+Write a Regulatory Interim Analysis section for regional filing support (e.g., TTF interim for China NDA).
+
+This section should include:
+1. Purpose of the regulatory interim analysis
+2. Timing of the analysis
+3. Statistical methods (often different from primary analysis)
+4. Analyses to be performed (TTF, ORR, safety, subgroup analyses)
+5. Decision rules (if any)
+6. Relationship to primary analysis alpha spending (often independent/no penalty)
+
+Use formal scientific language appropriate for regulatory submission."""
+
+        user_prompt = f"""Write the Regulatory Interim Analysis section for this SAP.
+
+PROTOCOL FACTS:
+{self._format_facts_for_prompt(facts)}
+
+REGULATORY INTERIM DETAILS:
+- Endpoint: {facts.get('regulatory_interim_endpoint', 'TTF')}
+- Region: {facts.get('regulatory_interim_region', 'China')}
+- Purpose: {facts.get('regulatory_interim_purpose', 'Support early filing')}
+- Timing: {facts.get('regulatory_interim_timing', 'Per protocol')}
+- Alpha: {facts.get('regulatory_interim_alpha', 0.025)}
+- Method: {facts.get('regulatory_interim_method', 'Weighted log-rank')}
+- Analyses: {facts.get('regulatory_interim_analyses', [])}
+
+EXAMPLES FROM SIMILAR SAPs:
+{self._format_examples_for_prompt(examples)}
+
+Write the section now. Start with "## 7.X REGULATORY INTERIM ANALYSIS" as the header."""
+
+        response = self.llm_client.chat(
+            prompt=user_prompt,
+            system_prompt=system_prompt,
+            temperature=0.3,
+            max_tokens=1500
+        )
+
+        return GeneratedSection(
+            content=response.content if response.success else self._fallback_regulatory_interim(facts),
+            section_name="regulatory_interim",
+            llm_source=response.source,
+            rag_examples_used=[ex.get('nct_id', '') for ex in examples],
+            success=response.success,
+            error=response.error
+        )
+
+    def _fallback_regulatory_interim(self, facts: Dict[str, Any]) -> str:
+        """Fallback for regulatory interim analysis section."""
+        endpoint = facts.get('regulatory_interim_endpoint', 'TTF')
+        region = facts.get('regulatory_interim_region', 'China')
+        timing = facts.get('regulatory_interim_timing', 'Per protocol')
+        alpha = facts.get('regulatory_interim_alpha', 0.025)
+        return f"""## 7.X REGULATORY INTERIM ANALYSIS
+
+### Purpose
+This interim analysis is conducted to support early filing in {region}.
+
+### Timing
+{timing}
+
+### Methods
+- One-sided alpha level: {alpha}
+- Primary endpoint: {endpoint}
+- Statistical test: Weighted log-rank test (Fleming-Harrington)
+
+### Analyses
+- {endpoint} analysis (primary)
+- ORR (descriptive)
+- Safety summary
+- {region} subjects subanalysis
+
+[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
+
+    def generate_pro_endpoints(self, facts: Dict[str, Any]) -> GeneratedSection:
+        """Generate Patient-Reported Outcomes section."""
+        if not facts.get('has_pro_endpoint', False):
+            return GeneratedSection(
+                content="",
+                section_name="pro_endpoints",
+                llm_source="none",
+                success=True,
+                error=None
+            )
+
+        examples = self._retrieve_examples('endpoints', facts, n_results=2)
+
+        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+Write a Patient-Reported Outcomes (PRO) section for quality of life and symptom endpoints.
+
+This section should include:
+1. PRO instruments used (LCSS, EORTC QLQ-C30, EQ-5D, etc.)
+2. Subscales and domains assessed
+3. Assessment schedule/timepoints
+4. Responder definition (e.g., ≥10 point change from baseline)
+5. Analysis methods for PRO data
+6. Handling of missing PRO data
+
+Use formal scientific language appropriate for regulatory submission."""
+
+        pro_endpoints = facts.get('pro_endpoints', [])
+        instruments = facts.get('pro_instruments', [])
+
+        user_prompt = f"""Write the Patient-Reported Outcomes section for this SAP.
+
+PROTOCOL FACTS:
+{self._format_facts_for_prompt(facts)}
+
+PRO DETAILS:
+- Instruments: {', '.join(instruments) if instruments else 'As specified in protocol'}
+- PRO Endpoints: {pro_endpoints}
+
+EXAMPLES FROM SIMILAR SAPs:
+{self._format_examples_for_prompt(examples)}
+
+Write the section now. Start with "## 5.X PATIENT-REPORTED OUTCOMES" as the header."""
+
+        response = self.llm_client.chat(
+            prompt=user_prompt,
+            system_prompt=system_prompt,
+            temperature=0.3,
+            max_tokens=1500
+        )
+
+        return GeneratedSection(
+            content=response.content if response.success else self._fallback_pro_endpoints(facts),
+            section_name="pro_endpoints",
+            llm_source=response.source,
+            rag_examples_used=[ex.get('nct_id', '') for ex in examples],
+            success=response.success,
+            error=response.error
+        )
+
+    def _fallback_pro_endpoints(self, facts: Dict[str, Any]) -> str:
+        """Fallback for PRO endpoints section."""
+        instruments = facts.get('pro_instruments', ['LCSS'])
+        pro_endpoints = facts.get('pro_endpoints', [])
+
+        pro_details = ""
+        for ep in pro_endpoints:
+            if isinstance(ep, dict):
+                pro_details += f"\n- {ep.get('instrument', 'PRO')}: {ep.get('subscale', '')}"
+                if ep.get('responder_definition'):
+                    pro_details += f" (Responder: {ep.get('responder_definition')})"
+
+        return f"""## 5.X PATIENT-REPORTED OUTCOMES
+
+### Instruments
+{', '.join(instruments)}
+
+### Endpoints
+{pro_details if pro_details else '- As specified in protocol'}
+
+### Analysis Methods
+- Descriptive statistics at each assessment timepoint
+- Change from baseline analysis
+- Time to symptom deterioration (Kaplan-Meier)
+
+[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
+
+    def generate_subgroup_analyses(self, facts: Dict[str, Any]) -> GeneratedSection:
+        """Generate Subgroup Analyses section."""
+        examples = self._retrieve_examples('methods', facts, n_results=2)
+
+        subgroups = facts.get('subgroup_analyses', [])
+
+        system_prompt = """You are a biostatistician writing a Statistical Analysis Plan (SAP).
+Write a comprehensive Subgroup Analyses section.
+
+This section should include:
+1. Complete list of planned subgroups
+2. Methodology (forest plot, interaction tests)
+3. Interpretation guidance (exploratory nature)
+4. Multiplicity considerations
+
+Use formal scientific language appropriate for regulatory submission."""
+
+        user_prompt = f"""Write the Subgroup Analyses section for this SAP.
+
+PROTOCOL FACTS:
+{self._format_facts_for_prompt(facts)}
+
+PLANNED SUBGROUPS:
+{chr(10).join([f'- {s}' for s in subgroups]) if subgroups else 'Per protocol specification'}
+
+EXAMPLES FROM SIMILAR SAPs:
+{self._format_examples_for_prompt(examples)}
+
+Write the section now. Start with "## 7.X SUBGROUP ANALYSES" as the header."""
+
+        response = self.llm_client.chat(
+            prompt=user_prompt,
+            system_prompt=system_prompt,
+            temperature=0.3,
+            max_tokens=1500
+        )
+
+        return GeneratedSection(
+            content=response.content if response.success else self._fallback_subgroup_analyses(facts),
+            section_name="subgroup_analyses",
+            llm_source=response.source,
+            rag_examples_used=[ex.get('nct_id', '') for ex in examples],
+            success=response.success,
+            error=response.error
+        )
+
+    def _fallback_subgroup_analyses(self, facts: Dict[str, Any]) -> str:
+        """Fallback for subgroup analyses section."""
+        subgroups = facts.get('subgroup_analyses', [])
+        if not subgroups:
+            subgroups = [
+                "Age (<65, 65-<75, ≥75 years)",
+                "Gender (Male, Female)",
+                "ECOG Performance Status (0, ≥1)",
+                "Histology (if applicable)",
+                "PD-L1 status (if applicable)",
+                "Region/Country (if applicable)"
+            ]
+
+        subgroup_list = '\n'.join([f"- {s}" for s in subgroups])
+
+        return f"""## 7.X SUBGROUP ANALYSES
+
+### Planned Subgroups
+{subgroup_list}
+
+### Methods
+- Forest plots for treatment effect by subgroup
+- Interaction tests (exploratory)
+- Hazard ratios with 95% CI for each subgroup
+
+### Interpretation
+Subgroup analyses are exploratory and should be interpreted with caution due to:
+- Multiple comparisons
+- Smaller sample sizes within subgroups
+- Potential for imbalanced baseline characteristics
 
 [Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
 
