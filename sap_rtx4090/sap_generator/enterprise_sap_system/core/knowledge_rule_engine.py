@@ -291,21 +291,9 @@ class KnowledgeRuleEngine:
             }
             # Don't override with inference
         elif 'time_to_event' in conditions:
-            # FALLBACK ONLY: Apply inference if protocol doesn't specify method
-            if 'immunotherapy' in conditions or 'delayed_effect' in conditions:
-                print("[KnowledgeRuleEngine] FALLBACK: Inferring Fleming-Harrington for immunotherapy")
-                recommendations['primary_test'] = {
-                    'method': 'fleming_harrington',
-                    'description': 'Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)',
-                    'reason': 'FALLBACK: Immunotherapy/checkpoint inhibitor with delayed treatment effect - weighted log-rank is more powerful'
-                }
-                # Add stratified log-rank as sensitivity
-                recommendations['sensitivity_analyses'].append({
-                    'method': 'stratified_logrank',
-                    'description': 'Stratified log-rank test (unweighted)',
-                    'reason': 'Sensitivity analysis using standard log-rank'
-                })
-            elif 'stratified' in conditions:
+            # FALLBACK: Use stratified log-rank as default (most common standard method)
+            # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
+            if 'stratified' in conditions:
                 recommendations['primary_test'] = {
                     'method': 'stratified_logrank',
                     'description': 'Stratified log-rank test',

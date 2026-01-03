@@ -1297,16 +1297,14 @@ IMPORTANT:
         }
 
         if classification.expects_delayed_effect:
-            implications["recommended_primary_test"] = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
-            implications["recommended_nph_methods"] = [
-                "Fleming-Harrington",
-                "RMST",
-                "landmark analysis"
-            ]
+            # NOTE: We NO LONGER recommend Fleming-Harrington here
+            # The protocol must specify the statistical method - we don't infer from drug class
+            # We only flag that this drug MAY have delayed effects (for informational purposes)
+            implications["recommended_primary_test"] = ""  # Let protocol decide
+            implications["recommended_nph_methods"] = []   # Let protocol decide
             implications["conditions_to_add"] = [
                 "immunotherapy",
-                "delayed_effect",
-                "non_proportional_hazards"
+                # Note: delayed_effect and NPH are informational, not forcing method selection
             ]
 
         if classification.drug_class == DrugClass.CELL_THERAPY.value:

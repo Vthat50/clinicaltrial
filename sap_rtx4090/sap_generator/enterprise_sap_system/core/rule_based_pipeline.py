@@ -804,15 +804,15 @@ class RuleBasedSAPPipeline:
         if 'crossover' in conditions and not constraints.sensitivity_methods:
             constraints.sensitivity_methods = ['RPSFT', 'IPCW']
 
-        # CRITICAL: Immunotherapy + time-to-event = Fleming-Harrington as PRIMARY
-        # ALWAYS override for immunotherapy trials - don't trust knowledge graph duplicates
-        if 'immunotherapy' in conditions and 'time_to_event' in conditions:
-            constraints.primary_test = 'Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)'
-            # Set clean NPH methods list - Fleming-Harrington IS the weighted log-rank, no need for duplicates
-            constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
-        elif 'immunotherapy' in conditions:
-            # For immunotherapy without time-to-event
-            constraints.nph_methods = ['Fleming-Harrington', 'RMST']
+        # CRITICAL: Check protocol-extracted method FIRST, use stratified log-rank as default
+        # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
+        protocol_method = facts.get('statistical_method', '') or facts.get('statistical_method_details', '')
+        if protocol_method and not constraints.primary_test:
+            print(f"[RuleBasedPipeline] Using PROTOCOL-SPECIFIED method: {protocol_method}")
+            constraints.primary_test = protocol_method
+        elif 'time_to_event' in conditions and not constraints.primary_test:
+            print(f"[RuleBasedPipeline] FALLBACK: Using stratified log-rank (standard)")
+            constraints.primary_test = 'Stratified log-rank test'
 
         if 'interim_analysis' in conditions and not constraints.interim_method:
             constraints.interim_method = 'Lan-DeMets'

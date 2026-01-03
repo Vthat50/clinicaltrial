@@ -655,15 +655,33 @@ class ProductionSAPPipeline:
         facts['is_pilot_study'] = is_pilot
 
         # 4. Detect Neoadjuvant/Adjuvant Setting
-        if 'neoadjuvant' in text_lower or 'neo-adjuvant' in text_lower:
-            facts['treatment_setting'] = 'neoadjuvant'
-            facts['time_origin'] = 'surgery'  # Time-to-event from surgery, not randomization
-        elif 'adjuvant' in text_lower:
-            facts['treatment_setting'] = 'adjuvant'
-            facts['time_origin'] = 'surgery'
+        # PRIORITY: Use Claude-extracted treatment_setting if available
+        # FALLBACK: Only use keyword detection if Claude didn't extract it
+        claude_setting = facts.get('treatment_setting', '')
+        if claude_setting and claude_setting not in ['', 'empty', 'unknown']:
+            print(f"[BasicExtraction] Using Claude-extracted setting: {claude_setting}")
+            # Claude already set it, determine time_origin
+            if 'neoadjuvant' in claude_setting.lower() or 'adjuvant' in claude_setting.lower():
+                facts['time_origin'] = 'surgery'
+            else:
+                facts['time_origin'] = 'randomization'
         else:
-            facts['treatment_setting'] = 'metastatic'
-            facts['time_origin'] = 'randomization'
+            # FALLBACK: Keyword detection - but be more careful
+            # Only trigger neoadjuvant if it's in the title or primary objectives
+            title = str(facts.get('protocol_title', '')).lower()
+            is_neoadjuvant_study = 'neoadjuvant' in title or 'neo-adjuvant' in title
+            is_adjuvant_study = 'adjuvant' in title and 'neoadjuvant' not in title
+
+            if is_neoadjuvant_study:
+                facts['treatment_setting'] = 'neoadjuvant'
+                facts['time_origin'] = 'surgery'
+            elif is_adjuvant_study:
+                facts['treatment_setting'] = 'adjuvant'
+                facts['time_origin'] = 'surgery'
+            else:
+                # Default for most oncology trials: first-line/metastatic, time from randomization
+                facts['treatment_setting'] = 'first-line'
+                facts['time_origin'] = 'randomization'
 
         # 5. Detect No Hypothesis Testing (descriptive only)
         no_hypothesis_testing = (
@@ -868,13 +886,12 @@ class ProductionSAPPipeline:
             constraints.primary_test = protocol_method
             # Don't forbid anything - trust the protocol
             constraints.forbidden_primary = ""
-        elif 'immunotherapy' in conditions and 'time_to_event' in conditions:
-            # FALLBACK ONLY: Apply immunotherapy inference if protocol doesn't specify method
-            print(f"[Constraints] FALLBACK: No protocol method found, inferring from immunotherapy")
-            constraints.primary_test = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
-            constraints.forbidden_primary = ""  # Don't forbid - let protocol guide
-            constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
-            constraints.sensitivity_methods = ['stratified log-rank (unweighted)']
+        elif 'time_to_event' in conditions:
+            # FALLBACK: Use stratified log-rank as default (most common standard method)
+            # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
+            print(f"[Constraints] FALLBACK: No protocol method found, using stratified log-rank (standard)")
+            constraints.primary_test = "Stratified log-rank test"
+            constraints.forbidden_primary = ""
 
         # Only add interim methods if protocol has interim analysis
         if has_interim and 'interim_analysis' in conditions and not constraints.interim_method:
@@ -1010,13 +1027,12 @@ class ProductionSAPPipeline:
             print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
             constraints.primary_test = protocol_method
             constraints.forbidden_primary = ""
-        elif 'immunotherapy' in conditions and 'time_to_event' in conditions:
-            # FALLBACK ONLY: Apply immunotherapy inference if protocol doesn't specify method
-            print(f"[Constraints] FALLBACK: No protocol method found, inferring from immunotherapy")
-            constraints.primary_test = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
+        elif 'time_to_event' in conditions:
+            # FALLBACK: Use stratified log-rank as default (most common standard method)
+            # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
+            print(f"[Constraints] FALLBACK: No protocol method found, using stratified log-rank (standard)")
+            constraints.primary_test = "Stratified log-rank test"
             constraints.forbidden_primary = ""
-            constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
-            constraints.sensitivity_methods = ['stratified log-rank (unweighted)']
 
         # Interim analysis for comparative studies
         if study_design_result.has_interim_analysis and 'interim_analysis' in conditions:
