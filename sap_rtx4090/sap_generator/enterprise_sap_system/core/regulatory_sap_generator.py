@@ -552,7 +552,7 @@ The randomization will be carried out via permuted blocks within each stratum.
 
     def _generate_blinding(self, facts: ProtocolFacts) -> str:
         """Generate Section 2.3 Blinding."""
-        if facts.design_type and 'open' in facts.design_type.lower():
+        if facts.design_type and 'open' in str(facts.design_type).lower():
             return """
 2.3     Blinding and Unblinding
 

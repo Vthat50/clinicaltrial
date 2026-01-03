@@ -2194,7 +2194,7 @@ Footnotes:
             num_arms = facts.num_arms or 0
             is_single_arm = (
                 num_arms == 1 or
-                (facts.design_type and "single" in facts.design_type.lower()) or
+                (facts.design_type and "single" in str(facts.design_type).lower()) or
                 not facts.ratio  # No ratio = likely single-arm
             )
 

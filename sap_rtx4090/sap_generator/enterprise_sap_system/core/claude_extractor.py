@@ -607,17 +607,19 @@ class ClaudeProtocolExtractor:
             result.num_arms = len(result.arms)
 
         # Infer single-arm from design_type
-        if "single" in result.design_type.lower():
+        design_type_lower = str(result.design_type or "").lower()
+        if "single" in design_type_lower:
             result.num_arms = 1
             result.is_randomized = False
 
         # Infer pilot study from various indicators
         if not result.is_pilot_study:
+            sample_just_lower = str(result.sample_size_justification or "").lower()
             pilot_indicators = [
-                "pilot" in result.design_type.lower(),
-                "feasibility" in result.design_type.lower(),
-                "exploratory" in result.design_type.lower(),
-                result.sample_size_justification.lower() in ["pragmatic", "feasibility"],
+                "pilot" in design_type_lower,
+                "feasibility" in design_type_lower,
+                "exploratory" in design_type_lower,
+                sample_just_lower in ["pragmatic", "feasibility"],
                 result.power == 0 and result.sample_size < 50,  # Small study with no power calc
                 "phase 1" in str(result.phase).lower() and not result.is_randomized,
             ]

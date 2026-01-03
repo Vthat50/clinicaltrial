@@ -827,7 +827,7 @@ class StructuredFactExtractor:
         facts.stratification_factors = self._extract_stratification_factors(protocol_text)
 
         # Ensure consistency for single-arm
-        if facts.design_type and 'single-arm' in facts.design_type.lower():
+        if facts.design_type and 'single-arm' in str(facts.design_type).lower():
             facts.num_arms = 1
             facts.arms = facts.arms[:1] if facts.arms else []
 

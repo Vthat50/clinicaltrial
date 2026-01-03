@@ -568,12 +568,12 @@ class HybridSAPPipeline:
             )
 
         # Arms
-        facts.num_arms = extracted.num_arms or len(extracted.arms) or (1 if "single" in extracted.design_type.lower() else 2)
+        facts.num_arms = extracted.num_arms or len(extracted.arms) or (1 if "single" in str(extracted.design_type or "").lower() else 2)
         if extracted.arms:
             facts.arms = [
                 TreatmentArm(
-                    name=arm.get("name", f"Arm {i+1}"),
-                    is_placebo="placebo" in str(arm.get("treatment", "")).lower()
+                    name=arm.get("name") or f"Arm {i+1}",
+                    is_placebo="placebo" in str(arm.get("treatment") or "").lower()
                 )
                 for i, arm in enumerate(extracted.arms)
             ]
@@ -898,8 +898,8 @@ class HybridSAPPipeline:
             if arm_groups:
                 facts.arms = [
                     {
-                        "name": a.get("label", ""),
-                        "is_placebo": "placebo" in a.get("label", "").lower()
+                        "name": a.get("label") or "",
+                        "is_placebo": "placebo" in str(a.get("label") or "").lower()
                     }
                     for a in arm_groups
                 ]
@@ -996,8 +996,8 @@ class HybridSAPPipeline:
             if arm_groups:
                 facts.arms = [
                     TreatmentArm(
-                        name=a.get("label", ""),
-                        is_placebo="placebo" in a.get("label", "").lower()
+                        name=a.get("label") or "",
+                        is_placebo="placebo" in str(a.get("label") or "").lower()
                     )
                     for a in arm_groups
                 ]
@@ -1041,8 +1041,8 @@ class HybridSAPPipeline:
         if unified.arms:
             facts.arms = [
                 TreatmentArm(
-                    name=arm.get("name", f"Arm {i+1}"),
-                    is_placebo="placebo" in arm.get("name", "").lower()
+                    name=arm.get("name") or f"Arm {i+1}",
+                    is_placebo="placebo" in str(arm.get("name") or "").lower()
                 )
                 for i, arm in enumerate(unified.arms)
             ]
@@ -1109,7 +1109,7 @@ class HybridSAPPipeline:
         # Determine if single-arm
         is_single_arm = (
             facts.num_arms == 1 or
-            (facts.design_type and 'single' in facts.design_type.lower()) or
+            (facts.design_type and 'single' in str(facts.design_type).lower()) or
             not facts.randomization_ratio
         )
 
