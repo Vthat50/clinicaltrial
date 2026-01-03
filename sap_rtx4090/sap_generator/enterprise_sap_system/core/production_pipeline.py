@@ -73,6 +73,22 @@ except ImportError:
     StudyDesignType = None
     StatisticalApproach = None
 
+# HYBRID CLASSIFIER: Uses RAG + LLM for more accurate classification
+try:
+    from .hybrid_design_classifier import (
+        HybridDesignClassifier,
+        HybridClassificationResult,
+        StudyDesignType as HybridDesignType,
+        StatisticalApproach as HybridApproach,
+        create_hybrid_classifier
+    )
+except ImportError:
+    HybridDesignClassifier = None
+    HybridClassificationResult = None
+    HybridDesignType = None
+    HybridApproach = None
+    create_hybrid_classifier = None
+
 
 # =============================================================================
 # DATA CLASSES
@@ -217,12 +233,26 @@ class ProductionSAPPipeline:
             except Exception as e:
                 print(f"[ProductionPipeline] ✗ Drug classifier failed: {e}")
 
-        # 8. Study Design Classifier (Multi-signal classification)
+        # 8. Study Design Classifier (Hybrid: RAG + LLM for accuracy)
         self.study_design_classifier = None
-        if StudyDesignClassifier:
+        self.hybrid_classifier = None
+
+        # Try hybrid classifier first (more accurate)
+        if HybridDesignClassifier and self.rag and self.llm:
+            try:
+                self.hybrid_classifier = create_hybrid_classifier(
+                    rag_store=self.rag,
+                    llm_client=self.llm
+                )
+                print("[ProductionPipeline] ✓ HybridDesignClassifier initialized (RAG + LLM)")
+            except Exception as e:
+                print(f"[ProductionPipeline] ✗ Hybrid classifier failed: {e}")
+
+        # Fall back to rule-based if hybrid unavailable
+        if not self.hybrid_classifier and StudyDesignClassifier:
             try:
                 self.study_design_classifier = StudyDesignClassifier()
-                print("[ProductionPipeline] ✓ StudyDesignClassifier initialized (multi-signal detection)")
+                print("[ProductionPipeline] ✓ StudyDesignClassifier initialized (rule-based fallback)")
             except Exception as e:
                 print(f"[ProductionPipeline] ✗ Study design classifier failed: {e}")
 
@@ -243,29 +273,57 @@ class ProductionSAPPipeline:
             facts = self._extract_facts(protocol_text)
             print(f"[Step 1] Extracted: {facts.get('nct_id')}, {facts.get('sample_size')} patients, {facts.get('final_events')} events")
 
-            # STEP 1.5: Classify study design (multi-signal detection)
+            # STEP 1.5: Classify study design (Hybrid: RAG + LLM > Rule-based)
             study_design_result = None
-            if self.study_design_classifier:
-                print("\n[Step 1.5] Classifying study design (multi-signal)...")
-                study_design_result = self.study_design_classifier.classify(protocol_text, facts)
+
+            # Try HYBRID classifier first (more accurate - uses LLM reasoning)
+            if self.hybrid_classifier:
+                print("\n[Step 1.5] Classifying study design (HYBRID: RAG + LLM)...")
+                study_design_result = self.hybrid_classifier.classify(protocol_text, facts)
                 print(f"[Step 1.5] Design: {study_design_result.design_type.value}")
                 print(f"[Step 1.5] Approach: {study_design_result.statistical_approach.value}")
                 print(f"[Step 1.5] Confidence: {study_design_result.confidence:.1%}")
+                print(f"[Step 1.5] Source: {study_design_result.classification_source}")
+                if study_design_result.confidence_reasoning:
+                    print(f"[Step 1.5] Reasoning: {study_design_result.confidence_reasoning[:100]}...")
                 if study_design_result.requires_review:
                     print(f"[Step 1.5] ⚠ REQUIRES REVIEW: {study_design_result.review_reasons}")
 
-                # CRITICAL: Update facts with classifier results (more reliable than keyword-based)
+            # Fall back to rule-based if hybrid unavailable
+            elif self.study_design_classifier:
+                print("\n[Step 1.5] Classifying study design (rule-based fallback)...")
+                study_design_result = self.study_design_classifier.classify(protocol_text, facts)
+                print(f"[Step 1.5] Design: {study_design_result.design_type.value}")
+                print(f"[Step 1.5] Approach: {study_design_result.statistical_approach.value}")
+                print(f"[Step 1.5] Confidence: {study_design_result.confidence:.1%} (rule-based)")
+                if study_design_result.requires_review:
+                    print(f"[Step 1.5] ⚠ REQUIRES REVIEW: {study_design_result.review_reasons}")
+
+            # CRITICAL: Update facts with classifier results (works for both hybrid and rule-based)
+            if study_design_result:
                 facts['phase'] = study_design_result.phase
                 facts['is_single_arm'] = not study_design_result.is_randomized
-                facts['is_pilot_study'] = study_design_result.is_pilot
                 facts['treatment_setting'] = study_design_result.treatment_setting
-                facts['time_origin'] = study_design_result.time_origin
-                facts['has_interim_analysis'] = study_design_result.has_interim_analysis
-                facts['hypothesis_testing_planned'] = (
-                    study_design_result.statistical_approach != StatisticalApproach.DESCRIPTIVE_ONLY
-                )
                 facts['study_design_confidence'] = study_design_result.confidence
                 facts['study_design_requires_review'] = study_design_result.requires_review
+
+                # Handle different result types (hybrid vs rule-based)
+                if hasattr(study_design_result, 'is_pilot'):
+                    facts['is_pilot_study'] = study_design_result.is_pilot
+                if hasattr(study_design_result, 'time_origin'):
+                    facts['time_origin'] = study_design_result.time_origin
+                if hasattr(study_design_result, 'has_interim_analysis'):
+                    facts['has_interim_analysis'] = study_design_result.has_interim_analysis
+
+                # Determine if hypothesis testing based on approach
+                approach_value = study_design_result.statistical_approach.value
+                facts['hypothesis_testing_planned'] = approach_value != 'descriptive_only'
+
+                # Store classification source
+                if hasattr(study_design_result, 'classification_source'):
+                    facts['classification_source'] = study_design_result.classification_source
+                else:
+                    facts['classification_source'] = 'rule_based'
 
             # STEP 2: Get method constraints (with Drug Classification)
             print("\n[Step 2] Getting method constraints from Knowledge Graph...")
@@ -820,15 +878,16 @@ class ProductionSAPPipeline:
         study_design_result: Optional[Any]
     ) -> MethodConstraints:
         """
-        Get method constraints using the StudyDesignClassifier result.
+        Get method constraints using the study design classification result.
 
-        This is the production-grade approach that uses multi-signal classification
-        rather than simple keyword matching.
+        Supports both:
+        - HybridClassificationResult (RAG + LLM based - more accurate)
+        - StudyDesignResult (rule-based - fallback)
 
         Args:
             facts: Extracted protocol facts
             conditions: Detected conditions (immunotherapy, crossover, etc.)
-            study_design_result: Result from StudyDesignClassifier
+            study_design_result: Result from either classifier
 
         Returns:
             MethodConstraints with appropriate methods for the study design
@@ -839,13 +898,16 @@ class ProductionSAPPipeline:
 
         constraints = MethodConstraints(conditions_detected=conditions)
 
-        # Get statistical constraints from the classifier
+        # Get statistical constraints from the classifier (both types have this method)
         stat_constraints = study_design_result.get_statistical_constraints()
+
+        # Get approach value (works for both enum types)
+        approach_value = study_design_result.statistical_approach.value
 
         # =====================================================================
         # DESCRIPTIVE STUDIES (Phase II single-arm, pilot, etc.)
         # =====================================================================
-        if study_design_result.statistical_approach == StatisticalApproach.DESCRIPTIVE_ONLY:
+        if approach_value == 'descriptive_only':
             print(f"[Constraints] Using DESCRIPTIVE approach from classifier (confidence: {study_design_result.confidence:.1%})")
 
             constraints.primary_test = stat_constraints.get('primary_test', 'Descriptive statistics only')
@@ -886,7 +948,7 @@ class ProductionSAPPipeline:
         # =====================================================================
         # SIMON'S TWO-STAGE DESIGN
         # =====================================================================
-        if study_design_result.statistical_approach == StatisticalApproach.SIMON_TWO_STAGE:
+        if approach_value == 'simon_two_stage':
             print(f"[Constraints] Using SIMON TWO-STAGE approach from classifier")
 
             constraints.primary_test = "Simon's two-stage design"
