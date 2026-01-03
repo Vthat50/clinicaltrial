@@ -3,18 +3,39 @@
 Production SAP Pipeline - Separation of Concerns Architecture
 ==============================================================
 
-Based on 2024-2025 RAG best practices:
+Based on 2024-2025 RAG best practices and ICH E9 R1:
 
-1. EXTRACTION (Ground Truth) - Single source for all numerical values
-2. KNOWLEDGE GRAPH (Method Selection) - Rules for statistical methods
-3. RAG (Prose Style Only) - Sanitized examples with numbers stripped
-4. CONSTRAINED GENERATION - Explicit source attribution in prompts
-5. SELF-RAG VERIFICATION - Verify and correct if needed
+ARCHITECTURE (sources and their roles):
+===========================================
+| Source              | Role                                          |
+|---------------------|-----------------------------------------------|
+| Protocol Extraction | GROUND TRUTH for all values and methods       |
+| Knowledge Graph     | CONTEXT ONLY (regulatory, scientific)         |
+| RAG                 | PROSE STYLE ONLY (numbers stripped)           |
+===========================================
+
+CRITICAL PRINCIPLES:
+1. EXTRACTION → All methods come from protocol extraction
+2. KNOWLEDGE GRAPH → Provides regulatory context (ICH E9, FDA guidance)
+                   → Never overrides protocol-specified methods
+3. RAG → Sanitized examples for writing style only
+4. MISSING DATA → Flag [NEEDS REVIEW], never infer
+5. ESTIMANDS → Required per ICH E9 R1
+
+WHAT KNOWLEDGE GRAPH CAN DO:
+✓ Regulatory requirements (ICH E9, ICH E9 R1, FDA guidance)
+✓ General considerations ("NPH common in immunotherapy")
+✓ Scientific background for rationale
+
+WHAT KNOWLEDGE GRAPH CANNOT DO:
+✗ Select methods based on drug class
+✗ Override protocol-specified methods
+✗ Infer methods when extraction fails
 
 References:
+- ICH E9 R1: Estimands framework
 - SELF-RAG (ICLR 2024 Oral): Reflection tokens for factuality
-- AI21 Labs: "Centralizing through single trusted data source"
-- Graph RAG (2025): Knowledge graphs as factual constraints
+- FDA Guidance on Clinical Trial Endpoints
 """
 
 import re
@@ -149,10 +170,11 @@ class ProductionSAPPipeline:
     5. VERIFICATION → SELF-RAG pattern with correction loop
     """
 
-    # SAP sections to generate
+    # SAP sections to generate (per ICH E9 R1)
     SECTIONS = [
         ('introduction', 'Introduction'),
         ('objectives', 'Study Objectives and Endpoints'),
+        ('estimands', 'Estimands'),  # ICH E9 R1 requirement
         ('study_design', 'Study Design'),
         ('sample_size', 'Sample Size Determination'),
         ('analysis_populations', 'Analysis Populations'),
@@ -1490,6 +1512,70 @@ Write the {section_title} section now.
             elif facts.get('has_hierarchical_testing'):
                 lines.append("- Hierarchical Testing: Yes (order to be specified)")
 
+        # Estimands section (ICH E9 R1)
+        if section_key == 'estimands':
+            if facts.get('primary_endpoint'):
+                lines.append(f"- Primary Endpoint: {facts['primary_endpoint']}")
+
+            # Estimand attributes (per ICH E9 R1)
+            if facts.get('estimand_population'):
+                lines.append(f"- Population (A): {facts['estimand_population']}")
+            else:
+                lines.append("- Population (A): [EXTRACT FROM PROTOCOL - ITT/mITT definition]")
+
+            if facts.get('estimand_variable'):
+                lines.append(f"- Variable (B): {facts['estimand_variable']}")
+            else:
+                lines.append("- Variable (B): [EXTRACT FROM PROTOCOL - endpoint definition]")
+
+            if facts.get('estimand_ice_strategy'):
+                lines.append(f"- Intercurrent Events (C): {facts['estimand_ice_strategy']}")
+            else:
+                lines.append("- Intercurrent Events (C): [EXTRACT FROM PROTOCOL - treatment discontinuation, rescue medication, death handling]")
+
+            if facts.get('estimand_summary_measure'):
+                lines.append(f"- Summary Measure (D): {facts['estimand_summary_measure']}")
+            else:
+                lines.append("- Summary Measure (D): [EXTRACT FROM PROTOCOL - HR, difference in medians, etc.]")
+
+            # ICE handling strategies
+            if facts.get('ice_strategies'):
+                lines.append("- ICE Handling Strategies:")
+                for ice, strategy in facts['ice_strategies'].items():
+                    lines.append(f"  • {ice}: {strategy}")
+
+        # Missing Data section
+        if section_key == 'missing_data':
+            if facts.get('missing_data_method'):
+                lines.append(f"- Primary Method: {facts['missing_data_method']}")
+            else:
+                lines.append("- Primary Method: [EXTRACT FROM PROTOCOL - NEEDS REVIEW]")
+
+            if facts.get('missing_data_assumption'):
+                lines.append(f"- Assumption: {facts['missing_data_assumption']}")
+
+            if facts.get('missing_data_sensitivity'):
+                lines.append(f"- Sensitivity Analyses: {facts['missing_data_sensitivity']}")
+
+        # Sensitivity Analysis section
+        if section_key == 'sensitivity_analysis':
+            if facts.get('sensitivity_methods'):
+                methods = facts['sensitivity_methods']
+                if isinstance(methods, list):
+                    lines.append("- Pre-specified Sensitivity Analyses:")
+                    for m in methods:
+                        lines.append(f"  • {m}")
+                else:
+                    lines.append(f"- Sensitivity Analyses: {methods}")
+            else:
+                lines.append("- Sensitivity Analyses: [EXTRACT FROM PROTOCOL - NEEDS REVIEW]")
+
+            # Crossover/treatment switching (if applicable)
+            if facts.get('crossover_permitted') or facts.get('has_crossover'):
+                lines.append("- Treatment Switching Adjustment: Required (crossover permitted)")
+                if facts.get('crossover_adjustment_method'):
+                    lines.append(f"  Method: {facts['crossover_adjustment_method']}")
+
         # Multiplicity section
         if section_key == 'multiplicity':
             if facts.get('hierarchical_testing_order'):
@@ -1602,11 +1688,31 @@ Write the {section_title} section now.
                 lines.append("- For single-arm studies, no formal sensitivity analyses are typically performed")
                 lines.append("- May describe sensitivity to missing data assumptions if applicable")
             else:
+                # CRITICAL: Use protocol-extracted sensitivity methods
                 if constraints.sensitivity_methods:
-                    lines.append(f"- Required Methods: {', '.join(constraints.sensitivity_methods)}")
+                    lines.append(f"- Required Methods (from protocol): {', '.join(constraints.sensitivity_methods)}")
+                else:
+                    lines.append("- Sensitivity Methods: [EXTRACT FROM PROTOCOL - NEEDS REVIEW]")
+
+                # Crossover adjustment (only if protocol specifies crossover)
                 conditions = [str(c) for c in (constraints.conditions_detected or [])]
                 if 'crossover' in conditions or 'treatment_switching' in conditions:
-                    lines.append("- Treatment Switching: Include RPSFT and IPCW if crossover present")
+                    lines.append("- Treatment Switching: Adjustment required (crossover permitted in protocol)")
+                    lines.append("- Note: Extract specific method (RPSFT, IPCW, etc.) from protocol")
+
+        elif section_key == 'estimands':
+            # ICH E9 R1 Estimand framework
+            lines.append("- REQUIRED: Define estimand per ICH E9 R1 framework")
+            lines.append("- Components: Population (A), Variable (B), ICE handling (C), Summary measure (D)")
+            lines.append("- ICE strategies must be extracted from protocol (treatment policy, composite, hypothetical, principal stratum)")
+            lines.append("- Context only: Regulatory requirement per ICH E9 R1")
+
+        elif section_key == 'missing_data':
+            # CRITICAL: Missing data methods must come from protocol
+            lines.append("- Primary missing data method: [EXTRACT FROM PROTOCOL]")
+            lines.append("- Assumption (MAR/MNAR): [EXTRACT FROM PROTOCOL]")
+            lines.append("- Sensitivity analyses for missing data: [EXTRACT FROM PROTOCOL]")
+            lines.append("- Note: Different methods can lead to different conclusions (pre-specification required)")
 
         return '\n'.join(lines) if lines else "No specific method constraints for this section."
 

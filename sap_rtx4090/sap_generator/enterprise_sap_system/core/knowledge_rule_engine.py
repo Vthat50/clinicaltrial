@@ -474,6 +474,17 @@ class KnowledgeRuleEngine:
     # ==========================================================================
     # NEW ARCHITECTURE: Rules provide CONTEXT, not DECISIONS
     # ==========================================================================
+    #
+    # KNOWLEDGE GRAPH ROLE (clearly defined):
+    # ✓ Regulatory requirements (ICH E9, ICH E9 R1, FDA guidance) - OK to include
+    # ✓ General considerations ("NPH is common in immunotherapy") - OK as context
+    # ✓ Scientific background (mechanism of delayed effects) - OK for rationale
+    # ✗ Method selection based on drug class - NEVER (protocol decides)
+    # ✗ Override protocol-specified methods - NEVER
+    #
+    # The protocol is the SOURCE OF TRUTH for all method choices.
+    # If extraction fails, flag [NEEDS REVIEW] - do NOT infer.
+    # ==========================================================================
 
     def get_method_context(
         self,
