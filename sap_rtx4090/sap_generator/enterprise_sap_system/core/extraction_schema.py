@@ -3,17 +3,21 @@
 Extraction Schema for Oncology SAP Generation
 ==============================================
 
-Defines the COMPLETE set of fields that must be extracted and passed through
-the pipeline. This is the SINGLE SOURCE OF TRUTH for all numerical values.
-
-Sources:
-- ICH E9 / E9(R1): Statistical principles and estimand framework
+COMPREHENSIVE SCHEMA based on:
 - Gamble et al. 2017 (JAMA): 55-item SAP checklist
+- ICH E9 / E9(R1): Statistical principles and estimand framework
 - FDA Oncology Guidance: Endpoint definitions
 - CDISC ADaM: Data structure standards
-- Lan-DeMets: Alpha spending methodology
 
-This schema addresses the "48 fields defined, 10 passed through" bug.
+CRITICAL FIELDS ADDED (2025-01 refactor):
+- treatment_setting: neoadjuvant, adjuvant, first-line, etc.
+- disease_type, tumor_type, histology: specific disease details
+- stratification_factor_levels: actual values, not just names
+- estimand fields (ICH E9 R1): 5 required attributes
+- alpha_per_hypothesis: explicit alpha allocation per endpoint
+- interim_by_endpoint: per-endpoint IA structure
+
+All method choices come from EXTRACTION, not inference.
 """
 
 from dataclasses import dataclass, field
@@ -24,6 +28,18 @@ from enum import Enum
 # =============================================================================
 # ENUMS
 # =============================================================================
+
+class TreatmentSetting(Enum):
+    """Treatment setting classification."""
+    FIRST_LINE = "first-line"
+    SECOND_LINE = "second-line"
+    THIRD_LINE_PLUS = "third-line or later"
+    NEOADJUVANT = "neoadjuvant"
+    ADJUVANT = "adjuvant"
+    MAINTENANCE = "maintenance"
+    SALVAGE = "salvage"
+    UNKNOWN = "unknown"
+
 
 class TrialDesignType(Enum):
     """Trial design types."""
@@ -51,27 +67,16 @@ class OncologyEndpointType(Enum):
     DFS = "Disease-Free Survival"
     EFS = "Event-Free Survival"
     TTF = "Time to Treatment Failure"
+    PCR = "Pathologic Complete Response"
 
 
-class AlphaSpendingFunction(Enum):
-    """Alpha spending functions for interim analysis."""
-    OBRIEN_FLEMING = "O'Brien-Fleming"
-    POCOCK = "Pocock"
-    LAN_DEMETS_OF = "Lan-DeMets (O'Brien-Fleming type)"
-    LAN_DEMETS_POCOCK = "Lan-DeMets (Pocock type)"
-    HWANG_SHIH_DECANI = "Hwang-Shih-DeCani"
-    CUSTOM = "Custom"
-
-
-class PrimaryTestMethod(Enum):
-    """Primary analysis methods for time-to-event."""
-    LOG_RANK = "Log-rank test"
-    STRATIFIED_LOG_RANK = "Stratified log-rank test"
-    WEIGHTED_LOG_RANK = "Weighted log-rank test"
-    FLEMING_HARRINGTON = "Fleming-Harrington weighted log-rank"
-    MAXCOMBO = "MaxCombo test"
-    RMST = "Restricted Mean Survival Time"
-    COX_REGRESSION = "Cox proportional hazards"
+class ICEStrategy(Enum):
+    """Intercurrent event handling strategies (ICH E9 R1)."""
+    TREATMENT_POLICY = "treatment_policy"
+    COMPOSITE = "composite"
+    HYPOTHETICAL = "hypothetical"
+    PRINCIPAL_STRATUM = "principal_stratum"
+    WHILE_ON_TREATMENT = "while_on_treatment"
 
 
 # =============================================================================
@@ -86,6 +91,7 @@ class AdministrativeInfo:
     protocol_title: Optional[str] = None          # Full protocol title
     sponsor: Optional[str] = None                 # Sponsor organization
     sap_version: Optional[str] = None             # SAP version if exists
+    sap_date: Optional[str] = None                # SAP finalization date
 
 
 # =============================================================================
@@ -120,9 +126,56 @@ class StudyDesign:
     # Item 12: Framework
     hypothesis_framework: str = "superiority"     # superiority, non_inferiority, equivalence
 
+    # ==========================================================================
+    # NEW FIELDS (2025-01 refactor) - CRITICAL FOR ACCURACY
+    # ==========================================================================
+
+    # Treatment setting (was missing - caused neoadjuvant vs first-line errors)
+    treatment_setting: str = ""                   # CRITICAL: first-line, neoadjuvant, adjuvant, etc.
+
+    # Disease-specific fields (was missing - caused generic disease errors)
+    disease_type: str = ""                        # e.g., "Non-small cell lung cancer (NSCLC)"
+    tumor_type: str = ""                          # e.g., "Lung cancer"
+    histology: str = ""                           # e.g., "Squamous", "Non-squamous", "Adenocarcinoma"
+    disease_stage: str = ""                       # e.g., "Stage IIIB-IV", "Locally advanced or metastatic"
+    biomarker_status: str = ""                    # e.g., "PD-L1 ≥50%", "EGFR mutation negative"
+
+    # Stratification factor LEVELS (not just names)
+    # e.g., {"PD-L1": ["<1%", "1-49%", "≥50%"], "ECOG": ["0", "1"]}
+    stratification_factor_levels: Dict[str, List[str]] = field(default_factory=dict)
+
 
 # =============================================================================
-# SECTION 3: ENDPOINTS (FDA Oncology Guidance + CDISC ADaM)
+# SECTION 3: ESTIMAND FRAMEWORK (ICH E9 R1) - NEW SECTION
+# =============================================================================
+
+@dataclass
+class Estimand:
+    """
+    ICH E9(R1) Estimand Framework - 5 required attributes.
+    This section was entirely missing from the previous schema.
+    """
+    # Attribute 1: Population
+    population: str = ""                          # e.g., "Adult patients with advanced NSCLC"
+
+    # Attribute 2: Variable (endpoint)
+    variable: str = ""                            # e.g., "Overall Survival"
+    variable_definition: str = ""                 # e.g., "Time from randomization to death"
+
+    # Attribute 3: Intercurrent events and strategies
+    intercurrent_events: List[Dict[str, str]] = field(default_factory=list)
+    # Each dict: {"event": "Treatment discontinuation", "strategy": "treatment_policy"}
+
+    # Attribute 4: Population-level summary
+    population_summary: str = ""                  # e.g., "Hazard ratio"
+
+    # Pre-specified estimand for each endpoint
+    primary_estimand: str = ""                    # Full estimand statement
+    secondary_estimands: List[str] = field(default_factory=list)
+
+
+# =============================================================================
+# SECTION 4: ENDPOINTS (FDA Oncology Guidance + CDISC ADaM)
 # =============================================================================
 
 @dataclass
@@ -137,6 +190,9 @@ class Endpoint:
     assessment_schedule: Optional[str] = None
     timepoint: Optional[str] = None               # e.g., "Week 12", "Month 6"
 
+    # For pathologic endpoints (neoadjuvant)
+    pathologic_criteria: Optional[str] = None     # e.g., "Miller-Payne", "RCB"
+
 
 @dataclass
 class EndpointConfiguration:
@@ -146,19 +202,31 @@ class EndpointConfiguration:
     secondary_endpoints: List[str] = field(default_factory=list)
     exploratory_endpoints: List[str] = field(default_factory=list)
 
+    # Co-primary structure (was missing)
+    is_co_primary: bool = False                   # Are there co-primary endpoints?
+    co_primary_endpoints: List[str] = field(default_factory=list)
+    co_primary_success_rule: str = ""             # e.g., "Both must be significant"
+
 
 # =============================================================================
-# SECTION 4: INTERIM ANALYSIS (ICH E9 + Lan-DeMets)
-# CRITICAL: These fields caused the 639 vs 382 events bug
+# SECTION 5: INTERIM ANALYSIS (ICH E9 + Lan-DeMets) - ENHANCED
 # =============================================================================
+
+@dataclass
+class InterimAnalysisPerEndpoint:
+    """Per-endpoint interim analysis structure (was missing)."""
+    endpoint: str = ""                            # e.g., "PFS" or "OS"
+    timing: str = ""                              # e.g., "60% information fraction"
+    events_required: Optional[int] = None
+    alpha_spent: Optional[float] = None
+    boundary_type: str = ""                       # efficacy, futility, both
+
 
 @dataclass
 class InterimAnalysis:
     """
     Interim analysis specification from ICH E9 Section 4.5 + Gamble Items 13a-13c.
-
-    CRITICAL NUMERICAL FIELDS - must be extracted and passed through exactly.
-    These are the fields that were missing and caused RAG contamination bugs.
+    ENHANCED with per-endpoint structure.
     """
     # Item 13a: Number and timing
     has_interim_analysis: bool = False
@@ -184,9 +252,16 @@ class InterimAnalysis:
     futility_boundary_type: Optional[str] = None  # binding, non-binding
     stopping_boundaries: Optional[str] = None     # Description of boundaries
 
+    # ==========================================================================
+    # NEW: Per-endpoint IA structure (was missing - caused IA details errors)
+    # ==========================================================================
+    interim_by_endpoint: List[InterimAnalysisPerEndpoint] = field(default_factory=list)
+    # e.g., [{"endpoint": "PFS", "timing": "60% IF", "alpha_spent": 0.005},
+    #        {"endpoint": "OS", "timing": "70% IF", "alpha_spent": 0.015}]
+
 
 # =============================================================================
-# SECTION 5: STATISTICAL METHODS (Gamble Items 16-20, 27a-27f)
+# SECTION 6: STATISTICAL METHODS (Gamble Items 16-20, 27a-27f) - ENHANCED
 # =============================================================================
 
 @dataclass
@@ -215,22 +290,39 @@ class StatisticalMethods:
     # Item 27f: Subgroup analyses
     subgroup_analyses: List[str] = field(default_factory=list)
 
+    # ==========================================================================
+    # NEW: Explicit hypothesis statements (was missing)
+    # ==========================================================================
+    null_hypothesis: str = ""                     # e.g., "HR = 1.0"
+    alternative_hypothesis: str = ""              # e.g., "HR < 1.0 (superiority)"
+    test_sidedness: str = "one-sided"             # one-sided or two-sided
+
 
 # =============================================================================
-# SECTION 6: MULTIPLICITY (Gamble Item 17 + FDA)
+# SECTION 7: MULTIPLICITY (Gamble Item 17 + FDA) - ENHANCED
 # =============================================================================
 
 @dataclass
 class MultiplicityAdjustment:
     """Multiplicity adjustment from Gamble Item 17 + FDA FWER requirements."""
     has_multiplicity: bool = False
-    adjustment_method: Optional[str] = None       # Hierarchical, Hochberg, Holm, etc.
+    adjustment_method: Optional[str] = None       # Hierarchical, Hochberg, Holm, Graphical
     testing_sequence: List[str] = field(default_factory=list)
-    alpha_allocation: Optional[str] = None
+    alpha_allocation: Optional[str] = None        # Text description
+
+    # ==========================================================================
+    # NEW: Explicit alpha per hypothesis (was missing - caused alpha errors)
+    # ==========================================================================
+    alpha_per_hypothesis: Dict[str, float] = field(default_factory=dict)
+    # e.g., {"PFS": 0.0125, "OS": 0.0125, "ORR": 0.025}
+
+    # For graphical approach (Maurer & Bretz)
+    graphical_weights: Optional[Dict[str, float]] = None
+    graphical_transitions: Optional[Dict[str, Dict[str, float]]] = None
 
 
 # =============================================================================
-# SECTION 7: MISSING DATA & CENSORING (Gamble Item 28 + ICH E9(R1))
+# SECTION 8: MISSING DATA & CENSORING (Gamble Item 28 + ICH E9(R1)) - ENHANCED
 # =============================================================================
 
 @dataclass
@@ -249,9 +341,17 @@ class MissingDataHandling:
     # Sensitivity for missing data
     sensitivity_methods: List[str] = field(default_factory=list)
 
+    # ==========================================================================
+    # NEW: Missing data assumptions and methods (was missing)
+    # ==========================================================================
+    missing_at_random_assumption: bool = True     # MAR assumption
+    tipping_point_analysis: bool = False          # Whether tipping point is planned
+    pattern_mixture_models: bool = False          # Whether PMM is planned
+    multiple_imputation: bool = False             # Whether MI is planned
+
 
 # =============================================================================
-# SECTION 8: ANALYSIS POPULATIONS (Gamble Item 20)
+# SECTION 9: ANALYSIS POPULATIONS (Gamble Item 20) - ENHANCED
 # =============================================================================
 
 @dataclass
@@ -261,13 +361,19 @@ class AnalysisPopulations:
     per_protocol_definition: Optional[str] = None
     safety_population_definition: str = "All subjects who received at least one dose"
 
+    # ==========================================================================
+    # NEW: FAS and additional populations (was missing)
+    # ==========================================================================
+    fas_definition: str = ""                      # Full Analysis Set (often = ITT)
+
     # Oncology-specific
     efficacy_evaluable_definition: Optional[str] = None
     biomarker_evaluable_definition: Optional[str] = None
+    pk_population_definition: Optional[str] = None  # For PK analysis
 
 
 # =============================================================================
-# SECTION 9: CROSSOVER / TREATMENT SWITCHING
+# SECTION 10: CROSSOVER / TREATMENT SWITCHING
 # =============================================================================
 
 @dataclass
@@ -276,6 +382,33 @@ class CrossoverHandling:
     has_crossover: bool = False
     crossover_description: Optional[str] = None
     crossover_adjustment_methods: List[str] = field(default_factory=list)  # RPSFT, IPCW
+
+
+# =============================================================================
+# SECTION 11: EXTRACTION CONFIDENCE (NEW SECTION)
+# =============================================================================
+
+@dataclass
+class ExtractionConfidence:
+    """
+    Per-field confidence scores for extraction.
+    Enables section-by-section extraction with quality tracking.
+    """
+    overall_confidence: float = 0.0               # 0-1 overall extraction quality
+
+    # Per-section confidence
+    section_confidence: Dict[str, float] = field(default_factory=dict)
+    # e.g., {"study_design": 0.95, "interim_analysis": 0.80, "multiplicity": 0.60}
+
+    # Fields that need review
+    needs_review: List[str] = field(default_factory=list)
+    # e.g., ["alpha_per_hypothesis", "interim_events"]
+
+    # Fields not found in protocol
+    not_found: List[str] = field(default_factory=list)
+
+    # Extraction notes
+    notes: List[str] = field(default_factory=list)
 
 
 # =============================================================================
@@ -291,40 +424,44 @@ class ExtractedProtocolFacts:
     If a field is not extracted, it should be None (not defaulted).
     Generation should only use values that were actually extracted.
 
-    CRITICAL: This schema ensures all 40+ fields are defined and can be
-    passed through the pipeline - fixing the "48 defined, 10 passed" bug.
+    CRITICAL: All fields defined here should be passed through the pipeline.
     """
     # Administrative
     admin: AdministrativeInfo = field(default_factory=AdministrativeInfo)
 
-    # Design
+    # Design (ENHANCED with treatment_setting, disease details)
     design: StudyDesign = field(default_factory=StudyDesign)
 
-    # Endpoints (FDA Oncology)
+    # Estimand (NEW - ICH E9 R1)
+    estimand: Estimand = field(default_factory=Estimand)
+
+    # Endpoints (ENHANCED with co-primary structure)
     endpoints: EndpointConfiguration = field(default_factory=EndpointConfiguration)
 
-    # Interim Analysis (ICH E9 + Lan-DeMets) - CRITICAL for numerical accuracy
+    # Interim Analysis (ENHANCED with per-endpoint structure)
     interim: InterimAnalysis = field(default_factory=InterimAnalysis)
 
-    # Statistical Methods
+    # Statistical Methods (ENHANCED with hypothesis statements)
     methods: StatisticalMethods = field(default_factory=StatisticalMethods)
 
-    # Multiplicity
+    # Multiplicity (ENHANCED with alpha_per_hypothesis)
     multiplicity: MultiplicityAdjustment = field(default_factory=MultiplicityAdjustment)
 
-    # Missing Data (ICH E9(R1))
+    # Missing Data (ENHANCED with sensitivity methods)
     missing_data: MissingDataHandling = field(default_factory=MissingDataHandling)
 
-    # Populations
+    # Populations (ENHANCED with FAS)
     populations: AnalysisPopulations = field(default_factory=AnalysisPopulations)
 
     # Crossover
     crossover: CrossoverHandling = field(default_factory=CrossoverHandling)
 
+    # Extraction Confidence (NEW)
+    confidence: ExtractionConfidence = field(default_factory=ExtractionConfidence)
+
     def get_critical_numerical_fields(self) -> Dict[str, Any]:
         """
         Returns all numerical fields that MUST match the protocol exactly.
-        These are the fields that caused RAG contamination bugs.
         """
         return {
             # Sample size
@@ -342,6 +479,7 @@ class ExtractedProtocolFacts:
             'overall_alpha': self.interim.overall_alpha,
             'alpha_at_interim': self.interim.alpha_at_interim,
             'alpha_at_final': self.interim.alpha_at_final,
+            'alpha_per_hypothesis': self.multiplicity.alpha_per_hypothesis,
 
             # Effect size
             'expected_hazard_ratio': self.methods.expected_hazard_ratio,
@@ -353,7 +491,7 @@ class ExtractedProtocolFacts:
         missing = []
         critical = self.get_critical_numerical_fields()
         for field_name, value in critical.items():
-            if value is None or value == 0 or value == []:
+            if value is None or value == 0 or value == [] or value == {}:
                 missing.append(field_name)
         return missing
 
@@ -368,7 +506,7 @@ class ExtractedProtocolFacts:
             'protocol_number': self.admin.protocol_number,
             'sponsor': self.admin.sponsor,
 
-            # Design
+            # Design - CORE
             'drug_name': self.design.drug_name,
             'comparator': self.design.comparator,
             'indication': self.design.drug_class,
@@ -378,9 +516,26 @@ class ExtractedProtocolFacts:
             'stratification_factors': self.design.stratification_factors,
             'design_type': self.design.design_type,
 
+            # Design - NEW CRITICAL FIELDS
+            'treatment_setting': self.design.treatment_setting,
+            'disease_type': self.design.disease_type,
+            'tumor_type': self.design.tumor_type,
+            'histology': self.design.histology,
+            'disease_stage': self.design.disease_stage,
+            'biomarker_status': self.design.biomarker_status,
+            'stratification_factor_levels': self.design.stratification_factor_levels,
+
+            # Estimand (ICH E9 R1) - NEW
+            'estimand_population': self.estimand.population,
+            'estimand_variable': self.estimand.variable,
+            'intercurrent_events': self.estimand.intercurrent_events,
+            'primary_estimand': self.estimand.primary_estimand,
+
             # Endpoints
             'primary_endpoint': self.endpoints.primary_endpoint_text,
             'secondary_endpoints': self.endpoints.secondary_endpoints,
+            'is_co_primary': self.endpoints.is_co_primary,
+            'co_primary_endpoints': self.endpoints.co_primary_endpoints,
 
             # Interim Analysis - CRITICAL NUMERICAL FIELDS
             'has_interim_analysis': self.interim.has_interim_analysis,
@@ -394,17 +549,30 @@ class ExtractedProtocolFacts:
             'alpha_at_interim': self.interim.alpha_at_interim,
             'alpha_at_final': self.interim.alpha_at_final,
             'stopping_boundaries': self.interim.stopping_boundaries,
+            'interim_by_endpoint': [
+                {'endpoint': ia.endpoint, 'timing': ia.timing, 'events': ia.events_required, 'alpha': ia.alpha_spent}
+                for ia in self.interim.interim_by_endpoint
+            ],
 
             # Methods
             'primary_test': self.methods.primary_test,
+            'statistical_method': self.methods.primary_test,  # Alias
             'expected_hazard_ratio': self.methods.expected_hazard_ratio,
             'power': self.methods.power,
             'sensitivity_analyses': self.methods.sensitivity_analyses,
             'subgroup_analyses': self.methods.subgroup_analyses,
+            'null_hypothesis': self.methods.null_hypothesis,
+            'alternative_hypothesis': self.methods.alternative_hypothesis,
 
-            # Multiplicity
+            # Multiplicity - ENHANCED
             'multiplicity_method': self.multiplicity.adjustment_method,
             'testing_sequence': self.multiplicity.testing_sequence,
+            'alpha_per_hypothesis': self.multiplicity.alpha_per_hypothesis,
+
+            # Missing Data
+            'treatment_discontinuation_strategy': self.missing_data.treatment_discontinuation_strategy,
+            'censoring_rules': self.missing_data.censoring_rules,
+            'tipping_point_analysis': self.missing_data.tipping_point_analysis,
 
             # Crossover
             'has_crossover': self.crossover.has_crossover,
@@ -412,7 +580,12 @@ class ExtractedProtocolFacts:
 
             # Populations
             'itt_definition': self.populations.itt_definition,
+            'fas_definition': self.populations.fas_definition,
             'safety_definition': self.populations.safety_population_definition,
+
+            # Confidence
+            'extraction_confidence': self.confidence.overall_confidence,
+            'needs_review': self.confidence.needs_review,
         }
 
 
@@ -434,7 +607,7 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.admin.protocol_title = extracted.get('protocol_title', '')
     facts.admin.sponsor = extracted.get('sponsor', '')
 
-    # Design
+    # Design - CORE
     facts.design.drug_name = extracted.get('drug_name', '')
     facts.design.comparator = extracted.get('comparator', '')
     facts.design.phase = extracted.get('phase', '')
@@ -444,9 +617,26 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.design.design_type = extracted.get('design_type', 'parallel')
     facts.design.is_randomized = extracted.get('is_randomized', True)
 
+    # Design - NEW CRITICAL FIELDS
+    facts.design.treatment_setting = extracted.get('treatment_setting', '')
+    facts.design.disease_type = extracted.get('disease_type', '') or extracted.get('indication', '')
+    facts.design.tumor_type = extracted.get('tumor_type', '')
+    facts.design.histology = extracted.get('histology', '')
+    facts.design.disease_stage = extracted.get('disease_stage', '')
+    facts.design.biomarker_status = extracted.get('biomarker_status', '')
+    facts.design.stratification_factor_levels = extracted.get('stratification_factor_levels', {})
+
+    # Estimand (ICH E9 R1) - NEW
+    facts.estimand.population = extracted.get('estimand_population', '')
+    facts.estimand.variable = extracted.get('estimand_variable', '')
+    facts.estimand.intercurrent_events = extracted.get('intercurrent_events', [])
+    facts.estimand.primary_estimand = extracted.get('primary_estimand', '')
+
     # Endpoints
     facts.endpoints.primary_endpoint_text = extracted.get('primary_endpoint', '')
     facts.endpoints.secondary_endpoints = extracted.get('secondary_endpoints', [])
+    facts.endpoints.is_co_primary = extracted.get('is_co_primary', False)
+    facts.endpoints.co_primary_endpoints = extracted.get('co_primary_endpoints', [])
 
     # Interim Analysis - CRITICAL
     facts.interim.has_interim_analysis = extracted.get('has_interim_analysis', False)
@@ -454,20 +644,50 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.interim.interim_events = extracted.get('interim_events', [])
     facts.interim.final_events = extracted.get('final_events') or extracted.get('final_analysis_events')
     facts.interim.information_fractions = extracted.get('interim_information_fraction', [])
-    facts.interim.alpha_spending_function = extracted.get('error_spending_function', '')
-    facts.interim.overall_alpha = extracted.get('alpha_level', 0.05)
-    facts.interim.alpha_at_interim = extracted.get('interim_alpha_spent', [])
+    facts.interim.alpha_spending_function = extracted.get('error_spending_function', '') or extracted.get('alpha_spending_function', '')
+    facts.interim.overall_alpha = extracted.get('alpha_level', 0.05) or extracted.get('overall_alpha', 0.05)
+    facts.interim.alpha_at_interim = extracted.get('interim_alpha_spent', []) or extracted.get('alpha_at_interim', [])
     facts.interim.alpha_at_final = extracted.get('alpha_at_final')
     facts.interim.stopping_boundaries = extracted.get('stopping_boundaries', '')
 
+    # Per-endpoint IA - NEW
+    interim_by_ep = extracted.get('interim_by_endpoint', [])
+    for ia in interim_by_ep:
+        facts.interim.interim_by_endpoint.append(InterimAnalysisPerEndpoint(
+            endpoint=ia.get('endpoint', ''),
+            timing=ia.get('timing', ''),
+            events_required=ia.get('events'),
+            alpha_spent=ia.get('alpha')
+        ))
+
     # Methods
-    facts.methods.primary_test = extracted.get('statistical_method', '')
+    facts.methods.primary_test = extracted.get('statistical_method', '') or extracted.get('primary_test', '')
     facts.methods.expected_hazard_ratio = extracted.get('hazard_ratio')
     facts.methods.power = extracted.get('power')
     facts.methods.sensitivity_analyses = extracted.get('sensitivity_methods', [])
+    facts.methods.null_hypothesis = extracted.get('null_hypothesis', '')
+    facts.methods.alternative_hypothesis = extracted.get('alternative_hypothesis', '')
+
+    # Multiplicity - ENHANCED
+    facts.multiplicity.adjustment_method = extracted.get('multiplicity_method', '')
+    facts.multiplicity.testing_sequence = extracted.get('testing_sequence', [])
+    facts.multiplicity.alpha_per_hypothesis = extracted.get('alpha_per_hypothesis', {})
+
+    # Missing Data
+    facts.missing_data.tipping_point_analysis = extracted.get('tipping_point_analysis', False)
+    facts.missing_data.censoring_rules = extracted.get('censoring_rules', [])
 
     # Crossover
     facts.crossover.has_crossover = extracted.get('crossover_permitted', False) or extracted.get('has_crossover', False)
+    facts.crossover.crossover_adjustment_methods = extracted.get('crossover_adjustment_methods', [])
+
+    # Populations
+    facts.populations.fas_definition = extracted.get('fas_definition', '')
+
+    # Confidence - NEW
+    facts.confidence.overall_confidence = extracted.get('extraction_confidence', 0.0)
+    facts.confidence.needs_review = extracted.get('needs_review', [])
+    facts.confidence.section_confidence = extracted.get('section_confidence', {})
 
     return facts
 
@@ -499,6 +719,14 @@ def validate_extraction(facts: ExtractedProtocolFacts) -> Dict[str, Any]:
             if field_name not in ['num_interim_analyses']:  # 0 interim is valid
                 result['warnings'].append(f"{field_name} is 0 - verify this is correct")
 
+    # Check critical text fields
+    if not facts.design.treatment_setting:
+        result['warnings'].append("treatment_setting not extracted - may cause setting errors")
+    if not facts.design.disease_type:
+        result['warnings'].append("disease_type not extracted - may cause generic disease errors")
+    if not facts.methods.primary_test:
+        result['missing'].append("statistical_method (primary_test)")
+
     # Validate interim analysis consistency
     if facts.interim.has_interim_analysis:
         if facts.interim.num_interim_analyses == 0:
@@ -523,21 +751,38 @@ def validate_extraction(facts: ExtractedProtocolFacts) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("Testing Extraction Schema")
+    print("Testing Enhanced Extraction Schema")
     print("=" * 60)
 
-    # Create sample facts
+    # Create sample facts with new fields
     facts = ExtractedProtocolFacts()
     facts.admin.nct_id = "NCT02041533"
     facts.design.drug_name = "Nivolumab"
     facts.design.comparator = "Docetaxel"
     facts.design.sample_size = 504
+
+    # NEW CRITICAL FIELDS
+    facts.design.treatment_setting = "second-line"
+    facts.design.disease_type = "Non-small cell lung cancer (NSCLC)"
+    facts.design.histology = "Squamous"
+    facts.design.stratification_factor_levels = {
+        "PD-L1": ["<1%", "1-49%", "≥50%"],
+        "ECOG": ["0", "1"]
+    }
+
+    # Interim
     facts.interim.has_interim_analysis = True
     facts.interim.num_interim_analyses = 1
     facts.interim.interim_events = [291]
     facts.interim.final_events = 382
     facts.interim.alpha_at_interim = [0.020]
     facts.interim.alpha_at_final = 0.044
+
+    # Multiplicity with explicit alpha
+    facts.multiplicity.alpha_per_hypothesis = {
+        "OS": 0.025,
+        "ORR": 0.025
+    }
 
     # Get critical fields
     print("\nCritical Numerical Fields:")
@@ -554,6 +799,6 @@ if __name__ == "__main__":
     # Convert to flat dict
     print("\nFlat Dict (for prompt):")
     flat = facts.to_flat_dict()
-    for key, value in list(flat.items())[:10]:  # First 10
-        print(f"  {key}: {value}")
-    print(f"  ... and {len(flat) - 10} more fields")
+    print(f"  Total fields: {len(flat)}")
+    for key in ['treatment_setting', 'disease_type', 'histology', 'alpha_per_hypothesis', 'stratification_factor_levels']:
+        print(f"  {key}: {flat.get(key)}")
