@@ -898,48 +898,43 @@ class ProductionSAPPipeline:
         # =====================================================================
         print(f"[Constraints] Applying COMPARATIVE approach (Phase {phase})")
 
-        if self.knowledge_graph:
-            methods = self.knowledge_graph.get_primary_analysis_methods(facts)
-
-            if methods:
-                primary = methods.get('primary_test', {})
-                if primary:
-                    constraints.primary_test = primary.get('description', primary.get('method', ''))
-
-                # NPH methods
-                nph = methods.get('nph_methods', [])
-                constraints.nph_methods = [m.get('method', m) if isinstance(m, dict) else m for m in nph]
-
-                # Interim - only if explicitly in protocol
-                if has_interim:
-                    interim = methods.get('interim_analysis_method', {})
-                    if interim:
-                        constraints.interim_method = interim.get('method', '')
-                        constraints.alpha_spending = "O'Brien-Fleming"
-
         # =================================================================
-        # CRITICAL: Protocol-extracted methods OVERRIDE inference rules
+        # CRITICAL: Protocol-extracted method is the ONLY source of truth
+        # Knowledge graph provides CONTEXT only (via get_context_for_generation)
+        # We do NOT call get_primary_analysis_methods() - that would infer methods
         # =================================================================
         protocol_method = facts.get('statistical_method', '') or facts.get('statistical_method_details', '')
 
         if protocol_method:
-            # USE WHAT THE PROTOCOL SAYS - don't infer!
+            # USE WHAT THE PROTOCOL SAYS - this is the source of truth
             print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
             constraints.primary_test = protocol_method
             constraints.forbidden_primary = ""
         else:
-            # NO DEFAULT - flag for review
+            # NO DEFAULT - flag for review, never infer
             print(f"[Constraints] ⚠ WARNING: statistical_method NOT EXTRACTED - flagging for review")
             constraints.primary_test = "[STATISTICAL METHOD NOT FOUND IN PROTOCOL - NEEDS REVIEW]"
             constraints.forbidden_primary = ""
-            # Add to warnings
-            if not hasattr(constraints, 'warnings'):
-                constraints.warnings = []
 
-        # Only add interim methods if protocol has interim analysis
-        if has_interim and 'interim_analysis' in conditions and not constraints.interim_method:
-            constraints.interim_method = "Lan-DeMets"
-            constraints.alpha_spending = "O'Brien-Fleming"
+        # Interim methods - only if protocol specifies interim analysis
+        if has_interim and 'interim_analysis' in conditions:
+            # Extract interim method from protocol if available
+            protocol_interim = facts.get('interim_analysis_method', '') or facts.get('alpha_spending_function', '')
+            if protocol_interim:
+                constraints.interim_method = protocol_interim
+                constraints.alpha_spending = facts.get('alpha_spending_function', "O'Brien-Fleming")
+            else:
+                # Flag for review - don't assume Lan-DeMets
+                constraints.interim_method = "[INTERIM METHOD NOT EXTRACTED - NEEDS REVIEW]"
+                constraints.alpha_spending = "[ALPHA SPENDING NOT EXTRACTED - NEEDS REVIEW]"
+
+        # Sensitivity methods - extract from protocol, don't infer
+        protocol_sensitivity = facts.get('sensitivity_methods', []) or facts.get('sensitivity_analyses', [])
+        if protocol_sensitivity:
+            if isinstance(protocol_sensitivity, list):
+                constraints.sensitivity_methods = protocol_sensitivity
+            else:
+                constraints.sensitivity_methods = [protocol_sensitivity]
 
         return constraints
 
@@ -1040,47 +1035,41 @@ class ProductionSAPPipeline:
         # =====================================================================
         print(f"[Constraints] Using COMPARATIVE approach from classifier (confidence: {study_design_result.confidence:.1%})")
 
-        # Use knowledge graph for comparative study methods
-        if self.knowledge_graph:
-            methods = self.knowledge_graph.get_primary_analysis_methods(facts)
-
-            if methods:
-                primary = methods.get('primary_test', {})
-                if primary:
-                    constraints.primary_test = primary.get('description', primary.get('method', ''))
-
-                # NPH methods
-                nph = methods.get('nph_methods', [])
-                constraints.nph_methods = [m.get('method', m) if isinstance(m, dict) else m for m in nph]
-
-                # Interim - only if explicitly in protocol
-                if study_design_result.has_interim_analysis:
-                    interim = methods.get('interim_analysis_method', {})
-                    if interim:
-                        constraints.interim_method = interim.get('method', '')
-                        constraints.alpha_spending = "O'Brien-Fleming"
-
         # =================================================================
-        # CRITICAL: Protocol-extracted methods OVERRIDE inference rules
+        # CRITICAL: Protocol-extracted method is the ONLY source of truth
+        # Knowledge graph provides CONTEXT only (via get_context_for_generation)
+        # We do NOT call get_primary_analysis_methods() - that would infer methods
         # =================================================================
         protocol_method = facts.get('statistical_method', '') or facts.get('statistical_method_details', '')
 
         if protocol_method:
-            # USE WHAT THE PROTOCOL SAYS - don't infer!
+            # USE WHAT THE PROTOCOL SAYS - this is the source of truth
             print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
             constraints.primary_test = protocol_method
             constraints.forbidden_primary = ""
         else:
-            # NO DEFAULT - flag for review
+            # NO DEFAULT - flag for review, never infer
             print(f"[Constraints] ⚠ WARNING: statistical_method NOT EXTRACTED - flagging for review")
             constraints.primary_test = "[STATISTICAL METHOD NOT FOUND IN PROTOCOL - NEEDS REVIEW]"
             constraints.forbidden_primary = ""
 
-        # Interim analysis for comparative studies
+        # Interim methods - only from protocol extraction
         if study_design_result.has_interim_analysis and 'interim_analysis' in conditions:
-            if not constraints.interim_method:
-                constraints.interim_method = "Lan-DeMets"
-                constraints.alpha_spending = "O'Brien-Fleming"
+            protocol_interim = facts.get('interim_analysis_method', '') or facts.get('alpha_spending_function', '')
+            if protocol_interim:
+                constraints.interim_method = protocol_interim
+                constraints.alpha_spending = facts.get('alpha_spending_function', "O'Brien-Fleming")
+            else:
+                constraints.interim_method = "[INTERIM METHOD NOT EXTRACTED - NEEDS REVIEW]"
+                constraints.alpha_spending = "[ALPHA SPENDING NOT EXTRACTED - NEEDS REVIEW]"
+
+        # Sensitivity methods - extract from protocol, don't infer
+        protocol_sensitivity = facts.get('sensitivity_methods', []) or facts.get('sensitivity_analyses', [])
+        if protocol_sensitivity:
+            if isinstance(protocol_sensitivity, list):
+                constraints.sensitivity_methods = protocol_sensitivity
+            else:
+                constraints.sensitivity_methods = [protocol_sensitivity]
 
         return constraints
 
