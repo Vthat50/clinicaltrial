@@ -341,6 +341,18 @@ class ProductionSAPPipeline:
             if drug_classification:
                 print(f"[Step 2] Drug: {drug_classification.drug_name} → {drug_classification.drug_class} ({drug_classification.source})")
 
+            # STEP 2.5: Get scientific context from knowledge graph (NEW ARCHITECTURE)
+            # Rules provide CONTEXT, not DECISIONS - protocol method is source of truth
+            scientific_context = ""
+            if self.knowledge_graph:
+                scientific_context = self.knowledge_graph.get_context_for_generation(facts)
+                print(f"[Step 2.5] Generated scientific context ({len(scientific_context)} chars)")
+                # Log any discrepancy notes
+                method_ctx = self.knowledge_graph.get_method_context(facts)
+                if method_ctx.get('discrepancy_notes'):
+                    for note in method_ctx['discrepancy_notes']:
+                        print(f"[Step 2.5] {note['severity'].upper()}: {note['observation'][:80]}...")
+
             # STEP 3: Get sanitized RAG examples
             print("\n[Step 3] Getting sanitized RAG examples (numbers stripped)...")
             sanitized_examples = self._get_sanitized_examples(facts)
@@ -348,7 +360,7 @@ class ProductionSAPPipeline:
 
             # STEP 4: Generate sections
             print("\n[Step 4] Generating SAP sections with constrained prompts...")
-            sections = self._generate_all_sections(facts, constraints, sanitized_examples)
+            sections = self._generate_all_sections(facts, constraints, sanitized_examples, scientific_context)
 
             # Assemble full SAP
             sap_text = self._assemble_sap(sections, facts)
@@ -1204,7 +1216,8 @@ class ProductionSAPPipeline:
         self,
         facts: Dict[str, Any],
         constraints: MethodConstraints,
-        sanitized_examples: Dict[str, List[str]]
+        sanitized_examples: Dict[str, List[str]],
+        scientific_context: str = ""
     ) -> Dict[str, str]:
         """Step 4: Generate all SAP sections with constrained prompts."""
         sections = {}
@@ -1215,9 +1228,9 @@ class ProductionSAPPipeline:
             if not examples and section_key == 'statistical_methods':
                 examples = sanitized_examples.get('methods', [])
 
-            # Generate section
+            # Generate section (pass scientific context for relevant sections)
             section_text = self._generate_section(
-                section_key, section_title, facts, constraints, examples
+                section_key, section_title, facts, constraints, examples, scientific_context
             )
             sections[section_key] = section_text
 
@@ -1229,13 +1242,14 @@ class ProductionSAPPipeline:
         section_title: str,
         facts: Dict[str, Any],
         constraints: MethodConstraints,
-        examples: List[str]
+        examples: List[str],
+        scientific_context: str = ""
     ) -> str:
         """Generate a single section with constrained prompt."""
 
-        # Build the constrained prompt
+        # Build the constrained prompt (include scientific context for methods-related sections)
         prompt = self._build_constrained_prompt(
-            section_key, section_title, facts, constraints, examples
+            section_key, section_title, facts, constraints, examples, scientific_context
         )
 
         # Generate with LLM
@@ -1258,11 +1272,15 @@ class ProductionSAPPipeline:
         section_title: str,
         facts: Dict[str, Any],
         constraints: MethodConstraints,
-        examples: List[str]
+        examples: List[str],
+        scientific_context: str = ""
     ) -> str:
         """
         Build prompt with explicit source attribution and priority.
         This is the key to preventing RAG contamination.
+
+        NEW ARCHITECTURE: scientific_context provides background information from knowledge
+        graph rules, but DOES NOT override protocol-specified methods.
         """
 
         # Format numerical facts (GROUND TRUTH)
@@ -1274,21 +1292,36 @@ class ProductionSAPPipeline:
         # Format sanitized examples
         examples_section = "\n\n---\n\n".join(examples[:2]) if examples else "No examples available."
 
+        # Include scientific context for methods-related sections (informational only)
+        context_section = ""
+        if scientific_context and section_key in ['statistical_methods', 'interim_analysis', 'sensitivity_analysis', 'study_design']:
+            context_section = f"""
+## SCIENTIFIC CONTEXT (Informational - DO NOT override protocol method):
+{scientific_context}
+
+IMPORTANT: The scientific context above is for background only.
+If there is any conflict between the context and the PROTOCOL FACTS or METHOD CONSTRAINTS,
+always follow the protocol. The context explains WHY certain methods might be used,
+but the protocol-specified method is the source of truth.
+"""
+
         return f"""You are an expert biostatistician writing a Statistical Analysis Plan section.
 
 ## CRITICAL INSTRUCTIONS:
 1. Use ONLY the numerical values from "PROTOCOL FACTS" below - these are GROUND TRUTH
 2. Use ONLY the methods from "METHOD CONSTRAINTS" below
-3. Use the "EXAMPLE" for prose style ONLY - it has placeholders, not actual numbers
-4. If a value is not in PROTOCOL FACTS, write "[To be specified]"
-5. NEVER invent or assume numerical values
+3. The "SCIENTIFIC CONTEXT" provides background - use for rationale, NOT for overriding methods
+4. Use the "EXAMPLE" for prose style ONLY - it has placeholders, not actual numbers
+5. If a value is not in PROTOCOL FACTS, write "[To be specified]"
+6. NEVER invent or assume numerical values
+7. If METHOD CONSTRAINTS shows "[NEEDS REVIEW]", flag this in your output
 
 ## PROTOCOL FACTS (Source: Protocol Extraction - USE THESE EXACTLY):
 {facts_section}
 
-## METHOD CONSTRAINTS (Source: Knowledge Graph - USE THESE METHODS):
+## METHOD CONSTRAINTS (Source: Protocol - USE THESE METHODS):
 {constraints_section}
-
+{context_section}
 ## EXAMPLE PROSE STYLE (for structure only - numbers are placeholders):
 {examples_section}
 
@@ -1296,7 +1329,8 @@ class ProductionSAPPipeline:
 
 Write the {section_title} section now.
 - Use EXACT numbers from PROTOCOL FACTS
-- Use EXACT methods from METHOD CONSTRAINTS
+- Use EXACT methods from METHOD CONSTRAINTS (protocol-specified)
+- Use SCIENTIFIC CONTEXT to provide rationale (if applicable)
 - Match prose style of EXAMPLE but with YOUR numbers and methods
 - Start with "## {section_title}" as header
 """

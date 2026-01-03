@@ -471,6 +471,242 @@ class KnowledgeRuleEngine:
         return '\n'.join(lines)
 
 
+    # ==========================================================================
+    # NEW ARCHITECTURE: Rules provide CONTEXT, not DECISIONS
+    # ==========================================================================
+
+    def get_method_context(
+        self,
+        protocol_facts: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        NEW ARCHITECTURE: Return CONTEXT about the protocol conditions,
+        not METHOD DECISIONS. The extracted protocol method is the source of truth.
+
+        Args:
+            protocol_facts: Extracted protocol facts
+
+        Returns:
+            Dictionary with:
+            - conditions_detected: What conditions were found
+            - considerations: Scientific context for each condition
+            - protocol_method: What the protocol actually specifies (SOURCE OF TRUTH)
+            - discrepancy_notes: Flags if protocol differs from typical approaches
+        """
+        conditions = self.detect_conditions(protocol_facts)
+        protocol_method = (
+            protocol_facts.get('statistical_method', '') or
+            protocol_facts.get('statistical_method_details', '')
+        )
+
+        context = {
+            'conditions_detected': list(conditions),
+            'protocol_method': protocol_method,
+            'considerations': [],
+            'discrepancy_notes': [],
+            'scientific_context': {}
+        }
+
+        # Immunotherapy context (INFORM, don't decide)
+        if 'immunotherapy' in conditions:
+            context['considerations'].append({
+                'condition': 'immunotherapy',
+                'note': (
+                    'Immunotherapy trials often show delayed treatment effects due to '
+                    'the indirect mechanism of action (immune activation → proliferation → tumor impact). '
+                    'This can cause delayed separation of survival curves.'
+                ),
+                'implication': (
+                    'Weighted log-rank tests (e.g., Fleming-Harrington) may provide better power '
+                    'than standard log-rank when delayed effects are expected.'
+                ),
+                'but': (
+                    'Standard log-rank remains statistically valid under non-proportional hazards, '
+                    'though it may have reduced power. Protocol authors may choose log-rank for '
+                    'regulatory familiarity or if early separation is expected.'
+                ),
+                'sources': ['ICH E9 R1', 'PMC9196085', 'arXiv:2007.04767']
+            })
+            context['scientific_context']['immunotherapy'] = {
+                'delayed_effect_expected': True,
+                'nph_likely': True,
+                'common_methods': ['Fleming-Harrington', 'stratified log-rank', 'RMST'],
+                'note': 'Method choice depends on expected separation pattern'
+            }
+
+        # Time-to-event context
+        if 'time_to_event' in conditions:
+            context['considerations'].append({
+                'condition': 'time_to_event',
+                'note': 'Time-to-event endpoints (PFS, OS, DFS) typically use log-rank tests.',
+                'common_methods': ['stratified log-rank', 'unstratified log-rank', 'Cox PH'],
+                'sources': ['ICH E9', 'FDA Oncology Guidance']
+            })
+
+        # Interim analysis context
+        if 'interim_analysis' in conditions:
+            context['considerations'].append({
+                'condition': 'interim_analysis',
+                'note': (
+                    'Interim analyses require alpha spending to control overall Type I error. '
+                    'Lan-DeMets with O\'Brien-Fleming boundaries is most common.'
+                ),
+                'common_methods': ['Lan-DeMets', 'O\'Brien-Fleming', 'Pocock'],
+                'sources': ['FDA Adaptive Design Guidance', 'ICH E9']
+            })
+
+        # Stratification context
+        if 'stratified' in conditions:
+            context['considerations'].append({
+                'condition': 'stratified',
+                'note': (
+                    'Stratified randomization should be reflected in the analysis. '
+                    'Use stratified log-rank and stratified Cox models.'
+                ),
+                'sources': ['ICH E9', 'EMA Guideline on Adjustment for Baseline Covariates']
+            })
+
+        # Treatment switching context
+        if 'treatment_switching' in conditions or 'crossover' in conditions:
+            context['considerations'].append({
+                'condition': 'treatment_switching',
+                'note': (
+                    'Treatment switching/crossover can bias OS estimates. '
+                    'Consider sensitivity analyses adjusting for crossover.'
+                ),
+                'common_methods': ['RPSFT', 'IPCW', 'Two-stage'],
+                'sources': ['NICE TSD16', 'FDA Guidance on Complex Innovative Designs']
+            })
+
+        # Check for discrepancies between protocol method and typical approaches
+        context['discrepancy_notes'] = self._check_discrepancies(
+            protocol_method, conditions, protocol_facts
+        )
+
+        return context
+
+    def _check_discrepancies(
+        self,
+        protocol_method: str,
+        conditions: Set[str],
+        protocol_facts: Dict[str, Any]
+    ) -> List[Dict[str, Any]]:
+        """
+        Flag discrepancies between protocol-specified method and typical approaches.
+        These are NOTES, not ERRORS - the protocol is the source of truth.
+
+        Returns:
+            List of discrepancy notes (informational, not corrective)
+        """
+        notes = []
+        protocol_method_lower = protocol_method.lower()
+
+        # Immunotherapy + log-rank (not Fleming-Harrington)
+        if 'immunotherapy' in conditions:
+            if protocol_method and 'fleming' not in protocol_method_lower and 'weighted' not in protocol_method_lower:
+                if 'log-rank' in protocol_method_lower or 'logrank' in protocol_method_lower:
+                    notes.append({
+                        'type': 'method_choice_note',
+                        'observation': (
+                            f'Protocol specifies "{protocol_method}" for an immunotherapy trial. '
+                            'Immunotherapy trials often show delayed effects where weighted log-rank '
+                            '(Fleming-Harrington) may provide better power.'
+                        ),
+                        'protocol_rationale': (
+                            'The protocol authors may have chosen standard log-rank for: '
+                            '(1) regulatory familiarity, (2) expected early separation, '
+                            '(3) conservative approach, or (4) pre-specified in the protocol.'
+                        ),
+                        'action': 'PROCEED with protocol-specified method. This is informational only.',
+                        'severity': 'info'
+                    })
+
+        # Interim analysis without alpha spending mentioned
+        if 'interim_analysis' in conditions:
+            has_interim = protocol_facts.get('has_interim_analysis', False)
+            num_interim = protocol_facts.get('num_interim_analyses', 0)
+            interim_method = protocol_facts.get('interim_analysis_method', '')
+
+            if has_interim and not interim_method:
+                notes.append({
+                    'type': 'missing_detail',
+                    'observation': (
+                        f'Protocol has {num_interim} interim analyses but alpha spending method '
+                        'was not extracted.'
+                    ),
+                    'action': 'Verify alpha spending method is specified in protocol.',
+                    'severity': 'warning'
+                })
+
+        # No method specified at all
+        if not protocol_method:
+            notes.append({
+                'type': 'extraction_gap',
+                'observation': 'Statistical method was not extracted from the protocol.',
+                'action': (
+                    'Review protocol to identify the primary statistical test. '
+                    'Do NOT infer based on drug class or conditions.'
+                ),
+                'severity': 'warning'
+            })
+
+        return notes
+
+    def get_context_for_generation(
+        self,
+        protocol_facts: Dict[str, Any]
+    ) -> str:
+        """
+        Generate a context string that can be passed to the LLM during SAP generation.
+        This provides scientific background WITHOUT making method decisions.
+
+        Args:
+            protocol_facts: Extracted protocol facts
+
+        Returns:
+            Formatted context string for LLM prompt
+        """
+        ctx = self.get_method_context(protocol_facts)
+
+        lines = [
+            "## Scientific Context (Informational - Protocol is Source of Truth)",
+            ""
+        ]
+
+        # Protocol method (source of truth)
+        if ctx['protocol_method']:
+            lines.append(f"**Protocol-Specified Method:** {ctx['protocol_method']}")
+            lines.append("(This is the source of truth - use this method in the SAP)")
+            lines.append("")
+        else:
+            lines.append("**Protocol-Specified Method:** [NOT EXTRACTED - NEEDS REVIEW]")
+            lines.append("")
+
+        # Conditions detected
+        lines.append(f"**Conditions Detected:** {', '.join(ctx['conditions_detected'])}")
+        lines.append("")
+
+        # Considerations
+        if ctx['considerations']:
+            lines.append("### Background Considerations")
+            for c in ctx['considerations']:
+                lines.append(f"\n**{c['condition'].replace('_', ' ').title()}:**")
+                lines.append(f"- {c['note']}")
+                if c.get('implication'):
+                    lines.append(f"- Implication: {c['implication']}")
+                if c.get('but'):
+                    lines.append(f"- Note: {c['but']}")
+
+        # Discrepancy notes
+        if ctx['discrepancy_notes']:
+            lines.append("\n### Notes")
+            for note in ctx['discrepancy_notes']:
+                lines.append(f"- [{note['severity'].upper()}] {note['observation']}")
+                lines.append(f"  Action: {note['action']}")
+
+        return '\n'.join(lines)
+
+
 def test_rule_engine():
     """Test the rule engine with sample protocol facts."""
 

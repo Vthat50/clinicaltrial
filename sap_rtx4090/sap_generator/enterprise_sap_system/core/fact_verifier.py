@@ -274,43 +274,93 @@ class FactVerifier:
                         self.warnings.append(f"Power {found_power}% found, expected {power_str}%")
 
     def _verify_methods(self, text: str, constraints: Dict[str, Any]):
-        """Verify method constraints are satisfied."""
+        """
+        Verify method constraints are satisfied.
+
+        NEW ARCHITECTURE: We do NOT force specific methods (like Fleming-Harrington).
+        Instead, we check that the protocol-specified method is used.
+        Discrepancies are flagged as NOTES, not ERRORS.
+        """
         text_lower = text.lower()
 
-        # Primary test
+        # Check for [NEEDS REVIEW] markers in generated text
+        if '[needs review]' in text_lower or '[to be specified]' in text_lower:
+            self.warnings.append(
+                "Generated text contains [NEEDS REVIEW] or [To be specified] markers - "
+                "manual review required to fill in missing information"
+            )
+
+        # Primary test - verify protocol-specified method is present
         primary_test = constraints.get('primary_test', '')
         if primary_test:
             primary_lower = primary_test.lower()
-            # Check various formulations
-            if 'fleming' in primary_lower:
-                if 'fleming' not in text_lower and 'fh' not in text_lower:
-                    self.errors.append(VerificationError(
-                        field="primary_test",
-                        expected=primary_test,
-                        found="not found",
-                        severity="critical",
-                        context="Fleming-Harrington test required but not found"
-                    ))
 
-        # Forbidden primary
+            # Skip validation if it's a [NEEDS REVIEW] marker
+            if 'needs review' in primary_lower or 'not found' in primary_lower:
+                self.warnings.append(
+                    f"Primary statistical method was not extracted from protocol. "
+                    f"Generated SAP may have used a placeholder."
+                )
+            else:
+                # Check if the protocol-specified method is mentioned
+                # (but don't require specific methods like Fleming-Harrington)
+                method_keywords = self._extract_method_keywords(primary_test)
+                method_found = any(kw in text_lower for kw in method_keywords)
+
+                if not method_found:
+                    # This is a WARNING, not a critical error
+                    # The protocol method should be used, but we don't override
+                    self.warnings.append(
+                        f"Protocol-specified method '{primary_test}' not clearly found in text. "
+                        f"Verify the generated SAP uses the correct method."
+                    )
+
+        # NOTE: We no longer enforce "forbidden_primary" strictly.
+        # If the protocol specifies a method, we use it regardless of drug class.
+        # Discrepancies are logged as informational notes, not errors.
         forbidden = constraints.get('forbidden_primary', '')
-        if forbidden and forbidden.lower() in text_lower:
-            # Check if it's used as PRIMARY (not sensitivity)
-            primary_section = text_lower.split('sensitivity')[0] if 'sensitivity' in text_lower else text_lower
-            if 'primary' in primary_section:
-                forbidden_pos = primary_section.find(forbidden.lower())
-                if forbidden_pos != -1:
-                    context_start = max(0, forbidden_pos - 50)
-                    context_end = min(len(primary_section), forbidden_pos + 50)
-                    context = primary_section[context_start:context_end]
-                    if 'primary' in context:
+        if forbidden and forbidden.strip():
+            # Only warn if this appears in a descriptive context (single-arm study)
+            # For comparative studies, we respect the protocol-specified method
+            if 'descriptive' in forbidden.lower():
+                # This is for single-arm studies where comparative methods are forbidden
+                primary_section = text_lower.split('sensitivity')[0] if 'sensitivity' in text_lower else text_lower
+                for method in ['log-rank', 'cox regression', 'fleming-harrington']:
+                    if method in primary_section and 'primary' in primary_section:
                         self.errors.append(VerificationError(
                             field="forbidden_primary",
-                            expected=f"NOT {forbidden}",
-                            found=forbidden,
-                            severity="critical",
-                            context=f"Forbidden method '{forbidden}' used as primary"
+                            expected="Descriptive statistics (single-arm study)",
+                            found=method,
+                            severity="high",
+                            context=f"Comparative method '{method}' used in single-arm study"
                         ))
+                        break
+
+    def _extract_method_keywords(self, method_name: str) -> List[str]:
+        """Extract searchable keywords from a method name."""
+        method_lower = method_name.lower()
+        keywords = []
+
+        # Common method keyword mappings
+        if 'log-rank' in method_lower or 'logrank' in method_lower:
+            keywords.extend(['log-rank', 'logrank', 'log rank'])
+        if 'stratified' in method_lower:
+            keywords.append('stratified')
+        if 'fleming' in method_lower:
+            keywords.extend(['fleming', 'fh(', 'harrington'])
+        if 'cox' in method_lower:
+            keywords.extend(['cox', 'proportional hazard'])
+        if 'kaplan' in method_lower:
+            keywords.extend(['kaplan', 'km'])
+        if 'descriptive' in method_lower:
+            keywords.extend(['descriptive', 'summary statistics'])
+
+        # Fallback: use first few significant words
+        if not keywords:
+            words = [w for w in method_lower.split() if len(w) > 3]
+            keywords.extend(words[:3])
+
+        return keywords
 
     def _check_rag_contamination(self, text: str, facts: Dict[str, Any]):
         """Check for common RAG contamination patterns."""
@@ -416,11 +466,15 @@ CRITICAL: Do not introduce any new numbers or values. Use ONLY the correct value
 
 
 def test_verifier():
-    """Test the verifier."""
+    """Test the verifier with new architecture."""
 
     verifier = FactVerifier()
 
-    # Simulated generated text with errors
+    print("=" * 60)
+    print("TEST 1: Numerical errors (should flag)")
+    print("=" * 60)
+
+    # Simulated generated text with NUMERICAL errors
     generated = """
     The study will enroll 504 patients. The primary analysis will be performed
     at 639 death events. At interim analysis (291 events, 50% information),
@@ -432,32 +486,69 @@ def test_verifier():
     # Correct facts
     facts = {
         'sample_size': 504,
-        'final_events': 382,  # Wrong in text (639)
+        'final_events': 382,  # Wrong in text (639) - SHOULD FLAG
         'interim_events': 291,
-        'num_interim_analyses': 1,  # Wrong in text (two)
-        'alpha_at_interim': 0.020,  # Wrong in text (0.05)
+        'num_interim_analyses': 1,  # Wrong in text (two) - SHOULD FLAG
+        'alpha_at_interim': 0.020,  # Wrong in text (0.05) - SHOULD FLAG
     }
 
+    # NEW ARCHITECTURE: Protocol specifies stratified log-rank
+    # We should NOT force Fleming-Harrington anymore
     constraints = {
-        'primary_test': 'Fleming-Harrington',
-        'forbidden_primary': 'stratified log-rank',
+        'primary_test': 'stratified log-rank test',  # What the protocol says
+        'forbidden_primary': '',  # No forced method restrictions for comparative studies
     }
 
     result = verifier.verify(generated, facts, constraints)
 
-    print("=" * 60)
-    print("VERIFICATION RESULT")
-    print("=" * 60)
     print(f"Passed: {result.passed}")
     print(f"Score: {result.score:.2f}")
-    print()
     print(verifier.get_error_summary())
 
-    if not result.passed:
-        print("\n" + "=" * 60)
-        print("CORRECTION PROMPT")
-        print("=" * 60)
-        print(verifier.generate_correction_prompt(generated, facts))
+    print("\n" + "=" * 60)
+    print("TEST 2: Method correctly used (should pass)")
+    print("=" * 60)
+
+    # Generated text that uses protocol-specified method
+    generated2 = """
+    The study will enroll 504 patients. The primary analysis will be performed
+    at 382 death events. At interim analysis (291 events),
+    H0 will be rejected if p < 0.020. One interim analysis is planned.
+
+    The primary comparison will use the stratified log-rank test.
+    """
+
+    result2 = verifier.verify(generated2, facts, constraints)
+
+    print(f"Passed: {result2.passed}")
+    print(f"Score: {result2.score:.2f}")
+    print(verifier.get_error_summary())
+
+    print("\n" + "=" * 60)
+    print("TEST 3: Single-arm study with comparative method (should flag)")
+    print("=" * 60)
+
+    # Single-arm study shouldn't use comparative methods
+    generated3 = """
+    This single-arm Phase II study will enroll 50 patients.
+    The primary analysis will use the log-rank test for survival comparison.
+    """
+
+    facts3 = {
+        'sample_size': 50,
+        'is_single_arm': True,
+    }
+
+    constraints3 = {
+        'primary_test': 'Descriptive statistics only',
+        'forbidden_primary': 'Descriptive (log-rank test, Cox regression inappropriate for single-arm study)',
+    }
+
+    result3 = verifier.verify(generated3, facts3, constraints3)
+
+    print(f"Passed: {result3.passed}")
+    print(f"Score: {result3.score:.2f}")
+    print(verifier.get_error_summary())
 
 
 if __name__ == "__main__":
