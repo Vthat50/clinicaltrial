@@ -318,6 +318,12 @@ class ProductionSAPPipeline:
             sap_text = self._assemble_sap(sections, facts)
 
             # =================================================================
+            # STEP 5.5: INTERNAL CONSISTENCY CHECK
+            # Before outputting [NEEDS REVIEW], check if value exists elsewhere
+            # =================================================================
+            sap_text = self._ensure_internal_consistency(sap_text, facts)
+
+            # =================================================================
             # STEP 6: VERIFY (SELF-RAG pattern)
             # =================================================================
             print("\n[Step 6] Verifying against extracted facts...")
@@ -926,6 +932,72 @@ Write the {section_title} section now. Start with "## {section_title}" as header
                 sap_text += sections[section_key] + "\n\n---\n\n"
 
         return sap_text
+
+    def _ensure_internal_consistency(self, sap_text: str, facts: Dict[str, Any]) -> str:
+        """
+        Scan generated SAP for [NEEDS REVIEW]/[To be specified] markers and
+        replace with actual values if they exist elsewhere in the document or facts.
+
+        This fixes the bug where one section says "[To be specified]" but another
+        section has the actual value.
+        """
+        import re
+
+        # Mapping of common marker patterns to fact keys
+        marker_patterns = [
+            # Primary endpoint variations
+            (r'\[To be specified\](?=.*[Pp]rimary [Ee]ndpoint)', 'primary_endpoint'),
+            (r'\[PRIMARY ENDPOINT NOT EXTRACTED[^\]]*\]', 'primary_endpoint'),
+            (r'\[NEEDS REVIEW\](?=.*[Pp]rimary)', 'primary_endpoint'),
+
+            # Statistical method variations
+            (r'\[STATISTICAL METHOD NOT FOUND[^\]]*\]', 'statistical_method'),
+            (r'\[STATISTICAL METHOD NOT EXTRACTED[^\]]*\]', 'statistical_method'),
+
+            # Treatment setting
+            (r'\[TREATMENT SETTING NOT EXTRACTED[^\]]*\]', 'treatment_setting'),
+
+            # Interim analysis
+            (r'\[INTERIM METHOD NOT EXTRACTED[^\]]*\]', 'interim_analysis_method'),
+            (r'\[ALPHA SPENDING NOT EXTRACTED[^\]]*\]', 'alpha_spending_function'),
+
+            # Sample size
+            (r'\[SAMPLE SIZE NOT EXTRACTED[^\]]*\]', 'sample_size'),
+        ]
+
+        modified = sap_text
+        replacements_made = 0
+
+        for pattern, fact_key in marker_patterns:
+            fact_value = facts.get(fact_key)
+            if fact_value and '[NOT' not in str(fact_value) and '[NEEDS' not in str(fact_value):
+                # Replace the marker with the actual value
+                matches = re.findall(pattern, modified)
+                if matches:
+                    modified = re.sub(pattern, str(fact_value), modified)
+                    replacements_made += len(matches)
+                    print(f"[Consistency] Replaced {len(matches)} marker(s) for {fact_key}: {fact_value}")
+
+        # Also scan for values that appear in one section but not another
+        # Extract endpoint from Estimand section if present
+        estimand_match = re.search(
+            r'(?:Primary Estimand|Estimand).*?(?:Endpoint|Variable)[:\s]*([^\n\[]+)',
+            sap_text, re.IGNORECASE | re.DOTALL
+        )
+        if estimand_match:
+            found_endpoint = estimand_match.group(1).strip()
+            if found_endpoint and len(found_endpoint) > 5:
+                # Replace generic "[To be specified]" near Primary Endpoint
+                pattern = r'(\*\*Primary Endpoint[:\*]*\s*)\[To be specified\]'
+                if re.search(pattern, modified):
+                    modified = re.sub(pattern, rf'\1{found_endpoint}', modified)
+                    print(f"[Consistency] Populated Primary Endpoint from Estimand: {found_endpoint}")
+                    replacements_made += 1
+
+        if replacements_made > 0:
+            print(f"[Consistency] Total replacements: {replacements_made}")
+
+        return modified
 
 
 # =============================================================================
