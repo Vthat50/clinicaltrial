@@ -42,6 +42,13 @@ class KnowledgeRuleEngine:
 
     CRITICAL: This engine does NOT make method decisions.
     Protocol extraction is the source of truth for all method choices.
+
+    The 99 rules in the knowledge graph provide:
+    - Background on what methods are commonly used with conditions
+    - Evidence sources (NCT IDs, FDA guidances, literature)
+    - Co-occurrence patterns for method combinations
+
+    This is INFORMATIONAL context for LLM prompts, NOT decision-making.
     """
 
     def __init__(self, knowledge_graph_path: Path = None):
@@ -58,21 +65,64 @@ class KnowledgeRuleEngine:
             )
 
         self.graph = self._load_graph(knowledge_graph_path)
-        # We keep nodes/edges for context lookup, but NOT for method selection
+        # We keep nodes/edges/rules for context lookup, but NOT for method selection
         self.nodes = {n['node_id']: n for n in self.graph.get('nodes', [])}
         self.edges = self.graph.get('edges', [])
+        self.rules = self.graph.get('rules', [])
+
+        # Index rules by condition type for quick context lookup
+        self._condition_rules: Dict[str, List[Dict]] = {}
+        for rule in self.rules:
+            if rule.get('rule_type') == 'condition_method':
+                cond_type = rule.get('condition', {}).get('type', '')
+                if cond_type:
+                    if cond_type not in self._condition_rules:
+                        self._condition_rules[cond_type] = []
+                    self._condition_rules[cond_type].append(rule)
 
     def _load_graph(self, path: Path) -> Dict[str, Any]:
         """Load knowledge graph from JSON."""
         if not path.exists():
             print(f"[KnowledgeRuleEngine] Warning: No graph at {path}")
-            return {'nodes': [], 'edges': []}
+            return {'nodes': [], 'edges': [], 'rules': []}
 
         try:
-            return json.loads(path.read_text())
+            graph = json.loads(path.read_text())
+            stats = graph.get('stats', {})
+            print(f"[KnowledgeRuleEngine] Loaded graph: {stats.get('total_nodes', 0)} nodes, "
+                  f"{stats.get('total_edges', 0)} edges, {stats.get('total_rules', 0)} rules")
+            return graph
         except Exception as e:
             print(f"[KnowledgeRuleEngine] Error loading graph: {e}")
-            return {'nodes': [], 'edges': []}
+            return {'nodes': [], 'edges': [], 'rules': []}
+
+    def get_methods_for_condition(self, condition_type: str) -> List[Dict[str, Any]]:
+        """
+        Get methods commonly associated with a condition (for CONTEXT only).
+
+        This returns what methods are documented in literature/trials for this condition,
+        NOT a recommendation. The protocol-specified method is always the source of truth.
+
+        Args:
+            condition_type: e.g., 'immunotherapy', 'interim_analysis', 'stratified'
+
+        Returns:
+            List of method info dicts with: method, confidence, sources
+        """
+        rules = self._condition_rules.get(condition_type, [])
+        methods = []
+        for rule in rules:
+            method = rule.get('conclusion', {}).get('method', '')
+            if method:
+                methods.append({
+                    'method': method.replace('_', ' ').title(),
+                    'confidence': rule.get('confidence', 0),
+                    'sources': rule.get('sources', []),
+                    'note': 'Common in literature - NOT a recommendation'
+                })
+        # Sort by confidence descending
+        methods.sort(key=lambda x: x['confidence'], reverse=True)
+        return methods
 
     def detect_conditions(self, protocol_facts: Dict[str, Any]) -> Set[str]:
         """
@@ -148,6 +198,9 @@ class KnowledgeRuleEngine:
         Return CONTEXT about the protocol conditions,
         not METHOD DECISIONS. The extracted protocol method is the source of truth.
 
+        Uses the 99 rules from knowledge graph to provide background on what methods
+        are commonly documented in literature for each condition.
+
         Args:
             protocol_facts: Extracted protocol facts
 
@@ -156,6 +209,7 @@ class KnowledgeRuleEngine:
             - conditions_detected: What conditions were found
             - considerations: Scientific context for each condition
             - protocol_method: What the protocol actually specifies (SOURCE OF TRUTH)
+            - common_methods_by_condition: What literature documents (NOT recommendations)
             - discrepancy_notes: Flags if protocol differs from typical approaches
         """
         conditions = self.detect_conditions(protocol_facts)
@@ -169,8 +223,16 @@ class KnowledgeRuleEngine:
             'protocol_method': protocol_method,
             'considerations': [],
             'discrepancy_notes': [],
-            'scientific_context': {}
+            'scientific_context': {},
+            'common_methods_by_condition': {},  # From 99 rules - for CONTEXT only
+            'total_rules_available': len(self.rules)
         }
+
+        # Get methods from 99 rules for each detected condition (CONTEXT only)
+        for condition in conditions:
+            rule_methods = self.get_methods_for_condition(condition)
+            if rule_methods:
+                context['common_methods_by_condition'][condition] = rule_methods
 
         # Immunotherapy context (INFORM, don't decide)
         if 'immunotherapy' in conditions:
@@ -307,6 +369,9 @@ class KnowledgeRuleEngine:
         Generate a context string for LLM during SAP generation.
         Provides scientific background WITHOUT making method decisions.
 
+        Leverages the 99 rules from knowledge graph to show what methods
+        are documented in literature (for CONTEXT, not recommendation).
+
         Args:
             protocol_facts: Extracted protocol facts
 
@@ -317,21 +382,39 @@ class KnowledgeRuleEngine:
 
         lines = [
             "## Scientific Context (Informational - Protocol is Source of Truth)",
+            f"(Based on {ctx.get('total_rules_available', 0)} evidence-based rules from knowledge graph)",
             ""
         ]
 
-        # Protocol method (source of truth)
+        # Protocol method (source of truth) - EMPHASIZED
+        lines.append("=" * 60)
         if ctx['protocol_method']:
-            lines.append(f"**Protocol-Specified Method:** {ctx['protocol_method']}")
-            lines.append("(This is the source of truth - use this method in the SAP)")
-            lines.append("")
+            lines.append(f"**PROTOCOL-SPECIFIED METHOD:** {ctx['protocol_method']}")
+            lines.append(">>> THIS IS THE SOURCE OF TRUTH - USE THIS METHOD IN THE SAP <<<")
         else:
-            lines.append("**Protocol-Specified Method:** [NOT EXTRACTED - NEEDS REVIEW]")
-            lines.append("")
+            lines.append("**PROTOCOL-SPECIFIED METHOD:** [NOT EXTRACTED - NEEDS REVIEW]")
+            lines.append(">>> DO NOT INFER A METHOD - FLAG FOR HUMAN REVIEW <<<")
+        lines.append("=" * 60)
+        lines.append("")
 
         # Conditions detected
         lines.append(f"**Conditions Detected:** {', '.join(ctx['conditions_detected'])}")
         lines.append("")
+
+        # Methods from 99 rules (CONTEXT only, not recommendations)
+        if ctx.get('common_methods_by_condition'):
+            lines.append("### Literature Context (NOT Recommendations)")
+            lines.append("The following methods are documented in literature for these conditions.")
+            lines.append("This is BACKGROUND INFORMATION - the protocol method takes precedence.")
+            lines.append("")
+            for condition, methods in ctx['common_methods_by_condition'].items():
+                cond_label = condition.replace('_', ' ').title()
+                lines.append(f"**{cond_label}:**")
+                # Show top 3 methods with highest confidence
+                for m in methods[:3]:
+                    sources_str = ', '.join(m['sources'][:2]) if m['sources'] else 'domain knowledge'
+                    lines.append(f"  - {m['method']} (conf: {m['confidence']:.1f}, sources: {sources_str})")
+            lines.append("")
 
         # Considerations
         if ctx['considerations']:
