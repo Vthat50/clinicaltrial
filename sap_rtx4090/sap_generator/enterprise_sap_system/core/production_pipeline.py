@@ -283,8 +283,15 @@ class ProductionSAPPipeline:
                     else:
                         facts = dict(extracted)
 
+                    # CRITICAL: Preserve raw_text for fallback extraction
+                    facts['raw_text'] = protocol_text.lower()
+
                     # Normalize field names for consistency
                     facts = self._normalize_facts(facts)
+
+                    # Log what was extracted
+                    print(f"[Extraction] Randomization ratio: {facts.get('randomization_ratio', 'NOT FOUND')}")
+
                     return facts
             except Exception as e:
                 print(f"[Extraction] Error: {e}")
@@ -317,6 +324,21 @@ class ProductionSAPPipeline:
         if 'num_interim' not in normalized and 'num_interim_analyses' in normalized:
             normalized['num_interim'] = normalized['num_interim_analyses']
 
+        # CRITICAL: Extract randomization ratio if missing (fallback from raw_text)
+        if not normalized.get('randomization_ratio') and normalized.get('raw_text'):
+            raw_text = normalized['raw_text']
+            ratio_patterns = [
+                r'(\d+:\d+(?::\d+)?)\s*(?:randomization|allocation)',
+                r'(?:randomiz|allocat)\w*\s*(?:in\s+a\s+)?(\d+:\d+(?::\d+)?)',
+                r'\((\d+:\d+(?::\d+)?)\)\s*(?:ratio|randomization)?',
+            ]
+            for pattern in ratio_patterns:
+                ratio_match = re.search(pattern, raw_text, re.IGNORECASE)
+                if ratio_match:
+                    normalized['randomization_ratio'] = ratio_match.group(1)
+                    print(f"[Normalize] Extracted ratio from raw text: {normalized['randomization_ratio']}")
+                    break
+
         return normalized
 
     def _basic_extraction(self, text: str) -> Dict[str, Any]:
@@ -337,6 +359,54 @@ class ProductionSAPPipeline:
         events_match = re.search(r'(\d+)\s*(?:deaths?|events?|os events?)', text, re.IGNORECASE)
         if events_match:
             facts['final_events'] = int(events_match.group(1))
+
+        # CRITICAL: Randomization ratio extraction
+        # Multiple patterns to catch different formats
+        ratio_patterns = [
+            # "2:1 randomization", "randomization 2:1"
+            r'(\d+:\d+(?::\d+)?)\s*(?:randomization|allocation)',
+            r'(?:randomiz|allocat)\w*\s*(?:in\s+a\s+)?(\d+:\d+(?::\d+)?)',
+            # "randomized 2 to 1", "2 to 1 ratio"
+            r'(\d+)\s*(?:to|:)\s*(\d+)(?:\s*(?:to|:)\s*(\d+))?\s*(?:ratio|randomization)',
+            # "randomized to [drug] or [comparator] (2:1)"
+            r'\((\d+:\d+(?::\d+)?)\)',
+        ]
+        for pattern in ratio_patterns:
+            ratio_match = re.search(pattern, text, re.IGNORECASE)
+            if ratio_match:
+                groups = ratio_match.groups()
+                # Handle "2 to 1" format
+                if len(groups) >= 2 and groups[1] and groups[0].isdigit():
+                    if len(groups) >= 3 and groups[2]:
+                        facts['randomization_ratio'] = f"{groups[0]}:{groups[1]}:{groups[2]}"
+                    else:
+                        facts['randomization_ratio'] = f"{groups[0]}:{groups[1]}"
+                else:
+                    # Handle "2:1" format
+                    facts['randomization_ratio'] = groups[0]
+                break
+
+        # Drug name
+        drug_patterns = [
+            r'(?:nivolumab|pembrolizumab|atezolizumab|durvalumab|avelumab)',
+            r'(?:BMS-\d+|MK-\d+)',
+        ]
+        for pattern in drug_patterns:
+            drug_match = re.search(pattern, text, re.IGNORECASE)
+            if drug_match:
+                facts['drug_name'] = drug_match.group()
+                break
+
+        # Stratification factors
+        strat_match = re.search(
+            r'stratif\w*\s+(?:by|factors?|according to)[:\s]*([^.]+)',
+            text, re.IGNORECASE
+        )
+        if strat_match:
+            strat_text = strat_match.group(1)
+            # Parse comma/and-separated factors
+            factors = re.split(r'\s*(?:,|and)\s*', strat_text.strip())
+            facts['stratification_factors'] = [f.strip() for f in factors if f.strip()]
 
         return facts
 
