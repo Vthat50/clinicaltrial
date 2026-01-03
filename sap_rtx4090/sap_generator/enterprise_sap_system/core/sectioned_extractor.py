@@ -32,6 +32,7 @@ from .extraction_schema import (
     from_claude_extraction,
     ExtractionConfidence
 )
+from .section_parser import ProtocolSectionParser, ParsedProtocol
 
 
 @dataclass
@@ -384,6 +385,21 @@ RESPOND IN JSON:
 }}'''
     }
 
+    # Map our section names to ProtocolSectionParser section names
+    SECTION_MAPPING = {
+        'study_design': ['study_design', 'objectives'],
+        'stratification': ['study_design', 'statistical_methods'],
+        'sample_size': ['sample_size', 'statistical_methods'],
+        'endpoints': ['endpoints', 'objectives'],
+        'statistical_methods': ['statistical_methods', 'sample_size'],
+        'interim_analysis': ['interim_analysis', 'statistical_methods'],
+        'multiplicity': ['multiplicity', 'statistical_methods'],
+        'missing_data': ['missing_data', 'statistical_methods', 'sensitivity'],
+        'populations': ['populations', 'analysis_sets'],
+        'estimand': ['estimand', 'endpoints', 'statistical_methods'],
+        'crossover': ['statistical_methods', 'sensitivity'],
+    }
+
     def __init__(self, llm_client=None):
         """
         Initialize sectioned extractor.
@@ -392,6 +408,83 @@ RESPOND IN JSON:
             llm_client: LLM client with chat() method
         """
         self.llm = llm_client
+        self.section_parser = ProtocolSectionParser()
+        self._parsed_protocol: Optional[ParsedProtocol] = None
+
+    def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 25000) -> str:
+        """
+        Get relevant text for a section by:
+        1. Parsing protocol into sections
+        2. Returning combined text from relevant sections
+        3. Falling back to keyword search if parsing fails
+        """
+        # Parse protocol if not already done
+        if self._parsed_protocol is None or self._parsed_protocol.raw_text != protocol_text:
+            self._parsed_protocol = self.section_parser.parse(protocol_text)
+            print(f"[SectionedExtractor] Parsed protocol into {len(self._parsed_protocol.sections)} sections")
+
+        # Get relevant section names
+        relevant_sections = self.SECTION_MAPPING.get(section_name, [section_name])
+
+        # Combine text from relevant sections
+        combined_text = []
+        for sect in relevant_sections:
+            content = self._parsed_protocol.get(sect, "")
+            if content:
+                combined_text.append(f"=== {sect.upper()} SECTION ===\n{content}")
+
+        if combined_text:
+            result = "\n\n".join(combined_text)
+            print(f"[SectionedExtractor] Found {len(result)} chars from parsed sections for {section_name}")
+            return result[:max_chars]
+
+        # Fallback: keyword search for relevant content
+        print(f"[SectionedExtractor] No parsed sections found, using keyword search for {section_name}")
+        return self._keyword_extract(section_name, protocol_text, max_chars)
+
+    def _keyword_extract(self, section_name: str, text: str, max_chars: int) -> str:
+        """Fallback: extract text around relevant keywords."""
+        keywords = {
+            'endpoints': ['primary endpoint', 'secondary endpoint', 'efficacy endpoint', 'outcome measure'],
+            'statistical_methods': ['statistical method', 'log-rank', 'cox', 'hazard ratio', 'stratified'],
+            'sample_size': ['sample size', 'power', 'patients will be', 'participants', 'enrollment'],
+            'interim_analysis': ['interim analysis', 'interim analyses', 'alpha spending', 'stopping boundar'],
+            'multiplicity': ['multiplicity', 'multiple endpoint', 'hierarchical', 'graphical approach', 'alpha allocation'],
+            'stratification': ['stratification', 'stratified by', 'randomization factor'],
+            'populations': ['analysis population', 'intent-to-treat', 'full analysis set', 'safety population'],
+            'study_design': ['study design', 'randomized', 'open-label', 'phase 3', 'controlled'],
+            'missing_data': ['missing data', 'censoring', 'imputation', 'tipping point'],
+            'estimand': ['estimand', 'intercurrent event', 'treatment policy'],
+            'crossover': ['crossover', 'treatment switching', 'subsequent therapy'],
+        }
+
+        section_keywords = keywords.get(section_name, [])
+        text_lower = text.lower()
+
+        # Find all keyword positions
+        positions = []
+        for kw in section_keywords:
+            pos = 0
+            while True:
+                idx = text_lower.find(kw, pos)
+                if idx == -1:
+                    break
+                positions.append(idx)
+                pos = idx + len(kw)
+
+        if not positions:
+            # No keywords found - return start of document
+            return text[:max_chars]
+
+        # Extract chunks around each keyword position
+        chunks = []
+        for pos in sorted(set(positions)):
+            start = max(0, pos - 500)
+            end = min(len(text), pos + 2000)
+            chunks.append(text[start:end])
+
+        combined = "\n...\n".join(chunks)
+        return combined[:max_chars]
 
     def extract_section(
         self,
@@ -401,6 +494,9 @@ RESPOND IN JSON:
     ) -> SectionExtractionResult:
         """
         Extract a single section from the protocol.
+
+        Uses intelligent section parsing to find relevant text instead of
+        simple truncation.
 
         Args:
             section_name: Name of section to extract
@@ -415,11 +511,14 @@ RESPOND IN JSON:
 
         prompt = self.SECTION_PROMPTS[section_name]
 
-        # Build full prompt with protocol text
+        # Get RELEVANT text for this section (not just truncation!)
+        relevant_text = self._get_relevant_text(section_name, protocol_text, max_chars=25000)
+
+        # Build full prompt with section-relevant text
         full_prompt = f"""You are extracting structured information from a clinical trial protocol.
 
-PROTOCOL TEXT:
-{protocol_text[:15000]}  # Limit to avoid token overflow
+RELEVANT PROTOCOL SECTIONS FOR {section_name.upper()}:
+{relevant_text}
 
 {prompt}
 
