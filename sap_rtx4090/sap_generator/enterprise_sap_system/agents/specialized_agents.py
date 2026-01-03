@@ -20,21 +20,17 @@ from pathlib import Path
 try:
     from ..core.schemas import (
         ParsedProtocol, Estimand, InterCurrentEvent, StatisticalMethod,
-        EndpointType, ICEStrategy, QualityReport, GeneratedSAP
+        EndpointType, ICEStrategy, QualityReport, GeneratedSAP,
+        ProtocolFacts, StructuredFactExtractor
     )
-    from ..core.structured_extractor import ProtocolFacts, StructuredFactExtractor
 except ImportError:
     import sys
     sys.path.append(str(Path(__file__).parent.parent))
     from core.schemas import (
         ParsedProtocol, Estimand, InterCurrentEvent, StatisticalMethod,
-        EndpointType, ICEStrategy, QualityReport, GeneratedSAP
+        EndpointType, ICEStrategy, QualityReport, GeneratedSAP,
+        ProtocolFacts, StructuredFactExtractor
     )
-    try:
-        from core.structured_extractor import ProtocolFacts, StructuredFactExtractor
-    except ImportError:
-        ProtocolFacts = None
-        StructuredFactExtractor = None
 
 from .base_agent import BaseAgent, AgentMessage
 
@@ -636,7 +632,7 @@ Return the section content as a markdown-formatted string."""
         """
         # Import the helper function
         try:
-            from ..core.structured_extractor import StructuredFactExtractor
+            from ..core.schemas import StructuredFactExtractor
             extractor = StructuredFactExtractor()
             facts_context = extractor.to_prompt_context(facts)
         except Exception:

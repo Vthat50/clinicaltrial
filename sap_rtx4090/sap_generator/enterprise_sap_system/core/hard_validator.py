@@ -16,11 +16,11 @@ from typing import Any, Dict, List, Optional, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 
-# Import from structured_extractor
+# Import from schemas (unified location)
 try:
-    from .structured_extractor import ProtocolFacts, RouteOfAdministration
+    from .schemas import ProtocolFacts, RouteOfAdministration
 except ImportError:
-    from structured_extractor import ProtocolFacts, RouteOfAdministration
+    from schemas import ProtocolFacts, RouteOfAdministration
 
 # Import configuration
 try:
@@ -371,9 +371,9 @@ class HardValidator:
         """
         # Import extractor here to avoid circular imports
         try:
-            from .structured_extractor import StructuredFactExtractor
+            from .schemas import StructuredFactExtractor
         except ImportError:
-            from structured_extractor import StructuredFactExtractor
+            from schemas import StructuredFactExtractor
 
         # Fresh extraction from original protocol
         extractor = StructuredFactExtractor()

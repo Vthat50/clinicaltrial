@@ -135,7 +135,7 @@ Power is 90% with two-sided alpha of 0.05.
     print_header("STEP 1: STRUCTURED EXTRACTION")
     # ========================================================================
     try:
-        from enterprise_sap_system.core.structured_extractor import StructuredFactExtractor
+        from enterprise_sap_system.core.schemas import StructuredFactExtractor
         extractor = StructuredFactExtractor()
         facts = extractor.extract_all(protocol_text)
 

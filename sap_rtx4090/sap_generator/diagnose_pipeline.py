@@ -104,7 +104,7 @@ def trace_pipeline(protocol_text: str, nct_id: str = ""):
     print_step(1, "STRUCTURED FACT EXTRACTION (StructuredFactExtractor)")
 
     try:
-        from enterprise_sap_system.core.structured_extractor import StructuredFactExtractor
+        from enterprise_sap_system.core.schemas import StructuredFactExtractor
         extractor = StructuredFactExtractor()
         facts = extractor.extract_all(protocol_text)
 

@@ -75,7 +75,7 @@ except ImportError:
 
 # PRODUCTION: Structured Fact Extractor - Extract ALL facts as structured data
 try:
-    from ..core.structured_extractor import StructuredFactExtractor, ProtocolFacts
+    from ..core.schemas import StructuredFactExtractor, ProtocolFacts
     STRUCTURED_EXTRACTOR_AVAILABLE = True
 except ImportError:
     STRUCTURED_EXTRACTOR_AVAILABLE = False

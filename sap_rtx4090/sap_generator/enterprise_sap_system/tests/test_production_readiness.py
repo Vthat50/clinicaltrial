@@ -211,25 +211,24 @@ class TestDataModels:
 
     def test_treatment_arm_has_description(self):
         """Test that TreatmentArm has description field."""
-        from enterprise_sap_system.core.structured_extractor import TreatmentArm
+        from enterprise_sap_system.core.schemas import TreatmentArmModel as TreatmentArm
 
         arm = TreatmentArm(name="Treatment A")
         assert hasattr(arm, 'description')
         assert arm.description == "Treatment A"  # Auto-populated
 
     def test_treatment_arm_compatibility(self):
-        """Test that both TreatmentArm classes are compatible."""
-        from enterprise_sap_system.core.structured_extractor import TreatmentArm as ExtractorArm
-        from enterprise_sap_system.core.schemas import TreatmentArm as SchemaArm
+        """Test that TreatmentArmModel has all required fields."""
+        from enterprise_sap_system.core.schemas import TreatmentArmModel
 
-        # Both should have all required fields
-        extractor_arm = ExtractorArm(name="Test", is_placebo=True)
-        schema_arm = SchemaArm(name="Test", is_placebo=True)
+        # TreatmentArmModel should have all required fields
+        arm = TreatmentArmModel(name="Test", is_placebo=True)
 
-        assert extractor_arm.name == schema_arm.name
-        assert extractor_arm.is_placebo == schema_arm.is_placebo
-        assert hasattr(extractor_arm, 'description')
-        assert hasattr(schema_arm, 'description')
+        assert arm.name == "Test"
+        assert arm.is_placebo == True
+        assert hasattr(arm, 'description')
+        assert hasattr(arm, 'dose')
+        assert hasattr(arm, 'is_control')
 
 
 class TestEnhancedParser:

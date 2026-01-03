@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field, field_validator, create_model
 from dataclasses import dataclass, field
 
 # Import the SINGLE SOURCE OF TRUTH for extraction
-from .structured_extractor import StructuredFactExtractor, ProtocolFacts
+from .schemas import StructuredFactExtractor, ProtocolFacts
 
 
 # =============================================================================

@@ -40,7 +40,7 @@ except ImportError:
 logger = get_logger(__name__)
 
 # Import components (ProtocolFacts for data structure only - NO regex extraction)
-from .structured_extractor import ProtocolFacts
+from .schemas import ProtocolFacts, StructuredFactExtractor
 from .hybrid_reasoning import (
     HybridReasoningEngine,
     ReasoningResult,
@@ -48,6 +48,14 @@ from .hybrid_reasoning import (
     create_hybrid_engine
 )
 from .rag_adapter import create_rag_adapter, HybridRAGAdapter
+
+# Import Knowledge Rule Engine (data-driven method selection)
+try:
+    from .knowledge_rule_engine import KnowledgeRuleEngine
+    KNOWLEDGE_ENGINE_AVAILABLE = True
+except ImportError as e:
+    KNOWLEDGE_ENGINE_AVAILABLE = False
+    print(f"[Pipeline] KnowledgeRuleEngine not available: {e}")
 
 # Import LLM section generator (replaces template-based generation)
 try:
@@ -202,13 +210,22 @@ class HybridSAPPipeline:
         else:
             self.tlf_generator = None
 
+        # Initialize Knowledge Rule Engine (data-driven method selection)
+        if KNOWLEDGE_ENGINE_AVAILABLE:
+            self.knowledge_engine = KnowledgeRuleEngine()
+            self.use_knowledge_rules = True
+        else:
+            self.knowledge_engine = None
+            self.use_knowledge_rules = False
+
         logger.info(
             "HybridSAPPipeline initialized",
             extraction="LLM" if self.use_llm_extraction else "DISABLED",
             generation="LLM" if self.use_llm_generation else "TEMPLATES",
             rag="enabled" if use_rag and self.rag_adapter else "disabled",
             validation="enabled" if use_validation else "disabled",
-            tlf="enabled" if self.tlf_generator else "disabled"
+            tlf="enabled" if self.tlf_generator else "disabled",
+            knowledge_rules="enabled" if self.use_knowledge_rules else "disabled"
         )
 
     def generate(
@@ -319,6 +336,32 @@ class HybridSAPPipeline:
             )
 
             # =================================================================
+            # LAYER 1.5: KNOWLEDGE-DRIVEN METHOD SELECTION
+            # =================================================================
+            if self.use_knowledge_rules and self.knowledge_engine:
+                logger.info("LAYER 1.5: Applying knowledge rules for method selection")
+
+                # Get method recommendations from knowledge graph
+                method_recommendations = self.knowledge_engine.get_primary_analysis_methods(facts_dict)
+
+                # Add recommendations to facts_dict so LLM can use them
+                facts_dict['_knowledge_recommendations'] = method_recommendations
+                facts_dict['_detected_conditions'] = method_recommendations.get('conditions_detected', [])
+
+                # Log what the knowledge engine detected
+                logger.info(
+                    "Knowledge rules applied",
+                    conditions=method_recommendations.get('conditions_detected', []),
+                    primary_test=(method_recommendations or {}).get('primary_test', {}).get('method'),
+                    sensitivity_count=len(method_recommendations.get('sensitivity_analyses', [])),
+                    reasoning_count=len(method_recommendations.get('reasoning', []))
+                )
+
+                # Add recommendations to result warnings for visibility
+                for reasoning in method_recommendations.get('reasoning', []):
+                    result.warnings.append(f"[Knowledge Rule] {reasoning}")
+
+            # =================================================================
             # LAYER 2: HYBRID REASONING
             # =================================================================
             logger.info("LAYER 2: Generating sections with hybrid reasoning")
@@ -359,6 +402,10 @@ class HybridSAPPipeline:
                     ('endpoints', self.llm_generator.generate_endpoints),
                     ('methods', self.llm_generator.generate_methods),
                     ('stratification', self.llm_generator.generate_stratification),
+                    # NEW: Additional sections for comprehensive SAP
+                    ('regulatory_interim', self.llm_generator.generate_regulatory_interim),
+                    ('pro_endpoints', self.llm_generator.generate_pro_endpoints),
+                    ('subgroup_analyses', self.llm_generator.generate_subgroup_analyses),
                 ]
 
                 for section_name, generator_func in llm_sections:
@@ -392,6 +439,14 @@ class HybridSAPPipeline:
             logger.info("LAYER 4: Assembling SAP document")
 
             result.sap_text = self._assemble_sap(result.sections, facts_dict)
+
+            # =================================================================
+            # LAYER 4.5: POST-PROCESSING ENHANCEMENTS
+            # =================================================================
+            # Enhance NPH acknowledgment for immunotherapy trials
+            result.sap_text = self._enhance_nph_acknowledgment(
+                result.sap_text, protocol_text, facts_dict
+            )
 
             # =================================================================
             # LAYER 5: VALIDATION (never blocks, just collects issues)
@@ -469,10 +524,11 @@ class HybridSAPPipeline:
 
     def _convert_extracted_to_facts(self, extracted: 'ExtractedProtocol') -> ProtocolFacts:
         """Convert LLM-extracted data to ProtocolFacts for pipeline compatibility"""
-        from .structured_extractor import (
+        from .schemas import (
             ProtocolFacts, EndpointDefinition, SampleSizeSpec,
-            AlphaSpecification, TreatmentArm, StudyPhase
+            AlphaSpecification, TreatmentArmModel as TreatmentArm
         )
+        StudyPhase = None  # Phase is now a string in ProtocolFacts
 
         facts = ProtocolFacts()
 
@@ -591,6 +647,38 @@ class HybridSAPPipeline:
 
                 # DOCUMENT TYPE (SAP vs Protocol)
                 'document_type': getattr(extracted, 'document_type', 'protocol'),
+
+                # ========== NEW: Additional fields for comprehensive SAP generation ==========
+
+                # REGULATORY INTERIM ANALYSIS (e.g., TTF interim for China NDA)
+                'has_regulatory_interim': getattr(extracted, 'has_regulatory_interim', False),
+                'regulatory_interim_endpoint': getattr(extracted, 'regulatory_interim_endpoint', None),
+                'regulatory_interim_region': getattr(extracted, 'regulatory_interim_region', None),
+                'regulatory_interim_purpose': getattr(extracted, 'regulatory_interim_purpose', None),
+                'regulatory_interim_timing': getattr(extracted, 'regulatory_interim_timing', None),
+                'regulatory_interim_alpha': getattr(extracted, 'regulatory_interim_alpha', 0.025),
+                'regulatory_interim_method': getattr(extracted, 'regulatory_interim_method', None),
+                'regulatory_interim_analyses': getattr(extracted, 'regulatory_interim_analyses', None),
+
+                # PRO/QoL ENDPOINTS (Patient-Reported Outcomes)
+                'has_pro_endpoint': getattr(extracted, 'has_pro_endpoint', False),
+                'pro_endpoints': getattr(extracted, 'pro_endpoints', None),
+                'pro_instruments': getattr(extracted, 'pro_instruments', None),
+
+                # NON-PROPORTIONAL HAZARDS MODEL (immunotherapy delayed effect)
+                'has_nph_model': getattr(extracted, 'has_nph_model', False),
+                'nph_model_type': getattr(extracted, 'nph_model_type', None),
+                'delayed_effect_months': getattr(extracted, 'delayed_effect_months', 0),
+                'piecewise_hazards': getattr(extracted, 'piecewise_hazards', None),
+                'subgroup_specific_assumptions': getattr(extracted, 'subgroup_specific_assumptions', None),
+
+                # CROSSOVER IMPACT MODELING
+                'has_crossover_modeling': getattr(extracted, 'has_crossover_modeling', False),
+                'crossover_rates_modeled': getattr(extracted, 'crossover_rates_modeled', None),
+                'crossover_impact_on_hr': getattr(extracted, 'crossover_impact_on_hr', None),
+
+                # SUBGROUP ANALYSES (full list)
+                'subgroup_analyses': getattr(extracted, 'subgroup_analyses', None),
             })
         except Exception:
             pass  # Ignore if we can't set this attribute
@@ -756,20 +844,19 @@ class HybridSAPPipeline:
             # Sample size
             enrollment = design.get("enrollmentInfo", {}).get("count", 0)
             if enrollment:
-                from .structured_extractor import SampleSizeSpec
-                facts.sample_size = SampleSizeSpec(total_n=enrollment)
+                from .schemas import SampleSizeSpec
+                facts.sample_size = {"total_n": enrollment}
 
             # Phase
             phases = design.get("phases", [])
             if phases:
-                from .structured_extractor import StudyPhase
                 phase_map = {
-                    "PHASE1": StudyPhase.PHASE_1,
-                    "PHASE2": StudyPhase.PHASE_2,
-                    "PHASE3": StudyPhase.PHASE_3,
-                    "PHASE4": StudyPhase.PHASE_4,
+                    "PHASE1": "Phase 1",
+                    "PHASE2": "Phase 2",
+                    "PHASE3": "Phase 3",
+                    "PHASE4": "Phase 4",
                 }
-                facts.phase = phase_map.get(phases[0], StudyPhase.UNKNOWN)
+                facts.phase = phase_map.get(phases[0], "Unknown")
 
             # Design type
             model = design_info.get("interventionModel", "")
@@ -792,31 +879,28 @@ class HybridSAPPipeline:
             outcomes = protocol.get("outcomesModule", {})
             primary = outcomes.get("primaryOutcomes", [])
             if primary:
-                from .structured_extractor import EndpointDefinition
-                facts.primary_endpoint = EndpointDefinition(
-                    name="Primary Endpoint",
-                    definition=primary[0].get("measure", ""),
-                    timepoint=primary[0].get("timeFrame", "")
-                )
+                facts.primary_endpoint = {
+                    "name": "Primary Endpoint",
+                    "definition": primary[0].get("measure", ""),
+                    "timepoint": primary[0].get("timeFrame", "")
+                }
 
             # Secondary endpoints
             secondary = outcomes.get("secondaryOutcomes", [])
             if secondary:
-                from .structured_extractor import EndpointDefinition
                 facts.secondary_endpoints = [
-                    EndpointDefinition(name="Secondary", definition=s.get("measure", ""))
+                    {"name": "Secondary", "definition": s.get("measure", "")}
                     for s in secondary[:5]
                 ]
 
             # Arms
             arm_groups = arms_module.get("armGroups", [])
             if arm_groups:
-                from .structured_extractor import TreatmentArm
                 facts.arms = [
-                    TreatmentArm(
-                        name=a.get("label", ""),
-                        is_placebo="placebo" in a.get("label", "").lower()
-                    )
+                    {
+                        "name": a.get("label", ""),
+                        "is_placebo": "placebo" in a.get("label", "").lower()
+                    }
                     for a in arm_groups
                 ]
                 facts.num_arms = len(facts.arms)
@@ -832,10 +916,11 @@ class HybridSAPPipeline:
     def _extract_from_api_only(self, nct_id: str, result: HybridPipelineResult) -> Optional[ProtocolFacts]:
         """Extract facts directly from ClinicalTrials.gov API (when LLM unavailable)"""
         import requests
-        from .structured_extractor import (
+        from .schemas import (
             ProtocolFacts, EndpointDefinition, SampleSizeSpec,
-            AlphaSpecification, TreatmentArm, StudyPhase
+            AlphaSpecification, TreatmentArmModel as TreatmentArm
         )
+        StudyPhase = None  # Phase is now a string in ProtocolFacts
 
         try:
             url = f"https://clinicaltrials.gov/api/v2/studies/{nct_id}"
@@ -933,10 +1018,11 @@ class HybridSAPPipeline:
         protocol_text: str
     ) -> ProtocolFacts:
         """Convert UnifiedFacts to ProtocolFacts for pipeline compatibility"""
-        from .structured_extractor import (
+        from .schemas import (
             ProtocolFacts, EndpointDefinition, SampleSizeSpec,
-            AlphaSpecification, TreatmentArm, StudyPhase
+            AlphaSpecification, TreatmentArmModel as TreatmentArm
         )
+        StudyPhase = None  # Phase is now a string in ProtocolFacts
 
         facts = ProtocolFacts()
 
@@ -1180,6 +1266,38 @@ class HybridSAPPipeline:
 
             # NEW: Document type
             result['document_type'] = llm.get('document_type', '')
+
+            # ========== NEW: Additional fields for comprehensive SAP generation ==========
+
+            # REGULATORY INTERIM ANALYSIS (e.g., TTF interim for China NDA)
+            result['has_regulatory_interim'] = llm.get('has_regulatory_interim', False)
+            result['regulatory_interim_endpoint'] = llm.get('regulatory_interim_endpoint', '')
+            result['regulatory_interim_region'] = llm.get('regulatory_interim_region', '')
+            result['regulatory_interim_purpose'] = llm.get('regulatory_interim_purpose', '')
+            result['regulatory_interim_timing'] = llm.get('regulatory_interim_timing', '')
+            result['regulatory_interim_alpha'] = llm.get('regulatory_interim_alpha', 0.025)
+            result['regulatory_interim_method'] = llm.get('regulatory_interim_method', '')
+            result['regulatory_interim_analyses'] = llm.get('regulatory_interim_analyses', [])
+
+            # PRO/QoL ENDPOINTS (Patient-Reported Outcomes)
+            result['has_pro_endpoint'] = llm.get('has_pro_endpoint', False)
+            result['pro_endpoints'] = llm.get('pro_endpoints', [])
+            result['pro_instruments'] = llm.get('pro_instruments', [])
+
+            # NON-PROPORTIONAL HAZARDS MODEL (immunotherapy delayed effect)
+            result['has_nph_model'] = llm.get('has_nph_model', False)
+            result['nph_model_type'] = llm.get('nph_model_type', '')
+            result['delayed_effect_months'] = llm.get('delayed_effect_months', 0)
+            result['piecewise_hazards'] = llm.get('piecewise_hazards', [])
+            result['subgroup_specific_assumptions'] = llm.get('subgroup_specific_assumptions', [])
+
+            # CROSSOVER IMPACT MODELING
+            result['has_crossover_modeling'] = llm.get('has_crossover_modeling', False)
+            result['crossover_rates_modeled'] = llm.get('crossover_rates_modeled', [])
+            result['crossover_impact_on_hr'] = llm.get('crossover_impact_on_hr', '')
+
+            # SUBGROUP ANALYSES (full list)
+            result['subgroup_analyses'] = llm.get('subgroup_analyses', [])
 
         return result
 
@@ -1519,6 +1637,83 @@ Extent of missing data will be summarized:
 - Impact on analysis populations
 """
 
+    def _enhance_nph_acknowledgment(
+        self,
+        generated_text: str,
+        protocol_text: str,
+        facts: Dict[str, Any]
+    ) -> str:
+        """
+        Add delayed effect / non-proportional hazards language for IO trials.
+
+        Immunotherapy trials often exhibit delayed treatment effects where
+        Kaplan-Meier curves don't separate until months after treatment.
+        This requires weighted log-rank tests like Fleming-Harrington.
+        """
+        # IO-related keywords indicating potential delayed effect
+        io_keywords = [
+            'immunotherapy', 'checkpoint', 'pd-1', 'pd-l1', 'ctla-4',
+            'pembrolizumab', 'nivolumab', 'atezolizumab', 'durvalumab',
+            'ipilimumab', 'avelumab', 'cemiplimab', 'tremelimumab',
+            'delayed treatment effect', 'delayed effect',
+            'immune checkpoint inhibitor', 'ici', 'car-t', 'car t'
+        ]
+
+        combined_text = (protocol_text + " " + facts.get('drug_name', '')).lower()
+
+        # Check if this is an IO trial
+        is_io_trial = any(kw in combined_text for kw in io_keywords)
+
+        # Check if NPH/delayed effect already acknowledged
+        nph_terms = ['delayed', 'non-proportional', 'non proportional', 'nph',
+                     'fleming-harrington', 'fleming harrington', 'weighted log-rank']
+        already_has_nph = any(term in generated_text.lower() for term in nph_terms)
+
+        if is_io_trial and not already_has_nph:
+            # Construct NPH enhancement text
+            nph_text = """
+### 7.2.1 Consideration of Delayed Treatment Effect
+
+Due to the immunotherapy mechanism of action, a delayed treatment effect is anticipated,
+where the Kaplan-Meier survival curves may not separate until several months after
+treatment initiation. This non-proportional hazards (NPH) pattern is characteristic
+of checkpoint inhibitor therapy.
+
+To account for this expected delayed effect, the following approaches are pre-specified:
+
+1. **Primary Analysis**: The Fleming-Harrington weighted log-rank test with weights
+   G(ρ=0, γ=1) will be used as a sensitivity analysis. This weighting scheme
+   down-weights early events (when treatment effect may not yet be apparent)
+   and up-weights later events.
+
+2. **Supportive Analyses**:
+   - Restricted Mean Survival Time (RMST) difference at clinically relevant timepoints
+   - Milestone survival rates at 12, 18, and 24 months
+   - Piecewise Cox model allowing for different hazard ratios before and after
+     the expected treatment effect onset (estimated at 3-4 months)
+
+3. **Visual Assessment**: Kaplan-Meier plots will be examined for evidence of
+   delayed separation, crossing curves, or converging curves.
+
+"""
+            # Find best insertion point - after primary analysis section
+            insertion_patterns = [
+                "### 7.3",  # Before secondary endpoints
+                "### 7.2.2",  # Before any 7.2.x subsection
+                "Secondary Endpoint",  # Before secondary analysis
+            ]
+
+            for pattern in insertion_patterns:
+                if pattern in generated_text:
+                    generated_text = generated_text.replace(
+                        pattern,
+                        nph_text + pattern
+                    )
+                    logger.info("Enhanced SAP with NPH acknowledgment for IO trial")
+                    break
+
+        return generated_text
+
     def _assemble_sap(self, sections: Dict[str, str], facts: Dict[str, Any]) -> str:
         """Assemble final SAP document from sections"""
         drug = facts.get('drug_name', 'Study Drug')
@@ -1561,8 +1756,11 @@ Appendix A: Variable Derivations
             'stratification',      # From hybrid engine
             'populations',         # From hybrid engine
             'endpoints',           # From hybrid engine
+            'pro_endpoints',       # NEW: Patient-Reported Outcomes
             'sample_size',
             'methods',             # From hybrid engine
+            'subgroup_analyses',   # NEW: Subgroup Analyses
+            'regulatory_interim',  # NEW: Regulatory Interim Analysis (e.g., TTF for China)
             'teae_logic',          # From hybrid engine (safety)
             'missing_data',
             'derivations',         # From hybrid engine

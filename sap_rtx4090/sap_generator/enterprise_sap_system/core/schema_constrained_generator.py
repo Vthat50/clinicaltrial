@@ -24,7 +24,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from enum import Enum
 
 # Import the SINGLE SOURCE OF TRUTH for extraction
-from .structured_extractor import StructuredFactExtractor, ProtocolFacts as StructuredProtocolFacts
+from .schemas import StructuredFactExtractor, ProtocolFacts as StructuredProtocolFacts
 
 
 # =============================================================================

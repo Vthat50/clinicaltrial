@@ -21,10 +21,10 @@ from pathlib import Path
 
 # Import existing components - try both relative and absolute imports
 try:
-    from .structured_extractor import StructuredFactExtractor
+    from .schemas import StructuredFactExtractor
 except ImportError:
     try:
-        from enterprise_sap_system.core.structured_extractor import StructuredFactExtractor
+        from enterprise_sap_system.core.schemas import StructuredFactExtractor
     except ImportError:
         StructuredFactExtractor = None
 

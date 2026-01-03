@@ -26,7 +26,7 @@ from .llm_extractor import LLMExtractor, LLMExtractedFacts
 
 # Keep StructuredFactExtractor as fallback for fields not covered
 try:
-    from .structured_extractor import StructuredFactExtractor, ProtocolFacts
+    from .schemas import StructuredFactExtractor, ProtocolFacts
     REGEX_FALLBACK_AVAILABLE = True
 except ImportError:
     REGEX_FALLBACK_AVAILABLE = False

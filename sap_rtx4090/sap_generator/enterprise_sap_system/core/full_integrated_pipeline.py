@@ -42,11 +42,11 @@ from datetime import datetime
 
 # LAYER 1: Extraction
 try:
-    from .structured_extractor import StructuredFactExtractor, ProtocolFacts
+    from .schemas import StructuredFactExtractor, ProtocolFacts
     STRUCTURED_EXTRACTOR_AVAILABLE = True
 except ImportError:
     STRUCTURED_EXTRACTOR_AVAILABLE = False
-    print("Warning: structured_extractor not available")
+    print("Warning: schemas not available for extraction")
 
 try:
     from .contamination_guard import ProtocolIdentityExtractor, ContaminationGuard, ContaminationReport
