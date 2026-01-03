@@ -883,7 +883,7 @@ class MethodsRAGGenerator(RAGEnhancedGenerator):
         is_pilot_study = facts.get('is_pilot_study', False)
         hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
         sample_size = facts.get('sample_size', 0)
-        phase = facts.get('phase', '').lower()
+        phase = str(facts.get('phase', '')).lower()
 
         # Infer pilot study from multiple signals
         if not is_pilot_study:

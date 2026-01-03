@@ -314,7 +314,7 @@ class FactExtractor:
         """Classify trial type for template selection"""
         text_lower = text.lower()
         ta = facts.get('therapeutic_area', '').lower()
-        phase = facts.get('phase', '').lower()
+        phase = str(facts.get('phase', '')).lower()
 
         if ta == 'oncology' or 'cancer' in text_lower:
             if 'car-t' in text_lower or 'chimeric antigen' in text_lower:

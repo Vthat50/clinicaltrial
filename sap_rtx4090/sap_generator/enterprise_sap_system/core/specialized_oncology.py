@@ -666,7 +666,8 @@ class SpecializedOncologyGenerator:
 
     def is_phase1(self, phase: str) -> bool:
         """Check if Phase 1 trial"""
-        return 'phase 1' in phase.lower() or 'phase i' in phase.lower()
+        phase_str = str(phase).lower() if phase else ''
+        return 'phase 1' in phase_str or 'phase i' in phase_str
 
     def get_hematologic_criteria(self, indication: str) -> Optional[Dict]:
         """Get appropriate response criteria for hematologic indication"""

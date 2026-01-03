@@ -106,6 +106,40 @@ class ExtractedProtocol:
     is_bridging_study: bool = False  # True if this is a regional bridging study
     target_regions: List[str] = field(default_factory=list)  # e.g., ["China", "Japan"]
 
+    # REGULATORY INTERIM ANALYSIS - For regional filings (e.g., TTF interim for China NDA)
+    has_regulatory_interim: bool = False
+    regulatory_interim_endpoint: str = ""  # e.g., "TTF"
+    regulatory_interim_region: str = ""  # e.g., "China"
+    regulatory_interim_purpose: str = ""  # e.g., "support early filing in China"
+    regulatory_interim_timing: str = ""  # e.g., "~380 subjects with 8 months follow-up"
+    regulatory_interim_alpha: float = 0.025  # Often one-sided
+    regulatory_interim_method: str = ""  # e.g., "One-sided weighted log-rank"
+    regulatory_interim_analyses: List[str] = field(default_factory=list)  # What's analyzed at this interim
+
+    # PRO/QoL Endpoints - Patient-Reported Outcomes (NEW)
+    pro_endpoints: List[Dict[str, str]] = field(default_factory=list)
+    # e.g., [{"instrument": "LCSS", "subscale": "ASBI", "timepoints": ["Week 12", "Week 24"], "responder_definition": ">=10 point increase"}]
+    has_pro_endpoint: bool = False
+    pro_instruments: List[str] = field(default_factory=list)  # e.g., ["LCSS", "EQ-5D", "EORTC QLQ-C30"]
+
+    # Non-Proportional Hazards Model (for immunotherapy delayed effect)
+    has_nph_model: bool = False  # True if protocol assumes delayed treatment effect
+    nph_model_type: str = ""  # "piecewise_exponential", "cure_model", "mixture"
+    delayed_effect_months: float = 0.0  # e.g., 4.0 for 4-month delay in NSQ PD-L1+
+    piecewise_hazards: List[Dict[str, Any]] = field(default_factory=list)
+    # e.g., [{"subgroup": "NSQ PD-L1+", "period1_months": 4, "period1_hr": 1.0, "period2_hr": 0.5}]
+    subgroup_specific_assumptions: List[Dict[str, Any]] = field(default_factory=list)
+    # e.g., [{"subgroup": "Squamous", "control_median_os": 10, "experimental_median_os": 16.7, "hr": 0.6}]
+
+    # Crossover Impact Modeling
+    has_crossover_modeling: bool = False
+    crossover_rates_modeled: List[float] = field(default_factory=list)  # e.g., [0, 0.05, 0.10, 0.15, 0.20]
+    crossover_impact_on_hr: str = ""  # Description of impact
+
+    # Subgroup Analyses Specification
+    subgroup_analyses: List[str] = field(default_factory=list)  # Full list of subgroups to analyze
+    # e.g., ["Age (<65, 65-<75, ≥75)", "Chinese vs Non-Chinese", "PD-L1 status", ...]
+
     # Document Type Detection
     document_type: str = ""  # "protocol", "sap", "csr", "unknown"
 
@@ -207,6 +241,38 @@ Extract the following fields and return ONLY valid JSON (no other text):
   "is_bridging_study": true or false,
   "target_regions": ["China", "Japan", etc.],
 
+  "has_regulatory_interim": true if there's a SEPARATE interim analysis for regional filing (e.g., TTF interim for China),
+  "regulatory_interim_endpoint": "TTF or other endpoint for regional interim",
+  "regulatory_interim_region": "China, Japan, etc.",
+  "regulatory_interim_purpose": "support early filing in China",
+  "regulatory_interim_timing": "when ~380 subjects have 8 months follow-up",
+  "regulatory_interim_alpha": 0.025 (one-sided alpha for regional interim),
+  "regulatory_interim_method": "One-sided weighted log-rank (Fleming-Harrington)",
+  "regulatory_interim_analyses": ["TTF", "ORR (descriptive)", "Safety", "Chinese subjects subanalysis"],
+
+  "has_pro_endpoint": true if patient-reported outcomes are measured,
+  "pro_endpoints": [
+    {{"instrument": "LCSS", "subscale": "ASBI", "timepoints": ["Week 12", "Week 24"], "responder_definition": ">=10 point increase from baseline"}}
+  ],
+  "pro_instruments": ["LCSS", "EQ-5D", "EORTC QLQ-C30", etc.],
+
+  "has_nph_model": true if non-proportional hazards/delayed effect is assumed,
+  "nph_model_type": "piecewise_exponential, cure_model, or mixture",
+  "delayed_effect_months": months of delay before treatment effect (e.g., 4.0),
+  "piecewise_hazards": [
+    {{"subgroup": "NSQ PD-L1+", "period1_months": 4, "period1_hr": 1.0, "period2_hr": 0.5}}
+  ],
+  "subgroup_specific_assumptions": [
+    {{"subgroup": "Squamous", "control_median_os": 10, "experimental_median_os": 16.7, "hr": 0.6, "model": "exponential"}},
+    {{"subgroup": "NSQ PD-L1+", "control_median_os": 12, "experimental_median_os": 20, "hr": "NPH", "model": "piecewise", "delay_months": 4}}
+  ],
+
+  "has_crossover_modeling": true if crossover impact is modeled,
+  "crossover_rates_modeled": [0, 0.05, 0.10, 0.15, 0.20],
+  "crossover_impact_on_hr": "Expected HR at 20% crossover: 0.75 interim, 0.73 final",
+
+  "subgroup_analyses": ["Age (<65, 65-<75, ≥75)", "Gender", "Race", "Chinese vs Non-Chinese", "ECOG PS", "Smoking status", "Histology", "PD-L1 status", "Disease stage", "Prior therapy", "CNS metastases"],
+
   "itt_definition": "Protocol's exact ITT/FAS definition",
   "pp_definition": "Protocol's exact Per-Protocol definition",
   "safety_definition": "Protocol's exact Safety population definition",
@@ -270,9 +336,57 @@ IMPORTANT RULES:
     - Look for "required for [region] filing"
     - Extract the full definition
 
-11. For drug_name: Use investigational product, NOT standard of care/comparator
+11. REGULATORY INTERIM ANALYSIS - CRITICAL FOR REGIONAL FILINGS:
+    Look for SEPARATE interim analyses for regional filing support:
+    - "TTF interim analysis" or "TTF analysis for China"
+    - "support early filing in China" or "support NDA filing"
+    - Different alpha level (often one-sided 0.025)
+    - Different timing than OS interim (e.g., "380 subjects with 8 months follow-up")
+    - Chinese/non-Chinese subanalysis at this interim
+    Set has_regulatory_interim=true and extract all details
 
-12. Return ONLY the JSON object, no explanations
+12. PRO/PATIENT-REPORTED OUTCOMES - CRITICAL FOR QoL ENDPOINTS:
+    Look for these instruments and extract them:
+    - LCSS (Lung Cancer Symptom Scale) -> ASBI (Average Symptom Burden Index)
+    - EORTC QLQ-C30, QLQ-LC13 (lung cancer module)
+    - EQ-5D, SF-36, FACT-L
+    - Symptom deterioration definitions (e.g., "≥10 point increase from baseline")
+    - PRO assessment timepoints (Week 12, Week 24, etc.)
+    Set has_pro_endpoint=true and extract all PRO details
+
+13. NON-PROPORTIONAL HAZARDS - CRITICAL FOR IMMUNOTHERAPY:
+    Look for evidence of delayed treatment effect modeling:
+    - "piecewise exponential" or "delayed effect" or "lag phase"
+    - Different HR assumptions for different time periods
+    - Different survival assumptions by subgroup (e.g., SQ vs NSQ PD-L1+)
+    - If Fleming-Harrington weighted log-rank is used, has_nph_model is likely true
+    - Extract subgroup-specific assumptions: control mOS, experimental mOS, HR, model type
+    Set has_nph_model=true if protocol assumes delayed treatment effect
+
+14. CROSSOVER IMPACT MODELING:
+    Look for sensitivity analyses modeling crossover from control to experimental arm:
+    - "crossover rate of X%"
+    - "adjusted for crossover"
+    - Table showing HR impact at different crossover rates
+    Set has_crossover_modeling=true and extract rates modeled
+
+15. SUBGROUP ANALYSES:
+    Extract the FULL list of planned subgroup analyses, especially:
+    - Chinese vs Non-Chinese (for Asian bridging studies)
+    - Regional subgroups
+    - Biomarker subgroups (PD-L1 levels)
+    - Age categories (often 3 levels: <65, 65-<75, ≥75)
+
+16. CONSISTENCY AS PRIMARY OBJECTIVE:
+    Set consistency_is_primary=true ONLY if:
+    - Consistency check is listed as a PRIMARY objective (not secondary)
+    - Consistency must be demonstrated BEFORE efficacy (gatekeeping)
+    - The PRIMARY hypothesis is about consistency with prior studies
+    - Look for: "The primary objective is to demonstrate consistency..."
+
+17. For drug_name: Use investigational product, NOT standard of care/comparator
+
+18. Return ONLY the JSON object, no explanations
 
 DOCUMENT TEXT:
 {protocol_text}
@@ -441,6 +555,36 @@ class ClaudeProtocolExtractor:
         result.is_bridging_study = bool(response.get("is_bridging_study", False))
         result.target_regions = response.get("target_regions", []) or []
 
+        # REGULATORY INTERIM ANALYSIS - For regional filings (e.g., TTF for China)
+        result.has_regulatory_interim = bool(response.get("has_regulatory_interim", False))
+        result.regulatory_interim_endpoint = response.get("regulatory_interim_endpoint", "") or ""
+        result.regulatory_interim_region = response.get("regulatory_interim_region", "") or ""
+        result.regulatory_interim_purpose = response.get("regulatory_interim_purpose", "") or ""
+        result.regulatory_interim_timing = response.get("regulatory_interim_timing", "") or ""
+        result.regulatory_interim_alpha = float(response.get("regulatory_interim_alpha", 0.025) or 0.025)
+        result.regulatory_interim_method = response.get("regulatory_interim_method", "") or ""
+        result.regulatory_interim_analyses = response.get("regulatory_interim_analyses", []) or []
+
+        # PRO/QoL Endpoints - Patient-Reported Outcomes
+        result.has_pro_endpoint = bool(response.get("has_pro_endpoint", False))
+        result.pro_endpoints = response.get("pro_endpoints", []) or []
+        result.pro_instruments = response.get("pro_instruments", []) or []
+
+        # Non-Proportional Hazards Model (immunotherapy delayed effect)
+        result.has_nph_model = bool(response.get("has_nph_model", False))
+        result.nph_model_type = response.get("nph_model_type", "") or ""
+        result.delayed_effect_months = float(response.get("delayed_effect_months", 0) or 0)
+        result.piecewise_hazards = response.get("piecewise_hazards", []) or []
+        result.subgroup_specific_assumptions = response.get("subgroup_specific_assumptions", []) or []
+
+        # Crossover Impact Modeling
+        result.has_crossover_modeling = bool(response.get("has_crossover_modeling", False))
+        result.crossover_rates_modeled = response.get("crossover_rates_modeled", []) or []
+        result.crossover_impact_on_hr = response.get("crossover_impact_on_hr", "") or ""
+
+        # Subgroup Analyses
+        result.subgroup_analyses = response.get("subgroup_analyses", []) or []
+
         # Document Type
         result.document_type = response.get("document_type", "") or ""
 
@@ -475,7 +619,7 @@ class ClaudeProtocolExtractor:
                 "exploratory" in result.design_type.lower(),
                 result.sample_size_justification.lower() in ["pragmatic", "feasibility"],
                 result.power == 0 and result.sample_size < 50,  # Small study with no power calc
-                "phase 1" in result.phase.lower() and not result.is_randomized,
+                "phase 1" in str(result.phase).lower() and not result.is_randomized,
             ]
             result.is_pilot_study = any(pilot_indicators)
 
