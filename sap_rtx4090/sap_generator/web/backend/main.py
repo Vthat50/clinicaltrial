@@ -2393,7 +2393,7 @@ async def process_jobs_worker():
                         facts = result.facts
 
                         drug_name = facts.get('drug_name', '') or ''
-                        phase_str = facts.get('phase', '') or ''
+                        phase_str = str(facts.get('phase', '') or '')
                         if phase_str and "." in phase_str:
                             phase_str = phase_str.split(".")[-1].replace("_", " ").title()
 
@@ -2414,7 +2414,7 @@ async def process_jobs_worker():
                         # FALLBACK: AgenticSAPPipeline format
                         chars = result.characteristics
                         drug_name = chars.drug_classes[0] if chars.drug_classes else ""
-                        phase_str = chars.phase or ""
+                        phase_str = str(chars.phase) if chars.phase else ""
                         therapeutic_area = chars.indication or ""
                         endpoint_type_str = (chars.endpoint_type or "")[:10]
 
@@ -2499,6 +2499,13 @@ async def process_jobs_worker():
                     raise Exception(result.error or "Generation failed")
 
             except Exception as e:
+                # Print FULL traceback to find exact error location
+                import traceback
+                print("=" * 60)
+                print("FULL TRACEBACK:")
+                traceback.print_exc()
+                print("=" * 60)
+
                 # Update with failure
                 db.table("sap_jobs").update({
                     "status": "failed",

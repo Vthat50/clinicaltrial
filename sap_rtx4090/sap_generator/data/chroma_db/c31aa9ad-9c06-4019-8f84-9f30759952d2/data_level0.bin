@@ -1,0 +1,2765 @@
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  1 of 38 SAP template version 3 .0 Statistical Analysis Plan  
+ 
+A Phase 2 , Open-label, Multicenter, Randomized, Multidrug Platform Study of 
+Durvalumab (MEDI4736) Alone or in Combination with Novel Agents in Subjects with 
+Locally Advanced, Unresectable, Stage III Non -small Cell Lung Cancer (COAST)  
+Protocol Number:  D9108C00001  
+ 
+            
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  2 of 38 SAP template version 3 .0 TABLE OF CONTENTS  
+1 INTRODUCTION  ................................ ................................ ................................ .............6 
+2 STUDY OVERVIEW  ................................ ................................ ................................ ........6 
+2.1 Study Objectives  ................................ ................................ ................................ ...6 
+2.1.1Primary Study Objective(s)  ................................ ................................ ..........6 
+2.1.2Secondary Study Objectives  ................................ ................................ .........6 
+2.1.3Exploratory Study Objectives  ................................ ................................ .......7 
+2.2 Study Design  ................................ ................................ ................................ .........7 
+2.3 Treatment Assignment and Blinding  ................................ ................................ ....8 
+2.4 Sample Size ................................ ................................ ................................ ...........9 
+3 STATISTICAL METHODS  ................................ ................................ ............................ 10 
+3.1 General Considerations  ................................ ................................ ....................... 10 
+3.2 Analysis Populations ................................ ................................ ........................... 10 
+3.3 Study Subjects ................................ ................................ ................................ .....11 
+3.3.1Subject Disposition and Completion Status  ................................ ...............11 
+3.3.2Demographics and Baseline Characteristics  ................................ ...............11 
+3.3.3Study Drug Exposure  ................................ ................................ .................. 12 
+3.3.4Concomitant Medications  ................................ ................................ ...........12 
+3.3.5Protocol Deviations ................................ ................................ ..................... 13 
+3.4 Efficacy Analyses  ................................ ................................ ............................... 13 
+3.4.1Primary Efficacy Endpoint(s) and Analyses  ................................ ...............13 
+3.4.1.1 Primary Efficacy Endpoint(s) and Analysis  ...............13 
+3.4.1.2 Additional Analyses of the Primary Efficacy 
+Endpoint(s)  ................................ ................................ .13 
+3.4.2Secondary Efficacy Endpoint(s) and Analyses  ................................ ...........14 
+3.4.3Handling of Dropouts and Missing Data  ................................ .................... 20 
+3.4.4Subgroup Analyses  ................................ ................................ ..................... 20 
+3.4.5Other Efficacy Analyses  ................................ ................................ .............20 
+3.5 Pharmacodynamic Endpoint(s) and Analyses  ................................ .................... 21 
+3.6 Safety Analyses ................................ ................................ ................................ ...21 
+3.6.1Adverse Events and Serious Adverse Events  ................................ .............21 
+3.6.2Adverse Events of Special/Potential Interes t ................................ ..............22 
+3.6.3Deaths and Treatment Discontinuations due to Adverse Events  ................ 22 
+3.6.4Clinical Laboratory Evaluation  ................................ ................................ ...22 
+3.6.5Other Safety Evaluations  ................................ ................................ ............24 
+3.6.5.1 Vital Signs  ................................ ................................ ..24 
+3.6.5.2 Electrocardiogram  ................................ ...................... 24 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  3 of 38 SAP template version 3 .0 3.6.5.3 Eastern Cooperative Oncology Group Performance 
+Status ................................ ................................ ..........24 
+3.6.5.4 Physical Examinations  ................................ ...............24 
+3.6.6Subgroup Analyses  ................................ ................................ ..................... 24 
+3.7 Immunogenicity  ................................ ................................ ................................ ..25 
+3.8 Pharmacokinetics  ................................ ................................ ................................ 25 
+4 INTERIM ANALYSIS  ................................ ................................ ................................ ....25 
+5 REFERENCES  ................................ ................................ ................................ ................ 28 
+6 VERSION HISTORY  ................................ ................................ ................................ ......28 
+7 APPENDIX  ................................ ................................ ................................ ................... 31 
+7.1 Derivation of RECIST v1.1 Disease Assessment Overall Response  .................. 31 
+7.1.1Target Lesion Response  ................................ ................................ ..............31 
+7.1.2Non-Target Lesion Response ................................ ................................ ......32 
+7.1.3Disease Assessment Overall Response per RECIST v1.1  .......................... 34 
+7.1.4Locoregional ther apy ................................ ................................ .................. 35 
+7.1.5Assignment of Dates of Disease Progression or Disease Response  ...........36 
+7.2 Efficacy Criteria of Making an Internal Go Decision at an Interim Analysis  ....36 
+ 
+LIST OF  TABLES  
+Table 2.4-1 Estimated Differences in ORR Between Experimental and Control 
+Arm of 60  Subjects Each  ................................ ................................ .......9 
+Table 3.2-1 Analysis Populations  ................................ ................................ ............10 
+Table 3.4.1     Summary of Censoring Guidelines for PFS ................................ .........17 
+Table 4.1 Criteria of Early No -Go Decisions Based on DCR at 16  Weeks .........27 
+Table 4.2 Operating Characteristics of Continuous Monitoring for No -Go ........27 
+Table 7.2-1 Criteria of Early Go Decisions Based on ORR  ................................ ....37 
+Table 7.2-2 Operating Characteristics of Continuous Monitoring for Go  ..............38 
+ 
+ 
+
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  5 of 38 SAP template version 3 .0 Abbreviation or 
+Specialized Term  Definition  
+ORR objective response rate  
+OS overall survival  
+OS-12 (18, 24, 36)  overall survival at 12 (18, 24, 36) months 
+PD progressive disease  
+PFS progression -free survival  
+PFS-12 (18, 24, 36)  progression -free survival at 12 (18, 24, 36) months 
+PK pharmacokinetics  
+PR partial response  
+RECIST Response Evaluation Criteria in Solid Tumors  
+SAE serious adverse event  
+SC subcutaneous  
+SD stable disease  
+SPP statistical programming plan  
+TFL Tables, figures, listings  
+  
+TV target value  
+ 
+CCI
+CCI
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  6 of 38 SAP template version 3 .0 1 INTRODUCTION  
+This document describes the statistical analysis methodology for protocol D9108C00001 , a 
+multidrug platform  study of Durvalumab (MEDI4736) alone or in combination with novel 
+agents in subjects with lo cally advanced, u nresectable,  stage III non-small cell l ung cancer 
+(NSCLC) . As background information, an overview of the study design is provided. The 
+main portion of this document details the statistical summaries relating to each study 
+objective and describes the general conventions and definitions that will  be used. In addition, 
+a set of table templates and specifications will be included in a statistical programming plan 
+(SPP) to complement this document.  
+2 STUDY OVERVIEW  
+2.1 Study Objectives  
+2.1.1 Primary Study Objective (s) 
+To compare the antitumor activity of durvalumab alone vs . durvalumab in combination with 
+novel agents .  
+2.1.2 Secondary Study Objectives  
+Safety: 
+• To evaluate the safety and tolerability of durvalumab alone and durvalumab in 
+combination with novel agents.  
+Clinical activity:  
+• To further compare the efficacy of durvalumab alone vs durvalumab in combination 
+with novel agents.  
+Pharmacokinetics  (PK): 
+• To describe the PK of durvalumab alone and durvalumab in combination with novel 
+agents. 
+• To describe the PK of novel agents in combination with durvalumab.  
+Immunogenicity:  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  7 of 38 SAP template version 3 .0 • To assess the immunogenicity of durvalumab alone or in combination with novel 
+agents. 
+• To assess the immunogenicity of novel biologic agents in combination with 
+durvalumab.  
+2.1.3 Exploratory Study Objectives  
+ 
+  
+ 
+  
+ 
+  
+ 
+ 
+  
+ 
+  
+ 
+ 
+  
+ 
+ 
+2.2 Study Design  
+COAST is a Phase 2, open -label, multicenter, randomized, multidrug platform study of 
+durvalumab alon e or in combination with novel agents in subjects with locally advanced, 
+unresectable, Stage III NSCLC.  
+The study will evaluate the clinical activity and safety of durvalumab alone or in combination 
+with novel agents in subjects with Stage III NSCLC who have not progressed following 
+definitive concurrent chemoradiotherapy (cCRT)  (Figure 1 in protocol) . Subjects will be 
+CCI
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  8 of 38 SAP template version 3 .0 randomized into the study and initiate study treatment within 42 days from the last session of 
+cCRT. Up to approximately 80 sites globally will participate in this study.  
+Subjects may be treated for up to 12 months. Study treatment will be disc ontinued upon 
+confirmed disease progression, unacceptable toxicity, or other reasons, e.g., subject decision 
+or noncompliance with study procedures. Overall, all subjects continuing in the study must 
+adhere to the study procedures for up to 5 years (from r andomization)  provided they achieve 
+disease control (DC) and remain disease free .  
+After completing the 5 -year post-randomization study period, all subjects included into any 
+treatment arm may be contacted annually for survival until 5 years after the fina l subject is 
+randomized into the study or until the sponsor stops the study, whichever occurs first. The 
+platform nature of the study allows an experimental arm to be permanently closed while the 
+overall COAST study remains open.  
+New durvalumab combination  experimental arms may be added based on emerging non -
+clinical and clinical data via protocol amendment. Interim futility analyses will be performed 
+using Bayesian predictive probability.  
+Details about treatment regimen can be found in Section 3.1.2 of the protocol. 
+2.3 Treatment Assignment  and Blinding  
+Treatment Assignment  
+An interactive voice/web response system (I xRS) will be used to assign investigational 
+product (IP) kit numbers  to each subject who meets the eligibility criteria . A randomization 
+method with dynamically changing randomization ratios will be employed to account for 
+fluctuation in the number of treatment arms open for enrollment over the course of the study. 
+The randomization will be stratified by histology (adenoc arcinoma vs non -adenocarcinoma)  
+and will use an equal ratio to all study treatment arms open for enrollment (e .g., if 
+experimental arms are opened sequentially, an experimental arm is added/closed, or 
+enrollment in an experimental arm is suspended). Additionally, the following considerations 
+regarding randomization will apply:  
+• If there is no experimental arm open for enrollment, then enrollment will be paused. 
+Any subject who had consented previously and wa s in screening when the 
+experimental arm(s) was closed due to safety concerns may be allowed to enter into 
+the study but must be allocated to the control arm.  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  9 of 38 SAP template version 3 .0 • Once the control arm enrolls 60 subjects, a subsequent randomization scheme may be 
+initiated to optimize the number of subjects allocated to control arm.  
+• At any point during the study, the control arm will have no less than a 33% chance to 
+be randomized in comparison to the active experimental arm that has the lowest 
+randomization ratio in the study .  
+Blinding  
+The study is not blinded.  
+2.4 Sample Size  
+Sixty subjects will be enrolled in each of the combination therapy experiment al arms and 
+more than 60 subjects will be enrolled in the durvalumab control arm dependent upon the 
+length of the study . The sample size of 60 subjects per experimental arm is not designed to 
+make explicit power and Type  I error considerations for a hypothesis test. It is primarily 
+chosen to obtain a preliminary assessment of antitumor activity with a certain degree of 
+precision. 
+Table 2.4-1 shows estimated differences in objective response rate ( ORR) between an 
+experimental arm and control arm along with 2 -sided 95% exact CIs with a sample size of 60 
+subjects each. Sixty subjects per treatment arm provides a 95% CI with reasonable width 
+(approximately ± 18%) for the estimated ORR difference between a durvalumab combination 
+experimental arm and the durvalumab control arm. For a 20% increase i n ORR in any 
+durvalumab combination experimental arm over durvalumab control arm (50% vs 30%, 
+respectively), the lower limit of the 95% CI for the difference between these arms is 1%, 
+which is greater than 0%, suggesting that the durvalumab combination exp erimental arm will 
+have a higher ORR than the durvalumab control arm with 95% confidence.  
+Table 2.4-1 Estimated Differences in ORR Between Experimental and 
+Control Arm of 60  Subjects Each  
+Number of Responders (ORR)  Difference (%) in  ORR 
+(2-sided 95% Exact Confidence Interval)  Experimental Arm  
+(n = 60) Control Arm  
+(n = 60) 
+24 (40%)  18 (30%)  10% (-9%, 28%)  
+27 (45%)  18 (30%)  15% (-4%, 33%)  
+30 (50%)  18 (30%)  20% (1%, 38%)  
+33 (55%)  18 (30%)  25% (6%, 42%)  
+ORR = objective response rate.  
+ 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  10 of 38 SAP template version 3 .0 3 STATISTICAL METHODS  
+3.1 General Considerations  
+Tabular summar ies will be presented by treatment group . Categorical data will be 
+summarized by frequency distribution (number and percentage of subjects falling within each 
+category). Continuous variables will be summarized by descriptive statistics including N, 
+mean, standard deviation, median, and range (minimum and maximum). All available data 
+will be used, and thus missing data will not be imputed , unless otherwise specified . In 
+general, subjects with missing d ata for a parameter will be excluded from the summary of 
+this parameter. Tables will be supported by data listings showing the original data forming 
+the basis for the summaries . Data listings will be sorted by treatment group, subject number 
+and date collected where applicable.  
+Unless stated otherwise, t wo-sided confidence intervals will be produced at 95% . Baseline 
+values will be defined as the last valid assessment prior to the first administration of IP. 
+Assessments on the day of the first dose where neither time nor a nominal pre -dose indicator 
+are captured are considered prior to the first dose if such procedures are required by the 
+protocol to be conducted before the first dose . 
+Data analyses wil l be conducted using the SAS® System (SAS Institute, Inc., Cary, NC, 
+USA) Version 9. 4 or above, unless otherwise specified . All analysis outputs will be validated 
+according to MedImmune SAS programming standards and MedImmune validation 
+procedures.  
+3.2 Analysis Populations  
+The analysis populations are defined in Table 3.2-1. 
+Table 3.2-1 Analysis  Populations  
+Population  Description  
+Intent-to-treat 
+(ITT) Population  The ITT population includes s ubjects who are randomized . Subjects will be analyzed 
+according to  their randomized treatment group .  
+As-treated 
+Population  The As-treated population includes all subjects who receive any IP. Subjects will be 
+analyzed according to the treatment they really receive. 
+Response -
+evaluable  
+Population  The Response-evaluable population includes subjects from the As-treated population who 
+have a baseline disease assessment  (DA), have the opportunity to be followed for at least 
+16 weeks at the time of the DCO ( i.e., dosed at least 16 weeks prior to the time of the 
+DCO), and either has at least one post -baseline disease assessment and/or discontinued 
+treatment due to death or disease progression.  The response -evaluable population will not 
+be used for the final analysis . 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  11 of 38 SAP template version 3 .0 Table 3.2-1 Analysis  Populations  
+Population  Description  
+PK-evaluable 
+Population  The PK-evaluable population includes subjects from the As -treated population who have 
+a non-missing baseline PK concentrati on and at least one non-missing post -baseline PK 
+concentration.  
+IP = investigational product; PK = pharmacokinetic . 
+ 
+All baseline and  efficacy parameters will be summarized based on the ITT population  as 
+primary analysis . The efficacy parameters may be summarized based on response -evaluable 
+population as supportive analysis. Safety parameters will be summarized based on the As -
+treated population  as primary analysis.  The analysis of pharmacokinetics will be base d on the 
+PK-evaluable population .  
+3.3 Study Subjects  
+3.3.1 Subject Disposition and Completion Status  
+Subject disposition and completion status will be summarized for  all subjects screened , and 
+percentages will be based on subjects randomized and treated . In addition, disposition of 
+subjects throughout the study with respect to discontinuation of treatment and end of study 
+status including reasons will be provided. Summaries of the number and percentage of 
+subjects entered at each site will be provided.  
+The mortality summary will include subjects with end of study status of death, as well as 
+cause of death  (toxicity related to IP or disease under investigation, or other).  
+Duration of follow -up will also be summarized.  
+A listing of global/country study disru ptions (impacting visits, concomitant medications 
+and/or exposure) will be provided.  
+ 
+3.3.2 Demographics and Baseline Characteristics  
+Demographics and b aseline disease characteristics will be summarized for the ITT 
+population. Demographic information related to sex, age, race, weight, height, and body mass 
+index (BMI) will be presented by treatment group  and for all subjects combined . A summary 
+of smoking  history will also be included. Tumor history including histology, stage, and 
+pertinent biomarker results at the time of initial diagnosis and at study entry will be 
+summarized.  Baseline tumor characteri stics including sum of target lesions diameter s and 
+ECOG performance status will also be summarized.  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  12 of 38 SAP template version 3 .0 The summary for prior anticancer treatment will include the number and percent of subjects 
+by treatment category (systemic therapy, radiation, cancer related surgery, other), number of 
+prior systemic regimens and best response (complete response, partial response, stable 
+disease, progressive disease, not evaluable, not applicable , per RECIST v1.1 ) to the most 
+recent line of therapy , type of platinum agent  (cisplatin, carboplatin, cisplatin and 
+carboplatin, derived using the WHO Drug dictionary coded terms) , time from last radiation 
+to study drug initiation/randomization, and total amount of radiation received .  
+3.3.3 Study Drug Exposure  
+• Treatment exposure will be summarized for the As -treated population. Duration of 
+exposure to IP(s) in weeks and cycles  will be summarized by descriptive statistics and 
+by frequency . The duration of exposure for each IP  is defined as  below. last dose date 
+plus the dosing interval  (days) minus first dose date for subjects  who completed  
+treatment.  
+• minimum of (date of death plus 1 day, last dose date plus the dosing interval ) minus 
+first dose date for subjects who discontinued treatment.  
+Dose intensity and relative dose intensity of IP(s) will be summarized  by descriptive 
+statistics. The relative dose intensity is a percent of total actual dose that a subject received 
+during corresponding study treatment period versus the total intended dose for the same 
+study treatment period according to the study protocol . The details of the dose intensity 
+calculation will be provided in the SPP as part of the standard exposure TFL templates.  
+Dosing deviations for IP(s), per the CRF,  will be summarized with reasons for deviations for 
+the following categories: delays, omiss ions, and interruptions . Duration of d osing delays will 
+be derived where a delay is flagged on the CRF, based on the scheduled dosing dates  and the 
+visit window . The number of subjects with dosing delays  and total dose delays will be 
+summarized.  
+The use of subsequent anticancer treatment after the discontinuation of study treatment will 
+be summarized by the type of subsequent anticancer treatment  if data allow . 
+3.3.4 Concomitant Medications  
+The number and percentage of subjects who took concomitant  medications will be 
+summarized by the ATC classification and the generic name coded by WHO Drug 
+Dictionary Global B3 version  March 2022 for the ITT Population . Concomitant medications 
+will include all concomitant medications taken on or af ter the date of first dose of any IP or 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  13 of 38 SAP template version 3 .0 any concomitant medication started prior to the first dose of study treatment that continued 
+beyond the date of first dose of any IP. 
+3.3.5 Protocol Deviation s 
+The incidence  of important protocol deviations will be summarized by deviation categories.  
+The COVID -19 related IPDs will also be summarized.  A listing will be provided with 
+protocol deviation details. None of the deviations will lead to subjects being excluded from 
+any analysis populations described in Section 3.2 , unless otherwise specified . If a deviation is 
+serious enough to have a potentia l impact on the primary analysis, sensitivity analyses may 
+be performed.  
+3.4 Efficacy Analyses  
+3.4.1 Primary Efficacy Endpoint (s) and Analyses  
+3.4.1.1 Primary Efficacy Endpoint(s)  and Analysis  
+The primary efficacy endpoint is objective response ( OR) per Response Evaluation  Criteria 
+in Solid Tumors version 1.1 (RECIST v1.1) . ORR is defined as the proportion of subjects 
+with a best overall response of confirmed CR or confirmed PR  that occur prior to disease 
+progression, and /or prior to the initiation of subsequent anticancer treatment . Confirmation  of 
+response requirements are defined in Section 3.4.2.1  for best overall response . The primary 
+analysis of ORR will be based on the ITT population . An estimate of the difference in ORR  
+as well as its 2 -sided 95% exact CI  between each experimental arm and control arm  will be 
+reported. The rates between each experimental arm and control arm  will be tested for 
+significance with a Cochran–Mantel–Haenszel tes t, stratified by histology (adenocarcinoma 
+or non-adenocarcinoma) . Subjects that have missing overall response assessments will be 
+considered as non-responders, and will therefore be counted in the denominator, but not in 
+the numerator of ORR.  Primary effi cacy analysis will include control subjects that are 
+concurrently enrolled w ith each experimental arm .   
+ 
+3.4.1.2 Additional Analyses of the Primary Efficacy Endpoint(s)  
+The secondary analysis of ORR may  be based on the Response -evaluable population , and/or 
+Fisher’s exact te st. Sensitivity analyses may be provided based on a comparison between 
+each experimental arm and all control subjects at the time of analysis.   
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  14 of 38 SAP template version 3 .0 3.4.2 Secondary Efficacy Endpoint (s) and Analyses  
+The secondary efficacy endpoints include dis ease control (DC); duration of response (D oR); 
+progression -free survival (PFS); progression -free survival at 12 months (PFS -12) and overall 
+survival (OS ). The efficacy endpoints will be summarized based on the ITT population and 
+may be based on the Response -evaluable  population as a supportive analysis. For analyses 
+that involve an arm comparison  between an experimental arm and control arm, only control 
+subjects that are concurrently enrolled with the experimental arm will be included.   
+Efficacy analyses, except for OS, will be based on an application of Response Evaluation 
+Criteria in Solid Tumors (RECIST) 1.1 ( Eisenhauer et al, 2009 ) to investigator assessed 
+tumor me asurements .  
+Programmatic d erivation guidance used for the application of RECIST v1.1 is provided in 
+Appendix 7.1 . RECIST v1.1 guidelines will be used to determine disease response.  
+3.4.2.1 Best Overall Response  
+Best overall response (BOR) will be based on all post -baseline disease assessments that 
+occur prior to disease progression, and/or prior to the initiation of subsequent anticancer 
+treatment. BOR will be summarized with the n umber and percentage of subjects for the 
+following categories : complete  response (CR); partial response (PR); stable disease (SD); 
+progressive disease (PD); and non -evaluable (NE). At least 7 weeks (8 weeks minus 1 week 
+to allow for the protocol -defined di sease assessment window) from random ization of IP must 
+elapse without a subsequently radiological disease progression to assign a best overall 
+response of SD.  
+Confirmation of CR and PR is required and must occur at least 4 weeks after initial 
+documentatio n of CR or PR. If CR is pending confirmation and is designated at an 
+assessment followed by 1 or more NE assessments, and/or PR assessments such that 1) the 
+Target Lesion Response is CR and the Non -Target Lesion Response is NE, or 2) the Target 
+Lesion Resp onse is PR due solely to an increase in one or more lymph nodes to a size ≥ 10 
+mm and the Non -Target Lesion Response is either CR or NE, CR may be confirmed 
+thereafter. Similarly, if a PR is pending confirmation and is designated at an assessment 
+followed by 1 or more NE and/or SD assessments, PR may be confirmed thereafter.  
+In general, subjects not classifiable under the RECIST v1.1 response categories due to 
+insufficient data or early death will be classified as NE for BOR but will be counted in the 
+denominator of all response rate calculations. This generalization includes if a subject has 
+missing lesion data at baseline. In this scenario, the subject will be classified as NE for BOR. 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  15 of 38 SAP template version 3 .0 If a subject is missing lesion data at a d isease assessment and yet PD criteria is met despite 
+the missing data, the subject will be classified as PD.  
+3.4.2.2 Duration of Response  
+Duration of response (D oR) is defined as the time from the first documentation of a 
+subsequently confirmed OR until the first documentation of a disease progression or death 
+due to any cause, whichever occurs first , regardless of whether the subject receives 
+subsequent anticancer treatment  prior to progression . Only subjects who have achieved OR 
+(confirmed CR or confirmed PR) will be evaluated for DoR.  DoR is defined in months as 
+follows:   
+DoR (months) = (Date of PD/death or censoring – Date of first confirmed disease response + 
+1) / (365.25/12)  
+The date of PD/death or censoring is the same as defined for PFS  in Section 3.4.2.4. The 
+median D oR and its 95% CI will be estimated using the Kaplan -Meier method.  
+3.4.2.3 Disease Control  
+Disease control rate  (DCR) is defined as the proportion of subjects with a BOR of confirmed 
+CR, confirmed PR, or SD (maintained for ≥ 16 weeks). DCR will be estimated with a 95% 
+CI using the exact probability method. An estimate of the difference in DCR between each 
+experimental arm  and control arm  will be reported and tested for significance with the 
+Cochran–Mantel–Haenszel test .  
+3.4.2.4 Progression -free Survival  
+Progression -free survival (PFS) is defined as the time from random ization until the first 
+documentation of a disease progressio n or death due to any cause, whichever occurs first, 
+regardless of whether the subject receives subsequent anticancer treatment  prior to 
+progression. Subjects who have no documented progression and are still alive at the time of 
+analysis will be censored a t the time of the latest date of assessment from their last evaluable 
+RECIST v1.1 assessment . PFS is defined in months as follows:   
+PFS (months) = (Date of PD/death or censoring – Date of random ization + 1) / (365.25/12),  
+The censoring guidance and the date of PD/death or censoring are  given in the table below . 
+The number and percentage of subjects experiencing a PFS event and Kaplan-Meier plots of 
+PFS will be presented by treatment group. The median PFS and its 95% CI will be estimated 
+using the Kaplan -Meier method. The proportion of subjects  progression -free and alive at 12 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  16 of 38 SAP template version 3 .0 months (PFS-12) and associated 95% CI will be estimated using the Kaplan -Meier method.  
+Additional PFS landmarks to be included in the final  analysis are PFS -18, PFS-24, and PFS -
+36. 
+The difference in PFS between each experimental arm and control arm  will be tested for 
+significance by using a stratified log-rank test on histology (adenocarcinoma vs non -
+adenocarcinoma) . The log-rank test will be carried out with the Breslow method for handling 
+ties. The hazard ratio  (HR) (experimental vs. control) with two -sided 95% CI will be 
+estimated by stratified Cox regression model on histology with ties handled by the Efron 
+method (Efron et al, 1977 ).  
+The comparison of PFS -X (X=12, 18, 24 , 36 months) between each experimental arm and 
+control arm  will be performed by normal approximation under complementary loglog 
+(cloglog) transformation ( Klein et al, 2007 ). The test statistic shown below asymptotically 
+follows a chi -square distribution with one degree of freedom under the null hypothesis  
+𝐻0: 𝑆1(𝑡)=𝑆2(𝑡). 
+𝑋2=(log(−log(𝑆̂1(𝑡)))−log(−log(𝑆̂2(𝑡))))2
+𝜎̂1(𝑡)2/(log(𝑆̂1(𝑡)))2
++𝜎̂2(𝑡)2/(log(𝑆̂2(𝑡)))2 
+where 
+• 𝑆̂𝑘(𝑡),with  𝑘=1,2 is the Kaplan -Meier estimate of the survival function  for the kth 
+treatment group  
+• 𝜎̂𝑘(𝑡)2=∑𝑑𝑘𝑖
+𝑛𝑘𝑖(𝑛𝑘𝑖−𝑑𝑘𝑖)𝑡𝑘𝑖≤𝑡   (Greenwood’s formula) is  from the estimated variance 
+𝑉̂(𝑆̂𝑘(𝑡))=𝑆̂𝑘(𝑡)2𝜎̂𝑘(𝑡)2 of the KM estimate 𝑆̂𝑘(𝑡) with 𝑘=1,2 
+•  𝑑𝑘𝑖 refers to the number of events (i.e., deaths or disease progressions ) at time 𝑡𝑘𝑖 
+• 𝑛𝑘𝑖 refers to the number of subjects at risk  at time 𝑡𝑘𝑖 
+ 
+ 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  17 of 38 SAP template version 3 .0 Table 3.4.1     Summary of Censoring Guidelines for PFS  
+Situation  Date of PD/Death or Censoring  PFS Outcome  
+Documented Progressive Disease (PD)  or death  
+ Date of earliest sign of PD  or death, 
+whichever comes first  Event (unless the 
+censoring rule 
+specified below)  
+Death or PD immediately after ≥ 2 consecutive 
+missed or non-evaluable disease assessments as 
+per the protocol specified assessment schedule  Date of last progression -free disease 
+assessment prior to missed or non -
+evaluable assessments, or 
+randomization, whichever occurred last  Censored  
+No PD or death at time of  analysis or lost to 
+follow-up Date of last evaluable  progression -free 
+disease assessment  Censored  
+No tumor assessment at baseline and no evidence 
+of PD at first post -baseline disease assessment  
+OR 
+No tumor assessment post -first dose, and no death 
+prior to second scheduled post -baseline disease 
+assessment  Date of randomization  Censored  
+PD = progressive disease; PFS = progression -free survival . 
+Subjects having missing lesion data at baseline or no disease assessments post -first dose of IP 
+will have PFS censored at the date of random ization unless the subject dies prior to the 
+second scheduled post -baseline disease assessment in which case the dea th date will qualify 
+as a PFS event.  
+If a subject has two or more consecutive completely missed or non -evaluable assessments 
+followed immediately by death or an assessment showing radiologic disease progression, 
+then the subject will be censored for PFS. PFS will be censored at the date of randomization 
+or the last progression -free disease assessment prior to the missed or non -evaluable 
+assessments, whichever occurred last.  
+If a subject has two or more consecutive ly missed or non -evaluable assessments fol lowed by 
+an assessment showing no radiologic disease progression, then the assumption will be that 
+the subject did not progress during the missed or non -evaluable assessments.  
+The length of gap (in number of days)  to determine two or more consecutive asse ssments is 
+defined as the following:  
+• 126 days during the first 12 months  (A 8-week disease assessment interval plus a 7-
+day window for each assessment ). 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  18 of 38 SAP template version 3 .0 • 182 days from month 12  to month 24  (A 12-week disease assessment interval plus a 
+7-day window for each assessment ). 
+• 422 days after month 24 ( A 6-month diseas e assessment interval plus a 4 -week 
+window for each assessment ). 
+Subjects remaining on study without radiologic disease progression or death at the time of 
+analysis will be censored for PFS at the date of their last evaluable  disease assessment.  
+3.4.2.5 Overall Survival  
+Overall survival (OS) is defined as the time from randomization until death due to any cause. 
+A subject alive at the end of study or lost to follow -up will be censored for OS at the last da te 
+when the subject was known to be alive. The last date for each individual subject is defined 
+as the latest among the following dates recorded on the case report forms (CRFs):  
+• AE start, stop, and change  dates 
+• Admission and discharge dates of hospitalization  
+• Start date of protocol deviations  
+• Study treatment date  
+• Date of last contact, withdrawal consent, refuse to be followed up, or last known alive 
+on end of treatment , end of study, and survival status/follow-up CRFs 
+• Laboratory test dates  including (but not limited to) hematology, chemistry, urinalysis, 
+coagulation, tumor biopsy, immunoglobin, pharmacokinetics, pharmacodynamic 
+biomarkers.  
+• Disease assessment dates on RECIST  CRF 
+• Date of visit, vital signs, ECOG, electrocardiogram , and physical examination  
+• Start and stop dates of alternative anticancer treatment  
+• Start and end date of concomitant medication and surgical/medical procedure  
+OS is defined in months as follows:   
+OS (months) = (Date of death or censoring – Date of randomization + 1) / (365.25/12).  
+The number and percentage of subjects experiencing an OS event and Kaplan-Meier plots of 
+OS will be presented by treatment group. The median OS and its 95% CI will be estimated 
+using the Kaplan -Meier method. The proport ion of subjects alive at 12 months (OS -12) and 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  19 of 38 SAP template version 3 .0 associated 95% CI will be estimated using the Kaplan -Meier method.  Additional OS 
+landmarks to be included in the final  analysis are OS -18, OS-24, and OS-36. 
+The difference in OS between groups will be  tested for significance by using a stratified log-
+rank test on histology (adenocarcinoma vs non -adenocarcinoma) . The log-rank test will be 
+carried out with the Breslow method for handling ties.  The hazard ratios of each 
+experimental arm vs. control arm  with two-sided 95% CI will be estimated by a stratified 
+Cox regression model on histology with ties handled by the Efron method (Efron et al, 1977 ).  
+The comparison of OS-X (X=12, 18, 24 , 36 months) between the 2 treatment arms will be 
+performed by normal approximation under cloglog transformation ( Klein et al, 2007 ), where 
+the event is death.  The test statistic is defined in Section 3.4.2.4. 
+3.4.2.6 Other Endpoints  
+Time to R esponse 
+Time to response (TTR) is defined as the time from randomizatio n until the first 
+documentation of a subsequently confirmed OR. Only subjects who have achieved OR 
+(confirmed CR or confirmed PR) will be evaluated for TTR. TTR is defined in months as 
+follows: 
+TTR (months) = (Date of first confirmed disease response – Date of randomization + 1) / 
+(365.25/12).  
+The median TTR and its 95% CI will be assessed using the Kaplan -Meier method. The 
+number of subjects with response at different disease assessment timepoints may be 
+provided.  
+Change from Baseline in Tumor Sizes  
+The percent change from baseline in target lesion sum of diameters (longest for non -nodal 
+lesions, short axis for nodal lesions) will be calculated at each evaluable  post-baseline disease 
+assessment  (DA) # X (X = 1, 2, 3, etc.) . The percent change from bas eline in target lesion 
+sum of diameters is defined as follows:  
+%𝐶ℎ𝑔 𝑎𝑡 𝐷𝐴 #𝑋= 100 ×∑𝐷𝑖𝑎𝑚𝑒𝑡𝑒𝑟𝑠  𝑎𝑡 𝐷𝐴 #𝑋−∑𝐷𝑖𝑎𝑚𝑒𝑡𝑒𝑟𝑠  𝑎𝑡 𝐷𝐴 𝑎𝑡 𝑏𝑎𝑠𝑒𝑙𝑖𝑛𝑒
+∑𝐷𝑖𝑎𝑚𝑒𝑡𝑒𝑟𝑠  𝑎𝑡 𝐷𝐴 𝑎𝑡 𝑏𝑎𝑠𝑒𝑙𝑖𝑛𝑒 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  20 of 38 SAP template version 3 .0 The percent change from baseline in target lesion sum of diameters will be presented by 
+subject using spider plots. The best percent change from baseline in target lesion sum of 
+diameters is defined as the largest reduction or smallest increase (in the case where a 
+reduction does  not occur) from baseline observed over all post -baseline disease assessments  
+until disease progression . The best percent change from baseline will be presented using 
+waterfall plots. Target lesion measurements and sum of diameters will be listed by diseas e 
+assessment and subject.  
+3.4.3 Handling of Dropouts and Missing Data  
+In general, missing data are not imputed for statistical analysis . Guidance regarding the 
+handling of dropouts , missing data , and censoring will apply uniformly to all efficacy 
+analyses resulting from an application of RECIST v1.1 to investigator assessed tumor 
+measurements . For investigator reported outcomes, analyses will present outcomes  without 
+consideration of missing data or censoring rules.  
+3.4.4 Subgroup Analyses  
+To assess the consistency of treatment effects, the analys es of ORR and PFS will be 
+performed by the following subgroups:  
+• Age (< 70, ≥ 70 years ) 
+• Sex (Female, Male)  
+• Race (Asian, non-Asian) 
+• Histology (Squamous, non -Squamous)  
+• Smoking status (Smoker, never smoker)  
+• ECOG performance status at baseline (0, 1) 
+• PD-L1 status (Positive, Low/Negative , Unknown ) based on 1% and 25% cuts 
+separately  
+• Platinum agent (Cisplatin, Carboplatin)  
+• Time from last radiation to randomization (<14 days , ≥14 days) 
+• Disease stage at study entry (IIIA, IIIB/C)  
+Forest plots will be provided  for difference in ORR (confirmed/unconfirmed response 
+and confirmed response, separately) and PFS hazard ratios . 
+ 
+3.4.5 Other Efficacy Analyses  
+Confirmed/u nconfirmed ORR will be reported along with the primary analysis of confirmed 
+ORR. Analyses will be conducted in the same way as described in Section 3.4.1.  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  21 of 38 SAP template version 3 .0 Similarly, confirmed/unconfirmed DCR, DoR and TTR will be reported, wi th analyses 
+conducted in the same way as described in Section 3.4.2.  
+The proportion of subjects  progression -free and alive at 6 months (PFS -6) and 9 months 
+(PFS-9) and the associated 95% CIs may be estimated using the Kaplan -Meier method.  
+ 
+ 
+ 
+  
+The number  and percentage of subjects with distal metastasis at 6 months based on PET scan 
+may be reported.  
+3.5 Pharmacodynamic Endpoint(s)  and Analyses  
+Exploratory analysis of pharmacodynamic endpoints may be described separately.  
+ 
+3.6 Safety Analyses  
+All safety analy ses will be performed based on the A s-treated population, unless otherwise 
+specified.  Only post -baseline visits up to and including 90 days following the date of last 
+dose of study medication will be considered in derivations.  
+3.6.1 Adverse Events and Serious Adverse Event s 
+Adverse events will be coded by Medical Dictionary for Regulatory Activities ( MedDRA ) 
+version 26.0  and the type , incidence, CTCAE grade and relationship to study IP will be 
+summarized. Specific adverse events will be counted once for each subject for cal culating 
+percentages. In addition, if the same adverse event occurs multiple times within a particular 
+subject, the maximum CTCAE grade  and level of relationship observed will be reported. If 
+any associations of interest between adverse events and baseline  characteristics are observed, 
+additional stratified results may be presented.  
+Treatmen t-emergent adverse event s (TEAEs) are defined as events present at baseline that 
+worsen in intensity after administration of study IP or events absent at baseline that emerge 
+after administration of study IP. All TEAEs that occurred on and after first dose up to 90 
+days after last dose  of IP (any) will be summarized overall, as well as categorized by 
+MedDRA System Organ Class and Preferred Term.  In addition, all TEAEs with an onset date 
+no more than 90 days after the last dose of IP (any) will be listed. 
+CCI
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  22 of 38 SAP template version 3 .0 The AEs occurring from the signing of t he informed consent and prior to t he initiation of 
+study IP will be listed.  
+3.6.2 Adverse Events of Special/Potential  Interest 
+An adverse event of special /potential  interest (AESI /AEPI) is one of scientific and medical 
+interest specific to understanding of the IP and may require close monitoring and rapid 
+communication by the investigator to the sponsor. The AESI  categories for each IP can be 
+found in protocol  Section 5.3 . Other categories may be added, or existing terms may be 
+modified,  as necessary. The most recent version of the AESI/AEPI preferred terms list at 
+clinical data lock will be used to identify and categorize AESI/AEPI.  
+The AESI s/AEPIs, as applicable,  will be summarized similarly as other AEs described in 
+Section 3. 6.1. 
+Immune-mediated adverse events (imAE s) for durvalumab will be automatically adjudicated 
+per the global imAE charter. The imAEs will be summarized, including separate summaries 
+of the number and percentage of subjects wi th imAEs by category, by outcome, by maximum 
+CTCAE grade and descriptive statistics of time to onset of imAE by AESI category.  
+3.6.3 Deaths and Treatment Discontinuations due to Adverse Events  
+For those subjects who died due t o one or multiple AEs, the AE(s) contributing to death  will 
+be summarized.  
+Summaries will be provided for TEAEs resulting in permanent discontinuation of IP. 
+Supporting listings will be provided for AEs resulting in death and AEs resulting in 
+permanent discontinuation of IP.  
+3.6.4 Clinical Laboratory Evaluation  
+Laboratory tests will be grouped according to chemistry, hematology , coagulation , and 
+urinalysis. Listings will be provided for all laboratory results , including coagulation.  For 
+selected chemistry and hematology tests, the change in each laboratory parameter from 
+baseline to each post-baseline scheduled visit will be summarized graphically.  Descriptive 
+statistics will be provided for the clinical laboratory results and changes fro m baseline by 
+scheduled time of evaluation including minimum and maximum post -baseline values .  
+Laboratory parameters will be assessed at baseline as well as throughout the study. 
+Frequencies of worst observed grade 0-4 toxicity, as defined by the NCI CTCAE v5.0, will 
+be presented for each laboratory parameter. The analysis will present the worst grade 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  23 of 38 SAP template version 3 .0 observed and the rates of subjects with grade 3-4 toxicity.  Additionally , 2-grade shifts from 
+baseline to wo rst toxicity grade will be summarized  for chemistry and hematology laboratory 
+parameters.  Separate summaries indicating hyper - and hypo- directionality of change will be 
+produced, where appropriate.   Shifts from baseline relative to the normal range (low, normal, 
+high) will also be p resented. 
+Liver Function Parameters  
+Subjects with elevated post -baseline alanine aminotransferase ( ALT), aspartate 
+aminotransferase ( AST) or total b ilirubin that fall into the following categories will be 
+identified. The number  and percentage of these subjects will be summarized . 
+Liver Function Parameters  Category  
+ALT • ≥ 3× – ≤ 5× ULN 
+• > 5× – ≤ 8× ULN 
+• > 8× – ≤ 10× ULN 
+• > 10× – ≤ 20× ULN    
+• > 20× ULN 
+AST • ≥ 3× – ≤ 5× ULN 
+• > 5× – ≤ 8× ULN 
+• > 8× – ≤ 10× ULN, 
+• > 10× – ≤ 20× ULN    
+• > 20× ULN 
+Total bilirubin  • ≥ 2× – ≤ 3× ULN 
+• > 3× – ≤ 5× ULN 
+• > 5× ULN  
+ALT or AST  • ≥ 3× – ≤ 5× ULN 
+• > 5× – ≤ 8× ULN 
+• > 8× – ≤ 10× ULN, 
+• > 10× – ≤ 20× ULN    
+• > 20× ULN 
+Potential Hy’s law  • (AST ≥ 3 × ULN or ALT ≥ 3 × ULN) and (Total 
+Bilirubin ≥ 2×ULN)a 
+ALT = alanine aminotransferase; AST = aspartate aminotransferase; ULN  = upper limit of 
+normal range.  
+a: Total bilirubin ≥ 2× ULN is defined as at least one case of post -dose total bilirubin  ≥ 2 x 
+ULN occurred after ALT or AST ≥ 3 x ULN post treatment.  
+ Subjects who me et the potential Hy’s law criteria will be listed.  
+Assessment of Nephrotoxicity  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  24 of 38 SAP template version 3 .0 Creatinine clearance rate (C Cr) will be calculated using serum creatinine  (SCr) in mg/dL  and 
+the Cockcroft -Gault formula to estimate glomerular filtration rat e (GFR), defined as follows:  
+ 
+CCr (mL/minute)  = {((140 – age) × weight)/(72  × SCr)}(× 0.85, if female)  
+ 
+A shift table from baseline to “worst -case” on treatment CCr value will be provided.  Baseline 
+and “worst -case” on treatment CCr value will be categorized as follows : 
+• Normal: ≥ 90 mL/min  
+• Mild Impairment: ≥ 60 − < 90 mL/min  
+• Moderate Impairment: ≥ 30 − < 60 mL/min  
+• Severe Impairment: ≥ 15 − < 30 mL/min  
+• Kidney Fai lure: < 15 mL/min  
+ 
+3.6.5 Other Safety Evaluations  
+3.6.5.1 Vital Signs  
+Vital signs will be assessed at baseline and throughout the study. Vital signs  will be 
+summarized by study visit which will include descriptive statistics for the value of the 
+parameters and the changes from baseline  to post-baseline scheduled visits. Minimum and 
+maximum post -baseline values will  also be summarized. . 
+3.6.5.2 Electrocard iogram 
+No electrocardiogram analyses are planned.  ECGs were only collected prior to study 
+treatment initiation.  
+3.6.5.3 Eastern Cooperative Oncology Group Performance Status  
+Eastern Cooperative Oncology Group (ECOG) performance status will be assessed at 
+baseline as well as throughout the study. ECOG will be summarized  for baseline and the 
+“worst” case  including descriptive statistics for the value of the parameters and the  shift table  
+from baseline  to the “worst” performance post -baseline. 
+3.6.5.4 Physical Examinations  
+No physical examination  analyses are planned.  
+3.6.6 Subgroup Analyses  
+No subgroup analyses are planned.  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  25 of 38 SAP template version 3 .0 3.7 Immunogenicity  
+Immunogenicity results will be summarized for the As -treated population. Number and 
+percentage of subjects in the following categories will be provided.  
+• ADA positive at baseline and/or post -baseline visits.  
+• Persistent positive, defined as positive at ≥2 post -baseline assessments (with ≥16 
+weeks between first and last positive) or positive  at last post -baseline assessment.  
+• Transient positive, defined as negative at last post -baseline assessment and positive at 
+only one post -baseline assessment or at ≥2 post -baseline assessments (with <16 
+weeks between first and last positive).  
+• Treatment -boosted, defined as baseline positive ADA titer that was boosted to a 4-
+fold or higher-level following drug administration.  
+Similarly to safety analyses, o nly post-baseline visits up to and including 90 days following 
+the date of last dose of study medication will be c onsidered  when deriving the categories . 
+Study discontinuation blood samples will be summarized at the closest nominal time point 
+that does not already have a value . All subjects with titer information will be shown in  data 
+listings. 
+3.8 Pharmacokinetics  
+For each treatment group  in the PK -evaluable population , serum concentrations of the study 
+drug will be summarized by visit/timepoint with descriptive statistics. Individual novel agent 
+concentrations will be summarized similarly.  Serum concentrations will be reported in 
+ug/mL, and t he lower limit of quantification (LLOQ ) for each  analyte will be defined in the 
+SPP. The following statistics are presente d: n, n below LLOQ, geometric mean, geometric 
+coefficient of variation ( %), arithmetic mean, standard deviation, coefficient of variation (%), 
+median, minimum,  and maximum.  
+More details about calculations can be found in the SPP.  All serum concentration data will be 
+listed for each subject, by analyte.   
+4 INTERIM ANALYSIS  
+Interim analyses comparing durvalumab  in combination with novel agents to durvalumab 
+alone will be performed in a continuous manner using a joint Bayesian predictive probability. 
+Bayesian predictive probability has been  used in the setting of single -arm trials with tumor 
+response endpoints such as OR and allows for continuous assessments for ea rly Go/No -Go 
+decision making ( Lee and Liu, 2008 ). A joint Bayesian predictive probability approach 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  26 of 38 SAP template version 3 .0 allows for continuous assessments of the delta ( Δ), or difference, of the DCRs between 
+durvalumab /novel agent  combination s and durvalumab alone  (Pulkstenis et al., 2017 ).  
+Interim analyses will begin after approximately 30 subjects in control arm (durvalumab 
+alone) have been  randomized and have reached the data cutoff criterion . The data cutoff 
+criterion is defined as the opportunity to be followed for at least 16 weeks at the time of the 
+data cutoff ( i.e., dosed at least 16 weeks prior to the time of the data cutoff). The interim 
+analysis will be based on the subset of the ITT Population that have satisfied the data cutoff 
+criteria. Enrollment will not pause during the interim analysis before the decision is made.  
+Following this initial interim analysis, subsequent interim analyses will be performed for 
+each experimental arm  regardless of  whether it starts enrollment later than control arm.  
+Specifically, an interim analysis will be performed once  each experimental arm has 
+approximately 30 ITT subjects reach the data cutoff criterion . For interim analyses  that will 
+lead to an early No-Go decision, a response is defined as either a confirmed or unconfirmed 
+CR or PR as per RECIST v1.1. Only concurrent control subjects, i.e., enrolled during the 
+same period as the experimental arm, will be included in interim analyses. A comparison  of 
+each experiment al arm versus  all control subjects may be included as a supportive analysis.  
+The Target Value (TV) is set to demonstrate a 15% increase in ΔDCR at 16 weeks , where 
+ΔDCR is the difference in DCR between an experimental arm and control arm . At final 
+analysis, No-Go criteria will be met if the probability that the true ΔDCR exceeds the 
+prespecified TV of 15% is less than 10% ( i.e., No-Go: P [ΔDCR > TV] < 10%).  
+Given the existing observed data during the continuous monitoring stage, the joint Bayesian 
+predictive probability is obtained by calculating the probability of reaching a No -Go decision 
+should the treatment groups be randomized and evaluated to the maxim um planned final 
+sample size of 60 . Further randomization into both treatment groups will be terminated if No-
+Go criteria are met.  
+• Early No-Go is met if it is predicted that there is a high probability of reaching a No -
+Go decision upon full randomization o f 60 subjects given the existing observed data 
+(i.e., predictive probability of a No -Go decision >  95%).  
+Table 4.1  illustrates the sample algorithm to make a n early No-Go decision based on DCR at 
+16 weeks at the interim analysis when control arm and an experimental arm each have 30 
+subjects.  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  27 of 38 SAP template version 3 .0 Table 4.1 Criteria of Early No-Go Decisions Based on DCR at 
+16 Weeks  
+Number of Subjects with DCR at 16 weeks in 
+Control Arm  Number of Subjects with DCR at 16 weeks in 
+Experimental Arm  
+10 ≤ 7 
+11 ≤ 8 
+12 ≤ 8 
+13 ≤ 9 
+14 ≤ 10 
+15 ≤ 11 
+16 ≤ 12 
+17 ≤ 13 
+18 ≤ 14 
+19 ≤ 15 
+20 ≤ 16 
+21 ≤ 17 
+22 ≤ 19 
+23 ≤ 20 
+24 ≤ 21 
+25 ≤ 23 
+26 ≤ 24 
+27 ≤ 26 
+28 ≤ 28 
+29 ≤ 29 
+30 ≤ 30 
+DCR = disease control rate.  
+ 
+Operating characteristics of this continuous monitoring method are presented in Table 4.2 
+based on 10000 simulations using the prespecified TV.  
+Table 4.2 Operating Characteristics of Continuous Mo nitoring for No-
+Go 
+   
+True δ 
+ 
+(BM DCR 
+= 60%) All No-Go  
+(Interim & 
+final) Early No-Go 
+(Confirmed 
+at final)  
+ 
+ 
+0% 68% 19% (18%)  
+5% 46% 11% (10%)  
+10% 25% 5% (4%) 
+15% 11% 2% (2%) 
+20% 3% 1% (0) 
+25% 1% 0 (0) 
+
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  29 of 38 SAP template version 3 .0 • Modified/Added subgroups for 
+efficacy analyses.  
+• Added a missing superscript in 
+the formula of PFS -12 testing.  
+• Updated signature page to 
+include new team members.  
+• Post cCRT window adjusted to 
+42 days to match Protocol AM3.  
+• Added language about 
+coagulation and thyroid analyses.  
+3.0 14DEC2020 • Additional summaries added to 
+Section 3.3.2.  
+• New subgroups added to Section 
+3.4.4. 
+• Added PFS -6 and PFS -9 in 
+Section 3.4.5.  • Layout update as per review 
+comments from IA#1.  
+4.0 07FEB2023 Updates made for final CSR delivery:  
+1. Section 3.3.1 updated to include 
+listing of global/country situation 
+disruptions.  
+2. Section 3. 3.2 updated to describe 
+categorization of platins.  
+3. Section 3.6.2 updated with minor 
+clarifications as well as 
+description of durvalumab imAE 
+analyses. 
+4. Additional subgroup added to 
+Section 3.4.4 for ORR.  
+5. Subgroup analyses included for 
+PFS. 
+6. Section 3.4.2.4 (PFS) updated to 
+include additional landmarks at 
+18 and 24 months.  
+7. Section 3.4.2.5 (OS) updated to 
+include additional landmarks at 
+18 and 24 months.  
+8. Section 3.4.2.5 (OS) updated to 
+include additional field for 
+deriving last known alive date.  
+9. Section 3.4.4 updated to include 
+forest plots for subgroup 
+analyses of ORR and P FS. 
+10. Section 3.4.5 updated with 
+clarification that unconfirmed 
+ORR will also be reported.  
+11. iRECIST confirmed not to be 
+reported in CSR (Section 3.4.5).  
+Other minor clarifications were made  
+throughout.  1. Required listing to describe 
+impact of COVID -19 on the 
+study. 
+2. Previously this was not well -
+defined and had been subject to 
+manual review. The team  agrees 
+all terms should be coded and 
+therefore WHO Drug information 
+can be used to derive categories.  
+3. Automatic adjudication of 
+durvalumab imAEs is a required 
+process. Outputs have been 
+added to comply with this.  
+4. Disease stage at study entry (IIIA 
+vs. IIIB/C) is considered a 
+clinically important subgroup.  
+5. Though confirmed ORR is the 
+primary endpoint, PFS is also 
+clinically relevant and therefore 
+subgroups will b e explored.  
+6. Data maturity permits further 
+landmarks to be presented.  
+7. Data maturity permits further 
+landmarks to be presented.  
+8. Update provides further coverage 
+of potential last known alive date 
+and increased accuracy.  
+9. Forest plots provide a clear way 
+to present subgroup results.  
+10. This is per the CSP but was not 
+previously clarified in the SAP.  
+11. Confirmed with clinical team that 
+iRECIST is not required for the 
+CSR. 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  30 of 38 SAP template version 3 .0 5.0 04SEP2023 1. Added a few terms in the list of 
+abbreviations  
+2. Section 3.1 clarified for the 
+definition of baseline  
+3. Updated SAS version to 9.4  
+4. Table 3.2 -1 Added PK -evaluable 
+population  
+5. Section 3.3.3 removed data cut -
+off from duration of exposure 
+definition  
+6. Section 3.3.4 add ATC and 
+WHO Drug version  
+7. Section 3.3.5 Added COVID -19 
+related IPDs  
+8. Section 3.4.2.4 Added PFS-36 
+month landmark  
+9. Section 3.4.2.4 Updated and 
+clarified the Greenwood’s 
+formula, and added more details  
+10. Section 3.4.2.5 Added OS -36 
+month landmark  
+11. Section 3.5 Updated section to 
+clarify that no pharmacodynamic 
+analyses are planned at this stage  
+12. Section 3.6 Added clarificat ion 
+regarding any derivation  
+timeframe  (in Labs, VS, ECOG)  
+13. Section 3.6.4 Updated wording 
+to increase readiness and match 
+what the expectations are , for the 
+laboratory tables  
+14. Section 3.6.4 Creatinine 
+clearance rate formula added  
+15. Section 3.6.5 .1 Removed 10% 
+subjects wording and added 
+minimum and maximum post -
+baseline summaries of vital signs  
+16. Section 3.6.5.2  Added 
+information as to why no ECG 
+analyses are planned for the CSR  
+17. Section 3.6.5.4 Added a section 
+for physical examinations  (none 
+planned) 
+18. Section 3.8 Added PK analysis 
+plan  
+19. Section 3.8 Mentioned that all 
+results to be reported in ug/mL  
+ 
+Other minor clarifications were made 
+throughout.  1. Previously missing some 
+abbreviations, and new ones 
+corresponding to new updates  
+2. Lack of information in defining 
+baseline when no time indicator 
+captured 
+3. Latest SAS version available  
+4. SAP now includes PK analysis  
+5. No DCO defined in final CSR  
+6. Clarify that the summary of 
+concomitant medications is by 
+ATC and PT  
+7. COVID-19 related IPDs might be 
+required for the CSR  
+8. Agreed with the team in prior 
+communications to include PFS -
+18, PFS-24 and PFS -36 
+landmarks for the CSR  
+9. Lack of precision in the formula 
+details (n i refers to deaths or 
+disease progressions  in the PFS 
+section, difference between i and 
+k) 
+10. Agreed with the team in prior 
+communications to include OS -
+18, OS-24, and OS -36 landmarks 
+for the CSR 
+11. Previous version outdated 
+(MedImm une process) - Wording 
+confirmed with PK/PD team  
+12. Discussed during the Dry Run 
+review with the team to consider 
+only post-baseline visits up to 
+and including 90 days post last 
+dose of study drug  
+13. Wording was unclear and 
+disorganized, clarification was 
+needed 
+14. Information more complete with 
+additional details provided  
+15. CSP doesn’t mention a selection 
+criterion (10% of subjects) so not 
+needed here, but mentions 
+min/max summaries  of vital 
+signs 
+16. CSP mentions ECG ana lyses 
+while ECGs were only collected 
+at screening  
+17. CSP mentions physical 
+examination statistical analysis, 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  31 of 38 SAP template version 3 .0 but none are p lanned for the CSR  
+(data do not allow)  
+18. After discussion with the study 
+team and the PK/PD team, PK 
+analysis plan needed to be 
+included in the SAP . Previous 
+version outdated (MedImmune 
+process). 
+19. After discussing with the PK/PD 
+team, Durvalumab serum 
+concentrations should be 
+converted from ng/mL to ug/mL   
+ 
+ 
+ 
+ 
+7 APPENDIX  
+7.1 Derivation of RECIST v1.1 Disease Assessment Overall Response  
+Guidance regarding the handling of dropouts and missing data will apply uniformly to all 
+efficacy analyses resulting from an application of RECIST v1.1 to investig ator assessed 
+tumor measurements. For investigator reported outcomes, analyses will present outcomes 
+reported by the investigator without consideration of missing data or censoring rules.  
+7.1.1 Target Lesion Response  
+Target lesion response will be programmatically derived on the data collection instrument 
+once RECIST v1.1 criteria are applied to the site personnel recorded target lesion 
+measurements.  
+Possible values include:  
+• CR – Complete Response  
+• PR – Partial Respons e 
+• SD – Stable Disease  
+• PD – Progressive Disease  
+• NE – Non-evaluable  
+• NA – Not Applicable ( set value for all post -baseline disease assessments only if no 
+target lesions are identified at baseline ) 
+The derivation for target lesion response is as follows  (please note the order of the algorithm 
+below is important) : 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  32 of 38 SAP template version 3 .0 1. If “Any Target Lesions Present” equals “No” on the Target Lesions – Baseline CRF, 
+then all post -baseline “Target Lesion Response” equals “NA”.  
+2. Else, if “Percent Change from Nadir Sum of Diamete rs” is greater than or equal to 
+20% and the absolute increase from the nadir (defined as the “Total” for each post -
+baseline disease assessment minus the “Nadir Sum of Diameters”) is greater than or 
+equal to 5 mm, then “Target Lesion Response” equals “PD”.  
+3. Else, if “Not Done” is selected, or “Measurement” is left blank, or “Lesion no longer 
+Measurable ” is selected and equal to “NE”, or “Lesion Intervention” is selected for 
+any Target Lesion identified at Baseline, then “Target Lesion Response” equals 
+“NE”. 
+4. Else, if “Total Non -Lymph Node” equals “0” and all Lymph Node Target Lesion 
+“Measurements” are less than “10” individually, then “Target Lesion Response” 
+equals “CR”.  
+Note: This step requires examining “Measurements” separately for Target Lesions 
+with “Lym ph Node” equal to “Yes” and “No”.  
+5. Else, if “Percent Change from Baseline Sum of Diameters” is less than or equal to -
+30%, then “Target Lesion Response” equals “PR”.  
+6. Else, “Target Lesion Response” equals “SD”.  
+If a subject has a missing tumor measurement at a disease assessment for 1 or more target 
+lesions, the sum of diameters (longest for non -nodal lesions, short axis for nodal lesions) will 
+be reported for the remaining target lesions. These data will be used to indicate radiologic 
+disease progression if the sum of diameters for the observed lesions increases at least 20% 
+from the nadir sum of diameters of all target lesions and demonstrates at least a 5 mm 
+absolute increase from the nadir sum of diameters of all target lesions, in spite of t he missing 
+data (or if other criteria for PD are met).  
+7.1.2 Non-Target Lesion Response  
+Non-target lesion response will be assigned by site personnel following a qualitative overall 
+assessment of all non -target lesions.  
+Possible values include:  
+• CR – Complete Re sponse 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  33 of 38 SAP template version 3 .0 o Disappearance of all non -target lesions and normalization of tumor marker 
+level. All lymph nodes must be non -pathological in size (<10mm short axis)  
+• Non-CR/Non-PD – Non-Complete Response / Non -Progressive Disease  
+o Persistence of one or more non -target lesion(s) and/or maintenance of tumor 
+marker level above the normal limits  
+• PD – Progressive Disease  
+o Unequivocal progression of existing non -target lesions.  
+• NE – Non-evaluable  
+• NA – Not Applicable ( set value for all post -baseline disease assessments only if no 
+non-target lesions are identified at baseline ) 
+Though non -target lesion responses are a subjective decision made by the site personnel, 
+certain responses may be limited depending on the non -target lesion statuses recorded. An 
+algorithm is provided below highlighting appropriate possible non -target lesion responses 
+based on recorded data. Reaching a red box (■) signifies having reached the only allowable 
+non-target lesion responses based on non -target lesion statuses. Reaching a green box (■) 
+signifies having reached the end of the algorithm and more than one possible non -target 
+lesion response is possible from which the Investigator may choose.  
+1. a)  If no non-target lesions are identified at baseline, all post -baseline non -target 
+lesion responses should equal NA. ■  
+b)  Else, if any non -target lesions are identified at baseline, responses may be limited 
+to CR, Non -CR/Non-PD, PD, NE ( i.e., responses of NA are not permitted).  
+Go to Rule 2.  
+2. a)  If all non-target lesions have a status are “A bsent”, the responses may be limited 
+to CR. ■ 
+b)  Else, if at least one non -target lesion status is NOT “Absent”, the responses may 
+be limited to Non -CR/Non-PD, PD, NE ( i.e., responses of CR, NA are not permitted).  
+Go to Rule 3.  
+3. a)  If all non-target lesions have a status of “Unequivocal Progression”, responses 
+may be limited to PD. ■  
+b)  Else, if no non -target lesions have a status of “Unequivocal Progression”, 
+responses may be limited to Non -CR/Non-PD, NE (i.e., responses of CR, PD, NA are 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  34 of 38 SAP template version 3 .0 not permitted ). 
+Go to Rule 4.  
+c) Else, if at least one (but not all) non -target lesion has a status of “Unequivocal 
+Progression”, the responses may be limited to Non -CR/Non-PD, PD, NE ( i.e., 
+responses of CR, NA are not permitted). ( Note: No response has been eliminated as 
+an option here. )   
+Go to Rule 5.  
+4. a)  If all non-target lesions have a status of “Non -evaluable” and/or “Not Done” is 
+selected, responses may be limited to NE. ■  
+b)  Else, if no non -target lesions have a status of “Non -evaluable” and “Not Done” is 
+not selected, responses may be limited to Non -CR/Non-PD (i.e., responses of CR, 
+PD, NE, NA are not permitted). ■  
+c) Else, if at least one (but not all) non -target lesion has a status of “Non -evaluable” 
+and/or “Not Done” is selecte d, the responses may be limited to Non -CR/Non-PD, NE 
+(i.e., responses of CR, PD, NA are not permitted). ■  
+(Note:  No response has been eliminated as an option here. )  
+5. a)  If all non-target lesions have a status of “Non -evaluable” and/or “Not Done” is 
+selected, responses may be limited to NE. ■  
+b)  Else, if no non -target lesions have a status of “Non -evaluable” and “Not Done” is 
+not selected, responses may be limited to Non -CR/Non-PD, PD (i.e., responses of 
+CR, NE, NA are not permitted). ■  
+c) Else, if at least one (but not all) non -target lesion has a status of “Non -evaluable” 
+and/or “Not Done” is selected, the responses may be limited to Non -CR/Non-PD, PD, 
+NE (i.e., responses of CR, NA are not permitted). ■  
+(Note:  No response has been eliminated as an optio n here.)  
+If a subject has a missing tumor status at a disease assessment for 1 or more non -target 
+lesions, radiologic disease progression will be determined if the remaining non -target lesions 
+qualitatively demonstrate unequivocal progression (or if other criteria for PD are met).  
+7.1.3 Disease Assessment Overall  Response  per RECIST  v1.1 
+Investigator visit disease response will be programmatically derived on the data collection 
+instrument using RECIST v1.1 criteria based upon target lesion response, non -target lesion 
+response, and new lesion data. Missing values in any of target lesion response, non -target 
+lesion response, and new lesion data will result in the disease response not being derived.  
+Possible values include:  
+• CR – Complete Response  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  35 of 38 SAP template version 3 .0 • PR – Partial Response 
+• SD – Stable Disease  
+• PD – Progressive Disease  
+• NE – Non-evaluable  
+ 
+Target Lesion 
+Response  Non-Target Lesion Response  New Lesion  Derived RECIST Disease 
+Response  
+CR CR or NA  No CR 
+CR Non-CR/Non-PD or NE  No (or NE)  PR 
+PR CR or Non-CR/Non-PD or NE or NA  No (or NE)  PR 
+SD CR or Non -CR/Non-PD or NE or NA  No (or NE)  SD 
+PD Any Any PD 
+Any PD Any PD 
+Any Any Yes PD 
+NE CR or Non -CR/Non-PD or NE or NA  No NE 
+NA CR No CR 
+NA Non-CR/Non-PD No SD (Non-CR/Non-PD)a 
+NA NE or NA  No (or NE) NE 
+NA CR or Non -CR/Non-PD NE SD (Non-CR/Non-PD)a 
+a Per RECIST v1.1, “SD (Non -CR/Non-PD)” is preferred over “SD” for non -target disease since SD is 
+increasingly used as endpoint for assessment of efﬁcacy in some trials so to assign this category when no 
+lesions can be measured is not advised.  
+ 
+(Note: “(or NE)” values under New Lesion will only be included in confirmation of 
+progression or confirmation of new lesions are required per protocol. The last 4 rows may be 
+eliminated from any stu dy that requires identification of at least one measurable lesion at 
+Baseline. One may choose to allow such cells to remain if an independent central review is 
+included in the trial.)  
+If a subject has a missing tumor measurement at some assessment(s) for 1  or more target 
+lesions and criteria for PD are not otherwise met, an overall response of NE will be assigned 
+for the assessment(s).  
+7.1.4 Locoregional therapy  
+Any subject receiving locoregional therapy, including surgery, while on study that directly 
+affects on e or more of the target lesions selected at baseline will be identified. A subject with 
+a subsequent response or SD will be considered to be non -evaluable at all disease 
+assessments that occur on or after the date of locoregional therapy. Otherwise, the su bject 
+will be assessed ignoring the locoregional therapy.  
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  36 of 38 SAP template version 3 .0 7.1.5 Assignment of Dates of Disease Progression or Disease Response  
+For all analyses of endpoints resulting from an application of RECIST v1.1 to investigator 
+assessed tumor measurements, there may be cases in which disease assessments span a series 
+of dates. For establishing the start date of a subsequently confirmed resp onse in which the 
+disease assessment spans multiple days, the date of response assigned will be the latest date 
+of evaluations corresponding to the disease assessment. The date of latest evaluation will also 
+be assigned for a mid -study assessment showing S D as the date assigned for the purposes of 
+censoring duration of response, TTP and PFS.  
+The date of PD will be the first date at which any objective diagnostic test provides data 
+indicating PD. Specifically, for RECIST v1.1 the date of PD will be the earl iest of the 
+following 3 evaluation dates:  
+• Date of PD as indicated by target lesions : If PD is triggered by a change in sum of 
+diameters of target lesions, and the dates of evaluation of the target lesions vary for 
+the same assessment, assign the first eval uation date among target lesions.  
+• Date of PD as indicated by non -target lesions : If the dates of evaluation of the non -
+target lesions vary for the same assessment, assign the first evaluation date for which 
+any non-target lesion exhibits a status of Unequi vocal Progression.  
+• Date of PD as indicated by new lesions : If multiple new lesions are identified and the 
+dates of evaluation for the new lesions vary for the same assessment, assign the first 
+evaluation date for which any new lesion is detected.  
+In scenarios where the Investigator disease response is either a response or PD and differs 
+from that of the application of RECIST v1.1 to investigator assessed tumor measurements 
+separate response and/or progression dates will be required. Determination of the sta rt date of 
+a subsequently confirmed response in which the disease assessment spans multiple days 
+remains the same as described previously. Specifically, the date of response assigned will be 
+the latest date of evaluations corresponding to the disease asses sment. The date of PD will be 
+the earliest date of evaluations corresponding to the disease assessment.  
+  
+7.2 Efficacy Criteria of Making an Internal Go Decision  at an Interim 
+Analysis  
+At an interim analysis, an i nternal Go decision may be made based on the delta (Δ), or 
+difference, of the ORRs between durvalumab/novel agent combinations and durvalumab 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  37 of 38 SAP template version 3 .0 alone. The internal Go decision may initiate further development of the combinations. The 
+Go decision will not only be based on meeting the pre-specified efficacy criteria but also the 
+totality of data  including safety profiles, data from other studies, and internal portfolio 
+prioritization.  
+For interim analyses that will lead to an internal Go decision, a response is defined as a 
+confirmed CR or PR as per RECIST v1.1. The Lower Reference Value (LRV) is set to an 8% 
+increase in ΔORR to demonstrate clinically meaningful increase over durvalumab alone.  At 
+final analysis, Go criteria will be met if the probability that the true ΔORR exceeds the 
+prespecified LRV  of 8% is more than 80% ( i.e., Go: P[ΔORR > LRV] > 80%).  
+Early Go criteria are  met if it is predicted that there is a high probability of reaching a Go 
+decision upon full randomization of 60 subjects given the existing observed data ( i.e., 
+predictive prob ability of a Go decision >  95%). If Go criteria are met, randomization may 
+continue, and planning activities for further development of the durvalumab/novel agent 
+combination may be triggered.  
+Table 7.2-1 illustrates the sample algorithm to make an early  Go decision based on ORR at 
+an interim analysis when control arm and an experimental arm each have 30 subjects.  
+Table 7.2-1 Criteria of Early Go Decisions Based on ORR  
+Number of Subjects with OR in Control Arm  Number of Subjects with OR in Experimental 
+Arm 
+3 ≥ 12 
+4 ≥ 13 
+5 ≥ 14 
+6 ≥ 16 
+7 ≥ 17 
+8 ≥ 18 
+9 ≥ 19 
+10 ≥ 20 
+11 ≥ 21 
+12 ≥ 22 
+13 ≥ 23 
+14 ≥ 24 
+15 ≥ 25 
+16 ≥ 25 
+17 ≥ 26 
+18 ≥ 27 
+19 ≥ 28 
+20 ≥ 28 
+21 ≥ 29 
+MedImmune   Statistical Analysis Plan for Protocol D9108C00001  
+Durvalumab and Novel Agents   04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY  38 of 38 SAP template version 3 .0 Table 7.2-1 Criteria of Early Go Decisions Based on ORR  
+Number of Subjects with OR in Control Arm  Number of Subjects with OR in Experimental 
+Arm 
+22 30 
+ORR = objective response rate.  
+ 
+Operating characteristics of this continuous monitoring method are presented in Table 7.2 -2 
+based on 10000 simulations using the prespecified LRV. 
+Table 7.2-2 Operating Characteristics of Continuous Monitoring for Go  
+   
+True δ 
+ 
+(BM ORR 
+= 30%) All Go  
+(Interim & 
+final) Early Go 
+(Confirmed 
+at final)  
+ 
+ 
+0% 3% 1% (0) 
+8% 19% 3% (3%) 
+15% 47% 10% (10%)  
+20% 69% 18% (17%)  
+25% 85% 31% (30%)  
+ 
+Criteria:  Lower Reference Value (LRV) δ = 8%; Go: Pr(δ > LRV) > 80%; Early Go:  PP(Go) > 95%);  
+ BM ORR : Benchmark  Objective Response Rate.   
+SIGNATURE PAGE
+This is a representation of an electronic record that was signed
+electronically and this page is the manifestation of the electronic signature
+Document Name: d9108c00001-sap-ed-5
+Document Title: Statistical Analysis Plan Edition 5
+Document ID: Doc ID-005095573
+Version Label: 5.0 CURRENT LATEST APPROVED
+Server Date
+(dd-MMM-yyyy HH:mm ‘UTC’Z)Signed by Meaning of Signature
+12-Sep-2023 13:27 UTC Author Approval
+11-Sep-2023 18:32 UTC Content Approval
+Notes: (1) Document details as stored in ANGEL, an AstraZeneca document management system.
+PPD
+PPDC0Q�     Durvalumab and Novel Agents   04SEP2023; Final version 5.0 \nCONFIDENTIAL AND PROPRIETARY  38 of 38 SAP template version 3 .0 Table 7.2-1 Criteria of Early Go Decisions Based on ORR  \nNumber of Subjects with OR in Control Arm  Number of Subjects with OR in Experimental \nArm \n22 30 \nORR = objective response rate.  \n \nOperating characteristics of this continuous monitoring method are presented in Table 7.2 -2 \nbased on 10000 simulations using the prespecified LRV. \nTable 7.2-2 Operating Characteristics of Continuous Monitoring for Go  \n   \nTrue δ \n \n(BM ORR \n= 30%) All Go  \n(Interim & \nfinal) Early Go \n(Confirmed \nat final)  \n \n \n0% 3% 1% (0) \n8% 19% 3% (3%) \n15% 47% 10% (10%)  \n20% 69% 18% (17%)  \n25% 85% 31% (30%)  \n \nCriteria:  Lower Reference Value (LRV) δ = 8%; Go: Pr(δ > LRV) > 80%; Early Go:  PP(Go) > 95%);  \n BM ORR : Benchmark  Objective Response Rate.   \nSIGNATURE PAGE\nThis is a representation of an electronic record that was signed\nelectronically and this page is the manifestation of the electronic signature\nDocument Name: d9108c00001-sap-ed-5\nDocument Title: Statistical Analysis Plan Edition 5\nDocument ID: Doc ID-005095573\nVersion Label: 5.0 CURRENT LATEST APPROVED\nServer Date\n(dd-MMM-yyyy HH:mm ‘UTC’Z)Signed by Meaning of Signature\n12-Sep-2023 13:27 UTC Author Approval\n11-Sep-2023 18:32 UTC Content Approval\nNotes: (1) Document details as stored in ANGEL, an AstraZeneca document management system.\nPPD\nPPD", expected f64ooleanmentea�     se until the first 
+date of documented progression or death in the absence of disease progression (i.e., date of 
+PFS event or censoring – date of first response +1). It will be calcula ted in days and analysed 
+in months. The end of response should coincide with the date of progression or death from any 
+cause used for the RECIST 1.1 PFS endpoint. The time of the initial response will be defined 
+as the latest of the dates contributing towa rds the first visit response of PR or CR.  
+If a subject does not progress following a response, then their DoR will use the PFS censoring 
+time.  
+For IA1 DoR will be calculated in the FAS -32w, both according to Investigator and BICR 
+assessment, per RECIST 1.1  criteria.  
+For IA2 and FA, DoR will be calculated for the FAS according to Investigator assessments (per 
+RECIST1.1), for responses with or without confirmation.   
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+51 3.3.7 Proportion of subjects alive at 12, 18, 24 and 36 months after randomization 
+(OS12, OS18, OS 24 and OS36)  
+The proportion of subjects alive at 12 months (OS12), 18 months (OS18), 24 months (OS24), 
+and 36 months (OS 36) following randomization will be defined as the Kaplan -Meier estimate 
+of OS at 12 months, 18 months, 24 months, and 36 months after r andomization.  
+3.3.8 Time to Response (TTR)  
+Time to response (per RECIST 1.1 as assessed by the site Investigator) is defined as the time 
+from the date of randomization until the date of first documented response (i.e. date of response 
+– date of randomization + 1). The date of first documented response should coincide with that 
+used for the RECIST  1.1 DoR endpoint.  
+Time to response will not be defined for those subjects who do not have a documented response.  
+TTR will only be calculated to support the Payer Analy sis. It will not be reported in CSR.  
+3.3.9 Time from Randomization to First Subsequent Therapy or Death (TFST)  
+TFST is defined as the time from randomization to the earlier of first subsequent cancer therapy 
+start date following study treatment discontinuation,  or death (i.e. date of first subsequent cancer 
+therapy/death or censoring – date of randomization + 1). Any subject not known to have died at 
+the time of the analysis and not known to have had a further intervention of this type will be 
+censored at the la st known time to have not received subsequent cancer therapy, i.e. the last 
+follow -up visit where this was confirmed. If this is not available (e.g. if the subject has not yet 
+attended a survival follow up visit), then subjects who are ongoing on study tre atment at DCO 
+will be censored at DCO, and subjects who discontinued study treatment before DCO will be 
+censored at date of discontinuation. Subjects who were randomized but did not receive any 
+study treatment would have TFST calculated in the same way, i. e. time from date of 
+randomization to the earliest of first subsequent therapy or death; however, if no information is 
+available regarding first subsequent therapy or death, the subject will be censored at 
+randomization.  
+TFST will only be calculated to sup port the Payer Analysis. It will not be reported in CSR.  
+3.4  
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+52 3.4.1 
+ORR, BoR a nd DoR using mRECIST by BICR will be analyzed as secondary endpoints.  
+3.4.2  
+3.4.3  
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JU L2021  
+533.5 Patient reported outcome (PRO) variables  
+All items/questionnaires will be scored according to published s coring guidelines.  All PRO 
+analyses will be based on FAS.  
+Compliance rates summarizing questionnaire completion at each visit will be tabulated.  
+3.5.1 EORTC QLQ -C30 
+The EORTC QLQ-C30 consists of 30 questions that can be combined to produce 5 functional 
+scales (physical, role, cognitive, emotional, and social), 3 multi-item symptom scales (fatigue, 
+pain, and nausea/vomiting), 6 single-item symptom scales and global health status/QoL scale. 
+The EORTC QLQ-C30 will be scored according to the EORTC QLQ-C30 Scoring Manual 
+(Fayers et al 2001). An outcome variable consisting of a score from 0 to 100 will be derived 
+for each of the symptom scales, each of the functional scales, and the global measure of 
+health status scale in the EORTC QLQ-C30 according to the EORTC QLQ-C30 Scoring 
+Manual. Higher scores on the global measure of health status and functional scales indicate 
+better health status/function, but higher scores on symptom scales represent greater symptom 
+severity. For each subscale, if <50% of the subscale items are missing, then the subscale score 
+will be divided by the number of non-missing items and multiplied by the total number of items 
+on the subscales (Fayers et al 2001). If at least 50% of the items are missing, then that subscale 
+will be treated as missing. Missing single items are treated as missing. The reason for any 
+missing questionnaire will be identified and recorded. 
+Definition of clin ically meaningful change s - Visit Response and Best Overall Response 
+Definition of clinically meaningful changes in score compared with baseline will be evaluated. 
+A clinically meaningful change is defined as an absolute change in the score from baseline of 
+≥10 for scales from the EORTC QLQ-C30 (Table 10).  For example, a clinically meaningful 
+improvement in physical function (as assessed by EORTC QLQ-C30) is defined as an increase 
+in the score from baseline of ≥10, whereas a clinically meaningful deterioration is defined as a 
+decrease  in the score  from  baseline  of ≥10. At each  postbaseline  assessment,  the change  in 
+global health status/QoL, symptoms, and functioning score from baseline will be categorized 
+as improvement, no change, or deterioration as shown in  Table 10.  
+Table 10 Mean change and clinically meaningful change - EORTC QLQ -C30 
+Score  Change from baseline  Visit response  
+≥+10 (increase of at least 10)  Improvement  
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+54Score  Change from baseline  Visit response  
+EORTC QLQ -C30 
+global health status 
+score  ≥-10 (decrease of at least 10) or “Subject too sick to complete 
+the questionnaires (disease under investigation)”  Deterioration  
+Otherwise  No change  
+EORTC QLQ -C30 
+symptom scales  ≥+10 (increase of at least 10) or “Subject too sick to complete 
+the questionnaires (disease under investigation)”  Deterioration  
+≥-10 (decrease of at least 10)  Improvement  
+Otherwise  No change  
+EORTC QLQ -C30 
+functional scales  ≥+10 (increase of at least 10)  Improvement  
+≥-10 (decrease of at least 10) or “Subject too sick to complete 
+the questionnaires (disease under investigation)”  Deterioration  
+Otherwise  No change  
+EORTC  European Organisation for Research and Treatment of Cancer; QLQ -C30 30-item core quality of life 
+questionnaire.  
+A subject’s  best overall  response  in symptoms,  function,  or global  health  status/QoL  will be 
+derived as the best response the subject achieved, based on evaluable PRO data collected 
+during the study period.  The criteria in Table 11 will be used to assign a best response in 
+symptoms or function or global health status/QoL. 
+Table 11 Best response in EORTC QLQ -C30 and EORTC QLQ -HCC18 scores: 
+FAS  
+Overall response 
+score  Criteria  
+Missing  Subject has no evaluable baseline or post -baseline PRO assessment.  
+Improved  Subject meets one of the following criteria:  
+1.Has 2 consecutive visit responses of “improvement” at least 21 days
+apart.
+2.Has 1 visit response of “improvement” and no further assessments,
+and did not die within 2 PRO assessment visits.
+No Change  Subject does not qualify for an overall score response of “improved” and 
+meets 1 of the following criteria:  
+1.Has 2 consecutive visit responses of “no change” at least 21 days
+apart.
+2.Has 1 visit response of “no change” with no further assessments, and
+did not die within 2 PRO assessment visits.
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+55Overall response 
+score  Criteria  
+Deterioration  Subject does not qualify for an overall score response of “improved” or “no 
+change” and meets 1 of the following criteria : 
+1.Has 2 consecutive visit responses of “deterioration” at least 21 days
+apart.
+2.Has 1 visit response of “deterioration” and no further assessments.
+3.Has 1 visit response of “improvement” or “no change” followed by
+death within 2 PRO assessment visits.
+Other  Does not qualify for one of the above  (improved, no change or 
+deterioration).  
+EORTC European Organisation for Research and Treatment of Cancer; FAS  full analysis set; QLQ C30  30-item 
+core quality of life questionnaire; QLQ -HCC18 18 -item HCC specif ic quality of life questionnaire.  
+Visit responses are not considered consecutive if, according to the visit schedule, there are one 
+or more missed (a scheduled visits record missing completely, or a missing assessment) 
+assessments between the two evaluabl e assessments.  
+3.5.1.1  Time to global health status/QoL, function or symptoms deterioration  
+Time to deterioration in global health status/QoL, function or symptoms will be defined as the 
+time from the date of randomization until the date of the first clinically meaningful deterioration 
+that is confirmed at a subsequent visit (except if it was the subject’s last available assessment) 
+or death (by any cause) in the abs ence of a clinically meaningful deterioration, regardless of 
+whether the subject discontinues study drug(s) or receives another anticancer therapy prior to 
+global health status/QoL, function or symptoms deterioration. Death will be included as an 
+event onl y if it occurs within 2 PRO assessment visits from the last available PRO assessment.  
+Subjects whose global health status/QoL, function or symptoms (as measured by EORTC QLQ -
+C30) has not shown a clinically meaningful deterioration and who are alive at the  time of the 
+analysis will be censored at the time of their last PRO assessment where the global health 
+status/QoL, function or symptoms could be evaluated. Subjects with no post -baseline 
+assessment will be censored at date of randomization. Also, if globa l health status/QoL, function 
+or symptoms deteriorates, or the subject dies after 2 or more missed PRO assessment visits, the 
+subject will be censored at the time of the last PRO assessment where global health status/QoL, 
+function or symptoms could be eval uated prior to the 2 missed visits.  
+The set  for the analysis of time to deterioration will include a subset of the FAS who have 
+baseline scores of ≥10. The set for the analysis of time to symptom deterioration will consist 
+of a subset of the FAS subjects w ho have a baseline symptom score ≤90. 
+56Statistical Analysis Plan  
+Study Code D419CC00002 
+Edition Number 4.0  
+Date 30JUL2021 
+A dea th withi n 2 PRO assessme nt visi ts, or afte r 2 or more mi ssed PR O assessme nt visi ts will 
+be identified by comparing the visit assigned to the study day of death (relative to first dose 
+date) using visits windows defined in Section 4.1.2 with the assigned PRO assessment visits. 
+The following time to deterioration analyses should be produced: 
+1.Time to global heal th status/QoL deterioration
+2.Time to function deterioration:
+a.Time to physical deterioration
+b.Time to role deterioration
+c.Time to cognitive deterioration
+d.Time to emotional deterioration
+e.Time to social deterioration
+3.Time to symptoms deterioration:
+a.Time to fatig ue deterioration
+b.Time to pain deterioration
+c.Time to nausea/vomiting deterioration
+d.Time to nausea deterioration (single item #14)
+e.Time to dyspnoea deterioration
+f.Time to insomnia deterioration
+g.Time to appetite loss deterioration
+h.Time to constipation deterioration
+i.Time to diarrhoea deterioration
+3.5.1.2  Symptom improvement rate  
+Responses in symptoms for each visit (improvement, deterioration, and no change based on  
+Table  10) as well as the best overall response will be presented by treatment arm. The 
+symptom improvement rate will be defined as the number (%) of subjects with a best overall 
+score response of “improved” in symptoms.  
+The denominator will consi st of a subset of the FAS subjects who have a baseline symptom 
+score ≥10. 
+The following symptom improvement rate analysis should be produced:  
+a)Fatigue improvement rate
+b)Pain improvement rate
+c)Nausea/vomiting improvement rate
+d)Dyspnoea improvement rate
+e)Insomnia  improvement rate
+f)Appetite loss improvement rate
+g)Constipation improvement rate
+h)Diarrhoea improvement rate
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+573.5.1.3  Global health status /QoL or function improvement rate  
+The global health status/QoL or function improvement rate will be defined as the number (%) 
+of subjects with best overall response of “improved” in global health status/QoL or function.  
+The denominator will consist of a subset of the FAS subjects  who have a baseline global 
+health status/QoL or function score ≤90. 
+The following function improvement r ate analysis should be produced:  
+a.Physical improvement rate
+b.Role improvement rate
+c.Cognitive improvement rate
+d.Emotional improvement rate
+e.Social improvement rate
+3.5.2 EORTC QLQ -HCC18  
+The EORTC  QLQ-HCC18  is a  hepatocellular  cancer-specific  module  from  the EORTC 
+comprising 18 questions to assess HCC symptoms.  The module includes 6 multi-item domain 
+scales  and 2 single-item  scales.   For all items  and scales,  high  scores  indicate  increased 
+symptomatology/more problems. 
+The scoring  approach  for the QLQ-HCC18  is identical  in principle  to that  for the symptom 
+scales/single  items  of the EORTC  QLQ-C30.   Similar  to the symptom  scales  of the EORTC 
+QLQ-C30, higher scores represent greater symptom severity.  
+Definition of clin ically meaningful change s – visit response and best overall response 
+Changes in score compared with baseline will be evaluated. A clinically meaningful change is 
+defined as an  absolute change in the score from  baseline of ≥10 for scales/items from QLQ-
+HCC18.  For example, a clinically meaningful deterioration or worsening in pain (as assessed 
+by QLQ-HCC18)  is defined  as an increase  in the  score  from  baseline  of ≥10.  At each 
+postbaseline assessment, the change in symptoms score from baseline will be categorized as 
+improved, no change, or deterioration, as shown in Table 12 . A subject’s best overall response 
+in symptoms will be derived as the best response the subject achieved, based on evaluable 
+PRO data collected during the study period. The criteria in Table 12 will be used to assign 
+a best response in symptom score. 
+Table 12 Visit response for HRQoL and disease -related symptoms 
+Score  Change from baseline  Visit response  
+QLQ -HCC18 symptom scales 
+and items  ≥+10 (increase of at least 10) 
+or “Subject too sick to complete 
+the questionnaires (disease 
+under investigation)”  Deterioration  
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+58Score  Change from baseline  Visit response  
+≥-10 (decrease of at least 10) Improved  
+Otherwise  No change  
+HRQoL    Health -related quality of life; QLQ -HCC18    18-item HCC quality of life questionnaire.  
+3.5.2.1  Time to symptom deterioration  
+For each of the symptom scales/items in the QLQ-HCC18, time to symptom deterioration will 
+be defined  as the time  from  randomization  until  the date  of the first  clinically  meaningful 
+symptom deterioration that is confirmed at a subsequent visit (except if it was the subject’s last 
+available assessment) or death (by any cause) in the absence of a clinically meaningful symptom 
+deterioration, regardless of whether the subject discontinues study drug(s) or receives another 
+anticancer  therapy  prior  to symptom  deterioration.  Only  deaths  occurring  within  2 PRO 
+assessment visits from the last available PRO assessment will be included as events. 
+Subjects  whose  symptoms  (as measured  by the QLQ-HCC18)  have  not shown a  clinically 
+meaningful  deterioration  and who are  alive  at the time of the analysis  will be censored  at the 
+time of their  last PRO  assessment  where  the symptom  could  be evaluated.  Subjects  with no 
+post-baseline assessment will be censored at date of randomization. Also, if symptoms progress 
+or the subject dies after 2 or more missed PRO assessment visits, the subject will be censored 
+at the time  of the last PRO  assessment  where  the symptom  could  be evaluated  prior  to the 2 
+missed visits. 
+The set for the analysis of time to sympt om deteriorati on will include a subse t of the F AS who 
+have baseline scores ≤90.  
+A death within 2 PRO assessment visits, or after 2 or more missed PRO assessment visits will 
+be identified by comparing the visit assigned to the study day of death (relative to the first 
+dose date) using visits windows defined in Section 4.1.2 with the assigned PRO assessment 
+visits. 
+Time to deterioration analyses should be produced for the following EORTC QLQ-HCC18 
+subscales and items: 
+1.Muscle loss (single item #33)
+2.Abdominal swelling (single item #34)
+3.Shoulder pain (single item #38)
+4.Abdominal pain (single item #39)
+5.Early satiety (full up too quickly) (single item #43)
+6.Weight loss (single item #44)
+7.Jaundice
+8.Pain
+9.Nutrition
+10.Fatigue
+11.Fever
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+593.5.2.2  Symptom improvement rate  
+Responses in symptoms for each visit (improvement, deterioration, and no change based 
+on Table 10) as well as the best overall response will be presented by treatment arm. The 
+symptom improvement rate will be defined as the number (%) of subjects with a best 
+overall score response of “improved” in symptoms.  
+The denomina tor will consi st of a subset of the F AS subjec ts who have a baseline symptom 
+score ≥10. 
+The following symptom improvement ra te analysis should be produced: 
+1.Muscle loss (single item #33)
+2.Abdominal swelling (single item #34)
+3.Shoulder pain (single item #38)
+4.Abdominal pain (single item #39)
+5.Early satiety (full up t oo quickly) (single item #43)
+6.Weight loss (single item #44)
+7.Jaundice
+8.Pain
+9.Nutrition
+10.Fatigue
+11.Fever
+3.5.3 
+3.5.4 
+CCI
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+603.5.5 
+3.5.6 Compliance  
+Summary measures of overall compliance and compliance over time will be derived for each 
+PRO, res pectively.  These will be based upon:  
+Received questionnaire = a questionnaire that has been received and has a completion
+date and at least one individual item completed.
+Expected questionnaire =  a questionnaire that is expected to be completed at a sched uled
+assessment time e.g. a questionnaire from a subject who has not withdrawn from the
+study at the scheduled assessment time but excluding subjects in countries with no
+available translation  as well as subjects who are unable to read the questionnaire (e g,
+subject is blind or illiterate) . For subjects that have progressed, the latest of progression
+and safety follow -up will be used to assess whether the subject is still under PRO follow -
+up at the specified assessment time.   Date of study discontinuation w ill be mapped to
+the nearest visit date to define the number of expected forms.
+Evaluable questionnaire = a questionnaire with a completion date and at least one
+subscale that is non -missing.
+Overall PRO compliance rate is defined as: Total number of evalu able questionnaires
+across all time points, divided by total number of questionnaires expected to be received
+across all time points multiplied by 100.
+Overall subject compliance rate is defined for each��     zed treatment group as: Total
+number of subje cts with an evaluable baseline and at least one evaluable follow -up
+questionnaire (as defined above), divided by the total number of subjects expected to
+have completed at least a baseline questionnaire multiplied by 100.
+Compliance over time will be calc ulated separately for each visit, including baseline, as the 
+number of subjects with an evaluable questionnaire at the time point (as defined above), divided 
+by number of subjects still expected to complete questionnaires. Similarly, the evaluability rate 
+over time will be calculated separately for each visit, including baseline, as the number of 
+evaluable questionnaires (per definition above), divided by the number of received 
+questionnaires.  
+3.6 
+CCI
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+613.7 Safety Variables  
+Safety  and tolerability  will be assessed  in terms  of AEs  (including  SAEs),  deaths,  laboratory 
+data,  vital signs,  ECGs, physical  examination,  exposure,  dose  intensity,  ECOG  performance 
+status and Child-Pugh score.  These will be collected for all subjects.  Data from all cycles of 
+treatment will be combined in the presentation of safety data. 
+“On treatment” will be defined as assessments between date of start dose and 90 days following 
+the date of the last dose  of study  drug(s) (i.e., the last dose of durvalumab, tremelimumab, or 
+sorafenib) (including re-treatment), or up to the date of initiation of the first subsequent therapy 
+(whichever  occurs  first).  This definition  applies  to all  safety  reporting,  unless  otherwise 
+specified. 
+For AEs, on treatment (or treatment-emergent AEs) will be defined as any AEs with an onset 
+date on or after the date of first dose or pre-treatment AEs that increase in severity on or after 
+the date of first dose and up to and including 90 days following the date of  last dose of study 
+drug(s) (i.e., the last dose of durvalumab, tremelimumab, or sorafenib) (including re-treatment), 
+or up to the date of initiation of the first subsequent therapy (whichever occurs first). 
+3.7.1 General considerations 
+Safety and tolerability data will be presented by treatment arm using the safety analysis set. 
+All summary statistics by visit tables (actual and change from baseline) should use windows 
+defined in Section 4.1.2. 
+Missing  safety  data will generally  not be  imputed.  However,  safety  assessment  values  of the 
+form of “< x” (i.e. below the lower limit of quantification) or > x (i.e. above the upper limit of  
+quantification) will be imputed as “x” in the calculation of summary statistics but displayed as 
+“< x” or “>  x” in the listings.  Note  that 0 should not  be used as an imputed  value in  case the 
+endpoint requires a log transformation. Additionally, adverse events that have missing causality 
+(after data querying) will be assumed to be related to study drug. 
+The denomina tor use d in laboratory summarie s will only include evaluable subjec ts, i.e., those 
+who had sufficient data to have the possibility of an abnormality. 
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+62For example:  
+ If a CTCAE criterion involves a change from baseline, evaluable subjects would have
+both a predose and at least 1 postdose value recorded.
+ If a CTCAE criterion does not consider changes from baseline to be evaluable, the
+subject need on ly have 1 postdose value recorded.
+For handling missing and incomplete dates the following rules should be followed:  
+For missing diagnostic dates, if day and/or month are missing use 01 and/or Jan. If year is
+missing, put the complete date to missing.
+For missing start AE/medication dates, the following will be applied:
+oMissing day - Impute the 1st of the month unless month is same as month of first
+dose of study drug then impute first dose date.
+oMissing day and month – impute 1st January unless year is the  same as first dose
+date then impute first dose date.
+oCompletely missing – impute first dose date unless the end date suggests it could
+have started prior to this in which case impute the 1st January of the same year
+as the end date.
+oWhen imputing a start date ensure that the new imputed date is sensible i.e. is
+prior to the end date of the AE or med.
+For missing end AE/medication dates, the following will be applied:
+oMissing day - Impute the last day of the month unless month is the same as month
+of the fi rst dose of study drug then impute last dose date.
+oMissing day and month – impute 31st December unless year is the same as first
+dose date then impute last dose date.
+For completely missing AE stop dates, if the subject has died and the AE stop date is missing, 
+then the stop date of the AE will be imputed as the death date.  End dates will not be imputed 
+for concomitant medications with a start date after the last dose date.  
+For immune -mediated adverse event summaries, an AE with outcome of unknown will be 
+imputed as not resolved.  
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+633.7.2 Adverse events  
+Definitions of Adverse Events (AEs) and serious adverse events (SAEs) can be found in the 
+study protocol Section 6.1 and 6.2. The Medical Dictionary for Regulatory Activities 
+(MedDRA) (using the latest or current MedDRA version) will be used to code the AEs.  AEs 
+will be graded according to the National Cancer Institute Common Terminology Criteria for 
+AEs (using the CTCAE version  referenced in the Clinical Study Protocol).  
+TEAEs will be used for summary tables. A separate data listing of AEs occurring more than 90 
+days after discontinuation of study drug(s) will be produced.  These events will not be included 
+in AE summaries.  
+3.7.2.1  AEs of special interest and AEs of possible interest 
+An AstraZeneca medically qualified expert, after consultation with the Global Patient Safety 
+Physician, has reviewed the AEs of special interest and AEs of possible interest and identified 
+which preferred terms contribute to each adverse events of special interest (AESI) and adverse 
+events of possible interest (AEPI), the list can be found in Section 6.5 in the CSP. A further 
+review will take place prior to database lock to ensure new terms not already incl uded in the 
+older MedDRA version are captured within the categories for the new higher MedDRA version. 
+The list will be provided by AZ prior to database lock.   
+AEs of special interest will be summarized by treatment group.  
+3.7.2.2  Other significant adverse events  
+During the evaluation of the AE data, an AstraZeneca medically qualified expert will review 
+the list of AEs that were not reported as SAEs and AEs leading to discontinuation.  Based on 
+the expert’s judgment, significant AEs of particular clinical importanc e may, after consultation 
+with the Global Patient Safety Physician, be considered other significant AEs (OAEs) and 
+reported as such in the CSR, for example other significant AEs based on a subset of PTs from 
+the Hepatic SMQ and Haemorrhages SMQ. A similar review of laboratory, vital signs, and ECG 
+data will be performed for identification of OAEs.   
+Examples of these are marked hematological and other laboratory abnormalities, and certain 
+events that lead to intervention (other than those already classified  as serious) or significant 
+additional treatment.  
+3.7.3 Treatment exposure  
+Exposure to study drug(s), time on study, treatment durations, number of infusions/doses 
+received, dose delays(all arms), infusion interruptions (Arms A, B, and C), treatment cycles 
+received (Arms A, B, and C) and dose reductions (sorafenib  arm) will also be 
+summarized . 
+Exposure will be defined as follows.  
+Total (or intended) exposure of study medication:  
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+64Total (or intended) durvalumab exposure = min(last durvalumab dose date where
+dose>0 + 27 days, date of death, date of DCO) – first dose date +1
+Total (or intended) tremelimumab exposure = min(last tremelimumab dose date where
+dose>0 + 27 days, date of death, date of DCO) – first dose date +1
+Total (or intended) durvalumab and  tremelimumab exposure = min(max(last
+durvalumab or tremelimumab dose date where dose>0) + 27 days, date of death, date of
+DCO) – first dose date +1
+Total (or intended) sorafenib exposure = min(last sorafenib dose date where dose>0,
+date of death, date of DCO) – first dose date +1
+Actual exposure:  
+Actual exposure = intended exposure – total duration of dose delays/interruptions, where
+intended exposure will be calculated as above, and a dose interruption is defined as any
+length of time where the subject has not taken any of the planned daily dose.
+The actual exposure calculation makes no adjustment for any dose reductions that may have 
+occurred.  
+Infusion interruptions (Arms A, B, and C)  
+For durvalumab and tremelimumab, a dose interruption is an infusion i nterruption that occurs 
+during the infusion. To count as an infusion interruption, the total dose received must be >0. 
+The drug can be restarted after the interruption and so it is possible for an infusion interruption 
+to occur and the whole dose to be adm inistered. If the same infusion was interrupted multiple 
+times, then this would just be captured as one infusion interruption. For Arms B and C, the 
+number of subjects with infusion interruption(s) of durvalumab and tremelimumab will be 
+summarized separate ly, along with the number of subjects with infusion interruption(s) of either 
+drug.  
+Number of infusions and doses  
+Number of infusions and number of cycles of durvalumab and tremelimumab: 
+Exposure will also be summarized by the number of infusions recei ved. Cycles of treatment 
+with durvalumab or tremelimumab are of 28 days duration with a  of each 
+cycle. If a cycle is prolonged due to toxicity, this should be counted as one cycle. A cycle will 
+be counted if treatment is started even i f the full dose is not delivered.  
+Number of doses of sorafenib: 
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+65Exposure will also be summarized by the number of doses received. Sorfaenib is administered 
+ The number of doses received will be determined the number of days a dose 
+was adm inistered.  
+Dose delays  
+A treatment cycle is started when >0 dose of durvalumab  or tremelimumab  is administered. 
+As such, a dose delay for durvalumab  or tremelimumab  occurs when the start of a cycle is 
+started at a later date than planned.  
+Durvalumab and tremelimumab  
+Since subject will receive drug via IV infusions  until confirmed PD the 
+duration of dose delays will be calculated as:  
+Total duration of dose delays= Sum of (Date of the dose start - Date of previous dose end – 28 
+days)  
+For Arm C, since dosing of tremelimumab only occurs on  dose delays will be 
+summarized for Durvalumab only.  
+Sorafenib  
+Since subject will receive drug  until confirmed PD the duration of dose 
+delays will be calculated as:  
+Total duration of dose delays= Sum of (Date of the dose start - Date of previous dose end – 1 
+day)  
+Dose reduction  
+For sorafenib, a dose reduction is counted once for each time the dose is reduced . 
+Time on Study   
+Time on study should be defined for all treatmen t arms as follows:  
+time on study = (death date or data cut off or date of study withdrawal, whichever 
+occurs earlier - randomization date + 1) / (365.25/12).Total exposure, actual exposure and 
+time on study expressed in months will be summarized in table s. The duration in months will 
+be calculated as follows:  
+Duration in days / (365.25/12)
+Exposure should be calculated separately for the following three segments: initial
+phase, re -challenge phase, total study. For Durvalumab monotherapy and Sorafenib
+arms the initial phase and total study will be the same. For combination therapy arms,
+the initial phase includes data before re -challenge, and the re -challenge phase includes
+CCI
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+66data from re -challenge onwards. The total study period includes all data from initial 
+and re -challenge phase.  
+3.7.4 Dose intensity  
+Relative dose intensity (RDI) is the percentag e of the actual dose delivered relative to the 
+intended dose through to treatment discontinuation. It should be calculated for each study drug 
+separately.  
+RDI will be defined as follows:  
+RDI = 100% * d/D, where d is the actual cumulative dose delivered up  the actual last
+day of dosing and D is the intended cumulative dose (mg) up to the actual last day of
+dosing. D is the total dose (mg) that would be delivered, if there were no modification
+to dose or schedule.
+Intended cumulative dose will be calculated  as follows:  
+For durvalumab/tremelimumab: number of cycles received * intended dose per cycle;
+For sorafenib: (min(last Sorafenib dose date where dose>0, date of death, date of DCO)
+–first dose date +1 ) * intended daily dose.
+Intended dose during treatme nt (excluding rechallenge period) will be assigned as follows:  
+ Arm A:  Durvalumab (i f a subject ’s weight decreases to ≤30 kg, the subject 
+should receive weight -based dosing of durvalumab 
+ Arm B:  Durvalumab,  Tremelimumab (if a subject’s weight 
+decreases to 30  kg or below (≤30 kg), the subject should receive weight -based dosing of 
+durvalumab  and tremelimumab 
+ Arm C:  Durvalumab,  Tremelimumab ( if a subject’s weight decreases 
+to 30  kg or below ( ≤30 kg), the subject should receive weight -based dosing of 
+durvalumab  and tremelimumab 
+Arm D:  Sorafenib.  
+Intended dose during rechallenge period will be assigned as follows:  
+ Arm A:  Durvalumab (if a subject’s weight decreases to ≤30 kg, the subject 
+should receive weight -based dosing of durvalumab 
+ Arm B:  Durvalumab, subject can be rechallenged with either Tremelimumab 
+ so intended Trem elimumab dose will be  based on actual 
+dosing (if a subject’s weight decreases to 30  kg or below (≤30 kg), the subject should 
+receive weight -based dosing of durvalumab  and tremelimumab 
+ Arm C:  Durvalumab,  Tremelimu mab ( if a subject’s weight decreases 
+to 30  kg or below (≤30  kg), the subject should receive weight -based dosing of 
+durvalumab  and tremelimumab 
+ Arm D:  Sorafenib.  
+Details of weight -based dosing calculations are provided in CSP Appendix F and G.  
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+67Statistical Analysis Plan  
+Study Code D419CC00002 
+Edition Number 4.0  
+Date 30JUL2021 
+3.7.5 Laboratory data 
+On-treatment laboratory data will be used for summaries. 
+Laboratory data will be collected throughout the study, from screening to the follow-up visits 
+as described in Tables 2, 3, 4 and 5 of the CSP. Blood and urine samples for determination of 
+haematology, clinical chemistry, and urinalysis will be collected as described in Section 5.2.1 
+of the CSP.  For derivation of baseline and post baseline visit values considering visit window 
+and how to handle multiple records, derivation rules as described in Section 4.1.2  will be used. 
+Change  from  baseline  in haematology  and clinical  chemistry  variables  will  be calculated  for 
+each post-dose visit on treatment. CTC grades will be defined at each visit according to the CTC 
+grade  criteria  using  local  or project  ranges  as required,  after conversion  of lab result  to 
+corresponding SI units. The following parameters have CTC grades defined for both high and 
+low values: Potassium, Sodium, Magnesium, Glucose and Corrected calcium, so high and low 
+CTC grades will be calculated. 
+Correc ted Ca lcium will be derive d during creati on of the reporting database using the following 
+formulas: 
+Correc ted calcium (mmol/L) = Total calcium (mmol/L) + ([ 40 – Albumin (g/L)] x 0.02) 
+Absolute values will be compared to the projec t reference range and clas sified a s low (below 
+range), normal (within range or on limits of range) and hig h (above range). 
+The maximum or minimum on treatment value (depending on the direction of an adverse effect) 
+will be defined for each laboratory parameter as the maximum (or minimum) post-dose value 
+at any time. 
+For example: 
+If a CTCAE criterion involves a change from baseline, evaluable subjects would have
+both a pre -dose and at least 1 post -dose value recorded.
+If a CTCAE criterion does not consider changes from baseline, to be evaluable the
+subject needs only to have 1 post dose -value recorded.
+3.7.6 ECGs  
+On-treatment ECG da ta will be used for summaries. 
+For the derivation of post baseline visit values considering visit window and to handle 
+multiple records present in any visit window, derivation rules as described in Section 4.1.2 
+will be used. 
+At each time point the Investigator’s assessment of the ECG will be collected locally. 
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+68For triplicate ECGs, the mean of the th ree ECG assessments will be used to determine the value 
+at that time point.  
+QTcF  (QT interval corrected for using Fridericia’s formula) will be derived during creation of 
+the reporting database using the reported ECG values (RR and QT) using the following formula:  
+QTcF = QT/RR(1/3) where RR is in seconds  
+3.7.7 Vital signs  
+On-treatment vital signs data will be used for summaries. Change from baseline in vital signs 
+variables will be calculated for each post-dose visit on treatment. For derivation of post baseline 
+visit values considering visit window and to handle multiple records, derivation rules as 
+described in Section 4.1.2 will be used.  
+3.7.8 ECOG performance  status  
+Performance status as determined by the ECOG Scale will be recorded in the eCRF as per the 
+schedules defined in CSP and will be summarized by visit.  
+3.7.9 Child -Pugh score  
+Cirrhosis severity, as determined by the Child-Pugh score (Pugh et al 1973), will be recorded 
+in the eCRF as specifie d in the assessment schedules (see Table 2, Table 3, and Table 4 of 
+CSP). The modi fied Child-Pugh classification of liver disea se severity according to the degree 
+of ascites, serum concentrations of bilirubin and albumin, prothrombin time, and degree of 
+encephalopathy is shown in Table 9 of CSP. The severity of cirrhosis is classified as follows: 
+Child -Pugh class A (well -compensated disease): score of 5 to 6
+Child -Pugh class B (significant functional compromise): score of  7 to 9
+Child -Pugh class C (decompensated disease): score of 10 to 15
+Child -Pugh classification and the total score will be summarized by visit.  
+3.7.10  Physical examinations  
+Physical examinations will be performed according to the schedule of assessments (see Tab les 
+2,3 and 4 of CSP). Full physical examinations will include assessments of the head, eyes, ears, 
+nose, and throat and the respiratory, cardiovascular, GI, urogenital, musculoskeletal, 
+neurological, dermatological, hematologic/lymphatic, and endocrine sy stems. Results of these 
+measurements will not be collected in eCRF. Height will be measured at screening only.  
+3.7.11  Other safety assessments  
+If new or worsening pulmonary symptoms (e.g., dyspnea) or radiological abnormality 
+suggestive of pneumonitis/ILD is obse rved, toxicity management will be applied and all related 
+safety data will be listed.  
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+693.7.12  Prior and concomitant medications  
+All allowed medications (other than study drugs) with non -zero dose should be classified as 
+prior and/or concomitant medications. In cas e both medication start and stop dates are available 
+and complete, prior and concomitant medications will be defined as follows:  
+Prior medication – any allowed medication with medication stop date before first study
+drug intake.
+Concomitant medication – any allowed medication with medication start date on or after
+first study drug intake date, and on or before last study drug intake date.
+For all incomplete medication start and stop dates, worst case scenarios will be applied, like 
+below:  
+If both medicati on start and stop date are missing, the medication will be counted as
+both prior and concomitant medication.
+In case a medication started prior to first drug intake and no medication stop date is
+available (treatment is ongoing or stop date is missing), it  will be counted as both prior
+and concomitant medication.
+If medication start date is incomplete and it cannot be determined if the medication
+started before or after first study drug intake (e.g. only year is available in medication
+start date, and it is  equal to the year of first study drug intake), the medication will be
+counted as both prior and concomitant medication.
+If medication start date is incomplete and it cannot be determined if the medication
+started before or after last study drug intake (e. g. only year is available in medication
+start date, and it is equal to the year of last study drug intake), the medication will be
+counted as concomitant medication.
+An AstraZeneca medically qualified expert will review medications received by subjects 
+during the study to identify disallowed medications, which will be summarized in a separate 
+table.  A separate summary table will be produced for concomitant medications which began 
+prior to randomization.  
+3.8 Pharmacokinetic variables  
+3.8.1.1  Population pharmacokinetic s and exposure -response/safety analysis  
+A population PK model will be developed using a non -linear, mixed -effects modelling 
+approach.  The impact of physiologically relevant subject characteristics (covariates) and 
+disease on PK will be evaluated.  The rel ationship between the PK exposure and the effect on 
+safety and efficacy endpoints will be evaluated.  The results of such an analysis will be reported 
+in a separate report. 
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+703.8.1.2  Pharmacokinetic non -compartmental analysis  
+Serum concentration of durvalumab and tremelimumab will be listed and summarized by 
+descriptive statistics. Individual and mean (SD) serum concentration -time profiles will be 
+generated.  Non -compartmental analysis will not be conducted due to sparse sampling scheme.  
+Samples below the lower limit of quantification will be reported as NQ (Not Quantifiable) in 
+the descriptive statistics  (see details in section 4.2.8) . 
+3.9 Immunogenicity analysis  
+Serum samples for ADA assessments will be conducted utilizing a tiered approach (screen, 
+confirm, titer), and ADA data will be collected at scheduled visits shown in the CSP. A DA 
+result from each sample will be reported as either positive or negative. If the sample is positive, 
+the ADA titer will be reported as well. In addition, the presence of neutralizing antibody (nAb) 
+will be tested for all ADA positive samples using a liga nd-binding assay. The nAb results will 
+be reported as positive or negative. A subject is defined as being ADA -positive if a positive 
+ADA result is available at any time, including baseline and all post -baseline measurements; 
+other ADA negative.  
+The number of ADA evaluable subjects in the following ADA categories in each of the 
+treatment group will be determined:  
+ADA positive at any visit, at baseline and/or post -baseline;
+ADA positive post -baseline and positive at baseline;
+ADA positive post -baseline and no t detected at baseline (treatment -induced ADA);
+ADA not detected post -baseline and positive at baseline;
+Baseline ADA titer  that was boosted by ≥4-fold following drug administration
+(treatment -boosted ADA) ;
+Treatment -emergent ADA positive, defined as the s um of treatment -induced ADA and
+treatment -boosted ADA;
+Persistently positive ADA, defined as having at least 2 post -baseline ADA positive
+measurements with at least 16 weeks (112 days) between the first and last positive
+measurements, or an ADA positive result at the last available assessment;
+Transiently positive ADA, defined as having at least one post -baseline ADA positive
+measurement and not fulfilling the conditions for persistently positive;
+nAb positive at any visit (at baseline and/or post -baselin e).
+3.10 
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+713.11 Biomarker variables  
+PL-L1 expression, as defined in the secondary objectives, will be assessed for evaluable subjects 
+in each cohort according to prespecified criteria.  
+4. ANALYSIS METHODS
+The formal statistical analysis of OS will be performed for the following efficacy test 
+hypotheses (alternative hypotheses):  
+H1: Difference between durvalumab  plus tremelimumab  (Arm 
+C) and sorafenib  (Arm D)  
+H2: Durvalumab  monotherapy (Arm A) not inferior to sorafenib 
+(Arm D) with noninferio rity margin of 1.08  
+H3: Difference between durvalumab  monotherapy (Arm A) and sorafenib 
+ (Arm D)  
+Table  13 details which endpoints are to be analysed, together with pre-planned sensitivity 
+analyses indicating whic h analysis is regarded a s primary for that endpoint.   
+Table 13 Formal Statistical Analyses to be Conducted and Pre -planned Sensitivity 
+Analyses  
+Endpoi nt Analysis  
+Overall survival (OS)  Primary analysis: Stratified log -rank test (for p -value), 
+HR from Cox model (with 95% CI)  
+Sensitivity analyses: 
+-Attrition bias. Kaplan -Meier plot of
+time-to-censoring where the censoring indicator
+of the primary analysis  is reversed.
+- 
+- Impact of COVID19. OS analysis will be 
+repeated but subjects who died from COVID -19 
+Infection will be censored at their COVID 
+infection death date.  
+Progression Free Survival (PFS)  Primary analysis: Stratified log -rank test using 
+Investigator assessments per RECIST 1.1 (for p -value),  
+HR from Cox model (with 95% CI)  
+Time to progression (TTP)  Primary analysis: Stratified log -rank test using 
+Investigator assessments per RECIST 1.1 (for p -value), 
+HR from  Cox model (with 95% CI)  
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+72Endpoi nt Analysis  
+Objective response rate (ORR)  IA1: Exact confidence intervals;  
+IA2 and FA: Logistic regression using Investigator 
+assessments per RECIST 1.1 (odds ratio with 95% CI 
+and p -value)  
+Best Objective Response (BoR)  Descriptive statistic s 
+Duration of response (DoR)  Descriptive statistics including KM plot  
+Disease control rate (DCR,  DCR -16w, 
+DCR -24w) Descriptive statistics  
+Proportion of subjects alive at 18m (OS18)  KM estimates of OS at 18  months  
+Proportion of subjects alive at 24m (OS24)  KM estimates of OS at 24  months  
+Proportion of subjects alive at 36m (OS36)  KM estimates of OS at 36  months  
+Stratified chi-square test of difference in KM estimators  
+at a fixed time point  (36 months) (for p -value)  
+Time to deterioration (EORTC QLQ -C30 
+and EORTC QLQ -HCC18)  Stratified log -rank test (for p -value), HR from Cox 
+model (with 95% CI), KM plot  
+EORTC QLQ -C30, EORTC QLQ -HCC18  Average change from baseline using an MMRM 
+analysis, Summary statistics  
+Improvement based best overall response 
+(EORTC QLQ -C30, EORTC QLQ -
+HCC18)  Logistic regression with odds ratio, 95% CI and p -value  
+EORTC    European Organisation for Research and Treatment of Cancer; 
+ MMRM  Mixed effect model repeat measurement; OS  overall survival; 
+QLQ -C30   30-item core quality o f life questionnaire; QLQ -HCC18    18-item hepatocellular cancer health -
+related quality of life questionnaire.  
+4.1 General principles  
+Descriptive statistics will be used for all variables, as appropriate, and will be presented by 
+treatment arm.  Continuous var iables will be summarized by the number of observations, mean, 
+standard deviation, median, minimum, and maximum.  Categorical variables will be 
+summarized by frequency counts and percentages for each category.  Unless otherwise stated, 
+percentages will be calculated out of the total for the corresponding treatment arm.  
+Efficacy data will be analysed on the basis of randomized study drug(s), regardless of the study 
+drug(s) actually received. Safety data will be analysed based on the study drug(s) actually 
+received.  
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+73Efficacy data for Arm B, which was closed for enrollment with protocol Amendment 4, will be 
+summarized descriptively, however will not be formally analyzed. All other Arm B data will be 
+summarized like for the other treatment arms.  
+All formal analysis will be limited to the three continuing arms of the study (Arm A, C, D). Arm 
+B will be summarized for descriptive purposes in all efficacy and safety tables.  
+At each analysis timepoint only data until the corresponding DCO is included in analyses.  
+The following study data will be listed:  
+Discontinued subjects
+Subjects with Important Protocol Deviations
+Subjects excluded from the safety analysis
+Demographic and baseline characteristics
+Administration of durvalumab
+Administration of trem elimumab
+Administration of sorafenib
+List of lesion assessments based on Investigator Response
+Efficacy endpoints
+Deaths
+Adverse Events with outcome of death
+Serious Adverse Events
+Adverse Events
+Individual laboratory assessments
+Efficacy,  PRO, pharmacogenetic  and biomarker  data will  be summarized  and analysed  based 
+on FAS (ITT).  PK data will be summarized and analysed based on the PK analysis set.  Safety 
+data will be summarized  on the safety  analysis  set. Listings  of immunogenicity  data  will be 
+based on the safety analysis set, and summaries will be based on ADA evaluable set. 
+Results of all statistical analysis will be presented using a 95% CI and 2-sided p-value, unless 
+otherwise stated. Refer to Section 4.2.1 for example adjusted significance levels at IA2 and 
+FA. 
+Where included in the analyses stratification variables will be taken from those reported 
+via IWRS at randomization. For subgroup analyses, stratification factor values collected in 
+eCRF will be used to define subgroups.  
+Time-t o-event efficacy endpoints (OS, PFS, etc.) will be calculated in days. In the analysis 
+and when interpreted they will be expressed in months.  
+Whenever required in the analysis, the conversion from days to months will be done by 
+dividing the values in days by 30.4375 (365.25/12). The conversion from weeks to days will 
+be done by multiplying the values in weeks by 7 (value in weeks * 7 = value in days). 
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+74Overall totals will be calculated for baseline summaries only. For continuous data, the mean 
+and median will be rounded t o 1 additional decimal place compared to the original data.  The 
+standard deviation will be rounded to 2 additional decimal places compared to the original data.  
+Minimum and maximum will be displayed with the same accuracy as the original data. For 
+catego rical data, percentages will be rounded to 1 decimal place. P -values should be displayed 
+with 4 decimal places, confidence intervals with the same precision as the corresponding 
+statistic, and all ratios with 1 decimal place.  
+Each time when the formal anal ysis between the two treatment arms will be performed (e.g. to 
+produce HR), only data for these arms should be included when running the statistical 
+procedure. Generate MMRM estimates for only visits where scores for at least 25% of subjects 
+in both treatm ent arms are available for analysis.  
+4.1.1 Baseline  
+In general, for efficacy the last observed measurement prior to randomization (before or on 
+randomization date) will be considered the baseline measurement. For safety and PRO 
+endpoints the last observation before the first dose of study treatment will be considered the 
+baseline measurement unless otherwise specified (compare both date and time if possible). For 
+assessments on the day of first dose where time is not captured, a nominal pre -dose indicator, if 
+available, will serve as sufficient evidence that the assessment occurred prior to first dose. 
+Assessments on the day of the first dose where neither time nor a nominal pre -dose indicator 
+are captured will be considered prior to the first dose if such proc edures are required by the 
+protocol to be conducted before the first dose (see Table 2 and 3 of CSP).  
+If two assessments are equally eligible to assess subject status at baseline (e.g., screening and 
+baseline assessments both on the same date prior to first dose with no washout or other 
+intervention in the screening period), the average should be taken as a baseline value. For non -
+numeric laboratory tests (i.e. some of the urinalysis parameters) where taking an average is not 
+possible then the best value would be taken as baseline as this is the most conservative. In the 
+scenario where there are two assessm ents on day 1, one with time recorded and the other without 
+time recorded, the one with time recorded would be selected as baseline.  
+In all summaries change from baseline variables will be calculated as the post -treatment value 
+minus the value at baseline . 
+4.1.2 Visit windows for safety and PRO assessment  
+Time windows will need defining for any presentations that summarise safety or PRO data 
+values by visit. The following conventions should also apply:  
+The time windows should be exhaustive so that data recorded at any time point has the
+potential to be summarized. Inclusion within the time window should be based on the actual
+date and not the intended date of the visit.
+All unscheduled visit data should have the potential to be included in the summaries.
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+75The wind ow for the visits following baseline will be constructed in such a way that the upper
+limit of the interval falls half way between the two visits (the lower limit of the first post -
+baseline visit will be Day 2.  If an even number of days exists between two  consecutive
+visits, then the upper limit will be taken as the midpoint value minus 1 day.
+Visit windows will be defined as follows in the study:  
+Screening, visit window (D -28, D -1)
+Baseline, visit window Low -D1
+Day 29 (4*7+1), visits window D2 -D43
+Day 57 (8*7+1), visit window D44 -D71
+Day 85 (12*7+1), visit window D72 -D99
+Day 113 (16*7+1), visit window D100 -D127
+… (and continued every 4 weeks until last dose of study treatment + 90 days)
+Listings will display all values contributing to a time point for  a subject. Post treatment 
+discontinuation follow up visits may also be summarized when available.   
+If there is more than one value per subject within a time window then the closest value to the 
+scheduled visit date should be summarised, or the earlier, in the event the values are equidistant 
+from the nominal visit date (date when visit occurred). The listings should highlight the value 
+for the subject that contributed to the summary table, wherever feasible.  
+For summaries at a subject level, all values should be included, regardless of whether they 
+appear in a corresponding visit based summary, when deriving a subject level statistic such as 
+a maximum.  
+4.1.3 Study day will be calculated in relation to date of first treatment. Visit 
+Windows for PK and ADA  
+Time  windows for PK and ADA will use the same conventions defined in Section 4.1.2. Time 
+windows will be defined as follows for presentations that summarise PK values by visit :  
+For Arms A and B: 
+Baseline, Cycle 1: visit window Low -D1
+Post-baseline assessment s during treatment including post -dose
+assessments on day 1:
+ C2-Day 29 (4*7+1), visits window   D1 - D57;  
+ C4-Day 85 (12*7+1), visit window   D58 - last exposure to treatment 
++ 90 days;
+For Arm C: 
+ Durvalumab PK:  
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+76Baselin e, Cycle 1: visit window Low -D1
+Post-baseline assessments during treatment including post -dose
+assessments on day 1:
+ C2-Day 29 (4*7+1), visits window D1 - D57  
+ C4-Day 85 (12*7+1), visit window D58 - last exposure to treatment + 
+90 days; 
+Tremelimumab:  
+Baseline, Cycle 1: visit window Low -D1
+Post-baseline assessments during treatment including post -dose
+assessments on day 1:
+ C2-Day 29 (4*7+1), visits window D1 - last exposure to treatment + 90 
+days;  
+Time windows will be defined as follows for presentations that summarise ADA values by visit. 
+For all treatment arms:  
+Baseline, Cycle 1: visit window Low -D1
+Post-baseline assessments during treatment including post -dose
+assessments on day 1:
+C4-Day 85 visits window: D1 - last exposure to treatment + 90 days
+4.2 Analysis methods  
+4.2.1 Multiplicity  
+Two interim analyses and a final analysis are planned as described in Section 5. 
+To strongly control the familywise error rate (FWER) at the 5% level (2 -sided), an alpha level 
+of 0.1% will be spent on the interim ORR analysis (IA1) while the remaining 4.9% alpha level 
+will be spent on all OS analyses.  The primary o bjective of OS will be tested (H1: Arm C vs. 
+Arm D) with 4.9% for this comparison.  
+Since two analyses of OS are planned (Interim Analysis, Final Analysis), the Lan DeMets 
+approach (Lan and DeMets 1983) that approximates the O’Brien and Fleming spending fu nction 
+77Statistical Analysis Plan  
+Study Code D419CC00002 
+Edition Number 4.0  
+Date 30JUL2021 
+will be use d to maintain an overall 2- sided 4.9% type I erro r across the two planne d analyse s of 
+OS (Interim a nd Final) for the prima ry comparison (H1: Arm C vs. Arm D)   
+If 78%  of the target  OS events  for H1 (i.e.  404/515) are  available  at the time  of the interim 
+analysis,  the 2-sided  significance  levels  to be  applied  for the interim  and final  OS analyses 
+would be 0.0222 and 0.0425, respectively. 
+If the primary comparison (H1: Arm C vs. Arm D) is statistically significant in the OS analyses 
+at IA2 or FA, then the 4.9% alpha will be recycled to H2 across IA2 and FA. Otherwise neither 
+H2 nor H3 will  be tested.  In case the primary  comparison  (H1: Arm C vs. Arm  D) is not 
+statistically significant at IA2, however significance is achieved at FA, then H2 will be tested 
+at FA only. If non-inferiority is achieved in H2 testing at IA2 or FA, then the 4.9% alpha will 
+be recycled to testing H3 at IA2 or FA respectively. Otherwise H3 will not be tested.  
+If 81%  of the target  OS events  for H2 and  H3 (ie.  453/560) are  available  at the time  of the 
+interim  analysis,  the 2-sided  significance  levels  to be  applied  for the interim  and final  OS 
+analyses  for H2 and  H3 will be 0.0248 and  0.0418  respectively;  these  alpha  levels  will  be 
+applied to the calculation of the confidence interval for the non-inferiority test for H2 so that a 
+97.52% and 95.82% CI will be presented for the non-inferiority comparison at the interim and 
+final, respectively.    
+If all the OS analyses  (H1,  H2, and  H3)  are considered  successful  (superiority  tests  are 
+statistically significant and non-inferiority is achieved), the 4.9% alpha level will be passed to 
+test the difference in the three year survival rates (OS36) between Arm C and Arm D; Otherwise 
+the test will not be conducted.   
+The study will be considered positive (a success) if the primary OS analysis result is statistically 
+significant at either IA2 or FA. If significance is achieved at IA2, it does not need to be tested 
+again at FA.  
+Strong control of the type I error will be applied testing endpoints as outlined in Figure 2. 
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+78Figure 2 Multiple testing strategy  
+4.2.2 Analysis of the primary variable  
+4.2.2.1  Overall survival  
+The prima ry analysis will be to compare OS for Arm C vs. Arm D (for superiority) in the FAS 
+(ITT) analysis set.  
+The primary OS endpoint will be analysed using a stratified log-rank tests adjusting for etiology 
+of liver  disease  (confirmed  HBV  versus  confirmed  HCV versus  others),  ECOG  (0 versus  1), 
+and macrovascular invasion (yes versus no)  for generation of the p-value and using rank tests for 
+association as the testing approach, which corresponds to Cox regression with the Breslow 
+approach for handling ties (Breslow, 1974).  The effect of Arm C vs. Arm D treatment will be 
+estimated  by the HR from  stratified  Cox  proportional  hazards  model (with  ties= Efron  and 
+stratification variables as listed above) together with its corresponding 95% confidence interval 
+(CI) calculated  using  a profile  likelihood  approach.  The stratification  variable  will use the values 
+recorded  in the  randomization  system  (IWRS).  If there  is >10%  discordance  in stratification 
+factors as recorded in IWRS versus the Case Report Form (CRF), then a sensitivity analysis of 
+the primary endpoint OS will be performed using CRF based stratification factors.
+The key secondary analyses are to compare OS for Arm A vs. Arm D (fo r non-inferiority, then 
+superiority) in the F AS (ITT) analysis set. 
+Secondary OS analyses will be performed using the same methodology as for primary analysis 
+described above.  
+CCI
+79Statistical Analysis Plan  
+Study Code D419CC00002 
+Edition Number 4.0  
+Date 30JUL2021 
+Kaplan-Meier plots of OS will be presented by treatment arm.  Summaries of the number and 
+percentage  of subjects  who have  died,  still in survival  follow-up,  lost to follow-up,  and have 
+withdrawn consent will be provided along with the median OS for each treatment. 
+The superiority boundary (i.e., adjusted alpha levels) for the HR of treatment comparison at the 
+interim and the final for the primary OS and key secondary analyses will be derived based on 
+the exact number of OS events using the Lan and DeMets approach that approximates the 
+O’Brien Fleming spending function (see Section 4.2.1).  
+Subg roup analyses will be performed for OS as indicated in Section 4.2.6. 
+Assumptions of Proportionality  
+The assumption of proportionality of hazard will be assessed first by examining plots of 
+complementary log -log (even t times) versus log (time) and, if these raise concerns, by fitting a 
+time-dependent covariate to assess the extent to which this represents random variation. If a 
+lack of proportionality of hazard is evident, the variation in treatment effect will be desc ribed 
+by presenting piecewise HR calculated over distinct time periods.  In such circumstances, the 
+HR can still be meaningfully interpreted as an average HR over time unless there is extensive 
+crossing of the survival curves.  If lack of proportionality o f hazard is found, this may be a result 
+of treatment -by-covariate interactions, which will be investigated.  In addition, the Kaplan -
+Meier curve along with landmark analyses (e.g., 12 -, 18-, 24 and 36 -month OS rate) will also 
+help in understanding the trea tment benefit.  
+The Grambsch -Therneau test and Schoenfeld residuals may also be used to check violation of 
+the proportional hazards assumption (Grambsch and Therneau 1994, Keele 2010 ).  
+As a lack of proportionality is expected (due to delayed effect in IO a gents), a three -component 
+stratified MaxCombo test will be used as a sensitivity analysis with the same stratification 
+factors as the primary analysis. The MaxCombo test is  the maximum of the normalized log 
+rank test (FH0,0) and selected Fleming -Harrington (FH) weighted log -rank tests (Fleming and  
+Harrington 1991) (FH0,1 and FH1,1) , i.e. Zmax = max{ FH0,0, FH0,1 and FH1,1}, with multiplicity 
+adjustment based on the asymptotic multivariate distribution (Karrison et al 2016). For group 
+sequential design with formal interim analyses, the p value and rejection boundary at each 
+analysis will be calculated based on the asymptotic multivariate normal distribution among the 
+weighted logrank test statistics (logrank, FH0,1 and FH1,1) at interim an d final analyses (He, 
+Koch and Kurland 2021). The Fleming -Harrington tests of FH0,1 and FH1,1 assign less weight 
+to early events and are more powerful in the scenario of delayed effect, while the log -rank test 
+is optimal in the scenario of proportional haz ards (Schoenfeld 1981). Under proportional 
+hazards, the power loss from the Maxcombo test is usually small (Lin et al. 2020).  
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+80The Restricted Mean Survival Time (RMST) will also be analysed up to the minimum of the 
+largest observed event time in each of th e two arms  and /or suitable clinically relevant 
+timepoint, using the pseudovalues approach (Andersen et al. 2004) , to estimate RMST with 
+standard error, for each treatment group, along with the estimate of difference in means between 
+treatment groups, co nfidence interval and p -value. In addition, an area -under -the-curve 
+approach (Kaplan -Meier method)  and Royston -Parmar model (Royston and Parmar 2011, 
+2013) may also be used.  
+ Sensitivity analysis for censoring patterns 
+A sensitivity analysis for OS will examine the censoring patterns to rule out attrition bias, 
+achieved by a Kaplan -Meier plot of time -to-censoring where the censoring indicator of OS is 
+reversed. This means that the status indicator will take the value of 0 for those subjects who 
+died and t he value of 1 for censored subject.  
+The number of subjects prematurely censored will be summarized by treatment arm. A subject 
+would be defined as prematurely censored if their survival status was not defined at the DCO.  
+In addition, duration of follow -up will be summarized using medians:  
+In censored subjects who are alive at data cut -off only: Time from randomization to date
+of censoring (date last known to be alive) by treatment arm.
+In all subjects: Time from randomization to the date of death (i.e. o verall survival) or to
+the date of censoring for censored subjects regardless of treatment arm.
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+81Effect of COVID -19 
+A sensitivity analysis will be cond ucted to assess for the potential impact of COVID deaths on 
+OS. This will be assessed by repeating the OS analysis except that any subject who had a 
+death with primary/secondary cause as COVID -19 Infection will be censored at their COVID 
+infection death da te.  
+A listing of all subjects diagnosed with COVID -19 or death due to COVID -19 by unique 
+subject number identifier and investigational site will be generated along with the description 
+of how the individual’s participation was altered.  
+Effect of covariates on the HR estimate  
+Cox proportional hazards modelling will be employed to assess the effect of pre -specified 
+covariates on the HR estimate for t he primary OS treatment comparisons.    
+Additional covariates for this model will be: 
+Sex (male versus female)
+Age at randomization (<65 versus ≥65 years of age)
+PD-L1 expression (positive versus negative)
+Extrahepatic spread (yes versus no; defined as Distant metastases on Pathology at
+screening module)
+Region ( Asia (except Japan)  versus Rest of World (inc ludes Japan) )
+Alpha -fetoprotein (AFP) (<400 ng/ml versus ≥400 ng/ml )
+BCLC stage at study entry (B versus C)
+The model will include the covariates regardless of whether their inclusion significantly 
+improves the fit of the model, providing there is enough data to make them meaningful. 
+For the definition of PD-L1 expression subgroup, refer to Section 4.2.11. 
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+824.2.3 Analysis of the secondary variables  
+4.2.3.1  Progression Free Survival (PFS)  
+Analysis of PFS (time to first progression) will be performed to compare Arm C vs. Arm D and 
+Arm A vs. Arm D using the same methodology as for OS. 
+4.2.3.2  Time to progression (TTP)  
+Analysis of TTP will be performed to compare Arm C vs. Arm D and Arm A vs. Arm D using 
+a stratified log -rank test a s described for OS. 
+4.2.3.3  Objective response rate (ORR)  
+The types of response rate analyses performed in the study together with their timepoints are 
+defined in Table 14. 
+Table 14 Response rate analyses conducted during the study  
+Analysis time 
+point  Analysis set  Confirmed/unconfirmed 
+response  Assessment method and 
+criteria  
+Interim Analysis 1  FAS-32w Both Investigator RECIST 1.1,  
+BICR RECIST 1.1,  
+BICR mRECIST  
+Interim Analysis 2  Full Analysis Set  Both  Investigator RECIST 1.1,  
+Final Analysis  Full Analysis Set  Both Investigator RECIST 1.1,  
+*BICR is currently planned only for IA1,  however, if it is performed for IA2/FA, these analyses
+will be conducted.
+At IA1, only descriptive summaries of ORR including exact 95% CIs will be presented for each 
+treatment arm (Arm A, Arm B, Arm C, and Arm D) for FAS -32w. ORR results will be presente d 
+by Investigator assessment (per RECIST1.1) and BICR (per RECIST1.1 and mRECIST).  
+At IA2 and FA, the ORR (per RECIST 1.1 using Investigator assessments) will be compared 
+between Arm C vs. Arm D and Arm A vs. Arm D. Logistic regression models adjusting fo r the 
+same factors as the primary endpoint (etiology of liver disease, ECOG, and macrovascular 
+invasion) will be fitted. The results of the analysis will be presented in terms of an odds ratio 
+together with its associated profile likelihood 95% CI (e.g. us ing the option ‘LRCI’ in SAS 
+procedure GENMOD) and p -value (based on twice the change in log -likelihood resulting from 
+the addition of a treatment factor to the model). This analysis will be performed in the FAS 
+(ITT).  
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+83Additionally, at IA2 and FA a stratif ied Cochran Mantel –Haenszel (CMH) test will be 
+performed using randomization stratification factors (macrovascular invasion, etiology of liver 
+disease, and ECOG). CMH test results will include odds ratios and p -values.  
+4.2.3.4  Best objective response (BoR)  
+Summa ries will be produced that present the number and percentage of subjects with a 
+tumor -confirmed response (CR/PR).  Overall visit response data will be listed for all subjects.  
+For each treatment arm, best objective response (BoR) will be summarized by n ( %) for each 
+category (CR, PR, SD, PD, and NE).  No formal statistical analyses are planned for BoR.  
+For IA1, BoR will be calculated in the FAS -32wp according to Investigator (per RECIST1.1) 
+and BICR (per RECIST1.1 and mRECIST) assessments.  
+For IA2 and FA, BoR will be calculated for the FAS according to Investigator assessments (per 
+RECIST1.1). . 
+4.2.3.5  Disease control rate (DCR)  
+The DCR, DCR -16w and DCR -24w will be summarized (i.e., number of subjects [%]) per 
+treatment arm.  
+4.2.3.6  Duration of response (DoR)  
+Descriptive d ata will be provided for the DoR in responding subjects, including the associated 
+Kaplan -Meier curves (without any formal comparison of treatment arms or p -value attached).  
+This analysis will be based on FAS (ITT).  
+For IA1, DoR will be calculated in the FAS-32waccording to Investigator (per RECIST 1.1) 
+and BICR (per RECIST 1.1 and mRECIST) assessments.  
+For IA2 and FA, DoR will be calculated for the FAS according to Investigator assessments (per 
+RECIST1.1), for responses with or without confirmation.  
+4.2.3.7  OS12 , OS18, OS24 , and OS36  
+OS12, OS18, OS24, and OS36 will be defined as the Kaplan -Meier estimate of OS at 12 months, 
+18 months, 24 months, and 36 months.  
+OS12, OS18, OS24, and OS36, along with their 95% CI, will be summarized (using the Kaplan -
+Meier curve) and presented by treatment arm.  
+An analysis of  OS36 will be performed to compare Arm C vs. Arm D using a stratified chi-
+square test for the  difference in KM estimators  (cloglog transformed)  for Arms C and D at a 
+fixed time point (36 months) . The test will  be conducted using  the method s described in (Klein 
+et al., 2007) , including cloglog transformation on KM estimators,  with randomization 
+stratification factors (macrovascular invasion, etiology of liver disease, and ECOG).  Note that 
+the adjustment for the  stratification factors will be applied only if there are sufficient number of 
+Statistical Analysis Plan  
+Study Code D419CC 00002  
+Edition Number 4.0  
+Date 30JUL2021  
+84even ts and subjects at risk available in each strata at 36 months.  Otherwise, an unstratified chi -
+square test will be used to compare the difference in KM estimators at 36 months .  
+4.2.3.8  Time to Response (TTR)  
+TTR will be analysed using same methods like for PFS. No multiplicity adjustment will be 
+applied, as it is a supportive endpoint calculated for the Payer Analysis. It will be reported 
+outside CSR.  
+4.2.3.9  Time from Randomization to First Subsequent Therapy or Death (TFST)  
+TFST will be analysed using same methods like for PFS. No multiplicity adjustment will be 
+applied, as it is a supportive endpoint calculated for the Payer Analysis. It will be reported 
+outside CSR.  
+4.2.4 Patient -reported outcom es 
+The main PRO  measures  identified  in the secondary  objectives  are global  health  status/QoL, 
+physical  function  and fatigue  scales  along  with single  items  appetite  loss  and nausea  of the 
+EORTC QLQ-C30; shoulder pain, abdominal pain, and abdominal distension symptom scales 
+of the EORTC QLQ-HCC18.  
+All endpoints will be tested at a 5% significance level and 95% CIs will be produced. 
+Statistical analyses comparing treatment arms will include: visit specific and overall (across all 
+visits)  adjusted  mean  change  from  baseline  scores  (using  mixed-effect  model for  repeated 
+measurement [MMRM], time to deterioration, improvement rate, visit response (improvement, 
+no change, and deterioration) as well as best overall response. 
+Absolute  and change  from  baseline  scores  for each  visit will be presented  as descriptive 
+analysis.  Appropriate  plots  and  graphs  will  be presented.  Compliance  rates  summarizing 
+questionnaire completion at each visit will be tabulated. 
+By visits summaries will use visits windows defined in Section 4.1.2. 
+4.2.4.1  EORTC QLQ -C30 
+The key analysis of EORTC QLQ -C30 will be focused on the following scales/domains: global 
+health status/QoL, physical function and fatigue. The primary assessment of HRQoL or 
+symptom will focus on comparing mean change from  baseline in the global health status/QoL, 
+functions (physical, role, cognitive, social and emotional) and fatigue scores (from the EORTC 
+QLQ -C30 questionnaire) along with single items appetite loss, nausea, and diarrhea of the 
+EORTC QLQ -C30 between immuno therapy arms (Arm A, Arm C) and the sorafenib arms. The 
+analysis sets for mean change in HRQoL or symptoms data will be the FAS (ITT) set and will 
+include all randomized subjects with an evaluable baseline assessment and at least one evaluable 
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+85post baselin e assessment. Change from baseline will be analysed using a MMRM analysis of 
+all the post -baseline scores for each visit. The MMRM model will include treatment, visit, and 
+treatment by visit interaction as explanatory variables and the baseline score and t he baseline 
+score -by-visit interaction as covariates. Restricted maximum likelihood (REML) estimation 
+will be used. An overall adjusted mean estimate will be derived that will estimate the average 
+treatment effect over visits given each visit equal weight.  For overall treatment comparison, 
+Adjusted mean change from baseline estimates per treatment group and corresponding 95% CIs 
+will be presented along with an overall estimate of the treatment difference, 95% CI and p -
+value.  
+Unstructured covariance matrix w ill be used to model the within -subject error and the Kenward -
+Roger approximation will be used to estimate the degre es of freedom. If the fit of the 
+unstructured covariance structure fails to converge, the following covariance structures will be 
+tried in o rder until convergence is reached: toeplitz with heterogeneity, autoregressive with 
+heterogeneity, Toeplitz, autoregressive and compound symmetry.  
+Time to deterioration will be analyzed using a stratified log -rank test as described for the 
+primary OS endp oint.  The effect of Arm C vs. Arm D and Arm A vs. Arm D will be estimated 
+by the HR together with its corresponding CI and p -value.  Kaplan -Meier plots will be presented 
+by treatment arm.  Summaries of the number and percentage of subjects who have an eve nt as 
+well as who were censored will be provided along with the medians for each treatment.  
+Summary tables of visit responses for each EORTC QLQ -C30 scale/item score (global health 
+status/QoL, 5 functions and all symptoms) and for each visit (improvement, deterioration and 
+no change) will be presented by treatment arm. In addition, summary tables of the best overall 
+response will be provided for the following domains by treatment arm: global health status/QoL, 
+functions (physical, role, cognitive, social, a nd emotional) and fatigue.  
+For the analysis of symptom and global/ health status/QoL improvement rate, symptom 
+(fatigue), global health status/QoL and function (physical, role, cognitive, social, and emotional) 
+improvement proportions based on best overall  response will be compared between each 
+immunotherapy arm (Arm A, Arm C) and the sorafenib arm using a logistic regression model 
+as described for ORR. The odds ratio, p -value, and 95% CI will be presented graphically on a 
+forest plot.  
+Finally, summaries of  absolute and unadjusted change from baseline values of each EORTC 
+QLQ -C30 scale/item will be reported by visit for each treatment arm.  
+Graphical plots of the mean of each EORTC QLQ -C30 scale/item scores (except financial 
+difficulty scale), including chan ge from baseline, and associated 95% CI by scheduled 
+visits/timepoints in the study will be produced.  
+Empirical cumulative distribution function (eCDF) and probability density function (PDF) 
+curves will be produced for parameters of global health status/Qo L, function (physical), fatigue, 
+and single -item symptoms (nausea and appetite loss).  
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+86The eCDF displays a continuous plot of the change from baseline in the PRO score on the 
+horizontal axis and the cumulative percent of subjects experiencing up to that ch ange on the 
+vertical axis. Compared to eCDF curves, probability density function curves may provide an 
+easier overview of the shape, dispersion, and skewness of the distribution of the change from 
+baseline in the PRO score across treatment arms.  
+For each p arameter listed above, the eCDF and PDF curves will be produced by treatment 
+groups (Arm A, Arm B, Arm C, and Arm D) at weeks 8, 16, 24, and 48 (relative to first dose of 
+study drug).  
+4.2.4.2  EORTC QLQ -HCC18  
+The primary assessment of symptoms comparing mean change  from baseline using the MMRM 
+as described for the EORTC QLQ -C30 will be repeated for shoulder pain, abdominal pain, and 
+abdominal distention symptoms of the EORTC QLQ -HCC18. All assumptions and outputs as 
+described for the EORTC QLQ -C30 are applicable.  
+Similarly, the time to deterioration as described for the EORTC QLQ -C30 will be evaluated for 
+shoulder pain, abdominal pain, and abdominal distention symptoms of the EORTC QLQ -
+HCC18.  
+For shoulder pain, abdominal pain, and abdominal distention symptom scales of the EORTC 
+QLQ -HCC18, time to deterioration will be presented using a Kaplan -Meier plot as well as the 
+HR together with the corresponding 95% CI and p -values. Summaries of the number and 
+percentage of subjects experiencing a clinically meaningful deterio ration or death, and the 
+median time to deterioration, will also be provided for each treatment arm.  
+Summary tables of visit responses for each EORTC QLQ -HCC18 scale/item score and for each 
+visit (improvement, deterioration and no change) will be presented  by treatment arm. In 
+addition, summary tables of best overall response will be provided for the following symptom 
+scales by treatment arm: shoulder pain, abdominal pain, and abdominal distention. Proportions 
+of subjects with improvement based on best over all response will be compared between Arm C 
+vs. Arm D and Arm A vs. Arm D using a logistic regression model as described for ORR. The 
+odds ratio, p -value and 95% CI will be presented graphically on a forest plot.  
+As described for the EORTC QLQ -C30, summari es of absolute and unadjusted change from 
+baseline values of each EORTC QLQ -HCC18 scale/item will be reported by visit for each 
+treatment arm.  
+Graphical plots of the mean of each EORTC QLQ -HCC18 scale/item scores, including change 
+from baseline, and assoc iated 95% CI by scheduled visits/timepoints in the study will be 
+produced.  
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+87Empirical cumulative distribution function (eCDF) and probability density function (PDF) 
+curves will be produced for parameters of abdominal pain, shoulder pain, and abdominal 
+diste nsion single item symptoms by treatment groups (Arm A, Arm B, Arm C, and Arm D) at 
+weeks 8, 16, 24, and 48 (relative to first dose of study drug).  
+4.2.4.3  
+4.2.4.4  
+4.2.4.5  
+4.2.5 
+4.2.6 Subgroup analyse s 
+4.2.6.1  Subgroup analyses for OS  
+Subgroup analyses will be conducted comparing OS between Arm C vs. Arm D and Arm A vs. 
+Arm D, and between Arm A and Arm C, in the following subgroups of the FAS, but not limited 
+to: 
+ Sex (male versus female)
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+Statistical Analysis Plan  
+Study Code D419CC00002  
+Edition Number 4.0  
+Date 30JUL2021  
+88 Age at randomization ( <65 versus ≥65 years of age)
+ PD-L1 expression (positive versus negative)
+ Etiology of liver disease (confirmed HBV versus confirmed HCV versus others)
+ ECOG PS (0 versus 1)
+ Macrovascular invasion (yes versus no)
+ Extrahepatic spread (yes versus no; defined as  distant metastases on Pathology at
+Screening module)
+ Region ( Asia (except Japan) versus Rest of World (includes Japan))
+ Alpha -fetoprotein (AFP) (<400 ng/ml versus ≥400 ng/ml )
+ BCLC stage at study entry (B versus C)
+ MVI = Yes and/or EHS = Yes
+ MVI  = No and EHS = No
+Values collected on the eCRF will be used to define subgroups for stratification factors. Other 
+baseline  variables  may also be assessed  if there  is clinical  justification  or an  imbalance  is 
+observed  between  the treatment  arms.   The purpose  of the  subgroup  analyses  is to assess  the 
+consistency  of treatment  effect  across  expected  prognostic  and/or  predictive  factors.   Forest 
+plots will be performed. 
+No adjust ment to the significance level for testin g of the subgroup and sensitivity analyses will 
+be made since all these analyse s will be considered supportive of the analysis of OS. 
+For each subg roup leve l of a factor, the HR and 95% CI will be calculate d from a Cox 
+proportional hazards model that only contains a term for treatment.  The Cox models will be 
+fitted using SAS® PROC PHREG with the Efr on method to control for ties, and using a BY 
+statement for the subgroup factor. 
+If there are too few events available for a meaningful analysis of a particular subgroup (it is not 
+considered appropriate to present analyses where there are less than 20 events in a subgroup in 
+total),  the HR and  CI will not be  produced  for that subgroup.   In this case,  only  descriptive 
+summaries will be provided. 
+For the definition of PD-L1 expression subgroup, refer to Section 4.211. 
+4.2.6.2  Subgroup analyses for secondary endpoints  
+Analyses described in Section 4.2.3  will be performed comparing PFS, TTP, ORR, BoR, 
+DoR, DCR, DCR-16w and DCR-24w between Arm C vs. Arm D, and Arm A vs. Arm D 
+in the following subgroups: 
+ PD-L1 expression (positive versus negative)
+ Etiology of liver disease (confirmed HBV versus confirmed HCV versus others)
+ Macrovascular invasion (yes versus no)
+For the definition of PD-L1 expression subgroup, refer to Section 4.2.11. 
+89Statistical Analysis Plan  
+Study Code D419CC00002 
+Edition Number 4.0  
+Date 30JUL2021 
+4.2.7  Safety 
+Safety data will be summarized. No formal statistical analyses will be performed on the safety 
+data. All safety and tolerability data will be using the safety analysis set and
