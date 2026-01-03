@@ -35,6 +35,7 @@ class VerificationResult:
     passed: bool
     errors: List[VerificationError] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
+    missing_slots: List[str] = field(default_factory=list)  # For compatibility with RuleBasedPipeline
     score: float = 1.0  # 0.0 to 1.0
 
 
