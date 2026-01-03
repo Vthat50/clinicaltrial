@@ -1321,11 +1321,14 @@ Write the {section_title} section now.
         if facts.get('comparator'):
             lines.append(f"- Comparator: {facts['comparator']}")
 
-        # Stratification factors - also was missing
+        # Stratification factors - filter out None values
         if facts.get('stratification_factors'):
             strat = facts['stratification_factors']
             if isinstance(strat, list):
-                lines.append(f"- Stratification Factors: {', '.join(strat)}")
+                # Filter out None values and convert to strings
+                strat_clean = [str(s) for s in strat if s is not None]
+                if strat_clean:
+                    lines.append(f"- Stratification Factors: {', '.join(strat_clean)}")
             else:
                 lines.append(f"- Stratification Factors: {strat}")
 
