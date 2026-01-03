@@ -118,11 +118,12 @@ class TieredLLMClient:
     """
 
     # Model configurations
+    # CRITICAL: Use Sonnet for accurate extraction (Haiku was causing wrong disease, missing drugs)
     MODELS = {
         "claude": {
-            "name": "claude-3-haiku-20240307",
+            "name": "claude-sonnet-4-20250514",  # Upgraded from Haiku for better extraction accuracy
             "max_tokens": 4096,
-            "temperature": 0.2,
+            "temperature": 0.1,  # Lower temp for more precise extraction
         },
         "openai": {
             "name": "gpt-4o-mini",
