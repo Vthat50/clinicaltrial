@@ -690,15 +690,42 @@ Write the {section_title} section now.
         """Format numerical facts for the prompt."""
         lines = []
 
-        # Always include these
+        # Always include these CRITICAL facts
         if facts.get('nct_id'):
             lines.append(f"- NCT ID: {facts['nct_id']}")
         if facts.get('sample_size'):
             lines.append(f"- Sample Size: {facts['sample_size']} patients")
+
+        # CRITICAL: Randomization ratio - this was MISSING!
+        if facts.get('randomization_ratio'):
+            ratio = facts['randomization_ratio']
+            lines.append(f"- Randomization Ratio: {ratio}")
+            # Also calculate per-arm N if ratio is clear
+            if ':' in str(ratio):
+                parts = [int(p) for p in str(ratio).split(':')]
+                total_parts = sum(parts)
+                sample_size = facts.get('sample_size', 0)
+                if sample_size and total_parts > 0:
+                    per_arm = [int(sample_size * p / total_parts) for p in parts]
+                    lines.append(f"- Per-Arm N: {' : '.join(map(str, per_arm))}")
+        else:
+            # FALLBACK: Try to extract ratio from num_arms
+            num_arms = facts.get('num_arms', 2)
+            if num_arms == 2:
+                lines.append(f"- Randomization Ratio: [Check protocol - likely 1:1 or 2:1]")
+
         if facts.get('drug_name'):
             lines.append(f"- Study Drug: {facts['drug_name']}")
         if facts.get('comparator'):
             lines.append(f"- Comparator: {facts['comparator']}")
+
+        # Stratification factors - also was missing
+        if facts.get('stratification_factors'):
+            strat = facts['stratification_factors']
+            if isinstance(strat, list):
+                lines.append(f"- Stratification Factors: {', '.join(strat)}")
+            else:
+                lines.append(f"- Stratification Factors: {strat}")
 
         # Section-specific facts
         if section_key in ['statistical_methods', 'interim_analysis']:
