@@ -435,9 +435,32 @@ class ProductionSAPPipeline:
 
         return constraints
 
+    # Wrong indication patterns to filter out during retrieval
+    WRONG_INDICATION_PATTERNS = {
+        'NSCLC': [r'\bmRCC\b', r'\brenal cell\b', r'\bkidney cancer\b',
+                  r'\bhepatocellular\b', r'\bHCC\b', r'\bmelanoma\b',
+                  r'\burothelial\b', r'\bbladder\b', r'\bEGFR.mutant\b',
+                  r'\bosimertinib\b', r'\bpemetrexed\b', r'\bplatinum\b'],
+        'RCC': [r'\bNSCLC\b', r'\bnon.small cell lung\b', r'\blung cancer\b',
+                r'\bhepatocellular\b', r'\bHCC\b', r'\bmelanoma\b'],
+        'HCC': [r'\bNSCLC\b', r'\blung cancer\b', r'\bmRCC\b', r'\brenal\b',
+                r'\bmelanoma\b', r'\burothelial\b'],
+        'MELANOMA': [r'\bNSCLC\b', r'\blung\b', r'\bmRCC\b', r'\brenal\b',
+                     r'\bhepatocellular\b', r'\bHCC\b'],
+    }
+
+    # Wrong drug patterns (monotherapy vs combination)
+    WRONG_DRUG_PATTERNS = {
+        'nivolumab_mono': [r'\bnivo.*ipi\b', r'\bipilimumab\b', r'\bcombination\b',
+                           r'\bnivolumab\s*\+', r'\bwith\s+ipilimumab\b'],
+        'nivolumab_combo': [r'\bmonotherapy\b', r'\bsingle.agent\b'],
+    }
+
     def _get_sanitized_examples(self, facts: Dict[str, Any]) -> Dict[str, List[str]]:
         """
-        Step 3: Get RAG examples with numbers stripped.
+        Step 3: Get RAG examples with STRICT filtering and sanitization.
+
+        CRITICAL: Filter by indication and drug to prevent cross-study contamination.
         RAG is for PROSE STYLE only, not for facts.
         """
         examples = {}
@@ -454,12 +477,32 @@ class ProductionSAPPipeline:
 
         query = ' '.join(query_parts) if query_parts else 'oncology phase 3 survival'
 
+        # CRITICAL: Build filters from extracted facts
+        filters = self._build_rag_filters(facts)
+        print(f"[RAG] Query: '{query[:50]}...' with filters: {filters}")
+
+        # Detect if this is monotherapy or combination
+        drug_name = facts.get('drug_name', '').lower()
+        is_monotherapy = 'mono' in drug_name or facts.get('num_arms', 0) == 2
+
+        # Get current indication for post-filter
+        indication = facts.get('indication', '').upper()
+        if not indication:
+            # Try to infer from therapeutic area
+            ta = facts.get('therapeutic_area', '').upper()
+            if 'LUNG' in ta:
+                indication = 'NSCLC'
+            elif 'RENAL' in ta or 'KIDNEY' in ta:
+                indication = 'RCC'
+
         # Query and sanitize each section type
         section_types = ['methods', 'interim_analysis', 'sensitivity_analysis', 'sample_size']
 
         for section_type in section_types:
             try:
-                results = self.rag.query(section_type, query, n_results=2)
+                # Query WITH filters
+                results = self.rag.query(section_type, query, n_results=5, filters=filters)
+
                 if results:
                     sanitized = []
                     for r in results:
@@ -470,17 +513,77 @@ class ProductionSAPPipeline:
                         else:
                             content = str(r)
 
-                        # SANITIZE: Strip all numerical values
+                        # POST-FILTER: Skip chunks with wrong indication
+                        if self._has_wrong_indication(content, indication):
+                            print(f"[RAG] Filtered out chunk with wrong indication")
+                            continue
+
+                        # POST-FILTER: Skip chunks with wrong drug pattern
+                        if self._has_wrong_drug_pattern(content, is_monotherapy):
+                            print(f"[RAG] Filtered out chunk with wrong drug pattern")
+                            continue
+
+                        # SANITIZE: Strip all contaminating content
                         if self.sanitizer:
                             content = self.sanitizer.sanitize(content)
 
                         sanitized.append(content)
 
+                        # Limit to 2 clean examples per section
+                        if len(sanitized) >= 2:
+                            break
+
                     examples[section_type] = sanitized
+                    print(f"[RAG] {section_type}: {len(sanitized)} clean examples")
+
             except Exception as e:
                 print(f"[RAG] Error querying {section_type}: {e}")
 
         return examples
+
+    def _build_rag_filters(self, facts: Dict[str, Any]) -> Dict[str, Any]:
+        """Build metadata filters for RAG query."""
+        filters = {}
+
+        # Filter by therapeutic area if available
+        ta = facts.get('therapeutic_area')
+        if ta:
+            filters['therapeutic_area'] = ta
+
+        # Filter by indication if available
+        indication = facts.get('indication')
+        if indication:
+            filters['indication'] = indication
+
+        # Filter by phase if available
+        phase = facts.get('phase')
+        if phase:
+            filters['phase'] = phase
+
+        return filters if filters else None
+
+    def _has_wrong_indication(self, content: str, current_indication: str) -> bool:
+        """Check if content mentions wrong indication."""
+        if not current_indication:
+            return False
+
+        patterns = self.WRONG_INDICATION_PATTERNS.get(current_indication, [])
+        for pattern in patterns:
+            if re.search(pattern, content, re.IGNORECASE):
+                return True
+        return False
+
+    def _has_wrong_drug_pattern(self, content: str, is_monotherapy: bool) -> bool:
+        """Check if content has wrong drug pattern (mono vs combo)."""
+        if is_monotherapy:
+            patterns = self.WRONG_DRUG_PATTERNS.get('nivolumab_mono', [])
+        else:
+            patterns = self.WRONG_DRUG_PATTERNS.get('nivolumab_combo', [])
+
+        for pattern in patterns:
+            if re.search(pattern, content, re.IGNORECASE):
+                return True
+        return False
 
     def _generate_all_sections(
         self,
