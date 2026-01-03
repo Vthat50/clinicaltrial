@@ -308,10 +308,12 @@ class ConstrainedSAPWriter:
 
         if section_key == 'statistical_methods':
             instructions.append(f"PRIMARY ANALYSIS TEST: You MUST use {constraints.primary_test}")
+            instructions.append(f"CRITICAL: The PRIMARY test is {constraints.primary_test} - do NOT use stratified log-rank as the primary test for immunotherapy trials")
             if constraints.primary_test_params:
                 instructions.append(f"TEST PARAMETERS: {constraints.primary_test_params}")
             if constraints.nph_methods:
                 instructions.append(f"NPH METHODS (required for immunotherapy): {', '.join(constraints.nph_methods)}")
+            instructions.append("Stratified log-rank test should only be used as a SENSITIVITY analysis, not the primary test")
             instructions.append("Include: estimands (ICH E9 R1), censoring rules, model covariates")
 
         elif section_key == 'sensitivity_analysis':
@@ -792,7 +794,12 @@ class RuleBasedSAPPipeline:
         if 'crossover' in conditions and not constraints.sensitivity_methods:
             constraints.sensitivity_methods = ['RPSFT', 'IPCW']
 
-        if 'immunotherapy' in conditions and not constraints.nph_methods:
+        # CRITICAL: Immunotherapy + time-to-event = Fleming-Harrington as PRIMARY
+        if 'immunotherapy' in conditions and 'time_to_event' in conditions:
+            constraints.primary_test = 'Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)'
+            if not constraints.nph_methods:
+                constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
+        elif 'immunotherapy' in conditions and not constraints.nph_methods:
             constraints.nph_methods = ['Fleming-Harrington', 'RMST']
 
         if 'interim_analysis' in conditions and not constraints.interim_method:
