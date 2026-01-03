@@ -109,19 +109,25 @@ except ImportError:
     TLFShellGenerator = None
     ProgrammingSpecGenerator = None
 
-# SCHEMA-CONSTRAINED PIPELINE (BEST - Literal types prevent hallucination)
+# PRODUCTION PIPELINE (Protocol method is source of truth)
 try:
-    from ..core.constrained_pipeline import (
-        ConstrainedSAPPipeline,
-        generate_constrained_sap,
-        PipelineResult
+    from ..core.production_pipeline import (
+        ProductionSAPPipeline,
+        create_production_pipeline,
+        GenerationResult as ProductionResult
     )
-    CONSTRAINED_PIPELINE_AVAILABLE = True
+    PRODUCTION_PIPELINE_AVAILABLE = True
 except ImportError:
-    CONSTRAINED_PIPELINE_AVAILABLE = False
-    ConstrainedSAPPipeline = None
-    generate_constrained_sap = None
-    PipelineResult = None
+    PRODUCTION_PIPELINE_AVAILABLE = False
+    ProductionSAPPipeline = None
+    create_production_pipeline = None
+    ProductionResult = None
+
+# SCHEMA-CONSTRAINED PIPELINE (archived)
+CONSTRAINED_PIPELINE_AVAILABLE = False
+ConstrainedSAPPipeline = None
+generate_constrained_sap = None
+PipelineResult = None
 
 
 @dataclass
@@ -249,15 +255,15 @@ class SAPGenerationOrchestrator:
             print("Pipeline: Extract → Sanitize → Generate → Validate")
             print("=" * 60)
 
-        # SCHEMA-CONSTRAINED PIPELINE (BEST - Type system prevents hallucination)
-        self.constrained_pipeline = None
-        self.constrained_mode_available = CONSTRAINED_PIPELINE_AVAILABLE
-        if self.constrained_mode_available:
-            self.constrained_pipeline = ConstrainedSAPPipeline()
+        # PRODUCTION PIPELINE (Protocol method is source of truth)
+        self.production_pipeline = None
+        self.production_pipeline_available = PRODUCTION_PIPELINE_AVAILABLE
+        if self.production_pipeline_available:
+            self.production_pipeline = ProductionSAPPipeline()
             print("=" * 60)
-            print("CONSTRAINED MODE AVAILABLE (RECOMMENDED)")
-            print("Pipeline: Extract → Literal[values] → Generate → Verify")
-            print("LLM cannot output wrong values - enforced by type system")
+            print("PRODUCTION PIPELINE AVAILABLE (RECOMMENDED)")
+            print("Pipeline: Extract (Claude Opus 4.5) → Context (KG) → Generate → Verify")
+            print("Methods extracted from protocol - no inference from drug class")
             print("=" * 60)
 
     def _init_llm_client(self):
@@ -310,9 +316,9 @@ class SAPGenerationOrchestrator:
         Returns:
             GenerationResult with generated SAP and metadata
         """
-        # CONSTRAINED MODE: Use new schema-constrained pipeline (BEST)
-        if constrained_mode and self.constrained_mode_available:
-            return self._generate_sap_constrained(
+        # PRODUCTION PIPELINE: Use fixed pipeline (protocol method is source of truth)
+        if self.production_pipeline_available:
+            return self._generate_sap_with_production_pipeline(
                 protocol_text=protocol_text,
                 nct_id=nct_id,
                 verbose=verbose
@@ -860,6 +866,85 @@ class SAPGenerationOrchestrator:
 """.format(date=datetime.now().strftime('%d-%b-%Y'))
 
         return header + "\n\n".join(ordered_sections) + "\n".join(appendix_parts) + footer
+
+    def _generate_sap_with_production_pipeline(
+        self,
+        protocol_text: str,
+        nct_id: str = "",
+        verbose: bool = True
+    ) -> GenerationResult:
+        """
+        Generate SAP using ProductionSAPPipeline.
+
+        This is the CORRECT implementation that:
+        1. Extracts methods FROM PROTOCOL (Claude Opus 4.5)
+        2. Knowledge graph provides CONTEXT only (no method inference)
+        3. Missing values flagged as [NEEDS REVIEW], not inferred
+        """
+        import time
+        start_time = time.time()
+        result = GenerationResult(success=False)
+
+        if verbose:
+            print("=" * 60)
+            print("PRODUCTION PIPELINE: Protocol is Source of Truth")
+            print("=" * 60)
+
+        try:
+            # Run the production pipeline
+            pipeline_result = self.production_pipeline.generate(
+                protocol_text=protocol_text,
+                nct_id=nct_id
+            )
+
+            if pipeline_result.success:
+                # Convert ProductionResult to GenerationResult
+                result.success = True
+
+                # Build SAP document
+                sap_document = GeneratedSAP(
+                    sections=pipeline_result.sections,
+                    full_document=pipeline_result.sap_text,
+                    protocol_id=nct_id or "UNKNOWN",
+                    generation_timestamp=datetime.now().isoformat()
+                )
+                result.sap_document = sap_document
+
+                # Copy facts and constraints
+                result.methods = {
+                    'primary_test': pipeline_result.constraints.primary_test if pipeline_result.constraints else None,
+                    'conditions_detected': pipeline_result.constraints.conditions_detected if pipeline_result.constraints else [],
+                }
+
+                # Add warnings for [NEEDS REVIEW] items
+                sap_text = pipeline_result.sap_text or ""
+                if "[NEEDS REVIEW]" in sap_text or "[NOT EXTRACTED" in sap_text:
+                    result.warnings.append(
+                        "SAP contains [NEEDS REVIEW] markers - manual review required"
+                    )
+
+                if verbose:
+                    print(f"\n✓ SAP generated successfully")
+                    print(f"  Sections: {len(pipeline_result.sections)}")
+                    if pipeline_result.verification:
+                        print(f"  Verification score: {pipeline_result.verification.score:.2f}")
+
+            else:
+                result.success = False
+                result.errors = [pipeline_result.error or "Unknown error"]
+                if verbose:
+                    print(f"\n✗ Pipeline failed: {pipeline_result.error}")
+
+        except Exception as e:
+            import traceback
+            result.success = False
+            result.errors = [str(e)]
+            if verbose:
+                print(f"\n✗ Error: {e}")
+                traceback.print_exc()
+
+        result.execution_time = time.time() - start_time
+        return result
 
     def _generate_sap_production(
         self,
