@@ -1890,13 +1890,14 @@ SPECIFIC CORRECTIONS REQUIRED:
         # Add specific corrections based on issues
         corrections = []
         for issue in issues:
-            if 'contamination' in issue.lower():
+            issue_str = str(issue or '').lower()
+            if 'contamination' in issue_str:
                 corrections.append("Remove any mention of other studies, drugs, or indications not in this protocol")
-            if 'missing required' in issue.lower():
-                corrections.append(f"Ensure you include: {issue.split('include')[1] if 'include' in issue else issue}")
-            if 'primary' in issue.lower() and 'sensitivity' in issue.lower():
+            if 'missing required' in issue_str:
+                corrections.append(f"Ensure you include: {str(issue).split('include')[1] if 'include' in str(issue) else issue}")
+            if 'primary' in issue_str and 'sensitivity' in issue_str:
                 corrections.append("State Fleming-Harrington as the PRIMARY method, not sensitivity")
-            if 'locked value' in issue.lower():
+            if 'locked value' in issue_str:
                 corrections.append("Use ONLY the locked values provided - do not use numbers from examples")
 
         feedback_prompt += chr(10).join(f"- {c}" for c in corrections)

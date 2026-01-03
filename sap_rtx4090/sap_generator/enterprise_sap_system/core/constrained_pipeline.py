@@ -678,7 +678,7 @@ class ConstrainedSAPPipeline:
         else:
             result.sap_text = self._assemble_sap(result.sections, facts)
             # Check if any critical errors occurred
-            critical_errors = [e for e in result.errors if 'HIGH RISK' in e or 'CONTAMINATION' in e]
+            critical_errors = [e for e in result.errors if 'HIGH RISK' in str(e) or 'CONTAMINATION' in str(e)]
             if critical_errors:
                 result.success = False
                 print(f"  WARNING: SAP assembled but {len(critical_errors)} critical errors found")

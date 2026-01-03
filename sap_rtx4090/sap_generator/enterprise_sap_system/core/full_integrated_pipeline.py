@@ -737,7 +737,7 @@ class FullIntegratedPipeline:
             # Quality score is informational, not a hard gate
             result.success = (
                 len(result.sap_text) > 1000 and
-                not any("BLOCKED" in i for i in result.issues)
+                not any("BLOCKED" in str(i) for i in result.issues)
             )
 
             if self.verbose:
