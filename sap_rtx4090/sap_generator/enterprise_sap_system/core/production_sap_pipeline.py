@@ -609,17 +609,41 @@ class ProtocolIdentityExtractor:
         return None
 
     def _extract_ratio(self, text: str) -> Optional[CitedFact]:
-        """Extract randomization ratio."""
-        pattern = re.compile(r'(\d+:\d+(?::\d+)?)\s*(?:ratio|randomiz)', re.IGNORECASE)
-        match = pattern.search(text)
-        if match:
-            line_num = text[:match.start()].count('\n') + 1
-            return CitedFact(
-                value=match.group(1),
-                source=f"line {line_num}",
-                confidence=0.95,
-                extraction_method="regex"
-            )
+        """
+        Extract randomization ratio with multiple pattern matching.
+        Handles: "2:1 randomization", "randomized 2:1", "1:1:1 ratio", etc.
+        """
+        # Multiple patterns to catch different phrasings
+        patterns = [
+            # "randomized 2:1 to" or "randomized in a 2:1 ratio"
+            re.compile(r'randomiz\w*\s+(?:in\s+)?(?:a\s+)?(\d+:\d+(?::\d+)?)', re.IGNORECASE),
+            # "2:1 randomization" or "2:1 ratio"
+            re.compile(r'(\d+:\d+(?::\d+)?)\s*(?:ratio|randomiz|allocation)', re.IGNORECASE),
+            # "ratio of 2:1"
+            re.compile(r'ratio\s+(?:of\s+)?(\d+:\d+(?::\d+)?)', re.IGNORECASE),
+            # "allocated 2:1" or "assigned 2:1"
+            re.compile(r'(?:allocat|assign)\w*\s+(\d+:\d+(?::\d+)?)', re.IGNORECASE),
+            # "2:1 to receive" (common phrasing)
+            re.compile(r'(\d+:\d+(?::\d+)?)\s+to\s+(?:receive|the)', re.IGNORECASE),
+            # Just "2:1" near randomization context (within 50 chars)
+            re.compile(r'(?:randomiz|allocat|assign).{0,30}(\d+:\d+(?::\d+)?)', re.IGNORECASE),
+        ]
+
+        for pattern in patterns:
+            match = pattern.search(text)
+            if match:
+                ratio = match.group(1)
+                # Validate it looks like a real ratio (not a time like 12:30)
+                parts = ratio.split(':')
+                if all(int(p) <= 10 for p in parts):  # Reasonable ratio parts
+                    line_num = text[:match.start()].count('\n') + 1
+                    return CitedFact(
+                        value=ratio,
+                        source=f"line {line_num}",
+                        confidence=0.95,
+                        extraction_method="regex"
+                    )
+
         return None
 
     def _extract_alpha_spending(self, text: str) -> Tuple[Optional[CitedFact], Optional[CitedFact]]:
@@ -733,14 +757,37 @@ class SanitizedRAGRetriever:
         return sanitized
 
     def _retrieve_candidates(self, query: str, identity: IdentityFacts, top_k: int) -> List[str]:
-        """Retrieve candidate chunks from vector store."""
+        """
+        Retrieve candidate chunks with STRICT indication-level filtering.
+
+        PRE-RETRIEVAL FILTER: Only retrieve chunks matching target indication.
+        This prevents RCC chunks from being retrieved for NSCLC queries.
+        """
         if self.vector_store is None:
             return []
 
-        # Build metadata filter
+        # Build STRICT metadata filter
         filters = {}
+
+        # CRITICAL: Filter by indication to prevent cross-indication contamination
+        if identity.indication and identity.indication.value:
+            indication = identity.indication.value.upper()
+            # Map to allowed indication values (including "general" for methodology)
+            indication_map = {
+                'NSCLC': ['NSCLC', 'lung', 'non-small cell', 'general', 'methodology'],
+                'RCC': ['RCC', 'renal', 'kidney', 'general', 'methodology'],
+                'SCLC': ['SCLC', 'small cell lung', 'general', 'methodology'],
+                'HCC': ['HCC', 'hepatocellular', 'liver', 'general', 'methodology'],
+                'MELANOMA': ['melanoma', 'skin', 'general', 'methodology'],
+            }
+            allowed = indication_map.get(indication, ['general', 'methodology'])
+            filters["indication"] = {"$in": allowed}
+
+        # Also filter by therapeutic area
         if identity.therapeutic_area and identity.therapeutic_area.value:
             filters["therapeutic_area"] = identity.therapeutic_area.value
+
+        # Phase filter (less strict)
         if identity.phase and identity.phase.value:
             filters["phase"] = identity.phase.value
 
@@ -750,10 +797,61 @@ class SanitizedRAGRetriever:
                 n_results=top_k,
                 where=filters if filters else None
             )
-            return [doc for doc in results.get('documents', [[]])[0]]
+            candidates = [doc for doc in results.get('documents', [[]])[0]]
+
+            # POST-RETRIEVAL FILTER: Additional safety check
+            # Remove any chunks that mention wrong indications
+            filtered_candidates = self._post_filter_by_indication(candidates, identity)
+
+            logger.info(f"RAG retrieval: {len(candidates)} candidates, {len(filtered_candidates)} after indication filter")
+            return filtered_candidates
+
         except Exception as e:
             logger.error(f"RAG retrieval failed: {e}")
             return []
+
+    def _post_filter_by_indication(self, chunks: List[str], identity: IdentityFacts) -> List[str]:
+        """
+        Post-retrieval filter to remove chunks with wrong indications.
+        This is a safety net in case vector store filtering is incomplete.
+        """
+        if not identity.indication:
+            return chunks
+
+        current_indication = identity.indication.value.upper()
+
+        # Define mutually exclusive indication sets
+        wrong_indication_patterns = {
+            'NSCLC': [r'\bmRCC\b', r'\brenal cell\b', r'\bkidney cancer\b',
+                      r'\bhepatocellular\b', r'\blive cancer\b', r'\bmelanoma\b',
+                      r'\burothelial\b', r'\bbladder cancer\b'],
+            'RCC': [r'\bNSCLC\b', r'\bnon-small cell lung\b', r'\blung cancer\b',
+                    r'\bhepatocellular\b', r'\blive cancer\b', r'\bmelanoma\b'],
+            'HCC': [r'\bNSCLC\b', r'\blung cancer\b', r'\bmRCC\b', r'\brenal\b',
+                    r'\bmelanoma\b', r'\burothelial\b'],
+            'MELANOMA': [r'\bNSCLC\b', r'\blung\b', r'\bmRCC\b', r'\brenal\b',
+                         r'\bhepatocellular\b', r'\blive\b'],
+        }
+
+        patterns_to_exclude = wrong_indication_patterns.get(current_indication, [])
+        if not patterns_to_exclude:
+            return chunks
+
+        filtered = []
+        for chunk in chunks:
+            chunk_lower = chunk.lower()
+            has_wrong_indication = False
+
+            for pattern in patterns_to_exclude:
+                if re.search(pattern, chunk, re.IGNORECASE):
+                    has_wrong_indication = True
+                    logger.debug(f"Filtered chunk with wrong indication pattern: {pattern}")
+                    break
+
+            if not has_wrong_indication:
+                filtered.append(chunk)
+
+        return filtered
 
     def _filter_blocked(self, chunks: List[str], identity: IdentityFacts) -> List[str]:
         """Remove chunks containing blocked terms."""
@@ -857,19 +955,75 @@ SCORE:"""
         return scored
 
     def _sanitize_chunk(self, chunk: str, identity: IdentityFacts) -> str:
-        """Strip all numbers from chunk, preserving structure."""
+        """
+        Strip ALL numbers and study-specific identifiers from chunk.
+        RAG provides STRUCTURE ONLY - never numbers.
+        """
         sanitized = chunk
 
-        # Apply number replacement patterns
+        # STEP 1: Remove metadata leakage (Chunk ID, Source, etc.)
+        sanitized = re.sub(r'Chunk\s*ID[:\s]*\d+', '', sanitized, flags=re.IGNORECASE)
+        sanitized = re.sub(r'Source[:\s]*[^\n]+', '', sanitized, flags=re.IGNORECASE)
+        sanitized = re.sub(r'Relevance[:\s]*[\d.]+', '', sanitized, flags=re.IGNORECASE)
+        sanitized = re.sub(r'Score[:\s]*[\d.]+', '', sanitized, flags=re.IGNORECASE)
+        sanitized = re.sub(r'Confidence[:\s]*[\d.]+', '', sanitized, flags=re.IGNORECASE)
+
+        # STEP 2: Remove ALL NCT IDs (anonymize)
+        sanitized = re.sub(r'NCT\d{8}', '[NCT_ID]', sanitized, flags=re.IGNORECASE)
+
+        # STEP 3: Remove study names (known contamination sources)
+        study_patterns = [
+            (r'CheckMate[\s-]*\d+', '[STUDY]'),
+            (r'KEYNOTE[\s-]*\d+', '[STUDY]'),
+            (r'JAVELIN[\s\w]*\d*', '[STUDY]'),
+            (r'IMpower[\s-]*\d+', '[STUDY]'),
+            (r'OAK\s+study', '[STUDY]'),
+            (r'POPLAR\s+study', '[STUDY]'),
+            (r'GA\d{5}', '[STUDY_ID]'),  # Roche study IDs
+            (r'BMS-\d+', '[STUDY_ID]'),  # BMS study IDs
+            (r'MK-\d+', '[STUDY_ID]'),   # Merck study IDs
+        ]
+        for pattern, replacement in study_patterns:
+            sanitized = re.sub(pattern, replacement, sanitized, flags=re.IGNORECASE)
+
+        # STEP 4: Remove drug names that could contaminate
+        drug_patterns = [
+            r'\betrolizumab\b', r'\bavelumab\b', r'\bipilimumab\b',
+            r'\batezolizumab\b', r'\bdurvalumab\b', r'\bpembrolizumab\b',
+            r'\bnivolumab\b',  # Even the correct drug - use placeholder
+        ]
+        for pattern in drug_patterns:
+            sanitized = re.sub(pattern, '[DRUG]', sanitized, flags=re.IGNORECASE)
+
+        # STEP 5: Remove indication-specific terms that could leak
+        indication_terms = [
+            r'\bmRCC\b', r'\bRCC\b', r'\brenal cell carcinoma\b',
+            r'\bhepatocellular\b', r'\bHCC\b', r'\bmelanoma\b',
+            r'\burothelial\b', r'\bgastric\b', r'\besophageal\b',
+            r'\bNSCLC\b', r'\bnon-small cell lung\b',  # Even correct ones
+        ]
+        for pattern in indication_terms:
+            sanitized = re.sub(pattern, '[INDICATION]', sanitized, flags=re.IGNORECASE)
+
+        # STEP 6: Apply structured number replacement patterns
         for pattern, replacement in self.NUMBER_PATTERNS:
             sanitized = pattern.sub(replacement, sanitized)
 
-        # Replace any remaining standalone numbers
+        # STEP 7: Replace ALL remaining numbers (aggressive)
+        # Replace any number >= 2 digits
         sanitized = re.sub(r'\b\d{2,}\b', '[N]', sanitized)
+        # Replace ratios like 2:1, 1:1:1
+        sanitized = re.sub(r'\b\d+:\d+(?::\d+)?\b', '[RATIO]', sanitized)
 
-        # Remove blocked drug names
+        # STEP 8: Remove blocked terms from identity
         for term in identity.blocked_terms:
-            sanitized = re.sub(re.escape(term), '[DRUG]', sanitized, flags=re.IGNORECASE)
+            if len(term) > 2:  # Avoid blocking short terms
+                sanitized = re.sub(re.escape(term), '[BLOCKED]', sanitized, flags=re.IGNORECASE)
+
+        # STEP 9: Clean up multiple placeholders and whitespace
+        sanitized = re.sub(r'\[N\]\s*\[N\]', '[N]', sanitized)
+        sanitized = re.sub(r'\s+', ' ', sanitized)
+        sanitized = sanitized.strip()
 
         return sanitized
 
@@ -961,36 +1115,83 @@ class ConditionDetector:
         return any(sig in text for sig in io_signals)
 
     def _detect_bridging(self, text: str) -> bool:
-        """Detect bridging study design."""
-        bridging_signals = [
+        """
+        Detect bridging study design.
+
+        Bridging studies are regional trials designed to demonstrate that
+        treatment effects observed in global/pivotal studies apply to a
+        specific population (e.g., China, Japan, Asia).
+        """
+        # Strong signals (any one is sufficient)
+        strong_signals = [
             'bridging study',
             'bridging trial',
-            'regional study',
-            'china registration',
-            'asian population',
             'ethnic bridging',
+            'regional registration',
+            'china registration',
+            'japan registration',
+            'asia registration',
+            'ich e5',  # ICH E5 guideline on ethnic factors
+            'ich e17',  # ICH E17 on multi-regional trials
+        ]
+
+        if any(sig in text for sig in strong_signals):
+            return True
+
+        # Weak signals (need 2+ to confirm bridging)
+        weak_signals = [
+            'regional study',
+            'asian population',
+            'chinese population',
+            'japanese population',
             'confirm treatment effect',
             'demonstrate consistency',
             'replicate findings',
+            'extrapolate',
+            'similar efficacy',
+            'local population',
         ]
-        return any(sig in text for sig in bridging_signals)
+
+        count = sum(1 for sig in weak_signals if sig in text)
+        return count >= 2
 
     def _detect_consistency(self, text: str) -> bool:
-        """Detect consistency objective."""
-        consistency_signals = [
+        """
+        Detect consistency objective (two-step hierarchical testing).
+
+        Consistency objective: Show treatment effect in target population
+        is consistent with (preserves a fraction of) the global effect.
+        """
+        # Strong signals - any one is sufficient
+        strong_signals = [
+            'consistency objective',
+            'two-step',
+            'two step',
+            'hierarchical testing',
+            'preserve.*effect',
+            'maintain.*effect',
+            r'\d+%\s*of\s*(the\s+)?risk\s+reduction',
+            r'\d+%\s*of\s*(the\s+)?treatment\s+effect',
+        ]
+
+        for sig in strong_signals:
+            if re.search(sig, text, re.IGNORECASE):
+                return True
+
+        # Weak signals (need multiple to confirm)
+        weak_signals = [
             'consistency with',
             'consistent with',
-            'maintain',
-            'preserve',
             'of the effect',
-            'of the treatment effect',
             'of risk reduction',
             'reference stud',
             'global stud',
             'pivotal stud',
+            'prior stud',
+            'checkmate 057',  # Known reference for NSCLC
+            'checkmate 017',  # Known reference for NSCLC
         ]
-        # Need at least 2 signals
-        count = sum(1 for sig in consistency_signals if sig in text)
+        count = sum(1 for sig in weak_signals if sig in text)
         return count >= 2
 
     def _extract_reference_studies(self, text: str) -> List[str]:
@@ -1143,25 +1344,47 @@ class ConstrainedSAPGenerator:
 
             # Consistency slot for bridging studies
             if conditions.is_bridging_study or conditions.has_consistency_objective:
+                # CRITICAL: Two-step hierarchical testing is MANDATORY for bridging
                 slots.append(MandatorySlot(
                     slot_name="CONSISTENCY_CHECK",
                     must_include="two-step",
                     must_state_as="hierarchical testing",
-                    rationale_required=True
+                    rationale_required=True,
+                    alternatives=["two step", "hierarchical", "step 1", "step 2"]
+                ))
+
+                # Research hypothesis must mention consistency
+                slots.append(MandatorySlot(
+                    slot_name="RESEARCH_HYPOTHESIS",
+                    must_include="consistency",
+                    must_state_as="research hypothesis",
+                    rationale_required=True,
+                    alternatives=["consistent with", "preserve", "maintain"]
                 ))
 
                 if conditions.consistency_margin:
                     slots.append(MandatorySlot(
                         slot_name="CONSISTENCY_MARGIN",
-                        must_include=conditions.consistency_margin
+                        must_include=conditions.consistency_margin,
+                        alternatives=["50%", "preserve at least", "fraction of"]
                     ))
 
                 if conditions.consistency_reference_studies:
+                    # Reference studies MUST be mentioned in bridging study
                     for study in conditions.consistency_reference_studies[:3]:
                         slots.append(MandatorySlot(
                             slot_name="REFERENCE_STUDY",
-                            must_include=study
+                            must_include=study,
+                            rationale_required=False
                         ))
+
+                # Target region for filing
+                if conditions.target_region:
+                    slots.append(MandatorySlot(
+                        slot_name="TARGET_REGION",
+                        must_include=conditions.target_region,
+                        alternatives=["Chinese", "Asian", "local population"]
+                    ))
 
         elif section_name == "sample_size":
             # Sample size must use locked values only
