@@ -236,7 +236,7 @@ class HardValidator:
         # 9. LOW: Phase mentioned
         if facts.phase.value != "Unknown":
             total_checks += 1
-            if facts.phase.value.lower() in sap_text.lower():
+            if str(facts.phase.value).lower() in sap_text.lower():
                 checks_passed += 1
             else:
                 issues.append(ValidationIssue(
@@ -321,7 +321,7 @@ class HardValidator:
         # 14. MEDIUM: Primary timepoint mentioned
         if facts.primary_endpoint and hasattr(facts.primary_endpoint, 'timepoint') and facts.primary_endpoint.timepoint:
             total_checks += 1
-            timepoint = facts.primary_endpoint.timepoint.lower()
+            timepoint = str(facts.primary_endpoint.timepoint).lower()
             if timepoint in sap_text.lower() or self._check_timepoint_present(sap_text, timepoint):
                 checks_passed += 1
             else:

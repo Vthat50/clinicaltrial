@@ -384,9 +384,11 @@ PROTOCOL TEXT:
 
         # Derive endpoint definition if not provided
         if facts.primary_endpoint and not facts.primary_endpoint_definition:
-            if "overall survival" in facts.primary_endpoint.lower() or facts.primary_endpoint.upper() == "OS":
+            pe_lower = str(facts.primary_endpoint).lower()
+            pe_upper = str(facts.primary_endpoint).upper()
+            if "overall survival" in pe_lower or pe_upper == "OS":
                 facts.primary_endpoint_definition = "OS is defined as the time from randomization to the date of death. A subject who has not died will be censored at last known date alive."
-            elif "progression-free survival" in facts.primary_endpoint.lower() or "pfs" in facts.primary_endpoint.lower():
+            elif "progression-free survival" in pe_lower or "pfs" in pe_lower:
                 facts.primary_endpoint_definition = "PFS is defined as the time from randomization to the date of the first documented tumor progression as determined by the investigator using RECIST 1.1 criteria or death due to any cause."
 
         return facts

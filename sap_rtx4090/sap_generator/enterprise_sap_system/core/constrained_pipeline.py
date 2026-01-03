@@ -1408,10 +1408,10 @@ Analysis will include:
 
     def _generate_statistical_methods(self, facts: FullProtocolFacts) -> str:
         """Generate Section 7: Statistical Methods (RAG-enhanced)"""
-        primary_endpoint = facts.primary_endpoint or "primary endpoint"
-        primary_timepoint = facts.primary_timepoint or "Week 12"
-        primary_population = facts.primary_population or "FAS"
-        primary_analysis_method = facts.primary_analysis_method or "Logistic Regression"
+        primary_endpoint = str(facts.primary_endpoint or "primary endpoint")
+        primary_timepoint = str(facts.primary_timepoint or "Week 12")
+        primary_population = str(facts.primary_population or "FAS")
+        primary_analysis_method = str(facts.primary_analysis_method or "Logistic Regression")
         alpha = facts.alpha or 0.05
         alpha_sidedness = facts.alpha_sidedness or "one-sided"  # Default to one-sided for efficacy
 
