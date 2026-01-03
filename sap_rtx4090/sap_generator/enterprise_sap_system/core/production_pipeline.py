@@ -58,6 +58,13 @@ try:
 except ImportError:
     TieredLLMClient = None
 
+try:
+    from .drug_classifier import DrugClassifier, DrugClassification, create_drug_classifier
+except ImportError:
+    DrugClassifier = None
+    DrugClassification = None
+    create_drug_classifier = None
+
 
 # =============================================================================
 # DATA CLASSES
@@ -85,6 +92,7 @@ class GenerationResult:
     facts: Dict[str, Any] = field(default_factory=dict)
     constraints: Optional[MethodConstraints] = None
     verification: Optional[VerificationResult] = None
+    drug_classification: Optional[Any] = None  # DrugClassification from ontology
     regeneration_count: int = 0
     warnings: List[str] = field(default_factory=list)
     error: str = ""
@@ -181,6 +189,15 @@ class ProductionSAPPipeline:
             except Exception as e:
                 print(f"[ProductionPipeline] ✗ LLM failed: {e}")
 
+        # 7. Drug Classifier (Ontology Integration)
+        self.drug_classifier = None
+        if DrugClassifier:
+            try:
+                self.drug_classifier = create_drug_classifier(llm_client=self.llm)
+                print("[ProductionPipeline] ✓ DrugClassifier initialized (NCI Thesaurus + LLM fallback)")
+            except Exception as e:
+                print(f"[ProductionPipeline] ✗ Drug classifier failed: {e}")
+
     def generate(self, protocol_text: str) -> GenerationResult:
         """
         Generate SAP using production pipeline.
@@ -198,12 +215,14 @@ class ProductionSAPPipeline:
             facts = self._extract_facts(protocol_text)
             print(f"[Step 1] Extracted: {facts.get('nct_id')}, {facts.get('sample_size')} patients, {facts.get('final_events')} events")
 
-            # STEP 2: Get method constraints
+            # STEP 2: Get method constraints (with Drug Classification)
             print("\n[Step 2] Getting method constraints from Knowledge Graph...")
-            conditions = self._detect_conditions(facts, protocol_text)
+            conditions, drug_classification = self._detect_conditions(facts, protocol_text)
             constraints = self._get_constraints(facts, conditions)
             print(f"[Step 2] Primary test: {constraints.primary_test}")
             print(f"[Step 2] Conditions: {conditions}")
+            if drug_classification:
+                print(f"[Step 2] Drug: {drug_classification.drug_name} → {drug_classification.drug_class} ({drug_classification.source})")
 
             # STEP 3: Get sanitized RAG examples
             print("\n[Step 3] Getting sanitized RAG examples (numbers stripped)...")
@@ -235,6 +254,7 @@ class ProductionSAPPipeline:
                 facts=facts,
                 constraints=constraints,
                 verification=verification,
+                drug_classification=drug_classification,
                 regeneration_count=regeneration_count
             )
 
@@ -320,29 +340,65 @@ class ProductionSAPPipeline:
 
         return facts
 
-    def _detect_conditions(self, facts: Dict[str, Any], protocol_text: str) -> List[str]:
-        """Step 2a: Detect conditions for method selection."""
+    def _detect_conditions(self, facts: Dict[str, Any], protocol_text: str) -> Tuple[List[str], Optional[Any]]:
+        """
+        Step 2a: Detect conditions for method selection.
+
+        Uses Drug Classifier with ontology integration for accurate classification.
+
+        Returns:
+            Tuple of (conditions list, drug_classification)
+        """
+        conditions = set()
+        drug_classification = None
+
+        # STEP 1: Classify drug using ontology (NCI Thesaurus → LLM fallback)
+        drug_name = facts.get('drug_name', '')
+        if drug_name and self.drug_classifier:
+            drug_classification = self.drug_classifier.classify(drug_name)
+
+            if drug_classification:
+                # Get statistical implications from classification
+                implications = self.drug_classifier.get_statistical_implications(drug_classification)
+                conditions.update(implications.get('conditions_to_add', []))
+
+                # Log classification source
+                print(f"[Conditions] Drug '{drug_name}' classified as {drug_classification.drug_class}")
+                print(f"[Conditions]   Source: {drug_classification.source}, Confidence: {drug_classification.confidence:.2f}")
+                if drug_classification.expects_delayed_effect:
+                    print(f"[Conditions]   → Expects delayed effect (use Fleming-Harrington)")
+
+        # STEP 2: Use Knowledge Graph for additional conditions
         if self.knowledge_graph:
             facts_with_text = {**facts, 'raw_text': protocol_text.lower()}
-            conditions = self.knowledge_graph.detect_conditions(facts_with_text)
-            return list(conditions)
+            kg_conditions = self.knowledge_graph.detect_conditions(facts_with_text)
+            conditions.update(kg_conditions)
 
-        # Fallback
-        conditions = []
+        # STEP 3: Text-based fallback for conditions not detected by KG
         text_lower = protocol_text.lower()
 
-        if any(x in text_lower for x in ['nivolumab', 'pembrolizumab', 'pd-1', 'pd-l1', 'checkpoint', 'immunotherapy']):
-            conditions.extend(['immunotherapy', 'delayed_effect'])
-        if any(x in text_lower for x in ['survival', 'os', 'pfs', 'time to']):
-            conditions.append('time_to_event')
-        if 'crossover' in text_lower or 'cross-over' in text_lower:
-            conditions.extend(['crossover', 'treatment_switching'])
-        if 'interim' in text_lower:
-            conditions.append('interim_analysis')
-        if 'stratif' in text_lower:
-            conditions.append('stratified')
+        # Time-to-event endpoints
+        if any(x in text_lower for x in ['survival', 'os', 'pfs', 'time to', 'time-to-event']):
+            conditions.add('time_to_event')
 
-        return conditions
+        # Crossover/treatment switching
+        if 'crossover' in text_lower or 'cross-over' in text_lower:
+            conditions.add('crossover')
+            conditions.add('treatment_switching')
+
+        # Interim analysis
+        if 'interim' in text_lower:
+            conditions.add('interim_analysis')
+
+        # Stratification
+        if 'stratif' in text_lower:
+            conditions.add('stratified')
+
+        # Non-proportional hazards (from drug classification or text)
+        if drug_classification and drug_classification.expects_non_proportional_hazards:
+            conditions.add('non_proportional_hazards')
+
+        return list(conditions), drug_classification
 
     def _get_constraints(self, facts: Dict[str, Any], conditions: List[str]) -> MethodConstraints:
         """Step 2b: Get method constraints from knowledge graph."""
