@@ -397,16 +397,36 @@ class ProductionSAPPipeline:
                 facts['drug_name'] = drug_match.group()
                 break
 
-        # Stratification factors
-        strat_match = re.search(
-            r'stratif\w*\s+(?:by|factors?|according to)[:\s]*([^.]+)',
-            text, re.IGNORECASE
-        )
-        if strat_match:
-            strat_text = strat_match.group(1)
-            # Parse comma/and-separated factors
-            factors = re.split(r'\s*(?:,|and)\s*', strat_text.strip())
-            facts['stratification_factors'] = [f.strip() for f in factors if f.strip()]
+        # Stratification factors - more robust extraction
+        strat_patterns = [
+            # "stratified by X, Y, and Z"
+            r'stratif\w*\s+(?:by|according to)[:\s]*([^.\n]+)',
+            # "stratification factors: X, Y, Z"
+            r'stratification factors?\s*[:\s]+([^.\n]+)',
+            # Look for bullet list after "stratified"
+            r'stratif\w*\s+(?:by|according to)[:\s]*\n((?:\s*[-•]\s*[^\n]+\n?)+)',
+        ]
+
+        for pattern in strat_patterns:
+            strat_match = re.search(pattern, text, re.IGNORECASE)
+            if strat_match:
+                strat_text = strat_match.group(1)
+                # Clean up and parse factors
+                # Handle bullet points (only at start of line/item, not hyphens within words)
+                if re.search(r'(?:^|\n)\s*[-•]\s*\w', strat_text):
+                    factors = re.split(r'(?:^|\n)\s*[-•]\s*', strat_text)
+                else:
+                    # Split on comma and "and" but not hyphens
+                    factors = re.split(r'\s*(?:,\s*(?:and\s+)?|(?:\s+and\s+))', strat_text.strip())
+                # Clean up each factor
+                clean_factors = []
+                for f in factors:
+                    f = f.strip()
+                    if f and len(f) < 100:  # Sanity check on length
+                        clean_factors.append(f)
+                if clean_factors:
+                    facts['stratification_factors'] = clean_factors
+                    break
 
         return facts
 
