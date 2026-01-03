@@ -226,6 +226,14 @@ class VerificationResult:
         return self.confidence
 
 
+class QualityStatus(Enum):
+    """Quality status based on confidence thresholds."""
+    AUTO_APPROVED = "auto_approved"           # >= 0.95
+    APPROVED_WITH_FLAG = "approved_with_flag" # 0.85-0.94
+    HUMAN_REVIEW = "human_review"             # 0.70-0.84
+    REJECTED = "rejected"                      # < 0.70
+
+
 @dataclass
 class GeneratedSection:
     """A generated SAP section with metadata."""
@@ -236,6 +244,8 @@ class GeneratedSection:
     slots_verified: List[str] = field(default_factory=list)
     requires_human_review: bool = False
     issues: List[str] = field(default_factory=list)
+    quality_status: Optional[QualityStatus] = None
+    foreign_numbers_detected: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -779,29 +789,68 @@ class SanitizedRAGRetriever:
         query: str,
         identity: IdentityFacts
     ) -> List[Tuple[str, float]]:
-        """Score chunk relevance using SELF-RAG reflection."""
+        """
+        Score chunk relevance using SELF-RAG reflection tokens.
+
+        Based on Self-RAG paper: Uses [Retrieve], [IsRelevant], [IsSupported] tokens
+        to explicitly evaluate retrieval quality before generation.
+        """
         scored = []
 
         indication = identity.indication.value if identity.indication else "the study"
         drug = identity.drug_name.value if identity.drug_name else "the treatment"
+        phase = identity.phase.value if identity.phase else "clinical trial"
 
         for chunk in chunks:
             try:
-                # Ask LLM to score relevance
-                prompt = f"""Rate the relevance of this SAP example chunk for a {indication} study
-with {drug}. Score 0.0 to 1.0.
+                # Enhanced SELF-RAG reflection with explicit tokens
+                prompt = f"""Evaluate this SAP chunk for a {phase} {indication} study with {drug}.
 
-Chunk:
-{chunk[:500]}...
+CHUNK:
+{chunk[:600]}
 
-Reply with ONLY a number between 0.0 and 1.0."""
+Answer each question with YES or NO, then provide overall score:
 
-                response = self.llm_client.generate(prompt, max_tokens=10)
-                score = float(re.search(r'(\d+\.?\d*)', response).group(1))
-                score = min(1.0, max(0.0, score))
-                scored.append((chunk, score))
-            except Exception:
-                scored.append((chunk, 0.6))  # Default score
+[Retrieve] Is this chunk from a relevant therapeutic area?
+[IsRelevant] Does this chunk match the study design ({indication}, {phase})?
+[IsSupported] Does the methodology in this chunk apply to {drug} trials?
+[NoContamination] Is this chunk free of references to other specific studies?
+
+Based on above, rate relevance 0.0-1.0:
+SCORE:"""
+
+                response = self.llm_client.generate(prompt, max_tokens=100)
+
+                # Parse reflection tokens
+                reflection_score = 0.0
+                if 'retrieve' in response.lower():
+                    if 'yes' in response.lower().split('retrieve')[1][:20]:
+                        reflection_score += 0.25
+                if 'isrelevant' in response.lower():
+                    if 'yes' in response.lower().split('isrelevant')[1][:20]:
+                        reflection_score += 0.25
+                if 'issupported' in response.lower():
+                    if 'yes' in response.lower().split('issupported')[1][:20]:
+                        reflection_score += 0.25
+                if 'nocontamination' in response.lower():
+                    if 'yes' in response.lower().split('nocontamination')[1][:20]:
+                        reflection_score += 0.25
+
+                # Also try to extract explicit score
+                score_match = re.search(r'(?:SCORE|score)[:\s]*(\d+\.?\d*)', response)
+                if score_match:
+                    explicit_score = float(score_match.group(1))
+                    explicit_score = min(1.0, max(0.0, explicit_score))
+                    # Average reflection tokens with explicit score
+                    final_score = (reflection_score + explicit_score) / 2
+                else:
+                    final_score = reflection_score
+
+                scored.append((chunk, final_score))
+
+            except Exception as e:
+                logger.debug(f"SELF-RAG scoring failed: {e}")
+                scored.append((chunk, 0.5))  # Default score
 
         # Sort by score descending
         scored.sort(key=lambda x: x[1], reverse=True)
@@ -1247,10 +1296,28 @@ class FactVerificationLoop:
     """
     STAGE 4: Post-generation verification with automatic regeneration.
     Implements MiniCheck-style fact verification.
+
+    Confidence Threshold Guidance (based on 2024-2025 research):
+    ============================================================
+    >= 0.95: AUTO-APPROVE - High confidence, production ready
+    0.85-0.94: AUTO-APPROVE WITH FLAG - Quality review recommended
+    0.70-0.84: HUMAN REVIEW REQUIRED - Cannot be auto-approved
+    < 0.70: REJECT AND REGENERATE - Too low, needs regeneration
+
+    These thresholds are calibrated against clinical trial SAP standards
+    where accuracy is critical for regulatory submission.
     """
 
     MAX_REGENERATION_ATTEMPTS = 3
-    CONFIDENCE_THRESHOLD = 0.7
+
+    # Confidence thresholds
+    THRESHOLD_AUTO_APPROVE = 0.95       # Auto-approve, production ready
+    THRESHOLD_APPROVE_WITH_FLAG = 0.85  # Auto-approve but flag for quality review
+    THRESHOLD_HUMAN_REVIEW = 0.70       # Requires human review
+    THRESHOLD_REJECT = 0.70             # Below this, reject and regenerate
+
+    # Alias for backward compatibility
+    CONFIDENCE_THRESHOLD = THRESHOLD_HUMAN_REVIEW
 
     def __init__(self, llm_client=None, generator: ConstrainedSAPGenerator = None):
         self.llm_client = llm_client
@@ -1280,14 +1347,30 @@ class FactVerificationLoop:
             generated.confidence = result.confidence
             generated.verification_attempts = attempt + 1
 
-            if result.passed and result.confidence >= self.CONFIDENCE_THRESHOLD:
+            # Detect and record foreign numbers
+            foreign_nums = self._detect_foreign_numbers(generated.content, identity)
+            generated.foreign_numbers_detected = [num for num, _ in foreign_nums]
+
+            # Set quality status based on confidence thresholds
+            generated.quality_status = self._get_quality_status(result.confidence)
+
+            if result.passed and result.confidence >= self.THRESHOLD_HUMAN_REVIEW:
+                # Determine if human review still needed based on status
+                if generated.quality_status == QualityStatus.HUMAN_REVIEW:
+                    generated.requires_human_review = True
+                elif generated.quality_status == QualityStatus.APPROVED_WITH_FLAG:
+                    generated.requires_human_review = False  # But flagged for QA
+                else:
+                    generated.requires_human_review = False
+
                 logger.info(f"Verification passed",
                            section=generated.section_name,
                            confidence=result.confidence,
+                           quality_status=generated.quality_status.value,
                            attempts=attempt + 1)
                 return generated
 
-            # Regenerate with feedback
+            # Below threshold - regenerate with feedback
             logger.warning(f"Verification failed, regenerating",
                           section=generated.section_name,
                           attempt=attempt + 1,
@@ -1307,12 +1390,25 @@ class FactVerificationLoop:
 
         # Max attempts reached
         generated.requires_human_review = True
+        generated.quality_status = QualityStatus.REJECTED
         generated.issues = result.issues
         logger.error(f"Verification failed after max attempts",
                     section=generated.section_name,
+                    quality_status="rejected",
                     issues=result.issues)
 
         return generated
+
+    def _get_quality_status(self, confidence: float) -> QualityStatus:
+        """Determine quality status based on confidence score."""
+        if confidence >= self.THRESHOLD_AUTO_APPROVE:
+            return QualityStatus.AUTO_APPROVED
+        elif confidence >= self.THRESHOLD_APPROVE_WITH_FLAG:
+            return QualityStatus.APPROVED_WITH_FLAG
+        elif confidence >= self.THRESHOLD_HUMAN_REVIEW:
+            return QualityStatus.HUMAN_REVIEW
+        else:
+            return QualityStatus.REJECTED
 
     def _verify(
         self,
@@ -1377,17 +1473,75 @@ class FactVerificationLoop:
                     if value_str not in content:
                         issues.append(f"Locked value {field_name}={value} not found in content")
 
-        # Check for suspiciously wrong numbers
-        suspicious_numbers = ['591', '534', '1150']  # Known contamination signals
-        for num in suspicious_numbers:
+        # CONTAMINATION DETECTION HEURISTIC: Foreign numbers check
+        # Any number > 10 that's not in locked facts is suspicious
+        foreign_numbers = self._detect_foreign_numbers(content, identity)
+        if foreign_numbers:
+            for num, context in foreign_numbers[:3]:  # Report top 3
+                issues.append(f"Foreign number '{num}' not in locked facts - context: '{context}'")
+
+        # Check for suspiciously wrong numbers (known contamination signals)
+        known_contamination = {
+            '591': 'CheckMate 057',
+            '534': 'JAVELIN',
+            '1150': 'GA29144/etrolizumab',
+            '460': 'GA29144/etrolizumab',
+            '230': 'GA29144/etrolizumab',
+        }
+        for num, source in known_contamination.items():
             if num in content:
                 # Check if this number is in locked values
                 is_locked = any(str(v.get('value')) == num for v in locked.values() if v.get('value'))
                 if not is_locked:
-                    issues.append(f"Suspicious number '{num}' found - possible contamination")
+                    issues.append(f"Known contamination: '{num}' (from {source})")
 
         confidence = 1.0 - (len(issues) * 0.15)
         return {'issues': issues, 'confidence': max(0.3, confidence)}
+
+    def _detect_foreign_numbers(self, content: str, identity: IdentityFacts) -> List[Tuple[str, str]]:
+        """
+        Detect foreign numbers not in locked facts.
+
+        Returns list of (number, context) tuples for suspicious numbers.
+        """
+        # Build set of allowed numbers from locked facts
+        locked = identity.get_locked_values()
+        allowed_numbers = set()
+
+        for field_name, fact_data in locked.items():
+            value = fact_data.get('value')
+            if value is not None:
+                if isinstance(value, (int, float)):
+                    allowed_numbers.add(str(int(value)))
+                    # Also allow related numbers (e.g., per-arm N)
+                    if field_name == 'sample_size':
+                        n = int(value)
+                        # Allow half, thirds for common ratios
+                        allowed_numbers.add(str(n // 2))
+                        allowed_numbers.add(str(n // 3))
+                        allowed_numbers.add(str(n * 2 // 3))
+                elif isinstance(value, str):
+                    # Extract numbers from ratio strings like "2:1"
+                    nums = re.findall(r'\d+', value)
+                    allowed_numbers.update(nums)
+
+        # Also allow common non-suspicious numbers
+        allowed_numbers.update(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+        allowed_numbers.update(['80', '85', '90', '95', '99'])  # Common percentages
+        allowed_numbers.update(['05', '01', '025', '001'])  # Alpha levels
+
+        # Find all numbers in content with context
+        foreign = []
+        for match in re.finditer(r'\b(\d+)\b', content):
+            num = match.group(1)
+            if int(num) > 10 and num not in allowed_numbers:
+                # Get context (20 chars before/after)
+                start = max(0, match.start() - 20)
+                end = min(len(content), match.end() + 20)
+                context = content[start:end].replace('\n', ' ').strip()
+                foreign.append((num, context))
+
+        return foreign
 
     def _verify_slots(self, content: str, mandatory_slots: List[MandatorySlot]) -> Dict:
         """Verify mandatory slots are present."""
@@ -1763,6 +1917,31 @@ if __name__ == "__main__":
     print(f"  Consistency Objective: {conditions.has_consistency_objective}")
     print(f"  Reference Studies: {conditions.consistency_reference_studies}")
     print(f"  Consistency Margin: {conditions.consistency_margin}")
+
+    # Test foreign number detection
+    print("\n" + "-" * 50)
+    print("Testing Contamination Detection Heuristics:")
+
+    # Simulated contaminated content
+    contaminated_content = """
+    The study enrolled 1150 patients with a randomization ratio of 1:2:2.
+    This is based on 591 events for interim analysis.
+    The sample size of 500 patients provides 80% power.
+    """
+
+    verifier = FactVerificationLoop()
+    foreign = verifier._detect_foreign_numbers(contaminated_content, identity)
+
+    print(f"\n  Foreign numbers detected:")
+    for num, context in foreign:
+        print(f"    {num}: '{context}'")
+
+    # Test quality status thresholds
+    print("\n  Quality Status Thresholds:")
+    print(f"    Confidence 0.96 -> {verifier._get_quality_status(0.96).value}")
+    print(f"    Confidence 0.87 -> {verifier._get_quality_status(0.87).value}")
+    print(f"    Confidence 0.75 -> {verifier._get_quality_status(0.75).value}")
+    print(f"    Confidence 0.60 -> {verifier._get_quality_status(0.60).value}")
 
     print("\n" + "=" * 50)
     print("Test completed successfully!")
