@@ -439,6 +439,57 @@ class ProductionSAPPipeline:
         if 'num_interim' not in normalized and 'num_interim_analyses' in normalized:
             normalized['num_interim'] = normalized['num_interim_analyses']
 
+        # =====================================================================
+        # CROSS-REFERENCE: Endpoint <-> Estimand
+        # If primary_endpoint is missing but estimand has the info, use it
+        # =====================================================================
+        primary_ep = normalized.get('primary_endpoint', '')
+        is_ep_missing = (
+            not primary_ep or
+            '[NOT' in str(primary_ep) or
+            '[NEEDS REVIEW]' in str(primary_ep) or
+            '[To be specified]' in str(primary_ep)
+        )
+
+        if is_ep_missing:
+            # Try estimand sources
+            estimand_var = normalized.get('estimand_variable') or normalized.get('primary_estimand_variable')
+            if estimand_var and '[NOT' not in str(estimand_var):
+                normalized['primary_endpoint'] = estimand_var
+                print(f"[CrossRef] Primary endpoint populated from estimand: {estimand_var}")
+
+            # Try primary_estimand object
+            primary_estimand = normalized.get('primary_estimand')
+            if isinstance(primary_estimand, dict) and primary_estimand.get('variable'):
+                normalized['primary_endpoint'] = primary_estimand['variable']
+                print(f"[CrossRef] Primary endpoint populated from primary_estimand: {primary_estimand['variable']}")
+
+            # Try co-primary endpoints
+            co_primary = normalized.get('co_primary_endpoints') or normalized.get('dual_primary_endpoints')
+            if co_primary and isinstance(co_primary, list) and len(co_primary) > 0:
+                # Join them for display
+                ep_names = [ep.get('name', ep) if isinstance(ep, dict) else str(ep) for ep in co_primary]
+                normalized['primary_endpoint'] = ' and '.join(ep_names)
+                normalized['is_co_primary'] = True
+                print(f"[CrossRef] Primary endpoint populated from co-primary: {normalized['primary_endpoint']}")
+
+        # =====================================================================
+        # CROSS-REFERENCE: Estimand <- Endpoint (reverse direction)
+        # If estimand_variable is missing but endpoint has the info, use it
+        # =====================================================================
+        estimand_var = normalized.get('estimand_variable', '')
+        is_estimand_missing = (
+            not estimand_var or
+            '[NOT' in str(estimand_var) or
+            '[NEEDS REVIEW]' in str(estimand_var)
+        )
+
+        if is_estimand_missing and normalized.get('primary_endpoint'):
+            ep = normalized['primary_endpoint']
+            if '[NOT' not in str(ep) and '[NEEDS REVIEW]' not in str(ep):
+                normalized['estimand_variable'] = ep
+                print(f"[CrossRef] Estimand variable populated from endpoint: {ep}")
+
         return normalized
 
     def _basic_extraction(self, text: str) -> Dict[str, Any]:
