@@ -275,13 +275,29 @@ class KnowledgeRuleEngine:
         }
 
         # Primary test selection
-        if 'time_to_event' in conditions:
-            # IMMUNOTHERAPY + TIME-TO-EVENT = Fleming-Harrington as PRIMARY
+        # =================================================================
+        # CRITICAL: Check for PROTOCOL-EXTRACTED method FIRST
+        # =================================================================
+        protocol_method = protocol_facts.get('statistical_method', '') or \
+                         protocol_facts.get('statistical_method_details', '')
+
+        if protocol_method:
+            # USE WHAT THE PROTOCOL SAYS - don't infer!
+            print(f"[KnowledgeRuleEngine] Using PROTOCOL-SPECIFIED method: {protocol_method}")
+            recommendations['primary_test'] = {
+                'method': 'protocol_specified',
+                'description': protocol_method,
+                'reason': f'Method extracted from protocol: {protocol_method}'
+            }
+            # Don't override with inference
+        elif 'time_to_event' in conditions:
+            # FALLBACK ONLY: Apply inference if protocol doesn't specify method
             if 'immunotherapy' in conditions or 'delayed_effect' in conditions:
+                print("[KnowledgeRuleEngine] FALLBACK: Inferring Fleming-Harrington for immunotherapy")
                 recommendations['primary_test'] = {
                     'method': 'fleming_harrington',
                     'description': 'Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)',
-                    'reason': 'Immunotherapy/checkpoint inhibitor with delayed treatment effect - weighted log-rank is more powerful'
+                    'reason': 'FALLBACK: Immunotherapy/checkpoint inhibitor with delayed treatment effect - weighted log-rank is more powerful'
                 }
                 # Add stratified log-rank as sensitivity
                 recommendations['sensitivity_analyses'].append({

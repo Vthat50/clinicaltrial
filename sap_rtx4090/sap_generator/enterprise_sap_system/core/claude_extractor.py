@@ -181,6 +181,7 @@ Extract the following fields and return ONLY valid JSON (no other text):
   "is_blinded": true or false,
   "blinding_type": "double-blind, single-blind, open-label, or empty",
   "is_pilot_study": true or false,
+  "treatment_setting": "first-line, second-line, adjuvant, neoadjuvant, maintenance, salvage, or empty",
   "sample_size": number (total planned enrollment),
   "sample_size_justification": "formal_power_calculation OR pragmatic OR feasibility",
   "num_arms": number of treatment arms,
@@ -299,10 +300,15 @@ IMPORTANT RULES:
 
 5. ENDPOINTS: Extract ALL co-primary endpoints. Many studies have 2-3 (safety + efficacy + tumor response)
 
-6. STATISTICAL METHOD: Extract FULL specification:
-   - "Fleming-Harrington G(rho=0, gamma=1)" not just "weighted log-rank"
+6. STATISTICAL METHOD - CRITICAL: Extract EXACTLY what the protocol states:
+   - This is the MOST IMPORTANT field - do NOT infer or assume based on drug class
+   - Extract the EXACT method stated in the protocol (e.g., "stratified log-rank")
+   - Do NOT assume immunotherapy = Fleming-Harrington (many use standard log-rank)
+   - "Fleming-Harrington G(rho=0, gamma=1)" ONLY if protocol explicitly mentions it
    - "stratified log-rank by histology, PD-L1, ECOG" not just "stratified"
-   - Include ALL parameters (rho, gamma, weights)
+   - Include ALL parameters (rho, gamma, weights) ONLY if explicitly stated
+   - If protocol says "log-rank test", extract "log-rank test" (not Fleming-Harrington)
+   - If protocol says "stratified log-rank", extract "stratified log-rank" (not weighted)
 
 7. INTERIM ANALYSIS - CRITICAL FOR SAP DOCUMENTS:
    Look for these patterns and extract ALL details:

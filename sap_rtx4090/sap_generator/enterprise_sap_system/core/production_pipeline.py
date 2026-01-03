@@ -857,10 +857,22 @@ class ProductionSAPPipeline:
                         constraints.interim_method = interim.get('method', '')
                         constraints.alpha_spending = "O'Brien-Fleming"
 
-        # Apply immunotherapy-specific constraints for comparative studies
-        if 'immunotherapy' in conditions and 'time_to_event' in conditions:
+        # =================================================================
+        # CRITICAL: Protocol-extracted methods OVERRIDE inference rules
+        # =================================================================
+        protocol_method = facts.get('statistical_method', '') or facts.get('statistical_method_details', '')
+
+        if protocol_method:
+            # USE WHAT THE PROTOCOL SAYS - don't infer!
+            print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
+            constraints.primary_test = protocol_method
+            # Don't forbid anything - trust the protocol
+            constraints.forbidden_primary = ""
+        elif 'immunotherapy' in conditions and 'time_to_event' in conditions:
+            # FALLBACK ONLY: Apply immunotherapy inference if protocol doesn't specify method
+            print(f"[Constraints] FALLBACK: No protocol method found, inferring from immunotherapy")
             constraints.primary_test = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
-            constraints.forbidden_primary = "stratified log-rank"
+            constraints.forbidden_primary = ""  # Don't forbid - let protocol guide
             constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
             constraints.sensitivity_methods = ['stratified log-rank (unweighted)']
 
@@ -988,10 +1000,21 @@ class ProductionSAPPipeline:
                         constraints.interim_method = interim.get('method', '')
                         constraints.alpha_spending = "O'Brien-Fleming"
 
-        # Apply immunotherapy-specific constraints for comparative studies
-        if 'immunotherapy' in conditions and 'time_to_event' in conditions:
+        # =================================================================
+        # CRITICAL: Protocol-extracted methods OVERRIDE inference rules
+        # =================================================================
+        protocol_method = facts.get('statistical_method', '') or facts.get('statistical_method_details', '')
+
+        if protocol_method:
+            # USE WHAT THE PROTOCOL SAYS - don't infer!
+            print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
+            constraints.primary_test = protocol_method
+            constraints.forbidden_primary = ""
+        elif 'immunotherapy' in conditions and 'time_to_event' in conditions:
+            # FALLBACK ONLY: Apply immunotherapy inference if protocol doesn't specify method
+            print(f"[Constraints] FALLBACK: No protocol method found, inferring from immunotherapy")
             constraints.primary_test = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
-            constraints.forbidden_primary = "stratified log-rank"
+            constraints.forbidden_primary = ""
             constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
             constraints.sensitivity_methods = ['stratified log-rank (unweighted)']
 
