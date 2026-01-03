@@ -355,10 +355,41 @@ class ProductionSAPPipeline:
         if size_match:
             facts['sample_size'] = int(size_match.group(1))
 
-        # Events
-        events_match = re.search(r'(\d+)\s*(?:deaths?|events?|os events?)', text, re.IGNORECASE)
-        if events_match:
-            facts['final_events'] = int(events_match.group(1))
+        # Events - distinguish between final and interim
+        # Final events patterns (order matters - most specific first)
+        final_patterns = [
+            r'(?:final\s+analysis)[:\s]*(\d+)\s*(?:os\s+)?(?:deaths?|events?)',
+            r'(?:final)[:\s]*(\d+)\s*(?:os\s+)?(?:deaths?|events?)',
+            r'(\d+)\s*(?:os\s+)?(?:deaths?|events?)\s*(?:for\s+)?(?:final|at\s+final)',
+            r'(?:total|planned)[:\s]*(\d+)\s*(?:os\s+)?(?:deaths?|events?)',
+        ]
+        for pattern in final_patterns:
+            final_match = re.search(pattern, text, re.IGNORECASE)
+            if final_match:
+                facts['final_events'] = int(final_match.group(1))
+                break
+
+        # Interim events patterns
+        interim_patterns = [
+            r'(?:interim\s+analysis)[:\s]*(?:at\s+)?(\d+)\s*(?:deaths?|events?)',
+            r'(?:interim)[:\s]*(?:at\s+)?(\d+)\s*(?:deaths?|events?)',
+            r'(\d+)\s*(?:deaths?|events?)\s*(?:for\s+)?(?:interim)',
+            r'(?:at\s+)?(\d+)\s*(?:deaths?|events?).*?(?:interim)',
+        ]
+        for pattern in interim_patterns:
+            interim_match = re.search(pattern, text, re.IGNORECASE)
+            if interim_match:
+                candidate = int(interim_match.group(1))
+                # Don't confuse with final events
+                if candidate != facts.get('final_events'):
+                    facts['interim_events'] = candidate
+                    break
+
+        # Fallback if no final events found but we have a number
+        if not facts.get('final_events'):
+            events_match = re.search(r'(\d+)\s*(?:deaths?|events?|os events?)', text, re.IGNORECASE)
+            if events_match:
+                facts['final_events'] = int(events_match.group(1))
 
         # CRITICAL: Randomization ratio extraction
         # Multiple patterns to catch different formats
@@ -427,6 +458,54 @@ class ProductionSAPPipeline:
                 if clean_factors:
                     facts['stratification_factors'] = clean_factors
                     break
+
+        # Subgroup analyses extraction
+        subgroup_match = re.search(
+            r'(?:subgroup|subgroups)\s+(?:analys|includ)[^:]*[:\s]*([^.]+(?:\.[^.]+)?)',
+            text, re.IGNORECASE
+        )
+        if subgroup_match:
+            sg_text = subgroup_match.group(1)
+            # Parse common subgroup factors
+            subgroups = re.split(r'\s*(?:,|;|\band\b)\s*', sg_text.strip())
+            clean_subgroups = [s.strip() for s in subgroups if s.strip() and len(s.strip()) < 80]
+            if clean_subgroups:
+                facts['subgroup_analyses'] = clean_subgroups
+
+        # Bridging/consistency study detection
+        if any(term in text.lower() for term in ['bridging', 'consistency', 'regional', 'checkmate 057', 'checkmate 017']):
+            facts['is_bridging_study'] = True
+            facts['has_consistency_objective'] = True
+
+            # Try to find reference studies
+            ref_match = re.findall(r'(CheckMate\s*\d+|KEYNOTE[- ]\d+)', text, re.IGNORECASE)
+            if ref_match:
+                facts['consistency_reference_studies'] = list(set(ref_match))
+
+        # Hierarchical testing detection
+        if 'hierarchic' in text.lower() or 'gatekeep' in text.lower():
+            facts['has_hierarchical_testing'] = True
+            # Try to extract order
+            order_match = re.search(
+                r'(?:order|sequence|first|then)[:\s]*([^.]+)',
+                text, re.IGNORECASE
+            )
+            if order_match:
+                order_text = order_match.group(1)
+                # Look for OS, ORR, PFS patterns
+                endpoints = re.findall(r'\b(OS|PFS|ORR|DOR|TTF)\b', order_text, re.IGNORECASE)
+                if endpoints:
+                    facts['hierarchical_testing_order'] = [e.upper() for e in endpoints]
+
+        # TTF/Regulatory interim detection
+        if 'ttf' in text.lower() and 'china' in text.lower():
+            facts['has_regulatory_interim'] = True
+            facts['regulatory_interim_endpoint'] = 'TTF'
+            facts['regulatory_interim_region'] = 'China'
+            # Look for timing
+            timing_match = re.search(r'(\d+)\s*(?:subjects?|patients?)', text, re.IGNORECASE)
+            if timing_match:
+                facts['regulatory_interim_timing'] = f"~{timing_match.group(1)} subjects"
 
         return facts
 
@@ -819,12 +898,23 @@ Write the {section_title} section now.
 
         # Section-specific facts
         if section_key in ['statistical_methods', 'interim_analysis']:
-            if facts.get('final_events') or facts.get('final_analysis_events'):
-                events = facts.get('final_events') or facts.get('final_analysis_events')
-                lines.append(f"- Events at Final Analysis: {events} deaths")
-            if facts.get('interim_events') or facts.get('interim_analysis_events'):
-                events = facts.get('interim_events') or facts.get('interim_analysis_events')
-                lines.append(f"- Events at Interim Analysis: {events} deaths")
+            final_events = facts.get('final_events') or facts.get('final_analysis_events')
+            interim_events = facts.get('interim_events') or facts.get('interim_analysis_events')
+
+            if final_events:
+                lines.append(f"- Events at Final Analysis: {final_events} deaths")
+            if interim_events:
+                # Handle list or single value
+                if isinstance(interim_events, list):
+                    interim_events = interim_events[0] if interim_events else None
+                if interim_events:
+                    lines.append(f"- Events at Interim Analysis: {interim_events} deaths")
+
+                    # CRITICAL: Calculate information fraction automatically
+                    if final_events and interim_events:
+                        info_fraction = round(100 * int(interim_events) / int(final_events), 1)
+                        lines.append(f"- Information Fraction: {info_fraction}% ({interim_events}/{final_events})")
+
             if facts.get('num_interim_analyses') or facts.get('num_interim'):
                 num = facts.get('num_interim_analyses') or facts.get('num_interim')
                 lines.append(f"- Number of Interim Analyses: {num}")
@@ -858,8 +948,70 @@ Write the {section_title} section now.
             if facts.get('secondary_endpoints'):
                 endpoints = facts['secondary_endpoints']
                 if isinstance(endpoints, list):
-                    endpoints = ', '.join(str(e) for e in endpoints[:3])
+                    endpoints = ', '.join(str(e) for e in endpoints[:5])
                 lines.append(f"- Secondary Endpoints: {endpoints}")
+
+            # CRITICAL: Consistency/bridging study objectives
+            if facts.get('has_consistency_objective') or facts.get('is_bridging_study'):
+                lines.append("- Study Type: BRIDGING STUDY (consistency with global studies required)")
+                if facts.get('consistency_reference_studies'):
+                    refs = facts['consistency_reference_studies']
+                    if isinstance(refs, list):
+                        refs = ', '.join(refs)
+                    lines.append(f"- Reference Studies: {refs}")
+                if facts.get('consistency_margin'):
+                    lines.append(f"- Consistency Margin: {facts['consistency_margin']}")
+                if facts.get('consistency_test_description'):
+                    lines.append(f"- Consistency Test: {facts['consistency_test_description']}")
+
+            # Hierarchical testing order
+            if facts.get('hierarchical_testing_order'):
+                order = facts['hierarchical_testing_order']
+                if isinstance(order, list):
+                    order = ' → '.join(order)
+                lines.append(f"- Hierarchical Testing Order: {order}")
+            elif facts.get('has_hierarchical_testing'):
+                lines.append("- Hierarchical Testing: Yes (order to be specified)")
+
+        # Multiplicity section
+        if section_key == 'multiplicity':
+            if facts.get('hierarchical_testing_order'):
+                order = facts['hierarchical_testing_order']
+                if isinstance(order, list):
+                    order = ' → '.join(order)
+                lines.append(f"- Testing Order: {order}")
+            if facts.get('hierarchical_testing_description'):
+                lines.append(f"- Procedure: {facts['hierarchical_testing_description']}")
+
+            # Two-step testing for bridging studies
+            if facts.get('is_bridging_study') or facts.get('has_consistency_objective'):
+                lines.append("- TWO-STEP TESTING REQUIRED:")
+                lines.append("  Step 1: Test consistency with global studies (HR upper bound < threshold)")
+                lines.append("  Step 2: If Step 1 passes, test superiority")
+
+        # Subgroup analyses
+        if section_key == 'subgroup_analysis':
+            if facts.get('subgroup_analyses'):
+                subgroups = facts['subgroup_analyses']
+                if isinstance(subgroups, list):
+                    lines.append(f"- Pre-specified Subgroups ({len(subgroups)} total):")
+                    for sg in subgroups:
+                        lines.append(f"  • {sg}")
+                else:
+                    lines.append(f"- Subgroups: {subgroups}")
+
+        # Regulatory interim (TTF for China)
+        if section_key in ['interim_analysis', 'regulatory']:
+            if facts.get('has_regulatory_interim'):
+                lines.append("- REGULATORY INTERIM ANALYSIS:")
+                if facts.get('regulatory_interim_endpoint'):
+                    lines.append(f"  Endpoint: {facts['regulatory_interim_endpoint']}")
+                if facts.get('regulatory_interim_region'):
+                    lines.append(f"  Region: {facts['regulatory_interim_region']}")
+                if facts.get('regulatory_interim_timing'):
+                    lines.append(f"  Timing: {facts['regulatory_interim_timing']}")
+                if facts.get('regulatory_interim_purpose'):
+                    lines.append(f"  Purpose: {facts['regulatory_interim_purpose']}")
 
         return '\n'.join(lines) if lines else "No specific numerical facts for this section."
 
