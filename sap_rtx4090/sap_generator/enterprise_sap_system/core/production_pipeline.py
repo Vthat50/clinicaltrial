@@ -77,10 +77,20 @@ class MethodConstraints:
     primary_test_params: Dict[str, Any] = field(default_factory=dict)
     forbidden_primary: str = ""  # Method NOT to use as primary
     sensitivity_methods: List[str] = field(default_factory=list)
-    interim_method: str = ""
-    alpha_spending: str = ""
+    interim_method: Optional[str] = ""
+    alpha_spending: Optional[str] = ""
     nph_methods: List[str] = field(default_factory=list)
     conditions_detected: List[str] = field(default_factory=list)
+
+    # Phase II / Single-arm / Pilot study fields
+    descriptive_methods: List[str] = field(default_factory=list)
+    binary_methods: List[str] = field(default_factory=list)
+    sample_size_approach: str = ""  # "power" or "precision" or "exploratory"
+
+    # Neoadjuvant-specific fields
+    time_origin: str = ""  # "randomization" or "surgery"
+    neoadjuvant_methods: List[str] = field(default_factory=list)
+    pathologic_criteria: str = ""  # "Junker", "Miller-Payne", etc.
 
 
 @dataclass
@@ -507,6 +517,90 @@ class ProductionSAPPipeline:
             if timing_match:
                 facts['regulatory_interim_timing'] = f"~{timing_match.group(1)} subjects"
 
+        # =====================================================================
+        # CRITICAL: STUDY TYPE DETECTION
+        # This determines whether to apply comparative or descriptive statistics
+        # =====================================================================
+        text_lower = text.lower()
+
+        # 1. Detect Phase (I, II, III, IV)
+        phase_match = re.search(r'phase\s*([1-4]|i{1,3}v?|iv)', text, re.IGNORECASE)
+        if phase_match:
+            phase_raw = phase_match.group(1).lower()
+            phase_map = {'i': 1, 'ii': 2, 'iii': 3, 'iv': 4, '1': 1, '2': 2, '3': 3, '4': 4}
+            facts['phase'] = phase_map.get(phase_raw, int(phase_raw) if phase_raw.isdigit() else 2)
+        else:
+            facts['phase'] = 3  # Default to Phase III
+
+        # 2. Detect Single-Arm vs Comparative
+        is_single_arm = (
+            'single-arm' in text_lower or
+            'single arm' in text_lower or
+            'one-arm' in text_lower or
+            facts.get('num_arms', 2) == 1 or
+            (not any(term in text_lower for term in ['versus', ' vs ', 'compared to', 'comparator', 'control arm', 'placebo arm']))
+        )
+        facts['is_single_arm'] = is_single_arm
+
+        # 3. Detect Pilot/Feasibility Study
+        is_pilot = (
+            'pilot' in text_lower or
+            'feasibility' in text_lower or
+            'exploratory' in text_lower or
+            'proof-of-concept' in text_lower or
+            'proof of concept' in text_lower or
+            (facts.get('sample_size', 100) <= 50 and facts.get('phase', 3) <= 2)
+        )
+        facts['is_pilot_study'] = is_pilot
+
+        # 4. Detect Neoadjuvant/Adjuvant Setting
+        if 'neoadjuvant' in text_lower or 'neo-adjuvant' in text_lower:
+            facts['treatment_setting'] = 'neoadjuvant'
+            facts['time_origin'] = 'surgery'  # Time-to-event from surgery, not randomization
+        elif 'adjuvant' in text_lower:
+            facts['treatment_setting'] = 'adjuvant'
+            facts['time_origin'] = 'surgery'
+        else:
+            facts['treatment_setting'] = 'metastatic'
+            facts['time_origin'] = 'randomization'
+
+        # 5. Detect No Hypothesis Testing (descriptive only)
+        no_hypothesis_testing = (
+            'no formal sample size' in text_lower or
+            'no statistical test' in text_lower or
+            'descriptive' in text_lower or
+            'no hypothesis test' in text_lower or
+            is_pilot or
+            (is_single_arm and facts.get('phase', 3) <= 2)
+        )
+        facts['hypothesis_testing_planned'] = not no_hypothesis_testing
+
+        # 6. Detect if Interim Analysis is Explicitly Mentioned
+        facts['has_interim_analysis'] = bool(
+            re.search(r'interim\s+analysis', text, re.IGNORECASE) and
+            not re.search(r'no\s+interim', text, re.IGNORECASE)
+        )
+
+        # 7. Detect Pathologic Response Criteria (neoadjuvant specific)
+        if 'junker' in text_lower:
+            facts['pathologic_response_criteria'] = 'Junker criteria'
+        elif 'miller-payne' in text_lower or 'miller payne' in text_lower:
+            facts['pathologic_response_criteria'] = 'Miller-Payne'
+        elif 'pcr' in text_lower or 'pathologic complete response' in text_lower:
+            facts['pathologic_response_criteria'] = 'pCR'
+
+        # 8. Detect Response Criteria (RECIST, etc.)
+        if 'recist 1.1' in text_lower:
+            facts['response_criteria'] = 'RECIST 1.1'
+        elif 'recist' in text_lower:
+            facts['response_criteria'] = 'RECIST'
+        elif 'irecist' in text_lower:
+            facts['response_criteria'] = 'iRECIST'
+
+        # Log study type for debugging
+        print(f"[StudyType] Phase: {facts.get('phase')}, Single-arm: {is_single_arm}, Pilot: {is_pilot}")
+        print(f"[StudyType] Setting: {facts.get('treatment_setting')}, Hypothesis testing: {facts.get('hypothesis_testing_planned')}")
+
         return facts
 
     def _detect_conditions(self, facts: Dict[str, Any], protocol_text: str) -> Tuple[List[str], Optional[Any]]:
@@ -570,8 +664,78 @@ class ProductionSAPPipeline:
         return list(conditions), drug_classification
 
     def _get_constraints(self, facts: Dict[str, Any], conditions: List[str]) -> MethodConstraints:
-        """Step 2b: Get method constraints from knowledge graph."""
+        """
+        Step 2b: Get method constraints based on study type.
+
+        CRITICAL: Different study types require completely different statistical approaches:
+        - Phase III comparative: Log-rank, Cox, Fleming-Harrington
+        - Phase II single-arm: Descriptive statistics only (Kaplan-Meier, binomial CI)
+        - Pilot/feasibility: No formal hypothesis testing
+        """
         constraints = MethodConstraints(conditions_detected=conditions)
+
+        # =====================================================================
+        # CRITICAL: Check study type FIRST before applying any methods
+        # =====================================================================
+        is_single_arm = facts.get('is_single_arm', False)
+        is_pilot = facts.get('is_pilot_study', False)
+        phase = facts.get('phase', 3)
+        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+        has_interim = facts.get('has_interim_analysis', False)
+        treatment_setting = facts.get('treatment_setting', 'metastatic')
+
+        # =====================================================================
+        # PHASE II SINGLE-ARM / PILOT STUDIES: Descriptive statistics only
+        # =====================================================================
+        if is_single_arm or is_pilot or (phase <= 2 and not hypothesis_testing):
+            print(f"[Constraints] Applying DESCRIPTIVE approach (Phase {phase}, single-arm={is_single_arm}, pilot={is_pilot})")
+
+            constraints.primary_test = "Descriptive statistics only (no comparative hypothesis testing)"
+            constraints.forbidden_primary = "log-rank test, Cox regression, Fleming-Harrington (comparative methods inappropriate for single-arm study)"
+
+            # Time-to-event: Kaplan-Meier descriptive only
+            if 'time_to_event' in conditions:
+                constraints.nph_methods = []  # No NPH methods for single-arm
+                constraints.sensitivity_methods = []  # No sensitivity analyses for single-arm
+                constraints.descriptive_methods = [
+                    "Kaplan-Meier survival curves",
+                    "Median survival with 95% CI",
+                    "Survival rates at landmark timepoints (6, 12, 24 months)"
+                ]
+
+            # Binary endpoints: Binomial exact methods
+            constraints.binary_methods = [
+                "Response rate with exact binomial 95% CI (Clopper-Pearson or Wilson)",
+                "Descriptive proportions"
+            ]
+
+            # Sample size: No formal power calculation
+            if is_pilot:
+                constraints.sample_size_approach = "No formal sample size estimation - exploratory/pilot study"
+            else:
+                constraints.sample_size_approach = "Sample size based on precision (confidence interval width) rather than power"
+
+            # No interim analysis for single-arm unless explicitly stated
+            if not has_interim:
+                constraints.interim_method = None
+                constraints.alpha_spending = None
+
+            # Neoadjuvant-specific
+            if treatment_setting == 'neoadjuvant':
+                constraints.time_origin = "surgery (not enrollment)"
+                constraints.neoadjuvant_methods = [
+                    "Pathologic response grading per protocol-specified criteria",
+                    "DFS/OS measured from date of surgery"
+                ]
+                if facts.get('pathologic_response_criteria'):
+                    constraints.pathologic_criteria = facts['pathologic_response_criteria']
+
+            return constraints
+
+        # =====================================================================
+        # PHASE III COMPARATIVE STUDIES: Full inferential statistics
+        # =====================================================================
+        print(f"[Constraints] Applying COMPARATIVE approach (Phase {phase})")
 
         if self.knowledge_graph:
             methods = self.knowledge_graph.get_primary_analysis_methods(facts)
@@ -585,20 +749,22 @@ class ProductionSAPPipeline:
                 nph = methods.get('nph_methods', [])
                 constraints.nph_methods = [m.get('method', m) if isinstance(m, dict) else m for m in nph]
 
-                # Interim
-                interim = methods.get('interim_analysis_method', {})
-                if interim:
-                    constraints.interim_method = interim.get('method', '')
-                    constraints.alpha_spending = "O'Brien-Fleming"
+                # Interim - only if explicitly in protocol
+                if has_interim:
+                    interim = methods.get('interim_analysis_method', {})
+                    if interim:
+                        constraints.interim_method = interim.get('method', '')
+                        constraints.alpha_spending = "O'Brien-Fleming"
 
-        # Apply immunotherapy-specific constraints
+        # Apply immunotherapy-specific constraints for comparative studies
         if 'immunotherapy' in conditions and 'time_to_event' in conditions:
             constraints.primary_test = "Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)"
             constraints.forbidden_primary = "stratified log-rank"
             constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
             constraints.sensitivity_methods = ['stratified log-rank (unweighted)']
 
-        if 'interim_analysis' in conditions and not constraints.interim_method:
+        # Only add interim methods if protocol has interim analysis
+        if has_interim and 'interim_analysis' in conditions and not constraints.interim_method:
             constraints.interim_method = "Lan-DeMets"
             constraints.alpha_spending = "O'Brien-Fleming"
 
@@ -865,23 +1031,57 @@ Write the {section_title} section now.
         if facts.get('sample_size'):
             lines.append(f"- Sample Size: {facts['sample_size']} patients")
 
-        # CRITICAL: Randomization ratio - this was MISSING!
-        if facts.get('randomization_ratio'):
-            ratio = facts['randomization_ratio']
-            lines.append(f"- Randomization Ratio: {ratio}")
-            # Also calculate per-arm N if ratio is clear
-            if ':' in str(ratio):
-                parts = [int(p) for p in str(ratio).split(':')]
-                total_parts = sum(parts)
-                sample_size = facts.get('sample_size', 0)
-                if sample_size and total_parts > 0:
-                    per_arm = [int(sample_size * p / total_parts) for p in parts]
-                    lines.append(f"- Per-Arm N: {' : '.join(map(str, per_arm))}")
-        else:
-            # FALLBACK: Try to extract ratio from num_arms
-            num_arms = facts.get('num_arms', 2)
-            if num_arms == 2:
-                lines.append(f"- Randomization Ratio: [Check protocol - likely 1:1 or 2:1]")
+        # =====================================================================
+        # CRITICAL: Study Type Information (determines statistical approach)
+        # =====================================================================
+        phase = facts.get('phase', 3)
+        is_single_arm = facts.get('is_single_arm', False)
+        is_pilot = facts.get('is_pilot_study', False)
+        treatment_setting = facts.get('treatment_setting', 'metastatic')
+
+        lines.append(f"- Phase: {phase}")
+
+        if is_single_arm:
+            lines.append("- Design: SINGLE-ARM (no comparator group)")
+            lines.append("- Statistical Approach: DESCRIPTIVE ONLY (no comparative hypothesis testing)")
+
+        if is_pilot:
+            lines.append("- Study Type: PILOT/FEASIBILITY/EXPLORATORY")
+            lines.append("- Sample Size Justification: No formal power calculation (exploratory)")
+
+        if treatment_setting == 'neoadjuvant':
+            lines.append("- Setting: NEOADJUVANT")
+            lines.append("- Time Origin: FROM SURGERY (not enrollment/randomization)")
+            if facts.get('pathologic_response_criteria'):
+                lines.append(f"- Pathologic Response Criteria: {facts['pathologic_response_criteria']}")
+
+        if facts.get('response_criteria'):
+            lines.append(f"- Response Criteria: {facts['response_criteria']}")
+
+        # Hypothesis testing status
+        if not facts.get('hypothesis_testing_planned', True):
+            lines.append("- Hypothesis Testing: NO FORMAL TESTING (descriptive analysis only)")
+
+        # =====================================================================
+        # Randomization ratio (only for comparative studies)
+        # =====================================================================
+        if not is_single_arm:
+            if facts.get('randomization_ratio'):
+                ratio = facts['randomization_ratio']
+                lines.append(f"- Randomization Ratio: {ratio}")
+                # Also calculate per-arm N if ratio is clear
+                if ':' in str(ratio):
+                    parts = [int(p) for p in str(ratio).split(':')]
+                    total_parts = sum(parts)
+                    sample_size = facts.get('sample_size', 0)
+                    if sample_size and total_parts > 0:
+                        per_arm = [int(sample_size * p / total_parts) for p in parts]
+                        lines.append(f"- Per-Arm N: {' : '.join(map(str, per_arm))}")
+            else:
+                # FALLBACK: Try to extract ratio from num_arms
+                num_arms = facts.get('num_arms', 2)
+                if num_arms == 2:
+                    lines.append(f"- Randomization Ratio: [Check protocol - likely 1:1 or 2:1]")
 
         if facts.get('drug_name'):
             lines.append(f"- Study Drug: {facts['drug_name']}")
@@ -1019,29 +1219,74 @@ Write the {section_title} section now.
         """Format method constraints for the prompt."""
         lines = []
 
+        # =====================================================================
+        # Check if this is a descriptive-only study (Phase II single-arm/pilot)
+        # =====================================================================
+        is_descriptive = (
+            constraints.descriptive_methods or
+            "Descriptive" in constraints.primary_test or
+            "descriptive" in constraints.primary_test.lower() if constraints.primary_test else False
+        )
+
         if section_key == 'statistical_methods':
             if constraints.primary_test:
-                lines.append(f"- PRIMARY TEST: {constraints.primary_test}")
+                lines.append(f"- PRIMARY APPROACH: {constraints.primary_test}")
             if constraints.forbidden_primary:
-                lines.append(f"- DO NOT use as primary: {constraints.forbidden_primary}")
-            if constraints.nph_methods:
-                lines.append(f"- NPH Methods: {', '.join(constraints.nph_methods)}")
-            if constraints.sensitivity_methods:
-                lines.append(f"- Sensitivity Methods: {', '.join(constraints.sensitivity_methods)}")
-            lines.append("- Include: estimands (ICH E9 R1), censoring rules, stratification factors")
+                lines.append(f"- DO NOT USE: {constraints.forbidden_primary}")
+
+            # Descriptive study methods
+            if is_descriptive:
+                if constraints.descriptive_methods:
+                    lines.append("- TIME-TO-EVENT ANALYSIS:")
+                    for m in constraints.descriptive_methods:
+                        lines.append(f"  • {m}")
+                if constraints.binary_methods:
+                    lines.append("- BINARY ENDPOINT ANALYSIS:")
+                    for m in constraints.binary_methods:
+                        lines.append(f"  • {m}")
+                # Neoadjuvant specific
+                if constraints.time_origin:
+                    lines.append(f"- TIME ORIGIN: {constraints.time_origin}")
+                if constraints.neoadjuvant_methods:
+                    lines.append("- NEOADJUVANT-SPECIFIC METHODS:")
+                    for m in constraints.neoadjuvant_methods:
+                        lines.append(f"  • {m}")
+                if constraints.pathologic_criteria:
+                    lines.append(f"- PATHOLOGIC RESPONSE: Use {constraints.pathologic_criteria}")
+            else:
+                # Comparative study methods
+                if constraints.nph_methods:
+                    lines.append(f"- NPH Methods: {', '.join(constraints.nph_methods)}")
+                if constraints.sensitivity_methods:
+                    lines.append(f"- Sensitivity Methods: {', '.join(constraints.sensitivity_methods)}")
+                lines.append("- Include: estimands (ICH E9 R1), censoring rules, stratification factors")
+
+        elif section_key == 'sample_size':
+            if constraints.sample_size_approach:
+                lines.append(f"- SAMPLE SIZE APPROACH: {constraints.sample_size_approach}")
+                if "exploratory" in constraints.sample_size_approach.lower() or "no formal" in constraints.sample_size_approach.lower():
+                    lines.append("- DO NOT describe power calculations or formal sample size estimation")
+                    lines.append("- Describe rationale as exploratory/feasibility based")
 
         elif section_key == 'interim_analysis':
             if constraints.interim_method:
                 lines.append(f"- Interim Method: {constraints.interim_method}")
-            if constraints.alpha_spending:
-                lines.append(f"- Alpha Spending: {constraints.alpha_spending}")
-            lines.append("- Include: information fractions, stopping boundaries, alpha allocation")
+                if constraints.alpha_spending:
+                    lines.append(f"- Alpha Spending: {constraints.alpha_spending}")
+                lines.append("- Include: information fractions, stopping boundaries, alpha allocation")
+            else:
+                lines.append("- NO INTERIM ANALYSIS SPECIFIED IN PROTOCOL")
+                lines.append("- DO NOT describe interim analysis unless explicitly in protocol")
 
         elif section_key == 'sensitivity_analysis':
-            if constraints.sensitivity_methods:
-                lines.append(f"- Required Methods: {', '.join(constraints.sensitivity_methods)}")
-            if 'crossover' in constraints.conditions_detected or 'treatment_switching' in constraints.conditions_detected:
-                lines.append("- Treatment Switching: Include RPSFT and IPCW if crossover present")
+            if is_descriptive:
+                lines.append("- For single-arm studies, no formal sensitivity analyses are typically performed")
+                lines.append("- May describe sensitivity to missing data assumptions if applicable")
+            else:
+                if constraints.sensitivity_methods:
+                    lines.append(f"- Required Methods: {', '.join(constraints.sensitivity_methods)}")
+                if 'crossover' in constraints.conditions_detected or 'treatment_switching' in constraints.conditions_detected:
+                    lines.append("- Treatment Switching: Include RPSFT and IPCW if crossover present")
 
         return '\n'.join(lines) if lines else "No specific method constraints for this section."
 
