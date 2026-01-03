@@ -707,11 +707,11 @@ class BiostatisticsGraphRAG:
                         score *= 1.5
 
             # Boost paths with regulatory guidance
-            if any('ICH' in e or 'FDA' in e for e in path.entities):
+            if any('ICH' in str(e) or 'FDA' in str(e) for e in path.entities):
                 score *= 1.2
 
             # Boost paths with CDISC mappings
-            if any('AD' in e for e in path.entities):
+            if any('AD' in str(e) for e in path.entities):
                 score *= 1.1
 
             path.relevance_score = score
