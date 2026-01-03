@@ -113,12 +113,15 @@ class SlotVerifier:
 
     # Method name variations for matching
     METHOD_ALIASES = {
-        'fleming_harrington': ['fleming-harrington', 'fleming harrington', 'fh test', 'fh(', 'weighted log-rank'],
+        'fleming_harrington': ['fleming-harrington', 'fleming harrington', 'fh test', 'fh(', 'weighted log-rank', 'g(ρ', 'g(rho'],
+        'fleming-harrington': ['fleming-harrington', 'fleming harrington', 'fh test', 'fh(', 'weighted log-rank', 'g(ρ', 'g(rho'],
         'rpsft': ['rpsft', 'rank preserving structural failure time', 'rank-preserving'],
         'ipcw': ['ipcw', 'inverse probability of censoring', 'inverse probability weighting'],
         'lan_demets': ['lan-demets', 'lan demets', 'alpha spending', 'spending function'],
+        'lan-demets': ['lan-demets', 'lan demets', 'alpha spending', 'spending function'],
         'obrien_fleming': ["o'brien-fleming", 'obrien-fleming', 'obrien fleming', 'ofb'],
         'rmst': ['rmst', 'restricted mean survival time', 'restricted mean'],
+        'landmark_analysis': ['landmark', 'milestone survival', 'milestone analysis', '12-month', '18-month', '24-month', 'month survival rate'],
         'maxcombo': ['maxcombo', 'max-combo', 'maximum combination'],
         'hierarchical': ['hierarchical', 'gatekeeping', 'fixed-sequence', 'sequential testing'],
         'hochberg': ['hochberg', 'simes'],
@@ -771,9 +774,16 @@ class RuleBasedSAPPipeline:
                     constraints.primary_test = primary.get('method', 'stratified log-rank')
                     constraints.primary_test_params = primary.get('params', {})
 
-                # NPH methods
+                # NPH methods - extract and dedupe
                 nph = methods.get('nph_methods', [])
-                constraints.nph_methods = [m.get('method', m) if isinstance(m, dict) else m for m in nph]
+                nph_list = [m.get('method', m) if isinstance(m, dict) else m for m in nph]
+                # Dedupe while preserving order
+                seen = set()
+                constraints.nph_methods = []
+                for m in nph_list:
+                    if m not in seen:
+                        seen.add(m)
+                        constraints.nph_methods.append(m)
 
                 # Sensitivity methods (critical for crossover)
                 sensitivity = methods.get('treatment_switching_methods', [])
@@ -795,11 +805,13 @@ class RuleBasedSAPPipeline:
             constraints.sensitivity_methods = ['RPSFT', 'IPCW']
 
         # CRITICAL: Immunotherapy + time-to-event = Fleming-Harrington as PRIMARY
+        # ALWAYS override for immunotherapy trials - don't trust knowledge graph duplicates
         if 'immunotherapy' in conditions and 'time_to_event' in conditions:
             constraints.primary_test = 'Fleming-Harrington weighted log-rank test G(ρ=0, γ=1)'
-            if not constraints.nph_methods:
-                constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
-        elif 'immunotherapy' in conditions and not constraints.nph_methods:
+            # Set clean NPH methods list - Fleming-Harrington IS the weighted log-rank, no need for duplicates
+            constraints.nph_methods = ['Fleming-Harrington', 'RMST', 'landmark_analysis']
+        elif 'immunotherapy' in conditions:
+            # For immunotherapy without time-to-event
             constraints.nph_methods = ['Fleming-Harrington', 'RMST']
 
         if 'interim_analysis' in conditions and not constraints.interim_method:
