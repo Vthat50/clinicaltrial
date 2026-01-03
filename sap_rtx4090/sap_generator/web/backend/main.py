@@ -46,8 +46,7 @@ except ImportError:
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger("web.backend")
 
-# AGENTIC HYBRIDRAG PIPELINE - Production pipeline with data-driven method selection
-# Replaces RuleBasedSAPPipeline: learns from 23K SAP chunks instead of hardcoded rules
+# AGENTIC HYBRIDRAG PIPELINE - Legacy pipeline (not used)
 # Architecture: Protocol → Hybrid Retrieval → Method Extraction → Generation → Validation
 try:
     from enterprise_sap_system.rag.agentic_sap_pipeline import (
@@ -58,8 +57,7 @@ except ImportError as e:
     AGENTIC_PIPELINE_AVAILABLE = False
     print(f"Warning: AgenticSAPPipeline not available: {e}")
 
-# Fallback to rule-based pipeline
-from enterprise_sap_system.core.rule_based_pipeline import RuleBasedSAPPipeline, create_rule_based_pipeline
+# NOTE: RuleBasedSAPPipeline was deleted - ProductionSAPPipeline is now the only pipeline
 
 # NEW: Production Pipeline with Separation of Concerns (SELF-RAG pattern)
 # - Extraction as Ground Truth (single source for numbers)
@@ -532,10 +530,8 @@ async def create_job(request: GenerateRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# Global instance for direct generation (reused across requests)
-_production_pipeline: ProductionSAPPipeline = None  # PRIMARY (SELF-RAG)
-_rule_pipeline: RuleBasedSAPPipeline = None  # Fallback
-_agentic_pipeline: AgenticSAPPipeline = None  # Legacy (not used)
+# Global pipeline instance (reused across requests)
+_production_pipeline = None  # ProductionSAPPipeline with SELF-RAG
 
 def get_pipeline():
     """
@@ -546,29 +542,16 @@ def get_pipeline():
     - RAG Sanitization: Numbers stripped from examples (prose style only)
     - Explicit Attribution: Prompts specify source for each value
     - SELF-RAG: Verification + correction loop for factual accuracy
-
-    This fixes:
-    - Wrong numbers (639 vs 382 events) - RAG contamination eliminated
-    - Wrong counts (2 interim vs 1) - Extracted facts passed correctly
-    - Wrong alpha (0.05 vs 0.020) - No more default values
-    - Extra methods (RPSFT/IPCW) - Only protocol-specified methods
-
-    Falls back to RuleBasedSAPPipeline if ProductionSAPPipeline unavailable.
     """
-    global _production_pipeline, _rule_pipeline
+    global _production_pipeline
 
-    # Try Production Pipeline first (SELF-RAG)
-    if PRODUCTION_PIPELINE_AVAILABLE:
-        if _production_pipeline is None:
-            _production_pipeline = create_production_pipeline(max_regenerations=2)
-            logger.info("ProductionSAPPipeline initialized (SELF-RAG + source separation)")
-        return _production_pipeline
+    if not PRODUCTION_PIPELINE_AVAILABLE:
+        raise RuntimeError("ProductionSAPPipeline not available - check imports")
 
-    # Fallback to rule-based pipeline
-    if _rule_pipeline is None:
-        _rule_pipeline = create_rule_based_pipeline()
-        logger.info("RuleBasedSAPPipeline initialized (fallback)")
-    return _rule_pipeline
+    if _production_pipeline is None:
+        _production_pipeline = create_production_pipeline(max_regenerations=2)
+        logger.info("ProductionSAPPipeline initialized (SELF-RAG + source separation)")
+    return _production_pipeline
 
 # Aliases for backward compatibility
 def get_hybrid_pipeline():
@@ -629,9 +612,9 @@ async def generate_full_pipeline(request: GenerateRequest):
 
         processing_time = time.time() - start_time
 
-        # Handle RuleBasedSAPPipeline result (PRIMARY - has facts) vs AgenticSAPPipeline (fallback - has characteristics)
+        # Handle ProductionSAPPipeline result (has facts)
         if hasattr(result, 'facts') and result.facts:
-            # PRIMARY: RuleBasedSAPPipeline format
+            # ProductionSAPPipeline format
             facts = result.facts
             drug_name = facts.get('drug_name', '') or ''
             sample_size_val = facts.get('sample_size', 0)
@@ -2345,7 +2328,7 @@ async def process_jobs_worker():
     print("  [OK] Step 5: Claude LLM generation with slot constraints")
     print("  [OK] Step 6: Slot verification")
 
-    # Use get_pipeline() - now returns RuleBasedSAPPipeline
+    # Use get_pipeline() - returns ProductionSAPPipeline
     pipeline = None
 
     while worker_running:
@@ -2373,10 +2356,10 @@ async def process_jobs_worker():
                 "started_at": datetime.utcnow().isoformat()
             }).eq("id", job_id).execute()
 
-            # Initialize pipeline if needed - uses RuleBasedSAPPipeline
+            # Initialize pipeline if needed
             if pipeline is None:
                 pipeline = get_pipeline()
-                print("  [INIT] RuleBasedSAPPipeline initialized (Claude + 99 rules + RAG + slot verification)")
+                print("  [INIT] ProductionSAPPipeline initialized (SELF-RAG + source separation)")
 
             # Generate SAP using pipeline
             start_time = time.time()
@@ -2387,9 +2370,9 @@ async def process_jobs_worker():
                 processing_time = time.time() - start_time
 
                 if result.success:
-                    # Handle RuleBasedSAPPipeline result (PRIMARY - has facts) vs AgenticSAPPipeline (fallback - has characteristics)
+                    # Handle ProductionSAPPipeline result (has facts)
                     if hasattr(result, 'facts') and result.facts:
-                        # PRIMARY: RuleBasedSAPPipeline format
+                        # ProductionSAPPipeline format
                         facts = result.facts
 
                         drug_name = facts.get('drug_name', '') or ''

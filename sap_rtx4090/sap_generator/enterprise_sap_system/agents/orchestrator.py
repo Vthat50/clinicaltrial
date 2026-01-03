@@ -24,7 +24,6 @@ try:
         ParsedProtocol, Estimand, GeneratedSAP, QualityReport
     )
     from ..core.protocol_parser import ProtocolParser
-    from ..knowledge_graph.graph_rag import BiostatisticsGraphRAG
 except ImportError:
     import sys
     sys.path.append(str(Path(__file__).parent.parent))
@@ -33,7 +32,12 @@ except ImportError:
         ParsedProtocol, Estimand, GeneratedSAP, QualityReport
     )
     from core.protocol_parser import ProtocolParser
-    from knowledge_graph.graph_rag import BiostatisticsGraphRAG
+
+# graph_rag was deleted - make import optional
+try:
+    from ..knowledge_graph.graph_rag import BiostatisticsGraphRAG
+except ImportError:
+    BiostatisticsGraphRAG = None
 
 from .base_agent import BaseAgent, AgentRegistry, AgentState
 from .specialized_agents import (
