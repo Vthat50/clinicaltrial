@@ -1455,10 +1455,11 @@ Write the {section_title} section now.
         # =====================================================================
         # Check if this is a descriptive-only study (Phase II single-arm/pilot)
         # =====================================================================
+        primary_test_str = str(constraints.primary_test or '')
         is_descriptive = (
             constraints.descriptive_methods or
-            "Descriptive" in constraints.primary_test or
-            "descriptive" in constraints.primary_test.lower() if constraints.primary_test else False
+            "Descriptive" in primary_test_str or
+            "descriptive" in primary_test_str.lower()
         )
 
         if section_key == 'statistical_methods':
@@ -1497,7 +1498,8 @@ Write the {section_title} section now.
         elif section_key == 'sample_size':
             if constraints.sample_size_approach:
                 lines.append(f"- SAMPLE SIZE APPROACH: {constraints.sample_size_approach}")
-                if "exploratory" in constraints.sample_size_approach.lower() or "no formal" in constraints.sample_size_approach.lower():
+                sample_size_str = str(constraints.sample_size_approach or '').lower()
+                if "exploratory" in sample_size_str or "no formal" in sample_size_str:
                     lines.append("- DO NOT describe power calculations or formal sample size estimation")
                     lines.append("- Describe rationale as exploratory/feasibility based")
 
@@ -1518,7 +1520,8 @@ Write the {section_title} section now.
             else:
                 if constraints.sensitivity_methods:
                     lines.append(f"- Required Methods: {', '.join(constraints.sensitivity_methods)}")
-                if 'crossover' in constraints.conditions_detected or 'treatment_switching' in constraints.conditions_detected:
+                conditions = [str(c) for c in (constraints.conditions_detected or [])]
+                if 'crossover' in conditions or 'treatment_switching' in conditions:
                     lines.append("- Treatment Switching: Include RPSFT and IPCW if crossover present")
 
         return '\n'.join(lines) if lines else "No specific method constraints for this section."
