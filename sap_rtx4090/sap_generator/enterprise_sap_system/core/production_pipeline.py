@@ -271,7 +271,14 @@ class ProductionSAPPipeline:
             # STEP 1: Extract facts (GROUND TRUTH)
             print("\n[Step 1] Extracting facts (GROUND TRUTH)...")
             facts = self._extract_facts(protocol_text)
-            print(f"[Step 1] Extracted: {facts.get('nct_id')}, {facts.get('sample_size')} patients, {facts.get('final_events')} events")
+            print(f"[Step 1] Extracted: {facts.get('nct_id')}, {facts.get('sample_size')} patients")
+
+            # DEBUG: Log critical fields that often fail
+            print(f"[Step 1] statistical_method: '{facts.get('statistical_method', 'NOT FOUND')}'")
+            print(f"[Step 1] statistical_method_details: '{facts.get('statistical_method_details', 'NOT FOUND')}'")
+            print(f"[Step 1] treatment_setting: '{facts.get('treatment_setting', 'NOT FOUND')}'")
+            print(f"[Step 1] has_interim_analysis: {facts.get('has_interim_analysis', 'NOT FOUND')}")
+            print(f"[Step 1] num_interim_analyses: {facts.get('num_interim_analyses', 'NOT FOUND')}")
 
             # STEP 1.5: Classify study design (Hybrid: RAG + LLM > Rule-based)
             study_design_result = None
@@ -679,9 +686,10 @@ class ProductionSAPPipeline:
                 facts['treatment_setting'] = 'adjuvant'
                 facts['time_origin'] = 'surgery'
             else:
-                # Default for most oncology trials: first-line/metastatic, time from randomization
-                facts['treatment_setting'] = 'first-line'
-                facts['time_origin'] = 'randomization'
+                # Not found in title - flag for review but use safe default for time_origin
+                facts['treatment_setting'] = '[TREATMENT SETTING NOT EXTRACTED - NEEDS REVIEW]'
+                facts['time_origin'] = 'randomization'  # Safe default - most trials use this
+                print(f"[BasicExtraction] ⚠ WARNING: treatment_setting NOT EXTRACTED - flagging for review")
 
         # 5. Detect No Hypothesis Testing (descriptive only)
         no_hypothesis_testing = (
@@ -884,14 +892,15 @@ class ProductionSAPPipeline:
             # USE WHAT THE PROTOCOL SAYS - don't infer!
             print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
             constraints.primary_test = protocol_method
-            # Don't forbid anything - trust the protocol
             constraints.forbidden_primary = ""
-        elif 'time_to_event' in conditions:
-            # FALLBACK: Use stratified log-rank as default (most common standard method)
-            # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
-            print(f"[Constraints] FALLBACK: No protocol method found, using stratified log-rank (standard)")
-            constraints.primary_test = "Stratified log-rank test"
+        else:
+            # NO DEFAULT - flag for review
+            print(f"[Constraints] ⚠ WARNING: statistical_method NOT EXTRACTED - flagging for review")
+            constraints.primary_test = "[STATISTICAL METHOD NOT FOUND IN PROTOCOL - NEEDS REVIEW]"
             constraints.forbidden_primary = ""
+            # Add to warnings
+            if not hasattr(constraints, 'warnings'):
+                constraints.warnings = []
 
         # Only add interim methods if protocol has interim analysis
         if has_interim and 'interim_analysis' in conditions and not constraints.interim_method:
@@ -1027,11 +1036,10 @@ class ProductionSAPPipeline:
             print(f"[Constraints] Using PROTOCOL-SPECIFIED method: {protocol_method}")
             constraints.primary_test = protocol_method
             constraints.forbidden_primary = ""
-        elif 'time_to_event' in conditions:
-            # FALLBACK: Use stratified log-rank as default (most common standard method)
-            # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
-            print(f"[Constraints] FALLBACK: No protocol method found, using stratified log-rank (standard)")
-            constraints.primary_test = "Stratified log-rank test"
+        else:
+            # NO DEFAULT - flag for review
+            print(f"[Constraints] ⚠ WARNING: statistical_method NOT EXTRACTED - flagging for review")
+            constraints.primary_test = "[STATISTICAL METHOD NOT FOUND IN PROTOCOL - NEEDS REVIEW]"
             constraints.forbidden_primary = ""
 
         # Interim analysis for comparative studies

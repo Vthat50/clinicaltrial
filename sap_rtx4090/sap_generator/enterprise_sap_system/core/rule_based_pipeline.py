@@ -804,15 +804,15 @@ class RuleBasedSAPPipeline:
         if 'crossover' in conditions and not constraints.sensitivity_methods:
             constraints.sensitivity_methods = ['RPSFT', 'IPCW']
 
-        # CRITICAL: Check protocol-extracted method FIRST, use stratified log-rank as default
-        # DO NOT assume Fleming-Harrington for immunotherapy - protocol must specify it
+        # CRITICAL: Check protocol-extracted method FIRST - NO DEFAULTS
         protocol_method = facts.get('statistical_method', '') or facts.get('statistical_method_details', '')
         if protocol_method and not constraints.primary_test:
             print(f"[RuleBasedPipeline] Using PROTOCOL-SPECIFIED method: {protocol_method}")
             constraints.primary_test = protocol_method
-        elif 'time_to_event' in conditions and not constraints.primary_test:
-            print(f"[RuleBasedPipeline] FALLBACK: Using stratified log-rank (standard)")
-            constraints.primary_test = 'Stratified log-rank test'
+        elif not constraints.primary_test:
+            # NO DEFAULT - flag for review
+            print(f"[RuleBasedPipeline] ⚠ WARNING: statistical_method NOT EXTRACTED - flagging for review")
+            constraints.primary_test = '[STATISTICAL METHOD NOT FOUND - NEEDS REVIEW]'
 
         if 'interim_analysis' in conditions and not constraints.interim_method:
             constraints.interim_method = 'Lan-DeMets'
