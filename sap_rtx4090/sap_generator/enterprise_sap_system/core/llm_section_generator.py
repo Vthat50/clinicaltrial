@@ -101,128 +101,277 @@ class LLMSectionGenerator:
         return "\n\n".join(formatted)
 
     def _format_facts_for_prompt(self, facts: Dict[str, Any]) -> str:
-        """Format protocol facts for LLM prompt."""
-        important_facts = [
-            ('drug_name', 'Study Drug'),
-            ('comparator', 'Comparator'),
-            ('phase', 'Phase'),
-            ('design_type', 'Study Design'),
-            ('randomization_ratio', 'Randomization Ratio'),
-            ('sample_size', 'Sample Size'),
-            ('primary_endpoint', 'Primary Endpoint'),
-            ('primary_timepoint', 'Primary Timepoint'),
-            ('secondary_endpoints', 'Secondary Endpoints'),
-            ('therapeutic_area', 'Therapeutic Area'),
-            ('indication', 'Indication'),
-            ('stratification_factors', 'Stratification Factors'),
-            ('nct_id', 'NCT ID'),
-            ('sponsor', 'Sponsor'),
-            ('is_single_arm', 'Single-Arm Study'),
-            ('num_arms', 'Number of Arms'),
-            ('arms', 'Treatment Arms'),
-            # NEW: Pilot/feasibility study fields
-            ('is_pilot_study', 'Pilot/Feasibility Study'),
-            ('hypothesis_testing_planned', 'Hypothesis Testing Planned'),
-            ('sample_size_justification', 'Sample Size Justification'),
-            # NEW: Co-primary endpoints
-            ('primary_endpoints', 'Primary Endpoints (All)'),
-            # NEW: Oncology response criteria
-            ('response_criteria', 'Tumor Response Criteria'),
-            ('pathologic_response_criteria', 'Pathologic Response Criteria'),
-            ('response_assessor', 'Response Assessor'),
-            # NEW: Population definitions from protocol
-            ('itt_definition', 'ITT Population Definition'),
-            ('pp_definition', 'Per-Protocol Population Definition'),
-            ('safety_definition', 'Safety Population Definition'),
-            # NEW: Statistical details
-            ('alpha_level', 'Alpha Level'),
-            ('power', 'Statistical Power'),
-            ('statistical_method', 'Statistical Method'),
-            ('statistical_method_details', 'Statistical Method (Full Specification)'),
-            # NEW: Interim analysis - COMPREHENSIVE
-            ('has_interim_analysis', 'Interim Analysis Planned'),
-            ('num_interim_analyses', 'Number of Interim Analyses'),
-            ('interim_analysis_method', 'Interim Analysis Method'),
-            ('error_spending_function', 'Error Spending Function'),
-            ('alpha_spending_params', 'Alpha Spending Parameters'),
-            ('interim_events', 'Events at Interim Analyses'),
-            ('interim_alpha_spent', 'Alpha Spent at Each Interim'),
-            ('interim_information_fraction', 'Information Fraction at Interim'),
-            ('final_events', 'Events at Final Analysis'),
-            ('stopping_boundaries', 'Stopping Boundaries'),
-            # NEW: Hierarchical testing
-            ('has_hierarchical_testing', 'Hierarchical Testing Procedure'),
-            ('hierarchical_testing_order', 'Testing Order'),
-            ('hierarchical_testing_description', 'Hierarchical Testing Description'),
-            # NEW: Consistency/non-inferiority objectives - ENHANCED
-            ('has_consistency_objective', 'Consistency Objective'),
-            ('consistency_type', 'Consistency Type'),
-            ('consistency_margin', 'Consistency Margin'),
-            ('consistency_reference_studies', 'Reference Studies for Consistency'),
-            ('consistency_reference_effect', 'Reference Effect Size'),
-            ('consistency_test_description', 'Consistency Test Description'),
-            ('consistency_is_primary', 'Consistency is Primary Objective'),
-            # NEW: Regulatory/bridging
-            ('regulatory_endpoints', 'Regulatory-Specific Endpoints'),
-            ('is_bridging_study', 'Bridging Study'),
-            ('target_regions', 'Target Regions'),
-            ('document_type', 'Document Type'),
-            # NEW: Regulatory Interim Analysis (e.g., TTF for China)
-            ('has_regulatory_interim', 'Regulatory Interim Analysis Planned'),
-            ('regulatory_interim_endpoint', 'Regulatory Interim Endpoint'),
-            ('regulatory_interim_region', 'Regulatory Interim Region'),
-            ('regulatory_interim_purpose', 'Regulatory Interim Purpose'),
-            ('regulatory_interim_timing', 'Regulatory Interim Timing'),
-            ('regulatory_interim_alpha', 'Regulatory Interim Alpha'),
-            ('regulatory_interim_method', 'Regulatory Interim Method'),
-            ('regulatory_interim_analyses', 'Analyses at Regulatory Interim'),
-            # NEW: PRO/QoL Endpoints
-            ('has_pro_endpoint', 'Patient-Reported Outcomes'),
-            ('pro_endpoints', 'PRO Endpoint Details'),
-            ('pro_instruments', 'PRO Instruments'),
-            # NEW: Non-Proportional Hazards Model
-            ('has_nph_model', 'Non-Proportional Hazards Model'),
-            ('nph_model_type', 'NPH Model Type'),
-            ('delayed_effect_months', 'Delayed Effect (months)'),
-            ('piecewise_hazards', 'Piecewise Hazard Assumptions'),
-            ('subgroup_specific_assumptions', 'Subgroup-Specific Assumptions'),
-            # NEW: Crossover Impact Modeling
-            ('has_crossover_modeling', 'Crossover Impact Modeling'),
-            ('crossover_rates_modeled', 'Crossover Rates Modeled'),
-            ('crossover_impact_on_hr', 'Crossover Impact on HR'),
-            # NEW: Subgroup Analyses
-            ('subgroup_analyses', 'Planned Subgroup Analyses'),
-        ]
+        """
+        Format protocol facts for LLM prompt.
+
+        UPDATED 2025-01: Now uses ALL 229 fields from extraction schema.
+        Organized by category for readability.
+        """
+        # Human-readable labels for all schema fields
+        # Organized by category to match extraction_schema.py sections
+        field_labels = {
+            # === CORE DESIGN ===
+            'nct_id': 'NCT ID',
+            'protocol_number': 'Protocol Number',
+            'sponsor': 'Sponsor',
+            'drug_name': 'Study Drug',
+            'comparator': 'Comparator',
+            'phase': 'Phase',
+            'design_type': 'Study Design',
+            'sample_size': 'Sample Size',
+            'allocation_ratio': 'Randomization Ratio',
+            'stratification_factors': 'Stratification Factors',
+            'treatment_setting': 'Treatment Setting',
+            'disease_type': 'Disease Type',
+            'tumor_type': 'Tumor Type',
+            'histology': 'Histology',
+            'disease_stage': 'Disease Stage',
+            'biomarker_status': 'Biomarker Status',
+            'stratification_factor_levels': 'Stratification Factor Levels',
+
+            # === ENDPOINTS ===
+            'primary_endpoint': 'Primary Endpoint',
+            'secondary_endpoints': 'Secondary Endpoints',
+            'is_co_primary': 'Co-Primary Endpoints',
+            'co_primary_endpoints': 'Co-Primary Endpoint List',
+            'endpoint_testing_hierarchy': 'Endpoint Testing Hierarchy',
+
+            # === ESTIMAND (ICH E9 R1) ===
+            'estimand_population': 'Estimand Population',
+            'estimand_variable': 'Estimand Variable',
+            'intercurrent_events': 'Intercurrent Events',
+            'primary_estimand': 'Primary Estimand',
+
+            # === INTERIM ANALYSIS ===
+            'has_interim_analysis': 'Interim Analysis Planned',
+            'num_interim_analyses': 'Number of Interim Analyses',
+            'interim_events': 'Events at Interim Analyses',
+            'final_events': 'Events at Final Analysis',
+            'information_fractions': 'Information Fractions',
+            'alpha_spending_function': 'Alpha Spending Function',
+            'overall_alpha': 'Overall Alpha',
+            'alpha_sidedness': 'Alpha Sidedness',
+            'alpha_at_interim': 'Alpha at Interim',
+            'alpha_at_final': 'Alpha at Final',
+            'stopping_boundaries': 'Stopping Boundaries',
+            'interim_by_endpoint': 'Interim by Endpoint',
+
+            # === STATISTICAL METHODS ===
+            'primary_test': 'Primary Statistical Test',
+            'statistical_method': 'Statistical Method',
+            'expected_hazard_ratio': 'Expected Hazard Ratio',
+            'power': 'Statistical Power',
+            'sensitivity_analyses': 'Sensitivity Analyses',
+            'subgroup_analyses': 'Subgroup Analyses',
+            'null_hypothesis': 'Null Hypothesis',
+            'alternative_hypothesis': 'Alternative Hypothesis',
+
+            # === MULTIPLICITY ===
+            'multiplicity_method': 'Multiplicity Adjustment Method',
+            'testing_sequence': 'Testing Sequence',
+            'alpha_per_hypothesis': 'Alpha per Hypothesis',
+            'hypotheses_list': 'Hypotheses List',
+            'graphical_weights': 'Graphical Weights',
+            'graphical_transitions': 'Graphical Transitions',
+
+            # === MISSING DATA ===
+            'treatment_discontinuation_strategy': 'Treatment Discontinuation Strategy',
+            'censoring_rules': 'Censoring Rules',
+            'tipping_point_analysis': 'Tipping Point Analysis',
+
+            # === CROSSOVER ===
+            'has_crossover': 'Crossover Permitted',
+            'crossover_adjustment_methods': 'Crossover Adjustment Methods',
+
+            # === POPULATIONS ===
+            'itt_definition': 'ITT Definition',
+            'fas_definition': 'FAS Definition',
+            'safety_definition': 'Safety Population Definition',
+
+            # === BRIDGING STUDY (ICH E5, E17) ===
+            'is_bridging_study': 'BRIDGING STUDY',
+            'is_mrct': 'Multi-Regional Clinical Trial (MRCT)',
+            'bridging_region': 'Bridging Region',
+            'reference_studies': 'Reference Studies (Global Trials)',
+            'consistency_testing_required': 'Consistency Testing Required',
+            'consistency_hr_threshold_interim': 'Consistency HR Threshold (Interim)',
+            'consistency_hr_threshold_final': 'Consistency HR Threshold (Final)',
+            'hierarchical_testing_steps': 'Hierarchical Testing Steps',
+            'ethnic_sensitivity_assessment': 'Ethnic Sensitivity Assessment',
+
+            # === REGULATORY FILING ENDPOINTS (TTF, etc.) ===
+            'has_early_filing_endpoint': 'Early Filing Endpoint Planned',
+            'filing_endpoint_name': 'Filing Endpoint Name (e.g., TTF)',
+            'filing_endpoint_definition': 'Filing Endpoint Definition',
+            'filing_regulatory_authority': 'Filing Regulatory Authority',
+            'filing_target_subjects': 'Filing Target Subjects',
+            'filing_minimum_followup_months': 'Filing Minimum Follow-up (months)',
+            'filing_statistical_test': 'Filing Statistical Test',
+            'filing_alpha': 'Filing Alpha',
+
+            # === SECONDARY ENDPOINT ANALYSES ===
+            'orr_analysis_method': 'ORR Analysis Method',
+            'orr_ci_method': 'ORR CI Method',
+            'pfs_analysis_method': 'PFS Analysis Method',
+            'dor_analysis_method': 'DOR Analysis Method',
+
+            # === SUBGROUP SPECIFICATIONS ===
+            'forest_plot_planned': 'Forest Plot Planned',
+            'forest_plot_variables': 'Forest Plot Variables',
+            'multivariate_cox_planned': 'Multivariate Cox Planned',
+            'multivariate_cox_covariates': 'Multivariate Cox Covariates',
+            'landmark_analysis_planned': 'Landmark Analysis Planned',
+            'landmark_timepoints': 'Landmark Timepoints',
+            'waterfall_plot_planned': 'Waterfall Plot Planned',
+            'swimmer_plot_planned': 'Swimmer Plot Planned',
+
+            # === BASELINE CHARACTERISTICS ===
+            'baseline_demographic_variables': 'Baseline Demographic Variables',
+            'baseline_disease_variables': 'Baseline Disease Variables',
+            'baseline_molecular_variables': 'Baseline Molecular Variables',
+            'baseline_prior_therapy_variables': 'Baseline Prior Therapy Variables',
+            'baseline_performance_status_variables': 'Baseline Performance Status Variables',
+
+            # === DATE IMPUTATION RULES ===
+            'death_date_imputation': 'Death Date Imputation Rule',
+            'progression_date_imputation': 'Progression Date Imputation Rule',
+            'ae_start_date_imputation': 'AE Start Date Imputation Rule',
+            'duration_calculation_formula': 'Duration Calculation Formula',
+            'days_per_month': 'Days per Month',
+            'days_per_year': 'Days per Year',
+
+            # === EXPOSURE FORMULAS (RDI) ===
+            'rdi_formula_experimental': 'RDI Formula (Experimental)',
+            'rdi_formula_control': 'RDI Formula (Control)',
+            'planned_dose_experimental': 'Planned Dose (Experimental)',
+            'planned_dose_control': 'Planned Dose (Control)',
+            'dose_delay_threshold_days': 'Dose Delay Threshold (days)',
+            'dose_reduction_levels': 'Dose Reduction Levels',
+            'cycle_length_experimental_days': 'Cycle Length Experimental (days)',
+            'cycle_length_control_days': 'Cycle Length Control (days)',
+
+            # === STUDY CONDUCT ===
+            'deviation_categories': 'Protocol Deviation Categories',
+            'programmable_deviations': 'Programmable Deviations',
+            'accrual_summary_by': 'Accrual Summary By',
+            'stratification_discrepancy_analysis': 'Stratification Discrepancy Analysis',
+
+            # === CDISC VERSIONING ===
+            'sdtm_ig_version': 'SDTM-IG Version',
+            'adam_ig_version': 'ADaM-IG Version',
+            'define_xml_version': 'Define-XML Version',
+            'ct_version': 'Controlled Terminology Version',
+            'ct_freeze_date': 'CT Freeze Date',
+            'ct_freeze_milestone': 'CT Freeze Milestone',
+            'submission_type': 'Submission Type',
+            'electronic_submission_format': 'Electronic Submission Format',
+
+            # === MEDICAL CODING STANDARDS ===
+            'meddra_version': 'MedDRA Version',
+            'meddra_freeze_date': 'MedDRA Freeze Date',
+            'meddra_freeze_milestone': 'MedDRA Freeze Milestone',
+            'ae_coding_level': 'AE Coding Level',
+            'whodrug_version': 'WHODrug Version',
+            'whodrug_format': 'WHODrug Format',
+            'whodrug_freeze_date': 'WHODrug Freeze Date',
+            'atc_classification_level': 'ATC Classification Level',
+
+            # === CONTROL GROUP RATIONALE (ICH E10) ===
+            'control_type': 'Control Type',
+            'control_justification': 'Control Justification',
+            'active_control_drug': 'Active Control Drug',
+            'active_control_dose': 'Active Control Dose',
+            'ni_margin_justification': 'NI Margin Justification',
+            'historical_trials_referenced': 'Historical Trials Referenced',
+
+            # === GENOMIC SAMPLING (ICH E18) ===
+            'sample_types_collected': 'Sample Types Collected',
+            'genomic_collection_timepoints': 'Genomic Collection Timepoints',
+            'prespecified_genomic_analyses': 'Pre-specified Genomic Analyses',
+            'exploratory_genomic_analyses': 'Exploratory Genomic Analyses',
+            'ngs_platform': 'NGS Platform',
+            'gene_panel': 'Gene Panel',
+            'ctdna_assay': 'ctDNA Assay',
+
+            # === SAFETY ===
+            'ae_coding_dictionary': 'AE Coding Dictionary',
+            'ae_grading_scale': 'AE Grading Scale',
+            'ae_collection_period': 'AE Collection Period',
+            'teae_definition': 'TEAE Definition',
+            'sae_definition': 'SAE Definition',
+            'aesi_list': 'AESI List',
+            'irae_categories': 'irAE Categories',
+            'dose_reduction_rules': 'Dose Reduction Rules',
+            'dose_discontinuation_rules': 'Dose Discontinuation Rules',
+
+            # === TUMOR ASSESSMENT ===
+            'response_criteria': 'Response Criteria',
+            'assessment_schedule': 'Assessment Schedule',
+            'assessment_method': 'Assessment Method',
+            'bicr_primary': 'BICR Primary',
+            'confirmation_required': 'Confirmation Required',
+            'confirmation_window': 'Confirmation Window',
+            'pseudoprogression_handling': 'Pseudoprogression Handling',
+            'progression_date_definition': 'Progression Date Definition',
+
+            # === PRO ===
+            'pro_instruments': 'PRO Instruments',
+            'pro_primary_endpoint': 'PRO Primary Endpoint',
+            'pro_secondary_endpoints': 'PRO Secondary Endpoints',
+            'time_to_deterioration': 'Time to Deterioration',
+            'ttd_threshold': 'TTD Threshold',
+            'pro_missing_data_handling': 'PRO Missing Data Handling',
+
+            # === DMC ===
+            'has_dmc': 'Has DMC',
+            'dmc_review_frequency': 'DMC Review Frequency',
+            'dmc_unblinded': 'DMC Unblinded',
+            'safety_stopping_rules': 'Safety Stopping Rules',
+            'futility_review_planned': 'Futility Review Planned',
+            'futility_boundary': 'Futility Boundary',
+        }
 
         lines = []
-        for key, label in important_facts:
-            value = facts.get(key)
-            if value is not None and value != '' and value != []:
-                # Format list of dicts (primary_endpoints)
-                if isinstance(value, list) and value and isinstance(value[0], dict):
-                    formatted_items = []
-                    for i, item in enumerate(value, 1):
-                        if isinstance(item, dict):
-                            defn = item.get('definition', str(item))
-                            ep_type = item.get('type', '')
-                            timepoint = item.get('timepoint', '')
-                            criteria = item.get('criteria', '')
-                            parts = [defn]
-                            if ep_type:
-                                parts.append(f"[Type: {ep_type}]")
-                            if timepoint:
-                                parts.append(f"[Timepoint: {timepoint}]")
-                            if criteria:
-                                parts.append(f"[Criteria: {criteria}]")
-                            formatted_items.append(f"  {i}. {' '.join(parts)}")
-                        else:
-                            formatted_items.append(f"  {i}. {item}")
-                    value = '\n' + '\n'.join(formatted_items)
-                elif isinstance(value, list):
+
+        # Process ALL facts, using labels where available
+        for key, value in facts.items():
+            # Skip empty values
+            if value is None or value == '' or value == [] or value == {}:
+                continue
+
+            # Skip confidence/internal fields
+            if key in ('extraction_confidence', 'needs_review', 'confidence'):
+                continue
+
+            # Get human-readable label or generate from key
+            label = field_labels.get(key, key.replace('_', ' ').title())
+
+            # Format the value
+            if isinstance(value, list) and value and isinstance(value[0], dict):
+                formatted_items = []
+                for i, item in enumerate(value, 1):
+                    if isinstance(item, dict):
+                        defn = item.get('definition', item.get('name', str(item)))
+                        formatted_items.append(f"  {i}. {defn}")
+                    else:
+                        formatted_items.append(f"  {i}. {item}")
+                value = '\n' + '\n'.join(formatted_items)
+            elif isinstance(value, dict):
+                # Format dicts nicely
+                dict_items = [f"    {k}: {v}" for k, v in value.items() if v]
+                if dict_items:
+                    value = '\n' + '\n'.join(dict_items)
+                else:
+                    continue
+            elif isinstance(value, list):
+                if len(value) > 0:
                     value = ', '.join(str(v) for v in value)
-                elif isinstance(value, bool):
-                    value = 'Yes' if value else 'No'
-                lines.append(f"- {label}: {value}")
+                else:
+                    continue
+            elif isinstance(value, bool):
+                value = 'Yes' if value else 'No'
+
+            lines.append(f"- {label}: {value}")
 
         return "\n".join(lines) if lines else "No protocol facts available."
 
