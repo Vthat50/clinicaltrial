@@ -100,6 +100,309 @@ class LLMSectionGenerator:
 
         return "\n\n".join(formatted)
 
+    # =========================================================================
+    # STUDY TYPE DETECTION - NO DEFAULTS, CHECK MULTIPLE SIGNALS
+    # =========================================================================
+
+    def _detect_single_arm(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if this is a single-arm study from multiple signals.
+        NO DEFAULT - must be explicitly determined.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('is_single_arm') is True:
+            return True
+        if facts.get('is_single_arm') is False:
+            return False
+
+        # Check num_arms
+        num_arms = facts.get('num_arms')
+        if num_arms == 1:
+            return True
+        if num_arms and num_arms > 1:
+            return False
+
+        # Check for signals of single-arm
+        comparator = str(facts.get('comparator', '')).lower()
+        if comparator in ['none', 'none - single arm', 'n/a', 'na', '']:
+            return True
+        if 'single' in comparator and 'arm' in comparator:
+            return True
+
+        # Check allocation (non-randomized = often single-arm)
+        allocation = str(facts.get('allocation_type', '')).lower()
+        if 'non_randomized' in allocation or 'non-randomized' in allocation:
+            return True
+
+        # Check design type
+        design = str(facts.get('design_type', '')).lower()
+        if 'single-arm' in design or 'single arm' in design or 'one arm' in design:
+            return True
+
+        # Default: assume randomized (safer for regulatory)
+        return False
+
+    def _detect_pilot_study(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if this is a pilot/feasibility study from multiple signals.
+        NO DEFAULT - must be explicitly determined.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('is_pilot_study') is True:
+            return True
+        if facts.get('is_pilot_study') is False:
+            return False
+
+        # Check sample size justification type
+        justification = str(facts.get('sample_size_justification_type', '')).lower()
+        if justification in ['pragmatic', 'feasibility', 'exploratory']:
+            return True
+
+        # Check is_pragmatic_sample flag
+        if facts.get('is_pragmatic_sample') is True:
+            return True
+
+        # Check sample size rationale text
+        rationale = str(facts.get('sample_size_rationale', '')).lower()
+        if any(x in rationale for x in ['pilot', 'feasibility', 'exploratory', 'pragmatic', 'no formal']):
+            return True
+
+        # Check phase (Phase 1, early Phase 2 often exploratory)
+        phase = str(facts.get('phase', '')).lower()
+        if 'phase 1' in phase or 'phase1' in phase:
+            return True
+
+        # Check small sample size without power (N <= 50)
+        sample_size = facts.get('sample_size')
+        if isinstance(sample_size, (int, float)) and sample_size <= 50:
+            power = facts.get('power')
+            if power is None or power == '[NOT FOUND]':
+                return True
+
+        # Check design type
+        design = str(facts.get('design_type', '')).lower()
+        if any(x in design for x in ['pilot', 'feasibility', 'exploratory']):
+            return True
+
+        # Default: assume confirmatory (safer for regulatory)
+        return False
+
+    def _detect_hypothesis_testing(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if formal hypothesis testing is planned from multiple signals.
+        NO DEFAULT - must be explicitly determined.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('hypothesis_testing_planned') is False:
+            return False
+        if facts.get('hypothesis_testing_planned') is True:
+            return True
+
+        # If pilot study, likely no hypothesis testing
+        if self._detect_pilot_study(facts):
+            return False
+
+        # Check statistical method mentions
+        method = str(facts.get('statistical_method', '')).lower()
+        if 'descriptive' in method and 'only' in method:
+            return False
+        if 'no statistical test' in method or 'no formal test' in method:
+            return False
+
+        # Check sample size rationale
+        rationale = str(facts.get('sample_size_rationale', '')).lower()
+        if 'no hypothesis' in rationale or 'descriptive' in rationale:
+            return False
+
+        # Check for presence of hypothesis/power (implies testing planned)
+        if facts.get('power') and facts.get('alpha_level'):
+            return True
+
+        # Default: assume hypothesis testing (safer for regulatory)
+        return True
+
+    def _detect_interim_analysis(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if interim analysis is planned from multiple signals.
+        NO DEFAULT - must be explicitly determined from protocol.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('has_interim_analysis') is True:
+            return True
+        if facts.get('has_interim_analysis') is False:
+            return False
+
+        # Check for interim-related fields populated
+        if facts.get('num_interim_analyses') and facts.get('num_interim_analyses') > 0:
+            return True
+        if facts.get('interim_events') and len(facts.get('interim_events', [])) > 0:
+            return True
+        if facts.get('alpha_spending_function'):
+            return True
+        if facts.get('interim_analysis_method'):
+            return True
+        if facts.get('interim_information_fraction'):
+            return True
+
+        # Check for mentions in protocol text fields
+        stat_method = str(facts.get('statistical_method_details', '')).lower()
+        if 'interim' in stat_method or 'group sequential' in stat_method:
+            return True
+
+        # Default: no interim analysis (don't assume it's planned)
+        return False
+
+    def _detect_hierarchical_testing(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if hierarchical/sequential testing is planned.
+        NO DEFAULT - must be explicitly determined from protocol.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('has_hierarchical_testing') is True:
+            return True
+        if facts.get('has_hierarchical_testing') is False:
+            return False
+
+        # Check for hierarchical testing fields
+        if facts.get('hierarchical_testing_order') and len(facts.get('hierarchical_testing_order', [])) > 0:
+            return True
+        if facts.get('hierarchical_testing_description'):
+            return True
+        if facts.get('testing_sequence') and len(facts.get('testing_sequence', [])) > 1:
+            return True
+
+        # Check multiplicity method
+        mult_method = str(facts.get('multiplicity_method', '')).lower()
+        if any(x in mult_method for x in ['hierarchical', 'sequential', 'fixed-sequence', 'gatekeeping']):
+            return True
+
+        # Check endpoint testing hierarchy
+        if facts.get('endpoint_testing_hierarchy') and len(facts.get('endpoint_testing_hierarchy', [])) > 1:
+            return True
+
+        # Default: no hierarchical testing
+        return False
+
+    def _detect_consistency_objective(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if consistency analysis is part of objectives (bridging studies).
+        NO DEFAULT - must be explicitly determined from protocol.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('has_consistency_objective') is True:
+            return True
+        if facts.get('has_consistency_objective') is False:
+            return False
+
+        # Check for bridging/MRCT study
+        if facts.get('is_bridging_study') is True or facts.get('is_mrct') is True:
+            return True
+
+        # Check for consistency-related fields
+        if facts.get('consistency_type'):
+            return True
+        if facts.get('consistency_margin'):
+            return True
+        if facts.get('consistency_reference_studies') and len(facts.get('consistency_reference_studies', [])) > 0:
+            return True
+        if facts.get('consistency_test_description'):
+            return True
+
+        # Default: no consistency objective
+        return False
+
+    def _detect_consistency_is_primary(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if consistency is a PRIMARY objective (vs secondary).
+        NO DEFAULT - must be explicitly determined from protocol.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('consistency_is_primary') is True:
+            return True
+        if facts.get('consistency_is_primary') is False:
+            return False
+
+        # Check if bridging study with two-step testing (consistency first)
+        if facts.get('is_bridging_study') is True:
+            hierarchy = facts.get('hierarchical_testing_description', '').lower()
+            if 'consistency' in hierarchy and ('first' in hierarchy or 'primary' in hierarchy):
+                return True
+
+        # Default: if consistency exists, check if it's mentioned as primary
+        if self._detect_consistency_objective(facts):
+            primary_obj = str(facts.get('primary_objective', '')).lower()
+            if 'consistency' in primary_obj:
+                return True
+
+        return False
+
+    def _detect_regulatory_interim(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if regulatory interim analysis is planned (e.g., TTF for China).
+        NO DEFAULT - must be explicitly determined from protocol.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('has_regulatory_interim') is True:
+            return True
+        if facts.get('has_regulatory_interim') is False:
+            return False
+
+        # Check for regulatory interim fields
+        if facts.get('regulatory_interim_endpoint'):
+            return True
+        if facts.get('regulatory_interim_region'):
+            return True
+        if facts.get('regulatory_interim_timing'):
+            return True
+
+        # Check for TTF-specific fields (common in China filings)
+        if facts.get('ttf_endpoint') or facts.get('ttf_analysis'):
+            return True
+
+        # Check for China-specific filing support
+        regions = facts.get('regional_regulatory_requirements', [])
+        if isinstance(regions, list) and any('china' in str(r).lower() for r in regions):
+            return True
+
+        # Default: no regulatory interim
+        return False
+
+    def _detect_pro_endpoint(self, facts: Dict[str, Any]) -> bool:
+        """
+        Detect if PRO (Patient-Reported Outcomes) endpoints exist.
+        NO DEFAULT - must be explicitly determined from protocol.
+        """
+        # Direct extraction (most reliable)
+        if facts.get('has_pro_endpoint') is True:
+            return True
+        if facts.get('has_pro_endpoint') is False:
+            return False
+
+        # Check for PRO-related fields
+        if facts.get('pro_endpoints') and len(facts.get('pro_endpoints', [])) > 0:
+            return True
+        if facts.get('pro_instruments') and len(facts.get('pro_instruments', [])) > 0:
+            return True
+        if facts.get('qol_endpoints') and len(facts.get('qol_endpoints', [])) > 0:
+            return True
+
+        # Check secondary endpoints for PRO/QOL mentions
+        secondary = facts.get('secondary_endpoints', [])
+        if isinstance(secondary, list):
+            for ep in secondary:
+                ep_str = str(ep).lower()
+                if any(x in ep_str for x in ['pro', 'qol', 'quality of life', 'patient reported',
+                                               'eortc', 'eq-5d', 'fact-', 'sf-36', 'facit']):
+                    return True
+
+        # Check primary endpoint
+        primary = str(facts.get('primary_endpoint', '')).lower()
+        if any(x in primary for x in ['pro', 'qol', 'quality of life', 'patient reported']):
+            return True
+
+        # Default: no PRO endpoints
+        return False
+
     def _format_facts_for_prompt(self, facts: Dict[str, Any]) -> str:
         """
         Format protocol facts for LLM prompt.
@@ -422,14 +725,15 @@ Write the Introduction section now. Start with "## 1. INTRODUCTION" as the heade
         examples = self._retrieve_examples('endpoints', facts, n_results=3)
 
         # Check for pilot study and co-primary endpoints
-        is_pilot_study = facts.get('is_pilot_study', False)
-        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+        # NO DEFAULTS - detect from multiple signals
+        is_pilot_study = self._detect_pilot_study(facts)
+        hypothesis_testing_planned = self._detect_hypothesis_testing(facts)
         primary_endpoints = facts.get('primary_endpoints', [])
         has_multiple_primary = len(primary_endpoints) > 1
 
-        # Check for consistency as PRIMARY objective
-        consistency_is_primary = facts.get('consistency_is_primary', False)
-        has_consistency = facts.get('has_consistency_objective', False)
+        # Check for consistency as PRIMARY objective - NO DEFAULTS
+        consistency_is_primary = self._detect_consistency_is_primary(facts)
+        has_consistency = self._detect_consistency_objective(facts)
 
         # Build co-primary context
         coprimary_context = ""
@@ -596,9 +900,9 @@ Include a table showing treatment arms if multiple arms exist."""
         """Generate Sample Size section using LLM."""
         examples = self._retrieve_examples('methods', facts, n_results=3)
 
-        # Check if this is a pilot/feasibility study
-        is_pilot_study = facts.get('is_pilot_study', False)
-        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+        # Check if this is a pilot/feasibility study - NO DEFAULTS
+        is_pilot_study = self._detect_pilot_study(facts)
+        hypothesis_testing_planned = self._detect_hypothesis_testing(facts)
         sample_size_justification = str(facts.get('sample_size_justification') or '').lower()
 
         # Determine if formal power calculation was done
@@ -736,9 +1040,9 @@ Write the section now. Start with "## 9. MISSING DATA" as the header."""
         """Generate Statistical Methods section using LLM with RAG examples."""
         examples = self._retrieve_examples('methods', facts, n_results=3)
 
-        # Check if this is a pilot/feasibility study
-        is_pilot_study = facts.get('is_pilot_study', False)
-        hypothesis_testing_planned = facts.get('hypothesis_testing_planned', True)
+        # Check if this is a pilot/feasibility study - NO DEFAULTS
+        is_pilot_study = self._detect_pilot_study(facts)
+        hypothesis_testing_planned = self._detect_hypothesis_testing(facts)
 
         # Determine endpoint type for method selection
         primary_endpoint = str(facts.get('primary_endpoint', '')).lower()
@@ -799,28 +1103,28 @@ Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
 
         else:
             # Standard confirmatory trial prompt
-            # Check for protocol-specific statistical details
+            # Check for protocol-specific statistical details - NO DEFAULTS
             stat_method = facts.get('statistical_method', '')
             stat_method_details = facts.get('statistical_method_details', '')
-            has_interim = facts.get('has_interim_analysis', False)
+            has_interim = self._detect_interim_analysis(facts)
             interim_method = facts.get('interim_analysis_method', '')
             error_spending = facts.get('error_spending_function', '')
             alpha_spending_params = facts.get('alpha_spending_params', '')
             interim_events = facts.get('interim_events', [])
             interim_alpha_spent = facts.get('interim_alpha_spent', [])
             interim_info_fraction = facts.get('interim_information_fraction', [])
-            final_events = facts.get('final_events', 0)
+            final_events = facts.get('final_events')  # NO DEFAULT - use actual value or None
             stopping_boundaries = facts.get('stopping_boundaries', '')
-            has_hierarchical = facts.get('has_hierarchical_testing', False)
+            has_hierarchical = self._detect_hierarchical_testing(facts)
             hierarchical_order = facts.get('hierarchical_testing_order', [])
             hierarchical_desc = facts.get('hierarchical_testing_description', '')
-            has_consistency = facts.get('has_consistency_objective', False)
+            has_consistency = self._detect_consistency_objective(facts)
             consistency_type = facts.get('consistency_type', '')
             consistency_margin = facts.get('consistency_margin', '')
             consistency_refs = facts.get('consistency_reference_studies', [])
             consistency_ref_effect = facts.get('consistency_reference_effect', '')
             consistency_test_desc = facts.get('consistency_test_description', '')
-            consistency_is_primary = facts.get('consistency_is_primary', False)
+            consistency_is_primary = self._detect_consistency_is_primary(facts)
 
             # Build interim analysis context - COMPREHENSIVE
             interim_context = ""
@@ -1038,11 +1342,10 @@ Write the section now. Start with "## 5. ENDPOINTS" as the header."""
         """Generate Stratification section using LLM with RAG examples."""
         examples = self._retrieve_examples('stratification', facts, n_results=2)
 
-        # Check if single-arm study
-        is_single_arm = facts.get('is_single_arm', False)
-        num_arms = facts.get('num_arms', 2)
+        # Check if single-arm study - NO DEFAULTS, detect from multiple signals
+        is_single_arm = self._detect_single_arm(facts)
 
-        if is_single_arm or num_arms == 1:
+        if is_single_arm:
             return GeneratedSection(
                 content="""## STRATIFICATION
 
@@ -1131,8 +1434,8 @@ All analyses will be conducted in accordance with ICH E9 and ICH E9(R1) guidelin
         drug = facts.get('drug_name', 'study drug')
         comparator = facts.get('comparator', 'control')
         endpoint = facts.get('primary_endpoint', 'the primary endpoint')
-        is_pilot = facts.get('is_pilot_study', False)
-        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+        is_pilot = self._detect_pilot_study(facts)
+        hypothesis_testing = self._detect_hypothesis_testing(facts)
 
         if is_pilot or not hypothesis_testing:
             return f"""## 2. OBJECTIVES
@@ -1189,8 +1492,8 @@ Patients will be randomized in a {ratio} ratio.
         """Minimal fallback when LLM fails for sample size."""
         n = facts.get('sample_size', {})
         total = n.get('total_n', 'TBD') if isinstance(n, dict) else n
-        is_pilot = facts.get('is_pilot_study', False)
-        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+        is_pilot = self._detect_pilot_study(facts)
+        hypothesis_testing = self._detect_hypothesis_testing(facts)
 
         if is_pilot or not hypothesis_testing:
             return f"""## 6. SAMPLE SIZE
@@ -1237,8 +1540,8 @@ Sensitivity analyses will include tipping point analysis and multiple imputation
 
     def _fallback_methods(self, facts: Dict[str, Any]) -> str:
         """Minimal fallback when LLM fails for methods."""
-        is_pilot = facts.get('is_pilot_study', False)
-        hypothesis_testing = facts.get('hypothesis_testing_planned', True)
+        is_pilot = self._detect_pilot_study(facts)
+        hypothesis_testing = self._detect_hypothesis_testing(facts)
 
         if is_pilot or not hypothesis_testing:
             return """## 7. STATISTICAL METHODS
@@ -1289,7 +1592,7 @@ Assessment timepoint: {timepoint}
 
     def generate_regulatory_interim(self, facts: Dict[str, Any]) -> GeneratedSection:
         """Generate Regulatory Interim Analysis section (e.g., TTF for China)."""
-        if not facts.get('has_regulatory_interim', False):
+        if not self._detect_regulatory_interim(facts):
             return GeneratedSection(
                 content="",
                 section_name="regulatory_interim",
@@ -1377,7 +1680,7 @@ This interim analysis is conducted to support early filing in {region}.
 
     def generate_pro_endpoints(self, facts: Dict[str, Any]) -> GeneratedSection:
         """Generate Patient-Reported Outcomes section."""
-        if not facts.get('has_pro_endpoint', False):
+        if not self._detect_pro_endpoint(facts):
             return GeneratedSection(
                 content="",
                 section_name="pro_endpoints",

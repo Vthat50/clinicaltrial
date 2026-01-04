@@ -321,11 +321,25 @@ class SectionedProtocolExtractor:
 
 CRITICAL: Extract EXACTLY what the protocol says. DO NOT infer from drug name or therapeutic area.
 
-=== MOST IMPORTANT - DETECT STUDY TYPE ===
-- is_single_arm: TRUE if "single-arm", "single arm", "one arm", NO comparator, NO randomization
-- is_pilot_study: TRUE if "pilot", "feasibility", "exploratory", small N (≤50), or "no formal hypothesis testing"
-- num_arms: Count the treatment arms (1 for single-arm, 2+ for randomized)
-- hypothesis_testing_planned: FALSE if "no statistical tests", "descriptive only", "exploratory"
+=== CRITICAL: DETECT STUDY TYPE (use contextual understanding) ===
+
+is_single_arm: Is there only ONE treatment group with NO comparator/control arm?
+  - TRUE if: only one treatment described, no randomization between groups, no control arm
+  - FALSE if: patients are randomized between treatment vs control/comparator
+  - Look at the STUDY DESIGN section, not just keywords
+
+is_pilot_study: Is this an exploratory/feasibility study rather than confirmatory?
+  - TRUE if: primary goal is safety/feasibility assessment, small sample without power calculation,
+    explicitly called pilot/feasibility, or "no formal hypothesis testing"
+  - FALSE if: designed to test a hypothesis with statistical power, Phase 3, registration-enabling
+  - Consider the OBJECTIVES and SAMPLE SIZE JUSTIFICATION
+
+num_arms: How many distinct treatment groups are patients assigned to?
+  - Count: 1 for single-arm, 2 for two-arm randomized, 3+ for multi-arm
+
+hypothesis_testing_planned: Will formal statistical hypothesis tests be performed?
+  - FALSE if: "descriptive statistics only", "no statistical tests", exploratory endpoints only
+  - TRUE if: p-values, type I error control, power calculations mentioned
 
 Required fields (must find or mark [NOT FOUND]):
 - treatment_setting: EXACTLY one of: "first-line", "second-line", "third-line or later",
