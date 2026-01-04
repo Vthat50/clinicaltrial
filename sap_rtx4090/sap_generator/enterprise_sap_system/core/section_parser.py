@@ -214,8 +214,16 @@ class ProtocolSectionParser:
                     next_section_pos = min(next_section_pos, other[2])
 
             content_length = next_section_pos - match[3]  # header_end to next section
+            content_preview = text[match[3]:match[3] + min(500, content_length)]
 
-            # Skip if this looks like a TOC entry (very short content)
+            # Skip if this looks like a TOC entry
+            # TOC patterns: many dots (....), page numbers, short lines
+            dot_count = content_preview.count('.')
+            if dot_count > 50:  # TOC has lots of leader dots
+                print(f"[SectionParser] Skipping TOC entry for {section_name} ({dot_count} dots)")
+                continue
+
+            # Skip if content is mostly dots and numbers (TOC pattern)
             if content_length < 200:
                 continue
 
