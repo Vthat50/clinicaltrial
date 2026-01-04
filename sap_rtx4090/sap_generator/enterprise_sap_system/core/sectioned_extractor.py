@@ -65,9 +65,11 @@ class SectionedProtocolExtractor:
     # Section definitions with required and optional fields
     SECTIONS = {
         'study_design': {
-            'required': ['treatment_setting', 'disease_type', 'phase', 'drug_name', 'comparator'],
-            'optional': ['histology', 'disease_stage', 'biomarker_status', 'allocation_ratio', 'blinding_type'],
-            'critical': ['treatment_setting', 'disease_type']  # These MUST be extracted
+            'required': ['treatment_setting', 'disease_type', 'phase', 'drug_name', 'comparator',
+                        'is_single_arm', 'is_pilot_study', 'num_arms'],  # CRITICAL: Added single-arm/pilot detection
+            'optional': ['histology', 'disease_stage', 'biomarker_status', 'allocation_ratio', 'blinding_type',
+                        'hypothesis_testing_planned', 'sample_size_justification_type'],
+            'critical': ['treatment_setting', 'disease_type', 'is_single_arm', 'is_pilot_study']  # MUST extract study type
         },
         'stratification': {
             'required': ['stratification_factors'],
@@ -76,7 +78,8 @@ class SectionedProtocolExtractor:
         },
         'sample_size': {
             'required': ['sample_size', 'power'],
-            'optional': ['sample_size_per_arm', 'sample_size_rationale', 'hazard_ratio'],
+            'optional': ['sample_size_per_arm', 'sample_size_rationale', 'hazard_ratio',
+                        'sample_size_justification_type', 'is_pragmatic_sample'],
             'critical': ['sample_size']
         },
         'endpoints': {
@@ -318,6 +321,12 @@ class SectionedProtocolExtractor:
 
 CRITICAL: Extract EXACTLY what the protocol says. DO NOT infer from drug name or therapeutic area.
 
+=== MOST IMPORTANT - DETECT STUDY TYPE ===
+- is_single_arm: TRUE if "single-arm", "single arm", "one arm", NO comparator, NO randomization
+- is_pilot_study: TRUE if "pilot", "feasibility", "exploratory", small N (≤50), or "no formal hypothesis testing"
+- num_arms: Count the treatment arms (1 for single-arm, 2+ for randomized)
+- hypothesis_testing_planned: FALSE if "no statistical tests", "descriptive only", "exploratory"
+
 Required fields (must find or mark [NOT FOUND]):
 - treatment_setting: EXACTLY one of: "first-line", "second-line", "third-line or later",
   "neoadjuvant", "adjuvant", "maintenance". Look for phrases like "first-line treatment",
@@ -326,26 +335,30 @@ Required fields (must find or mark [NOT FOUND]):
   "HER2-positive breast cancer", "Advanced melanoma". Be specific, not generic.
 - phase: "Phase 1", "Phase 2", "Phase 3", etc.
 - drug_name: The experimental drug name
-- comparator: The control arm treatment
+- comparator: The control arm treatment (use "None - single arm" if single-arm study)
 
 Optional fields:
 - histology: e.g., "Squamous", "Non-squamous", "Adenocarcinoma"
 - disease_stage: e.g., "Stage IIIB-IV", "Locally advanced or metastatic"
 - biomarker_status: e.g., "PD-L1 ≥50%", "EGFR mutation negative"
-- allocation_ratio: e.g., "1:1", "2:1"
+- allocation_ratio: e.g., "1:1", "2:1" (null if single-arm)
 - blinding_type: e.g., "Open-label", "Double-blind"
 
 RESPOND IN JSON:
 {{
+    "is_single_arm": <true/false>,
+    "is_pilot_study": <true/false>,
+    "num_arms": <number>,
+    "hypothesis_testing_planned": <true/false>,
     "treatment_setting": "<exact setting or [NOT FOUND]>",
     "disease_type": "<specific disease or [NOT FOUND]>",
     "phase": "<phase>",
     "drug_name": "<drug>",
-    "comparator": "<comparator>",
+    "comparator": "<comparator or 'None - single arm'>",
     "histology": "<histology or null>",
     "disease_stage": "<stage or null>",
     "biomarker_status": "<status or null>",
-    "allocation_ratio": "<ratio>",
+    "allocation_ratio": "<ratio or null>",
     "blinding_type": "<blinding>",
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
@@ -391,15 +404,22 @@ SEARCH AGGRESSIVELY for these patterns:
 - "HR of 0.##" or "hazard ratio 0.##" or "HR = 0.##"
 - Look for tables with sample size calculations
 
+=== DETECT PILOT/FEASIBILITY SAMPLE SIZE ===
+- is_pragmatic_sample: TRUE if "pragmatic", "feasibility", "no formal calculation", "exploratory",
+  "based on expected recruitment", "practical considerations", or N ≤ 50 without power calculation
+- If NO power calculation mentioned and small N, likely a pilot study
+
 Required fields:
 - sample_size: Total number of patients (look for N=, total, enrolled)
-- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90)
+- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90). NULL if pilot/feasibility.
 
 Optional fields:
 - sample_size_per_arm: Number per treatment arm [arm1_n, arm2_n]
 - sample_size_rationale: Text describing the calculation basis
+- sample_size_justification_type: "power_calculation", "pragmatic", "feasibility", "precision", "binomial"
 - hazard_ratio: Expected/assumed hazard ratio (usually 0.6-0.8 for oncology)
 - allocation_ratio: Randomization ratio like "1:1" or "2:1"
+- is_pragmatic_sample: true if not based on formal power calculation
 
 RESPOND IN JSON:
 {{
@@ -407,6 +427,8 @@ RESPOND IN JSON:
     "power": <0.0-1.0 or null>,
     "sample_size_per_arm": [<arm1_n>, <arm2_n>] or null,
     "sample_size_rationale": "<text>" or null,
+    "sample_size_justification_type": "<type>" or null,
+    "is_pragmatic_sample": <true/false>,
     "hazard_ratio": <number> or null,
     "allocation_ratio": "<ratio>" or null,
     "confidence": <0.0-1.0>,
