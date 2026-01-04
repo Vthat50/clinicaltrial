@@ -875,6 +875,7 @@ class SAPGenerationOrchestrator:
         self,
         protocol_text: str,
         nct_id: str = "",
+        pdf_path: str = None,
         verbose: bool = True
     ) -> GenerationResult:
         """
@@ -895,9 +896,10 @@ class SAPGenerationOrchestrator:
             print("=" * 60)
 
         try:
-            # Run the production pipeline
+            # Run the production pipeline with Vision-based parsing
             pipeline_result = self.production_pipeline.generate(
                 protocol_text=protocol_text,
+                pdf_path=pdf_path,
                 nct_id=nct_id
             )
 

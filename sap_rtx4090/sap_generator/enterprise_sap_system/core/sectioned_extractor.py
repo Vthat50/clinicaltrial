@@ -481,9 +481,10 @@ RESPOND IN JSON:
             llm_client: LLM client with chat() method
         """
         self.llm = llm_client
-        # Pass LLM client to section parser for Claude-based section detection
+        # Pass LLM client to section parser for Claude Vision-based section detection
         self.section_parser = ProtocolSectionParser(llm_client=llm_client)
         self._parsed_protocol: Optional[ParsedProtocol] = None
+        self._current_pdf_path: Optional[str] = None
 
     def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 25000) -> str:
         """
@@ -494,7 +495,11 @@ RESPOND IN JSON:
         """
         # Parse protocol if not already done
         if self._parsed_protocol is None or self._parsed_protocol.raw_text != protocol_text:
-            self._parsed_protocol = self.section_parser.parse(protocol_text)
+            # Use Vision-based parsing if PDF path is available
+            self._parsed_protocol = self.section_parser.parse(
+                protocol_text,
+                pdf_path=self._current_pdf_path
+            )
             print(f"[SectionedExtractor] Parsed protocol into {len(self._parsed_protocol.sections)} sections")
             print(f"[SectionedExtractor] Available sections: {list(self._parsed_protocol.sections.keys())}")
 
@@ -662,7 +667,8 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
     def extract_all_sections(
         self,
         protocol_text: str,
-        sections: Optional[List[str]] = None
+        sections: Optional[List[str]] = None,
+        pdf_path: Optional[str] = None
     ) -> Tuple[ExtractedProtocolFacts, Dict[str, SectionExtractionResult]]:
         """
         Extract all sections from a protocol.
@@ -670,10 +676,16 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         Args:
             protocol_text: Full protocol text
             sections: Optional list of sections to extract (default: all)
+            pdf_path: Path to PDF file for Vision-based section parsing
 
         Returns:
             Tuple of (ExtractedProtocolFacts, dict of section results)
         """
+        # Store PDF path for Vision-based parsing
+        self._current_pdf_path = pdf_path
+        if pdf_path:
+            print(f"[SectionedExtractor] PDF path provided: {pdf_path}")
+
         if sections is None:
             sections = list(self.SECTIONS.keys())
 

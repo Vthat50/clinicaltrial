@@ -235,9 +235,14 @@ class ProductionSAPPipeline:
 
         print("[ProductionPipeline] Initialization complete")
 
-    def generate(self, protocol_text: str) -> GenerationResult:
+    def generate(self, protocol_text: str, pdf_path: str = None, **kwargs) -> GenerationResult:
         """
         Generate SAP using clean production pipeline.
+
+        Args:
+            protocol_text: Full protocol text
+            pdf_path: Path to PDF file for Vision-based section parsing
+            **kwargs: Additional arguments (nct_id, etc.)
 
         Steps:
         1. Extract facts by section with confidence scores
@@ -251,7 +256,7 @@ class ProductionSAPPipeline:
             # STEP 1: SECTIONED EXTRACTION (with confidence scores)
             # =================================================================
             print("\n[Step 1] Extracting facts by section (with confidence)...")
-            facts, section_results = self._extract_facts_sectioned(protocol_text)
+            facts, section_results = self._extract_facts_sectioned(protocol_text, pdf_path=pdf_path)
 
             # Log extraction quality
             overall_confidence = sum(r.confidence for r in section_results.values()) / len(section_results) if section_results else 0
@@ -372,10 +377,15 @@ class ProductionSAPPipeline:
 
     def _extract_facts_sectioned(
         self,
-        protocol_text: str
+        protocol_text: str,
+        pdf_path: str = None
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """
         Extract facts using sectioned extraction with confidence scores.
+
+        Args:
+            protocol_text: Full protocol text
+            pdf_path: Path to PDF for Vision-based parsing
 
         Returns:
             Tuple of (facts dict, section_results dict)
@@ -386,7 +396,8 @@ class ProductionSAPPipeline:
         if self.sectioned_extractor:
             try:
                 extracted_facts, section_results = self.sectioned_extractor.extract_all_sections(
-                    protocol_text
+                    protocol_text,
+                    pdf_path=pdf_path
                 )
                 # Convert to flat dict for generation
                 facts = extracted_facts.to_flat_dict() if hasattr(extracted_facts, 'to_flat_dict') else {}
