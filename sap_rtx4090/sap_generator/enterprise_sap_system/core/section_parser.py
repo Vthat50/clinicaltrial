@@ -375,27 +375,33 @@ class ProtocolSectionParser:
 
     def _scan_for_headers(self, doc, total_pages: int) -> List[Dict]:
         """
-        ADAPTIVE TWO-PHASE SAMPLING for header detection.
+        OPTIMIZED STRATEGIC SAMPLING for header detection.
 
-        Phase 1: Coarse sampling (every 5th page) to find approximate locations
-        Phase 2: Fine-grained scan around found headers to fill gaps
+        Focus on where statistical sections typically appear (50-90% of document).
+        Limit Vision calls to ~10-12 pages max for performance.
 
         Returns list of headers with VERIFIED page numbers.
         """
         found_headers = []
 
-        # PHASE 1: Coarse sampling
-        print(f"[SectionParser/Adaptive] Phase 1: Coarse sampling...")
+        # STRATEGIC SAMPLING: Focus on statistical section region
+        # Clinical protocols: stats at 50-85%, limit to ~12 Vision calls
+        print(f"[SectionParser/Adaptive] Strategic sampling (optimized)...")
         coarse_pages = []
 
-        # Skip first 10% (title pages, TOC)
-        start_page = int(total_pages * 0.10)
+        # Key sampling points based on typical protocol structure:
+        # - 20-30%: Study design, endpoints
+        # - 50-60%: Statistical methods start
+        # - 60-75%: Sample size, populations, interim
+        # - 75-85%: Multiplicity, missing data
+        sampling_fractions = [0.20, 0.30, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90]
 
-        # Sample every 5th page
-        for page_num in range(start_page, total_pages, 5):
-            coarse_pages.append(page_num)
+        for frac in sampling_fractions:
+            page = int(total_pages * frac)
+            if page < total_pages and page not in coarse_pages:
+                coarse_pages.append(page)
 
-        print(f"[SectionParser/Adaptive] Scanning {len(coarse_pages)} pages in coarse phase...")
+        print(f"[SectionParser/Adaptive] Scanning {len(coarse_pages)} strategic pages...")
 
         for page_num in coarse_pages:
             headers = self._detect_headers_on_page(doc, page_num)
@@ -432,44 +438,12 @@ class ProtocolSectionParser:
                             })
                             print(f"[SectionParser/Adaptive] ? Unverified header: '{header_text}' -> {section_type} (page {page_num})")
 
-        # PHASE 2: Fill gaps - look for missing priority sections
-        print(f"[SectionParser/Adaptive] Phase 2: Filling gaps...")
+        # Log missing sections (but don't do expensive Phase 2 scanning)
         found_types = {h['section_type'] for h in found_headers}
         missing_sections = [s for s in self.PRIORITY_SECTIONS if s not in found_types]
 
-        if missing_sections and found_headers:
-            print(f"[SectionParser/Adaptive] Missing sections: {missing_sections}")
-
-            # Sort found headers by page
-            sorted_headers = sorted(found_headers, key=lambda x: x['page_num'])
-
-            # Dense scan between found sections
-            for i in range(len(sorted_headers)):
-                start = sorted_headers[i]['page_num']
-                end = sorted_headers[i + 1]['page_num'] if i + 1 < len(sorted_headers) else min(start + 20, total_pages)
-
-                # If gap is large, scan it densely
-                if end - start > 5:
-                    for page_num in range(start + 1, end):
-                        if page_num in coarse_pages:
-                            continue  # Already scanned
-
-                        headers = self._detect_headers_on_page(doc, page_num)
-                        for h in headers:
-                            section_type = h.get('section_type', '').lower()
-                            if section_type in missing_sections:
-                                header_text = h.get('exact_header_text', '')
-                                verified_page = self._verify_header_location(doc, page_num, header_text)
-
-                                found_headers.append({
-                                    'exact_header_text': header_text,
-                                    'section_type': section_type,
-                                    'first_sentence': h.get('first_sentence_after', ''),
-                                    'page_num': verified_page or page_num,
-                                    'verified': verified_page is not None
-                                })
-                                missing_sections.remove(section_type)
-                                print(f"[SectionParser/Adaptive] ✓ Found missing: '{header_text}' -> {section_type} (page {verified_page or page_num})")
+        if missing_sections:
+            print(f"[SectionParser/Adaptive] Note: Missing sections (will try to find in extracted content): {missing_sections}")
 
         # ICH M11 structure validation
         self._validate_section_order(found_headers)
@@ -671,54 +645,56 @@ class ProtocolSectionParser:
 
     def _extract_section_with_claude(self, doc, start_page: int, end_page: int, section_type: str) -> str:
         """
-        Extract section content using Claude API (Vision).
+        Extract section content using PyMuPDF + Claude TEXT API.
 
-        Send page images to Claude and ask it to extract the text content.
-        Better handling of complex layouts, tables, multi-column text.
+        1. PyMuPDF extracts raw text (fast, no API call)
+        2. Claude TEXT API cleans/structures it (1 API call)
+
+        NO VISION for extraction - much faster and cheaper.
         """
-        if not self.vision_client:
-            return ""
+        if not self.llm_client:
+            return self._extract_with_pymupdf(doc, start_page, end_page)
 
-        all_content = []
+        # Step 1: PyMuPDF extracts raw text (instant, no API call)
+        raw_text = self._extract_with_pymupdf(doc, start_page, end_page)
 
-        # Limit to max 5 pages per Claude call to manage costs
-        pages_to_process = min(end_page - start_page, 5)
+        if not raw_text or len(raw_text) < 100:
+            return raw_text
 
-        for i in range(pages_to_process):
-            page_num = start_page + i
-            if page_num >= len(doc):
-                break
+        # Step 2: Claude TEXT API cleans/structures the text (1 API call)
+        try:
+            prompt = f"""Clean and structure this raw text extracted from a clinical trial protocol.
+This is the {section_type.upper().replace('_', ' ')} section.
 
-            try:
-                page = doc[page_num]
+RAW TEXT:
+{raw_text[:15000]}
 
-                # Render to image
-                pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5))
-                img_bytes = pix.tobytes("png")
-                img_base64 = base64.b64encode(img_bytes).decode('utf-8')
+INSTRUCTIONS:
+- Remove page headers, footers, and page numbers
+- Fix any text extraction artifacts (broken words, weird spacing)
+- Preserve all numbers, percentages, and statistical values EXACTLY
+- Keep paragraph structure
+- Do NOT summarize - return the full cleaned text
 
-                # Ask Claude to extract the text
-                prompt = f"""Extract ALL text content from this clinical trial protocol page.
+Return ONLY the cleaned text, no commentary."""
 
-This page is part of the {section_type.upper().replace('_', ' ')} section.
+            # Use Claude text API (not vision)
+            if hasattr(self.llm_client, 'messages'):
+                response = self.llm_client.messages.create(
+                    model="claude-sonnet-4-20250514",
+                    max_tokens=8000,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                return response.content[0].text
+            elif hasattr(self.llm_client, 'chat'):
+                response = self.llm_client.chat(prompt, max_tokens=8000)
+                return response if isinstance(response, str) else str(response)
+            else:
+                return raw_text
 
-IMPORTANT:
-- Extract the EXACT text as it appears, do not summarize
-- Include all numbers, percentages, and statistical values
-- Preserve paragraph structure
-- Include table content if present
-- Skip headers, footers, and page numbers
-
-Return ONLY the extracted text, no commentary."""
-
-                response = self._call_vision_api(img_base64, prompt)
-                if response:
-                    all_content.append(response)
-
-            except Exception as e:
-                print(f"[SectionParser/Claude] Error extracting page {page_num}: {e}")
-
-        return "\n\n".join(all_content)
+        except Exception as e:
+            print(f"[SectionParser/Claude] Text API error: {e}, using raw PyMuPDF text")
+            return raw_text
 
     def _extract_with_pymupdf(self, doc, start_page: int, end_page: int) -> str:
         """
