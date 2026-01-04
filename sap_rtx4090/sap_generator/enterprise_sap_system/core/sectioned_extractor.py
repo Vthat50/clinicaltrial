@@ -82,7 +82,7 @@ class SectionedProtocolExtractor:
         },
         'statistical_methods': {
             'required': ['statistical_method'],
-            'optional': ['null_hypothesis', 'alternative_hypothesis', 'test_sidedness'],
+            'optional': ['null_hypothesis', 'alternative_hypothesis', 'test_sidedness', 'hazard_ratio_method'],
             'critical': ['statistical_method']  # MUST come from protocol, not inferred
         },
         'interim_analysis': {
@@ -94,8 +94,8 @@ class SectionedProtocolExtractor:
         },
         'multiplicity': {
             'required': ['has_multiplicity'],
-            'optional': ['adjustment_method', 'testing_sequence', 'alpha_per_hypothesis'],
-            'critical': ['alpha_per_hypothesis']
+            'optional': ['adjustment_method', 'testing_sequence', 'alpha_per_hypothesis', 'hypotheses_list', 'alpha_propagation'],
+            'critical': ['hypotheses_list', 'alpha_per_hypothesis']
         },
         'missing_data': {
             'required': ['censoring_rules'],
@@ -162,16 +162,29 @@ RESPOND IN JSON:
 
         'stratification': '''Extract STRATIFICATION information from this protocol section.
 
-Required fields:
-- stratification_factors: List of randomization stratification factors
+SEARCH AGGRESSIVELY for these patterns:
+- "stratified by" or "stratification factors" or "stratification variables"
+- "randomization stratified" or "stratified randomization"
+- Look for lists after "stratified by:" such as:
+  - Geographic region (e.g., "East Asia vs Rest of World")
+  - Performance status (e.g., "ECOG 0 vs 1")
+  - PD-L1 status (e.g., "<1% vs ≥1%", "TPS <50% vs ≥50%")
+  - Histology (e.g., "squamous vs non-squamous")
+  - Prior therapy (e.g., "yes vs no")
+  - Sex (e.g., "male vs female")
+  - Smoking status (e.g., "never vs ever")
+  - Disease stage, metastases, brain metastases
 
-Critical field (must extract with detail):
-- stratification_factor_levels: For EACH stratification factor, list the EXACT levels/categories.
-  Example: {{"PD-L1 status": ["<1%", "1-49%", "≥50%"], "ECOG PS": ["0", "1"]}}
+Required fields:
+- stratification_factors: List ALL factors mentioned, even if in different parts of protocol
+
+Critical field (MUST extract with full detail):
+- stratification_factor_levels: For EACH factor, extract EXACT levels/categories
+  Example: {{"Region": ["East Asia", "Rest of World"], "ECOG PS": ["0", "1"], "PD-L1": ["<1%", "1-49%", "≥50%"]}}
 
 RESPOND IN JSON:
 {{
-    "stratification_factors": ["<factor1>", "<factor2>", ...],
+    "stratification_factors": ["<factor1>", "<factor2>", "<factor3>", ...],
     "stratification_factor_levels": {{"<factor>": ["<level1>", "<level2>"], ...}},
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
@@ -179,43 +192,67 @@ RESPOND IN JSON:
 
         'sample_size': '''Extract SAMPLE SIZE information from this protocol section.
 
+SEARCH AGGRESSIVELY for these patterns:
+- "N = ###" or "n = ###" or "### patients" or "### subjects" or "### participants"
+- "sample size of ###" or "enroll ###" or "randomize ###" or "total of ###"
+- "### per arm" or "### in each arm" or "1:1" (implies equal arms)
+- "power of ##%" or "##% power" or "power = 0.##"
+- "HR of 0.##" or "hazard ratio 0.##" or "HR = 0.##"
+- Look for tables with sample size calculations
+
 Required fields:
-- sample_size: Total number of patients to be enrolled
-- power: Statistical power (e.g., 0.80 for 80%, 0.90 for 90%)
+- sample_size: Total number of patients (look for N=, total, enrolled)
+- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90)
 
 Optional fields:
-- sample_size_per_arm: Number per treatment arm
+- sample_size_per_arm: Number per treatment arm [arm1_n, arm2_n]
 - sample_size_rationale: Text describing the calculation basis
-- hazard_ratio: Expected/assumed hazard ratio
+- hazard_ratio: Expected/assumed hazard ratio (usually 0.6-0.8 for oncology)
+- allocation_ratio: Randomization ratio like "1:1" or "2:1"
 
 RESPOND IN JSON:
 {{
-    "sample_size": <number>,
-    "power": <0.0-1.0>,
+    "sample_size": <number or null if truly not found>,
+    "power": <0.0-1.0 or null>,
     "sample_size_per_arm": [<arm1_n>, <arm2_n>] or null,
     "sample_size_rationale": "<text>" or null,
     "hazard_ratio": <number> or null,
+    "allocation_ratio": "<ratio>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
 
         'endpoints': '''Extract ENDPOINT information from this protocol section.
 
+SEMANTIC SEARCH - Look for these CONCEPTS:
+- "primary endpoint" / "primary outcome" / "primary efficacy" / "primary objective"
+- "PFS" / "progression-free survival" / "time to progression"
+- "OS" / "overall survival" / "time to death"
+- "ORR" / "objective response rate" / "tumor response" / "response rate"
+- "DOR" / "duration of response" / "DoR"
+- "DCR" / "disease control rate"
+- "TTR" / "time to response"
+- "secondary endpoint" / "secondary outcome" / "key secondary"
+- "co-primary" / "dual primary" / "two primary endpoints"
+- "RECIST" / "irRECIST" / "iRECIST" / "mRECIST" / "BICR" / "blinded independent"
+- "defined as" / "measured as" / "time from randomization"
+
 Required fields:
-- primary_endpoint: The primary efficacy endpoint with definition
+- primary_endpoint: The PRIMARY endpoint with its FULL definition
+  Example: "Progression-free survival (PFS), defined as time from randomization to first documented disease progression per RECIST 1.1 or death"
 
 Optional fields:
-- secondary_endpoints: List of secondary endpoints
-- is_co_primary: true/false - are there co-primary endpoints?
-- co_primary_endpoints: List if is_co_primary is true
-- assessment_criteria: e.g., "RECIST 1.1", "irRECIST"
+- secondary_endpoints: List ALL secondary endpoints mentioned
+- is_co_primary: true if there are CO-PRIMARY endpoints (both must succeed)
+- co_primary_endpoints: List the co-primary endpoints if is_co_primary is true
+- assessment_criteria: Response assessment criteria
 
 RESPOND IN JSON:
 {{
-    "primary_endpoint": "<endpoint name and definition>",
-    "secondary_endpoints": ["<endpoint1>", "<endpoint2>", ...],
+    "primary_endpoint": "<endpoint name AND full definition>",
+    "secondary_endpoints": ["<endpoint1 with definition>", "<endpoint2>", ...],
     "is_co_primary": <true/false>,
-    "co_primary_endpoints": ["<endpoint1>", "<endpoint2>"] or [],
+    "co_primary_endpoints": ["<co-primary1>", "<co-primary2>"] or [],
     "assessment_criteria": "<criteria>",
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
@@ -223,20 +260,30 @@ RESPOND IN JSON:
 
         'statistical_methods': '''Extract STATISTICAL METHODS information from this protocol section.
 
-CRITICAL: Extract the EXACT method specified in the protocol. DO NOT infer based on drug class.
+SEMANTIC SEARCH - Look for these CONCEPTS:
+- "log-rank" / "logrank" / "log rank" / "Mantel-Cox"
+- "stratified log-rank" / "stratified analysis" / "adjusted for stratification"
+- "Fleming-Harrington" / "weighted log-rank" / "G(rho,gamma)" / "ρ=" / "γ="
+- "Cox" / "proportional hazards" / "Cox regression" / "hazard ratio"
+- "Kaplan-Meier" / "survival curves" / "survival analysis"
+- "one-sided" / "two-sided" / "α=0.025" / "α=0.05"
+- "null hypothesis" / "H0:" / "alternative hypothesis" / "H1:" / "Ha:"
+- "superiority" / "non-inferiority" / "equivalence"
+- "Fisher exact" / "chi-square" / "χ²" / "Cochran-Mantel-Haenszel" / "CMH"
+- "confidence interval" / "CI" / "95% CI" / "hazard ratio with 95% CI"
 
-Required field (MUST extract from protocol text, not infer):
-- statistical_method: The primary statistical test. Look for:
-  - "log-rank test" (with or without stratification)
-  - "stratified log-rank test"
-  - "Fleming-Harrington" or "weighted log-rank" (with rho/gamma parameters if specified)
-  - "Cox proportional hazards"
-  - "Fisher's exact test", "Chi-square test" (for binary endpoints)
+CRITICAL: Extract the EXACT method specified. DO NOT infer based on drug class.
+
+Required field:
+- statistical_method: The primary statistical test with full specification
+  Example: "Stratified log-rank test, stratified by ECOG PS and region"
+  Example: "Fleming-Harrington weighted log-rank test with ρ=0, γ=1"
 
 Optional fields:
-- null_hypothesis: e.g., "HR = 1.0"
-- alternative_hypothesis: e.g., "HR < 1.0"
+- null_hypothesis: e.g., "HR = 1.0" or "HR ≥ 1.0"
+- alternative_hypothesis: e.g., "HR < 1.0" or "HR ≠ 1.0"
 - test_sidedness: "one-sided" or "two-sided"
+- hazard_ratio_method: How HR is estimated (e.g., "unstratified Cox model")
 
 If the statistical method is NOT explicitly stated, return:
 "statistical_method": "[STATISTICAL METHOD NOT FOUND IN PROTOCOL - NEEDS REVIEW]"
@@ -247,25 +294,36 @@ RESPOND IN JSON:
     "null_hypothesis": "<H0>" or null,
     "alternative_hypothesis": "<H1>" or null,
     "test_sidedness": "<sidedness>",
+    "hazard_ratio_method": "<HR estimation method>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
 
         'interim_analysis': '''Extract INTERIM ANALYSIS information from this protocol section.
 
-Required fields:
-- has_interim_analysis: true/false
-- num_interim_analyses: Number of planned interim analyses (0 if none)
+SEMANTIC SEARCH - Look for these CONCEPTS (not just exact phrases):
+- "interim analysis" / "interim look" / "planned looks" / "group sequential"
+- "### events" / "### deaths" / "### PFS events" / "### OS events" / "target events"
+- "information fraction" / "information time" / "% of events" / "% information"
+- "alpha spending" / "spending function" / "O'Brien-Fleming" / "Lan-DeMets" / "Pocock"
+- "stopping boundary" / "efficacy boundary" / "futility boundary" / "early stopping"
+- "one-sided alpha" / "two-sided alpha" / "α=" / "alpha="
+- Tables showing: IA1, IA2, FA or Interim 1, Interim 2, Final
+- "first interim at ###" / "second interim at ###" / "final at ###"
 
-Optional but critical fields (if has_interim_analysis is true):
-- interim_events: Events required at each interim [list of integers]
-- final_events: Events required at final analysis [integer]
-- information_fractions: Proportion of information at each look [list of floats]
-- alpha_spending_function: e.g., "Lan-DeMets O'Brien-Fleming", "Pocock"
-- alpha_at_interim: Alpha spent at each interim [list of floats]
-- alpha_at_final: Alpha remaining for final analysis [float]
-- stopping_boundaries: Description of stopping rules
-- interim_by_endpoint: Per-endpoint IA structure if multiple endpoints
+Required fields:
+- has_interim_analysis: true if ANY interim analysis is mentioned
+- num_interim_analyses: Count distinct interim looks (IA1, IA2, etc.)
+
+CRITICAL fields - extract ALL numbers you find:
+- interim_events: Events at each interim [e.g., [175, 350] for 2 interims]
+- final_events: Events at final analysis [e.g., 500]
+- information_fractions: [e.g., [0.35, 0.70, 1.0] for 35%, 70%, 100%]
+- alpha_spending_function: The spending function name
+- alpha_at_interim: Alpha spent at each interim [e.g., [0.0001, 0.005]]
+- alpha_at_final: Remaining alpha [e.g., 0.0199]
+- stopping_boundaries: HR thresholds or Z-values for stopping
+- interim_by_endpoint: SEPARATE structure per endpoint (PFS vs OS often differ!)
 
 RESPOND IN JSON:
 {{
@@ -279,8 +337,8 @@ RESPOND IN JSON:
     "alpha_at_final": <number> or null,
     "stopping_boundaries": "<description>" or null,
     "interim_by_endpoint": [
-        {{"endpoint": "PFS", "timing": "<timing>", "events": <n>, "alpha": <a>}},
-        {{"endpoint": "OS", "timing": "<timing>", "events": <n>, "alpha": <a>}}
+        {{"endpoint": "PFS", "timing": "<when>", "events": <n>, "alpha": <a>}},
+        {{"endpoint": "OS", "timing": "<when>", "events": <n>, "alpha": <a>}}
     ] or [],
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
@@ -288,23 +346,38 @@ RESPOND IN JSON:
 
         'multiplicity': '''Extract MULTIPLICITY information from this protocol section.
 
+SEMANTIC SEARCH - Look for these CONCEPTS:
+- "multiplicity" / "multiple testing" / "multiple endpoints" / "multiple hypotheses"
+- "H1" / "H2" / "H3" / "H4" / "H5" / "hypothesis 1" / "hypothesis 2"
+- "hierarchical testing" / "gatekeeping" / "fixed sequence" / "sequential testing"
+- "graphical approach" / "Maurer-Bretz" / "weighted Bonferroni"
+- "Hochberg" / "Holm" / "Bonferroni" / "Simes"
+- "alpha allocation" / "α=" / "one-sided 0.0###" / "two-sided 0.0###"
+- "type I error" / "FWER" / "familywise error rate"
+- "primary hypothesis" / "secondary hypothesis" / "key secondary"
+- "tested at α=" / "tested at alpha" / "significance level"
+- Diagrams or tables showing hypothesis structure
+
 Required field:
-- has_multiplicity: true/false - is there multiplicity adjustment?
+- has_multiplicity: true if ANY alpha adjustment or multiple hypothesis testing is mentioned
 
-Critical optional field:
-- alpha_per_hypothesis: Explicit alpha allocation per hypothesis/endpoint
-  Example: {{"PFS": 0.025, "OS": 0.025}} or {{"PFS": 0.0125, "OS": 0.0125, "ORR": 0.025}}
-
-Other optional fields:
-- adjustment_method: e.g., "Hierarchical", "Graphical (Maurer & Bretz)", "Hochberg"
-- testing_sequence: Order of hypothesis testing
+CRITICAL fields - extract the FULL hypothesis structure:
+- hypotheses_list: List each hypothesis with its definition
+  Example: ["H1: PFS in ITT", "H2: OS in ITT", "H3: PFS in PD-L1≥50%", "H4: OS in PD-L1≥50%"]
+- alpha_per_hypothesis: Alpha for EACH hypothesis
+  Example: {{"H1": 0.0125, "H2": 0.0125, "H3": 0.0125, "H4": 0.0125}}
+- adjustment_method: The specific method used
+- testing_sequence: Order of testing (which hypotheses are tested first, second, etc.)
+- alpha_propagation: How alpha is recycled when hypotheses are rejected
 
 RESPOND IN JSON:
 {{
     "has_multiplicity": <true/false>,
     "adjustment_method": "<method>" or null,
+    "hypotheses_list": ["H1: <definition>", "H2: <definition>", ...] or [],
     "testing_sequence": ["<H1>", "<H2>", ...] or [],
-    "alpha_per_hypothesis": {{"<endpoint>": <alpha>, ...}} or {{}},
+    "alpha_per_hypothesis": {{"H1": <alpha>, "H2": <alpha>, ...}} or {{}},
+    "alpha_propagation": "<how alpha flows between hypotheses>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
@@ -445,17 +518,32 @@ RESPOND IN JSON:
     def _keyword_extract(self, section_name: str, text: str, max_chars: int) -> str:
         """Fallback: extract text around relevant keywords."""
         keywords = {
-            'endpoints': ['primary endpoint', 'secondary endpoint', 'efficacy endpoint', 'outcome measure'],
-            'statistical_methods': ['statistical method', 'log-rank', 'cox', 'hazard ratio', 'stratified'],
-            'sample_size': ['sample size', 'power', 'patients will be', 'participants', 'enrollment'],
-            'interim_analysis': ['interim analysis', 'interim analyses', 'alpha spending', 'stopping boundar'],
-            'multiplicity': ['multiplicity', 'multiple endpoint', 'hierarchical', 'graphical approach', 'alpha allocation'],
-            'stratification': ['stratification', 'stratified by', 'randomization factor'],
-            'populations': ['analysis population', 'intent-to-treat', 'full analysis set', 'safety population'],
-            'study_design': ['study design', 'randomized', 'open-label', 'phase 3', 'controlled'],
-            'missing_data': ['missing data', 'censoring', 'imputation', 'tipping point'],
-            'estimand': ['estimand', 'intercurrent event', 'treatment policy'],
-            'crossover': ['crossover', 'treatment switching', 'subsequent therapy'],
+            'endpoints': ['primary endpoint', 'secondary endpoint', 'efficacy endpoint', 'outcome measure',
+                         'pfs', 'progression-free survival', 'overall survival', 'orr', 'response rate',
+                         'co-primary', 'recist', 'time to', 'duration of'],
+            'statistical_methods': ['statistical method', 'log-rank', 'logrank', 'cox', 'hazard ratio', 'stratified',
+                                   'fleming-harrington', 'weighted log-rank', 'kaplan-meier', 'one-sided', 'two-sided',
+                                   'null hypothesis', 'alternative hypothesis', 'superiority'],
+            'sample_size': ['sample size', 'power', 'patients will be', 'participants', 'enrollment',
+                           'n =', 'n=', 'subjects', 'total of', 'per arm', '80%', '90%', 'hr of', 'hazard ratio'],
+            'interim_analysis': ['interim analysis', 'interim analyses', 'alpha spending', 'stopping boundar',
+                                'information fraction', 'o\'brien-fleming', 'lan-demets', 'pocock', 'events',
+                                'ia1', 'ia2', 'first interim', 'final analysis', 'group sequential'],
+            'multiplicity': ['multiplicity', 'multiple endpoint', 'hierarchical', 'graphical approach', 'alpha allocation',
+                            'h1', 'h2', 'h3', 'h4', 'h5', 'hypothesis', 'bonferroni', 'holm', 'hochberg',
+                            'type i error', 'fwer', 'gatekeeping', 'maurer', 'bretz'],
+            'stratification': ['stratification', 'stratified by', 'randomization factor', 'ecog', 'pd-l1',
+                              'region', 'histology', 'prior therapy', 'randomized to'],
+            'populations': ['analysis population', 'intent-to-treat', 'full analysis set', 'safety population',
+                           'itt', 'fas', 'per-protocol', 'all randomized', 'all treated'],
+            'study_design': ['study design', 'randomized', 'open-label', 'phase 3', 'controlled',
+                            'double-blind', 'multicenter', 'first-line', 'second-line', 'comparator'],
+            'missing_data': ['missing data', 'censoring', 'imputation', 'tipping point', 'sensitivity analysis',
+                            'treatment discontinuation', 'last observation', 'multiple imputation'],
+            'estimand': ['estimand', 'intercurrent event', 'treatment policy', 'ich e9',
+                        'population-level', 'composite strategy', 'hypothetical strategy'],
+            'crossover': ['crossover', 'treatment switching', 'subsequent therapy', 'rpsft', 'ipcw',
+                         'two-stage', 'rank-preserving'],
         }
 
         section_keywords = keywords.get(section_name, [])
