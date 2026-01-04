@@ -173,33 +173,51 @@ class FactVerifier:
     def _verify_alpha_values(self, text: str, facts: Dict[str, Any]):
         """Verify alpha values match extraction."""
 
-        # Alpha at interim
-        alpha_interim = facts.get('alpha_at_interim') or facts.get('alpha_interim')
-        if alpha_interim and alpha_interim != 0.05:  # 0.05 is default, might be correct
-            alpha_str = f"{alpha_interim:.3f}".rstrip('0').rstrip('.')
-            if alpha_str not in text and str(alpha_interim) not in text:
-                # Check if default 0.05 is used instead
-                if '0.05' in text or '5%' in text.replace(' ', ''):
-                    self.errors.append(VerificationError(
-                        field="alpha_interim",
-                        expected=alpha_interim,
-                        found="0.05 (default)",
-                        severity="critical",
-                        context=f"Using default 0.05 instead of {alpha_interim}"
-                    ))
+        # Helper to normalize alpha value (handle lists)
+        def normalize_alpha(value):
+            """Convert alpha to list of floats."""
+            if value is None:
+                return []
+            if isinstance(value, (list, tuple)):
+                return [float(v) for v in value if v is not None]
+            try:
+                return [float(value)]
+            except (TypeError, ValueError):
+                return []
 
-        # Alpha at final
-        alpha_final = facts.get('alpha_at_final') or facts.get('alpha_final')
-        if alpha_final and alpha_final not in [0.05, 0.025]:  # Common values
-            alpha_str = f"{alpha_final:.3f}".rstrip('0').rstrip('.')
-            if alpha_str not in text and str(alpha_final) not in text:
-                self.errors.append(VerificationError(
-                    field="alpha_final",
-                    expected=alpha_final,
-                    found="not found",
-                    severity="high",
-                    context=f"Alpha at final ({alpha_final}) not found"
-                ))
+        # Alpha at interim (can be a list for multiple interims)
+        alpha_interim_raw = facts.get('alpha_at_interim') or facts.get('alpha_interim')
+        alpha_interim_list = normalize_alpha(alpha_interim_raw)
+
+        for alpha_interim in alpha_interim_list:
+            if alpha_interim and alpha_interim != 0.05:  # 0.05 is default, might be correct
+                alpha_str = f"{alpha_interim:.3f}".rstrip('0').rstrip('.')
+                if alpha_str not in text and str(alpha_interim) not in text:
+                    # Check if default 0.05 is used instead
+                    if '0.05' in text or '5%' in text.replace(' ', ''):
+                        self.errors.append(VerificationError(
+                            field="alpha_interim",
+                            expected=alpha_interim,
+                            found="0.05 (default)",
+                            severity="critical",
+                            context=f"Using default 0.05 instead of {alpha_interim}"
+                        ))
+
+        # Alpha at final (can also be a list but usually single value)
+        alpha_final_raw = facts.get('alpha_at_final') or facts.get('alpha_final')
+        alpha_final_list = normalize_alpha(alpha_final_raw)
+
+        for alpha_final in alpha_final_list:
+            if alpha_final and alpha_final not in [0.05, 0.025]:  # Common values
+                alpha_str = f"{alpha_final:.3f}".rstrip('0').rstrip('.')
+                if alpha_str not in text and str(alpha_final) not in text:
+                    self.errors.append(VerificationError(
+                        field="alpha_final",
+                        expected=alpha_final,
+                        found="not found",
+                        severity="high",
+                        context=f"Alpha at final ({alpha_final}) not found"
+                    ))
 
     def _verify_interim_count(self, text: str, facts: Dict[str, Any]):
         """Verify number of interim analyses matches extraction."""
@@ -240,8 +258,16 @@ class FactVerifier:
         """Verify hazard ratio matches extraction."""
         hr = facts.get('expected_hazard_ratio') or facts.get('hazard_ratio') or facts.get('hr')
 
+        # Handle list values (take first if list)
+        if isinstance(hr, (list, tuple)):
+            hr = hr[0] if hr else None
+
         if hr:
-            hr_str = f"{hr:.2f}"
+            try:
+                hr = float(hr)
+                hr_str = f"{hr:.2f}"
+            except (TypeError, ValueError):
+                return  # Can't format, skip verification
             if hr_str not in text and str(hr) not in text:
                 # Find what HR is mentioned
                 hr_match = re.search(r'HR\s*(?:=|of)?\s*(0\.\d+)', text, re.IGNORECASE)
@@ -259,6 +285,10 @@ class FactVerifier:
     def _verify_power(self, text: str, facts: Dict[str, Any]):
         """Verify power matches extraction."""
         power = facts.get('power') or facts.get('statistical_power')
+
+        # Handle list values (take first if list)
+        if isinstance(power, (list, tuple)):
+            power = power[0] if power else None
 
         if power:
             # Handle string values (might be "[NOT FOUND]" or "90" or "0.9")

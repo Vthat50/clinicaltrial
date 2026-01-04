@@ -320,6 +320,16 @@ class MultiplicityAdjustment:
     graphical_weights: Optional[Dict[str, float]] = None
     graphical_transitions: Optional[Dict[str, Dict[str, float]]] = None
 
+    # ==========================================================================
+    # NEW: Structured hypothesis list (H1-H5 with descriptions and alpha)
+    # ==========================================================================
+    hypotheses_list: List[Dict[str, Any]] = field(default_factory=list)
+    # e.g., [
+    #   {"id": "H1", "description": "PFS superiority pMMR", "alpha": 0.005, "endpoint": "PFS", "population": "pMMR"},
+    #   {"id": "H2", "description": "PFS superiority all-comers", "alpha": 0.0, "endpoint": "PFS", "population": "all"},
+    #   {"id": "H3", "description": "OS non-inferiority pMMR", "alpha": 0.020, "endpoint": "OS", "population": "pMMR"},
+    # ]
+
 
 # =============================================================================
 # SECTION 8: MISSING DATA & CENSORING (Gamble Item 28 + ICH E9(R1)) - ENHANCED
@@ -568,6 +578,9 @@ class ExtractedProtocolFacts:
             'multiplicity_method': self.multiplicity.adjustment_method,
             'testing_sequence': self.multiplicity.testing_sequence,
             'alpha_per_hypothesis': self.multiplicity.alpha_per_hypothesis,
+            'hypotheses_list': self.multiplicity.hypotheses_list,
+            'graphical_weights': self.multiplicity.graphical_weights,
+            'graphical_transitions': self.multiplicity.graphical_transitions,
 
             # Missing Data
             'treatment_discontinuation_strategy': self.missing_data.treatment_discontinuation_strategy,
@@ -672,6 +685,9 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.multiplicity.adjustment_method = extracted.get('multiplicity_method', '')
     facts.multiplicity.testing_sequence = extracted.get('testing_sequence', [])
     facts.multiplicity.alpha_per_hypothesis = extracted.get('alpha_per_hypothesis', {})
+    facts.multiplicity.hypotheses_list = extracted.get('hypotheses_list', [])
+    facts.multiplicity.graphical_weights = extracted.get('graphical_weights', None)
+    facts.multiplicity.graphical_transitions = extracted.get('graphical_transitions', None)
 
     # Missing Data
     facts.missing_data.tipping_point_analysis = extracted.get('tipping_point_analysis', False)
