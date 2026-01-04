@@ -407,9 +407,11 @@ async def upload_file(
             raise HTTPException(status_code=400, detail="No text could be extracted from the file")
 
         # Insert job into database
+        # CRITICAL: Store FULL text - do NOT truncate!
+        # Statistical methods are at 50-80% of document, truncating loses them.
         db = get_supabase()
         result = db.table("sap_jobs").insert({
-            "protocol_text": extracted_text[:100000],  # Limit text size
+            "protocol_text": extracted_text,  # Full text for multi-region sampling
             "nct_id": nct_id,
             "status": "queued",
             "filename": file.filename
@@ -509,8 +511,9 @@ async def create_job(request: GenerateRequest):
             raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
 
         # Insert job into database
+        # CRITICAL: Store FULL text - do NOT truncate!
         result = db.table("sap_jobs").insert({
-            "protocol_text": request.protocol_text[:100000],
+            "protocol_text": request.protocol_text,  # Full text for multi-region sampling
             "nct_id": request.nct_id,
             "status": "queued",
             "filename": request.filename
@@ -772,10 +775,11 @@ async def generate_regulatory_sap(request: GenerateRequest):
             )
 
         # Extract facts (uses Claude API if available)
-        facts = generator.extract_protocol_facts(request.protocol_text[:100000])
+        # CRITICAL: Pass FULL text - do NOT truncate!
+        facts = generator.extract_protocol_facts(request.protocol_text)
 
         # Generate SAP document
-        doc = generator.generate(request.protocol_text[:100000], facts)
+        doc = generator.generate(request.protocol_text, facts)
 
         # Assemble full document
         sap_text = generator.assemble_document(doc)

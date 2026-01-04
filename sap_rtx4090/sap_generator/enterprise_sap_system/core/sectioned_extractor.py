@@ -578,17 +578,24 @@ RESPOND IN JSON:
             (0.70, 0.80),  # Later (interim, multiplicity)
         ])
 
-        # Calculate sample size per region (aim for ~15K total)
-        sample_per_region = 12000 // len(regions)
+        # Calculate sample size per region (aim for ~20K total for better coverage)
+        sample_per_region = 18000 // len(regions)
 
         samples = []
         for i, (start_frac, end_frac) in enumerate(regions):
             start_pos = int(text_len * start_frac)
             end_pos = int(text_len * end_frac)
+            region_len = end_pos - start_pos
 
-            # Take a sample from this region
-            region_text = text[start_pos:end_pos]
-            sample = region_text[:sample_per_region]
+            # Sample from CENTER of region, not just beginning
+            # This ensures we capture content even if it's in the middle/end of region
+            if region_len > sample_per_region:
+                # Take from center of region for better coverage
+                center_start = start_pos + (region_len - sample_per_region) // 2
+                sample = text[center_start:center_start + sample_per_region]
+            else:
+                # Region is smaller than sample size, take all
+                sample = text[start_pos:end_pos]
 
             region_label = f"REGION {i+1} ({int(start_frac*100)}-{int(end_frac*100)}% of document)"
             samples.append(f"=== {region_label} ===\n{sample}")
