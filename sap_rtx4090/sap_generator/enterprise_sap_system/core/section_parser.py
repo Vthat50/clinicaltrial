@@ -24,6 +24,7 @@ from pathlib import Path
 try:
     import fitz  # PyMuPDF
     PYMUPDF_AVAILABLE = True
+    print(f"[SectionParser] PyMuPDF available: version {fitz.version}")
 except ImportError:
     PYMUPDF_AVAILABLE = False
     print("[SectionParser] WARNING: PyMuPDF not available - install with: pip install pymupdf")
@@ -176,7 +177,11 @@ class ProtocolSectionParser:
         """
         result = ParsedProtocol(raw_text=text)
 
+        # Debug: trace why Vision may or may not be used
+        print(f"[SectionParser] parse() called: pdf_path={pdf_path}, PYMUPDF_AVAILABLE={PYMUPDF_AVAILABLE}, has_vision_client={self.vision_client is not None}")
+
         if not text or len(text) < 100:
+            print("[SectionParser] Text too short, returning empty result")
             return result
 
         # Vision requires PDF path

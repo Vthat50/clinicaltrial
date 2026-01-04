@@ -2412,11 +2412,14 @@ async def process_jobs_worker():
                 # Download PDF from Supabase Storage for Vision-based parsing
                 pdf_path = None
                 pdf_storage_path = job.get("pdf_storage_path")
+                print(f"  [Vision] pdf_storage_path from job: {pdf_storage_path}")
 
                 if pdf_storage_path:
                     try:
                         # Download PDF from Supabase Storage
+                        print(f"  [Vision] Downloading PDF from storage: {pdf_storage_path}")
                         pdf_bytes = db.storage.from_("pdfs").download(pdf_storage_path)
+                        print(f"  [Vision] Downloaded {len(pdf_bytes)} bytes")
 
                         # Save to temp file
                         import tempfile
@@ -2424,10 +2427,14 @@ async def process_jobs_worker():
                         temp_pdf.write(pdf_bytes)
                         temp_pdf.close()
                         pdf_path = temp_pdf.name
-                        print(f"  [Vision] Downloaded PDF to {pdf_path}")
+                        print(f"  [Vision] Saved PDF to temp file: {pdf_path}")
                     except Exception as e:
-                        print(f"  [Vision] PDF download failed: {e}, falling back to text-only")
+                        import traceback
+                        print(f"  [Vision] PDF download failed: {e}")
+                        traceback.print_exc()
                         pdf_path = None
+                else:
+                    print(f"  [Vision] No pdf_storage_path in job, skipping Vision")
 
                 result = pipeline.generate(job["protocol_text"], pdf_path=pdf_path)
 

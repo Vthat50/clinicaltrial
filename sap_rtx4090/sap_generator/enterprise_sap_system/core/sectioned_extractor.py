@@ -623,32 +623,78 @@ DOCUMENT SAMPLES:
             else:
                 return {}
 
-            # Parse response
-            json_text = response_text
-            if '```json' in json_text:
-                json_text = json_text.split('```json')[1].split('```')[0]
-            elif '```' in json_text:
-                json_text = json_text.split('```')[1].split('```')[0]
+            # Parse response - with debug output
+            print(f"[SectionedExtractor] Raw response (first 500 chars): {response_text[:500]}")
 
+            json_text = response_text
+
+            # Try to extract from markdown code block
+            if '```json' in json_text:
+                json_text = json_text.split('```json')[1].split('```')[0].strip()
+            elif '```' in json_text:
+                parts = json_text.split('```')
+                for part in parts[1::2]:  # Odd indices are code blocks
+                    if '{' in part:
+                        json_text = part.strip()
+                        break
+
+            # Find the JSON object
             start = json_text.find('{')
             end = json_text.rfind('}') + 1
-            if start >= 0 and end > start:
-                data = json.loads(json_text[start:end])
 
-                locations = {}
-                for s in data.get('sections_found', []):
-                    name = s.get('name', '').lower().replace(' ', '_')
-                    pos = s.get('position_percent', 50) / 100.0
-                    heading = s.get('heading_found', '')
-                    locations[name] = pos
-                    print(f"[SectionedExtractor] Found '{name}' at {int(pos*100)}%: {heading}")
+            if start < 0 or end <= start:
+                print(f"[SectionedExtractor] No valid JSON object found in response")
+                return {}
 
-                # Cache the results
-                self._section_locations_cache[text_hash] = locations
-                return locations
+            json_str = json_text[start:end]
 
+            # Fix common JSON issues
+
+            # 1. Fix unquoted keys: {sections_found: -> {"sections_found":
+            json_str = re.sub(r'([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)(\s*:)', r'\1"\2"\3', json_str)
+
+            # 2. Fix single-quoted keys: {'key': -> {"key":
+            json_str = re.sub(r"'([^']+)'(\s*:)", r'"\1"\2', json_str)
+
+            # 3. Fix single-quoted string values: : 'value' -> : "value"
+            json_str = re.sub(r":\s*'([^']*)'", r': "\1"', json_str)
+
+            # 4. Remove trailing commas before ] or }
+            json_str = re.sub(r',(\s*[}\]])', r'\1', json_str)
+
+            # 5. Fix Python-style None/True/False
+            json_str = json_str.replace(': None', ': null')
+            json_str = json_str.replace(': True', ': true')
+            json_str = json_str.replace(': False', ': false')
+
+            print(f"[SectionedExtractor] Cleaned JSON: {json_str[:300]}...")
+
+            data = json.loads(json_str)
+
+            locations = {}
+            for s in data.get('sections_found', []):
+                name = s.get('name', '').lower().replace(' ', '_')
+                pos = s.get('position_percent', 50) / 100.0
+                heading = s.get('heading_found', '')
+                locations[name] = pos
+                print(f"[SectionedExtractor] Found '{name}' at {int(pos*100)}%: {heading}")
+
+            # Cache the results
+            self._section_locations_cache[text_hash] = locations
+            return locations
+
+        except json.JSONDecodeError as e:
+            print(f"[SectionedExtractor] JSON parse error: {e}")
+            if 'json_str' in locals():
+                # Show the problematic part of the JSON
+                error_pos = e.pos if hasattr(e, 'pos') else 0
+                context_start = max(0, error_pos - 20)
+                context_end = min(len(json_str), error_pos + 20)
+                print(f"[SectionedExtractor] Context around error: ...{json_str[context_start:context_end]}...")
         except Exception as e:
             print(f"[SectionedExtractor] Section location error: {e}")
+            import traceback
+            traceback.print_exc()
 
         return {}
 
