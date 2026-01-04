@@ -853,7 +853,530 @@ class TumorAssessment:
 
 
 # =============================================================================
-# SECTION 25: EXTRACTION CONFIDENCE
+# SECTION 25: BRIDGING STUDY DESIGN (ICH E5, E17) - NEW
+# =============================================================================
+
+@dataclass
+class BridgingStudyDesign:
+    """
+    Bridging study and multi-regional clinical trial (MRCT) specifications.
+    Source: ICH E5 (Ethnic Factors), ICH E17 (MRCT), NMPA guidance
+
+    CRITICAL for:
+    - Chinese bridging studies
+    - Japanese bridging studies
+    - Multi-regional consistency demonstrations
+    """
+    # Study Classification
+    is_bridging_study: Optional[bool] = None       # Is this a bridging study?
+    is_mrct: Optional[bool] = None                 # Multi-regional clinical trial?
+    bridging_region: str = ""                      # e.g., "China", "Japan", "Asia-Pacific"
+
+    # Reference Studies (the global trials being bridged to)
+    reference_studies: List[str] = field(default_factory=list)
+    # e.g., ["CheckMate 057", "CheckMate 017", "KEYNOTE-024"]
+    reference_study_results: Dict[str, Any] = field(default_factory=dict)
+    # e.g., {"CheckMate 057": {"HR": 0.73, "median_OS": 12.2}}
+
+    # Consistency Testing Framework (ICH E17)
+    consistency_testing_required: Optional[bool] = None
+    consistency_method: str = ""                   # e.g., "Preserve ≥50% of treatment effect"
+    consistency_threshold_description: str = ""    # Text description
+    consistency_hr_threshold_interim: Optional[float] = None  # e.g., 0.850
+    consistency_hr_threshold_final: Optional[float] = None    # e.g., 0.835
+
+    # Hierarchical Testing for Bridging
+    hierarchical_testing_steps: List[str] = field(default_factory=list)
+    # e.g., ["Step 1: Test consistency (HR < 0.85)", "Step 2: Test superiority if consistent"]
+
+    # Regional Considerations
+    ethnic_sensitivity_assessment: str = ""        # ICH E5 assessment
+    intrinsic_factors: List[str] = field(default_factory=list)   # Genetic, physiological
+    extrinsic_factors: List[str] = field(default_factory=list)   # Cultural, environmental
+
+    # Poolability
+    poolability_assessment: str = ""               # Can data be pooled with global?
+    regional_treatment_effect: str = ""            # Expected regional effect
+
+
+# =============================================================================
+# SECTION 26: REGULATORY FILING ENDPOINTS - NEW
+# =============================================================================
+
+@dataclass
+class RegulatoryFilingEndpoints:
+    """
+    Early filing endpoints for specific regulatory submissions.
+    Source: NMPA guidance, PMDA guidance, regional filing strategies
+
+    CRITICAL for:
+    - TTF analysis for early China filing
+    - Accelerated approval endpoints
+    - Conditional approval endpoints
+    """
+    # Early Filing Endpoint (e.g., TTF for China)
+    has_early_filing_endpoint: Optional[bool] = None
+    filing_endpoint_name: str = ""                 # e.g., "TTF", "ORR", "DOR"
+    filing_endpoint_definition: str = ""           # Full definition
+    filing_regulatory_authority: str = ""          # e.g., "NMPA", "PMDA", "FDA"
+
+    # Filing Analysis Specifications
+    filing_target_subjects: Optional[int] = None   # e.g., 380 subjects
+    filing_minimum_followup_months: Optional[float] = None  # e.g., 8 months
+    filing_expected_timeline_months: Optional[float] = None # e.g., 16 months after FPI
+
+    # Statistical Methods for Filing Endpoint
+    filing_statistical_test: str = ""              # e.g., "weighted log-rank G(ρ=0, γ=1)"
+    filing_alpha: Optional[float] = None           # e.g., 0.025
+    filing_alpha_penalty: Optional[bool] = None    # Does it consume alpha from primary?
+    filing_hypothesis: str = ""                    # e.g., "superiority", "non-inferiority"
+
+    # Relationship to Primary Analysis
+    filing_independence_from_primary: str = ""     # How it relates to primary endpoint
+
+
+# =============================================================================
+# SECTION 27: STRUCTURED SECONDARY ENDPOINT ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class SecondaryEndpointAnalysis:
+    """Single secondary endpoint analysis specification."""
+    endpoint_name: str = ""                        # e.g., "ORR", "PFS", "DOR"
+    endpoint_definition: str = ""
+
+    # Statistical Methods
+    analysis_method: str = ""                      # e.g., "CMH test stratified by..."
+    ci_method: str = ""                            # e.g., "Clopper-Pearson exact 95% CI"
+    hypothesis_test: str = ""                      # e.g., "Two-sided Fisher's exact"
+
+    # Timepoints (for cumulative analyses)
+    analysis_timepoints: List[str] = field(default_factory=list)
+    # e.g., ["Week 9", "Month 4", "Month 6", "Month 8", "Month 12"]
+
+    # Censoring (for time-to-event)
+    censoring_scheme_reference: str = ""           # e.g., "Table 4.2.2-1"
+    censoring_rules: List[str] = field(default_factory=list)
+
+    # Sensitivity Analyses
+    sensitivity_analyses: List[str] = field(default_factory=list)
+
+    # Position in Hierarchy
+    testing_hierarchy_position: Optional[int] = None  # 1=first, 2=second, etc.
+
+
+@dataclass
+class SecondaryEndpointAnalyses:
+    """
+    Structured secondary endpoint analysis plans.
+    Source: ICH E9, FDA Guidance
+    """
+    # Testing Hierarchy
+    endpoint_testing_hierarchy: List[str] = field(default_factory=list)
+    # e.g., ["OS", "ORR", "PFS"] - order of testing
+
+    # Individual Endpoint Analyses
+    orr_analysis: Optional[SecondaryEndpointAnalysis] = None
+    pfs_analysis: Optional[SecondaryEndpointAnalysis] = None
+    dor_analysis: Optional[SecondaryEndpointAnalysis] = None
+    ttr_analysis: Optional[SecondaryEndpointAnalysis] = None
+    dcr_analysis: Optional[SecondaryEndpointAnalysis] = None
+
+    # Additional Endpoints
+    other_endpoints: List[SecondaryEndpointAnalysis] = field(default_factory=list)
+
+
+# =============================================================================
+# SECTION 28: STRUCTURED SUBGROUP ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class SubgroupAnalysisSpecifications:
+    """
+    Detailed subgroup analysis specifications.
+    Source: ICH E9, FDA Guidance on Subgroup Analyses
+    """
+    # Forest Plot Specifications
+    forest_plot_planned: Optional[bool] = None
+    forest_plot_variables: List[str] = field(default_factory=list)
+    # e.g., ["Age (<65, 65-<75, ≥75)", "Gender", "Race", "Smoking status",
+    #        "Histology", "PD-L1 status", "Disease stage", "Prior therapy", "CNS mets"]
+    forest_plot_method: str = ""                   # e.g., "Unstratified Cox model"
+    forest_plot_presentation: str = ""             # e.g., "HR with 95% CI"
+
+    # Multivariate Analysis
+    multivariate_cox_planned: Optional[bool] = None
+    multivariate_cox_covariates: List[str] = field(default_factory=list)
+    # e.g., ["Time from diagnosis <1 year", "Age ≥65", "Gender", "Smoking", "Stage"]
+    covariate_selection_method: str = ""           # e.g., "Pre-specified", "Stepwise"
+
+    # Landmark Analyses
+    landmark_analysis_planned: Optional[bool] = None
+    landmark_timepoints: List[str] = field(default_factory=list)
+    # e.g., ["Week 9", "Month 4", "Month 6", "Month 8", "Month 12"]
+    landmark_method: str = ""                      # e.g., "Survival by tumor response"
+
+    # Visualization Plans
+    waterfall_plot_planned: Optional[bool] = None  # Target lesion changes
+    swimmer_plot_planned: Optional[bool] = None    # Subject-level timelines
+    spider_plot_planned: Optional[bool] = None     # Tumor burden over time
+
+    # Interaction Testing
+    interaction_tests_planned: Optional[bool] = None
+    interaction_test_method: str = ""              # e.g., "Treatment-by-subgroup interaction"
+
+
+# =============================================================================
+# SECTION 29: BASELINE CHARACTERISTICS - NEW
+# =============================================================================
+
+@dataclass
+class BaselineCharacteristics:
+    """
+    Structured baseline characteristics for Table 1.
+    Source: ICH E3, CDISC SDTM
+    """
+    # Demographics
+    demographic_variables: List[str] = field(default_factory=list)
+    # e.g., ["Age (continuous)", "Age categories (<65, 65-<75, ≥75)",
+    #        "Sex", "Race", "Ethnicity", "Weight", "Height", "BMI", "BSA"]
+
+    # Regional/Geographic
+    regional_variables: List[str] = field(default_factory=list)
+    # e.g., ["Region (Asia/Europe)", "Country", "Study site"]
+
+    # Disease Characteristics
+    disease_variables: List[str] = field(default_factory=list)
+    # e.g., ["Histology", "Disease stage", "Sites of disease", "Number of metastatic sites",
+    #        "Target lesions", "CNS metastases", "Liver metastases", "Bone metastases"]
+
+    # Molecular/Biomarker
+    molecular_variables: List[str] = field(default_factory=list)
+    # e.g., ["EGFR status", "ALK status", "KRAS status", "PD-L1 TPS", "TMB"]
+
+    # Prior Therapy
+    prior_therapy_variables: List[str] = field(default_factory=list)
+    # e.g., ["Prior lines of therapy", "Prior maintenance", "Prior adjuvant",
+    #        "Prior surgery", "Prior radiotherapy", "Best response to prior"]
+
+    # Performance Status
+    performance_status_variables: List[str] = field(default_factory=list)
+    # e.g., ["ECOG PS", "Karnofsky score"]
+
+    # Summary Statistics
+    continuous_summary_stats: List[str] = field(default_factory=list)
+    # e.g., ["Mean", "SD", "Median", "Min", "Max", "Q1", "Q3"]
+    categorical_summary_stats: List[str] = field(default_factory=list)
+    # e.g., ["n", "%"]
+
+
+# =============================================================================
+# SECTION 30: STRUCTURED DATE IMPUTATION RULES - NEW
+# =============================================================================
+
+@dataclass
+class DateImputationRules:
+    """
+    Detailed date imputation and calculation conventions.
+    Source: CDISC ADaM, ICH E9
+    """
+    # Date Imputation by Type
+    death_date_imputation: str = ""                # e.g., "Use 1st of month if day missing"
+    progression_date_imputation: str = ""          # e.g., "Use 1st of month if day missing"
+    ae_start_date_imputation: str = ""             # e.g., "Use 1st of month if day missing"
+    ae_end_date_imputation: str = ""               # e.g., "Use last of month if day missing"
+    treatment_start_imputation: str = ""
+    treatment_end_imputation: str = ""
+
+    # Imputation Rules Reference
+    imputation_rules_reference: str = ""           # e.g., "AE Domain Requirements Specification"
+
+    # Duration Calculations
+    duration_calculation_formula: str = ""         # e.g., "(Last date - First date + 1)"
+    include_start_date: Optional[bool] = None      # Include start date in duration?
+
+    # Time Conversion Factors
+    days_per_month: Optional[float] = None         # e.g., 30.4375
+    days_per_year: Optional[float] = None          # e.g., 365.25
+    days_per_week: Optional[float] = None          # e.g., 7
+
+    # Special Handling
+    compare_to_death_date: Optional[bool] = None   # Compare imputed dates to death?
+    censor_at_death: Optional[bool] = None
+
+
+# =============================================================================
+# SECTION 31: EXPOSURE FORMULAS - NEW
+# =============================================================================
+
+@dataclass
+class ExposureFormulas:
+    """
+    Detailed exposure and RDI calculation formulas.
+    Source: ICH E3, company standards
+    """
+    # RDI Formulas (drug-specific)
+    rdi_formula_experimental: str = ""
+    # e.g., "RDI = Cum dose (mg/kg) / [(Last dose date - Start + 14) × 3/14] × 100"
+    rdi_formula_control: str = ""
+    # e.g., "RDI = Cum dose (mg/m²) / [(Last dose date - Start + 21) × 75/21] × 100"
+
+    # Planned Dose
+    planned_dose_experimental: str = ""            # e.g., "3 mg/kg Q2W"
+    planned_dose_control: str = ""                 # e.g., "75 mg/m² Q3W"
+
+    # Dose Modification Thresholds
+    dose_delay_threshold_days: Optional[int] = None  # e.g., ≥4 days = delay
+    dose_reduction_levels: List[str] = field(default_factory=list)
+    # e.g., ["Level 1: 55 mg/m²", "Level 2: 37.5 mg/m²"]
+
+    # Exposure Categories
+    rdi_categories: List[str] = field(default_factory=list)
+    # e.g., ["<50%", "50-<80%", "80-<100%", "100-<120%", "≥120%"]
+
+    # Cycle Definitions
+    cycle_length_experimental_days: Optional[int] = None  # e.g., 14
+    cycle_length_control_days: Optional[int] = None       # e.g., 21
+
+
+# =============================================================================
+# SECTION 32: STUDY CONDUCT ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class StudyConductAnalyses:
+    """
+    Study conduct and operational analyses.
+    Source: ICH E6, ICH E3
+    """
+    # Protocol Deviations
+    deviation_categories: List[str] = field(default_factory=list)
+    # e.g., ["Eligibility violations", "Prohibited medications", "Wrong treatment",
+    #        "Missed assessments", "Dosing errors"]
+    programmable_deviations: List[str] = field(default_factory=list)
+    non_programmable_deviations: List[str] = field(default_factory=list)
+
+    # Accrual Summaries
+    accrual_summary_by: List[str] = field(default_factory=list)
+    # e.g., ["Country", "Site", "Month", "Quarter"]
+
+    # Stratification Verification
+    stratification_discrepancy_analysis: Optional[bool] = None
+    # IVRS vs CRF stratification factor discrepancies
+
+    # Treatment Assignment
+    as_randomized_vs_as_treated: Optional[bool] = None
+    treatment_assignment_discrepancies: str = ""
+
+    # Study Drug Accountability
+    drug_accountability_analysis: Optional[bool] = None
+
+    # Informed Consent
+    consent_tracking: Optional[bool] = None
+    re_consent_tracking: Optional[bool] = None
+
+
+# =============================================================================
+# SECTION 33: CDISC VERSIONING & DEFINE-XML - NEW
+# =============================================================================
+
+@dataclass
+class CDISCVersioning:
+    """
+    CDISC standards versioning and Define-XML provenance.
+    Source: FDA Study Data Technical Conformance Guide, CDISC Define-XML v2.1
+
+    CRITICAL for:
+    - FDA eCTD submissions
+    - Define.xml compliance
+    - Controlled terminology freeze strategy
+    """
+    # SDTM Versioning
+    sdtm_ig_version: str = ""                      # e.g., "3.3"
+    sdtm_effective_date: str = ""                  # When version locked
+
+    # ADaM Versioning
+    adam_ig_version: str = ""                      # e.g., "1.3"
+    adam_effective_date: str = ""
+
+    # Define-XML
+    define_xml_version: str = ""                   # e.g., "2.1"
+    define_xml_stylesheet: str = ""                # Stylesheet reference
+
+    # Controlled Terminology (NCI-EVS)
+    ct_version: str = ""                           # e.g., "2024-09-27"
+    ct_freeze_date: str = ""                       # When CT locked for study
+    ct_freeze_milestone: str = ""                  # e.g., "Database lock"
+
+    # CT Package References
+    ct_packages_used: List[str] = field(default_factory=list)
+    # e.g., ["SDTM CT 2024-09-27", "ADaM CT 2024-09-27", "SEND CT 2024-09-27"]
+
+    # Terminology Mapping
+    recoding_milestone: str = ""                   # When recoding to latest CT
+    legacy_terms_handling: str = ""                # How to handle deprecated terms
+
+    # Submission Standards
+    submission_type: str = ""                      # e.g., "NDA", "BLA", "IND"
+    regulatory_authority: str = ""                 # e.g., "FDA", "EMA", "PMDA"
+    electronic_submission_format: str = ""         # e.g., "eCTD v4.0"
+
+
+# =============================================================================
+# SECTION 34: MEDICAL CODING STANDARDS - NEW
+# =============================================================================
+
+@dataclass
+class MedicalCodingStandards:
+    """
+    Medical coding dictionaries and version freeze conventions.
+    Source: MedDRA (ICH), WHODrug (Uppsala Monitoring Centre)
+
+    CRITICAL for:
+    - Consistent AE coding
+    - Concomitant medication coding
+    - Version freeze strategy for production tables
+    """
+    # MedDRA (Adverse Events)
+    meddra_version: str = ""                       # e.g., "26.1"
+    meddra_freeze_date: str = ""                   # When version locked
+    meddra_freeze_milestone: str = ""              # e.g., "First subject enrolled"
+    meddra_upgrade_strategy: str = ""              # How to handle version upgrades
+    meddra_language: str = ""                      # e.g., "English"
+
+    # MedDRA Coding Conventions
+    ae_coding_level: str = ""                      # e.g., "LLT with PT and SOC displayed"
+    ae_primary_soc: str = ""                       # Primary or Secondary SOC
+    sae_coding_priority: str = ""                  # e.g., "Code within 24 hours"
+
+    # WHODrug (Concomitant Medications)
+    whodrug_version: str = ""                      # e.g., "March 2024"
+    whodrug_format: str = ""                       # e.g., "Enhanced B3", "C3"
+    whodrug_freeze_date: str = ""
+    whodrug_freeze_milestone: str = ""
+
+    # WHODrug Coding Conventions
+    medication_coding_level: str = ""              # e.g., "Drug name" or "Ingredient"
+    atc_classification_level: str = ""             # e.g., "ATC Level 2", "ATC Level 4"
+    combination_drug_handling: str = ""            # How multi-ingredient coded
+
+    # Recoding Conventions
+    recoding_triggers: List[str] = field(default_factory=list)
+    # e.g., ["New safety signal", "Regulatory request", "Database lock"]
+    pre_lock_recoding_required: Optional[bool] = None
+
+    # Quality Control
+    dual_coding_required: Optional[bool] = None    # Independent dual coding
+    coding_reconciliation: str = ""                # How discrepancies resolved
+
+
+# =============================================================================
+# SECTION 35: CONTROL GROUP RATIONALE (ICH E10) - NEW
+# =============================================================================
+
+@dataclass
+class ControlGroupRationale:
+    """
+    Control group selection justification.
+    Source: ICH E10 (Choice of Control Group)
+
+    CRITICAL for:
+    - Regulatory acceptability of control arm
+    - Non-inferiority margin justification
+    - Sensitivity/assay sensitivity
+    """
+    # Control Type
+    control_type: str = ""                         # e.g., "Active", "Placebo", "Dose-response"
+    control_justification: str = ""                # Why this control was chosen
+
+    # Active Control Specifics
+    active_control_drug: str = ""                  # e.g., "Docetaxel"
+    active_control_dose: str = ""                  # e.g., "75 mg/m² Q3W"
+    active_control_rationale: str = ""             # Why this is appropriate comparator
+    historical_effect_estimate: str = ""           # Effect from prior trials
+
+    # Non-inferiority Considerations
+    ni_margin_justification: str = ""              # How margin was derived
+    ni_margin_preserves: str = ""                  # e.g., "Preserves 50% of effect"
+    constancy_assumption: str = ""                 # Constancy of effect over time
+
+    # Assay Sensitivity
+    assay_sensitivity_evidence: str = ""           # Evidence trial can detect effect
+    historical_trials_referenced: List[str] = field(default_factory=list)
+
+    # Ethical Considerations
+    placebo_ethical_justification: str = ""        # Why placebo acceptable (if used)
+    rescue_medication_permitted: Optional[bool] = None
+    add_on_design: Optional[bool] = None           # Drug added to standard of care
+
+    # Regulatory Alignment
+    regulatory_agreement: str = ""                 # e.g., "Agreed in Type B meeting"
+    control_group_concerns: List[str] = field(default_factory=list)
+
+
+# =============================================================================
+# SECTION 36: GENOMIC SAMPLING (ICH E18) - NEW
+# =============================================================================
+
+@dataclass
+class GenomicSampling:
+    """
+    Genomic and molecular correlative sampling governance.
+    Source: ICH E18 (Genomic Sampling)
+
+    CRITICAL for:
+    - Tumor tissue collection/processing
+    - ctDNA/liquid biopsy analyses
+    - Exploratory genomic analyses
+    """
+    # Sample Collection
+    sample_types_collected: List[str] = field(default_factory=list)
+    # e.g., ["Archival tumor tissue", "Fresh biopsy", "Blood for ctDNA",
+    #        "Blood for germline", "Blood for PBMCs"]
+
+    collection_timepoints: List[str] = field(default_factory=list)
+    # e.g., ["Baseline", "Cycle 3 Day 1", "At progression", "End of treatment"]
+
+    mandatory_vs_optional: Dict[str, str] = field(default_factory=dict)
+    # e.g., {"Archival tissue": "Mandatory", "Fresh biopsy": "Optional"}
+
+    # Processing and Storage
+    processing_requirements: str = ""              # e.g., "FFPE, <6 months old"
+    storage_conditions: str = ""                   # e.g., "-80°C"
+    central_lab: str = ""                          # Central lab for processing
+    sample_shipment_requirements: str = ""
+
+    # Consent and Privacy
+    genomic_consent_type: str = ""                 # e.g., "Broad consent", "Specific consent"
+    data_sharing_permitted: Optional[bool] = None  # Can data be shared externally
+    return_of_results: str = ""                    # Return individual results to subjects?
+    privacy_constraints: List[str] = field(default_factory=list)
+
+    # Pre-specified Analyses
+    prespecified_genomic_analyses: List[str] = field(default_factory=list)
+    # e.g., ["TMB by NGS", "MSI status", "Gene expression signature"]
+
+    genomic_analysis_population: str = ""          # Population for genomic analyses
+    genomic_analysis_timing: str = ""              # When analyses performed
+
+    # Exploratory Analyses
+    exploratory_genomic_analyses: List[str] = field(default_factory=list)
+    exploratory_analysis_governance: str = ""      # How exploratory analyses approved
+
+    # Platform/Assay Specifications
+    ngs_platform: str = ""                         # e.g., "FoundationOne CDx"
+    gene_panel: str = ""                           # e.g., "324 genes"
+    rnaseq_method: str = ""
+    ctdna_assay: str = ""                          # e.g., "Guardant360"
+
+    # Data Management
+    genomic_data_format: str = ""                  # e.g., "VCF", "MAF"
+    genomic_database: str = ""                     # Where data stored
+    bioinformatics_pipeline: str = ""              # Analysis pipeline
+
+
+# =============================================================================
+# SECTION 37: EXTRACTION CONFIDENCE
 # =============================================================================
 
 @dataclass
@@ -969,6 +1492,46 @@ class ExtractedProtocolFacts:
 
     # Tumor Assessment (RECIST, iRECIST, FDA Oncology)
     tumor_assessment: TumorAssessment = field(default_factory=TumorAssessment)
+
+    # =========================================================================
+    # NEW SECTIONS (2025-01) - Bridging Studies, Structured Analyses
+    # =========================================================================
+
+    # Bridging Study Design (ICH E5, E17)
+    bridging: BridgingStudyDesign = field(default_factory=BridgingStudyDesign)
+
+    # Regulatory Filing Endpoints (TTF for China, etc.)
+    filing_endpoints: RegulatoryFilingEndpoints = field(default_factory=RegulatoryFilingEndpoints)
+
+    # Structured Secondary Endpoint Analyses
+    secondary_analyses: SecondaryEndpointAnalyses = field(default_factory=SecondaryEndpointAnalyses)
+
+    # Structured Subgroup Analysis Specifications
+    subgroup_specs: SubgroupAnalysisSpecifications = field(default_factory=SubgroupAnalysisSpecifications)
+
+    # Baseline Characteristics Specification
+    baseline_chars: BaselineCharacteristics = field(default_factory=BaselineCharacteristics)
+
+    # Date Imputation Rules
+    date_imputation: DateImputationRules = field(default_factory=DateImputationRules)
+
+    # Exposure Formulas (RDI, dose intensity)
+    exposure_formulas: ExposureFormulas = field(default_factory=ExposureFormulas)
+
+    # Study Conduct Analyses
+    study_conduct: StudyConductAnalyses = field(default_factory=StudyConductAnalyses)
+
+    # CDISC Versioning (FDA Technical Conformance Guide, Define-XML)
+    cdisc_versioning: CDISCVersioning = field(default_factory=CDISCVersioning)
+
+    # Medical Coding Standards (MedDRA, WHODrug)
+    coding_standards: MedicalCodingStandards = field(default_factory=MedicalCodingStandards)
+
+    # Control Group Rationale (ICH E10)
+    control_rationale: ControlGroupRationale = field(default_factory=ControlGroupRationale)
+
+    # Genomic Sampling (ICH E18)
+    genomic_sampling: GenomicSampling = field(default_factory=GenomicSampling)
 
     # Extraction Confidence
     confidence: ExtractionConfidence = field(default_factory=ExtractionConfidence)
@@ -1216,6 +1779,116 @@ class ExtractedProtocolFacts:
             'confirmation_window': self.tumor_assessment.confirmation_window,
             'pseudoprogression_handling': self.tumor_assessment.pseudoprogression_handling,
             'progression_date_definition': self.tumor_assessment.progression_date_definition,
+
+            # =========================================================================
+            # NEW SECTIONS (2025-01) - Bridging, Structured Analyses
+            # =========================================================================
+
+            # Bridging Study Design (ICH E5, E17)
+            'is_bridging_study': self.bridging.is_bridging_study,
+            'is_mrct': self.bridging.is_mrct,
+            'bridging_region': self.bridging.bridging_region,
+            'reference_studies': self.bridging.reference_studies,
+            'consistency_testing_required': self.bridging.consistency_testing_required,
+            'consistency_hr_threshold_interim': self.bridging.consistency_hr_threshold_interim,
+            'consistency_hr_threshold_final': self.bridging.consistency_hr_threshold_final,
+            'hierarchical_testing_steps': self.bridging.hierarchical_testing_steps,
+            'ethnic_sensitivity_assessment': self.bridging.ethnic_sensitivity_assessment,
+
+            # Regulatory Filing Endpoints (TTF for NMPA, etc.)
+            'has_early_filing_endpoint': self.filing_endpoints.has_early_filing_endpoint,
+            'filing_endpoint_name': self.filing_endpoints.filing_endpoint_name,
+            'filing_endpoint_definition': self.filing_endpoints.filing_endpoint_definition,
+            'filing_regulatory_authority': self.filing_endpoints.filing_regulatory_authority,
+            'filing_target_subjects': self.filing_endpoints.filing_target_subjects,
+            'filing_minimum_followup_months': self.filing_endpoints.filing_minimum_followup_months,
+            'filing_statistical_test': self.filing_endpoints.filing_statistical_test,
+            'filing_alpha': self.filing_endpoints.filing_alpha,
+
+            # Structured Secondary Endpoint Analyses
+            'endpoint_testing_hierarchy': self.secondary_analyses.endpoint_testing_hierarchy,
+            'orr_analysis_method': self.secondary_analyses.orr_analysis.analysis_method if self.secondary_analyses.orr_analysis else '',
+            'orr_ci_method': self.secondary_analyses.orr_analysis.ci_method if self.secondary_analyses.orr_analysis else '',
+            'pfs_analysis_method': self.secondary_analyses.pfs_analysis.analysis_method if self.secondary_analyses.pfs_analysis else '',
+            'dor_analysis_method': self.secondary_analyses.dor_analysis.analysis_method if self.secondary_analyses.dor_analysis else '',
+
+            # Subgroup Analysis Specifications
+            'forest_plot_planned': self.subgroup_specs.forest_plot_planned,
+            'forest_plot_variables': self.subgroup_specs.forest_plot_variables,
+            'multivariate_cox_planned': self.subgroup_specs.multivariate_cox_planned,
+            'multivariate_cox_covariates': self.subgroup_specs.multivariate_cox_covariates,
+            'landmark_analysis_planned': self.subgroup_specs.landmark_analysis_planned,
+            'landmark_timepoints': self.subgroup_specs.landmark_timepoints,
+            'waterfall_plot_planned': self.subgroup_specs.waterfall_plot_planned,
+            'swimmer_plot_planned': self.subgroup_specs.swimmer_plot_planned,
+
+            # Baseline Characteristics
+            'baseline_demographic_variables': self.baseline_chars.demographic_variables,
+            'baseline_disease_variables': self.baseline_chars.disease_variables,
+            'baseline_molecular_variables': self.baseline_chars.molecular_variables,
+            'baseline_prior_therapy_variables': self.baseline_chars.prior_therapy_variables,
+            'baseline_performance_status_variables': self.baseline_chars.performance_status_variables,
+
+            # Date Imputation Rules
+            'death_date_imputation': self.date_imputation.death_date_imputation,
+            'progression_date_imputation': self.date_imputation.progression_date_imputation,
+            'ae_start_date_imputation': self.date_imputation.ae_start_date_imputation,
+            'duration_calculation_formula': self.date_imputation.duration_calculation_formula,
+            'days_per_month': self.date_imputation.days_per_month,
+            'days_per_year': self.date_imputation.days_per_year,
+
+            # Exposure Formulas (RDI)
+            'rdi_formula_experimental': self.exposure_formulas.rdi_formula_experimental,
+            'rdi_formula_control': self.exposure_formulas.rdi_formula_control,
+            'planned_dose_experimental': self.exposure_formulas.planned_dose_experimental,
+            'planned_dose_control': self.exposure_formulas.planned_dose_control,
+            'dose_delay_threshold_days': self.exposure_formulas.dose_delay_threshold_days,
+            'dose_reduction_levels': self.exposure_formulas.dose_reduction_levels,
+            'cycle_length_experimental_days': self.exposure_formulas.cycle_length_experimental_days,
+            'cycle_length_control_days': self.exposure_formulas.cycle_length_control_days,
+
+            # Study Conduct Analyses
+            'deviation_categories': self.study_conduct.deviation_categories,
+            'programmable_deviations': self.study_conduct.programmable_deviations,
+            'accrual_summary_by': self.study_conduct.accrual_summary_by,
+            'stratification_discrepancy_analysis': self.study_conduct.stratification_discrepancy_analysis,
+
+            # CDISC Versioning (FDA Technical Conformance Guide)
+            'sdtm_ig_version': self.cdisc_versioning.sdtm_ig_version,
+            'adam_ig_version': self.cdisc_versioning.adam_ig_version,
+            'define_xml_version': self.cdisc_versioning.define_xml_version,
+            'ct_version': self.cdisc_versioning.ct_version,
+            'ct_freeze_date': self.cdisc_versioning.ct_freeze_date,
+            'ct_freeze_milestone': self.cdisc_versioning.ct_freeze_milestone,
+            'submission_type': self.cdisc_versioning.submission_type,
+            'electronic_submission_format': self.cdisc_versioning.electronic_submission_format,
+
+            # Medical Coding Standards (MedDRA, WHODrug)
+            'meddra_version': self.coding_standards.meddra_version,
+            'meddra_freeze_date': self.coding_standards.meddra_freeze_date,
+            'meddra_freeze_milestone': self.coding_standards.meddra_freeze_milestone,
+            'ae_coding_level': self.coding_standards.ae_coding_level,
+            'whodrug_version': self.coding_standards.whodrug_version,
+            'whodrug_format': self.coding_standards.whodrug_format,
+            'whodrug_freeze_date': self.coding_standards.whodrug_freeze_date,
+            'atc_classification_level': self.coding_standards.atc_classification_level,
+
+            # Control Group Rationale (ICH E10)
+            'control_type': self.control_rationale.control_type,
+            'control_justification': self.control_rationale.control_justification,
+            'active_control_drug': self.control_rationale.active_control_drug,
+            'active_control_dose': self.control_rationale.active_control_dose,
+            'ni_margin_justification': self.control_rationale.ni_margin_justification,
+            'historical_trials_referenced': self.control_rationale.historical_trials_referenced,
+
+            # Genomic Sampling (ICH E18)
+            'sample_types_collected': self.genomic_sampling.sample_types_collected,
+            'genomic_collection_timepoints': self.genomic_sampling.collection_timepoints,
+            'prespecified_genomic_analyses': self.genomic_sampling.prespecified_genomic_analyses,
+            'exploratory_genomic_analyses': self.genomic_sampling.exploratory_genomic_analyses,
+            'ngs_platform': self.genomic_sampling.ngs_platform,
+            'gene_panel': self.genomic_sampling.gene_panel,
+            'ctdna_assay': self.genomic_sampling.ctdna_assay,
 
             # Confidence
             'extraction_confidence': self.confidence.overall_confidence,
@@ -1484,6 +2157,216 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.tumor_assessment.pseudoprogression_handling = extracted.get('pseudoprogression_handling', '')
     facts.tumor_assessment.new_lesion_confirmation = extracted.get('new_lesion_confirmation')
     facts.tumor_assessment.progression_date_definition = extracted.get('progression_date_definition', '')
+
+    # =========================================================================
+    # NEW SECTIONS (2025-01) - Bridging, Structured Analyses
+    # =========================================================================
+
+    # Bridging Study Design (ICH E5, E17)
+    facts.bridging.is_bridging_study = extracted.get('is_bridging_study')
+    facts.bridging.is_mrct = extracted.get('is_mrct')
+    facts.bridging.bridging_region = extracted.get('bridging_region', '')
+    facts.bridging.reference_studies = extracted.get('reference_studies', [])
+    facts.bridging.reference_study_results = extracted.get('reference_study_results', {})
+    facts.bridging.consistency_testing_required = extracted.get('consistency_testing_required')
+    facts.bridging.consistency_method = extracted.get('consistency_method', '')
+    facts.bridging.consistency_hr_threshold_interim = extracted.get('consistency_hr_threshold_interim')
+    facts.bridging.consistency_hr_threshold_final = extracted.get('consistency_hr_threshold_final')
+    facts.bridging.hierarchical_testing_steps = extracted.get('hierarchical_testing_steps', [])
+    facts.bridging.ethnic_sensitivity_assessment = extracted.get('ethnic_sensitivity_assessment', '')
+    facts.bridging.intrinsic_factors = extracted.get('intrinsic_factors', [])
+    facts.bridging.extrinsic_factors = extracted.get('extrinsic_factors', [])
+
+    # Regulatory Filing Endpoints (TTF for NMPA, etc.)
+    facts.filing_endpoints.has_early_filing_endpoint = extracted.get('has_early_filing_endpoint')
+    facts.filing_endpoints.filing_endpoint_name = extracted.get('filing_endpoint_name', '')
+    facts.filing_endpoints.filing_endpoint_definition = extracted.get('filing_endpoint_definition', '')
+    facts.filing_endpoints.filing_regulatory_authority = extracted.get('filing_regulatory_authority', '')
+    facts.filing_endpoints.filing_target_subjects = extracted.get('filing_target_subjects')
+    facts.filing_endpoints.filing_minimum_followup_months = extracted.get('filing_minimum_followup_months')
+    facts.filing_endpoints.filing_expected_timeline_months = extracted.get('filing_expected_timeline_months')
+    facts.filing_endpoints.filing_statistical_test = extracted.get('filing_statistical_test', '')
+    facts.filing_endpoints.filing_alpha = extracted.get('filing_alpha')
+    facts.filing_endpoints.filing_alpha_penalty = extracted.get('filing_alpha_penalty')
+    facts.filing_endpoints.filing_hypothesis = extracted.get('filing_hypothesis', '')
+
+    # Structured Secondary Endpoint Analyses
+    facts.secondary_analyses.endpoint_testing_hierarchy = extracted.get('endpoint_testing_hierarchy', [])
+
+    # ORR Analysis
+    orr_data = extracted.get('orr_analysis', {})
+    if orr_data:
+        facts.secondary_analyses.orr_analysis = SecondaryEndpointAnalysis(
+            endpoint_name='ORR',
+            endpoint_definition=orr_data.get('definition', ''),
+            analysis_method=orr_data.get('analysis_method', ''),
+            ci_method=orr_data.get('ci_method', ''),
+            hypothesis_test=orr_data.get('hypothesis_test', ''),
+            analysis_timepoints=orr_data.get('timepoints', []),
+            censoring_scheme_reference=orr_data.get('censoring_reference', ''),
+            testing_hierarchy_position=orr_data.get('hierarchy_position')
+        )
+
+    # PFS Analysis
+    pfs_data = extracted.get('pfs_analysis', {})
+    if pfs_data:
+        facts.secondary_analyses.pfs_analysis = SecondaryEndpointAnalysis(
+            endpoint_name='PFS',
+            endpoint_definition=pfs_data.get('definition', ''),
+            analysis_method=pfs_data.get('analysis_method', ''),
+            ci_method=pfs_data.get('ci_method', ''),
+            censoring_scheme_reference=pfs_data.get('censoring_reference', ''),
+            censoring_rules=pfs_data.get('censoring_rules', []),
+            testing_hierarchy_position=pfs_data.get('hierarchy_position')
+        )
+
+    # DOR Analysis
+    dor_data = extracted.get('dor_analysis', {})
+    if dor_data:
+        facts.secondary_analyses.dor_analysis = SecondaryEndpointAnalysis(
+            endpoint_name='DOR',
+            endpoint_definition=dor_data.get('definition', ''),
+            analysis_method=dor_data.get('analysis_method', ''),
+            ci_method=dor_data.get('ci_method', ''),
+            testing_hierarchy_position=dor_data.get('hierarchy_position')
+        )
+
+    # Subgroup Analysis Specifications
+    facts.subgroup_specs.forest_plot_planned = extracted.get('forest_plot_planned')
+    facts.subgroup_specs.forest_plot_variables = extracted.get('forest_plot_variables', [])
+    facts.subgroup_specs.forest_plot_method = extracted.get('forest_plot_method', '')
+    facts.subgroup_specs.forest_plot_presentation = extracted.get('forest_plot_presentation', '')
+    facts.subgroup_specs.multivariate_cox_planned = extracted.get('multivariate_cox_planned')
+    facts.subgroup_specs.multivariate_cox_covariates = extracted.get('multivariate_cox_covariates', [])
+    facts.subgroup_specs.covariate_selection_method = extracted.get('covariate_selection_method', '')
+    facts.subgroup_specs.landmark_analysis_planned = extracted.get('landmark_analysis_planned')
+    facts.subgroup_specs.landmark_timepoints = extracted.get('landmark_timepoints', [])
+    facts.subgroup_specs.landmark_method = extracted.get('landmark_method', '')
+    facts.subgroup_specs.waterfall_plot_planned = extracted.get('waterfall_plot_planned')
+    facts.subgroup_specs.swimmer_plot_planned = extracted.get('swimmer_plot_planned')
+    facts.subgroup_specs.spider_plot_planned = extracted.get('spider_plot_planned')
+    facts.subgroup_specs.interaction_tests_planned = extracted.get('interaction_tests_planned')
+
+    # Baseline Characteristics
+    facts.baseline_chars.demographic_variables = extracted.get('baseline_demographic_variables', [])
+    facts.baseline_chars.regional_variables = extracted.get('baseline_regional_variables', [])
+    facts.baseline_chars.disease_variables = extracted.get('baseline_disease_variables', [])
+    facts.baseline_chars.molecular_variables = extracted.get('baseline_molecular_variables', [])
+    facts.baseline_chars.prior_therapy_variables = extracted.get('baseline_prior_therapy_variables', [])
+    facts.baseline_chars.performance_status_variables = extracted.get('baseline_performance_status_variables', [])
+    facts.baseline_chars.continuous_summary_stats = extracted.get('continuous_summary_stats', [])
+    facts.baseline_chars.categorical_summary_stats = extracted.get('categorical_summary_stats', [])
+
+    # Date Imputation Rules
+    facts.date_imputation.death_date_imputation = extracted.get('death_date_imputation', '')
+    facts.date_imputation.progression_date_imputation = extracted.get('progression_date_imputation', '')
+    facts.date_imputation.ae_start_date_imputation = extracted.get('ae_start_date_imputation', '')
+    facts.date_imputation.ae_end_date_imputation = extracted.get('ae_end_date_imputation', '')
+    facts.date_imputation.treatment_start_imputation = extracted.get('treatment_start_imputation', '')
+    facts.date_imputation.treatment_end_imputation = extracted.get('treatment_end_imputation', '')
+    facts.date_imputation.imputation_rules_reference = extracted.get('imputation_rules_reference', '')
+    facts.date_imputation.duration_calculation_formula = extracted.get('duration_calculation_formula', '')
+    facts.date_imputation.include_start_date = extracted.get('include_start_date')
+    facts.date_imputation.days_per_month = extracted.get('days_per_month')
+    facts.date_imputation.days_per_year = extracted.get('days_per_year')
+    facts.date_imputation.days_per_week = extracted.get('days_per_week')
+
+    # Exposure Formulas (RDI)
+    facts.exposure_formulas.rdi_formula_experimental = extracted.get('rdi_formula_experimental', '')
+    facts.exposure_formulas.rdi_formula_control = extracted.get('rdi_formula_control', '')
+    facts.exposure_formulas.planned_dose_experimental = extracted.get('planned_dose_experimental', '')
+    facts.exposure_formulas.planned_dose_control = extracted.get('planned_dose_control', '')
+    facts.exposure_formulas.dose_delay_threshold_days = extracted.get('dose_delay_threshold_days')
+    facts.exposure_formulas.dose_reduction_levels = extracted.get('dose_reduction_levels', [])
+    facts.exposure_formulas.rdi_categories = extracted.get('rdi_categories', [])
+    facts.exposure_formulas.cycle_length_experimental_days = extracted.get('cycle_length_experimental_days')
+    facts.exposure_formulas.cycle_length_control_days = extracted.get('cycle_length_control_days')
+
+    # Study Conduct Analyses
+    facts.study_conduct.deviation_categories = extracted.get('deviation_categories', [])
+    facts.study_conduct.programmable_deviations = extracted.get('programmable_deviations', [])
+    facts.study_conduct.non_programmable_deviations = extracted.get('non_programmable_deviations', [])
+    facts.study_conduct.accrual_summary_by = extracted.get('accrual_summary_by', [])
+    facts.study_conduct.stratification_discrepancy_analysis = extracted.get('stratification_discrepancy_analysis')
+    facts.study_conduct.as_randomized_vs_as_treated = extracted.get('as_randomized_vs_as_treated')
+    facts.study_conduct.treatment_assignment_discrepancies = extracted.get('treatment_assignment_discrepancies', '')
+    facts.study_conduct.drug_accountability_analysis = extracted.get('drug_accountability_analysis')
+    facts.study_conduct.consent_tracking = extracted.get('consent_tracking')
+    facts.study_conduct.re_consent_tracking = extracted.get('re_consent_tracking')
+
+    # CDISC Versioning (FDA Technical Conformance Guide, Define-XML)
+    facts.cdisc_versioning.sdtm_ig_version = extracted.get('sdtm_ig_version', '')
+    facts.cdisc_versioning.sdtm_effective_date = extracted.get('sdtm_effective_date', '')
+    facts.cdisc_versioning.adam_ig_version = extracted.get('adam_ig_version', '')
+    facts.cdisc_versioning.adam_effective_date = extracted.get('adam_effective_date', '')
+    facts.cdisc_versioning.define_xml_version = extracted.get('define_xml_version', '')
+    facts.cdisc_versioning.define_xml_stylesheet = extracted.get('define_xml_stylesheet', '')
+    facts.cdisc_versioning.ct_version = extracted.get('ct_version', '')
+    facts.cdisc_versioning.ct_freeze_date = extracted.get('ct_freeze_date', '')
+    facts.cdisc_versioning.ct_freeze_milestone = extracted.get('ct_freeze_milestone', '')
+    facts.cdisc_versioning.ct_packages_used = extracted.get('ct_packages_used', [])
+    facts.cdisc_versioning.recoding_milestone = extracted.get('recoding_milestone', '')
+    facts.cdisc_versioning.submission_type = extracted.get('submission_type', '')
+    facts.cdisc_versioning.regulatory_authority = extracted.get('regulatory_authority', '')
+    facts.cdisc_versioning.electronic_submission_format = extracted.get('electronic_submission_format', '')
+
+    # Medical Coding Standards (MedDRA, WHODrug)
+    facts.coding_standards.meddra_version = extracted.get('meddra_version', '')
+    facts.coding_standards.meddra_freeze_date = extracted.get('meddra_freeze_date', '')
+    facts.coding_standards.meddra_freeze_milestone = extracted.get('meddra_freeze_milestone', '')
+    facts.coding_standards.meddra_upgrade_strategy = extracted.get('meddra_upgrade_strategy', '')
+    facts.coding_standards.meddra_language = extracted.get('meddra_language', '')
+    facts.coding_standards.ae_coding_level = extracted.get('ae_coding_level', '')
+    facts.coding_standards.ae_primary_soc = extracted.get('ae_primary_soc', '')
+    facts.coding_standards.whodrug_version = extracted.get('whodrug_version', '')
+    facts.coding_standards.whodrug_format = extracted.get('whodrug_format', '')
+    facts.coding_standards.whodrug_freeze_date = extracted.get('whodrug_freeze_date', '')
+    facts.coding_standards.whodrug_freeze_milestone = extracted.get('whodrug_freeze_milestone', '')
+    facts.coding_standards.medication_coding_level = extracted.get('medication_coding_level', '')
+    facts.coding_standards.atc_classification_level = extracted.get('atc_classification_level', '')
+    facts.coding_standards.combination_drug_handling = extracted.get('combination_drug_handling', '')
+    facts.coding_standards.recoding_triggers = extracted.get('recoding_triggers', [])
+    facts.coding_standards.pre_lock_recoding_required = extracted.get('pre_lock_recoding_required')
+    facts.coding_standards.dual_coding_required = extracted.get('dual_coding_required')
+
+    # Control Group Rationale (ICH E10)
+    facts.control_rationale.control_type = extracted.get('control_type', '')
+    facts.control_rationale.control_justification = extracted.get('control_justification', '')
+    facts.control_rationale.active_control_drug = extracted.get('active_control_drug', '')
+    facts.control_rationale.active_control_dose = extracted.get('active_control_dose', '')
+    facts.control_rationale.active_control_rationale = extracted.get('active_control_rationale', '')
+    facts.control_rationale.historical_effect_estimate = extracted.get('historical_effect_estimate', '')
+    facts.control_rationale.ni_margin_justification = extracted.get('ni_margin_justification', '')
+    facts.control_rationale.ni_margin_preserves = extracted.get('ni_margin_preserves', '')
+    facts.control_rationale.constancy_assumption = extracted.get('constancy_assumption', '')
+    facts.control_rationale.assay_sensitivity_evidence = extracted.get('assay_sensitivity_evidence', '')
+    facts.control_rationale.historical_trials_referenced = extracted.get('historical_trials_referenced', [])
+    facts.control_rationale.placebo_ethical_justification = extracted.get('placebo_ethical_justification', '')
+    facts.control_rationale.rescue_medication_permitted = extracted.get('rescue_medication_permitted')
+    facts.control_rationale.add_on_design = extracted.get('add_on_design')
+    facts.control_rationale.regulatory_agreement = extracted.get('regulatory_agreement', '')
+
+    # Genomic Sampling (ICH E18)
+    facts.genomic_sampling.sample_types_collected = extracted.get('sample_types_collected', [])
+    facts.genomic_sampling.collection_timepoints = extracted.get('genomic_collection_timepoints', [])
+    facts.genomic_sampling.mandatory_vs_optional = extracted.get('sample_mandatory_vs_optional', {})
+    facts.genomic_sampling.processing_requirements = extracted.get('sample_processing_requirements', '')
+    facts.genomic_sampling.storage_conditions = extracted.get('sample_storage_conditions', '')
+    facts.genomic_sampling.central_lab = extracted.get('genomic_central_lab', '')
+    facts.genomic_sampling.genomic_consent_type = extracted.get('genomic_consent_type', '')
+    facts.genomic_sampling.data_sharing_permitted = extracted.get('genomic_data_sharing_permitted')
+    facts.genomic_sampling.return_of_results = extracted.get('genomic_return_of_results', '')
+    facts.genomic_sampling.prespecified_genomic_analyses = extracted.get('prespecified_genomic_analyses', [])
+    facts.genomic_sampling.genomic_analysis_population = extracted.get('genomic_analysis_population', '')
+    facts.genomic_sampling.genomic_analysis_timing = extracted.get('genomic_analysis_timing', '')
+    facts.genomic_sampling.exploratory_genomic_analyses = extracted.get('exploratory_genomic_analyses', [])
+    facts.genomic_sampling.exploratory_analysis_governance = extracted.get('exploratory_analysis_governance', '')
+    facts.genomic_sampling.ngs_platform = extracted.get('ngs_platform', '')
+    facts.genomic_sampling.gene_panel = extracted.get('gene_panel', '')
+    facts.genomic_sampling.rnaseq_method = extracted.get('rnaseq_method', '')
+    facts.genomic_sampling.ctdna_assay = extracted.get('ctdna_assay', '')
+    facts.genomic_sampling.genomic_data_format = extracted.get('genomic_data_format', '')
+    facts.genomic_sampling.bioinformatics_pipeline = extracted.get('bioinformatics_pipeline', '')
 
     # Confidence
     facts.confidence.overall_confidence = extracted.get('extraction_confidence', 0.0)

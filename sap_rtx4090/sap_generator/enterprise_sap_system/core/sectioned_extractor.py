@@ -219,6 +219,96 @@ class SectionedProtocolExtractor:
                         'confirmation_required', 'confirmation_window', 'pseudoprogression_handling',
                         'new_lesion_confirmation', 'progression_date_definition'],
             'critical': ['response_criteria', 'assessment_method']
+        },
+        # =========================================================================
+        # NEW SECTIONS (2025-01) - Bridging, Structured Analyses, Regulatory
+        # =========================================================================
+        'bridging_study': {
+            'required': [],
+            'optional': ['is_bridging_study', 'is_mrct', 'bridging_region', 'reference_studies',
+                        'consistency_testing_required', 'consistency_hr_threshold_interim',
+                        'consistency_hr_threshold_final', 'hierarchical_testing_steps',
+                        'ethnic_sensitivity_assessment', 'intrinsic_factors', 'extrinsic_factors'],
+            'critical': ['is_bridging_study', 'consistency_hr_threshold_interim']  # Critical for bridging
+        },
+        'filing_endpoints': {
+            'required': [],
+            'optional': ['has_early_filing_endpoint', 'filing_endpoint_name', 'filing_endpoint_definition',
+                        'filing_regulatory_authority', 'filing_target_subjects', 'filing_minimum_followup_months',
+                        'filing_statistical_test', 'filing_alpha', 'filing_alpha_penalty', 'filing_hypothesis'],
+            'critical': ['filing_endpoint_name', 'filing_target_subjects']  # Critical for early filing
+        },
+        'secondary_analyses': {
+            'required': [],
+            'optional': ['endpoint_testing_hierarchy', 'orr_analysis', 'pfs_analysis', 'dor_analysis',
+                        'ttr_analysis', 'dcr_analysis'],
+            'critical': ['endpoint_testing_hierarchy']
+        },
+        'subgroup_specs': {
+            'required': [],
+            'optional': ['forest_plot_planned', 'forest_plot_variables', 'forest_plot_method',
+                        'multivariate_cox_planned', 'multivariate_cox_covariates', 'covariate_selection_method',
+                        'landmark_analysis_planned', 'landmark_timepoints', 'landmark_method',
+                        'waterfall_plot_planned', 'swimmer_plot_planned', 'spider_plot_planned'],
+            'critical': ['forest_plot_variables']
+        },
+        'baseline_chars': {
+            'required': [],
+            'optional': ['baseline_demographic_variables', 'baseline_regional_variables',
+                        'baseline_disease_variables', 'baseline_molecular_variables',
+                        'baseline_prior_therapy_variables', 'baseline_performance_status_variables',
+                        'continuous_summary_stats', 'categorical_summary_stats'],
+            'critical': ['baseline_demographic_variables', 'baseline_disease_variables']
+        },
+        'date_imputation': {
+            'required': [],
+            'optional': ['death_date_imputation', 'progression_date_imputation', 'ae_start_date_imputation',
+                        'ae_end_date_imputation', 'treatment_start_imputation', 'duration_calculation_formula',
+                        'days_per_month', 'days_per_year'],
+            'critical': ['death_date_imputation', 'duration_calculation_formula']
+        },
+        'exposure_formulas': {
+            'required': [],
+            'optional': ['rdi_formula_experimental', 'rdi_formula_control', 'planned_dose_experimental',
+                        'planned_dose_control', 'dose_delay_threshold_days', 'dose_reduction_levels',
+                        'rdi_categories', 'cycle_length_experimental_days', 'cycle_length_control_days'],
+            'critical': ['rdi_formula_experimental', 'planned_dose_experimental']
+        },
+        'study_conduct': {
+            'required': [],
+            'optional': ['deviation_categories', 'programmable_deviations', 'non_programmable_deviations',
+                        'accrual_summary_by', 'stratification_discrepancy_analysis',
+                        'as_randomized_vs_as_treated', 'drug_accountability_analysis', 'consent_tracking'],
+            'critical': ['deviation_categories']
+        },
+        'cdisc_versioning': {
+            'required': [],
+            'optional': ['sdtm_ig_version', 'adam_ig_version', 'define_xml_version', 'ct_version',
+                        'ct_freeze_date', 'ct_freeze_milestone', 'ct_packages_used', 'recoding_milestone',
+                        'submission_type', 'regulatory_authority', 'electronic_submission_format'],
+            'critical': ['sdtm_ig_version', 'adam_ig_version', 'ct_version']
+        },
+        'coding_standards': {
+            'required': [],
+            'optional': ['meddra_version', 'meddra_freeze_date', 'meddra_freeze_milestone',
+                        'ae_coding_level', 'whodrug_version', 'whodrug_format', 'whodrug_freeze_date',
+                        'atc_classification_level', 'recoding_triggers', 'dual_coding_required'],
+            'critical': ['meddra_version', 'whodrug_version']
+        },
+        'control_rationale': {
+            'required': [],
+            'optional': ['control_type', 'control_justification', 'active_control_drug', 'active_control_dose',
+                        'active_control_rationale', 'historical_effect_estimate', 'ni_margin_justification',
+                        'ni_margin_preserves', 'historical_trials_referenced', 'rescue_medication_permitted'],
+            'critical': ['control_type', 'active_control_rationale']
+        },
+        'genomic_sampling': {
+            'required': [],
+            'optional': ['sample_types_collected', 'genomic_collection_timepoints', 'sample_mandatory_vs_optional',
+                        'sample_processing_requirements', 'genomic_consent_type', 'prespecified_genomic_analyses',
+                        'exploratory_genomic_analyses', 'ngs_platform', 'gene_panel', 'ctdna_assay',
+                        'genomic_data_format', 'bioinformatics_pipeline'],
+            'critical': ['sample_types_collected', 'prespecified_genomic_analyses']
         }
     }
 
@@ -1049,6 +1139,335 @@ RESPOND IN JSON:
     "progression_date_definition": "<definition>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
+}}''',
+
+        # =========================================================================
+        # NEW SECTION PROMPTS (2025-01) - Bridging, Structured Analyses, Regulatory
+        # =========================================================================
+
+        'bridging_study': '''Extract BRIDGING STUDY and MULTI-REGIONAL CLINICAL TRIAL (MRCT) information.
+
+Source: ICH E5 (Ethnic Factors), ICH E17 (MRCT)
+
+Look for:
+- Is this a bridging study or MRCT (multi-regional)?
+- Reference studies being bridged to
+- Consistency testing thresholds (e.g., HR < 0.850 at interim, < 0.835 at final)
+- Hierarchical testing steps for bridging
+- Ethnic sensitivity assessments
+
+Return JSON:
+{{
+    "is_bridging_study": <true/false> or null,
+    "is_mrct": <true/false> or null,
+    "bridging_region": "<region>" or null,
+    "reference_studies": ["<study1>", "<study2>", ...] or [],
+    "consistency_testing_required": <true/false> or null,
+    "consistency_hr_threshold_interim": <number> or null,
+    "consistency_hr_threshold_final": <number> or null,
+    "hierarchical_testing_steps": ["<step1>", "<step2>", ...] or [],
+    "ethnic_sensitivity_assessment": "<assessment>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'filing_endpoints': '''Extract REGULATORY FILING ENDPOINT information (e.g., TTF for China filing).
+
+Source: NMPA guidance, PMDA guidance, regional filing strategies
+
+Look for:
+- Early filing endpoints (TTF, ORR for accelerated approval)
+- Filing-specific sample sizes and follow-up requirements
+- Statistical tests for filing endpoints (e.g., weighted log-rank)
+- Alpha spending for filing endpoints
+
+Return JSON:
+{{
+    "has_early_filing_endpoint": <true/false> or null,
+    "filing_endpoint_name": "<endpoint>" or null,
+    "filing_endpoint_definition": "<definition>" or null,
+    "filing_regulatory_authority": "<authority>" or null,
+    "filing_target_subjects": <number> or null,
+    "filing_minimum_followup_months": <number> or null,
+    "filing_statistical_test": "<test>" or null,
+    "filing_alpha": <number> or null,
+    "filing_alpha_penalty": <true/false> or null,
+    "filing_hypothesis": "<hypothesis>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'secondary_analyses': '''Extract STRUCTURED SECONDARY ENDPOINT ANALYSIS information.
+
+Source: ICH E9, FDA Guidance
+
+Look for:
+- Testing hierarchy for secondary endpoints
+- ORR analysis method (e.g., CMH test, Clopper-Pearson CI)
+- PFS analysis method and censoring
+- DOR analysis method
+- Analysis timepoints
+
+Return JSON:
+{{
+    "endpoint_testing_hierarchy": ["<endpoint1>", "<endpoint2>", ...] or [],
+    "orr_analysis": {{
+        "analysis_method": "<method>" or null,
+        "ci_method": "<ci>" or null,
+        "hypothesis_test": "<test>" or null,
+        "timepoints": ["<t1>", "<t2>", ...] or []
+    }} or null,
+    "pfs_analysis": {{
+        "analysis_method": "<method>" or null,
+        "censoring_reference": "<ref>" or null
+    }} or null,
+    "dor_analysis": {{
+        "analysis_method": "<method>" or null
+    }} or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'subgroup_specs': '''Extract SUBGROUP ANALYSIS SPECIFICATIONS.
+
+Source: ICH E9, FDA Subgroup Analysis Guidance
+
+Look for:
+- Forest plot variables (age, gender, race, disease characteristics)
+- Multivariate Cox covariates
+- Landmark analysis timepoints
+- Visualization plans (waterfall, swimmer, spider plots)
+
+Return JSON:
+{{
+    "forest_plot_planned": <true/false> or null,
+    "forest_plot_variables": ["<var1>", "<var2>", ...] or [],
+    "forest_plot_method": "<method>" or null,
+    "multivariate_cox_planned": <true/false> or null,
+    "multivariate_cox_covariates": ["<cov1>", "<cov2>", ...] or [],
+    "covariate_selection_method": "<method>" or null,
+    "landmark_analysis_planned": <true/false> or null,
+    "landmark_timepoints": ["<t1>", "<t2>", ...] or [],
+    "landmark_method": "<method>" or null,
+    "waterfall_plot_planned": <true/false> or null,
+    "swimmer_plot_planned": <true/false> or null,
+    "spider_plot_planned": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'baseline_chars': '''Extract BASELINE CHARACTERISTICS (Table 1) specifications.
+
+Source: ICH E3, CDISC SDTM
+
+Look for:
+- Demographic variables to summarize
+- Disease characteristics
+- Molecular/biomarker variables
+- Prior therapy variables
+- Summary statistics to use
+
+Return JSON:
+{{
+    "baseline_demographic_variables": ["<var1>", "<var2>", ...] or [],
+    "baseline_regional_variables": ["<var1>", "<var2>", ...] or [],
+    "baseline_disease_variables": ["<var1>", "<var2>", ...] or [],
+    "baseline_molecular_variables": ["<var1>", "<var2>", ...] or [],
+    "baseline_prior_therapy_variables": ["<var1>", "<var2>", ...] or [],
+    "baseline_performance_status_variables": ["<var1>", "<var2>", ...] or [],
+    "continuous_summary_stats": ["<stat1>", "<stat2>", ...] or [],
+    "categorical_summary_stats": ["<stat1>", "<stat2>", ...] or [],
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'date_imputation': '''Extract DATE IMPUTATION RULES and calculation conventions.
+
+Source: CDISC ADaM, ICH E9
+
+Look for:
+- Death date imputation rules
+- Progression date imputation rules
+- AE date imputation rules
+- Duration calculation formulas
+- Days per month/year conventions
+
+Return JSON:
+{{
+    "death_date_imputation": "<rule>" or null,
+    "progression_date_imputation": "<rule>" or null,
+    "ae_start_date_imputation": "<rule>" or null,
+    "ae_end_date_imputation": "<rule>" or null,
+    "treatment_start_imputation": "<rule>" or null,
+    "duration_calculation_formula": "<formula>" or null,
+    "days_per_month": <number> or null,
+    "days_per_year": <number> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'exposure_formulas': '''Extract EXPOSURE and RDI (Relative Dose Intensity) FORMULAS.
+
+Source: ICH E3, company standards
+
+Look for:
+- RDI formula for experimental arm (include the actual formula)
+- RDI formula for control arm
+- Planned doses per arm
+- Dose delay threshold
+- Dose reduction levels
+- Cycle lengths
+
+Return JSON:
+{{
+    "rdi_formula_experimental": "<formula>" or null,
+    "rdi_formula_control": "<formula>" or null,
+    "planned_dose_experimental": "<dose>" or null,
+    "planned_dose_control": "<dose>" or null,
+    "dose_delay_threshold_days": <number> or null,
+    "dose_reduction_levels": ["<level1>", "<level2>", ...] or [],
+    "rdi_categories": ["<cat1>", "<cat2>", ...] or [],
+    "cycle_length_experimental_days": <number> or null,
+    "cycle_length_control_days": <number> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'study_conduct': '''Extract STUDY CONDUCT ANALYSES information.
+
+Source: ICH E6, ICH E3
+
+Look for:
+- Protocol deviation categories
+- Programmable vs non-programmable deviations
+- Accrual summaries (by country, site, time)
+- Stratification discrepancy analysis plans
+- Treatment assignment discrepancies
+
+Return JSON:
+{{
+    "deviation_categories": ["<cat1>", "<cat2>", ...] or [],
+    "programmable_deviations": ["<dev1>", "<dev2>", ...] or [],
+    "non_programmable_deviations": ["<dev1>", "<dev2>", ...] or [],
+    "accrual_summary_by": ["<dim1>", "<dim2>", ...] or [],
+    "stratification_discrepancy_analysis": <true/false> or null,
+    "as_randomized_vs_as_treated": <true/false> or null,
+    "drug_accountability_analysis": <true/false> or null,
+    "consent_tracking": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'cdisc_versioning': '''Extract CDISC VERSIONING and DEFINE-XML information.
+
+Source: FDA Study Data Technical Conformance Guide, CDISC Define-XML v2.1
+
+Look for:
+- SDTM-IG version
+- ADaM-IG version
+- Define-XML version
+- Controlled Terminology version and freeze date
+- Submission type and format
+
+Return JSON:
+{{
+    "sdtm_ig_version": "<version>" or null,
+    "adam_ig_version": "<version>" or null,
+    "define_xml_version": "<version>" or null,
+    "ct_version": "<version>" or null,
+    "ct_freeze_date": "<date>" or null,
+    "ct_freeze_milestone": "<milestone>" or null,
+    "ct_packages_used": ["<pkg1>", "<pkg2>", ...] or [],
+    "recoding_milestone": "<milestone>" or null,
+    "submission_type": "<type>" or null,
+    "regulatory_authority": "<authority>" or null,
+    "electronic_submission_format": "<format>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'coding_standards': '''Extract MEDICAL CODING STANDARDS information (MedDRA, WHODrug).
+
+Source: MedDRA (ICH), WHODrug (Uppsala Monitoring Centre)
+
+Look for:
+- MedDRA version and freeze date
+- MedDRA coding level (LLT, PT, SOC)
+- WHODrug version and format
+- ATC classification level
+- Recoding triggers and conventions
+
+Return JSON:
+{{
+    "meddra_version": "<version>" or null,
+    "meddra_freeze_date": "<date>" or null,
+    "meddra_freeze_milestone": "<milestone>" or null,
+    "ae_coding_level": "<level>" or null,
+    "whodrug_version": "<version>" or null,
+    "whodrug_format": "<format>" or null,
+    "whodrug_freeze_date": "<date>" or null,
+    "atc_classification_level": "<level>" or null,
+    "recoding_triggers": ["<trigger1>", "<trigger2>", ...] or [],
+    "dual_coding_required": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'control_rationale': '''Extract CONTROL GROUP RATIONALE (ICH E10).
+
+Source: ICH E10 (Choice of Control Group)
+
+Look for:
+- Control type (active, placebo, dose-response)
+- Active control justification
+- Historical effect estimates
+- Non-inferiority margin justification
+- Assay sensitivity evidence
+
+Return JSON:
+{{
+    "control_type": "<type>" or null,
+    "control_justification": "<justification>" or null,
+    "active_control_drug": "<drug>" or null,
+    "active_control_dose": "<dose>" or null,
+    "active_control_rationale": "<rationale>" or null,
+    "historical_effect_estimate": "<estimate>" or null,
+    "ni_margin_justification": "<justification>" or null,
+    "ni_margin_preserves": "<percentage>" or null,
+    "historical_trials_referenced": ["<trial1>", "<trial2>", ...] or [],
+    "rescue_medication_permitted": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'genomic_sampling': '''Extract GENOMIC SAMPLING (ICH E18) information.
+
+Source: ICH E18 (Genomic Sampling)
+
+Look for:
+- Sample types collected (tumor tissue, ctDNA, PBMCs)
+- Collection timepoints
+- Mandatory vs optional samples
+- Pre-specified genomic analyses
+- Exploratory genomic analyses
+- NGS platforms and assays
+
+Return JSON:
+{{
+    "sample_types_collected": ["<type1>", "<type2>", ...] or [],
+    "genomic_collection_timepoints": ["<t1>", "<t2>", ...] or [],
+    "sample_mandatory_vs_optional": {{"<sample>": "<mandatory/optional>", ...}} or {{}},
+    "sample_processing_requirements": "<requirements>" or null,
+    "genomic_consent_type": "<type>" or null,
+    "prespecified_genomic_analyses": ["<analysis1>", "<analysis2>", ...] or [],
+    "exploratory_genomic_analyses": ["<analysis1>", "<analysis2>", ...] or [],
+    "ngs_platform": "<platform>" or null,
+    "gene_panel": "<panel>" or null,
+    "ctdna_assay": "<assay>" or null,
+    "genomic_data_format": "<format>" or null,
+    "bioinformatics_pipeline": "<pipeline>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
 }}'''
     }
 
@@ -1079,6 +1498,19 @@ RESPOND IN JSON:
         'dmc': ['dmc', 'dsmb', 'data_monitoring', 'interim_analysis'],
         'special_designs': ['study_design', 'design', 'adaptive'],
         'tumor_assessment': ['tumor_assessment', 'imaging', 'response', 'efficacy'],
+        # NEW SECTION MAPPINGS (2025-01) - Bridging, Structured Analyses, Regulatory
+        'bridging_study': ['study_design', 'objectives', 'statistical_methods', 'mrct'],
+        'filing_endpoints': ['endpoints', 'statistical_methods', 'filing', 'regulatory'],
+        'secondary_analyses': ['efficacy', 'endpoints', 'statistical_methods'],
+        'subgroup_specs': ['subgroup', 'statistical_methods', 'efficacy'],
+        'baseline_chars': ['demographics', 'baseline', 'populations'],
+        'date_imputation': ['conventions', 'definitions', 'statistical_methods'],
+        'exposure_formulas': ['exposure', 'drug_exposure', 'study_drug', 'safety'],
+        'study_conduct': ['deviations', 'populations', 'conduct'],
+        'cdisc_versioning': ['cdisc', 'standards', 'conventions'],
+        'coding_standards': ['adverse_events', 'safety', 'concomitant', 'coding'],
+        'control_rationale': ['study_design', 'objectives', 'rationale'],
+        'genomic_sampling': ['biomarkers', 'correlative', 'samples', 'genomic'],
     }
 
     def __init__(self, llm_client=None):
