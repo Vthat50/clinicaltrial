@@ -796,56 +796,195 @@ Write the {section_title} section now. Start with "## {section_title}" as header
 """
 
     def _format_facts(self, facts: Dict[str, Any], section_key: str) -> str:
-        """Format facts for prompt."""
+        """
+        Format ALL extracted facts for prompt.
+
+        Uses all fields from to_flat_dict() in extraction_schema.py.
+        Skips empty, None, or [NOT FOUND] values.
+        """
         lines = []
 
-        # Always include core facts
-        if facts.get('nct_id'):
-            lines.append(f"- NCT ID: {facts['nct_id']}")
-        if facts.get('sample_size'):
-            lines.append(f"- Sample Size: {facts['sample_size']} patients")
-        if facts.get('treatment_setting'):
-            lines.append(f"- Treatment Setting: {facts['treatment_setting']}")
-        if facts.get('disease_type'):
-            lines.append(f"- Disease: {facts['disease_type']}")
-        if facts.get('drug_name'):
-            lines.append(f"- Study Drug: {facts['drug_name']}")
-        if facts.get('comparator'):
-            lines.append(f"- Comparator: {facts['comparator']}")
+        def is_valid(value) -> bool:
+            """Check if value should be included."""
+            if value is None:
+                return False
+            if isinstance(value, str):
+                if not value.strip():
+                    return False
+                if '[NOT' in value or '[NEEDS' in value:
+                    return False
+            if isinstance(value, (list, dict)) and len(value) == 0:
+                return False
+            return True
 
-        # Section-specific facts
-        if section_key in ['statistical_methods', 'interim_analysis']:
-            if facts.get('statistical_method'):
-                lines.append(f"- Statistical Method: {facts['statistical_method']}")
-            if facts.get('final_events') or facts.get('final_analysis_events'):
-                events = facts.get('final_events') or facts.get('final_analysis_events')
-                lines.append(f"- Events at Final: {events}")
-            if facts.get('interim_events'):
-                lines.append(f"- Events at Interim: {facts['interim_events']}")
-            if facts.get('alpha_at_interim'):
-                lines.append(f"- Alpha at Interim: {facts['alpha_at_interim']}")
-            if facts.get('alpha_at_final'):
-                lines.append(f"- Alpha at Final: {facts['alpha_at_final']}")
+        def format_value(value) -> str:
+            """Format a value for display."""
+            if isinstance(value, list):
+                return ', '.join(str(v) for v in value)
+            if isinstance(value, dict):
+                return ', '.join(f"{k}: {v}" for k, v in value.items())
+            return str(value)
 
-        if section_key == 'sample_size':
-            if facts.get('power'):
-                lines.append(f"- Power: {facts['power']}")
-            if facts.get('expected_hazard_ratio'):
-                lines.append(f"- Expected HR: {facts['expected_hazard_ratio']}")
+        # =================================================================
+        # CORE STUDY INFORMATION (always include)
+        # =================================================================
+        core_fields = [
+            ('nct_id', 'NCT ID'),
+            ('protocol_number', 'Protocol'),
+            ('phase', 'Phase'),
+            ('drug_name', 'Study Drug'),
+            ('comparator', 'Comparator'),
+            ('sample_size', 'Sample Size'),
+            ('allocation_ratio', 'Randomization Ratio'),
+            ('design_type', 'Design Type'),
+            ('blinding_type', 'Blinding'),
+        ]
+        for key, label in core_fields:
+            if is_valid(facts.get(key)):
+                val = facts[key]
+                if key == 'sample_size':
+                    lines.append(f"- {label}: {val} patients")
+                else:
+                    lines.append(f"- {label}: {format_value(val)}")
 
-        if section_key == 'objectives':
-            if facts.get('primary_endpoint'):
-                lines.append(f"- Primary Endpoint: {facts['primary_endpoint']}")
-            if facts.get('secondary_endpoints'):
-                lines.append(f"- Secondary Endpoints: {facts['secondary_endpoints']}")
+        # =================================================================
+        # DISEASE/INDICATION (critical for context)
+        # =================================================================
+        disease_fields = [
+            ('disease_type', 'Disease'),
+            ('tumor_type', 'Tumor Type'),
+            ('histology', 'Histology'),
+            ('disease_stage', 'Disease Stage'),
+            ('biomarker_status', 'Biomarker Status'),
+            ('treatment_setting', 'Treatment Setting'),
+        ]
+        for key, label in disease_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
 
-        if section_key == 'multiplicity':
-            if facts.get('alpha_per_hypothesis'):
-                lines.append(f"- Alpha per Hypothesis: {facts['alpha_per_hypothesis']}")
-            if facts.get('testing_sequence'):
-                lines.append(f"- Testing Sequence: {facts['testing_sequence']}")
+        # =================================================================
+        # STRATIFICATION
+        # =================================================================
+        if is_valid(facts.get('stratification_factors')):
+            strat = facts['stratification_factors']
+            lines.append(f"- Stratification Factors: {format_value(strat)}")
+        if is_valid(facts.get('stratification_factor_levels')):
+            levels = facts['stratification_factor_levels']
+            if isinstance(levels, dict):
+                for factor, levs in levels.items():
+                    lines.append(f"  • {factor}: {format_value(levs)}")
 
-        return '\n'.join(lines) if lines else "No specific facts for this section."
+        # =================================================================
+        # ENDPOINTS
+        # =================================================================
+        endpoint_fields = [
+            ('primary_endpoint', 'Primary Endpoint'),
+            ('secondary_endpoints', 'Secondary Endpoints'),
+            ('co_primary_endpoints', 'Co-Primary Endpoints'),
+        ]
+        for key, label in endpoint_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # STATISTICAL METHODS
+        # =================================================================
+        method_fields = [
+            ('statistical_method', 'Statistical Method'),
+            ('primary_test', 'Primary Test'),
+            ('hazard_ratio_method', 'HR Method'),
+            ('expected_hazard_ratio', 'Expected HR'),
+            ('power', 'Power'),
+            ('null_hypothesis', 'Null Hypothesis'),
+            ('alternative_hypothesis', 'Alternative Hypothesis'),
+            ('test_sidedness', 'Sidedness'),
+        ]
+        for key, label in method_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # INTERIM ANALYSIS
+        # =================================================================
+        interim_fields = [
+            ('has_interim_analysis', 'Has Interim Analysis'),
+            ('num_interim_analyses', 'Number of Interim Analyses'),
+            ('interim_events', 'Events at Interim'),
+            ('final_events', 'Events at Final'),
+            ('information_fractions', 'Information Fractions'),
+            ('alpha_spending_function', 'Alpha Spending Function'),
+            ('overall_alpha', 'Overall Alpha'),
+            ('alpha_at_interim', 'Alpha at Interim'),
+            ('alpha_at_final', 'Alpha at Final'),
+            ('stopping_boundaries', 'Stopping Boundaries'),
+        ]
+        for key, label in interim_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # MULTIPLICITY
+        # =================================================================
+        mult_fields = [
+            ('multiplicity_method', 'Multiplicity Method'),
+            ('adjustment_method', 'Adjustment Method'),
+            ('testing_sequence', 'Testing Sequence'),
+            ('alpha_per_hypothesis', 'Alpha per Hypothesis'),
+            ('hypotheses_list', 'Hypotheses'),
+        ]
+        for key, label in mult_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # POPULATIONS
+        # =================================================================
+        pop_fields = [
+            ('itt_definition', 'ITT Definition'),
+            ('fas_definition', 'FAS Definition'),
+            ('per_protocol_definition', 'Per-Protocol Definition'),
+            ('safety_population_definition', 'Safety Population'),
+        ]
+        for key, label in pop_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # ESTIMAND (ICH E9 R1)
+        # =================================================================
+        estimand_fields = [
+            ('estimand_population', 'Estimand Population'),
+            ('estimand_variable', 'Estimand Variable'),
+            ('intercurrent_events', 'Intercurrent Events'),
+            ('primary_estimand', 'Primary Estimand'),
+        ]
+        for key, label in estimand_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # MISSING DATA & SENSITIVITY
+        # =================================================================
+        missing_fields = [
+            ('censoring_rules', 'Censoring Rules'),
+            ('treatment_discontinuation_strategy', 'Discontinuation Strategy'),
+            ('subsequent_therapy_handling', 'Subsequent Therapy Handling'),
+            ('tipping_point_analysis', 'Tipping Point Analysis'),
+            ('sensitivity_analyses', 'Sensitivity Analyses'),
+        ]
+        for key, label in missing_fields:
+            if is_valid(facts.get(key)):
+                lines.append(f"- {label}: {format_value(facts[key])}")
+
+        # =================================================================
+        # CROSSOVER
+        # =================================================================
+        if is_valid(facts.get('has_crossover')) and facts.get('has_crossover'):
+            lines.append(f"- Has Crossover: Yes")
+            if is_valid(facts.get('crossover_adjustment_methods')):
+                lines.append(f"- Crossover Methods: {format_value(facts['crossover_adjustment_methods'])}")
+
+        return '\n'.join(lines) if lines else "No specific facts extracted for this section."
 
     def _format_constraints(self, constraints: MethodConstraints, section_key: str) -> str:
         """Format constraints for prompt."""
