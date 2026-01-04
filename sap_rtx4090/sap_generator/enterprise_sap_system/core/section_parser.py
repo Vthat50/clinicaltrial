@@ -323,13 +323,34 @@ class ProtocolSectionParser:
 
         line = text[line_start:line_end]
 
-        # TOC patterns: "Section Title ..... 123" or "Section Title...123"
-        # Check for: multiple consecutive dots followed by digits
+        # Pattern 1: Multiple consecutive dots followed by digits
+        # e.g., "Section Title.....123" or "Section Title ..... 123"
         if re.search(r'\.{3,}\s*\d+', line):
             return True
-        # Check for: dots and spaces pattern (leader dots)
+
+        # Pattern 2: Lots of dots in line (leader dots) + ends with number
+        # e.g., "Section Title . . . . . . 42"
         if line.count('.') > 10 and re.search(r'\d{1,3}\s*$', line):
             return True
+
+        # Pattern 3: Spaced dots pattern (individual dots separated by spaces)
+        # e.g., ". . . . . . . 42" or "Section . . . 42"
+        if re.search(r'(\.\s+){5,}\d+', line):
+            return True
+
+        # Pattern 4: Line ends with just spaces and a page number (no content after header)
+        # e.g., "9.8 Multiplicity                    42"
+        # Check: header at start, then mostly spaces, then number at end
+        if re.match(r'^[\d.]+\s+\S+.*\s{10,}\d{1,3}\s*$', line):
+            return True
+
+        # Pattern 5: Very short line that's just section number + title + page
+        # These are typically TOC lines
+        if len(line.strip()) < 80 and re.search(r'\s+\d{1,3}\s*$', line):
+            # Check if it's mostly whitespace between title and number
+            parts = re.split(r'\s{5,}', line)
+            if len(parts) >= 2:
+                return True
 
         return False
 
@@ -337,19 +358,32 @@ class ProtocolSectionParser:
         """Find the last occurrence of search_term that is NOT in a TOC line."""
         search_lower = search_term.lower()
         pos = len(text)
+        occurrence_count = 0
+        toc_count = 0
 
         # Search backwards through all occurrences
         while True:
             pos = text_lower.rfind(search_lower, 0, pos)
             if pos == -1:
+                if occurrence_count > 0:
+                    print(f"[SectionParser] '{search_term[:30]}': {occurrence_count} occurrences, {toc_count} were TOC")
                 return -1  # Not found at all
+
+            occurrence_count += 1
 
             # Check if this occurrence is in a TOC line
             if not self._is_toc_line(text, pos):
+                # Preview content after this position
+                preview_end = min(pos + 200, len(text))
+                preview = text[pos:preview_end].replace('\n', ' ')[:100]
+                print(f"[SectionParser] Found non-TOC '{search_term[:20]}' at {pos}: '{preview}...'")
                 return pos  # Found a non-TOC occurrence
 
             # This was a TOC line, keep searching backwards
+            toc_count += 1
+
             if pos == 0:
+                print(f"[SectionParser] '{search_term[:30]}': ALL {occurrence_count} occurrences were TOC lines!")
                 return -1  # Reached beginning, all occurrences were TOC
 
         return -1
