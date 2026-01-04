@@ -20,10 +20,11 @@ What this engine does NOT do:
 All method choices come from EXTRACTION, not inference.
 """
 
-import json
+import pickle
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict, List, Any, Optional, Set
+from collections import defaultdict
 
 
 @dataclass
@@ -43,85 +44,164 @@ class KnowledgeRuleEngine:
     CRITICAL: This engine does NOT make method decisions.
     Protocol extraction is the source of truth for all method choices.
 
-    The 99 rules in the knowledge graph provide:
-    - Background on what methods are commonly used with conditions
-    - Evidence sources (NCT IDs, FDA guidances, literature)
-    - Co-occurrence patterns for method combinations
+    Uses LEARNED PATTERNS from 393 real clinical trials (knowledge_graph.pkl):
+    - Drug class → method co-occurrence (e.g., checkpoint_inhibitor → fleming_harrington)
+    - Condition → method co-occurrence (e.g., delayed_effect → weighted log-rank)
+    - Indication → method co-occurrence (e.g., NSCLC → specific methods)
 
     This is INFORMATIONAL context for LLM prompts, NOT decision-making.
     """
 
     def __init__(self, knowledge_graph_path: Path = None):
         """
-        Initialize rule engine with knowledge graph.
+        Initialize rule engine with learned knowledge graph.
 
         Args:
-            knowledge_graph_path: Path to sap_knowledge_graph.json
+            knowledge_graph_path: Path to knowledge_graph.pkl (learned from real trials)
         """
         if knowledge_graph_path is None:
             knowledge_graph_path = (
                 Path(__file__).parent.parent.parent /
-                "knowledge_graph" / "sap_knowledge_graph.json"
+                "data" / "knowledge_graph.pkl"
             )
 
-        self.graph = self._load_graph(knowledge_graph_path)
-        # We keep nodes/edges/rules for context lookup, but NOT for method selection
-        self.nodes = {n['node_id']: n for n in self.graph.get('nodes', [])}
-        self.edges = self.graph.get('edges', [])
-        self.rules = self.graph.get('rules', [])
+        # Load learned patterns from pkl file
+        self.trials = {}
+        self.drug_class_method_counts: Dict[str, Dict[str, int]] = {}
+        self.condition_method_counts: Dict[str, Dict[str, int]] = {}
+        self.indication_method_counts: Dict[str, Dict[str, int]] = {}
 
-        # Index rules by condition type for quick context lookup
-        self._condition_rules: Dict[str, List[Dict]] = {}
-        for rule in self.rules:
-            if rule.get('rule_type') == 'condition_method':
-                cond_type = rule.get('condition', {}).get('type', '')
-                if cond_type:
-                    if cond_type not in self._condition_rules:
-                        self._condition_rules[cond_type] = []
-                    self._condition_rules[cond_type].append(rule)
+        self._load_graph(knowledge_graph_path)
 
-    def _load_graph(self, path: Path) -> Dict[str, Any]:
-        """Load knowledge graph from JSON."""
+        # Compute total rules (unique drug_class→method + condition→method + indication→method)
+        self.total_rules = self._count_learned_rules()
+
+    def _load_graph(self, path: Path):
+        """Load knowledge graph from pkl file (learned from real trials)."""
         if not path.exists():
             print(f"[KnowledgeRuleEngine] Warning: No graph at {path}")
-            return {'nodes': [], 'edges': [], 'rules': []}
+            print(f"[KnowledgeRuleEngine] Run: python -m enterprise_sap_system.rag.knowledge_graph")
+            return
 
         try:
-            graph = json.loads(path.read_text())
-            stats = graph.get('stats', {})
-            print(f"[KnowledgeRuleEngine] Loaded graph: {stats.get('total_nodes', 0)} nodes, "
-                  f"{stats.get('total_edges', 0)} edges, {stats.get('total_rules', 0)} rules")
-            return graph
+            with open(path, "rb") as f:
+                data = pickle.load(f)
+
+            self.trials = data.get("trials", {})
+            self.drug_class_method_counts = dict(data.get("drug_class_method_counts", {}))
+            self.condition_method_counts = dict(data.get("condition_method_counts", {}))
+            self.indication_method_counts = dict(data.get("indication_method_counts", {}))
+
+            print(f"[KnowledgeRuleEngine] Loaded learned patterns from {len(self.trials)} trials")
+            print(f"[KnowledgeRuleEngine]   Drug classes: {list(self.drug_class_method_counts.keys())}")
+            print(f"[KnowledgeRuleEngine]   Conditions: {list(self.condition_method_counts.keys())}")
+            print(f"[KnowledgeRuleEngine]   Indications: {len(self.indication_method_counts)} types")
+
         except Exception as e:
             print(f"[KnowledgeRuleEngine] Error loading graph: {e}")
-            return {'nodes': [], 'edges': [], 'rules': []}
+
+    def _count_learned_rules(self) -> int:
+        """Count total learned rules (relationships)."""
+        count = 0
+        for drug_class, methods in self.drug_class_method_counts.items():
+            count += len(methods)
+        for condition, methods in self.condition_method_counts.items():
+            count += len(methods)
+        for indication, methods in self.indication_method_counts.items():
+            count += len(methods)
+        return count
 
     def get_methods_for_condition(self, condition_type: str) -> List[Dict[str, Any]]:
         """
         Get methods commonly associated with a condition (for CONTEXT only).
 
-        This returns what methods are documented in literature/trials for this condition,
-        NOT a recommendation. The protocol-specified method is always the source of truth.
+        Uses LEARNED PATTERNS from 393 real clinical trials.
+        NOT a recommendation - the protocol-specified method is always the source of truth.
 
         Args:
-            condition_type: e.g., 'immunotherapy', 'interim_analysis', 'stratified'
+            condition_type: e.g., 'interim_analysis', 'delayed_effect', 'crossover'
 
         Returns:
-            List of method info dicts with: method, confidence, sources
+            List of method info dicts with: method, confidence, sources (trial count)
         """
-        rules = self._condition_rules.get(condition_type, [])
+        counts = self.condition_method_counts.get(condition_type, {})
+        if not counts:
+            return []
+
+        total = sum(counts.values())
         methods = []
-        for rule in rules:
-            method = rule.get('conclusion', {}).get('method', '')
-            if method:
-                methods.append({
-                    'method': method.replace('_', ' ').title(),
-                    'confidence': rule.get('confidence', 0),
-                    'sources': rule.get('sources', []),
-                    'note': 'Common in literature - NOT a recommendation'
-                })
-        # Sort by confidence descending
-        methods.sort(key=lambda x: x['confidence'], reverse=True)
+
+        for method, count in sorted(counts.items(), key=lambda x: -x[1]):
+            confidence = count / total if total > 0 else 0
+            methods.append({
+                'method': method.replace('_', ' ').title(),
+                'confidence': confidence,
+                'count': count,
+                'sources': [f'{count} trials in corpus'],
+                'note': f'Used in {count}/{total} trials with {condition_type} - NOT a recommendation'
+            })
+
+        return methods
+
+    def get_methods_for_drug_class(self, drug_class: str) -> List[Dict[str, Any]]:
+        """
+        Get methods commonly used with a drug class (for CONTEXT only).
+
+        Uses LEARNED PATTERNS from real clinical trials.
+
+        Args:
+            drug_class: e.g., 'checkpoint_inhibitor', 'tki', 'chemotherapy'
+
+        Returns:
+            List of method info dicts
+        """
+        counts = self.drug_class_method_counts.get(drug_class, {})
+        if not counts:
+            return []
+
+        total = sum(counts.values())
+        methods = []
+
+        for method, count in sorted(counts.items(), key=lambda x: -x[1]):
+            confidence = count / total if total > 0 else 0
+            methods.append({
+                'method': method.replace('_', ' ').title(),
+                'confidence': confidence,
+                'count': count,
+                'sources': [f'{count} trials in corpus'],
+                'note': f'Used in {count}/{total} {drug_class} trials - NOT a recommendation'
+            })
+
+        return methods
+
+    def get_methods_for_indication(self, indication: str) -> List[Dict[str, Any]]:
+        """
+        Get methods commonly used for an indication (for CONTEXT only).
+
+        Args:
+            indication: e.g., 'nsclc', 'melanoma', 'breast'
+
+        Returns:
+            List of method info dicts
+        """
+        ind_key = indication.lower().replace(" ", "_").replace("-", "_")
+        counts = self.indication_method_counts.get(ind_key, {})
+        if not counts:
+            return []
+
+        total = sum(counts.values())
+        methods = []
+
+        for method, count in sorted(counts.items(), key=lambda x: -x[1]):
+            confidence = count / total if total > 0 else 0
+            methods.append({
+                'method': method.replace('_', ' ').title(),
+                'confidence': confidence,
+                'count': count,
+                'sources': [f'{count} trials in corpus'],
+                'note': f'Used in {count}/{total} {indication} trials - NOT a recommendation'
+            })
+
         return methods
 
     def detect_conditions(self, protocol_facts: Dict[str, Any]) -> Set[str]:
@@ -167,9 +247,31 @@ class KnowledgeRuleEngine:
         if protocol_facts.get('stratification_factors'):
             conditions.add('stratified')
 
-        # Check for randomization
+        # Check for randomization vs single-arm
         if protocol_facts.get('is_randomized'):
             conditions.add('randomized')
+
+        # CRITICAL: Check for single-arm study
+        is_single_arm = protocol_facts.get('is_single_arm')
+        if is_single_arm is True:
+            conditions.add('single_arm')
+        elif is_single_arm is None:
+            # Infer from other fields if not explicitly set
+            num_arms = protocol_facts.get('num_arms')
+            comparator = str(protocol_facts.get('comparator', '')).lower()
+            if num_arms == 1 or comparator in ['none', 'none - single arm', 'n/a', 'na', '']:
+                conditions.add('single_arm')
+
+        # Check for pilot/feasibility study
+        is_pilot = protocol_facts.get('is_pilot_study')
+        if is_pilot is True:
+            conditions.add('pilot_study')
+        elif is_pilot is None:
+            # Infer from design type or sample size justification
+            design = str(protocol_facts.get('design_type', '')).lower()
+            justification = str(protocol_facts.get('sample_size_justification_type', '')).lower()
+            if any(x in design or x in justification for x in ['pilot', 'feasibility', 'exploratory']):
+                conditions.add('pilot_study')
 
         # Check for crossover / treatment switching
         if protocol_facts.get('crossover_permitted') or protocol_facts.get('has_crossover'):
@@ -224,15 +326,25 @@ class KnowledgeRuleEngine:
             'considerations': [],
             'discrepancy_notes': [],
             'scientific_context': {},
-            'common_methods_by_condition': {},  # From 99 rules - for CONTEXT only
-            'total_rules_available': len(self.rules)
+            'common_methods_by_condition': {},  # From learned patterns - for CONTEXT only
+            'common_methods_by_drug_class': {},  # From learned patterns - for CONTEXT only
+            'total_rules_available': self.total_rules,
+            'total_trials_learned_from': len(self.trials)
         }
 
-        # Get methods from 99 rules for each detected condition (CONTEXT only)
+        # Get methods from LEARNED PATTERNS for each detected condition (CONTEXT only)
         for condition in conditions:
-            rule_methods = self.get_methods_for_condition(condition)
+            # Map detected conditions to pkl condition keys
+            condition_key = condition.replace(' ', '_').lower()
+            rule_methods = self.get_methods_for_condition(condition_key)
             if rule_methods:
                 context['common_methods_by_condition'][condition] = rule_methods
+
+        # Also get drug class context if immunotherapy detected
+        if 'immunotherapy' in conditions:
+            checkpoint_methods = self.get_methods_for_drug_class('checkpoint_inhibitor')
+            if checkpoint_methods:
+                context['common_methods_by_drug_class']['checkpoint_inhibitor'] = checkpoint_methods
 
         # Immunotherapy context (INFORM, don't decide)
         if 'immunotherapy' in conditions:
@@ -382,7 +494,7 @@ class KnowledgeRuleEngine:
 
         lines = [
             "## Scientific Context (Informational - Protocol is Source of Truth)",
-            f"(Based on {ctx.get('total_rules_available', 0)} evidence-based rules from knowledge graph)",
+            f"(Learned from {ctx.get('total_trials_learned_from', 0)} real clinical trials, {ctx.get('total_rules_available', 0)} relationships)",
             ""
         ]
 
@@ -401,20 +513,28 @@ class KnowledgeRuleEngine:
         lines.append(f"**Conditions Detected:** {', '.join(ctx['conditions_detected'])}")
         lines.append("")
 
-        # Methods from 99 rules (CONTEXT only, not recommendations)
-        if ctx.get('common_methods_by_condition'):
-            lines.append("### Literature Context (NOT Recommendations)")
-            lines.append("The following methods are documented in literature for these conditions.")
+        # Methods LEARNED from real trials (CONTEXT only, not recommendations)
+        if ctx.get('common_methods_by_condition') or ctx.get('common_methods_by_drug_class'):
+            lines.append("### What Real Trials Used (NOT Recommendations)")
+            lines.append("The following patterns were learned from real clinical trial SAPs.")
             lines.append("This is BACKGROUND INFORMATION - the protocol method takes precedence.")
             lines.append("")
-            for condition, methods in ctx['common_methods_by_condition'].items():
+
+            # By condition
+            for condition, methods in ctx.get('common_methods_by_condition', {}).items():
                 cond_label = condition.replace('_', ' ').title()
-                lines.append(f"**{cond_label}:**")
-                # Show top 3 methods with highest confidence
+                lines.append(f"**Trials with {cond_label}:**")
                 for m in methods[:3]:
-                    sources_str = ', '.join(m['sources'][:2]) if m['sources'] else 'domain knowledge'
-                    lines.append(f"  - {m['method']} (conf: {m['confidence']:.1f}, sources: {sources_str})")
-            lines.append("")
+                    lines.append(f"  - {m['method']}: {m.get('count', '?')} trials ({m['confidence']:.0%})")
+                lines.append("")
+
+            # By drug class
+            for drug_class, methods in ctx.get('common_methods_by_drug_class', {}).items():
+                dc_label = drug_class.replace('_', ' ').title()
+                lines.append(f"**{dc_label} Trials:**")
+                for m in methods[:3]:
+                    lines.append(f"  - {m['method']}: {m.get('count', '?')} trials ({m['confidence']:.0%})")
+                lines.append("")
 
         # Considerations
         if ctx['considerations']:
