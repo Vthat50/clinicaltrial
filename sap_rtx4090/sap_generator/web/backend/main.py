@@ -124,7 +124,9 @@ def get_supabase() -> Client:
     if supabase is None:
         if not SUPABASE_URL or not SUPABASE_KEY:
             raise ValueError("SUPABASE_URL and SUPABASE_SERVICE_KEY must be set")
-        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+        # Ensure URL has trailing slash (required for Storage API)
+        url = SUPABASE_URL.rstrip('/') + '/'
+        supabase = create_client(url, SUPABASE_KEY)
     return supabase
 
 

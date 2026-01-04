@@ -560,11 +560,37 @@ PROTOCOL TEXT (sampled from multiple regions):
             else:
                 return {}
 
-            # Parse JSON
-            start = response_text.find('{')
-            end = response_text.rfind('}') + 1
+            # Parse JSON - robust extraction
+            json_text = response_text
+
+            # Try to extract from markdown code block first
+            if '```json' in json_text:
+                code_start = json_text.find('```json') + 7
+                code_end = json_text.find('```', code_start)
+                if code_end > code_start:
+                    json_text = json_text[code_start:code_end].strip()
+            elif '```' in json_text:
+                code_start = json_text.find('```') + 3
+                code_end = json_text.find('```', code_start)
+                if code_end > code_start:
+                    json_text = json_text[code_start:code_end].strip()
+
+            # Find JSON object
+            start = json_text.find('{')
+            end = json_text.rfind('}') + 1
             if start >= 0 and end > start:
-                data = json.loads(response_text[start:end])
+                json_str = json_text[start:end]
+
+                # Try parsing
+                try:
+                    data = json.loads(json_str)
+                except json.JSONDecodeError:
+                    # Try fixing common issues: single quotes, trailing commas
+                    import re
+                    fixed = json_str.replace("'", '"')
+                    fixed = re.sub(r',\s*}', '}', fixed)
+                    fixed = re.sub(r',\s*]', ']', fixed)
+                    data = json.loads(fixed)
 
                 sections = {}
                 for s in data.get('sections', []):
@@ -576,6 +602,7 @@ PROTOCOL TEXT (sampled from multiple regions):
                             content=s.get('content', ''),
                             confidence=0.7
                         )
+                print(f"[SectionParser] Extracted {len(sections)} sections via Claude text")
                 return sections
 
         except Exception as e:

@@ -58,6 +58,10 @@ class SectionedProtocolExtractor:
     4. No inference from drug class or keywords
     """
 
+    # Cache for section locations (computed once per document)
+    # Maps text_hash -> {section_name: position_fraction}
+    _section_locations_cache: Dict[str, Dict[str, float]] = {}
+
     # Section definitions with required and optional fields
     SECTIONS = {
         'study_design': {
@@ -537,49 +541,152 @@ RESPOND IN JSON:
         print(f"[SectionedExtractor] Final text for {section_name}: {len(result)} chars")
         return result[:max_chars]
 
+    def _locate_sections_in_document(self, text: str) -> Dict[str, float]:
+        """
+        PASS 1: Use Claude to FIND where sections are located in the document.
+
+        Instead of assuming fixed percentages, we scan the document and ask Claude
+        to identify section headings and their approximate locations.
+
+        Returns dict mapping section_name -> fraction (0.0-1.0) where section starts
+        """
+        # Check cache first (key by text hash)
+        text_hash = str(hash(text[:1000] + text[-1000:]))  # Use start+end as hash key
+        if text_hash in self._section_locations_cache:
+            print(f"[SectionedExtractor] Using cached section locations")
+            return self._section_locations_cache[text_hash]
+
+        print(f"[SectionedExtractor] PASS 1: Locating sections in {len(text)} char document...")
+
+        text_len = len(text)
+
+        # Sample at 10 evenly-spaced points through document (500 chars each)
+        # This gives Claude a view of section headings throughout
+        sample_points = 12
+        sample_size = 800
+        scan_samples = []
+
+        for i in range(sample_points):
+            pos = int((i / sample_points) * text_len)
+            end_pos = min(pos + sample_size, text_len)
+            snippet = text[pos:end_pos]
+            pct = int((i / sample_points) * 100)
+            scan_samples.append(f"=== POSITION {pct}% ===\n{snippet}")
+
+        scan_text = "\n\n".join(scan_samples)
+
+        prompt = f'''Scan this clinical trial protocol (sampled at different positions) and identify WHERE key sections are located.
+
+For each section you find, report the approximate percentage through the document (0-100%).
+
+Look for these sections:
+- STATISTICAL METHODS / STATISTICAL ANALYSIS (section 9, 10, or 11 typically)
+- SAMPLE SIZE / POWER CALCULATION
+- INTERIM ANALYSIS / GROUP SEQUENTIAL
+- MULTIPLICITY / MULTIPLE TESTING / ALPHA SPENDING
+- MISSING DATA / CENSORING
+- STRATIFICATION / STRATIFIED RANDOMIZATION
+- ENDPOINTS / PRIMARY ENDPOINT / OBJECTIVES
+- STUDY POPULATIONS / ITT / FAS / PER-PROTOCOL
+
+RESPOND IN JSON:
+{{
+    "sections_found": [
+        {{"name": "statistical_methods", "position_percent": 65, "heading_found": "9. STATISTICAL ANALYSIS"}},
+        {{"name": "sample_size", "position_percent": 60, "heading_found": "9.1 Sample Size"}},
+        ...
+    ]
+}}
+
+IMPORTANT: Report the ACTUAL position where you see each section heading.
+If a section is not visible in the samples, do NOT include it.
+
+DOCUMENT SAMPLES:
+{scan_text}
+'''
+
+        try:
+            if hasattr(self.llm_client, 'chat'):
+                response = self.llm_client.chat(prompt, max_tokens=2000)
+                response_text = response if isinstance(response, str) else str(response)
+            elif hasattr(self.llm_client, 'messages'):
+                response = self.llm_client.messages.create(
+                    model="claude-sonnet-4-20250514",
+                    max_tokens=2000,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                response_text = response.content[0].text
+            else:
+                return {}
+
+            # Parse response
+            json_text = response_text
+            if '```json' in json_text:
+                json_text = json_text.split('```json')[1].split('```')[0]
+            elif '```' in json_text:
+                json_text = json_text.split('```')[1].split('```')[0]
+
+            start = json_text.find('{')
+            end = json_text.rfind('}') + 1
+            if start >= 0 and end > start:
+                data = json.loads(json_text[start:end])
+
+                locations = {}
+                for s in data.get('sections_found', []):
+                    name = s.get('name', '').lower().replace(' ', '_')
+                    pos = s.get('position_percent', 50) / 100.0
+                    heading = s.get('heading_found', '')
+                    locations[name] = pos
+                    print(f"[SectionedExtractor] Found '{name}' at {int(pos*100)}%: {heading}")
+
+                # Cache the results
+                self._section_locations_cache[text_hash] = locations
+                return locations
+
+        except Exception as e:
+            print(f"[SectionedExtractor] Section location error: {e}")
+
+        return {}
+
     def _multi_region_sample(self, text: str, section_name: str) -> str:
         """
         Sample from multiple regions of the document based on section type.
 
-        CRITICAL: Different sections are located at different parts of clinical protocols:
-        - Title/Synopsis: 0-10%
-        - Study Design: 10-30%
-        - Endpoints: 20-40%
-        - Statistical Methods: 50-70%
-        - Sample Size: 55-70%
-        - Interim Analysis: 60-75%
-        - Multiplicity: 60-75%
-        - Missing Data: 70-85%
-        - Populations: 40-60%
-        - Estimand: 60-80%
+        TWO-PASS APPROACH:
+        1. First, try to locate the section dynamically using Claude
+        2. If found, sample around that location
+        3. Fall back to default regions if not found
         """
         text_len = len(text)
 
-        # Section-specific sampling regions (as fraction of document)
-        SECTION_REGIONS = {
-            'study_design': [(0.0, 0.10), (0.15, 0.25), (0.25, 0.35)],
-            'stratification': [(0.10, 0.20), (0.50, 0.60), (0.60, 0.70)],
-            'sample_size': [(0.50, 0.60), (0.55, 0.65), (0.60, 0.70)],
-            'endpoints': [(0.0, 0.10), (0.20, 0.30), (0.30, 0.40)],
-            'statistical_methods': [(0.45, 0.55), (0.55, 0.65), (0.65, 0.75)],
-            'interim_analysis': [(0.55, 0.65), (0.65, 0.75), (0.70, 0.80)],
-            'multiplicity': [(0.55, 0.65), (0.65, 0.75), (0.70, 0.80)],
-            'missing_data': [(0.65, 0.75), (0.70, 0.80), (0.75, 0.85)],
-            'populations': [(0.35, 0.45), (0.45, 0.55), (0.55, 0.65)],
-            'estimand': [(0.55, 0.65), (0.65, 0.75), (0.70, 0.80)],
-            'crossover': [(0.60, 0.70), (0.70, 0.80), (0.75, 0.85)],
-        }
+        # Try to get dynamically-located position first
+        located = self._locate_sections_in_document(text)
 
-        # Get regions for this section (default: sample broadly)
-        regions = SECTION_REGIONS.get(section_name, [
-            (0.0, 0.10),   # Beginning
-            (0.40, 0.50),  # Early middle
-            (0.55, 0.65),  # Middle (statistical methods)
-            (0.70, 0.80),  # Later (interim, multiplicity)
-        ])
+        if section_name in located:
+            # Use dynamically-discovered location!
+            center_pos = located[section_name]
+            print(f"[SectionedExtractor] Using dynamic location for '{section_name}': {int(center_pos*100)}%")
+
+            # Sample a 20% window around the discovered location
+            regions = [
+                (max(0.0, center_pos - 0.10), min(1.0, center_pos + 0.05)),  # Just before and into section
+                (max(0.0, center_pos), min(1.0, center_pos + 0.10)),          # Section start to middle
+                (max(0.0, center_pos + 0.05), min(1.0, center_pos + 0.15)),   # Middle to end
+            ]
+        else:
+            print(f"[SectionedExtractor] Section '{section_name}' not located, using broader sampling")
+            # Fall back to BROAD sampling across document
+            # Sample more widely since we don't know where it is
+            regions = [
+                (0.0, 0.15),    # Beginning
+                (0.25, 0.40),   # Early middle
+                (0.45, 0.60),   # Middle
+                (0.60, 0.75),   # Late middle
+                (0.75, 0.90),   # Near end
+            ]
 
         # Calculate sample size per region (aim for ~20K total for better coverage)
-        sample_per_region = 18000 // len(regions)
+        sample_per_region = 20000 // len(regions)
 
         samples = []
         for i, (start_frac, end_frac) in enumerate(regions):
