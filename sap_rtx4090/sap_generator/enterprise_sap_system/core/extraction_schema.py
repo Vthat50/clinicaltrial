@@ -101,21 +101,21 @@ class AdministrativeInfo:
 @dataclass
 class StudyDesign:
     """Study design from Gamble et al. Section 3 + FDA Oncology Guidance."""
-    # Item 9: Trial design
-    design_type: str = "parallel"                 # parallel, crossover, factorial, single_arm
+    # Item 9: Trial design (NO DEFAULTS - must be extracted)
+    design_type: str = ""                         # parallel, crossover, factorial, single_arm
     phase: str = ""                               # 1, 2, 3, 4
-    is_randomized: bool = True
-    is_blinded: bool = False
+    is_randomized: Optional[bool] = None          # None if not extracted
+    is_blinded: Optional[bool] = None             # None if not extracted
     blinding_type: str = ""                       # double-blind, open-label, etc.
 
     # Treatment arms
     drug_name: str = ""
     drug_class: Optional[str] = None              # immunotherapy, chemotherapy, targeted
     comparator: str = ""
-    comparator_type: str = "active"               # active, placebo, SOC
+    comparator_type: str = ""                     # active, placebo, SOC
 
-    # Item 10: Randomization
-    allocation_ratio: str = "1:1"
+    # Item 10: Randomization (NO DEFAULTS)
+    allocation_ratio: str = ""                    # MUST be extracted: "1:1", "2:1", etc.
     stratification_factors: List[str] = field(default_factory=list)
 
     # Item 11: Sample size
@@ -123,8 +123,8 @@ class StudyDesign:
     sample_size_per_arm: Optional[List[int]] = None
     sample_size_rationale: Optional[str] = None
 
-    # Item 12: Framework
-    hypothesis_framework: str = "superiority"     # superiority, non_inferiority, equivalence
+    # Item 12: Framework (NO DEFAULTS)
+    hypothesis_framework: str = ""                # superiority, non_inferiority, equivalence
 
     # ==========================================================================
     # NEW FIELDS (2025-01 refactor) - CRITICAL FOR ACCURACY
@@ -228,9 +228,9 @@ class InterimAnalysis:
     Interim analysis specification from ICH E9 Section 4.5 + Gamble Items 13a-13c.
     ENHANCED with per-endpoint structure.
     """
-    # Item 13a: Number and timing
-    has_interim_analysis: bool = False
-    num_interim_analyses: int = 0                 # CRITICAL: 1 vs 2 bug
+    # Item 13a: Number and timing (NO DEFAULTS - must be extracted)
+    has_interim_analysis: Optional[bool] = None   # None if not extracted
+    num_interim_analyses: Optional[int] = None    # CRITICAL: must be extracted
 
     # Event counts - CRITICAL numerical fields
     interim_events: Optional[List[int]] = None    # Events at each interim look
@@ -239,16 +239,16 @@ class InterimAnalysis:
     # Information fractions
     information_fractions: Optional[List[float]] = None  # e.g., [0.5, 0.75, 1.0]
 
-    # Item 13b: Alpha adjustment - CRITICAL numerical fields
+    # Item 13b: Alpha adjustment - CRITICAL numerical fields (NO DEFAULTS)
     alpha_spending_function: str = ""             # O'Brien-Fleming, Lan-DeMets, etc.
-    overall_alpha: float = 0.05                   # Total alpha (one or two-sided)
-    alpha_sidedness: str = "one-sided"            # one-sided or two-sided
+    overall_alpha: Optional[float] = None         # CRITICAL: must be extracted, NEVER default 0.05
+    alpha_sidedness: str = ""                     # one-sided or two-sided - must be extracted
     alpha_at_interim: Optional[List[float]] = None  # CRITICAL: 0.020 vs 0.05 bug
     alpha_at_final: Optional[float] = None        # CRITICAL: 0.044 vs 0.05 bug
 
-    # Item 13c: Stopping guidelines
-    efficacy_stopping: bool = True
-    futility_stopping: bool = False
+    # Item 13c: Stopping guidelines (NO DEFAULTS)
+    efficacy_stopping: Optional[bool] = None      # None if not extracted
+    futility_stopping: Optional[bool] = None      # None if not extracted
     futility_boundary_type: Optional[str] = None  # binding, non-binding
     stopping_boundaries: Optional[str] = None     # Description of boundaries
 
@@ -305,7 +305,7 @@ class StatisticalMethods:
 @dataclass
 class MultiplicityAdjustment:
     """Multiplicity adjustment from Gamble Item 17 + FDA FWER requirements."""
-    has_multiplicity: bool = False
+    has_multiplicity: Optional[bool] = None       # None if not extracted
     adjustment_method: Optional[str] = None       # Hierarchical, Hochberg, Holm, Graphical
     testing_sequence: List[str] = field(default_factory=list)
     alpha_allocation: Optional[str] = None        # Text description
@@ -338,26 +338,26 @@ class MultiplicityAdjustment:
 @dataclass
 class MissingDataHandling:
     """Missing data handling from ICH E9(R1) Estimand Framework + Gamble Item 28."""
-    # Intercurrent events (ICH E9(R1))
-    treatment_discontinuation_strategy: str = "treatment_policy"
-    subsequent_therapy_handling: str = "censor"
+    # Intercurrent events (ICH E9(R1)) - NO DEFAULTS
+    treatment_discontinuation_strategy: str = ""  # Must be extracted
+    subsequent_therapy_handling: str = ""         # Must be extracted
 
     # Censoring rules (FDA PFS guidance)
     censoring_rules: List[str] = field(default_factory=list)
 
     # Missing tumor assessments
-    missing_assessment_handling: str = "censor_at_last_assessment"
+    missing_assessment_handling: str = ""         # Must be extracted
 
     # Sensitivity for missing data
     sensitivity_methods: List[str] = field(default_factory=list)
 
     # ==========================================================================
-    # NEW: Missing data assumptions and methods (was missing)
+    # NEW: Missing data assumptions and methods - NO DEFAULTS
     # ==========================================================================
-    missing_at_random_assumption: bool = True     # MAR assumption
-    tipping_point_analysis: bool = False          # Whether tipping point is planned
-    pattern_mixture_models: bool = False          # Whether PMM is planned
-    multiple_imputation: bool = False             # Whether MI is planned
+    missing_at_random_assumption: Optional[bool] = None   # None if not extracted
+    tipping_point_analysis: Optional[bool] = None         # None if not extracted
+    pattern_mixture_models: Optional[bool] = None         # None if not extracted
+    multiple_imputation: Optional[bool] = None            # None if not extracted
 
 
 # =============================================================================
@@ -389,7 +389,7 @@ class AnalysisPopulations:
 @dataclass
 class CrossoverHandling:
     """Treatment switching/crossover handling."""
-    has_crossover: bool = False
+    has_crossover: Optional[bool] = None          # None if not extracted
     crossover_description: Optional[str] = None
     crossover_adjustment_methods: List[str] = field(default_factory=list)  # RPSFT, IPCW
 
@@ -625,10 +625,10 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.design.comparator = extracted.get('comparator', '')
     facts.design.phase = extracted.get('phase', '')
     facts.design.sample_size = extracted.get('sample_size', 0)
-    facts.design.allocation_ratio = extracted.get('randomization_ratio', '1:1')
+    facts.design.allocation_ratio = extracted.get('allocation_ratio') or extracted.get('randomization_ratio') or ''
     facts.design.stratification_factors = extracted.get('stratification_factors', [])
-    facts.design.design_type = extracted.get('design_type', 'parallel')
-    facts.design.is_randomized = extracted.get('is_randomized', True)
+    facts.design.design_type = extracted.get('design_type', '')
+    facts.design.is_randomized = extracted.get('is_randomized')  # None if not found
 
     # Design - NEW CRITICAL FIELDS
     facts.design.treatment_setting = extracted.get('treatment_setting', '')
@@ -648,17 +648,17 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     # Endpoints
     facts.endpoints.primary_endpoint_text = extracted.get('primary_endpoint', '')
     facts.endpoints.secondary_endpoints = extracted.get('secondary_endpoints', [])
-    facts.endpoints.is_co_primary = extracted.get('is_co_primary', False)
+    facts.endpoints.is_co_primary = extracted.get('is_co_primary')  # None if not found
     facts.endpoints.co_primary_endpoints = extracted.get('co_primary_endpoints', [])
 
-    # Interim Analysis - CRITICAL
-    facts.interim.has_interim_analysis = extracted.get('has_interim_analysis', False)
-    facts.interim.num_interim_analyses = extracted.get('num_interim_analyses', 0)
+    # Interim Analysis - CRITICAL (NO DEFAULTS - must be extracted)
+    facts.interim.has_interim_analysis = extracted.get('has_interim_analysis')  # None if not found
+    facts.interim.num_interim_analyses = extracted.get('num_interim_analyses')  # None if not found
     facts.interim.interim_events = extracted.get('interim_events', [])
     facts.interim.final_events = extracted.get('final_events') or extracted.get('final_analysis_events')
     facts.interim.information_fractions = extracted.get('interim_information_fraction', [])
     facts.interim.alpha_spending_function = extracted.get('error_spending_function', '') or extracted.get('alpha_spending_function', '')
-    facts.interim.overall_alpha = extracted.get('alpha_level', 0.05) or extracted.get('overall_alpha', 0.05)
+    facts.interim.overall_alpha = extracted.get('alpha_level') or extracted.get('overall_alpha')  # None if not found - NEVER default 0.05
     facts.interim.alpha_at_interim = extracted.get('interim_alpha_spent', []) or extracted.get('alpha_at_interim', [])
     facts.interim.alpha_at_final = extracted.get('alpha_at_final')
     facts.interim.stopping_boundaries = extracted.get('stopping_boundaries', '')
@@ -690,11 +690,11 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.multiplicity.graphical_transitions = extracted.get('graphical_transitions', None)
 
     # Missing Data
-    facts.missing_data.tipping_point_analysis = extracted.get('tipping_point_analysis', False)
+    facts.missing_data.tipping_point_analysis = extracted.get('tipping_point_analysis')  # None if not found
     facts.missing_data.censoring_rules = extracted.get('censoring_rules', [])
 
     # Crossover
-    facts.crossover.has_crossover = extracted.get('crossover_permitted', False) or extracted.get('has_crossover', False)
+    facts.crossover.has_crossover = extracted.get('crossover_permitted') or extracted.get('has_crossover')  # None if not found
     facts.crossover.crossover_adjustment_methods = extracted.get('crossover_adjustment_methods', [])
 
     # Populations

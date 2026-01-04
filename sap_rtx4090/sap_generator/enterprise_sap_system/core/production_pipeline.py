@@ -267,7 +267,7 @@ class ProductionSAPPipeline:
             print("[EXTRACTION DIAGNOSTICS] All extracted facts:")
             print("="*60)
             critical_fields = [
-                'nct_id', 'sample_size', 'power', 'hazard_ratio', 'expected_hazard_ratio',
+                'nct_id', 'sample_size', 'allocation_ratio', 'power', 'hazard_ratio', 'expected_hazard_ratio',
                 'treatment_setting', 'disease_type', 'phase', 'drug_name', 'comparator',
                 'primary_endpoint', 'secondary_endpoints', 'co_primary_endpoints',
                 'statistical_method', 'test_sidedness',
