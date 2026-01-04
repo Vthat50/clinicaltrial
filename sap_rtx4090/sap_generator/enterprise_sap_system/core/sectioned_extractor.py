@@ -612,7 +612,16 @@ DOCUMENT SAMPLES:
 
             if hasattr(self.llm, 'chat'):
                 response = self.llm.chat(prompt, max_tokens=2000)
-                response_text = response if isinstance(response, str) else str(response)
+                # Extract actual content from response object
+                if isinstance(response, str):
+                    response_text = response
+                elif hasattr(response, 'content'):
+                    # LLMResponse object with content attribute
+                    response_text = response.content
+                elif hasattr(response, 'text'):
+                    response_text = response.text
+                else:
+                    response_text = str(response)
             elif hasattr(self.llm, 'messages'):
                 response = self.llm.messages.create(
                     model="claude-sonnet-4-20250514",
@@ -647,6 +656,16 @@ DOCUMENT SAMPLES:
                 return {}
 
             json_str = json_text[start:end]
+
+            # Decode literal escape sequences if present (e.g., "\\n" -> "\n")
+            # This handles cases where the LLM response has escaped newlines
+            if '\\n' in json_str or '\\t' in json_str:
+                try:
+                    # Try to decode as unicode escape sequence
+                    json_str = json_str.encode('utf-8').decode('unicode_escape')
+                except (UnicodeDecodeError, UnicodeEncodeError):
+                    # If that fails, just replace common escapes manually
+                    json_str = json_str.replace('\\n', '\n').replace('\\t', '\t').replace('\\r', '\r')
 
             # Fix common JSON issues
 
