@@ -566,22 +566,28 @@ RESPOND IN JSON:
         scan_samples = []
 
         # Strategic sampling positions:
-        # - Skip most of TOC (0-10%)
-        # - Light sample of intro/design (15-35%)
-        # - Heavy sample of statistical sections (40-80%)
+        # Clinical protocols have statistical sections at 75-95%, NOT 45-70%!
+        # Structure:
+        # - 0-5%: Title, TOC, Synopsis
+        # - 5-25%: Background, Objectives, Eligibility
+        # - 25-50%: Interventions, Dose modifications
+        # - 50-75%: Assessments, Adverse Events
+        # - 75-95%: STATISTICAL METHODS (Section 9) <-- KEY AREA!
+        # - 95-100%: References, Appendices
         sample_positions = [
             0.05,   # Very beginning (title, synopsis)
             0.15,   # End of TOC / start of intro
             0.25,   # Study design area
             0.35,   # Endpoints/objectives
-            0.45,   # Start of statistical section
-            0.50,   # Statistical methods core
-            0.55,   # Sample size area
-            0.60,   # Interim analysis area
-            0.65,   # Multiplicity area
-            0.70,   # Missing data area
-            0.75,   # Sensitivity analyses
-            0.80,   # Late content
+            # CRITICAL: Statistical sections start at 75%, not 45%!
+            0.75,   # Start of statistical section (Section 9)
+            0.78,   # Sample size calculations
+            0.80,   # Analysis populations
+            0.82,   # Interim analysis
+            0.85,   # Multiplicity adjustments
+            0.88,   # Missing data handling
+            0.90,   # Sensitivity analyses
+            0.93,   # Late statistical content
         ]
 
         for pos_frac in sample_positions:

@@ -103,6 +103,35 @@ Section types to use:
 - STRATIFICATION
 '''
 
+# Prompt to parse TOC and extract page numbers
+VISION_TOC_PARSE_PROMPT = '''This is a Table of Contents page from a clinical trial protocol.
+
+Extract the PAGE NUMBERS for each section listed. TOC entries look like:
+"9.1 Statistical Methods..................142"
+"9.2 Sample Size and Power...............145"
+
+I need the ACTUAL PAGE NUMBERS (like 142, 145) for these sections:
+- Statistical Methods / Statistical Considerations (Section 9)
+- Sample Size / Power Calculation
+- Analysis Populations
+- Interim Analysis
+- Multiplicity Adjustments
+- Missing Data
+- Primary/Secondary Endpoints
+- Safety Analysis
+
+RESPOND IN JSON:
+{
+    "toc_entries": [
+        {"section_number": "9", "section_title": "Statistical Methods", "page_number": 142, "section_type": "STATISTICAL_METHODS"},
+        {"section_number": "9.1", "section_title": "Sample Size", "page_number": 145, "section_type": "SAMPLE_SIZE"},
+        {"section_number": "9.2", "section_title": "Interim Analysis", "page_number": 148, "section_type": "INTERIM_ANALYSIS"}
+    ]
+}
+
+IMPORTANT: Extract the ACTUAL page numbers shown in the TOC (e.g., 142, 145), not the PDF page index.
+'''
+
 # Prompt to find specific section locations
 VISION_FIND_SECTIONS_PROMPT = '''I need to find where these sections START in a clinical trial protocol PDF.
 
@@ -263,67 +292,47 @@ class ProtocolSectionParser:
         - toc_pages: list of TOC page numbers
         - section_locations: list of {section_type, content_starts_page, section_title}
         """
-        # Sample pages strategically:
-        # - Early pages (TOC usually pages 2-10)
-        # - Middle pages (statistical methods often 40-60% through)
-        # - Later pages (appendices, additional methods)
-
-        pages_to_sample = []
-
-        # Early pages for TOC
-        for i in range(min(10, total_pages)):
-            pages_to_sample.append(i)
-
-        # Middle pages where statistical sections likely are
-        mid_start = int(total_pages * 0.4)
-        for i in range(mid_start, min(mid_start + 5, total_pages)):
-            pages_to_sample.append(i)
-
-        # Later middle (60-70%)
-        late_mid = int(total_pages * 0.6)
-        for i in range(late_mid, min(late_mid + 5, total_pages)):
-            pages_to_sample.append(i)
-
-        pages_to_sample = sorted(set(pages_to_sample))
-        print(f"[SectionParser/Vision] Sampling pages: {pages_to_sample[:15]}...")
-
-        # Analyze each page with Vision
-        page_analyses = []
-
-        for page_num in pages_to_sample[:15]:  # Max 15 pages
-            analysis = self._analyze_single_page(doc, page_num)
-            if analysis:
-                analysis['pdf_page'] = page_num
-                page_analyses.append(analysis)
-
-        if not page_analyses:
-            print("[SectionParser/Vision] No pages could be analyzed")
-            return {}
-
-        # Aggregate results
+        # STEP 1: Find TOC pages (usually in first 15 pages)
+        print(f"[SectionParser/Vision] Step 1: Finding TOC pages...")
         toc_pages = []
+
+        for i in range(min(15, total_pages)):
+            analysis = self._analyze_single_page(doc, i)
+            if analysis and analysis.get('is_toc_page'):
+                toc_pages.append(i)
+                print(f"[SectionParser/Vision] Found TOC on PDF page {i}")
+
+        if not toc_pages:
+            print("[SectionParser/Vision] No TOC pages found, falling back to sampling")
+            return self._fallback_sampling(doc, total_pages)
+
+        # STEP 2: Parse TOC pages to extract section -> page number mappings
+        print(f"[SectionParser/Vision] Step 2: Parsing TOC to extract page numbers...")
         section_locations = {}
 
-        for analysis in page_analyses:
-            pdf_page = analysis.get('pdf_page', 0)
+        for toc_page in toc_pages:
+            toc_entries = self._parse_toc_page(doc, toc_page)
+            for entry in toc_entries:
+                section_type = entry.get('section_type', '').lower()
+                page_num = entry.get('page_number')
 
-            if analysis.get('is_toc_page'):
-                toc_pages.append(pdf_page)
+                if section_type and page_num and section_type in self.CANONICAL_SECTIONS:
+                    # Convert document page number to PDF page index
+                    # TOC shows "page 142" but PDF index might be 141 (0-indexed) or offset by front matter
+                    # We'll try page_num - 1 as PDF index (common offset)
+                    pdf_page_index = max(0, page_num - 1)
 
-            if analysis.get('is_content_page'):
-                for section in analysis.get('sections_on_page', []):
-                    section_type = section.get('section_type', '').lower()
-                    if section_type and section_type in self.CANONICAL_SECTIONS:
-                        # Only keep first occurrence (actual content, not repeated references)
-                        if section_type not in section_locations:
-                            section_locations[section_type] = {
-                                'content_starts_page': pdf_page,
-                                'section_title': section.get('section_title', ''),
-                                'section_number': section.get('section_number', '')
-                            }
+                    if section_type not in section_locations:
+                        section_locations[section_type] = {
+                            'content_starts_page': pdf_page_index,
+                            'section_title': entry.get('section_title', ''),
+                            'section_number': entry.get('section_number', ''),
+                            'document_page': page_num  # Original page from TOC
+                        }
+                        print(f"[SectionParser/Vision] {section_type}: document page {page_num} -> PDF index {pdf_page_index}")
 
         print(f"[SectionParser/Vision] Found TOC on pages: {toc_pages}")
-        print(f"[SectionParser/Vision] Found sections: {list(section_locations.keys())}")
+        print(f"[SectionParser/Vision] Extracted {len(section_locations)} section locations from TOC")
 
         return {
             'toc_pages': toc_pages,
@@ -418,6 +427,81 @@ class ProtocolSectionParser:
         except Exception as e:
             print(f"[SectionParser/Vision] API error: {e}")
             return None
+
+    def _parse_toc_page(self, doc, toc_page: int) -> List[Dict]:
+        """
+        Parse a TOC page using Vision to extract section -> page number mappings.
+
+        Returns list of: {"section_type": "SAMPLE_SIZE", "section_title": "...", "page_number": 142}
+        """
+        try:
+            page = doc[toc_page]
+            pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5))
+            img_bytes = pix.tobytes("png")
+            img_base64 = base64.b64encode(img_bytes).decode('utf-8')
+
+            # Call Vision with TOC parsing prompt
+            response = self._call_vision_api(img_base64, VISION_TOC_PARSE_PROMPT)
+
+            if not response:
+                return []
+
+            # Parse JSON from response
+            try:
+                start = response.find('{')
+                end = response.rfind('}') + 1
+                if start >= 0 and end > start:
+                    json_str = response[start:end]
+                    data = json.loads(json_str)
+                    entries = data.get('toc_entries', [])
+                    print(f"[SectionParser/Vision] Parsed {len(entries)} TOC entries from page {toc_page}")
+                    return entries
+            except json.JSONDecodeError as e:
+                print(f"[SectionParser/Vision] JSON parse error on TOC page {toc_page}: {e}")
+
+            return []
+
+        except Exception as e:
+            print(f"[SectionParser/Vision] Error parsing TOC page {toc_page}: {e}")
+            return []
+
+    def _fallback_sampling(self, doc, total_pages: int) -> Dict[str, Any]:
+        """
+        Fallback when TOC parsing fails - sample from likely statistical section locations.
+        """
+        print("[SectionParser/Vision] Using fallback sampling (no TOC found)")
+
+        section_locations = {}
+
+        # Sample pages at 75-95% where statistical sections typically are
+        sample_pages = [
+            int(total_pages * 0.75),
+            int(total_pages * 0.80),
+            int(total_pages * 0.85),
+            int(total_pages * 0.90),
+        ]
+
+        for page_num in sample_pages:
+            if page_num >= total_pages:
+                continue
+
+            analysis = self._analyze_single_page(doc, page_num)
+            if analysis and analysis.get('is_content_page'):
+                for section in analysis.get('sections_on_page', []):
+                    section_type = section.get('section_type', '').lower()
+                    if section_type and section_type in self.CANONICAL_SECTIONS:
+                        if section_type not in section_locations:
+                            section_locations[section_type] = {
+                                'content_starts_page': page_num,
+                                'section_title': section.get('section_title', ''),
+                                'section_number': section.get('section_number', '')
+                            }
+
+        return {
+            'toc_pages': [],
+            'section_locations': section_locations,
+            'total_pages': total_pages
+        }
 
     def _extract_sections_from_pages(
         self,
