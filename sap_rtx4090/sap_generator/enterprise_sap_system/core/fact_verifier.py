@@ -261,6 +261,15 @@ class FactVerifier:
         power = facts.get('power') or facts.get('statistical_power')
 
         if power:
+            # Handle string values (might be "[NOT FOUND]" or "90" or "0.9")
+            if isinstance(power, str):
+                if '[NOT' in power or '[NEEDS' in power:
+                    return  # Skip verification for unextracted values
+                try:
+                    power = float(power)
+                except (ValueError, TypeError):
+                    return  # Can't parse, skip verification
+
             # Convert to percentage if needed
             power_pct = power if power > 1 else power * 100
             power_str = f"{int(power_pct)}"
