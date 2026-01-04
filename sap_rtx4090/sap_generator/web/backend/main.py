@@ -406,16 +406,47 @@ async def upload_file(
             logger.warning("No text extracted", filename=file.filename)
             raise HTTPException(status_code=400, detail="No text could be extracted from the file")
 
+        # Upload PDF to Supabase Storage for Vision-based parsing
+        db = get_supabase()
+        pdf_storage_path = None
+
+        if file.filename.lower().endswith('.pdf'):
+            try:
+                import uuid
+                # Generate unique filename
+                storage_filename = f"{uuid.uuid4()}_{file.filename}"
+                storage_path = f"protocols/{storage_filename}"
+
+                # Upload to Supabase Storage bucket "pdfs"
+                # Note: Bucket must exist in Supabase (create via dashboard)
+                storage_result = db.storage.from_("pdfs").upload(
+                    path=storage_path,
+                    file=content,
+                    file_options={"content-type": "application/pdf"}
+                )
+
+                pdf_storage_path = storage_path
+                logger.info("PDF uploaded to storage", path=storage_path)
+            except Exception as e:
+                # Storage upload failed - continue without Vision (fall back to text)
+                logger.warning("PDF storage upload failed, Vision disabled", error=str(e))
+                pdf_storage_path = None
+
         # Insert job into database
         # CRITICAL: Store FULL text - do NOT truncate!
         # Statistical methods are at 50-80% of document, truncating loses them.
-        db = get_supabase()
-        result = db.table("sap_jobs").insert({
+        job_data = {
             "protocol_text": extracted_text,  # Full text for multi-region sampling
             "nct_id": nct_id,
             "status": "queued",
             "filename": file.filename
-        }).execute()
+        }
+
+        # Add PDF storage path if available (for Vision-based parsing)
+        if pdf_storage_path:
+            job_data["pdf_storage_path"] = pdf_storage_path
+
+        result = db.table("sap_jobs").insert(job_data).execute()
 
         job_id = result.data[0]["id"]
         elapsed = time.time() - start_time
@@ -2375,8 +2406,36 @@ async def process_jobs_worker():
                 # CRITICAL: Pass FULL protocol text - do NOT truncate!
                 # The pipeline uses multi-region sampling internally.
                 # Statistical methods are at 50-80% of document, truncating loses them.
-                pdf_path = job.get("pdf_path")  # May be None
+
+                # Download PDF from Supabase Storage for Vision-based parsing
+                pdf_path = None
+                pdf_storage_path = job.get("pdf_storage_path")
+
+                if pdf_storage_path:
+                    try:
+                        # Download PDF from Supabase Storage
+                        pdf_bytes = db.storage.from_("pdfs").download(pdf_storage_path)
+
+                        # Save to temp file
+                        import tempfile
+                        temp_pdf = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
+                        temp_pdf.write(pdf_bytes)
+                        temp_pdf.close()
+                        pdf_path = temp_pdf.name
+                        print(f"  [Vision] Downloaded PDF to {pdf_path}")
+                    except Exception as e:
+                        print(f"  [Vision] PDF download failed: {e}, falling back to text-only")
+                        pdf_path = None
+
                 result = pipeline.generate(job["protocol_text"], pdf_path=pdf_path)
+
+                # Clean up temp PDF file
+                if pdf_path:
+                    try:
+                        import os
+                        os.unlink(pdf_path)
+                    except:
+                        pass
 
                 processing_time = time.time() - start_time
 

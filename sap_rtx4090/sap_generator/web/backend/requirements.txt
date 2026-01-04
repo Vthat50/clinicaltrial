@@ -11,6 +11,7 @@ supabase>=2.0.0
 # Document parsing
 PyPDF2>=3.0.0
 python-docx>=1.1.0
+PyMuPDF>=1.23.0  # For Vision-based PDF parsing (converts pages to images)
 
 # SAP Generator dependencies
 groq>=0.4.0
