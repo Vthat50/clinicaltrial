@@ -606,11 +606,15 @@ DOCUMENT SAMPLES:
 '''
 
         try:
-            if hasattr(self.llm_client, 'chat'):
-                response = self.llm_client.chat(prompt, max_tokens=2000)
+            if not self.llm:
+                print(f"[SectionedExtractor] No LLM client available for section location")
+                return {}
+
+            if hasattr(self.llm, 'chat'):
+                response = self.llm.chat(prompt, max_tokens=2000)
                 response_text = response if isinstance(response, str) else str(response)
-            elif hasattr(self.llm_client, 'messages'):
-                response = self.llm_client.messages.create(
+            elif hasattr(self.llm, 'messages'):
+                response = self.llm.messages.create(
                     model="claude-sonnet-4-20250514",
                     max_tokens=2000,
                     messages=[{"role": "user", "content": prompt}]
