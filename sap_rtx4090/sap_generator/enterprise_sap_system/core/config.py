@@ -16,6 +16,22 @@ from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set
 from pathlib import Path
 
+# Auto-load .env file from multiple possible locations
+try:
+    from dotenv import load_dotenv
+    # Try sap_generator root first, then web/backend
+    _base = Path(__file__).parent.parent.parent
+    _env_paths = [
+        _base / ".env",
+        _base / "web" / "backend" / ".env",
+    ]
+    for _env_path in _env_paths:
+        if _env_path.exists():
+            load_dotenv(_env_path)
+            break
+except ImportError:
+    pass  # python-dotenv not installed, rely on shell environment
+
 # Import logging
 try:
     from .logging_config import get_logger, ConfigurationError
