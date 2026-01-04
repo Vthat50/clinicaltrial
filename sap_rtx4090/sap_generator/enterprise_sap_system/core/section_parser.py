@@ -1,26 +1,30 @@
 #!/usr/bin/env python3
 """
-Protocol Section Parser (Claude Vision-based)
-==============================================
+Protocol Section Parser (Vision-based Content Extraction)
+==========================================================
 
-Uses Claude Vision to intelligently parse clinical protocol PDFs into logical sections.
-Vision is the PRIMARY method - it understands document structure visually.
+PRODUCTION-GRADE APPROACH:
+1. Extract FULL TEXT from PDF (not page-by-page)
+2. Use Vision to identify section headers VISUALLY (font size, formatting)
+3. Vision returns the EXACT TEXT of headers (not page numbers)
+4. Search full text for header text, extract until next header
+5. Validate content semantically
 
-NO REGEX for TOC detection. Claude handles everything semantically.
+NO REGEX. NO PAGE NUMBERS. Content-based extraction only.
 
-Usage:
-    parser = ProtocolSectionParser(llm_client=client)
-    sections = parser.parse(protocol_text, pdf_path="/path/to/protocol.pdf")
-    stats_section = sections.get("statistical_methods", "")
+Based on research:
+- ColPali/VLMs: Process pages as images, understand structure visually
+- Nutrient AI: "ML models recognize sections by context, not position"
+- Key insight: Page numbers are unreliable, use header text instead
 """
 
 import json
 import base64
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# PyMuPDF for PDF to image conversion
+# PyMuPDF for PDF processing
 try:
     import fitz  # PyMuPDF
     PYMUPDF_AVAILABLE = True
@@ -68,111 +72,90 @@ class ParsedProtocol:
         return "\n\n".join(parts)
 
 
-# Vision prompt to analyze document structure
-VISION_STRUCTURE_PROMPT = '''Analyze this clinical trial protocol page.
+# Vision prompt to identify section headers VISUALLY
+# Returns the EXACT TEXT of headers, NOT page numbers
+VISION_HEADER_DETECTION_PROMPT = '''Analyze this clinical trial protocol page VISUALLY.
 
-Tell me:
-1. Is this a Table of Contents page, or actual content?
-2. If content: What section is this? (e.g., "9.1 Sample Size", "Statistical Methods")
-3. What's the page number shown on this page (if visible)?
+Your task: Identify any SECTION HEADERS on this page by their visual formatting:
+- Headers are typically LARGER FONT or BOLD
+- They often have section numbers like "9", "9.1", "9.2.1"
+- They start a new topic/section
+
+For each header you see, extract the EXACT TEXT as it appears.
+
+IMPORTANT: I need the EXACT HEADER TEXT, not page numbers.
 
 RESPOND IN JSON:
 {
-    "is_toc_page": true/false,
-    "is_content_page": true/false,
-    "page_number_shown": <number or null>,
-    "sections_on_page": [
-        {"section_number": "9.1", "section_title": "Sample Size", "section_type": "SAMPLE_SIZE"},
-        ...
+    "has_section_headers": true/false,
+    "section_headers": [
+        {
+            "exact_header_text": "9 STATISTICAL CONSIDERATIONS",
+            "section_type": "STATISTICAL_METHODS",
+            "is_main_section": true,
+            "first_sentence_after": "The primary analysis will..."
+        },
+        {
+            "exact_header_text": "9.1 Sample Size and Power Calculation",
+            "section_type": "SAMPLE_SIZE",
+            "is_main_section": false,
+            "first_sentence_after": "A total of 500 patients..."
+        }
     ],
-    "notes": "any observations"
+    "is_toc_page": true/false,
+    "is_appendix": true/false
 }
 
-Section types to use:
-- OBJECTIVES
-- ENDPOINTS
-- STUDY_DESIGN
-- STATISTICAL_METHODS
+Section types:
+- STATISTICAL_METHODS (Section 9 or 10 typically)
 - SAMPLE_SIZE
 - POPULATIONS
 - INTERIM_ANALYSIS
 - MULTIPLICITY
 - MISSING_DATA
+- ENDPOINTS
+- STRATIFICATION
 - SAFETY
 - ESTIMAND
-- STRATIFICATION
+
+CRITICAL: Extract the EXACT header text including section numbers, spacing, and capitalization.
 '''
 
-# Prompt to parse TOC and extract page numbers
-VISION_TOC_PARSE_PROMPT = '''This is a Table of Contents page from a clinical trial protocol.
+# Prompt to extract specific section content from a page
+VISION_SECTION_CONTENT_PROMPT = '''Read this page from a clinical trial protocol.
 
-Extract the PAGE NUMBERS for each section listed. TOC entries look like:
-"9.1 Statistical Methods..................142"
-"9.2 Sample Size and Power...............145"
+I need you to extract the FULL TEXT CONTENT related to: {section_type}
 
-I need the ACTUAL PAGE NUMBERS (like 142, 145) for these sections:
-- Statistical Methods / Statistical Considerations (Section 9)
-- Sample Size / Power Calculation
-- Analysis Populations
-- Interim Analysis
-- Multiplicity Adjustments
-- Missing Data
-- Primary/Secondary Endpoints
-- Safety Analysis
+If this page contains content for {section_type}, extract:
+1. The section header (if visible)
+2. ALL the paragraph text that follows
+3. Any tables, lists, or figures descriptions
 
 RESPOND IN JSON:
-{
-    "toc_entries": [
-        {"section_number": "9", "section_title": "Statistical Methods", "page_number": 142, "section_type": "STATISTICAL_METHODS"},
-        {"section_number": "9.1", "section_title": "Sample Size", "page_number": 145, "section_type": "SAMPLE_SIZE"},
-        {"section_number": "9.2", "section_title": "Interim Analysis", "page_number": 148, "section_type": "INTERIM_ANALYSIS"}
-    ]
-}
+{{
+    "found_section": true/false,
+    "section_header": "<exact header text if visible>",
+    "content": "<all the text content from this section>",
+    "continues_on_next_page": true/false,
+    "section_appears_complete": true/false
+}}
 
-IMPORTANT: Extract the ACTUAL page numbers shown in the TOC (e.g., 142, 145), not the PDF page index.
-'''
-
-# Prompt to find specific section locations
-VISION_FIND_SECTIONS_PROMPT = '''I need to find where these sections START in a clinical trial protocol PDF.
-
-Look at these sample pages from the document and tell me:
-1. Which pages contain the TABLE OF CONTENTS?
-2. Which pages contain the ACTUAL CONTENT for each section?
-
-I'm looking for these sections:
-- Statistical Methods / Statistical Considerations
-- Sample Size / Power Calculation
-- Analysis Populations
-- Interim Analysis
-- Multiplicity Adjustments
-- Missing Data Handling
-- Primary Endpoint Analysis
-- Secondary Endpoint Analysis
-- Safety Analysis
-
-RESPOND IN JSON:
-{
-    "toc_pages": [2, 3, 4],
-    "section_locations": [
-        {"section_type": "STATISTICAL_METHODS", "content_starts_page": 125, "section_title": "9. Statistical Methods"},
-        {"section_type": "SAMPLE_SIZE", "content_starts_page": 130, "section_title": "9.1 Sample Size"},
-        ...
-    ],
-    "total_pages_analyzed": 10,
-    "notes": "observations about document structure"
-}
+Extract the ACTUAL TEXT, not a summary. Include numbers, methods, and all details.
 '''
 
 
 class ProtocolSectionParser:
     """
-    Parse clinical protocol into logical sections using Claude Vision.
+    Parse clinical protocol into logical sections using Vision-based content extraction.
 
-    Vision is the PRIMARY method because:
-    1. It visually distinguishes TOC from content pages
-    2. It reads section headers regardless of text formatting
-    3. It handles varied PDF structures across sponsors
-    4. No brittle regex patterns needed
+    PRODUCTION-GRADE APPROACH:
+    1. Extract FULL TEXT from PDF (not page-by-page)
+    2. Vision scans pages to identify section headers VISUALLY
+    3. Vision returns EXACT HEADER TEXT (not page numbers)
+    4. Search full text for header, extract until next header
+    5. Validate content semantically
+
+    NO REGEX. NO PAGE NUMBERS. Content-based extraction only.
     """
 
     CANONICAL_SECTIONS = [
@@ -180,6 +163,13 @@ class ProtocolSectionParser:
         "sample_size", "populations", "interim_analysis", "multiplicity",
         "missing_data", "safety", "efficacy", "estimand", "stratification",
         "randomization", "blinding", "subgroups", "sensitivity"
+    ]
+
+    # Priority sections to find (in order of importance)
+    PRIORITY_SECTIONS = [
+        "statistical_methods", "sample_size", "interim_analysis",
+        "multiplicity", "endpoints", "populations", "missing_data",
+        "stratification", "safety"
     ]
 
     def __init__(self, llm_client=None, vision_client=None):
@@ -192,43 +182,46 @@ class ProtocolSectionParser:
         """
         self.llm_client = llm_client
         self.vision_client = vision_client or llm_client
+        self._full_text_cache: Dict[str, str] = {}
 
     def parse(self, text: str, pdf_path: Optional[str] = None) -> ParsedProtocol:
         """
-        Parse protocol using Claude Vision as PRIMARY method.
+        Parse protocol using Vision-based content extraction.
+
+        APPROACH:
+        1. Extract full PDF text
+        2. Vision identifies section headers visually
+        3. Extract content from header to next header (text search, not page numbers)
 
         Args:
-            text: Full protocol text (for content extraction after Vision identifies pages)
-            pdf_path: Path to PDF file (REQUIRED for Vision-based parsing)
+            text: Full protocol text (can be empty if pdf_path provided)
+            pdf_path: Path to PDF file
 
         Returns:
             ParsedProtocol with identified sections
         """
         result = ParsedProtocol(raw_text=text)
 
-        # Debug: trace why Vision may or may not be used
-        print(f"[SectionParser] parse() called: pdf_path={pdf_path}, PYMUPDF_AVAILABLE={PYMUPDF_AVAILABLE}, has_vision_client={self.vision_client is not None}")
+        print(f"[SectionParser] parse() called: pdf_path={pdf_path}, PYMUPDF_AVAILABLE={PYMUPDF_AVAILABLE}")
 
-        if not text or len(text) < 100:
-            print("[SectionParser] Text too short, returning empty result")
-            return result
-
-        # Vision requires PDF path
+        # Vision-based extraction from PDF
         if pdf_path and PYMUPDF_AVAILABLE and self.vision_client:
-            print("[SectionParser] Using Claude Vision to analyze PDF structure...")
-            sections = self._parse_with_vision(text, pdf_path)
+            print("[SectionParser] Using Vision-based content extraction...")
+            sections = self._extract_with_vision(pdf_path)
 
             if sections:
                 result.sections = sections
                 result.parse_success = True
                 result.section_count = len(sections)
-                print(f"[SectionParser] Vision identified {len(sections)} sections: {list(sections.keys())}")
+                # Store full text for later use
+                result.raw_text = self._full_text_cache.get(pdf_path, text)
+                print(f"[SectionParser] Extracted {len(sections)} sections: {list(sections.keys())}")
                 return result
             else:
-                print("[SectionParser] Vision parsing returned no sections")
+                print("[SectionParser] Vision extraction returned no sections, trying text fallback")
 
-        # If no PDF or Vision failed, ask Claude to extract from text directly
-        if self.llm_client:
+        # Fallback: text-based extraction
+        if text and len(text) > 100 and self.llm_client:
             print("[SectionParser] Using Claude to extract sections from text...")
             sections = self._extract_with_claude_text(text)
 
@@ -243,37 +236,45 @@ class ProtocolSectionParser:
         result.sections["full_text"] = ParsedSection(
             name="full_text",
             title="Full Document",
-            content=text,
+            content=text or self._full_text_cache.get(pdf_path, ""),
             confidence=0.3
         )
         result.parse_success = True
         result.section_count = 1
         return result
 
-    def _parse_with_vision(self, text: str, pdf_path: str) -> Dict[str, ParsedSection]:
+    def _extract_with_vision(self, pdf_path: str) -> Dict[str, ParsedSection]:
         """
-        Use Claude Vision to understand PDF structure and extract sections.
+        PRODUCTION-GRADE EXTRACTION:
+        1. Extract FULL TEXT from PDF
+        2. Vision scans pages to identify section headers VISUALLY
+        3. Search full text for header, extract until next header
 
-        Strategy:
-        1. Analyze sample pages to understand document structure
-        2. Identify TOC pages vs content pages
-        3. Find where each section starts
-        4. Extract text from those specific pages
+        NO PAGE NUMBERS used for extraction - only header text.
         """
         try:
             doc = fitz.open(pdf_path)
             total_pages = len(doc)
             print(f"[SectionParser/Vision] PDF has {total_pages} pages")
 
-            # Step 1: Analyze document structure with sample pages
-            structure = self._analyze_document_structure(doc, total_pages)
+            # STEP 1: Extract FULL TEXT from PDF
+            print(f"[SectionParser/Vision] Step 1: Extracting full text...")
+            full_text = self._extract_full_text(doc)
+            self._full_text_cache[pdf_path] = full_text
+            print(f"[SectionParser/Vision] Full text: {len(full_text)} characters")
 
-            if not structure:
+            # STEP 2: Scan pages to find section headers (returns HEADER TEXT, not page numbers)
+            print(f"[SectionParser/Vision] Step 2: Scanning for section headers...")
+            found_headers = self._scan_for_headers(doc, total_pages)
+            print(f"[SectionParser/Vision] Found {len(found_headers)} section headers")
+
+            if not found_headers:
                 doc.close()
                 return {}
 
-            # Step 2: Extract text from identified content pages
-            sections = self._extract_sections_from_pages(doc, text, structure)
+            # STEP 3: Extract content from header to next header (text search)
+            print(f"[SectionParser/Vision] Step 3: Extracting sections by header text...")
+            sections = self._extract_by_headers(full_text, found_headers)
 
             doc.close()
             return sections
@@ -284,64 +285,74 @@ class ProtocolSectionParser:
             traceback.print_exc()
             return {}
 
-    def _analyze_document_structure(self, doc, total_pages: int) -> Dict[str, Any]:
+    def _extract_full_text(self, doc) -> str:
+        """Extract complete text from PDF."""
+        text_parts = []
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            text = page.get_text()
+            if text:
+                text_parts.append(text)
+        return "\n".join(text_parts)
+
+    def _scan_for_headers(self, doc, total_pages: int) -> List[Dict]:
         """
-        Analyze PDF structure using Vision on strategic pages.
+        Scan PDF pages to identify section headers VISUALLY.
 
-        Returns dict with:
-        - toc_pages: list of TOC page numbers
-        - section_locations: list of {section_type, content_starts_page, section_title}
+        Returns list of headers with their EXACT TEXT:
+        [
+            {"exact_header_text": "9 STATISTICAL CONSIDERATIONS", "section_type": "statistical_methods"},
+            {"exact_header_text": "9.1 Sample Size", "section_type": "sample_size"},
+            ...
+        ]
+
+        Does NOT return page numbers - we use header text for extraction.
         """
-        # STEP 1: Find TOC pages (usually in first 15 pages)
-        print(f"[SectionParser/Vision] Step 1: Finding TOC pages...")
-        toc_pages = []
+        found_headers = []
 
-        for i in range(min(15, total_pages)):
-            analysis = self._analyze_single_page(doc, i)
-            if analysis and analysis.get('is_toc_page'):
-                toc_pages.append(i)
-                print(f"[SectionParser/Vision] Found TOC on PDF page {i}")
+        # Strategic scanning: focus on 60-95% where statistical sections are
+        # Scan every 3rd page for efficiency
+        scan_pages = []
 
-        if not toc_pages:
-            print("[SectionParser/Vision] No TOC pages found, falling back to sampling")
-            return self._fallback_sampling(doc, total_pages)
+        # Early pages (for study design, endpoints)
+        scan_pages.extend([int(total_pages * 0.15), int(total_pages * 0.25)])
 
-        # STEP 2: Parse TOC pages to extract section -> page number mappings
-        print(f"[SectionParser/Vision] Step 2: Parsing TOC to extract page numbers...")
-        section_locations = {}
+        # Statistical section region (60-95%)
+        for frac in [0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95]:
+            page = int(total_pages * frac)
+            if page < total_pages and page not in scan_pages:
+                scan_pages.append(page)
 
-        for toc_page in toc_pages:
-            toc_entries = self._parse_toc_page(doc, toc_page)
-            for entry in toc_entries:
-                section_type = entry.get('section_type', '').lower()
-                page_num = entry.get('page_number')
+        print(f"[SectionParser/Vision] Scanning {len(scan_pages)} pages for headers...")
 
-                if section_type and page_num and section_type in self.CANONICAL_SECTIONS:
-                    # Convert document page number to PDF page index
-                    # TOC shows "page 142" but PDF index might be 141 (0-indexed) or offset by front matter
-                    # We'll try page_num - 1 as PDF index (common offset)
-                    pdf_page_index = max(0, page_num - 1)
+        for page_num in scan_pages:
+            if page_num >= total_pages:
+                continue
 
-                    if section_type not in section_locations:
-                        section_locations[section_type] = {
-                            'content_starts_page': pdf_page_index,
-                            'section_title': entry.get('section_title', ''),
-                            'section_number': entry.get('section_number', ''),
-                            'document_page': page_num  # Original page from TOC
-                        }
-                        print(f"[SectionParser/Vision] {section_type}: document page {page_num} -> PDF index {pdf_page_index}")
+            headers = self._detect_headers_on_page(doc, page_num)
+            for h in headers:
+                # Skip TOC entries
+                if h.get('is_toc_entry', False):
+                    continue
 
-        print(f"[SectionParser/Vision] Found TOC on pages: {toc_pages}")
-        print(f"[SectionParser/Vision] Extracted {len(section_locations)} section locations from TOC")
+                header_text = h.get('exact_header_text', '')
+                section_type = h.get('section_type', '').lower()
 
-        return {
-            'toc_pages': toc_pages,
-            'section_locations': section_locations,
-            'total_pages': len(doc)
-        }
+                if header_text and section_type in self.CANONICAL_SECTIONS:
+                    # Check if we already have this section
+                    existing = [x for x in found_headers if x['section_type'] == section_type]
+                    if not existing:
+                        found_headers.append({
+                            'exact_header_text': header_text,
+                            'section_type': section_type,
+                            'first_sentence': h.get('first_sentence_after', '')
+                        })
+                        print(f"[SectionParser/Vision] Found header: '{header_text}' -> {section_type}")
 
-    def _analyze_single_page(self, doc, page_num: int) -> Optional[Dict]:
-        """Analyze a single PDF page with Claude Vision."""
+        return found_headers
+
+    def _detect_headers_on_page(self, doc, page_num: int) -> List[Dict]:
+        """Use Vision to detect section headers on a page."""
         try:
             page = doc[page_num]
 
@@ -351,28 +362,178 @@ class ProtocolSectionParser:
             img_base64 = base64.b64encode(img_bytes).decode('utf-8')
 
             # Call Claude Vision
-            response = self._call_vision_api(img_base64, VISION_STRUCTURE_PROMPT)
+            response = self._call_vision_api(img_base64, VISION_HEADER_DETECTION_PROMPT)
 
             if not response:
-                return None
+                return []
 
-            # Parse JSON from response
-            try:
-                # Find JSON in response
-                response_text = response
-                start = response_text.find('{')
-                end = response_text.rfind('}') + 1
-                if start >= 0 and end > start:
-                    json_str = response_text[start:end]
-                    return json.loads(json_str)
-            except json.JSONDecodeError:
-                pass
+            # Parse JSON response
+            data = self._parse_json_response(response)
+            if data:
+                # Skip TOC pages
+                if data.get('is_toc_page', False):
+                    return []
 
-            return None
+                return data.get('section_headers', [])
+
+            return []
 
         except Exception as e:
-            print(f"[SectionParser/Vision] Error on page {page_num}: {e}")
-            return None
+            print(f"[SectionParser/Vision] Error detecting headers on page {page_num}: {e}")
+            return []
+
+    def _extract_by_headers(
+        self,
+        full_text: str,
+        found_headers: List[Dict]
+    ) -> Dict[str, ParsedSection]:
+        """
+        Extract section content using header text (NOT page numbers).
+
+        Approach:
+        1. For each header, find its position in full text
+        2. Extract from that position until next header
+        3. Validate content semantically
+        """
+        sections = {}
+
+        # Sort headers by their position in text
+        headers_with_pos = []
+        for h in found_headers:
+            header_text = h['exact_header_text']
+            pos = self._find_header_in_text(full_text, header_text)
+            if pos >= 0:
+                headers_with_pos.append({
+                    **h,
+                    'position': pos
+                })
+                print(f"[SectionParser/Vision] Header '{header_text}' found at position {pos}")
+            else:
+                print(f"[SectionParser/Vision] WARNING: Header '{header_text}' not found in text!")
+
+        # Sort by position
+        headers_with_pos.sort(key=lambda x: x['position'])
+
+        # Extract content between headers
+        for i, h in enumerate(headers_with_pos):
+            section_type = h['section_type']
+            start_pos = h['position']
+
+            # End position is start of next header, or +50000 chars, or end of text
+            if i + 1 < len(headers_with_pos):
+                end_pos = headers_with_pos[i + 1]['position']
+            else:
+                end_pos = min(start_pos + 50000, len(full_text))
+
+            content = full_text[start_pos:end_pos].strip()
+
+            # Semantic validation: verify content matches expected section type
+            if len(content) > 100:
+                confidence = self._validate_content_semantically(section_type, content)
+
+                if confidence >= 0.5:  # Accept if reasonably valid
+                    sections[section_type] = ParsedSection(
+                        name=section_type,
+                        title=h['exact_header_text'],
+                        content=content,
+                        confidence=confidence
+                    )
+                    print(f"[SectionParser/Vision] Extracted '{section_type}': {len(content)} chars (confidence: {confidence:.2f})")
+                else:
+                    print(f"[SectionParser/Vision] REJECTED '{section_type}': failed semantic validation (confidence: {confidence:.2f})")
+
+        return sections
+
+    def _validate_content_semantically(self, section_type: str, content: str) -> float:
+        """
+        Validate that extracted content matches expected section type.
+
+        Uses keyword presence to estimate confidence. No regex - just substring checks.
+        Returns confidence score 0.0-1.0
+        """
+        content_lower = content.lower()
+
+        # Define expected keywords for each section type
+        validation_keywords = {
+            'statistical_methods': ['analysis', 'statistical', 'test', 'hypothesis', 'log-rank', 'cox', 'stratified'],
+            'sample_size': ['sample size', 'patients', 'power', 'hazard ratio', 'events', 'enrolled', 'subjects'],
+            'interim_analysis': ['interim', 'analysis', 'spending', 'o\'brien', 'fleming', 'boundary', 'futility'],
+            'multiplicity': ['multiplicity', 'hypothesis', 'alpha', 'type i', 'familywise', 'hierarchical', 'gatekeeping'],
+            'missing_data': ['missing', 'censoring', 'imputation', 'sensitivity', 'discontinuation'],
+            'populations': ['population', 'itt', 'intent-to-treat', 'per-protocol', 'safety', 'fas', 'analysis set'],
+            'endpoints': ['endpoint', 'primary', 'secondary', 'outcome', 'efficacy', 'pfs', 'survival', 'response'],
+            'stratification': ['stratif', 'factor', 'randomiz', 'region', 'ecog', 'performance status'],
+            'safety': ['safety', 'adverse', 'event', 'toxicity', 'serious', 'aesi', 'discontinuation'],
+            'estimand': ['estimand', 'intercurrent', 'strategy', 'treatment policy', 'hypothetical']
+        }
+
+        keywords = validation_keywords.get(section_type, [])
+        if not keywords:
+            return 0.7  # Unknown section type, moderate confidence
+
+        # Count matching keywords
+        matches = sum(1 for kw in keywords if kw in content_lower)
+        keyword_ratio = matches / len(keywords) if keywords else 0
+
+        # Base confidence on keyword matches
+        # At least 2 matches or 30% of keywords should match
+        if matches >= 2 or keyword_ratio >= 0.3:
+            confidence = min(0.9, 0.5 + (keyword_ratio * 0.5))
+        else:
+            confidence = keyword_ratio * 0.5
+
+        return confidence
+
+    def _find_header_in_text(self, full_text: str, header_text: str) -> int:
+        """
+        Find header text position in full text using semantic matching.
+        Handles variations in whitespace, line breaks, etc.
+        """
+        # Normalize both strings for matching
+        normalized_full = ' '.join(full_text.split())
+        normalized_header = ' '.join(header_text.split())
+
+        # Try exact match first
+        pos = normalized_full.find(normalized_header)
+        if pos >= 0:
+            # Convert back to original text position (approximate)
+            return self._map_position_to_original(full_text, normalized_full, pos)
+
+        # Try case-insensitive match
+        pos = normalized_full.lower().find(normalized_header.lower())
+        if pos >= 0:
+            return self._map_position_to_original(full_text, normalized_full, pos)
+
+        # Try matching just the significant words (for headers with varied formatting)
+        # E.g., "9 STATISTICAL CONSIDERATIONS" might appear as "9. Statistical Considerations"
+        words = normalized_header.split()
+        if len(words) >= 2:
+            # Search for key words together
+            key_words = ' '.join(words[1:3])  # Skip section number, get first 2 words
+            pos = normalized_full.lower().find(key_words.lower())
+            if pos >= 0:
+                # Back up to find section number
+                search_start = max(0, pos - 20)
+                return self._map_position_to_original(full_text, normalized_full, search_start)
+
+        return -1
+
+    def _map_position_to_original(self, original: str, normalized: str, norm_pos: int) -> int:
+        """Map position from normalized text back to original text."""
+        # Simple approximation: count characters
+        char_count = 0
+        orig_pos = 0
+
+        normalized_chars = normalized[:norm_pos]
+        target_count = len(normalized_chars)
+
+        for i, c in enumerate(original):
+            if not c.isspace() or (i > 0 and not original[i-1].isspace()):
+                char_count += 1
+            if char_count >= target_count:
+                return i
+
+        return max(0, len(original) - 1000)  # Fallback to near end
 
     def _call_vision_api(self, img_base64: str, prompt: str) -> Optional[str]:
         """Call Claude Vision API with an image."""
@@ -428,137 +589,33 @@ class ProtocolSectionParser:
             print(f"[SectionParser/Vision] API error: {e}")
             return None
 
-    def _parse_toc_page(self, doc, toc_page: int) -> List[Dict]:
-        """
-        Parse a TOC page using Vision to extract section -> page number mappings.
-
-        Returns list of: {"section_type": "SAMPLE_SIZE", "section_title": "...", "page_number": 142}
-        """
+    def _parse_json_response(self, response: str) -> Optional[Dict]:
+        """Parse JSON from Vision API response."""
         try:
-            page = doc[toc_page]
-            pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5))
-            img_bytes = pix.tobytes("png")
-            img_base64 = base64.b64encode(img_bytes).decode('utf-8')
+            # Handle markdown code blocks
+            if '```json' in response:
+                start = response.find('```json') + 7
+                end = response.find('```', start)
+                if end > start:
+                    response = response[start:end].strip()
+            elif '```' in response:
+                start = response.find('```') + 3
+                end = response.find('```', start)
+                if end > start:
+                    response = response[start:end].strip()
 
-            # Call Vision with TOC parsing prompt
-            response = self._call_vision_api(img_base64, VISION_TOC_PARSE_PROMPT)
+            # Find JSON object
+            start = response.find('{')
+            end = response.rfind('}') + 1
+            if start >= 0 and end > start:
+                json_str = response[start:end]
+                return json.loads(json_str)
 
-            if not response:
-                return []
+            return None
 
-            # Parse JSON from response
-            try:
-                start = response.find('{')
-                end = response.rfind('}') + 1
-                if start >= 0 and end > start:
-                    json_str = response[start:end]
-                    data = json.loads(json_str)
-                    entries = data.get('toc_entries', [])
-                    print(f"[SectionParser/Vision] Parsed {len(entries)} TOC entries from page {toc_page}")
-                    return entries
-            except json.JSONDecodeError as e:
-                print(f"[SectionParser/Vision] JSON parse error on TOC page {toc_page}: {e}")
-
-            return []
-
-        except Exception as e:
-            print(f"[SectionParser/Vision] Error parsing TOC page {toc_page}: {e}")
-            return []
-
-    def _fallback_sampling(self, doc, total_pages: int) -> Dict[str, Any]:
-        """
-        Fallback when TOC parsing fails - sample from likely statistical section locations.
-        """
-        print("[SectionParser/Vision] Using fallback sampling (no TOC found)")
-
-        section_locations = {}
-
-        # Sample pages at 75-95% where statistical sections typically are
-        sample_pages = [
-            int(total_pages * 0.75),
-            int(total_pages * 0.80),
-            int(total_pages * 0.85),
-            int(total_pages * 0.90),
-        ]
-
-        for page_num in sample_pages:
-            if page_num >= total_pages:
-                continue
-
-            analysis = self._analyze_single_page(doc, page_num)
-            if analysis and analysis.get('is_content_page'):
-                for section in analysis.get('sections_on_page', []):
-                    section_type = section.get('section_type', '').lower()
-                    if section_type and section_type in self.CANONICAL_SECTIONS:
-                        if section_type not in section_locations:
-                            section_locations[section_type] = {
-                                'content_starts_page': page_num,
-                                'section_title': section.get('section_title', ''),
-                                'section_number': section.get('section_number', '')
-                            }
-
-        return {
-            'toc_pages': [],
-            'section_locations': section_locations,
-            'total_pages': total_pages
-        }
-
-    def _extract_sections_from_pages(
-        self,
-        doc,
-        full_text: str,
-        structure: Dict[str, Any]
-    ) -> Dict[str, ParsedSection]:
-        """
-        Extract section content from identified pages.
-
-        Uses Vision-identified page numbers to extract text.
-        """
-        sections = {}
-        section_locations = structure.get('section_locations', {})
-        total_pages = structure.get('total_pages', len(doc))
-
-        # Sort sections by page number to determine boundaries
-        sorted_sections = sorted(
-            section_locations.items(),
-            key=lambda x: x[1].get('content_starts_page', 0)
-        )
-
-        for i, (section_type, info) in enumerate(sorted_sections):
-            start_page = info.get('content_starts_page', 0)
-            section_title = info.get('section_title', section_type)
-
-            # End page is start of next section, or +10 pages, or end of doc
-            if i + 1 < len(sorted_sections):
-                end_page = sorted_sections[i + 1][1].get('content_starts_page', start_page + 10)
-            else:
-                end_page = min(start_page + 15, total_pages)
-
-            # Extract text from these pages
-            content_parts = []
-            for page_num in range(start_page, min(end_page, total_pages)):
-                try:
-                    page = doc[page_num]
-                    page_text = page.get_text()
-                    if page_text:
-                        content_parts.append(page_text)
-                except Exception as e:
-                    print(f"[SectionParser] Error extracting page {page_num}: {e}")
-
-            content = "\n".join(content_parts).strip()
-
-            if len(content) > 100:  # Minimum content length
-                sections[section_type] = ParsedSection(
-                    name=section_type,
-                    title=section_title,
-                    content=content,
-                    start_page=start_page,
-                    end_page=end_page,
-                    confidence=0.9
-                )
-                print(f"[SectionParser] Extracted '{section_type}' from pages {start_page}-{end_page} ({len(content)} chars)")
-
-        return sections
+        except json.JSONDecodeError as e:
+            print(f"[SectionParser/Vision] JSON parse error: {e}")
+            return None
 
     def _extract_with_claude_text(self, text: str) -> Dict[str, ParsedSection]:
         """
