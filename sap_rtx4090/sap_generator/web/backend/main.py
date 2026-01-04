@@ -228,11 +228,14 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://clinicaltrial.vercel.app",
+        "https://clinicaltrial-eta.vercel.app",  # Production
+        "https://clinicaltrial-79wn9cxxk-vthatte1-5467s-projects.vercel.app",  # Preview
     ],
-    allow_origin_regex=r"https://.*\.vercel\.app$",  # Match ALL Vercel preview URLs
+    allow_origin_regex=r"https://clinicaltrial.*\.vercel\.app$",  # Match ALL Vercel preview URLs
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 
