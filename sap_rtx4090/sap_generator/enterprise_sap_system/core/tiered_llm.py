@@ -582,6 +582,91 @@ class TieredLLMClient:
 
         return error_msg
 
+    def chat_with_vision(
+        self,
+        prompt: str,
+        image_base64: str,
+        media_type: str = "image/png",
+        max_tokens: int = 1500
+    ) -> Optional[str]:
+        """
+        Send a vision request with an image to Claude.
+
+        Vision is only supported by Claude, so this method uses Claude directly.
+        Falls back to text extraction hint if Claude is unavailable.
+
+        Args:
+            prompt: Text prompt describing what to analyze
+            image_base64: Base64-encoded image data
+            media_type: Image MIME type (image/png, image/jpeg, etc.)
+            max_tokens: Maximum tokens for response
+
+        Returns:
+            Response text from vision analysis, or None if failed
+        """
+        # Ensure clients are initialized
+        if not self._clients_initialized:
+            self._init_clients()
+
+        if not self.claude_client:
+            logger.warning("Vision request failed - Claude client not available")
+            return None
+
+        if not self.api_status["claude"].is_available():
+            logger.warning("Vision request failed - Claude API in cooldown")
+            return None
+
+        try:
+            start_time = time.time()
+
+            # Build multimodal message with image
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": media_type,
+                                "data": image_base64
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": prompt
+                        }
+                    ]
+                }
+            ]
+
+            # Use Claude Sonnet for vision (faster, still accurate for doc analysis)
+            response = self.claude_client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=max_tokens,
+                messages=messages
+            )
+
+            latency = (time.time() - start_time) * 1000
+            self.api_status["claude"].record_success()
+
+            if response and response.content and len(response.content) > 0:
+                result = response.content[0].text
+                logger.debug(
+                    "Vision call succeeded",
+                    latency_ms=round(latency, 2),
+                    response_length=len(result)
+                )
+                return result
+
+            logger.warning("Vision call returned empty response")
+            return None
+
+        except Exception as e:
+            error_msg = self._handle_error("claude", e)
+            logger.error(f"Vision API error: {error_msg}")
+            return None
+
     def chat_json(
         self,
         prompt: str,

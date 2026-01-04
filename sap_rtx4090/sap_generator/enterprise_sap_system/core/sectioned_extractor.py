@@ -560,24 +560,57 @@ RESPOND IN JSON:
 
         text_len = len(text)
 
-        # Sample at 10 evenly-spaced points through document (500 chars each)
-        # This gives Claude a view of section headings throughout
-        sample_points = 12
-        sample_size = 800
+        # Sample more heavily from CONTENT AREAS (40-85%) where statistical sections are
+        # Reduce sampling of TOC area (0-15%) to avoid confusion
+        sample_size = 900
         scan_samples = []
 
-        for i in range(sample_points):
-            pos = int((i / sample_points) * text_len)
+        # Strategic sampling positions:
+        # - Skip most of TOC (0-10%)
+        # - Light sample of intro/design (15-35%)
+        # - Heavy sample of statistical sections (40-80%)
+        sample_positions = [
+            0.05,   # Very beginning (title, synopsis)
+            0.15,   # End of TOC / start of intro
+            0.25,   # Study design area
+            0.35,   # Endpoints/objectives
+            0.45,   # Start of statistical section
+            0.50,   # Statistical methods core
+            0.55,   # Sample size area
+            0.60,   # Interim analysis area
+            0.65,   # Multiplicity area
+            0.70,   # Missing data area
+            0.75,   # Sensitivity analyses
+            0.80,   # Late content
+        ]
+
+        for pos_frac in sample_positions:
+            pos = int(pos_frac * text_len)
             end_pos = min(pos + sample_size, text_len)
             snippet = text[pos:end_pos]
-            pct = int((i / sample_points) * 100)
+            pct = int(pos_frac * 100)
             scan_samples.append(f"=== POSITION {pct}% ===\n{snippet}")
 
         scan_text = "\n\n".join(scan_samples)
 
-        prompt = f'''Scan this clinical trial protocol (sampled at different positions) and identify WHERE key sections are located.
+        prompt = f'''Scan this clinical trial protocol (sampled at different positions) and identify WHERE the ACTUAL CONTENT for key sections is located.
 
-For each section you find, report the approximate percentage through the document (0-100%).
+CRITICAL DISTINCTION - You must distinguish between:
+1. **TABLE OF CONTENTS (TOC)** entries - These are LISTS of section names with page numbers. Example:
+   "9. Statistical Methods............85"
+   "9.1 Sample Size...................87"
+   These are typically at 0-15% of the document. IGNORE THESE.
+
+2. **ACTUAL SECTION CONTENT** - These are the real sections with paragraphs of text. Example:
+   "9. STATISTICAL METHODS
+   The primary analysis will be performed using a stratified log-rank test..."
+   These typically start at 40-80% of the document.
+
+HOW TO TELL THE DIFFERENCE:
+- TOC entries have: section number + title + dots/spaces + page number
+- Actual content has: section header followed by PARAGRAPHS of descriptive text
+
+For each section, report where the ACTUAL CONTENT starts (NOT the TOC entry).
 
 Look for these sections:
 - STATISTICAL METHODS / STATISTICAL ANALYSIS (section 9, 10, or 11 typically)
@@ -592,14 +625,17 @@ Look for these sections:
 RESPOND IN JSON:
 {{
     "sections_found": [
-        {{"name": "statistical_methods", "position_percent": 65, "heading_found": "9. STATISTICAL ANALYSIS"}},
-        {{"name": "sample_size", "position_percent": 60, "heading_found": "9.1 Sample Size"}},
+        {{"name": "statistical_methods", "position_percent": 65, "heading_found": "9. STATISTICAL ANALYSIS", "is_actual_content": true}},
+        {{"name": "sample_size", "position_percent": 68, "heading_found": "9.1 Sample Size", "is_actual_content": true}},
         ...
     ]
 }}
 
-IMPORTANT: Report the ACTUAL position where you see each section heading.
-If a section is not visible in the samples, do NOT include it.
+IMPORTANT RULES:
+1. SKIP anything that looks like a Table of Contents (has page numbers after section names)
+2. Only report sections where you see ACTUAL PARAGRAPH TEXT following the heading
+3. Positions below 30% are almost always TOC - be suspicious of these
+4. If you only see TOC entries and no actual content, report an empty list
 
 DOCUMENT SAMPLES:
 {scan_text}
@@ -695,6 +731,18 @@ DOCUMENT SAMPLES:
                 name = s.get('name', '').lower().replace(' ', '_')
                 pos = s.get('position_percent', 50) / 100.0
                 heading = s.get('heading_found', '')
+                is_actual = s.get('is_actual_content', True)
+
+                # CRITICAL: Filter out TOC entries (positions below 30% are almost always TOC)
+                if pos < 0.30:
+                    print(f"[SectionedExtractor] SKIPPING '{name}' at {int(pos*100)}% - likely TOC entry: {heading}")
+                    continue
+
+                # Also skip if explicitly marked as not actual content
+                if not is_actual:
+                    print(f"[SectionedExtractor] SKIPPING '{name}' - not marked as actual content: {heading}")
+                    continue
+
                 locations[name] = pos
                 print(f"[SectionedExtractor] Found '{name}' at {int(pos*100)}%: {heading}")
 
@@ -743,15 +791,16 @@ DOCUMENT SAMPLES:
                 (max(0.0, center_pos + 0.05), min(1.0, center_pos + 0.15)),   # Middle to end
             ]
         else:
-            print(f"[SectionedExtractor] Section '{section_name}' not located, using broader sampling")
-            # Fall back to BROAD sampling across document
-            # Sample more widely since we don't know where it is
+            print(f"[SectionedExtractor] Section '{section_name}' not located, using content-focused sampling")
+            # Fall back to CONTENT-FOCUSED sampling
+            # Statistical content is typically at 50-85% through the document
+            # TOC is at 0-15%, study design at 20-40%, stats at 50-80%
             regions = [
-                (0.0, 0.15),    # Beginning
-                (0.25, 0.40),   # Early middle
-                (0.45, 0.60),   # Middle
-                (0.60, 0.75),   # Late middle
-                (0.75, 0.90),   # Near end
+                (0.45, 0.55),   # Where stats sections often START
+                (0.55, 0.65),   # Middle of stats section
+                (0.65, 0.75),   # Later stats content (interim, multiplicity)
+                (0.75, 0.85),   # Near end stats content (missing data)
+                (0.20, 0.30),   # Study design (if needed for context)
             ]
 
         # Calculate sample size per region (aim for ~20K total for better coverage)
