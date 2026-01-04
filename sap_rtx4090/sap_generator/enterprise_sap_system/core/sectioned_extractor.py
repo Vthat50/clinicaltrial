@@ -122,6 +122,103 @@ class SectionedProtocolExtractor:
             'required': ['has_crossover'],
             'optional': ['crossover_description', 'crossover_adjustment_methods'],
             'critical': []
+        },
+        # =========================================================================
+        # NEW SECTIONS (2025-01) - Based on comprehensive regulatory sources
+        # =========================================================================
+        'safety_analysis': {
+            'required': ['teae_definition', 'ae_collection_period'],
+            'optional': ['ae_coding_dictionary', 'ae_grading_scale', 'sae_definition',
+                        'sae_reporting_period', 'aesi_list', 'irae_categories',
+                        'dose_reduction_rules', 'dose_discontinuation_rules'],
+            'critical': ['teae_definition']  # TEAE definition is critical for safety analysis
+        },
+        'pharmacokinetics': {
+            'required': ['pk_population_definition'],
+            'optional': ['pk_parameters', 'pk_sampling_timepoints', 'pk_analysis_method',
+                        'population_pk_model', 'pk_software', 'exposure_response_analysis',
+                        'pk_covariates'],
+            'critical': []
+        },
+        'biomarkers': {
+            'required': [],
+            'optional': ['predictive_biomarkers', 'prognostic_biomarkers', 'pdl1_assay',
+                        'pdl1_cutoffs', 'pdl1_scoring_method', 'tmb_assay', 'tmb_cutoff',
+                        'msi_testing_method', 'mmr_proteins_tested', 'genomic_platform',
+                        'ctdna_analysis', 'companion_diagnostic_required', 'companion_diagnostic_name'],
+            'critical': ['pdl1_assay', 'pdl1_cutoffs']  # Critical for IO trials
+        },
+        'laboratory': {
+            'required': [],
+            'optional': ['hematology_parameters', 'chemistry_parameters', 'urinalysis_parameters',
+                        'shift_table_analysis', 'lab_ctcae_grading', 'clinically_notable_criteria',
+                        'hys_law_analysis'],
+            'critical': []
+        },
+        'exposure': {
+            'required': [],
+            'optional': ['exposure_metrics', 'dose_delay_definition', 'dose_reduction_definition',
+                        'rdi_calculation_method', 'rdi_categories'],
+            'critical': []
+        },
+        'concomitant_medications': {
+            'required': [],
+            'optional': ['medication_coding', 'prohibited_medications', 'medications_of_interest',
+                        'prior_lines_of_therapy', 'prior_immunotherapy'],
+            'critical': []
+        },
+        'immunogenicity': {
+            'required': [],
+            'optional': ['ada_testing_performed', 'ada_assay_type', 'ada_sampling_timepoints',
+                        'nab_testing_performed', 'nab_assay_type', 'ada_incidence_analysis',
+                        'ada_impact_on_efficacy', 'ada_impact_on_safety', 'ada_impact_on_pk'],
+            'critical': []  # Critical for biologics
+        },
+        'conventions': {
+            'required': [],
+            'optional': ['baseline_definition', 'baseline_window', 'partial_date_imputation_rules',
+                        'visit_windows', 'on_treatment_definition', 'post_treatment_definition',
+                        'rounding_convention'],
+            'critical': ['baseline_definition']
+        },
+        'protocol_deviations': {
+            'required': [],
+            'optional': ['important_deviation_categories', 'deviation_impact_on_populations'],
+            'critical': []
+        },
+        'pro': {
+            'required': [],
+            'optional': ['pro_instruments', 'instrument_scoring_rules', 'pro_primary_endpoint',
+                        'pro_secondary_endpoints', 'time_to_deterioration', 'ttd_threshold',
+                        'pro_responder_definition', 'pro_missing_data_handling',
+                        'pro_compliance_threshold', 'pro_collection_schedule', 'pro_electronic_capture'],
+            'critical': []
+        },
+        'dmc': {
+            'required': ['has_dmc'],
+            'optional': ['dmc_charter_exists', 'dmc_review_frequency', 'dmc_unblinded',
+                        'safety_stopping_rules', 'safety_boundary_type', 'futility_review_planned',
+                        'futility_boundary', 'dmc_recommendation_options', 'sponsor_blinded',
+                        'independent_statistician'],
+            'critical': ['has_dmc']
+        },
+        'special_designs': {
+            'required': [],
+            'optional': ['is_master_protocol', 'master_protocol_type', 'is_basket_trial',
+                        'basket_tumor_types', 'basket_shared_biomarker', 'is_umbrella_trial',
+                        'umbrella_biomarker_arms', 'is_platform_trial', 'shared_control_arm',
+                        'is_adaptive', 'adaptive_features', 'adaptation_timing', 'adaptation_rules',
+                        'is_seamless', 'seamless_phases', 'phase2_to_phase3_criteria'],
+            'critical': []
+        },
+        'tumor_assessment': {
+            'required': ['response_criteria'],
+            'optional': ['response_criteria_version', 'assessment_schedule', 'baseline_imaging_window',
+                        'target_lesion_selection', 'max_target_lesions', 'min_lesion_size',
+                        'assessment_method', 'bicr_primary', 'discrepancy_resolution',
+                        'confirmation_required', 'confirmation_window', 'pseudoprogression_handling',
+                        'new_lesion_confirmation', 'progression_date_definition'],
+            'critical': ['response_criteria', 'assessment_method']
         }
     }
 
@@ -459,6 +556,499 @@ RESPOND IN JSON:
     "crossover_adjustment_methods": ["<method1>", "<method2>"] or [],
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
+}}''',
+
+        # =========================================================================
+        # NEW SECTION PROMPTS (2025-01)
+        # =========================================================================
+
+        'safety_analysis': '''Extract SAFETY ANALYSIS information from this protocol section.
+
+SEARCH for these patterns (ICH E2A, E6, FDA Safety Guidance):
+- "treatment-emergent" / "TEAE" / "adverse event" / "adverse experience"
+- "MedDRA" / "WHO-ART" / "coding dictionary"
+- "CTCAE" / "NCI-CTCAE" / "Common Terminology Criteria"
+- "serious adverse event" / "SAE" / "Grade 3-4" / "Grade 5"
+- "adverse events of special interest" / "AESI" / "events of interest"
+- "immune-related" / "irAE" / "immune-mediated"
+- "dose modification" / "dose reduction" / "dose delay" / "dose discontinuation"
+- "30 days" / "90 days" / "follow-up period" for AE collection
+
+Required fields:
+- teae_definition: How treatment-emergent AEs are defined
+- ae_collection_period: When AEs are collected (start to end)
+
+Optional fields:
+- ae_coding_dictionary: e.g., "MedDRA version 25.0"
+- ae_grading_scale: e.g., "NCI-CTCAE v5.0"
+- sae_definition: SAE criteria
+- sae_reporting_period: SAE reporting window
+- aesi_list: List of AEs of special interest
+- irae_categories: List of immune-related AE categories
+- dose_reduction_rules: Rules for dose reduction
+- dose_discontinuation_rules: Rules for stopping treatment
+
+RESPOND IN JSON:
+{{
+    "teae_definition": "<definition or [NOT FOUND]>",
+    "ae_collection_period": "<period or [NOT FOUND]>",
+    "ae_coding_dictionary": "<dictionary>" or null,
+    "ae_grading_scale": "<scale>" or null,
+    "sae_definition": "<definition>" or null,
+    "sae_reporting_period": "<period>" or null,
+    "aesi_list": ["<aesi1>", "<aesi2>", ...] or [],
+    "irae_categories": ["<category1>", "<category2>", ...] or [],
+    "dose_reduction_rules": ["<rule1>", "<rule2>", ...] or [],
+    "dose_discontinuation_rules": ["<rule1>", "<rule2>", ...] or [],
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'pharmacokinetics': '''Extract PHARMACOKINETIC (PK) ANALYSIS information from this protocol section.
+
+SEARCH for these patterns (FDA Population PK Guidance):
+- "pharmacokinetic" / "PK" / "pharmacokinetics"
+- "Cmax" / "Tmax" / "AUC" / "t1/2" / "half-life" / "clearance"
+- "population PK" / "PopPK" / "NONMEM" / "Phoenix"
+- "exposure" / "exposure-response" / "E-R"
+- "PK population" / "PK evaluable" / "rich sampling" / "sparse sampling"
+- "BLQ" / "below limit of quantification"
+
+Required field:
+- pk_population_definition: Who is included in PK analysis
+
+Optional fields:
+- pk_parameters: List of PK parameters (Cmax, AUC, etc.)
+- pk_sampling_timepoints: When PK samples are collected
+- pk_analysis_method: "Non-compartmental" or "Population PK"
+- population_pk_model: Model type if PopPK
+- pk_software: Software used (NONMEM, Phoenix, etc.)
+- exposure_response_analysis: true/false
+- pk_covariates: Covariates in PK analysis
+
+RESPOND IN JSON:
+{{
+    "pk_population_definition": "<definition or [NOT FOUND]>",
+    "pk_parameters": ["<param1>", "<param2>", ...] or [],
+    "pk_sampling_timepoints": ["<time1>", "<time2>", ...] or [],
+    "pk_analysis_method": "<method>" or null,
+    "population_pk_model": "<model>" or null,
+    "pk_software": "<software>" or null,
+    "exposure_response_analysis": <true/false> or null,
+    "pk_covariates": ["<cov1>", "<cov2>", ...] or [],
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'biomarkers': '''Extract BIOMARKER ANALYSIS information from this protocol section.
+
+SEARCH for these patterns (FDA Biomarker/CDx Guidance):
+- "biomarker" / "predictive" / "prognostic" / "pharmacodynamic"
+- "PD-L1" / "22C3" / "SP263" / "28-8" / "TPS" / "CPS" / "IC"
+- "TMB" / "tumor mutational burden" / "mutations per megabase"
+- "MSI" / "microsatellite instability" / "MSI-H" / "MSS"
+- "MMR" / "mismatch repair" / "MLH1" / "MSH2" / "MSH6" / "PMS2"
+- "ctDNA" / "circulating tumor DNA" / "liquid biopsy"
+- "companion diagnostic" / "CDx" / "FoundationOne" / "MSK-IMPACT"
+- "EGFR" / "ALK" / "ROS1" / "BRAF" / "KRAS" / "NTRK"
+
+Optional fields (extract all that apply):
+- predictive_biomarkers: Biomarkers that predict treatment response
+- prognostic_biomarkers: Biomarkers that predict outcome regardless of treatment
+- pdl1_assay: Specific PD-L1 assay used
+- pdl1_cutoffs: PD-L1 cutoff values (e.g., <1%, 1-49%, ≥50%)
+- pdl1_scoring_method: TPS, CPS, or IC scoring
+- tmb_assay: TMB assay used
+- tmb_cutoff: TMB threshold (e.g., ≥10 mut/Mb)
+- msi_testing_method: MSI testing method (IHC, PCR, NGS)
+- mmr_proteins_tested: MMR proteins tested
+- genomic_platform: Genomic testing platform
+- ctdna_analysis: true/false if ctDNA analysis planned
+- companion_diagnostic_required: true/false
+- companion_diagnostic_name: Name of CDx
+
+RESPOND IN JSON:
+{{
+    "predictive_biomarkers": ["<biomarker1>", "<biomarker2>", ...] or [],
+    "prognostic_biomarkers": ["<biomarker1>", "<biomarker2>", ...] or [],
+    "pdl1_assay": "<assay>" or null,
+    "pdl1_cutoffs": ["<cutoff1>", "<cutoff2>", ...] or [],
+    "pdl1_scoring_method": "<method>" or null,
+    "tmb_assay": "<assay>" or null,
+    "tmb_cutoff": "<cutoff>" or null,
+    "msi_testing_method": "<method>" or null,
+    "mmr_proteins_tested": ["<protein1>", "<protein2>", ...] or [],
+    "genomic_platform": "<platform>" or null,
+    "ctdna_analysis": <true/false> or null,
+    "companion_diagnostic_required": <true/false> or null,
+    "companion_diagnostic_name": "<name>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'laboratory': '''Extract LABORATORY ANALYSIS information from this protocol section.
+
+SEARCH for these patterns (ICH E3, CTCAE):
+- "laboratory" / "lab" / "hematology" / "chemistry" / "urinalysis"
+- "hemoglobin" / "WBC" / "ANC" / "platelets" / "neutrophils"
+- "ALT" / "AST" / "bilirubin" / "creatinine" / "GFR"
+- "shift table" / "baseline to worst" / "worst post-baseline"
+- "ULN" / "LLN" / "upper limit of normal" / "lower limit"
+- "Hy's law" / "hepatotoxicity" / "DILI"
+- "clinically notable" / "clinically significant"
+
+Optional fields:
+- hematology_parameters: List of hematology labs
+- chemistry_parameters: List of chemistry labs
+- urinalysis_parameters: List of urinalysis tests
+- shift_table_analysis: true/false if shift tables planned
+- lab_ctcae_grading: true/false if labs graded by CTCAE
+- clinically_notable_criteria: Criteria for notable abnormalities
+- hys_law_analysis: true/false if Hy's law analysis planned
+
+RESPOND IN JSON:
+{{
+    "hematology_parameters": ["<param1>", "<param2>", ...] or [],
+    "chemistry_parameters": ["<param1>", "<param2>", ...] or [],
+    "urinalysis_parameters": ["<param1>", "<param2>", ...] or [],
+    "shift_table_analysis": <true/false> or null,
+    "lab_ctcae_grading": <true/false> or null,
+    "clinically_notable_criteria": {{"<param>": "<criteria>", ...}} or {{}},
+    "hys_law_analysis": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'exposure': '''Extract STUDY DRUG EXPOSURE information from this protocol section.
+
+SEARCH for these patterns:
+- "exposure" / "drug exposure" / "treatment exposure"
+- "duration of treatment" / "time on treatment" / "cycles"
+- "cumulative dose" / "total dose" / "dose intensity"
+- "relative dose intensity" / "RDI" / "dose intensity"
+- "dose delay" / "dose reduction" / "dose interruption"
+
+Optional fields:
+- exposure_metrics: List of exposure metrics reported
+- dose_delay_definition: How dose delay is defined
+- dose_reduction_definition: How dose reduction is defined
+- rdi_calculation_method: How RDI is calculated
+- rdi_categories: Categories for RDI analysis
+
+RESPOND IN JSON:
+{{
+    "exposure_metrics": ["<metric1>", "<metric2>", ...] or [],
+    "dose_delay_definition": "<definition>" or null,
+    "dose_reduction_definition": "<definition>" or null,
+    "rdi_calculation_method": "<method>" or null,
+    "rdi_categories": ["<category1>", "<category2>", ...] or [],
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'concomitant_medications': '''Extract CONCOMITANT MEDICATIONS information from this protocol section.
+
+SEARCH for these patterns:
+- "concomitant" / "prior therapy" / "prior treatment" / "prior medication"
+- "prohibited" / "forbidden" / "not permitted" / "excluded"
+- "WHO Drug Dictionary" / "ATC" / "medication coding"
+- "immunosuppressant" / "steroid" / "corticosteroid"
+- "lines of therapy" / "prior lines" / "treatment history"
+
+Optional fields:
+- medication_coding: Coding dictionary used
+- prohibited_medications: List of prohibited medications
+- medications_of_interest: Medications to be analyzed separately
+- prior_lines_of_therapy: true/false if prior lines collected
+- prior_immunotherapy: true/false if prior IO collected
+
+RESPOND IN JSON:
+{{
+    "medication_coding": "<coding>" or null,
+    "prohibited_medications": ["<med1>", "<med2>", ...] or [],
+    "medications_of_interest": ["<med1>", "<med2>", ...] or [],
+    "prior_lines_of_therapy": <true/false> or null,
+    "prior_immunotherapy": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'immunogenicity': '''Extract IMMUNOGENICITY information from this protocol section.
+
+SEARCH for these patterns (FDA Immunogenicity Guidance):
+- "immunogenicity" / "anti-drug antibody" / "ADA" / "antibody"
+- "neutralizing antibody" / "NAb" / "neutralizing"
+- "screening" / "confirmatory" / "titer"
+- "treatment-emergent ADA" / "treatment-boosted"
+- "impact on efficacy" / "impact on safety" / "impact on PK"
+
+Optional fields (extract all that apply):
+- ada_testing_performed: true/false
+- ada_assay_type: Type of ADA assay
+- ada_sampling_timepoints: When ADA samples collected
+- nab_testing_performed: true/false
+- nab_assay_type: Type of NAb assay
+- ada_incidence_analysis: true/false if incidence analyzed
+- ada_impact_on_efficacy: true/false
+- ada_impact_on_safety: true/false
+- ada_impact_on_pk: true/false
+
+RESPOND IN JSON:
+{{
+    "ada_testing_performed": <true/false> or null,
+    "ada_assay_type": "<type>" or null,
+    "ada_sampling_timepoints": ["<time1>", "<time2>", ...] or [],
+    "nab_testing_performed": <true/false> or null,
+    "nab_assay_type": "<type>" or null,
+    "ada_incidence_analysis": <true/false> or null,
+    "ada_impact_on_efficacy": <true/false> or null,
+    "ada_impact_on_safety": <true/false> or null,
+    "ada_impact_on_pk": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'conventions': '''Extract ANALYSIS CONVENTIONS information from this protocol section.
+
+SEARCH for these patterns (CDISC ADaM, ICH E9):
+- "baseline" / "baseline definition" / "baseline value"
+- "last observation" / "LOCF" / "last value"
+- "date imputation" / "partial date" / "missing date"
+- "visit window" / "analysis window" / "target day"
+- "on-treatment" / "on treatment" / "treatment period"
+- "post-treatment" / "follow-up" / "off-treatment"
+- "rounding" / "decimal places"
+
+Optional fields:
+- baseline_definition: How baseline is defined
+- baseline_window: Window for baseline measurements
+- partial_date_imputation_rules: Rules for imputing partial dates
+- visit_windows: Visit window definitions
+- on_treatment_definition: Definition of on-treatment period
+- post_treatment_definition: Definition of post-treatment
+- rounding_convention: Rounding rules
+
+RESPOND IN JSON:
+{{
+    "baseline_definition": "<definition>" or null,
+    "baseline_window": "<window>" or null,
+    "partial_date_imputation_rules": {{"<date_type>": "<rule>", ...}} or {{}},
+    "visit_windows": {{"<visit>": "<window>", ...}} or {{}},
+    "on_treatment_definition": "<definition>" or null,
+    "post_treatment_definition": "<definition>" or null,
+    "rounding_convention": "<convention>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'protocol_deviations': '''Extract PROTOCOL DEVIATION information from this protocol section.
+
+SEARCH for these patterns (ICH E6, E9):
+- "protocol deviation" / "protocol violation" / "deviation"
+- "important deviation" / "major deviation" / "minor deviation"
+- "eligibility violation" / "inclusion/exclusion" / "wrong treatment"
+- "prohibited medication" / "prohibited therapy"
+- "impact on" / "exclusion from"
+
+Optional fields:
+- important_deviation_categories: Categories of important deviations
+- deviation_impact_on_populations: How deviations affect populations
+
+RESPOND IN JSON:
+{{
+    "important_deviation_categories": ["<category1>", "<category2>", ...] or [],
+    "deviation_impact_on_populations": "<description>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'pro': '''Extract PATIENT-REPORTED OUTCOMES (PRO) information from this protocol section.
+
+SEARCH for these patterns (FDA PRO Guidance):
+- "patient-reported" / "PRO" / "quality of life" / "QoL" / "HRQoL"
+- "EORTC" / "QLQ-C30" / "QLQ-LC13" / "QLQ-BR23"
+- "EQ-5D" / "EQ-5D-5L" / "EuroQol"
+- "FACT" / "FACT-G" / "FACIT"
+- "symptom" / "symptom burden" / "symptom severity"
+- "time to deterioration" / "TTD" / "deterioration"
+- "responder" / "responder analysis" / "MID" / "minimally important difference"
+- "compliance" / "completion rate" / "missing PRO"
+- "ePRO" / "electronic PRO"
+
+Optional fields (extract all that apply):
+- pro_instruments: List of PRO instruments used
+- instrument_scoring_rules: Scoring rules for instruments
+- pro_primary_endpoint: PRO as primary endpoint (if applicable)
+- pro_secondary_endpoints: PRO secondary endpoints
+- time_to_deterioration: true/false if TTD analysis planned
+- ttd_threshold: Threshold for deterioration
+- pro_responder_definition: Definition of PRO responder
+- pro_missing_data_handling: How missing PRO data is handled
+- pro_compliance_threshold: Required compliance rate
+- pro_collection_schedule: When PROs are collected
+- pro_electronic_capture: true/false if ePRO used
+
+RESPOND IN JSON:
+{{
+    "pro_instruments": ["<instrument1>", "<instrument2>", ...] or [],
+    "instrument_scoring_rules": {{"<instrument>": "<scoring>", ...}} or {{}},
+    "pro_primary_endpoint": "<endpoint>" or null,
+    "pro_secondary_endpoints": ["<endpoint1>", "<endpoint2>", ...] or [],
+    "time_to_deterioration": <true/false> or null,
+    "ttd_threshold": "<threshold>" or null,
+    "pro_responder_definition": "<definition>" or null,
+    "pro_missing_data_handling": "<handling>" or null,
+    "pro_compliance_threshold": <number> or null,
+    "pro_collection_schedule": ["<time1>", "<time2>", ...] or [],
+    "pro_electronic_capture": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'dmc': '''Extract DATA MONITORING COMMITTEE (DMC) information from this protocol section.
+
+SEARCH for these patterns (FDA DMC Guidance):
+- "data monitoring committee" / "DMC" / "DSMB" / "data safety"
+- "independent" / "unblinded" / "charter"
+- "safety review" / "interim review" / "periodic review"
+- "stopping rule" / "stopping boundary" / "safety stopping"
+- "futility" / "conditional power" / "predictive probability"
+- "recommendation" / "continue" / "stop" / "modify"
+
+Required field:
+- has_dmc: true/false - is there a DMC?
+
+Optional fields:
+- dmc_charter_exists: true/false
+- dmc_review_frequency: How often DMC reviews
+- dmc_unblinded: true/false if DMC sees unblinded data
+- safety_stopping_rules: List of safety stopping rules
+- safety_boundary_type: Type of safety boundary
+- futility_review_planned: true/false
+- futility_boundary: Futility stopping criterion
+- dmc_recommendation_options: What DMC can recommend
+- sponsor_blinded: true/false if sponsor is blinded
+- independent_statistician: true/false if independent stats support
+
+RESPOND IN JSON:
+{{
+    "has_dmc": <true/false or null if unknown>,
+    "dmc_charter_exists": <true/false> or null,
+    "dmc_review_frequency": "<frequency>" or null,
+    "dmc_unblinded": <true/false> or null,
+    "safety_stopping_rules": ["<rule1>", "<rule2>", ...] or [],
+    "safety_boundary_type": "<type>" or null,
+    "futility_review_planned": <true/false> or null,
+    "futility_boundary": "<boundary>" or null,
+    "dmc_recommendation_options": ["<option1>", "<option2>", ...] or [],
+    "sponsor_blinded": <true/false> or null,
+    "independent_statistician": <true/false> or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'special_designs': '''Extract SPECIAL TRIAL DESIGN information from this protocol section.
+
+SEARCH for these patterns (FDA Adaptive/Master Protocol Guidance):
+- "master protocol" / "basket" / "umbrella" / "platform"
+- "adaptive" / "adaptive design" / "sample size re-estimation"
+- "enrichment" / "adaptive enrichment" / "biomarker-guided"
+- "seamless" / "phase 2/3" / "phase II/III"
+- "shared control" / "common control" / "borrowing"
+- "response-adaptive" / "adaptive randomization"
+
+Optional fields (most trials will have none of these):
+- is_master_protocol: true/false
+- master_protocol_type: basket, umbrella, or platform
+- is_basket_trial: true/false
+- basket_tumor_types: List of tumor types in basket
+- basket_shared_biomarker: Common biomarker
+- is_umbrella_trial: true/false
+- umbrella_biomarker_arms: Biomarker-defined arms
+- is_platform_trial: true/false
+- shared_control_arm: true/false
+- is_adaptive: true/false
+- adaptive_features: List of adaptive features
+- adaptation_timing: When adaptations occur
+- adaptation_rules: Rules for adaptation
+- is_seamless: true/false
+- seamless_phases: Which phases combined
+- phase2_to_phase3_criteria: Go/no-go criteria
+
+RESPOND IN JSON:
+{{
+    "is_master_protocol": <true/false> or null,
+    "master_protocol_type": "<type>" or null,
+    "is_basket_trial": <true/false> or null,
+    "basket_tumor_types": ["<type1>", "<type2>", ...] or [],
+    "basket_shared_biomarker": "<biomarker>" or null,
+    "is_umbrella_trial": <true/false> or null,
+    "umbrella_biomarker_arms": []{{"biomarker": "<bm>", "treatment": "<tx>"}}, ...] or [],
+    "is_platform_trial": <true/false> or null,
+    "shared_control_arm": <true/false> or null,
+    "is_adaptive": <true/false> or null,
+    "adaptive_features": ["<feature1>", "<feature2>", ...] or [],
+    "adaptation_timing": ["<timing1>", "<timing2>", ...] or [],
+    "adaptation_rules": "<rules>" or null,
+    "is_seamless": <true/false> or null,
+    "seamless_phases": "<phases>" or null,
+    "phase2_to_phase3_criteria": "<criteria>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
+}}''',
+
+        'tumor_assessment': '''Extract TUMOR ASSESSMENT information from this protocol section.
+
+SEARCH for these patterns (RECIST, iRECIST, FDA Oncology):
+- "RECIST" / "RECIST 1.1" / "response criteria" / "response evaluation"
+- "iRECIST" / "irRECIST" / "immune-related" / "immune-modified"
+- "Lugano" / "lymphoma" / "Cheson"
+- "RANO" / "brain tumor" / "CNS"
+- "tumor assessment" / "imaging" / "radiologic" / "scan"
+- "target lesion" / "non-target" / "measurable" / "evaluable"
+- "BICR" / "blinded independent" / "central review" / "investigator"
+- "CR" / "PR" / "SD" / "PD" / "complete response" / "partial response"
+- "confirmation" / "confirmed response" / "unconfirmed"
+- "pseudoprogression" / "iUPD" / "iCPD"
+
+Required field:
+- response_criteria: Which criteria used (RECIST 1.1, iRECIST, etc.)
+
+Optional fields:
+- response_criteria_version: Version number
+- assessment_schedule: When assessments occur
+- baseline_imaging_window: Window for baseline scans
+- target_lesion_selection: Rules for selecting target lesions
+- max_target_lesions: Maximum number of target lesions
+- min_lesion_size: Minimum measurable lesion size
+- assessment_method: investigator, BICR, or both
+- bicr_primary: true/false if BICR is primary
+- discrepancy_resolution: How discrepancies handled
+- confirmation_required: true/false if confirmation needed
+- confirmation_window: Time window for confirmation
+- pseudoprogression_handling: How pseudoprogression handled
+- new_lesion_confirmation: true/false if new lesions need confirmation
+- progression_date_definition: How progression date determined
+
+RESPOND IN JSON:
+{{
+    "response_criteria": "<criteria or [NOT FOUND]>",
+    "response_criteria_version": "<version>" or null,
+    "assessment_schedule": "<schedule>" or null,
+    "baseline_imaging_window": "<window>" or null,
+    "target_lesion_selection": "<rules>" or null,
+    "max_target_lesions": <number> or null,
+    "min_lesion_size": "<size>" or null,
+    "assessment_method": "<method>" or null,
+    "bicr_primary": <true/false> or null,
+    "discrepancy_resolution": "<resolution>" or null,
+    "confirmation_required": <true/false> or null,
+    "confirmation_window": "<window>" or null,
+    "pseudoprogression_handling": "<handling>" or null,
+    "new_lesion_confirmation": <true/false> or null,
+    "progression_date_definition": "<definition>" or null,
+    "confidence": <0.0-1.0>,
+    "notes": ["<any extraction notes>"]
 }}'''
     }
 
@@ -475,6 +1065,20 @@ RESPOND IN JSON:
         'populations': ['populations', 'safety', 'efficacy'],
         'estimand': ['estimand', 'endpoints', 'statistical_methods'],
         'crossover': ['statistical_methods', 'sensitivity'],
+        # NEW SECTION MAPPINGS (2025-01)
+        'safety_analysis': ['safety', 'adverse_events', 'safety_analysis'],
+        'pharmacokinetics': ['pharmacokinetics', 'pk', 'pharmacology'],
+        'biomarkers': ['biomarkers', 'correlative', 'translational', 'pd-l1'],
+        'laboratory': ['laboratory', 'lab', 'safety'],
+        'exposure': ['exposure', 'drug_exposure', 'study_drug'],
+        'concomitant_medications': ['concomitant', 'medications', 'prior_therapy'],
+        'immunogenicity': ['immunogenicity', 'ada', 'antibody'],
+        'conventions': ['conventions', 'definitions', 'general_considerations'],
+        'protocol_deviations': ['deviations', 'protocol_deviations', 'populations'],
+        'pro': ['pro', 'patient_reported', 'quality_of_life', 'qol'],
+        'dmc': ['dmc', 'dsmb', 'data_monitoring', 'interim_analysis'],
+        'special_designs': ['study_design', 'design', 'adaptive'],
+        'tumor_assessment': ['tumor_assessment', 'imaging', 'response', 'efficacy'],
     }
 
     def __init__(self, llm_client=None):

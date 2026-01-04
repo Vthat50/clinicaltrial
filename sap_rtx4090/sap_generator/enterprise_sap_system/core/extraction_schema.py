@@ -395,7 +395,465 @@ class CrossoverHandling:
 
 
 # =============================================================================
-# SECTION 11: EXTRACTION CONFIDENCE (NEW SECTION)
+# SECTION 11: SAFETY ANALYSES (ICH E2A, E6) - NEW
+# =============================================================================
+
+@dataclass
+class SafetyAnalyses:
+    """
+    Safety analysis specifications from ICH E2A/E6 and FDA Safety Reporting Guidance.
+    Source: ICH E2A Clinical Safety Data Management
+    """
+    # Safety population
+    safety_population_definition: str = ""
+
+    # Adverse Events
+    ae_coding_dictionary: str = "MedDRA"          # MedDRA version
+    ae_grading_scale: str = "CTCAE"               # NCI-CTCAE version
+    ae_collection_period: str = ""                # e.g., "From first dose to 30 days after last dose"
+    teae_definition: str = ""                     # Treatment-emergent AE definition
+
+    # AE Summaries
+    ae_summary_by_soc: Optional[bool] = None      # By System Organ Class
+    ae_summary_by_pt: Optional[bool] = None       # By Preferred Term
+    ae_summary_by_severity: Optional[bool] = None # By severity grade
+    ae_summary_by_relationship: Optional[bool] = None  # By relationship to treatment
+
+    # Serious AEs
+    sae_definition: str = ""
+    sae_reporting_period: str = ""
+
+    # Deaths
+    death_reporting: str = ""                     # How deaths are analyzed
+
+    # AEs of Special Interest (AESI)
+    aesi_list: List[str] = field(default_factory=list)  # e.g., ["Immune-related AEs", "Infusion reactions"]
+    aesi_definitions: Dict[str, str] = field(default_factory=dict)
+
+    # Immune-related AEs (for immunotherapy)
+    irae_categories: List[str] = field(default_factory=list)  # e.g., ["Pneumonitis", "Colitis", "Hepatitis"]
+    irae_management_algorithms: Optional[bool] = None
+
+    # Dose modifications
+    dose_reduction_rules: List[str] = field(default_factory=list)
+    dose_delay_rules: List[str] = field(default_factory=list)
+    dose_discontinuation_rules: List[str] = field(default_factory=list)
+
+
+# =============================================================================
+# SECTION 12: PHARMACOKINETIC ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class PharmacokineticAnalyses:
+    """
+    PK analysis specifications.
+    Source: FDA Population PK Guidance, ICH E4
+    """
+    # PK Population
+    pk_population_definition: str = ""
+    pk_evaluable_criteria: List[str] = field(default_factory=list)
+
+    # PK Parameters
+    pk_parameters: List[str] = field(default_factory=list)  # e.g., ["Cmax", "Tmax", "AUC0-inf", "t1/2"]
+    pk_sampling_timepoints: List[str] = field(default_factory=list)
+
+    # Analysis Methods
+    pk_analysis_method: str = ""                  # Non-compartmental, Population PK
+    population_pk_model: Optional[str] = None     # e.g., "Two-compartment with first-order absorption"
+    pk_software: str = ""                         # e.g., "NONMEM", "Phoenix WinNonlin"
+
+    # PK/PD
+    exposure_response_analysis: Optional[bool] = None
+    exposure_efficacy_relationship: Optional[str] = None
+    exposure_safety_relationship: Optional[str] = None
+
+    # Covariates
+    pk_covariates: List[str] = field(default_factory=list)  # e.g., ["Weight", "Age", "Renal function"]
+
+
+# =============================================================================
+# SECTION 13: BIOMARKER ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class BiomarkerAnalyses:
+    """
+    Biomarker and correlative analyses specifications.
+    Source: FDA Biomarker Guidance, Companion Diagnostic Guidance
+    """
+    # Biomarker Types
+    predictive_biomarkers: List[str] = field(default_factory=list)  # e.g., ["PD-L1", "TMB"]
+    prognostic_biomarkers: List[str] = field(default_factory=list)
+    pharmacodynamic_biomarkers: List[str] = field(default_factory=list)
+
+    # PD-L1 Specific (common in IO trials)
+    pdl1_assay: Optional[str] = None              # e.g., "22C3 pharmDx", "SP263"
+    pdl1_cutoffs: List[str] = field(default_factory=list)  # e.g., ["<1%", "1-49%", "≥50%"]
+    pdl1_scoring_method: Optional[str] = None     # e.g., "TPS", "CPS", "IC"
+
+    # TMB
+    tmb_assay: Optional[str] = None
+    tmb_cutoff: Optional[str] = None              # e.g., "≥10 mut/Mb"
+
+    # MSI/MMR
+    msi_testing_method: Optional[str] = None      # e.g., "IHC", "PCR", "NGS"
+    mmr_proteins_tested: List[str] = field(default_factory=list)  # e.g., ["MLH1", "MSH2", "MSH6", "PMS2"]
+
+    # Genomic Analyses
+    genomic_platform: Optional[str] = None        # e.g., "FoundationOne CDx", "MSK-IMPACT"
+    genes_analyzed: List[str] = field(default_factory=list)
+    ctdna_analysis: Optional[bool] = None         # Circulating tumor DNA
+
+    # Companion Diagnostic
+    companion_diagnostic_required: Optional[bool] = None
+    companion_diagnostic_name: Optional[str] = None
+    companion_diagnostic_fda_status: Optional[str] = None  # Approved, Pending
+
+
+# =============================================================================
+# SECTION 14: LABORATORY ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class LaboratoryAnalyses:
+    """
+    Laboratory evaluation specifications.
+    Source: ICH E3 Structure and Content of Clinical Study Reports
+    """
+    # Lab Parameters
+    hematology_parameters: List[str] = field(default_factory=list)  # e.g., ["Hemoglobin", "WBC", "Platelets"]
+    chemistry_parameters: List[str] = field(default_factory=list)   # e.g., ["ALT", "AST", "Bilirubin", "Creatinine"]
+    urinalysis_parameters: List[str] = field(default_factory=list)
+
+    # Analysis Methods
+    shift_table_analysis: Optional[bool] = None   # Baseline to worst post-baseline
+    ctcae_grading: Optional[bool] = None          # Grade by CTCAE
+
+    # Notable Abnormalities
+    clinically_notable_criteria: Dict[str, str] = field(default_factory=dict)
+    # e.g., {"ALT": ">3x ULN", "Neutrophils": "<1000/mm3"}
+
+    # Hy's Law
+    hys_law_analysis: Optional[bool] = None       # For hepatotoxicity
+
+
+# =============================================================================
+# SECTION 15: EXPOSURE ANALYSES - NEW
+# =============================================================================
+
+@dataclass
+class ExposureAnalyses:
+    """
+    Study drug exposure and accountability.
+    Source: ICH E3, FDA Guidance
+    """
+    # Exposure Metrics
+    exposure_metrics: List[str] = field(default_factory=list)
+    # e.g., ["Duration of treatment", "Number of cycles", "Cumulative dose", "Relative dose intensity"]
+
+    # Dose Modifications
+    dose_delay_definition: str = ""
+    dose_reduction_definition: str = ""
+    dose_interruption_definition: str = ""
+
+    # Relative Dose Intensity
+    rdi_calculation_method: str = ""
+    rdi_categories: List[str] = field(default_factory=list)  # e.g., ["<80%", "80-100%", ">100%"]
+
+
+# =============================================================================
+# SECTION 16: CONCOMITANT MEDICATIONS - NEW
+# =============================================================================
+
+@dataclass
+class ConcomitantMedications:
+    """
+    Prior and concomitant medication analyses.
+    Source: ICH E3
+    """
+    medication_coding: str = "WHO Drug Dictionary"
+    prior_therapy_collection: Optional[bool] = None
+    concomitant_therapy_collection: Optional[bool] = None
+
+    # Categories of Interest
+    prohibited_medications: List[str] = field(default_factory=list)
+    medications_of_interest: List[str] = field(default_factory=list)  # e.g., ["Steroids", "Immunosuppressants"]
+
+    # Prior Anticancer Therapy
+    prior_lines_of_therapy: Optional[bool] = None
+    prior_immunotherapy: Optional[bool] = None
+    prior_targeted_therapy: Optional[bool] = None
+
+
+# =============================================================================
+# SECTION 17: IMMUNOGENICITY - NEW (for biologics/immunotherapy)
+# =============================================================================
+
+@dataclass
+class Immunogenicity:
+    """
+    Immunogenicity analysis for therapeutic proteins.
+    Source: FDA Immunogenicity Guidance (2019)
+    """
+    ada_testing_performed: Optional[bool] = None  # Anti-drug antibodies
+    ada_assay_type: Optional[str] = None          # e.g., "Screening", "Confirmatory", "Titer"
+    ada_sampling_timepoints: List[str] = field(default_factory=list)
+
+    nab_testing_performed: Optional[bool] = None  # Neutralizing antibodies
+    nab_assay_type: Optional[str] = None
+
+    # Analysis
+    ada_incidence_analysis: Optional[bool] = None
+    ada_impact_on_efficacy: Optional[bool] = None
+    ada_impact_on_safety: Optional[bool] = None
+    ada_impact_on_pk: Optional[bool] = None
+
+
+# =============================================================================
+# SECTION 18: CONVENTIONS & DATE IMPUTATION - NEW
+# =============================================================================
+
+@dataclass
+class Conventions:
+    """
+    Analysis conventions and date imputation rules.
+    Source: CDISC ADaM, ICH E9
+    """
+    # Baseline Definition
+    baseline_definition: str = ""                 # e.g., "Last non-missing value before first dose"
+    baseline_window: str = ""                     # e.g., "Within 28 days of randomization"
+
+    # Date Imputation
+    partial_date_imputation_rules: Dict[str, str] = field(default_factory=dict)
+    # e.g., {"AE start": "First of month", "AE end": "Last of month"}
+
+    # Visit Windows
+    visit_windows: Dict[str, str] = field(default_factory=dict)
+    # e.g., {"Week 6": "Day 36-50", "Week 12": "Day 78-92"}
+
+    # Analysis Windows
+    on_treatment_definition: str = ""
+    post_treatment_definition: str = ""
+
+    # Rounding Rules
+    rounding_convention: str = ""                 # e.g., "Round to 1 decimal place"
+
+
+# =============================================================================
+# SECTION 19: PROTOCOL DEVIATIONS - NEW
+# =============================================================================
+
+@dataclass
+class ProtocolDeviations:
+    """
+    Protocol deviation handling.
+    Source: ICH E6 (GCP), ICH E9
+    """
+    # Deviation Categories
+    important_deviation_categories: List[str] = field(default_factory=list)
+    # e.g., ["Eligibility violations", "Prohibited medication use", "Wrong treatment"]
+
+    # Handling
+    deviation_impact_on_populations: str = ""     # How deviations affect PP population
+    deviation_documentation: str = ""
+
+
+# =============================================================================
+# SECTION 20: PATIENT-REPORTED OUTCOMES (PROs) - NEW
+# =============================================================================
+
+@dataclass
+class PatientReportedOutcomes:
+    """
+    PRO analysis specifications.
+    Source: FDA PRO Guidance (2009), FDA Oncology PRO Guidance, CDISC PRO standards
+    """
+    # PRO Instruments
+    pro_instruments: List[str] = field(default_factory=list)
+    # e.g., ["EORTC QLQ-C30", "EORTC QLQ-LC13", "EQ-5D-5L"]
+
+    # Instrument Details
+    instrument_scoring_rules: Dict[str, str] = field(default_factory=dict)
+    # e.g., {"EORTC QLQ-C30": "Linear transformation 0-100", "EQ-5D-5L": "Index value -0.5 to 1.0"}
+
+    # Endpoints
+    pro_primary_endpoint: Optional[str] = None     # If PRO is primary endpoint
+    pro_secondary_endpoints: List[str] = field(default_factory=list)
+    pro_exploratory_endpoints: List[str] = field(default_factory=list)
+
+    # Key PRO Analyses
+    time_to_deterioration: Optional[bool] = None   # TTD analysis planned
+    ttd_threshold: Optional[str] = None            # e.g., "≥10-point decrease from baseline"
+    responder_definition: Optional[str] = None     # MID for responder analysis
+
+    # Missing PRO Data
+    pro_missing_data_handling: str = ""            # e.g., "MMRM", "Pattern mixture"
+    pro_compliance_threshold: Optional[float] = None  # e.g., 0.80 for 80%
+
+    # Multiplicity
+    pro_multiplicity_handling: str = ""            # How PROs fit into testing hierarchy
+
+    # Administration
+    pro_collection_schedule: List[str] = field(default_factory=list)
+    # e.g., ["Baseline", "Week 6", "Week 12", "End of Treatment"]
+    pro_electronic_capture: Optional[bool] = None  # ePRO vs paper
+
+
+# =============================================================================
+# SECTION 21: DATA MONITORING COMMITTEE (DMC) - NEW
+# =============================================================================
+
+@dataclass
+class DataMonitoringCommittee:
+    """
+    DMC and safety oversight specifications.
+    Source: FDA DMC Guidance (2006), ICH E9, ICH E6
+    """
+    # DMC Structure
+    has_dmc: Optional[bool] = None
+    dmc_charter_exists: Optional[bool] = None
+    dmc_membership: List[str] = field(default_factory=list)  # Roles, not names
+
+    # Review Schedule
+    dmc_review_frequency: str = ""                 # e.g., "Every 6 months", "After 50 events"
+    dmc_unblinded: Optional[bool] = None           # DMC has access to unblinded data
+
+    # Safety Stopping Rules
+    safety_stopping_rules: List[str] = field(default_factory=list)
+    safety_boundary_type: str = ""                 # e.g., "Pocock", "Custom"
+
+    # Futility
+    futility_review_planned: Optional[bool] = None
+    futility_boundary: str = ""                    # e.g., "Conditional power <20%"
+
+    # Interim Recommendations
+    dmc_recommendation_options: List[str] = field(default_factory=list)
+    # e.g., ["Continue", "Modify", "Stop for safety", "Stop for efficacy", "Stop for futility"]
+
+    # Blinding
+    sponsor_blinded: Optional[bool] = None         # Sponsor blind to interim results
+    independent_statistician: Optional[bool] = None  # Unblinded stats separate from sponsor
+
+
+# =============================================================================
+# SECTION 22: CDISC DATA STANDARDS - NEW
+# =============================================================================
+
+@dataclass
+class CDISCAlignment:
+    """
+    CDISC data standard alignment.
+    Source: CDISC SDTM, ADaM, CDASH, Oncology Therapeutic Area Supplements
+    """
+    # SDTM Domains Used
+    sdtm_version: str = ""                         # e.g., "SDTM-IG 3.3"
+    sdtm_domains: List[str] = field(default_factory=list)
+    # e.g., ["DM", "AE", "LB", "VS", "EX", "TU", "TR", "RS"]
+
+    # ADaM Datasets
+    adam_version: str = ""                         # e.g., "ADaM-IG 1.2"
+    adam_datasets: List[str] = field(default_factory=list)
+    # e.g., ["ADSL", "ADTTE", "ADRS", "ADAE", "ADLB"]
+
+    # Oncology-Specific
+    oncology_response_domains: List[str] = field(default_factory=list)
+    # e.g., ["TU", "TR", "RS"] - Tumor identification, Tumor results, Response
+    response_criteria: str = ""                    # e.g., "RECIST 1.1", "iRECIST"
+
+    # Derived Variables
+    key_derivations: Dict[str, str] = field(default_factory=dict)
+    # e.g., {"AVAL": "Numeric analysis value", "CHG": "Change from baseline"}
+
+    # Submission Readiness
+    submission_standard: str = ""                  # e.g., "FDA", "PMDA", "EMA"
+    define_xml_version: str = ""                   # e.g., "Define-XML 2.0"
+
+
+# =============================================================================
+# SECTION 23: SPECIAL DESIGNS - NEW
+# =============================================================================
+
+@dataclass
+class SpecialDesigns:
+    """
+    Special trial design elements.
+    Source: FDA Master Protocol Guidance, FDA Adaptive Design Guidance, ICH E9(R1)
+    """
+    # Master Protocol Elements
+    is_master_protocol: Optional[bool] = None
+    master_protocol_type: str = ""                 # basket, umbrella, platform
+
+    # Basket Trial
+    is_basket_trial: Optional[bool] = None
+    basket_tumor_types: List[str] = field(default_factory=list)
+    basket_shared_biomarker: str = ""              # e.g., "NTRK fusion", "MSI-H"
+
+    # Umbrella Trial
+    is_umbrella_trial: Optional[bool] = None
+    umbrella_biomarker_arms: List[Dict[str, str]] = field(default_factory=list)
+    # e.g., [{"biomarker": "EGFR", "treatment": "Erlotinib"}, ...]
+
+    # Platform Trial
+    is_platform_trial: Optional[bool] = None
+    arms_can_be_added: Optional[bool] = None
+    shared_control_arm: Optional[bool] = None
+
+    # Adaptive Elements
+    is_adaptive: Optional[bool] = None
+    adaptive_features: List[str] = field(default_factory=list)
+    # e.g., ["Sample size re-estimation", "Adaptive enrichment", "Response-adaptive randomization"]
+    adaptation_timing: List[str] = field(default_factory=list)
+    adaptation_rules: str = ""
+
+    # Seamless Design
+    is_seamless: Optional[bool] = None
+    seamless_phases: str = ""                      # e.g., "Phase 2/3"
+    phase2_to_phase3_criteria: str = ""            # Go/no-go criteria
+
+
+# =============================================================================
+# SECTION 24: TUMOR ASSESSMENT & IMAGING - NEW
+# =============================================================================
+
+@dataclass
+class TumorAssessment:
+    """
+    Tumor assessment and imaging specifications.
+    Source: RECIST 1.1, iRECIST, Lugano, RANO, FDA Oncology Endpoints
+    """
+    # Response Criteria
+    response_criteria: str = ""                    # RECIST 1.1, iRECIST, Lugano, RANO
+    response_criteria_version: str = ""
+
+    # Imaging Schedule
+    assessment_schedule: str = ""                  # e.g., "Every 6 weeks for 48 weeks, then Q12W"
+    baseline_imaging_window: str = ""              # e.g., "Within 28 days of randomization"
+
+    # Lesion Selection
+    target_lesion_selection: str = ""              # Rules for selecting target lesions
+    max_target_lesions: Optional[int] = None       # e.g., 5 total, 2 per organ
+    min_lesion_size: Optional[str] = None          # e.g., "≥10mm longest diameter"
+
+    # Adjudication
+    assessment_method: str = ""                    # investigator, BICR, both
+    bicr_primary: Optional[bool] = None            # BICR as primary for regulatory
+    discrepancy_resolution: str = ""               # How investigator vs BICR discrepancies handled
+
+    # Confirmation
+    confirmation_required: Optional[bool] = None   # CR/PR confirmation scan required
+    confirmation_window: str = ""                  # e.g., "≥4 weeks after initial response"
+
+    # Special Considerations
+    pseudoprogression_handling: str = ""           # For immunotherapy trials
+    new_lesion_confirmation: Optional[bool] = None # iRECIST iUPD → ICPD
+
+    # Progression Date
+    progression_date_definition: str = ""          # Date of first documented PD
+
+
+# =============================================================================
+# SECTION 25: EXTRACTION CONFIDENCE
 # =============================================================================
 
 @dataclass
@@ -466,7 +924,53 @@ class ExtractedProtocolFacts:
     # Crossover
     crossover: CrossoverHandling = field(default_factory=CrossoverHandling)
 
-    # Extraction Confidence (NEW)
+    # =========================================================================
+    # NEW SECTIONS (2025-01) - Based on comprehensive regulatory sources
+    # =========================================================================
+
+    # Safety (ICH E2A, E2B, E6, FDA Safety Guidance)
+    safety: SafetyAnalyses = field(default_factory=SafetyAnalyses)
+
+    # Pharmacokinetics (FDA Population PK Guidance, ICH E4, M10)
+    pharmacokinetics: PharmacokineticAnalyses = field(default_factory=PharmacokineticAnalyses)
+
+    # Biomarkers (FDA Biomarker/CDx Guidance, FDA-NIH BEST)
+    biomarkers: BiomarkerAnalyses = field(default_factory=BiomarkerAnalyses)
+
+    # Laboratory (ICH E3, CTCAE)
+    laboratory: LaboratoryAnalyses = field(default_factory=LaboratoryAnalyses)
+
+    # Exposure (ICH E3)
+    exposure: ExposureAnalyses = field(default_factory=ExposureAnalyses)
+
+    # Concomitant Medications (ICH E3)
+    concomitant_meds: ConcomitantMedications = field(default_factory=ConcomitantMedications)
+
+    # Immunogenicity (FDA Immunogenicity Guidance)
+    immunogenicity: Immunogenicity = field(default_factory=Immunogenicity)
+
+    # Conventions (CDISC ADaM, ICH E9)
+    conventions: Conventions = field(default_factory=Conventions)
+
+    # Protocol Deviations (ICH E6, E9)
+    deviations: ProtocolDeviations = field(default_factory=ProtocolDeviations)
+
+    # Patient-Reported Outcomes (FDA PRO Guidance)
+    pro: PatientReportedOutcomes = field(default_factory=PatientReportedOutcomes)
+
+    # Data Monitoring Committee (FDA DMC Guidance)
+    dmc: DataMonitoringCommittee = field(default_factory=DataMonitoringCommittee)
+
+    # CDISC Standards (SDTM, ADaM, CDASH)
+    cdisc: CDISCAlignment = field(default_factory=CDISCAlignment)
+
+    # Special Designs (FDA Adaptive/Master Protocol Guidance)
+    special_design: SpecialDesigns = field(default_factory=SpecialDesigns)
+
+    # Tumor Assessment (RECIST, iRECIST, FDA Oncology)
+    tumor_assessment: TumorAssessment = field(default_factory=TumorAssessment)
+
+    # Extraction Confidence
     confidence: ExtractionConfidence = field(default_factory=ExtractionConfidence)
 
     def get_critical_numerical_fields(self) -> Dict[str, Any]:
@@ -596,6 +1100,123 @@ class ExtractedProtocolFacts:
             'fas_definition': self.populations.fas_definition,
             'safety_definition': self.populations.safety_population_definition,
 
+            # =========================================================================
+            # NEW SECTIONS (2025-01)
+            # =========================================================================
+
+            # Safety (ICH E2A, E6, FDA)
+            'ae_coding_dictionary': self.safety.ae_coding_dictionary,
+            'ae_grading_scale': self.safety.ae_grading_scale,
+            'ae_collection_period': self.safety.ae_collection_period,
+            'teae_definition': self.safety.teae_definition,
+            'sae_definition': self.safety.sae_definition,
+            'aesi_list': self.safety.aesi_list,
+            'irae_categories': self.safety.irae_categories,
+            'dose_reduction_rules': self.safety.dose_reduction_rules,
+            'dose_discontinuation_rules': self.safety.dose_discontinuation_rules,
+
+            # Pharmacokinetics (FDA Population PK)
+            'pk_population_definition': self.pharmacokinetics.pk_population_definition,
+            'pk_parameters': self.pharmacokinetics.pk_parameters,
+            'pk_sampling_timepoints': self.pharmacokinetics.pk_sampling_timepoints,
+            'pk_analysis_method': self.pharmacokinetics.pk_analysis_method,
+            'exposure_response_analysis': self.pharmacokinetics.exposure_response_analysis,
+            'pk_covariates': self.pharmacokinetics.pk_covariates,
+
+            # Biomarkers (FDA CDx Guidance)
+            'predictive_biomarkers': self.biomarkers.predictive_biomarkers,
+            'prognostic_biomarkers': self.biomarkers.prognostic_biomarkers,
+            'pdl1_assay': self.biomarkers.pdl1_assay,
+            'pdl1_cutoffs': self.biomarkers.pdl1_cutoffs,
+            'pdl1_scoring_method': self.biomarkers.pdl1_scoring_method,
+            'tmb_assay': self.biomarkers.tmb_assay,
+            'tmb_cutoff': self.biomarkers.tmb_cutoff,
+            'msi_testing_method': self.biomarkers.msi_testing_method,
+            'companion_diagnostic_required': self.biomarkers.companion_diagnostic_required,
+            'companion_diagnostic_name': self.biomarkers.companion_diagnostic_name,
+
+            # Laboratory (ICH E3, CTCAE)
+            'hematology_parameters': self.laboratory.hematology_parameters,
+            'chemistry_parameters': self.laboratory.chemistry_parameters,
+            'shift_table_analysis': self.laboratory.shift_table_analysis,
+            'hys_law_analysis': self.laboratory.hys_law_analysis,
+            'clinically_notable_criteria': self.laboratory.clinically_notable_criteria,
+
+            # Exposure
+            'exposure_metrics': self.exposure.exposure_metrics,
+            'rdi_calculation_method': self.exposure.rdi_calculation_method,
+            'rdi_categories': self.exposure.rdi_categories,
+
+            # Concomitant Medications
+            'medication_coding': self.concomitant_meds.medication_coding,
+            'prohibited_medications': self.concomitant_meds.prohibited_medications,
+            'medications_of_interest': self.concomitant_meds.medications_of_interest,
+
+            # Immunogenicity (FDA Immunogenicity Guidance)
+            'ada_testing_performed': self.immunogenicity.ada_testing_performed,
+            'ada_assay_type': self.immunogenicity.ada_assay_type,
+            'ada_sampling_timepoints': self.immunogenicity.ada_sampling_timepoints,
+            'nab_testing_performed': self.immunogenicity.nab_testing_performed,
+            'ada_impact_on_efficacy': self.immunogenicity.ada_impact_on_efficacy,
+            'ada_impact_on_safety': self.immunogenicity.ada_impact_on_safety,
+
+            # Conventions (CDISC ADaM)
+            'baseline_definition': self.conventions.baseline_definition,
+            'baseline_window': self.conventions.baseline_window,
+            'partial_date_imputation_rules': self.conventions.partial_date_imputation_rules,
+            'visit_windows': self.conventions.visit_windows,
+            'on_treatment_definition': self.conventions.on_treatment_definition,
+
+            # Protocol Deviations (ICH E6)
+            'important_deviation_categories': self.deviations.important_deviation_categories,
+            'deviation_impact_on_populations': self.deviations.deviation_impact_on_populations,
+
+            # PRO (FDA PRO Guidance)
+            'pro_instruments': self.pro.pro_instruments,
+            'pro_primary_endpoint': self.pro.pro_primary_endpoint,
+            'pro_secondary_endpoints': self.pro.pro_secondary_endpoints,
+            'time_to_deterioration': self.pro.time_to_deterioration,
+            'ttd_threshold': self.pro.ttd_threshold,
+            'pro_missing_data_handling': self.pro.pro_missing_data_handling,
+            'pro_collection_schedule': self.pro.pro_collection_schedule,
+
+            # DMC (FDA DMC Guidance)
+            'has_dmc': self.dmc.has_dmc,
+            'dmc_review_frequency': self.dmc.dmc_review_frequency,
+            'dmc_unblinded': self.dmc.dmc_unblinded,
+            'safety_stopping_rules': self.dmc.safety_stopping_rules,
+            'futility_review_planned': self.dmc.futility_review_planned,
+            'futility_boundary': self.dmc.futility_boundary,
+            'dmc_recommendation_options': self.dmc.dmc_recommendation_options,
+
+            # CDISC Standards
+            'sdtm_version': self.cdisc.sdtm_version,
+            'sdtm_domains': self.cdisc.sdtm_domains,
+            'adam_version': self.cdisc.adam_version,
+            'adam_datasets': self.cdisc.adam_datasets,
+            'oncology_response_domains': self.cdisc.oncology_response_domains,
+            'cdisc_response_criteria': self.cdisc.response_criteria,
+
+            # Special Designs (FDA Adaptive/Master Protocol)
+            'is_master_protocol': self.special_design.is_master_protocol,
+            'master_protocol_type': self.special_design.master_protocol_type,
+            'is_basket_trial': self.special_design.is_basket_trial,
+            'is_umbrella_trial': self.special_design.is_umbrella_trial,
+            'is_adaptive': self.special_design.is_adaptive,
+            'adaptive_features': self.special_design.adaptive_features,
+            'is_seamless': self.special_design.is_seamless,
+            'seamless_phases': self.special_design.seamless_phases,
+
+            # Tumor Assessment (RECIST, iRECIST)
+            'response_criteria': self.tumor_assessment.response_criteria,
+            'assessment_schedule': self.tumor_assessment.assessment_schedule,
+            'assessment_method': self.tumor_assessment.assessment_method,
+            'bicr_primary': self.tumor_assessment.bicr_primary,
+            'confirmation_required': self.tumor_assessment.confirmation_required,
+            'confirmation_window': self.tumor_assessment.confirmation_window,
+            'pseudoprogression_handling': self.tumor_assessment.pseudoprogression_handling,
+            'progression_date_definition': self.tumor_assessment.progression_date_definition,
+
             # Confidence
             'extraction_confidence': self.confidence.overall_confidence,
             'needs_review': self.confidence.needs_review,
@@ -700,7 +1321,171 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     # Populations
     facts.populations.fas_definition = extracted.get('fas_definition', '')
 
-    # Confidence - NEW
+    # =========================================================================
+    # NEW SECTIONS (2025-01)
+    # =========================================================================
+
+    # Safety (ICH E2A, E6)
+    facts.safety.ae_coding_dictionary = extracted.get('ae_coding_dictionary', 'MedDRA')
+    facts.safety.ae_grading_scale = extracted.get('ae_grading_scale', 'CTCAE')
+    facts.safety.ae_collection_period = extracted.get('ae_collection_period', '')
+    facts.safety.teae_definition = extracted.get('teae_definition', '')
+    facts.safety.sae_definition = extracted.get('sae_definition', '')
+    facts.safety.sae_reporting_period = extracted.get('sae_reporting_period', '')
+    facts.safety.aesi_list = extracted.get('aesi_list', [])
+    facts.safety.aesi_definitions = extracted.get('aesi_definitions', {})
+    facts.safety.irae_categories = extracted.get('irae_categories', [])
+    facts.safety.dose_reduction_rules = extracted.get('dose_reduction_rules', [])
+    facts.safety.dose_delay_rules = extracted.get('dose_delay_rules', [])
+    facts.safety.dose_discontinuation_rules = extracted.get('dose_discontinuation_rules', [])
+
+    # Pharmacokinetics
+    facts.pharmacokinetics.pk_population_definition = extracted.get('pk_population_definition', '')
+    facts.pharmacokinetics.pk_evaluable_criteria = extracted.get('pk_evaluable_criteria', [])
+    facts.pharmacokinetics.pk_parameters = extracted.get('pk_parameters', [])
+    facts.pharmacokinetics.pk_sampling_timepoints = extracted.get('pk_sampling_timepoints', [])
+    facts.pharmacokinetics.pk_analysis_method = extracted.get('pk_analysis_method', '')
+    facts.pharmacokinetics.population_pk_model = extracted.get('population_pk_model')
+    facts.pharmacokinetics.pk_software = extracted.get('pk_software', '')
+    facts.pharmacokinetics.exposure_response_analysis = extracted.get('exposure_response_analysis')
+    facts.pharmacokinetics.pk_covariates = extracted.get('pk_covariates', [])
+
+    # Biomarkers
+    facts.biomarkers.predictive_biomarkers = extracted.get('predictive_biomarkers', [])
+    facts.biomarkers.prognostic_biomarkers = extracted.get('prognostic_biomarkers', [])
+    facts.biomarkers.pharmacodynamic_biomarkers = extracted.get('pharmacodynamic_biomarkers', [])
+    facts.biomarkers.pdl1_assay = extracted.get('pdl1_assay')
+    facts.biomarkers.pdl1_cutoffs = extracted.get('pdl1_cutoffs', [])
+    facts.biomarkers.pdl1_scoring_method = extracted.get('pdl1_scoring_method')
+    facts.biomarkers.tmb_assay = extracted.get('tmb_assay')
+    facts.biomarkers.tmb_cutoff = extracted.get('tmb_cutoff')
+    facts.biomarkers.msi_testing_method = extracted.get('msi_testing_method')
+    facts.biomarkers.mmr_proteins_tested = extracted.get('mmr_proteins_tested', [])
+    facts.biomarkers.genomic_platform = extracted.get('genomic_platform')
+    facts.biomarkers.ctdna_analysis = extracted.get('ctdna_analysis')
+    facts.biomarkers.companion_diagnostic_required = extracted.get('companion_diagnostic_required')
+    facts.biomarkers.companion_diagnostic_name = extracted.get('companion_diagnostic_name')
+
+    # Laboratory
+    facts.laboratory.hematology_parameters = extracted.get('hematology_parameters', [])
+    facts.laboratory.chemistry_parameters = extracted.get('chemistry_parameters', [])
+    facts.laboratory.urinalysis_parameters = extracted.get('urinalysis_parameters', [])
+    facts.laboratory.shift_table_analysis = extracted.get('shift_table_analysis')
+    facts.laboratory.ctcae_grading = extracted.get('lab_ctcae_grading')
+    facts.laboratory.clinically_notable_criteria = extracted.get('clinically_notable_criteria', {})
+    facts.laboratory.hys_law_analysis = extracted.get('hys_law_analysis')
+
+    # Exposure
+    facts.exposure.exposure_metrics = extracted.get('exposure_metrics', [])
+    facts.exposure.dose_delay_definition = extracted.get('dose_delay_definition', '')
+    facts.exposure.dose_reduction_definition = extracted.get('dose_reduction_definition', '')
+    facts.exposure.rdi_calculation_method = extracted.get('rdi_calculation_method', '')
+    facts.exposure.rdi_categories = extracted.get('rdi_categories', [])
+
+    # Concomitant Medications
+    facts.concomitant_meds.medication_coding = extracted.get('medication_coding', 'WHO Drug Dictionary')
+    facts.concomitant_meds.prohibited_medications = extracted.get('prohibited_medications', [])
+    facts.concomitant_meds.medications_of_interest = extracted.get('medications_of_interest', [])
+    facts.concomitant_meds.prior_lines_of_therapy = extracted.get('prior_lines_of_therapy')
+    facts.concomitant_meds.prior_immunotherapy = extracted.get('prior_immunotherapy')
+
+    # Immunogenicity
+    facts.immunogenicity.ada_testing_performed = extracted.get('ada_testing_performed')
+    facts.immunogenicity.ada_assay_type = extracted.get('ada_assay_type')
+    facts.immunogenicity.ada_sampling_timepoints = extracted.get('ada_sampling_timepoints', [])
+    facts.immunogenicity.nab_testing_performed = extracted.get('nab_testing_performed')
+    facts.immunogenicity.nab_assay_type = extracted.get('nab_assay_type')
+    facts.immunogenicity.ada_incidence_analysis = extracted.get('ada_incidence_analysis')
+    facts.immunogenicity.ada_impact_on_efficacy = extracted.get('ada_impact_on_efficacy')
+    facts.immunogenicity.ada_impact_on_safety = extracted.get('ada_impact_on_safety')
+    facts.immunogenicity.ada_impact_on_pk = extracted.get('ada_impact_on_pk')
+
+    # Conventions
+    facts.conventions.baseline_definition = extracted.get('baseline_definition', '')
+    facts.conventions.baseline_window = extracted.get('baseline_window', '')
+    facts.conventions.partial_date_imputation_rules = extracted.get('partial_date_imputation_rules', {})
+    facts.conventions.visit_windows = extracted.get('visit_windows', {})
+    facts.conventions.on_treatment_definition = extracted.get('on_treatment_definition', '')
+    facts.conventions.post_treatment_definition = extracted.get('post_treatment_definition', '')
+    facts.conventions.rounding_convention = extracted.get('rounding_convention', '')
+
+    # Protocol Deviations
+    facts.deviations.important_deviation_categories = extracted.get('important_deviation_categories', [])
+    facts.deviations.deviation_impact_on_populations = extracted.get('deviation_impact_on_populations', '')
+
+    # PRO
+    facts.pro.pro_instruments = extracted.get('pro_instruments', [])
+    facts.pro.instrument_scoring_rules = extracted.get('instrument_scoring_rules', {})
+    facts.pro.pro_primary_endpoint = extracted.get('pro_primary_endpoint')
+    facts.pro.pro_secondary_endpoints = extracted.get('pro_secondary_endpoints', [])
+    facts.pro.time_to_deterioration = extracted.get('time_to_deterioration')
+    facts.pro.ttd_threshold = extracted.get('ttd_threshold')
+    facts.pro.responder_definition = extracted.get('pro_responder_definition')
+    facts.pro.pro_missing_data_handling = extracted.get('pro_missing_data_handling', '')
+    facts.pro.pro_compliance_threshold = extracted.get('pro_compliance_threshold')
+    facts.pro.pro_collection_schedule = extracted.get('pro_collection_schedule', [])
+    facts.pro.pro_electronic_capture = extracted.get('pro_electronic_capture')
+
+    # DMC
+    facts.dmc.has_dmc = extracted.get('has_dmc')
+    facts.dmc.dmc_charter_exists = extracted.get('dmc_charter_exists')
+    facts.dmc.dmc_review_frequency = extracted.get('dmc_review_frequency', '')
+    facts.dmc.dmc_unblinded = extracted.get('dmc_unblinded')
+    facts.dmc.safety_stopping_rules = extracted.get('safety_stopping_rules', [])
+    facts.dmc.safety_boundary_type = extracted.get('safety_boundary_type', '')
+    facts.dmc.futility_review_planned = extracted.get('futility_review_planned')
+    facts.dmc.futility_boundary = extracted.get('futility_boundary', '')
+    facts.dmc.dmc_recommendation_options = extracted.get('dmc_recommendation_options', [])
+    facts.dmc.sponsor_blinded = extracted.get('sponsor_blinded')
+    facts.dmc.independent_statistician = extracted.get('independent_statistician')
+
+    # CDISC
+    facts.cdisc.sdtm_version = extracted.get('sdtm_version', '')
+    facts.cdisc.sdtm_domains = extracted.get('sdtm_domains', [])
+    facts.cdisc.adam_version = extracted.get('adam_version', '')
+    facts.cdisc.adam_datasets = extracted.get('adam_datasets', [])
+    facts.cdisc.oncology_response_domains = extracted.get('oncology_response_domains', [])
+    facts.cdisc.response_criteria = extracted.get('cdisc_response_criteria', '')
+    facts.cdisc.key_derivations = extracted.get('key_derivations', {})
+    facts.cdisc.submission_standard = extracted.get('submission_standard', '')
+    facts.cdisc.define_xml_version = extracted.get('define_xml_version', '')
+
+    # Special Designs
+    facts.special_design.is_master_protocol = extracted.get('is_master_protocol')
+    facts.special_design.master_protocol_type = extracted.get('master_protocol_type', '')
+    facts.special_design.is_basket_trial = extracted.get('is_basket_trial')
+    facts.special_design.basket_tumor_types = extracted.get('basket_tumor_types', [])
+    facts.special_design.basket_shared_biomarker = extracted.get('basket_shared_biomarker', '')
+    facts.special_design.is_umbrella_trial = extracted.get('is_umbrella_trial')
+    facts.special_design.umbrella_biomarker_arms = extracted.get('umbrella_biomarker_arms', [])
+    facts.special_design.is_platform_trial = extracted.get('is_platform_trial')
+    facts.special_design.shared_control_arm = extracted.get('shared_control_arm')
+    facts.special_design.is_adaptive = extracted.get('is_adaptive')
+    facts.special_design.adaptive_features = extracted.get('adaptive_features', [])
+    facts.special_design.adaptation_timing = extracted.get('adaptation_timing', [])
+    facts.special_design.adaptation_rules = extracted.get('adaptation_rules', '')
+    facts.special_design.is_seamless = extracted.get('is_seamless')
+    facts.special_design.seamless_phases = extracted.get('seamless_phases', '')
+    facts.special_design.phase2_to_phase3_criteria = extracted.get('phase2_to_phase3_criteria', '')
+
+    # Tumor Assessment
+    facts.tumor_assessment.response_criteria = extracted.get('response_criteria', '')
+    facts.tumor_assessment.response_criteria_version = extracted.get('response_criteria_version', '')
+    facts.tumor_assessment.assessment_schedule = extracted.get('assessment_schedule', '')
+    facts.tumor_assessment.baseline_imaging_window = extracted.get('baseline_imaging_window', '')
+    facts.tumor_assessment.target_lesion_selection = extracted.get('target_lesion_selection', '')
+    facts.tumor_assessment.max_target_lesions = extracted.get('max_target_lesions')
+    facts.tumor_assessment.min_lesion_size = extracted.get('min_lesion_size')
+    facts.tumor_assessment.assessment_method = extracted.get('assessment_method', '')
+    facts.tumor_assessment.bicr_primary = extracted.get('bicr_primary')
+    facts.tumor_assessment.discrepancy_resolution = extracted.get('discrepancy_resolution', '')
+    facts.tumor_assessment.confirmation_required = extracted.get('confirmation_required')
+    facts.tumor_assessment.confirmation_window = extracted.get('confirmation_window', '')
+    facts.tumor_assessment.pseudoprogression_handling = extracted.get('pseudoprogression_handling', '')
+    facts.tumor_assessment.new_lesion_confirmation = extracted.get('new_lesion_confirmation')
+    facts.tumor_assessment.progression_date_definition = extracted.get('progression_date_definition', '')
+
+    # Confidence
     facts.confidence.overall_confidence = extracted.get('extraction_confidence', 0.0)
     facts.confidence.needs_review = extracted.get('needs_review', [])
     facts.confidence.section_confidence = extracted.get('section_confidence', {})
