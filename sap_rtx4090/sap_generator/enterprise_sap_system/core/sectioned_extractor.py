@@ -486,12 +486,16 @@ RESPOND IN JSON:
         self._parsed_protocol: Optional[ParsedProtocol] = None
         self._current_pdf_path: Optional[str] = None
 
-    def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 25000) -> str:
+    def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 60000) -> str:
         """
         Get relevant text for a section by:
         1. Parsing protocol into sections
         2. Returning combined text from relevant sections
-        3. Using full document when section parsing fails to find relevant sections
+        3. Using MULTI-REGION SAMPLING when section parsing fails
+
+        CRITICAL: When falling back to full document, sample from multiple regions
+        because statistical content is typically at 50-80% through the document,
+        NOT in the first 25K characters.
         """
         # Parse protocol if not already done
         if self._parsed_protocol is None or self._parsed_protocol.raw_text != protocol_text:
@@ -513,22 +517,83 @@ RESPOND IN JSON:
             if content:
                 combined_text.append(f"=== {sect.upper()} SECTION ===\n{content}")
 
-        # If no specific sections found, use full document
+        # If no specific sections found, use MULTI-REGION SAMPLING from full document
         if not combined_text:
-            # Check if we have full_text section (parser couldn't identify any sections)
+            raw_text = ""
+
+            # Check if we have full_text section
             if "full_text" in self._parsed_protocol.sections:
-                full_text_content = self._parsed_protocol.get("full_text", "")
-                if full_text_content:
-                    print(f"[SectionedExtractor] Using full_text section ({len(full_text_content)} chars) for {section_name}")
-                    combined_text.append(f"=== FULL PROTOCOL ===\n{full_text_content}")
+                raw_text = self._parsed_protocol.get("full_text", "")
             else:
-                # Parser found some sections but not the ones we need - use raw protocol text
-                print(f"[SectionedExtractor] No relevant sections found for {section_name}, using raw protocol ({len(protocol_text)} chars)")
-                combined_text.append(f"=== FULL PROTOCOL ===\n{protocol_text}")
+                raw_text = protocol_text
+
+            if raw_text:
+                # Apply MULTI-REGION SAMPLING instead of truncation!
+                sampled_text = self._multi_region_sample(raw_text, section_name)
+                print(f"[SectionedExtractor] Multi-region sampling from {len(raw_text)} chars -> {len(sampled_text)} chars for {section_name}")
+                combined_text.append(sampled_text)
 
         result = "\n\n".join(combined_text) if combined_text else ""
-        print(f"[SectionedExtractor] Found {len(result)} chars for {section_name}")
+        print(f"[SectionedExtractor] Final text for {section_name}: {len(result)} chars")
         return result[:max_chars]
+
+    def _multi_region_sample(self, text: str, section_name: str) -> str:
+        """
+        Sample from multiple regions of the document based on section type.
+
+        CRITICAL: Different sections are located at different parts of clinical protocols:
+        - Title/Synopsis: 0-10%
+        - Study Design: 10-30%
+        - Endpoints: 20-40%
+        - Statistical Methods: 50-70%
+        - Sample Size: 55-70%
+        - Interim Analysis: 60-75%
+        - Multiplicity: 60-75%
+        - Missing Data: 70-85%
+        - Populations: 40-60%
+        - Estimand: 60-80%
+        """
+        text_len = len(text)
+
+        # Section-specific sampling regions (as fraction of document)
+        SECTION_REGIONS = {
+            'study_design': [(0.0, 0.10), (0.15, 0.25), (0.25, 0.35)],
+            'stratification': [(0.10, 0.20), (0.50, 0.60), (0.60, 0.70)],
+            'sample_size': [(0.50, 0.60), (0.55, 0.65), (0.60, 0.70)],
+            'endpoints': [(0.0, 0.10), (0.20, 0.30), (0.30, 0.40)],
+            'statistical_methods': [(0.45, 0.55), (0.55, 0.65), (0.65, 0.75)],
+            'interim_analysis': [(0.55, 0.65), (0.65, 0.75), (0.70, 0.80)],
+            'multiplicity': [(0.55, 0.65), (0.65, 0.75), (0.70, 0.80)],
+            'missing_data': [(0.65, 0.75), (0.70, 0.80), (0.75, 0.85)],
+            'populations': [(0.35, 0.45), (0.45, 0.55), (0.55, 0.65)],
+            'estimand': [(0.55, 0.65), (0.65, 0.75), (0.70, 0.80)],
+            'crossover': [(0.60, 0.70), (0.70, 0.80), (0.75, 0.85)],
+        }
+
+        # Get regions for this section (default: sample broadly)
+        regions = SECTION_REGIONS.get(section_name, [
+            (0.0, 0.10),   # Beginning
+            (0.40, 0.50),  # Early middle
+            (0.55, 0.65),  # Middle (statistical methods)
+            (0.70, 0.80),  # Later (interim, multiplicity)
+        ])
+
+        # Calculate sample size per region (aim for ~15K total)
+        sample_per_region = 12000 // len(regions)
+
+        samples = []
+        for i, (start_frac, end_frac) in enumerate(regions):
+            start_pos = int(text_len * start_frac)
+            end_pos = int(text_len * end_frac)
+
+            # Take a sample from this region
+            region_text = text[start_pos:end_pos]
+            sample = region_text[:sample_per_region]
+
+            region_label = f"REGION {i+1} ({int(start_frac*100)}-{int(end_frac*100)}% of document)"
+            samples.append(f"=== {region_label} ===\n{sample}")
+
+        return "\n\n".join(samples)
 
     def extract_section(
         self,

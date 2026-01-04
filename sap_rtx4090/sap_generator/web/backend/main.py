@@ -608,7 +608,10 @@ async def generate_full_pipeline(request: GenerateRequest):
 
         pipeline = get_pipeline()
 
-        result = pipeline.generate(request.protocol_text[:50000])
+        # CRITICAL: Pass FULL protocol text - do NOT truncate!
+        # The pipeline uses multi-region sampling internally to handle large docs.
+        # Truncating here cuts off statistical methods which are at 50-80% of doc.
+        result = pipeline.generate(request.protocol_text)
 
         processing_time = time.time() - start_time
 
@@ -2365,7 +2368,11 @@ async def process_jobs_worker():
             start_time = time.time()
 
             try:
-                result = pipeline.generate(job["protocol_text"][:50000])
+                # CRITICAL: Pass FULL protocol text - do NOT truncate!
+                # The pipeline uses multi-region sampling internally.
+                # Statistical methods are at 50-80% of document, truncating loses them.
+                pdf_path = job.get("pdf_path")  # May be None
+                result = pipeline.generate(job["protocol_text"], pdf_path=pdf_path)
 
                 processing_time = time.time() - start_time
 
