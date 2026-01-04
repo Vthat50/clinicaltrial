@@ -602,6 +602,10 @@ RESPOND IN JSON:
         # Get RELEVANT text for this section (not just truncation!)
         relevant_text = self._get_relevant_text(section_name, protocol_text, max_chars=25000)
 
+        # Diagnostic: Show first 500 chars of relevant text
+        print(f"[Extractor] {section_name}: {len(relevant_text)} chars of relevant text")
+        print(f"[Extractor] {section_name} preview: {relevant_text[:500]}...")
+
         # Build full prompt with section-relevant text
         full_prompt = f"""You are extracting structured information from a clinical trial protocol.
 
@@ -623,6 +627,9 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 response_text = response
             else:
                 response_text = str(response)
+
+            # Diagnostic: Show LLM response
+            print(f"[Extractor] {section_name} LLM response: {response_text[:800]}...")
 
             # Parse JSON response
             result = self._parse_section_response(section_name, response_text)

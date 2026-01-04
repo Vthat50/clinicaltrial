@@ -257,12 +257,27 @@ class ProductionSAPPipeline:
             overall_confidence = sum(r.confidence for r in section_results.values()) / len(section_results) if section_results else 0
             print(f"[Step 1] Overall extraction confidence: {overall_confidence:.0%}")
 
-            # Log critical fields
-            print(f"[Step 1] NCT ID: {facts.get('nct_id', 'NOT FOUND')}")
-            print(f"[Step 1] Sample size: {facts.get('sample_size', 'NOT FOUND')}")
-            print(f"[Step 1] Treatment setting: {facts.get('treatment_setting', 'NOT FOUND')}")
-            print(f"[Step 1] Statistical method: {facts.get('statistical_method', 'NOT FOUND')}")
-            print(f"[Step 1] Has interim: {facts.get('has_interim_analysis', 'NOT FOUND')}")
+            # Log ALL extracted fields for diagnostics
+            print("\n" + "="*60)
+            print("[EXTRACTION DIAGNOSTICS] All extracted facts:")
+            print("="*60)
+            critical_fields = [
+                'nct_id', 'sample_size', 'power', 'hazard_ratio', 'expected_hazard_ratio',
+                'treatment_setting', 'disease_type', 'phase', 'drug_name', 'comparator',
+                'primary_endpoint', 'secondary_endpoints', 'co_primary_endpoints',
+                'statistical_method', 'test_sidedness',
+                'stratification_factors', 'stratification_factor_levels',
+                'has_interim_analysis', 'num_interim_analyses', 'interim_events', 'final_events',
+                'alpha_spending_function', 'alpha_at_interim', 'alpha_at_final',
+                'has_multiplicity', 'hypotheses_list', 'alpha_per_hypothesis', 'testing_sequence',
+                'itt_definition', 'censoring_rules',
+                'estimand_variable', 'intercurrent_events'
+            ]
+            for field in critical_fields:
+                value = facts.get(field)
+                status = "✓" if value and str(value) not in ['[NOT FOUND]', 'null', 'None', '[]', '{}'] else "✗"
+                print(f"  {status} {field}: {value}")
+            print("="*60 + "\n")
 
             # Collect fields needing review
             needs_review = []
