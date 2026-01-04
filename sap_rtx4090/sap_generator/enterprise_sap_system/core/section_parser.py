@@ -473,11 +473,55 @@ class ProtocolSectionParser:
 
     def _extract_with_claude_text(self, text: str) -> Dict[str, ParsedSection]:
         """
-        Fallback: Ask Claude to identify and extract sections from text directly.
+        Extract sections from text using Claude.
 
-        Used when PDF is not available.
+        CRITICAL: Sample from MULTIPLE parts of the document!
+        Statistical methods are typically at 60-80% through the protocol,
+        not in the first 50K characters.
         """
-        prompt = f'''Analyze this clinical trial protocol text and extract the statistical methodology sections.
+        text_len = len(text)
+        print(f"[SectionParser] Text length: {text_len} chars")
+
+        # Sample from MULTIPLE parts of the document
+        # Clinical protocols have statistical content at 50-80% through
+        samples = []
+
+        # Beginning (title, synopsis, objectives) - first 8K
+        samples.append(("BEGINNING (Title, Synopsis)", text[:8000]))
+
+        # Early middle (study design, endpoints) - 25-35%
+        if text_len > 30000:
+            early_mid = int(text_len * 0.25)
+            samples.append(("STUDY DESIGN (~25%)", text[early_mid:early_mid + 8000]))
+
+        # Middle (where statistical methods often START) - 50-60%
+        if text_len > 50000:
+            mid_start = int(text_len * 0.50)
+            samples.append(("STATISTICAL METHODS START (~50%)", text[mid_start:mid_start + 10000]))
+
+        # Late middle (sample size, populations) - 60-70%
+        if text_len > 80000:
+            late_mid = int(text_len * 0.60)
+            samples.append(("SAMPLE SIZE/POPULATIONS (~60%)", text[late_mid:late_mid + 10000]))
+
+        # Later (interim, multiplicity) - 70-80%
+        if text_len > 100000:
+            later = int(text_len * 0.70)
+            samples.append(("INTERIM/MULTIPLICITY (~70%)", text[later:later + 10000]))
+
+        # Near end (missing data, sensitivity) - 80-90%
+        if text_len > 120000:
+            near_end = int(text_len * 0.80)
+            samples.append(("MISSING DATA/SENSITIVITY (~80%)", text[near_end:near_end + 8000]))
+
+        # Combine samples with markers
+        combined_text = ""
+        for label, content in samples:
+            combined_text += f"\n\n=== {label} ===\n{content}"
+
+        print(f"[SectionParser] Sampled {len(samples)} regions, total {len(combined_text)} chars")
+
+        prompt = f'''Analyze this clinical trial protocol text (sampled from multiple parts of the document) and extract the statistical methodology sections.
 
 For each section you find, provide:
 1. Section name (e.g., "sample_size", "multiplicity", "interim_analysis")
@@ -492,10 +536,14 @@ RESPOND IN JSON:
     ]
 }}
 
-IMPORTANT: Extract the ACTUAL content, not summaries. Include all details.
+IMPORTANT:
+- Extract the ACTUAL content, not summaries
+- Include all details, numbers, methods
+- The text is sampled from different parts of the document
+- Look for statistical content in all sections, not just the beginning
 
-PROTOCOL TEXT:
-{text[:50000]}
+PROTOCOL TEXT (sampled from multiple regions):
+{combined_text[:60000]}
 '''
 
         try:
