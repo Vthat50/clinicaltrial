@@ -24,6 +24,7 @@ Based on research:
 import json
 import re
 import base64
+import concurrent.futures
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -401,42 +402,50 @@ class ProtocolSectionParser:
             if page < total_pages and page not in coarse_pages:
                 coarse_pages.append(page)
 
-        print(f"[SectionParser/Adaptive] Scanning {len(coarse_pages)} strategic pages...")
+        print(f"[SectionParser/Adaptive] Scanning {len(coarse_pages)} strategic pages in PARALLEL...")
 
-        for page_num in coarse_pages:
-            headers = self._detect_headers_on_page(doc, page_num)
-            for h in headers:
-                if h.get('is_toc_entry', False):
-                    continue
+        # PARALLEL Vision calls using ThreadPoolExecutor
+        def scan_page(page_num):
+            return (page_num, self._detect_headers_on_page(doc, page_num))
 
-                header_text = h.get('exact_header_text', '')
-                section_type = h.get('section_type', '').lower()
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            future_to_page = {executor.submit(scan_page, p): p for p in coarse_pages}
 
-                if header_text and section_type in self.CANONICAL_SECTIONS:
-                    existing = [x for x in found_headers if x['section_type'] == section_type]
-                    if not existing:
-                        # VERIFY: Cross-validate with PyMuPDF text search
-                        verified_page = self._verify_header_location(doc, page_num, header_text)
+            for future in concurrent.futures.as_completed(future_to_page):
+                page_num, headers = future.result()
 
-                        if verified_page is not None:
-                            found_headers.append({
-                                'exact_header_text': header_text,
-                                'section_type': section_type,
-                                'first_sentence': h.get('first_sentence_after', ''),
-                                'page_num': verified_page,
-                                'verified': True
-                            })
-                            print(f"[SectionParser/Adaptive] ✓ Verified header: '{header_text}' -> {section_type} (page {verified_page})")
-                        else:
-                            # Keep unverified but flag it
-                            found_headers.append({
-                                'exact_header_text': header_text,
-                                'section_type': section_type,
-                                'first_sentence': h.get('first_sentence_after', ''),
-                                'page_num': page_num,
-                                'verified': False
-                            })
-                            print(f"[SectionParser/Adaptive] ? Unverified header: '{header_text}' -> {section_type} (page {page_num})")
+                for h in headers:
+                    if h.get('is_toc_entry', False):
+                        continue
+
+                    header_text = h.get('exact_header_text', '')
+                    section_type = h.get('section_type', '').lower()
+
+                    if header_text and section_type in self.CANONICAL_SECTIONS:
+                        existing = [x for x in found_headers if x['section_type'] == section_type]
+                        if not existing:
+                            # VERIFY: Cross-validate with PyMuPDF text search
+                            verified_page = self._verify_header_location(doc, page_num, header_text)
+
+                            if verified_page is not None:
+                                found_headers.append({
+                                    'exact_header_text': header_text,
+                                    'section_type': section_type,
+                                    'first_sentence': h.get('first_sentence_after', ''),
+                                    'page_num': verified_page,
+                                    'verified': True
+                                })
+                                print(f"[SectionParser/Adaptive] ✓ Verified header: '{header_text}' -> {section_type} (page {verified_page})")
+                            else:
+                                # Keep unverified but flag it
+                                found_headers.append({
+                                    'exact_header_text': header_text,
+                                    'section_type': section_type,
+                                    'first_sentence': h.get('first_sentence_after', ''),
+                                    'page_num': page_num,
+                                    'verified': False
+                                })
+                                print(f"[SectionParser/Adaptive] ? Unverified header: '{header_text}' -> {section_type} (page {page_num})")
 
         # Log missing sections (but don't do expensive Phase 2 scanning)
         found_types = {h['section_type'] for h in found_headers}
@@ -570,13 +579,9 @@ class ProtocolSectionParser:
 
             print(f"[SectionParser/Hybrid] Extracting '{section_type}' from pages {start_page}-{end_page-1}")
 
-            # Extract content using Claude API
-            content = self._extract_section_with_claude(doc, start_page, end_page, section_type)
-
-            if not content or len(content) < 100:
-                # Fallback to PyMuPDF if Claude extraction fails
-                print(f"[SectionParser/Hybrid] Claude extraction failed, falling back to PyMuPDF...")
-                content = self._extract_with_pymupdf(doc, start_page, end_page)
+            # Extract content directly with PyMuPDF (no Claude cleanup needed)
+            # Vision found the right pages, PyMuPDF extracts the text - done.
+            content = self._extract_with_pymupdf(doc, start_page, end_page)
 
             # Multi-signal validation
             if len(content) > 100:
