@@ -11,8 +11,8 @@ supabase>=2.0.0
 # Document parsing
 PyPDF2>=3.0.0
 python-docx>=1.1.0
-PyMuPDF>=1.23.0  # For fallback PDF text extraction
 llama-cloud-services>=0.6.0  # LlamaParse for accurate PDF section extraction
+nest_asyncio>=1.5.0  # Fix for nested async in FastAPI/Uvicorn
 
 # SAP Generator dependencies
 groq>=0.4.0

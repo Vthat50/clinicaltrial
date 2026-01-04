@@ -26,6 +26,14 @@ from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
 
+# Fix for nested async in FastAPI/Uvicorn context
+try:
+    import nest_asyncio
+    nest_asyncio.apply()
+    print("[SectionParser] nest_asyncio applied for nested event loops")
+except ImportError:
+    print("[SectionParser] WARNING: nest_asyncio not available - may have issues in async contexts")
+
 # LlamaParse for accurate PDF parsing
 try:
     from llama_cloud_services import LlamaParse
@@ -35,14 +43,7 @@ except ImportError:
     LLAMAPARSE_AVAILABLE = False
     print("[SectionParser] WARNING: LlamaParse not available - install with: pip install llama-cloud-services")
 
-# PyMuPDF as fallback
-try:
-    import fitz  # PyMuPDF
-    PYMUPDF_AVAILABLE = True
-    print(f"[SectionParser] PyMuPDF available (fallback): version {fitz.version}")
-except ImportError:
-    PYMUPDF_AVAILABLE = False
-    print("[SectionParser] WARNING: PyMuPDF not available - install with: pip install pymupdf")
+# Note: PyMuPDF fallback removed - LlamaParse is the only PDF extraction method
 
 
 @dataclass
@@ -271,7 +272,7 @@ class ProtocolSectionParser:
 
         print(f"[SectionParser] parse() called: pdf_path={pdf_path}, LLAMAPARSE_AVAILABLE={LLAMAPARSE_AVAILABLE}")
 
-        # Primary: LlamaParse extraction from PDF
+        # LlamaParse extraction from PDF (no fallback - expose errors clearly)
         if pdf_path and self._llamaparse:
             print("[SectionParser] Using LlamaParse for PDF extraction...")
             sections = self._extract_with_llamaparse(pdf_path)
@@ -285,22 +286,13 @@ class ProtocolSectionParser:
                 print(f"[SectionParser] LlamaParse extracted {len(sections)} sections: {list(sections.keys())}")
                 return result
             else:
-                print("[SectionParser] LlamaParse returned no sections, trying PyMuPDF fallback")
+                # LlamaParse returned no sections - this is an error, not a fallback situation
+                raise RuntimeError("[SectionParser] LlamaParse returned no sections from PDF. Check API key and PDF content.")
 
-        # Fallback 1: PyMuPDF extraction from PDF
-        if pdf_path and PYMUPDF_AVAILABLE:
-            print("[SectionParser] Using PyMuPDF fallback for PDF extraction...")
-            sections = self._extract_with_pymupdf_sections(pdf_path)
+        if pdf_path and not self._llamaparse:
+            raise RuntimeError("[SectionParser] LlamaParse not initialized. Check LLAMAPARSE_API_KEY environment variable.")
 
-            if sections:
-                result.sections = sections
-                result.parse_success = True
-                result.section_count = len(sections)
-                result.raw_text = self._full_text_cache.get(pdf_path, text)
-                print(f"[SectionParser] PyMuPDF extracted {len(sections)} sections: {list(sections.keys())}")
-                return result
-
-        # Fallback 2: text-based extraction with LLM
+        # Text-based extraction with LLM (only if no PDF provided)
         if text and len(text) > 100 and self.llm_client:
             print("[SectionParser] Using Claude to extract sections from text...")
             sections = self._extract_with_claude_text(text)
@@ -447,143 +439,7 @@ class ProtocolSectionParser:
 
         return None
 
-    def _extract_with_pymupdf_sections(self, pdf_path: str) -> Dict[str, ParsedSection]:
-        """
-        Fallback: Extract sections using PyMuPDF text extraction.
-
-        Less accurate than LlamaParse but works offline.
-        """
-        try:
-            doc = fitz.open(pdf_path)
-            total_pages = len(doc)
-            print(f"[SectionParser/PyMuPDF] PDF has {total_pages} pages")
-
-            # Extract full text
-            full_text = self._extract_full_text(doc)
-            self._full_text_cache[pdf_path] = full_text
-            print(f"[SectionParser/PyMuPDF] Full text: {len(full_text)} characters")
-
-            doc.close()
-
-            # Parse text to find sections (same logic as markdown)
-            sections = self._parse_markdown_sections(full_text)
-
-            return sections
-
-        except Exception as e:
-            print(f"[SectionParser/PyMuPDF] Error: {e}")
-            import traceback
-            traceback.print_exc()
-            return {}
-
-    def _extract_full_text(self, doc) -> str:
-        """Extract complete text from PDF."""
-        text_parts = []
-        for page_num in range(len(doc)):
-            page = doc[page_num]
-            text = page.get_text()
-            if text:
-                text_parts.append(text)
-        return "\n".join(text_parts)
-
-    def _find_section_end(self, doc, start_page: int, header_text: str) -> int:
-        """
-        Find section end using ICH M11 numbering + common end markers.
-
-        Parse section number from header and look for next major section.
-        """
-        # Parse section number: "9.7 Sample Size" -> (9, 7)
-        match = re.match(r'^(\d+)(?:\.(\d+))?', header_text.strip())
-        if match:
-            major = int(match.group(1))
-            # Look for next major section (major + 1)
-            next_major_pattern = rf'\b{major + 1}[\.\s]'
-
-            for page_num in range(start_page + 1, min(start_page + 30, len(doc))):
-                page = doc[page_num]
-                text = page.get_text()
-
-                # Look for next major section
-                if re.search(next_major_pattern, text):
-                    return page_num
-
-                # Look for common end markers
-                if re.search(r'^\s*(REFERENCES|APPENDIX|APPENDICES|BIBLIOGRAPHY)', text, re.MULTILINE | re.IGNORECASE):
-                    return page_num
-
-        # Fallback: assume 15 pages max
-        return min(start_page + 15, len(doc))
-
-    def _extract_section_with_claude(self, doc, start_page: int, end_page: int, section_type: str) -> str:
-        """
-        Extract section content using PyMuPDF + Claude TEXT API.
-
-        1. PyMuPDF extracts raw text (fast, no API call)
-        2. Claude TEXT API cleans/structures it (1 API call)
-
-        NO VISION for extraction - much faster and cheaper.
-        """
-        if not self.llm_client:
-            return self._extract_with_pymupdf(doc, start_page, end_page)
-
-        # Step 1: PyMuPDF extracts raw text (instant, no API call)
-        raw_text = self._extract_with_pymupdf(doc, start_page, end_page)
-
-        if not raw_text or len(raw_text) < 100:
-            return raw_text
-
-        # Step 2: Claude TEXT API cleans/structures the text (1 API call)
-        try:
-            prompt = f"""Clean and structure this raw text extracted from a clinical trial protocol.
-This is the {section_type.upper().replace('_', ' ')} section.
-
-RAW TEXT:
-{raw_text[:15000]}
-
-INSTRUCTIONS:
-- Remove page headers, footers, and page numbers
-- Fix any text extraction artifacts (broken words, weird spacing)
-- Preserve all numbers, percentages, and statistical values EXACTLY
-- Keep paragraph structure
-- Do NOT summarize - return the full cleaned text
-
-Return ONLY the cleaned text, no commentary."""
-
-            # Use Claude text API (not vision)
-            if hasattr(self.llm_client, 'messages'):
-                response = self.llm_client.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=8000,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                return response.content[0].text
-            elif hasattr(self.llm_client, 'chat'):
-                response = self.llm_client.chat(prompt, max_tokens=8000)
-                return response if isinstance(response, str) else str(response)
-            else:
-                return raw_text
-
-        except Exception as e:
-            print(f"[SectionParser/Claude] Text API error: {e}, using raw PyMuPDF text")
-            return raw_text
-
-    def _extract_with_pymupdf(self, doc, start_page: int, end_page: int) -> str:
-        """
-        Fallback: Extract text using PyMuPDF with sort parameter.
-
-        Uses sort=True for proper reading order.
-        """
-        content_parts = []
-
-        for page_num in range(start_page, end_page):
-            if page_num < len(doc):
-                page = doc[page_num]
-                # Use sort=True for proper reading order
-                page_text = page.get_text(sort=True)
-                if page_text:
-                    content_parts.append(page_text)
-
-        return "\n".join(content_parts).strip()
+    # PyMuPDF methods removed - LlamaParse is the only PDF extraction method
 
     def _validate_multi_signal(self, section_type: str, content: str) -> Tuple[bool, float, str]:
         """
