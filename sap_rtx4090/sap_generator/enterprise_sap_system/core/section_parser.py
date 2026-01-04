@@ -1,21 +1,36 @@
 #!/usr/bin/env python3
 """
-Protocol Section Parser
-========================
+Protocol Section Parser (Claude API-based)
+============================================
 
-Parses clinical protocol documents into logical sections based on ICH E9 structure.
-This enables targeted extraction from the correct section rather than searching
-the entire document.
+Uses Claude API to intelligently parse clinical protocol documents into logical sections.
+This replaces the regex-based approach for more accurate section detection.
+
+Includes Claude Vision fallback for PDF structure analysis when text parsing fails.
 
 Usage:
-    parser = ProtocolSectionParser()
+    parser = ProtocolSectionParser(llm_client=client)
     sections = parser.parse(protocol_text)
     stats_section = sections.get("statistical_methods", "")
+
+    # With PDF for vision fallback:
+    sections = parser.parse(protocol_text, pdf_path="/path/to/protocol.pdf")
 """
 
+import json
 import re
-from typing import Dict, List, Optional, Tuple
+import base64
+import io
+from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, field
+from pathlib import Path
+
+# Optional: PyMuPDF for PDF to image conversion
+try:
+    import fitz  # PyMuPDF
+    PYMUPDF_AVAILABLE = True
+except ImportError:
+    PYMUPDF_AVAILABLE = False
 
 
 @dataclass
@@ -56,111 +71,106 @@ class ParsedProtocol:
         return "\n\n".join(parts)
 
 
+# Section identification prompt for Claude
+SECTION_IDENTIFICATION_PROMPT = '''You are analyzing a clinical trial protocol document. Your task is to identify the boundaries of different sections.
+
+IMPORTANT: Clinical protocols follow ICH E6/E9 structure. Common sections include:
+- OBJECTIVES (study objectives, primary/secondary objectives)
+- ENDPOINTS (efficacy endpoints, primary/secondary endpoints, outcome measures)
+- STUDY_DESIGN (trial design, randomization, blinding)
+- STATISTICAL_METHODS (statistical analysis, statistical considerations)
+- SAMPLE_SIZE (sample size calculation, power calculation)
+- POPULATIONS (analysis populations, ITT, per-protocol, safety population)
+- INTERIM_ANALYSIS (interim analyses, DMC, stopping rules)
+- MULTIPLICITY (multiple comparisons, alpha adjustment, type I error control)
+- MISSING_DATA (missing data handling, imputation, censoring)
+- SAFETY (adverse events, safety analysis)
+- ESTIMAND (ICH E9 R1 estimand framework, intercurrent events)
+- STRATIFICATION (stratification factors, randomization stratification)
+
+For each section you identify, provide:
+1. The section name (use the canonical names above)
+2. The approximate starting line or position
+3. A brief quote from the section header
+
+RESPOND IN JSON FORMAT:
+{
+    "sections_found": [
+        {"name": "OBJECTIVES", "header_text": "2.1 Study Objectives", "start_indicator": "The primary objective..."},
+        {"name": "ENDPOINTS", "header_text": "2.2 Endpoints", "start_indicator": "The primary endpoint is..."},
+        ...
+    ],
+    "is_toc_heavy": true/false,
+    "notes": "Any observations about document structure"
+}
+
+PROTOCOL TEXT (sampled from beginning, middle, and end):
+'''
+
+# Vision-based section identification prompt
+VISION_SECTION_PROMPT = '''Analyze this clinical trial protocol page image.
+
+Identify any section headers you can see. Look for:
+- Table of Contents entries (list with page numbers, dots/leaders)
+- Actual section headers (bold text, numbered sections like "9. STATISTICAL METHODS")
+- Chapter/section breaks
+
+For each section header visible, tell me:
+1. The section name and number (e.g., "9.1 Sample Size")
+2. Whether this is a TOC entry or actual content header
+3. The page appears to be: TOC page, content page, or appendix
+
+RESPOND IN JSON:
+{
+    "page_type": "toc" | "content" | "appendix" | "title",
+    "sections_visible": [
+        {"header": "9. Statistical Methods", "is_toc_entry": false, "section_type": "STATISTICAL_METHODS"},
+        ...
+    ],
+    "notes": "Any observations"
+}
+'''
+
+
 class ProtocolSectionParser:
     """
-    Parse clinical protocol into logical sections.
+    Parse clinical protocol into logical sections using Claude API.
 
-    Clinical protocols follow ICH E6/E9 guidelines and typically have:
-    - Objectives (primary, secondary)
-    - Study Design
-    - Endpoints/Outcome Measures
-    - Statistical Methods
-    - Sample Size
-    - Analysis Populations
+    This approach is more accurate than regex because:
+    1. Claude understands document structure semantically
+    2. Can distinguish TOC entries from actual content
+    3. Handles varied formatting across sponsors
     """
 
-    # Section patterns - ordered by priority
-    # Format: (canonical_name, [list of regex patterns])
-    SECTION_PATTERNS = {
-        "objectives": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(STUDY\s+OBJECTIVES?|OBJECTIVES?|PRIMARY\s+AND\s+SECONDARY\s+OBJECTIVES?)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(TRIAL\s+OBJECTIVES?)",
-        ],
-        "endpoints": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ENDPOINTS?|OUTCOME\s+MEASURES?|EFFICACY\s+ENDPOINTS?)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(PRIMARY\s+AND\s+SECONDARY\s+ENDPOINTS?)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(EFFICACY\s+ASSESSMENTS?)",
-        ],
-        "study_design": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(STUDY\s+DESIGN|TRIAL\s+DESIGN|OVERALL\s+DESIGN)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(DESIGN\s+AND\s+METHODOLOGY)",
-        ],
-        "statistical_methods": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(STATISTICAL\s+(?:METHODS?|ANALYSIS|CONSIDERATIONS?))",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(STATISTICAL\s+AND\s+ANALYTICAL\s+PLANS?)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ANALYSIS\s+METHODS?)",
-        ],
-        "sample_size": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(SAMPLE\s+SIZE|DETERMINATION\s+OF\s+SAMPLE\s+SIZE)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(POWER\s+AND\s+SAMPLE\s+SIZE)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(SAMPLE\s+SIZE\s+(?:CALCULATION|JUSTIFICATION))",
-        ],
-        "populations": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ANALYSIS\s+POPULATIONS?|STUDY\s+POPULATIONS?)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(POPULATIONS?\s+FOR\s+ANALYSIS)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ITT|INTENT.TO.TREAT|PER.PROTOCOL)\s+POPULATION",
-        ],
-        "safety": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(SAFETY\s+(?:ANALYSIS|ASSESSMENTS?|EVALUATIONS?))",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ADVERSE\s+EVENTS?)",
-        ],
-        "efficacy": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(EFFICACY\s+(?:ANALYSIS|ASSESSMENTS?|EVALUATIONS?))",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(PRIMARY\s+EFFICACY\s+ANALYSIS)",
-        ],
-        "missing_data": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(MISSING\s+DATA|HANDLING\s+OF\s+MISSING)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(IMPUTATION|DATA\s+IMPUTATION)",
-        ],
-        "multiplicity": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(MULTIPLICITY|MULTIPLE\s+COMPARISONS?|ADJUSTMENT\s+FOR\s+MULTIPLICITY)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ALPHA\s+(?:SPENDING|ALLOCATION|ADJUSTMENT))",
-        ],
-        "interim_analysis": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(INTERIM\s+ANALYSIS|INTERIM\s+ANALYSES)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(PLANNED\s+INTERIM)",
-        ],
-        "subgroups": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(SUBGROUP\s+ANALYSIS|SUBGROUP\s+ANALYSES)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(EXPLORATORY\s+ANALYSES)",
-        ],
-        "sensitivity": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(SENSITIVITY\s+ANALYSIS|SENSITIVITY\s+ANALYSES)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(SUPPORTIVE\s+ANALYSES)",
-        ],
-        "pharmacokinetics": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(PHARMACOKINETIC|PK\s+ANALYSIS|PHARMACOKINETICS)",
-        ],
-        "immunogenicity": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(IMMUNOGENICITY|ANTI.DRUG\s+ANTIBOD)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(ADA\s+ANALYSIS)",
-        ],
-        "randomization": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(RANDOMIZATION|TREATMENT\s+ASSIGNMENT)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(STRATIFICATION)",
-        ],
-        "blinding": [
-            r"(?:^|\n)\s*\d*\.?\d*\s*(BLINDING|MASKING)",
-            r"(?:^|\n)\s*\d*\.?\d*\s*(UNBLINDING|BREAKING\s+THE\s+BLIND)",
-        ],
-    }
-
-    # Patterns that indicate end of a section (start of next major section)
-    END_PATTERNS = [
-        r"(?:^|\n)\s*\d+\.\s+[A-Z][A-Z\s]+(?:\n|$)",  # "1. SECTION TITLE"
-        r"(?:^|\n)\s*\d+\.\d+\s+[A-Z][A-Z\s]+(?:\n|$)",  # "1.1 SECTION TITLE"
-        r"(?:^|\n)\s*[A-Z][A-Z\s]{10,}(?:\n|$)",  # "ALL CAPS HEADER"
+    # Canonical section names for mapping
+    CANONICAL_SECTIONS = [
+        "objectives", "endpoints", "study_design", "statistical_methods",
+        "sample_size", "populations", "interim_analysis", "multiplicity",
+        "missing_data", "safety", "efficacy", "estimand", "stratification",
+        "randomization", "blinding", "pharmacokinetics", "immunogenicity",
+        "subgroups", "sensitivity"
     ]
 
-    def __init__(self, min_section_length: int = 50):
+    def __init__(self, llm_client=None, min_section_length: int = 50, vision_client=None):
+        """
+        Initialize parser.
+
+        Args:
+            llm_client: Claude API client with chat() method
+            min_section_length: Minimum section length to include
+            vision_client: Optional separate client for vision (uses llm_client if not provided)
+        """
+        self.llm_client = llm_client
+        self.vision_client = vision_client or llm_client
         self.min_section_length = min_section_length
 
-    def parse(self, text: str) -> ParsedProtocol:
+    def parse(self, text: str, pdf_path: Optional[str] = None) -> ParsedProtocol:
         """
-        Parse protocol text into sections.
+        Parse protocol text into sections using Claude API.
 
         Args:
             text: Full protocol text
+            pdf_path: Optional path to PDF for vision-based fallback
 
         Returns:
             ParsedProtocol with identified sections
@@ -170,104 +180,255 @@ class ProtocolSectionParser:
         if not text or len(text) < 100:
             return result
 
-        # Find all section matches
-        section_matches: List[Tuple[str, str, int, int]] = []
-
-        for section_name, patterns in self.SECTION_PATTERNS.items():
-            for pattern in patterns:
-                for match in re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE):
-                    section_matches.append((
-                        section_name,
-                        match.group(1),  # Original title
-                        match.start(),
-                        match.end()
-                    ))
-
-        if not section_matches:
-            # No sections found - return entire text as "full_text"
+        # If no LLM client, use the full document approach
+        if self.llm_client is None:
+            print("[SectionParser] No LLM client - returning full document")
             result.sections["full_text"] = ParsedSection(
                 name="full_text",
                 title="Full Document",
                 content=text,
                 start_pos=0,
                 end_pos=len(text),
-                confidence=0.5
+                confidence=1.0
             )
             result.parse_success = True
             result.section_count = 1
             return result
 
+        try:
+            # Use Claude to identify sections from text
+            sections = self._identify_sections_with_claude(text)
+
+            if sections:
+                result.sections = sections
+                result.parse_success = True
+                result.section_count = len(sections)
+                print(f"[SectionParser] Claude identified {len(sections)} sections: {list(sections.keys())}")
+            else:
+                # Try vision fallback if PDF is available
+                if pdf_path and PYMUPDF_AVAILABLE and self.vision_client:
+                    print("[SectionParser] Text parsing failed - trying Claude Vision fallback...")
+                    sections = self._identify_sections_with_vision(text, pdf_path)
+
+                    if sections:
+                        result.sections = sections
+                        result.parse_success = True
+                        result.section_count = len(sections)
+                        print(f"[SectionParser] Vision identified {len(sections)} sections: {list(sections.keys())}")
+                        return result
+
+                # Fallback to full document if both methods fail
+                print("[SectionParser] Section parsing failed - using full document")
+                result.sections["full_text"] = ParsedSection(
+                    name="full_text",
+                    title="Full Document",
+                    content=text,
+                    start_pos=0,
+                    end_pos=len(text),
+                    confidence=0.5
+                )
+                result.parse_success = True
+                result.section_count = 1
+
+        except Exception as e:
+            print(f"[SectionParser] Error using Claude API: {e}")
+            # Fallback to full document
+            result.sections["full_text"] = ParsedSection(
+                name="full_text",
+                title="Full Document",
+                content=text,
+                start_pos=0,
+                end_pos=len(text),
+                confidence=0.3
+            )
+            result.parse_success = True
+            result.section_count = 1
+
+        return result
+
+    def _identify_sections_with_claude(self, text: str) -> Dict[str, ParsedSection]:
+        """Use Claude API to identify section boundaries."""
+
+        # Sample from MULTIPLE parts of the document, not just the beginning
+        # Clinical protocols often have long introductions before statistical content
+        text_len = len(text)
+
+        # Build a representative sample:
+        # - First 8000 chars (title, synopsis, objectives)
+        # - Middle section where statistical methods usually are (around 40-60% of doc)
+        # - Sample from 70-85% where interim/multiplicity often appears
+        samples = []
+
+        # Beginning (synopsis, objectives, design)
+        samples.append(("BEGINNING", text[:8000]))
+
+        # Middle (statistical methods, sample size typically here)
+        if text_len > 20000:
+            mid_start = int(text_len * 0.35)
+            samples.append(("MIDDLE", text[mid_start:mid_start + 8000]))
+
+        # Later section (interim analysis, multiplicity, missing data)
+        if text_len > 40000:
+            late_start = int(text_len * 0.6)
+            samples.append(("LATE", text[late_start:late_start + 8000]))
+
+        # Combine samples with markers
+        preview_text = "\n\n--- DOCUMENT SECTION: BEGINNING ---\n" + samples[0][1]
+        for label, content in samples[1:]:
+            preview_text += f"\n\n--- DOCUMENT SECTION: {label} ---\n" + content
+
+        prompt = SECTION_IDENTIFICATION_PROMPT + preview_text[:25000]  # Cap at 25k total
+
+        try:
+            response = self.llm_client.chat(prompt, max_tokens=2000)
+
+            # Handle different response types
+            if hasattr(response, 'content'):
+                response_text = response.content
+            elif isinstance(response, str):
+                response_text = response
+            else:
+                response_text = str(response)
+
+            # Parse JSON response
+            json_match = re.search(r'\{[\s\S]*\}', response_text)
+            if not json_match:
+                print("[SectionParser] No JSON in Claude response")
+                return {}
+
+            data = json.loads(json_match.group())
+            sections_found = data.get("sections_found", [])
+
+            if not sections_found:
+                print("[SectionParser] Claude found no sections")
+                return {}
+
+            # Now extract actual section content based on identified headers
+            return self._extract_sections_from_markers(text, sections_found)
+
+        except json.JSONDecodeError as e:
+            print(f"[SectionParser] JSON parse error: {e}")
+            return {}
+        except Exception as e:
+            print(f"[SectionParser] Claude API error: {e}")
+            return {}
+
+    def _extract_sections_from_markers(
+        self,
+        text: str,
+        sections_found: List[dict]
+    ) -> Dict[str, ParsedSection]:
+        """Extract section content based on Claude-identified markers."""
+
+        sections = {}
+        text_lower = text.lower()
+
+        # Find positions of each section header
+        section_positions = []
+
+        for section_info in sections_found:
+            name = section_info.get("name", "").lower()
+            header_text = section_info.get("header_text", "")
+            start_indicator = section_info.get("start_indicator", "")
+
+            # Skip if not a canonical section
+            if name not in self.CANONICAL_SECTIONS:
+                # Try to map to canonical name
+                name = self._map_to_canonical(name)
+                if not name:
+                    continue
+
+            # Find the section in the text
+            pos = -1
+
+            # Try header text first
+            if header_text:
+                header_lower = header_text.lower()
+                pos = text_lower.find(header_lower)
+
+            # Try start indicator if header not found
+            if pos == -1 and start_indicator:
+                indicator_lower = start_indicator.lower()[:50]  # First 50 chars
+                pos = text_lower.find(indicator_lower)
+
+            if pos != -1:
+                section_positions.append((name, header_text, pos))
+
         # Sort by position
-        section_matches.sort(key=lambda x: x[2])
-
-        # Remove duplicates - prefer LATER matches (actual content over TOC entries)
-        # TOC entries typically appear first but have minimal content
-        section_best_matches = {}
-        for match in section_matches:
-            section_name = match[0]
-            start_pos = match[2]
-
-            # Calculate content length to next section or end
-            next_section_pos = len(text)
-            for other in section_matches:
-                if other[2] > start_pos:
-                    next_section_pos = min(next_section_pos, other[2])
-
-            content_length = next_section_pos - match[3]  # header_end to next section
-            content_preview = text[match[3]:match[3] + min(500, content_length)]
-
-            # Skip if this looks like a TOC entry
-            # TOC patterns: many dots (....), page numbers, short lines
-            dot_count = content_preview.count('.')
-            if dot_count > 50:  # TOC has lots of leader dots
-                print(f"[SectionParser] Skipping TOC entry for {section_name} ({dot_count} dots)")
-                continue
-
-            # Skip if content is mostly dots and numbers (TOC pattern)
-            if content_length < 200:
-                continue
-
-            # Prefer the match with most content (actual section over TOC)
-            if section_name not in section_best_matches:
-                section_best_matches[section_name] = (match, content_length)
-            elif content_length > section_best_matches[section_name][1]:
-                section_best_matches[section_name] = (match, content_length)
-
-        unique_matches = [m[0] for m in section_best_matches.values()]
-        unique_matches.sort(key=lambda x: x[2])  # Sort by position
-
-        # Diagnostic: show what sections were found with actual content
-        if section_best_matches:
-            print(f"[SectionParser] Found {len(section_best_matches)} sections with actual content:")
-            for name, (match, content_len) in sorted(section_best_matches.items(), key=lambda x: x[1][0][2]):
-                print(f"  - {name}: {content_len} chars")
-        else:
-            print(f"[SectionParser] No sections with >200 chars content found (likely TOC-only matches)")
+        section_positions.sort(key=lambda x: x[2])
 
         # Extract content between sections
-        for i, (section_name, title, start, header_end) in enumerate(unique_matches):
-            # Find end of this section (start of next section or end of document)
-            if i < len(unique_matches) - 1:
-                end = unique_matches[i + 1][2]
+        for i, (name, header, start_pos) in enumerate(section_positions):
+            # Find end position (start of next section or end of document)
+            if i < len(section_positions) - 1:
+                end_pos = section_positions[i + 1][2]
             else:
-                end = len(text)
+                end_pos = len(text)
 
-            content = text[header_end:end].strip()
+            # Extract content
+            content = text[start_pos:end_pos].strip()
 
-            # Only include if content is substantial
-            if len(content) >= self.min_section_length:
-                result.sections[section_name] = ParsedSection(
-                    name=section_name,
-                    title=title.strip(),
-                    content=content,
-                    start_pos=start,
-                    end_pos=end,
-                    confidence=0.9
-                )
+            # Skip if too short
+            if len(content) < self.min_section_length:
+                continue
 
-        result.parse_success = True
-        result.section_count = len(result.sections)
-        return result
+            # Skip if this looks like a TOC entry (lots of dots, very short)
+            if content.count('.') > 50 and len(content) < 500:
+                continue
+
+            sections[name] = ParsedSection(
+                name=name,
+                title=header,
+                content=content,
+                start_pos=start_pos,
+                end_pos=end_pos,
+                confidence=0.85
+            )
+
+        return sections
+
+    def _map_to_canonical(self, name: str) -> Optional[str]:
+        """Map a section name to canonical form."""
+        name_lower = name.lower().strip()
+
+        mappings = {
+            "objective": "objectives",
+            "primary objective": "objectives",
+            "secondary objective": "objectives",
+            "endpoint": "endpoints",
+            "primary endpoint": "endpoints",
+            "secondary endpoint": "endpoints",
+            "outcome measure": "endpoints",
+            "design": "study_design",
+            "trial design": "study_design",
+            "statistical": "statistical_methods",
+            "statistical analysis": "statistical_methods",
+            "statistical consideration": "statistical_methods",
+            "sample size": "sample_size",
+            "power": "sample_size",
+            "population": "populations",
+            "analysis population": "populations",
+            "interim": "interim_analysis",
+            "interim analyses": "interim_analysis",
+            "multiple comparison": "multiplicity",
+            "multiplicity adjustment": "multiplicity",
+            "missing": "missing_data",
+            "censoring": "missing_data",
+            "safety analysis": "safety",
+            "adverse event": "safety",
+            "efficacy analysis": "efficacy",
+            "stratification factor": "stratification",
+        }
+
+        for key, canonical in mappings.items():
+            if key in name_lower:
+                return canonical
+
+        # Direct match
+        if name_lower in self.CANONICAL_SECTIONS:
+            return name_lower
+
+        return None
 
     def get_stats_sections(self, parsed: ParsedProtocol) -> str:
         """Get combined statistical methodology sections"""
@@ -296,8 +457,159 @@ class ProtocolSectionParser:
             "populations"
         )
 
+    def _identify_sections_with_vision(
+        self,
+        text: str,
+        pdf_path: str
+    ) -> Dict[str, ParsedSection]:
+        """
+        Use Claude Vision to analyze PDF pages and identify document structure.
+
+        This is a fallback when text-based parsing fails.
+        """
+        if not PYMUPDF_AVAILABLE:
+            print("[SectionParser] PyMuPDF not available for vision fallback")
+            return {}
+
+        try:
+            # Open PDF and sample key pages
+            doc = fitz.open(pdf_path)
+            total_pages = len(doc)
+
+            # Sample strategic pages:
+            # - TOC pages (usually pages 2-5)
+            # - Middle pages where statistical methods likely are
+            # - Later pages for interim/multiplicity
+            pages_to_analyze = []
+
+            # TOC region (pages 2-5)
+            for i in range(1, min(5, total_pages)):
+                pages_to_analyze.append(i)
+
+            # Middle region (40-50% through document)
+            mid_page = int(total_pages * 0.45)
+            pages_to_analyze.extend([mid_page, mid_page + 1])
+
+            # Later region (60-70%)
+            late_page = int(total_pages * 0.65)
+            pages_to_analyze.extend([late_page, late_page + 1])
+
+            # Remove duplicates and invalid indices
+            pages_to_analyze = sorted(set(p for p in pages_to_analyze if 0 <= p < total_pages))
+
+            print(f"[SectionParser/Vision] Analyzing pages: {pages_to_analyze}")
+
+            all_sections_found = []
+
+            for page_num in pages_to_analyze[:6]:  # Limit to 6 pages max
+                # Render page to image
+                page = doc[page_num]
+                pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5))  # 1.5x zoom for readability
+
+                # Convert to base64
+                img_bytes = pix.tobytes("png")
+                img_base64 = base64.b64encode(img_bytes).decode('utf-8')
+
+                # Send to Claude Vision
+                sections = self._analyze_page_with_vision(img_base64, page_num)
+                all_sections_found.extend(sections)
+
+            doc.close()
+
+            if not all_sections_found:
+                return {}
+
+            # Deduplicate and filter to content headers (not TOC entries)
+            content_headers = [
+                s for s in all_sections_found
+                if not s.get("is_toc_entry", True)
+            ]
+
+            if not content_headers:
+                # If all were TOC entries, use them but note lower confidence
+                print("[SectionParser/Vision] Only TOC entries found - extracting from text")
+                content_headers = all_sections_found
+
+            # Convert to sections based on text search
+            return self._extract_sections_from_markers(text, [
+                {
+                    "name": s.get("section_type", "").upper(),
+                    "header_text": s.get("header", ""),
+                    "start_indicator": s.get("header", "")[:30]
+                }
+                for s in content_headers
+            ])
+
+        except Exception as e:
+            print(f"[SectionParser/Vision] Error: {e}")
+            return {}
+
+    def _analyze_page_with_vision(
+        self,
+        img_base64: str,
+        page_num: int
+    ) -> List[dict]:
+        """Send a single page image to Claude Vision for analysis."""
+        try:
+            # Build multimodal message
+            # Note: This assumes the vision_client supports Claude's vision API format
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "image/png",
+                                "data": img_base64
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "text": VISION_SECTION_PROMPT
+                        }
+                    ]
+                }
+            ]
+
+            # Call vision API
+            # Try different client interfaces
+            if hasattr(self.vision_client, 'messages'):
+                # Anthropic SDK style
+                response = self.vision_client.messages.create(
+                    model="claude-sonnet-4-20250514",
+                    max_tokens=1000,
+                    messages=messages
+                )
+                response_text = response.content[0].text
+            elif hasattr(self.vision_client, 'chat_with_images'):
+                # Custom interface
+                response_text = self.vision_client.chat_with_images(
+                    VISION_SECTION_PROMPT,
+                    images=[img_base64]
+                )
+            else:
+                print(f"[SectionParser/Vision] Vision client doesn't support image input")
+                return []
+
+            # Parse JSON response
+            json_match = re.search(r'\{[\s\S]*\}', response_text)
+            if not json_match:
+                return []
+
+            data = json.loads(json_match.group())
+            sections = data.get("sections_visible", [])
+
+            print(f"[SectionParser/Vision] Page {page_num}: {data.get('page_type', 'unknown')} - {len(sections)} sections")
+            return sections
+
+        except Exception as e:
+            print(f"[SectionParser/Vision] Error analyzing page {page_num}: {e}")
+            return []
+
 
 # Convenience function
-def parse_protocol(text: str) -> ParsedProtocol:
+def parse_protocol(text: str, llm_client=None) -> ParsedProtocol:
     """Quick protocol parsing"""
-    return ProtocolSectionParser().parse(text)
+    return ProtocolSectionParser(llm_client=llm_client).parse(text)

@@ -460,15 +460,15 @@ RESPOND IN JSON:
 
     # Map our section names to ProtocolSectionParser section names
     SECTION_MAPPING = {
-        'study_design': ['study_design', 'objectives'],
-        'stratification': ['study_design', 'statistical_methods'],
+        'study_design': ['study_design', 'objectives', 'randomization', 'blinding'],
+        'stratification': ['stratification', 'randomization', 'study_design', 'statistical_methods'],
         'sample_size': ['sample_size', 'statistical_methods'],
-        'endpoints': ['endpoints', 'objectives'],
-        'statistical_methods': ['statistical_methods', 'sample_size'],
+        'endpoints': ['endpoints', 'objectives', 'efficacy'],
+        'statistical_methods': ['statistical_methods', 'sample_size', 'efficacy'],
         'interim_analysis': ['interim_analysis', 'statistical_methods'],
         'multiplicity': ['multiplicity', 'statistical_methods'],
         'missing_data': ['missing_data', 'statistical_methods', 'sensitivity'],
-        'populations': ['populations', 'analysis_sets'],
+        'populations': ['populations', 'safety', 'efficacy'],
         'estimand': ['estimand', 'endpoints', 'statistical_methods'],
         'crossover': ['statistical_methods', 'sensitivity'],
     }
@@ -481,7 +481,8 @@ RESPOND IN JSON:
             llm_client: LLM client with chat() method
         """
         self.llm = llm_client
-        self.section_parser = ProtocolSectionParser()
+        # Pass LLM client to section parser for Claude-based section detection
+        self.section_parser = ProtocolSectionParser(llm_client=llm_client)
         self._parsed_protocol: Optional[ParsedProtocol] = None
 
     def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 25000) -> str:
@@ -489,12 +490,13 @@ RESPOND IN JSON:
         Get relevant text for a section by:
         1. Parsing protocol into sections
         2. Returning combined text from relevant sections
-        3. Falling back to keyword search if parsing fails
+        3. Using full document when section parsing fails to find relevant sections
         """
         # Parse protocol if not already done
         if self._parsed_protocol is None or self._parsed_protocol.raw_text != protocol_text:
             self._parsed_protocol = self.section_parser.parse(protocol_text)
             print(f"[SectionedExtractor] Parsed protocol into {len(self._parsed_protocol.sections)} sections")
+            print(f"[SectionedExtractor] Available sections: {list(self._parsed_protocol.sections.keys())}")
 
         # Get relevant section names
         relevant_sections = self.SECTION_MAPPING.get(section_name, [section_name])
@@ -506,8 +508,21 @@ RESPOND IN JSON:
             if content:
                 combined_text.append(f"=== {sect.upper()} SECTION ===\n{content}")
 
+        # If no specific sections found, use full document
+        if not combined_text:
+            # Check if we have full_text section (parser couldn't identify any sections)
+            if "full_text" in self._parsed_protocol.sections:
+                full_text_content = self._parsed_protocol.get("full_text", "")
+                if full_text_content:
+                    print(f"[SectionedExtractor] Using full_text section ({len(full_text_content)} chars) for {section_name}")
+                    combined_text.append(f"=== FULL PROTOCOL ===\n{full_text_content}")
+            else:
+                # Parser found some sections but not the ones we need - use raw protocol text
+                print(f"[SectionedExtractor] No relevant sections found for {section_name}, using raw protocol ({len(protocol_text)} chars)")
+                combined_text.append(f"=== FULL PROTOCOL ===\n{protocol_text}")
+
         result = "\n\n".join(combined_text) if combined_text else ""
-        print(f"[SectionedExtractor] Found {len(result)} chars from parsed sections for {section_name}")
+        print(f"[SectionedExtractor] Found {len(result)} chars for {section_name}")
         return result[:max_chars]
 
     def extract_section(
