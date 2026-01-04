@@ -1,39 +1,45 @@
 #!/usr/bin/env python3
 """
-Protocol Section Parser (Hybrid Vision + PyMuPDF Extraction)
-=============================================================
+Protocol Section Parser (LlamaParse Integration)
+================================================
 
-PRODUCTION-GRADE HYBRID APPROACH:
-1. Vision LOCATES section headers (visual pattern recognition)
-2. PyMuPDF EXTRACTS content faithfully (no hallucination)
+PRODUCTION-GRADE APPROACH:
+1. LlamaParse extracts structured markdown from PDF (accurate, handles complex layouts)
+2. Parse markdown to identify section headers and content
 3. Multi-signal validation ensures correctness
 
-Safeguards implemented:
-- Header verification: Cross-validate Vision results with text search
-- Section end detection: ICH M11 numbering + common end markers
-- Adaptive sampling: Two-phase (coarse then fine-grained)
-- Clean extraction: sort parameter, skip headers/footers
-- Multi-signal validation: required/expected/forbidden keywords
+LlamaParse advantages over Vision + PyMuPDF:
+- Purpose-built for document parsing
+- Better table extraction
+- Handles complex clinical protocol layouts
+- Returns structured markdown with headers
+- More accurate section boundary detection
 
-Based on research:
-- Vision for locating (good at visual patterns)
-- PyMuPDF for extracting (faithful, no hallucination)
-- SecTag algorithm: 92.7% accuracy on section boundaries
+Fallback: PyMuPDF for when LlamaParse is unavailable
 """
 
 import json
 import re
-import base64
-import concurrent.futures
+import os
+import asyncio
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# PyMuPDF for PDF processing
+# LlamaParse for accurate PDF parsing
+try:
+    from llama_cloud_services import LlamaParse
+    LLAMAPARSE_AVAILABLE = True
+    print("[SectionParser] LlamaParse available")
+except ImportError:
+    LLAMAPARSE_AVAILABLE = False
+    print("[SectionParser] WARNING: LlamaParse not available - install with: pip install llama-cloud-services")
+
+# PyMuPDF as fallback
 try:
     import fitz  # PyMuPDF
     PYMUPDF_AVAILABLE = True
-    print(f"[SectionParser] PyMuPDF available: version {fitz.version}")
+    print(f"[SectionParser] PyMuPDF available (fallback): version {fitz.version}")
 except ImportError:
     PYMUPDF_AVAILABLE = False
     print("[SectionParser] WARNING: PyMuPDF not available - install with: pip install pymupdf")
@@ -150,90 +156,54 @@ ICH_M11_SECTION_ORDER = [
     'multiplicity', 'missing_data', 'sensitivity', 'safety'
 ]
 
-# Vision prompt to identify section headers VISUALLY
-# Returns the EXACT TEXT of headers, NOT page numbers
-VISION_HEADER_DETECTION_PROMPT = '''Analyze this clinical trial protocol page VISUALLY.
+# Section header patterns for parsing LlamaParse markdown output
+SECTION_HEADER_PATTERNS = [
+    # Match headers like "9. STATISTICAL CONSIDERATIONS" or "9.1 Sample Size"
+    r'^#+\s*(\d+(?:\.\d+)*)\s*[\.:]?\s*(.+)$',  # Markdown headers with numbers
+    r'^(\d+(?:\.\d+)*)\s*[\.:]?\s*(.+)$',  # Plain numbered sections
+    r'^(?:SECTION\s+)?(\d+(?:\.\d+)*)\s*[\.:]?\s*(.+)$',  # "SECTION X.Y Title"
+]
 
-Your task: Identify any SECTION HEADERS on this page by their visual formatting:
-- Headers are typically LARGER FONT or BOLD
-- They often have section numbers like "9", "9.1", "9.2.1"
-- They start a new topic/section
-
-For each header you see, extract the EXACT TEXT as it appears.
-
-IMPORTANT: I need the EXACT HEADER TEXT, not page numbers.
-
-RESPOND IN JSON:
-{
-    "has_section_headers": true/false,
-    "section_headers": [
-        {
-            "exact_header_text": "9 STATISTICAL CONSIDERATIONS",
-            "section_type": "STATISTICAL_METHODS",
-            "is_main_section": true,
-            "first_sentence_after": "The primary analysis will..."
-        },
-        {
-            "exact_header_text": "9.1 Sample Size and Power Calculation",
-            "section_type": "SAMPLE_SIZE",
-            "is_main_section": false,
-            "first_sentence_after": "A total of 500 patients..."
-        }
-    ],
-    "is_toc_page": true/false,
-    "is_appendix": true/false
+# Map section title keywords to canonical section types
+SECTION_TITLE_MAPPING = {
+    'statistical': 'statistical_methods',
+    'statistic': 'statistical_methods',
+    'analysis method': 'statistical_methods',
+    'sample size': 'sample_size',
+    'power': 'sample_size',
+    'interim': 'interim_analysis',
+    'group sequential': 'interim_analysis',
+    'multiplicity': 'multiplicity',
+    'multiple testing': 'multiplicity',
+    'multiple comparison': 'multiplicity',
+    'missing data': 'missing_data',
+    'censoring': 'missing_data',
+    'population': 'populations',
+    'analysis set': 'populations',
+    'endpoint': 'endpoints',
+    'objective': 'endpoints',
+    'efficacy': 'endpoints',
+    'stratification': 'stratification',
+    'stratified': 'stratification',
+    'randomization': 'stratification',
+    'safety': 'safety',
+    'adverse': 'safety',
+    'estimand': 'estimand',
+    'intercurrent': 'estimand',
 }
-
-Section types:
-- STATISTICAL_METHODS (Section 9 or 10 typically)
-- SAMPLE_SIZE
-- POPULATIONS
-- INTERIM_ANALYSIS
-- MULTIPLICITY
-- MISSING_DATA
-- ENDPOINTS
-- STRATIFICATION
-- SAFETY
-- ESTIMAND
-
-CRITICAL: Extract the EXACT header text including section numbers, spacing, and capitalization.
-'''
-
-# Prompt to extract specific section content from a page
-VISION_SECTION_CONTENT_PROMPT = '''Read this page from a clinical trial protocol.
-
-I need you to extract the FULL TEXT CONTENT related to: {section_type}
-
-If this page contains content for {section_type}, extract:
-1. The section header (if visible)
-2. ALL the paragraph text that follows
-3. Any tables, lists, or figures descriptions
-
-RESPOND IN JSON:
-{{
-    "found_section": true/false,
-    "section_header": "<exact header text if visible>",
-    "content": "<all the text content from this section>",
-    "continues_on_next_page": true/false,
-    "section_appears_complete": true/false
-}}
-
-Extract the ACTUAL TEXT, not a summary. Include numbers, methods, and all details.
-'''
 
 
 class ProtocolSectionParser:
     """
-    Parse clinical protocol into logical sections using Vision-based content extraction.
+    Parse clinical protocol into logical sections using LlamaParse.
 
     PRODUCTION-GRADE APPROACH:
-    1. Extract FULL TEXT from PDF (not page-by-page)
-    2. Vision scans pages to identify section headers VISUALLY
-    3. Vision returns EXACT HEADER TEXT (not page numbers)
-    4. Search full text for header, extract until next header
-    5. Validate content semantically
+    1. LlamaParse extracts structured markdown from PDF
+    2. Parse markdown to identify section headers and boundaries
+    3. Extract content between headers
+    4. Validate content semantically with multi-signal validation
 
-    NO REGEX. NO PAGE NUMBERS. Content-based extraction only.
+    LlamaParse is more accurate than Vision + PyMuPDF for clinical protocols.
     """
 
     CANONICAL_SECTIONS = [
@@ -255,24 +225,43 @@ class ProtocolSectionParser:
         Initialize parser.
 
         Args:
-            llm_client: Claude API client (used for vision if vision_client not provided)
-            vision_client: Anthropic client with vision support
+            llm_client: Claude API client (optional, for fallback text extraction)
+            vision_client: Not used (kept for API compatibility)
         """
         self.llm_client = llm_client
-        self.vision_client = vision_client or llm_client
         self._full_text_cache: Dict[str, str] = {}
+        self._markdown_cache: Dict[str, str] = {}
+
+        # Initialize LlamaParse if available
+        self._llamaparse = None
+        if LLAMAPARSE_AVAILABLE:
+            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
+            if api_key:
+                try:
+                    self._llamaparse = LlamaParse(
+                        api_key=api_key,
+                        num_workers=4,
+                        verbose=True,
+                        language="en"
+                    )
+                    print(f"[SectionParser] LlamaParse initialized with API key")
+                except Exception as e:
+                    print(f"[SectionParser] WARNING: LlamaParse initialization failed: {e}")
+            else:
+                print("[SectionParser] WARNING: No LLAMAPARSE_API_KEY or LLAMA_CLOUD_API_KEY environment variable set")
 
     def parse(self, text: str, pdf_path: Optional[str] = None) -> ParsedProtocol:
         """
-        Parse protocol using Vision-based content extraction.
+        Parse protocol using LlamaParse for accurate section extraction.
 
         APPROACH:
-        1. Extract full PDF text
-        2. Vision identifies section headers visually
-        3. Extract content from header to next header (text search, not page numbers)
+        1. LlamaParse extracts structured markdown from PDF
+        2. Parse markdown to identify section headers
+        3. Extract content between headers
+        4. Validate with multi-signal validation
 
         Args:
-            text: Full protocol text (can be empty if pdf_path provided)
+            text: Full protocol text (used as fallback if pdf_path not provided)
             pdf_path: Path to PDF file
 
         Returns:
@@ -280,12 +269,12 @@ class ProtocolSectionParser:
         """
         result = ParsedProtocol(raw_text=text)
 
-        print(f"[SectionParser] parse() called: pdf_path={pdf_path}, PYMUPDF_AVAILABLE={PYMUPDF_AVAILABLE}")
+        print(f"[SectionParser] parse() called: pdf_path={pdf_path}, LLAMAPARSE_AVAILABLE={LLAMAPARSE_AVAILABLE}")
 
-        # Vision-based extraction from PDF
-        if pdf_path and PYMUPDF_AVAILABLE and self.vision_client:
-            print("[SectionParser] Using Vision-based content extraction...")
-            sections = self._extract_with_vision(pdf_path)
+        # Primary: LlamaParse extraction from PDF
+        if pdf_path and self._llamaparse:
+            print("[SectionParser] Using LlamaParse for PDF extraction...")
+            sections = self._extract_with_llamaparse(pdf_path)
 
             if sections:
                 result.sections = sections
@@ -293,12 +282,25 @@ class ProtocolSectionParser:
                 result.section_count = len(sections)
                 # Store full text for later use
                 result.raw_text = self._full_text_cache.get(pdf_path, text)
-                print(f"[SectionParser] Extracted {len(sections)} sections: {list(sections.keys())}")
+                print(f"[SectionParser] LlamaParse extracted {len(sections)} sections: {list(sections.keys())}")
                 return result
             else:
-                print("[SectionParser] Vision extraction returned no sections, trying text fallback")
+                print("[SectionParser] LlamaParse returned no sections, trying PyMuPDF fallback")
 
-        # Fallback: text-based extraction
+        # Fallback 1: PyMuPDF extraction from PDF
+        if pdf_path and PYMUPDF_AVAILABLE:
+            print("[SectionParser] Using PyMuPDF fallback for PDF extraction...")
+            sections = self._extract_with_pymupdf_sections(pdf_path)
+
+            if sections:
+                result.sections = sections
+                result.parse_success = True
+                result.section_count = len(sections)
+                result.raw_text = self._full_text_cache.get(pdf_path, text)
+                print(f"[SectionParser] PyMuPDF extracted {len(sections)} sections: {list(sections.keys())}")
+                return result
+
+        # Fallback 2: text-based extraction with LLM
         if text and len(text) > 100 and self.llm_client:
             print("[SectionParser] Using Claude to extract sections from text...")
             sections = self._extract_with_claude_text(text)
@@ -321,45 +323,155 @@ class ProtocolSectionParser:
         result.section_count = 1
         return result
 
-    def _extract_with_vision(self, pdf_path: str) -> Dict[str, ParsedSection]:
+    def _extract_with_llamaparse(self, pdf_path: str) -> Dict[str, ParsedSection]:
         """
-        PRODUCTION-GRADE EXTRACTION:
-        1. Extract FULL TEXT from PDF
-        2. Vision scans pages to identify section headers VISUALLY
-        3. Search full text for header, extract until next header
+        Extract sections using LlamaParse.
 
-        NO PAGE NUMBERS used for extraction - only header text.
+        LlamaParse returns structured markdown which we parse to identify sections.
+        """
+        try:
+            print(f"[SectionParser/LlamaParse] Parsing PDF: {pdf_path}")
+
+            # Parse PDF with LlamaParse
+            result = self._llamaparse.parse(pdf_path)
+
+            # Get markdown output
+            markdown_docs = result.get_markdown_documents(split_by_page=False)
+
+            if not markdown_docs:
+                print("[SectionParser/LlamaParse] No markdown documents returned")
+                return {}
+
+            # Combine all markdown pages
+            full_markdown = "\n\n".join(doc.text for doc in markdown_docs)
+            self._markdown_cache[pdf_path] = full_markdown
+            self._full_text_cache[pdf_path] = full_markdown  # Store for raw_text
+
+            print(f"[SectionParser/LlamaParse] Extracted {len(full_markdown)} characters of markdown")
+
+            # Parse markdown to identify sections
+            sections = self._parse_markdown_sections(full_markdown)
+
+            return sections
+
+        except Exception as e:
+            print(f"[SectionParser/LlamaParse] Error: {e}")
+            import traceback
+            traceback.print_exc()
+            return {}
+
+    def _parse_markdown_sections(self, markdown: str) -> Dict[str, ParsedSection]:
+        """
+        Parse LlamaParse markdown output to identify section headers and extract content.
+
+        Looks for numbered section headers and maps them to canonical section types.
+        """
+        sections = {}
+        lines = markdown.split('\n')
+
+        # Find all section headers with their positions
+        headers = []
+        for i, line in enumerate(lines):
+            # Try each pattern
+            for pattern in SECTION_HEADER_PATTERNS:
+                match = re.match(pattern, line.strip(), re.IGNORECASE)
+                if match:
+                    section_num = match.group(1)
+                    section_title = match.group(2).strip()
+
+                    # Map title to canonical section type
+                    section_type = self._map_title_to_section_type(section_title)
+
+                    if section_type:
+                        headers.append({
+                            'line_num': i,
+                            'section_num': section_num,
+                            'title': section_title,
+                            'section_type': section_type,
+                            'raw_line': line
+                        })
+                        print(f"[SectionParser/LlamaParse] Found header: {section_num} {section_title} -> {section_type}")
+                    break
+
+        print(f"[SectionParser/LlamaParse] Found {len(headers)} section headers")
+
+        # Extract content between headers
+        for i, header in enumerate(headers):
+            section_type = header['section_type']
+
+            # Skip if we already have this section type (keep first occurrence)
+            if section_type in sections:
+                continue
+
+            start_line = header['line_num']
+
+            # Find end of section
+            if i + 1 < len(headers):
+                end_line = headers[i + 1]['line_num']
+            else:
+                end_line = len(lines)
+
+            # Extract content
+            content_lines = lines[start_line:end_line]
+            content = '\n'.join(content_lines).strip()
+
+            # Validate content
+            if len(content) > 100:
+                is_valid, confidence, message = self._validate_multi_signal(section_type, content)
+
+                if is_valid:
+                    sections[section_type] = ParsedSection(
+                        name=section_type,
+                        title=header['title'],
+                        content=content,
+                        start_page=0,  # Line-based, not page-based
+                        end_page=0,
+                        confidence=confidence
+                    )
+                    print(f"[SectionParser/LlamaParse] ✓ Extracted '{section_type}': {len(content)} chars (confidence: {confidence:.2f})")
+                else:
+                    print(f"[SectionParser/LlamaParse] ✗ REJECTED '{section_type}': {message}")
+            else:
+                print(f"[SectionParser/LlamaParse] ✗ '{section_type}': content too short ({len(content)} chars)")
+
+        return sections
+
+    def _map_title_to_section_type(self, title: str) -> Optional[str]:
+        """Map a section title to a canonical section type."""
+        title_lower = title.lower()
+
+        # Check each mapping keyword
+        for keyword, section_type in SECTION_TITLE_MAPPING.items():
+            if keyword in title_lower:
+                return section_type
+
+        return None
+
+    def _extract_with_pymupdf_sections(self, pdf_path: str) -> Dict[str, ParsedSection]:
+        """
+        Fallback: Extract sections using PyMuPDF text extraction.
+
+        Less accurate than LlamaParse but works offline.
         """
         try:
             doc = fitz.open(pdf_path)
             total_pages = len(doc)
-            print(f"[SectionParser/Vision] PDF has {total_pages} pages")
+            print(f"[SectionParser/PyMuPDF] PDF has {total_pages} pages")
 
-            # STEP 1: Extract FULL TEXT from PDF
-            print(f"[SectionParser/Vision] Step 1: Extracting full text...")
+            # Extract full text
             full_text = self._extract_full_text(doc)
             self._full_text_cache[pdf_path] = full_text
-            print(f"[SectionParser/Vision] Full text: {len(full_text)} characters")
-
-            # STEP 2: Scan pages to find section headers (returns HEADER TEXT, not page numbers)
-            print(f"[SectionParser/Vision] Step 2: Scanning for section headers...")
-            found_headers = self._scan_for_headers(doc, total_pages)
-            print(f"[SectionParser/Vision] Found {len(found_headers)} section headers")
-
-            if not found_headers:
-                doc.close()
-                return {}
-
-            # STEP 3: Extract content from the ACTUAL PAGES where headers were found
-            # NOT from full text (which would find TOC entries first)
-            print(f"[SectionParser/Vision] Step 3: Extracting sections from actual pages...")
-            sections = self._extract_by_page(doc, found_headers)
+            print(f"[SectionParser/PyMuPDF] Full text: {len(full_text)} characters")
 
             doc.close()
+
+            # Parse text to find sections (same logic as markdown)
+            sections = self._parse_markdown_sections(full_text)
+
             return sections
 
         except Exception as e:
-            print(f"[SectionParser/Vision] Error: {e}")
+            print(f"[SectionParser/PyMuPDF] Error: {e}")
             import traceback
             traceback.print_exc()
             return {}
@@ -373,252 +485,6 @@ class ProtocolSectionParser:
             if text:
                 text_parts.append(text)
         return "\n".join(text_parts)
-
-    def _scan_for_headers(self, doc, total_pages: int) -> List[Dict]:
-        """
-        OPTIMIZED STRATEGIC SAMPLING for header detection.
-
-        Focus on where statistical sections typically appear (50-90% of document).
-        Limit Vision calls to ~10-12 pages max for performance.
-
-        Returns list of headers with VERIFIED page numbers.
-        """
-        found_headers = []
-
-        # STRATEGIC SAMPLING: Focus on statistical section region
-        # Clinical protocols: stats at 50-85%, limit to ~12 Vision calls
-        print(f"[SectionParser/Adaptive] Strategic sampling (optimized)...")
-        coarse_pages = []
-
-        # Key sampling points based on typical protocol structure:
-        # - 20-30%: Study design, endpoints
-        # - 50-60%: Statistical methods start
-        # - 60-75%: Sample size, populations, interim
-        # - 75-85%: Multiplicity, missing data
-        sampling_fractions = [0.20, 0.30, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90]
-
-        for frac in sampling_fractions:
-            page = int(total_pages * frac)
-            if page < total_pages and page not in coarse_pages:
-                coarse_pages.append(page)
-
-        print(f"[SectionParser/Adaptive] Scanning {len(coarse_pages)} strategic pages in PARALLEL...")
-
-        # PARALLEL Vision calls using ThreadPoolExecutor
-        def scan_page(page_num):
-            return (page_num, self._detect_headers_on_page(doc, page_num))
-
-        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-            future_to_page = {executor.submit(scan_page, p): p for p in coarse_pages}
-
-            for future in concurrent.futures.as_completed(future_to_page):
-                page_num, headers = future.result()
-
-                for h in headers:
-                    if h.get('is_toc_entry', False):
-                        continue
-
-                    header_text = h.get('exact_header_text', '')
-                    section_type = h.get('section_type', '').lower()
-
-                    if header_text and section_type in self.CANONICAL_SECTIONS:
-                        existing = [x for x in found_headers if x['section_type'] == section_type]
-                        if not existing:
-                            # VERIFY: Cross-validate with PyMuPDF text search
-                            verified_page = self._verify_header_location(doc, page_num, header_text)
-
-                            if verified_page is not None:
-                                found_headers.append({
-                                    'exact_header_text': header_text,
-                                    'section_type': section_type,
-                                    'first_sentence': h.get('first_sentence_after', ''),
-                                    'page_num': verified_page,
-                                    'verified': True
-                                })
-                                print(f"[SectionParser/Adaptive] ✓ Verified header: '{header_text}' -> {section_type} (page {verified_page})")
-                            else:
-                                # Keep unverified but flag it
-                                found_headers.append({
-                                    'exact_header_text': header_text,
-                                    'section_type': section_type,
-                                    'first_sentence': h.get('first_sentence_after', ''),
-                                    'page_num': page_num,
-                                    'verified': False
-                                })
-                                print(f"[SectionParser/Adaptive] ? Unverified header: '{header_text}' -> {section_type} (page {page_num})")
-
-        # Log missing sections (but don't do expensive Phase 2 scanning)
-        found_types = {h['section_type'] for h in found_headers}
-        missing_sections = [s for s in self.PRIORITY_SECTIONS if s not in found_types]
-
-        if missing_sections:
-            print(f"[SectionParser/Adaptive] Note: Missing sections (will try to find in extracted content): {missing_sections}")
-
-        # ICH M11 structure validation
-        self._validate_section_order(found_headers)
-
-        return found_headers
-
-    def _verify_header_location(self, doc, page_num: int, header_text: str) -> Optional[int]:
-        """
-        Cross-validate Vision result with PyMuPDF text search.
-
-        Check 3 pages around the reported location to confirm header exists.
-        Returns actual page number or None if not found.
-        """
-        # Normalize header for search
-        search_text = ' '.join(header_text.lower().split())
-
-        # Check reported page and nearby pages
-        for offset in [0, -1, 1, -2, 2]:
-            check_page = page_num + offset
-            if 0 <= check_page < len(doc):
-                page = doc[check_page]
-                page_text = page.get_text().lower()
-                normalized_page = ' '.join(page_text.split())
-
-                if search_text in normalized_page:
-                    return check_page
-
-        return None  # Not verified
-
-    def _validate_section_order(self, found_headers: List[Dict]) -> None:
-        """
-        ICH M11 structure validation.
-
-        Clinical protocols follow a known structure. Flag if sections appear out of order.
-        """
-        if len(found_headers) < 2:
-            return
-
-        sorted_headers = sorted(found_headers, key=lambda x: x['page_num'])
-
-        for i in range(len(sorted_headers) - 1):
-            curr_type = sorted_headers[i]['section_type']
-            next_type = sorted_headers[i + 1]['section_type']
-
-            # Check if they're both in our known order
-            if curr_type in ICH_M11_SECTION_ORDER and next_type in ICH_M11_SECTION_ORDER:
-                curr_idx = ICH_M11_SECTION_ORDER.index(curr_type)
-                next_idx = ICH_M11_SECTION_ORDER.index(next_type)
-
-                if curr_idx > next_idx:
-                    print(f"[SectionParser/Validate] ⚠ Section order anomaly: {curr_type} (page {sorted_headers[i]['page_num']}) appears before {next_type} (page {sorted_headers[i+1]['page_num']})")
-
-    def _detect_headers_on_page(self, doc, page_num: int) -> List[Dict]:
-        """Use Vision to detect section headers on a page."""
-        try:
-            page = doc[page_num]
-
-            # Render to image (1.5x zoom for readability)
-            pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5))
-            img_bytes = pix.tobytes("png")
-            img_base64 = base64.b64encode(img_bytes).decode('utf-8')
-
-            # Call Claude Vision
-            response = self._call_vision_api(img_base64, VISION_HEADER_DETECTION_PROMPT)
-
-            if not response:
-                return []
-
-            # Parse JSON response
-            data = self._parse_json_response(response)
-            if data:
-                # Skip TOC pages
-                if data.get('is_toc_page', False):
-                    return []
-
-                return data.get('section_headers', [])
-
-            return []
-
-        except Exception as e:
-            print(f"[SectionParser/Vision] Error detecting headers on page {page_num}: {e}")
-            return []
-
-    def _extract_by_page(
-        self,
-        doc,
-        found_headers: List[Dict]
-    ) -> Dict[str, ParsedSection]:
-        """
-        HYBRID APPROACH: Extract section content using Claude API.
-
-        Vision tells us which PDF pages have section headers.
-        Claude API extracts content from those specific pages.
-
-        Approach:
-        1. Sort headers by page number
-        2. For each header, find section end using ICH M11 numbering
-        3. Use Claude API to extract content from those pages
-        4. Validate content with multi-signal validation
-        """
-        sections = {}
-        total_pages = len(doc)
-
-        # Sort headers by page number
-        sorted_headers = sorted(found_headers, key=lambda x: x.get('page_num', 0))
-
-        print(f"[SectionParser/Hybrid] Extracting {len(sorted_headers)} sections...")
-
-        for i, header in enumerate(sorted_headers):
-            section_type = header['section_type']
-            header_text = header['exact_header_text']
-            start_page = header.get('page_num', 0)
-
-            # Find section end using ICH M11 numbering
-            if i + 1 < len(sorted_headers):
-                end_page = sorted_headers[i + 1]['page_num']
-            else:
-                end_page = self._find_section_end(doc, start_page, header_text)
-
-            # Ensure reasonable bounds
-            end_page = min(end_page, start_page + 30, total_pages)
-            if end_page <= start_page:
-                end_page = min(start_page + 10, total_pages)
-
-            print(f"[SectionParser/Hybrid] Extracting '{section_type}' from pages {start_page}-{end_page-1}")
-
-            # Extract content directly with PyMuPDF (no Claude cleanup needed)
-            # Vision found the right pages, PyMuPDF extracts the text - done.
-            content = self._extract_with_pymupdf(doc, start_page, end_page)
-
-            # Multi-signal validation
-            if len(content) > 100:
-                is_valid, confidence, message = self._validate_multi_signal(section_type, content)
-
-                if is_valid:
-                    sections[section_type] = ParsedSection(
-                        name=section_type,
-                        title=header_text,
-                        content=content,
-                        start_page=start_page,
-                        end_page=end_page - 1,
-                        confidence=confidence
-                    )
-                    print(f"[SectionParser/Hybrid] ✓ Extracted '{section_type}': {len(content)} chars (confidence: {confidence:.2f})")
-                else:
-                    print(f"[SectionParser/Hybrid] ✗ REJECTED '{section_type}': {message}")
-
-                    # Try extending the range
-                    extended_end = min(end_page + 10, total_pages)
-                    extended_content = self._extract_with_pymupdf(doc, start_page, extended_end)
-
-                    is_valid, confidence, message = self._validate_multi_signal(section_type, extended_content)
-                    if is_valid:
-                        sections[section_type] = ParsedSection(
-                            name=section_type,
-                            title=header_text,
-                            content=extended_content,
-                            start_page=start_page,
-                            end_page=extended_end - 1,
-                            confidence=confidence
-                        )
-                        print(f"[SectionParser/Hybrid] ✓ Salvaged '{section_type}' with extended range: {len(extended_content)} chars")
-            else:
-                print(f"[SectionParser/Hybrid] ✗ '{section_type}': content too short ({len(content)} chars)")
-
-        return sections
 
     def _find_section_end(self, doc, start_page: int, header_text: str) -> int:
         """
@@ -880,88 +746,6 @@ Return ONLY the cleaned text, no commentary."""
                 return i
 
         return max(0, len(original) - 1000)  # Fallback to near end
-
-    def _call_vision_api(self, img_base64: str, prompt: str) -> Optional[str]:
-        """Call Claude Vision API with an image."""
-        try:
-            # Build multimodal message
-            messages = [
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "image",
-                            "source": {
-                                "type": "base64",
-                                "media_type": "image/png",
-                                "data": img_base64
-                            }
-                        },
-                        {
-                            "type": "text",
-                            "text": prompt
-                        }
-                    ]
-                }
-            ]
-
-            # Try Anthropic SDK interface
-            if hasattr(self.vision_client, 'messages'):
-                response = self.vision_client.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=1500,
-                    messages=messages
-                )
-                return response.content[0].text
-
-            # Try chat_with_vision interface
-            elif hasattr(self.vision_client, 'chat_with_vision'):
-                return self.vision_client.chat_with_vision(prompt, img_base64)
-
-            # Try generic interface that accepts messages
-            elif hasattr(self.vision_client, 'create'):
-                response = self.vision_client.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=1500,
-                    messages=messages
-                )
-                return response.content[0].text
-
-            else:
-                print("[SectionParser/Vision] No compatible vision API interface found")
-                return None
-
-        except Exception as e:
-            print(f"[SectionParser/Vision] API error: {e}")
-            return None
-
-    def _parse_json_response(self, response: str) -> Optional[Dict]:
-        """Parse JSON from Vision API response."""
-        try:
-            # Handle markdown code blocks
-            if '```json' in response:
-                start = response.find('```json') + 7
-                end = response.find('```', start)
-                if end > start:
-                    response = response[start:end].strip()
-            elif '```' in response:
-                start = response.find('```') + 3
-                end = response.find('```', start)
-                if end > start:
-                    response = response[start:end].strip()
-
-            # Find JSON object
-            start = response.find('{')
-            end = response.rfind('}') + 1
-            if start >= 0 and end > start:
-                json_str = response[start:end]
-                return json.loads(json_str)
-
-            return None
-
-        except json.JSONDecodeError as e:
-            print(f"[SectionParser/Vision] JSON parse error: {e}")
-            return None
 
     def _extract_with_claude_text(self, text: str) -> Dict[str, ParsedSection]:
         """
