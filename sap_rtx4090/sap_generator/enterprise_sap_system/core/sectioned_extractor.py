@@ -506,73 +506,9 @@ RESPOND IN JSON:
             if content:
                 combined_text.append(f"=== {sect.upper()} SECTION ===\n{content}")
 
-        if combined_text:
-            result = "\n\n".join(combined_text)
-            print(f"[SectionedExtractor] Found {len(result)} chars from parsed sections for {section_name}")
-            return result[:max_chars]
-
-        # No sections found - return truncated full document
-        print(f"[SectionedExtractor] No parsed sections found for {section_name}, using full document")
-        return protocol_text[:max_chars]
-
-    def _keyword_extract(self, section_name: str, text: str, max_chars: int) -> str:
-        """Fallback: extract text around relevant keywords."""
-        keywords = {
-            'endpoints': ['primary endpoint', 'secondary endpoint', 'efficacy endpoint', 'outcome measure',
-                         'pfs', 'progression-free survival', 'overall survival', 'orr', 'response rate',
-                         'co-primary', 'recist', 'time to', 'duration of'],
-            'statistical_methods': ['statistical method', 'log-rank', 'logrank', 'cox', 'hazard ratio', 'stratified',
-                                   'fleming-harrington', 'weighted log-rank', 'kaplan-meier', 'one-sided', 'two-sided',
-                                   'null hypothesis', 'alternative hypothesis', 'superiority'],
-            'sample_size': ['sample size', 'power', 'patients will be', 'participants', 'enrollment',
-                           'n =', 'n=', 'subjects', 'total of', 'per arm', '80%', '90%', 'hr of', 'hazard ratio'],
-            'interim_analysis': ['interim analysis', 'interim analyses', 'alpha spending', 'stopping boundar',
-                                'information fraction', 'o\'brien-fleming', 'lan-demets', 'pocock', 'events',
-                                'ia1', 'ia2', 'first interim', 'final analysis', 'group sequential'],
-            'multiplicity': ['multiplicity', 'multiple endpoint', 'hierarchical', 'graphical approach', 'alpha allocation',
-                            'h1', 'h2', 'h3', 'h4', 'h5', 'hypothesis', 'bonferroni', 'holm', 'hochberg',
-                            'type i error', 'fwer', 'gatekeeping', 'maurer', 'bretz'],
-            'stratification': ['stratification', 'stratified by', 'randomization factor', 'ecog', 'pd-l1',
-                              'region', 'histology', 'prior therapy', 'randomized to'],
-            'populations': ['analysis population', 'intent-to-treat', 'full analysis set', 'safety population',
-                           'itt', 'fas', 'per-protocol', 'all randomized', 'all treated'],
-            'study_design': ['study design', 'randomized', 'open-label', 'phase 3', 'controlled',
-                            'double-blind', 'multicenter', 'first-line', 'second-line', 'comparator'],
-            'missing_data': ['missing data', 'censoring', 'imputation', 'tipping point', 'sensitivity analysis',
-                            'treatment discontinuation', 'last observation', 'multiple imputation'],
-            'estimand': ['estimand', 'intercurrent event', 'treatment policy', 'ich e9',
-                        'population-level', 'composite strategy', 'hypothetical strategy'],
-            'crossover': ['crossover', 'treatment switching', 'subsequent therapy', 'rpsft', 'ipcw',
-                         'two-stage', 'rank-preserving'],
-        }
-
-        section_keywords = keywords.get(section_name, [])
-        text_lower = text.lower()
-
-        # Find all keyword positions
-        positions = []
-        for kw in section_keywords:
-            pos = 0
-            while True:
-                idx = text_lower.find(kw, pos)
-                if idx == -1:
-                    break
-                positions.append(idx)
-                pos = idx + len(kw)
-
-        if not positions:
-            # No keywords found - return start of document
-            return text[:max_chars]
-
-        # Extract chunks around each keyword position
-        chunks = []
-        for pos in sorted(set(positions)):
-            start = max(0, pos - 500)
-            end = min(len(text), pos + 2000)
-            chunks.append(text[start:end])
-
-        combined = "\n...\n".join(chunks)
-        return combined[:max_chars]
+        result = "\n\n".join(combined_text) if combined_text else ""
+        print(f"[SectionedExtractor] Found {len(result)} chars from parsed sections for {section_name}")
+        return result[:max_chars]
 
     def extract_section(
         self,
