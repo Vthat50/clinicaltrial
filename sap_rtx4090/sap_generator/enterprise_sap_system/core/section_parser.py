@@ -272,9 +272,10 @@ class ProtocolSectionParser:
                 doc.close()
                 return {}
 
-            # STEP 3: Extract content from header to next header (text search)
-            print(f"[SectionParser/Vision] Step 3: Extracting sections by header text...")
-            sections = self._extract_by_headers(full_text, found_headers)
+            # STEP 3: Extract content from the ACTUAL PAGES where headers were found
+            # NOT from full text (which would find TOC entries first)
+            print(f"[SectionParser/Vision] Step 3: Extracting sections from actual pages...")
+            sections = self._extract_by_page(doc, found_headers)
 
             doc.close()
             return sections
@@ -299,14 +300,15 @@ class ProtocolSectionParser:
         """
         Scan PDF pages to identify section headers VISUALLY.
 
-        Returns list of headers with their EXACT TEXT:
+        Returns list of headers with their EXACT TEXT AND PAGE NUMBER:
         [
-            {"exact_header_text": "9 STATISTICAL CONSIDERATIONS", "section_type": "statistical_methods"},
-            {"exact_header_text": "9.1 Sample Size", "section_type": "sample_size"},
+            {"exact_header_text": "9 STATISTICAL CONSIDERATIONS", "section_type": "statistical_methods", "page_num": 142},
+            {"exact_header_text": "9.1 Sample Size", "section_type": "sample_size", "page_num": 145},
             ...
         ]
 
-        Does NOT return page numbers - we use header text for extraction.
+        CRITICAL: We store page_num so extraction can start from the RIGHT page,
+        not search the full document (which would find TOC entries first).
         """
         found_headers = []
 
@@ -345,9 +347,10 @@ class ProtocolSectionParser:
                         found_headers.append({
                             'exact_header_text': header_text,
                             'section_type': section_type,
-                            'first_sentence': h.get('first_sentence_after', '')
+                            'first_sentence': h.get('first_sentence_after', ''),
+                            'page_num': page_num  # CRITICAL: Store page number for extraction
                         })
-                        print(f"[SectionParser/Vision] Found header: '{header_text}' -> {section_type}")
+                        print(f"[SectionParser/Vision] Found header: '{header_text}' -> {section_type} (page {page_num})")
 
         return found_headers
 
@@ -382,65 +385,101 @@ class ProtocolSectionParser:
             print(f"[SectionParser/Vision] Error detecting headers on page {page_num}: {e}")
             return []
 
-    def _extract_by_headers(
+    def _extract_by_page(
         self,
-        full_text: str,
+        doc,
         found_headers: List[Dict]
     ) -> Dict[str, ParsedSection]:
         """
-        Extract section content using header text (NOT page numbers).
+        HYBRID APPROACH: Extract section content from ACTUAL PDF PAGES.
+
+        Vision tells us which PDF pages have section headers.
+        PyMuPDF extracts text faithfully from those pages (no hallucination).
+
+        NO TEXT SEARCH through full document - that finds TOC entries first!
 
         Approach:
-        1. For each header, find its position in full text
-        2. Extract from that position until next header
-        3. Validate content semantically
+        1. Sort headers by page number
+        2. For each header, extract from its page to the next header's page
+        3. Use PyMuPDF for faithful text extraction
+        4. Validate content semantically
         """
         sections = {}
+        total_pages = len(doc)
 
-        # Sort headers by their position in text
-        headers_with_pos = []
-        for h in found_headers:
-            header_text = h['exact_header_text']
-            pos = self._find_header_in_text(full_text, header_text)
-            if pos >= 0:
-                headers_with_pos.append({
-                    **h,
-                    'position': pos
-                })
-                print(f"[SectionParser/Vision] Header '{header_text}' found at position {pos}")
+        # Sort headers by page number
+        sorted_headers = sorted(found_headers, key=lambda x: x.get('page_num', 0))
+
+        print(f"[SectionParser/Hybrid] Extracting {len(sorted_headers)} sections by page...")
+
+        for i, header in enumerate(sorted_headers):
+            section_type = header['section_type']
+            header_text = header['exact_header_text']
+            start_page = header.get('page_num', 0)
+
+            # Determine end page: start of next section, or +25 pages, or end of doc
+            if i + 1 < len(sorted_headers):
+                end_page = sorted_headers[i + 1]['page_num']
             else:
-                print(f"[SectionParser/Vision] WARNING: Header '{header_text}' not found in text!")
+                # Last section: extract up to 25 more pages or end of document
+                end_page = min(start_page + 25, total_pages)
 
-        # Sort by position
-        headers_with_pos.sort(key=lambda x: x['position'])
+            # Ensure we extract at least a few pages
+            if end_page <= start_page:
+                end_page = min(start_page + 10, total_pages)
 
-        # Extract content between headers
-        for i, h in enumerate(headers_with_pos):
-            section_type = h['section_type']
-            start_pos = h['position']
+            print(f"[SectionParser/Hybrid] Extracting '{section_type}' from pages {start_page}-{end_page-1}")
 
-            # End position is start of next header, or +50000 chars, or end of text
-            if i + 1 < len(headers_with_pos):
-                end_pos = headers_with_pos[i + 1]['position']
-            else:
-                end_pos = min(start_pos + 50000, len(full_text))
+            # Extract text from these pages using PyMuPDF (FAITHFUL extraction)
+            content_parts = []
+            for page_num in range(start_page, end_page):
+                if page_num < total_pages:
+                    page = doc[page_num]
+                    page_text = page.get_text()
+                    if page_text:
+                        content_parts.append(page_text)
 
-            content = full_text[start_pos:end_pos].strip()
+            content = "\n".join(content_parts).strip()
 
             # Semantic validation: verify content matches expected section type
             if len(content) > 100:
                 confidence = self._validate_content_semantically(section_type, content)
 
-                if confidence >= 0.5:  # Accept if reasonably valid
+                if confidence >= 0.4:  # Accept if reasonably valid
                     sections[section_type] = ParsedSection(
                         name=section_type,
-                        title=h['exact_header_text'],
+                        title=header_text,
                         content=content,
+                        start_page=start_page,
+                        end_page=end_page - 1,
                         confidence=confidence
                     )
-                    print(f"[SectionParser/Vision] Extracted '{section_type}': {len(content)} chars (confidence: {confidence:.2f})")
+                    print(f"[SectionParser/Hybrid] ✓ Extracted '{section_type}': {len(content)} chars from {end_page - start_page} pages (confidence: {confidence:.2f})")
                 else:
-                    print(f"[SectionParser/Vision] REJECTED '{section_type}': failed semantic validation (confidence: {confidence:.2f})")
+                    print(f"[SectionParser/Hybrid] ✗ REJECTED '{section_type}': failed semantic validation (confidence: {confidence:.2f})")
+                    # Try to salvage: maybe we got the wrong pages, try a few more
+                    extended_end = min(end_page + 10, total_pages)
+                    for page_num in range(end_page, extended_end):
+                        page = doc[page_num]
+                        page_text = page.get_text()
+                        if page_text:
+                            content_parts.append(page_text)
+
+                    extended_content = "\n".join(content_parts).strip()
+                    extended_confidence = self._validate_content_semantically(section_type, extended_content)
+
+                    if extended_confidence >= 0.4:
+                        sections[section_type] = ParsedSection(
+                            name=section_type,
+                            title=header_text,
+                            content=extended_content,
+                            start_page=start_page,
+                            end_page=extended_end - 1,
+                            confidence=extended_confidence
+                        )
+                        print(f"[SectionParser/Hybrid] ✓ Salvaged '{section_type}' with extended pages: {len(extended_content)} chars (confidence: {extended_confidence:.2f})")
+            else:
+                print(f"[SectionParser/Hybrid] ✗ '{section_type}': content too short ({len(content)} chars)")
 
         return sections
 
@@ -487,32 +526,57 @@ class ProtocolSectionParser:
     def _find_header_in_text(self, full_text: str, header_text: str) -> int:
         """
         Find header text position in full text using semantic matching.
-        Handles variations in whitespace, line breaks, etc.
+
+        CRITICAL: Skip TOC entries (which have "....page_number" after them).
+        Find the ACTUAL section header followed by paragraph content.
         """
         # Normalize both strings for matching
         normalized_full = ' '.join(full_text.split())
         normalized_header = ' '.join(header_text.split())
 
-        # Try exact match first
-        pos = normalized_full.find(normalized_header)
-        if pos >= 0:
-            # Convert back to original text position (approximate)
-            return self._map_position_to_original(full_text, normalized_full, pos)
+        # Find ALL occurrences and pick the one that's actual content, not TOC
+        search_text = normalized_full.lower()
+        search_header = normalized_header.lower()
 
-        # Try case-insensitive match
-        pos = normalized_full.lower().find(normalized_header.lower())
-        if pos >= 0:
-            return self._map_position_to_original(full_text, normalized_full, pos)
+        start_pos = 0
+        while True:
+            pos = search_text.find(search_header, start_pos)
+            if pos < 0:
+                break
 
-        # Try matching just the significant words (for headers with varied formatting)
-        # E.g., "9 STATISTICAL CONSIDERATIONS" might appear as "9. Statistical Considerations"
+            # Check if this is a TOC entry (has dots/periods followed by page numbers after it)
+            after_header = normalized_full[pos + len(normalized_header):pos + len(normalized_header) + 100]
+
+            # TOC entries look like: "9.9 Sample Size...............138"
+            # Actual content looks like: "9.9 Sample Size\nThe sample size was calculated..."
+            is_toc_entry = False
+
+            # Check for dot leaders (........) or page number patterns
+            if '.....' in after_header or '......' in after_header:
+                is_toc_entry = True
+            elif after_header.strip()[:10].replace('.', '').replace(' ', '').isdigit():
+                # Starts with just numbers = page number = TOC
+                is_toc_entry = True
+
+            if not is_toc_entry:
+                # This looks like actual content - return this position
+                return self._map_position_to_original(full_text, normalized_full, pos)
+
+            # This was a TOC entry, continue searching
+            start_pos = pos + len(search_header)
+
+        # If no non-TOC match found, try the last occurrence (often actual content is later)
+        last_pos = search_text.rfind(search_header)
+        if last_pos >= 0:
+            return self._map_position_to_original(full_text, normalized_full, last_pos)
+
+        # Try matching just the significant words
         words = normalized_header.split()
         if len(words) >= 2:
-            # Search for key words together
-            key_words = ' '.join(words[1:3])  # Skip section number, get first 2 words
-            pos = normalized_full.lower().find(key_words.lower())
+            key_words = ' '.join(words[1:3])
+            # Find LAST occurrence of key words (more likely to be content, not TOC)
+            pos = search_text.rfind(key_words.lower())
             if pos >= 0:
-                # Back up to find section number
                 search_start = max(0, pos - 20)
                 return self._map_position_to_original(full_text, normalized_full, search_start)
 
