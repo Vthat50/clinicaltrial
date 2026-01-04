@@ -339,17 +339,18 @@ class ProtocolSectionParser:
                     continue
 
             # Find the section in the text
+            # IMPORTANT: Use RFIND to get the LAST occurrence (actual content, not TOC)
             pos = -1
 
-            # Try header text first
+            # Try header text first - find LAST occurrence to skip TOC
             if header_text:
                 header_lower = header_text.lower()
-                pos = text_lower.find(header_lower)
+                pos = text_lower.rfind(header_lower)  # rfind = last occurrence
 
             # Try start indicator if header not found
             if pos == -1 and start_indicator:
                 indicator_lower = start_indicator.lower()[:50]  # First 50 chars
-                pos = text_lower.find(indicator_lower)
+                pos = text_lower.rfind(indicator_lower)  # rfind = last occurrence
 
             if pos != -1:
                 section_positions.append((name, header_text, pos))
