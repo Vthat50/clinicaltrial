@@ -354,6 +354,44 @@ class ProtocolSectionParser:
 
         return False
 
+    def _find_flexible_section_match(self, text: str, header_text: str, section_name: str) -> int:
+        """
+        Try flexible matching when exact match fails.
+
+        Handles formatting differences like:
+        - "9.8 Multiplicity" vs "9.8  MULTIPLICITY"
+        - "9.8 Multiplicity" vs "9.8. Multiplicity"
+        - "Section 9.8 Multiplicity" vs "9.8 Multiplicity"
+        """
+        # Extract section number (e.g., "9.8" from "9.8 Multiplicity")
+        section_num_match = re.search(r'^(\d+\.?\d*)', header_text.strip())
+        if not section_num_match:
+            return -1
+
+        section_num = section_num_match.group(1)
+
+        # Build flexible pattern: section number + any whitespace + word(s)
+        # Match "9.8", "9.8.", "9.8:" followed by whitespace and text
+        pattern = rf'{re.escape(section_num)}[.:\s]+\s*\w+'
+
+        # Find all matches
+        matches = list(re.finditer(pattern, text, re.IGNORECASE))
+
+        if not matches:
+            return -1
+
+        # Check from last to first, skip TOC entries
+        for match in reversed(matches):
+            pos = match.start()
+
+            if not self._is_toc_line(text, pos):
+                preview = text[pos:min(pos+100, len(text))].replace('\n', ' ')
+                print(f"[SectionParser] Flexible match for '{section_num}' at {pos}: '{preview}...'")
+                return pos
+
+        print(f"[SectionParser] Flexible search for '{section_num}': all {len(matches)} matches were TOC")
+        return -1
+
     def _find_non_toc_occurrence(self, text: str, text_lower: str, search_term: str) -> int:
         """Find the last occurrence of search_term that is NOT in a TOC line."""
         search_lower = search_term.lower()
@@ -419,6 +457,10 @@ class ProtocolSectionParser:
             # Try header text first - find LAST non-TOC occurrence
             if header_text:
                 pos = self._find_non_toc_occurrence(text, text_lower, header_text)
+
+                # If not found, try flexible matching (handles "9.8 Title" vs "9.8  TITLE")
+                if pos == -1:
+                    pos = self._find_flexible_section_match(text, header_text, name)
 
             # Try start indicator if header not found
             if pos == -1 and start_indicator:
