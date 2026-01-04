@@ -712,7 +712,7 @@ Write the Introduction section now. Start with "## 1. INTRODUCTION" as the heade
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_introduction(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="introduction",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -846,7 +846,7 @@ Write the section now. Start with "## 2. OBJECTIVES AND ESTIMANDS" as the header
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_objectives(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="objectives",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -888,7 +888,7 @@ Include a table showing treatment arms if multiple arms exist."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_study_design(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="study_design",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -986,7 +986,7 @@ Include an assumptions table."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_sample_size(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="sample_size",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -1028,7 +1028,7 @@ Write the section now. Start with "## 9. MISSING DATA" as the header."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_missing_data(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="missing_data",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -1247,7 +1247,7 @@ Write the section now. Start with "## 7. STATISTICAL METHODS" as the header."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_methods(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="methods",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -1330,7 +1330,7 @@ Write the section now. Start with "## 5. ENDPOINTS" as the header."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_endpoints(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="endpoints",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
@@ -1393,202 +1393,13 @@ Write the section now. Start with "## STRATIFICATION" as the header."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_stratification(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="stratification",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
             success=response.success,
             error=response.error
         )
-
-    # =========================================================================
-    # FALLBACK METHODS (when LLM fails)
-    # =========================================================================
-
-    def _fallback_introduction(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for introduction."""
-        nct = facts.get('nct_id', 'NCT########')
-        drug = facts.get('drug_name', 'study drug')
-        return f"""## 1. INTRODUCTION
-
-### 1.1 Study Identification
-
-This Statistical Analysis Plan (SAP) describes the planned statistical analyses for study {nct}.
-
-### 1.2 Purpose
-
-This SAP provides detailed specifications for the statistical analyses of efficacy and safety data for {drug}.
-
-### 1.3 Scope
-
-This document covers all planned analyses for the primary, secondary, and exploratory endpoints.
-
-### 1.4 Regulatory Alignment
-
-All analyses will be conducted in accordance with ICH E9 and ICH E9(R1) guidelines.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_objectives(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for objectives."""
-        drug = facts.get('drug_name', 'study drug')
-        comparator = facts.get('comparator', 'control')
-        endpoint = facts.get('primary_endpoint', 'the primary endpoint')
-        is_pilot = self._detect_pilot_study(facts)
-        hypothesis_testing = self._detect_hypothesis_testing(facts)
-
-        if is_pilot or not hypothesis_testing:
-            return f"""## 2. OBJECTIVES
-
-### 2.1 Primary Objective
-
-To evaluate the feasibility, safety, and preliminary efficacy of {drug} in this patient population.
-
-### 2.2 Secondary Objectives
-
-- To describe the safety profile of {drug}
-- To estimate the preliminary efficacy of {drug} as measured by {endpoint}
-- To assess compliance with the treatment regimen
-
-Note: This is a pilot/feasibility study. No formal hypothesis testing will be performed. All analyses are exploratory and descriptive.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-        else:
-            return f"""## 2. OBJECTIVES AND ESTIMANDS
-
-### 2.1 Primary Objective
-
-To evaluate the efficacy of {drug} compared to {comparator} as measured by {endpoint}.
-
-### 2.2 Primary Estimand (ICH E9(R1))
-
-| Attribute | Specification |
-|-----------|---------------|
-| Treatment | {drug} vs {comparator} |
-| Population | All randomized patients |
-| Variable | {endpoint} |
-| Intercurrent Events | Treatment policy strategy |
-| Summary Measure | To be specified based on endpoint type |
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_study_design(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for study design."""
-        design = facts.get('design_type', 'randomized study')
-        ratio = facts.get('randomization_ratio', '1:1')
-        return f"""## 3. STUDY DESIGN
-
-### 3.1 Overall Design
-
-This is a {design}.
-
-### 3.2 Randomization
-
-Patients will be randomized in a {ratio} ratio.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_sample_size(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for sample size."""
-        n = facts.get('sample_size', {})
-        total = n.get('total_n', 'TBD') if isinstance(n, dict) else n
-        is_pilot = self._detect_pilot_study(facts)
-        hypothesis_testing = self._detect_hypothesis_testing(facts)
-
-        if is_pilot or not hypothesis_testing:
-            return f"""## 6. SAMPLE SIZE
-
-### 6.1 Sample Size
-
-No formal sample size estimation has been performed.
-
-Target sample size: {total} patients
-
-This sample size was pragmatically determined based on feasibility considerations. This study is not powered for formal hypothesis testing.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-        else:
-            return f"""## 6. SAMPLE SIZE AND POWER
-
-### 6.1 Sample Size
-
-Total sample size: {total} patients
-
-### 6.2 Power Calculation
-
-Power calculations were performed based on the primary endpoint assumptions.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_missing_data(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for missing data."""
-        return """## 9. MISSING DATA
-
-### 9.1 Missing Data Assumptions
-
-The primary analysis assumes data are missing at random (MAR).
-
-### 9.2 Primary Approach
-
-Mixed Model Repeated Measures (MMRM) will be used for the primary analysis.
-
-### 9.3 Sensitivity Analyses
-
-Sensitivity analyses will include tipping point analysis and multiple imputation.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_methods(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for methods."""
-        is_pilot = self._detect_pilot_study(facts)
-        hypothesis_testing = self._detect_hypothesis_testing(facts)
-
-        if is_pilot or not hypothesis_testing:
-            return """## 7. STATISTICAL METHODS
-
-### 7.1 General Considerations
-
-No statistical tests are performed due to the small sample size. All analyses will be descriptive.
-
-- 95% confidence intervals (Wilson method for proportions)
-- Analyses performed using SAS 9.4
-
-### 7.2 Descriptive Analyses
-
-All endpoints will be summarized using descriptive statistics:
-- Continuous variables: n, mean, standard deviation, median, minimum, maximum
-- Categorical variables: counts and percentages with 95% Wilson confidence intervals
-- Time-to-event variables: Kaplan-Meier estimates (descriptive only)
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-        else:
-            return """## 7. STATISTICAL METHODS
-
-### 7.1 General Considerations
-
-- Two-sided alpha = 0.05
-- 95% confidence intervals
-- Analyses performed using SAS 9.4
-
-### 7.2 Primary Analysis
-
-The primary endpoint will be analyzed using appropriate statistical methods.
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_endpoints(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for endpoints."""
-        endpoint = facts.get('primary_endpoint', 'Primary efficacy endpoint')
-        timepoint = facts.get('primary_timepoint', 'as specified in protocol')
-        return f"""## 5. ENDPOINTS
-
-### 5.1 Primary Endpoint
-
-{endpoint}
-
-Assessment timepoint: {timepoint}
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
 
     def generate_regulatory_interim(self, facts: Dict[str, Any]) -> GeneratedSection:
         """Generate Regulatory Interim Analysis section (e.g., TTF for China)."""
@@ -1643,40 +1454,13 @@ Write the section now. Start with "## 7.X REGULATORY INTERIM ANALYSIS" as the he
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_regulatory_interim(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="regulatory_interim",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
             success=response.success,
             error=response.error
         )
-
-    def _fallback_regulatory_interim(self, facts: Dict[str, Any]) -> str:
-        """Fallback for regulatory interim analysis section."""
-        endpoint = facts.get('regulatory_interim_endpoint', 'TTF')
-        region = facts.get('regulatory_interim_region', 'China')
-        timing = facts.get('regulatory_interim_timing', 'Per protocol')
-        alpha = facts.get('regulatory_interim_alpha', 0.025)
-        return f"""## 7.X REGULATORY INTERIM ANALYSIS
-
-### Purpose
-This interim analysis is conducted to support early filing in {region}.
-
-### Timing
-{timing}
-
-### Methods
-- One-sided alpha level: {alpha}
-- Primary endpoint: {endpoint}
-- Statistical test: Weighted log-rank test (Fleming-Harrington)
-
-### Analyses
-- {endpoint} analysis (primary)
-- ORR (descriptive)
-- Safety summary
-- {region} subjects subanalysis
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
 
     def generate_pro_endpoints(self, facts: Dict[str, Any]) -> GeneratedSection:
         """Generate Patient-Reported Outcomes section."""
@@ -1729,40 +1513,13 @@ Write the section now. Start with "## 5.X PATIENT-REPORTED OUTCOMES" as the head
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_pro_endpoints(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="pro_endpoints",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
             success=response.success,
             error=response.error
         )
-
-    def _fallback_pro_endpoints(self, facts: Dict[str, Any]) -> str:
-        """Fallback for PRO endpoints section."""
-        instruments = facts.get('pro_instruments', ['LCSS'])
-        pro_endpoints = facts.get('pro_endpoints', [])
-
-        pro_details = ""
-        for ep in pro_endpoints:
-            if isinstance(ep, dict):
-                pro_details += f"\n- {ep.get('instrument', 'PRO')}: {ep.get('subscale', '')}"
-                if ep.get('responder_definition'):
-                    pro_details += f" (Responder: {ep.get('responder_definition')})"
-
-        return f"""## 5.X PATIENT-REPORTED OUTCOMES
-
-### Instruments
-{', '.join(instruments)}
-
-### Endpoints
-{pro_details if pro_details else '- As specified in protocol'}
-
-### Analysis Methods
-- Descriptive statistics at each assessment timepoint
-- Change from baseline analysis
-- Time to symptom deterioration (Kaplan-Meier)
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
 
     def generate_subgroup_analyses(self, facts: Dict[str, Any]) -> GeneratedSection:
         """Generate Subgroup Analyses section."""
@@ -1802,61 +1559,13 @@ Write the section now. Start with "## 7.X SUBGROUP ANALYSES" as the header."""
         )
 
         return GeneratedSection(
-            content=response.content if response.success else self._fallback_subgroup_analyses(facts),
+            content=response.content if response.success else "[LLM GENERATION FAILED - REQUIRES MANUAL REVIEW]",
             section_name="subgroup_analyses",
             llm_source=response.source,
             rag_examples_used=[ex.get('nct_id', '') for ex in examples],
             success=response.success,
             error=response.error
         )
-
-    def _fallback_subgroup_analyses(self, facts: Dict[str, Any]) -> str:
-        """Fallback for subgroup analyses section."""
-        subgroups = facts.get('subgroup_analyses', [])
-        if not subgroups:
-            subgroups = [
-                "Age (<65, 65-<75, ≥75 years)",
-                "Gender (Male, Female)",
-                "ECOG Performance Status (0, ≥1)",
-                "Histology (if applicable)",
-                "PD-L1 status (if applicable)",
-                "Region/Country (if applicable)"
-            ]
-
-        subgroup_list = '\n'.join([f"- {s}" for s in subgroups])
-
-        return f"""## 7.X SUBGROUP ANALYSES
-
-### Planned Subgroups
-{subgroup_list}
-
-### Methods
-- Forest plots for treatment effect by subgroup
-- Interaction tests (exploratory)
-- Hazard ratios with 95% CI for each subgroup
-
-### Interpretation
-Subgroup analyses are exploratory and should be interpreted with caution due to:
-- Multiple comparisons
-- Smaller sample sizes within subgroups
-- Potential for imbalanced baseline characteristics
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
-
-    def _fallback_stratification(self, facts: Dict[str, Any]) -> str:
-        """Minimal fallback when LLM fails for stratification."""
-        factors = facts.get('stratification_factors', [])
-        if factors:
-            factor_list = '\n'.join([f"- {f}" for f in factors])
-        else:
-            factor_list = "- As specified in protocol"
-        return f"""## STRATIFICATION
-
-### Stratification Factors
-
-{factor_list}
-
-[Note: LLM generation failed - this is a minimal fallback. Please review and enhance.]"""
 
 
 # Convenience function
