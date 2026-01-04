@@ -22,17 +22,26 @@ import json
 import re
 import os
 import asyncio
+import concurrent.futures
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# Fix for nested async in FastAPI/Uvicorn context
-try:
-    import nest_asyncio
-    nest_asyncio.apply()
-    print("[SectionParser] nest_asyncio applied for nested event loops")
-except ImportError:
-    print("[SectionParser] WARNING: nest_asyncio not available - may have issues in async contexts")
+# Thread pool for running async LlamaParse in sync context
+_thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
+
+def _run_async_in_thread(coro):
+    """Run an async coroutine in a separate thread with its own event loop."""
+    def run_in_new_loop():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(coro)
+        finally:
+            loop.close()
+
+    future = _thread_pool.submit(run_in_new_loop)
+    return future.result(timeout=300)  # 5 minute timeout
 
 # LlamaParse for accurate PDF parsing
 try:
@@ -320,12 +329,20 @@ class ProtocolSectionParser:
         Extract sections using LlamaParse.
 
         LlamaParse returns structured markdown which we parse to identify sections.
+        Uses async parsing in a separate thread to avoid uvloop conflicts.
         """
         try:
             print(f"[SectionParser/LlamaParse] Parsing PDF: {pdf_path}")
 
-            # Parse PDF with LlamaParse
-            result = self._llamaparse.parse(pdf_path)
+            # Define async parsing function
+            async def async_parse():
+                # Use aparse for async operation
+                result = await self._llamaparse.aparse(pdf_path)
+                return result
+
+            # Run async parsing in separate thread with its own event loop
+            print("[SectionParser/LlamaParse] Running async parse in thread pool...")
+            result = _run_async_in_thread(async_parse())
 
             # Get markdown output
             markdown_docs = result.get_markdown_documents(split_by_page=False)
@@ -350,7 +367,7 @@ class ProtocolSectionParser:
             print(f"[SectionParser/LlamaParse] Error: {e}")
             import traceback
             traceback.print_exc()
-            return {}
+            raise  # Re-raise to expose the actual error
 
     def _parse_markdown_sections(self, markdown: str) -> Dict[str, ParsedSection]:
         """
