@@ -313,6 +313,47 @@ class ProtocolSectionParser:
             print(f"[SectionParser] Claude API error: {e}")
             return {}
 
+    def _is_toc_line(self, text: str, pos: int) -> bool:
+        """Check if the line at position is a TOC entry (has dots + page number)."""
+        # Find line boundaries
+        line_start = text.rfind('\n', 0, pos) + 1
+        line_end = text.find('\n', pos)
+        if line_end == -1:
+            line_end = len(text)
+
+        line = text[line_start:line_end]
+
+        # TOC patterns: "Section Title ..... 123" or "Section Title...123"
+        # Check for: multiple consecutive dots followed by digits
+        if re.search(r'\.{3,}\s*\d+', line):
+            return True
+        # Check for: dots and spaces pattern (leader dots)
+        if line.count('.') > 10 and re.search(r'\d{1,3}\s*$', line):
+            return True
+
+        return False
+
+    def _find_non_toc_occurrence(self, text: str, text_lower: str, search_term: str) -> int:
+        """Find the last occurrence of search_term that is NOT in a TOC line."""
+        search_lower = search_term.lower()
+        pos = len(text)
+
+        # Search backwards through all occurrences
+        while True:
+            pos = text_lower.rfind(search_lower, 0, pos)
+            if pos == -1:
+                return -1  # Not found at all
+
+            # Check if this occurrence is in a TOC line
+            if not self._is_toc_line(text, pos):
+                return pos  # Found a non-TOC occurrence
+
+            # This was a TOC line, keep searching backwards
+            if pos == 0:
+                return -1  # Reached beginning, all occurrences were TOC
+
+        return -1
+
     def _extract_sections_from_markers(
         self,
         text: str,
@@ -338,22 +379,22 @@ class ProtocolSectionParser:
                 if not name:
                     continue
 
-            # Find the section in the text
-            # IMPORTANT: Use RFIND to get the LAST occurrence (actual content, not TOC)
+            # Find the section in the text - skip TOC entries
             pos = -1
 
-            # Try header text first - find LAST occurrence to skip TOC
+            # Try header text first - find LAST non-TOC occurrence
             if header_text:
-                header_lower = header_text.lower()
-                pos = text_lower.rfind(header_lower)  # rfind = last occurrence
+                pos = self._find_non_toc_occurrence(text, text_lower, header_text)
 
             # Try start indicator if header not found
             if pos == -1 and start_indicator:
-                indicator_lower = start_indicator.lower()[:50]  # First 50 chars
-                pos = text_lower.rfind(indicator_lower)  # rfind = last occurrence
+                indicator_text = start_indicator[:50]  # First 50 chars
+                pos = self._find_non_toc_occurrence(text, text_lower, indicator_text)
 
             if pos != -1:
                 section_positions.append((name, header_text, pos))
+            else:
+                print(f"[SectionParser] Section '{name}' only found in TOC, no actual content")
 
         # Sort by position
         section_positions.sort(key=lambda x: x[2])
