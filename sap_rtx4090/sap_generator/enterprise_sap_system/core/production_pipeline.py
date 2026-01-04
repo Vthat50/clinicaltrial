@@ -404,42 +404,20 @@ class ProductionSAPPipeline:
                 facts['raw_text'] = protocol_text.lower()
                 return facts, section_results
             except Exception as e:
-                print(f"[Extraction] Sectioned extraction failed: {e}, falling back to legacy")
+                import traceback
+                print(f"[Extraction] Sectioned extraction failed: {e}")
+                print(f"[Extraction] Full traceback:")
+                traceback.print_exc()
+                # Re-raise to see the actual error instead of hiding it
+                raise
 
-        # Fallback to legacy extractor
-        if self.legacy_extractor:
-            try:
-                extracted = self.legacy_extractor.extract(protocol_text)
-                if extracted:
-                    if hasattr(extracted, 'dict'):
-                        facts = extracted.dict()
-                    elif hasattr(extracted, '__dict__'):
-                        facts = {k: v for k, v in extracted.__dict__.items() if not k.startswith('_')}
-                    else:
-                        facts = dict(extracted)
-
-                    facts['raw_text'] = protocol_text.lower()
-                    facts = self._normalize_facts(facts)
-
-                    # Create dummy section results for legacy
-                    section_results = {
-                        'legacy': type('Result', (), {
-                            'confidence': 0.7,
-                            'needs_review': [],
-                            'fields_found': list(facts.keys()),
-                            'fields_not_found': []
-                        })()
-                    }
-                    return facts, section_results
-            except Exception as e:
-                print(f"[Extraction] Legacy extraction failed: {e}")
-
-        # Final fallback to basic extraction
+        # No sectioned extractor available - return empty with error
+        print("[Extraction] ERROR: No sectioned extractor available")
         facts = self._basic_extraction(protocol_text)
         section_results = {
-            'basic': type('Result', (), {
-                'confidence': 0.3,
-                'needs_review': ['all fields'],
+            'error': type('Result', (), {
+                'confidence': 0.0,
+                'needs_review': ['ALL - no extractor'],
                 'fields_found': [],
                 'fields_not_found': []
             })()

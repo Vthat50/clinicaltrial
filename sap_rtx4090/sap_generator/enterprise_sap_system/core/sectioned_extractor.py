@@ -1028,7 +1028,8 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 if field not in ['confidence', 'notes']:
                     combined_data[field] = value
 
-            print(f"  - Confidence: {result.confidence:.0%}")
+            conf = result.confidence if result.confidence is not None else 0.0
+            print(f"  - Confidence: {conf:.0%}")
             print(f"  - Found: {len(result.fields_found)} fields")
             print(f"  - Not found: {len(result.fields_not_found)} fields")
             if result.needs_review:
@@ -1037,11 +1038,10 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         # Convert to ExtractedProtocolFacts
         facts = from_claude_extraction(combined_data)
 
-        # Calculate overall confidence
+        # Calculate overall confidence (handle None values)
         if section_results:
-            facts.confidence.overall_confidence = sum(
-                r.confidence for r in section_results.values()
-            ) / len(section_results)
+            valid_confidences = [r.confidence for r in section_results.values() if r.confidence is not None]
+            facts.confidence.overall_confidence = sum(valid_confidences) / len(valid_confidences) if valid_confidences else 0.0
 
             facts.confidence.section_confidence = {
                 name: r.confidence for name, r in section_results.items()
