@@ -200,13 +200,41 @@ class ProtocolSectionParser:
         # Sort by position
         section_matches.sort(key=lambda x: x[2])
 
-        # Remove duplicates (same section found multiple times)
-        seen_sections = set()
-        unique_matches = []
+        # Remove duplicates - prefer LATER matches (actual content over TOC entries)
+        # TOC entries typically appear first but have minimal content
+        section_best_matches = {}
         for match in section_matches:
-            if match[0] not in seen_sections:
-                seen_sections.add(match[0])
-                unique_matches.append(match)
+            section_name = match[0]
+            start_pos = match[2]
+
+            # Calculate content length to next section or end
+            next_section_pos = len(text)
+            for other in section_matches:
+                if other[2] > start_pos:
+                    next_section_pos = min(next_section_pos, other[2])
+
+            content_length = next_section_pos - match[3]  # header_end to next section
+
+            # Skip if this looks like a TOC entry (very short content)
+            if content_length < 200:
+                continue
+
+            # Prefer the match with most content (actual section over TOC)
+            if section_name not in section_best_matches:
+                section_best_matches[section_name] = (match, content_length)
+            elif content_length > section_best_matches[section_name][1]:
+                section_best_matches[section_name] = (match, content_length)
+
+        unique_matches = [m[0] for m in section_best_matches.values()]
+        unique_matches.sort(key=lambda x: x[2])  # Sort by position
+
+        # Diagnostic: show what sections were found with actual content
+        if section_best_matches:
+            print(f"[SectionParser] Found {len(section_best_matches)} sections with actual content:")
+            for name, (match, content_len) in sorted(section_best_matches.items(), key=lambda x: x[1][0][2]):
+                print(f"  - {name}: {content_len} chars")
+        else:
+            print(f"[SectionParser] No sections with >200 chars content found (likely TOC-only matches)")
 
         # Extract content between sections
         for i, (section_name, title, start, header_end) in enumerate(unique_matches):

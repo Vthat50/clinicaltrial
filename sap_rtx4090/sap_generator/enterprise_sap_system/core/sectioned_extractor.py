@@ -508,11 +508,15 @@ RESPOND IN JSON:
 
         if combined_text:
             result = "\n\n".join(combined_text)
-            print(f"[SectionedExtractor] Found {len(result)} chars from parsed sections for {section_name}")
-            return result[:max_chars]
+            # Check if content is substantial (not just TOC entries)
+            if len(result) > 500:
+                print(f"[SectionedExtractor] Found {len(result)} chars from parsed sections for {section_name}")
+                return result[:max_chars]
+            else:
+                print(f"[SectionedExtractor] Parsed section too short ({len(result)} chars), falling back to keyword search for {section_name}")
 
-        # Fallback: keyword search for relevant content
-        print(f"[SectionedExtractor] No parsed sections found, using keyword search for {section_name}")
+        # Fallback: keyword search for relevant content in FULL document
+        print(f"[SectionedExtractor] Using keyword search in full document for {section_name}")
         return self._keyword_extract(section_name, protocol_text, max_chars)
 
     def _keyword_extract(self, section_name: str, text: str, max_chars: int) -> str:
