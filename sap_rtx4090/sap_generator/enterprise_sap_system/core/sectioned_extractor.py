@@ -489,6 +489,9 @@ RESPOND IN JSON:
         self.section_parser = ProtocolSectionParser(llm_client=llm_client)
         self._parsed_protocol: Optional[ParsedProtocol] = None
         self._current_pdf_path: Optional[str] = None
+        # Track which PDF was parsed to enable proper caching
+        self._cached_pdf_path: Optional[str] = None
+        self._cached_text_hash: Optional[str] = None
 
     def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 60000) -> str:
         """
@@ -502,14 +505,34 @@ RESPOND IN JSON:
         NOT in the first 25K characters.
         """
         # Parse protocol if not already done
-        if self._parsed_protocol is None or self._parsed_protocol.raw_text != protocol_text:
+        # CRITICAL FIX: Use PDF path as primary cache key (not text comparison)
+        # When Vision extraction is used, raw_text differs from protocol_text
+        needs_parsing = False
+        text_hash = str(hash(protocol_text[:1000])) if protocol_text else None
+
+        if self._parsed_protocol is None:
+            needs_parsing = True
+        elif self._current_pdf_path:
+            # PDF mode: only reparse if PDF path changed
+            needs_parsing = (self._cached_pdf_path != self._current_pdf_path)
+        else:
+            # Text mode: reparse if text content changed (use hash for efficiency)
+            needs_parsing = (self._cached_text_hash != text_hash)
+
+        if needs_parsing:
+            print(f"[SectionedExtractor] Parsing document (PDF: {self._current_pdf_path})")
             # Use Vision-based parsing if PDF path is available
             self._parsed_protocol = self.section_parser.parse(
                 protocol_text,
                 pdf_path=self._current_pdf_path
             )
+            # Cache the keys
+            self._cached_pdf_path = self._current_pdf_path
+            self._cached_text_hash = text_hash
             print(f"[SectionedExtractor] Parsed protocol into {len(self._parsed_protocol.sections)} sections")
             print(f"[SectionedExtractor] Available sections: {list(self._parsed_protocol.sections.keys())}")
+        else:
+            print(f"[SectionedExtractor] Using CACHED parse result ({len(self._parsed_protocol.sections)} sections)")
 
         # Get relevant section names
         relevant_sections = self.SECTION_MAPPING.get(section_name, [section_name])
