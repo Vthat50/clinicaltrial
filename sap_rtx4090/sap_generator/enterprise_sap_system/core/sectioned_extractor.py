@@ -66,20 +66,21 @@ class SectionedProtocolExtractor:
     SECTIONS = {
         'study_design': {
             'required': ['treatment_setting', 'disease_type', 'phase', 'drug_name', 'comparator',
-                        'is_single_arm', 'is_pilot_study', 'num_arms'],  # CRITICAL: Added single-arm/pilot detection
+                        'is_single_arm', 'is_pilot_study', 'num_arms'],
             'optional': ['histology', 'disease_stage', 'biomarker_status', 'allocation_ratio', 'blinding_type',
-                        'hypothesis_testing_planned', 'sample_size_justification_type'],
-            'critical': ['treatment_setting', 'disease_type', 'is_single_arm', 'is_pilot_study']  # MUST extract study type
+                        'hypothesis_testing_planned', 'sample_size_justification_type', 'study_category'],
+            'critical': ['treatment_setting', 'disease_type', 'is_single_arm', 'is_pilot_study']
         },
         'stratification': {
             'required': ['stratification_factors'],
-            'optional': ['stratification_factor_levels'],
+            'optional': ['stratification_factor_levels', 'num_strata', 'stratification_method', 'block_size'],
             'critical': ['stratification_factors']
         },
         'sample_size': {
             'required': ['sample_size', 'power'],
             'optional': ['sample_size_per_arm', 'sample_size_rationale', 'hazard_ratio',
-                        'sample_size_justification_type', 'is_pragmatic_sample'],
+                        'sample_size_justification_type', 'is_pragmatic_sample',
+                        'sample_size_by_population', 'regional_cohorts', 'allocation_ratio'],
             'critical': ['sample_size']
         },
         'endpoints': {
@@ -90,18 +91,21 @@ class SectionedProtocolExtractor:
         'statistical_methods': {
             'required': ['statistical_method'],
             'optional': ['null_hypothesis', 'alternative_hypothesis', 'test_sidedness', 'hazard_ratio_method'],
-            'critical': ['statistical_method']  # MUST come from protocol, not inferred
+            'critical': ['statistical_method']
         },
         'interim_analysis': {
             'required': ['has_interim_analysis', 'num_interim_analyses'],
             'optional': ['interim_events', 'final_events', 'information_fractions',
                         'alpha_spending_function', 'alpha_at_interim', 'alpha_at_final',
-                        'stopping_boundaries', 'interim_by_endpoint'],
+                        'stopping_boundaries', 'interim_by_endpoint', 'overall_alpha',
+                        'alpha_sidedness', 'event_triggers', 'interim_timing_months', 'spending_parameters'],
             'critical': ['num_interim_analyses', 'final_events']
         },
         'multiplicity': {
             'required': ['has_multiplicity'],
-            'optional': ['adjustment_method', 'testing_sequence', 'alpha_per_hypothesis', 'hypotheses_list', 'alpha_propagation'],
+            'optional': ['adjustment_method', 'testing_sequence', 'alpha_per_hypothesis', 'hypotheses_list',
+                        'alpha_propagation', 'ni_margin', 'ni_endpoint', 'ni_then_superiority',
+                        'efficacy_boundaries', 'total_alpha'],
             'critical': ['hypotheses_list', 'alpha_per_hypothesis']
         },
         'missing_data': {
@@ -2491,9 +2495,16 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 if not ni_margin:
                     notes.append(f"VALIDATION WARNING: ni_endpoint='{ni_endpoint}' but no ni_margin extracted - critical for NI testing")
                 elif ni_margin < 1.0:
-                    notes.append(f"VALIDATION WARNING: ni_margin={ni_margin} is < 1.0 - expected HR threshold like 1.1 or 1.2")
+                    # Could be risk difference margin (e.g., 0.10 for 10% difference) vs HR
+                    if ni_margin > 0.5:
+                        notes.append(f"VALIDATION INFO: ni_margin={ni_margin} - verify if this is HR or risk difference margin")
+                    elif ni_margin > 0:
+                        # Values like 0.05-0.15 are typical risk difference margins
+                        notes.append(f"VALIDATION INFO: ni_margin={ni_margin} appears to be risk difference (not HR)")
+                    else:
+                        notes.append(f"VALIDATION WARNING: ni_margin={ni_margin} is unusually small or invalid")
                 elif ni_margin > 2.0:
-                    notes.append(f"VALIDATION WARNING: ni_margin={ni_margin} is unusually large - expected 1.1-1.5 for most oncology trials")
+                    notes.append(f"VALIDATION WARNING: ni_margin={ni_margin} is unusually large for HR-based NI (expected 1.1-1.5)")
 
             if ni_then_superiority and not ni_margin:
                 notes.append(f"VALIDATION WARNING: ni_then_superiority=True but no ni_margin extracted")
@@ -2527,32 +2538,24 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         # =========================================================
         if section_name == 'stratification':
             factors = data.get('stratification_factors', [])
+            factor_levels = data.get('stratification_factor_levels', {})
             num_strata = data.get('num_strata')
 
-            # Validate num_strata calculation
-            if factors and isinstance(factors, list) and len(factors) > 0:
-                # Try to calculate expected strata from factor levels
-                # Each factor entry should have 'name' and 'levels' or similar
+            # Calculate expected strata from factor_levels dict
+            # Structure: {"Region": ["East Asia", "ROW"], "ECOG": ["0", "1"], ...}
+            if factor_levels and isinstance(factor_levels, dict) and len(factor_levels) > 0:
                 expected_strata = 1
-                factor_levels_found = 0
-                for factor in factors:
-                    if isinstance(factor, dict):
-                        levels = factor.get('levels', [])
-                        if levels and isinstance(levels, list) and len(levels) > 0:
-                            expected_strata *= len(levels)
-                            factor_levels_found += 1
-                        elif 'num_levels' in factor:
-                            expected_strata *= factor['num_levels']
-                            factor_levels_found += 1
+                for factor_name, levels in factor_levels.items():
+                    if isinstance(levels, list) and len(levels) > 0:
+                        expected_strata *= len(levels)
 
-                if factor_levels_found > 0 and num_strata:
-                    if num_strata != expected_strata:
-                        notes.append(f"VALIDATION: num_strata={num_strata} vs calculated {expected_strata} from factor levels")
+                if num_strata and num_strata != expected_strata:
+                    notes.append(f"VALIDATION: num_strata={num_strata} vs calculated {expected_strata} from factor levels")
 
-                if not num_strata and factor_levels_found > 0:
+                if not num_strata:
                     # Auto-calculate num_strata if not extracted
                     data['num_strata'] = expected_strata
-                    notes.append(f"VALIDATION: Calculated num_strata={expected_strata} from {factor_levels_found} factors")
+                    notes.append(f"VALIDATION: Calculated num_strata={expected_strata} from {len(factor_levels)} factors")
 
             # Validate stratification method presence
             strat_method = data.get('stratification_method')
