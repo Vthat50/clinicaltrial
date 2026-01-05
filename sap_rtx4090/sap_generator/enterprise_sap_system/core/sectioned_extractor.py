@@ -343,8 +343,24 @@ hypothesis_testing_planned: Will formal statistical hypothesis tests be performe
 
 Required fields (must find or mark [NOT FOUND]):
 - treatment_setting: EXACTLY one of: "first-line", "second-line", "third-line or later",
-  "neoadjuvant", "adjuvant", "maintenance". Look for phrases like "first-line treatment",
-  "previously untreated", "treatment-naive" (= first-line), "after failure of", "following progression" (= second-line+)
+  "neoadjuvant", "adjuvant", "maintenance".
+
+  CRITICAL - Check the PROTOCOL TITLE first! It often contains the treatment line:
+  - "First-Line Treatment" or "1L" = first-line
+  - "Second-Line" or "2L" or "Previously Treated" = second-line
+
+  Also look for these phrases:
+  FIRST-LINE indicators (any of these = first-line):
+  - "first-line treatment" / "1st line" / "1L"
+  - "previously untreated" / "treatment-naive" / "treatment-naïve"
+  - "no prior systemic therapy" / "have not received prior"
+  - "front-line" / "initial treatment"
+
+  SECOND-LINE indicators (any of these = second-line):
+  - "second-line" / "2nd line" / "2L"
+  - "after failure of" / "following progression"
+  - "previously treated" / "prior therapy required"
+  - "relapsed" / "refractory"
 - disease_type: The specific disease, e.g., "Non-small cell lung cancer (NSCLC)",
   "HER2-positive breast cancer", "Advanced melanoma". Be specific, not generic.
 - phase: "Phase 1", "Phase 2", "Phase 3", etc.
@@ -413,10 +429,23 @@ RESPOND IN JSON:
 SEARCH AGGRESSIVELY for these patterns:
 - "N = ###" or "n = ###" or "### patients" or "### subjects" or "### participants"
 - "sample size of ###" or "enroll ###" or "randomize ###" or "total of ###"
+- "approximately ###" or "~###" or "about ###" patients
 - "### per arm" or "### in each arm" or "1:1" (implies equal arms)
 - "power of ##%" or "##% power" or "power = 0.##"
 - "HR of 0.##" or "hazard ratio 0.##" or "HR = 0.##"
 - Look for tables with sample size calculations
+
+=== CRITICAL: NEVER RETURN 0 FOR SAMPLE SIZE ===
+If you cannot find a sample size, return null, NOT 0.
+A sample size of 0 is NEVER valid for a clinical trial.
+
+=== LOOK FOR SAMPLE SIZE BY POPULATION ===
+Some trials have different sample sizes for subgroups. COMMON PATTERNS:
+- Biomarker-defined: "XXX PD-L1 positive" + "YYY PD-L1 negative" = total
+- Molecular subtype: "XXX biomarker-positive" + "YYY biomarker-negative" = total
+- Cohorts: "XXX in Cohort A" + "YYY in Cohort B" = total
+- Histology: "XXX squamous" + "YYY non-squamous" = total
+- Add up subgroup sizes if total is not explicitly stated
 
 === DETECT PILOT/FEASIBILITY SAMPLE SIZE ===
 - is_pragmatic_sample: TRUE if "pragmatic", "feasibility", "no formal calculation", "exploratory",
@@ -424,11 +453,16 @@ SEARCH AGGRESSIVELY for these patterns:
 - If NO power calculation mentioned and small N, likely a pilot study
 
 Required fields:
-- sample_size: Total number of patients (look for N=, total, enrolled)
+- sample_size: Total number of patients (MUST be > 0 or null)
+  - Add up subgroup sizes if needed
+  - Look for "approximately" or "~" numbers
+  - NEVER return 0 - use null if truly not found
 - power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90). NULL if pilot/feasibility.
 
 Optional fields:
 - sample_size_per_arm: Number per treatment arm [arm1_n, arm2_n]
+- sample_size_by_population: Breakdown by biomarker/subgroup
+  Example: {{"biomarker_positive": 500, "biomarker_negative": 200, "total": 700}}
 - sample_size_rationale: Text describing the calculation basis
 - sample_size_justification_type: "power_calculation", "pragmatic", "feasibility", "precision", "binomial"
 - hazard_ratio: Expected/assumed hazard ratio (usually 0.6-0.8 for oncology)
@@ -437,9 +471,10 @@ Optional fields:
 
 RESPOND IN JSON:
 {{
-    "sample_size": <number or null if truly not found>,
+    "sample_size": <number > 0 or null - NEVER 0>,
     "power": <0.0-1.0 or null>,
     "sample_size_per_arm": [<arm1_n>, <arm2_n>] or null,
+    "sample_size_by_population": {{"<pop1>": <n1>, "<pop2>": <n2>}} or null,
     "sample_size_rationale": "<text>" or null,
     "sample_size_justification_type": "<type>" or null,
     "is_pragmatic_sample": <true/false>,
@@ -535,34 +570,56 @@ SEMANTIC SEARCH - Look for these CONCEPTS (not just exact phrases):
 - "alpha spending" / "spending function" / "O'Brien-Fleming" / "Lan-DeMets" / "Pocock"
 - "stopping boundary" / "efficacy boundary" / "futility boundary" / "early stopping"
 - "one-sided alpha" / "two-sided alpha" / "α=" / "alpha="
-- Tables showing: IA1, IA2, FA or Interim 1, Interim 2, Final
 - "first interim at ###" / "second interim at ###" / "final at ###"
+
+=== CRITICAL: COUNT INTERIM ANALYSES CAREFULLY ===
+Look for tables or lists that show MULTIPLE interim analyses. Common patterns:
+- "IA1", "IA2", "IA3", "FA" (= 3 interim analyses + final)
+- "Interim 1", "Interim 2", "Interim 3", "Final" (= 3 interims)
+- "First interim", "Second interim", "Third interim" (= 3 interims)
+- Tables with columns for each analysis timepoint
+
+EXAMPLE TABLE FORMAT (markdown):
+| Analysis | Timing | PFS Events | OS Events | Alpha |
+|----------|--------|------------|-----------|-------|
+| IA1      | 27 mo  | 354        | -         | 0.001 |
+| IA2      | 36 mo  | 472        | -         | 0.005 |
+| IA3      | 42 mo  | -          | 316       | 0.01  |
+| FA       | 48 mo  | -          | 359       | 0.009 |
+
+This table shows 3 interim analyses (IA1, IA2, IA3) plus final (FA).
+Count each IA row as one interim analysis. FA is the final, not an interim.
 
 Required fields:
 - has_interim_analysis: true if ANY interim analysis is mentioned
-- num_interim_analyses: Count distinct interim looks (IA1, IA2, etc.)
+- num_interim_analyses: Count DISTINCT interim looks (NOT including final analysis)
+  - If you see IA1, IA2, IA3, FA → num_interim_analyses = 3
+  - If you see IA1, FA → num_interim_analyses = 1
+  - If you see "two interim analyses and a final" → num_interim_analyses = 2
 
 CRITICAL fields - extract ALL numbers you find:
-- interim_events: Events at each interim [e.g., [175, 350] for 2 interims]
-- final_events: Events at final analysis [e.g., 500]
-- information_fractions: [e.g., [0.35, 0.70, 1.0] for 35%, 70%, 100%]
-- alpha_spending_function: The spending function name
-- alpha_at_interim: Alpha spent at each interim [e.g., [0.0001, 0.005]]
-- alpha_at_final: Remaining alpha [e.g., 0.0199]
+- interim_events: Events at each interim [e.g., [354, 472, 316] for 3 interims]
+- final_events: Events at final analysis [e.g., 359]
+- information_fractions: [e.g., [0.35, 0.70, 0.88, 1.0] for 3 interims + final]
+- alpha_spending_function: The spending function name (e.g., "Lan-DeMets O'Brien-Fleming")
+- alpha_at_interim: Alpha spent at each interim [e.g., [0.001, 0.005, 0.01]]
+- alpha_at_final: Remaining alpha [e.g., 0.009]
 - stopping_boundaries: HR thresholds or Z-values for stopping
+- interim_timing_months: Timing in months [e.g., [27, 36, 42] for 3 interims]
 - interim_by_endpoint: SEPARATE structure per endpoint (PFS vs OS often differ!)
 
 RESPOND IN JSON:
 {{
     "has_interim_analysis": <true/false>,
-    "num_interim_analyses": <number>,
-    "interim_events": [<events1>, <events2>] or null,
+    "num_interim_analyses": <number - COUNT CAREFULLY>,
+    "interim_events": [<events1>, <events2>, <events3>] or null,
     "final_events": <number> or null,
-    "information_fractions": [<frac1>, <frac2>, 1.0] or null,
-    "alpha_spending_function": "<function>" or null,
-    "alpha_at_interim": [<alpha1>, <alpha2>] or null,
+    "information_fractions": [<frac1>, <frac2>, ..., 1.0] or null,
+    "alpha_spending_function": "<function name>" or null,
+    "alpha_at_interim": [<alpha1>, <alpha2>, ...] or null,
     "alpha_at_final": <number> or null,
     "stopping_boundaries": "<description>" or null,
+    "interim_timing_months": [<months1>, <months2>, ...] or null,
     "interim_by_endpoint": [
         {{"endpoint": "PFS", "timing": "<when>", "events": <n>, "alpha": <a>}},
         {{"endpoint": "OS", "timing": "<when>", "events": <n>, "alpha": <a>}}
@@ -577,52 +634,123 @@ SEMANTIC SEARCH - Look for these CONCEPTS:
 - "multiplicity" / "multiple testing" / "multiple endpoints" / "multiple hypotheses"
 - "H1" / "H2" / "H3" / "H4" / "H5" / "hypothesis 1" / "hypothesis 2"
 - "hierarchical testing" / "gatekeeping" / "fixed sequence" / "sequential testing"
-- "graphical approach" / "Maurer-Bretz" / "weighted Bonferroni"
+- "graphical approach" / "Maurer-Bretz" / "Maurer and Bretz" / "weighted Bonferroni"
 - "Hochberg" / "Holm" / "Bonferroni" / "Simes"
 - "alpha allocation" / "α=" / "one-sided 0.0###" / "two-sided 0.0###"
 - "type I error" / "FWER" / "familywise error rate"
 - "primary hypothesis" / "secondary hypothesis" / "key secondary"
 - "tested at α=" / "tested at alpha" / "significance level"
+- "non-inferiority margin" / "NI margin" / "superiority" / "non-inferiority"
 - Diagrams or tables showing hypothesis structure
+
+=== CRITICAL: EXTRACT FULL HYPOTHESIS STRUCTURE ===
+
+Protocols may have 2-6+ hypotheses. Common structures include:
+
+EXAMPLE 1 - Two endpoints, two populations (4 hypotheses):
+| Hypothesis | Description | Initial Alpha |
+|------------|-------------|---------------|
+| H1 | PFS in biomarker-positive | 0.01 |
+| H2 | PFS in all-comers | 0 |
+| H3 | OS in biomarker-positive | 0.015 |
+| H4 | OS in all-comers | 0 |
+
+EXAMPLE 2 - Hierarchical with key secondary (3 hypotheses):
+| Hypothesis | Description | Alpha |
+|------------|-------------|-------|
+| H1 | OS superiority | 0.025 |
+| H2 | PFS superiority | 0 (from H1) |
+| H3 | ORR superiority | 0 (from H2) |
+
+EXAMPLE 3 - Non-inferiority then superiority (2 hypotheses):
+| Hypothesis | Description | Alpha |
+|------------|-------------|-------|
+| H1 | OS non-inferiority (margin=1.1) | 0.025 |
+| H2 | OS superiority | 0 (from H1) |
+
+For graphical approaches, also look for:
+- "alpha propagation" or "alpha recycling" or "transition weights"
+- "if H1 is rejected, alpha flows to H2" style descriptions
+- Diagrams showing arrows between hypotheses with weights
 
 Required field:
 - has_multiplicity: true if ANY alpha adjustment or multiple hypothesis testing is mentioned
 
 CRITICAL fields - extract the FULL hypothesis structure:
-- hypotheses_list: List each hypothesis with its definition
-  Example: ["H1: PFS in ITT", "H2: OS in ITT", "H3: PFS in PD-L1≥50%", "H4: OS in PD-L1≥50%"]
-- alpha_per_hypothesis: Alpha for EACH hypothesis
-  Example: {{"H1": 0.0125, "H2": 0.0125, "H3": 0.0125, "H4": 0.0125}}
-- adjustment_method: The specific method used
-- testing_sequence: Order of testing (which hypotheses are tested first, second, etc.)
-- alpha_propagation: How alpha is recycled when hypotheses are rejected
+- hypotheses_list: List EACH hypothesis with full definition
+  Example (biomarker-defined): [
+    "H1: PFS superiority in biomarker-positive population",
+    "H2: PFS superiority in ITT population",
+    "H3: OS superiority in biomarker-positive population",
+    "H4: OS superiority in ITT population"
+  ]
+  Example (with non-inferiority): [
+    "H1: OS non-inferiority (margin=1.1)",
+    "H2: OS superiority"
+  ]
+- alpha_per_hypothesis: Alpha for EACH hypothesis (can be 0 for initially untested)
+  Example: {{"H1": 0.01, "H2": 0, "H3": 0.015, "H4": 0}}
+- adjustment_method: The specific method (e.g., "Graphical approach of Maurer and Bretz")
+- testing_sequence: Order of testing
+- alpha_propagation: How alpha flows between hypotheses when rejected
+  Example: "If H1 rejected, alpha flows to H2; if H3 rejected, alpha flows to H4"
+- ni_margin: Non-inferiority margin if any (e.g., 1.1 for OS HR)
+- total_alpha: Overall type I error (e.g., 0.025 one-sided)
 
 RESPOND IN JSON:
 {{
     "has_multiplicity": <true/false>,
     "adjustment_method": "<method>" or null,
-    "hypotheses_list": ["H1: <definition>", "H2: <definition>", ...] or [],
-    "testing_sequence": ["<H1>", "<H2>", ...] or [],
+    "hypotheses_list": ["H1: <full definition>", "H2: <full definition>", ...] or [],
+    "testing_sequence": ["H1", "H2", ...] or [],
     "alpha_per_hypothesis": {{"H1": <alpha>, "H2": <alpha>, ...}} or {{}},
-    "alpha_propagation": "<how alpha flows between hypotheses>" or null,
+    "alpha_propagation": "<detailed description of how alpha flows>" or null,
+    "ni_margin": <number> or null,
+    "total_alpha": <number> or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
 
-        'missing_data': '''Extract MISSING DATA handling information from this protocol section.
+        'missing_data': '''Extract MISSING DATA and CENSORING information from this protocol section.
 
-Fields:
-- censoring_rules: List of censoring rules for time-to-event endpoints
+=== CRITICAL: LOOK FOR CENSORING RULES TABLES ===
+
+Censoring rules are often in tables like this (markdown format):
+| Situation | PFS Censoring Rule | OS Censoring Rule |
+|-----------|-------------------|-------------------|
+| No progression, alive | Last adequate tumor assessment | Censored at last known alive |
+| Started new anticancer therapy | Date of new therapy start | Not censored |
+| Missed ≥2 tumor assessments | Last adequate assessment before miss | Not censored |
+| Lost to follow-up | Last adequate assessment | Last known alive date |
+
+Or as numbered lists:
+1. Subjects without documented progression will be censored at last adequate tumor assessment
+2. Subjects who start new anticancer therapy will be censored at date of new therapy
+3. Subjects lost to follow-up will be censored at last contact date
+
+EXTRACT EACH CENSORING SCENARIO with its rule.
+
+Fields to extract:
+- censoring_rules: List EACH censoring scenario and how it's handled
+  Example: [
+    "No progression, alive: Censored at last adequate tumor assessment",
+    "Started new anticancer therapy before progression: Censored at date of new therapy",
+    "Missed 2+ consecutive assessments: Censored at last adequate assessment",
+    "Lost to follow-up: Censored at last known alive date",
+    "Death: Event for OS, censored at death date for PFS"
+  ]
 - treatment_discontinuation_strategy: How treatment discontinuation is handled
 - tipping_point_analysis: true/false
-- subsequent_therapy_handling: How subsequent therapies are handled
+- subsequent_therapy_handling: How subsequent therapies affect censoring
+- missing_assessment_handling: What happens when tumor assessments are missed
 
 RESPOND IN JSON:
 {{
-    "censoring_rules": ["<rule1>", "<rule2>", ...],
+    "censoring_rules": ["<scenario1>: <rule1>", "<scenario2>: <rule2>", ...],
     "treatment_discontinuation_strategy": "<strategy>" or null,
     "tipping_point_analysis": <true/false>,
     "subsequent_therapy_handling": "<handling>" or null,
+    "missing_assessment_handling": "<handling>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
@@ -1564,6 +1692,8 @@ Return JSON:
         # Track which PDF was parsed to enable proper caching
         self._cached_pdf_path: Optional[str] = None
         self._cached_text_hash: Optional[str] = None
+        # Flag to prevent re-parsing during parallel extraction
+        self._in_parallel_extraction: bool = False
 
     def _get_relevant_text(self, section_name: str, protocol_text: str, max_chars: int = 60000) -> str:
         """
@@ -1577,38 +1707,47 @@ Return JSON:
         NOT in the first 25K characters.
         """
         # Parse protocol if not already done
-        # CRITICAL FIX: Use PDF path as primary cache key (not text comparison)
-        # When Vision extraction is used, raw_text differs from protocol_text
-        needs_parsing = False
-        text_hash = str(hash(protocol_text[:1000])) if protocol_text else None
-
-        if self._parsed_protocol is None:
-            needs_parsing = True
-        elif self._current_pdf_path:
-            # PDF mode: only reparse if PDF path changed
-            needs_parsing = (self._cached_pdf_path != self._current_pdf_path)
+        # CRITICAL FIX: NEVER re-parse during parallel extraction!
+        # The pre-parse in extract_all() handles this.
+        if self._in_parallel_extraction:
+            # During parallel extraction, we MUST use the pre-parsed result
+            # Re-parsing from multiple threads causes asyncio event loop conflicts
+            if self._parsed_protocol is None:
+                print(f"[SectionedExtractor] ERROR: In parallel extraction but no pre-parsed result!")
+                # Fall through to use protocol_text directly
+            # Skip verbose logging in parallel mode to reduce noise
         else:
-            # Text mode: reparse if text content changed (use hash for efficiency)
-            needs_parsing = (self._cached_text_hash != text_hash)
+            # NOT in parallel mode - can safely parse if needed
+            needs_parsing = False
+            text_hash = str(hash(protocol_text[:1000])) if protocol_text else None
 
-        if needs_parsing:
-            print(f"[SectionedExtractor] Parsing document (PDF: {self._current_pdf_path})")
-            # Use Vision-based parsing if PDF path is available
-            self._parsed_protocol = self.section_parser.parse(
-                protocol_text,
-                pdf_path=self._current_pdf_path
-            )
-            # Cache the keys
-            self._cached_pdf_path = self._current_pdf_path
-            self._cached_text_hash = text_hash
-            print(f"[SectionedExtractor] Parsed protocol into {len(self._parsed_protocol.sections)} sections")
-            print(f"[SectionedExtractor] Available sections: {list(self._parsed_protocol.sections.keys())}")
-        else:
-            print(f"[SectionedExtractor] Using CACHED parse result ({len(self._parsed_protocol.sections)} sections)")
+            if self._parsed_protocol is None:
+                needs_parsing = True
+            elif self._current_pdf_path:
+                # PDF mode: only reparse if PDF path changed
+                needs_parsing = (self._cached_pdf_path != self._current_pdf_path)
+            else:
+                # Text mode: reparse if text content changed (use hash for efficiency)
+                needs_parsing = (self._cached_text_hash != text_hash)
+
+            if needs_parsing:
+                print(f"[SectionedExtractor] Parsing document (PDF: {self._current_pdf_path})")
+                # Use Vision-based parsing if PDF path is available
+                self._parsed_protocol = self.section_parser.parse(
+                    protocol_text,
+                    pdf_path=self._current_pdf_path
+                )
+                # Cache the keys
+                self._cached_pdf_path = self._current_pdf_path
+                self._cached_text_hash = text_hash
+                print(f"[SectionedExtractor] Parsed protocol into {len(self._parsed_protocol.sections)} sections")
+                print(f"[SectionedExtractor] Available sections: {list(self._parsed_protocol.sections.keys())}")
+            else:
+                print(f"[SectionedExtractor] Using CACHED parse result ({len(self._parsed_protocol.sections)} sections)")
 
         # NO FALLBACKS: Use dynamic section location ONLY
         raw_text = ""
-        if "full_text" in self._parsed_protocol.sections:
+        if self._parsed_protocol and "full_text" in self._parsed_protocol.sections:
             raw_text = self._parsed_protocol.get("full_text", "")
         else:
             raw_text = protocol_text
@@ -1647,32 +1786,40 @@ Return JSON:
 
         # Sample more heavily from CONTENT AREAS (40-85%) where statistical sections are
         # Reduce sampling of TOC area (0-15%) to avoid confusion
-        sample_size = 900
+        # INCREASED from 900 to 1500 to better capture tables
+        sample_size = 1500
         scan_samples = []
 
         # Strategic sampling positions:
-        # Clinical protocols have statistical sections at 75-95%, NOT 45-70%!
-        # Structure:
+        # Clinical protocols have statistical sections at 60-95%, NOT 45-70%!
+        # Structure varies by protocol - sample more densely
         # - 0-5%: Title, TOC, Synopsis
         # - 5-25%: Background, Objectives, Eligibility
-        # - 25-50%: Interventions, Dose modifications
-        # - 50-75%: Assessments, Adverse Events
-        # - 75-95%: STATISTICAL METHODS (Section 9) <-- KEY AREA!
+        # - 25-50%: Interventions, Dose modifications, Study Design
+        # - 50-75%: Assessments, Adverse Events, Endpoints
+        # - 60-95%: STATISTICAL METHODS (Section 9/10/11) <-- KEY AREA!
         # - 95-100%: References, Appendices
         sample_positions = [
-            0.05,   # Very beginning (title, synopsis)
+            0.02,   # Very beginning (title - check for "first-line" etc)
+            0.08,   # Synopsis area (often has sample size summary)
             0.15,   # End of TOC / start of intro
             0.25,   # Study design area
             0.35,   # Endpoints/objectives
-            # CRITICAL: Statistical sections start at 75%, not 45%!
-            0.75,   # Start of statistical section (Section 9)
-            0.78,   # Sample size calculations
-            0.80,   # Analysis populations
-            0.82,   # Interim analysis
-            0.85,   # Multiplicity adjustments
-            0.88,   # Missing data handling
+            0.45,   # Mid-document (some protocols have stats earlier)
+            0.55,   # Assessment schedules
+            # DENSE SAMPLING of statistical content area
+            0.60,   # Start of statistical section
+            0.65,   # Sample size calculations
+            0.70,   # Analysis populations
+            0.75,   # Primary analysis methods
+            0.78,   # Interim analysis
+            0.80,   # Interim analysis details
+            0.82,   # Multiplicity adjustments
+            0.85,   # Missing data handling
+            0.88,   # Censoring rules
             0.90,   # Sensitivity analyses
             0.93,   # Late statistical content
+            0.96,   # Very late content (some SAPs have stats here)
         ]
 
         for pos_frac in sample_positions:
@@ -2057,6 +2204,103 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 notes=[f"Extraction failed: {str(e)}"]
             )
 
+    def _validate_extracted_data(
+        self,
+        section_name: str,
+        data: Dict[str, Any]
+    ) -> Tuple[Dict[str, Any], List[str]]:
+        """
+        Validate extracted data and fix obvious errors.
+
+        Returns:
+            Tuple of (corrected_data, validation_notes)
+        """
+        notes = []
+
+        # =========================================================
+        # SAMPLE SIZE VALIDATION
+        # =========================================================
+        if section_name == 'sample_size':
+            sample_size = data.get('sample_size')
+
+            # Fix sample_size = 0 (NEVER valid)
+            if sample_size == 0:
+                print(f"[VALIDATION] ERROR: sample_size=0 is invalid, setting to null")
+                data['sample_size'] = None
+                notes.append("VALIDATION: sample_size=0 is invalid - set to null for review")
+
+            # Flag suspiciously small sample sizes for Phase 3
+            if sample_size and sample_size < 50:
+                notes.append(f"VALIDATION WARNING: sample_size={sample_size} is unusually small")
+
+        # =========================================================
+        # INTERIM ANALYSIS VALIDATION
+        # =========================================================
+        if section_name == 'interim_analysis':
+            num_ia = data.get('num_interim_analyses')
+
+            # Validate num_interim_analyses against interim_events array
+            interim_events = data.get('interim_events', [])
+            if interim_events and isinstance(interim_events, list):
+                expected_count = len(interim_events)
+                if num_ia and num_ia != expected_count:
+                    print(f"[VALIDATION] WARNING: num_interim_analyses={num_ia} but interim_events has {expected_count} entries")
+                    notes.append(f"VALIDATION: num_interim_analyses mismatch - {num_ia} vs {expected_count} events")
+
+            # Check alpha_at_interim consistency
+            alpha_interim = data.get('alpha_at_interim', [])
+            if alpha_interim and isinstance(alpha_interim, list) and num_ia:
+                if len(alpha_interim) != num_ia:
+                    notes.append(f"VALIDATION: alpha_at_interim has {len(alpha_interim)} values but num_interim_analyses={num_ia}")
+
+        # =========================================================
+        # TREATMENT SETTING VALIDATION
+        # =========================================================
+        if section_name == 'study_design':
+            treatment_setting = data.get('treatment_setting', '')
+
+            # Check for common misclassifications in the notes
+            raw_notes = data.get('notes', [])
+            if isinstance(raw_notes, list):
+                notes_text = ' '.join(str(n) for n in raw_notes).lower()
+
+                # If notes mention "first-line" but setting says second-line, flag it
+                if 'first-line' in notes_text or 'first line' in notes_text:
+                    if treatment_setting and 'second' in treatment_setting.lower():
+                        notes.append("VALIDATION WARNING: Notes mention 'first-line' but setting extracted as second-line")
+
+        # =========================================================
+        # MULTIPLICITY VALIDATION
+        # =========================================================
+        if section_name == 'multiplicity':
+            hypotheses = data.get('hypotheses_list', [])
+            alpha_per = data.get('alpha_per_hypothesis', {})
+
+            # Check if number of hypotheses matches alpha allocations
+            if hypotheses and alpha_per:
+                if len(hypotheses) != len(alpha_per):
+                    notes.append(f"VALIDATION: {len(hypotheses)} hypotheses but {len(alpha_per)} alpha allocations")
+
+            # Check that total alpha doesn't exceed 0.025 (one-sided) or 0.05 (two-sided)
+            if alpha_per and isinstance(alpha_per, dict):
+                total_alpha = sum(v for v in alpha_per.values() if isinstance(v, (int, float)))
+                if total_alpha > 0.03:  # Allow small rounding errors
+                    notes.append(f"VALIDATION WARNING: total initial alpha={total_alpha:.4f} exceeds expected 0.025")
+
+        # =========================================================
+        # CENSORING RULES VALIDATION
+        # =========================================================
+        if section_name == 'missing_data':
+            censoring = data.get('censoring_rules', [])
+
+            # Censoring rules should be a list, not a string
+            if isinstance(censoring, str):
+                if censoring and '[NOT FOUND]' not in censoring:
+                    data['censoring_rules'] = [censoring]
+                    notes.append("VALIDATION: Converted censoring_rules from string to list")
+
+        return data, notes
+
     def _parse_section_response(
         self,
         section_name: str,
@@ -2070,6 +2314,11 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 raise ValueError("No JSON found in response")
 
             data = json.loads(json_match.group())
+
+            # =========================================================
+            # VALIDATION: Catch and fix obvious extraction errors
+            # =========================================================
+            data, validation_notes = self._validate_extracted_data(section_name, data)
 
             # Analyze what was found vs not found
             section_def = self.SECTIONS[section_name]
@@ -2097,6 +2346,9 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 else:
                     fields_found.append(field)
 
+            # Combine extraction notes with validation notes
+            all_notes = data.get('notes', []) + validation_notes
+
             return SectionExtractionResult(
                 section_name=section_name,
                 extracted_fields=data,
@@ -2104,7 +2356,7 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 fields_found=fields_found,
                 fields_not_found=fields_not_found,
                 needs_review=needs_review,
-                notes=data.get('notes', [])
+                notes=all_notes
             )
 
         except json.JSONDecodeError as e:
@@ -2149,8 +2401,18 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         # =====================================================================
         # CRITICAL FIX: Pre-parse PDF ONCE before parallel extraction
         # This prevents multiple LlamaParse calls (rate limiting + event loop issues)
+        # ALSO: Must re-parse if PDF path changed from previous request!
         # =====================================================================
-        if pdf_path and self._parsed_protocol is None:
+        needs_preparse = False
+        if pdf_path:
+            if self._parsed_protocol is None:
+                needs_preparse = True
+                print(f"[SectionedExtractor] PRE-PARSING: No cached parse result")
+            elif self._cached_pdf_path != pdf_path:
+                needs_preparse = True
+                print(f"[SectionedExtractor] PRE-PARSING: PDF changed ({self._cached_pdf_path} -> {pdf_path})")
+
+        if needs_preparse:
             print(f"[SectionedExtractor] PRE-PARSING PDF before parallel extraction...")
             self._parsed_protocol = self.section_parser.parse(
                 protocol_text,
@@ -2159,6 +2421,8 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
             self._cached_pdf_path = pdf_path
             self._cached_text_hash = str(hash(protocol_text[:1000])) if protocol_text else None
             print(f"[SectionedExtractor] Pre-parsed into {len(self._parsed_protocol.sections)} sections: {list(self._parsed_protocol.sections.keys())}")
+        elif pdf_path:
+            print(f"[SectionedExtractor] Using CACHED pre-parse result ({len(self._parsed_protocol.sections)} sections)")
 
         if sections is None:
             sections = list(self.SECTIONS.keys())
@@ -2175,24 +2439,30 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 result = self.extract_section(section_name, protocol_text)
                 return section_name, result
 
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                futures = {executor.submit(extract_one, s): s for s in sections}
+            # Set flag to prevent re-parsing in worker threads
+            self._in_parallel_extraction = True
+            try:
+                with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                    futures = {executor.submit(extract_one, s): s for s in sections}
 
-                for future in as_completed(futures):
-                    section_name = futures[future]
-                    try:
-                        name, result = future.result()
-                        section_results[name] = result
+                    for future in as_completed(futures):
+                        section_name = futures[future]
+                        try:
+                            name, result = future.result()
+                            section_results[name] = result
 
-                        # Merge extracted fields
-                        for field, value in result.extracted_fields.items():
-                            if field not in ['confidence', 'notes']:
-                                combined_data[field] = value
+                            # Merge extracted fields
+                            for field, value in result.extracted_fields.items():
+                                if field not in ['confidence', 'notes']:
+                                    combined_data[field] = value
 
-                        conf = result.confidence if result.confidence is not None else 0.0
-                        print(f"[SectionedExtractor] ✓ {name} ({conf:.0%})")
-                    except Exception as e:
-                        print(f"[SectionedExtractor] ✗ {section_name}: {e}")
+                            conf = result.confidence if result.confidence is not None else 0.0
+                            print(f"[SectionedExtractor] ✓ {name} ({conf:.0%})")
+                        except Exception as e:
+                            print(f"[SectionedExtractor] ✗ {section_name}: {e}")
+            finally:
+                # Always clear the flag, even if extraction fails
+                self._in_parallel_extraction = False
         else:
             # SEQUENTIAL EXTRACTION (fallback)
             for section_name in sections:
