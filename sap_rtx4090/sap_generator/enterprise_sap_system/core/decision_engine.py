@@ -6,14 +6,23 @@ Uses the production knowledge graph (ChromaDB) to make evidence-based recommenda
 Location: enterprise_sap_system/core/decision_engine.py
 """
 
-import chromadb
-from chromadb.config import Settings
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 import logging
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
+
+# Lazy import to avoid circular imports
+_vector_store = None
+
+def _get_vector_store():
+    """Get the shared vector store singleton (ensures auto-indexing completes first)"""
+    global _vector_store
+    if _vector_store is None:
+        from enterprise_sap_system.rag.vector_store import create_vector_store
+        _vector_store = create_vector_store()
+    return _vector_store
 
 
 @dataclass
@@ -45,47 +54,42 @@ class OncologyDecisionEngine:
 
     def __init__(self, chromadb_path: str = None):
         """
-        Initialize decision engine with ChromaDB collections
+        Initialize decision engine using shared vector store
 
-        Args:
-            chromadb_path: Path to ChromaDB database
+        Uses the singleton vector_store which ensures auto-indexing completes
+        before collections are accessed.
         """
-        if chromadb_path is None:
-            chromadb_path = str(
-                Path(__file__).parent.parent.parent / "data" / "chroma_db"
-            )
-
-        self.chromadb_path = chromadb_path
-
         try:
-            self.client = chromadb.PersistentClient(
-                path=chromadb_path,
-                settings=Settings(anonymized_telemetry=False)
-            )
+            # Use shared vector store (ensures auto-indexing is complete)
+            vector_store = _get_vector_store()
+            self.client = vector_store.client
 
-            # Load collections
+            # Map to vector_store collections (they use sap_ prefix)
+            # methods -> sap_methods, statistical_methods -> sap_statistical_methods
             self.sap_methods = self._get_collection("sap_methods")
-            self.specialized_saps = self._get_collection("specialized_sap_examples")
-
-            # Optional: historical methods
+            self.specialized_saps = self._get_collection("sap_endpoints")  # Use endpoints as SAP examples
             self.historical_saps = self._get_collection("sap_statistical_methods")
 
             methods_count = self.sap_methods.count() if self.sap_methods else 0
             saps_count = self.specialized_saps.count() if self.specialized_saps else 0
+            historical_count = self.historical_saps.count() if self.historical_saps else 0
 
-            logger.info(f"[DecisionEngine] Initialized: {methods_count} regulatory docs, "
-                       f"{saps_count} SAP examples")
-            print(f"[DecisionEngine] ✓ Initialized with {methods_count} regulatory docs, {saps_count} SAP examples")
+            logger.info(f"[DecisionEngine] Initialized: {methods_count} methods, "
+                       f"{saps_count} endpoints, {historical_count} statistical_methods")
+            print(f"[DecisionEngine] ✓ Initialized with {methods_count} methods, {saps_count} endpoints, {historical_count} statistical_methods")
 
         except Exception as e:
             logger.error(f"[DecisionEngine] Failed to initialize: {e}")
             print(f"[DecisionEngine] ✗ Failed to initialize: {e}")
+            self.client = None
             self.sap_methods = None
             self.specialized_saps = None
             self.historical_saps = None
 
     def _get_collection(self, name: str):
-        """Safely get a collection"""
+        """Safely get a collection from the shared ChromaDB client"""
+        if self.client is None:
+            return None
         try:
             return self.client.get_collection(name)
         except Exception as e:
