@@ -49,7 +49,7 @@ class SAPValidator:
         self.strict_mode = strict_mode
         self.validation_rules = self._load_validation_rules()
 
-    def validate_before_generation(self, protocol_facts) -> Tuple[List[ValidationError], bool]:
+    def validate_before_generation(self, protocol_facts) -> Dict[str, Any]:
         """
         Validate extracted protocol facts BEFORE SAP generation
 
@@ -57,38 +57,51 @@ class SAPValidator:
             protocol_facts: ExtractedProtocolFacts from sectioned_extractor
 
         Returns:
-            (list of errors, is_valid)
+            Dict with keys: 'valid', 'errors', 'warnings', 'auto_fixes'
         """
-        errors = []
+        all_issues = []
+        auto_fixes = []
 
         logger.info("[SAPValidator] Running pre-generation validation...")
 
         # Rule 1: Study design consistency
-        errors.extend(self._validate_study_design(protocol_facts))
+        all_issues.extend(self._validate_study_design(protocol_facts))
 
         # Rule 2: Population definitions
-        errors.extend(self._validate_populations(protocol_facts))
+        all_issues.extend(self._validate_populations(protocol_facts))
 
         # Rule 3: Required fields
-        errors.extend(self._validate_required_fields(protocol_facts))
+        all_issues.extend(self._validate_required_fields(protocol_facts))
 
         # Rule 4: Endpoint consistency
-        errors.extend(self._validate_endpoints(protocol_facts))
+        all_issues.extend(self._validate_endpoints(protocol_facts))
 
         # Rule 5: Sample size
-        errors.extend(self._validate_sample_size(protocol_facts))
+        all_issues.extend(self._validate_sample_size(protocol_facts))
 
         # Rule 6: Estimands
-        errors.extend(self._validate_estimands(protocol_facts))
+        all_issues.extend(self._validate_estimands(protocol_facts))
 
         # Rule 7: Interim analysis
-        errors.extend(self._validate_interim_analysis(protocol_facts))
+        all_issues.extend(self._validate_interim_analysis(protocol_facts))
 
         # Apply auto-fixes
-        self._apply_auto_fixes(protocol_facts, errors)
+        self._apply_auto_fixes(protocol_facts, all_issues)
 
-        # Determine if valid
-        critical_errors = [e for e in errors if e.severity == 'CRITICAL']
+        # Separate errors and warnings
+        critical_errors = [e for e in all_issues if e.severity == 'CRITICAL']
+        errors = [e for e in all_issues if e.severity in ('CRITICAL', 'ERROR')]
+        warnings = [e for e in all_issues if e.severity == 'WARNING']
+
+        # Collect auto-fixes from errors that have them
+        for issue in all_issues:
+            if issue.suggested_fix and 'AUTO-FIXED' in str(issue.suggested_fix):
+                auto_fixes.append({
+                    'field': issue.field,
+                    'message': issue.message,
+                    'fix': issue.suggested_fix
+                })
+
         is_valid = len(critical_errors) == 0
 
         if critical_errors:
@@ -96,12 +109,16 @@ class SAPValidator:
             for error in critical_errors:
                 logger.error(f"  - {error.message}")
         else:
-            warnings = [e for e in errors if e.severity == 'WARNING']
             logger.info(f"[SAPValidator] Pre-generation PASSED (warnings: {len(warnings)})")
 
-        return errors, is_valid
+        return {
+            'valid': is_valid,
+            'errors': errors,
+            'warnings': warnings,
+            'auto_fixes': auto_fixes
+        }
 
-    def validate_after_generation(self, sap_text: str, protocol_facts) -> Tuple[List[ValidationError], bool]:
+    def validate_after_generation(self, sap_text: str, protocol_facts) -> Dict[str, Any]:
         """
         Validate generated SAP text AFTER generation
 
@@ -110,36 +127,57 @@ class SAPValidator:
             protocol_facts: Original extracted protocol facts
 
         Returns:
-            (list of errors, is_valid)
+            Dict with keys: 'valid', 'errors', 'warnings', 'overall_confidence', 'human_review_sections'
         """
-        errors = []
+        all_issues = []
+        human_review_sections = []
 
         logger.info("[SAPValidator] Running post-generation validation...")
 
         # Rule 1: No contradictions with study design
-        errors.extend(self._check_design_contradictions(sap_text, protocol_facts))
+        all_issues.extend(self._check_design_contradictions(sap_text, protocol_facts))
 
         # Rule 2: No placeholders
-        errors.extend(self._check_placeholders(sap_text))
+        all_issues.extend(self._check_placeholders(sap_text))
 
         # Rule 3: All endpoints present
-        errors.extend(self._check_endpoints_present(sap_text, protocol_facts))
+        all_issues.extend(self._check_endpoints_present(sap_text, protocol_facts))
 
         # Rule 4: No hallucinated content
-        errors.extend(self._check_hallucinations(sap_text, protocol_facts))
+        all_issues.extend(self._check_hallucinations(sap_text, protocol_facts))
 
         # Rule 5: Sample size matches
-        errors.extend(self._check_sample_size_match(sap_text, protocol_facts))
+        all_issues.extend(self._check_sample_size_match(sap_text, protocol_facts))
 
         # Rule 6: Population definitions consistent
-        errors.extend(self._check_population_consistency(sap_text, protocol_facts))
+        all_issues.extend(self._check_population_consistency(sap_text, protocol_facts))
 
         # Rule 7: Statistical methods present
-        errors.extend(self._check_statistical_methods(sap_text, protocol_facts))
+        all_issues.extend(self._check_statistical_methods(sap_text, protocol_facts))
 
-        # Determine if valid
-        critical_errors = [e for e in errors if e.severity == 'CRITICAL']
+        # Separate errors and warnings
+        critical_errors = [e for e in all_issues if e.severity == 'CRITICAL']
+        errors = [e for e in all_issues if e.severity in ('CRITICAL', 'ERROR')]
+        warnings = [e for e in all_issues if e.severity == 'WARNING']
+
         is_valid = len(critical_errors) == 0
+
+        # Calculate confidence based on error severity
+        if critical_errors:
+            overall_confidence = 0.3
+        elif errors:
+            overall_confidence = 0.6
+        elif warnings:
+            overall_confidence = 0.8
+        else:
+            overall_confidence = 0.95
+
+        # Identify sections needing human review
+        for issue in all_issues:
+            if issue.severity in ('CRITICAL', 'ERROR') and issue.field:
+                section_name = issue.field.split('.')[0] if '.' in issue.field else issue.field
+                if section_name not in human_review_sections:
+                    human_review_sections.append(section_name)
 
         if critical_errors:
             logger.error(f"[SAPValidator] Post-generation FAILED: {len(critical_errors)} critical errors")
@@ -148,7 +186,13 @@ class SAPValidator:
         else:
             logger.info("[SAPValidator] Post-generation PASSED")
 
-        return errors, is_valid
+        return {
+            'valid': is_valid,
+            'errors': errors,
+            'warnings': warnings,
+            'overall_confidence': overall_confidence,
+            'human_review_sections': human_review_sections
+        }
 
     # ========================================================================
     # PRE-GENERATION VALIDATION RULES
