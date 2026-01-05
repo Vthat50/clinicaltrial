@@ -199,19 +199,24 @@ class SAPValidator:
     # ========================================================================
 
     def _validate_study_design(self, protocol_facts) -> List[ValidationError]:
-        """Validate study design consistency"""
+        """Validate study design consistency - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'study_design'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            num_arms = protocol_facts.get('num_arms')
+            randomized = protocol_facts.get('is_randomized') or protocol_facts.get('randomized')
+            phase = protocol_facts.get('phase')
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'study_design'):
+            study_design = protocol_facts.study_design
+            num_arms = getattr(study_design, 'num_arms', None)
+            randomized = getattr(study_design, 'is_randomized', None)
+            if randomized is None:
+                randomized = getattr(study_design, 'randomized', None)
+            phase = getattr(study_design, 'phase', None)
+        else:
             return errors
-
-        study_design = protocol_facts.study_design
-
-        # Check num_arms vs randomized
-        num_arms = getattr(study_design, 'num_arms', None)
-        randomized = getattr(study_design, 'is_randomized', None)
-        if randomized is None:
-            randomized = getattr(study_design, 'randomized', None)
 
         if num_arms == 1 and randomized == True:
             errors.append(ValidationError(
@@ -232,7 +237,7 @@ class SAPValidator:
             ))
 
         # Check for missing critical fields
-        if not getattr(study_design, 'phase', None):
+        if not phase:
             errors.append(ValidationError(
                 severity='WARNING',
                 category='missing',
@@ -243,84 +248,118 @@ class SAPValidator:
         return errors
 
     def _validate_populations(self, protocol_facts) -> List[ValidationError]:
-        """Validate analysis population definitions"""
+        """Validate analysis population definitions - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'populations'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            itt_def = protocol_facts.get('itt_definition', '') or ''
+            num_arms = protocol_facts.get('num_arms', 1) or 1
+            randomized = protocol_facts.get('is_randomized') or protocol_facts.get('randomized', False)
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'populations'):
+            populations = protocol_facts.populations
+            study_design = protocol_facts.study_design if hasattr(protocol_facts, 'study_design') else None
+            itt_def = getattr(populations, 'itt_definition', '') or ''
+
+            if study_design:
+                num_arms = getattr(study_design, 'num_arms', 1) or 1
+                randomized = getattr(study_design, 'is_randomized', None)
+                if randomized is None:
+                    randomized = getattr(study_design, 'randomized', False)
+            else:
+                num_arms = 1
+                randomized = False
+        else:
             return errors
 
-        populations = protocol_facts.populations
-        study_design = protocol_facts.study_design if hasattr(protocol_facts, 'study_design') else None
-
-        # ITT definition consistency
-        itt_def = getattr(populations, 'itt_definition', '') or ''
-
-        if study_design:
-            num_arms = getattr(study_design, 'num_arms', 1) or 1
-            randomized = getattr(study_design, 'is_randomized', None)
-            if randomized is None:
-                randomized = getattr(study_design, 'randomized', False)
-
-            if (num_arms == 1 or not randomized) and itt_def and 'randomized' in itt_def.lower():
-                errors.append(ValidationError(
-                    severity='CRITICAL',
-                    category='logic',
-                    message="ITT definition says 'randomized subjects' but study is single-arm/non-randomized",
-                    field='populations.itt_definition',
-                    suggested_fix="Change to 'enrolled subjects' or 'treated subjects'"
-                ))
+        if (num_arms == 1 or not randomized) and itt_def and 'randomized' in itt_def.lower():
+            errors.append(ValidationError(
+                severity='CRITICAL',
+                category='logic',
+                message="ITT definition says 'randomized subjects' but study is single-arm/non-randomized",
+                field='populations.itt_definition',
+                suggested_fix="Change to 'enrolled subjects' or 'treated subjects'"
+            ))
 
         return errors
 
     def _validate_required_fields(self, protocol_facts) -> List[ValidationError]:
-        """Validate that required fields are present"""
+        """Validate that required fields are present - handles both object and flat dict"""
         errors = []
 
-        # Define required field checks with their paths
+        # Define required field checks (flat key, display name, severity)
         required_checks = [
-            ('endpoints', 'primary_endpoint', 'Primary endpoint', 'CRITICAL'),
-            ('sample_size', 'sample_size', 'Sample size', 'CRITICAL'),
-            ('study_design', 'phase', 'Study phase', 'WARNING'),
-            ('study_design', 'disease_type', 'Disease type', 'WARNING'),
+            ('primary_endpoint', 'Primary endpoint', 'CRITICAL'),
+            ('sample_size', 'Sample size', 'CRITICAL'),
+            ('phase', 'Study phase', 'WARNING'),
+            ('disease_type', 'Disease type', 'WARNING'),
         ]
 
-        for section, field, field_name, severity in required_checks:
-            try:
-                section_obj = getattr(protocol_facts, section, None)
-                if section_obj:
-                    value = getattr(section_obj, field, None)
-                    if value is None or (isinstance(value, str) and value.strip() == ''):
-                        errors.append(ValidationError(
-                            severity=severity,
-                            category='missing',
-                            message=f"{field_name} is missing from extraction",
-                            field=f'{section}.{field}',
-                            suggested_fix="Re-extract or manually specify"
-                        ))
-                else:
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            for field, field_name, severity in required_checks:
+                value = protocol_facts.get(field)
+                if value is None or (isinstance(value, str) and (value.strip() == '' or '[NOT' in value)):
                     errors.append(ValidationError(
                         severity=severity,
                         category='missing',
-                        message=f"{field_name} section not found",
-                        field=section
+                        message=f"{field_name} is missing from extraction",
+                        field=field,
+                        suggested_fix="Re-extract or manually specify"
                     ))
-            except AttributeError:
-                pass
+        # Handle ExtractedProtocolFacts object
+        else:
+            # Original nested checks
+            nested_checks = [
+                ('endpoints', 'primary_endpoint', 'Primary endpoint', 'CRITICAL'),
+                ('sample_size', 'sample_size', 'Sample size', 'CRITICAL'),
+                ('study_design', 'phase', 'Study phase', 'WARNING'),
+                ('study_design', 'disease_type', 'Disease type', 'WARNING'),
+            ]
+            for section, field, field_name, severity in nested_checks:
+                try:
+                    section_obj = getattr(protocol_facts, section, None)
+                    if section_obj:
+                        value = getattr(section_obj, field, None)
+                        if value is None or (isinstance(value, str) and value.strip() == ''):
+                            errors.append(ValidationError(
+                                severity=severity,
+                                category='missing',
+                                message=f"{field_name} is missing from extraction",
+                                field=f'{section}.{field}',
+                                suggested_fix="Re-extract or manually specify"
+                            ))
+                    else:
+                        errors.append(ValidationError(
+                            severity=severity,
+                            category='missing',
+                            message=f"{field_name} section not found",
+                            field=section
+                        ))
+                except AttributeError:
+                    pass
 
         return errors
 
     def _validate_endpoints(self, protocol_facts) -> List[ValidationError]:
-        """Validate endpoint definitions"""
+        """Validate endpoint definitions - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'endpoints'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            primary = protocol_facts.get('primary_endpoint')
+            secondary = protocol_facts.get('secondary_endpoints')
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'endpoints'):
+            endpoints = protocol_facts.endpoints
+            primary = getattr(endpoints, 'primary_endpoint', None)
+            secondary = getattr(endpoints, 'secondary_endpoints', None)
+        else:
             return errors
 
-        endpoints = protocol_facts.endpoints
-
         # Check primary endpoint
-        primary = getattr(endpoints, 'primary_endpoint', None)
-        if not primary or (isinstance(primary, str) and primary.strip() == ''):
+        if not primary or (isinstance(primary, str) and (primary.strip() == '' or '[NOT' in primary)):
             errors.append(ValidationError(
                 severity='CRITICAL',
                 category='missing',
@@ -329,7 +368,6 @@ class SAPValidator:
             ))
 
         # Check secondary endpoints type
-        secondary = getattr(endpoints, 'secondary_endpoints', None)
         if secondary and not isinstance(secondary, (list, tuple)):
             errors.append(ValidationError(
                 severity='WARNING',
@@ -342,21 +380,25 @@ class SAPValidator:
         return errors
 
     def _validate_sample_size(self, protocol_facts) -> List[ValidationError]:
-        """Validate sample size"""
+        """Validate sample size - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'sample_size'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            n = protocol_facts.get('sample_size')
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'sample_size'):
+            sample_size_obj = protocol_facts.sample_size
+            n = getattr(sample_size_obj, 'sample_size', None)
+        else:
             return errors
-
-        sample_size_obj = protocol_facts.sample_size
-        n = getattr(sample_size_obj, 'sample_size', None)
 
         if n is None:
             errors.append(ValidationError(
                 severity='CRITICAL',
                 category='missing',
                 message="Sample size not extracted",
-                field='sample_size.sample_size'
+                field='sample_size'
             ))
         elif isinstance(n, (int, float)):
             if n <= 0:
@@ -364,77 +406,97 @@ class SAPValidator:
                     severity='ERROR',
                     category='extraction',
                     message=f"Sample size is invalid: {n}",
-                    field='sample_size.sample_size'
+                    field='sample_size'
                 ))
             elif n > 10000:
                 errors.append(ValidationError(
                     severity='WARNING',
                     category='extraction',
                     message=f"Sample size unusually large: {n} - verify extraction",
-                    field='sample_size.sample_size'
+                    field='sample_size'
                 ))
 
         return errors
 
     def _validate_estimands(self, protocol_facts) -> List[ValidationError]:
-        """Validate estimand framework (ICH E9 R1)"""
+        """Validate estimand framework (ICH E9 R1) - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'estimand'):
-            return errors
-
-        estimand = protocol_facts.estimand
-
-        # If estimand section exists and has content, validate components
-        if estimand:
-            population = getattr(estimand, 'population', None) or getattr(estimand, 'estimand_population', None)
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            population = protocol_facts.get('estimand_population')
             if population:
                 # Has estimand - validate components
-                required_components = [
-                    ('variable', 'estimand_variable'),
-                    ('intercurrent_events', 'intercurrent_events'),
-                ]
-
-                for primary_name, alt_name in required_components:
-                    value = getattr(estimand, primary_name, None) or getattr(estimand, alt_name, None)
-                    if not value:
-                        errors.append(ValidationError(
-                            severity='WARNING',
-                            category='incomplete',
-                            message=f"Estimand component '{primary_name}' is missing",
-                            field=f'estimand.{primary_name}'
-                        ))
+                if not protocol_facts.get('estimand_variable'):
+                    errors.append(ValidationError(
+                        severity='WARNING',
+                        category='incomplete',
+                        message="Estimand component 'variable' is missing",
+                        field='estimand_variable'
+                    ))
+                if not protocol_facts.get('intercurrent_events'):
+                    errors.append(ValidationError(
+                        severity='WARNING',
+                        category='incomplete',
+                        message="Estimand component 'intercurrent_events' is missing",
+                        field='intercurrent_events'
+                    ))
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'estimand'):
+            estimand = protocol_facts.estimand
+            if estimand:
+                population = getattr(estimand, 'population', None) or getattr(estimand, 'estimand_population', None)
+                if population:
+                    required_components = [
+                        ('variable', 'estimand_variable'),
+                        ('intercurrent_events', 'intercurrent_events'),
+                    ]
+                    for primary_name, alt_name in required_components:
+                        value = getattr(estimand, primary_name, None) or getattr(estimand, alt_name, None)
+                        if not value:
+                            errors.append(ValidationError(
+                                severity='WARNING',
+                                category='incomplete',
+                                message=f"Estimand component '{primary_name}' is missing",
+                                field=f'estimand.{primary_name}'
+                            ))
 
         return errors
 
     def _validate_interim_analysis(self, protocol_facts) -> List[ValidationError]:
-        """Validate interim analysis configuration"""
+        """Validate interim analysis configuration - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'interim_analysis'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            has_interim = protocol_facts.get('has_interim_analysis')
+            num_interim = protocol_facts.get('num_interim_analyses')
+            alpha_spending = protocol_facts.get('alpha_spending_function')
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'interim_analysis'):
+            ia = protocol_facts.interim_analysis
+            has_interim = getattr(ia, 'has_interim_analysis', None)
+            num_interim = getattr(ia, 'num_interim_analyses', None)
+            alpha_spending = getattr(ia, 'alpha_spending_function', None)
+        else:
             return errors
-
-        ia = protocol_facts.interim_analysis
-        has_interim = getattr(ia, 'has_interim_analysis', None)
 
         if has_interim:
             # Check for required fields when interim analysis is present
-            num_interim = getattr(ia, 'num_interim_analyses', None)
             if num_interim is None:
                 errors.append(ValidationError(
                     severity='WARNING',
                     category='missing',
                     message="Number of interim analyses not specified",
-                    field='interim_analysis.num_interim_analyses'
+                    field='num_interim_analyses'
                 ))
 
-            alpha_spending = getattr(ia, 'alpha_spending_function', None)
             if not alpha_spending:
                 errors.append(ValidationError(
                     severity='WARNING',
                     category='missing',
                     message="Alpha spending function not specified for interim analysis",
-                    field='interim_analysis.alpha_spending_function'
+                    field='alpha_spending_function'
                 ))
 
         return errors
@@ -444,17 +506,22 @@ class SAPValidator:
     # ========================================================================
 
     def _check_design_contradictions(self, sap_text: str, protocol_facts) -> List[ValidationError]:
-        """Check for contradictions with study design"""
+        """Check for contradictions with study design - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'study_design'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            num_arms = protocol_facts.get('num_arms', 1) or 1
+            randomized = protocol_facts.get('is_randomized') or protocol_facts.get('randomized', False)
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'study_design'):
+            study_design = protocol_facts.study_design
+            num_arms = getattr(study_design, 'num_arms', 1) or 1
+            randomized = getattr(study_design, 'is_randomized', None)
+            if randomized is None:
+                randomized = getattr(study_design, 'randomized', False)
+        else:
             return errors
-
-        study_design = protocol_facts.study_design
-        num_arms = getattr(study_design, 'num_arms', 1) or 1
-        randomized = getattr(study_design, 'is_randomized', None)
-        if randomized is None:
-            randomized = getattr(study_design, 'randomized', False)
 
         sap_lower = sap_text.lower()
 
@@ -525,17 +592,24 @@ class SAPValidator:
         return errors
 
     def _check_endpoints_present(self, sap_text: str, protocol_facts) -> List[ValidationError]:
-        """Check that all extracted endpoints appear in SAP"""
+        """Check that all extracted endpoints appear in SAP - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'endpoints'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            primary = protocol_facts.get('primary_endpoint')
+            secondary = protocol_facts.get('secondary_endpoints', [])
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'endpoints'):
+            endpoints = protocol_facts.endpoints
+            primary = getattr(endpoints, 'primary_endpoint', None)
+            secondary = getattr(endpoints, 'secondary_endpoints', [])
+        else:
             return errors
 
-        endpoints = protocol_facts.endpoints
         sap_lower = sap_text.lower()
 
         # Check primary endpoint
-        primary = getattr(endpoints, 'primary_endpoint', None)
         if primary and isinstance(primary, str) and len(primary.strip()) > 5:
             # Extract key terms from endpoint (ignore common words)
             stop_words = {'endpoint', 'defined', 'measured', 'the', 'and', 'or', 'is', 'as', 'of', 'to', 'for'}
@@ -551,7 +625,6 @@ class SAPValidator:
                 ))
 
         # Check secondary endpoints (less strict)
-        secondary = getattr(endpoints, 'secondary_endpoints', [])
         if isinstance(secondary, list):
             missing_count = 0
             for endpoint in secondary[:5]:  # Check first 5
@@ -572,7 +645,7 @@ class SAPValidator:
         return errors
 
     def _check_hallucinations(self, sap_text: str, protocol_facts) -> List[ValidationError]:
-        """Check for content added that's not in original protocol"""
+        """Check for content added that's not in original protocol - handles both object and flat dict"""
         errors = []
 
         sap_lower = sap_text.lower()
@@ -580,7 +653,12 @@ class SAPValidator:
         # Check 1: Estimands section
         if 'estimand' in sap_lower or 'ich e9(r1)' in sap_lower:
             has_estimand = False
-            if hasattr(protocol_facts, 'estimand'):
+
+            # Handle flat dict (from production_pipeline.py)
+            if isinstance(protocol_facts, dict):
+                has_estimand = bool(protocol_facts.get('estimand_population'))
+            # Handle ExtractedProtocolFacts object
+            elif hasattr(protocol_facts, 'estimand'):
                 estimand = protocol_facts.estimand
                 has_estimand = bool(getattr(estimand, 'population', None) or
                                    getattr(estimand, 'estimand_population', None))
@@ -595,40 +673,58 @@ class SAPValidator:
 
         # Check 2: Interim analysis
         if 'interim analysis' in sap_lower and 'no interim' not in sap_lower:
-            if hasattr(protocol_facts, 'interim_analysis'):
+            # Handle flat dict (from production_pipeline.py)
+            if isinstance(protocol_facts, dict):
+                has_interim = protocol_facts.get('has_interim_analysis')
+            # Handle ExtractedProtocolFacts object
+            elif hasattr(protocol_facts, 'interim_analysis'):
                 has_interim = getattr(protocol_facts.interim_analysis, 'has_interim_analysis', None)
-                if has_interim == False:
-                    errors.append(ValidationError(
-                        severity='ERROR',
-                        category='hallucination',
-                        message="SAP mentions interim analysis but protocol says has_interim=False"
-                    ))
+            else:
+                has_interim = None
+
+            if has_interim == False:
+                errors.append(ValidationError(
+                    severity='ERROR',
+                    category='hallucination',
+                    message="SAP mentions interim analysis but protocol says has_interim=False"
+                ))
 
         # Check 3: Specific multiplicity methods
         multiplicity_methods = ['bonferroni', 'hochberg', 'holm', 'benjamini', 'false discovery',
                                'gatekeeping', 'graphical approach']
         for method in multiplicity_methods:
             if method in sap_lower:
-                if hasattr(protocol_facts, 'multiplicity'):
+                # Handle flat dict (from production_pipeline.py)
+                if isinstance(protocol_facts, dict):
+                    adjustment_method = protocol_facts.get('adjustment_method') or protocol_facts.get('multiplicity_method')
+                # Handle ExtractedProtocolFacts object
+                elif hasattr(protocol_facts, 'multiplicity'):
                     adjustment_method = getattr(protocol_facts.multiplicity, 'adjustment_method', None)
-                    if not adjustment_method or adjustment_method.lower() == 'none':
-                        errors.append(ValidationError(
-                            severity='WARNING',
-                            category='hallucination',
-                            message=f"SAP mentions '{method}' but protocol does not specify multiplicity adjustment"
-                        ))
+                else:
+                    adjustment_method = None
+
+                if not adjustment_method or str(adjustment_method).lower() == 'none':
+                    errors.append(ValidationError(
+                        severity='WARNING',
+                        category='hallucination',
+                        message=f"SAP mentions '{method}' but protocol does not specify multiplicity adjustment"
+                    ))
                 break
 
         return errors
 
     def _check_sample_size_match(self, sap_text: str, protocol_facts) -> List[ValidationError]:
-        """Check that sample size in SAP matches protocol"""
+        """Check that sample size in SAP matches protocol - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'sample_size'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            expected_n = protocol_facts.get('sample_size')
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'sample_size'):
+            expected_n = getattr(protocol_facts.sample_size, 'sample_size', None)
+        else:
             return errors
-
-        expected_n = getattr(protocol_facts.sample_size, 'sample_size', None)
 
         if expected_n and isinstance(expected_n, (int, float)):
             expected_n = int(expected_n)
@@ -654,17 +750,22 @@ class SAPValidator:
         return errors
 
     def _check_population_consistency(self, sap_text: str, protocol_facts) -> List[ValidationError]:
-        """Check that population definitions are consistent"""
+        """Check that population definitions are consistent - handles both object and flat dict"""
         errors = []
 
-        if not hasattr(protocol_facts, 'study_design'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            num_arms = protocol_facts.get('num_arms', 1) or 1
+            randomized = protocol_facts.get('is_randomized') or protocol_facts.get('randomized', False)
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'study_design'):
+            study_design = protocol_facts.study_design
+            num_arms = getattr(study_design, 'num_arms', 1) or 1
+            randomized = getattr(study_design, 'is_randomized', None)
+            if randomized is None:
+                randomized = getattr(study_design, 'randomized', False)
+        else:
             return errors
-
-        study_design = protocol_facts.study_design
-        num_arms = getattr(study_design, 'num_arms', 1) or 1
-        randomized = getattr(study_design, 'is_randomized', None)
-        if randomized is None:
-            randomized = getattr(study_design, 'randomized', False)
 
         # Extract ITT definition from SAP
         itt_pattern = r'(?:ITT|Intent-to-Treat)[^.]*(?:defined as|is|includes|consists of)\s+([^.]{10,100})'
@@ -712,12 +813,28 @@ class SAPValidator:
     # ========================================================================
 
     def _apply_auto_fixes(self, protocol_facts, errors: List[ValidationError]) -> None:
-        """Apply automatic fixes to protocol facts"""
+        """Apply automatic fixes to protocol facts - handles both object and flat dict"""
 
         for error in errors:
-            if error.severity == 'CRITICAL' and error.field == 'populations.itt_definition':
+            if error.severity == 'CRITICAL' and 'itt_definition' in (error.field or ''):
                 # Auto-fix ITT definition
-                if hasattr(protocol_facts, 'populations'):
+
+                # Handle flat dict (from production_pipeline.py)
+                if isinstance(protocol_facts, dict):
+                    itt_def = protocol_facts.get('itt_definition', '') or ''
+                    if itt_def and 'randomized' in itt_def.lower():
+                        fixed_def = itt_def
+                        fixed_def = re.sub(r'(?i)randomized subjects', 'enrolled subjects', fixed_def)
+                        fixed_def = re.sub(r'(?i)randomized patients', 'enrolled patients', fixed_def)
+                        fixed_def = re.sub(r'(?i)all randomized', 'all enrolled', fixed_def)
+
+                        if fixed_def != itt_def:
+                            protocol_facts['itt_definition'] = fixed_def
+                            error.suggested_fix = f"AUTO-FIXED: Changed to '{fixed_def}'"
+                            logger.info(f"[SAPValidator] Auto-fixed ITT definition")
+
+                # Handle ExtractedProtocolFacts object
+                elif hasattr(protocol_facts, 'populations'):
                     populations = protocol_facts.populations
                     itt_def = getattr(populations, 'itt_definition', '') or ''
 

@@ -183,10 +183,10 @@ class OncologyDecisionEngine:
         Recommend ITT, FAS, PP, Safety population definitions
 
         Args:
-            protocol_facts: ExtractedProtocolFacts
+            protocol_facts: ExtractedProtocolFacts OR flat dict from production_pipeline
 
         Returns:
-            Dict with population definitions
+            Dict with population definitions (keys match production_pipeline expectations)
         """
 
         num_arms = self._get_num_arms(protocol_facts)
@@ -201,11 +201,12 @@ class OncologyDecisionEngine:
             itt_def = "all randomized subjects"
             fas_def = "all randomized subjects who received at least one dose of study treatment"
 
+        # Keys match what production_pipeline.py expects
         return {
-            "ITT": itt_def,
-            "FAS": fas_def,
-            "PP": "all subjects in the FAS who completed the study per protocol without major protocol deviations",
-            "Safety": "all subjects who received at least one dose of study treatment"
+            "itt_definition": itt_def,
+            "fas_definition": fas_def,
+            "per_protocol_definition": "all subjects in the FAS who completed the study per protocol without major protocol deviations",
+            "safety_population_definition": "all subjects who received at least one dose of study treatment"
         }
 
     # ========================================================================
@@ -755,11 +756,16 @@ class OncologyDecisionEngine:
                 return None
 
     def _extract_indication(self, protocol_facts) -> str:
-        """Extract primary indication from protocol facts"""
+        """Extract primary indication from protocol facts (handles both object and flat dict)"""
         disease_type = ""
         tumor_type = ""
 
-        if hasattr(protocol_facts, 'study_design'):
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            disease_type = protocol_facts.get('disease_type', '') or ''
+            tumor_type = protocol_facts.get('tumor_type', '') or ''
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'study_design'):
             disease_type = getattr(protocol_facts.study_design, 'disease_type', '') or ''
             tumor_type = getattr(protocol_facts.study_design, 'tumor_type', '') or ''
 
@@ -767,9 +773,14 @@ class OncologyDecisionEngine:
         return indication.strip().lower()
 
     def _classify_treatment(self, protocol_facts) -> str:
-        """Classify treatment type (immunotherapy, TKI, chemotherapy, etc.)"""
+        """Classify treatment type (immunotherapy, TKI, chemotherapy, etc.) - handles both object and flat dict"""
         drug_name = ""
-        if hasattr(protocol_facts, 'study_design'):
+
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            drug_name = (protocol_facts.get('drug_name', '') or '').lower()
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'study_design'):
             drug_name = (getattr(protocol_facts.study_design, 'drug_name', '') or '').lower()
 
         # Immunotherapy
@@ -794,9 +805,14 @@ class OncologyDecisionEngine:
         return 'other'
 
     def _classify_endpoint_type(self, protocol_facts) -> str:
-        """Classify primary endpoint type"""
+        """Classify primary endpoint type - handles both object and flat dict"""
         primary_endpoint = ""
-        if hasattr(protocol_facts, 'endpoints'):
+
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            primary_endpoint = (protocol_facts.get('primary_endpoint', '') or '').lower()
+        # Handle ExtractedProtocolFacts object
+        elif hasattr(protocol_facts, 'endpoints'):
             primary_endpoint = (getattr(protocol_facts.endpoints, 'primary_endpoint', '') or '').lower()
 
         if not primary_endpoint:
@@ -824,19 +840,57 @@ class OncologyDecisionEngine:
         return 'unknown'
 
     def _get_sample_size(self, protocol_facts) -> Optional[int]:
-        """Get sample size from protocol facts"""
+        """Get sample size from protocol facts - handles both object and flat dict"""
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            n = protocol_facts.get('sample_size')
+            if n is not None:
+                try:
+                    return int(n)
+                except (ValueError, TypeError):
+                    return None
+            return None
+        # Handle ExtractedProtocolFacts object
         if hasattr(protocol_facts, 'sample_size'):
             return getattr(protocol_facts.sample_size, 'sample_size', None)
         return None
 
     def _get_num_arms(self, protocol_facts) -> int:
-        """Get number of arms from protocol facts"""
+        """Get number of arms from protocol facts - handles both object and flat dict"""
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            num_arms = protocol_facts.get('num_arms')
+            if num_arms is not None:
+                try:
+                    return int(num_arms)
+                except (ValueError, TypeError):
+                    return 1
+            # Check is_single_arm
+            if protocol_facts.get('is_single_arm'):
+                return 1
+            return 1
+        # Handle ExtractedProtocolFacts object
         if hasattr(protocol_facts, 'study_design'):
             return getattr(protocol_facts.study_design, 'num_arms', 1) or 1
         return 1
 
     def _is_randomized(self, protocol_facts) -> bool:
-        """Check if study is randomized"""
+        """Check if study is randomized - handles both object and flat dict"""
+        # Handle flat dict (from production_pipeline.py)
+        if isinstance(protocol_facts, dict):
+            # Check multiple possible keys
+            randomized = protocol_facts.get('is_randomized') or protocol_facts.get('randomized')
+            if randomized is not None:
+                return bool(randomized)
+            # If is_single_arm is True, likely not randomized
+            if protocol_facts.get('is_single_arm'):
+                return False
+            # If num_arms > 1, likely randomized
+            num_arms = protocol_facts.get('num_arms', 1)
+            if num_arms and int(num_arms) > 1:
+                return True
+            return False
+        # Handle ExtractedProtocolFacts object
         if hasattr(protocol_facts, 'study_design'):
             return getattr(protocol_facts.study_design, 'randomized', False) or False
         return False
