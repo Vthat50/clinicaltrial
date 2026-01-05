@@ -1904,25 +1904,43 @@ Return JSON:
             else:
                 print(f"[SectionedExtractor] Using CACHED parse result ({len(self._parsed_protocol.sections)} sections)")
 
-        # NO FALLBACKS: Use dynamic section location ONLY
-        raw_text = ""
-        if self._parsed_protocol and "full_text" in self._parsed_protocol.sections:
-            raw_text = self._parsed_protocol.get("full_text", "")
-        else:
-            raw_text = protocol_text
+        # NO FALLBACKS: Use LlamaParse extracted sections DIRECTLY
+        # LlamaParse already did the hard work - don't ignore it!
 
-        if not raw_text:
-            print(f"[SectionedExtractor] ERROR: No text available for {section_name}")
-            return ""
+        if self._parsed_protocol and section_name in self._parsed_protocol.sections:
+            section = self._parsed_protocol.sections[section_name]
+            content = section.content
+            confidence = getattr(section, 'confidence', 0.0)
+            print(f"[SectionedExtractor] Using LlamaParse result for '{section_name}': {len(content)} chars (confidence: {confidence:.2f})")
+            return content[:max_chars]
 
-        # ALWAYS use multi-region sampling with dynamic location
-        # This finds the ACTUAL section position, not wrong fallback content
-        sampled_text = self._multi_region_sample(raw_text, section_name)
-        combined_text = [sampled_text] if sampled_text else []
+        # Check for section name variations (LlamaParse might use different names)
+        SECTION_ALIASES = {
+            'sample_size': ['sample_size', 'sample_size_calculation', 'power_calculation'],
+            'statistical_methods': ['statistical_methods', 'statistical_analysis', 'primary_analysis'],
+            'endpoints': ['endpoints', 'primary_endpoint', 'efficacy_endpoints'],
+            'interim_analysis': ['interim_analysis', 'interim_analyses'],
+            'multiplicity': ['multiplicity', 'multiple_testing'],
+            'missing_data': ['missing_data', 'censoring', 'sensitivity_analysis'],
+            'populations': ['populations', 'analysis_populations', 'study_populations'],
+            'stratification': ['stratification', 'randomization'],
+            'study_design': ['study_design', 'design'],
+            'safety': ['safety', 'safety_analysis', 'adverse_events'],
+        }
 
-        result = "\n\n".join(combined_text) if combined_text else ""
-        print(f"[SectionedExtractor] Final text for {section_name}: {len(result)} chars")
-        return result[:max_chars]
+        if self._parsed_protocol:
+            aliases = SECTION_ALIASES.get(section_name, [section_name])
+            for alias in aliases:
+                if alias in self._parsed_protocol.sections:
+                    section = self._parsed_protocol.sections[alias]
+                    content = section.content
+                    confidence = getattr(section, 'confidence', 0.0)
+                    print(f"[SectionedExtractor] Using LlamaParse result for '{section_name}' (via alias '{alias}'): {len(content)} chars (confidence: {confidence:.2f})")
+                    return content[:max_chars]
+
+        # NO FALLBACK - LlamaParse must have extracted this section
+        available = list(self._parsed_protocol.sections.keys()) if self._parsed_protocol else []
+        raise ValueError(f"[SectionedExtractor] FATAL: Section '{section_name}' not found in LlamaParse results. Available sections: {available}. No fallbacks allowed.")
 
     def _locate_sections_in_document(self, text: str) -> Dict[str, float]:
         """
@@ -2010,14 +2028,45 @@ HOW TO TELL THE DIFFERENCE:
 For each section, report where the ACTUAL CONTENT starts (NOT the TOC entry).
 
 Look for these sections:
+
+=== CRITICAL SECTIONS (must find) ===
 - STATISTICAL METHODS / STATISTICAL ANALYSIS (section 9, 10, or 11 typically)
-- SAMPLE SIZE / POWER CALCULATION
-- INTERIM ANALYSIS / GROUP SEQUENTIAL
-- MULTIPLICITY / MULTIPLE TESTING / ALPHA SPENDING
-- MISSING DATA / CENSORING
+- SAMPLE SIZE / POWER CALCULATION / SAMPLE SIZE DETERMINATION
+- INTERIM ANALYSIS / GROUP SEQUENTIAL / ALPHA SPENDING
+- MULTIPLICITY / MULTIPLE TESTING / FAMILYWISE ERROR
+- MISSING DATA / CENSORING / SENSITIVITY ANALYSIS
 - STRATIFICATION / STRATIFIED RANDOMIZATION
-- ENDPOINTS / PRIMARY ENDPOINT / OBJECTIVES
-- STUDY POPULATIONS / ITT / FAS / PER-PROTOCOL
+- ENDPOINTS / PRIMARY ENDPOINT / OBJECTIVES / EFFICACY
+- STUDY POPULATIONS / ITT / FAS / PER-PROTOCOL / SAFETY POPULATION
+- STUDY DESIGN / OVERVIEW / SYNOPSIS
+- ESTIMAND / ESTIMAND FRAMEWORK / ICH E9
+
+=== SAFETY & REGULATORY SECTIONS ===
+- SAFETY ANALYSIS / ADVERSE EVENTS / TEAE / SAE
+- TUMOR ASSESSMENT / RESPONSE ASSESSMENT / RECIST / iRECIST
+- BIOMARKERS / PD-L1 / MSI / TMB / COMPANION DIAGNOSTIC
+- PHARMACOKINETICS / PK ANALYSIS / EXPOSURE
+- IMMUNOGENICITY / ADA / ANTIBODY
+- LABORATORY / HEMATOLOGY / CHEMISTRY
+- DMC / DSMB / DATA MONITORING COMMITTEE
+
+=== ADMINISTRATIVE SECTIONS ===
+- BASELINE CHARACTERISTICS / DEMOGRAPHICS
+- PROTOCOL DEVIATIONS / STUDY CONDUCT
+- CDISC / SDTM / ADAM / DEFINE-XML
+- CODING STANDARDS / MEDDRA / WHODRUG
+- DATE IMPUTATION / CONVENTIONS
+- EXPOSURE / DOSE MODIFICATION / RDI
+- SUBGROUP ANALYSIS / FOREST PLOT
+- PRO / PATIENT REPORTED OUTCOMES / QoL
+
+=== SPECIAL SECTIONS ===
+- BRIDGING STUDY / MRCT / ICH E5 / ICH E17
+- FILING ENDPOINTS / REGULATORY / NMPA / PMDA
+- CONTROL RATIONALE / ACTIVE CONTROL / PLACEBO
+- GENOMIC / BIOSPECIMEN / TRANSLATIONAL
+- CROSSOVER / TREATMENT SWITCHING
+- SPECIAL DESIGNS / BASKET / UMBRELLA / PLATFORM / ADAPTIVE
 
 RESPOND IN JSON:
 {{
