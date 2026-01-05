@@ -2066,7 +2066,9 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         self,
         protocol_text: str,
         sections: Optional[List[str]] = None,
-        pdf_path: Optional[str] = None
+        pdf_path: Optional[str] = None,
+        parallel: bool = True,
+        max_workers: int = 10
     ) -> Tuple[ExtractedProtocolFacts, Dict[str, SectionExtractionResult]]:
         """
         Extract all sections from a protocol.
@@ -2075,10 +2077,14 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
             protocol_text: Full protocol text
             sections: Optional list of sections to extract (default: all)
             pdf_path: Path to PDF file for Vision-based section parsing
+            parallel: If True, extract sections in parallel (MUCH faster)
+            max_workers: Number of parallel workers (default 10)
 
         Returns:
             Tuple of (ExtractedProtocolFacts, dict of section results)
         """
+        from concurrent.futures import ThreadPoolExecutor, as_completed
+
         # Store PDF path for Vision-based parsing
         self._current_pdf_path = pdf_path
         if pdf_path:
@@ -2090,22 +2096,51 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         section_results = {}
         combined_data = {}
 
-        for section_name in sections:
-            print(f"[SectionedExtractor] Extracting: {section_name}")
-            result = self.extract_section(section_name, protocol_text)
-            section_results[section_name] = result
+        if parallel:
+            # PARALLEL EXTRACTION - ~10x faster
+            print(f"[SectionedExtractor] Parallel extraction: {len(sections)} sections with {max_workers} workers")
 
-            # Merge extracted fields
-            for field, value in result.extracted_fields.items():
-                if field not in ['confidence', 'notes']:
-                    combined_data[field] = value
+            def extract_one(section_name: str) -> Tuple[str, SectionExtractionResult]:
+                """Extract one section (thread-safe)."""
+                result = self.extract_section(section_name, protocol_text)
+                return section_name, result
 
-            conf = result.confidence if result.confidence is not None else 0.0
-            print(f"  - Confidence: {conf:.0%}")
-            print(f"  - Found: {len(result.fields_found)} fields")
-            print(f"  - Not found: {len(result.fields_not_found)} fields")
-            if result.needs_review:
-                print(f"  - NEEDS REVIEW: {result.needs_review}")
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                futures = {executor.submit(extract_one, s): s for s in sections}
+
+                for future in as_completed(futures):
+                    section_name = futures[future]
+                    try:
+                        name, result = future.result()
+                        section_results[name] = result
+
+                        # Merge extracted fields
+                        for field, value in result.extracted_fields.items():
+                            if field not in ['confidence', 'notes']:
+                                combined_data[field] = value
+
+                        conf = result.confidence if result.confidence is not None else 0.0
+                        print(f"[SectionedExtractor] ✓ {name} ({conf:.0%})")
+                    except Exception as e:
+                        print(f"[SectionedExtractor] ✗ {section_name}: {e}")
+        else:
+            # SEQUENTIAL EXTRACTION (fallback)
+            for section_name in sections:
+                print(f"[SectionedExtractor] Extracting: {section_name}")
+                result = self.extract_section(section_name, protocol_text)
+                section_results[section_name] = result
+
+                # Merge extracted fields
+                for field, value in result.extracted_fields.items():
+                    if field not in ['confidence', 'notes']:
+                        combined_data[field] = value
+
+                conf = result.confidence if result.confidence is not None else 0.0
+                print(f"  - Confidence: {conf:.0%}")
+                print(f"  - Found: {len(result.fields_found)} fields")
+                print(f"  - Not found: {len(result.fields_not_found)} fields")
+                if result.needs_review:
+                    print(f"  - NEEDS REVIEW: {result.needs_review}")
 
         # Convert to ExtractedProtocolFacts
         facts = from_claude_extraction(combined_data)
