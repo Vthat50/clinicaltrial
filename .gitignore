@@ -9,5 +9,34 @@ sap_rtx4090/sap_generator/models/
 *.gguf
 *.safetensors
 *.pt
-sap_rtx4090/sap_generator/web/backend/start_server.sh
+
+# Virtual environments
+venv/
+.venv/
+*/venv/
+**/venv/
+
+# Database files
+*.sqlite3
 sap_rtx4090/sap_generator/data/chroma_db/
+data/chroma_db/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Temp files
+*.tmp
+*.log
+.DS_Store
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# Local scripts/data that shouldn't be in repo
+sap_rtx4090/sap_generator/web/backend/start_server.sh
+analyze_*.py
+sap_analysis*.json
