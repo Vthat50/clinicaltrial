@@ -669,7 +669,8 @@ async def generate_full_pipeline(request: GenerateRequest):
             therapeutic_area = facts.get('therapeutic_area', '') or facts.get('indication', '') or ''
             endpoint_type = facts.get('primary_endpoint', '')[:100] if facts.get('primary_endpoint') else ""
 
-            quality_score = 1.0 if result.verification and result.verification.passed else 0.5
+            # Quality score on 0-100 scale for frontend display
+            quality_score = 100.0 if result.verification and result.verification.passed else 50.0
             validation_issues = len(result.verification.missing_slots) if result.verification else 0
             generation_mode = "rule-based (Claude + 99 rules + RAG + slot verification)"
             source_trials = []
@@ -687,9 +688,11 @@ async def generate_full_pipeline(request: GenerateRequest):
             sample_size = 0
 
             # Validation from agentic pipeline
-            quality_score = result.confidence if result.confidence else 0.8
+            # Quality score on 0-100 scale (result.confidence is 0-1, multiply by 100)
+            quality_score = (result.confidence * 100) if result.confidence else 80.0
             if result.validation:
-                quality_score = result.validation.confidence
+                # validation.confidence is 0-1, scale to 0-100
+                quality_score = result.validation.confidence * 100 if result.validation.confidence else quality_score
                 validation_issues = len(result.validation.issues) if hasattr(result.validation, 'issues') else 0
             else:
                 validation_issues = 0
@@ -705,7 +708,7 @@ async def generate_full_pipeline(request: GenerateRequest):
             phase = ""
             therapeutic_area = ""
             endpoint_type = ""
-            quality_score = 0.5
+            quality_score = 50.0  # Default fallback (0-100 scale)
             validation_issues = 0
             generation_mode = "unknown"
             source_trials = []
@@ -2472,7 +2475,8 @@ async def process_jobs_worker():
                         else:
                             endpoint_type_str = ""
 
-                        quality_score = 1.0 if result.verification and result.verification.passed else 0.5
+                        # Quality score on 0-100 scale for frontend display
+            quality_score = 100.0 if result.verification and result.verification.passed else 50.0
                         pipeline_type = "rule-based"
 
                     elif hasattr(result, 'characteristics') and result.characteristics:
@@ -2484,9 +2488,11 @@ async def process_jobs_worker():
                         endpoint_type_str = (chars.endpoint_type or "")[:10]
 
                         # Validation from agentic pipeline
-                        quality_score = result.confidence if result.confidence else 0.8
+                        # Quality score on 0-100 scale (result.confidence is 0-1, multiply by 100)
+            quality_score = (result.confidence * 100) if result.confidence else 80.0
                         if result.validation:
-                            quality_score = result.validation.confidence
+                            # validation.confidence is 0-1, scale to 0-100
+                quality_score = result.validation.confidence * 100 if result.validation.confidence else quality_score
 
                         pipeline_type = "agentic"
 
@@ -2496,7 +2502,7 @@ async def process_jobs_worker():
                         phase_str = ""
                         therapeutic_area = ""
                         endpoint_type_str = ""
-                        quality_score = 0.5
+                        quality_score = 50.0  # Default fallback (0-100 scale)
                         pipeline_type = "unknown"
 
                     update_data = {
