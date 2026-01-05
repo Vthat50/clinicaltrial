@@ -27,45 +27,50 @@ from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# Thread pool for running async LlamaParse in sync context
-_thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
+# Thread-local storage for persistent event loops (avoid 'Event loop is closed' errors)
+import threading
+_thread_local = threading.local()
+
+def _get_or_create_event_loop():
+    """Get or create a persistent event loop for the current thread.
+
+    Using a persistent loop per thread avoids httpx connection caching issues
+    that cause 'Event loop is closed' errors when creating new loops.
+    """
+    if not hasattr(_thread_local, 'loop') or _thread_local.loop is None or _thread_local.loop.is_closed():
+        _thread_local.loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(_thread_local.loop)
+    return _thread_local.loop
 
 def _run_async_in_thread(coro):
-    """Run an async coroutine in a separate thread with its own event loop.
+    """Run an async coroutine in a dedicated thread with a persistent event loop.
 
-    Properly handles event loop cleanup to avoid 'Event loop is closed' errors
-    from pending SSL/TLS cleanup callbacks.
+    Uses thread-local persistent loops to avoid 'Event loop is closed' errors
+    that occur when httpx tries to cleanup connections on a closed loop.
+
+    On Python 3.13+, httpx's async client caches connection state. When we
+    create a new loop for each call, the old loop gets closed but httpx
+    still tries to use cached connections tied to the old loop.
+
+    Solution: Use a persistent loop per thread that stays open across calls.
     """
-    def run_in_new_loop():
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+    def run_in_persistent_loop():
+        loop = _get_or_create_event_loop()
         try:
             return loop.run_until_complete(coro)
-        finally:
-            # Properly shutdown async generators and pending tasks
-            try:
-                # Cancel all pending tasks
-                pending = asyncio.all_tasks(loop)
-                for task in pending:
-                    task.cancel()
+        except RuntimeError as e:
+            # If loop is somehow closed, create a fresh one and retry
+            if "Event loop is closed" in str(e):
+                _thread_local.loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(_thread_local.loop)
+                return _thread_local.loop.run_until_complete(coro)
+            raise
 
-                # Allow cancelled tasks to complete
-                if pending:
-                    loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
-
-                # Shutdown async generators
-                loop.run_until_complete(loop.shutdown_asyncgens())
-
-                # Python 3.9+ has shutdown_default_executor
-                if hasattr(loop, 'shutdown_default_executor'):
-                    loop.run_until_complete(loop.shutdown_default_executor())
-            except Exception:
-                pass  # Ignore cleanup errors
-            finally:
-                loop.close()
-
-    future = _thread_pool.submit(run_in_new_loop)
-    return future.result(timeout=300)  # 5 minute timeout
+    # Use a thread pool to isolate the event loop from the main thread
+    # This prevents conflicts with FastAPI/uvicorn's event loop
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(run_in_persistent_loop)
+        return future.result(timeout=300)  # 5 minute timeout
 
 # LlamaParse for accurate PDF parsing
 try:
@@ -265,6 +270,8 @@ class ProtocolSectionParser:
         self.llm_client = llm_client
         self._full_text_cache: Dict[str, str] = {}
         self._markdown_cache: Dict[str, str] = {}
+        # Cache for parsed sections (key: pdf_path, value: Dict[str, ParsedSection])
+        self._sections_cache: Dict[str, Dict[str, 'ParsedSection']] = {}
 
         # Initialize LlamaParse if available
         self._llamaparse = None
@@ -307,10 +314,22 @@ class ProtocolSectionParser:
 
         # LlamaParse extraction from PDF (no fallback - expose errors clearly)
         if pdf_path and self._llamaparse:
+            # CHECK CACHE FIRST - avoid multiple LlamaParse API calls
+            if pdf_path in self._sections_cache:
+                print(f"[SectionParser] Using CACHED LlamaParse result for: {pdf_path}")
+                sections = self._sections_cache[pdf_path]
+                result.sections = sections
+                result.parse_success = True
+                result.section_count = len(sections)
+                result.raw_text = self._full_text_cache.get(pdf_path, text)
+                return result
+
             print("[SectionParser] Using LlamaParse for PDF extraction...")
             sections = self._extract_with_llamaparse(pdf_path)
 
             if sections:
+                # Cache the result
+                self._sections_cache[pdf_path] = sections
                 result.sections = sections
                 result.parse_success = True
                 result.section_count = len(sections)
