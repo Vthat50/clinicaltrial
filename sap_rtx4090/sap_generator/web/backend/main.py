@@ -2476,7 +2476,7 @@ async def process_jobs_worker():
                             endpoint_type_str = ""
 
                         # Quality score on 0-100 scale for frontend display
-            quality_score = 100.0 if result.verification and result.verification.passed else 50.0
+                        quality_score = 100.0 if result.verification and result.verification.passed else 50.0
                         pipeline_type = "rule-based"
 
                     elif hasattr(result, 'characteristics') and result.characteristics:
@@ -2489,10 +2489,10 @@ async def process_jobs_worker():
 
                         # Validation from agentic pipeline
                         # Quality score on 0-100 scale (result.confidence is 0-1, multiply by 100)
-            quality_score = (result.confidence * 100) if result.confidence else 80.0
+                        quality_score = (result.confidence * 100) if result.confidence else 80.0
                         if result.validation:
                             # validation.confidence is 0-1, scale to 0-100
-                quality_score = result.validation.confidence * 100 if result.validation.confidence else quality_score
+                            quality_score = result.validation.confidence * 100 if result.validation.confidence else quality_score
 
                         pipeline_type = "agentic"
 
