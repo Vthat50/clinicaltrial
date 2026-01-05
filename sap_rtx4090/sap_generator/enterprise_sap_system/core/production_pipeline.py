@@ -34,6 +34,8 @@ import re
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 
 # =============================================================================
 # CORE IMPORTS - NO FALLBACKS (fail fast if missing)
@@ -175,21 +177,22 @@ class ProductionSAPPipeline:
 
         print("[ProductionPipeline] Ready")
 
-    def generate(self, protocol_text: str, pdf_path: str = None, **kwargs) -> GenerationResult:
+    def generate(self, protocol_text: str, pdf_path: str = None, parallel: bool = True, **kwargs) -> GenerationResult:
         """
         Generate SAP using clean production pipeline.
 
         Args:
             protocol_text: Full protocol text
             pdf_path: Path to PDF file for Vision-based section parsing
+            parallel: Enable parallel processing for faster generation (default: True)
             **kwargs: Additional arguments (nct_id, etc.)
 
         Steps:
         1. Extract facts by section with confidence scores
-        2. Get scientific context from knowledge graph
-        3. Get sanitized RAG examples
-        4. Generate with constrained prompts
-        5. Verify and regenerate if needed
+        1.5 Pre-generation validation
+        2-4. [PARALLEL] Scientific context + Constraints + RAG queries
+        5. [PARALLEL] Generate 12 sections simultaneously
+        6-7. Verify and validate
         """
         try:
             # =================================================================
@@ -260,32 +263,65 @@ class ProductionSAPPipeline:
                             print(f"  - Fixed {field}: {new_value}")
 
             # =================================================================
-            # STEP 2: SCIENTIFIC CONTEXT (from knowledge graph)
+            # STEPS 2-4: PARALLEL CONTEXT GATHERING
+            # Scientific context, decision engine, and RAG can run simultaneously
             # =================================================================
-            print("\n[Step 2] Getting scientific context...")
             scientific_context = ""
             conditions = []
+            sanitized_examples = {}
+            constraints = None
 
-            if self.knowledge_graph:
-                # Detect conditions for context
-                conditions = list(self.knowledge_graph.detect_conditions(facts))
-                print(f"[Step 2] Conditions detected: {conditions}")
+            if parallel:
+                print("\n[Steps 2-4] PARALLEL context gathering...")
 
-                # Get context string (does NOT select methods)
-                scientific_context = self.knowledge_graph.get_context_for_generation(facts)
-                print(f"[Step 2] Generated context ({len(scientific_context)} chars)")
+                def get_scientific_context():
+                    """Get scientific context from knowledge graph."""
+                    ctx = ""
+                    conds = []
+                    if self.knowledge_graph:
+                        conds = list(self.knowledge_graph.detect_conditions(facts))
+                        ctx = self.knowledge_graph.get_context_for_generation(facts)
+                    return ctx, conds
 
-                # Log any discrepancy notes
-                method_ctx = self.knowledge_graph.get_method_context(facts)
-                for note in method_ctx.get('discrepancy_notes', []):
-                    print(f"[Step 2] {note['severity'].upper()}: {note['observation'][:80]}...")
+                def get_rag_examples():
+                    """Get sanitized RAG examples."""
+                    return self._get_sanitized_examples(facts, parallel=True)
 
-            # =================================================================
-            # STEP 3: METHOD CONSTRAINTS (from extraction + decision engine)
-            # =================================================================
-            print("\n[Step 3] Building method constraints from extraction...")
-            constraints = self._build_constraints_from_extraction(facts, conditions)
-            print(f"[Step 3] Primary test: {constraints.primary_test}")
+                with ThreadPoolExecutor(max_workers=2) as executor:
+                    # Submit parallel tasks
+                    future_context = executor.submit(get_scientific_context)
+                    future_rag = executor.submit(get_rag_examples)
+
+                    # Collect results
+                    scientific_context, conditions = future_context.result()
+                    sanitized_examples = future_rag.result()
+
+                print(f"[Step 2] Scientific context: {len(scientific_context)} chars, conditions: {conditions}")
+                print(f"[Step 4] RAG examples: {sum(len(v) for v in sanitized_examples.values())} total")
+
+                # Build constraints (quick, doesn't need parallelization)
+                constraints = self._build_constraints_from_extraction(facts, conditions)
+                print(f"[Step 3] Primary test: {constraints.primary_test}")
+
+            else:
+                # SEQUENTIAL fallback
+                print("\n[Step 2] Getting scientific context...")
+                if self.knowledge_graph:
+                    conditions = list(self.knowledge_graph.detect_conditions(facts))
+                    print(f"[Step 2] Conditions detected: {conditions}")
+                    scientific_context = self.knowledge_graph.get_context_for_generation(facts)
+                    print(f"[Step 2] Generated context ({len(scientific_context)} chars)")
+                    method_ctx = self.knowledge_graph.get_method_context(facts)
+                    for note in method_ctx.get('discrepancy_notes', []):
+                        print(f"[Step 2] {note['severity'].upper()}: {note['observation'][:80]}...")
+
+                print("\n[Step 3] Building method constraints from extraction...")
+                constraints = self._build_constraints_from_extraction(facts, conditions)
+                print(f"[Step 3] Primary test: {constraints.primary_test}")
+
+                print("\n[Step 4] Getting sanitized RAG examples...")
+                sanitized_examples = self._get_sanitized_examples(facts, parallel=False)
+                print(f"[Step 4] Retrieved {sum(len(v) for v in sanitized_examples.values())} examples")
 
             # =================================================================
             # STEP 3.5: DECISION ENGINE RECOMMENDATIONS (augment constraints)
@@ -328,18 +364,12 @@ class ProductionSAPPipeline:
                     print(f"[Step 3.5] Population definitions augmented from decision engine")
 
             # =================================================================
-            # STEP 4: SANITIZED RAG EXAMPLES
-            # =================================================================
-            print("\n[Step 4] Getting sanitized RAG examples...")
-            sanitized_examples = self._get_sanitized_examples(facts)
-            print(f"[Step 4] Retrieved {sum(len(v) for v in sanitized_examples.values())} examples")
-
-            # =================================================================
-            # STEP 5: GENERATE SECTIONS
+            # STEP 5: GENERATE SECTIONS (PARALLEL - biggest speedup!)
             # =================================================================
             print("\n[Step 5] Generating SAP sections...")
             sections = self._generate_all_sections(
-                facts, constraints, sanitized_examples, scientific_context
+                facts, constraints, sanitized_examples, scientific_context,
+                parallel=parallel, max_workers=6  # 6 concurrent LLM calls
             )
 
             # Assemble full SAP
@@ -608,7 +638,7 @@ class ProductionSAPPipeline:
         'HCC': [r'\bNSCLC\b', r'\blung cancer\b', r'\bmRCC\b', r'\brenal\b'],
     }
 
-    def _get_sanitized_examples(self, facts: Dict[str, Any]) -> Dict[str, List[str]]:
+    def _get_sanitized_examples(self, facts: Dict[str, Any], parallel: bool = True) -> Dict[str, List[str]]:
         """Get RAG examples with sanitization (prose style only)."""
         examples = {}
 
@@ -630,7 +660,8 @@ class ProductionSAPPipeline:
         # Query each section type
         section_types = ['methods', 'interim_analysis', 'sensitivity_analysis', 'sample_size']
 
-        for section_type in section_types:
+        def query_one_section(section_type: str) -> Tuple[str, List[str]]:
+            """Query one section type (thread-safe)."""
             try:
                 results = self.rag.query(section_type, query, n_results=5)
 
@@ -651,10 +682,26 @@ class ProductionSAPPipeline:
                         if len(sanitized) >= 2:
                             break
 
-                    examples[section_type] = sanitized
-
+                    return section_type, sanitized
+                return section_type, []
             except Exception as e:
                 print(f"[RAG] Error querying {section_type}: {e}")
+                return section_type, []
+
+        if parallel:
+            # PARALLEL RAG QUERIES - 4x faster
+            with ThreadPoolExecutor(max_workers=4) as executor:
+                futures = [executor.submit(query_one_section, st) for st in section_types]
+                for future in as_completed(futures):
+                    section_type, results = future.result()
+                    if results:
+                        examples[section_type] = results
+        else:
+            # Sequential fallback
+            for section_type in section_types:
+                _, results = query_one_section(section_type)
+                if results:
+                    examples[section_type] = results
 
         return examples
 
@@ -678,20 +725,62 @@ class ProductionSAPPipeline:
         facts: Dict[str, Any],
         constraints: MethodConstraints,
         sanitized_examples: Dict[str, List[str]],
-        scientific_context: str = ""
+        scientific_context: str = "",
+        parallel: bool = True,
+        max_workers: int = 6
     ) -> Dict[str, str]:
-        """Generate all SAP sections."""
+        """
+        Generate all SAP sections.
+
+        Args:
+            parallel: If True, generate sections in parallel (faster)
+            max_workers: Number of parallel threads (default 6 to avoid rate limits)
+        """
         sections = {}
 
-        for section_key, section_title in self.SECTIONS:
-            examples = sanitized_examples.get(section_key, [])
-            if not examples and section_key == 'statistical_methods':
-                examples = sanitized_examples.get('methods', [])
+        if parallel:
+            # PARALLEL GENERATION - up to 6x faster
+            print(f"[Generation] Parallel mode with {max_workers} workers")
 
-            section_text = self._generate_section(
-                section_key, section_title, facts, constraints, examples, scientific_context
-            )
-            sections[section_key] = section_text
+            def generate_one(section_key: str, section_title: str) -> Tuple[str, str]:
+                """Generate one section (thread-safe)."""
+                examples = sanitized_examples.get(section_key, [])
+                if not examples and section_key == 'statistical_methods':
+                    examples = sanitized_examples.get('methods', [])
+
+                section_text = self._generate_section(
+                    section_key, section_title, facts, constraints, examples, scientific_context
+                )
+                return section_key, section_text
+
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                # Submit all section generations
+                futures = {
+                    executor.submit(generate_one, key, title): key
+                    for key, title in self.SECTIONS
+                }
+
+                # Collect results as they complete
+                for future in as_completed(futures):
+                    section_key = futures[future]
+                    try:
+                        key, text = future.result()
+                        sections[key] = text
+                        print(f"[Generation] ✓ {key}")
+                    except Exception as e:
+                        print(f"[Generation] ✗ {section_key}: {e}")
+                        sections[section_key] = f"## {section_key}\n\n[Generation failed: {e}]"
+        else:
+            # SEQUENTIAL GENERATION (fallback)
+            for section_key, section_title in self.SECTIONS:
+                examples = sanitized_examples.get(section_key, [])
+                if not examples and section_key == 'statistical_methods':
+                    examples = sanitized_examples.get('methods', [])
+
+                section_text = self._generate_section(
+                    section_key, section_title, facts, constraints, examples, scientific_context
+                )
+                sections[section_key] = section_text
 
         return sections
 
