@@ -409,17 +409,38 @@ SEARCH AGGRESSIVELY for these patterns:
   - Smoking status (e.g., "never vs ever")
   - Disease stage, metastases, brain metastases
 
+=== CRITICAL: COUNT TOTAL STRATA ===
+Total strata = product of all factor levels.
+Example: 3 factors with 2, 2, 3 levels = 2 × 2 × 3 = 12 strata
+Look for phrases like "9 strata", "12 stratification cells", "randomization strata"
+
+=== EXTRACT FACTOR COMBINATIONS ===
+Some protocols explicitly list stratification combinations in tables:
+| Stratum | Region | ECOG | Prior Chemo |
+|---------|--------|------|-------------|
+| 1 | East Asia | 0 | Yes |
+| 2 | East Asia | 0 | No |
+...
+
 Required fields:
 - stratification_factors: List ALL factors mentioned, even if in different parts of protocol
+- num_strata: Total number of stratification cells (product of levels)
 
 Critical field (MUST extract with full detail):
 - stratification_factor_levels: For EACH factor, extract EXACT levels/categories
   Example: {{"Region": ["East Asia", "Rest of World"], "ECOG PS": ["0", "1"], "PD-L1": ["<1%", "1-49%", "≥50%"]}}
 
+Optional fields:
+- stratification_method: "IVRS", "IWRS", "block randomization", "dynamic allocation"
+- block_size: If mentioned (e.g., "block size 4" or "variable block sizes")
+
 RESPOND IN JSON:
 {{
     "stratification_factors": ["<factor1>", "<factor2>", "<factor3>", ...],
     "stratification_factor_levels": {{"<factor>": ["<level1>", "<level2>"], ...}},
+    "num_strata": <total number of strata combinations>,
+    "stratification_method": "<method>" or null,
+    "block_size": "<size or 'variable'>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
@@ -447,6 +468,17 @@ Some trials have different sample sizes for subgroups. COMMON PATTERNS:
 - Histology: "XXX squamous" + "YYY non-squamous" = total
 - Add up subgroup sizes if total is not explicitly stated
 
+=== CRITICAL: LOOK FOR REGIONAL EXTENSION COHORTS ===
+Many global trials have regional extensions (China, Japan, etc.) with SEPARATE enrollment:
+- "China extension" / "China cohort" / "China sub-study" with ~100-200 patients
+- "Japan cohort" / "Japan extension"
+- "After global enrollment closes" indicates extension timing
+- Regional cohorts may have SEPARATE analysis (consistency evaluation, not hypothesis testing)
+- Extract regional cohort sizes separately - they may NOT be included in global N
+
+Example: Global N=700, China extension N=131 → Total program N=831
+Extract BOTH the global sample size AND regional extensions
+
 === DETECT PILOT/FEASIBILITY SAMPLE SIZE ===
 - is_pragmatic_sample: TRUE if "pragmatic", "feasibility", "no formal calculation", "exploratory",
   "based on expected recruitment", "practical considerations", or N ≤ 50 without power calculation
@@ -463,6 +495,8 @@ Optional fields:
 - sample_size_per_arm: Number per treatment arm [arm1_n, arm2_n]
 - sample_size_by_population: Breakdown by biomarker/subgroup
   Example: {{"biomarker_positive": 500, "biomarker_negative": 200, "total": 700}}
+- regional_cohorts: Regional extension cohorts (China, Japan, etc.)
+  Example: {{"china_extension": 131, "japan_extension": 50}}
 - sample_size_rationale: Text describing the calculation basis
 - sample_size_justification_type: "power_calculation", "pragmatic", "feasibility", "precision", "binomial"
 - hazard_ratio: Expected/assumed hazard ratio (usually 0.6-0.8 for oncology)
@@ -475,6 +509,7 @@ RESPOND IN JSON:
     "power": <0.0-1.0 or null>,
     "sample_size_per_arm": [<arm1_n>, <arm2_n>] or null,
     "sample_size_by_population": {{"<pop1>": <n1>, "<pop2>": <n2>}} or null,
+    "regional_cohorts": {{"china_extension": <n>, "japan_extension": <n>}} or null,
     "sample_size_rationale": "<text>" or null,
     "sample_size_justification_type": "<type>" or null,
     "is_pragmatic_sample": <true/false>,
@@ -590,6 +625,29 @@ EXAMPLE TABLE FORMAT (markdown):
 This table shows 3 interim analyses (IA1, IA2, IA3) plus final (FA).
 Count each IA row as one interim analysis. FA is the final, not an interim.
 
+=== CRITICAL: EXTRACT EVENT-DRIVEN TIMING ===
+Interim analyses are often triggered by EVENT COUNTS, not calendar time:
+- "~354 PFS events" or "approximately 354 progression events"
+- "~269 OS events" or "when 269 deaths have occurred"
+- "whichever occurs first" (time OR events)
+- "at 50% information" / "at 70% of target events"
+
+Look for CONDITIONAL triggers:
+- "IA1 at ~354 PFS events OR 27 months, whichever occurs first"
+- "when approximately 50% of final OS events have occurred"
+
+=== ALPHA SPENDING FUNCTION DETAILS ===
+Extract the EXACT spending function with parameters:
+- "Lan-DeMets O'Brien-Fleming" (most common)
+- "Lan-DeMets Pocock"
+- "O'Brien-Fleming" (discrete boundaries)
+- "Hwang-Shih-DeCani" with gamma parameter
+- "Kim-DeMets" with rho parameter
+
+Also extract:
+- Overall alpha (e.g., 0.025 one-sided)
+- Whether alpha is split between endpoints
+
 Required fields:
 - has_interim_analysis: true if ANY interim analysis is mentioned
 - num_interim_analyses: Count DISTINCT interim looks (NOT including final analysis)
@@ -615,11 +673,18 @@ RESPOND IN JSON:
     "interim_events": [<events1>, <events2>, <events3>] or null,
     "final_events": <number> or null,
     "information_fractions": [<frac1>, <frac2>, ..., 1.0] or null,
-    "alpha_spending_function": "<function name>" or null,
+    "alpha_spending_function": "<exact function name with parameters>" or null,
+    "overall_alpha": <e.g., 0.025>,
+    "alpha_sidedness": "one-sided" or "two-sided",
     "alpha_at_interim": [<alpha1>, <alpha2>, ...] or null,
     "alpha_at_final": <number> or null,
     "stopping_boundaries": "<description>" or null,
     "interim_timing_months": [<months1>, <months2>, ...] or null,
+    "event_triggers": [
+        {{"analysis": "IA1", "pfs_events": <n>, "os_events": <n>, "condition": "<e.g., whichever first>"}},
+        {{"analysis": "IA2", "pfs_events": <n>, "os_events": <n>, "condition": "<>"}},
+        {{"analysis": "FA", "pfs_events": <n>, "os_events": <n>}}
+    ] or null,
     "interim_by_endpoint": [
         {{"endpoint": "PFS", "timing": "<when>", "events": <n>, "alpha": <a>}},
         {{"endpoint": "OS", "timing": "<when>", "events": <n>, "alpha": <a>}}
@@ -673,6 +738,28 @@ For graphical approaches, also look for:
 - "if H1 is rejected, alpha flows to H2" style descriptions
 - Diagrams showing arrows between hypotheses with weights
 
+=== CRITICAL: NON-INFERIORITY PARAMETERS ===
+If ANY non-inferiority testing is mentioned, extract:
+- ni_margin: The HR threshold (e.g., 1.1, 1.2, 1.3)
+- ni_endpoint: Which endpoint (usually OS)
+- ni_justification: Why this margin was chosen
+- ni_then_superiority: true if NI → superiority sequential testing
+
+Common NI margin patterns:
+- "upper bound of the 95% CI for HR < 1.1"
+- "non-inferiority margin of 1.1"
+- "HR ≤ 1.1 establishes non-inferiority"
+
+=== EFFICACY BOUNDARY TABLES ===
+Look for tables with stopping boundaries at each analysis:
+| Analysis | Information | Z-score | p-value | HR Boundary |
+|----------|-------------|---------|---------|-------------|
+| IA1      | 35%         | 3.71    | 0.0001  | 0.52        |
+| IA2      | 70%         | 2.51    | 0.006   | 0.73        |
+| FA       | 100%        | 1.99    | 0.023   | 0.82        |
+
+Extract ALL boundary values if available.
+
 Required field:
 - has_multiplicity: true if ANY alpha adjustment or multiple hypothesis testing is mentioned
 
@@ -695,6 +782,8 @@ CRITICAL fields - extract the FULL hypothesis structure:
 - alpha_propagation: How alpha flows between hypotheses when rejected
   Example: "If H1 rejected, alpha flows to H2; if H3 rejected, alpha flows to H4"
 - ni_margin: Non-inferiority margin if any (e.g., 1.1 for OS HR)
+- ni_endpoint: Which endpoint has NI testing (e.g., "OS")
+- ni_then_superiority: true if sequential NI → superiority testing
 - total_alpha: Overall type I error (e.g., 0.025 one-sided)
 
 RESPOND IN JSON:
@@ -706,6 +795,12 @@ RESPOND IN JSON:
     "alpha_per_hypothesis": {{"H1": <alpha>, "H2": <alpha>, ...}} or {{}},
     "alpha_propagation": "<detailed description of how alpha flows>" or null,
     "ni_margin": <number> or null,
+    "ni_endpoint": "<endpoint>" or null,
+    "ni_then_superiority": <true/false>,
+    "efficacy_boundaries": [
+        {{"analysis": "IA1", "information_fraction": <0.XX>, "z_score": <X.XX>, "p_value": <0.XXX>, "hr_boundary": <0.XX>}},
+        {{"analysis": "FA", "information_fraction": 1.0, "z_score": <X.XX>, "p_value": <0.XXX>, "hr_boundary": <0.XX>}}
+    ] or null,
     "total_alpha": <number> or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
@@ -2233,6 +2328,16 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
             if sample_size and sample_size < 50:
                 notes.append(f"VALIDATION WARNING: sample_size={sample_size} is unusually small")
 
+            # Cross-validate regional cohorts against total sample size
+            regional_cohorts = data.get('regional_cohorts')
+            if regional_cohorts and isinstance(regional_cohorts, dict):
+                cohort_sum = sum(v for v in regional_cohorts.values() if isinstance(v, (int, float)))
+                if cohort_sum > 0:
+                    notes.append(f"VALIDATION: Found regional cohorts totaling {cohort_sum} patients")
+                    # Regional cohorts should be ADDITIONAL to main study, not exceed total
+                    if sample_size and cohort_sum > sample_size:
+                        notes.append(f"VALIDATION WARNING: regional cohorts ({cohort_sum}) exceed main sample_size ({sample_size}) - may be separate extension")
+
         # =========================================================
         # INTERIM ANALYSIS VALIDATION
         # =========================================================
@@ -2252,6 +2357,24 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
             if alpha_interim and isinstance(alpha_interim, list) and num_ia:
                 if len(alpha_interim) != num_ia:
                     notes.append(f"VALIDATION: alpha_at_interim has {len(alpha_interim)} values but num_interim_analyses={num_ia}")
+
+            # Check event_triggers exist when interim analyses are planned
+            event_triggers = data.get('event_triggers', [])
+            if num_ia and num_ia > 0:
+                if not event_triggers or not isinstance(event_triggers, list) or len(event_triggers) == 0:
+                    notes.append(f"VALIDATION WARNING: {num_ia} interim analyses but no event_triggers extracted - check if event-driven")
+                else:
+                    # Validate event trigger count matches
+                    # Note: may have fewer triggers if some are calendar-based
+                    if len(event_triggers) < num_ia:
+                        notes.append(f"VALIDATION: Only {len(event_triggers)} event_triggers for {num_ia} interim analyses - some may be calendar-based")
+
+            # Validate alpha spending function consistency
+            alpha_spending_fn = data.get('alpha_spending_function')
+            spending_params = data.get('spending_parameters', {})
+            if alpha_spending_fn and 'NOT FOUND' not in str(alpha_spending_fn):
+                if not spending_params or spending_params == {}:
+                    notes.append(f"VALIDATION: alpha_spending_function '{alpha_spending_fn}' found but no spending_parameters")
 
         # =========================================================
         # TREATMENT SETTING VALIDATION
@@ -2287,6 +2410,34 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 if total_alpha > 0.03:  # Allow small rounding errors
                     notes.append(f"VALIDATION WARNING: total initial alpha={total_alpha:.4f} exceeds expected 0.025")
 
+            # Validate NI margin exists when NI testing is mentioned
+            ni_endpoint = data.get('ni_endpoint')
+            ni_margin = data.get('ni_margin')
+            ni_then_superiority = data.get('ni_then_superiority')
+
+            if ni_endpoint and 'NOT FOUND' not in str(ni_endpoint):
+                if not ni_margin:
+                    notes.append(f"VALIDATION WARNING: ni_endpoint='{ni_endpoint}' but no ni_margin extracted - critical for NI testing")
+                elif ni_margin < 1.0:
+                    notes.append(f"VALIDATION WARNING: ni_margin={ni_margin} is < 1.0 - expected HR threshold like 1.1 or 1.2")
+                elif ni_margin > 2.0:
+                    notes.append(f"VALIDATION WARNING: ni_margin={ni_margin} is unusually large - expected 1.1-1.5 for most oncology trials")
+
+            if ni_then_superiority and not ni_margin:
+                notes.append(f"VALIDATION WARNING: ni_then_superiority=True but no ni_margin extracted")
+
+            # Validate efficacy boundaries structure
+            efficacy_boundaries = data.get('efficacy_boundaries', [])
+            if efficacy_boundaries and isinstance(efficacy_boundaries, list):
+                for i, boundary in enumerate(efficacy_boundaries):
+                    if isinstance(boundary, dict):
+                        if 'information_fraction' not in boundary and 'z_score' not in boundary:
+                            notes.append(f"VALIDATION: efficacy_boundaries[{i}] missing key fields (information_fraction, z_score)")
+                        # Info fraction should be between 0 and 1
+                        info_frac = boundary.get('information_fraction')
+                        if info_frac and (info_frac < 0 or info_frac > 1):
+                            notes.append(f"VALIDATION WARNING: efficacy_boundaries[{i}] has invalid information_fraction={info_frac}")
+
         # =========================================================
         # CENSORING RULES VALIDATION
         # =========================================================
@@ -2298,6 +2449,43 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
                 if censoring and '[NOT FOUND]' not in censoring:
                     data['censoring_rules'] = [censoring]
                     notes.append("VALIDATION: Converted censoring_rules from string to list")
+
+        # =========================================================
+        # STRATIFICATION VALIDATION
+        # =========================================================
+        if section_name == 'stratification':
+            factors = data.get('stratification_factors', [])
+            num_strata = data.get('num_strata')
+
+            # Validate num_strata calculation
+            if factors and isinstance(factors, list) and len(factors) > 0:
+                # Try to calculate expected strata from factor levels
+                # Each factor entry should have 'name' and 'levels' or similar
+                expected_strata = 1
+                factor_levels_found = 0
+                for factor in factors:
+                    if isinstance(factor, dict):
+                        levels = factor.get('levels', [])
+                        if levels and isinstance(levels, list) and len(levels) > 0:
+                            expected_strata *= len(levels)
+                            factor_levels_found += 1
+                        elif 'num_levels' in factor:
+                            expected_strata *= factor['num_levels']
+                            factor_levels_found += 1
+
+                if factor_levels_found > 0 and num_strata:
+                    if num_strata != expected_strata:
+                        notes.append(f"VALIDATION: num_strata={num_strata} vs calculated {expected_strata} from factor levels")
+
+                if not num_strata and factor_levels_found > 0:
+                    # Auto-calculate num_strata if not extracted
+                    data['num_strata'] = expected_strata
+                    notes.append(f"VALIDATION: Calculated num_strata={expected_strata} from {factor_levels_found} factors")
+
+            # Validate stratification method presence
+            strat_method = data.get('stratification_method')
+            if factors and len(factors) > 0 and not strat_method:
+                notes.append("VALIDATION: stratification_factors found but no stratification_method - check if IVRS/IWRS mentioned")
 
         return data, notes
 
