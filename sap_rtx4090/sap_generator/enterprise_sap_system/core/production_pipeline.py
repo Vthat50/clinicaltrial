@@ -116,20 +116,25 @@ class ProductionSAPPipeline:
     """
 
     # SAP sections to generate (per ICH E9 R1 + Gamble et al. 2017)
+    # Tuple: (key, title, complexity) where complexity determines model choice
+    # "complex" = Opus 4.5 (slow but accurate), "simple" = Haiku/GPT-4o-mini (fast)
     SECTIONS = [
-        ('introduction', 'Introduction'),
-        ('objectives', 'Study Objectives and Endpoints'),
-        ('estimands', 'Estimands'),  # ICH E9 R1 requirement
-        ('study_design', 'Study Design'),
-        ('sample_size', 'Sample Size Determination'),
-        ('analysis_populations', 'Analysis Populations'),
-        ('statistical_methods', 'Statistical Methods'),
-        ('interim_analysis', 'Interim Analysis'),
-        ('sensitivity_analysis', 'Sensitivity Analyses'),
-        ('missing_data', 'Missing Data Handling'),
-        ('multiplicity', 'Multiplicity Adjustment'),
-        ('safety', 'Safety Analyses'),
+        ('introduction', 'Introduction', 'simple'),
+        ('objectives', 'Study Objectives and Endpoints', 'simple'),
+        ('estimands', 'Estimands', 'complex'),  # ICH E9 R1 - needs accuracy
+        ('study_design', 'Study Design', 'simple'),
+        ('sample_size', 'Sample Size Determination', 'complex'),  # Math-heavy
+        ('analysis_populations', 'Analysis Populations', 'simple'),
+        ('statistical_methods', 'Statistical Methods', 'complex'),  # Critical section
+        ('interim_analysis', 'Interim Analysis', 'complex'),  # Math-heavy
+        ('sensitivity_analysis', 'Sensitivity Analyses', 'complex'),  # Technical
+        ('missing_data', 'Missing Data Handling', 'simple'),
+        ('multiplicity', 'Multiplicity Adjustment', 'complex'),  # Math-heavy
+        ('safety', 'Safety Analyses', 'simple'),
     ]
+
+    # Cache for extracted protocol facts (avoid re-parsing same PDF)
+    _extraction_cache: Dict[str, Tuple[Dict, Dict]] = {}
 
     def __init__(self, max_regenerations: int = 2):
         """Initialize production pipeline - NO FALLBACKS."""
@@ -139,7 +144,8 @@ class ProductionSAPPipeline:
 
         # 1. LLM Client (required)
         self.llm = TieredLLMClient()
-        print("[ProductionPipeline] ✓ LLM client (Claude Opus 4.5)")
+        self.fast_llm = TieredLLMClient()  # Second client for fast sections
+        print("[ProductionPipeline] ✓ LLM client (Claude Opus 4.5 + fast tier)")
 
         # 2. Sectioned Extractor (required)
         self.sectioned_extractor = create_sectioned_extractor(llm_client=self.llm)
@@ -448,12 +454,29 @@ class ProductionSAPPipeline:
     def _extract_facts_sectioned(
         self,
         protocol_text: str,
-        pdf_path: str = None
+        pdf_path: str = None,
+        use_cache: bool = True
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """
         Extract facts using sectioned extraction with confidence scores.
         NO FALLBACKS - will raise if extraction fails.
+
+        Args:
+            use_cache: If True, cache extraction results by PDF path or text hash
         """
+        # Generate cache key
+        import hashlib
+        if pdf_path:
+            cache_key = pdf_path
+        else:
+            cache_key = hashlib.md5(protocol_text[:5000].encode()).hexdigest()
+
+        # Check cache
+        if use_cache and cache_key in self._extraction_cache:
+            print(f"[Extraction] ✓ Using cached extraction (key: {cache_key[:20]}...)")
+            return self._extraction_cache[cache_key]
+
+        # Extract (slow operation)
         extracted_facts, section_results = self.sectioned_extractor.extract_all_sections(
             protocol_text,
             pdf_path=pdf_path
@@ -461,6 +484,12 @@ class ProductionSAPPipeline:
         # Convert to flat dict for generation
         facts = extracted_facts.to_flat_dict() if hasattr(extracted_facts, 'to_flat_dict') else {}
         facts['raw_text'] = protocol_text.lower()
+
+        # Cache result
+        if use_cache:
+            self._extraction_cache[cache_key] = (facts, section_results)
+            print(f"[Extraction] Cached for future use (key: {cache_key[:20]}...)")
+
         return facts, section_results
 
     def _normalize_facts(self, facts: Dict[str, Any]) -> Dict[str, Any]:
@@ -727,37 +756,44 @@ class ProductionSAPPipeline:
         sanitized_examples: Dict[str, List[str]],
         scientific_context: str = "",
         parallel: bool = True,
-        max_workers: int = 6
+        max_workers: int = 12  # Increased from 6 to 12 for max speed
     ) -> Dict[str, str]:
         """
-        Generate all SAP sections.
+        Generate all SAP sections with tiered model selection.
 
         Args:
             parallel: If True, generate sections in parallel (faster)
-            max_workers: Number of parallel threads (default 6 to avoid rate limits)
+            max_workers: Number of parallel threads (default 12 for max speed)
+
+        Model Selection:
+            - "complex" sections: Claude Opus 4.5 (accurate but slower)
+            - "simple" sections: GPT-4o-mini or Groq (fast)
         """
         sections = {}
 
         if parallel:
-            # PARALLEL GENERATION - up to 6x faster
-            print(f"[Generation] Parallel mode with {max_workers} workers")
+            # PARALLEL GENERATION with TIERED MODELS
+            complex_count = sum(1 for _, _, c in self.SECTIONS if c == 'complex')
+            simple_count = len(self.SECTIONS) - complex_count
+            print(f"[Generation] Parallel mode: {complex_count} complex (Opus), {simple_count} simple (fast)")
 
-            def generate_one(section_key: str, section_title: str) -> Tuple[str, str]:
-                """Generate one section (thread-safe)."""
+            def generate_one(section_key: str, section_title: str, complexity: str) -> Tuple[str, str]:
+                """Generate one section with appropriate model."""
                 examples = sanitized_examples.get(section_key, [])
                 if not examples and section_key == 'statistical_methods':
                     examples = sanitized_examples.get('methods', [])
 
                 section_text = self._generate_section(
-                    section_key, section_title, facts, constraints, examples, scientific_context
+                    section_key, section_title, facts, constraints, examples, scientific_context,
+                    use_fast_model=(complexity == 'simple')
                 )
                 return section_key, section_text
 
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                # Submit all section generations
+                # Submit all section generations with complexity info
                 futures = {
-                    executor.submit(generate_one, key, title): key
-                    for key, title in self.SECTIONS
+                    executor.submit(generate_one, key, title, complexity): key
+                    for key, title, complexity in self.SECTIONS
                 }
 
                 # Collect results as they complete
@@ -772,13 +808,14 @@ class ProductionSAPPipeline:
                         sections[section_key] = f"## {section_key}\n\n[Generation failed: {e}]"
         else:
             # SEQUENTIAL GENERATION (fallback)
-            for section_key, section_title in self.SECTIONS:
+            for section_key, section_title, complexity in self.SECTIONS:
                 examples = sanitized_examples.get(section_key, [])
                 if not examples and section_key == 'statistical_methods':
                     examples = sanitized_examples.get('methods', [])
 
                 section_text = self._generate_section(
-                    section_key, section_title, facts, constraints, examples, scientific_context
+                    section_key, section_title, facts, constraints, examples, scientific_context,
+                    use_fast_model=(complexity == 'simple')
                 )
                 sections[section_key] = section_text
 
@@ -791,16 +828,38 @@ class ProductionSAPPipeline:
         facts: Dict[str, Any],
         constraints: MethodConstraints,
         examples: List[str],
-        scientific_context: str = ""
+        scientific_context: str = "",
+        use_fast_model: bool = False
     ) -> str:
-        """Generate a single section."""
+        """
+        Generate a single section.
+
+        Args:
+            use_fast_model: If True, use GPT-4o-mini/Groq for speed (simple sections)
+                           If False, use Claude Opus 4.5 for accuracy (complex sections)
+        """
         prompt = self._build_prompt(
             section_key, section_title, facts, constraints, examples, scientific_context
         )
 
         if self.llm:
             try:
-                response = self.llm.chat(prompt, max_tokens=2000)
+                # Select model tier based on complexity
+                if use_fast_model:
+                    # Use fast tier: OpenAI GPT-4o-mini or Groq
+                    response = self.llm.chat(
+                        prompt,
+                        max_tokens=1500,  # Smaller for simple sections
+                        preferred_tier="openai"  # GPT-4o-mini is fast
+                    )
+                else:
+                    # Use accurate tier: Claude Opus 4.5
+                    response = self.llm.chat(
+                        prompt,
+                        max_tokens=2000,
+                        preferred_tier="claude"
+                    )
+
                 if hasattr(response, 'success') and response.success and hasattr(response, 'content'):
                     return response.content
                 elif isinstance(response, str) and response:
