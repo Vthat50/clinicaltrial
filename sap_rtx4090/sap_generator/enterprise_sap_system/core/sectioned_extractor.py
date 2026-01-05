@@ -401,10 +401,19 @@ Required fields (MUST extract - search thoroughly):
 - disease_type: Specific disease (e.g., "Advanced gastric cancer", "NSCLC")
 - phase: "Phase 1", "Phase 2", "Phase 3", etc. or "[NOT FOUND]"
 
+=== PROTOCOL IDENTIFIERS (extract from title page, header, or first page) ===
+- protocol_number: Study protocol number - search for patterns like:
+  - "Protocol No.", "Protocol Number:", "Study No."
+  - "EFC13833", "KEYNOTE-XXX", "CA209-XXX", "MK-XXXX-XXX"
+  - Usually in header or title page
+- nct_id: ClinicalTrials.gov identifier - search for:
+  - "NCT" followed by 8 digits (e.g., "NCT01515748")
+  - "ClinicalTrials.gov"
+- sponsor: Sponsor company name - search for:
+  - "Sponsor:", "Sponsored by:", "Study Sponsor"
+  - Company names: "Sanofi", "Merck", "Bristol-Myers Squibb", "Roche", etc.
+
 Optional fields:
-- protocol_number: Study protocol number (e.g., "EFC13833", "KEYNOTE-XXX")
-- nct_id: ClinicalTrials.gov identifier
-- sponsor: Sponsor company name
 - histology: e.g., "Squamous", "Non-squamous", "Adenocarcinoma"
 - disease_stage: e.g., "Stage IIIB-IV", "Locally advanced or metastatic"
 - biomarker_status: e.g., "PD-L1 ≥50%", "EGFR mutation negative"
@@ -592,25 +601,39 @@ RESPOND IN JSON:
 
         'endpoints': '''Extract ENDPOINT information from this protocol section.
 
-=== CRITICAL: NEVER GUESS THE PRIMARY ENDPOINT ===
-DO NOT assume OS (Overall Survival) is the primary endpoint just because it's common.
-Many studies have OTHER primary endpoints:
+=== CRITICAL: NEVER GUESS OR DEFAULT THE PRIMARY ENDPOINT ===
+ABSOLUTELY DO NOT assume OS (Overall Survival) is the primary endpoint.
+ABSOLUTELY DO NOT default to any endpoint if not explicitly stated.
+If you cannot find explicit text stating the primary endpoint, return "[NEEDS REVIEW]".
+
+Common PRIMARY endpoints by study type (but NEVER assume - must be explicit):
 - TTR (Time to Recurrence) - adjuvant studies
-- PFS (Progression-Free Survival) - most common in oncology
-- ORR (Objective Response Rate) - Phase 2, single-arm studies
-- pCR (Pathologic Complete Response) - neoadjuvant studies
-- DFS (Disease-Free Survival) - adjuvant studies
-- EFS (Event-Free Survival) - hematology studies
+- PFS (Progression-Free Survival) - metastatic oncology
+- ORR (Objective Response Rate) - Phase 2, single-arm
+- pCR (Pathologic Complete Response) - neoadjuvant
+- DFS (Disease-Free Survival) - adjuvant
+- EFS (Event-Free Survival) - hematology
+- R0 resection rate - surgical/neoadjuvant studies
+- Pathological response - neoadjuvant studies
 
 === EXTRACTION RULES ===
-1. FIRST: List ALL endpoints mentioned in the text
-2. THEN: Identify which is EXPLICITLY stated as PRIMARY
-3. If PRIMARY is unclear: Return "[AMBIGUOUS - candidates: X, Y, Z]"
-4. NEVER default to OS if not explicitly stated
+1. Search for "Primary Efficacy Variable" or "Primary Endpoint" section headers
+2. List ALL endpoints mentioned in the text
+3. Identify which is EXPLICITLY stated as PRIMARY
+4. If PRIMARY is unclear: Return "[NEEDS REVIEW - candidates: X, Y, Z]"
+5. NEVER default to OS or any other endpoint
+
+=== SECONDARY ENDPOINTS WITH ANALYSIS METHODS ===
+Extract EACH secondary endpoint paired with its statistical analysis method:
+- "R0 resection rate" → "Cochran-Mantel-Haenszel test stratified by..."
+- "Pathological stage" → "Fisher's exact test"
+- "OS" → "Stratified log-rank test, Cox regression"
+- "ORR" → "Clopper-Pearson 95% CI"
 
 SEMANTIC SEARCH - Look for these CONCEPTS:
 - "primary endpoint" / "primary outcome" / "primary efficacy" / "primary objective"
 - "the primary variable is" / "primary analysis is" / "primary efficacy endpoint"
+- "Primary Efficacy Variable" (section header)
 - "PFS" / "progression-free survival" / "time to progression"
 - "OS" / "overall survival" / "time to death"
 - "ORR" / "objective response rate" / "tumor response" / "response rate"
@@ -618,22 +641,32 @@ SEMANTIC SEARCH - Look for these CONCEPTS:
 - "DFS" / "disease-free survival"
 - "pCR" / "pathologic complete response" / "pathological response"
 - "EFS" / "event-free survival"
+- "R0 resection" / "complete resection" / "margin-negative"
+- "pathological stage" / "ypT" / "ypN" / "pathological downstaging"
 - "DOR" / "duration of response" / "DoR"
 - "DCR" / "disease control rate"
 - "secondary endpoint" / "secondary outcome" / "key secondary"
 - "co-primary" / "dual primary" / "two primary endpoints"
 - "RECIST" / "irRECIST" / "iRECIST" / "mRECIST" / "BICR" / "blinded independent"
+- "Cochran-Mantel-Haenszel" / "CMH" / "Fisher exact" / "chi-square"
 - "defined as" / "measured as" / "time from randomization"
 
 Required fields:
 - all_endpoints_found: List EVERY endpoint mentioned (primary, secondary, exploratory)
 - primary_endpoint: The PRIMARY endpoint with its FULL definition
   - If EXPLICITLY stated: Extract exact wording
-  - If AMBIGUOUS: "[AMBIGUOUS - candidates: X, Y, Z - NEEDS REVIEW]"
-  - If NOT FOUND: "[PRIMARY ENDPOINT NOT EXPLICITLY STATED - NEEDS REVIEW]"
+  - If AMBIGUOUS: "[NEEDS REVIEW - candidates: X, Y, Z]"
+  - If NOT FOUND: "[NEEDS REVIEW - no primary endpoint explicitly stated]"
+
+CRITICAL - secondary_endpoints_with_methods: Extract EACH secondary endpoint WITH its analysis method:
+  Example: [
+    {{"endpoint": "R0 resection rate", "definition": "proportion achieving margin-negative resection", "analysis_method": "Cochran-Mantel-Haenszel test stratified by region"}},
+    {{"endpoint": "Pathological stage", "definition": "ypT0N0 rate", "analysis_method": "Fisher's exact test"}},
+    {{"endpoint": "OS", "definition": "time from randomization to death", "analysis_method": "Stratified log-rank test"}}
+  ]
 
 Optional fields:
-- secondary_endpoints: List ALL secondary endpoints mentioned
+- secondary_endpoints: List ALL secondary endpoints mentioned (simple list)
 - is_co_primary: true if there are CO-PRIMARY endpoints (both must succeed)
 - co_primary_endpoints: List the co-primary endpoints if is_co_primary is true
 - assessment_criteria: Response assessment criteria (RECIST, iRECIST, etc.)
@@ -643,9 +676,13 @@ Optional fields:
 RESPOND IN JSON:
 {{
     "all_endpoints_found": ["<endpoint1>", "<endpoint2>", "<endpoint3>", ...],
-    "primary_endpoint": "<exact primary endpoint from protocol OR ambiguity flag>",
+    "primary_endpoint": "<exact primary endpoint from protocol OR [NEEDS REVIEW] flag>",
     "primary_endpoint_definition": "<full definition with timeframe and criteria>",
-    "secondary_endpoints": ["<endpoint1 with definition>", "<endpoint2>", ...],
+    "secondary_endpoints": ["<endpoint1>", "<endpoint2>", ...],
+    "secondary_endpoints_with_methods": [
+        {{"endpoint": "<name>", "definition": "<def>", "analysis_method": "<method>"}},
+        ...
+    ],
     "is_co_primary": <true/false>,
     "co_primary_endpoints": ["<co-primary1>", "<co-primary2>"] or [],
     "assessment_criteria": "<criteria e.g., RECIST 1.1, iRECIST>",
@@ -928,9 +965,11 @@ RESPOND IN JSON:
 
         'missing_data': '''Extract MISSING DATA and CENSORING information from this protocol section.
 
-=== CRITICAL: LOOK FOR CENSORING RULES TABLES ===
+=== CRITICAL: EXTRACT DETAILED CENSORING RULES ===
 
-Censoring rules are often in tables like this (markdown format):
+Censoring rules are CRITICAL for time-to-event endpoints. Look for:
+
+1. TABLES showing censoring rules per situation:
 | Situation | PFS Censoring Rule | OS Censoring Rule |
 |-----------|-------------------|-------------------|
 | No progression, alive | Last adequate tumor assessment | Censored at last known alive |
@@ -938,22 +977,40 @@ Censoring rules are often in tables like this (markdown format):
 | Missed ≥2 tumor assessments | Last adequate assessment before miss | Not censored |
 | Lost to follow-up | Last adequate assessment | Last known alive date |
 
-Or as numbered lists:
-1. Subjects without documented progression will be censored at last adequate tumor assessment
-2. Subjects who start new anticancer therapy will be censored at date of new therapy
-3. Subjects lost to follow-up will be censored at last contact date
+2. SURGICAL/NEOADJUVANT-SPECIFIC RULES (very important for perioperative trials):
+- R1/R2 resection = progression event (PD) at date of surgery
+- R0 resection = NOT a progression event
+- Surgery date as start of post-operative PFS
+- "Time from surgery to first progression" definitions
 
-EXTRACT EACH CENSORING SCENARIO with its rule.
+3. NUMBERED LISTS of censoring scenarios
+
+=== PFS EVENT DEFINITIONS ===
+Look for what counts as a PFS EVENT vs CENSORING:
+- Radiological progression per RECIST: EVENT
+- Clinical progression: EVENT or CENSORING (protocol-specific)
+- Death without progression: EVENT
+- R1/R2 resection margin: May count as EVENT (surgical trials)
+- New anticancer therapy: May be EVENT or CENSORING
+
+=== TTR/DFS-SPECIFIC RULES (adjuvant trials) ===
+- Recurrence definition (local, regional, distant)
+- Second primary tumor handling
+- Death without recurrence (event vs censoring)
 
 Fields to extract:
-- censoring_rules: List EACH censoring scenario and how it's handled
+- censoring_rules: List EACH censoring scenario with EXACT rule
   Example: [
     "No progression, alive: Censored at last adequate tumor assessment",
+    "R1/R2 resection: Event (PD) at date of surgery",
+    "R0 resection without progression: Censored at last tumor assessment",
     "Started new anticancer therapy before progression: Censored at date of new therapy",
     "Missed 2+ consecutive assessments: Censored at last adequate assessment",
     "Lost to follow-up: Censored at last known alive date",
-    "Death: Event for OS, censored at death date for PFS"
+    "Death without documented progression: Event for PFS"
   ]
+- pfs_event_definition: What counts as a PFS EVENT (not just progression)
+- surgery_censoring_rules: Specific rules for surgical outcomes (R0/R1/R2)
 - treatment_discontinuation_strategy: How treatment discontinuation is handled
 - tipping_point_analysis: true/false
 - subsequent_therapy_handling: How subsequent therapies affect censoring
@@ -962,6 +1019,12 @@ Fields to extract:
 RESPOND IN JSON:
 {{
     "censoring_rules": ["<scenario1>: <rule1>", "<scenario2>: <rule2>", ...],
+    "pfs_event_definition": "<exact definition of what counts as PFS event>" or null,
+    "surgery_censoring_rules": {{
+        "r0_resection": "<how R0 is handled>",
+        "r1_r2_resection": "<how R1/R2 is handled - often counts as PD>",
+        "surgery_date_rules": "<how surgery date is used in analysis>"
+    }} or null,
     "treatment_discontinuation_strategy": "<strategy>" or null,
     "tipping_point_analysis": <true/false>,
     "subsequent_therapy_handling": "<handling>" or null,
@@ -972,18 +1035,52 @@ RESPOND IN JSON:
 
         'populations': '''Extract ANALYSIS POPULATIONS from this protocol section.
 
-Fields:
-- itt_definition: Intent-to-treat population definition
-- fas_definition: Full Analysis Set definition (often same as ITT)
+=== CRITICAL: DISTINGUISH FAS FROM ITT ===
+In oncology trials, FAS (Full Analysis Set) and ITT (Intent-to-Treat) are often different:
+- ITT: All randomized patients
+- FAS: All randomized patients who received at least one dose of study treatment
+- mITT: Modified ITT with additional exclusions
+
+The PRIMARY EFFICACY POPULATION is critical - it determines which population is used for the primary analysis.
+Look for phrases like:
+- "The primary efficacy analysis will be performed on the FAS"
+- "The ITT population will be used for primary analysis"
+- "Primary analysis population: Full Analysis Set"
+
+=== POPULATION DEFINITIONS ===
+Extract the EXACT definition for each population. Common patterns:
+- ITT: "All randomized patients" / "All patients randomized to treatment"
+- FAS: "All randomized patients who received at least one dose" / "ITT minus never-treated"
+- mITT: "ITT excluding patients with major protocol violations" / "ITT with evaluable baseline"
+- Per Protocol: "Patients completing minimum treatment duration without major violations"
+- Safety: "All patients who received at least one dose of study drug"
+
+Required fields:
+- primary_efficacy_population: Which population is used for PRIMARY efficacy analysis?
+  MUST be one of: "ITT", "FAS", "mITT", "Per Protocol", or exact name from protocol
+  This is CRITICAL - never leave blank or default to ITT without verification.
+
+- itt_definition: Intent-to-treat population definition (exact wording from protocol)
+- fas_definition: Full Analysis Set definition (may differ from ITT!)
+- fas_vs_itt_difference: Explain the difference if FAS ≠ ITT
+  Example: "FAS excludes patients who never received study drug"
+
+Optional fields:
+- mitt_definition: Modified ITT if mentioned
 - per_protocol_definition: Per-protocol population definition
 - safety_population_definition: Safety population definition
+- efficacy_evaluable_definition: If a separate evaluable population exists
 
 RESPOND IN JSON:
 {{
-    "itt_definition": "<definition>",
-    "fas_definition": "<definition>" or null,
+    "primary_efficacy_population": "<ITT|FAS|mITT|Per Protocol|exact name>",
+    "itt_definition": "<exact definition from protocol>",
+    "fas_definition": "<exact definition from protocol>" or null,
+    "fas_vs_itt_difference": "<explanation of difference>" or null,
+    "mitt_definition": "<definition>" or null,
     "per_protocol_definition": "<definition>" or null,
     "safety_population_definition": "<definition>",
+    "efficacy_evaluable_definition": "<definition>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
