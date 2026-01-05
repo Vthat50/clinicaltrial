@@ -325,87 +325,114 @@ class SectionedProtocolExtractor:
 
 CRITICAL: Extract EXACTLY what the protocol says. DO NOT infer from drug name or therapeutic area.
 
-=== CRITICAL: DETECT STUDY TYPE (use contextual understanding) ===
+=== CRITICAL: DRUG NAME EXTRACTION ===
+You MUST extract the actual drug names. Search for:
+- Brand names (e.g., "Keytruda", "Opdivo", "Tecentriq")
+- Generic names (e.g., "pembrolizumab", "nivolumab", "atezolizumab")
+- Code names (e.g., "MK-3475", "BMS-936558", "MPDL3280A")
+- Combination regimens (e.g., "DOS" = Docetaxel+Oxaliplatin+S-1)
+- "Experimental arm" / "Investigational product" descriptions
+
+Look in:
+- Protocol title
+- Treatment arm descriptions
+- Dosing sections
+- Schema/flowchart descriptions
+
+=== CRITICAL: PHASE EXTRACTION ===
+Search for: "Phase 1", "Phase 2", "Phase 3", "Phase 1/2", "Phase 2/3", "Phase 1b"
+Also look in: Protocol title, study design section, objectives
+
+=== CRITICAL: TREATMENT SETTING ===
+EXACTLY one of: "first-line", "second-line", "third-line or later", "neoadjuvant", "adjuvant", "maintenance"
+
+Check the PROTOCOL TITLE first! It often contains the treatment line:
+- "First-Line Treatment" or "1L" = first-line
+- "Second-Line" or "2L" or "Previously Treated" = second-line
+
+FIRST-LINE indicators (any of these = first-line):
+- "first-line treatment" / "1st line" / "1L"
+- "previously untreated" / "treatment-naive" / "treatment-naïve"
+- "no prior systemic therapy" / "have not received prior"
+- "front-line" / "initial treatment"
+
+SECOND-LINE indicators (any of these = second-line):
+- "second-line" / "2nd line" / "2L"
+- "after failure of" / "following progression"
+- "previously treated" / "prior therapy required"
+- "relapsed" / "refractory"
+
+NEOADJUVANT indicators:
+- "neoadjuvant" / "pre-operative" / "before surgery"
+- "perioperative" (often includes neoadjuvant)
+
+ADJUVANT indicators:
+- "adjuvant" / "post-operative" / "after surgery"
+- "curative intent" / "resected"
+
+=== STUDY TYPE CLASSIFICATION ===
 
 is_single_arm: Is there only ONE treatment group with NO comparator/control arm?
-  - TRUE if: only one treatment described, no randomization between groups, no control arm
-  - FALSE if: patients are randomized between treatment vs control/comparator
-  - Look at the STUDY DESIGN section, not just keywords
+is_pilot_study: Is this exploratory/feasibility rather than confirmatory?
+num_arms: How many distinct treatment groups?
+hypothesis_testing_planned: Will formal statistical tests be performed?
 
-is_pilot_study: Is this an exploratory/feasibility study rather than confirmatory?
-  - TRUE if: primary goal is safety/feasibility assessment, small sample without power calculation,
-    explicitly called pilot/feasibility, or "no formal hypothesis testing"
-  - FALSE if: designed to test a hypothesis with statistical power, Phase 3, registration-enabling
-  - Consider the OBJECTIVES and SAMPLE SIZE JUSTIFICATION
-
-num_arms: How many distinct treatment groups are patients assigned to?
-  - Count: 1 for single-arm, 2 for two-arm randomized, 3+ for multi-arm
-
-hypothesis_testing_planned: Will formal statistical hypothesis tests be performed?
-  - FALSE if: "descriptive statistics only", "no statistical tests", exploratory endpoints only
-  - TRUE if: p-values, type I error control, power calculations mentioned
-
-study_category: Classify the study type for downstream analysis:
+study_category: Classify the study:
   - "confirmatory_superiority": Phase 3, hypothesis testing, superiority claim
-  - "confirmatory_non_inferiority": Phase 3, NI design, registration-enabling
+  - "confirmatory_non_inferiority": Phase 3, NI design
   - "exploratory_single_arm": Phase 2, single-arm, often ORR primary
   - "exploratory_randomized": Phase 2, randomized but not registration-enabling
   - "dose_finding": Phase 1/1b, MTD/RP2D identification
   - "basket_trial": Multiple tumor types, shared biomarker
   - "umbrella_trial": One tumor type, multiple biomarker arms
   - "platform_trial": Shared control, arms added/dropped adaptively
-  - "adaptive_design": Pre-planned adaptations (sample size, enrichment)
+  - "adaptive_design": Pre-planned adaptations
 
-Required fields (must find or mark [NOT FOUND]):
-- treatment_setting: EXACTLY one of: "first-line", "second-line", "third-line or later",
-  "neoadjuvant", "adjuvant", "maintenance".
-
-  CRITICAL - Check the PROTOCOL TITLE first! It often contains the treatment line:
-  - "First-Line Treatment" or "1L" = first-line
-  - "Second-Line" or "2L" or "Previously Treated" = second-line
-
-  Also look for these phrases:
-  FIRST-LINE indicators (any of these = first-line):
-  - "first-line treatment" / "1st line" / "1L"
-  - "previously untreated" / "treatment-naive" / "treatment-naïve"
-  - "no prior systemic therapy" / "have not received prior"
-  - "front-line" / "initial treatment"
-
-  SECOND-LINE indicators (any of these = second-line):
-  - "second-line" / "2nd line" / "2L"
-  - "after failure of" / "following progression"
-  - "previously treated" / "prior therapy required"
-  - "relapsed" / "refractory"
-- disease_type: The specific disease, e.g., "Non-small cell lung cancer (NSCLC)",
-  "HER2-positive breast cancer", "Advanced melanoma". Be specific, not generic.
-- phase: "Phase 1", "Phase 2", "Phase 3", etc.
-- drug_name: The experimental drug name
-- comparator: The control arm treatment (use "None - single arm" if single-arm study)
+Required fields (MUST extract - search thoroughly):
+- drug_name: The experimental drug name(s) - NEVER leave blank
+  If multiple drugs: "Drug A + Drug B" or list combination
+  If truly not found: "[DRUG NAME NOT FOUND - check protocol title/treatment sections]"
+- comparator: The control arm treatment
+  If single-arm: "None - single arm study"
+  If placebo: "Placebo"
+  If active control: Extract exact name (e.g., "Paclitaxel-carboplatin", "Docetaxel")
+  If truly not found: "[COMPARATOR NOT FOUND - NEEDS REVIEW]"
+- treatment_setting: Setting from list above or "[NOT FOUND]"
+- disease_type: Specific disease (e.g., "Advanced gastric cancer", "NSCLC")
+- phase: "Phase 1", "Phase 2", "Phase 3", etc. or "[NOT FOUND]"
 
 Optional fields:
+- protocol_number: Study protocol number (e.g., "EFC13833", "KEYNOTE-XXX")
+- nct_id: ClinicalTrials.gov identifier
+- sponsor: Sponsor company name
 - histology: e.g., "Squamous", "Non-squamous", "Adenocarcinoma"
 - disease_stage: e.g., "Stage IIIB-IV", "Locally advanced or metastatic"
 - biomarker_status: e.g., "PD-L1 ≥50%", "EGFR mutation negative"
 - allocation_ratio: e.g., "1:1", "2:1" (null if single-arm)
 - blinding_type: e.g., "Open-label", "Double-blind"
+- treatment_duration: How long patients receive treatment
 
 RESPOND IN JSON:
 {{
+    "drug_name": "<exact drug name(s) or [NOT FOUND flag]>",
+    "comparator": "<exact comparator or 'None - single arm study' or [NOT FOUND flag]>",
+    "treatment_setting": "<exact setting or [NOT FOUND]>",
+    "disease_type": "<specific disease or [NOT FOUND]>",
+    "phase": "<phase or [NOT FOUND]>",
+    "protocol_number": "<number>" or null,
+    "nct_id": "<NCT number>" or null,
+    "sponsor": "<sponsor>" or null,
     "is_single_arm": <true/false>,
     "is_pilot_study": <true/false>,
     "num_arms": <number>,
     "hypothesis_testing_planned": <true/false>,
     "study_category": "<category from list above>",
-    "treatment_setting": "<exact setting or [NOT FOUND]>",
-    "disease_type": "<specific disease or [NOT FOUND]>",
-    "phase": "<phase>",
-    "drug_name": "<drug>",
-    "comparator": "<comparator or 'None - single arm'>",
-    "histology": "<histology or null>",
-    "disease_stage": "<stage or null>",
-    "biomarker_status": "<status or null>",
-    "allocation_ratio": "<ratio or null>",
+    "histology": "<histology>" or null,
+    "disease_stage": "<stage>" or null,
+    "biomarker_status": "<status>" or null,
+    "allocation_ratio": "<ratio>" or null,
     "blinding_type": "<blinding>",
+    "treatment_duration": "<duration>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
@@ -565,36 +592,65 @@ RESPOND IN JSON:
 
         'endpoints': '''Extract ENDPOINT information from this protocol section.
 
+=== CRITICAL: NEVER GUESS THE PRIMARY ENDPOINT ===
+DO NOT assume OS (Overall Survival) is the primary endpoint just because it's common.
+Many studies have OTHER primary endpoints:
+- TTR (Time to Recurrence) - adjuvant studies
+- PFS (Progression-Free Survival) - most common in oncology
+- ORR (Objective Response Rate) - Phase 2, single-arm studies
+- pCR (Pathologic Complete Response) - neoadjuvant studies
+- DFS (Disease-Free Survival) - adjuvant studies
+- EFS (Event-Free Survival) - hematology studies
+
+=== EXTRACTION RULES ===
+1. FIRST: List ALL endpoints mentioned in the text
+2. THEN: Identify which is EXPLICITLY stated as PRIMARY
+3. If PRIMARY is unclear: Return "[AMBIGUOUS - candidates: X, Y, Z]"
+4. NEVER default to OS if not explicitly stated
+
 SEMANTIC SEARCH - Look for these CONCEPTS:
 - "primary endpoint" / "primary outcome" / "primary efficacy" / "primary objective"
+- "the primary variable is" / "primary analysis is" / "primary efficacy endpoint"
 - "PFS" / "progression-free survival" / "time to progression"
 - "OS" / "overall survival" / "time to death"
 - "ORR" / "objective response rate" / "tumor response" / "response rate"
+- "TTR" / "time to recurrence" / "recurrence-free"
+- "DFS" / "disease-free survival"
+- "pCR" / "pathologic complete response" / "pathological response"
+- "EFS" / "event-free survival"
 - "DOR" / "duration of response" / "DoR"
 - "DCR" / "disease control rate"
-- "TTR" / "time to response"
 - "secondary endpoint" / "secondary outcome" / "key secondary"
 - "co-primary" / "dual primary" / "two primary endpoints"
 - "RECIST" / "irRECIST" / "iRECIST" / "mRECIST" / "BICR" / "blinded independent"
 - "defined as" / "measured as" / "time from randomization"
 
 Required fields:
+- all_endpoints_found: List EVERY endpoint mentioned (primary, secondary, exploratory)
 - primary_endpoint: The PRIMARY endpoint with its FULL definition
-  Example: "Progression-free survival (PFS), defined as time from randomization to first documented disease progression per RECIST 1.1 or death"
+  - If EXPLICITLY stated: Extract exact wording
+  - If AMBIGUOUS: "[AMBIGUOUS - candidates: X, Y, Z - NEEDS REVIEW]"
+  - If NOT FOUND: "[PRIMARY ENDPOINT NOT EXPLICITLY STATED - NEEDS REVIEW]"
 
 Optional fields:
 - secondary_endpoints: List ALL secondary endpoints mentioned
 - is_co_primary: true if there are CO-PRIMARY endpoints (both must succeed)
 - co_primary_endpoints: List the co-primary endpoints if is_co_primary is true
-- assessment_criteria: Response assessment criteria
+- assessment_criteria: Response assessment criteria (RECIST, iRECIST, etc.)
+- assessment_timing: When endpoints are assessed (e.g., "at 3 years", "every 8 weeks")
+- biomarker_subgroups: If endpoints differ by biomarker (e.g., "PFS in PD-L1 ≥50%")
 
 RESPOND IN JSON:
 {{
-    "primary_endpoint": "<endpoint name AND full definition>",
+    "all_endpoints_found": ["<endpoint1>", "<endpoint2>", "<endpoint3>", ...],
+    "primary_endpoint": "<exact primary endpoint from protocol OR ambiguity flag>",
+    "primary_endpoint_definition": "<full definition with timeframe and criteria>",
     "secondary_endpoints": ["<endpoint1 with definition>", "<endpoint2>", ...],
     "is_co_primary": <true/false>,
     "co_primary_endpoints": ["<co-primary1>", "<co-primary2>"] or [],
-    "assessment_criteria": "<criteria>",
+    "assessment_criteria": "<criteria e.g., RECIST 1.1, iRECIST>",
+    "assessment_timing": "<timing>" or null,
+    "biomarker_subgroups": ["<subgroup1>", "<subgroup2>"] or [],
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
 }}''',
@@ -1938,9 +1994,32 @@ Return JSON:
                     print(f"[SectionedExtractor] Using LlamaParse result for '{section_name}' (via alias '{alias}'): {len(content)} chars (confidence: {confidence:.2f})")
                     return content[:max_chars]
 
-        # NO FALLBACK - LlamaParse must have extracted this section
+        # FALLBACK: Section not in LlamaParse results - use full document text
+        # This is needed for sections like study_design, missing_data, estimand that LlamaParse may not extract
         available = list(self._parsed_protocol.sections.keys()) if self._parsed_protocol else []
-        raise ValueError(f"[SectionedExtractor] FATAL: Section '{section_name}' not found in LlamaParse results. Available sections: {available}. No fallbacks allowed.")
+        print(f"[SectionedExtractor] Section '{section_name}' not in LlamaParse results. Available: {available}")
+
+        # Try to get full_text from LlamaParse result first
+        if self._parsed_protocol:
+            # Check for full_text section
+            if 'full_text' in self._parsed_protocol.sections:
+                full_text = self._parsed_protocol.sections['full_text'].content
+                print(f"[SectionedExtractor] Using full_text from LlamaParse for '{section_name}': {len(full_text)} chars")
+                return full_text[:max_chars]
+
+            # Use raw_text from parsed protocol
+            if self._parsed_protocol.raw_text:
+                raw_text = self._parsed_protocol.raw_text
+                print(f"[SectionedExtractor] Using raw_text from LlamaParse for '{section_name}': {len(raw_text)} chars")
+                return raw_text[:max_chars]
+
+        # Ultimate fallback: use the protocol_text passed in
+        if protocol_text:
+            print(f"[SectionedExtractor] Using protocol_text fallback for '{section_name}': {len(protocol_text)} chars")
+            return protocol_text[:max_chars]
+
+        # Nothing available - this is a real error
+        raise ValueError(f"[SectionedExtractor] FATAL: No text available for section '{section_name}'. LlamaParse sections: {available}")
 
     def _locate_sections_in_document(self, text: str) -> Dict[str, float]:
         """
