@@ -1225,16 +1225,35 @@ Write the {section_title} section now. Start with "## {section_title}" as header
             # Statistical method variations
             (r'\[STATISTICAL METHOD NOT FOUND[^\]]*\]', 'statistical_method'),
             (r'\[STATISTICAL METHOD NOT EXTRACTED[^\]]*\]', 'statistical_method'),
+            (r'\[To be specified\](?=.*[Ss]tatistical [Mm]ethod)', 'statistical_method'),
 
             # Treatment setting
             (r'\[TREATMENT SETTING NOT EXTRACTED[^\]]*\]', 'treatment_setting'),
+            (r'\[To be specified\](?=.*[Tt]reatment [Ss]etting)', 'treatment_setting'),
 
             # Interim analysis
-            (r'\[INTERIM METHOD NOT EXTRACTED[^\]]*\]', 'interim_analysis_method'),
+            (r'\[INTERIM METHOD NOT EXTRACTED[^\]]*\]', 'alpha_spending_function'),
             (r'\[ALPHA SPENDING NOT EXTRACTED[^\]]*\]', 'alpha_spending_function'),
+            (r'\[To be specified\](?=.*[Aa]lpha [Ss]pending)', 'alpha_spending_function'),
 
             # Sample size
             (r'\[SAMPLE SIZE NOT EXTRACTED[^\]]*\]', 'sample_size'),
+            (r'\[To be specified\](?=.*[Ss]ample [Ss]ize)', 'sample_size'),
+
+            # Disease/indication
+            (r'\[To be specified\](?=.*[Dd]isease)', 'disease_type'),
+            (r'\[To be specified\](?=.*[Ii]ndication)', 'disease_type'),
+
+            # Comparator/control
+            (r'\[To be specified\](?=.*[Cc]omparator)', 'comparator'),
+            (r'\[To be specified\](?=.*[Cc]ontrol)', 'comparator'),
+
+            # Drug name
+            (r'\[To be specified\](?=.*[Dd]rug)', 'drug_name'),
+            (r'\[To be specified\](?=.*[Tt]reatment)', 'drug_name'),
+
+            # Stratification
+            (r'\[To be specified\](?=.*[Ss]tratification)', 'stratification_factors'),
         ]
 
         modified = sap_text

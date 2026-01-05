@@ -1817,22 +1817,88 @@ DOCUMENT SAMPLES:
 
             data = json.loads(json_str)
 
+            # Normalize LLM-returned names to our expected section names
+            NAME_ALIASES = {
+                # Sample size variations
+                'sample_size': 'sample_size',
+                'sample_size_calculation': 'sample_size',
+                'sample_size_justification': 'sample_size',
+                'power_calculation': 'sample_size',
+                'power': 'sample_size',
+                'sample_size_determination': 'sample_size',
+                # Statistical methods variations
+                'statistical_methods': 'statistical_methods',
+                'statistical_analysis': 'statistical_methods',
+                'statistical': 'statistical_methods',
+                'analysis_methods': 'statistical_methods',
+                'primary_analysis': 'statistical_methods',
+                # Endpoints variations
+                'endpoints': 'endpoints',
+                'primary_endpoint': 'endpoints',
+                'primary_endpoints': 'endpoints',
+                'objectives': 'endpoints',
+                'efficacy_endpoints': 'endpoints',
+                # Interim analysis variations
+                'interim_analysis': 'interim_analysis',
+                'interim_analyses': 'interim_analysis',
+                'interim': 'interim_analysis',
+                'group_sequential': 'interim_analysis',
+                # Multiplicity variations
+                'multiplicity': 'multiplicity',
+                'multiple_testing': 'multiplicity',
+                'alpha_spending': 'multiplicity',
+                'multiplicity_adjustment': 'multiplicity',
+                # Missing data variations
+                'missing_data': 'missing_data',
+                'censoring': 'missing_data',
+                'missing_data_handling': 'missing_data',
+                'sensitivity_analysis': 'missing_data',
+                # Populations variations
+                'populations': 'populations',
+                'study_populations': 'populations',
+                'analysis_populations': 'populations',
+                'itt': 'populations',
+                'fas': 'populations',
+                'per_protocol': 'populations',
+                # Stratification variations
+                'stratification': 'stratification',
+                'stratified_randomization': 'stratification',
+                'randomization': 'stratification',
+                # Study design variations
+                'study_design': 'study_design',
+                'study_overview': 'study_design',
+                'design': 'study_design',
+                # Estimand variations
+                'estimand': 'estimand',
+                'estimand_framework': 'estimand',
+                # Safety variations
+                'safety': 'safety_analysis',
+                'safety_analysis': 'safety_analysis',
+                'adverse_events': 'safety_analysis',
+            }
+
             locations = {}
             for s in data.get('sections_found', []):
-                name = s.get('name', '').lower().replace(' ', '_')
+                raw_name = s.get('name', '').lower().replace(' ', '_')
+                # Normalize the name
+                name = NAME_ALIASES.get(raw_name, raw_name)
                 pos = s.get('position_percent', 50) / 100.0
                 heading = s.get('heading_found', '')
                 is_actual = s.get('is_actual_content', True)
 
                 # CRITICAL: Filter out TOC entries (positions below 30% are almost always TOC)
                 if pos < 0.30:
-                    print(f"[SectionedExtractor] SKIPPING '{name}' at {int(pos*100)}% - likely TOC entry: {heading}")
+                    print(f"[SectionedExtractor] SKIPPING '{raw_name}' at {int(pos*100)}% - likely TOC entry: {heading}")
                     continue
 
                 # Also skip if explicitly marked as not actual content
                 if not is_actual:
-                    print(f"[SectionedExtractor] SKIPPING '{name}' - not marked as actual content: {heading}")
+                    print(f"[SectionedExtractor] SKIPPING '{raw_name}' - not marked as actual content: {heading}")
                     continue
+
+                # If name was normalized, log it
+                if name != raw_name:
+                    print(f"[SectionedExtractor] Normalized '{raw_name}' -> '{name}'")
 
                 locations[name] = pos
                 print(f"[SectionedExtractor] Found '{name}' at {int(pos*100)}%: {heading}")
