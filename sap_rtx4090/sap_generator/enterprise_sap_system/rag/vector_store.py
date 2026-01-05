@@ -473,7 +473,7 @@ def create_vector_store(persist_directory: Path = None, auto_index: bool = True)
 
             if rag_dir.exists():
                 print(f"[AUTO-INDEX] Found rag_training_data at: {rag_dir}")
-                loaded = store.load_training_data(str(rag_dir))
+                loaded = store.load_from_training_data(Path(rag_dir))
                 print(f"[AUTO-INDEX] Indexed {loaded} chunks from rag_training_data")
             else:
                 print(f"[AUTO-INDEX] WARNING: rag_training_data not found at {rag_dir}")
