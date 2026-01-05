@@ -2254,17 +2254,8 @@ DOCUMENT SAMPLES:
                 (max(0.0, center_pos + 0.05), min(1.0, center_pos + 0.15)),   # Middle to end
             ]
         else:
-            print(f"[SectionedExtractor] Section '{section_name}' not located, using content-focused sampling")
-            # Fall back to CONTENT-FOCUSED sampling
-            # Statistical content is typically at 50-85% through the document
-            # TOC is at 0-15%, study design at 20-40%, stats at 50-80%
-            regions = [
-                (0.45, 0.55),   # Where stats sections often START
-                (0.55, 0.65),   # Middle of stats section
-                (0.65, 0.75),   # Later stats content (interim, multiplicity)
-                (0.75, 0.85),   # Near end stats content (missing data)
-                (0.20, 0.30),   # Study design (if needed for context)
-            ]
+            # NO FALLBACK - if section location failed, raise error
+            raise ValueError(f"[SectionedExtractor] FATAL: Section '{section_name}' not located in document. Section location must succeed - no fallbacks allowed.")
 
         # Calculate sample size per region (aim for ~20K total for better coverage)
         sample_per_region = 20000 // len(regions)
