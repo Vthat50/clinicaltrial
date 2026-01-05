@@ -1606,31 +1606,21 @@ Return JSON:
         else:
             print(f"[SectionedExtractor] Using CACHED parse result ({len(self._parsed_protocol.sections)} sections)")
 
-        # Get relevant section names
-        relevant_sections = self.SECTION_MAPPING.get(section_name, [section_name])
+        # NO FALLBACKS: Use dynamic section location ONLY
+        raw_text = ""
+        if "full_text" in self._parsed_protocol.sections:
+            raw_text = self._parsed_protocol.get("full_text", "")
+        else:
+            raw_text = protocol_text
 
-        # Combine text from relevant sections
-        combined_text = []
-        for sect in relevant_sections:
-            content = self._parsed_protocol.get(sect, "")
-            if content:
-                combined_text.append(f"=== {sect.upper()} SECTION ===\n{content}")
+        if not raw_text:
+            print(f"[SectionedExtractor] ERROR: No text available for {section_name}")
+            return ""
 
-        # If no specific sections found, use MULTI-REGION SAMPLING from full document
-        if not combined_text:
-            raw_text = ""
-
-            # Check if we have full_text section
-            if "full_text" in self._parsed_protocol.sections:
-                raw_text = self._parsed_protocol.get("full_text", "")
-            else:
-                raw_text = protocol_text
-
-            if raw_text:
-                # Apply MULTI-REGION SAMPLING instead of truncation!
-                sampled_text = self._multi_region_sample(raw_text, section_name)
-                print(f"[SectionedExtractor] Multi-region sampling from {len(raw_text)} chars -> {len(sampled_text)} chars for {section_name}")
-                combined_text.append(sampled_text)
+        # ALWAYS use multi-region sampling with dynamic location
+        # This finds the ACTUAL section position, not wrong fallback content
+        sampled_text = self._multi_region_sample(raw_text, section_name)
+        combined_text = [sampled_text] if sampled_text else []
 
         result = "\n\n".join(combined_text) if combined_text else ""
         print(f"[SectionedExtractor] Final text for {section_name}: {len(result)} chars")
