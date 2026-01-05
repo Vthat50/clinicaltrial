@@ -31,14 +31,38 @@ from pathlib import Path
 _thread_pool = concurrent.futures.ThreadPoolExecutor(max_workers=2)
 
 def _run_async_in_thread(coro):
-    """Run an async coroutine in a separate thread with its own event loop."""
+    """Run an async coroutine in a separate thread with its own event loop.
+
+    Properly handles event loop cleanup to avoid 'Event loop is closed' errors
+    from pending SSL/TLS cleanup callbacks.
+    """
     def run_in_new_loop():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
             return loop.run_until_complete(coro)
         finally:
-            loop.close()
+            # Properly shutdown async generators and pending tasks
+            try:
+                # Cancel all pending tasks
+                pending = asyncio.all_tasks(loop)
+                for task in pending:
+                    task.cancel()
+
+                # Allow cancelled tasks to complete
+                if pending:
+                    loop.run_until_complete(asyncio.gather(*pending, return_exceptions=True))
+
+                # Shutdown async generators
+                loop.run_until_complete(loop.shutdown_asyncgens())
+
+                # Python 3.9+ has shutdown_default_executor
+                if hasattr(loop, 'shutdown_default_executor'):
+                    loop.run_until_complete(loop.shutdown_default_executor())
+            except Exception:
+                pass  # Ignore cleanup errors
+            finally:
+                loop.close()
 
     future = _thread_pool.submit(run_in_new_loop)
     return future.result(timeout=300)  # 5 minute timeout
