@@ -431,11 +431,25 @@ class SAPVectorStore:
         return total_loaded
 
 
+# Singleton cache for vector store (avoid reloading embedder)
+_vector_store_cache: dict = {}
+
 def create_vector_store(persist_directory: Path = None, auto_index: bool = True) -> SAPVectorStore:
-    """Factory function to create vector store.
+    """Factory function to create vector store (SINGLETON - cached).
 
     If auto_index=True and store is empty, automatically indexes from rag_training_data.
+    Uses singleton pattern to avoid reloading embedder (~7s) on every call.
     """
+    global _vector_store_cache
+
+    # Create cache key
+    cache_key = str(persist_directory) if persist_directory else "default"
+
+    # Return cached instance if exists
+    if cache_key in _vector_store_cache:
+        return _vector_store_cache[cache_key]
+
+    # Create new instance
     store = SAPVectorStore(persist_directory=persist_directory)
 
     # Check if store is empty and auto-index from rag_training_data
@@ -463,6 +477,10 @@ def create_vector_store(persist_directory: Path = None, auto_index: bool = True)
                 print(f"[AUTO-INDEX] Indexed {loaded} chunks from rag_training_data")
             else:
                 print(f"[AUTO-INDEX] WARNING: rag_training_data not found at {rag_dir}")
+
+    # Cache the instance
+    _vector_store_cache[cache_key] = store
+    print(f"[VectorStore] Cached instance (key: {cache_key})")
 
     return store
 
