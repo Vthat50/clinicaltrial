@@ -2090,6 +2090,20 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         if pdf_path:
             print(f"[SectionedExtractor] PDF path provided: {pdf_path}")
 
+        # =====================================================================
+        # CRITICAL FIX: Pre-parse PDF ONCE before parallel extraction
+        # This prevents multiple LlamaParse calls (rate limiting + event loop issues)
+        # =====================================================================
+        if pdf_path and self._parsed_protocol is None:
+            print(f"[SectionedExtractor] PRE-PARSING PDF before parallel extraction...")
+            self._parsed_protocol = self.section_parser.parse(
+                protocol_text,
+                pdf_path=pdf_path
+            )
+            self._cached_pdf_path = pdf_path
+            self._cached_text_hash = str(hash(protocol_text[:1000])) if protocol_text else None
+            print(f"[SectionedExtractor] Pre-parsed into {len(self._parsed_protocol.sections)} sections: {list(self._parsed_protocol.sections.keys())}")
+
         if sections is None:
             sections = list(self.SECTIONS.keys())
 
