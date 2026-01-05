@@ -1909,340 +1909,342 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     """
     facts = ExtractedProtocolFacts()
 
-    # Administrative
-    facts.admin.nct_id = extracted.get('nct_id', '')
-    facts.admin.protocol_title = extracted.get('protocol_title', '')
-    facts.admin.sponsor = extracted.get('sponsor', '')
+    # Administrative - use 'or' to handle None values (not just missing keys)
+    facts.admin.nct_id = extracted.get('nct_id') or ''
+    facts.admin.protocol_title = extracted.get('protocol_title') or ''
+    facts.admin.sponsor = extracted.get('sponsor') or ''
 
     # Design - CORE
-    facts.design.drug_name = extracted.get('drug_name', '')
-    facts.design.comparator = extracted.get('comparator', '')
-    facts.design.phase = extracted.get('phase', '')
-    facts.design.sample_size = extracted.get('sample_size', 0)
+    # CRITICAL FIX: Use 'or' instead of default param to handle None values
+    # .get('key', default) only uses default if key is MISSING, not if key exists with None value
+    facts.design.drug_name = extracted.get('drug_name') or ''
+    facts.design.comparator = extracted.get('comparator') or ''
+    facts.design.phase = extracted.get('phase') or ''
+    facts.design.sample_size = extracted.get('sample_size') or 0  # FIXED: handles None
     facts.design.allocation_ratio = extracted.get('allocation_ratio') or extracted.get('randomization_ratio') or ''
-    facts.design.stratification_factors = extracted.get('stratification_factors', [])
-    facts.design.design_type = extracted.get('design_type', '')
+    facts.design.stratification_factors = extracted.get('stratification_factors') or []  # FIXED: handles None
+    facts.design.design_type = extracted.get('design_type') or ''
     facts.design.is_randomized = extracted.get('is_randomized')  # None if not found
 
-    # Design - NEW CRITICAL FIELDS
-    facts.design.treatment_setting = extracted.get('treatment_setting', '')
-    facts.design.disease_type = extracted.get('disease_type', '') or extracted.get('indication', '')
-    facts.design.tumor_type = extracted.get('tumor_type', '')
-    facts.design.histology = extracted.get('histology', '')
-    facts.design.disease_stage = extracted.get('disease_stage', '')
-    facts.design.biomarker_status = extracted.get('biomarker_status', '')
-    facts.design.stratification_factor_levels = extracted.get('stratification_factor_levels', {})
+    # Design - NEW CRITICAL FIELDS (use 'or' to handle None values)
+    facts.design.treatment_setting = extracted.get('treatment_setting') or ''
+    facts.design.disease_type = extracted.get('disease_type') or extracted.get('indication') or ''
+    facts.design.tumor_type = extracted.get('tumor_type') or ''
+    facts.design.histology = extracted.get('histology') or ''
+    facts.design.disease_stage = extracted.get('disease_stage') or ''
+    facts.design.biomarker_status = extracted.get('biomarker_status') or ''
+    facts.design.stratification_factor_levels = extracted.get('stratification_factor_levels') or {}
 
-    # Estimand (ICH E9 R1) - NEW
-    facts.estimand.population = extracted.get('estimand_population', '')
-    facts.estimand.variable = extracted.get('estimand_variable', '')
-    facts.estimand.intercurrent_events = extracted.get('intercurrent_events', [])
-    facts.estimand.primary_estimand = extracted.get('primary_estimand', '')
+    # Estimand (ICH E9 R1) - NEW (use 'or' to handle None values)
+    facts.estimand.population = extracted.get('estimand_population') or ''
+    facts.estimand.variable = extracted.get('estimand_variable') or ''
+    facts.estimand.intercurrent_events = extracted.get('intercurrent_events') or []
+    facts.estimand.primary_estimand = extracted.get('primary_estimand') or ''
 
-    # Endpoints
-    facts.endpoints.primary_endpoint_text = extracted.get('primary_endpoint', '')
-    facts.endpoints.secondary_endpoints = extracted.get('secondary_endpoints', [])
-    facts.endpoints.is_co_primary = extracted.get('is_co_primary')  # None if not found
-    facts.endpoints.co_primary_endpoints = extracted.get('co_primary_endpoints', [])
+    # Endpoints (use 'or' to handle None values)
+    facts.endpoints.primary_endpoint_text = extracted.get('primary_endpoint') or ''
+    facts.endpoints.secondary_endpoints = extracted.get('secondary_endpoints') or []
+    facts.endpoints.is_co_primary = extracted.get('is_co_primary')  # None if not found (intentional)
+    facts.endpoints.co_primary_endpoints = extracted.get('co_primary_endpoints') or []
 
-    # Interim Analysis - CRITICAL (NO DEFAULTS - must be extracted)
-    facts.interim.has_interim_analysis = extracted.get('has_interim_analysis')  # None if not found
-    facts.interim.num_interim_analyses = extracted.get('num_interim_analyses')  # None if not found
-    facts.interim.interim_events = extracted.get('interim_events', [])
-    facts.interim.final_events = extracted.get('final_events') or extracted.get('final_analysis_events')
-    facts.interim.information_fractions = extracted.get('interim_information_fraction', [])
-    facts.interim.alpha_spending_function = extracted.get('error_spending_function', '') or extracted.get('alpha_spending_function', '')
+    # Interim Analysis - CRITICAL (intentionally allow None for some fields)
+    facts.interim.has_interim_analysis = extracted.get('has_interim_analysis')  # None if not found (intentional)
+    facts.interim.num_interim_analyses = extracted.get('num_interim_analyses')  # None if not found (intentional)
+    facts.interim.interim_events = extracted.get('interim_events') or []  # FIXED: handles None
+    facts.interim.final_events = extracted.get('final_events') or extracted.get('final_analysis_events')  # None ok
+    facts.interim.information_fractions = extracted.get('interim_information_fraction') or []  # FIXED: handles None
+    facts.interim.alpha_spending_function = extracted.get('error_spending_function') or extracted.get('alpha_spending_function') or ''
     facts.interim.overall_alpha = extracted.get('alpha_level') or extracted.get('overall_alpha')  # None if not found - NEVER default 0.05
-    facts.interim.alpha_at_interim = extracted.get('interim_alpha_spent', []) or extracted.get('alpha_at_interim', [])
-    facts.interim.alpha_at_final = extracted.get('alpha_at_final')
-    facts.interim.stopping_boundaries = extracted.get('stopping_boundaries', '')
+    facts.interim.alpha_at_interim = extracted.get('interim_alpha_spent') or extracted.get('alpha_at_interim') or []  # FIXED: handles None
+    facts.interim.alpha_at_final = extracted.get('alpha_at_final')  # None ok (intentional)
+    facts.interim.stopping_boundaries = extracted.get('stopping_boundaries') or ''  # FIXED: handles None
 
-    # Per-endpoint IA - NEW
-    interim_by_ep = extracted.get('interim_by_endpoint', [])
+    # Per-endpoint IA - NEW (use 'or' to handle None)
+    interim_by_ep = extracted.get('interim_by_endpoint') or []
     for ia in interim_by_ep:
         facts.interim.interim_by_endpoint.append(InterimAnalysisPerEndpoint(
-            endpoint=ia.get('endpoint', ''),
-            timing=ia.get('timing', ''),
-            events_required=ia.get('events'),
-            alpha_spent=ia.get('alpha')
+            endpoint=ia.get('endpoint') or '',
+            timing=ia.get('timing') or '',
+            events_required=ia.get('events'),  # None ok
+            alpha_spent=ia.get('alpha')  # None ok
         ))
 
-    # Methods
-    facts.methods.primary_test = extracted.get('statistical_method', '') or extracted.get('primary_test', '')
-    facts.methods.expected_hazard_ratio = extracted.get('hazard_ratio')
-    facts.methods.power = extracted.get('power')
-    facts.methods.sensitivity_analyses = extracted.get('sensitivity_methods', [])
-    facts.methods.null_hypothesis = extracted.get('null_hypothesis', '')
-    facts.methods.alternative_hypothesis = extracted.get('alternative_hypothesis', '')
+    # Methods (use 'or' to handle None values)
+    facts.methods.primary_test = extracted.get('statistical_method') or extracted.get('primary_test') or ''
+    facts.methods.expected_hazard_ratio = extracted.get('hazard_ratio')  # None ok (intentional)
+    facts.methods.power = extracted.get('power')  # None ok (intentional)
+    facts.methods.sensitivity_analyses = extracted.get('sensitivity_methods') or []  # FIXED: handles None
+    facts.methods.null_hypothesis = extracted.get('null_hypothesis') or ''
+    facts.methods.alternative_hypothesis = extracted.get('alternative_hypothesis') or ''
 
-    # Multiplicity - ENHANCED
-    facts.multiplicity.adjustment_method = extracted.get('multiplicity_method', '')
-    facts.multiplicity.testing_sequence = extracted.get('testing_sequence', [])
-    facts.multiplicity.alpha_per_hypothesis = extracted.get('alpha_per_hypothesis', {})
-    facts.multiplicity.hypotheses_list = extracted.get('hypotheses_list', [])
-    facts.multiplicity.graphical_weights = extracted.get('graphical_weights', None)
-    facts.multiplicity.graphical_transitions = extracted.get('graphical_transitions', None)
+    # Multiplicity - ENHANCED (use 'or' to handle None values)
+    facts.multiplicity.adjustment_method = extracted.get('multiplicity_method') or ''
+    facts.multiplicity.testing_sequence = extracted.get('testing_sequence') or []  # FIXED: handles None
+    facts.multiplicity.alpha_per_hypothesis = extracted.get('alpha_per_hypothesis') or {}  # FIXED: handles None
+    facts.multiplicity.hypotheses_list = extracted.get('hypotheses_list') or []  # FIXED: handles None
+    facts.multiplicity.graphical_weights = extracted.get('graphical_weights')  # None ok
+    facts.multiplicity.graphical_transitions = extracted.get('graphical_transitions')  # None ok
 
     # Missing Data
-    facts.missing_data.tipping_point_analysis = extracted.get('tipping_point_analysis')  # None if not found
-    facts.missing_data.censoring_rules = extracted.get('censoring_rules', [])
+    facts.missing_data.tipping_point_analysis = extracted.get('tipping_point_analysis')  # None ok (intentional)
+    facts.missing_data.censoring_rules = extracted.get('censoring_rules') or []  # FIXED: handles None
 
     # Crossover
-    facts.crossover.has_crossover = extracted.get('crossover_permitted') or extracted.get('has_crossover')  # None if not found
-    facts.crossover.crossover_adjustment_methods = extracted.get('crossover_adjustment_methods', [])
+    facts.crossover.has_crossover = extracted.get('crossover_permitted') or extracted.get('has_crossover')  # None ok
+    facts.crossover.crossover_adjustment_methods = extracted.get('crossover_adjustment_methods') or []  # FIXED
 
-    # Populations
-    facts.populations.fas_definition = extracted.get('fas_definition', '')
+    # Populations (use 'or' to handle None)
+    facts.populations.fas_definition = extracted.get('fas_definition') or ''
 
     # =========================================================================
     # NEW SECTIONS (2025-01)
     # =========================================================================
 
-    # Safety (ICH E2A, E6)
-    facts.safety.ae_coding_dictionary = extracted.get('ae_coding_dictionary', 'MedDRA')
-    facts.safety.ae_grading_scale = extracted.get('ae_grading_scale', 'CTCAE')
-    facts.safety.ae_collection_period = extracted.get('ae_collection_period', '')
-    facts.safety.teae_definition = extracted.get('teae_definition', '')
-    facts.safety.sae_definition = extracted.get('sae_definition', '')
-    facts.safety.sae_reporting_period = extracted.get('sae_reporting_period', '')
-    facts.safety.aesi_list = extracted.get('aesi_list', [])
-    facts.safety.aesi_definitions = extracted.get('aesi_definitions', {})
-    facts.safety.irae_categories = extracted.get('irae_categories', [])
-    facts.safety.dose_reduction_rules = extracted.get('dose_reduction_rules', [])
-    facts.safety.dose_delay_rules = extracted.get('dose_delay_rules', [])
-    facts.safety.dose_discontinuation_rules = extracted.get('dose_discontinuation_rules', [])
+    # Safety (ICH E2A, E6) - use 'or' to handle None values
+    facts.safety.ae_coding_dictionary = extracted.get('ae_coding_dictionary') or 'MedDRA'
+    facts.safety.ae_grading_scale = extracted.get('ae_grading_scale') or 'CTCAE'
+    facts.safety.ae_collection_period = extracted.get('ae_collection_period') or ''
+    facts.safety.teae_definition = extracted.get('teae_definition') or ''
+    facts.safety.sae_definition = extracted.get('sae_definition') or ''
+    facts.safety.sae_reporting_period = extracted.get('sae_reporting_period') or ''
+    facts.safety.aesi_list = extracted.get('aesi_list') or []
+    facts.safety.aesi_definitions = extracted.get('aesi_definitions') or {}
+    facts.safety.irae_categories = extracted.get('irae_categories') or []
+    facts.safety.dose_reduction_rules = extracted.get('dose_reduction_rules') or []
+    facts.safety.dose_delay_rules = extracted.get('dose_delay_rules') or []
+    facts.safety.dose_discontinuation_rules = extracted.get('dose_discontinuation_rules') or []
 
-    # Pharmacokinetics
-    facts.pharmacokinetics.pk_population_definition = extracted.get('pk_population_definition', '')
-    facts.pharmacokinetics.pk_evaluable_criteria = extracted.get('pk_evaluable_criteria', [])
-    facts.pharmacokinetics.pk_parameters = extracted.get('pk_parameters', [])
-    facts.pharmacokinetics.pk_sampling_timepoints = extracted.get('pk_sampling_timepoints', [])
-    facts.pharmacokinetics.pk_analysis_method = extracted.get('pk_analysis_method', '')
-    facts.pharmacokinetics.population_pk_model = extracted.get('population_pk_model')
-    facts.pharmacokinetics.pk_software = extracted.get('pk_software', '')
-    facts.pharmacokinetics.exposure_response_analysis = extracted.get('exposure_response_analysis')
-    facts.pharmacokinetics.pk_covariates = extracted.get('pk_covariates', [])
+    # Pharmacokinetics - use 'or' to handle None values
+    facts.pharmacokinetics.pk_population_definition = extracted.get('pk_population_definition') or ''
+    facts.pharmacokinetics.pk_evaluable_criteria = extracted.get('pk_evaluable_criteria') or []
+    facts.pharmacokinetics.pk_parameters = extracted.get('pk_parameters') or []
+    facts.pharmacokinetics.pk_sampling_timepoints = extracted.get('pk_sampling_timepoints') or []
+    facts.pharmacokinetics.pk_analysis_method = extracted.get('pk_analysis_method') or ''
+    facts.pharmacokinetics.population_pk_model = extracted.get('population_pk_model')  # None ok
+    facts.pharmacokinetics.pk_software = extracted.get('pk_software') or ''
+    facts.pharmacokinetics.exposure_response_analysis = extracted.get('exposure_response_analysis')  # None ok
+    facts.pharmacokinetics.pk_covariates = extracted.get('pk_covariates') or []
 
-    # Biomarkers
-    facts.biomarkers.predictive_biomarkers = extracted.get('predictive_biomarkers', [])
-    facts.biomarkers.prognostic_biomarkers = extracted.get('prognostic_biomarkers', [])
-    facts.biomarkers.pharmacodynamic_biomarkers = extracted.get('pharmacodynamic_biomarkers', [])
-    facts.biomarkers.pdl1_assay = extracted.get('pdl1_assay')
-    facts.biomarkers.pdl1_cutoffs = extracted.get('pdl1_cutoffs', [])
-    facts.biomarkers.pdl1_scoring_method = extracted.get('pdl1_scoring_method')
-    facts.biomarkers.tmb_assay = extracted.get('tmb_assay')
-    facts.biomarkers.tmb_cutoff = extracted.get('tmb_cutoff')
-    facts.biomarkers.msi_testing_method = extracted.get('msi_testing_method')
-    facts.biomarkers.mmr_proteins_tested = extracted.get('mmr_proteins_tested', [])
-    facts.biomarkers.genomic_platform = extracted.get('genomic_platform')
-    facts.biomarkers.ctdna_analysis = extracted.get('ctdna_analysis')
-    facts.biomarkers.companion_diagnostic_required = extracted.get('companion_diagnostic_required')
-    facts.biomarkers.companion_diagnostic_name = extracted.get('companion_diagnostic_name')
+    # Biomarkers - use 'or' to handle None values
+    facts.biomarkers.predictive_biomarkers = extracted.get('predictive_biomarkers') or []
+    facts.biomarkers.prognostic_biomarkers = extracted.get('prognostic_biomarkers') or []
+    facts.biomarkers.pharmacodynamic_biomarkers = extracted.get('pharmacodynamic_biomarkers') or []
+    facts.biomarkers.pdl1_assay = extracted.get('pdl1_assay')  # None ok
+    facts.biomarkers.pdl1_cutoffs = extracted.get('pdl1_cutoffs') or []
+    facts.biomarkers.pdl1_scoring_method = extracted.get('pdl1_scoring_method')  # None ok
+    facts.biomarkers.tmb_assay = extracted.get('tmb_assay')  # None ok
+    facts.biomarkers.tmb_cutoff = extracted.get('tmb_cutoff')  # None ok
+    facts.biomarkers.msi_testing_method = extracted.get('msi_testing_method')  # None ok
+    facts.biomarkers.mmr_proteins_tested = extracted.get('mmr_proteins_tested') or []
+    facts.biomarkers.genomic_platform = extracted.get('genomic_platform')  # None ok
+    facts.biomarkers.ctdna_analysis = extracted.get('ctdna_analysis')  # None ok
+    facts.biomarkers.companion_diagnostic_required = extracted.get('companion_diagnostic_required')  # None ok
+    facts.biomarkers.companion_diagnostic_name = extracted.get('companion_diagnostic_name')  # None ok
 
-    # Laboratory
-    facts.laboratory.hematology_parameters = extracted.get('hematology_parameters', [])
-    facts.laboratory.chemistry_parameters = extracted.get('chemistry_parameters', [])
-    facts.laboratory.urinalysis_parameters = extracted.get('urinalysis_parameters', [])
-    facts.laboratory.shift_table_analysis = extracted.get('shift_table_analysis')
-    facts.laboratory.ctcae_grading = extracted.get('lab_ctcae_grading')
-    facts.laboratory.clinically_notable_criteria = extracted.get('clinically_notable_criteria', {})
-    facts.laboratory.hys_law_analysis = extracted.get('hys_law_analysis')
+    # Laboratory - use 'or' to handle None values
+    facts.laboratory.hematology_parameters = extracted.get('hematology_parameters') or []
+    facts.laboratory.chemistry_parameters = extracted.get('chemistry_parameters') or []
+    facts.laboratory.urinalysis_parameters = extracted.get('urinalysis_parameters') or []
+    facts.laboratory.shift_table_analysis = extracted.get('shift_table_analysis')  # None ok
+    facts.laboratory.ctcae_grading = extracted.get('lab_ctcae_grading')  # None ok
+    facts.laboratory.clinically_notable_criteria = extracted.get('clinically_notable_criteria') or {}
+    facts.laboratory.hys_law_analysis = extracted.get('hys_law_analysis')  # None ok
 
-    # Exposure
-    facts.exposure.exposure_metrics = extracted.get('exposure_metrics', [])
-    facts.exposure.dose_delay_definition = extracted.get('dose_delay_definition', '')
-    facts.exposure.dose_reduction_definition = extracted.get('dose_reduction_definition', '')
-    facts.exposure.rdi_calculation_method = extracted.get('rdi_calculation_method', '')
-    facts.exposure.rdi_categories = extracted.get('rdi_categories', [])
+    # Exposure - use 'or' to handle None values
+    facts.exposure.exposure_metrics = extracted.get('exposure_metrics') or []
+    facts.exposure.dose_delay_definition = extracted.get('dose_delay_definition') or ''
+    facts.exposure.dose_reduction_definition = extracted.get('dose_reduction_definition') or ''
+    facts.exposure.rdi_calculation_method = extracted.get('rdi_calculation_method') or ''
+    facts.exposure.rdi_categories = extracted.get('rdi_categories') or []
 
-    # Concomitant Medications
-    facts.concomitant_meds.medication_coding = extracted.get('medication_coding', 'WHO Drug Dictionary')
-    facts.concomitant_meds.prohibited_medications = extracted.get('prohibited_medications', [])
-    facts.concomitant_meds.medications_of_interest = extracted.get('medications_of_interest', [])
-    facts.concomitant_meds.prior_lines_of_therapy = extracted.get('prior_lines_of_therapy')
-    facts.concomitant_meds.prior_immunotherapy = extracted.get('prior_immunotherapy')
+    # Concomitant Medications - use 'or' to handle None values
+    facts.concomitant_meds.medication_coding = extracted.get('medication_coding') or 'WHO Drug Dictionary'
+    facts.concomitant_meds.prohibited_medications = extracted.get('prohibited_medications') or []
+    facts.concomitant_meds.medications_of_interest = extracted.get('medications_of_interest') or []
+    facts.concomitant_meds.prior_lines_of_therapy = extracted.get('prior_lines_of_therapy')  # None ok
+    facts.concomitant_meds.prior_immunotherapy = extracted.get('prior_immunotherapy')  # None ok
 
-    # Immunogenicity
-    facts.immunogenicity.ada_testing_performed = extracted.get('ada_testing_performed')
-    facts.immunogenicity.ada_assay_type = extracted.get('ada_assay_type')
-    facts.immunogenicity.ada_sampling_timepoints = extracted.get('ada_sampling_timepoints', [])
-    facts.immunogenicity.nab_testing_performed = extracted.get('nab_testing_performed')
-    facts.immunogenicity.nab_assay_type = extracted.get('nab_assay_type')
-    facts.immunogenicity.ada_incidence_analysis = extracted.get('ada_incidence_analysis')
-    facts.immunogenicity.ada_impact_on_efficacy = extracted.get('ada_impact_on_efficacy')
-    facts.immunogenicity.ada_impact_on_safety = extracted.get('ada_impact_on_safety')
-    facts.immunogenicity.ada_impact_on_pk = extracted.get('ada_impact_on_pk')
+    # Immunogenicity - use 'or' to handle None values
+    facts.immunogenicity.ada_testing_performed = extracted.get('ada_testing_performed')  # None ok
+    facts.immunogenicity.ada_assay_type = extracted.get('ada_assay_type')  # None ok
+    facts.immunogenicity.ada_sampling_timepoints = extracted.get('ada_sampling_timepoints') or []
+    facts.immunogenicity.nab_testing_performed = extracted.get('nab_testing_performed')  # None ok
+    facts.immunogenicity.nab_assay_type = extracted.get('nab_assay_type')  # None ok
+    facts.immunogenicity.ada_incidence_analysis = extracted.get('ada_incidence_analysis')  # None ok
+    facts.immunogenicity.ada_impact_on_efficacy = extracted.get('ada_impact_on_efficacy')  # None ok
+    facts.immunogenicity.ada_impact_on_safety = extracted.get('ada_impact_on_safety')  # None ok
+    facts.immunogenicity.ada_impact_on_pk = extracted.get('ada_impact_on_pk')  # None ok
 
-    # Conventions
-    facts.conventions.baseline_definition = extracted.get('baseline_definition', '')
-    facts.conventions.baseline_window = extracted.get('baseline_window', '')
-    facts.conventions.partial_date_imputation_rules = extracted.get('partial_date_imputation_rules', {})
-    facts.conventions.visit_windows = extracted.get('visit_windows', {})
-    facts.conventions.on_treatment_definition = extracted.get('on_treatment_definition', '')
-    facts.conventions.post_treatment_definition = extracted.get('post_treatment_definition', '')
-    facts.conventions.rounding_convention = extracted.get('rounding_convention', '')
+    # Conventions - use 'or' to handle None values
+    facts.conventions.baseline_definition = extracted.get('baseline_definition') or ''
+    facts.conventions.baseline_window = extracted.get('baseline_window') or ''
+    facts.conventions.partial_date_imputation_rules = extracted.get('partial_date_imputation_rules') or {}
+    facts.conventions.visit_windows = extracted.get('visit_windows') or {}
+    facts.conventions.on_treatment_definition = extracted.get('on_treatment_definition') or ''
+    facts.conventions.post_treatment_definition = extracted.get('post_treatment_definition') or ''
+    facts.conventions.rounding_convention = extracted.get('rounding_convention') or ''
 
-    # Protocol Deviations
-    facts.deviations.important_deviation_categories = extracted.get('important_deviation_categories', [])
-    facts.deviations.deviation_impact_on_populations = extracted.get('deviation_impact_on_populations', '')
+    # Protocol Deviations - use 'or' to handle None values
+    facts.deviations.important_deviation_categories = extracted.get('important_deviation_categories') or []
+    facts.deviations.deviation_impact_on_populations = extracted.get('deviation_impact_on_populations') or ''
 
-    # PRO
-    facts.pro.pro_instruments = extracted.get('pro_instruments', [])
-    facts.pro.instrument_scoring_rules = extracted.get('instrument_scoring_rules', {})
-    facts.pro.pro_primary_endpoint = extracted.get('pro_primary_endpoint')
-    facts.pro.pro_secondary_endpoints = extracted.get('pro_secondary_endpoints', [])
-    facts.pro.time_to_deterioration = extracted.get('time_to_deterioration')
-    facts.pro.ttd_threshold = extracted.get('ttd_threshold')
-    facts.pro.responder_definition = extracted.get('pro_responder_definition')
-    facts.pro.pro_missing_data_handling = extracted.get('pro_missing_data_handling', '')
-    facts.pro.pro_compliance_threshold = extracted.get('pro_compliance_threshold')
-    facts.pro.pro_collection_schedule = extracted.get('pro_collection_schedule', [])
-    facts.pro.pro_electronic_capture = extracted.get('pro_electronic_capture')
+    # PRO - use 'or' to handle None values
+    facts.pro.pro_instruments = extracted.get('pro_instruments') or []
+    facts.pro.instrument_scoring_rules = extracted.get('instrument_scoring_rules') or {}
+    facts.pro.pro_primary_endpoint = extracted.get('pro_primary_endpoint')  # None ok
+    facts.pro.pro_secondary_endpoints = extracted.get('pro_secondary_endpoints') or []
+    facts.pro.time_to_deterioration = extracted.get('time_to_deterioration')  # None ok
+    facts.pro.ttd_threshold = extracted.get('ttd_threshold')  # None ok
+    facts.pro.responder_definition = extracted.get('pro_responder_definition')  # None ok
+    facts.pro.pro_missing_data_handling = extracted.get('pro_missing_data_handling') or ''
+    facts.pro.pro_compliance_threshold = extracted.get('pro_compliance_threshold')  # None ok
+    facts.pro.pro_collection_schedule = extracted.get('pro_collection_schedule') or []
+    facts.pro.pro_electronic_capture = extracted.get('pro_electronic_capture')  # None ok
 
-    # DMC
-    facts.dmc.has_dmc = extracted.get('has_dmc')
-    facts.dmc.dmc_charter_exists = extracted.get('dmc_charter_exists')
-    facts.dmc.dmc_review_frequency = extracted.get('dmc_review_frequency', '')
-    facts.dmc.dmc_unblinded = extracted.get('dmc_unblinded')
-    facts.dmc.safety_stopping_rules = extracted.get('safety_stopping_rules', [])
-    facts.dmc.safety_boundary_type = extracted.get('safety_boundary_type', '')
-    facts.dmc.futility_review_planned = extracted.get('futility_review_planned')
-    facts.dmc.futility_boundary = extracted.get('futility_boundary', '')
-    facts.dmc.dmc_recommendation_options = extracted.get('dmc_recommendation_options', [])
-    facts.dmc.sponsor_blinded = extracted.get('sponsor_blinded')
-    facts.dmc.independent_statistician = extracted.get('independent_statistician')
+    # DMC - use 'or' to handle None values
+    facts.dmc.has_dmc = extracted.get('has_dmc')  # None ok (intentional)
+    facts.dmc.dmc_charter_exists = extracted.get('dmc_charter_exists')  # None ok
+    facts.dmc.dmc_review_frequency = extracted.get('dmc_review_frequency') or ''
+    facts.dmc.dmc_unblinded = extracted.get('dmc_unblinded')  # None ok
+    facts.dmc.safety_stopping_rules = extracted.get('safety_stopping_rules') or []
+    facts.dmc.safety_boundary_type = extracted.get('safety_boundary_type') or ''
+    facts.dmc.futility_review_planned = extracted.get('futility_review_planned')  # None ok
+    facts.dmc.futility_boundary = extracted.get('futility_boundary') or ''
+    facts.dmc.dmc_recommendation_options = extracted.get('dmc_recommendation_options') or []
+    facts.dmc.sponsor_blinded = extracted.get('sponsor_blinded')  # None ok
+    facts.dmc.independent_statistician = extracted.get('independent_statistician')  # None ok
 
-    # CDISC
-    facts.cdisc.sdtm_version = extracted.get('sdtm_version', '')
-    facts.cdisc.sdtm_domains = extracted.get('sdtm_domains', [])
-    facts.cdisc.adam_version = extracted.get('adam_version', '')
-    facts.cdisc.adam_datasets = extracted.get('adam_datasets', [])
-    facts.cdisc.oncology_response_domains = extracted.get('oncology_response_domains', [])
-    facts.cdisc.response_criteria = extracted.get('cdisc_response_criteria', '')
-    facts.cdisc.key_derivations = extracted.get('key_derivations', {})
-    facts.cdisc.submission_standard = extracted.get('submission_standard', '')
-    facts.cdisc.define_xml_version = extracted.get('define_xml_version', '')
+    # CDISC - use 'or' to handle None values
+    facts.cdisc.sdtm_version = extracted.get('sdtm_version') or ''
+    facts.cdisc.sdtm_domains = extracted.get('sdtm_domains') or []
+    facts.cdisc.adam_version = extracted.get('adam_version') or ''
+    facts.cdisc.adam_datasets = extracted.get('adam_datasets') or []
+    facts.cdisc.oncology_response_domains = extracted.get('oncology_response_domains') or []
+    facts.cdisc.response_criteria = extracted.get('cdisc_response_criteria') or ''
+    facts.cdisc.key_derivations = extracted.get('key_derivations') or {}
+    facts.cdisc.submission_standard = extracted.get('submission_standard') or ''
+    facts.cdisc.define_xml_version = extracted.get('define_xml_version') or ''
 
-    # Special Designs
-    facts.special_design.is_master_protocol = extracted.get('is_master_protocol')
-    facts.special_design.master_protocol_type = extracted.get('master_protocol_type', '')
-    facts.special_design.is_basket_trial = extracted.get('is_basket_trial')
-    facts.special_design.basket_tumor_types = extracted.get('basket_tumor_types', [])
-    facts.special_design.basket_shared_biomarker = extracted.get('basket_shared_biomarker', '')
-    facts.special_design.is_umbrella_trial = extracted.get('is_umbrella_trial')
-    facts.special_design.umbrella_biomarker_arms = extracted.get('umbrella_biomarker_arms', [])
-    facts.special_design.is_platform_trial = extracted.get('is_platform_trial')
-    facts.special_design.shared_control_arm = extracted.get('shared_control_arm')
-    facts.special_design.is_adaptive = extracted.get('is_adaptive')
-    facts.special_design.adaptive_features = extracted.get('adaptive_features', [])
-    facts.special_design.adaptation_timing = extracted.get('adaptation_timing', [])
-    facts.special_design.adaptation_rules = extracted.get('adaptation_rules', '')
-    facts.special_design.is_seamless = extracted.get('is_seamless')
-    facts.special_design.seamless_phases = extracted.get('seamless_phases', '')
-    facts.special_design.phase2_to_phase3_criteria = extracted.get('phase2_to_phase3_criteria', '')
+    # Special Designs - use 'or' to handle None values
+    facts.special_design.is_master_protocol = extracted.get('is_master_protocol')  # None ok
+    facts.special_design.master_protocol_type = extracted.get('master_protocol_type') or ''
+    facts.special_design.is_basket_trial = extracted.get('is_basket_trial')  # None ok
+    facts.special_design.basket_tumor_types = extracted.get('basket_tumor_types') or []
+    facts.special_design.basket_shared_biomarker = extracted.get('basket_shared_biomarker') or ''
+    facts.special_design.is_umbrella_trial = extracted.get('is_umbrella_trial')  # None ok
+    facts.special_design.umbrella_biomarker_arms = extracted.get('umbrella_biomarker_arms') or []
+    facts.special_design.is_platform_trial = extracted.get('is_platform_trial')  # None ok
+    facts.special_design.shared_control_arm = extracted.get('shared_control_arm')  # None ok
+    facts.special_design.is_adaptive = extracted.get('is_adaptive')  # None ok
+    facts.special_design.adaptive_features = extracted.get('adaptive_features') or []
+    facts.special_design.adaptation_timing = extracted.get('adaptation_timing') or []
+    facts.special_design.adaptation_rules = extracted.get('adaptation_rules') or ''
+    facts.special_design.is_seamless = extracted.get('is_seamless')  # None ok
+    facts.special_design.seamless_phases = extracted.get('seamless_phases') or ''
+    facts.special_design.phase2_to_phase3_criteria = extracted.get('phase2_to_phase3_criteria') or ''
 
-    # Tumor Assessment
-    facts.tumor_assessment.response_criteria = extracted.get('response_criteria', '')
-    facts.tumor_assessment.response_criteria_version = extracted.get('response_criteria_version', '')
-    facts.tumor_assessment.assessment_schedule = extracted.get('assessment_schedule', '')
-    facts.tumor_assessment.baseline_imaging_window = extracted.get('baseline_imaging_window', '')
-    facts.tumor_assessment.target_lesion_selection = extracted.get('target_lesion_selection', '')
-    facts.tumor_assessment.max_target_lesions = extracted.get('max_target_lesions')
-    facts.tumor_assessment.min_lesion_size = extracted.get('min_lesion_size')
-    facts.tumor_assessment.assessment_method = extracted.get('assessment_method', '')
-    facts.tumor_assessment.bicr_primary = extracted.get('bicr_primary')
-    facts.tumor_assessment.discrepancy_resolution = extracted.get('discrepancy_resolution', '')
-    facts.tumor_assessment.confirmation_required = extracted.get('confirmation_required')
-    facts.tumor_assessment.confirmation_window = extracted.get('confirmation_window', '')
-    facts.tumor_assessment.pseudoprogression_handling = extracted.get('pseudoprogression_handling', '')
-    facts.tumor_assessment.new_lesion_confirmation = extracted.get('new_lesion_confirmation')
-    facts.tumor_assessment.progression_date_definition = extracted.get('progression_date_definition', '')
+    # Tumor Assessment - use 'or' to handle None values
+    facts.tumor_assessment.response_criteria = extracted.get('response_criteria') or ''
+    facts.tumor_assessment.response_criteria_version = extracted.get('response_criteria_version') or ''
+    facts.tumor_assessment.assessment_schedule = extracted.get('assessment_schedule') or ''
+    facts.tumor_assessment.baseline_imaging_window = extracted.get('baseline_imaging_window') or ''
+    facts.tumor_assessment.target_lesion_selection = extracted.get('target_lesion_selection') or ''
+    facts.tumor_assessment.max_target_lesions = extracted.get('max_target_lesions')  # None ok
+    facts.tumor_assessment.min_lesion_size = extracted.get('min_lesion_size')  # None ok
+    facts.tumor_assessment.assessment_method = extracted.get('assessment_method') or ''
+    facts.tumor_assessment.bicr_primary = extracted.get('bicr_primary')  # None ok
+    facts.tumor_assessment.discrepancy_resolution = extracted.get('discrepancy_resolution') or ''
+    facts.tumor_assessment.confirmation_required = extracted.get('confirmation_required')  # None ok
+    facts.tumor_assessment.confirmation_window = extracted.get('confirmation_window') or ''
+    facts.tumor_assessment.pseudoprogression_handling = extracted.get('pseudoprogression_handling') or ''
+    facts.tumor_assessment.new_lesion_confirmation = extracted.get('new_lesion_confirmation')  # None ok
+    facts.tumor_assessment.progression_date_definition = extracted.get('progression_date_definition') or ''
 
     # =========================================================================
     # NEW SECTIONS (2025-01) - Bridging, Structured Analyses
     # =========================================================================
 
-    # Bridging Study Design (ICH E5, E17)
-    facts.bridging.is_bridging_study = extracted.get('is_bridging_study')
-    facts.bridging.is_mrct = extracted.get('is_mrct')
-    facts.bridging.bridging_region = extracted.get('bridging_region', '')
-    facts.bridging.reference_studies = extracted.get('reference_studies', [])
-    facts.bridging.reference_study_results = extracted.get('reference_study_results', {})
-    facts.bridging.consistency_testing_required = extracted.get('consistency_testing_required')
-    facts.bridging.consistency_method = extracted.get('consistency_method', '')
-    facts.bridging.consistency_hr_threshold_interim = extracted.get('consistency_hr_threshold_interim')
-    facts.bridging.consistency_hr_threshold_final = extracted.get('consistency_hr_threshold_final')
-    facts.bridging.hierarchical_testing_steps = extracted.get('hierarchical_testing_steps', [])
-    facts.bridging.ethnic_sensitivity_assessment = extracted.get('ethnic_sensitivity_assessment', '')
-    facts.bridging.intrinsic_factors = extracted.get('intrinsic_factors', [])
-    facts.bridging.extrinsic_factors = extracted.get('extrinsic_factors', [])
+    # Bridging Study Design (ICH E5, E17) - use 'or' to handle None values
+    facts.bridging.is_bridging_study = extracted.get('is_bridging_study')  # None ok
+    facts.bridging.is_mrct = extracted.get('is_mrct')  # None ok
+    facts.bridging.bridging_region = extracted.get('bridging_region') or ''
+    facts.bridging.reference_studies = extracted.get('reference_studies') or []
+    facts.bridging.reference_study_results = extracted.get('reference_study_results') or {}
+    facts.bridging.consistency_testing_required = extracted.get('consistency_testing_required')  # None ok
+    facts.bridging.consistency_method = extracted.get('consistency_method') or ''
+    facts.bridging.consistency_hr_threshold_interim = extracted.get('consistency_hr_threshold_interim')  # None ok
+    facts.bridging.consistency_hr_threshold_final = extracted.get('consistency_hr_threshold_final')  # None ok
+    facts.bridging.hierarchical_testing_steps = extracted.get('hierarchical_testing_steps') or []
+    facts.bridging.ethnic_sensitivity_assessment = extracted.get('ethnic_sensitivity_assessment') or ''
+    facts.bridging.intrinsic_factors = extracted.get('intrinsic_factors') or []
+    facts.bridging.extrinsic_factors = extracted.get('extrinsic_factors') or []
 
-    # Regulatory Filing Endpoints (TTF for NMPA, etc.)
-    facts.filing_endpoints.has_early_filing_endpoint = extracted.get('has_early_filing_endpoint')
-    facts.filing_endpoints.filing_endpoint_name = extracted.get('filing_endpoint_name', '')
-    facts.filing_endpoints.filing_endpoint_definition = extracted.get('filing_endpoint_definition', '')
-    facts.filing_endpoints.filing_regulatory_authority = extracted.get('filing_regulatory_authority', '')
-    facts.filing_endpoints.filing_target_subjects = extracted.get('filing_target_subjects')
-    facts.filing_endpoints.filing_minimum_followup_months = extracted.get('filing_minimum_followup_months')
-    facts.filing_endpoints.filing_expected_timeline_months = extracted.get('filing_expected_timeline_months')
-    facts.filing_endpoints.filing_statistical_test = extracted.get('filing_statistical_test', '')
-    facts.filing_endpoints.filing_alpha = extracted.get('filing_alpha')
-    facts.filing_endpoints.filing_alpha_penalty = extracted.get('filing_alpha_penalty')
-    facts.filing_endpoints.filing_hypothesis = extracted.get('filing_hypothesis', '')
+    # Regulatory Filing Endpoints (TTF for NMPA, etc.) - use 'or' to handle None values
+    facts.filing_endpoints.has_early_filing_endpoint = extracted.get('has_early_filing_endpoint')  # None ok
+    facts.filing_endpoints.filing_endpoint_name = extracted.get('filing_endpoint_name') or ''
+    facts.filing_endpoints.filing_endpoint_definition = extracted.get('filing_endpoint_definition') or ''
+    facts.filing_endpoints.filing_regulatory_authority = extracted.get('filing_regulatory_authority') or ''
+    facts.filing_endpoints.filing_target_subjects = extracted.get('filing_target_subjects')  # None ok
+    facts.filing_endpoints.filing_minimum_followup_months = extracted.get('filing_minimum_followup_months')  # None ok
+    facts.filing_endpoints.filing_expected_timeline_months = extracted.get('filing_expected_timeline_months')  # None ok
+    facts.filing_endpoints.filing_statistical_test = extracted.get('filing_statistical_test') or ''
+    facts.filing_endpoints.filing_alpha = extracted.get('filing_alpha')  # None ok
+    facts.filing_endpoints.filing_alpha_penalty = extracted.get('filing_alpha_penalty')  # None ok
+    facts.filing_endpoints.filing_hypothesis = extracted.get('filing_hypothesis') or ''
 
-    # Structured Secondary Endpoint Analyses
-    facts.secondary_analyses.endpoint_testing_hierarchy = extracted.get('endpoint_testing_hierarchy', [])
+    # Structured Secondary Endpoint Analyses - use 'or' to handle None values
+    facts.secondary_analyses.endpoint_testing_hierarchy = extracted.get('endpoint_testing_hierarchy') or []
 
-    # ORR Analysis
-    orr_data = extracted.get('orr_analysis', {})
+    # ORR Analysis - use 'or' to handle None values
+    orr_data = extracted.get('orr_analysis') or {}
     if orr_data:
         facts.secondary_analyses.orr_analysis = SecondaryEndpointAnalysis(
             endpoint_name='ORR',
-            endpoint_definition=orr_data.get('definition', ''),
-            analysis_method=orr_data.get('analysis_method', ''),
-            ci_method=orr_data.get('ci_method', ''),
-            hypothesis_test=orr_data.get('hypothesis_test', ''),
-            analysis_timepoints=orr_data.get('timepoints', []),
-            censoring_scheme_reference=orr_data.get('censoring_reference', ''),
+            endpoint_definition=orr_data.get('definition') or '',
+            analysis_method=orr_data.get('analysis_method') or '',
+            ci_method=orr_data.get('ci_method') or '',
+            hypothesis_test=orr_data.get('hypothesis_test') or '',
+            analysis_timepoints=orr_data.get('timepoints') or [],
+            censoring_scheme_reference=orr_data.get('censoring_reference') or '',
             testing_hierarchy_position=orr_data.get('hierarchy_position')
         )
 
-    # PFS Analysis
-    pfs_data = extracted.get('pfs_analysis', {})
+    # PFS Analysis - use 'or' to handle None values
+    pfs_data = extracted.get('pfs_analysis') or {}
     if pfs_data:
         facts.secondary_analyses.pfs_analysis = SecondaryEndpointAnalysis(
             endpoint_name='PFS',
-            endpoint_definition=pfs_data.get('definition', ''),
-            analysis_method=pfs_data.get('analysis_method', ''),
-            ci_method=pfs_data.get('ci_method', ''),
-            censoring_scheme_reference=pfs_data.get('censoring_reference', ''),
-            censoring_rules=pfs_data.get('censoring_rules', []),
+            endpoint_definition=pfs_data.get('definition') or '',
+            analysis_method=pfs_data.get('analysis_method') or '',
+            ci_method=pfs_data.get('ci_method') or '',
+            censoring_scheme_reference=pfs_data.get('censoring_reference') or '',
+            censoring_rules=pfs_data.get('censoring_rules') or [],
             testing_hierarchy_position=pfs_data.get('hierarchy_position')
         )
 
-    # DOR Analysis
-    dor_data = extracted.get('dor_analysis', {})
+    # DOR Analysis - use 'or' to handle None values
+    dor_data = extracted.get('dor_analysis') or {}
     if dor_data:
         facts.secondary_analyses.dor_analysis = SecondaryEndpointAnalysis(
             endpoint_name='DOR',
-            endpoint_definition=dor_data.get('definition', ''),
-            analysis_method=dor_data.get('analysis_method', ''),
-            ci_method=dor_data.get('ci_method', ''),
+            endpoint_definition=dor_data.get('definition') or '',
+            analysis_method=dor_data.get('analysis_method') or '',
+            ci_method=dor_data.get('ci_method') or '',
             testing_hierarchy_position=dor_data.get('hierarchy_position')
         )
 
-    # Subgroup Analysis Specifications
-    facts.subgroup_specs.forest_plot_planned = extracted.get('forest_plot_planned')
-    facts.subgroup_specs.forest_plot_variables = extracted.get('forest_plot_variables', [])
-    facts.subgroup_specs.forest_plot_method = extracted.get('forest_plot_method', '')
-    facts.subgroup_specs.forest_plot_presentation = extracted.get('forest_plot_presentation', '')
-    facts.subgroup_specs.multivariate_cox_planned = extracted.get('multivariate_cox_planned')
-    facts.subgroup_specs.multivariate_cox_covariates = extracted.get('multivariate_cox_covariates', [])
-    facts.subgroup_specs.covariate_selection_method = extracted.get('covariate_selection_method', '')
-    facts.subgroup_specs.landmark_analysis_planned = extracted.get('landmark_analysis_planned')
-    facts.subgroup_specs.landmark_timepoints = extracted.get('landmark_timepoints', [])
-    facts.subgroup_specs.landmark_method = extracted.get('landmark_method', '')
-    facts.subgroup_specs.waterfall_plot_planned = extracted.get('waterfall_plot_planned')
+    # Subgroup Analysis Specifications - use 'or' to handle None values
+    facts.subgroup_specs.forest_plot_planned = extracted.get('forest_plot_planned')  # None ok
+    facts.subgroup_specs.forest_plot_variables = extracted.get('forest_plot_variables') or []
+    facts.subgroup_specs.forest_plot_method = extracted.get('forest_plot_method') or ''
+    facts.subgroup_specs.forest_plot_presentation = extracted.get('forest_plot_presentation') or ''
+    facts.subgroup_specs.multivariate_cox_planned = extracted.get('multivariate_cox_planned')  # None ok
+    facts.subgroup_specs.multivariate_cox_covariates = extracted.get('multivariate_cox_covariates') or []
+    facts.subgroup_specs.covariate_selection_method = extracted.get('covariate_selection_method') or ''
+    facts.subgroup_specs.landmark_analysis_planned = extracted.get('landmark_analysis_planned')  # None ok
+    facts.subgroup_specs.landmark_timepoints = extracted.get('landmark_timepoints') or []
+    facts.subgroup_specs.landmark_method = extracted.get('landmark_method') or ''
+    facts.subgroup_specs.waterfall_plot_planned = extracted.get('waterfall_plot_planned')  # None ok
     facts.subgroup_specs.swimmer_plot_planned = extracted.get('swimmer_plot_planned')
     facts.subgroup_specs.spider_plot_planned = extracted.get('spider_plot_planned')
     facts.subgroup_specs.interaction_tests_planned = extracted.get('interaction_tests_planned')
