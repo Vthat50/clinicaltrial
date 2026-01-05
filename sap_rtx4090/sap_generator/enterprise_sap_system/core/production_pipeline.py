@@ -699,7 +699,14 @@ class ProductionSAPPipeline:
                 if results:
                     sanitized = []
                     for r in results:
-                        content = r.get('content', str(r)) if isinstance(r, dict) else str(r)
+                        # Handle RetrievalResult dataclass (has .content attribute)
+                        # or dict (has 'content' key) or string
+                        if hasattr(r, 'content'):
+                            content = r.content
+                        elif isinstance(r, dict):
+                            content = r.get('content', str(r))
+                        else:
+                            content = str(r)
 
                         # Filter wrong indication
                         if self._has_wrong_indication(content, indication):
