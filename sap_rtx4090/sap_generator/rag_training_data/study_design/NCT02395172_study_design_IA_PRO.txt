@@ -1,0 +1,508 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT02395172
+Section: STUDY_DESIGN
+Features: pro_qol, immunotherapy, interim_analysis, consistency_bridging, hierarchical_testing, interim_analysis
+Quality Tier: 1 (Specialized)
+
+---
+
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+1/86
+Statistical Analysis Plan for Analysis of Efficacy and Safety
+Clinical Trial Protocol 
+Identification No.
+EMR 100070-004
+Title:
+A Phase III
+open-label, multicenter trial of avelumab 
+(MSB0010718C) versus docetaxel in subjects with non-small
+cell lung cancer that has progressed after a platinum-containing 
+doublet
+Trial Phase
+Phase III
+Clinical Trial Protocol Date
+and Version
+10 January 2017/ Version 6.0
+Statistical Analysis Plan 
+Author
+, Statistical Scientist
+Statistical Analysis Plan
+Date and Version
+11 December 2017 /version 4.0
+Statistical Analysis Plan 
+Reviewers
+, Senior Biostatistics Reviewer
+, Program Indication Lead
+ Medical Lead
+, Biostatistics Program Lead
+, QPD NBE Program Representative
+,
+, Pathology
+ Senior Principal Statistical Programmer
+This document is the property of Merck KGaA, Darmstadt, Germany, or one of its affiliated companies.
+It is intended for restricted use only and may not - in full or part - be passed on, reproduced, published or used without express 
+permission of Merck KGaA, Darmstadt, Germany or its affiliate. 
+Copyright © 2014 by Merck KGaA, Darmstadt, Germany or its affiliate. All rights reserved.
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+3/86
+2
+Table of Contents
+1 
+Signature Page ......................................................................................2 
+2 
+Table of Contents..................................................................................3 
+3 
+List of Abbreviations and Definition of Terms ....................................6 
+4 
+Modification History ............................................................................9 
+5 
+Purpose of the Statistical Analysis Plan ...............................................9 
+5.1 
+Changes to Previous Version................................................................9 
+6 
+Summary of Clinical Trial Features ...................................................12 
+7 
+Sample Size/Randomization...............................................................16 
+7.1 
+Sample Size ........................................................................................16 
+7.2 
+Randomization....................................................................................17 
+8 
+Overview of Planned Analyses...........................................................17 
+8.1 
+Sequence of Analyses.........................................................................18 
+8.2 
+Interim Analysis..................................................................................18 
+8.3 
+Final Analysis.....................................................................................20 
+9 
+Changes to the Planned Analyses in the Clinical Trial Protocol........20 
+10 
+Analysis Sets.......................................................................................21 
+11 
+General Specifications for Statistical Analyses..................................25 
+12 
+Trial Subjects......................................................................................34 
+12.1 
+Disposition of Subjects and Discontinuations ....................................34 
+12.2 
+Protocol Deviations ............................................................................35 
+13 
+Demographics and Other Baseline Characteristics.............................36 
+13.1 
+Demographics.....................................................................................36 
+13.2 
+Medical History ..................................................................................37 
+13.3 
+Other Baseline Characteristics............................................................37 
+13.3.1 
+Disease Characteristics.......................................................................37 
+13.3.2 
+Prior Anti-Cancer Therapies...............................................................39 
+13.3.3 
+PD-L1 Expression Status and Baseline Biomarkers...........................40 
+14 
+Previous or Concomitant Medications/Procedures.............................41 
+14.1 
+Prior and Concomitant Medications/Procedures ................................41 
+14.2 
+Subsequent Anti-Cancer Therapies/Procedures .................................41 
+15 
+Treatment Compliance and Exposure.................................................42 
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+4/86
+16 
+Endpoint Evaluation ...........................................................................44 
+16.1 
+Primary Endpoint Analyses................................................................45 
+16.1.1 
+Primary Efficacy Analysis of Overall Survival..................................45 
+16.1.2 
+Sensitivity Analyses of Primary Endpoint..........................................47 
+ 
+ 
+16.1.4 
+Time of Follow-Up for OS .................................................................50 
+16.2 
+Secondary Endpoint Analyses............................................................50 
+16.2.1 
+Best Overall Response........................................................................51 
+16.2.2 
+Progression Free Survival...................................................................53 
+16.2.3 
+Health-Related Quality of Life ...........................................................55 
+16.2.4 
+Sensitivity Analyses of Secondary Efficacy Endpoints......................60 
+16.2.5 
+Time of Follow-up for PFS.................................................................61 
+16.2.6 
+Subgroup Analysis of Secondary Efficacy Endpoints........................62 
+16.3 
+Other Endpoint Analyses....................................................................62 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+17 
+Safety Evaluation................................................................................65 
+17.1 
+Adverse Events...................................................................................65 
+17.1.1 
+All Adverse Events.............................................................................66 
+17.1.2 
+Adverse Events Leading to Treatment Discontinuation.....................67 
+17.2 
+Deaths, Other Serious Adverse Events, and Other Significant 
+Adverse Events...................................................................................67 
+17.2.1 
+Deaths .................................................................................................67 
+17.2.2 
+Serious Adverse Events......................................................................68 
+17.2.3 
+Other Significant Adverse Events ......................................................68 
+ 
+ 
+17.3 
+Clinical Laboratory Evaluation...........................................................70 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+5/86
+17.3.1 
+Hematology and Chemistry Parameters .............................................70 
+17.3.2 
+Other Laboratory Parameters..............................................................73 
+17.4 
+Vital Signs ..........................................................................................74 
+17.5 
+Other Safety or Tolerability Evaluations............................................75 
+17.5.1 
+ECG ....................................................................................................75 
+17.5.2 
+ECOG Performance Status .................................................................75 
+ 
+ 
+18 
+References...........................................................................................79 
+19 
+Appendices .........................................................................................80 
+Appendix I  
+RECIST 1.1.........................................................................................80 
+Appendix II 
+Important and Clinically Important Protocol Deviations by 
+Programming Check and Medical Review.........................................81 
+Appendix III 
+EORTC QLQ-C30 version 3.0 ...........................................................83 
+Appendix IV 
+EORTC QLQ-C30-LC13: Lung Cancer Module ...............................84 
+Appendix V  
+Description of the Case Review for Assessment of Immune-
+Related AEs and Definition of Infusion Related Reactions ...............85 
+CCI
+CCI
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+6/86
+3
+List of Abbreviations and Definition of Terms
+ADR
+Adverse Drug Reaction
+AE(s)
+Adverse Event(s)
+AESI
+Adverse Event of Special Interest
+ALK
+Anaplastic Lymphoma Kinase
+ALT
+Alanine Aminotransferase
+ANC
+Absolute Neutrophil Count
+aPTT
+Activated Partial Thromboplastin Time
+AST
+Aspartate Aminotransferase
+ATC
+Anatomical Therapeutic Chemical
+BMI
+Body Mass Index
+BOR
+Best Overall Response
+BSA
+Body Surface Area
+CI
+Confidence Interval(s)
+CIPD
+Clinically Important Protocol Deviations
+CMH
+Cochran-Mantel-Haenszel
+CPI
+Checkpoint Inhibitor
+CR
+CRF
+Complete Response
+Case Report Form
+CSR
+Clinical Study Report
+CT
+Computed Tomography 
+CTCAE
+Common Terminology Criteria for Adverse Events
+DD
+Definitive Deterioration
+ECG
+Electrocardiogram
+ECOG PS
+Eastern Cooperative Oncology Group Performance Status
+EEA
+European Economic Area
+eCDF
+Empirical Cumulative Distribution Function
+eCRF
+Electronic Case Report Form
+eDISH
+Evaluation of Drug-Induced Serious Hepatotoxicity
+EGFR
+Epidermal Growth Factor Receptor
+EORTC
+European Organization for Research and Treatment of Cancer
+CCI
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+7/86
+EQ-5D
+EuroQOL Five Dimensions Questionnaire 
+FAS
+Full Analysis Set
+GCP
+Good Clinical Practice
+GGT
+Gamma-glutamyl Transferase
+HR
+Hazard Ratio
+HRQoL
+Health-related Quality of Life
+ICF
+Informed Consent Form
+ICH
+International Conference on Harmonisation
+IDMC
+Independent Data Monitoring Committee
+IEC
+Independent Ethics Committee
+IERC
+Independent Endpoint Review Committee
+IMP
+Investigational Medicinal Product
+INR
+International Normalized Ratio
+IPD
+Important Protocol Deviation
+irAE
+Immune-related Adverse Event
+IRR
+Infusion-related Reaction
+ITT
+Intent-to-Treat
+IUO
+Investigation Use Only
+IV
+Intravenous
+IWRS
+Interactive Web Response System
+LDH
+Lactate Dehydrogenase
+LLN
+Lower Limit of Normal
+MCH
+Mean Corpuscular Hemoglobin
+MCHC
+Mean Corpuscular Hemoglobin Concentration
+MedDRA
+Medical Dictionary for Regulatory Activities
+MID
+Minimum Important Difference
+MMRM
+Mixed-effect Model Repeated Measures
+MRI
+Magnetic Resonance Imaging
+nAb
+Neutralizing Antibody
+NCI
+NCI-CTCAE
+National Cancer Institute 
+National Cancer Institute – Common Terminology Criteria for Adverse 
+Events
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+8/86
+NE
+Non-evaluable
+NK
+Natural Killer
+NSCLC
+Non-small Cell Lung Cancer
+ORR
+Objective Response Rate
+OS
+Overall Survival
+PD
+Progressive Disease
+PD-1
+Programmed Death 1
+PD-L1
+Programmed Death Ligand 1
+PFS
+Progression-free Survival
+PR
+Partial Response
+PRF
+Pathology Report Form
+RBC
+Red Blood Cell
+RECIST 1.1
+Response Evaluation Criteria in Solid Tumors version 1.1
+SAE(s)
+Serious Adverse Event(s)
+SAP
+Statistical Analysis Plan
+SD
+Stable Disease
+TEAE
+Treatment-emergent Adverse Event
+TUDD
+Time until Definitive Deterioration
+ULN
+Upper Limit of Normal
+VAS
+Visual Analogue Scale
+CCI
+CCI
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+9/86
+4
+Modification History
+Unique 
+Identifier for 
+SAP Version
+Date of SAP 
+Version
+Author
+Changes from the Previous Version
+1.0
+13 February 2015
+NA. The first version
+2.0
+28 February 2017
+Details of changes are specified in Section 5.1 
+“Changes to Previous Version”
+3.0
+28 June 2017
+Details of changes are specified in Section 5.1 
+“Changes to Previous Version”
+4.0
+11 December 2017
+Details of changes are specified in Section 5.1 
+“Changes to Previous Version”
+5
+Purpose of the Statistical Analysis Plan
+The purpose of this statistical analysis plan (SAP) is to document technical and detailed 
+specifications for the interim and final analysis of data collected for protocol EMR 100070-004.
+Results of the analyses described in this SAP will be included in the Clinical Study Report (CSR).
+Additionally, the planned analyses identified in this SAP will be included in regulatory 
+submissions or future manuscripts. Any post-hoc, or unplanned analyses performed to provide 
+results for inclusion in the CSR but not identified in this prospective SAP will be clearly identified 
+in the CSR.
+The SAP is based upon section 8 (Statistics) of the trial protocol and protocol amendments and is 
+prepared in compliance with International Conference on Harmonization (ICH) E9. The first
+version (version 1.0) focuses on the detailed description of the primary and key secondary 
+endpoints analysis and key safety endpoints analysis. Version 2.0 and version 3.0 were created 
+based on the protocol version 5.0 dated 29 November 2016. Additional updates in version 2.0 and
+v3.0 are specified in Section 5.1, Changes to Previous Version.
+5.1
+Changes to Previous Version
+Version 4.0
+The following changes are made in version 4.0 of the SAP:
+1. Section 10 Analysis Set: Subgroup Analysis set was updated for the PD-L1 subgroup 
+variables. The original pathology scoring results were substituted by the rescoring results 
+with a verified IUO (Investigational Use Only) assay for the determination of the PD-L1 
+expression status at 50% and 80% cut-off value. A new subgroup of “Recruitment waves” 
+was added;
+2. Section 13.3.3 PD-L1 Expression Status and Baseline Biomarkers was updated to include 
+more details on PD-L1 rescoring at 50% and 80% cut-off values;
+PPD
+Avelumab
+Avelumab in Non-Small Cell Lung Cancer
+EMR 100070-004
+10/86
+3. Section 16.1.2 Sensitivity Analyses of Primary Endpoint was updated to include a new 
+sensitivity analysis of OS based on Safety analysis set as treated;
+4. Section 16.1.3 Subgroup Analysis of Primary Endpoint was updated to include overall HR
+and 95% CI in the forest plot; the text was corrected to specify the point estimate of the 
+interaction model parameter would be provided;
+5. Section 17.1.1 All Adverse Events was updated to drop summary of related irAE;
+6. Section 17.2.3 Other Significant Adverse Events was updated by adding details on two-
+level irAE summary; related irAE were deleted from the irAE analysis.
+Version 3.0
+The following changes are made in version 3.0 of the SAP:
+1. Section 10 Analysis Set was updated for the definition of Safety Analysis Set; additional 
+details were included for Subgroup Analysis Sets;
+2. Section 11 General Specifications for Statistical Analyses was updated to include more 
+details on baseline definition, summary statistics over time, imputation rules for AE stop 
+date and date of subsequent anti-cancer therapy;
+3. Section 13.1 Demographics was updated to add EEA;
+4. Section 13.3.2 Prior Anti-Cancer Therapies was updated to include number of prior anti-
+cancer therapy regimens for metastatic or locally advanced disease;
+5. Section 16.2.3 Health-Related Quality of Life was updated to include 

@@ -1,0 +1,175 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT03822351
+Section: INTERIM_ANALYSIS
+Features: consistency_bridging, immunotherapy, interim_analysis, interim_analysis
+Quality Tier: 1 (Specialized)
+
+---
+
+.......................................................................25 
+3.8 
+Pharmacokinetics ................................................................................................25 
+4 
+INTERIM ANALYSIS ....................................................................................................25 
+5 
+REFERENCES ................................................................................................................28 
+6 
+VERSION HISTORY ......................................................................................................28 
+7 
+APPENDIX ...................................................................................................................31 
+7.1 
+Derivation of RECIST v1.1 Disease Assessment Overall Response ..................31 
+7.1.1Target Lesion Response ..............................................................................31 
+7.1.2Non-Target Lesion Response......................................................................32 
+7.1.3Disease Assessment Overall Response per RECIST v1.1 ..........................34 
+7.1.4Locoregional therapy ..................................................................................35 
+7.1.5Assignment of Dates of Disease Progression or Disease Response ...........36 
+7.2 
+Efficacy Criteria of Making an Internal Go Decision at an Interim Analysis ....36 
+ 
+LIST OF TABLES 
+Table 2.4-1 
+Estimated Differences in ORR Between Experimental and Control 
+Arm of 60 Subjects Each .......................................................................9 
+Table 3.2-1 
+Analysis Populations ............................................................................10 
+Table 3.4.1     
+Summary of Censoring Guidelines for PFS.........................................17 
+Table 4.1 
+Criteria of Early No-Go Decisions Based on DCR at 16 Weeks .........27 
+Table 4.2 
+Operating Characteristics of Continuous Monitoring for No-Go ........27 
+Table 7.2-1 
+Criteria of Early Go Decisions Based on ORR ....................................37 
+Table 7.2-2 
+Operating Characteristics of Continuous Monitoring for Go ..............38 
+ 
+ 
+MedImmune 
+ Statistical Analysis Plan for Protocol D9108C00001 
+Durvalumab and Novel Agents 
+ 
+04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY 
+5 of 38 
+SAP template version 3.0 
+Abbreviation or 
+Specialized Term 
+Definition 
+ORR 
+objective response rate 
+OS 
+overall survival 
+OS-12 (18, 24, 36) 
+overall survival at 12 (18, 24, 36) months 
+PD 
+progressive disease 
+PFS 
+progression-free survival 
+PFS-12 (18, 24, 36) 
+progression-free survival at 12 (18, 24, 36) months 
+PK 
+pharmacokinetics 
+PR 
+partial response 
+RECIST 
+Response Evaluation Criteria in Solid Tumors 
+SAE 
+serious adverse event 
+SC 
+subcutaneous 
+SD 
+stable disease 
+SPP 
+statistical programming plan 
+TFL 
+Tables, figures, listings  
+ 
+ 
+TV 
+target value 
+ 
+CCI
+CCI
+MedImmune 
+ Statistical Analysis Plan for Protocol D9108C00001 
+Durvalumab and Novel Agents 
+ 
+04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY 
+6 of 38 
+SAP template version 3.0 
+1 
+INTRODUCTION 
+This document describes the statistical analysis methodology for protocol D9108C00001, a 
+multidrug platform study of Durvalumab (MEDI4736) alone or in combination with novel 
+agents in subjects with locally advanced, unresectable, stage III non-small cell lung cancer 
+(NSCLC). As background information, an overview of the study design is provided. The 
+main portion of this document details the statistical summaries relating to each study 
+objective and describes the general conventions and definitions that will be used. In addition, 
+a set of table templates and specifications will be included in a statistical programming plan 
+(SPP) to complement this document. 
+2 
+STUDY OVERVIEW 
+2.1 
+Study Objectives 
+2.1.1 
+Primary Study Objective(s) 
+To compare the antitumor activity of durvalumab alone vs. durvalumab in combination with 
+novel agents.  
+2.1.2 
+Secondary Study Objectives 
+Safety: 
+• To evaluate the safety and tolerability of durvalumab alone and durvalumab in 
+combination with novel agents. 
+Clinical activity: 
+• To further compare the efficacy of durvalumab alone vs durvalumab in combination 
+with novel agents. 
+Pharmacokinetics (PK): 
+• To describe the PK of durvalumab alone and durvalumab in combination with novel 
+agents. 
+• To describe the PK of novel agents in combination with durvalumab. 
+Immunogenicity: 
+MedImmune 
+ Statistical Analysis Plan for Protocol D9108C00001 
+Durvalumab and Novel Agents 
+ 
+04SEP2023; Final version 5.0 
+CONFIDENTIAL AND PROPRIETARY 
+7 of 38 
+SAP template version 3.0 
+• To assess the immunogenicity of durvalumab alone or in combination with novel 
+agents. 
+• To assess the immunogenicity of novel biologic agents in combination with 
+durvalumab. 
+2.1.3 
+Exploratory Study Objectives 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2.2 
+Study Design 
+COAST is a Phase 2, open-label, multicenter, randomized, multidrug platform study of 
+durvalumab alone or in combination with novel agents in subjects with locally advanced, 
+unresectable, Stage III NSCLC.  
+The study will evaluate the clinical activity and safety of durvalumab alone or in combination 
+wi

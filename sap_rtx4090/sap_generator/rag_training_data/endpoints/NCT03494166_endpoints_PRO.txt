@@ -1,0 +1,94 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT03494166
+Section: ENDPOINTS
+Features: pro_qol, consistency_bridging, pro_endpoints
+Quality Tier: 1 (Specialized)
+
+---
+
+ses practical resource needs (e.g., finances).182 
+ 
+ 
+ 
+ 
+Protocol Version Date:  09/10/2021 
+ 
+ 
+Page 16 
+ 
+ 
+ 
+ 
+ 
+8.0 
+STATISTICAL CONSIDERATIONS 
+Analysis Plan for answering objectives including endpoint definitions, patient accrual 
+objectives, and estimated duration of study. This section should be developed in consultation 
+with appropriate biostatistician. 
+ 
+ 
+ 
+Potential Covariates and Future Tailoring Variables. Demographic characteristics include survivors’ 
+age, education, work, ethnicity, race, acculturation, and marital status, and language of intervention 
+delivery. Receipt and enactment of intervention strategies are measured during weeks 1-12. Receipt is the 
+number of completed weekly sessions. Enactment of the SMSH strategies is assessed at the beginning of 
+calls during weeks 2-12. Enactment of the TIP-C will be measured by tracking the implementation of 
+behaviors discussed and completion of the assigned homework as documented in counselor’s field notes 
+for each session. Survivors’ chart data will include radiation, surgery, chemotherapy, targeted or 
+hormonal therapy (dose, type, dates received), co-morbidities, cancer site and stage, and medications 
+(e.g., supportive agents for symptoms) corresponding with the time-on study. 
+ 
+Scientific Rigor and Transparency. The scientific rigor of this study is ensured by the randomized 
+design and complete inclusion/exclusion criteria defining the population to which findings would be 
+generalizable. We also have a reproducible manualized protocol for the interventions, tracking of 
+intervention fidelity, dose, receipt and enactment, use of measures with solid evidence of reliability and 
+validity, blinding of data collectors and transparent assessment and statistical analysis plans including 
+attention to biases and the missing data. 
+ 
+Sex as a biological variable. We expect more than 50% of the sample to be female (Human Subjects 
+section). We will consider sex as covariate and a potential future tailoring variable in the exploratory aim. 
+ 
+Analytic Methods 
+Data management. Data will be entered into the secure web-based database that will be accessible to 
+recruiters, interveners and interviewers. The RA will perform quarterly quality assurance checks of the 
+data, supervised by Dr. Sikorskii. De-identified data will be transferred into SAS 9.4 for analyses. 
+Distributions of outcomes and potential covariates will be summarized. Outliers will be investigated by 
+inspecting the residuals, and models described below will be fit with and without outliers to examine 
+ 
+ 
+ 
+ 
+Protocol Version Date:  09/10/2021 
+ 
+ 
+Page 17 
+ 
+their influence on the results. Sensitivity to the degree of personalization of TIP-C (see C7d) will be 
+examined by relating it to the primary outcome at week 13 for those who received this intervention. 
+ 
+Attrition Analyses and Handling of Missing Data. Attrition will also be compared between each pair of 
+randomized groups. In addition, we will compare characteristics of those who completed the study with 
+those who did not within their designated group to inform the generalizability of findings. The regression 
+techniques described below allow for missing at random (MAR) mechanism.199 If patterns of missing 
+data indicate potential not missing at random (NMAR) mechanisms, then models describing missing 
+mechanisms will be considered (e.g., pattern-mixture models),200,201 and sensitivity analyses will gauge 
+the robustness of the results. 
+ 
+Primary Analysis. The intent-to-treat principle will be followed. 
+Aim 1. Hypothesis 1 will be tested using statistical model #1 that relates repeated measures of the 
+survivor primary outcome y (summed severity index) to the group assignment variable 𝑥𝑥1, outcome at 
+baseline 𝑥𝑥2, time entered as a class variable to model potentially non-linear patterns, and other covariates. 
+Because the symptom severity index is expected to follow a right-skewed distribution, this model will be 
+fit as a generalized linear mixed effects (GLME) model with gamma distributed errors. The main effects 
+of the group variable 𝑥𝑥1 (average difference over time between groups created by the first randomization) 
+will be tested. While summed symptom severity is a succinct outcome summarizing 15 symptoms, it has 
+its drawbacks that will be overcome with the next analysis that focuses on specific symptom responses 
+(secondary outcomes). The unit of analysis will be symptom case. Cases reaching moderate or severe at 
+baseline or any time during weekly calls will be analyzed. Symptom responses and times-to-response 
+defined under measures will be analyzed using methodology described by Sikorskii et al.97 Patient 
+symptom responses are treated as multiple events, and associations among responses to multiple 
+symptoms nested within patients will be accounted for in the GLME model with binomial errors. 
+Marginal Cox proportional hazard models with a robust sandwich covariance matrix estimate 
+implemented in PHREG procedure in SAS203,204 will be employed for the analysis of multiple times to 
+response nested within survivor. Symptom- and survivor-level covariates will be included in the model, 
+and different intervention eff

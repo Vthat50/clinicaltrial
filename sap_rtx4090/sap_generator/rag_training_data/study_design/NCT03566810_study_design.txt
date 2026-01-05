@@ -1,0 +1,450 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: NCT03566810
+Section: STUDY_DESIGN
+Features: consistency_bridging, pro_endpoints
+Quality Tier: 1 (Specialized)
+
+---
+
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+1/36
+Statistical Analysis Plan
+Clinical Trial Protocol 
+Identification No.
+MS200084_0013
+Title:
+A Randomized, Open-label, 2-way-crossover Study Assessing 
+the Bioequivalence between Single Doses of 500 mg 
+Glucophage Extended Release (GXR) Tablets (Merck/China 
+Nantong-Manufactured) 
+and 
+500 mg 
+GXR 
+Tablets 
+(Merck/Germany Darmstadt-Manufactured) under Fed and 
+Fasted State in Two Groups of Healthy Volunteers
+Trial Phase
+I
+Investigational Medicinal 
+Product(s)
+Glucophage Extended Release (GXR)
+Clinical Trial Protocol 
+Version
+19 Apr 2018 /Version1.0
+Statistical Analysis Plan 
+Author
+Biostatistician
+Biostatistician
+Pharmacokineticist
+Statistical Analysis Plan
+Date and Version
+20 December 2018/Version 2.0
+Statistical Analysis Plan 
+Reviewers
+This document is the property of Merck KGaA, Darmstadt, Germany, or one of its affiliated companies.
+It is intended for restricted use only and may not - in full or part - be passed on, reproduced, published or used without express 
+permission of Merck KGaA, Darmstadt, Germany or its affiliate. 
+Copyright © 2017 by Merck KGaA, Darmstadt, Germany or its affiliate. All rights reserved.
+PPD
+PPD
+PPD
+PPD
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+2/36
+1
+Signature Page
+Statistical Analysis Plan: MS200084_0013
+A Randomized, Open-label, 2-way-crossover Study Assessing the Bioequivalence between 
+Single Doses of 500 mg Glucophage Extended Release (GXR) Tablets (Merck/China Nantong-
+Manufactured) and 500 mg GXR Tablets (Merck/Germany Darmstadt-Manufactured) under Fed
+and Fasted State in Two Groups of Healthy Volunteers
+Trial Biostatistician
+Merck-Serono (Beijing) Pharmaceutical R&D Co., Ltd.
+Date: ..............................
+Signature: ..............................
+Trial Biostatistician
+Date: ..............................
+Signature: ..............................
+Date: ..............................
+Signature: ..............................
+ Pharmacokineticist
+Date: ..............................
+Signature: ..............................
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+3/36
+ Biostatistician
+Date: ..............................
+Signature: ..............................
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PP
+D
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+Statistical Analysis Plan - V2.0 Signature - 20-Dec-2018
+Electronic Signature Manifestation
+This page is a manifestation of the electronic signature(s) used in compliance with the organization's
+electronic signature policies and procedures.
+Page 2 - Object 
+Signer Full Name
+Meaning of Signature
+Date and Time
+Document Approval
+20 Dec 2018 16:31:46 UTC
+Document Approval
+20 Dec 2018 17:08:13 UTC
+Document Approval
+20 Dec 2018 17:22:16 UTC
+PPD
+PPD
+PPD
+CCI
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+4/36
+2
+Table of Contents
+1 
+Signature Page ......................................................................................2 
+2 
+Table of Contents..................................................................................4 
+3
+List of Abbreviations and Definition of Terms.....................................6 
+4 
+Modification History ............................................................................9 
+5 
+Purpose of the Statistical Analysis Plan ...............................................9 
+6 
+Summary of Clinical Trial Features .....................................................9 
+7 
+Sample Size/Randomization...............................................................12 
+7.1 
+Sample Size ........................................................................................12 
+7.2 
+Randomization....................................................................................13 
+8 
+Overview of Planned Analyses...........................................................15 
+9 
+Changes to the Planned Analyses in the Clinical Trial Protocol........15 
+10 
+Protocol Deviations and Analysis Sets...............................................15 
+10.1 
+Definition of Protocol Deviations.......................................................15 
+10.2 
+Definition of Analysis Sets and Subgroups........................................16 
+11 
+General Specifications for Statistical Analyses..................................17 
+11.1 
+Output Presentations...........................................................................17 
+11.2 
+Listings ...............................................................................................17 
+11.3 
+Tables and Descriptive Statistics........................................................18 
+11.4 
+Presentation of PK Concentration Data..............................................18 
+11.5 
+Presentation of PK Parameter Data ....................................................18 
+11.6 
+Presentation of continuous and qualitative variables..........................19 
+11.7 
+Software..............................................................................................19 
+11.8 
+Definition of baseline .........................................................................19 
+11.9 
+Definition of End of Study .................................................................20 
+11.10 
+Unscheduled visits..............................................................................20 
+11.11 
+Conversion factors..............................................................................20 
+11.12 
+Common calculations .........................................................................20 
+11.13 
+Handling of discontinued subjects......................................................20 
+11.14 
+Handling of missing data....................................................................20 
+11.15 
+Trial day..............................................................................................21 
+12 
+Trial Subjects......................................................................................22 
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+5/36
+12.1 
+Disposition of Subjects and Discontinuations....................................22 
+12.2 
+Protocol Deviations ............................................................................23 
+12.2.1 
+Important Protocol Deviations............................................................23 
+13 
+Demographics and Other Baseline Characteristics.............................23 
+13.1 
+Demographics.....................................................................................23 
+13.2 
+Medical History ..................................................................................24 
+13.3 
+Other Baseline Characteristics............................................................24 
+13.4 
+Urine drug abuse test and breath test of alcohol.................................24 
+14 
+Previous or Concomitant Medications/Procedures.............................24 
+15 
+Treatment Compliance and Exposure.................................................25 
+16 
+Endpoint Evaluation ...........................................................................25 
+16.1 
+Primary Endpoint Analyses ................................................................25 
+16.2 
+Secondary Endpoint Analyses ............................................................26 
+16.3 
+Other Endpoint Analyses....................................................................27 
+16.3.1 
+Analysis of PK Endpoints...................................................................27 
+16.3.2 
+Estimation of Individual Pharmacokinetic Parameters by 
+Noncompartmental Analysis ..............................................................28 
+17 
+Safety Evaluation................................................................................30 
+17.1 
+Adverse Events ...................................................................................31 
+17.1.1 
+All Adverse Events.............................................................................32 
+17.1.2 
+Adverse Events Leading to Treatment Discontinuation.....................32 
+17.2 
+Deaths, Other Serious Adverse Events, and Other Significant 
+Adverse Events ...................................................................................32 
+17.2.1 
+Deaths .................................................................................................33 
+17.2.2 
+Serious Adverse Events ......................................................................33 
+17.3 
+Clinical Laboratory Evaluation...........................................................33 
+17.4 
+Vital Signs ..........................................................................................34 
+17.5 
+Other Safety or Tolerability Evaluations............................................35 
+17.5.1 
+ECG Evaluation..................................................................................35 
+17.5.2 
+Physical Examinations, and Chest X-ray............................................35 
+18 
+References...........................................................................................36 
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+6/36
+3                             List of Abbreviations and Definition of Terms
+Abbreviation
+Definition
+ADaM
+Analysis Data Model
+AE
+Adverse Event
+ALT
+Alanine Aminotransferase
+AST
+Aspartate Aminotransferase
+AUC
+Area Under the Plasma Concentration-Time Curve
+AUC0→∞
+The AUC from time zero (= dosing time) extrapolated to infinity
+AUC0→t
+The AUC from time zero (= dosing time) to the last sampling 
+time (tlast) at which the concentration is at or above the lower 
+limit of quantification
+AUCextra%
+The AUC from time tlast extrapolated to infinity given as 
+percentage of AUC0→f
+BE
+Bioequivalence
+BMI
+Body Mass Index
+CI
+Confidence Interval
+CL/f
+The apparent total body clearance of drug following 
+extravascular administration.
+Cmax
+The Maximum Plasma Concentration Observed
+CRO
+Contract Research Organization
+CSR
+Clinical Study Report
+CTMS
+Clinical Trial Management System
+CTP
+Clinical Trial Protocol
+CV
+Coefficient of Variation (%)
+DBP
+Diastolic Blood Pressure
+ECG
+Electrocardiogram
+ECOG
+Eastern Cooperative Oncology Group
+eCRF
+Electronic Case Report Form
+GCP
+Good Clinical Practice
+GeoCV%
+Geometric Coefficient of Variation
+GeoMean
+Geometric Mean
+GXR
+Glucophage Extended Release 
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+7/36
+HAV
+Hepatitis A Virus
+HbA1C
+Glycosylated Hemoglobin Type A1C
+HBsAg
+Hepatitis B Surface Antigen
+HCV
+Hepatitis C Virus
+HIV
+Human Immunodeficiency Virus
+ICF
+Informed Consent Form
+ICH
+International Conference on Harmonization
+LCI
+Lower Confidence Interval
+IMP
+Investigational Medicinal Product
+LC/MS/MS
+Liquid Chromatography-tandem Mass Spectrometry
+LC/MS
+Liquid Chromatography-Mass Spectrometry
+LLOQ
+Lower Level of Quantification
+Max
+Maximum
+Mean
+Arithmetic Mean
+Min
+Minimum
+MedDRA
+Medical Dictionary for Regulatory Activities
+MRI
+Magnetic Resonance Imaging
+MSS
+Merck Santé s.a.s. in Semoy
+N
+Number of non-missing observations
+N.R.
+No result or result not valid
+PK
+Pharmacokinetic(s)
+PR
+Partial Response
+PT
+Preferred team
+Q1
+The First Quartile
+Q3
+The Third Quartile
+Rsq
+Goodness-of-fit statistic
+SAE
+Serious Adverse Event
+SAP
+Statistical Analysis Plan
+SBP
+Systolic Blood Pressure
+SD
+Standard Deviation
+PPD
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+8/36
+SDTM
+Study Data Tabulation Model
+SEM
+Standard Error of the Mean
+SOC
+System Organ Class
+t1/2
+Apparent terminal half-life
+T2DM
+Type 2 Diabetes Mellitus
+TEAE
+Treatment-Emergent Adverse Event
+tlast
+The last sampling time at which the concentration is at or above 
+the lower limit of quantification
+tmax
+Time of Maximum Plasma Concentration Observed
+TP
+Treponema Pallidum
+UCI
+Upper Confidence Interval
+Vz/f
+Apparent volume of distribution during the terminal phase 
+following extravascular administration
+λz
+Terminal Elimination Rate Constant
+WHO DDE
+World Health Organization Drug Dictionary Enhanced
+GXR/China & GXR/Germany                                                          GXR China Bioequivalence Study
+MS200084_0013                                                                                                                        Version 2.0
+9/36
+4
+Modification History
+Unique
+Identifier for
+SAP Version
+Date of
+SAP Version
+Author
+Changes from the Previous Version
+Draft V0.1
+26 June 2018
+Not Applicable –First Version 
+Draft V0.2
+02 July 2018
+Updated based on Sponsor comments
+Draft V0.3
+10 July 2018
+Updated based on Sponsor comments through email
+Draft V0.4
+21 August 2018
+Updated based on Sponsor comments
+Final V1.0
+07 September 2018
+Updated based on Sponsor comments
+Final V2.0
+20 December 2018
+Updated based on Medical Writer’s comments according 
+to CFDA BE CSR template
+5
+Purpose of the Statistical Analysis Plan
+The purpose of this Statistical Analysis Plan (SAP) is to document technical and detailed 
+specifications for the final analysis of data collected for protocol MS200084_0013, Version 1.0.
+Results of the analyses described in this SAP will be included in the Clinical Study Report (CSR). 
+Additionally, the planned analyses identified in this SAP will be included in regulatory 
+submissions or future manuscripts. Any post-hoc, or unplanned analyses performed to provide 
+results for inclusion in the CSR but not identified in this prospective SAP will be clearly identified 
+in the CSR. 
+The SAP is based upon Section 8 (Statistics) of the trial p

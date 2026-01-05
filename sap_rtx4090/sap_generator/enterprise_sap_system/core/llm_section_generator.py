@@ -768,6 +768,21 @@ Write the consistency objective as PRIMARY OBJECTIVE #1, not secondary."""
 
 Note: This study has a consistency objective (secondary). Include it after primary objectives."""
 
+        # CRITICAL: Single-arm study context - prevents "randomized" language
+        is_single_arm = self._detect_single_arm(facts)
+        single_arm_context = ""
+        if is_single_arm:
+            single_arm_context = """
+
+CRITICAL - SINGLE-ARM STUDY:
+This is a SINGLE-ARM study with NO comparator arm and NO randomization.
+- Use "all ENROLLED subjects" NOT "all randomized subjects"
+- Use "all TREATED patients" NOT "all randomized patients"
+- Do NOT mention randomization, randomized, or randomization ratio
+- Do NOT include a comparator in the estimand - there is only ONE treatment arm
+- Population definition: "All enrolled patients who received at least one dose of study treatment"
+"""
+
         if is_pilot_study or not hypothesis_testing_planned:
             system_prompt = f"""You are a biostatistician writing a Statistical Analysis Plan (SAP) for a PILOT/FEASIBILITY STUDY.
 
@@ -784,7 +799,8 @@ For pilot studies, objectives should focus on:
 
 Do NOT include formal estimands with hypothesis testing for pilot studies.
 Instead, describe what will be ESTIMATED and DESCRIBED (not tested).
-{coprimary_context}"""
+{coprimary_context}
+{single_arm_context}"""
 
             user_prompt = f"""Write the Objectives section for this PILOT/FEASIBILITY SAP.
 
@@ -819,7 +835,8 @@ For each objective, define the estimand with these 5 attributes:
 Use the actual comparator from the protocol - do NOT default to "placebo" unless it's actually a placebo-controlled study.
 Write in formal scientific language with proper statistical terminology.
 {coprimary_context}
-{consistency_context}"""
+{consistency_context}
+{single_arm_context}"""
 
             user_prompt = f"""Write the Objectives and Estimands section for this SAP.
 

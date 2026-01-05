@@ -207,8 +207,9 @@ class ProductionSAPPipeline:
             print("\n[Step 1] Extracting facts by section (with confidence)...")
             facts, section_results = self._extract_facts_sectioned(protocol_text, pdf_path=pdf_path)
 
-            # Log extraction quality
-            overall_confidence = sum(r.confidence for r in section_results.values()) / len(section_results) if section_results else 0
+            # Log extraction quality (handle None confidences)
+            confidences = [r.confidence for r in section_results.values() if r.confidence is not None]
+            overall_confidence = sum(confidences) / len(confidences) if confidences else 0
             print(f"[Step 1] Overall extraction confidence: {overall_confidence:.0%}")
 
             # Log ALL extracted fields for diagnostics

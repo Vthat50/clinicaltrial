@@ -1,0 +1,340 @@
+STATISTICAL ANALYSIS PLAN
+NCT ID: UNKNOWN
+Section: METHODS
+Features: immunotherapy, interim_analysis, non_proportional_hazards, fleming_harrington, methodology
+Quality Tier: 1 (Specialized)
+
+---
+
+Properties of the weighted log-rank test in the design of
+conﬁrmatory studies with delayed eﬀects
+Jos´e L. Jim´enez1, Viktoriya Stalbovskaya2 and Byron Jones3
+1Politecnico di Torino, Turin, Italy
+2Merus, Utrecht, The Netherlands
+3Novartis Pharma A.G., Basel, Switzerland
+Abstract
+Proportional hazards are a common assumption when designing conﬁrmatory clinical trials
+in oncology.
+This assumption not only aﬀects the analysis part but also the sample size
+calculation. The presence of delayed eﬀects causes a change in the hazard ratio while the
+trial is ongoing since at the beginning we do not observe any diﬀerence between treatment
+arms and after some unknown time point, the diﬀerences between treatment arms will start
+to appear. Hence, the proportional hazards assumption no longer holds and both sample size
+calculation and analysis methods to be used should be reconsidered. The weighted log-rank test
+allows a weighting for early, middle and late diﬀerences through the Fleming and Harrington
+class of weights, and is proven to be more eﬃcient when the proportional hazards assumption
+does not hold. The Fleming and Harrington class of weights, along with the estimated delay,
+can be incorporated into the sample size calculation in order to maintain the desired power
+once the treatment arm diﬀerences start to appear. In this article, we explore the impact
+of delayed eﬀects in group sequential and adaptive group sequential designs, and make an
+empirical evaluation in terms of power and type-I error rate of the of the weighted log-rank
+test in a simulated scenario with ﬁxed values of the Fleming and Harrington class of weights.
+We also give some practical recommendations regarding which methodology should be used in
+the presence of delayed eﬀects depending on certain characteristics of the trial.
+Keywords: adaptive designs; conﬁrmatory trials; delayed eﬀects; immuno-oncology agents;
+weighted log-rank.
+1
+Introduction
+In drug development, randomized controlled trials remain the gold standard to conﬁrm eﬃcacy
+and safety of novel drug candidates. Often phase III trials embed formal interim analyses to allow
+studies to be stopped earlier for futility if the novel drug is not eﬃcacious or for eﬃcacy if the
+treatment eﬀect is overwhelmingly positive.
+Immuno-oncology (IO) is a rapidly evolving area in the development of anti-cancer drugs. IO
+agents can have eﬀect on both the human immune system and the tumor microenvironment. By
+doing so, the tumors may be eradicated from the host or disease progression may be delayed. The
+eﬀect of an IO agent is not typically directed to the tumor itself; it instead boosts or releases the
+brake from the patients immune system, and this positive eﬀect may not be observed immediately.
+1
+arXiv:1806.11294v2  [stat.ME]  9 Dec 2018
+The lag between the activation of immune cells, their proliferation and impact on the tumor is
+described in the literature as a delayed treatment eﬀect. Some patients may not derive clinical
+beneﬁt before their disease progresses while others may derive sustained response or control of their
+disease. The primary endpoints often used for conﬁrmatory phase III studies in oncology are time
+to event: progression free survival (PFS) and overall survival (OS). PFS is deﬁned as time from
+randomization until disease progression or death and OS is deﬁned as time from randomization until
+death from any cause. The delayed treatment eﬀect may translate to inferior or equal PFS or OS
+compared to control treatment in the ﬁrst months of therapy and superior survival thereafter leading
+to non-proportionality of hazards in the experimental and control arms of study. Therefore, the
+original design based on a proportional hazards assumption will lead to an underpowered study and
+hence both the sample size calculation and the analysis methods to be used should be reconsidered
+[1].
+A weighted version of the log-rank test that incorporates the Fleming and Harrington class of
+weights [2], allows tuning the two parameters (ρ, γ) depending on if we expect early, middle or late
+delays, is proposed in the literature to increase the power at the end of the trial. However, tuning
+these parameters is not straightforward, since a misspeciﬁcation may cause an even larger power
+drop with respect to the log-rank test.
+The Fleming and Harrington class of weights, along with the estimated delay, can be incorpo-
+rated into the sample size calculation in order to maintain the desired power once the treatment
+arm diﬀerences start to appear (see [3]).
+In this article we make an empirical evaluation of the impact of having a delayed eﬀect on power
+and type I error rate in the design of a conﬁrmatory phase III study with an IO agent used in
+combination with a standard of care, assuming a range for delay time. We assess the performance
+of the weighted log-rank test as an alternative to the log-rank test given it allows weighting of
+late diﬀerences and the potential gain power under non-proportional hazards. The evaluation is
+made for both group sequential and adaptive group sequential designs with ﬁxed values of the
+Fleming and Harrington class of weights. We also give some practical recommendations regarding
+the methodology to be used in the presence of delayed eﬀects depending on certain characteristics
+of the trial.
+The manuscript is organized as follows. In section 2, we describe the weighted log-rank test and
+derive derive the sample size calculation formula needed to incorporate the estimated delay and the
+Fleming and Harrington class of weights, and we introduce the combination test statistic that will
+be necessary when doing sample size re-assessment. In section 3 we brieﬂy describe group sequential
+and adaptive group sequential designs, emphasizing two popular methods used to do sample size
+re-assessment. In section 4, we describe the simulated example.
+2
+Methods
+In this section we describe the statistical methodology we review in this article. In sections 2.1 and
+2.2 we present the weighted log-rank test and derive an optimal sample size when using this test
+following [3]. This sample size derivation is presented as an alternative to the Schoenfeld’s formula
+[4], which is normally used when calculating the necessary sample size in conﬁrmatory trials. In
+section 2.3 we introduce the combination test statistic, which will be necessary when we perform
+sample size re-estimation in adaptive group sequential designs.
+Let T be a vector that contains the event times, ti, i = 1, 2, . . . , D, between the patients’ enroll-
+ment date and the patients’ ﬁnal event date, tD, such that t1 < t2 < · · · < tD. Let the number of
+events at time ti be denoted as di, the total number of patients at risk at that time be denoted as
+ni, and the eﬀect delay (in months) be denoted as ϵ. As previously described if t < ϵ both survival
+curves go in parallel and once t ≥ϵ, the survival curves will start diverging. Hence, we assume the
+2
+following density functions fj(t), survival functions Sj(t) and hazard functions hj(t) for the control
+group (j = 1) and for the experimental group (j = 2):
+f1(t) = λ exp(−λt), S1(t) = exp(−λt)
+and
+h1(t) = λ,
+f2(t) =
+
+λ exp(−λt)
+cψλ exp(−ψλt) , S2(t) =
+ exp(−λt)
+c exp(−ψλt)
+and
+h2(t) =
+ λ
+if
+0 ≤t < ϵ
+ψλ
+if
+t ≥ϵ
+,
+(1)
+where c = exp
+h
+ϵψλ
+
+1
+ψ−1
+i
+so that
+R ∞
+0 f2(t)dt = 1. This way, we assume a step function for the
+hazard ratio where from time 0 to ϵ, the hazard ratio is equal to 1, and from time ϵ the hazard ratio
+is equal to 1/ψ.
+In this article we assume that the control group receives the standard of care and the experi-
+mental group receives a combination of the standard of care plus the IO agent which causes the
+delayed eﬀect. Hence, any observed diﬀerence from time 0 until time ϵ is random. The conclusions
+we obtain are only applicable to studies where a similar assumption is made. Otherwise, we cannot
+guarantee that from time 0 to time ϵ, both groups have a common survival function.
+2.1
+Weighted log-rank test
+The weighted log-rank test is deﬁned as
+Zr =
+PD
+i=1 ri(d1i −E(d1i))
+qPD
+i=1 r2
+i Var(d1i)
+,
+(2)
+where E(d1i) = n1i ×
+
+di
+ni
+
+, Var(d1i) = n1in2idi(ni−di)
+n2
+i (ni−1)
+and Zr
+appx.
+≈N(0, 1) under the null hypothesis
+H0 : h1/h2 = 1.
+[2] proposed the use of ri to weight early, middle and late diﬀerences through the Gρ,γ class of
+weighted log-rank tests, where the weight function at a time point ti is equal to
+ri = ˆS(ti)ρ(1 −ˆS(ti))γ,
+(3)
+where ˆS(ti) corresponds to the Kaplan-Meier estimator.
+Depending on the values of ρ and γ, we will have diﬀerent weight functions that will emphasize
+early diﬀerences (ρ = 1, γ = 0), middle diﬀerences (ρ = 1, γ = 1) or late diﬀerences (ρ = 0, γ = 1)
+in the hazard rates or the survival curves. The parameter combination attributes equal weights
+to all (ρ = 0, γ = 0) data values and hence does not emphasize any survival diﬀerences between
+treatment arms. Moreover, with this parameter combination (2) corresponds to the usual log-rank
+test.
+As mentioned by [3], since we focus on the entire survival curve rather than the late diﬀerence,
+valid inference requires pre-speciﬁcation of ρ and γ prior to any data collection.
+Prior speciﬁcation of (ρ, γ) is always advisable for the trial integrity, although some authors (see
+e.g., [5]) note that the value of (ρ, γ) can be modiﬁed at the interim analysis without type-I error
+rate inﬂation. At the end of the trial, we are interested in estimating the hazard ratio across the
+entire study, which is obtained through the standard Cox model [6]. Note however that there will
+be a disconnect between the hazard ratio (i.e., the standard Cox model) and the weighted log-rank
+test. To obtain an estimate based on the Cox model that corresponds to the weighted log-rank test
+see [7].
+In this article we focus on the use of the weighted log-rank test in conﬁrmatory trials with
+delayed eﬀects. Other areas of use may include treatment switching, which is sometimes present
+in conﬁrmatory trials and also induces non-proportional hazards (see [8]). However, it is out the
+3
+scope of this article to evaluate the performance of the weighted log-rank test under the presence
+of treatment switching and further research on this matter would be necessary.
+2.2
+Sample size derivation for the weighted log-rank test
+We introduce the optimal sample size derivation proposed by [3]. Assume that we recruit patients
+during time T at a certain rate in a conﬁrmatory trial where we aim to compare survival time be-
+tween two groups (j = 1, 2): a control group, with a constant hazard over time, and an experimental
+group, with a hazard that changes over time. The ﬁnal analysis is performed at time T + τ after
+the ﬁrst patient is enrolled. The study period [0, T + τ] is partitioned into M subintervals of equal
+length {t0 = 0, t1, t2, . . . , tM = T + τ}. Let hj(ti) be the hazard function for group j at time ti and
+Nj(ti) be the expected number of patients at risk for group j at time ti, where i = 0, . . . , M −1.
+[9] showed that the weighted log-rank statistic is normally distributed with unit variance and
+approximate expectation of
+E =
+PM−1
+i=0 Diri
+
+φiθi
+1+φiθi −
+φi
+1+φi
+
+qPM−1
+i=0 Dir2
+i
+φi
+(1+φi)2
+,
+(4)
+where
+θi = h2(ti)
+h1(ti),
+φi = N2(ti)
+N1(ti),
+Di = (h1(ti)N1(ti) + h2(ti)N2(ti)),
+Nj(t0) = nwj,
+Nj(ti+1) = Nj(ti)
+
+1 −hj(ti) −
+
+1
+T + τ −ti
+
+I{ti>τ}
+
+,
+(5)
+wj represents the allocation ratio for group j, and ri corresponds to the Fleming-Harrington’s Gρ,γ
+class of weights where ri = (S(ti))ρ(1 −S(ti))γ and S(ti) represents the pooled survival function.
+Even though it was originally proposed by [10], [3] uses S(ti) = w1S1(ti) + w2S2(ti) as a substitute
+for the pooled survival function, where Sj(ti) represents the survival function of group j at time ti.
+However, as stated by [3], equation (4) can be equivalently expressed as
+E = n
+1
+2E∗= n
+1
+2
+
+
+PM−1
+i=0 D∗
+i ri
+
+φiθi
+1+φiθi −
+φi
+1+φi
+
+qPM−1
+i=0 D∗
+i r2
+i
+φi
+(1+φi)2
+
+,
+(6)
+where
+D∗
+i = (h1(ti)N ∗
+1(ti) + h2(ti)N ∗
+2(ti)),
+N ∗
+j (t0) = wj,
+N ∗
+j (ti+1) = N ∗
+j (ti)
+
+1 −hj(ti) −
+
+1
+T + τ −ti
+
+I{ti>τ}
+
+,
+(7)
+Assuming that the weighted log-rank statistic is normally distributed with mean n
+1
+2E∗and unit
+variance, then for a power equal to 1 −β and one-sided signiﬁcance level α we have
+n
+1
+2E∗ = zα + zβ,
+(8)
+where zα and zβ correspond to the α-th and β-th percentile of the standard normal distribution
+respectively. The required sample size is calculated as
+4
+n =
+zα + zβ
+E∗
+2
+,
+(9)
+and the total expected number of events is equal to n × PM−1
+i=0 Di.
+2.3
+Test statistic
+We aim to test the null hypothesis, H0 : h1
+h2 = 1, against the alternative, H1 : h1
+h2 < 1. In the context
+of group sequential designs, since we are only interested in early eﬃcacy testing we make use of the
+well known classical group sequential design methodology (see [11]) and make use of the O’Brien
+and Fleming rejection boundaries. In the context of adaptive group sequential designs, we make
+use of the independent increment property of the inverse normal method, which is an eﬃcient way
+of incorporating data of patients who where censored at interim analysis while ensuring type-I error
+rate control (see [12]). The test statistic is deﬁned as
+Z∗= ξ1Φ−1(1 −p1) + ξ2Φ−1(1 −p2),
+(10)
+where p1 and p2 denote the separate stage p-values from stages 1 and 2, Φ−1 denotes the inverse
+of the standard normal distribution, and ξ1 and ξ2 are pre-speciﬁed weights such that ξ2
+1 =
+n1
+n1+n2,
+ξ2
+2 =
+n2
+n1+n2 and where n1 and n2 represent the number of events observed in each stage. The null
+hypothesis will be rejected at level α if Z∗> Φ−1(1 −α).
+However, the inverse normal method is in general not valid when doing sample size re-assessment
+if the adaptations depend on endpoints such OS or PFS (see [13]). We use the approach proposed
+by [14] where, in equation (10), the ﬁrst stage p-value is deﬁned by the cohort of patients included
+before the interim analysis and is calculated only at the end of the trial. This allows the inclusion
+of all the events, but it prohibits early stopping for eﬃcacy. See [15] for a detailed review of the
+existing methods on this matter.
+3
+Group sequential and adaptive group sequential designs
+In this section we aim to brieﬂy describe how group sequential and adaptive group sequential designs
+work. For a detailed deﬁnition and explanation of this methodology see [11].
+3.1
+Group sequential designs
+The formulae presented in section 2.2 allow to obtain a sample size that maintains an acceptable
+power at the end of the trial under the presence of delayed eﬀects. However, a key condition is to have
+some knowledge about the delay of the drug. Assuming we have this knowledge when designing the
+conﬁrmatory trial, we can implement a group sequential design with an interim analysis for eﬃcacy.
+Note that interim analysis for futility is not advised in the presence of delayed eﬀect because of
+high risk of stopping the study for futility even in scenarios that favor the alternative hypothesis.
+A group sequential design with one in
