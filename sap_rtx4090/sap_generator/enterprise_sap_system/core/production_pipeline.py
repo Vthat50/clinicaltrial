@@ -36,65 +36,24 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 # =============================================================================
-# CORE IMPORTS (no inference-based classifiers)
+# CORE IMPORTS - NO FALLBACKS (fail fast if missing)
 # =============================================================================
 
-# Sectioned Extractor (NEW - per-section extraction with confidence)
-try:
-    from .sectioned_extractor import SectionedProtocolExtractor, create_sectioned_extractor
-    SECTIONED_EXTRACTOR_AVAILABLE = True
-except ImportError:
-    SectionedProtocolExtractor = None
-    create_sectioned_extractor = None
-    SECTIONED_EXTRACTOR_AVAILABLE = False
+# Required components - will fail if not available
+from .sectioned_extractor import SectionedProtocolExtractor, create_sectioned_extractor
+from .tiered_llm import TieredLLMClient
+from .rag_sanitizer import RAGSanitizer
+from .fact_verifier import FactVerifier, VerificationResult
+from .extraction_schema import ExtractedProtocolFacts, from_claude_extraction
+from .decision_engine import OncologyDecisionEngine
+from .sap_validator import SAPValidator
+from ..rag.vector_store import create_vector_store
 
-# Legacy extractor (fallback)
-try:
-    from .claude_extractor import ClaudeProtocolExtractor, ExtractedProtocol
-except ImportError:
-    ClaudeProtocolExtractor = None
-    ExtractedProtocol = None
-
-# Knowledge Graph (CONTEXT only, not method selection)
+# Optional: Knowledge graph (context only, not critical)
 try:
     from .knowledge_rule_engine import KnowledgeRuleEngine
 except ImportError:
     KnowledgeRuleEngine = None
-
-# RAG Sanitizer
-try:
-    from .rag_sanitizer import RAGSanitizer
-except ImportError:
-    RAGSanitizer = None
-
-# Fact Verifier (SELF-RAG pattern)
-try:
-    from .fact_verifier import FactVerifier, VerificationResult
-except ImportError:
-    FactVerifier = None
-    VerificationResult = None
-
-# Vector Store
-try:
-    from ..rag.vector_store import create_vector_store
-except ImportError:
-    try:
-        from enterprise_sap_system.rag.vector_store import create_vector_store
-    except ImportError:
-        create_vector_store = None
-
-# LLM Client
-try:
-    from .tiered_llm import TieredLLMClient
-except ImportError:
-    TieredLLMClient = None
-
-# Extraction Schema
-try:
-    from .extraction_schema import ExtractedProtocolFacts, from_claude_extraction
-except ImportError:
-    ExtractedProtocolFacts = None
-    from_claude_extraction = None
 
 
 # =============================================================================
@@ -171,69 +130,50 @@ class ProductionSAPPipeline:
     ]
 
     def __init__(self, max_regenerations: int = 2):
-        """Initialize production pipeline with clean components."""
+        """Initialize production pipeline - NO FALLBACKS."""
         self.max_regenerations = max_regenerations
 
-        print("[ProductionPipeline] Initializing components...")
+        print("[ProductionPipeline] Initializing (no fallbacks)...")
 
-        # 1. LLM Client (needed for extractors)
-        self.llm = None
-        if TieredLLMClient:
-            try:
-                self.llm = TieredLLMClient()
-                print("[ProductionPipeline] ✓ LLM client initialized (Claude Opus 4.5)")
-            except Exception as e:
-                print(f"[ProductionPipeline] ✗ LLM failed: {e}")
+        # 1. LLM Client (required)
+        self.llm = TieredLLMClient()
+        print("[ProductionPipeline] ✓ LLM client (Claude Opus 4.5)")
 
-        # 2. Sectioned Extractor (NEW - primary extraction method)
-        self.sectioned_extractor = None
-        if SECTIONED_EXTRACTOR_AVAILABLE and self.llm:
-            try:
-                self.sectioned_extractor = create_sectioned_extractor(llm_client=self.llm)
-                print("[ProductionPipeline] ✓ SectionedProtocolExtractor initialized")
-            except Exception as e:
-                print(f"[ProductionPipeline] ✗ Sectioned extractor failed: {e}")
+        # 2. Sectioned Extractor (required)
+        self.sectioned_extractor = create_sectioned_extractor(llm_client=self.llm)
+        print("[ProductionPipeline] ✓ SectionedProtocolExtractor")
 
-        # 3. Legacy Extractor (fallback)
-        self.legacy_extractor = None
-        if ClaudeProtocolExtractor:
-            try:
-                self.legacy_extractor = ClaudeProtocolExtractor()
-                print("[ProductionPipeline] ✓ Legacy ClaudeProtocolExtractor (fallback)")
-            except Exception as e:
-                print(f"[ProductionPipeline] ✗ Legacy extractor failed: {e}")
+        # 3. Decision Engine (required - routes response criteria + methods)
+        chromadb_path = str(Path(__file__).parent.parent.parent / "data" / "chroma_db")
+        self.decision_engine = OncologyDecisionEngine(chromadb_path=chromadb_path)
+        print("[ProductionPipeline] ✓ OncologyDecisionEngine")
 
-        # 4. Knowledge Graph (CONTEXT only)
+        # 4. SAP Validator (required - pre/post validation)
+        self.sap_validator = SAPValidator(strict_mode=True)
+        print("[ProductionPipeline] ✓ SAPValidator (strict)")
+
+        # 5. RAG (required - prose style examples)
+        self.rag = create_vector_store()
+        print("[ProductionPipeline] ✓ ChromaDB RAG")
+
+        # 6. RAG Sanitizer (required)
+        self.sanitizer = RAGSanitizer(aggressive=True)
+        print("[ProductionPipeline] ✓ RAG Sanitizer")
+
+        # 7. Fact Verifier (required - SELF-RAG pattern)
+        self.verifier = FactVerifier()
+        print("[ProductionPipeline] ✓ Fact Verifier")
+
+        # 8. Knowledge Graph (optional - context only)
         self.knowledge_graph = None
         if KnowledgeRuleEngine:
             try:
                 self.knowledge_graph = KnowledgeRuleEngine()
-                print("[ProductionPipeline] ✓ KnowledgeRuleEngine (context only)")
-            except Exception as e:
-                print(f"[ProductionPipeline] ✗ Knowledge graph failed: {e}")
+                print("[ProductionPipeline] ✓ KnowledgeRuleEngine (optional)")
+            except Exception:
+                pass  # Not critical
 
-        # 5. RAG (prose style)
-        self.rag = None
-        if create_vector_store:
-            try:
-                self.rag = create_vector_store()
-                print("[ProductionPipeline] ✓ ChromaDB RAG connected")
-            except Exception as e:
-                print(f"[ProductionPipeline] ✗ RAG failed: {e}")
-
-        # 6. RAG Sanitizer
-        self.sanitizer = None
-        if RAGSanitizer:
-            self.sanitizer = RAGSanitizer(aggressive=True)
-            print("[ProductionPipeline] ✓ RAG Sanitizer initialized")
-
-        # 7. Fact Verifier (SELF-RAG)
-        self.verifier = None
-        if FactVerifier:
-            self.verifier = FactVerifier()
-            print("[ProductionPipeline] ✓ Fact Verifier initialized")
-
-        print("[ProductionPipeline] Initialization complete")
+        print("[ProductionPipeline] Ready")
 
     def generate(self, protocol_text: str, pdf_path: str = None, **kwargs) -> GenerationResult:
         """
@@ -292,6 +232,34 @@ class ProductionSAPPipeline:
                     print(f"[Step 1] ⚠ {section_name} NEEDS REVIEW: {result.needs_review}")
 
             # =================================================================
+            # STEP 1.5: PRE-GENERATION VALIDATION (catch errors early)
+            # =================================================================
+            if self.sap_validator:
+                print("\n[Step 1.5] Running pre-generation validation...")
+                pre_validation = self.sap_validator.validate_before_generation(facts)
+
+                if not pre_validation['valid']:
+                    print(f"[Step 1.5] ⚠ Pre-validation found {len(pre_validation['errors'])} errors:")
+                    for error in pre_validation['errors']:
+                        print(f"  - {error}")
+                        needs_review.append(error)
+
+                if pre_validation['warnings']:
+                    print(f"[Step 1.5] Warnings: {len(pre_validation['warnings'])}")
+                    for warning in pre_validation['warnings']:
+                        print(f"  - {warning}")
+
+                # Apply auto-fixes if available
+                if pre_validation.get('auto_fixes'):
+                    print(f"[Step 1.5] Applying {len(pre_validation['auto_fixes'])} auto-fixes...")
+                    for fix in pre_validation['auto_fixes']:
+                        field = fix.get('field')
+                        new_value = fix.get('new_value')
+                        if field and new_value is not None:
+                            facts[field] = new_value
+                            print(f"  - Fixed {field}: {new_value}")
+
+            # =================================================================
             # STEP 2: SCIENTIFIC CONTEXT (from knowledge graph)
             # =================================================================
             print("\n[Step 2] Getting scientific context...")
@@ -313,11 +281,51 @@ class ProductionSAPPipeline:
                     print(f"[Step 2] {note['severity'].upper()}: {note['observation'][:80]}...")
 
             # =================================================================
-            # STEP 3: METHOD CONSTRAINTS (from extraction, not inference)
+            # STEP 3: METHOD CONSTRAINTS (from extraction + decision engine)
             # =================================================================
             print("\n[Step 3] Building method constraints from extraction...")
             constraints = self._build_constraints_from_extraction(facts, conditions)
             print(f"[Step 3] Primary test: {constraints.primary_test}")
+
+            # =================================================================
+            # STEP 3.5: DECISION ENGINE RECOMMENDATIONS (augment constraints)
+            # =================================================================
+            if self.decision_engine:
+                print("\n[Step 3.5] Getting decision engine recommendations...")
+
+                # Get response criteria recommendation
+                response_rec = self.decision_engine.recommend_response_criteria(facts)
+                if response_rec and response_rec.get('criteria'):
+                    facts['response_criteria'] = response_rec['criteria']
+                    facts['response_criteria_rationale'] = response_rec.get('rationale', '')
+                    print(f"[Step 3.5] Response criteria: {response_rec['criteria']}")
+                    if response_rec.get('warnings'):
+                        for w in response_rec['warnings']:
+                            print(f"[Step 3.5] ⚠ {w}")
+
+                # Get statistical methods recommendation (if protocol method unclear)
+                if '[NEEDS REVIEW]' in constraints.primary_test or '[NOT' in constraints.primary_test:
+                    method_rec = self.decision_engine.recommend_statistical_methods(facts)
+                    if method_rec and method_rec.get('primary_method'):
+                        # Flag as recommendation, not protocol-specified
+                        recommended_method = f"{method_rec['primary_method']} [RECOMMENDED - verify against protocol]"
+                        constraints.primary_test = recommended_method
+                        print(f"[Step 3.5] Recommended method: {method_rec['primary_method']}")
+                        if method_rec.get('rationale'):
+                            print(f"[Step 3.5] Rationale: {method_rec['rationale']}")
+
+                # Get population definitions recommendation
+                pop_rec = self.decision_engine.recommend_population_definitions(facts)
+                if pop_rec:
+                    if pop_rec.get('itt_definition') and not facts.get('itt_definition'):
+                        facts['itt_definition'] = pop_rec['itt_definition']
+                    if pop_rec.get('fas_definition') and not facts.get('fas_definition'):
+                        facts['fas_definition'] = pop_rec['fas_definition']
+                    if pop_rec.get('per_protocol_definition') and not facts.get('per_protocol_definition'):
+                        facts['per_protocol_definition'] = pop_rec['per_protocol_definition']
+                    if pop_rec.get('safety_population_definition') and not facts.get('safety_population_definition'):
+                        facts['safety_population_definition'] = pop_rec['safety_population_definition']
+                    print(f"[Step 3.5] Population definitions augmented from decision engine")
 
             # =================================================================
             # STEP 4: SANITIZED RAG EXAMPLES
@@ -356,6 +364,37 @@ class ProductionSAPPipeline:
             else:
                 print(f"[Step 6] ⚠ Verification completed with issues")
 
+            # =================================================================
+            # STEP 7: POST-GENERATION VALIDATION (catch output errors)
+            # =================================================================
+            warnings = []
+            if self.sap_validator:
+                print("\n[Step 7] Running post-generation validation...")
+                post_validation = self.sap_validator.validate_after_generation(sap_text, facts)
+
+                if not post_validation['valid']:
+                    print(f"[Step 7] ⚠ Post-validation found {len(post_validation['errors'])} errors:")
+                    for error in post_validation['errors']:
+                        print(f"  - {error}")
+                        needs_review.append(error)
+
+                if post_validation.get('warnings'):
+                    print(f"[Step 7] Warnings: {len(post_validation['warnings'])}")
+                    for warning in post_validation['warnings']:
+                        print(f"  - {warning}")
+                        warnings.append(warning)
+
+                # Report confidence
+                if post_validation.get('overall_confidence'):
+                    print(f"[Step 7] Overall confidence: {post_validation['overall_confidence']:.0%}")
+
+                # Report sections needing human review
+                if post_validation.get('human_review_sections'):
+                    print(f"[Step 7] Sections needing human review:")
+                    for section in post_validation['human_review_sections']:
+                        print(f"  - {section}")
+                        needs_review.append(f"Review section: {section}")
+
             return GenerationResult(
                 success=True,
                 sap_text=sap_text,
@@ -367,7 +406,8 @@ class ProductionSAPPipeline:
                     name: r.confidence for name, r in section_results.items()
                 },
                 needs_review=needs_review,
-                regeneration_count=regeneration_count
+                regeneration_count=regeneration_count,
+                warnings=warnings
             )
 
         except Exception as e:
@@ -382,46 +422,15 @@ class ProductionSAPPipeline:
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """
         Extract facts using sectioned extraction with confidence scores.
-
-        Args:
-            protocol_text: Full protocol text
-            pdf_path: Path to PDF for Vision-based parsing
-
-        Returns:
-            Tuple of (facts dict, section_results dict)
+        NO FALLBACKS - will raise if extraction fails.
         """
-        section_results = {}
-
-        # Try sectioned extractor first
-        if self.sectioned_extractor:
-            try:
-                extracted_facts, section_results = self.sectioned_extractor.extract_all_sections(
-                    protocol_text,
-                    pdf_path=pdf_path
-                )
-                # Convert to flat dict for generation
-                facts = extracted_facts.to_flat_dict() if hasattr(extracted_facts, 'to_flat_dict') else {}
-                facts['raw_text'] = protocol_text.lower()
-                return facts, section_results
-            except Exception as e:
-                import traceback
-                print(f"[Extraction] Sectioned extraction failed: {e}")
-                print(f"[Extraction] Full traceback:")
-                traceback.print_exc()
-                # Re-raise to see the actual error instead of hiding it
-                raise
-
-        # No sectioned extractor available - return empty with error
-        print("[Extraction] ERROR: No sectioned extractor available")
-        facts = self._basic_extraction(protocol_text)
-        section_results = {
-            'error': type('Result', (), {
-                'confidence': 0.0,
-                'needs_review': ['ALL - no extractor'],
-                'fields_found': [],
-                'fields_not_found': []
-            })()
-        }
+        extracted_facts, section_results = self.sectioned_extractor.extract_all_sections(
+            protocol_text,
+            pdf_path=pdf_path
+        )
+        # Convert to flat dict for generation
+        facts = extracted_facts.to_flat_dict() if hasattr(extracted_facts, 'to_flat_dict') else {}
+        facts['raw_text'] = protocol_text.lower()
         return facts, section_results
 
     def _normalize_facts(self, facts: Dict[str, Any]) -> Dict[str, Any]:
@@ -501,43 +510,6 @@ class ProductionSAPPipeline:
                 print(f"[CrossRef] Estimand variable populated from endpoint: {ep}")
 
         return normalized
-
-    def _basic_extraction(self, text: str) -> Dict[str, Any]:
-        """Fallback basic extraction using regex."""
-        facts = {'raw_text': text.lower()}
-
-        # NCT ID
-        nct_match = re.search(r'NCT\d{8}', text, re.IGNORECASE)
-        if nct_match:
-            facts['nct_id'] = nct_match.group()
-
-        # Sample size
-        size_match = re.search(r'(\d+)\s*(?:patients|subjects|participants)', text, re.IGNORECASE)
-        if size_match:
-            facts['sample_size'] = int(size_match.group(1))
-
-        # Events
-        final_match = re.search(r'(?:final|total)[:\s]*(\d+)\s*(?:deaths?|events?)', text, re.IGNORECASE)
-        if final_match:
-            facts['final_events'] = int(final_match.group(1))
-
-        interim_match = re.search(r'interim[:\s]*(?:at\s+)?(\d+)\s*(?:deaths?|events?)', text, re.IGNORECASE)
-        if interim_match:
-            facts['interim_events'] = int(interim_match.group(1))
-
-        # Interim analysis
-        facts['has_interim_analysis'] = bool(
-            re.search(r'interim\s+analysis', text, re.IGNORECASE) and
-            not re.search(r'no\s+interim', text, re.IGNORECASE)
-        )
-
-        # Treatment setting - flag for review, don't infer
-        facts['treatment_setting'] = '[TREATMENT SETTING NOT EXTRACTED - NEEDS REVIEW]'
-
-        # Statistical method - flag for review, don't infer
-        facts['statistical_method'] = '[STATISTICAL METHOD NOT EXTRACTED - NEEDS REVIEW]'
-
-        return facts
 
     def _build_constraints_from_extraction(
         self,
