@@ -341,6 +341,17 @@ hypothesis_testing_planned: Will formal statistical hypothesis tests be performe
   - FALSE if: "descriptive statistics only", "no statistical tests", exploratory endpoints only
   - TRUE if: p-values, type I error control, power calculations mentioned
 
+study_category: Classify the study type for downstream analysis:
+  - "confirmatory_superiority": Phase 3, hypothesis testing, superiority claim
+  - "confirmatory_non_inferiority": Phase 3, NI design, registration-enabling
+  - "exploratory_single_arm": Phase 2, single-arm, often ORR primary
+  - "exploratory_randomized": Phase 2, randomized but not registration-enabling
+  - "dose_finding": Phase 1/1b, MTD/RP2D identification
+  - "basket_trial": Multiple tumor types, shared biomarker
+  - "umbrella_trial": One tumor type, multiple biomarker arms
+  - "platform_trial": Shared control, arms added/dropped adaptively
+  - "adaptive_design": Pre-planned adaptations (sample size, enrichment)
+
 Required fields (must find or mark [NOT FOUND]):
 - treatment_setting: EXACTLY one of: "first-line", "second-line", "third-line or later",
   "neoadjuvant", "adjuvant", "maintenance".
@@ -380,6 +391,7 @@ RESPOND IN JSON:
     "is_pilot_study": <true/false>,
     "num_arms": <number>,
     "hypothesis_testing_planned": <true/false>,
+    "study_category": "<category from list above>",
     "treatment_setting": "<exact setting or [NOT FOUND]>",
     "disease_type": "<specific disease or [NOT FOUND]>",
     "phase": "<phase>",
@@ -468,40 +480,68 @@ Some trials have different sample sizes for subgroups. COMMON PATTERNS:
 - Histology: "XXX squamous" + "YYY non-squamous" = total
 - Add up subgroup sizes if total is not explicitly stated
 
-=== CRITICAL: LOOK FOR REGIONAL EXTENSION COHORTS ===
-Many global trials have regional extensions (China, Japan, etc.) with SEPARATE enrollment:
-- "China extension" / "China cohort" / "China sub-study" with ~100-200 patients
-- "Japan cohort" / "Japan extension"
-- "After global enrollment closes" indicates extension timing
-- Regional cohorts may have SEPARATE analysis (consistency evaluation, not hypothesis testing)
-- Extract regional cohort sizes separately - they may NOT be included in global N
+=== OPTIONAL: REGIONAL EXTENSION COHORTS ===
+Some global trials have regional extensions with SEPARATE enrollment. Look for ANY of:
+- "[Country] extension" / "[Country] cohort" / "[Region] sub-study"
+- "after global enrollment" / "following primary enrollment"
+- "regional filing" / "local regulatory" / "NMPA/PMDA submission"
+- "consistency evaluation" / "treatment effect preservation"
 
-Example: Global N=700, China extension N=131 → Total program N=831
-Extract BOTH the global sample size AND regional extensions
+If regional extensions exist, extract them. If NOT present, return null.
+Regional cohorts may NOT be included in the main sample size.
 
-=== DETECT PILOT/FEASIBILITY SAMPLE SIZE ===
-- is_pragmatic_sample: TRUE if "pragmatic", "feasibility", "no formal calculation", "exploratory",
-  "based on expected recruitment", "practical considerations", or N ≤ 50 without power calculation
-- If NO power calculation mentioned and small N, likely a pilot study
+=== DETECT SAMPLE SIZE JUSTIFICATION TYPE ===
+Different study designs have different justification approaches:
+
+1. POWER CALCULATION (Phase 3, confirmatory):
+   - "90% power" / "80% power" / "power of XX%"
+   - "detect HR of 0.XX" / "detect difference of XX"
+   - "type I error" / "alpha = 0.025"
+
+2. PHASE 2 DESIGNS (single-arm, exploratory):
+   - "Simon two-stage" / "Simon's optimal" / "minimax design"
+   - "Fleming single-stage" / "Fleming-A'Hern"
+   - "null hypothesis: response rate ≤ XX%"
+   - "acceptable response rate XX%" / "unacceptable response rate XX%"
+
+3. BAYESIAN APPROACHES:
+   - "posterior probability" / "Bayesian design"
+   - "credible interval" / "predictive probability"
+
+4. PRECISION-BASED:
+   - "confidence interval width" / "precision of estimate"
+   - "standard error" / "half-width"
+
+5. PRAGMATIC/FEASIBILITY:
+   - "pragmatic" / "feasibility" / "no formal calculation"
+   - "expected enrollment" / "practical considerations"
+   - N ≤ 50 without formal justification
+
+6. DOSE-FINDING (Phase 1):
+   - "3+3 design" / "rolling six" / "CRM" / "BOIN"
+   - "MTD" / "RP2D" / "DLT"
+
+Set is_pragmatic_sample=true if NO formal calculation exists.
 
 Required fields:
 - sample_size: Total number of patients (MUST be > 0 or null)
   - Add up subgroup sizes if needed
   - Look for "approximately" or "~" numbers
   - NEVER return 0 - use null if truly not found
-- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90). NULL if pilot/feasibility.
+- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90). NULL if not applicable.
 
 Optional fields:
 - sample_size_per_arm: Number per treatment arm [arm1_n, arm2_n]
 - sample_size_by_population: Breakdown by biomarker/subgroup
   Example: {{"biomarker_positive": 500, "biomarker_negative": 200, "total": 700}}
-- regional_cohorts: Regional extension cohorts (China, Japan, etc.)
-  Example: {{"china_extension": 131, "japan_extension": 50}}
+- regional_cohorts: Regional extension cohorts if any (null if none)
+  Example: {{"<region>_extension": <n>}} or null
 - sample_size_rationale: Text describing the calculation basis
-- sample_size_justification_type: "power_calculation", "pragmatic", "feasibility", "precision", "binomial"
+- sample_size_justification_type: One of: "power_calculation", "simon_two_stage", "fleming_single_stage",
+  "bayesian", "precision", "pragmatic", "feasibility", "dose_finding", "binomial"
 - hazard_ratio: Expected/assumed hazard ratio (usually 0.6-0.8 for oncology)
-- allocation_ratio: Randomization ratio like "1:1" or "2:1"
-- is_pragmatic_sample: true if not based on formal power calculation
+- allocation_ratio: Randomization ratio like "1:1" or "2:1" (null if single-arm)
+- is_pragmatic_sample: true if not based on formal calculation
 
 RESPOND IN JSON:
 {{
@@ -509,7 +549,7 @@ RESPOND IN JSON:
     "power": <0.0-1.0 or null>,
     "sample_size_per_arm": [<arm1_n>, <arm2_n>] or null,
     "sample_size_by_population": {{"<pop1>": <n1>, "<pop2>": <n2>}} or null,
-    "regional_cohorts": {{"china_extension": <n>, "japan_extension": <n>}} or null,
+    "regional_cohorts": {{"<region>": <n>}} or null,
     "sample_size_rationale": "<text>" or null,
     "sample_size_justification_type": "<type>" or null,
     "is_pragmatic_sample": <true/false>,
@@ -694,6 +734,26 @@ RESPOND IN JSON:
 }}''',
 
         'multiplicity': '''Extract MULTIPLICITY information from this protocol section.
+
+=== FIRST: DOES THIS PROTOCOL HAVE MULTIPLICITY? ===
+
+NOT all trials have multiplicity. Set has_multiplicity=false if:
+- Single primary endpoint with NO key secondaries under alpha control
+- Phase 2 single-arm with "descriptive statistics only"
+- "No formal hypothesis testing planned"
+- Exploratory/pilot study with no p-value thresholds
+- No mention of alpha adjustment, FWER, or multiple testing
+
+Set has_multiplicity=true if ANY of these apply:
+- Multiple primary endpoints (co-primary)
+- Key secondary endpoints tested with alpha control
+- Graphical/hierarchical/gatekeeping approach mentioned
+- Non-inferiority + superiority sequential testing
+- Explicit alpha allocation across hypotheses
+
+If has_multiplicity=false, return minimal response with empty arrays.
+
+=== IF MULTIPLICITY EXISTS, SEARCH FOR: ===
 
 SEMANTIC SEARCH - Look for these CONCEPTS:
 - "multiplicity" / "multiple testing" / "multiple endpoints" / "multiple hypotheses"
@@ -2344,37 +2404,40 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         if section_name == 'interim_analysis':
             num_ia = data.get('num_interim_analyses')
 
-            # Validate num_interim_analyses against interim_events array
-            interim_events = data.get('interim_events', [])
-            if interim_events and isinstance(interim_events, list):
-                expected_count = len(interim_events)
-                if num_ia and num_ia != expected_count:
-                    print(f"[VALIDATION] WARNING: num_interim_analyses={num_ia} but interim_events has {expected_count} entries")
-                    notes.append(f"VALIDATION: num_interim_analyses mismatch - {num_ia} vs {expected_count} events")
+            # Not all trials have interim analyses - this is valid
+            if not num_ia or num_ia == 0:
+                # Valid for Phase 2, single-arm, or trials without DMC
+                notes.append("VALIDATION: No interim analyses planned - valid for many study designs")
+            else:
+                # Only validate IA details if interim analyses exist
+                # Validate num_interim_analyses against interim_events array
+                interim_events = data.get('interim_events', [])
+                if interim_events and isinstance(interim_events, list):
+                    expected_count = len(interim_events)
+                    if num_ia != expected_count:
+                        print(f"[VALIDATION] WARNING: num_interim_analyses={num_ia} but interim_events has {expected_count} entries")
+                        notes.append(f"VALIDATION: num_interim_analyses mismatch - {num_ia} vs {expected_count} events")
 
-            # Check alpha_at_interim consistency
-            alpha_interim = data.get('alpha_at_interim', [])
-            if alpha_interim and isinstance(alpha_interim, list) and num_ia:
-                if len(alpha_interim) != num_ia:
-                    notes.append(f"VALIDATION: alpha_at_interim has {len(alpha_interim)} values but num_interim_analyses={num_ia}")
+                # Check alpha_at_interim consistency
+                alpha_interim = data.get('alpha_at_interim', [])
+                if alpha_interim and isinstance(alpha_interim, list):
+                    if len(alpha_interim) != num_ia:
+                        notes.append(f"VALIDATION: alpha_at_interim has {len(alpha_interim)} values but num_interim_analyses={num_ia}")
 
-            # Check event_triggers exist when interim analyses are planned
-            event_triggers = data.get('event_triggers', [])
-            if num_ia and num_ia > 0:
-                if not event_triggers or not isinstance(event_triggers, list) or len(event_triggers) == 0:
-                    notes.append(f"VALIDATION WARNING: {num_ia} interim analyses but no event_triggers extracted - check if event-driven")
-                else:
-                    # Validate event trigger count matches
-                    # Note: may have fewer triggers if some are calendar-based
-                    if len(event_triggers) < num_ia:
-                        notes.append(f"VALIDATION: Only {len(event_triggers)} event_triggers for {num_ia} interim analyses - some may be calendar-based")
+                # Check event_triggers - only warn, don't require (some IAs are calendar-based)
+                event_triggers = data.get('event_triggers', [])
+                if not event_triggers or len(event_triggers) == 0:
+                    # This is informational, not an error - some trials use calendar time
+                    pass  # Don't warn, event triggers are optional
+                elif len(event_triggers) < num_ia:
+                    notes.append(f"VALIDATION: {len(event_triggers)} event_triggers for {num_ia} interim analyses - some may be calendar-based")
 
-            # Validate alpha spending function consistency
-            alpha_spending_fn = data.get('alpha_spending_function')
-            spending_params = data.get('spending_parameters', {})
-            if alpha_spending_fn and 'NOT FOUND' not in str(alpha_spending_fn):
-                if not spending_params or spending_params == {}:
-                    notes.append(f"VALIDATION: alpha_spending_function '{alpha_spending_fn}' found but no spending_parameters")
+                # Validate alpha spending function consistency
+                alpha_spending_fn = data.get('alpha_spending_function')
+                spending_params = data.get('spending_parameters', {})
+                if alpha_spending_fn and 'NOT FOUND' not in str(alpha_spending_fn):
+                    if not spending_params or spending_params == {}:
+                        notes.append(f"VALIDATION: alpha_spending_function '{alpha_spending_fn}' found but no spending_parameters")
 
         # =========================================================
         # TREATMENT SETTING VALIDATION
@@ -2396,19 +2459,28 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         # MULTIPLICITY VALIDATION
         # =========================================================
         if section_name == 'multiplicity':
-            hypotheses = data.get('hypotheses_list', [])
-            alpha_per = data.get('alpha_per_hypothesis', {})
+            has_multiplicity = data.get('has_multiplicity', False)
 
-            # Check if number of hypotheses matches alpha allocations
-            if hypotheses and alpha_per:
-                if len(hypotheses) != len(alpha_per):
-                    notes.append(f"VALIDATION: {len(hypotheses)} hypotheses but {len(alpha_per)} alpha allocations")
+            # Skip detailed validation if no multiplicity (valid for many study types)
+            if not has_multiplicity:
+                # This is valid for Phase 2 single-arm, exploratory studies, etc.
+                # Don't flag missing fields as errors
+                notes.append("VALIDATION: No multiplicity adjustment needed for this study design")
+            else:
+                # Only validate multiplicity details if multiplicity exists
+                hypotheses = data.get('hypotheses_list', [])
+                alpha_per = data.get('alpha_per_hypothesis', {})
 
-            # Check that total alpha doesn't exceed 0.025 (one-sided) or 0.05 (two-sided)
-            if alpha_per and isinstance(alpha_per, dict):
-                total_alpha = sum(v for v in alpha_per.values() if isinstance(v, (int, float)))
-                if total_alpha > 0.03:  # Allow small rounding errors
-                    notes.append(f"VALIDATION WARNING: total initial alpha={total_alpha:.4f} exceeds expected 0.025")
+                # Check if number of hypotheses matches alpha allocations
+                if hypotheses and alpha_per:
+                    if len(hypotheses) != len(alpha_per):
+                        notes.append(f"VALIDATION: {len(hypotheses)} hypotheses but {len(alpha_per)} alpha allocations")
+
+                # Check that total alpha doesn't exceed 0.025 (one-sided) or 0.05 (two-sided)
+                if alpha_per and isinstance(alpha_per, dict):
+                    total_alpha = sum(v for v in alpha_per.values() if isinstance(v, (int, float)))
+                    if total_alpha > 0.03:  # Allow small rounding errors
+                        notes.append(f"VALIDATION WARNING: total initial alpha={total_alpha:.4f} exceeds expected 0.025")
 
             # Validate NI margin exists when NI testing is mentioned
             ni_endpoint = data.get('ni_endpoint')
