@@ -336,25 +336,27 @@ class ProductionSAPPipeline:
                 print("\n[Step 3.5] Getting decision engine recommendations...")
 
                 # Get response criteria recommendation
+                # Returns Recommendation dataclass with: primary, confidence, reasoning, implementation
                 response_rec = self.decision_engine.recommend_response_criteria(facts)
-                if response_rec and response_rec.get('criteria'):
-                    facts['response_criteria'] = response_rec['criteria']
-                    facts['response_criteria_rationale'] = response_rec.get('rationale', '')
-                    print(f"[Step 3.5] Response criteria: {response_rec['criteria']}")
-                    if response_rec.get('warnings'):
-                        for w in response_rec['warnings']:
-                            print(f"[Step 3.5] ⚠ {w}")
+                if response_rec and hasattr(response_rec, 'implementation'):
+                    criteria = response_rec.implementation.get('criteria') or response_rec.primary
+                    if criteria:
+                        facts['response_criteria'] = criteria
+                        facts['response_criteria_rationale'] = "; ".join(response_rec.reasoning) if response_rec.reasoning else ''
+                        print(f"[Step 3.5] Response criteria: {criteria}")
 
                 # Get statistical methods recommendation (if protocol method unclear)
                 if '[NEEDS REVIEW]' in constraints.primary_test or '[NOT' in constraints.primary_test:
                     method_rec = self.decision_engine.recommend_statistical_methods(facts)
-                    if method_rec and method_rec.get('primary_method'):
-                        # Flag as recommendation, not protocol-specified
-                        recommended_method = f"{method_rec['primary_method']} [RECOMMENDED - verify against protocol]"
-                        constraints.primary_test = recommended_method
-                        print(f"[Step 3.5] Recommended method: {method_rec['primary_method']}")
-                        if method_rec.get('rationale'):
-                            print(f"[Step 3.5] Rationale: {method_rec['rationale']}")
+                    if method_rec and hasattr(method_rec, 'implementation'):
+                        primary_method = method_rec.implementation.get('primary_method') or method_rec.implementation.get('primary_analysis') or method_rec.primary
+                        if primary_method:
+                            # Flag as recommendation, not protocol-specified
+                            recommended_method = f"{primary_method} [RECOMMENDED - verify against protocol]"
+                            constraints.primary_test = recommended_method
+                            print(f"[Step 3.5] Recommended method: {primary_method}")
+                            if method_rec.reasoning:
+                                print(f"[Step 3.5] Rationale: {method_rec.reasoning[0]}")
 
                 # Get population definitions recommendation
                 pop_rec = self.decision_engine.recommend_population_definitions(facts)
