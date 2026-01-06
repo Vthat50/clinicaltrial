@@ -254,11 +254,11 @@ class TieredLLMClient:
         """Get list of currently available tiers (circuit breaker aware)."""
         tiers = []
 
-        # OpenAI first (cheaper and Claude often has credit issues)
-        if self.openai_client and self.api_status["openai"].is_available():
-            tiers.append("openai")
+        # Claude first (best accuracy for clinical protocol extraction)
         if self.claude_client and self.api_status["claude"].is_available():
             tiers.append("claude")
+        if self.openai_client and self.api_status["openai"].is_available():
+            tiers.append("openai")
         if self.groq_client and self.api_status["groq"].is_available():
             tiers.append("groq")
 

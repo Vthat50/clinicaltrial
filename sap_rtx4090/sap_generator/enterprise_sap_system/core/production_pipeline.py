@@ -145,7 +145,7 @@ class ProductionSAPPipeline:
         # 1. LLM Client (required)
         self.llm = TieredLLMClient()
         self.fast_llm = TieredLLMClient()  # Second client for fast sections
-        print("[ProductionPipeline] ✓ LLM client (tiered: OpenAI → Gemini → Claude → Groq)")
+        print("[ProductionPipeline] ✓ LLM client (tiered: Claude → OpenAI → Groq)")
 
         # 2. Sectioned Extractor (required)
         self.sectioned_extractor = create_sectioned_extractor(llm_client=self.llm)
@@ -873,18 +873,16 @@ class ProductionSAPPipeline:
             try:
                 # Select model tier based on complexity
                 if use_fast_model:
-                    # Use fast tier: OpenAI GPT-4o-mini or Groq
+                    # Use fast tier for simple sections
                     response = self.llm.chat(
                         prompt,
-                        max_tokens=1500,  # Smaller for simple sections
-                        preferred_tier="openai"  # GPT-4o-mini is fast
+                        max_tokens=1500  # Smaller for simple sections
                     )
                 else:
-                    # Use accurate tier: OpenAI GPT-4o
+                    # Use default tier (Claude) for accurate extraction
                     response = self.llm.chat(
                         prompt,
-                        max_tokens=2000,
-                        preferred_tier="openai"
+                        max_tokens=2000
                     )
 
                 if hasattr(response, 'success') and response.success and hasattr(response, 'content'):
