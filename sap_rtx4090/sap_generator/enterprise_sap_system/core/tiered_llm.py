@@ -254,10 +254,11 @@ class TieredLLMClient:
         """Get list of currently available tiers (circuit breaker aware)."""
         tiers = []
 
-        if self.claude_client and self.api_status["claude"].is_available():
-            tiers.append("claude")
+        # OpenAI first (cheaper and Claude often has credit issues)
         if self.openai_client and self.api_status["openai"].is_available():
             tiers.append("openai")
+        if self.claude_client and self.api_status["claude"].is_available():
+            tiers.append("claude")
         if self.groq_client and self.api_status["groq"].is_available():
             tiers.append("groq")
 
@@ -541,6 +542,7 @@ class TieredLLMClient:
         is_rate_limit = "rate" in error_str or "429" in error_str
         is_auth_error = "401" in error_str or "403" in error_str or "authentication" in error_str or "api_key" in error_str
         is_invalid_request = "400" in error_str or "invalid" in error_str
+        is_credit_error = "credit" in error_str or "balance" in error_str or "billing" in error_str
 
         # Record error and get cooldown
         cooldown = self.api_status[tier].record_error(is_rate_limit=is_rate_limit)
