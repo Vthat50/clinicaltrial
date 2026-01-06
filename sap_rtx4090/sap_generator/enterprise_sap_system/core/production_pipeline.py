@@ -331,63 +331,10 @@ class ProductionSAPPipeline:
                 print(f"[Step 4] Retrieved {sum(len(v) for v in sanitized_examples.values())} examples")
 
             # =================================================================
-            # STEP 3.5: DECISION ENGINE RECOMMENDATIONS (augment constraints)
+            # STEP 3.5: DECISION ENGINE DISABLED
+            # No defaults - extraction failures should be explicit [NOT FOUND]
             # =================================================================
-            if self.decision_engine:
-                print("\n[Step 3.5] Getting decision engine recommendations...")
-
-                # Get response criteria recommendation
-                # Returns Recommendation dataclass with: primary, confidence, reasoning, implementation
-                response_rec = self.decision_engine.recommend_response_criteria(facts)
-                if response_rec and hasattr(response_rec, 'implementation'):
-                    criteria = response_rec.implementation.get('criteria') or response_rec.primary
-                    if criteria:
-                        facts['response_criteria'] = criteria
-                        facts['response_criteria_rationale'] = "; ".join(response_rec.reasoning) if response_rec.reasoning else ''
-                        print(f"[Step 3.5] Response criteria: {criteria}")
-
-                # Get statistical methods recommendation
-                # Call decision engine when:
-                # 1. Extraction failed ([NEEDS REVIEW] or [NOT FOUND])
-                # 2. Small pilot/single-arm study (extraction may have grabbed boilerplate)
-                try:
-                    sample_n = int(facts.get('sample_size', 999))
-                except (ValueError, TypeError):
-                    sample_n = 999
-                is_small_study = sample_n < 50
-                is_single_arm = facts.get('is_single_arm', False)
-                is_pilot = facts.get('is_pilot_study', False)
-
-                needs_method_verification = (
-                    '[NEEDS REVIEW]' in constraints.primary_test or
-                    '[NOT' in constraints.primary_test or
-                    (is_small_study and (is_single_arm or is_pilot))  # Always verify small pilot studies
-                )
-
-                if needs_method_verification:
-                    method_rec = self.decision_engine.recommend_statistical_methods(facts)
-                    if method_rec and hasattr(method_rec, 'implementation'):
-                        primary_method = method_rec.implementation.get('primary_method') or method_rec.implementation.get('primary_analysis') or method_rec.primary
-                        if primary_method:
-                            # Flag as recommendation, not protocol-specified
-                            recommended_method = f"{primary_method} [RECOMMENDED - verify against protocol]"
-                            constraints.primary_test = recommended_method
-                            print(f"[Step 3.5] Recommended method: {primary_method}")
-                            if method_rec.reasoning:
-                                print(f"[Step 3.5] Rationale: {method_rec.reasoning[0]}")
-
-                # Get population definitions recommendation
-                pop_rec = self.decision_engine.recommend_population_definitions(facts)
-                if pop_rec:
-                    if pop_rec.get('itt_definition') and not facts.get('itt_definition'):
-                        facts['itt_definition'] = pop_rec['itt_definition']
-                    if pop_rec.get('fas_definition') and not facts.get('fas_definition'):
-                        facts['fas_definition'] = pop_rec['fas_definition']
-                    if pop_rec.get('per_protocol_definition') and not facts.get('per_protocol_definition'):
-                        facts['per_protocol_definition'] = pop_rec['per_protocol_definition']
-                    if pop_rec.get('safety_population_definition') and not facts.get('safety_population_definition'):
-                        facts['safety_population_definition'] = pop_rec['safety_population_definition']
-                    print(f"[Step 3.5] Population definitions augmented from decision engine")
+            print("\n[Step 3.5] Decision engine defaults DISABLED - using extraction only")
 
             # =================================================================
             # STEP 5: GENERATE SECTIONS (PARALLEL - biggest speedup!)

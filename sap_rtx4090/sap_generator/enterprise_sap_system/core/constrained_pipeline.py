@@ -992,44 +992,23 @@ class ConstrainedSAPPipeline:
         per_arm_n = get_value(getattr(facts, 'per_arm_n', None), total_n // num_arms if num_arms else 50)
 
         # Handle power - could be "80%" string or 80 int
-        power_raw = get_value(getattr(facts, 'power', None), "80%")
-        if isinstance(power_raw, str):
-            power = int(power_raw.replace('%', '')) if power_raw else 80
+        # NO DEFAULTS - extraction failures should be explicit
+        power_raw = get_value(getattr(facts, 'power', None), "[POWER NOT EXTRACTED]")
+        if isinstance(power_raw, str) and power_raw != "[POWER NOT EXTRACTED]":
+            power = int(power_raw.replace('%', '')) if power_raw else "[POWER NOT EXTRACTED]"
         else:
-            power = power_raw if power_raw else 80
+            power = power_raw if power_raw else "[POWER NOT EXTRACTED]"
 
-        alpha = get_value(getattr(facts, 'alpha', None), 0.05)
-        alpha_side = get_value(getattr(facts, 'alpha_sidedness', None), "[SIDEDNESS NOT EXTRACTED]")  # DO NOT default - must be extracted
+        alpha = get_value(getattr(facts, 'alpha', None), "[ALPHA NOT EXTRACTED]")
+        alpha_side = get_value(getattr(facts, 'alpha_sidedness', None), "[SIDEDNESS NOT EXTRACTED]")
 
-        # Get power calculation assumptions if available
+        # Get power calculation assumptions if available - NO DEFAULTS
         expected_response_placebo = get_value(getattr(facts, 'expected_response_placebo', None), None)
         expected_response_active = get_value(getattr(facts, 'expected_response_active', None), None)
         power_scenarios = getattr(facts, 'power_scenarios', [])
-        dropout_rate = get_value(getattr(facts, 'dropout_rate', None), "20%")
+        dropout_rate = get_value(getattr(facts, 'dropout_rate', None), "[DROPOUT RATE NOT EXTRACTED]")
 
-        # If power_scenarios not provided, create default based on common clinical trial design
-        if not power_scenarios and num_arms >= 3:
-            # Default to dual power scenario for 3-arm studies
-            power_scenarios = [
-                {
-                    'comparison': 'Primary comparison (high dose vs. placebo)',
-                    'power': f'{power}%' if isinstance(power, int) else power,
-                    'effect_size': f'{expected_response_active or "30%"} vs {expected_response_placebo or "10%"} response rate difference'
-                },
-                {
-                    'comparison': 'Combined treatment comparison (pooled active vs. placebo)',
-                    'power': '70%',
-                    'effect_size': '20% difference in response rates'
-                }
-            ]
-        elif not power_scenarios:
-            power_scenarios = [
-                {
-                    'comparison': 'Primary comparison (active vs. placebo)',
-                    'power': f'{power}%' if isinstance(power, int) else power,
-                    'effect_size': 'clinically meaningful treatment difference'
-                }
-            ]
+        # NO DEFAULT power_scenarios - only use what was extracted
 
         return {
             'total_n': total_n,

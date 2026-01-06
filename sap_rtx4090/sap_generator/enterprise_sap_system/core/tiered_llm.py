@@ -122,17 +122,17 @@ class TieredLLMClient:
     MODELS = {
         "claude": {
             "name": "claude-opus-4-5-20251101",  # Upgraded to Opus 4.5 for best extraction accuracy
-            "max_tokens": 4096,
+            "max_tokens": 16384,  # Claude supports up to 16K output - needed for full SAP generation
             "temperature": 0.1,  # Lower temp for more precise extraction
         },
         "openai": {
             "name": "gpt-4o-mini",
-            "max_tokens": 4096,
+            "max_tokens": 16384,  # GPT-4o supports high output
             "temperature": 0.2,
         },
         "groq": {
             "name": "llama-3.3-70b-versatile",
-            "max_tokens": 4096,
+            "max_tokens": 8192,  # Groq has lower limits
             "temperature": 0.2,
         },
     }

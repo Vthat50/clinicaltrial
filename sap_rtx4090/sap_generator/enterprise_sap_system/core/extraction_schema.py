@@ -190,8 +190,8 @@ class Endpoint:
     endpoint_type: str = ""                       # OS, PFS, ORR, DOR, etc.
     is_primary: bool = False
     definition: Optional[str] = None
-    assessment_criteria: str = "RECIST 1.1"       # RECIST, irRECIST, mRECIST, Lugano
-    assessment_method: str = "investigator"       # investigator, BICR, both
+    assessment_criteria: str = ""                 # RECIST, irRECIST, mRECIST, Lugano - NO DEFAULT
+    assessment_method: str = ""                   # investigator, BICR, both - NO DEFAULT
     assessment_schedule: Optional[str] = None
     timepoint: Optional[str] = None               # e.g., "Week 12", "Month 6"
 
