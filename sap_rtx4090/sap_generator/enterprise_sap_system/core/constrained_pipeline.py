@@ -999,7 +999,7 @@ class ConstrainedSAPPipeline:
             power = power_raw if power_raw else 80
 
         alpha = get_value(getattr(facts, 'alpha', None), 0.05)
-        alpha_side = get_value(getattr(facts, 'alpha_sidedness', None), "one-sided")
+        alpha_side = get_value(getattr(facts, 'alpha_sidedness', None), "[SIDEDNESS NOT EXTRACTED]")  # DO NOT default - must be extracted
 
         # Get power calculation assumptions if available
         expected_response_placebo = get_value(getattr(facts, 'expected_response_placebo', None), None)
@@ -1413,7 +1413,7 @@ Analysis will include:
         primary_population = facts.primary_population or "FAS"
         primary_analysis_method = facts.primary_analysis_method or "Logistic Regression"
         alpha = facts.alpha or 0.05
-        alpha_sidedness = facts.alpha_sidedness or "one-sided"  # Default to one-sided for efficacy
+        alpha_sidedness = facts.alpha_sidedness or "[SIDEDNESS NOT EXTRACTED]"  # DO NOT default - must be extracted
 
         # Get RAG context for enhanced method details
         rag_context = self._get_rag_context(facts)

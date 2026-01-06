@@ -300,7 +300,7 @@ class StatisticalMethods:
     # ==========================================================================
     null_hypothesis: str = ""                     # e.g., "HR = 1.0"
     alternative_hypothesis: str = ""              # e.g., "HR < 1.0 (superiority)"
-    test_sidedness: str = "one-sided"             # one-sided or two-sided
+    test_sidedness: str = ""                       # one-sided or two-sided - MUST be extracted, no default
 
 
 # =============================================================================

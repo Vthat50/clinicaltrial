@@ -408,6 +408,14 @@ class ProductionSAPPipeline:
             sap_text = self._ensure_internal_consistency(sap_text, facts)
 
             # =================================================================
+            # STEP 5.6: DIRECT INJECTION OF FACTUAL FIELDS
+            # NO LLM - programmatic replacement of known correct values
+            # This catches cases where LLM generated wrong defaults
+            # =================================================================
+            print("\n[Step 5.6] Direct injection of factual fields...")
+            sap_text = self._direct_inject_facts(sap_text, facts)
+
+            # =================================================================
             # STEP 6: VERIFY (SELF-RAG pattern)
             # =================================================================
             print("\n[Step 6] Verifying against extracted facts...")
@@ -515,6 +523,75 @@ class ProductionSAPPipeline:
     def _normalize_facts(self, facts: Dict[str, Any]) -> Dict[str, Any]:
         """Normalize field names for consistency."""
         normalized = dict(facts)
+
+        # =====================================================================
+        # CRITICAL: Sample size field mapping
+        # Extraction uses: sample_size_total, sample_size_per_arm
+        # Generation uses: total_sample_size
+        # =====================================================================
+        if 'sample_size_total' in normalized and normalized['sample_size_total']:
+            normalized['total_sample_size'] = normalized['sample_size_total']
+            print(f"[Normalize] Mapped sample_size_total -> total_sample_size: {normalized['total_sample_size']}")
+
+        # If only sample_size exists (per-arm), and we have allocation info, calculate total
+        if 'total_sample_size' not in normalized or not normalized.get('total_sample_size'):
+            sample_size = normalized.get('sample_size')
+            sample_size_per_arm = normalized.get('sample_size_per_arm')
+
+            if sample_size_per_arm and isinstance(sample_size_per_arm, list):
+                # Use per-arm breakdown
+                normalized['total_sample_size'] = sum(sample_size_per_arm)
+                print(f"[Normalize] Calculated total_sample_size from per_arm: {normalized['total_sample_size']}")
+            elif sample_size and normalized.get('num_arms', 0) > 1:
+                # sample_size is per-arm, multiply by number of arms
+                num_arms = normalized.get('num_arms', 2)
+                normalized['total_sample_size'] = int(sample_size) * num_arms
+                print(f"[Normalize] Calculated total_sample_size: {sample_size} x {num_arms} = {normalized['total_sample_size']}")
+
+        # =====================================================================
+        # CRITICAL: Sidedness normalization - NEVER default to one-sided
+        # The extraction should determine sidedness, not defaults
+        # =====================================================================
+        # Collect all possible sidedness sources
+        sidedness = None
+        sidedness_sources = [
+            normalized.get('test_sidedness'),
+            normalized.get('alpha_sidedness'),
+            normalized.get('sidedness'),
+        ]
+        # Also check nested alpha dict
+        alpha_dict = normalized.get('alpha')
+        if isinstance(alpha_dict, dict):
+            sidedness_sources.append(alpha_dict.get('sidedness'))
+
+        # Use first non-null sidedness found
+        for src in sidedness_sources:
+            if src and src not in ('', None, '[NOT FOUND]', '[NEEDS REVIEW]'):
+                sidedness = src.lower().strip()
+                break
+
+        if sidedness:
+            # Normalize and propagate to all sidedness fields
+            normalized['test_sidedness'] = sidedness
+            normalized['alpha_sidedness'] = sidedness
+            print(f"[Normalize] Sidedness extracted: {sidedness}")
+        else:
+            # LEAVE AS NONE - do NOT default to one-sided
+            # Generation templates should handle missing sidedness explicitly
+            print(f"[Normalize] WARNING: No sidedness found in extraction - will need review")
+
+        # =====================================================================
+        # CRITICAL: Primary analysis population (FAS vs ITT)
+        # =====================================================================
+        primary_pop = normalized.get('primary_analysis_population', '')
+        if not primary_pop or primary_pop in ('[NOT FOUND]', '[NEEDS REVIEW]'):
+            # Check other sources
+            if normalized.get('fas_definition'):
+                normalized['primary_analysis_population'] = 'FAS'
+                print(f"[Normalize] Primary population set to FAS (has FAS definition)")
+            elif normalized.get('itt_definition'):
+                normalized['primary_analysis_population'] = 'ITT'
+                print(f"[Normalize] Primary population set to ITT (has ITT definition)")
 
         # Event counts
         if 'final_analysis_events' not in normalized and 'final_events' in normalized:
@@ -1396,6 +1473,205 @@ Return the document with placeholders replaced. No explanations, just the fixed 
         except Exception as e:
             print(f"[PostProcess] LLM error: {e}, keeping original")
             return sap_text
+
+    def _direct_inject_facts(self, sap_text: str, facts: Dict[str, Any]) -> str:
+        """
+        DIRECT INJECTION: Programmatically replace factual values without LLM.
+
+        This is the FINAL authority for factual fields. If extraction found a value,
+        it gets injected here regardless of what LLM generated.
+
+        NO LLM INVOLVED - pure regex/string replacement.
+        """
+        import re
+
+        corrections_made = []
+        result = sap_text
+
+        # =====================================================================
+        # 1. SAMPLE SIZE: Fix wrong sample size values
+        # =====================================================================
+        total_sample_size = facts.get('total_sample_size') or facts.get('sample_size_total')
+        if total_sample_size and int(total_sample_size) > 0:
+            # Pattern: "238 patients" when it should be "530 patients" (or similar)
+            # Look for sample size mentions that are wrong
+            sample_size_per_arm = facts.get('sample_size') or facts.get('sample_size_per_arm')
+            if sample_size_per_arm and isinstance(sample_size_per_arm, (int, float)):
+                per_arm = int(sample_size_per_arm)
+                total = int(total_sample_size)
+
+                # If text says per-arm number as total, fix it
+                if per_arm != total:
+                    # Replace "238 patients will be enrolled" with "530 patients will be enrolled"
+                    pattern = rf'\b{per_arm}\s+(patients|subjects|participants)\s+(will be|are|to be)\s+(enrolled|randomized|recruited)'
+                    replacement = rf'{total} \1 \2 \3'
+                    new_result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+                    if new_result != result:
+                        corrections_made.append(f"Sample size: {per_arm} -> {total}")
+                        result = new_result
+
+                    # Also fix "total sample size of 238"
+                    pattern = rf'total\s+(?:sample\s+)?size\s+(?:of\s+)?{per_arm}'
+                    replacement = f'total sample size of {total}'
+                    new_result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+                    if new_result != result:
+                        corrections_made.append(f"Total sample size: {per_arm} -> {total}")
+                        result = new_result
+
+        # =====================================================================
+        # 2. SIDEDNESS: Fix one-sided when it should be two-sided (or vice versa)
+        # =====================================================================
+        extracted_sidedness = facts.get('test_sidedness') or facts.get('alpha_sidedness')
+        if extracted_sidedness and extracted_sidedness.lower() in ('one-sided', 'two-sided'):
+            correct_sidedness = extracted_sidedness.lower()
+            wrong_sidedness = 'one-sided' if correct_sidedness == 'two-sided' else 'two-sided'
+
+            # Count occurrences
+            wrong_count = result.lower().count(wrong_sidedness)
+            if wrong_count > 0:
+                # Replace wrong sidedness with correct one
+                # Be careful: only replace in statistical context, not in unrelated text
+                stat_patterns = [
+                    rf'({wrong_sidedness})\s*(significance|alpha|test|p-value|hypothesis)',
+                    rf'(significance|alpha|test|p-value|hypothesis)\s*[^.]*({wrong_sidedness})',
+                    rf'at\s+(?:a\s+)?({wrong_sidedness})',
+                    rf'using\s+(?:a\s+)?({wrong_sidedness})',
+                    rf'({wrong_sidedness})\s+α',
+                    rf'α\s*=\s*\d+\.?\d*\s*\({wrong_sidedness}\)',
+                ]
+
+                for pattern in stat_patterns:
+                    new_result = re.sub(pattern, lambda m: m.group(0).replace(wrong_sidedness, correct_sidedness),
+                                       result, flags=re.IGNORECASE)
+                    if new_result != result:
+                        result = new_result
+
+                # Simple global replacement as fallback if statistical context patterns don't catch all
+                new_count = result.lower().count(wrong_sidedness)
+                if new_count > 0:
+                    result = re.sub(wrong_sidedness, correct_sidedness, result, flags=re.IGNORECASE)
+
+                corrections_made.append(f"Sidedness: {wrong_sidedness} -> {correct_sidedness}")
+
+        # =====================================================================
+        # 3. POWER: Ensure power is correctly stated
+        # =====================================================================
+        power = facts.get('power') or facts.get('statistical_power')
+        if power:
+            # Normalize to percentage
+            if isinstance(power, (int, float)):
+                power_pct = power if power > 1 else power * 100
+                power_str = f"{int(power_pct)}%"
+
+                # Replace placeholder
+                result = re.sub(
+                    r'\*\*Power\*\*:\s*\[To be specified\]',
+                    f'**Power**: {power_str}',
+                    result
+                )
+                result = re.sub(
+                    r'Power:\s*\[To be specified\]',
+                    f'Power: {power_str}',
+                    result
+                )
+
+        # =====================================================================
+        # 4. ALPHA: Ensure alpha is correctly stated
+        # =====================================================================
+        alpha = facts.get('alpha') or facts.get('overall_alpha') or facts.get('alpha_level')
+        if alpha:
+            if isinstance(alpha, dict):
+                alpha = alpha.get('primary_alpha', 0.05)
+            if isinstance(alpha, (int, float)):
+                alpha_str = f"{alpha}"
+
+                # Replace placeholder
+                result = re.sub(
+                    r'\*\*Alpha\*\*:\s*\[To be specified\]',
+                    f'**Alpha**: {alpha_str}',
+                    result
+                )
+                result = re.sub(
+                    r'Significance level:\s*\[To be specified\]',
+                    f'Significance level: {alpha_str}',
+                    result
+                )
+
+        # =====================================================================
+        # 5. PRIMARY ANALYSIS POPULATION: FAS vs ITT
+        # =====================================================================
+        primary_pop = facts.get('primary_analysis_population')
+        if primary_pop and primary_pop.upper() in ('FAS', 'ITT', 'MITT', 'PP'):
+            correct_pop = primary_pop.upper()
+
+            # If FAS is specified but text says ITT as primary, fix it
+            if correct_pop == 'FAS':
+                # Pattern: "ITT population will serve as the primary" or similar
+                pattern = r'(ITT|Intent-to-Treat)\s+(population\s+)?(will\s+)?(serve\s+as\s+|is\s+)?the\s+primary'
+                if re.search(pattern, result, flags=re.IGNORECASE):
+                    result = re.sub(pattern, r'FAS (Full Analysis Set) \2\3\4the primary', result, flags=re.IGNORECASE)
+                    corrections_made.append(f"Primary population: ITT -> FAS")
+
+        # =====================================================================
+        # 6. HAZARD RATIO: Ensure correct HR
+        # =====================================================================
+        hr = facts.get('hazard_ratio') or facts.get('expected_hr') or facts.get('hr')
+        if hr and isinstance(hr, (int, float)):
+            hr_str = f"{hr:.3f}" if hr < 1 else f"{hr:.2f}"
+
+            result = re.sub(
+                r'Hazard ratio:\s*\[To be specified\]',
+                f'Hazard ratio: {hr_str}',
+                result,
+                flags=re.IGNORECASE
+            )
+            result = re.sub(
+                r'HR\s*=\s*\[To be specified\]',
+                f'HR = {hr_str}',
+                result
+            )
+
+        # =====================================================================
+        # 7. EVENTS: Fix event counts
+        # =====================================================================
+        final_events = facts.get('final_events') or facts.get('final_analysis_events')
+        if final_events and isinstance(final_events, (int, float)):
+            events_str = str(int(final_events))
+            result = re.sub(
+                r'(\d+)\s+events\s+for\s+final\s+analysis',
+                f'{events_str} events for final analysis',
+                result,
+                flags=re.IGNORECASE
+            )
+
+        interim_events = facts.get('interim_events') or facts.get('interim_analysis_events')
+        if interim_events:
+            if isinstance(interim_events, list) and len(interim_events) > 0:
+                events_str = str(int(interim_events[0]))
+            elif isinstance(interim_events, (int, float)):
+                events_str = str(int(interim_events))
+            else:
+                events_str = None
+
+            if events_str:
+                result = re.sub(
+                    r'interim\s+analysis\s+(?:at\s+)?(\d+)\s+events',
+                    f'interim analysis at {events_str} events',
+                    result,
+                    flags=re.IGNORECASE
+                )
+
+        # =====================================================================
+        # LOG CORRECTIONS
+        # =====================================================================
+        if corrections_made:
+            print(f"[DirectInject] Made {len(corrections_made)} corrections:")
+            for c in corrections_made:
+                print(f"  - {c}")
+        else:
+            print("[DirectInject] No corrections needed")
+
+        return result
 # FACTORY FUNCTION
 # =============================================================================
 

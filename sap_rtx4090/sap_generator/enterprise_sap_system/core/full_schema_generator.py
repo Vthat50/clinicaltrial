@@ -429,7 +429,7 @@ def create_fully_constrained_schema(facts: FullProtocolFacts) -> Type[BaseModel]
     if facts.alpha_sidedness:
         field_definitions['alpha_sidedness'] = (Literal[facts.alpha_sidedness], facts.alpha_sidedness)
     else:
-        field_definitions['alpha_sidedness'] = (str, "one-sided")  # Default to one-sided for efficacy trials
+        field_definitions['alpha_sidedness'] = (str, "[SIDEDNESS NOT EXTRACTED]")  # DO NOT default - must be extracted
 
     if facts.dropout_rate:
         field_definitions['dropout_rate'] = (Literal[facts.dropout_rate], facts.dropout_rate)

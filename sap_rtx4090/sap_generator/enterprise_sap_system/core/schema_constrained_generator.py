@@ -193,7 +193,7 @@ def create_sample_size_schema(facts: ProtocolFacts) -> Type[BaseModel]:
     _ratio = facts.ratio.value if facts.ratio else "1:1"
     _power = int(str(facts.power.value).replace('%', '')) if facts.power else 80
     _alpha = facts.alpha.value if facts.alpha else 0.05
-    _alpha_sidedness = facts.alpha_sidedness.value if facts.alpha_sidedness else "one-sided"  # One-sided for efficacy trials
+    _alpha_sidedness = facts.alpha_sidedness.value if facts.alpha_sidedness else "[SIDEDNESS NOT EXTRACTED]"  # DO NOT default - must be extracted
     _num_arms = facts.num_arms.value if facts.num_arms else 2
     _per_arm_n = facts.per_arm_n.value if facts.per_arm_n else _total_n // _num_arms
 
