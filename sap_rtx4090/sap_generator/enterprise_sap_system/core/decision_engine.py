@@ -143,7 +143,7 @@ class OncologyDecisionEngine:
 
     def recommend_statistical_methods(self, protocol_facts) -> Recommendation:
         """
-        Recommend statistical methods based on protocol design
+        Recommend statistical methods based on protocol design using RAG
 
         Args:
             protocol_facts: ExtractedProtocolFacts
@@ -156,27 +156,93 @@ class OncologyDecisionEngine:
         num_arms = self._get_num_arms(protocol_facts)
         primary_endpoint_type = self._classify_endpoint_type(protocol_facts)
 
+        # Get endpoint text for RAG query
+        if isinstance(protocol_facts, dict):
+            primary_endpoint = protocol_facts.get('primary_endpoint', '') or ''
+        elif hasattr(protocol_facts, 'endpoints'):
+            primary_endpoint = getattr(protocol_facts.endpoints, 'primary_endpoint', '') or ''
+        else:
+            primary_endpoint = ''
+
         logger.info(f"[DecisionEngine] Recommending statistical methods: N={sample_size}, "
                    f"arms={num_arms}, endpoint={primary_endpoint_type}")
 
-        # Small sample size (< 50)
+        # Small sample size (< 50) - always descriptive
         if sample_size and sample_size < 50:
             return self._recommend_small_sample_methods(protocol_facts)
 
-        # Time-to-event endpoints
+        # Known endpoint types - use specialized methods
         if primary_endpoint_type in ["TTE", "OS", "PFS", "DFS"]:
             return self._recommend_tte_methods(protocol_facts, num_arms)
 
-        # Binary endpoints (ORR, DCR)
         if primary_endpoint_type in ["binary", "ORR", "DCR"]:
             return self._recommend_binary_methods(protocol_facts, num_arms)
 
-        # Continuous endpoints
         if primary_endpoint_type == "continuous":
             return self._recommend_continuous_methods(protocol_facts, num_arms)
 
-        # Default: descriptive
-        return self._recommend_descriptive_methods(protocol_facts)
+        # Unknown endpoint type - use RAG to find similar SAPs
+        return self._recommend_via_rag(protocol_facts, primary_endpoint, num_arms)
+
+    def _recommend_via_rag(self, protocol_facts, primary_endpoint: str, num_arms: int) -> Recommendation:
+        """Use RAG to find statistical methods from similar SAPs"""
+
+        # Build query from available info
+        query_parts = []
+        if primary_endpoint:
+            query_parts.append(f"primary endpoint: {primary_endpoint}")
+        if num_arms:
+            query_parts.append(f"{num_arms}-arm study" if num_arms > 1 else "single-arm study")
+
+        query = " ".join(query_parts) if query_parts else "statistical analysis methods"
+
+        # Query sap_methods collection
+        results = self._query_collection(self.sap_methods, query, n_results=5)
+
+        if not results or not results.get('documents') or not results['documents'][0]:
+            raise ValueError(f"Cannot recommend statistical methods: no RAG matches for endpoint '{primary_endpoint}'. "
+                           f"Add similar SAP examples to training data.")
+
+        # Extract methods from top matches
+        docs = results['documents'][0]
+        distances = results.get('distances', [[]])[0]
+
+        # Parse methods from retrieved documents
+        methods_found = []
+        for doc in docs[:3]:
+            doc_lower = doc.lower()
+            # Look for common statistical tests
+            for test in ['log-rank', 'kaplan-meier', 'cox', 'fisher', 'chi-square',
+                        't-test', 'anova', 'wilcoxon', 'ancova', 'mixed model', 'mmrm',
+                        'logistic regression', 'poisson', 'negative binomial', 'bayesian',
+                        'exact binomial', 'clopper-pearson', 'mantel-haenszel', 'stratified',
+                        'descriptive', 'frequencies', 'confidence interval']:
+                if test in doc_lower and test not in [m.lower() for m in methods_found]:
+                    methods_found.append(test.title())
+
+        if not methods_found:
+            raise ValueError(f"Cannot recommend statistical methods: RAG returned no parseable methods. "
+                           f"Endpoint: '{primary_endpoint}'. Add method-specific training data.")
+
+        confidence = 0.85 - (distances[0] if distances else 0) * 0.1
+        confidence = max(0.5, min(0.95, confidence))
+
+        return Recommendation(
+            primary=methods_found[0] if methods_found else "See RAG results",
+            confidence=confidence,
+            reasoning=[
+                f"Recommended based on {len(docs)} similar SAP examples",
+                f"Primary endpoint: {primary_endpoint}",
+                f"Methods found in similar studies: {', '.join(methods_found)}"
+            ],
+            implementation={
+                "primary_analysis": methods_found[0] if methods_found else "Review RAG results",
+                "secondary_methods": methods_found[1:] if len(methods_found) > 1 else [],
+                "source": "RAG-based recommendation"
+            },
+            sources=docs[:2],
+            alternatives=[]
+        )
 
     def recommend_population_definitions(self, protocol_facts) -> Dict[str, str]:
         """
@@ -702,26 +768,6 @@ class OncologyDecisionEngine:
                 "Non-parametric alternative if distribution assumption violated"
             ],
             implementation=methods,
-            sources=[],
-            alternatives=[]
-        )
-
-    def _recommend_descriptive_methods(self, protocol_facts) -> Recommendation:
-        """Default: descriptive methods"""
-
-        return Recommendation(
-            primary="Descriptive statistics",
-            confidence=0.75,
-            reasoning=[
-                "Endpoint type unclear or multiple endpoints",
-                "Descriptive approach recommended as default",
-                "Specific methods depend on endpoint distribution"
-            ],
-            implementation={
-                "categorical": "Frequencies and percentages",
-                "continuous": "Mean, median, SD, range, 95% CI",
-                "time_to_event": "Kaplan-Meier method"
-            },
             sources=[],
             alternatives=[]
         )

@@ -642,7 +642,7 @@ class TieredLLMClient:
 
             # Use Claude Sonnet for vision (faster, still accurate for doc analysis)
             response = self.claude_client.messages.create(
-                model="claude-sonnet-4-20250514",
+                model="gpt-4o-mini",
                 max_tokens=max_tokens,
                 messages=messages
             )

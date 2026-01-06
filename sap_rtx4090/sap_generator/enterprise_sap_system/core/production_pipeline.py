@@ -145,7 +145,7 @@ class ProductionSAPPipeline:
         # 1. LLM Client (required)
         self.llm = TieredLLMClient()
         self.fast_llm = TieredLLMClient()  # Second client for fast sections
-        print("[ProductionPipeline] ✓ LLM client (Claude Opus 4.5 + fast tier)")
+        print("[ProductionPipeline] ✓ LLM client (tiered: OpenAI → Gemini → Claude → Groq)")
 
         # 2. Sectioned Extractor (required)
         self.sectioned_extractor = create_sectioned_extractor(llm_client=self.llm)
@@ -346,8 +346,25 @@ class ProductionSAPPipeline:
                         facts['response_criteria_rationale'] = "; ".join(response_rec.reasoning) if response_rec.reasoning else ''
                         print(f"[Step 3.5] Response criteria: {criteria}")
 
-                # Get statistical methods recommendation (if protocol method unclear)
-                if '[NEEDS REVIEW]' in constraints.primary_test or '[NOT' in constraints.primary_test:
+                # Get statistical methods recommendation
+                # Call decision engine when:
+                # 1. Extraction failed ([NEEDS REVIEW] or [NOT FOUND])
+                # 2. Small pilot/single-arm study (extraction may have grabbed boilerplate)
+                try:
+                    sample_n = int(facts.get('sample_size', 999))
+                except (ValueError, TypeError):
+                    sample_n = 999
+                is_small_study = sample_n < 50
+                is_single_arm = facts.get('is_single_arm', False)
+                is_pilot = facts.get('is_pilot_study', False)
+
+                needs_method_verification = (
+                    '[NEEDS REVIEW]' in constraints.primary_test or
+                    '[NOT' in constraints.primary_test or
+                    (is_small_study and (is_single_arm or is_pilot))  # Always verify small pilot studies
+                )
+
+                if needs_method_verification:
                     method_rec = self.decision_engine.recommend_statistical_methods(facts)
                     if method_rec and hasattr(method_rec, 'implementation'):
                         primary_method = method_rec.implementation.get('primary_method') or method_rec.implementation.get('primary_analysis') or method_rec.primary
@@ -776,7 +793,7 @@ class ProductionSAPPipeline:
             max_workers: Number of parallel threads (default 12 for max speed)
 
         Model Selection:
-            - "complex" sections: Claude Opus 4.5 (accurate but slower)
+            - "complex" sections: OpenAI GPT-4o (accurate, affordable)
             - "simple" sections: GPT-4o-mini or Groq (fast)
         """
         sections = {}
@@ -846,7 +863,7 @@ class ProductionSAPPipeline:
 
         Args:
             use_fast_model: If True, use GPT-4o-mini/Groq for speed (simple sections)
-                           If False, use Claude Opus 4.5 for accuracy (complex sections)
+                           If False, use OpenAI GPT-4o for accuracy (complex sections)
         """
         prompt = self._build_prompt(
             section_key, section_title, facts, constraints, examples, scientific_context
@@ -863,11 +880,11 @@ class ProductionSAPPipeline:
                         preferred_tier="openai"  # GPT-4o-mini is fast
                     )
                 else:
-                    # Use accurate tier: Claude Opus 4.5
+                    # Use accurate tier: OpenAI GPT-4o
                     response = self.llm.chat(
                         prompt,
                         max_tokens=2000,
-                        preferred_tier="claude"
+                        preferred_tier="openai"
                     )
 
                 if hasattr(response, 'success') and response.success and hasattr(response, 'content'):
@@ -909,7 +926,9 @@ IMPORTANT: Use context for rationale only. Protocol-specified method is source o
 2. Use ONLY methods from "METHOD CONSTRAINTS"
 3. If a value shows "[NEEDS REVIEW]", keep that marker in your output
 4. NEVER invent or assume numerical values
-5. If value not in PROTOCOL FACTS, write "[To be specified]"
+5. Use extracted values even if labels differ slightly (e.g., "Power" = "Statistical power", "Statistical Method" = "Primary analysis method")
+6. ONLY write "[To be specified]" if information is truly ABSENT from PROTOCOL FACTS - not just labeled differently
+7. When writing sample size/power sections, check ALL fields in PROTOCOL FACTS for relevant values before defaulting to placeholder
 
 ## PROTOCOL FACTS (Source: Protocol Extraction):
 {facts_section}
@@ -1208,91 +1227,177 @@ Write the {section_title} section now. Start with "## {section_title}" as header
 
     def _ensure_internal_consistency(self, sap_text: str, facts: Dict[str, Any]) -> str:
         """
-        Scan generated SAP for [NEEDS REVIEW]/[To be specified] markers and
-        replace with actual values if they exist elsewhere in the document or facts.
-
-        This fixes the bug where one section says "[To be specified]" but another
-        section has the actual value.
+        Use LLM to replace [To be specified] placeholders with extracted facts.
+        
+        Why LLM instead of regex:
+        1. Handles all text variations ("Power:", "Statistical power:", "**Power**:")
+        2. Understands context (won't replace wrong placeholders)
+        3. No regex errors from variable-length lookbehind
+        4. Can handle new patterns without code changes
         """
-        import re
+        # Check if there are any placeholders to fix
+        if '[To be specified]' not in sap_text and '[NEEDS REVIEW]' not in sap_text:
+            return sap_text
+        
+        # Build facts summary for LLM - DYNAMICALLY extract ALL facts
+        facts_for_replacement = []
+        
+        # Special formatters for specific field types
+        def format_value(key, value):
+            """Format value based on field type."""
+            if value is None or value == '':
+                return None
+            if isinstance(value, str) and ('[NOT' in value or '[NEEDS' in value):
+                return None
+            
+            # Power: convert 0.8 to 80%
+            if key in ('power', 'statistical_power') and isinstance(value, (int, float)):
+                if value <= 1:
+                    return f"{float(value)*100:.0f}%"
+                return f"{value}%"
+            
+            # Sample size: add "patients"
+            if 'sample_size' in key and isinstance(value, (int, float)) and 'per_arm' not in key:
+                return f"{int(value)} patients"
+            
+            # Lists: join with commas
+            if isinstance(value, list):
+                if not value:
+                    return None
+                return ', '.join(str(v) for v in value if v)
+            
+            # Dicts: format as key: value pairs
+            if isinstance(value, dict):
+                if not value:
+                    return None
+                return ', '.join(f"{k}: {v}" for k, v in value.items() if v)
+            
+            return str(value)
+        
+        # Convert key to human-readable label
+        def key_to_label(key):
+            """Convert snake_case key to Human Readable Label."""
+            # Special cases
+            label_map = {
+                'nct_id': 'NCT ID',
+                'itt_definition': 'ITT Definition',
+                'fas_definition': 'FAS Definition',
+                'hr': 'Hazard Ratio',
+                'ci': 'Confidence Interval',
+                'pk': 'Pharmacokinetic',
+                'ae': 'Adverse Event',
+                'sae': 'Serious Adverse Event',
+                'dmc': 'Data Monitoring Committee',
+                'os': 'Overall Survival',
+                'pfs': 'Progression-Free Survival',
+                'orr': 'Objective Response Rate',
+                'dor': 'Duration of Response',
+                'ttr': 'Time to Recurrence',
+            }
+            
+            # Check if key matches a special case
+            key_lower = key.lower()
+            for abbrev, full in label_map.items():
+                if key_lower == abbrev:
+                    return full
+            
+            # Standard conversion: sample_size -> Sample Size
+            words = key.replace('_', ' ').split()
+            # Capitalize each word, handle acronyms
+            result = []
+            for word in words:
+                if word.upper() in ['ID', 'NCT', 'ITT', 'FAS', 'HR', 'CI', 'PK', 'AE', 'SAE', 'OS', 'PFS', 'DMC']:
+                    result.append(word.upper())
+                else:
+                    result.append(word.capitalize())
+            return ' '.join(result)
+        
+        # Iterate through ALL facts dynamically
 
-        # Mapping of common marker patterns to fact keys
-        marker_patterns = [
-            # Primary endpoint variations
-            (r'\[To be specified\](?=.*[Pp]rimary [Ee]ndpoint)', 'primary_endpoint'),
-            (r'\[PRIMARY ENDPOINT NOT EXTRACTED[^\]]*\]', 'primary_endpoint'),
-            (r'\[NEEDS REVIEW\](?=.*[Pp]rimary)', 'primary_endpoint'),
+        for key, value in facts.items():
+            formatted = format_value(key, value)
+            if formatted:
+                label = key_to_label(key)
+                # Add common aliases for better matching
+                aliases = {
+                    'power': 'Statistical Power/Power',
+                    'sample_size': 'Sample Size/Number of Patients/N',
+                    'statistical_method': 'Statistical Method/Primary Analysis Method/Primary Test',
+                    'blinding_type': 'Blinding/Blinding Type/Masking',
+                    'primary_endpoint': 'Primary Endpoint/Primary Efficacy Endpoint',
+                    'comparator': 'Comparator/Control/Control Arm',
+                    'drug_name': 'Study Drug/Investigational Product/Treatment',
+                    'stratification_factors': 'Stratification Factors/Stratification Variables',
+                    'allocation_ratio': 'Randomization Ratio/Allocation Ratio',
+                    'hazard_ratio': 'Hazard Ratio/HR/Expected HR/Targeted HR',
+                    'alpha': 'Alpha/Significance Level/Type I Error',
+                    'overall_alpha': 'Overall Alpha/Alpha Level/Significance Level',
+                }
+                if key in aliases:
+                    label = aliases[key]
+                facts_for_replacement.append(f"- {label}: {formatted}")
+        if not facts_for_replacement:
+            return sap_text  # No facts to replace with
+        
+        facts_str = "\n".join(facts_for_replacement)
+        
+        prompt = f"""You are a text editor. Your ONLY task is to replace placeholder markers in a document with actual values.
 
-            # Statistical method variations
-            (r'\[STATISTICAL METHOD NOT FOUND[^\]]*\]', 'statistical_method'),
-            (r'\[STATISTICAL METHOD NOT EXTRACTED[^\]]*\]', 'statistical_method'),
-            (r'\[To be specified\](?=.*[Ss]tatistical [Mm]ethod)', 'statistical_method'),
+## EXTRACTED VALUES (use these to replace placeholders):
+{facts_str}
 
-            # Treatment setting
-            (r'\[TREATMENT SETTING NOT EXTRACTED[^\]]*\]', 'treatment_setting'),
-            (r'\[To be specified\](?=.*[Tt]reatment [Ss]etting)', 'treatment_setting'),
+## RULES:
+1. Find ALL instances of "[To be specified]" or "[NEEDS REVIEW]" in the text
+2. If there is a matching value in EXTRACTED VALUES, replace the placeholder with that value
+3. Match by context - "**Power**: [To be specified]" should use the "Statistical Power/Power" value
+4. Keep the surrounding formatting (**, :, etc.) - only replace the placeholder text itself
+5. If no matching value exists, keep the placeholder unchanged
+6. Do NOT change anything else in the document - no rewording, no restructuring
+7. Return ONLY the corrected text, nothing else
 
-            # Interim analysis
-            (r'\[INTERIM METHOD NOT EXTRACTED[^\]]*\]', 'alpha_spending_function'),
-            (r'\[ALPHA SPENDING NOT EXTRACTED[^\]]*\]', 'alpha_spending_function'),
-            (r'\[To be specified\](?=.*[Aa]lpha [Ss]pending)', 'alpha_spending_function'),
+## DOCUMENT TO FIX:
+{sap_text}
 
-            # Sample size
-            (r'\[SAMPLE SIZE NOT EXTRACTED[^\]]*\]', 'sample_size'),
-            (r'\[To be specified\](?=.*[Ss]ample [Ss]ize)', 'sample_size'),
+## OUTPUT:
+Return the document with placeholders replaced. No explanations, just the fixed document."""
 
-            # Disease/indication
-            (r'\[To be specified\](?=.*[Dd]isease)', 'disease_type'),
-            (r'\[To be specified\](?=.*[Ii]ndication)', 'disease_type'),
-
-            # Comparator/control
-            (r'\[To be specified\](?=.*[Cc]omparator)', 'comparator'),
-            (r'\[To be specified\](?=.*[Cc]ontrol)', 'comparator'),
-
-            # Drug name
-            (r'\[To be specified\](?=.*[Dd]rug)', 'drug_name'),
-            (r'\[To be specified\](?=.*[Tt]reatment)', 'drug_name'),
-
-            # Stratification
-            (r'\[To be specified\](?=.*[Ss]tratification)', 'stratification_factors'),
-        ]
-
-        modified = sap_text
-        replacements_made = 0
-
-        for pattern, fact_key in marker_patterns:
-            fact_value = facts.get(fact_key)
-            if fact_value and '[NOT' not in str(fact_value) and '[NEEDS' not in str(fact_value):
-                # Replace the marker with the actual value
-                matches = re.findall(pattern, modified)
-                if matches:
-                    modified = re.sub(pattern, str(fact_value), modified)
-                    replacements_made += len(matches)
-                    print(f"[Consistency] Replaced {len(matches)} marker(s) for {fact_key}: {fact_value}")
-
-        # Also scan for values that appear in one section but not another
-        # Extract endpoint from Estimand section if present
-        estimand_match = re.search(
-            r'(?:Primary Estimand|Estimand).*?(?:Endpoint|Variable)[:\s]*([^\n\[]+)',
-            sap_text, re.IGNORECASE | re.DOTALL
-        )
-        if estimand_match:
-            found_endpoint = estimand_match.group(1).strip()
-            if found_endpoint and len(found_endpoint) > 5:
-                # Replace generic "[To be specified]" near Primary Endpoint
-                pattern = r'(\*\*Primary Endpoint[:\*]*\s*)\[To be specified\]'
-                if re.search(pattern, modified):
-                    modified = re.sub(pattern, rf'\1{found_endpoint}', modified)
-                    print(f"[Consistency] Populated Primary Endpoint from Estimand: {found_endpoint}")
-                    replacements_made += 1
-
-        if replacements_made > 0:
-            print(f"[Consistency] Total replacements: {replacements_made}")
-
-        return modified
-
-
-# =============================================================================
+        try:
+            # Higher token limit for full SAP documents
+            if self.fast_llm:
+                response = self.fast_llm.chat(prompt, max_tokens=16000)
+            elif self.llm:
+                response = self.llm.chat(prompt, max_tokens=16000)
+            else:
+                return sap_text
+            
+            # Extract text from response
+            if hasattr(response, 'content'):
+                if isinstance(response.content, list):
+                    result = ''.join(block.text for block in response.content if hasattr(block, 'text'))
+                else:
+                    result = response.content
+            elif isinstance(response, str):
+                result = response
+            else:
+                return sap_text
+            
+            # Validate result
+            if result and len(result) > len(sap_text) * 0.3 and '##' in result:
+                original_placeholders = sap_text.count('[To be specified]') + sap_text.count('[NEEDS REVIEW]')
+                remaining_placeholders = result.count('[To be specified]') + result.count('[NEEDS REVIEW]')
+                fixed_count = original_placeholders - remaining_placeholders
+                
+                if fixed_count > 0:
+                    print(f"[PostProcess] Fixed {fixed_count} placeholders via LLM")
+                
+                return result
+            else:
+                print("[PostProcess] LLM response invalid, keeping original")
+                return sap_text
+                
+        except Exception as e:
+            print(f"[PostProcess] LLM error: {e}, keeping original")
+            return sap_text
 # FACTORY FUNCTION
 # =============================================================================
 

@@ -248,6 +248,11 @@ class SAPVectorStore:
                 flat[key] = ""
             else:
                 flat[key] = str(value)
+
+        # ChromaDB requires non-empty metadata dict
+        if not flat:
+            flat = {"_placeholder": "true"}
+
         return flat
 
     def query(

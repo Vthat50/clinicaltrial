@@ -497,107 +497,72 @@ RESPOND IN JSON:
     "notes": ["<any extraction notes>"]
 }}''',
 
-        'sample_size': '''Extract SAMPLE SIZE information from this protocol section.
+        'sample_size': """Extract SAMPLE SIZE information from this protocol section.
 
-SEARCH AGGRESSIVELY for these patterns:
-- "N = ###" or "n = ###" or "### patients" or "### subjects" or "### participants"
-- "sample size of ###" or "enroll ###" or "randomize ###" or "total of ###"
-- "approximately ###" or "~###" or "about ###" patients
-- "### per arm" or "### in each arm" or "1:1" (implies equal arms)
-- "power of ##%" or "##% power" or "power = 0.##"
-- "HR of 0.##" or "hazard ratio 0.##" or "HR = 0.##"
-- Look for tables with sample size calculations
+=== CRITICAL: EXTRACT THE SAMPLE SIZE FROM POWER CALCULATION ===
 
-=== CRITICAL: NEVER RETURN 0 FOR SAMPLE SIZE ===
+PRIORITY 1: Find the sample size used in the POWER CALCULATION
+Look for phrases like:
+- "at least ### subjects per group are required"
+- "### patients per arm" or "### subjects per arm"  
+- "power calculation based on ### patients"
+- "### subjects in each arm"
+- "N = ### per treatment group"
+
+PRIORITY 2: If power calculation specifies PER-ARM, extract the PER-ARM number
+- "238 subjects per group" → extract 238 (NOT 238 × 2)
+- "150 subjects in each arm" → extract 150 (NOT 300 total)
+- "204 subjects per arm" → extract 204
+
+PRIORITY 3: If only total is given, extract total
+- "total of 500 subjects" with no per-arm breakdown → extract 500
+
+=== COMMON MISTAKES TO AVOID ===
+1. DO NOT multiply per-arm by number of arms
+2. DO NOT use "total enrollment" if per-arm is specified in power calculation
+3. DO NOT use "including dropout" number - use the number BEFORE dropout adjustment
+4. If multiple sample sizes mentioned, use the one from the POWER CALCULATION section
+
+=== EXAMPLES ===
+Example 1: "at least 238 subjects per group are required... total of 530 subjects with dropout"
+→ Extract: 238 (the per-group power calculation number)
+
+Example 2: "204 subjects in each arm are recruited... total sample size 408"  
+→ Extract: 204 (the per-arm number from power calculation)
+
+Example 3: "612 pMMR participants... total enrollment 875"
+→ Extract: 612 (the primary analysis population)
+
+Example 4: Single-arm study: "30 patients will be enrolled"
+→ Extract: 30 (total = per-arm for single-arm)
+
+=== NEVER RETURN 0 FOR SAMPLE SIZE ===
 If you cannot find a sample size, return null, NOT 0.
-A sample size of 0 is NEVER valid for a clinical trial.
-
-=== LOOK FOR SAMPLE SIZE BY POPULATION ===
-Some trials have different sample sizes for subgroups. COMMON PATTERNS:
-- Biomarker-defined: "XXX PD-L1 positive" + "YYY PD-L1 negative" = total
-- Molecular subtype: "XXX biomarker-positive" + "YYY biomarker-negative" = total
-- Cohorts: "XXX in Cohort A" + "YYY in Cohort B" = total
-- Histology: "XXX squamous" + "YYY non-squamous" = total
-- Add up subgroup sizes if total is not explicitly stated
-
-=== OPTIONAL: REGIONAL EXTENSION COHORTS ===
-Some global trials have regional extensions with SEPARATE enrollment. Look for ANY of:
-- "[Country] extension" / "[Country] cohort" / "[Region] sub-study"
-- "after global enrollment" / "following primary enrollment"
-- "regional filing" / "local regulatory" / "NMPA/PMDA submission"
-- "consistency evaluation" / "treatment effect preservation"
-
-If regional extensions exist, extract them. If NOT present, return null.
-Regional cohorts may NOT be included in the main sample size.
-
-=== DETECT SAMPLE SIZE JUSTIFICATION TYPE ===
-Different study designs have different justification approaches:
-
-1. POWER CALCULATION (Phase 3, confirmatory):
-   - "90% power" / "80% power" / "power of XX%"
-   - "detect HR of 0.XX" / "detect difference of XX"
-   - "type I error" / "alpha = 0.025"
-
-2. PHASE 2 DESIGNS (single-arm, exploratory):
-   - "Simon two-stage" / "Simon's optimal" / "minimax design"
-   - "Fleming single-stage" / "Fleming-A'Hern"
-   - "null hypothesis: response rate ≤ XX%"
-   - "acceptable response rate XX%" / "unacceptable response rate XX%"
-
-3. BAYESIAN APPROACHES:
-   - "posterior probability" / "Bayesian design"
-   - "credible interval" / "predictive probability"
-
-4. PRECISION-BASED:
-   - "confidence interval width" / "precision of estimate"
-   - "standard error" / "half-width"
-
-5. PRAGMATIC/FEASIBILITY:
-   - "pragmatic" / "feasibility" / "no formal calculation"
-   - "expected enrollment" / "practical considerations"
-   - N ≤ 50 without formal justification
-
-6. DOSE-FINDING (Phase 1):
-   - "3+3 design" / "rolling six" / "CRM" / "BOIN"
-   - "MTD" / "RP2D" / "DLT"
-
-Set is_pragmatic_sample=true if NO formal calculation exists.
 
 Required fields:
-- sample_size: Total number of patients (MUST be > 0 or null)
-  - Add up subgroup sizes if needed
-  - Look for "approximately" or "~" numbers
-  - NEVER return 0 - use null if truly not found
-- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80, 90% to 0.90). NULL if not applicable.
+- sample_size: The sample size from POWER CALCULATION (per-arm if specified, total if single-arm or only total given)
+  CRITICAL: If the power calculation says "X per arm/group", extract X, NOT X×2
+- power: Statistical power as decimal 0.0-1.0 (convert 80% to 0.80)
 
 Optional fields:
-- sample_size_per_arm: Number per treatment arm [arm1_n, arm2_n]
-- sample_size_by_population: Breakdown by biomarker/subgroup
-  Example: {{"biomarker_positive": 500, "biomarker_negative": 200, "total": 700}}
-- regional_cohorts: Regional extension cohorts if any (null if none)
-  Example: {{"<region>_extension": <n>}} or null
-- sample_size_rationale: Text describing the calculation basis
-- sample_size_justification_type: One of: "power_calculation", "simon_two_stage", "fleming_single_stage",
-  "bayesian", "precision", "pragmatic", "feasibility", "dose_finding", "binomial"
-- hazard_ratio: Expected/assumed hazard ratio (usually 0.6-0.8 for oncology)
-- allocation_ratio: Randomization ratio like "1:1" or "2:1" (null if single-arm)
-- is_pragmatic_sample: true if not based on formal calculation
+- sample_size_per_arm: [arm1_n, arm2_n] if explicitly stated
+- sample_size_total: Total enrollment including all arms and dropout
+- sample_size_rationale: Text describing the calculation
+- hazard_ratio: Expected hazard ratio from power calculation
+- allocation_ratio: "1:1", "2:1", etc.
 
 RESPOND IN JSON:
 {{
-    "sample_size": <number > 0 or null - NEVER 0>,
+    "sample_size": <per-arm number from power calculation, or total if single-arm>,
     "power": <0.0-1.0 or null>,
-    "sample_size_per_arm": [<arm1_n>, <arm2_n>] or null,
-    "sample_size_by_population": {{"<pop1>": <n1>, "<pop2>": <n2>}} or null,
-    "regional_cohorts": {{"<region>": <n>}} or null,
+    "sample_size_per_arm": [<arm1>, <arm2>] or null,
+    "sample_size_total": <total including dropout> or null,
     "sample_size_rationale": "<text>" or null,
-    "sample_size_justification_type": "<type>" or null,
-    "is_pragmatic_sample": <true/false>,
     "hazard_ratio": <number> or null,
     "allocation_ratio": "<ratio>" or null,
     "confidence": <0.0-1.0>,
     "notes": ["<any extraction notes>"]
-}}''',
+}}""",
 
         'endpoints': '''Extract ENDPOINT information from this protocol section.
 
@@ -2282,7 +2247,7 @@ DOCUMENT SAMPLES:
                     response_text = str(response)
             elif hasattr(self.llm, 'messages'):
                 response = self.llm.messages.create(
-                    model="claude-sonnet-4-20250514",
+                    model="gpt-4o-mini",
                     max_tokens=2000,
                     messages=[{"role": "user", "content": prompt}]
                 )

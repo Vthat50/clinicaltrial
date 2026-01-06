@@ -135,19 +135,21 @@ SECTION_VALIDATORS = {
         'required': ['sample', 'size'],
         'expected': ['power', 'patients', 'subjects', 'hazard ratio', 'events', 'alpha', 'beta', 'calculation'],
         'forbidden': ['table of contents', '..........'],
-        'min_length': 300
+        'min_length': 50,  # Reduced from 100 - some protocols have very concise sample size sections
+        'min_expected_keywords': 1,  # Only need 1 expected keyword (default is 2)
+        'min_avg_line_length': 5  # Sample size sections can have short lines (numbers, formulas)
     },
     'interim_analysis': {
         'required': ['interim'],
         'expected': ['analysis', 'spending', 'o\'brien', 'fleming', 'boundary', 'futility', 'dmc', 'idmc'],
         'forbidden': ['table of contents', '..........'],
-        'min_length': 200
+        'min_length': 100  # Reduced from 200
     },
     'multiplicity': {
         'required': ['multiplicity'],
         'expected': ['hypothesis', 'alpha', 'type i', 'familywise', 'hierarchical', 'gatekeeping', 'adjustment'],
         'forbidden': ['table of contents', '..........'],
-        'min_length': 200
+        'min_length': 100  # Reduced from 200
     },
     'missing_data': {
         'required': ['missing'],
@@ -162,10 +164,18 @@ SECTION_VALIDATORS = {
         'min_length': 200
     },
     'endpoints': {
-        'required': ['endpoint'],
-        'expected': ['primary', 'secondary', 'outcome', 'efficacy', 'pfs', 'os', 'survival', 'response', 'orr'],
+        'required': [],  # Don't require 'endpoint' in body - title already identified it
+        'expected': ['primary', 'secondary', 'outcome', 'efficacy', 'pfs', 'os', 'survival', 'response', 'orr', 'defined as', 'endpoint'],
         'forbidden': ['table of contents', '..........'],
-        'min_length': 300
+        'min_length': 100,  # Primary endpoint section can be short
+        'min_avg_line_length': 15  # Endpoints often have short bullet points
+    },
+    'objectives': {
+        'required': [],  # Title already identifies it
+        'expected': ['primary', 'secondary', 'objective', 'evaluate', 'assess', 'determine', 'efficacy', 'safety'],
+        'forbidden': ['table of contents', '..........'],
+        'min_length': 100,
+        'min_avg_line_length': 15  # Objectives often have short bullet points
     },
     'stratification': {
         'required': ['stratif'],
@@ -201,32 +211,61 @@ SECTION_HEADER_PATTERNS = [
     r'^#+\s*(\d+(?:\.\d+)*)\s*[\.:]?\s*(.+)$',  # Markdown headers with numbers
     r'^(\d+(?:\.\d+)*)\s*[\.:]?\s*(.+)$',  # Plain numbered sections
     r'^(?:SECTION\s+)?(\d+(?:\.\d+)*)\s*[\.:]?\s*(.+)$',  # "SECTION X.Y Title"
+    # NEW: Unnumbered markdown headers containing key section words
+    r'^#+\s*()((?:Sample Size|Statistical|Interim|Endpoint|Objective|Population|Safety|Multiplicity|Estimand|Study Design).*)$',
 ]
 
 # Map section title keywords to canonical section types
+# ORDER MATTERS - more specific patterns checked first
 SECTION_TITLE_MAPPING = {
+    # Statistical methods
     'statistical': 'statistical_methods',
     'statistic': 'statistical_methods',
     'analysis method': 'statistical_methods',
+
+    # Sample size
     'sample size': 'sample_size',
     'power': 'sample_size',
+
+    # Interim analysis
     'interim': 'interim_analysis',
     'group sequential': 'interim_analysis',
+
+    # Multiplicity
     'multiplicity': 'multiplicity',
     'multiple testing': 'multiplicity',
     'multiple comparison': 'multiplicity',
+
+    # Missing data
     'missing data': 'missing_data',
     'censoring': 'missing_data',
+
+    # Populations
     'population': 'populations',
     'analysis set': 'populations',
-    'endpoint': 'endpoints',
-    'objective': 'endpoints',
-    'efficacy': 'endpoints',
+
+    # Endpoints - SPECIFIC patterns only (not broad 'efficacy')
+    'primary endpoint': 'endpoints',
+    'secondary endpoint': 'endpoints',
+    'exploratory endpoint': 'endpoints',
+    'study endpoint': 'endpoints',
+    'efficacy endpoint': 'endpoints',
+    'endpoint': 'endpoints',  # Generic - checked after specific ones
+    # Note: 'efficacy' alone is TOO BROAD - matches background sections
+
+    # Objectives - SEPARATE from endpoints per ICH M11
+    'objective': 'objectives',
+
+    # Stratification
     'stratification': 'stratification',
     'stratified': 'stratification',
     'randomization': 'stratification',
+
+    # Safety
     'safety': 'safety',
     'adverse': 'safety',
+
+    # Estimand
     'estimand': 'estimand',
     'intercurrent': 'estimand',
 }
@@ -424,9 +463,23 @@ class ProtocolSectionParser:
         # Find all section headers with their positions
         headers = []
         for i, line in enumerate(lines):
+            # SKIP TABLE ROWS - they contain '|' and are often TOC entries
+            if '|' in line:
+                continue
+            
+            # SKIP lines that look like page numbers or metadata
+            stripped = line.strip()
+            if stripped.isdigit():  # Just a page number
+                continue
+            if stripped.startswith('Page ') or stripped.startswith('---'):
+                continue
+                
+            # Strip HTML-like tags that LlamaParse sometimes adds (e.g., </h8>, </h9>)
+            clean_line = re.sub(r'</h\d+>', '', line.strip())
+            
             # Try each pattern
             for pattern in SECTION_HEADER_PATTERNS:
-                match = re.match(pattern, line.strip(), re.IGNORECASE)
+                match = re.match(pattern, clean_line, re.IGNORECASE)
                 if match:
                     section_num = match.group(1)
                     section_title = match.group(2).strip()
@@ -451,9 +504,22 @@ class ProtocolSectionParser:
         for i, header in enumerate(headers):
             section_type = header['section_type']
 
-            # Skip if we already have this section type (keep first occurrence)
+            # If we already have this section type, keep the BETTER one (longer content)
+            start_line = header['line_num']
+            if i + 1 < len(headers):
+                end_line = headers[i + 1]['line_num']
+            else:
+                end_line = len(lines)
+            new_content = '\n'.join(lines[start_line:end_line]).strip()
+            
             if section_type in sections:
-                continue
+                existing_len = len(sections[section_type].content)
+                # Replace if new one is significantly better (2x longer or existing is tiny)
+                if len(new_content) > existing_len * 2 or existing_len < 300:
+                    print(f"[SectionParser/LlamaParse] Replacing '{section_type}': {existing_len} -> {len(new_content)} chars")
+                    del sections[section_type]
+                else:
+                    continue
 
             start_line = header['line_num']
 
@@ -468,7 +534,7 @@ class ProtocolSectionParser:
             content = '\n'.join(content_lines).strip()
 
             # Validate content
-            if len(content) > 100:
+            if len(content) > 50:
                 is_valid, confidence, message = self._validate_multi_signal(section_type, content)
 
                 if is_valid:
@@ -490,10 +556,81 @@ class ProtocolSectionParser:
 
     def _map_title_to_section_type(self, title: str) -> Optional[str]:
         """Map a section title to a canonical section type."""
-        title_lower = title.lower()
+        import re
+        title_lower = title.lower().strip()
 
-        # Check each mapping keyword
-        for keyword, section_type in SECTION_TITLE_MAPPING.items():
+        # ===== EXCLUDE BIBLIOGRAPHY/REFERENCE ENTRIES =====
+        # Pattern: "13 PASS 14 Power Analysis..." or "14 Fleiss JL, Levin B..."
+        if re.match(r'^\d+\.?\s+[A-Z]', title):  # Starts with number + capital letter
+            # Check for bibliography indicators
+            bib_indicators = [
+                r'\d{4}[.\):]',           # Year like 2015. or 2015)
+                r':\s*[A-Z][a-z]+\s+&',   # Publisher: "John Wiley &"
+                r'LLC|Inc\.|edn\.',       # Company suffixes
+                r'[A-Z]{2},\s*[A-Z][a-z]+\s+[A-Z]{1,2}[,:]',  # Author format "JL, Levin B,"
+            ]
+            for pattern in bib_indicators:
+                if re.search(pattern, title):
+                    return None  # Skip - this is a bibliography entry
+
+        # SKIP reference citations (contain year patterns like "(2015)", "(2013)")
+        if re.search(r'\(\d{4}\)', title):
+            return None  # This is a reference citation
+
+        # SKIP endpoint/outcome NAMES (not section headers)
+        # These are metrics like "Objective Response Rate", "Overall Survival"
+        endpoint_names = ['response rate', 'orr', 'pfs', 'os', 'dor', 'dcr', 'overall survival',
+                          'progression-free', 'duration of response', 'disease control']
+        for name in endpoint_names:
+            if name in title_lower:
+                return None  # This is an endpoint name, not a section header
+
+        # Handle COMPOUND headers like "HYPOTHESES, OBJECTIVES, AND ENDPOINTS"
+        has_objective = 'objective' in title_lower
+        has_endpoint = 'endpoint' in title_lower
+
+        if has_objective and has_endpoint:
+            # Compound section - map to objectives (endpoints will be a subsection)
+            return 'objectives'
+
+        # Check specific patterns FIRST (before broad keywords)
+        specific_mappings = [
+            ('primary endpoint', 'endpoints'),
+            ('secondary endpoint', 'endpoints'),
+            ('exploratory endpoint', 'endpoints'),
+            ('efficacy endpoint', 'endpoints'),
+            ('study endpoint', 'endpoints'),
+            ('sample size', 'sample_size'),
+            ('power calculation', 'sample_size'),
+            ('interim analysis', 'interim_analysis'),
+            ('group sequential', 'interim_analysis'),
+            ('analysis population', 'populations'),
+            ('analysis set', 'populations'),
+            ('missing data', 'missing_data'),
+            ('multiple testing', 'multiplicity'),
+            ('multiple comparison', 'multiplicity'),
+        ]
+
+        for pattern, section_type in specific_mappings:
+            if pattern in title_lower:
+                return section_type
+
+        # Then check broad keywords
+        broad_mappings = [
+            ('statistical', 'statistical_methods'),
+            ('multiplicity', 'multiplicity'),
+            ('interim', 'interim_analysis'),
+            ('endpoint', 'endpoints'),  # Only if specific patterns didn't match
+            ('objective', 'objectives'),
+            ('population', 'populations'),
+            ('stratification', 'stratification'),
+            ('randomization', 'stratification'),
+            ('safety', 'safety'),
+            ('adverse', 'safety'),
+            ('estimand', 'estimand'),
+        ]
+
+        for keyword, section_type in broad_mappings:
             if keyword in title_lower:
                 return section_type
 
@@ -528,11 +665,12 @@ class ProtocolSectionParser:
         if len(content) < min_length:
             return False, 0.0, f"Content too short: {len(content)} < {min_length}"
 
-        # Check expected keywords (need 2+)
+        # Check expected keywords (need min_expected_keywords, default 2)
         expected = rules.get('expected', [])
         found_expected = sum(1 for kw in expected if kw in content_lower)
+        min_expected = rules.get('min_expected_keywords', 2)
 
-        if found_expected < 2:
+        if found_expected < min_expected:
             return False, 0.2, f"Only found {found_expected} expected keywords"
 
         # Calculate confidence based on expected keyword coverage
@@ -542,7 +680,9 @@ class ProtocolSectionParser:
         lines = content.split('\n')
         avg_line_length = sum(len(line) for line in lines) / max(len(lines), 1)
 
-        if avg_line_length < 30:  # Very short lines = probably TOC
+        # Use per-section threshold or default 30
+        min_avg_line = rules.get('min_avg_line_length', 30)
+        if avg_line_length < min_avg_line:
             return False, 0.1, f"Low average line length: {avg_line_length:.1f} (possible TOC)"
 
         return True, confidence, "Validation passed"
@@ -744,7 +884,7 @@ PROTOCOL TEXT (sampled from multiple regions):
                 response_text = response if isinstance(response, str) else str(response)
             elif hasattr(self.llm_client, 'messages'):
                 response = self.llm_client.messages.create(
-                    model="claude-sonnet-4-20250514",
+                    model="gpt-4o-mini",
                     max_tokens=8000,
                     messages=[{"role": "user", "content": prompt}]
                 )

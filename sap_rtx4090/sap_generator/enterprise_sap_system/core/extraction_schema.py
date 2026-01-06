@@ -108,6 +108,11 @@ class StudyDesign:
     is_blinded: Optional[bool] = None             # None if not extracted
     blinding_type: str = ""                       # double-blind, open-label, etc.
 
+    # Study type classification (CRITICAL for method selection)
+    is_single_arm: Optional[bool] = None          # True if single-arm study (no comparator)
+    is_pilot_study: Optional[bool] = None         # True if pilot/exploratory study
+    num_arms: Optional[int] = None                # Number of treatment arms
+
     # Treatment arms
     drug_name: str = ""
     drug_class: Optional[str] = None              # immunotherapy, chemotherapy, targeted
@@ -1577,7 +1582,7 @@ class ExtractedProtocolFacts:
         Convert to flat dictionary for prompt formatting.
         This is what gets passed to _format_facts().
         """
-        return {
+        result = {
             # Administrative
             'nct_id': self.admin.nct_id,
             'protocol_number': self.admin.protocol_number,
@@ -1592,6 +1597,11 @@ class ExtractedProtocolFacts:
             'allocation_ratio': self.design.allocation_ratio,
             'stratification_factors': self.design.stratification_factors,
             'design_type': self.design.design_type,
+
+            # Design - Study type (CRITICAL for method selection)
+            'is_single_arm': self.design.is_single_arm,
+            'is_pilot_study': self.design.is_pilot_study,
+            'num_arms': self.design.num_arms,
 
             # Design - NEW CRITICAL FIELDS
             'treatment_setting': self.design.treatment_setting,
@@ -1895,6 +1905,43 @@ class ExtractedProtocolFacts:
             'needs_review': self.confidence.needs_review,
         }
 
+        # =======================================================================
+        # DYNAMIC FIELD EXTRACTION - Capture ALL fields from all sub-schemas
+        # This ensures new fields added to dataclasses are automatically included
+        # =======================================================================
+        from dataclasses import fields as dc_fields
+        
+        def get_dataclass_fields(obj):
+            """Extract all fields from a dataclass object."""
+            try:
+                return {f.name: getattr(obj, f.name, None) for f in dc_fields(obj)}
+            except TypeError:
+                return {}
+        
+        # All sub-schemas to extract from
+        sub_schemas = [
+            self.admin, self.design, self.endpoints, self.interim,
+            self.methods, self.multiplicity, self.missing_data, self.crossover,
+            self.populations, self.estimand, self.safety, self.pharmacokinetics,
+            self.biomarkers, self.laboratory, self.exposure, self.concomitant_meds,
+            self.immunogenicity, self.conventions, self.deviations, self.pro,
+            self.dmc, self.cdisc, self.special_design, self.tumor_assessment,
+            self.bridging, self.secondary_analyses, self.subgroup_specs,
+            self.filing_endpoints, self.coding_standards, self.date_imputation,
+            self.exposure_formulas, self.study_conduct, self.control_rationale,
+            self.genomic_sampling, self.confidence, self.baseline_chars,
+            self.cdisc_versioning,
+        ]
+        
+        for schema_obj in sub_schemas:
+            if schema_obj is not None:
+                for key, value in get_dataclass_fields(schema_obj).items():
+                    if key not in result:  # Don't overwrite explicit mappings
+                        result[key] = value
+        
+        return result
+
+
 
 # =============================================================================
 # CONVERSION FUNCTIONS
@@ -1925,6 +1972,13 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.design.stratification_factors = extracted.get('stratification_factors') or []  # FIXED: handles None
     facts.design.design_type = extracted.get('design_type') or ''
     facts.design.is_randomized = extracted.get('is_randomized')  # None if not found
+    facts.design.is_blinded = extracted.get('is_blinded')  # None if not found
+    facts.design.blinding_type = extracted.get('blinding_type') or ''  # double-blind, open-label, etc.
+
+    # Design - Study type (CRITICAL for method selection)
+    facts.design.is_single_arm = extracted.get('is_single_arm')  # None if not found (intentional)
+    facts.design.is_pilot_study = extracted.get('is_pilot_study')  # None if not found (intentional)
+    facts.design.num_arms = extracted.get('num_arms')  # None if not found (intentional)
 
     # Design - NEW CRITICAL FIELDS (use 'or' to handle None values)
     facts.design.treatment_setting = extracted.get('treatment_setting') or ''
@@ -1934,6 +1988,12 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.design.disease_stage = extracted.get('disease_stage') or ''
     facts.design.biomarker_status = extracted.get('biomarker_status') or ''
     facts.design.stratification_factor_levels = extracted.get('stratification_factor_levels') or {}
+    facts.design.drug_class = extracted.get('drug_class') or ''
+    facts.design.comparator_type = extracted.get('comparator_type') or ''
+    facts.design.hypothesis_framework = extracted.get('hypothesis_framework') or extracted.get('study_category') or ''
+    facts.design.sample_size_per_arm = extracted.get('sample_size_per_arm')  # List or None
+    facts.design.sample_size_rationale = extracted.get('sample_size_rationale') or ''
+    facts.design.treatment_duration = extracted.get('treatment_duration') or ''
 
     # Estimand (ICH E9 R1) - NEW (use 'or' to handle None values)
     facts.estimand.population = extracted.get('estimand_population') or ''
@@ -1946,6 +2006,8 @@ def from_claude_extraction(extracted: Dict[str, Any]) -> ExtractedProtocolFacts:
     facts.endpoints.secondary_endpoints = extracted.get('secondary_endpoints') or []
     facts.endpoints.is_co_primary = extracted.get('is_co_primary')  # None if not found (intentional)
     facts.endpoints.co_primary_endpoints = extracted.get('co_primary_endpoints') or []
+    facts.endpoints.co_primary_success_rule = extracted.get('co_primary_success_rule') or ''
+    facts.endpoints.exploratory_endpoints = extracted.get('exploratory_endpoints') or []
 
     # Interim Analysis - CRITICAL (intentionally allow None for some fields)
     facts.interim.has_interim_analysis = extracted.get('has_interim_analysis')  # None if not found (intentional)
