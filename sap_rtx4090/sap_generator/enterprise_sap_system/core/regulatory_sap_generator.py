@@ -57,8 +57,8 @@ class ProtocolFacts:
     total_sample_size: int = 0
     events_required_interim: int = 0
     events_required_final: int = 0
-    power: float = 0.0
-    alpha: float = 0.05
+    power: Optional[float] = None  # NO DEFAULT - must be extracted
+    alpha: Optional[float] = None  # NO DEFAULT - must be extracted
 
     # Stratification
     stratification_factors: List[str] = field(default_factory=list)
@@ -359,8 +359,8 @@ PROTOCOL TEXT:
         facts.total_sample_size = int(data.get("total_sample_size") or 0)
         facts.events_required_interim = int(data.get("events_required_interim") or 0)
         facts.events_required_final = int(data.get("events_required_final") or 0)
-        facts.power = float(data.get("power") or 0.9)
-        facts.alpha = float(data.get("alpha") or 0.05)
+        facts.power = float(data.get("power")) if data.get("power") else None
+        facts.alpha = float(data.get("alpha")) if data.get("alpha") else None
 
         facts.stratification_factors = data.get("stratification_factors") or []
 
@@ -371,7 +371,7 @@ PROTOCOL TEXT:
 
         facts.primary_test = data.get("primary_test") or ""
         facts.alpha_interim = float(data.get("alpha_interim") or 0)
-        facts.alpha_final = float(data.get("alpha_final") or 0.05)
+        facts.alpha_final = float(data.get("alpha_final")) if data.get("alpha_final") else None
         facts.error_spending_function = data.get("error_spending_function") or ""
 
         facts.has_interim = bool(data.get("has_interim", False))

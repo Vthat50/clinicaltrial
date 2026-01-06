@@ -835,7 +835,7 @@ class ConstrainedSAPPipeline:
         print(f"    [SIZE] ratio: Literal['{facts.ratio or '1:1'}']")
         print(f"    [SIZE] num_arms: Literal[{facts.num_arms or 2}]")
         print(f"    [SIZE] power: Literal['{facts.power or '80%'}']")
-        print(f"    [SIZE] alpha: Literal[{facts.alpha or 0.05}]")
+        print(f"    [SIZE] alpha: Literal[{facts.alpha or '[NOT EXTRACTED]'}]")
         print(f"    [ENDPOINT] primary_endpoint: Literal['{(facts.primary_endpoint or 'Primary endpoint')[:50]}...']")
         print(f"    [STRAT] stratification_factors: {len(facts.stratification_factors or [])} factors")
         print(f"\n    Coverage: {self._count_constraints(facts)}/28 entities constrained")
@@ -1391,8 +1391,8 @@ Analysis will include:
         primary_timepoint = facts.primary_timepoint or "Week 12"
         primary_population = facts.primary_population or "FAS"
         primary_analysis_method = facts.primary_analysis_method or "Logistic Regression"
-        alpha = facts.alpha or 0.05
-        alpha_sidedness = facts.alpha_sidedness or "[SIDEDNESS NOT EXTRACTED]"  # DO NOT default - must be extracted
+        alpha = facts.alpha or "[ALPHA NOT EXTRACTED]"
+        alpha_sidedness = facts.alpha_sidedness or "[SIDEDNESS NOT EXTRACTED]"
 
         # Get RAG context for enhanced method details
         rag_context = self._get_rag_context(facts)

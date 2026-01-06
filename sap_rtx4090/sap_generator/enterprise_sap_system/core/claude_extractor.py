@@ -69,7 +69,7 @@ class ExtractedProtocol:
     # Statistical - ENHANCED for complex trial designs
     statistical_method: str = ""  # Primary method (e.g., "log-rank", "MMRM")
     statistical_method_details: str = ""  # Full details (e.g., "Fleming-Harrington weighted log-rank G(rho=0, gamma=1)")
-    alpha_level: float = 0.05
+    alpha_level: Optional[float] = None  # NO DEFAULT - must be extracted
     power: float = 0.0
     hypothesis_testing_planned: bool = True  # False for pilot/feasibility studies
 
@@ -526,7 +526,7 @@ class ClaudeProtocolExtractor:
         # Statistical - ENHANCED
         result.statistical_method = response.get("statistical_method", "") or ""
         result.statistical_method_details = response.get("statistical_method_details", "") or ""
-        result.alpha_level = float(response.get("alpha_level", 0.05) or 0.05)
+        result.alpha_level = float(response.get("alpha_level")) if response.get("alpha_level") else None
         result.power = float(response.get("power", 0) or 0)
         result.hypothesis_testing_planned = bool(response.get("hypothesis_testing_planned", True))
 
