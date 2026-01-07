@@ -663,7 +663,14 @@ async def generate_full_pipeline(request: GenerateRequest):
             if isinstance(sample_size_val, dict):
                 sample_size = sample_size_val.get('total_n', 0) or 0
             else:
-                sample_size = int(sample_size_val) if sample_size_val else 0
+                # Safe conversion - handle non-numeric strings like "Not specifically detailed"
+                try:
+                    sample_size = int(sample_size_val) if sample_size_val else 0
+                except (ValueError, TypeError):
+                    # Extract number from string if possible, otherwise default to 0
+                    import re
+                    numbers = re.findall(r'\d+', str(sample_size_val)) if sample_size_val else []
+                    sample_size = int(numbers[0]) if numbers else 0
             ratio = facts.get('randomization_ratio', '') or ''
             phase = facts.get('phase', '') or ''
             therapeutic_area = facts.get('therapeutic_area', '') or facts.get('indication', '') or ''
