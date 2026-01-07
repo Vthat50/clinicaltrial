@@ -165,18 +165,25 @@ class TwoPassExtractionResult:
 DISCOVERY_PROMPT = """You are a biostatistician analyzing a clinical trial protocol.
 
 TASK: Identify ALL statistical and methodological elements present in this protocol.
-Do NOT extract values yet - just LIST what elements exist.
+EXTRACT THE EXACT VALUES - not just element names!
 
 Return a JSON array of discovered elements. For each element include:
-- "name": Specific name (e.g., "Primary endpoint: PFS in pMMR population")
+- "name": Specific name WITH EXACT VALUES (e.g., "Primary endpoint: PFS in pMMR population, HR=0.7")
 - "category": One of [study_design, endpoints, populations, sample_size, hypotheses,
                statistical_methods, interim_analysis, multiplicity, missing_data,
                sensitivity_analyses, subgroups, safety, patient_reported_outcomes, other]
-- "description": Brief description of what this element covers
+- "description": INCLUDE ALL NUMERIC VALUES found (alpha, power, margins, boundaries, event counts)
 - "section_hint": Which protocol section contains this
 - "priority": 1=critical for SAP, 2=important, 3=supplementary
 
-BE EXHAUSTIVE. You MUST find and list:
+══════════════════════════════════════════════════════════════════════════════
+CRITICAL: EXTRACT EXACT STUDY IDENTIFIERS
+══════════════════════════════════════════════════════════════════════════════
+- Study number/Protocol number (e.g., "MK-7902-001-05" or "NCT04865289") - EXACT as written
+- Sponsor protocol ID - EXACT as written
+- ClinicalTrials.gov identifier - EXACT as written
+
+BE EXHAUSTIVE. You MUST find and list WITH EXACT VALUES:
 
 STUDY DESIGN (category: study_design):
 - Blinding type (open-label, single-blind, double-blind) - REQUIRED
@@ -200,14 +207,15 @@ POPULATIONS (category: populations):
 HYPOTHESES (category: hypotheses):
 - List EVERY hypothesis: H1, H2, H3, H4, H5...
 - For each: type (superiority/non-inferiority/equivalence)
-- For NI hypotheses: the non-inferiority MARGIN is REQUIRED
-- Alpha allocated to each hypothesis
+- For NI hypotheses: the non-inferiority MARGIN (e.g., "NI margin = 1.1") - EXACT NUMBER REQUIRED
+- Alpha allocated to each hypothesis (e.g., "α = 0.005 one-sided") - EXACT NUMBER REQUIRED
 
 SAMPLE SIZE (category: sample_size):
-- Total sample size
-- Per-arm sample size
-- Power calculation assumptions
-- Effect size / hazard ratio assumed
+- Total sample size - EXACT NUMBER
+- Per-arm sample size - EXACT NUMBER
+- Power calculation (e.g., "90% power") - EXACT PERCENTAGE
+- Effect size / hazard ratio assumed (e.g., "HR = 0.7") - EXACT NUMBER
+- Number of events required - EXACT NUMBER
 
 STATISTICAL METHODS (category: statistical_methods):
 - Primary analysis method for each endpoint
@@ -216,17 +224,18 @@ STATISTICAL METHODS (category: statistical_methods):
 - Model specifications
 
 INTERIM ANALYSIS (category: interim_analysis):
-- Count ALL interim analyses (IA1, IA2, IA3, etc.)
-- Timing of each (% information, # events)
-- Stopping boundaries at each
-- Alpha spending function
-- What is tested at each interim
+- EXACT COUNT of interim analyses (e.g., "3 IAs + 1 FA")
+- Timing of EACH: months, % information fraction, # events (e.g., "IA1: ~27 months, ~354 PFS events")
+- Stopping boundaries at EACH: Z-scores, p-values, HR boundaries (e.g., "Z=2.96, p=0.0015, HR≤0.72")
+- Alpha spending function (e.g., "Lan-DeMets O'Brien-Fleming")
+- What is tested at each interim (which hypotheses)
 
 MULTIPLICITY (category: multiplicity):
-- Overall alpha (one-sided/two-sided)
-- Alpha split across hypotheses - EXACT allocation to each
-- Testing sequence/hierarchy
+- Overall alpha (e.g., "α = 0.025 one-sided" or "α = 0.05 two-sided") - EXACT
+- Alpha split across hypotheses - EXACT allocation to each (e.g., "H1: α=0.005, H2: α=0.02")
+- Testing sequence/hierarchy with weights
 - Gatekeeping strategy if applicable
+- Graphical approach weights for alpha reallocation
 
 MISSING DATA (category: missing_data):
 - Primary approach for missing data
@@ -256,8 +265,10 @@ Return ONLY valid JSON array, no markdown. Include AT LEAST 30 elements for a ty
 def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredElement]:
     """Pass 1: Discover all elements in the protocol."""
 
-    max_chars = 180000
-    text = protocol_text[:max_chars] if len(protocol_text) > max_chars else protocol_text
+    # NO TRUNCATION - send full protocol to preserve all statistical details
+    # Modern models (Claude-sonnet-4, GPT-4o) have 128k-200k context
+    text = protocol_text
+    print(f"  [Discovery] Processing full protocol: {len(text):,} characters")
 
     prompt = DISCOVERY_PROMPT.format(protocol_text=text)
 
@@ -440,8 +451,10 @@ SAP_GENERATION_PROMPT = """You are an expert biostatistician writing a Statistic
 READ the protocol below completely. WRITE a comprehensive, production-quality SAP.
 
 ══════════════════════════════════════════════════════════════════════════════
-CRITICAL: CHECKLIST OF ELEMENTS YOU MUST INCLUDE
+⚠️ CRITICAL: USE EXACT NUMBERS FROM THE PROTOCOL - NO PLACEHOLDERS
 ══════════════════════════════════════════════════════════════════════════════
+
+NEVER write "[To be specified]" or "will be detailed in..." - FIND THE EXACT VALUE.
 
 I discovered these {num_elements} elements in the protocol.
 EVERY SINGLE ONE must appear in your SAP with EXACT values from the protocol:
@@ -449,39 +462,53 @@ EVERY SINGLE ONE must appear in your SAP with EXACT values from the protocol:
 {checklist}
 
 ══════════════════════════════════════════════════════════════════════════════
-MANDATORY REQUIREMENTS
+MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
 ══════════════════════════════════════════════════════════════════════════════
 
-1. BLINDING: State explicitly whether open-label, single-blind, or double-blind
+1. STUDY IDENTIFIERS:
+   - Protocol number EXACTLY as written (e.g., "MK-7902-001-05")
+   - NCT number EXACTLY as written
+   - DO NOT modify or guess these numbers
 
-2. ENDPOINTS:
+2. BLINDING: State explicitly whether open-label, single-blind, or double-blind
+
+3. ENDPOINTS:
    - If there are CO-PRIMARY endpoints, document BOTH with their relationship
    - List ALL secondary endpoints
 
-3. HYPOTHESES:
+4. HYPOTHESES - WITH EXACT ALPHA VALUES:
    - List EVERY hypothesis (H1, H2, H3, H4, H5...)
-   - For EACH hypothesis state: type (superiority/NI), alpha allocated
-   - For NON-INFERIORITY hypotheses: state the NI MARGIN explicitly
+   - For EACH hypothesis state: type (superiority/NI), EXACT alpha allocated (e.g., "α = 0.005 one-sided")
+   - For NON-INFERIORITY hypotheses: state the NI MARGIN as EXACT NUMBER (e.g., "NI margin = 1.1")
 
-4. INTERIM ANALYSES:
-   - State the TOTAL COUNT (e.g., "3 interim analyses plus final")
-   - For EACH interim: timing, what's tested, stopping boundaries
+5. INTERIM ANALYSES - WITH EXACT TIMING AND BOUNDARIES:
+   - State the TOTAL COUNT (e.g., "3 interim analyses plus 1 final analysis")
+   - For EACH interim state:
+     * EXACT timing (months and/or event count, e.g., "IA1: ~27 months, ~354 PFS events")
+     * EXACT stopping boundaries (Z-scores, p-values, HR boundaries)
+   - Alpha spending function name (e.g., "Lan-DeMets O'Brien-Fleming")
 
-5. ALPHA:
-   - Overall alpha level (one-sided or two-sided)
-   - If alpha is SPLIT across hypotheses, show EXACT allocation to each
+6. ALPHA ALLOCATION - EXACT NUMBERS:
+   - Overall alpha level with sidedness (e.g., "α = 0.025 one-sided")
+   - EXACT alpha allocation to each hypothesis (e.g., "H1: α=0.005, H3: α=0.02")
 
-6. SAMPLE SIZE:
+7. SAMPLE SIZE - EXACT NUMBERS:
    - Total N and per-arm N
-   - Power, effect size assumptions
+   - Power percentage (e.g., "90% power")
+   - Effect size/HR assumed (e.g., "HR = 0.7")
+   - Number of events required
 
-7. POPULATIONS:
+8. CENSORING RULES:
+   - Describe each censoring scenario
+   - Include sensitivity analysis approaches for missing data
+
+9. POPULATIONS:
    - If multiple populations (pMMR, dMMR, all-comers), document EACH
    - Which population is primary for which endpoint
 
-8. REGIONAL EXTENSIONS:
-   - If there's a China extension, include Section 11.1
-   - If there are other regional requirements, document them
+10. REGIONAL EXTENSIONS:
+    - If there's a China extension, include Section 11.1 with sample size
+    - If there are other regional requirements, document them
 
 ══════════════════════════════════════════════════════════════════════════════
 SAP TEMPLATE TO FOLLOW
@@ -556,26 +583,9 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
         protocol_text=protocol_text
     )
 
-    # Handle context length
-    max_prompt_chars = 190000
-    if len(prompt) > max_prompt_chars:
-        # Calculate how much protocol text we can include
-        overhead = len(prompt) - len(protocol_text)
-        available_for_protocol = max_prompt_chars - overhead - 1000  # buffer
-
-        if available_for_protocol < 50000:
-            print("WARNING: Very limited space for protocol text")
-
-        protocol_text_truncated = protocol_text[:available_for_protocol]
-        prompt = SAP_GENERATION_PROMPT.format(
-            num_elements=len(discovered_elements),
-            checklist=checklist,
-            sap_template=template,
-            protocol_text=protocol_text_truncated + "\n\n[... PROTOCOL TRUNCATED DUE TO LENGTH ...]"
-        )
-
-        if verbose:
-            print(f"  Protocol truncated: {len(protocol_text):,} → {available_for_protocol:,} chars")
+    # NO TRUNCATION - send full protocol to preserve all statistical details
+    # Modern models have large context windows (Claude: 200k, GPT-4o: 128k)
+    # If protocol is too large, let the API error rather than lose critical data
 
     if verbose:
         print(f"  Checklist: {len(discovered_elements)} elements across {len(by_category)} categories")
