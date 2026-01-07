@@ -933,8 +933,11 @@ class OncologyDecisionEngine:
                 return False
             # If num_arms > 1, likely randomized
             num_arms = protocol_facts.get('num_arms', 1)
-            if num_arms and int(num_arms) > 1:
-                return True
+            try:
+                if num_arms and int(num_arms) > 1:
+                    return True
+            except (ValueError, TypeError):
+                pass
             return False
         # Handle ExtractedProtocolFacts object
         if hasattr(protocol_facts, 'study_design'):
