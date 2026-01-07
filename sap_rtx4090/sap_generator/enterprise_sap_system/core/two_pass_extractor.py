@@ -205,7 +205,7 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
         client = OpenAI()
         response = client.chat.completions.create(
             model=model or "gpt-4o",
-            max_tokens=4000,
+            max_tokens=8000,
             messages=[{"role": "user", "content": prompt}]
         )
         response_text = response.choices[0].message.content
@@ -213,7 +213,7 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
         client = Anthropic()
         response = client.messages.create(
             model=model or "claude-sonnet-4-20250514",
-            max_tokens=4000,
+            max_tokens=8000,
             messages=[{"role": "user", "content": prompt}]
         )
         response_text = response.content[0].text
@@ -225,7 +225,18 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
         elif "```" in response_text:
             response_text = response_text.split("```")[1].split("```")[0]
 
-        elements_raw = json.loads(response_text.strip())
+        response_text = response_text.strip()
+
+        # Try to repair truncated JSON arrays
+        try:
+            elements_raw = json.loads(response_text)
+        except json.JSONDecodeError:
+            # Attempt to repair truncated JSON
+            repaired = _repair_truncated_json(response_text)
+            if repaired:
+                elements_raw = json.loads(repaired)
+            else:
+                raise
 
         elements = []
         for e in elements_raw:
@@ -243,6 +254,59 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
         print(f"WARNING: Could not parse discovery response: {e}")
         print(f"Response was: {response_text[:500]}...")
         return []
+
+
+def _repair_truncated_json(text: str) -> Optional[str]:
+    """Attempt to repair truncated JSON array."""
+    text = text.strip()
+
+    # Must start with [
+    if not text.startswith('['):
+        return None
+
+    # Find the last complete object
+    # Look for the last complete "}" followed by optional whitespace
+    import re
+
+    # Find all positions of complete objects ending with }
+    # We look for }, followed by possible whitespace, then either , or ] or end
+    last_complete = -1
+    depth = 0
+    in_string = False
+    escape_next = False
+
+    for i, ch in enumerate(text):
+        if escape_next:
+            escape_next = False
+            continue
+        if ch == '\\':
+            escape_next = True
+            continue
+        if ch == '"' and not escape_next:
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == '{':
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0:
+                last_complete = i
+
+    if last_complete > 0:
+        # Truncate at last complete object and close the array
+        repaired = text[:last_complete + 1] + "]"
+        # Remove any trailing comma before the ]
+        repaired = re.sub(r',\s*\]$', ']', repaired)
+        try:
+            json.loads(repaired)
+            print(f"  [JSON repair] Recovered {repaired.count('{')} objects from truncated response")
+            return repaired
+        except:
+            pass
+
+    return None
 
 
 # =============================================================================
