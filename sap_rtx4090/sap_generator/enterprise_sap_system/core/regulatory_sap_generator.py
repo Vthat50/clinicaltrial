@@ -24,6 +24,37 @@ except ImportError:
     TieredLLMClient = None
 
 
+# Safe type conversion helpers - Claude may return non-numeric strings
+def _safe_int(value, default=0):
+    """Safely convert value to int."""
+    if value is None:
+        return default
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value)
+        except ValueError:
+            return default
+    return default
+
+
+def _safe_float(value, default=0.0):
+    """Safely convert value to float."""
+    if value is None:
+        return default
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return default
+    return default
+
+
 @dataclass
 class ProtocolFacts:
     """Comprehensive protocol facts extracted from protocol document."""
@@ -356,11 +387,13 @@ PROTOCOL TEXT:
         facts.indication = data.get("indication") or ""
         facts.target_population = data.get("target_population") or ""
 
-        facts.total_sample_size = int(data.get("total_sample_size") or 0)
-        facts.events_required_interim = int(data.get("events_required_interim") or 0)
-        facts.events_required_final = int(data.get("events_required_final") or 0)
-        facts.power = float(data.get("power")) if data.get("power") else None
-        facts.alpha = float(data.get("alpha")) if data.get("alpha") else None
+        facts.total_sample_size = _safe_int(data.get("total_sample_size"))
+        facts.events_required_interim = _safe_int(data.get("events_required_interim"))
+        facts.events_required_final = _safe_int(data.get("events_required_final"))
+        power_val = data.get("power")
+        facts.power = _safe_float(power_val) if power_val else None
+        alpha_val = data.get("alpha")
+        facts.alpha = _safe_float(alpha_val) if alpha_val else None
 
         facts.stratification_factors = data.get("stratification_factors") or []
 
@@ -370,12 +403,13 @@ PROTOCOL TEXT:
         facts.secondary_endpoints = data.get("secondary_endpoints") or []
 
         facts.primary_test = data.get("primary_test") or ""
-        facts.alpha_interim = float(data.get("alpha_interim") or 0)
-        facts.alpha_final = float(data.get("alpha_final")) if data.get("alpha_final") else None
+        facts.alpha_interim = _safe_float(data.get("alpha_interim"))
+        alpha_final_val = data.get("alpha_final")
+        facts.alpha_final = _safe_float(alpha_final_val) if alpha_final_val else None
         facts.error_spending_function = data.get("error_spending_function") or ""
 
         facts.has_interim = bool(data.get("has_interim", False))
-        facts.num_interim_analyses = int(data.get("num_interim_analyses") or 0)
+        facts.num_interim_analyses = _safe_int(data.get("num_interim_analyses"))
         facts.interim_timing = data.get("interim_timing") or ""
         facts.dmc_oversight = bool(data.get("dmc_oversight", False))
 
