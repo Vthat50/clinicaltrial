@@ -1068,6 +1068,9 @@ Write the {section_type.replace('_', ' ').title()} section:"""
             verbose=True
         )
 
+        # Store for external access (e.g., JSON export)
+        self._last_extraction_result = extraction_result.to_facts_dict()
+
         # Get basic facts from extraction for header
         basic_facts = self._extract_basic_facts_from_two_pass(extraction_result)
 
