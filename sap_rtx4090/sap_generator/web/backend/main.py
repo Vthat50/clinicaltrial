@@ -1148,14 +1148,14 @@ async def generate_rag_sap(request: GenerateRequest):
                 content_examples += f"\n[{section}]: {examples[0]['content'][:600]}\n"
                 content_count += 1
 
-        # Query TLF shells
-        tlf_text = ""
+        # Query TLF shells (use new template-based categories)
+        tlf_text = "\n## TLF SHELL SPECIFICATIONS\n"
         tlf_count = 0
-        for category in ["demographics", "efficacy_tte", "safety_ae"]:
-            tlfs = rag.query_tlf(category, category=category, n_results=3)
+        for category in ["demographics", "efficacy", "safety", "figures"]:
+            tlfs = rag.query_tlf(category, category=category, n_results=2)
             for t in tlfs:
-                m = t["metadata"]
-                tlf_text += f"- {m.get('tlf_type')} {m.get('tlf_number')}: {m.get('tlf_title', '')[:50]}\n"
+                # Include full shell specification, not just title
+                tlf_text += f"\n{t['content']}\n"
                 tlf_count += 1
 
         # STEP 3: Generate full SAP (1 LLM call)
@@ -1177,7 +1177,7 @@ SAP STRUCTURE EXAMPLE (follow this organization):
 STYLE EXAMPLES (follow this professional format):
 {content_examples}
 
-TLF SHELLS TO INCLUDE:
+TLF SHELL SPECIFICATIONS (include in Appendix with full column specs, row structure, footnotes):
 {tlf_text}
 
 Generate complete SAP with ALL sections:
@@ -1193,12 +1193,14 @@ Generate complete SAP with ALL sections:
 10. Missing Data Handling
 11. Interim Analysis
 12. Sensitivity Analyses
-13. TLF Appendix (include the TLF shells above)
+13. APPENDIX: Tables, Listings, and Figures (TLF)
+    - Include the TLF shell specifications above
+    - Each shell must have: Title, Population, Column Specs, Row Structure, Footnotes, Programming Notes
 
 REQUIREMENTS:
 - Use ALL protocol facts with exact numbers
 - Follow professional SAP formatting
-- Include TLF appendix at the end"""
+- TLF Appendix must include detailed shell specifications (columns, rows, footnotes, programming notes)"""
 
             response = client.messages.create(
                 model="claude-sonnet-4-20250514",
