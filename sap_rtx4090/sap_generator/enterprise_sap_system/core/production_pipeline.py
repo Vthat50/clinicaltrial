@@ -863,7 +863,7 @@ class ProductionSAPPipeline:
 
         # Use first non-null sidedness found
         for src in sidedness_sources:
-            if src and src not in ('', None, '[NOT FOUND]', '[NEEDS REVIEW]'):
+            if src and isinstance(src, str) and src not in ('', '[NOT FOUND]', '[NEEDS REVIEW]'):
                 sidedness = src.lower().strip()
                 break
 

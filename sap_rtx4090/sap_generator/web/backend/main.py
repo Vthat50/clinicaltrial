@@ -2486,9 +2486,12 @@ async def process_jobs_worker():
 
                         pe = facts.get('primary_endpoint', '')
                         if isinstance(pe, dict):
-                            endpoint_type_str = (pe.get('type', '') or pe.get('endpoint_type', ''))[:10]
+                            ep_val = pe.get('type') or pe.get('endpoint_type') or ''
+                            endpoint_type_str = str(ep_val)[:10] if ep_val else ""
                         elif isinstance(pe, str):
                             endpoint_type_str = pe[:10]
+                        elif isinstance(pe, list) and pe:
+                            endpoint_type_str = str(pe[0])[:10] if pe[0] else ""
                         else:
                             endpoint_type_str = ""
 
