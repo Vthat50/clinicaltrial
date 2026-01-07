@@ -681,8 +681,9 @@ async def generate_full_pipeline(request: GenerateRequest):
                 endpoint_type = ""
 
             # Quality score on 0-100 scale for frontend display
-            quality_score = 100.0 if result.verification and result.verification.passed else 50.0
-            validation_issues = len(result.verification.missing_slots) if result.verification and result.verification.missing_slots else 0
+            quality_score = 100.0 if result.verification and getattr(result.verification, 'passed', False) else 50.0
+            missing_slots = getattr(result.verification, 'missing_slots', None) if result.verification else None
+            validation_issues = len(missing_slots) if missing_slots else 0
             generation_mode = "rule-based (Claude + 99 rules + RAG + slot verification)"
             source_trials = []
 
@@ -2496,7 +2497,7 @@ async def process_jobs_worker():
                             endpoint_type_str = ""
 
                         # Quality score on 0-100 scale for frontend display
-                        quality_score = 100.0 if result.verification and result.verification.passed else 50.0
+                        quality_score = 100.0 if result.verification and getattr(result.verification, 'passed', False) else 50.0
                         pipeline_type = "rule-based"
 
                     elif hasattr(result, 'characteristics') and result.characteristics:
@@ -2549,7 +2550,7 @@ async def process_jobs_worker():
                             for issue in result.validation.issues[:5]:
                                 print(f"    - {issue}")
                     elif hasattr(result, 'verification') and result.verification:
-                        issues = result.verification.missing_slots
+                        issues = getattr(result.verification, 'missing_slots', None)
                         if issues:
                             print(f"  Validation issues ({len(issues)}):")
                             for issue in issues[:5]:
