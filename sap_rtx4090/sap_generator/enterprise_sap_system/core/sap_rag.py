@@ -639,8 +639,9 @@ class SAPRAGIndex:
 class RAGSAPGenerator:
     """Generate SAP using 3-collection RAG + Knowledge Graph."""
 
-    def __init__(self, rag_index: SAPRAGIndex):
+    def __init__(self, rag_index: SAPRAGIndex, use_two_pass: bool = True):
         self.rag_index = rag_index
+        self.use_two_pass = use_two_pass
         if _USE_OPENAI:
             self.client = OpenAI()
             self.use_openai = True
@@ -648,9 +649,19 @@ class RAGSAPGenerator:
             self.client = Anthropic()
             self.use_openai = False
 
-        # Layer 1: Fact extraction (43 tiered fields)
+        # Layer 1: Fact extraction
         from .fact_extractor import FactExtractor
         self.fact_extractor = FactExtractor()
+
+        # Layer 1 (Alternative): Two-Pass Extractor for production
+        try:
+            from .two_pass_extractor import TwoPassExtractor
+            self.two_pass_extractor = TwoPassExtractor()
+            print("[RAGSAPGenerator] Loaded TwoPassExtractor (production mode)")
+        except Exception as e:
+            print(f"[RAGSAPGenerator] TwoPassExtractor not available: {e}")
+            self.two_pass_extractor = None
+            self.use_two_pass = False
 
         # Layer 2: Scientific context (99 rules)
         try:
@@ -669,6 +680,113 @@ class RAGSAPGenerator:
         except Exception as e:
             print(f"[RAGSAPGenerator] GraphRAG not available: {e}")
             self.graph_rag = None
+
+    def _get_section_guidance(self, section_type: str, facts: 'ProtocolFacts') -> str:
+        """Generate section-specific guidance emphasizing protocol-specific details."""
+
+        extracted = facts.extracted or {}
+        if not extracted:
+            return ""
+
+        guidance_parts = []
+
+        # Map section types to relevant open_extraction fields
+        section_field_map = {
+            "objectives_endpoints": [
+                "secondary_endpoints", "exploratory_endpoints", "pro_endpoints",
+                "key_secondary_endpoints", "other_endpoints", "hypotheses",
+                "efficacy_objectives", "safety_objectives"
+            ],
+            "efficacy_analysis": [
+                "secondary_endpoints", "exploratory_endpoints", "subgroup_analyses",
+                "efficacy_estimands", "analysis_windows", "response_assessment"
+            ],
+            "statistical_methods": [
+                "sensitivity_analyses", "missing_data_handling", "estimands",
+                "analysis_methods", "multiplicity_strategy", "alpha_allocation"
+            ],
+            "sensitivity_analysis": [
+                "sensitivity_analyses", "supplementary_analyses", "censoring_rules",
+                "alternative_methods", "tipping_point_analysis"
+            ],
+            "safety_analysis": [
+                "safety_endpoints", "ae_definitions", "exposure_metrics",
+                "laboratory_parameters", "cardiac_safety", "aesi"
+            ],
+            "missing_data": [
+                "missing_data_handling", "censoring_rules", "imputation_methods",
+                "estimands", "intercurrent_events"
+            ],
+            "sample_size": [
+                "sample_size_assumptions", "power_scenarios", "event_assumptions",
+                "dropout_assumptions", "subgroup_sample_sizes"
+            ],
+            "interim_analysis": [
+                "interim_timing", "stopping_boundaries", "alpha_spending",
+                "futility_rules", "dmb_charter"
+            ],
+            "study_design": [
+                "treatment_arms", "randomization_details", "stratification_factors",
+                "study_periods", "visit_schedule"
+            ],
+            "introduction": [
+                "study_rationale", "regulatory_context", "therapeutic_area"
+            ],
+            "analysis_populations": [
+                "itt_definition", "per_protocol_definition", "safety_population",
+                "pk_population", "biomarker_populations"
+            ],
+            "multiplicity": [
+                "multiplicity_strategy", "alpha_allocation", "hierarchical_testing",
+                "gate_keeping", "hypothesis_testing_sequence"
+            ],
+            "subgroup_analysis": [
+                "subgroup_analyses", "subgroup_variables", "forest_plots"
+            ],
+            "pharmacokinetics": [
+                "pk_endpoints", "pk_parameters", "pk_populations",
+                "pk_sampling", "exposure_response"
+            ],
+        }
+
+        relevant_fields = section_field_map.get(section_type, [])
+
+        # Check if any relevant data exists in extracted
+        for field in relevant_fields:
+            if field in extracted and extracted[field]:
+                value = extracted[field]
+                if isinstance(value, list):
+                    formatted = ", ".join(str(v) for v in value)
+                elif isinstance(value, dict):
+                    formatted = json.dumps(value, indent=2)
+                else:
+                    formatted = str(value)
+                guidance_parts.append(f"- **{field.replace('_', ' ').title()}**: {formatted}")
+
+        # Also check for any other extracted fields not in the map
+        for key, value in extracted.items():
+            if key not in relevant_fields and value:
+                # Include if it seems relevant to this section
+                key_lower = key.lower()
+                section_lower = section_type.lower()
+                if any(word in key_lower for word in section_lower.split('_')):
+                    if isinstance(value, list):
+                        formatted = ", ".join(str(v) for v in value)
+                    elif isinstance(value, dict):
+                        formatted = json.dumps(value, indent=2)
+                    else:
+                        formatted = str(value)
+                    guidance_parts.append(f"- **{key.replace('_', ' ').title()}**: {formatted}")
+
+        if guidance_parts:
+            return f"""
+## IMPORTANT - PROTOCOL-SPECIFIC DETAILS FOR THIS SECTION:
+The following extracted details MUST be included in the {section_type.replace('_', ' ')} section:
+{chr(10).join(guidance_parts)}
+
+Do NOT omit these details - they are extracted directly from the protocol.
+"""
+        return ""
 
     def generate_section(
         self,
@@ -709,6 +827,9 @@ class RAGSAPGenerator:
         if scientific_context:
             sci_context = f"\n## SCIENTIFIC CONTEXT (Informational):\n{scientific_context}\n"
 
+        # Section-specific guidance for using protocol-specific details
+        section_guidance = self._get_section_guidance(section_type, protocol_facts)
+
         # Generate section
         prompt = f"""You are writing a Statistical Analysis Plan (SAP) section.
 
@@ -716,12 +837,13 @@ TASK: Write the "{section_type.replace('_', ' ').title()}" section.
 
 ## EXTRACTED PROTOCOL FACTS (use these values):
 {facts_str}
+{section_guidance}
 {sci_context}
 ## STYLE EXAMPLES FROM REAL SAPs:
 {examples_text}
 
 ## RULES:
-1. Use the extracted facts - do not invent values
+1. Use ALL extracted facts - do not omit any relevant data from Protocol-Specific Details
 2. Follow the style of the example SAP sections
 3. If a required value is not in the facts, write [REQUIRES PROTOCOL INPUT]
 4. Be concise and professional
@@ -813,6 +935,266 @@ Write the {section_type.replace('_', ' ').title()} section:"""
             return "\n[No TLF shells found in RAG]\n"
 
         return "\n".join(tlf_sections)
+
+    def generate_section_two_pass(
+        self,
+        section_type: str,
+        extraction_result: 'TwoPassExtractionResult',
+        n_examples: int = 3,
+        scientific_context: str = ""
+    ) -> str:
+        """Generate a SAP section using two-pass extraction data."""
+        from .two_pass_extractor import TwoPassExtractionResult
+
+        # Get relevant extracted data for this section
+        section_data = extraction_result.get_section_data(section_type)
+
+        # Query content collection for similar sections
+        query = f"{section_type}"
+        examples = self.rag_index.query_content(
+            query=query,
+            section_type=section_type,
+            n_results=n_examples
+        )
+
+        # Build examples text
+        examples_text = ""
+        if examples:
+            print(f"    [RAG] Found {len(examples)} examples for {section_type}")
+            for i, ex in enumerate(examples, 1):
+                source = ex["metadata"].get("nct_id", "unknown")
+                examples_text += f"\n--- Example {i} (from {source}) ---\n"
+                examples_text += ex["content"][:2500]
+                examples_text += "\n"
+        else:
+            examples_text = "[No examples found]"
+
+        # Build extracted data text - this is the key difference from single-pass
+        extracted_text = "## EXTRACTED PROTOCOL DATA (TWO-PASS)\n\n"
+
+        if section_data:
+            extracted_text += f"### Data Relevant to {section_type.replace('_', ' ').title()}\n\n"
+            for item in section_data:
+                extracted_text += f"**{item['element']}** (confidence: {item['confidence']:.2f})\n"
+                extracted_text += f"Category: {item['category']}\n"
+                extracted_text += f"Data: {json.dumps(item['data'], indent=2)}\n"
+                if item.get('source'):
+                    extracted_text += f"Source: \"{item['source'][:150]}...\"\n"
+                extracted_text += "\n"
+        else:
+            extracted_text += "[No specific data extracted for this section]\n"
+
+        # Also include all high-confidence extractions
+        extracted_text += "\n### All High-Confidence Extractions\n\n"
+        for name, elem in extraction_result.extracted_data.items():
+            if elem.confidence >= 0.7:
+                extracted_text += f"- **{name}**: {json.dumps(elem.extracted_data)[:300]}\n"
+
+        # Build scientific context
+        sci_context = ""
+        if scientific_context:
+            sci_context = f"\n## SCIENTIFIC CONTEXT (Informational):\n{scientific_context}\n"
+
+        # Generate section
+        prompt = f"""You are writing a Statistical Analysis Plan (SAP) section.
+
+TASK: Write the "{section_type.replace('_', ' ').title()}" section.
+
+{extracted_text}
+{sci_context}
+## STYLE EXAMPLES FROM REAL SAPs:
+{examples_text}
+
+## CRITICAL RULES:
+1. Use ALL extracted data - every piece of extracted information must appear in the output
+2. The two-pass extraction has already discovered and extracted relevant elements - USE THEM
+3. Follow the style of the example SAP sections
+4. If data is missing, write [REQUIRES PROTOCOL INPUT]
+5. Be concise and professional
+6. Include specific numbers, percentages, and definitions from the extracted data
+7. Output ONLY the section content
+
+Write the {section_type.replace('_', ' ').title()} section:"""
+
+        if self.use_openai:
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                max_tokens=3000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response.choices[0].message.content
+        else:
+            response = self.client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=3000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response.content[0].text
+
+    def generate_full_sap_two_pass(
+        self,
+        protocol_path_or_text: str,
+        sections: List[str] = None,
+        max_elements: int = 50,
+        priority_threshold: int = 3
+    ) -> str:
+        """Generate full SAP using two-pass extraction."""
+        from .two_pass_extractor import TwoPassExtractor, TwoPassExtractionResult
+        from pathlib import Path
+
+        # If it's a file path, extract text first
+        if protocol_path_or_text.endswith('.pdf'):
+            print(f"[Layer 0] Extracting text from PDF...")
+            parser = SAPParser()
+            protocol_text = parser.parse_sap(protocol_path_or_text)
+            if not protocol_text:
+                raise ValueError(f"Failed to extract text from {protocol_path_or_text}")
+            print(f"  Extracted {len(protocol_text)} characters")
+            protocol_id = Path(protocol_path_or_text).stem
+        else:
+            protocol_text = protocol_path_or_text
+            protocol_id = "protocol"
+
+        # LAYER 1: Two-Pass Extraction
+        print("\n" + "="*70)
+        print("[Layer 1] TWO-PASS EXTRACTION")
+        print("="*70)
+
+        extraction_result = self.two_pass_extractor.extract(
+            protocol_text,
+            protocol_id=protocol_id,
+            max_elements=max_elements,
+            priority_threshold=priority_threshold,
+            verbose=True
+        )
+
+        # Get basic facts from extraction for header
+        basic_facts = self._extract_basic_facts_from_two_pass(extraction_result)
+
+        # Get scientific context
+        scientific_context = ""
+        if self.knowledge_engine:
+            print("\n[Knowledge Engine] Getting scientific context...")
+            try:
+                facts_dict = extraction_result.to_facts_dict()
+                scientific_context = self.knowledge_engine.get_context_for_generation(facts_dict)
+            except Exception as e:
+                print(f"  [!] Error: {e}")
+
+        # LAYER 2: Determine sections based on what was discovered
+        print("\n[Layer 2] Determining SAP structure from discoveries...")
+
+        default_sections = [
+            "introduction",
+            "objectives_endpoints",
+            "study_design",
+            "sample_size",
+            "analysis_populations",
+            "statistical_methods",
+            "efficacy_analysis",
+            "safety_analysis",
+            "missing_data",
+            "sensitivity_analysis",
+        ]
+
+        # Add sections based on discovered categories
+        categories_found = set(e.category for e in extraction_result.discovered_elements)
+
+        if "interim_analysis" in categories_found:
+            default_sections.append("interim_analysis")
+        if "multiplicity" in categories_found or "hypotheses" in categories_found:
+            default_sections.append("multiplicity")
+        if "subgroups" in categories_found:
+            default_sections.append("subgroup_analysis")
+        if "patient_reported_outcomes" in categories_found:
+            default_sections.append("pro_analysis")
+
+        sections_to_generate = sections if sections else default_sections
+
+        print(f"  Generating {len(sections_to_generate)} sections")
+
+        # LAYER 2: Generate sections
+        print(f"\n[Layer 2] Generating SAP sections...")
+        generated = {}
+
+        for section_type in sections_to_generate:
+            print(f"  [{section_type}] Generating...")
+            try:
+                content = self.generate_section_two_pass(
+                    section_type=section_type,
+                    extraction_result=extraction_result,
+                    scientific_context=scientific_context
+                )
+                generated[section_type] = content
+                print(f"  [{section_type}] Done ({len(content)} chars)")
+            except Exception as e:
+                print(f"  [{section_type}] Error: {e}")
+                import traceback
+                traceback.print_exc()
+
+        # Combine sections into full SAP document
+        study_name_line = f"**Study Name:** {basic_facts.get('study_name', '')}\n" if basic_facts.get('study_name') else ""
+        sap_doc = f"""# STATISTICAL ANALYSIS PLAN
+
+**Protocol:** {basic_facts.get('protocol_number', 'TBD')}
+{study_name_line}**Phase:** {basic_facts.get('phase', 'TBD')}
+**Indication:** {basic_facts.get('indication', 'TBD')}
+**Primary Endpoint:** {basic_facts.get('primary_endpoint', 'TBD')}
+
+---
+
+"""
+        for section_type in sections_to_generate:
+            if section_type in generated:
+                title = section_type.replace('_', ' ').title()
+                sap_doc += f"## {title}\n\n{generated[section_type]}\n\n---\n\n"
+
+        # Add extraction metadata as appendix
+        sap_doc += f"""## Appendix: Extraction Metadata
+
+- **Total Elements Discovered:** {extraction_result.metadata['total_discovered']}
+- **Total Elements Extracted:** {extraction_result.metadata['total_extracted']}
+- **Categories Found:** {', '.join(extraction_result.metadata['categories_found'])}
+- **Discovery Time:** {extraction_result.metadata['discovery_time_s']:.1f}s
+- **Avg Extraction Time:** {extraction_result.metadata['avg_extraction_time_s']:.1f}s per element
+
+"""
+        if extraction_result.validation_flags:
+            sap_doc += "### Validation Flags\n"
+            for flag in extraction_result.validation_flags:
+                sap_doc += f"- ⚠ {flag}\n"
+            sap_doc += "\n"
+
+        sap_doc += "---\n\n"
+
+        return sap_doc
+
+    def _extract_basic_facts_from_two_pass(self, extraction_result: 'TwoPassExtractionResult') -> Dict[str, str]:
+        """Extract basic header facts from two-pass extraction result."""
+        facts = {}
+
+        for name, elem in extraction_result.extracted_data.items():
+            data = elem.extracted_data
+
+            # Look for phase
+            if 'phase' in name.lower() or elem.category == 'study_design':
+                if isinstance(data, dict):
+                    facts['phase'] = data.get('phase', facts.get('phase'))
+                    facts['indication'] = data.get('indication', facts.get('indication'))
+                    facts['protocol_number'] = data.get('protocol_number', facts.get('protocol_number'))
+                    facts['study_name'] = data.get('study_name', facts.get('study_name'))
+
+            # Look for primary endpoint
+            if 'primary' in name.lower() and elem.category == 'endpoints':
+                if isinstance(data, dict):
+                    facts['primary_endpoint'] = data.get('definition', data.get('name', name))
+
+            # Look for sample size
+            if elem.category == 'sample_size':
+                if isinstance(data, dict):
+                    facts['sample_size'] = data.get('total', data.get('n'))
+
+        return facts
 
     def generate_full_sap(
         self,

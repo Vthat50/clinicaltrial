@@ -400,15 +400,23 @@ These 15 fields are MANDATED. Extract for every protocol.
 | non_inferiority_margin | NI margin with justification |
 
 ## OPEN EXTRACTION
-After extracting all tiered fields, extract ANYTHING ELSE statistically relevant:
-- Secondary/exploratory endpoints and methods
-- Subgroup analyses
-- Sensitivity analyses
-- Missing data handling
-- Protocol-specific requirements
-- Any other SAP-relevant details
+After extracting all tiered fields, extract ANYTHING ELSE statistically relevant.
+This is CRITICAL for accurate SAP generation. Look for:
 
-Structure open extraction based on what's in THIS protocol.
+1. **secondary_endpoints**: List ALL secondary endpoints with their definitions
+2. **exploratory_endpoints**: List exploratory/tertiary endpoints
+3. **pro_endpoints**: Patient-reported outcome measures (e.g., EORTC QLQ-C30, EQ-5D, PRO-CTCAE)
+4. **hypotheses**: Formal hypotheses (H1, H2, H3...) with descriptions
+5. **subgroup_analyses**: Planned subgroup analyses and variables
+6. **sensitivity_analyses**: All planned sensitivity analyses
+7. **missing_data_handling**: Imputation methods, censoring rules
+8. **alpha_allocation**: How alpha is split across endpoints/hypotheses
+9. **multiplicity_strategy**: Gatekeeping, hierarchical testing details
+10. **treatment_arms**: Detailed treatment arm descriptions including doses
+11. **estimands**: ICH E9(R1) estimand framework details
+12. **intercurrent_events**: How intercurrent events are handled
+
+Structure open extraction with these keys. Include EVERYTHING found - this data is essential.
 
 ## OUTPUT FORMAT (JSON)
 {{
