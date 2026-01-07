@@ -43,6 +43,7 @@ import threading
 
 # Required components - will fail if not available
 from .sectioned_extractor import SectionedProtocolExtractor, create_sectioned_extractor
+from .two_pass_extractor import TwoPassExtractor, TwoPassExtractionResult
 from .tiered_llm import TieredLLMClient
 from .rag_sanitizer import RAGSanitizer
 from .fact_verifier import FactVerifier, VerificationResult
@@ -147,9 +148,11 @@ class ProductionSAPPipeline:
         self.fast_llm = TieredLLMClient()  # Second client for fast sections
         print("[ProductionPipeline] ✓ LLM client (tiered: Claude → OpenAI → Groq)")
 
-        # 2. Sectioned Extractor (required)
+        # 2. Two-Pass Extractor (primary) + Sectioned Extractor (fallback)
+        self.two_pass_extractor = TwoPassExtractor()
+        print("[ProductionPipeline] ✓ TwoPassExtractor (primary)")
         self.sectioned_extractor = create_sectioned_extractor(llm_client=self.llm)
-        print("[ProductionPipeline] ✓ SectionedProtocolExtractor")
+        print("[ProductionPipeline] ✓ SectionedProtocolExtractor (fallback)")
 
         # 3. Decision Engine (required - routes response criteria + methods)
         chromadb_path = str(Path(__file__).parent.parent.parent / "data" / "chroma_db")
@@ -202,10 +205,10 @@ class ProductionSAPPipeline:
         """
         try:
             # =================================================================
-            # STEP 1: SECTIONED EXTRACTION (with confidence scores)
+            # STEP 1: TWO-PASS EXTRACTION (discovery then extraction)
             # =================================================================
-            print("\n[Step 1] Extracting facts by section (with confidence)...")
-            facts, section_results = self._extract_facts_sectioned(protocol_text, pdf_path=pdf_path)
+            print("\n[Step 1] TWO-PASS EXTRACTION (discovery → extraction)...")
+            facts, section_results = self._extract_facts_two_pass(protocol_text, pdf_path=pdf_path)
 
             # Log extraction quality (handle None confidences)
             confidences = [r.confidence for r in section_results.values() if r.confidence is not None]
@@ -466,6 +469,266 @@ class ProductionSAPPipeline:
             print(f"[Extraction] Cached for future use (key: {cache_key[:20]}...)")
 
         return facts, section_results
+
+    def _extract_facts_two_pass(
+        self,
+        protocol_text: str,
+        pdf_path: str = None,
+        use_cache: bool = True
+    ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+        """
+        Extract facts using TWO-PASS extraction (discovery then extraction).
+
+        This is the PRODUCTION extraction method that:
+        1. Discovers ALL statistical elements in the protocol
+        2. Extracts detailed information for each element
+
+        Returns same format as _extract_facts_sectioned for compatibility.
+        """
+        import hashlib
+
+        # Generate cache key
+        if pdf_path:
+            cache_key = f"twopass_{pdf_path}"
+        else:
+            cache_key = f"twopass_{hashlib.md5(protocol_text[:5000].encode()).hexdigest()}"
+
+        # Check cache
+        if use_cache and cache_key in self._extraction_cache:
+            print(f"[TwoPass] ✓ Using cached extraction (key: {cache_key[:30]}...)")
+            return self._extraction_cache[cache_key]
+
+        # Run two-pass extraction
+        protocol_id = Path(pdf_path).stem if pdf_path else "protocol"
+        result = self.two_pass_extractor.extract(
+            protocol_text,
+            protocol_id=protocol_id,
+            max_elements=50,
+            priority_threshold=3,
+            verbose=True
+        )
+
+        # Convert TwoPassExtractionResult to facts dict
+        facts = self._convert_two_pass_to_facts(result)
+        facts['raw_text'] = protocol_text.lower()
+
+        # Create section_results compatible format
+        # The pipeline expects section_results to have .confidence and .needs_review
+        @dataclass
+        class SectionResult:
+            confidence: float
+            needs_review: List[str]
+
+        section_results = {}
+        categories_seen = set()
+
+        for name, elem in result.extracted_data.items():
+            cat = elem.category
+            if cat not in categories_seen:
+                categories_seen.add(cat)
+                # Create a section result for each category
+                section_results[cat] = SectionResult(
+                    confidence=elem.confidence,
+                    needs_review=elem.notes if elem.confidence < 0.7 else []
+                )
+
+        # Add validation flags as needs_review items
+        if result.validation_flags:
+            section_results['_validation'] = SectionResult(
+                confidence=0.5,
+                needs_review=result.validation_flags
+            )
+
+        # Cache result
+        if use_cache:
+            self._extraction_cache[cache_key] = (facts, section_results)
+            print(f"[TwoPass] Cached for future use (key: {cache_key[:30]}...)")
+
+        return facts, section_results
+
+    def _convert_two_pass_to_facts(self, result: TwoPassExtractionResult) -> Dict[str, Any]:
+        """
+        Convert TwoPassExtractionResult to flat facts dict for SAP generation.
+
+        Maps two-pass extracted elements to the fields expected by generation prompts.
+        """
+        facts = {}
+
+        # Track what we've extracted
+        facts['_two_pass_discovery_count'] = len(result.discovered_elements)
+        facts['_two_pass_extraction_count'] = len(result.extracted_data)
+        facts['_two_pass_categories'] = result.metadata.get('categories_found', [])
+
+        # Process each extracted element
+        for element_name, elem in result.extracted_data.items():
+            data = elem.extracted_data
+            cat = elem.category
+
+            # Study Design elements
+            if cat == 'study_design':
+                if 'design_type' in data or 'type' in data:
+                    facts['design_type'] = data.get('design_type') or data.get('type')
+                if 'blinding' in data or 'masking' in data:
+                    facts['blinding_type'] = data.get('blinding') or data.get('masking')
+                if 'phase' in data:
+                    facts['phase'] = data.get('phase')
+                if 'duration' in data:
+                    facts['study_duration'] = data.get('duration')
+                if 'treatment_arm' in data or 'treatment' in data:
+                    facts['drug_name'] = data.get('treatment_arm') or data.get('treatment')
+                if 'comparator' in data or 'control' in data:
+                    facts['comparator'] = data.get('comparator') or data.get('control')
+                if 'allocation_ratio' in data or 'randomization_ratio' in data:
+                    facts['allocation_ratio'] = data.get('allocation_ratio') or data.get('randomization_ratio')
+
+            # Endpoints
+            elif cat == 'endpoints':
+                if 'primary' in element_name.lower() or data.get('type') == 'primary':
+                    if 'definition' in data:
+                        facts['primary_endpoint'] = data.get('definition')
+                    elif 'endpoint' in data:
+                        facts['primary_endpoint'] = data.get('endpoint')
+                    if 'analysis_method' in data:
+                        facts['statistical_method'] = data.get('analysis_method')
+                    if 'estimand' in data:
+                        facts['estimand_variable'] = data.get('estimand')
+                elif 'secondary' in element_name.lower() or data.get('type') == 'secondary':
+                    if 'secondary_endpoints' not in facts:
+                        facts['secondary_endpoints'] = []
+                    endpoint_def = data.get('definition') or data.get('endpoint') or element_name
+                    facts['secondary_endpoints'].append(endpoint_def)
+
+            # Populations
+            elif cat == 'populations':
+                pop_name = data.get('name', element_name)
+                pop_def = data.get('definition', '')
+                if 'itt' in pop_name.lower() or 'intent' in pop_name.lower():
+                    facts['itt_definition'] = pop_def or pop_name
+                elif 'fas' in pop_name.lower() or 'full analysis' in pop_name.lower():
+                    facts['fas_definition'] = pop_def or pop_name
+                    facts['primary_analysis_population'] = 'FAS'
+                elif 'safety' in pop_name.lower():
+                    facts['safety_population_definition'] = pop_def or pop_name
+                elif 'per protocol' in pop_name.lower() or 'pp' in pop_name.lower():
+                    facts['per_protocol_definition'] = pop_def or pop_name
+                # Store n_expected if available
+                if 'n_expected' in data:
+                    facts['expected_n_' + pop_name.lower().replace(' ', '_')] = data['n_expected']
+
+            # Sample Size
+            elif cat == 'sample_size':
+                if 'total' in data:
+                    facts['sample_size'] = data.get('total')
+                    facts['sample_size_total'] = data.get('total')
+                if 'per_arm' in data:
+                    facts['sample_size_per_arm'] = data.get('per_arm')
+                if 'power' in data:
+                    facts['power'] = data.get('power')
+                if 'alpha' in data:
+                    facts['alpha'] = data.get('alpha')
+                    facts['overall_alpha'] = data.get('alpha')
+                if 'assumptions' in data:
+                    assumptions = data.get('assumptions', {})
+                    if 'hazard_ratio' in assumptions or 'hr' in assumptions:
+                        facts['expected_hazard_ratio'] = assumptions.get('hazard_ratio') or assumptions.get('hr')
+                    if 'median_survival' in assumptions:
+                        facts['median_survival'] = assumptions.get('median_survival')
+
+            # Hypotheses
+            elif cat == 'hypotheses':
+                if 'null' in data:
+                    facts['null_hypothesis'] = data.get('null')
+                if 'alternative' in data:
+                    facts['alternative_hypothesis'] = data.get('alternative')
+                if 'type' in data:
+                    hyp_type = data.get('type', '').lower()
+                    if 'superiority' in hyp_type:
+                        facts['hypothesis_type'] = 'superiority'
+                    elif 'non-inferiority' in hyp_type:
+                        facts['hypothesis_type'] = 'non-inferiority'
+                        if 'margin' in data:
+                            facts['non_inferiority_margin'] = data.get('margin')
+                if 'alpha_allocated' in data:
+                    facts['alpha_per_hypothesis'] = data.get('alpha_allocated')
+
+            # Statistical Methods
+            elif cat == 'statistical_methods':
+                if 'method' in data or 'test' in data:
+                    facts['statistical_method'] = data.get('method') or data.get('test')
+                if 'sidedness' in data:
+                    facts['test_sidedness'] = data.get('sidedness')
+                if 'stratification' in data:
+                    facts['stratification_factors'] = data.get('stratification')
+
+            # Interim Analysis
+            elif cat == 'interim_analysis':
+                facts['has_interim_analysis'] = True
+                if 'num_analyses' in data or 'number' in data:
+                    facts['num_interim_analyses'] = data.get('num_analyses') or data.get('number')
+                if 'timing' in data or 'events' in data:
+                    events = data.get('events') or data.get('timing')
+                    if isinstance(events, list):
+                        facts['interim_events'] = events
+                    else:
+                        facts['interim_events'] = [events]
+                if 'spending_function' in data or 'alpha_spending' in data:
+                    facts['alpha_spending_function'] = data.get('spending_function') or data.get('alpha_spending')
+                if 'boundaries' in data:
+                    facts['stopping_boundaries'] = data.get('boundaries')
+
+            # Multiplicity
+            elif cat == 'multiplicity':
+                facts['has_multiplicity'] = True
+                if 'method' in data:
+                    facts['multiplicity_method'] = data.get('method')
+                if 'testing_sequence' in data:
+                    facts['testing_sequence'] = data.get('testing_sequence')
+                if 'hypotheses' in data:
+                    facts['hypotheses_list'] = data.get('hypotheses')
+
+            # Missing Data
+            elif cat == 'missing_data':
+                if 'handling' in data or 'method' in data:
+                    facts['missing_data_handling'] = data.get('handling') or data.get('method')
+                if 'censoring_rules' in data:
+                    facts['censoring_rules'] = data.get('censoring_rules')
+
+            # Sensitivity Analyses
+            elif cat == 'sensitivity_analyses':
+                if 'sensitivity_analyses' not in facts:
+                    facts['sensitivity_analyses'] = []
+                sens_info = {
+                    'name': data.get('name', element_name),
+                    'method': data.get('method', ''),
+                    'purpose': data.get('purpose', '')
+                }
+                facts['sensitivity_analyses'].append(sens_info)
+
+            # Safety
+            elif cat == 'safety':
+                if 'ae_definitions' in data:
+                    facts['ae_definitions'] = data.get('ae_definitions')
+                if 'safety_endpoints' in data:
+                    facts['safety_endpoints'] = data.get('safety_endpoints')
+
+            # PRO
+            elif cat == 'patient_reported_outcomes':
+                if 'pro_instruments' not in facts:
+                    facts['pro_instruments'] = []
+                pro_info = {
+                    'instrument': data.get('instrument', element_name),
+                    'domains': data.get('domains', []),
+                    'timing': data.get('timing', [])
+                }
+                facts['pro_instruments'].append(pro_info)
+
+        # Set defaults for missing critical fields
+        if not facts.get('has_interim_analysis'):
+            facts['has_interim_analysis'] = False
+        if not facts.get('has_multiplicity'):
+            facts['has_multiplicity'] = False
+
+        return facts
 
     def _normalize_facts(self, facts: Dict[str, Any]) -> Dict[str, Any]:
         """Normalize field names for consistency."""
