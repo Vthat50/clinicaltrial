@@ -780,7 +780,7 @@ Exploratory endpoints will include:
 
         # Look for definition patterns
         for ex in examples:
-            content = ex.get('content', '').lower()
+            content = (ex.get('content') or '').lower()
 
             # Extract response criteria patterns
             if 'response' in content and 'defined as' in content:
@@ -802,7 +802,7 @@ Exploratory endpoints will include:
         # Check RAG examples for censoring rules
         rag_censoring = []
         for ex in examples:
-            content = ex.get('content', '').lower()
+            content = (ex.get('content') or '').lower()
             if 'censor' in content:
                 # Extract censoring rules
                 lines = content.split('\n')
@@ -1040,7 +1040,7 @@ Forest plots will display treatment effects across subgroups."""
         patterns = {}
 
         for ex in examples:
-            content = ex.get('content', '').lower()
+            content = (ex.get('content') or '').lower()
 
             # Look for model specifications
             if 'model' in content or 'analysis' in content:
@@ -1220,7 +1220,7 @@ Y_post = μ + β₁×Treatment + β₂×Y_baseline + β₃×Strata + ε
         # Extract sensitivity approaches from RAG
         rag_sensitivity = []
         for ex in examples:
-            content = ex.get('content', '').lower()
+            content = (ex.get('content') or '').lower()
             if 'sensitivity' in content:
                 # Look for sensitivity analysis mentions
                 matches = re.findall(r'sensitivity[^:]*:\s*([^\n]+)', content)

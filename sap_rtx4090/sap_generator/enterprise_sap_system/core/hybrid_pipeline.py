@@ -1259,7 +1259,7 @@ class HybridSAPPipeline:
         )
 
         # Determine endpoint type from primary endpoint
-        primary_ep = facts_dict.get('primary_endpoint', '').lower()
+        primary_ep = (facts_dict.get('primary_endpoint') or '').lower()
         endpoint_type = EndpointType.EFFICACY  # Default
         if any(kw in primary_ep for kw in ['orr', 'objective response', 'response rate', 'recist']):
             endpoint_type = EndpointType.ORR
@@ -1284,7 +1284,7 @@ class HybridSAPPipeline:
         )
 
         # Determine design type
-        design_str = facts_dict.get('design_type', '').lower()
+        design_str = (facts_dict.get('design_type') or '').lower()
         if 'single' in design_str:
             design_type = DesignType.SINGLE_ARM
         elif 'crossover' in design_str:

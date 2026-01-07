@@ -324,7 +324,7 @@ class LLMSectionGenerator:
 
         # Check if bridging study with two-step testing (consistency first)
         if facts.get('is_bridging_study') is True:
-            hierarchy = facts.get('hierarchical_testing_description', '').lower()
+            hierarchy = (facts.get('hierarchical_testing_description') or '').lower()
             if 'consistency' in hierarchy and ('first' in hierarchy or 'primary' in hierarchy):
                 return True
 

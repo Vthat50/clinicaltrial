@@ -716,7 +716,7 @@ class ProductionSAPPipeline:
                 if 'alternative' in data:
                     facts['alternative_hypothesis'] = data.get('alternative')
                 if 'type' in data:
-                    hyp_type = data.get('type', '').lower()
+                    hyp_type = (data.get('type') or '').lower()
                     if 'superiority' in hyp_type:
                         facts['hypothesis_type'] = 'superiority'
                     elif 'non-inferiority' in hyp_type:

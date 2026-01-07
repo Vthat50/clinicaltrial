@@ -2375,7 +2375,7 @@ DOCUMENT SAMPLES:
 
             locations = {}
             for s in data.get('sections_found', []):
-                raw_name = s.get('name', '').lower().replace(' ', '_')
+                raw_name = (s.get('name') or '').lower().replace(' ', '_')
                 # Normalize the name
                 name = NAME_ALIASES.get(raw_name, raw_name)
                 pos = s.get('position_percent', 50) / 100.0

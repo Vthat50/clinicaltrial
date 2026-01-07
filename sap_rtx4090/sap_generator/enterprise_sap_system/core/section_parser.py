@@ -965,7 +965,7 @@ PROTOCOL TEXT (sampled from multiple regions):
 
                 sections = {}
                 for s in data.get('sections', []):
-                    name = s.get('name', '').lower()
+                    name = (s.get('name') or '').lower()
                     if name in self.CANONICAL_SECTIONS:
                         sections[name] = ParsedSection(
                             name=name,
