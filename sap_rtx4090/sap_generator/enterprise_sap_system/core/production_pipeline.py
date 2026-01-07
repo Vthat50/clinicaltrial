@@ -299,9 +299,10 @@ class ProductionSAPPipeline:
                 facts=facts,
                 sections={},  # Not using sectioned generation anymore
                 verification=verification,
-                quality_score=validation.get('overall_score', 0),
+                extraction_confidence={'overall': validation.get('overall_score', 0)},
+                needs_review=validation.get('missing', []),
                 warnings=validation.get('critical_gaps', []),
-                error=None
+                error=""
             )
 
         except Exception as e:
@@ -313,7 +314,8 @@ class ProductionSAPPipeline:
                 facts={},
                 sections={},
                 verification=None,
-                quality_score=0.0,
+                extraction_confidence={},
+                needs_review=[],
                 warnings=[],
                 error=str(e)
             )

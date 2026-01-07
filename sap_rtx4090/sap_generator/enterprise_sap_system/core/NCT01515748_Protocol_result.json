@@ -1,0 +1,385 @@
+{
+  "discovered_count": 46,
+  "sap_length": 11272,
+  "validation": {
+    "present": [
+      "Open-label design",
+      "1:1 randomization ratio",
+      "Phase III study",
+      "CSC treatment arm",
+      "SC treatment arm",
+      "Stratification by site",
+      "Stratification by TNM stage",
+      "DOS neoadjuvant regimen",
+      "Primary endpoint: 3-year PFS",
+      "Secondary endpoint: Overall survival",
+      "Secondary endpoint: Post-operative pathological stage",
+      "Secondary endpoint: R0 resection rate",
+      "Secondary endpoint: Safety assessment",
+      "PFS definition and measurement",
+      "OS definition and measurement",
+      "Intent-to-treat (ITT) population",
+      "Full Analysis Set (FAS) population",
+      "Per-Protocol (PP) population",
+      "Safety analysis population",
+      "Primary analysis population: FAS",
+      "Superiority hypothesis for PFS",
+      "Total sample size: 530 patients",
+      "Per-arm sample size: 265 patients",
+      "Power calculation: 80% power",
+      "Effect size assumption: HR=0.698",
+      "Target events: 244 events",
+      "Primary analysis method: Log-rank test",
+      "Kaplan-Meier survival estimation",
+      "Stratified analysis by randomization factors",
+      "Cox proportional hazard model",
+      "Cochran-Mantel-Haenszel test",
+      "One interim analysis planned",
+      "Interim analysis timing: 122 events",
+      "O'Brien-Fleming alpha spending",
+      "Interim alpha level: 0.0031",
+      "IDMC oversight",
+      "Overall alpha level: 5% two-sided",
+      "Final analysis alpha: 0.0490",
+      "Primary missing data approach",
+      "Censoring rules for PFS",
+      "Safety population analysis",
+      "NCI CTCAE v4.03 grading",
+      "MedDRA coding for adverse events",
+      "Treatment-emergent adverse events",
+      "Robustness analysis: ITT and PP sets",
+      "Subgroup analysis by prognostic factors"
+    ],
+    "missing": [],
+    "partial": [],
+    "overall_score": 1.0,
+    "critical_gaps": []
+  },
+  "protocol_id": "NCT01515748_Protocol",
+  "total_time_s": 106.02953362464905,
+  "discovered_elements": [
+    {
+      "name": "Open-label design",
+      "category": "study_design",
+      "description": "Open-label, randomized study design",
+      "section_hint": "Clinical trial outline",
+      "priority": 1
+    },
+    {
+      "name": "1:1 randomization ratio",
+      "category": "study_design",
+      "description": "1:1 randomization between CSC and SC arms",
+      "section_hint": "Study design",
+      "priority": 1
+    },
+    {
+      "name": "Phase III study",
+      "category": "study_design",
+      "description": "Phase 3 clinical trial",
+      "section_hint": "Title",
+      "priority": 1
+    },
+    {
+      "name": "CSC treatment arm",
+      "category": "study_design",
+      "description": "Neoadjuvant DOS + Surgery + Adjuvant S-1 arm",
+      "section_hint": "Study objectives",
+      "priority": 1
+    },
+    {
+      "name": "SC treatment arm",
+      "category": "study_design",
+      "description": "Surgery + Adjuvant S-1 arm",
+      "section_hint": "Study objectives",
+      "priority": 1
+    },
+    {
+      "name": "Stratification by site",
+      "category": "study_design",
+      "description": "Stratification factor: study site",
+      "section_hint": "Assignment of subjects to treatment groups",
+      "priority": 1
+    },
+    {
+      "name": "Stratification by TNM stage",
+      "category": "study_design",
+      "description": "Stratification factor: TNM stage (T2/N+, T3-4/N+, T4/N-)",
+      "section_hint": "Assignment of subjects to treatment groups",
+      "priority": 1
+    },
+    {
+      "name": "DOS neoadjuvant regimen",
+      "category": "study_design",
+      "description": "Docetaxel 50 mg/m\u00b2, Oxaliplatin 100 mg/m\u00b2, S-1 40 mg/m\u00b2 for 3 cycles",
+      "section_hint": "Administration method",
+      "priority": 1
+    },
+    {
+      "name": "Primary endpoint: 3-year PFS",
+      "category": "endpoints",
+      "description": "3-year Progression-Free Survival between two groups",
+      "section_hint": "Primary objective",
+      "priority": 1
+    },
+    {
+      "name": "Secondary endpoint: Overall survival",
+      "category": "endpoints",
+      "description": "Overall survival (OS) comparison between groups",
+      "section_hint": "Secondary objectives",
+      "priority": 1
+    },
+    {
+      "name": "Secondary endpoint: Post-operative pathological stage",
+      "category": "endpoints",
+      "description": "Post-operative pathological stage comparison",
+      "section_hint": "Secondary objectives",
+      "priority": 1
+    },
+    {
+      "name": "Secondary endpoint: R0 resection rate",
+      "category": "endpoints",
+      "description": "R0 (complete) resection rate comparison",
+      "section_hint": "Secondary objectives",
+      "priority": 1
+    },
+    {
+      "name": "Secondary endpoint: Safety assessment",
+      "category": "endpoints",
+      "description": "Safety assessment using NCI CTCAE v4.03",
+      "section_hint": "Secondary objectives",
+      "priority": 1
+    },
+    {
+      "name": "PFS definition and measurement",
+      "category": "endpoints",
+      "description": "Time from randomization to objective tumor progression (RECIST 1.1) or death",
+      "section_hint": "Efficacy criteria",
+      "priority": 1
+    },
+    {
+      "name": "OS definition and measurement",
+      "category": "endpoints",
+      "description": "Time from randomization to death for any cause",
+      "section_hint": "Primary efficacy variable",
+      "priority": 1
+    },
+    {
+      "name": "Intent-to-treat (ITT) population",
+      "category": "populations",
+      "description": "All randomized subjects",
+      "section_hint": "Analysis sets",
+      "priority": 1
+    },
+    {
+      "name": "Full Analysis Set (FAS) population",
+      "category": "populations",
+      "description": "All randomized subjects meeting inclusion/exclusion criteria with at least one tumor assessment",
+      "section_hint": "Analysis sets",
+      "priority": 1
+    },
+    {
+      "name": "Per-Protocol (PP) population",
+      "category": "populations",
+      "description": "Subjects with no major protocol deviation completing planned treatment",
+      "section_hint": "Analysis sets",
+      "priority": 1
+    },
+    {
+      "name": "Safety analysis population",
+      "category": "populations",
+      "description": "Subjects who administered at least one dose of investigational product",
+      "section_hint": "Safety analysis set",
+      "priority": 1
+    },
+    {
+      "name": "Primary analysis population: FAS",
+      "category": "populations",
+      "description": "Full Analysis Set is the primary population for efficacy analysis",
+      "section_hint": "Analysis sets",
+      "priority": 1
+    },
+    {
+      "name": "Superiority hypothesis for PFS",
+      "category": "hypotheses",
+      "description": "H0: h0(t) = h1(t) vs H1: h0(t) \u2260 h1(t) for CSC vs SC arms",
+      "section_hint": "Analysis of primary efficacy variable",
+      "priority": 1
+    },
+    {
+      "name": "Total sample size: 530 patients",
+      "category": "sample_size",
+      "description": "Expected total of 530 subjects (265 per group)",
+      "section_hint": "Sample size",
+      "priority": 1
+    },
+    {
+      "name": "Per-arm sample size: 265 patients",
+      "category": "sample_size",
+      "description": "At least 238 subjects per group, accounting for 10% dropout rate",
+      "section_hint": "Sample size determination",
+      "priority": 1
+    },
+    {
+      "name": "Power calculation: 80% power",
+      "category": "sample_size",
+      "description": "80% power for comparison of PFS distribution between groups",
+      "section_hint": "Sample size determination",
+      "priority": 1
+    },
+    {
+      "name": "Effect size assumption: HR=0.698",
+      "category": "sample_size",
+      "description": "Hazard ratio assumption of 0.698 (70% vs 60% 3-year PFS)",
+      "section_hint": "Sample size determination",
+      "priority": 1
+    },
+    {
+      "name": "Target events: 244 events",
+      "category": "sample_size",
+      "description": "Total of 244 PFS events required for final analysis",
+      "section_hint": "Sample size determination",
+      "priority": 1
+    },
+    {
+      "name": "Primary analysis method: Log-rank test",
+      "category": "statistical_methods",
+      "description": "Stratified log-rank test for PFS comparison",
+      "section_hint": "Analysis of primary efficacy variable",
+      "priority": 1
+    },
+    {
+      "name": "Kaplan-Meier survival estimation",
+      "category": "statistical_methods",
+      "description": "Survival curves estimated using Kaplan-Meier method",
+      "section_hint": "Analysis of primary efficacy variable",
+      "priority": 1
+    },
+    {
+      "name": "Stratified analysis by randomization factors",
+      "category": "statistical_methods",
+      "description": "Analysis stratified by site and TNM stage at randomization",
+      "section_hint": "Analysis of primary efficacy variable",
+      "priority": 1
+    },
+    {
+      "name": "Cox proportional hazard model",
+      "category": "statistical_methods",
+      "description": "Cox model for hazard ratio estimation and prognostic factor analysis",
+      "section_hint": "Analysis of additional efficacy variables",
+      "priority": 2
+    },
+    {
+      "name": "Cochran-Mantel-Haenszel test",
+      "category": "statistical_methods",
+      "description": "CMH test for R0 resection rate and pathological stage comparison",
+      "section_hint": "Analysis of secondary efficacy variables",
+      "priority": 2
+    },
+    {
+      "name": "One interim analysis planned",
+      "category": "interim_analysis",
+      "description": "Interim analysis planned at 50% information rate",
+      "section_hint": "Interim analysis and final analysis",
+      "priority": 1
+    },
+    {
+      "name": "Interim analysis timing: 122 events",
+      "category": "interim_analysis",
+      "description": "Interim analysis conducted upon occurrence of at least 122 PFS events",
+      "section_hint": "Interim analysis and final analysis",
+      "priority": 1
+    },
+    {
+      "name": "O'Brien-Fleming alpha spending",
+      "category": "interim_analysis",
+      "description": "O'Brien-Fleming method for efficacy boundaries",
+      "section_hint": "Interim analysis and final analysis",
+      "priority": 1
+    },
+    {
+      "name": "Interim alpha level: 0.0031",
+      "category": "interim_analysis",
+      "description": "Significance level 0.0031 for interim analysis efficacy stopping",
+      "section_hint": "Interim analysis and final analysis",
+      "priority": 1
+    },
+    {
+      "name": "IDMC oversight",
+      "category": "interim_analysis",
+      "description": "Independent Data Monitoring Committee supervision of interim analysis",
+      "section_hint": "Interim analysis and final analysis",
+      "priority": 1
+    },
+    {
+      "name": "Overall alpha level: 5% two-sided",
+      "category": "multiplicity",
+      "description": "Two-sided 5% significance level for all statistical tests",
+      "section_hint": "Statistical method",
+      "priority": 1
+    },
+    {
+      "name": "Final analysis alpha: 0.0490",
+      "category": "multiplicity",
+      "description": "Significance level 0.0490 for final analysis after interim",
+      "section_hint": "Interim analysis and final analysis",
+      "priority": 1
+    },
+    {
+      "name": "Primary missing data approach",
+      "category": "missing_data",
+      "description": "Censoring approach for PFS analysis with specified censoring rules",
+      "section_hint": "Primary efficacy variable",
+      "priority": 1
+    },
+    {
+      "name": "Censoring rules for PFS",
+      "category": "missing_data",
+      "description": "Multiple censoring scenarios defined for subjects without progression",
+      "section_hint": "Primary efficacy variable",
+      "priority": 2
+    },
+    {
+      "name": "Safety population analysis",
+      "category": "safety",
+      "description": "Safety analysis using subjects who received at least one dose",
+      "section_hint": "Safety analysis set",
+      "priority": 1
+    },
+    {
+      "name": "NCI CTCAE v4.03 grading",
+      "category": "safety",
+      "description": "Adverse events graded using NCI CTCAE version 4.03",
+      "section_hint": "Safety endpoints",
+      "priority": 1
+    },
+    {
+      "name": "MedDRA coding for adverse events",
+      "category": "safety",
+      "description": "Adverse events coded using Medical Dictionary for Regulatory Activities",
+      "section_hint": "Analysis of adverse events",
+      "priority": 1
+    },
+    {
+      "name": "Treatment-emergent adverse events",
+      "category": "safety",
+      "description": "TEAEs defined as events developing during treatment period",
+      "section_hint": "Analysis of adverse events",
+      "priority": 1
+    },
+    {
+      "name": "Robustness analysis: ITT and PP sets",
+      "category": "sensitivity_analyses",
+      "description": "All efficacy analyses repeated in ITT and PP sets for robustness",
+      "section_hint": "Analysis sets",
+      "priority": 2
+    },
+    {
+      "name": "Subgroup analysis by prognostic factors",
+      "category": "subgroups",
+      "description": "Cox model investigation of prognostic factors on PFS and OS",
+      "section_hint": "Analysis of additional efficacy variables",
+      "priority": 3
+    }
+  ],
+  "sap_file": "NCT01515748_Protocol_SAP.txt"
+}

@@ -1,0 +1,301 @@
+# STATISTICAL ANALYSIS Plan
+
+**Study No.:** EFC13833  
+**Study Title:** A Phase III, Open-labelled, Randomised Study of Neoadjuvant Docetaxel+Oxaliplatin+S-1 (DOS) + Surgery + Adjuvant S-1 Versus Surgery + Adjuvant S-1 in Patients With Resectable Advanced Gastric Cancer  
+**Version:** 1.0  
+**Date:** [Date]  
+
+---
+
+## 1. INTRODUCTION
+
+### 1.1 Study Overview
+
+This is a multicenter, open-label, randomized (1:1), phase 3 clinical study comparing neoadjuvant DOS (Docetaxel+Oxaliplatin+S-1) + surgery + adjuvant S-1 versus surgery + adjuvant S-1 in patients with resectable advanced gastric cancer.
+
+### 1.2 Study Objectives
+
+**Primary Objective:**
+To compare the 3-year Progression-Free Survival (PFS) between the CSC arm (Chemotherapy + Surgery + Chemotherapy) and the SC arm (Surgery + Chemotherapy) in advanced gastric cancer patients amenable to curative resection.
+
+**Secondary Objectives:**
+- To assess and compare overall survival (OS) between two groups
+- To assess and compare post-operative pathological stage between two groups  
+- To assess and compare R0 (complete) resection rate between two groups
+- To assess and compare safety assessment (NCI CTCAE v4.03) between two groups
+
+### 1.3 Study Design Summary
+
+This is a multicenter, open-label, randomized (1:1), phase 3 clinical study with stratification by study site and TNM stage (T2/N+, T3-4/N+, T4/N-) according to AJCC 7th Edition. Expected total enrollment is 530 subjects (265 per group).
+
+---
+
+## 2. STUDY OBJECTIVES AND ENDPOINTS
+
+### 2.1 Primary Objective and Endpoint
+
+**Primary Objective:**  
+To compare the 3-year Progression-Free Survival (PFS) between two groups.
+
+**Primary Endpoint:**  
+3-year Progression-Free Survival, defined as the time from randomization to objective tumor progression (assessed according to RECIST 1.1 criteria), or recurrence or death.
+
+### 2.2 Secondary Objectives and Endpoints
+
+**Secondary Objectives and Endpoints:**
+1. **Overall survival (OS):** Time from randomization to death for any cause
+2. **Post-operative pathological stage:** Post-operative pathological stage determined and compared between two groups
+3. **R0 resection rate:** Complete resection rate with microscopically examined resected tissues after surgery
+4. **Safety assessment:** Using NCI CTCAE v4.03 for treatment-emergent adverse events
+
+### 2.3 Exploratory Objectives and Endpoints
+
+Exploratory analyses may include investigation of prognostic factors on PFS and OS using Cox proportional hazard models.
+
+---
+
+## 3. STUDY DESIGN
+
+### 3.1 Overall Design
+
+This is a multicenter, open-label, randomized (1:1), phase 3 clinical study.
+
+### 3.2 Blinding
+
+This is an **open-label** study design.
+
+### 3.3 Randomization and Stratification
+
+Subjects are randomized 1:1 to CSC arm or SC arm using stratification factors:
+- **Stratification by site:** Study site
+- **Stratification by TNM stage:** TNM stage according to AJCC 7th Edition (T2/N+, T3-4/N+, T4/N-)
+
+### 3.4 Treatment Arms
+
+**CSC Arm (Chemotherapy + Surgery + Chemotherapy):**
+- **Neoadjuvant DOS regimen:** Docetaxel 50 mg/m², Oxaliplatin 100 mg/m², S-1 40 mg/m² for 3 cycles
+- Surgery
+- Adjuvant S-1 for 8 cycles (approximately 1 year)
+
+**SC Arm (Surgery + Chemotherapy):**
+- Surgery
+- Adjuvant S-1 for 8 cycles (approximately 1 year)
+
+### 3.5 Sample Size Determination
+
+**Total sample size:** 530 patients (265 per group)  
+**Per-arm sample size:** At least 238 subjects per group, accounting for 10% dropout rate  
+**Power calculation:** 80% power for comparison of PFS distribution between groups  
+**Effect size assumption:** Hazard ratio (HR) = 0.698 (based on 70% vs 60% 3-year PFS)  
+**Target events:** 244 PFS events required for final analysis
+
+---
+
+## 4. ANALYSIS POPULATIONS
+
+### 4.1 Intent-to-Treat (ITT) / Full Analysis Set (FAS)
+
+**Intent-to-treat (ITT) Population:** All randomized subjects
+
+**Full Analysis Set (FAS):** All randomized subjects who satisfied inclusion/exclusion criteria and had at least one tumor assessment after Baseline visit. For the CSC arm, includes subjects who administered at least one dose of DOS investigational products. For the SC arm, includes subjects who had surgery. **FAS is the primary population for efficacy analysis.**
+
+### 4.2 Per-Protocol Population
+
+**Per-Protocol (PP) Population:** Subjects with no major protocol deviation completing planned treatment:
+1. **CSC Arm:** Subjects who completed entire 3 cycles of DOS administration as neoadjuvant chemotherapy, had surgery, and started adjuvant chemotherapy (S-1) according to protocol
+2. **SC Arm:** Subjects who had surgery and started adjuvant chemotherapy (S-1) according to protocol
+
+### 4.3 Safety Population
+
+**Safety analysis population:** Subjects who administered at least one dose of investigational product
+
+### 4.4 Other Populations (if applicable)
+
+All efficacy analyses will be conducted using ITT, FAS, and PP sets for robustness assessment.
+
+---
+
+## 5. STATISTICAL HYPOTHESES AND TESTING STRATEGY
+
+### 5.1 Primary Hypotheses
+
+**Superiority hypothesis for PFS:**
+- H₀: h₀(t) = h₁(t) vs H₁: h₀(t) ≠ h₁(t) for CSC vs SC arms
+- Where h₁(t) is hazard function of CSC arm and h₀(t) is hazard function of SC arm
+- This study aims to demonstrate superiority of CSC arm to SC arm
+
+### 5.2 Secondary Hypotheses
+
+Secondary hypotheses will test for differences in:
+- Overall survival between treatment groups
+- Post-operative pathological stage between treatment groups  
+- R0 resection rate between treatment groups
+- Safety profiles between treatment groups
+
+### 5.3 Testing Hierarchy / Multiplicity Adjustment
+
+**Overall alpha level:** 5% two-sided significance level for all statistical tests  
+**Primary analysis:** No multiplicity adjustment required for single primary endpoint  
+**Secondary analyses:** No formal multiplicity adjustment planned; results will be interpreted in context of primary endpoint
+
+### 5.4 Alpha Allocation
+
+**Overall alpha:** 5% two-sided  
+**Interim analysis alpha:** 0.0031 using O'Brien-Fleming method  
+**Final analysis alpha:** 0.0490 after accounting for interim analysis
+
+---
+
+## 6. STATISTICAL METHODS FOR EFFICACY
+
+### 6.1 Primary Efficacy Analysis
+
+**Primary analysis method:** Stratified log-rank test for PFS comparison between treatment groups, stratified by randomization factors (site and TNM stage)
+
+**Survival estimation:** Kaplan-Meier survival estimation for survival curves, median survival, 95% confidence intervals, and 3-year PFS rates by treatment group
+
+**Analysis population:** Primary analysis conducted using FAS
+
+### 6.2 Secondary Efficacy Analyses
+
+**Overall survival:** Analyzed using same methods as primary PFS analysis with stratified log-rank test and Kaplan-Meier estimation
+
+**Post-operative pathological stage and R0 resection rate:** Frequency and percentages presented, compared using Cochran-Mantel-Haenszel test stratified by randomization factors
+
+**Cox proportional hazard model:** Used for hazard ratio estimation and investigation of prognostic factors
+
+### 6.3 Sensitivity Analyses
+
+**Robustness analysis:** All efficacy analyses repeated in ITT and PP sets for robustness
+
+### 6.4 Subgroup Analyses
+
+**Subgroup analysis by prognostic factors:** Cox model investigation of prognostic factors on PFS and OS
+
+---
+
+## 7. INTERIM ANALYSES
+
+### 7.1 Overview of Interim Analyses
+
+**One interim analysis planned** at 50% information rate
+
+### 7.2 Alpha Spending
+
+**O'Brien-Fleming alpha spending** method for efficacy boundaries
+
+### 7.3 Stopping Boundaries
+
+**Interim analysis timing:** Conducted upon occurrence of at least 122 PFS events (50% information rate)  
+**Interim alpha level:** 0.0031 for efficacy stopping
+
+### 7.4 Decision Rules
+
+**IDMC oversight:** Independent Data Monitoring Committee supervision of interim analysis  
+If statistically significant difference observed between groups at interim analysis, study may be discontinued; otherwise, study continues until final completion.
+
+---
+
+## 8. SAFETY ANALYSES
+
+### 8.1 Safety Population
+
+**Safety population analysis:** Subjects who received at least one dose of investigational product
+
+### 8.2 Adverse Events
+
+**NCI CTCAE v4.03 grading:** Adverse events graded using NCI CTCAE version 4.03  
+**MedDRA coding:** Adverse events coded using Medical Dictionary for Regulatory Activities  
+**Treatment-emergent adverse events:** TEAEs defined as events developing during treatment period
+
+Safety data summarized by:
+- All adverse events and TEAEs by system organ class
+- Severity and relationship to study treatment
+- Serious adverse events by seriousness criteria
+- Deaths and study discontinuations due to adverse events
+
+### 8.3 Laboratory Parameters
+
+Laboratory safety variables include:
+- Hematology: Hemoglobin, WBC, ANC, Platelet count
+- Blood chemistry: Standard panel including liver function, renal function, electrolytes
+- Abnormal findings assessed according to NCI CTCAE v4.03
+
+### 8.4 Other Safety Endpoints
+
+- Physical examination findings
+- ECOG Performance Status
+- Blood pressure measurements
+- Other clinical assessments as clinically necessary
+
+---
+
+## 9. MISSING DATA
+
+### 9.1 Missing Data Handling
+
+**Primary missing data approach:** Censoring approach for PFS analysis with specified censoring rules
+
+**Censoring rules for PFS:** Multiple censoring scenarios defined for subjects without progression:
+1. Lost to follow-up or no confirmed disease progression/death until End-of-Study: last tumor progression status assessment date
+2. Second primary cancer other than gastric adenocarcinoma: last tumor progression status assessment date
+3. Treatment other than planned treatment without tumor recurrence: last tumor progression status assessment date
+4. No tumor assessment after randomization: randomization date
+5. Study completion date
+
+### 9.2 Sensitivity Analyses for Missing Data
+
+Sensitivity analyses will be conducted to assess robustness of results to missing data assumptions across ITT, FAS, and PP populations.
+
+---
+
+## 10. PATIENT-REPORTED OUTCOMES (if applicable)
+
+Not applicable - no patient-reported outcome measures specified in this protocol.
+
+---
+
+## 11. REGIONAL CONSIDERATIONS (if applicable)
+
+Not applicable - no specific regional extensions specified in this protocol.
+
+---
+
+## 12. APPENDICES
+
+### 12.1 Statistical Models
+
+**Primary Analysis Model:**
+Stratified log-rank test stratified by:
+- Study site
+- TNM stage (T2/N+, T3-4/N+, T4/N-)
+
+**Cox Proportional Hazard Model:**
+Used for hazard ratio estimation and investigation of prognostic factors, stratified by same factors as log-rank test.
+
+**Secondary Endpoint Models:**
+- Overall survival: Same as primary PFS model
+- Categorical endpoints: Cochran-Mantel-Haenszel test with same stratification
+
+### 12.2 Tables, Figures, and Listings Specifications
+
+Standard tables, figures, and listings will be produced including:
+
+**Tables:**
+- Demographics and baseline characteristics
+- Treatment exposure and compliance
+- Efficacy results (PFS, OS, response rates)
+- Safety summaries (AEs, laboratory results, vital signs)
+
+**Figures:**
+- Kaplan-Meier survival curves for PFS and OS
+- Forest plots for subgroup analyses
+
+**Listings:**
+- Individual subject data for key variables
+- Adverse events and serious adverse events
+- Protocol deviations
+
+---
+
+**End of Statistical Analysis Plan**
