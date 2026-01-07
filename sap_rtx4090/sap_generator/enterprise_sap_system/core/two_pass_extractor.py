@@ -624,8 +624,8 @@ def main():
         print("EXTRACTION COMPLETE")
         print(f"{'='*70}")
 
-        print(f"\nDiscovered: {result.metadata['total_discovered']} elements")
-        print(f"Extracted:  {result.metadata['total_extracted']} elements")
+        print(f"\nDiscovered: {result.metadata.get('total_discovered', 0)} elements")
+        print(f"Extracted:  {result.metadata.get('total_extracted', 0)} elements")
 
         # Save
         output = result_to_dict(result)

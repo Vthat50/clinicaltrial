@@ -1153,13 +1153,18 @@ Write the {section_type.replace('_', ' ').title()} section:"""
                 sap_doc += f"## {title}\n\n{generated[section_type]}\n\n---\n\n"
 
         # Add extraction metadata as appendix
+        meta = extraction_result.metadata if extraction_result.metadata else {}
+        categories = meta.get('categories_found', [])
+        categories_str = ', '.join(categories) if categories else 'None'
+        discovery_time = meta.get('discovery_time_s', 0)
+        avg_extraction_time = meta.get('avg_extraction_time_s', 0)
         sap_doc += f"""## Appendix: Extraction Metadata
 
-- **Total Elements Discovered:** {extraction_result.metadata['total_discovered']}
-- **Total Elements Extracted:** {extraction_result.metadata['total_extracted']}
-- **Categories Found:** {', '.join(extraction_result.metadata['categories_found'])}
-- **Discovery Time:** {extraction_result.metadata['discovery_time_s']:.1f}s
-- **Avg Extraction Time:** {extraction_result.metadata['avg_extraction_time_s']:.1f}s per element
+- **Total Elements Discovered:** {meta.get('total_discovered', 0)}
+- **Total Elements Extracted:** {meta.get('total_extracted', 0)}
+- **Categories Found:** {categories_str}
+- **Discovery Time:** {discovery_time:.1f}s
+- **Avg Extraction Time:** {avg_extraction_time:.1f}s per element
 
 """
         if extraction_result.validation_flags:
