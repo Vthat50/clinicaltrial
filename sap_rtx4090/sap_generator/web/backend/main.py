@@ -1177,30 +1177,26 @@ SAP STRUCTURE EXAMPLE (follow this organization):
 STYLE EXAMPLES (follow this professional format):
 {content_examples}
 
-TLF SHELL SPECIFICATIONS (include in Appendix with full column specs, row structure, footnotes):
-{tlf_text}
-
 Generate complete SAP with ALL sections:
 1. Introduction
 2. Study Objectives and Endpoints
 3. Study Design
 4. Sample Size Determination
 5. Analysis Populations
-6. General Statistical Methods
-7. Primary Efficacy Analysis
-8. Secondary Efficacy Analyses
-9. Safety Analysis
+6. Statistical Hypotheses and Testing Strategy
+7. Statistical Methods for Efficacy (Primary and Secondary)
+8. Interim Analyses
+9. Safety Analyses
 10. Missing Data Handling
-11. Interim Analysis
-12. Sensitivity Analyses
-13. APPENDIX: Tables, Listings, and Figures (TLF)
-    - Include the TLF shell specifications above
-    - Each shell must have: Title, Population, Column Specs, Row Structure, Footnotes, Programming Notes
+11. Patient-Reported Outcomes
+12. Regional Considerations (if applicable)
+
+NOTE: TLF Shell Specifications will be appended automatically - do NOT include placeholder text for TLF appendix.
 
 REQUIREMENTS:
-- Use ALL protocol facts with exact numbers
-- Follow professional SAP formatting
-- TLF Appendix must include detailed shell specifications (columns, rows, footnotes, programming notes)"""
+- Use ALL protocol facts with exact numbers (alpha, sample size, HR, etc.)
+- Include specific statistical methods (log-rank, Cox, Miettinen-Nurminen, etc.)
+- Follow professional SAP formatting with numbered sections"""
 
             response = client.messages.create(
                 model="claude-sonnet-4-20250514",
@@ -1210,11 +1206,17 @@ REQUIREMENTS:
 
             sap_text = response.content[0].text
 
+            # CRITICAL: Append TLF shells directly to ensure they're included verbatim
+            # (LLM often summarizes instead of including full specifications)
+            sap_text += "\n\n---\n\n## APPENDIX: TLF SHELL SPECIFICATIONS\n"
+            sap_text += "\nThe following TLF shell specifications provide detailed programming requirements for statistical outputs.\n"
+            sap_text += tlf_text
+
         except Exception as llm_error:
             logger.error(f"LLM generation failed: {llm_error}")
             # Fallback to V2 direct generation
             sap_text = result.get('sap_text', '')
-            tlf_text = "[TLF generation failed - using V2 fallback]"
+            sap_text += "\n\n---\n\n## APPENDIX: TLF SHELL SPECIFICATIONS\n" + tlf_text
 
         processing_time = time.time() - start_time
 
