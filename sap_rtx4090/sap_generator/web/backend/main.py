@@ -669,11 +669,20 @@ async def generate_full_pipeline(request: GenerateRequest):
             ratio = facts.get('randomization_ratio', '') or ''
             phase = facts.get('phase', '') or ''
             therapeutic_area = facts.get('therapeutic_area', '') or facts.get('indication', '') or ''
-            endpoint_type = facts.get('primary_endpoint', '')[:100] if facts.get('primary_endpoint') else ""
+            # Handle primary_endpoint - could be string, dict, or list
+            ep = facts.get('primary_endpoint', '')
+            if isinstance(ep, str):
+                endpoint_type = ep[:100]
+            elif isinstance(ep, dict):
+                endpoint_type = str(ep.get('name', '') or ep.get('definition', ''))[:100]
+            elif isinstance(ep, list) and ep:
+                endpoint_type = str(ep[0])[:100] if ep[0] else ""
+            else:
+                endpoint_type = ""
 
             # Quality score on 0-100 scale for frontend display
             quality_score = 100.0 if result.verification and result.verification.passed else 50.0
-            validation_issues = len(result.verification.missing_slots) if result.verification else 0
+            validation_issues = len(result.verification.missing_slots) if result.verification and result.verification.missing_slots else 0
             generation_mode = "rule-based (Claude + 99 rules + RAG + slot verification)"
             source_trials = []
 
@@ -691,11 +700,17 @@ async def generate_full_pipeline(request: GenerateRequest):
 
             # Validation from agentic pipeline
             # Quality score on 0-100 scale (result.confidence is 0-1, multiply by 100)
-            quality_score = (result.confidence * 100) if result.confidence else 80.0
+            try:
+                quality_score = (float(result.confidence) * 100) if result.confidence else 80.0
+            except (ValueError, TypeError):
+                quality_score = 80.0
             if result.validation:
                 # validation.confidence is 0-1, scale to 0-100
-                quality_score = result.validation.confidence * 100 if result.validation.confidence else quality_score
-                validation_issues = len(result.validation.issues) if hasattr(result.validation, 'issues') else 0
+                try:
+                    quality_score = float(result.validation.confidence) * 100 if result.validation.confidence else quality_score
+                except (ValueError, TypeError):
+                    pass
+                validation_issues = len(result.validation.issues) if hasattr(result.validation, 'issues') and result.validation.issues else 0
             else:
                 validation_issues = 0
 
@@ -2491,10 +2506,16 @@ async def process_jobs_worker():
 
                         # Validation from agentic pipeline
                         # Quality score on 0-100 scale (result.confidence is 0-1, multiply by 100)
-                        quality_score = (result.confidence * 100) if result.confidence else 80.0
+                        try:
+                            quality_score = (float(result.confidence) * 100) if result.confidence else 80.0
+                        except (ValueError, TypeError):
+                            quality_score = 80.0
                         if result.validation:
                             # validation.confidence is 0-1, scale to 0-100
-                            quality_score = result.validation.confidence * 100 if result.validation.confidence else quality_score
+                            try:
+                                quality_score = float(result.validation.confidence) * 100 if result.validation.confidence else quality_score
+                            except (ValueError, TypeError):
+                                pass
 
                         pipeline_type = "agentic"
 

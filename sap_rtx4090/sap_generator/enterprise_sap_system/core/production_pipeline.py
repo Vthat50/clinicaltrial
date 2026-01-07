@@ -586,8 +586,10 @@ class ProductionSAPPipeline:
 
         # Process each extracted element
         for element_name, elem in result.extracted_data.items():
-            data = elem.extracted_data
-            cat = elem.category
+            # Ensure element_name is a string (Claude may return unexpected types)
+            element_name = str(element_name) if element_name else ""
+            data = elem.extracted_data or {}
+            cat = elem.category or ""
 
             # Study Design elements
             if cat == 'study_design':
@@ -651,8 +653,8 @@ class ProductionSAPPipeline:
 
             # Populations
             elif cat == 'populations':
-                pop_name = data.get('name', element_name)
-                pop_def = data.get('definition', '')
+                pop_name = str(data.get('name') or element_name or "unknown")
+                pop_def = str(data.get('definition', '') or '')
                 if 'itt' in pop_name.lower() or 'intent' in pop_name.lower():
                     facts['itt_definition'] = pop_def or pop_name
                 elif 'fas' in pop_name.lower() or 'full analysis' in pop_name.lower():
@@ -1817,7 +1819,8 @@ Return the document with placeholders replaced. No explanations, just the fixed 
         # 2. SIDEDNESS: Fix one-sided when it should be two-sided (or vice versa)
         # =====================================================================
         extracted_sidedness = facts.get('test_sidedness') or facts.get('alpha_sidedness')
-        if extracted_sidedness and extracted_sidedness.lower() in ('one-sided', 'two-sided'):
+        # Ensure it's a string before calling .lower()
+        if extracted_sidedness and isinstance(extracted_sidedness, str) and extracted_sidedness.lower() in ('one-sided', 'two-sided'):
             correct_sidedness = extracted_sidedness.lower()
             wrong_sidedness = 'one-sided' if correct_sidedness == 'two-sided' else 'two-sided'
 
