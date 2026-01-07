@@ -574,12 +574,38 @@ class ProductionSAPPipeline:
                     facts['phase'] = data.get('phase')
                 if 'duration' in data:
                     facts['study_duration'] = data.get('duration')
-                if 'treatment_arm' in data or 'treatment' in data:
-                    facts['drug_name'] = data.get('treatment_arm') or data.get('treatment')
+                if 'treatment_arm' in data or 'treatment' in data or 'drug' in data:
+                    facts['drug_name'] = data.get('treatment_arm') or data.get('treatment') or data.get('drug')
                 if 'comparator' in data or 'control' in data:
                     facts['comparator'] = data.get('comparator') or data.get('control')
                 if 'allocation_ratio' in data or 'randomization_ratio' in data:
                     facts['allocation_ratio'] = data.get('allocation_ratio') or data.get('randomization_ratio')
+                # Disease/Indication fields often in study_design
+                if 'disease' in data or 'indication' in data:
+                    facts['disease_type'] = data.get('disease') or data.get('indication')
+                    facts['indication'] = data.get('indication') or data.get('disease')
+                if 'tumor_type' in data or 'cancer_type' in data:
+                    facts['tumor_type'] = data.get('tumor_type') or data.get('cancer_type')
+                if 'histology' in data:
+                    facts['histology'] = data.get('histology')
+                if 'stage' in data or 'disease_stage' in data:
+                    facts['disease_stage'] = data.get('stage') or data.get('disease_stage')
+                if 'biomarker' in data or 'biomarker_status' in data:
+                    facts['biomarker_status'] = data.get('biomarker') or data.get('biomarker_status')
+                if 'setting' in data or 'treatment_setting' in data:
+                    facts['treatment_setting'] = data.get('setting') or data.get('treatment_setting')
+                if 'nct_id' in data or 'nct' in data:
+                    facts['nct_id'] = data.get('nct_id') or data.get('nct')
+                if 'protocol_number' in data or 'protocol_id' in data:
+                    facts['protocol_number'] = data.get('protocol_number') or data.get('protocol_id')
+                # Also extract from element name if it contains useful info
+                elem_lower = element_name.lower()
+                if 'phase' in elem_lower and not facts.get('phase'):
+                    # Try to extract phase from element name like "Phase 3 study"
+                    import re
+                    phase_match = re.search(r'phase\s*(\d+[ab]?)', elem_lower, re.IGNORECASE)
+                    if phase_match:
+                        facts['phase'] = f"Phase {phase_match.group(1)}"
 
             # Endpoints
             elif cat == 'endpoints':
@@ -617,22 +643,34 @@ class ProductionSAPPipeline:
 
             # Sample Size
             elif cat == 'sample_size':
-                if 'total' in data:
-                    facts['sample_size'] = data.get('total')
-                    facts['sample_size_total'] = data.get('total')
-                if 'per_arm' in data:
-                    facts['sample_size_per_arm'] = data.get('per_arm')
-                if 'power' in data:
-                    facts['power'] = data.get('power')
-                if 'alpha' in data:
-                    facts['alpha'] = data.get('alpha')
-                    facts['overall_alpha'] = data.get('alpha')
+                # Multiple ways sample size might be stored
+                if 'total' in data or 'total_n' in data or 'n' in data or 'sample_size' in data:
+                    n = data.get('total') or data.get('total_n') or data.get('n') or data.get('sample_size')
+                    facts['sample_size'] = n
+                    facts['sample_size_total'] = n
+                if 'per_arm' in data or 'n_per_arm' in data:
+                    facts['sample_size_per_arm'] = data.get('per_arm') or data.get('n_per_arm')
+                if 'power' in data or 'statistical_power' in data:
+                    facts['power'] = data.get('power') or data.get('statistical_power')
+                if 'alpha' in data or 'significance_level' in data or 'type_i_error' in data:
+                    alpha = data.get('alpha') or data.get('significance_level') or data.get('type_i_error')
+                    facts['alpha'] = alpha
+                    facts['overall_alpha'] = alpha
                 if 'assumptions' in data:
                     assumptions = data.get('assumptions', {})
-                    if 'hazard_ratio' in assumptions or 'hr' in assumptions:
-                        facts['expected_hazard_ratio'] = assumptions.get('hazard_ratio') or assumptions.get('hr')
-                    if 'median_survival' in assumptions:
-                        facts['median_survival'] = assumptions.get('median_survival')
+                    if 'hazard_ratio' in assumptions or 'hr' in assumptions or 'expected_hr' in assumptions:
+                        facts['expected_hazard_ratio'] = assumptions.get('hazard_ratio') or assumptions.get('hr') or assumptions.get('expected_hr')
+                    if 'median_survival' in assumptions or 'median_os' in assumptions:
+                        facts['median_survival'] = assumptions.get('median_survival') or assumptions.get('median_os')
+                    if 'effect_size' in assumptions:
+                        facts['effect_size'] = assumptions.get('effect_size')
+                    if 'dropout' in assumptions or 'dropout_rate' in assumptions:
+                        facts['dropout_rate'] = assumptions.get('dropout') or assumptions.get('dropout_rate')
+                # Direct fields from data
+                if 'hazard_ratio' in data or 'hr' in data or 'expected_hr' in data:
+                    facts['expected_hazard_ratio'] = data.get('hazard_ratio') or data.get('hr') or data.get('expected_hr')
+                if 'events' in data or 'required_events' in data:
+                    facts['required_events'] = data.get('events') or data.get('required_events')
 
             # Hypotheses
             elif cat == 'hypotheses':
@@ -727,6 +765,23 @@ class ProductionSAPPipeline:
             facts['has_interim_analysis'] = False
         if not facts.get('has_multiplicity'):
             facts['has_multiplicity'] = False
+
+        # Catch-all: capture any remaining data fields not explicitly mapped
+        # This helps ensure we don't miss important extractions
+        for element_name, elem in result.extracted_data.items():
+            data = elem.extracted_data
+            for key, value in data.items():
+                # Skip if already mapped or if value is empty
+                if key in facts or not value:
+                    continue
+                # Skip internal fields
+                if key.startswith('_') or key in ('raw_response', 'source_text'):
+                    continue
+                # Map common variations to standard names
+                key_lower = key.lower()
+                if key_lower not in facts:
+                    # Store with original key if not already present
+                    facts[key_lower] = value
 
         return facts
 
