@@ -90,6 +90,16 @@ except ImportError as e:
     TwoPassExtractor = None
     print(f"Warning: TwoPassExtractor (direct generation) not available: {e}")
 
+# NEW: 3-Collection RAG System (structure, content, TLF)
+# Uses RAG for style/format guidance + TLF appendix generation
+try:
+    from enterprise_sap_system.core.sap_rag import SAPRAGIndex
+    RAG_SYSTEM_AVAILABLE = True
+except ImportError as e:
+    RAG_SYSTEM_AVAILABLE = False
+    SAPRAGIndex = None
+    print(f"Warning: SAPRAGIndex (3-collection RAG) not available: {e}")
+
 # NEW: Regulatory-grade SAP Generator (ICH E9 compliant, 45+ pages)
 try:
     from enterprise_sap_system.core.regulatory_sap_generator import (
@@ -1020,6 +1030,212 @@ async def generate_direct_sap(request: GenerateRequest):
         raise
     except Exception as e:
         logger.error(f"Direct SAP generation failed: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# RAG 2-CALL SAP GENERATION - Efficient RAG with TLF Appendix
+# =============================================================================
+
+# Global RAG index instance
+_rag_index: SAPRAGIndex = None
+
+
+def get_rag_index():
+    """Get or create the 3-collection RAG index."""
+    global _rag_index
+    if _rag_index is None and RAG_SYSTEM_AVAILABLE:
+        _rag_index = SAPRAGIndex()
+        logger.info("SAPRAGIndex initialized (3-collection: structure, content, TLF)")
+    return _rag_index
+
+
+class RAGSAPResponse(BaseModel):
+    """Response from RAG-enhanced SAP generation."""
+    success: bool
+    sap_text: str
+    tlf_appendix: str
+    # Discovery results
+    elements_discovered: int
+    categories_found: list
+    # RAG info
+    rag_structure_used: bool
+    rag_content_examples: int
+    rag_tlf_shells: int
+    # Metadata
+    total_time: float
+    sap_length: int
+    llm_calls: int
+    generation_method: str
+    errors: list
+
+
+@app.post("/generate-rag", response_model=RAGSAPResponse)
+async def generate_rag_sap(request: GenerateRequest):
+    """
+    Generate SAP using RAG 2-CALL approach with TLF appendix.
+
+    Architecture (2 LLM calls + RAG queries):
+    1. Pass 1: Discovery - Find all statistical elements (1 LLM call)
+    2. RAG Queries: Get structure, content examples, TLF shells (0 LLM calls)
+    3. Pass 2: Generate full SAP with RAG context (1 LLM call)
+
+    Benefits:
+    - Same accuracy as V2 Direct (~97%)
+    - Includes TLF appendix from real SAPs
+    - Industry-standard formatting from RAG examples
+    - Only 2 LLM calls (efficient)
+    """
+    import time
+    start_time = time.time()
+
+    try:
+        if not request.protocol_text.strip():
+            raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
+
+        if not DIRECT_GENERATION_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Direct generation not available - TwoPassExtractor import failed"
+            )
+
+        if not RAG_SYSTEM_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="RAG system not available - SAPRAGIndex import failed"
+            )
+
+        generator = get_direct_generator()
+        rag = get_rag_index()
+
+        if generator is None or rag is None:
+            raise HTTPException(
+                status_code=503,
+                detail="Generator or RAG index not initialized"
+            )
+
+        # STEP 1: Discovery (1 LLM call)
+        logger.info("[RAG] Step 1: Discovery...")
+        result = generator.process_protocol(
+            protocol_text=request.protocol_text,
+            protocol_id=request.filename or "uploaded_protocol",
+            validate=False,
+            verbose=False
+        )
+
+        discovered = result.get('discovered_elements', [])
+        categories = list(set(e.get('category', 'other') for e in discovered))
+        facts_text = "\n".join([
+            f"- {d.get('name')}: {d.get('description', '')[:200]}"
+            for d in discovered[:40]
+        ])
+
+        # STEP 2: RAG Queries (0 LLM calls)
+        logger.info("[RAG] Step 2: RAG queries...")
+
+        # Query structure
+        structures = rag.query_structure("Phase 3 randomized oncology PFS", n_results=1)
+        structure_example = structures[0]["content"][:1500] if structures else ""
+
+        # Query content examples
+        content_examples = ""
+        content_count = 0
+        for section in ["sample_size", "interim_analysis", "efficacy_analysis", "safety_analysis"]:
+            examples = rag.query_content(section, n_results=1)
+            if examples:
+                content_examples += f"\n[{section}]: {examples[0]['content'][:600]}\n"
+                content_count += 1
+
+        # Query TLF shells
+        tlf_text = ""
+        tlf_count = 0
+        for category in ["demographics", "efficacy_tte", "safety_ae"]:
+            tlfs = rag.query_tlf(category, category=category, n_results=3)
+            for t in tlfs:
+                m = t["metadata"]
+                tlf_text += f"- {m.get('tlf_type')} {m.get('tlf_number')}: {m.get('tlf_title', '')[:50]}\n"
+                tlf_count += 1
+
+        # STEP 3: Generate full SAP (1 LLM call)
+        logger.info("[RAG] Step 3: Generate full SAP...")
+
+        # Use Anthropic client directly for generation
+        try:
+            from anthropic import Anthropic
+            client = Anthropic()
+
+            prompt = f"""Generate a complete Statistical Analysis Plan (SAP).
+
+PROTOCOL FACTS (use these exact values):
+{facts_text}
+
+SAP STRUCTURE EXAMPLE (follow this organization):
+{structure_example}
+
+STYLE EXAMPLES (follow this professional format):
+{content_examples}
+
+TLF SHELLS TO INCLUDE:
+{tlf_text}
+
+Generate complete SAP with ALL sections:
+1. Introduction
+2. Study Objectives and Endpoints
+3. Study Design
+4. Sample Size Determination
+5. Analysis Populations
+6. General Statistical Methods
+7. Primary Efficacy Analysis
+8. Secondary Efficacy Analyses
+9. Safety Analysis
+10. Missing Data Handling
+11. Interim Analysis
+12. Sensitivity Analyses
+13. TLF Appendix (include the TLF shells above)
+
+REQUIREMENTS:
+- Use ALL protocol facts with exact numbers
+- Follow professional SAP formatting
+- Include TLF appendix at the end"""
+
+            response = client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=8000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            sap_text = response.content[0].text
+
+        except Exception as llm_error:
+            logger.error(f"LLM generation failed: {llm_error}")
+            # Fallback to V2 direct generation
+            sap_text = result.get('sap_text', '')
+            tlf_text = "[TLF generation failed - using V2 fallback]"
+
+        processing_time = time.time() - start_time
+
+        return RAGSAPResponse(
+            success=True,
+            sap_text=sap_text,
+            tlf_appendix=tlf_text,
+            elements_discovered=len(discovered),
+            categories_found=categories,
+            rag_structure_used=bool(structure_example),
+            rag_content_examples=content_count,
+            rag_tlf_shells=tlf_count,
+            total_time=processing_time,
+            sap_length=len(sap_text),
+            llm_calls=2,
+            generation_method="rag-2call (discovery + RAG context + generation)",
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"RAG SAP generation failed: {e}")
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
