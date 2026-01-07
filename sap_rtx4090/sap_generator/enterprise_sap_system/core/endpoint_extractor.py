@@ -535,9 +535,15 @@ Respond in JSON format:
 
             if response.success:
                 result = json.loads(response.content)
+                # Safe float conversion for confidence
+                conf_val = result.get("confidence", 0.7)
+                try:
+                    confidence = float(conf_val) if conf_val is not None else 0.7
+                except (ValueError, TypeError):
+                    confidence = 0.7
                 return ExtractionResult(
                     endpoint_type=result.get("endpoint_type", "OTHER"),
-                    confidence=float(result.get("confidence", 0.7)),
+                    confidence=confidence,
                     source="llm",
                     reasoning=result.get("reasoning", "LLM classification"),
                     primary_section_text=primary_section,
