@@ -731,8 +731,8 @@ async def generate_full_pipeline(request: GenerateRequest):
             source_trials = []
 
         return FullPipelineResponse(
-            success=result.success,
-            sap_text=result.sap_text,
+            success=getattr(result, 'success', False),
+            sap_text=getattr(result, 'sap_text', ''),
             drug_name=drug_name,
             sample_size=sample_size,
             randomization_ratio=ratio,
@@ -742,8 +742,8 @@ async def generate_full_pipeline(request: GenerateRequest):
             quality_score=quality_score,
             generation_mode=generation_mode,
             constrained_schema_used=True,
-            rag_examples_count=len(result.sections) if result.sections else 0,
-            templates_applied=list(result.sections.keys()) if result.sections else [],
+            rag_examples_count=len(result.sections) if hasattr(result, 'sections') and result.sections else 0,
+            templates_applied=list(result.sections.keys()) if hasattr(result, 'sections') and result.sections else [],
             validation_issues=validation_issues,
             contamination_detected=False,
             processing_time=processing_time,
@@ -2533,7 +2533,7 @@ async def process_jobs_worker():
 
                     update_data = {
                         "status": "completed",
-                        "generated_sap": result.sap_text,
+                        "generated_sap": getattr(result, 'sap_text', ''),
                         "quality_score": quality_score,
                         "endpoint_type": endpoint_type_str[:10],  # varchar(10)
                         "phase": (phase_str or "")[:10],  # varchar(10)
