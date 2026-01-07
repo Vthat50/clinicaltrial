@@ -25,6 +25,37 @@ except ImportError:
     LLM_AVAILABLE = False
 
 
+# Safe type conversion helpers - Claude may return non-numeric strings
+def _safe_int(value, default=0):
+    """Safely convert value to int."""
+    if value is None:
+        return default
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value)
+        except ValueError:
+            return default
+    return default
+
+
+def _safe_float(value, default=0.0):
+    """Safely convert value to float."""
+    if value is None:
+        return default
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return default
+    return default
+
+
 @dataclass
 class ExtractedProtocol:
     """Structured data extracted from protocol via LLM"""
@@ -484,11 +515,11 @@ class ClaudeProtocolExtractor:
         result.is_pilot_study = bool(response.get("is_pilot_study", False))
 
         # Sample
-        result.sample_size = int(response.get("sample_size", 0) or 0)
+        result.sample_size = _safe_int(response.get("sample_size", 0))
         result.sample_size_justification = response.get("sample_size_justification", "") or ""
 
         # Arms
-        result.num_arms = int(response.get("num_arms", 0) or 0)
+        result.num_arms = _safe_int(response.get("num_arms", 0))
         result.arms = response.get("arms", []) or []
         result.randomization_ratio = response.get("randomization_ratio", "") or ""
 
@@ -526,20 +557,21 @@ class ClaudeProtocolExtractor:
         # Statistical - ENHANCED
         result.statistical_method = response.get("statistical_method", "") or ""
         result.statistical_method_details = response.get("statistical_method_details", "") or ""
-        result.alpha_level = float(response.get("alpha_level")) if response.get("alpha_level") else None
-        result.power = float(response.get("power", 0) or 0)
+        alpha_val = response.get("alpha_level")
+        result.alpha_level = _safe_float(alpha_val) if alpha_val else None
+        result.power = _safe_float(response.get("power", 0))
         result.hypothesis_testing_planned = bool(response.get("hypothesis_testing_planned", True))
 
         # Interim Analysis - COMPREHENSIVE
         result.has_interim_analysis = bool(response.get("has_interim_analysis", False))
-        result.num_interim_analyses = int(response.get("num_interim_analyses", 0) or 0)
+        result.num_interim_analyses = _safe_int(response.get("num_interim_analyses", 0))
         result.interim_analysis_method = response.get("interim_analysis_method", "") or ""
         result.error_spending_function = response.get("error_spending_function", "") or ""
         result.alpha_spending_params = response.get("alpha_spending_params", "") or ""
         result.interim_events = response.get("interim_events", []) or []
         result.interim_alpha_spent = response.get("interim_alpha_spent", []) or []
         result.interim_information_fraction = response.get("interim_information_fraction", []) or []
-        result.final_events = int(response.get("final_events", 0) or 0)
+        result.final_events = _safe_int(response.get("final_events", 0))
         result.stopping_boundaries = response.get("stopping_boundaries", "") or ""
 
         # Hierarchical Testing (NEW)
@@ -567,7 +599,7 @@ class ClaudeProtocolExtractor:
         result.regulatory_interim_region = response.get("regulatory_interim_region", "") or ""
         result.regulatory_interim_purpose = response.get("regulatory_interim_purpose", "") or ""
         result.regulatory_interim_timing = response.get("regulatory_interim_timing", "") or ""
-        result.regulatory_interim_alpha = float(response.get("regulatory_interim_alpha", 0.025) or 0.025)
+        result.regulatory_interim_alpha = _safe_float(response.get("regulatory_interim_alpha", 0.025), 0.025)
         result.regulatory_interim_method = response.get("regulatory_interim_method", "") or ""
         result.regulatory_interim_analyses = response.get("regulatory_interim_analyses", []) or []
 
@@ -579,7 +611,7 @@ class ClaudeProtocolExtractor:
         # Non-Proportional Hazards Model (immunotherapy delayed effect)
         result.has_nph_model = bool(response.get("has_nph_model", False))
         result.nph_model_type = response.get("nph_model_type", "") or ""
-        result.delayed_effect_months = float(response.get("delayed_effect_months", 0) or 0)
+        result.delayed_effect_months = _safe_float(response.get("delayed_effect_months", 0))
         result.piecewise_hazards = response.get("piecewise_hazards", []) or []
         result.subgroup_specific_assumptions = response.get("subgroup_specific_assumptions", []) or []
 
@@ -606,7 +638,7 @@ class ClaudeProtocolExtractor:
         result.stratification_factors = response.get("stratification_factors", []) or []
 
         # Confidence
-        result.extraction_confidence = float(response.get("confidence", 0.8) or 0.8)
+        result.extraction_confidence = _safe_float(response.get("confidence", 0.8), 0.8)
 
         # Infer num_arms from arms list if not set
         if not result.num_arms and result.arms:

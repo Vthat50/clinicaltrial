@@ -2629,6 +2629,9 @@ Remember: Extract ONLY what is explicitly stated. Mark fields as [NOT FOUND] if 
         # =========================================================
         if section_name == 'study_design':
             treatment_setting = data.get('treatment_setting', '')
+            # Ensure treatment_setting is a string
+            if not isinstance(treatment_setting, str):
+                treatment_setting = str(treatment_setting) if treatment_setting else ''
 
             # Check for common misclassifications in the notes
             raw_notes = data.get('notes', [])
