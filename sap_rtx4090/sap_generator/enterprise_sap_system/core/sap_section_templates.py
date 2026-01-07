@@ -310,7 +310,13 @@ Due to the exploratory nature of this study:
             return ""
 
         table = "| Visit | Target Day | Acceptable Range |\n|-------|------------|------------------|\n"
-        for visit, details in sorted(visit_schedule.items(), key=lambda x: int(x[0].split()[-1]) if x[0].split()[-1].isdigit() else 0):
+        # Safe sort key - handle empty splits and non-digit values
+        def safe_visit_key(x):
+            parts = x[0].split() if x[0] else []
+            if parts and parts[-1].isdigit():
+                return int(parts[-1])
+            return 0
+        for visit, details in sorted(visit_schedule.items(), key=safe_visit_key):
             table += f"| {visit} | Day {details['target_day']} | Days {details['min_day']}-{details['max_day']} |\n"
 
         return f"""### 7.X Visit Windows

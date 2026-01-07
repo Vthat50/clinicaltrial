@@ -276,23 +276,26 @@ class ProductionSAPPipeline:
                 print("\n[Step 1.5] Running pre-generation validation...")
                 pre_validation = self.sap_validator.validate_before_generation(facts)
 
-                if not pre_validation['valid']:
-                    print(f"[Step 1.5] ⚠ Pre-validation found {len(pre_validation['errors'])} errors:")
-                    for error in pre_validation['errors']:
+                if not pre_validation.get('valid', True):
+                    errors = pre_validation.get('errors', [])
+                    print(f"[Step 1.5] ⚠ Pre-validation found {len(errors)} errors:")
+                    for error in errors:
                         print(f"  - {error}")
                         needs_review.append(error)
 
-                if pre_validation['warnings']:
-                    print(f"[Step 1.5] Warnings: {len(pre_validation['warnings'])}")
-                    for warning in pre_validation['warnings']:
+                warnings = pre_validation.get('warnings', [])
+                if warnings:
+                    print(f"[Step 1.5] Warnings: {len(warnings)}")
+                    for warning in warnings:
                         print(f"  - {warning}")
 
                 # Apply auto-fixes if available
-                if pre_validation.get('auto_fixes'):
-                    print(f"[Step 1.5] Applying {len(pre_validation['auto_fixes'])} auto-fixes...")
-                    for fix in pre_validation['auto_fixes']:
-                        field = fix.get('field')
-                        new_value = fix.get('new_value')
+                auto_fixes = pre_validation.get('auto_fixes', [])
+                if auto_fixes:
+                    print(f"[Step 1.5] Applying {len(auto_fixes)} auto-fixes...")
+                    for fix in auto_fixes:
+                        field = fix.get('field') if isinstance(fix, dict) else None
+                        new_value = fix.get('new_value') if isinstance(fix, dict) else None
                         if field and new_value is not None:
                             facts[field] = new_value
                             print(f"  - Fixed {field}: {new_value}")
@@ -411,26 +414,30 @@ class ProductionSAPPipeline:
                 print("\n[Step 7] Running post-generation validation...")
                 post_validation = self.sap_validator.validate_after_generation(sap_text, facts)
 
-                if not post_validation['valid']:
-                    print(f"[Step 7] ⚠ Post-validation found {len(post_validation['errors'])} errors:")
-                    for error in post_validation['errors']:
+                if not post_validation.get('valid', True):
+                    post_errors = post_validation.get('errors', [])
+                    print(f"[Step 7] ⚠ Post-validation found {len(post_errors)} errors:")
+                    for error in post_errors:
                         print(f"  - {error}")
                         needs_review.append(error)
 
-                if post_validation.get('warnings'):
-                    print(f"[Step 7] Warnings: {len(post_validation['warnings'])}")
-                    for warning in post_validation['warnings']:
+                post_warnings = post_validation.get('warnings', [])
+                if post_warnings:
+                    print(f"[Step 7] Warnings: {len(post_warnings)}")
+                    for warning in post_warnings:
                         print(f"  - {warning}")
                         warnings.append(warning)
 
                 # Report confidence
-                if post_validation.get('overall_confidence'):
-                    print(f"[Step 7] Overall confidence: {post_validation['overall_confidence']:.0%}")
+                overall_conf = post_validation.get('overall_confidence')
+                if overall_conf:
+                    print(f"[Step 7] Overall confidence: {overall_conf:.0%}")
 
                 # Report sections needing human review
-                if post_validation.get('human_review_sections'):
+                review_sections = post_validation.get('human_review_sections', [])
+                if review_sections:
                     print(f"[Step 7] Sections needing human review:")
-                    for section in post_validation['human_review_sections']:
+                    for section in review_sections:
                         print(f"  - {section}")
                         needs_review.append(f"Review section: {section}")
 
@@ -1899,7 +1906,8 @@ Return the document with placeholders replaced. No explanations, just the fixed 
         # 5. PRIMARY ANALYSIS POPULATION: FAS vs ITT
         # =====================================================================
         primary_pop = facts.get('primary_analysis_population')
-        if primary_pop and primary_pop.upper() in ('FAS', 'ITT', 'MITT', 'PP'):
+        # Ensure primary_pop is a string before calling .upper()
+        if primary_pop and isinstance(primary_pop, str) and primary_pop.upper() in ('FAS', 'ITT', 'MITT', 'PP'):
             correct_pop = primary_pop.upper()
 
             # If FAS is specified but text says ITT as primary, fix it
