@@ -29,16 +29,6 @@ from supabase import create_client, Client
 # Document parsing
 import PyPDF2
 from docx import Document as DocxDocument
-import concurrent.futures
-
-# LlamaParse for high-quality PDF extraction (preserves tables!)
-try:
-    from llama_cloud_services import LlamaParse
-    LLAMAPARSE_AVAILABLE = True
-    print("[main.py] LlamaParse available - tables will be preserved")
-except ImportError:
-    LLAMAPARSE_AVAILABLE = False
-    print("[main.py] LlamaParse not available - using PyPDF2 fallback")
 
 # Import SAP generator (add parent to path)
 import sys
@@ -151,88 +141,16 @@ def get_supabase() -> Client:
 
 
 # Document parsing functions
-def _run_llamaparse_on_bytes(file_content: bytes) -> str:
-    """
-    Run LlamaParse on PDF bytes in a separate thread.
-    LlamaParse preserves TABLE STRUCTURE which is critical for boundary tables, alpha allocations, etc.
-    """
-    def run_in_new_loop():
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
-            if not api_key:
-                raise ValueError("No LLAMAPARSE_API_KEY environment variable set")
-
-            # Save bytes to temp file (LlamaParse needs file path)
-            with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
-                tmp.write(file_content)
-                tmp_path = tmp.name
-
-            try:
-                parser = LlamaParse(
-                    api_key=api_key,
-                    result_type="markdown",  # Markdown preserves table structure!
-                    verbose=True,
-                    language="en",
-                    parsing_instruction="This is a clinical trial protocol. Pay special attention to statistical tables, boundary tables, alpha allocation tables, and sample size calculations. Preserve all numeric values exactly."
-                )
-
-                documents = loop.run_until_complete(parser.aload_data(tmp_path))
-
-                if documents:
-                    full_text = "\n\n".join([doc.text for doc in documents])
-                    return full_text
-                return ""
-            finally:
-                # Clean up temp file
-                os.unlink(tmp_path)
-        finally:
-            loop.close()
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-        future = executor.submit(run_in_new_loop)
-        return future.result(timeout=300)  # 5 minute timeout
-
-
 def extract_text_from_pdf(file_content: bytes) -> str:
-    """
-    Extract text from PDF file.
-    Uses LlamaParse for high-quality extraction (preserves tables!).
-    Falls back to PyPDF2 if LlamaParse is not available.
-    """
-    # TRY LLAMAPARSE FIRST (preserves tables!)
-    if LLAMAPARSE_AVAILABLE:
-        api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
-        if api_key:
-            try:
-                print("[PDF Parse] Using LlamaParse for table-preserving extraction...")
-                text = _run_llamaparse_on_bytes(file_content)
-                if text:
-                    table_count = text.count('|---|')
-                    print(f"[PDF Parse] LlamaParse SUCCESS: {len(text):,} chars, ~{table_count} tables detected")
-                    return text
-                else:
-                    print("[PDF Parse] LlamaParse returned empty, falling back to PyPDF2")
-            except Exception as e:
-                print(f"[PDF Parse] LlamaParse failed: {e}, falling back to PyPDF2")
-        else:
-            print("[PDF Parse] No LLAMAPARSE_API_KEY set, using PyPDF2")
-    else:
-        print("[PDF Parse] LlamaParse not available, using PyPDF2")
-
-    # FALLBACK: PyPDF2 (loses table formatting)
+    """Extract text from PDF file."""
     try:
-        print("[PDF Parse] Using PyPDF2 (WARNING: tables may not be preserved)")
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(file_content))
         text_parts = []
         for page in pdf_reader.pages:
             text = page.extract_text()
             if text:
                 text_parts.append(text)
-        result = "\n\n".join(text_parts)
-        print(f"[PDF Parse] PyPDF2 extracted {len(result):,} chars")
-        return result
+        return "\n\n".join(text_parts)
     except Exception as e:
         raise ValueError(f"Failed to parse PDF: {str(e)}")
 

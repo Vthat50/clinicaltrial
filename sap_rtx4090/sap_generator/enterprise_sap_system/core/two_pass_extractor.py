@@ -31,11 +31,49 @@ import sys
 import json
 import time
 import asyncio
-import concurrent.futures
+import threading
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Optional, Any
 from enum import Enum
+
+# LlamaParse for high-quality PDF extraction (handles tables, complex layouts)
+try:
+    from llama_cloud_services import LlamaParse
+    LLAMAPARSE_AVAILABLE = True
+    print("[TwoPassExtractor] LlamaParse available")
+except ImportError:
+    LLAMAPARSE_AVAILABLE = False
+    print("[TwoPassExtractor] WARNING: LlamaParse not available - install with: pip install llama-cloud-services")
+
+# Thread-local storage for event loops (avoid conflicts with uvloop)
+_thread_local = threading.local()
+
+def _get_or_create_event_loop():
+    """Get or create a persistent event loop for this thread."""
+    if not hasattr(_thread_local, 'loop') or _thread_local.loop.is_closed():
+        _thread_local.loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(_thread_local.loop)
+    return _thread_local.loop
+
+def _run_async_in_thread(coro):
+    """Run an async coroutine in a dedicated thread with a persistent event loop."""
+    from concurrent.futures import ThreadPoolExecutor
+
+    def run_in_persistent_loop():
+        loop = _get_or_create_event_loop()
+        try:
+            return loop.run_until_complete(coro)
+        except RuntimeError as e:
+            if "Event loop is closed" in str(e):
+                _thread_local.loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(_thread_local.loop)
+                return _thread_local.loop.run_until_complete(coro)
+            raise
+
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(run_in_persistent_loop)
+        return future.result(timeout=300)  # 5 minute timeout for large PDFs
 
 # Use Anthropic (preferred) or OpenAI
 if os.environ.get('ANTHROPIC_API_KEY'):
@@ -47,59 +85,6 @@ elif os.environ.get('OPENAI_API_KEY'):
 else:
     from anthropic import Anthropic
     _USE_OPENAI = False
-
-# =============================================================================
-# LLAMAPARSE FOR HIGH-QUALITY PDF EXTRACTION (preserves tables!)
-# =============================================================================
-
-# LlamaParse is CRITICAL for extracting tables with boundary values, alpha allocations, etc.
-try:
-    from llama_cloud_services import LlamaParse
-    LLAMAPARSE_AVAILABLE = True
-    print("[TwoPassExtractor] LlamaParse available - tables will be preserved")
-except ImportError:
-    LLAMAPARSE_AVAILABLE = False
-    print("[TwoPassExtractor] WARNING: LlamaParse not available - tables may be lost")
-    print("  Install with: pip install llama-cloud-services")
-
-
-def _run_llamaparse_sync(pdf_path: str) -> str:
-    """
-    Run LlamaParse in a separate thread to avoid event loop conflicts.
-    This is needed because FastAPI/uvicorn has its own event loop.
-    """
-    def run_in_new_loop():
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
-            if not api_key:
-                raise ValueError("No LLAMAPARSE_API_KEY or LLAMA_CLOUD_API_KEY environment variable set")
-
-            parser = LlamaParse(
-                api_key=api_key,
-                result_type="markdown",  # Markdown preserves table structure!
-                verbose=True,
-                language="en",
-                # These settings help with clinical trial protocols
-                parsing_instruction="This is a clinical trial protocol. Pay special attention to statistical tables, boundary tables, alpha allocation tables, and sample size calculations. Preserve all numeric values exactly."
-            )
-
-            # Run async parse in this thread's loop
-            documents = loop.run_until_complete(parser.aload_data(pdf_path))
-
-            if documents:
-                # Combine all document text
-                full_text = "\n\n".join([doc.text for doc in documents])
-                return full_text
-            return ""
-        finally:
-            loop.close()
-
-    # Run in a separate thread to avoid event loop conflicts
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-        future = executor.submit(run_in_new_loop)
-        return future.result(timeout=300)  # 5 minute timeout for large PDFs
 
 
 # =============================================================================
@@ -937,71 +922,67 @@ class TwoPassExtractor:
         """
         Process a PDF file using LlamaParse for high-quality extraction.
 
-        LlamaParse preserves TABLE STRUCTURE which is critical for:
-        - Boundary tables (Z-scores, p-values, HR boundaries)
-        - Alpha allocation tables
-        - Sample size tables
-        - Censoring rules tables
-
-        Falls back to PyMuPDF if LlamaParse is not available.
+        LlamaParse handles:
+        - Complex tables (boundary tables, alpha allocation)
+        - Multi-column layouts
+        - Headers/footers
+        - Preserves formatting that contains critical statistical values
         """
         protocol_id = kwargs.pop('protocol_id', Path(pdf_path).stem)
-        verbose = kwargs.get('verbose', True)
 
-        if verbose:
-            print(f"\n{'='*70}")
-            print(f"PARSING PDF: {pdf_path}")
-            print(f"{'='*70}")
-
-        # TRY LLAMAPARSE FIRST (preserves tables!)
+        # Use LlamaParse for accurate PDF extraction
         if LLAMAPARSE_AVAILABLE:
-            try:
-                if verbose:
-                    print("  [LlamaParse] Parsing PDF with table preservation...")
-                    print("  [LlamaParse] This may take 1-2 minutes for large protocols...")
+            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
+            if api_key:
+                print(f"[TwoPassExtractor] Using LlamaParse for PDF extraction: {pdf_path}")
+                try:
+                    llamaparse = LlamaParse(
+                        api_key=api_key,
+                        result_type="markdown",
+                        verbose=True
+                    )
 
-                start_time = time.time()
-                protocol_text = _run_llamaparse_sync(pdf_path)
-                elapsed = time.time() - start_time
+                    # Async parse in separate thread (avoid uvloop conflicts)
+                    async def async_parse():
+                        return await asyncio.wait_for(
+                            llamaparse.aparse(pdf_path),
+                            timeout=180.0  # 3 minute timeout
+                        )
 
-                if protocol_text:
-                    if verbose:
-                        print(f"  [LlamaParse] SUCCESS: {len(protocol_text):,} characters in {elapsed:.1f}s")
-                        # Show table detection
-                        table_count = protocol_text.count('|---|')
-                        if table_count > 0:
-                            print(f"  [LlamaParse] Detected ~{table_count} tables (markdown format)")
+                    print("[TwoPassExtractor] Running LlamaParse async extraction...")
+                    result = _run_async_in_thread(async_parse())
 
-                    return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
-                else:
-                    if verbose:
-                        print("  [LlamaParse] WARNING: Empty result, falling back to PyMuPDF")
-            except Exception as e:
-                if verbose:
-                    print(f"  [LlamaParse] ERROR: {e}")
-                    print("  [LlamaParse] Falling back to PyMuPDF...")
+                    # Get markdown output (preserves tables and formatting)
+                    markdown_docs = result.get_markdown_documents(split_by_page=False)
+
+                    if markdown_docs:
+                        protocol_text = "\n\n".join(doc.text for doc in markdown_docs)
+                        print(f"[TwoPassExtractor] LlamaParse extracted {len(protocol_text):,} characters")
+                        return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
+                    else:
+                        print("[TwoPassExtractor] WARNING: LlamaParse returned no content, falling back to PyMuPDF")
+
+                except Exception as e:
+                    print(f"[TwoPassExtractor] LlamaParse error: {e}, falling back to PyMuPDF")
+            else:
+                print("[TwoPassExtractor] WARNING: LLAMAPARSE_API_KEY not set, falling back to PyMuPDF")
         else:
-            if verbose:
-                print("  [LlamaParse] Not available, using PyMuPDF (tables may be lost)")
+            print("[TwoPassExtractor] WARNING: LlamaParse not available, using PyMuPDF (lower quality)")
 
-        # FALLBACK: PyMuPDF (basic text extraction, loses table formatting)
+        # Fallback to PyMuPDF (less accurate for tables)
         try:
             import fitz
         except ImportError:
             raise ImportError("Install PyMuPDF: pip install PyMuPDF")
 
-        if verbose:
-            print("  [PyMuPDF] Extracting text (WARNING: tables may not be preserved)...")
-
+        print(f"[TwoPassExtractor] Using PyMuPDF fallback for: {pdf_path}")
         doc = fitz.open(pdf_path)
         protocol_text = ""
         for page in doc:
             protocol_text += page.get_text()
         doc.close()
 
-        if verbose:
-            print(f"  [PyMuPDF] Extracted {len(protocol_text):,} characters")
-
+        print(f"[TwoPassExtractor] PyMuPDF extracted {len(protocol_text):,} characters")
         return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
 
     # =========================================================================
@@ -1042,20 +1023,49 @@ class TwoPassExtractor:
         return result
 
     def extract_from_pdf(self, pdf_path: str, **kwargs) -> TwoPassExtractionResult:
-        """Legacy method for PDF extraction."""
-        try:
-            import fitz
-        except ImportError:
-            raise ImportError("Install PyMuPDF: pip install PyMuPDF")
-
-        doc = fitz.open(pdf_path)
-        protocol_text = ""
-        for page in doc:
-            protocol_text += page.get_text()
-        doc.close()
-
+        """Legacy method for PDF extraction - uses LlamaParse."""
+        protocol_text = self._extract_pdf_text(pdf_path)
         protocol_id = Path(pdf_path).stem
         return self.extract(protocol_text, protocol_id=protocol_id, **kwargs)
+
+    def _extract_pdf_text(self, pdf_path: str) -> str:
+        """Extract text from PDF using LlamaParse (preferred) or PyMuPDF (fallback)."""
+        # Try LlamaParse first
+        if LLAMAPARSE_AVAILABLE:
+            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
+            if api_key:
+                try:
+                    llamaparse = LlamaParse(
+                        api_key=api_key,
+                        result_type="markdown",
+                        verbose=True
+                    )
+
+                    async def async_parse():
+                        return await asyncio.wait_for(
+                            llamaparse.aparse(pdf_path),
+                            timeout=180.0
+                        )
+
+                    result = _run_async_in_thread(async_parse())
+                    markdown_docs = result.get_markdown_documents(split_by_page=False)
+
+                    if markdown_docs:
+                        return "\n\n".join(doc.text for doc in markdown_docs)
+                except Exception as e:
+                    print(f"[TwoPassExtractor] LlamaParse error: {e}")
+
+        # Fallback to PyMuPDF
+        try:
+            import fitz
+            doc = fitz.open(pdf_path)
+            text = ""
+            for page in doc:
+                text += page.get_text()
+            doc.close()
+            return text
+        except ImportError:
+            raise ImportError("Install PyMuPDF: pip install PyMuPDF")
 
 
 def result_to_dict(result: TwoPassExtractionResult) -> dict:
