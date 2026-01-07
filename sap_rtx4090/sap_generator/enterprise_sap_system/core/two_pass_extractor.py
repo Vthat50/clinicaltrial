@@ -30,6 +30,8 @@ import os
 import sys
 import json
 import time
+import asyncio
+import concurrent.futures
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Optional, Any
@@ -45,6 +47,59 @@ elif os.environ.get('OPENAI_API_KEY'):
 else:
     from anthropic import Anthropic
     _USE_OPENAI = False
+
+# =============================================================================
+# LLAMAPARSE FOR HIGH-QUALITY PDF EXTRACTION (preserves tables!)
+# =============================================================================
+
+# LlamaParse is CRITICAL for extracting tables with boundary values, alpha allocations, etc.
+try:
+    from llama_cloud_services import LlamaParse
+    LLAMAPARSE_AVAILABLE = True
+    print("[TwoPassExtractor] LlamaParse available - tables will be preserved")
+except ImportError:
+    LLAMAPARSE_AVAILABLE = False
+    print("[TwoPassExtractor] WARNING: LlamaParse not available - tables may be lost")
+    print("  Install with: pip install llama-cloud-services")
+
+
+def _run_llamaparse_sync(pdf_path: str) -> str:
+    """
+    Run LlamaParse in a separate thread to avoid event loop conflicts.
+    This is needed because FastAPI/uvicorn has its own event loop.
+    """
+    def run_in_new_loop():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
+            if not api_key:
+                raise ValueError("No LLAMAPARSE_API_KEY or LLAMA_CLOUD_API_KEY environment variable set")
+
+            parser = LlamaParse(
+                api_key=api_key,
+                result_type="markdown",  # Markdown preserves table structure!
+                verbose=True,
+                language="en",
+                # These settings help with clinical trial protocols
+                parsing_instruction="This is a clinical trial protocol. Pay special attention to statistical tables, boundary tables, alpha allocation tables, and sample size calculations. Preserve all numeric values exactly."
+            )
+
+            # Run async parse in this thread's loop
+            documents = loop.run_until_complete(parser.aload_data(pdf_path))
+
+            if documents:
+                # Combine all document text
+                full_text = "\n\n".join([doc.text for doc in documents])
+                return full_text
+            return ""
+        finally:
+            loop.close()
+
+    # Run in a separate thread to avoid event loop conflicts
+    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(run_in_new_loop)
+        return future.result(timeout=300)  # 5 minute timeout for large PDFs
 
 
 # =============================================================================
@@ -879,11 +934,64 @@ class TwoPassExtractor:
         return result
 
     def process_pdf(self, pdf_path: str, **kwargs) -> Dict[str, Any]:
-        """Process a PDF file."""
+        """
+        Process a PDF file using LlamaParse for high-quality extraction.
+
+        LlamaParse preserves TABLE STRUCTURE which is critical for:
+        - Boundary tables (Z-scores, p-values, HR boundaries)
+        - Alpha allocation tables
+        - Sample size tables
+        - Censoring rules tables
+
+        Falls back to PyMuPDF if LlamaParse is not available.
+        """
+        protocol_id = kwargs.pop('protocol_id', Path(pdf_path).stem)
+        verbose = kwargs.get('verbose', True)
+
+        if verbose:
+            print(f"\n{'='*70}")
+            print(f"PARSING PDF: {pdf_path}")
+            print(f"{'='*70}")
+
+        # TRY LLAMAPARSE FIRST (preserves tables!)
+        if LLAMAPARSE_AVAILABLE:
+            try:
+                if verbose:
+                    print("  [LlamaParse] Parsing PDF with table preservation...")
+                    print("  [LlamaParse] This may take 1-2 minutes for large protocols...")
+
+                start_time = time.time()
+                protocol_text = _run_llamaparse_sync(pdf_path)
+                elapsed = time.time() - start_time
+
+                if protocol_text:
+                    if verbose:
+                        print(f"  [LlamaParse] SUCCESS: {len(protocol_text):,} characters in {elapsed:.1f}s")
+                        # Show table detection
+                        table_count = protocol_text.count('|---|')
+                        if table_count > 0:
+                            print(f"  [LlamaParse] Detected ~{table_count} tables (markdown format)")
+
+                    return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
+                else:
+                    if verbose:
+                        print("  [LlamaParse] WARNING: Empty result, falling back to PyMuPDF")
+            except Exception as e:
+                if verbose:
+                    print(f"  [LlamaParse] ERROR: {e}")
+                    print("  [LlamaParse] Falling back to PyMuPDF...")
+        else:
+            if verbose:
+                print("  [LlamaParse] Not available, using PyMuPDF (tables may be lost)")
+
+        # FALLBACK: PyMuPDF (basic text extraction, loses table formatting)
         try:
             import fitz
         except ImportError:
             raise ImportError("Install PyMuPDF: pip install PyMuPDF")
+
+        if verbose:
+            print("  [PyMuPDF] Extracting text (WARNING: tables may not be preserved)...")
 
         doc = fitz.open(pdf_path)
         protocol_text = ""
@@ -891,7 +999,9 @@ class TwoPassExtractor:
             protocol_text += page.get_text()
         doc.close()
 
-        protocol_id = kwargs.pop('protocol_id', Path(pdf_path).stem)
+        if verbose:
+            print(f"  [PyMuPDF] Extracted {len(protocol_text):,} characters")
+
         return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
 
     # =========================================================================
