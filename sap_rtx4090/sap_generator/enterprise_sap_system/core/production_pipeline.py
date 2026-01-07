@@ -221,6 +221,110 @@ class ProductionSAPPipeline:
             parallel: Enable parallel processing for faster generation (default: True)
             **kwargs: Additional arguments (nct_id, etc.)
 
+        V2 DIRECT GENERATION:
+        Uses TwoPassExtractor.process_protocol() which:
+        1. Discovers all statistical elements (checklist)
+        2. Generates SAP directly from FULL protocol text
+        NO information loss - full protocol sent to LLM with checklist.
+        """
+        try:
+            # =================================================================
+            # V2 DIRECT GENERATION (no information loss)
+            # =================================================================
+            print("\n" + "="*70)
+            print("[V2 DIRECT GENERATION] Using checklist + full protocol approach")
+            print("="*70)
+
+            protocol_id = Path(pdf_path).stem if pdf_path else "protocol"
+
+            # Run direct generation: discover → generate → validate
+            result = self.two_pass_extractor.process_protocol(
+                protocol_text=protocol_text,
+                protocol_id=protocol_id,
+                validate=True,
+                verbose=True
+            )
+
+            sap_text = result.get('sap_text', '')
+            validation = result.get('validation', {})
+            discovered_elements = result.get('discovered_elements', [])
+
+            # Log results
+            print(f"\n[V2] Elements discovered: {len(discovered_elements)}")
+            print(f"[V2] Validation score: {validation.get('overall_score', 0):.1%}")
+            print(f"[V2] SAP length: {len(sap_text):,} characters")
+
+            if validation.get('critical_gaps'):
+                print("[V2] Critical gaps:")
+                for gap in validation['critical_gaps']:
+                    print(f"  - {gap}")
+
+            # Build facts dict from discovered elements for compatibility
+            facts = {
+                '_direct_generation': True,
+                '_discovery_count': len(discovered_elements),
+                '_validation_score': validation.get('overall_score', 0),
+            }
+
+            # Extract some basic facts from discovered elements for metadata
+            for elem in discovered_elements:
+                cat = elem.get('category', '')
+                name = elem.get('name', '').lower()
+                if cat == 'study_design':
+                    if 'phase' in name:
+                        facts['phase'] = elem.get('description', '')
+                    if 'blinding' in name or 'open-label' in name:
+                        facts['blinding_type'] = elem.get('description', '')
+                elif cat == 'sample_size':
+                    facts['sample_size'] = elem.get('description', '')
+                elif cat == 'endpoints' and 'primary' in name:
+                    facts['primary_endpoint'] = elem.get('description', '')
+
+            # Build verification result for compatibility
+            @dataclass
+            class VerificationResult:
+                passed: bool
+                missing_slots: List[str]
+                confidence: float
+
+            verification = VerificationResult(
+                passed=validation.get('overall_score', 0) >= 0.8,
+                missing_slots=validation.get('missing', []),
+                confidence=validation.get('overall_score', 0)
+            )
+
+            return GenerationResult(
+                success=True,
+                sap_text=sap_text,
+                facts=facts,
+                sections={},  # Not using sectioned generation anymore
+                verification=verification,
+                quality_score=validation.get('overall_score', 0),
+                warnings=validation.get('critical_gaps', []),
+                error=None
+            )
+
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            return GenerationResult(
+                success=False,
+                sap_text="",
+                facts={},
+                sections={},
+                verification=None,
+                quality_score=0.0,
+                warnings=[],
+                error=str(e)
+            )
+
+    def generate_legacy(self, protocol_text: str, pdf_path: str = None, parallel: bool = True, **kwargs) -> GenerationResult:
+        """
+        LEGACY: Generate SAP using old extraction-based pipeline.
+
+        This method is kept for backward compatibility but is NOT recommended.
+        Use generate() instead which uses V2 direct generation.
+
         Steps:
         1. Extract facts by section with confidence scores
         1.5 Pre-generation validation
