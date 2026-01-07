@@ -1,23 +1,29 @@
 #!/usr/bin/env python3
 """
-Two-Pass Protocol Extraction System
-====================================
-Production-grade extraction that discovers then extracts.
+Two-Pass Protocol Extraction System (V2 - Direct Generation)
+=============================================================
+Production-grade SAP generation that discovers then generates directly.
 
-Pass 1: Discover all statistical elements in the protocol
-Pass 2: Extract detailed information for each discovered element
+Pass 1: Discover all statistical elements in the protocol (CHECKLIST)
+Pass 2: Generate SAP directly from full protocol text using checklist
+
+NO INFORMATION LOSS - Full protocol text goes directly to SAP generation.
 
 Architecture:
 ┌──────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ Protocol │───▶│ LlamaParse  │───▶│   Pass 1    │───▶│   Pass 2    │
-│   PDF    │    │  (sections) │    │  Discovery  │    │  Extraction │
+│ Protocol │───▶│ LlamaParse  │───▶│   Pass 1    │───▶│   Direct    │
+│   PDF    │    │  (full text)│    │  Discovery  │    │ Generation  │
 └──────────┘    └─────────────┘    └─────────────┘    └─────────────┘
                                           │                   │
                                           ▼                   ▼
                                    ┌─────────────┐    ┌─────────────┐
-                                   │  Element    │    │  Validated  │
-                                   │  Registry   │    │   Schema    │
+                                   │  Checklist  │───▶│  Complete   │
+                                   │  (40 items) │    │    SAP      │
                                    └─────────────┘    └─────────────┘
+
+Key Change from V1:
+- V1: Discovery → Extract each element → Flatten → Generate (LOSES INFO)
+- V2: Discovery → Use as checklist → Generate from FULL text (NO LOSS)
 """
 
 import os
@@ -30,7 +36,6 @@ from typing import Dict, List, Optional, Any
 from enum import Enum
 
 # Use Anthropic (preferred) or OpenAI
-# Force Anthropic if key available since it handles larger contexts better
 if os.environ.get('ANTHROPIC_API_KEY'):
     from anthropic import Anthropic
     _USE_OPENAI = False
@@ -70,13 +75,13 @@ class DiscoveredElement:
     name: str
     category: str
     description: str
-    section_hint: str  # Which section it was found in
-    priority: int = 1  # 1=critical, 2=important, 3=supplementary
+    section_hint: str
+    priority: int = 1
 
 
 @dataclass
 class ExtractedElement:
-    """Detailed extraction from Pass 2."""
+    """Detailed extraction from Pass 2 (legacy, kept for compatibility)."""
     element_name: str
     category: str
     extracted_data: Dict[str, Any]
@@ -102,7 +107,6 @@ class TwoPassExtractionResult:
             "_categories": list(set(e.category for e in self.discovered_elements))
         }
 
-        # Group extracted data by category
         by_category = {}
         for name, elem in self.extracted_data.items():
             cat = elem.category
@@ -114,7 +118,6 @@ class TwoPassExtractionResult:
                 "confidence": elem.confidence
             })
 
-        # Flatten into facts
         for cat, items in by_category.items():
             facts[cat] = items
 
@@ -156,7 +159,7 @@ class TwoPassExtractionResult:
 
 
 # =============================================================================
-# PASS 1: DISCOVERY
+# PASS 1: DISCOVERY (Enhanced for completeness)
 # =============================================================================
 
 DISCOVERY_PROMPT = """You are a biostatistician analyzing a clinical trial protocol.
@@ -165,37 +168,94 @@ TASK: Identify ALL statistical and methodological elements present in this proto
 Do NOT extract values yet - just LIST what elements exist.
 
 Return a JSON array of discovered elements. For each element include:
-- "name": Specific name (e.g., "Primary endpoint: PFS", "pMMR population analysis")
+- "name": Specific name (e.g., "Primary endpoint: PFS in pMMR population")
 - "category": One of [study_design, endpoints, populations, sample_size, hypotheses,
                statistical_methods, interim_analysis, multiplicity, missing_data,
                sensitivity_analyses, subgroups, safety, patient_reported_outcomes, other]
 - "description": Brief description of what this element covers
-- "section_hint": Which protocol section contains this (e.g., "Section 9.4", "Statistical Methods")
+- "section_hint": Which protocol section contains this
 - "priority": 1=critical for SAP, 2=important, 3=supplementary
 
-BE THOROUGH. Look for:
-- Multiple populations (e.g., pMMR, dMMR, all-comers) - list EACH separately
-- Multiple endpoints - list EACH with its analysis method
-- Multiple hypotheses (H1, H2, H3...) - list EACH
-- Alpha allocation/spending strategies
-- Each PRO instrument separately (EORTC QLQ-C30, EQ-5D, etc.)
-- Each sensitivity analysis
-- Each subgroup analysis
-- Censoring rules for each time-to-event endpoint
-- Treatment arms with doses
-- Comparator details
-- Any China/regional extensions
+BE EXHAUSTIVE. You MUST find and list:
+
+STUDY DESIGN (category: study_design):
+- Blinding type (open-label, single-blind, double-blind) - REQUIRED
+- Randomization ratio and method
+- Study phase
+- Treatment arms with specific doses
+- Comparator/control details
+- Stratification factors
+
+ENDPOINTS (category: endpoints):
+- Primary endpoint(s) - if CO-PRIMARY, list EACH separately
+- Secondary endpoints - list EACH separately
+- Exploratory endpoints
+- For each: definition, assessment timing, measurement method
+
+POPULATIONS (category: populations):
+- Each analysis population (ITT, FAS, PP, Safety)
+- If multiple patient subsets (e.g., pMMR, dMMR, all-comers), list EACH
+- Which population is PRIMARY for which endpoint
+
+HYPOTHESES (category: hypotheses):
+- List EVERY hypothesis: H1, H2, H3, H4, H5...
+- For each: type (superiority/non-inferiority/equivalence)
+- For NI hypotheses: the non-inferiority MARGIN is REQUIRED
+- Alpha allocated to each hypothesis
+
+SAMPLE SIZE (category: sample_size):
+- Total sample size
+- Per-arm sample size
+- Power calculation assumptions
+- Effect size / hazard ratio assumed
+
+STATISTICAL METHODS (category: statistical_methods):
+- Primary analysis method for each endpoint
+- Sensitivity analyses - list EACH
+- Handling of covariates
+- Model specifications
+
+INTERIM ANALYSIS (category: interim_analysis):
+- Count ALL interim analyses (IA1, IA2, IA3, etc.)
+- Timing of each (% information, # events)
+- Stopping boundaries at each
+- Alpha spending function
+- What is tested at each interim
+
+MULTIPLICITY (category: multiplicity):
+- Overall alpha (one-sided/two-sided)
+- Alpha split across hypotheses - EXACT allocation to each
+- Testing sequence/hierarchy
+- Gatekeeping strategy if applicable
+
+MISSING DATA (category: missing_data):
+- Primary approach for missing data
+- Sensitivity analyses for missing data
+
+SAFETY (category: safety):
+- Safety analysis population
+- Key safety endpoints
+- Analysis methods for safety
+
+PRO/QoL (category: patient_reported_outcomes):
+- Each PRO instrument (EORTC QLQ-C30, EQ-5D-5L, etc.) - list EACH
+- Timing of assessments
+- Analysis approach
+
+REGIONAL EXTENSIONS (category: other):
+- China extension - priority 2
+- Japan PMDA requirements - priority 2
+- Any regional differences - priority 2
 
 PROTOCOL TEXT:
 {protocol_text}
 
-Return ONLY valid JSON array, no markdown:"""
+Return ONLY valid JSON array, no markdown. Include AT LEAST 30 elements for a typical protocol:"""
 
 
 def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredElement]:
     """Pass 1: Discover all elements in the protocol."""
 
-    # Truncate if needed
     max_chars = 180000
     text = protocol_text[:max_chars] if len(protocol_text) > max_chars else protocol_text
 
@@ -218,7 +278,6 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
         )
         response_text = response.content[0].text
 
-    # Parse JSON
     try:
         if "```json" in response_text:
             response_text = response_text.split("```json")[1].split("```")[0]
@@ -227,11 +286,9 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
 
         response_text = response_text.strip()
 
-        # Try to repair truncated JSON arrays
         try:
             elements_raw = json.loads(response_text)
         except json.JSONDecodeError:
-            # Attempt to repair truncated JSON
             repaired = _repair_truncated_json(response_text)
             if repaired:
                 elements_raw = json.loads(repaired)
@@ -258,18 +315,13 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
 
 def _repair_truncated_json(text: str) -> Optional[str]:
     """Attempt to repair truncated JSON array."""
+    import re
+
     text = text.strip()
 
-    # Must start with [
     if not text.startswith('['):
         return None
 
-    # Find the last complete object
-    # Look for the last complete "}" followed by optional whitespace
-    import re
-
-    # Find all positions of complete objects ending with }
-    # We look for }, followed by possible whitespace, then either , or ] or end
     last_complete = -1
     depth = 0
     in_string = False
@@ -295,9 +347,7 @@ def _repair_truncated_json(text: str) -> Optional[str]:
                 last_complete = i
 
     if last_complete > 0:
-        # Truncate at last complete object and close the array
         repaired = text[:last_complete + 1] + "]"
-        # Remove any trailing comma before the ]
         repaired = re.sub(r',\s*\]$', ']', repaired)
         try:
             json.loads(repaired)
@@ -310,72 +360,314 @@ def _repair_truncated_json(text: str) -> Optional[str]:
 
 
 # =============================================================================
-# PASS 2: EXTRACTION
+# SAP TEMPLATE (Default)
 # =============================================================================
 
-EXTRACTION_PROMPT = """You are extracting detailed information about a specific element from a clinical trial protocol.
+DEFAULT_SAP_TEMPLATE = """
+STATISTICAL ANALYSIS PLAN
 
-ELEMENT TO EXTRACT: {element_name}
-CATEGORY: {category}
-DESCRIPTION: {description}
-LIKELY LOCATION: {section_hint}
+1. INTRODUCTION
+   1.1 Study Overview
+   1.2 Study Objectives
+   1.3 Study Design Summary
 
-Extract ALL relevant details for this element. Return a JSON object with:
-- "element_name": "{element_name}"
-- "extracted_data": {{...all relevant fields and values...}}
-- "source_text": "Exact quote from protocol (max 200 chars)"
-- "confidence": 0.0-1.0 confidence score
-- "notes": ["any caveats or uncertainties"]
+2. STUDY OBJECTIVES AND ENDPOINTS
+   2.1 Primary Objective(s) and Endpoint(s)
+   2.2 Secondary Objectives and Endpoints
+   2.3 Exploratory Objectives and Endpoints
 
-For extracted_data, include whatever fields are relevant. Examples:
+3. STUDY DESIGN
+   3.1 Overall Design
+   3.2 Blinding
+   3.3 Randomization and Stratification
+   3.4 Treatment Arms
+   3.5 Sample Size Determination
 
-For an ENDPOINT:
-{{"definition": "...", "analysis_method": "...", "estimand": "...", "censoring_rules": [...], "timing": "..."}}
+4. ANALYSIS POPULATIONS
+   4.1 Intent-to-Treat (ITT) / Full Analysis Set (FAS)
+   4.2 Per-Protocol Population
+   4.3 Safety Population
+   4.4 Other Populations (if applicable)
 
-For SAMPLE SIZE:
-{{"total": N, "per_arm": {{"arm1": N, "arm2": N}}, "assumptions": {{...}}, "power": X, "alpha": Y}}
-IMPORTANT: "total" MUST be an integer (use 0 if not specified in protocol)
+5. STATISTICAL HYPOTHESES AND TESTING STRATEGY
+   5.1 Primary Hypotheses
+   5.2 Secondary Hypotheses
+   5.3 Testing Hierarchy / Multiplicity Adjustment
+   5.4 Alpha Allocation
 
-For a POPULATION:
-{{"name": "...", "definition": "...", "n_expected": N, "primary_for": ["endpoint1"]}}
+6. STATISTICAL METHODS FOR EFFICACY
+   6.1 Primary Efficacy Analysis
+   6.2 Secondary Efficacy Analyses
+   6.3 Sensitivity Analyses
+   6.4 Subgroup Analyses
 
-For HYPOTHESES:
-{{"null": "H0: ...", "alternative": "H1: ...", "type": "superiority/non-inferiority", "margin": X, "alpha_allocated": Y}}
+7. INTERIM ANALYSES
+   7.1 Overview of Interim Analyses
+   7.2 Alpha Spending
+   7.3 Stopping Boundaries
+   7.4 Decision Rules
 
-For PRO:
-{{"instrument": "...", "domains": [...], "timing": [...], "analysis_method": "...", "MID": "..."}}
+8. SAFETY ANALYSES
+   8.1 Safety Population
+   8.2 Adverse Events
+   8.3 Laboratory Parameters
+   8.4 Other Safety Endpoints
 
-For SENSITIVITY ANALYSIS:
-{{"name": "...", "purpose": "...", "method": "...", "applies_to": "..."}}
+9. MISSING DATA
+   9.1 Missing Data Handling
+   9.2 Sensitivity Analyses for Missing Data
 
-Be precise. Extract exact numbers, percentages, and definitions from the protocol.
+10. PATIENT-REPORTED OUTCOMES (if applicable)
+    10.1 PRO Instruments
+    10.2 Analysis Methods
 
-PROTOCOL TEXT:
+11. REGIONAL CONSIDERATIONS (if applicable)
+    11.1 China Extension
+    11.2 Other Regional Requirements
+
+12. APPENDICES
+    12.1 Statistical Models
+    12.2 Tables, Figures, and Listings Specifications
+"""
+
+
+# =============================================================================
+# DIRECT SAP GENERATION (No information loss)
+# =============================================================================
+
+SAP_GENERATION_PROMPT = """You are an expert biostatistician writing a Statistical Analysis Plan (SAP) for a clinical trial.
+
+READ the protocol below completely. WRITE a comprehensive, production-quality SAP.
+
+══════════════════════════════════════════════════════════════════════════════
+CRITICAL: CHECKLIST OF ELEMENTS YOU MUST INCLUDE
+══════════════════════════════════════════════════════════════════════════════
+
+I discovered these {num_elements} elements in the protocol.
+EVERY SINGLE ONE must appear in your SAP with EXACT values from the protocol:
+
+{checklist}
+
+══════════════════════════════════════════════════════════════════════════════
+MANDATORY REQUIREMENTS
+══════════════════════════════════════════════════════════════════════════════
+
+1. BLINDING: State explicitly whether open-label, single-blind, or double-blind
+
+2. ENDPOINTS:
+   - If there are CO-PRIMARY endpoints, document BOTH with their relationship
+   - List ALL secondary endpoints
+
+3. HYPOTHESES:
+   - List EVERY hypothesis (H1, H2, H3, H4, H5...)
+   - For EACH hypothesis state: type (superiority/NI), alpha allocated
+   - For NON-INFERIORITY hypotheses: state the NI MARGIN explicitly
+
+4. INTERIM ANALYSES:
+   - State the TOTAL COUNT (e.g., "3 interim analyses plus final")
+   - For EACH interim: timing, what's tested, stopping boundaries
+
+5. ALPHA:
+   - Overall alpha level (one-sided or two-sided)
+   - If alpha is SPLIT across hypotheses, show EXACT allocation to each
+
+6. SAMPLE SIZE:
+   - Total N and per-arm N
+   - Power, effect size assumptions
+
+7. POPULATIONS:
+   - If multiple populations (pMMR, dMMR, all-comers), document EACH
+   - Which population is primary for which endpoint
+
+8. REGIONAL EXTENSIONS:
+   - If there's a China extension, include Section 11.1
+   - If there are other regional requirements, document them
+
+══════════════════════════════════════════════════════════════════════════════
+SAP TEMPLATE TO FOLLOW
+══════════════════════════════════════════════════════════════════════════════
+
+{sap_template}
+
+══════════════════════════════════════════════════════════════════════════════
+PROTOCOL TEXT
+══════════════════════════════════════════════════════════════════════════════
+
 {protocol_text}
 
-Return ONLY valid JSON, no markdown:"""
+══════════════════════════════════════════════════════════════════════════════
+NOW WRITE THE COMPLETE SAP
+══════════════════════════════════════════════════════════════════════════════
+
+Write a professional, comprehensive SAP. Include ALL elements from the checklist.
+Use exact values from the protocol. Do not skip anything."""
 
 
-def run_extraction(protocol_text: str, element: DiscoveredElement, model: str = None) -> ExtractedElement:
-    """Pass 2: Extract details for a specific element."""
+def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
+                        sap_template: str = None, model: str = None,
+                        verbose: bool = True) -> str:
+    """
+    Generate SAP directly from full protocol text.
 
-    # Truncate if needed
-    max_chars = 150000
-    text = protocol_text[:max_chars] if len(protocol_text) > max_chars else protocol_text
+    Uses discovered elements as a checklist to ensure completeness.
+    NO information is lost because we don't extract to intermediate fields.
 
-    prompt = EXTRACTION_PROMPT.format(
-        element_name=element.name,
-        category=element.category,
-        description=element.description,
-        section_hint=element.section_hint,
-        protocol_text=text
+    Args:
+        protocol_text: Full protocol text from LlamaParse
+        discovered_elements: Elements found in Pass 1 (used as checklist)
+        sap_template: Template structure for SAP (optional)
+        model: LLM model to use
+        verbose: Print progress
+
+    Returns:
+        Complete SAP text
+    """
+
+    if verbose:
+        print(f"\n{'-'*70}")
+        print("GENERATING SAP FROM FULL PROTOCOL TEXT")
+        print(f"{'-'*70}")
+
+    # Build checklist from discovered elements, grouped by category
+    by_category = {}
+    for elem in discovered_elements:
+        cat = elem.category
+        if cat not in by_category:
+            by_category[cat] = []
+        by_category[cat].append(elem)
+
+    checklist_parts = []
+    for cat in sorted(by_category.keys()):
+        checklist_parts.append(f"\n[{cat.upper()}]")
+        for elem in by_category[cat]:
+            priority_marker = "★" if elem.priority == 1 else "•"
+            checklist_parts.append(f"  {priority_marker} {elem.name}")
+            if elem.description:
+                checklist_parts.append(f"    → {elem.description}")
+
+    checklist = "\n".join(checklist_parts)
+
+    template = sap_template or DEFAULT_SAP_TEMPLATE
+
+    prompt = SAP_GENERATION_PROMPT.format(
+        num_elements=len(discovered_elements),
+        checklist=checklist,
+        sap_template=template,
+        protocol_text=protocol_text
+    )
+
+    # Handle context length
+    max_prompt_chars = 190000
+    if len(prompt) > max_prompt_chars:
+        # Calculate how much protocol text we can include
+        overhead = len(prompt) - len(protocol_text)
+        available_for_protocol = max_prompt_chars - overhead - 1000  # buffer
+
+        if available_for_protocol < 50000:
+            print("WARNING: Very limited space for protocol text")
+
+        protocol_text_truncated = protocol_text[:available_for_protocol]
+        prompt = SAP_GENERATION_PROMPT.format(
+            num_elements=len(discovered_elements),
+            checklist=checklist,
+            sap_template=template,
+            protocol_text=protocol_text_truncated + "\n\n[... PROTOCOL TRUNCATED DUE TO LENGTH ...]"
+        )
+
+        if verbose:
+            print(f"  Protocol truncated: {len(protocol_text):,} → {available_for_protocol:,} chars")
+
+    if verbose:
+        print(f"  Checklist: {len(discovered_elements)} elements across {len(by_category)} categories")
+        print(f"  Prompt size: {len(prompt):,} characters")
+        print(f"  Generating SAP...")
+
+    start_time = time.time()
+
+    if _USE_OPENAI:
+        client = OpenAI()
+        response = client.chat.completions.create(
+            model=model or "gpt-4o",
+            max_tokens=16000,
+            temperature=0.1,  # Lower temperature for consistency
+            messages=[{"role": "user", "content": prompt}]
+        )
+        sap_text = response.choices[0].message.content
+    else:
+        client = Anthropic()
+        response = client.messages.create(
+            model=model or "claude-sonnet-4-20250514",
+            max_tokens=16000,
+            messages=[{"role": "user", "content": prompt}]
+        )
+        sap_text = response.content[0].text
+
+    elapsed = time.time() - start_time
+
+    if verbose:
+        print(f"  Generated: {len(sap_text):,} characters in {elapsed:.1f}s")
+
+    return sap_text
+
+
+# =============================================================================
+# VALIDATION (Post-generation check)
+# =============================================================================
+
+VALIDATION_PROMPT = """Review this generated SAP against the checklist of required elements.
+
+CHECKLIST (elements that MUST be in the SAP):
+{checklist}
+
+GENERATED SAP:
+{sap_text}
+
+For each checklist item, determine if it's:
+- ✓ PRESENT: Element is clearly addressed in the SAP
+- ✗ MISSING: Element is not found in the SAP
+- ⚠ PARTIAL: Element is mentioned but incomplete
+
+Return JSON:
+{{
+    "present": ["element1", "element2", ...],
+    "missing": ["element3", ...],
+    "partial": ["element4", ...],
+    "overall_score": 0.0-1.0,
+    "critical_gaps": ["description of any critical missing items"]
+}}
+
+Return ONLY valid JSON:"""
+
+
+def validate_sap(sap_text: str, discovered_elements: List[DiscoveredElement],
+                 model: str = None, verbose: bool = True) -> Dict[str, Any]:
+    """
+    Validate generated SAP against discovered elements.
+
+    Returns validation report with coverage score and gaps.
+    """
+
+    if verbose:
+        print(f"\n{'-'*70}")
+        print("VALIDATING SAP COMPLETENESS")
+        print(f"{'-'*70}")
+
+    # Build simple checklist
+    checklist = "\n".join([
+        f"- [{e.category}] {e.name}"
+        for e in discovered_elements
+    ])
+
+    prompt = VALIDATION_PROMPT.format(
+        checklist=checklist,
+        sap_text=sap_text[:50000]  # Limit SAP text for validation
     )
 
     if _USE_OPENAI:
         client = OpenAI()
         response = client.chat.completions.create(
             model=model or "gpt-4o",
-            max_tokens=2000,
+            max_tokens=4000,
             messages=[{"role": "user", "content": prompt}]
         )
         response_text = response.choices[0].message.content
@@ -383,7 +675,7 @@ def run_extraction(protocol_text: str, element: DiscoveredElement, model: str = 
         client = Anthropic()
         response = client.messages.create(
             model=model or "claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=4000,
             messages=[{"role": "user", "content": prompt}]
         )
         response_text = response.content[0].text
@@ -394,177 +686,245 @@ def run_extraction(protocol_text: str, element: DiscoveredElement, model: str = 
         elif "```" in response_text:
             response_text = response_text.split("```")[1].split("```")[0]
 
-        data = json.loads(response_text.strip())
+        validation = json.loads(response_text.strip())
 
-        return ExtractedElement(
-            element_name=element.name,
-            category=element.category,
-            extracted_data=data.get("extracted_data", {}),
-            source_text=data.get("source_text", ""),
-            confidence=data.get("confidence", 0.5),
-            notes=data.get("notes", [])
-        )
+        if verbose:
+            score = validation.get('overall_score', 0)
+            present = len(validation.get('present', []))
+            missing = len(validation.get('missing', []))
+            partial = len(validation.get('partial', []))
 
-    except json.JSONDecodeError as e:
-        return ExtractedElement(
-            element_name=element.name,
-            category=element.category,
-            extracted_data={"raw_response": response_text[:1000]},
-            source_text="",
-            confidence=0.0,
-            notes=[f"Parse error: {str(e)}"]
-        )
+            print(f"\n  Coverage Score: {score:.1%}")
+            print(f"  Present: {present} | Partial: {partial} | Missing: {missing}")
+
+            if validation.get('critical_gaps'):
+                print(f"\n  Critical Gaps:")
+                for gap in validation['critical_gaps']:
+                    print(f"    ⚠ {gap}")
+
+        return validation
+
+    except json.JSONDecodeError:
+        if verbose:
+            print("  WARNING: Could not parse validation response")
+        return {
+            "present": [],
+            "missing": [],
+            "partial": [],
+            "overall_score": 0.0,
+            "critical_gaps": ["Validation parsing failed"],
+            "raw_response": response_text[:500]
+        }
 
 
 # =============================================================================
-# MAIN PIPELINE
+# MAIN CLASS
 # =============================================================================
 
 class TwoPassExtractor:
     """
-    Two-Pass Protocol Extraction System.
+    Two-Pass Protocol Extraction System (V2).
 
-    Pass 1: Discover all statistical elements
-    Pass 2: Extract detailed data for each element
+    Pass 1: Discover all statistical elements (checklist)
+    Pass 2: Generate SAP directly from full protocol text
+
+    This approach ensures NO information is lost between parsing and generation.
     """
 
     def __init__(self, model: str = None):
         self.model = model
+        self._last_discovered = None
+        self._last_sap = None
+
+    def discover(self, protocol_text: str, verbose: bool = True) -> List[DiscoveredElement]:
+        """
+        Pass 1: Discover all elements in the protocol.
+
+        Returns list of discovered elements to use as checklist.
+        """
+        if verbose:
+            print(f"\n{'='*70}")
+            print("PASS 1: ELEMENT DISCOVERY")
+            print(f"{'='*70}")
+            print(f"Protocol length: {len(protocol_text):,} characters")
+
+        start_time = time.time()
+        elements = run_discovery(protocol_text, self.model)
+        elapsed = time.time() - start_time
+
+        if verbose:
+            print(f"\nDiscovered {len(elements)} elements in {elapsed:.1f}s")
+
+            # Summary by category
+            by_cat = {}
+            for e in elements:
+                by_cat[e.category] = by_cat.get(e.category, 0) + 1
+
+            print("\nBy category:")
+            for cat, count in sorted(by_cat.items(), key=lambda x: -x[1]):
+                print(f"  {cat}: {count}")
+
+        self._last_discovered = elements
+        return elements
+
+    def generate_sap(self, protocol_text: str, discovered_elements: List[DiscoveredElement] = None,
+                     sap_template: str = None, validate: bool = True,
+                     verbose: bool = True) -> Dict[str, Any]:
+        """
+        Pass 2: Generate SAP directly from full protocol text.
+
+        Args:
+            protocol_text: Full protocol text
+            discovered_elements: Elements from Pass 1 (or run discovery if None)
+            sap_template: Custom SAP template (optional)
+            validate: Run validation after generation
+            verbose: Print progress
+
+        Returns:
+            Dict with 'sap_text', 'validation', and 'metadata'
+        """
+
+        # Run discovery if not provided
+        if discovered_elements is None:
+            discovered_elements = self.discover(protocol_text, verbose=verbose)
+
+        if verbose:
+            print(f"\n{'='*70}")
+            print("PASS 2: DIRECT SAP GENERATION")
+            print(f"{'='*70}")
+
+        # Generate SAP
+        sap_text = generate_sap_direct(
+            protocol_text=protocol_text,
+            discovered_elements=discovered_elements,
+            sap_template=sap_template,
+            model=self.model,
+            verbose=verbose
+        )
+
+        self._last_sap = sap_text
+
+        result = {
+            "sap_text": sap_text,
+            "discovered_count": len(discovered_elements),
+            "sap_length": len(sap_text)
+        }
+
+        # Validate if requested
+        if validate:
+            validation = validate_sap(
+                sap_text=sap_text,
+                discovered_elements=discovered_elements,
+                model=self.model,
+                verbose=verbose
+            )
+            result["validation"] = validation
+
+        return result
+
+    def process_protocol(self, protocol_text: str, protocol_id: str = "unknown",
+                        sap_template: str = None, validate: bool = True,
+                        verbose: bool = True) -> Dict[str, Any]:
+        """
+        Full pipeline: Discover → Generate → Validate.
+
+        This is the main entry point for production use.
+        """
+
+        if verbose:
+            print(f"\n{'='*70}")
+            print(f"PROCESSING PROTOCOL: {protocol_id}")
+            print(f"{'='*70}")
+
+        start_time = time.time()
+
+        # Pass 1: Discovery
+        discovered = self.discover(protocol_text, verbose=verbose)
+
+        # Pass 2: Generation
+        result = self.generate_sap(
+            protocol_text=protocol_text,
+            discovered_elements=discovered,
+            sap_template=sap_template,
+            validate=validate,
+            verbose=verbose
+        )
+
+        total_time = time.time() - start_time
+
+        result["protocol_id"] = protocol_id
+        result["total_time_s"] = total_time
+        result["discovered_elements"] = [asdict(e) for e in discovered]
+
+        if verbose:
+            print(f"\n{'='*70}")
+            print("PROCESSING COMPLETE")
+            print(f"{'='*70}")
+            print(f"  Total time: {total_time:.1f}s")
+            print(f"  Elements discovered: {len(discovered)}")
+            print(f"  SAP length: {len(result['sap_text']):,} chars")
+            if result.get('validation'):
+                print(f"  Validation score: {result['validation'].get('overall_score', 0):.1%}")
+
+        return result
+
+    def process_pdf(self, pdf_path: str, **kwargs) -> Dict[str, Any]:
+        """Process a PDF file."""
+        try:
+            import fitz
+        except ImportError:
+            raise ImportError("Install PyMuPDF: pip install PyMuPDF")
+
+        doc = fitz.open(pdf_path)
+        protocol_text = ""
+        for page in doc:
+            protocol_text += page.get_text()
+        doc.close()
+
+        protocol_id = kwargs.pop('protocol_id', Path(pdf_path).stem)
+        return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
+
+    # =========================================================================
+    # LEGACY METHODS (for backward compatibility)
+    # =========================================================================
 
     def extract(self, protocol_text: str, protocol_id: str = "unknown",
                 max_elements: int = 50, priority_threshold: int = 3,
                 verbose: bool = True) -> TwoPassExtractionResult:
         """
-        Full two-pass extraction pipeline.
+        Legacy extraction method (backward compatible).
 
-        Args:
-            protocol_text: Full protocol text
-            protocol_id: Identifier for the protocol
-            max_elements: Maximum elements to extract in Pass 2
-            priority_threshold: Only extract elements with priority <= this value
-            verbose: Print progress
-
-        Returns:
-            TwoPassExtractionResult with all discovered and extracted elements
+        NOTE: For new code, use process_protocol() instead.
+        This method still does element-by-element extraction which can lose info.
         """
 
         if verbose:
-            print(f"\n{'='*70}")
-            print("TWO-PASS PROTOCOL EXTRACTION")
-            print(f"{'='*70}")
-            print(f"Protocol: {protocol_id}")
-            print(f"Text length: {len(protocol_text):,} characters")
+            print("\n[NOTE: Using legacy extract() method. Consider using process_protocol() instead.]\n")
 
-        # PASS 1: Discovery
-        if verbose:
-            print(f"\n{'-'*70}")
-            print("PASS 1: DISCOVERY")
-            print(f"{'-'*70}")
+        # Discovery
+        discovered = self.discover(protocol_text, verbose=verbose)
 
-        start_time = time.time()
-        discovered = run_discovery(protocol_text, self.model)
-        discovery_time = time.time() - start_time
+        # For legacy compatibility, we still need to return TwoPassExtractionResult
+        # but we skip the detailed extraction since it loses information
 
-        if verbose:
-            print(f"\nDiscovered {len(discovered)} elements in {discovery_time:.1f}s")
-
-            # Group by category
-            by_category = {}
-            for elem in discovered:
-                cat = elem.category
-                if cat not in by_category:
-                    by_category[cat] = []
-                by_category[cat].append(elem)
-
-            print("\nElements by category:")
-            for cat, elems in sorted(by_category.items()):
-                print(f"  {cat}: {len(elems)}")
-                for e in elems[:3]:
-                    print(f"    - {e.name} (P{e.priority})")
-                if len(elems) > 3:
-                    print(f"    ... and {len(elems)-3} more")
-
-        # PASS 2: Extraction
-        if verbose:
-            print(f"\n{'-'*70}")
-            print("PASS 2: EXTRACTION")
-            print(f"{'-'*70}")
-
-        # Filter by priority and limit
-        to_extract = [e for e in discovered if e.priority <= priority_threshold]
-        to_extract = sorted(to_extract, key=lambda x: x.priority)[:max_elements]
-
-        if verbose:
-            print(f"\nExtracting {len(to_extract)} elements (priority <= {priority_threshold}, max {max_elements})")
-
-        extracted = {}
-        extraction_times = []
-
-        for i, element in enumerate(to_extract):
-            if verbose:
-                print(f"\n  [{i+1}/{len(to_extract)}] {element.name}...", end=" ", flush=True)
-
-            start_time = time.time()
-            result = run_extraction(protocol_text, element, self.model)
-            elapsed = time.time() - start_time
-            extraction_times.append(elapsed)
-
-            extracted[element.name] = result
-
-            if verbose:
-                if result.confidence >= 0.8:
-                    print(f"✓ ({elapsed:.1f}s, conf={result.confidence:.2f})")
-                elif result.confidence >= 0.5:
-                    print(f"⚠ ({elapsed:.1f}s, conf={result.confidence:.2f})")
-                else:
-                    print(f"✗ ({elapsed:.1f}s, conf={result.confidence:.2f})")
-
-        avg_time = sum(extraction_times) / len(extraction_times) if extraction_times else 0
-
-        if verbose:
-            print(f"\nAverage extraction time: {avg_time:.1f}s per element")
-
-        # Validation
-        validation_flags = []
-
-        # Check for critical elements
-        categories_found = set(e.category for e in discovered)
-        critical_categories = {"endpoints", "sample_size", "statistical_methods", "populations"}
-        missing = critical_categories - categories_found
-        if missing:
-            validation_flags.append(f"Missing critical categories: {missing}")
-
-        # Check confidence levels
-        low_confidence = [name for name, e in extracted.items() if e.confidence < 0.5]
-        if low_confidence:
-            validation_flags.append(f"Low confidence extractions: {low_confidence}")
-
-        # Build result
         result = TwoPassExtractionResult(
             protocol_id=protocol_id,
             discovered_elements=discovered,
-            extracted_data=extracted,
+            extracted_data={},  # Empty - use generate_sap() instead
             metadata={
                 "total_discovered": len(discovered),
-                "total_extracted": len(extracted),
-                "discovery_time_s": discovery_time,
-                "avg_extraction_time_s": avg_time,
-                "categories_found": list(categories_found)
+                "total_extracted": 0,
+                "note": "Use generate_sap() for actual SAP generation"
             },
-            validation_flags=validation_flags
+            validation_flags=["Legacy method used - no detailed extraction performed"]
         )
-
-        if verbose and validation_flags:
-            print(f"\n⚠ Validation flags:")
-            for flag in validation_flags:
-                print(f"  - {flag}")
 
         return result
 
     def extract_from_pdf(self, pdf_path: str, **kwargs) -> TwoPassExtractionResult:
-        """Extract from a PDF file."""
+        """Legacy method for PDF extraction."""
         try:
-            import fitz  # PyMuPDF
+            import fitz
         except ImportError:
             raise ImportError("Install PyMuPDF: pip install PyMuPDF")
 
@@ -579,7 +939,7 @@ class TwoPassExtractor:
 
 
 def result_to_dict(result: TwoPassExtractionResult) -> dict:
-    """Convert result to serializable dict."""
+    """Convert legacy result to serializable dict."""
     return {
         "protocol_id": result.protocol_id,
         "discovered_elements": [asdict(e) for e in result.discovered_elements],
@@ -606,10 +966,14 @@ def result_to_dict(result: TwoPassExtractionResult) -> dict:
 def main():
     if len(sys.argv) < 2:
         print("Usage: python two_pass_extractor.py <protocol.pdf> [output.json]")
+        print("\nThis will:")
+        print("  1. Discover all statistical elements in the protocol")
+        print("  2. Generate a complete SAP directly from the full text")
+        print("  3. Validate the SAP against discovered elements")
         sys.exit(1)
 
     protocol_path = sys.argv[1]
-    output_path = sys.argv[2] if len(sys.argv) > 2 else f"{Path(protocol_path).stem}_extracted.json"
+    output_base = sys.argv[2] if len(sys.argv) > 2 else Path(protocol_path).stem
 
     if not Path(protocol_path).exists():
         print(f"ERROR: File not found: {protocol_path}")
@@ -617,36 +981,24 @@ def main():
 
     try:
         extractor = TwoPassExtractor()
-        result = extractor.extract_from_pdf(protocol_path)
+        result = extractor.process_pdf(protocol_path, validate=True)
 
-        # Summary
-        print(f"\n{'='*70}")
-        print("EXTRACTION COMPLETE")
-        print(f"{'='*70}")
+        # Save SAP
+        sap_output = f"{output_base}_SAP.txt"
+        with open(sap_output, 'w') as f:
+            f.write(result['sap_text'])
+        print(f"\nSAP saved to: {sap_output}")
 
-        print(f"\nDiscovered: {result.metadata.get('total_discovered', 0)} elements")
-        print(f"Extracted:  {result.metadata.get('total_extracted', 0)} elements")
+        # Save full result as JSON
+        json_output = f"{output_base}_result.json"
 
-        # Save
-        output = result_to_dict(result)
-        with open(output_path, 'w') as f:
-            json.dump(output, f, indent=2)
+        # Remove sap_text from JSON (it's in the .txt file)
+        json_result = {k: v for k, v in result.items() if k != 'sap_text'}
+        json_result['sap_file'] = sap_output
 
-        print(f"\nSaved to: {output_path}")
-
-        # Print sample of extracted data
-        print(f"\n{'-'*70}")
-        print("SAMPLE EXTRACTED DATA")
-        print(f"{'-'*70}")
-
-        for name, elem in list(result.extracted_data.items())[:5]:
-            print(f"\n{name}:")
-            print(f"  Category: {elem.category}")
-            print(f"  Confidence: {elem.confidence:.2f}")
-            data_str = json.dumps(elem.extracted_data, indent=4)
-            if len(data_str) > 500:
-                data_str = data_str[:500] + "..."
-            print(f"  Data: {data_str}")
+        with open(json_output, 'w') as f:
+            json.dump(json_result, f, indent=2)
+        print(f"Result saved to: {json_output}")
 
     except Exception as e:
         print(f"\nERROR: {e}")

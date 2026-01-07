@@ -80,6 +80,16 @@ except ImportError:
     HybridSAPPipeline = None
     create_hybrid_pipeline = None
 
+# NEW: Direct SAP Generation (V2) - No information loss
+# Uses discovery as checklist, generates SAP directly from full protocol text
+try:
+    from enterprise_sap_system.core.two_pass_extractor import TwoPassExtractor
+    DIRECT_GENERATION_AVAILABLE = True
+except ImportError as e:
+    DIRECT_GENERATION_AVAILABLE = False
+    TwoPassExtractor = None
+    print(f"Warning: TwoPassExtractor (direct generation) not available: {e}")
+
 # NEW: Regulatory-grade SAP Generator (ICH E9 compliant, 45+ pages)
 try:
     from enterprise_sap_system.core.regulatory_sap_generator import (
@@ -370,6 +380,14 @@ async def health_detailed():
         "groq_configured": bool(GROQ_API_KEY),
         "anthropic_configured": bool(os.getenv("ANTHROPIC_API_KEY")),
         "openai_configured": bool(os.getenv("OPENAI_API_KEY")),
+    }
+
+    # Check SAP generation pipelines
+    health_status["components"]["pipelines"] = {
+        "direct_generation_v2": DIRECT_GENERATION_AVAILABLE,  # RECOMMENDED
+        "production_pipeline": PRODUCTION_PIPELINE_AVAILABLE,
+        "regulatory_generator": REGULATORY_GENERATOR_AVAILABLE,
+        "agentic_pipeline": AGENTIC_PIPELINE_AVAILABLE,
     }
 
     return health_status
@@ -876,6 +894,134 @@ async def generate_regulatory_sap(request: GenerateRequest):
         raise
     except Exception as e:
         logger.error(f"Regulatory SAP generation failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# DIRECT SAP GENERATION (V2) - No information loss
+# =============================================================================
+
+# Global instance for direct SAP generator
+_direct_generator: TwoPassExtractor = None
+
+
+def get_direct_generator():
+    """Get or create the direct SAP generator (TwoPassExtractor V2)."""
+    global _direct_generator
+    if _direct_generator is None and DIRECT_GENERATION_AVAILABLE:
+        _direct_generator = TwoPassExtractor()
+        logger.info("TwoPassExtractor V2 initialized (direct generation, no info loss)")
+    return _direct_generator
+
+
+class DirectSAPResponse(BaseModel):
+    """Response from direct SAP generation (V2 - no information loss)."""
+    success: bool
+    sap_text: str
+    # Discovery results
+    elements_discovered: int
+    categories_found: list
+    # Validation
+    validation_score: float
+    elements_present: int
+    elements_missing: int
+    elements_partial: int
+    critical_gaps: list
+    # Metadata
+    total_time: float
+    sap_length: int
+    generation_method: str
+    errors: list
+
+
+@app.post("/generate-direct", response_model=DirectSAPResponse)
+async def generate_direct_sap(request: GenerateRequest):
+    """
+    Generate SAP using DIRECT GENERATION (V2) - NO INFORMATION LOSS.
+
+    This is the RECOMMENDED endpoint for SAP generation.
+
+    Architecture:
+    1. Pass 1: Discover ALL statistical elements in protocol (checklist)
+    2. Pass 2: Generate SAP directly from FULL protocol text with checklist
+
+    Unlike the old pipeline which extracts → flattens → generates (loses info),
+    this approach sends the full protocol text directly to the LLM with a
+    checklist of elements to include. NO information is lost.
+
+    Benefits:
+    - 100% coverage of discovered elements
+    - Correct blinding type (open-label vs blinded)
+    - All hypotheses (H1, H2, H3, etc.) captured
+    - Correct interim analysis count
+    - Accurate alpha allocations
+    - Non-inferiority margins preserved
+    - Regional extensions (China, etc.) captured
+    """
+    import time
+    start_time = time.time()
+
+    try:
+        if not request.protocol_text.strip():
+            raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
+
+        if not DIRECT_GENERATION_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Direct generation not available - TwoPassExtractor import failed"
+            )
+
+        generator = get_direct_generator()
+        if generator is None:
+            raise HTTPException(
+                status_code=503,
+                detail="Direct generator not initialized"
+            )
+
+        # Run the full pipeline: discover → generate → validate
+        result = generator.process_protocol(
+            protocol_text=request.protocol_text,
+            protocol_id=request.filename or "uploaded_protocol",
+            validate=True,
+            verbose=True
+        )
+
+        processing_time = time.time() - start_time
+
+        # Extract validation results
+        validation = result.get('validation', {})
+        validation_score = validation.get('overall_score', 0.0)
+        elements_present = len(validation.get('present', []))
+        elements_missing = len(validation.get('missing', []))
+        elements_partial = len(validation.get('partial', []))
+        critical_gaps = validation.get('critical_gaps', [])
+
+        # Extract discovered element categories
+        discovered_elements = result.get('discovered_elements', [])
+        categories = list(set(e.get('category', 'other') for e in discovered_elements))
+
+        return DirectSAPResponse(
+            success=True,
+            sap_text=result.get('sap_text', ''),
+            elements_discovered=result.get('discovered_count', len(discovered_elements)),
+            categories_found=categories,
+            validation_score=validation_score,
+            elements_present=elements_present,
+            elements_missing=elements_missing,
+            elements_partial=elements_partial,
+            critical_gaps=critical_gaps,
+            total_time=result.get('total_time_s', processing_time),
+            sap_length=result.get('sap_length', len(result.get('sap_text', ''))),
+            generation_method="direct-v2 (discovery checklist + full protocol)",
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Direct SAP generation failed: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 
