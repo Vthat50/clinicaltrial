@@ -334,6 +334,7 @@ For an ENDPOINT:
 
 For SAMPLE SIZE:
 {{"total": N, "per_arm": {{"arm1": N, "arm2": N}}, "assumptions": {{...}}, "power": X, "alpha": Y}}
+IMPORTANT: "total" MUST be an integer (use 0 if not specified in protocol)
 
 For a POPULATION:
 {{"name": "...", "definition": "...", "n_expected": N, "primary_for": ["endpoint1"]}}

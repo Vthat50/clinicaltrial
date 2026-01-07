@@ -646,8 +646,14 @@ class ProductionSAPPipeline:
                 # Multiple ways sample size might be stored
                 if 'total' in data or 'total_n' in data or 'n' in data or 'sample_size' in data:
                     n = data.get('total') or data.get('total_n') or data.get('n') or data.get('sample_size')
-                    facts['sample_size'] = n
-                    facts['sample_size_total'] = n
+                    # Ensure n is an integer - Claude must return numbers, not text
+                    if isinstance(n, int):
+                        facts['sample_size'] = n
+                        facts['sample_size_total'] = n
+                    elif isinstance(n, str) and n.isdigit():
+                        facts['sample_size'] = int(n)
+                        facts['sample_size_total'] = int(n)
+                    # Skip non-numeric values - extraction prompt should enforce integers
                 if 'per_arm' in data or 'n_per_arm' in data:
                     facts['sample_size_per_arm'] = data.get('per_arm') or data.get('n_per_arm')
                 if 'power' in data or 'statistical_power' in data:
