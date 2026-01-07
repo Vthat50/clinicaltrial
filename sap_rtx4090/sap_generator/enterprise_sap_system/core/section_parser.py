@@ -70,7 +70,7 @@ def _run_async_in_thread(coro):
     # This prevents conflicts with FastAPI/uvicorn's event loop
     with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
         future = executor.submit(run_in_persistent_loop)
-        return future.result(timeout=300)  # 5 minute timeout
+        return future.result(timeout=240)  # 4 minute timeout for large PDFs
 
 # LlamaParse for accurate PDF parsing
 try:
@@ -122,80 +122,9 @@ class ParsedProtocol:
         return "\n\n".join(parts)
 
 
-# Multi-signal validation rules for each section type
-# Based on research: required + expected + forbidden keywords
-SECTION_VALIDATORS = {
-    'statistical_methods': {
-        'required': ['analysis', 'statistical'],
-        'expected': ['primary', 'endpoint', 'hypothesis', 'test', 'log-rank', 'cox', 'ancova', 'mmrm', 'stratified'],
-        'forbidden': ['table of contents', '..........', 'list of tables', 'list of figures'],
-        'min_length': 500
-    },
-    'sample_size': {
-        'required': ['sample', 'size'],
-        'expected': ['power', 'patients', 'subjects', 'hazard ratio', 'events', 'alpha', 'beta', 'calculation'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 50,  # Reduced from 100 - some protocols have very concise sample size sections
-        'min_expected_keywords': 1,  # Only need 1 expected keyword (default is 2)
-        'min_avg_line_length': 5  # Sample size sections can have short lines (numbers, formulas)
-    },
-    'interim_analysis': {
-        'required': ['interim'],
-        'expected': ['analysis', 'spending', 'o\'brien', 'fleming', 'boundary', 'futility', 'dmc', 'idmc'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 100  # Reduced from 200
-    },
-    'multiplicity': {
-        'required': ['multiplicity'],
-        'expected': ['hypothesis', 'alpha', 'type i', 'familywise', 'hierarchical', 'gatekeeping', 'adjustment'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 100  # Reduced from 200
-    },
-    'missing_data': {
-        'required': ['missing'],
-        'expected': ['data', 'censoring', 'imputation', 'sensitivity', 'discontinuation', 'withdrawal'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 200
-    },
-    'populations': {
-        'required': ['population'],
-        'expected': ['itt', 'intent-to-treat', 'per-protocol', 'safety', 'fas', 'analysis set', 'efficacy'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 200
-    },
-    'endpoints': {
-        'required': [],  # Don't require 'endpoint' in body - title already identified it
-        'expected': ['primary', 'secondary', 'outcome', 'efficacy', 'pfs', 'os', 'survival', 'response', 'orr', 'defined as', 'endpoint'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 100,  # Primary endpoint section can be short
-        'min_avg_line_length': 15  # Endpoints often have short bullet points
-    },
-    'objectives': {
-        'required': [],  # Title already identifies it
-        'expected': ['primary', 'secondary', 'objective', 'evaluate', 'assess', 'determine', 'efficacy', 'safety'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 100,
-        'min_avg_line_length': 15  # Objectives often have short bullet points
-    },
-    'stratification': {
-        'required': ['stratif'],
-        'expected': ['factor', 'randomiz', 'region', 'ecog', 'performance', 'baseline'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 150
-    },
-    'safety': {
-        'required': ['safety'],
-        'expected': ['adverse', 'event', 'toxicity', 'serious', 'aesi', 'discontinuation', 'ae', 'sae'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 300
-    },
-    'estimand': {
-        'required': ['estimand'],
-        'expected': ['intercurrent', 'strategy', 'treatment policy', 'hypothetical', 'composite'],
-        'forbidden': ['table of contents', '..........'],
-        'min_length': 200
-    }
-}
+# NO VALIDATION RULES - extract content directly from protocol
+# Template provides SAP structure (section names), content is copied from protocol as-is
+SECTION_VALIDATORS = {}
 
 # ICH M11 expected section order for validation
 ICH_M11_SECTION_ORDER = [
@@ -416,10 +345,13 @@ class ProtocolSectionParser:
         try:
             print(f"[SectionParser/LlamaParse] Parsing PDF: {pdf_path}")
 
-            # Define async parsing function
+            # Define async parsing function with timeout
             async def async_parse():
-                # Use aparse for async operation
-                result = await self._llamaparse.aparse(pdf_path)
+                # Use aparse for async operation with 3 minute timeout (protocols are large)
+                result = await asyncio.wait_for(
+                    self._llamaparse.aparse(pdf_path),
+                    timeout=180.0
+                )
                 return result
 
             # Run async parsing in separate thread with its own event loop
@@ -552,6 +484,109 @@ class ProtocolSectionParser:
             else:
                 print(f"[SectionParser/LlamaParse] ✗ '{section_type}': content too short ({len(content)} chars)")
 
+        # After extracting sections, check for large lumped sections and split them
+        for section_type, section in list(sections.items()):
+            if len(section.content) > 5000:  # Suspiciously large - may contain multiple sections
+                print(f"[SectionParser/LlamaParse] Section '{section_type}' is large ({len(section.content)} chars), attempting split...")
+                sub_sections = self._split_large_section(section.content)
+                if len(sub_sections) > 1:
+                    print(f"[SectionParser/LlamaParse] Split into {len(sub_sections)} sub-sections: {list(sub_sections.keys())}")
+                    # Add the split sections (don't replace the original, just add new ones)
+                    for sub_type, sub_content in sub_sections.items():
+                        if sub_type not in sections and sub_type != section_type:
+                            sections[sub_type] = ParsedSection(
+                                name=sub_type,
+                                title=sub_type,
+                                content=sub_content,
+                                confidence=0.7
+                            )
+                            print(f"[SectionParser/LlamaParse] + Added '{sub_type}': {len(sub_content)} chars")
+
+        return sections
+
+    def _split_large_section(self, content: str) -> Dict[str, str]:
+        """
+        Split a large lumped section into sub-sections based on header patterns.
+
+        Protocols often have sections like "Objectives" that contain Background,
+        Inclusion Criteria, Treatment Plan, Statistical Considerations, etc.
+        """
+        import re
+
+        # Patterns for internal section boundaries (headers within the content)
+        boundary_patterns = [
+            # "# Background:" or "# Statistical Considerations"
+            (r'\n#\s+([A-Z][A-Za-z\s/&,-]+?)(?::|)\s*\n', 1),
+            # "Background:" at start of line
+            (r'\n([A-Z][a-z]+(?:\s+[A-Za-z]+){0,3}):\s*\n', 1),
+            # ALL CAPS headers like "STATISTICAL CONSIDERATIONS"
+            (r'\n([A-Z][A-Z\s]{5,})\n', 1),
+            # Numbered sections like "9.1 Sample Size"
+            (r'\n(\d+\.\d*\s+[A-Z][^\n]{5,50})\n', 1),
+        ]
+
+        # Find all boundaries
+        boundaries = []
+        for pattern, group_idx in boundary_patterns:
+            for match in re.finditer(pattern, content):
+                header = match.group(group_idx).strip()
+                # Clean up header
+                header = re.sub(r'^#+\s*', '', header)  # Remove markdown #
+                header = header.strip(':').strip()
+
+                section_type = self._map_title_to_section_type(header)
+                if section_type:
+                    boundaries.append((match.start(), section_type, header))
+
+        # Also check for specific keyword-based boundaries (handles markdown # headers)
+        keyword_boundaries = [
+            (r'\n#*\s*(Inclusion Criteria)[:\s]*\n', 'inclusion_criteria'),
+            (r'\n#*\s*(Exclusion Criteria)[:\s]*\n', 'exclusion_criteria'),
+            (r'\n#*\s*(Treatment Plan)[:\s]*\n', 'treatment_plan'),
+            (r'\n#*\s*(Statistical Considerations)[:\s]*\n', 'statistical_methods'),
+            (r'\n#*\s*(Sample Size)[:\s]*\n', 'sample_size'),
+            (r'\n#*\s*(Background)[:\s]*\n', 'background'),
+            (r'\n#*\s*(Objectives)[:\s]*\n', 'objectives'),
+            (r'\n#*\s*(Study Design)[:\s]*\n', 'study_design'),
+            (r'\n#*\s*(Safety)[:\s]*\n', 'safety'),
+            (r'\n#*\s*(Efficacy)[:\s]*\n', 'efficacy'),
+            (r'\n#*\s*(Introduction)[:\s]*\n', 'introduction'),
+            (r'\n#*\s*(Study Objectives)[:\s]*\n', 'objectives'),
+            (r'\n#*\s*(Primary Endpoint)[:\s]*\n', 'endpoints'),
+            (r'\n#*\s*(Endpoints)[:\s]*\n', 'endpoints'),
+        ]
+
+        for pattern, section_type in keyword_boundaries:
+            for match in re.finditer(pattern, content, re.IGNORECASE):
+                header = match.group(1).strip()
+                # Don't add duplicates
+                if not any(b[1] == section_type for b in boundaries):
+                    boundaries.append((match.start(), section_type, header))
+
+        if len(boundaries) < 2:
+            return {}  # Not enough boundaries to split
+
+        # Sort by position
+        boundaries.sort(key=lambda x: x[0])
+
+        # Remove duplicate section types (keep first occurrence)
+        seen_types = set()
+        unique_boundaries = []
+        for pos, section_type, header in boundaries:
+            if section_type not in seen_types:
+                unique_boundaries.append((pos, section_type, header))
+                seen_types.add(section_type)
+        boundaries = unique_boundaries
+
+        # Extract content between boundaries
+        sections = {}
+        for i, (pos, section_type, header) in enumerate(boundaries):
+            end_pos = boundaries[i + 1][0] if i + 1 < len(boundaries) else len(content)
+            section_content = content[pos:end_pos].strip()
+
+            if len(section_content) > 100:  # Minimum content length
+                sections[section_type] = section_content
+
         return sections
 
     def _map_title_to_section_type(self, title: str) -> Optional[str]:
@@ -617,6 +652,10 @@ class ProtocolSectionParser:
 
         # Then check broad keywords
         broad_mappings = [
+            ('introduction', 'introduction'),
+            ('background', 'introduction'),  # Background often serves as intro
+            ('study design', 'study_design'),
+            ('trial design', 'study_design'),
             ('statistical', 'statistical_methods'),
             ('multiplicity', 'multiplicity'),
             ('interim', 'interim_analysis'),
