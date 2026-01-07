@@ -179,7 +179,14 @@ class FactVerifier:
             if value is None:
                 return []
             if isinstance(value, (list, tuple)):
-                return [float(v) for v in value if v is not None]
+                result = []
+                for v in value:
+                    if v is not None:
+                        try:
+                            result.append(float(v))
+                        except (TypeError, ValueError):
+                            pass  # Skip non-numeric values
+                return result
             try:
                 return [float(value)]
             except (TypeError, ValueError):
