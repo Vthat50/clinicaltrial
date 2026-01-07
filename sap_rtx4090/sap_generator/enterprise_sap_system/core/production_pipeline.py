@@ -60,6 +60,31 @@ except ImportError:
 
 
 # =============================================================================
+# SAFE TYPE CONVERSION - Claude may return text instead of numbers
+# =============================================================================
+
+def safe_int(value: Any, default: int = 0) -> Optional[int]:
+    """Safely convert value to int. Returns default if not numeric."""
+    if value is None:
+        return default
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        # Only convert if it's purely numeric
+        stripped = value.strip()
+        if stripped.isdigit():
+            return int(stripped)
+        # Try to extract leading number (e.g., "197 patients" -> 197)
+        import re
+        match = re.match(r'^(\d+)', stripped)
+        if match:
+            return int(match.group(1))
+    return default
+
+
+# =============================================================================
 # DATA CLASSES
 # =============================================================================
 
@@ -646,14 +671,11 @@ class ProductionSAPPipeline:
                 # Multiple ways sample size might be stored
                 if 'total' in data or 'total_n' in data or 'n' in data or 'sample_size' in data:
                     n = data.get('total') or data.get('total_n') or data.get('n') or data.get('sample_size')
-                    # Ensure n is an integer - Claude must return numbers, not text
-                    if isinstance(n, int):
-                        facts['sample_size'] = n
-                        facts['sample_size_total'] = n
-                    elif isinstance(n, str) and n.isdigit():
-                        facts['sample_size'] = int(n)
-                        facts['sample_size_total'] = int(n)
-                    # Skip non-numeric values - extraction prompt should enforce integers
+                    # Use safe_int - Claude may return text like "Not specified"
+                    n_int = safe_int(n)
+                    if n_int and n_int > 0:
+                        facts['sample_size'] = n_int
+                        facts['sample_size_total'] = n_int
                 if 'per_arm' in data or 'n_per_arm' in data:
                     facts['sample_size_per_arm'] = data.get('per_arm') or data.get('n_per_arm')
                 if 'power' in data or 'statistical_power' in data:
@@ -816,8 +838,10 @@ class ProductionSAPPipeline:
             elif sample_size and normalized.get('num_arms', 0) > 1:
                 # sample_size is per-arm, multiply by number of arms
                 num_arms = normalized.get('num_arms', 2)
-                normalized['total_sample_size'] = int(sample_size) * num_arms
-                print(f"[Normalize] Calculated total_sample_size: {sample_size} x {num_arms} = {normalized['total_sample_size']}")
+                sample_int = safe_int(sample_size)
+                if sample_int and sample_int > 0:
+                    normalized['total_sample_size'] = sample_int * num_arms
+                    print(f"[Normalize] Calculated total_sample_size: {sample_int} x {num_arms} = {normalized['total_sample_size']}")
 
         # =====================================================================
         # CRITICAL: Sidedness normalization - NEVER default to one-sided
@@ -1763,13 +1787,13 @@ Return the document with placeholders replaced. No explanations, just the fixed 
         # 1. SAMPLE SIZE: Fix wrong sample size values
         # =====================================================================
         total_sample_size = facts.get('total_sample_size') or facts.get('sample_size_total')
-        if total_sample_size and int(total_sample_size) > 0:
+        total = safe_int(total_sample_size)
+        if total and total > 0:
             # Pattern: "238 patients" when it should be "530 patients" (or similar)
             # Look for sample size mentions that are wrong
             sample_size_per_arm = facts.get('sample_size') or facts.get('sample_size_per_arm')
-            if sample_size_per_arm and isinstance(sample_size_per_arm, (int, float)):
-                per_arm = int(sample_size_per_arm)
-                total = int(total_sample_size)
+            per_arm = safe_int(sample_size_per_arm)
+            if per_arm and per_arm > 0:
 
                 # If text says per-arm number as total, fix it
                 if per_arm != total:
@@ -1917,14 +1941,16 @@ Return the document with placeholders replaced. No explanations, just the fixed 
 
         interim_events = facts.get('interim_events') or facts.get('interim_analysis_events')
         if interim_events:
+            events_val = None
             if isinstance(interim_events, list) and len(interim_events) > 0:
-                events_str = str(int(interim_events[0]))
+                events_val = safe_int(interim_events[0])
             elif isinstance(interim_events, (int, float)):
-                events_str = str(int(interim_events))
+                events_val = int(interim_events)
             else:
-                events_str = None
+                events_val = safe_int(interim_events)
 
-            if events_str:
+            if events_val and events_val > 0:
+                events_str = str(events_val)
                 result = re.sub(
                     r'interim\s+analysis\s+(?:at\s+)?(\d+)\s+events',
                     f'interim analysis at {events_str} events',
