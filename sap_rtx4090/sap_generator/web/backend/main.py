@@ -3352,10 +3352,24 @@ async def process_jobs_worker():
                     # FORCE TLF INJECTION HERE - GUARANTEED TO RUN
                     # =========================================================
                     print(f"  [MAIN.PY] Checking TLF tables in SAP...")
-                    has_table_14 = "Table 14" in sap_text
-                    has_section_12 = "## 12." in sap_text or "12. APPENDICES" in sap_text
 
-                    if not has_table_14:
+                    # Check for PLACEHOLDER text - this is the problem!
+                    has_placeholder = "[Primary endpoint as specified]" in sap_text or "[Primary endpoint]" in sap_text
+
+                    if has_placeholder:
+                        print(f"  [MAIN.PY] FOUND PLACEHOLDER TEXT - removing bad APPENDIX section")
+                        # Remove everything from "APPENDIX: TLF" onwards
+                        for marker in ["APPENDIX: TLF", "APPENDIX:\n", "\nAPPENDIX"]:
+                            if marker in sap_text:
+                                idx = sap_text.find(marker)
+                                sap_text = sap_text[:idx].strip()
+                                print(f"  [MAIN.PY] Removed placeholder APPENDIX at position {idx}")
+                                break
+
+                    # Now check if we need to inject TLF tables
+                    has_good_tables = "Table 14" in sap_text and "[Primary endpoint" not in sap_text
+
+                    if not has_good_tables:
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
 
                         # Extract endpoints from discovered elements
