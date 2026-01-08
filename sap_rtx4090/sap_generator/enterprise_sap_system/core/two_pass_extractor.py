@@ -1612,19 +1612,19 @@ Return ONLY valid JSON, no explanation."""
             inputs = {
                 'phase': extracted.get('phase'),
                 'alpha': extracted.get('alpha'),
-                'beta': extracted.get('beta', 0.10),
+                'beta': extracted.get('beta') or 0.10,
                 'n_analyses': extracted.get('n_analyses'),
-                'events': extracted.get('pfs_events', []) or [],
+                'events': extracted.get('pfs_events') or [],
                 'info_fractions': [],
                 'hr': extracted.get('hr'),
                 'ni_margin': extracted.get('ni_margin'),
                 'median_control': extracted.get('median_control'),
                 'p0': extracted.get('p0'),
                 'p1': extracted.get('p1'),
-                'os_events': extracted.get('os_events'),
+                'os_events': extracted.get('os_events') or [],
                 'os_alpha': extracted.get('os_alpha'),
                 'china_events': None,
-                'spending_function': extracted.get('spending_function', 'OF'),
+                'spending_function': extracted.get('spending_function') or 'OF',
             }
 
             print(f"  [Claude] Successfully extracted boundary parameters")
@@ -1674,19 +1674,19 @@ Return ONLY valid JSON, no explanation."""
                     inputs = {
                         'phase': extracted.get('phase'),
                         'alpha': extracted.get('alpha'),
-                        'beta': extracted.get('beta', 0.10),
+                        'beta': extracted.get('beta') or 0.10,
                         'n_analyses': extracted.get('n_analyses'),
-                        'events': extracted.get('pfs_events', []) or [],
+                        'events': extracted.get('pfs_events') or [],
                         'info_fractions': [],
                         'hr': extracted.get('hr'),
                         'ni_margin': extracted.get('ni_margin'),
                         'median_control': extracted.get('median_control'),
                         'p0': extracted.get('p0'),
                         'p1': extracted.get('p1'),
-                        'os_events': extracted.get('os_events'),
+                        'os_events': extracted.get('os_events') or [],
                         'os_alpha': extracted.get('os_alpha'),
                         'china_events': None,
-                        'spending_function': extracted.get('spending_function', 'OF'),
+                        'spending_function': extracted.get('spending_function') or 'OF',
                     }
 
                     print(f"  [LlamaExtract] Successfully extracted boundary parameters (fallback)")
@@ -1796,12 +1796,12 @@ Return ONLY valid JSON, no explanation."""
 
             try:
                 # Use generate_interim_analysis_section for complete output
-                hr_alternative = inputs.get('hr', 0.7)
+                hr_alternative = inputs.get('hr') or 0.7
                 ni_margin = inputs.get('ni_margin')
 
                 # Check if we have separate PFS and OS events
-                pfs_events = inputs.get('events', [])
-                pfs_alpha = inputs.get('alpha', 0.025)
+                pfs_events = inputs.get('events') or []
+                pfs_alpha = inputs.get('alpha') or 0.025
 
                 # Generate the complete interim analysis section
                 formatted = self.boundary_calculator.generate_interim_analysis_section(
