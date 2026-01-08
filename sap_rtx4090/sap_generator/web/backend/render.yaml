@@ -9,8 +9,14 @@ services:
     plan: free
     buildCommand: |
       pip install -r requirements.txt
-      # Install R packages for boundary calculations
-      R -e "install.packages(c('gsDesign', 'rpact'), repos='https://cloud.r-project.org', quiet=TRUE)" || echo "R packages installation skipped - will use scipy fallback"
+      # Install rpy2 and R packages if R is available (from Aptfile)
+      if command -v R &> /dev/null; then
+        echo "R found, installing rpy2 and R packages..."
+        pip install rpy2>=3.5.0
+        R -e "install.packages(c('gsDesign', 'rpact'), repos='https://cloud.r-project.org', quiet=TRUE)"
+      else
+        echo "R not found - using scipy fallback for boundary calculations"
+      fi
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: SUPABASE_URL

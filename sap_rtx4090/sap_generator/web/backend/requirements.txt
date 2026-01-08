@@ -21,8 +21,7 @@ networkx>=3.2.0
 numpy>=1.24.0
 scipy>=1.11.0
 
-# R integration for boundary calculations (requires R runtime)
-rpy2>=3.5.0
+# Note: rpy2 installed separately in build command after R is available
 
 # Agentic HybridRAG Pipeline dependencies
 chromadb>=0.4.0
