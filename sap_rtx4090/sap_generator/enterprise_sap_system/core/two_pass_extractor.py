@@ -90,6 +90,126 @@ import re
 
 
 # =============================================================================
+# TLF SHELL RETRIEVER - Uses ChromaDB 3-collection architecture
+# =============================================================================
+
+class TLFShellRetriever:
+    """Retrieve TLF shells from ChromaDB for APPENDICES section."""
+
+    def __init__(self):
+        self.rag_index = None
+        self._initialize_rag()
+
+    def _initialize_rag(self):
+        """Initialize RAG index for TLF retrieval."""
+        try:
+            from .sap_rag import SAPRAGIndex
+            # Use the same DB path as the main RAG system
+            db_path = Path(__file__).parent.parent.parent / "chroma_db" / "sap_rag_3col"
+            if db_path.exists():
+                self.rag_index = SAPRAGIndex(db_path=str(db_path))
+                stats = self.rag_index.get_stats()
+                print(f"  [OK] TLF Retriever: {stats.get('tlf_count', 0)} TLF shells available")
+            else:
+                print(f"  [!] TLF Retriever: ChromaDB not found at {db_path}")
+        except Exception as e:
+            print(f"  [!] TLF Retriever initialization failed: {e}")
+
+    def get_tlf_shells(self, therapeutic_area: str = None) -> str:
+        """
+        Retrieve TLF shells from ChromaDB and format for appendix.
+
+        Returns formatted TLF shell text to append directly to SAP.
+        """
+        if not self.rag_index:
+            return self._get_default_tlf_text()
+
+        tlf_parts = []
+        tlf_parts.append("## APPENDIX: TLF SHELL SPECIFICATIONS\n")
+        tlf_parts.append("The following TLF shell specifications provide detailed programming requirements for statistical outputs.\n")
+
+        # Query TLF shells by category
+        categories = ["demographics", "efficacy", "safety", "figures"]
+        total_shells = 0
+
+        for category in categories:
+            try:
+                # Query TLF collection
+                tlfs = self.rag_index.query_tlf(
+                    query=category,
+                    category=category,
+                    n_results=3
+                )
+
+                if tlfs:
+                    tlf_parts.append(f"\n### {category.title()} TLF Shells\n")
+                    for tlf in tlfs:
+                        content = tlf.get('content', '')
+                        metadata = tlf.get('metadata', {})
+                        tlf_type = metadata.get('tlf_type', 'Table')
+                        tlf_number = metadata.get('tlf_number', 'TBD')
+                        tlf_title = metadata.get('tlf_title', '')
+
+                        tlf_parts.append(f"\n**{tlf_type} {tlf_number}**: {tlf_title}\n")
+                        # Include the full shell specification
+                        if content:
+                            # Clean up and include content
+                            content_clean = content.strip()[:2000]  # Limit length
+                            tlf_parts.append(f"```\n{content_clean}\n```\n")
+                        total_shells += 1
+
+            except Exception as e:
+                print(f"  [!] Error querying {category} TLFs: {e}")
+                continue
+
+        if total_shells == 0:
+            return self._get_default_tlf_text()
+
+        print(f"  [TLF] Retrieved {total_shells} TLF shells from ChromaDB")
+        return "\n".join(tlf_parts)
+
+    def _get_default_tlf_text(self) -> str:
+        """Return default TLF shell text when ChromaDB is not available."""
+        return """
+## APPENDIX: TLF SHELL SPECIFICATIONS
+
+### Table Shells
+
+**Table 14.1.1**: Demographics and Baseline Characteristics
+- Population: Safety Population
+- Variables: Age, Sex, Race, Ethnicity, Weight, Height, BMI, ECOG PS
+- Statistics: n, Mean (SD), Median (Min, Max) for continuous; n (%) for categorical
+- Stratification: By treatment arm
+
+**Table 14.1.2**: Subject Disposition
+- Population: All Randomized
+- Categories: Randomized, Treated, Completed, Discontinued (by reason)
+- Statistics: n (%)
+
+**Table 14.2.1**: Primary Efficacy Analysis
+- Population: ITT/FAS
+- Endpoint: [Primary endpoint as specified]
+- Statistics: Kaplan-Meier estimates, Cox model HR with 95% CI, Log-rank p-value
+
+**Table 14.3.1**: Treatment-Emergent Adverse Events Summary
+- Population: Safety Population
+- Categories: Any TEAE, Grade ≥3, Serious, Leading to discontinuation
+- Statistics: n (%) by treatment arm
+
+### Figure Shells
+
+**Figure 14.2.1**: Kaplan-Meier Plot for Primary Endpoint
+- X-axis: Time (months)
+- Y-axis: Event-free probability
+- Elements: Survival curves by arm, 95% CI bands, number at risk table, median with 95% CI
+
+**Figure 14.2.2**: Forest Plot for Subgroup Analyses
+- Subgroups: Prespecified per protocol
+- Statistics: HR (95% CI), interaction p-values
+"""
+
+
+# =============================================================================
 # RAG RETRIEVER - Similar SAP sections for few-shot examples
 # =============================================================================
 
@@ -1065,9 +1185,10 @@ class TwoPassExtractor:
         self._last_sap = None
 
         # Initialize RAG and Knowledge Graph
-        print("[TwoPassExtractor] Initializing with RAG + Knowledge Graph...")
+        print("[TwoPassExtractor] Initializing with RAG + Knowledge Graph + TLF Shells...")
         self.rag_retriever = RAGRetriever()
         self.knowledge_graph = KnowledgeGraph()
+        self.tlf_retriever = TLFShellRetriever()
         print(f"  [OK] RAG: {len(self.rag_retriever.sections_db)} sections indexed")
         print(f"  [OK] Knowledge Graph: {len(self.knowledge_graph.ENDPOINT_METHODS)} endpoint types")
 
@@ -1163,6 +1284,19 @@ class TwoPassExtractor:
             verbose=verbose
         )
 
+        # CRITICAL: Append TLF shells directly to SAP
+        # LLM often writes placeholder text for appendices - we must append real TLF shells
+        if verbose:
+            print(f"\n{'-'*70}")
+            print("APPENDING TLF SHELL SPECIFICATIONS")
+            print(f"{'-'*70}")
+
+        tlf_shells = self.tlf_retriever.get_tlf_shells(therapeutic_area=therapeutic_area)
+        sap_text += "\n\n---\n\n" + tlf_shells
+
+        if verbose:
+            print(f"  Appended {len(tlf_shells):,} chars of TLF specifications")
+
         self._last_sap = sap_text
 
         result = {
@@ -1172,7 +1306,8 @@ class TwoPassExtractor:
             "therapeutic_area": therapeutic_area,
             "endpoint_type": endpoint_type,
             "rag_examples_used": len(rag_examples) > 0,
-            "knowledge_graph_used": True
+            "knowledge_graph_used": True,
+            "tlf_shells_appended": True
         }
 
         # Validate if requested
