@@ -1005,12 +1005,11 @@ def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
     """Generate TLF specifications from discovered endpoints.
 
     Extracts actual endpoint names and creates specific table/figure specs.
-    This prevents Claude from using placeholder text from training data.
+    NO FALLBACK - if no endpoints found, returns empty string.
     """
     # Extract endpoints from discovered elements
     primary_endpoints = []
     secondary_endpoints = []
-    populations = []
 
     for elem in discovered_elements:
         cat = (elem.category or '').lower()
@@ -1022,38 +1021,35 @@ def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
                 primary_endpoints.append(desc)
             elif 'secondary' in name or 'secondary' in cat:
                 secondary_endpoints.append(desc)
-        elif 'population' in cat or 'population' in name:
-            populations.append(desc)
 
-    # Build TLF specs with actual names
+    # NO FALLBACK - if no endpoints found, return empty
+    if not primary_endpoints and not secondary_endpoints:
+        print("[TLF] WARNING: No endpoints found in discovered elements")
+        return ""
+
+    # Build TLF specs with actual names only
     specs = []
-    specs.append("Generate these SPECIFIC tables and figures:")
+    specs.append("Generate these SPECIFIC tables and figures using the exact endpoint names below:")
     specs.append("")
     specs.append("Tables:")
-    specs.append("- Table 14.1.1: Demographics and Baseline Characteristics")
-    specs.append("- Table 14.1.2: Subject Disposition")
 
-    # Add primary endpoint tables with actual names
-    for i, endpoint in enumerate(primary_endpoints[:3], start=1):
+    # Primary endpoint tables
+    for i, endpoint in enumerate(primary_endpoints, start=1):
         short_name = endpoint[:100] if len(endpoint) > 100 else endpoint
         specs.append(f"- Table 14.2.{i}: {short_name}")
 
-    # Add secondary endpoint tables
-    for i, endpoint in enumerate(secondary_endpoints[:3], start=1):
+    # Secondary endpoint tables
+    for i, endpoint in enumerate(secondary_endpoints, start=1):
         short_name = endpoint[:100] if len(endpoint) > 100 else endpoint
         specs.append(f"- Table 14.2.{len(primary_endpoints) + i}: {short_name}")
 
-    specs.append("- Table 14.3.1: Treatment-Emergent Adverse Events Summary")
-    specs.append("- Table 14.3.2: Serious Adverse Events")
     specs.append("")
     specs.append("Figures:")
 
-    # Add figures for primary endpoints
-    for i, endpoint in enumerate(primary_endpoints[:2], start=1):
+    # Figures for primary endpoints
+    for i, endpoint in enumerate(primary_endpoints, start=1):
         short_name = endpoint[:80] if len(endpoint) > 80 else endpoint
         specs.append(f"- Figure 14.2.{i}: Kaplan-Meier Plot - {short_name}")
-
-    specs.append("- Figure 14.2.3: Forest Plot for Subgroup Analyses")
 
     return "\n".join(specs)
 
