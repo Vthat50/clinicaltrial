@@ -88,6 +88,9 @@ else:
 
 import re
 
+# Deterministic verification (non-LLM)
+from .deterministic_verifier import verify_sap_deterministic, AuditReport
+
 
 # =============================================================================
 # POST-PROCESSORS - Deterministic fixes after SAP generation
@@ -1293,7 +1296,7 @@ class TwoPassExtractor:
 
     def generate_sap(self, protocol_text: str, discovered_elements: List[DiscoveredElement] = None,
                      sap_template: str = None, validate: bool = True,
-                     verbose: bool = True) -> Dict[str, Any]:
+                     verbose: bool = True, protocol_id: str = "unknown") -> Dict[str, Any]:
         """
         Pass 2: Generate SAP directly from full protocol text.
 
@@ -1303,9 +1306,10 @@ class TwoPassExtractor:
             sap_template: Custom SAP template (optional)
             validate: Run validation after generation
             verbose: Print progress
+            protocol_id: Protocol identifier for audit trail
 
         Returns:
-            Dict with 'sap_text', 'validation', and 'metadata'
+            Dict with 'sap_text', 'validation', 'verification', and 'metadata'
         """
 
         # Run discovery if not provided
@@ -1362,6 +1366,37 @@ class TwoPassExtractor:
         if verbose:
             print(f"[PostProcess] SAP post-processing complete")
 
+        # =====================================================================
+        # DETERMINISTIC VERIFICATION (Non-LLM)
+        # =====================================================================
+        # Verify SAP against protocol and calculations WITHOUT using LLM
+        if verbose:
+            print(f"\n{'-'*70}")
+            print("DETERMINISTIC VERIFICATION (Non-LLM)")
+            print(f"{'-'*70}")
+
+        try:
+            audit_report, audit_text = verify_sap_deterministic(
+                sap_text=sap_text,
+                protocol_text=protocol_text,
+                discovered_elements=discovered_elements,
+                r_boundaries=getattr(self, '_last_r_boundaries', None),
+                protocol_id=protocol_id
+            )
+
+            if verbose:
+                print(f"  Checks: {audit_report.total_checks}")
+                print(f"  Passed: {audit_report.passed_checks}")
+                print(f"  Failed: {audit_report.failed_checks}")
+                print(f"  Warnings: {audit_report.warning_checks}")
+                if audit_report.requires_human_review:
+                    print(f"  ⚠️  REQUIRES HUMAN REVIEW")
+        except Exception as e:
+            if verbose:
+                print(f"  [!] Verification error: {e}")
+            audit_report = None
+            audit_text = f"Verification failed: {e}"
+
         self._last_sap = sap_text
 
         result = {
@@ -1373,10 +1408,19 @@ class TwoPassExtractor:
             "rag_examples_used": len(rag_examples) > 0,
             "knowledge_graph_used": False,  # Hardcoded KG removed, JSON version can be connected later
             "tlf_in_sap": True,  # Claude generates TLF specs in Section 12 APPENDICES
-            "boundary_info_provided": bool(boundary_info and "not available" not in boundary_info.lower())
+            "boundary_info_provided": bool(boundary_info and "not available" not in boundary_info.lower()),
+            # Deterministic verification results
+            "verification": {
+                "passed": audit_report.passed_checks if audit_report else 0,
+                "failed": audit_report.failed_checks if audit_report else 0,
+                "warnings": audit_report.warning_checks if audit_report else 0,
+                "requires_human_review": audit_report.requires_human_review if audit_report else True,
+                "critical_failures": audit_report.critical_failures if audit_report else [],
+                "audit_report": audit_text
+            }
         }
 
-        # Validate if requested
+        # Validate if requested (legacy LLM-based validation)
         if validate:
             validation = validate_sap(
                 sap_text=sap_text,
