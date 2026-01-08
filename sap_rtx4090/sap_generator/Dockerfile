@@ -29,6 +29,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install rpy2 now that R is available
 RUN pip install --no-cache-dir rpy2>=3.5.0
 
+# Copy VERSION file first to bust cache when code changes
+COPY enterprise_sap_system/VERSION ./VERSION_CHECK
+
 # Copy all necessary code
 COPY enterprise_sap_system ./enterprise_sap_system
 COPY chroma_db ./chroma_db
