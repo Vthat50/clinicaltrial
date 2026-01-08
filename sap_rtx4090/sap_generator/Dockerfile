@@ -15,7 +15,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install R packages for boundary calculations
-RUN R -e "install.packages(c('gsDesign', 'rpact'), repos='https://cloud.r-project.org', quiet=TRUE)"
+# Note: clinfun needed for Phase 2, gsDesign/rpact for Phase 3
+RUN R -e "install.packages(c('gsDesign', 'rpact', 'clinfun'), repos='https://cloud.r-project.org')" && \
+    R -e "if (!require('gsDesign')) stop('gsDesign not installed')" && \
+    R -e "if (!require('rpact')) stop('rpact not installed')" && \
+    R -e "if (!require('clinfun')) stop('clinfun not installed')"
 
 # Set working directory
 WORKDIR /app
