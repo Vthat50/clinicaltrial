@@ -1450,9 +1450,10 @@ class TwoPassExtractor:
             info_parts.append(f"OS Alpha: α = {os_alpha} (one-sided)")
 
         # Power
-        beta = inputs.get('beta', 0.10)
-        power = (1 - beta) * 100
-        info_parts.append(f"Power: {power:.0f}%")
+        beta = inputs.get('beta')
+        if beta is not None:
+            power = (1 - beta) * 100
+            info_parts.append(f"Power: {power:.0f}%")
 
         # Hazard ratio
         hr = inputs.get('hr')
@@ -1470,14 +1471,15 @@ class TwoPassExtractor:
             info_parts.append(f"Control Median Survival: {median} months")
 
         # Spending function
-        sf = inputs.get('spending_function', 'OF')
+        sf = inputs.get('spending_function') or 'OF'
         sf_name = "Lan-DeMets O'Brien-Fleming" if sf == "OF" else "Lan-DeMets Pocock" if sf == "Pocock" else sf
-        info_parts.append(f"Alpha Spending Function: {sf_name}")
+        if sf:
+            info_parts.append(f"Alpha Spending Function: {sf_name}")
 
         # Number of analyses
         n_analyses = inputs.get('n_analyses')
-        events = inputs.get('events', [])
-        os_events = inputs.get('os_events', [])
+        events = inputs.get('events') or []
+        os_events = inputs.get('os_events') or []
 
         if n_analyses:
             n_interim = n_analyses - 1
