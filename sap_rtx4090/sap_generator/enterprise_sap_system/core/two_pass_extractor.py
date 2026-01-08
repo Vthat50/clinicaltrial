@@ -1539,9 +1539,9 @@ class TwoPassExtractor:
 
     def _extract_boundary_inputs(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> Dict[str, Any]:
         """
-        Extract inputs for boundary calculations using Claude.
+        Extract inputs for boundary calculations using LlamaExtract.
 
-        Uses Claude LLM for intelligent extraction of:
+        Uses LlamaExtract for schema-driven structured extraction of:
         - Phase (Phase 2 or Phase 3)
         - Alpha levels (PFS and OS)
         - Number of interim analyses
@@ -1552,6 +1552,79 @@ class TwoPassExtractor:
         - Phase 2: p0 (null response rate), p1 (alternative response rate)
         - China extension parameters
         """
+        try:
+            from llama_cloud_services import LlamaExtract
+            from pydantic import BaseModel, Field
+            from typing import Optional, List as TypingList
+            import tempfile
+
+            # Define schema for boundary parameters using Pydantic
+            class BoundaryParameters(BaseModel):
+                """Schema for clinical trial boundary calculation parameters."""
+                phase: Optional[str] = Field(None, description="Trial phase: 'phase1', 'phase2', or 'phase3'")
+                alpha: Optional[float] = Field(None, description="One-sided alpha/significance level for PFS (e.g., 0.025 or 0.005)")
+                beta: Optional[float] = Field(None, description="Type II error rate (1 - power), e.g., 0.10 for 90% power")
+                n_analyses: Optional[int] = Field(None, description="Total number of analyses including final (e.g., 4 for 3 interim + 1 final)")
+                pfs_events: Optional[TypingList[int]] = Field(None, description="List of PFS event counts at each interim and final analysis")
+                os_events: Optional[TypingList[int]] = Field(None, description="List of OS event counts at each analysis")
+                os_alpha: Optional[float] = Field(None, description="Alpha allocated to OS endpoint (e.g., 0.02)")
+                hr: Optional[float] = Field(None, description="Assumed hazard ratio under alternative hypothesis (e.g., 0.70)")
+                ni_margin: Optional[float] = Field(None, description="Non-inferiority margin if NI trial (e.g., 1.1)")
+                median_control: Optional[float] = Field(None, description="Median survival in control arm in months")
+                p0: Optional[float] = Field(None, description="Null response rate for Phase 2 (e.g., 0.10)")
+                p1: Optional[float] = Field(None, description="Alternative response rate for Phase 2 (e.g., 0.25)")
+                spending_function: Optional[str] = Field(None, description="Alpha spending function: 'OF' for O'Brien-Fleming or 'Pocock'")
+
+            # Initialize LlamaExtract
+            extractor = LlamaExtract()
+
+            # Write protocol text to temp file for extraction
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+                f.write(protocol_text[:100000])  # Limit to 100k chars
+                temp_path = f.name
+
+            try:
+                # Extract using schema
+                results = extractor.extract(
+                    files=[temp_path],
+                    schema=BoundaryParameters.model_json_schema(),
+                )
+
+                if results and len(results) > 0:
+                    extracted = results[0].data if hasattr(results[0], 'data') else results[0]
+
+                    inputs = {
+                        'phase': extracted.get('phase'),
+                        'alpha': extracted.get('alpha'),
+                        'beta': extracted.get('beta', 0.10),
+                        'n_analyses': extracted.get('n_analyses'),
+                        'events': extracted.get('pfs_events', []) or [],
+                        'info_fractions': [],
+                        'hr': extracted.get('hr'),
+                        'ni_margin': extracted.get('ni_margin'),
+                        'median_control': extracted.get('median_control'),
+                        'p0': extracted.get('p0'),
+                        'p1': extracted.get('p1'),
+                        'os_events': extracted.get('os_events'),
+                        'os_alpha': extracted.get('os_alpha'),
+                        'china_events': None,
+                        'spending_function': extracted.get('spending_function', 'OF'),
+                    }
+
+                    print(f"  [LlamaExtract] Successfully extracted boundary parameters")
+                    return inputs
+
+            finally:
+                import os as os_module
+                if os_module.path.exists(temp_path):
+                    os_module.unlink(temp_path)
+
+        except ImportError:
+            print("  [!] LlamaExtract not available, falling back to Claude")
+        except Exception as e:
+            print(f"  [!] LlamaExtract failed: {e}, falling back to Claude")
+
+        # Fallback to Claude
         extraction_prompt = f"""Extract statistical parameters for interim analysis boundary calculations from this clinical trial protocol.
 
 IMPORTANT: Extract EXACT numerical values from the protocol. Return null for any values not explicitly stated.
