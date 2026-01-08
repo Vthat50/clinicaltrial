@@ -971,33 +971,16 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
     - If there's a China extension, include Section 11.1 with sample size
     - If there are other regional requirements, document them
 
-11. TLF SHELLS (Section 12.2 ONLY) - PROTOCOL-SPECIFIC, NO PLACEHOLDERS:
+11. TLF SHELLS (Section 12.2 ONLY):
 
-    ⚠️ CRITICAL TLF RULES:
-    - Put ALL TLF specifications in Section 12.2 ONLY
-    - DO NOT create a separate "APPENDIX: TLF SHELL SPECIFICATIONS" section
-    - DO NOT create any section after Section 12
+    In Section 12.2, list specific tables and figures using the ACTUAL endpoint names from this protocol.
 
-    Generate Tables, Figures, and Listings using ACTUAL values from the protocol:
-
-    EXAMPLE - If protocol has PFS and OS as primary endpoints:
+    Example format:
     - Table 14.2.1.1: Kaplan-Meier Estimates of Progression-Free Survival (pMMR Population)
     - Table 14.2.1.2: Kaplan-Meier Estimates of Overall Survival (All-Comers)
-    - Figure 14.2.1: Kaplan-Meier Plot of PFS - Pembrolizumab + Lenvatinib vs Chemotherapy
+    - Figure 14.2.1: Kaplan-Meier Plot of PFS
 
-    NOT THIS (WRONG):
-    - Table 14.2.1: Primary Efficacy Analysis
-    - Endpoint: [Primary endpoint as specified]  ← NEVER DO THIS
-
-    BANNED PHRASES - Never write these:
-    - "[Primary endpoint as specified]"
-    - "[specify timepoints]"
-    - "[ENDPOINT]"
-    - "[Primary endpoint]"
-    - "as specified"
-    - Any text in square brackets
-
-    Read the protocol and use the ACTUAL names: "Overall Survival", "PFS", "ORR", etc.
+    Use the exact endpoint names you found in the protocol (e.g., "Overall Survival", "PFS", "ORR").
 
 ══════════════════════════════════════════════════════════════════════════════
 SAP TEMPLATE TO FOLLOW
@@ -1020,11 +1003,7 @@ Use exact values from the protocol. Use the Knowledge Graph methods where approp
 Follow the style/format from RAG examples but NOT their specific values.
 Do not skip anything.
 
-⚠️ FINAL REMINDER:
-- Section 12 is the LAST section
-- DO NOT create any "APPENDIX: TLF SHELL SPECIFICATIONS" after Section 12
-- All TLF specs go in Section 12.2
-- Use ACTUAL endpoint names (PFS, OS, ORR) - NO brackets or placeholders"""
+Section 12 is the final section of the SAP. Use actual endpoint names from the protocol."""
 
 
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
