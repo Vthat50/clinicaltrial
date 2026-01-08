@@ -101,33 +101,41 @@ from .audit_logger import get_audit_logger
 
 def strip_duplicate_appendix(sap_text: str) -> str:
     """
-    DETERMINISTIC: Cut TLF SHELL SPECIFICATIONS section. No conditions.
+    DETERMINISTIC: Remove everything after Section 12.
+
+    Claude keeps generating APPENDIX sections with placeholders despite instructions.
+    Solution: Cut off everything after "END OF STATISTICAL ANALYSIS PLAN" or after Section 12.
     """
-    print("[STRIP] ====== RUNNING strip_duplicate_appendix ======")
-    print(f"[STRIP] Input length: {len(sap_text)} chars")
-
-    # Normalize
-    sap_text = sap_text.replace('\r\n', '\n')
-
-    # JUST FIND AND CUT - no conditions
-    markers = [
-        'APPENDIX: TLF SHELL SPECIFICATIONS',
-        'APPENDIX: TLF SHELL',
-        'APPENDIX: TLF',
+    # Method 1: Cut at "END OF STATISTICAL ANALYSIS PLAN"
+    end_markers = [
+        'END OF STATISTICAL ANALYSIS PLAN',
+        'End of Statistical Analysis Plan',
+        'END OF SAP',
     ]
+    for marker in end_markers:
+        if marker in sap_text:
+            idx = sap_text.find(marker)
+            # Keep the marker and one line after, cut the rest
+            end_idx = sap_text.find('\n\n', idx + len(marker))
+            if end_idx > 0:
+                sap_text = sap_text[:end_idx].strip()
+                print(f"[PostProcess] Cut SAP at '{marker}'")
+                return sap_text
 
-    for marker in markers:
-        # Case-insensitive search
-        lower_text = sap_text.lower()
-        lower_marker = marker.lower()
-        if lower_marker in lower_text:
-            idx = lower_text.find(lower_marker)
-            print(f"[STRIP] FOUND '{marker}' at position {idx}")
-            sap_text = sap_text[:idx].rstrip()
-            print(f"[STRIP] CUT! New length: {len(sap_text)} chars")
+    # Method 2: Cut at APPENDIX if no end marker found
+    appendix_markers = [
+        '\nAPPENDIX:',
+        '\nAPPENDIX A:',
+        '\n## APPENDIX',
+        '\n# APPENDIX',
+    ]
+    for marker in appendix_markers:
+        if marker in sap_text:
+            idx = sap_text.find(marker)
+            sap_text = sap_text[:idx].strip()
+            print(f"[PostProcess] Stripped APPENDIX section")
             return sap_text
 
-    print("[STRIP] No TLF SHELL marker found")
     return sap_text
 
 
@@ -155,23 +163,14 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
         # Look for primary endpoint - check both category and name
         cat_lower = category.lower()
         name_lower = name.lower()
-        desc_lower = (description or '').lower()
 
-        if 'endpoint' in cat_lower or 'endpoint' in name_lower or cat_lower == 'endpoints':
+        if 'endpoint' in cat_lower or 'endpoint' in name_lower:
             # Try to get a usable endpoint name
             # Priority: description, then extract from name
             endpoint_text = description if description else name
             if endpoint_text:
-                # Check for primary in name, description, OR look for PFS/primary patterns
-                is_primary = (
-                    'primary' in name_lower or
-                    'primary' in desc_lower or
-                    ('pfs' in name_lower and 'secondary' not in name_lower) or
-                    ('pfs' in desc_lower and 'secondary' not in desc_lower) or
-                    'progression-free' in name_lower or
-                    'progression-free' in desc_lower
-                )
-                if is_primary and not primary_endpoint:
+                # Clean up - extract just the endpoint name if it's embedded
+                if 'primary' in name_lower and not primary_endpoint:
                     primary_endpoint = endpoint_text
                     print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}")
                 endpoints.append(endpoint_text)
@@ -1006,66 +1005,55 @@ def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
     """Generate TLF specifications from discovered endpoints.
 
     Extracts actual endpoint names and creates specific table/figure specs.
-    NO FALLBACK - if no endpoints found, returns empty string.
+    This prevents Claude from using placeholder text from training data.
     """
     # Extract endpoints from discovered elements
     primary_endpoints = []
     secondary_endpoints = []
-
-    print(f"[TLF] Scanning {len(discovered_elements)} discovered elements for endpoints...")
+    populations = []
 
     for elem in discovered_elements:
         cat = (elem.category or '').lower()
         name = (elem.name or '').lower()
         desc = elem.description or elem.name or ''
 
-        # Debug: log all endpoint-related elements
-        if 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints':
-            print(f"[TLF]   Found endpoint element: cat='{cat}', name='{name[:50]}...'")
-
-        # Match endpoints - check category OR name contains endpoint keyword
-        is_endpoint = 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints'
-
-        if is_endpoint:
-            # Check for primary/secondary in both name AND description
-            combined = (name + ' ' + (elem.description or '')).lower()
-            if 'primary' in combined:
+        if 'endpoint' in cat or 'endpoint' in name:
+            if 'primary' in name or 'primary' in cat:
                 primary_endpoints.append(desc)
-                print(f"[TLF]   -> PRIMARY endpoint: {desc[:80]}...")
-            elif 'secondary' in combined:
+            elif 'secondary' in name or 'secondary' in cat:
                 secondary_endpoints.append(desc)
-                print(f"[TLF]   -> SECONDARY endpoint: {desc[:80]}...")
+        elif 'population' in cat or 'population' in name:
+            populations.append(desc)
 
-    print(f"[TLF] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints")
-
-    # NO FALLBACK - if no endpoints found, return empty
-    if not primary_endpoints and not secondary_endpoints:
-        print("[TLF] WARNING: No endpoints found in discovered elements")
-        return ""
-
-    # Build TLF specs with actual names only
+    # Build TLF specs with actual names
     specs = []
-    specs.append("Generate these SPECIFIC tables and figures using the exact endpoint names below:")
+    specs.append("Generate these SPECIFIC tables and figures:")
     specs.append("")
     specs.append("Tables:")
+    specs.append("- Table 14.1.1: Demographics and Baseline Characteristics")
+    specs.append("- Table 14.1.2: Subject Disposition")
 
-    # Primary endpoint tables
-    for i, endpoint in enumerate(primary_endpoints, start=1):
+    # Add primary endpoint tables with actual names
+    for i, endpoint in enumerate(primary_endpoints[:3], start=1):
         short_name = endpoint[:100] if len(endpoint) > 100 else endpoint
         specs.append(f"- Table 14.2.{i}: {short_name}")
 
-    # Secondary endpoint tables
-    for i, endpoint in enumerate(secondary_endpoints, start=1):
+    # Add secondary endpoint tables
+    for i, endpoint in enumerate(secondary_endpoints[:3], start=1):
         short_name = endpoint[:100] if len(endpoint) > 100 else endpoint
         specs.append(f"- Table 14.2.{len(primary_endpoints) + i}: {short_name}")
 
+    specs.append("- Table 14.3.1: Treatment-Emergent Adverse Events Summary")
+    specs.append("- Table 14.3.2: Serious Adverse Events")
     specs.append("")
     specs.append("Figures:")
 
-    # Figures for primary endpoints
-    for i, endpoint in enumerate(primary_endpoints, start=1):
+    # Add figures for primary endpoints
+    for i, endpoint in enumerate(primary_endpoints[:2], start=1):
         short_name = endpoint[:80] if len(endpoint) > 80 else endpoint
         specs.append(f"- Figure 14.2.{i}: Kaplan-Meier Plot - {short_name}")
+
+    specs.append("- Figure 14.2.3: Forest Plot for Subgroup Analyses")
 
     return "\n".join(specs)
 
@@ -1684,16 +1672,8 @@ class TwoPassExtractor:
                     info_parts.append(f"  Final: {ev} OS events")
 
         # Calculate and add boundary tables if we have enough info
-        if verbose:
-            print(f"\n  Boundary calculation check:")
-            print(f"    - calculator exists: {self.boundary_calculator is not None}")
-            print(f"    - phase: {phase}")
-            print(f"    - alpha: {alpha}")
-            print(f"    - events: {events}")
-
         if self.boundary_calculator and phase == 'phase3' and alpha and events:
             try:
-                print(f"  [CALC] Running R/gsDesign boundary calculation...")
                 boundary_tables = self.boundary_calculator.generate_interim_analysis_section(
                     pfs_events=events,
                     pfs_alpha=alpha,
@@ -1705,14 +1685,11 @@ class TwoPassExtractor:
                 )
                 if boundary_tables:
                     info_parts.append(f"\n{boundary_tables}")
-                    print(f"  [OK] Generated boundary tables ({len(boundary_tables)} chars)")
-                else:
-                    print(f"  [!] Boundary calculation returned empty")
+                    if verbose:
+                        print(f"  [OK] Generated boundary tables")
             except Exception as e:
-                print(f"  [!] Boundary calculation failed: {e}")
-        else:
-            if verbose:
-                print(f"  [SKIP] Boundary calculation - missing requirements")
+                if verbose:
+                    print(f"  [!] Boundary calculation failed: {e}")
 
         # Phase 2 specific
         if phase == 'phase2':
