@@ -91,6 +91,9 @@ import re
 # Deterministic verification (non-LLM)
 from .deterministic_verifier import verify_sap_deterministic, AuditReport
 
+# Audit logging for regulatory compliance
+from .audit_logger import get_audit_logger
+
 
 # =============================================================================
 # POST-PROCESSORS - Deterministic fixes after SAP generation
@@ -131,68 +134,76 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     """
     Replace remaining placeholders using discovered elements.
 
-    Handles patterns like:
-    - [Primary endpoint as specified] → actual endpoint name
-    - [To be specified] → extracted value based on context
-    - [ENDPOINT] → actual endpoint
+    NO REGEX - uses simple string replacement for reliability.
     """
     if not discovered_elements:
+        print("[PostProcess] No discovered elements - skipping placeholder replacement")
         return sap_text
 
     replacements_made = 0
 
     # Build lookup from discovered elements
+    primary_endpoint = None
     endpoints = []
-    populations = []
-    sample_sizes = []
 
     for elem in discovered_elements:
         category = getattr(elem, 'category', '') or ''
         name = getattr(elem, 'name', '') or ''
         description = getattr(elem, 'description', '') or ''
-        value = getattr(elem, 'value', '') or description
 
-        if 'endpoint' in category.lower() or 'endpoint' in name.lower():
-            if value and value not in endpoints:
-                endpoints.append(value)
-        if 'population' in category.lower() or 'population' in name.lower():
-            if value and value not in populations:
-                populations.append(value)
-        if 'sample' in category.lower() or 'sample' in name.lower():
-            if value:
-                sample_sizes.append(str(value))
+        # Look for primary endpoint - check both category and name
+        cat_lower = category.lower()
+        name_lower = name.lower()
 
-    # Replace endpoint placeholders
-    endpoint_patterns = [
-        r'\[Primary endpoint as specified\]',
-        r'\[Primary endpoint\]',
-        r'\[ENDPOINT\]',
-        r'\[endpoint\]',
-        r'\[specify endpoint\]',
+        if 'endpoint' in cat_lower or 'endpoint' in name_lower:
+            # Try to get a usable endpoint name
+            # Priority: description, then extract from name
+            endpoint_text = description if description else name
+            if endpoint_text:
+                # Clean up - extract just the endpoint name if it's embedded
+                if 'primary' in name_lower and not primary_endpoint:
+                    primary_endpoint = endpoint_text
+                    print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}")
+                endpoints.append(endpoint_text)
+
+    print(f"[PostProcess] Found {len(endpoints)} endpoints, primary: {primary_endpoint[:50] if primary_endpoint else 'None'}")
+
+    # Simple string replacements - NO REGEX
+    placeholder_replacements = [
+        '[Primary endpoint as specified]',
+        '[Primary endpoint]',
+        '[ENDPOINT]',
+        '[endpoint]',
+        '[specify endpoint]',
+        '[primary endpoint as specified]',
     ]
 
-    if endpoints:
-        primary_endpoint = endpoints[0]
-        for pattern in endpoint_patterns:
-            if re.search(pattern, sap_text, re.IGNORECASE):
-                sap_text = re.sub(pattern, primary_endpoint, sap_text, flags=re.IGNORECASE)
+    if primary_endpoint:
+        for placeholder in placeholder_replacements:
+            if placeholder in sap_text:
+                sap_text = sap_text.replace(placeholder, primary_endpoint)
                 replacements_made += 1
+                print(f"[PostProcess] Replaced '{placeholder}' with '{primary_endpoint[:50]}'")
 
-    # Replace generic placeholders with context-aware matching
-    placeholder_patterns = [
-        (r'\[specify timepoints?\]', 'as per protocol schedule'),
-        (r'\[specify visits?\]', 'as per protocol schedule'),
-        (r'\[as specified\]', ''),  # Just remove this
-        (r'\[TBD\]', ''),
+    # Remove generic placeholders entirely
+    remove_placeholders = [
+        '[specify timepoints]',
+        '[specify timepoint]',
+        '[specify visits]',
+        '[specify visit]',
+        '[as specified]',
+        '[TBD]',
+        '[To be specified]',
+        '[to be specified]',
     ]
 
-    for pattern, replacement in placeholder_patterns:
-        if re.search(pattern, sap_text, re.IGNORECASE):
-            sap_text = re.sub(pattern, replacement, sap_text, flags=re.IGNORECASE)
+    for placeholder in remove_placeholders:
+        if placeholder in sap_text:
+            sap_text = sap_text.replace(placeholder, '')
             replacements_made += 1
 
     if replacements_made > 0:
-        print(f"[PostProcess] Replaced {replacements_made} placeholders")
+        print(f"[PostProcess] Replaced {replacements_made} placeholders total")
 
     return sap_text
 
@@ -277,44 +288,9 @@ class TLFShellRetriever:
         return "\n".join(tlf_parts)
 
     def _get_default_tlf_text(self) -> str:
-        """Return default TLF shell text when ChromaDB is not available."""
-        return """
-## APPENDIX: TLF SHELL SPECIFICATIONS
-
-### Table Shells
-
-**Table 14.1.1**: Demographics and Baseline Characteristics
-- Population: Safety Population
-- Variables: Age, Sex, Race, Ethnicity, Weight, Height, BMI, ECOG PS
-- Statistics: n, Mean (SD), Median (Min, Max) for continuous; n (%) for categorical
-- Stratification: By treatment arm
-
-**Table 14.1.2**: Subject Disposition
-- Population: All Randomized
-- Categories: Randomized, Treated, Completed, Discontinued (by reason)
-- Statistics: n (%)
-
-**Table 14.2.1**: Primary Efficacy Analysis
-- Population: ITT/FAS
-- Endpoint: [Primary endpoint as specified]
-- Statistics: Kaplan-Meier estimates, Cox model HR with 95% CI, Log-rank p-value
-
-**Table 14.3.1**: Treatment-Emergent Adverse Events Summary
-- Population: Safety Population
-- Categories: Any TEAE, Grade ≥3, Serious, Leading to discontinuation
-- Statistics: n (%) by treatment arm
-
-### Figure Shells
-
-**Figure 14.2.1**: Kaplan-Meier Plot for Primary Endpoint
-- X-axis: Time (months)
-- Y-axis: Event-free probability
-- Elements: Survival curves by arm, 95% CI bands, number at risk table, median with 95% CI
-
-**Figure 14.2.2**: Forest Plot for Subgroup Analyses
-- Subgroups: Prespecified per protocol
-- Statistics: HR (95% CI), interaction p-values
-"""
+        """Return empty - Claude generates TLF specs in Section 12.2."""
+        # NO DEFAULTS - Claude generates protocol-specific TLF specs
+        return ""
 
 
 # =============================================================================
@@ -503,6 +479,9 @@ class DiscoveredElement:
     description: str
     section_hint: str
     priority: int = 1
+    # Source traceability for audit trail
+    source_page: Optional[int] = None  # Page number where element was found
+    source_context: Optional[str] = None  # Surrounding text for verification
 
 
 @dataclass
@@ -601,6 +580,8 @@ Return a JSON array of discovered elements. For each element include:
 - "description": INCLUDE ALL NUMERIC VALUES found (alpha, power, margins, boundaries, event counts)
 - "section_hint": Which protocol section contains this
 - "priority": 1=critical for SAP, 2=important, 3=supplementary
+- "source_page": Page number where this element was found (look for page markers like "Page X" or "---" separators)
+- "source_context": 50-100 character excerpt of surrounding text (for verification)
 
 ══════════════════════════════════════════════════════════════════════════════
 CRITICAL: EXTRACT EXACT STUDY IDENTIFIERS
@@ -688,7 +669,7 @@ PROTOCOL TEXT:
 Return ONLY valid JSON array, no markdown. Include AT LEAST 30 elements for a typical protocol:"""
 
 
-def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredElement]:
+def run_discovery(protocol_text: str, model: str = None, protocol_id: str = "unknown") -> List[DiscoveredElement]:
     """Pass 1: Discover all elements in the protocol."""
 
     # NO TRUNCATION - send full protocol to preserve all statistical details
@@ -697,6 +678,13 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
     print(f"  [Discovery] Processing full protocol: {len(text):,} characters")
 
     prompt = DISCOVERY_PROMPT.format(protocol_text=text)
+
+    # Audit log: prompt
+    logger = get_audit_logger()
+    used_model = model or ("gpt-4o" if _USE_OPENAI else "claude-sonnet-4-20250514")
+    logger.log_prompt(protocol_id, "discovery", prompt, model=used_model)
+
+    start_time = time.time()
 
     if _USE_OPENAI:
         client = OpenAI()
@@ -714,6 +702,11 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
             messages=[{"role": "user", "content": prompt}]
         )
         response_text = response.content[0].text
+
+    duration = time.time() - start_time
+
+    # Audit log: response
+    logger.log_response(protocol_id, "discovery", response_text, model=used_model, duration_s=duration)
 
     try:
         if "```json" in response_text:
@@ -739,14 +732,26 @@ def run_discovery(protocol_text: str, model: str = None) -> List[DiscoveredEleme
                 category=e.get("category", "other"),
                 description=e.get("description", ""),
                 section_hint=e.get("section_hint", ""),
-                priority=e.get("priority", 2)
+                priority=e.get("priority", 2),
+                # Source traceability
+                source_page=e.get("source_page"),
+                source_context=e.get("source_context", "")[:200] if e.get("source_context") else None
             ))
+
+        # Audit log: extraction results
+        logger.log_extraction(
+            protocol_id,
+            elements=[{"name": e.name, "category": e.category, "source_page": e.source_page} for e in elements],
+            source="discovery_pass",
+            metadata={"duration_s": duration}
+        )
 
         return elements
 
     except json.JSONDecodeError as e:
         print(f"WARNING: Could not parse discovery response: {e}")
         print(f"Response was: {response_text[:500]}...")
+        logger.log_error(protocol_id, "json_parse_error", str(e), metadata={"response_preview": response_text[:500]})
         return []
 
 
@@ -1017,7 +1022,7 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
                         sap_template: str = None, model: str = None,
                         rag_examples: str = None, knowledge_graph: str = None,
                         boundary_info: str = None,
-                        verbose: bool = True) -> str:
+                        verbose: bool = True, protocol_id: str = "unknown") -> str:
     """
     Generate SAP directly from full protocol text.
 
@@ -1085,6 +1090,12 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
         print(f"  Prompt size: {len(prompt):,} characters")
         print(f"  Generating SAP...")
 
+    # Audit log: SAP generation prompt
+    logger = get_audit_logger()
+    used_model = model or ("gpt-4o" if _USE_OPENAI else "claude-sonnet-4-20250514")
+    logger.log_prompt(protocol_id, "sap_generation", prompt, model=used_model,
+                      metadata={"checklist_count": len(discovered_elements)})
+
     start_time = time.time()
 
     if _USE_OPENAI:
@@ -1106,6 +1117,9 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
         sap_text = response.content[0].text
 
     elapsed = time.time() - start_time
+
+    # Audit log: SAP generation response
+    logger.log_response(protocol_id, "sap_generation", sap_text, model=used_model, duration_s=elapsed)
 
     if verbose:
         print(f"  Generated: {len(sap_text):,} characters in {elapsed:.1f}s")
@@ -1263,7 +1277,7 @@ class TwoPassExtractor:
 
         print(f"  [OK] RAG: {len(self.rag_retriever.sections_db)} sections indexed")
 
-    def discover(self, protocol_text: str, verbose: bool = True) -> List[DiscoveredElement]:
+    def discover(self, protocol_text: str, verbose: bool = True, protocol_id: str = "unknown") -> List[DiscoveredElement]:
         """
         Pass 1: Discover all elements in the protocol.
 
@@ -1276,7 +1290,7 @@ class TwoPassExtractor:
             print(f"Protocol length: {len(protocol_text):,} characters")
 
         start_time = time.time()
-        elements = run_discovery(protocol_text, self.model)
+        elements = run_discovery(protocol_text, self.model, protocol_id=protocol_id)
         elapsed = time.time() - start_time
 
         if verbose:
@@ -1314,7 +1328,7 @@ class TwoPassExtractor:
 
         # Run discovery if not provided
         if discovered_elements is None:
-            discovered_elements = self.discover(protocol_text, verbose=verbose)
+            discovered_elements = self.discover(protocol_text, verbose=verbose, protocol_id=protocol_id)
 
         if verbose:
             print(f"\n{'='*70}")
@@ -1351,7 +1365,8 @@ class TwoPassExtractor:
             rag_examples=rag_examples,
             knowledge_graph=None,
             boundary_info=boundary_info,
-            verbose=verbose
+            verbose=verbose,
+            protocol_id=protocol_id
         )
 
         # =====================================================================
@@ -1391,11 +1406,28 @@ class TwoPassExtractor:
                 print(f"  Warnings: {audit_report.warning_checks}")
                 if audit_report.requires_human_review:
                     print(f"  ⚠️  REQUIRES HUMAN REVIEW")
+
+            # Audit log: verification results
+            logger = get_audit_logger()
+            logger.log_verification(
+                protocol_id=protocol_id,
+                verification_type="deterministic",
+                passed=audit_report.passed_checks,
+                failed=audit_report.failed_checks,
+                warnings=audit_report.warning_checks,
+                details=[{"check": c.check_name, "status": c.status.value, "source": c.source_location}
+                         for c in (audit_report.extraction_checks + audit_report.calculation_checks +
+                                   audit_report.consistency_checks + audit_report.completeness_checks)[:50]],
+                metadata={"requires_human_review": audit_report.requires_human_review}
+            )
         except Exception as e:
             if verbose:
                 print(f"  [!] Verification error: {e}")
             audit_report = None
             audit_text = f"Verification failed: {e}"
+            # Log error
+            logger = get_audit_logger()
+            logger.log_error(protocol_id, "verification_error", str(e))
 
         self._last_sap = sap_text
 
@@ -1429,6 +1461,20 @@ class TwoPassExtractor:
                 verbose=verbose
             )
             result["validation"] = validation
+
+        # Audit log: final SAP generated
+        logger = get_audit_logger()
+        logger.log_sap_generated(
+            protocol_id=protocol_id,
+            sap_text=sap_text,
+            validation_score=result.get("validation", {}).get("overall_score"),
+            verification_summary=result.get("verification"),
+            metadata={
+                "therapeutic_area": therapeutic_area,
+                "endpoint_type": endpoint_type,
+                "discovered_count": len(discovered_elements)
+            }
+        )
 
         return result
 
@@ -2009,12 +2055,17 @@ Return ONLY valid JSON, no explanation."""
                     print("[TwoPassExtractor] Running LlamaParse async extraction...")
                     result = _run_async_in_thread(async_parse())
 
-                    # Get markdown output (preserves tables and formatting)
-                    markdown_docs = result.get_markdown_documents(split_by_page=False)
+                    # Get markdown output WITH page markers for source traceability
+                    # split_by_page=True returns separate documents per page
+                    markdown_docs = result.get_markdown_documents(split_by_page=True)
 
                     if markdown_docs:
-                        protocol_text = "\n\n".join(doc.text for doc in markdown_docs)
-                        print(f"[TwoPassExtractor] LlamaParse extracted {len(protocol_text):,} characters")
+                        # Add page markers to enable source traceability
+                        protocol_parts = []
+                        for i, doc in enumerate(markdown_docs, start=1):
+                            protocol_parts.append(f"\n\n--- PAGE {i} ---\n\n{doc.text}")
+                        protocol_text = "\n".join(protocol_parts)
+                        print(f"[TwoPassExtractor] LlamaParse extracted {len(protocol_text):,} characters ({len(markdown_docs)} pages)")
                         return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
                     else:
                         print("[TwoPassExtractor] WARNING: LlamaParse returned no content, falling back to PyMuPDF")
@@ -2034,12 +2085,15 @@ Return ONLY valid JSON, no explanation."""
 
         print(f"[TwoPassExtractor] Using PyMuPDF fallback for: {pdf_path}")
         doc = fitz.open(pdf_path)
-        protocol_text = ""
-        for page in doc:
-            protocol_text += page.get_text()
+        # Add page markers for source traceability
+        protocol_parts = []
+        for page_num, page in enumerate(doc, start=1):
+            page_text = page.get_text()
+            protocol_parts.append(f"\n\n--- PAGE {page_num} ---\n\n{page_text}")
         doc.close()
+        protocol_text = "\n".join(protocol_parts)
 
-        print(f"[TwoPassExtractor] PyMuPDF extracted {len(protocol_text):,} characters")
+        print(f"[TwoPassExtractor] PyMuPDF extracted {len(protocol_text):,} characters ({len(protocol_parts)} pages)")
         return self.process_protocol(protocol_text, protocol_id=protocol_id, **kwargs)
 
     # =========================================================================
@@ -2086,7 +2140,10 @@ Return ONLY valid JSON, no explanation."""
         return self.extract(protocol_text, protocol_id=protocol_id, **kwargs)
 
     def _extract_pdf_text(self, pdf_path: str) -> str:
-        """Extract text from PDF using LlamaParse (preferred) or PyMuPDF (fallback)."""
+        """Extract text from PDF using LlamaParse (preferred) or PyMuPDF (fallback).
+
+        Includes page markers (--- PAGE X ---) for source traceability.
+        """
         # Try LlamaParse first
         if LLAMAPARSE_AVAILABLE:
             api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
@@ -2105,10 +2162,14 @@ Return ONLY valid JSON, no explanation."""
                         )
 
                     result = _run_async_in_thread(async_parse())
-                    markdown_docs = result.get_markdown_documents(split_by_page=False)
+                    markdown_docs = result.get_markdown_documents(split_by_page=True)
 
                     if markdown_docs:
-                        return "\n\n".join(doc.text for doc in markdown_docs)
+                        # Add page markers for source traceability
+                        parts = []
+                        for i, doc in enumerate(markdown_docs, start=1):
+                            parts.append(f"\n\n--- PAGE {i} ---\n\n{doc.text}")
+                        return "\n".join(parts)
                 except Exception as e:
                     print(f"[TwoPassExtractor] LlamaParse error: {e}")
 
@@ -2116,11 +2177,11 @@ Return ONLY valid JSON, no explanation."""
         try:
             import fitz
             doc = fitz.open(pdf_path)
-            text = ""
-            for page in doc:
-                text += page.get_text()
+            parts = []
+            for page_num, page in enumerate(doc, start=1):
+                parts.append(f"\n\n--- PAGE {page_num} ---\n\n{page.get_text()}")
             doc.close()
-            return text
+            return "\n".join(parts)
         except ImportError:
             raise ImportError("Install PyMuPDF: pip install PyMuPDF")
 

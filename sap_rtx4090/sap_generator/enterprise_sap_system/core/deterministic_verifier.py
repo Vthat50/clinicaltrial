@@ -164,12 +164,18 @@ class DeterministicVerifier:
         discovered_elements: List[Any],
         protocol_text: str
     ):
-        """Verify that extracted values actually exist in protocol."""
+        """Verify that extracted values actually exist in protocol.
+
+        Uses source_page and source_context from DiscoveredElement for traceability.
+        """
 
         for elem in discovered_elements:
             name = getattr(elem, 'name', '') or ''
             value = getattr(elem, 'value', '') or getattr(elem, 'description', '') or ''
             category = getattr(elem, 'category', '') or ''
+            # Source traceability fields
+            source_page = getattr(elem, 'source_page', None)
+            source_context = getattr(elem, 'source_context', None)
 
             if not value or not isinstance(value, str):
                 continue
@@ -180,18 +186,31 @@ class DeterministicVerifier:
             for num in numbers[:3]:  # Check first 3 numbers
                 # Verify number exists in protocol
                 if num in protocol_text:
-                    # Find approximate location
-                    idx = protocol_text.find(num)
-                    context_start = max(0, idx - 50)
-                    context_end = min(len(protocol_text), idx + 50)
-                    context = protocol_text[context_start:context_end]
+                    # Build source location from traceability data
+                    if source_page:
+                        source_loc = f"Page {source_page}"
+                        if source_context:
+                            source_loc += f": \"{source_context[:50]}...\""
+                    else:
+                        # Find approximate location in text
+                        idx = protocol_text.find(num)
+                        # Try to find page marker
+                        page_marker_pos = protocol_text.rfind('--- PAGE ', 0, idx)
+                        if page_marker_pos >= 0:
+                            page_end = protocol_text.find(' ---', page_marker_pos)
+                            page_num = protocol_text[page_marker_pos + 9:page_end]
+                            source_loc = f"Page {page_num}"
+                        else:
+                            context_start = max(0, idx - 30)
+                            context_end = min(len(protocol_text), idx + 30)
+                            source_loc = f"...{protocol_text[context_start:context_end]}..."
 
                     self.report.extraction_checks.append(VerificationItem(
                         check_name=f"Extract: {name}",
                         status=VerificationStatus.PASSED,
                         expected=num,
                         actual=num,
-                        source_location=f"Found in protocol: ...{context[:30]}...",
+                        source_location=source_loc,
                         message=f"Value '{num}' verified in protocol"
                     ))
                 else:
@@ -200,6 +219,7 @@ class DeterministicVerifier:
                         status=VerificationStatus.WARNING,
                         expected=num,
                         actual="NOT FOUND",
+                        source_location=f"Page {source_page}" if source_page else "Unknown",
                         message=f"Value '{num}' not found in protocol text"
                     ))
 
