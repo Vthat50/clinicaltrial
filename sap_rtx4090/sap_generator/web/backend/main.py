@@ -318,6 +318,10 @@ class JobStatusResponse(BaseModel):
     completed_at: Optional[str] = None
     filename: Optional[str] = None
     protocol_preview: Optional[str] = None
+    # Deterministic verification
+    deterministic_verification: Optional[dict] = None
+    audit_report: Optional[str] = None
+    needs_human_review: Optional[bool] = None
 
 
 class EvaluationResponse(BaseModel):

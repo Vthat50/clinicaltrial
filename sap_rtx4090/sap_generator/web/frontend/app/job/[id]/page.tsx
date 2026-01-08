@@ -45,6 +45,15 @@ interface JobResult {
   completed_at?: string
   filename?: string
   protocol_preview?: string
+  // Deterministic verification
+  deterministic_verification?: {
+    passed: number
+    failed: number
+    warnings: number
+    critical_failures: string[]
+  }
+  audit_report?: string
+  needs_human_review?: boolean
 }
 
 interface GroundTruthStudy {
@@ -874,6 +883,59 @@ export default function JobDetailPage() {
               <p className="text-lg font-semibold text-gray-900 mt-1">{result.processing_time?.toFixed(1) || '-'}s</p>
             </div>
           </div>
+
+          {/* Deterministic Verification Panel */}
+          {result.deterministic_verification && (
+            <div className={`rounded-xl shadow-sm border p-4 ${
+              result.needs_human_review ? 'bg-yellow-50 border-yellow-200' : 'bg-green-50 border-green-200'
+            }`}>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">{result.needs_human_review ? '⚠️' : '✅'}</span>
+                  <h3 className="font-semibold text-gray-900">Deterministic Verification</h3>
+                </div>
+                {result.needs_human_review && (
+                  <span className="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full text-sm font-medium">
+                    Requires Human Review
+                  </span>
+                )}
+              </div>
+              <div className="grid grid-cols-3 gap-4 mb-3">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-green-600">{result.deterministic_verification.passed}</p>
+                  <p className="text-xs text-gray-600">Passed</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-red-600">{result.deterministic_verification.failed}</p>
+                  <p className="text-xs text-gray-600">Failed</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-yellow-600">{result.deterministic_verification.warnings}</p>
+                  <p className="text-xs text-gray-600">Warnings</p>
+                </div>
+              </div>
+              {result.deterministic_verification.critical_failures.length > 0 && (
+                <div className="bg-red-100 rounded-lg p-3 mt-2">
+                  <p className="text-sm font-medium text-red-800 mb-1">Critical Failures:</p>
+                  <ul className="text-sm text-red-700 list-disc list-inside">
+                    {result.deterministic_verification.critical_failures.map((f, i) => (
+                      <li key={i}>{f}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {result.audit_report && (
+                <details className="mt-3">
+                  <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800">
+                    View Full Audit Report
+                  </summary>
+                  <pre className="mt-2 p-3 bg-white rounded-lg text-xs font-mono overflow-auto max-h-64 border">
+                    {result.audit_report}
+                  </pre>
+                </details>
+              )}
+            </div>
+          )}
 
           {/* Tabs */}
           <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
