@@ -9,6 +9,17 @@ Production Features:
 - Proper error handling
 """
 
+# ============================================================================
+# VERSION CHECK - This prints at import time, BEFORE anything else
+# ============================================================================
+print("=" * 70)
+print("SAP GENERATOR API - VERSION CHECK")
+print("=" * 70)
+print("BUILD: v9-TLF-INJECT-2026-01-08-COMMIT-4577c4da")
+print("FEATURE: TLF tables injected directly in main.py before DB save")
+print("If you don't see this in Render logs, Render has OLD code!")
+print("=" * 70)
+
 import os
 import time
 import asyncio
