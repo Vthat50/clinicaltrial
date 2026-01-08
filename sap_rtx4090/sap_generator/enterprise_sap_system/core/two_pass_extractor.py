@@ -946,6 +946,28 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
     - If there's a China extension, include Section 11.1 with sample size
     - If there are other regional requirements, document them
 
+11. TLF SHELLS (Section 12.2) - PROTOCOL-SPECIFIC, NO PLACEHOLDERS:
+    Generate Tables, Figures, and Listings specifications using ACTUAL values from the protocol:
+
+    TABLES - Use actual endpoint names:
+    - Table 14.2.1.1: Kaplan-Meier Estimates of {ACTUAL PRIMARY ENDPOINT} (e.g., "Overall Survival", "PFS")
+    - Table 14.2.1.2: Cox Regression Analysis of {ACTUAL PRIMARY ENDPOINT}
+    - Table 14.2.2.x: {ACTUAL SECONDARY ENDPOINTS} by Treatment Arm
+    - Include actual population names (e.g., "pMMR Population", "ITT Population")
+
+    FIGURES - Use actual endpoint names:
+    - Figure 14.2.1: Kaplan-Meier Plot of {ACTUAL PRIMARY ENDPOINT} (e.g., "Overall Survival")
+    - Figure 14.2.2: Forest Plot of {ACTUAL ENDPOINT} Subgroup Analyses
+    - Include actual treatment arm names (e.g., "Pembrolizumab + Lenvatinib vs Chemotherapy")
+
+    NEVER USE:
+    - "[Primary endpoint as specified]"
+    - "[specify timepoints]"
+    - "[ENDPOINT]"
+    - Any bracketed placeholders
+
+    ALWAYS USE the exact endpoint, population, and treatment names from the protocol.
+
 ══════════════════════════════════════════════════════════════════════════════
 SAP TEMPLATE TO FOLLOW
 ══════════════════════════════════════════════════════════════════════════════
