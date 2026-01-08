@@ -1,34 +1,5 @@
-# Render.com deployment configuration
-# https://render.com/docs/blueprint-spec
-
-services:
-  - type: web
-    name: sap-generator-api
-    env: python
-    region: oregon
-    plan: free
-    buildCommand: |
-      pip install -r requirements.txt
-      # Install rpy2 and R packages if R is available (from Aptfile)
-      if command -v R &> /dev/null; then
-        echo "R found, installing rpy2 and R packages..."
-        pip install rpy2>=3.5.0
-        R -e "install.packages(c('gsDesign', 'rpact'), repos='https://cloud.r-project.org', quiet=TRUE)"
-      else
-        echo "R not found - using scipy fallback for boundary calculations"
-      fi
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: SUPABASE_URL
-        sync: false  # Set manually in Render dashboard
-      - key: SUPABASE_SERVICE_KEY
-        sync: false
-      - key: GROQ_API_KEY
-        sync: false
-      - key: ANTHROPIC_API_KEY
-        sync: false
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: FRONTEND_URL
-        sync: false
-    healthCheckPath: /health
+# DEPRECATED: This file is kept for reference only
+# The main render.yaml is now at the sap_generator/ level
+# to support Docker deployment with R
+#
+# See: ../../render.yaml
