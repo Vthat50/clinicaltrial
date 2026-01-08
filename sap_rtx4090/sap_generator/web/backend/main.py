@@ -3337,6 +3337,12 @@ async def process_jobs_worker():
 
                     pipeline_type = "two-pass"
 
+                    # CRITICAL: Strip APPENDIX section with placeholders before saving
+                    if 'APPENDIX' in sap_text:
+                        idx = sap_text.find('APPENDIX')
+                        sap_text = sap_text[:idx].strip()
+                        print(f"  [MAIN.PY STRIP] Removed APPENDIX at position {idx}")
+
                     update_data = {
                         "status": "completed",
                         "generated_sap": sap_text,

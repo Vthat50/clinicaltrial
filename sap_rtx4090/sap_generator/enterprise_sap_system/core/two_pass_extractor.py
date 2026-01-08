@@ -101,13 +101,29 @@ from .audit_logger import get_audit_logger
 
 def strip_duplicate_appendix(sap_text: str) -> str:
     """
-    DETERMINISTIC: Remove everything after Section 12.
+    DETERMINISTIC: Remove only DUPLICATE appendix sections with placeholder text.
 
-    Claude keeps generating APPENDIX sections with placeholders despite instructions.
-    Solution: Cut off everything after "END OF STATISTICAL ANALYSIS PLAN" or after Section 12.
+    KEEP Section 12 (APPENDICES) with TLF specifications.
+    ONLY REMOVE: duplicate appendices that contain placeholder text like '[Primary endpoint as specified]'.
+
+    Strategy:
+    1. If "END OF STATISTICAL ANALYSIS PLAN" marker exists, keep everything up to it
+    2. If there are MULTIPLE APPENDIX sections, keep the first (Section 12), remove duplicates
+    3. If there's placeholder text after Section 12, remove that section only
     """
     print(f"[STRIP] ====== RUNNING strip_duplicate_appendix ======")
     print(f"[STRIP] Input length: {len(sap_text)} chars")
+
+    # Placeholder patterns that indicate a bad appendix (should be removed)
+    placeholder_patterns = [
+        '[Primary endpoint as specified]',
+        '[Primary endpoint]',
+        '[ENDPOINT]',
+        '[endpoint]',
+        '[specify endpoint]',
+        '[as specified]',
+        '[TBD]',
+    ]
 
     # Method 1: Cut at "END OF STATISTICAL ANALYSIS PLAN"
     end_markers = [
@@ -125,21 +141,55 @@ def strip_duplicate_appendix(sap_text: str) -> str:
                 print(f"[STRIP] Cut SAP at '{marker}'")
                 return sap_text
 
-    # Method 2: Cut at APPENDIX if no end marker found
-    # Check if APPENDIX exists at all
-    if 'APPENDIX' in sap_text:
-        print(f"[STRIP] Found 'APPENDIX' in SAP text")
-        # Find position
-        idx = sap_text.find('APPENDIX')
-        print(f"[STRIP] APPENDIX found at position {idx}")
-        # Cut everything from APPENDIX onwards
-        sap_text = sap_text[:idx].strip()
-        print(f"[STRIP] Stripped at APPENDIX, new length: {len(sap_text)}")
-        return sap_text
-    else:
-        print(f"[STRIP] No APPENDIX found in SAP")
+    # Method 2: Find Section 12 (APPENDICES) and check for duplicates
+    # Look for "Section 12" or "## 12." patterns
+    section_12_markers = ['Section 12', '## 12.', '# 12.', '12. APPENDICES', '12. Appendices']
+    section_12_pos = -1
+    for marker in section_12_markers:
+        if marker in sap_text:
+            section_12_pos = sap_text.find(marker)
+            print(f"[STRIP] Found Section 12 at position {section_12_pos}")
+            break
 
-    print(f"[STRIP] No stripping needed")
+    # Check if there's a DUPLICATE appendix (APPENDIX appearing AFTER Section 12)
+    if section_12_pos >= 0:
+        # Look for 'APPENDIX:' (with colon) appearing after Section 12
+        remaining_text = sap_text[section_12_pos + 100:]  # Skip Section 12 header
+
+        # Find patterns that indicate a duplicate/bad appendix
+        duplicate_markers = ['APPENDIX: TLF', 'APPENDIX:\n', '## APPENDIX', '# APPENDIX']
+        for dup_marker in duplicate_markers:
+            if dup_marker in remaining_text:
+                dup_idx = remaining_text.find(dup_marker)
+                absolute_idx = section_12_pos + 100 + dup_idx
+
+                # Check if this duplicate section has placeholder text
+                dup_section = sap_text[absolute_idx:absolute_idx + 2000]
+                has_placeholders = any(p in dup_section for p in placeholder_patterns)
+
+                if has_placeholders:
+                    print(f"[STRIP] Found duplicate APPENDIX with placeholders at position {absolute_idx}")
+                    sap_text = sap_text[:absolute_idx].strip()
+                    print(f"[STRIP] Stripped duplicate, new length: {len(sap_text)}")
+                    return sap_text
+                else:
+                    print(f"[STRIP] Found APPENDIX at {absolute_idx} but no placeholders, keeping it")
+
+    # Method 3: If no Section 12, but there's an APPENDIX with placeholders, remove it
+    if 'APPENDIX' in sap_text:
+        idx = sap_text.find('APPENDIX')
+        appendix_section = sap_text[idx:idx + 2000]
+        has_placeholders = any(p in appendix_section for p in placeholder_patterns)
+
+        if has_placeholders:
+            print(f"[STRIP] APPENDIX at {idx} has placeholders, removing it")
+            sap_text = sap_text[:idx].strip()
+            print(f"[STRIP] Stripped, new length: {len(sap_text)}")
+            return sap_text
+        else:
+            print(f"[STRIP] APPENDIX found but no placeholders, keeping it")
+
+    print(f"[STRIP] No stripping needed, TLF tables preserved")
     return sap_text
 
 
