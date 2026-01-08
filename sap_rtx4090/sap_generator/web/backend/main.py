@@ -610,27 +610,26 @@ async def create_job(request: GenerateRequest):
 
 
 # Global pipeline instance (reused across requests)
-_production_pipeline = None  # IntegratedPipeline with Claude extraction
+_production_pipeline = None  # TwoPassExtractor with LlamaParse + Claude
 
 def get_pipeline():
     """
     Get or create the production pipeline instance.
 
-    Uses IntegratedPipeline with Claude extraction (NO REGEX):
-    - Claude extracts ALL facts (drug, sample size, interim analysis, censoring, TLF, etc.)
-    - RAG retrieval for similar SAP examples
-    - Knowledge graph for statistical method selection
-    - Template-based generation
-    - QA validation
+    Uses TwoPassExtractor (NO INFORMATION LOSS):
+    1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
+    2. Claude Pass 1 (Discovery): Find ALL elements → Creates checklist
+    3. Claude Pass 2 (Generation): FULL protocol + checklist → Complete SAP
+    4. Validation: Check SAP against checklist
     """
     global _production_pipeline
 
-    if not INTEGRATED_PIPELINE_AVAILABLE:
-        raise RuntimeError("IntegratedPipeline not available - check imports")
+    if not DIRECT_GENERATION_AVAILABLE:
+        raise RuntimeError("TwoPassExtractor not available - check imports")
 
     if _production_pipeline is None:
-        _production_pipeline = IntegratedSAPPipeline()
-        logger.info("IntegratedPipeline initialized (Claude extraction - NO REGEX)")
+        _production_pipeline = TwoPassExtractor()
+        logger.info("TwoPassExtractor initialized (LlamaParse + Claude - NO INFO LOSS)")
     return _production_pipeline
 
 # Aliases for backward compatibility
@@ -2889,42 +2888,23 @@ async def generate_define_xml(job_id: str, standard: str = "adam"):
 # Background worker
 async def process_jobs_worker():
     """
-    Background worker that processes queued jobs using AGENTIC HYBRIDRAG PIPELINE.
+    Background worker that processes queued jobs using TwoPassExtractor.
 
-    The AGENTIC pipeline uses 5 agents with Vector + Graph retrieval:
-
-    AGENT 1 - PROTOCOL ANALYZER:
-    - Claude-based extraction (replaces regex)
-    - Extracts drug classes, indication, phase, design
-
-    AGENT 2 - HYBRID RETRIEVER:
-    - Vector similarity (ChromaDB, 23K chunks)
-    - Knowledge Graph traversal (393 trials)
-    - Finds similar trials based on characteristics
-
-    AGENT 3 - METHOD EXTRACTOR:
-    - Reads retrieved chunks
-    - Extracts actual methods used in similar trials
-    - Data-driven (not hardcoded rules)
-
-    AGENT 4 - SAP GENERATOR:
-    - Templates + RAG examples
-    - Uses extracted methods from similar trials
-
-    AGENT 5 - VALIDATOR:
-    - Reflection-based verification
-    - Checks consistency with source trials
+    TwoPassExtractor (NO INFORMATION LOSS):
+    1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
+    2. Claude Pass 1 (Discovery): Find ALL elements → Creates checklist
+    3. Claude Pass 2 (Generation): FULL protocol + checklist → Complete SAP
+    4. Validation: Check SAP against checklist
     """
     global worker_running
 
-    print("Starting background job worker with INTEGRATED PIPELINE (Claude extraction)...")
-    print("  [OK] Step 1: Claude extracts ALL facts (NO REGEX)")
-    print("  [OK] Step 2: RAG retrieval from 1,198 SAP sections")
-    print("  [OK] Step 3: Knowledge Graph for method selection")
-    print("  [OK] Step 4: Template-based generation")
-    print("  [OK] Step 5: QA validation")
+    print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
+    print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
+    print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
+    print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
+    print("  [OK] Step 4: Validation against checklist")
 
-    # Use get_pipeline() - returns IntegratedPipeline (Claude extraction)
+    # Use get_pipeline() - returns TwoPassExtractor
     pipeline = None
 
     while worker_running:
@@ -2955,144 +2935,136 @@ async def process_jobs_worker():
             # Initialize pipeline if needed
             if pipeline is None:
                 pipeline = get_pipeline()
-                print("  [INIT] IntegratedPipeline initialized (Claude extraction - NO REGEX)")
+                print("  [INIT] TwoPassExtractor initialized (LlamaParse + Claude)")
 
             # Generate SAP using pipeline
             start_time = time.time()
 
             try:
-                # CRITICAL: Pass FULL protocol text - do NOT truncate!
-                # Claude extraction reads the entire document.
+                # TwoPassExtractor uses different methods:
+                # - process_pdf() for PDF files (LlamaParse extraction)
+                # - process_protocol() for text
 
-                # IntegratedPipeline uses Claude for extraction, not Vision
-                # Just pass the protocol text directly
-                result = pipeline.generate(job["protocol_text"])
+                pdf_path = None
+                pdf_storage_path = job.get("pdf_storage_path")
+
+                # Download PDF if available
+                if pdf_storage_path:
+                    try:
+                        import tempfile
+                        print(f"  [PDF] Downloading PDF from storage: {pdf_storage_path}")
+                        pdf_bytes = db.storage.from_("pdfs").download(pdf_storage_path)
+
+                        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+                            tmp.write(pdf_bytes)
+                            pdf_path = tmp.name
+                            print(f"  [PDF] Saved to temp file: {pdf_path}")
+
+                    except Exception as e:
+                        print(f"  [PDF] Download failed, using text: {e}")
+                        pdf_path = None
+
+                # Call TwoPassExtractor
+                if pdf_path:
+                    # Use LlamaParse for PDF extraction
+                    print("  [TwoPassExtractor] Using process_pdf() with LlamaParse")
+                    result = pipeline.process_pdf(
+                        pdf_path,
+                        protocol_id=job.get("nct_id") or job_id,
+                        validate=True,
+                        verbose=True
+                    )
+                else:
+                    # Use text directly
+                    print("  [TwoPassExtractor] Using process_protocol() with text")
+                    result = pipeline.process_protocol(
+                        job["protocol_text"],
+                        protocol_id=job.get("nct_id") or job_id,
+                        validate=True,
+                        verbose=True
+                    )
+
+                # Clean up temp PDF
+                if pdf_path:
+                    try:
+                        import os
+                        os.unlink(pdf_path)
+                    except Exception:
+                        pass
 
                 processing_time = time.time() - start_time
 
-                if result.success:
-                    # Handle IntegratedPipeline result (Claude extraction)
-                    if hasattr(result, 'facts') and result.facts:
-                        # IntegratedPipeline format - facts from Claude extraction
-                        facts = result.facts
+                # TwoPassExtractor returns a dict with sap_text, validation, etc.
+                sap_text = result.get("sap_text", "")
 
-                        drug_name = facts.get('drug_name', '') or ''
-                        phase_str = str(facts.get('phase', '') or '')
-                        if phase_str and "." in phase_str:
-                            phase_str = phase_str.split(".")[-1].replace("_", " ").title()
+                if sap_text:
+                    # TwoPassExtractor format
+                    validation = result.get("validation", {})
+                    discovered_elements = result.get("discovered_elements", [])
 
-                        therapeutic_area = facts.get('therapeutic_area', '') or facts.get('indication', '') or ''
+                    # Quality score from validation (0-1 scale → 0-100)
+                    validation_score = validation.get("overall_score", 0.8)
+                    quality_score = validation_score * 100
 
-                        pe = facts.get('primary_endpoint', '')
-                        if isinstance(pe, dict):
-                            ep_val = pe.get('type') or pe.get('endpoint_type') or ''
-                            endpoint_type_str = str(ep_val)[:10] if ep_val else ""
-                        elif isinstance(pe, str):
-                            endpoint_type_str = pe[:10]
-                        elif isinstance(pe, list) and pe:
-                            endpoint_type_str = str(pe[0])[:10] if pe[0] else ""
-                        else:
-                            endpoint_type_str = ""
+                    # Extract info from discovered elements
+                    drug_name = ""
+                    phase_str = ""
+                    therapeutic_area = ""
+                    endpoint_type_str = ""
 
-                        # Quality score from IntegratedResult (already 0-100 scale)
-                        quality_score = getattr(result, 'quality_score', 80.0)
-                        pipeline_type = "integrated-claude"
+                    for elem in discovered_elements:
+                        name = elem.get("name", "").lower()
+                        cat = elem.get("category", "")
+                        desc = elem.get("description", "")
 
-                    elif hasattr(result, 'characteristics') and result.characteristics:
-                        # FALLBACK: AgenticSAPPipeline format
-                        chars = result.characteristics
-                        drug_name = chars.drug_classes[0] if chars.drug_classes else ""
-                        phase_str = str(chars.phase) if chars.phase else ""
-                        therapeutic_area = chars.indication or ""
-                        endpoint_type_str = (chars.endpoint_type or "")[:10]
+                        if "drug" in name or "study drug" in name:
+                            drug_name = desc[:50] if desc else ""
+                        if cat == "study_design" and "phase" in name:
+                            phase_str = desc[:10] if desc else ""
+                        if "therapeutic" in name or "indication" in name:
+                            therapeutic_area = desc[:20] if desc else ""
+                        if cat == "endpoints" and "primary" in name:
+                            endpoint_type_str = desc[:10] if desc else ""
 
-                        # Validation from agentic pipeline
-                        # Quality score on 0-100 scale (result.confidence is 0-1, multiply by 100)
-                        try:
-                            quality_score = (float(result.confidence) * 100) if result.confidence else 80.0
-                        except (ValueError, TypeError):
-                            quality_score = 80.0
-                        if result.validation:
-                            # validation.confidence is 0-1, scale to 0-100
-                            try:
-                                quality_score = float(result.validation.confidence) * 100 if result.validation.confidence else quality_score
-                            except (ValueError, TypeError):
-                                pass
-
-                        pipeline_type = "agentic"
-
-                    else:
-                        # Minimal fallback
-                        drug_name = ""
-                        phase_str = ""
-                        therapeutic_area = ""
-                        endpoint_type_str = ""
-                        quality_score = 50.0  # Default fallback (0-100 scale)
-                        pipeline_type = "unknown"
+                    pipeline_type = "two-pass"
 
                     update_data = {
                         "status": "completed",
-                        "generated_sap": getattr(result, 'sap_text', ''),
+                        "generated_sap": sap_text,
                         "quality_score": quality_score,
-                        "endpoint_type": endpoint_type_str[:10],  # varchar(10)
-                        "phase": (phase_str or "")[:10],  # varchar(10)
-                        "therapeutic_area": (therapeutic_area or "")[:20],
+                        "endpoint_type": endpoint_type_str[:10],
+                        "phase": phase_str[:10],
+                        "therapeutic_area": therapeutic_area[:20],
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
                     }
 
                     # Log validation info
-                    if hasattr(result, 'validation') and result.validation:
-                        if hasattr(result.validation, 'issues') and result.validation.issues:
-                            print(f"  Validation issues ({len(result.validation.issues)}):")
-                            for issue in result.validation.issues[:5]:
-                                print(f"    - {issue}")
-                    elif hasattr(result, 'verification') and result.verification:
-                        issues = getattr(result.verification, 'missing_slots', None)
-                        if issues:
-                            print(f"  Validation issues ({len(issues)}):")
-                            for issue in issues[:5]:
-                                severity = issue.severity.value if hasattr(issue, 'severity') else "HIGH"
-                                message = issue.message if hasattr(issue, 'message') else str(issue)
-                                print(f"    [{severity}] {message}")
+                    if validation:
+                        present = len(validation.get("present", []))
+                        missing = len(validation.get("missing", []))
+                        partial = len(validation.get("partial", []))
+                        print(f"  Validation: {present} present, {partial} partial, {missing} missing")
+
+                        gaps = validation.get("critical_gaps", [])
+                        if gaps:
+                            print(f"  Critical gaps:")
+                            for gap in gaps[:5]:
+                                print(f"    - {gap}")
 
                     db.table("sap_jobs").update(update_data).eq("id", job_id).execute()
 
-                    # Detailed logging
+                    # Detailed logging for TwoPassExtractor
                     print(f"Job {job_id} completed in {processing_time:.1f}s ({pipeline_type} pipeline)")
-                    if pipeline_type == "agentic" and hasattr(result, 'characteristics') and result.characteristics:
-                        chars = result.characteristics
-                        print(f"  EXTRACTION:")
-                        print(f"    Drug classes: {chars.drug_classes}")
-                        print(f"    Indication: {chars.indication}")
-                        print(f"    Endpoint: {chars.endpoint_type}")
-                        print(f"  RETRIEVAL:")
-                        print(f"    Source trials: {result.source_trials}")
-                        print(f"  METHODS:")
-                        if result.extracted_methods:
-                            print(f"    Primary: {result.extracted_methods.primary_analysis}")
-                            print(f"    Interim: {result.extracted_methods.interim_analysis}")
-                        print(f"  VALIDATION:")
-                        print(f"    Confidence: {quality_score:.2f}")
-                    elif pipeline_type == "rule-based" and hasattr(result, 'facts') and result.facts:
-                        facts = result.facts
-                        print(f"  EXTRACTION:")
-                        print(f"    Drug: {facts.get('drug_name', 'N/A')}")
-                        sample_size = facts.get('sample_size')
-                        if isinstance(sample_size, dict):
-                            print(f"    N: {sample_size.get('total_n', 'N/A')}")
-                        else:
-                            print(f"    N: {sample_size or 'N/A'}")
-                        print(f"    Ratio: {facts.get('randomization_ratio', 'N/A')}")
-                        print(f"  GENERATION:")
-                        print(f"    Sections: {list(result.sections.keys()) if result.sections else 'None'}")
-                        print(f"  VALIDATION:")
-                        print(f"    Quality: {quality_score:.1f}")
+                    print(f"  DISCOVERY:")
+                    print(f"    Elements found: {result.get('discovered_count', 0)}")
+                    print(f"  GENERATION:")
+                    print(f"    SAP length: {result.get('sap_length', 0):,} chars")
+                    print(f"  VALIDATION:")
+                    print(f"    Quality: {quality_score:.1f}/100")
 
-                    if result.warnings:
-                        print(f"  Warnings: {len(result.warnings)}")
                 else:
-                    raise Exception(result.error or "Generation failed")
+                    raise Exception("TwoPassExtractor returned no SAP text")
 
             except Exception as e:
                 # Print FULL traceback to find exact error location

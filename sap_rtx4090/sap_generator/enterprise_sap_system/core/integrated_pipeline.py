@@ -4,12 +4,13 @@ Integrated Production SAP Pipeline
 ====================================
 This is the ACTUAL production pipeline that integrates ALL components:
 
-1. EXTRACTION: Claude extracts ALL facts from protocol (NO REGEX)
-2. RAG RETRIEVAL: 1,198 indexed SAP sections for few-shot examples
-3. KNOWLEDGE GRAPH: 39 nodes for statistical method selection
-4. SPECIALIZED TEMPLATES: Oncology, Phase 1, Phase 2/3, CAR-T, etc.
-5. CONSTRAINED GENERATION: Literal types prevent hallucination
-6. QA VALIDATION: Issue detection and quality scoring
+1. LLAMAPARSE: PDF → Markdown (preserves tables, complex layouts)
+2. CLAUDE EXTRACTION: Markdown → Facts JSON (NO REGEX)
+3. RAG RETRIEVAL: 1,198 indexed SAP sections for few-shot examples
+4. KNOWLEDGE GRAPH: 39 nodes for statistical method selection
+5. SPECIALIZED TEMPLATES: Oncology, Phase 1, Phase 2/3, CAR-T, etc.
+6. CONSTRAINED GENERATION: Literal types prevent hallucination
+7. QA VALIDATION: Issue detection and quality scoring
 
 This replaces the scattered components with a single integrated flow.
 """
@@ -17,11 +18,21 @@ This replaces the scattered components with a single integrated flow.
 import os
 import json
 import time
+import asyncio
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 from datetime import datetime
+
+# LlamaParse for high-quality PDF extraction
+try:
+    from llama_cloud_services import LlamaParse
+    LLAMAPARSE_AVAILABLE = True
+    print("[IntegratedPipeline] LlamaParse available")
+except ImportError:
+    LLAMAPARSE_AVAILABLE = False
+    print("[IntegratedPipeline] WARNING: LlamaParse not available")
 
 
 # =============================================================================
@@ -1126,12 +1137,13 @@ class IntegratedPipeline:
     The fully integrated production pipeline.
 
     This is what ACTUALLY runs in production, using:
-    1. Regex extraction
-    2. RAG retrieval
-    3. Knowledge graph
-    4. Specialized templates
-    5. Constrained LLM generation
-    6. QA validation
+    1. LlamaParse: PDF → Markdown (preserves tables)
+    2. Claude extraction: Markdown → Facts JSON (NO REGEX)
+    3. RAG retrieval
+    4. Knowledge graph
+    5. Specialized templates
+    6. Constrained LLM generation
+    7. QA validation
     """
 
     def __init__(self):
@@ -1143,7 +1155,7 @@ class IntegratedPipeline:
         print("Initializing components...")
 
         self.extractor = FactExtractor()
-        print("  [OK] Fact Extractor")
+        print("  [OK] Fact Extractor (Claude - NO REGEX)")
 
         self.rag_retriever = RAGRetriever()
         print(f"  [OK] RAG Retriever ({len(self.rag_retriever.sections_db)} sections)")
@@ -1160,18 +1172,78 @@ class IntegratedPipeline:
         self.validator = QAValidator()
         print("  [OK] QA Validator")
 
+        print(f"  [OK] LlamaParse: {'Available' if LLAMAPARSE_AVAILABLE else 'NOT AVAILABLE'}")
+
         print("=" * 60)
 
-    def generate(self, protocol_text: str, nct_id: str = None) -> IntegratedResult:
+    def extract_pdf_with_llamaparse(self, pdf_path: str) -> str:
+        """
+        Extract text from PDF using LlamaParse.
+
+        LlamaParse preserves:
+        - Table structure
+        - Complex layouts
+        - Headers and sections
+        - Formatting
+
+        Returns markdown text.
+        """
+        if not LLAMAPARSE_AVAILABLE:
+            raise ImportError("LlamaParse not available. Install with: pip install llama-cloud-services")
+
+        api_key = os.environ.get("LLAMA_CLOUD_API_KEY") or os.environ.get("LLAMAPARSE_API_KEY")
+        if not api_key:
+            raise ValueError("LLAMA_CLOUD_API_KEY or LLAMAPARSE_API_KEY environment variable required")
+
+        print(f"[IntegratedPipeline] Extracting PDF with LlamaParse: {pdf_path}")
+
+        llamaparse = LlamaParse(
+            api_key=api_key,
+            result_type="markdown",
+            verbose=False
+        )
+
+        # Run async parse
+        async def async_parse():
+            return await llamaparse.aparse(pdf_path)
+
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            result = loop.run_until_complete(async_parse())
+        finally:
+            loop.close()
+
+        # Get markdown
+        markdown_docs = result.get_markdown_documents(split_by_page=False)
+        if markdown_docs:
+            text = "\n\n".join(doc.text for doc in markdown_docs)
+            print(f"[IntegratedPipeline] LlamaParse extracted {len(text):,} characters")
+            return text
+
+        raise ValueError("LlamaParse returned no content")
+
+    def generate(self, protocol_text: str, nct_id: str = None, pdf_path: str = None) -> IntegratedResult:
         """Run the full integrated pipeline"""
         result = IntegratedResult(success=False)
         start_time = time.time()
 
         try:
             # =================================================================
+            # STEP 0: PDF EXTRACTION WITH LLAMAPARSE (if pdf_path provided)
+            # =================================================================
+            if pdf_path:
+                if LLAMAPARSE_AVAILABLE:
+                    print("\n[0/6] EXTRACTING PDF WITH LLAMAPARSE...")
+                    protocol_text = self.extract_pdf_with_llamaparse(pdf_path)
+                    print(f"  Extracted {len(protocol_text):,} characters from PDF")
+                else:
+                    raise ImportError("LlamaParse required for PDF extraction but not available")
+
+            # =================================================================
             # STEP 1: EXTRACTION
             # =================================================================
-            print("\n[1/6] EXTRACTING FACTS (regex only)...")
+            print("\n[1/6] EXTRACTING FACTS (Claude - NO REGEX)...")
             t0 = time.time()
 
             facts = self.extractor.extract(protocol_text)
