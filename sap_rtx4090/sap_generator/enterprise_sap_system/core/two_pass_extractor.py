@@ -869,12 +869,21 @@ READ the protocol below completely. WRITE a comprehensive, production-quality SA
 ⚠️ CRITICAL: USE EXACT NUMBERS FROM THE PROTOCOL - NO PLACEHOLDERS
 ══════════════════════════════════════════════════════════════════════════════
 
-NEVER write "[To be specified]" or "will be detailed in..." - FIND THE EXACT VALUE.
+NEVER write "[To be specified]", "CCI", or "will be detailed in..." - USE THE EXACT VALUES PROVIDED.
 
 I discovered these {num_elements} elements in the protocol.
 EVERY SINGLE ONE must appear in your SAP with EXACT values from the protocol:
 
 {checklist}
+
+══════════════════════════════════════════════════════════════════════════════
+⭐ PRE-CALCULATED BOUNDARY PARAMETERS (USE THESE EXACT VALUES)
+══════════════════════════════════════════════════════════════════════════════
+
+{boundary_info}
+
+IMPORTANT: The boundary parameters above have been extracted and calculated.
+Include these EXACT values in Section 7 (Interim Analyses). Do NOT write "CCI" or placeholders.
 
 ══════════════════════════════════════════════════════════════════════════════
 KNOWLEDGE GRAPH - RECOMMENDED STATISTICAL METHODS
@@ -962,6 +971,7 @@ Do not skip anything."""
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
                         sap_template: str = None, model: str = None,
                         rag_examples: str = None, knowledge_graph: str = None,
+                        boundary_info: str = None,
                         verbose: bool = True) -> str:
     """
     Generate SAP directly from full protocol text.
@@ -976,6 +986,7 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
         model: LLM model to use
         rag_examples: Sanitized examples from similar SAPs
         knowledge_graph: Recommended methods from knowledge graph
+        boundary_info: Pre-calculated boundary parameters and tables
         verbose: Print progress
 
     Returns:
@@ -1013,6 +1024,7 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
     prompt = SAP_GENERATION_PROMPT.format(
         num_elements=len(discovered_elements),
         checklist=checklist,
+        boundary_info=boundary_info or "(Boundary parameters not available - extract from protocol)",
         knowledge_graph=knowledge_graph or "(No knowledge graph available)",
         rag_examples=rag_examples or "(No RAG examples available)",
         sap_template=template,
@@ -1289,7 +1301,11 @@ class TwoPassExtractor:
         if verbose:
             print(f"  Knowledge Graph: Methods for {endpoint_type} endpoints")
 
-        # Generate SAP with RAG + KG
+        # CRITICAL: Extract and calculate boundary parameters FIRST
+        # So we can pass them to the LLM for inclusion in Section 7
+        boundary_info = self._prepare_boundary_info(discovered_elements, protocol_text, verbose)
+
+        # Generate SAP with RAG + KG + Pre-calculated Boundaries
         sap_text = generate_sap_direct(
             protocol_text=protocol_text,
             discovered_elements=discovered_elements,
@@ -1297,6 +1313,7 @@ class TwoPassExtractor:
             model=self.model,
             rag_examples=rag_examples,
             knowledge_graph=kg_info,
+            boundary_info=boundary_info,
             verbose=verbose
         )
 
@@ -1313,13 +1330,6 @@ class TwoPassExtractor:
         if verbose:
             print(f"  Appended {len(tlf_shells):,} chars of TLF specifications")
 
-        # Generate and append boundary tables for Phase 2/3 trials
-        boundary_tables = self._generate_boundary_tables(discovered_elements, protocol_text, verbose)
-        if boundary_tables:
-            sap_text += "\n\n---\n\n" + boundary_tables
-            if verbose:
-                print(f"  Appended {len(boundary_tables):,} chars of boundary tables")
-
         self._last_sap = sap_text
 
         result = {
@@ -1331,7 +1341,7 @@ class TwoPassExtractor:
             "rag_examples_used": len(rag_examples) > 0,
             "knowledge_graph_used": True,
             "tlf_shells_appended": True,
-            "boundary_tables_generated": bool(boundary_tables)
+            "boundary_info_provided": bool(boundary_info and "not available" not in boundary_info.lower())
         }
 
         # Validate if requested
@@ -1396,6 +1406,136 @@ class TwoPassExtractor:
             return 'continuous'
 
         return 'binary'
+
+    def _prepare_boundary_info(self, discovered_elements: List[DiscoveredElement],
+                                protocol_text: str, verbose: bool = True) -> str:
+        """
+        Extract boundary parameters and format them for the LLM prompt.
+
+        This runs BEFORE SAP generation so the LLM can include exact values.
+        """
+        if verbose:
+            print(f"\n{'-'*70}")
+            print("EXTRACTING BOUNDARY PARAMETERS (PRE-GENERATION)")
+            print(f"{'-'*70}")
+
+        # Extract parameters using LlamaExtract/Claude
+        inputs = self._extract_boundary_inputs(discovered_elements, protocol_text)
+
+        if verbose:
+            print(f"  Phase: {inputs.get('phase', 'unknown')}")
+            print(f"  Alpha (PFS): {inputs.get('alpha', 'not found')}")
+            print(f"  Alpha (OS): {inputs.get('os_alpha', 'not found')}")
+            print(f"  PFS Events: {inputs.get('events', [])}")
+            print(f"  OS Events: {inputs.get('os_events', [])}")
+            print(f"  HR: {inputs.get('hr', 'not found')}")
+            print(f"  NI Margin: {inputs.get('ni_margin', 'not found')}")
+            print(f"  Power (beta): {inputs.get('beta', 0.10)}")
+            print(f"  Spending Function: {inputs.get('spending_function', 'OF')}")
+
+        # Format boundary info for LLM prompt
+        info_parts = []
+
+        # Trial phase
+        phase = inputs.get('phase', '')
+        if phase:
+            info_parts.append(f"Trial Phase: {phase.replace('phase', 'Phase ')}")
+
+        # Alpha allocation
+        alpha = inputs.get('alpha')
+        os_alpha = inputs.get('os_alpha')
+        if alpha:
+            info_parts.append(f"PFS Alpha: α = {alpha} (one-sided)")
+        if os_alpha:
+            info_parts.append(f"OS Alpha: α = {os_alpha} (one-sided)")
+
+        # Power
+        beta = inputs.get('beta', 0.10)
+        power = (1 - beta) * 100
+        info_parts.append(f"Power: {power:.0f}%")
+
+        # Hazard ratio
+        hr = inputs.get('hr')
+        if hr:
+            info_parts.append(f"Assumed Hazard Ratio: HR = {hr}")
+
+        # NI margin
+        ni_margin = inputs.get('ni_margin')
+        if ni_margin and ni_margin > 1.0:
+            info_parts.append(f"Non-Inferiority Margin: {ni_margin}")
+
+        # Median survival
+        median = inputs.get('median_control')
+        if median:
+            info_parts.append(f"Control Median Survival: {median} months")
+
+        # Spending function
+        sf = inputs.get('spending_function', 'OF')
+        sf_name = "Lan-DeMets O'Brien-Fleming" if sf == "OF" else "Lan-DeMets Pocock" if sf == "Pocock" else sf
+        info_parts.append(f"Alpha Spending Function: {sf_name}")
+
+        # Number of analyses
+        n_analyses = inputs.get('n_analyses')
+        events = inputs.get('events', [])
+        os_events = inputs.get('os_events', [])
+
+        if n_analyses:
+            n_interim = n_analyses - 1
+            info_parts.append(f"Number of Analyses: {n_interim} interim + 1 final = {n_analyses} total")
+        elif events:
+            info_parts.append(f"Number of PFS Analyses: {len(events)} (based on event counts)")
+
+        # PFS event schedule
+        if events:
+            info_parts.append(f"\nPFS Event Schedule:")
+            for i, ev in enumerate(events):
+                if i < len(events) - 1:
+                    info_parts.append(f"  IA{i+1}: {ev} PFS events")
+                else:
+                    info_parts.append(f"  Final: {ev} PFS events")
+
+        # OS event schedule
+        if os_events:
+            info_parts.append(f"\nOS Event Schedule:")
+            for i, ev in enumerate(os_events):
+                if i < len(os_events) - 1:
+                    info_parts.append(f"  IA{i+1}: {ev} OS events")
+                else:
+                    info_parts.append(f"  Final: {ev} OS events")
+
+        # Calculate and add boundary tables if we have enough info
+        if self.boundary_calculator and phase == 'phase3' and alpha and events:
+            try:
+                boundary_tables = self.boundary_calculator.generate_interim_analysis_section(
+                    pfs_events=events,
+                    pfs_alpha=alpha,
+                    os_events=os_events,
+                    os_alpha=os_alpha,
+                    hr_alternative=hr or 0.7,
+                    ni_margin=ni_margin if ni_margin and ni_margin > 1.0 else None,
+                    spending_function=sf
+                )
+                if boundary_tables:
+                    info_parts.append(f"\n{boundary_tables}")
+                    if verbose:
+                        print(f"  [OK] Generated boundary tables")
+            except Exception as e:
+                if verbose:
+                    print(f"  [!] Boundary calculation failed: {e}")
+
+        # Phase 2 specific
+        if phase == 'phase2':
+            p0 = inputs.get('p0')
+            p1 = inputs.get('p1')
+            if p0:
+                info_parts.append(f"Null Response Rate (p0): {p0}")
+            if p1:
+                info_parts.append(f"Alternative Response Rate (p1): {p1}")
+
+        if not info_parts:
+            return "(No boundary parameters could be extracted from protocol)"
+
+        return "\n".join(info_parts)
 
     def _extract_boundary_inputs(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> Dict[str, Any]:
         """
