@@ -101,56 +101,33 @@ from .audit_logger import get_audit_logger
 
 def strip_duplicate_appendix(sap_text: str) -> str:
     """
-    DETERMINISTIC: Remove duplicate APPENDIX sections after Section 12.
-
-    Claude keeps generating APPENDIX sections with placeholders despite instructions.
-    Solution: Cut off everything after legitimate Section 12 content.
+    DETERMINISTIC: Cut TLF SHELL SPECIFICATIONS section. No conditions.
     """
-    # Normalize line endings
+    print("[STRIP] ====== RUNNING strip_duplicate_appendix ======")
+    print(f"[STRIP] Input length: {len(sap_text)} chars")
+
+    # Normalize
     sap_text = sap_text.replace('\r\n', '\n')
 
-    # Method 1: Cut at "END OF STATISTICAL ANALYSIS PLAN"
-    end_markers = [
-        'END OF STATISTICAL ANALYSIS PLAN',
-        'End of Statistical Analysis Plan',
-        'END OF SAP',
-    ]
-    for marker in end_markers:
-        if marker in sap_text:
-            idx = sap_text.find(marker)
-            # Keep the marker and one line after, cut the rest
-            end_idx = sap_text.find('\n\n', idx + len(marker))
-            if end_idx > 0:
-                sap_text = sap_text[:end_idx].strip()
-                print(f"[PostProcess] Cut SAP at '{marker}'")
-                return sap_text
-
-    # Method 2: Cut at standalone APPENDIX sections (not Section 12 APPENDICES)
-    # These patterns match APPENDIX that comes AFTER Section 12
-    appendix_markers = [
-        '\nAPPENDIX: TLF',
-        '\nAPPENDIX:',
-        '\nAPPENDIX A:',
-        '\n## APPENDIX',
-        '\n# APPENDIX',
+    # JUST FIND AND CUT - no conditions
+    markers = [
+        'APPENDIX: TLF SHELL SPECIFICATIONS',
         'APPENDIX: TLF SHELL',
+        'APPENDIX: TLF',
     ]
-    for marker in appendix_markers:
-        if marker in sap_text:
-            idx = sap_text.find(marker)
-            # Only cut if this is AFTER Section 12 (i.e., it's a duplicate)
-            section_12_idx = sap_text.lower().find('12. appendices')
-            if section_12_idx == -1:
-                section_12_idx = sap_text.lower().find('section 12')
-            if section_12_idx == -1:
-                section_12_idx = sap_text.lower().find('12.')
 
-            # Only strip if APPENDIX marker comes after Section 12 header
-            if section_12_idx > 0 and idx > section_12_idx + 100:  # +100 to allow for Section 12 content
-                sap_text = sap_text[:idx].strip()
-                print(f"[PostProcess] Stripped duplicate APPENDIX at position {idx}")
-                return sap_text
+    for marker in markers:
+        # Case-insensitive search
+        lower_text = sap_text.lower()
+        lower_marker = marker.lower()
+        if lower_marker in lower_text:
+            idx = lower_text.find(lower_marker)
+            print(f"[STRIP] FOUND '{marker}' at position {idx}")
+            sap_text = sap_text[:idx].rstrip()
+            print(f"[STRIP] CUT! New length: {len(sap_text)} chars")
+            return sap_text
 
+    print("[STRIP] No TLF SHELL marker found")
     return sap_text
 
 
