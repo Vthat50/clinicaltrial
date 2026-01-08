@@ -15,8 +15,8 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v9-TLF-INJECT-2026-01-08-COMMIT-4577c4da")
-print("FEATURE: TLF tables injected directly in main.py before DB save")
+print("BUILD: v10-PLACEHOLDER-FIX-2026-01-08-COMMIT-937b1769")
+print("FEATURE: Removes [Primary endpoint as specified] placeholder text")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
