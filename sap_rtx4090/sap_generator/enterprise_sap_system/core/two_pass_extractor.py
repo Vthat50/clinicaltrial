@@ -1550,13 +1550,15 @@ class TwoPassExtractor:
         - Event counts (PFS and OS)
         - HR assumptions, NI margins, spending functions
         """
+        print(f"  [Extraction] Sending full protocol to Claude ({len(protocol_text)} chars)")
+
         # Primary: Use Claude for extraction (better clinical terminology understanding)
         extraction_prompt = f"""Extract statistical parameters for interim analysis boundary calculations from this clinical trial protocol.
 
 IMPORTANT: Extract EXACT numerical values from the protocol. Return null for any values not explicitly stated.
 
-Protocol text (relevant sections):
-{protocol_text[:50000]}
+FULL PROTOCOL TEXT:
+{protocol_text}
 
 Return a JSON object with these fields (use null if not found):
 {{
@@ -1629,20 +1631,6 @@ Return ONLY valid JSON, no explanation."""
                 'spending_function': extracted.get('spending_function') or 'OF',
             }
 
-            # Apply Phase 3 defaults if key values are missing
-            # This ensures boundary tables are generated with reasonable assumptions
-            if phase == 'phase3':
-                if not inputs['alpha']:
-                    inputs['alpha'] = 0.025  # Standard one-sided alpha for Phase 3
-                    print(f"  [Default] Using standard Phase 3 alpha: 0.025 (one-sided)")
-                if not inputs['events']:
-                    # Default to 2 interim + 1 final analysis
-                    inputs['events'] = [100, 200, 300]  # Typical event schedule
-                    print(f"  [Default] Using placeholder event schedule: {inputs['events']}")
-                if not inputs['hr']:
-                    inputs['hr'] = 0.70  # Common assumption for oncology trials
-                    print(f"  [Default] Using typical HR assumption: 0.70")
-
             print(f"  [Claude] Successfully extracted boundary parameters")
             return inputs
 
@@ -1707,18 +1695,6 @@ Return ONLY valid JSON, no explanation."""
                         'spending_function': extracted.get('spending_function') or 'OF',
                     }
 
-                    # Apply Phase 3 defaults if key values are missing
-                    if phase == 'phase3':
-                        if not inputs['alpha']:
-                            inputs['alpha'] = 0.025
-                            print(f"  [Default] Using standard Phase 3 alpha: 0.025 (one-sided)")
-                        if not inputs['events']:
-                            inputs['events'] = [100, 200, 300]
-                            print(f"  [Default] Using placeholder event schedule: {inputs['events']}")
-                        if not inputs['hr']:
-                            inputs['hr'] = 0.70
-                            print(f"  [Default] Using typical HR assumption: 0.70")
-
                     print(f"  [LlamaExtract] Successfully extracted boundary parameters (fallback)")
                     return inputs
 
@@ -1730,48 +1706,28 @@ Return ONLY valid JSON, no explanation."""
         except Exception as fallback_e:
             print(f"  [!] LlamaExtract fallback also failed: {fallback_e}")
 
-        # Last resort: return defaults based on detected phase
+        # Last resort: return empty values - extraction failed
         phase = 'phase3' if 'phase 3' in protocol_text.lower() or 'phase iii' in protocol_text.lower() else 'phase2' if 'phase 2' in protocol_text.lower() else None
 
-        print(f"  [!] Using last-resort defaults for {phase or 'unknown'} trial")
+        print(f"  [!] Extraction failed - returning empty values for {phase or 'unknown'} trial")
 
-        # For Phase 3, provide reasonable defaults so boundary tables can be generated
-        if phase == 'phase3':
-            return {
-                'phase': phase,
-                'alpha': 0.025,  # Standard one-sided alpha
-                'beta': 0.10,  # 90% power
-                'n_analyses': 3,  # 2 interim + 1 final
-                'events': [100, 200, 300],  # Placeholder events
-                'info_fractions': [],
-                'hr': 0.70,  # Common oncology assumption
-                'ni_margin': None,
-                'median_control': None,
-                'p0': None,
-                'p1': None,
-                'os_events': [],
-                'os_alpha': None,
-                'china_events': None,
-                'spending_function': 'OF',
-            }
-        else:
-            return {
-                'phase': phase,
-                'alpha': None,
-                'beta': 0.10,
-                'n_analyses': None,
-                'events': [],
-                'info_fractions': [],
-                'hr': None,
-                'ni_margin': None,
-                'median_control': None,
-                'p0': None,
-                'p1': None,
-                'os_events': None,
-                'os_alpha': None,
-                'china_events': None,
-                'spending_function': 'OF',
-            }
+        return {
+            'phase': phase,
+            'alpha': None,
+            'beta': None,
+            'n_analyses': None,
+            'events': [],
+            'info_fractions': [],
+            'hr': None,
+            'ni_margin': None,
+            'median_control': None,
+            'p0': None,
+            'p1': None,
+            'os_events': [],
+            'os_alpha': None,
+            'china_events': None,
+            'spending_function': None,
+        }
 
     def _generate_boundary_tables(self, discovered_elements: List[DiscoveredElement],
                                    protocol_text: str, verbose: bool = True) -> str:
