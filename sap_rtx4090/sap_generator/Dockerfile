@@ -4,6 +4,7 @@
 FROM python:3.11-slim
 
 # Install system dependencies and R
+# Note: gfortran and libblas needed for gsDesign/rpact compilation
 RUN apt-get update && apt-get install -y --no-install-recommends \
     r-base \
     r-base-dev \
@@ -11,15 +12,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libxml2-dev \
     build-essential \
+    gfortran \
+    libblas-dev \
+    liblapack-dev \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install R packages for boundary calculations
 # Note: clinfun needed for Phase 2, gsDesign/rpact for Phase 3
-RUN R -e "install.packages(c('gsDesign', 'rpact', 'clinfun'), repos='https://cloud.r-project.org')" && \
-    R -e "if (!require('gsDesign')) stop('gsDesign not installed')" && \
-    R -e "if (!require('rpact')) stop('rpact not installed')" && \
-    R -e "if (!require('clinfun')) stop('clinfun not installed')"
+# Using verbose output to see any errors
+RUN R -e "options(warn=2); install.packages(c('gsDesign', 'rpact', 'clinfun'), repos='https://cloud.r-project.org', verbose=TRUE, dependencies=TRUE)" && \
+    R -e "library(gsDesign); print('gsDesign OK')" && \
+    R -e "library(rpact); print('rpact OK')" && \
+    R -e "library(clinfun); print('clinfun OK')"
 
 # Set working directory
 WORKDIR /app
