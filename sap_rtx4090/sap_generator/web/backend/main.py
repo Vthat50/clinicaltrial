@@ -3337,9 +3337,82 @@ async def process_jobs_worker():
 
                     pipeline_type = "two-pass"
 
-                    # NOTE: TLF stripping is now handled in two_pass_extractor.py
-                    # with smart logic that preserves Section 12 TLF tables
-                    # and only removes duplicate appendices with placeholder text
+                    # =========================================================
+                    # FORCE TLF INJECTION HERE - GUARANTEED TO RUN
+                    # =========================================================
+                    print(f"  [MAIN.PY] Checking TLF tables in SAP...")
+                    has_table_14 = "Table 14" in sap_text
+                    has_section_12 = "## 12." in sap_text or "12. APPENDICES" in sap_text
+
+                    if not has_table_14:
+                        print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
+
+                        # Extract endpoints from discovered elements
+                        primary_eps = []
+                        secondary_eps = []
+                        for elem in discovered_elements:
+                            name = elem.get("name", "").lower()
+                            cat = elem.get("category", "")
+                            desc = elem.get("description", "") or elem.get("name", "")
+                            if "endpoint" in cat or "endpoint" in name:
+                                if "primary" in name:
+                                    primary_eps.append(desc[:100])
+                                elif "secondary" in name:
+                                    secondary_eps.append(desc[:100])
+
+                        # Build TLF section
+                        tlf = "\n\n## 12. APPENDICES\n"
+                        tlf += "### 12.1 Statistical Model Specifications\n"
+                        tlf += "See Section 6 for detailed statistical methodology.\n\n"
+                        tlf += "### 12.2 Tables, Listings, and Figures Specifications\n\n"
+
+                        tlf += "#### Table 14.1.1: Demographics and Baseline Characteristics\n"
+                        tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
+                        tlf += "| Characteristic | 2.5in | Left | ADSL |\n"
+                        tlf += "| Treatment A (N=xxx) | 1.3in | Center | ADSL |\n"
+                        tlf += "| Treatment B (N=xxx) | 1.3in | Center | ADSL |\n"
+                        tlf += "**Population:** ITT Population\n\n"
+
+                        tlf += "#### Table 14.1.2: Subject Disposition\n"
+                        tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
+                        tlf += "| Category | 2.5in | Left | ADSL |\n"
+                        tlf += "| n (%) | 1.3in | Center | ADSL |\n\n"
+
+                        for i, ep in enumerate(primary_eps[:2], 1):
+                            tlf += f"#### Table 14.2.{i}: Primary Efficacy - {ep}\n"
+                            tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
+                            tlf += "| Statistic | 2.5in | Left | ADTTE |\n"
+                            tlf += "| Treatment A | 1.5in | Center | ADTTE |\n"
+                            tlf += "| Treatment B | 1.5in | Center | ADTTE |\n"
+                            tlf += "**Population:** ITT Population\n\n"
+
+                        tlf += "#### Table 14.3.1: Treatment-Emergent Adverse Events\n"
+                        tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
+                        tlf += "| AE Category | 2.5in | Left | ADAE |\n"
+                        tlf += "| Treatment A n(%) | 1.2in | Center | ADAE |\n"
+                        tlf += "| Treatment B n(%) | 1.2in | Center | ADAE |\n"
+                        tlf += "**Population:** Safety Population\n\n"
+
+                        tlf += "### 12.3 Figure Specifications\n\n"
+                        for i, ep in enumerate(primary_eps[:2], 1):
+                            tlf += f"#### Figure 14.2.{i}: Kaplan-Meier Plot - {ep}\n"
+                            tlf += "**Population:** ITT, **X-axis:** Time (months), **Y-axis:** Survival Probability\n\n"
+
+                        tlf += "#### Figure 14.2.3: Forest Plot - Subgroup Analyses\n"
+                        tlf += "**Subgroups:** Age, Sex, ECOG PS, Region\n\n"
+                        tlf += "---\nEND OF STATISTICAL ANALYSIS PLAN\n"
+
+                        # Remove incomplete Section 12 if exists
+                        for marker in ["## 12.", "# 12.", "12. APPENDICES"]:
+                            if marker in sap_text:
+                                idx = sap_text.find(marker)
+                                sap_text = sap_text[:idx].strip()
+                                break
+
+                        sap_text = sap_text + tlf
+                        print(f"  [MAIN.PY] TLF INJECTED - SAP now {len(sap_text)} chars")
+                    else:
+                        print(f"  [MAIN.PY] Table 14 already exists - keeping existing TLF")
 
                     update_data = {
                         "status": "completed",
