@@ -101,31 +101,40 @@ from .audit_logger import get_audit_logger
 
 def strip_duplicate_appendix(sap_text: str) -> str:
     """
-    DETERMINISTIC: Remove duplicate 'APPENDIX: TLF SHELL SPECIFICATIONS' section.
+    DETERMINISTIC: Remove everything after Section 12.
 
-    Claude sometimes generates this section with placeholders even when instructed not to.
-    This strips it since Section 12.2 already has TLF specs.
+    Claude keeps generating APPENDIX sections with placeholders despite instructions.
+    Solution: Cut off everything after "END OF STATISTICAL ANALYSIS PLAN" or after Section 12.
     """
-    # Check for the duplicate APPENDIX section
-    if 'APPENDIX: TLF SHELL SPECIFICATIONS' in sap_text:
-        # Split and keep only content before the APPENDIX
-        parts = sap_text.split('APPENDIX: TLF SHELL SPECIFICATIONS')
-        sap_text = parts[0].strip()
-        print("[PostProcess] Stripped duplicate APPENDIX: TLF SHELL SPECIFICATIONS section")
-
-    # Also strip similar variations
-    variations = [
-        'APPENDIX A: TLF SHELL SPECIFICATIONS',
-        'APPENDIX: TLF Shell Specifications',
-        'APPENDIX A: TLF Shell Templates',
-        '## APPENDIX: TLF',
-        '# APPENDIX: TLF',
+    # Method 1: Cut at "END OF STATISTICAL ANALYSIS PLAN"
+    end_markers = [
+        'END OF STATISTICAL ANALYSIS PLAN',
+        'End of Statistical Analysis Plan',
+        'END OF SAP',
     ]
-    for variation in variations:
-        if variation in sap_text:
-            parts = sap_text.split(variation)
-            sap_text = parts[0].strip()
-            print(f"[PostProcess] Stripped duplicate section: {variation}")
+    for marker in end_markers:
+        if marker in sap_text:
+            idx = sap_text.find(marker)
+            # Keep the marker and one line after, cut the rest
+            end_idx = sap_text.find('\n\n', idx + len(marker))
+            if end_idx > 0:
+                sap_text = sap_text[:end_idx].strip()
+                print(f"[PostProcess] Cut SAP at '{marker}'")
+                return sap_text
+
+    # Method 2: Cut at APPENDIX if no end marker found
+    appendix_markers = [
+        '\nAPPENDIX:',
+        '\nAPPENDIX A:',
+        '\n## APPENDIX',
+        '\n# APPENDIX',
+    ]
+    for marker in appendix_markers:
+        if marker in sap_text:
+            idx = sap_text.find(marker)
+            sap_text = sap_text[:idx].strip()
+            print(f"[PostProcess] Stripped APPENDIX section")
+            return sap_text
 
     return sap_text
 
