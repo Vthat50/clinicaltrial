@@ -946,27 +946,33 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
     - If there's a China extension, include Section 11.1 with sample size
     - If there are other regional requirements, document them
 
-11. TLF SHELLS (Section 12.2) - PROTOCOL-SPECIFIC, NO PLACEHOLDERS:
-    Generate Tables, Figures, and Listings specifications using ACTUAL values from the protocol:
+11. TLF SHELLS (Section 12.2 ONLY) - PROTOCOL-SPECIFIC, NO PLACEHOLDERS:
 
-    TABLES - Use actual endpoint names:
-    - Table 14.2.1.1: Kaplan-Meier Estimates of {ACTUAL PRIMARY ENDPOINT} (e.g., "Overall Survival", "PFS")
-    - Table 14.2.1.2: Cox Regression Analysis of {ACTUAL PRIMARY ENDPOINT}
-    - Table 14.2.2.x: {ACTUAL SECONDARY ENDPOINTS} by Treatment Arm
-    - Include actual population names (e.g., "pMMR Population", "ITT Population")
+    ⚠️ CRITICAL TLF RULES:
+    - Put ALL TLF specifications in Section 12.2 ONLY
+    - DO NOT create a separate "APPENDIX: TLF SHELL SPECIFICATIONS" section
+    - DO NOT create any section after Section 12
 
-    FIGURES - Use actual endpoint names:
-    - Figure 14.2.1: Kaplan-Meier Plot of {ACTUAL PRIMARY ENDPOINT} (e.g., "Overall Survival")
-    - Figure 14.2.2: Forest Plot of {ACTUAL ENDPOINT} Subgroup Analyses
-    - Include actual treatment arm names (e.g., "Pembrolizumab + Lenvatinib vs Chemotherapy")
+    Generate Tables, Figures, and Listings using ACTUAL values from the protocol:
 
-    NEVER USE:
+    EXAMPLE - If protocol has PFS and OS as primary endpoints:
+    - Table 14.2.1.1: Kaplan-Meier Estimates of Progression-Free Survival (pMMR Population)
+    - Table 14.2.1.2: Kaplan-Meier Estimates of Overall Survival (All-Comers)
+    - Figure 14.2.1: Kaplan-Meier Plot of PFS - Pembrolizumab + Lenvatinib vs Chemotherapy
+
+    NOT THIS (WRONG):
+    - Table 14.2.1: Primary Efficacy Analysis
+    - Endpoint: [Primary endpoint as specified]  ← NEVER DO THIS
+
+    BANNED PHRASES - Never write these:
     - "[Primary endpoint as specified]"
     - "[specify timepoints]"
     - "[ENDPOINT]"
-    - Any bracketed placeholders
+    - "[Primary endpoint]"
+    - "as specified"
+    - Any text in square brackets
 
-    ALWAYS USE the exact endpoint, population, and treatment names from the protocol.
+    Read the protocol and use the ACTUAL names: "Overall Survival", "PFS", "ORR", etc.
 
 ══════════════════════════════════════════════════════════════════════════════
 SAP TEMPLATE TO FOLLOW
@@ -987,7 +993,13 @@ NOW WRITE THE COMPLETE SAP
 Write a professional, comprehensive SAP. Include ALL elements from the checklist.
 Use exact values from the protocol. Use the Knowledge Graph methods where appropriate.
 Follow the style/format from RAG examples but NOT their specific values.
-Do not skip anything."""
+Do not skip anything.
+
+⚠️ FINAL REMINDER:
+- Section 12 is the LAST section
+- DO NOT create any "APPENDIX: TLF SHELL SPECIFICATIONS" after Section 12
+- All TLF specs go in Section 12.2
+- Use ACTUAL endpoint names (PFS, OS, ORR) - NO brackets or placeholders"""
 
 
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
