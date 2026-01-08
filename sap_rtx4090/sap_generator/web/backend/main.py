@@ -15,8 +15,8 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v10-PLACEHOLDER-FIX-2026-01-08-COMMIT-937b1769")
-print("FEATURE: Removes [Primary endpoint as specified] placeholder text")
+print("BUILD: v11-REPLACE-PLACEHOLDERS-2026-01-08")
+print("FEATURE: Replaces [Primary endpoint as specified] with actual endpoint name")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -3349,27 +3349,37 @@ async def process_jobs_worker():
                     pipeline_type = "two-pass"
 
                     # =========================================================
-                    # FORCE TLF INJECTION HERE - GUARANTEED TO RUN
+                    # REPLACE PLACEHOLDER TEXT WITH ACTUAL ENDPOINTS
                     # =========================================================
-                    print(f"  [MAIN.PY] Checking TLF tables in SAP...")
+                    print(f"  [MAIN.PY] Checking for placeholder text...")
 
-                    # Check for PLACEHOLDER text - this is the problem!
-                    has_placeholder = "[Primary endpoint as specified]" in sap_text or "[Primary endpoint]" in sap_text
+                    # Extract primary endpoint from discovered elements
+                    primary_endpoint_name = "Primary Efficacy Endpoint"
+                    for elem in discovered_elements:
+                        name = elem.get("name", "").lower()
+                        cat = elem.get("category", "")
+                        desc = elem.get("description", "") or elem.get("name", "")
+                        if ("endpoint" in cat or "endpoint" in name) and "primary" in name:
+                            primary_endpoint_name = desc[:100] if desc else "Primary Efficacy Endpoint"
+                            print(f"  [MAIN.PY] Found primary endpoint: {primary_endpoint_name}")
+                            break
 
-                    if has_placeholder:
-                        print(f"  [MAIN.PY] FOUND PLACEHOLDER TEXT - removing bad APPENDIX section")
-                        # Remove everything from "APPENDIX: TLF" onwards
-                        for marker in ["APPENDIX: TLF", "APPENDIX:\n", "\nAPPENDIX"]:
-                            if marker in sap_text:
-                                idx = sap_text.find(marker)
-                                sap_text = sap_text[:idx].strip()
-                                print(f"  [MAIN.PY] Removed placeholder APPENDIX at position {idx}")
-                                break
+                    # Replace ALL placeholder patterns with actual endpoint
+                    placeholders = [
+                        "[Primary endpoint as specified]",
+                        "[Primary endpoint]",
+                        "[ENDPOINT]",
+                        "[endpoint]",
+                    ]
+                    for placeholder in placeholders:
+                        if placeholder in sap_text:
+                            sap_text = sap_text.replace(placeholder, primary_endpoint_name)
+                            print(f"  [MAIN.PY] Replaced '{placeholder}' with '{primary_endpoint_name}'")
 
-                    # Now check if we need to inject TLF tables
-                    has_good_tables = "Table 14" in sap_text and "[Primary endpoint" not in sap_text
+                    # Check if tables exist
+                    has_tables = "Table 14" in sap_text
 
-                    if not has_good_tables:
+                    if not has_tables:
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
 
                         # Extract endpoints from discovered elements
