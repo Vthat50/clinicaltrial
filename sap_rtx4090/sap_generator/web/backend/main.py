@@ -136,6 +136,22 @@ except ImportError:
 
 from evaluate_sap import SAPEvaluator
 
+# SAP Verification Layer (Generate → Verify architecture)
+# Verifies generated SAP against protocol anchors (sentences with statistics)
+try:
+    from enterprise_sap_system.core.sap_verifier import (
+        extract_anchors,
+        verify_sap,
+        check_regulatory_compliance,
+        VerificationReport,
+        ProtocolAnchors,
+        Severity
+    )
+    SAP_VERIFIER_AVAILABLE = True
+except ImportError as e:
+    SAP_VERIFIER_AVAILABLE = False
+    print(f"Warning: SAP Verifier not available: {e}")
+
 # Environment variables
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
@@ -327,6 +343,52 @@ class GroundTruthInfo(BaseModel):
     title: str
     sap_lines: int
     therapeutic_area: str
+
+
+class VerificationIssue(BaseModel):
+    """A single verification issue found."""
+    severity: str  # "critical", "warning", "info"
+    category: str
+    message: str
+    rule: Optional[str] = None
+
+
+class VerificationAnchorSummary(BaseModel):
+    """Summary of anchors by category."""
+    sample_size: int = 0
+    alpha: int = 0
+    power: int = 0
+    randomization: int = 0
+    endpoints: int = 0
+    interim_analysis: int = 0
+    hypotheses: int = 0
+    boundaries: int = 0
+    total: int = 0
+
+
+class VerificationResponse(BaseModel):
+    """Response from SAP verification against protocol anchors."""
+    success: bool
+    job_id: str
+    # Anchor verification
+    anchors_found: int
+    anchors_verified: int
+    anchors_missing: int
+    anchor_summary: VerificationAnchorSummary
+    # Confidence
+    confidence_score: float
+    needs_human_review: bool
+    # Issues
+    critical_issues: int
+    warnings: int
+    issues: list[VerificationIssue]
+    # Unexpected numbers in SAP not from protocol
+    unexpected_numbers: list[str]
+    # Full text report
+    report_text: str
+    # Metadata
+    verification_method: str = "anchor-verification-v1"
+    error: Optional[str] = None
 
 
 # API Endpoints
@@ -964,12 +1026,19 @@ class DirectSAPResponse(BaseModel):
     # Discovery results
     elements_discovered: int
     categories_found: list
-    # Validation
+    # Validation (checklist coverage)
     validation_score: float
     elements_present: int
     elements_missing: int
     elements_partial: int
     critical_gaps: list
+    # Verification (anchor-based, Generate → Verify architecture)
+    verification_score: Optional[float] = None
+    anchors_found: Optional[int] = None
+    anchors_verified: Optional[int] = None
+    anchors_missing: Optional[int] = None
+    verification_issues: Optional[list] = None
+    needs_human_review: Optional[bool] = None
     # Metadata
     total_time: float
     sap_length: int
@@ -1043,6 +1112,40 @@ async def generate_direct_sap(request: GenerateRequest):
         discovered_elements = result.get('discovered_elements', [])
         categories = list(set(e.get('category', 'other') for e in discovered_elements))
 
+        # Run verification (Generate → Verify architecture)
+        verification_score = None
+        anchors_found = None
+        anchors_verified = None
+        anchors_missing = None
+        verification_issues = None
+        needs_human_review = None
+
+        if SAP_VERIFIER_AVAILABLE:
+            try:
+                sap_text = result.get('sap_text', '')
+                if sap_text and request.protocol_text:
+                    anchors = extract_anchors(request.protocol_text)
+                    report = verify_sap(sap_text, request.protocol_text, anchors)
+
+                    verification_score = report.confidence_score
+                    anchors_found = report.anchors_found
+                    anchors_verified = report.anchors_verified
+                    anchors_missing = report.anchors_missing
+                    needs_human_review = report.needs_human_review()
+
+                    # Extract top issues (limit to 10)
+                    verification_issues = [
+                        {
+                            "severity": issue.severity.value,
+                            "category": issue.category,
+                            "message": issue.message[:200]  # Truncate long messages
+                        }
+                        for issue in report.issues[:10]
+                    ]
+            except Exception as verify_error:
+                logger.warning(f"Verification failed (non-fatal): {verify_error}")
+                verification_issues = [{"severity": "warning", "category": "system", "message": f"Verification skipped: {str(verify_error)[:100]}"}]
+
         return DirectSAPResponse(
             success=True,
             sap_text=result.get('sap_text', ''),
@@ -1053,9 +1156,15 @@ async def generate_direct_sap(request: GenerateRequest):
             elements_missing=elements_missing,
             elements_partial=elements_partial,
             critical_gaps=critical_gaps,
+            verification_score=verification_score,
+            anchors_found=anchors_found,
+            anchors_verified=anchors_verified,
+            anchors_missing=anchors_missing,
+            verification_issues=verification_issues,
+            needs_human_review=needs_human_review,
             total_time=result.get('total_time_s', processing_time),
             sap_length=result.get('sap_length', len(result.get('sap_text', ''))),
-            generation_method="direct-v2 (discovery checklist + full protocol)",
+            generation_method="direct-v2 (discovery checklist + full protocol + verification)",
             errors=[]
         )
 
@@ -1802,6 +1911,177 @@ async def evaluate_batch(job_id: str, limit: int = 50):
     except HTTPException:
         raise
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# SAP VERIFICATION ENDPOINT (Generate → Verify Architecture)
+# =============================================================================
+
+@app.post("/verify/{job_id}", response_model=VerificationResponse)
+async def verify_sap_endpoint(job_id: str):
+    """
+    Verify a generated SAP against the source protocol using anchor verification.
+
+    This implements the Generate → Verify architecture:
+    1. Extract "anchors" from protocol (sentences containing statistics)
+    2. Check if each anchor's key numbers appear in the generated SAP
+    3. Flag unexpected numbers in SAP that don't come from protocol
+    4. Check ICH E9 regulatory compliance
+    5. Return confidence score and issues list
+
+    The verification layer catches:
+    - Missing critical values (sample size, alpha, power)
+    - Hallucinated numbers not in protocol
+    - Missing regulatory required sections
+    - Inconsistent statistical methodology
+
+    Returns:
+        VerificationResponse with confidence score, issues, and recommendations
+    """
+    try:
+        if not SAP_VERIFIER_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="SAP Verifier not available - import failed"
+            )
+
+        db = get_supabase()
+
+        # Get the job
+        result = db.table("sap_jobs").select("*").eq("id", job_id).execute()
+
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Job not found")
+
+        job = result.data[0]
+
+        if job["status"] != "completed":
+            raise HTTPException(status_code=400, detail="Job must be completed to verify")
+
+        generated_sap = job.get("generated_sap", "")
+        if not generated_sap:
+            raise HTTPException(status_code=400, detail="No generated SAP found")
+
+        protocol_text = job.get("protocol_text", "")
+        if not protocol_text:
+            raise HTTPException(status_code=400, detail="No protocol text found - cannot verify")
+
+        # Step 1: Extract anchors from protocol
+        anchors = extract_anchors(protocol_text)
+
+        # Step 2: Verify SAP against anchors
+        report = verify_sap(generated_sap, protocol_text, anchors)
+
+        # Convert issues to response format
+        issues_list = [
+            VerificationIssue(
+                severity=issue.severity.value,
+                category=issue.category,
+                message=issue.message,
+                rule=issue.rule
+            )
+            for issue in report.issues
+        ]
+
+        # Build anchor summary
+        anchor_summary = VerificationAnchorSummary(**anchors.summary())
+
+        return VerificationResponse(
+            success=True,
+            job_id=job_id,
+            anchors_found=report.anchors_found,
+            anchors_verified=report.anchors_verified,
+            anchors_missing=report.anchors_missing,
+            anchor_summary=anchor_summary,
+            confidence_score=report.confidence_score,
+            needs_human_review=report.needs_human_review(),
+            critical_issues=report.critical_count(),
+            warnings=report.warning_count(),
+            issues=issues_list,
+            unexpected_numbers=list(report.unexpected_numbers)[:20],  # Limit to 20
+            report_text=report.summary(),
+            verification_method="anchor-verification-v1"
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"SAP verification failed: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/verify-text", response_model=VerificationResponse)
+async def verify_sap_text(
+    sap_text: str = Form(...),
+    protocol_text: str = Form(...)
+):
+    """
+    Verify an SAP directly against protocol text (no job required).
+
+    This is the stateless version of /verify/{job_id} for direct API usage.
+    Upload both the SAP and the source protocol for verification.
+
+    Args:
+        sap_text: The generated SAP document text
+        protocol_text: The source protocol text
+
+    Returns:
+        VerificationResponse with confidence score and issues
+    """
+    try:
+        if not SAP_VERIFIER_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="SAP Verifier not available - import failed"
+            )
+
+        if not sap_text.strip():
+            raise HTTPException(status_code=400, detail="SAP text cannot be empty")
+
+        if not protocol_text.strip():
+            raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
+
+        # Extract anchors and verify
+        anchors = extract_anchors(protocol_text)
+        report = verify_sap(sap_text, protocol_text, anchors)
+
+        # Convert to response
+        issues_list = [
+            VerificationIssue(
+                severity=issue.severity.value,
+                category=issue.category,
+                message=issue.message,
+                rule=issue.rule
+            )
+            for issue in report.issues
+        ]
+
+        anchor_summary = VerificationAnchorSummary(**anchors.summary())
+
+        return VerificationResponse(
+            success=True,
+            job_id="direct-verification",
+            anchors_found=report.anchors_found,
+            anchors_verified=report.anchors_verified,
+            anchors_missing=report.anchors_missing,
+            anchor_summary=anchor_summary,
+            confidence_score=report.confidence_score,
+            needs_human_review=report.needs_human_review(),
+            critical_issues=report.critical_count(),
+            warnings=report.warning_count(),
+            issues=issues_list,
+            unexpected_numbers=list(report.unexpected_numbers)[:20],
+            report_text=report.summary(),
+            verification_method="anchor-verification-v1"
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Direct SAP verification failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
