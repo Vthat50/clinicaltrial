@@ -4,7 +4,7 @@ Integrated Production SAP Pipeline
 ====================================
 This is the ACTUAL production pipeline that integrates ALL components:
 
-1. EXTRACTION: Regex-based fact extraction (no hallucination)
+1. EXTRACTION: Claude extracts ALL facts from protocol (NO REGEX)
 2. RAG RETRIEVAL: 1,198 indexed SAP sections for few-shot examples
 3. KNOWLEDGE GRAPH: 39 nodes for statistical method selection
 4. SPECIALIZED TEMPLATES: Oncology, Phase 1, Phase 2/3, CAR-T, etc.
@@ -15,7 +15,7 @@ This replaces the scattered components with a single integrated flow.
 """
 
 import os
-import re
+import json
 import time
 from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, field
@@ -91,355 +91,159 @@ class TrialType(Enum):
 
 
 # =============================================================================
-# STEP 1: EXTRACTION (Regex-only, no LLM)
+# STEP 1: EXTRACTION (Claude only - NO REGEX)
 # =============================================================================
 
 class FactExtractor:
-    """Extract all protocol facts using regex patterns + LLM for complex elements"""
+    """Extract ALL protocol facts using Claude - NO REGEX"""
 
-    def __init__(self, use_llm_for_complex: bool = True):
-        """
-        Initialize FactExtractor.
+    EXTRACTION_PROMPT = """You are extracting facts from a clinical trial protocol. Extract ALL of the following fields.
+Return ONLY valid JSON, no markdown, no explanation.
 
-        Args:
-            use_llm_for_complex: If True, use LLM to extract complex elements
-                                 (interim analysis, power calculations, etc.)
-        """
-        self.use_llm_for_complex = use_llm_for_complex
-        self._llm_extractor = None
+{
+    "nct_id": "NCT number if present, null if not found",
+    "drug_name": "Name of the study drug/investigational product",
+    "sample_size": integer (total number of patients to be enrolled),
+    "randomization_ratio": "e.g., 1:1, 2:1, or N/A for single-arm",
+    "num_arms": integer (number of treatment arms),
+    "phase": "Phase 1, Phase 2, Phase 3, or Phase 1/2, etc.",
+    "blinding": "open-label, single-blind, double-blind",
+    "arms": [
+        {"name": "Arm A", "description": "Treatment description", "is_placebo": false},
+        {"name": "Arm B", "description": "Placebo", "is_placebo": true}
+    ],
+    "stratification_factors": ["factor1", "factor2"],
+    "alpha": 0.05,
+    "alpha_sidedness": "one-sided or two-sided",
+    "power": 0.90,
+    "therapeutic_area": "Oncology, IBD, Rheumatology, CNS, Cardiovascular, Metabolic, Dermatology, or General",
+    "indication": "Specific disease/condition being treated",
+    "endpoint_type": "time-to-event, continuous, or binary",
+    "primary_endpoint": "Full description of primary endpoint",
+    "secondary_endpoints": ["endpoint1", "endpoint2"],
+    "exploratory_endpoints": ["endpoint1", "endpoint2"],
+    "trial_type": "oncology_solid, oncology_hematologic, oncology_phase1, oncology_cart, oncology_basket, ibd, rheumatology, cns, cardiovascular, metabolic, or general",
+    "interim_analysis": {
+        "num_interim_analyses": integer,
+        "timing": [{"analysis": 1, "info_fraction": 0.5, "events": 100}, ...],
+        "alpha_spending_function": "Lan-DeMets O'Brien-Fleming, etc.",
+        "efficacy_boundaries": [{"analysis": 1, "z_score": 4.33, "p_value": 0.00001}, ...],
+        "futility_boundaries": [{"analysis": 1, "z_score": -0.5}, ...]
+    },
+    "power_calculations": {
+        "primary_power": "90% power for HR 0.7",
+        "control_median": "median PFS/OS in control arm",
+        "assumed_hazard_ratio": 0.7,
+        "dropout_rate": "10%",
+        "accrual_period": "24 months",
+        "follow_up_duration": "36 months"
+    },
+    "censoring_rules": {
+        "pfs_censoring": ["rule1", "rule2"],
+        "os_censoring": ["rule1", "rule2"],
+        "dor_censoring": ["rule1", "rule2"]
+    },
+    "analysis_populations": {
+        "itt": "All randomized patients",
+        "safety": "All patients who received at least one dose",
+        "per_protocol": "Definition of per-protocol population",
+        "pk_population": "PK-evaluable population definition"
+    },
+    "statistical_methods": {
+        "primary_analysis": "Stratified log-rank test, Cox regression, etc.",
+        "secondary_analyses": ["method1", "method2"],
+        "multiplicity_adjustment": "Hochberg, Bonferroni, hierarchical, etc.",
+        "missing_data_handling": "MMRM, LOCF, multiple imputation, etc.",
+        "sensitivity_analyses": ["analysis1", "analysis2"]
+    },
+    "subgroup_analyses": ["subgroup1", "subgroup2"],
+    "safety_analyses": {
+        "ae_coding": "MedDRA version",
+        "ae_categories": ["TEAE", "SAE", "AESI", "etc."],
+        "lab_parameters": ["parameter1", "parameter2"],
+        "ecg_analysis": "Description of ECG analysis",
+        "vital_signs": ["parameter1", "parameter2"]
+    },
+    "tlf_shells": {
+        "demographics_tables": ["Table 14.1.1 Subject Disposition", "Table 14.1.2 Demographics"],
+        "efficacy_tables": ["Table 14.2.1 Primary Efficacy", "Table 14.2.2 Secondary Efficacy"],
+        "safety_tables": ["Table 14.3.1 Overall AE Summary", "Table 14.3.2 SAEs"],
+        "figures": ["Figure 14.2.1 Kaplan-Meier PFS", "Figure 14.2.2 Forest Plot"],
+        "listings": ["Listing 16.2.1 Subject Disposition", "Listing 16.2.6 Deaths"]
+    },
+    "regional_requirements": {
+        "china_extension": {"sample_size": integer, "sites": integer},
+        "japan_requirements": "any Japan-specific requirements",
+        "eu_requirements": "any EU-specific requirements"
+    }
+}
 
-    def _get_llm_extractor(self):
-        """Lazy-load LLM extractor"""
-        if self._llm_extractor is None and self.use_llm_for_complex:
-            try:
-                from .llm_extractor import LLMExtractor
-                self._llm_extractor = LLMExtractor()
-            except Exception as e:
-                print(f"[FactExtractor] LLM extractor not available: {e}")
-        return self._llm_extractor
+PROTOCOL TEXT:
+"""
+
+    def __init__(self):
+        """Initialize FactExtractor with Claude client"""
+        try:
+            from anthropic import Anthropic
+            self.client = Anthropic()
+            self.model = "claude-sonnet-4-20250514"
+            print("[FactExtractor] Using Claude for ALL extraction - NO REGEX")
+        except ImportError:
+            raise ImportError("anthropic package required: pip install anthropic")
 
     def extract(self, protocol_text: str) -> Dict[str, Any]:
-        """Extract all facts from protocol text"""
-        facts = {}
+        """Extract ALL facts from protocol text using Claude"""
+        print("[FactExtractor] Extracting ALL facts with Claude...")
 
-        # First extract basic facts with regex
-        facts = self._extract_basic_facts(protocol_text, facts)
+        # Truncate if too long (Claude context limit)
+        max_chars = 150000
+        if len(protocol_text) > max_chars:
+            protocol_text = protocol_text[:max_chars] + "\n\n[TRUNCATED]"
 
-        # Then extract complex elements with LLM if available
-        if self.use_llm_for_complex:
-            facts = self._extract_complex_facts_with_llm(protocol_text, facts)
+        prompt = self.EXTRACTION_PROMPT + protocol_text
 
-        return facts
+        response = self.client.messages.create(
+            model=self.model,
+            max_tokens=8000,
+            messages=[{"role": "user", "content": prompt}]
+        )
 
-    def _extract_basic_facts(self, protocol_text: str, facts: Dict[str, Any]) -> Dict[str, Any]:
-        """Extract basic facts using regex patterns"""
+        response_text = response.content[0].text
 
-        # NCT ID
-        nct_match = re.search(r'(NCT\d{8})', protocol_text, re.IGNORECASE)
-        facts['nct_id'] = nct_match.group(1) if nct_match else None
+        # Parse JSON response
+        try:
+            # Clean up response if needed
+            if "```json" in response_text:
+                response_text = response_text.split("```json")[1].split("```")[0]
+            elif "```" in response_text:
+                response_text = response_text.split("```")[1].split("```")[0]
 
-        # Drug name - multiple patterns (order matters - most specific first)
-        drug_patterns = [
-            # Biologics with specific suffixes
-            r'([A-Za-z][a-z]+(?:mab|nib|zumab|ximab|tinib|ciclib|simod|stat|parin|vastatin|prazole))',
-            # Study of [DRUG]
-            r'(?:study of|trial of)\s+([A-Za-z][A-Za-z0-9-]+)',
-            # Receive [DRUG]
-            r'(?:receive|receiving)\s+(?:either\s+)?([A-Za-z][A-Za-z0-9-]+)\s*(?:\d+\s*mg)?',
-            # Study drug/investigational product
-            r'(?:study drug|investigational product|active treatment)[:\s]+([A-Za-z][A-Za-z0-9-]+)',
-            # Randomized to [DRUG]
-            r'randomized\s+(?:to\s+)?(?:receive\s+)?([A-Za-z][A-Za-z0-9-]+)',
-            # [DRUG] vs placebo
-            r'([A-Za-z][A-Za-z0-9-]+)\s+(?:vs\.?|versus)\s+placebo',
-            # [DRUG] 2mg or similar dose pattern
-            r'([A-Za-z][A-Za-z0-9-]+)\s+\d+\s*(?:mg|mcg|ug|ml)',
-        ]
-        for pattern in drug_patterns:
-            match = re.search(pattern, protocol_text, re.IGNORECASE)
-            if match:
-                drug = match.group(1)
-                # Filter out common non-drug words
-                skip_words = ['placebo', 'study', 'trial', 'phase', 'patients', 'subjects',
-                              'either', 'active', 'treatment', 'control', 'arm', 'group',
-                              'double', 'blind', 'randomized', 'week', 'day', 'dose']
-                if drug.lower() not in skip_words and len(drug) > 3:
-                    facts['drug_name'] = drug.capitalize()
-                    break
-        if 'drug_name' not in facts:
-            facts['drug_name'] = None
+            facts = json.loads(response_text.strip())
 
-        # Sample size
-        size_patterns = [
-            r'(?:approximately|total of|enroll)\s*(\d+)\s*(?:patients|subjects|participants)',
-            r'[Nn]\s*=\s*(\d+)',
-            r'sample size[:\s]+(\d+)',
-            r'(\d+)\s*(?:patients|subjects)\s*will be\s*(?:enrolled|randomized)',
-        ]
-        for pattern in size_patterns:
-            match = re.search(pattern, protocol_text, re.IGNORECASE)
-            if match:
-                size = int(match.group(1))
-                if 10 <= size <= 10000:
-                    facts['sample_size'] = size
-                    break
-        if 'sample_size' not in facts:
-            facts['sample_size'] = 0
+            # Convert trial_type string to TrialType enum
+            trial_type_str = facts.get('trial_type', 'general')
+            trial_type_map = {
+                'oncology_solid': TrialType.ONCOLOGY_SOLID,
+                'oncology_hematologic': TrialType.ONCOLOGY_HEMATOLOGIC,
+                'oncology_phase1': TrialType.ONCOLOGY_PHASE1,
+                'oncology_cart': TrialType.ONCOLOGY_CART,
+                'oncology_basket': TrialType.ONCOLOGY_BASKET,
+                'ibd': TrialType.IBD,
+                'rheumatology': TrialType.RHEUMATOLOGY,
+                'cns': TrialType.CNS,
+                'cardiovascular': TrialType.CARDIOVASCULAR,
+                'metabolic': TrialType.METABOLIC,
+                'general': TrialType.GENERAL,
+            }
+            facts['trial_type'] = trial_type_map.get(trial_type_str.lower(), TrialType.GENERAL)
 
-        # CRITICAL: Detect single-arm trials FIRST
-        text_lower = protocol_text.lower()
-        is_single_arm = any(x in text_lower for x in [
-            'single-arm', 'single arm', 'one-arm', 'one arm',
-            'non-randomized', 'nonrandomized', 'open-label single'
-        ])
-
-        # Randomization ratio
-        ratio_patterns = [
-            r'(\d+:\d+(?::\d+)?)\s*(?:randomization|ratio)',
-            r'randomiz(?:ed|ation)\s*(?:in a)?\s*(\d+:\d+(?::\d+)?)',
-            r'(\d+:\d+)\s*(?:to|allocation)',
-        ]
-        ratio_found = False
-        for pattern in ratio_patterns:
-            match = re.search(pattern, protocol_text, re.IGNORECASE)
-            if match:
-                facts['randomization_ratio'] = match.group(1)
-                ratio_found = True
-                break
-
-        # Set ratio and arms based on single-arm detection
-        if is_single_arm or not ratio_found:
-            if is_single_arm:
-                facts['randomization_ratio'] = "N/A (single-arm)"
-                facts['num_arms'] = 1
-            else:
-                # Only default to 1:1 if NOT single-arm
-                facts['randomization_ratio'] = "1:1"
-                facts['num_arms'] = 2
-        else:
-            # Number of arms from ratio
-            facts['num_arms'] = facts['randomization_ratio'].count(':') + 1
-
-        # Phase
-        phase_match = re.search(r'phase\s*([1-4](?:/[2-4])?|[IiVv]+(?:/[IiVv]+)?)', protocol_text, re.IGNORECASE)
-        if phase_match:
-            phase = phase_match.group(1).upper()
-            phase = phase.replace('I', '1').replace('II', '2').replace('III', '3').replace('IV', '4')
-            facts['phase'] = f"Phase {phase}"
-        else:
-            facts['phase'] = "Phase 3"
-
-        # Treatment arms
-        facts['arms'] = self._extract_arms(protocol_text)
-
-        # Stratification factors
-        strat_match = re.search(r'stratif(?:ied|ication)\s*(?:by|factors?)[:\s]*([^\n.]+)', protocol_text, re.IGNORECASE)
-        if strat_match:
-            factors = re.split(r'[,;]|\s+and\s+', strat_match.group(1))
-            facts['stratification_factors'] = [f.strip() for f in factors if len(f.strip()) > 2]
-        else:
-            facts['stratification_factors'] = []
-
-        # Alpha level
-        alpha_match = re.search(r'(?:alpha|significance)\s*(?:level)?\s*(?:of)?\s*(0\.0\d+|\.0\d+)', protocol_text, re.IGNORECASE)
-        facts['alpha'] = float(alpha_match.group(1)) if alpha_match else 0.05
-
-        # Sidedness
-        if 'one-sided' in protocol_text.lower() or 'one sided' in protocol_text.lower():
-            facts['alpha_sidedness'] = 'one-sided'
-        else:
-            facts['alpha_sidedness'] = 'two-sided'
-
-        # Power
-        power_match = re.search(r'(?:power|powered)\s*(?:of)?\s*(\d{2})%?', protocol_text, re.IGNORECASE)
-        facts['power'] = int(power_match.group(1)) / 100 if power_match else 0.80
-
-        # Therapeutic area
-        facts['therapeutic_area'] = self._detect_therapeutic_area(protocol_text)
-
-        # Endpoint type
-        facts['endpoint_type'] = self._detect_endpoint_type(protocol_text)
-
-        # Primary endpoint text
-        facts['primary_endpoint'] = self._extract_primary_endpoint(protocol_text)
-
-        # Trial type (for template selection)
-        facts['trial_type'] = self._classify_trial_type(protocol_text, facts)
-
-        return facts
-
-    def _extract_arms(self, text: str) -> List[Dict]:
-        """Extract treatment arms"""
-        arms = []
-
-        # Look for arm descriptions
-        arm_patterns = [
-            r'(?:arm|group)\s*([A-D1-4])[:\s]+([^\n]+)',
-            r'([A-Za-z]+)\s+(\d+(?:\.\d+)?\s*mg)',
-        ]
-
-        for pattern in arm_patterns:
-            matches = re.findall(pattern, text, re.IGNORECASE)
-            for match in matches[:4]:
-                arm_name = match[0] if len(match[0]) > 2 else f"Arm {match[0]}"
-                arms.append({
-                    'name': arm_name,
-                    'description': match[1] if len(match) > 1 else "",
-                    'is_placebo': 'placebo' in str(match).lower()
-                })
-
-        # Default if none found
-        if not arms:
-            arms = [
-                {'name': 'Placebo', 'description': 'Placebo', 'is_placebo': True},
-                {'name': 'Active Treatment', 'description': 'Study drug', 'is_placebo': False}
-            ]
-
-        return arms
-
-    def _detect_therapeutic_area(self, text: str) -> str:
-        """Detect therapeutic area from text"""
-        text_lower = text.lower()
-
-        if any(x in text_lower for x in ['ulcerative colitis', 'crohn', 'ibd', 'inflammatory bowel']):
-            return "IBD"
-        elif any(x in text_lower for x in ['cancer', 'tumor', 'oncology', 'carcinoma', 'melanoma', 'lymphoma']):
-            return "Oncology"
-        elif any(x in text_lower for x in ['rheumatoid arthritis', 'psoriatic arthritis', 'das28', 'acr20']):
-            return "Rheumatology"
-        elif any(x in text_lower for x in ['diabetes', 'hba1c', 'glucose', 'metabolic']):
-            return "Metabolic"
-        elif any(x in text_lower for x in ['depression', 'anxiety', 'schizophrenia', 'cns', 'madrs']):
-            return "CNS"
-        elif any(x in text_lower for x in ['heart', 'cardiac', 'cardiovascular', 'mace']):
-            return "Cardiovascular"
-        elif any(x in text_lower for x in ['psoriasis', 'dermatitis', 'eczema', 'pasi']):
-            return "Dermatology"
-        else:
-            return "General"
-
-    def _detect_endpoint_type(self, text: str) -> str:
-        """Detect primary endpoint type"""
-        text_lower = text.lower()
-
-        if any(x in text_lower for x in ['overall survival', 'progression-free survival', 'pfs', ' os ', 'time to']):
-            return "time-to-event"
-        elif any(x in text_lower for x in ['change from baseline', 'mean change', 'reduction in']):
-            return "continuous"
-        elif any(x in text_lower for x in ['remission', 'response', 'proportion', 'percentage', 'orr']):
-            return "binary"
-        else:
-            return "binary"
-
-    def _extract_primary_endpoint(self, text: str) -> str:
-        """Extract primary endpoint description"""
-        patterns = [
-            r'primary\s+(?:efficacy\s+)?endpoint[:\s]+([^\n.]+)',
-            r'primary\s+objective[:\s]+([^\n.]+)',
-        ]
-
-        for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
-            if match:
-                endpoint = match.group(1).strip()
-                if len(endpoint) > 10:
-                    return endpoint[:200]
-
-        return "Primary endpoint"
-
-    def _classify_trial_type(self, text: str, facts: Dict) -> TrialType:
-        """Classify trial type for template selection"""
-        text_lower = text.lower()
-        ta = str(facts.get('therapeutic_area') or '').lower()
-        phase = str(facts.get('phase') or '').lower()
-
-        if ta == 'oncology' or 'cancer' in text_lower:
-            if 'car-t' in text_lower or 'chimeric antigen' in text_lower:
-                return TrialType.ONCOLOGY_CART
-            elif 'basket' in text_lower or 'umbrella' in text_lower:
-                return TrialType.ONCOLOGY_BASKET
-            elif 'phase 1' in phase or 'dose escalation' in text_lower:
-                return TrialType.ONCOLOGY_PHASE1
-            elif any(x in text_lower for x in ['lymphoma', 'leukemia', 'myeloma', 'lugano', 'imwg']):
-                return TrialType.ONCOLOGY_HEMATOLOGIC
-            else:
-                return TrialType.ONCOLOGY_SOLID
-        elif ta == 'ibd' or 'colitis' in text_lower or 'crohn' in text_lower:
-            return TrialType.IBD
-        elif ta == 'rheumatology':
-            return TrialType.RHEUMATOLOGY
-        elif ta == 'cns':
-            return TrialType.CNS
-        elif ta == 'cardiovascular':
-            return TrialType.CARDIOVASCULAR
-        elif ta == 'metabolic':
-            return TrialType.METABOLIC
-        else:
-            return TrialType.GENERAL
-
-    def _extract_complex_facts_with_llm(self, protocol_text: str, facts: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Extract complex elements using LLM (interim analysis, power calculations, etc.)
-
-        These elements require semantic understanding and can't be reliably extracted with regex.
-        """
-        llm_extractor = self._get_llm_extractor()
-        if not llm_extractor:
+            print(f"[FactExtractor] Extracted {len(facts)} fields with Claude")
             return facts
 
-        try:
-            print("[FactExtractor] Extracting complex elements with LLM...")
-
-            # Use the enhanced LLM extractor
-            llm_facts = llm_extractor.extract(
-                protocol_text,
-                include_windows=False,  # Not needed for SAP
-                include_interim=True,
-                include_power=True,
-                include_exploratory=True,
-                include_pro=True,
-                include_regional=True,
-                include_censoring=True
-            )
-
-            if llm_facts.extraction_success:
-                # Add interim analysis details
-                if llm_facts.interim_analysis.num_interim_analyses > 0:
-                    facts['interim_analysis'] = llm_facts.interim_analysis.to_dict()
-                    print(f"  [FactExtractor] Found {llm_facts.interim_analysis.num_interim_analyses} interim analyses")
-
-                # Add power calculations
-                if llm_facts.power_calculations.pfs_power or llm_facts.power_calculations.os_superiority_power:
-                    facts['power_calculations'] = llm_facts.power_calculations.to_dict()
-
-                # Add exploratory endpoints
-                if llm_facts.exploratory_endpoints.dor or llm_facts.exploratory_endpoints.pfs2:
-                    facts['exploratory_endpoints'] = llm_facts.exploratory_endpoints.to_dict()
-
-                # Add PRO details
-                if llm_facts.pro_details.primary_timepoint or llm_facts.pro_details.instruments:
-                    facts['pro_details'] = llm_facts.pro_details.to_dict()
-
-                # Add regional extensions
-                if llm_facts.regional_extensions.china_sample_size:
-                    facts['regional_extensions'] = llm_facts.regional_extensions.to_dict()
-
-                # Add censoring rules
-                if llm_facts.censoring_rules.pfs_censoring or llm_facts.censoring_rules.dor_censoring:
-                    facts['censoring_rules'] = llm_facts.censoring_rules.to_dict()
-
-                # Also capture alpha allocation and multiplicity from LLM
-                if llm_facts.alpha_allocation:
-                    facts['alpha_allocation_detail'] = llm_facts.alpha_allocation
-                if llm_facts.multiplicity_adjustment:
-                    facts['multiplicity_adjustment'] = llm_facts.multiplicity_adjustment
-                if llm_facts.testing_hierarchy:
-                    facts['testing_hierarchy'] = llm_facts.testing_hierarchy
-
-        except Exception as e:
-            print(f"[FactExtractor] LLM extraction failed: {e}")
-
-        return facts
+        except json.JSONDecodeError as e:
+            print(f"[FactExtractor] JSON parse error: {e}")
+            print(f"[FactExtractor] Response was: {response_text[:500]}")
+            raise ValueError(f"Claude extraction failed to return valid JSON: {e}")
 
 
 # =============================================================================
