@@ -3207,7 +3207,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-08-v6 (aggressive APPENDIX strip with debug)")
+    print("  [VERSION] Build 2026-01-08-v7 (preserve TLF tables, smart stripping)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
@@ -3337,11 +3337,9 @@ async def process_jobs_worker():
 
                     pipeline_type = "two-pass"
 
-                    # CRITICAL: Strip APPENDIX section with placeholders before saving
-                    if 'APPENDIX' in sap_text:
-                        idx = sap_text.find('APPENDIX')
-                        sap_text = sap_text[:idx].strip()
-                        print(f"  [MAIN.PY STRIP] Removed APPENDIX at position {idx}")
+                    # NOTE: TLF stripping is now handled in two_pass_extractor.py
+                    # with smart logic that preserves Section 12 TLF tables
+                    # and only removes duplicate appendices with placeholder text
 
                     update_data = {
                         "status": "completed",
