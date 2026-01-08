@@ -875,10 +875,6 @@ STATISTICAL ANALYSIS PLAN
 11. REGIONAL CONSIDERATIONS (if applicable)
     11.1 China Extension
     11.2 Other Regional Requirements
-
-12. APPENDICES
-    12.1 Statistical Models
-    12.2 Tables, Figures, and Listings Specifications
 """
 
 
@@ -971,16 +967,7 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
     - If there's a China extension, include Section 11.1 with sample size
     - If there are other regional requirements, document them
 
-11. TLF SHELLS (Section 12.2 ONLY):
-
-    In Section 12.2, list specific tables and figures using the ACTUAL endpoint names from this protocol.
-
-    Example format:
-    - Table 14.2.1.1: Kaplan-Meier Estimates of Progression-Free Survival (pMMR Population)
-    - Table 14.2.1.2: Kaplan-Meier Estimates of Overall Survival (All-Comers)
-    - Figure 14.2.1: Kaplan-Meier Plot of PFS
-
-    Use the exact endpoint names you found in the protocol (e.g., "Overall Survival", "PFS", "ORR").
+Section 11 is the final section. End the SAP after Section 11.
 
 ══════════════════════════════════════════════════════════════════════════════
 SAP TEMPLATE TO FOLLOW
@@ -1003,7 +990,7 @@ Use exact values from the protocol. Use the Knowledge Graph methods where approp
 Follow the style/format from RAG examples but NOT their specific values.
 Do not skip anything.
 
-Section 12 is the final section of the SAP. Use actual endpoint names from the protocol."""
+Section 11 is the final section. Use actual endpoint names from the protocol."""
 
 
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
