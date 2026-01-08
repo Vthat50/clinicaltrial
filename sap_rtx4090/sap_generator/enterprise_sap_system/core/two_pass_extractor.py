@@ -1668,8 +1668,16 @@ class TwoPassExtractor:
                     info_parts.append(f"  Final: {ev} OS events")
 
         # Calculate and add boundary tables if we have enough info
+        if verbose:
+            print(f"\n  Boundary calculation check:")
+            print(f"    - calculator exists: {self.boundary_calculator is not None}")
+            print(f"    - phase: {phase}")
+            print(f"    - alpha: {alpha}")
+            print(f"    - events: {events}")
+
         if self.boundary_calculator and phase == 'phase3' and alpha and events:
             try:
+                print(f"  [CALC] Running R/gsDesign boundary calculation...")
                 boundary_tables = self.boundary_calculator.generate_interim_analysis_section(
                     pfs_events=events,
                     pfs_alpha=alpha,
@@ -1681,11 +1689,14 @@ class TwoPassExtractor:
                 )
                 if boundary_tables:
                     info_parts.append(f"\n{boundary_tables}")
-                    if verbose:
-                        print(f"  [OK] Generated boundary tables")
+                    print(f"  [OK] Generated boundary tables ({len(boundary_tables)} chars)")
+                else:
+                    print(f"  [!] Boundary calculation returned empty")
             except Exception as e:
-                if verbose:
-                    print(f"  [!] Boundary calculation failed: {e}")
+                print(f"  [!] Boundary calculation failed: {e}")
+        else:
+            if verbose:
+                print(f"  [SKIP] Boundary calculation - missing requirements")
 
         # Phase 2 specific
         if phase == 'phase2':
