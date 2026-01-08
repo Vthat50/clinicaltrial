@@ -2,6 +2,8 @@
 .env
 *.env
 .env.*
+# Exception: .env.production is safe (no secrets, just API URLs)
+!.env.production
 
 # Python cache
 __pycache__/
