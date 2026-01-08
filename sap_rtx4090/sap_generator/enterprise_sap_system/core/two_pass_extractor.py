@@ -106,6 +106,9 @@ def strip_duplicate_appendix(sap_text: str) -> str:
     Claude keeps generating APPENDIX sections with placeholders despite instructions.
     Solution: Cut off everything after "END OF STATISTICAL ANALYSIS PLAN" or after Section 12.
     """
+    print(f"[STRIP] ====== RUNNING strip_duplicate_appendix ======")
+    print(f"[STRIP] Input length: {len(sap_text)} chars")
+
     # Method 1: Cut at "END OF STATISTICAL ANALYSIS PLAN"
     end_markers = [
         'END OF STATISTICAL ANALYSIS PLAN',
@@ -119,26 +122,24 @@ def strip_duplicate_appendix(sap_text: str) -> str:
             end_idx = sap_text.find('\n\n', idx + len(marker))
             if end_idx > 0:
                 sap_text = sap_text[:end_idx].strip()
-                print(f"[PostProcess] Cut SAP at '{marker}'")
+                print(f"[STRIP] Cut SAP at '{marker}'")
                 return sap_text
 
     # Method 2: Cut at APPENDIX if no end marker found
-    # Check for various APPENDIX patterns (with or without newline)
-    appendix_markers = [
-        '\n\nAPPENDIX:',
-        '\nAPPENDIX:',
-        'APPENDIX: TLF',
-        '\n## APPENDIX',
-        '\n# APPENDIX',
-        '\nAPPENDIX A:',
-    ]
-    for marker in appendix_markers:
-        if marker in sap_text:
-            idx = sap_text.find(marker)
-            sap_text = sap_text[:idx].strip()
-            print(f"[PostProcess] Stripped APPENDIX section at '{marker[:20]}'")
-            return sap_text
+    # Check if APPENDIX exists at all
+    if 'APPENDIX' in sap_text:
+        print(f"[STRIP] Found 'APPENDIX' in SAP text")
+        # Find position
+        idx = sap_text.find('APPENDIX')
+        print(f"[STRIP] APPENDIX found at position {idx}")
+        # Cut everything from APPENDIX onwards
+        sap_text = sap_text[:idx].strip()
+        print(f"[STRIP] Stripped at APPENDIX, new length: {len(sap_text)}")
+        return sap_text
+    else:
+        print(f"[STRIP] No APPENDIX found in SAP")
 
+    print(f"[STRIP] No stripping needed")
     return sap_text
 
 
