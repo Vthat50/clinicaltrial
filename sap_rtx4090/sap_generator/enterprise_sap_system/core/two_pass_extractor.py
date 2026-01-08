@@ -207,9 +207,15 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
     secondary_endpoints = []
 
     for elem in discovered_elements:
-        cat = (getattr(elem, 'category', '') or '').lower()
-        name = (getattr(elem, 'name', '') or '').lower()
-        desc = getattr(elem, 'description', '') or getattr(elem, 'name', '') or ''
+        # Handle both dataclass and dict formats
+        if hasattr(elem, 'category'):
+            cat = (elem.category or '').lower()
+            name = (elem.name or '').lower()
+            desc = elem.description or elem.name or ''
+        else:
+            cat = (elem.get('category', '') or '').lower()
+            name = (elem.get('name', '') or '').lower()
+            desc = elem.get('description', '') or elem.get('name', '') or ''
         desc_lower = desc.lower()
 
         # Check if this is an endpoint element
@@ -343,9 +349,10 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     Replace remaining placeholders using discovered elements.
 
     NO REGEX - uses simple string replacement for reliability.
+    Multi-tier endpoint detection for robustness.
     """
     import sys
-    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v15 ==========", flush=True)
+    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v17 ==========", flush=True)
     sys.stdout.flush()
     print(f"[PostProcess] SAP length: {len(sap_text)} chars", flush=True)
     print(f"[PostProcess] Elements count: {len(discovered_elements) if discovered_elements else 0}", flush=True)
@@ -354,53 +361,96 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     # Check if placeholder exists BEFORE processing
     has_placeholder = '[Primary endpoint as specified]' in sap_text
     print(f"[PostProcess] Contains '[Primary endpoint as specified]': {has_placeholder}", flush=True)
+    sys.stdout.flush()
 
     if not discovered_elements:
         print("[PostProcess] No discovered elements - skipping placeholder replacement", flush=True)
+        sys.stdout.flush()
         return sap_text
 
     replacements_made = 0
 
-    # Build lookup from discovered elements
-    primary_endpoint = None
-    endpoints = []
+    # Multi-tier endpoint detection
+    explicit_primary = None  # Has "primary" in name/desc
+    priority_one_endpoint = None  # Has priority=1 in endpoints category
+    first_endpoint = None  # First element in endpoints category
+    any_endpoint = None  # Any element with endpoint in name
 
-    # Debug: print first 5 elements
+    # Debug: print first 5 elements with all fields
     print(f"[PostProcess] First 5 discovered elements:", flush=True)
+    sys.stdout.flush()
     for i, elem in enumerate(discovered_elements[:5]):
-        cat = getattr(elem, 'category', '') or ''
-        name = getattr(elem, 'name', '') or ''
-        desc = (getattr(elem, 'description', '') or '')[:50]
-        print(f"  [{i}] cat='{cat}' name='{name}' desc='{desc}...'", flush=True)
+        # Handle both dataclass and dict
+        if hasattr(elem, 'category'):
+            cat = elem.category or ''
+            name = elem.name or ''
+            desc = (elem.description or '')[:50]
+            prio = getattr(elem, 'priority', 2)
+        else:
+            cat = elem.get('category', '') or ''
+            name = elem.get('name', '') or ''
+            desc = (elem.get('description', '') or '')[:50]
+            prio = elem.get('priority', 2)
+        print(f"  [{i}] cat='{cat}' name='{name}' prio={prio} desc='{desc}...'", flush=True)
+        sys.stdout.flush()
 
     for elem in discovered_elements:
-        category = getattr(elem, 'category', '') or ''
-        name = getattr(elem, 'name', '') or ''
-        description = getattr(elem, 'description', '') or ''
+        # Handle both dataclass and dict formats
+        if hasattr(elem, 'category'):
+            category = elem.category or ''
+            name = elem.name or ''
+            description = elem.description or ''
+            priority = getattr(elem, 'priority', 2)
+        else:
+            category = elem.get('category', '') or ''
+            name = elem.get('name', '') or ''
+            description = elem.get('description', '') or ''
+            priority = elem.get('priority', 2)
 
-        # Look for primary endpoint - check category, name, AND description
         cat_lower = category.lower()
         name_lower = name.lower()
         desc_lower = description.lower()
 
+        # Get usable endpoint text (prefer description, fallback to name)
+        endpoint_text = description if description else name
+        if not endpoint_text:
+            continue
+
         # Check if this is an endpoint element
-        is_endpoint = 'endpoint' in cat_lower or 'endpoint' in name_lower or cat_lower == 'endpoints'
+        is_endpoint_cat = cat_lower == 'endpoints' or 'endpoint' in cat_lower
+        is_endpoint_name = 'endpoint' in name_lower
 
-        # Check if it's PRIMARY - look in category, name, OR description
-        is_primary = 'primary' in cat_lower or 'primary' in name_lower or 'primary' in desc_lower
+        # Check for explicit "primary" keyword
+        has_primary_keyword = 'primary' in cat_lower or 'primary' in name_lower or 'primary' in desc_lower
 
-        if is_endpoint or is_primary:
-            # Try to get a usable endpoint name
-            # Priority: description, then name
-            endpoint_text = description if description else name
-            if endpoint_text:
-                # Set as primary endpoint if marked as primary
-                if is_primary and not primary_endpoint:
-                    primary_endpoint = endpoint_text
-                    print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}", flush=True)
-                endpoints.append(endpoint_text)
+        # Tier 1: Explicit "primary" keyword
+        if has_primary_keyword and not explicit_primary:
+            explicit_primary = endpoint_text
+            print(f"[PostProcess] Tier1 - Explicit primary: {endpoint_text[:60]}", flush=True)
+            sys.stdout.flush()
 
-    print(f"[PostProcess] Found {len(endpoints)} endpoints, primary: {primary_endpoint[:50] if primary_endpoint else 'None'}", flush=True)
+        # Tier 2: Priority 1 in endpoints category
+        if is_endpoint_cat and priority == 1 and not priority_one_endpoint:
+            priority_one_endpoint = endpoint_text
+            print(f"[PostProcess] Tier2 - Priority-1 endpoint: {endpoint_text[:60]}", flush=True)
+            sys.stdout.flush()
+
+        # Tier 3: First endpoint in endpoints category
+        if is_endpoint_cat and not first_endpoint:
+            first_endpoint = endpoint_text
+            print(f"[PostProcess] Tier3 - First endpoint: {endpoint_text[:60]}", flush=True)
+            sys.stdout.flush()
+
+        # Tier 4: Any element with "endpoint" in name
+        if is_endpoint_name and not any_endpoint:
+            any_endpoint = endpoint_text
+            print(f"[PostProcess] Tier4 - Any endpoint: {endpoint_text[:60]}", flush=True)
+            sys.stdout.flush()
+
+    # Select best primary endpoint using tier priority
+    primary_endpoint = explicit_primary or priority_one_endpoint or first_endpoint or any_endpoint
+    print(f"[PostProcess] Selected primary endpoint: {primary_endpoint[:80] if primary_endpoint else 'NONE FOUND'}", flush=True)
+    sys.stdout.flush()
 
     # Simple string replacements - NO REGEX
     placeholder_replacements = [
