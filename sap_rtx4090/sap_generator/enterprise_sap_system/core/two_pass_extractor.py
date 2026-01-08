@@ -353,10 +353,10 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
 
     # Check if placeholder exists BEFORE processing
     has_placeholder = '[Primary endpoint as specified]' in sap_text
-    print(f"[PostProcess] Contains '[Primary endpoint as specified]': {has_placeholder}")
+    print(f"[PostProcess] Contains '[Primary endpoint as specified]': {has_placeholder}", flush=True)
 
     if not discovered_elements:
-        print("[PostProcess] No discovered elements - skipping placeholder replacement")
+        print("[PostProcess] No discovered elements - skipping placeholder replacement", flush=True)
         return sap_text
 
     replacements_made = 0
@@ -366,12 +366,12 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     endpoints = []
 
     # Debug: print first 5 elements
-    print(f"[PostProcess] First 5 discovered elements:")
+    print(f"[PostProcess] First 5 discovered elements:", flush=True)
     for i, elem in enumerate(discovered_elements[:5]):
         cat = getattr(elem, 'category', '') or ''
         name = getattr(elem, 'name', '') or ''
         desc = (getattr(elem, 'description', '') or '')[:50]
-        print(f"  [{i}] cat='{cat}' name='{name}' desc='{desc}...'")
+        print(f"  [{i}] cat='{cat}' name='{name}' desc='{desc}...'", flush=True)
 
     for elem in discovered_elements:
         category = getattr(elem, 'category', '') or ''
@@ -397,10 +397,10 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
                 # Set as primary endpoint if marked as primary
                 if is_primary and not primary_endpoint:
                     primary_endpoint = endpoint_text
-                    print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}")
+                    print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}", flush=True)
                 endpoints.append(endpoint_text)
 
-    print(f"[PostProcess] Found {len(endpoints)} endpoints, primary: {primary_endpoint[:50] if primary_endpoint else 'None'}")
+    print(f"[PostProcess] Found {len(endpoints)} endpoints, primary: {primary_endpoint[:50] if primary_endpoint else 'None'}", flush=True)
 
     # Simple string replacements - NO REGEX
     placeholder_replacements = [
@@ -417,7 +417,7 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
             if placeholder in sap_text:
                 sap_text = sap_text.replace(placeholder, primary_endpoint)
                 replacements_made += 1
-                print(f"[PostProcess] Replaced '{placeholder}' with '{primary_endpoint[:50]}'")
+                print(f"[PostProcess] Replaced '{placeholder}' with '{primary_endpoint[:50]}'", flush=True)
 
     # Remove generic placeholders entirely
     remove_placeholders = [
@@ -437,16 +437,16 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
             replacements_made += 1
 
     if replacements_made > 0:
-        print(f"[PostProcess] Replaced {replacements_made} placeholders total")
+        print(f"[PostProcess] Replaced {replacements_made} placeholders total", flush=True)
     else:
-        print(f"[PostProcess] WARNING: No replacements made!")
+        print(f"[PostProcess] WARNING: No replacements made!", flush=True)
         if not primary_endpoint:
-            print(f"[PostProcess] REASON: No primary endpoint found in discovered elements")
+            print(f"[PostProcess] REASON: No primary endpoint found in discovered elements", flush=True)
 
     # Final check
     still_has_placeholder = '[Primary endpoint as specified]' in sap_text
-    print(f"[PostProcess] AFTER: Contains '[Primary endpoint as specified]': {still_has_placeholder}")
-    print(f"[PostProcess] ========== END REPLACE PLACEHOLDERS ==========")
+    print(f"[PostProcess] AFTER: Contains '[Primary endpoint as specified]': {still_has_placeholder}", flush=True)
+    print(f"[PostProcess] ========== END REPLACE PLACEHOLDERS ==========", flush=True)
 
     return sap_text
 
