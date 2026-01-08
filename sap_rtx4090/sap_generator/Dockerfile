@@ -5,6 +5,7 @@ FROM python:3.11-slim
 
 # Install system dependencies and R
 # Note: gfortran and libblas needed for gsDesign/rpact compilation
+# libv8-dev needed for V8 R package dependency
 RUN apt-get update && apt-get install -y --no-install-recommends \
     r-base \
     r-base-dev \
@@ -15,13 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gfortran \
     libblas-dev \
     liblapack-dev \
+    libv8-dev \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install R packages for boundary calculations
 # Note: clinfun needed for Phase 2, gsDesign/rpact for Phase 3
-# Using verbose output to see any errors
-RUN R -e "options(warn=2); install.packages(c('gsDesign', 'rpact', 'clinfun'), repos='https://cloud.r-project.org', verbose=TRUE, dependencies=TRUE)" && \
+# dependencies=NA installs only required deps, not suggested ones
+RUN R -e "install.packages(c('gsDesign', 'rpact', 'clinfun'), repos='https://cloud.r-project.org', dependencies=NA)" && \
     R -e "library(gsDesign); print('gsDesign OK')" && \
     R -e "library(rpact); print('rpact OK')" && \
     R -e "library(clinfun); print('clinfun OK')"
