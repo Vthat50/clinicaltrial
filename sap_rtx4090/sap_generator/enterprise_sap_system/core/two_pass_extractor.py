@@ -1222,11 +1222,19 @@ def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
         cat = (elem.category or '').lower()
         name = (elem.name or '').lower()
         desc = elem.description or elem.name or ''
+        desc_lower = desc.lower()
 
-        if 'endpoint' in cat or 'endpoint' in name:
-            if 'primary' in name or 'primary' in cat:
+        # Check if this is an endpoint element
+        is_endpoint = 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints'
+
+        # Check for primary/secondary in category, name, OR description
+        is_primary = 'primary' in cat or 'primary' in name or 'primary' in desc_lower
+        is_secondary = 'secondary' in cat or 'secondary' in name or 'secondary' in desc_lower
+
+        if is_endpoint or is_primary or is_secondary:
+            if is_primary:
                 primary_endpoints.append(desc)
-            elif 'secondary' in name or 'secondary' in cat:
+            elif is_secondary:
                 secondary_endpoints.append(desc)
         elif 'population' in cat or 'population' in name:
             populations.append(desc)
