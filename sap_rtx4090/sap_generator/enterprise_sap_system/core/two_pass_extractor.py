@@ -101,11 +101,14 @@ from .audit_logger import get_audit_logger
 
 def strip_duplicate_appendix(sap_text: str) -> str:
     """
-    DETERMINISTIC: Remove everything after Section 12.
+    DETERMINISTIC: Remove duplicate APPENDIX sections after Section 12.
 
     Claude keeps generating APPENDIX sections with placeholders despite instructions.
-    Solution: Cut off everything after "END OF STATISTICAL ANALYSIS PLAN" or after Section 12.
+    Solution: Cut off everything after legitimate Section 12 content.
     """
+    # Normalize line endings
+    sap_text = sap_text.replace('\r\n', '\n')
+
     # Method 1: Cut at "END OF STATISTICAL ANALYSIS PLAN"
     end_markers = [
         'END OF STATISTICAL ANALYSIS PLAN',
@@ -122,19 +125,31 @@ def strip_duplicate_appendix(sap_text: str) -> str:
                 print(f"[PostProcess] Cut SAP at '{marker}'")
                 return sap_text
 
-    # Method 2: Cut at APPENDIX if no end marker found
+    # Method 2: Cut at standalone APPENDIX sections (not Section 12 APPENDICES)
+    # These patterns match APPENDIX that comes AFTER Section 12
     appendix_markers = [
+        '\nAPPENDIX: TLF',
         '\nAPPENDIX:',
         '\nAPPENDIX A:',
         '\n## APPENDIX',
         '\n# APPENDIX',
+        'APPENDIX: TLF SHELL',
     ]
     for marker in appendix_markers:
         if marker in sap_text:
             idx = sap_text.find(marker)
-            sap_text = sap_text[:idx].strip()
-            print(f"[PostProcess] Stripped APPENDIX section")
-            return sap_text
+            # Only cut if this is AFTER Section 12 (i.e., it's a duplicate)
+            section_12_idx = sap_text.lower().find('12. appendices')
+            if section_12_idx == -1:
+                section_12_idx = sap_text.lower().find('section 12')
+            if section_12_idx == -1:
+                section_12_idx = sap_text.lower().find('12.')
+
+            # Only strip if APPENDIX marker comes after Section 12 header
+            if section_12_idx > 0 and idx > section_12_idx + 100:  # +100 to allow for Section 12 content
+                sap_text = sap_text[:idx].strip()
+                print(f"[PostProcess] Stripped duplicate APPENDIX at position {idx}")
+                return sap_text
 
     return sap_text
 
@@ -163,14 +178,23 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
         # Look for primary endpoint - check both category and name
         cat_lower = category.lower()
         name_lower = name.lower()
+        desc_lower = (description or '').lower()
 
-        if 'endpoint' in cat_lower or 'endpoint' in name_lower:
+        if 'endpoint' in cat_lower or 'endpoint' in name_lower or cat_lower == 'endpoints':
             # Try to get a usable endpoint name
             # Priority: description, then extract from name
             endpoint_text = description if description else name
             if endpoint_text:
-                # Clean up - extract just the endpoint name if it's embedded
-                if 'primary' in name_lower and not primary_endpoint:
+                # Check for primary in name, description, OR look for PFS/primary patterns
+                is_primary = (
+                    'primary' in name_lower or
+                    'primary' in desc_lower or
+                    ('pfs' in name_lower and 'secondary' not in name_lower) or
+                    ('pfs' in desc_lower and 'secondary' not in desc_lower) or
+                    'progression-free' in name_lower or
+                    'progression-free' in desc_lower
+                )
+                if is_primary and not primary_endpoint:
                     primary_endpoint = endpoint_text
                     print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}")
                 endpoints.append(endpoint_text)
@@ -1011,16 +1035,31 @@ def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
     primary_endpoints = []
     secondary_endpoints = []
 
+    print(f"[TLF] Scanning {len(discovered_elements)} discovered elements for endpoints...")
+
     for elem in discovered_elements:
         cat = (elem.category or '').lower()
         name = (elem.name or '').lower()
         desc = elem.description or elem.name or ''
 
-        if 'endpoint' in cat or 'endpoint' in name:
-            if 'primary' in name or 'primary' in cat:
+        # Debug: log all endpoint-related elements
+        if 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints':
+            print(f"[TLF]   Found endpoint element: cat='{cat}', name='{name[:50]}...'")
+
+        # Match endpoints - check category OR name contains endpoint keyword
+        is_endpoint = 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints'
+
+        if is_endpoint:
+            # Check for primary/secondary in both name AND description
+            combined = (name + ' ' + (elem.description or '')).lower()
+            if 'primary' in combined:
                 primary_endpoints.append(desc)
-            elif 'secondary' in name or 'secondary' in cat:
+                print(f"[TLF]   -> PRIMARY endpoint: {desc[:80]}...")
+            elif 'secondary' in combined:
                 secondary_endpoints.append(desc)
+                print(f"[TLF]   -> SECONDARY endpoint: {desc[:80]}...")
+
+    print(f"[TLF] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints")
 
     # NO FALLBACK - if no endpoints found, return empty
     if not primary_endpoints and not secondary_endpoints:
