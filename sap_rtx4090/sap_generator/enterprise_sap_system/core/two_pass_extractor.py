@@ -1185,10 +1185,23 @@ class TwoPassExtractor:
         self._last_sap = None
 
         # Initialize RAG and Knowledge Graph
-        print("[TwoPassExtractor] Initializing with RAG + Knowledge Graph + TLF Shells...")
+        print("[TwoPassExtractor] Initializing with RAG + Knowledge Graph + TLF Shells + Boundary Calculator...")
         self.rag_retriever = RAGRetriever()
         self.knowledge_graph = KnowledgeGraph()
         self.tlf_retriever = TLFShellRetriever()
+
+        # Initialize boundary calculator for Phase 2/3 trials
+        self.boundary_calculator = None
+        try:
+            from .boundary_calculator import CalculationEngine
+            self.boundary_calculator = CalculationEngine()
+            if self.boundary_calculator.initialize():
+                print("  [OK] Boundary Calculator: R-based (gsDesign, rpact)")
+            else:
+                print("  [~] Boundary Calculator: scipy fallback")
+        except Exception as e:
+            print(f"  [!] Boundary Calculator: Not available ({e})")
+
         print(f"  [OK] RAG: {len(self.rag_retriever.sections_db)} sections indexed")
         print(f"  [OK] Knowledge Graph: {len(self.knowledge_graph.ENDPOINT_METHODS)} endpoint types")
 
@@ -1297,6 +1310,13 @@ class TwoPassExtractor:
         if verbose:
             print(f"  Appended {len(tlf_shells):,} chars of TLF specifications")
 
+        # Generate and append boundary tables for Phase 2/3 trials
+        boundary_tables = self._generate_boundary_tables(discovered_elements, protocol_text, verbose)
+        if boundary_tables:
+            sap_text += "\n\n---\n\n" + boundary_tables
+            if verbose:
+                print(f"  Appended {len(boundary_tables):,} chars of boundary tables")
+
         self._last_sap = sap_text
 
         result = {
@@ -1307,7 +1327,8 @@ class TwoPassExtractor:
             "endpoint_type": endpoint_type,
             "rag_examples_used": len(rag_examples) > 0,
             "knowledge_graph_used": True,
-            "tlf_shells_appended": True
+            "tlf_shells_appended": True,
+            "boundary_tables_generated": bool(boundary_tables)
         }
 
         # Validate if requested
@@ -1372,6 +1393,158 @@ class TwoPassExtractor:
             return 'continuous'
 
         return 'binary'
+
+    def _extract_boundary_inputs(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> Dict[str, Any]:
+        """
+        Extract inputs for boundary calculations from discovered elements.
+
+        Looks for:
+        - Alpha levels
+        - Number of interim analyses
+        - Event counts
+        - Information fractions
+        - HR assumptions
+        - NI margin
+        """
+        inputs = {
+            'phase': None,
+            'alpha': None,
+            'beta': 0.10,  # Default 90% power
+            'n_analyses': None,
+            'events': [],
+            'info_fractions': [],
+            'hr': None,
+            'ni_margin': None,
+            'median_control': None,
+        }
+
+        import re
+
+        text_lower = protocol_text.lower()
+
+        # Detect phase
+        if 'phase 3' in text_lower or 'phase iii' in text_lower:
+            inputs['phase'] = 'phase3'
+        elif 'phase 2' in text_lower or 'phase ii' in text_lower:
+            inputs['phase'] = 'phase2'
+
+        # Extract from discovered elements
+        for elem in discovered_elements:
+            name_lower = elem.name.lower()
+            desc = elem.description or ""
+            desc_lower = desc.lower()
+            combined = name_lower + " " + desc_lower
+
+            # Alpha
+            if 'alpha' in combined or 'type i error' in combined or 'significance level' in combined:
+                alpha_match = re.search(r'(?:alpha|α)\s*[=:]\s*(0\.\d+)', combined)
+                if alpha_match:
+                    inputs['alpha'] = float(alpha_match.group(1))
+
+            # Interim analyses
+            if 'interim' in combined:
+                ia_match = re.search(r'(\d+)\s*interim\s*anal', combined)
+                if ia_match:
+                    inputs['n_analyses'] = int(ia_match.group(1)) + 1  # +1 for final
+
+            # Events
+            if 'event' in combined:
+                event_matches = re.findall(r'(\d{2,4})\s*(?:pfs\s*)?events?', combined)
+                if event_matches:
+                    inputs['events'].extend([int(e) for e in event_matches])
+
+            # HR
+            if 'hazard ratio' in combined or 'hr' in combined:
+                hr_match = re.search(r'hr\s*[=:]\s*(0\.\d+)', combined)
+                if hr_match:
+                    inputs['hr'] = float(hr_match.group(1))
+
+            # NI margin
+            if 'non-inferiority' in combined or 'ni margin' in combined:
+                ni_match = re.search(r'(?:ni\s*)?margin\s*[=:]\s*(1\.\d+)', combined)
+                if ni_match:
+                    inputs['ni_margin'] = float(ni_match.group(1))
+
+            # Power
+            if 'power' in combined:
+                power_match = re.search(r'(\d{2})%?\s*power', combined)
+                if power_match:
+                    inputs['beta'] = 1 - int(power_match.group(1)) / 100
+
+        # Clean up events list
+        if inputs['events']:
+            inputs['events'] = sorted(list(set(inputs['events'])))
+
+        return inputs
+
+    def _generate_boundary_tables(self, discovered_elements: List[DiscoveredElement],
+                                   protocol_text: str, verbose: bool = True) -> str:
+        """
+        Generate boundary tables from protocol inputs using R-based calculations.
+
+        Returns formatted markdown for inclusion in SAP.
+        """
+        if not self.boundary_calculator:
+            if verbose:
+                print("  [!] Boundary calculator not available - skipping boundary tables")
+            return ""
+
+        # Extract inputs from protocol
+        inputs = self._extract_boundary_inputs(discovered_elements, protocol_text)
+
+        if verbose:
+            print(f"\n{'-'*70}")
+            print("CALCULATING BOUNDARY TABLES (R-based)")
+            print(f"{'-'*70}")
+            print(f"  Phase: {inputs.get('phase', 'unknown')}")
+            print(f"  Alpha: {inputs.get('alpha', 'not found')}")
+            print(f"  Events: {inputs.get('events', [])}")
+            print(f"  HR: {inputs.get('hr', 'not found')}")
+            print(f"  NI Margin: {inputs.get('ni_margin', 'not found')}")
+
+        # Only calculate for Phase 3 with sufficient inputs
+        if inputs['phase'] != 'phase3':
+            if verbose:
+                print("  [~] Not a Phase 3 trial - skipping boundary calculations")
+            return ""
+
+        if not inputs['alpha'] or not inputs['events']:
+            if verbose:
+                print("  [~] Insufficient inputs for boundary calculations")
+            return ""
+
+        try:
+            from .boundary_calculator import Phase3Inputs, SpendingFunction
+
+            # Calculate info fractions if not provided
+            if inputs['events'] and not inputs['info_fractions']:
+                total = max(inputs['events'])
+                inputs['info_fractions'] = [e / total for e in inputs['events']]
+
+            phase3_inputs = Phase3Inputs(
+                alpha=inputs['alpha'],
+                beta=inputs['beta'],
+                n_analyses=len(inputs['events']),
+                info_fractions=inputs['info_fractions'],
+                spending_function=SpendingFunction.LAN_DEMETS_OF,
+                hr=inputs.get('hr', 0.7),
+                ni_margin=inputs.get('ni_margin', 1.0),
+                events=inputs['events'],
+                total_events=max(inputs['events']),
+                median_control=inputs.get('median_control', 8.8)
+            )
+
+            result, formatted = self.boundary_calculator.calculate_phase3(phase3_inputs)
+
+            if verbose:
+                print(f"  [OK] Generated boundary tables ({len(result.boundaries)} analyses)")
+
+            return formatted
+
+        except Exception as e:
+            if verbose:
+                print(f"  [!] Boundary calculation failed: {e}")
+            return ""
 
     def process_protocol(self, protocol_text: str, protocol_id: str = "unknown",
                         sap_template: str = None, validate: bool = True,
