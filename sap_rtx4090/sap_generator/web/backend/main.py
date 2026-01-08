@@ -610,26 +610,27 @@ async def create_job(request: GenerateRequest):
 
 
 # Global pipeline instance (reused across requests)
-_production_pipeline = None  # ProductionSAPPipeline with SELF-RAG
+_production_pipeline = None  # IntegratedPipeline with Claude extraction
 
 def get_pipeline():
     """
     Get or create the production pipeline instance.
 
-    Uses ProductionSAPPipeline with Separation of Concerns architecture:
-    - Ground Truth: Extraction provides single source for all numbers
-    - RAG Sanitization: Numbers stripped from examples (prose style only)
-    - Explicit Attribution: Prompts specify source for each value
-    - SELF-RAG: Verification + correction loop for factual accuracy
+    Uses IntegratedPipeline with Claude extraction (NO REGEX):
+    - Claude extracts ALL facts (drug, sample size, interim analysis, censoring, TLF, etc.)
+    - RAG retrieval for similar SAP examples
+    - Knowledge graph for statistical method selection
+    - Template-based generation
+    - QA validation
     """
     global _production_pipeline
 
-    if not PRODUCTION_PIPELINE_AVAILABLE:
-        raise RuntimeError("ProductionSAPPipeline not available - check imports")
+    if not INTEGRATED_PIPELINE_AVAILABLE:
+        raise RuntimeError("IntegratedPipeline not available - check imports")
 
     if _production_pipeline is None:
-        _production_pipeline = create_production_pipeline(max_regenerations=2)
-        logger.info("ProductionSAPPipeline initialized (SELF-RAG + source separation)")
+        _production_pipeline = IntegratedSAPPipeline()
+        logger.info("IntegratedPipeline initialized (Claude extraction - NO REGEX)")
     return _production_pipeline
 
 # Aliases for backward compatibility
@@ -2916,15 +2917,14 @@ async def process_jobs_worker():
     """
     global worker_running
 
-    print("Starting background job worker with RULE-BASED PIPELINE...")
-    print("  [OK] Step 1: Claude LLM extraction")
-    print("  [OK] Step 2: Condition detection (immunotherapy, crossover, etc.)")
-    print("  [OK] Step 3: Knowledge Graph with 99 rules")
-    print("  [OK] Step 4: ChromaDB RAG with 17K+ chunks")
-    print("  [OK] Step 5: Claude LLM generation with slot constraints")
-    print("  [OK] Step 6: Slot verification")
+    print("Starting background job worker with INTEGRATED PIPELINE (Claude extraction)...")
+    print("  [OK] Step 1: Claude extracts ALL facts (NO REGEX)")
+    print("  [OK] Step 2: RAG retrieval from 1,198 SAP sections")
+    print("  [OK] Step 3: Knowledge Graph for method selection")
+    print("  [OK] Step 4: Template-based generation")
+    print("  [OK] Step 5: QA validation")
 
-    # Use get_pipeline() - returns ProductionSAPPipeline
+    # Use get_pipeline() - returns IntegratedPipeline (Claude extraction)
     pipeline = None
 
     while worker_running:
@@ -2955,59 +2955,25 @@ async def process_jobs_worker():
             # Initialize pipeline if needed
             if pipeline is None:
                 pipeline = get_pipeline()
-                print("  [INIT] ProductionSAPPipeline initialized (SELF-RAG + source separation)")
+                print("  [INIT] IntegratedPipeline initialized (Claude extraction - NO REGEX)")
 
             # Generate SAP using pipeline
             start_time = time.time()
 
             try:
                 # CRITICAL: Pass FULL protocol text - do NOT truncate!
-                # The pipeline uses multi-region sampling internally.
-                # Statistical methods are at 50-80% of document, truncating loses them.
+                # Claude extraction reads the entire document.
 
-                # Download PDF from Supabase Storage for Vision-based parsing
-                pdf_path = None
-                pdf_storage_path = job.get("pdf_storage_path")
-                print(f"  [Vision] pdf_storage_path from job: {pdf_storage_path}")
-
-                if pdf_storage_path:
-                    try:
-                        # Download PDF from Supabase Storage
-                        print(f"  [Vision] Downloading PDF from storage: {pdf_storage_path}")
-                        pdf_bytes = db.storage.from_("pdfs").download(pdf_storage_path)
-                        print(f"  [Vision] Downloaded {len(pdf_bytes)} bytes")
-
-                        # Save to temp file
-                        import tempfile
-                        temp_pdf = tempfile.NamedTemporaryFile(suffix=".pdf", delete=False)
-                        temp_pdf.write(pdf_bytes)
-                        temp_pdf.close()
-                        pdf_path = temp_pdf.name
-                        print(f"  [Vision] Saved PDF to temp file: {pdf_path}")
-                    except Exception as e:
-                        import traceback
-                        print(f"  [Vision] PDF download failed: {e}")
-                        traceback.print_exc()
-                        pdf_path = None
-                else:
-                    print(f"  [Vision] No pdf_storage_path in job, skipping Vision")
-
-                result = pipeline.generate(job["protocol_text"], pdf_path=pdf_path)
-
-                # Clean up temp PDF file
-                if pdf_path:
-                    try:
-                        import os
-                        os.unlink(pdf_path)
-                    except:
-                        pass
+                # IntegratedPipeline uses Claude for extraction, not Vision
+                # Just pass the protocol text directly
+                result = pipeline.generate(job["protocol_text"])
 
                 processing_time = time.time() - start_time
 
                 if result.success:
-                    # Handle ProductionSAPPipeline result (has facts)
+                    # Handle IntegratedPipeline result (Claude extraction)
                     if hasattr(result, 'facts') and result.facts:
-                        # ProductionSAPPipeline format
+                        # IntegratedPipeline format - facts from Claude extraction
                         facts = result.facts
 
                         drug_name = facts.get('drug_name', '') or ''
@@ -3028,9 +2994,9 @@ async def process_jobs_worker():
                         else:
                             endpoint_type_str = ""
 
-                        # Quality score on 0-100 scale for frontend display
-                        quality_score = 100.0 if result.verification and getattr(result.verification, 'passed', False) else 50.0
-                        pipeline_type = "rule-based"
+                        # Quality score from IntegratedResult (already 0-100 scale)
+                        quality_score = getattr(result, 'quality_score', 80.0)
+                        pipeline_type = "integrated-claude"
 
                     elif hasattr(result, 'characteristics') and result.characteristics:
                         # FALLBACK: AgenticSAPPipeline format
