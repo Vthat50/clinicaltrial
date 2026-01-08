@@ -465,106 +465,9 @@ class RAGRetriever:
 # KNOWLEDGE GRAPH - Statistical method selection
 # =============================================================================
 
-class KnowledgeGraph:
-    """Static knowledge graph for statistical method selection based on endpoint type."""
-
-    ENDPOINT_METHODS = {
-        'time-to-event': {
-            'primary': ['Kaplan-Meier', 'Log-rank test', 'Cox proportional hazards'],
-            'secondary': ['Restricted mean survival time', 'Landmark analysis'],
-            'sensitivity': ['Fleming-Harrington weighted log-rank', 'Peto-Peto test'],
-            'adam_datasets': ['ADTTE'],
-            'key_variables': ['AVAL', 'CNSR', 'STARTDT', 'ADT', 'EVNTDESC'],
-        },
-        'binary': {
-            'primary': ['Cochran-Mantel-Haenszel test', 'Logistic regression', 'Chi-square test'],
-            'secondary': ['Exact methods', 'Confidence intervals for proportions'],
-            'sensitivity': ['Multiple imputation', 'Tipping point analysis'],
-            'adam_datasets': ['ADEFF', 'ADRS'],
-            'key_variables': ['AVALC', 'AVAL', 'CRIT1FL', 'ANL01FL'],
-        },
-        'continuous': {
-            'primary': ['MMRM', 'ANCOVA', 'Mixed-effects model'],
-            'secondary': ['t-test', 'Wilcoxon rank-sum'],
-            'sensitivity': ['Pattern mixture models', 'Last observation carried forward'],
-            'adam_datasets': ['ADEFF', 'ADLB'],
-            'key_variables': ['AVAL', 'BASE', 'CHG', 'PCHG', 'ABLFL'],
-        },
-    }
-
-    TA_CONSIDERATIONS = {
-        'oncology': {
-            'endpoints': ['OS', 'PFS', 'ORR', 'DOR', 'DCR', 'TTR'],
-            'criteria': ['RECIST 1.1', 'iRECIST', 'RANO'],
-            'populations': ['ITT', 'Evaluable', 'Per-protocol', 'PD-L1 subgroups'],
-            'special': ['Independent central review', 'Confirmation of response', 'Censoring rules'],
-        },
-        'ibd': {
-            'endpoints': ['Clinical remission', 'Clinical response', 'Endoscopic improvement', 'Mucosal healing'],
-            'criteria': ['Modified Mayo score', 'CDAI', 'SES-CD', 'IBDQ'],
-            'populations': ['FAS', 'Per-protocol', 'Bio-naive', 'Bio-experienced'],
-            'special': ['Endoscopic subscore', 'Histologic remission', 'Corticosteroid-free remission'],
-        },
-        'rheumatology': {
-            'endpoints': ['ACR20/50/70', 'DAS28', 'HAQ-DI', 'SDAI/CDAI'],
-            'criteria': ['ACR criteria', 'EULAR response'],
-            'populations': ['MTX-IR', 'TNF-IR', 'Bio-naive'],
-            'special': ['Structural damage', 'Radiographic progression'],
-        },
-    }
-
-    def get_recommended_methods(self, endpoint_type: str, therapeutic_area: str = None) -> Dict:
-        """Get recommended statistical methods based on endpoint type."""
-        endpoint_type = endpoint_type.lower().replace('-', '_').replace(' ', '_')
-        endpoint_type = endpoint_type.replace('time_to_event', 'time-to-event')
-
-        if endpoint_type not in self.ENDPOINT_METHODS:
-            endpoint_type = 'binary'
-
-        methods = self.ENDPOINT_METHODS[endpoint_type].copy()
-
-        ta = (therapeutic_area or '').lower()
-        if ta in self.TA_CONSIDERATIONS:
-            methods['ta_specific'] = self.TA_CONSIDERATIONS[ta]
-
-        return methods
-
-    def get_adam_requirements(self, endpoint_type: str) -> Dict:
-        """Get ADaM dataset requirements."""
-        endpoint_type = endpoint_type.lower().replace('-', '_').replace(' ', '_')
-
-        if endpoint_type not in self.ENDPOINT_METHODS:
-            endpoint_type = 'binary'
-
-        return {
-            'datasets': self.ENDPOINT_METHODS[endpoint_type].get('adam_datasets', ['ADEFF']),
-            'key_variables': self.ENDPOINT_METHODS[endpoint_type].get('key_variables', []),
-        }
-
-    def format_for_prompt(self, endpoint_type: str, therapeutic_area: str = None) -> str:
-        """Format knowledge graph info for inclusion in prompt."""
-        methods = self.get_recommended_methods(endpoint_type, therapeutic_area)
-        adam = self.get_adam_requirements(endpoint_type)
-
-        parts = [
-            "## RECOMMENDED STATISTICAL METHODS (from Knowledge Graph)",
-            f"Endpoint Type: {endpoint_type}",
-            f"Primary Methods: {', '.join(methods.get('primary', []))}",
-            f"Secondary Methods: {', '.join(methods.get('secondary', []))}",
-            f"Sensitivity Methods: {', '.join(methods.get('sensitivity', []))}",
-            f"ADaM Datasets: {', '.join(adam.get('datasets', []))}",
-            f"Key Variables: {', '.join(adam.get('key_variables', []))}",
-        ]
-
-        if 'ta_specific' in methods:
-            ta_info = methods['ta_specific']
-            parts.append(f"\n## THERAPEUTIC AREA CONSIDERATIONS ({therapeutic_area})")
-            parts.append(f"Standard Endpoints: {', '.join(ta_info.get('endpoints', []))}")
-            parts.append(f"Response Criteria: {', '.join(ta_info.get('criteria', []))}")
-            parts.append(f"Analysis Populations: {', '.join(ta_info.get('populations', []))}")
-            parts.append(f"Special Considerations: {', '.join(ta_info.get('special', []))}")
-
-        return "\n".join(parts)
+# NOTE: Hardcoded KnowledgeGraph was removed.
+# The 130-rule JSON knowledge graph at knowledge_graph/sap_knowledge_graph.json
+# can be connected in the future for context-based method recommendations.
 
 
 # =============================================================================
@@ -1335,10 +1238,9 @@ class TwoPassExtractor:
         self._last_discovered = None
         self._last_sap = None
 
-        # Initialize RAG and Knowledge Graph
-        print("[TwoPassExtractor] Initializing with RAG + Knowledge Graph + TLF Shells + Boundary Calculator...")
+        # Initialize RAG and TLF Shells
+        print("[TwoPassExtractor] Initializing with RAG + TLF Shells + Boundary Calculator...")
         self.rag_retriever = RAGRetriever()
-        self.knowledge_graph = KnowledgeGraph()
         self.tlf_retriever = TLFShellRetriever()
 
         # Initialize boundary calculator for Phase 2/3 trials
@@ -1357,7 +1259,6 @@ class TwoPassExtractor:
             print(f"  [!] Boundary Calculator: Not available ({e})")
 
         print(f"  [OK] RAG: {len(self.rag_retriever.sections_db)} sections indexed")
-        print(f"  [OK] Knowledge Graph: {len(self.knowledge_graph.ENDPOINT_METHODS)} endpoint types")
 
     def discover(self, protocol_text: str, verbose: bool = True) -> List[DiscoveredElement]:
         """
@@ -1432,26 +1333,19 @@ class TwoPassExtractor:
         if verbose:
             print(f"  RAG Examples: {len(rag_examples)} chars from similar SAPs")
 
-        # Get Knowledge Graph recommendations based on endpoint type
-        kg_info = self.knowledge_graph.format_for_prompt(
-            endpoint_type=endpoint_type,
-            therapeutic_area=therapeutic_area
-        )
-        if verbose:
-            print(f"  Knowledge Graph: Methods for {endpoint_type} endpoints")
-
         # CRITICAL: Extract and calculate boundary parameters FIRST
         # So we can pass them to the LLM for inclusion in Section 7
         boundary_info = self._prepare_boundary_info(discovered_elements, protocol_text, verbose)
 
-        # Generate SAP with RAG + KG + Pre-calculated Boundaries
+        # Generate SAP with RAG + Pre-calculated Boundaries
+        # NOTE: Knowledge graph removed - JSON version can be connected later
         sap_text = generate_sap_direct(
             protocol_text=protocol_text,
             discovered_elements=discovered_elements,
             sap_template=sap_template,
             model=self.model,
             rag_examples=rag_examples,
-            knowledge_graph=kg_info,
+            knowledge_graph=None,
             boundary_info=boundary_info,
             verbose=verbose
         )
@@ -1477,7 +1371,7 @@ class TwoPassExtractor:
             "therapeutic_area": therapeutic_area,
             "endpoint_type": endpoint_type,
             "rag_examples_used": len(rag_examples) > 0,
-            "knowledge_graph_used": True,
+            "knowledge_graph_used": False,  # Hardcoded KG removed, JSON version can be connected later
             "tlf_in_sap": True,  # Claude generates TLF specs in Section 12 APPENDICES
             "boundary_info_provided": bool(boundary_info and "not available" not in boundary_info.lower())
         }
