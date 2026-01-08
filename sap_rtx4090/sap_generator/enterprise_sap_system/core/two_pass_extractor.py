@@ -193,6 +193,143 @@ def strip_duplicate_appendix(sap_text: str) -> str:
     return sap_text
 
 
+def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
+    """
+    DETERMINISTIC: Inject TLF table specifications into SAP.
+
+    This GUARANTEES tables appear in the output regardless of what Claude generates.
+    Called after stripping to ensure Section 12 has proper TLF content.
+    """
+    print(f"[TLF-INJECT] ====== INJECTING TLF TABLES ======")
+
+    # Extract endpoints from discovered elements
+    primary_endpoints = []
+    secondary_endpoints = []
+
+    for elem in discovered_elements:
+        cat = (getattr(elem, 'category', '') or '').lower()
+        name = (getattr(elem, 'name', '') or '').lower()
+        desc = getattr(elem, 'description', '') or getattr(elem, 'name', '') or ''
+
+        if 'endpoint' in cat or 'endpoint' in name:
+            if 'primary' in name or 'primary' in cat:
+                primary_endpoints.append(desc[:150])
+            elif 'secondary' in name or 'secondary' in cat:
+                secondary_endpoints.append(desc[:150])
+
+    print(f"[TLF-INJECT] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints")
+
+    # Build TLF section content
+    tlf_content = []
+    tlf_content.append("\n\n## 12. APPENDICES\n")
+    tlf_content.append("### 12.1 Statistical Model Specifications\n")
+    tlf_content.append("See Section 6 for detailed statistical methodology.\n")
+    tlf_content.append("\n### 12.2 Tables, Listings, and Figures Specifications\n")
+    tlf_content.append("\nThe following TLF shells define the statistical outputs for this study:\n")
+
+    # Demographics Table
+    tlf_content.append("\n#### Table 14.1.1: Demographics and Baseline Characteristics\n")
+    tlf_content.append("| Column | Width | Alignment | Source |\n")
+    tlf_content.append("|--------|-------|-----------|--------|\n")
+    tlf_content.append("| Characteristic | 2.5in | Left | ADSL |\n")
+    tlf_content.append("| Treatment A (N=xxx) | 1.3in | Center | ADSL |\n")
+    tlf_content.append("| Treatment B (N=xxx) | 1.3in | Center | ADSL |\n")
+    tlf_content.append("| Total (N=xxx) | 1.3in | Center | ADSL |\n")
+    tlf_content.append("\n**Population:** ITT Population\n")
+    tlf_content.append("**Programming Notes:** Use PROC MEANS for continuous, PROC FREQ for categorical variables.\n")
+
+    # Disposition Table
+    tlf_content.append("\n#### Table 14.1.2: Subject Disposition\n")
+    tlf_content.append("| Column | Width | Alignment | Source |\n")
+    tlf_content.append("|--------|-------|-----------|--------|\n")
+    tlf_content.append("| Disposition Category | 2.5in | Left | ADSL |\n")
+    tlf_content.append("| Treatment A n (%) | 1.3in | Center | ADSL |\n")
+    tlf_content.append("| Treatment B n (%) | 1.3in | Center | ADSL |\n")
+    tlf_content.append("\n**Population:** All Randomized Subjects\n")
+
+    # Primary Endpoint Tables
+    for i, endpoint in enumerate(primary_endpoints[:3], start=1):
+        tlf_content.append(f"\n#### Table 14.2.{i}: Primary Efficacy Analysis - {endpoint}\n")
+        tlf_content.append("| Column | Width | Alignment | Source |\n")
+        tlf_content.append("|--------|-------|-----------|--------|\n")
+        tlf_content.append("| Statistic | 2.5in | Left | ADTTE/ADEFF |\n")
+        tlf_content.append("| Treatment A | 1.5in | Center | ADTTE/ADEFF |\n")
+        tlf_content.append("| Treatment B | 1.5in | Center | ADTTE/ADEFF |\n")
+        tlf_content.append("\n**Population:** ITT Population\n")
+        tlf_content.append("**Analysis:** Per primary analysis methodology in Section 6.\n")
+
+    # Secondary Endpoint Tables
+    for i, endpoint in enumerate(secondary_endpoints[:2], start=1):
+        idx = len(primary_endpoints) + i
+        tlf_content.append(f"\n#### Table 14.2.{idx}: Secondary Efficacy - {endpoint}\n")
+        tlf_content.append("| Column | Width | Alignment | Source |\n")
+        tlf_content.append("|--------|-------|-----------|--------|\n")
+        tlf_content.append("| Parameter | 2.0in | Left | ADEFF |\n")
+        tlf_content.append("| Treatment A | 1.5in | Center | ADEFF |\n")
+        tlf_content.append("| Treatment B | 1.5in | Center | ADEFF |\n")
+        tlf_content.append("\n**Population:** ITT Population\n")
+
+    # Safety Tables
+    tlf_content.append("\n#### Table 14.3.1: Overall Summary of Treatment-Emergent Adverse Events\n")
+    tlf_content.append("| Column | Width | Alignment | Source |\n")
+    tlf_content.append("|--------|-------|-----------|--------|\n")
+    tlf_content.append("| AE Category | 2.5in | Left | ADAE |\n")
+    tlf_content.append("| Treatment A n (%) | 1.2in | Center | ADAE |\n")
+    tlf_content.append("| Treatment B n (%) | 1.2in | Center | ADAE |\n")
+    tlf_content.append("| Total n (%) | 1.2in | Center | ADAE |\n")
+    tlf_content.append("\n**Population:** Safety Population\n")
+    tlf_content.append("**Filter:** SAFFL='Y' and TRTEMFL='Y'\n")
+
+    tlf_content.append("\n#### Table 14.3.2: Serious Adverse Events\n")
+    tlf_content.append("| Column | Width | Alignment | Source |\n")
+    tlf_content.append("|--------|-------|-----------|--------|\n")
+    tlf_content.append("| SOC / Preferred Term | 3.0in | Left | ADAE |\n")
+    tlf_content.append("| Treatment A n (%) | 1.2in | Center | ADAE |\n")
+    tlf_content.append("| Treatment B n (%) | 1.2in | Center | ADAE |\n")
+    tlf_content.append("\n**Population:** Safety Population\n")
+    tlf_content.append("**Filter:** SAFFL='Y' and AESER='Y'\n")
+
+    # Figures
+    tlf_content.append("\n### 12.3 Figure Specifications\n")
+
+    for i, endpoint in enumerate(primary_endpoints[:2], start=1):
+        tlf_content.append(f"\n#### Figure 14.2.{i}: Kaplan-Meier Plot - {endpoint}\n")
+        tlf_content.append("**Population:** ITT Population\n")
+        tlf_content.append("**X-axis:** Time (months)\n")
+        tlf_content.append("**Y-axis:** Survival Probability (0.0 to 1.0)\n")
+        tlf_content.append("**Elements:** KM curves by treatment, 95% CI bands, number at risk table\n")
+        tlf_content.append("**Programming:** PROC LIFETEST with PLOTS=SURVIVAL(ATRISK CB)\n")
+
+    tlf_content.append("\n#### Figure 14.2.3: Forest Plot - Subgroup Analyses\n")
+    tlf_content.append("**Population:** ITT Population\n")
+    tlf_content.append("**Elements:** HR with 95% CI by subgroup, vertical reference line at HR=1\n")
+    tlf_content.append("**Subgroups:** Age (<65/≥65), Sex, ECOG PS, Geographic Region\n")
+
+    tlf_content.append("\n\n---\nEND OF STATISTICAL ANALYSIS PLAN\n")
+
+    # Check if SAP already has Section 12 with content
+    has_section_12 = any(marker in sap_text for marker in ['## 12.', '# 12.', '12. APPENDICES'])
+    has_table_14 = 'Table 14' in sap_text
+
+    if has_section_12 and has_table_14:
+        print(f"[TLF-INJECT] SAP already has Section 12 with tables, keeping existing")
+        return sap_text
+
+    # Remove any incomplete Section 12 before appending
+    for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
+        if marker in sap_text:
+            idx = sap_text.find(marker)
+            sap_text = sap_text[:idx].strip()
+            print(f"[TLF-INJECT] Removed incomplete Section 12 at position {idx}")
+            break
+
+    # Append TLF content
+    result = sap_text + ''.join(tlf_content)
+    print(f"[TLF-INJECT] Injected TLF tables, new length: {len(result)} chars")
+
+    return result
+
+
 def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     """
     Replace remaining placeholders using discovered elements.
@@ -1470,14 +1607,17 @@ class TwoPassExtractor:
         # =====================================================================
         # POST-PROCESSING: Deterministic fixes after SAP generation
         # =====================================================================
-        # 1. Strip duplicate APPENDIX section (Claude sometimes adds it despite instructions)
+        # 1. Strip duplicate APPENDIX section with placeholders
         sap_text = strip_duplicate_appendix(sap_text)
 
         # 2. Replace any remaining placeholders using discovered elements
         sap_text = replace_placeholders(sap_text, discovered_elements)
 
+        # 3. INJECT TLF TABLES - Guarantees tables appear regardless of what Claude generates
+        sap_text = inject_tlf_tables(sap_text, discovered_elements)
+
         if verbose:
-            print(f"[PostProcess] SAP post-processing complete")
+            print(f"[PostProcess] SAP post-processing complete (with TLF injection)")
 
         # =====================================================================
         # DETERMINISTIC VERIFICATION (Non-LLM)
