@@ -1193,12 +1193,15 @@ class TwoPassExtractor:
         # Initialize boundary calculator for Phase 2/3 trials
         self.boundary_calculator = None
         try:
-            from .boundary_calculator import CalculationEngine
-            self.boundary_calculator = CalculationEngine()
-            if self.boundary_calculator.initialize():
-                print("  [OK] Boundary Calculator: R-based (gsDesign, rpact)")
+            from .boundary_calculator import SAPCalculationEngine
+            self.boundary_calculator = SAPCalculationEngine()
+            self.boundary_calculator.initialize()
+            # Check which engine is primary
+            phase3_engine = self.boundary_calculator.phase3_primary.name
+            if "R-" in phase3_engine:
+                print(f"  [OK] Boundary Calculator: {phase3_engine} (cross-validated)")
             else:
-                print("  [~] Boundary Calculator: scipy fallback")
+                print(f"  [~] Boundary Calculator: {phase3_engine} (scipy fallback)")
         except Exception as e:
             print(f"  [!] Boundary Calculator: Not available ({e})")
 
@@ -1399,12 +1402,15 @@ class TwoPassExtractor:
         Extract inputs for boundary calculations from discovered elements.
 
         Looks for:
-        - Alpha levels
+        - Phase (Phase 2 or Phase 3)
+        - Alpha levels (PFS and OS)
         - Number of interim analyses
-        - Event counts
+        - Event counts (PFS and OS)
         - Information fractions
         - HR assumptions
         - NI margin
+        - Phase 2: p0 (null response rate), p1 (alternative response rate)
+        - China extension parameters
         """
         inputs = {
             'phase': None,
@@ -1416,6 +1422,14 @@ class TwoPassExtractor:
             'hr': None,
             'ni_margin': None,
             'median_control': None,
+            # Phase 2 specific
+            'p0': None,
+            'p1': None,
+            # OS specific
+            'os_events': None,
+            'os_alpha': None,
+            # China extension
+            'china_events': None,
         }
 
         import re
@@ -1427,19 +1441,30 @@ class TwoPassExtractor:
             inputs['phase'] = 'phase3'
         elif 'phase 2' in text_lower or 'phase ii' in text_lower:
             inputs['phase'] = 'phase2'
+        elif 'phase 1' in text_lower or 'phase i' in text_lower:
+            inputs['phase'] = 'phase1'
 
         # Extract from discovered elements
+        os_events = []
+        pfs_events = []
+
         for elem in discovered_elements:
             name_lower = elem.name.lower()
             desc = elem.description or ""
             desc_lower = desc.lower()
             combined = name_lower + " " + desc_lower
 
-            # Alpha
+            # Alpha (PFS)
             if 'alpha' in combined or 'type i error' in combined or 'significance level' in combined:
                 alpha_match = re.search(r'(?:alpha|α)\s*[=:]\s*(0\.\d+)', combined)
                 if alpha_match:
-                    inputs['alpha'] = float(alpha_match.group(1))
+                    alpha_val = float(alpha_match.group(1))
+                    if 'pfs' in combined:
+                        inputs['alpha'] = alpha_val
+                    elif 'os' in combined or 'overall survival' in combined:
+                        inputs['os_alpha'] = alpha_val
+                    else:
+                        inputs['alpha'] = alpha_val
 
             # Interim analyses
             if 'interim' in combined:
@@ -1447,11 +1472,20 @@ class TwoPassExtractor:
                 if ia_match:
                     inputs['n_analyses'] = int(ia_match.group(1)) + 1  # +1 for final
 
-            # Events
+            # Events (separate PFS and OS)
             if 'event' in combined:
-                event_matches = re.findall(r'(\d{2,4})\s*(?:pfs\s*)?events?', combined)
-                if event_matches:
-                    inputs['events'].extend([int(e) for e in event_matches])
+                if 'os' in combined or 'overall survival' in combined:
+                    os_event_matches = re.findall(r'(\d{2,4})\s*(?:os\s*)?events?', combined)
+                    if os_event_matches:
+                        os_events.extend([int(e) for e in os_event_matches])
+                elif 'pfs' in combined or 'progression' in combined:
+                    pfs_event_matches = re.findall(r'(\d{2,4})\s*(?:pfs\s*)?events?', combined)
+                    if pfs_event_matches:
+                        pfs_events.extend([int(e) for e in pfs_event_matches])
+                else:
+                    event_matches = re.findall(r'(\d{2,4})\s*events?', combined)
+                    if event_matches:
+                        pfs_events.extend([int(e) for e in event_matches])
 
             # HR
             if 'hazard ratio' in combined or 'hr' in combined:
@@ -1471,16 +1505,49 @@ class TwoPassExtractor:
                 if power_match:
                     inputs['beta'] = 1 - int(power_match.group(1)) / 100
 
-        # Clean up events list
-        if inputs['events']:
-            inputs['events'] = sorted(list(set(inputs['events'])))
+            # Phase 2: Response rates
+            if 'response rate' in combined or 'orr' in combined:
+                # Null response rate (p0)
+                p0_match = re.search(r'(?:null|unacceptable|p0)\s*[=:]\s*(0\.\d+|\d+%)', combined)
+                if p0_match:
+                    val = p0_match.group(1)
+                    inputs['p0'] = float(val.replace('%', '')) / 100 if '%' in val else float(val)
+
+                # Alternative response rate (p1)
+                p1_match = re.search(r'(?:alternative|target|p1)\s*[=:]\s*(0\.\d+|\d+%)', combined)
+                if p1_match:
+                    val = p1_match.group(1)
+                    inputs['p1'] = float(val.replace('%', '')) / 100 if '%' in val else float(val)
+
+            # China extension
+            if 'china' in combined:
+                china_event_match = re.search(r'(\d{2,3})\s*(?:pfs\s*)?events?', combined)
+                if china_event_match:
+                    if not inputs['china_events']:
+                        inputs['china_events'] = {}
+                    if 'pfs' in combined:
+                        inputs['china_events']['pfs'] = int(china_event_match.group(1))
+                    elif 'os' in combined:
+                        inputs['china_events']['os'] = int(china_event_match.group(1))
+
+        # Clean up events lists
+        if pfs_events:
+            inputs['events'] = sorted(list(set(pfs_events)))
+        if os_events:
+            inputs['os_events'] = sorted(list(set(os_events)))
 
         return inputs
 
     def _generate_boundary_tables(self, discovered_elements: List[DiscoveredElement],
                                    protocol_text: str, verbose: bool = True) -> str:
         """
-        Generate boundary tables from protocol inputs using R-based calculations.
+        Generate boundary tables from protocol inputs using the SAP Calculation Engine.
+
+        Supports:
+        - Phase 2: Simon's two-stage designs (optimal, minimax)
+        - Phase 3: Group sequential boundaries with Lan-DeMets O'Brien-Fleming
+        - China extension power calculations
+        - Multiplicity adjustments (graphical approach)
 
         Returns formatted markdown for inclusion in SAP.
         """
@@ -1494,56 +1561,105 @@ class TwoPassExtractor:
 
         if verbose:
             print(f"\n{'-'*70}")
-            print("CALCULATING BOUNDARY TABLES (R-based)")
+            print("CALCULATING BOUNDARY TABLES")
             print(f"{'-'*70}")
             print(f"  Phase: {inputs.get('phase', 'unknown')}")
             print(f"  Alpha: {inputs.get('alpha', 'not found')}")
             print(f"  Events: {inputs.get('events', [])}")
             print(f"  HR: {inputs.get('hr', 'not found')}")
             print(f"  NI Margin: {inputs.get('ni_margin', 'not found')}")
+            print(f"  Engine: {self.boundary_calculator.phase3_primary.name}")
 
-        # Only calculate for Phase 3 with sufficient inputs
-        if inputs['phase'] != 'phase3':
+        phase = inputs.get('phase', '')
+
+        # Phase 2 calculations
+        if phase == 'phase2':
+            p0 = inputs.get('p0')
+            p1 = inputs.get('p1')
+
+            if p0 and p1:
+                try:
+                    optimal = self.boundary_calculator.calculate_simon_design(
+                        p0=p0, p1=p1, design_type="optimal"
+                    )
+                    minimax = self.boundary_calculator.calculate_simon_design(
+                        p0=p0, p1=p1, design_type="minimax"
+                    )
+
+                    if verbose:
+                        print(f"  [OK] Generated Phase 2 designs (n={optimal.n} optimal, n={minimax.n} minimax)")
+
+                    return "\n\n".join([
+                        "## Phase 2 Design Parameters",
+                        "",
+                        "### Optimal Design (Minimizes Expected N under H0)",
+                        optimal.to_markdown(),
+                        "",
+                        "### Minimax Design (Minimizes Maximum N)",
+                        minimax.to_markdown()
+                    ])
+                except Exception as e:
+                    if verbose:
+                        print(f"  [!] Phase 2 calculation failed: {e}")
+                    return ""
+            else:
+                if verbose:
+                    print("  [~] Phase 2 requires p0 and p1 - skipping")
+                return ""
+
+        # Phase 3 calculations
+        elif phase == 'phase3':
+            if not inputs['alpha'] or not inputs['events']:
+                if verbose:
+                    print("  [~] Insufficient inputs for Phase 3 boundary calculations")
+                return ""
+
+            try:
+                # Use generate_interim_analysis_section for complete output
+                hr_alternative = inputs.get('hr', 0.7)
+                ni_margin = inputs.get('ni_margin')
+
+                # Check if we have separate PFS and OS events
+                pfs_events = inputs.get('events', [])
+                pfs_alpha = inputs.get('alpha', 0.025)
+
+                # Generate the complete interim analysis section
+                formatted = self.boundary_calculator.generate_interim_analysis_section(
+                    pfs_events=pfs_events,
+                    pfs_alpha=pfs_alpha,
+                    os_events=inputs.get('os_events'),
+                    os_alpha=inputs.get('os_alpha'),
+                    hr_alternative=hr_alternative,
+                    ni_margin=ni_margin if ni_margin and ni_margin > 1.0 else None,
+                    spending_function="OF"
+                )
+
+                if verbose:
+                    print(f"  [OK] Generated Phase 3 boundary tables ({len(pfs_events)} analyses)")
+
+                # Add China extension if applicable
+                china_events = inputs.get('china_events')
+                if china_events:
+                    from .boundary_calculator import ChinaExtensionCalculator
+                    china_section = ChinaExtensionCalculator.to_markdown(
+                        pfs_events=china_events.get('pfs', 71),
+                        os_events=china_events.get('os', 54),
+                        hr_assumed=hr_alternative
+                    )
+                    formatted += "\n\n---\n\n" + china_section
+                    if verbose:
+                        print("  [OK] Added China extension power calculations")
+
+                return formatted
+
+            except Exception as e:
+                if verbose:
+                    print(f"  [!] Phase 3 boundary calculation failed: {e}")
+                return ""
+
+        else:
             if verbose:
-                print("  [~] Not a Phase 3 trial - skipping boundary calculations")
-            return ""
-
-        if not inputs['alpha'] or not inputs['events']:
-            if verbose:
-                print("  [~] Insufficient inputs for boundary calculations")
-            return ""
-
-        try:
-            from .boundary_calculator import Phase3Inputs, SpendingFunction
-
-            # Calculate info fractions if not provided
-            if inputs['events'] and not inputs['info_fractions']:
-                total = max(inputs['events'])
-                inputs['info_fractions'] = [e / total for e in inputs['events']]
-
-            phase3_inputs = Phase3Inputs(
-                alpha=inputs['alpha'],
-                beta=inputs['beta'],
-                n_analyses=len(inputs['events']),
-                info_fractions=inputs['info_fractions'],
-                spending_function=SpendingFunction.LAN_DEMETS_OF,
-                hr=inputs.get('hr', 0.7),
-                ni_margin=inputs.get('ni_margin', 1.0),
-                events=inputs['events'],
-                total_events=max(inputs['events']),
-                median_control=inputs.get('median_control', 8.8)
-            )
-
-            result, formatted = self.boundary_calculator.calculate_phase3(phase3_inputs)
-
-            if verbose:
-                print(f"  [OK] Generated boundary tables ({len(result.boundaries)} analyses)")
-
-            return formatted
-
-        except Exception as e:
-            if verbose:
-                print(f"  [!] Boundary calculation failed: {e}")
+                print(f"  [~] Phase '{phase}' not supported for boundary calculations")
             return ""
 
     def process_protocol(self, protocol_text: str, protocol_id: str = "unknown",
