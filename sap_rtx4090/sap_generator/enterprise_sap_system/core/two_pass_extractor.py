@@ -210,11 +210,19 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
         cat = (getattr(elem, 'category', '') or '').lower()
         name = (getattr(elem, 'name', '') or '').lower()
         desc = getattr(elem, 'description', '') or getattr(elem, 'name', '') or ''
+        desc_lower = desc.lower()
 
-        if 'endpoint' in cat or 'endpoint' in name:
-            if 'primary' in name or 'primary' in cat:
+        # Check if this is an endpoint element
+        is_endpoint = 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints'
+
+        # Check for primary/secondary in category, name, OR description
+        is_primary = 'primary' in cat or 'primary' in name or 'primary' in desc_lower
+        is_secondary = 'secondary' in cat or 'secondary' in name or 'secondary' in desc_lower
+
+        if is_endpoint or is_primary or is_secondary:
+            if is_primary:
                 primary_endpoints.append(desc[:150])
-            elif 'secondary' in name or 'secondary' in cat:
+            elif is_secondary:
                 secondary_endpoints.append(desc[:150])
 
     print(f"[TLF-INJECT] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints")
@@ -351,17 +359,24 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
         name = getattr(elem, 'name', '') or ''
         description = getattr(elem, 'description', '') or ''
 
-        # Look for primary endpoint - check both category and name
+        # Look for primary endpoint - check category, name, AND description
         cat_lower = category.lower()
         name_lower = name.lower()
+        desc_lower = description.lower()
 
-        if 'endpoint' in cat_lower or 'endpoint' in name_lower:
+        # Check if this is an endpoint element
+        is_endpoint = 'endpoint' in cat_lower or 'endpoint' in name_lower or cat_lower == 'endpoints'
+
+        # Check if it's PRIMARY - look in category, name, OR description
+        is_primary = 'primary' in cat_lower or 'primary' in name_lower or 'primary' in desc_lower
+
+        if is_endpoint or is_primary:
             # Try to get a usable endpoint name
-            # Priority: description, then extract from name
+            # Priority: description, then name
             endpoint_text = description if description else name
             if endpoint_text:
-                # Clean up - extract just the endpoint name if it's embedded
-                if 'primary' in name_lower and not primary_endpoint:
+                # Set as primary endpoint if marked as primary
+                if is_primary and not primary_endpoint:
                     primary_endpoint = endpoint_text
                     print(f"[PostProcess] Found primary endpoint: {endpoint_text[:80]}")
                 endpoints.append(endpoint_text)
