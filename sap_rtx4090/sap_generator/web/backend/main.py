@@ -98,6 +98,18 @@ try:
 except ImportError as e:
     RAG_SYSTEM_AVAILABLE = False
     SAPRAGIndex = None
+
+# NEW: Integrated Pipeline with LLM Extraction + RAG + Knowledge Graph
+# - LLM-based extraction for complex elements (interim analysis, censoring rules, etc.)
+# - RAG with preserved interim analysis values
+# - Full coverage of Phase 1/2/3 trial elements
+try:
+    from enterprise_sap_system.core.integrated_pipeline import IntegratedPipeline as IntegratedSAPPipeline
+    INTEGRATED_PIPELINE_AVAILABLE = True
+except ImportError as e:
+    INTEGRATED_PIPELINE_AVAILABLE = False
+    IntegratedSAPPipeline = None
+    print(f"Warning: IntegratedPipeline not available: {e}")
     print(f"Warning: SAPRAGIndex (3-collection RAG) not available: {e}")
 
 # NEW: Regulatory-grade SAP Generator (ICH E9 compliant, 45+ pages)
@@ -924,6 +936,27 @@ def get_direct_generator():
     return _direct_generator
 
 
+# Global instance for integrated pipeline (with LLM extraction + RAG)
+_integrated_pipeline: 'IntegratedSAPPipeline' = None
+
+
+def get_integrated_pipeline():
+    """
+    Get or create the integrated pipeline with full LLM extraction.
+
+    This pipeline includes:
+    - LLM-based extraction for complex elements (interim analysis, power calculations, etc.)
+    - RAG with preserved interim analysis values
+    - Knowledge graph for regulatory context
+    - Full coverage of Phase 1/2/3 trial elements
+    """
+    global _integrated_pipeline
+    if _integrated_pipeline is None and INTEGRATED_PIPELINE_AVAILABLE:
+        _integrated_pipeline = IntegratedSAPPipeline()
+        logger.info("IntegratedSAPPipeline initialized (LLM extraction + RAG + KnowledgeGraph)")
+    return _integrated_pipeline
+
+
 class DirectSAPResponse(BaseModel):
     """Response from direct SAP generation (V2 - no information loss)."""
     success: bool
@@ -1030,6 +1063,139 @@ async def generate_direct_sap(request: GenerateRequest):
         raise
     except Exception as e:
         logger.error(f"Direct SAP generation failed: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# INTEGRATED PIPELINE - LLM Extraction + RAG + Knowledge Graph
+# =============================================================================
+
+class IntegratedSAPResponse(BaseModel):
+    """Response from integrated pipeline with full LLM extraction."""
+    success: bool
+    sap_text: str
+    # Extraction results
+    facts_extracted: dict
+    interim_analysis: dict
+    power_calculations: dict
+    censoring_rules: dict
+    # RAG info
+    rag_examples_used: int
+    rag_nct_ids: list
+    # Template info
+    trial_type: str
+    templates_applied: list
+    # Validation
+    validation_score: float
+    issues_found: list
+    # Metadata
+    total_time: float
+    sap_length: int
+    generation_method: str
+    errors: list
+
+
+@app.post("/generate-integrated", response_model=IntegratedSAPResponse)
+async def generate_integrated_sap(request: GenerateRequest):
+    """
+    Generate SAP using INTEGRATED PIPELINE with full LLM extraction.
+
+    This is the MOST COMPREHENSIVE endpoint - captures ALL details including:
+    - Interim analysis (count, timing, alpha spending, boundaries)
+    - Power calculations (PFS power, OS power, control medians)
+    - Censoring rules (PFS, DOR, PFS2)
+    - Exploratory endpoints (DOR, DCR, CBR, PFS2, iRECIST)
+    - PRO thresholds (timepoint, completion, MCID)
+    - Regional extensions (China sample size, events)
+    - Protocol violation definitions
+    - Laboratory parameter lists
+    - Data handling conventions
+
+    Architecture:
+    1. LlamaParse: PDF → Markdown (preserves tables)
+    2. FactExtractor: Regex for basic facts
+    3. LLMExtractor: Complex elements (interim, power, censoring, etc.)
+    4. RAGRetriever: Similar SAP examples (with interim values preserved)
+    5. KnowledgeGraph: Regulatory context
+    6. SAPGenerator: Section-by-section generation with all facts
+    7. IssueDetector: QA validation
+
+    Use this endpoint when you need:
+    - Complete interim analysis details
+    - Full censoring rule tables
+    - Detailed power calculations
+    - Phase 1 PK/PD/safety details
+    """
+    import time
+    start_time = time.time()
+
+    try:
+        if not request.protocol_text.strip():
+            raise HTTPException(status_code=400, detail="Protocol text cannot be empty")
+
+        if not INTEGRATED_PIPELINE_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Integrated pipeline not available - check imports"
+            )
+
+        pipeline = get_integrated_pipeline()
+        if pipeline is None:
+            raise HTTPException(
+                status_code=503,
+                detail="Integrated pipeline not initialized"
+            )
+
+        # Run the full integrated pipeline
+        result = pipeline.generate(request.protocol_text)
+
+        processing_time = time.time() - start_time
+
+        # Extract facts for response
+        facts = {}
+        interim_analysis = {}
+        power_calculations = {}
+        censoring_rules = {}
+
+        if hasattr(result, 'facts') and result.facts:
+            facts = result.facts if isinstance(result.facts, dict) else {}
+            interim_analysis = facts.get('interim_analysis', {})
+            power_calculations = facts.get('power_calculations', {})
+            censoring_rules = facts.get('censoring_rules', {})
+
+        # Get validation issues
+        issues = []
+        validation_score = 0.0
+        if hasattr(result, 'validation') and result.validation:
+            validation_score = getattr(result.validation, 'overall_score', 0.0)
+            if hasattr(result.validation, 'issues'):
+                issues = [str(i) for i in result.validation.issues[:10]]
+
+        return IntegratedSAPResponse(
+            success=result.success if hasattr(result, 'success') else True,
+            sap_text=result.sap_text if hasattr(result, 'sap_text') else str(result),
+            facts_extracted=facts,
+            interim_analysis=interim_analysis,
+            power_calculations=power_calculations,
+            censoring_rules=censoring_rules,
+            rag_examples_used=getattr(result, 'rag_examples_used', 0),
+            rag_nct_ids=getattr(result, 'rag_nct_ids', []),
+            trial_type=getattr(result, 'trial_type', 'unknown'),
+            templates_applied=getattr(result, 'templates_applied', []),
+            validation_score=validation_score,
+            issues_found=issues,
+            total_time=processing_time,
+            sap_length=len(result.sap_text) if hasattr(result, 'sap_text') else 0,
+            generation_method="integrated-v3 (LLM extraction + RAG + KnowledgeGraph)",
+            errors=[]
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Integrated SAP generation failed: {e}")
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))

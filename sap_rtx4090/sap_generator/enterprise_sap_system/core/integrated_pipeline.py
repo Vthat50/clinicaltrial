@@ -35,7 +35,11 @@ class IntegratedResult:
     sap_text: str = ""
     sections: Dict[str, str] = field(default_factory=dict)
 
-    # Extracted facts
+    # Full facts dictionary (for API access to interim_analysis, power_calculations, etc.)
+    facts: Dict[str, Any] = field(default_factory=dict)
+    trial_type: str = "unknown"
+
+    # Extracted facts (individual fields for convenience)
     drug_name: str = ""
     sample_size: int = 0
     num_arms: int = 0
@@ -1370,6 +1374,7 @@ class IntegratedPipeline:
             if nct_id:
                 facts['nct_id'] = nct_id
 
+            result.facts = facts  # Store full facts dict for API access
             result.drug_name = facts.get('drug_name', '')
             result.sample_size = facts.get('sample_size', 0)
             result.num_arms = facts.get('num_arms', 0)
@@ -1427,6 +1432,7 @@ class IntegratedPipeline:
             template = self.template_selector.apply_template(trial_type, facts)
 
             result.templates_applied = [trial_type.value]
+            result.trial_type = trial_type.value  # Store for API access
             print(f"  Trial Type: {trial_type.value}")
             print(f"  Response Criteria: {template.get('response_criteria', 'Standard')}")
 
