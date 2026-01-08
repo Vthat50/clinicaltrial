@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-08-v17 (Multi-tier endpoint detection)")
+    print("  [VERSION] Build 2026-01-08-v18 (Root cause fix - prompt requires Primary prefix)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
@@ -3351,54 +3351,42 @@ async def process_jobs_worker():
 
                     # =========================================================
                     # REPLACE PLACEHOLDER TEXT WITH ACTUAL ENDPOINTS
-                    # Multi-tier detection for robustness
+                    # Requires "primary" keyword (enforced by discovery prompt)
                     # =========================================================
-                    print(f"  [MAIN.PY] v17 - Multi-tier placeholder replacement...")
+                    print(f"  [MAIN.PY] v18 - Placeholder replacement...")
 
-                    # Multi-tier endpoint detection (same logic as two_pass_extractor.py)
-                    explicit_primary = None
-                    priority_one_ep = None
-                    first_endpoint = None
-                    any_endpoint = None
-
+                    primary_endpoint_name = None
                     for elem in discovered_elements:
                         cat = (elem.get("category", "") or "").lower()
                         name = (elem.get("name", "") or "").lower()
                         desc = elem.get("description", "") or elem.get("name", "") or ""
                         desc_lower = desc.lower()
-                        prio = elem.get("priority", 2)
 
                         endpoint_text = desc[:100] if desc else None
                         if not endpoint_text:
                             continue
 
-                        is_endpoint_cat = cat == "endpoints" or "endpoint" in cat
-                        is_endpoint_name = "endpoint" in name
+                        # Discovery prompt requires "Primary endpoint:" prefix
                         has_primary = "primary" in cat or "primary" in name or "primary" in desc_lower
+                        if has_primary:
+                            primary_endpoint_name = endpoint_text
+                            print(f"  [MAIN.PY] Found primary: {endpoint_text[:60]}")
+                            break
 
-                        if has_primary and not explicit_primary:
-                            explicit_primary = endpoint_text
-                        if is_endpoint_cat and prio == 1 and not priority_one_ep:
-                            priority_one_ep = endpoint_text
-                        if is_endpoint_cat and not first_endpoint:
-                            first_endpoint = endpoint_text
-                        if is_endpoint_name and not any_endpoint:
-                            any_endpoint = endpoint_text
-
-                    primary_endpoint_name = explicit_primary or priority_one_ep or first_endpoint or any_endpoint or "Primary Efficacy Endpoint"
-                    print(f"  [MAIN.PY] Selected endpoint: {primary_endpoint_name[:60]}")
-
-                    # Replace ALL placeholder patterns with actual endpoint
-                    placeholders = [
-                        "[Primary endpoint as specified]",
-                        "[Primary endpoint]",
-                        "[ENDPOINT]",
-                        "[endpoint]",
-                    ]
-                    for placeholder in placeholders:
-                        if placeholder in sap_text:
-                            sap_text = sap_text.replace(placeholder, primary_endpoint_name)
-                            print(f"  [MAIN.PY] Replaced '{placeholder}'")
+                    if not primary_endpoint_name:
+                        print(f"  [MAIN.PY] WARNING: No primary endpoint found in discovered elements")
+                    else:
+                        # Replace ALL placeholder patterns with actual endpoint
+                        placeholders = [
+                            "[Primary endpoint as specified]",
+                            "[Primary endpoint]",
+                            "[ENDPOINT]",
+                            "[endpoint]",
+                        ]
+                        for placeholder in placeholders:
+                            if placeholder in sap_text:
+                                sap_text = sap_text.replace(placeholder, primary_endpoint_name)
+                                print(f"  [MAIN.PY] Replaced '{placeholder}'")
 
                     # Check if tables exist
                     has_tables = "Table 14" in sap_text

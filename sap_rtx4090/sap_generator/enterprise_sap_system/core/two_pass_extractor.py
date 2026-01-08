@@ -349,50 +349,33 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     Replace remaining placeholders using discovered elements.
 
     NO REGEX - uses simple string replacement for reliability.
-    Multi-tier endpoint detection for robustness.
+    Requires "primary" keyword in endpoint name (enforced by discovery prompt).
     """
     import sys
-    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v17 ==========", flush=True)
+    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v18 ==========", flush=True)
     sys.stdout.flush()
     print(f"[PostProcess] SAP length: {len(sap_text)} chars", flush=True)
+    sys.stdout.flush()
     print(f"[PostProcess] Elements count: {len(discovered_elements) if discovered_elements else 0}", flush=True)
     sys.stdout.flush()
 
     # Check if placeholder exists BEFORE processing
     has_placeholder = '[Primary endpoint as specified]' in sap_text
-    print(f"[PostProcess] Contains '[Primary endpoint as specified]': {has_placeholder}", flush=True)
+    print(f"[PostProcess] Contains placeholder: {has_placeholder}", flush=True)
     sys.stdout.flush()
 
     if not discovered_elements:
-        print("[PostProcess] No discovered elements - skipping placeholder replacement", flush=True)
+        print("[PostProcess] No discovered elements - skipping", flush=True)
         sys.stdout.flush()
         return sap_text
 
     replacements_made = 0
+    primary_endpoint = None
+    endpoints_found = []
 
-    # Multi-tier endpoint detection
-    explicit_primary = None  # Has "primary" in name/desc
-    priority_one_endpoint = None  # Has priority=1 in endpoints category
-    first_endpoint = None  # First element in endpoints category
-    any_endpoint = None  # Any element with endpoint in name
-
-    # Debug: print first 5 elements with all fields
-    print(f"[PostProcess] First 5 discovered elements:", flush=True)
+    # Debug: print first 5 elements
+    print(f"[PostProcess] Scanning elements for primary endpoint...", flush=True)
     sys.stdout.flush()
-    for i, elem in enumerate(discovered_elements[:5]):
-        # Handle both dataclass and dict
-        if hasattr(elem, 'category'):
-            cat = elem.category or ''
-            name = elem.name or ''
-            desc = (elem.description or '')[:50]
-            prio = getattr(elem, 'priority', 2)
-        else:
-            cat = elem.get('category', '') or ''
-            name = elem.get('name', '') or ''
-            desc = (elem.get('description', '') or '')[:50]
-            prio = elem.get('priority', 2)
-        print(f"  [{i}] cat='{cat}' name='{name}' prio={prio} desc='{desc}...'", flush=True)
-        sys.stdout.flush()
 
     for elem in discovered_elements:
         # Handle both dataclass and dict formats
@@ -400,12 +383,10 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
             category = elem.category or ''
             name = elem.name or ''
             description = elem.description or ''
-            priority = getattr(elem, 'priority', 2)
         else:
             category = elem.get('category', '') or ''
             name = elem.get('name', '') or ''
             description = elem.get('description', '') or ''
-            priority = elem.get('priority', 2)
 
         cat_lower = category.lower()
         name_lower = name.lower()
@@ -416,40 +397,21 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
         if not endpoint_text:
             continue
 
-        # Check if this is an endpoint element
-        is_endpoint_cat = cat_lower == 'endpoints' or 'endpoint' in cat_lower
-        is_endpoint_name = 'endpoint' in name_lower
+        # Check for "primary" keyword - discovery prompt REQUIRES this in endpoint names
+        has_primary = 'primary' in cat_lower or 'primary' in name_lower or 'primary' in desc_lower
 
-        # Check for explicit "primary" keyword
-        has_primary_keyword = 'primary' in cat_lower or 'primary' in name_lower or 'primary' in desc_lower
-
-        # Tier 1: Explicit "primary" keyword
-        if has_primary_keyword and not explicit_primary:
-            explicit_primary = endpoint_text
-            print(f"[PostProcess] Tier1 - Explicit primary: {endpoint_text[:60]}", flush=True)
+        if has_primary and not primary_endpoint:
+            primary_endpoint = endpoint_text
+            print(f"[PostProcess] Found primary: '{name[:50]}' -> '{endpoint_text[:60]}'", flush=True)
             sys.stdout.flush()
 
-        # Tier 2: Priority 1 in endpoints category
-        if is_endpoint_cat and priority == 1 and not priority_one_endpoint:
-            priority_one_endpoint = endpoint_text
-            print(f"[PostProcess] Tier2 - Priority-1 endpoint: {endpoint_text[:60]}", flush=True)
-            sys.stdout.flush()
+        # Track all endpoints for debugging
+        if cat_lower == 'endpoints' or 'endpoint' in name_lower:
+            endpoints_found.append(name[:40])
 
-        # Tier 3: First endpoint in endpoints category
-        if is_endpoint_cat and not first_endpoint:
-            first_endpoint = endpoint_text
-            print(f"[PostProcess] Tier3 - First endpoint: {endpoint_text[:60]}", flush=True)
-            sys.stdout.flush()
-
-        # Tier 4: Any element with "endpoint" in name
-        if is_endpoint_name and not any_endpoint:
-            any_endpoint = endpoint_text
-            print(f"[PostProcess] Tier4 - Any endpoint: {endpoint_text[:60]}", flush=True)
-            sys.stdout.flush()
-
-    # Select best primary endpoint using tier priority
-    primary_endpoint = explicit_primary or priority_one_endpoint or first_endpoint or any_endpoint
-    print(f"[PostProcess] Selected primary endpoint: {primary_endpoint[:80] if primary_endpoint else 'NONE FOUND'}", flush=True)
+    print(f"[PostProcess] Endpoints found: {endpoints_found[:5]}", flush=True)
+    sys.stdout.flush()
+    print(f"[PostProcess] Primary endpoint: {primary_endpoint[:80] if primary_endpoint else 'NONE'}", flush=True)
     sys.stdout.flush()
 
     # Simple string replacements - NO REGEX
@@ -894,10 +856,12 @@ STUDY DESIGN (category: study_design):
 - Stratification factors
 
 ENDPOINTS (category: endpoints):
-- Primary endpoint(s) - if CO-PRIMARY, list EACH separately
-- Secondary endpoints - list EACH separately
-- Exploratory endpoints
-- For each: definition, assessment timing, measurement method
+- Primary endpoint(s) - NAME MUST START WITH "Primary endpoint:" (e.g., "Primary endpoint: PFS")
+- If CO-PRIMARY endpoints exist, list EACH with "Co-primary endpoint:" prefix
+- Secondary endpoints - NAME MUST START WITH "Secondary endpoint:" (e.g., "Secondary endpoint: OS")
+- Exploratory endpoints - NAME MUST START WITH "Exploratory endpoint:"
+- For each: definition, assessment timing, measurement method in the description field
+- CRITICAL: The word "Primary" or "Secondary" MUST appear in the name field for proper categorization
 
 POPULATIONS (category: populations):
 - Each analysis population (ITT, FAS, PP, Safety)
@@ -1178,7 +1142,8 @@ READ the protocol below completely. WRITE a comprehensive, production-quality SA
 ⚠️ CRITICAL: USE EXACT NUMBERS FROM THE PROTOCOL - NO PLACEHOLDERS
 ══════════════════════════════════════════════════════════════════════════════
 
-NEVER write "[To be specified]", "CCI", or "will be detailed in..." - USE THE EXACT VALUES PROVIDED.
+NEVER write "[To be specified]", "[Primary endpoint as specified]", "[specify endpoint]", "CCI", or "will be detailed in..." - USE THE EXACT VALUES PROVIDED.
+In Section 12 tables, use the ACTUAL endpoint names from the discovered elements, NOT generic placeholders.
 
 I discovered these {num_elements} elements in the protocol.
 EVERY SINGLE ONE must appear in your SAP with EXACT values from the protocol:
@@ -1257,7 +1222,9 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
 
 11. APPENDICES (Section 12):
     Section 12.2 must list specific tables and figures for THIS protocol.
-    Use the ACTUAL endpoint names from the checklist above.
+    CRITICAL: Use the ACTUAL endpoint names from the checklist above in table titles.
+    DO NOT use "[Primary endpoint as specified]" or any placeholder text.
+    Each table title must contain the real endpoint name (e.g., "Table 14.2.1: Progression-Free Survival Analysis").
 
     {tlf_specifications}
 
