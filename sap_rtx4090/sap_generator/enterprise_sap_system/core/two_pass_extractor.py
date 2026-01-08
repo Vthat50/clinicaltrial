@@ -86,6 +86,261 @@ else:
     from anthropic import Anthropic
     _USE_OPENAI = False
 
+import re
+
+
+# =============================================================================
+# RAG RETRIEVER - Similar SAP sections for few-shot examples
+# =============================================================================
+
+class RAGRetriever:
+    """Retrieve similar SAP sections from indexed SAPs for few-shot examples."""
+
+    def __init__(self):
+        self.sections_db = {}
+        self.indexed = False
+        self._load_sections()
+
+    def _load_sections(self):
+        """Load SAP sections from data directory."""
+        data_dir = Path(__file__).parent.parent.parent / "data"
+        all_pairs_dir = data_dir / "all_pairs"
+        ground_truth_dir = data_dir / "ground_truth"
+
+        total_sections = 0
+
+        for sap_dir in [ground_truth_dir, all_pairs_dir]:
+            if not sap_dir.exists():
+                continue
+
+            for sap_file in sap_dir.glob("*_sap.txt"):
+                nct_id = sap_file.stem.replace("_sap", "")
+                try:
+                    sap_text = sap_file.read_text(encoding='utf-8', errors='ignore')
+                    sections = self._parse_sections(sap_text)
+                    ta = self._detect_ta(sap_text)
+
+                    for section_name, content in sections.items():
+                        if content and len(content) > 50:
+                            key = f"{nct_id}_{section_name}"
+                            self.sections_db[key] = {
+                                'nct_id': nct_id,
+                                'section': section_name,
+                                'content': content,
+                                'therapeutic_area': ta,
+                                'length': len(content)
+                            }
+                            total_sections += 1
+                except Exception as e:
+                    continue
+
+        self.indexed = total_sections > 0
+        print(f"[RAG] Loaded {total_sections} sections from {len(set(s['nct_id'] for s in self.sections_db.values()))} SAPs")
+
+    def _parse_sections(self, sap_text: str) -> Dict[str, str]:
+        """Parse SAP text into sections."""
+        sections = {}
+        current_section = "introduction"
+        current_content = []
+
+        section_patterns = {
+            'introduction': r'^#+\s*(?:1[\.\s]*)?introduction',
+            'objectives': r'^#+\s*(?:2[\.\s]*)?(?:study\s+)?objectives',
+            'endpoints': r'^#+\s*(?:3[\.\s]*)?(?:study\s+)?endpoints?',
+            'design': r'^#+\s*(?:4[\.\s]*)?study\s+design',
+            'populations': r'^#+\s*(?:5[\.\s]*)?(?:analysis\s+)?populations?',
+            'methods': r'^#+\s*(?:6[\.\s]*)?statistical\s+(?:analysis\s+)?methods?',
+            'interim': r'^#+\s*(?:7[\.\s]*)?interim\s+analysis',
+            'sample_size': r'^#+\s*(?:8[\.\s]*)?sample\s+size',
+            'missing_data': r'^#+\s*(?:9[\.\s]*)?(?:handling\s+of\s+)?missing\s+data',
+        }
+
+        for line in sap_text.split('\n'):
+            line_lower = line.lower().strip()
+            for section_name, pattern in section_patterns.items():
+                if re.match(pattern, line_lower):
+                    if current_content:
+                        sections[current_section] = '\n'.join(current_content)
+                    current_section = section_name
+                    current_content = []
+                    break
+            else:
+                current_content.append(line)
+
+        if current_content:
+            sections[current_section] = '\n'.join(current_content)
+
+        return sections
+
+    def _detect_ta(self, text: str) -> str:
+        """Detect therapeutic area from text."""
+        text_lower = text.lower()
+        if 'colitis' in text_lower or 'crohn' in text_lower:
+            return 'ibd'
+        elif 'cancer' in text_lower or 'tumor' in text_lower or 'carcinoma' in text_lower:
+            return 'oncology'
+        elif 'arthritis' in text_lower or 'rheumatoid' in text_lower:
+            return 'rheumatology'
+        return 'general'
+
+    def retrieve(self, therapeutic_area: str = None, section_type: str = None, k: int = 3) -> List[Dict]:
+        """Retrieve similar sections based on therapeutic area."""
+        if not self.indexed:
+            return []
+
+        ta = (therapeutic_area or '').lower()
+        results = []
+
+        for key, section_data in self.sections_db.items():
+            if section_data['therapeutic_area'] == ta:
+                score = 1.0
+            elif section_data['therapeutic_area'] == 'general':
+                score = 0.5
+            else:
+                score = 0.2
+
+            if section_type and section_data['section'] != section_type:
+                continue
+
+            if section_data['length'] > 500:
+                score += 0.2
+
+            results.append({
+                'nct_id': section_data['nct_id'],
+                'section': section_data['section'],
+                'content': section_data['content'],
+                'score': score
+            })
+
+        results.sort(key=lambda x: x['score'], reverse=True)
+        return results[:k]
+
+    def get_sanitized_examples(self, therapeutic_area: str = None, k: int = 3) -> str:
+        """Get sanitized examples with protocol-specific values replaced."""
+        examples = self.retrieve(therapeutic_area, k=k)
+
+        if not examples:
+            return ""
+
+        sanitized_parts = []
+        for ex in examples:
+            content = ex['content']
+
+            # Replace specific values with placeholders to prevent contamination
+            content = re.sub(r'NCT\d{8}', '{PROTOCOL_ID}', content)
+            content = re.sub(r'\b\d{2,4}\s*(?:patients|subjects|participants)', '{N} patients', content, flags=re.IGNORECASE)
+            content = re.sub(r'\b\d+:\d+(?::\d+)?\s*(?:randomization|ratio)', '{RATIO}', content, flags=re.IGNORECASE)
+
+            sanitized_parts.append(f"### Example from {ex['nct_id']}:\n{content[:2000]}")
+
+        return "\n\n".join(sanitized_parts)
+
+
+# =============================================================================
+# KNOWLEDGE GRAPH - Statistical method selection
+# =============================================================================
+
+class KnowledgeGraph:
+    """Static knowledge graph for statistical method selection based on endpoint type."""
+
+    ENDPOINT_METHODS = {
+        'time-to-event': {
+            'primary': ['Kaplan-Meier', 'Log-rank test', 'Cox proportional hazards'],
+            'secondary': ['Restricted mean survival time', 'Landmark analysis'],
+            'sensitivity': ['Fleming-Harrington weighted log-rank', 'Peto-Peto test'],
+            'adam_datasets': ['ADTTE'],
+            'key_variables': ['AVAL', 'CNSR', 'STARTDT', 'ADT', 'EVNTDESC'],
+        },
+        'binary': {
+            'primary': ['Cochran-Mantel-Haenszel test', 'Logistic regression', 'Chi-square test'],
+            'secondary': ['Exact methods', 'Confidence intervals for proportions'],
+            'sensitivity': ['Multiple imputation', 'Tipping point analysis'],
+            'adam_datasets': ['ADEFF', 'ADRS'],
+            'key_variables': ['AVALC', 'AVAL', 'CRIT1FL', 'ANL01FL'],
+        },
+        'continuous': {
+            'primary': ['MMRM', 'ANCOVA', 'Mixed-effects model'],
+            'secondary': ['t-test', 'Wilcoxon rank-sum'],
+            'sensitivity': ['Pattern mixture models', 'Last observation carried forward'],
+            'adam_datasets': ['ADEFF', 'ADLB'],
+            'key_variables': ['AVAL', 'BASE', 'CHG', 'PCHG', 'ABLFL'],
+        },
+    }
+
+    TA_CONSIDERATIONS = {
+        'oncology': {
+            'endpoints': ['OS', 'PFS', 'ORR', 'DOR', 'DCR', 'TTR'],
+            'criteria': ['RECIST 1.1', 'iRECIST', 'RANO'],
+            'populations': ['ITT', 'Evaluable', 'Per-protocol', 'PD-L1 subgroups'],
+            'special': ['Independent central review', 'Confirmation of response', 'Censoring rules'],
+        },
+        'ibd': {
+            'endpoints': ['Clinical remission', 'Clinical response', 'Endoscopic improvement', 'Mucosal healing'],
+            'criteria': ['Modified Mayo score', 'CDAI', 'SES-CD', 'IBDQ'],
+            'populations': ['FAS', 'Per-protocol', 'Bio-naive', 'Bio-experienced'],
+            'special': ['Endoscopic subscore', 'Histologic remission', 'Corticosteroid-free remission'],
+        },
+        'rheumatology': {
+            'endpoints': ['ACR20/50/70', 'DAS28', 'HAQ-DI', 'SDAI/CDAI'],
+            'criteria': ['ACR criteria', 'EULAR response'],
+            'populations': ['MTX-IR', 'TNF-IR', 'Bio-naive'],
+            'special': ['Structural damage', 'Radiographic progression'],
+        },
+    }
+
+    def get_recommended_methods(self, endpoint_type: str, therapeutic_area: str = None) -> Dict:
+        """Get recommended statistical methods based on endpoint type."""
+        endpoint_type = endpoint_type.lower().replace('-', '_').replace(' ', '_')
+        endpoint_type = endpoint_type.replace('time_to_event', 'time-to-event')
+
+        if endpoint_type not in self.ENDPOINT_METHODS:
+            endpoint_type = 'binary'
+
+        methods = self.ENDPOINT_METHODS[endpoint_type].copy()
+
+        ta = (therapeutic_area or '').lower()
+        if ta in self.TA_CONSIDERATIONS:
+            methods['ta_specific'] = self.TA_CONSIDERATIONS[ta]
+
+        return methods
+
+    def get_adam_requirements(self, endpoint_type: str) -> Dict:
+        """Get ADaM dataset requirements."""
+        endpoint_type = endpoint_type.lower().replace('-', '_').replace(' ', '_')
+
+        if endpoint_type not in self.ENDPOINT_METHODS:
+            endpoint_type = 'binary'
+
+        return {
+            'datasets': self.ENDPOINT_METHODS[endpoint_type].get('adam_datasets', ['ADEFF']),
+            'key_variables': self.ENDPOINT_METHODS[endpoint_type].get('key_variables', []),
+        }
+
+    def format_for_prompt(self, endpoint_type: str, therapeutic_area: str = None) -> str:
+        """Format knowledge graph info for inclusion in prompt."""
+        methods = self.get_recommended_methods(endpoint_type, therapeutic_area)
+        adam = self.get_adam_requirements(endpoint_type)
+
+        parts = [
+            "## RECOMMENDED STATISTICAL METHODS (from Knowledge Graph)",
+            f"Endpoint Type: {endpoint_type}",
+            f"Primary Methods: {', '.join(methods.get('primary', []))}",
+            f"Secondary Methods: {', '.join(methods.get('secondary', []))}",
+            f"Sensitivity Methods: {', '.join(methods.get('sensitivity', []))}",
+            f"ADaM Datasets: {', '.join(adam.get('datasets', []))}",
+            f"Key Variables: {', '.join(adam.get('key_variables', []))}",
+        ]
+
+        if 'ta_specific' in methods:
+            ta_info = methods['ta_specific']
+            parts.append(f"\n## THERAPEUTIC AREA CONSIDERATIONS ({therapeutic_area})")
+            parts.append(f"Standard Endpoints: {', '.join(ta_info.get('endpoints', []))}")
+            parts.append(f"Response Criteria: {', '.join(ta_info.get('criteria', []))}")
+            parts.append(f"Analysis Populations: {', '.join(ta_info.get('populations', []))}")
+            parts.append(f"Special Considerations: {', '.join(ta_info.get('special', []))}")
+
+        return "\n".join(parts)
+
 
 # =============================================================================
 # CONFIGURATION
@@ -502,6 +757,18 @@ EVERY SINGLE ONE must appear in your SAP with EXACT values from the protocol:
 {checklist}
 
 ══════════════════════════════════════════════════════════════════════════════
+KNOWLEDGE GRAPH - RECOMMENDED STATISTICAL METHODS
+══════════════════════════════════════════════════════════════════════════════
+
+{knowledge_graph}
+
+══════════════════════════════════════════════════════════════════════════════
+RAG EXAMPLES - SIMILAR SAP SECTIONS (Use format/style, NOT specific values)
+══════════════════════════════════════════════════════════════════════════════
+
+{rag_examples}
+
+══════════════════════════════════════════════════════════════════════════════
 MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
 ══════════════════════════════════════════════════════════════════════════════
 
@@ -567,11 +834,14 @@ NOW WRITE THE COMPLETE SAP
 ══════════════════════════════════════════════════════════════════════════════
 
 Write a professional, comprehensive SAP. Include ALL elements from the checklist.
-Use exact values from the protocol. Do not skip anything."""
+Use exact values from the protocol. Use the Knowledge Graph methods where appropriate.
+Follow the style/format from RAG examples but NOT their specific values.
+Do not skip anything."""
 
 
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
                         sap_template: str = None, model: str = None,
+                        rag_examples: str = None, knowledge_graph: str = None,
                         verbose: bool = True) -> str:
     """
     Generate SAP directly from full protocol text.
@@ -584,6 +854,8 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
         discovered_elements: Elements found in Pass 1 (used as checklist)
         sap_template: Template structure for SAP (optional)
         model: LLM model to use
+        rag_examples: Sanitized examples from similar SAPs
+        knowledge_graph: Recommended methods from knowledge graph
         verbose: Print progress
 
     Returns:
@@ -593,6 +865,8 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
     if verbose:
         print(f"\n{'-'*70}")
         print("GENERATING SAP FROM FULL PROTOCOL TEXT")
+        print(f"  + RAG Examples: {'Yes' if rag_examples else 'No'}")
+        print(f"  + Knowledge Graph: {'Yes' if knowledge_graph else 'No'}")
         print(f"{'-'*70}")
 
     # Build checklist from discovered elements, grouped by category
@@ -619,6 +893,8 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
     prompt = SAP_GENERATION_PROMPT.format(
         num_elements=len(discovered_elements),
         checklist=checklist,
+        knowledge_graph=knowledge_graph or "(No knowledge graph available)",
+        rag_examples=rag_examples or "(No RAG examples available)",
         sap_template=template,
         protocol_text=protocol_text
     )
@@ -773,10 +1049,12 @@ def validate_sap(sap_text: str, discovered_elements: List[DiscoveredElement],
 
 class TwoPassExtractor:
     """
-    Two-Pass Protocol Extraction System (V2).
+    Two-Pass Protocol Extraction System (V2) with RAG + Knowledge Graph.
 
     Pass 1: Discover all statistical elements (checklist)
     Pass 2: Generate SAP directly from full protocol text
+            + RAG examples for style/format
+            + Knowledge Graph for statistical methods
 
     This approach ensures NO information is lost between parsing and generation.
     """
@@ -785,6 +1063,13 @@ class TwoPassExtractor:
         self.model = model
         self._last_discovered = None
         self._last_sap = None
+
+        # Initialize RAG and Knowledge Graph
+        print("[TwoPassExtractor] Initializing with RAG + Knowledge Graph...")
+        self.rag_retriever = RAGRetriever()
+        self.knowledge_graph = KnowledgeGraph()
+        print(f"  [OK] RAG: {len(self.rag_retriever.sections_db)} sections indexed")
+        print(f"  [OK] Knowledge Graph: {len(self.knowledge_graph.ENDPOINT_METHODS)} endpoint types")
 
     def discover(self, protocol_text: str, verbose: bool = True) -> List[DiscoveredElement]:
         """
@@ -840,15 +1125,41 @@ class TwoPassExtractor:
 
         if verbose:
             print(f"\n{'='*70}")
-            print("PASS 2: DIRECT SAP GENERATION")
+            print("PASS 2: DIRECT SAP GENERATION + RAG + KNOWLEDGE GRAPH")
             print(f"{'='*70}")
 
-        # Generate SAP
+        # Detect therapeutic area and endpoint type from discovered elements
+        therapeutic_area = self._detect_therapeutic_area(discovered_elements, protocol_text)
+        endpoint_type = self._detect_endpoint_type(discovered_elements, protocol_text)
+
+        if verbose:
+            print(f"  Therapeutic Area: {therapeutic_area}")
+            print(f"  Endpoint Type: {endpoint_type}")
+
+        # Get RAG examples based on therapeutic area
+        rag_examples = self.rag_retriever.get_sanitized_examples(
+            therapeutic_area=therapeutic_area,
+            k=3
+        )
+        if verbose:
+            print(f"  RAG Examples: {len(rag_examples)} chars from similar SAPs")
+
+        # Get Knowledge Graph recommendations based on endpoint type
+        kg_info = self.knowledge_graph.format_for_prompt(
+            endpoint_type=endpoint_type,
+            therapeutic_area=therapeutic_area
+        )
+        if verbose:
+            print(f"  Knowledge Graph: Methods for {endpoint_type} endpoints")
+
+        # Generate SAP with RAG + KG
         sap_text = generate_sap_direct(
             protocol_text=protocol_text,
             discovered_elements=discovered_elements,
             sap_template=sap_template,
             model=self.model,
+            rag_examples=rag_examples,
+            knowledge_graph=kg_info,
             verbose=verbose
         )
 
@@ -857,7 +1168,11 @@ class TwoPassExtractor:
         result = {
             "sap_text": sap_text,
             "discovered_count": len(discovered_elements),
-            "sap_length": len(sap_text)
+            "sap_length": len(sap_text),
+            "therapeutic_area": therapeutic_area,
+            "endpoint_type": endpoint_type,
+            "rag_examples_used": len(rag_examples) > 0,
+            "knowledge_graph_used": True
         }
 
         # Validate if requested
@@ -871,6 +1186,57 @@ class TwoPassExtractor:
             result["validation"] = validation
 
         return result
+
+    def _detect_therapeutic_area(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> str:
+        """Detect therapeutic area from discovered elements or protocol text."""
+        # Check discovered elements first
+        for elem in discovered_elements:
+            name_lower = elem.name.lower()
+            desc_lower = (elem.description or "").lower()
+            combined = name_lower + " " + desc_lower
+
+            if any(term in combined for term in ['cancer', 'tumor', 'carcinoma', 'melanoma', 'lymphoma', 'leukemia', 'oncology']):
+                return 'oncology'
+            if any(term in combined for term in ['colitis', 'crohn', 'inflammatory bowel', 'ibd', 'ulcerative']):
+                return 'ibd'
+            if any(term in combined for term in ['arthritis', 'rheumatoid', 'lupus', 'psoriatic']):
+                return 'rheumatology'
+
+        # Fallback to protocol text
+        text_lower = protocol_text.lower()
+        if any(term in text_lower for term in ['cancer', 'tumor', 'carcinoma', 'melanoma', 'lymphoma', 'oncology']):
+            return 'oncology'
+        if any(term in text_lower for term in ['colitis', 'crohn', 'inflammatory bowel', 'ibd']):
+            return 'ibd'
+        if any(term in text_lower for term in ['arthritis', 'rheumatoid', 'lupus']):
+            return 'rheumatology'
+
+        return 'general'
+
+    def _detect_endpoint_type(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> str:
+        """Detect endpoint type from discovered elements or protocol text."""
+        # Check discovered elements first
+        for elem in discovered_elements:
+            if elem.category == 'endpoints':
+                name_lower = elem.name.lower()
+                desc_lower = (elem.description or "").lower()
+                combined = name_lower + " " + desc_lower
+
+                if any(term in combined for term in ['survival', 'pfs', 'os', 'time-to-event', 'tte', 'progression-free', 'overall survival', 'kaplan-meier']):
+                    return 'time-to-event'
+                if any(term in combined for term in ['continuous', 'change from baseline', 'mmrm', 'score', 'index']):
+                    return 'continuous'
+                if any(term in combined for term in ['response rate', 'orr', 'remission', 'binary', 'proportion', 'responder']):
+                    return 'binary'
+
+        # Fallback to protocol text
+        text_lower = protocol_text.lower()
+        if any(term in text_lower for term in ['progression-free survival', 'overall survival', 'time to event', 'kaplan-meier', 'pfs', ' os ']):
+            return 'time-to-event'
+        if any(term in text_lower for term in ['change from baseline', 'mmrm', 'continuous endpoint']):
+            return 'continuous'
+
+        return 'binary'
 
     def process_protocol(self, protocol_text: str, protocol_id: str = "unknown",
                         sap_template: str = None, validate: bool = True,
