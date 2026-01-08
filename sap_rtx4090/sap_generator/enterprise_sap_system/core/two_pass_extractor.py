@@ -875,6 +875,10 @@ STATISTICAL ANALYSIS PLAN
 11. REGIONAL CONSIDERATIONS (if applicable)
     11.1 China Extension
     11.2 Other Regional Requirements
+
+12. APPENDICES
+    12.1 Statistical Models
+    12.2 Tables, Figures, and Listings Specifications
 """
 
 
@@ -967,7 +971,11 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
     - If there's a China extension, include Section 11.1 with sample size
     - If there are other regional requirements, document them
 
-Section 11 is the final section. End the SAP after Section 11.
+11. APPENDICES (Section 12):
+    Section 12.2 must list specific tables and figures for THIS protocol.
+    Use the ACTUAL endpoint names from the checklist above.
+
+    {tlf_specifications}
 
 ══════════════════════════════════════════════════════════════════════════════
 SAP TEMPLATE TO FOLLOW
@@ -990,7 +998,64 @@ Use exact values from the protocol. Use the Knowledge Graph methods where approp
 Follow the style/format from RAG examples but NOT their specific values.
 Do not skip anything.
 
-Section 11 is the final section. Use actual endpoint names from the protocol."""
+Section 12 is the final section. Use actual endpoint names from the protocol."""
+
+
+def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
+    """Generate TLF specifications from discovered endpoints.
+
+    Extracts actual endpoint names and creates specific table/figure specs.
+    This prevents Claude from using placeholder text from training data.
+    """
+    # Extract endpoints from discovered elements
+    primary_endpoints = []
+    secondary_endpoints = []
+    populations = []
+
+    for elem in discovered_elements:
+        cat = (elem.category or '').lower()
+        name = (elem.name or '').lower()
+        desc = elem.description or elem.name or ''
+
+        if 'endpoint' in cat or 'endpoint' in name:
+            if 'primary' in name or 'primary' in cat:
+                primary_endpoints.append(desc)
+            elif 'secondary' in name or 'secondary' in cat:
+                secondary_endpoints.append(desc)
+        elif 'population' in cat or 'population' in name:
+            populations.append(desc)
+
+    # Build TLF specs with actual names
+    specs = []
+    specs.append("Generate these SPECIFIC tables and figures:")
+    specs.append("")
+    specs.append("Tables:")
+    specs.append("- Table 14.1.1: Demographics and Baseline Characteristics")
+    specs.append("- Table 14.1.2: Subject Disposition")
+
+    # Add primary endpoint tables with actual names
+    for i, endpoint in enumerate(primary_endpoints[:3], start=1):
+        short_name = endpoint[:100] if len(endpoint) > 100 else endpoint
+        specs.append(f"- Table 14.2.{i}: {short_name}")
+
+    # Add secondary endpoint tables
+    for i, endpoint in enumerate(secondary_endpoints[:3], start=1):
+        short_name = endpoint[:100] if len(endpoint) > 100 else endpoint
+        specs.append(f"- Table 14.2.{len(primary_endpoints) + i}: {short_name}")
+
+    specs.append("- Table 14.3.1: Treatment-Emergent Adverse Events Summary")
+    specs.append("- Table 14.3.2: Serious Adverse Events")
+    specs.append("")
+    specs.append("Figures:")
+
+    # Add figures for primary endpoints
+    for i, endpoint in enumerate(primary_endpoints[:2], start=1):
+        short_name = endpoint[:80] if len(endpoint) > 80 else endpoint
+        specs.append(f"- Figure 14.2.{i}: Kaplan-Meier Plot - {short_name}")
+
+    specs.append("- Figure 14.2.3: Forest Plot for Subgroup Analyses")
+
+    return "\n".join(specs)
 
 
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
@@ -1046,12 +1111,16 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
 
     template = sap_template or DEFAULT_SAP_TEMPLATE
 
+    # Generate TLF specifications from discovered endpoints
+    tlf_specs = _generate_tlf_specs(discovered_elements)
+
     prompt = SAP_GENERATION_PROMPT.format(
         num_elements=len(discovered_elements),
         checklist=checklist,
         boundary_info=boundary_info or "(Boundary parameters not available - extract from protocol)",
         knowledge_graph=knowledge_graph or "(No knowledge graph available)",
         rag_examples=rag_examples or "(No RAG examples available)",
+        tlf_specifications=tlf_specs,
         sap_template=template,
         protocol_text=protocol_text
     )

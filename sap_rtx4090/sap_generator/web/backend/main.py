@@ -1042,6 +1042,9 @@ class DirectSAPResponse(BaseModel):
     anchors_missing: Optional[int] = None
     verification_issues: Optional[list] = None
     needs_human_review: Optional[bool] = None
+    # Deterministic verification (non-LLM)
+    deterministic_verification: Optional[dict] = None
+    audit_report: Optional[str] = None
     # Metadata
     total_time: float
     sap_length: int
@@ -1149,6 +1152,9 @@ async def generate_direct_sap(request: GenerateRequest):
                 logger.warning(f"Verification failed (non-fatal): {verify_error}")
                 verification_issues = [{"severity": "warning", "category": "system", "message": f"Verification skipped: {str(verify_error)[:100]}"}]
 
+        # Get deterministic verification results from two_pass_extractor
+        det_verification = result.get('verification', {})
+
         return DirectSAPResponse(
             success=True,
             sap_text=result.get('sap_text', ''),
@@ -1164,10 +1170,17 @@ async def generate_direct_sap(request: GenerateRequest):
             anchors_verified=anchors_verified,
             anchors_missing=anchors_missing,
             verification_issues=verification_issues,
-            needs_human_review=needs_human_review,
+            needs_human_review=needs_human_review or det_verification.get('requires_human_review', True),
+            deterministic_verification={
+                "passed": det_verification.get('passed', 0),
+                "failed": det_verification.get('failed', 0),
+                "warnings": det_verification.get('warnings', 0),
+                "critical_failures": det_verification.get('critical_failures', [])
+            },
+            audit_report=det_verification.get('audit_report', ''),
             total_time=result.get('total_time_s', processing_time),
             sap_length=result.get('sap_length', len(result.get('sap_text', ''))),
-            generation_method="direct-v2 (discovery checklist + full protocol + verification)",
+            generation_method="direct-v2 (discovery checklist + full protocol + deterministic verification)",
             errors=[]
         )
 
