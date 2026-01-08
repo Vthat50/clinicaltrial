@@ -19,6 +19,10 @@ anthropic>=0.40.0
 openai>=1.12.0
 networkx>=3.2.0
 numpy>=1.24.0
+scipy>=1.11.0
+
+# R integration for boundary calculations (requires R runtime)
+rpy2>=3.5.0
 
 # Agentic HybridRAG Pipeline dependencies
 chromadb>=0.4.0
