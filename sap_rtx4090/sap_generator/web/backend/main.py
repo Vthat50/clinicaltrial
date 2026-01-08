@@ -134,7 +134,14 @@ except ImportError:
     LLM_CLIENT_AVAILABLE = False
     logger.warning("TieredLLMClient not available for health check")
 
-from evaluate_sap import SAPEvaluator
+# SAP Evaluator for ground truth comparison
+try:
+    from evaluate_sap import SAPEvaluator
+    SAP_EVALUATOR_AVAILABLE = True
+except ImportError as e:
+    SAP_EVALUATOR_AVAILABLE = False
+    SAPEvaluator = None
+    print(f"Warning: SAPEvaluator not available: {e}")
 
 # SAP Verification Layer (Generate → Verify architecture)
 # Verifies generated SAP against protocol anchors (sentences with statistics)
@@ -1720,6 +1727,12 @@ async def evaluate_job(job_id: str, ground_truth_nct: str):
     Checks both ground_truth and all_pairs directories.
     """
     try:
+        if not SAP_EVALUATOR_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="SAP Evaluator not available - evaluate_sap module not found"
+            )
+
         db = get_supabase()
 
         # Get the job
@@ -1797,6 +1810,12 @@ async def evaluate_batch(job_id: str, limit: int = 50):
         limit: Max number of ground truth SAPs to compare (default 50)
     """
     try:
+        if not SAP_EVALUATOR_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="SAP Evaluator not available - evaluate_sap module not found"
+            )
+
         db = get_supabase()
 
         # Get the job
