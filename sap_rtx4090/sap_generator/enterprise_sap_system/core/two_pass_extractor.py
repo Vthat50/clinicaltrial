@@ -123,17 +123,20 @@ def strip_duplicate_appendix(sap_text: str) -> str:
                 return sap_text
 
     # Method 2: Cut at APPENDIX if no end marker found
+    # Check for various APPENDIX patterns (with or without newline)
     appendix_markers = [
+        '\n\nAPPENDIX:',
         '\nAPPENDIX:',
-        '\nAPPENDIX A:',
+        'APPENDIX: TLF',
         '\n## APPENDIX',
         '\n# APPENDIX',
+        '\nAPPENDIX A:',
     ]
     for marker in appendix_markers:
         if marker in sap_text:
             idx = sap_text.find(marker)
             sap_text = sap_text[:idx].strip()
-            print(f"[PostProcess] Stripped APPENDIX section")
+            print(f"[PostProcess] Stripped APPENDIX section at '{marker[:20]}'")
             return sap_text
 
     return sap_text
