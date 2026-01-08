@@ -183,6 +183,64 @@ class IssueDetector:
                 'suggestion': 'Specify alpha allocation strategy (Hochberg, Holm, hierarchical testing)'
             },
 
+            # === INTERIM ANALYSIS CHECKS (NEW) ===
+            {
+                'id': 'INTERIM_NO_COUNT',
+                'severity': IssueSeverity.ERROR,
+                'section': 'interim_analysis',
+                'check': self._check_interim_count,
+                'message': 'Interim analysis mentioned but count not specified',
+                'suggestion': 'Specify exact number of interim analyses (e.g., "3 IAs + 1 FA")'
+            },
+            {
+                'id': 'INTERIM_NO_TIMING',
+                'severity': IssueSeverity.ERROR,
+                'section': 'interim_analysis',
+                'check': self._check_interim_timing,
+                'message': 'Interim analysis without timing/event counts specified',
+                'suggestion': 'Specify timing for each IA (e.g., "IA1 at ~27 months, ~354 PFS events")'
+            },
+            {
+                'id': 'INTERIM_NO_ALPHA_SPENDING',
+                'severity': IssueSeverity.ERROR,
+                'section': 'interim_analysis',
+                'check': self._check_alpha_spending,
+                'message': 'Interim analysis without alpha spending function specified',
+                'suggestion': 'Specify alpha spending function (e.g., "Lan-DeMets O\'Brien-Fleming")'
+            },
+            {
+                'id': 'INTERIM_NO_BOUNDARIES',
+                'severity': IssueSeverity.WARNING,
+                'section': 'interim_analysis',
+                'check': self._check_efficacy_boundaries,
+                'message': 'Interim analysis without efficacy boundaries specified',
+                'suggestion': 'Include boundary table with Z-scores, p-values, and HR at boundary for each IA'
+            },
+            {
+                'id': 'POWER_CALC_INCOMPLETE',
+                'severity': IssueSeverity.WARNING,
+                'section': 'sample_size',
+                'check': self._check_power_calculation_detail,
+                'message': 'Power calculation missing key assumptions',
+                'suggestion': 'Include control median, assumed HR, power percentage for each endpoint'
+            },
+            {
+                'id': 'CENSORING_RULES_MISSING',
+                'severity': IssueSeverity.WARNING,
+                'section': 'statistical_methods',
+                'check': self._check_censoring_detail,
+                'message': 'Time-to-event endpoint without detailed censoring rules',
+                'suggestion': 'Include censoring rules table for PFS, OS, DOR with each scenario'
+            },
+            {
+                'id': 'PRO_THRESHOLDS_MISSING',
+                'severity': IssueSeverity.WARNING,
+                'section': 'endpoints',
+                'check': self._check_pro_thresholds,
+                'message': 'PRO endpoints without analysis thresholds specified',
+                'suggestion': 'Include PRO primary timepoint, completion threshold, MCID definition'
+            },
+
             # === SUGGESTIONS ===
             {
                 'id': 'NO_SENSITIVITY_MISSING_DATA',
@@ -494,6 +552,230 @@ class IssueDetector:
         has_interaction = 'interaction' in methods or 'heterogeneity' in methods
 
         if not has_interaction:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion']
+            )
+        return None
+
+    # === NEW: Interim Analysis Checks ===
+
+    def _check_interim_count(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: Interim analysis should specify exact count"""
+        # Check both possible section names
+        interim = sections.get('7_interim_analysis', '') or sections.get('interim_analysis', '')
+        methods = sections.get('7_statistical_methods', '')
+        combined = (interim + methods).lower()
+
+        # Check if interim analysis is mentioned
+        has_interim = 'interim analysis' in combined or 'interim analyses' in combined
+        if not has_interim:
+            return None  # No interim analysis planned, so no issue
+
+        # Check for count specification
+        import re
+        count_patterns = [
+            r'\d+\s*(?:interim|ia)',
+            r'(?:one|two|three|four|1|2|3|4)\s*interim',
+            r'ia\s*[123]',
+            r'first\s*interim.*second\s*interim',
+        ]
+
+        has_count = any(re.search(p, combined, re.IGNORECASE) for p in count_patterns)
+
+        if not has_count:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion']
+            )
+        return None
+
+    def _check_interim_timing(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: Interim analysis should specify timing/events"""
+        interim = sections.get('7_interim_analysis', '') or sections.get('interim_analysis', '')
+        methods = sections.get('7_statistical_methods', '')
+        combined = (interim + methods).lower()
+
+        has_interim = 'interim analysis' in combined
+        if not has_interim:
+            return None
+
+        # Check for timing specification
+        import re
+        timing_patterns = [
+            r'\d+\s*(?:months?|events?)',
+            r'~\d+',
+            r'approximately\s*\d+',
+            r'\d+%\s*(?:information|events)',
+        ]
+
+        has_timing = any(re.search(p, combined, re.IGNORECASE) for p in timing_patterns)
+
+        if not has_timing:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion']
+            )
+        return None
+
+    def _check_alpha_spending(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: Interim analysis should specify alpha spending function"""
+        interim = sections.get('7_interim_analysis', '') or sections.get('interim_analysis', '')
+        methods = sections.get('7_statistical_methods', '')
+        combined = (interim + methods).lower()
+
+        has_interim = 'interim analysis' in combined
+        if not has_interim:
+            return None
+
+        # Check for alpha spending function
+        spending_keywords = [
+            "o'brien-fleming", 'obrien-fleming', 'obf',
+            'lan-demets', 'pocock', 'alpha spending',
+            'spending function', 'hwang-shih-decani'
+        ]
+
+        has_spending = any(kw in combined for kw in spending_keywords)
+
+        if not has_spending:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion']
+            )
+        return None
+
+    def _check_efficacy_boundaries(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: Interim analysis should include efficacy boundaries"""
+        interim = sections.get('7_interim_analysis', '') or sections.get('interim_analysis', '')
+        methods = sections.get('7_statistical_methods', '')
+        combined = (interim + methods).lower()
+
+        has_interim = 'interim analysis' in combined
+        if not has_interim:
+            return None
+
+        # Check for boundary specifications
+        import re
+        boundary_patterns = [
+            r'z\s*[=<>]\s*[\d.]+',
+            r'p\s*[=<>]\s*0\.\d+',
+            r'hr\s*[=<>≤≥]\s*[\d.]+',
+            r'boundary',
+            r'stopping\s+(?:rule|criteria)',
+        ]
+
+        has_boundary = any(re.search(p, combined, re.IGNORECASE) for p in boundary_patterns)
+
+        if not has_boundary:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion']
+            )
+        return None
+
+    def _check_power_calculation_detail(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: Power calculation should include key assumptions"""
+        sample_size = sections.get('8_sample_size', '') or sections.get('sample_size', '')
+        sample_size_lower = sample_size.lower()
+
+        # Check for key power calculation components
+        import re
+        has_power = re.search(r'\d+%?\s*power', sample_size_lower) is not None
+        has_hr = 'hazard ratio' in sample_size_lower or re.search(r'hr\s*[=:]\s*[\d.]+', sample_size_lower)
+        has_median = 'median' in sample_size_lower
+        has_events = 'events' in sample_size_lower
+
+        # Need at least 3 of 4 components for a complete power calculation
+        components = sum([has_power, bool(has_hr), has_median, has_events])
+
+        if components < 3:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion'],
+                context=f"Found {components}/4 components (power, HR, median, events)"
+            )
+        return None
+
+    def _check_censoring_detail(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: TTE endpoints need detailed censoring rules"""
+        endpoint = getattr(facts, 'primary_endpoint', '') or ''
+        endpoint_lower = endpoint.lower()
+
+        # Is it a TTE endpoint?
+        is_tte = any(kw in endpoint_lower for kw in self.TTE_KEYWORDS)
+        if not is_tte:
+            return None
+
+        methods = sections.get('7_statistical_methods', '')
+        methods_lower = methods.lower()
+
+        # Check for detailed censoring (not just mention of "censoring")
+        detailed_censoring_patterns = [
+            r'censor.*(?:date|time|event)',
+            r'(?:death|progression|lost|withdraw).*censor',
+            r'censoring\s+(?:rules?|table)',
+            r'(?:new|subsequent)\s+(?:therapy|treatment).*censor',
+        ]
+
+        import re
+        has_detailed = any(re.search(p, methods_lower, re.IGNORECASE) for p in detailed_censoring_patterns)
+
+        if not has_detailed:
+            return Issue(
+                severity=rule['severity'],
+                section=rule['section'],
+                rule_id=rule['id'],
+                message=rule['message'],
+                suggestion=rule['suggestion'],
+                context=f"Endpoint: {endpoint}"
+            )
+        return None
+
+    def _check_pro_thresholds(self, facts: Any, sections: Dict[str, str], rule: Dict) -> Optional[Issue]:
+        """Check: PRO endpoints should have analysis thresholds"""
+        endpoints = sections.get('5_endpoints', '')
+        methods = sections.get('7_statistical_methods', '')
+        combined = (endpoints + methods).lower()
+
+        # Check if PRO is mentioned
+        pro_keywords = ['patient-reported', 'quality of life', 'qol', 'eortc', 'eq-5d', 'pro ']
+        has_pro = any(kw in combined for kw in pro_keywords)
+
+        if not has_pro:
+            return None
+
+        # Check for PRO thresholds
+        threshold_patterns = [
+            r'(?:mcid|minimal.*clinically.*important)',
+            r'\d+\s*point',
+            r'threshold',
+            r'completion.*\d+%',
+            r'compliance.*\d+%',
+            r'week\s*\d+.*primary',
+        ]
+
+        import re
+        has_threshold = any(re.search(p, combined, re.IGNORECASE) for p in threshold_patterns)
+
+        if not has_threshold:
             return Issue(
                 severity=rule['severity'],
                 section=rule['section'],

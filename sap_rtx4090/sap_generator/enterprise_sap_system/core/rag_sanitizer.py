@@ -10,6 +10,11 @@ Based on 2024-2025 RAG best practices:
 
 Reference: "Centralizing retrieval through a single, trusted data source
 promotes consistent answers." - AI21 Labs
+
+IMPORTANT UPDATE (2025-01):
+- Interim analysis values are PRESERVED to teach structural patterns
+- Alpha spending, information fractions, and boundary values are kept
+- This allows LLM to learn the FORMAT of interim analysis specifications
 """
 
 import re
@@ -144,15 +149,47 @@ class RAGSanitizer:
         (r'(?:futility boundary[^.]*?)(0\.0\d+)', 'futility boundary: [BOUNDARY from protocol]'),
     ]
 
-    def __init__(self, aggressive: bool = True):
+    # INTERIM ANALYSIS PATTERNS TO PRESERVE (not sanitize)
+    # These patterns capture the STRUCTURE of interim analysis specifications
+    INTERIM_PRESERVE_PATTERNS = [
+        # Alpha spending at each analysis (e.g., "α₁=0.003, α₂=0.019")
+        r'(?:α|alpha)\s*[₁₂₃₄1234]?\s*[=:]\s*0\.\d+',
+        # Information fractions (e.g., "50% information", "at 50% of events")
+        r'\b\d{1,3}(?:\.\d+)?%?\s*(?:information|IF\b)',
+        r'at\s+\d{1,3}(?:\.\d+)?%\s*(?:of\s+)?(?:events?|information)',
+        # Interim analysis timing (e.g., "IA1 at 27 months", "first interim at 354 events")
+        r'(?:IA|interim\s*analysis)\s*[123]?\s*(?:at|when)\s*~?\d+',
+        r'(?:first|second|third|final)\s+(?:interim\s+)?analysis\s+(?:at|when)\s*~?\d+',
+        # Event counts for interim (e.g., "354 PFS events", "316 OS events")
+        r'\b\d{2,4}\s+(?:PFS|OS|EFS|DFS)\s+events?',
+        # Stopping boundaries (e.g., "Z = 4.33", "p < 0.003")
+        r'[Zz]\s*[=<>]\s*[\d.]+',
+        r'(?:boundary|threshold)\s*[=:]\s*[\d.]+',
+        # Lan-DeMets / O'Brien-Fleming spending
+        r'Lan-DeMets',
+        r"O'Brien-Fleming",
+        r'Pocock',
+        r'spending\s+function',
+        # Hazard ratio at boundary
+        r'HR\s*(?:at\s+boundary|threshold)\s*[=:]\s*[\d.]+',
+        # Power for specific HR (e.g., "90% power for HR 0.7")
+        r'\d{2}%\s*power\s*(?:for|to detect)\s*HR\s*[\d.]+',
+        # Median survival assumptions
+        r'(?:control|placebo)\s+median\s+(?:PFS|OS)[:\s]+[\d.]+\s*months?',
+    ]
+
+    def __init__(self, aggressive: bool = True, preserve_interim: bool = True):
         """
         Initialize sanitizer.
 
         Args:
             aggressive: If True, strip more aggressively (recommended)
+            preserve_interim: If True, preserve interim analysis values (NEW - default True)
         """
         self.aggressive = aggressive
+        self.preserve_interim = preserve_interim
         self._compile_patterns()
+        self._compile_preserve_patterns()
 
     def _compile_patterns(self):
         """Compile regex patterns for efficiency."""
@@ -182,27 +219,70 @@ class RAGSanitizer:
             for pattern, replacement in self.CONTEXT_PATTERNS
         ]
 
+    def _compile_preserve_patterns(self):
+        """Compile patterns for interim analysis values to preserve."""
+        self.compiled_preserve = [
+            re.compile(pattern, re.IGNORECASE)
+            for pattern in self.INTERIM_PRESERVE_PATTERNS
+        ]
+
+    def _extract_preserved_values(self, text: str) -> Dict[str, str]:
+        """
+        Extract interim analysis values that should be preserved.
+        Returns a dict of placeholder -> original value.
+        """
+        preserved = {}
+        counter = 0
+        for pattern in self.compiled_preserve:
+            for match in pattern.finditer(text):
+                placeholder = f"__PRESERVE_{counter}__"
+                preserved[placeholder] = match.group(0)
+                counter += 1
+        return preserved
+
+    def _mark_preserved(self, text: str, preserved: Dict[str, str]) -> str:
+        """Replace preserved values with temporary placeholders."""
+        result = text
+        for placeholder, original in preserved.items():
+            result = result.replace(original, placeholder, 1)
+        return result
+
+    def _restore_preserved(self, text: str, preserved: Dict[str, str]) -> str:
+        """Restore preserved values from placeholders."""
+        result = text
+        for placeholder, original in preserved.items():
+            result = result.replace(placeholder, original)
+        return result
+
     def sanitize(self, text: str) -> str:
         """
         Remove all trial-specific content from text.
 
         CRITICAL ORDER:
+        0. (NEW) Preserve interim analysis values if enabled
         1. Metadata (Chunk ID, Source, etc.)
         2. Study names (CheckMate, JAVELIN, etc.)
         3. Drug names (nivolumab, avelumab, etc.)
         4. Indication terms (mRCC, NSCLC, etc.)
         5. Numbers (sample sizes, events, etc.)
+        6. (NEW) Restore preserved interim analysis values
 
         Args:
             text: RAG example text with contaminating content
 
         Returns:
-            Sanitized text with placeholders
+            Sanitized text with placeholders (but interim values preserved)
         """
         if not text:
             return text
 
         result = text
+
+        # STEP 0: Extract and mark interim analysis values to preserve
+        preserved = {}
+        if self.preserve_interim:
+            preserved = self._extract_preserved_values(result)
+            result = self._mark_preserved(result, preserved)
 
         # STEP 1: Strip metadata FIRST
         for pattern, replacement in self.compiled_metadata:
@@ -232,7 +312,11 @@ class RAGSanitizer:
         if self.aggressive:
             result = self._aggressive_cleanup(result)
 
-        # STEP 8: Clean up whitespace
+        # STEP 8: Restore preserved interim analysis values
+        if self.preserve_interim and preserved:
+            result = self._restore_preserved(result, preserved)
+
+        # STEP 9: Clean up whitespace
         result = re.sub(r'\s+', ' ', result).strip()
 
         return result
@@ -312,18 +396,29 @@ class RAGSanitizer:
 def test_sanitizer():
     """Test the sanitizer with example text."""
 
-    sanitizer = RAGSanitizer()
+    # Test with interim preservation enabled (default)
+    sanitizer = RAGSanitizer(preserve_interim=True)
 
     test_text = """
     The primary analysis will be based on 639 death events. The study enrolled
     504 patients randomized 2:1 to treatment arms. Alpha of 0.025 (one-sided)
     will be used for the primary analysis.
 
-    Interim analysis will be performed at 291 events (50% information fraction).
-    At interim, H0 will be rejected if p < 0.020. At final analysis (382 events),
-    H0 will be rejected if p < 0.044.
+    Three interim analyses will be conducted:
+    - IA1 at ~27 months (~354 PFS events for pMMR population)
+    - IA2 at ~36 months (~472 PFS events for pMMR population)
+    - IA3 at ~42 months (~316 OS events for pMMR population)
+    - Final analysis at ~48 months (~359 OS events)
 
-    The study has 90% power to detect HR = 0.70 at alpha = 0.025.
+    Alpha allocation using Lan-DeMets O'Brien-Fleming spending function:
+    - PFS alpha (pMMR): α = 0.005 (one-sided)
+    - OS alpha (pMMR): α = 0.02 (one-sided)
+
+    Power: 90% power for HR 0.7 (PFS), 82% power for HR 0.8 (OS NI)
+    Control median PFS: 8.8 months, Control median OS: 23 months
+
+    At 50% information fraction, efficacy boundary Z = 4.33, p < 0.003
+
     NCT02041533 is the registration ID.
     """
 
@@ -333,9 +428,16 @@ def test_sanitizer():
     print(test_text)
 
     print("\n" + "=" * 60)
-    print("SANITIZED TEXT:")
+    print("SANITIZED TEXT (with interim values PRESERVED):")
     print("=" * 60)
     print(sanitizer.sanitize(test_text))
+
+    # Also test without preservation
+    print("\n" + "=" * 60)
+    print("SANITIZED TEXT (without preservation - OLD behavior):")
+    print("=" * 60)
+    old_sanitizer = RAGSanitizer(preserve_interim=False)
+    print(old_sanitizer.sanitize(test_text))
 
 
 if __name__ == "__main__":

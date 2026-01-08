@@ -91,11 +91,44 @@ class TrialType(Enum):
 # =============================================================================
 
 class FactExtractor:
-    """Extract all protocol facts using regex patterns only"""
+    """Extract all protocol facts using regex patterns + LLM for complex elements"""
+
+    def __init__(self, use_llm_for_complex: bool = True):
+        """
+        Initialize FactExtractor.
+
+        Args:
+            use_llm_for_complex: If True, use LLM to extract complex elements
+                                 (interim analysis, power calculations, etc.)
+        """
+        self.use_llm_for_complex = use_llm_for_complex
+        self._llm_extractor = None
+
+    def _get_llm_extractor(self):
+        """Lazy-load LLM extractor"""
+        if self._llm_extractor is None and self.use_llm_for_complex:
+            try:
+                from .llm_extractor import LLMExtractor
+                self._llm_extractor = LLMExtractor()
+            except Exception as e:
+                print(f"[FactExtractor] LLM extractor not available: {e}")
+        return self._llm_extractor
 
     def extract(self, protocol_text: str) -> Dict[str, Any]:
         """Extract all facts from protocol text"""
         facts = {}
+
+        # First extract basic facts with regex
+        facts = self._extract_basic_facts(protocol_text, facts)
+
+        # Then extract complex elements with LLM if available
+        if self.use_llm_for_complex:
+            facts = self._extract_complex_facts_with_llm(protocol_text, facts)
+
+        return facts
+
+    def _extract_basic_facts(self, protocol_text: str, facts: Dict[str, Any]) -> Dict[str, Any]:
+        """Extract basic facts using regex patterns"""
 
         # NCT ID
         nct_match = re.search(r'(NCT\d{8})', protocol_text, re.IGNORECASE)
@@ -339,6 +372,70 @@ class FactExtractor:
             return TrialType.METABOLIC
         else:
             return TrialType.GENERAL
+
+    def _extract_complex_facts_with_llm(self, protocol_text: str, facts: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Extract complex elements using LLM (interim analysis, power calculations, etc.)
+
+        These elements require semantic understanding and can't be reliably extracted with regex.
+        """
+        llm_extractor = self._get_llm_extractor()
+        if not llm_extractor:
+            return facts
+
+        try:
+            print("[FactExtractor] Extracting complex elements with LLM...")
+
+            # Use the enhanced LLM extractor
+            llm_facts = llm_extractor.extract(
+                protocol_text,
+                include_windows=False,  # Not needed for SAP
+                include_interim=True,
+                include_power=True,
+                include_exploratory=True,
+                include_pro=True,
+                include_regional=True,
+                include_censoring=True
+            )
+
+            if llm_facts.extraction_success:
+                # Add interim analysis details
+                if llm_facts.interim_analysis.num_interim_analyses > 0:
+                    facts['interim_analysis'] = llm_facts.interim_analysis.to_dict()
+                    print(f"  [FactExtractor] Found {llm_facts.interim_analysis.num_interim_analyses} interim analyses")
+
+                # Add power calculations
+                if llm_facts.power_calculations.pfs_power or llm_facts.power_calculations.os_superiority_power:
+                    facts['power_calculations'] = llm_facts.power_calculations.to_dict()
+
+                # Add exploratory endpoints
+                if llm_facts.exploratory_endpoints.dor or llm_facts.exploratory_endpoints.pfs2:
+                    facts['exploratory_endpoints'] = llm_facts.exploratory_endpoints.to_dict()
+
+                # Add PRO details
+                if llm_facts.pro_details.primary_timepoint or llm_facts.pro_details.instruments:
+                    facts['pro_details'] = llm_facts.pro_details.to_dict()
+
+                # Add regional extensions
+                if llm_facts.regional_extensions.china_sample_size:
+                    facts['regional_extensions'] = llm_facts.regional_extensions.to_dict()
+
+                # Add censoring rules
+                if llm_facts.censoring_rules.pfs_censoring or llm_facts.censoring_rules.dor_censoring:
+                    facts['censoring_rules'] = llm_facts.censoring_rules.to_dict()
+
+                # Also capture alpha allocation and multiplicity from LLM
+                if llm_facts.alpha_allocation:
+                    facts['alpha_allocation_detail'] = llm_facts.alpha_allocation
+                if llm_facts.multiplicity_adjustment:
+                    facts['multiplicity_adjustment'] = llm_facts.multiplicity_adjustment
+                if llm_facts.testing_hierarchy:
+                    facts['testing_hierarchy'] = llm_facts.testing_hierarchy
+
+        except Exception as e:
+            print(f"[FactExtractor] LLM extraction failed: {e}")
+
+        return facts
 
 
 # =============================================================================
@@ -799,6 +896,109 @@ CRITICAL RULES:
         if strat:
             facts_block += f"\n- Stratification Factors: {', '.join(strat)}\n"
 
+        # === NEW: Include detailed extracted facts ===
+
+        # Interim Analysis details (for interim_analysis and statistical_methods sections)
+        interim = facts.get('interim_analysis', {})
+        if interim and section_name in ['interim_analysis', 'statistical_methods', 'sample_size']:
+            facts_block += f"""
+## INTERIM ANALYSIS DETAILS (CRITICAL - Use EXACT values)
+- Number of Interim Analyses: {interim.get('num_interim_analyses', 'Not specified')}
+- Alpha Spending Function: {interim.get('alpha_spending_function', 'Not specified')}
+- Alpha for PFS: {interim.get('alpha_pfs', 'Not specified')}
+- Alpha for OS: {interim.get('alpha_os', 'Not specified')}
+"""
+            # Add timing details
+            timing = interim.get('interim_timing', [])
+            if timing:
+                facts_block += "- Interim Timing:\n"
+                for t in timing:
+                    facts_block += f"  - IA{t.get('ia', '?')}: ~{t.get('months', '?')} months, ~{t.get('events', '?')} {t.get('endpoint', '')} events ({t.get('population', '')})\n"
+
+            # Final analysis
+            final = interim.get('final_analysis_timing', {})
+            if final:
+                facts_block += f"- Final Analysis: ~{final.get('months', '?')} months, ~{final.get('events', '?')} events\n"
+
+            # Efficacy boundaries
+            boundaries = interim.get('efficacy_boundaries', [])
+            if boundaries:
+                facts_block += "- Efficacy Boundaries:\n"
+                for b in boundaries:
+                    facts_block += f"  - IA{b.get('ia', '?')}: Z={b.get('z_score', '?')}, p={b.get('p_value', '?')}, HR≤{b.get('hr_boundary', '?')}, IF={b.get('info_fraction', '?')}\n"
+
+        # Power calculations (for sample_size section)
+        power_calc = facts.get('power_calculations', {})
+        if power_calc and section_name in ['sample_size', 'statistical_methods']:
+            facts_block += f"""
+## POWER CALCULATIONS (CRITICAL - Use EXACT values)
+- PFS Power: {power_calc.get('pfs_power', 'Not specified')}
+- OS Superiority Power: {power_calc.get('os_superiority_power', 'Not specified')}
+- OS Non-Inferiority Power: {power_calc.get('os_ni_power', 'Not specified')}
+- Control Median PFS: {power_calc.get('control_median_pfs', 'Not specified')}
+- Control Median OS: {power_calc.get('control_median_os', 'Not specified')}
+- Assumed Hazard Ratio: {power_calc.get('assumed_hr', 'Not specified')}
+- Dropout Rate: {power_calc.get('dropout_rate', 'Not specified')}
+"""
+
+        # Exploratory endpoints (for endpoints section)
+        exploratory = facts.get('exploratory_endpoints', {})
+        if exploratory and section_name in ['endpoints', 'statistical_methods']:
+            facts_block += f"""
+## EXPLORATORY ENDPOINTS
+- Duration of Response (DOR): {exploratory.get('dor', 'Not specified')}
+- Disease Control Rate (DCR): {exploratory.get('dcr', 'Not specified')}
+- Clinical Benefit Rate (CBR): {exploratory.get('cbr', 'Not specified')}
+- PFS2 (Time to 2nd progression): {exploratory.get('pfs2', 'Not specified')}
+- iRECIST Endpoints: {', '.join(exploratory.get('irecist_endpoints', [])) or 'Not specified'}
+"""
+
+        # PRO details
+        pro = facts.get('pro_details', {})
+        if pro and section_name in ['endpoints', 'statistical_methods']:
+            facts_block += f"""
+## PATIENT-REPORTED OUTCOMES
+- Primary Timepoint: {pro.get('primary_timepoint', 'Not specified')}
+- Completion Threshold: {pro.get('completion_threshold', 'Not specified')}
+- Compliance Threshold: {pro.get('compliance_threshold', 'Not specified')}
+- Improvement Definition: {pro.get('improvement_definition', 'Not specified')}
+- Stability Definition: {pro.get('stability_definition', 'Not specified')}
+- Instruments: {', '.join(pro.get('instruments', [])) or 'Not specified'}
+"""
+
+        # Regional extensions
+        regional = facts.get('regional_extensions', {})
+        if regional and section_name in ['sample_size', 'statistical_methods', 'study_design']:
+            facts_block += f"""
+## REGIONAL EXTENSION (CHINA)
+- China Sample Size: {regional.get('china_sample_size', 'Not specified')}
+- China PFS Events: {regional.get('china_pfs_events', 'Not specified')}
+- China OS Events: {regional.get('china_os_events', 'Not specified')}
+- Consistency Criterion: {regional.get('consistency_criterion', 'Not specified')}
+"""
+
+        # Censoring rules (for statistical_methods section)
+        censoring = facts.get('censoring_rules', {})
+        if censoring and section_name in ['statistical_methods', 'endpoints']:
+            pfs_rules = censoring.get('pfs_censoring', [])
+            dor_rules = censoring.get('dor_censoring', [])
+            pfs2_rules = censoring.get('pfs2_censoring', [])
+
+            if pfs_rules or dor_rules or pfs2_rules:
+                facts_block += "\n## CENSORING RULES\n"
+                if pfs_rules:
+                    facts_block += "- PFS Censoring:\n"
+                    for rule in pfs_rules[:5]:  # Limit to avoid prompt bloat
+                        facts_block += f"  - {rule.get('scenario', '?')}: {rule.get('censoring', rule.get('event_type', '?'))}\n"
+                if dor_rules:
+                    facts_block += "- DOR Censoring:\n"
+                    for rule in dor_rules[:5]:
+                        facts_block += f"  - {rule.get('scenario', '?')}: {rule.get('censoring', rule.get('event_type', '?'))}\n"
+                if pfs2_rules:
+                    facts_block += "- PFS2 Censoring:\n"
+                    for rule in pfs2_rules[:5]:
+                        facts_block += f"  - {rule.get('scenario', '?')}: {rule.get('censoring', rule.get('event_type', '?'))}\n"
+
         # Methods from knowledge graph
         methods_block = ""
         if methods:
@@ -1033,6 +1233,7 @@ This section describes the {section_name.replace('_', ' ')} for the study of {dr
             'study_design',
             'populations',
             'statistical_methods',
+            'interim_analysis',  # NEW: Added interim analysis section
             'sample_size',
             'missing_data',
         ]
