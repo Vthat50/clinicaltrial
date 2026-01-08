@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v14-DEBUG-PLACEHOLDERS-2026-01-08")
-print("FEATURE: Added verbose debug logging to replace_placeholders()")
-print("FEATURE: Logs discovered elements, placeholder detection, and replacement results")
+print("BUILD: v15-FLUSH-DEBUG-2026-01-08")
+print("FEATURE: Added flush=True to all debug prints")
+print("FEATURE: Debug in generate_sap() AND replace_placeholders()")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-08-v14 (DEBUG placeholder replacement)")
+    print("  [VERSION] Build 2026-01-08-v15 (FLUSH debug output)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")

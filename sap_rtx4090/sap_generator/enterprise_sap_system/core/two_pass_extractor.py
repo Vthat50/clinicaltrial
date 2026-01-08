@@ -344,9 +344,12 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
 
     NO REGEX - uses simple string replacement for reliability.
     """
-    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v13 ==========")
-    print(f"[PostProcess] SAP length: {len(sap_text)} chars")
-    print(f"[PostProcess] Elements count: {len(discovered_elements) if discovered_elements else 0}")
+    import sys
+    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v15 ==========", flush=True)
+    sys.stdout.flush()
+    print(f"[PostProcess] SAP length: {len(sap_text)} chars", flush=True)
+    print(f"[PostProcess] Elements count: {len(discovered_elements) if discovered_elements else 0}", flush=True)
+    sys.stdout.flush()
 
     # Check if placeholder exists BEFORE processing
     has_placeholder = '[Primary endpoint as specified]' in sap_text
@@ -1655,10 +1658,18 @@ class TwoPassExtractor:
         # =====================================================================
         # POST-PROCESSING: Deterministic fixes after SAP generation
         # =====================================================================
+        import sys
+        print(f"[generate_sap] ===== STARTING POST-PROCESSING v15 =====", flush=True)
+        sys.stdout.flush()
+        print(f"[generate_sap] SAP length before post-processing: {len(sap_text)}", flush=True)
+
         # 1. Strip duplicate APPENDIX section with placeholders
         sap_text = strip_duplicate_appendix(sap_text)
+        print(f"[generate_sap] After strip_duplicate_appendix: {len(sap_text)} chars", flush=True)
 
         # 2. Replace any remaining placeholders using discovered elements
+        print(f"[generate_sap] Calling replace_placeholders with {len(discovered_elements)} elements", flush=True)
+        sys.stdout.flush()
         sap_text = replace_placeholders(sap_text, discovered_elements)
 
         # 3. INJECT TLF TABLES - Guarantees tables appear regardless of what Claude generates
