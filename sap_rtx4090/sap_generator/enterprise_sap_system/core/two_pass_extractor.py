@@ -344,6 +344,14 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
 
     NO REGEX - uses simple string replacement for reliability.
     """
+    print(f"[PostProcess] ========== REPLACE PLACEHOLDERS v13 ==========")
+    print(f"[PostProcess] SAP length: {len(sap_text)} chars")
+    print(f"[PostProcess] Elements count: {len(discovered_elements) if discovered_elements else 0}")
+
+    # Check if placeholder exists BEFORE processing
+    has_placeholder = '[Primary endpoint as specified]' in sap_text
+    print(f"[PostProcess] Contains '[Primary endpoint as specified]': {has_placeholder}")
+
     if not discovered_elements:
         print("[PostProcess] No discovered elements - skipping placeholder replacement")
         return sap_text
@@ -353,6 +361,14 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
     # Build lookup from discovered elements
     primary_endpoint = None
     endpoints = []
+
+    # Debug: print first 5 elements
+    print(f"[PostProcess] First 5 discovered elements:")
+    for i, elem in enumerate(discovered_elements[:5]):
+        cat = getattr(elem, 'category', '') or ''
+        name = getattr(elem, 'name', '') or ''
+        desc = (getattr(elem, 'description', '') or '')[:50]
+        print(f"  [{i}] cat='{cat}' name='{name}' desc='{desc}...'")
 
     for elem in discovered_elements:
         category = getattr(elem, 'category', '') or ''
@@ -419,6 +435,15 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
 
     if replacements_made > 0:
         print(f"[PostProcess] Replaced {replacements_made} placeholders total")
+    else:
+        print(f"[PostProcess] WARNING: No replacements made!")
+        if not primary_endpoint:
+            print(f"[PostProcess] REASON: No primary endpoint found in discovered elements")
+
+    # Final check
+    still_has_placeholder = '[Primary endpoint as specified]' in sap_text
+    print(f"[PostProcess] AFTER: Contains '[Primary endpoint as specified]': {still_has_placeholder}")
+    print(f"[PostProcess] ========== END REPLACE PLACEHOLDERS ==========")
 
     return sap_text
 
