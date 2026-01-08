@@ -1399,9 +1399,9 @@ class TwoPassExtractor:
 
     def _extract_boundary_inputs(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> Dict[str, Any]:
         """
-        Extract inputs for boundary calculations from discovered elements.
+        Extract inputs for boundary calculations using LlamaExtract.
 
-        Looks for:
+        Uses LlamaExtract for structured data extraction:
         - Phase (Phase 2 or Phase 3)
         - Alpha levels (PFS and OS)
         - Number of interim analyses
@@ -1412,131 +1412,182 @@ class TwoPassExtractor:
         - Phase 2: p0 (null response rate), p1 (alternative response rate)
         - China extension parameters
         """
-        inputs = {
-            'phase': None,
-            'alpha': None,
-            'beta': 0.10,  # Default 90% power
-            'n_analyses': None,
-            'events': [],
-            'info_fractions': [],
-            'hr': None,
-            'ni_margin': None,
-            'median_control': None,
-            # Phase 2 specific
-            'p0': None,
-            'p1': None,
-            # OS specific
-            'os_events': None,
-            'os_alpha': None,
-            # China extension
-            'china_events': None,
-        }
+        try:
+            from llama_cloud_services import LlamaExtract
+            from pydantic import BaseModel, Field
+            from typing import Optional, List as TypingList
+            import tempfile
 
-        import re
+            # Define schema for boundary parameters using Pydantic
+            class BoundaryParameters(BaseModel):
+                """Schema for clinical trial boundary calculation parameters."""
+                phase: Optional[str] = Field(None, description="Trial phase: 'phase1', 'phase2', or 'phase3'")
+                alpha: Optional[float] = Field(None, description="One-sided alpha/significance level (e.g., 0.025 for one-sided, or 0.05/2)")
+                beta: Optional[float] = Field(0.10, description="Type II error rate (1 - power), e.g., 0.10 for 90% power")
+                n_analyses: Optional[int] = Field(None, description="Total number of analyses including final (e.g., 3 for 2 interim + 1 final)")
+                pfs_events: Optional[TypingList[int]] = Field(None, description="List of PFS event counts at each analysis")
+                os_events: Optional[TypingList[int]] = Field(None, description="List of OS event counts at each analysis")
+                os_alpha: Optional[float] = Field(None, description="Alpha allocated to OS endpoint if different from PFS")
+                hr: Optional[float] = Field(None, description="Assumed hazard ratio under alternative hypothesis (e.g., 0.70)")
+                ni_margin: Optional[float] = Field(None, description="Non-inferiority margin if NI trial (e.g., 1.1)")
+                median_control: Optional[float] = Field(None, description="Median survival in control arm in months")
+                p0: Optional[float] = Field(None, description="Null response rate for Phase 2 (e.g., 0.10)")
+                p1: Optional[float] = Field(None, description="Alternative response rate for Phase 2 (e.g., 0.25)")
+                spending_function: Optional[str] = Field("OF", description="Alpha spending function: 'OF' (O'Brien-Fleming) or 'Pocock'")
 
-        text_lower = protocol_text.lower()
+            # Initialize LlamaExtract
+            extractor = LlamaExtract()
 
-        # Detect phase
-        if 'phase 3' in text_lower or 'phase iii' in text_lower:
-            inputs['phase'] = 'phase3'
-        elif 'phase 2' in text_lower or 'phase ii' in text_lower:
-            inputs['phase'] = 'phase2'
-        elif 'phase 1' in text_lower or 'phase i' in text_lower:
-            inputs['phase'] = 'phase1'
+            # Write protocol text to temp file for extraction
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+                f.write(protocol_text[:100000])  # Limit to 100k chars
+                temp_path = f.name
 
-        # Extract from discovered elements
-        os_events = []
-        pfs_events = []
+            try:
+                # Extract using schema
+                results = extractor.extract(
+                    files=[temp_path],
+                    schema=BoundaryParameters.model_json_schema(),
+                )
 
-        for elem in discovered_elements:
-            name_lower = elem.name.lower()
-            desc = elem.description or ""
-            desc_lower = desc.lower()
-            combined = name_lower + " " + desc_lower
+                if results and len(results) > 0:
+                    extracted = results[0].data if hasattr(results[0], 'data') else results[0]
 
-            # Alpha (PFS)
-            if 'alpha' in combined or 'type i error' in combined or 'significance level' in combined:
-                alpha_match = re.search(r'(?:alpha|α)\s*[=:]\s*(0\.\d+)', combined)
-                if alpha_match:
-                    alpha_val = float(alpha_match.group(1))
-                    if 'pfs' in combined:
-                        inputs['alpha'] = alpha_val
-                    elif 'os' in combined or 'overall survival' in combined:
-                        inputs['os_alpha'] = alpha_val
-                    else:
-                        inputs['alpha'] = alpha_val
+                    # Build inputs dict
+                    inputs = {
+                        'phase': extracted.get('phase'),
+                        'alpha': extracted.get('alpha'),
+                        'beta': extracted.get('beta', 0.10),
+                        'n_analyses': extracted.get('n_analyses'),
+                        'events': extracted.get('pfs_events', []) or [],
+                        'info_fractions': [],
+                        'hr': extracted.get('hr'),
+                        'ni_margin': extracted.get('ni_margin'),
+                        'median_control': extracted.get('median_control'),
+                        'p0': extracted.get('p0'),
+                        'p1': extracted.get('p1'),
+                        'os_events': extracted.get('os_events'),
+                        'os_alpha': extracted.get('os_alpha'),
+                        'china_events': None,
+                        'spending_function': extracted.get('spending_function', 'OF'),
+                    }
 
-            # Interim analyses
-            if 'interim' in combined:
-                ia_match = re.search(r'(\d+)\s*interim\s*anal', combined)
-                if ia_match:
-                    inputs['n_analyses'] = int(ia_match.group(1)) + 1  # +1 for final
+                    print(f"  [LlamaExtract] Successfully extracted boundary parameters")
+                    return inputs
 
-            # Events (separate PFS and OS)
-            if 'event' in combined:
-                if 'os' in combined or 'overall survival' in combined:
-                    os_event_matches = re.findall(r'(\d{2,4})\s*(?:os\s*)?events?', combined)
-                    if os_event_matches:
-                        os_events.extend([int(e) for e in os_event_matches])
-                elif 'pfs' in combined or 'progression' in combined:
-                    pfs_event_matches = re.findall(r'(\d{2,4})\s*(?:pfs\s*)?events?', combined)
-                    if pfs_event_matches:
-                        pfs_events.extend([int(e) for e in pfs_event_matches])
-                else:
-                    event_matches = re.findall(r'(\d{2,4})\s*events?', combined)
-                    if event_matches:
-                        pfs_events.extend([int(e) for e in event_matches])
+            finally:
+                # Clean up temp file
+                import os as os_module
+                if os_module.path.exists(temp_path):
+                    os_module.unlink(temp_path)
 
-            # HR
-            if 'hazard ratio' in combined or 'hr' in combined:
-                hr_match = re.search(r'hr\s*[=:]\s*(0\.\d+)', combined)
-                if hr_match:
-                    inputs['hr'] = float(hr_match.group(1))
+        except ImportError:
+            print("  [!] LlamaExtract not available, falling back to Claude")
+        except Exception as e:
+            print(f"  [!] LlamaExtract failed: {e}, falling back to Claude")
 
-            # NI margin
-            if 'non-inferiority' in combined or 'ni margin' in combined:
-                ni_match = re.search(r'(?:ni\s*)?margin\s*[=:]\s*(1\.\d+)', combined)
-                if ni_match:
-                    inputs['ni_margin'] = float(ni_match.group(1))
+        # Fallback to Claude if LlamaExtract fails
+        return self._extract_boundary_inputs_claude(discovered_elements, protocol_text)
 
-            # Power
-            if 'power' in combined:
-                power_match = re.search(r'(\d{2})%?\s*power', combined)
-                if power_match:
-                    inputs['beta'] = 1 - int(power_match.group(1)) / 100
+    def _extract_boundary_inputs_claude(self, discovered_elements: List[DiscoveredElement], protocol_text: str) -> Dict[str, Any]:
+        """Fallback extraction using Claude LLM."""
+        extraction_prompt = f"""Extract statistical parameters for interim analysis boundary calculations from this clinical trial protocol.
 
-            # Phase 2: Response rates
-            if 'response rate' in combined or 'orr' in combined:
-                # Null response rate (p0)
-                p0_match = re.search(r'(?:null|unacceptable|p0)\s*[=:]\s*(0\.\d+|\d+%)', combined)
-                if p0_match:
-                    val = p0_match.group(1)
-                    inputs['p0'] = float(val.replace('%', '')) / 100 if '%' in val else float(val)
+IMPORTANT: Extract EXACT numerical values from the protocol. Return null for any values not explicitly stated.
 
-                # Alternative response rate (p1)
-                p1_match = re.search(r'(?:alternative|target|p1)\s*[=:]\s*(0\.\d+|\d+%)', combined)
-                if p1_match:
-                    val = p1_match.group(1)
-                    inputs['p1'] = float(val.replace('%', '')) / 100 if '%' in val else float(val)
+Protocol text (relevant sections):
+{protocol_text[:50000]}
 
-            # China extension
-            if 'china' in combined:
-                china_event_match = re.search(r'(\d{2,3})\s*(?:pfs\s*)?events?', combined)
-                if china_event_match:
-                    if not inputs['china_events']:
-                        inputs['china_events'] = {}
-                    if 'pfs' in combined:
-                        inputs['china_events']['pfs'] = int(china_event_match.group(1))
-                    elif 'os' in combined:
-                        inputs['china_events']['os'] = int(china_event_match.group(1))
+Return a JSON object with these fields (use null if not found):
+{{
+    "phase": "phase2" or "phase3" or "phase1" or null,
+    "alpha": <one-sided alpha for primary endpoint, e.g. 0.025>,
+    "beta": <type II error rate, e.g. 0.10 for 90% power>,
+    "n_analyses": <total number of analyses including final, e.g. 3 for 2 interim + 1 final>,
+    "pfs_events": [<list of PFS event counts at each analysis>],
+    "os_events": [<list of OS event counts at each analysis if separate OS analysis>],
+    "os_alpha": <alpha allocated to OS if different from PFS>,
+    "hr": <assumed hazard ratio under alternative hypothesis, e.g. 0.70>,
+    "ni_margin": <non-inferiority margin if NI trial, e.g. 1.1>,
+    "median_control": <median survival in control arm in months>,
+    "p0": <null response rate for Phase 2, e.g. 0.10>,
+    "p1": <alternative response rate for Phase 2, e.g. 0.25>,
+    "spending_function": "OF" or "Pocock" or null
+}}
 
-        # Clean up events lists
-        if pfs_events:
-            inputs['events'] = sorted(list(set(pfs_events)))
-        if os_events:
-            inputs['os_events'] = sorted(list(set(os_events)))
+Notes:
+- For two-sided alpha (e.g., 0.05), divide by 2 for one-sided (0.025)
+- PFS events should be a list like [100, 200, 300] for interim 1, interim 2, final
+- If only final analysis events given, use a single-element list like [500]
+- HR should be <1 for superiority trials (e.g., 0.70 means 30% reduction)
 
-        return inputs
+Return ONLY valid JSON, no explanation."""
+
+        try:
+            if _USE_OPENAI:
+                client = OpenAI()
+                response = client.chat.completions.create(
+                    model=self.model or "gpt-4o",
+                    max_tokens=1000,
+                    messages=[{"role": "user", "content": extraction_prompt}]
+                )
+                response_text = response.choices[0].message.content
+            else:
+                client = Anthropic()
+                response = client.messages.create(
+                    model=self.model or "claude-sonnet-4-20250514",
+                    max_tokens=1000,
+                    messages=[{"role": "user", "content": extraction_prompt}]
+                )
+                response_text = response.content[0].text
+
+            # Parse JSON response
+            response_text = response_text.strip()
+            if response_text.startswith("```"):
+                lines = response_text.split("\n")
+                response_text = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
+
+            extracted = json.loads(response_text)
+
+            inputs = {
+                'phase': extracted.get('phase'),
+                'alpha': extracted.get('alpha'),
+                'beta': extracted.get('beta', 0.10),
+                'n_analyses': extracted.get('n_analyses'),
+                'events': extracted.get('pfs_events', []) or [],
+                'info_fractions': [],
+                'hr': extracted.get('hr'),
+                'ni_margin': extracted.get('ni_margin'),
+                'median_control': extracted.get('median_control'),
+                'p0': extracted.get('p0'),
+                'p1': extracted.get('p1'),
+                'os_events': extracted.get('os_events'),
+                'os_alpha': extracted.get('os_alpha'),
+                'china_events': None,
+                'spending_function': extracted.get('spending_function', 'OF'),
+            }
+
+            print(f"  [Claude] Successfully extracted boundary parameters")
+            return inputs
+
+        except Exception as e:
+            print(f"  [!] Claude extraction failed: {e}")
+            return {
+                'phase': 'phase3' if 'phase 3' in protocol_text.lower() or 'phase iii' in protocol_text.lower() else 'phase2' if 'phase 2' in protocol_text.lower() else None,
+                'alpha': None,
+                'beta': 0.10,
+                'n_analyses': None,
+                'events': [],
+                'info_fractions': [],
+                'hr': None,
+                'ni_margin': None,
+                'median_control': None,
+                'p0': None,
+                'p1': None,
+                'os_events': None,
+                'os_alpha': None,
+                'china_events': None,
+            }
 
     def _generate_boundary_tables(self, discovered_elements: List[DiscoveredElement],
                                    protocol_text: str, verbose: bool = True) -> str:
