@@ -1501,17 +1501,13 @@ REQUIREMENTS:
 
             sap_text = response.content[0].text
 
-            # CRITICAL: Append TLF shells directly to ensure they're included verbatim
-            # (LLM often summarizes instead of including full specifications)
-            sap_text += "\n\n---\n\n## APPENDIX: TLF SHELL SPECIFICATIONS\n"
-            sap_text += "\nThe following TLF shell specifications provide detailed programming requirements for statistical outputs.\n"
-            sap_text += tlf_text
+            # NOTE: Section 12.2 already contains endpoint-specific TLF specs
+            # Do NOT append raw TLF templates with placeholders
 
         except Exception as llm_error:
             logger.error(f"LLM generation failed: {llm_error}")
-            # Fallback to V2 direct generation
+            # Fallback to V2 direct generation (already has clean TLF specs)
             sap_text = result.get('sap_text', '')
-            sap_text += "\n\n---\n\n## APPENDIX: TLF SHELL SPECIFICATIONS\n" + tlf_text
 
         processing_time = time.time() - start_time
 
@@ -3211,7 +3207,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-08-v3 (with cache buster)")
+    print("  [VERSION] Build 2026-01-08-v4 (removed TLF placeholder appendix)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
