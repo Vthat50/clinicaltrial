@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v23-REMOVE-ALL-APPENDIX-MARKERS-2026-01-09")
-print("FEATURE: Removes ALL appendix patterns including 'APPENDIX: TLF SHELL'")
-print("ROOT CAUSE: Claude writes multiple appendix sections, only one was being removed")
+print("BUILD: v24-PROMPT-REQUIRES-MARKDOWN-TABLES-2026-01-09")
+print("FEATURE: Prompt explicitly requires markdown table syntax (|---|)")
+print("ROOT CAUSE: Fix at source - make Claude generate correct format, not post-process")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v23 (Fix: remove ALL appendix patterns)")
+    print("  [VERSION] Build 2026-01-09-v24 (Prompt requires markdown tables)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")

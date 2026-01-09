@@ -1250,11 +1250,20 @@ MANDATORY REQUIREMENTS - WITH EXACT NUMBERS
     - If there's a China extension, include Section 11.1 with sample size
     - If there are other regional requirements, document them
 
-11. APPENDICES (Section 12):
-    Section 12.2 must list specific tables and figures for THIS protocol.
-    CRITICAL: Use the ACTUAL endpoint names from the checklist above in table titles.
-    DO NOT use "[Primary endpoint as specified]" or any placeholder text.
-    Each table title must contain the real endpoint name (e.g., "Table 14.2.1: Progression-Free Survival Analysis").
+11. APPENDICES (Section 12) - MANDATORY FORMAT:
+    ⚠️ CRITICAL FORMATTING REQUIREMENTS FOR SECTION 12:
+
+    a) Section 12 MUST use MARKDOWN TABLE syntax with pipes and dashes:
+       | Column | Width | Alignment | Source |
+       |--------|-------|-----------|--------|
+       | Value  | 1.5in | Center    | ADSL   |
+
+    b) NEVER write a separate "APPENDIX: TLF SHELL SPECIFICATIONS" section.
+       Everything goes under "## 12. APPENDICES" with subsections 12.1, 12.2, 12.3.
+
+    c) Use ACTUAL endpoint names from the checklist - NOT placeholders like "[Primary endpoint as specified]"
+
+    d) Each table specification MUST include the markdown table with Column/Width/Alignment/Source.
 
     {tlf_specifications}
 
@@ -1279,7 +1288,11 @@ Use exact values from the protocol. Use the Knowledge Graph methods where approp
 Follow the style/format from RAG examples but NOT their specific values.
 Do not skip anything.
 
-Section 12 is the final section. Use actual endpoint names from the protocol."""
+⚠️ FINAL REMINDERS:
+1. Section 12 tables MUST use markdown syntax: | Column | Width | ... with |---|---|
+2. Use REAL endpoint names like "Progression-Free Survival" - NEVER "[Primary endpoint as specified]"
+3. Do NOT create a separate "APPENDIX: TLF" section - everything under "## 12. APPENDICES"
+4. End the SAP with Section 12 - no additional appendix sections after it."""
 
 
 def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
