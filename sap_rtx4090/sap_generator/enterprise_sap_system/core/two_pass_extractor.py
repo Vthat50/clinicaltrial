@@ -397,16 +397,19 @@ def replace_placeholders(sap_text: str, discovered_elements: list) -> str:
         if not endpoint_text:
             continue
 
-        # Check for "primary" keyword - discovery prompt REQUIRES this in endpoint names
-        has_primary = 'primary' in cat_lower or 'primary' in name_lower or 'primary' in desc_lower
+        # Only consider endpoint elements (category=endpoints OR "endpoint" in name)
+        is_endpoint = cat_lower == 'endpoints' or 'endpoint' in name_lower
 
-        if has_primary and not primary_endpoint:
+        # Check for "primary" keyword in endpoint elements only
+        has_primary = 'primary' in name_lower or 'primary' in desc_lower
+
+        if is_endpoint and has_primary and not primary_endpoint:
             primary_endpoint = endpoint_text
-            print(f"[PostProcess] Found primary: '{name[:50]}' -> '{endpoint_text[:60]}'", flush=True)
+            print(f"[PostProcess] Found primary endpoint: '{name[:50]}' -> '{endpoint_text[:60]}'", flush=True)
             sys.stdout.flush()
 
         # Track all endpoints for debugging
-        if cat_lower == 'endpoints' or 'endpoint' in name_lower:
+        if is_endpoint:
             endpoints_found.append(name[:40])
 
     print(f"[PostProcess] Endpoints found: {endpoints_found[:5]}", flush=True)
