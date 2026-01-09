@@ -334,13 +334,35 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
 
     print(f"[TLF-INJECT] Section 12 exists: {has_section_12}, has markdown tables: {has_markdown_tables}")
 
-    # Remove any incomplete Section 12 before appending
-    for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
+    # Remove ALL appendix sections (Claude sometimes writes multiple)
+    # Order matters: check most specific patterns first
+    appendix_markers = [
+        'APPENDIX: TLF SHELL',
+        'APPENDIX: TLF',
+        'APPENDIX:',
+        '## 12. APPENDICES',
+        '## 12.',
+        '# 12. APPENDICES',
+        '# 12.',
+        '12. APPENDICES',
+        '12. Appendices',
+        '## APPENDIX',
+        '# APPENDIX',
+    ]
+
+    # Find the EARLIEST appendix marker and truncate there
+    earliest_idx = len(sap_text)
+    found_marker = None
+    for marker in appendix_markers:
         if marker in sap_text:
             idx = sap_text.find(marker)
-            sap_text = sap_text[:idx].strip()
-            print(f"[TLF-INJECT] Removed incomplete Section 12 at position {idx}")
-            break
+            if idx < earliest_idx:
+                earliest_idx = idx
+                found_marker = marker
+
+    if found_marker:
+        sap_text = sap_text[:earliest_idx].strip()
+        print(f"[TLF-INJECT] Removed appendix starting at '{found_marker}' (position {earliest_idx})")
 
     # Append TLF content
     result = sap_text + ''.join(tlf_content)

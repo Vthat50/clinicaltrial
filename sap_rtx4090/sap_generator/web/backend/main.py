@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v22-FIX-WORKER-TABLE-CHECK-2026-01-09")
-print("FEATURE: Worker checks for markdown tables (|---|), not just 'Table 14' text")
-print("ROOT CAUSE: Worker was skipping TLF injection because Claude wrote 'Table 14' in prose")
+print("BUILD: v23-REMOVE-ALL-APPENDIX-MARKERS-2026-01-09")
+print("FEATURE: Removes ALL appendix patterns including 'APPENDIX: TLF SHELL'")
+print("ROOT CAUSE: Claude writes multiple appendix sections, only one was being removed")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v22 (Fix: check markdown tables, not 'Table 14' text)")
+    print("  [VERSION] Build 2026-01-09-v23 (Fix: remove ALL appendix patterns)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
@@ -3451,12 +3451,21 @@ async def process_jobs_worker():
                         tlf += "**Subgroups:** Age, Sex, ECOG PS, Region\n\n"
                         tlf += "---\nEND OF STATISTICAL ANALYSIS PLAN\n"
 
-                        # Remove incomplete Section 12 if exists
-                        for marker in ["## 12.", "# 12.", "12. APPENDICES"]:
+                        # Remove ALL appendix sections (Claude sometimes writes multiple)
+                        appendix_markers = [
+                            'APPENDIX: TLF SHELL', 'APPENDIX: TLF', 'APPENDIX:',
+                            '## 12.', '# 12.', '12. APPENDICES', '12. Appendices',
+                            '## APPENDIX', '# APPENDIX',
+                        ]
+                        earliest_idx = len(sap_text)
+                        for marker in appendix_markers:
                             if marker in sap_text:
                                 idx = sap_text.find(marker)
-                                sap_text = sap_text[:idx].strip()
-                                break
+                                if idx < earliest_idx:
+                                    earliest_idx = idx
+                        if earliest_idx < len(sap_text):
+                            sap_text = sap_text[:earliest_idx].strip()
+                            print(f"  [MAIN.PY] Removed appendix at position {earliest_idx}")
 
                         sap_text = sap_text + tlf
                         print(f"  [MAIN.PY] TLF INJECTED - SAP now {len(sap_text)} chars")
