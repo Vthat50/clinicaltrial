@@ -3617,9 +3617,9 @@ async def process_jobs_worker():
                         "status": "completed",
                         "generated_sap": sap_text,
                         "quality_score": quality_score,
-                        "endpoint_type": endpoint_type_str[:10],
+                        "endpoint_type": endpoint_type_str[:20],  # 'time-to-event' is 13 chars
                         "phase": phase_str[:10],
-                        "therapeutic_area": therapeutic_area[:20],
+                        "therapeutic_area": therapeutic_area[:30],  # 'rheumatology' is 12 chars
                         "processing_time": processing_time,
                         "completed_at": datetime.utcnow().isoformat()
                     }
