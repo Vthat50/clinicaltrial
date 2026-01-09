@@ -325,8 +325,8 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
 
     # Check if SAP already has Section 12 with MARKDOWN tables (not prose tables)
     has_section_12 = any(marker in sap_text for marker in ['## 12.', '# 12.', '12. APPENDICES'])
-    # Must have actual markdown table syntax, not just "Table 14" text
-    has_markdown_tables = '|---|' in sap_text or '| Column |' in sap_text or '| Width |' in sap_text
+    # Check for markdown table separator - Claude uses |--------| format
+    has_markdown_tables = '|--' in sap_text and '--|' in sap_text
 
     if has_section_12 and has_markdown_tables:
         print(f"[TLF-INJECT] SAP already has Section 12 with markdown tables, keeping existing")

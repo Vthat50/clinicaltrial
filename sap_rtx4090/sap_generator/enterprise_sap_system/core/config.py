@@ -227,6 +227,35 @@ class CDISCConfig:
 
 
 @dataclass
+class TerminologyConfig:
+    """CDISC Controlled Terminology Configuration"""
+    # Version settings
+    default_version: str = "2024-09-27"
+    sdtm_version: str = "3.4"
+    adam_version: str = "1.3"
+
+    # Source configuration
+    source: str = "LOCAL_CACHE"  # "NCI_EVS_API" or "LOCAL_CACHE"
+    nci_evs_api_url: str = "https://api-evsrest.nci.nih.gov/api/v1"
+
+    # Cache settings
+    cache_dir: Path = field(default_factory=lambda:
+        Path(__file__).parent.parent / "data" / "terminology")
+    cache_enabled: bool = True
+
+    # Auto-update settings
+    auto_update_enabled: bool = False
+    update_check_interval_days: int = 30
+
+    # Validation settings
+    strict_validation: bool = True  # Fail on invalid CT values
+    warn_on_extensible: bool = True  # Warn when using extensible lists
+
+    # Legacy mode
+    use_legacy_terminology: bool = False  # Backward compatibility
+
+
+@dataclass
 class SAPConfig:
     """SAP Generation Configuration"""
     template_version: str = "TransCelerate 2024"
@@ -254,6 +283,7 @@ class SystemConfig:
     agents: AgentConfig = field(default_factory=AgentConfig)
     few_shot: FewShotConfig = field(default_factory=FewShotConfig)
     cdisc: CDISCConfig = field(default_factory=CDISCConfig)
+    terminology: TerminologyConfig = field(default_factory=TerminologyConfig)
     sap: SAPConfig = field(default_factory=SAPConfig)
 
     # System-wide settings

@@ -21,6 +21,16 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Optional, Any
 from enum import Enum
 from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Import terminology service if available
+try:
+    from ..cdisc.terminology_service import get_terminology_service, CDISCTerminologyService
+except ImportError:
+    get_terminology_service = None
+    CDISCTerminologyService = None
 
 
 class DataType(Enum):

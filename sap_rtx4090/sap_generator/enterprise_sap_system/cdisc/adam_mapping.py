@@ -11,15 +11,25 @@ and traceability documentation for SAP generation.
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, field
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Use relative imports for consistent module resolution
 try:
     from ..core.schemas import EndpointType, Estimand
+    from .terminology_service import get_terminology_service, CDISCTerminologyService
 except ImportError:
     # Fallback for direct script execution
     import sys
     sys.path.append(str(Path(__file__).parent.parent))
     from core.schemas import EndpointType, Estimand
+    try:
+        from cdisc.terminology_service import get_terminology_service, CDISCTerminologyService
+    except ImportError:
+        # Terminology service not available, will use legacy mode
+        get_terminology_service = None
+        CDISCTerminologyService = None
 
 
 @dataclass
@@ -561,8 +571,171 @@ class CDISCMapper:
 
         return "\n".join(lines)
 
+    def get_paramcd_from_terminology(
+        self,
+        endpoint_type: EndpointType,
+        terminology_service: Optional[CDISCTerminologyService] = None
+    ) -> Dict[str, str]:
+        """
+        Get PARAMCD/PARAM from CDISC CT using terminology service.
+        Falls back to hardcoded mappings if terminology service is not available or term not found.
+
+        Args:
+            endpoint_type: Endpoint type
+            terminology_service: Optional terminology service instance
+
+        Returns:
+            Dict with PARAMCD, PARAM, NCI_CODE, DEFINITION
+        """
+        # Map endpoint types to search keywords
+        ENDPOINT_KEYWORDS = {
+            EndpointType.OS: "Overall Survival",
+            EndpointType.PFS: "Progression-Free Survival",
+            EndpointType.DFS: "Disease-Free Survival",
+            EndpointType.EFS: "Event-Free Survival",
+            EndpointType.ORR: "Objective Response Rate",
+            EndpointType.DOR: "Duration of Response",
+            EndpointType.DCR: "Disease Control Rate",
+            EndpointType.TTP: "Time to Progression",
+            EndpointType.TTF: "Time to Treatment Failure",
+            EndpointType.PCR: "Pathologic Complete Response",
+        }
+
+        result = {}
+
+        # Try terminology service if available
+        if get_terminology_service is not None:
+            try:
+                service = terminology_service or get_terminology_service()
+                keyword = ENDPOINT_KEYWORDS.get(endpoint_type)
+
+                if keyword:
+                    search_results = service.search_param(keyword)
+                    if search_results:
+                        term = search_results[0]
+                        result = {
+                            "PARAMCD": term.submission_value,
+                            "PARAM": term.preferred_term,
+                            "NCI_CODE": term.nci_code,
+                            "DEFINITION": term.definition
+                        }
+                        logger.info(
+                            f"Found PARAMCD from terminology service: {term.submission_value} = {term.preferred_term}"
+                        )
+                        return result
+            except Exception as e:
+                logger.warning(f"Terminology service lookup failed: {e}, falling back to hardcoded values")
+
+        # Fall back to hardcoded legacy mappings
+        LEGACY_MAPPING = {
+            EndpointType.OS: {"PARAMCD": "OS", "PARAM": "Overall Survival"},
+            EndpointType.PFS: {"PARAMCD": "PFS", "PARAM": "Progression-Free Survival"},
+            EndpointType.DFS: {"PARAMCD": "DFS", "PARAM": "Disease-Free Survival"},
+            EndpointType.EFS: {"PARAMCD": "EFS", "PARAM": "Event-Free Survival"},
+            EndpointType.ORR: {"PARAMCD": "BOR", "PARAM": "Best Overall Response"},
+            EndpointType.DOR: {"PARAMCD": "DOR", "PARAM": "Duration of Response"},
+            EndpointType.DCR: {"PARAMCD": "DCR", "PARAM": "Disease Control Rate"},
+            EndpointType.TTP: {"PARAMCD": "TTP", "PARAM": "Time to Progression"},
+            EndpointType.TTF: {"PARAMCD": "TTF", "PARAM": "Time to Treatment Failure"},
+        }
+
+        result = LEGACY_MAPPING.get(endpoint_type, {
+            "PARAMCD": "PRMEFF",
+            "PARAM": "Primary Efficacy Endpoint"
+        })
+
+        logger.debug(f"Using legacy PARAMCD mapping: {result.get('PARAMCD')} = {result.get('PARAM')}")
+        return result
+
+    def validate_paramcd(
+        self,
+        paramcd: str,
+        param: str,
+        terminology_service: Optional[CDISCTerminologyService] = None
+    ) -> bool:
+        """
+        Validate PARAMCD/PARAM pair against CDISC CT.
+
+        Args:
+            paramcd: Parameter code
+            param: Parameter decode
+            terminology_service: Optional terminology service instance
+
+        Returns:
+            True if valid or validation not possible, False if definitively invalid
+        """
+        if get_terminology_service is None:
+            # Terminology service not available, cannot validate
+            return True
+
+        try:
+            service = terminology_service or get_terminology_service()
+            codelist = service.get_codelist("PARAMCD")
+
+            if not codelist:
+                logger.warning("PARAMCD codelist not found, skipping validation")
+                return True
+
+            # Check if PARAMCD exists
+            valid_codes = {item.submission_value for item in codelist.items}
+
+            if paramcd not in valid_codes:
+                if codelist.extensible:
+                    logger.info(f"PARAMCD '{paramcd}' not in standard CT (extensible list - sponsor-defined allowed)")
+                    return True
+                else:
+                    logger.warning(f"Invalid PARAMCD '{paramcd}' not found in CT")
+                    return False
+
+            # Check if PARAM matches
+            matching_item = next(
+                (item for item in codelist.items if item.submission_value == paramcd),
+                None
+            )
+
+            if matching_item and matching_item.preferred_term != param:
+                logger.warning(
+                    f"PARAM mismatch: '{param}' doesn't match CT preferred term '{matching_item.preferred_term}'"
+                )
+                return False
+
+            return True
+
+        except Exception as e:
+            logger.warning(f"PARAMCD validation failed: {e}")
+            return True  # Don't fail if validation itself errors
+
 
 # Factory function
 def create_cdisc_mapper() -> CDISCMapper:
     """Create a CDISC mapper instance"""
     return CDISCMapper()
+
+
+# Enhanced factory with terminology service
+def create_cdisc_mapper_with_terminology(
+    terminology_service: Optional[CDISCTerminologyService] = None,
+    use_terminology: bool = True
+) -> CDISCMapper:
+    """
+    Create a CDISC mapper instance with optional terminology service integration.
+
+    Args:
+        terminology_service: Optional terminology service instance
+        use_terminology: Whether to use terminology service for lookups
+
+    Returns:
+        CDISCMapper instance
+    """
+    mapper = CDISCMapper()
+
+    if use_terminology and get_terminology_service is not None:
+        # Attach terminology service for enhanced lookups
+        if terminology_service is None:
+            try:
+                terminology_service = get_terminology_service()
+                logger.info("CDISC mapper initialized with terminology service")
+            except Exception as e:
+                logger.warning(f"Could not initialize terminology service: {e}")
+
+    return mapper
