@@ -1022,8 +1022,25 @@ export default function JobDetailPage() {
                       Copy to Clipboard
                     </button>
                   </div>
-                  <div className="prose max-w-none markdown-body overflow-auto max-h-[600px] border rounded-lg p-6 bg-gray-50">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.generated_sap}</ReactMarkdown>
+                  <div className="overflow-auto max-h-[600px] border rounded-lg p-6 bg-gray-50">
+                    {result.generated_sap.includes('## 12. APPENDICES') && result.generated_sap.includes('TABLE 14.') ? (
+                      <>
+                        {/* Render sections 1-11 with markdown */}
+                        <div className="prose max-w-none markdown-body">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {result.generated_sap.split('## 12. APPENDICES')[0]}
+                          </ReactMarkdown>
+                        </div>
+                        {/* Render Section 12 (TLF tables) as preformatted text */}
+                        <pre className="whitespace-pre font-mono text-xs mt-6 bg-white p-4 rounded border overflow-x-auto leading-tight">
+                          {'## 12. APPENDICES' + result.generated_sap.split('## 12. APPENDICES')[1]}
+                        </pre>
+                      </>
+                    ) : (
+                      <div className="prose max-w-none markdown-body">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.generated_sap}</ReactMarkdown>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
