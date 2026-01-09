@@ -270,18 +270,15 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
             elif is_secondary:
                 secondary_endpoints.append(desc[:150])
 
-    # Set default treatment arm names if none found
-    if len(treatment_arms) < 2:
-        treatment_arms = ["Treatment A", "Treatment B"]
+    # NO FALLBACK - Use extracted treatment arm names as-is
+    # If not found, use placeholder that indicates missing data
+    arm1 = treatment_arms[0][:25] if len(treatment_arms) > 0 else "[TREATMENT ARM 1 - NOT EXTRACTED]"
+    arm2 = treatment_arms[1][:25] if len(treatment_arms) > 1 else "[TREATMENT ARM 2 - NOT EXTRACTED]"
 
-    # Truncate arm names for table formatting (max 25 chars)
-    arm1 = treatment_arms[0][:25] if len(treatment_arms) > 0 else "Treatment A"
-    arm2 = treatment_arms[1][:25] if len(treatment_arms) > 1 else "Treatment B"
-
-    # Format sample sizes
-    n1 = sample_size_per_arm if sample_size_per_arm != "XXX" else "XXX"
-    n2 = sample_size_per_arm if sample_size_per_arm != "XXX" else "XXX"
-    n_total = sample_size_total if sample_size_total != "XXX" else "XXX"
+    # NO FALLBACK - Use extracted sample sizes as-is
+    n1 = sample_size_per_arm
+    n2 = sample_size_per_arm
+    n_total = sample_size_total
 
     print(f"[TLF-INJECT] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints", flush=True)
     print(f"[TLF-INJECT] Treatment arms: {arm1} vs {arm2}", flush=True)

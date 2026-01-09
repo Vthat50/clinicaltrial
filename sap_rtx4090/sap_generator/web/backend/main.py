@@ -3559,17 +3559,15 @@ async def process_jobs_worker():
                                 elif is_secondary:
                                     secondary_eps.append(desc[:150])
 
-                        # Set default treatment arm names if none found
-                        if len(treatment_arms) < 2:
-                            treatment_arms = ["Treatment A", "Treatment B"]
-
-                        arm1 = treatment_arms[0][:25] if len(treatment_arms) > 0 else "Treatment A"
-                        arm2 = treatment_arms[1][:25] if len(treatment_arms) > 1 else "Treatment B"
+                        # NO FALLBACK - Use extracted treatment arm names as-is
+                        arm1 = treatment_arms[0][:25] if len(treatment_arms) > 0 else "[TREATMENT ARM 1 - NOT EXTRACTED]"
+                        arm2 = treatment_arms[1][:25] if len(treatment_arms) > 1 else "[TREATMENT ARM 2 - NOT EXTRACTED]"
                         arm1_padded = arm1[:15].ljust(15)
                         arm2_padded = arm2[:15].ljust(15)
-                        n1 = sample_size_per_arm if sample_size_per_arm != "XXX" else "XXX"
-                        n2 = sample_size_per_arm if sample_size_per_arm != "XXX" else "XXX"
-                        n_total = sample_size_total if sample_size_total != "XXX" else "XXX"
+                        # NO FALLBACK - Use extracted sample sizes as-is
+                        n1 = sample_size_per_arm
+                        n2 = sample_size_per_arm
+                        n_total = sample_size_total
 
                         print(f"  [MAIN.PY] Treatment arms: {arm1} vs {arm2}")
                         print(f"  [MAIN.PY] Sample size: {n_total} total, {n1} per arm")
