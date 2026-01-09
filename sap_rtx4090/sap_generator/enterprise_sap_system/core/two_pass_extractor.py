@@ -634,18 +634,16 @@ Program: f_forest_subgroup.sas
     has_section_12 = section_12_start >= 0
 
     # Check for PROPER TLF tables in Section 12
+    # ONLY accept our mock data format - NOT Claude's markdown tables
     if has_section_12:
         section_12_text = sap_text[section_12_start:]
-        # Check for NEW mock data format (TABLE 14.x.x with xxx placeholders)
-        has_mock_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
-        # Also check for OLD markdown format for backwards compatibility
-        has_markdown_tables = '|--' in section_12_text and '--|' in section_12_text
-        has_proper_tables = has_mock_tables or has_markdown_tables
+        # Check for our mock data format (TABLE 14.x.x with xxx placeholders)
+        has_proper_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
     else:
         has_proper_tables = False
 
     if has_section_12 and has_proper_tables:
-        print(f"[TLF-INJECT] Section 12 already has proper TLF tables at position {section_12_start}, keeping existing")
+        print(f"[TLF-INJECT] Section 12 already has proper mock data TLF tables at position {section_12_start}, keeping existing")
         return sap_text
 
     print(f"[TLF-INJECT] Section 12 exists: {has_section_12} (pos {section_12_start}), has proper TLF tables: {has_proper_tables}")

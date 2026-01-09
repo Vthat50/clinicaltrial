@@ -3487,15 +3487,12 @@ async def process_jobs_worker():
 
                     if section_12_start >= 0:
                         section_12_text = sap_text[section_12_start:]
-                        # Check for NEW mock data format (TABLE 14.x.x with xxx placeholders)
-                        has_mock_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
-                        # Also check for OLD markdown format for backwards compatibility
-                        has_markdown_tables = '|--' in section_12_text and '--|' in section_12_text
-                        has_proper_tables = has_mock_tables or has_markdown_tables
+                        # ONLY accept our mock data format - NOT Claude's markdown tables
+                        has_proper_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
                     else:
                         has_proper_tables = False
 
-                    print(f"  [MAIN.PY] Section 12 at pos {section_12_start}, has proper TLF tables: {has_proper_tables}", flush=True)
+                    print(f"  [MAIN.PY] Section 12 at pos {section_12_start}, has proper mock data TLF tables: {has_proper_tables}", flush=True)
 
                     if not has_proper_tables:
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
