@@ -235,7 +235,8 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
 
     print(f"[TLF-INJECT] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints", flush=True)
 
-    # Build TLF section content
+    # Build TLF section content with PROPER MOCK DATA TABLE SHELLS
+    # Format matches ground truth SAPs with xxx placeholders
     tlf_content = []
     tlf_content.append("\n\n## 12. APPENDICES\n")
     tlf_content.append("### 12.1 Statistical Model Specifications\n")
@@ -243,88 +244,335 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
     tlf_content.append("\n### 12.2 Tables, Listings, and Figures Specifications\n")
     tlf_content.append("\nThe following TLF shells define the statistical outputs for this study:\n")
 
-    # Demographics Table
-    tlf_content.append("\n#### Table 14.1.1: Demographics and Baseline Characteristics\n")
-    tlf_content.append("| Column | Width | Alignment | Source |\n")
-    tlf_content.append("|--------|-------|-----------|--------|\n")
-    tlf_content.append("| Characteristic | 2.5in | Left | ADSL |\n")
-    tlf_content.append("| Treatment A (N=xxx) | 1.3in | Center | ADSL |\n")
-    tlf_content.append("| Treatment B (N=xxx) | 1.3in | Center | ADSL |\n")
-    tlf_content.append("| Total (N=xxx) | 1.3in | Center | ADSL |\n")
-    tlf_content.append("\n**Population:** ITT Population\n")
-    tlf_content.append("**Programming Notes:** Use PROC MEANS for continuous, PROC FREQ for categorical variables.\n")
+    # ========== TABLE 14.1.1: DEMOGRAPHICS ==========
+    tlf_content.append("""
+TABLE 14.1.1  DEMOGRAPHIC AND BASELINE CHARACTERISTICS
+ITT POPULATION
 
-    # Disposition Table
-    tlf_content.append("\n#### Table 14.1.2: Subject Disposition\n")
-    tlf_content.append("| Column | Width | Alignment | Source |\n")
-    tlf_content.append("|--------|-------|-----------|--------|\n")
-    tlf_content.append("| Disposition Category | 2.5in | Left | ADSL |\n")
-    tlf_content.append("| Treatment A n (%) | 1.3in | Center | ADSL |\n")
-    tlf_content.append("| Treatment B n (%) | 1.3in | Center | ADSL |\n")
-    tlf_content.append("\n**Population:** All Randomized Subjects\n")
+                                    TREATMENT A     TREATMENT B     TOTAL
+STATISTIC                           (N=XXX)         (N=XXX)         (N=XXX)
+---------------------------------------------------------------------------
 
-    # Primary Endpoint Tables
+AGE (YEARS)
+  N                                 xxx             xxx             xxx
+  Mean                              xx.x            xx.x            xx.x
+  SD                                xx.xx           xx.xx           xx.xx
+  Median                            xx.x            xx.x            xx.x
+  Min, Max                          xx, xx          xx, xx          xx, xx
+
+SEX - N (%)
+  Male                              xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Female                            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+RACE - N (%)
+  White                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Black or African American         xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Asian                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Other                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+ETHNICITY - N (%)
+  Hispanic or Latino                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Not Hispanic or Latino            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+ECOG PERFORMANCE STATUS - N (%)
+  0                                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  1                                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+WEIGHT (KG)
+  N                                 xxx             xxx             xxx
+  Mean (SD)                         xx.x (xx.xx)    xx.x (xx.xx)    xx.x (xx.xx)
+
+Source: ADSL
+Program: t_dm_baseline.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== TABLE 14.1.2: DISPOSITION ==========
+    tlf_content.append("""
+TABLE 14.1.2  SUBJECT DISPOSITION
+ALL RANDOMIZED SUBJECTS
+
+                                    TREATMENT A     TREATMENT B     TOTAL
+DISPOSITION CATEGORY                (N=XXX)         (N=XXX)         (N=XXX)
+---------------------------------------------------------------------------
+
+RANDOMIZED                          xxx (100.0%)    xxx (100.0%)    xxx (100.0%)
+
+TREATED                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+COMPLETED STUDY                     xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+DISCONTINUED - N (%)                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Adverse Event                     xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Disease Progression               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Withdrawal by Subject             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Death                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Lost to Follow-up                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Protocol Deviation                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Other                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+Source: ADSL
+Program: t_disposition.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== PRIMARY ENDPOINT TABLES ==========
     for i, endpoint in enumerate(primary_endpoints[:3], start=1):
-        tlf_content.append(f"\n#### Table 14.2.{i}: Primary Efficacy Analysis - {endpoint}\n")
-        tlf_content.append("| Column | Width | Alignment | Source |\n")
-        tlf_content.append("|--------|-------|-----------|--------|\n")
-        tlf_content.append("| Statistic | 2.5in | Left | ADTTE/ADEFF |\n")
-        tlf_content.append("| Treatment A | 1.5in | Center | ADTTE/ADEFF |\n")
-        tlf_content.append("| Treatment B | 1.5in | Center | ADTTE/ADEFF |\n")
-        tlf_content.append("\n**Population:** ITT Population\n")
-        tlf_content.append("**Analysis:** Per primary analysis methodology in Section 6.\n")
+        short_ep = endpoint[:80] if len(endpoint) > 80 else endpoint
+        tlf_content.append(f"""
+TABLE 14.2.{i}  PRIMARY EFFICACY ANALYSIS - {short_ep.upper()}
+ITT POPULATION
 
-    # Secondary Endpoint Tables
+                                    TREATMENT A     TREATMENT B
+STATISTIC                           (N=XXX)         (N=XXX)
+---------------------------------------------------------------------------
+
+NUMBER OF EVENTS                    xxx             xxx
+NUMBER CENSORED                     xxx             xxx
+
+KAPLAN-MEIER ESTIMATES
+  Median (months)                   xx.x            xx.x
+  95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
+
+  6-Month Rate (%)                  xx.x            xx.x
+  95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
+
+  12-Month Rate (%)                 xx.x            xx.x
+  95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
+
+COX PROPORTIONAL HAZARDS MODEL
+  Hazard Ratio                      x.xxx
+  95% CI                            (x.xxx, x.xxx)
+  P-value (stratified log-rank)     x.xxxx
+
+Source: ADTTE
+Program: t_tte_primary.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== SECONDARY ENDPOINT TABLES ==========
     for i, endpoint in enumerate(secondary_endpoints[:2], start=1):
-        idx = len(primary_endpoints) + i
-        tlf_content.append(f"\n#### Table 14.2.{idx}: Secondary Efficacy - {endpoint}\n")
-        tlf_content.append("| Column | Width | Alignment | Source |\n")
-        tlf_content.append("|--------|-------|-----------|--------|\n")
-        tlf_content.append("| Parameter | 2.0in | Left | ADEFF |\n")
-        tlf_content.append("| Treatment A | 1.5in | Center | ADEFF |\n")
-        tlf_content.append("| Treatment B | 1.5in | Center | ADEFF |\n")
-        tlf_content.append("\n**Population:** ITT Population\n")
+        idx = len(primary_endpoints[:3]) + i
+        short_ep = endpoint[:80] if len(endpoint) > 80 else endpoint
+        tlf_content.append(f"""
+TABLE 14.2.{idx}  SECONDARY EFFICACY ANALYSIS - {short_ep.upper()}
+ITT POPULATION
 
-    # Safety Tables
-    tlf_content.append("\n#### Table 14.3.1: Overall Summary of Treatment-Emergent Adverse Events\n")
-    tlf_content.append("| Column | Width | Alignment | Source |\n")
-    tlf_content.append("|--------|-------|-----------|--------|\n")
-    tlf_content.append("| AE Category | 2.5in | Left | ADAE |\n")
-    tlf_content.append("| Treatment A n (%) | 1.2in | Center | ADAE |\n")
-    tlf_content.append("| Treatment B n (%) | 1.2in | Center | ADAE |\n")
-    tlf_content.append("| Total n (%) | 1.2in | Center | ADAE |\n")
-    tlf_content.append("\n**Population:** Safety Population\n")
-    tlf_content.append("**Filter:** SAFFL='Y' and TRTEMFL='Y'\n")
+                                    TREATMENT A     TREATMENT B
+PARAMETER                           (N=XXX)         (N=XXX)
+---------------------------------------------------------------------------
 
-    tlf_content.append("\n#### Table 14.3.2: Serious Adverse Events\n")
-    tlf_content.append("| Column | Width | Alignment | Source |\n")
-    tlf_content.append("|--------|-------|-----------|--------|\n")
-    tlf_content.append("| SOC / Preferred Term | 3.0in | Left | ADAE |\n")
-    tlf_content.append("| Treatment A n (%) | 1.2in | Center | ADAE |\n")
-    tlf_content.append("| Treatment B n (%) | 1.2in | Center | ADAE |\n")
-    tlf_content.append("\n**Population:** Safety Population\n")
-    tlf_content.append("**Filter:** SAFFL='Y' and AESER='Y'\n")
+RESPONDERS - N (%)                  xxx (xx.x%)     xxx (xx.x%)
+  95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
 
-    # Figures
+COMPLETE RESPONSE - N (%)           xxx (xx.x%)     xxx (xx.x%)
+PARTIAL RESPONSE - N (%)            xxx (xx.x%)     xxx (xx.x%)
+STABLE DISEASE - N (%)              xxx (xx.x%)     xxx (xx.x%)
+PROGRESSIVE DISEASE - N (%)         xxx (xx.x%)     xxx (xx.x%)
+NOT EVALUABLE - N (%)               xxx (xx.x%)     xxx (xx.x%)
+
+ODDS RATIO                          x.xxx
+  95% CI                            (x.xxx, x.xxx)
+  P-value                           x.xxxx
+
+Source: ADRS/ADEFF
+Program: t_efficacy_secondary.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== TABLE 14.3.1: TEAE SUMMARY ==========
+    tlf_content.append("""
+TABLE 14.3.1  OVERALL SUMMARY OF TREATMENT-EMERGENT ADVERSE EVENTS
+SAFETY POPULATION
+
+                                    TREATMENT A     TREATMENT B     TOTAL
+AE CATEGORY                         (N=XXX)         (N=XXX)         (N=XXX)
+---------------------------------------------------------------------------
+
+ANY TEAE - N (%)                    xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+TEAE BY MAXIMUM SEVERITY
+  Grade 1                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Grade 2                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Grade 3                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Grade 4                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Grade 5 (Fatal)                   xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+GRADE >=3 TEAE - N (%)              xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+SERIOUS TEAE - N (%)                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+TEAE LEADING TO DISCONTINUATION     xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+TEAE LEADING TO DOSE MODIFICATION   xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+DRUG-RELATED TEAE - N (%)           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+DEATHS - N (%)                      xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+Source: ADAE
+Filter: SAFFL='Y' and TRTEMFL='Y'
+Program: t_ae_summary.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== TABLE 14.3.2: SERIOUS ADVERSE EVENTS ==========
+    tlf_content.append("""
+TABLE 14.3.2  SERIOUS ADVERSE EVENTS BY SYSTEM ORGAN CLASS AND PREFERRED TERM
+SAFETY POPULATION
+
+                                    TREATMENT A     TREATMENT B     TOTAL
+SYSTEM ORGAN CLASS                  (N=XXX)         (N=XXX)         (N=XXX)
+  PREFERRED TERM                    n (%)           n (%)           n (%)
+---------------------------------------------------------------------------
+
+ANY SERIOUS ADVERSE EVENT           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+BLOOD AND LYMPHATIC SYSTEM          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Febrile neutropenia               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Anaemia                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+GASTROINTESTINAL DISORDERS          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Diarrhoea                         xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Nausea                            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Vomiting                          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+GENERAL DISORDERS                   xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Fatigue                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Pyrexia                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+INFECTIONS AND INFESTATIONS         xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Pneumonia                         xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Sepsis                            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+Source: ADAE
+Filter: SAFFL='Y' and AESER='Y'
+Program: t_sae_soc_pt.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== TABLE 14.3.3: TEAE BY SOC/PT ==========
+    tlf_content.append("""
+TABLE 14.3.3  TREATMENT-EMERGENT ADVERSE EVENTS BY SYSTEM ORGAN CLASS AND PREFERRED TERM
+SAFETY POPULATION (EVENTS OCCURRING IN >=5% OF PATIENTS IN ANY GROUP)
+
+                                    TREATMENT A     TREATMENT B     TOTAL
+SYSTEM ORGAN CLASS                  (N=XXX)         (N=XXX)         (N=XXX)
+  PREFERRED TERM                    n (%)           n (%)           n (%)
+---------------------------------------------------------------------------
+
+BLOOD AND LYMPHATIC SYSTEM          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Anaemia                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Neutropenia                       xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Thrombocytopenia                  xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+GASTROINTESTINAL DISORDERS          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Nausea                            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Diarrhoea                         xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Vomiting                          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Constipation                      xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+GENERAL DISORDERS                   xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Fatigue                           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Asthenia                          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Peripheral oedema                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+SKIN AND SUBCUTANEOUS TISSUE        xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Rash                              xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Alopecia                          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  Pruritus                          xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+
+Source: ADAE
+Filter: SAFFL='Y' and TRTEMFL='Y'
+Program: t_ae_soc_pt.sas
+---------------------------------------------------------------------------
+""")
+
+    # ========== FIGURE SPECIFICATIONS ==========
     tlf_content.append("\n### 12.3 Figure Specifications\n")
 
     for i, endpoint in enumerate(primary_endpoints[:2], start=1):
-        tlf_content.append(f"\n#### Figure 14.2.{i}: Kaplan-Meier Plot - {endpoint}\n")
-        tlf_content.append("**Population:** ITT Population\n")
-        tlf_content.append("**X-axis:** Time (months)\n")
-        tlf_content.append("**Y-axis:** Survival Probability (0.0 to 1.0)\n")
-        tlf_content.append("**Elements:** KM curves by treatment, 95% CI bands, number at risk table\n")
-        tlf_content.append("**Programming:** PROC LIFETEST with PLOTS=SURVIVAL(ATRISK CB)\n")
+        short_ep = endpoint[:60] if len(endpoint) > 60 else endpoint
+        tlf_content.append(f"""
+FIGURE 14.2.{i}  KAPLAN-MEIER PLOT - {short_ep.upper()}
+ITT POPULATION
 
-    tlf_content.append("\n#### Figure 14.2.3: Forest Plot - Subgroup Analyses\n")
-    tlf_content.append("**Population:** ITT Population\n")
-    tlf_content.append("**Elements:** HR with 95% CI by subgroup, vertical reference line at HR=1\n")
-    tlf_content.append("**Subgroups:** Age (<65/≥65), Sex, ECOG PS, Geographic Region\n")
+  |
+1.0 +----*---*---*---*---*---*---*---*---*---*---*
+  |     \\
+  |      *---*---*---*---*---*---*---*---*  Treatment A (N=xxx)
+0.8 +           \\
+  |             *---*---*---*---*---*---*
+  |                  \\                        Treatment B (N=xxx)
+0.6 +                   *---*---*---*---*
+  |                        \\
+  |                         *---*---*---*
+0.4 +                              \\
+  |                               *---*---*
+  |
+0.2 +
+  |
+  |
+0.0 +----+----+----+----+----+----+----+----+----+----+
+    0    3    6    9   12   15   18   21   24   27   30
+                        Time (Months)
+
+Number at Risk:
+Treatment A:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
+Treatment B:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
+
+Statistics:
+  Treatment A: Median xx.x months (95% CI: xx.x, xx.x)
+  Treatment B: Median xx.x months (95% CI: xx.x, xx.x)
+  Hazard Ratio: x.xxx (95% CI: x.xxx, x.xxx)
+  Log-rank P-value: x.xxxx
+
+Source: ADTTE
+Program: f_km_primary.sas
+---------------------------------------------------------------------------
+""")
+
+    tlf_content.append("""
+FIGURE 14.2.3  FOREST PLOT - SUBGROUP ANALYSES FOR PRIMARY ENDPOINT
+ITT POPULATION
+
+                                    N       HR      95% CI
+SUBGROUP                           -----   -----   ---------------
+---------------------------------------------------------------------------
+                                                    |
+ALL PATIENTS                        xxx    x.xx    (x.xx, x.xx)  --*--
+                                                    |
+AGE                                                 |
+  <65 years                         xxx    x.xx    (x.xx, x.xx)   --*--
+  >=65 years                        xxx    x.xx    (x.xx, x.xx)  ---*---
+                                                    |
+SEX                                                 |
+  Male                              xxx    x.xx    (x.xx, x.xx)  --*--
+  Female                            xxx    x.xx    (x.xx, x.xx)   --*--
+                                                    |
+ECOG PERFORMANCE STATUS                             |
+  0                                 xxx    x.xx    (x.xx, x.xx)  --*--
+  1                                 xxx    x.xx    (x.xx, x.xx)   ---*---
+                                                    |
+GEOGRAPHIC REGION                                   |
+  North America                     xxx    x.xx    (x.xx, x.xx)  --*--
+  Europe                            xxx    x.xx    (x.xx, x.xx)   --*--
+  Asia                              xxx    x.xx    (x.xx, x.xx)  ---*---
+  Rest of World                     xxx    x.xx    (x.xx, x.xx)   ----*----
+                                                    |
+                                   0.25  0.5   1.0   2.0   4.0
+                                   <-- Favors Treatment A | Favors Treatment B -->
+
+Source: ADTTE
+Program: f_forest_subgroup.sas
+---------------------------------------------------------------------------
+""")
 
     tlf_content.append("\n\n---\nEND OF STATISTICAL ANALYSIS PLAN\n")
 
-    # Check if SAP already has Section 12 with MARKDOWN tables (not prose tables)
-    # IMPORTANT: Must check if tables are IN Section 12, not just anywhere in SAP
+    # Check if SAP already has Section 12 with PROPER TLF MOCK DATA TABLES
+    # Detect new format: TABLE 14.x.x with xxx placeholders
+    # Also accept old markdown format for backwards compatibility
     section_12_start = -1
     for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
         if marker in sap_text:
@@ -333,18 +581,22 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
 
     has_section_12 = section_12_start >= 0
 
-    # Check for markdown tables ONLY in Section 12 (not elsewhere in SAP)
+    # Check for PROPER TLF tables in Section 12
     if has_section_12:
         section_12_text = sap_text[section_12_start:]
+        # Check for NEW mock data format (TABLE 14.x.x with xxx placeholders)
+        has_mock_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
+        # Also check for OLD markdown format for backwards compatibility
         has_markdown_tables = '|--' in section_12_text and '--|' in section_12_text
+        has_proper_tables = has_mock_tables or has_markdown_tables
     else:
-        has_markdown_tables = False
+        has_proper_tables = False
 
-    if has_section_12 and has_markdown_tables:
-        print(f"[TLF-INJECT] Section 12 already has markdown tables at position {section_12_start}, keeping existing")
+    if has_section_12 and has_proper_tables:
+        print(f"[TLF-INJECT] Section 12 already has proper TLF tables at position {section_12_start}, keeping existing")
         return sap_text
 
-    print(f"[TLF-INJECT] Section 12 exists: {has_section_12} (pos {section_12_start}), has markdown tables IN Section 12: {has_markdown_tables}")
+    print(f"[TLF-INJECT] Section 12 exists: {has_section_12} (pos {section_12_start}), has proper TLF tables: {has_proper_tables}")
 
     # Remove ALL appendix sections (Claude sometimes writes multiple)
     # Order matters: check most specific patterns first
