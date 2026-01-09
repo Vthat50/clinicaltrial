@@ -321,13 +321,16 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
 
     tlf_content.append("\n\n---\nEND OF STATISTICAL ANALYSIS PLAN\n")
 
-    # Check if SAP already has Section 12 with content
+    # Check if SAP already has Section 12 with MARKDOWN tables (not prose tables)
     has_section_12 = any(marker in sap_text for marker in ['## 12.', '# 12.', '12. APPENDICES'])
-    has_table_14 = 'Table 14' in sap_text
+    # Must have actual markdown table syntax, not just "Table 14" text
+    has_markdown_tables = '|---|' in sap_text or '| Column |' in sap_text or '| Width |' in sap_text
 
-    if has_section_12 and has_table_14:
-        print(f"[TLF-INJECT] SAP already has Section 12 with tables, keeping existing")
+    if has_section_12 and has_markdown_tables:
+        print(f"[TLF-INJECT] SAP already has Section 12 with markdown tables, keeping existing")
         return sap_text
+
+    print(f"[TLF-INJECT] Section 12 exists: {has_section_12}, has markdown tables: {has_markdown_tables}")
 
     # Remove any incomplete Section 12 before appending
     for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
