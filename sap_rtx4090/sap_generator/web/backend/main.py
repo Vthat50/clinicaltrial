@@ -3328,24 +3328,71 @@ async def process_jobs_worker():
                     quality_score = validation_score * 100
 
                     # Extract info from discovered elements
+                    # MUST match logic in two_pass_extractor.py _detect_* methods
                     drug_name = ""
                     phase_str = ""
                     therapeutic_area = ""
                     endpoint_type_str = ""
 
                     for elem in discovered_elements:
-                        name = elem.get("name", "").lower()
-                        cat = elem.get("category", "")
-                        desc = elem.get("description", "")
+                        # Handle both dataclass and dict formats
+                        if hasattr(elem, 'name'):
+                            name = (elem.name or '').lower()
+                            cat = (elem.category or '').lower()
+                            desc = elem.description or ''
+                        else:
+                            name = (elem.get("name", "") or "").lower()
+                            cat = (elem.get("category", "") or "").lower()
+                            desc = elem.get("description", "") or ""
+                        desc_lower = desc.lower()
+                        combined = name + " " + desc_lower
 
+                        # Drug name extraction
                         if "drug" in name or "study drug" in name:
                             drug_name = desc[:50] if desc else ""
+
+                        # Phase extraction
                         if cat == "study_design" and "phase" in name:
                             phase_str = desc[:10] if desc else ""
-                        if "therapeutic" in name or "indication" in name:
-                            therapeutic_area = desc[:20] if desc else ""
-                        if cat == "endpoints" and "primary" in name:
-                            endpoint_type_str = desc[:10] if desc else ""
+
+                        # Therapeutic area - keyword-based detection
+                        if not therapeutic_area:
+                            if any(term in combined for term in ['cancer', 'tumor', 'carcinoma', 'melanoma', 'lymphoma', 'leukemia', 'oncology']):
+                                therapeutic_area = 'oncology'
+                            elif any(term in combined for term in ['colitis', 'crohn', 'inflammatory bowel', 'ibd', 'ulcerative']):
+                                therapeutic_area = 'ibd'
+                            elif any(term in combined for term in ['arthritis', 'rheumatoid', 'lupus', 'psoriatic']):
+                                therapeutic_area = 'rheumatology'
+
+                        # Endpoint type - keyword-based detection
+                        if not endpoint_type_str and cat == 'endpoints':
+                            if any(term in combined for term in ['survival', 'pfs', 'os', 'time-to-event', 'tte', 'progression-free', 'overall survival', 'kaplan-meier']):
+                                endpoint_type_str = 'time-to-event'
+                            elif any(term in combined for term in ['continuous', 'change from baseline', 'mmrm', 'score', 'index']):
+                                endpoint_type_str = 'continuous'
+                            elif any(term in combined for term in ['response rate', 'orr', 'remission', 'binary', 'proportion', 'responder']):
+                                endpoint_type_str = 'binary'
+
+                    # Fallback: if not found in elements, check protocol text (if available in job)
+                    if not therapeutic_area:
+                        protocol_lower = job.get("protocol_text", "").lower()[:50000]
+                        if any(term in protocol_lower for term in ['cancer', 'tumor', 'carcinoma', 'melanoma', 'lymphoma', 'oncology']):
+                            therapeutic_area = 'oncology'
+                        elif any(term in protocol_lower for term in ['colitis', 'crohn', 'inflammatory bowel', 'ibd']):
+                            therapeutic_area = 'ibd'
+                        elif any(term in protocol_lower for term in ['arthritis', 'rheumatoid', 'lupus']):
+                            therapeutic_area = 'rheumatology'
+                        else:
+                            therapeutic_area = 'general'
+
+                    if not endpoint_type_str:
+                        protocol_lower = job.get("protocol_text", "").lower()[:50000]
+                        if any(term in protocol_lower for term in ['progression-free survival', 'overall survival', 'time to event', 'kaplan-meier', 'pfs', ' os ']):
+                            endpoint_type_str = 'time-to-event'
+                        elif any(term in protocol_lower for term in ['change from baseline', 'mmrm', 'continuous endpoint']):
+                            endpoint_type_str = 'continuous'
+                        else:
+                            endpoint_type_str = 'binary'
 
                     pipeline_type = "two-pass"
 
