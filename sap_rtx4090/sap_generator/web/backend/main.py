@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v31 (FIX: Check tables IN Section 12, not entire SAP)")
+    print("  [VERSION] Build 2026-01-09-v32 (FIX: Check tables IN Section 12 + DEBUG logging)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
@@ -3318,6 +3318,15 @@ async def process_jobs_worker():
 
                 # TwoPassExtractor returns a dict with sap_text, validation, etc.
                 sap_text = result.get("sap_text", "")
+
+                # DEBUG: Check if TwoPassExtractor returned tables
+                print(f"  [DEBUG] SAP from TwoPassExtractor: {len(sap_text)} chars")
+                print(f"  [DEBUG] Contains '|--': {'|--' in sap_text}")
+                print(f"  [DEBUG] Contains '## 12.': {'## 12.' in sap_text}")
+                if '## 12.' in sap_text:
+                    sec12_pos = sap_text.find('## 12.')
+                    sec12_preview = sap_text[sec12_pos:sec12_pos+500]
+                    print(f"  [DEBUG] Section 12 preview: {sec12_preview[:200]}...")
 
                 if sap_text:
                     # TwoPassExtractor format
@@ -3625,6 +3634,18 @@ async def process_jobs_worker():
                         print(f"  [MAIN.PY] TLF INJECTED - SAP now {len(sap_text)} chars")
                     else:
                         print(f"  [MAIN.PY] Markdown tables already exist - keeping existing TLF")
+
+                    # DEBUG: Final check before saving to database
+                    print(f"  [DEBUG] FINAL SAP length: {len(sap_text)} chars")
+                    print(f"  [DEBUG] FINAL contains '|--': {'|--' in sap_text}")
+                    if '## 12.' in sap_text:
+                        final_sec12_pos = sap_text.find('## 12.')
+                        final_preview = sap_text[final_sec12_pos:final_sec12_pos+300]
+                        print(f"  [DEBUG] FINAL Section 12: {final_preview[:150]}...")
+                    else:
+                        print(f"  [DEBUG] FINAL SAP has NO Section 12!")
+                        # Print last 500 chars to see what's at the end
+                        print(f"  [DEBUG] FINAL SAP ending: ...{sap_text[-300:]}")
 
                     update_data = {
                         "status": "completed",
