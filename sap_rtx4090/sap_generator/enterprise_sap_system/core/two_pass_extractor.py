@@ -324,15 +324,27 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
     tlf_content.append("\n\n---\nEND OF STATISTICAL ANALYSIS PLAN\n")
 
     # Check if SAP already has Section 12 with MARKDOWN tables (not prose tables)
-    has_section_12 = any(marker in sap_text for marker in ['## 12.', '# 12.', '12. APPENDICES'])
-    # Check for markdown table separator - Claude uses |--------| format
-    has_markdown_tables = '|--' in sap_text and '--|' in sap_text
+    # IMPORTANT: Must check if tables are IN Section 12, not just anywhere in SAP
+    section_12_start = -1
+    for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
+        if marker in sap_text:
+            section_12_start = sap_text.find(marker)
+            break
+
+    has_section_12 = section_12_start >= 0
+
+    # Check for markdown tables ONLY in Section 12 (not elsewhere in SAP)
+    if has_section_12:
+        section_12_text = sap_text[section_12_start:]
+        has_markdown_tables = '|--' in section_12_text and '--|' in section_12_text
+    else:
+        has_markdown_tables = False
 
     if has_section_12 and has_markdown_tables:
-        print(f"[TLF-INJECT] SAP already has Section 12 with markdown tables, keeping existing")
+        print(f"[TLF-INJECT] Section 12 already has markdown tables at position {section_12_start}, keeping existing")
         return sap_text
 
-    print(f"[TLF-INJECT] Section 12 exists: {has_section_12}, has markdown tables: {has_markdown_tables}")
+    print(f"[TLF-INJECT] Section 12 exists: {has_section_12} (pos {section_12_start}), has markdown tables IN Section 12: {has_markdown_tables}")
 
     # Remove ALL appendix sections (Claude sometimes writes multiple)
     # Order matters: check most specific patterns first

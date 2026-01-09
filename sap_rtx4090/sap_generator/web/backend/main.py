@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v30 (Synced with local: tables, placeholders, metadata)")
+    print("  [VERSION] Build 2026-01-09-v31 (FIX: Check tables IN Section 12, not entire SAP)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
@@ -3467,9 +3467,21 @@ async def process_jobs_worker():
                             sap_text = sap_text.replace(placeholder, '')
                             print(f"  [MAIN.PY] Removed generic placeholder '{placeholder}'")
 
-                    # Check if MARKDOWN tables exist - Claude uses |--------| format
-                    has_markdown_tables = '|--' in sap_text and '--|' in sap_text
-                    print(f"  [MAIN.PY] Checking for markdown tables: {has_markdown_tables}", flush=True)
+                    # Check if MARKDOWN tables exist IN SECTION 12 (not elsewhere in SAP)
+                    # BUG FIX: Was checking entire SAP - tables in Section 6 would skip Section 12 injection
+                    section_12_start = -1
+                    for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
+                        if marker in sap_text:
+                            section_12_start = sap_text.find(marker)
+                            break
+
+                    if section_12_start >= 0:
+                        section_12_text = sap_text[section_12_start:]
+                        has_markdown_tables = '|--' in section_12_text and '--|' in section_12_text
+                    else:
+                        has_markdown_tables = False
+
+                    print(f"  [MAIN.PY] Section 12 at pos {section_12_start}, has markdown tables IN Section 12: {has_markdown_tables}", flush=True)
 
                     if not has_markdown_tables:
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
