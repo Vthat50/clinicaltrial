@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v18-ROOT-CAUSE-FIX-2026-01-08")
+print("BUILD: v21-DEBUG-BOUNDARY-EXTRACTION-2026-01-09")
 print("FEATURE: Discovery prompt requires 'Primary endpoint:' prefix")
-print("FEATURE: SAP prompt forbids placeholder text")
+print("FEATURE: Debug logging for boundary extraction API response")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-08-v18 (Root cause fix - prompt requires Primary prefix)")
+    print("  [VERSION] Build 2026-01-09-v21 (Debug boundary extraction API response)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")

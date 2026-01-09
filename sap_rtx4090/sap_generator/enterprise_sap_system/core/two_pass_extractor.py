@@ -2043,7 +2043,18 @@ Return ONLY valid JSON, no explanation."""
                     max_tokens=1000,
                     messages=[{"role": "user", "content": extraction_prompt}]
                 )
-                response_text = response.content[0].text
+                # Debug: Log response structure
+                print(f"  [Extraction] Response stop_reason: {response.stop_reason}")
+                print(f"  [Extraction] Response content blocks: {len(response.content) if response.content else 0}")
+                if response.content:
+                    for i, block in enumerate(response.content):
+                        print(f"  [Extraction] Block {i} type: {block.type}")
+                response_text = response.content[0].text if response.content else ""
+
+            # Debug: Log raw response
+            print(f"  [Extraction] Raw response length: {len(response_text) if response_text else 0} chars")
+            if not response_text:
+                raise ValueError(f"Empty response from API - stop_reason={response.stop_reason if not _USE_OPENAI else 'n/a'}")
 
             # Parse JSON response
             response_text = response_text.strip()
@@ -2051,7 +2062,16 @@ Return ONLY valid JSON, no explanation."""
                 lines = response_text.split("\n")
                 response_text = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
 
-            extracted = json.loads(response_text)
+            if not response_text.strip():
+                raise ValueError("Empty JSON after stripping code fences")
+
+            try:
+                extracted = json.loads(response_text)
+            except json.JSONDecodeError as json_err:
+                # Log what we got so we can debug
+                print(f"  [!] JSON parse error: {json_err}")
+                print(f"  [!] Response was: {response_text[:500]}")
+                raise
 
             phase = extracted.get('phase')
 
@@ -2077,7 +2097,7 @@ Return ONLY valid JSON, no explanation."""
             return inputs
 
         except Exception as e:
-            print(f"  [!] Claude extraction failed: {e}, trying LlamaExtract fallback")
+            print(f"  [!] Claude extraction failed: {e}")
 
         # Fallback: Use LlamaExtract with Pydantic schema
         try:
