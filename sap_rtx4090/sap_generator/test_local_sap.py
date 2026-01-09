@@ -28,9 +28,10 @@ print("CHECKING SAP OUTPUT")
 print("=" * 70)
 print(f"SAP length: {len(sap_text)} chars")
 
-# Check for markdown tables
-has_markdown = '|---|' in sap_text
-print(f"Has markdown tables (|---|): {has_markdown}")
+# Check for markdown tables - Claude uses |--------| format, not |---|
+has_markdown = '|--' in sap_text and '--|' in sap_text
+table_count = sap_text.count('|--')
+print(f"Has markdown tables: {has_markdown} (found {table_count} table rows)")
 
 # Check for placeholders
 has_placeholder = '[Primary endpoint as specified]' in sap_text
