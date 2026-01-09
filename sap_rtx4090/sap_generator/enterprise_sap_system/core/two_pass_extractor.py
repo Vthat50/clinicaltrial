@@ -200,7 +200,9 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
     This GUARANTEES tables appear in the output regardless of what Claude generates.
     Called after stripping to ensure Section 12 has proper TLF content.
     """
-    print(f"[TLF-INJECT] ====== INJECTING TLF TABLES ======")
+    import sys
+    print(f"[TLF-INJECT] ====== INJECTING TLF TABLES ======", flush=True)
+    sys.stdout.flush()
 
     # Extract endpoints from discovered elements
     primary_endpoints = []
@@ -231,7 +233,7 @@ def inject_tlf_tables(sap_text: str, discovered_elements: list) -> str:
             elif is_secondary:
                 secondary_endpoints.append(desc[:150])
 
-    print(f"[TLF-INJECT] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints")
+    print(f"[TLF-INJECT] Found {len(primary_endpoints)} primary, {len(secondary_endpoints)} secondary endpoints", flush=True)
 
     # Build TLF section content
     tlf_content = []
@@ -1696,7 +1698,16 @@ class TwoPassExtractor:
         sap_text = replace_placeholders(sap_text, discovered_elements)
 
         # 3. INJECT TLF TABLES - Guarantees tables appear regardless of what Claude generates
-        sap_text = inject_tlf_tables(sap_text, discovered_elements)
+        print(f"[generate_sap] ABOUT TO CALL inject_tlf_tables", flush=True)
+        sys.stdout.flush()
+        try:
+            sap_text = inject_tlf_tables(sap_text, discovered_elements)
+            print(f"[generate_sap] FINISHED inject_tlf_tables, SAP length: {len(sap_text)}", flush=True)
+        except Exception as tlf_err:
+            print(f"[generate_sap] ERROR in inject_tlf_tables: {tlf_err}", flush=True)
+            import traceback
+            traceback.print_exc()
+        sys.stdout.flush()
 
         if verbose:
             print(f"[PostProcess] SAP post-processing complete (with TLF injection)")

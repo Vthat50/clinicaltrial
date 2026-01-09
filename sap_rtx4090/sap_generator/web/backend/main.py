@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v21-DEBUG-BOUNDARY-EXTRACTION-2026-01-09")
-print("FEATURE: Discovery prompt requires 'Primary endpoint:' prefix")
-print("FEATURE: Debug logging for boundary extraction API response")
+print("BUILD: v22-FIX-WORKER-TABLE-CHECK-2026-01-09")
+print("FEATURE: Worker checks for markdown tables (|---|), not just 'Table 14' text")
+print("ROOT CAUSE: Worker was skipping TLF injection because Claude wrote 'Table 14' in prose")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v21 (Debug boundary extraction API response)")
+    print("  [VERSION] Build 2026-01-09-v22 (Fix: check markdown tables, not 'Table 14' text)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
@@ -3388,10 +3388,12 @@ async def process_jobs_worker():
                                 sap_text = sap_text.replace(placeholder, primary_endpoint_name)
                                 print(f"  [MAIN.PY] Replaced '{placeholder}'")
 
-                    # Check if tables exist
-                    has_tables = "Table 14" in sap_text
+                    # Check if MARKDOWN tables exist (not just "Table 14" text)
+                    # Claude often writes "Table 14" in prose but not actual markdown tables
+                    has_markdown_tables = '|---|' in sap_text or '| Column |' in sap_text or '| Width |' in sap_text
+                    print(f"  [MAIN.PY] Checking for markdown tables: {has_markdown_tables}", flush=True)
 
-                    if not has_tables:
+                    if not has_markdown_tables:
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
 
                         # Extract endpoints from discovered elements
@@ -3459,7 +3461,7 @@ async def process_jobs_worker():
                         sap_text = sap_text + tlf
                         print(f"  [MAIN.PY] TLF INJECTED - SAP now {len(sap_text)} chars")
                     else:
-                        print(f"  [MAIN.PY] Table 14 already exists - keeping existing TLF")
+                        print(f"  [MAIN.PY] Markdown tables already exist - keeping existing TLF")
 
                     update_data = {
                         "status": "completed",
