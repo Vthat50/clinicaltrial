@@ -3352,41 +3352,72 @@ async def process_jobs_worker():
                     # =========================================================
                     # REPLACE PLACEHOLDER TEXT WITH ACTUAL ENDPOINTS
                     # Requires "primary" keyword (enforced by discovery prompt)
+                    # MUST match logic in two_pass_extractor.py replace_placeholders()
                     # =========================================================
-                    print(f"  [MAIN.PY] v18 - Placeholder replacement...")
+                    print(f"  [MAIN.PY] v28 - Placeholder replacement (synced with local)...")
 
                     primary_endpoint_name = None
                     for elem in discovered_elements:
-                        cat = (elem.get("category", "") or "").lower()
-                        name = (elem.get("name", "") or "").lower()
-                        desc = elem.get("description", "") or elem.get("name", "") or ""
+                        # Handle both dataclass and dict formats
+                        if hasattr(elem, 'category'):
+                            cat = (elem.category or '').lower()
+                            name = (elem.name or '').lower()
+                            desc = elem.description or elem.name or ''
+                        else:
+                            cat = (elem.get("category", "") or "").lower()
+                            name = (elem.get("name", "") or "").lower()
+                            desc = elem.get("description", "") or elem.get("name", "") or ""
                         desc_lower = desc.lower()
 
-                        endpoint_text = desc[:100] if desc else None
+                        # Get usable endpoint text (NO truncation - use full description)
+                        endpoint_text = desc if desc else None
                         if not endpoint_text:
                             continue
 
-                        # Discovery prompt requires "Primary endpoint:" prefix
+                        # Only consider endpoint elements (category=endpoints OR "endpoint" in name)
+                        is_endpoint = cat == 'endpoints' or 'endpoint' in name
+
+                        # Check for "primary" keyword
                         has_primary = "primary" in cat or "primary" in name or "primary" in desc_lower
-                        if has_primary:
+
+                        # Must be BOTH an endpoint AND have "primary"
+                        if is_endpoint and has_primary:
                             primary_endpoint_name = endpoint_text
-                            print(f"  [MAIN.PY] Found primary: {endpoint_text[:60]}")
+                            print(f"  [MAIN.PY] Found primary endpoint: {endpoint_text[:60]}")
                             break
 
                     if not primary_endpoint_name:
                         print(f"  [MAIN.PY] WARNING: No primary endpoint found in discovered elements")
                     else:
-                        # Replace ALL placeholder patterns with actual endpoint
+                        # Replace ALL placeholder patterns with actual endpoint (6 patterns)
                         placeholders = [
                             "[Primary endpoint as specified]",
                             "[Primary endpoint]",
                             "[ENDPOINT]",
                             "[endpoint]",
+                            "[specify endpoint]",
+                            "[primary endpoint as specified]",
                         ]
                         for placeholder in placeholders:
                             if placeholder in sap_text:
                                 sap_text = sap_text.replace(placeholder, primary_endpoint_name)
                                 print(f"  [MAIN.PY] Replaced '{placeholder}'")
+
+                    # Remove generic placeholders entirely (8 patterns)
+                    remove_placeholders = [
+                        '[specify timepoints]',
+                        '[specify timepoint]',
+                        '[specify visits]',
+                        '[specify visit]',
+                        '[as specified]',
+                        '[TBD]',
+                        '[To be specified]',
+                        '[to be specified]',
+                    ]
+                    for placeholder in remove_placeholders:
+                        if placeholder in sap_text:
+                            sap_text = sap_text.replace(placeholder, '')
+                            print(f"  [MAIN.PY] Removed generic placeholder '{placeholder}'")
 
                     # Check if MARKDOWN tables exist - Claude uses |--------| format
                     has_markdown_tables = '|--' in sap_text and '--|' in sap_text
