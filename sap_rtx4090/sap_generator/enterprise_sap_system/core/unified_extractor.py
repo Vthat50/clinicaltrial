@@ -20,9 +20,21 @@ import re
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass, field
 
-from .api_extractor import ClinicalTrialsAPIExtractor, APIExtractedFacts
 from .section_parser import ProtocolSectionParser, ParsedProtocol
 from .llm_extractor import LLMExtractor, LLMExtractedFacts
+
+# Use registry router for multi-registry support
+try:
+    from .registries.registry_router import RegistryRouter, get_registry_router
+    REGISTRY_ROUTER_AVAILABLE = True
+except ImportError:
+    REGISTRY_ROUTER_AVAILABLE = False
+    # Fallback to old API extractor
+    try:
+        from .api_extractor import ClinicalTrialsAPIExtractor
+        LEGACY_API_AVAILABLE = True
+    except ImportError:
+        LEGACY_API_AVAILABLE = False
 
 # Keep StructuredFactExtractor as fallback for fields not covered
 try:
@@ -145,14 +157,28 @@ class UnifiedExtractor:
         self.verbose = verbose
 
         # Initialize extractors
-        self.api_extractor = ClinicalTrialsAPIExtractor() if use_api else None
+        if use_api:
+            if REGISTRY_ROUTER_AVAILABLE:
+                self.registry_router = get_registry_router()
+                self.api_extractor = None  # Use router instead
+            elif LEGACY_API_AVAILABLE:
+                from .api_extractor import ClinicalTrialsAPIExtractor
+                self.api_extractor = ClinicalTrialsAPIExtractor()
+                self.registry_router = None
+            else:
+                self.api_extractor = None
+                self.registry_router = None
+        else:
+            self.api_extractor = None
+            self.registry_router = None
+
         self.section_parser = ProtocolSectionParser()
         self.llm_extractor = LLMExtractor() if use_llm else None
         self.regex_extractor = StructuredFactExtractor() if use_regex_fallback and REGEX_FALLBACK_AVAILABLE else None
 
         if verbose:
             print("[UnifiedExtractor] Initialized")
-            print(f"  API: {'enabled' if use_api else 'disabled'}")
+            print(f"  Registry API: {'enabled (multi-registry)' if self.registry_router else ('enabled (legacy)' if self.api_extractor else 'disabled')}")
             print(f"  LLM: {'enabled' if use_llm else 'disabled'}")
             print(f"  Regex fallback: {'enabled' if use_regex_fallback and REGEX_FALLBACK_AVAILABLE else 'disabled'}")
 
@@ -189,9 +215,110 @@ class UnifiedExtractor:
         nct_id: Optional[str],
         facts: UnifiedFacts
     ) -> UnifiedFacts:
-        """Layer 1: Extract from ClinicalTrials.gov API"""
+        """Layer 1: Extract from registry APIs (multi-registry support)"""
         if self.verbose:
-            print("[Layer 1] Fetching from ClinicalTrials.gov API...")
+            print("[Layer 1] Fetching from registry API...")
+
+        # Use registry router if available, otherwise fall back to legacy
+        if self.registry_router:
+            return self._extract_from_registry_router(protocol_text, nct_id, facts)
+        elif self.api_extractor:
+            return self._extract_from_legacy_api(protocol_text, nct_id, facts)
+        else:
+            facts.warnings.append("No API extractor available")
+            return facts
+
+    def _extract_from_registry_router(
+        self,
+        protocol_text: str,
+        trial_id: Optional[str],
+        facts: UnifiedFacts
+    ) -> UnifiedFacts:
+        """Extract using new registry router (multi-registry)"""
+        # Get trial ID (could be NCT, CTIS, etc.)
+        if not trial_id:
+            # Try to extract NCT ID first
+            from .registries.clinicaltrials_gov_extractor import ClinicalTrialsGovExtractor
+            extractor = ClinicalTrialsGovExtractor()
+            trial_id = extractor.extract_nct_id(protocol_text)
+
+        if not trial_id:
+            facts.warnings.append("No trial ID found - API extraction skipped")
+            if self.verbose:
+                print("  ⚠️ No trial ID found in text")
+            return facts
+
+        # Fetch from appropriate registry
+        api_data = self.registry_router.fetch(trial_id)
+
+        if not api_data or not api_data.get('api_success'):
+            error = api_data.get('api_error', 'Unknown error') if api_data else 'No data returned'
+            facts.warnings.append(f"API extraction failed: {error}")
+            if self.verbose:
+                print(f"  ⚠️ API error: {error}")
+            return facts
+
+        # Map registry data to UnifiedFacts
+        facts.nct_id = api_data.get('trial_id', '') or api_data.get('nct_id', '')
+        facts.protocol_title = api_data.get('title', '')
+        facts.sponsor = api_data.get('sponsor', '')
+        facts.phase = api_data.get('phase', '')
+        facts.is_randomized = api_data.get('is_randomized', False)
+        facts.is_blinded = api_data.get('is_blinded', False)
+        facts.is_single_arm = api_data.get('is_single_arm', False)
+        facts.sample_size = api_data.get('sample_size', 0)
+        facts.num_arms = api_data.get('num_arms', 0)
+        facts.arms = api_data.get('arms', [])
+        facts.drug_name = api_data.get('drug_name', '')
+        facts.therapeutic_area = api_data.get('therapeutic_area', '')
+        facts.conditions = api_data.get('conditions', [])
+
+        # Build design type description
+        design_parts = []
+        if facts.is_randomized:
+            design_parts.append("randomized")
+        if facts.is_blinded:
+            masking = api_data.get('masking', '')
+            if masking and masking != "NONE":
+                design_parts.append(masking.lower().replace("_", "-"))
+        if facts.is_single_arm:
+            design_parts.append("single-arm")
+        else:
+            model = api_data.get('intervention_model', '')
+            if model:
+                design_parts.append(model.lower().replace("_", "-"))
+        facts.design_type = ", ".join(design_parts) if design_parts else "unknown"
+
+        # Endpoints
+        primary_eps = api_data.get('primary_endpoints', [])
+        if primary_eps:
+            facts.primary_endpoint = primary_eps[0].get('name', '') or primary_eps[0].get('measure', '')
+            facts.primary_timepoint = primary_eps[0].get('timeframe', '') or primary_eps[0].get('timeFrame', '')
+
+        secondary_eps = api_data.get('secondary_endpoints', [])
+        facts.secondary_endpoints = [
+            ep.get('name', '') or ep.get('measure', '') for ep in secondary_eps
+        ]
+
+        facts.api_success = True
+        registry_name = api_data.get('registry', 'unknown_registry')
+        facts.sources_used.append(registry_name.lower().replace(' ', '_'))
+
+        if self.verbose:
+            print(f"  ✓ API success from {registry_name}: {facts.nct_id}")
+            print(f"    Primary endpoint: {facts.primary_endpoint[:60]}...")
+
+        return facts
+
+    def _extract_from_legacy_api(
+        self,
+        protocol_text: str,
+        nct_id: Optional[str],
+        facts: UnifiedFacts
+    ) -> UnifiedFacts:
+        """Extract using legacy ClinicalTrials.gov API extractor"""
+        if self.verbose:
+            print("[Layer 1] Using legacy ClinicalTrials.gov extractor...")
 
         # Get NCT ID
         if not nct_id:
@@ -238,7 +365,7 @@ class UnifiedExtractor:
         ]
 
         facts.api_success = True
-        facts.sources_used.append("clinicaltrials.gov_api")
+        facts.sources_used.append("clinicaltrials.gov_api_legacy")
 
         if self.verbose:
             print(f"  ✓ API success: {facts.nct_id}")

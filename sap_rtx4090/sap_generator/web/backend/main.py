@@ -3396,17 +3396,33 @@ async def process_jobs_worker():
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
 
                         # Extract endpoints from discovered elements
+                        # MUST match logic in two_pass_extractor.py inject_tlf_tables()
                         primary_eps = []
                         secondary_eps = []
                         for elem in discovered_elements:
-                            name = elem.get("name", "").lower()
-                            cat = elem.get("category", "")
-                            desc = elem.get("description", "") or elem.get("name", "")
-                            if "endpoint" in cat or "endpoint" in name:
-                                if "primary" in name:
-                                    primary_eps.append(desc[:100])
-                                elif "secondary" in name:
-                                    secondary_eps.append(desc[:100])
+                            # Handle both dataclass and dict formats
+                            if hasattr(elem, 'category'):
+                                cat = (elem.category or '').lower()
+                                name = (elem.name or '').lower()
+                                desc = elem.description or elem.name or ''
+                            else:
+                                cat = (elem.get('category', '') or '').lower()
+                                name = (elem.get('name', '') or '').lower()
+                                desc = elem.get('description', '') or elem.get('name', '') or ''
+                            desc_lower = desc.lower()
+
+                            # Check if this is an endpoint element
+                            is_endpoint = 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints'
+
+                            # Check for primary/secondary in category, name, OR description
+                            is_primary = 'primary' in cat or 'primary' in name or 'primary' in desc_lower
+                            is_secondary = 'secondary' in cat or 'secondary' in name or 'secondary' in desc_lower
+
+                            if is_endpoint or is_primary or is_secondary:
+                                if is_primary:
+                                    primary_eps.append(desc[:150])
+                                elif is_secondary:
+                                    secondary_eps.append(desc[:150])
 
                         # Build TLF section
                         tlf = "\n\n## 12. APPENDICES\n"
