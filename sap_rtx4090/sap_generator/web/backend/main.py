@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v15-FLUSH-DEBUG-2026-01-08")
-print("FEATURE: Added flush=True to all debug prints")
-print("FEATURE: Debug in generate_sap() AND replace_placeholders()")
+print("BUILD: v18-ROOT-CAUSE-FIX-2026-01-08")
+print("FEATURE: Discovery prompt requires 'Primary endpoint:' prefix")
+print("FEATURE: SAP prompt forbids placeholder text")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
