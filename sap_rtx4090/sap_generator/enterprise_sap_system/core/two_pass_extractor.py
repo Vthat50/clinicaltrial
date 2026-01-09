@@ -637,8 +637,9 @@ Program: f_forest_subgroup.sas
     # ONLY accept our mock data format - NOT Claude's markdown tables
     if has_section_12:
         section_12_text = sap_text[section_12_start:]
-        # Check for our mock data format (TABLE 14.x.x with xxx placeholders)
-        has_proper_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
+        # Check for our mock data format (TABLE 14.x.x with proper structure)
+        # Note: Don't check for (N=XXX) because sample sizes get extracted and replaced with actual numbers
+        has_proper_tables = 'TABLE 14.1.1' in section_12_text and 'DEMOGRAPHIC AND BASELINE' in section_12_text
     else:
         has_proper_tables = False
 

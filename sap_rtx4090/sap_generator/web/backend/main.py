@@ -3488,7 +3488,8 @@ async def process_jobs_worker():
                     if section_12_start >= 0:
                         section_12_text = sap_text[section_12_start:]
                         # ONLY accept our mock data format - NOT Claude's markdown tables
-                        has_proper_tables = 'TABLE 14.1.1' in section_12_text and '(N=XXX)' in section_12_text
+                        # Note: Don't check for (N=XXX) because sample sizes get extracted and replaced with actual numbers
+                        has_proper_tables = 'TABLE 14.1.1' in section_12_text and 'DEMOGRAPHIC AND BASELINE' in section_12_text
                     else:
                         has_proper_tables = False
 
@@ -3931,7 +3932,7 @@ Program: f_forest_subgroup.sas
                     # DEBUG: Final check before saving to database
                     print(f"  [DEBUG] FINAL SAP length: {len(sap_text)} chars")
                     print(f"  [DEBUG] FINAL contains 'TABLE 14.1.1': {'TABLE 14.1.1' in sap_text}")
-                    print(f"  [DEBUG] FINAL contains '(N=XXX)': {'(N=XXX)' in sap_text}")
+                    print(f"  [DEBUG] FINAL contains 'DEMOGRAPHIC AND BASELINE': {'DEMOGRAPHIC AND BASELINE' in sap_text}")
                     if '## 12.' in sap_text:
                         final_sec12_pos = sap_text.find('## 12.')
                         final_preview = sap_text[final_sec12_pos:final_sec12_pos+300]
