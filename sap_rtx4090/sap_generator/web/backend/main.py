@@ -3219,7 +3219,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v36 (Force mock data TLF tables, reject Claude markdown)")
+    print("  [VERSION] Build 2026-01-09-v38 (Fix detection: DEMOGRAPHIC AND BASELINE, not N=XXX)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
