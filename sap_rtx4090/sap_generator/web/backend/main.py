@@ -3219,11 +3219,12 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v25 (Fix table detection: |-- and --|)")
+    print("  [VERSION] Build 2026-01-09-v30 (Synced with local: tables, placeholders, metadata)")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
     print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
     print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
     print("  [OK] Step 4: Post-process: strip bad appendix, replace placeholders, INJECT TLF TABLES")
+    print("  [OK] Step 5: Keyword-based metadata detection (therapeutic area, endpoint type)")
 
     # Use get_pipeline() - returns TwoPassExtractor
     pipeline = None
