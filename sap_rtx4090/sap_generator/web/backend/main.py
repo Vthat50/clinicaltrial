@@ -3424,47 +3424,95 @@ async def process_jobs_worker():
                                 elif is_secondary:
                                     secondary_eps.append(desc[:150])
 
-                        # Build TLF section
-                        tlf = "\n\n## 12. APPENDICES\n"
-                        tlf += "### 12.1 Statistical Model Specifications\n"
-                        tlf += "See Section 6 for detailed statistical methodology.\n\n"
-                        tlf += "### 12.2 Tables, Listings, and Figures Specifications\n\n"
+                        # Build TLF section - MUST match two_pass_extractor.py inject_tlf_tables()
+                        tlf_parts = []
+                        tlf_parts.append("\n\n## 12. APPENDICES\n")
+                        tlf_parts.append("### 12.1 Statistical Model Specifications\n")
+                        tlf_parts.append("See Section 6 for detailed statistical methodology.\n")
+                        tlf_parts.append("\n### 12.2 Tables, Listings, and Figures Specifications\n")
+                        tlf_parts.append("\nThe following TLF shells define the statistical outputs for this study:\n")
 
-                        tlf += "#### Table 14.1.1: Demographics and Baseline Characteristics\n"
-                        tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
-                        tlf += "| Characteristic | 2.5in | Left | ADSL |\n"
-                        tlf += "| Treatment A (N=xxx) | 1.3in | Center | ADSL |\n"
-                        tlf += "| Treatment B (N=xxx) | 1.3in | Center | ADSL |\n"
-                        tlf += "**Population:** ITT Population\n\n"
+                        # Demographics Table
+                        tlf_parts.append("\n#### Table 14.1.1: Demographics and Baseline Characteristics\n")
+                        tlf_parts.append("| Column | Width | Alignment | Source |\n")
+                        tlf_parts.append("|--------|-------|-----------|--------|\n")
+                        tlf_parts.append("| Characteristic | 2.5in | Left | ADSL |\n")
+                        tlf_parts.append("| Treatment A (N=xxx) | 1.3in | Center | ADSL |\n")
+                        tlf_parts.append("| Treatment B (N=xxx) | 1.3in | Center | ADSL |\n")
+                        tlf_parts.append("| Total (N=xxx) | 1.3in | Center | ADSL |\n")
+                        tlf_parts.append("\n**Population:** ITT Population\n")
+                        tlf_parts.append("**Programming Notes:** Use PROC MEANS for continuous, PROC FREQ for categorical variables.\n")
 
-                        tlf += "#### Table 14.1.2: Subject Disposition\n"
-                        tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
-                        tlf += "| Category | 2.5in | Left | ADSL |\n"
-                        tlf += "| n (%) | 1.3in | Center | ADSL |\n\n"
+                        # Disposition Table
+                        tlf_parts.append("\n#### Table 14.1.2: Subject Disposition\n")
+                        tlf_parts.append("| Column | Width | Alignment | Source |\n")
+                        tlf_parts.append("|--------|-------|-----------|--------|\n")
+                        tlf_parts.append("| Disposition Category | 2.5in | Left | ADSL |\n")
+                        tlf_parts.append("| Treatment A n (%) | 1.3in | Center | ADSL |\n")
+                        tlf_parts.append("| Treatment B n (%) | 1.3in | Center | ADSL |\n")
+                        tlf_parts.append("\n**Population:** All Randomized Subjects\n")
+
+                        # Primary Endpoint Tables (up to 3)
+                        for i, ep in enumerate(primary_eps[:3], 1):
+                            tlf_parts.append(f"\n#### Table 14.2.{i}: Primary Efficacy Analysis - {ep}\n")
+                            tlf_parts.append("| Column | Width | Alignment | Source |\n")
+                            tlf_parts.append("|--------|-------|-----------|--------|\n")
+                            tlf_parts.append("| Statistic | 2.5in | Left | ADTTE/ADEFF |\n")
+                            tlf_parts.append("| Treatment A | 1.5in | Center | ADTTE/ADEFF |\n")
+                            tlf_parts.append("| Treatment B | 1.5in | Center | ADTTE/ADEFF |\n")
+                            tlf_parts.append("\n**Population:** ITT Population\n")
+                            tlf_parts.append("**Analysis:** Per primary analysis methodology in Section 6.\n")
+
+                        # Secondary Endpoint Tables (up to 2)
+                        for i, ep in enumerate(secondary_eps[:2], 1):
+                            idx = len(primary_eps[:3]) + i
+                            tlf_parts.append(f"\n#### Table 14.2.{idx}: Secondary Efficacy - {ep}\n")
+                            tlf_parts.append("| Column | Width | Alignment | Source |\n")
+                            tlf_parts.append("|--------|-------|-----------|--------|\n")
+                            tlf_parts.append("| Parameter | 2.0in | Left | ADEFF |\n")
+                            tlf_parts.append("| Treatment A | 1.5in | Center | ADEFF |\n")
+                            tlf_parts.append("| Treatment B | 1.5in | Center | ADEFF |\n")
+                            tlf_parts.append("\n**Population:** ITT Population\n")
+
+                        # Safety Tables
+                        tlf_parts.append("\n#### Table 14.3.1: Overall Summary of Treatment-Emergent Adverse Events\n")
+                        tlf_parts.append("| Column | Width | Alignment | Source |\n")
+                        tlf_parts.append("|--------|-------|-----------|--------|\n")
+                        tlf_parts.append("| AE Category | 2.5in | Left | ADAE |\n")
+                        tlf_parts.append("| Treatment A n (%) | 1.2in | Center | ADAE |\n")
+                        tlf_parts.append("| Treatment B n (%) | 1.2in | Center | ADAE |\n")
+                        tlf_parts.append("| Total n (%) | 1.2in | Center | ADAE |\n")
+                        tlf_parts.append("\n**Population:** Safety Population\n")
+                        tlf_parts.append("**Filter:** SAFFL='Y' and TRTEMFL='Y'\n")
+
+                        tlf_parts.append("\n#### Table 14.3.2: Serious Adverse Events\n")
+                        tlf_parts.append("| Column | Width | Alignment | Source |\n")
+                        tlf_parts.append("|--------|-------|-----------|--------|\n")
+                        tlf_parts.append("| SOC / Preferred Term | 3.0in | Left | ADAE |\n")
+                        tlf_parts.append("| Treatment A n (%) | 1.2in | Center | ADAE |\n")
+                        tlf_parts.append("| Treatment B n (%) | 1.2in | Center | ADAE |\n")
+                        tlf_parts.append("\n**Population:** Safety Population\n")
+                        tlf_parts.append("**Filter:** SAFFL='Y' and AESER='Y'\n")
+
+                        # Figures
+                        tlf_parts.append("\n### 12.3 Figure Specifications\n")
 
                         for i, ep in enumerate(primary_eps[:2], 1):
-                            tlf += f"#### Table 14.2.{i}: Primary Efficacy - {ep}\n"
-                            tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
-                            tlf += "| Statistic | 2.5in | Left | ADTTE |\n"
-                            tlf += "| Treatment A | 1.5in | Center | ADTTE |\n"
-                            tlf += "| Treatment B | 1.5in | Center | ADTTE |\n"
-                            tlf += "**Population:** ITT Population\n\n"
+                            tlf_parts.append(f"\n#### Figure 14.2.{i}: Kaplan-Meier Plot - {ep}\n")
+                            tlf_parts.append("**Population:** ITT Population\n")
+                            tlf_parts.append("**X-axis:** Time (months)\n")
+                            tlf_parts.append("**Y-axis:** Survival Probability (0.0 to 1.0)\n")
+                            tlf_parts.append("**Elements:** KM curves by treatment, 95% CI bands, number at risk table\n")
+                            tlf_parts.append("**Programming:** PROC LIFETEST with PLOTS=SURVIVAL(ATRISK CB)\n")
 
-                        tlf += "#### Table 14.3.1: Treatment-Emergent Adverse Events\n"
-                        tlf += "| Column | Width | Align | Source |\n|--------|-------|-------|--------|\n"
-                        tlf += "| AE Category | 2.5in | Left | ADAE |\n"
-                        tlf += "| Treatment A n(%) | 1.2in | Center | ADAE |\n"
-                        tlf += "| Treatment B n(%) | 1.2in | Center | ADAE |\n"
-                        tlf += "**Population:** Safety Population\n\n"
+                        tlf_parts.append("\n#### Figure 14.2.3: Forest Plot - Subgroup Analyses\n")
+                        tlf_parts.append("**Population:** ITT Population\n")
+                        tlf_parts.append("**Elements:** HR with 95% CI by subgroup, vertical reference line at HR=1\n")
+                        tlf_parts.append("**Subgroups:** Age (<65/≥65), Sex, ECOG PS, Geographic Region\n")
 
-                        tlf += "### 12.3 Figure Specifications\n\n"
-                        for i, ep in enumerate(primary_eps[:2], 1):
-                            tlf += f"#### Figure 14.2.{i}: Kaplan-Meier Plot - {ep}\n"
-                            tlf += "**Population:** ITT, **X-axis:** Time (months), **Y-axis:** Survival Probability\n\n"
+                        tlf_parts.append("\n\n---\nEND OF STATISTICAL ANALYSIS PLAN\n")
 
-                        tlf += "#### Figure 14.2.3: Forest Plot - Subgroup Analyses\n"
-                        tlf += "**Subgroups:** Age, Sex, ECOG PS, Region\n\n"
-                        tlf += "---\nEND OF STATISTICAL ANALYSIS PLAN\n"
+                        tlf = ''.join(tlf_parts)
 
                         # Remove ALL appendix sections (Claude sometimes writes multiple)
                         appendix_markers = [
