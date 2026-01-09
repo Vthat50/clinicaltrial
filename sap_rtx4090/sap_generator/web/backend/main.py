@@ -3500,10 +3500,15 @@ async def process_jobs_worker():
                     if not has_proper_tables:
                         print(f"  [MAIN.PY] NO Table 14 found - INJECTING TLF TABLES NOW")
 
-                        # Extract endpoints from discovered elements
+                        # Extract protocol-specific info from discovered elements
                         # MUST match logic in two_pass_extractor.py inject_tlf_tables()
+                        import re as re_mod
                         primary_eps = []
                         secondary_eps = []
+                        treatment_arms = []
+                        sample_size_total = "XXX"
+                        sample_size_per_arm = "XXX"
+
                         for elem in discovered_elements:
                             # Handle both dataclass and dict formats
                             if hasattr(elem, 'category'):
@@ -3515,11 +3520,36 @@ async def process_jobs_worker():
                                 name = (elem.get('name', '') or '').lower()
                                 desc = elem.get('description', '') or elem.get('name', '') or ''
                             desc_lower = desc.lower()
+                            name_original = elem.name if hasattr(elem, 'name') else elem.get('name', '')
 
-                            # Check if this is an endpoint element
+                            # Extract TREATMENT ARMS from study_design category
+                            if cat == 'study_design':
+                                if any(kw in name for kw in ['arm', 'treatment', 'intervention', 'comparator', 'control', 'experimental']):
+                                    arm_name = desc[:50] if desc else name_original[:50]
+                                    if arm_name and arm_name not in treatment_arms:
+                                        treatment_arms.append(arm_name)
+                                if 'arm' in desc_lower or 'treatment' in desc_lower:
+                                    arm_match = re_mod.search(r'(?:arm\s*[ab12]?:?\s*)?([A-Za-z]+(?:\s*\+\s*[A-Za-z]+)?(?:\s+\d+\s*mg)?)', desc, re_mod.IGNORECASE)
+                                    if arm_match:
+                                        arm_name = arm_match.group(1).strip()[:40]
+                                        if arm_name and len(arm_name) > 3 and arm_name not in treatment_arms:
+                                            treatment_arms.append(arm_name)
+
+                            # Extract SAMPLE SIZE from sample_size category
+                            if cat == 'sample_size':
+                                total_match = re_mod.search(r'(?:total|overall|n\s*=|approximately|~)\s*(\d+)', desc_lower)
+                                if total_match:
+                                    sample_size_total = total_match.group(1)
+                                per_arm_match = re_mod.search(r'(?:per[- ]?arm|each\s+arm|per\s+group)\s*[:\s]*(\d+)', desc_lower)
+                                if per_arm_match:
+                                    sample_size_per_arm = per_arm_match.group(1)
+                                if not per_arm_match:
+                                    n_match = re_mod.search(r'(\d+)\s*(?:per\s+arm|patients?\s+per|subjects?\s+per)', desc_lower)
+                                    if n_match:
+                                        sample_size_per_arm = n_match.group(1)
+
+                            # Extract ENDPOINTS
                             is_endpoint = 'endpoint' in cat or 'endpoint' in name or cat == 'endpoints'
-
-                            # Check for primary/secondary in category, name, OR description
                             is_primary = 'primary' in cat or 'primary' in name or 'primary' in desc_lower
                             is_secondary = 'secondary' in cat or 'secondary' in name or 'secondary' in desc_lower
 
@@ -3528,6 +3558,21 @@ async def process_jobs_worker():
                                     primary_eps.append(desc[:150])
                                 elif is_secondary:
                                     secondary_eps.append(desc[:150])
+
+                        # Set default treatment arm names if none found
+                        if len(treatment_arms) < 2:
+                            treatment_arms = ["Treatment A", "Treatment B"]
+
+                        arm1 = treatment_arms[0][:25] if len(treatment_arms) > 0 else "Treatment A"
+                        arm2 = treatment_arms[1][:25] if len(treatment_arms) > 1 else "Treatment B"
+                        arm1_padded = arm1[:15].ljust(15)
+                        arm2_padded = arm2[:15].ljust(15)
+                        n1 = sample_size_per_arm if sample_size_per_arm != "XXX" else "XXX"
+                        n2 = sample_size_per_arm if sample_size_per_arm != "XXX" else "XXX"
+                        n_total = sample_size_total if sample_size_total != "XXX" else "XXX"
+
+                        print(f"  [MAIN.PY] Treatment arms: {arm1} vs {arm2}")
+                        print(f"  [MAIN.PY] Sample size: {n_total} total, {n1} per arm")
 
                         # Build TLF section with PROPER MOCK DATA TABLE SHELLS
                         # Format matches ground truth SAPs with xxx placeholders
@@ -3540,12 +3585,12 @@ async def process_jobs_worker():
                         tlf_parts.append("\nThe following TLF shells define the statistical outputs for this study:\n")
 
                         # ========== TABLE 14.1.1: DEMOGRAPHICS ==========
-                        tlf_parts.append("""
+                        tlf_parts.append(f"""
 TABLE 14.1.1  DEMOGRAPHIC AND BASELINE CHARACTERISTICS
 ITT POPULATION
 
-                                    TREATMENT A     TREATMENT B     TOTAL
-STATISTIC                           (N=XXX)         (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded} TOTAL
+STATISTIC                           (N={n1})         (N={n2})         (N={n_total})
 ---------------------------------------------------------------------------
 
 AGE (YEARS)
@@ -3583,12 +3628,12 @@ Program: t_dm_baseline.sas
 """)
 
                         # ========== TABLE 14.1.2: DISPOSITION ==========
-                        tlf_parts.append("""
+                        tlf_parts.append(f"""
 TABLE 14.1.2  SUBJECT DISPOSITION
 ALL RANDOMIZED SUBJECTS
 
-                                    TREATMENT A     TREATMENT B     TOTAL
-DISPOSITION CATEGORY                (N=XXX)         (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded} TOTAL
+DISPOSITION CATEGORY                (N={n1})         (N={n2})         (N={n_total})
 ---------------------------------------------------------------------------
 
 RANDOMIZED                          xxx (100.0%)    xxx (100.0%)    xxx (100.0%)
@@ -3618,8 +3663,8 @@ Program: t_disposition.sas
 TABLE 14.2.{i}  PRIMARY EFFICACY ANALYSIS - {short_ep.upper()}
 ITT POPULATION
 
-                                    TREATMENT A     TREATMENT B
-STATISTIC                           (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded}
+STATISTIC                           (N={n1})         (N={n2})
 ---------------------------------------------------------------------------
 
 NUMBER OF EVENTS                    xxx             xxx
@@ -3653,8 +3698,8 @@ Program: t_tte_primary.sas
 TABLE 14.2.{idx}  SECONDARY EFFICACY ANALYSIS - {short_ep.upper()}
 ITT POPULATION
 
-                                    TREATMENT A     TREATMENT B
-PARAMETER                           (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded}
+PARAMETER                           (N={n1})         (N={n2})
 ---------------------------------------------------------------------------
 
 RESPONDERS - N (%)                  xxx (xx.x%)     xxx (xx.x%)
@@ -3676,12 +3721,12 @@ Program: t_efficacy_secondary.sas
 """)
 
                         # ========== TABLE 14.3.1: TEAE SUMMARY ==========
-                        tlf_parts.append("""
+                        tlf_parts.append(f"""
 TABLE 14.3.1  OVERALL SUMMARY OF TREATMENT-EMERGENT ADVERSE EVENTS
 SAFETY POPULATION
 
-                                    TREATMENT A     TREATMENT B     TOTAL
-AE CATEGORY                         (N=XXX)         (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded} TOTAL
+AE CATEGORY                         (N={n1})         (N={n2})         (N={n_total})
 ---------------------------------------------------------------------------
 
 ANY TEAE - N (%)                    xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
@@ -3712,12 +3757,12 @@ Program: t_ae_summary.sas
 """)
 
                         # ========== TABLE 14.3.2: SERIOUS ADVERSE EVENTS ==========
-                        tlf_parts.append("""
+                        tlf_parts.append(f"""
 TABLE 14.3.2  SERIOUS ADVERSE EVENTS BY SYSTEM ORGAN CLASS AND PREFERRED TERM
 SAFETY POPULATION
 
-                                    TREATMENT A     TREATMENT B     TOTAL
-SYSTEM ORGAN CLASS                  (N=XXX)         (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded} TOTAL
+SYSTEM ORGAN CLASS                  (N={n1})         (N={n2})         (N={n_total})
   PREFERRED TERM                    n (%)           n (%)           n (%)
 ---------------------------------------------------------------------------
 
@@ -3747,12 +3792,12 @@ Program: t_sae_soc_pt.sas
 """)
 
                         # ========== TABLE 14.3.3: TEAE BY SOC/PT ==========
-                        tlf_parts.append("""
+                        tlf_parts.append(f"""
 TABLE 14.3.3  TREATMENT-EMERGENT ADVERSE EVENTS BY SYSTEM ORGAN CLASS AND PREFERRED TERM
 SAFETY POPULATION (EVENTS OCCURRING IN >=5% OF PATIENTS IN ANY GROUP)
 
-                                    TREATMENT A     TREATMENT B     TOTAL
-SYSTEM ORGAN CLASS                  (N=XXX)         (N=XXX)         (N=XXX)
+                                    {arm1_padded} {arm2_padded} TOTAL
+SYSTEM ORGAN CLASS                  (N={n1})         (N={n2})         (N={n_total})
   PREFERRED TERM                    n (%)           n (%)           n (%)
 ---------------------------------------------------------------------------
 
@@ -3795,10 +3840,10 @@ ITT POPULATION
   |
 1.0 +----*---*---*---*---*---*---*---*---*---*---*
   |     \\
-  |      *---*---*---*---*---*---*---*---*  Treatment A (N=xxx)
+  |      *---*---*---*---*---*---*---*---*  {arm1} (N={n1})
 0.8 +           \\
   |             *---*---*---*---*---*---*
-  |                  \\                        Treatment B (N=xxx)
+  |                  \\                        {arm2} (N={n2})
 0.6 +                   *---*---*---*---*
   |                        \\
   |                         *---*---*---*
@@ -3813,12 +3858,12 @@ ITT POPULATION
                         Time (Months)
 
 Number at Risk:
-Treatment A:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
-Treatment B:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
+{arm1}:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
+{arm2}:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
 
 Statistics:
-  Treatment A: Median xx.x months (95% CI: xx.x, xx.x)
-  Treatment B: Median xx.x months (95% CI: xx.x, xx.x)
+  {arm1}: Median xx.x months (95% CI: xx.x, xx.x)
+  {arm2}: Median xx.x months (95% CI: xx.x, xx.x)
   Hazard Ratio: x.xxx (95% CI: x.xxx, x.xxx)
   Log-rank P-value: x.xxxx
 
@@ -3827,7 +3872,7 @@ Program: f_km_primary.sas
 ---------------------------------------------------------------------------
 """)
 
-                        tlf_parts.append("""
+                        tlf_parts.append(f"""
 FIGURE 14.2.3  FOREST PLOT - SUBGROUP ANALYSES FOR PRIMARY ENDPOINT
 ITT POPULATION
 
@@ -3856,7 +3901,7 @@ GEOGRAPHIC REGION                                   |
   Rest of World                     xxx    x.xx    (x.xx, x.xx)   ----*----
                                                     |
                                    0.25  0.5   1.0   2.0   4.0
-                                   <-- Favors Treatment A | Favors Treatment B -->
+                                   <-- Favors {arm1} | Favors {arm2} -->
 
 Source: ADTTE
 Program: f_forest_subgroup.sas
