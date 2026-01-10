@@ -1110,35 +1110,49 @@ class EnhancedKGPipeline:
         prompt = f"""Extract ALL statistical analysis elements from this clinical trial document.
 
 For each element, provide:
-1. The exact type (endpoint, method, population, stratification, table)
-2. The name/value
+1. The exact type (endpoint, method, population, stratification, baseline_variable, study_design)
+2. The name/value exactly as stated in the protocol
 3. A confidence score (0.0-1.0) based on how clearly it's stated
 4. The exact quote from the document where you found it
-5. The section where it appears (if identifiable)
 
-Return JSON array with this structure:
+Return JSON array. Example structure (use actual values from THIS protocol):
 [
   {{
     "type": "endpoint",
-    "name": "Overall Survival",
-    "endpoint_type": "primary",
-    "definition": "Time from randomization to death from any cause",
+    "name": "[exact endpoint name from protocol]",
+    "endpoint_type": "primary/secondary/exploratory",
+    "definition": "[definition from protocol]",
     "confidence": 0.95,
-    "source_quote": "The primary endpoint is overall survival, defined as...",
-    "section": "Section 3.1"
+    "source_quote": "[exact quote]"
   }},
   {{
-    "type": "method",
-    "name": "Stratified Log-Rank Test",
-    "description": "Primary hypothesis test for survival comparison",
+    "type": "baseline_variable",
+    "name": "[variable name from protocol]",
+    "category": "[demographic/disease/lab/other]",
     "confidence": 0.90,
-    "source_quote": "The primary analysis will use a stratified log-rank test...",
-    "section": "Section 5.1"
+    "source_quote": "[exact quote showing this variable is collected]"
+  }},
+  {{
+    "type": "study_design",
+    "name": "[adjuvant/metastatic/other as stated]",
+    "confidence": 0.95,
+    "source_quote": "[quote showing study type]"
   }}
 ]
 
-Extract EVERYTHING: endpoints, methods, populations, stratification factors, sample sizes.
-Be thorough. Include primary, secondary, and exploratory endpoints.
+EXTRACT FROM THIS SPECIFIC PROTOCOL:
+1. ENDPOINTS: All primary, secondary, exploratory endpoints with their exact definitions
+2. METHODS: Statistical tests and analysis methods mentioned
+3. POPULATIONS: Analysis populations (ITT, PP, Safety, etc.) with definitions
+4. STRATIFICATION FACTORS: Variables used for randomization stratification
+5. BASELINE VARIABLES: Every demographic/baseline variable this protocol collects
+   - Look in: eligibility criteria, baseline assessments, CRF sections, data collection schedules
+   - Extract the EXACT variable names used (not generic ones)
+   - Note the specific performance status scale if mentioned (ECOG, ASA, Karnofsky, etc.)
+6. STUDY DESIGN: Is this adjuvant, neoadjuvant, metastatic, etc.? What phase?
+7. GEOGRAPHIC: What countries/regions is this study conducted in?
+
+IMPORTANT: Only extract what is ACTUALLY in this protocol. Do not assume or add generic variables.
 
 DOCUMENT:
 {content}
