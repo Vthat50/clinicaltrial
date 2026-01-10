@@ -15,16 +15,17 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v40-TWOPASS-WITH-PROHIBITION-RULES-2026-01-10")
-print("FEATURE: TwoPassExtractor with prohibition rules injected into prompt")
-print("  • Prohibition rules built from protocol analysis:")
+print("BUILD: v41-KG-PIPELINE-FIXED-2026-01-10")
+print("FEATURE: KGPipelineWrapper with 55-category extraction + prohibition rules")
+print("  • 55-category comprehensive extraction from protocol")
+print("  • Prohibition rules built from extraction:")
 print("    - Adjuvant → No CR/PR/SD/PD response tables")
 print("    - Nordic-only → No Race/Ethnicity")
 print("    - ASA specified → No ECOG")
 print("    - Fixed-dose → No dose modification rows")
-print("    - Extracts exact treatment arm names for table columns")
-print("  • LlamaParse PDF extraction preserved")
-print("  • Full protocol text (no truncation)")
+print("  • use_tools=False for reliable generation")
+print("  • max_tokens=32000 for complete SAP")
+print("  • SELF-RAG verification with correction loop")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -873,8 +874,8 @@ class KGPipelineWrapper:
             temp_path = f.name
 
         try:
-            # Run the enhanced KG pipeline
-            result = self.kg_pipeline.process_protocol(temp_path, use_tools=True)
+            # Run the enhanced KG pipeline (use_tools=False for simpler, more reliable generation)
+            result = self.kg_pipeline.process_protocol(temp_path, use_tools=False)
 
             # Build prohibition rules from extraction
             full_extraction = self.kg_pipeline._last_full_extraction or {}
@@ -1036,29 +1037,28 @@ class KGPipelineWrapper:
 
 
 # Global pipeline instance (reused across requests)
-_production_pipeline = None  # TwoPassExtractor with prohibition rules
+_production_pipeline = None  # KGPipelineWrapper with prohibition rules
 
 def get_pipeline():
     """
     Get or create the production pipeline instance.
 
-    Uses TwoPassExtractor with prohibition rules:
+    Uses KGPipelineWrapper (55-category extraction + prohibition rules):
     1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
-    2. Claude Pass 1 (Discovery): Find ALL elements → Creates checklist
-    3. Claude Pass 2 (Generation): FULL protocol + checklist + PROHIBITION RULES → Complete SAP
-    4. Validation: Check SAP against checklist
-
-    Prohibition rules are built from discovered elements and injected into generation.
+    2. 55-Category KG Extraction: Comprehensive protocol analysis
+    3. Prohibition Rules: Context-aware (adjuvant→no CR/PR/SD/PD, Nordic→no race/ethnicity)
+    4. SAP Generation with prohibition rules in prompt
+    5. SELF-RAG Verification: Fact checking with correction loop
     """
     global _production_pipeline
 
     if _production_pipeline is None:
-        if not DIRECT_GENERATION_AVAILABLE:
-            raise RuntimeError("TwoPassExtractor not available - check imports")
+        if not KG_PIPELINE_AVAILABLE or EnhancedKGPipeline is None:
+            raise RuntimeError("KGPipeline not available - check imports")
 
-        _production_pipeline = TwoPassExtractor()
-        logger.info("TwoPassExtractor initialized with prohibition rules")
-        print("[get_pipeline] Using TwoPassExtractor with prohibition rules")
+        _production_pipeline = KGPipelineWrapper()
+        logger.info("KGPipelineWrapper initialized (55-category + prohibition rules)")
+        print("[get_pipeline] Using KGPipelineWrapper (55-category + prohibition rules)")
 
     return _production_pipeline
 
@@ -4018,37 +4018,36 @@ async def workbench_list_workspaces():
 # Background worker
 async def process_jobs_worker():
     """
-    Background worker that processes queued jobs using TwoPassExtractor.
+    Background worker that processes queued jobs using KGPipelineWrapper.
 
-    TwoPassExtractor with Prohibition Rules:
+    KGPipelineWrapper (55-CATEGORY EXTRACTION + PROHIBITION RULES):
     1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
-    2. Claude Pass 1 (Discovery): Find ALL elements → Creates checklist
-    3. Build prohibition rules from protocol text and discovered elements
-    4. Claude Pass 2 (Generation): FULL protocol + checklist + prohibition rules → SAP
-    5. Validation: Check SAP against checklist
-
-    Prohibition rules prevent:
+    2. 55-Category Extraction: Comprehensive protocol analysis with provenance
+    3. Prohibition Rules: Context-aware constraints built from extraction
        - Adjuvant trials → No CR/PR/SD/PD response tables
        - Nordic countries → No race/ethnicity in demographics
        - ASA specified → No ECOG
        - Fixed-dose → No dose modification rows
+    4. SAP Generation: use_tools=False for reliable complete output
+    5. SELF-RAG Verification: Fact checking with correction loop
     """
     global worker_running
 
-    print("Starting background job worker with TwoPassExtractor...")
-    print("  [VERSION] Build 2026-01-10-v40 (TwoPass with Prohibition Rules)")
-    print("  [NEW] Prohibition rules injected into SAP generation prompt:")
+    print("Starting background job worker with KGPipelineWrapper...")
+    print("  [VERSION] Build 2026-01-10-v41 (KG Pipeline Fixed)")
+    print("  [NEW] 55-category comprehensive extraction")
+    print("  [NEW] Prohibition rules from extraction:")
     print("        • Adjuvant → No CR/PR/SD/PD")
     print("        • Nordic → No Race/Ethnicity")
     print("        • ASA → No ECOG")
     print("        • Fixed-dose → No dose modification")
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown")
-    print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
-    print("  [OK] Step 3: Build prohibition rules from protocol analysis")
-    print("  [OK] Step 4: Generate SAP with prohibition rules in prompt")
-    print("  [OK] Step 5: Validate SAP against checklist")
+    print("  [OK] Step 2: 55-category KG extraction with provenance")
+    print("  [OK] Step 3: Build prohibition rules from extraction")
+    print("  [OK] Step 4: Generate SAP (use_tools=False, max_tokens=32000)")
+    print("  [OK] Step 5: SELF-RAG verification with correction loop")
 
-    # Use get_pipeline() - returns TwoPassExtractor with prohibition rules
+    # Use get_pipeline() - returns KGPipelineWrapper
     pipeline = None
 
     while worker_running:

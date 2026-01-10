@@ -849,13 +849,20 @@ Generate the comprehensive SAP now:"""
         try:
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=16384,  # Increased for comprehensive SAP
+                max_tokens=32000,  # Increased for complete SAP with all sections
                 messages=[{"role": "user", "content": prompt}]
             )
 
-            return response.content[0].text, []
+            sap_text = response.content[0].text
+
+            # Check if SAP appears truncated
+            if not any(section in sap_text for section in ['## 12.', '## 11.', 'Appendix', 'APPENDIX']):
+                print(f"[WARNING] SAP may be truncated - no section 11/12 found. Length: {len(sap_text)}")
+
+            return sap_text, []
 
         except Exception as e:
+            print(f"[ERROR] SAP generation failed: {e}")
             return f"Error generating SAP: {e}", [str(e)]
 
     # Old extractor helper methods REMOVED - no longer needed with protocol-driven approach
