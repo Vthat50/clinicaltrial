@@ -70,6 +70,9 @@ except ImportError:
         get_standard_versions
     )
 
+# Protocol-specific extractor REMOVED - using simple protocol-driven approach
+# Claude reads the protocol directly and determines what to include/exclude
+
 
 # =============================================================================
 # VERIFICATION RESULT CLASSES
@@ -685,7 +688,10 @@ class EnhancedClaudeSAPGenerator:
         regulatory_context: Optional[str] = None
     ) -> Tuple[str, List[str]]:
         """
-        Generate SAP with full context.
+        Generate SAP using PROTOCOL-DRIVEN approach.
+
+        NO extractors, NO hardcoded rules.
+        Claude reads the protocol and determines what to include/exclude.
 
         Returns:
             Tuple of (generated_sap, warnings)
@@ -706,59 +712,66 @@ class EnhancedClaudeSAPGenerator:
         # Format RAG examples
         rag_text = self._format_rag_examples(rag_examples) if rag_examples else ""
 
-        # Get regulatory standards if not provided
-        if not regulatory_context:
-            # Detect phase from protocol
-            phase = "Phase 1" if "phase 1" in protocol_content.lower() else "Phase 3"
-            regulatory_context = get_regulatory_context(phase, "oncology")
+        # SIMPLE PROTOCOL-DRIVEN PROMPT
+        prompt = f"""You are a biostatistician creating a Statistical Analysis Plan (SAP).
 
-        prompt = f"""Generate a complete Statistical Analysis Plan (SAP) based on these sources.
+Read this protocol carefully and generate a SAP that EXACTLY matches what's in the protocol.
 
-## SOURCE 1: EXTRACTED FACTS FROM PROTOCOL (PRIMARY SOURCE - USE THESE VALUES)
+## CRITICAL INSTRUCTIONS:
+
+1. **THE PROTOCOL IS THE SOURCE OF TRUTH**
+   - Only include variables that are mentioned or clearly implied in the protocol
+   - Only include endpoints that are defined in the protocol
+   - Only include populations that are described in the protocol
+   - Use the exact statistical methods specified in the protocol
+
+2. **DO NOT ADD GENERIC CONTENT**
+   - If the protocol doesn't mention Race/Ethnicity, don't include them
+   - If the protocol doesn't mention ECOG, don't include it
+   - If the protocol uses ASA Score instead of ECOG, use ASA Score
+   - If this is a post-surgery (adjuvant) study with no measurable disease, don't include tumor response tables (CR/PR/SD/PD)
+
+3. **MATCH THE STATISTICAL METHODS TO THE ENDPOINTS**
+   - Time-to-event endpoints (DFS, OS, PFS, TTR) → Cox regression, Hazard Ratio, Kaplan-Meier
+   - Binary endpoints (response rate) → Logistic regression or Fisher's exact, Odds Ratio or Risk Difference
+   - Continuous endpoints → t-test or ANCOVA, Mean difference
+
+4. **EXTRACT AND USE ACTUAL VALUES**
+   - Sample size: Use what's in the protocol
+   - Treatment arms: Use what's in the protocol
+   - Stratification factors: Use what's in the protocol
+   - Follow-up duration: Use what's in the protocol
+
+5. **GENERATE TABLE SHELLS THAT MATCH THE PROTOCOL**
+   - Baseline tables should have columns matching the actual treatment arms
+   - Variables in tables should be the ones actually collected per the protocol
+   - Use appropriate summary statistics (n(%) for categorical, median/IQR for continuous)
+
+## SOURCE 1: EXTRACTED FACTS FROM PROTOCOL
 {facts_text}
 
 ## SOURCE 2: POWER/SAMPLE SIZE CALCULATIONS
 {power_text}
 
-## SOURCE 3: SIMILAR TRIALS FROM KNOWLEDGE GRAPH (CONTEXT ONLY)
+## SOURCE 3: SIMILAR TRIALS (STYLE REFERENCE ONLY)
 {context_text}
 
-## SOURCE 4: PROSE STYLE EXAMPLES FROM REAL SAPS
+## SOURCE 4: PROSE STYLE EXAMPLES
 {rag_text}
 
-{regulatory_context}
-
-## PROTOCOL EXCERPT
-{protocol_content[:5000]}
+## PROTOCOL CONTENT
+{protocol_content[:15000]}
 
 ---
 
-Generate a complete SAP with these sections:
-1. STUDY INFORMATION
-2. STUDY OBJECTIVES AND ENDPOINTS
-3. STUDY DESIGN
-4. ANALYSIS POPULATIONS
-5. STATISTICAL METHODS
-6. SAMPLE SIZE AND POWER
-7. INTERIM ANALYSES (if applicable)
-8. MISSING DATA HANDLING
-9. SENSITIVITY ANALYSES
-10. SUBGROUP ANALYSES
-11. SAFETY ANALYSES (use TEAE tables from REGULATORY STANDARDS)
-12. APPENDICES - TLF SHELLS
+Now generate a complete SAP that exactly matches this specific protocol.
+Do not use generic templates. Extract everything from the protocol above.
 
-## CRITICAL RULES:
-1. ALL values (sample sizes, endpoints, methods) MUST come from SOURCE 1 (extracted facts)
-2. Use SOURCE 2 power calculations for sample size section
-3. SOURCE 3 is for context only - never copy values from similar trials
-4. SOURCE 4 is for writing style only - adapt prose style but use SOURCE 1 values
-5. **USE REGULATORY STANDARDS for coding dictionary versions (MedDRA, CTCAE, WHO-DD)**
-6. **INCLUDE ALL 13 TEAE summary table types from REGULATORY STANDARDS**
-7. Mark any inferred/assumed information with [INFERRED]
-8. Include provenance comments showing which source each fact came from
-9. Be specific about statistical tests, alpha levels, and analysis details
+If something is not specified in the protocol, either:
+- Mark it as [TO BE CONFIRMED]
+- Or omit it entirely
 
-Generate the complete SAP now:"""
+Generate the SAP now:"""
 
         try:
             response = self.client.messages.create(
@@ -771,6 +784,8 @@ Generate the complete SAP now:"""
 
         except Exception as e:
             return f"Error generating SAP: {e}", [str(e)]
+
+    # Old extractor helper methods REMOVED - no longer needed with protocol-driven approach
 
     def regenerate_with_corrections(
         self,
@@ -877,11 +892,12 @@ class EnhancedKGPipeline:
         # Load existing KG
         self._load_existing_kg()
 
-        print("✅ Enhanced KG Pipeline initialized")
+        print("✅ Enhanced KG Pipeline initialized (PROTOCOL-DRIVEN)")
         print(f"   • Knowledge Graph: {len(self.kg.nodes)} nodes")
         print(f"   • RAG Examples: {len(self.rag.sap_examples)} SAPs")
         print(f"   • Power Calculator: {'scipy' if self.power_calc.available else 'unavailable'}")
         print(f"   • Regulatory KB: MedDRA {self.regulatory_kb.get_meddra_version()}, CTCAE {self.regulatory_kb.get_ctcae_version()}")
+        print("   • Approach: Protocol-driven (Claude reads protocol directly)")
 
     def _load_existing_kg(self):
         """Load existing Claude-extracted KG."""
@@ -932,6 +948,7 @@ class EnhancedKGPipeline:
 
         print(f"\n📄 Protocol: {filename}")
         print(f"📄 Length: {len(protocol_content)} chars")
+        print("📄 Approach: PROTOCOL-DRIVEN (Claude reads protocol directly)")
 
         # Step 1: Extract entities with Claude
         print("\n" + "-"*50)
