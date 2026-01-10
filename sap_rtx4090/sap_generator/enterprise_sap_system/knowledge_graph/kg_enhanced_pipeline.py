@@ -712,66 +712,70 @@ class EnhancedClaudeSAPGenerator:
         # Format RAG examples
         rag_text = self._format_rag_examples(rag_examples) if rag_examples else ""
 
-        # SIMPLE PROTOCOL-DRIVEN PROMPT
+        # STRICT PROTOCOL-ONLY PROMPT - NO EXTERNAL SOURCES
+        # RAG examples and KG context REMOVED - they contaminate with generic content
         prompt = f"""You are a biostatistician creating a Statistical Analysis Plan (SAP).
 
-Read this protocol carefully and generate a SAP that EXACTLY matches what's in the protocol.
+## ABSOLUTE RULE: ONLY USE INFORMATION FROM THIS PROTOCOL
 
-## CRITICAL INSTRUCTIONS:
+You must generate a SAP using ONLY the information in the protocol below.
+DO NOT add any variables, tables, or content that is not explicitly mentioned.
 
-1. **THE PROTOCOL IS THE SOURCE OF TRUTH**
-   - Only include variables that are mentioned or clearly implied in the protocol
-   - Only include endpoints that are defined in the protocol
-   - Only include populations that are described in the protocol
-   - Use the exact statistical methods specified in the protocol
+## FORBIDDEN - DO NOT INCLUDE UNLESS EXPLICITLY IN PROTOCOL:
+- Race/Ethnicity (only include if protocol explicitly collects this)
+- ECOG Performance Status (only if protocol mentions ECOG specifically)
+- Tumor response categories CR/PR/SD/PD (only for metastatic studies with measurable tumors)
+- Geographic subgroups like "North America", "Europe", "Asia" (only if protocol lists these regions)
+- CTCAE grading (only if protocol specifies CTCAE)
+- Dose modification tables (only if protocol has dose modification rules)
 
-2. **DO NOT ADD GENERIC CONTENT**
-   - If the protocol doesn't mention Race/Ethnicity, don't include them
-   - If the protocol doesn't mention ECOG, don't include it
-   - If the protocol uses ASA Score instead of ECOG, use ASA Score
-   - If this is a post-surgery (adjuvant) study with no measurable disease, don't include tumor response tables (CR/PR/SD/PD)
+## STUDY TYPE DETECTION - CRITICAL:
+Read the protocol and determine:
+1. Is this ADJUVANT (post-surgery, no measurable disease)?
+   → Use time-to-event endpoints (DFS, TTR, OS)
+   → Use Hazard Ratio and Cox regression
+   → DO NOT include tumor response tables (CR/PR/SD/PD)
 
-3. **MATCH THE STATISTICAL METHODS TO THE ENDPOINTS**
-   - Time-to-event endpoints (DFS, OS, PFS, TTR) → Cox regression, Hazard Ratio, Kaplan-Meier
-   - Binary endpoints (response rate) → Logistic regression or Fisher's exact, Odds Ratio or Risk Difference
-   - Continuous endpoints → t-test or ANCOVA, Mean difference
+2. Is this METASTATIC (treating existing tumors)?
+   → Include tumor response (CR/PR/SD/PD) if using RECIST
+   → Include ORR, DCR tables
 
-4. **EXTRACT AND USE ACTUAL VALUES**
-   - Sample size: Use what's in the protocol
-   - Treatment arms: Use what's in the protocol
-   - Stratification factors: Use what's in the protocol
-   - Follow-up duration: Use what's in the protocol
+3. What performance status does the protocol use?
+   → ECOG? Use ECOG
+   → ASA Score? Use ASA Score
+   → Karnofsky? Use Karnofsky
+   → Not mentioned? Mark as [TO BE CONFIRMED]
 
-5. **GENERATE TABLE SHELLS THAT MATCH THE PROTOCOL**
-   - Baseline tables should have columns matching the actual treatment arms
-   - Variables in tables should be the ones actually collected per the protocol
-   - Use appropriate summary statistics (n(%) for categorical, median/IQR for continuous)
+4. What countries/regions?
+   → Nordic (Sweden, Norway, Denmark, Finland)? Do NOT add Race/Ethnicity
+   → US study? May include Race/Ethnicity if in protocol
+   → Only include geographic subgroups that match actual study sites
 
-## SOURCE 1: EXTRACTED FACTS FROM PROTOCOL
+## STATISTICAL METHODS - MATCH TO ENDPOINT TYPE:
+- Time-to-event (DFS, OS, PFS, TTR) → Cox regression, Hazard Ratio, Kaplan-Meier
+- Binary response rate → May use Odds Ratio OR Risk Difference
+- DO NOT use Odds Ratio for time-to-event endpoints
+
+## BASELINE VARIABLES:
+ONLY include variables explicitly mentioned in the protocol:
 {facts_text}
 
-## SOURCE 2: POWER/SAMPLE SIZE CALCULATIONS
+## SAMPLE SIZE:
 {power_text}
 
-## SOURCE 3: SIMILAR TRIALS (STYLE REFERENCE ONLY)
-{context_text}
-
-## SOURCE 4: PROSE STYLE EXAMPLES
-{rag_text}
-
-## PROTOCOL CONTENT
-{protocol_content[:15000]}
+## PROTOCOL CONTENT (THIS IS YOUR ONLY SOURCE):
+{protocol_content}
 
 ---
 
-Now generate a complete SAP that exactly matches this specific protocol.
-Do not use generic templates. Extract everything from the protocol above.
+## OUTPUT REQUIREMENTS:
+1. Generate SAP sections with ONLY protocol-specified content
+2. For any variable not in protocol, write [NOT IN PROTOCOL - CONFIRM IF NEEDED]
+3. Table shells must use ONLY the treatment arms from this protocol
+4. Column headers must match this protocol's groups exactly
+5. DO NOT copy structure from other SAPs - this protocol is unique
 
-If something is not specified in the protocol, either:
-- Mark it as [TO BE CONFIRMED]
-- Or omit it entirely
-
-Generate the SAP now:"""
+Generate the protocol-specific SAP now:"""
 
         try:
             response = self.client.messages.create(
@@ -1137,7 +1141,7 @@ Extract EVERYTHING: endpoints, methods, populations, stratification factors, sam
 Be thorough. Include primary, secondary, and exploratory endpoints.
 
 DOCUMENT:
-{content[:15000]}
+{content}
 
 Return ONLY valid JSON array, no other text."""
 

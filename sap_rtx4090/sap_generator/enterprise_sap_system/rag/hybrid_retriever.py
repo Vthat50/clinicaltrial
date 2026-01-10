@@ -17,7 +17,9 @@ from typing import Dict, List, Optional, Set, Any, Tuple
 from collections import defaultdict
 
 from enterprise_sap_system.rag.vector_store import SAPVectorStore, RetrievalResult, create_vector_store
-from enterprise_sap_system.rag.knowledge_graph import SAPKnowledgeGraph, create_knowledge_graph
+
+# Knowledge graph removed - using vector-only retrieval
+# Graph-based features disabled until new knowledge graph is integrated
 
 
 @dataclass

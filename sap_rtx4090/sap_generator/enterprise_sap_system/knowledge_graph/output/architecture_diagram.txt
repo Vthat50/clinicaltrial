@@ -1,0 +1,96 @@
+====================================================================================================
+SAP KNOWLEDGE GRAPH - VISUAL ARCHITECTURE
+====================================================================================================
+
+TOTAL: 382 Nodes | 2811 Edges | 22 Modules | 355 Data Sources
+
+====================================================================================================
+
+                    ┌────────────────────────────────────────┐
+                    │     SAP KNOWLEDGE GRAPH SYSTEM          │
+                    └─────────────┬──────────────────────────┘
+                                  │
+                    ┌─────────────┴──────────────┐
+                    │                            │
+          ┌─────────▼─────────┐       ┌─────────▼────────┐
+          │  ENTERPRISE MODULES│       │   DATA SOURCES   │
+          │    (20 modules)    │       │  (355 sources)   │
+          └─────────┬──────────┘       └─────────┬────────┘
+                    │                            │
+         ┌──────────┼──────────┐                │
+         │          │          │                │
+    ┌────▼────┐ ┌──▼───┐ ┌────▼────┐      ┌───▼────────┐
+    │ Phase 5 │ │Phase6│ │ Phase 8 │      │ 239 PDFs   │
+    │ Safety  │ │Criteria│ │ Stats │      │ 116 Ground │
+    │ (3 mod) │ │(3 mod)│ │(14 mod)│      │   Truth    │
+    └────┬────┘ └──┬───┘ └────┬────┘      └───┬────────┘
+         │         │          │                │
+         └─────────┴──────────┴────────────────┘
+                    │
+                    ▼
+         ┌──────────────────────┐
+         │  COVERAGE: 100% FULL │
+         └──────────────────────┘
+
+====================================================================================================
+
+
+Phase 5
+────────────────────────────────────────────────────────────────────────────────────────────────────
+✅ Adverse Event Analysis                        | Sources: 130 | Coverage: FULL
+✅ Laboratory Safety Analysis                    | Sources: 130 | Coverage: FULL
+
+Phase 6
+────────────────────────────────────────────────────────────────────────────────────────────────────
+✅ Immune-Related Response Criteria (irRC)       | Sources:   7 | Coverage: FULL
+✅ Response Assessment in Neuro-Oncology (RANO)  | Sources:   9 | Coverage: FULL
+✅ Cheson/Lugano Criteria for Lymphoma           | Sources:  13 | Coverage: FULL
+✅ IWG Criteria for Acute Leukemia (AML/ALL)     | Sources: 150 | Coverage: FULL
+✅ Modified RECIST (mRECIST) for HCC             | Sources: 141 | Coverage: FULL
+
+Phase 7
+────────────────────────────────────────────────────────────────────────────────────────────────────
+✅ Comprehensive Safety Integration              | Sources: 130 | Coverage: FULL
+
+Phase 8
+────────────────────────────────────────────────────────────────────────────────────────────────────
+✅ Survival Analysis                             | Sources: 137 | Coverage: FULL
+✅ Subgroup Analysis                             | Sources: 130 | Coverage: FULL
+✅ Missing Data Analysis                         | Sources: 130 | Coverage: FULL
+✅ Multiplicity Adjustment                       | Sources: 130 | Coverage: FULL
+✅ Interim Analysis                              | Sources: 130 | Coverage: FULL
+✅ Binary Endpoints Analysis                     | Sources: 135 | Coverage: FULL
+✅ Estimands Framework (ICH E9(R1))              | Sources: 130 | Coverage: FULL
+✅ Sample Size Calculation                       | Sources: 130 | Coverage: FULL
+✅ Covariate Adjustment                          | Sources: 130 | Coverage: FULL
+✅ Repeated Measures Analysis                    | Sources: 130 | Coverage: FULL
+✅ Non-parametric Methods                        | Sources: 130 | Coverage: FULL
+✅ Dose-Response Analysis (MCP-Mod)              | Sources:  22 | Coverage: FULL
+✅ Bayesian Methods                              | Sources: 130 | Coverage: FULL
+✅ Patient-Reported Outcomes / QoL               | Sources: 130 | Coverage: FULL
+
+====================================================================================================
+DATA SOURCE CATEGORIES
+====================================================================================================
+
+comprehensive             ██████████████████████████████████████████████████ 130
+response_criteria         █████████████████████████████████████████ 107
+statistical_methods       ████  12
+tumor_specific            ████████████████████████████████████████ 106
+
+====================================================================================================
+LEGEND
+====================================================================================================
+✅ = Full Coverage (5+ data sources)
+⚠️  = Partial Coverage (1-4 data sources)
+❌ = No Coverage (0 data sources)
+
+Node Types:
+  - module: Enterprise modules created (Phases 5, 6, 8)
+  - data_source: Real SAP examples (PDFs, ground truth)
+  - category: Grouping categories
+
+Edge Types:
+  - covered_by: Module supported by data source
+  - belongs_to: Node belongs to category
+====================================================================================================

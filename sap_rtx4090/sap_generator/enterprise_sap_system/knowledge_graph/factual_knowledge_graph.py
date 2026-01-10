@@ -49,6 +49,11 @@ class NodeType(Enum):
     QUOTE = "quote"
     POPULATION = "population"
     STRATUM = "stratum"
+    # New node types
+    CENSORING_RULE = "censoring_rule"
+    MULTIPLICITY = "multiplicity"
+    VISIT = "visit"
+    ESTIMAND = "estimand"
 
 
 @dataclass
@@ -190,6 +195,79 @@ class StratumNode(Node):
         )
 
 
+@dataclass
+class CensoringRuleNode(Node):
+    """Censoring rule node - how events are censored in time-to-event analysis."""
+    def __init__(self, endpoint: str, event_type: str, censoring_reason: str, censoring_date: str):
+        rule_id = f"censor:{hashlib.md5(f'{endpoint}:{event_type}:{censoring_reason}'.encode()).hexdigest()[:8]}"
+        super().__init__(
+            id=rule_id,
+            node_type=NodeType.CENSORING_RULE,
+            attributes={
+                "endpoint": endpoint,  # Which endpoint this applies to
+                "event_type": event_type,  # "event" or "censored"
+                "censoring_reason": censoring_reason,  # e.g., "Lost to follow-up", "Started new therapy"
+                "censoring_date": censoring_date  # e.g., "Date of last tumor assessment"
+            }
+        )
+
+
+@dataclass
+class MultiplicityNode(Node):
+    """Multiplicity adjustment node - how multiple comparisons are handled."""
+    def __init__(self, method: str, endpoints: List[str], alpha: float = 0.05,
+                 allocation: Dict[str, float] = None, sequence: List[str] = None):
+        mult_id = f"mult:{hashlib.md5(f'{method}:{str(endpoints)}'.encode()).hexdigest()[:8]}"
+        super().__init__(
+            id=mult_id,
+            node_type=NodeType.MULTIPLICITY,
+            attributes={
+                "method": method,  # e.g., "Hochberg", "Holm", "Fixed-sequence", "Graphical"
+                "endpoints": endpoints,  # List of endpoints in the testing strategy
+                "alpha": alpha,  # Overall alpha level
+                "alpha_allocation": allocation or {},  # How alpha is split, e.g., {"PFS": 0.02, "OS": 0.03}
+                "testing_sequence": sequence or []  # Order of testing if sequential
+            }
+        )
+
+
+@dataclass
+class VisitNode(Node):
+    """Visit/assessment schedule node."""
+    def __init__(self, visit_name: str, timing: str, window: str = "", assessments: List[str] = None):
+        visit_id = f"visit:{hashlib.md5(f'{visit_name}:{timing}'.encode()).hexdigest()[:8]}"
+        super().__init__(
+            id=visit_id,
+            node_type=NodeType.VISIT,
+            attributes={
+                "visit_name": visit_name,  # e.g., "Screening", "Week 8", "End of Treatment"
+                "timing": timing,  # e.g., "Day 1", "Week 8 ± 3 days", "Every 12 weeks"
+                "window": window,  # e.g., "± 3 days", "± 1 week"
+                "assessments": assessments or []  # e.g., ["CT scan", "Labs", "ECOG PS"]
+            }
+        )
+
+
+@dataclass
+class EstimandNode(Node):
+    """Estimand node - ICH E9(R1) framework components."""
+    def __init__(self, endpoint: str, population: str, treatment: str,
+                 summary_measure: str, intercurrent_events: List[Dict] = None):
+        est_id = f"estimand:{hashlib.md5(f'{endpoint}:{population}:{treatment}'.encode()).hexdigest()[:8]}"
+        super().__init__(
+            id=est_id,
+            node_type=NodeType.ESTIMAND,
+            attributes={
+                "endpoint": endpoint,  # The variable/endpoint
+                "population": population,  # Target population
+                "treatment": treatment,  # Treatment condition
+                "summary_measure": summary_measure,  # e.g., "Hazard ratio", "Difference in proportions"
+                "intercurrent_events": intercurrent_events or []  # List of {event, strategy} dicts
+                # Strategies: "treatment_policy", "composite", "hypothetical", "principal_stratum", "while_on_treatment"
+            }
+        )
+
+
 # =============================================================================
 # EDGE TYPES (FACTUAL ONLY - NO INFERENCE)
 # =============================================================================
@@ -203,9 +281,15 @@ class EdgeType(Enum):
     HAS_ENDPOINT = "has_endpoint"           # Trial → Endpoint (fact: this trial has this endpoint)
     HAS_POPULATION = "has_population"       # Trial → Population
     STRATIFIED_BY = "stratified_by"         # Trial → Stratum
+    HAS_VISIT = "has_visit"                 # Trial → Visit (fact: this trial has this visit schedule)
+    HAS_ESTIMAND = "has_estimand"           # Trial → Estimand (fact: this trial defined this estimand)
 
     # Method relationships
     ANALYZED_WITH = "analyzed_with"         # Endpoint → Method (fact: this endpoint was analyzed with this method)
+
+    # Censoring and multiplicity
+    CENSORED_BY = "censored_by"             # Endpoint → CensoringRule (fact: this endpoint uses this censoring rule)
+    ADJUSTED_BY = "adjusted_by"             # Trial → Multiplicity (fact: this trial uses this multiplicity adjustment)
 
     # Provenance relationships
     EXTRACTED_FROM = "extracted_from"       # Any → Document (provenance)

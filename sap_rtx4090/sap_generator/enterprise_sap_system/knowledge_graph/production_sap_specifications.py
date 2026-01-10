@@ -1,0 +1,1375 @@
+"""
+Production-Grade SAP Specifications
+====================================
+
+Comprehensive specifications for generating production-quality
+Statistical Analysis Plans for Phase 2/3 oncology trials.
+
+Based on exhaustive analysis of real SAP files from ground_truth folder.
+
+Sections:
+1. TFL (Table/Figure/Listing) Shells
+2. ADaM Dataset Specifications
+3. Estimands Framework (ICH E9 R1)
+4. Programming Specifications
+5. Study Design Elements
+6. RECIST 1.1 Response Criteria
+7. Safety Analysis Specifications
+8. Data Handling Conventions
+"""
+
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Any
+import json
+from pathlib import Path
+
+
+# =============================================================================
+# 1. TFL (TABLE/FIGURE/LISTING) SHELLS
+# =============================================================================
+
+TFL_SHELLS = {
+    "disposition_tables": {
+        "14.1.1": {
+            "title": "Subject Disposition",
+            "columns": ["Category", "Treatment A (N=XXX)", "Treatment B (N=XXX)", "Total (N=XXX)"],
+            "rows": [
+                "Screened",
+                "Screen Failures",
+                "  Did not meet eligibility criteria",
+                "  Withdrew consent",
+                "  Other",
+                "Randomized",
+                "Treated",
+                "Completed Treatment",
+                "Discontinued Treatment",
+                "  Adverse Event",
+                "  Disease Progression",
+                "  Withdrew Consent",
+                "  Lost to Follow-up",
+                "  Death",
+                "  Other",
+                "Completed Study",
+                "Ongoing"
+            ],
+            "statistics": "n (%)",
+            "footnotes": [
+                "Percentages based on number randomized",
+                "A subject may have multiple reasons for discontinuation"
+            ]
+        },
+        "14.1.2": {
+            "title": "Demographics and Baseline Characteristics",
+            "columns": ["Parameter", "Statistic", "Treatment A (N=XXX)", "Treatment B (N=XXX)", "Total (N=XXX)"],
+            "parameters": {
+                "age": {
+                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "decimals": 1
+                },
+                "age_group": {
+                    "categories": ["<65 years", ">=65 years"],
+                    "statistics": "n (%)"
+                },
+                "sex": {
+                    "categories": ["Male", "Female"],
+                    "statistics": "n (%)"
+                },
+                "race": {
+                    "categories": ["White", "Black or African American", "Asian", "Other"],
+                    "statistics": "n (%)"
+                },
+                "ethnicity": {
+                    "categories": ["Hispanic or Latino", "Not Hispanic or Latino", "Unknown"],
+                    "statistics": "n (%)"
+                },
+                "weight_kg": {
+                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "decimals": 1
+                },
+                "height_cm": {
+                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "decimals": 1
+                },
+                "bmi": {
+                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "decimals": 1
+                },
+                "ecog_ps": {
+                    "categories": ["0", "1", "2"],
+                    "statistics": "n (%)"
+                }
+            },
+            "footnotes": [
+                "BMI = weight (kg) / height (m)^2",
+                "ECOG = Eastern Cooperative Oncology Group Performance Status"
+            ]
+        },
+        "14.1.3": {
+            "title": "Disease Characteristics at Baseline",
+            "parameters": {
+                "disease_stage": {
+                    "categories": ["Stage IIIB", "Stage IV"],
+                    "statistics": "n (%)"
+                },
+                "metastatic_sites": {
+                    "categories": ["Liver", "Lung", "Bone", "Brain", "Lymph nodes", "Other"],
+                    "statistics": "n (%)"
+                },
+                "number_metastatic_sites": {
+                    "categories": ["1", "2", ">=3"],
+                    "statistics": "n (%)"
+                },
+                "prior_therapies": {
+                    "categories": ["0", "1", "2", ">=3"],
+                    "statistics": "n (%)"
+                },
+                "sum_target_lesions_mm": {
+                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "decimals": 1
+                }
+            }
+        }
+    },
+
+    "efficacy_tables": {
+        "14.2.1": {
+            "title": "Summary of Progression-Free Survival (ITT Population)",
+            "columns": ["Parameter", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+            "rows": [
+                "Number of Events, n (%)",
+                "  Disease Progression",
+                "  Death",
+                "Number Censored, n (%)",
+                "",
+                "Kaplan-Meier Estimates",
+                "  25th Percentile (months) [95% CI]",
+                "  Median (months) [95% CI]",
+                "  75th Percentile (months) [95% CI]",
+                "",
+                "Event-free Probability at Month 6 [95% CI]",
+                "Event-free Probability at Month 12 [95% CI]",
+                "",
+                "Hazard Ratio [95% CI]",
+                "P-value (Stratified Log-rank)"
+            ],
+            "footnotes": [
+                "PFS = time from randomization to first documented progression or death",
+                "Hazard ratio <1 favors Treatment A",
+                "P-value from stratified log-rank test stratified by [stratification factors]",
+                "95% CI for median calculated using Brookmeyer-Crowley method"
+            ]
+        },
+        "14.2.2": {
+            "title": "Summary of Overall Survival (ITT Population)",
+            "columns": ["Parameter", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+            "rows": [
+                "Number of Deaths, n (%)",
+                "Number Censored, n (%)",
+                "",
+                "Kaplan-Meier Estimates",
+                "  25th Percentile (months) [95% CI]",
+                "  Median (months) [95% CI]",
+                "  75th Percentile (months) [95% CI]",
+                "",
+                "Survival Probability at Month 12 [95% CI]",
+                "Survival Probability at Month 24 [95% CI]",
+                "",
+                "Hazard Ratio [95% CI]",
+                "P-value (Stratified Log-rank)"
+            ]
+        },
+        "14.2.3": {
+            "title": "Best Overall Response (ITT Population)",
+            "columns": ["Response Category", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+            "rows": [
+                "Complete Response (CR), n (%)",
+                "Partial Response (PR), n (%)",
+                "Stable Disease (SD), n (%)",
+                "Progressive Disease (PD), n (%)",
+                "Not Evaluable (NE), n (%)",
+                "",
+                "Objective Response Rate (CR+PR), n (%)",
+                "  95% CI",
+                "",
+                "Disease Control Rate (CR+PR+SD), n (%)",
+                "  95% CI",
+                "",
+                "Odds Ratio [95% CI]",
+                "P-value (CMH Test)"
+            ],
+            "footnotes": [
+                "Response assessed per RECIST v1.1 by IRC",
+                "CR and PR require confirmation >= 4 weeks after initial response",
+                "95% CI calculated using Clopper-Pearson exact method",
+                "SD requires minimum duration of [X] weeks from baseline"
+            ]
+        },
+        "14.2.4": {
+            "title": "Duration of Response (Responder Population)",
+            "columns": ["Parameter", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+            "rows": [
+                "Number of Responders (CR+PR)",
+                "Number with Subsequent Progression or Death, n (%)",
+                "Number Censored, n (%)",
+                "",
+                "Kaplan-Meier Estimates",
+                "  Median DOR (months) [95% CI]",
+                "  Min, Max (months)"
+            ]
+        }
+    },
+
+    "safety_tables": {
+        "14.3.1": {
+            "title": "Overview of Treatment-Emergent Adverse Events (Safety Population)",
+            "columns": ["Category", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+            "rows": [
+                "Subjects with at least one TEAE, n (%)",
+                "Subjects with at least one Grade >=3 TEAE, n (%)",
+                "Subjects with at least one Serious TEAE, n (%)",
+                "Subjects with at least one Treatment-Related TEAE, n (%)",
+                "Subjects with at least one Treatment-Related Grade >=3 TEAE, n (%)",
+                "Subjects with TEAE Leading to Treatment Discontinuation, n (%)",
+                "Subjects with TEAE Leading to Dose Reduction, n (%)",
+                "Subjects with TEAE Leading to Dose Interruption, n (%)",
+                "Deaths, n (%)"
+            ],
+            "footnotes": [
+                "TEAE = Treatment-Emergent Adverse Event",
+                "TEAEs are AEs with onset on or after first dose and up to 28 days after last dose",
+                "A subject with multiple events in a category is counted once"
+            ]
+        },
+        "14.3.2": {
+            "title": "Treatment-Emergent Adverse Events by System Organ Class and Preferred Term (Safety Population)",
+            "columns": ["System Organ Class / Preferred Term",
+                       "Treatment A (N=XXX) All Grades n (%)", "Treatment A Grade >=3 n (%)",
+                       "Treatment B (N=XXX) All Grades n (%)", "Treatment B Grade >=3 n (%)"],
+            "sorting": "SOC alphabetically, PT by decreasing frequency in Treatment A",
+            "footnotes": [
+                "Adverse events coded using MedDRA version XX.X",
+                "Graded using NCI-CTCAE version X.X",
+                "A subject with multiple events for a PT is counted once at worst grade"
+            ]
+        },
+        "14.3.3": {
+            "title": "TEAEs Occurring in >=5% of Subjects in Any Treatment Group (Safety Population)",
+            "columns": ["Preferred Term",
+                       "Treatment A (N=XXX) n (%)", "Treatment B (N=XXX) n (%)"],
+            "sorting": "By decreasing frequency in Treatment A arm"
+        },
+        "14.3.4": {
+            "title": "Laboratory Shift Table: [Parameter] (Safety Population)",
+            "format": "Baseline Grade vs Worst Post-Baseline Grade",
+            "columns": ["Baseline Grade", "Grade 0", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Total"],
+            "rows": ["Grade 0", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Total"],
+            "footnotes": [
+                "Grades based on NCI-CTCAE version X.X",
+                "Only subjects with both baseline and post-baseline values included",
+                "Numbers represent n (%) within each baseline grade category"
+            ]
+        }
+    },
+
+    "figures": {
+        "14.4.1": {
+            "title": "Kaplan-Meier Plot of Progression-Free Survival (ITT Population)",
+            "elements": [
+                "Survival curves by treatment arm",
+                "Number at risk table",
+                "Censoring tick marks",
+                "Median lines (horizontal dashed)",
+                "Hazard ratio and 95% CI",
+                "P-value"
+            ],
+            "x_axis": "Time from Randomization (Months)",
+            "y_axis": "Probability of Progression-Free Survival"
+        },
+        "14.4.2": {
+            "title": "Kaplan-Meier Plot of Overall Survival (ITT Population)",
+            "elements": [
+                "Survival curves by treatment arm",
+                "Number at risk table",
+                "Censoring tick marks",
+                "Median lines",
+                "Hazard ratio and 95% CI",
+                "P-value"
+            ]
+        },
+        "14.4.3": {
+            "title": "Forest Plot of Subgroup Analyses for PFS",
+            "elements": [
+                "Subgroup labels",
+                "N per treatment arm per subgroup",
+                "Events per arm",
+                "Hazard ratio with 95% CI",
+                "Graphical forest plot",
+                "Favors labels",
+                "Interaction p-value (optional)"
+            ],
+            "subgroups": [
+                "Overall",
+                "Age (<65, >=65)",
+                "Sex (Male, Female)",
+                "ECOG PS (0, 1)",
+                "Geographic Region",
+                "Disease Stage",
+                "Number of Prior Therapies",
+                "Biomarker Status"
+            ]
+        }
+    },
+
+    "formatting_rules": {
+        "decimals": {
+            "age": 1,
+            "weight": 1,
+            "height": 1,
+            "bmi": 1,
+            "percentages": 1,
+            "p_values": {"default": 3, "threshold": 0.001, "display": "<0.001"},
+            "hazard_ratio": 2,
+            "confidence_intervals": 2,
+            "survival_time_months": 1,
+            "tumor_measurements_mm": 1
+        },
+        "percentages": {
+            "formula": "100 * n / N",
+            "format": "n (XX.X%)",
+            "parentheses": True
+        },
+        "confidence_intervals": {
+            "level": 95,
+            "format": "[lower, upper]",
+            "brackets": True
+        },
+        "p_values": {
+            "threshold": 0.001,
+            "below_threshold": "<0.001",
+            "decimals": 3
+        },
+        "missing_display": {
+            "continuous": "NE or NA",
+            "categorical": "Missing, n (%)"
+        }
+    }
+}
+
+
+# =============================================================================
+# 2. ADaM DATASET SPECIFICATIONS
+# =============================================================================
+
+ADAM_SPECIFICATIONS = {
+    "adsl": {
+        "name": "Subject-Level Analysis Dataset",
+        "description": "One record per subject with demographics, baseline, and disposition",
+        "key_variables": {
+            "identifiers": {
+                "STUDYID": {"label": "Study Identifier", "type": "Char"},
+                "USUBJID": {"label": "Unique Subject Identifier", "type": "Char"},
+                "SUBJID": {"label": "Subject Identifier for the Study", "type": "Char"},
+                "SITEID": {"label": "Study Site Identifier", "type": "Char"}
+            },
+            "treatment": {
+                "TRT01P": {"label": "Planned Treatment for Period 01", "type": "Char"},
+                "TRT01PN": {"label": "Planned Treatment for Period 01 (N)", "type": "Num"},
+                "TRT01A": {"label": "Actual Treatment for Period 01", "type": "Char"},
+                "TRT01AN": {"label": "Actual Treatment for Period 01 (N)", "type": "Num"},
+                "TRTSDT": {"label": "Date of First Exposure to Treatment", "type": "Num", "format": "DATE9."},
+                "TRTEDT": {"label": "Date of Last Exposure to Treatment", "type": "Num", "format": "DATE9."},
+                "TRTDUR": {"label": "Treatment Duration (days)", "type": "Num"}
+            },
+            "demographics": {
+                "AGE": {"label": "Age (years)", "type": "Num", "derivation": "(RFSTDTC - BRTHDTC) / 365.25"},
+                "AGEGR1": {"label": "Pooled Age Group 1", "type": "Char", "categories": ["<65", ">=65"]},
+                "AGEGR1N": {"label": "Pooled Age Group 1 (N)", "type": "Num"},
+                "SEX": {"label": "Sex", "type": "Char"},
+                "RACE": {"label": "Race", "type": "Char"},
+                "ETHNIC": {"label": "Ethnicity", "type": "Char"},
+                "COUNTRY": {"label": "Country", "type": "Char"}
+            },
+            "baseline": {
+                "HEIGHTBL": {"label": "Baseline Height (cm)", "type": "Num"},
+                "WEIGHTBL": {"label": "Baseline Weight (kg)", "type": "Num"},
+                "BMIBL": {"label": "Baseline BMI (kg/m^2)", "type": "Num", "derivation": "WEIGHTBL / (HEIGHTBL/100)^2"},
+                "ECOGBL": {"label": "Baseline ECOG PS", "type": "Num"},
+                "ECOGBLC": {"label": "Baseline ECOG PS Category", "type": "Char"}
+            },
+            "population_flags": {
+                "ITTFL": {"label": "Intent-to-Treat Population Flag", "type": "Char", "values": ["Y", "N"]},
+                "SAFFL": {"label": "Safety Population Flag", "type": "Char", "values": ["Y", "N"]},
+                "FASFL": {"label": "Full Analysis Set Population Flag", "type": "Char", "values": ["Y", "N"]},
+                "PPROTFL": {"label": "Per-Protocol Population Flag", "type": "Char", "values": ["Y", "N"]},
+                "EFFFL": {"label": "Efficacy Evaluable Population Flag", "type": "Char", "values": ["Y", "N"]}
+            },
+            "disposition": {
+                "EOSSTT": {"label": "End of Study Status", "type": "Char"},
+                "EOSDT": {"label": "End of Study Date", "type": "Num", "format": "DATE9."},
+                "DCSREAS": {"label": "Reason for Study Discontinuation", "type": "Char"},
+                "DTHFL": {"label": "Subject Death Flag", "type": "Char", "values": ["Y", "N"]},
+                "DTHDT": {"label": "Date of Death", "type": "Num", "format": "DATE9."},
+                "DTHCAUS": {"label": "Cause of Death", "type": "Char"}
+            },
+            "stratification": {
+                "STRATF1": {"label": "Stratification Factor 1", "type": "Char"},
+                "STRATF1N": {"label": "Stratification Factor 1 (N)", "type": "Num"},
+                "STRATF2": {"label": "Stratification Factor 2", "type": "Char"},
+                "STRATF2N": {"label": "Stratification Factor 2 (N)", "type": "Num"}
+            }
+        }
+    },
+
+    "adae": {
+        "name": "Adverse Events Analysis Dataset",
+        "description": "One record per adverse event per subject",
+        "key_variables": {
+            "identifiers": {
+                "USUBJID": {"label": "Unique Subject Identifier", "type": "Char"},
+                "AESEQ": {"label": "Sequence Number", "type": "Num"}
+            },
+            "ae_description": {
+                "AEDECOD": {"label": "Dictionary-Derived Term", "type": "Char"},
+                "AEBODSYS": {"label": "Body System or Organ Class", "type": "Char"},
+                "AESOC": {"label": "Primary System Organ Class", "type": "Char"},
+                "AELLT": {"label": "Lowest Level Term", "type": "Char"},
+                "AEHLT": {"label": "High Level Term", "type": "Char"},
+                "AEHLGT": {"label": "High Level Group Term", "type": "Char"}
+            },
+            "timing": {
+                "ASTDT": {"label": "Analysis Start Date", "type": "Num", "format": "DATE9."},
+                "AENDT": {"label": "Analysis End Date", "type": "Num", "format": "DATE9."},
+                "AESTDY": {"label": "Analysis Start Relative Day", "type": "Num"},
+                "AEENDY": {"label": "Analysis End Relative Day", "type": "Num"},
+                "ADURN": {"label": "AE Duration (N)", "type": "Num"},
+                "ADURU": {"label": "AE Duration Units", "type": "Char"}
+            },
+            "severity": {
+                "AESEV": {"label": "Severity/Intensity", "type": "Char"},
+                "AETOXGR": {"label": "Standard Toxicity Grade", "type": "Char"},
+                "ATOXGRN": {"label": "Analysis Toxicity Grade (N)", "type": "Num", "range": [1, 5]}
+            },
+            "relationship": {
+                "AEREL": {"label": "Causality", "type": "Char"},
+                "AERELN": {"label": "Causality (N)", "type": "Num"},
+                "AREL": {"label": "Analysis Causality", "type": "Char", "values": ["RELATED", "NOT RELATED"]}
+            },
+            "seriousness": {
+                "AESER": {"label": "Serious Event", "type": "Char", "values": ["Y", "N"]},
+                "AESDTH": {"label": "Results in Death", "type": "Char"},
+                "AESHOSP": {"label": "Requires or Prolongs Hospitalization", "type": "Char"},
+                "AESLIFE": {"label": "Is Life Threatening", "type": "Char"},
+                "AESDISAB": {"label": "Persist or Signif Disability/Incapacity", "type": "Char"}
+            },
+            "outcome": {
+                "AEOUT": {"label": "Outcome of Adverse Event", "type": "Char"},
+                "AEACN": {"label": "Action Taken with Study Treatment", "type": "Char"}
+            },
+            "flags": {
+                "TRTEMFL": {"label": "Treatment Emergent Analysis Flag", "type": "Char"},
+                "AOCCIFL": {"label": "1st Occurrence within SOC Flag", "type": "Char"},
+                "AOCCPIFL": {"label": "1st Occurrence of PT Flag", "type": "Char"},
+                "AOCC01FL": {"label": "1st Occurrence of Any AE Flag", "type": "Char"}
+            }
+        },
+        "derivation_rules": {
+            "TRTEMFL": {
+                "condition": "ASTDT >= TRTSDT and ASTDT <= TRTEDT + 28",
+                "description": "Treatment-emergent if onset on/after first dose and up to 28 days after last dose"
+            },
+            "worst_grade": {
+                "rule": "Keep maximum ATOXGRN per USUBJID per AEDECOD",
+                "description": "For subjects with multiple occurrences, use worst grade"
+            }
+        }
+    },
+
+    "adtte": {
+        "name": "Time-to-Event Analysis Dataset",
+        "description": "One record per subject per time-to-event parameter",
+        "key_variables": {
+            "identifiers": {
+                "USUBJID": {"label": "Unique Subject Identifier", "type": "Char"},
+                "PARAMCD": {"label": "Parameter Code", "type": "Char"},
+                "PARAM": {"label": "Parameter", "type": "Char"}
+            },
+            "analysis_values": {
+                "AVAL": {"label": "Analysis Value", "type": "Num", "unit": "days or months"},
+                "AVALU": {"label": "Analysis Value Unit", "type": "Char"},
+                "CNSR": {"label": "Censor", "type": "Num", "values": {"0": "Event", "1": "Censored"}},
+                "EVNTDESC": {"label": "Event or Censoring Description", "type": "Char"}
+            },
+            "dates": {
+                "STARTDT": {"label": "Time-to-Event Origin Date", "type": "Num", "format": "DATE9."},
+                "ADT": {"label": "Analysis Date", "type": "Num", "format": "DATE9."}
+            }
+        },
+        "parameters": {
+            "OS": {
+                "param": "Overall Survival",
+                "startdt": "RANDDT",
+                "event": "Death from any cause",
+                "censor": "Last known alive date",
+                "formula": "(ADT - STARTDT + 1) / 30.4375"
+            },
+            "PFS": {
+                "param": "Progression-Free Survival",
+                "startdt": "RANDDT",
+                "event": "Disease progression or death",
+                "censor": "Last adequate tumor assessment",
+                "formula": "(ADT - STARTDT + 1) / 30.4375"
+            },
+            "TTP": {
+                "param": "Time to Progression",
+                "startdt": "RANDDT",
+                "event": "Disease progression",
+                "censor": "Death censored at date of death",
+                "formula": "(ADT - STARTDT + 1) / 30.4375"
+            },
+            "DOR": {
+                "param": "Duration of Response",
+                "startdt": "Date of first confirmed response",
+                "event": "Disease progression or death",
+                "censor": "Last adequate tumor assessment",
+                "population": "Responders only (BOR = CR or PR)"
+            },
+            "TTR": {
+                "param": "Time to Response",
+                "startdt": "RANDDT",
+                "event": "First confirmed CR or PR",
+                "censor": "Last tumor assessment",
+                "population": "Responders only"
+            }
+        }
+    },
+
+    "adrs": {
+        "name": "Response Analysis Dataset",
+        "description": "One record per subject per response parameter per assessment",
+        "key_variables": {
+            "identifiers": {
+                "USUBJID": {"label": "Unique Subject Identifier", "type": "Char"},
+                "PARAMCD": {"label": "Parameter Code", "type": "Char"},
+                "PARAM": {"label": "Parameter", "type": "Char"},
+                "AVISIT": {"label": "Analysis Visit", "type": "Char"},
+                "AVISITN": {"label": "Analysis Visit (N)", "type": "Num"}
+            },
+            "response": {
+                "AVALC": {"label": "Analysis Value (C)", "type": "Char"},
+                "AVAL": {"label": "Analysis Value", "type": "Num"},
+                "RSRESP": {"label": "Response", "type": "Char"}
+            },
+            "flags": {
+                "ANL01FL": {"label": "Analysis Flag 01", "type": "Char"},
+                "CRIT1FL": {"label": "Criterion 1 Evaluation Result Flag", "type": "Char"}
+            }
+        },
+        "parameters": {
+            "OVRLRESP": {
+                "param": "Overall Response",
+                "values": {"CR": 1, "PR": 2, "SD": 3, "PD": 4, "NE": 5}
+            },
+            "BOR": {
+                "param": "Best Overall Response",
+                "hierarchy": ["CR", "PR", "SD", "PD", "NE"],
+                "confirmation": "CR and PR require confirmation >= 4 weeks"
+            },
+            "ORR": {
+                "param": "Objective Response Rate",
+                "definition": "BOR = CR or PR",
+                "values": {"Responder": 1, "Non-Responder": 0}
+            },
+            "DCR": {
+                "param": "Disease Control Rate",
+                "definition": "BOR = CR, PR, or SD (SD >= 6 weeks)",
+                "values": {"Disease Control": 1, "No Disease Control": 0}
+            }
+        },
+        "derivation_rules": {
+            "BOR": {
+                "steps": [
+                    "1. Identify all post-baseline tumor assessments",
+                    "2. Apply RECIST 1.1 criteria to each assessment",
+                    "3. For CR: require confirmation >= 4 weeks after initial CR",
+                    "4. For PR: require confirmation >= 4 weeks after initial PR",
+                    "5. SD: require minimum duration (e.g., >= 6 weeks from baseline)",
+                    "6. Select best response using hierarchy: CR > PR > SD > PD > NE"
+                ]
+            }
+        }
+    },
+
+    "adlb": {
+        "name": "Laboratory Analysis Dataset",
+        "description": "One record per subject per lab test per timepoint",
+        "key_variables": {
+            "identifiers": {
+                "USUBJID": {"label": "Unique Subject Identifier", "type": "Char"},
+                "PARAMCD": {"label": "Parameter Code", "type": "Char"},
+                "PARAM": {"label": "Parameter", "type": "Char"},
+                "AVISIT": {"label": "Analysis Visit", "type": "Char"}
+            },
+            "values": {
+                "AVAL": {"label": "Analysis Value", "type": "Num"},
+                "AVALU": {"label": "Analysis Value Unit", "type": "Char"},
+                "BASE": {"label": "Baseline Value", "type": "Num"},
+                "CHG": {"label": "Change from Baseline", "type": "Num"},
+                "PCHG": {"label": "Percent Change from Baseline", "type": "Num"}
+            },
+            "reference": {
+                "ANRLO": {"label": "Analysis Normal Range Lower Limit", "type": "Num"},
+                "ANRHI": {"label": "Analysis Normal Range Upper Limit", "type": "Num"},
+                "ANRIND": {"label": "Analysis Reference Range Indicator", "type": "Char", "values": ["NORMAL", "LOW", "HIGH"]}
+            },
+            "grading": {
+                "ATOXGR": {"label": "Analysis Toxicity Grade", "type": "Char"},
+                "ATOXGRN": {"label": "Analysis Toxicity Grade (N)", "type": "Num"},
+                "BTOXGR": {"label": "Baseline Toxicity Grade", "type": "Char"},
+                "BTOXGRN": {"label": "Baseline Toxicity Grade (N)", "type": "Num"}
+            },
+            "flags": {
+                "ABLFL": {"label": "Baseline Record Flag", "type": "Char"},
+                "ANL01FL": {"label": "Analysis Record Flag 01", "type": "Char"}
+            }
+        },
+        "shift_table_derivation": {
+            "baseline_grade": "BTOXGRN from baseline visit",
+            "post_baseline_worst": "Maximum ATOXGRN across all post-baseline visits",
+            "shift": "Post-baseline worst grade - Baseline grade",
+            "population": "Subjects with both baseline and >= 1 post-baseline value"
+        }
+    }
+}
+
+
+# =============================================================================
+# 3. ESTIMANDS FRAMEWORK (ICH E9 R1)
+# =============================================================================
+
+ESTIMANDS_FRAMEWORK = {
+    "definition": {
+        "description": "A precise description of the treatment effect reflecting the clinical question posed by the trial objective",
+        "components": {
+            "population": "The patients targeted by the clinical question",
+            "treatment": "The treatment condition(s) being compared",
+            "variable": "The endpoint or outcome of interest",
+            "population_level_summary": "How individual patient outcomes are combined",
+            "intercurrent_events": "Events occurring post-randomization affecting interpretation"
+        }
+    },
+
+    "intercurrent_event_strategies": {
+        "treatment_policy": {
+            "name": "Treatment Policy Strategy",
+            "description": "The value of the variable regardless of whether the intercurrent event occurs",
+            "approach": "Continue follow-up and data collection regardless of intercurrent event",
+            "example": "Continue to assess PFS even if patient discontinues treatment",
+            "analysis": "Standard ITT analysis",
+            "use_case": "Reflects what happens in real-world clinical practice"
+        },
+        "composite": {
+            "name": "Composite Strategy",
+            "description": "The intercurrent event becomes part of the endpoint",
+            "approach": "Combine endpoint with intercurrent event into composite outcome",
+            "example": "PFS composite = progression OR death OR discontinuation due to toxicity",
+            "analysis": "Analyze composite endpoint as new variable",
+            "use_case": "When intercurrent event itself is clinically meaningful"
+        },
+        "hypothetical": {
+            "name": "Hypothetical Strategy",
+            "description": "Envision a scenario where intercurrent event would not occur",
+            "approach": "Estimate what would have happened in absence of ICE",
+            "example": "What would OS be if patients had not switched to active treatment?",
+            "analysis": "RPSFT, IPTW, IPCW methods",
+            "use_case": "Understanding pure biological treatment effect"
+        },
+        "principal_stratum": {
+            "name": "Principal Stratum Strategy",
+            "description": "Target population defined by intercurrent event potential",
+            "approach": "Restrict to patients who would/would not experience ICE",
+            "example": "Treatment effect in patients who would complete treatment",
+            "analysis": "Principal stratum analysis (complex)",
+            "use_case": "Understanding effect in specific patient subgroups"
+        },
+        "while_on_treatment": {
+            "name": "While-on-Treatment Strategy",
+            "description": "Response to treatment prior to intercurrent event",
+            "approach": "Censor at time of intercurrent event",
+            "example": "PFS while on treatment (censor at discontinuation)",
+            "analysis": "Time-to-event with censoring at ICE",
+            "use_case": "On-treatment efficacy assessment"
+        }
+    },
+
+    "common_intercurrent_events": {
+        "oncology": [
+            "Treatment discontinuation",
+            "Switching to alternative therapy",
+            "Treatment crossover at progression",
+            "Protocol-prohibited concomitant therapy",
+            "Death from non-disease cause",
+            "Missed tumor assessments"
+        ]
+    },
+
+    "example_estimands": {
+        "pfs_treatment_policy": {
+            "population": "All randomized patients with measurable disease",
+            "treatment": "Drug A vs Placebo",
+            "variable": "Time from randomization to progression or death",
+            "summary": "Hazard ratio",
+            "ice_strategy": "Treatment policy (continue follow-up regardless of treatment discontinuation)"
+        },
+        "os_hypothetical": {
+            "population": "All randomized patients",
+            "treatment": "Drug A vs Placebo",
+            "variable": "Time from randomization to death",
+            "summary": "Hazard ratio",
+            "ice_strategy": "Hypothetical (what if placebo patients had not crossed over to active treatment)"
+        }
+    }
+}
+
+
+# =============================================================================
+# 4. PROGRAMMING SPECIFICATIONS
+# =============================================================================
+
+PROGRAMMING_SPECIFICATIONS = {
+    "visit_windowing": {
+        "description": "Rules for assigning actual visit dates to scheduled visits",
+        "windows": {
+            "screening": {"target_day": -28, "window": [-35, -1]},
+            "baseline_day1": {"target_day": 1, "window": [1, 1]},
+            "week_2": {"target_day": 15, "window": [8, 21]},
+            "week_4": {"target_day": 29, "window": [22, 35]},
+            "week_8": {"target_day": 57, "window": [50, 63]},
+            "week_12": {"target_day": 85, "window": [78, 91]},
+            "every_6_weeks": {"pattern": "Target + 42n days", "window": "+/- 7 days"},
+            "every_8_weeks": {"pattern": "Target + 56n days", "window": "+/- 7 days"}
+        },
+        "rules": [
+            "If visit falls within window, assign to scheduled visit",
+            "If visit falls outside all windows, create as unscheduled visit",
+            "If multiple visits within same window, use visit closest to target day",
+            "For efficacy endpoints, unscheduled visits may be excluded"
+        ]
+    },
+
+    "baseline_definition": {
+        "general_rule": "Last non-missing value prior to or on date of first dose",
+        "specific_rules": {
+            "demographics": "Value at screening or Day 1",
+            "laboratory": "Last value prior to first dose (may be screening)",
+            "vital_signs": "Last value prior to first dose",
+            "tumor_assessment": "Last assessment prior to first dose (within 28 days)",
+            "ecog_ps": "Value at Day 1 (pre-dose)"
+        },
+        "missing_baseline": {
+            "action": "Flag as missing baseline (ABLFL = 'N')",
+            "analysis": "Exclude from change-from-baseline analyses"
+        }
+    },
+
+    "analysis_windows": {
+        "on_treatment": {
+            "start": "Date of first dose",
+            "end": "Date of last dose + 28 days (for AEs) or date of last dose (for efficacy)",
+            "description": "Period of active treatment plus safety follow-up"
+        },
+        "post_treatment": {
+            "start": "Date of last dose + 29 days",
+            "end": "End of study or data cutoff",
+            "description": "Long-term follow-up period"
+        },
+        "survival_follow_up": {
+            "description": "Continue until death or study end",
+            "frequency": "Every 12 weeks after treatment discontinuation"
+        }
+    },
+
+    "rounding_rules": {
+        "means": {
+            "rule": "One more decimal place than raw data",
+            "example": "If raw data has 1 decimal, report mean with 2 decimals"
+        },
+        "standard_deviation": {
+            "rule": "Two more decimal places than raw data",
+            "example": "If raw data has 1 decimal, report SD with 3 decimals"
+        },
+        "medians": {
+            "rule": "Same precision as raw data",
+            "example": "If raw data has 1 decimal, report median with 1 decimal"
+        },
+        "percentages": {
+            "rule": "One decimal place",
+            "format": "XX.X%"
+        },
+        "p_values": {
+            "decimals": 3,
+            "threshold": 0.001,
+            "below_threshold_display": "<0.001"
+        },
+        "hazard_ratios": {
+            "decimals": 2,
+            "ci_decimals": 2
+        },
+        "survival_times": {
+            "decimals": 1,
+            "unit": "months"
+        }
+    },
+
+    "handling_multiple_records": {
+        "laboratory": {
+            "same_day": "Use scheduled visit value; if both unscheduled, use latest",
+            "multiple_values": "For continuous: use mean; for categorical: use worst"
+        },
+        "vital_signs": {
+            "same_day": "Use average of measurements taken at same timepoint"
+        },
+        "adverse_events": {
+            "multiple_occurrences": "Count subject once per PT; use worst grade",
+            "overlapping_events": "Keep as separate events in listing; count once in summary"
+        },
+        "tumor_assessments": {
+            "same_day": "Use assessment from scheduled visit; if conflict, query"
+        }
+    },
+
+    "date_imputation": {
+        "partial_dates": {
+            "missing_day": {
+                "ae_start_before_trt": "Last day of month (conservative for TEAE determination)",
+                "ae_start_after_trt": "First day of month",
+                "ae_end": "Last day of month",
+                "conmed_start": "First day of month",
+                "conmed_end": "Last day of month"
+            },
+            "missing_day_month": {
+                "ae_start_before_trt": "December 31",
+                "ae_start_after_trt": "January 1",
+                "general": "July 1 (mid-year)"
+            }
+        },
+        "documentation": "All imputed dates flagged with imputation indicator"
+    }
+}
+
+
+# =============================================================================
+# 5. STUDY DESIGN ELEMENTS
+# =============================================================================
+
+STUDY_DESIGN = {
+    "sample_size": {
+        "time_to_event": {
+            "formula": "Schoenfeld formula for log-rank test",
+            "components": {
+                "events_required": "d = (z_alpha + z_beta)^2 / (log(HR))^2 * 4",
+                "total_n": "N = d / probability_of_event",
+                "per_arm": "n = N / 2 (for 1:1 randomization)"
+            },
+            "example": {
+                "description": "PFS with HR=0.70, alpha=0.025 (one-sided), power=90%",
+                "calculation": "d = (1.96 + 1.28)^2 / (log(0.70))^2 * 4 = 330 events",
+                "enrollment": "N = 330 / 0.75 = 440 subjects (assuming 75% event rate)"
+            }
+        },
+        "binary_endpoint": {
+            "formula": "Chi-square or Fisher's exact",
+            "components": {
+                "n_per_arm": "Sample size for comparing two proportions",
+                "effect_size": "Expected difference in response rates"
+            }
+        },
+        "adjustments": [
+            "Dropout rate (typically 10-20%)",
+            "Interim analysis (inflate for alpha spending)",
+            "Multiplicity adjustment"
+        ]
+    },
+
+    "alpha_allocation": {
+        "single_primary": {
+            "alpha": 0.05,
+            "one_sided": 0.025
+        },
+        "co_primary": {
+            "method": "Bonferroni or Hochberg",
+            "example": "Two co-primary: alpha = 0.025 each"
+        },
+        "hierarchical": {
+            "method": "Fixed sequence testing",
+            "example": ["PFS at alpha=0.025", "If significant, OS at alpha=0.025", "If significant, ORR at alpha=0.025"]
+        },
+        "graphical": {
+            "method": "Graphical MCP (Bretz)",
+            "description": "Alpha propagation between hypotheses"
+        }
+    },
+
+    "interim_analysis": {
+        "timing": {
+            "events_based": "At 50%, 75% of target events",
+            "calendar_based": "At specified timepoints (e.g., 12, 24 months)"
+        },
+        "alpha_spending": {
+            "obrien_fleming": {
+                "description": "Conservative early, liberal late",
+                "formula": "alpha*(t) = 2 * (1 - Phi(z_alpha/2 / sqrt(t)))"
+            },
+            "pocock": {
+                "description": "Equal alpha at each look",
+                "formula": "alpha*(t) = alpha * log(1 + (e-1)*t)"
+            },
+            "lan_demets": {
+                "description": "Flexible spending function",
+                "gamma_family": "alpha*(t) = alpha * t^gamma"
+            }
+        },
+        "futility": {
+            "binding": "Must stop if crossed (impacts alpha)",
+            "non_binding": "Optional stop (preserves alpha)",
+            "conditional_power": "Stop if CP < 10-20%"
+        }
+    }
+}
+
+
+# =============================================================================
+# 6. RECIST 1.1 SPECIFICATIONS
+# =============================================================================
+
+RECIST_SPECIFICATIONS = {
+    "target_lesions": {
+        "selection": {
+            "maximum_total": 5,
+            "maximum_per_organ": 2,
+            "minimum_size": "10 mm longest diameter (CT/MRI) or 20 mm clinical exam",
+            "lymph_nodes": ">= 15 mm short axis to be target",
+            "measurability": "Must be measurable in 2 perpendicular dimensions"
+        },
+        "measurement": {
+            "ct_mri": "Longest diameter in axial plane",
+            "lymph_nodes": "Short axis",
+            "sum_diameters": "Sum of longest diameters of all target lesions"
+        },
+        "baseline": "SLD (Sum of Longest Diameters) at baseline"
+    },
+
+    "non_target_lesions": {
+        "definition": "All other lesions not selected as target",
+        "assessment": ["Present", "Absent", "Unequivocal progression"],
+        "includes": [
+            "Lesions < 10 mm",
+            "Lymph nodes 10-14 mm short axis",
+            "Truly non-measurable lesions (leptomeningeal, ascites, etc.)"
+        ]
+    },
+
+    "new_lesions": {
+        "definition": "Any lesion not present at baseline",
+        "size_requirement": "No minimum size (but must be unequivocal)",
+        "confirmation": "If equivocal, confirm at next assessment",
+        "impact": "New lesion = Progressive Disease"
+    },
+
+    "response_categories": {
+        "CR": {
+            "name": "Complete Response",
+            "target": "Disappearance of all target lesions",
+            "lymph_nodes": "All lymph nodes < 10 mm short axis",
+            "non_target": "Disappearance of all non-target lesions",
+            "new_lesions": "No new lesions",
+            "tumor_markers": "Normalization (if applicable)",
+            "confirmation": "Required at >= 4 weeks"
+        },
+        "PR": {
+            "name": "Partial Response",
+            "target": ">= 30% decrease in SLD from baseline",
+            "non_target": "Non-PD",
+            "new_lesions": "No new lesions",
+            "confirmation": "Required at >= 4 weeks"
+        },
+        "SD": {
+            "name": "Stable Disease",
+            "target": "Neither sufficient decrease (PR) nor increase (PD)",
+            "non_target": "Non-PD",
+            "new_lesions": "No new lesions",
+            "minimum_duration": ">= 6-8 weeks from baseline (study-specific)"
+        },
+        "PD": {
+            "name": "Progressive Disease",
+            "target": ">= 20% increase in SLD from nadir AND >= 5 mm absolute increase",
+            "non_target": "Unequivocal progression",
+            "new_lesions": "Appearance of one or more new lesions",
+            "confirmation": "May require confirmation for clinical trials"
+        },
+        "NE": {
+            "name": "Not Evaluable",
+            "criteria": [
+                "Missing assessment",
+                "Incomplete imaging",
+                "Target lesion not assessed",
+                "Technical failure"
+            ]
+        }
+    },
+
+    "confirmation_requirements": {
+        "CR": {
+            "timing": ">= 4 weeks after initial CR",
+            "requirement": "All CR criteria must be met again"
+        },
+        "PR": {
+            "timing": ">= 4 weeks after initial PR",
+            "requirement": "SLD must still be >= 30% decreased from baseline"
+        },
+        "PD": {
+            "timing": "Optional (study-specific)",
+            "requirement": "If required, PD criteria must be met at subsequent assessment"
+        }
+    },
+
+    "best_overall_response": {
+        "derivation_order": ["CR", "PR", "SD", "PD", "NE"],
+        "rules": [
+            "CR requires confirmation",
+            "PR requires confirmation",
+            "SD requires minimum duration from baseline",
+            "If SD duration not met, assign NE",
+            "PD at any time = PD for BOR (unless later assessments show response)"
+        ]
+    },
+
+    "special_considerations": {
+        "bone_lesions": {
+            "target": "Lytic or mixed with soft tissue component >= 10 mm",
+            "assessment": "CT or MRI required",
+            "response": "Must show healing (sclerotic fill-in) for CR"
+        },
+        "cystic_lesions": {
+            "target": "Only if meet definition of simple cyst and >= 10 mm",
+            "response": "Based on diameter change"
+        },
+        "previously_irradiated": {
+            "target": "Can be target only if documented progression after radiation"
+        }
+    }
+}
+
+
+# =============================================================================
+# 7. SAFETY ANALYSIS SPECIFICATIONS
+# =============================================================================
+
+SAFETY_SPECIFICATIONS = {
+    "teae_definition": {
+        "treatment_emergent": {
+            "onset": "On or after date of first dose",
+            "end": "Up to 28 days after date of last dose (or up to start of new anticancer therapy)",
+            "worsening": "Pre-existing condition that worsens (increase in grade) after first dose"
+        },
+        "determination_rules": [
+            "If AE start date equals first dose date, TEAE = Yes",
+            "If AE start date after last dose + 28, TEAE = No",
+            "If AE start date missing but end date is during treatment, TEAE = Yes (conservative)"
+        ]
+    },
+
+    "ae_summaries": {
+        "overall": {
+            "categories": [
+                "Any TEAE",
+                "Any Grade >= 3 TEAE",
+                "Any Serious TEAE",
+                "Any Treatment-Related TEAE",
+                "Any TEAE Leading to Discontinuation",
+                "Any TEAE Leading to Dose Modification",
+                "Any TEAE Leading to Death"
+            ]
+        },
+        "by_soc_pt": {
+            "sorting": "SOC alphabetically, PT by decreasing frequency",
+            "columns": ["All Grades n (%)", "Grade >= 3 n (%)"],
+            "counting": "Subject counted once per PT (worst grade)"
+        },
+        "common_aes": {
+            "threshold": ">= 5% in any treatment group",
+            "alternative_thresholds": [">= 10%", ">= 2%"]
+        }
+    },
+
+    "laboratory_analysis": {
+        "shift_tables": {
+            "grading": "NCI-CTCAE v4.03 or v5.0",
+            "format": "Baseline Grade (rows) x Worst Post-Baseline Grade (columns)",
+            "parameters": {
+                "hematology": ["WBC", "ANC", "Lymphocytes", "Hemoglobin", "Platelets"],
+                "chemistry": ["ALT", "AST", "Total Bilirubin", "ALP", "Creatinine", "Glucose"],
+                "electrolytes": ["Sodium", "Potassium", "Calcium", "Magnesium", "Phosphorus"]
+            },
+            "population": "Subjects with baseline AND >= 1 post-baseline value"
+        },
+        "marked_abnormalities": {
+            "criteria": [
+                "ALT > 3x ULN",
+                "AST > 3x ULN",
+                "Total Bilirubin > 2x ULN",
+                "ALP > 2.5x ULN",
+                "Creatinine > 1.5x ULN or > 1.5x baseline",
+                "Hemoglobin < 8 g/dL",
+                "ANC < 1.0 x 10^9/L",
+                "Platelets < 50 x 10^9/L"
+            ]
+        },
+        "hys_law": {
+            "criteria": [
+                "ALT or AST > 3x ULN",
+                "AND Total Bilirubin > 2x ULN",
+                "AND ALP < 2x ULN (to exclude biliary obstruction)",
+                "No other cause identified"
+            ],
+            "evaluation": "Listing of all potential Hy's Law cases with causality assessment"
+        }
+    },
+
+    "vital_signs": {
+        "parameters": ["Systolic BP", "Diastolic BP", "Heart Rate", "Temperature", "Weight"],
+        "summary": {
+            "by_visit": "Mean (SD) at each visit",
+            "change_from_baseline": "Mean change (SD) at each visit",
+            "categorical": "N (%) with increase/decrease from baseline"
+        },
+        "marked_changes": {
+            "systolic_bp": {"increase": ">= 180 mmHg and >= 20 mmHg increase", "decrease": "<= 90 mmHg and >= 20 mmHg decrease"},
+            "diastolic_bp": {"increase": ">= 105 mmHg and >= 15 mmHg increase", "decrease": "<= 50 mmHg and >= 15 mmHg decrease"},
+            "heart_rate": {"increase": ">= 120 bpm and >= 15 bpm increase", "decrease": "<= 50 bpm and >= 15 bpm decrease"}
+        }
+    },
+
+    "ecg_analysis": {
+        "qtc_correction": "Fridericia (QTcF = QT / RR^(1/3))",
+        "categories": {
+            "absolute_qtcf": ["<= 450 ms", "> 450 to <= 480 ms", "> 480 to <= 500 ms", "> 500 ms"],
+            "change_from_baseline": ["<= 30 ms", "> 30 to <= 60 ms", "> 60 ms"]
+        },
+        "summary": {
+            "continuous": "Mean (SD) at baseline and each post-baseline visit",
+            "categorical": "N (%) in each category",
+            "shift": "Baseline category vs worst post-baseline category"
+        }
+    },
+
+    "exposure": {
+        "treatment_duration": {
+            "formula": "(Date of last dose - Date of first dose + 1)",
+            "summary": "Mean (SD), Median, Min-Max"
+        },
+        "dose_intensity": {
+            "actual": "Total dose received / Treatment duration",
+            "relative": "(Actual dose intensity / Planned dose intensity) x 100"
+        },
+        "dose_modifications": {
+            "categories": ["Dose reduction", "Dose interruption", "Dose delay"],
+            "summary": "N (%) with each type of modification"
+        }
+    }
+}
+
+
+# =============================================================================
+# 8. DATA HANDLING CONVENTIONS
+# =============================================================================
+
+DATA_HANDLING = {
+    "treatment_assignment": {
+        "efficacy": {
+            "population": "ITT (Intent-to-Treat)",
+            "assignment": "As randomized (not as treated)",
+            "rationale": "Preserves randomization, reflects clinical practice"
+        },
+        "safety": {
+            "population": "Safety Population (All Treated)",
+            "assignment": "As treated (actual drug received)",
+            "rationale": "Attributes AEs to actual treatment received"
+        }
+    },
+
+    "unscheduled_visits": {
+        "efficacy": {
+            "within_window": "Assign to scheduled visit",
+            "outside_window": "Exclude from primary analysis; include in sensitivity",
+            "multiple_same_window": "Use closest to target day"
+        },
+        "safety": {
+            "rule": "Include all assessments regardless of timing",
+            "display": "Show in by-visit summaries or listings"
+        }
+    },
+
+    "re_screening": {
+        "definition": "Subject screened more than once before randomization",
+        "rule": "Use only final screening values for baseline",
+        "exclusion": "All prior screening data excluded from analysis datasets"
+    },
+
+    "treatment_discontinuation": {
+        "reasons": [
+            "Adverse event",
+            "Disease progression",
+            "Subject withdrawal of consent",
+            "Lost to follow-up",
+            "Physician decision",
+            "Protocol deviation",
+            "Death",
+            "Other"
+        ],
+        "follow_up": {
+            "efficacy": "Continue per protocol until progression/death",
+            "safety": "30-day safety follow-up after last dose"
+        }
+    },
+
+    "study_discontinuation": {
+        "timing": ">= 30 days after last dose for final safety",
+        "categories": ["Completed", "Discontinued", "Lost to follow-up", "Ongoing"],
+        "survival_follow_up": "Continue until death or study termination"
+    },
+
+    "missing_data": {
+        "approaches": {
+            "complete_case": "Analyze only subjects with complete data",
+            "locf": "Last observation carried forward",
+            "bocf": "Baseline observation carried forward (conservative for efficacy)",
+            "multiple_imputation": "Create multiple completed datasets, combine results",
+            "mmrm": "Mixed model for repeated measures (handles missing under MAR)"
+        },
+        "sensitivity_analyses": [
+            "Tipping point analysis (vary assumptions about missing)",
+            "Pattern mixture models",
+            "Worst-case imputation"
+        ]
+    },
+
+    "concurrent_medications": {
+        "coding": "WHODrug dictionary",
+        "classification": "ATC code",
+        "periods": {
+            "prior": "Start date < first dose date",
+            "concomitant": "Start date <= last dose date + 28 and end date >= first dose date",
+            "post_treatment": "Start date > last dose date + 28"
+        },
+        "prohibited": {
+            "action": "List separately with dates and impact on analysis",
+            "efficacy_impact": "May censor at date of prohibited therapy"
+        }
+    }
+}
+
+
+# =============================================================================
+# EXPORT FUNCTIONS
+# =============================================================================
+
+def export_production_specs(output_path: Path) -> Dict:
+    """Export complete production specifications as JSON."""
+    specs = {
+        "metadata": {
+            "version": "3.0",
+            "description": "Production-Grade SAP Specifications",
+            "source": "Exhaustive analysis of Phase 2/3 oncology SAPs",
+            "sections": [
+                "tfl_shells",
+                "adam_specifications",
+                "estimands_framework",
+                "programming_specifications",
+                "study_design",
+                "recist_specifications",
+                "safety_specifications",
+                "data_handling"
+            ]
+        },
+        "tfl_shells": TFL_SHELLS,
+        "adam_specifications": ADAM_SPECIFICATIONS,
+        "estimands_framework": ESTIMANDS_FRAMEWORK,
+        "programming_specifications": PROGRAMMING_SPECIFICATIONS,
+        "study_design": STUDY_DESIGN,
+        "recist_specifications": RECIST_SPECIFICATIONS,
+        "safety_specifications": SAFETY_SPECIFICATIONS,
+        "data_handling": DATA_HANDLING
+    }
+
+    with open(output_path, 'w') as f:
+        json.dump(specs, f, indent=2, default=str)
+
+    print(f"Production specifications exported to {output_path}")
+    return specs
+
+
+def get_tfl_shell(table_id: str) -> Dict:
+    """Get TFL shell specification by table ID."""
+    for category in TFL_SHELLS.values():
+        if isinstance(category, dict) and table_id in category:
+            return category[table_id]
+    return {}
+
+
+def get_adam_spec(dataset: str) -> Dict:
+    """Get ADaM dataset specification."""
+    return ADAM_SPECIFICATIONS.get(dataset.lower(), {})
+
+
+def list_all_tables() -> List[str]:
+    """List all defined table shells."""
+    tables = []
+    for category_name, category in TFL_SHELLS.items():
+        if isinstance(category, dict):
+            for table_id in category.keys():
+                if table_id.startswith("14"):
+                    tables.append(f"{table_id}: {category[table_id].get('title', '')}")
+    return tables
+
+
+if __name__ == "__main__":
+    output_dir = Path(__file__).parent / "output"
+    output_dir.mkdir(exist_ok=True)
+
+    specs = export_production_specs(output_dir / "production_sap_specifications.json")
+
+    print("\n" + "=" * 80)
+    print("PRODUCTION SAP SPECIFICATIONS")
+    print("=" * 80)
+
+    print("\n1. TFL SHELLS:")
+    for table in list_all_tables():
+        print(f"   {table}")
+
+    print("\n2. ADaM DATASETS:")
+    for ds in ADAM_SPECIFICATIONS.keys():
+        print(f"   {ds.upper()}: {ADAM_SPECIFICATIONS[ds]['name']}")
+
+    print("\n3. ESTIMANDS STRATEGIES:")
+    for strategy in ESTIMANDS_FRAMEWORK["intercurrent_event_strategies"].keys():
+        print(f"   {strategy}")
+
+    print("\n4. RECIST RESPONSE CATEGORIES:")
+    for cat in RECIST_SPECIFICATIONS["response_categories"].keys():
+        print(f"   {cat}: {RECIST_SPECIFICATIONS['response_categories'][cat]['name']}")
+
+    print("\n5. SAFETY SUMMARIES:")
+    for cat in SAFETY_SPECIFICATIONS["ae_summaries"]["overall"]["categories"]:
+        print(f"   {cat}")
+
+    total_specs = (
+        len(list_all_tables()) +
+        len(ADAM_SPECIFICATIONS) +
+        len(ESTIMANDS_FRAMEWORK["intercurrent_event_strategies"]) +
+        len(RECIST_SPECIFICATIONS["response_categories"]) +
+        len(SAFETY_SPECIFICATIONS["ae_summaries"]["overall"]["categories"])
+    )
+
+    print(f"\n{'=' * 80}")
+    print(f"Total: {total_specs}+ detailed specifications")
+    print("=" * 80)

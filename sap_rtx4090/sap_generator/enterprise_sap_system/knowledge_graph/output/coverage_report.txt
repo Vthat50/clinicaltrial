@@ -1,0 +1,150 @@
+================================================================================
+SAP KNOWLEDGE GRAPH - COVERAGE REPORT
+================================================================================
+
+SUMMARY STATISTICS
+--------------------------------------------------------------------------------
+Total Data Sources: 355
+  - Specialized PDFs: 239
+  - Ground Truth SAPs: 116
+
+Total Enterprise Modules: 22
+  - Full Coverage: 22
+  - Partial Coverage: 0
+  - No Coverage: 0
+
+================================================================================
+MODULE COVERAGE DETAILS
+================================================================================
+
+
+Phase 5
+--------------------------------------------------------------------------------
+✅ Adverse Event Analysis
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: TEAE analysis, SAE analysis, CTCAE grading...
+
+✅ Laboratory Safety Analysis
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Shift tables, CTCAE lab grading, Hy's Law analysis...
+
+
+Phase 6
+--------------------------------------------------------------------------------
+✅ Cheson/Lugano Criteria for Lymphoma
+   Coverage: FULL
+   Data Sources: 13
+   Capabilities: PET integration, Deauville 5-point scale, Bone marrow assessment...
+
+✅ IWG Criteria for Acute Leukemia (AML/ALL)
+   Coverage: FULL
+   Data Sources: 150
+   Capabilities: Bone marrow blast assessment, CR/CRi/MLFS categories, MRD integration...
+
+✅ Immune-Related Response Criteria (irRC)
+   Coverage: FULL
+   Data Sources: 7
+   Capabilities: Bidimensional measurements, Pseudoprogression handling, New lesion integration...
+
+✅ Modified RECIST (mRECIST) for HCC
+   Coverage: FULL
+   Data Sources: 141
+   Capabilities: Viable tumor measurement, Arterial enhancement, Post-TACE/ablation response...
+
+✅ Response Assessment in Neuro-Oncology (RANO)
+   Coverage: FULL
+   Data Sources: 9
+   Capabilities: Brain tumor assessment, T1+Gad and T2/FLAIR, Corticosteroid tracking...
+
+
+Phase 7
+--------------------------------------------------------------------------------
+✅ Comprehensive Safety Integration
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Vital signs, ECG QTc analysis, Exposure analysis...
+
+
+Phase 8
+--------------------------------------------------------------------------------
+✅ Bayesian Methods
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: MCMC, Posterior probability, Predictive probability...
+
+✅ Binary Endpoints Analysis
+   Coverage: FULL
+   Data Sources: 135
+   Capabilities: ORR analysis, CMH test, Exact CI...
+
+✅ Covariate Adjustment
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: ANCOVA, Stratified analysis, Propensity scores...
+
+✅ Dose-Response Analysis (MCP-Mod)
+   Coverage: FULL
+   Data Sources: 22
+   Capabilities: MCP-Mod, Candidate models, Optimal contrasts...
+
+✅ Estimands Framework (ICH E9(R1))
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: 5 ICE strategies, Treatment policy, Composite...
+
+✅ Interim Analysis
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Group sequential, Alpha spending, Conditional power...
+
+✅ Missing Data Analysis
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Multiple imputation, MAR/MNAR handling, Tipping point analysis...
+
+✅ Multiplicity Adjustment
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Bonferroni, Holm, Fixed-sequence...
+
+✅ Non-parametric Methods
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Wilcoxon, Kruskal-Wallis, Van Elteren...
+
+✅ Patient-Reported Outcomes / QoL
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: EORTC QLQ-C30, TTD analysis, MID...
+
+✅ Repeated Measures Analysis
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: MMRM, GEE, Unstructured covariance...
+
+✅ Sample Size Calculation
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Schoenfeld formula, Power analysis, Non-inferiority...
+
+✅ Subgroup Analysis
+   Coverage: FULL
+   Data Sources: 130
+   Capabilities: Forest plots, Interaction testing, Consistency assessment...
+
+✅ Survival Analysis
+   Coverage: FULL
+   Data Sources: 137
+   Capabilities: Kaplan-Meier, Log-rank test, Cox proportional hazards...
+
+
+================================================================================
+DATA SOURCE BREAKDOWN
+================================================================================
+
+Comprehensive: 130 sources
+Response Criteria: 107 sources
+Statistical Methods: 12 sources
+Tumor Specific: 106 sources
