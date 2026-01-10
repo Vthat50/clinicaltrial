@@ -167,6 +167,19 @@ except ImportError as e:
     SAP_VERIFIER_AVAILABLE = False
     print(f"Warning: SAP Verifier not available: {e}")
 
+# SAP Workbench - Section-by-section generation with 55-category KG extraction
+try:
+    from enterprise_sap_system.workbench.workbench_core import (
+        SAPWorkbench,
+        SectionStatus,
+        SAP_SECTIONS
+    )
+    WORKBENCH_AVAILABLE = True
+except ImportError as e:
+    WORKBENCH_AVAILABLE = False
+    SAPWorkbench = None
+    print(f"Warning: SAP Workbench not available: {e}")
+
 # Environment variables
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
@@ -3203,6 +3216,467 @@ async def generate_define_xml(job_id: str, standard: str = "adam"):
             "standard_type": "",
             "errors": [str(e)]
         }
+
+
+# =============================================================================
+# WORKBENCH ENDPOINTS - Section-by-section SAP generation with KG extraction
+# =============================================================================
+
+# Global workbench instance
+_workbench: 'SAPWorkbench' = None
+
+
+def get_workbench():
+    """Get or create the SAP Workbench instance."""
+    global _workbench
+    if _workbench is None and WORKBENCH_AVAILABLE:
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if api_key:
+            _workbench = SAPWorkbench(api_key, use_kg=True)
+            logger.info("SAP Workbench initialized with 55-category KG extraction")
+    return _workbench
+
+
+class WorkspaceCreate(BaseModel):
+    """Request to create a workspace."""
+    protocol_content: str
+    protocol_filename: str
+    phase: str = ""
+    therapeutic_area: str = ""
+    indication: str = ""
+
+
+class WorkspaceResponse(BaseModel):
+    """Response for workspace operations."""
+    id: str
+    name: str
+    created_at: str
+    phase: str = ""
+    therapeutic_area: str = ""
+
+
+class MetadataResponse(BaseModel):
+    """Response with extracted protocol metadata."""
+    study_id: str = ""
+    study_title: str = ""
+    phase: str = ""
+    therapeutic_area: str = ""
+    indication: str = ""
+    disease_setting: str = ""
+    performance_status_scale: str = ""
+    response_criteria: str = ""
+    geographic_countries: List[str] = []
+    endpoints: List[Dict] = []
+    populations: List[Dict] = []
+    treatment_arms: List[Dict] = []
+    stratification_factors: List[str] = []
+    sample_size: Optional[int] = None
+    prohibition_rules: List[str] = []
+    extraction_method: str = ""
+
+
+class SectionOutline(BaseModel):
+    """SAP section outline item."""
+    id: str
+    name: str
+    status: str
+    has_content: bool
+    version: int
+
+
+class SectionContent(BaseModel):
+    """Full section content with provenance."""
+    id: str
+    name: str
+    display_name: str
+    status: str
+    content: str
+    protocol_excerpts_used: List[str] = []
+    metadata_used: List[str] = []
+    version: int
+
+
+class SectionUpdate(BaseModel):
+    """Request to update a section."""
+    content: str
+    comments: str = ""
+
+
+@app.post("/workbench/create", response_model=WorkspaceResponse)
+async def workbench_create_workspace(request: WorkspaceCreate):
+    """
+    Step 1: Create a new study workspace.
+    Upload protocol and set basic metadata.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized (check API key)")
+
+    try:
+        workspace = workbench.create_workspace(
+            protocol_content=request.protocol_content,
+            protocol_filename=request.protocol_filename,
+            phase=request.phase,
+            therapeutic_area=request.therapeutic_area,
+            indication=request.indication
+        )
+
+        return WorkspaceResponse(
+            id=workspace.id,
+            name=workspace.name,
+            created_at=workspace.created_at,
+            phase=workspace.phase,
+            therapeutic_area=workspace.therapeutic_area
+        )
+    except Exception as e:
+        logger.error(f"Workbench create failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/upload")
+async def workbench_upload_protocol(
+    file: UploadFile = File(...),
+    phase: str = Form(""),
+    therapeutic_area: str = Form(""),
+    indication: str = Form("")
+):
+    """
+    Step 1 (alt): Create workspace by uploading file.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        content = await file.read()
+        protocol_content = content.decode('utf-8', errors='ignore')
+
+        workspace = workbench.create_workspace(
+            protocol_content=protocol_content,
+            protocol_filename=file.filename or "protocol.txt",
+            phase=phase,
+            therapeutic_area=therapeutic_area,
+            indication=indication
+        )
+
+        return {
+            "id": workspace.id,
+            "name": workspace.name,
+            "created_at": workspace.created_at,
+            "phase": workspace.phase,
+            "therapeutic_area": workspace.therapeutic_area
+        }
+    except Exception as e:
+        logger.error(f"Workbench upload failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/metadata", response_model=MetadataResponse)
+async def workbench_get_metadata(workspace_id: str):
+    """
+    Step 2: Get extracted protocol metadata (55-category KG extraction).
+    This is the "Protocol Understanding View".
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        workspace = workbench.get_workspace(workspace_id)
+        if not workspace:
+            raise HTTPException(404, f"Workspace {workspace_id} not found")
+
+        # Extract metadata if not done
+        if not workspace.metadata:
+            metadata = workbench.extract_metadata(workspace_id)
+        else:
+            metadata = workspace.metadata
+
+        return MetadataResponse(
+            study_id=metadata.study_id,
+            study_title=metadata.study_title,
+            phase=metadata.phase,
+            therapeutic_area=metadata.therapeutic_area,
+            indication=metadata.indication,
+            disease_setting=metadata.disease_setting,
+            performance_status_scale=metadata.performance_status_scale,
+            response_criteria=metadata.response_criteria,
+            geographic_countries=metadata.geographic_countries,
+            endpoints=metadata.endpoints,
+            populations=metadata.populations,
+            treatment_arms=metadata.treatment_arms,
+            stratification_factors=metadata.stratification_factors,
+            sample_size=metadata.sample_size,
+            prohibition_rules=metadata.prohibition_rules,
+            extraction_method=metadata.extraction_method
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Metadata extraction failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/outline")
+async def workbench_get_outline(workspace_id: str):
+    """
+    Step 3: Get SAP outline with section statuses.
+    This is the "SAP Skeleton" view.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        outline = workbench.get_outline(workspace_id)
+        return {"sections": outline}
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Get outline failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/{workspace_id}/generate/{section_id}", response_model=SectionContent)
+async def workbench_generate_section(
+    workspace_id: str,
+    section_id: str,
+    regenerate: bool = False
+):
+    """
+    Step 4: Generate a single SAP section.
+    Shows protocol excerpts used and allows regeneration.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        section = workbench.generate_section(workspace_id, section_id, regenerate)
+
+        return SectionContent(
+            id=section.id,
+            name=section.name,
+            display_name=section.display_name,
+            status=section.status.value,
+            content=section.content,
+            protocol_excerpts_used=section.protocol_excerpts_used,
+            metadata_used=section.metadata_used,
+            version=section.version
+        )
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Section generation failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/section/{section_id}", response_model=SectionContent)
+async def workbench_get_section(workspace_id: str, section_id: str):
+    """
+    Get a section's current content.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        workspace = workbench.get_workspace(workspace_id)
+        if not workspace:
+            raise HTTPException(404, f"Workspace {workspace_id} not found")
+
+        section = workspace.sections.get(section_id)
+        if not section:
+            raise HTTPException(404, f"Section {section_id} not found")
+
+        return SectionContent(
+            id=section.id,
+            name=section.name,
+            display_name=section.display_name,
+            status=section.status.value,
+            content=section.content,
+            protocol_excerpts_used=section.protocol_excerpts_used,
+            metadata_used=section.metadata_used,
+            version=section.version
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Get section failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.put("/workbench/{workspace_id}/section/{section_id}", response_model=SectionContent)
+async def workbench_update_section(
+    workspace_id: str,
+    section_id: str,
+    request: SectionUpdate
+):
+    """
+    Update a section with user edits.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        section = workbench.update_section(
+            workspace_id, section_id, request.content, request.comments
+        )
+
+        return SectionContent(
+            id=section.id,
+            name=section.name,
+            display_name=section.display_name,
+            status=section.status.value,
+            content=section.content,
+            protocol_excerpts_used=section.protocol_excerpts_used,
+            metadata_used=section.metadata_used,
+            version=section.version
+        )
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Update section failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/{workspace_id}/section/{section_id}/approve")
+async def workbench_approve_section(workspace_id: str, section_id: str):
+    """
+    Mark a section as approved.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        section = workbench.approve_section(workspace_id, section_id)
+        return {"status": "approved", "section_id": section_id}
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Approve section failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/provenance")
+async def workbench_get_provenance(workspace_id: str):
+    """
+    Step 5: Get full provenance report.
+    "Why does this say this?"
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        return workbench.get_provenance_report(workspace_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Get provenance failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/{workspace_id}/update-protocol")
+async def workbench_update_protocol(
+    workspace_id: str,
+    file: UploadFile = File(...)
+):
+    """
+    Step 6: Update protocol and identify impacted sections.
+    "Protocol changed → impact shown"
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        content = await file.read()
+        protocol_content = content.decode('utf-8', errors='ignore')
+
+        result = workbench.update_protocol(
+            workspace_id, protocol_content, file.filename or "protocol.txt"
+        )
+
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Update protocol failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/export")
+async def workbench_export_sap(workspace_id: str, format: str = "markdown"):
+    """
+    Step 7: Export complete SAP.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        content = workbench.export_sap(workspace_id, format)
+        return {"format": format, "content": content}
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Export SAP failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/list")
+async def workbench_list_workspaces():
+    """
+    List all workspaces.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        return {"workspaces": workbench.list_workspaces()}
+    except Exception as e:
+        logger.error(f"List workspaces failed: {e}")
+        raise HTTPException(500, str(e))
 
 
 # Background worker

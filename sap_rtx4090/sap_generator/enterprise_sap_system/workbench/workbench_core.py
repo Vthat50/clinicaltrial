@@ -25,6 +25,28 @@ except ImportError:
     os.system("pip install anthropic")
     import anthropic
 
+# Import KG extraction and KB tools
+try:
+    from enterprise_sap_system.knowledge_graph.kg_enhanced_pipeline import EnhancedKGPipeline
+    from enterprise_sap_system.knowledge_graph.kb_tools import (
+        KnowledgeBaseTools,
+        get_claude_tool_definitions,
+        execute_tool
+    )
+    KG_AVAILABLE = True
+except ImportError:
+    try:
+        from ..knowledge_graph.kg_enhanced_pipeline import EnhancedKGPipeline
+        from ..knowledge_graph.kb_tools import (
+            KnowledgeBaseTools,
+            get_claude_tool_definitions,
+            execute_tool
+        )
+        KG_AVAILABLE = True
+    except ImportError:
+        KG_AVAILABLE = False
+        print("Warning: KG pipeline not available, using basic extraction")
+
 
 class SectionStatus(Enum):
     """Status of each SAP section."""
@@ -37,26 +59,40 @@ class SectionStatus(Enum):
 
 @dataclass
 class ProtocolMetadata:
-    """Structured metadata extracted from protocol."""
+    """Structured metadata extracted from protocol using 55-category KG extraction."""
     study_id: str = ""
     study_title: str = ""
     phase: str = ""
     therapeutic_area: str = ""
     indication: str = ""
 
-    # Extracted elements
-    objectives: List[Dict] = field(default_factory=list)  # [{type: "primary", text: "..."}]
-    endpoints: List[Dict] = field(default_factory=list)   # [{name, type, definition, timeframe}]
-    populations: List[Dict] = field(default_factory=list) # [{name, abbreviation, definition}]
-    treatment_arms: List[Dict] = field(default_factory=list)  # [{name, description}]
+    # Extracted elements (basic - for backward compat)
+    objectives: List[Dict] = field(default_factory=list)
+    endpoints: List[Dict] = field(default_factory=list)
+    populations: List[Dict] = field(default_factory=list)
+    treatment_arms: List[Dict] = field(default_factory=list)
     stratification_factors: List[str] = field(default_factory=list)
     sample_size: Optional[int] = None
     statistical_methods: List[Dict] = field(default_factory=list)
     visit_schedule: List[Dict] = field(default_factory=list)
 
+    # FULL 55-category KG extraction (new)
+    full_extraction: Dict = field(default_factory=dict)
+
+    # Disease-specific info (from KG extraction)
+    disease_setting: str = ""  # adjuvant/neoadjuvant/metastatic
+    performance_status_scale: str = ""  # ECOG/ASA/Karnofsky
+    response_criteria: str = ""  # RECIST/irRECIST/Lugano/etc
+    geographic_countries: List[str] = field(default_factory=list)
+    baseline_variables: List[Dict] = field(default_factory=list)
+
+    # Prohibition rules (for generation)
+    prohibition_rules: List[str] = field(default_factory=list)
+
     # Source tracking
     extraction_timestamp: str = ""
     protocol_hash: str = ""
+    extraction_method: str = "basic"  # "basic" or "kg_55_category"
 
 
 @dataclass
@@ -140,7 +176,8 @@ class SAPWorkbench:
     6. Export final SAP
     """
 
-    def __init__(self, api_key: str, storage_dir: str = None):
+    def __init__(self, api_key: str, storage_dir: str = None, use_kg: bool = True):
+        self.api_key = api_key
         self.client = anthropic.Anthropic(api_key=api_key)
         self.model = "claude-sonnet-4-20250514"
 
@@ -154,7 +191,23 @@ class SAPWorkbench:
         # In-memory cache
         self.workspaces: Dict[str, StudyWorkspace] = {}
 
-        print(f"✅ SAP Workbench initialized")
+        # KG Pipeline for 55-category extraction
+        self.use_kg = use_kg and KG_AVAILABLE
+        self.kg_pipeline = None
+        self.kb_tools = None
+
+        if self.use_kg:
+            try:
+                self.kg_pipeline = EnhancedKGPipeline(api_key)
+                self.kb_tools = KnowledgeBaseTools()
+                print(f"✅ SAP Workbench initialized with KG Pipeline (55-category extraction)")
+            except Exception as e:
+                print(f"Warning: KG Pipeline init failed: {e}")
+                self.use_kg = False
+
+        if not self.use_kg:
+            print(f"✅ SAP Workbench initialized (basic extraction)")
+
         print(f"   Storage: {self.storage_dir}")
 
     # =========================================================================
@@ -241,11 +294,198 @@ class SAPWorkbench:
     # =========================================================================
 
     def extract_metadata(self, workspace_id: str) -> ProtocolMetadata:
-        """Extract structured metadata from protocol."""
+        """Extract structured metadata using 55-category KG extraction when available."""
 
         workspace = self.get_workspace(workspace_id)
         if not workspace:
             raise ValueError(f"Workspace {workspace_id} not found")
+
+        # Use KG extraction if available
+        if self.use_kg and self.kg_pipeline:
+            return self._extract_metadata_kg(workspace)
+        else:
+            return self._extract_metadata_basic(workspace)
+
+    def _extract_metadata_kg(self, workspace: StudyWorkspace) -> ProtocolMetadata:
+        """Extract using 55-category KG pipeline."""
+        import tempfile
+
+        try:
+            # Write protocol to temp file for KG pipeline
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
+                f.write(workspace.protocol_content)
+                temp_path = f.name
+
+            # Run KG extraction (this uses the 55-category prompt)
+            # Access the _extract_entities method directly
+            doc_id = f"doc:{workspace.id}"
+            extracted_list = self.kg_pipeline._extract_entities(
+                workspace.protocol_content, doc_id
+            )
+
+            # Get the full extraction object
+            full_extraction = getattr(self.kg_pipeline, '_last_full_extraction', {}) or {}
+
+            # Build prohibition rules
+            prohibition_rules = self._build_prohibition_rules(full_extraction)
+
+            # Extract key fields from full extraction
+            trial_id = full_extraction.get("trial_identification", {})
+            disease = full_extraction.get("disease_classification", {})
+            ps = full_extraction.get("performance_status", {})
+            rc = full_extraction.get("response_criteria_details", {})
+            geo = full_extraction.get("geographic", {})
+
+            # Get countries
+            countries = []
+            for c in geo.get("countries", []):
+                if c.get("country"):
+                    countries.append(c.get("country"))
+
+            # Convert endpoints
+            endpoints = []
+            for ep in full_extraction.get("primary_endpoints", []):
+                if ep.get("name"):
+                    endpoints.append({
+                        "name": ep.get("name"),
+                        "type": "primary",
+                        "definition": ep.get("definition", ""),
+                        "timeframe": ep.get("assessment_schedule", ""),
+                        "response_criteria": ep.get("response_criteria", "")
+                    })
+            for ep in full_extraction.get("secondary_endpoints", []):
+                if ep.get("name"):
+                    endpoints.append({
+                        "name": ep.get("name"),
+                        "type": "secondary",
+                        "definition": ep.get("definition", "")
+                    })
+
+            # Convert populations
+            populations = []
+            pops = full_extraction.get("populations", {})
+            for pop_key in ["itt_definition", "mitt_definition", "pp_definition", "safety_definition"]:
+                pop = pops.get(pop_key, {})
+                if pop and pop.get("value"):
+                    populations.append({
+                        "name": pop_key.replace("_definition", "").upper(),
+                        "abbreviation": pop_key.replace("_definition", "").upper(),
+                        "definition": pop.get("value")
+                    })
+
+            # Convert treatment arms
+            treatment_arms = []
+            for arm in full_extraction.get("treatment_arms", []):
+                if arm.get("arm_name"):
+                    treatment_arms.append({
+                        "name": arm.get("arm_name"),
+                        "description": f"{arm.get('drug_name', '')} {arm.get('dose', '')} {arm.get('schedule', '')}".strip()
+                    })
+
+            # Get stratification factors
+            strat_factors = []
+            rand = full_extraction.get("randomization", {})
+            for sf in rand.get("stratification_factors", []):
+                if sf.get("factor_name"):
+                    strat_factors.append(sf.get("factor_name"))
+
+            # Get sample size
+            ss = full_extraction.get("sample_size", {})
+            sample_size_val = ss.get("total_n", {}).get("value") if ss else None
+            if sample_size_val:
+                try:
+                    sample_size_val = int(sample_size_val)
+                except:
+                    sample_size_val = None
+
+            metadata = ProtocolMetadata(
+                study_id=trial_id.get("nct_id", {}).get("value", "") or trial_id.get("protocol_number", {}).get("value", ""),
+                study_title=trial_id.get("study_title", {}).get("value", ""),
+                phase=full_extraction.get("study_phase", {}).get("phase", {}).get("value", workspace.phase),
+                therapeutic_area=workspace.therapeutic_area,
+                indication=disease.get("tumor_type", {}).get("value", workspace.indication),
+                objectives=[],  # Populated separately if needed
+                endpoints=endpoints,
+                populations=populations,
+                treatment_arms=treatment_arms,
+                stratification_factors=strat_factors,
+                sample_size=sample_size_val,
+                statistical_methods=[],
+                visit_schedule=[],
+                full_extraction=full_extraction,
+                disease_setting=disease.get("disease_setting", {}).get("value", ""),
+                performance_status_scale=ps.get("scale", {}).get("value", ""),
+                response_criteria=rc.get("criteria_name", ""),
+                geographic_countries=countries,
+                baseline_variables=full_extraction.get("baseline_variables", []),
+                prohibition_rules=prohibition_rules,
+                extraction_timestamp=datetime.now().isoformat(),
+                protocol_hash=workspace.protocol_hash,
+                extraction_method="kg_55_category"
+            )
+
+            workspace.metadata = metadata
+            workspace.updated_at = datetime.now().isoformat()
+            self._save_workspace(workspace)
+
+            # Cleanup temp file
+            import os
+            os.unlink(temp_path)
+
+            return metadata
+
+        except Exception as e:
+            print(f"KG extraction failed: {e}, falling back to basic")
+            import traceback
+            traceback.print_exc()
+            return self._extract_metadata_basic(workspace)
+
+    def _build_prohibition_rules(self, full_extraction: Dict) -> List[str]:
+        """Build prohibition rules based on protocol extraction."""
+        rules = []
+
+        if not full_extraction:
+            return rules
+
+        # 1. Race/Ethnicity check
+        baseline_vars = full_extraction.get("baseline_variables", [])
+        var_names = [v.get("variable_name", "").lower() for v in baseline_vars if v.get("variable_name")]
+        has_race = any("race" in v or "ethnicity" in v for v in var_names)
+
+        geo = full_extraction.get("geographic", {})
+        countries = [c.get("country", "").lower() for c in geo.get("countries", []) if c.get("country")]
+
+        is_nordic = all(c in ["sweden", "norway", "denmark", "finland", "iceland"] for c in countries) if countries else False
+
+        if not has_race:
+            rules.append("DO NOT include Race or Ethnicity variables")
+        if is_nordic:
+            rules.append("DO NOT include North America, Asia, or Rest of World subgroups (Nordic study)")
+
+        # 2. Performance status
+        ps = full_extraction.get("performance_status", {})
+        ps_scale = ps.get("scale", {}).get("value", "").upper() if ps else ""
+        if ps_scale == "ASA":
+            rules.append("DO NOT use ECOG - use ASA Score (1-5) for surgical patients")
+        elif ps_scale == "KARNOFSKY":
+            rules.append("DO NOT use ECOG - use Karnofsky Performance Status")
+
+        # 3. Disease setting
+        disease = full_extraction.get("disease_classification", {})
+        setting = disease.get("disease_setting", {}).get("value", "").lower() if disease else ""
+        if setting == "adjuvant":
+            rules.append("DO NOT include CR/PR/SD/PD response tables (adjuvant = no measurable tumor)")
+            rules.append("Use Hazard Ratio (not Odds Ratio) for time-to-event endpoints")
+
+        # 4. Dose modifications
+        dose_mods = full_extraction.get("dose_modifications", {})
+        if not dose_mods.get("dose_reduction_rules"):
+            rules.append("DO NOT include dose modification rows (fixed-dose study)")
+
+        return rules
+
+    def _extract_metadata_basic(self, workspace: StudyWorkspace) -> ProtocolMetadata:
+        """Fallback basic extraction without KG."""
 
         prompt = f"""Extract structured metadata from this clinical trial protocol.
 
@@ -257,59 +497,20 @@ Return a JSON object with these fields:
   "phase": "Phase 1/2/3/4",
   "therapeutic_area": "oncology/cardiology/etc",
   "indication": "Specific disease/condition",
-
-  "objectives": [
-    {{"type": "primary", "text": "Primary objective text"}},
-    {{"type": "secondary", "text": "Secondary objective text"}}
-  ],
-
-  "endpoints": [
-    {{
-      "name": "Overall Survival",
-      "type": "primary",
-      "definition": "Time from randomization to death",
-      "timeframe": "Up to 5 years",
-      "analysis_method": "Cox regression"
-    }}
-  ],
-
-  "populations": [
-    {{
-      "name": "Intent-to-Treat",
-      "abbreviation": "ITT",
-      "definition": "All randomized subjects"
-    }}
-  ],
-
-  "treatment_arms": [
-    {{
-      "name": "Treatment A",
-      "description": "Drug X 100mg daily"
-    }}
-  ],
-
-  "stratification_factors": ["Factor 1", "Factor 2"],
-
+  "objectives": [{{"type": "primary", "text": "..."}}],
+  "endpoints": [{{"name": "", "type": "primary/secondary", "definition": ""}}],
+  "populations": [{{"name": "", "abbreviation": "", "definition": ""}}],
+  "treatment_arms": [{{"name": "", "description": ""}}],
+  "stratification_factors": ["Factor 1"],
   "sample_size": 500,
-
-  "statistical_methods": [
-    {{
-      "endpoint": "Primary",
-      "method": "Cox proportional hazards",
-      "measure": "Hazard Ratio"
-    }}
-  ],
-
-  "visit_schedule": [
-    {{"visit": "Screening", "timing": "Day -28 to -1"}},
-    {{"visit": "Baseline", "timing": "Day 1"}}
-  ]
+  "statistical_methods": [{{"endpoint": "", "method": ""}}],
+  "visit_schedule": [{{"visit": "", "timing": ""}}]
 }}
 
 PROTOCOL:
 {workspace.protocol_content[:20000]}
 
-Return ONLY valid JSON, no other text."""
+Return ONLY valid JSON."""
 
         try:
             response = self.client.messages.create(
@@ -319,8 +520,6 @@ Return ONLY valid JSON, no other text."""
             )
 
             response_text = response.content[0].text.strip()
-
-            # Clean JSON
             if response_text.startswith("```json"):
                 response_text = response_text[7:]
             if response_text.startswith("```"):
@@ -345,7 +544,8 @@ Return ONLY valid JSON, no other text."""
                 statistical_methods=data.get("statistical_methods", []),
                 visit_schedule=data.get("visit_schedule", []),
                 extraction_timestamp=datetime.now().isoformat(),
-                protocol_hash=workspace.protocol_hash
+                protocol_hash=workspace.protocol_hash,
+                extraction_method="basic"
             )
 
             workspace.metadata = metadata
@@ -447,21 +647,41 @@ Return ONLY valid JSON, no other text."""
             raise e
 
     def _build_section_prompt(self, workspace: StudyWorkspace, section_id: str) -> str:
-        """Build prompt for generating a specific section."""
+        """Build prompt for generating a specific section with prohibition rules."""
 
         metadata = workspace.metadata
+
+        # Build prohibition rules section
+        prohibition_section = ""
+        if metadata and metadata.prohibition_rules:
+            prohibition_section = f"""
+## PROHIBITED CONTENT (DO NOT INCLUDE):
+{chr(10).join('- ' + rule for rule in metadata.prohibition_rules)}
+"""
+
+        # Build disease-specific context
+        disease_context = ""
+        if metadata:
+            if metadata.disease_setting:
+                disease_context += f"Disease Setting: {metadata.disease_setting.upper()}\n"
+            if metadata.performance_status_scale:
+                disease_context += f"Performance Status Scale: {metadata.performance_status_scale}\n"
+            if metadata.response_criteria:
+                disease_context += f"Response Criteria: {metadata.response_criteria}\n"
+            if metadata.geographic_countries:
+                disease_context += f"Countries: {', '.join(metadata.geographic_countries)}\n"
+
+        # Build metadata context
         metadata_context = ""
         if metadata:
             metadata_context = f"""
-## EXTRACTED METADATA
+## EXTRACTED METADATA (55-CATEGORY EXTRACTION)
 
 Study: {metadata.study_id} - {metadata.study_title}
 Phase: {metadata.phase}
 Therapeutic Area: {metadata.therapeutic_area}
 Indication: {metadata.indication}
-
-Objectives:
-{json.dumps(metadata.objectives, indent=2)}
+{disease_context}
 
 Endpoints:
 {json.dumps(metadata.endpoints, indent=2)}
@@ -472,24 +692,36 @@ Populations:
 Treatment Arms:
 {json.dumps(metadata.treatment_arms, indent=2)}
 
-Sample Size: {metadata.sample_size}
+Stratification Factors:
+{json.dumps(metadata.stratification_factors, indent=2)}
 
-Statistical Methods:
-{json.dumps(metadata.statistical_methods, indent=2)}
+Sample Size: {metadata.sample_size}
 """
+            # Add full extraction if available (for table_shells and detailed sections)
+            if metadata.full_extraction and section_id in ["table_shells", "primary_analysis", "safety_analysis"]:
+                # Add relevant parts of full extraction
+                fe = metadata.full_extraction
+                if section_id == "table_shells" and fe.get("baseline_variables"):
+                    metadata_context += f"\nBaseline Variables (use ONLY these):\n{json.dumps(fe.get('baseline_variables', []), indent=2)}\n"
+                if section_id == "safety_analysis" and fe.get("safety_endpoints"):
+                    metadata_context += f"\nSafety Endpoints:\n{json.dumps(fe.get('safety_endpoints', {}), indent=2)}\n"
 
         # Get previously generated sections for context
         prev_sections = ""
         for sec_id, section in workspace.sections.items():
             if section.content and sec_id != section_id:
-                prev_sections += f"\n### {section.display_name}\n{section.content[:1000]}...\n"
+                prev_sections += f"\n### {section.display_name}\n{section.content[:800]}...\n"
 
         # Section-specific instructions
         section_instructions = self._get_section_instructions(section_id)
 
         prompt = f"""Generate the "{workspace.sections[section_id].display_name}" section of a Statistical Analysis Plan.
 
-## CRITICAL: Follow the protocol exactly. Do not add generic content.
+## CRITICAL RULES:
+1. Follow the protocol EXACTLY - do not add generic content
+2. Use ONLY variables and categories from the extraction
+3. Respect ALL prohibition rules below
+{prohibition_section}
 
 {metadata_context}
 
