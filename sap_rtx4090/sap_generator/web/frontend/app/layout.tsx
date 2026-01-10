@@ -22,7 +22,8 @@ export default function RootLayout({
                 <span className="ml-2 text-sm text-gray-500">Clinical Trial SAP Automation</span>
               </div>
               <div className="flex items-center space-x-4">
-                <a href="/" className="text-gray-600 hover:text-gray-900">Generate</a>
+                <a href="/workbench" className="text-indigo-600 hover:text-indigo-800 font-medium">Workbench</a>
+                <a href="/" className="text-gray-600 hover:text-gray-900">Quick Generate</a>
                 <a href="/history" className="text-gray-600 hover:text-gray-900">History</a>
               </div>
             </div>
