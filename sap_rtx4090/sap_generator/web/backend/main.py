@@ -15,14 +15,16 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v49-TIMEOUT-OVERRIDE-2026-01-10")
-print("FEATURE: KGPipelineWrapper with timeout=None + streaming")
-print("  • FIXED: Anthropic client uses httpx.Timeout(None) - no timeout limit")
-print("  • FIXED: All Claude API calls use messages.stream() for long ops")
-print("  • REMOVED: All fallback regeneration - if generation fails, job fails")
-print("  • 55-category comprehensive extraction from protocol")
-print("  • Prohibition rules (adjuvant, Nordic, ASA, fixed-dose)")
-print("If you don't see v48 in Render logs, Render has OLD code!")
+print("BUILD: v50-DYNAMIC-TLF-TEMPLATES-2026-01-10")
+print("FEATURE: Fully dynamic TLF templates based on protocol extraction")
+print("  • NEW: Disease-specific baseline variables (CRC: tumor location/stage/mutations/CEA)")
+print("  • NEW: Dynamic geographic regions from protocol (not hardcoded)")
+print("  • NEW: CONSORT flowchart template")
+print("  • NEW: Additional KM figures for all secondary endpoints")
+print("  • NEW: Cumulative incidence plot (Aalen-Johansen)")
+print("  • NEW: Disease-specific subgroups in forest plot (CRC: PIK3CA, breast: HR/HER2)")
+print("  • KEPT: Streaming API + timeout=None for long operations")
+print("If you don't see v50 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -4144,10 +4146,43 @@ async def process_jobs_worker():
 
                 # Log prohibition rules if KG pipeline was used
                 prohibition_rules = result.get("prohibition_rules", [])
+
+                # Parse prohibition rules into boolean flags for TLF template generation
+                tlf_prohibitions = {
+                    'no_race_ethnicity': False,
+                    'no_ecog': False,  # Use Karnofsky or ASA instead
+                    'use_karnofsky': False,
+                    'use_asa_score': False,
+                    'no_weight_use_bmi': False,
+                    'no_response_categories': False,  # No CR/PR/SD/PD for adjuvant
+                    'no_dose_modification': False,  # Fixed dose study
+                    'no_geographic_subgroups': False,  # Nordic/single-region study
+                }
+
+                for rule in prohibition_rules:
+                    rule_lower = rule.lower()
+                    if 'race' in rule_lower or 'ethnicity' in rule_lower:
+                        tlf_prohibitions['no_race_ethnicity'] = True
+                    if 'ecog' in rule_lower and 'not' in rule_lower:
+                        tlf_prohibitions['no_ecog'] = True
+                    if 'karnofsky' in rule_lower:
+                        tlf_prohibitions['use_karnofsky'] = True
+                    if 'asa' in rule_lower and 'score' in rule_lower:
+                        tlf_prohibitions['use_asa_score'] = True
+                    if 'bmi' in rule_lower and 'weight' in rule_lower:
+                        tlf_prohibitions['no_weight_use_bmi'] = True
+                    if 'cr/pr/sd/pd' in rule_lower or 'response categor' in rule_lower or 'recist' in rule_lower:
+                        tlf_prohibitions['no_response_categories'] = True
+                    if 'dose modification' in rule_lower or 'fixed dose' in rule_lower or 'fixed-dose' in rule_lower:
+                        tlf_prohibitions['no_dose_modification'] = True
+                    if 'geographic' in rule_lower or 'nordic' in rule_lower or 'single region' in rule_lower:
+                        tlf_prohibitions['no_geographic_subgroups'] = True
+
                 if prohibition_rules:
                     print(f"  [DEBUG] Prohibition rules applied: {len(prohibition_rules)}")
                     for rule in prohibition_rules[:3]:
                         print(f"    • {rule[:60]}...")
+                    print(f"  [DEBUG] TLF prohibitions: {[k for k,v in tlf_prohibitions.items() if v]}")
                 print(f"  [DEBUG] Contains '|--': {'|--' in sap_text}")
                 print(f"  [DEBUG] Contains '## 12.': {'## 12.' in sap_text}")
                 if '## 12.' in sap_text:
@@ -4230,6 +4265,147 @@ async def process_jobs_worker():
                             endpoint_type_str = 'continuous'
                         else:
                             endpoint_type_str = 'binary'
+
+                    # =========================================================
+                    # EXTRACT DISEASE-SPECIFIC BASELINE VARIABLES
+                    # Dynamically detect cancer type and relevant baseline vars
+                    # =========================================================
+                    disease_baseline_vars = []
+                    cancer_type = ""
+                    protocol_lower = job.get("protocol_text", "").lower()[:80000]
+
+                    # Detect specific cancer types
+                    if any(term in protocol_lower for term in ['colorectal', 'colon cancer', 'rectal cancer', 'crc', 'adenocarcinoma of colon']):
+                        cancer_type = 'colorectal'
+                        disease_baseline_vars = [
+                            ('TUMOR LOCATION - N (%)', ['Right colon', 'Left colon', 'Rectum', 'Multiple/Other']),
+                            ('TUMOR STAGE AT DIAGNOSIS - N (%)', ['Stage I', 'Stage II', 'Stage III', 'Stage IV']),
+                            ('MUTATION STATUS - N (%)', ['PIK3CA mutant', 'PIK3CA wild-type', 'Unknown']),
+                            ('BASELINE CEA (NG/ML)', ['N', 'Mean (SD)', 'Median', 'Min, Max']),
+                            ('PRIOR ADJUVANT CHEMOTHERAPY - N (%)', ['Yes', 'No']),
+                        ]
+                    elif any(term in protocol_lower for term in ['breast cancer', 'breast carcinoma', 'her2', 'triple negative']):
+                        cancer_type = 'breast'
+                        disease_baseline_vars = [
+                            ('HORMONE RECEPTOR STATUS - N (%)', ['ER+/PR+', 'ER+/PR-', 'ER-/PR+', 'ER-/PR-']),
+                            ('HER2 STATUS - N (%)', ['HER2 positive', 'HER2 negative']),
+                            ('TUMOR GRADE - N (%)', ['Grade 1', 'Grade 2', 'Grade 3']),
+                            ('TUMOR STAGE - N (%)', ['Stage I', 'Stage II', 'Stage III', 'Stage IV']),
+                            ('PRIOR LINES OF THERAPY - N (%)', ['0', '1', '2', '≥3']),
+                        ]
+                    elif any(term in protocol_lower for term in ['lung cancer', 'nsclc', 'non-small cell', 'sclc', 'small cell lung']):
+                        cancer_type = 'lung'
+                        disease_baseline_vars = [
+                            ('HISTOLOGY - N (%)', ['Adenocarcinoma', 'Squamous cell', 'Large cell', 'Other']),
+                            ('TUMOR STAGE - N (%)', ['Stage IIIA', 'Stage IIIB', 'Stage IV']),
+                            ('EGFR MUTATION STATUS - N (%)', ['EGFR mutant', 'EGFR wild-type', 'Unknown']),
+                            ('ALK STATUS - N (%)', ['ALK positive', 'ALK negative', 'Unknown']),
+                            ('PD-L1 EXPRESSION - N (%)', ['≥50%', '1-49%', '<1%', 'Unknown']),
+                            ('SMOKING HISTORY - N (%)', ['Never', 'Former', 'Current']),
+                        ]
+                    elif any(term in protocol_lower for term in ['melanoma', 'skin cancer']):
+                        cancer_type = 'melanoma'
+                        disease_baseline_vars = [
+                            ('BRAF MUTATION STATUS - N (%)', ['BRAF V600E', 'BRAF V600K', 'BRAF wild-type']),
+                            ('TUMOR STAGE - N (%)', ['Stage III', 'Stage IV M1a', 'Stage IV M1b', 'Stage IV M1c']),
+                            ('LDH - N (%)', ['Normal', 'Elevated']),
+                            ('PRIOR IMMUNOTHERAPY - N (%)', ['Yes', 'No']),
+                        ]
+                    elif any(term in protocol_lower for term in ['lymphoma', 'hodgkin', 'non-hodgkin', 'dlbcl']):
+                        cancer_type = 'lymphoma'
+                        disease_baseline_vars = [
+                            ('LYMPHOMA TYPE - N (%)', ['DLBCL', 'Follicular', 'Mantle cell', 'Other']),
+                            ('ANN ARBOR STAGE - N (%)', ['Stage I', 'Stage II', 'Stage III', 'Stage IV']),
+                            ('IPI SCORE - N (%)', ['Low (0-1)', 'Low-intermediate (2)', 'High-intermediate (3)', 'High (4-5)']),
+                            ('PRIOR LINES OF THERAPY', ['N', 'Median', 'Min, Max']),
+                        ]
+                    elif therapeutic_area == 'oncology':
+                        # Generic oncology baseline vars
+                        disease_baseline_vars = [
+                            ('TUMOR STAGE - N (%)', ['Stage I', 'Stage II', 'Stage III', 'Stage IV']),
+                            ('PRIOR LINES OF THERAPY - N (%)', ['0', '1', '2', '≥3']),
+                        ]
+
+                    # =========================================================
+                    # EXTRACT GEOGRAPHIC REGIONS/COUNTRIES FROM PROTOCOL
+                    # =========================================================
+                    study_regions = []
+
+                    # Check discovered elements for geographic info
+                    for elem in discovered_elements:
+                        if hasattr(elem, 'description'):
+                            desc = elem.description or ''
+                        else:
+                            desc = elem.get('description', '') or ''
+                        desc_lower = desc.lower()
+
+                        # Nordic countries
+                        if 'sweden' in desc_lower and 'Sweden' not in study_regions:
+                            study_regions.append('Sweden')
+                        if 'denmark' in desc_lower and 'Denmark' not in study_regions:
+                            study_regions.append('Denmark')
+                        if 'norway' in desc_lower and 'Norway' not in study_regions:
+                            study_regions.append('Norway')
+                        if 'finland' in desc_lower and 'Finland' not in study_regions:
+                            study_regions.append('Finland')
+                        # European countries
+                        if 'germany' in desc_lower and 'Germany' not in study_regions:
+                            study_regions.append('Germany')
+                        if 'france' in desc_lower and 'France' not in study_regions:
+                            study_regions.append('France')
+                        if 'spain' in desc_lower and 'Spain' not in study_regions:
+                            study_regions.append('Spain')
+                        if 'italy' in desc_lower and 'Italy' not in study_regions:
+                            study_regions.append('Italy')
+                        if 'united kingdom' in desc_lower or 'uk' in desc_lower and 'UK' not in study_regions:
+                            study_regions.append('UK')
+                        # US/Americas
+                        if 'united states' in desc_lower or 'usa' in desc_lower and 'USA' not in study_regions:
+                            study_regions.append('USA')
+                        if 'canada' in desc_lower and 'Canada' not in study_regions:
+                            study_regions.append('Canada')
+                        # Asia Pacific
+                        if 'japan' in desc_lower and 'Japan' not in study_regions:
+                            study_regions.append('Japan')
+                        if 'china' in desc_lower and 'China' not in study_regions:
+                            study_regions.append('China')
+                        if 'korea' in desc_lower and 'South Korea' not in study_regions:
+                            study_regions.append('South Korea')
+                        if 'australia' in desc_lower and 'Australia' not in study_regions:
+                            study_regions.append('Australia')
+
+                    # Fallback: check protocol text directly
+                    if not study_regions:
+                        if 'sweden' in protocol_lower:
+                            study_regions.append('Sweden')
+                        if 'denmark' in protocol_lower:
+                            study_regions.append('Denmark')
+                        if 'norway' in protocol_lower:
+                            study_regions.append('Norway')
+                        if 'finland' in protocol_lower:
+                            study_regions.append('Finland')
+                        if 'germany' in protocol_lower:
+                            study_regions.append('Germany')
+                        if 'france' in protocol_lower:
+                            study_regions.append('France')
+                        if 'united states' in protocol_lower or 'usa' in protocol_lower:
+                            study_regions.append('USA')
+                        if 'japan' in protocol_lower:
+                            study_regions.append('Japan')
+                        if 'china' in protocol_lower:
+                            study_regions.append('China')
+
+                    # If still no regions, use generic based on study scope
+                    if not study_regions:
+                        if 'nordic' in protocol_lower or 'scandinavi' in protocol_lower:
+                            study_regions = ['Sweden', 'Denmark', 'Norway', 'Finland']
+                        elif 'global' in protocol_lower or 'international' in protocol_lower or 'multi-national' in protocol_lower:
+                            study_regions = ['North America', 'Europe', 'Asia Pacific']
+                        else:
+                            study_regions = ['Region 1', 'Region 2']  # Placeholder
+
+                    print(f"  [MAIN.PY] Cancer type: {cancer_type}, Disease vars: {len(disease_baseline_vars)}")
+                    print(f"  [MAIN.PY] Study regions: {study_regions}")
 
                     pipeline_type = "two-pass"
 
@@ -4408,7 +4584,8 @@ async def process_jobs_worker():
                         tlf_parts.append("\nThe following TLF shells define the statistical outputs for this study:\n")
 
                         # ========== TABLE 14.1.1: DEMOGRAPHICS ==========
-                        tlf_parts.append(f"""
+                        # Build dynamically based on prohibition rules
+                        demo_table = f"""
 TABLE 14.1.1  DEMOGRAPHIC AND BASELINE CHARACTERISTICS
 ITT POPULATION
 
@@ -4426,7 +4603,10 @@ AGE (YEARS)
 SEX - N (%)
   Male                              xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
   Female                            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
-
+"""
+                        # Only add Race/Ethnicity if NOT prohibited (e.g., Nordic study)
+                        if not tlf_prohibitions.get('no_race_ethnicity', False):
+                            demo_table += """
 RACE - N (%)
   White                             xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
   Black or African American         xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
@@ -4436,19 +4616,72 @@ RACE - N (%)
 ETHNICITY - N (%)
   Hispanic or Latino                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
   Not Hispanic or Latino            xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
-
+"""
+                        # Performance status: Use appropriate scale based on protocol
+                        if tlf_prohibitions.get('use_karnofsky', False):
+                            demo_table += """
+KARNOFSKY PERFORMANCE STATUS - N (%)
+  100%                              xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  90%                               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  80%                               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  70%                               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  60%                               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+"""
+                        elif tlf_prohibitions.get('use_asa_score', False):
+                            demo_table += """
+ASA PHYSICAL STATUS SCORE - N (%)
+  I                                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  II                                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+  III                               xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
+"""
+                        elif not tlf_prohibitions.get('no_ecog', False):
+                            demo_table += """
 ECOG PERFORMANCE STATUS - N (%)
   0                                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
   1                                 xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
-
+"""
+                        # Body measurement: Weight vs BMI
+                        if tlf_prohibitions.get('no_weight_use_bmi', False):
+                            demo_table += """
+BMI (KG/M2)
+  N                                 xxx             xxx             xxx
+  Mean (SD)                         xx.x (xx.xx)    xx.x (xx.xx)    xx.x (xx.xx)
+  Median                            xx.x            xx.x            xx.x
+"""
+                        else:
+                            demo_table += """
 WEIGHT (KG)
   N                                 xxx             xxx             xxx
   Mean (SD)                         xx.x (xx.xx)    xx.x (xx.xx)    xx.x (xx.xx)
+"""
+                        # Add disease-specific baseline variables dynamically
+                        if disease_baseline_vars:
+                            demo_table += "\n"
+                            for var_name, var_levels in disease_baseline_vars:
+                                demo_table += f"\n{var_name}\n"
+                                for level in var_levels:
+                                    if level in ['N', 'Mean', 'Median', 'Mean (SD)', 'Min, Max']:
+                                        # Continuous variable format
+                                        if level == 'N':
+                                            demo_table += f"  {level:<35} xxx             xxx             xxx\n"
+                                        elif level == 'Mean (SD)':
+                                            demo_table += f"  {level:<35} xx.x (xx.xx)    xx.x (xx.xx)    xx.x (xx.xx)\n"
+                                        elif level == 'Median':
+                                            demo_table += f"  {level:<35} xx.x            xx.x            xx.x\n"
+                                        elif level == 'Min, Max':
+                                            demo_table += f"  {level:<35} xx, xx          xx, xx          xx, xx\n"
+                                        else:
+                                            demo_table += f"  {level:<35} xx.x            xx.x            xx.x\n"
+                                    else:
+                                        # Categorical variable format
+                                        demo_table += f"  {level:<35} xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)\n"
 
+                        demo_table += """
 Source: ADSL
 Program: t_dm_baseline.sas
 ---------------------------------------------------------------------------
-""")
+"""
+                        tlf_parts.append(demo_table)
 
                         # ========== TABLE 14.1.2: DISPOSITION ==========
                         tlf_parts.append(f"""
@@ -4517,14 +4750,19 @@ Program: t_tte_primary.sas
                         for i, ep in enumerate(secondary_eps[:2], 1):
                             idx = len(primary_eps[:3]) + i
                             short_ep = ep[:80] if len(ep) > 80 else ep
-                            tlf_parts.append(f"""
+
+                            # Build secondary table - exclude response categories if prohibited (adjuvant setting)
+                            sec_table = f"""
 TABLE 14.2.{idx}  SECONDARY EFFICACY ANALYSIS - {short_ep.upper()}
 ITT POPULATION
 
                                     {arm1_padded} {arm2_padded}
 PARAMETER                           (N={n1})         (N={n2})
 ---------------------------------------------------------------------------
-
+"""
+                            # Only include response categories if NOT prohibited (not adjuvant setting)
+                            if not tlf_prohibitions.get('no_response_categories', False):
+                                sec_table += """
 RESPONDERS - N (%)                  xxx (xx.x%)     xxx (xx.x%)
   95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
 
@@ -4537,14 +4775,34 @@ NOT EVALUABLE - N (%)               xxx (xx.x%)     xxx (xx.x%)
 ODDS RATIO                          x.xxx
   95% CI                            (x.xxx, x.xxx)
   P-value                           x.xxxx
+"""
+                            else:
+                                # For adjuvant setting - use time-to-event format instead
+                                sec_table += """
+NUMBER OF EVENTS                    xxx             xxx
+NUMBER CENSORED                     xxx             xxx
 
+KAPLAN-MEIER ESTIMATES
+  Median (months)                   xx.x            xx.x
+  95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
+
+  3-Year Rate (%)                   xx.x            xx.x
+  95% CI                            (xx.x, xx.x)    (xx.x, xx.x)
+
+HAZARD RATIO                        x.xxx
+  95% CI                            (x.xxx, x.xxx)
+  P-value (log-rank)                x.xxxx
+"""
+                            sec_table += """
 Source: ADRS/ADEFF
 Program: t_efficacy_secondary.sas
 ---------------------------------------------------------------------------
-""")
+"""
+                            tlf_parts.append(sec_table)
 
                         # ========== TABLE 14.3.1: TEAE SUMMARY ==========
-                        tlf_parts.append(f"""
+                        # Build dynamically based on prohibition rules
+                        teae_table = f"""
 TABLE 14.3.1  OVERALL SUMMARY OF TREATMENT-EMERGENT ADVERSE EVENTS
 SAFETY POPULATION
 
@@ -4566,9 +4824,13 @@ GRADE >=3 TEAE - N (%)              xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
 SERIOUS TEAE - N (%)                xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
 
 TEAE LEADING TO DISCONTINUATION     xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
-
+"""
+                        # Only include dose modification row if NOT a fixed-dose study
+                        if not tlf_prohibitions.get('no_dose_modification', False):
+                            teae_table += """
 TEAE LEADING TO DOSE MODIFICATION   xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
-
+"""
+                        teae_table += """
 DRUG-RELATED TEAE - N (%)           xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
 
 DEATHS - N (%)                      xxx (xx.x%)     xxx (xx.x%)     xxx (xx.x%)
@@ -4577,7 +4839,8 @@ Source: ADAE
 Filter: SAFFL='Y' and TRTEMFL='Y'
 Program: t_ae_summary.sas
 ---------------------------------------------------------------------------
-""")
+"""
+                        tlf_parts.append(teae_table)
 
                         # ========== TABLE 14.3.2: SERIOUS ADVERSE EVENTS ==========
                         tlf_parts.append(f"""
@@ -4695,7 +4958,8 @@ Program: f_km_primary.sas
 ---------------------------------------------------------------------------
 """)
 
-                        tlf_parts.append(f"""
+                        # Build forest plot with dynamic performance status and geographic regions
+                        forest_plot = f"""
 FIGURE 14.2.3  FOREST PLOT - SUBGROUP ANALYSES FOR PRIMARY ENDPOINT
 ITT POPULATION
 
@@ -4713,21 +4977,219 @@ SEX                                                 |
   Male                              xxx    x.xx    (x.xx, x.xx)  --*--
   Female                            xxx    x.xx    (x.xx, x.xx)   --*--
                                                     |
-ECOG PERFORMANCE STATUS                             |
+"""
+                        # Dynamic performance status based on protocol
+                        if tlf_prohibitions.get('use_karnofsky', False):
+                            forest_plot += """KARNOFSKY PERFORMANCE STATUS                        |
+  >=90%                             xxx    x.xx    (x.xx, x.xx)  --*--
+  <90%                              xxx    x.xx    (x.xx, x.xx)   ---*---
+                                                    |
+"""
+                        elif tlf_prohibitions.get('use_asa_score', False):
+                            forest_plot += """ASA PHYSICAL STATUS                                 |
+  I-II                              xxx    x.xx    (x.xx, x.xx)  --*--
+  III                               xxx    x.xx    (x.xx, x.xx)   ---*---
+                                                    |
+"""
+                        else:
+                            forest_plot += """ECOG PERFORMANCE STATUS                             |
   0                                 xxx    x.xx    (x.xx, x.xx)  --*--
   1                                 xxx    x.xx    (x.xx, x.xx)   ---*---
                                                     |
-GEOGRAPHIC REGION                                   |
-  North America                     xxx    x.xx    (x.xx, x.xx)  --*--
-  Europe                            xxx    x.xx    (x.xx, x.xx)   --*--
-  Asia                              xxx    x.xx    (x.xx, x.xx)  ---*---
-  Rest of World                     xxx    x.xx    (x.xx, x.xx)   ----*----
+"""
+                        # Dynamic geographic regions - only show if not prohibited
+                        if not tlf_prohibitions.get('no_geographic_subgroups', False) and len(study_regions) > 1:
+                            forest_plot += "GEOGRAPHIC REGION/COUNTRY                           |\n"
+                            for region in study_regions[:6]:  # Max 6 regions
+                                forest_plot += f"  {region:<30} xxx    x.xx    (x.xx, x.xx)  --*--\n"
+                            forest_plot += "                                                    |\n"
+
+                        # Add disease-specific subgroups if oncology
+                        if cancer_type:
+                            if cancer_type == 'colorectal':
+                                forest_plot += """MUTATION STATUS                                     |
+  PIK3CA mutant                     xxx    x.xx    (x.xx, x.xx)  --*--
+  PIK3CA wild-type                  xxx    x.xx    (x.xx, x.xx)   --*--
                                                     |
-                                   0.25  0.5   1.0   2.0   4.0
+TUMOR LOCATION                                      |
+  Right colon                       xxx    x.xx    (x.xx, x.xx)  ---*---
+  Left colon/Rectum                 xxx    x.xx    (x.xx, x.xx)  --*--
+                                                    |
+"""
+                            elif cancer_type == 'breast':
+                                forest_plot += """HORMONE RECEPTOR STATUS                             |
+  HR positive                       xxx    x.xx    (x.xx, x.xx)  --*--
+  HR negative                       xxx    x.xx    (x.xx, x.xx)   --*--
+                                                    |
+HER2 STATUS                                         |
+  HER2 positive                     xxx    x.xx    (x.xx, x.xx)  --*--
+  HER2 negative                     xxx    x.xx    (x.xx, x.xx)   --*--
+                                                    |
+"""
+                            elif cancer_type == 'lung':
+                                forest_plot += """HISTOLOGY                                           |
+  Adenocarcinoma                    xxx    x.xx    (x.xx, x.xx)  --*--
+  Squamous                          xxx    x.xx    (x.xx, x.xx)   --*--
+                                                    |
+PD-L1 EXPRESSION                                    |
+  >=50%                             xxx    x.xx    (x.xx, x.xx)  --*--
+  <50%                              xxx    x.xx    (x.xx, x.xx)   ---*---
+                                                    |
+"""
+                            elif cancer_type == 'melanoma':
+                                forest_plot += """BRAF STATUS                                         |
+  BRAF mutant                       xxx    x.xx    (x.xx, x.xx)  --*--
+  BRAF wild-type                    xxx    x.xx    (x.xx, x.xx)   --*--
+                                                    |
+"""
+
+                        forest_plot += f"""                                   0.25  0.5   1.0   2.0   4.0
                                    <-- Favors {arm1} | Favors {arm2} -->
 
 Source: ADTTE
 Program: f_forest_subgroup.sas
+---------------------------------------------------------------------------
+"""
+                        tlf_parts.append(forest_plot)
+
+                        # ========== FIGURE 14.1.1: CONSORT FLOWCHART ==========
+                        tlf_parts.append(f"""
+FIGURE 14.1.1  CONSORT FLOW DIAGRAM - SUBJECT DISPOSITION
+ALL SUBJECTS
+
+                              +---------------------------+
+                              |      ASSESSED FOR         |
+                              |       ELIGIBILITY         |
+                              |         (N=xxx)           |
+                              +-------------+-------------+
+                                            |
+              +-----------------------------+-----------------------------+
+              |                                                           |
+              v                                                           v
++----------------------------+                              +----------------------------+
+|        EXCLUDED            |                              |        RANDOMIZED          |
+|         (N=xxx)            |                              |          (N={n_total})           |
+|                            |                              +-------------+--------------+
+| Not meeting inclusion      |                                            |
+|   criteria (N=xxx)         |                +---------------------------+---------------------------+
+| Declined to participate    |                |                                                       |
+|   (N=xxx)                  |                v                                                       v
+| Other reasons (N=xxx)      |   +----------------------------+                        +----------------------------+
++----------------------------+   |     ALLOCATED TO           |                        |     ALLOCATED TO           |
+                                 |     {arm1_padded}          |                        |     {arm2_padded}          |
+                                 |        (N={n1})            |                        |        (N={n2})            |
+                                 +-------------+--------------+                        +-------------+--------------+
+                                               |                                                     |
+                                               v                                                     v
+                                 +----------------------------+                        +----------------------------+
+                                 |  RECEIVED ALLOCATED        |                        |  RECEIVED ALLOCATED        |
+                                 |  INTERVENTION (N=xxx)      |                        |  INTERVENTION (N=xxx)      |
+                                 |                            |                        |                            |
+                                 |  Did not receive (N=xxx)   |                        |  Did not receive (N=xxx)   |
+                                 +-------------+--------------+                        +-------------+--------------+
+                                               |                                                     |
+                                               v                                                     v
+                                 +----------------------------+                        +----------------------------+
+                                 |      DISCONTINUED          |                        |      DISCONTINUED          |
+                                 |        (N=xxx)             |                        |        (N=xxx)             |
+                                 |                            |                        |                            |
+                                 | Adverse event (N=xxx)      |                        | Adverse event (N=xxx)      |
+                                 | Disease prog. (N=xxx)      |                        | Disease prog. (N=xxx)      |
+                                 | Withdrawal (N=xxx)         |                        | Withdrawal (N=xxx)         |
+                                 | Lost to f/u (N=xxx)        |                        | Lost to f/u (N=xxx)        |
+                                 | Other (N=xxx)              |                        | Other (N=xxx)              |
+                                 +-------------+--------------+                        +-------------+--------------+
+                                               |                                                     |
+                                               v                                                     v
+                                 +----------------------------+                        +----------------------------+
+                                 |    ANALYSED (ITT)          |                        |    ANALYSED (ITT)          |
+                                 |        (N=xxx)             |                        |        (N=xxx)             |
+                                 |                            |                        |                            |
+                                 | Excluded from analysis     |                        | Excluded from analysis     |
+                                 |   (N=xxx)                  |                        |   (N=xxx)                  |
+                                 +----------------------------+                        +----------------------------+
+
+Source: ADSL
+Program: f_consort.sas
+---------------------------------------------------------------------------
+""")
+
+                        # ========== ADDITIONAL KM FIGURES FOR SECONDARY ENDPOINTS ==========
+                        for i, ep in enumerate(secondary_eps[:4], 1):
+                            short_ep = ep[:60] if len(ep) > 60 else ep
+                            fig_num = len(primary_eps[:2]) + i
+                            tlf_parts.append(f"""
+FIGURE 14.2.{fig_num}  KAPLAN-MEIER PLOT - {short_ep.upper()}
+ITT POPULATION
+
+  |
+1.0 +----*---*---*---*---*---*---*---*---*---*---*
+  |     \\
+  |      *---*---*---*---*---*---*---*---*  {arm1} (N={n1})
+0.8 +           \\
+  |             *---*---*---*---*---*---*
+  |                  \\                        {arm2} (N={n2})
+0.6 +                   *---*---*---*---*
+  |                        \\
+  |                         *---*---*---*
+0.4 +                              \\
+  |                               *---*---*
+  |
+0.2 +
+  |
+  |
+0.0 +----+----+----+----+----+----+----+----+----+----+
+    0    6   12   18   24   30   36   42   48   54   60
+                        Time (Months)
+
+Number at Risk:
+{arm1}:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
+{arm2}:  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx  xxx
+
+Statistics:
+  {arm1}: Median xx.x months (95% CI: xx.x, xx.x)
+  {arm2}: Median xx.x months (95% CI: xx.x, xx.x)
+  Hazard Ratio: x.xxx (95% CI: x.xxx, x.xxx)
+  Log-rank P-value: x.xxxx
+
+Source: ADTTE
+Program: f_km_secondary_{i}.sas
+---------------------------------------------------------------------------
+""")
+
+                        # ========== CUMULATIVE INCIDENCE FIGURE (for competing risks) ==========
+                        if therapeutic_area == 'oncology':
+                            tlf_parts.append(f"""
+FIGURE 14.2.{len(primary_eps[:2]) + len(secondary_eps[:4]) + 1}  CUMULATIVE INCIDENCE PLOT (AALEN-JOHANSEN ESTIMATOR)
+ITT POPULATION - COMPETING RISKS ANALYSIS
+
+  |
+1.0 +
+  |
+  |
+0.8 +
+  |
+  |                                     Event of interest
+0.6 +                               ____*---*---*---*  {arm1}
+  |                         ____----
+  |                   _____----     ____*---*---*---*  {arm2}
+0.4 +            _____----    _____----
+  |      _____----     _____----
+  |_____----    _____----
+0.2 +    _____----
+  |____----
+  |
+0.0 +----+----+----+----+----+----+----+----+----+----+
+    0    6   12   18   24   30   36   42   48   54   60
+                        Time (Months)
+
+Gray's Test P-value: x.xxxx
+
+Note: Cumulative incidence estimated using Aalen-Johansen method
+      accounting for death as a competing risk.
+
+Source: ADTTE
+Program: f_cumulative_incidence.sas
 ---------------------------------------------------------------------------
 """)
 
