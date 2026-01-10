@@ -603,11 +603,23 @@ Return ONLY valid JSON."""
         if section.status == SectionStatus.APPROVED and not regenerate:
             return section
 
+        # DEBUG: Log protocol content quality
+        protocol_preview = workspace.protocol_content[:500] if workspace.protocol_content else "EMPTY"
+        print(f"[WORKBENCH] Generating section: {section_id}")
+        print(f"[WORKBENCH] Protocol content length: {len(workspace.protocol_content):,} chars")
+        print(f"[WORKBENCH] Protocol preview: {protocol_preview[:200]}...")
+
+        # Check if protocol looks like binary/garbled data
+        if workspace.protocol_content and workspace.protocol_content.startswith('%PDF'):
+            print(f"[WORKBENCH] WARNING: Protocol content starts with %PDF - this is RAW PDF bytes, not extracted text!")
+            print(f"[WORKBENCH] This workspace was created BEFORE the PDF parsing fix. Please create a NEW workspace.")
+
         # Update status
         section.status = SectionStatus.GENERATING
 
         # Get section-specific prompt
         prompt = self._build_section_prompt(workspace, section_id)
+        print(f"[WORKBENCH] Prompt length: {len(prompt):,} chars")
 
         try:
             response = self.client.messages.create(
