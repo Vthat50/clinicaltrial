@@ -685,102 +685,142 @@ class EnhancedClaudeSAPGenerator:
         protocol_content: str,
         power_calc: Optional[PowerCalculation] = None,
         rag_examples: Optional[List[Dict]] = None,
-        regulatory_context: Optional[str] = None
+        regulatory_context: Optional[str] = None,
+        full_extraction: Optional[Dict] = None
     ) -> Tuple[str, List[str]]:
         """
-        Generate SAP using PROTOCOL-DRIVEN approach.
+        Generate SAP using comprehensive protocol extraction.
 
-        NO extractors, NO hardcoded rules.
-        Claude reads the protocol and determines what to include/exclude.
+        Uses the 55-category extraction to generate accurate, protocol-specific SAP.
 
         Returns:
             Tuple of (generated_sap, warnings)
         """
 
-        # Format extracted facts with provenance
-        facts_text = self._format_facts_with_provenance(extracted_facts)
-
-        # Format KG context
-        context_text = "\n".join([
-            f"- {ex['trial_id']}: {ex['fact']}"
-            for ex in kg_context[:5]
-        ]) if kg_context else "No similar trials in knowledge graph."
+        # Format comprehensive extraction if available
+        if full_extraction:
+            extraction_json = json.dumps(full_extraction, indent=2, default=str)
+        else:
+            extraction_json = self._format_facts_with_provenance(extracted_facts)
 
         # Format power calculations
         power_text = self._format_power_calc(power_calc) if power_calc else "[Power calculations not available]"
 
-        # Format RAG examples
-        rag_text = self._format_rag_examples(rag_examples) if rag_examples else ""
+        # Build the comprehensive SAP generation prompt
+        prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
-        # STRICT PROTOCOL-ONLY PROMPT - NO EXTERNAL SOURCES
-        # RAG examples and KG context REMOVED - they contaminate with generic content
-        prompt = f"""You are a biostatistician creating a Statistical Analysis Plan (SAP).
+## CRITICAL: USE ONLY THE EXTRACTED PROTOCOL INFORMATION BELOW
 
-## ABSOLUTE RULE: ONLY USE INFORMATION FROM THIS PROTOCOL
+You have been given a comprehensive extraction of ALL protocol elements.
+Generate a SAP using ONLY this extracted information.
+DO NOT add any content not present in the extraction.
 
-You must generate a SAP using ONLY the information in the protocol below.
-DO NOT add any variables, tables, or content that is not explicitly mentioned.
+## COMPREHENSIVE PROTOCOL EXTRACTION:
+```json
+{extraction_json}
+```
 
-## FORBIDDEN - DO NOT INCLUDE UNLESS EXPLICITLY IN PROTOCOL:
-- Race/Ethnicity (only include if protocol explicitly collects this)
-- ECOG Performance Status (only if protocol mentions ECOG specifically)
-- Tumor response categories CR/PR/SD/PD (only for metastatic studies with measurable tumors)
-- Geographic subgroups like "North America", "Europe", "Asia" (only if protocol lists these regions)
-- CTCAE grading (only if protocol specifies CTCAE)
-- Dose modification tables (only if protocol has dose modification rules)
-
-## STUDY TYPE DETECTION - CRITICAL:
-Read the protocol and determine:
-1. Is this ADJUVANT (post-surgery, no measurable disease)?
-   → Use time-to-event endpoints (DFS, TTR, OS)
-   → Use Hazard Ratio and Cox regression
-   → DO NOT include tumor response tables (CR/PR/SD/PD)
-
-2. Is this METASTATIC (treating existing tumors)?
-   → Include tumor response (CR/PR/SD/PD) if using RECIST
-   → Include ORR, DCR tables
-
-3. What performance status does the protocol use?
-   → ECOG? Use ECOG
-   → ASA Score? Use ASA Score
-   → Karnofsky? Use Karnofsky
-   → Not mentioned? Mark as [TO BE CONFIRMED]
-
-4. What countries/regions?
-   → Nordic (Sweden, Norway, Denmark, Finland)? Do NOT add Race/Ethnicity
-   → US study? May include Race/Ethnicity if in protocol
-   → Only include geographic subgroups that match actual study sites
-
-## STATISTICAL METHODS - MATCH TO ENDPOINT TYPE:
-- Time-to-event (DFS, OS, PFS, TTR) → Cox regression, Hazard Ratio, Kaplan-Meier
-- Binary response rate → May use Odds Ratio OR Risk Difference
-- DO NOT use Odds Ratio for time-to-event endpoints
-
-## BASELINE VARIABLES:
-ONLY include variables explicitly mentioned in the protocol:
-{facts_text}
-
-## SAMPLE SIZE:
+## POWER/SAMPLE SIZE CALCULATIONS:
 {power_text}
 
-## PROTOCOL CONTENT (THIS IS YOUR ONLY SOURCE):
+## FULL PROTOCOL TEXT (for reference if extraction is incomplete):
 {protocol_content}
 
 ---
 
-## OUTPUT REQUIREMENTS:
-1. Generate SAP sections with ONLY protocol-specified content
-2. For any variable not in protocol, write [NOT IN PROTOCOL - CONFIRM IF NEEDED]
-3. Table shells must use ONLY the treatment arms from this protocol
-4. Column headers must match this protocol's groups exactly
-5. DO NOT copy structure from other SAPs - this protocol is unique
+## SAP GENERATION RULES:
 
-Generate the protocol-specific SAP now:"""
+### 1. STUDY IDENTIFICATION
+- Use exact NCT ID, protocol number, sponsor from extraction
+- Use exact study title
+
+### 2. DISEASE & SETTING
+- Use disease_classification.disease_setting to determine:
+  - ADJUVANT → time-to-event endpoints (DFS, TTR, OS), NO tumor response tables
+  - NEOADJUVANT → pCR endpoints, pathologic response
+  - METASTATIC → tumor response (RECIST), ORR, DCR, PFS, OS
+
+### 3. RESPONSE CRITERIA
+- Use EXACTLY what's in response_criteria_details.criteria_name
+- For immunotherapy: use immunotherapy_specific.response_criteria
+- For hematologic: use hematologic_specific.response_criteria
+- For CAR-T: include CRS/ICANS grading from cart_specific
+
+### 4. ENDPOINTS
+- Primary: Use exact names/definitions from primary_endpoints[]
+- Secondary: Use exact names/definitions from secondary_endpoints[]
+- Include response_criteria and assessment_schedule from extraction
+
+### 5. POPULATIONS
+- Use exact definitions from populations section
+- ITT, mITT, PP, Safety as extracted
+
+### 6. BASELINE VARIABLES
+- Include ONLY variables from baseline_variables[]
+- Use the exact variable_name and categories
+- Use performance_status.scale (ECOG vs ASA vs Karnofsky)
+
+### 7. STATISTICAL METHODS
+- Use methods from statistical_methods section
+- Match to endpoint types from extraction
+- Include multiplicity adjustment if multiplicity.adjustment_required is true
+
+### 8. TREATMENT ARMS
+- Use exact arm names from treatment_arms[]
+- Include dose, schedule, route as extracted
+
+### 9. STRATIFICATION
+- Use exact factors from randomization.stratification_factors[]
+- Include categories as extracted
+
+### 10. INTERIM ANALYSIS
+- Include if interim_analysis.planned is true
+- Use stopping rules from extraction
+
+### 11. SAFETY ANALYSIS
+- Use ae_grading_scale from safety_endpoints
+- Include special monitoring from safety_endpoints.special_safety_monitoring
+
+### 12. SPECIAL CONSIDERATIONS
+- Phase 1: Include DLT definition, MTD criteria from phase1_design
+- Immunotherapy: Include irAE monitoring, PD-L1/TMB/MSI assessment
+- CAR-T: Include CRS/ICANS grading, cellular kinetics
+- Hematologic: Include MRD assessment, cytogenetic risk
+
+### 13. GEOGRAPHIC
+- Include only countries/regions from geographic section
+- Do NOT add Race/Ethnicity unless in baseline_variables
+
+### 14. TABLE SHELLS
+- Use exact treatment arm names as column headers
+- Include only baseline variables from extraction
+- Match response criteria to study type
+
+---
+
+## OUTPUT FORMAT:
+Generate a complete SAP with these sections:
+1. Title Page & Administrative Information
+2. Introduction & Study Objectives
+3. Study Design
+4. Study Endpoints
+5. Analysis Populations
+6. Statistical Methods
+7. Sample Size
+8. Interim Analysis (if applicable)
+9. Baseline & Demographics Analysis
+10. Efficacy Analysis
+11. Safety Analysis
+12. Table/Figure Shells
+
+For any element not in extraction, write: [NOT EXTRACTED - VERIFY IN PROTOCOL]
+
+Generate the comprehensive SAP now:"""
 
         try:
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=8192,
+                max_tokens=16384,  # Increased for comprehensive SAP
                 messages=[{"role": "user", "content": prompt}]
             )
 
@@ -893,15 +933,19 @@ class EnhancedKGPipeline:
         self.generator = EnhancedClaudeSAPGenerator(api_key)
         self.regulatory_kb = RegulatoryKnowledgeBase()
 
+        # Store for comprehensive extraction (55 categories)
+        self._last_full_extraction = None
+
         # Load existing KG
         self._load_existing_kg()
 
-        print("✅ Enhanced KG Pipeline initialized (PROTOCOL-DRIVEN)")
+        print("✅ Enhanced KG Pipeline initialized (55-CATEGORY EXTRACTION)")
         print(f"   • Knowledge Graph: {len(self.kg.nodes)} nodes")
         print(f"   • RAG Examples: {len(self.rag.sap_examples)} SAPs")
         print(f"   • Power Calculator: {'scipy' if self.power_calc.available else 'unavailable'}")
         print(f"   • Regulatory KB: MedDRA {self.regulatory_kb.get_meddra_version()}, CTCAE {self.regulatory_kb.get_ctcae_version()}")
-        print("   • Approach: Protocol-driven (Claude reads protocol directly)")
+        print("   • Extraction: Comprehensive 55-category protocol extraction")
+        print("   • Coverage: Phase 1-3, Immunotherapy, CAR-T, Hematologic, Basket/Umbrella")
 
     def _load_existing_kg(self):
         """Load existing Claude-extracted KG."""
@@ -1017,13 +1061,19 @@ class EnhancedKGPipeline:
         print("STEP 6: GENERATE SAP WITH CLAUDE")
         print("-"*50)
 
+        # Get full extraction if available (stored during _extract_entities)
+        full_extraction = getattr(self, '_last_full_extraction', None)
+        if full_extraction:
+            print(f"   • Using comprehensive 55-category extraction")
+
         sap_content, gen_warnings = self.generator.generate_sap(
             extracted_facts=extracted,
             kg_context=kg_context,
             protocol_content=protocol_content,
             power_calc=power_result,
             rag_examples=rag_examples,
-            regulatory_context=regulatory_context
+            regulatory_context=regulatory_context,
+            full_extraction=full_extraction
         )
         print(f"✅ Generated SAP ({len(sap_content)} chars)")
 
@@ -1105,64 +1155,438 @@ class EnhancedKGPipeline:
         }
 
     def _extract_entities(self, content: str, doc_id: str) -> List[Dict]:
-        """Extract entities with Claude."""
+        """Extract comprehensive protocol elements for SAP generation."""
 
-        prompt = f"""Extract ALL statistical analysis elements from this clinical trial document.
+        prompt = f"""You are extracting ALL information needed to generate a Statistical Analysis Plan (SAP) from this clinical trial protocol.
 
-For each element, provide:
-1. The exact type (endpoint, method, population, stratification, baseline_variable, study_design)
-2. The name/value exactly as stated in the protocol
-3. A confidence score (0.0-1.0) based on how clearly it's stated
-4. The exact quote from the document where you found it
+Extract ONLY what is EXPLICITLY stated in this protocol. Do NOT assume or add generic content.
 
-Return JSON array. Example structure (use actual values from THIS protocol):
-[
-  {{
-    "type": "endpoint",
-    "name": "[exact endpoint name from protocol]",
-    "endpoint_type": "primary/secondary/exploratory",
-    "definition": "[definition from protocol]",
-    "confidence": 0.95,
-    "source_quote": "[exact quote]"
+Return a JSON object with the following structure. For each field, include "value" and "source_quote" (exact text from protocol). If not found, use null.
+
+{{
+  "trial_identification": {{
+    "nct_id": {{"value": "", "source_quote": ""}},
+    "protocol_number": {{"value": "", "source_quote": ""}},
+    "sponsor": {{"value": "", "source_quote": ""}},
+    "study_title": {{"value": "", "source_quote": ""}},
+    "protocol_version": {{"value": "", "source_quote": ""}}
   }},
-  {{
-    "type": "baseline_variable",
-    "name": "[variable name from protocol]",
-    "category": "[demographic/disease/lab/other]",
-    "confidence": 0.90,
-    "source_quote": "[exact quote showing this variable is collected]"
+
+  "disease_classification": {{
+    "tumor_type": {{"value": "", "source_quote": ""}},
+    "disease_stage": {{"value": "", "source_quote": ""}},
+    "disease_setting": {{"value": "[adjuvant/neoadjuvant/metastatic/locally_advanced/maintenance]", "source_quote": ""}},
+    "histology_subtypes": {{"value": [], "source_quote": ""}},
+    "prior_lines_allowed": {{"value": "", "source_quote": ""}}
   }},
-  {{
-    "type": "study_design",
-    "name": "[adjuvant/metastatic/other as stated]",
-    "confidence": 0.95,
-    "source_quote": "[quote showing study type]"
+
+  "molecular_markers": {{
+    "required_biomarkers": [{{"name": "", "test_method": "", "cutoff": "", "source_quote": ""}}],
+    "stratification_biomarkers": [{{"name": "", "categories": [], "source_quote": ""}}],
+    "exploratory_biomarkers": [{{"name": "", "source_quote": ""}}]
+  }},
+
+  "study_phase": {{
+    "phase": {{"value": "", "source_quote": ""}},
+    "phase_objectives": {{"value": "", "source_quote": ""}},
+    "is_seamless_design": {{"value": false, "source_quote": ""}}
+  }},
+
+  "study_design": {{
+    "design_type": {{"value": "[parallel/crossover/single_arm/factorial/adaptive/basket/umbrella/platform]", "source_quote": ""}},
+    "blinding": {{"value": "[open_label/single_blind/double_blind]", "source_quote": ""}},
+    "randomization_ratio": {{"value": "", "source_quote": ""}},
+    "control_type": {{"value": "[placebo/active_comparator/soc/historical/none]", "source_quote": ""}}
+  }},
+
+  "treatment_arms": [
+    {{
+      "arm_name": "",
+      "arm_type": "[experimental/comparator/placebo]",
+      "drug_name": "",
+      "dose": "",
+      "schedule": "",
+      "route": "",
+      "duration": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "dose_modifications": {{
+    "dose_reduction_rules": [{{"trigger": "", "action": "", "source_quote": ""}}],
+    "dose_escalation_rules": [{{"criteria": "", "action": "", "source_quote": ""}}],
+    "discontinuation_rules": [{{"criteria": "", "source_quote": ""}}]
+  }},
+
+  "phase1_design": {{
+    "is_phase1": false,
+    "escalation_design": {{"value": "[3+3/CRM/BOIN/mTPI/other]", "source_quote": ""}},
+    "dlt_definition": {{"value": "", "source_quote": ""}},
+    "dlt_window": {{"value": "", "source_quote": ""}},
+    "mtd_definition": {{"value": "", "source_quote": ""}},
+    "rp2d_definition": {{"value": "", "source_quote": ""}},
+    "starting_dose": {{"value": "", "source_quote": ""}},
+    "dose_levels": [{{"level": "", "dose": "", "source_quote": ""}}]
+  }},
+
+  "enrollment": {{
+    "target_enrollment": {{"value": "", "source_quote": ""}},
+    "enrollment_per_arm": {{"value": [], "source_quote": ""}},
+    "study_duration": {{"value": "", "source_quote": ""}},
+    "follow_up_duration": {{"value": "", "source_quote": ""}}
+  }},
+
+  "populations": {{
+    "itt_definition": {{"value": "", "source_quote": ""}},
+    "mitt_definition": {{"value": "", "source_quote": ""}},
+    "pp_definition": {{"value": "", "source_quote": ""}},
+    "safety_definition": {{"value": "", "source_quote": ""}},
+    "evaluable_definition": {{"value": "", "source_quote": ""}},
+    "pk_population": {{"value": "", "source_quote": ""}},
+    "biomarker_populations": [{{"name": "", "definition": "", "source_quote": ""}}]
+  }},
+
+  "primary_endpoints": [
+    {{
+      "name": "",
+      "definition": "",
+      "type": "[binary/time_to_event/continuous/count]",
+      "assessment_method": "",
+      "assessment_schedule": "",
+      "response_criteria": "[RECIST/irRECIST/iRECIST/Lugano/IMWG/ELN/PCWG3/RANO/GCIG/other]",
+      "confirmation_required": false,
+      "irc_assessment": false,
+      "primary_population": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "secondary_endpoints": [
+    {{
+      "name": "",
+      "definition": "",
+      "type": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "exploratory_endpoints": [
+    {{
+      "name": "",
+      "definition": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "safety_endpoints": {{
+    "ae_grading_scale": {{"value": "[CTCAE_v5/CTCAE_v4/other]", "version": "", "source_quote": ""}},
+    "dlt_as_endpoint": {{"value": false, "source_quote": ""}},
+    "safety_stopping_rules": [{{"criteria": "", "action": "", "source_quote": ""}}],
+    "special_safety_monitoring": [{{"type": "", "criteria": "", "source_quote": ""}}]
+  }},
+
+  "immunotherapy_specific": {{
+    "is_immunotherapy": false,
+    "response_criteria": {{"value": "[irRECIST/iRECIST]", "source_quote": ""}},
+    "pseudoprogression_handling": {{"value": "", "source_quote": ""}},
+    "irae_monitoring": [{{"type": "", "grading": "", "management": "", "source_quote": ""}}],
+    "pd_l1_assessment": {{"assay": "", "scoring": "[TPS/CPS/IC]", "cutoff": "", "source_quote": ""}},
+    "tmb_assessment": {{"platform": "", "cutoff": "", "source_quote": ""}},
+    "msi_assessment": {{"method": "", "source_quote": ""}}
+  }},
+
+  "cart_specific": {{
+    "is_cart": false,
+    "crs_grading": {{"scale": "[ASTCT/Lee/other]", "source_quote": ""}},
+    "icans_grading": {{"scale": "", "source_quote": ""}},
+    "cellular_kinetics": {{"parameters": [], "source_quote": ""}},
+    "bridging_therapy": {{"allowed": false, "source_quote": ""}},
+    "retreatment_allowed": {{"value": false, "source_quote": ""}}
+  }},
+
+  "hematologic_specific": {{
+    "is_hematologic": false,
+    "disease_type": {{"value": "[AML/ALL/CLL/CML/lymphoma/myeloma/MDS/other]", "source_quote": ""}},
+    "response_criteria": {{"value": "[Lugano/IMWG/ELN/IWG/Cheson/other]", "source_quote": ""}},
+    "mrd_assessment": {{
+      "required": false,
+      "method": "[flow_cytometry/NGS/PCR]",
+      "sensitivity": "",
+      "timepoints": [],
+      "source_quote": ""
+    }},
+    "cytogenetic_risk": {{"categories": [], "source_quote": ""}}
+  }},
+
+  "response_criteria_details": {{
+    "criteria_name": "",
+    "target_lesion_selection": {{"value": "", "source_quote": ""}},
+    "measurement_method": {{"value": "", "source_quote": ""}},
+    "confirmation_window": {{"value": "", "source_quote": ""}},
+    "new_lesion_handling": {{"value": "", "source_quote": ""}},
+    "non_target_assessment": {{"value": "", "source_quote": ""}}
+  }},
+
+  "disease_specific_biomarkers": [
+    {{
+      "biomarker_name": "",
+      "disease_context": "",
+      "assessment_method": "",
+      "response_criteria": "",
+      "kinetics_definition": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "ctdna_liquid_biopsy": {{
+    "collected": false,
+    "assay_platform": {{"value": "", "source_quote": ""}},
+    "detection_limit": {{"value": "", "source_quote": ""}},
+    "timepoints": {{"value": [], "source_quote": ""}},
+    "clearance_definition": {{"value": "", "source_quote": ""}},
+    "mrd_definition": {{"value": "", "source_quote": ""}}
+  }},
+
+  "sample_size": {{
+    "total_n": {{"value": "", "source_quote": ""}},
+    "per_arm_n": {{"value": [], "source_quote": ""}},
+    "power": {{"value": "", "source_quote": ""}},
+    "alpha": {{"value": "", "one_or_two_sided": "", "source_quote": ""}},
+    "effect_size": {{"value": "", "type": "[hazard_ratio/difference/odds_ratio]", "source_quote": ""}},
+    "control_rate": {{"value": "", "source_quote": ""}},
+    "dropout_rate": {{"value": "", "source_quote": ""}},
+    "events_required": {{"value": "", "source_quote": ""}}
+  }},
+
+  "interim_analysis": {{
+    "planned": false,
+    "number_of_interims": {{"value": "", "source_quote": ""}},
+    "timing": [{{"interim": "", "trigger": "[enrollment/events/calendar]", "value": "", "source_quote": ""}}],
+    "efficacy_stopping": {{"boundary": "", "method": "[OBF/Pocock/alpha_spending]", "source_quote": ""}},
+    "futility_stopping": {{"boundary": "", "method": "", "source_quote": ""}},
+    "alpha_spending_function": {{"value": "", "source_quote": ""}},
+    "sample_size_reestimation": {{"planned": false, "method": "", "source_quote": ""}}
+  }},
+
+  "randomization": {{
+    "method": {{"value": "[permuted_blocks/stratified/minimization/adaptive]", "source_quote": ""}},
+    "block_size": {{"value": "", "source_quote": ""}},
+    "stratification_factors": [
+      {{
+        "factor_name": "",
+        "categories": [],
+        "source_quote": ""
+      }}
+    ],
+    "ivrs_iwrs": {{"value": false, "source_quote": ""}}
+  }},
+
+  "subgroups": {{
+    "prespecified_subgroups": [
+      {{
+        "factor": "",
+        "categories": [],
+        "rationale": "",
+        "source_quote": ""
+      }}
+    ],
+    "biomarker_subgroups": [
+      {{
+        "biomarker": "",
+        "cutoff": "",
+        "source_quote": ""
+      }}
+    ],
+    "interaction_testing": {{"planned": false, "factors": [], "source_quote": ""}}
+  }},
+
+  "statistical_methods": {{
+    "primary_analysis_method": {{"value": "", "source_quote": ""}},
+    "time_to_event_method": {{"value": "[kaplan_meier/log_rank/cox/rmst]", "source_quote": ""}},
+    "binary_endpoint_method": {{"value": "", "source_quote": ""}},
+    "continuous_endpoint_method": {{"value": "", "source_quote": ""}},
+    "confidence_interval_method": {{"value": "", "level": "", "source_quote": ""}},
+    "stratified_analysis": {{"value": false, "factors": [], "source_quote": ""}}
+  }},
+
+  "sensitivity_analyses": [
+    {{
+      "name": "",
+      "description": "",
+      "population": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "missing_data": {{
+    "handling_method": {{"value": "[complete_case/LOCF/MI/MMRM/other]", "source_quote": ""}},
+    "sensitivity_analyses": [{{"method": "", "source_quote": ""}}]
+  }},
+
+  "multiplicity": {{
+    "adjustment_required": false,
+    "method": {{"value": "[hierarchical/bonferroni/hochberg/graphical/gatekeeping]", "source_quote": ""}},
+    "testing_hierarchy": [{{"rank": "", "endpoint": "", "source_quote": ""}}],
+    "alpha_allocation": {{"value": "", "source_quote": ""}}
+  }},
+
+  "estimand_framework": {{
+    "estimand_defined": false,
+    "treatment_effect": {{"value": "", "source_quote": ""}},
+    "intercurrent_events": [
+      {{
+        "event": "",
+        "strategy": "[treatment_policy/composite/hypothetical/principal_stratum/while_on_treatment]",
+        "source_quote": ""
+      }}
+    ]
+  }},
+
+  "competing_risks": {{
+    "applicable": false,
+    "competing_events": [{{"event": "", "handling": "", "source_quote": ""}}],
+    "analysis_method": {{"value": "[CIF/Fine_Gray/other]", "source_quote": ""}}
+  }},
+
+  "safety_analysis": {{
+    "population": {{"value": "", "source_quote": ""}},
+    "ae_coding": {{"dictionary": "[MedDRA]", "version": "", "source_quote": ""}},
+    "ae_tables": [{{"type": "", "source_quote": ""}}],
+    "lab_analysis": {{"shift_tables": false, "change_from_baseline": false, "source_quote": ""}},
+    "exposure_adjusted_analysis": {{"value": false, "source_quote": ""}}
+  }},
+
+  "pk_pd_analysis": {{
+    "pk_sampling": {{"collected": false, "timepoints": [], "source_quote": ""}},
+    "pk_parameters": [{{"parameter": "", "source_quote": ""}}],
+    "pk_population": {{"value": "", "source_quote": ""}},
+    "exposure_response": {{"planned": false, "source_quote": ""}}
+  }},
+
+  "pro_qol": {{
+    "instruments": [
+      {{
+        "name": "",
+        "domains": [],
+        "assessment_schedule": "",
+        "primary_timepoint": "",
+        "source_quote": ""
+      }}
+    ],
+    "mid_definition": {{"value": "", "source_quote": ""}},
+    "ttd_analysis": {{"planned": false, "threshold": "", "source_quote": ""}}
+  }},
+
+  "prior_therapy": {{
+    "lines_allowed": {{"value": "", "source_quote": ""}},
+    "required_prior": [{{"therapy": "", "source_quote": ""}}],
+    "excluded_prior": [{{"therapy": "", "source_quote": ""}}],
+    "washout_periods": [{{"therapy": "", "period": "", "source_quote": ""}}]
+  }},
+
+  "concomitant_medications": {{
+    "prohibited": [{{"medication": "", "reason": "", "source_quote": ""}}],
+    "allowed_with_restrictions": [{{"medication": "", "restriction": "", "source_quote": ""}}],
+    "required": [{{"medication": "", "source_quote": ""}}]
+  }},
+
+  "visit_schedule": {{
+    "screening_window": {{"value": "", "source_quote": ""}},
+    "treatment_visits": [{{"visit": "", "timing": "", "window": "", "source_quote": ""}}],
+    "imaging_schedule": {{"frequency": "", "modality": "", "source_quote": ""}},
+    "follow_up_schedule": {{"frequency": "", "duration": "", "source_quote": ""}}
+  }},
+
+  "comparative_hypothesis": {{
+    "type": {{"value": "[superiority/non_inferiority/equivalence]", "source_quote": ""}},
+    "margin": {{"value": "", "justification": "", "source_quote": ""}},
+    "one_or_two_sided": {{"value": "", "source_quote": ""}}
+  }},
+
+  "regulatory_pathway": {{
+    "accelerated_approval": {{"applicable": false, "surrogate_endpoint": "", "source_quote": ""}},
+    "breakthrough_designation": {{"value": false, "source_quote": ""}},
+    "orphan_designation": {{"value": false, "source_quote": ""}},
+    "rmat_designation": {{"value": false, "source_quote": ""}}
+  }},
+
+  "dsmb": {{
+    "required": false,
+    "charter_elements": [{{"element": "", "source_quote": ""}}],
+    "review_schedule": {{"value": "", "source_quote": ""}}
+  }},
+
+  "irc": {{
+    "required": false,
+    "for_endpoints": [{{"endpoint": "", "source_quote": ""}}],
+    "blinded": {{"value": false, "source_quote": ""}}
+  }},
+
+  "geographic": {{
+    "countries": [{{"country": "", "source_quote": ""}}],
+    "regions": [{{"region": "", "source_quote": ""}}],
+    "multi_regional_considerations": {{"value": "", "source_quote": ""}}
+  }},
+
+  "baseline_variables": [
+    {{
+      "variable_name": "",
+      "category": "[demographic/disease/lab/vital_sign/medical_history/prior_therapy]",
+      "type": "[continuous/categorical/ordinal]",
+      "categories_if_applicable": [],
+      "source_quote": ""
+    }}
+  ],
+
+  "performance_status": {{
+    "scale": {{"value": "[ECOG/Karnofsky/ASA/Lansky/other]", "source_quote": ""}},
+    "required_range": {{"value": "", "source_quote": ""}}
+  }},
+
+  "organ_function_requirements": {{
+    "renal": {{"parameter": "", "threshold": "", "source_quote": ""}},
+    "hepatic": {{"parameters": [], "thresholds": [], "source_quote": ""}},
+    "cardiac": {{"parameter": "", "threshold": "", "source_quote": ""}},
+    "hematologic": {{"parameters": [], "thresholds": [], "source_quote": ""}}
+  }},
+
+  "heor_endpoints": {{
+    "collected": false,
+    "resource_utilization": [{{"type": "", "source_quote": ""}}],
+    "cost_effectiveness": {{"planned": false, "source_quote": ""}}
+  }},
+
+  "digital_endpoints": {{
+    "collected": false,
+    "wearables": [{{"device": "", "parameters": [], "source_quote": ""}}],
+    "epro": {{"platform": "", "source_quote": ""}}
+  }},
+
+  "adam_specifications": {{
+    "adsl_flags": [{{"flag": "", "definition": "", "source_quote": ""}}],
+    "analysis_datasets": [{{"dataset": "", "source_quote": ""}}]
   }}
-]
+}}
 
-EXTRACT FROM THIS SPECIFIC PROTOCOL:
-1. ENDPOINTS: All primary, secondary, exploratory endpoints with their exact definitions
-2. METHODS: Statistical tests and analysis methods mentioned
-3. POPULATIONS: Analysis populations (ITT, PP, Safety, etc.) with definitions
-4. STRATIFICATION FACTORS: Variables used for randomization stratification
-5. BASELINE VARIABLES: Every demographic/baseline variable this protocol collects
-   - Look in: eligibility criteria, baseline assessments, CRF sections, data collection schedules
-   - Extract the EXACT variable names used (not generic ones)
-   - Note the specific performance status scale if mentioned (ECOG, ASA, Karnofsky, etc.)
-6. STUDY DESIGN: Is this adjuvant, neoadjuvant, metastatic, etc.? What phase?
-7. GEOGRAPHIC: What countries/regions is this study conducted in?
+CRITICAL INSTRUCTIONS:
+1. Extract ONLY what is explicitly stated in this protocol
+2. Use null for any field not found in the protocol
+3. Include exact source_quote for every extracted value
+4. Do not infer or assume - if not stated, leave null
+5. For disease-specific sections, only populate if this protocol is that disease type
+6. Extract ALL baseline variables mentioned anywhere (eligibility, assessments, CRF)
+7. Identify the EXACT response criteria mentioned (RECIST version, irRECIST vs iRECIST, etc.)
+8. Capture the EXACT performance status scale used (ECOG vs ASA vs Karnofsky)
 
-IMPORTANT: Only extract what is ACTUALLY in this protocol. Do not assume or add generic variables.
-
-DOCUMENT:
+PROTOCOL DOCUMENT:
 {content}
 
-Return ONLY valid JSON array, no other text."""
+Return ONLY the JSON object, no other text."""
 
         try:
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=4096,
+                max_tokens=16384,  # Increased for comprehensive extraction
                 messages=[{"role": "user", "content": prompt}]
             )
 
@@ -1176,17 +1600,144 @@ Return ONLY valid JSON array, no other text."""
             if response_text.endswith("```"):
                 response_text = response_text[:-3]
 
-            extracted = json.loads(response_text)
+            extracted_obj = json.loads(response_text)
 
-            # Add doc_id to all items
-            for item in extracted:
-                item["source_doc"] = doc_id
+            # Add doc_id to the extraction
+            extracted_obj["source_doc"] = doc_id
 
-            return extracted
+            # Convert to list format for backward compatibility with verification
+            # while preserving the full structured extraction
+            extracted_list = self._convert_extraction_to_list(extracted_obj)
+
+            # Store full extraction for SAP generation
+            self._last_full_extraction = extracted_obj
+
+            return extracted_list
 
         except Exception as e:
             print(f"❌ Extraction error: {e}")
+            import traceback
+            traceback.print_exc()
             return []
+
+    def _convert_extraction_to_list(self, extracted_obj: Dict) -> List[Dict]:
+        """Convert structured extraction to list format for backward compatibility."""
+        items = []
+
+        # Extract endpoints
+        for ep in extracted_obj.get("primary_endpoints", []):
+            if ep.get("name"):
+                items.append({
+                    "type": "endpoint",
+                    "name": ep.get("name", ""),
+                    "endpoint_type": "primary",
+                    "definition": ep.get("definition", ""),
+                    "response_criteria": ep.get("response_criteria", ""),
+                    "confidence": 0.95,
+                    "source_quote": ep.get("source_quote", "")
+                })
+
+        for ep in extracted_obj.get("secondary_endpoints", []):
+            if ep.get("name"):
+                items.append({
+                    "type": "endpoint",
+                    "name": ep.get("name", ""),
+                    "endpoint_type": "secondary",
+                    "definition": ep.get("definition", ""),
+                    "confidence": 0.90,
+                    "source_quote": ep.get("source_quote", "")
+                })
+
+        # Extract populations
+        pops = extracted_obj.get("populations", {})
+        for pop_name in ["itt_definition", "mitt_definition", "pp_definition", "safety_definition"]:
+            pop = pops.get(pop_name, {})
+            if pop and pop.get("value"):
+                items.append({
+                    "type": "population",
+                    "name": pop_name.replace("_definition", "").upper(),
+                    "definition": pop.get("value", ""),
+                    "confidence": 0.95,
+                    "source_quote": pop.get("source_quote", "")
+                })
+
+        # Extract stratification factors
+        rand = extracted_obj.get("randomization", {})
+        for strat in rand.get("stratification_factors", []):
+            if strat.get("factor_name"):
+                items.append({
+                    "type": "stratification",
+                    "name": strat.get("factor_name", ""),
+                    "categories": strat.get("categories", []),
+                    "confidence": 0.95,
+                    "source_quote": strat.get("source_quote", "")
+                })
+
+        # Extract baseline variables
+        for var in extracted_obj.get("baseline_variables", []):
+            if var.get("variable_name"):
+                items.append({
+                    "type": "baseline_variable",
+                    "name": var.get("variable_name", ""),
+                    "category": var.get("category", ""),
+                    "var_type": var.get("type", ""),
+                    "confidence": 0.90,
+                    "source_quote": var.get("source_quote", "")
+                })
+
+        # Extract study design info
+        design = extracted_obj.get("study_design", {})
+        if design.get("design_type", {}).get("value"):
+            items.append({
+                "type": "study_design",
+                "name": design.get("design_type", {}).get("value", ""),
+                "confidence": 0.95,
+                "source_quote": design.get("design_type", {}).get("source_quote", "")
+            })
+
+        # Extract disease setting
+        disease = extracted_obj.get("disease_classification", {})
+        if disease.get("disease_setting", {}).get("value"):
+            items.append({
+                "type": "disease_setting",
+                "name": disease.get("disease_setting", {}).get("value", ""),
+                "confidence": 0.95,
+                "source_quote": disease.get("disease_setting", {}).get("source_quote", "")
+            })
+
+        # Extract performance status
+        ps = extracted_obj.get("performance_status", {})
+        if ps.get("scale", {}).get("value"):
+            items.append({
+                "type": "performance_status",
+                "name": ps.get("scale", {}).get("value", ""),
+                "required_range": ps.get("required_range", {}).get("value", ""),
+                "confidence": 0.95,
+                "source_quote": ps.get("scale", {}).get("source_quote", "")
+            })
+
+        # Extract response criteria
+        rc = extracted_obj.get("response_criteria_details", {})
+        if rc.get("criteria_name"):
+            items.append({
+                "type": "response_criteria",
+                "name": rc.get("criteria_name", ""),
+                "confidence": 0.95,
+                "source_quote": ""
+            })
+
+        # Extract geographic info
+        geo = extracted_obj.get("geographic", {})
+        countries = geo.get("countries", [])
+        if countries:
+            items.append({
+                "type": "geographic",
+                "name": ", ".join([c.get("country", "") for c in countries if c.get("country")]),
+                "confidence": 0.90,
+                "source_quote": countries[0].get("source_quote", "") if countries else ""
+            })
+
+        return items
 
     def _query_kg_context(self, extracted: List[Dict]) -> List[Dict]:
         """Query KG for similar trials."""
