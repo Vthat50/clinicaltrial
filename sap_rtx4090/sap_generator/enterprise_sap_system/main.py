@@ -33,11 +33,21 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from enterprise_sap_system.core import (
     get_config, create_parser, ParsedProtocol, EndpointType
 )
-from enterprise_sap_system.knowledge_graph import create_graph_rag
-from enterprise_sap_system.agents import create_orchestrator, GenerationResult
-from enterprise_sap_system.few_shot import create_sap_database
-from enterprise_sap_system.cdisc import create_cdisc_mapper
-from enterprise_sap_system.templates import create_template_manager
+
+# New KG Pipeline - Production SAP Generator
+from enterprise_sap_system.knowledge_graph.kg_enhanced_pipeline import EnhancedKGPipeline
+from enterprise_sap_system.knowledge_graph.regulatory_standards import get_standard_versions
+
+# Legacy imports (kept for backward compatibility)
+try:
+    from enterprise_sap_system.knowledge_graph import create_graph_rag
+    from enterprise_sap_system.agents import create_orchestrator, GenerationResult
+    from enterprise_sap_system.few_shot import create_sap_database
+    from enterprise_sap_system.cdisc import create_cdisc_mapper
+    from enterprise_sap_system.templates import create_template_manager
+    LEGACY_AVAILABLE = True
+except ImportError:
+    LEGACY_AVAILABLE = False
 
 
 def test_protocol_parser():
@@ -374,7 +384,7 @@ def run_all_tests():
 
 
 def generate_sap_cli(protocol_path: str, output_path: str = None, verbose: bool = True):
-    """Generate SAP from a protocol file"""
+    """Generate SAP from a protocol file using Enhanced KG Pipeline"""
     protocol_path = Path(protocol_path)
 
     if not protocol_path.exists():
@@ -388,63 +398,106 @@ def generate_sap_cli(protocol_path: str, output_path: str = None, verbose: bool 
         nct_id = protocol_path.stem.replace("_protocol", "")
         output_path = output_dir / f"{nct_id}_sap.md"
 
-    print(f"Generating SAP from: {protocol_path}")
-    print(f"Output will be saved to: {output_path}")
+    print(f"\n{'='*70}")
+    print("  ENHANCED KG PIPELINE - SAP GENERATOR")
+    print(f"{'='*70}")
+    print(f"\nProtocol: {protocol_path}")
+    print(f"Output: {output_path}")
 
-    # Create orchestrator
-    orchestrator = create_orchestrator(use_rag=True)
+    # Get API key
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("ERROR: ANTHROPIC_API_KEY environment variable not set")
+        return False
 
-    # Generate SAP
-    result = orchestrator.generate_from_file(
-        protocol_path=str(protocol_path),
-        output_path=str(output_path),
-        verbose=verbose
-    )
+    # Show regulatory standards
+    versions = get_standard_versions()
+    print(f"\nRegulatory Standards:")
+    print(f"  MedDRA: {versions['MedDRA']}")
+    print(f"  CTCAE: {versions['CTCAE']}")
+    print(f"  WHO-DD: {versions['WHO_Drug']}")
 
-    if result.success:
-        print(f"\nSAP generated successfully!")
-        print(f"Quality score: {result.quality_report.overall_score:.1f}/100")
+    try:
+        # Create Enhanced KG Pipeline
+        pipeline = EnhancedKGPipeline(api_key)
+
+        # Generate SAP
+        result = pipeline.process_protocol(str(protocol_path))
+
+        # Save SAP
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(result["sap"])
+
+        # Save provenance
+        provenance_path = output_path.with_suffix('.provenance.json')
+        with open(provenance_path, 'w') as f:
+            json.dump(result["provenance"], f, indent=2)
+
+        print(f"\n{'='*70}")
+        print("  GENERATION COMPLETE")
+        print(f"{'='*70}")
+        print(f"\n✅ SAP saved to: {output_path}")
+        print(f"✅ Provenance saved to: {provenance_path}")
+        print(f"\nVerification:")
+        print(f"  Score: {result['verification'].score:.2f}")
+        print(f"  Passed: {result['verification'].passed}")
+        print(f"  Entities extracted: {len(result['extracted'])}")
+
         return True
-    else:
-        print(f"\nSAP generation failed:")
-        for error in result.errors:
-            print(f"  - {error}")
+
+    except Exception as e:
+        print(f"\nERROR: SAP generation failed: {e}")
+        import traceback
+        if verbose:
+            traceback.print_exc()
         return False
 
 
 def show_info():
     """Show system information"""
-    print("\n" + "="*60)
-    print("  ENTERPRISE SAP GENERATION SYSTEM")
-    print("="*60)
+    print("\n" + "="*70)
+    print("  ENHANCED KG PIPELINE - SAP GENERATION SYSTEM v2.0")
+    print("="*70)
 
-    from enterprise_sap_system import __version__
-    print(f"\n  Version: {__version__}")
+    # Show regulatory standards
+    versions = get_standard_versions()
 
-    config = get_config()
-    print(f"\n  Configuration:")
-    print(f"    Primary Model: {config.model.primary_model}")
-    print(f"    Data Directory: {config.paths.all_pairs_dir}")
-    print(f"    Output Directory: {config.paths.output_dir}")
+    print(f"\n  Pipeline: Enhanced Knowledge Graph + Claude")
+    print(f"  Model: Claude Sonnet 4")
+
+    print(f"\n  Regulatory Standards:")
+    print(f"    MedDRA: {versions['MedDRA']}")
+    print(f"    CTCAE: {versions['CTCAE']}")
+    print(f"    WHO Drug Dictionary: {versions['WHO_Drug']}")
 
     # Check for API key
-    api_key = os.getenv("GROQ_API_KEY")
-    print(f"\n  API Key Status: {'Set' if api_key else 'NOT SET'}")
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    print(f"\n  API Key Status: {'✅ Set' if api_key else '❌ NOT SET'}")
+
+    config = get_config()
+    print(f"\n  Data Directory: {config.paths.all_pairs_dir}")
 
     # Count available pairs
     if config.paths.all_pairs_dir.exists():
         protocol_count = len(list(config.paths.all_pairs_dir.glob("*_protocol.txt")))
-        print(f"\n  Available protocol-SAP pairs: {protocol_count}")
+        print(f"  Available protocols: {protocol_count}")
 
-    print("\n  Tiers Implemented:")
-    print("    [x] TIER 1: Protocol Ingestion & Structured Parsing")
-    print("    [x] TIER 2: Knowledge-Augmented Generation (GraphRAG)")
-    print("    [x] TIER 3: Multi-Agent SAP Generation Workflow")
-    print("    [x] TIER 4: Few-Shot Learning with Real SAP Examples")
-    print("    [x] TIER 5: CDISC Standards Integration")
-    print("    [x] TIER 6: Full SAP Document Generation")
+    print("\n  Pipeline Components:")
+    print("    [✓] Claude KG Extraction (with provenance)")
+    print("    [✓] Power/Sample Size Calculator (scipy)")
+    print("    [✓] Regulatory Knowledge Base (13 TEAE types)")
+    print("    [✓] SELF-RAG Verification Loop")
+    print("    [✓] Correction/Regeneration Loop")
 
-    print("\n" + "="*60)
+    print("\n  Features:")
+    print("    • Full provenance tracking for every fact")
+    print("    • [INFERRED] markers for assumed content")
+    print("    • Automatic phase/therapeutic area detection")
+    print("    • 13 standard TEAE summary table types")
+    print("    • ICH E9 R1 estimand framework support")
+
+    print("\n" + "="*70)
 
 
 def main():
