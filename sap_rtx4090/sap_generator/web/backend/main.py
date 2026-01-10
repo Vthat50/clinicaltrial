@@ -15,7 +15,7 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v44-KG-PIPELINE-CLEAN-OUTPUT-2026-01-10")
+print("BUILD: v45-KG-PIPELINE-NULL-FIX-2026-01-10")
 print("FEATURE: KGPipelineWrapper with 55-category extraction + KB tools")
 print("  • 55-category comprehensive extraction from protocol")
 print("  • Prohibition rules built from extraction:")

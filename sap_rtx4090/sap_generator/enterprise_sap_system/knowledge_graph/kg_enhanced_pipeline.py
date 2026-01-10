@@ -939,7 +939,7 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         # 2. Performance status check
         ps = full_extraction.get("performance_status", {})
-        ps_scale = ps.get("scale", {}).get("value", "").upper() if ps else ""
+        ps_scale = (ps.get("scale", {}).get("value") or "").upper() if ps else ""
 
         if ps_scale == "ASA":
             rules.append("- DO NOT use ECOG. Use ASA Score (1-5) for this surgical study")
@@ -950,7 +950,7 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         # 3. Disease setting check - CRITICAL for response tables
         disease = full_extraction.get("disease_classification", {})
-        setting = disease.get("disease_setting", {}).get("value", "").lower() if disease else ""
+        setting = (disease.get("disease_setting", {}).get("value") or "").lower() if disease else ""
 
         if setting == "adjuvant":
             rules.append("- DO NOT include tumor response tables (CR/PR/SD/PD). This is ADJUVANT - no measurable tumor")
@@ -962,7 +962,7 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         # 4. AE grading check
         safety = full_extraction.get("safety_endpoints", {})
-        ae_scale = safety.get("ae_grading_scale", {}).get("value", "") if safety else ""
+        ae_scale = (safety.get("ae_grading_scale", {}).get("value") or "") if safety else ""
 
         if ae_scale and "ctcae" not in ae_scale.lower():
             rules.append(f"- DO NOT use CTCAE Grade 1-5. Use {ae_scale} grading")
