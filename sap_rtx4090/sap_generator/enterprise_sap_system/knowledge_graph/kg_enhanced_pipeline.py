@@ -720,14 +720,29 @@ class EnhancedClaudeSAPGenerator:
         # Format power calculations
         power_text = self._format_power_calc(power_calc) if power_calc else "[Power calculations not available]"
 
+        # Build context-specific prohibition rules
+        prohibition_rules = self._build_prohibition_rules(full_extraction)
+
         # Build the comprehensive SAP generation prompt
         prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
-## CRITICAL: USE ONLY THE EXTRACTED PROTOCOL INFORMATION BELOW
+## CRITICAL: STRICT PROTOCOL-SPECIFIC GENERATION
 
 You have been given a comprehensive extraction of ALL protocol elements.
 Generate a SAP using ONLY this extracted information.
 DO NOT add any content not present in the extraction.
+
+## PROHIBITED CONTENT (Based on Protocol Analysis):
+{prohibition_rules}
+
+## CRITICAL ANTI-HALLUCINATION RULES:
+1. RACE/ETHNICITY: Include ONLY if explicitly in baseline_variables[]. Nordic/European studies do NOT collect these.
+2. PERFORMANCE STATUS: Use EXACTLY the scale from extraction (ASA Score for surgical, ECOG for oncology, Karnofsky for CNS).
+3. GEOGRAPHIC SUBGROUPS: Use ONLY countries from extraction. Nordic = Sweden/Norway/Denmark/Finland ONLY.
+4. RESPONSE TABLES (CR/PR/SD/PD): Include ONLY for metastatic/advanced disease. ADJUVANT trials = NO tumor response.
+5. AE GRADING: Use EXACTLY what's in safety_endpoints.ae_grading_scale (CTCAE vs Mild/Moderate/Severe).
+6. DOSE MODIFICATION: Include ONLY if dose_modifications has rules. Fixed-dose studies = NO modification rows.
+7. TREATMENT ARMS: Use EXACT arm names from extraction as column headers.
 
 ## COMPREHENSIVE PROTOCOL EXTRACTION:
 ```json
@@ -889,6 +904,97 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
             lines.append(line)
         return "\n".join(lines)
 
+    def _build_prohibition_rules(self, full_extraction: Optional[Dict]) -> str:
+        """Build context-specific prohibition rules based on protocol extraction."""
+        if not full_extraction:
+            return "No extraction available - use extreme caution with generic content."
+
+        rules = []
+
+        # 1. Race/Ethnicity check
+        baseline_vars = full_extraction.get("baseline_variables", [])
+        var_names = [v.get("variable_name", "").lower() for v in baseline_vars if v.get("variable_name")]
+        has_race = any("race" in v or "ethnicity" in v for v in var_names)
+
+        geo = full_extraction.get("geographic", {})
+        countries = [c.get("country", "").lower() for c in geo.get("countries", []) if c.get("country")]
+
+        is_nordic = all(c in ["sweden", "norway", "denmark", "finland", "iceland"] for c in countries) if countries else False
+        is_european_only = all(c in ["sweden", "norway", "denmark", "finland", "iceland", "germany", "france", "uk", "spain", "italy", "netherlands", "belgium", "austria", "switzerland", "poland"] for c in countries) if countries else False
+
+        if not has_race:
+            rules.append("- DO NOT include Race or Ethnicity variables (not collected in this study)")
+        if is_nordic:
+            rules.append("- DO NOT include North America, Asia, or Rest of World subgroups (Nordic study only)")
+            rules.append("- Geographic regions: ONLY Sweden, Norway, Denmark, Finland")
+        elif is_european_only and countries:
+            rules.append(f"- DO NOT include regions outside Europe (study sites: {', '.join(countries)})")
+
+        # 2. Performance status check
+        ps = full_extraction.get("performance_status", {})
+        ps_scale = ps.get("scale", {}).get("value", "").upper() if ps else ""
+
+        if ps_scale == "ASA":
+            rules.append("- DO NOT use ECOG. Use ASA Score (1-5) for this surgical study")
+        elif ps_scale == "KARNOFSKY":
+            rules.append("- DO NOT use ECOG. Use Karnofsky Performance Status (0-100%)")
+        elif ps_scale == "LANSKY":
+            rules.append("- DO NOT use ECOG. Use Lansky Play-Performance Scale (pediatric)")
+
+        # 3. Disease setting check - CRITICAL for response tables
+        disease = full_extraction.get("disease_classification", {})
+        setting = disease.get("disease_setting", {}).get("value", "").lower() if disease else ""
+
+        if setting == "adjuvant":
+            rules.append("- DO NOT include tumor response tables (CR/PR/SD/PD). This is ADJUVANT - no measurable tumor")
+            rules.append("- DO NOT use ORR, DCR, or RECIST categories for efficacy")
+            rules.append("- Primary efficacy = time-to-event (DFS, TTR, OS) with Kaplan-Meier and Cox model")
+            rules.append("- Use Hazard Ratio (not Odds Ratio) for treatment comparisons")
+        elif setting == "neoadjuvant":
+            rules.append("- Use pCR (pathologic complete response) as primary, not radiologic response")
+
+        # 4. AE grading check
+        safety = full_extraction.get("safety_endpoints", {})
+        ae_scale = safety.get("ae_grading_scale", {}).get("value", "") if safety else ""
+
+        if ae_scale and "ctcae" not in ae_scale.lower():
+            rules.append(f"- DO NOT use CTCAE Grade 1-5. Use {ae_scale} grading")
+        if not ae_scale or "mild" in str(full_extraction).lower():
+            # Check for older-style Mild/Moderate/Severe in protocol
+            rules.append("- If protocol uses Mild/Moderate/Severe grading, DO NOT use CTCAE Grades 1-5")
+
+        # 5. Dose modification check
+        dose_mods = full_extraction.get("dose_modifications", {})
+        reduction_rules = dose_mods.get("dose_reduction_rules", []) if dose_mods else []
+
+        if not reduction_rules:
+            rules.append("- DO NOT include 'TEAE Leading to Dose Modification' row (fixed-dose study)")
+
+        # 6. Treatment arms for column headers
+        arms = full_extraction.get("treatment_arms", [])
+        if arms:
+            arm_names = [a.get("arm_name", "") for a in arms if a.get("arm_name")]
+            if arm_names:
+                rules.append(f"- Table column headers MUST be: {', '.join(arm_names)}")
+
+        # 7. Stratification for subgroup analysis
+        strat = full_extraction.get("randomization", {})
+        strat_factors = strat.get("stratification_factors", []) if strat else []
+
+        if strat_factors:
+            factor_names = [f.get("factor_name", "") for f in strat_factors if f.get("factor_name")]
+            if factor_names:
+                rules.append(f"- Forest plot subgroups MUST use only: {', '.join(factor_names)}")
+
+        # 8. Check for specific baseline variables
+        if var_names:
+            has_bmi = any("bmi" in v for v in var_names)
+            has_weight = any("weight" in v for v in var_names)
+            if has_bmi and not has_weight:
+                rules.append("- Use BMI (kg/m²), not Weight (kg) for body composition variable")
+
+        return "\n".join(rules) if rules else "No specific prohibitions identified."
+
     def _format_power_calc(self, power_calc: PowerCalculation) -> str:
         """Format power calculation results."""
         lines = [f"Calculation Method: {power_calc.calculation_method}"]
@@ -945,16 +1051,31 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         else:
             extraction_json = self._format_facts_with_provenance(extracted_facts)
 
+        # Build context-specific prohibition rules
+        prohibition_rules = self._build_prohibition_rules(full_extraction)
+
         # Initial prompt
-        system_prompt = """You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
+        system_prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
 You have access to a knowledge base of standard statistical methods, table templates, and regulatory specifications.
 When you need a standard specification (like Cox model formula, table template, missing data method),
 USE THE TOOLS PROVIDED to retrieve it. Do not make up formulas or templates.
 
+## PROHIBITED CONTENT (Protocol-Specific):
+{prohibition_rules}
+
+## CRITICAL ANTI-HALLUCINATION RULES:
+1. RACE/ETHNICITY: Include ONLY if explicitly in baseline_variables[]. Nordic/European studies do NOT collect these.
+2. PERFORMANCE STATUS: Use EXACTLY the scale from extraction (ASA Score for surgical, ECOG for oncology).
+3. GEOGRAPHIC SUBGROUPS: Use ONLY countries from extraction. Nordic = Sweden/Norway/Denmark/Finland ONLY.
+4. RESPONSE TABLES (CR/PR/SD/PD): Include ONLY for metastatic/advanced. ADJUVANT = NO tumor response tables.
+5. AE GRADING: Use EXACTLY what's in extraction (CTCAE vs Mild/Moderate/Severe).
+6. DOSE MODIFICATION: Include ONLY if dose_modifications has rules. Fixed-dose = NO modification rows.
+7. TREATMENT ARMS: Use EXACT arm names from extraction as column headers.
+
 IMPORTANT RULES:
 1. Protocol facts (from extraction) are STUDY-SPECIFIC - use them for this study
-2. Knowledge base (from tools) provides STANDARD TEMPLATES - use exact specifications
+2. Knowledge base (from tools) provides STANDARD TEMPLATES - adapt to protocol specifics
 3. ALWAYS call tools for: statistical method formulas, table shells, missing data handling, sensitivity analyses
 4. Mark the source of each element: [PROTOCOL] or [KB: source_file]
 
