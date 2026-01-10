@@ -70,6 +70,20 @@ except ImportError:
         get_standard_versions
     )
 
+# Import knowledge base tools for explicit retrieval
+try:
+    from .kb_tools import (
+        KnowledgeBaseTools,
+        get_claude_tool_definitions,
+        execute_tool
+    )
+except ImportError:
+    from kb_tools import (
+        KnowledgeBaseTools,
+        get_claude_tool_definitions,
+        execute_tool
+    )
+
 # Protocol-specific extractor REMOVED - using simple protocol-driven approach
 # Claude reads the protocol directly and determines what to include/exclude
 
@@ -906,6 +920,150 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         return "\n\n".join(lines)
 
+    def generate_sap_with_tools(
+        self,
+        extracted_facts: List[Dict],
+        protocol_content: str,
+        full_extraction: Optional[Dict] = None
+    ) -> Tuple[str, List[Dict], List[str]]:
+        """
+        Generate SAP using tool-based knowledge base access.
+
+        Claude explicitly calls tools to retrieve standards/templates,
+        ensuring clear provenance and no contamination.
+
+        Returns:
+            Tuple of (generated_sap, knowledge_used, warnings)
+        """
+        # Initialize knowledge base tools
+        kb = KnowledgeBaseTools()
+        tools = get_claude_tool_definitions()
+
+        # Format extraction
+        if full_extraction:
+            extraction_json = json.dumps(full_extraction, indent=2, default=str)
+        else:
+            extraction_json = self._format_facts_with_provenance(extracted_facts)
+
+        # Initial prompt
+        system_prompt = """You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
+
+You have access to a knowledge base of standard statistical methods, table templates, and regulatory specifications.
+When you need a standard specification (like Cox model formula, table template, missing data method),
+USE THE TOOLS PROVIDED to retrieve it. Do not make up formulas or templates.
+
+IMPORTANT RULES:
+1. Protocol facts (from extraction) are STUDY-SPECIFIC - use them for this study
+2. Knowledge base (from tools) provides STANDARD TEMPLATES - use exact specifications
+3. ALWAYS call tools for: statistical method formulas, table shells, missing data handling, sensitivity analyses
+4. Mark the source of each element: [PROTOCOL] or [KB: source_file]
+
+Generate a production-quality SAP with full provenance tracking."""
+
+        user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
+```json
+{extraction_json}
+```
+
+## FULL PROTOCOL (for reference):
+{protocol_content[:10000]}
+
+---
+
+Generate a complete SAP. For each section, retrieve the relevant standards from the knowledge base using the tools provided.
+
+Required sections:
+1. Title Page & Administrative Information
+2. Study Objectives & Endpoints
+3. Study Design
+4. Analysis Populations
+5. Statistical Methods (MUST use get_statistical_method tool for formulas)
+6. Sample Size
+7. Missing Data Handling (MUST use get_missing_data_method tool)
+8. Sensitivity Analyses (MUST use get_sensitivity_analysis tool)
+9. Subgroup Analyses (use get_subgroup_analysis_specs tool)
+10. Safety Analysis (use get_safety_specifications tool)
+11. Interim Analysis (if applicable)
+12. Table/Figure Shells (MUST use get_disposition_tables, get_efficacy_tables, get_safety_tables tools)
+
+Start by calling the tools to get the standard specifications you need, then generate the SAP."""
+
+        messages = [{"role": "user", "content": user_prompt}]
+        knowledge_used = []
+        warnings = []
+
+        # Tool-use loop
+        max_iterations = 20  # Prevent infinite loops
+        iteration = 0
+
+        while iteration < max_iterations:
+            iteration += 1
+
+            try:
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=16384,
+                    system=system_prompt,
+                    tools=tools,
+                    messages=messages
+                )
+
+                # Check if there are tool calls
+                tool_calls = [block for block in response.content if block.type == "tool_use"]
+
+                if not tool_calls:
+                    # No more tool calls, extract final text
+                    final_text = ""
+                    for block in response.content:
+                        if hasattr(block, "text"):
+                            final_text += block.text
+                    return final_text, knowledge_used, warnings
+
+                # Process tool calls
+                tool_results = []
+                for tool_call in tool_calls:
+                    tool_name = tool_call.name
+                    tool_input = tool_call.input
+
+                    # Execute the tool
+                    result = execute_tool(tool_name, tool_input, kb)
+
+                    # Track what knowledge was used
+                    knowledge_used.append({
+                        "tool": tool_name,
+                        "input": tool_input,
+                        "source": result.source_file,
+                        "source_key": result.source_key
+                    })
+
+                    # Format result for Claude
+                    tool_results.append({
+                        "type": "tool_result",
+                        "tool_use_id": tool_call.id,
+                        "content": json.dumps(result.to_dict(), indent=2, default=str)
+                    })
+
+                # Add assistant response and tool results to messages
+                messages.append({"role": "assistant", "content": response.content})
+                messages.append({"role": "user", "content": tool_results})
+
+                # Check stop reason
+                if response.stop_reason == "end_turn":
+                    # Final response
+                    final_text = ""
+                    for block in response.content:
+                        if hasattr(block, "text"):
+                            final_text += block.text
+                    return final_text, knowledge_used, warnings
+
+            except Exception as e:
+                warnings.append(f"Tool-use error at iteration {iteration}: {str(e)}")
+                break
+
+        # If we hit max iterations, return what we have
+        warnings.append(f"Reached max iterations ({max_iterations})")
+        return "", knowledge_used, warnings
+
 
 # =============================================================================
 # ENHANCED KG PIPELINE
@@ -972,15 +1130,20 @@ class EnhancedKGPipeline:
                 )
                 self.kg.edges.append(edge)
 
-    def process_protocol(self, protocol_path: str) -> Dict:
+    def process_protocol(self, protocol_path: str, use_tools: bool = True) -> Dict:
         """
         Full enhanced pipeline.
+
+        Args:
+            protocol_path: Path to protocol file
+            use_tools: If True, use tool-based KB access (recommended for accuracy)
+                      If False, use simple prompt-based generation
 
         Steps:
         1. Extract entities with Claude (with provenance)
         2. Calculate power/sample size
         3. Retrieve RAG examples
-        4. Generate SAP
+        4. Generate SAP (with tools for KB access)
         5. Verify with SELF-RAG
         6. Regenerate if needed
         """
@@ -1066,15 +1229,32 @@ class EnhancedKGPipeline:
         if full_extraction:
             print(f"   • Using comprehensive 55-category extraction")
 
-        sap_content, gen_warnings = self.generator.generate_sap(
-            extracted_facts=extracted,
-            kg_context=kg_context,
-            protocol_content=protocol_content,
-            power_calc=power_result,
-            rag_examples=rag_examples,
-            regulatory_context=regulatory_context,
-            full_extraction=full_extraction
-        )
+        knowledge_used = []  # Track KB usage for provenance
+
+        if use_tools:
+            print("   • Mode: TOOL-BASED KB ACCESS (explicit retrieval)")
+            sap_content, knowledge_used, gen_warnings = self.generator.generate_sap_with_tools(
+                extracted_facts=extracted,
+                protocol_content=protocol_content,
+                full_extraction=full_extraction
+            )
+            print(f"   • Knowledge base tools called: {len(knowledge_used)}")
+            for kb_item in knowledge_used[:5]:
+                print(f"     - {kb_item['tool']}({kb_item.get('input', {})})")
+            if len(knowledge_used) > 5:
+                print(f"     - ... and {len(knowledge_used) - 5} more")
+        else:
+            print("   • Mode: PROMPT-BASED (no explicit KB access)")
+            sap_content, gen_warnings = self.generator.generate_sap(
+                extracted_facts=extracted,
+                kg_context=kg_context,
+                protocol_content=protocol_content,
+                power_calc=power_result,
+                rag_examples=rag_examples,
+                regulatory_context=regulatory_context,
+                full_extraction=full_extraction
+            )
+
         print(f"✅ Generated SAP ({len(sap_content)} chars)")
 
         # Step 7: SELF-RAG Verification
@@ -1133,6 +1313,8 @@ class EnhancedKGPipeline:
                 "teae_table_types": self.regulatory_kb.get_teae_table_count()
             },
             "rag_examples": [ex['nct_id'] for ex in rag_examples],
+            "knowledge_base_used": knowledge_used,  # Track explicit KB retrieval
+            "generation_mode": "tool_based" if use_tools else "prompt_based",
             "verification": {
                 "passed": verification.passed,
                 "score": verification.score,
@@ -1565,7 +1747,105 @@ Return a JSON object with the following structure. For each field, include "valu
   "adam_specifications": {{
     "adsl_flags": [{{"flag": "", "definition": "", "source_quote": ""}}],
     "analysis_datasets": [{{"dataset": "", "source_quote": ""}}]
-  }}
+  }},
+
+  "disposition_flow": {{
+    "consort_required": {{"value": false, "source_quote": ""}},
+    "screening_categories": [{{"category": "", "source_quote": ""}}],
+    "randomization_categories": [{{"category": "", "source_quote": ""}}],
+    "discontinuation_reasons": [{{"reason": "", "source_quote": ""}}],
+    "completion_definition": {{"value": "", "source_quote": ""}}
+  }},
+
+  "cox_model_specification": {{
+    "model_formula": {{"value": "", "source_quote": ""}},
+    "covariates": [{{"covariate": "", "type": "[continuous/categorical]", "source_quote": ""}}],
+    "stratification_in_model": [{{"factor": "", "source_quote": ""}}],
+    "tie_handling": {{"method": "[efron/breslow/exact]", "source_quote": ""}},
+    "proportional_hazards_testing": {{
+      "method": {{"value": "[schoenfeld/log_log_plot/scaled_schoenfeld/other]", "source_quote": ""}},
+      "timepoint_for_test": {{"value": "", "source_quote": ""}},
+      "action_if_violated": {{"value": "", "source_quote": ""}}
+    }}
+  }},
+
+  "iptw_propensity_methods": {{
+    "iptw_used": {{"value": false, "source_quote": ""}},
+    "propensity_model": {{"value": "", "source_quote": ""}},
+    "propensity_covariates": [{{"covariate": "", "source_quote": ""}}],
+    "weight_type": {{"value": "[ATE/ATT/stabilized]", "source_quote": ""}},
+    "trimming_threshold": {{"value": "", "source_quote": ""}},
+    "balance_assessment": {{"method": "", "source_quote": ""}}
+  }},
+
+  "multiple_imputation_specs": {{
+    "mi_used": {{"value": false, "source_quote": ""}},
+    "number_of_imputations": {{"value": "", "source_quote": ""}},
+    "imputation_method": {{"value": "[MICE/FCS/MCMC/PMM/other]", "source_quote": ""}},
+    "variables_to_impute": [{{"variable": "", "source_quote": ""}}],
+    "variables_in_imputation_model": [{{"variable": "", "source_quote": ""}}],
+    "pooling_method": {{"value": "[Rubin]", "source_quote": ""}},
+    "seed_specification": {{"value": "", "source_quote": ""}}
+  }},
+
+  "landmark_analyses": [
+    {{
+      "timepoint": "",
+      "endpoint": "",
+      "analysis_type": "[survival_rate/event_rate/RMST]",
+      "confidence_interval_method": "",
+      "source_quote": ""
+    }}
+  ],
+
+  "table_shells": {{
+    "disposition_table": {{
+      "required": false,
+      "columns": [],
+      "rows": [],
+      "source_quote": ""
+    }},
+    "demographics_table": {{
+      "required": false,
+      "columns": [],
+      "variables": [],
+      "source_quote": ""
+    }},
+    "efficacy_tables": [
+      {{
+        "table_name": "",
+        "endpoint": "",
+        "columns": [],
+        "statistics": [],
+        "source_quote": ""
+      }}
+    ],
+    "safety_tables": [
+      {{
+        "table_name": "",
+        "type": "[ae_overview/ae_by_soc/ae_by_grade/labs/vitals]",
+        "columns": [],
+        "source_quote": ""
+      }}
+    ],
+    "exploratory_tables": [
+      {{
+        "table_name": "",
+        "endpoint": "",
+        "columns": [],
+        "source_quote": ""
+      }}
+    ]
+  }},
+
+  "all_stratification_strata": [
+    {{
+      "factor": "",
+      "strata": [],
+      "total_strata_count": "",
+      "source_quote": ""
+    }}
+  ]
 }}
 
 CRITICAL INSTRUCTIONS:
