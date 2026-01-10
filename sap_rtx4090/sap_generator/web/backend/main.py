@@ -3679,6 +3679,7 @@ async def workbench_upload_protocol(
 ):
     """
     Step 1 (alt): Create workspace by uploading file.
+    Properly parses PDF/DOCX/TXT files to extract text.
     """
     if not WORKBENCH_AVAILABLE:
         raise HTTPException(503, "SAP Workbench not available")
@@ -3689,11 +3690,26 @@ async def workbench_upload_protocol(
 
     try:
         content = await file.read()
-        protocol_content = content.decode('utf-8', errors='ignore')
+        filename = file.filename or "protocol.txt"
+
+        # IMPORTANT: Use proper file parsing (PDF, DOCX, TXT)
+        # This was the bug - we were just doing decode() which gives garbled data for PDFs
+        try:
+            protocol_content = extract_text_from_file(filename, content)
+            logger.info(f"Workbench: Extracted {len(protocol_content):,} chars from {filename}")
+        except ValueError as e:
+            logger.error(f"Workbench: Text extraction failed for {filename}: {e}")
+            raise HTTPException(400, f"Failed to extract text from file: {e}")
+
+        if not protocol_content.strip():
+            raise HTTPException(400, "No text could be extracted from the file")
+
+        # Log first 500 chars for debugging
+        logger.info(f"Workbench: Protocol preview: {protocol_content[:500]}...")
 
         workspace = workbench.create_workspace(
             protocol_content=protocol_content,
-            protocol_filename=file.filename or "protocol.txt",
+            protocol_filename=filename,
             phase=phase,
             therapeutic_area=therapeutic_area,
             indication=indication
@@ -3706,6 +3722,8 @@ async def workbench_upload_protocol(
             "phase": workspace.phase,
             "therapeutic_area": workspace.therapeutic_area
         }
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Workbench upload failed: {e}")
         raise HTTPException(500, str(e))
