@@ -1484,6 +1484,15 @@ SAP_GENERATION_PROMPT = """You are an expert biostatistician writing a Statistic
 READ the protocol below completely. WRITE a comprehensive, production-quality SAP.
 
 ══════════════════════════════════════════════════════════════════════════════
+🚫 PROHIBITION RULES - CONTENT YOU MUST NOT INCLUDE
+══════════════════════════════════════════════════════════════════════════════
+
+{prohibition_rules}
+
+These rules are based on analysis of the protocol. STRICTLY FOLLOW THEM.
+DO NOT include any content that violates these prohibitions.
+
+══════════════════════════════════════════════════════════════════════════════
 ⚠️ CRITICAL: USE EXACT NUMBERS FROM THE PROTOCOL - NO PLACEHOLDERS
 ══════════════════════════════════════════════════════════════════════════════
 
@@ -1675,6 +1684,137 @@ def _generate_tlf_specs(discovered_elements: List[DiscoveredElement]) -> str:
     return "\n".join(specs)
 
 
+def _build_prohibition_rules(protocol_text: str, discovered_elements: List[DiscoveredElement]) -> str:
+    """
+    Build context-specific prohibition rules from protocol and discovered elements.
+
+    These rules prevent Claude from generating inappropriate content
+    based on the specific trial design.
+    """
+    rules = []
+    protocol_lower = protocol_text.lower()
+
+    # Build a dict of elements by name for quick lookup
+    elem_dict = {}
+    for elem in discovered_elements:
+        name_lower = (elem.name or '').lower()
+        desc_lower = (elem.description or '').lower()
+        cat = (elem.category or '').lower()
+        elem_dict[name_lower] = {'desc': desc_lower, 'cat': cat, 'full': elem}
+
+    # 1. Check disease setting for adjuvant/neoadjuvant
+    is_adjuvant = any(term in protocol_lower for term in ['adjuvant', 'post-operative', 'postsurgical', 'curative intent'])
+    is_neoadjuvant = 'neoadjuvant' in protocol_lower or 'pre-operative' in protocol_lower
+
+    if is_adjuvant and not is_neoadjuvant:
+        rules.append("🚫 ADJUVANT TRIAL - DO NOT INCLUDE:")
+        rules.append("   - Tumor response tables (CR, PR, SD, PD)")
+        rules.append("   - ORR (Objective Response Rate)")
+        rules.append("   - DCR (Disease Control Rate)")
+        rules.append("   - RECIST response categories")
+        rules.append("   → Use DFS, RFS, TTR, OS for efficacy (time-to-event endpoints)")
+
+    if is_neoadjuvant:
+        rules.append("🚫 NEOADJUVANT TRIAL:")
+        rules.append("   - Primary efficacy should be pCR (pathologic complete response)")
+        rules.append("   - Do NOT use radiologic response as primary endpoint")
+
+    # 2. Check geographic regions for race/ethnicity
+    nordic_countries = ['sweden', 'norway', 'denmark', 'finland', 'iceland']
+    is_nordic = any(country in protocol_lower for country in nordic_countries)
+
+    # Check if non-Nordic countries are mentioned
+    other_regions = ['united states', 'usa', 'north america', 'asia', 'china', 'japan', 'australia']
+    has_other_regions = any(region in protocol_lower for region in other_regions)
+
+    if is_nordic and not has_other_regions:
+        rules.append("🚫 NORDIC-ONLY STUDY - DO NOT INCLUDE:")
+        rules.append("   - Race or Ethnicity variables in demographics tables")
+        rules.append("   - Geographic subgroups for North America, Asia, Rest of World")
+        rules.append("   → Use only: Sweden, Norway, Denmark, Finland (as applicable)")
+
+    # 3. Check performance status scale
+    has_ecog = 'ecog' in protocol_lower
+    has_asa = 'asa score' in protocol_lower or 'asa class' in protocol_lower or 'asa physical' in protocol_lower
+    has_karnofsky = 'karnofsky' in protocol_lower
+
+    if has_asa and not has_ecog:
+        rules.append("🚫 SURGICAL STUDY - DO NOT USE ECOG:")
+        rules.append("   - Use ASA Score (1-5) for performance status")
+        rules.append("   - Do NOT include ECOG Performance Status")
+    elif has_ecog and not has_asa:
+        rules.append("🚫 ONCOLOGY STUDY - Performance Status:")
+        rules.append("   - Use ECOG Performance Status (0-4)")
+        rules.append("   - Do NOT include ASA Score")
+
+    # 4. Check AE grading scale
+    has_ctcae = 'ctcae' in protocol_lower or 'common terminology criteria' in protocol_lower
+    has_mild_mod_sev = ('mild' in protocol_lower and 'moderate' in protocol_lower and 'severe' in protocol_lower)
+
+    if has_ctcae:
+        rules.append("🚫 AE GRADING:")
+        rules.append("   - Use CTCAE Grade 1-5 for adverse event severity")
+        rules.append("   - Do NOT use Mild/Moderate/Severe categories")
+    elif has_mild_mod_sev and not has_ctcae:
+        rules.append("🚫 AE GRADING:")
+        rules.append("   - Use Mild/Moderate/Severe for adverse event severity")
+        rules.append("   - Do NOT use CTCAE Grades")
+
+    # 5. Check for fixed-dose study (no dose modifications)
+    is_fixed_dose = 'fixed dose' in protocol_lower or 'fixed-dose' in protocol_lower
+    has_dose_modifications = 'dose modification' in protocol_lower or 'dose reduction' in protocol_lower
+
+    if is_fixed_dose and not has_dose_modifications:
+        rules.append("🚫 FIXED-DOSE STUDY:")
+        rules.append("   - Do NOT include 'TEAE Leading to Dose Modification' row")
+        rules.append("   - Do NOT include dose reduction tables")
+
+    # 6. Check baseline variables for Weight vs BMI
+    has_weight = any('weight' in elem.lower() and 'bmi' not in elem.lower() for elem in elem_dict.keys())
+    has_bmi = any('bmi' in elem.lower() or 'body mass index' in elem.lower() for elem in elem_dict.keys())
+
+    if has_weight and not has_bmi:
+        rules.append("🚫 BASELINE - Weight only:")
+        rules.append("   - Include Weight in demographics")
+        rules.append("   - Do NOT include BMI")
+    elif has_bmi and not has_weight:
+        rules.append("🚫 BASELINE - BMI only:")
+        rules.append("   - Include BMI in demographics")
+        rules.append("   - Do NOT include Weight separately")
+
+    # 7. Extract treatment arm names for column headers
+    arm_names = []
+    for elem in discovered_elements:
+        if elem.category == 'study_design' and 'arm' in (elem.name or '').lower():
+            if elem.description:
+                arm_names.append(elem.description)
+
+    if arm_names:
+        rules.append(f"🚫 TABLE COLUMNS - Use EXACT arm names:")
+        for arm in arm_names[:4]:
+            rules.append(f"   - {arm}")
+        rules.append("   - Do NOT use generic [TREATMENT ARM 1], [TREATMENT ARM 2]")
+
+    # 8. Get stratification factors for subgroup analysis
+    strat_factors = []
+    for elem in discovered_elements:
+        name_lower = (elem.name or '').lower()
+        if 'stratif' in name_lower:
+            if elem.description:
+                strat_factors.append(elem.description)
+
+    if strat_factors:
+        rules.append(f"🚫 SUBGROUP/FOREST PLOT - Use ONLY these stratification factors:")
+        for factor in strat_factors[:5]:
+            rules.append(f"   - {factor}")
+        rules.append("   - Do NOT add generic subgroups not in protocol")
+
+    if not rules:
+        return "No specific prohibitions identified - use protocol content only."
+
+    return "\n".join(rules)
+
+
 def generate_sap_direct(protocol_text: str, discovered_elements: List[DiscoveredElement],
                         sap_template: str = None, model: str = None,
                         rag_examples: str = None, knowledge_graph: str = None,
@@ -1731,9 +1871,13 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
     # Generate TLF specifications from discovered endpoints
     tlf_specs = _generate_tlf_specs(discovered_elements)
 
+    # Build prohibition rules based on protocol analysis
+    prohibition_rules = _build_prohibition_rules(protocol_text, discovered_elements)
+
     prompt = SAP_GENERATION_PROMPT.format(
         num_elements=len(discovered_elements),
         checklist=checklist,
+        prohibition_rules=prohibition_rules,
         boundary_info=boundary_info or "(Boundary parameters not available - extract from protocol)",
         knowledge_graph=knowledge_graph or "(No knowledge graph available)",
         rag_examples=rag_examples or "(No RAG examples available)",
@@ -1748,6 +1892,7 @@ def generate_sap_direct(protocol_text: str, discovered_elements: List[Discovered
 
     if verbose:
         print(f"  Checklist: {len(discovered_elements)} elements across {len(by_category)} categories")
+        print(f"  Prohibition rules: {len(prohibition_rules.split(chr(10)))} rules")
         print(f"  Prompt size: {len(prompt):,} characters")
         print(f"  Generating SAP...")
 
