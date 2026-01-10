@@ -15,17 +15,17 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v41-KG-PIPELINE-FIXED-2026-01-10")
-print("FEATURE: KGPipelineWrapper with 55-category extraction + prohibition rules")
+print("BUILD: v42-KG-PIPELINE-WITH-TOOLS-2026-01-10")
+print("FEATURE: KGPipelineWrapper with 55-category extraction + KB tools")
 print("  • 55-category comprehensive extraction from protocol")
 print("  • Prohibition rules built from extraction:")
 print("    - Adjuvant → No CR/PR/SD/PD response tables")
 print("    - Nordic-only → No Race/Ethnicity")
 print("    - ASA specified → No ECOG")
 print("    - Fixed-dose → No dose modification rows")
-print("  • use_tools=False for reliable generation")
+print("  • use_tools=True - Claude calls KB tools for standards")
+print("  • Fixed tool-use loop: proper serialization, error handling")
 print("  • max_tokens=32000 for complete SAP")
-print("  • SELF-RAG verification with correction loop")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -874,8 +874,8 @@ class KGPipelineWrapper:
             temp_path = f.name
 
         try:
-            # Run the enhanced KG pipeline (use_tools=False for simpler, more reliable generation)
-            result = self.kg_pipeline.process_protocol(temp_path, use_tools=False)
+            # Run the enhanced KG pipeline with tool-based KB access
+            result = self.kg_pipeline.process_protocol(temp_path, use_tools=True)
 
             # Build prohibition rules from extraction
             full_extraction = self.kg_pipeline._last_full_extraction or {}
@@ -4020,7 +4020,7 @@ async def process_jobs_worker():
     """
     Background worker that processes queued jobs using KGPipelineWrapper.
 
-    KGPipelineWrapper (55-CATEGORY EXTRACTION + PROHIBITION RULES):
+    KGPipelineWrapper (55-CATEGORY EXTRACTION + KB TOOLS + PROHIBITION RULES):
     1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
     2. 55-Category Extraction: Comprehensive protocol analysis with provenance
     3. Prohibition Rules: Context-aware constraints built from extraction
@@ -4028,13 +4028,13 @@ async def process_jobs_worker():
        - Nordic countries → No race/ethnicity in demographics
        - ASA specified → No ECOG
        - Fixed-dose → No dose modification rows
-    4. SAP Generation: use_tools=False for reliable complete output
+    4. SAP Generation: use_tools=True - Claude calls KB for standards/templates
     5. SELF-RAG Verification: Fact checking with correction loop
     """
     global worker_running
 
     print("Starting background job worker with KGPipelineWrapper...")
-    print("  [VERSION] Build 2026-01-10-v41 (KG Pipeline Fixed)")
+    print("  [VERSION] Build 2026-01-10-v42 (KG Pipeline with KB Tools)")
     print("  [NEW] 55-category comprehensive extraction")
     print("  [NEW] Prohibition rules from extraction:")
     print("        • Adjuvant → No CR/PR/SD/PD")
@@ -4044,7 +4044,7 @@ async def process_jobs_worker():
     print("  [OK] Step 1: LlamaParse extracts PDF → Markdown")
     print("  [OK] Step 2: 55-category KG extraction with provenance")
     print("  [OK] Step 3: Build prohibition rules from extraction")
-    print("  [OK] Step 4: Generate SAP (use_tools=False, max_tokens=32000)")
+    print("  [OK] Step 4: Generate SAP with KB tools (use_tools=True)")
     print("  [OK] Step 5: SELF-RAG verification with correction loop")
 
     # Use get_pipeline() - returns KGPipelineWrapper

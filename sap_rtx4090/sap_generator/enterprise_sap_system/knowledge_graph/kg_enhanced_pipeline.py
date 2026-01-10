@@ -1119,10 +1119,13 @@ Start by calling the tools to get the standard specifications you need, then gen
         messages = [{"role": "user", "content": user_prompt}]
         knowledge_used = []
         warnings = []
+        accumulated_text = ""  # Accumulate text across iterations
 
         # Tool-use loop
-        max_iterations = 20  # Prevent infinite loops
+        max_iterations = 15  # Reasonable limit for tool calls
         iteration = 0
+
+        print(f"[KG Generator] Starting tool-use loop (max {max_iterations} iterations)")
 
         while iteration < max_iterations:
             iteration += 1
@@ -1130,66 +1133,96 @@ Start by calling the tools to get the standard specifications you need, then gen
             try:
                 response = self.client.messages.create(
                     model=self.model,
-                    max_tokens=16384,
+                    max_tokens=32000,  # Increased for complete SAP
                     system=system_prompt,
                     tools=tools,
                     messages=messages
                 )
 
+                # Extract any text from this response
+                for block in response.content:
+                    if hasattr(block, "text") and block.text:
+                        accumulated_text += block.text
+
                 # Check if there are tool calls
                 tool_calls = [block for block in response.content if block.type == "tool_use"]
 
+                # If no tool calls and stop_reason is end_turn, we're done
+                if not tool_calls and response.stop_reason == "end_turn":
+                    print(f"[KG Generator] Completed after {iteration} iterations, {len(knowledge_used)} KB lookups")
+                    return accumulated_text, knowledge_used, warnings
+
+                # If no tool calls but not end_turn, something is wrong
                 if not tool_calls:
-                    # No more tool calls, extract final text
-                    final_text = ""
-                    for block in response.content:
-                        if hasattr(block, "text"):
-                            final_text += block.text
-                    return final_text, knowledge_used, warnings
+                    print(f"[KG Generator] No tool calls, stop_reason={response.stop_reason}")
+                    if accumulated_text:
+                        return accumulated_text, knowledge_used, warnings
+                    warnings.append(f"Unexpected stop without tool calls: {response.stop_reason}")
+                    break
 
                 # Process tool calls
+                print(f"[KG Generator] Iteration {iteration}: {len(tool_calls)} tool calls")
                 tool_results = []
                 for tool_call in tool_calls:
                     tool_name = tool_call.name
                     tool_input = tool_call.input
 
-                    # Execute the tool
-                    result = execute_tool(tool_name, tool_input, kb)
+                    try:
+                        # Execute the tool
+                        result = execute_tool(tool_name, tool_input, kb)
 
-                    # Track what knowledge was used
-                    knowledge_used.append({
-                        "tool": tool_name,
-                        "input": tool_input,
-                        "source": result.source_file,
-                        "source_key": result.source_key
-                    })
+                        # Track what knowledge was used
+                        knowledge_used.append({
+                            "tool": tool_name,
+                            "input": tool_input,
+                            "source": result.source_file,
+                            "source_key": result.source_key
+                        })
 
-                    # Format result for Claude
-                    tool_results.append({
-                        "type": "tool_result",
-                        "tool_use_id": tool_call.id,
-                        "content": json.dumps(result.to_dict(), indent=2, default=str)
-                    })
+                        # Format result for Claude
+                        tool_results.append({
+                            "type": "tool_result",
+                            "tool_use_id": tool_call.id,
+                            "content": json.dumps(result.to_dict(), indent=2, default=str)
+                        })
+                    except Exception as tool_error:
+                        print(f"[KG Generator] Tool error {tool_name}: {tool_error}")
+                        tool_results.append({
+                            "type": "tool_result",
+                            "tool_use_id": tool_call.id,
+                            "content": f"Error: {str(tool_error)}",
+                            "is_error": True
+                        })
+
+                # Convert response.content to serializable format for messages
+                assistant_content = []
+                for block in response.content:
+                    if block.type == "text":
+                        assistant_content.append({"type": "text", "text": block.text})
+                    elif block.type == "tool_use":
+                        assistant_content.append({
+                            "type": "tool_use",
+                            "id": block.id,
+                            "name": block.name,
+                            "input": block.input
+                        })
 
                 # Add assistant response and tool results to messages
-                messages.append({"role": "assistant", "content": response.content})
+                messages.append({"role": "assistant", "content": assistant_content})
                 messages.append({"role": "user", "content": tool_results})
 
-                # Check stop reason
-                if response.stop_reason == "end_turn":
-                    # Final response
-                    final_text = ""
-                    for block in response.content:
-                        if hasattr(block, "text"):
-                            final_text += block.text
-                    return final_text, knowledge_used, warnings
-
             except Exception as e:
+                print(f"[KG Generator] Error at iteration {iteration}: {e}")
                 warnings.append(f"Tool-use error at iteration {iteration}: {str(e)}")
+                if accumulated_text:
+                    return accumulated_text, knowledge_used, warnings
                 break
 
         # If we hit max iterations, return what we have
+        print(f"[KG Generator] Reached max iterations ({max_iterations})")
         warnings.append(f"Reached max iterations ({max_iterations})")
+        if accumulated_text:
+            return accumulated_text, knowledge_used, warnings
         return "", knowledge_used, warnings
 
 
