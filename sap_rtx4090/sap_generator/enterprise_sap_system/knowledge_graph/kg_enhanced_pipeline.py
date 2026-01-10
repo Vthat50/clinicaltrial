@@ -1033,6 +1033,55 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         return "\n\n".join(lines)
 
+    def _strip_conversational_preamble(self, text: str) -> str:
+        """
+        Strip conversational preamble from Claude's response.
+
+        Claude sometimes includes text like "I'll generate a SAP..." before the actual content.
+        This strips everything before the first SAP header.
+        """
+        import re
+
+        # Patterns that indicate the start of actual SAP content
+        sap_start_patterns = [
+            r'^#\s*STATISTICAL\s*ANALYSIS\s*PLAN',  # # STATISTICAL ANALYSIS PLAN
+            r'^#{1,2}\s*1\.',  # ## 1. or # 1.
+            r'^\*\*Protocol\s+Number',  # **Protocol Number
+            r'^---\s*\n\s*#',  # --- followed by header
+        ]
+
+        # Try to find the start of the actual SAP
+        for pattern in sap_start_patterns:
+            match = re.search(pattern, text, re.MULTILINE | re.IGNORECASE)
+            if match:
+                # Found the start - return from this point
+                start_idx = match.start()
+                if start_idx > 0:
+                    print(f"[DEBUG] Stripped {start_idx} chars of conversational preamble")
+                return text[start_idx:]
+
+        # If no clear start found, try to find after common phrases
+        cleanup_phrases = [
+            "Here is the SAP:",
+            "Here's the SAP:",
+            "Here is the complete SAP:",
+            "Now I'll generate",
+            "I'll generate",
+            "Let me generate",
+        ]
+
+        for phrase in cleanup_phrases:
+            if phrase in text[:500]:
+                idx = text.find(phrase)
+                # Find the next line after the phrase
+                next_newline = text.find('\n', idx)
+                if next_newline != -1:
+                    remainder = text[next_newline:].lstrip('\n')
+                    print(f"[DEBUG] Stripped preamble ending with '{phrase}'")
+                    return remainder
+
+        return text
+
     def generate_sap_with_tools(
         self,
         extracted_facts: List[Dict],
@@ -1119,8 +1168,7 @@ Start by calling the tools to get the standard specifications you need, then gen
         messages = [{"role": "user", "content": user_prompt}]
         knowledge_used = []
         warnings = []
-        accumulated_text = ""  # Accumulate text across iterations
-        last_had_tool_calls = False  # Track if previous iteration had tool calls
+        final_sap_text = ""  # Only keep text from final response (no tool calls)
 
         # Tool-use loop
         max_iterations = 15  # Reasonable limit for tool calls
@@ -1146,27 +1194,35 @@ Start by calling the tools to get the standard specifications you need, then gen
 
                 print(f"[DEBUG] Response stop_reason={response.stop_reason}, content blocks={len(response.content)}")
 
-                # Extract any text from this response
+                # Check if there are tool calls
+                tool_calls = [block for block in response.content if block.type == "tool_use"]
+
+                # Extract text from this response
+                current_text = ""
                 text_blocks = 0
                 for block in response.content:
                     if hasattr(block, "text") and block.text:
-                        accumulated_text += block.text
+                        current_text += block.text
                         text_blocks += 1
-                        print(f"[DEBUG] Text block: {len(block.text)} chars")
 
-                # Check if there are tool calls
-                tool_calls = [block for block in response.content if block.type == "tool_use"]
-                print(f"[DEBUG] Tool calls: {len(tool_calls)}, Text blocks: {text_blocks}, Accumulated: {len(accumulated_text)} chars")
+                print(f"[DEBUG] Tool calls: {len(tool_calls)}, Text blocks: {text_blocks}, Current text: {len(current_text)} chars")
 
-                # If no tool calls and stop_reason is end_turn, we're done
+                # If no tool calls and stop_reason is end_turn, this is the final SAP
                 if not tool_calls and response.stop_reason == "end_turn":
+                    # This is the final response - use this text as the SAP
+                    final_sap_text = current_text
+
+                    # Strip any conversational preamble - find the start of actual SAP content
+                    final_sap_text = self._strip_conversational_preamble(final_sap_text)
+
                     # Check if we have actual SAP content
-                    if accumulated_text and len(accumulated_text) > 1000:
+                    if final_sap_text and len(final_sap_text) > 1000:
                         print(f"[KG Generator] Completed after {iteration} iterations, {len(knowledge_used)} KB lookups")
-                        return accumulated_text, knowledge_used, warnings
+                        print(f"[DEBUG] Final SAP: {len(final_sap_text)} chars")
+                        return final_sap_text, knowledge_used, warnings
                     else:
                         # We finished tool calls but no SAP was generated - need continuation
-                        print(f"[DEBUG] End turn but no SAP text ({len(accumulated_text)} chars)")
+                        print(f"[DEBUG] End turn but no SAP text ({len(final_sap_text)} chars)")
                         print("[DEBUG] Sending continuation prompt to generate SAP...")
 
                         # Add a continuation message to generate the SAP
@@ -1175,6 +1231,9 @@ please generate the complete Statistical Analysis Plan (SAP) document.
 
 Use the protocol extraction facts as the source of truth for study-specific information,
 and use the knowledge base results you retrieved for standard method specifications and table templates.
+
+IMPORTANT: Output ONLY the SAP document. Do not include any conversational text like "I'll generate..." or "Here is the SAP...".
+Start directly with the SAP title and content.
 
 Generate the full SAP now with all sections 1-12."""
 
@@ -1187,18 +1246,15 @@ Generate the full SAP now with all sections 1-12."""
                         if assistant_content:
                             messages.append({"role": "assistant", "content": assistant_content})
                         messages.append({"role": "user", "content": continuation_prompt})
-                        last_had_tool_calls = False
                         continue  # Continue loop to get SAP generation
 
                 # If no tool calls but not end_turn, something is wrong
                 if not tool_calls:
                     print(f"[KG Generator] No tool calls, stop_reason={response.stop_reason}")
-                    if accumulated_text and len(accumulated_text) > 1000:
-                        return accumulated_text, knowledge_used, warnings
+                    if current_text and len(current_text) > 1000:
+                        return current_text, knowledge_used, warnings
                     warnings.append(f"Unexpected stop without tool calls: {response.stop_reason}")
                     break
-
-                last_had_tool_calls = True
 
                 # Process tool calls
                 print(f"[KG Generator] Iteration {iteration}: {len(tool_calls)} tool calls")
@@ -1256,14 +1312,14 @@ Generate the full SAP now with all sections 1-12."""
             except Exception as e:
                 print(f"[KG Generator] Error at iteration {iteration}: {e}")
                 warnings.append(f"Tool-use error at iteration {iteration}: {str(e)}")
-                if accumulated_text:
-                    return accumulated_text, knowledge_used, warnings
+                if final_sap_text and len(final_sap_text) > 100:
+                    return final_sap_text, knowledge_used, warnings
                 break
 
         # If we hit max iterations, try one more time to generate SAP
         print(f"[KG Generator] Reached max iterations ({max_iterations}), attempting final SAP generation...")
 
-        if len(accumulated_text) < 1000 and knowledge_used:
+        if len(final_sap_text) < 1000 and knowledge_used:
             # We gathered knowledge but never generated the SAP - try once more
             try:
                 final_prompt = f"""You have gathered the following knowledge from the knowledge base:
@@ -1272,6 +1328,9 @@ Generate the full SAP now with all sections 1-12."""
 
 Now generate the complete Statistical Analysis Plan document.
 Use the protocol extraction for study-specific facts and the knowledge base results for standard specifications.
+
+IMPORTANT: Output ONLY the SAP document. Do not include any conversational text.
+Start directly with the SAP title: "# STATISTICAL ANALYSIS PLAN"
 
 Generate all 12 sections of the SAP now:"""
 
@@ -1287,17 +1346,17 @@ Generate all 12 sections of the SAP now:"""
 
                 for block in response.content:
                     if hasattr(block, "text") and block.text:
-                        accumulated_text += block.text
+                        final_sap_text += block.text
 
-                print(f"[KG Generator] Final generation: {len(accumulated_text)} chars")
+                print(f"[KG Generator] Final generation: {len(final_sap_text)} chars")
 
             except Exception as e:
                 print(f"[KG Generator] Final generation failed: {e}")
                 warnings.append(f"Final generation failed: {str(e)}")
 
-        if accumulated_text and len(accumulated_text) > 100:
-            print(f"[KG Generator] Returning {len(accumulated_text)} chars after {iteration} iterations")
-            return accumulated_text, knowledge_used, warnings
+        if final_sap_text and len(final_sap_text) > 100:
+            print(f"[KG Generator] Returning {len(final_sap_text)} chars after {iteration} iterations")
+            return final_sap_text, knowledge_used, warnings
 
         warnings.append(f"Reached max iterations ({max_iterations}) with no SAP generated")
         return "", knowledge_used, warnings
