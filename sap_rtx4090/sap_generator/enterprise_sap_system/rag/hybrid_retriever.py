@@ -475,7 +475,7 @@ class HybridRetriever:
 
 def create_hybrid_retriever(
     vector_store: Optional[SAPVectorStore] = None,
-    knowledge_graph: Optional[SAPKnowledgeGraph] = None,
+    knowledge_graph: Optional[Any] = None,
 ) -> HybridRetriever:
     """Factory function to create a hybrid retriever."""
     return HybridRetriever(
