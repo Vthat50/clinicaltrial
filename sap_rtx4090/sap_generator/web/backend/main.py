@@ -15,13 +15,13 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v47-STREAMING-FIX-2026-01-10")
-print("FEATURE: KGPipelineWrapper with streaming API calls")
-print("  • FIXED: All Claude API calls now use streaming for >10min operations")
+print("BUILD: v48-STREAMING-NO-FALLBACK-2026-01-10")
+print("FEATURE: KGPipelineWrapper with streaming + NO fallback")
+print("  • FIXED: All Claude API calls now use messages.stream() for >10min ops")
+print("  • REMOVED: All fallback regeneration - if generation fails, job fails")
 print("  • 55-category comprehensive extraction from protocol")
 print("  • Prohibition rules (adjuvant, Nordic, ASA, fixed-dose)")
-print("  • use_tools=True - Claude calls KB tools for standards")
-print("If you don't see this in Render logs, Render has OLD code!")
+print("If you don't see v48 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os

@@ -1195,6 +1195,7 @@ Start by calling the tools to get standard specifications, then generate the COM
 
             try:
                 print(f"[DEBUG] Iteration {iteration}: sending {len(messages)} messages")
+                print(f"[DEBUG] v48: Using client.messages.stream() for long operations")
 
                 # Use streaming to handle long operations (>10 min timeout)
                 with self.client.messages.stream(
@@ -1595,7 +1596,7 @@ class EnhancedKGPipeline:
             print("   • NOT attempting regeneration from empty/minimal SAP")
             raise ValueError(f"SAP generation failed: only {len(sap_content)} chars generated. Check API streaming/timeout settings.")
 
-        # Step 7: SELF-RAG Verification
+        # Step 7: SELF-RAG Verification (NO REGENERATION - just verify)
         print("\n" + "-"*50)
         print("STEP 7: SELF-RAG VERIFICATION")
         print("-"*50)
@@ -1606,27 +1607,13 @@ class EnhancedKGPipeline:
         print(f"   • Errors: {len(verification.errors)}")
         print(f"   • Warnings: {len(verification.warnings)}")
 
-        # Only regenerate if we have a substantial SAP to improve (not create from scratch)
+        # NO FALLBACK REGENERATION - if main generation failed, we fail
         regeneration_count = 0
-        max_regenerations = 2
-
-        while not verification.passed and regeneration_count < max_regenerations and len(sap_content) > 5000:
-            print(f"\n⚠️  Verification failed. Regenerating ({regeneration_count + 1}/{max_regenerations})...")
-
-            corrections = self.verifier.generate_correction_prompt(verification.errors)
-            sap_content = self.generator.regenerate_with_corrections(
-                sap_content, corrections, extracted
-            )
-
-            verification = self.verifier.verify(sap_content, extracted, power_result)
-            regeneration_count += 1
-
-            print(f"   • New score: {verification.score:.2f}")
 
         if verification.passed:
             print("\n✅ VERIFICATION PASSED")
         else:
-            print(f"\n⚠️  Verification not fully passed after {regeneration_count} regenerations")
+            print(f"\n⚠️  Verification not fully passed - NO regeneration (fallback removed)")
 
         # Build result
         provenance = {
