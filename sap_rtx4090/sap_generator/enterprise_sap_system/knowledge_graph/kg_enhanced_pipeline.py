@@ -1120,17 +1120,22 @@ Start by calling the tools to get the standard specifications you need, then gen
         knowledge_used = []
         warnings = []
         accumulated_text = ""  # Accumulate text across iterations
+        last_had_tool_calls = False  # Track if previous iteration had tool calls
 
         # Tool-use loop
         max_iterations = 15  # Reasonable limit for tool calls
         iteration = 0
 
         print(f"[KG Generator] Starting tool-use loop (max {max_iterations} iterations)")
+        print(f"[DEBUG] Protocol length: {len(protocol_content)} chars")
+        print(f"[DEBUG] Extraction available: {full_extraction is not None}")
 
         while iteration < max_iterations:
             iteration += 1
 
             try:
+                print(f"[DEBUG] Iteration {iteration}: sending {len(messages)} messages")
+
                 response = self.client.messages.create(
                     model=self.model,
                     max_tokens=32000,  # Increased for complete SAP
@@ -1139,37 +1144,74 @@ Start by calling the tools to get the standard specifications you need, then gen
                     messages=messages
                 )
 
+                print(f"[DEBUG] Response stop_reason={response.stop_reason}, content blocks={len(response.content)}")
+
                 # Extract any text from this response
+                text_blocks = 0
                 for block in response.content:
                     if hasattr(block, "text") and block.text:
                         accumulated_text += block.text
+                        text_blocks += 1
+                        print(f"[DEBUG] Text block: {len(block.text)} chars")
 
                 # Check if there are tool calls
                 tool_calls = [block for block in response.content if block.type == "tool_use"]
+                print(f"[DEBUG] Tool calls: {len(tool_calls)}, Text blocks: {text_blocks}, Accumulated: {len(accumulated_text)} chars")
 
                 # If no tool calls and stop_reason is end_turn, we're done
                 if not tool_calls and response.stop_reason == "end_turn":
-                    print(f"[KG Generator] Completed after {iteration} iterations, {len(knowledge_used)} KB lookups")
-                    return accumulated_text, knowledge_used, warnings
+                    # Check if we have actual SAP content
+                    if accumulated_text and len(accumulated_text) > 1000:
+                        print(f"[KG Generator] Completed after {iteration} iterations, {len(knowledge_used)} KB lookups")
+                        return accumulated_text, knowledge_used, warnings
+                    else:
+                        # We finished tool calls but no SAP was generated - need continuation
+                        print(f"[DEBUG] End turn but no SAP text ({len(accumulated_text)} chars)")
+                        print("[DEBUG] Sending continuation prompt to generate SAP...")
+
+                        # Add a continuation message to generate the SAP
+                        continuation_prompt = """Now that you have retrieved all the necessary specifications from the knowledge base,
+please generate the complete Statistical Analysis Plan (SAP) document.
+
+Use the protocol extraction facts as the source of truth for study-specific information,
+and use the knowledge base results you retrieved for standard method specifications and table templates.
+
+Generate the full SAP now with all sections 1-12."""
+
+                        # Serialize current response and add continuation
+                        assistant_content = []
+                        for block in response.content:
+                            if block.type == "text":
+                                assistant_content.append({"type": "text", "text": block.text})
+
+                        if assistant_content:
+                            messages.append({"role": "assistant", "content": assistant_content})
+                        messages.append({"role": "user", "content": continuation_prompt})
+                        last_had_tool_calls = False
+                        continue  # Continue loop to get SAP generation
 
                 # If no tool calls but not end_turn, something is wrong
                 if not tool_calls:
                     print(f"[KG Generator] No tool calls, stop_reason={response.stop_reason}")
-                    if accumulated_text:
+                    if accumulated_text and len(accumulated_text) > 1000:
                         return accumulated_text, knowledge_used, warnings
                     warnings.append(f"Unexpected stop without tool calls: {response.stop_reason}")
                     break
 
+                last_had_tool_calls = True
+
                 # Process tool calls
                 print(f"[KG Generator] Iteration {iteration}: {len(tool_calls)} tool calls")
                 tool_results = []
-                for tool_call in tool_calls:
+                for i, tool_call in enumerate(tool_calls):
                     tool_name = tool_call.name
                     tool_input = tool_call.input
+                    print(f"[DEBUG] Tool {i+1}/{len(tool_calls)}: {tool_name}({json.dumps(tool_input)[:100]})")
 
                     try:
                         # Execute the tool
                         result = execute_tool(tool_name, tool_input, kb)
+                        print(f"[DEBUG] Tool result: {len(json.dumps(result.content, default=str))} chars from {result.source_file}")
 
                         # Track what knowledge was used
                         knowledge_used.append({
@@ -1218,11 +1260,46 @@ Start by calling the tools to get the standard specifications you need, then gen
                     return accumulated_text, knowledge_used, warnings
                 break
 
-        # If we hit max iterations, return what we have
-        print(f"[KG Generator] Reached max iterations ({max_iterations})")
-        warnings.append(f"Reached max iterations ({max_iterations})")
-        if accumulated_text:
+        # If we hit max iterations, try one more time to generate SAP
+        print(f"[KG Generator] Reached max iterations ({max_iterations}), attempting final SAP generation...")
+
+        if len(accumulated_text) < 1000 and knowledge_used:
+            # We gathered knowledge but never generated the SAP - try once more
+            try:
+                final_prompt = f"""You have gathered the following knowledge from the knowledge base:
+- Tools called: {len(knowledge_used)}
+- Knowledge sources: {', '.join(set(k.get('source', 'unknown') for k in knowledge_used[:5]))}
+
+Now generate the complete Statistical Analysis Plan document.
+Use the protocol extraction for study-specific facts and the knowledge base results for standard specifications.
+
+Generate all 12 sections of the SAP now:"""
+
+                messages.append({"role": "user", "content": final_prompt})
+
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=32000,
+                    system=system_prompt,
+                    tools=[],  # No tools for final generation
+                    messages=messages
+                )
+
+                for block in response.content:
+                    if hasattr(block, "text") and block.text:
+                        accumulated_text += block.text
+
+                print(f"[KG Generator] Final generation: {len(accumulated_text)} chars")
+
+            except Exception as e:
+                print(f"[KG Generator] Final generation failed: {e}")
+                warnings.append(f"Final generation failed: {str(e)}")
+
+        if accumulated_text and len(accumulated_text) > 100:
+            print(f"[KG Generator] Returning {len(accumulated_text)} chars after {iteration} iterations")
             return accumulated_text, knowledge_used, warnings
+
+        warnings.append(f"Reached max iterations ({max_iterations}) with no SAP generated")
         return "", knowledge_used, warnings
 
 
