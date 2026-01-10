@@ -46,7 +46,7 @@ COPY enterprise_sap_system/VERSION ./VERSION_CHECK
 # Copy all necessary code
 COPY enterprise_sap_system ./enterprise_sap_system
 COPY chroma_db ./chroma_db
-COPY knowledge_graph ./knowledge_graph
+# Note: knowledge_graph is inside enterprise_sap_system, already copied above
 COPY web/backend ./web/backend
 
 # Set Python path to find enterprise_sap_system
