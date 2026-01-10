@@ -37,10 +37,12 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 try:
     import anthropic
+    import httpx
 except ImportError:
     print("Installing anthropic...")
-    os.system("pip install anthropic")
+    os.system("pip install anthropic httpx")
     import anthropic
+    import httpx
 
 # Import from existing KG pipeline
 try:
@@ -688,7 +690,11 @@ class EnhancedClaudeSAPGenerator:
     """
 
     def __init__(self, api_key: str):
-        self.client = anthropic.Anthropic(api_key=api_key)
+        # Disable timeout to prevent "Streaming is required" error for long operations
+        self.client = anthropic.Anthropic(
+            api_key=api_key,
+            timeout=httpx.Timeout(None)  # No timeout limit
+        )
         self.model = "claude-sonnet-4-20250514"
         self.max_regenerations = 2
 
@@ -1413,7 +1419,11 @@ class EnhancedKGPipeline:
 
     def __init__(self, api_key: str):
         self.api_key = api_key
-        self.client = anthropic.Anthropic(api_key=api_key)
+        # Disable timeout to prevent "Streaming is required" error for long operations
+        self.client = anthropic.Anthropic(
+            api_key=api_key,
+            timeout=httpx.Timeout(None)  # No timeout limit
+        )
         self.model = "claude-sonnet-4-20250514"
 
         # Initialize components
