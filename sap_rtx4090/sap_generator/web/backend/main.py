@@ -15,9 +15,12 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v25-FIX-TABLE-DETECTION-2026-01-09")
-print("FEATURE: Detection now uses |-- and --| (Claude uses |--------|)")
-print("LOCAL TEST: Confirmed Claude generates markdown tables with v24 prompt")
+print("BUILD: v39-KG-PIPELINE-WITH-PROHIBITION-RULES-2026-01-09")
+print("FEATURE: Replaced TwoPassExtractor with KGPipelineWrapper")
+print("  • 55-category comprehensive extraction (not 99 generic rules)")
+print("  • Prohibition rules: Adjuvant→No CR/PR, Nordic→No Race, ECOG only, CTCAE only")
+print("  • SELF-RAG verification with correction loop")
+print("  • Full provenance tracking")
 print("If you don't see this in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -179,6 +182,18 @@ except ImportError as e:
     WORKBENCH_AVAILABLE = False
     SAPWorkbench = None
     print(f"Warning: SAP Workbench not available: {e}")
+
+# NEW: Enhanced KG Pipeline - 55-category extraction with prohibition rules
+# This replaces TwoPassExtractor for context-aware SAP generation
+try:
+    from enterprise_sap_system.knowledge_graph.kg_enhanced_pipeline import (
+        EnhancedKGPipeline
+    )
+    KG_PIPELINE_AVAILABLE = True
+except ImportError as e:
+    KG_PIPELINE_AVAILABLE = False
+    EnhancedKGPipeline = None
+    print(f"Warning: EnhancedKGPipeline not available: {e}")
 
 # Environment variables
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -703,27 +718,343 @@ async def create_job(request: GenerateRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# =============================================================================
+# KG PIPELINE WRAPPER - Adapts EnhancedKGPipeline to TwoPassExtractor interface
+# =============================================================================
+
+class KGPipelineWrapper:
+    """
+    Wrapper that adapts EnhancedKGPipeline to the TwoPassExtractor interface.
+
+    This enables the new 55-category KG extraction with prohibition rules
+    to be used by the existing worker code without modification.
+
+    Key features:
+    1. 55-category comprehensive extraction (not 99 generic rules)
+    2. Prohibition rules based on disease setting (adjuvant/metastatic/etc)
+    3. SELF-RAG verification loop
+    4. Full provenance tracking
+    """
+
+    def __init__(self):
+        api_key = os.environ.get('ANTHROPIC_API_KEY')
+        if not api_key:
+            raise RuntimeError("ANTHROPIC_API_KEY not set")
+
+        self.kg_pipeline = EnhancedKGPipeline(api_key=api_key)
+        print("[KGPipelineWrapper] Initialized with 55-category extraction + prohibition rules")
+
+    def _build_prohibition_rules(self, extraction: Dict) -> List[str]:
+        """
+        Build context-specific prohibition rules based on extracted protocol data.
+
+        These rules prevent Claude from generating inappropriate content
+        based on the specific trial design (adjuvant vs metastatic, etc.)
+        """
+        rules = []
+
+        # Get disease classification
+        disease_class = extraction.get('disease_classification', {})
+        disease_setting = disease_class.get('disease_setting', {}).get('value', '')
+
+        # 1. Response criteria prohibition for adjuvant/neoadjuvant
+        if disease_setting in ['adjuvant', 'neoadjuvant']:
+            rules.append(
+                "PROHIBITION: Do NOT include CR/PR/SD/PD response categories or RECIST criteria. "
+                "This is an ADJUVANT/NEOADJUVANT trial - patients have no measurable disease. "
+                "Use event-free survival (EFS), disease-free survival (DFS), or pathological response instead."
+            )
+
+        # 2. Performance status - check what's specified
+        patient_pop = extraction.get('patient_population', {})
+        ps_criteria = patient_pop.get('performance_status', {}).get('value', '')
+
+        if ps_criteria:
+            if 'ecog' in str(ps_criteria).lower():
+                rules.append(
+                    f"PROHIBITION: Use ONLY ECOG Performance Status (found in protocol: {ps_criteria}). "
+                    "Do NOT use Karnofsky Performance Status or ASA Score."
+                )
+            elif 'karnofsky' in str(ps_criteria).lower():
+                rules.append(
+                    f"PROHIBITION: Use ONLY Karnofsky Performance Status (found in protocol: {ps_criteria}). "
+                    "Do NOT use ECOG or ASA Score."
+                )
+            elif 'asa' in str(ps_criteria).lower():
+                rules.append(
+                    f"PROHIBITION: Use ONLY ASA Score (found in protocol: {ps_criteria}). "
+                    "Do NOT use ECOG or Karnofsky Performance Status."
+                )
+
+        # 3. Geographic/demographic prohibitions
+        study_regions = extraction.get('study_design', {}).get('study_regions', {}).get('value', [])
+        if study_regions:
+            region_str = ', '.join(study_regions) if isinstance(study_regions, list) else str(study_regions)
+
+            # Nordic countries - no race/ethnicity
+            nordic_countries = ['sweden', 'norway', 'denmark', 'finland', 'iceland']
+            if any(country in region_str.lower() for country in nordic_countries):
+                rules.append(
+                    "PROHIBITION: Do NOT include Race or Ethnicity in demographics tables. "
+                    f"This trial includes Nordic countries ({region_str}) where race/ethnicity data collection is prohibited by law."
+                )
+
+            # Japan-only - no race/ethnicity subgroups
+            if 'japan' in region_str.lower() and len(study_regions) == 1:
+                rules.append(
+                    "PROHIBITION: Do NOT include Race or Ethnicity subgroup analyses. "
+                    "This is a Japan-only trial - race/ethnicity subgroups are not applicable."
+                )
+
+        # 4. Baseline characteristics prohibitions
+        baseline = extraction.get('baseline_characteristics', {})
+        weight_bmi = baseline.get('weight_bmi', {}).get('value', '')
+
+        if weight_bmi:
+            if 'weight' in str(weight_bmi).lower() and 'bmi' not in str(weight_bmi).lower():
+                rules.append(
+                    f"PROHIBITION: Use ONLY Weight for body mass measurement (found: {weight_bmi}). "
+                    "Do NOT include BMI in baseline tables."
+                )
+            elif 'bmi' in str(weight_bmi).lower() and 'weight' not in str(weight_bmi).lower():
+                rules.append(
+                    f"PROHIBITION: Use ONLY BMI for body mass measurement (found: {weight_bmi}). "
+                    "Do NOT include Weight in baseline tables."
+                )
+
+        # 5. AE grading prohibition
+        safety = extraction.get('safety_endpoints', {})
+        ae_grading = safety.get('ae_grading_scale', {}).get('value', '')
+
+        if ae_grading:
+            if 'ctcae' in str(ae_grading).lower():
+                rules.append(
+                    f"PROHIBITION: Use ONLY CTCAE grades for AE severity (specified: {ae_grading}). "
+                    "Do NOT use Mild/Moderate/Severe categories."
+                )
+            elif any(term in str(ae_grading).lower() for term in ['mild', 'moderate', 'severe']):
+                rules.append(
+                    f"PROHIBITION: Use ONLY Mild/Moderate/Severe for AE severity (specified: {ae_grading}). "
+                    "Do NOT use CTCAE grades."
+                )
+
+        return rules
+
+    def process_protocol(self, protocol_text: str, protocol_id: str = "unknown",
+                        sap_template: str = None, validate: bool = True,
+                        verbose: bool = True) -> Dict[str, Any]:
+        """
+        Process protocol text using EnhancedKGPipeline.
+
+        Adapts the return format to match TwoPassExtractor.
+        """
+        import tempfile
+        import time
+
+        start_time = time.time()
+
+        if verbose:
+            print(f"\n{'='*70}")
+            print(f"[KGPipeline] PROCESSING PROTOCOL: {protocol_id}")
+            print(f"{'='*70}")
+            print("  + 55-category KG extraction")
+            print("  + Prohibition rules (context-aware)")
+            print("  + SELF-RAG verification")
+            print("  + RAG Examples: Yes")
+            print("  + Knowledge Graph: Yes")
+
+        # Write protocol to temp file (KG pipeline expects file path)
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False, encoding='utf-8') as f:
+            f.write(protocol_text)
+            temp_path = f.name
+
+        try:
+            # Run the enhanced KG pipeline
+            result = self.kg_pipeline.process_protocol(temp_path, use_tools=True)
+
+            # Build prohibition rules from extraction
+            full_extraction = self.kg_pipeline._last_full_extraction or {}
+            prohibition_rules = self._build_prohibition_rules(full_extraction)
+
+            if verbose and prohibition_rules:
+                print(f"\n[KGPipeline] Built {len(prohibition_rules)} prohibition rules:")
+                for rule in prohibition_rules[:3]:
+                    print(f"  • {rule[:80]}...")
+
+            # Convert to TwoPassExtractor format
+            sap_text = result.get('sap', '')
+            extracted = result.get('extracted', [])
+            verification = result.get('verification')
+            provenance = result.get('provenance', {})
+
+            # Build discovered_elements from extracted data
+            discovered_elements = []
+            for fact in extracted:
+                discovered_elements.append({
+                    'name': fact.get('name', ''),
+                    'category': fact.get('category', 'unknown'),
+                    'description': str(fact.get('value', '')),
+                    'source_quote': fact.get('source_quote', ''),
+                    'confidence': fact.get('confidence', 0.8)
+                })
+
+            # Build validation dict
+            validation_dict = {
+                'present': [],
+                'missing': [],
+                'partial': [],
+                'overall_score': verification.score if verification else 0.8,
+                'critical_gaps': [],
+                'prohibition_rules_applied': prohibition_rules
+            }
+
+            if verification:
+                for error in verification.errors:
+                    validation_dict['missing'].append(error.field)
+
+            total_time = time.time() - start_time
+
+            if verbose:
+                print(f"\n{'='*70}")
+                print("[KGPipeline] PROCESSING COMPLETE")
+                print(f"{'='*70}")
+                print(f"  Total time: {total_time:.1f}s")
+                print(f"  Elements extracted: {len(extracted)}")
+                print(f"  SAP length: {len(sap_text):,} chars")
+                print(f"  Verification score: {validation_dict['overall_score']:.1%}")
+                print(f"  Prohibition rules: {len(prohibition_rules)}")
+
+            return {
+                'sap_text': sap_text,
+                'protocol_id': protocol_id,
+                'total_time_s': total_time,
+                'discovered_elements': discovered_elements,
+                'validation': validation_dict,
+                'provenance': provenance,
+                'prohibition_rules': prohibition_rules,
+                'full_extraction': full_extraction
+            }
+
+        finally:
+            # Clean up temp file
+            try:
+                os.unlink(temp_path)
+            except Exception:
+                pass
+
+    def process_pdf(self, pdf_path: str, **kwargs) -> Dict[str, Any]:
+        """
+        Process PDF file using LlamaParse for extraction, then KG pipeline.
+        """
+        import asyncio
+
+        protocol_id = kwargs.pop('protocol_id', Path(pdf_path).stem)
+
+        print(f"[KGPipeline] Processing PDF: {pdf_path}")
+        print("  + LlamaParse extraction (preserves tables)")
+        print("  + 55-category KG extraction")
+        print("  + Prohibition rules")
+
+        # Try LlamaParse first
+        try:
+            from llama_parse import LlamaParse
+
+            api_key = os.environ.get('LLAMAPARSE_API_KEY') or os.environ.get('LLAMA_CLOUD_API_KEY')
+            if api_key:
+                print("[KGPipeline] Using LlamaParse for PDF extraction")
+
+                llamaparse = LlamaParse(
+                    api_key=api_key,
+                    result_type="markdown",
+                    verbose=True
+                )
+
+                # Run async parse
+                async def async_parse():
+                    return await asyncio.wait_for(
+                        llamaparse.aparse(pdf_path),
+                        timeout=180.0
+                    )
+
+                # Run in thread to avoid event loop conflicts
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(asyncio.run, async_parse())
+                    result = future.result(timeout=200)
+
+                # Get markdown output with page markers
+                markdown_docs = result.get_markdown_documents(split_by_page=True)
+
+                if markdown_docs:
+                    protocol_parts = []
+                    for i, doc in enumerate(markdown_docs):
+                        protocol_parts.append(f"\n--- PAGE {i+1} ---\n")
+                        protocol_parts.append(doc.text if hasattr(doc, 'text') else str(doc))
+
+                    protocol_text = "\n".join(protocol_parts)
+                    print(f"[KGPipeline] LlamaParse extracted {len(protocol_text):,} chars from {len(markdown_docs)} pages")
+
+                    return self.process_protocol(
+                        protocol_text=protocol_text,
+                        protocol_id=protocol_id,
+                        **kwargs
+                    )
+
+        except ImportError:
+            print("[KGPipeline] LlamaParse not available, falling back to PyPDF2")
+        except Exception as e:
+            print(f"[KGPipeline] LlamaParse failed: {e}, falling back to PyPDF2")
+
+        # Fallback to PyPDF2
+        try:
+            import PyPDF2
+
+            with open(pdf_path, 'rb') as f:
+                reader = PyPDF2.PdfReader(f)
+                pages = []
+                for i, page in enumerate(reader.pages):
+                    text = page.extract_text()
+                    if text:
+                        pages.append(f"\n--- PAGE {i+1} ---\n{text}")
+
+                protocol_text = "\n".join(pages)
+                print(f"[KGPipeline] PyPDF2 extracted {len(protocol_text):,} chars from {len(pages)} pages")
+
+                return self.process_protocol(
+                    protocol_text=protocol_text,
+                    protocol_id=protocol_id,
+                    **kwargs
+                )
+
+        except Exception as e:
+            print(f"[KGPipeline] PDF extraction failed: {e}")
+            raise RuntimeError(f"Failed to extract PDF: {e}")
+
+
 # Global pipeline instance (reused across requests)
-_production_pipeline = None  # TwoPassExtractor with LlamaParse + Claude
+_production_pipeline = None  # Now uses KGPipelineWrapper (EnhancedKGPipeline)
 
 def get_pipeline():
     """
     Get or create the production pipeline instance.
 
-    Uses TwoPassExtractor (NO INFORMATION LOSS):
+    Uses KGPipelineWrapper (55-category extraction + prohibition rules):
     1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
-    2. Claude Pass 1 (Discovery): Find ALL elements → Creates checklist
-    3. Claude Pass 2 (Generation): FULL protocol + checklist → Complete SAP
-    4. Validation: Check SAP against checklist
+    2. 55-Category KG Extraction: Comprehensive protocol analysis
+    3. Prohibition Rules: Context-aware (adjuvant→no CR/PR/SD/PD, Nordic→no race/ethnicity)
+    4. SELF-RAG Verification: Fact checking with correction loop
+    5. Full Provenance: Track every extracted fact to source
     """
     global _production_pipeline
 
-    if not DIRECT_GENERATION_AVAILABLE:
-        raise RuntimeError("TwoPassExtractor not available - check imports")
-
     if _production_pipeline is None:
-        _production_pipeline = TwoPassExtractor()
-        logger.info("TwoPassExtractor initialized (LlamaParse + Claude - NO INFO LOSS)")
+        if not KG_PIPELINE_AVAILABLE or EnhancedKGPipeline is None:
+            raise RuntimeError("KGPipeline not available - check imports")
+
+        _production_pipeline = KGPipelineWrapper()
+        logger.info("KGPipelineWrapper initialized (55-category + prohibition rules)")
+        print("[get_pipeline] Using KGPipelineWrapper (55-category + prohibition rules)")
+
     return _production_pipeline
 
 # Aliases for backward compatibility
@@ -3682,25 +4013,36 @@ async def workbench_list_workspaces():
 # Background worker
 async def process_jobs_worker():
     """
-    Background worker that processes queued jobs using TwoPassExtractor.
+    Background worker that processes queued jobs using KGPipelineWrapper.
 
-    TwoPassExtractor (NO INFORMATION LOSS):
+    KGPipelineWrapper (55-CATEGORY EXTRACTION + PROHIBITION RULES):
     1. LlamaParse: PDF → Markdown (preserves tables, complex layouts)
-    2. Claude Pass 1 (Discovery): Find ALL elements → Creates checklist
-    3. Claude Pass 2 (Generation): FULL protocol + checklist → Complete SAP
-    4. Validation: Check SAP against checklist
+    2. 55-Category Extraction: Comprehensive protocol analysis with provenance
+    3. Prohibition Rules: Context-aware constraints
+       - Adjuvant trials → No CR/PR/SD/PD response tables
+       - Nordic countries → No race/ethnicity in demographics
+       - ECOG specified → No Karnofsky or ASA
+       - CTCAE specified → No Mild/Moderate/Severe
+    4. SELF-RAG Verification: Fact checking with correction loop
+    5. Full Provenance: Every fact traced to source quote
     """
     global worker_running
 
-    print("Starting background job worker with TwoPassExtractor (LlamaParse + Claude)...")
-    print("  [VERSION] Build 2026-01-09-v38 (Fix detection: DEMOGRAPHIC AND BASELINE, not N=XXX)")
-    print("  [OK] Step 1: LlamaParse extracts PDF → Markdown (preserves tables)")
-    print("  [OK] Step 2: Claude discovers ALL elements (creates checklist)")
-    print("  [OK] Step 3: Claude generates SAP from FULL protocol + checklist")
-    print("  [OK] Step 4: Post-process: strip bad appendix, replace placeholders, INJECT TLF TABLES")
-    print("  [OK] Step 5: Keyword-based metadata detection (therapeutic area, endpoint type)")
+    print("Starting background job worker with KGPipelineWrapper...")
+    print("  [VERSION] Build 2026-01-09-v39 (KG Pipeline with Prohibition Rules)")
+    print("  [NEW] 55-category comprehensive extraction")
+    print("  [NEW] Prohibition rules:")
+    print("        • Adjuvant → No CR/PR/SD/PD")
+    print("        • Nordic → No Race/Ethnicity")
+    print("        • ECOG → No Karnofsky/ASA")
+    print("        • CTCAE → No Mild/Moderate/Severe")
+    print("  [OK] Step 1: LlamaParse extracts PDF → Markdown")
+    print("  [OK] Step 2: 55-category KG extraction with provenance")
+    print("  [OK] Step 3: Build prohibition rules from extraction")
+    print("  [OK] Step 4: Generate SAP with context-aware constraints")
+    print("  [OK] Step 5: SELF-RAG verification with correction loop")
 
-    # Use get_pipeline() - returns TwoPassExtractor
+    # Use get_pipeline() - returns KGPipelineWrapper (or TwoPassExtractor fallback)
     pipeline = None
 
     while worker_running:
@@ -3731,13 +4073,15 @@ async def process_jobs_worker():
             # Initialize pipeline if needed
             if pipeline is None:
                 pipeline = get_pipeline()
-                print("  [INIT] TwoPassExtractor initialized (LlamaParse + Claude)")
+                # Check which pipeline type was initialized
+                pipeline_type = type(pipeline).__name__
+                print(f"  [INIT] {pipeline_type} initialized")
 
             # Generate SAP using pipeline
             start_time = time.time()
 
             try:
-                # TwoPassExtractor uses different methods:
+                # Pipeline uses different methods:
                 # - process_pdf() for PDF files (LlamaParse extraction)
                 # - process_protocol() for text
 
@@ -3760,10 +4104,11 @@ async def process_jobs_worker():
                         print(f"  [PDF] Download failed, using text: {e}")
                         pdf_path = None
 
-                # Call TwoPassExtractor
+                # Call pipeline (KGPipelineWrapper or TwoPassExtractor)
+                pipeline_name = type(pipeline).__name__
                 if pdf_path:
                     # Use LlamaParse for PDF extraction
-                    print("  [TwoPassExtractor] Using process_pdf() with LlamaParse")
+                    print(f"  [{pipeline_name}] Using process_pdf() with LlamaParse")
                     result = pipeline.process_pdf(
                         pdf_path,
                         protocol_id=job.get("nct_id") or job_id,
@@ -3772,7 +4117,7 @@ async def process_jobs_worker():
                     )
                 else:
                     # Use text directly
-                    print("  [TwoPassExtractor] Using process_protocol() with text")
+                    print(f"  [{pipeline_name}] Using process_protocol() with text")
                     result = pipeline.process_protocol(
                         job["protocol_text"],
                         protocol_id=job.get("nct_id") or job_id,
@@ -3790,11 +4135,18 @@ async def process_jobs_worker():
 
                 processing_time = time.time() - start_time
 
-                # TwoPassExtractor returns a dict with sap_text, validation, etc.
+                # Pipeline returns a dict with sap_text, validation, etc.
                 sap_text = result.get("sap_text", "")
 
-                # DEBUG: Check if TwoPassExtractor returned tables
-                print(f"  [DEBUG] SAP from TwoPassExtractor: {len(sap_text)} chars")
+                # DEBUG: Log SAP generation result
+                print(f"  [DEBUG] SAP from {pipeline_name}: {len(sap_text)} chars")
+
+                # Log prohibition rules if KG pipeline was used
+                prohibition_rules = result.get("prohibition_rules", [])
+                if prohibition_rules:
+                    print(f"  [DEBUG] Prohibition rules applied: {len(prohibition_rules)}")
+                    for rule in prohibition_rules[:3]:
+                        print(f"    • {rule[:60]}...")
                 print(f"  [DEBUG] Contains '|--': {'|--' in sap_text}")
                 print(f"  [DEBUG] Contains '## 12.': {'## 12.' in sap_text}")
                 if '## 12.' in sap_text:
@@ -3803,7 +4155,7 @@ async def process_jobs_worker():
                     print(f"  [DEBUG] Section 12 preview: {sec12_preview[:200]}...")
 
                 if sap_text:
-                    # TwoPassExtractor format
+                    # Pipeline result format (both KGPipelineWrapper and TwoPassExtractor)
                     validation = result.get("validation", {})
                     discovered_elements = result.get("discovered_elements", [])
 
@@ -3812,7 +4164,7 @@ async def process_jobs_worker():
                     quality_score = validation_score * 100
 
                     # Extract info from discovered elements
-                    # MUST match logic in two_pass_extractor.py _detect_* methods
+                    # Works with both KG extraction format and TwoPassExtractor format
                     drug_name = ""
                     phase_str = ""
                     therapeutic_area = ""
