@@ -847,11 +847,13 @@ For any element not in extraction, write: [NOT EXTRACTED - VERIFY IN PROTOCOL]
 Generate the comprehensive SAP now:"""
 
         try:
-            response = self.client.messages.create(
+            # Use streaming for long operations (>10 min timeout)
+            with self.client.messages.stream(
                 model=self.model,
                 max_tokens=32000,  # Increased for complete SAP with all sections
                 messages=[{"role": "user", "content": prompt}]
-            )
+            ) as stream:
+                response = stream.get_final_message()
 
             sap_text = response.content[0].text
 
@@ -888,11 +890,13 @@ EXTRACTED FACTS (ground truth):
 Please regenerate the SAP with these corrections applied. Maintain the same structure but fix the identified errors."""
 
         try:
-            response = self.client.messages.create(
+            # Use streaming for long operations
+            with self.client.messages.stream(
                 model=self.model,
                 max_tokens=8192,
                 messages=[{"role": "user", "content": prompt}]
-            )
+            ) as stream:
+                response = stream.get_final_message()
 
             return response.content[0].text
 
@@ -1147,28 +1151,36 @@ Generate a production-quality SAP with full provenance tracking."""
 
 ---
 
-Generate a complete SAP. For each section, retrieve the relevant standards from the knowledge base using the tools provided.
+Generate a COMPLETE SAP with ALL 12 sections. Each section MUST be included.
 
-Required sections:
-1. Title Page & Administrative Information
-2. Study Objectives & Endpoints
-3. Study Design
-4. Analysis Populations
-5. Statistical Methods (MUST use get_statistical_method tool for formulas)
-6. Sample Size
-7. Missing Data Handling (MUST use get_missing_data_method tool)
-8. Sensitivity Analyses (MUST use get_sensitivity_analysis tool)
-9. Subgroup Analyses (use get_subgroup_analysis_specs tool)
-10. Safety Analysis (use get_safety_specifications tool)
-11. Interim Analysis (if applicable)
-12. Table/Figure Shells (MUST use get_disposition_tables, get_efficacy_tables, get_safety_tables tools)
+MANDATORY OUTPUT FORMAT - Use these EXACT section headers:
 
-Start by calling the tools to get the standard specifications you need, then generate the SAP."""
+## 1. TITLE PAGE & ADMINISTRATIVE INFORMATION
+## 2. STUDY OBJECTIVES & ENDPOINTS
+## 3. STUDY DESIGN
+## 4. ANALYSIS POPULATIONS
+## 5. STATISTICAL METHODS
+## 6. SAMPLE SIZE & POWER
+## 7. MISSING DATA HANDLING
+## 8. SENSITIVITY ANALYSES
+## 9. SUBGROUP ANALYSES
+## 10. SAFETY ANALYSIS
+## 11. INTERIM ANALYSIS
+## 12. TABLE/FIGURE SHELLS
+
+CRITICAL REQUIREMENTS:
+- You MUST generate ALL 12 sections, even if brief
+- Use the EXACT "## N." format for section headers
+- For sections 5, 7, 8, 9, 10, 12: USE THE TOOLS to get standard specifications
+- Section 11 (Interim Analysis): Include even if "Not applicable" for this study
+- Section 12 (Table/Figure Shells): MUST call get_disposition_tables, get_safety_tables tools
+
+Start by calling the tools to get standard specifications, then generate the COMPLETE 12-section SAP."""
 
         messages = [{"role": "user", "content": user_prompt}]
         knowledge_used = []
         warnings = []
-        final_sap_text = ""  # Only keep text from final response (no tool calls)
+        accumulated_text = ""  # Accumulate ALL text across iterations
 
         # Tool-use loop
         max_iterations = 15  # Reasonable limit for tool calls
@@ -1184,20 +1196,22 @@ Start by calling the tools to get the standard specifications you need, then gen
             try:
                 print(f"[DEBUG] Iteration {iteration}: sending {len(messages)} messages")
 
-                response = self.client.messages.create(
+                # Use streaming to handle long operations (>10 min timeout)
+                with self.client.messages.stream(
                     model=self.model,
                     max_tokens=32000,  # Increased for complete SAP
                     system=system_prompt,
                     tools=tools,
                     messages=messages
-                )
+                ) as stream:
+                    response = stream.get_final_message()
 
                 print(f"[DEBUG] Response stop_reason={response.stop_reason}, content blocks={len(response.content)}")
 
                 # Check if there are tool calls
                 tool_calls = [block for block in response.content if block.type == "tool_use"]
 
-                # Extract text from this response
+                # Extract and accumulate text from this response
                 current_text = ""
                 text_blocks = 0
                 for block in response.content:
@@ -1205,15 +1219,16 @@ Start by calling the tools to get the standard specifications you need, then gen
                         current_text += block.text
                         text_blocks += 1
 
-                print(f"[DEBUG] Tool calls: {len(tool_calls)}, Text blocks: {text_blocks}, Current text: {len(current_text)} chars")
+                # Accumulate text across ALL iterations
+                if current_text:
+                    accumulated_text += current_text
 
-                # If no tool calls and stop_reason is end_turn, this is the final SAP
+                print(f"[DEBUG] Tool calls: {len(tool_calls)}, Text blocks: {text_blocks}, Accumulated: {len(accumulated_text)} chars")
+
+                # If no tool calls and stop_reason is end_turn, we're done
                 if not tool_calls and response.stop_reason == "end_turn":
-                    # This is the final response - use this text as the SAP
-                    final_sap_text = current_text
-
-                    # Strip any conversational preamble - find the start of actual SAP content
-                    final_sap_text = self._strip_conversational_preamble(final_sap_text)
+                    # Strip any conversational preamble from accumulated text
+                    final_sap_text = self._strip_conversational_preamble(accumulated_text)
 
                     # Check if we have actual SAP content
                     if final_sap_text and len(final_sap_text) > 1000:
@@ -1221,21 +1236,28 @@ Start by calling the tools to get the standard specifications you need, then gen
                         print(f"[DEBUG] Final SAP: {len(final_sap_text)} chars")
                         return final_sap_text, knowledge_used, warnings
                     else:
-                        # We finished tool calls but no SAP was generated - need continuation
-                        print(f"[DEBUG] End turn but no SAP text ({len(final_sap_text)} chars)")
+                        # We finished tool calls but SAP is too short - need continuation
+                        print(f"[DEBUG] End turn but SAP too short ({len(accumulated_text)} chars)")
                         print("[DEBUG] Sending continuation prompt to generate SAP...")
 
                         # Add a continuation message to generate the SAP
-                        continuation_prompt = """Now that you have retrieved all the necessary specifications from the knowledge base,
-please generate the complete Statistical Analysis Plan (SAP) document.
+                        continuation_prompt = """Now generate the COMPLETE Statistical Analysis Plan with ALL 12 sections.
 
-Use the protocol extraction facts as the source of truth for study-specific information,
-and use the knowledge base results you retrieved for standard method specifications and table templates.
+MANDATORY: Use these EXACT section headers:
+## 1. TITLE PAGE & ADMINISTRATIVE INFORMATION
+## 2. STUDY OBJECTIVES & ENDPOINTS
+## 3. STUDY DESIGN
+## 4. ANALYSIS POPULATIONS
+## 5. STATISTICAL METHODS
+## 6. SAMPLE SIZE & POWER
+## 7. MISSING DATA HANDLING
+## 8. SENSITIVITY ANALYSES
+## 9. SUBGROUP ANALYSES
+## 10. SAFETY ANALYSIS
+## 11. INTERIM ANALYSIS
+## 12. TABLE/FIGURE SHELLS
 
-IMPORTANT: Output ONLY the SAP document. Do not include any conversational text like "I'll generate..." or "Here is the SAP...".
-Start directly with the SAP title and content.
-
-Generate the full SAP now with all sections 1-12."""
+Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then include ALL 12 sections."""
 
                         # Serialize current response and add continuation
                         assistant_content = []
@@ -1251,8 +1273,9 @@ Generate the full SAP now with all sections 1-12."""
                 # If no tool calls but not end_turn, something is wrong
                 if not tool_calls:
                     print(f"[KG Generator] No tool calls, stop_reason={response.stop_reason}")
-                    if current_text and len(current_text) > 1000:
-                        return current_text, knowledge_used, warnings
+                    final_sap = self._strip_conversational_preamble(accumulated_text)
+                    if final_sap and len(final_sap) > 1000:
+                        return final_sap, knowledge_used, warnings
                     warnings.append(f"Unexpected stop without tool calls: {response.stop_reason}")
                     break
 
@@ -1312,37 +1335,49 @@ Generate the full SAP now with all sections 1-12."""
             except Exception as e:
                 print(f"[KG Generator] Error at iteration {iteration}: {e}")
                 warnings.append(f"Tool-use error at iteration {iteration}: {str(e)}")
-                if final_sap_text and len(final_sap_text) > 100:
-                    return final_sap_text, knowledge_used, warnings
+                final_sap = self._strip_conversational_preamble(accumulated_text)
+                if final_sap and len(final_sap) > 100:
+                    return final_sap, knowledge_used, warnings
                 break
 
         # If we hit max iterations, try one more time to generate SAP
         print(f"[KG Generator] Reached max iterations ({max_iterations}), attempting final SAP generation...")
 
+        final_sap_text = self._strip_conversational_preamble(accumulated_text)
+
         if len(final_sap_text) < 1000 and knowledge_used:
             # We gathered knowledge but never generated the SAP - try once more
             try:
-                final_prompt = f"""You have gathered the following knowledge from the knowledge base:
-- Tools called: {len(knowledge_used)}
-- Knowledge sources: {', '.join(set(k.get('source', 'unknown') for k in knowledge_used[:5]))}
+                final_prompt = f"""You have gathered knowledge from {len(knowledge_used)} tool calls.
 
-Now generate the complete Statistical Analysis Plan document.
-Use the protocol extraction for study-specific facts and the knowledge base results for standard specifications.
+Now generate the COMPLETE SAP with ALL 12 sections using these EXACT headers:
 
-IMPORTANT: Output ONLY the SAP document. Do not include any conversational text.
-Start directly with the SAP title: "# STATISTICAL ANALYSIS PLAN"
+## 1. TITLE PAGE & ADMINISTRATIVE INFORMATION
+## 2. STUDY OBJECTIVES & ENDPOINTS
+## 3. STUDY DESIGN
+## 4. ANALYSIS POPULATIONS
+## 5. STATISTICAL METHODS
+## 6. SAMPLE SIZE & POWER
+## 7. MISSING DATA HANDLING
+## 8. SENSITIVITY ANALYSES
+## 9. SUBGROUP ANALYSES
+## 10. SAFETY ANALYSIS
+## 11. INTERIM ANALYSIS
+## 12. TABLE/FIGURE SHELLS
 
-Generate all 12 sections of the SAP now:"""
+Start with "# STATISTICAL ANALYSIS PLAN" then include ALL 12 sections. Each section is MANDATORY."""
 
                 messages.append({"role": "user", "content": final_prompt})
 
-                response = self.client.messages.create(
+                # Use streaming for long operations
+                with self.client.messages.stream(
                     model=self.model,
                     max_tokens=32000,
                     system=system_prompt,
                     tools=[],  # No tools for final generation
                     messages=messages
-                )
+                ) as stream:
+                    response = stream.get_final_message()
 
                 for block in response.content:
                     if hasattr(block, "text") and block.text:
@@ -1554,6 +1589,12 @@ class EnhancedKGPipeline:
 
         print(f"✅ Generated SAP ({len(sap_content)} chars)")
 
+        # Check if SAP generation failed completely
+        if len(sap_content) < 1000:
+            print(f"\n❌ SAP generation failed - only {len(sap_content)} chars generated")
+            print("   • NOT attempting regeneration from empty/minimal SAP")
+            raise ValueError(f"SAP generation failed: only {len(sap_content)} chars generated. Check API streaming/timeout settings.")
+
         # Step 7: SELF-RAG Verification
         print("\n" + "-"*50)
         print("STEP 7: SELF-RAG VERIFICATION")
@@ -1565,11 +1606,11 @@ class EnhancedKGPipeline:
         print(f"   • Errors: {len(verification.errors)}")
         print(f"   • Warnings: {len(verification.warnings)}")
 
-        # Step 7: Regeneration loop if needed
+        # Only regenerate if we have a substantial SAP to improve (not create from scratch)
         regeneration_count = 0
         max_regenerations = 2
 
-        while not verification.passed and regeneration_count < max_regenerations:
+        while not verification.passed and regeneration_count < max_regenerations and len(sap_content) > 5000:
             print(f"\n⚠️  Verification failed. Regenerating ({regeneration_count + 1}/{max_regenerations})...")
 
             corrections = self.verifier.generate_correction_prompt(verification.errors)
@@ -2161,11 +2202,13 @@ PROTOCOL DOCUMENT:
 Return ONLY the JSON object, no other text."""
 
         try:
-            response = self.client.messages.create(
+            # Use streaming for long operations
+            with self.client.messages.stream(
                 model=self.model,
                 max_tokens=16384,  # Increased for comprehensive extraction
                 messages=[{"role": "user", "content": prompt}]
-            )
+            ) as stream:
+                response = stream.get_final_message()
 
             response_text = response.content[0].text.strip()
 
