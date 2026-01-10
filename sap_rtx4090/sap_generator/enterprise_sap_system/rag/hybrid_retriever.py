@@ -103,7 +103,7 @@ class HybridRetriever:
     def __init__(
         self,
         vector_store: Optional[SAPVectorStore] = None,
-        knowledge_graph: Optional[SAPKnowledgeGraph] = None,
+        knowledge_graph: Optional[Any] = None,  # SAPKnowledgeGraph removed
         vector_weight: float = 0.4,
         graph_weight: float = 0.6,
     ):
@@ -117,7 +117,7 @@ class HybridRetriever:
             graph_weight: Weight for graph relationships (0-1)
         """
         self.vector_store = vector_store or create_vector_store()
-        self.knowledge_graph = knowledge_graph or create_knowledge_graph()
+        self.knowledge_graph = knowledge_graph  # Knowledge graph disabled
 
         self.vector_weight = vector_weight
         self.graph_weight = graph_weight
