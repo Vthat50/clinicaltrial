@@ -895,35 +895,197 @@ class KGPipelineWrapper:
                     'confidence': fact.get('confidence', 0.8)
                 })
 
-            # v70: Add primary_endpoints from full_extraction (KG format)
+            # v70: Add ALL relevant fields from full_extraction to discovered_elements
+            # This ensures backend code can find protocol data in the format it expects
             if full_extraction:
+
+                # Helper to extract value from nested dict
+                def get_value(obj):
+                    if obj is None:
+                        return None
+                    if isinstance(obj, dict):
+                        return obj.get('value') or obj.get('name') or None
+                    return str(obj) if obj else None
+
+                # 1. Primary endpoints
                 primary_eps = full_extraction.get('primary_endpoints', [])
                 for ep in (primary_eps if isinstance(primary_eps, list) else [primary_eps] if primary_eps else []):
-                    if isinstance(ep, dict):
-                        ep_name = ep.get('name') or ep.get('value') or str(ep)
-                    else:
-                        ep_name = str(ep) if ep else None
+                    ep_name = get_value(ep) if isinstance(ep, dict) else str(ep) if ep else None
                     if ep_name:
                         discovered_elements.append({
                             'name': 'primary_endpoint',
                             'category': 'endpoints',
                             'description': ep_name,
-                            'source_quote': '',
+                            'source_quote': ep.get('source_quote', '') if isinstance(ep, dict) else '',
                             'confidence': 0.9
                         })
 
-                # Also add secondary_endpoints
+                # 2. Secondary endpoints
                 secondary_eps = full_extraction.get('secondary_endpoints', [])
                 for ep in (secondary_eps if isinstance(secondary_eps, list) else [secondary_eps] if secondary_eps else []):
-                    if isinstance(ep, dict):
-                        ep_name = ep.get('name') or ep.get('value') or str(ep)
-                    else:
-                        ep_name = str(ep) if ep else None
+                    ep_name = get_value(ep) if isinstance(ep, dict) else str(ep) if ep else None
                     if ep_name:
                         discovered_elements.append({
                             'name': 'secondary_endpoint',
                             'category': 'endpoints',
                             'description': ep_name,
+                            'source_quote': ep.get('source_quote', '') if isinstance(ep, dict) else '',
+                            'confidence': 0.9
+                        })
+
+                # 3. Phase
+                phase_info = full_extraction.get('phase_info', {})
+                phase_val = get_value(phase_info.get('phase')) if isinstance(phase_info, dict) else get_value(phase_info)
+                if phase_val:
+                    discovered_elements.append({
+                        'name': 'phase',
+                        'category': 'study_design',
+                        'description': phase_val,
+                        'source_quote': phase_info.get('phase', {}).get('source_quote', '') if isinstance(phase_info, dict) else '',
+                        'confidence': 0.9
+                    })
+
+                # 4. Study design type
+                study_design = full_extraction.get('study_design', {})
+                if isinstance(study_design, dict):
+                    design_type = get_value(study_design.get('design_type'))
+                    if design_type:
+                        discovered_elements.append({
+                            'name': 'design_type',
+                            'category': 'study_design',
+                            'description': design_type,
+                            'source_quote': study_design.get('design_type', {}).get('source_quote', '') if isinstance(study_design.get('design_type'), dict) else '',
+                            'confidence': 0.9
+                        })
+
+                    # Blinding
+                    blinding = get_value(study_design.get('blinding'))
+                    if blinding:
+                        discovered_elements.append({
+                            'name': 'blinding',
+                            'category': 'study_design',
+                            'description': blinding,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                    # Randomization ratio
+                    rand_ratio = get_value(study_design.get('randomization_ratio'))
+                    if rand_ratio:
+                        discovered_elements.append({
+                            'name': 'randomization_ratio',
+                            'category': 'study_design',
+                            'description': rand_ratio,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                # 5. Disease/indication
+                disease = full_extraction.get('disease', {})
+                if isinstance(disease, dict):
+                    tumor_type = get_value(disease.get('tumor_type'))
+                    if tumor_type:
+                        discovered_elements.append({
+                            'name': 'tumor_type',
+                            'category': 'disease',
+                            'description': tumor_type,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                    disease_stage = get_value(disease.get('disease_stage'))
+                    if disease_stage:
+                        discovered_elements.append({
+                            'name': 'disease_stage',
+                            'category': 'disease',
+                            'description': disease_stage,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                    disease_setting = get_value(disease.get('disease_setting'))
+                    if disease_setting:
+                        discovered_elements.append({
+                            'name': 'disease_setting',
+                            'category': 'disease',
+                            'description': disease_setting,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                # 6. Sample size
+                sample_size = full_extraction.get('sample_size', {})
+                if isinstance(sample_size, dict):
+                    total_n = get_value(sample_size.get('total_n'))
+                    if total_n:
+                        discovered_elements.append({
+                            'name': 'sample_size',
+                            'category': 'study_design',
+                            'description': str(total_n),
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                    power = get_value(sample_size.get('power'))
+                    if power:
+                        discovered_elements.append({
+                            'name': 'power',
+                            'category': 'study_design',
+                            'description': str(power),
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                # 7. Study drug/treatment
+                treatment = full_extraction.get('treatment', {}) or full_extraction.get('study_drug', {})
+                if isinstance(treatment, dict):
+                    drug_name = get_value(treatment.get('name')) or get_value(treatment.get('drug_name'))
+                    if drug_name:
+                        discovered_elements.append({
+                            'name': 'study_drug',
+                            'category': 'treatment',
+                            'description': drug_name,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                # 8. Populations
+                populations = full_extraction.get('populations', [])
+                for pop in (populations if isinstance(populations, list) else []):
+                    pop_name = get_value(pop) if isinstance(pop, dict) else str(pop) if pop else None
+                    if pop_name:
+                        discovered_elements.append({
+                            'name': 'population',
+                            'category': 'populations',
+                            'description': pop_name,
+                            'source_quote': pop.get('source_quote', '') if isinstance(pop, dict) else '',
+                            'confidence': 0.9
+                        })
+
+                # 9. Stratification factors
+                stratification = full_extraction.get('stratification', {})
+                if isinstance(stratification, dict):
+                    factors = stratification.get('factors', [])
+                    for factor in (factors if isinstance(factors, list) else []):
+                        factor_name = get_value(factor) if isinstance(factor, dict) else str(factor) if factor else None
+                        if factor_name:
+                            discovered_elements.append({
+                                'name': 'stratification_factor',
+                                'category': 'study_design',
+                                'description': factor_name,
+                                'source_quote': '',
+                                'confidence': 0.9
+                            })
+
+                # 10. Statistical methods
+                stat_methods = full_extraction.get('statistical_methods', {})
+                if isinstance(stat_methods, dict):
+                    primary_method = get_value(stat_methods.get('primary_analysis_method'))
+                    if primary_method:
+                        discovered_elements.append({
+                            'name': 'primary_analysis_method',
+                            'category': 'statistical_methods',
+                            'description': primary_method,
                             'source_quote': '',
                             'confidence': 0.9
                         })
