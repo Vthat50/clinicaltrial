@@ -33,6 +33,10 @@ try:
         get_claude_tool_definitions,
         execute_tool
     )
+    from enterprise_sap_system.knowledge_graph.sap_structure_config import (
+        MASTER_SAP_SECTIONS,
+        detect_sap_conditions
+    )
     KG_AVAILABLE = True
 except ImportError:
     try:
@@ -42,9 +46,14 @@ except ImportError:
             get_claude_tool_definitions,
             execute_tool
         )
+        from ..knowledge_graph.sap_structure_config import (
+            MASTER_SAP_SECTIONS,
+            detect_sap_conditions
+        )
         KG_AVAILABLE = True
     except ImportError:
         KG_AVAILABLE = False
+        MASTER_SAP_SECTIONS = []
         print("Warning: KG pipeline not available, using basic extraction")
 
 
@@ -151,6 +160,7 @@ SAP_SECTIONS = [
     ("endpoints", "Study Endpoints"),
     ("estimands", "Estimands"),
     ("populations", "Analysis Populations"),
+    ("definitions", "Definitions"),  # Added - critical section
     ("statistical_methods", "Statistical Methods"),
     ("sample_size", "Sample Size"),
     ("primary_analysis", "Primary Efficacy Analysis"),
@@ -160,7 +170,82 @@ SAP_SECTIONS = [
     ("interim_analysis", "Interim Analysis"),
     ("multiplicity", "Multiplicity Adjustment"),
     ("table_shells", "Table/Figure Shells"),
+    ("references", "References"),  # Added - critical section
 ]
+
+# =============================================================================
+# SECTION TO KB TOOLS MAPPING
+# Maps workbench section IDs to sap_structure_config section numbers and KB tools
+# =============================================================================
+SECTION_KB_MAPPING = {
+    "study_info": {
+        "config_sections": ["1", "2", "3"],
+        "kb_tools": ["get_study_design_specs", "get_study_type_template"]
+    },
+    "objectives": {
+        "config_sections": ["2"],
+        "kb_tools": ["get_oncology_tfl_templates"]
+    },
+    "endpoints": {
+        "config_sections": ["6"],
+        "kb_tools": ["get_estimand_framework", "get_tumor_response_specs", "get_response_criteria", "get_all_response_criteria"]
+    },
+    "estimands": {
+        "config_sections": ["6.4"],
+        "kb_tools": ["get_estimand_specifications", "get_estimand_framework"]
+    },
+    "populations": {
+        "config_sections": ["5", "5A"],
+        "kb_tools": ["get_population_definitions", "get_cart_specifications", "get_demographics_baseline_specs"]
+    },
+    "definitions": {
+        "config_sections": ["16"],
+        "kb_tools": ["get_study_definitions"]
+    },
+    "statistical_methods": {
+        "config_sections": ["7"],
+        "kb_tools": ["get_statistical_method", "get_time_to_event_analysis", "get_confidence_interval_methods"]
+    },
+    "sample_size": {
+        "config_sections": ["4"],
+        "kb_tools": ["get_statistical_method"]
+    },
+    "primary_analysis": {
+        "config_sections": ["7", "8"],
+        "kb_tools": ["get_time_to_event_analysis", "get_censoring_rules", "get_sensitivity_analysis_catalog"]
+    },
+    "secondary_analysis": {
+        "config_sections": ["7"],
+        "kb_tools": ["get_time_to_event_analysis", "get_confidence_interval_methods"]
+    },
+    "safety_analysis": {
+        "config_sections": ["12"],
+        "kb_tools": ["get_safety_analysis_specs", "get_safety_tables", "get_cart_specifications",
+                     "get_cart_tables", "get_ae_period_specifications", "get_death_analysis_specs"]
+    },
+    "missing_data": {
+        "config_sections": ["9"],
+        "kb_tools": ["get_missing_data_method", "get_data_handling_rules", "get_date_imputation_rules"]
+    },
+    "interim_analysis": {
+        "config_sections": ["13"],
+        "kb_tools": ["get_interim_analysis", "get_interim_analysis_specs", "get_multiplicity_methods"]
+    },
+    "multiplicity": {
+        "config_sections": ["7.5"],
+        "kb_tools": ["get_multiplicity_adjustment", "get_multiplicity_methods"]
+    },
+    "table_shells": {
+        "config_sections": ["18", "A"],
+        "kb_tools": ["get_disposition_tables", "get_efficacy_tables", "get_safety_tables",
+                     "get_single_arm_tables", "get_cart_tables", "get_all_figures",
+                     "get_listings", "get_tte_derivation_tables"]
+    },
+    "references": {
+        "config_sections": ["22"],
+        "kb_tools": ["get_required_references"]
+    }
+}
 
 
 class SAPWorkbench:
@@ -209,6 +294,82 @@ class SAPWorkbench:
             print(f"✅ SAP Workbench initialized (basic extraction)")
 
         print(f"   Storage: {self.storage_dir}")
+
+    # =========================================================================
+    # KB TOOLS INTEGRATION
+    # =========================================================================
+
+    def _get_kb_content_for_section(self, section_id: str, metadata: Optional[Any] = None) -> str:
+        """
+        Get KB content for a section by calling the appropriate KB tools.
+
+        This connects workbench sections to the sap_structure_config kb_tools.
+        """
+        if not self.kb_tools or section_id not in SECTION_KB_MAPPING:
+            return ""
+
+        mapping = SECTION_KB_MAPPING[section_id]
+        kb_tool_names = mapping.get("kb_tools", [])
+
+        if not kb_tool_names:
+            return ""
+
+        # Detect conditions from metadata to determine which tools to call
+        conditions = {}
+        if metadata and hasattr(metadata, 'full_extraction') and metadata.full_extraction:
+            try:
+                conditions = detect_sap_conditions(metadata.full_extraction)
+            except Exception:
+                conditions = {}
+
+        # Also detect from metadata fields directly
+        if metadata:
+            # Check for CAR-T
+            product_name = (metadata.indication or "").lower()
+            therapeutic_area = (metadata.therapeutic_area or "").lower()
+            if any(x in product_name + therapeutic_area for x in ["car-t", "cart", "cell therapy", "axicabtagene"]):
+                conditions["is_cart"] = True
+                conditions["is_cart_with_retreatment"] = True
+
+            # Check for single-arm
+            if metadata.full_extraction:
+                design = metadata.full_extraction.get("study_design", {})
+                design_type = (design.get("design_type", {}).get("value") or "").lower()
+                if "single" in design_type:
+                    conditions["is_single_arm"] = True
+
+        kb_content_parts = []
+
+        for tool_name in kb_tool_names:
+            try:
+                # Skip CAR-T tools if not a CAR-T study
+                if tool_name in ["get_cart_specifications", "get_cart_tables", "get_cart_manufacturing_specs"]:
+                    if not conditions.get("is_cart"):
+                        continue
+
+                # Skip single-arm tools if not single-arm
+                if tool_name == "get_single_arm_tables":
+                    if not conditions.get("is_single_arm"):
+                        continue
+
+                # Call the KB tool
+                tool_method = getattr(self.kb_tools, tool_name, None)
+                if tool_method:
+                    result = tool_method()
+                    if result and result.content:
+                        content_str = json.dumps(result.content, indent=2, default=str)
+                        # Limit content size to avoid prompt explosion
+                        if len(content_str) > 8000:
+                            content_str = content_str[:8000] + "\n... [truncated]"
+                        kb_content_parts.append(f"### {tool_name}\n{content_str}")
+            except Exception as e:
+                print(f"[KB] Warning: Failed to call {tool_name}: {e}")
+                continue
+
+        if not kb_content_parts:
+            return ""
+
+        return "\n\n".join(kb_content_parts)
 
     # =========================================================================
     # WORKSPACE MANAGEMENT
@@ -727,15 +888,32 @@ Sample Size: {metadata.sample_size}
         # Section-specific instructions
         section_instructions = self._get_section_instructions(section_id)
 
+        # Get KB content for this section (NEW: connects to sap_structure_config kb_tools)
+        kb_content = self._get_kb_content_for_section(section_id, metadata)
+        kb_section = ""
+        if kb_content:
+            kb_section = f"""
+## KNOWLEDGE BASE REFERENCE (USE THIS CONTENT)
+The following is from the validated knowledge base. Use these specifications
+when writing this section. For CAR-T studies, use the CRS grading scale
+and population definitions provided. For single-arm studies, use the
+appropriate table shells.
+
+{kb_content}
+"""
+            print(f"[WORKBENCH] KB content added for section {section_id}: {len(kb_content):,} chars")
+
         prompt = f"""Generate the "{workspace.sections[section_id].display_name}" section of a Statistical Analysis Plan.
 
 ## CRITICAL RULES:
 1. Follow the protocol EXACTLY - do not add generic content
 2. Use ONLY variables and categories from the extraction
 3. Respect ALL prohibition rules below
+4. USE the Knowledge Base content provided below for standard specifications
 {prohibition_section}
 
 {metadata_context}
+{kb_section}
 
 ## PREVIOUSLY GENERATED SECTIONS (for context)
 {prev_sections if prev_sections else "(None yet)"}
@@ -751,6 +929,8 @@ Generate ONLY the content for this section.
 Use proper markdown formatting.
 Be specific to this protocol - no generic templates.
 Mark anything not in the protocol as [TO BE CONFIRMED].
+For CAR-T studies: Include CRS grading scale (Lee 2014 or ASTCT as per protocol).
+For all studies: Include proper definitions section with Study Day, Baseline, TEAE.
 
 Generate the {workspace.sections[section_id].display_name} section now:"""
 
@@ -795,6 +975,11 @@ Define each analysis population:
 - Name and abbreviation
 - Definition (inclusion criteria)
 - Primary use (which analyses)
+
+For CAR-T studies (use Knowledge Base content):
+- Include Safety Re-treatment Analysis Set if protocol allows retreatment
+- Include Inferential Analysis Set (subjects meeting pivotal cohort criteria)
+- Include mITT (subjects who received CAR-T infusion)
 """,
             "statistical_methods": """
 Include:
@@ -831,6 +1016,14 @@ Include:
 - AE summary tables (TEAE, SAE, etc.)
 - Laboratory parameters
 - Vital signs
+
+For CAR-T studies (CRITICAL - use Knowledge Base content):
+- CRS grading scale: Use EXACTLY what protocol specifies (Lee 2014 Modified OR ASTCT 2019)
+  * If protocol says "Lee 2014" or "modified Lee": Use "Modified Lee et al. 2014 criteria where neurologic AEs are NOT reported as part of CRS"
+  * If protocol says "ASTCT": Use "ASTCT 2019 Consensus"
+- ICANS/Neurologic events: Grade separately per protocol specification
+- Include Safety Re-treatment Analysis Set if retreatment is allowed
+- Include CRS/ICANS tables from the KB content provided
 """,
             "missing_data": """
 Include:
@@ -860,6 +1053,39 @@ Generate table shells for:
 
 Use the actual treatment arms from the protocol.
 Use appropriate summary statistics (n(%) for categorical, median/IQR for continuous).
+For SINGLE-ARM studies: Do NOT use "By treatment arm" columns. Use single column for all treated subjects.
+For CAR-T studies: Include CRS/ICANS tables from KB content.
+""",
+            "definitions": """
+CRITICAL: This section must include ALL standard definitions from the Knowledge Base.
+
+Include:
+- Study Day 0 definition (Day of first dose or CAR-T infusion)
+- Baseline definition (Last value prior to first dose)
+- On-study period definition
+- End of study definition
+- TEAE definition (Treatment-Emergent Adverse Event)
+- Treatment-related AE definition
+- SAE definition
+- Follow-up time definitions (actual vs potential, reverse K-M)
+- Enrollment definition (date of consent, randomization, or leukapheresis for CAR-T)
+
+For CAR-T studies, include CAR-T specific definitions:
+- Day 0 = Day of CAR-T infusion
+- Baseline for efficacy = Prior to conditioning chemotherapy
+- Baseline for safety = Prior to CAR-T infusion
+""",
+            "references": """
+Include citations for all statistical methods and criteria used:
+
+Required references (from Knowledge Base):
+- Kaplan-Meier survival analysis
+- Response criteria (Cheson 2014 for lymphoma, RECIST 1.1 for solid tumors)
+- CRS grading scale (Lee 2014 or ASTCT 2019 as specified in protocol)
+- Follow-up time calculation (Schemper 1996 reverse K-M)
+- Any disease-specific criteria (Topp 2015 for ICANS if applicable)
+
+Format as numbered list with full citations.
 """
         }
 
