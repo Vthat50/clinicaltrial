@@ -152,12 +152,79 @@ class StudyWorkspace:
     # Change tracking
     protocol_versions: List[Dict] = field(default_factory=list)
 
+    # Protocol conditions for dynamic section filtering (v90)
+    protocol_conditions: Dict[str, bool] = field(default_factory=dict)
+
 
 # =============================================================================
 # USE MASTER_SAP_SECTIONS FROM sap_structure_config.py (Single Source of Truth)
 # =============================================================================
 # No more duplicate SAP_SECTIONS list - use MASTER_SAP_SECTIONS directly
 # This ensures workbench always stays in sync with the authoritative structure
+
+
+def detect_conditions_from_text(protocol_text: str) -> Dict[str, bool]:
+    """
+    Quick condition detection from raw protocol text (keyword-based).
+
+    Used when full extraction isn't available yet (e.g., at workspace creation).
+    Returns dict of condition_name -> bool for section filtering.
+    """
+    text_lower = protocol_text.lower()
+    conditions = {}
+
+    # Study Design
+    conditions["is_randomized"] = any(x in text_lower for x in ["randomized", "randomised", "randomization"])
+    conditions["is_single_arm"] = "single-arm" in text_lower or "single arm" in text_lower
+    conditions["is_blinded"] = any(x in text_lower for x in ["double-blind", "double blind", "blinded"])
+    conditions["is_adaptive"] = "adaptive" in text_lower
+
+    # Endpoints
+    conditions["has_tte_endpoints"] = any(x in text_lower for x in ["survival", "progression-free", "pfs", "efs", "dfs", "event-free", "time to"])
+    conditions["has_pfs_endpoint"] = "pfs" in text_lower or "progression-free survival" in text_lower
+    conditions["has_os_endpoint"] = "overall survival" in text_lower or " os " in text_lower
+    conditions["has_dor_endpoint"] = any(x in text_lower for x in ["duration of response", "dor", "duration of remission"])
+    conditions["has_response_endpoint"] = any(x in text_lower for x in ["objective response", "orr", "response rate", "complete response", "partial response"])
+    conditions["has_exploratory_endpoints"] = "exploratory" in text_lower and "endpoint" in text_lower
+    conditions["has_biomarker_endpoints"] = any(x in text_lower for x in ["biomarker", "pd-l1", "tmb", "msi", "ctdna", "mrd"])
+
+    # PRO/QoL
+    conditions["has_pro_endpoints"] = any(x in text_lower for x in [
+        "quality of life", "qol", "patient-reported", "eortc", "qlq-c30", "qlq-lc13",
+        "eq-5d", "fact-", "facit", "sf-36", "euroqol", "health-related quality"
+    ])
+
+    # PK
+    conditions["has_pk_endpoints"] = any(x in text_lower for x in ["pharmacokinetic", " pk ", "auc", "cmax", "tmax", "half-life"])
+
+    # Therapy Types
+    conditions["is_cart"] = any(x in text_lower for x in ["car-t", "car t", "chimeric antigen receptor", "axicabtagene", "tisagenlecleucel", "liso-cel"])
+    conditions["is_cart_with_retreatment"] = conditions["is_cart"] and "retreatment" in text_lower
+    conditions["is_bispecific"] = "bispecific" in text_lower or "bite" in text_lower
+    conditions["is_adc"] = "antibody-drug conjugate" in text_lower or " adc " in text_lower
+    conditions["is_immunotherapy"] = any(x in text_lower for x in ["checkpoint", "pd-1", "pd-l1", "ctla-4", "immunotherapy", "anti-pd", "pembrolizumab", "nivolumab", "durvalumab", "atezolizumab"])
+    conditions["is_biologic"] = any(x in text_lower for x in ["antibody", "monoclonal", "biologic"])
+
+    # Disease Types
+    conditions["is_lymphoma"] = any(x in text_lower for x in ["lymphoma", "dlbcl", "follicular", "mantle cell", "hodgkin"])
+    conditions["is_hematologic"] = any(x in text_lower for x in ["lymphoma", "leukemia", "myeloma", "hematologic", "aml", "all", "cll"])
+    conditions["is_solid_tumor"] = not conditions["is_hematologic"] and any(x in text_lower for x in ["tumor", "tumour", "carcinoma", "adenocarcinoma", "nsclc", "breast", "lung", "colon", "melanoma"])
+
+    # Study Features
+    conditions["has_interim_analysis"] = "interim analysis" in text_lower or "interim analyses" in text_lower
+    conditions["has_multiple_arms"] = any(x in text_lower for x in ["treatment arm", "control arm", "placebo arm", "arm a", "arm b"])
+    conditions["has_stratification"] = "stratif" in text_lower  # catches stratification, stratified
+    conditions["has_subgroups"] = "subgroup" in text_lower
+
+    # Phase
+    conditions["is_phase1"] = any(x in text_lower for x in ["phase 1", "phase i", "dose escalation", "dose-escalation", "dlt", "mtd"])
+
+    # Special Features
+    conditions["has_sensitivity_analyses"] = "sensitivity analysis" in text_lower or "sensitivity analyses" in text_lower
+    conditions["has_missing_data"] = any(x in text_lower for x in ["missing data", "imputation", "missing values"])
+
+    return conditions
+
 
 def get_workbench_sections(conditions: Dict[str, bool] = None) -> List[tuple]:
     """
@@ -397,21 +464,30 @@ class SAPWorkbench:
         therapeutic_area: str = "",
         indication: str = ""
     ) -> StudyWorkspace:
-        """Create a new study workspace."""
+        """Create a new study workspace with dynamic section filtering based on protocol."""
 
         workspace_id = str(uuid.uuid4())[:8]
         now = datetime.now().isoformat()
         protocol_hash = hashlib.md5(protocol_content.encode()).hexdigest()
 
-        # Initialize sections from MASTER_SAP_SECTIONS (single source of truth)
+        # v90: Detect protocol conditions for dynamic section filtering
+        protocol_conditions = detect_conditions_from_text(protocol_content)
+
+        # Log detected conditions for debugging
+        active_conditions = [k for k, v in protocol_conditions.items() if v]
+        print(f"[Workbench] Detected {len(active_conditions)} conditions: {', '.join(active_conditions[:10])}")
+
+        # Initialize sections from MASTER_SAP_SECTIONS with condition filtering
         sections = {}
-        for section_number, section_title in get_workbench_sections():
+        for section_number, section_title in get_workbench_sections(protocol_conditions):
             sections[section_number] = SAPSection(
                 id=section_number,
                 name=section_number,
                 display_name=section_title,
                 status=SectionStatus.NOT_STARTED
             )
+
+        print(f"[Workbench] Initialized {len(sections)} relevant sections (filtered from MASTER_SAP_SECTIONS)")
 
         workspace = StudyWorkspace(
             id=workspace_id,
@@ -425,6 +501,7 @@ class SAPWorkbench:
             therapeutic_area=therapeutic_area,
             indication=indication,
             sections=sections,
+            protocol_conditions=protocol_conditions,
             protocol_versions=[{
                 "version": 1,
                 "hash": protocol_hash,
@@ -744,7 +821,8 @@ Return ONLY valid JSON."""
             raise ValueError(f"Workspace {workspace_id} not found")
 
         outline = []
-        for section_number, section_title in get_workbench_sections():
+        # v90: Use stored protocol conditions for dynamic section filtering
+        for section_number, section_title in get_workbench_sections(workspace.protocol_conditions):
             section = workspace.sections.get(section_number)
             if section:
                 outline.append({
@@ -1326,8 +1404,8 @@ Format as numbered list with full citations.
             ""
         ]
 
-        # Add each section from MASTER_SAP_SECTIONS
-        for section_number, section_title in get_workbench_sections():
+        # Add each section from MASTER_SAP_SECTIONS (v90: use stored conditions)
+        for section_number, section_title in get_workbench_sections(workspace.protocol_conditions):
             section = workspace.sections.get(section_number)
             if section and section.content:
                 lines.append(f"## {section_number}. {section_title}")
