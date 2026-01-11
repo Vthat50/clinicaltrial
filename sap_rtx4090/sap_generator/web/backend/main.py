@@ -15,13 +15,13 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v59-2026-01-11")
-print("FEATURE: KG Pipeline generates TFLs with explicit formatting")
-print("  • v57: Removed TLF injection (was causing melanoma/BRAF contamination)")
-print("  • v58: Added explicit TFL formatting instructions")
-print("  • v59: Stronger TFL formatting with DO NOT examples")
-print("  • FIX: Lymphoma detection moved before melanoma (order bug fix)")
-print("If you don't see v59 in Render logs, Render has OLD code!")
+print("BUILD: v65-2026-01-11")
+print("FEATURE: Dedupe tool calls + fix job completion stats")
+print("  • v64: Added 10 additional KB tools for complete coverage")
+print("  • v65: Fixed duplicate tool calls causing SAP truncation")
+print("  • v65: Fixed job completion stats (discovered_count, sap_length)")
+print("  • FIX: Tool call caching prevents wasted iterations")
+print("If you don't see v65 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -929,6 +929,8 @@ class KGPipelineWrapper:
                 'protocol_id': protocol_id,
                 'total_time_s': total_time,
                 'discovered_elements': discovered_elements,
+                'discovered_count': len(extracted),  # v65: For job completion logging
+                'sap_length': len(sap_text),  # v65: For job completion logging
                 'validation': validation_dict,
                 'provenance': provenance,
                 'prohibition_rules': prohibition_rules,
