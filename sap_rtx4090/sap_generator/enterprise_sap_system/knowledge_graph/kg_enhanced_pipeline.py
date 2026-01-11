@@ -747,6 +747,9 @@ class EnhancedClaudeSAPGenerator:
         # Build context-specific prohibition rules
         prohibition_rules = self._build_prohibition_rules(full_extraction)
 
+        # Build protocol-specific required sections from discovery
+        protocol_requirements = self._build_protocol_specific_requirements(full_extraction)
+
         # Build the comprehensive SAP generation prompt
         prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
@@ -758,6 +761,8 @@ DO NOT add any content not present in the extraction.
 
 ## PROHIBITED CONTENT (Based on Protocol Analysis):
 {prohibition_rules}
+
+{protocol_requirements}
 
 ## CRITICAL ANTI-HALLUCINATION RULES:
 1. RACE/ETHNICITY: Include ONLY if explicitly in baseline_variables[]. Nordic/European studies do NOT collect these.
@@ -1124,6 +1129,149 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         return "\n".join(rules) if rules else "No specific prohibitions identified."
 
+    def _build_protocol_specific_requirements(self, full_extraction: Optional[Dict]) -> str:
+        """Build required sections based on discovered protocol-specific elements."""
+        if not full_extraction:
+            return ""
+
+        discovered = full_extraction.get("discovered_structure", {})
+        protocol_sections = discovered.get("protocol_specific_sections", {}) if discovered else {}
+
+        if not protocol_sections:
+            return ""
+
+        requirements = []
+        requirements.append("")
+        requirements.append("**PROTOCOL-SPECIFIC SECTIONS (from discovery - MUST INCLUDE):**")
+
+        # Follow-up analyses
+        follow_ups = protocol_sections.get("follow_up_analyses", [])
+        if follow_ups and any(f.get("name") or f.get("timing") for f in follow_ups):
+            requirements.append("")
+            requirements.append("FOLLOW-UP ANALYSES:")
+            for fu in follow_ups:
+                if fu.get("name") or fu.get("timing"):
+                    requirements.append(f"  - {fu.get('name', 'Analysis')} at {fu.get('timing', 'TBD')} (Section {fu.get('section', 'N/A')})")
+
+        # Protocol amendments (COVID, etc.)
+        amendments = protocol_sections.get("protocol_amendments", [])
+        if amendments and any(a.get("name") for a in amendments):
+            requirements.append("")
+            requirements.append("PROTOCOL AMENDMENTS/VARIATIONS:")
+            for a in amendments:
+                if a.get("name"):
+                    requirements.append(f"  - {a.get('name')}: {a.get('description', '')} (Section {a.get('section', 'N/A')})")
+
+        # Concordance analyses
+        concordance = protocol_sections.get("concordance_analyses", [])
+        if concordance and any(c.get("name") or c.get("comparators") for c in concordance):
+            requirements.append("")
+            requirements.append("CONCORDANCE ANALYSES (MUST INCLUDE):")
+            for c in concordance:
+                if c.get("name") or c.get("comparators"):
+                    requirements.append(f"  - {c.get('name', 'Concordance')}: {c.get('comparators', '')} using {c.get('method', 'kappa')} (Section {c.get('section', 'N/A')})")
+
+        # Enrollment summaries
+        enrollment = protocol_sections.get("enrollment_summaries", [])
+        if enrollment and any(e.get("breakdown_by") for e in enrollment):
+            requirements.append("")
+            requirements.append("ENROLLMENT SUMMARIES BY:")
+            for e in enrollment:
+                if e.get("breakdown_by"):
+                    requirements.append(f"  - {e.get('breakdown_by')} (Section {e.get('section', 'N/A')})")
+
+        # Prior therapy details
+        prior_therapy = protocol_sections.get("prior_therapy_details", [])
+        if prior_therapy and any(p.get("category") for p in prior_therapy):
+            requirements.append("")
+            requirements.append("PRIOR THERAPY DETAILS (include tables for):")
+            for p in prior_therapy:
+                if p.get("category"):
+                    requirements.append(f"  - {p.get('category')} (Section {p.get('section', 'N/A')})")
+
+        # Additional subgroups
+        subgroups = protocol_sections.get("additional_subgroups", [])
+        if subgroups and any(s.get("factor") for s in subgroups):
+            requirements.append("")
+            requirements.append("ADDITIONAL SUBGROUP ANALYSES:")
+            for s in subgroups:
+                if s.get("factor"):
+                    requirements.append(f"  - {s.get('factor')} (Section {s.get('section', 'N/A')})")
+
+        # CAR-T manufacturing metrics
+        cart_mfg = protocol_sections.get("cart_manufacturing_metrics", [])
+        if cart_mfg and any(m.get("metric") for m in cart_mfg):
+            requirements.append("")
+            requirements.append("CAR-T MANUFACTURING METRICS (MUST INCLUDE):")
+            for m in cart_mfg:
+                if m.get("metric"):
+                    requirements.append(f"  - {m.get('metric')} (Section {m.get('section', 'N/A')})")
+
+        # Healthcare utilization
+        hc_util = protocol_sections.get("healthcare_utilization", [])
+        if hc_util and any(h.get("metric") for h in hc_util):
+            requirements.append("")
+            requirements.append("HEALTHCARE UTILIZATION ANALYSES:")
+            for h in hc_util:
+                if h.get("metric"):
+                    requirements.append(f"  - {h.get('metric')} (Section {h.get('section', 'N/A')})")
+
+        # Supportive care
+        supportive = protocol_sections.get("supportive_care", [])
+        if supportive and any(s.get("category") for s in supportive):
+            requirements.append("")
+            requirements.append("SUPPORTIVE CARE SUMMARIES:")
+            for s in supportive:
+                if s.get("category"):
+                    requirements.append(f"  - {s.get('category')} (Section {s.get('section', 'N/A')})")
+
+        # Laboratory analyses
+        lab = protocol_sections.get("laboratory_analyses", [])
+        if lab and any(l.get("type") for l in lab):
+            requirements.append("")
+            requirements.append("LABORATORY ANALYSES:")
+            for l in lab:
+                if l.get("type"):
+                    requirements.append(f"  - {l.get('type')} (Section {l.get('section', 'N/A')})")
+
+        # Landmark analyses
+        landmark = protocol_sections.get("landmark_analyses", [])
+        if landmark and any(l.get("timepoint") for l in landmark):
+            requirements.append("")
+            requirements.append("LANDMARK ANALYSES (MUST INCLUDE):")
+            for l in landmark:
+                if l.get("timepoint"):
+                    requirements.append(f"  - {l.get('timepoint')} for {', '.join(l.get('endpoints', []))} (Section {l.get('section', 'N/A')})")
+
+        # Special TTE methods
+        tte = protocol_sections.get("special_tte_methods", [])
+        if tte and any(t.get("method") for t in tte):
+            requirements.append("")
+            requirements.append("SPECIAL TIME-TO-EVENT METHODS:")
+            for t in tte:
+                if t.get("method"):
+                    requirements.append(f"  - {t.get('method')}: {t.get('purpose', '')} (Section {t.get('section', 'N/A')})")
+
+        # Required references
+        refs = protocol_sections.get("required_references", [])
+        if refs and any(r.get("citation") for r in refs):
+            requirements.append("")
+            requirements.append("REFERENCES SECTION MUST INCLUDE:")
+            for r in refs:
+                if r.get("citation"):
+                    requirements.append(f"  - {r.get('citation')} (for {r.get('for_what', '')})")
+
+        # Appendices
+        appendices = protocol_sections.get("appendices", [])
+        if appendices and any(a.get("name") for a in appendices):
+            requirements.append("")
+            requirements.append("APPENDICES (MUST INCLUDE):")
+            for a in appendices:
+                if a.get("name"):
+                    requirements.append(f"  - {a.get('name')}: {a.get('content', '')} (Section {a.get('section', 'N/A')})")
+
+        return "\n".join(requirements) if len(requirements) > 2 else ""
+
     def _build_tool_routing_instructions(self, full_extraction: Optional[Dict]) -> str:
         """Build tool routing instructions based on discovered protocol structure."""
         if not full_extraction:
@@ -1331,6 +1479,9 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         num_main_sections = section_summary['main_sections']
         special_sections = section_summary.get('special_sections', [])
 
+        # Build protocol-specific required sections from discovery
+        protocol_requirements = self._build_protocol_specific_requirements(full_extraction)
+
         print(f"[SAP Structure] Generating {num_main_sections} main sections")
         if special_sections:
             print(f"[SAP Structure] Special sections: {', '.join(special_sections)}")
@@ -1436,6 +1587,8 @@ CRITICAL REQUIREMENTS:
 - Use the EXACT "## N." format for main section headers (e.g., "## 1. TITLE PAGE...")
 - Subsections use "### N.N" format (e.g., "### 5.1 Intent-to-Treat Population")
 - ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements
+
+{protocol_requirements}
 
 ## SOURCE CITATION FORMAT (MANDATORY):
 Every fact MUST have a SPECIFIC, TRACEABLE source citation. Use these formats:
@@ -2122,6 +2275,23 @@ Identify which applies:
 - MRD assessment (for hematologic)
 - Biomarker requirements (PD-L1, TMB, MSI, HER2, etc.)
 
+### J. PROTOCOL-SPECIFIC ANALYSIS SECTIONS (SCAN ALL SECTIONS)
+Scan the entire protocol/SAP for ANY analysis sections not covered above. Look for:
+- **Follow-up Analyses**: Planned analyses at specific timepoints (e.g., "at 18 months", "at 24 months", "at X events")
+- **Protocol Amendments/Variations**: COVID-19 variations, changes from protocol-specified analyses
+- **Concordance Analyses**: IRC vs investigator agreement, kappa statistics
+- **Enrollment Summaries**: By country, by site, by region
+- **Prior Therapy Details**: Anti-CD20, alkylating agents, prior lines, specific regimens
+- **Subgroup Analyses Not Listed Above**: Bone marrow involvement, bulky disease, etc.
+- **CAR-T Manufacturing**: Days from leukapheresis to administration/receipt/release
+- **Healthcare Utilization**: Duration of hospitalization, ICU days
+- **Supportive Care**: Concomitant medications by category, IVIG usage, growth factors
+- **Laboratory Analyses**: Shift tables, chemistry/hematology panels
+- **Landmark Analyses**: 9-month, 12-month survival rates, forest plots
+- **Special TTE Methods**: Reverse Kaplan-Meier for follow-up time
+- **References Section**: Required citations (Cheson, Lee, CTCAE version, etc.)
+- **Appendices**: Date imputation rules, time-to-event derivation tables, AESI definitions
+
 Return a JSON object with ONLY discovered structure:
 
 {{
@@ -2174,7 +2344,52 @@ Return a JSON object with ONLY discovered structure:
   "has_irc": false,
   "has_mrd_assessment": false,
   "has_interim_analysis": false,
-  "interim_count": 0
+  "interim_count": 0,
+
+  "protocol_specific_sections": {{
+    "follow_up_analyses": [
+      {{"name": "", "timing": "", "trigger": "", "section": ""}}
+    ],
+    "protocol_amendments": [
+      {{"name": "", "description": "", "section": ""}}
+    ],
+    "concordance_analyses": [
+      {{"name": "", "comparators": "", "method": "", "section": ""}}
+    ],
+    "enrollment_summaries": [
+      {{"breakdown_by": "", "section": ""}}
+    ],
+    "prior_therapy_details": [
+      {{"category": "", "section": ""}}
+    ],
+    "additional_subgroups": [
+      {{"factor": "", "section": ""}}
+    ],
+    "cart_manufacturing_metrics": [
+      {{"metric": "", "section": ""}}
+    ],
+    "healthcare_utilization": [
+      {{"metric": "", "section": ""}}
+    ],
+    "supportive_care": [
+      {{"category": "", "section": ""}}
+    ],
+    "laboratory_analyses": [
+      {{"type": "", "section": ""}}
+    ],
+    "landmark_analyses": [
+      {{"timepoint": "", "endpoints": [], "section": ""}}
+    ],
+    "special_tte_methods": [
+      {{"method": "", "purpose": "", "section": ""}}
+    ],
+    "required_references": [
+      {{"citation": "", "for_what": ""}}
+    ],
+    "appendices": [
+      {{"name": "", "content": "", "section": ""}}
+    ]
+  }}
 }}
 
 PROTOCOL DOCUMENT:
