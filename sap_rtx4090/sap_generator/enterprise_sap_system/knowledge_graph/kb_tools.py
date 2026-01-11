@@ -2566,6 +2566,187 @@ class KnowledgeBaseTools:
         )
 
     # =========================================================================
+    # REFERENCE SAP RETRIEVAL TOOLS (queries actual SAP text files)
+    # =========================================================================
+
+    def get_reference_sap_section(
+        self,
+        section_type: str,
+        indication: Optional[str] = None,
+        trial_name: Optional[str] = None
+    ) -> KBRetrievalResult:
+        """
+        Retrieve actual SAP sections from 151 reference SAPs.
+
+        This provides REAL SAP text with derivation tables, scoring algorithms,
+        and multiplicity procedures - not just metadata.
+
+        Args:
+            section_type: Type of section to retrieve:
+                - "recist_derivation" - RECIST Tables 2/3/4 (TL, NTL, Overall Response)
+                - "pro_scoring" - PRO/QoL scoring algorithms, MID thresholds, MMRM
+                - "multiplicity" - GSHf, alpha spending, graphical approaches
+                - "censoring" - Censoring rules and derivation tables
+                - "interim_analysis" - Interim analysis boundaries and procedures
+                - "subgroups" - Subgroup analysis specifications
+                - "sensitivity" - Sensitivity analysis methods
+            indication: Optional filter by disease (e.g., "NSCLC", "breast", "lymphoma")
+            trial_name: Optional specific trial (e.g., "PACIFIC", "KEYNOTE")
+
+        Returns:
+            Actual SAP text sections with source attribution
+        """
+        from pathlib import Path
+        import re
+
+        self._log_retrieval("get_reference_sap_section", f"{section_type}, {indication}, {trial_name}", "reference_saps/")
+
+        # Path to reference SAPs
+        ref_sap_dir = Path(__file__).parent / "reference_saps" / "extracted_text"
+
+        if not ref_sap_dir.exists():
+            return KBRetrievalResult(
+                content={"error": "Reference SAPs directory not found"},
+                source_file="reference_saps/extracted_text/",
+                source_key="NOT_FOUND"
+            )
+
+        # Section patterns to search for
+        section_patterns = {
+            "recist_derivation": [
+                # Look for actual table content, not TOC references
+                r"Overall\s*Visit\s*Response[s]?\s*\n\s*Target\s*Lesion",
+                r"Target\s*Lesion[s]?\s*\n\s*Non-?target\s*lesion",
+                r"(CR|PR|SD|PD)\s+\n?\s*(CR|PR|SD|PD|Non[\s-]?PD|NE)\s+\n?\s*(Yes|No)\s+\n?\s*(CR|PR|SD|PD)",
+                r"Table\s*[234]\s*\n\s*(Target|Overall|TL|NTL)[\s\S]{0,200}(CR|PR|SD|PD)",
+                r"visit\s*response[\s\S]{0,100}(CR|PR|SD|PD)[\s\S]{0,100}(CR|PR|SD|PD)",
+            ],
+            "pro_scoring": [
+                r"(EORTC|QLQ|FACT|EQ-?5D|SF-?36)[\s\S]{0,500}(scor|algorithm|MID|MCID)",
+                r"(PRO|QoL|Quality of Life)[\s\S]{0,300}(analysis|scoring|threshold)",
+                r"MMRM[\s\S]{0,500}(model|covariate|repeated)",
+                r"(minimal|clinically)\s*(important|meaningful)\s*difference",
+                r"compliance[\s\S]{0,200}(threshold|rate|%)",
+            ],
+            "multiplicity": [
+                r"(GSHf|graphical|Hochberg|Bonferroni|Holm)[\s\S]{0,500}(alpha|procedure)",
+                r"alpha\s*(spending|recycling|splitting|allocation)[\s\S]{0,500}",
+                r"multiplicity[\s\S]{0,500}(adjustment|procedure|method)",
+                r"(gatekeeping|hierarchical|fallback)[\s\S]{0,300}(procedure|testing)",
+                r"(Type\s*I|familywise)\s*error[\s\S]{0,300}(control|rate|alpha)",
+                r"\d+\.?\d*\s*%[\s\S]{0,50}alpha",
+            ],
+            "censoring": [
+                r"censoring[\s\S]{0,500}(rule|date|event)",
+                r"(event|censor)[\s\S]{0,200}(date|indicator|flag)",
+                r"(PFS|OS|DOR|TTR)[\s\S]{0,300}censoring",
+                r"lost\s*to\s*follow[\s\S]{0,200}(censor|date)",
+            ],
+            "interim_analysis": [
+                r"interim\s*analysis[\s\S]{0,500}(boundary|alpha|stopping)",
+                r"(O'Brien|Lan-DeMets|Pocock|Haybittle)[\s\S]{0,300}(boundary|function)",
+                r"(futility|efficacy)\s*(boundary|stopping|rule)",
+                r"alpha\s*spending[\s\S]{0,300}(function|boundary)",
+                r"information\s*fraction[\s\S]{0,200}(\d+%|\d+\.\d+)",
+            ],
+            "subgroups": [
+                r"subgroup[\s\S]{0,500}(analysis|forest|plot)",
+                r"(pre-?specified|exploratory)\s*subgroup",
+                r"forest\s*plot[\s\S]{0,300}(hazard|ratio|CI)",
+                r"(age|sex|race|region|histology|stage|ECOG|PD-?L1)[\s\S]{0,100}subgroup",
+            ],
+            "sensitivity": [
+                r"sensitivity\s*analysis[\s\S]{0,500}",
+                r"(tipping\s*point|pattern\s*mixture|MNAR|MAR)",
+                r"(per-?protocol|as-?treated|ITT)[\s\S]{0,200}sensitivity",
+                r"(robust|alternative)[\s\S]{0,100}analysis",
+            ],
+        }
+
+        patterns = section_patterns.get(section_type, section_patterns.get("recist_derivation"))
+
+        # Find matching SAP files
+        sap_files = list(ref_sap_dir.glob("*.txt"))
+
+        # Filter by indication/trial name if specified
+        if trial_name:
+            trial_upper = trial_name.upper()
+            sap_files = [f for f in sap_files if trial_upper in f.stem.upper()]
+        if indication:
+            indication_lower = indication.lower()
+            # Keep all files but score them later by indication match
+            pass
+
+        results = []
+        for sap_file in sap_files[:30]:  # Limit to 30 files to avoid timeout
+            try:
+                content = sap_file.read_text(encoding='utf-8', errors='ignore')
+
+                # Check indication match if specified
+                if indication:
+                    if indication.lower() not in content.lower():
+                        continue
+
+                # Search for matching sections
+                for pattern in patterns:
+                    matches = re.finditer(pattern, content, re.IGNORECASE)
+                    for match in matches:
+                        # Extract context around match (500 chars before, 1500 after)
+                        start = max(0, match.start() - 500)
+                        end = min(len(content), match.end() + 1500)
+                        section_text = content[start:end]
+
+                        # Clean up the section
+                        section_text = section_text.strip()
+
+                        # Find natural boundaries (section headers)
+                        section_start = section_text.rfind('\n', 0, 500)
+                        if section_start > 0:
+                            section_text = section_text[section_start:].strip()
+
+                        results.append({
+                            "source_sap": sap_file.stem,
+                            "section_type": section_type,
+                            "matched_pattern": pattern[:50] + "...",
+                            "content": section_text[:2500],  # Limit per section
+                            "citation": f"[Reference: {sap_file.stem}]"
+                        })
+
+                        if len(results) >= 5:  # Limit to 5 best matches
+                            break
+                    if len(results) >= 5:
+                        break
+
+            except Exception as e:
+                continue
+
+            if len(results) >= 5:
+                break
+
+        # If no results, return helpful message
+        if not results:
+            return KBRetrievalResult(
+                content={
+                    "message": f"No {section_type} sections found matching criteria",
+                    "suggestion": "Try broader search or different section_type",
+                    "available_types": list(section_patterns.keys())
+                },
+                source_file="reference_saps/extracted_text/",
+                source_key=f"search_{section_type}"
+            )
+
+        return KBRetrievalResult(
+            content={
+                "section_type": section_type,
+                "num_matches": len(results),
+                "instruction": "Use these ACTUAL SAP sections as templates. Adapt to current protocol specifics.",
+                "sections": results
+            },
+            source_file="reference_saps/extracted_text/",
+            source_key=f"reference_sap_sections_{section_type}"
+        )
+
+    # =========================================================================
     # DISEASE-SPECIFIC RESPONSE CRITERIA TOOLS
     # =========================================================================
 

@@ -1851,7 +1851,17 @@ IMPORTANT RULES:
 1. Protocol facts (from extraction) are STUDY-SPECIFIC - use them for this study
 2. Knowledge base (from tools) provides STANDARD TEMPLATES - adapt to protocol specifics
 3. ALWAYS call tools for: statistical methods, table shells, response criteria, therapy-specific specs
-4. Mark sources with SPECIFIC CITATIONS using these formats:
+4. **CRITICAL - USE get_reference_sap_section() for REAL SAP content:**
+   This tool retrieves ACTUAL text from 151 reference SAPs. Use the appropriate section_type:
+   - Section 6.5 (Response): get_reference_sap_section(section_type="recist_derivation") - Tables for TL/NTL/Overall
+   - Section 7.5 (Multiplicity): get_reference_sap_section(section_type="multiplicity") - GSHf, alpha boundaries
+   - Section 8 (Censoring): get_reference_sap_section(section_type="censoring") - Event/censor rules
+   - Section 10 (Sensitivity): get_reference_sap_section(section_type="sensitivity") - Tipping point, MNAR
+   - Section 11 (Subgroups): get_reference_sap_section(section_type="subgroups") - Forest plots, subgroup specs
+   - Section 13 (Interim): get_reference_sap_section(section_type="interim_analysis") - Boundaries, alpha spending
+   - Section 15 (PRO): get_reference_sap_section(section_type="pro_scoring") - MID, MMRM, scoring
+   You can also filter by indication or trial_name for more relevant examples.
+5. Mark sources with SPECIFIC CITATIONS using these formats:
    - For KB: [KB: source_file → key] (e.g., [KB: methodology_knowledge_base.py → STATISTICAL_METHODS['kaplan_meier']])
    - For Protocol: [Protocol: Section X.Y] or [Protocol: "quoted text..."] (e.g., [Protocol: Section 6.1 - Primary Endpoint])
 
