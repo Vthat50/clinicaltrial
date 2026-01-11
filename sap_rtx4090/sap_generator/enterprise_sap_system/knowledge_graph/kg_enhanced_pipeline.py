@@ -2415,9 +2415,27 @@ CENSORING RULES: Extract any censoring rules mentioned for time-to-event endpoin
 
 ## EXTRACTION SCHEMA
 
-Return a JSON object with these sections. For EVERY field, include:
-- source_quote: verbatim text from protocol (first 100 chars)
-- source_section: protocol section number where found (e.g., "Section 6.1", "Section 9.3.2")
+Return a JSON object with these sections. For EVERY field, you MUST include:
+- source_quote: MANDATORY - verbatim text from protocol (first 100 chars). DO NOT leave empty.
+- source_section: MANDATORY - protocol section number (e.g., "Section 6.1", "Section 9.3.2", "Section 3.1.1"). DO NOT leave empty.
+
+### EXAMPLES OF CORRECT EXTRACTION:
+
+GOOD (includes source_quote AND source_section):
+```json
+"phase": {"value": "Phase 2", "source_quote": "This is a Phase 2, open-label, multicenter study", "source_section": "Section 3.1"}
+"primary_endpoints": [{"name": "ORR", "definition": "Overall response rate per Lugano criteria", "source_quote": "The primary endpoint is ORR defined as...", "source_section": "Section 6.1"}]
+```
+
+BAD (missing source_quote or source_section):
+```json
+"phase": {"value": "Phase 2", "source_quote": "", "source_section": ""}  ← WRONG! Must have source
+```
+
+### FINDING SECTION NUMBERS:
+- Look for headers like "6.1 Primary Endpoint", "Section 9.3.2", "3. Study Design"
+- If no explicit section number, use the nearest header (e.g., "Primary Objectives" → "Section: Primary Objectives")
+- For tables, cite as "Table X" or "Section containing Table X"
 
 {{
   "trial_identification": {{
@@ -2754,7 +2772,8 @@ Return ONLY the JSON object, no other text."""
                     "definition": ep.get("definition", ""),
                     "response_criteria": ep.get("response_criteria", ""),
                     "confidence": 0.95,
-                    "source_quote": ep.get("source_quote", "")
+                    "source_quote": ep.get("source_quote", ""),
+                    "source_section": ep.get("source_section", "")
                 })
 
         for ep in extracted_obj.get("secondary_endpoints", []):
@@ -2765,7 +2784,8 @@ Return ONLY the JSON object, no other text."""
                     "endpoint_type": "secondary",
                     "definition": ep.get("definition", ""),
                     "confidence": 0.90,
-                    "source_quote": ep.get("source_quote", "")
+                    "source_quote": ep.get("source_quote", ""),
+                    "source_section": ep.get("source_section", "")
                 })
 
         # Extract populations (NEW: dynamic list format)
@@ -2782,7 +2802,8 @@ Return ONLY the JSON object, no other text."""
                         "is_primary_efficacy": pop.get("is_primary_efficacy", False),
                         "is_primary_safety": pop.get("is_primary_safety", False),
                         "confidence": 0.95,
-                        "source_quote": pop.get("source_quote", "")
+                        "source_quote": pop.get("source_quote", ""),
+                        "source_section": pop.get("source_section", "")
                     })
         else:
             # Legacy dict format (backward compatibility)
@@ -2794,7 +2815,8 @@ Return ONLY the JSON object, no other text."""
                         "name": pop_name.replace("_definition", "").upper(),
                         "definition": pop.get("value", ""),
                         "confidence": 0.95,
-                        "source_quote": pop.get("source_quote", "")
+                        "source_quote": pop.get("source_quote", ""),
+                        "source_section": pop.get("source_section", "")
                     })
 
         # Extract hypotheses (NEW: dynamic list with individual alphas)
@@ -2809,7 +2831,8 @@ Return ONLY the JSON object, no other text."""
                     "gate_condition": hyp.get("gate_condition"),
                     "test_type": hyp.get("test_type", ""),
                     "confidence": 0.95,
-                    "source_quote": hyp.get("source_quote", "")
+                    "source_quote": hyp.get("source_quote", ""),
+                    "source_section": hyp.get("source_section", "")
                 })
 
         # Extract censoring rules (NEW: dynamic list)
@@ -2822,7 +2845,8 @@ Return ONLY the JSON object, no other text."""
                     "event_flag": rule.get("event_flag", ""),
                     "date_used": rule.get("date_used", ""),
                     "confidence": 0.95,
-                    "source_quote": rule.get("source_quote", "")
+                    "source_quote": rule.get("source_quote", ""),
+                    "source_section": rule.get("source_section", "")
                 })
 
         # Extract subgroups (NEW: dynamic list)
@@ -2835,7 +2859,8 @@ Return ONLY the JSON object, no other text."""
                     "rationale": sg.get("rationale", ""),
                     "is_stratification_factor": sg.get("is_stratification_factor", False),
                     "confidence": 0.90,
-                    "source_quote": sg.get("source_quote", "")
+                    "source_quote": sg.get("source_quote", ""),
+                    "source_section": sg.get("source_section", "")
                 })
 
         # Extract stratification factors
@@ -2847,7 +2872,8 @@ Return ONLY the JSON object, no other text."""
                     "name": strat.get("factor_name", ""),
                     "categories": strat.get("categories", []),
                     "confidence": 0.95,
-                    "source_quote": strat.get("source_quote", "")
+                    "source_quote": strat.get("source_quote", ""),
+                    "source_section": strat.get("source_section", "")
                 })
 
         # Extract baseline variables
@@ -2859,7 +2885,8 @@ Return ONLY the JSON object, no other text."""
                     "category": var.get("category", ""),
                     "var_type": var.get("type", ""),
                     "confidence": 0.90,
-                    "source_quote": var.get("source_quote", "")
+                    "source_quote": var.get("source_quote", ""),
+                    "source_section": var.get("source_section", "")
                 })
 
         # Extract study design info
@@ -2869,7 +2896,8 @@ Return ONLY the JSON object, no other text."""
                 "type": "study_design",
                 "name": design.get("design_type", {}).get("value", ""),
                 "confidence": 0.95,
-                "source_quote": design.get("design_type", {}).get("source_quote", "")
+                "source_quote": design.get("design_type", {}).get("source_quote", ""),
+                "source_section": design.get("design_type", {}).get("source_section", "")
             })
 
         # Extract disease setting
@@ -2879,7 +2907,8 @@ Return ONLY the JSON object, no other text."""
                 "type": "disease_setting",
                 "name": disease.get("disease_setting", {}).get("value", ""),
                 "confidence": 0.95,
-                "source_quote": disease.get("disease_setting", {}).get("source_quote", "")
+                "source_quote": disease.get("disease_setting", {}).get("source_quote", ""),
+                "source_section": disease.get("disease_setting", {}).get("source_section", "")
             })
 
         # Extract performance status
@@ -2890,7 +2919,8 @@ Return ONLY the JSON object, no other text."""
                 "name": ps.get("scale", {}).get("value", ""),
                 "required_range": ps.get("required_range", {}).get("value", ""),
                 "confidence": 0.95,
-                "source_quote": ps.get("scale", {}).get("source_quote", "")
+                "source_quote": ps.get("scale", {}).get("source_quote", ""),
+                "source_section": ps.get("scale", {}).get("source_section", "")
             })
 
         # Extract response criteria
@@ -2900,7 +2930,8 @@ Return ONLY the JSON object, no other text."""
                 "type": "response_criteria",
                 "name": rc.get("criteria_name", ""),
                 "confidence": 0.95,
-                "source_quote": ""
+                "source_quote": rc.get("source_quote", ""),
+                "source_section": rc.get("source_section", "")
             })
 
         # Extract geographic info
@@ -2911,7 +2942,8 @@ Return ONLY the JSON object, no other text."""
                 "type": "geographic",
                 "name": ", ".join([c.get("country", "") for c in countries if c.get("country")]),
                 "confidence": 0.90,
-                "source_quote": countries[0].get("source_quote", "") if countries else ""
+                "source_quote": countries[0].get("source_quote", "") if countries else "",
+                "source_section": countries[0].get("source_section", "") if countries else ""
             })
 
         return items

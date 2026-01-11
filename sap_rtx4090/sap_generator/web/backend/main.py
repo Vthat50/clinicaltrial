@@ -15,13 +15,13 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v65-2026-01-11")
-print("FEATURE: Dedupe tool calls + fix job completion stats")
-print("  • v64: Added 10 additional KB tools for complete coverage")
-print("  • v65: Fixed duplicate tool calls causing SAP truncation")
-print("  • v65: Fixed job completion stats (discovered_count, sap_length)")
-print("  • FIX: Tool call caching prevents wasted iterations")
-print("If you don't see v65 in Render logs, Render has OLD code!")
+print("BUILD: v72-2026-01-11")
+print("FEATURE: source_section traceability for all extracted elements")
+print("  • v71: Map ALL full_extraction fields to discovered_elements")
+print("  • v72: Add source_section to all extracted items")
+print("  • v72: Extraction prompt enforces MANDATORY source_quote/source_section")
+print("  • FIX: Full provenance chain from protocol to SAP")
+print("If you don't see v72 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -895,8 +895,8 @@ class KGPipelineWrapper:
                     'confidence': fact.get('confidence', 0.8)
                 })
 
-            # v70: Add ALL relevant fields from full_extraction to discovered_elements
-            # This ensures backend code can find protocol data in the format it expects
+            # v72: Add ALL relevant fields from full_extraction to discovered_elements
+            # Including source_section for full traceability
             if full_extraction:
 
                 # Helper to extract value from nested dict
@@ -907,6 +907,12 @@ class KGPipelineWrapper:
                         return obj.get('value') or obj.get('name') or None
                     return str(obj) if obj else None
 
+                # Helper to safely get source fields from dict
+                def get_source(obj, field='source_quote'):
+                    if isinstance(obj, dict):
+                        return obj.get(field, '')
+                    return ''
+
                 # 1. Primary endpoints
                 primary_eps = full_extraction.get('primary_endpoints', [])
                 for ep in (primary_eps if isinstance(primary_eps, list) else [primary_eps] if primary_eps else []):
@@ -916,7 +922,8 @@ class KGPipelineWrapper:
                             'name': 'primary_endpoint',
                             'category': 'endpoints',
                             'description': ep_name,
-                            'source_quote': ep.get('source_quote', '') if isinstance(ep, dict) else '',
+                            'source_quote': get_source(ep, 'source_quote'),
+                            'source_section': get_source(ep, 'source_section'),
                             'confidence': 0.9
                         })
 
@@ -929,115 +936,134 @@ class KGPipelineWrapper:
                             'name': 'secondary_endpoint',
                             'category': 'endpoints',
                             'description': ep_name,
-                            'source_quote': ep.get('source_quote', '') if isinstance(ep, dict) else '',
+                            'source_quote': get_source(ep, 'source_quote'),
+                            'source_section': get_source(ep, 'source_section'),
                             'confidence': 0.9
                         })
 
                 # 3. Phase
-                phase_info = full_extraction.get('phase_info', {})
-                phase_val = get_value(phase_info.get('phase')) if isinstance(phase_info, dict) else get_value(phase_info)
+                phase_info = full_extraction.get('phase_info', {}) or full_extraction.get('study_phase', {})
+                phase_obj = phase_info.get('phase', {}) if isinstance(phase_info, dict) else {}
+                phase_val = get_value(phase_obj) if isinstance(phase_obj, dict) else get_value(phase_info)
                 if phase_val:
                     discovered_elements.append({
                         'name': 'phase',
                         'category': 'study_design',
                         'description': phase_val,
-                        'source_quote': phase_info.get('phase', {}).get('source_quote', '') if isinstance(phase_info, dict) else '',
+                        'source_quote': get_source(phase_obj, 'source_quote'),
+                        'source_section': get_source(phase_obj, 'source_section'),
                         'confidence': 0.9
                     })
 
                 # 4. Study design type
                 study_design = full_extraction.get('study_design', {})
                 if isinstance(study_design, dict):
-                    design_type = get_value(study_design.get('design_type'))
+                    design_type_obj = study_design.get('design_type', {})
+                    design_type = get_value(design_type_obj)
                     if design_type:
                         discovered_elements.append({
                             'name': 'design_type',
                             'category': 'study_design',
                             'description': design_type,
-                            'source_quote': study_design.get('design_type', {}).get('source_quote', '') if isinstance(study_design.get('design_type'), dict) else '',
+                            'source_quote': get_source(design_type_obj, 'source_quote'),
+                            'source_section': get_source(design_type_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
                     # Blinding
-                    blinding = get_value(study_design.get('blinding'))
+                    blinding_obj = study_design.get('blinding', {})
+                    blinding = get_value(blinding_obj)
                     if blinding:
                         discovered_elements.append({
                             'name': 'blinding',
                             'category': 'study_design',
                             'description': blinding,
-                            'source_quote': '',
+                            'source_quote': get_source(blinding_obj, 'source_quote'),
+                            'source_section': get_source(blinding_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
                     # Randomization ratio
-                    rand_ratio = get_value(study_design.get('randomization_ratio'))
+                    rand_obj = study_design.get('randomization_ratio', {})
+                    rand_ratio = get_value(rand_obj)
                     if rand_ratio:
                         discovered_elements.append({
                             'name': 'randomization_ratio',
                             'category': 'study_design',
                             'description': rand_ratio,
-                            'source_quote': '',
+                            'source_quote': get_source(rand_obj, 'source_quote'),
+                            'source_section': get_source(rand_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
-                # 5. Disease/indication
-                disease = full_extraction.get('disease', {})
+                # 5. Disease/indication (try both 'disease' and 'disease_classification')
+                disease = full_extraction.get('disease', {}) or full_extraction.get('disease_classification', {})
                 if isinstance(disease, dict):
-                    tumor_type = get_value(disease.get('tumor_type'))
+                    tumor_obj = disease.get('tumor_type', {})
+                    tumor_type = get_value(tumor_obj)
                     if tumor_type:
                         discovered_elements.append({
                             'name': 'tumor_type',
                             'category': 'disease',
                             'description': tumor_type,
-                            'source_quote': '',
+                            'source_quote': get_source(tumor_obj, 'source_quote'),
+                            'source_section': get_source(tumor_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
-                    disease_stage = get_value(disease.get('disease_stage'))
+                    stage_obj = disease.get('disease_stage', {})
+                    disease_stage = get_value(stage_obj)
                     if disease_stage:
                         discovered_elements.append({
                             'name': 'disease_stage',
                             'category': 'disease',
                             'description': disease_stage,
-                            'source_quote': '',
+                            'source_quote': get_source(stage_obj, 'source_quote'),
+                            'source_section': get_source(stage_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
-                    disease_setting = get_value(disease.get('disease_setting'))
+                    setting_obj = disease.get('disease_setting', {})
+                    disease_setting = get_value(setting_obj)
                     if disease_setting:
                         discovered_elements.append({
                             'name': 'disease_setting',
                             'category': 'disease',
                             'description': disease_setting,
-                            'source_quote': '',
+                            'source_quote': get_source(setting_obj, 'source_quote'),
+                            'source_section': get_source(setting_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
-                # 6. Sample size
-                sample_size = full_extraction.get('sample_size', {})
+                # 6. Sample size (try both 'sample_size' and 'enrollment')
+                sample_size = full_extraction.get('sample_size', {}) or full_extraction.get('enrollment', {})
                 if isinstance(sample_size, dict):
-                    total_n = get_value(sample_size.get('total_n'))
+                    total_obj = sample_size.get('total_n', {}) or sample_size.get('target_enrollment', {})
+                    total_n = get_value(total_obj)
                     if total_n:
                         discovered_elements.append({
                             'name': 'sample_size',
                             'category': 'study_design',
                             'description': str(total_n),
-                            'source_quote': '',
+                            'source_quote': get_source(total_obj, 'source_quote'),
+                            'source_section': get_source(total_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
-                    power = get_value(sample_size.get('power'))
+                    power_obj = sample_size.get('power', {})
+                    power = get_value(power_obj)
                     if power:
                         discovered_elements.append({
                             'name': 'power',
                             'category': 'study_design',
                             'description': str(power),
-                            'source_quote': '',
+                            'source_quote': get_source(power_obj, 'source_quote'),
+                            'source_section': get_source(power_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
-                # 7. Study drug/treatment
-                treatment = full_extraction.get('treatment', {}) or full_extraction.get('study_drug', {})
+                # 7. Study drug/treatment (try multiple keys)
+                treatment = full_extraction.get('treatment', {}) or full_extraction.get('study_drug', {}) or full_extraction.get('treatment_arms', [])
                 if isinstance(treatment, dict):
                     drug_name = get_value(treatment.get('name')) or get_value(treatment.get('drug_name'))
                     if drug_name:
@@ -1045,9 +1071,23 @@ class KGPipelineWrapper:
                             'name': 'study_drug',
                             'category': 'treatment',
                             'description': drug_name,
-                            'source_quote': '',
+                            'source_quote': get_source(treatment, 'source_quote'),
+                            'source_section': get_source(treatment, 'source_section'),
                             'confidence': 0.9
                         })
+                elif isinstance(treatment, list) and treatment:
+                    # Handle treatment_arms array
+                    for arm in treatment:
+                        drug_name = arm.get('drug_name', '') or arm.get('arm_name', '')
+                        if drug_name:
+                            discovered_elements.append({
+                                'name': 'study_drug',
+                                'category': 'treatment',
+                                'description': drug_name,
+                                'source_quote': get_source(arm, 'source_quote'),
+                                'source_section': get_source(arm, 'source_section'),
+                                'confidence': 0.9
+                            })
 
                 # 8. Populations
                 populations = full_extraction.get('populations', [])
@@ -1058,14 +1098,15 @@ class KGPipelineWrapper:
                             'name': 'population',
                             'category': 'populations',
                             'description': pop_name,
-                            'source_quote': pop.get('source_quote', '') if isinstance(pop, dict) else '',
+                            'source_quote': get_source(pop, 'source_quote'),
+                            'source_section': get_source(pop, 'source_section'),
                             'confidence': 0.9
                         })
 
-                # 9. Stratification factors
-                stratification = full_extraction.get('stratification', {})
+                # 9. Stratification factors (try multiple keys)
+                stratification = full_extraction.get('stratification', {}) or full_extraction.get('randomization', {})
                 if isinstance(stratification, dict):
-                    factors = stratification.get('factors', [])
+                    factors = stratification.get('factors', []) or stratification.get('stratification_factors', [])
                     for factor in (factors if isinstance(factors, list) else []):
                         factor_name = get_value(factor) if isinstance(factor, dict) else str(factor) if factor else None
                         if factor_name:
@@ -1073,20 +1114,23 @@ class KGPipelineWrapper:
                                 'name': 'stratification_factor',
                                 'category': 'study_design',
                                 'description': factor_name,
-                                'source_quote': '',
+                                'source_quote': get_source(factor, 'source_quote'),
+                                'source_section': get_source(factor, 'source_section'),
                                 'confidence': 0.9
                             })
 
                 # 10. Statistical methods
                 stat_methods = full_extraction.get('statistical_methods', {})
                 if isinstance(stat_methods, dict):
-                    primary_method = get_value(stat_methods.get('primary_analysis_method'))
+                    method_obj = stat_methods.get('primary_analysis_method', {})
+                    primary_method = get_value(method_obj)
                     if primary_method:
                         discovered_elements.append({
                             'name': 'primary_analysis_method',
                             'category': 'statistical_methods',
                             'description': primary_method,
-                            'source_quote': '',
+                            'source_quote': get_source(method_obj, 'source_quote'),
+                            'source_section': get_source(method_obj, 'source_section'),
                             'confidence': 0.9
                         })
 
