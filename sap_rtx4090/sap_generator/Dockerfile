@@ -40,30 +40,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install rpy2 now that R is available
 RUN pip install --no-cache-dir rpy2>=3.5.0
 
-# =============================================================================
-# CACHE BUSTING - Forces rebuild when VERSION changes
-# =============================================================================
-# Method 1: Copy VERSION file early (changes hash)
+# Copy VERSION file first to bust cache when code changes
 COPY enterprise_sap_system/VERSION ./VERSION_CHECK
 
-# Method 2: ARG that can be overridden at build time
-ARG CACHE_BUST=unknown
-RUN echo "CACHE_BUST=${CACHE_BUST}" > /app/build_info.txt
-
-# Method 3: Read and display VERSION during build (creates layer dependency)
-RUN cat ./VERSION_CHECK && echo "Build timestamp: $(date -u +%Y%m%d_%H%M%S)" >> /app/build_info.txt
-
-# =============================================================================
-# COPY APPLICATION CODE
-# =============================================================================
 # Copy all necessary code
 COPY enterprise_sap_system ./enterprise_sap_system
 COPY chroma_db ./chroma_db
 # Note: knowledge_graph is inside enterprise_sap_system, already copied above
 COPY web/backend ./web/backend
-
-# Verify VERSION in logs during build
-RUN echo "=== BUILD VERSION CHECK ===" && cat ./enterprise_sap_system/VERSION && echo "==========================="
 
 # Set Python path to find enterprise_sap_system
 ENV PYTHONPATH=/app
