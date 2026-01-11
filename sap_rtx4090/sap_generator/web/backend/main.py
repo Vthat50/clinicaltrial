@@ -4279,7 +4279,7 @@ async def process_jobs_worker():
     global worker_running
 
     print("Starting background job worker with KGPipelineWrapper...")
-    print("  [VERSION] Build 2026-01-10-v42 (KG Pipeline with KB Tools)")
+    print("  [VERSION] Build 2026-01-11-v72 (KG Pipeline with KB Tools + source_section traceability)")
     print("  [NEW] 55-category comprehensive extraction")
     print("  [NEW] Prohibition rules from extraction:")
     print("        • Adjuvant → No CR/PR/SD/PD")
