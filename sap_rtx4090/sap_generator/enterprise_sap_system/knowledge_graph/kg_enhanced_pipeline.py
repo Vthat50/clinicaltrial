@@ -1241,7 +1241,9 @@ IMPORTANT RULES:
 1. Protocol facts (from extraction) are STUDY-SPECIFIC - use them for this study
 2. Knowledge base (from tools) provides STANDARD TEMPLATES - adapt to protocol specifics
 3. ALWAYS call tools for: statistical methods, table shells, response criteria, therapy-specific specs
-4. Mark the source of each element: [PROTOCOL] or [KB: source_file]
+4. Mark sources with SPECIFIC CITATIONS using these formats:
+   - For KB: [KB: source_file → key] (e.g., [KB: methodology_knowledge_base.py → STATISTICAL_METHODS['kaplan_meier']])
+   - For Protocol: [Protocol: Section X.Y] or [Protocol: "quoted text..."] (e.g., [Protocol: Section 6.1 - Primary Endpoint])
 
 CRITICAL - TOOL CALL EFFICIENCY:
 - Each tool should be called ONLY ONCE with the same parameters
@@ -1282,6 +1284,24 @@ CRITICAL REQUIREMENTS:
 - You MUST generate ALL 12 sections, even if brief
 - Use the EXACT "## N." format for section headers
 - ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements. Include these in appropriate SAP sections.
+
+## SOURCE CITATION FORMAT (MANDATORY):
+Every fact MUST have a specific source citation. Use these formats:
+
+1. **KB Sources** - Include the exact source file AND key/section:
+   - ✅ CORRECT: [KB: methodology_knowledge_base.py → STATISTICAL_METHODS['kaplan_meier']]
+   - ✅ CORRECT: [KB: complete_tfl_inventory.py → DISPOSITION_TABLES['14.1.1']]
+   - ✅ CORRECT: [KB: disease_specific_criteria.py → LUGANO_CRITERIA]
+   - ❌ WRONG: [KB: Interim Analysis] (too vague!)
+   - ❌ WRONG: [KB] (no source specified!)
+
+2. **Protocol Sources** - Include the section number or quote:
+   - ✅ CORRECT: [Protocol: Section 6.1 - Primary Endpoint]
+   - ✅ CORRECT: [Protocol: Section 9.3.2 - Statistical Hypothesis]
+   - ✅ CORRECT: [Protocol: "The primary endpoint is progression-free survival..."]
+   - ❌ WRONG: [Protocol] (no section specified!)
+
+When you retrieve tool results, the JSON includes "provenance": {"source_file": "...", "source_key": "..."} - USE THESE EXACT VALUES in your citations.
 
 MANDATORY TOOL CALLS BY SECTION:
 - Section 4 (Populations): MUST call get_population_definitions() for standard ITT/Safety/PP definitions
@@ -2265,37 +2285,39 @@ CENSORING RULES: Extract any censoring rules mentioned for time-to-event endpoin
 
 ## EXTRACTION SCHEMA
 
-Return a JSON object with these sections. For EVERY field, include source_quote with verbatim text.
+Return a JSON object with these sections. For EVERY field, include:
+- source_quote: verbatim text from protocol (first 100 chars)
+- source_section: protocol section number where found (e.g., "Section 6.1", "Section 9.3.2")
 
 {{
   "trial_identification": {{
-    "nct_id": {{"value": "", "source_quote": ""}},
-    "protocol_number": {{"value": "", "source_quote": ""}},
-    "sponsor": {{"value": "", "source_quote": ""}},
-    "study_title": {{"value": "", "source_quote": ""}},
-    "protocol_version": {{"value": "", "source_quote": ""}}
+    "nct_id": {{"value": "", "source_quote": "", "source_section": ""}},
+    "protocol_number": {{"value": "", "source_quote": "", "source_section": ""}},
+    "sponsor": {{"value": "", "source_quote": "", "source_section": ""}},
+    "study_title": {{"value": "", "source_quote": "", "source_section": ""}},
+    "protocol_version": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "disease_classification": {{
-    "tumor_type": {{"value": "", "source_quote": ""}},
-    "disease_stage": {{"value": "", "source_quote": ""}},
-    "disease_setting": {{"value": "[adjuvant/neoadjuvant/metastatic/locally_advanced/maintenance]", "source_quote": ""}},
-    "histology_subtypes": {{"value": [], "source_quote": ""}},
-    "prior_lines_allowed": {{"value": "", "source_quote": ""}},
+    "tumor_type": {{"value": "", "source_quote": "", "source_section": ""}},
+    "disease_stage": {{"value": "", "source_quote": "", "source_section": ""}},
+    "disease_setting": {{"value": "[adjuvant/neoadjuvant/metastatic/locally_advanced/maintenance]", "source_quote": "", "source_section": ""}},
+    "histology_subtypes": {{"value": [], "source_quote": "", "source_section": ""}},
+    "prior_lines_allowed": {{"value": "", "source_quote": "", "source_section": ""}},
     "indication_keywords": []
   }},
 
   "study_phase": {{
-    "phase": {{"value": "", "source_quote": ""}},
-    "phase_objectives": {{"value": "", "source_quote": ""}},
-    "is_seamless_design": {{"value": false, "source_quote": ""}}
+    "phase": {{"value": "", "source_quote": "", "source_section": ""}},
+    "phase_objectives": {{"value": "", "source_quote": "", "source_section": ""}},
+    "is_seamless_design": {{"value": false, "source_quote": "", "source_section": ""}}
   }},
 
   "study_design": {{
-    "design_type": {{"value": "[parallel/crossover/single_arm/factorial/adaptive/basket/umbrella/platform]", "source_quote": ""}},
-    "blinding": {{"value": "[open_label/single_blind/double_blind]", "source_quote": ""}},
-    "randomization_ratio": {{"value": "", "source_quote": ""}},
-    "control_type": {{"value": "[placebo/active_comparator/soc/historical/none]", "source_quote": ""}}
+    "design_type": {{"value": "[parallel/crossover/single_arm/factorial/adaptive/basket/umbrella/platform]", "source_quote": "", "source_section": ""}},
+    "blinding": {{"value": "[open_label/single_blind/double_blind]", "source_quote": "", "source_section": ""}},
+    "randomization_ratio": {{"value": "", "source_quote": "", "source_section": ""}},
+    "control_type": {{"value": "[placebo/active_comparator/soc/historical/none]", "source_quote": "", "source_section": ""}}
   }},
 
   "treatment_arms": [
@@ -2306,15 +2328,16 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "dose": "",
       "schedule": "",
       "route": "",
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
   "enrollment": {{
-    "target_enrollment": {{"value": "", "source_quote": ""}},
-    "enrollment_per_arm": {{"value": [], "source_quote": ""}},
-    "study_duration": {{"value": "", "source_quote": ""}},
-    "follow_up_duration": {{"value": "", "source_quote": ""}}
+    "target_enrollment": {{"value": "", "source_quote": "", "source_section": ""}},
+    "enrollment_per_arm": {{"value": [], "source_quote": "", "source_section": ""}},
+    "study_duration": {{"value": "", "source_quote": "", "source_section": ""}},
+    "follow_up_duration": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "populations": [
@@ -2323,7 +2346,8 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "definition": "",
       "is_primary_efficacy": false,
       "is_primary_safety": false,
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
@@ -2336,7 +2360,8 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "alpha_allocated": null,
       "gate_condition": null,
       "test_type": "[superiority/non_inferiority/equivalence]",
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
@@ -2351,7 +2376,8 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "confirmation_required": false,
       "irc_assessment": false,
       "primary_population": "",
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
@@ -2360,7 +2386,8 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "name": "",
       "definition": "",
       "type": "",
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
@@ -2370,7 +2397,8 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "scenario": "",
       "event_flag": "[0/1]",
       "date_used": "",
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
@@ -2380,61 +2408,63 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "categories": [],
       "rationale": "",
       "is_stratification_factor": false,
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
   "sample_size": {{
-    "total_n": {{"value": "", "source_quote": ""}},
-    "per_arm_n": {{"value": [], "source_quote": ""}},
-    "power": {{"value": "", "source_quote": ""}},
-    "alpha": {{"value": "", "one_or_two_sided": "", "source_quote": ""}},
-    "effect_size": {{"value": "", "type": "[hazard_ratio/difference/odds_ratio]", "source_quote": ""}},
-    "control_rate": {{"value": "", "source_quote": ""}},
-    "dropout_rate": {{"value": "", "source_quote": ""}},
-    "events_required": {{"value": "", "source_quote": ""}}
+    "total_n": {{"value": "", "source_quote": "", "source_section": ""}},
+    "per_arm_n": {{"value": [], "source_quote": "", "source_section": ""}},
+    "power": {{"value": "", "source_quote": "", "source_section": ""}},
+    "alpha": {{"value": "", "one_or_two_sided": "", "source_quote": "", "source_section": ""}},
+    "effect_size": {{"value": "", "type": "[hazard_ratio/difference/odds_ratio]", "source_quote": "", "source_section": ""}},
+    "control_rate": {{"value": "", "source_quote": "", "source_section": ""}},
+    "dropout_rate": {{"value": "", "source_quote": "", "source_section": ""}},
+    "events_required": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "interim_analysis": {{
     "planned": false,
-    "number_of_interims": {{"value": "", "source_quote": ""}},
-    "timing": [{{"interim": "", "trigger": "[enrollment/events/calendar]", "value": "", "source_quote": ""}}],
-    "efficacy_stopping": {{"boundary": "", "method": "[OBF/Pocock/alpha_spending]", "source_quote": ""}},
-    "futility_stopping": {{"boundary": "", "method": "", "source_quote": ""}},
-    "alpha_spending_function": {{"value": "", "source_quote": ""}}
+    "number_of_interims": {{"value": "", "source_quote": "", "source_section": ""}},
+    "timing": [{{"interim": "", "trigger": "[enrollment/events/calendar]", "value": "", "source_quote": "", "source_section": ""}}],
+    "efficacy_stopping": {{"boundary": "", "method": "[OBF/Pocock/alpha_spending]", "source_quote": "", "source_section": ""}},
+    "futility_stopping": {{"boundary": "", "method": "", "source_quote": "", "source_section": ""}},
+    "alpha_spending_function": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "randomization": {{
-    "method": {{"value": "[permuted_blocks/stratified/minimization/adaptive]", "source_quote": ""}},
-    "block_size": {{"value": "", "source_quote": ""}},
+    "method": {{"value": "[permuted_blocks/stratified/minimization/adaptive]", "source_quote": "", "source_section": ""}},
+    "block_size": {{"value": "", "source_quote": "", "source_section": ""}},
     "stratification_factors": [
       {{
         "factor_name": "",
         "categories": [],
-        "source_quote": ""
+        "source_quote": "",
+        "source_section": ""
       }}
     ]
   }},
 
   "statistical_methods": {{
-    "primary_analysis_method": {{"value": "", "source_quote": ""}},
-    "time_to_event_method": {{"value": "[kaplan_meier/log_rank/cox/rmst]", "source_quote": ""}},
-    "binary_endpoint_method": {{"value": "", "source_quote": ""}},
-    "confidence_interval_method": {{"value": "", "level": "", "source_quote": ""}},
-    "stratified_analysis": {{"value": false, "factors": [], "source_quote": ""}}
+    "primary_analysis_method": {{"value": "", "source_quote": "", "source_section": ""}},
+    "time_to_event_method": {{"value": "[kaplan_meier/log_rank/cox/rmst]", "source_quote": "", "source_section": ""}},
+    "binary_endpoint_method": {{"value": "", "source_quote": "", "source_section": ""}},
+    "confidence_interval_method": {{"value": "", "level": "", "source_quote": "", "source_section": ""}},
+    "stratified_analysis": {{"value": false, "factors": [], "source_quote": "", "source_section": ""}}
   }},
 
   "multiplicity": {{
     "adjustment_required": false,
-    "method": {{"value": "[hierarchical/bonferroni/hochberg/graphical/gatekeeping/fixed_sequence]", "source_quote": ""}},
-    "overall_alpha": {{"value": "", "source_quote": ""}},
-    "alpha_split_rationale": {{"value": "", "source_quote": ""}}
+    "method": {{"value": "[hierarchical/bonferroni/hochberg/graphical/gatekeeping/fixed_sequence]", "source_quote": "", "source_section": ""}},
+    "overall_alpha": {{"value": "", "source_quote": "", "source_section": ""}},
+    "alpha_split_rationale": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "safety_endpoints": {{
-    "ae_grading_scale": {{"value": "[CTCAE_v5/CTCAE_v4/other]", "version": "", "source_quote": ""}},
-    "special_safety_monitoring": [{{"type": "", "criteria": "", "source_quote": ""}}],
-    "aesi_definitions": [{{"name": "", "definition": "", "smq_mst": "", "source_quote": ""}}]
+    "ae_grading_scale": {{"value": "[CTCAE_v5/CTCAE_v4/other]", "version": "", "source_quote": "", "source_section": ""}},
+    "special_safety_monitoring": [{{"type": "", "criteria": "", "source_quote": "", "source_section": ""}}],
+    "aesi_definitions": [{{"name": "", "definition": "", "smq_mst": "", "source_quote": "", "source_section": ""}}]
   }},
 
   "cart_specific": {{
@@ -2488,33 +2518,34 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
       "category": "[demographic/disease/lab/vital_sign/medical_history/prior_therapy]",
       "type": "[continuous/categorical/ordinal]",
       "categories_if_applicable": [],
-      "source_quote": ""
+      "source_quote": "",
+      "source_section": ""
     }}
   ],
 
   "performance_status": {{
-    "scale": {{"value": "[ECOG/Karnofsky/ASA/Lansky/other]", "source_quote": ""}},
-    "required_range": {{"value": "", "source_quote": ""}}
+    "scale": {{"value": "[ECOG/Karnofsky/ASA/Lansky/other]", "source_quote": "", "source_section": ""}},
+    "required_range": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "geographic": {{
-    "countries": [{{"country": "", "source_quote": ""}}],
-    "regions": [{{"region": "", "source_quote": ""}}],
+    "countries": [{{"country": "", "source_quote": "", "source_section": ""}}],
+    "regions": [{{"region": "", "source_quote": "", "source_section": ""}}],
     "is_multi_regional": false
   }},
 
   "response_criteria_details": {{
     "criteria_name": "",
     "version": "",
-    "target_lesion_selection": {{"value": "", "source_quote": ""}},
-    "measurement_method": {{"value": "", "source_quote": ""}},
+    "target_lesion_selection": {{"value": "", "source_quote": "", "source_section": ""}},
+    "measurement_method": {{"value": "", "source_quote": "", "source_section": ""}},
     "confirmation_required": false,
-    "confirmation_window": {{"value": "", "source_quote": ""}}
+    "confirmation_window": {{"value": "", "source_quote": "", "source_section": ""}}
   }},
 
   "missing_data": {{
-    "handling_method": {{"value": "[complete_case/LOCF/MI/MMRM/other]", "source_quote": ""}},
-    "sensitivity_analyses": [{{"method": "", "source_quote": ""}}]
+    "handling_method": {{"value": "[complete_case/LOCF/MI/MMRM/other]", "source_quote": "", "source_section": ""}},
+    "sensitivity_analyses": [{{"method": "", "source_quote": "", "source_section": ""}}]
   }},
 
   "sensitivity_analyses": [
