@@ -1900,6 +1900,15 @@ Generate a production-quality SAP with full provenance tracking."""
         elif conditions.get('is_hematologic'):
             disease_desc = "Hematologic Malignancy"
 
+        # Extract specific tumor type for reference SAP filtering
+        disease_info = full_extraction.get("disease_classification", {}) if full_extraction else {}
+        tumor_type = (disease_info.get("tumor_type", {}).get("value") or "").strip()
+        if not tumor_type:
+            tumor_type = (disease_info.get("indication", {}).get("value") or "").strip()
+        # Normalize common tumor types for better matching
+        tumor_type_for_search = tumor_type.upper().replace(" ", "").replace("-", "") if tumor_type else ""
+        indication_hint = tumor_type if tumor_type else disease_desc
+
         user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
 ```json
 {extraction_json}
@@ -1918,7 +1927,10 @@ This protocol requires **{num_main_sections} main sections** (structure determin
 - Study Design: {study_type_desc}
 - Therapy Type: {therapy_type_desc}
 - Disease Area: {disease_desc}
+- Indication/Tumor Type: {indication_hint}
 {special_notes}
+
+**REFERENCE SAP LOOKUP:** When calling get_reference_sap_section(), use indication="{indication_hint}" to find relevant examples.
 
 **MANDATORY SECTION OUTLINE (use these EXACT headers):**
 
