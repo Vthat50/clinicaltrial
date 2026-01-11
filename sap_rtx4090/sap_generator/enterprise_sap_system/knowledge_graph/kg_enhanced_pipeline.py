@@ -1546,6 +1546,30 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
                     if relevant_sections:
                         requirements.append(f"    (Include in sections: {relevant_sections})")
 
+        # Process unstructured_elements from Discovery (FREE TEXT CATCH-ALL)
+        unstructured_discovery = protocol_sections.get("unstructured_elements", "")
+        if unstructured_discovery and isinstance(unstructured_discovery, str) and len(unstructured_discovery) > 50:
+            requirements.append("")
+            requirements.append("UNSTRUCTURED ELEMENTS FROM DISCOVERY (MUST INCLUDE):")
+            requirements.append(f"  {unstructured_discovery[:500]}")
+
+        # Process unstructured_overflow from Extraction (FREE TEXT CATCH-ALL)
+        unstructured_extraction = structured_extraction.get("unstructured_overflow", "")
+        if unstructured_extraction and isinstance(unstructured_extraction, str) and len(unstructured_extraction) > 50:
+            requirements.append("")
+            requirements.append("UNSTRUCTURED OVERFLOW FROM EXTRACTION (MUST INCLUDE):")
+            requirements.append(f"  {unstructured_extraction[:500]}")
+
+        # Process extraction completeness check - flag potential gaps
+        completeness = structured_extraction.get("extraction_completeness_check", {})
+        if completeness:
+            missed = completeness.get("potentially_missed_elements", "")
+            confidence = completeness.get("confidence_level", "high")
+            if missed and isinstance(missed, str) and len(missed) > 10:
+                requirements.append("")
+                requirements.append(f"POTENTIALLY MISSED ELEMENTS (confidence: {confidence}):")
+                requirements.append(f"  {missed[:300]}")
+
         # Process PRO endpoints from discovery (NEW)
         pro_endpoints = discovered.get("pro_endpoints", [])
         if pro_endpoints and any(p.get("name") for p in pro_endpoints):
@@ -2909,9 +2933,27 @@ Return a JSON object with ONLY discovered structure:
     ],
     "protocol_unique_elements": [
       {{"name": "", "description": "", "section": ""}}
-    ]
+    ],
+
+    "___FREE_TEXT_OVERFLOW___": "===========================================",
+    "unstructured_elements": "FREE TEXT FIELD: Put ANY protocol elements here that don't fit ANY of the structured fields above. List them as bullet points with descriptions. This is your safety net - NEVER skip something just because there's no matching field. Example: '- Novel biomarker X analysis at week 12; - Special dosing algorithm for elderly patients; - Unique QoL instrument ABC-123'"
+  }},
+
+  "extraction_completeness_check": {{
+    "all_endpoints_captured": true/false,
+    "all_populations_captured": true/false,
+    "all_subgroups_captured": true/false,
+    "all_analyses_captured": true/false,
+    "potentially_missed_elements": "List anything you noticed but weren't sure how to categorize"
   }}
 }}
+
+## CRITICAL INSTRUCTION - EXTRACT EVERYTHING:
+You MUST capture EVERY analysis element, endpoint, population, subgroup, or procedure mentioned in the protocol.
+- If something doesn't fit a structured field, put it in "protocol_unique_elements" or "unstructured_elements"
+- NEVER skip anything just because there's no matching schema field
+- When in doubt, INCLUDE IT in the catch-all fields
+- Fill out "extraction_completeness_check" honestly - if you think you might have missed something, list it in "potentially_missed_elements"
 
 PROTOCOL DOCUMENT:
 {content}
@@ -2991,6 +3033,28 @@ Return ONLY the discovery JSON, no other text."""
 
             # Store full extraction for SAP generation
             self._last_full_extraction = extracted_obj
+
+            # POST-PROCESSING VALIDATION (Option 3)
+            # Compare protocol content against extracted elements to flag potential gaps
+            validation_report = self._validate_extraction_completeness(
+                content, extracted_obj, discovered_structure or {}
+            )
+
+            # Print validation report
+            if validation_report["status"] != "complete":
+                print(f"  ⚠️  Extraction validation: {validation_report['status']} (confidence: {validation_report['confidence']})")
+                if validation_report["potential_gaps"]:
+                    print(f"      Potential gaps found: {len(validation_report['potential_gaps'])}")
+                    for gap in validation_report["potential_gaps"][:3]:  # Show top 3
+                        print(f"        - {gap['term_found']} → {gap['expected_category']}")
+                if validation_report["warnings"]:
+                    for warning in validation_report["warnings"][:2]:
+                        print(f"      Warning: {warning[:100]}")
+            else:
+                print(f"  ✓ Extraction validation: complete (confidence: {validation_report['confidence']})")
+
+            # Store validation report for reference
+            extracted_obj["_validation_report"] = validation_report
 
             return extracted_list
 
@@ -3492,10 +3556,21 @@ BAD (missing source_quote or source_section):
       "relevant_sections": "Which SAP sections this should appear in",
       "source_quote": "Verbatim text from protocol"
     }}
-  ]
+  ],
+
+  "unstructured_overflow": "FREE TEXT FIELD: Put ANY protocol elements here that don't fit ANY structured field above. List as bullet points. This is your LAST RESORT safety net - use it for anything you found but couldn't categorize. Example: '- Special re-screening rules for patients who fail screening; - Novel composite endpoint combining X and Y; - Country-specific regulatory requirements for Japan'",
+
+  "extraction_completeness_check": {{
+    "total_endpoints_found": 0,
+    "total_populations_found": 0,
+    "total_subgroups_found": 0,
+    "all_elements_captured": true/false,
+    "confidence_level": "high|medium|low",
+    "potentially_missed_elements": "List anything you noticed in the protocol but weren't 100% sure how to categorize or whether to include"
+  }}
 }}
 
-## CRITICAL INSTRUCTIONS:
+## CRITICAL INSTRUCTIONS - EXTRACT EVERYTHING:
 
 1. **USE DISCOVERY CONTEXT**: Populations and hypotheses were already identified - extract their FULL definitions
 2. **INDIVIDUAL ALPHAS**: For each hypothesis, extract its individual alpha_allocated value
@@ -3512,12 +3587,137 @@ BAD (missing source_quote or source_section):
    - Concordance analyses, shift tables, special grading scales not in standard categories
    DO NOT LOSE any protocol-specific elements - if it doesn't fit above, put it in additional_discoveries
 
+## ZERO TOLERANCE FOR MISSING ELEMENTS:
+- You MUST capture EVERY analysis element, endpoint, population, subgroup, or procedure
+- If something doesn't fit a structured field, use "additional_discoveries" or "unstructured_overflow"
+- NEVER skip anything just because there's no matching schema field
+- When in doubt, INCLUDE IT - false positives are better than missing elements
+- Fill out "extraction_completeness_check" honestly
+- If confidence_level is "low" or "medium", explain why in potentially_missed_elements
+
 PROTOCOL DOCUMENT:
 {content}
 
 Return ONLY the JSON object, no other text."""
 
         return prompt
+
+    def _validate_extraction_completeness(self, protocol_content: str, extraction: Dict, discovered: Dict) -> Dict:
+        """
+        Post-processing validation: Compare protocol content against extracted elements.
+        Returns a report of potentially missed elements.
+        """
+        import re
+
+        validation_report = {
+            "status": "complete",
+            "confidence": "high",
+            "potential_gaps": [],
+            "warnings": []
+        }
+
+        protocol_lower = protocol_content.lower()
+
+        # Key terms to look for in protocol that should be captured
+        analysis_terms = [
+            # Endpoints
+            ("primary endpoint", "endpoints"),
+            ("secondary endpoint", "endpoints"),
+            ("exploratory endpoint", "endpoints"),
+            ("co-primary", "endpoints"),
+            # Populations
+            ("intent-to-treat", "populations"),
+            ("itt population", "populations"),
+            ("safety population", "populations"),
+            ("per-protocol", "populations"),
+            ("full analysis set", "populations"),
+            ("modified itt", "populations"),
+            # Subgroups
+            ("subgroup analysis", "subgroups"),
+            ("subgroup analyses", "subgroups"),
+            ("pre-specified subgroup", "subgroups"),
+            # PRO
+            ("quality of life", "pro_endpoints"),
+            ("patient-reported", "pro_endpoints"),
+            ("eortc qlq", "pro_endpoints"),
+            ("eq-5d", "pro_endpoints"),
+            ("fact-", "pro_endpoints"),
+            # Response criteria
+            ("recist", "response_criteria"),
+            ("irrecist", "response_criteria"),
+            ("lugano", "response_criteria"),
+            ("imwg", "response_criteria"),
+            # Special analyses
+            ("interim analysis", "interim_analysis"),
+            ("concordance", "concordance_analyses"),
+            ("sensitivity analysis", "sensitivity_analyses"),
+            ("landmark analysis", "landmark_analyses"),
+            # Solid tumor specific
+            ("tfst", "subsequent_therapy"),
+            ("tsst", "subsequent_therapy"),
+            ("time to first subsequent", "subsequent_therapy"),
+            ("pfs2", "subsequent_therapy"),
+            # Hematologic specific
+            ("mrd", "mrd_assessment"),
+            ("minimal residual disease", "mrd_assessment"),
+            ("cytogenetic", "cytogenetic_analyses"),
+            # CAR-T specific
+            ("crs", "crs_grading"),
+            ("cytokine release", "crs_grading"),
+            ("icans", "icans_grading"),
+            ("neurotoxicity", "icans_grading"),
+        ]
+
+        # Check each term
+        for term, category in analysis_terms:
+            if term in protocol_lower:
+                # Check if this category was captured in extraction
+                captured = False
+
+                if category == "endpoints":
+                    captured = (len(extraction.get("primary_endpoints", [])) > 0 or
+                               len(extraction.get("secondary_endpoints", [])) > 0)
+                elif category == "populations":
+                    captured = len(extraction.get("populations", [])) > 0
+                elif category == "subgroups":
+                    captured = len(extraction.get("subgroups", [])) > 0 or len(discovered.get("subgroups", [])) > 0
+                elif category == "pro_endpoints":
+                    captured = len(discovered.get("pro_endpoints", [])) > 0
+                elif category == "response_criteria":
+                    captured = discovered.get("response_criteria", "") != ""
+                elif category == "interim_analysis":
+                    captured = discovered.get("has_interim_analysis", False)
+                else:
+                    # Check in protocol_specific_sections
+                    pss = discovered.get("protocol_specific_sections", {})
+                    captured = len(pss.get(category, [])) > 0
+
+                if not captured:
+                    validation_report["potential_gaps"].append({
+                        "term_found": term,
+                        "expected_category": category,
+                        "recommendation": f"Protocol mentions '{term}' but {category} may not be fully captured"
+                    })
+
+        # Check extraction completeness self-report
+        completeness = extraction.get("extraction_completeness_check", {})
+        if completeness:
+            if completeness.get("confidence_level") in ["low", "medium"]:
+                validation_report["confidence"] = completeness.get("confidence_level")
+                validation_report["warnings"].append(
+                    f"Extraction self-reported {completeness.get('confidence_level')} confidence"
+                )
+            missed = completeness.get("potentially_missed_elements", "")
+            if missed and len(missed) > 10:
+                validation_report["warnings"].append(f"Extraction flagged potential gaps: {missed[:200]}")
+
+        # Set overall status
+        if len(validation_report["potential_gaps"]) > 3:
+            validation_report["status"] = "needs_review"
+        elif len(validation_report["potential_gaps"]) > 0:
+            validation_report["status"] = "minor_gaps"
+
+        return validation_report
 
     def _convert_extraction_to_list(self, extracted_obj: Dict) -> List[Dict]:
         """Convert structured extraction to list format for backward compatibility."""
