@@ -17,6 +17,7 @@ The SAP structure is DYNAMIC based on protocol characteristics:
 
 from typing import Dict, List, Optional, Set
 from dataclasses import dataclass, field
+import json
 
 
 @dataclass
@@ -457,7 +458,8 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     conditions["has_exploratory_endpoints"] = len(exploratory) > 0
     conditions["has_multiple_primary_endpoints"] = len(primary) > 1
     conditions["has_biomarker_endpoints"] = any(x in endpoint_str for x in ["biomarker", "pd-l1", "tmb", "msi", "ctdna", "mrd"])
-    conditions["has_pro_endpoints"] = any(x in endpoint_str for x in ["qol", "quality of life", "pro", "patient-reported", "eortc", "fact", "sf-36"])
+    # Note: Use word boundaries to avoid "pro" matching "progression"
+    conditions["has_pro_endpoints"] = any(x in endpoint_str for x in ["qol", "quality of life", "patient-reported", "eortc", "fact-", "sf-36", "eq-5d", "eortc qlq"])
     conditions["has_pk_endpoints"] = any(x in endpoint_str for x in ["pharmacokinetic", "pk", "auc", "cmax", "tmax"])
 
     # Therapy Type Conditions
@@ -479,10 +481,44 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     conditions["is_hematologic"] = any(x in tumor_type for x in ["lymphoma", "leukemia", "myeloma", "hematologic"])
     conditions["is_solid_tumor"] = not conditions["is_hematologic"] and tumor_type != ""
 
-    # Study Features
-    conditions["has_interim_analysis"] = protocol_extraction.get("interim_analysis") is not None
+    # Study Features - Interim Analysis Detection (Improved)
+    # Check if interim_analysis field exists AND has content (not None/empty)
+    interim_field = protocol_extraction.get("interim_analysis")
+    has_explicit_interim = interim_field is not None and interim_field != {} and interim_field != []
+
+    # Check for interim-related keywords in endpoint/design text (NOT the whole extraction
+    # to avoid matching the field name "interim_analysis")
+    design_str = json.dumps(study_design, default=str).lower() if study_design else ""
+    endpoint_full_str = json.dumps(endpoints, default=str).lower() if endpoints else ""
+    search_str = design_str + " " + endpoint_full_str
+
+    has_interim_keywords = any(x in search_str for x in [
+        "interim", "idmc", "dmc", "data monitoring", "futility",
+        "efficacy boundary", "o'brien", "fleming", "alpha spending",
+        "lan-demets", "group sequential", "stopping rule"
+    ])
+
+    # Phase 3 randomized TTE studies typically have interim analyses
+    phase = protocol_extraction.get("phase", {})
+    phase_value = (phase.get("value") or "").lower() if isinstance(phase, dict) else str(phase).lower()
+    is_phase_3 = "3" in phase_value or "iii" in phase_value
+
+    # Infer interim for randomized Phase 3 with PFS/OS primary endpoint
+    infer_interim = (
+        is_phase_3 and
+        conditions.get("is_randomized") and
+        (conditions.get("has_pfs_endpoint") or conditions.get("has_os_endpoint"))
+    )
+
+    conditions["has_interim_analysis"] = has_explicit_interim or has_interim_keywords or infer_interim
+
+    # Other study features
     conditions["has_ecg_monitoring"] = True  # Assume yes for most oncology trials
     conditions["has_missing_data_concerns"] = True  # Always include sensitivity analyses
+
+    # Phase detection for logging
+    conditions["is_phase_2"] = "2" in phase_value or "ii" in phase_value
+    conditions["is_phase_3"] = is_phase_3
 
     return conditions
 
@@ -620,8 +656,9 @@ def get_section_summary(protocol_extraction: Dict) -> Dict:
 # =============================================================================
 
 if __name__ == "__main__":
-    # Example: ZUMA-5 like protocol
+    # Example: ZUMA-5 like protocol (Phase 2, single-arm, CAR-T, lymphoma)
     zuma5_extraction = {
+        "phase": {"value": "Phase 2"},
         "study_design": {"design_type": {"value": "single_arm"}},
         "treatment_arms": [{"name": "Axicabtagene ciloleucel"}],
         "investigational_product": {
@@ -669,3 +706,96 @@ if __name__ == "__main__":
     print("=" * 70)
     for tool in sorted(tools):
         print(f"  - {tool}")
+
+    # =========================================================================
+    # Example 2: Randomized Phase 3 NSCLC (like KEYNOTE-024)
+    # =========================================================================
+    print("\n\n" + "=" * 70)
+    print("RANDOMIZED PHASE 3 NSCLC - DYNAMIC SAP STRUCTURE")
+    print("=" * 70)
+
+    phase3_nsclc = {
+        "phase": {"value": "Phase 3"},
+        "study_design": {"design_type": {"value": "randomized"}},
+        "treatment_arms": [
+            {"name": "Pembrolizumab"},
+            {"name": "Platinum-based chemotherapy"}
+        ],
+        "stratification_factors": [
+            {"name": "ECOG PS (0 vs 1)"},
+            {"name": "Region (East Asia vs non-East Asia)"}
+        ],
+        "investigational_product": {
+            "product_type": {"value": "PD-1 inhibitor"},
+            "name": {"value": "Pembrolizumab"}
+        },
+        "disease_classification": {
+            "tumor_type": {"value": "Non-Small Cell Lung Cancer"}
+        },
+        "endpoints": {
+            "primary": [{"name": "Progression-Free Survival (PFS)"}],
+            "secondary": [
+                {"name": "Overall Survival (OS)"},
+                {"name": "Overall Response Rate (ORR)"},
+                {"name": "Duration of Response (DOR)"}
+            ],
+            "exploratory": [{"name": "PD-L1 biomarker analysis"}]
+        },
+        "interim_analysis": {"planned": True}  # Explicit interim
+    }
+
+    summary2 = get_section_summary(phase3_nsclc)
+    print(f"\nMain Sections: {summary2['main_sections']}")
+    print(f"Special Sections: {', '.join(summary2['special_sections'])}")
+    print(f"\nKey Conditions:")
+    for k in ["is_randomized", "is_phase_3", "has_interim_analysis", "has_stratification", "has_biomarker_endpoints"]:
+        if summary2['conditions_detected'].get(k):
+            print(f"  - {k}: True")
+
+    # =========================================================================
+    # Example 3: Single-arm Phase 2 Solid Tumor with PRO
+    # =========================================================================
+    print("\n\n" + "=" * 70)
+    print("SINGLE-ARM PHASE 2 WITH PRO - DYNAMIC SAP STRUCTURE")
+    print("=" * 70)
+
+    phase2_pro = {
+        "phase": {"value": "Phase 2"},
+        "study_design": {"design_type": {"value": "single_arm"}},
+        "treatment_arms": [{"name": "Drug X"}],
+        "investigational_product": {
+            "product_type": {"value": "Small molecule"},
+            "name": {"value": "Drug X"}
+        },
+        "disease_classification": {
+            "tumor_type": {"value": "Breast Cancer"}
+        },
+        "endpoints": {
+            "primary": [{"name": "Overall Response Rate (ORR)"}],
+            "secondary": [
+                {"name": "Duration of Response (DOR)"},
+                {"name": "EORTC QLQ-C30 Quality of Life"},
+                {"name": "Patient-reported pain scores"}
+            ]
+        }
+    }
+
+    summary3 = get_section_summary(phase2_pro)
+    print(f"\nMain Sections: {summary3['main_sections']}")
+    print(f"Special Sections: {', '.join(summary3['special_sections'])}")
+    print(f"\nKey Conditions:")
+    for k in ["is_single_arm", "is_phase_2", "has_pro_endpoints", "has_interim_analysis"]:
+        val = summary3['conditions_detected'].get(k, False)
+        print(f"  - {k}: {val}")
+
+    # =========================================================================
+    # Summary Table
+    # =========================================================================
+    print("\n\n" + "=" * 70)
+    print("SUMMARY: SECTION COUNTS BY STUDY TYPE")
+    print("=" * 70)
+    print(f"{'Study Type':<40} {'Main':<8} {'Special Sections'}")
+    print("-" * 70)
+    print(f"{'ZUMA-5 (CAR-T, Lymphoma, Single-arm)':<40} {summary['main_sections']:<8} {len(summary['special_sections'])} special")
+    print(f"{'KEYNOTE-like (Phase 3, Randomized, IO)':<40} {summary2['main_sections']:<8} {len(summary2['special_sections'])} special")
+    print(f"{'Phase 2 with PRO (Single-arm)':<40} {summary3['main_sections']:<8} {len(summary3['special_sections'])} special")
