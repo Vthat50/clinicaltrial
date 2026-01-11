@@ -1699,7 +1699,7 @@ class KnowledgeBaseTools:
         Returns:
             Standard study definitions with variants for different trial types
         """
-        from comprehensive_sap_elements import STUDY_DEFINITIONS
+        from .comprehensive_sap_elements import STUDY_DEFINITIONS
         self._log_retrieval("get_study_definitions", definition_type, "comprehensive_sap_elements.py")
 
         if definition_type == "all":
@@ -1734,7 +1734,7 @@ class KnowledgeBaseTools:
         Returns:
             Exposure analysis specifications with formulas and statistics
         """
-        from comprehensive_sap_elements import EXPOSURE_ANALYSIS
+        from .comprehensive_sap_elements import EXPOSURE_ANALYSIS
         self._log_retrieval("get_exposure_specifications", exposure_type, "comprehensive_sap_elements.py")
 
         if exposure_type == "all":
@@ -1766,7 +1766,7 @@ class KnowledgeBaseTools:
         Returns:
             CAR-T manufacturing metrics with statistics and definitions
         """
-        from comprehensive_sap_elements import CART_MANUFACTURING_METRICS
+        from .comprehensive_sap_elements import CART_MANUFACTURING_METRICS
         self._log_retrieval("get_cart_manufacturing_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -1785,7 +1785,7 @@ class KnowledgeBaseTools:
         Returns:
             Subsequent therapy tracking specifications
         """
-        from comprehensive_sap_elements import SUBSEQUENT_THERAPY
+        from .comprehensive_sap_elements import SUBSEQUENT_THERAPY
         self._log_retrieval("get_subsequent_therapy_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -1804,7 +1804,7 @@ class KnowledgeBaseTools:
         Returns:
             Enrollment summary specifications
         """
-        from comprehensive_sap_elements import ENROLLMENT_SUMMARIES
+        from .comprehensive_sap_elements import ENROLLMENT_SUMMARIES
         self._log_retrieval("get_enrollment_specifications", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -1823,7 +1823,7 @@ class KnowledgeBaseTools:
         Returns:
             AE period analysis specifications with time windows
         """
-        from comprehensive_sap_elements import AE_PERIOD_ANALYSIS
+        from .comprehensive_sap_elements import AE_PERIOD_ANALYSIS
         self._log_retrieval("get_ae_period_specifications", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -1845,7 +1845,7 @@ class KnowledgeBaseTools:
         Returns:
             Sensitivity analysis catalog with methods and descriptions
         """
-        from comprehensive_sap_elements import SENSITIVITY_ANALYSES
+        from .comprehensive_sap_elements import SENSITIVITY_ANALYSES
         self._log_retrieval("get_sensitivity_analysis_catalog", analysis_type, "comprehensive_sap_elements.py")
 
         if analysis_type == "all":
@@ -1879,7 +1879,7 @@ class KnowledgeBaseTools:
         Returns:
             Multiplicity adjustment specifications with procedures
         """
-        from comprehensive_sap_elements import MULTIPLICITY_ADJUSTMENTS
+        from .comprehensive_sap_elements import MULTIPLICITY_ADJUSTMENTS
         self._log_retrieval("get_multiplicity_methods", method_type, "comprehensive_sap_elements.py")
 
         if method_type == "all":
@@ -1908,7 +1908,7 @@ class KnowledgeBaseTools:
         Returns:
             Interim analysis specifications
         """
-        from comprehensive_sap_elements import INTERIM_ANALYSIS
+        from .comprehensive_sap_elements import INTERIM_ANALYSIS
         self._log_retrieval("get_interim_analysis_specs", spec_type, "comprehensive_sap_elements.py")
 
         if spec_type == "all":
@@ -1941,7 +1941,7 @@ class KnowledgeBaseTools:
         Returns:
             QoL/PRO analysis specifications with instruments and methods
         """
-        from comprehensive_sap_elements import QOL_PRO_ANALYSIS
+        from .comprehensive_sap_elements import QOL_PRO_ANALYSIS
         self._log_retrieval("get_qol_analysis_specs", instrument, "comprehensive_sap_elements.py")
 
         if instrument == "all":
@@ -1972,7 +1972,7 @@ class KnowledgeBaseTools:
         Returns:
             Estimand framework specifications per ICH E9(R1)
         """
-        from comprehensive_sap_elements import ESTIMAND_FRAMEWORK
+        from .comprehensive_sap_elements import ESTIMAND_FRAMEWORK
         self._log_retrieval("get_estimand_specifications", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -1991,7 +1991,7 @@ class KnowledgeBaseTools:
         Returns:
             COVID-19 protocol variation specifications
         """
-        from comprehensive_sap_elements import COVID19_VARIATIONS
+        from .comprehensive_sap_elements import COVID19_VARIATIONS
         self._log_retrieval("get_covid19_variations", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2010,7 +2010,7 @@ class KnowledgeBaseTools:
         Returns:
             Subgroup analysis specifications
         """
-        from comprehensive_sap_elements import SUBGROUP_ANALYSIS_SPECS
+        from .comprehensive_sap_elements import SUBGROUP_ANALYSIS_SPECS
         self._log_retrieval("get_subgroup_specifications", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2028,7 +2028,7 @@ class KnowledgeBaseTools:
         Returns:
             Protocol deviation specifications
         """
-        from comprehensive_sap_elements import PROTOCOL_DEVIATIONS
+        from .comprehensive_sap_elements import PROTOCOL_DEVIATIONS
         self._log_retrieval("get_protocol_deviation_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2048,7 +2048,7 @@ class KnowledgeBaseTools:
         Returns:
             Healthcare utilization analysis specifications
         """
-        from comprehensive_sap_elements import HEALTHCARE_UTILIZATION
+        from .comprehensive_sap_elements import HEALTHCARE_UTILIZATION
         self._log_retrieval("get_healthcare_utilization_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2067,7 +2067,7 @@ class KnowledgeBaseTools:
         Returns:
             Phase 2 design specifications with parameters
         """
-        from comprehensive_sap_elements import PHASE2_DESIGNS
+        from .comprehensive_sap_elements import PHASE2_DESIGNS
         self._log_retrieval("get_phase2_design_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2086,7 +2086,7 @@ class KnowledgeBaseTools:
         Returns:
             Blinding specifications
         """
-        from comprehensive_sap_elements import BLINDING_CONSIDERATIONS
+        from .comprehensive_sap_elements import BLINDING_CONSIDERATIONS
         self._log_retrieval("get_blinding_specifications", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2108,7 +2108,7 @@ class KnowledgeBaseTools:
         Returns:
             PK/PD analysis specifications
         """
-        from comprehensive_sap_elements import PK_PD_ANALYSIS
+        from .comprehensive_sap_elements import PK_PD_ANALYSIS
         self._log_retrieval("get_pkpd_analysis_specs", spec_type, "comprehensive_sap_elements.py")
 
         if spec_type == "all":
@@ -2138,7 +2138,7 @@ class KnowledgeBaseTools:
         Returns:
             MRD assessment specifications for hematologic malignancies
         """
-        from comprehensive_sap_elements import MRD_ASSESSMENT
+        from .comprehensive_sap_elements import MRD_ASSESSMENT
         self._log_retrieval("get_mrd_assessment_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2158,7 +2158,7 @@ class KnowledgeBaseTools:
         Returns:
             Demographics and baseline specs for SAP section
         """
-        from comprehensive_sap_elements import (
+        from .comprehensive_sap_elements import (
             DEMOGRAPHICS_BASELINE,
             BASELINE_COVARIATES_CORE,
             BASELINE_COVARIATES_SOLID_TUMOR,
@@ -2207,7 +2207,7 @@ class KnowledgeBaseTools:
         Returns:
             Core baseline covariates + disease-specific covariates with source_trials
         """
-        from comprehensive_sap_elements import (
+        from .comprehensive_sap_elements import (
             BASELINE_COVARIATES_CORE,
             get_disease_specific_baseline_covariates,
             get_all_baseline_covariates
@@ -2243,7 +2243,7 @@ class KnowledgeBaseTools:
         Returns:
             Prior therapy analysis specifications
         """
-        from comprehensive_sap_elements import PRIOR_THERAPY_ANALYSIS
+        from .comprehensive_sap_elements import PRIOR_THERAPY_ANALYSIS
         self._log_retrieval("get_prior_therapy_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2262,7 +2262,7 @@ class KnowledgeBaseTools:
         Returns:
             Concomitant medication analysis specifications
         """
-        from comprehensive_sap_elements import CONCOMITANT_MEDICATIONS
+        from .comprehensive_sap_elements import CONCOMITANT_MEDICATIONS
         self._log_retrieval("get_concomitant_medication_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2280,7 +2280,7 @@ class KnowledgeBaseTools:
         Returns:
             Medical history analysis specifications
         """
-        from comprehensive_sap_elements import MEDICAL_HISTORY
+        from .comprehensive_sap_elements import MEDICAL_HISTORY
         self._log_retrieval("get_medical_history_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2299,7 +2299,7 @@ class KnowledgeBaseTools:
         Returns:
             Death and survival analysis specifications
         """
-        from comprehensive_sap_elements import DEATH_ANALYSIS
+        from .comprehensive_sap_elements import DEATH_ANALYSIS
         self._log_retrieval("get_death_analysis_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2318,7 +2318,7 @@ class KnowledgeBaseTools:
         Returns:
             Tumor response assessment specifications
         """
-        from comprehensive_sap_elements import TUMOR_RESPONSE_ASSESSMENT
+        from .comprehensive_sap_elements import TUMOR_RESPONSE_ASSESSMENT
         self._log_retrieval("get_tumor_response_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2337,7 +2337,7 @@ class KnowledgeBaseTools:
         Returns:
             Treatment compliance specifications
         """
-        from comprehensive_sap_elements import TREATMENT_COMPLIANCE
+        from .comprehensive_sap_elements import TREATMENT_COMPLIANCE
         self._log_retrieval("get_treatment_compliance_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2356,7 +2356,7 @@ class KnowledgeBaseTools:
         Returns:
             Concordance analysis specifications
         """
-        from comprehensive_sap_elements import CONCORDANCE_ANALYSIS
+        from .comprehensive_sap_elements import CONCORDANCE_ANALYSIS
         self._log_retrieval("get_concordance_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2375,7 +2375,7 @@ class KnowledgeBaseTools:
         Returns:
             Immunogenicity analysis specifications
         """
-        from comprehensive_sap_elements import IMMUNOGENICITY_ANALYSIS
+        from .comprehensive_sap_elements import IMMUNOGENICITY_ANALYSIS
         self._log_retrieval("get_immunogenicity_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2394,7 +2394,7 @@ class KnowledgeBaseTools:
         Returns:
             Organ function specifications
         """
-        from comprehensive_sap_elements import ORGAN_FUNCTION_SPECS
+        from .comprehensive_sap_elements import ORGAN_FUNCTION_SPECS
         self._log_retrieval("get_organ_function_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2412,7 +2412,7 @@ class KnowledgeBaseTools:
         Returns:
             Analysis timing specifications
         """
-        from comprehensive_sap_elements import ANALYSIS_TIMING
+        from .comprehensive_sap_elements import ANALYSIS_TIMING
         self._log_retrieval("get_analysis_timing_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2435,7 +2435,7 @@ class KnowledgeBaseTools:
         Returns:
             Follow-up analysis specifications with timepoints, analyses, and reporting format
         """
-        from comprehensive_sap_elements import FOLLOW_UP_ANALYSIS_SPECS
+        from .comprehensive_sap_elements import FOLLOW_UP_ANALYSIS_SPECS
         self._log_retrieval("get_follow_up_analysis_specs", timepoint, "comprehensive_sap_elements.py")
 
         if timepoint.lower() == "all":
@@ -2462,7 +2462,7 @@ class KnowledgeBaseTools:
         Returns:
             Stratification balance specifications
         """
-        from comprehensive_sap_elements import STRATIFICATION_BALANCE
+        from .comprehensive_sap_elements import STRATIFICATION_BALANCE
         self._log_retrieval("get_stratification_balance_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
@@ -2484,7 +2484,7 @@ class KnowledgeBaseTools:
         Returns:
             Complete dictionary of all applicable SAP specifications
         """
-        from comprehensive_sap_elements import get_comprehensive_sap_elements as get_elements
+        from .comprehensive_sap_elements import get_comprehensive_sap_elements as get_elements
         self._log_retrieval("get_comprehensive_sap_elements", study_type, "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
