@@ -386,6 +386,114 @@ class KnowledgeBaseTools:
             self.SAFETY_SPECIFICATIONS = SAFETY_SPECIFICATIONS
             self.DATA_HANDLING = DATA_HANDLING
 
+        # Load disease-specific response criteria (Lugano, IMWG, irRECIST, etc.)
+        try:
+            from .disease_specific_criteria import (
+                RANO_CRITERIA,
+                LUGANO_CRITERIA,
+                PCWG3_CRITERIA,
+                irRECIST_CRITERIA,
+                iRECIST_CRITERIA,
+                IMWG_CRITERIA,
+                GCIG_CA125_CRITERIA,
+                RANO_BM_CRITERIA
+            )
+            self.DISEASE_CRITERIA = {
+                "RANO": RANO_CRITERIA,
+                "Lugano": LUGANO_CRITERIA,
+                "PCWG3": PCWG3_CRITERIA,
+                "irRECIST": irRECIST_CRITERIA,
+                "iRECIST": iRECIST_CRITERIA,
+                "IMWG": IMWG_CRITERIA,
+                "GCIG_CA125": GCIG_CA125_CRITERIA,
+                "RANO_BM": RANO_BM_CRITERIA
+            }
+        except ImportError:
+            from disease_specific_criteria import (
+                RANO_CRITERIA,
+                LUGANO_CRITERIA,
+                PCWG3_CRITERIA,
+                irRECIST_CRITERIA,
+                iRECIST_CRITERIA,
+                IMWG_CRITERIA,
+                GCIG_CA125_CRITERIA,
+                RANO_BM_CRITERIA
+            )
+            self.DISEASE_CRITERIA = {
+                "RANO": RANO_CRITERIA,
+                "Lugano": LUGANO_CRITERIA,
+                "PCWG3": PCWG3_CRITERIA,
+                "irRECIST": irRECIST_CRITERIA,
+                "iRECIST": iRECIST_CRITERIA,
+                "IMWG": IMWG_CRITERIA,
+                "GCIG_CA125": GCIG_CA125_CRITERIA,
+                "RANO_BM": RANO_BM_CRITERIA
+            }
+
+        # Load oncology reference data (CAR-T, study type templates, biomarkers)
+        try:
+            from .oncology_reference_data import (
+                CAR_T_MODULE,
+                BISPECIFIC_ANTIBODY_MODULE,
+                ADC_MODULE,
+                ADJUVANT_TRIAL_TEMPLATE,
+                NEOADJUVANT_TRIAL_TEMPLATE,
+                BASKET_TRIAL_TEMPLATE,
+                UMBRELLA_TRIAL_TEMPLATE,
+                BIOMARKER_ENDPOINTS,
+                PERFORMANCE_STATUS_SCALES,
+                PROGNOSTIC_SCORES,
+                EFFICACY_TFL_TEMPLATES,
+                SAFETY_TFL_TEMPLATES
+            )
+            self.CAR_T_MODULE = CAR_T_MODULE
+            self.BISPECIFIC_MODULE = BISPECIFIC_ANTIBODY_MODULE
+            self.ADC_MODULE = ADC_MODULE
+            self.STUDY_TYPE_TEMPLATES = {
+                "adjuvant": ADJUVANT_TRIAL_TEMPLATE,
+                "neoadjuvant": NEOADJUVANT_TRIAL_TEMPLATE,
+                "basket": BASKET_TRIAL_TEMPLATE,
+                "umbrella": UMBRELLA_TRIAL_TEMPLATE
+            }
+            self.BIOMARKER_ENDPOINTS = BIOMARKER_ENDPOINTS
+            self.PERFORMANCE_STATUS_SCALES = PERFORMANCE_STATUS_SCALES
+            self.PROGNOSTIC_SCORES = PROGNOSTIC_SCORES
+            self.ONCOLOGY_TFL_TEMPLATES = {
+                "efficacy": EFFICACY_TFL_TEMPLATES,
+                "safety": SAFETY_TFL_TEMPLATES
+            }
+        except ImportError:
+            from oncology_reference_data import (
+                CAR_T_MODULE,
+                BISPECIFIC_ANTIBODY_MODULE,
+                ADC_MODULE,
+                ADJUVANT_TRIAL_TEMPLATE,
+                NEOADJUVANT_TRIAL_TEMPLATE,
+                BASKET_TRIAL_TEMPLATE,
+                UMBRELLA_TRIAL_TEMPLATE,
+                BIOMARKER_ENDPOINTS,
+                PERFORMANCE_STATUS_SCALES,
+                PROGNOSTIC_SCORES,
+                EFFICACY_TFL_TEMPLATES,
+                SAFETY_TFL_TEMPLATES
+            )
+            self.CAR_T_MODULE = CAR_T_MODULE
+            self.BISPECIFIC_MODULE = BISPECIFIC_ANTIBODY_MODULE
+            self.ADC_MODULE = ADC_MODULE
+            self.STUDY_TYPE_TEMPLATES = {
+                "adjuvant": ADJUVANT_TRIAL_TEMPLATE,
+                "neoadjuvant": NEOADJUVANT_TRIAL_TEMPLATE,
+                "basket": BASKET_TRIAL_TEMPLATE,
+                "umbrella": UMBRELLA_TRIAL_TEMPLATE
+            }
+            self.BIOMARKER_ENDPOINTS = BIOMARKER_ENDPOINTS
+            self.PERFORMANCE_STATUS_SCALES = PERFORMANCE_STATUS_SCALES
+            self.PROGNOSTIC_SCORES = PROGNOSTIC_SCORES
+            self.ONCOLOGY_TFL_TEMPLATES = {
+                "efficacy": EFFICACY_TFL_TEMPLATES,
+                "safety": SAFETY_TFL_TEMPLATES
+            }
+
     def _log_retrieval(self, tool_name: str, key: str, source: str):
         """Log each retrieval for audit trail."""
         self.retrieval_log.append({
@@ -743,6 +851,208 @@ class KnowledgeBaseTools:
         )
 
     # =========================================================================
+    # DISEASE-SPECIFIC RESPONSE CRITERIA TOOLS
+    # =========================================================================
+
+    def get_response_criteria(self, criteria_name: str) -> KBRetrievalResult:
+        """
+        Get disease-specific response criteria.
+
+        Args:
+            criteria_name: One of:
+                - "RECIST" (solid tumors - already in production_sap_specifications)
+                - "Lugano" (Hodgkin and Non-Hodgkin Lymphoma)
+                - "IMWG" (Multiple Myeloma)
+                - "irRECIST" (Immunotherapy - modified RECIST)
+                - "iRECIST" (Immunotherapy - RECIST Working Group official)
+                - "RANO" (Brain tumors / High-grade glioma)
+                - "RANO_BM" (Brain metastases)
+                - "PCWG3" (Prostate cancer)
+                - "GCIG_CA125" (Ovarian cancer CA-125 response)
+
+        Returns:
+            Complete response criteria with categories, measurement rules, timepoints
+        """
+        # Handle RECIST from production specs
+        if criteria_name.upper() == "RECIST":
+            self._log_retrieval("get_response_criteria", criteria_name, "production_sap_specifications.py")
+            return KBRetrievalResult(
+                content=self.RECIST_SPECIFICATIONS,
+                source_file="production_sap_specifications.py",
+                source_key="RECIST_SPECIFICATIONS"
+            )
+
+        # Handle disease-specific criteria
+        criteria = self.DISEASE_CRITERIA.get(criteria_name)
+        if criteria:
+            self._log_retrieval("get_response_criteria", criteria_name, "disease_specific_criteria.py")
+            return KBRetrievalResult(
+                content=criteria,
+                source_file="disease_specific_criteria.py",
+                source_key=f"{criteria_name}_CRITERIA"
+            )
+
+        # Return available options if not found
+        available = list(self.DISEASE_CRITERIA.keys()) + ["RECIST"]
+        return KBRetrievalResult(
+            content={"error": f"Unknown criteria: {criteria_name}", "available": available},
+            source_file="disease_specific_criteria.py",
+            source_key="error"
+        )
+
+    def get_all_response_criteria(self) -> KBRetrievalResult:
+        """Get list of all available response criteria with brief descriptions."""
+        criteria_list = [
+            {"name": "RECIST", "indication": "Solid tumors", "source": "production_sap_specifications.py"},
+            {"name": "Lugano", "indication": "Hodgkin and Non-Hodgkin Lymphoma", "source": "disease_specific_criteria.py"},
+            {"name": "IMWG", "indication": "Multiple Myeloma", "source": "disease_specific_criteria.py"},
+            {"name": "irRECIST", "indication": "Immunotherapy (modified RECIST)", "source": "disease_specific_criteria.py"},
+            {"name": "iRECIST", "indication": "Immunotherapy (RECIST WG official)", "source": "disease_specific_criteria.py"},
+            {"name": "RANO", "indication": "Brain tumors / High-grade glioma", "source": "disease_specific_criteria.py"},
+            {"name": "RANO_BM", "indication": "Brain metastases", "source": "disease_specific_criteria.py"},
+            {"name": "PCWG3", "indication": "Prostate cancer", "source": "disease_specific_criteria.py"},
+            {"name": "GCIG_CA125", "indication": "Ovarian cancer (CA-125)", "source": "disease_specific_criteria.py"}
+        ]
+        self._log_retrieval("get_all_response_criteria", "all", "disease_specific_criteria.py")
+        return KBRetrievalResult(
+            content=criteria_list,
+            source_file="disease_specific_criteria.py",
+            source_key="ALL_CRITERIA"
+        )
+
+    # =========================================================================
+    # CAR-T / CELL THERAPY TOOLS
+    # =========================================================================
+
+    def get_cart_specifications(self) -> KBRetrievalResult:
+        """
+        Get CAR-T cell therapy specifications including:
+        - CRS grading (ASTCT 2019 Consensus, grades 1-4)
+        - ICANS grading (ICE score for >=12 years, CAPD for <12 years)
+        - Cellular kinetics endpoints (Cmax, persistence, B-cell aplasia)
+        - Safety monitoring requirements
+        - Step-up dosing considerations
+
+        Use for any CAR-T, TCR-T, or adoptive cell therapy trial.
+        """
+        self._log_retrieval("get_cart_specifications", "CAR_T_MODULE", "oncology_reference_data.py")
+        return KBRetrievalResult(
+            content=self.CAR_T_MODULE,
+            source_file="oncology_reference_data.py",
+            source_key="CAR_T_MODULE"
+        )
+
+    def get_bispecific_specifications(self) -> KBRetrievalResult:
+        """
+        Get bispecific antibody specifications including:
+        - CRS monitoring (similar to CAR-T but generally lower risk)
+        - Step-up dosing requirements
+        - Common endpoints (ORR by IRC, DOR, PFS)
+        """
+        self._log_retrieval("get_bispecific_specifications", "BISPECIFIC_MODULE", "oncology_reference_data.py")
+        return KBRetrievalResult(
+            content=self.BISPECIFIC_MODULE,
+            source_file="oncology_reference_data.py",
+            source_key="BISPECIFIC_ANTIBODY_MODULE"
+        )
+
+    def get_adc_specifications(self) -> KBRetrievalResult:
+        """
+        Get ADC (Antibody-Drug Conjugate) specifications including:
+        - Ocular toxicity monitoring
+        - Neuropathy assessments
+        - Common efficacy endpoints
+        """
+        self._log_retrieval("get_adc_specifications", "ADC_MODULE", "oncology_reference_data.py")
+        return KBRetrievalResult(
+            content=self.ADC_MODULE,
+            source_file="oncology_reference_data.py",
+            source_key="ADC_MODULE"
+        )
+
+    # =========================================================================
+    # STUDY TYPE TEMPLATE TOOLS
+    # =========================================================================
+
+    def get_study_type_template(self, study_type: str) -> KBRetrievalResult:
+        """
+        Get study type-specific template.
+
+        Args:
+            study_type: One of:
+                - "adjuvant" (post-surgical, DFS/RFS endpoints)
+                - "neoadjuvant" (pre-surgical, pCR endpoints)
+                - "basket" (multiple tumor types, single biomarker)
+                - "umbrella" (single tumor type, multiple biomarkers)
+
+        Returns:
+            Template with appropriate endpoints, populations, and analysis methods
+        """
+        template = self.STUDY_TYPE_TEMPLATES.get(study_type.lower())
+        if template:
+            self._log_retrieval("get_study_type_template", study_type, "oncology_reference_data.py")
+            return KBRetrievalResult(
+                content=template,
+                source_file="oncology_reference_data.py",
+                source_key=f"{study_type.upper()}_TRIAL_TEMPLATE"
+            )
+
+        available = list(self.STUDY_TYPE_TEMPLATES.keys())
+        return KBRetrievalResult(
+            content={"error": f"Unknown study type: {study_type}", "available": available},
+            source_file="oncology_reference_data.py",
+            source_key="error"
+        )
+
+    # =========================================================================
+    # BIOMARKER AND PROGNOSTIC TOOLS
+    # =========================================================================
+
+    def get_biomarker_endpoints(self) -> KBRetrievalResult:
+        """
+        Get biomarker endpoint specifications including:
+        - PD-L1 expression cutoffs and assays
+        - TMB (tumor mutational burden) thresholds
+        - MSI/dMMR definitions
+        - ctDNA endpoints
+        """
+        self._log_retrieval("get_biomarker_endpoints", "BIOMARKER_ENDPOINTS", "oncology_reference_data.py")
+        return KBRetrievalResult(
+            content=self.BIOMARKER_ENDPOINTS,
+            source_file="oncology_reference_data.py",
+            source_key="BIOMARKER_ENDPOINTS"
+        )
+
+    def get_performance_status_scales(self) -> KBRetrievalResult:
+        """
+        Get performance status scales including:
+        - ECOG (0-5)
+        - Karnofsky (0-100)
+        - Lansky (pediatric)
+        """
+        self._log_retrieval("get_performance_status_scales", "PERFORMANCE_STATUS_SCALES", "oncology_reference_data.py")
+        return KBRetrievalResult(
+            content=self.PERFORMANCE_STATUS_SCALES,
+            source_file="oncology_reference_data.py",
+            source_key="PERFORMANCE_STATUS_SCALES"
+        )
+
+    def get_prognostic_scores(self) -> KBRetrievalResult:
+        """
+        Get prognostic scoring systems including:
+        - IPI (International Prognostic Index) for NHL
+        - ISS/R-ISS for myeloma
+        - IMDC for RCC
+        - FLIPI for follicular lymphoma
+        """
+        self._log_retrieval("get_prognostic_scores", "PROGNOSTIC_SCORES", "oncology_reference_data.py")
+        return KBRetrievalResult(
+            content=self.PROGNOSTIC_SCORES,
+            source_file="oncology_reference_data.py",
+            source_key="PROGNOSTIC_SCORES"
+        )
+
+    # =========================================================================
     # UTILITY METHODS
     # =========================================================================
 
@@ -753,18 +1063,21 @@ class KnowledgeBaseTools:
     def list_available_tools(self) -> List[Dict]:
         """List all available tools with descriptions."""
         return [
+            # Statistical Methods
             {"name": "get_statistical_method", "description": "Get statistical method specification (Cox, KM, log-rank, etc.)"},
             {"name": "get_missing_data_method", "description": "Get missing data handling specification (MI, MMRM, etc.)"},
             {"name": "get_sensitivity_analysis", "description": "Get sensitivity analyses for endpoint type"},
             {"name": "get_stratification_specs", "description": "Get stratification specifications"},
             {"name": "get_multiplicity_adjustment", "description": "Get multiplicity adjustment method"},
             {"name": "get_subgroup_analysis_specs", "description": "Get subgroup analysis specifications"},
+            # TFL Templates
             {"name": "get_table_template", "description": "Get specific table shell by ID"},
             {"name": "get_disposition_tables", "description": "Get all disposition tables (CONSORT, demographics)"},
             {"name": "get_efficacy_tables", "description": "Get all efficacy tables (PFS, OS, ORR)"},
             {"name": "get_safety_tables", "description": "Get all safety tables (AE, labs)"},
             {"name": "get_figure_template", "description": "Get specific figure template by ID"},
             {"name": "get_all_figures", "description": "Get all figure templates"},
+            # Specifications
             {"name": "get_adam_dataset_spec", "description": "Get ADaM dataset specification"},
             {"name": "get_data_handling_rules", "description": "Get data handling conventions"},
             {"name": "get_programming_specifications", "description": "Get programming specifications"},
@@ -772,7 +1085,21 @@ class KnowledgeBaseTools:
             {"name": "get_recist_specifications", "description": "Get RECIST 1.1 specifications"},
             {"name": "get_safety_specifications", "description": "Get safety analysis specifications"},
             {"name": "get_study_design_specs", "description": "Get study design specifications"},
+            # Trial Precedent
             {"name": "get_similar_trials", "description": "Find similar trials from 354-trial KG for precedent (censoring, multiplicity, methods)"},
+            # Disease-Specific Response Criteria (NEW)
+            {"name": "get_response_criteria", "description": "Get disease-specific response criteria (Lugano, IMWG, irRECIST, iRECIST, RANO, PCWG3, GCIG)"},
+            {"name": "get_all_response_criteria", "description": "List all available response criteria systems"},
+            # CAR-T / Cell Therapy (NEW)
+            {"name": "get_cart_specifications", "description": "Get CAR-T specs (CRS grading, ICANS, cellular kinetics)"},
+            {"name": "get_bispecific_specifications", "description": "Get bispecific antibody specs (CRS, step-up dosing)"},
+            {"name": "get_adc_specifications", "description": "Get ADC specs (ocular toxicity, neuropathy)"},
+            # Study Type Templates (NEW)
+            {"name": "get_study_type_template", "description": "Get study type template (adjuvant, neoadjuvant, basket, umbrella)"},
+            # Biomarkers and Prognostic (NEW)
+            {"name": "get_biomarker_endpoints", "description": "Get biomarker endpoints (PD-L1, TMB, MSI, ctDNA)"},
+            {"name": "get_performance_status_scales", "description": "Get performance status scales (ECOG, Karnofsky, Lansky)"},
+            {"name": "get_prognostic_scores", "description": "Get prognostic scores (IPI, ISS, IMDC, FLIPI)"},
         ]
 
 
@@ -1008,6 +1335,111 @@ def get_claude_tool_definitions() -> List[Dict]:
                 },
                 "required": []
             }
+        },
+        # =====================================================================
+        # DISEASE-SPECIFIC RESPONSE CRITERIA (NEW)
+        # =====================================================================
+        {
+            "name": "get_response_criteria",
+            "description": "Get disease-specific response criteria. Use this for non-RECIST tumor types like lymphoma (Lugano), myeloma (IMWG), prostate (PCWG3), brain tumors (RANO), immunotherapy (irRECIST/iRECIST), or ovarian (GCIG CA-125).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "criteria_name": {
+                        "type": "string",
+                        "description": "The response criteria system",
+                        "enum": ["RECIST", "Lugano", "IMWG", "irRECIST", "iRECIST", "RANO", "RANO_BM", "PCWG3", "GCIG_CA125"]
+                    }
+                },
+                "required": ["criteria_name"]
+            }
+        },
+        {
+            "name": "get_all_response_criteria",
+            "description": "List all available response criteria systems with their indications. Use this to see what options are available.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        # =====================================================================
+        # CAR-T / CELL THERAPY (NEW)
+        # =====================================================================
+        {
+            "name": "get_cart_specifications",
+            "description": "Get CAR-T cell therapy specifications including ASTCT CRS grading (grades 1-4), ICANS grading (ICE score), cellular kinetics endpoints (Cmax, persistence, B-cell aplasia), and safety monitoring. Use for any CAR-T, TCR-T, or adoptive cell therapy trial.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_bispecific_specifications",
+            "description": "Get bispecific antibody specifications including CRS monitoring, step-up dosing, and common endpoints. Use for bispecific T-cell engagers (BiTEs) like blinatumomab.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_adc_specifications",
+            "description": "Get ADC (Antibody-Drug Conjugate) specifications including ocular toxicity monitoring, neuropathy assessments, and common efficacy endpoints.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        # =====================================================================
+        # STUDY TYPE TEMPLATES (NEW)
+        # =====================================================================
+        {
+            "name": "get_study_type_template",
+            "description": "Get study type-specific template with appropriate endpoints, populations, and methods. Use this for adjuvant (DFS/RFS), neoadjuvant (pCR), basket, or umbrella trials.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "study_type": {
+                        "type": "string",
+                        "description": "The study type",
+                        "enum": ["adjuvant", "neoadjuvant", "basket", "umbrella"]
+                    }
+                },
+                "required": ["study_type"]
+            }
+        },
+        # =====================================================================
+        # BIOMARKER AND PROGNOSTIC (NEW)
+        # =====================================================================
+        {
+            "name": "get_biomarker_endpoints",
+            "description": "Get biomarker endpoint specifications including PD-L1 expression cutoffs, TMB thresholds, MSI/dMMR definitions, and ctDNA endpoints.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_performance_status_scales",
+            "description": "Get performance status scales including ECOG (0-5), Karnofsky (0-100), and Lansky (pediatric).",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_prognostic_scores",
+            "description": "Get prognostic scoring systems including IPI (NHL), ISS/R-ISS (myeloma), IMDC (RCC), and FLIPI (follicular lymphoma).",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
         }
     ]
 
@@ -1025,28 +1457,45 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         KBRetrievalResult with content and provenance
     """
     tool_map = {
+        # Statistical Methods
         "get_statistical_method": lambda: kb.get_statistical_method(tool_input.get("method_name", "")),
         "get_missing_data_method": lambda: kb.get_missing_data_method(tool_input.get("method_name", "")),
         "get_sensitivity_analysis": lambda: kb.get_sensitivity_analysis(tool_input.get("endpoint_type", "")),
+        "get_multiplicity_adjustment": lambda: kb.get_multiplicity_adjustment(tool_input.get("method_name", "")),
+        "get_stratification_specs": lambda: kb.get_stratification_specs(),
+        "get_subgroup_analysis_specs": lambda: kb.get_subgroup_analysis_specs(),
+        # TFL Templates
         "get_table_template": lambda: kb.get_table_template(tool_input.get("table_id", "")),
         "get_disposition_tables": lambda: kb.get_disposition_tables(),
         "get_efficacy_tables": lambda: kb.get_efficacy_tables(),
         "get_safety_tables": lambda: kb.get_safety_tables(),
         "get_all_figures": lambda: kb.get_all_figures(),
+        # Specifications
         "get_estimand_framework": lambda: kb.get_estimand_framework(),
         "get_adam_dataset_spec": lambda: kb.get_adam_dataset_spec(tool_input.get("dataset_name", "")),
         "get_recist_specifications": lambda: kb.get_recist_specifications(),
         "get_safety_specifications": lambda: kb.get_safety_specifications(),
-        "get_multiplicity_adjustment": lambda: kb.get_multiplicity_adjustment(tool_input.get("method_name", "")),
-        "get_stratification_specs": lambda: kb.get_stratification_specs(),
-        "get_subgroup_analysis_specs": lambda: kb.get_subgroup_analysis_specs(),
         "get_data_handling_rules": lambda: kb.get_data_handling_rules(),
+        # Trial Precedent
         "get_similar_trials": lambda: kb.get_similar_trials(
             phase=tool_input.get("phase"),
             indication=tool_input.get("indication"),
             endpoint_type=tool_input.get("endpoint_type"),
             design_type=tool_input.get("design_type")
         ),
+        # Disease-Specific Response Criteria (NEW)
+        "get_response_criteria": lambda: kb.get_response_criteria(tool_input.get("criteria_name", "")),
+        "get_all_response_criteria": lambda: kb.get_all_response_criteria(),
+        # CAR-T / Cell Therapy (NEW)
+        "get_cart_specifications": lambda: kb.get_cart_specifications(),
+        "get_bispecific_specifications": lambda: kb.get_bispecific_specifications(),
+        "get_adc_specifications": lambda: kb.get_adc_specifications(),
+        # Study Type Templates (NEW)
+        "get_study_type_template": lambda: kb.get_study_type_template(tool_input.get("study_type", "")),
+        # Biomarker and Prognostic (NEW)
+        "get_biomarker_endpoints": lambda: kb.get_biomarker_endpoints(),
+        "get_performance_status_scales": lambda: kb.get_performance_status_scales(),
+        "get_prognostic_scores": lambda: kb.get_prognostic_scores(),
     }
 
     if tool_name in tool_map:

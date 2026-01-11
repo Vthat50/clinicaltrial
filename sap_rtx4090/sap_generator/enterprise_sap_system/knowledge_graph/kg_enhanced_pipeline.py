@@ -786,50 +786,72 @@ DO NOT add any content not present in the extraction.
 - Secondary: Use exact names/definitions from secondary_endpoints[]
 - Include response_criteria and assessment_schedule from extraction
 
-### 5. POPULATIONS
-- Use exact definitions from populations section
-- ITT, mITT, PP, Safety as extracted
+### 5. POPULATIONS (DYNAMIC LIST)
+- The populations[] array contains ALL analysis populations with EXACT names from the protocol
+- Use the name field as-is (e.g., "Full Analysis Set (FAS)", "Safety Re-treatment Set")
+- Use the definition field for the population definition text
+- is_primary_efficacy and is_primary_safety indicate which population is primary for each analysis type
+- DO NOT assume standard ITT/mITT/PP names - use EXACTLY what's in the extraction
 
-### 6. BASELINE VARIABLES
+### 6. HYPOTHESES (INDIVIDUAL ALPHAS)
+- The hypotheses[] array contains each hypothesis with its OWN alpha_allocated
+- Use the id (H1, H2, H3, H4) and individual alpha values
+- Use gate_condition to identify gating/gatekeeping dependencies
+- Use test_type (superiority/non_inferiority) for each hypothesis
+- If multiplicity is hierarchical, present the full testing sequence
+
+### 7. CENSORING RULES (PER-ENDPOINT SCENARIOS)
+- The censoring_rules[] array contains DETAILED scenarios for each time-to-event endpoint
+- Include ALL scenarios (no event, lost to follow-up, new therapy, etc.)
+- Use the event_flag (0=censored, 1=event) and date_used fields
+- Present as a table with columns: Situation, Event?, Date Used
+
+### 8. SUBGROUPS (PROTOCOL-SPECIFIED ONLY)
+- The subgroups[] array contains ONLY pre-specified subgroup factors from the protocol
+- Use the factor and categories exactly as extracted
+- is_stratification_factor indicates if also used for randomization stratification
+
+### 9. BASELINE VARIABLES
 - Include ONLY variables from baseline_variables[]
 - Use the exact variable_name and categories
 - Use performance_status.scale (ECOG vs ASA vs Karnofsky)
 
-### 7. STATISTICAL METHODS
+### 10. STATISTICAL METHODS
 - Use methods from statistical_methods section
 - Match to endpoint types from extraction
-- Include multiplicity adjustment if multiplicity.adjustment_required is true
+- Include multiplicity adjustment using hypotheses[] alpha allocations
 
-### 8. TREATMENT ARMS
+### 11. TREATMENT ARMS
 - Use exact arm names from treatment_arms[]
 - Include dose, schedule, route as extracted
 
-### 9. STRATIFICATION
+### 12. STRATIFICATION
 - Use exact factors from randomization.stratification_factors[]
 - Include categories as extracted
 
-### 10. INTERIM ANALYSIS
+### 13. INTERIM ANALYSIS
 - Include if interim_analysis.planned is true
 - Use stopping rules from extraction
 
-### 11. SAFETY ANALYSIS
+### 14. SAFETY ANALYSIS
 - Use ae_grading_scale from safety_endpoints
 - Include special monitoring from safety_endpoints.special_safety_monitoring
 
-### 12. SPECIAL CONSIDERATIONS
+### 15. SPECIAL CONSIDERATIONS (Study-Type Specific)
+- CAR-T (cart_specific): Include CRS grading scale/grades, ICANS grading, cellular kinetics parameters/timepoints, bridging therapy rules, re-treatment criteria and population
+- Immunotherapy (immunotherapy_specific): Include irAE monitoring, pseudoprogression handling
+- Hematologic (hematologic_specific): Include MRD assessment method/sensitivity/timepoints, cytogenetic risk categories
 - Phase 1: Include DLT definition, MTD criteria from phase1_design
-- Immunotherapy: Include irAE monitoring, PD-L1/TMB/MSI assessment
-- CAR-T: Include CRS/ICANS grading, cellular kinetics
-- Hematologic: Include MRD assessment, cytogenetic risk
 
-### 13. GEOGRAPHIC
+### 16. GEOGRAPHIC
 - Include only countries/regions from geographic section
 - Do NOT add Race/Ethnicity unless in baseline_variables
 
-### 14. TABLE SHELLS
+### 17. TABLE SHELLS
 - Use exact treatment arm names as column headers
 - Include only baseline variables from extraction
 - Match response criteria to study type
+- Include censoring rules table for time-to-event endpoints
 
 ---
 
@@ -1012,6 +1034,69 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         return "\n".join(rules) if rules else "No specific prohibitions identified."
 
+    def _build_tool_routing_instructions(self, full_extraction: Optional[Dict]) -> str:
+        """Build tool routing instructions based on discovered protocol structure."""
+        if not full_extraction:
+            return "Call get_similar_trials() first, then use standard tools."
+
+        instructions = []
+        discovered = full_extraction.get("discovered_structure", {})
+        flags = discovered.get("study_type_flags", {}) if discovered else {}
+        disease_setting = discovered.get("disease_setting", "") if discovered else ""
+        response_criteria = discovered.get("response_criteria", "") if discovered else ""
+
+        # 1. Response criteria routing
+        if response_criteria:
+            if response_criteria in ["Lugano", "IMWG", "PCWG3", "RANO", "RANO_BM", "GCIG", "irRECIST", "iRECIST", "ELN"]:
+                instructions.append(f"CALL get_response_criteria('{response_criteria}') for tumor response definitions")
+            elif response_criteria == "RECIST":
+                instructions.append("CALL get_recist_specifications() for RECIST 1.1 response definitions")
+        else:
+            # Infer from flags
+            if flags.get("is_hematologic"):
+                instructions.append("CALL get_response_criteria('Lugano') or get_response_criteria('IMWG') based on disease type")
+            if flags.get("is_immunotherapy"):
+                instructions.append("CALL get_response_criteria('irRECIST') or get_response_criteria('iRECIST')")
+            if flags.get("is_prostate"):
+                instructions.append("CALL get_response_criteria('PCWG3') for PSA and bone scan criteria")
+            if flags.get("is_brain_tumor"):
+                instructions.append("CALL get_response_criteria('RANO') for brain tumor assessment")
+
+        # 2. Therapy type routing
+        if flags.get("is_cart"):
+            instructions.append("CALL get_cart_specifications() for CRS grading (ASTCT), ICANS grading, cellular kinetics")
+        if flags.get("is_bispecific"):
+            instructions.append("CALL get_bispecific_specifications() for CRS monitoring and step-up dosing")
+        if flags.get("is_adc"):
+            instructions.append("CALL get_adc_specifications() for ocular toxicity and neuropathy monitoring")
+
+        # 3. Study type routing
+        if disease_setting == "adjuvant":
+            instructions.append("CALL get_study_type_template('adjuvant') for DFS/RFS endpoints and NO tumor response tables")
+        elif disease_setting == "neoadjuvant":
+            instructions.append("CALL get_study_type_template('neoadjuvant') for pCR endpoints")
+        if flags.get("is_basket"):
+            instructions.append("CALL get_study_type_template('basket') for tumor-agnostic analysis approach")
+        if flags.get("is_umbrella"):
+            instructions.append("CALL get_study_type_template('umbrella') for biomarker-defined cohorts")
+
+        # 4. Standard tools always needed
+        instructions.append("CALL get_statistical_method() for Cox, Kaplan-Meier, log-rank formulas")
+        instructions.append("CALL get_multiplicity_adjustment() if multiple hypotheses")
+        instructions.append("CALL get_similar_trials() to find precedent for censoring rules and methods")
+        instructions.append("CALL get_disposition_tables(), get_efficacy_tables(), get_safety_tables() for TFL shells")
+
+        # 5. Prognostic scores if applicable
+        if flags.get("is_hematologic"):
+            instructions.append("CALL get_prognostic_scores() for IPI/ISS/FLIPI if applicable")
+
+        # 6. Biomarker endpoints if needed
+        biomarkers = discovered.get("biomarker_requirements", []) if discovered else []
+        if biomarkers:
+            instructions.append("CALL get_biomarker_endpoints() for PD-L1/TMB/MSI assessment methods")
+
+        return "\n".join(instructions) if instructions else "Use standard tools based on endpoint types."
+
     def _format_power_calc(self, power_calc: PowerCalculation) -> str:
         """Format power calculation results."""
         lines = [f"Calculation Method: {power_calc.calculation_method}"]
@@ -1120,35 +1205,42 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         # Build context-specific prohibition rules
         prohibition_rules = self._build_prohibition_rules(full_extraction)
 
+        # Build tool routing based on discovered structure
+        tool_routing = self._build_tool_routing_instructions(full_extraction)
+
         # Initial prompt
         system_prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
-You have access to TWO types of knowledge:
-1. METHODOLOGY KB: Standard statistical methods, table templates, and regulatory specifications
-2. TRIAL PRECEDENT KB: 354 real trial SAPs showing what approaches were accepted in similar studies
+You have access to COMPREHENSIVE knowledge base tools:
+1. METHODOLOGY KB: Statistical methods, table templates, regulatory specifications
+2. RESPONSE CRITERIA KB: RECIST, Lugano, IMWG, irRECIST, iRECIST, RANO, PCWG3, GCIG
+3. THERAPY-SPECIFIC KB: CAR-T (CRS/ICANS), bispecific antibodies, ADCs
+4. STUDY TYPE KB: Adjuvant, neoadjuvant, basket, umbrella templates
+5. TRIAL PRECEDENT KB: 354 real trial SAPs for precedent
 
-When you need a standard specification (like Cox model formula, table template, missing data method),
-USE THE TOOLS PROVIDED to retrieve it. Do not make up formulas or templates.
+## TOOL ROUTING FOR THIS PROTOCOL:
+{tool_routing}
 
-IMPORTANT: For censoring rules, multiplicity adjustments, and interim analysis designs, FIRST call
-get_similar_trials() to see how similar trials handled these - then adapt to your protocol.
+When you need a standard specification, USE THE TOOLS PROVIDED. Do not make up formulas or templates.
 
 ## PROHIBITED CONTENT (Protocol-Specific):
 {prohibition_rules}
 
 ## CRITICAL ANTI-HALLUCINATION RULES:
 1. RACE/ETHNICITY: Include ONLY if explicitly in baseline_variables[]. Nordic/European studies do NOT collect these.
-2. PERFORMANCE STATUS: Use EXACTLY the scale from extraction (ASA Score for surgical, ECOG for oncology).
-3. GEOGRAPHIC SUBGROUPS: Use ONLY countries from extraction. Nordic = Sweden/Norway/Denmark/Finland ONLY.
-4. RESPONSE TABLES (CR/PR/SD/PD): Include ONLY for metastatic/advanced. ADJUVANT = NO tumor response tables.
-5. AE GRADING: Use EXACTLY what's in extraction (CTCAE vs Mild/Moderate/Severe).
+2. PERFORMANCE STATUS: Use EXACTLY the scale from extraction (ECOG/Karnofsky/Lansky).
+3. GEOGRAPHIC SUBGROUPS: Use ONLY countries from extraction.
+4. RESPONSE TABLES: Match to disease_setting:
+   - ADJUVANT: NO tumor response tables (CR/PR/SD/PD)
+   - METASTATIC: Use appropriate criteria (RECIST/Lugano/IMWG/etc.)
+5. AE GRADING: Use EXACTLY what's in extraction. For CAR-T: include CRS/ICANS grading.
 6. DOSE MODIFICATION: Include ONLY if dose_modifications has rules. Fixed-dose = NO modification rows.
 7. TREATMENT ARMS: Use EXACT arm names from extraction as column headers.
 
 IMPORTANT RULES:
 1. Protocol facts (from extraction) are STUDY-SPECIFIC - use them for this study
 2. Knowledge base (from tools) provides STANDARD TEMPLATES - adapt to protocol specifics
-3. ALWAYS call tools for: statistical method formulas, table shells, missing data handling, sensitivity analyses
+3. ALWAYS call tools for: statistical methods, table shells, response criteria, therapy-specific specs
 4. Mark the source of each element: [PROTOCOL] or [KB: source_file]
 
 Generate a production-quality SAP with full provenance tracking."""
@@ -1684,13 +1776,394 @@ class EnhancedKGPipeline:
         }
 
     def _extract_entities(self, content: str, doc_id: str) -> List[Dict]:
-        """Extract comprehensive protocol elements for SAP generation."""
+        """
+        Extract comprehensive protocol elements using TWO-STAGE DYNAMIC EXTRACTION.
 
-        prompt = f"""You are extracting ALL information needed to generate a Statistical Analysis Plan (SAP) from this clinical trial protocol.
+        Stage 1: DISCOVERY - Identify what structure the protocol has
+        Stage 2: EXTRACTION - Extract values based on discovered structure
 
-Extract ONLY what is EXPLICITLY stated in this protocol. Do NOT assume or add generic content.
+        This 2-call approach is more accurate because:
+        - Stage 1 focuses purely on understanding structure (lower cognitive load)
+        - Stage 2 has explicit targets to extract
+        - Research shows 29-97% accuracy improvement over single-pass
+        """
 
-Return a JSON object with the following structure. For each field, include "value" and "source_quote" (exact text from protocol). If not found, use null.
+        # =====================================================================
+        # STAGE 1: STRUCTURE DISCOVERY
+        # =====================================================================
+        discovery_prompt = f"""You are analyzing a clinical trial protocol to DISCOVER its structure.
+
+Your ONLY task is to identify WHAT exists in this protocol - NOT to extract all details yet.
+
+## DISCOVERY CHECKLIST:
+
+### A. ANALYSIS POPULATIONS
+List the EXACT names of ALL analysis populations defined in the protocol.
+- Do NOT assume standard names - extract EXACTLY what the protocol says
+- Examples: "Full Analysis Set (FAS)", "Inferential Analysis Set", "Safety Re-treatment Set"
+- Include any special populations (e.g., CAR-T re-treatment populations, PK populations)
+
+### B. HYPOTHESIS STRUCTURE
+- How many numbered hypotheses exist? (H1, H2, H3, H4, etc.)
+- What is the testing structure? (sequential/hierarchical/parallel/graphical)
+- Does each hypothesis have its own alpha allocation?
+- Is there gatekeeping between hypothesis families?
+
+### C. ENDPOINTS
+- List all PRIMARY endpoints
+- List all KEY SECONDARY endpoints
+- List other SECONDARY endpoints
+- For time-to-event endpoints, note if detailed censoring rules are specified
+
+### D. SUBGROUPS
+- What are the PRE-SPECIFIED subgroup factors from the protocol?
+- Only include factors explicitly listed in the protocol
+
+### E. DISEASE SETTING (Critical for correct analysis approach)
+Identify the disease setting:
+- ADJUVANT: Post-surgery, no measurable disease, endpoints like DFS, RFS, TTR
+- NEOADJUVANT: Pre-surgery, endpoints like pCR, MPR
+- METASTATIC/ADVANCED: Measurable disease, endpoints like ORR, PFS, OS
+- LOCALLY ADVANCED: Unresectable but not metastatic
+- MAINTENANCE: After initial response
+
+### F. TUMOR TYPE AND RESPONSE CRITERIA
+Identify which applies:
+- SOLID TUMORS: RECIST 1.1 (most common)
+- LYMPHOMA (NHL/HL): Lugano 2014 (PET-based, Deauville score)
+- MULTIPLE MYELOMA: IMWG (sCR, CR, VGPR, PR, MR, SD, PD)
+- LEUKEMIA (AML/ALL): ELN 2017/2022 (CR, CRi, CRh, MLFS, PR)
+- CLL/SLL: iwCLL criteria
+- PROSTATE CANCER: PCWG3 (PSA response, bone scan, soft tissue RECIST)
+- BRAIN TUMORS: RANO (bi-dimensional, T2/FLAIR)
+- BRAIN METASTASES: RANO-BM
+- OVARIAN CANCER: GCIG CA-125 criteria
+- IMMUNOTHERAPY: irRECIST or iRECIST (pseudoprogression handling)
+
+### G. THERAPY TYPE (Critical for safety sections)
+Identify which applies:
+- CAR-T/CELL THERAPY: CRS grading, ICANS, cellular kinetics, bridging, re-treatment
+- BISPECIFIC ANTIBODY: CRS (usually lower grade), step-up dosing
+- ADC (Antibody-Drug Conjugate): Ocular toxicity, neuropathy monitoring
+- CHECKPOINT INHIBITOR: irAEs, colitis, pneumonitis, hepatitis monitoring
+- TARGETED THERAPY: Specific toxicities based on target (EGFR->rash, VEGF->HTN)
+- CHEMOTHERAPY: Standard CTCAE grading
+- HORMONAL THERAPY: Endocrine-related AEs
+
+### H. SPECIAL STUDY DESIGNS
+- BASKET: Multiple tumor types, single biomarker
+- UMBRELLA: Single tumor type, multiple biomarkers
+- PLATFORM: Multiple arms, adaptive
+- SEAMLESS Phase 2/3: Dose selection + confirmatory
+
+### I. OTHER CRITICAL ELEMENTS
+- Stratification factors for randomization
+- Interim analysis structure (how many, what triggers)
+- IRC/Central review requirements
+- MRD assessment (for hematologic)
+- Biomarker requirements (PD-L1, TMB, MSI, HER2, etc.)
+
+Return a JSON object with ONLY discovered structure:
+
+{{
+  "populations": [
+    {{"name": "exact name from protocol", "is_efficacy": true/false, "is_safety": true/false}}
+  ],
+  "hypotheses": [
+    {{"id": "H1", "endpoint": "", "alpha": null, "gate_from": null}}
+  ],
+  "hypothesis_testing_structure": "sequential|hierarchical|parallel|graphical|single",
+  "has_gatekeeping": true/false,
+  "primary_endpoints": [
+    {{"name": "", "type": "binary|time_to_event|continuous"}}
+  ],
+  "key_secondary_endpoints": [
+    {{"name": "", "type": ""}}
+  ],
+  "other_secondary_endpoints": [
+    {{"name": "", "type": ""}}
+  ],
+  "censoring_rules_detailed": true/false,
+  "censoring_endpoints": [],
+  "subgroups": [
+    {{"factor": "", "categories": []}}
+  ],
+  "stratification_factors": [
+    {{"factor": "", "categories": []}}
+  ],
+  "disease_setting": "adjuvant|neoadjuvant|metastatic|locally_advanced|maintenance",
+  "tumor_type": "",
+  "response_criteria": "RECIST|Lugano|IMWG|ELN|PCWG3|RANO|RANO_BM|GCIG|irRECIST|iRECIST|other",
+  "study_type_flags": {{
+    "is_cart": false,
+    "is_bispecific": false,
+    "is_adc": false,
+    "is_immunotherapy": false,
+    "is_targeted_therapy": false,
+    "is_hematologic": false,
+    "is_prostate": false,
+    "is_brain_tumor": false,
+    "is_ovarian": false,
+    "is_phase1": false,
+    "has_retreatment": false,
+    "is_basket": false,
+    "is_umbrella": false,
+    "is_platform": false
+  }},
+  "special_sections_needed": [],
+  "biomarker_requirements": [],
+  "has_irc": false,
+  "has_mrd_assessment": false,
+  "has_interim_analysis": false,
+  "interim_count": 0
+}}
+
+PROTOCOL DOCUMENT:
+{content}
+
+Return ONLY the discovery JSON, no other text."""
+
+        try:
+            # Stage 1: Discovery call
+            print("  📋 Stage 1: Discovering protocol structure...")
+            with self.client.messages.stream(
+                model=self.model,
+                max_tokens=4096,
+                messages=[{"role": "user", "content": discovery_prompt}]
+            ) as stream:
+                discovery_response = stream.get_final_message()
+
+            discovery_text = discovery_response.content[0].text.strip()
+
+            # Clean up response
+            if discovery_text.startswith("```json"):
+                discovery_text = discovery_text[7:]
+            if discovery_text.startswith("```"):
+                discovery_text = discovery_text[3:]
+            if discovery_text.endswith("```"):
+                discovery_text = discovery_text[:-3]
+
+            discovered_structure = json.loads(discovery_text)
+
+            print(f"    ✓ Found {len(discovered_structure.get('populations', []))} populations")
+            print(f"    ✓ Found {len(discovered_structure.get('hypotheses', []))} hypotheses")
+            print(f"    ✓ Found {len(discovered_structure.get('primary_endpoints', []))} primary endpoints")
+            print(f"    ✓ Study type: CAR-T={discovered_structure.get('study_type_flags', {}).get('is_cart', False)}")
+
+        except Exception as e:
+            print(f"  ⚠️ Discovery stage failed: {e}, falling back to single-pass")
+            discovered_structure = None
+
+        # =====================================================================
+        # STAGE 2: VALUE EXTRACTION (using discovered structure)
+        # =====================================================================
+
+        # Build extraction prompt based on discovered structure
+        extraction_prompt = self._build_extraction_prompt(content, discovered_structure)
+
+        print("  📝 Stage 2: Extracting values based on discovered structure...")
+
+        try:
+            with self.client.messages.stream(
+                model=self.model,
+                max_tokens=16384,
+                messages=[{"role": "user", "content": extraction_prompt}]
+            ) as stream:
+                response = stream.get_final_message()
+
+            response_text = response.content[0].text.strip()
+
+            # Clean up response
+            if response_text.startswith("```json"):
+                response_text = response_text[7:]
+            if response_text.startswith("```"):
+                response_text = response_text[3:]
+            if response_text.endswith("```"):
+                response_text = response_text[:-3]
+
+            extracted_obj = json.loads(response_text)
+
+            # Merge discovered structure into extraction
+            if discovered_structure:
+                extracted_obj["discovered_structure"] = discovered_structure
+
+            # Add doc_id to the extraction
+            extracted_obj["source_doc"] = doc_id
+
+            # Convert to list format for backward compatibility with verification
+            # while preserving the full structured extraction
+            extracted_list = self._convert_extraction_to_list(extracted_obj)
+
+            # Store full extraction for SAP generation
+            self._last_full_extraction = extracted_obj
+
+            return extracted_list
+
+        except Exception as e:
+            print(f"❌ Extraction error: {e}")
+            import traceback
+            traceback.print_exc()
+            return []
+
+    def _build_extraction_prompt(self, content: str, discovered_structure: Optional[Dict]) -> str:
+        """Build extraction prompt based on discovered structure."""
+
+        # Build dynamic population instructions
+        if discovered_structure and discovered_structure.get("populations"):
+            pop_names = [p.get("name", "") for p in discovered_structure["populations"]]
+            pop_instruction = f"""
+POPULATIONS TO EXTRACT (from discovery):
+{chr(10).join(f"- {name}" for name in pop_names)}
+Extract the FULL DEFINITION for each of these populations."""
+        else:
+            pop_instruction = """
+POPULATIONS: Extract ALL populations mentioned, using their EXACT names from the protocol."""
+
+        # Build dynamic hypothesis instructions
+        if discovered_structure and discovered_structure.get("hypotheses"):
+            hyp_count = len(discovered_structure["hypotheses"])
+            hyp_structure = discovered_structure.get("hypothesis_testing_structure", "unknown")
+            hyp_instruction = f"""
+HYPOTHESES TO EXTRACT:
+- This protocol has {hyp_count} hypothesis/hypotheses
+- Testing structure: {hyp_structure}
+- Extract the INDIVIDUAL ALPHA ALLOCATION for each hypothesis
+- If gatekeeping, note which hypothesis gates which"""
+        else:
+            hyp_instruction = """
+HYPOTHESES: Extract all numbered hypotheses with their individual alpha allocations."""
+
+        # Build study-type-specific instructions
+        special_instructions = ""
+        if discovered_structure:
+            flags = discovered_structure.get("study_type_flags", {})
+            disease_setting = discovered_structure.get("disease_setting", "")
+            response_criteria = discovered_structure.get("response_criteria", "")
+
+            # Disease setting specific
+            if disease_setting == "adjuvant":
+                special_instructions += """
+ADJUVANT STUDY SECTIONS:
+- NO tumor response tables (CR/PR/SD/PD) - patients have no measurable disease
+- Time-to-event endpoints: DFS, RFS, TTR, DRFS
+- Event definitions for recurrence (local, regional, distant, second primary)
+- Surgery details and margin status if relevant"""
+            elif disease_setting == "neoadjuvant":
+                special_instructions += """
+NEOADJUVANT STUDY SECTIONS:
+- Pathologic response endpoints: pCR, MPR definitions
+- Surgery timing and type
+- Residual cancer burden if applicable
+- Pre- and post-surgery assessments"""
+
+            # Therapy type specific
+            if flags.get("is_cart"):
+                special_instructions += """
+CAR-T/CELL THERAPY SECTIONS TO EXTRACT:
+- CRS grading scale (ASTCT/Lee) and grade definitions (1-4)
+- ICANS grading (ICE score for >=12y, CAPD for <12y)
+- Cellular kinetics: Cmax, Tmax, AUC, persistence, B-cell aplasia duration
+- Bridging therapy: allowed yes/no, types, washout
+- Lymphodepletion regimen
+- Re-treatment criteria and population definition
+- Manufacturing failure handling"""
+            if flags.get("is_bispecific"):
+                special_instructions += """
+BISPECIFIC ANTIBODY SECTIONS TO EXTRACT:
+- CRS grading and management
+- Step-up dosing schedule
+- Cytokine monitoring (IL-6, ferritin, CRP)
+- Neurological toxicity monitoring"""
+            if flags.get("is_adc"):
+                special_instructions += """
+ADC SECTIONS TO EXTRACT:
+- Ocular toxicity monitoring (keratopathy, dry eye)
+- Peripheral neuropathy assessment scale
+- Payload-specific toxicities
+- Dose modification for toxicity"""
+            if flags.get("is_immunotherapy"):
+                special_instructions += """
+IMMUNOTHERAPY SECTIONS TO EXTRACT:
+- Response criteria: irRECIST or iRECIST
+- Pseudoprogression handling: confirmation timing, continue treatment rules
+- irAE monitoring: colitis, pneumonitis, hepatitis, endocrinopathies, nephritis
+- irAE grading and management algorithms
+- Corticosteroid use for irAEs"""
+            if flags.get("is_hematologic"):
+                special_instructions += """
+HEMATOLOGIC MALIGNANCY SECTIONS TO EXTRACT:
+- Response criteria: Lugano/IMWG/ELN/iwCLL/Cheson
+- MRD assessment: method (flow cytometry/NGS/PCR), sensitivity (10^-4/10^-5/10^-6), timepoints
+- Cytogenetic/molecular risk categories
+- Bone marrow assessment schedule
+- Extramedullary disease assessment"""
+            if flags.get("is_prostate"):
+                special_instructions += """
+PROSTATE CANCER SECTIONS TO EXTRACT:
+- PSA response definition (>=50% decline, confirmation)
+- PSA progression definition (>=25% and >=2 ng/mL, confirmation)
+- Bone scan assessment: timing, flare phenomenon handling
+- Soft tissue assessment: RECIST 1.1
+- rPFS definition (radiographic progression-free survival)
+- Skeletal-related events definition"""
+            if flags.get("is_brain_tumor"):
+                special_instructions += """
+BRAIN TUMOR SECTIONS TO EXTRACT:
+- RANO criteria: bi-dimensional measurement
+- T2/FLAIR assessment
+- Corticosteroid requirements for response
+- Pseudoprogression/pseudoresponse handling
+- Clinical/neurological status requirements"""
+            if flags.get("is_ovarian"):
+                special_instructions += """
+OVARIAN CANCER SECTIONS TO EXTRACT:
+- CA-125 response criteria (GCIG): >=50% reduction, confirmation
+- CA-125 progression criteria
+- RECIST assessment for measurable disease
+- BRCA/HRD status if applicable"""
+
+            # Special study designs
+            if flags.get("is_basket"):
+                special_instructions += """
+BASKET TRIAL SECTIONS TO EXTRACT:
+- Tumor-agnostic biomarker requirement
+- Cohort definitions by tumor type
+- Pooled vs cohort-specific analyses
+- Borrowing strength across cohorts"""
+            if flags.get("is_umbrella"):
+                special_instructions += """
+UMBRELLA TRIAL SECTIONS TO EXTRACT:
+- Biomarker-defined cohorts
+- Molecular screening process
+- Treatment assignment algorithm
+- Master protocol structure"""
+
+        # Build censoring instructions
+        if discovered_structure and discovered_structure.get("censoring_rules_detailed"):
+            censor_instruction = """
+CENSORING RULES: The protocol has DETAILED censoring rules. Extract ALL scenarios:
+- For each time-to-event endpoint
+- Each censoring scenario (no event, lost to follow-up, new therapy, etc.)
+- Whether it's event=1 or censored=0
+- What date is used"""
+        else:
+            censor_instruction = """
+CENSORING RULES: Extract any censoring rules mentioned for time-to-event endpoints."""
+
+        prompt = f"""You are extracting ALL values needed to generate a Statistical Analysis Plan (SAP).
+
+## CONTEXT FROM DISCOVERY STAGE
+{pop_instruction}
+
+{hyp_instruction}
+
+{special_instructions}
+
+{censor_instruction}
+
+## EXTRACTION SCHEMA
+
+Return a JSON object with these sections. For EVERY field, include source_quote with verbatim text.
 
 {{
   "trial_identification": {{
@@ -1706,13 +2179,8 @@ Return a JSON object with the following structure. For each field, include "valu
     "disease_stage": {{"value": "", "source_quote": ""}},
     "disease_setting": {{"value": "[adjuvant/neoadjuvant/metastatic/locally_advanced/maintenance]", "source_quote": ""}},
     "histology_subtypes": {{"value": [], "source_quote": ""}},
-    "prior_lines_allowed": {{"value": "", "source_quote": ""}}
-  }},
-
-  "molecular_markers": {{
-    "required_biomarkers": [{{"name": "", "test_method": "", "cutoff": "", "source_quote": ""}}],
-    "stratification_biomarkers": [{{"name": "", "categories": [], "source_quote": ""}}],
-    "exploratory_biomarkers": [{{"name": "", "source_quote": ""}}]
+    "prior_lines_allowed": {{"value": "", "source_quote": ""}},
+    "indication_keywords": []
   }},
 
   "study_phase": {{
@@ -1736,27 +2204,9 @@ Return a JSON object with the following structure. For each field, include "valu
       "dose": "",
       "schedule": "",
       "route": "",
-      "duration": "",
       "source_quote": ""
     }}
   ],
-
-  "dose_modifications": {{
-    "dose_reduction_rules": [{{"trigger": "", "action": "", "source_quote": ""}}],
-    "dose_escalation_rules": [{{"criteria": "", "action": "", "source_quote": ""}}],
-    "discontinuation_rules": [{{"criteria": "", "source_quote": ""}}]
-  }},
-
-  "phase1_design": {{
-    "is_phase1": false,
-    "escalation_design": {{"value": "[3+3/CRM/BOIN/mTPI/other]", "source_quote": ""}},
-    "dlt_definition": {{"value": "", "source_quote": ""}},
-    "dlt_window": {{"value": "", "source_quote": ""}},
-    "mtd_definition": {{"value": "", "source_quote": ""}},
-    "rp2d_definition": {{"value": "", "source_quote": ""}},
-    "starting_dose": {{"value": "", "source_quote": ""}},
-    "dose_levels": [{{"level": "", "dose": "", "source_quote": ""}}]
-  }},
 
   "enrollment": {{
     "target_enrollment": {{"value": "", "source_quote": ""}},
@@ -1765,15 +2215,28 @@ Return a JSON object with the following structure. For each field, include "valu
     "follow_up_duration": {{"value": "", "source_quote": ""}}
   }},
 
-  "populations": {{
-    "itt_definition": {{"value": "", "source_quote": ""}},
-    "mitt_definition": {{"value": "", "source_quote": ""}},
-    "pp_definition": {{"value": "", "source_quote": ""}},
-    "safety_definition": {{"value": "", "source_quote": ""}},
-    "evaluable_definition": {{"value": "", "source_quote": ""}},
-    "pk_population": {{"value": "", "source_quote": ""}},
-    "biomarker_populations": [{{"name": "", "definition": "", "source_quote": ""}}]
-  }},
+  "populations": [
+    {{
+      "name": "",
+      "definition": "",
+      "is_primary_efficacy": false,
+      "is_primary_safety": false,
+      "source_quote": ""
+    }}
+  ],
+
+  "hypotheses": [
+    {{
+      "id": "H1",
+      "endpoint": "",
+      "population": "",
+      "comparison": "",
+      "alpha_allocated": null,
+      "gate_condition": null,
+      "test_type": "[superiority/non_inferiority/equivalence]",
+      "source_quote": ""
+    }}
+  ],
 
   "primary_endpoints": [
     {{
@@ -1799,82 +2262,25 @@ Return a JSON object with the following structure. For each field, include "valu
     }}
   ],
 
-  "exploratory_endpoints": [
+  "censoring_rules": [
     {{
-      "name": "",
-      "definition": "",
+      "endpoint": "",
+      "scenario": "",
+      "event_flag": "[0/1]",
+      "date_used": "",
       "source_quote": ""
     }}
   ],
 
-  "safety_endpoints": {{
-    "ae_grading_scale": {{"value": "[CTCAE_v5/CTCAE_v4/other]", "version": "", "source_quote": ""}},
-    "dlt_as_endpoint": {{"value": false, "source_quote": ""}},
-    "safety_stopping_rules": [{{"criteria": "", "action": "", "source_quote": ""}}],
-    "special_safety_monitoring": [{{"type": "", "criteria": "", "source_quote": ""}}]
-  }},
-
-  "immunotherapy_specific": {{
-    "is_immunotherapy": false,
-    "response_criteria": {{"value": "[irRECIST/iRECIST]", "source_quote": ""}},
-    "pseudoprogression_handling": {{"value": "", "source_quote": ""}},
-    "irae_monitoring": [{{"type": "", "grading": "", "management": "", "source_quote": ""}}],
-    "pd_l1_assessment": {{"assay": "", "scoring": "[TPS/CPS/IC]", "cutoff": "", "source_quote": ""}},
-    "tmb_assessment": {{"platform": "", "cutoff": "", "source_quote": ""}},
-    "msi_assessment": {{"method": "", "source_quote": ""}}
-  }},
-
-  "cart_specific": {{
-    "is_cart": false,
-    "crs_grading": {{"scale": "[ASTCT/Lee/other]", "source_quote": ""}},
-    "icans_grading": {{"scale": "", "source_quote": ""}},
-    "cellular_kinetics": {{"parameters": [], "source_quote": ""}},
-    "bridging_therapy": {{"allowed": false, "source_quote": ""}},
-    "retreatment_allowed": {{"value": false, "source_quote": ""}}
-  }},
-
-  "hematologic_specific": {{
-    "is_hematologic": false,
-    "disease_type": {{"value": "[AML/ALL/CLL/CML/lymphoma/myeloma/MDS/other]", "source_quote": ""}},
-    "response_criteria": {{"value": "[Lugano/IMWG/ELN/IWG/Cheson/other]", "source_quote": ""}},
-    "mrd_assessment": {{
-      "required": false,
-      "method": "[flow_cytometry/NGS/PCR]",
-      "sensitivity": "",
-      "timepoints": [],
-      "source_quote": ""
-    }},
-    "cytogenetic_risk": {{"categories": [], "source_quote": ""}}
-  }},
-
-  "response_criteria_details": {{
-    "criteria_name": "",
-    "target_lesion_selection": {{"value": "", "source_quote": ""}},
-    "measurement_method": {{"value": "", "source_quote": ""}},
-    "confirmation_window": {{"value": "", "source_quote": ""}},
-    "new_lesion_handling": {{"value": "", "source_quote": ""}},
-    "non_target_assessment": {{"value": "", "source_quote": ""}}
-  }},
-
-  "disease_specific_biomarkers": [
+  "subgroups": [
     {{
-      "biomarker_name": "",
-      "disease_context": "",
-      "assessment_method": "",
-      "response_criteria": "",
-      "kinetics_definition": "",
+      "factor": "",
+      "categories": [],
+      "rationale": "",
+      "is_stratification_factor": false,
       "source_quote": ""
     }}
   ],
-
-  "ctdna_liquid_biopsy": {{
-    "collected": false,
-    "assay_platform": {{"value": "", "source_quote": ""}},
-    "detection_limit": {{"value": "", "source_quote": ""}},
-    "timepoints": {{"value": [], "source_quote": ""}},
-    "clearance_definition": {{"value": "", "source_quote": ""}},
-    "mrd_definition": {{"value": "", "source_quote": ""}}
-  }},
 
   "sample_size": {{
     "total_n": {{"value": "", "source_quote": ""}},
@@ -1893,8 +2299,7 @@ Return a JSON object with the following structure. For each field, include "valu
     "timing": [{{"interim": "", "trigger": "[enrollment/events/calendar]", "value": "", "source_quote": ""}}],
     "efficacy_stopping": {{"boundary": "", "method": "[OBF/Pocock/alpha_spending]", "source_quote": ""}},
     "futility_stopping": {{"boundary": "", "method": "", "source_quote": ""}},
-    "alpha_spending_function": {{"value": "", "source_quote": ""}},
-    "sample_size_reestimation": {{"planned": false, "method": "", "source_quote": ""}}
+    "alpha_spending_function": {{"value": "", "source_quote": ""}}
   }},
 
   "randomization": {{
@@ -1906,155 +2311,73 @@ Return a JSON object with the following structure. For each field, include "valu
         "categories": [],
         "source_quote": ""
       }}
-    ],
-    "ivrs_iwrs": {{"value": false, "source_quote": ""}}
-  }},
-
-  "subgroups": {{
-    "prespecified_subgroups": [
-      {{
-        "factor": "",
-        "categories": [],
-        "rationale": "",
-        "source_quote": ""
-      }}
-    ],
-    "biomarker_subgroups": [
-      {{
-        "biomarker": "",
-        "cutoff": "",
-        "source_quote": ""
-      }}
-    ],
-    "interaction_testing": {{"planned": false, "factors": [], "source_quote": ""}}
+    ]
   }},
 
   "statistical_methods": {{
     "primary_analysis_method": {{"value": "", "source_quote": ""}},
     "time_to_event_method": {{"value": "[kaplan_meier/log_rank/cox/rmst]", "source_quote": ""}},
     "binary_endpoint_method": {{"value": "", "source_quote": ""}},
-    "continuous_endpoint_method": {{"value": "", "source_quote": ""}},
     "confidence_interval_method": {{"value": "", "level": "", "source_quote": ""}},
     "stratified_analysis": {{"value": false, "factors": [], "source_quote": ""}}
   }},
 
-  "sensitivity_analyses": [
-    {{
-      "name": "",
-      "description": "",
-      "population": "",
-      "source_quote": ""
-    }}
-  ],
-
-  "missing_data": {{
-    "handling_method": {{"value": "[complete_case/LOCF/MI/MMRM/other]", "source_quote": ""}},
-    "sensitivity_analyses": [{{"method": "", "source_quote": ""}}]
-  }},
-
   "multiplicity": {{
     "adjustment_required": false,
-    "method": {{"value": "[hierarchical/bonferroni/hochberg/graphical/gatekeeping]", "source_quote": ""}},
-    "testing_hierarchy": [{{"rank": "", "endpoint": "", "source_quote": ""}}],
-    "alpha_allocation": {{"value": "", "source_quote": ""}}
+    "method": {{"value": "[hierarchical/bonferroni/hochberg/graphical/gatekeeping/fixed_sequence]", "source_quote": ""}},
+    "overall_alpha": {{"value": "", "source_quote": ""}},
+    "alpha_split_rationale": {{"value": "", "source_quote": ""}}
   }},
 
-  "estimand_framework": {{
-    "estimand_defined": false,
-    "treatment_effect": {{"value": "", "source_quote": ""}},
-    "intercurrent_events": [
-      {{
-        "event": "",
-        "strategy": "[treatment_policy/composite/hypothetical/principal_stratum/while_on_treatment]",
-        "source_quote": ""
-      }}
-    ]
+  "safety_endpoints": {{
+    "ae_grading_scale": {{"value": "[CTCAE_v5/CTCAE_v4/other]", "version": "", "source_quote": ""}},
+    "special_safety_monitoring": [{{"type": "", "criteria": "", "source_quote": ""}}],
+    "aesi_definitions": [{{"name": "", "definition": "", "smq_mst": "", "source_quote": ""}}]
   }},
 
-  "competing_risks": {{
-    "applicable": false,
-    "competing_events": [{{"event": "", "handling": "", "source_quote": ""}}],
-    "analysis_method": {{"value": "[CIF/Fine_Gray/other]", "source_quote": ""}}
+  "cart_specific": {{
+    "is_cart": false,
+    "crs_grading": {{
+      "scale": "[ASTCT/Lee/other]",
+      "grades": [{{"grade": "", "criteria": "", "source_quote": ""}}],
+      "source_quote": ""
+    }},
+    "icans_grading": {{
+      "scale": "",
+      "grades": [{{"grade": "", "criteria": "", "source_quote": ""}}],
+      "source_quote": ""
+    }},
+    "cellular_kinetics": {{"parameters": [], "timepoints": [], "source_quote": ""}},
+    "bridging_therapy": {{"allowed": false, "source_quote": ""}},
+    "retreatment": {{
+      "allowed": false,
+      "criteria": "",
+      "population_name": "",
+      "population_definition": "",
+      "source_quote": ""
+    }},
+    "manufacturing_failure_handling": {{"value": "", "source_quote": ""}}
   }},
 
-  "safety_analysis": {{
-    "population": {{"value": "", "source_quote": ""}},
-    "ae_coding": {{"dictionary": "[MedDRA]", "version": "", "source_quote": ""}},
-    "ae_tables": [{{"type": "", "source_quote": ""}}],
-    "lab_analysis": {{"shift_tables": false, "change_from_baseline": false, "source_quote": ""}},
-    "exposure_adjusted_analysis": {{"value": false, "source_quote": ""}}
+  "hematologic_specific": {{
+    "is_hematologic": false,
+    "disease_type": {{"value": "[AML/ALL/CLL/CML/NHL/HL/myeloma/MDS/other]", "source_quote": ""}},
+    "response_criteria": {{"value": "[Lugano/IMWG/ELN/IWG/Cheson/other]", "source_quote": ""}},
+    "mrd_assessment": {{
+      "required": false,
+      "method": "[flow_cytometry/NGS/PCR]",
+      "sensitivity": "",
+      "timepoints": [],
+      "source_quote": ""
+    }},
+    "cytogenetic_risk": {{"categories": [], "source_quote": ""}}
   }},
 
-  "pk_pd_analysis": {{
-    "pk_sampling": {{"collected": false, "timepoints": [], "source_quote": ""}},
-    "pk_parameters": [{{"parameter": "", "source_quote": ""}}],
-    "pk_population": {{"value": "", "source_quote": ""}},
-    "exposure_response": {{"planned": false, "source_quote": ""}}
-  }},
-
-  "pro_qol": {{
-    "instruments": [
-      {{
-        "name": "",
-        "domains": [],
-        "assessment_schedule": "",
-        "primary_timepoint": "",
-        "source_quote": ""
-      }}
-    ],
-    "mid_definition": {{"value": "", "source_quote": ""}},
-    "ttd_analysis": {{"planned": false, "threshold": "", "source_quote": ""}}
-  }},
-
-  "prior_therapy": {{
-    "lines_allowed": {{"value": "", "source_quote": ""}},
-    "required_prior": [{{"therapy": "", "source_quote": ""}}],
-    "excluded_prior": [{{"therapy": "", "source_quote": ""}}],
-    "washout_periods": [{{"therapy": "", "period": "", "source_quote": ""}}]
-  }},
-
-  "concomitant_medications": {{
-    "prohibited": [{{"medication": "", "reason": "", "source_quote": ""}}],
-    "allowed_with_restrictions": [{{"medication": "", "restriction": "", "source_quote": ""}}],
-    "required": [{{"medication": "", "source_quote": ""}}]
-  }},
-
-  "visit_schedule": {{
-    "screening_window": {{"value": "", "source_quote": ""}},
-    "treatment_visits": [{{"visit": "", "timing": "", "window": "", "source_quote": ""}}],
-    "imaging_schedule": {{"frequency": "", "modality": "", "source_quote": ""}},
-    "follow_up_schedule": {{"frequency": "", "duration": "", "source_quote": ""}}
-  }},
-
-  "comparative_hypothesis": {{
-    "type": {{"value": "[superiority/non_inferiority/equivalence]", "source_quote": ""}},
-    "margin": {{"value": "", "justification": "", "source_quote": ""}},
-    "one_or_two_sided": {{"value": "", "source_quote": ""}}
-  }},
-
-  "regulatory_pathway": {{
-    "accelerated_approval": {{"applicable": false, "surrogate_endpoint": "", "source_quote": ""}},
-    "breakthrough_designation": {{"value": false, "source_quote": ""}},
-    "orphan_designation": {{"value": false, "source_quote": ""}},
-    "rmat_designation": {{"value": false, "source_quote": ""}}
-  }},
-
-  "dsmb": {{
-    "required": false,
-    "charter_elements": [{{"element": "", "source_quote": ""}}],
-    "review_schedule": {{"value": "", "source_quote": ""}}
-  }},
-
-  "irc": {{
-    "required": false,
-    "for_endpoints": [{{"endpoint": "", "source_quote": ""}}],
-    "blinded": {{"value": false, "source_quote": ""}}
-  }},
-
-  "geographic": {{
-    "countries": [{{"country": "", "source_quote": ""}}],
-    "regions": [{{"region": "", "source_quote": ""}}],
-    "multi_regional_considerations": {{"value": "", "source_quote": ""}}
+  "immunotherapy_specific": {{
+    "is_immunotherapy": false,
+    "response_criteria": {{"value": "[irRECIST/iRECIST]", "source_quote": ""}},
+    "pseudoprogression_handling": {{"value": "", "source_quote": ""}},
+    "irae_monitoring": [{{"type": "", "grading": "", "source_quote": ""}}]
   }},
 
   "baseline_variables": [
@@ -2072,182 +2395,69 @@ Return a JSON object with the following structure. For each field, include "valu
     "required_range": {{"value": "", "source_quote": ""}}
   }},
 
-  "organ_function_requirements": {{
-    "renal": {{"parameter": "", "threshold": "", "source_quote": ""}},
-    "hepatic": {{"parameters": [], "thresholds": [], "source_quote": ""}},
-    "cardiac": {{"parameter": "", "threshold": "", "source_quote": ""}},
-    "hematologic": {{"parameters": [], "thresholds": [], "source_quote": ""}}
+  "geographic": {{
+    "countries": [{{"country": "", "source_quote": ""}}],
+    "regions": [{{"region": "", "source_quote": ""}}],
+    "is_multi_regional": false
   }},
 
-  "heor_endpoints": {{
-    "collected": false,
-    "resource_utilization": [{{"type": "", "source_quote": ""}}],
-    "cost_effectiveness": {{"planned": false, "source_quote": ""}}
+  "response_criteria_details": {{
+    "criteria_name": "",
+    "version": "",
+    "target_lesion_selection": {{"value": "", "source_quote": ""}},
+    "measurement_method": {{"value": "", "source_quote": ""}},
+    "confirmation_required": false,
+    "confirmation_window": {{"value": "", "source_quote": ""}}
   }},
 
-  "digital_endpoints": {{
-    "collected": false,
-    "wearables": [{{"device": "", "parameters": [], "source_quote": ""}}],
-    "epro": {{"platform": "", "source_quote": ""}}
+  "missing_data": {{
+    "handling_method": {{"value": "[complete_case/LOCF/MI/MMRM/other]", "source_quote": ""}},
+    "sensitivity_analyses": [{{"method": "", "source_quote": ""}}]
   }},
 
-  "adam_specifications": {{
-    "adsl_flags": [{{"flag": "", "definition": "", "source_quote": ""}}],
-    "analysis_datasets": [{{"dataset": "", "source_quote": ""}}]
-  }},
-
-  "disposition_flow": {{
-    "consort_required": {{"value": false, "source_quote": ""}},
-    "screening_categories": [{{"category": "", "source_quote": ""}}],
-    "randomization_categories": [{{"category": "", "source_quote": ""}}],
-    "discontinuation_reasons": [{{"reason": "", "source_quote": ""}}],
-    "completion_definition": {{"value": "", "source_quote": ""}}
-  }},
-
-  "cox_model_specification": {{
-    "model_formula": {{"value": "", "source_quote": ""}},
-    "covariates": [{{"covariate": "", "type": "[continuous/categorical]", "source_quote": ""}}],
-    "stratification_in_model": [{{"factor": "", "source_quote": ""}}],
-    "tie_handling": {{"method": "[efron/breslow/exact]", "source_quote": ""}},
-    "proportional_hazards_testing": {{
-      "method": {{"value": "[schoenfeld/log_log_plot/scaled_schoenfeld/other]", "source_quote": ""}},
-      "timepoint_for_test": {{"value": "", "source_quote": ""}},
-      "action_if_violated": {{"value": "", "source_quote": ""}}
-    }}
-  }},
-
-  "iptw_propensity_methods": {{
-    "iptw_used": {{"value": false, "source_quote": ""}},
-    "propensity_model": {{"value": "", "source_quote": ""}},
-    "propensity_covariates": [{{"covariate": "", "source_quote": ""}}],
-    "weight_type": {{"value": "[ATE/ATT/stabilized]", "source_quote": ""}},
-    "trimming_threshold": {{"value": "", "source_quote": ""}},
-    "balance_assessment": {{"method": "", "source_quote": ""}}
-  }},
-
-  "multiple_imputation_specs": {{
-    "mi_used": {{"value": false, "source_quote": ""}},
-    "number_of_imputations": {{"value": "", "source_quote": ""}},
-    "imputation_method": {{"value": "[MICE/FCS/MCMC/PMM/other]", "source_quote": ""}},
-    "variables_to_impute": [{{"variable": "", "source_quote": ""}}],
-    "variables_in_imputation_model": [{{"variable": "", "source_quote": ""}}],
-    "pooling_method": {{"value": "[Rubin]", "source_quote": ""}},
-    "seed_specification": {{"value": "", "source_quote": ""}}
-  }},
-
-  "landmark_analyses": [
+  "sensitivity_analyses": [
     {{
-      "timepoint": "",
-      "endpoint": "",
-      "analysis_type": "[survival_rate/event_rate/RMST]",
-      "confidence_interval_method": "",
+      "name": "",
+      "description": "",
+      "population": "",
       "source_quote": ""
     }}
   ],
 
-  "table_shells": {{
-    "disposition_table": {{
-      "required": false,
-      "columns": [],
-      "rows": [],
-      "source_quote": ""
-    }},
-    "demographics_table": {{
-      "required": false,
-      "columns": [],
-      "variables": [],
-      "source_quote": ""
-    }},
-    "efficacy_tables": [
-      {{
-        "table_name": "",
-        "endpoint": "",
-        "columns": [],
-        "statistics": [],
-        "source_quote": ""
-      }}
-    ],
-    "safety_tables": [
-      {{
-        "table_name": "",
-        "type": "[ae_overview/ae_by_soc/ae_by_grade/labs/vitals]",
-        "columns": [],
-        "source_quote": ""
-      }}
-    ],
-    "exploratory_tables": [
-      {{
-        "table_name": "",
-        "endpoint": "",
-        "columns": [],
-        "source_quote": ""
-      }}
-    ]
+  "dose_modifications": {{
+    "has_dose_modifications": false,
+    "dose_reduction_rules": [{{"trigger": "", "action": "", "source_quote": ""}}],
+    "discontinuation_rules": [{{"criteria": "", "source_quote": ""}}]
   }},
 
-  "all_stratification_strata": [
-    {{
-      "factor": "",
-      "strata": [],
-      "total_strata_count": "",
-      "source_quote": ""
-    }}
-  ]
+  "dsmb": {{
+    "required": false,
+    "review_schedule": {{"value": "", "source_quote": ""}}
+  }},
+
+  "irc": {{
+    "required": false,
+    "for_endpoints": [],
+    "blinded": false
+  }}
 }}
 
-CRITICAL INSTRUCTIONS:
-1. Extract ONLY what is explicitly stated in this protocol
-2. Use null for any field not found in the protocol
-3. Include exact source_quote for every extracted value
-4. Do not infer or assume - if not stated, leave null
-5. For disease-specific sections, only populate if this protocol is that disease type
-6. Extract ALL baseline variables mentioned anywhere (eligibility, assessments, CRF)
-7. Identify the EXACT response criteria mentioned (RECIST version, irRECIST vs iRECIST, etc.)
-8. Capture the EXACT performance status scale used (ECOG vs ASA vs Karnofsky)
+## CRITICAL INSTRUCTIONS:
+
+1. **USE DISCOVERY CONTEXT**: Populations and hypotheses were already identified - extract their FULL definitions
+2. **INDIVIDUAL ALPHAS**: For each hypothesis, extract its individual alpha_allocated value
+3. **EXACT NAMES**: Use the EXACT population names from the protocol
+4. **ALL CENSORING SCENARIOS**: Extract EVERY censoring scenario mentioned
+5. **SOURCE QUOTES**: Include verbatim text for every extracted value
+6. **NULL FOR MISSING**: Use null for fields not found - DO NOT guess or assume
+7. **STUDY-TYPE SECTIONS**: Only populate cart_specific/hematologic_specific/immunotherapy_specific if applicable
 
 PROTOCOL DOCUMENT:
 {content}
 
 Return ONLY the JSON object, no other text."""
 
-        try:
-            # Use streaming for long operations
-            with self.client.messages.stream(
-                model=self.model,
-                max_tokens=16384,  # Increased for comprehensive extraction
-                messages=[{"role": "user", "content": prompt}]
-            ) as stream:
-                response = stream.get_final_message()
-
-            response_text = response.content[0].text.strip()
-
-            # Clean up response
-            if response_text.startswith("```json"):
-                response_text = response_text[7:]
-            if response_text.startswith("```"):
-                response_text = response_text[3:]
-            if response_text.endswith("```"):
-                response_text = response_text[:-3]
-
-            extracted_obj = json.loads(response_text)
-
-            # Add doc_id to the extraction
-            extracted_obj["source_doc"] = doc_id
-
-            # Convert to list format for backward compatibility with verification
-            # while preserving the full structured extraction
-            extracted_list = self._convert_extraction_to_list(extracted_obj)
-
-            # Store full extraction for SAP generation
-            self._last_full_extraction = extracted_obj
-
-            return extracted_list
-
-        except Exception as e:
-            print(f"❌ Extraction error: {e}")
-            import traceback
-            traceback.print_exc()
-            return []
+        return prompt
 
     def _convert_extraction_to_list(self, extracted_obj: Dict) -> List[Dict]:
         """Convert structured extraction to list format for backward compatibility."""
@@ -2277,17 +2487,74 @@ Return ONLY the JSON object, no other text."""
                     "source_quote": ep.get("source_quote", "")
                 })
 
-        # Extract populations
-        pops = extracted_obj.get("populations", {})
-        for pop_name in ["itt_definition", "mitt_definition", "pp_definition", "safety_definition"]:
-            pop = pops.get(pop_name, {})
-            if pop and pop.get("value"):
+        # Extract populations (NEW: dynamic list format)
+        pops = extracted_obj.get("populations", [])
+        # Handle both old dict format and new list format
+        if isinstance(pops, list):
+            # New dynamic list format
+            for pop in pops:
+                if pop.get("name"):
+                    items.append({
+                        "type": "population",
+                        "name": pop.get("name", ""),
+                        "definition": pop.get("definition", ""),
+                        "is_primary_efficacy": pop.get("is_primary_efficacy", False),
+                        "is_primary_safety": pop.get("is_primary_safety", False),
+                        "confidence": 0.95,
+                        "source_quote": pop.get("source_quote", "")
+                    })
+        else:
+            # Legacy dict format (backward compatibility)
+            for pop_name in ["itt_definition", "mitt_definition", "pp_definition", "safety_definition"]:
+                pop = pops.get(pop_name, {})
+                if pop and pop.get("value"):
+                    items.append({
+                        "type": "population",
+                        "name": pop_name.replace("_definition", "").upper(),
+                        "definition": pop.get("value", ""),
+                        "confidence": 0.95,
+                        "source_quote": pop.get("source_quote", "")
+                    })
+
+        # Extract hypotheses (NEW: dynamic list with individual alphas)
+        for hyp in extracted_obj.get("hypotheses", []):
+            if hyp.get("id"):
                 items.append({
-                    "type": "population",
-                    "name": pop_name.replace("_definition", "").upper(),
-                    "definition": pop.get("value", ""),
+                    "type": "hypothesis",
+                    "id": hyp.get("id", ""),
+                    "endpoint": hyp.get("endpoint", ""),
+                    "population": hyp.get("population", ""),
+                    "alpha_allocated": hyp.get("alpha_allocated"),
+                    "gate_condition": hyp.get("gate_condition"),
+                    "test_type": hyp.get("test_type", ""),
                     "confidence": 0.95,
-                    "source_quote": pop.get("source_quote", "")
+                    "source_quote": hyp.get("source_quote", "")
+                })
+
+        # Extract censoring rules (NEW: dynamic list)
+        for rule in extracted_obj.get("censoring_rules", []):
+            if rule.get("endpoint") and rule.get("scenario"):
+                items.append({
+                    "type": "censoring_rule",
+                    "endpoint": rule.get("endpoint", ""),
+                    "scenario": rule.get("scenario", ""),
+                    "event_flag": rule.get("event_flag", ""),
+                    "date_used": rule.get("date_used", ""),
+                    "confidence": 0.95,
+                    "source_quote": rule.get("source_quote", "")
+                })
+
+        # Extract subgroups (NEW: dynamic list)
+        for sg in extracted_obj.get("subgroups", []):
+            if sg.get("factor"):
+                items.append({
+                    "type": "subgroup",
+                    "factor": sg.get("factor", ""),
+                    "categories": sg.get("categories", []),
+                    "rationale": sg.get("rationale", ""),
+                    "is_stratification_factor": sg.get("is_stratification_factor", False),
+                    "confidence": 0.90,
+                    "source_quote": sg.get("source_quote", "")
                 })
 
         # Extract stratification factors
