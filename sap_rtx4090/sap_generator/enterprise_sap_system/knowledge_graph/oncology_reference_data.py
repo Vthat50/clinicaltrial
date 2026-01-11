@@ -467,12 +467,25 @@ CAR_T_MODULE = {
 
     # ==========================================================================
     # TOXICITY GRADING
+    # IMPORTANT: Use EXACTLY what the PROTOCOL specifies. These are reference options.
     # ==========================================================================
     "unique_toxicities": {
+        "IMPORTANT_NOTE": "PROTOCOL-SPECIFIED GRADING TAKES PRECEDENCE. Check protocol/IB section.",
         "CRS": {
             "name": "Cytokine Release Syndrome",
-            "grading": "ASTCT 2019 Consensus",
-            "reference": "{Lee 2019}",
+            "grading_options": {
+                "ASTCT_2019": {
+                    "name": "ASTCT 2019 Consensus",
+                    "reference": "{Lee 2019}",
+                    "use_when": "Protocol explicitly mentions ASTCT or Lee 2019"
+                },
+                "Lee_2014_modified": {
+                    "name": "Modified Lee et al. 2014 criteria",
+                    "reference": "{Lee 2014}",
+                    "use_when": "Protocol mentions 'Lee 2014' or 'modified Lee' (common in older axicabtagene/ZUMA studies)",
+                    "note": "In modified grading scale, neurologic AEs are NOT reported as part of CRS"
+                }
+            },
             "grades": {
                 "1": "Fever only (≥38°C)",
                 "2": "Fever + hypotension not requiring vasopressors and/or hypoxia requiring low-flow O2",
@@ -480,19 +493,30 @@ CAR_T_MODULE = {
                 "4": "Fever + hypotension requiring multiple vasopressors and/or hypoxia requiring positive pressure"
             },
             "management": ["Tocilizumab", "Corticosteroids"],
-            "collection_method": "Collected via specific CRF, neurologic AEs reported separately on AE log"
+            "collection_method": "Collected via specific CRF"
         },
-        "ICANS": {
-            "name": "Immune Effector Cell-Associated Neurotoxicity Syndrome",
-            "grading": "ICE score (Immune Effector Cell-Associated Encephalopathy)",
-            "reference": "{Topp 2015}",
-            "grades": {
-                "1": "ICE 7-9",
-                "2": "ICE 3-6",
-                "3": "ICE 0-2",
-                "4": "ICE 0 + cerebral edema/seizure/motor weakness"
-            },
-            "pediatric_grading": "CAPD (Cornell Assessment of Pediatric Delirium) for age <12 years"
+        "neurologic_events": {
+            "IMPORTANT": "Check if protocol says neurologic events are 'not part of CRS' or uses 'ICANS'",
+            "options": {
+                "ICANS_ICE_score": {
+                    "name": "Immune Effector Cell-Associated Neurotoxicity Syndrome (ICANS)",
+                    "grading": "ICE score (Immune Effector Cell-Associated Encephalopathy)",
+                    "reference": "{Topp 2015}",
+                    "use_when": "Protocol explicitly mentions ICANS or ICE score",
+                    "grades": {
+                        "1": "ICE 7-9",
+                        "2": "ICE 3-6",
+                        "3": "ICE 0-2",
+                        "4": "ICE 0 + cerebral edema/seizure/motor weakness"
+                    },
+                    "pediatric_grading": "CAPD (Cornell Assessment of Pediatric Delirium) for age <12 years"
+                },
+                "separate_CTCAE": {
+                    "name": "Neurologic events graded per CTCAE, separately from CRS",
+                    "use_when": "Protocol states neurologic AEs are 'not part of CRS' or 'reported separately'",
+                    "note": "Common in older axicabtagene protocols using Modified Lee 2014"
+                }
+            }
         }
     },
 

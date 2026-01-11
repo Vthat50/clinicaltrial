@@ -1167,8 +1167,16 @@ class KnowledgeBaseTools:
             "safety_tables": self.CAR_T_SAFETY_TABLES,
             "retreatment_tables": self.CAR_T_RETREATMENT_TABLES,
             "notes": {
-                "crs_grading": "ASTCT 2019 Consensus {Lee 2019}",
-                "icans_grading": "ICE Score (ASTCT 2019)",
+                "IMPORTANT": "PROTOCOL-SPECIFIED GRADING TAKES PRECEDENCE over these defaults",
+                "crs_grading_options": {
+                    "ASTCT_2019": "ASTCT 2019 Consensus {Lee 2019} - newer standard",
+                    "Lee_2014_modified": "Modified Lee et al. 2014 criteria - used by older axicabtagene/ZUMA studies",
+                    "check_protocol": "Use EXACTLY what the protocol/IB specifies"
+                },
+                "neurologic_grading_options": {
+                    "ICANS_ICE": "ICE Score (ASTCT 2019) - if protocol uses ICANS",
+                    "separate_CTCAE": "Neurologic AEs graded per CTCAE separately from CRS - if protocol says 'not part of CRS'"
+                },
                 "not_applicable": ["Dose modification tables", "Dose reduction tables"]
             }
         }
@@ -1524,11 +1532,18 @@ class KnowledgeBaseTools:
     def get_cart_specifications(self) -> KBRetrievalResult:
         """
         Get CAR-T cell therapy specifications including:
-        - CRS grading (ASTCT 2019 Consensus, grades 1-4)
-        - ICANS grading (ICE score for >=12 years, CAPD for <12 years)
+        - CRS grading options (use what PROTOCOL specifies):
+          * ASTCT 2019 Consensus - newer standard
+          * Modified Lee et al. 2014 - older axicabtagene/ZUMA studies
+        - Neurologic event grading (use what PROTOCOL specifies):
+          * ICANS/ICE score - if protocol mentions ICANS
+          * Separate CTCAE grading - if protocol says "not part of CRS"
         - Cellular kinetics endpoints (Cmax, persistence, B-cell aplasia)
         - Safety monitoring requirements
         - Step-up dosing considerations
+
+        IMPORTANT: Protocol-specified grading takes precedence over KB defaults.
+        Check protocol/IB for CRS grading scale specification.
 
         Use for any CAR-T, TCR-T, or adoptive cell therapy trial.
         """
