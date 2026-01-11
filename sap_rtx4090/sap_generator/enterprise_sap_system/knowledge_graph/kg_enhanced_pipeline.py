@@ -1111,10 +1111,10 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         # 11. LYMPHOMA STAGING (Ann Arbor vs TNM)
         response_criteria = discovered.get("response_criteria", "") if discovered else ""
         disease = full_extraction.get("disease_classification", {})
-        tumor_type = (disease.get("tumor_type", {}).get("value") or "").lower() if disease else ""
+        indication = (disease.get("indication", {}).get("value") or "").lower() if disease else ""
 
-        is_lymphoma = "lymphoma" in tumor_type or response_criteria == "Lugano" or flags.get("is_hematologic")
-        is_solid_tumor = any(x in tumor_type for x in ["melanoma", "lung", "breast", "colon", "ovarian", "prostate"])
+        is_lymphoma = "lymphoma" in indication or response_criteria == "Lugano" or flags.get("is_hematologic")
+        is_solid_tumor = any(x in indication for x in ["melanoma", "lung", "breast", "colon", "ovarian", "prostate"])
 
         if is_lymphoma:
             rules.append("")
@@ -1643,8 +1643,8 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         # 2b. Lymphoma-specific routing
         disease = full_extraction.get("disease_classification", {})
-        tumor_type = (disease.get("tumor_type", {}).get("value") or "").lower() if disease else ""
-        is_lymphoma = "lymphoma" in tumor_type or response_criteria == "Lugano" or flags.get("is_hematologic")
+        indication = (disease.get("indication", {}).get("value") or "").lower() if disease else ""
+        is_lymphoma = "lymphoma" in indication or response_criteria == "Lugano" or flags.get("is_hematologic")
 
         if is_lymphoma:
             instructions.append("CALL get_lymphoma_tables() for Ann Arbor staging, FLIPI/IPI scores, Lugano response (NOT RECIST)")
@@ -1900,14 +1900,12 @@ Generate a production-quality SAP with full provenance tracking."""
         elif conditions.get('is_hematologic'):
             disease_desc = "Hematologic Malignancy"
 
-        # Extract specific tumor type for reference SAP filtering
+        # Extract indication for reference SAP filtering (works for all oncology: solid tumors AND hematologic)
         disease_info = full_extraction.get("disease_classification", {}) if full_extraction else {}
-        tumor_type = (disease_info.get("tumor_type", {}).get("value") or "").strip()
-        if not tumor_type:
-            tumor_type = (disease_info.get("indication", {}).get("value") or "").strip()
-        # Normalize common tumor types for better matching
-        tumor_type_for_search = tumor_type.upper().replace(" ", "").replace("-", "") if tumor_type else ""
-        indication_hint = tumor_type if tumor_type else disease_desc
+        indication = (disease_info.get("indication", {}).get("value") or "").strip()
+        if not indication:
+            indication = disease_desc  # fallback to detected disease type
+        indication_hint = indication
 
         user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
 ```json
@@ -1927,7 +1925,7 @@ This protocol requires **{num_main_sections} main sections** (structure determin
 - Study Design: {study_type_desc}
 - Therapy Type: {therapy_type_desc}
 - Disease Area: {disease_desc}
-- Indication/Tumor Type: {indication_hint}
+- Indication: {indication_hint}
 {special_notes}
 
 **REFERENCE SAP LOOKUP:** When calling get_reference_sap_section(), use indication="{indication_hint}" to find relevant examples.
@@ -2716,7 +2714,7 @@ Return a JSON object with ONLY discovered structure:
     {{"factor": "", "categories": []}}
   ],
   "disease_setting": "adjuvant|neoadjuvant|metastatic|locally_advanced|maintenance",
-  "tumor_type": "",
+  "indication": "",
   "response_criteria": "RECIST|Lugano|IMWG|ELN|PCWG3|RANO|RANO_BM|GCIG|irRECIST|iRECIST|other",
   "study_type_flags": {{
     "is_cart": false,
@@ -3296,7 +3294,7 @@ BAD (missing source_quote or source_section):
   }},
 
   "disease_classification": {{
-    "tumor_type": {{"value": "", "source_quote": "", "source_section": ""}},
+    "indication": {{"value": "", "source_quote": "", "source_section": ""}},
     "disease_stage": {{"value": "", "source_quote": "", "source_section": ""}},
     "disease_setting": {{"value": "[adjuvant/neoadjuvant/metastatic/locally_advanced/maintenance]", "source_quote": "", "source_section": ""}},
     "histology_subtypes": {{"value": [], "source_quote": "", "source_section": ""}},
