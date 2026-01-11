@@ -1243,6 +1243,12 @@ IMPORTANT RULES:
 3. ALWAYS call tools for: statistical methods, table shells, response criteria, therapy-specific specs
 4. Mark the source of each element: [PROTOCOL] or [KB: source_file]
 
+CRITICAL - TOOL CALL EFFICIENCY:
+- Each tool should be called ONLY ONCE with the same parameters
+- Do NOT re-call tools you've already used - the data is already in your conversation context
+- After gathering KB data (typically 10-15 tool calls), STOP calling tools and WRITE the complete SAP
+- If you receive a "CACHED" response, that means you're repeating yourself - generate the SAP immediately
+
 Generate a production-quality SAP with full provenance tracking."""
 
         user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
@@ -1338,6 +1344,9 @@ Start by calling get_similar_trials to find precedent, then generate the COMPLET
         knowledge_used = []
         warnings = []
         accumulated_text = ""  # Accumulate ALL text across iterations
+
+        # v65: Track called tools to prevent duplicates
+        called_tools_cache = {}  # {tool_key: result} - cache results for reuse
 
         # Tool-use loop
         max_iterations = 25  # Increased from 15 for complex protocols
@@ -1440,15 +1449,36 @@ Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then incl
                 # Process tool calls
                 print(f"[KG Generator] Iteration {iteration}: {len(tool_calls)} tool calls")
                 tool_results = []
+                duplicate_count = 0
                 for i, tool_call in enumerate(tool_calls):
                     tool_name = tool_call.name
                     tool_input = tool_call.input
+
+                    # v65: Create cache key and check for duplicates
+                    cache_key = f"{tool_name}:{json.dumps(tool_input, sort_keys=True)}"
+
+                    if cache_key in called_tools_cache:
+                        # DUPLICATE - return cached result
+                        duplicate_count += 1
+                        cached_result = called_tools_cache[cache_key]
+                        print(f"[DEBUG] Tool {i+1}/{len(tool_calls)}: {tool_name} - DUPLICATE (using cached)")
+                        tool_results.append({
+                            "type": "tool_result",
+                            "tool_use_id": tool_call.id,
+                            "content": f"[CACHED - Already retrieved] You already called this tool with these parameters. The data is in your context above. Do NOT call this tool again. Generate the SAP now."
+                        })
+                        continue
+
                     print(f"[DEBUG] Tool {i+1}/{len(tool_calls)}: {tool_name}({json.dumps(tool_input)[:100]})")
 
                     try:
                         # Execute the tool
                         result = execute_tool(tool_name, tool_input, kb)
-                        print(f"[DEBUG] Tool result: {len(json.dumps(result.content, default=str))} chars from {result.source_file}")
+                        result_json = json.dumps(result.to_dict(), indent=2, default=str)
+                        print(f"[DEBUG] Tool result: {len(result_json)} chars from {result.source_file}")
+
+                        # v65: Cache the result
+                        called_tools_cache[cache_key] = result_json
 
                         # Track what knowledge was used
                         knowledge_used.append({
@@ -1462,7 +1492,7 @@ Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then incl
                         tool_results.append({
                             "type": "tool_result",
                             "tool_use_id": tool_call.id,
-                            "content": json.dumps(result.to_dict(), indent=2, default=str)
+                            "content": result_json
                         })
                     except Exception as tool_error:
                         print(f"[KG Generator] Tool error {tool_name}: {tool_error}")
@@ -1472,6 +1502,9 @@ Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then incl
                             "content": f"Error: {str(tool_error)}",
                             "is_error": True
                         })
+
+                if duplicate_count > 0:
+                    print(f"[DEBUG] Skipped {duplicate_count} duplicate tool calls")
 
                 # Convert response.content to serializable format for messages
                 assistant_content = []
@@ -1489,6 +1522,27 @@ Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then incl
                 # Add assistant response and tool results to messages
                 messages.append({"role": "assistant", "content": assistant_content})
                 messages.append({"role": "user", "content": tool_results})
+
+                # v65: Check if essential TFL tools have been called - force SAP generation
+                essential_tfl_tools = {'get_disposition_tables', 'get_efficacy_tables', 'get_safety_tables'}
+                called_tool_names = {k.split(':')[0] for k in called_tools_cache.keys()}
+                has_all_tfl_tools = essential_tfl_tools.issubset(called_tool_names)
+
+                # If we have all TFL tools AND duplicates are happening, force SAP generation
+                if has_all_tfl_tools and duplicate_count > 0:
+                    print(f"[DEBUG] v65: All TFL tools called + duplicates detected - forcing SAP generation")
+                    force_sap_prompt = """STOP CALLING TOOLS. You have already gathered ALL the knowledge base data you need:
+- Disposition tables: Retrieved
+- Efficacy tables: Retrieved
+- Safety tables: Retrieved
+- Statistical methods: Retrieved
+
+NOW GENERATE THE COMPLETE SAP. Do not call any more tools.
+
+Output the COMPLETE 12-section SAP document starting with "# STATISTICAL ANALYSIS PLAN" and including ALL sections through Section 12 TABLE/FIGURE SHELLS with actual markdown tables."""
+
+                    messages.append({"role": "user", "content": force_sap_prompt})
+                    print(f"[DEBUG] Injected force-SAP prompt after {len(called_tools_cache)} unique tool calls")
 
             except Exception as e:
                 print(f"[KG Generator] Error at iteration {iteration}: {e}")
