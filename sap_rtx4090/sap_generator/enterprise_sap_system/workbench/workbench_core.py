@@ -678,6 +678,13 @@ class SAPWorkbench:
 
             workspace.metadata = metadata
             workspace.updated_at = datetime.now().isoformat()
+
+            # v91: Update protocol_conditions from extraction (same as generate_sap_with_tools)
+            # This replaces the initial text-based detection with accurate extraction-based detection
+            workspace.protocol_conditions = detect_sap_conditions(full_extraction)
+            active_conditions = [k for k, v in workspace.protocol_conditions.items() if v]
+            print(f"[Workbench] Updated conditions from extraction: {', '.join(active_conditions[:10])}")
+
             self._save_workspace(workspace)
 
             # Cleanup temp file
