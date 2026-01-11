@@ -1,0 +1,1507 @@
+
+--- Page 1 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 1 of 33
+.
+PROTOCOL B7391003
+A PHASE 3 RANDOMIZED, DOUBLE-BLIND STUDY OF 
+PF-06439535 PLUS PACLITAXEL-CARBOPLATIN AND 
+BEVACIZUMAB PLUS PACLITAXEL-CARBOPLATIN FOR THE 
+FIRST-LINE TREATMENT OF PATIENTS WITH ADVANCED
+NON-SQUAMOUS NON-SMALL CELL LUNG CANCER
+Statistical Analysis Plan 
+(SAP)
+Version:
+4.0
+Author:
+ (PEH, Stat Department)
+ (Development China, Stat Department) /
+(Early Oncology Development and Clinical Research-Statistics)
+Date: 28 March 2017
+PPD
+PPD
+PPD
+
+
+--- Page 2 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 2 of 33
+TABLE OF CONTENTS
+LIST OF TABLES.....................................................................................................................3
+APPENDICES ...........................................................................................................................3
+1. AMENDMENTS FROM PREVIOUS VERSION(S) ...........................................................5
+2. INTRODUCTION .................................................................................................................5
+2.1. Study Design .............................................................................................................5
+2.2. Study Objectives .......................................................................................................5
+2.2.1. Primary Objectives .......................................................................................5
+2.2.2. Secondary Objectives ...................................................................................6
+3. INTERIM ANALYSES, FINAL ANALYSES AND UNBLINDING..................................6
+4. HYPOTHESES, DECISION RULES AND SAMPLE SIZE................................................7
+4.1. Statistical Hypotheses ...............................................................................................7
+4.2. Statistical Decision Rules..........................................................................................7
+4.3. Sample Size...............................................................................................................8
+5. ANALYSIS POPULATIONS ...............................................................................................9
+5.1. Intent-to-Treat Population.........................................................................................9
+5.2. Per-Protocol Population ............................................................................................9
+5.3. Safety Population ......................................................................................................9
+5.4. Pharmacokinetics Population ....................................................................................9
+5.5. Treatment Misallocations..........................................................................................9
+5.6. Protocol Deviations.................................................................................................10
+6. ENDPOINTS AND COVARIATES ...................................................................................10
+6.1. Endpoints.................................................................................................................10
+6.1.1. Primary Endpoint........................................................................................10
+6.1.2. Secondary Endpoints ..................................................................................10
+6.2. Covariates................................................................................................................10
+6.3. Subgroup Analyses..................................................................................................10
+7. HANDLING OF MISSING VALUES ................................................................................11
+7.1. Objective Response Data ........................................................................................11
+7.2. Time to Event Data .................................................................................................11
+7.3. Pharmacokinetic Concentrations.............................................................................11
+7.4. Missing Dates..........................................................................................................12
+
+
+--- Page 3 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 3 of 33
+8. STATISTICAL METHODOLOGY AND STATISTICAL ANALYSES ..........................12
+8.1. Statistical Methods ..................................................................................................12
+8.1.1. Analysis of Response Data .........................................................................12
+8.1.2. Analysis of Time to Event Data..................................................................12
+8.2. Statistical Analyses .................................................................................................13
+8.2.1. Standard Analyses ......................................................................................13
+8.2.1.1. Subject Disposition ...................................................................13
+8.2.1.2. Demographics and Baseline Characteristics .............................13
+8.2.1.3. Study Treatment Exposure........................................................13
+8.2.1.4. Prior and Concomitant Medications..........................................13
+8.2.2. Analyses of the Primary Efficacy Endpoint ...............................................13
+8.2.3. Analyses of the Secondary Efficacy Endpoint ...........................................15
+8.2.4. Analyses of Pharmacokinetic Endpoints ....................................................17
+8.2.5. Immunogenicity Assessment......................................................................17
+8.2.6. Safety Analyses ..........................................................................................17
+9. REFERENCE.......................................................................................................................20
+10. APPENDICES ...................................................................................................................21
+LIST OF TABLES
+Table 1.  Derivation of the Best Overall Response..................................................................14
+Table 2. Assessment Windows ................................................................................................21
+Table 3. Summary of Key efficacy analysis ............................................................................22
+APPENDICES
+Appendix 1. Assessment Windows to Derive the Time Point Response ................................21
+Appendix 2. Summary of Key Efficacy Analyses...................................................................22
+Appendix 3. Sample Code for the Miettinen and Nurminen Method Without Strata .............23
+Appendix 3.1. For Risk Ratio ..................................................................................................23
+Appendix 3.2. For Risk Difference..........................................................................................23
+Appendix 4. Sample Code for the Miettinen and Nurminen Method With Strata ..................24
+Appendix 4.1. For Risk Ratio ..................................................................................................24
+Appendix 4.2. For Risk Difference..........................................................................................28
+
+
+--- Page 4 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 4 of 33
+Appendix 5. Sample Code for DOR, PFS and Survival ..........................................................33
+
+
+--- Page 5 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 5 of 33
+.
+1. AMENDMENTS FROM PREVIOUS VERSION(S) 
+This amendment is based on protocol amendment 3. Following are changes compared to the 
+previous version of SAP.
+Section 3 – Update the number of study reports, data versions, and planned analyses.
+Section 6.3 – Updated the subgroup analyses for primary efficacy endpoint on.
+Section 7.1 – Updated the method to handle data for objective response data.
+Section 8.1 – clarify how to derive the best overall response for primary efficacy endpoint.
+Section 8.2.3 – For secondary endpoint on DOR, PFS and OS, the one-sided p-value from 
+log-rank test is replaced with 2-sided p-value from log-rank test stratified by region, gender 
+and smoking history; clarified the covariates included in the Cox proportional hazard model; 
+and updated the censoring algorithms.
+Appendix 1 – Added the assessment windows for derivation of time point response. 
+2. INTRODUCTION
+This document presents the Statistical Analysis Plan (SAP) for study B7391003 (Pfizer 
+compound PF-06439535). This SAP is based on the final approved protocol 
+amendment 3 for study B7391003 dated Jun. 10th, 2016. 
+Note: in this document any text taken directly from the protocol is italicized. 
+2.1. Study Design
+This is a multinational, double-blind, randomized, parallel-group Phase 3 clinical trial 
+evaluating the efficacy and safety of bevacizumab-Pfizer plus paclitaxel and carboplatin 
+versus bevacizumab-EU plus paclitaxel and carboplatin in first-line treatment for patients 
+with advanced (unresectable, locally advanced, recurrent or metastatic) non-squamous 
+NSCLC.
+Approximately 355 patients will be enrolled in each treatment arm for a total of 
+approximately 710 patients at over 300 centers.  Patients will be randomized (1:1) to receive 
+either treatment of bevacizumab-Pfizer plus paclitaxel and carboplatin or bevacizumab-EU 
+plus paclitaxel and carboplatin.  Randomization will be stratified by region (according to the 
+location of the drug depot supplying the site), sex (male/female) and smoking history 
+(never/ever).
+2.2. Study Objectives
+2.2.1. Primary Objectives
+The primary objective of this study is to compare the confirmed objective response rate 
+(ORR) by Week 19 following treatment with bevacizumab-Pfizer in combination with 
+paclitaxel and carboplatin to bevacizumab-EU plus paclitaxel and carboplatin in patients 
+who have not received previous treatment for advanced NSCLC.
+
+
+--- Page 6 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 6 of 33
+2.2.2. Secondary Objectives
+
+To evaluate the safety of bevacizumab-Pfizer plus paclitaxel and carboplatin and 
+bevacizumab-EU plus paclitaxel and carboplatin;
+
+To evaluate the secondary measures of tumor control; 
+
+To evaluate the population pharmacokinetics (PK) of bevacizumab-Pfizer and 
+bevacizumab-EU;       
+
+To evaluate the immunogenicity of bevacizumab-Pfizer and bevacizumab-EU.
+3. INTERIM ANALYSES, FINAL ANALYSES AND UNBLINDING
+No interim analysis is planned for this study. 
+Primary completion date CSR: The data cut-off date for the primary efficacy analysis for 
+equivalence will be when the last available patient has completed Week 19 tumor assessment 
+and had the opportunity to subsequently confirm the response at the Week 25 tumor 
+assessment, or early discontinued (withdrawal, lost to follow up, death, etc).  All analyses 
+described in Section 8 will be carried out for this data snapshot. 
+Week 55 CSR: The data cut-off for the Week 55 CSR will be when the last available patient 
+has completed 1-year (Week 55) assessment or early discontinued.  There are no plans to 
+repeat the primary endpoint analysis of objective response rate (ORR) in the Week 55 CSR; 
+the analysis of other efficacy endpoints (descriptive statistics for the secondary efficacy 
+endpoints), the safety analyses, and other analyses (PK analysis and immunogenicity 
+assessment) as described in Section 8 will be updated with this data snapshot. 
+If there are any patients who did not complete their last follow-up by the time of the data 
+snapshot for Week 55 CSR (eg, a patient may come in for another follow-up visit after he/she 
+completed the week 55 visit), then listings for these remaining data will be presented in a 
+separate report.
+These planned analyses are summarized as follows:
+Data Version
+Planned Analyses
+First data snapshot (Week 19 with 
+confirmation data at Week 25)
+
+All possible analyses specified in Section 
+8 of this document. 
+Week 55 data snapshot (Week 55)
+
+Repeat efficacy analyses for the secondary 
+efficacy endpoints (Section 8.2.3).
+
+Repeat the PK analysis (Section 8.2.4).
+
+Repeat the immunogenicity analysis 
+(Section 8.2.5).
+
+Repeat safety analyses (Section 8.2.6).
+
+
+--- Page 7 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 7 of 33
+The study is considered complete (End of Study) when the last patient has completed the last
+subject last visit (LSLV).  LSLV is defined as up to 1 year from randomization of the last
+patient (End of Treatment) plus 28 day follow-up.
+This study will use an external data monitoring committee (EDMC).  The EDMC will be 
+responsible for ongoing monitoring of the efficacy and safety of patients in the study 
+according to its charter. Detailed information about those entities is described in the DMC 
+charter. 
+Limited team members will be unblinded at the time of the primary efficacy analysis. A
+separate document will be created to capture the details of the unblinding plan. Site 
+personnel and patients will remind blinded until the completion of the study.
+4. HYPOTHESES, DECISION RULES AND SAMPLE SIZE
+4.1. Statistical Hypotheses
+Two one-sided hypothesis tests will be carried out in the study for ORR in order to show that 
+bevacizumab-Pfizer is equivalent to bevacizumab-EU.
+For both US and Japan, equivalence will be tested based on relative risk (RR), with 
+following hypothesis:
+TEST 1: H0a: θ1 / θ2 > Rub vs. H1a: θ1 / θ2 Rub
+TEST 2: H0b: θ1 / θ2 < Rlb vs. H1b: θ1 / θ2 Rlb
+Where θ1 is the ORR for patients randomized to bevacizumab-Pfizer, θ2 is the ORR for 
+patients randomized to bevacizumab-EU, Rub is the largest acceptable ratio for equivalence, 
+and Rlb is the smallest acceptable ratio for equivalence.  Note: Rlb = 1 / Rub.  For US, 
+Rub=1.37 and Rlb=0.73 and for Japan, Rub=1.371 and Rlb=0.729.For the EU, equivalence 
+will be tested based on risk difference (RD), with following hypothesis:
+TEST 1: H0a: θ1 - θ2 > Rub vs. H1a: θ1 - θ2 Rub
+TEST 2: H0b: θ1 - θ2 < Rlb vs. H1b: θ1 - θ2 Rlb
+Where Rub is the largest acceptable difference for equivalence, and Rlb is the smallest 
+acceptable difference for equivalence.  Note: Rlb = -Rub=-0.13. 
+4.2. Statistical Decision Rules
+For the US, equivalence will be considered established if the 90% confidence interval of the 
+risk ratio falls into the margins (0.73, 1.37).
+For Japan, equivalence will be considered established if the 95% confidence interval of the 
+risk ratio falls into the margins (0.729, 1.371).
+
+
+--- Page 8 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 8 of 33
+.
+For the EU equivalence will be considered established if the 95% confidence interval of the 
+risk difference falls into the margins (-0.13, 0.13).
+For all other regions the primary hypothesis will be analyzed based on a US scenario unless
+otherwise requested by local regulators.
+4.3. Sample Size
+Based on the results of a meta-analysis combining Sandler (2006),1 Johnson (2004),2 and 
+Niho (2012),3 the objective response rate (ORR) to bevacizumab + chemotherapy 
+combination therapy was estimated to be approximately 41%, and the response rate to 
+chemotherapy alone was estimated to be 21%.  The relative risk (RR) for ((bevacizumab + 
+chemotherapy)/ chemotherapy alone) was estimated to be 2.17 with 95% CI (1.74, 2.70).  
+The margin 
+(0.73, 1.37) maintained 43% of two-sided 95% CI lower bound of the effect size based on the 
+historical ORR data based on the meta-analysis treatment estimate of bevacizumab + 
+chemotherapy over chemotherapy alone based on a log scale (or about 50% on the linear 
+scale).
+A sample size of 656 patients (328 per treatment arm) provides approximately 85% power 
+for achieving equivalence in relative risk (RR) under the specified margin with 5% type I 
+error1 rate assuming an ORR of 38% in both treatment arms.  Considering a possible 
+~7.5% attrition rate for patients reaching evaluation for ORR, a total sample size of 
+approximately 710 patients (355 per treatment arm) will be randomized to achieve the target 
+sample size of 656.  This target sample size of 656 patients will provide approximately a 
+power of 90% given above assumptions and assuming ORR=41%.
+A sample size of 656 patients (328 per treatment arm) provides approximately 86% power 
+for achieving equivalence in risk difference (RD) under specified margin of (-13%, 13%) 
+with 2.5% type I error rate assuming an ORR of 38% in both treatment arms. This target 
+sample size of 656 patients will provide approximately a power of 84% given above 
+assumptions and assuming ORR=41%.
+A sample size of 656 patients (328 per treatment arm) will also provide approximately 
+74% power for achieving equivalence in relative risk (RR) under specified margin of 
+(0.729, 1.371) with 2.5% type I error rate assuming an ORR of 38% in both treatment arms. 
+This target sample size of 656 patients will provide approximately a power of 82% given 
+above assumptions and assuming ORR=41%.
+Unless otherwise specified, analysis for all other geographical regions will follow 
+US-specific analysis using risk ratio approach.
+                                                
+1 For two-sided tests of superiority the alpha level is divided between the lower bound and the upper bound of the test statistic, ie, for an 
+alpha level of 5%, 2.5% is allocated to the upper bound and 2.5% is allocated to the lower bound, under a single null hypothesis of no 
+difference. However, in equivalence tests, there are two null hypotheses, that is, the true response rate of the biosimilar is either clinically 
+greater than the reference product or is clinically less than the reference product; the two null hypotheses cannot be true at the same time. 
+Thus, the alpha level for the TOST method is determined by the one sided error rate of each individual test.
+
+
+--- Page 9 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 9 of 33
+.
+5. ANALYSIS POPULATIONS
+5.1. Intent-to-Treat Population
+The Intent-to-Treat (ITT) Population is defined as all patients who are randomized to study
+treatment.  The ITT population will be used for patient accountability and all efficacy 
+analyses.  Patients will be assigned to treatment groups “as randomized” for efficacy 
+analyses, but “as treated” for all other analyses.  For these other analyses, if there are any 
+cases where patients received both drugs, they will be assigned to the treatment initially 
+given.
+5.2. Per-Protocol Population
+The Per-Protocol (PP) Population is defined as all patients who are randomized and 
+received the study treatment (bevacizumab-Pfizer or bevacizumab-EU) as planned and have 
+no major protocol deviations.  The PP population will be used for sensitivity analyses of the 
+primary and secondary objectives. The list of patients who will be excluded from this 
+population and reason for exclusion will be determined prior to unblinding for the primary 
+efficacy analysis. 
+5.3. Safety Population
+The safety population is defined as all patients who are randomized and receive at least one
+dose of study treatment.  The safety population will be used for the safety analyses including
+ADA and NAb analyses.
+5.4. Pharmacokinetics Population
+Patients in the PP population who have at least one post-dose drug concentration 
+measurement will be included in the PK analysis.
+5.5. Treatment Misallocations
+If a patient was:
+
+Randomized but not treated: the patient will be accounted for in the patient
+disposition table and listing. The patient will be reported under the randomized 
+treatment group for efficacy analysis.  The patient will not be included in safety 
+analyses.
+
+Treated but not randomized: the patient will be reported under the treatment they
+actually received for the safety analyses. The patient will not be included in efficacy 
+analyses.
+
+Randomized but received incorrect treatment: if patient received the incorrect 
+treatment they will be reported under the treatment they actually received for safety 
+analyses; and they will be reported under the randomized treatment group for efficacy 
+analysis.  The patient will be excluded from the PP population if this is deemed as a 
+major protocol deviation.  Patient profiles on safety (demographics, adverse events, 
+laboratory data, anti-drug antibody, concomitant medications) may be generated for 
+further assessments. 
+
+
+--- Page 10 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 10 of 33
+5.6. Protocol Deviations
+Protocol deviations will be determined on an ongoing basis per blinded data review.  Any 
+patient with a major protocol deviation as determined by the study team will be excluded 
+from the PP population. 
+6. ENDPOINTS AND COVARIATES
+6.1. Endpoints
+6.1.1. Primary Endpoint
+
+Objective Response Rate (ORR), evaluating the best response achieved by 
+Week 19 and subsequently confirmed by 6 weeks thereafter, in accordance with 
+Response Evaluations Criteria in Solid Tumors (RECIST)4 version 1.1.
+6.1.2. Secondary Endpoints
+
+Safety characterized by type, incidence, severity, timing, seriousness, and relationship 
+to study therapy of adverse events, including cardiotoxicity and infusion-related 
+reactions (IRR), and laboratory abnormalities;
+
+Duration of response (DOR), 1 year progression-free survival (PFS) rate and 1-year
+survival rate from randomization;
+
+Peak and trough bevacizumab-Pfizer and bevacizumab-EU concentrations at selected
+cycles up to 1 year from randomization;
+
+Incidence of anti-drug (bevacizumab) antibodies (ADA), including neutralizing
+antibodies (NAb) up to 1 year from randomization.
+6.2. Covariates 
+In the statistical analysis models for primary efficacy on ORR and secondary endpoints on 
+DOR, PFS and OS, as described in Section 8.2.2 and 8.2.3, the following covariates from the 
+CRF will be used to explore their impact on the outcome variable based on ITT population:
+
+Region (according to the location of the drug depot supplying the site). Regions 
+might be combined into aggregated levels to facilitate related analyses.; 
+
+Gender (male/female);
+
+Smoking history (never or ever (includes ex-smoker and smoker).
+6.3. Subgroup Analyses
+In addition, the following factors at screening will be used in the subgroup analyses for 
+primary efficacy endpoint on ORR based on ITT population and a forest plot will be 
+presented.
+
+Smoking history (never or ever (includes ex-smoker and smoker))
+
+
+--- Page 11 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 11 of 33
+
+Gender (male/female)
+
+Region (according to the location of the drug depot supplying the site). Regions 
+might be combined into aggregated levels to facilitate related analyses.
+
+Age (≥65, <65)
+
+Race (White, Black, Asian, Other)
+
+Disease Stage (IIIB, IV, recurrent)
+
+Prior radiation therapy (Yes, No)
+
+Any prior systemic therapy, including adjuvant/neoadjuvant (Yes, No)
+
+ECOG PS (0, 1)
+7. HANDLING OF MISSING VALUES
+7.1. Objective Response Data 
+Objective response (CR or PR) will be derived based on investigator reported tumor 
+assessments.  At each time point, missing response data will be considered as non-evaluable; 
+the time point responsewill be used to derive the best objective response in accordance with 
+RECIST 1.1.  In the best objective response rate calculation, if a patient has missing tumor 
+outcome across all visits or if he/she had non-evaluable best overall response following 
+RECIST 1.1, the patient will be considered as non-responder, and will be included in the 
+denominator but will not be included in the numerator.
+7.2. Time to Event Data
+For the time-to-event endpoints (DOR, PFS, or survival), the missing data handling method 
+will be censoring.  Censoring mechanisms for these endpoints are described in Section 8.2.3. 
+7.3. Pharmacokinetic Concentrations
+Concentrations below the limit of quantification
+In all data presentations (except listings), concentrations below the limit of quantification 
+(BLQ) will be set to zero.  In the listings BLQ values will be reported as “<LLQ”, where 
+LLQ will be replaced with the value for the lower limit of quantification. 
+Deviations, missing concentrations and anomalous values
+Patients who experience events that may affect their PK profile (eg, incomplete dosing due to 
+injection reactions) may be excluded from the PK analysis. 
+In drug concentration summary tables, statistics will be calculated having set concentrations 
+to missing if 1 of the following cases is true:
+1. A concentration has been collected as ND (ie, not done) or NS (ie, no sample);
+
+
+--- Page 12 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 12 of 33
+2. A deviation in sampling time is of sufficient concern or a concentration has been 
+flagged anomalous by the PK analyst.
+For patients with a quantifiable concentration value for the pre-dose PK sample collected 
+before treatment initiation, the concentration-time data without any adjustment will be 
+included in PK data summary if the pre-dose concentration value is 5% of Cmax from the 
+same patient.  If the concentration value in the pre-dose sample in a patient is >5% of Cmax
+from the same patient, the patient will be excluded from the PK data summary.
+7.4. Missing Dates
+In compliance with Pfizer standards, if the day of the month is missing for any date used in a 
+calculation, the 1st of the month will be used to replace the missing date unless the 
+calculation results in a negative time duration (eg, date of resolution cannot be prior to date 
+of onset; if replacing resolution date with the 1st of the month results in a negative duration, 
+the resolution date will be set to the onset date).  Pfizer standards are similarly used if both 
+month and day are missing (January 1 unless negative time duration).  For overall survival 
+and PFS, if conventions result in a negative duration, duration will be reset to 1 day. 
+If the start date is missing for an AE, the AE is considered to be treatment emergent unless 
+the collection date is prior to the treatment start date.
+8. STATISTICAL METHODOLOGY AND STATISTICAL ANALYSES
+While every effort has been made to pre-specify all analyses in this statistical analysis plan, 
+should any additional exploratory analyses be found to be necessary, the analyses and the 
+reasons for them will be detailed in the clinical study report.
+8.1. Statistical Methods 
+For primary efficacy endpoint of objective response rate, secondary endpoints on DOR, PFS 
+and overall survival (OS), outcome will be derived based on investigator tumor assessments. 
+8.1.1. Analysis of Response Data 
+Miettinen and Nurminen (1985)4 method without strata will be used as the primary analysis 
+method for the binomial distributed efficacy endpoint ORR.  Estimated risk ratio, risk 
+difference and the asymptotic 95% and 90% CI in ORR between bevacizumab-Pfizer and 
+bevacizumab-EU will be computed and used in the hypothesis testing.
+8.1.2. Analysis of Time to Event Data 
+The time to event endpoints (DOR, PFS, and survival) will be assessed by the Kaplan-Meier 
+method.  Time to event curves between the two treatment groups will be compared with a 
+log-rank test along with the corresponding hazard ratio.  PFS rate and survival rate will be 
+estimated along with the corresponding 95% CI. 
+
+
+--- Page 13 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 13 of 33
+8.2. Statistical Analyses 
+8.2.1. Standard Analyses
+8.2.1.1. Subject Disposition
+A subject disposition table will be provided.  Subject disposition will be summarized by 
+treatment group and will include the number and percentage of patients, randomized, treated, 
+and analyzed for safety and efficacy.  The percentage of patients who are ongoing and 
+discontinued in the treatment and follow up periods will be presented.
+The percentages will use the number of randomized patients in each treatment group as the 
+denominator.  The disposition summary will be based on the ITT population. 
+8.2.1.2. Demographics and Baseline Characteristics
+Demographic and baseline characteristics such as patient age, sex, height, weight, ethnicity, 
+prior therapy, medical history, ECOG performance status and screening LVEF results will 
+be tabulated and summarized using descriptive statistics.  These endpoints will be 
+summarized descriptively by treatment group for the ITT population.
+8.2.1.3. Study Treatment Exposure
+Following endpoints will be summarized by treatment groups for both chemotherapy and 
+bevacizumab-Pfizer/bevacizumab-EU:
+
+Duration of treatment: number of cycles.
+8.2.1.4. Prior and Concomitant Medications
+Collected prior and concomitant medications will be summarized by treatment group for the 
+safety population.
+8.2.2. Analyses of the Primary Efficacy Endpoint
+The primary efficacy endpoint is the best objective response rate achieved by Week 19 and 
+subsequently confirmed, based on the investigator reported assessment.
+To assess the best overall response, the response from each patient at different time point 
+(time point response) will need to be derived, based on the clustered investigator reported 
+tumor assessments following the assessment window as presented in Appendix 1, unless it is 
+certain that the tumor assessments were from different visits.  The best overall response per 
+patient will then be derived from the time point response in accordance with RECIST 1.1.  
+The confirmation assessment for CR or PR must be at least 4 weeks later; the minimum 
+criterion for SD duration is 5 weeks from the date of randomization.  The following table 
+presents some typical scenarios for deriving the best overall response.
+
+
+--- Page 14 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 14 of 33
+Table 1.  Derivation of the Best Overall Response
+Assessment 1
+Assessment 2
+Assessment 3
+Assessment 4
+Overall Response
+CR
+CR
+PD
+CR *
+CR
+NE
+CR
+PD
+CR *
+PR
+CR
+CR
+PD
+CR *
+PR
+CR
+PD 
+PR *
+PR
+PR
+PD
+PR *
+PR
+NE
+PR
+PD
+PR *
+PR
+PR
+CR
+PD
+PR *
+CR
+PR
+Not allowed **.  
+SD/PD/PR.  Review 
+of the CR is 
+recommended.
+CR
+PD 
+SD ***
+PR
+PD
+SD ***
+SD or NE
+CR
+PD
+SD ***
+SD or NE
+PR
+PD
+SD ***
+SD
+PD 
+SD ***
+PD
+PD
+NE
+PD
+PD
+NE
+NE
+PD
+Assume no response
+
+The best overall response is CR/PR, if the assessments with PR/CR is ≥ 4 weeks apart (NE is allowed 
+between the assessments of PR/CR); otherwise, it is SD if the minimum criteria for SD duration is met, else 
+it is PD.
+** If a CR is truly met at first time point, then any disease seen at a subsequent time point, even disease 
+meeting PR criteria relative to baseline, makes the disease PD at that point (since disease must have 
+reappeared after CR).  Best response would depend on whether minimum duration for SD was met.  
+However, sometimes ‘CR’ may be claimed when subsequent scans suggest small lesions were likely still 
+present and in fact the patient had PR, not CR at the first time point.  Under these circumstances, the 
+original CR should be changed to PR and the best response is PR. 
+*** Unconfirmed responses are considered as stable disease, if the minimum criterion for SD duration is met.
+The primary analysis for this endpoint will be based on the Miettinen and Nurminen 
+(1985)4 method without strata.  Estimated risk ratio and risk difference and the asymptotic 
+95% and 90% CI in ORR between bevacizumab-Pfizer and bevacizumab-EU will be
+computed.  This analysis will be carried out by the BINOMIAL procedure in SAS 
+(Appendix 3).  The risk ratio, risk difference and its associated 95% and 90% CI will be used 
+in the hypothesis test as described in Section 4.  This analysis will be based on the ITT 
+population.  Same analysis based on PP population will also be performed as a sensitivity 
+analysis.
+The Miettinen and Nurminen method will also be carried out with additional stratification 
+variables described in Section 6.2, to assess whether these factors will affect the risk ratio / 
+risk difference of ORR between the 2 treatment groups. This analysis will be performed 
+based on both ITT population. Reference SAS code is available in the appendix.
+In addition, descriptive statistics will also be presented for the best overall response by Week 
+19 (confirmed at Week 25) by treatment group.
+
+
+--- Page 15 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 15 of 33
+.
+8.2.3. Analyses of the Secondary Efficacy Endpoint
+For DOR, PFS and survival (time to death), a Cox proportional hazard models may be 
+performed; the model will include treatment and the covariates specified in Section 6.2.  The 
+hazard ratios and the 95% CIs of the hazard ratios based on the model will be presented.
+DOR
+Duration of response (DOR) is defined as the time from date of the first documentation of 
+objective tumor response (CR or PR) to the first documentation of Progressive Disease (PD) 
+or to death due to any cause in the absence of documented PD.  Censoring for the DOR 
+endpoint will be assigned on the date of the last tumor assessment if no assessment of tumor 
+progression is identified and the patient does not die while on study. If no adequate disease 
+assessment at baseline, the endpoint will be censored on the date of randomization with 
+duration of 1 day. When a patient has missing tumor assessment(s) but remains as a CR or 
+PR responder at the time of data analysis, the endpoint will be censored at the time of the last 
+available tumor assessment where CR or PR is declared.  DOR will only be calculated for the 
+subgroup of patients with a confirmed objective response achieved by week 19 from ITT 
+population; same analysis will be repeated for PP population as a sensitivity analysis.
+The Kaplan-Meier method will be used to estimate the DOR rate at 1-year. The 2-sided 95% 
+CIs of the rate using the Greenwood’s formula will be reported.  Kaplan-Meier curves will 
+also be plotted for each of the two treatment group at 1-year together with a 2-sided log-rank 
+test stratified by region, gender and smoking history (as specified in Section 6.2) to compare
+the DOR curve between the two treatment groups at 1-year.  The Kaplan-Meier method will 
+also be used to obtain the estimates of median DOR associated with each treatment group.  
+The 2-sided 95% CIs for the 25th, 50th and 75th percentiles of the DOR time using the 
+Brookmeyer and Crowley method will be reported when estimable. 
+At the time of the first data cut off (Week 19 and confirmed at Week 25), all above 
+mentioned analyses will be performed for secondary endpoints.  The DOR endpoint will be 
+censored based on the following algorithms:
+
+If a Patients last known, 1) to be alive, 2) not to have started new (non-protocol) 
+anti-cancer treatment, and 3) to be progression-free, and who have a baseline and at 
+least one on-study disease assessment, are censored at the date of the last objective 
+disease assessment that verified lack of progressive disease (even if there is 
+unacceptably long interval between the assessments).
+
+If no assessment of tumor progression is identified by the investigator assessment and 
+the patient does not die, the endpoint will be censored on the date of the last available 
+tumor assessment. 
+
+If radiotherapy or surgery is used to manage any target lesion or the patient starts a 
+new anti-cancer therapy prior to the documented PD, the endpoint will be censored on 
+the date of the last available tumor assessment prior to the start of the new anti-cancer 
+therapy. 
+
+
+--- Page 16 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 16 of 33
+.
+Patients with documentation of progressive disease or death after an unacceptably long 
+interval (> 14 weeks) since the last tumor assessment will be censored at the time of last 
+objective assessment verifying lack of disease progression prior to the event.PFS and PFS 
+Rates
+PFS is defined as the time from date of randomization to first progression of disease (PD) or 
+death due to any cause, whichever occurred first.  The analysis of this endpoint will be based 
+on ITT population and same analysis based on PP population will also be performed as a 
+sensitivity analysis.  The tumor assessment will be based on investigator assessment in 
+accordance with RECIST 1.1.  The PFS endpoint will be censored based on the following 
+algorithms:
+
+If a Patients last known, 1) to be alive, 2) not to have started new (non-protocol) 
+anti-cancer treatment, and 3) to be progression-free, and who have a baseline and at 
+least one on-study disease assessment, are censored at the date of the last objective 
+disease assessment that verified lack of disease progression (even if there is 
+unacceptably long interval between the assessments).
+
+If no assessment of tumor progression is identified by the investigator assessment and 
+the patient does not die, the endpoint will be censored on the date of the last available 
+tumor assessment. 
+
+If no evaluation of disease is performed after randomization, the endpoint will be 
+censored on the date of randomization with duration of 1 day.  (If patient died prior to 
+the first scheduled disease assessment, death will be considered as an event). 
+
+If radiotherapy or surgery is used to manage any target lesion or the patient starts a 
+new anti-cancer therapy prior to the documented PD, the endpoint will be censored on 
+the date of the last available tumor assessment prior to the start of the new therapy. 
+
+Patients with documentation of progression or death after an unacceptably long 
+interval (> 14 weeks) since the last tumor assessment will be censored at the time of 
+last objective assessment verifying lack of disease progression prior to the event. 
+
+If no adequate disease assessment at baseline, the endpoint will be censored on the 
+date of randomization with duration of 1 day. 
+Similar analyses, as described for DOR, will be carried out for PFS. 
+Survival and Survival Rates
+Survival (time to death) is defined as the time from date of randomization to death due to any 
+causes.  Patients will be censored for this endpoint on the date known alive. Date of last 
+known alive could be determined from onset date of AE, concomitant medication or any 
+other documented assessments.  The Kaplan-Meier method will be used to estimate 1-year 
+survival rates, the 2-sided 95% CIs of 1-year survival rate will also be reported.  
+Kaplan-Meier curves will also be plotted for each of the two treatment group at 1-year 
+
+
+--- Page 17 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 17 of 33
+.
+together with a 2-sided log-rank test stratified by region, gender and smoking history (as 
+specified in Section 6.2) to compare the survival distribution between the 2 treatment groups
+at the three timepoints.  The analysis will be carried out based on ITT population and same 
+analysis will be repeated based on PP population as a sensitivity analysis.
+8.2.4. Analyses of Pharmacokinetic Endpoints
+The drug concentration-time data will be summarized by descriptive statistics (mean, 
+standard deviation, median, minimum, and maximum) according to treatment.  A listing of 
+all concentrations sorted by treatment, subject ID and nominal time postdose will be 
+generated.  The concentration listing will also include the actual sampling times.  Deviations 
+from the nominal time will be given in a separate listing.
+Population PK assessment will be conducted using a nonlinear mixed effect modeling 
+approach.  All patients who are treated with bevacizumab-Pfizer or bevacizumab-EU, have 
+no major protocol deviations that can influence the PK assessment and provide at least one 
+post-dose drug concentration measurement will be included in the population PK analysis.  A 
+structural PK model based on prior information will be used.  The population PK analysis 
+will estimate typical value and variability for parameters including clearance (CL) and 
+volume of distribution (Vd).  Also, the influence of selected potential covariates on the PK 
+parameters will be explored; the potential covariates to be explored will include drug 
+product, selected demographics (eg, body weight, sex), and ADA status.
+Details of the population PK data analysis will be reported in a Population Modeling 
+Analysis Report that is separate from the Clinical Study Report.
+8.2.5. Immunogenicity Assessment
+For the immunogenicity data, the percentage of patients with positive ADA and neutralizing 
+antibodies will be summarized for each treatment.  For patients with positive ADA, the 
+magnitude (titer), time of onset, and duration of ADA response will also be described, if data 
+permit.  In addition, efforts will be made, as appropriate, to examine possible correlations of 
+the ADA response with clinical data on the PK, safety and/or efficacy of each product.
+Because the observed incidence of ADA is highly dependent on multiple factors including the 
+assays used for ADA detection, timing of sample collection and immune status of the patients, 
+the incidence of ADA observed in the planned study may differ from the incidence reported in 
+historical clinical trials.
+This analysis will be carried out with the safety population.
+8.2.6. Safety Analyses
+Patients who start treatment are assessed for toxicities up to at least 28 days after final dose 
+of treatment or start of new anti-cancer therapy (whichever comes first). Toxicities observed 
+beyond 28 days and recorded in the database per sponsor's agreement will be included in the 
+summaries.
+
+
+--- Page 18 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 18 of 33
+.
+The safety analyses will be carried out in the safety population.  The following safety 
+endpoints will be summarized descriptively: 
+
+Treatment emergent Adverse Events (TEAE), bevacizumab- related AE, Serious 
+Adverse Events (SAE), and treatment related SAE;
+
+Adverse events leading to delays, dose reduction and permanent discontinuation;
+
+Echocardiogram (ECHO) or MUGA.
+Treatment emergent adverse events (TEAE) is defined as any adverse event that occurs after 
+the beginning of the study treatment (on or after Study Day 1) or any pre-existing adverse 
+event that worsens after the beginning of the study treatment and at least 28 days after final 
+dose of study treatment or start of new anticancer therapy (whichever comes first).  Whether 
+an adverse event is related to the study treatment will be determined by the investigator. 
+The Pfizer standard 3-tier adverse events reporting approach will be employed: 
+
+Tier-1 events will be identified by the medical team on an ongoing basis and the final 
+list of events will be determined before database lock.  Frequency and percentage of 
+patients with each treatment group, risk difference (RD), 95% CI on RD Tier-2 events 
+will be those events that occur in >= 10% patients in at least one treatment group.  
+The frequency and percentage of patients, RD and 95% CI of RD will be provided for 
+each event. 
+
+Tier-3 events will be all other events that are neither Tier-1 nor Tier-2.  Only 
+frequency and percentage of patients will be provided.
+The 3-tier AE summary tables will be generated for all TEAEs and then for those that are 
+related to the study treatment. 
+Adverse events will be classified using the Medical Dictionary for Regulatory Activities 
+(MedDRA)6 to determine System Organ Class and Preferred Term. Common Terminology 
+Criteria for Adverse Events (CTCAE)7, version 4.03, will be used to grade severity. Adverse 
+events will be summarized by System Organ Class and Preferred Term and severity for each 
+treatment group. CTCAE Grade 3 or higher adverse events will be additionally summarized 
+separately by treatment group.
+Selected adverse events and syndromes will be summarized using grouped MedDRA codes in 
+addition to presentation of individual AE preferred terms.  Among these groupings will be 
+the following categories of adverse events:
+
+Signs and symptoms of anaphylaxis will be captured and summarized in accordance 
+with guidance provided by the Second Symposium on the Definition of Anaphylaxis.
+
+Clinically significant decrease in LVEF.
+
+
+--- Page 19 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 19 of 33
+ECHO or MUGA will be summarized by treatment and visit. Change from baseline and 
+percent change from baseline will be summarized by treatment and visit for selected 
+continuous variables.  Baseline is Day 1 and if Day 1 value is missing, the closest 
+measurement prior to Day 1 will be used.
+Shift tables of baseline against each post-baseline visit may be provided for selected 
+laboratory tests to examine the distribution of laboratory toxicities.
+Physical examination at screening phase will be collected in the CRF and will be listed in a 
+data listing. Vital signs will be presented in listing format only.
+Patient listings will be produced for all safety endpoints. 
+
+
+--- Page 20 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 20 of 33
+.
+9. REFERENCE
+1.
+Sandler A, Gray R, Perry MC, et al.  Paclitaxel–carboplatin alone or with bevacizumab 
+for non–small-cell lung cancer.  New Engl J Med 2006;355:2542-50.
+2.
+Johnson DH, Fehrenbacher L, Novotny WF, et al. Randomized phase II trial comparing 
+bevacizumab plus carboplatin and paclitaxel with carboplatin and paclitaxel alone in 
+previously untreated locally advanced or metastatic non-small-cell lung cancer. J Clin 
+Oncol 2004; 22(11):2184-91.
+3.
+Niho S, Kunitoh H, Nokihara H, et al. Randomized phase II study of first-line 
+carboplatin-paclitaxel with or without bevacizumab in Japanese patients with advanced 
+non-squamous non-small-cell lung cancer. Lung Cancer 2012; 76(3):362-7.
+4.
+Eisenhauer EA, Therasse P, Bogaerts J, et al. New response evaluation criteria in solid 
+tumours: revised RECIST guideline (version 1.1). Eur J Cancer 2009; 45(2):228-47.
+5.
+Miettinen OS, Nurminen M. Comparative analysis of two rates. Statistics in Medicine 
+1985; 4: 213-226.
+6.
+http://www.meddra.org/
+7.
+US Department of Health and Human Services, National Institutes of Health, National 
+Cancer Institute. Common Terminology Criteria for Adverse Events (CTCAE). In: 
+Version 4. NIH Publication No. 09-5410. Washington, DC; 2010: 194 pages.
+
+
+--- Page 21 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 21 of 33
+.
+10. APPENDICES
+Appendix 1. Assessment Windows to Derive the Time Point Response
+To derive the time point response for each patient, the assessment windows in Table 2 will be 
+used to cluster the assessments.
+Table 2. Assessment Windows
+Assessments
+Scheduled 
+Assessment 
+Day
+Start Day of 
+Assessment 
+Window
+End day of 
+Assessment 
+Window
+1
+42
+22
+63
+2
+84
+64
+105
+3
+126
+106
+147
+4
+168
+148
+200
+
+
+--- Page 22 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 22 of 33
+.
+Appendix 2. Summary of Key Efficacy Analyses 
+The key efficacy analyses are summarized in.
+Table 3. Summary of Key efficacy analysis
+Endpoint
+Analysis 
+Set
+Statistical Method 
+Covariates
+Missing Data
+Analyses type
+ORR
+ITT
+Miettinen and Nurminen
+without strata
+Treatment
+Non-responder 
+imputation 
+Primary analysis
+ORR
+PP
+Miettinen and Nurminen
+without strata
+Treatment
+Non-responder 
+imputation 
+Sensitivity 
+analysis
+ORR
+ITT
+Miettinen and Nurminen
+with strata
+Treatment and 
+other covariates
+Non-responder 
+imputation 
+Secondary 
+analysis
+ORR
+PP
+Miettinen and Nurminen
+with strata
+Treatment and 
+other covariates
+Non-responder 
+imputation 
+Secondary 
+analysis
+DOR
+ITT
+Kaplan-Meier 
+Treatment
+Censoring
+Secondary 
+analysis
+DOR
+PP
+Kaplan-Meier 
+Treatment
+Censoring
+Secondary 
+analysis
+PFS 
+ITT
+Kaplan-Meier
+Treatment
+Censoring
+Secondary 
+analysis
+PFS 
+PP
+Kaplan-Meier
+Treatment
+Censoring
+Secondary 
+analysis
+Survival
+ITT
+Kaplan-Meier
+Treatment
+Censoring
+Secondary 
+analysis
+Survival
+PP
+Kaplan-Meier
+Treatment
+Censoring
+Secondary 
+analysis
+
+
+--- Page 23 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 23 of 33
+.
+Appendix 3. Sample Code for the Miettinen and Nurminen Method Without Strata
+Appendix 3.1. For Risk Ratio
+First, manipulate study data to form the following structure.  The variable Count in the 
+sample would be corresponding to the ORR count in the primary efficacy analysis. 
+Data test;
+Input   group $     resp $      count;
+Cards;
+  pfe          yes        210
+  pfe          no         180
+  eu           yes        202
+  eu           no         188
+;
+run;
+Then, apply the following codes to obtain the asymptotic 90% CI:
+proc binomial data=test alpha=0.9;
+eqv/as ratio margin=1.37;
+po group;
+ou resp;
+weight count;
+run;
+quit;
+Appendix 3.2. For Risk Difference
+First, manipulate study data to form the same structure as in Appendix 3.1.  
+Then, apply the following codes to obtain the asymptotic 95% CI:
+proc binomial data=test alpha=0.95;
+eqv/as diff margin=0.13;
+po group;
+ou resp;
+weight count;
+run;
+quit;
+
+
+--- Page 24 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 24 of 33
+.
+Appendix 4. Sample Code for the Miettinen and Nurminen Method With Strata
+Appendix 4.1. For Risk Ratio
+%macro MNRRFunc(RR=); 
+/* calculate ML estimate of R1 and R0*/
+r0s=0;
+r1s=0;
+/* initial value of weights sum */
+wsum=0;
+%do j=1 %to &size;
+wsum=wsum+w&j;
+%end;
+/* paper equation (12) */
+%do j= 1 %to &size;
+AA=(&&nt&j+&&nc&j)*&RR;
+BB=-(&&nt&j*&RR+&&yt&j+&&nc&j+&&yc&j*&RR);
+CC= &&yc&j+&&yt&j;
+r0&j=(-BB-sqrt(BB*BB-4*AA*CC))/(2*AA);
+r1&j=r0&j*&RR; 
+/* rounding the boundary values */
+if r0&j>1 then r0&j=1;if r0&j<0 then r0&j=0;
+if r1&j>1 then r1&j=1;if r1&j<0 then r1&j=0;
+r0s=r0s+r0&j*w&j/wsum;
+r1s=r1s+r1&j*w&j/wsum;
+%end;
+/* end of calculate ML estimate of R1 and R0*/
+/* update the weights W, paper equation (18) */
+%do j=1 %to &size;
+w&j=1/((1-r1s)/(1-r0s)/&&nt&j+&RR/&&nc&j);
+%end;
+wsum=0;
+%do j=1 %to &size;
+wsum=wsum+w&j;
+%end;
+
+
+--- Page 25 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 25 of 33
+/* calculate the variance V, paper equation (11) */
+vsum=0;
+%do j=1 %to &size;
+v&j=(r1&j*(1-r1&j)/&&nt&j+(&RR**2)*r0&j*(1-
+r0&j)/&&nc&j)*((&&nt&j+&&nc&j)/(&&nt&j+&&nc&j-1));
+if v&j=0 then do;      
+r0&j=0.001;
+      
+r1&j=0.001;
+v&j=(r1&j*(1-r1&j)/&&nt&j+(&RR**2)*r0&j*(1-
+r0&j)/&&nc&j)*((&&nt&j+&&nc&j)/(&&nt&j+&&nc&j-1));
+end;
+vsum=vsum+w&j**2*v&j/wsum**2;
+%end;
+/* calculate the score and the limits, paper equation (17)  */
+t=0;
+%do j=1 %to &size;
+t=t+((&&yt&j/&&nt&j*w&j)-(&&yc&j/&&nc&j*w&j*&RR))/wsum/sqrt(vsum);
+%end;
+ZA1=t+probit(1-&alpha/2); /* upper limit */
+ZA2=t-probit(1-&alpha/2); /* lower limit */
+%mend;
+/** Use bisection method and iterative procedure to find the limits for RR **/
+%macro RRrootfinding(parainput=,size=,alpha=);
+/* read in parameters from input dataset to global variables */
+proc sql noprint;
+   select nt, nc, yt, yc
+     into :nt1 - :nt&size, :nc1 - :nc&size, :yt1 - :yt&size, :yc1 - :yc&size
+           from &parainput;
+/* main part of the macro */
+data MNRR; 
+/* set machine epsilon for bisection method*/
+eps=0.000001;
+/* read parameters from global variables*/
+%do j=1 %to &size;
+nt&j=&&nt&j;
+nc&j=&&nc&j;
+
+
+--- Page 26 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 26 of 33
+.
+yt&j=&&yt&j;
+yc&j=&&yc&j;
+/* following parameters are used to define the searching range */
+/* 0.5 and 1 is added to avoid cases when cells has value 0 */
+c1s&j=&&yt&j+0.5;
+n1s&j=&&nt&j+1;
+c0s&j=&&yc&j+0.5;
+n0s&j=&&nc&j+1;
+%end;
+/* set initial values for weights */
+%do j=1 %to &size;
+w&j= 1/(1/&&nt&j+1/&&nc&j);
+%end;
+/**max RR and Min RR for searching*/;
+b1=0;b0=0.01;
+%do j=1 %to &size;
+b1=max(b1,(c1s&j/n1s&j)/(c0s&j/n0s&j),(c0s&j/n0s&j)/(c1s&j/n1s&j));  
+b0=min(b0,(c1s&j/n1s&j)/(c0s&j/n0s&j),(c0s&j/n0s&j)/(c1s&j/n1s&j));
+%end;
+b1=b1*100;
+b0=b0/100;
+/*Upper Limits, using bisection method */;
+Uroot1=b0; RR=Uroot1; %MNRRFunc(RR=RR);y1=ZA1;  
+Uroot3=b1; RR=Uroot3; %MNRRFunc(RR=RR);y3=ZA1;
+y2=(b1+b0)/2;
+i=0;
+if y1*y3>0 then do;
+put  "f does not have opposite sign at endpoints";
+Uroot2=.;
+end;
+else do while (i<1000 and abs(y2)>eps);
+i=i+1;
+        Uroot2=(Uroot1+Uroot3)/2;
+        RR=Uroot2; %MNRRFunc(RR=RR); y2=ZA1;
+                RR=Uroot1; %MNRRFunc(RR=RR); y1=ZA1;
+
+
+--- Page 27 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 27 of 33
+.
+               RR=Uroot3; %MNRRFunc(RR=RR); y3=ZA1;
+           
+               if y1*y2<0 then do;
+        Uroot3=Uroot2;
+        y3=y2;
+       end;
+       else do;
+            Uroot1=Uroot2;
+        y1=y2;
+       end;
+       end;
+/*Lower Limits, using bisection method */;
+%do j=1 %to &size;
+w&j= 1/(1/&&nt&j+1/&&nc&j);
+%end;
+Lroot1=b0; RR=Lroot1; %MNRRFunc(RR=RR); y11=ZA2; 
+Lroot3=b1; RR=Lroot3; %MNRRFunc(RR=RR); y33=ZA2;
+y22=(b0+b1)/2;
+i=0;
+if y11*y33>0 then do;
+                put  "f does not have opposite sign at endpoints" ;
+    Lroot2=.;
+end;
+else do while (i<1000 and abs(y22)>eps);
+i=i+1;
+        Lroot2=(Lroot1+Lroot3)/2;
+                RR=Lroot2; %MNRRFunc(RR=RR); y22=ZA2;
+                RR=Lroot1; %MNRRFunc(RR=RR); y11=ZA2;
+                RR=Lroot3; %MNRRFunc(RR=RR); y33=ZA2;
+               if y11*y22<0 then do; 
+                     Lroot3=Lroot2;
+         y33=y22;
+       end;
+       else do;
+            Lroot1=Lroot2;
+        y11=y22;
+       end;
+
+
+--- Page 28 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 28 of 33
+.
+        end;
+keep nt1 nt2 nc1 nc2 yc1 yc2 yt1 yt2 Lroot2 Uroot2;
+run;
+%mend;
+/* provide feed in data to the macro*/
+/* each line represent values in each stratum */
+/* with total n in each arm (nt and nc) and responder in each arm (yt and yc) */
+/* following example only contains one strata with 4 levels */
+data data;
+input nt nc yt yc;
+cards;
+100 110 60 70
+120 110 80 70
+120 115 70 70
+130 120 75 75
+;
+run;
+/* calculated CI based on RR with MN method with strata*/
+/* parameter Size is the total levels of strata.If two strata is considered, each with 2 and 3 
+levels, */
+/* there will be 6 lines in the input dataset, and size=6  */
+%RRrootfinding(parainput=data,size=4,alpha=0.05);
+Appendix 4.2. For Risk Difference
+%macro MNRDfunc(RD=);
+/* force the restricted difference not equal to zero*/
+if &RD=0 then RD=0.001; else RD=&RD;
+/* calculate ML estimate of R1 and R0*/
+r0s=0;
+r1s=0;
+/* initial value of weights sum */
+wsum=0;
+%do j=1 %to &size;
+wsum=wsum+w&j;
+%end;
+/* paper equation (27),(28) */
+%do j= 1 %to &size;
+L0=&&yc&j*RD*(1-RD);
+L1=(RD*&&nc&j-&&nc&j-&&nt&j-2*&&yc&j)*RD+(&&yt&j+&&yc&j);
+
+
+--- Page 29 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 29 of 33
+.
+L2=(&&nt&j+2*&&nc&j)*RD-&&nc&j-&&nt&j-(&&yt&j+&&yc&j);
+L3=&&nt&j+&&nc&j;
+*************************;
+q=(L2**3)/(27*(L3**3))-(L1*L2)/(6*L3*L3)+L0/(2*L3);
+p=q/abs(q)*sqrt((L2*L2)/(9*L3*L3)-L1/(3*L3));
+a=(1/3)*(arcos(-1)+arcos( q/(p**3)));
+**************************;
+r0&j=2*p*cos(a)-L2/(3*L3);
+r1&j=r0&j+RD;
+/* rounding the boundary values */
+if r0&j>1 then r0&j=1;if r0&j<0 then r0&j=0;
+if r1&j>1 then r1&j=1;if r1&j<0 then r1&j=0;
+r0s=r0s+r0&j*w&j/wsum;
+r1s=r1s+r1&j*w&j/wsum;
+%end;
+/* end of calculate ML estimate of R1 and R0*/
+/* update the weights W, paper equation (16) */
+%do j=1 %to &size;
+w&j=1/(r1s*(1-r1s)/r0s/(1-r0s)/&&nt&j+1/&&nc&j);
+%end;
+wsum=0;
+%do j=1 %to &size;
+wsum=wsum+w&j;
+%end;
+/* calculate the variance V, paper equation (8) */
+vsum=0;
+%do j=1 %to &size;
+v&j=(r1&j*(1-r1&j)/&&nt&j+r0&j*(1-
+r0&j)/&&nc&j)*((&&nt&j+&&nc&j)/(&&nt&j+&&nc&j-1));
+if v&j=0 then do;      
+r0&j=0.001;
+      
+r1&j=0.001;
+v&j=(r1&j*(1-r1&j)/&&nt&j+r0&j*(1-
+r0&j)/&&nc&j)*((&&nt&j+&&nc&j)/(&&nt&j+&&nc&j-1));
+end;
+vsum=vsum+w&j**2*v&j/wsum**2;
+%end;
+/* calculate the score and the limits, paper equation (15) */
+
+
+--- Page 30 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 30 of 33
+.
+t=0;
+%do j=1 %to &size;
+t=t+w&j*(&&yt&j/&&nt&j-&&yc&j/&&nc&j)/wsum/sqrt(vsum);
+%end;
+t=t-RD/sqrt(vsum);
+Zmnd1=t-probit(1-&alpha/2);
+Zmnd2=t+probit(1-&alpha/2);
+%mend;
+/** Use bisection method and iterative procedure to find the limits for RD **/
+%macro RDrootfinding(parainput=,size=,alpha=);
+/* read in parameters from input dataset to global variables */
+proc sql noprint;
+   select nt, nc, yt, yc
+      into :nt1 - :nt&size, :nc1 - :nc&size, :yt1 - :yt&size, :yc1 - :yc&size
+           from &parainput;
+/* main part of the macro */
+data MNRD;
+/* set machine epsilon for bisection method*/
+eps=0.000001;
+/* read parameters from global variables*/
+%do j=1 %to &size;
+nt&j=&&nt&j;
+nc&j=&&nc&j;
+yt&j=&&yt&j;
+yc&j=&&yc&j;
+%end;
+/* set initial values for weights */
+%do j=1 %to &size;
+w&j= 1/(1/&&nt&j+1/&&nc&j);
+%end;
+/**max RR and Min RR for searching*/;
+b1=-0.999;
+b0=0.999;
+
+
+--- Page 31 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 31 of 33
+.
+/*Lower Limits, using bisection method */;
+Lroot1=b0;RD=Lroot1;%MNRDfunc(RD=RD); y1=Zmnd1; 
+Lroot3=b1;RD=Lroot3;%MNRDfunc(RD=RD); y3=Zmnd1; 
+i=0;y2=2*eps;    
+if y1*y3>0 then do;
+     
+put  "f does not have oposite sign at endpoints" ;
+     
+Lroot2=.;
+end;
+else do while (i<1000 and abs(y2)>eps);
+        i=i+1;
+        Lroot2=(Lroot1+Lroot3)/2;
+        RD=Lroot2; %MNRDfunc(RD=RD); y2=Zmnd1;
+        RD=Lroot1; %MNRDfunc(RD=RD); y1=Zmnd1;
+        RD=Lroot3; %MNRDfunc(RD=RD); y3=Zmnd1;
+if y1*y2<0 then do;
+      
+Lroot3=Lroot2;
+y3=y2;
+    end;
+    else do;
+Lroot1=Lroot2;
+y1=y2;
+    end;
+end;
+/*Upper Limits, using bisection method */;
+    Uroot1=b0; RD=Uroot1; %MNRDfunc(RD=RD); y11=Zmnd2;
+    Uroot3=b1; RD=Uroot3; %MNRDfunc(RD=RD); y33=Zmnd2;
+     y22=2*eps;   
+i=0;
+if y11*y33>0 then do;
+put  "f does not have oposite sign at endpoints" ;
+Uroot2=.;
+end;
+else do while (i<1000 and abs(y22)>eps);
+    
+i=i+1;
+     
+Uroot2=(Uroot1+Uroot3)/2;
+
+
+--- Page 32 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 32 of 33
+.
+    
+RD=Uroot2; %MNRDfunc(RD=RD); y22=Zmnd2;
+     
+RD=Uroot1; %MNRDfunc(RD=RD); y11=Zmnd2;
+     
+RD=Uroot3; %MNRDfunc(RD=RD); y33=Zmnd2;
+       
+if y11*y22<0 then do;
+             Uroot3=Uroot2;
+y33=y22;
+end;
+        else do;
+Uroot1=Uroot2;
+y11=y22;
+end;
+end;
+keep nt1 nt2 nc1 nc2 yc1 yc2 yt1 yt2 Lroot2 Uroot2;
+run;
+%mend;
+/* provide feed in data to the macro*/
+/* each line represent values in each stratum */
+/* with total n in each arm (nt and nc) and responder in each arm (yt and yc) */
+/* following example only contains one strata with 4 levels */
+data data;
+input nt nc yt yc;
+cards;
+100 110 60 70
+120 110 80 70
+120 115 70 70
+130 120 75 75
+;
+run;
+/* calculated CI based on RD with MN method with strata*/
+/* parameter Size is the total levels of strata.If two strata is considered, each with 2 and 3 
+levels, */
+/* there will be 6 lines in the input dataset, and size=6  */
+%RDrootfinding(parainput=data,size=4,alpha=0.05);
+
+
+--- Page 33 ---
+Protocol B7391003
+       Statistical Analysis Plan
+                                                                       
+Final
+                                                                   Page 33 of 33
+.
+Appendix 5. Sample Code for DOR, PFS and Survival
+Analysis dataset event derivations
+CNSR = 0 for patients who have an Event, and a value of 1 for patients who were censored.
+AVAL is in weeks. AVAL is derived as: [ADT (date of event) – RANDDT +1] / 7 for patients with events 
+where RANDDT is randomization date.
+SAS code analogous to the following will be used:
+proc lifetest data = adtte outsurv=survpl alpha=0.05 alphaqt=0.05;
+     where aval ne . and cnsr ne . and trtpn ne .;
+     strata trtpn;
+     time aval * cnsr(1);
+run;
+quit;
+The Kaplan-Meier Estimate of PFS at 25 weeks and 55 weeks will be derived using the TIMELIST= option in 
+PROC LIFETEST
+proc phreg data = adtte;
+    where aval ne . and cnsr ne . and trtpn ne . and strata1 ne . and strata2 ne .;
+    model aval * cnsr(1) = trtpn / alpha = 0.05 rl ties= efron;
+    strata strata1 strata2;
+run ;
+quit;
+proc lifetest data=adtte ;
+     where aval ne . and cnsr ne . and trtpn ne . and strata1 ne . and strata2 ne .;
+     time aval * cnsr(1);
+     strata strata1 strata2/ group=trtpn; 
+run;
+quit;

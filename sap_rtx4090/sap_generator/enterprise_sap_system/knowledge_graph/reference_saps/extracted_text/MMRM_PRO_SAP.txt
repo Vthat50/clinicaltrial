@@ -1,0 +1,6062 @@
+
+--- Page 1 ---
+16.1.9        Documentation of statistical methods 
+The following documents are included: 
+Analysis of proportions 
+The Cochran-Mantel-Haenszel (CMH) test, incorporating prior anti-tumor necrosis factor use 
+as a stratification factor, was used to compare response rates of response–type variables 
+between 
+ tildrakizumab and placebo. In addition, the Mantel-Haenszel common risk 
+(the response rate) difference between 
+ tildrakizumab and placebo and the 
+confidence interval (CI) were estimated. Should assumption per the Mantel-Fleiss criterion 
+not be satisfied, the comparison was to be based on a Fisher’s exact test after collapsing across 
+levels of the stratification factor. In this case, the response rate difference and CI was based 
+on a normal approximation without considering stratification. 
+The primary efficacy variable is ASAS20 at 
+ ASAS20 was analyzed with CMH test 
+as described above. Early withdrawals and any subjects with ASAS20 undeterminable at 
+ were classified as non-responders. Subjects who failed to show minimal response to 
+treatment (defined as 
+ improvement from Baseline in total back pain or inflammation) 
+at 
+ may have had their background medications adjusted according to the maximum 
+permitted daily dose described in the protocol and continued in the study. Any subject 
+requiring these adjustments was counted as a non-responder for the primary analysis. 
+The sample SAS codes are: 
+The secondary and exploratory response-type endpoints (ASAS
+, ASAS
+, ASAS
+ etc.) 
+were analyzed similarly. 
+Mixed model repeated measures analysis of continuous endpoints 
+A mixed model repeated measure (MMRM) analysis was performed. The SAS procedure 
+PROC MIXED was used. The preferred model included the fixed categorical effects of 
+treatment, visit, treatment-by-visit interaction, and prior TNF use (yes/no), as well as the 
+continuous fixed covariate of baseline value. An unstructured matrix for the within-subject 
+error variance-covariance was used. The denominator (degrees of freedom) was calculated 
+according to the Kenward-Roger method. 
+In case of non-convergence with the unstructured matrix, other within-subject error 
+variance-covariance matrices, such as compound symmetry (CS), was considered. 
+Page 1 of 116
+Sun Pharma Global FZE
+CSR CLR_16_22 (Tildrakizumab)
+
+
+--- Page 2 ---
+The model provided least-squares mean estimates, standard errors, 
+CIs and 
+p-values for mean change at all time points between treatments (tildrakizumab vs. placebo). 
+Continuous endpoints (change from baseline in PtGA of disease activity, Total Back Pain, 
+Nocturnal Pain, Inflammation, BASFI, BASMI, BASDAI, ASQoL, ASDAS-CRP, 
+ASDAS-ESR, MASES, SF-36, FACIT-fatigue, TJC46, SJC44, hsCRP, SPARCC MRI Index 
+of Disease Activity Score of the SI Joints, SPARCC MRI Index of Disease Activity Score of 
+the Spine, and Modified Berlin ASspiMRI) up to 
+ analyzed based on a MMRM 
+analysis that includes the fixed effects of treatment, visit, treatment by visit interaction, prior 
+anti-TNF use (yes/no), and Baseline value. Due to placebo group switching to 
+tildrakizumab at 
+, the comparison between active drug and placebo was not performed 
+for the endpoints collected after 
+.  
+Below is an example of the SAS code for the MMRM: 
+Page 2 of 116
+Sun Pharma Global FZE
+CSR CLR_16_22 (Tildrakizumab)
+
+
+--- Page 3 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+Page 1 of 55 
+Protocol Title: 
+A Randomized, Double-Blind, Placebo-Controlled Phase 2a 
+Study to Evaluate the Efficacy and Safety of Tildrakizumab in 
+Subjects with Active Ankylosing Spondylitis or 
+Non-Radiographic Axial Spondyloarthritis 
+Protocol Number: 
+CLR_16_22 
+Protocol Version, Date 
+Document Version, Date: 
+Prepared by: 
+Confidentiality statement: 
+ 
+The information provided in this document is strictly confidential. 
+ 
+The Recipients of the SAP must not disclose the confidential document and any 
+related information to other persons. 
+ 
+In addition, they must keep this confidential document in a controlled 
+environment which prevents unauthorized access to the document. 
+Page 3 of 116
+V3.0 Final, 19 Mar 2018 
+Final v2.0, 01 Oct 2019
+
+
+--- Page 4 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 2 of 55 
+ 
+SIGNATURE PAGE 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Approved at Sun Pharma Advanced Research Company Ltd 
+by: 
+Rocco Ballerini 
+08 Oct 2019 20:21:022+0000 
+REASON: I approve this document 
+4527a681-b6fb-4e53-bc97-98fb389dd032 
+Rocco Ballerini, Associate Vice President- Biostatistics and Data 
+Management 
+Date 
+Page 4 of 116
+
+
+--- Page 5 ---
+REVISION HISTORY 
+Statistical Analysis Plan (SAP) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 3 of 55 
+ 
+Page 5 of 116
+
+
+--- Page 6 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 4 of 55 
+TABLE OF CONTENTS 
+SIGNATURE PAGE ....................................................................................................................... 2 
+REVISION HISTORY .................................................................................................................... 3 
+TABLE OF CONTENTS................................................................................................................. 4 
+LIST OF ABBREVIATIONS .......................................................................................................... 6 
+1 INTRODUCTION ..................................................................................................................... 9 
+2 STUDY OBJECTIVES ............................................................................................................ 10 
+2.1 Primary objectives .......................................................................................................... 10 
+2.2 Secondary objectives ...................................................................................................... 10 
+2.3 Exploratory objectives .................................................................................................... 10 
+3 STUDY DESIGN .................................................................................................................... 12 
+3.1 General study design ....................................................................................................... 12 
+3.2 Randomization and blinding ........................................................................................... 13 
+3.3 Study treatments and assessments ................................................................................... 14 
+4 STUDY ENDPOINTS ............................................................................................................. 23 
+4.1 Primary efficacy endpoint ............................................................................................... 23 
+4.2 Secondary efficacy endpoints (up to Week 52) .............................................................. 23 
+4.3 Exploratory endpoints ..................................................................................................... 24 
+4.4 Safety endpoints .............................................................................................................. 26 
+5 SAMPLE SIZE AND POWER ................................................................................................ 27 
+6 ANALYSIS POPULATIONS ................................................................................................. 28 
+6.1 Full Analysis Set (FAS) .................................................................................................. 28 
+6.2 Per Protocol Analysis Set (PPAS) .................................................................................. 28 
+6.3 Safety Analysis Set ......................................................................................................... 28 
+6.4 PK Analysis Set .............................................................................................................. 28 
+6.5 ADA Evaluable Set ......................................................................................................... 28 
+6.6 Protocol deviations/violations and exclusions from analysis sets ................................... 28 
+7 Statistical Considerations and analysis .................................................................................... 30 
+7.1 Derived Variables ........................................................................................................... 30 
+7.2 Handling of missing data and outliers ............................................................................. 30 
+7.2.1 Missing data analysis methods ........................................................................... 30 
+7.2.2 Handling of missing or incomplete dates............................................................ 30 
+8 STATISTICAL METHODS .................................................................................................... 32 
+8.1 General Statistical Conventions ...................................................................................... 32 
+8.2 Protocol deviations ......................................................................................................... 33 
+8.3 Subject disposition .......................................................................................................... 33 
+8.4 Demographics and baseline characteristics ..................................................................... 33 
+8.4.1 Demographics ..................................................................................................... 33 
+8.4.2 Baseline characteristics ....................................................................................... 34 
+8.4.3 Medical history ................................................................................................... 34 
+8.4.4 Prior and concomitant medications ..................................................................... 34 
+Page 6 of 116
+
+
+--- Page 7 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 5 of 55 
+8.5 Extent of exposure .......................................................................................................... 34 
+8.5.1 Treatment Duration ............................................................................................. 34 
+8.5.2 Treatment Compliance ........................................................................................ 34 
+8.6 Efficacy analyses ............................................................................................................ 35 
+8.6.1 Analysis methods ................................................................................................ 35 
+8.6.1.1 Multiplicity ......................................................................................................... 36 
+8.6.2 Analysis of primary efficacy endpoint ................................................................ 36 
+8.6.3 Analysis of secondary endpoints ........................................................................ 37 
+8.6.4 Analysis of exploratory endpoints ...................................................................... 37 
+8.7 Safety analyses ................................................................................................................ 38 
+8.7.1 Adverse events .................................................................................................... 38 
+8.7.2 Clinical laboratory evaluations ........................................................................... 40 
+8.7.3 Vital signs ........................................................................................................... 40 
+8.7.4 Physical examinations ......................................................................................... 40 
+8.7.5 Electrocardiograms ............................................................................................. 40 
+8.7.6 Assessment of Suicidal Ideation and Behavior ................................................... 41 
+8.8 Other analysis ................................................................................................................. 41 
+8.8.1 Analysis of Pharmacokinetic Endpoints ............................................................. 41 
+8.8.2 ADA to Tildrakizumab ....................................................................................... 41 
+8.8.3 Correlation of ADA with Pharmacokinetics ....................................................... 43 
+8.8.4 ADA to Efficacy Endpoints ................................................................................ 43 
+8.9 Interim analysis ............................................................................................................... 43 
+9 REPORTING CONVENTION ................................................................................................ 44 
+10 CHANGES TO PLANNED ANALYSIS FROM STUDY PROTOCOL ............................... 45 
+11 REFERENCES ........................................................................................................................ 46 
+12 APPENDICES ......................................................................................................................... 47 
+12.1 Endpoint definition and Derivation Details .................................................................... 47 
+12.1.1 36-item Short Form ............................................................................................. 47 
+Page 7 of 116
+
+
+--- Page 8 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 6 of 55 
+ 
+LIST OF ABBREVIATIONS 
+The following abbreviations will be used within this SAP. 
+Abbreviation or 
+  special term  
+Explanation 
+ADA 
+Anti-Drug Antibodies 
+AE 
+Adverse Event 
+AESI 
+Adverse Events of Special Interest 
+AS 
+Ankylosing Spondylitis 
+ASAS 
+Assessment of SpondyloArthritis International Society 
+ASDAS 
+Ankylosing Spondylitis Disease Activity Score 
+ASQoL 
+Ankylosing Spondylitis Quality of Life 
+ASspiMRI 
+Ankylosing Spondylitis Spine Magnetic Resonance Imaging Activity Score 
+ATC 
+Anatomical Therapeutic Chemical 
+AUC 
+Area Under the Curve 
+BASDAI 
+Bath Ankylosing Spondylitis Disease Activity Index 
+BASFI 
+Bath Ankylosing Spondylitis Functional Index 
+BASMI 
+Bath Ankylosing Spondylitis Metrology Index 
+BMI 
+Body Mass Index 
+CI 
+Confidence Interval 
+cm 
+Centimeter 
+Cmax 
+Maximum concentration 
+Cmin 
+Minimum concentration 
+CMH 
+Cochran-Mantel-Haenszel 
+CRF 
+Case Report Form 
+CRP 
+C-reactive protein 
+CSR 
+Clinical Study Report 
+DBL 
+Database Lock 
+DMC 
+Data Monitoring Committee 
+ECG 
+Electrocardiogram 
+ECI 
+Events of Clinical Interest 
+eCRF 
+Electronic Case Report Form 
+FACIT 
+Functional Assessment of Chronic Illness Therapy 
+Page 8 of 116
+
+
+--- Page 9 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 7 of 55 
+ 
+ 
+FAS 
+Full Analysis Set 
+ESR 
+Erythrocyte Sedimentation Rate 
+hsCRP 
+high sensitivity C-reactive protein 
+IA 
+Interim Analysis 
+IMP 
+Investigational Medicinal Product 
+IVRS 
+Interactive Voice Response System 
+kg 
+Kilogram 
+MACE 
+Major Adverse Cardiac Events 
+MASES 
+Maastricht Ankylosing Spondylitis Enthesitis Score 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+MMRM 
+Mixed Model for Repeated Measurements 
+MRI 
+Magnetic Resonance Imaging 
+n 
+Number of non-missing observations 
+nr-axSpA 
+non-radiographic axial Spondyloarthritis 
+PGA 
+Physician Global Assessment 
+PK 
+Pharmacokinetics 
+PPAS 
+Per Protocol Analysis Set 
+PT 
+Preferred Term 
+PtGA 
+Patient Global Assessment 
+Q1 
+Lower Quartile 
+Q3 
+Upper Quartile 
+q4wk 
+Every 4 weeks 
+SAE 
+Serious Adverse Event 
+SAP 
+Statistical Analysis Plan 
+SAS 
+Statistical Analysis System 
+SD 
+Standard Deviation 
+SF-36 
+36-item Short Form 
+SI 
+Standard International 
+SJC44 
+swollen joint count of 44 joints 
+SOC 
+System Organ Class 
+SOP 
+Standard Operating Procedure 
+SPARCC 
+SpondyloArthritis Research Consortium of Canada 
+Page 9 of 116
+
+
+--- Page 10 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 8 of 55 
+ 
+ 
+T1/2 
+Half-life 
+TEAE 
+Treatment Emergent Adverse Event 
+TJC46 
+tender joint count of 46 joints 
+TLFs 
+Tables, Listings and Figures 
+Tmax 
+Time of maximal concentration 
+TNF 
+Tumor Necrosis Factor 
+ULN 
+Upper Limit of Normal 
+VAS 
+Visual Analog Scale 
+Page 10 of 116
+
+
+--- Page 11 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 9 of 55 
+ 
+ 
+ 
+1 
+INTRODUCTION 
+ 
+The purpose of this Statistical Analysis Plan (SAP) is to provide a detailed description of the 
+statistical methods, data derivations and data presentations to be employed for study protocol 
+CLR_16_22 “A Randomized, Double-Blind, Placebo-Controlled Phase 2a Study to Evaluate the 
+Efficacy and Safety of Tildrakizumab in Subjects with Active Ankylosing Spondylitis or Non-
+Radiographic Axial Spondyloarthritis” which was originally issued on 
+ and 
+amended on 
+ and 
+. 
+Any deviations from this SAP will be described and justified in the Clinical Study Report (CSR). 
+This SAP supersedes the statistical considerations identified in Protocol CLR_16_22 and where 
+considerations are substantially different, they will be identified as such in this document. 
+This SAP has been developed and approved prior to database lock and unblinding of the clinical 
+database for Protocol CLR_16_22. 
+Page 11 of 116
+
+
+--- Page 12 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 10 of 55 
+ 
+ 
+2 
+STUDY OBJECTIVES 
+ 
+2.1 
+Primary objectives 
+Part 1 
+ 
+• 
+To evaluate the efficacy of tildrakizumab in subjects with ankylosing spondylitis (AS) or 
+non-radiographic axial spondyloarthritis (nr-axSpA), as measured by the proportion of 
+subjects achieving Assessment of SpondyloArthritis international Society (ASAS) 
+ 
+response criteria at 
+ 
+Parts 1 and 2 
+• 
+To assess the safety/tolerability and immunogenicity of tildrakizumab in subjects with AS 
+or nr-axSpA. 
+2.2 
+Secondary objectives 
+Parts 1 and 2 
+• 
+To evaluate the efficacy of tildrakizumab in subjects with AS or nr-axSpA, as measured by the 
+proportion of subjects achieving ASAS20 response criteria at 
+, and ASAS40 response 
+criteria at 
+, and proportion of subjects who require adjustment of background 
+therapy. 
+• 
+To characterize the pharmacokinetics (PK) of tildrakizumab in subjects with AS or nr-axSpA. 
+2.3 
+Exploratory objectives 
+Parts 1 and 2 
+• 
+To evaluate the efficacy of tildrakizumab in subjects with AS or Nr-axSpA, as measured by the 
+proportion of subjects who achieve ASAS20 or ASAS40 at other measured time points. 
+• 
+To evaluate the efficacy of tildrakizumab in subjects with AS or nr-axSpA, as measured by the 
+proportion of subjects who achieve ASAS70 or ASAS5/6. 
+• 
+To evaluate the efficacy of tildrakizumab in subjects with AS or nr-axSpA, as measured by the 
+change from Baseline in ASAS components, Bath Ankylosing Spondylitis Disease Activity 
+Index (BASDAI), Bath Ankylosing Spondylitis Metrology Index (BASMI), Bath Ankylosing 
+Spondylitis Functional Index (BASFI), Ankylosing Spondylitis Quality of Life questionnaire 
+(ASQoL), Visual Analog Scale (VAS) (total back pain and nocturnal pain score), Ankylosing 
+Spondylitis Disease Activity Score (ASDAS) C-reactive protein (CRP), ASDAS erythrocyte 
+sedimentation rate (ESR), Maastricht Ankylosing Spondylitis Enthesitis Score (MASES), short 
+form  36  (SF-36),  Functional  Assessment  of  Chronic  Illness  Therapy  (FACIT)-fatigue, 
+Page 12 of 116
+
+
+--- Page 13 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 11 of 55 
+ 
+ 
+ 
+high-sensitivity CRP (hs)CRP, SpondyloArthritis Research Consortium of Canada (SPARCC) 
+magnetic resonance imaging (MRI) Index of Disease Activity of the Sacroiliac (SI) Joints, 
+SPARCC MRI Index of Disease Activity of the Spine, and Modified Berlin Ankylosing 
+Spondylitis Spine Magnetic Resonance Imaging Activity Score (ASspiMRI), swollen joint 
+count of 44 joints (SJC44), and tender joint count of 46 joints (TJC46) at measured time points. 
+• 
+To evaluate the tildrakizumab exposure/response relationship.  
+Part 3 
+• 
+To assess the effect of investigational medicinal product (IMP) discontinuation on ASAS20, 
+ASAS40, ASAS70, ASAS5/6, ASAS components, BASDAI, BASMI, BASFI, VAS (total 
+back pain and nocturnal pain score), MASES, SF-36, FACIT-fatigue, TJC46, and SJC44 at 
+measured time points. 
+• 
+To evaluate immunogenicity following IMP discontinuation. 
+• 
+To characterize the PK of tildrakizumab in subjects with AS or nr-axSpA following IMP 
+discontinuation. 
+Page 13 of 116
+
+
+--- Page 14 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 12 of 55 
+ 
+ 
+ 
+3 
+STUDY DESIGN 
+ 
+3.1 
+General study design 
+This is a randomized, multinational, double-blind, placebo-controlled, Phase 2a study. The study 
+will consist of a Screening Period 
+ Part 1, a double-blind, placebo-controlled period 
+ Part 2, a 
+ follow-up period 
+ and Part 3, a 
+ During the wash-out period, subjects will no longer 
+receive tildrakizumab and will be treated according to the Investigators’ discretion. 
+At least 
+ subjects with active AS (Stage 1 of study) and 90 subjects with active nr-axSpA (Stage 
+2 of study) who satisfy the inclusion criteria and do not meet the exclusion criteria will be enrolled 
+in this study. Approximately 
+subjects will be randomized into the Double-Blind treatment 
+period. 
+The Study Flow Chart is presented in Figure 1. 
+Figure 1: Study Flow Chart 
+ 
+Page 14 of 116
+
+
+--- Page 15 ---
+Statistical Analysis Plan (SAP) 
+ 
+Abbreviations:    AS = ankylosing spondylitis; mg = milligram; 
+nr-axSpA = non-radiographic axial spondyloarthritis; Wk = week 
+ 
+Subjects who fail to show minimal response to treatment (defined as 
+ from 
+Baseline in pain [assessed by total back pain VAS 
+] or inflammation [assessed using the 
+last  stiffness assessments in the BASDAI]) at 
+ in both stages of the study may have their 
+background medications adjusted according to the maximum permitted daily dose and continue in 
+the study. 
+Tildrakizumab subjects in both stages who achieve ASAS20 at 
+will receive treatment 
+with 
+ tildrakizumab 
+ until 
+ Subjects receiving tildrakizumab during Part 1 
+who do not achieve ASAS20 at 
+ will discontinue IMP treatment and enter the 
+ 
+washout period. Subjects randomized to receive placebo during Part 1 of both stages of the study 
+who complete the 
+ visit will continue to Part 2 and receive tildrakizumab 200 mg q4 
+weeks until 
+ even if they do not achieve ASAS20. Subjects discontinued from IMP at any 
+time (apart from withdrawal of informed consent) will be required to complete the EoT 
+ 
+assessment a minimum of 
+ after the last dose of IMP and enter the 
+ washout 
+period. Subjects who withdraw from the study during Part 3 will undergo the 
+ (End of 
+Study [EoS]) assessments at least 4 weeks after their last visit. 
+On completion of Part 2, subjects may enter the long-term extension (LTE) study, 
+, 
+providing they meet the inclusion/exclusion criteria for the LTE study and the Investigator deems 
+they would benefit from continued treatment with tildrakizumab. In circumstances where the LTE 
+study site activation has not occurred at the time the subject reaches the end of Part 2, they may 
+enter from washout period if the required eligibility conditions are met. 
+3.2 
+Randomization and blinding 
+3.2.1 Randomization 
+A randomization schedule will be computer-generated before the start of the study. After all 
+screening procedures are performed and results of screening tests are available (i.e., between the 
+Screening visit and 
+), 
+ will be activated in the interactive voice 
+recognition system (IVRS), and assigned randomly on a 
+basis to the following treatment groups 
+for cohorts of 
+, respectively: 
+• 
+A: 
+ tildrakizumab, 
+ 
+• 
+B: Placebo, administered by 
+ 
+ 
+Randomization will be performed by the 
+. Subjects will be stratified by prior anti-tumor- 
+necrosis factor (anti-TNF) use (yes/no). Subjects with prior anti-TNF use will be capped 
+ 
+of the total number of subjects. 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 13 of 55 
+Page 15 of 116
+
+
+--- Page 16 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 14 of 55 
+ (Stage 1) subjects will begin upon study approval; recruitment for 
+ 
+(Stage 2) subjects will begin only upon written notification by the Sponsor to the Competent 
+Authorities and Investigators. 
+3.2.2 Blinding 
+This is a double-blind study. None of the study team, the subject, and the Sponsor (or 
+representative) will be aware of the administered study drug to each subject until the completion of 
+their double-blind treatment (
+ visit) and wash-out period. A separate document  will 
+provide further details related to unblinding of personnel involved in reporting activities for the 
+Interim Analysis (IA). 
+PK and anti-drug antibodies (ADA) data will be kept confidential only after database lock and 
+unblinding at study completion. 
+3.2.3 Unblinding 
+In an emergency, in which the Investigator must know a subject’s treatment allocation to ensure the 
+subject’s safety, the Investigator will contact IVRS. When the Investigator contacts the system to 
+break a treatment code for a subject, he/she must provide the requested subject identifying 
+information and confirm the necessity to break the treatment code for the subject. The Investigator 
+will then receive details of the IMP for the specified subject. The system will automatically inform 
+the ICON Site Monitor, the medical monitor, and the 
+Project Manager that the code has been 
+broken, but no treatment assignment will be communicated. 
+3.3    Study treatments and assessments 
+The maximum study duration from screening to end of the wash-out period is 
+. 
+All subjects eligible for study participation will enter the double blind treatment period and receive 
+one of the 2 treatments assigned per the schedule outlined in the study flow chart. Study drug will 
+be supplied as pre-filled syringes and a subject at a visit is expected to receive two syringes packed 
+in a kit. Below are the details: 
+•
+ 
+: subjects will receive tildrakizumab 
+ (
+ of
+) at 
+.
+•
+Placebo arm, 
+ will be administered at 
+ and
+Subjects will then receive tildrakizumab 
+ at
+. 
+If a subject misses a visit and/or a scheduled dose of IMP, the site must reschedule a visit to ensure 
+the dose of IMP is taken as soon as possible within the visit window. If after 2 attempts to 
+reschedule, the subject still is not able to take the dose, the Sponsor should be contacted to 
+Page 16 of 116
+
+
+--- Page 17 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 15 of 55 
+determine if the subject should be discontinued from the study. 
+A  detailed  description  of  procedures  and  assessments  to  be  conducted  during  this  study  is 
+summarized in the Schedule of Assessments in 
+ below. 
+Page 17 of 116
+
+
+--- Page 18 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 16 of 55 
+DocUUID : a147708b-918b-4f21-b068-b4cff5ac95cc 
+Table 2: Schedule of Assessments (Part 1 and 2) 
+Page 18 of 116
+
+
+--- Page 19 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 17 of 55 
+ 
+Page 19 of 116
+
+
+--- Page 20 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 18 of 55 
+ 
+Page 20 of 116
+
+
+--- Page 21 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 19 of 55 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Page 21 of 116
+
+
+--- Page 22 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 20 of 55 
+ 
+   
+ 
+ 
+ 
+ 
+Page 22 of 116
+
+
+--- Page 23 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 21 of 55 
+ 
+Table 2: Schedule of Assessments (Part 3) 
+Page 23 of 116
+
+
+--- Page 24 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 22 of 55 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Page 24 of 116
+
+
+--- Page 25 ---
+Statistical Analysis Plan (SAP) 
+4 
+STUDY ENDPOINTS 
+4.1 
+Primary efficacy endpoint 
+The primary efficacy endpoint is the proportion of subjects who achieve ASAS20 at 
+ 
+ASAS20 response is defined as an improvement of 
+ 
+ 
+ 
+ 
+ 
+ 
+The components of the ASAS
+ assessments that will be used in this study are: 
+− PtGA of disease activity (VAS in mm) 
+− Total Back Pain (VAS in mm) 
+− BASFI (VAS in mm) 
+− Inflammation [average score of questions 5 and 6 of BASDAI] (VAS in mm) 
+For the details on BASFI derivation, see 
+ for the related endpoint. For inflammation, if 
+either 
+ of BASDAI is missing, non-missing score will be used. If both 
+ 
+ are missing, then Inflammation is set to missing. 
+For any component which is not on a scale of 
+, they will be converted to 0 to 100 before 
+calculating ASAS. 
+If the value in any of the components at a time point is missing, the component variables that are 
+not missing will be used to determine the response status. As a general principle, if there are 
+sufficient non-missing components to determine whether the ASAS endpoint is a response or non- 
+response, then ASAS endpoint is not missing, else if the available non-missing components are not 
+sufficient to determine the response status of ASAS endpoint then it is considered missing. 
+If the baseline value of any component is 
+ the following algorithm will be used in 
+evaluating the percent change from baseline: 
+•
+If change from baseline is also equal to 0, then percent change from baseline is set to be
+;
+•
+If change from baseline is 
+ then percent change from baseline is set to be 
+These percentages will be used to derive the ASAS endpoints. 
+4.2 
+Secondary efficacy endpoints (up to 
+) 
+The secondary efficacy endpoints of this study are: 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 23 of 55 
+Page 25 of 116
+
+
+--- Page 26 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 24 of 55 
+Parts 1 and 2 
+•
+The proportion of subjects who achieve ASAS20 at 
+•
+The proportion of subjects who achieve ASAS40 at 
+ 
+•
+The proportion of subjects who require adjustment of background therapy
+4.3 
+Exploratory endpoints 
+The exploratory endpoints of this study are: 
+Parts 1 and 2: 
+•
+The proportion of subjects who achieve ASAS20 or ASAS40 at other measured time points
+•
+The proportion of subjects who achieve ASAS70 at measured time points
+ASAS70 will be derived similarly as for ASAS40 by using 
+ and 
+. i.e.
+ASAS70 response is defined as an improvement of 
+ absolute improvement of 
+units from Baseline in a VAS for at 
+ domains: PtGA; Total Back Pain; BASFI; and
+Inflammation. No worsening of
+ VAS on a 
+ scale in the remaining
+ domain.
+•
+The proportion of subjects who achieve a ASAS5/6 response at measured time points
+ASAS5/6 response is defined as a 
+s (physical function
+[BASFI], Total Back Pain, PtGA of disease activity, Inflammation [mean of 
+of the BASDAI], spinal mobility [BASMI], and acute phase reactants [CRP]).
+•
+Change from Baseline in ASAS components at measured time points
+•
+Change from Baseline in BASDAI at measured time points
+BASDAI is derived by computing the mean score of the 
+)
+and then adding that value to the sum of the score for the 
+ and then 
+It may be written as:
+ 
+In the case of any single missing question, the BASDAI will be calculated using the remaining 
+ 
+ 
+. 
+Specifically, 
+if 
+ 
+ 
+ 
+ 
+is 
+missing, 
+Page 26 of 116
+
+
+--- Page 27 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 25 of 55 
+ 
+ 
+If more 
+. 
+BASDAI score ranges from 
+. 
+•
+Change from Baseline in BASMI at measured time points
+BASMI is a combined index to assess spinal mobility. BASMI score is collected on the CRF
+page and ranges 
+•
+Change from Baseline in BASFI at measured time points
+BASFI is derived by computing the mean of the score for the 10 questions. BASFI can be
+calculated with up to 3 missing items by adjusting the denominator for the number of non- 
+missing items.  If more than 3 items are missing, BASFI should be set to missing.
+•
+Change from Baseline in ASQoL at measured time points
+ASQoL total score is calculated by summing the 
+ and ranges
+. Cases with more
+than three missing items (ie more than 
+) cannot be allocated a total score. For cases with
+between one and three missing items, the total score is calculated as follows: 
+ for the items affirmed and 
+ 
+•
+Change from Baseline in VAS (total back pain and nocturnal pain score) at measured time
+points
+•
+Change from Baseline in ASDAS-CRP and ASDAS-ESR at measured time points
+Note: Back Pain is from BASDAI 
+); Duration of Morning Stiffness
+is from BASDAI 
+ Peripheral Pain/Swelling is from BASDAI
+); Patient Global is from PtGA of disease activity 
+);
+CRP - the natural logarithm of CRP in mg/L; ESR- the square root of ESR in mm/h.
+•
+Change from Baseline in MASES at measured time points
+MASES score is recorded in the CRF and ranges
+.
+•
+Change from Baseline in SF-36 at measured time points 
+Page 27 of 116
+
+
+--- Page 28 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 26 of 55 
+•
+Change from Baseline in FACIT-fatigue at measured time points
+FACIT-fatigue is a 
+ item questionnaire with each item score ranges from 
+ FACIT- 
+fatigue total score (
+) is calculated by summing the 
+ items with 
+ being
+reversed 
+) prior to summing.
+In case of some answers are missing, the total score is prorated from the score of the answered
+items as long as more than 50% of the items are answered. ie, FACIT-fatigue = 13*mean(non- 
+missing of Q1 to Q13).
+•
+Change from Baseline in TJC46 and SJC44 at measured time points
+•
+Change from Baseline in hsCRP serum levels at measured time points
+•
+Change From Baseline in SPARCC MRI Index of Disease Activity Score of the SI Joints at
+measured time points
+•
+Change From Baseline in SPARCC MRI Index of Disease Activity Score of the Spine at
+measured time points
+•
+Change From Baseline in Modified Berlin ASspiMRI at measured time points
+Part 3: 
+ASAS20, ASAS40, ASAS70, ASAS5/6, ASAS components, BASDAI, BASMI, BASFI, SF-36, 
+VAS (total back pain and nocturnal pain score), MASES, FACIT-fatigue, TJC46, and SJC44 at 
+measured time points. 
+4.4 
+Safety endpoints 
+The safety endpoints of this study are: 
+•
+Adverse events (AEs)
+•
+Laboratory assessments
+•
+Suicidal ideation and behavior (C-SSRS)
+•
+Vital signs
+•
+ECG
+•
+Physical examination
+•
+ADA to tildrakizumab, including titer and neutralizing antibodies
+Page 28 of 116
+
+
+--- Page 29 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 27 of 55 
+5 
+SAMPLE SIZE AND POWER 
+In each subject cohort (AS and nr-axSpA), approximately 45 subjects will be randomized per arm 
+in a 1:1 ratio to tildrakizumab 200 mg or placebo and will be stratified by anti-TNF use (yes/no). 
+This sample size achieves 80% power (accounting for futility assessment) to detect a treatment 
+effect in ASAS20 at 
+(placebo ASAS20 = 
+; tildrakizumab ASAS20 = 
+). 
+The test statistic used is the 
+ Cochran-Mantel-Haenszel (CMH) test at the 
+ significance 
+level.  A 
+drop-out rate has been assumed. 
+Page 29 of 116
+
+
+--- Page 30 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 28 of 55 
+6 
+ANALYSIS POPULATIONS 
+6.1 
+Full Analysis Set (FAS) 
+The  FAS  will  include  all  randomized  subjects  who  have  received  at  least  1 dose  of  IMP 
+(tildrakizumab or placebo). Analyses will be based on randomized treatment. 
+6.2 
+Per Protocol Analysis Set (PPAS) 
+The PPAS will include all subjects in the FAS without any major protocol deviations that could 
+have influenced the validity of the data for the primary efficacy variables. The deviations may 
+include but are not limited to: 
+•
+Key inclusion/exclusion criteria not satisfied
+•
+Presence of relevant protocol deviations with respect to factors likely to affect the efficacy of
+treatment where the nature of protocol deviation will be defined before breaking the blind
+•
+Rescue medication use
+•
+Inadequate study medication compliance which will be determined before breaking the blind
+Major protocol deviations to be excluded from the PPAS will be finalized and documented in a 
+memo prior to the lock and unblinding of the database. 
+6.3 
+Safety Analysis Set 
+The Safety Analysis Set will include all randomized subjects who received at least 1 dose of IMP. 
+Analyses will be based on the actual treatment received. 
+6.4 
+PK Analysis Set 
+The PK Analysis Set will include all subjects in the Safety Analysis Set who have sufficient 
+tildrakizumab concentration data to obtain reliable estimates of at least one PK parameters. 
+6.5 
+ADA Evaluable Set 
+The ADA Evaluable Set will include all subjects in the Safety Analysis Set who have at least 1 
+ADA data point after the date of first IMP administration. Assay results from the placebo portion of 
+the trial will not be included in the immunogenicity assessment, although subjects who are 
+randomized to placebo in Part 1 will be included in the assessment if they are treated with 
+tildrakizumab in Part 2. 
+6.6 
+Protocol deviations/violations and exclusions from analysis sets 
+All deviations and exclusions of subjects from analysis sets will be identified at the Classification 
+Page 30 of 116
+
+
+--- Page 31 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 29 of 55 
+ 
+ 
+ 
+Meeting just prior to study unblinding, through clinical review input provided by Sponsor, using 
+the following sources of information: 
+• 
+Supportive  subject  listings,  provided  by  the  
+lead  statistician  ahead  of  the 
+Classification Meeting, based on data recorded on the eCRF. 
+• 
+Protocol Deviation Logs, provided by 
+ Medical/Clinical. 
+Further, deviations from the protocol will be classified as major/minor or key/non-key depending 
+on documentation in 
+ 
+The protocol deviations that will lead to subject exclusion from the PPAS are listed as below. It is 
+possible that unexpected deviations will arise as the study moves forward. Therefore, more 
+deviations may be added to the list later. Prior to database lock, a classification meeting will be 
+conducted to identify subjects to be excluded from PPAS, and the decision will be documented in a 
+separate file. 
+• 
+Subject with BASDAI 
+ at Screening or Response to the BASDAI 
+question ‘How would you describe the overall level of AS neck, back or hip pain you have 
+had?’ of 
+ on the VAS 
+ at Screening 
+• 
+Non-compliance with study treatment 
+) 
+• 
+Disallowed concomitant medications 
+• 
+Treatment error - at least one dose of randomized treatment and one dose of incorrect 
+treatment were administered to a subject. 
+Page 31 of 116
+
+
+--- Page 32 ---
+Statistical Analysis Plan (SAP) 
+ 
+ 
+7 
+STATISTICAL CONSIDERATIONS AND ANALYSIS 
+ 
+7.1 
+Derived Variables 
+Details for deriving efficacy variables are discussed in 
+. The below set of 
+variables are the basic demographic variables and some general variables. 
+ 
+Variables 
+Formula 
+Body mass index (BMI; kg/m2) 
+weight (kg)/[height (m)]2 
+Study day at any visit 
+(visit date – date of first IMP administration) + 1 for visit 
+dates on or after first IMP dosing date; (visit date – date of 
+first IMP administration) for visit dates before first IMP 
+dosing date 
+Change from baseline 
+ 
+Percent change from baseline 
+ 
+ 
+7.2 
+Handling of missing data and outliers 
+7.2.1 Missing data analysis methods 
+In the primary analysis, ASAS20 response rate at 
+, missing values will be handled by 
+setting the ASAS20 value to nonresponsive. This approach will be used for all “response-type” 
+endpoints (ASAS40, ASAS70, and ASAS5/6) at all time points. 
+For a composite “response-type” endpoint (such as ASAS
+), if values in any of the components 
+at a time point are missing, the component variables that are not missing will be used to determine 
+the response status. If one cannot determine the response status in the presence of missing 
+components, then the composite response-type endpoint status is considered “non-response” for 
+that time point. 
+For the BASDAI, BASMI, BASFI, MASES, SF-36, and FACIT instruments, rules suggested by 
+the developers of these will be followed in calculating scores when individual question/items may 
+be missing. 
+Details on handling missing data are outlined in 
+. 
+In general, missing values in any of the endpoints will not be imputed when summarizing these 
+endpoints using descriptive statistics. 
+In addition, missing values for safety endpoints will not be imputed. 
+7.2.2 Handling of missing or incomplete dates 
+Imputation rules for missing or partial AE start date are defined below: 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 30 of 55 
+Page 32 of 116
+
+
+--- Page 33 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 31 of 55 
+ 
+ 
+If the start date has month and year but day is missing, the first day of the month will be imputed 
+• 
+If this date is earlier than the first dose date, then the first dose date will be used instead. 
+• 
+If this date is later than the stop date (possibly imputed), then the stop date will be used 
+instead. 
+If the start date has year, but day and month are missing, the 1st of January will be imputed 
+• 
+If this date is earlier than the first dose date, then the first dose date will be used instead. 
+• 
+If this date is later than the stop date (possibly imputed), then the stop date will be used 
+instead. 
+If the start date of an event is completely missing, then it is imputed with the first dose date.  
+Imputation rules for missing or partial AE stop date are defined below: 
+• 
+If the stop date has month and year but day is missing, the last day of the month will be 
+imputed 
+• 
+If the stop date has year, but day and month are missing,  the 31th  of December will be 
+imputed 
+After the imputation, the imputed dates will be compared against the date of death, if available.  If 
+the date is later than the date of death, the date of death will be used as the imputed date instead. 
+Imputation rules for missing or partial medication start/stop dates are defined below: 
+Missing or partial medication start date: 
+• 
+If only Day is missing, use the first day of the month. 
+• 
+If Day and Month are both missing, use the first day of the year. 
+Missing or partial medication stop date: 
+ 
+If only Day is missing, use the last day of the month. 
+ 
+If Day and Month are both missing, use the last day of the year. 
+ 
+If Day, Month and year are all missing, assign ‘continuing’ status to stop date 
+Page 33 of 116
+
+
+--- Page 34 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 32 of 55 
+ 
+ 
+ 
+8 
+STATISTICAL METHODS 
+ 
+8.1 
+General Statistical Conventions 
+All statistical procedures will be completed using SAS version 9.4 or higher. 
+Unless otherwise stated, all statistical testing will be two-sided and will be performed using a 
+significance (alpha) level of
+ 
+Summaries for AS or nr-axSpA will be presented separately. Summary statistics will also be 
+presented by treatment group. Continuous variables will be summarized using descriptive statistics, 
+including number of subjects (n), mean, median, standard deviation (SD), minimum and maximum. 
+One additional decimal point for mean and median and 2 additional decimal points for SD will be 
+used. 
+For categorical variables, summaries will include counts of subjects and percentages. Percentages 
+will be rounded to one decimal place. 
+Two-sided 95% confidence intervals (CI) will be provided when relevant. 
+For summary purposes, baseline will be defined as the last available value prior to the date of first 
+IMP administration; all summaries will be presented by treatment group, unless otherwise 
+specified. 
+For reporting purpose, summary tables for efficacy variables and safety variables will be displayed 
+by nominal visit as appropriate. Unscheduled assessments will not be included in the summary 
+tables, but will be displayed in data listings. 
+All subject data, including those derived, will be presented in individual subject data listings. 
+Unless otherwise stated, unscheduled visit results will be included in date/time chronological order, 
+within patient listings only. All listings will be sorted by cohort, treatment group, subject number, 
+date/time and visit. The treatment group as well as patient’s sex and age will be stated on each 
+listing. Unless otherwise stated, data listings will be based on all randomized subjects. 
+The treatment groups will be displayed in the format below in tables including Part 1 only: 
+• 
+ Tildrakizumab 
+• 
+Placebo 
+The treatment groups will be displayed in the format below for tables including Parts 2 and/or 3 
+and all listings: 
+• 
+ Tildrakizumab 
+• 
+Placebo → 
+Tildrakizumab 
+Page 34 of 116
+
+
+--- Page 35 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 33 of 55 
+ 
+8.2 
+Protocol deviations 
+Population membership details will be listed, including reason for exclusion from each population. 
+All major protocol deviations identified will be summarized by treatment group and overall. 
+A listing will include the inclusion/exclusion criteria violated at Screening and at Baseline Visits as 
+well as other protocol deviations identified based on data recorded on the eCRF and/or protocol 
+deviation Logs from ICON Medical. 
+8.3 
+Subject disposition 
+The number of subjects in the following categories will be summarized overall and by treatment 
+group: 
+• 
+Randomized 
+• 
+Full Analysis Set (FAS) 
+• 
+Per Protocol Analysis Set (PPAS) 
+• 
+Safety Analysis Set 
+The number and percentage (based on FAS) of subjects in each of the following disposition 
+categories will be summarized overall and by treatment group: 
+• 
+Completed treatment at Parts 1 and 2 
+• 
+Prematurely discontinued the treatment and the reasons for discontinuation 
+• 
+Completed study (i.e., completed the wash-out period) 
+• 
+Prematurely discontinued the study and the reason for discontinuation 
+A listing will be provided for subjects who discontinued treatment or who discontinued study with 
+reasons for discontinuation. 
+8.4 
+Demographics and baseline characteristics 
+The demographics and baseline characteristics, medical history, prior and concomitant medications 
+will be summarized by treatment group and overall for the FAS. Individual subject listings will be 
+provided to support the summary tables. 
+8.4.1 Demographics 
+Age (years), height (cm), weight (kg), and other continuous demographic variables at Screening 
+will be summarized descriptively. Gender, primary race, ethnicity, and other categorical variables 
+will be summarized using FAS. 
+Year of birth, age, gender, race, ethnicity, height and weight will be listed as part of demographic 
+listing. 
+Page 35 of 116
+
+
+--- Page 36 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 34 of 55 
+ 
+ 
+8.4.2 Baseline characteristics 
+Tender joint counts 
+ swollen joint counts 
+ PGA of disease activity, PtGA of disease 
+activity, total back pain, and nocturnal pain, MASES, ASQoL, SF-36, BASDAI, BASMI, BASFI, 
+FACIT, SPARCC MRI Index of Disease Activity Score of the SI Joints and Spine, Modified Berlin 
+ASspiMRI, ASDAS-CRP, ASDAS-ESR, hsCRP, ESR at baseline will be summarized. Rheumatoid 
+factor and HLA B-27 at screening will be summarized as well. 
+8.4.3 Medical history 
+A summary of medical history will be presented by system organ class (SOC) and preferred term 
+(PT) using the most recently available version of the Medical Dictionary for Regulatory Affairs® 
+(MedDRA). A listing of medical history will be provided as well. 
+Quantiferon testing and chest X-ray results at screening will be summarized using frequency counts 
+for FAS. 
+8.4.4 Prior and concomitant medications 
+Medications used in this study will be coded by using the World Health Organization Drug 
+Dictionary and categorized as the following: 
+Prior medications and concomitant medications will be summarized descriptively using frequency 
+tables by ATC class and preferred name by treatment group on the Safety Analysis Set. Prior 
+medications are those with a stop date before the first dose of study drug, and concomitant 
+medications are those with a stop date on or after the first dose of study drug or ongoing. 
+Details for imputing missing or partial start and/or stop dates of medication are described in  
+ 
+Prior biologic and prior anti-TNF medications will be summarized in a separate table. 
+ 
+8.5 
+Extent of exposure 
+8.5.1 Treatment Duration 
+Duration of study drug exposure (in  days)  will  be  calculated  as:  last  dose  date – first  dose 
+date + 1 day, regardless of study drug interruption. 
+Study drug exposure will be summarised by treatment group on the Safety Analysis Set using 
+descriptive statistics. 
+Exposure to randomized study drug will also be categorised in intervals 
+ 
+ and summarized by treatment group. 
+8.5.2 Treatment Compliance 
+Study drug compliance  will  be  calculated  as:  
+ total  number  of  doses  administered /total 
+Page 36 of 116
+
+
+--- Page 37 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 35 of 55 
+ 
+ 
+ 
+number of doses planned to be administered during the study drug exposure period. In case only 
+one syringe among the two is administered at a visit, the number of doses will be counted as 
+If 
+both syringes are administered at a visit, the number of doses will be counted as 1. The total 
+number of doses planned will count Weeks 0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, and 48 if a 
+subject completes Part 1 and Part 2. If a subject discontinues treatment early, the total number of 
+doses will be counted from Week 0 until the last dose before discontinuation. 
+Study drug compliance will be summarized by treatment group by the number of subjects (n), 
+mean, SD, median, min, and max. They will also be summarized in categories 
+” 
+and 
+” using frequency tables. 
+Study drug compliance summaries will be based on the Safety Analysis Set. 
+ 
+8.6 
+Efficacy analyses 
+8.6.1 Analysis methods 
+ 
+Analysis of proportions 
+The Cochran-Mantel-Haenszel (CMH) test, incorporating prior anti-TNF use as a stratification 
+factor, will be used to compare response rates of response–type variables between the 200 mg 
+tildrakizumab and placebo within AS and nr-axSpA separately. In addition, the Mantel-Haenszel 
+common risk (the response rate) difference between 200 mg tildrakizumab and placebo and the 
+95% confidence interval (CI) will be estimated. Should assumptions per the Mantel-Fleiss criterion 
+not be satisfied, the comparison will be based on a Fisher’s exact test after collapsing across levels 
+of the stratification factor. In this case, the response rate difference and CI will be based on a 
+normal approximation without considering stratification. 
+Mixed model repeated measures analysis of continuous endpoints 
+A mixed model repeated measure (MMRM) analysis will be performed. The SAS procedure PROC 
+MIXED will be used. The preferred model will include the fixed categorical effects of treatment, 
+visit, treatment-by-visit interaction, and prior TNF use (yes/no), as well as the continuous fixed 
+covariate of baseline value. An unstructured matrix for the within-subject error variance-covariance 
+will be used. The denominator degrees of freedom will be calculated according to the Kenward- 
+Roger method. 
+In case of non-convergence with the unstructured matrix, other within-subject error variance- 
+covariance matrices, such compound symmetry (CS), will be considered. 
+The model will provide least-squares mean estimates, standard errors, two-sided 95% confidence 
+intervals and p-values (where applicable) for mean change at all time points between treatments 
+(tildrakizumab vs. placebo). 
+Page 37 of 116
+
+
+--- Page 38 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 36 of 55 
+ 
+ 
+8.6.1.1 Multiplicity 
+Not applicable. 
+8.6.2 Analysis of primary efficacy endpoint 
+The primary efficacy variable is ASAS20 at 
+ ASAS20 will be analysed with CMH test as 
+described in 
+ for AS and nr-axSpA cohorts separately. Early withdrawals and any 
+subjects with ASAS20 undeterminable at 
+ will be classified as non-responders. Subjects 
+who fail to show minimal response to treatment (defined as 
+ improvement from Baseline in 
+total back pain or inflammation) at 
+ may have their background medications adjusted 
+according to the maximum permitted daily dose described in the protocol and continue in the study. 
+Any subject requiring these adjustments will be counted as a non-responder for the  primary 
+analysis. 
+The sample SAS codes are: 
+ 
+ 
+To assess the robustness of the primary efficacy analysis, sensitivity analysis will be repeated with 
+the PPAS. 
+Subgroup analysis will be performed for each of the following subgroup variables: 
+ 
+• 
+Prior anti-TNF use (Yes/No) 
+• 
+Baseline weight (≤ 90 kg, > 90 kg) 
+• 
+Age (< 65,  ≥ 65) 
+• 
+Gender 
+• 
+Methotrexate use (Yes/No) 
+The sample SAS codes for anti_TNF subgroup analysis are: 
+ 
+ 
+ 
+ 
+ 
+ 
+Estimates of the difference between the treatment groups, along with the 
+(but no p-value 
+needed), will be presented for each defined category of each subgroup variable. 
+Page 38 of 116
+
+
+--- Page 39 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+Version: Final v2.0, Date: 01 Oct 2019 
+Page 37 of 55 
+ 
+ 
+If sample size for a category of a subgroup factor is too small, the analysis for that subgroup may 
+not be performed. 
+The primary purpose of the subgroup analyses is to check for consistency of results across factors 
+of interest. 
+8.6.3 Analysis of secondary endpoints 
+All secondary analyses will be performed using the FAS, unless otherwise stated. Proportions in 
+ASAS40 at Weeks 24 will be analyzed based on the CMH method described for ASAS20 in 
+primary analysis. Due to the placebo group switching to 200 mg tildrakizumab at 
+, the 
+comparison between active drug and placebo will not be performed for the secondary endpoints 
+collected after 
+. ASAS20 and ASAS40 up to 
+ will be summarized with 
+descriptive statistics. 
+Analysis on ASAS40 at 
+ will also be performed for the PPAS. 
+8.6.4 Analysis of exploratory endpoints 
+The response-type endpoints (ASAS20/40 at other measurement time points, ASAS70, ASAS5/6 
+up to 
+ and proportion of subjects who require adjustment of background therapy at Week 
+16 will besummarized with descriptive statistics. Continuous endpoints (change from baseline in 
+PtGA of disease activity, Total Back Pain, Nocturnal Pain, Inflammation, BASFI, BASMI, 
+BASDAI, ASQoL, ASDAS-CRP, ASDAS-ESR, MASES, SF-36, FACIT-fatigue, TJC46, SJC44, 
+hsCRP, SPARCC MRI Index of Disease Activity Score of the SI Joints, SPARCC MRI Index of 
+Disease Activity Score of the Spine, and Modified Berlin ASspiMRI) up to 
+ will be 
+analyzed based on a MMRM analysis that includes the fixed effects of treatment, visit, treatment 
+by visit interaction, prior anti-TNF use (yes/no), and Baseline value. Due to placebo group 
+switching to 200 mg Tildrakizumab at 
+, the comparison between active drug and placebo 
+will not be performed for the exploratory endpoints collected after 
+. Continuous endpoints 
+after 
+ be summarized descriptively. 
+Below is an example of the SAS code for the MMRM 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+For 
+, the proportions of subjects who achieve ASAS20, ASAS40, ASAS70, and 
+ASAS5/6, at each measured time point during 
+ will be summarized by treatment 
+Page 39 of 116
+
+
+--- Page 40 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 38 of 55 
+ 
+ 
+group; change from Baseline in PtGA of disease activity, Total Back Pain, Nocturnal Pain, 
+Inflammation, BASFI, BASMI, BASDAI, MASES, SF-36, FACIT-fatigue, TJC46, and SJC44 
+during Weeks 53 to 72 will be summarized descriptively by treatment group. In addition, there will 
+be sub-groups of patients in Part 3 who either did or did not receive any new therapy for AS and 
+these will be analyzed separately for ASAS20, ASAS40, and ASAS70. 
+All the exploratory analyses will be based on the FAS. 
+ 
+8.7 
+Safety analyses 
+Safety analyses will be conducted on the Safety Analyses Set (treated subjects) and will be 
+performed for all safety variables specified below. 
+All safety data will be summarized by treatment group. 
+The safety analyses of changes from baseline to a specific time point in safety variables (e.g., 
+laboratory parameters, vital signs, and ECG) will only include subjects from the Safety Analysis 
+Set who have data available for both the baseline and the time point under consideration unless 
+otherwise specified. 
+No statistical test will be performed. 
+ 
+8.7.1   Adverse events 
+All AEs will be classified by Primary System Organ Class (SOC) and Preferred Term (PT) 
+according to the most recently available version of the MedDRA dictionary. 
+In summaries by SOC and PT, adverse events will be sorted within each SOC and PT in 
+alphabetical order. In summaries by PT, AEs will be sorted within each PT in alphabetical order. 
+Details for imputing missing or partial start dates of adverse events are described in 
+ 
+TEAEs are defined as any AE occurring or worsening on or after the first dose of IMP. AE 
+summary tables will be presented for TEAEs only and will include the following: 
+• 
+All TEAEs 
+• 
+Related TEAEs (AE will be defined as related if causality is possibly, probably, or certain) 
+• 
+TEAEs by maximum severity 
+• 
+TEAEs leading to discontinuation 
+• 
+Serious TEAEs 
+• 
+TEAEs leading to death. 
+An overall summary for the categories above will be prepared by study part, treatment group and 
+overall. A TEAE in Part 1 is defined with the event start date on/after the first dose but before 
+ dosing date of IMP or on/before the last dose date of IMP if the subject discontinues 
+before 
+ A TEAE in Part 2 is defined with the event start date on/after 
+ dosing 
+Page 40 of 116
+
+
+--- Page 41 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 39 of 55 
+ 
+ 
+date but on/before the last dose date of IMP. A TEAE in Part 3 is defined with the event start date 
+after the last dose date of IMP. 
+In addition, all TEAEs will be summarized by study part (Parts 1, 2, 3), SOC, PT and treatment 
+group using frequency counts and percentages (i.e., number and percentage of subjects with an 
+event). 
+Where a subject has the same adverse event, based on preferred terminology, reported multiple 
+times in a specific study part, the subject will only be counted once at the preferred terminology 
+level in adverse event frequency tables. 
+Where a subject has multiple adverse events within the same system organ class in a specific study 
+part, the subject will only be counted once at the system organ class level in adverse event 
+frequency tables. 
+When reporting adverse events by intensity, in addition to providing a summary table based on the 
+event selection criteria detailed above, summary table will also be provided based on the most 
+intense event - independent of relationship to study treatment. 
+Adverse Events of Special Interest (AESIs) 
+The events of severe infections, malignancies (including non-melanoma and melanoma  skin 
+cancer, excluding carcinoma in situ of the cervix), confirmed Major Adverse Cardiac Events 
+(MACE), and drug-related hypersensitivity reactions will be identified a priori as AESIs for 
+summarizing in this study. Severe infections are defined as any infection meeting the regulatory 
+definition of a SAE, or any infection requiring IV antibiotics whether or not reported as a serious 
+event, as per the regulatory definition. Major Adverse Cardiac Events include non-fatal stroke, non- 
+fatal myocardial infarction, and cardiovascular death. All MACE events will be evaluated and 
+adjudicated by a Clinical Adjudication Committee. The AESIs will be summarized by study part, 
+SOC, PT and treatment group. 
+Events of Clinical Interest (ECIs) 
+An ECI is a non-serious AE or occurrence that is designated to be of special interest and must be 
+reported to the Sponsor as though it were an SAE. The ECIs will be summarized by study part, 
+SOC, PT and treatment group. 
+The following events are considered ECIs for this study: 
+1. An overdose of the Sponsor's product, as defined as any dose greater than the intended 
+protocol dose. An overdose that is not associated with clinical symptoms or abnormal 
+laboratory results is to be reported as a non-serious ECI, using the terminology "accidental or 
+intentional overdose without adverse effect.” 
+Page 41 of 116
+
+
+--- Page 42 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 40 of 55 
+ 
+ 
+2. An elevated AST or ALT laboratory value that is
+ the ULN and an elevated total bilirubin 
+laboratory value that is
+ ULN and, at the same time, an alkaline phosphatase laboratory 
+value that is
+ ULN, as determined by way of protocol-specified laboratory testing or 
+unscheduled laboratory testing, is to be reported as a non-serious ECI. 
+3. Infections  that  require  IV  antibiotics  but  do  not  meet  the  definition  of  an  SAE  will  be 
+designated a closely monitored AE for this study. 
+4. Depression and suicidal ideation and behavior events. 
+In addition, a listing containing individual subject adverse event data for TEAEs leading to 
+discontinuation from study, Serious TEAEs, TEAEs leading to death, AESIs, and ECIs will be 
+provided separately. All AEs, including pre- and post-treatment AEs, will be presented in an 
+individual subject data listing. 
+8.7.2 Clinical laboratory evaluations 
+For the purposes of summarization in both the tables and listings, all laboratory values will be 
+presented in SI units. If a lab value is reported using a nonnumeric qualifier e.g., less than (<) a 
+certain value, or greater than (>) a certain value, the given numeric value will be used in the 
+summary statistics, ignoring the nonnumeric qualifier. 
+Clinical laboratory parameters observed values and changes from Baseline will be summarized at 
+each scheduled visit. Shift table from baseline to post-baseline in lab parameters for each treatment 
+group during Part 1 will be displayed by visit. 
+Values outside the normal range will be categorized as H (above the normal range) or L (below the 
+normal range) based on the laboratory’s reference range and these will be flagged in the listings of 
+individual subject data. 
+8.7.3 Vital signs 
+Vital sign observed values and changes from Baseline will be summarized at each scheduled visit. 
+A listing of vital signs by subject will be produced. 
+8.7.4 Physical examinations 
+Physical examination results will be summarized with incidence of “Normal” and “Abnormal” by 
+body system at each scheduled visit. All physical examination data and abnormalities will be listed. 
+8.7.5 Electrocardiograms 
+The overall ECG interpretation will be summarized by presenting the number and percentage of 
+subjects with “Normal”, “Abnormal, not clinically significant”, and “Abnormal, clinically 
+significant”. In addition, shift table from baseline to post-baseline in overall ECG interpretation 
+during Part 1 will be displayed by visit and treatment group. 
+Page 42 of 116
+
+
+--- Page 43 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 41 of 55 
+ 
+ 
+ECG parameter (e.g., QTcF) observed values and changes from Baseline will be summarized at 
+each scheduled visit. 
+An accompanying listing of subjects will be produced and it will display all ECG findings during 
+the study in subjects with abnormal ECGs, as determined by the investigator. 
+8.7.6 Assessment of Suicidal Ideation and Behavior 
+Subjects will be assessed for  suicidal ideation and behavior at the Screening Visit using the 
+Baseline (Lifetime) C-SSRS, and each subsequent visit using the C-SSRS Since Last Visit version. 
+The C-SSRS consists of 2 major aspects: Suicidal Ideation and Suicidal Behavior. Based on 
+outcomes and data analyses suggested by the C-SSRS website, the following endpoints will be 
+used to analyze C-SSRS data: 
+• 
+Presence of Suicidal Ideation:  Set to 1 if any ideation is present and 0 otherwise. 
+• 
+Presence of Suicidal Behavior:  Set to 1 if any type of suicidal behavior is present and 0 
+otherwise. 
+• 
+Suicidal ideation score: Defined as the maximum suicidal ideation category (1-5) on the 
+C-SSRS present at the assessment. A score of 0 is assigned if no ideation is present. 
+The number (%) of subjects with presence of suicidal ideation/behavior will be summarized at each 
+assessment time. The C-SSRS data will be summarized using worst-case shift tables. Worst-case 
+shift tables will be the cross tabulation of the Baseline result score with the worst-case result score 
+during the treatment period. 
+ 
+8.8 
+Other analysis 
+8.8.1 
+Analysis of Pharmacokinetic Endpoints 
+Plasma tildrakizumab concentration data will be listed by individual subject and summarized by 
+time. 
+PK parameters of AUC, Cmax, Cmin, Tmax, and T1/2 will be summarized with descriptive statistics (n, 
+mean, SD, geometric mean, coefficient of variation [%CV], minimum, first, second (i.e., median) 
+and third quartiles, and maximum). 
+The PK Analysis Set will be used for the analysis. 
+Exploratory PK analyses will be performed by another vendor and described in a separate SAP. 
+ 
+8.8.2 
+ADA to Tildrakizumab 
+For each subject, tildrakizumab serum concentrations and ADA sample results are matched to 
+actual sampling times and treatment. Subjects are grouped based on the actual treatment received, 
+rather than the treatment group at randomization. Subjects have baseline samples taken prior to 
+Page 43 of 116
+
+
+--- Page 44 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 42 of 55 
+ 
+ 
+dosing to assess for any preexisting immune response that may be detected by the ADA assays. 
+Subjects are considered positive if at least one pre-treatment or post-dose sample is positive at any 
+time.  Positive subjects are subsequently categorized into treatment-emergent positive if the 
+positive sample occurs following treatment with tildrakizumab or non-treatment emergent positive 
+if the subject has an immune response present at baseline and the response is not boosted following 
+treatment. 
+The presence of tildrakizumab can interfere with the ADA assay at concentrations above the drug 
+tolerance level (DTL) of 
+.  Therefore, samples with a negative test result in the ADA assay 
+can only be described as negative in the case of a tildrakizumab concentration below 6 μg/mL.  The 
+immunogenicity status of a subject is considered to be negative if all pre-treatment and post-dose 
+samples tested negative in the ADA assay and if the concentration of tildrakizumab in the last 
+post-dose sample is below the DTL. Therefore, an integrated evaluation of ADA results and drug 
+serum concentrations is required for interpretation of immunogenicity results. 
+To summarize, subjects are categorized in one of four immunogenicity categories as described in 
+Table 3. The overall immunogenicity incidence is defined as the proportion of treatment-emergent 
+positive subjects to the number of evaluable subjects. The proportion of non-treatment emergent 
+positive subjects is similarly reported.  For ADA positive subjects (based on the confirmatory 
+assay), the immune response is further characterized for antibody titer and neutralizing capacity. 
+When titer is measured to be
+ for the purposes of deriving 
+ADA subject status. 
+Table 3 Immunogenicity Subject Status Definitions 
+Subject Status 
+Definition 
+Negative 
+All pre-treatment and post-dose samples were negative in the ADA assay and the 
+drug concentration in the last post-dose sample was below the respective DTL 
+ 
+for the ADA assay. 
+Inconclusive 
+All pre-treatment and post-dose samples were negative in the ADA assay AND the 
+drug concentration in the last post-dose sample was equal or above the respective 
+DTL for the ADA assay. 
+Treatment-emergent 
+Positive 
+Pre-treatment sample was negative and at least 1 post-dose sample was positive in 
+the ADA assay (treatment-induced positive). 
+Pre-treatment and post-dose samples were both positive in the ADA assay and the 
+titer increased post-dose by ≥2-fold (treatment boosted positive). 
+Non-treatment- 
+emergent Positive 
+Pre-treatment sample was positive and post-dose samples were negative in the 
+ADA assay. 
+Pre-treatment and post-dose samples were positive in the ADA assay with a 
+< 2-fold increase in titer post-dose 
+ADA = anti-drug antibodies; DTL = drug tolerance level. 
+The anti-tildrakizumab immunogenicity status of evaluable subjects, along with titer and 
+neutralizing antibody, will be summarized by dose level in Part 1. Only data from Part 1 is used 
+and placebo samples in Part 1 are excluded. The anti-tildrakizumab immunogenicity status of 
+Page 44 of 116
+
+
+--- Page 45 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 43 of 55 
+ 
+ 
+evaluable subjects will be further summarized by treatment group and by dose level for Parts 1 and 
+2 combined. ADA data will be presented in a listing. 
+8.8.3 
+Correlation of ADA with Pharmacokinetics 
+Mean plots of tildrakizumab concentration (µg/mL) versus time for ADA positive and ADA 
+negative or inconclusive during Part 1 and Part 2 will be displayed for subjects in groups of 
+tildrakizumab 200 mg and placebo → 200 mg Tildrakizumab, respectively. 
+8.8.4 
+ADA to Efficacy Endpoints 
+The impact of ADA on the responder type of efficacy endpoints (ASAS20 and ASAS40) will be 
+summarized by dose level for Part 1. Only data from Part 1 is used and placebo samples in Part 1 
+are excluded. 
+ 
+8.9    Interim analysis 
+An interim analysis (IA) will be performed for futility assessment after data at Week 16 from 30 
+randomized subjects become available. Futility assessment will be based on a futility threshold of 
+12% (difference between response rates on active arm and placebo) at Week 16. The purpose of the 
+analysis is potentially to stop for futility. If the difference between response rates of ASAS20 for 
+tildrakizumab 200mg and placebo is less than the threshold of 12%, the study may be stopped for 
+futility. The conditional power of rejecting the null ASAS20 hypothesis will be calculated with 
+ADDPLAN software. 
+Following the last subject’s Week 24 visit, an IA will be conducted on all available data up to 
+Week 24 to evaluate the primary efficacy outcome. The primary endpoint ASAS20 and selected 
+other endpoints will be included in the IA. 
+Details of the IA methodology and operational processes will be described in a separate document. 
+Page 45 of 116
+
+
+--- Page 46 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 44 of 55 
+ 
+ 
+ 
+9 
+REPORTING CONVENTION 
+This section details the format and layout of all TFLs and statistical output that will be produced in 
+conjunction with the Clinical Study Report. The table of contents and templates for the TFLs will 
+be produced in a separate document. 
+All data analyses and generation of TLFs will be performed using SAS 9.4® or higher. 
+The following reporting conventions will be adopted for the presentation of study data: 
+• 
+The tables and listings will be provided in a Word document in landscape format, 
+ 
+ 
+The output alignment will be centered on the page and the 
+titles and footnotes will be center aligned. 
+• 
+The ICH1,2 numbering convention will be used for all TLFs. 
+• 
+The analysis population represented on the tables will be clearly identified in the title of the 
+table. 
+• 
+Dates will appear as DDMMMYY format; times as HH:MM format (24 hour clock). 
+• 
+For the presentation of summary data, results will be aligned on the decimal point and be 
+centered within the column. Unless otherwise stated, tables will summarize the results per 
+treatment group (Active treatment, Placebo) and overall. 
+• 
+All TLFs will have the SAS program path and name, output filename and date/time of 
+production in the footnote, and will include the following hierarchy of titles and footnotes 
+(as an example): 
+ 
+ 
+ 
+ 
+ 
+Page 46 of 116
+
+
+--- Page 47 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 45 of 55 
+ 
+ 
+ 
+10 
+CHANGES TO PLANNED ANALYSIS FROM STUDY 
+PROTOCOL 
+The sponsor decided not to do PK and ADA analysis due to the study termination. 
+Page 47 of 116
+
+
+--- Page 48 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 46 of 55 
+ 
+ 
+ 
+11 
+REFERENCES 
+1. 
+ICH  Topic  E3:  Structure and  Content  of  Clinical  Study  Reports  (CPMP/ICH/137/95- 
+adopted December 1995). 
+2. 
+ICH Topic E9: Statistical Principles for Clinical Trials (CPMP/ICH/363/96 – adopted 
+March 1998). 
+3. 
+Ware JE. User’s Manual for the SF-36v2 Health Survey; 2007. 
+Page 48 of 116
+
+
+--- Page 49 ---
+Statistical Analysis Plan (SAP) 
+ 
+ 
+12 
+APPENDICES 
+ 
+12.1 Endpoint definition and Derivation Details 
+12.1.1 
+ 
+The 
+ is a multi-purpose, 36-item survey that measures 8 domains of health: physical 
+functioning, role limitations due to physical health, bodily pain, general health perceptions, vitality, 
+social functioning, role limitations due to emotional problems, and mental health. It yields scale 
+scores for each of these 8 domains and 2 summary measures of physical and mental health. All 
+domains and summary components are scored such that a higher score indicates a higher 
+functioning or health level. 
+These 8 domains are as follows: 
+ 
+a. Physical Functioning (PF).   This score is based on the responses to the 10 items that 
+compose Question 3 and reflects the degree to which various physical activities have been 
+limited in the previous week by the subject’s health. 
+ 
+b. Role-Physical (RP).   This score is based on the responses to the four items that compose 
+Question 4 and reflects the relative amount of time that the subject has had problems with 
+work or other regular daily activities as a result of their physical health during the previous 
+week. 
+ 
+c. Bodily Pain (BP). This score is based on the responses to Questions 7 and 8 and reflects 
+bodily pain and its effects on normal work during the previous week. 
+ 
+d. General Health (GH). This score is based on responses to Question 1 and the four items in 
+Question 11 and reflects the subject’s perception of their general health during the previous 
+week. 
+ 
+e. Vitality (VT). This score is based on responses to Question 9 items a, e and g, and reflects 
+the subject’s physical energy level relative to time during the previous week. 
+ 
+f. Social Functioning (SF).  This score is based on responses to Questions 6 and reflects how 
+physical health or emotional problems have interfered with social activities during the 
+previous week. 
+ 
+g. Role-Emotional (RE). This score is based on responses to the three items in Question   
+5 and reflects the amount of time during the previous week that emotional problems have 
+interfered with work or regular daily activities. 
+ 
+h. Mental Health (MH). This score is based on responses to Question 9 items b, c, d, f, and h 
+and reflects various mental/emotional states relative to time during the previous week. 
+ 
+The summary component scores are: 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+ 
+ 
+Page 47 of 55 
+Page 49 of 116
+
+
+--- Page 50 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 48 of 55 
+ 
+ 
+a. Physical Component Summary (PCS). 
+ 
+b. Mental Component Summary (MCS). 
+Page 50 of 116
+
+
+--- Page 51 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 49 of 55 
+ 
+ 
+Data Derivation Details to Obtain Scale Scores for SF-36 
+ 
+VARIABLE 
+DERIVATION 
+SF-36 PF scale score 
+ 
+ 
+ 
+When calculating the raw score, if  or more of the items are non-missing 
+then replace any missing values as follows: 
+Calculate the mean of the answered questions, using the number of 
+answered questions as the denominator.   Substitute the mean for any 
+missing scores. 
+Otherwise, if 
+ of the items are non-missing then PF 
+scale score is missing. 
+The response scale for each activity ranges from
+ 
+A higher PF scale score indicates better physical functioning. 
+SF-36 RP scale score 
+ 
+ 
+ 
+When calculating the raw score, if  or more of the items are non-missing 
+then replace any missing values as follows: 
+Calculate the mean of the answered questions, using the number of 
+answered questions as the denominator.   Substitute the mean for any 
+missing scores. 
+Otherwise, if less than 
+ the items are non-missing then RP 
+scale score is missing. 
+The response scale for each item ranges from
+ 
+  A higher RP 
+scale score indicates better role-physical functioning. 
+Page 51 of 116
+
+
+--- Page 52 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 50 of 55 
+ 
+ 
+ 
+VARIABLE 
+DERIVATION 
+SF-36 BP scale score 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+If 1 or more questions were answered, calculate BP scale 
+score as defined above. If neither question was answered then 
+BP scale score is missing. 
+The scale for
+ 
+. 
+The scale for 
+ 
+ 
+ 
+A higher BP scale score indicates lack of bodily pain. 
+Page 52 of 116
+
+
+--- Page 53 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 51 of 55 
+ 
+ 
+ 
+VARIABLE 
+DERIVATION 
+SF-36 GH scale score 
+ 
+ 
+ 
+ 
+Reverse direction of Item 1 as follows: 
+ 
+ 
+ 
+ 
+Reverse direction of item 
+ by subtracting score from 6. 
+When calculating the raw score, if  or more of the items are non-missing 
+then replace any missing values as follows: 
+Calculate the mean of the answered questions, using the number of 
+answered questions as the denominator. Substitute the mean for any 
+missing scores. 
+Otherwise, if 
+ of the items are non-missing then GH 
+scale score is missing. 
+Responses for
+ 
+ 
+Responses for the items in
+ 
+ 
+ and reflect the subject’s perception of their relative 
+health and expectations of their future health status. 
+A higher GH scale score indicates better general health perceptions. 
+Page 53 of 116
+
+
+--- Page 54 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 52 of 55 
+ 
+ 
+ 
+VARIABLE 
+DERIVATION 
+SF-36 VT scale score 
+ 
+ 
+ 
+Reverse direction of Items 
+ by subtracting score from . 
+When calculating the raw score, if  or more of the items are non-missing 
+then replace any missing values as follows: 
+Calculate the mean of the answered questions, using the number of 
+answered questions as the denominator. Substitute the mean for any 
+missing scores. 
+Otherwise, if 
+ of the items are non-missing then VT 
+scale score is missing. 
+The scale for these items ranges from
+ 
+ 
+SF-36 SF scale score 
+ 
+ 
+ 
+Reverse direction of 
+ 
+When calculating the raw score, if  of the items is missing then substitute 
+the missing score with the score on the non- missing item. If both items 
+are missing then SF scale score is missing. 
+Responses to 
+ an assessment of the extent to which 
+health/emotional problems interfered with social activities,
+  
+ 
+ 
+ 
+ 
+ 
+A higher SF scale score indicates better social functioning. 
+Page 54 of 116
+
+
+--- Page 55 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 53 of 55 
+ 
+ 
+ 
+VARIABLE 
+DERIVATION 
+SF-36 RE scale score 
+ 
+ 
+ 
+When calculating the raw score, if  or more of the items are non-missing 
+then replace any missing values as follows: 
+Calculate the mean of the answered questions, using the number of 
+answered questions as the denominator. Substitute the mean for any 
+missing scores. 
+Otherwise, if 
+2 of the items are non-missing then RE 
+scale score is missing. 
+Responses to the items in
+ 
+ 
+ 
+SF-36 MH scale score 
+ 
+ 
+ 
+ 
+Reverse direction of scores for 9D and 9H, by subtracting score from 6. 
+If 3 or more of the items are non-missing then replace any missing values 
+as follows: 
+Calculate the mean of the answered questions, using the number of 
+answered questions as the denominator. Substitute the mean for any 
+missing scores. 
+Otherwise, if
+ of the items are non-missing then 
+MH scale score is missing. 
+The scale for these items ranges from
+ 
+ 
+ 
+Page 55 of 116
+
+
+--- Page 56 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 54 of 55 
+ 
+ 
+VARIABLE 
+DERIVATION 
+-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+. 
+Page 56 of 116
+
+
+--- Page 57 ---
+Statistical Analysis Plan (SAP) 
+Statistical Analysis Plan 
+Protocol Number: CLR_16_22 
+ 
+Page 55 of 55 
+ 
+ 
+VARIABLE 
+DERIVATION 
+SF-
+ MCS score 
+ 
+ 
+ 
+ 
+ 
+ 
+. 
+ 
+Page 57 of 116
+
+
+--- Page 58 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+                     
+                     
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+Page 58 of 116
+
+
+--- Page 59 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+2
+Page 59 of 116
+
+
+--- Page 60 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+3
+Page 60 of 116
+
+
+--- Page 61 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+4
+Page 61 of 116
+
+
+--- Page 62 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+5
+Page 62 of 116
+
+
+--- Page 63 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+6
+Page 63 of 116
+
+
+--- Page 64 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+7
+Page 64 of 116
+
+
+--- Page 65 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                        
+           
+        
+8
+Page 65 of 116
+
+
+--- Page 66 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+9
+Page 66 of 116
+
+
+--- Page 67 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+10
+Page 67 of 116
+
+
+--- Page 68 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+11
+Page 68 of 116
+
+
+--- Page 69 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+12
+Page 69 of 116
+
+
+--- Page 70 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+13
+Page 70 of 116
+
+
+--- Page 71 ---
+                      
+ 
+                                 
+    
+    
+     
+     
+      
+             
+       
+            
+        
+  
+             
+       
+            
+       
+  
+ 
+       
+      
+             
+     
+ 
+    
+    
+         
+  
+              
+                         
+           
+        
+14
+Page 71 of 116
+
+
+--- Page 72 ---
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+            
+  
+  
+            
+            
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+         
+  
+                  
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+15
+Page 72 of 116
+
+
+--- Page 73 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+      
+     
+     
+            
+  
+  
+           
+  
+           
+  
+       
+      
+     
+     
+            
+  
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+16
+Page 73 of 116
+
+
+--- Page 74 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+17
+Page 74 of 116
+
+
+--- Page 75 ---
+       
+ 
+                              
+               
+       
+    
+    
+      
+    
+        
+      
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+               
+        
+       
+    
+        
+        
+       
+                            
+               
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+  
+     
+     
+              
+                           
+18
+Page 75 of 116
+
+
+--- Page 76 ---
+              
+19
+Page 76 of 116
+
+
+--- Page 77 ---
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+                  
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+20
+Page 77 of 116
+
+
+--- Page 78 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+       
+      
+     
+     
+           
+  
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+21
+Page 78 of 116
+
+
+--- Page 79 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+22
+Page 79 of 116
+
+
+--- Page 80 ---
+       
+ 
+                              
+               
+       
+    
+     
+      
+    
+        
+       
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+     
+              
+                           
+              
+23
+Page 80 of 116
+
+
+--- Page 81 ---
+24
+Page 81 of 116
+
+
+--- Page 82 ---
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+                          
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+25
+Page 82 of 116
+
+
+--- Page 83 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+26
+Page 83 of 116
+
+
+--- Page 84 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+27
+Page 84 of 116
+
+
+--- Page 85 ---
+       
+ 
+                              
+               
+       
+    
+     
+      
+    
+        
+       
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+     
+              
+                           
+              
+28
+Page 85 of 116
+
+
+--- Page 86 ---
+29
+Page 86 of 116
+
+
+--- Page 87 ---
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+                  
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+Page 87 of 116
+
+
+--- Page 88 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+31
+Page 88 of 116
+
+
+--- Page 89 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+32
+Page 89 of 116
+
+
+--- Page 90 ---
+       
+ 
+                              
+               
+       
+    
+     
+      
+    
+        
+       
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+     
+              
+                           
+              
+33
+Page 90 of 116
+
+
+--- Page 91 ---
+34
+Page 91 of 116
+
+
+--- Page 92 ---
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+                          
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+35
+Page 92 of 116
+
+
+--- Page 93 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+36
+Page 93 of 116
+
+
+--- Page 94 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+37
+Page 94 of 116
+
+
+--- Page 95 ---
+       
+ 
+                              
+               
+       
+    
+     
+      
+    
+        
+       
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+     
+              
+                           
+              
+38
+Page 95 of 116
+
+
+--- Page 96 ---
+39
+Page 96 of 116
+
+
+--- Page 97 ---
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+                          
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+40
+Page 97 of 116
+
+
+--- Page 98 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+41
+Page 98 of 116
+
+
+--- Page 99 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+42
+Page 99 of 116
+
+
+--- Page 100 ---
+       
+ 
+                              
+               
+       
+    
+     
+      
+    
+        
+       
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+     
+              
+                           
+              
+43
+Page 100 of 116
+
+
+--- Page 101 ---
+44
+Page 101 of 116
+
+
+--- Page 102 ---
+Controlling for patf=1
+      
+  
+  
+         
+       
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+       
+      
+      
+      
+           
+  
+  
+           
+  
+           
+  
+                          
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+45
+Page 102 of 116
+
+
+--- Page 103 ---
+ 
+      
+  
+  
+         
+       
+  
+       
+     
+     
+     
+           
+  
+  
+           
+  
+           
+  
+       
+     
+      
+     
+           
+   
+  
+           
+  
+           
+  
+          
+       
+       
+            
+    
+   
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+     
+     
+    
+     
+                      
+                        
+46
+Page 103 of 116
+
+
+--- Page 104 ---
+ 
+                           
+ 
+                                             
+                
+                  
+        
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+           
+     
+     
+     
+     
+     
+      
+     
+    
+     
+                      
+                        
+47
+Page 104 of 116
+
+
+--- Page 105 ---
+t14_2_2_1_2_cmh2024_002.lst
+       
+ 
+                              
+               
+       
+    
+    
+      
+    
+        
+      
+      
+    
+        
+                      
+  
+ 
+    
+    
+       
+      
+            
+              
+    
+            
+           
+    
+            
+              
+    
+    
+                        
+ 
+                   
+                  
+       
+                  
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+    
+        
+        
+       
+                            
+                  
+        
+       
+     
+              
+                           
+              
+48
+Page 105 of 116
+
+
+--- Page 106 ---
+49
+Page 106 of 116
+
+
+--- Page 107 ---
+                  
+                     
+                 
+           
+                      
+         
+             
+               
+                   
+            
+                     
+     
+                     
+      
+            
+    
+            
+              
+ 
+      
+    
+             
+                 
+                
+                           
+        
+    
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+    
+                     
+             
+              
+                           
+1
+Page 107 of 116
+
+
+--- Page 108 ---
+            
+            
+                     
+                      
+                        
+               
+          
+             
+             
+           
+                     
+ 
+    
+    
+       
+                            
+                
+                            
+      
+                            
+      
+                   
+                    
+ 
+    
+    
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+       
+     
+      
+     
+       
+     
+       
+2
+Page 108 of 116
+
+
+--- Page 109 ---
+ 
+    
+    
+     
+       
+     
+       
+     
+       
+     
+       
+           
+          
+        
+       
+        
+  
+ 
+    
+    
+      
+    
+        
+          
+                                   
+ 
+                
+                
+    
+                
+      
+                           
+          
+     
+         
+    
+       
+      
+    
+    
+                                     
+      
+     
+     
+      
+                                          
+      
+    
+     
+      
+                                                                        
+                                      
+      
+    
+     
+      
+                                      
+      
+    
+     
+      
+                                      
+      
+    
+     
+      
+                                      
+      
+    
+     
+      
+                                      
+      
+    
+     
+      
+                                       
+      
+    
+     
+      
+                                                                     
+                                
+      
+    
+     
+      
+                                                               
+                                
+      
+    
+     
+      
+                                                               
+3
+Page 109 of 116
+
+
+--- Page 110 ---
+                                
+      
+    
+     
+      
+                                                               
+                                
+      
+    
+     
+      
+                                                               
+   
+    
+     
+      
+   
+                   
+   
+    
+     
+      
+   
+                   
+   
+                   
+    
+                   
+4
+Page 110 of 116
+
+
+--- Page 111 ---
+                                   
+ 
+                
+                
+    
+                
+      
+                           
+          
+     
+         
+    
+       
+      
+    
+    
+                                          
+     
+    
+     
+      
+                                       
+      
+    
+     
+      
+                                                                      
+          
+ 
+                 
+     
+            
+      
+    
+    
+                   
+       
+    
+                
+      
+    
+           
+       
+    
+                   
+      
+    
+                 
+       
+    
+                                                   
+ 
+                
+                
+                           
+          
+         
+    
+       
+      
+    
+   
+     
+       
+       
+                       
+      
+     
+      
+   
+      
+     
+      
+                       
+      
+     
+      
+   
+      
+     
+      
+                       
+      
+     
+      
+   
+      
+    
+     
+                       
+      
+     
+      
+   
+      
+    
+     
+                      
+      
+     
+      
+   
+      
+    
+     
+                       
+      
+     
+      
+   
+      
+    
+     
+                      
+      
+     
+      
+   
+      
+    
+    
+                      
+      
+     
+      
+   
+      
+    
+    
+                      
+      
+     
+      
+   
+      
+    
+    
+                      
+      
+     
+      
+   
+      
+    
+    
+                      
+      
+     
+      
+   
+      
+    
+    
+                      
+      
+     
+      
+   
+5
+Page 111 of 116
+
+
+--- Page 112 ---
+      
+    
+    
+                      
+      
+     
+      
+   
+      
+    
+    
+                      
+      
+     
+      
+   
+      
+    
+    
+                                                
+ 
+ 
+               
+          
+               
+             
+                         
+         
+        
+   
+        
+   
+      
+     
+   
+    
+      
+      
+                                     
+     
+   
+     
+     
+    
+     
+                                      
+     
+   
+     
+     
+     
+     
+                                      
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+     
+    
+6
+Page 112 of 116
+
+
+--- Page 113 ---
+t14_2_2_5_2_ptga24_002.lst
+                                                
+ 
+ 
+               
+          
+               
+             
+                         
+         
+        
+   
+        
+   
+      
+     
+   
+    
+      
+      
+                                      
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+   
+     
+     
+     
+     
+                                     
+     
+    
+     
+     
+     
+    
+                                      
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+     
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+     
+                                      
+     
+   
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+    
+     
+                                     
+     
+   
+7
+Page 113 of 116
+
+
+--- Page 114 ---
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+   
+     
+     
+    
+     
+                                     
+     
+    
+     
+     
+     
+    
+                                      
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+   
+     
+                                      
+     
+   
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+    
+    
+of 116
+
+
+--- Page 115 ---
+                                                
+ 
+ 
+               
+          
+               
+             
+                         
+         
+        
+   
+        
+   
+      
+     
+   
+    
+      
+      
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                      
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+   
+     
+                                      
+     
+   
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+     
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+   
+    
+                                      
+     
+   
+     
+     
+    
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                      
+     
+   
+     
+     
+     
+    
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+    
+    
+                                     
+     
+   
+     
+     
+   
+     
+                                      
+     
+     
+     
+     
+    
+     
+                                     
+     
+    
+9
+Page 115 of 116
+
+
+--- Page 116 ---
+     
+     
+   
+    
+                                      
+     
+   
+     
+     
+     
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+   
+     
+     
+     
+     
+                                     
+     
+    
+     
+     
+     
+    
+                                     
+     
+   
+     
+     
+     
+    
+                                     
+     
+     
+     
+     
+   
+     
+                                      
+     
+   
+     
+     
+    
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+    
+     
+     
+    
+    
+                                      
+     
+   
+     
+     
+     
+    
+                                      
+     
+   
+     
+     
+    
+    
+10
+Page 116 of 116

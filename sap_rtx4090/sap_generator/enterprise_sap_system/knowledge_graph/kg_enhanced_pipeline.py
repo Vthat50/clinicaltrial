@@ -1277,12 +1277,43 @@ CRITICAL REQUIREMENTS:
 - Use the EXACT "## N." format for section headers
 - For sections 5, 7, 8, 9, 10, 12: USE THE TOOLS to get standard specifications
 - Section 11 (Interim Analysis): Include even if "Not applicable" for this study
-- Section 12 (Table/Figure Shells): MUST call get_disposition_tables, get_safety_tables tools
+
+## SECTION 12 TABLE/FIGURE SHELLS - CRITICAL FORMATTING:
+You MUST call get_disposition_tables, get_efficacy_tables, get_safety_tables tools.
+Then FORMAT the JSON responses into TEXT TABLE SHELLS like this:
+
+**TABLE 14.1.1: Subject Disposition**
+|Category|Treatment A (N=xxx)|Treatment B (N=xxx)|Total (N=xxx)|
+|--------|-------------------|-------------------|-------------|
+|Screened|xxx|xxx|xxx|
+|Screen Failures|xxx|xxx|xxx|
+|Randomized|xxx|xxx|xxx|
+|Completed Treatment|xxx|xxx|xxx|
+|Discontinued|xxx|xxx|xxx|
+|  Adverse Event|xxx|xxx|xxx|
+|  Withdrawal by Subject|xxx|xxx|xxx|
+|  Lost to Follow-up|xxx|xxx|xxx|
+
+**TABLE 14.1.2: Demographics and Baseline Characteristics**
+|Parameter|Statistic|Treatment A (N=xxx)|Treatment B (N=xxx)|
+|---------|---------|-------------------|-------------------|
+|Age (years)|n|xxx|xxx|
+||Mean (SD)|xxx (xxx)|xxx (xxx)|
+||Median|xxx|xxx|
+||Min, Max|xxx, xxx|xxx, xxx|
+|Sex, n (%)|Male|xxx (xx.x)|xxx (xx.x)|
+||Female|xxx (xx.x)|xxx (xx.x)|
+
+IMPORTANT: The KB tools return JSON with 'title', 'columns', 'rows'. YOU must convert this to formatted text tables with:
+- TABLE 14.x.x numbering
+- Markdown table format with | separators
+- xxx placeholders for values
+- Include ALL tables returned by the tools
 
 RECOMMENDED TOOL ORDER:
 1. FIRST: Call get_similar_trials() with the protocol's phase, indication, and primary endpoint to find precedent
 2. THEN: Use the similar trials' censoring rules, multiplicity, and methods as a starting point
-3. FINALLY: Call get_statistical_method, get_disposition_tables, etc. for standard templates
+3. FINALLY: Call get_statistical_method, get_disposition_tables, get_efficacy_tables, get_safety_tables for templates
 
 Start by calling get_similar_trials to find precedent, then generate the COMPLETE 12-section SAP."""
 

@@ -1,0 +1,8719 @@
+
+--- Page 1 ---
+CO26_SAP 
+1 
+ 
+STATISTICAL ANALYSIS PLAN  
+ 
+A PHASE II RANDOMIZED STUDY OF DURVALUMAB AND 
+TREMELIMUMAB AND BEST SUPPORTIVE CARE VS BEST 
+SUPPORTIVE CARE ALONE IN PATIENTS WITH ADVANCED 
+COLORECTAL ADENOCARCINOMA REFRACTORY TO STANDARD 
+THERAPIES  
+ 
+ 
+Protocol CCTG CO.26 
+ 
+Prepared by: 
+Signature 
+Date 
+ 
+CCTG/Queen’s Statistician              
+ 
+ 
+            
+ 
+ 
+ 
+ 
+ 
+Dongsheng Tu 
+ 
+ 
+ 
+Reviewed by:  
+ 
+ 
+Signature 
+ 
+ 
+Date 
+ 
+CCTG/Queen’s 
+Senior Investigator       
+ 
+ 
+ 
+ 
+            
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Chris O’Callaghan 
+ 
+ 
+ 
+May 9, 2018 
+ 
+Revised: September 6, 2018 
+
+
+--- Page 2 ---
+CO26_SAP 
+2 
+ABBREVIATIONS 
+ 
+AE 
+ 
+Adverse Event 
+ALT 
+ 
+Alanine Aminotransferase 
+AST 
+ 
+Serum Glutamic Oxaloacetic Transaminase  
+BSA 
+ 
+Body Surface Area 
+BSC 
+ 
+Best Supportive Care 
+CCTG  
+Canadian Cancer Trials Group  
+CEA  
+Carcinoembryonic antigen 
+C. I. 
+ 
+Confidence Interval 
+CMH  
+Cochran-Mantel-Haenszel 
+CR 
+ 
+Complete Response 
+CRC  
+Colorectal Cancer 
+CRF 
+ 
+Case Report Form 
+CTCAE 
+Common Terminology Criteria for Adverse Events 
+ECOG  
+Eastern Cooperative Cancer Group 
+ECG  
+Electrocardiography 
+EORTC 
+European Organization for Research and Treatment of Cancer  
+IN 
+ 
+Inevaluable 
+IV 
+ 
+Intravenous 
+INR 
+ 
+International Normalized Ratio (for Prothrombin Time) 
+LDH  
+Serum Lactate Dehydrogenase 
+LKA  
+Last day the patient is Known Alive 
+LLN 
+ 
+Lower Limit of Normal 
+MPV  
+Major Protocol Violation 
+MSI 
+ 
+Microsatellite Instability 
+MSI-H  
+Microsatellite Instability-High 
+MSI-L  
+Microsatellite Instability-Low 
+MSS  
+Microsatellite Stable 
+NA 
+ 
+Not Assessed 
+NAP  
+Not Applicable 
+NC 
+ 
+Not Computed 
+ORR  
+Objective Response Rate 
+OS 
+ 
+Overall Survival 
+PD 
+ 
+Progression Disease 
+PD1 
+ 
+Programmed cell death protein 1 
+PD-L1  
+Programmed cell death ligand 1 
+PFS 
+ 
+Progression-free survival 
+PR 
+ 
+Partial Response 
+PT 
+ 
+Prothrombin Time 
+PTT 
+ 
+Partial Thromboplastin Time 
+QLQ  
+Quality of Life Questionnaire  
+QOL  
+Quality of Life 
+RBC  
+Red Blood Cell Count 
+RECIST 
+Response Evaluation Criteria in Solid Tumors 
+
+
+--- Page 3 ---
+CO26_SAP 
+3 
+SAS 
+ 
+Statistical Analysis System 
+SD 
+ 
+Stable Disease 
+STD 
+ 
+Standard Deviation 
+TSH 
+ 
+Thyroid-stimulating hormone 
+VEGF  
+Vascular Endothelial Growth Factor 
+WBC  
+White Blood Cell Count 
+ 
+
+
+--- Page 4 ---
+CO26_SAP 
+4 
+TABLE OF CONTENTS 
+ 
+1. 
+Background and Rationale _______________________________________ 7 
+2. 
+Study Description _______________________________________________ 7 
+2.1 
+Study Design ______________________________________________________ 7 
+2.2 
+Treatment Allocation _______________________________________________ 8 
+3. 
+Objectives _____________________________________________________ 8 
+3.1 
+Primary __________________________________________________________ 8 
+3.2 
+Secondary _________________________________________________________ 8 
+4. 
+Endpoints _____________________________________________________ 9 
+4.1 
+Primary Efficacy ___________________________________________________ 9 
+4.2 
+Secondary Efficacy _________________________________________________ 9 
+4.3 
+Safety ____________________________________________________________ 9 
+5. 
+Sample Size and Power __________________________________________ 9 
+6. 
+Data Set Descriptions ____________________________________________ 9 
+7. 
+Statistical Analysis _____________________________________________ 10 
+7.1 
+General Methods __________________________________________________ 10 
+7.2 
+Data Conventions _________________________________________________ 10 
+7.3 
+Study Conduct ____________________________________________________ 11 
+7.3.1 
+Patient Disposition ____________________________________________________ 11 
+7.3.2 
+Accrual Patterns ______________________________________________________ 11 
+7.3.3 
+Eligibility Violations/Protocol Deviations __________________________________ 11 
+7.4 
+Study Population __________________________________________________ 12 
+7.4.1 
+Patient Pretreatment Characteristics _______________________________________ 12 
+7.4.2 
+Prior Surgery ________________________________________________________ 12 
+7.4.3 
+Prior radiotherapy _____________________________________________________ 12 
+7.4.4 
+Prior Systemic Therapy ________________________________________________ 12 
+7.4.5 
+Extent of Disease _____________________________________________________ 12 
+7.4.6 
+Baseline Exams _______________________________________________________ 13 
+7.4.7 
+Concomitant Medications and Major Medical Problems at Baseline ______________ 13 
+7.5 
+Extent of Exposure to Durvalumab and Tremelimumab _________________ 13 
+7.5.1 
+Study Therapy________________________________________________________ 13 
+7.5.2 
+Dose Reduction, Omission, Discontinuation, or IV Rate Decrease or Infusion 
+Interruption to Durvalumab or Tremelimumab ______________________________________ 14 
+7.5.3 
+Cumulative Dose, Dose Intensity and Relative Dose Intensity of  Durvalumab or 
+Tremelimumab _______________________________________________________________ 14 
+7.5.4 
+Off Study Therapy ____________________________________________________ 14 
+7.6 
+Efficacy __________________________________________________________ 15 
+7.6.1 
+Overall survival ______________________________________________________ 15 
+7.6.2 
+Overall Survival by Subsets _____________________________________________ 16 
+7.6.3 
+Progression-free Survival _______________________________________________ 16 
+7.6.4 
+Progression-free survival by Subsets ______________________________________ 17 
+
+
+--- Page 5 ---
+CO26_SAP 
+5 
+7.6.5 
+Treatment Response ___________________________________________________ 17 
+7.6.6 
+Treatment Response by Subsets __________________________________________ 18 
+7.6.7 
+Duration of Response __________________________________________________ 18 
+7.7 
+Safety ___________________________________________________________ 18 
+7.7.1 
+Adverse Events _______________________________________________________ 18 
+7.7.2 
+Laboratory Evaluations _________________________________________________ 19 
+7.6.2.1 
+Hematology _______________________________________________________ 19 
+7.6.2.2 
+Serum Chemistry ___________________________________________________ 19 
+7.6.2.3 
+Thyroid Function Tests _______________________________________________ 20 
+7.6.2.3 
+Coagulation ________________________________________________________ 20 
+7.7.3 
+Other Safety _________________________________________________________ 20 
+7.6.3.1 
+ECG _____________________________________________________________ 20 
+7.6.3.2 
+Urinalysis _________________________________________________________ 20 
+7.7.4 
+Deaths on Study/Adverse Events Leading to Discontinuations of Protocol Treatment 20 
+7.8 
+Concomitant Medications, Other Anti-Cancer Treatments, and Major Medical 
+Problems ______________________________________________________________ 20 
+7.9 
+Quality of Life ____________________________________________________ 21 
+7.9.1 
+EORTC QLQ-C30 ____________________________________________________ 21 
+7.9.2 
+Data Sets ____________________________________________________________ 22 
+7.9.3 
+Compliance __________________________________________________________ 23 
+7.9.4 
+Primary Analyses of QOL ______________________________________________ 23 
+7.9.5 
+Baseline and Change Score Analysis ______________________________________ 23 
+7.9.6 
+QOL Response Analysis ________________________________________________ 23 
+8. 
+Appendices ___________________________________________________ 24 
+Appendix 1: Tables and Figure __________________________________________________ 24 
+ 
+Tables 
+ 
+Table 1:  Patient Disposition................................................................................................................. 24 
+Table 2:  Follow-up of Patients ............................................................................................................. 24 
+Table 3:  Accrual by Center .................................................................................................................. 25 
+Table 4:  Accrual by Stratification Factor at Randomization ............................................................... 25 
+Table 5:  Eligibility and Reasons for Ineligibility and Major Protocol Violations ............................... 26 
+Table 6:  Treatment as Randomized Versus as Treated ........................................................................ 26 
+Table 7:  Pretreatment Characteristics at Baseline .............................................................................. 27 
+Table 8:  Prior Surgery ......................................................................................................................... 28 
+Table 9:  Prior Radiotherapy ................................................................................................................ 28 
+Table 10:  Prior Systemic Therapy ........................................................................................................ 29 
+Table 11:  Specific Prior Chemotherapy ............................................................................................... 30 
+Table 12:  Extent of Disease (Target Lesions) ...................................................................................... 32 
+Table 13:  Extent of Disease (Non-Target Lesions) .............................................................................. 33 
+Table 14:  Baseline Signs and Symptoms .............................................................................................. 33 
+Table 15:  Baseline Hematology ........................................................................................................... 34 
+Table 16:  Baseline Chemistry .............................................................................................................. 35 
+Table 17:  Baseline Thyroid Function Tests .......................................................................................... 38 
+Table 18:  Baseline Coagulation Tests .................................................................................................. 38 
+Table 19:  Baseline ECG ....................................................................................................................... 39 
+Table 20 : Baseline Urinalysis .............................................................................................................. 39 
+Table 21:  Concomitant Medications at Baseline ................................................................................. 40 
+Table 22:  Major Medical Problems at Baseline .................................................................................. 40 
+Table 23:  Number of Patients on DURVA+TREME Arm by Cycle ..................................................... 41 
+Table 24:  Number of Cycles of Protocol Therapy per Patient on DURVA+TREME Arm ................... 41 
+
+
+--- Page 6 ---
+CO26_SAP 
+6 
+Table 25:  Total Treatment Duration of Durvalumab and Tremelimumab ........................................... 41 
+Table 26: Compliance with Durvalumab and Tremelimumab Administration ..................................... 41 
+Table 27:  Dose Reduction, Omission or Delay and IV Rate Decrease and Infusion Interruption for 
+Durvalumab and Tremelimumab ........................................................................................................... 42 
+Table 28:  Cumulative Dose of Durvalumab and Tremelimumab ......................................................... 43 
+Table 29:  Dose Intensity of Durvalumab and Tremelimumab ............................................................. 43 
+Table 30:  Relative Dose Intensity of Durvalumab and Tremelimumab ............................................... 43 
+Table 31:  Off Durvalumab and Tremelimumab Treatment Summary .................................................. 44 
+Table 32:  All Deaths ............................................................................................................................ 45 
+Table 33:  Log Rank and Cox Regression Model for Overall Survival ................................................. 46 
+Table 34:  Survival by Subsets .............................................................................................................. 47 
+Table 35:  Progression Summary .......................................................................................................... 48 
+Table 36:  Log Rank and Cox Regression Model for Progression Free Survival (PFS) ....................... 49 
+Table 37:  Progression Free Survival (PFS) by Subsets ....................................................................... 50 
+Table 38:  Treatment Response ............................................................................................................. 51 
+Table 39:  Cochran Mantel Haenszel and Logistic Regression Model for Response ........................... 52 
+Table 40:  Response According to Pretreatment Characteristics ......................................................... 53 
+Table 41:  Duration of Response ........................................................................................................... 53 
+Table 42:  Adverse Events on Durvalumab and Tremelimumab Treatment .......................................... 54 
+Table 43: Severe Adverse Events on Durvalumab and Tremelimumab Treatment ............................... 54 
+Table 44: Drug Related Adverse Events during Durvalumab and Tremelimumab Treatment ............. 55 
+Table 45:  Overall Adverse Events ........................................................................................................ 57 
+Table 46:  Severe Overall Adverse Events ............................................................................................ 57 
+Table 47:  Hematology during Durvalumab and Tremelimumab Treatment ........................................ 58 
+Table 48:  Overall Hematology: Worst Grade per Patient ................................................................... 59 
+(1) Greater than upper normal limit ....................................................................................................... 59 
+Table 49:  Serum Chemistry during Durvalumab and Tremelimumab Treatment:  Worst Grade per 
+Patient ................................................................................................................................................... 60 
+Table 50:  Overall Serum Chemistry:  Worst Grade per Patient .......................................................... 62 
+Table 51:  Thyroid Function Tests: Worst during Durvalumab and Tremelimumab Treatment........... 64 
+Table 52:  Thyroid Function Tests: Worst during Study ....................................................................... 64 
+Table 53: Coagulation Tests: Worst during Durvalumab and Tremelimumab Treatment .................... 66 
+Table 54:  Coagulation Tests: Worst during Study ............................................................................... 66 
+Table 55:  ECG Results ......................................................................................................................... 67 
+Table 56 : Urinalysis ............................................................................................................................. 67 
+Table 57:  Deaths During Durvalumab and Tremelimumab Treatment or within 4 weeks of Last 
+Durvalumab and Tremelimumab Treatment ......................................................................................... 67 
+Table 58:  Adverse Event leading to Discontinuation of Durvalumab or Tremelimumab(a) ................. 68 
+Table 59:  Concomitant Medications .................................................................................................... 68 
+Table 60:   Anti-Cancer Treatment ....................................................................................................... 69 
+Table 61:  Major Medical Problems ..................................................................................................... 70 
+Table 62: Compliance Rate with QoL Assessment by Treatment Arm .................................................. 71 
+Table 63: Proportion of Patients with Deterioration, Improvement or Stable QoL ............................. 71 
+Table 64:  Time to Deterioration in QoL Primary Endpoints ............................................................... 71 
+Table 65: QoL: Summary Baseline Scores ............................................................................................ 72 
+Table 66: Summary QOL Change Scores from Baseline for Scale/Domain/Item at Each Time Period*
+ ............................................................................................................................................................... 72 
+Table 67: Results for QOL Response Analyses ..................................................................................... 73 
+ 
+Figures 
+Figure 1:  Accrual by Calendar Time ................................................................................................... 25 
+Figure 2:  Kaplan-Meier Curves for Overall Survival .......................................................................... 45 
+Figure 3:  Kaplan-Meier Curves for Progression Free Survival .......................................................... 48 
+ 
+
+
+--- Page 7 ---
+CO26_SAP 
+7 
+1. 
+Background and Rationale 
+The purpose of this document is to describe the analysis of CO.26 for the writing of a 
+Canadian Cancer Trials Group (CCTG) study report on this study.  The data are 
+collected and cleaned by CCTG. All analyses will be performed by a senior 
+biostatistician in CCTG and a final statistical analysis report will be prepared.  A copy 
+of this report will be sent to the study chair for the writing of the manuscript and to 
+AstraZeneca.   
+ 
+Rationale of the Study: 
+ 
+Programmed cell death ligand 1 (PD-L1), the ligand for programmed cell death 
+protein 1 (PD1),  is part of a complex system of receptors and ligands that are 
+involved in controlling T-cell activation, which acts at multiple sites in the body to 
+help regulate normal immune responses and is utilized by tumours to help evade 
+detection and elimination by the host immune system. Overexpression of PD-L1 in 
+colorectal cancer (CRC) is associated with poor prognosis. Clinically, blockade of the 
+PD-1 inhibitory checkpoint pathway by inhibiting PD-L1/ PD-1 engagement has been 
+shown to induce tumour regression across many cancer types, including melanoma 
+and renal cell, colon and lung cancers. CTLA-4 is another co-inhibitory receptor 
+expressed on activated T cells and regulates early stage T cell activation, reducing the 
+amplitude of T-cell activation. Targeting both PD-1 and CTLA-4 pathways may have 
+additive or synergistic activity because the mechanisms of action of CTLA-4 and PD-
+1 are non-redundant. This study was designed to evaluate whether combining PD-
+1/PD-L1 and CTLA-4 inhibition with durvalumab and tremelimumab will lead to 
+improved patient survivals compared to best supportive care in advanced colorectal 
+cancer. 
+ 
+Research Hypothesis: 
+ 
+The primary hypothesis in this study is that durvalumab and tremelimumab combined 
+with best supportive care (Durva+Treme) will have a greater clinical efficacy 
+compared to best supportive care alone (BSC) in patients with refractory, advanced 
+colorectal cancer as measured by overall survival. 
+ 
+Schedule of Analyses: 
+ 
+Only one analysis will be performed, when 150 events (deaths) have been observed. 
+2. 
+Study Description 
+2.1 
+Study Design 
+Study CCTG CO.26 is a multi-centre, open-label, randomized phase II trial of 
+durvalumab and tremelimumab combined with best supportive care versus best 
+supportive care alone (where best supportive care is defined as those measures 
+
+
+--- Page 8 ---
+CO26_SAP 
+8 
+designed to provide palliation of symptoms and improve quality of life as much as 
+possible) in patients with refractory, advanced colorectal carcinoma.  Patients are 
+stratified by ECOG performance status (0 vs. 1) and site of tumour (right colon vs. 
+transverse colon vs. left colon vs. rectum vs. unknown) prior to randomization.  This 
+study is conducted by CCTG with support from AstraZeneca.  CCTG Case Report 
+Forms (CRFs) are used and the database are maintained by CCTG.   
+ 
+A total of 180 patients would be enrolled (120 on Durva+Treme and 60 on BSC).  
+The final analyses will be performed by CCTG when the required number of deaths 
+(150) is recorded. This analysis plan describes the analyses performed at the 
+completion of the study. 
+ 
+This study was activated on August 10, 2016 and closed to randomization of patients 
+on June 29, 2017 after 180 patients were randomized. The CCTG Data Safety 
+Monitoring Committee has been reviewing safety data every six months (usually at 
+the time of the bi-annual  CCTG Spring and Fall meetings) and as otherwise required.  
+These analyses have been prepared by a CCTG/Queen’s Senior Biostatistician.   
+2.2 
+Treatment Allocation 
+The study is planned to randomize 180 subjects using a 2:1 allocation to durvalumab 
+and tremelimumab combined with best supportive care (Durva+Treme Arm or ARM 
+2) and best supportive care alone (BSC Arm or ARM 1). The randomization was 
+dynamically balanced by ECOG performance status (0 vs. 1) and site of tumour (right 
+colon vs. transverse colon vs. left colon vs. rectum vs. unknown) using the method of 
+minimization.  A centralized system was used to randomize all patients in this study. 
+3. 
+Objectives 
+3.1 
+Primary 
+The primary objective of this study is to compare overall survival of patients with 
+advanced colorectal cancer who are refractory to all available therapy treated with 
+durvalumab and tremelimumab combined with best supportive care to the overall 
+survival of patients treated with best supportive care alone. 
+3.2 
+Secondary 
+Secondary objectives are to: 
+ 
+• Compare progression-free survival (PFS) between the two treatment arms. 
+• Compare objective response rates (ORR) between the two treatment arms. 
+• Assess the toxicity and safety profile of the combination of durvalumab and 
+tremelimumab and best supportive care.  
+
+
+--- Page 9 ---
+CO26_SAP 
+9 
+4. 
+Endpoints 
+4.1 
+Primary Efficacy 
+The primary efficacy endpoint is overall survival.  
+4.2 
+Secondary Efficacy 
+The secondary efficacy endpoints are progression-free survival and objective response 
+rate. 
+4.3 
+Safety 
+The safety endpoints are serious and non-serious adverse events (clinical and 
+laboratory),  laboratory parameters, dosing data (including dose interruptions, total 
+delivered dose and dose modifications) and reasons off treatment.  
+5. 
+Sample Size and Power 
+ 
+The primary objective of this study is to assess the additional effect of durvalumab 
+and tremelimumab to best supportive care by comparing overall survival (OS) 
+between Durva+Treme and BSC arms among all randomized patients.  It was 
+calculated that with a 2-sided alpha of 10%, a total of 180 patients with 150 events 
+(deaths) would be required to provide 80% power to detect a 2.4 month difference in 
+median survival (a hazard ratio of 0.65) between the two treatment arms assuming a 
+median survival of 4.5 months for the BSC alone arm.  The final analysis will be 
+conducted after at least 150 events have been recorded.  It is estimated that 180 
+patients accrued over 18 months and followed for 6 months will be required to reach 
+the necessary number of events.   
+6. 
+Data Set Descriptions 
+ 
+Three types of analysis samples will be used: 
+ 
+All Randomized Patients: 
+All patients who have been randomized in the study with the treatment arm being as 
+randomized. 
+ 
+Response-Evaluable Patients: 
+All patients who have received at least one cycle of therapy and have their disease re-
+evaluated will be considered evaluable for response (exceptions will be those who 
+exhibit objective disease progression prior to the end of cycle 1 who will also be 
+considered evaluable). 
+ 
+All Treated Patients: 
+All patients on Durva+Treme who received at least one dose of durvalumab and 
+tremelimumab and on BSC who had at least one Best Supportive Care Report.  
+
+
+--- Page 10 ---
+CO26_SAP 
+10 
+Patients randomized to BSC who have received at least one dose of durvalumab and 
+tremelimumab on study (from Cancer Treatment Section of Best Supportive Care 
+Report) will be grouped with patients randomized to Durva+Treme in analyses of 
+safety. 
+7. 
+Statistical Analysis 
+7.1 
+General Methods 
+All comparisons between treatment arms will be carried out using a two-sided test at 
+an alpha level of 10% unless otherwise specified.   
+ 
+When appropriate, discrete variables are summarized with the number and proportion 
+of subjects falling into each category, and compared using Fisher’s exact test. 
+Continuous and ordinal categorical variables are summarized using the mean, median, 
+standard error, minimum and maximum values and when appropriate, compared using 
+the Wilcoxon test.  All confidence intervals are computed based on normal 
+approximations except those for rates, which will be computed based on the exact 
+method. 
+ 
+Time to event variables are summarized using Kaplan-Meier plots.  Primary 
+comparisons of the treatment groups are made using the stratified log-rank test.  
+Primary estimates of the treatment differences are obtained with the hazard ratios and 
+90% confidence intervals from stratified Cox regression models using treatment arm 
+as the single factor.  
+ 
+Percentages given in the summary tables will be rounded and may therefore not 
+always add up to exactly 100%.  Listings, tabulations, and statistical analyses will be 
+carried out using the SAS (Statistical Analysis System, SAS Institute, North Carolina, 
+USA) software. 
+ 
+Unless otherwise specified, date of randomization and stratification factors will be 
+taken from the Centralized Randomization File. 
+ 
+Baseline evaluations will be those collected on Eligibility Checklist and Baseline 
+Report and closest to, but no later than, the first day of study medication for treated 
+subjects and closest to, but no later than, the date of randomization, for subjects who 
+were randomized but who never received treatment. 
+ 
+Laboratory results, adverse events, and other symptoms are coded and graded using 
+the Common Terminology Criteria for Adverse Events (CTCAE v4.0).  
+7.2 
+Data Conventions 
+When converting a number of days to other units, the following conversion factors 
+will be used: 
+1 year = 365.25 days 
+
+
+--- Page 11 ---
+CO26_SAP 
+11 
+1 month = 30.4375 days 
+ 
+When either day or month of a date is missing, the missing day and/or month will be 
+imputed by the midpoint within the smallest known interval.  For example, if the day 
+of the month is missing for any date used in a calculation, the 15th of the month will 
+be used to replace the missing day.  If the month and day of the year are missing for 
+any date used in a calculation, the first of July of the year will be used to replace the 
+missing date. 
+7.3 
+Study Conduct 
+All randomized patients are included in the analyses of study conduct.  Information 
+will be tabulated by randomized treatment (unless otherwise indicated) and pooled 
+treatments. 
+7.3.1 Patient Disposition 
+• Number of patients randomized, treated (for patients on Durva+Treme arm only: 
+on study, off study), never treated (Table 1)  
+• Number of alive patients (Table 2) 
+• Median (estimated by Kaplan-Meier method) and range (minimum and 
+maximum) (Table 2) of the follow-up time (months) defined as time from the day 
+of randomization (as recorded in centralized randomization file) to the last day the 
+patient is known alive (LKA) as the last recorded date known alive or censored at 
+the time of death and calculated as  
+ 
+[(date of death or LKA − date of randomization) + 1)]/30.4375. 
+7.3.2 Accrual Patterns 
+• Number of patients randomized by center (Table 3)  
+• Number of patients by stratification factors at randomization (Table 4) 
+• Accrual of patients by calendar time pooled across two treatment arms (Figure 1) 
+7.3.3 Eligibility Violations/Protocol Deviations 
+Eligibility violations of inclusion or exclusion criteria are centrally reviewed by 
+CCTG; a field (y/n) for eligibility status and reason for ineligibility is entered in the 
+database.  A major protocol violation (MPV) is defined as a deviation from the 
+protocol, initiated by the centre or the investigator, serious enough to mean that the 
+patient's data contributes little, if any, information on the efficacy or toxicity of the 
+regimen under study. MPVs are coded by CCTG based on its standard codes.   
+• Number of patients eligible, not eligible (Table 5) 
+• Reasons for ineligibility (Table 5) 
+• Major protocol violations: % for each type of violations (Table 5). 
+ 
+Deviations from randomization will be summarized as follows:  
+• Treatment as randomized versus as treated (Table 6) 
+
+
+--- Page 12 ---
+CO26_SAP 
+12 
+7.4 
+Study Population 
+All randomized patients are included in the study population analyses.  Information 
+will be tabulated by randomized treatment (unless otherwise indicated) and pooled 
+treatments. 
+7.4.1 Patient Pretreatment Characteristics  
+• Gender (Table 7) 
+• Race (Table 7) 
+• Age:  median, minimum, maximum values; number <65, ≥65 (Table 7) 
+• ECOG Performance Status: 0, 1 (Table 7) 
+• BSA: median, minimum, maximum values (Table 7) 
+• Months from first histological diagnosis of colorectal cancer to randomization: 
+median, minimum, maximum values (Table 7) 
+• Histology: adeno-carcinoma, etc. (Table 7) 
+• Site of tumour: right colon, transverse colon, left colon, rectum, unkown (Table 
+7) 
+• KRAS mutation status: wild-type, mutated, unknown (Table 7) 
+• NRAS mutation status: wild-type, mutated, unknown (Table 7) 
+• BRAF mutation status: wild-type, mutated, unknown (Table 7) 
+• MSI status: MSI-H, MSI-L, MSS, Unknown (Table 7) 
+7.4.2 Prior Surgery 
+• Number of patients with prior surgery for colorectal cancer (Table 8) 
+• 
+Procedure/site of prior surgery (Table 8)   
+7.4.3 Prior radiotherapy 
+• Number of patients with prior adjuvant or palliative radiotherapy. (Table 9) 
+• Prior radiotherapy by site and type (adjuvant or palliative) (Table 9) 
+7.4.4 Prior Systemic Therapy 
+• Number of subjects with prior systemic therapy and type of prior systemic therapy 
+(adjuvant, metastatic, neo-adjuvant) (Table 10) 
+• Number of patients with prior thymidylate synthase inhibitor (Table 11) 
+• Number of patients with prior irinotecan containing regimen (Table 11) 
+• Number of patients with prior oxaliplatin containing regimen (Table 11) 
+• Number of patients with prior cetuximab or panitumumab containing regimen 
+(Table 11) 
+•  Number of patients with prior VEGF targeting therapy (Table 11) 
+• Number of patients with prior TAS-102 therapy (Table 11) 
+7.4.5 Extent of Disease 
+• Number of patients with target lesions, number of target lesions, largest measure, 
+site of target lesions (Table 12) 
+
+
+--- Page 13 ---
+CO26_SAP 
+13 
+• Number of patients with non-target lesions, number of non-target lesions, site of 
+non-target lesions (Table 13) 
+7.4.6 Baseline Exams 
+• Baseline signs and symptoms (Table 14) 
+• Baseline 
+hematology: 
+WBC, 
+neutrophils, 
+platelets, 
+hemoglobin, 
+RBC, 
+lymphocytes, monocytes, eosinophils, basophils (Table 15) 
+• Baseline serum chemistry: Total bilirubin, AST, ALT, alkaline phosphatase, LDH, 
+serum creatinine, chloride, sodium, albumin, potassium, calcium, magnesium, 
+ALP, glucose, amylase, lipase, CEA (Table 16)   
+• Baseline Thyroid Function Tests  (Table 17) 
+• Baseline Coagulation Tests (Table 18) 
+• Baseline ECG (Table 19) 
+• Baseline urinalysis (Table 20) 
+7.4.7 Concomitant Medications and Major Medical Problems at Baseline 
+• Number of patients with concomitant medication within 14 days prior to the date 
+of randomization (Table 21) 
+• Number of patients with past or current major medical problems ongoing at 
+baseline (Table 22) 
+7.5 
+Extent of Exposure to Durvalumab and Tremelimumab 
+Patients included are those who received at least one dose of durvalumab or 
+tremelimumab as defined in Section 6. 
+7.5.1 Study Therapy 
+During a 4 week cycle of protocol treatment, the patients received infusion of 
+durvalumab (1500 mg) on day 1 and tremelimumab (75 mg) on day 1 of cycles 1, 2, 3 
+and 4 only.   
+ 
+Duration of durvalumab or tremelimumab (in weeks) during the study is defined as 
+follows: 
+ 
+[last date of infusion of durvalumab or tremelimumab − first date of infusion 
+of durvalumab or tremelimumab + 28]/7,  
+ 
+where the first and last date of infusion is taken from Durvalumab Administration or 
+Tremelimumab Administration Section of Treatment Report).  
+ 
+The following variable will be summarized using the data set of all patients treated by 
+durvalumab or tremelimumab: 
+• Number of patients by cycle of therapy (Table 23) 
+• Total number of cycles of treatment per patient (Table 24) 
+• 
+Total treatment duration of durvalumab or tremelimumab per patient (Table 25) 
+
+
+--- Page 14 ---
+CO26_SAP 
+14 
+7.5.2 Dose Reduction, Omission, Discontinuation, or IV Rate Decrease or 
+Infusion Interruption to Durvalumab or Tremelimumab 
+The administration of durvalumab or tremelimumab in a cycle may be modified 
+(reduced, omitted, delayed, and IV rate decreased and infusion interrupted) because of 
+toxicity or other reasons. For each drug, the following variables will be summarized 
+using the data set of all treated patients: 
+• Number of patients who had all of their drug administrations according to 
+protocol (Table 26) 
+• Number of patients with at least one cycle reduced, omitted, delayed, or IV rate 
+decreased and infusion interrupted (Table 27) 
+• Reason for these dose modifications (Table 27) 
+7.5.3 Cumulative Dose, Dose Intensity and Relative Dose Intensity of 
+ 
+Durvalumab or Tremelimumab  
+The cumulative dose (mg) per patient for each drug is the total dose (mg) the patient 
+received, which is defined as the sum of the actual dose level (mg) over the study 
+(Table 28). 
+ 
+The actual dose intensity of a drug (mg/week) per patient is defined as: 
+ 
+ 
+ 
+where first and last dosing date is taken from Durvalumab Administration or 
+Tremelimumab Administration Section of Treatment Report (Table 29).  
+ 
+The relative dose intensity of durvalumab or tremelimumab per patient is defined as 
+the dose intensity (mg/week) divided by the planned weekly dose as assigned in the 
+protocol, which is 375 mg/week for durvalumab and 18.75 mg/week for 
+tremelimumab.  
+ 
+The patient relative dose intensities will be grouped according to the following 
+categories: < 60%,≥ 60% - < 80%, ≥ 80% - < 90%, ≥ 90% (Table 30). 
+7.5.4 Off Study Therapy 
+The reason for off of each study therapy will be taken from End of Treatment Section 
+of End Of Treatment Report. 
+ 
+The following information will be summarized for each of protocol treatment (Table 
+31): 
+• Number of patients off study treatment 
+• Reason off protocol therapy 
+
+
+--- Page 15 ---
+CO26_SAP 
+15 
+7.6 
+Efficacy 
+7.6.1 Overall survival 
+For all randomized patients, survival is calculated from the day of randomization (as 
+recorded in Centralized Randomization File) to death (Date/Cause of Death Section 
+of Death Report).  For alive patients, survival is censored at the last day the patient is 
+known alive (LKA) as the last recorded date known alive (Date of Attendance/Last 
+Contact on  Best Support Care Report, 4-Week Post Treatment Report, Follow-up 
+Report, Short Follow Up Report, and Minimal Follow-up Report; or last date of 
+infusion of durvalumab or tremelimumab in Treatment Report).  Survival time (in 
+months) is defined as  
+ 
+[(date of death or LKA − date of randomization) + 1)]/30.4375. 
+ 
+A frequency table for the number of patients who died and cause of death in each 
+treatment arm will be provided (Table 32). Kaplan-Meier curve for proportions of 
+survival in each treatment arm will be displayed (Figure 2).  
+ 
+The comparison of overall survival between the two treatment arms is the primary 
+objective of this study. The primary analysis will be the log-rank test (Table 33) 
+stratified by the factors coded as: 
+ 
+Stratification Factors (at randomization) 
+ 
+ 
+Performance status  
+1 = ECOG 0 
+0 = ECOG 1 
+Site of tumour 
+1=right colon; 2=transverse colon; 3=left colon; 4=rectum; 
+5=unknown 
+ 
+The hazard ratio of durvalumab and tremelimumab combined with best supportive 
+care (ARM 2) over best supportive care alone (ARM 1) and two-sided 90% CI will be 
+calculated (Table 33) based on the Cox regression model stratified by above 
+stratification factors, and with treatment arm coded as ARM 2=1 and ARM 1=0.  The 
+90% confidence intervals for the median survival will be computed using the method 
+of Brookmeyer and Crowley [2].     
+ 
+In order to assess the influence of the potential prognostic factors shown and coded 
+below on the comparison of survival between treatment arms, a stratified Cox 
+regression model will be used with all variables (treatment arm and prognostic 
+factors) included to estimate hazard ratios and 90% confidence intervals (Table 33). 
+ 
+Prognostic factors (at baseline) 
+ 
+ 
+Gender 
+0 = Female 
+1 = Male 
+Age 
+0 = ≥65 
+1 = < 65 
+Number of organ sites 
+0 = >2 
+1= ≤ 2 
+Presence of liver metastases 
+0= Yes 
+1= No 
+ 
+
+
+--- Page 16 ---
+CO26_SAP 
+16 
+No interactions will be considered in the model. 
+7.6.2 Overall Survival by Subsets 
+For each level of the following baseline variables, a Kaplan-Meier plot of survival by 
+treatment arm will be produced as well as medians with 90% C.I. and the hazard ratio 
+(unstratified) with 90% CI of durvalumab or tremelimumab combined with best 
+supportive care (ARM 2) over best supportive care alone (ARM 1) (Table 34): 
+ 
+• Gender: male, female  
+• Age: <65, ≥65 
+• Race: white, black, other 
+• Performance status at baseline: ECOG 0, 1 
+• Site of tumour: right colon, transverse colon, left colon, rectum, unknown 
+• KRAS status: wildtype, mutated 
+• NRAS status: wildtype, mutated 
+• BRAF status: wildtype, mutated 
+• MSI status: MSI-H, MSI-L, MSS 
+7.6.3 Progression-free Survival 
+Progression-free survival (PFS) will be calculated for all patients from the day of 
+randomization until the first observation of disease progression (date of objective 
+relapse or progression of Relapse/Progression Report) or death due to any cause 
+(recorded in Date/Cause of Death Section of Death Report) as the (difference+1). 
+ 
+If a patient has not progressed or died, PFS will be censored on the date of last disease 
+assessment defined as the earliest test date of target lesion or non-target lesions (if 
+patient has no target lesions), whichever is latest. 
+ 
+A frequency table will be provided describing progression and censoring  as follows 
+(Table 35): 
+• Number of patients who progress (documented progression, death without 
+documented progression) 
+• Number of patients censored (alive and not progressed) 
+ 
+Analyses for PFS will be similar to that for overall survival as previously described. A 
+Kaplan-Meier curve for PFS in each treatment arm will be displayed (Figure 3).  In 
+the primary analysis, median PFS for the two treatments will be compared using the 
+stratified log-rank test (Table 36).  A stratified Cox regression model will estimate 
+the durvalumab and tremelimumab combined with best supportive care (ARM 2) over 
+best supportive care alone (ARM 1) PFS hazard ratio and 90% C. I. (Table 36).  In 
+addition, a stratified Cox regression model adjusted for covariates will be applied to 
+verify the impact of the prognostic factors on the treatment effect (Table 36).  
+ 
+
+
+--- Page 17 ---
+CO26_SAP 
+17 
+Coding for treatment arm, stratification variables and prognostic factors is identical to 
+that presented in Section 7.5.1. 
+ 
+Some patients received other anti-cancer therapy before progression or death.  
+Sensitivity analyses will be performed by censoring those who have received anti-
+cancer therapy prior to documentation of disease relapse/progression or death on the 
+earliest date cancer treatment began or treating them as having PFS events at the 
+earliest date when the treatment began. 
+7.6.4 Progression-free survival by Subsets 
+Subset analyses performed for overall survival will also be performed for PFS (Table 
+37). 
+7.6.5 Treatment Response 
+All patients will have their best response on study classified every 8 weeks until 
+disease progression, using the RECIST (Response Evaluation Criteria in Solid 
+Tumors) criteria 1.1. The best response to protocol treatment is determined by 
+investigators for patients who permanently discontinued protocol treatment and 
+collected in “Best Objective Response RECIST 1.1” section of END OF 
+TREATMENT REPPORT. For patients who are still on protocol treatment and 
+followed for response at final clinical cut-off, their best response is defined as the 
+“best verified” response they have achieved up to the time of clinical cut-off 
+determined by CCTG Senior Investigator based on data on “Response Assessment” 
+section of TREATMENT REPORT or BEST SUPPORTIVE CARE REPORT. 
+Best response to protocol treatment will be summarized for all randomized patients 
+(Table 38). 
+ 
+The primary analysis of response will be the comparison of the objective response 
+rate (CR+PR) between treatment arms among all the randomized patients using the 
+Cochran-Mantel-Haenszel (CMH) statistic adjusted for stratification factor for all 
+randomized patients (Table 39) as defined in Section 6.   
+ 
+In addition, a stratified logistic regression model adjusted for covariates will be 
+applied to verify the impact of the prognostic factors on the treatment effect (Table 
+39). For all stratified logistic regression models, estimates of the odds ratio(s) and 
+90% confidence interval(s) will be given. 
+ 
+Stratified logistic regression odds ratios will be estimated using PROC PHREG in 
+SAS [5].  A dummy time variable will be created, where all responders will be 
+classified as events with an arbitrary time = t0, and non-responders as censored with 
+time t1, where t1 > t0.  The DISCRETE option will be used for tied observations. 
+ 
+Coding for treatment, stratification variable and prognostic factors is identical to that 
+presented in Section 7.4.1. 
+
+
+--- Page 18 ---
+CO26_SAP 
+18 
+7.6.6 Treatment Response by Subsets  
+For all randomized patients, the objective response rate will be presented for each 
+treatment arm in the subgroups defined by the categorical variables listed below 
+(Table 40). No formal comparisons are planned: 
+ 
+• gender (male, female) 
+• age (<65 years, ≥65 years) 
+• race (white, black, other) 
+• performance status at baseline (ECOG 0, ECOG 1) 
+• Site of tumour (right colon, transverse colon, left colon, rectum) 
+• KRAS status (wildtype, mutated) 
+• NRAS status (wildtype, mutated) 
+• BRAF status (wildtype, mutated) 
+• MSI status (MSI-H, MSI-L, MSS) 
+7.6.7 Duration of Response  
+For patients whose best responses are classified as CR or PR at any reporting period 
+during the study, the duration of response is calculated as the time from CR or PR is 
+documented (whichever is the first) until first observation of objective disease relapse or 
+progression or death due to any cause. If a patient has not relapsed/progressed or died, 
+duration of response will be censored on the date of last disease assessment defined as 
+the earliest test date of target lesion or non-target lesions (if patient has no target lesions), 
+whichever is latest.  
+ 
+All randomized patients with CR or PR are included in this analysis. The median 
+duration of response and associated 95% confidence intervals will be computed and 
+compared by the stratified log-rank test adjusting for stratification factors at 
+randomization (Table 41). 
+7.7 
+Safety 
+ 
+The safety analyses will based on the All Treated population defined in Section 6. 
+Adverse events and laboratories are graded and categorized using the CTCAE v4.0 
+criteria except where CTCAE grades are not available. 
+7.7.1 Adverse Events 
+Adverse events will be recorded on the CCTG toxicity/adverse event-intercurrent 
+illness case report form. Events reported on Treatment Report or 4-Week Post-
+Treatment Follow-Up Report for patients on the Durva+Treme arm will be defined as 
+adverse events on Durva+Treme;  Events reported on any case report forms except 
+Form 1 will be summarized separately for patients on both arms as overall adverse 
+events during the (whole) study. 
+ 
+Drug related adverse events are those events with a relation to protocol therapy of 
+3=possible, 4=probable or 5=definite. 
+
+
+--- Page 19 ---
+CO26_SAP 
+19 
+ 
+Severe adverse events are those events reported with a CTCAE Grade of 3 or higher. 
+ 
+Comparisons between treatment arms on overall adverse events (any vs. other, severe 
+vs. other) will be carried out using a two sided Fisher’s exact test at an alpha level of 
+two-sided 10%. 
+ 
+The following variables are summarized.  Tabulations of overall adverse events will 
+be presented by treatment group. 
+ 
+• 
+Adverse events on Durva+Treme:  worst CTCAE grade per patient (Table 42) 
+• Severe adverse events on Durva+Treme: worst CTCAE grade per patient (Table 
+43) 
+• 
+Drug related adverse events on Durva+Treme: worst CTCAE grade per patient 
+(Table 44) 
+• 
+Overall adverse events:  worst CTCAE grade per patient (Table 45) 
+• 
+Severe overall adverse events: worst CTCAE grade per patient (Table 46) 
+7.7.2 Laboratory Evaluations 
+For patients on Durva+Treme, laboratory evaluations reported on Treatment Report or 
+4-Week Post-Treatment Follow-Up Report for patients on the Durva+Treme arm will 
+be included in the calculation for laboratory adverse events on Durva+Treme.  All 
+laboratory evaluations reported after baseline assessment will be included in the 
+calculation for overall laboratory adverse events.  Laboratory results will be classified 
+according to CTCAE version 4.0.  Laboratory tests that are not covered by the 
+CTCAE grading system will be summarized according to the following categories: 
+normal and above the upper normal limits.   
+ 
+7.6.2.1 Hematology 
+• Hemoglobin, platelets, WBC, neutrophils, RBC, lymphocytes, monocytes, 
+eosinophils, basophils on Durva+Treme:  worst CTC grade per patient 
+(Table 47) 
+• 
+Overall hemoglobin, platelets, WBC, neutrophils, RBC, lymphocytes, 
+monocytes, eosinophils, basophils:  worst CTC grade per patient (Table 
+48) 
+ 
+7.6.2.2 Serum Chemistry 
+• Total bilirubin, AST, ALT, alkaline phosphatase, LDH, serum creatinine, 
+chloride, sodium, albumin, potassium, calcium, magnesium, ALP, 
+amylase, lipase, CEA on Durva+Treme:  worst CTC grade per patient 
+(Table 49) 
+• 
+Overall total bilirubin, AST, ALT, alkaline phosphatase, LDH, serum 
+creatinine, chloride, sodium, albumin, potassium, calcium, magnesium, 
+ALP, amylase, lipase, CEA:  worst CTC grade per patient (Table 50) 
+
+
+--- Page 20 ---
+CO26_SAP 
+20 
+ 
+7.6.2.3 Thyroid Function Tests 
+• TSH, T3 free, T3 total, T4 free, T4 total on Durva+Treme (Table 51) 
+• Overall TSH, T3 free, T3 total, T4 free, T4 total (Table 52) 
+ 
+7.6.2.3 Coagulation 
+• PT, INR, PTT on Durva+Treme (Table 53) 
+• Overall PT, INR, PTT (Table 54) 
+7.7.3 Other Safety 
+ 
+7.6.3.1 ECG 
+Cardiac function of patients is evaluated as clinically indicated by ECG during 
+protocol treatment for patients on Durva+Treme with results reported on Treatment 
+Report and before progression for patients on BSC with results reported on Best 
+Supportive Care Report.  
+• Overall number of patients by normal or abnormal ECG, by treatment group 
+(Table 55) 
+ 
+7.6.3.2 Urinalysis 
+Dipstick urinalysis is performed as clinically indicated during protocol treatment for 
+patients on Durva+Treme with results reported on Treatment Report and before 
+progression for patients on BSC with results reported on Best Supportive Care 
+Report.  
+• Results of urinalysis, by treatment group (Table 56) 
+7.7.4 Deaths on Study/Adverse Events Leading to Discontinuations of Protocol 
+Treatment 
+• Deaths during durvalumab and tremelimumab treatment or within 4 weeks of 
+last durvalumab and tremelimumab treatment (DURVA+TREME Arm only):  
+number of patients who died and cause of death from Date/Cause of Death 
+Section of Death Report (Table 57) 
+• Number of patients with adverse events leading to discontinuations of 
+durvalumab as identified from Off Protocol Treatment - Adverse Events of 
+End of Treatment Report (DURVA+TREME Arm only) (Table 58) 
+• Number of patients with adverse events leading to discontinuations of 
+tremelimumab as identified from Off Protocol Treatment - Adverse Events of 
+End of Treatment Report (Table 58) 
+7.8 
+Concomitant Medications, Other Anti-Cancer Treatments, and 
+Major Medical Problems 
+Investigators may prescribe concomitant medications or treatments deemed necessary 
+to provide adequate prophylactic or supportive care.  Administration of any other anti-
+cancer therapy is not permitted while the patient is receiving protocol therapy. 
+
+
+--- Page 21 ---
+CO26_SAP 
+21 
+Thereafter, patients may be treated at the investigator’s discretion. Major medical 
+problems are those thought unrelated to protocol treatment.  
+• Concomitant medications for patients on DURVA+TREME Arm during or 4 
+weeks after Durvalumab and Tremelimumab Treatment (reported on Treatment 
+Report and 4-Week Post-Treatment Follow-Up Report) and on BSC Arm prior to 
+objective disease progression (reported on Best Supportive Care Report) (Table 
+59) 
+• Anti-cancer treatments during or 4 weeks after Durvalumab and Tremelimumab 
+Treatment (reported on Treatment Report and 4 Weeks 4-Week Post-Treatment 
+Follow-Up Report) (DURVA+TREME Arm only)  (Table 60) 
+• Anti-cancer treatments before progression (reported on Treatment Report 4-Week 
+Post-Treatment Follow-Up Report, and Fellow-up Report for patients on 
+DURVA+TREME Arm and Best Supportive Care Report on BSC), by treatment 
+group  (Table 60) 
+• Anti-cancer treatments for all patients after progression (reported on Short 
+Follow-up Report), by treatment group  (Table 60) 
+• Major medical problem before progression (reported on Treatment Report 4-Week 
+Post-Treatment Follow-Up Report, and Fellow-up Report for patients on 
+DURVA+TREME Arm and Best Supportive Care Report on BSC), by treatment 
+group  (Table 61) 
+7.9 
+Quality of Life 
+ 
+The quality of life of patients in this study is assessed at 4, 8, 12, 16 and 24 months 
+from randomization by using EORTC QLQ-C30 (version 3.0).  The following are the 
+scoring algorithms for this instrument.  
+7.9.1 EORTC QLQ-C30  
+The EORTC core questionnaire, QLQ-C30 (version 3.0), consists of five Functional 
+Scales, Global Health Status, and nine Symptoms Scales. Each scale in the 
+questionnaire will be scored (0 to 100) according to the EORTC recommendations in 
+the EORTC QLQ-C30 Scoring Manual.  The scoring method is summarized below. In 
+this summary Qi refers to the ith question on the QLQ-C30. 
+ 
+Functional scale’s scores: 
+• Physical functioning: 
+(1 - ((Q1+Q2+Q3+Q4+Q5)/5 -1)/3) * 100 
+• Role functioning: 
+ 
+(1 - ((Q6+Q7)/2-1)/3) * 100 
+• Emotional functioning: 
+(1 - ((Q21+Q22+Q23+Q24)/4-1)/3) * 100 
+• Cognitive functioning: 
+(1 - ((Q20+Q25)/2-1)/3) * 100 
+• Social functioning:  
+(1 - ((Q26+Q27)/2-1)/3) * 100 
+ 
+Global health status score: 
+• Global health status/QOL: ((Q29+Q30)/2-1)/6 * 100 
+ 
+
+
+--- Page 22 ---
+CO26_SAP 
+22 
+Symptom scale’s scores: 
+• Fatigue: 
+ 
+ 
+((Q10+Q12+Q18)/3-1)/3 * 100 
+• Nausea and vomiting: 
+((Q14+Q15)/2-1)/3 * 100 
+• Pain:  
+ 
+ 
+((Q9+Q19)/2-1)/3 * 100 
+• Dyspnea: 
+ 
+ 
+((Q8-1)/3 * 100 
+• Insomnia: 
+ 
+ 
+(Q11-1)/3 * 100 
+• Appetite loss: 
+ 
+(Q13-1)/3 * 100 
+• Constipation: 
+ 
+(Q16-1)/3 * 100 
+• Diarrhea: 
+ 
+ 
+(Q17-1)/3 * 100 
+• Financial difficulties: 
+(Q28-1)/3 * 100 
+ 
+Missing items in a scale will be handled by the methods outlined in the scoring 
+manual.  In particular, values will be imputed for missing items by “assuming that the 
+missing items have values equal to the average of those items which are present” for 
+any scale in which at least half the items are completed.  A scale in which less than 
+half of the items are completed will be treated as missing. 
+7.9.2 Data Sets 
+The analyses of quality of life data will be restricted to randomized patients who have 
+a measurement at baseline and at least one measurement after baseline.  
+The QOL assessment is performed prior to randomization and during 
+chemotherapy/BSC at 4, 8, 16, and 24 weeks from randomization. Since exact time of 
+assessment may vary from subject to subject, it is necessary to provide a window for 
+each QOL time point. What follows is a description of how to assign a questionnaire 
+to a discrete time point: 
+ 
+ 
+Time Point 
+ 
+Windows (i.e., time periods) 
+ 
+Baseline  
+ 
+14 days prior to up to the day of randomization 
+ 
+Week 4 
+ 
+2 weeks  - < 6 weeks 
+ 
+Week 8 
+ 
+6 weeks  - < 10 weeks 
+ 
+Week 12 
+ 
+10 weeks  - < 14 weeks 
+ 
+Week 16 
+ 
+14 weeks  - < 20 weeks 
+ 
+Week 24 
+ 
+20 weeks  -<  28 weeks 
+ 
+If more than one questionnaire is available for the baseline window, then the latest 
+non-missing measurement, per question, will be considered.  If more than one 
+questionnaire is available at a time point other than baseline, then the average (per 
+question) of the non-missing measurements will be used. 
+ 
+Summary statistics, plots and longitudinal comparisons will be based on changes of 
+the quality of life scores from baseline. 
+
+
+--- Page 23 ---
+CO26_SAP 
+23 
+7.9.3 Compliance 
+Compliance will be described, by time of evaluation, by the number and percentage of 
+subjects who filled out a questionnaire (per subject, at least one question answered) in 
+that period of evaluation. The denominator used in calculating the percentage for 
+baseline will be all randomized subjects. The denominator used for all other time 
+points will be the number of subjects known to be alive at the start of the time period 
+(Table 62).   
+7.9.4 Primary Analyses of QOL 
+The primary endpoints for the comparison of QOL between treatment arms will be 
+proportions of patients who had deterioration in physical function and Global Health 
+Status at 8 weeks and 16 weeks after the randomization.  The deterioration is defined 
+as a change score from baseline which is –10 points or lower [6].  Fisher’s exact test 
+will be used to compare the proportions of patients with deterioration between two 
+treatment arms at these two time points (Table 63).  No multiple adjustment for these 
+comparisons will be made. 
+ 
+The proportions of patients who had improving (defined as change score from 
+baseline of 10 points or higher) or stable (defined as change score from baseline of 
+between –10 and 10 points) physical function and Global Health Status at 8 weeks 
+and 16 weeks after the randomization will also be compared between two treatment 
+arms using Fisher’s exact test (Table 63). 
+ 
+The time to definitive deterioration in physical function and Global Health Status is 
+defined as the time from randomization until the change score from baseline is –10 
+points or lower.  For patients whose change scores are always higher than –10 points, 
+the time to definitive deterioration will be censored at their last QoL assessment 
+times.  The log-rank test will be used to compare the time to definitive deterioration 
+between two treatment arms (Table 64).   
+7.9.5 Baseline and Change Score Analysis 
+Descriptive statistics for EORTC QOL score (mean, standard deviation) will be 
+presented for each scale at baseline. The same statistics will be generated at each time 
+of post-baseline evaluation.  The comparability of mean baseline scores and change 
+scores at each time of post-baseline evaluation between treatment groups will be 
+assessed using a Wilcoxon rank sum test (Table 65 and Table 66). 
+7.9.6 QOL Response Analysis 
+QOL response for functional scales and global health status is calculated as follows: 
+A change score of 10 points from baseline is defined as clinically relevant.  Patients 
+are considered to have clinical improvement if reporting a score 10-points or better 
+than baseline at any time of QOL assessment. Conversely, patients are considered 
+worsened if reporting a score minus 10-points or worse than baseline at any time of 
+QOL assessment without any improvement.  Patients whose scores are between 10-
+point changes from baseline at every QOL assessment will be considered as stable.  In 
+
+
+--- Page 24 ---
+CO26_SAP 
+24 
+contrast to functional scales, for the determination of patient’s QOL response, 
+classification of patients into improved and worsened categories is reversed for 
+symptom scales.  A Chi-square test will then be performed to compare the 
+distributions of these three categories between two arms (Table 67). 
+8. 
+Appendices 
+ 
+Appendix 1: Tables and Figure 
+ 
+ 
+Table 1:  Patient Disposition 
+ 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME  
+BSC 
+Total 
+Randomized  
+N=***  
+N=*** 
+N=*** 
+ 
+ 
+ 
+ 
+Treated 
+*** (**) 
+*** (**) 
+*** (**) 
+        On study 
+*** (**) 
+NAP(1) 
+NAP(1) 
+        Off study(2)  
+*** (**) 
+NAP(1) 
+NAP(1) 
+ 
+ 
+ 
+ 
+Never Treated 
+*** (**) 
+*** (**) 
+*** (**) 
+(1) NAP: Not Applicable; (2) Off all study therapies. 
+ 
+Table 2:  Follow-up of Patients 
+ 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+Durva+Treme 
+BSC 
+Total 
+Number of patients alive 
+*** (%) 
+*** (%) 
+*** (%) 
+ 
+ 
+ 
+ 
+Follow-up (months) 
+ 
+ 
+ 
+ 
+median 
+** 
+** 
+** 
+  
+Minimum-maximum      
+**-**  
+**-** 
+**-** 
+ 
+
+
+--- Page 25 ---
+CO26_SAP 
+25 
+Table 3:  Accrual by Center 
+ 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N = *** 
+BSC 
+N = *** 
+Total 
+N = *** 
+Center #1 
+*** (**) 
+*** (**) 
+*** (**) 
+Center #2 
+*** (**) 
+*** (**) 
+*** (**) 
+Center #3 
+*** (**) 
+*** (**) 
+*** (**) 
+... 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Table 4:  Accrual by Stratification Factor at Randomization 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N = *** 
+BSC  
+N=*** 
+Total 
+N = *** 
+Performance Status 
+ 
+ 
+ 
+ 
+ECOG 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+ECOG 1 
+** (**) 
+** (**) 
+** (**) 
+Site of Tumour 
+ 
+ 
+ 
+ 
+Right colon 
+** (**) 
+** (**) 
+** (**) 
+ 
+Transverse colon 
+** (**) 
+** (**) 
+** (**) 
+ 
+Left colon 
+** (**) 
+** (**) 
+** (**) 
+ 
+Rectum 
+** (**) 
+** (**) 
+** (**) 
+ 
+Unknown 
+** (**) 
+** (**) 
+** (**) 
+Source:  Centralized Randomization File 
+Figure 1:  Accrual by Calendar Time 
+ 
+
+
+--- Page 26 ---
+CO26_SAP 
+26 
+Table 5:  Eligibility and Reasons for Ineligibility and Major Protocol Violations 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Eligible 
+*** (**) 
+*** (**) 
+*** (**) 
+Not Eligible 
+*** (**) 
+*** (**) 
+*** (**) 
+Reason for ineligibility  
+ 
+ 
+ 
+ 
+<Reason 1> 
+** 
+** 
+** 
+ 
+<Reason 2> 
+** 
+** 
+** 
+ 
+... 
+** 
+** 
+** 
+Major protocol violation 
+ 
+<violation type 1> 
+ 
+<violation type 2> 
+ 
+… 
+ 
+** 
+** 
+ 
+** 
+** 
+ 
+** 
+** 
+ 
+Table 6:  Treatment as Randomized Versus as Treated 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+Randomized Arm 
+ 
+DURVA+TREME 
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Treatment received 
+ 
+ 
+ 
+ 
+Both durvalumab and tremelimumab 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Durvalumab only 
+ 
+ 
+ 
+ 
+Tremelimumab only 
+ 
+ 
+ 
+          
+BSC Only 
+*** (**) 
+*** (**) 
+*** (**) 
+          
+Not treated 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+
+
+--- Page 27 ---
+CO26_SAP 
+27 
+Table 7:  Pretreatment Characteristics at Baseline 
+ 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Gender  
+ 
+ 
+ 
+    Female 
+** (**) 
+** (**) 
+** (**) 
+    Male 
+** (**) 
+** (**) 
+** (**) 
+Race 
+ 
+ 
+ 
+    White 
+** (**) 
+** (**) 
+** (**) 
+    Black or African American 
+** (**) 
+** (**) 
+** (**) 
+    .... 
+** (**) 
+** (**) 
+** (**) 
+Age (years) 
+ 
+ 
+ 
+    N 
+    Median 
+    Min - Max 
+** 
+** 
+** - ** 
+** 
+** 
+** - ** 
+** 
+** 
+** - ** 
+     < 65 
+     ≥ 65 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+ECOG Performance Status 
+ 
+ 
+ 
+    0 
+** (**) 
+** (**) 
+** (**) 
+    1 
+** (**) 
+** (**) 
+** (**) 
+BSA (m2) 
+ 
+ 
+ 
+    N 
+    Median 
+    Min - Max 
+** 
+** 
+** - ** 
+** 
+** 
+** - ** 
+** 
+** 
+** - ** 
+Months from First Histological Diagnosis to 
+Randomization 
+ 
+ 
+ 
+    N 
+    Median 
+    Min - Max 
+** 
+** 
+** - ** 
+** 
+** 
+** - ** 
+** 
+** 
+** - ** 
+Histology 
+ 
+ 
+ 
+ 
+Adeno-carcinoma 
+ 
+Squamous 
+ 
+Other 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+** (**) 
+**(**) 
+**(**) 
+Site of tumour 
+ 
+ 
+ 
+ 
+Right colon 
+ 
+Transverse colon 
+ 
+Left colon 
+     Rectum 
+     Unknown 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+KRAS status 
+ 
+Wildtype 
+ 
+Mutated 
+ 
+Unknown 
+ 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+NRAS status 
+ 
+Wildtype 
+ 
+Mutated 
+ 
+Unknown 
+ 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+
+
+--- Page 28 ---
+CO26_SAP 
+28 
+BRAF status 
+ 
+Wildtype 
+ 
+Mutated 
+ 
+Unknown 
+ 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+Microsatellite instability (MSI) status 
+ 
+MSI high (MSI-H) 
+ 
+MSI low (MSI-L) 
+ 
+Microsatellite stable (MSS) 
+ 
+Unknown 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Table 8:  Prior Surgery 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+ 
+DURVA+TREME   
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Prior surgery 
+ 
+ 
+ 
+ 
+No 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Yes 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+Procedure / Site 
+ 
+ 
+ 
+ 
+Procedure / Site 1 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Procedure / Site 2 
+*** (**) 
+*** (**) 
+*** (**) 
+              .... 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Table 9:  Prior Radiotherapy 
+Data set:  All Randomized Patients 
+Number of patients (%) 
+ 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Any Prior Radiotherapy 
+No 
+Yes  
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+Type of Any Prior Radiotherapy 
+Adjuvant 
+Palliative  
+Adjuvant + Palliative 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+***(**) 
+ 
+*** (**) 
+*** (**) 
+***(**) 
+Site of any prior radiotherapy(1) 
+Site #1 
+Site #2  
+Site #3 
+... 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+***(**) 
+ 
+*** (**) 
+*** (**) 
+***(**) 
+Total Dose of radiotherapy (cGy) 
+*** (**) 
+***(**) 
+***(**) 
+(1) Patient may have more than one site of radiotherapy 
+ 
+
+
+--- Page 29 ---
+CO26_SAP 
+29 
+Table 10:  Prior Systemic Therapy 
+Data set:  All Randomized Patients 
+Number of patients (%) 
+ 
+DURVA+TREME   
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+With at least one prior systemic therapy 
+*** (**) 
+*** (**) 
+*** (**) 
+Type of prior systemic therapy 
+ 
+At least one adjuvant 
+ 
+At least one neo-adjuvant 
+ 
+At least one metastatic 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+
+
+--- Page 30 ---
+CO26_SAP 
+30 
+Table 11:  Specific Prior Chemotherapy 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+Durva+Treme 
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Prior thymidylate synthase inhibitor 
+ 
+Yes 
+ 
+No 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+Prior irinotecan containing regimen 
+Yes and failed 
+  Reason of failure 
+ 
+Progression 
+ 
+Intolerance 
+Yes and relapsed within 6 months 
+No but with documented unsuitability 
+  Reason unsuitable(1) 
+       Hypersensitivity 
+       Abnormal glucuronidation of bilirubin 
+       Gilbert's syndrome 
+       Previous pelvic/abdominal irradiation 
+      Other 
+No without documented unsuitability 
+ 
+ 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+Prior oxaliplatin containing regimen 
+Yes and failed 
+  Reason of failure 
+ 
+Progression 
+ 
+Intolerance 
+Yes and relapsed within 6 months 
+No but with documented unsuitability 
+  Reason unsuitable(1) 
+       Hypersensitivity 
+       Pre-existing renal impairement 
+       ≥ grade 2 neurosensory neuropathy 
+      Other 
+No without documented unsuitability 
+ 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+Prior cetuximab or panitumumab containing regimen 
+Not applicable (not RAS wildtype) 
+Yes and failed 
+  Reason of failure 
+      Progression 
+      Intolerance 
+No but with documented unsuitability 
+  Reason unsuitable(1) 
+ 
+Hypersensitivity 
+            Other 
+No for RAS wildtype patients without 
+  
+documented unsuitability 
+ 
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+
+
+--- Page 31 ---
+CO26_SAP 
+31 
+Prior VEGF targeting therapy 
+Yes 
+No 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+Prior TAS-102 therapy 
+Yes 
+No  
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+ 
+*** (**) 
+*** (**) 
+(1) Patient may have more than one unsuitable reason 
+ 
+
+
+--- Page 32 ---
+CO26_SAP 
+32 
+Table 12:  Extent of Disease (Target Lesions) 
+Data set:  All Randomized Patients 
+ 
+Number of Patients with Target Lesions (%) 
+ 
+DURVA+TREME   
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Presence of Target Lesions 
+ 
+ 
+ 
+              Patients with at least one target lesion 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+Number of Target Lesions 
+ 
+ 
+ 
+              1 
+*** (**) 
+*** (**) 
+*** (**) 
+              2 
+*** (**) 
+*** (**) 
+*** (**) 
+              3 
+*** (**) 
+*** (**) 
+*** (**) 
+              4 
+*** (**) 
+*** (**) 
+*** (**) 
+              5 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+Largest Target Lesion in cm 
+ 
+ 
+ 
+              < 2 
+*** (**) 
+*** (**) 
+*** (**) 
+              2-5 
+*** (**) 
+*** (**) 
+*** (**) 
+              > 5-10 
+*** (**) 
+*** (**) 
+*** (**) 
+              > 10 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+ Site of Target Lesion(1) 
+ 
+ 
+ 
+ 
+Abdomen 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Adrenals 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Bone 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Brain 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Liver 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Lung 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Nodes 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Pleura 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Skin 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Subcutaneous Tissue 
+*** (**) 
+*** (**) 
+*** (**) 
+              .... 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(1) Patients may have target lesions at more than one site 
+ 
+ 
+
+
+--- Page 33 ---
+CO26_SAP 
+33 
+Table 13:  Extent of Disease (Non-Target Lesions) 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Patients with no-target lesion 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+Site of non-target lesion(1)  
+ 
+ 
+ 
+ 
+Abdomen 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Adrenals 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Bone 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Brain 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Liver 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Lung 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Nodes 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Pleura 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Skin 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Subcutaneous Tissue 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Other 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+Number of non-target lesions 
+ 
+ 
+ 
+              1 
+*** (**) 
+*** (**) 
+*** (**) 
+              2 
+*** (**) 
+*** (**) 
+*** (**) 
+              3 
+*** (**) 
+*** (**) 
+*** (**) 
+              4 
+*** (**) 
+*** (**) 
+*** (**) 
+              ≥5 
+*** (**) 
+*** (**) 
+*** (**) 
+(1) Patients may have non-target lesions at more than one site 
+Table 14:  Baseline Signs and Symptoms 
+Data set:  All Randomized Patients (DURVA+TREME Arm) 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 
+ 
+NR 
+1 
+2 
+3 
+4 
+ 
+Patients with any 
+sign/symptom at baseline 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with particular sign 
+or symptom, within body 
+system:  
+Body System 1(1) 
+Event 1 
+Event 2 
+Event 3 
+...  
+Body System 2(1) 
+Event 1  
+...  
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+(1) Patients may have more than one event within a body system 
+ 
+NOTE:  Same table to be made for BSC Arm 
+
+
+--- Page 34 ---
+CO26_SAP 
+34 
+Table 15:  Baseline Hematology 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Total 
+N=*** 
+Hemoglobin 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Platelets 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+WBC 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Neutrophils 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Lymphocytes  
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+RBC 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High (2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Monocytes 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High (2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Eosinophils 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High (2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Basophils 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High (2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+(1) Not done or outside the 14-day window prior to start of therapy 
+(2) High than upper lower limit 
+ 
+
+
+--- Page 35 ---
+CO26_SAP 
+35 
+Table 16:  Baseline Chemistry 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Total 
+N=*** 
+Total bilirubin 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Alkaline phosphatase 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+ALT 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+AST 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+LDH 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High(2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Serum Creatinine 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypernatremia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hyponatremia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hyperkalemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+
+
+--- Page 36 ---
+CO26_SAP 
+36 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypokalemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypercalcemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypocalcemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypermagnesemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypomagnesemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hyperglycemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypoglycemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hyperalbuminemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+
+
+--- Page 37 ---
+CO26_SAP 
+37 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Hypoalbuminemia 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Chloride 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High (2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Amylase 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+CEA 
+ 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+** (**) 
+ 
+High (2) 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+Lipase 
+ 
+ 
+ 
+ 
+Grade 0 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+Not reported (1) 
+** (**) 
+** (**) 
+** (**) 
+(1) Not done or outside the 14-day window prior to start of therapy 
+(2) High than upper lower limit 
+
+
+--- Page 38 ---
+CO26_SAP 
+38 
+Table 17:  Baseline Thyroid Function Tests 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Total 
+N = *** 
+TSH 
+ 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+T3 Free 
+ 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+T3 Total 
+ 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+T4 Free 
+ 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+T4 Total 
+ 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+** (**) 
+Table 18:  Baseline Coagulation Tests 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Total 
+N = *** 
+PT 
+ 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+INR 
+ 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+PTT 
+ 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+** (**) 
+ 
+ 
+
+
+--- Page 39 ---
+CO26_SAP 
+39 
+Table 19:  Baseline ECG 
+ 
+Data set:  All Randomized Patients 
+Number of patients (%) 
+DURVA+TREME   
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Baseline ECG:  Results 
+ 
+ 
+ 
+ 
+ 
+Normal 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+Abnormal 
+ 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+ECG not performed 
+*** (**) 
+*** (**) 
+*** (**) 
+  
+Table 20 : Baseline Urinalysis  
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+Urinalysis – SPOT Test 
+ 
+ 
+ 
+Negative/trace 
+**(**) 
+**(**) 
+**(**) 
+1+(>20 mg/dL–30 mg/dL) 
+**(**) 
+**(**) 
+**(**) 
+2+(>30 mg/dL–100 mg/dL) 
+**(**) 
+**(**) 
+**(**) 
+3+(>100 mg/dL– 300 mg/dL) 
+**(**) 
+**(**) 
+**(**) 
+4+(>300 mg/dL) 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+Urinalysis – 24-Hour Test (g/day) 
+ 
+ 
+ 
+Grade 
+ 
+ 
+ 
+1 
+**(**) 
+**(**) 
+**(**) 
+2 
+**(**) 
+**(**) 
+**(**) 
+3 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+
+
+--- Page 40 ---
+CO26_SAP 
+40 
+Table 21:  Concomitant Medications at Baseline 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+Total 
+N=*** 
+ 
+ 
+ 
+ 
+Any concomitant medication (1)  
+ 
+ 
+ 
+    No 
+** (**) 
+** (**) 
+** (**) 
+    Yes 
+** (**) 
+** (**) 
+** (**) 
+(1)Any medication taken within 14 days prior to randomization. 
+Table 22:  Major Medical Problems at Baseline 
+Data set:  All Randomized Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Total 
+N=*** 
+Patients with at least one past or current major 
+medical problem 
+** (**) 
+** (**) 
+** (**) 
+Medical Problem(1) 
+ 
+ 
+ 
+(from highest to lowest in frequency) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Diabetes 
+** (**) 
+** (**) 
+** (**) 
+... 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(1) patients may report more than one medical problem reported 
+ 
+ 
+
+
+--- Page 41 ---
+CO26_SAP 
+41 
+Table 23:  Number of Patients on DURVA+TREME Arm by Cycle 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+Number of Patients (%) 
+ 
+ 
+DURVA+TREME Arm 
+Cycle 
+ 
+1 
+** (**) 
+ 
+ 
+2 
+** (**) 
+ 
+ 
+3 
+** (**) 
+ 
+ 
+... 
+ 
+ 
+ 
+ 
+Table 24:  Number of Cycles of Protocol Therapy per Patient on 
+DURVA+TREME Arm 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+DURVA+TREME Arm 
+Number of Cycles: 
+ 
+ 
+N 
+*** 
+ 
+Median  
+* 
+ 
+Min – Max 
+* - * 
+ 
+ 
+ 
+Table 25:  Total Treatment Duration of Durvalumab and Tremelimumab 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+Durvalumab 
+Tremelimumab 
+Duration in weeks: 
+ 
+ 
+ 
+N 
+*** 
+*** 
+ 
+Median  
+* 
+* 
+ 
+Min – Max 
+* - * 
+* - * 
+ 
+ 
+ 
+ 
+Table 26: Compliance with Durvalumab and Tremelimumab Administration 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+DURVA+TREME Arm 
+All Durvalumab Administrations According to Protocol 
+ 
+ 
+Yes 
+** (**) 
+ 
+No 
+** (**) 
+All Tremelimumab Administrations According to Protocol 
+ 
+ 
+Yes 
+** (**) 
+ 
+No 
+** (**) 
+
+
+--- Page 42 ---
+CO26_SAP 
+42 
+Table 27:  Dose Reduction, Omission or Delay and IV Rate Decrease and 
+Infusion Interruption for Durvalumab and Tremelimumab 
+ 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+ 
+Durvalumab  
+(N=***) 
+Tremelimumab 
+(N=***) 
+ 
+ 
+ 
+At least one dose reduction  
+** (**) 
+** (**) 
+Reason for dose reduction: 
+ 
+ 
+ 
+<reason 1> 
+** (**) 
+** (**) 
+ 
+<reason 2> 
+** (**) 
+** (**) 
+ 
+... 
+** (**) 
+** (**) 
+ 
+ 
+ 
+At least one dose omission  
+** (**) 
+** (**) 
+Reason for dose omission: 
+ 
+ 
+ 
+<reason 1> 
+** (**) 
+** (**) 
+ 
+<reason 2> 
+** (**) 
+** (**) 
+ 
+... 
+** (**) 
+** (**) 
+ 
+ 
+ 
+At least one dose delay  
+** (**) 
+** (**) 
+Reason for delay: 
+ 
+ 
+ 
+<reason 1> 
+** (**) 
+** (**) 
+ 
+<reason 2> 
+** (**) 
+** (**) 
+ 
+... 
+ 
+** (**) 
+** (**) 
+IV rate decrease and infusion interruption  
+** (**) 
+** (**) 
+Reason for decrease and interruption: 
+ 
+ 
+ 
+<reason 1> 
+** (**) 
+** (**) 
+ 
+<reason 2> 
+** (**) 
+** (**) 
+ 
+... 
+ 
+** (**) 
+** (**) 
+ 
+
+
+--- Page 43 ---
+CO26_SAP 
+43 
+Table 28:  Cumulative Dose of Durvalumab and Tremelimumab 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+Durvalumab 
+Tremelimumab 
+Cumulative dose per patient  
+| 
+ 
+N 
+*** 
+** (**) 
+** 
+** - ** 
+*** 
+** (**) 
+** 
+** - ** 
+ 
+Mean (STD) 
+ 
+Median 
+ 
+Min-Max 
+ 
+ 
+Table 29:  Dose Intensity of Durvalumab and Tremelimumab 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+Durvalumab 
+Tremelimumab 
+Dose intensity per patient  
+| 
+ 
+N 
+*** 
+** (**) 
+** 
+** - ** 
+*** 
+** (**) 
+** 
+** - ** 
+ 
+Mean (STD) 
+ 
+Median 
+ 
+Min-Max 
+ 
+ 
+Table 30:  Relative Dose Intensity of Durvalumab and Tremelimumab 
+Data Set: All Treated Patients on DURVA+TREME Arm 
+ 
+Durvalumab 
+Tremelimumab 
+Relative Dose intensity  
+ 
+ 
+ 
+ 
+ 
+ ≥ 90% planned intensity  
+** (**) 
+** (**) 
+ ≥ 80% - < 90% planned intensity  
+** (**) 
+** (**) 
+ ≥ 60% - < 80% planned intensity 
+** (**) 
+** (**) 
+ < 60% planned intensity   
+** (**) 
+** (**) 
+ 
+ 
+ 
+ 
+
+
+--- Page 44 ---
+CO26_SAP 
+44 
+Table 31:  Off Durvalumab and Tremelimumab Treatment Summary 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+ 
+Durvalumab  
+N=*** 
+Tremelimumab 
+N=*** 
+Patients off Treatment 
+ 
+N = ** (**) 
+ 
+N = ** (**) 
+       Reason off protocol therapy 
+Treatment Completed 
+Progressive Disease (objective) 
+Symptomatic Progression 
+Intercurrent Illness – adverse events unrelated to 
+ 
+treatment 
+Adverse events related to protocol therapy 
+Patient Refusal (not related to adverse event) 
+Death 
+Other Reason 
+ 
+ 
+** 
+** 
+** 
+** 
+** 
+** 
+ 
+** 
+** 
+** 
+** 
+** 
+ 
+** 
+** 
+** 
+** 
+** 
+** 
+ 
+** 
+** 
+** 
+** 
+** 
+ 
+ 
+
+
+--- Page 45 ---
+CO26_SAP 
+45 
+Table 32:  All Deaths 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+Number of  Patients who died 
+** (**) 
+** (**) 
+ 
+ 
+ 
+Cause of Death 
+ 
+ 
+ 
+Colorectal cancer only 
+** 
+** 
+ 
+Toxicity from protocol treatment 
+** 
+** 
+ 
+Colorectal cancer + Toxicity from protocol treatment 
+ 
+complication 
+** 
+** 
+ 
+Non-protocol Treatment Complication 
+** 
+** 
+ 
+Colorectal cancer + Non-protocol Treatment Complication 
+** 
+** 
+ 
+Other Primary Malignancy 
+** 
+** 
+ 
+Other Condition or Circumstance 
+** 
+** 
+ 
+Figure 2:  Kaplan-Meier Curves for Overall Survival 
+ 
+ 
+ 
+
+
+--- Page 46 ---
+CO26_SAP 
+46 
+Table 33:  Log Rank and Cox Regression Model for Overall Survival 
+ 
+Data set:  All Randomized Patients 
+ 
+N 
+Univariate Analysis(1) 
+Multivariate Analysis(2) 
+Treatment Arm/ 
+Prognostic Factors at  
+Baseline 
+ 
+Median 
+Survival 
+(Months) 
+ 
+Hazard 
+Ratio(4) 
+(90% CI) 
+ 
+Log-
+rank 
+p-value 
+Hazard 
+Ratio(4)  
+(90% C.I.) 
+P-value 
+from Cox 
+regre-
+ssion 
+Treatment arm 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+DURVA+TREME   
+*** 
+**.** 
+**.** 
+ 
+**.** 
+ 
+ 
+BSC 
+*** 
+**.** 
+(**.**,**.**) 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gender 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+Male 
+*** 
+**.** 
+NC (3) 
+ 
+**.** 
+ 
+ 
+Female 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Age 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+<65 
+*** 
+**.** 
+NC 
+ 
+**.** 
+ 
+ 
+65 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Number of organ sites 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+ 2 
+*** 
+**.** 
+NC 
+ 
+**.** 
+ 
+ 
+>2 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Presence of liver metastases 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+Yes 
+*** 
+**.** 
+NC 
+ 
+**.** 
+ 
+ 
+No 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+(1) Stratified; (2) Stratified Cox regression with all factors included; (3) NC = not computed 
+(4) Hazard ratio of first category over second category 
+ 
+ 
+
+
+--- Page 47 ---
+CO26_SAP 
+47 
+Table 34:  Survival by Subsets 
+Data set:  All Randomized Patients 
+ 
+ 
+Factors 
+ 
+ 
+Value 
+DURVA+TREME   
+BSC 
+ 
+ 
+N 
+Median 
+Survival 
+90% C.I. 
+ 
+N 
+Median 
+Survival 
+90% C.I. 
+Hazard Ratio(1) 
+90% C.I. 
+Performance Status 
+at baseline 
+ECOG 0 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+ECOG 1 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Age 
+<65 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+ 
+≥65 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Gender 
+Female 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Male 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Race 
+White 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Black 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Other 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Site of tumour 
+Right colon 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Transverse 
+colon 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Left colon 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Rectum 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+KRAS Status 
+Wildtype 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Mutated 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+NRAS Status 
+Wildtype 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Mutated 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+BRAF Status 
+Wildtype 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Mutated 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+MSI status 
+MSI-H 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+MSI-L 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+MSS 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+(1) DURVA+TREME  over BSC hazard ratio (Unstratified) 
+ 
+
+
+--- Page 48 ---
+CO26_SAP 
+48 
+Table 35:  Progression Summary 
+ 
+Data set:  All Randomized Patients 
+ 
+Number of Patients (%) 
+DURVA+TREME   
+N=*** 
+BSC 
+N=*** 
+ 
+ 
+ 
+Patients who progressed 
+*** (**) 
+*** (**) 
+ 
+ 
+ 
+ 
+Progression on Durva+Treme 
+** 
+NAP(1) 
+ 
+Progression off Durva+Treme 
+** 
+NAP(1) 
+ 
+Death (without documented progression) 
+** 
+** 
+ 
+ 
+ 
+Patients who were censored 
+ 
+*** (**) 
+*** (**) 
+   Reason Censored 
+ 
+ 
+ 
+ 
+ 
+Lost to follow-up 
+ 
+** 
+ 
+** 
+ 
+ 
+Not progressed 
+ 
+** 
+ 
+** 
+ 
+ 
+ 
+(1) NAP: not applicable 
+ 
+ 
+ 
+Figure 3:  Kaplan-Meier Curves for Progression Free Survival 
+ 
+
+
+--- Page 49 ---
+CO26_SAP 
+49 
+Table 36:  Log Rank and Cox Regression Model for Progression Free Survival 
+(PFS) 
+Data set:  All Randomized Patients 
+ 
+N 
+Univariate Analysis(1) 
+Multivariate Analysis(2) 
+Treatment Arm/ 
+Prognostic Factors at  
+Baseline 
+ 
+Median 
+PFS 
+(Months) 
+ 
+Hazard 
+Ratio(4) 
+(90% CI) 
+ 
+Log-
+rank 
+p-value 
+Hazard 
+Ratio(4)  
+(90% C.I.) 
+P-value 
+from Cox 
+regre-
+ssion 
+Treatment arm 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+DURVA+TREME   
+*** 
+**.** 
+**.** 
+ 
+**.** 
+ 
+ 
+BSC 
+*** 
+**.** 
+(**.**,**.**) 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Gender 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+Male 
+*** 
+**.** 
+NC (3) 
+ 
+**.** 
+ 
+ 
+Female 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Age 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+<65 
+*** 
+**.** 
+NC 
+ 
+**.** 
+ 
+ 
+65 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Number of organ sites 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+ 2 
+*** 
+**.** 
+NC 
+ 
+**.** 
+ 
+ 
+>2 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Presence of liver metastases 
+ 
+ 
+ 
+0.*** 
+ 
+0.*** 
+ 
+Yes 
+*** 
+**.** 
+NC 
+ 
+**.** 
+ 
+ 
+No 
+*** 
+**.** 
+ 
+ 
+(**.**,**.**) 
+ 
+(1) Stratified; (2) Stratified Cox regression with all factors included; (3) NC = not computed 
+(4) Hazard ratio of first category over second category 
+ 
+Note: Same table will be made for sensitivity analyses which (1) censor the patients 
+who have received other anti-cancer treatments prior to documentation of disease 
+relapse/progression or death at the earliest time when these treatments began or (2) 
+treat them as having PFS events at the earliest time when these treatments began.  
+ 
+
+
+--- Page 50 ---
+CO26_SAP 
+50 
+Table 37:  Progression Free Survival (PFS) by Subsets 
+Data set:  All Randomized Patients 
+ 
+ 
+Factors 
+ 
+ 
+Value 
+DURVA+TREME   
+BSC 
+ 
+ 
+N 
+Median 
+PFS 
+90% C.I. 
+ 
+N 
+Median 
+PFS 
+90% C.I. 
+Hazard Ratio(1) 
+90% C.I. 
+Performance Status 
+at baseline 
+ECOG 0 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+ECOG 1 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Age 
+<65 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+ 
+≥65 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Gender 
+Female 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Male 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Race 
+White 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Black 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Other 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+Site of tumour 
+Right colon 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Transverse 
+colon 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Left colon 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Rectum 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+KRAS Status 
+Wildtype 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Mutated 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+NRAS Status 
+Wildtype 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Mutated 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+BRAF Status 
+Wildtype 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+Mutated 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+MSI status 
+MSI-H 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+MSI-L 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+ 
+MSS 
+** 
+**.** 
+(**.**,**.**) 
+** 
+**.** 
+(**.**,**.**) 
+**.** 
+(**.**,**.**) 
+(1) DURVA+TREME  over BSC hazard ratio (Unstratified) 
+ 
+
+
+--- Page 51 ---
+CO26_SAP 
+51 
+Table 38:  Treatment Response 
+ 
+Data set:  All Randomized  Patients 
+ 
+Number of Patients (%)a 
+N=*** 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+ 
+ 
+ 
+Patients with at least one target lesion 
+ 
+Response-evaluable  
+N=*** 
+ 
+N=*** 
+N=*** 
+ 
+N=*** 
+ 
+Complete response (CR) 
+ 
+** (**) 
+ 
+** (**) 
+ 
+Partial response (PR) 
+ 
+** (**) 
+ 
+** (**) 
+ 
+Stable disease (SD) 
+ 
+** (**) 
+ 
+** (**) 
+ 
+Progressive disease (PD) 
+ 
+** (**) 
+ 
+** (**) 
+ 
+Inevaluable for response (IN) 
+<Reason 1> 
+<Reason 2> 
+.... 
+ 
+** (**) 
+** 
+** 
+... 
+ 
+** (**) 
+** 
+** 
+.... 
+ 
+ 
+ 
+Not response evaluable 
+N=*** 
+N=*** 
+ 
+Never treated  
+ 
+**  
+ 
+** 
+Not assessed (NA)  
+ 
+** 
+ 
+** 
+ 
+Patients with no target lesions 
+ 
+ 
+N=*** 
+ 
+N=*** 
+ 
+Progressive disease (PD) 
+ 
+** 
+ 
+** 
+ 
+Inevaluable for response (IN) 
+<Reason 1> 
+<Reason 2> 
+.... 
+ 
+** 
+** 
+** 
+... 
+ 
+** 
+** 
+** 
+.... 
+ 
+Not assessed (NA) 
+ 
+** 
+ 
+** 
+ 
+ 
+ 
+Never treated  
+ 
+** 
+ 
+** 
+ 
+ 
+ 
+a   percentages are calculated out of the number of randomized patients 
+ 
+ 
+ 
+
+
+--- Page 52 ---
+CO26_SAP 
+52 
+Table 39:  Cochran Mantel Haenszel and Logistic Regression Model for 
+Response 
+Data set:  All Randomized Patients 
+ 
+Univariate Analysis (1) 
+Multivariate Analysis (2) 
+ 
+Treatment/ Prognostic Factors 
+Odds Ratio (4) 
+(90%CI) 
+CMH 
+p-value 
+Odds Ratio (4)  
+(90% C.I.) 
+p-value 
+from logistic 
+regression 
+ 
+ 
+ 
+ 
+ 
+Treatment arm 
+ 
+0.*** 
+ 
+0.*** 
+ 
+DURVA+TREME: BSC 
+**.** 
+ 
+**.** 
+ 
+ 
+ 
+(**.**,**.**) 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+Gender 
+ 
+0.*** 
+ 
+0.*** 
+ 
+Male: Female 
+NC (3) 
+ 
+**.** 
+ 
+ 
+ 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+Age 
+ 
+0.*** 
+ 
+0.*** 
+ 
+<65: ≥65 
+NC 
+ 
+**.** 
+ 
+ 
+ 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+Number of organ sites 
+ 
+0.*** 
+ 
+0.*** 
+ 
+≤2: >2 
+NC 
+ 
+**.** 
+ 
+ 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+Number of previous chemo drug 
+classes 
+ 
+0.*** 
+ 
+0.*** 
+ 
+≤2: >2 
+NC 
+ 
+**.** 
+ 
+ 
+ 
+ 
+(**.**,**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Presence of liver metastases 
+ 
+0.*** 
+ 
+0.*** 
+ 
+No: Yes 
+NC 
+ 
+**.** 
+ 
+ 
+ 
+ 
+(**.**,**.**) 
+ 
+(1) Stratified 
+(2) Stratified Logistic regression, all factors included 
+(3) NC = not computed 
+(4) Odds ratio of first category over second category 
+
+
+--- Page 53 ---
+CO26_SAP 
+53 
+Table 40:  Response According to Pretreatment Characteristics 
+Data set:  All Randomized Patients 
+ 
+Number of Responses/Number of Patients (%) 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+Gender 
+ 
+ 
+ 
+Male 
+**/** (**) 
+**/** (**) 
+ 
+Female 
+**/** (**) 
+**/** (**) 
+Age 
+ 
+ 
+ 
+< 65 years 
+**/** (**) 
+**/** (**) 
+ 
+≥ 65 years 
+**/** (**) 
+**/** (**) 
+Race 
+ 
+ 
+ 
+White 
+**/** (**) 
+**/** (**) 
+ 
+Black 
+**/** (**) 
+**/** (**) 
+ 
+Other 
+**/** (**) 
+**/** (**) 
+Baseline performance status 
+ 
+ 
+ 
+ECOG 0-1 
+**/** (**) 
+**/** (**) 
+ 
+ECOG 2 
+**/** (**) 
+**/** (**) 
+Site of Tumour 
+ 
+ 
+ 
+Right colon 
+**/** (**) 
+**/** (**) 
+ 
+Transverse colon 
+**/** (**) 
+**/** (**) 
+ 
+Left colon 
+**/** (**) 
+**/** (**) 
+ 
+Rectum 
+**/** (**) 
+**/** (**) 
+KRAS status 
+ 
+ 
+ 
+Wildtype 
+**/** (**) 
+**/** (**) 
+ 
+Mutated 
+**/** (**) 
+**/** (**) 
+NRAS status 
+ 
+ 
+ 
+Wildtype 
+**/** (**) 
+**/** (**) 
+ 
+Mutated 
+**/** (**) 
+**/** (**) 
+BRAF status 
+ 
+ 
+ 
+Wildtype 
+**/** (**) 
+**/** (**) 
+ 
+Mutated 
+**/** (**) 
+**/** (**) 
+MSI status 
+ 
+ 
+ 
+ 
+MSI-H 
+**/** (**) 
+**/** (**) 
+ 
+MSI-L 
+**/** (**) 
+**/** (**) 
+ 
+MSS 
+**/** (**) 
+**/** (**) 
+ 
+Table 41:  Duration of Response 
+Data set:  All Randomized Patients with CR or PR 
+ 
+DURVA+TREME  
+N=*** 
+BSC 
+N=*** 
+P-value(1) 
+Median Duration of Response (months) 
+(90% CI) 
+***  
+(**-**) 
+***  
+(**-**) 
+.** 
+(1) Stratified 
+ 
+
+
+--- Page 54 ---
+CO26_SAP 
+54 
+Table 42:  Adverse Events on Durvalumab and Tremelimumab Treatment 
+ 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any 
+grade 
+ 
+NR 
+1 
+2 
+3 
+4 
+5 
+ 
+Patients with any AE 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE within 
+category 
+ 
+Category 1(1) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(1) 
+Event 1  
+...  
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+(1) Patients may have more than one event within a category. 
+ 
+Table 43: Severe Adverse Events on Durvalumab and Tremelimumab 
+Treatment 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 3 
+or higher AE 
+ 
+ 
+ 
+ 
+3 
+4 
+5 
+ 
+Patients with any AE 
+ 
+ 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE within category 
+ 
+Category 1(1) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(1) 
+Event 1  
+...  
+ 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ (1) Patients may have more than one event within a category. 
+
+
+--- Page 55 ---
+CO26_SAP 
+55 
+Table 44: Drug Related Adverse Events during Durvalumab and Tremelimumab 
+Treatment 
+(1) Related to Durvalumab 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 
+ 
+1 
+2 
+3 
+4 
+5 
+ 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE related to 
+durvalumab within category 
+ 
+Category 1(a) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(a) 
+Event 1  
+...  
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+(a) Patients may have more than one event within a category. 
+ 
+(2) Related to Tremelimumab 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 
+ 
+1 
+2 
+3 
+4 
+5 
+ 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE related to 
+Tremelimumab within category 
+ 
+Category 1(a) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(a) 
+Event 1  
+...  
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+(a) Patients may have more than one event within a category.
+
+
+--- Page 56 ---
+CO26_SAP 
+56 
+(3) Related to Durvalumab or Tremelimumab 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 
+ 
+1 
+2 
+3 
+4 
+5 
+ 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE related to 
+Tremelimumab within category 
+ 
+Category 1(a) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(a) 
+Event 1  
+...  
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+(a) Patients may have more than one event within a category. 
+ 
+(4) Related to Both Durvalumab and Tremelimumab 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 
+ 
+1 
+2 
+3 
+4 
+5 
+ 
+ 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE related to 
+Tremelimumab within category 
+ 
+Category 1(a) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(a) 
+Event 1  
+...  
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+(b) Patients may have more than one event within a category.
+
+
+--- Page 57 ---
+CO26_SAP 
+57 
+ 
+Table 45:  Overall Adverse Events 
+ 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+N=*** 
+ 
+Worst grade 
+Any grade 
+ 
+1 
+2 
+3 
+4 
+5 
+ 
+Patients with any AE 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with AE within 
+category 
+ 
+Category 1(1) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(1) 
+Event 1  
+...  
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+**(**) 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+(1) Patients may have more than one event within a category. 
+ 
+Note:  The same type of table will be made for BSC arm. 
+Table 46:  Severe Overall Adverse Events 
+ 
+Data set:  All Treated Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME   
+N=*** 
+BSC 
+N=*** 
+ 
+Worse Grade 
+ 
+Grade 3 
+Grade 4 
+Grade 5 
+Grade 3 
+Grade 4 
+Grade 5 
+Patients with any serve AE 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+** (**) 
+Patients with serve AE within 
+category:  
+ 
+Category 1(1) 
+Event 1 
+Event 2 
+Event 3 
+...  
+ 
+Category 2(1) 
+Event 1  
+...  
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+ 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+ 
+ 
+ 
+ 
+**(**) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+**(**) 
+(1) Patients may have more than one event within a category. 
+
+
+--- Page 58 ---
+CO26_SAP 
+58 
+Table 47:  Hematology during Durvalumab and Tremelimumab Treatment 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME  
+N = *** 
+Hemoglobin 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Platelet 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+WBC 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Neutrophils 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+RBC 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+Lymphocytes 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Monocytes 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+Eosinophils 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+Basophils 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+(1) Greater than upper normal limit 
+ 
+ 
+
+
+--- Page 59 ---
+CO26_SAP 
+59 
+ 
+Table 48:  Overall Hematology: Worst Grade per Patient 
+Data set:  All Treated Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Hemoglobin 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Platelet 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+WBC 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Neutrophils 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+RBC 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+Lymphocytes 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Monocytes 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+Eosinophils 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+Basophils 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+(1) Greater than upper normal limit 
+
+
+--- Page 60 ---
+CO26_SAP 
+60 
+Table 49:  Serum Chemistry during Durvalumab and Tremelimumab 
+Treatment:  Worst Grade per Patient 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME  
+N = *** 
+Total bilirubin 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Alkaline phosphatase 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+ALT 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+AST 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+LDH 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+Serum Creatinine 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hypernatremia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+ 
+Hyponatremia 
+** (**) 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hyperkalemia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hypokalemia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+
+
+--- Page 61 ---
+CO26_SAP 
+61 
+ 
+Grade 4 
+** (**) 
+Hypercalcemia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hypocalcemia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hypermagnesemia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hypomagnesemia 
+** (**) 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+ 
+Hyperalbuminemia 
+** (**) 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Hypoalbuminemia 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Chloride 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+ALP 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Amylase 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+Lipase 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+CEA 
+ 
+ 
+Normal 
+** (**) 
+ 
+High (1) 
+** (**) 
+(1) Greater than upper normal limit 
+
+
+--- Page 62 ---
+CO26_SAP 
+62 
+Table 50:  Overall Serum Chemistry:  Worst Grade per Patient 
+Data set:  All Treated Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+Total bilirubin 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Alkaline phosphatase 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+ALT 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+AST 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+LDH 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+Serum Creatinine 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hypernatremia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hyponatremia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hyperkalemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hypokalemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+
+
+--- Page 63 ---
+CO26_SAP 
+63 
+Hypercalcemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hypocalcemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hypermagnesemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hypomagnesemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hyperalbuminemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Hypoalbuminemia 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Chloride 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+Amylase 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+Lipase 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+CEA 
+ 
+ 
+ 
+Normal 
+** (**) 
+** (**) 
+ 
+High (1) 
+** (**) 
+** (**) 
+(1) Greater than upper normal limit 
+
+
+--- Page 64 ---
+CO26_SAP 
+64 
+Table 51:  Thyroid Function Tests: Worst during Durvalumab and 
+Tremelimumab Treatment 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME  
+N = *** 
+TSH 
+ 
+ 
+Normal  
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+ 
+<0.1xLLN 
+ 
+T3 Free 
+** (**) 
+ 
+Normal  
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+T3 Total 
+ 
+ 
+Normal  
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+T4 Free 
+ 
+ 
+Normal  
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+T4 Total 
+ 
+ 
+Normal  
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+ 
+Table 52:  Thyroid Function Tests: Worst during Study 
+Data set:  All Treated Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+TSH 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+T3 Free 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+T3 Total 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+
+
+--- Page 65 ---
+CO26_SAP 
+65 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+T4 Free 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+T4 Total 
+ 
+ 
+ 
+Normal  
+** (**) 
+** (**) 
+ 
+<1-0.5xLLN 
+** (**) 
+** (**) 
+ 
+<0.5-0.1xLLN 
+** (**) 
+** (**) 
+ 
+<0.1xLLN 
+** (**) 
+** (**) 
+ 
+
+
+--- Page 66 ---
+CO26_SAP 
+66 
+Table 53: Coagulation Tests: Worst during Durvalumab and Tremelimumab 
+Treatment 
+ 
+Data set:  All Treated Patients on DURVA+TREME 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME 
+N = *** 
+PT 
+ 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+INR 
+** (**) 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+ 
+PTT 
+** (**) 
+ 
+Grade 1 
+** (**) 
+ 
+Grade 2 
+** (**) 
+ 
+Grade 3 
+** (**) 
+ 
+Grade 4 
+** (**) 
+ 
+Table 54:  Coagulation Tests: Worst during Study 
+Data set:  All Treated Patients 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N = *** 
+BSC 
+N = *** 
+PT 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+INR 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+PTT 
+ 
+ 
+ 
+Grade 1 
+** (**) 
+** (**) 
+ 
+Grade 2 
+** (**) 
+** (**) 
+ 
+Grade 3 
+** (**) 
+** (**) 
+ 
+Grade 4 
+** (**) 
+** (**) 
+ 
+
+
+--- Page 67 ---
+CO26_SAP 
+67 
+Table 55:  ECG Results 
+Data set:  All Treated Patients  
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N=*** 
+BSC 
+N=*** 
+ECG reported  
+*** (**) 
+*** (**) 
+All Normal 
+** 
+** 
+At least one abnormal but none clinically important 
+At least one abnormal and clinically important 
+** 
+** 
+ 
+ 
+ 
+ECG not reported/not performed 
+*** (**) 
+*** (**) 
+ 
+ Table 56 : Urinalysis 
+Data set:  All Treated Patients 
+ 
+Number of patients (%) 
+ 
+ARM A 
+N = ** 
+ARM B 
+N = ** 
+Urinalysis – SPOT Test 
+ 
+ 
+Negative/trace 
+**(**) 
+**(**) 
+1+(>20 mg/dL–30 mg/dL) 
+**(**) 
+**(**) 
+2+(>30 mg/dL–100 mg/dL) 
+**(**) 
+**(**) 
+3+(>100 mg/dL– 300 mg/dL) 
+**(**) 
+**(**) 
+4+(>300 mg/dL) 
+**(**) 
+**(**) 
+ 
+ 
+ 
+Urinalysis – 24-Hour Test (g/day) 
+ 
+ 
+Grade 
+ 
+ 
+1 
+**(**) 
+**(**) 
+2 
+**(**) 
+**(**) 
+3 
+**(**) 
+**(**) 
+ 
+Table 57:  Deaths During Durvalumab and Tremelimumab Treatment or within 
+4 weeks of Last Durvalumab and Tremelimumab Treatment 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of Patients (%) 
+ 
+DURVA+TREME   
+N=*** 
+Number of  Patients who died during or within 4 weeks of last Durvalumab 
+and Tremelimumab treatment  
+** (**) 
+ 
+ 
+Cause of Death 
+ 
+ 
+Colorectal cancer 
+** 
+ 
+Toxicity from protocol treatment 
+** 
+ 
+Colorectal cancer + Toxicity from protocol treatment complication 
+** 
+ 
+Non-protocol Treatment Complication 
+** 
+ 
+Colorectal cancer + Non-protocol Treatment Complication 
+** 
+ 
+Other Primary Malignancy 
+** 
+ 
+Other Condition or Circumstance 
+** 
+
+
+--- Page 68 ---
+CO26_SAP 
+68 
+ 
+Table 58:  Adverse Event leading to Discontinuation of Durvalumab or 
+Tremelimumab(a) 
+Data set:  All Treated Patients on DURVA+TREME Arm 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME  
+N=*** 
+Number discontinued durvalumab from adverse events 
+ 
+      <Adverse event 1> 
+      <Adverse event 2> 
+      .... 
+ 
+** (**) 
+ 
+ 
+** 
+** 
+ 
+Number discontinued Tremelimunab from adverse events 
+ 
+      <Adverse event 1> 
+      <Adverse event 2> 
+      .... 
+ 
+** (**) 
+ 
+ 
+** 
+** 
+ 
+(a) From End of Treatment Form with off reasons= =”Adverse events related to protocol therapy”. 
+ 
+Table 59:  Concomitant Medications 
+Data set:  All Treated Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N = *** 
+BSC 
+N=*** 
+Any concomitant medication during or 4 weeks after Durvalumab 
+and Tremelimumab Treatment for patients on DURVA+TREME 
+and before objective progression on BSC 
+No 
+Yes 
+ 
+ 
+ 
+** (**) 
+** (**) 
+ 
+ 
+ 
+** (**) 
+** (**) 
+ 
+ 
+ 
+Type of concomitant medications(1) 
+ 
+Medication A 
+ 
+… 
+ 
+** (**) 
+ 
+** (**) 
+ 
+ 
+ 
+(1):  patients may have received more than one concomitant medication. 
+
+
+--- Page 69 ---
+CO26_SAP 
+69 
+Table 60:   Anti-Cancer Treatment 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME   
+N=*** 
+BSC 
+N =*** 
+Number of patients with any anti-cancer treatment during or 
+4 weeks after Durvalumab and Tremelimumab Treatment 
+*** (**) 
+NAP (NAP) 
+   Chemotherapy (1) 
+ 
+Drug 1 … 
+   Radiotherapy (1) 
+   Hormonal therapy (1) 
+ 
+Drug 1 … 
+   Immunotherapy (1) 
+ 
+Drug 1 … 
+   Other (1) 
+ 
+Drug 1 … 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+NAP (NAP) 
+Number of patients with any anti-cancer treatment before 
+progression 
+*** (**) 
+*** (**) 
+   Chemotherapy (1) 
+ 
+Drug 1 … 
+   Radiotherapy (1) 
+   Hormonal therapy (1) 
+ 
+Drug 1 … 
+   Immunotherapy (1) 
+ 
+Drug 1 … 
+   Other (1) 
+ 
+Drug 1 … 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+Number of patients with any anti-cancer treatment after 
+progression 
+*** (**) 
+*** (**) 
+   Chemotherapy (1) 
+ 
+Drug 1 … 
+   Radiotherapy (1) 
+   Hormonal therapy (1) 
+ 
+ 
+Drug 1 … 
+   Immunotherapy (1) 
+ 
+ 
+Drug 1 … 
+   Other (1) 
+ 
+ 
+Drug 1 … 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+*** (**) 
+ 
+(1) Patients could have more than one type of anti-cancer treatment. NA=Not applicable. 
+ 
+
+
+--- Page 70 ---
+CO26_SAP 
+70 
+Table 61:  Major Medical Problems 
+Data set:  All Treated Patients 
+ 
+Number of patients (%) 
+ 
+DURVA+TREME 
+N = *** 
+BSC 
+N=*** 
+Any major medical problem during or 4 weeks after Durvalumab 
+and Tremelimumab Treatment for patients on DURVA+TREME 
+and before objective progression on BSC 
+No 
+Yes 
+ 
+ 
+ 
+** (**) 
+** (**) 
+ 
+ 
+ 
+** (**) 
+** (**) 
+ 
+ 
+ 
+Type of major medical problems(1) 
+ 
+Medication A 
+ 
+… 
+ 
+** (**) 
+ 
+** (**) 
+ 
+ 
+ 
+(1):  patients may have more than one major medical problem. 
+ 
+
+
+--- Page 71 ---
+CO26_SAP 
+71 
+Table 62: Compliance Rate with QoL Assessment by Treatment Arm 
+ 
+DURVA+TREME 
+BSC 
+ 
+Expected 
+Received (%) 
+Expected 
+Received (%) 
+Baseline 
+*** 
+** (**) 
+*** 
+** (**) 
+4 weeks 
+*** 
+** (**) 
+*** 
+** (**) 
+8 weeks 
+*** 
+** (**) 
+*** 
+** (**) 
+12 weeks 
+*** 
+** (**) 
+*** 
+** (**) 
+16 weeks 
+*** 
+** (**) 
+*** 
+** (**) 
+24 weeks 
+*** 
+** (**) 
+*** 
+** (**) 
+ 
+Table 63: Proportion of Patients with Deterioration, Improvement or Stable 
+QoL 
+ 
+N 
+DURVA+TREME   
+N (%) 
+BSC 
+N (%) 
+P value* 
+ 
+Deterioration 
+ 
+ 
+ 
+ 
+   Physical function 
+ 
+ 
+ 
+0.*** 
+ 
+Week 8 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+Week 16 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+   Global health status 
+ 
+ 
+ 
+0.*** 
+ 
+Week 8 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+Week 16 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Improvement 
+ 
+ 
+ 
+ 
+   Physical function 
+ 
+ 
+ 
+0.*** 
+ 
+Week 8 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+Week 16 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+   Global health status 
+ 
+ 
+ 
+0.*** 
+ 
+Week 8 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+Week 16 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+ 
+ 
+ 
+ 
+Stable 
+ 
+ 
+ 
+ 
+   Physical function 
+ 
+ 
+ 
+0.*** 
+ 
+Week 8 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+Week 16 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+   Global health status 
+ 
+ 
+ 
+0.*** 
+ 
+Week 8 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+ 
+Week 16 
+*** 
+*** (**.**) 
+*** (**.**) 
+ 
+* Fisher’s exact test 
+Table 64:  Time to Deterioration in QoL Primary Endpoints 
+ 
+Data set:  All patients who had baseline and at least one follow-up QoL assessment 
+DURVA+TREME 
+BSC 
+N 
+Median (months) 
+(90% CI) 
+N 
+Median (months) 
+(90% CI) 
+Physical function 
+*** 
+**.** 
+(**.**, **.**) 
+*** 
+**.** 
+(**.**, **.**) 
+Global Health Scale 
+*** 
+**.** 
+(**.**, **.**) 
+*** 
+**.** 
+(**.**, **.**) 
+ 
+
+
+--- Page 72 ---
+CO26_SAP 
+72 
+ 
+Table 65: QoL: Summary Baseline Scores 
+ 
+DURVA+TREME   
+BSC 
+P value* 
+ 
+Functional scales 
+ 
+ 
+ 
+Physical 
+ 
+ 
+0.*** 
+ 
+N 
+*** 
+*** 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+... 
+... 
+... 
+ 
+Global health status 
+ 
+ 
+0.*** 
+ 
+N 
+*** 
+*** 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+Symptom scales 
+ 
+ 
+ 
+Fatigue 
+ 
+ 
+0.*** 
+ 
+N 
+*** 
+*** 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+… 
+… 
+… 
+ 
+* Wilcoxon rank sum test 
+ 
+Table 66: Summary QOL Change Scores from Baseline for Scale/Domain/Item 
+at Each Time Period* 
+ 
+DURVA+TREME   
+BSC 
+ 
+P Value** 
+ 
+ 
+Scale/Domain/Item 
+ 
+ 
+ 
+Week 4 
+ 
+ 
+.** 
+ 
+N 
+*** 
+*** 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+Week 8 
+ 
+ 
+.** 
+ 
+N 
+ 
+ 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+Week 12 
+ 
+ 
+.** 
+ 
+N 
+ 
+ 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+Week 16 
+ 
+ 
+.** 
+ 
+N 
+ 
+ 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+Week 24 
+ 
+ 
+.** 
+ 
+N 
+ 
+ 
+ 
+ 
+Mean 
+*** 
+*** 
+ 
+ 
+STD 
+*** 
+*** 
+ 
+* Table will be provided for each scale/domain/item. 
+** Wilcoxon rank sum test 
+ 
+
+
+--- Page 73 ---
+CO26_SAP 
+73 
+ 
+Table 67: Results for QOL Response Analyses 
+ 
+ 
+Domain 
+DURVA+TREME  
+Improved     Stable    Worsened 
+N (%) 
+BSC 
+Improved     Stable    Worsened 
+N (%) 
+ 
+P-value* 
+EORTC QLQ-C30 
+Physical 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Role 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Emotional 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Cognitive 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Social 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Global 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Pain 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Fatigue 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Nausea 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Dyspnea 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Sleep 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Appetite 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Constipation 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Diarrhea 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+Financial 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+***(**) 
+.** 
+* Chi-square test 
+ 
+ 

@@ -1,0 +1,4607 @@
+
+--- Page 1 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 1 of 42 
+ 
+BACPAC Statistical Analysis Plan 
+ 
+Trial Full Title 
+University of Michigan Mechanistic Research Center - The Back 
+Pain Consortium Research Program (BACPAC Study) 
+SAP Version 
+1.9 
+SAP Version Date 
+09-Oct-2025 
+Trial Statistician 
+Alex Tsodikov and Kelley Kidwell 
+Protocol Version (SAP 
+Associated with) 
+2.8 
+Trial Principal Investigator 
+Daniel J Clauw and Afton L Hassett 
+SAP AUTHOR(S) 
+Alex Tsodikov and Kelley Kidwell (Guohao Zhu and Joseph Dickens) 
+ 
+1 
+SAP Signatures 
+ 
+I give my approval for the attached SAP entitled BACPAC SAP dated 09-Oct-2025 
+ 
+Statistician (Author) 
+Name:   
+Alexander Tsodikov, Ph.D. 
+ 
+Signature: 
+       Alexander Tsodikov, Ph.D.          
+ 
+Date: 
+ 
+                                                 
+ 
+Statistician Reviewer (As applicable) 
+Name: 
+ 
+Signature: 
+                                                
+ 
+Date: 
+ 
+                                                 
+Principal Investigator 
+Name:   
+Afton L. Hassett, Psy.D. 
+ 
+Signature: 
+           
+         
+ 
+Date: 
+ 
+                                                 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 2 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 2 of 42 
+ 
+Table of Contents 
+1 
+SAP Signatures 
+1 
+2 
+Abbreviations and Definitions 
+4 
+3 
+Introduction 
+6 
+3.1 
+Preface 
+6 
+3.2 
+Study Scope and Objective 
+7 
+4 
+Study Aims and Endpoints 
+7 
+4.1 
+Study Aims 
+7 
+4.2 
+Statistical Analysis Objectives 
+8 
+4.3 
+Endpoints 
+8 
+5 
+Study Methods 
+9 
+5.1 
+General Study Design and Plan 
+9 
+5.2 
+Deep Phenotyping 
+9 
+5.3 
+Description of Study Treatments 
+10 
+5.3.1 
+Mindfulness-Based Stress Reduction (MBSR) 
+10 
+5.3.2 
+Physical Therapy and Exercise 
+11 
+5.3.3 
+Acupressure Self-Management 
+11 
+5.3.4 
+Non-Opioid Pharmacotherapy - Duloxetine 
+11 
+5.4 
+Inclusion-Exclusion Criteria and General Study Population 
+11 
+5.4.1 
+Participants 
+11 
+5.4.2 
+Inclusion Criteria for Light Phenotyping 
+12 
+5.4.3 
+Exclusion Criteria for Light Phenotyping 
+12 
+5.4.4 
+Inclusion Criteria for Deep Phenotyping 
+13 
+5.4.5 
+Exclusion Criteria for Deep Phenotyping 
+14 
+5.5 
+Randomization and Blinding 
+14 
+5.6 
+Study Assessments 
+15 
+6 
+Sample Size 
+1 
+6.1 
+Power for explaining treatment effects 
+1 
+7 
+General Analysis Considerations 
+1 
+7.1 
+Timing of Analyses 
+1 
+7.2 
+Analysis Populations 
+1 
+7.2.1 
+Full Analysis Population 
+1 
+7.2.2 
+Per-protocol Population 
+2 
+7.2.3 
+Safety Population 
+2 
+7.3 
+Covariates and Subgroups 
+2 
+7.4 
+Missing Data 
+3 
+7.5 
+Multiple Testing 
+3 
+
+
+--- Page 3 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 3 of 42 
+ 
+8 
+Summary of Study Data 
+3 
+8.1 
+Subject Disposition 
+4 
+8.2 
+Derived variables 
+4 
+8.3 
+Protocol Deviations 
+5 
+8.4 
+Demographic and Baseline Variables 
+5 
+8.5 
+Treatment Compliance 
+5 
+9 
+Analysis Plan 
+6 
+9.1 
+Objective 1 Analysis Plan 
+6 
+9.1.1 
+Light Phenotyping Analysis 
+6 
+9.1.2 
+Deep Phenotyping Analysis 
+7 
+9.2 
+Objective 2 Analysis Plan 
+7 
+9.3 
+Objective 3 Analysis Plan 
+8 
+10 
+Safety Analyses 
+10 
+10.1 
+Adverse Events 
+10 
+10.1.1 
+Serious Adverse Events (SAE) 
+11 
+10.1.2 
+Unanticipated Problem (UaP) Definition 
+11 
+10.1.3 
+Protocol Deviation (PD) 
+12 
+10.1.4 
+Expected Adverse Events 
+12 
+10.1.5 
+Study Events Reporting Requirements 
+13 
+10.1.6 
+Informing Participants of AEs and SAEs 
+14 
+11 
+Other Analyses 
+14 
+12 
+References 
+14 
+13 
+Appendix A 
+18 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 4 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 4 of 42 
+ 
+2 
+Abbreviations and Definitions 
+Adverse Event (AE)  
+Back and Pain Center (BPC) – The back and pain center clinic that is located at 325 E Eisenhower in 
+Ann Arbor Michigan. Houses the division of pain research team who is conducting the BACPAC study 
+ 
+Back Pain Consortium Research Program (BACPAC) 
+Case Report Form (CRF) – A printed, optical, or electronic (eCRF) document designed to record 
+information about study participants.  
+Clinical Research or Study Coordinator (CRC) – An individual that handles the administrative and 
+day-to-day responsibilities of a clinical trial. This person may collect or review data before it is 
+entered in the study database.  
+Code of Federal Regulations (CFR) – An annual compilation of rules and regulations published in the 
+Federal Register by the executive departments and agencies of the Federal Government.  
+Coordinating Center (CC) – A group organized to coordinate the planning and operational aspects of 
+a multi-center clinical trial. CCs may also be referred to as Data Coordinating Centers (DCCs) or Data 
+Management Centers (DMCs).  
+Conflict of Interest (COI) – A conflict of interest occurs when individuals involved with the conduct, 
+reporting, oversight, or review of research also have financial or other interests that may be affected 
+by the results of the research. 
+Chronic Lower Back Pain (cLBP) 
+Chronic Pain and Fatigue Research Center (CPFRC) – Research unit in charge of carrying out the 
+DEEP phenotyping visits for patients are interested and eligible. 
+Data and Safety Monitoring Board (DSMB) – An oversight body that is independent of the study 
+investigators, and is appointed by the NIAMS to monitor participant safety and data quality, and to 
+assess clinical trial progress.  
+Data and Safety Monitoring Plan (DSMP)  
+Food and Drug Administration (FDA) – An agency within the U.S. Department of Health and Human 
+Services (DHHS), responsible for protecting public health by assuring the safety, efficacy, and 
+security of human and veterinary drugs, biological products, medical devices, nation’s food supply, 
+cosmetics, and products that emit radiation.  
+Good Clinical Practice (GCP) – Section 2 from the International Council for Harmonisation provides 
+guidance for good design, conduct, performance, monitoring, auditing, recording, analyses, and 
+reporting of clinical trials to ensure data and results are credible and accurate, and that the rights, 
+integrity, and confidentiality of trial participants are protected. 
+Health Insurance Portability and Accountability Act (HIPAA) Privacy Rule – Public Law 104-191 
+provides for the protection of personal health information. The Privacy Rule, Title II of the Act, 
+regulates the way certain health care groups, organizations, or businesses, called covered entities 
+
+
+--- Page 5 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 5 of 42 
+ 
+under the Rule, use and disclose individually identifiable health information known as protected 
+health information (PHI). Title II also establishes that covered entities ensure the security and privacy 
+of PHI.  
+Institutional Review Board (IRB)/Independent Ethics Committee (IEC) – An independent body 
+consisting of medical, scientific, and non-scientific members whose responsibility it is to ensure the 
+protection of the rights, safety, and well-being of human subjects involved in a trial by, among other 
+things, reviewing, approving, and providing continuing review of trials, protocols and amendments, 
+and of the methods and materials to be used to obtain and document the informed consent of trial 
+participants.  
+International Conference on Harmonisation (ICH) – An international collaboration between the 
+United States, the European Union and Japan to harmonize the testing requirements of 
+pharmaceutical products intended for human use. ICH's mission is to achieve greater harmonisation 
+worldwide to ensure that safe, effective, and high-quality medicines are developed and registered in 
+the most resource-efficient manner. Harmonisation is achieved through the development of ICH 
+Guidelines via a process of scientific consensus with regulatory and industry experts working side-by-
+side.  
+Investigational New Drug Application (IND)/Investigational Device Exemptions (IDE) – An IND is 
+the means through which the Food and Drug Administration (FDA) grants the sponsor permission to 
+administer an investigational drug or biological product to humans. Such authorization must be 
+secured prior to interstate shipment and administration of any new drug or biological product that is 
+not the subject of an approved New Drug Application or Biologics/Product License Application (21 
+CFR 312).  
+An IDE allows the investigational device to be used in a clinical trial to collect safety and 
+effectiveness data for human use (21 CFR 812).  
+Lower Back Pain (LBP) 
+Mindfulness-Based Stress Reduction (MBSR) 
+Manual of Operating Procedures (MOOP)/Manual of Procedures (MOP) – A “cookbook” that 
+translates the protocol into a set of operational procedures to guide study conduct. A MOOP/MOP is 
+developed to facilitate consistency in protocol implementation and data collection across study 
+participants and clinical sites.  
+Not Applicable (NA) –When recording data on a study form, if the information is not applicable, 
+then the acronym NA should be used to fill out the field.  
+Not Available (NAV) – When recording data on a study form, if the information is not available, then 
+the acronym NAV should be used to fill out the field. 
+Not Done (ND) – When recording data on a study form, if the evaluation required for a field is not 
+done, then the acronym ND should be used to fill out the field. 
+Observational Study Monitoring Boards (OSMBs) – A body independent of the investigators that is 
+appointed by the NIAMS to provide ongoing review for an observational study. The OSMB closely 
+monitors data acquisition for comprehensiveness, accuracy, and timeliness as well as and monitoring 
+participant safety and confidentiality.  
+
+
+--- Page 6 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 6 of 42 
+ 
+Office for Human Research Protection (OHRP) – A federal government agency within the 
+Department of Health and Human Services (DHHS) charged with the protection of human subjects 
+participating in government-supported research. The OHRP issues assurances to institutions 
+reviewing human subjects research and oversees compliance of regulatory guidelines by research 
+institutions.  
+Principal Investigator (PI) – The individual with primary responsibility for achieving the technical 
+success of the project, while also complying with the financial rules and requirements, 
+administrative policies, and regulations associated with a grant or award. Although Principal 
+Investigators may have administrative staff to assist them with the management of project funds, 
+the ultimate responsibility for the management of the research project rests with the Principal 
+Investigator. 
+Physical Therapy (PT)  
+Patient-Reported Outcomes Measurement Information System (PROMIS) 
+Quality Control (QC) – The internal operational techniques and activities undertaken within the 
+quality assurance system to verify that the requirements for quality of trial related activities have 
+been fulfilled (e.g., data and form checks, monitoring by study staff, routine reports, correction 
+actions, etc.).  
+Quantitative Sensory Testing (QST)  
+Serious Adverse Event (SAE)  
+Safety Monitoring Plan (SMP) – A plan that outlines the oversight of a clinical trial.  
+Safety Officer (SO) - The Safety Officer is an independent individual, usually a clinician, who 
+performs data and safety monitoring activities in low-risk, single-site clinical studies. The Safety 
+Officer advises the NIAMS Program Director regarding participant safety, scientific integrity and 
+ethical conduct of a study. 
+Sequential, Multiple Assessment, Randomized Trial (SMART) 
+Standard Operating Procedure (SOPs) – Detailed written instructions to achieve uniformity of the 
+performance of a specific function across studies and patients at an individual site. 
+ 
+Treatment Assignment Tool University of Michigan (TATUM) 
+Unanticipated Problem (UaP) 
+Unknown (UNK)- When recording data on a study form, if the information is unknown, then the 
+abbreviation UNK should be used to fill out the field. 
+ 
+3 
+Introduction 
+3.1 
+Preface 
+Chronic low back pain (cLBP) affects an estimated 42 million Americans and is associated with 
+greater healthcare utilization, higher rates of unemployment, worse sleep and more depression 
+compared to those without cLBP.1 The most widely used treatment options for cLBP typically include 
+a combination of medication and surgical procedures, with the goal of relieving pain and restoring 
+
+
+--- Page 7 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 7 of 42 
+ 
+function. Unfortunately, despite advances in pain management, medical interventions alone 
+frequently cannot resolve cLBP, leaving many patients with a significant amount of pain and limited 
+functioning. It is now widely accepted that optimal management for cLBP includes treatments that 
+address not just the biological cause, but also the role of psychosocial factors in the development 
+and maintenance of chronic pain. 
+ 
+At present there are data suggesting a variety of structural/mechanical, neural, psychological, 
+cognitive, behavioral, social, and economic contributors to cLBP. Acknowledgement of this complex 
+set of pathogenic factors in the etiology and maintenance of cLBP is referred to as the 
+biopsychosocial model of chronic pain. The BACPAC initiative has chosen to address the many facets 
+of the biopsychosocial model in a comprehensive and unbiased manner and provide an integrated 
+translational approach to identifying both the underlying mechanisms operative in cLBP, as well as 
+the treatments that work on those underlying mechanisms. 
+3.2 
+Study Scope and Objective 
+The objective of this study is to establish a cohort of cLBP patients in order to conduct a pragmatic 
+clinical trial of four cLBP treatments. Rich phenotypic data will be collected for each patient which 
+will allow investigators to assess which evidence-based cLBP treatments are most effective for 
+different cLBP patient subpopulations.  
+4 
+Study Aims and Endpoints 
+4.1 
+Study Aims 
+ 
+Aim 1: To perform an Interventional Response Phenotyping study in a cohort of cLBP patients. We 
+will perform a pragmatic trial using a cohort of cLBP patients, who will receive a sequence of 
+interventions known to be effective in cLBP. For 4 weeks, all cLBP participants will receive a web-
+based behavioral self-management program for pain. After the four weeks, individuals with 
+significant levels of pain interference will be enrolled in a Sequential, Multiple Assessment, 
+Randomized Trial (SMART) and randomized to a series of treatments, including: a) mindfulness-
+based stress reduction (n=102), b) physical therapy and exercise (n=102), c) acupressure self-
+management (n=102), or d) duloxetine (n=102). After 8 weeks, individuals who remain symptomatic 
+will be re-randomized to a different treatment for an additional 8 weeks.   
+ 
+Aim 2: To demonstrate that currently available, clinically derived measures, can predict 
+differential responsiveness to common cLBP therapies. We will leverage the SMART design to 
+perform the most comprehensive study-to-date of currently available predictors for commonly used 
+cLBP therapies. All patients enrolled in Aim 1 will complete baseline clinical phenotyping that will 
+include the following potential predictors of treatment response: a) demographics, b) questionnaires 
+assessing underlying pain mechanisms, c) ambulatory symptom monitoring, d) extensive 
+psychological assessment using validated patient-reported outcomes, e) structured physical 
+examination, and f) state-of-the-art structural imaging of the back and pelvis.  
+ 
+Aim 3: To identify new experimental measures that predict differential responsiveness to each of 
+the above therapies, as well as to infer mechanisms of action of treatments. A subset of individuals 
+(n=160) from the larger cohort in Aims 1 and 2 will be asked to participate in an expanded 
+phenotyping study that will include functional neuroimaging, quantitative sensory testing, plasma 
+measures of inflammation, and autonomic tone. 
+ 
+
+
+--- Page 8 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 8 of 42 
+ 
+4.2 
+Statistical Analysis Objectives 
+ 
+The above study objectives have been translated into the following statistical analysis objectives: 
+ 
+Objective 1: Assess differential treatment response using the light and deep phenotype data. 
+ 
+Objective 2: Given a patient phenotype, identify the best initial treatment for the patient. 
+ 
+Objective 3: Identify the mechanisms that explain the causal treatment effects. 
+ 
+4.3 
+Endpoints 
+ 
+The primary study endpoint is the change in the PROMIS (Patient-Reported Outcomes Measurement 
+Information System) pain interference score between the T2 pre-intervention visit and T3 post-
+intervention visit. The PROMIS pain interference measures the degree to which a patient’s pain 
+interferes with the patient’s life. The survey questions assess interference in different domains 
+including work around the home, recreational activities, and social activities. A univariate pain 
+interference score is calculated from the respondent’s answers. This process is described in Section 
+9.2.  
+ 
+The study’s secondary endpoints consist of the change in the Pain Intensity (PEG) and the Patient 
+Global Impression of Change (PGIC) between the T2 pre-intervention visit and T3 post-intervention 
+visit. The other exploratory PROMIS measures will include a measure of physical functioning, fatigue, 
+sleep disturbances, and cognition. The process of computing each secondary endpoint from survey 
+responses is found in Section 9.2. 
+ 
+4 
+Figure 1 Study aims and overview 
+
+
+--- Page 9 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 9 of 42 
+ 
+5 
+Study Methods 
+5.1 
+General Study Design and Plan 
+ 
+We will conduct a 36-week pragmatic trial in a cohort of cLBP patients (see Figure 1 and Figure 2). 
+The proposed SMART will consist of a 4-week run-in period using an online cognitive-behavioral self-
+management intervention (PainGuide), followed by two 8-week treatment periods. All participants 
+will be followed for a total of approximately nine months.  
+ 
+At baseline (T1), approximately 500 patients will undergo a comprehensive baseline phenotyping 
+assessment. After receiving PainGuide (access to an online self-management program) for 4 weeks, 
+each participant will complete a light phenotyping assessment (T2) and a subset of these patients 
+(n=160) will complete an additional deep phenotyping assessment. Those who still have significant 
+pain interference (≥2 from Patient Global Impression Scale, PGIC) will be randomized to one of the 
+four 8-week long interventions (i.e., Mindfulness-Based Stress Reduction (MBSR), Physical Therapy 
+(PT)/Exercise, Acupressure self-management [eHealth app], or Duloxetine). Participants with a 
+PGIC=1 will not be randomized and continue with long-term follow-up.  The PainGuide run-in is 
+designed to provide the lightest “touch” intervention and to help control for regression to the mean. 
+We will use block randomization with random block size of 4 and 8. Approximately 102 patients will 
+be assigned to each treatment group including Physical Therapy/Exercise, MBSR, Acupressure, and 
+Duloxetine treatment groups. For addition details, please see Section 6.3. 
+ 
+Following the first 8-week treatment period, patients will be reassessed (T3) using light only or light 
+plus deep assessments (for the subset of 160) and those still having significant pain interference (≥2 
+from Patient Global Impression Scale [PGIC]) will be re-randomized to receive one of the three 
+treatments they did not receive in the first treatment period. Participants with a PGIC=1 will not be 
+randomized and continue with long-term follow-up. After the second intervention and three months 
+later, all undergo the light phenotyping follow-up assessment protocol (T4). Lastly, a final 
+assessment will take place at 3 months after the scheduled end of the second 8-week treatment 
+period (T5). There will also be a series of interim assessments that take place at 2-week intervals in 
+between the regular assessments (T1-T5).  
+ 
+The study aims to identify which interventions are most efficacious for different patient phenotypes. 
+The primary analysis will explore how treatment response depends on patient phenotype. 
+Secondary analyses will compare dynamic treatment regimens by patient phenotype. The SMART 
+study does not include a control group because the efficacy of the four treatments has already been 
+shown for the population of cLBP patients. 
+ 
+Study team members will not be blinded to patient treatment assignment.  
+ 
+5.2 
+Deep Phenotyping 
+ 
+A subset of patients (n=160) will undergo “deep” phenotyping, with additional testing such as 
+quantitative sensory testing (QST), functional neuroimaging (fMRI), autonomic nervous system (ANS) 
+function assessment, and collecting additional blood samples for basal and stimulated immune 
+markers. While screening, recruitment, baseline visits, and light phenotyping visits will occur at the 
+Back & Pain Center, study visits for deep phenotyping will take place at the Chronic Pain and Fatigue 
+Research Center (CPFRC). The neuroimaging will take place off site at a UM-affiliated location. There 
+will be two deep phenotyping assessments that take place at the CPFRC before and after the first 
+
+
+--- Page 10 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 10 of 42 
+ 
+treatment. 
+ 
+Figure 2 SMART Study Diagram Including Assessment Strategy 
+  
+5.3 
+Description of Study Treatments 
+ 
+After completing the PainGuide run-in period, participants will be assessed using either the light or 
+light plus deep phenotyping assessment battery and those who still have significant pain 
+interference (PGIC≥2) will be randomized to one of four 8-week treatments: a) Mindfulness-Based 
+Stress Reduction (MBSR), b) Physical Therapy and Exercise (PT), c) Acupressure Self-management, 
+and d) Duloxetine. 
+5.3.1 
+Mindfulness-Based Stress Reduction (MBSR) 
+Mindfulness-based interventions (MBIs) such as mindfulness-based stress reduction (MBSR) are 
+increasingly widely used non-pharmacological interventions for pain reduction involving mindfulness 
+meditation 2–4, and are now recommended in many treatment guidelines for cLBP. MBSR is typically 
+delivered in a group setting with trained providers. Weekly sessions take place over an 8 to 12 week 
+period and require extensive homework for participants. Meta-analyses report that MBIs reduce 
+pain intensity and pain interference in chronic pain syndromes, including cLBP with effect sizes of 
+0.3-0.5 4–7, although data quality is yet only fair. MBIs also improve depression, anxiety, and 
+addiction 8–10 that often accompany chronic pain, and have been found to reduce opioid misuse in 
+chronic pain sufferers 11–13. MBIs train patients to engage dispassionate attention toward the 
+present-moment sensory experience of pain, and to meta-cognitively observe and disengage from 
+cognitions, projections, and emotional/distress reactions about one’s pain 2,3,14,15. This is consistent 
+with reports that beliefs, anticipation, and depressive and anxious states can lead to physiological 
+amplification of pain intensity 14–16, and conversely that attentional modulation may alter pain 
+perception 14,16. Mindfulness increases capacity for meta-cognitive attention/“decentering” and 
+acceptance, decreases personalization of pain distress, emotional reactivity, rumination, and worry, 
+PGIC=1
+Long term follow-up
+PGIC≥2
+MBSR Therapy
+Acupressure
+Duloxetine
+PGIC=1
+PGIC=1
+Long term follow-up
+PGIC≥2
+PT/Exercise
+PGIC≥2
+Acupressure
+Duloxetine
+PGIC=1
+Long term follow-up
+PGIC≥2
+PT/Exercise
+MBSR Therapy
+Duloxetine
+PGIC=1
+Long term follow-up
+PGIC≥2
+MBSR Therapy
+Acupressure
+PT/Exercise
+EMA 
+EMA
+EMA
+8 week intervention
+EMA
+EMA
+Day -60 
+to day 1
+Weeks 16-23
+Weeks 2-5
+Week 6
+4 week run-in
+8 week intervention
+PainGuide
+Weeks 7-14
+Week 36
+Weeks 25-35
+12 week follow-up
+Week 15
+Study Visit 5 (T5)
+Long term follow-up
+Study Visit 4 (T4)
+Deep 
+Visit 2 
+(optional)
+Study Visit 3 (T3)
+Screening
+Week 24
+Long term follow-up
+PT/Exercise
+MBSR Therapy
+Acupressure
+Duloxetine
+R= Randomization
+Study Visit 2 (T2)
+Deep 
+Visit 1 
+(optional)
+Study Visit 1 (T1)
+Week 1
+R
+*Mini survey at weeks 3
+R
+R
+R
+R
+*Mini survey at weeks 8, 10,
+12
+*Mini survey at weeks 17, 
+19, 21
+*Mini survey at weeks 26, 28, 30, 
+32, 34
+
+
+--- Page 11 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 11 of 42 
+ 
+and improves regulation of distress responses to pain 2,3,17–19  (see meta-analysis 20), decreases pain 
+catastrophizing 21,22 and increases positive reappraisals.23 Mindfulness is associated with increased 
+activity in brain circuits involved in sensory perception (e.g. insula and dACC) during laboratory pain 
+17,24–26, and decreased activity in circuits involved in elaborative and self-related processes (e.g., 
+dlPFC, OFC, vmPFC) during active pain, anticipation of pain, and at rest (see reviews 17,19,27,28 and 
+meta-analyses 29,30). The pain reduction mechanism of mindfulness appears distinct from placebo 
+and does not involve the endogenous opioid system. 17,31,32 
+5.3.2 
+Physical Therapy and Exercise 
+Physical therapy (PT) and exercise are amongst the most commonly recommended treatments for 
+cLBP and have a strong evidence base of support. PT consists of a variety of approaches such as 
+manual therapy, directional preference exercises, and nerve mobilization procedures that are 
+tailored to patients based on assessment of their movement characteristics. PT is typically delivered 
+1:1, in person and by trained physical therapists. PT is supplemented by exercise done outside of the 
+clinic setting that often includes aerobic exercise, stretching, and walking.33 There are few 
+mechanistic studies probing precisely how these treatments exert palliative effects or what type of 
+neurobiological marker would predict treatment responsiveness. A few issues complicate our 
+understanding of the neurobiological mechanisms of action for PT/exercise. The vast majority of 
+cases of back pain (70–80%) do not have a specific cause that can be determined even after 
+thorough examination 34. In addition, there is a lack of a strong association between pathology and 
+pain in which a proportion of people with back pain have no abnormality found from imaging and 
+others with no pain show abnormalities.33,35 In addition, exercise has important effects on 
+psychological functioning (anxiety and depression), that may confound a purely neurobiological 
+explanation for how pain is improved by exercise.36 
+5.3.3 
+Acupressure Self-Management 
+Acupuncture is a component of Traditional Chinese Medicine (TCM) wherein thin needles are 
+inserted at specific points on the body (acupoints) to treat disease. Research over the past three 
+decades has shown that acupuncture is effective for the treatment of chronic pain (for recent meta-
+analysis see37).  Acupressure is a related technique wherein pressure is applied via a finger or device 
+to specific acupoints. Acupressure is highly scalable and can be taught to patients (self-applied) and 
+supported by the use of technology. While less research has been performed on self-applied 
+acupressure, emerging data indicates that self-acupressure is effective for chronic pain38,39, and low 
+back pain specifically.40–43 In our own studies, we completed a randomized clinical trial in 288 
+fatigued breast cancer survivors who self-administered acupressure (as proposed in this application) 
+and found significant improvements in pain, fatigue, sleep, and depression.44,45 We also recently 
+completed a randomized controlled trial of our acupressure intervention in 67 cLBP patients 
+randomized to either acupressure or usual care. In that pilot study, self-acupressure reduced low 
+back pain more so than usual care (35% reduction, p<0.05) after 6 weeks of treatment. These data 
+support the proposal of using self-acupressure as an intervention to treat cLBP. 
+5.3.4 
+Non-Opioid Pharmacotherapy - Duloxetine 
+Duloxetine is a serotonin norepinephrine reuptake inhibitor (SNRI) that is FDA-approved for use in 
+cLBP,46–48 and, as such, is included as a recommended therapy in nearly all current treatment 
+guidelines for low back pain. Hence, duloxetine is a logical non-opioid analgesic to include in our 
+SMART trial. Duloxetine and other drugs that increase both serotonergic and noradrenergic activity 
+(e.g. tricyclics) are thought to work as analgesics by increasing activity in descending anti-nociceptive 
+pathways.49 
+ 
+5.4 
+Inclusion-Exclusion Criteria and General Study Population 
+5.4.1 
+Participants 
+Subjects who are ages 25-70 years and who are being seen at Michigan Medicine will be recruited. 
+
+
+--- Page 12 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 12 of 42 
+ 
+Diversity in race and ethnicity is anticipated. All races and ethnicities will be considered for inclusion 
+in the study. Enrollment will be defined as the number of participants consented and randomized 
+into the 4 treatment arms. This study will enroll 408 participants (up to 102 into each intervention) 
+and it is expected that approximately 500 participants may be consented to meet enrollment. 
+Enrollment will be stopped when this enrollment goal is met. 
+ 
+There will be two sets of inclusion and exclusion criteria. The first set is for enrollment into the 
+research project for all participants. The second set represents additional exclusion criteria that are 
+necessary for the safe and valid conduct of the deep phenotyping protocol (subset n=160). 
+5.4.2 
+Inclusion Criteria for Light Phenotyping 
+• 
+We will use the definition of chronic low back pain (cLBP) described in the NIH Task Force 
+Report on Research Standards for Chronic Low Back Pain, i.e. low back pain present at least 
+six months, and present more than half of those days.50  
+• 
+Individuals must have a pain interference score of ≥60 on PROMIS Pain Interference at T1 for 
+inclusion. The normal population mean and standard deviation for the PROMIS Pain 
+Interference measures are 50 and 10 points, respectively. Therefore, participants must be 1 
+SD above the population mean (>=60) for inclusion. 
+• 
+Individuals must be willing and eligible to be randomized to receive at least three of the four 
+proposed treatments. 
+5.4.3 
+Exclusion Criteria for Light Phenotyping 
+• 
+History of discitis osteomyelitis (spine infection) or spine tumor 
+• 
+History of ankylosing spondylitis, rheumatoid arthritis, polymyalgia rheumatica, psoriatic 
+arthritis, or lupus 
+• 
+History of cauda equina syndrome or spinal radiculopathy with functional motor deficit 
+(strength <4/5 on manual motor testing) 
+• 
+History of schizophrenia or schizoaffective diagnosis 
+• 
+Diagnosis of any vertebral fracture in the last 6 months 
+• 
+Osteoporosis requiring treatment other than vitamin D and calcium supplements   
+• 
+Cancer  
+o History of any bone-related cancer or cancer that metastasized to the bone  
+o Currently in treatment for any cancer or plan to start cancer treatment in the next 
+12 months  
+o History of any cancer treatment in the last 24 months 
+• 
+Life expectancy less than 2 years 
+• 
+Unable to speak and write English 
+• 
+Visual or hearing difficulties that would preclude participation 
+• 
+Uncontrolled drug/alcohol addiction  
+• 
+Individuals receiving disability or compensation within the past year, or involved in litigation  
+• 
+Pregnancy or breastfeeding  
+• 
+Individuals on high doses of opioids (over 100 OME per day) 
+• 
+Scheduled back surgery, back surgery within the last year, or more than one back surgery in 
+the past. 
+• 
+Expecting to receive an injection of surgical procedure within the next year for their cLBP 
+• 
+Current/planned (in the next 2 years) enrollment in another study of a device or 
+investigational drug that would interfere with this study, this may include participation in a 
+blinded trial. 
+• 
+Any other diseases or conditions that would make a patient unsuitable for study 
+participation as determined by the site principal investigators.  This would include but not be 
+
+
+--- Page 13 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 13 of 42 
+ 
+limited to severe psychiatric disorders, active suicidal ideations or history of suicide 
+attempts, and an uncontrolled drug and/or alcohol addiction. 
+5.4.4 
+Contraindication to study interventions 
+5.4.4.1 
+Duloxetine 
+• 
+Contraindications to receiving duloxetine:  
+o Medications such as: 
+ 
+Lithium 
+ 
+Tramadol (Ultram, Ultracet) 
+ 
+St. John’s Wort 
+ 
+Prochlorperazine (Compazine) 
+ 
+Thioridizine (a psychiatric medication) 
+ 
+Propafenone or Flecanide (for heart rhythm problems) 
+ 
+Ciprofloxacin (Cipro, an antibiotic) 
+ 
+Linezolid (Zyvox, an antibiotic) 
+ 
+Methylene Blue 
+ 
+Cimetidine (Tagamet, for heartburn)  
+ 
+Clomipramine (Anafranil) 
+ 
+Vortioxetine (Trintellix) 
+ 
+SSRIs:  
+• 
+sertraline 
+• 
+paroxetine 
+• 
+fluoxetine  
+• 
+escitalopram 
+• 
+citalopram 
+• 
+fluvoxamine 
+ 
+SNRIs: 
+• 
+Venlaxaxine 
+• 
+Milnacipran 
+• 
+Duloxetine 
+• 
+Sibutramine 
+• 
+Atomoxetine 
+• 
+Desvenlafaxine 
+• 
+Levomilnacipran 
+o Renal dysfunction: Creatinine Clearance <30mL/min or End-Stage Renal Failure 
+o Hepatic dysfunction: Liver function tests (LFTs) elevated times 1.5 
+o History of allergy to duloxetine 
+o History of bipolar disorder  
+5.4.4.2 
+Acupressure 
+• 
+Currently receiving acupressure or acupuncture through a formal therapy 
+5.4.4.3 
+MBSR 
+• 
+Current participation in a structured MBSR program 
+5.4.4.4 
+Physical Therapy & Exercise 
+• 
+Currently receiving any type of structured manual therapy or exercise treatment for low-back 
+pain. 
+• 
+Contraindication for manual therapy and/or participation in an exercise program 
+
+
+--- Page 14 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 14 of 42 
+ 
+5.4.5 
+Contraindication to MRI 
+• 
+Presence of any history that would preclude scanning in MRI (i.e. known metal foreign 
+objects or implants, history of claustrophobia) 
+ 
+5.4.6 
+Inclusion Criteria for Deep Phenotyping 
+• 
+Right hand dominant (such as the hand used when writing or throwing/catching a ball) 
+• 
+Normal visual acuity or correctable (with corrective lenses- glasses or contacts) to at least 
+20/40 for reading instructions in the MRI and visual sensitivity testing 
+• 
+No contraindications to MRI (e.g., metal implants) 
+• 
+Willingness to refrain from taking any “as needed” medications, including pain medications 
+such as NSAIDs (e.g., Motrin, Advil, Aleve), Acetaminophen (e.g., Tylenol), and opioids, for 8 
+hours before undergoing neuroimaging and QST 
+• 
+Willingness to refrain from alcohol and nicotine on the day of QST and neuroimaging 
+(alcohol and nicotine consumption is allowed after testing is completed) 
+• 
+Willingness to refrain from any unusual physical activity or exercise that would cause muscle 
+and/or joint soreness for 48 hours prior to testing (routine exercise or activity that does not 
+lead to soreness is acceptable) 
+• 
+Able to lie still on their back for 2 hours during MRI 
+5.4.7 
+Exclusion Criteria for Deep Phenotyping 
+• 
+Severe claustrophobia precluding MRI and evoked pain testing during scanning 
+• 
+Diagnosed peripheral neuropathy 
+• 
+Current, recent (within the last 6 months), or habitual use of artificial nails or nail 
+enhancements. (Artificial nails can influence pressure pain sensitivity at the thumbnail) 
+• 
+BMI > 45 or unable to comfortably fit in the bore of the MRI magnet 
+ 
+5.5 
+Randomization and Blinding  
+ 
+Blocked randomization will be used for the randomization schedule. Block size will be randomized 
+between 4 and 8 and the ordering of treatment assignments within a block will be random. 
+Randomization will be performed without stratification. Study recruitment will continue until 408 
+patients have been randomized into a treatment group at study phase T2. We expect that it will be 
+necessary to recruit approximately 500 patients into the study in order to achieve the target of 408 
+SMART participants. Based on our previous studies 51–53, we expect that approximately 15-20% of 
+patients recruited at study phase T1 will not enter the SMART at study phase 2 due to either 
+response to the PainGuide self-management intervention or withdrawal from the study.  
+ 
+We will perform randomization using a randomization software or a randomization list created by a 
+statistician to assign participants to a treatment in an unbiased manner. A biostatistician will develop 
+the randomization plan and will create the un-blinded randomization list to be uploaded to the 
+software. This will enable study personnel to obtain treatment allocations and will provide 
+functionality to manage the treatment allocation process. Furthermore, this enables study team 
+members to maintain identifying information from participants. The randomization software will 
+also track study treatment-allocation progress and provide documentation of the treatment 
+assignment. 
+ 
+Randomization at T3 will be done similar to the one at T2. 
+ 
+Due to the nature of the study and its interventions, neither patients nor study staff will be blinded 
+
+
+--- Page 15 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 15 of 42 
+ 
+to patients’ treatment assignments. 
+ 
+5.6 
+Study Assessments  
+ 
+Table 1 shows the schedule of assessments for screening, demographic data, outcomes, and light 
+and deep phenotyping. Measurements at T2-T5 may occur within a target observation window 
+around each nominal study sample time (±2 weeks). A subset of 160 eligible subjects enrolled in the 
+clinical trial will undergo deep phenotyping.  
+
+
+--- Page 16 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 1 of 42 
+ 
+Table 1 Schedule of Assessments 
+  
+Scheduled 
+Unscheduled 
+Visits 
+Pre-screening (-30days) 
+Study Visit T1 (Week 1) 
+Ecological Momentary Activity 
+(EMA)-1 (Week 1) 
+Study Visit T2 (Week 6) 
+Deep Visit 1 ≠  (Week 6) 
+Ecological Momentary Activity 
+(EMA)-2  (Week 6) 
+Intervention 1 (Weeks 7-14) 
+Study Visit T3 (Week 15) 
+Deep Visit 2 ≠  (Week 15) 
+Ecological Momentary Activity 
+(EMA)-3  (Week 15) 
+Intervention 2 (Weeks 116-23) 
+Study Visit T4 (Week 224) 
+Ecological Momentary Activity 
+(EMA)-4 (Week 24) 
+Ecological Momentary Activity 
+(EMA)-5 (Week 36) 
+Study Visit T5 (Week 36) 
+10 Mini-assessments (Weeks 3, 8, 10, 
+17, 21, 26, 28, 30, 32, 34) 
+1 Expanded Mini-assessment 
+(Week 12) 
+1 Mediation Mini-assessment 
+(Week 19)
+Unscheduled Non-study 
+Intervention Triggering Deep
+Other Non-Study Intervention 
+Triggering Follow-up Post 
+Treatment (4&8 weeks post 
+EMR Eligibility Review 
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Screening Eligibility 
+Review 
+x 
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Informed Consent 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Charlson Comorbidity 
+Index (CCI) 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Demographics 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Medical History and 
+Medications 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Vitals, Height & Weight 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Biomechanical, Physical Exam & Physical Function Measures 
+2-Minute Walk Test 
+(2MWT) 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+4-Meter Walk Gait Speed 
+Test (from SPPB) 
+  
+Timed Sit-to-Stand (STS) 
+  
+
+
+--- Page 17 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 2 of 42 
+ 
+Neurotesting-Patellar 
+Deep Tendon Reflex 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Achilles 
+Deep Tendon Reflex 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Sensation 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Ankle 
+Dorsiflexion (L4) 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Great toe 
+extension (L5) 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Hamstrings 
+(S1/S2) 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting- Single Leg 
+Calf Raises (S1/S2) 
+  
+x 
+  
+  
+  
+  
+ b 
+  
+  
+  
+ b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neural Tension- Passive 
+Straight Leg Raise + 
+Tightness 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Cross Straight Leg Raise 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Provocation-
+Compression 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Provocation- FABER 
+Test 
+  
+x 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Fortin Test 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Hip flexion 
+(L2/L3)   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Quadriceps 
+(L3/L4)   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting-Seated 
+Slump Test with Active 
+Straight Leg Raise (ASLR)   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+--- Page 18 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 3 of 42 
+ 
+Neurotesting- Beighton 
+Score (Pinky, Thumb & 
+Elbow)   
+ 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Neurotesting- Beighton 
+Score (Knees & Hands to 
+floor)   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Hip Abduction- 
+Dynamometer   
+ 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Provocation- 
+Distraction   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Provocation-Thigh 
+Thrust   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Provocation-
+Gaenslen's   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Joint- Active Straight 
+Leg Raise   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+SI Provocation-Sacral 
+Thrust   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Hip Extension 
+Dynamometer   
+ 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Lumbar Segmental 
+Mobility (PA Spring Test)   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Prone Instability Test   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Inclinometer- Flexibility- 
+Flexion, Extension and 
+Side bending   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Observation for Aberrant 
+Motion   
+  
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Directional Preference- 
+Repeat flexion, 
+extension, side glide   
+ 
+  
+  
+  
+  
+b 
+  
+  
+  
+b 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+--- Page 19 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 4 of 42 
+ 
+Hip Provocation- FADDIR  
+ 
+ 
+ 
+ 
+ 
+b 
+ 
+ 
+ 
+b 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Pain Provocation- 
+Quadrant Test  
+ 
+ 
+ 
+ 
+ 
+b 
+ 
+ 
+ 
+b 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Pheno Device- Motion 
+Assessments & Spine 
+Kinematics Data  
+x 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Biospecimen Collection 
+Whole blood 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Blood Serum 
+  
+RNA PAXgene 
+  
+Saliva 
+  
+Urine Pregnancy Test 
+  
+x 
+  
+x 
+x 
+  
+x 
+  
+x 
+  
+x 
+x  
+  
+  
+ 
+  
+  
+  
+x  
+  
+Imaging- MRI of Back 
+and Pelvis 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Questionnaire Data 
+Pain Duration and 
+Frequency (cLBP)- 2 
+Items from NIH Research 
+Task Force Minimum 
+Dataset* 
+  
+x 
+  
+  
+ x 
+  
+  
+  
+x  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+Pain location- Radicular 
+Pain Questions Adapted 
+from NIH Research Task 
+Force Minimum 
+Dataset* 
+  
+x 
+  
+  
+x  
+  
+  
+  
+x  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+Pain Somatization- 
+Abbreviated Pain 
+Somatization Adapted 
+from NIH Research Task 
+  
+x 
+  
+  
+ x 
+  
+  
+  
+x  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+
+
+--- Page 20 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 5 of 42 
+ 
+Force Minimum 
+Dataset* 
+Low Back Pain-Specific 
+Pain Intensity* 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+ x 
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+x 
+x 
+Opioid use- Single-Item 
+Current Opioid Use* 
+  
+x 
+  
+x 
+x  
+  
+  
+X 
+x 
+  
+  
+x 
+  
+  
+X 
+  
+x 
+  
+  
+  
+Pain Intensity (PEG)* 
+  
+x 
+  
+  
+x  
+  
+  
+  
+x  
+  
+  
+ x 
+  
+  
+ x 
+  
+x 
+  
+  
+  
+PROMIS Physical 
+Functioning 6b* 
+  
+x 
+  
+x 
+x  
+  
+  
+X 
+ x 
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Anxiety 4a* 
+  
+x 
+  
+x 
+x  
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Depression-4 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Fatigue 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Sleep 
+Disturbance 6a* 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+Sleep Duration* 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Social Role 
+Activity 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Pain 
+Interference 4a* 
+ x 
+x 
+  
+x 
+ x 
+  
+  
+X 
+ x 
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+x 
+x 
+PROMIS Cognitive 
+Function 
+  
+x 
+  
+x 
+x  
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+PROMIS Pain intensity 
+  
+x 
+  
+x 
+x  
+  
+  
+X 
+ x 
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+x 
+x 
+Pain Catastrophizing 
+Scale (PCS)* 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+  
+x 
+  
+  
+  
+Patient Health 
+Questionnaire-2 (PHQ-
+2)* 
+  
+x 
+  
+  
+ x 
+  
+  
+  
+x  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+
+
+--- Page 21 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 6 of 42 
+ 
+Generalized Anxiety 
+Disorder-2 (GAD-2)* 
+  
+x 
+  
+  
+x  
+  
+  
+  
+ x 
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+Patient global 
+impression of change 
+(PGIC)/Global Rating of 
+change (GROC)* 
+  
+  
+  
+x 
+ x 
+  
+b 
+X 
+ x 
+  
+b 
+x 
+  
+  
+X 
+  
+x 
+  
+x 
+x 
+Tobacco, Alcohol, 
+Prescription medication, 
+and other Substance 
+use (TAPS)* 
+  
+x 
+  
+  
+ x 
+  
+  
+  
+x  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+Fibromyalgia (FM) 
+Survey Criteria 2016 
+(Widespread Pain Index 
+(WPI) and Symptom 
+Severity Index (SSI)) 
+  
+x 
+  
+X 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+x 
+  
+x 
+  
+  
+Widespread Pain* 
+  
+x 
+  
+  
+x  
+  
+  
+  
+ x 
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+  
+  
+Life Orientation Test- 
+Revised (LOT-R) 
+ 
+x 
+ 
+x 
+ 
+ 
+ 
+ 
+x 
+ 
+ 
+ 
+x 
+ 
+X 
+ 
+ 
+ 
+ 
+ 
+Chronic Overlapping Pain 
+Conditions Screener 
+(COPCS) 
+  
+x 
+  
+  
+ x 
+  
+  
+  
+x  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Pain Self-efficacy 
+Questionnaire (PSEQ) 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+PainDETECT 
+  
+x 
+  
+x 
+ X 
+  
+  
+X 
+ x 
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Oswestry Disability Scale 
+(ODI) 
+  
+x 
+  
+x 
+  
+  
+b 
+X 
+  
+  
+b 
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Chronic Pain Acceptance 
+Questionnaire (CPAQ-8) 
+  
+x 
+  
+x 
+  
+  
+c 
+X 
+  
+  
+c 
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Fear Avoidance Beliefs 
+Questionnaire 
+(FABQ+Physical Activity) 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+x 
+x 
+  
+  
+
+
+--- Page 22 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 7 of 42 
+ 
+Experiences 
+Questionnaire (EQ)-11 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+x 
+x 
+  
+  
+Experiences 
+Questionnaire (EQ)-5 
+  
+  
+  
+  
+  
+  
+c 
+  
+  
+  
+c 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Perceived Stress Scale 
+(PSS) 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Positive and Negative 
+Affect Scale (PANAS) 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Childhood and Recent 
+Traumatic Events Scale 
+(CTES) 
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Credibility and 
+Expectancy 
+Questionnaire (CEQ) 
+  
+  
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Client Satisfaction 
+Questionnaire (CSQ) 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+HEAL Treatment 
+Expectancy v1.0 Short 
+Form 6a 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+X 
+  
+  
+  
+  
+  
+Numeric Pain Rating 
+Scale (NPRS) 
+  
+x  
+x 
+  
+x  
+x 
+b 
+  
+x  
+x 
+b 
+  
+x 
+x 
+  
+  
+  
+  
+  
+  
+General Sensory 
+Sensitivity (GSS-8) 
+  
+x 
+  
+x 
+ x 
+  
+  
+X 
+x  
+  
+  
+x 
+  
+  
+X 
+x 
+x 
+x 
+  
+  
+Ecological Momentary 
+Activity (EMA) Mental 
+and Physical Symptoms 
+  
+  
+x 
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+x 
+x 
+  
+  
+  
+  
+  
+  
+Low-Back Pain 
+Treatment Categories 
+Questionnaire 
+  
+x 
+  
+x 
+  
+  
+  
+X 
+  
+  
+  
+x 
+  
+  
+  
+  
+ x 
+x  
+  
+  
+Patient Preference 
+Questionnaire 
+ 
+x 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 23 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 8 of 42 
+ 
+Patient Outcome 
+Questionnaire 
+ 
+x 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BACPAC Customer 
+Service Questionnaire 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+x 
+ 
+ 
+ 
+ 
+ 
+ 
+x 
+ 
+ 
+ 
+ 
+ 
+Randomization 
+  
+  
+  
+a 
+  
+  
+  
+A 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+Adverse Event Reporting 
+  
+x 
+x 
+x 
+x 
+x 
+x 
+X 
+x 
+x 
+x 
+X 
+x 
+x 
+X 
+x 
+x 
+x 
+x 
+x 
+Deep Phenotyping Participants (n=160) 
+Biospecimen 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+RNA PAXgene 
+  
+  
+  
+Blood Serum 
+Whole Blood 
+Neuroimaging- fMRI 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Conditioned Pain 
+Modulation (CPM) Test 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Cuff Ascending and 
+Pseudorandom 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Multimodal Automated 
+Sensory Test (MAST) and 
+Cuff Familiarization 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Multimodal Automated 
+Sensory Test (MAST) 
+Ascending 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Temporal Summation 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Tonic Cuff 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Two Point Discrimination 
+Test (TPDT) 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+Visual task 
+  
+  
+  
+  
+x 
+  
+  
+  
+x 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+x 
+  
+≠ Only completed for deep phenotyping (n=160) participants 
+* Part of the HEAL minimum data set 
+a Randomization will only occur if PGIC≥2 
+
+
+--- Page 24 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 9 of 42 
+ 
+b Occurs if intervention is Physical Therapy 
+c Occurs if intervention is MBSR 
+
+
+--- Page 25 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 1 of 42 
+ 
+ 
+6 
+Sample Size 
+The study aims to continue randomizing patients with cLBP to initial treatment until 102 randomized 
+patients per group are available for the analysis (i.e. completed their T1-T4 visits and had PGIC≥2 at 
+T2). This is the target patient group. Based on assumed attrition rates we expect the total number of 
+consented patients to be over 500. Attrition rates include patients who are not randomized because 
+their pain was “very much improved” after run-in (PGIC=1 at T2). Such patients will still be included 
+in the analysis with their limited data. The power analysis, however, excludes these patients because 
+effects in the randomized participants are of primary interest. The smaller subgroup based on 40 
+patients will be from the target patient group for deep phenotyping for specific treatments.  
+6.1 
+Power for explaining treatment effects 
+Consider a regression model for correlating within-patient improvement (primary: change in PROMIS 
+Pain Interference; secondary: change in PEG, PGIC; many others as exploratory, see below for 
+details) due to one of the 4 main treatments with a phenotypic variable. Using a two-sided test for 
+correlation at 5% significance level we conclude that we will have the power of at least 80% to 
+detect correlations of 0.28 or higher, conservatively assuming the model is applied to one 
+randomized treatment segment with 102 patients. This corresponds to first phase or second phase 
+treatment in one of the 4 treatment groups, and a model based on the light phenotyping target 
+patient group of 408 total. Similar analysis for the smaller subgroup based on 40 patients with 
+available deep phenotyping for a specific treatment and segment shows that correlation of 0.42 or 
+higher will be detectable with 80% power. This is well within reach as evidenced by available 
+literature on the association between treatment effects and phenotype variables. For example, 
+mindfulness and pain responses showed correlations of 0.43-0.51 in prior reported studies. Our 
+previous studies of the association between pain centralization and analgesic responses in knee 
+osteoarthritis showed similar or higher correlations.  
+ 
+7 
+General Analysis Considerations 
+7.1 
+Timing of Analyses 
+Three interim analyses (safety endpoints) and one final analysis (primary and secondary endpoints) 
+will be conducted. The interim analyses will occur after each consecutive group of another 102 
+evaluable patients has completed their treatments (408 target group patients total under active 
+treatments after drop-out). The final analyses will be conducted after the 408 target group 
+participants have completed their respective planned visits. 
+ 
+7.2 
+Analysis Populations 
+7.2.1 
+Full Analysis Population 
+Patients completing their run-in and at least one follow-up visit make up the full analysis population. 
+For purposes of analysis patients who are not randomized are still considered as assigned to “long-
+term follow up” “treatment” and part of the analysis population. The focus of the model-based 
+analysis though will be on the parameters coding for the effects among the randomized patients. 
+Some will be randomized once, some twice, some not at all, dependent on the PGIC status. Intent to 
+treat is defined as a prospective list of treatment assignments at T2 and T3 conditionally on patients’ 
+all possible longitudinal PGIC status values at those visits. This collection by the PGIC status makes up 
+the patient’s assignment list. Assignments are generated for each recruited patient who completes 
+the run-in (T1 and T2) prospectively. Actual treatments may deviate from the dynamic treatment 
+regimen (when not on the specific patient’s assignment list). The primary analysis will be done under 
+
+
+--- Page 26 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 2 of 42 
+ 
+the intent-to-treat framework using the treatment assigned to each subject instead of the treatment 
+that each subject may have actually received.  
+7.2.2 
+Per-protocol Population 
+The per-protocol population will include all subjects who remain in the study to time T4 and are 
+judged to have been compliant with their assigned treatments. Descriptions of treatment 
+compliance are found in Section 9.5 in Table 4. A sensitivity analysis restricted to the per-protocol 
+population will be done to assess differences between actual vs intended treatment effects.  
+7.2.3 
+Safety Population 
+The safety population includes all patients who enter the study at study period T1. Safety analyses 
+will use the safety population to assess the rate of adverse patient events. Safety analysis will be 
+done based on adverse event rates for the whole safety population regardless of their treatment 
+assignments or actual treatments. 
+ 
+7.3 
+Covariates and Subgroups 
+Since the purpose of the study is to identify patient subgroups that differentially respond to the four 
+treatments, our analysis will explore many treatment-covariate interactions. Table 2 and 3 list the 
+expected treatment modifiers, which are the primary covariates of interest, for the light and deep 
+phenotype measures, respectively. The light phenotype table also describes each variable’s expected 
+mechanistic role (treatment modifier versus treatment mediator). For additional details, please see 
+Section 18.1 of the UM BACPAC clinical trial protocol. 
+ 
+Table 2 Hypothesized light-phenotyping treatment modifiers. 
+Phenotypic variable 
+Expected treatment-phenotype 
+interaction 
+Mechanistic Role 
+Patient pain catastrophizing score 
+MBSR 
+Moderator 
+Patient experience score 
+MBSR 
+Mediator 
+Fear avoidance beliefs score 
+PT/Exercise 
+Mediator 
+PROMIS self-efficacy score  
+PT/Exercise 
+Moderator 
+Fibromyalgia Screening 
+Questionnaire 
+Acupressure 
+Moderator 
+Biologic Sex 
+Acupressure 
+Moderator 
+Fibromyalgia Screening 
+Questionnaire 
+Duloxetine 
+Moderator 
+PainDETECT score 
+Duloxetine 
+Moderator 
+ 
+Table 3 Hypothesized deep-phenotyping treatment modifiers. 
+Deep Phenotype 
+variable 
+Measurement 
+Modality  
+Expected treatment-
+phenotype interaction 
+Mechanistic 
+Role 
+Subgenual ACC activity 
+fMRI 
+MBSR 
+Moderator 
+Ventrolateral PFC activity 
+fMRI 
+MBSR 
+Moderator 
+S1 activity 
+fMRI 
+MBSR 
+Moderator 
+Thalamus activity 
+fMRI 
+MBSR 
+Moderator 
+Baseline activity 
+Actigraphy 
+PT/Exercise 
+Moderator 
+Parasympathetic tone 
+Heart Rate Variability 
+PT/Exercise 
+Moderator 
+Vagal Tone 
+EKCG and PPG 
+PT/Exercise 
+Mediator 
+
+
+--- Page 27 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 3 of 42 
+ 
+High Basal Inflammation 
+Blood Sample 
+PT/Exercise 
+Moderator 
+Pain Threshold  
+QST 
+Acupressure 
+Moderator 
+Posterior Insula 
+Glutamate  
+H-MRS 
+Acupressure 
+Moderator 
+Insula-DMN connectivity 
+fMRI 
+Acupressure 
+Moderator 
+DMN-SI connectivity 
+fMRI 
+Acupressure 
+Moderator 
+Deficient Lower Back 
+Pain Inhibition 
+QST 
+Duloxetine 
+Moderator 
+Lesser PAG-Insula 
+connectivity 
+fMRI 
+Duloxetine 
+Moderator 
+Elevated Stimulated 
+inflammatory response 
+Blood Sample 
+Duloxetine 
+Moderator 
+ 
+We plan to conduct a single subgroup analysis that will assess whether males and female 
+differentially respond to the proposed treatments. 
+ 
+In addition to the covariates listed above, the following biological variables will be controlled for in 
+the primary analysis: sex, age, BMI, race, and education. 
+7.4 
+Missing Data 
+Handling of missing data will include descriptive analysis of missing data patterns followed by the 
+analysis of reasons for missingness as a nominal response using multinomial logistic regression. The 
+focus of the descriptive analysis will be to assess associations between treatment assignment and 
+data missingness. We will compare analyses conducted with missing data imputation and missing 
+data exclusion under a missing-at-random assumption. These sensitivity analyses will assess the 
+degree to which mechanism underlying the data missingness affects the findings of the study. 
+Missing data imputation will be conducted using predictive-matching algorithms. We do not expect 
+more than 15% of data to be missing. If the rate of data missingness is greater than 15%, multiple 
+imputation approaches will be utilized in the primary analyses.54  
+7.5 
+Multiple Testing 
+We will not formally control for multiple comparisons since the aim of this trial is to identify cLBP 
+patient phenotype and treatment combinations for future study. Additionally, we would have little 
+power to identify significant phenotype-treatment interactions with multiple testing procedures due 
+to the study design (16 possible SMART treatment pathways, 12 dynamic treatment regimens and 
+n=408 patients) and heterogeneous patient phenotypes. Results will be presented using confidence 
+intervals and standardized treatment effect sizes rather than p-values. We will additionally employ 
+cross-validation schemes when appropriate to assess the degree to which phenotype-treatment 
+interactions generalize out-of-sample.  
+ 
+8 
+ Summary of Study Data 
+A CONSORT flow diagram (Appendix A) will compare how the study unfolded with the pre-trial plan 
+to include information about the number screened, the number enrolled, the number randomized to 
+each intervention at each stage of the trial, final completion rates, and the number of individuals in 
+analytic datasets. 
+ 
+We will use descriptive statistics to assess data quality and characterize relationships between 
+phenotype features prior to each treatment. In preparation for the main multivariate model-based 
+
+
+--- Page 28 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 4 of 42 
+ 
+analysis we will look at correlations between phenotype variables and responses with correlation 
+analysis and scatterplots, analyze data for evidence of collinearity between factors, study patterns of 
+missing data, and conduct univariate analysis using models described below. The goal of the data 
+summarization is to elicit a good feel for the specific data in our team of analysts and to guide an 
+initial approach to data reduction and predictive model trimming.  
+ 
+At first, all intervention groups will be combined. Any variable that requires creation from collected 
+data will be coded and created for examination. Continuous variables will be summarized by 
+minimum, maximum, arithmetic mean, median, and standard deviation at each time point. 
+Histograms and boxplots will be used to assess distributional characteristics of baseline and follow-
+up variables. The outcomes will be summarized and plotted at each time of assessment to assess 
+distributional characteristics. Categorical variables will be tabulated with frequencies and 
+percentages. The number and percentage of missing observations for all variables will be reported 
+for each variable at each time point for the entire sample.  Missingness for the primary and 
+secondary outcome variables will be assessed by intervention group to evaluate any differential 
+missingness. 
+ 
+We will then describe the patient population by initial intervention group to construct a table 
+describing the baseline characteristics of each intervention group. The table will include baseline 
+characteristics, baseline medical history, and baseline values of primary and secondary outcome 
+variables. Significance testing of baseline characteristics between groups will not be performed 
+based on statistical and CONSORT recommendations. 
+8.1 
+Subject Disposition 
+A patient will be considered to have reached stage t after they complete the patient reported 
+outcome forms within the specified stage t window. A subject will be considered to have dropped 
+out of the study at stage t if they progressed to the prior stage but fail to complete the patient 
+reported outcome forms within the stage t window. Whenever possible, the reason for each 
+subject’s dropout will be recorded. See Protocol for details concerning the timing of study 
+assessments. 
+ 
+The full analysis population consist of all subjects who complete the patient reported outcome forms 
+at stage T2 at the end of the run-in phase. The full analysis population size will be a count of these 
+patients. The per-protocol analysis populations will consist of all patients who remain in the study 
+and are complaint with their treatment assignments during the first and second treatment periods. 
+The per-protocol population sample size will equal the number of patients who complete the study 
+to stage T4 and are compliant with treatment. Treatment compliance is defined in Section 9.5. 
+ 
+Subjects will be recruited into the study over the course of 2.5 years. Target recruitment rates vary 
+by month based on historical recruitment averages at the BPC. On average, the study aims to recruit 
+10-15 subjects per month. 
+8.2 
+Derived variables 
+The study’s primary and secondary endpoints are each scored as recommended by instrument 
+authors. The PROMIS-based measures will be derived in Qualtrics using a tool released by 
+HealthMeasures.net. The PROMIS composite scores have a population mean and standard deviation 
+equal to 50 and 10 points, respectively. The Oswestry Disability Index is calculated by summing the 
+individual item scores (values ranging from 0 – 5) and multiplying by 2. Its range runs from 0 to 100.  
+
+
+--- Page 29 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 5 of 42 
+ 
+8.3 
+Protocol Deviations 
+An accidental or unintentional change to, or non-compliance with the research protocol that does 
+not increase risk or decrease benefit or; does not have a significant effect on the subject's rights, 
+safety, or welfare; and/or on the integrity of the data. Deviations may result from the action of the 
+subject, researcher, or research staff’s departure from the IRB approved research protocol without 
+prior IRB approval for the variation. Missing data are part of protocol deviations and may lead to 
+exclusion from the per-protocol analysis population. 
+ 
+Participant-specific protocol deviations will be assessed for their potential relationship to the 
+treatment effects or the course of the disease by a medical expert. Since deviations because of 
+safety will generally result in incomplete data on the subject, their consequences will be handled in 
+the analysis as potentially informative missing data (see Section 8.4). Due of the difficulty of accurate 
+determination of the relationship between protocol deviations and the treatment efficacy and the 
+disease dynamics, several versions of the primary and secondary analysis will be undertaken: 
+ 
+1. Exclusion of the violators from the analysis population under the missing at random 
+assumption. 
+2. If missing data fraction exceeds 15%, multiple imputation of the violator’s unobserved 
+responses using predictive matching algorithms, including the per-protocol analysis of the 
+resultant imputed population(s). 
+3. With yes/no responses that have the meaning of success or failure where mixed logistic 
+models are used per protocol, violator’s responses will be classified as failures for the 
+conservative analysis. 
+4. Analytic methods (2,3) applied only to violators classified as treatment or disease-related as 
+defined by medical experts.    
+8.4 
+Demographic and Baseline Variables 
+The following patient-level variables will be collected at T1 and will be treated as demographic 
+variables during the primary and secondary analyses. There are no planned transformations of the 
+baseline variables. 
+ 
+• 
+Age 
+• 
+Sex 
+• 
+Gender identity 
+• 
+Ethnicity 
+• 
+Race 
+• 
+Education level 
+• 
+Employment status 
+• 
+Marital status 
+• 
+Household size 
+ 
+Summary statistics will be produced in accordance with section 9. 
+8.5 
+Treatment Compliance 
+Treatment compliance for each of the four study treatments is defined below in Table 4. 
+Table 4 Compliance standards for treatments 
+Treatment 
+Compliance Standard 
+MBSR 
+Completion of 4 out of 8 sessions 
+PT/Exercise 
+Completion of 80% of PT sessions 
+
+
+--- Page 30 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 6 of 42 
+ 
+Acupressure 
+Completion of 70% of the 30-minute sessions. 
+Duloxetine 
+Compliance will be assessed by counting pills 
+returned to research pharmacy. 
+9 
+Analysis Plan 
+9.1 
+Objective 1 Analysis Plan 
+ 
+Objective 1: Assess differential treatment response using the light and deep phenotype data. 
+The main hypotheses of Objective 1 will be addressed by fitting a joint regression model the primary 
+pain outcome (PROMIS pain interference score) at time point T3 which gains efficiency by 
+incorporating observations at time point T4. The purpose of this analysis is to demonstrate that 
+clinical measures are capable of predicting differential responsiveness to the four cLBP treatments. 
+This analysis will assess the degree to which the clinicians’ hypothesized treatment modifiers predict 
+differential treatment response. Testing the differential treatment response hypotheses will be 
+handled by including treatment-phenotype interactions in the model. The analysis will be repeated 
+for the secondary pain outcomes (Pain intensity (PEG) and Patient Global Impression of Change 
+(PGIC).  
+ 
+9.1.1 
+ Light Phenotyping Analysis 
+Let 𝑌𝑌𝑡𝑡𝑡𝑡∈ℝ denote subject 𝑖𝑖’s PROMIS pain interference score at time 𝑡𝑡∈{2, 3, 4}. Let 𝑅𝑅𝑖𝑖 denote 
+response status at T3. Let 𝐴𝐴𝑡𝑡𝑡𝑡 be a vector denoting treatment assignment, such that the first through 
+4th elements represent PT/Exercise, MSBR, Acupressure, and Duloxetine treatment status. The 
+vector 𝑋𝑋2𝑖𝑖 contains the baseline covariates for subject 𝑖𝑖 at time 2 (sex, age, BMI, race, and 
+education) and 𝑌𝑌2𝑖𝑖. For 𝑡𝑡∈{2, 3}, the matrix 𝑍𝑍𝑡𝑡𝑡𝑡 will hold subject 𝑖𝑖’s time 𝑡𝑡 measurements of the 
+hypothesized treatment modifiers. 𝑍𝑍𝑡𝑡𝑡𝑡 will have 7 total columns that correspond to the hypothesized 
+treatment modifiers, and the columns will be specified such that the element-wise product 𝐴𝐴𝑡𝑡𝑡𝑡∙𝑍𝑍𝑡𝑡𝑡𝑡 
+represents the 8 hypothesized treatment-phenotype interactions.  
+ 
+We jointly model data at T3 and T4 to gain efficiency in estimating the main effects of treatment, the 
+main effects of the potential moderators, and the interaction effects between treatment and the 
+potential moderators in stage 1. The main effects of treatment and covariates are allowed to differ 
+between stages, but we assume these effects are additive. In contrast, treatment–by–phenotype 
+interaction effects are assumed to be the same across both stages. We propose the following model: 
+ 
+𝐸𝐸[𝑌𝑌3𝑖𝑖] = 𝑋𝑋2𝑖𝑖
+𝑇𝑇𝛽𝛽2 + 𝐴𝐴2𝑖𝑖
+𝑇𝑇𝜙𝜙2 + 𝑍𝑍2𝑖𝑖
+𝑇𝑇𝜑𝜑2 + (𝐴𝐴2𝑖𝑖∘𝑍𝑍2𝑖𝑖)𝑇𝑇𝜓𝜓2 
+ 
+𝐸𝐸[𝑌𝑌4𝑖𝑖] = 𝑋𝑋2𝑖𝑖
+𝑇𝑇𝛽𝛽2 + 𝐴𝐴3𝑖𝑖
+𝑇𝑇𝜙𝜙2 + 𝑍𝑍3𝑖𝑖
+𝑇𝑇𝜑𝜑2 + 𝑅𝑅𝑖𝑖
+𝑇𝑇ൣ𝐴𝐴3𝑖𝑖
+𝑇𝑇𝜙𝜙3𝑅𝑅 + 𝑍𝑍3𝑖𝑖
+𝑇𝑇𝜑𝜑3𝑅𝑅൧ 
++(1 −𝑅𝑅𝑖𝑖)𝑇𝑇ൣ𝐴𝐴3𝑖𝑖
+𝑇𝑇𝜙𝜙3𝑁𝑁𝑁𝑁 + 𝑍𝑍3𝑖𝑖
+𝑇𝑇𝜑𝜑3𝑁𝑁𝑁𝑁൧+ (𝐴𝐴3𝑖𝑖∘𝑍𝑍3𝑖𝑖)𝑇𝑇𝜓𝜓2 
+We will fit the model for all repeated measures (𝑌𝑌3𝑖𝑖, 𝑌𝑌4𝑖𝑖) using generalized estimating equations 
+(GEE) with a working independence covariance matrix through the R package gee. We will use 
+robust standard errors for variance estimation to account for the use of repeated measures. Prior to 
+conducting inference, we will assess the functional forms of the predictors and the validity of the 
+assumptions required for joint stage modeling, especially the assumption of constant interaction 
+effects across treatment stages. If the assumptions for joint modeling are violated, we will conduct 
+the primary analysis with stage 1 data only.  For inference, we additionally assume 𝑌𝑌3𝑖𝑖, 𝑌𝑌4𝑖𝑖) follow a 
+multivariate normal distribution.  
+ 
+The clinical objective of Aim 1 is to show that patient responsiveness to treatment depends on their 
+
+
+--- Page 31 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 7 of 42 
+ 
+phenotype. To address this aim, null hypothesis of regression coefficients will be used. We will use 
+two-sided Wald tests to assess whether the hypothesized differential treatment responses are 
+consistent with the clinical trial data. Let 𝜃𝜃 denote a treatment-phenotype interaction (i.e., one of 
+the elements of 𝜓𝜓2). The Wald test statistic testing 𝐻𝐻0: 𝜃𝜃= 0 is given by 𝑊𝑊= 
+𝜃𝜃
+𝑆𝑆𝑆𝑆(𝜃𝜃). We will reject 
+the null hypothesis at approximately the 95% level when |𝑊𝑊| ≥2.  
+ 
+9.1.2 
+Deep Phenotyping Analysis 
+A second analysis will assess whether deep-phenotyping measures are also predictive of differential 
+treatment response. The form of the model will be nearly identical to the light phenotype-based 
+primary analysis above. The analytic plan and strategy for performing inference on model 
+parameters is the same as stated above in 9.1.1. The primary difference between the primary and 
+secondary analysis is the number of treatment modifiers that were proposed by investigators. As a 
+result, the deep phenotyping-based model will include multiple treatment-phenotype interactions 
+terms for each treatment arm (see Table 5). Table 5 Hypothesized differential responses to treatment 
+Deep Phenotype 
+variable 
+Measurement 
+Modality  
+Expected treatment-
+phenotype interaction 
+Mechanistic 
+Role 
+Subgenual ACC activity 
+fMRI 
+MBSR 
+Moderator 
+Ventrolateral PFC activity 
+fMRI 
+MBSR 
+Moderator 
+S1 activity 
+fMRI 
+MBSR 
+Moderator 
+Thalamus activity 
+fMRI 
+MBSR 
+Moderator 
+Baseline activity 
+Actigraphy 
+PT/Exercise 
+Moderator 
+Parasympathetic tone 
+Heart Rate Variability 
+PT/Exercise 
+Moderator 
+Vagal Tone 
+EKCG and PPG 
+PT/Exercise 
+Mediator 
+High Basal Inflammation 
+Blood Sample 
+PT/Exercise 
+Moderator 
+Pain Threshold  
+QST 
+Acupressure 
+Moderator 
+Posterior Insula 
+Glutamate  
+H-MRS 
+Acupressure 
+Moderator 
+Insula-DMN connectivity 
+fMRI 
+Acupressure 
+Moderator 
+DMN-SI connectivity 
+fMRI 
+Acupressure 
+Moderator 
+Deficient Lower Back 
+Pain Inhibition 
+QST 
+Duloxetine 
+Moderator 
+Lesser PAG-Insula 
+connectivity 
+fMRI 
+Duloxetine 
+Moderator 
+Elevated Stimulated 
+inflammatory response 
+Blood Sample 
+Duloxetine 
+Moderator 
+ 
+9.2 
+Objective 2 Analysis Plan 
+ 
+Objective 2: Identify additional predictors of differential treatment response using light phenotype 
+data.  
+ 
+This exploratory analysis will assess whether additional patient reported outcomes captured in 
+clinical settings can improve the prediction of differential treatment response. First, we will assess 
+the functional forms of the predictors through univariate summaries and assess multicollinearity 
+through pairwise Spearman correlation coefficients. Then, we will fit regularized regression models 
+for the primary pain outcome (PROMIS pain interference score) using observations from time points 
+T3 and T4. We will utilize adaptive elastic net (AENET) to induce variable selection while 
+accommodating groups of correlated predictors. Given the exploratory nature of this objective, that 
+
+
+--- Page 32 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 8 of 42 
+ 
+trial patients may have just failed other treatments prior to entering the study, and the need for as 
+much data as possible for the proposed methods, we will treat observations from time points T3 and 
+T4 as independent rather than as repeated measures and adjust for potential effects of stage 1 
+treatment on observations at T4. We will consider the selection of a treatment interaction into the 
+model as weak evidence for treatment effect modification, and we will conduct hypothesis testing 
+for strong evidence of treatment effect modification. The analysis will be repeated for the secondary 
+pain outcomes (Pain Intensity (PEG) and Patient Global Impression of Change (PGIC)).  
+ 
+Let 𝑌𝑌𝑡𝑡𝑡𝑡∈ℝ denote subject 𝑖𝑖’s PROMIS pain interference score at time 𝑡𝑡∈{2, 3, 4}, 𝑅𝑅𝑖𝑖 denote 
+response status at T3, 𝐴𝐴𝑡𝑡𝑡𝑡 be a vector denoting treatment assignment for 𝑡𝑡∈ {2, 3}, and 𝑋𝑋2𝑖𝑖 denote 
+the vector of baseline variables for subject 𝑖𝑖 at time point T2 (sex, age, BMI, race, education, and the 
+baseline outcome). Let 𝑍𝑍𝑡𝑡𝑡𝑡be a vector denoting the additional (clinical/patient reported) predictors 
+and their treatment interactions for subject 𝑖𝑖 and 𝑡𝑡∈ {2, 3}. We assume 
+𝐸𝐸[𝑌𝑌𝑡𝑡𝑡𝑡] = 𝑋𝑋2𝑖𝑖
+𝑇𝑇𝛽𝛽+ 𝐴𝐴(𝑡𝑡−1)𝑖𝑖
+𝑇𝑇𝜙𝜙+ 𝐼𝐼(𝑡𝑡= 4) ∗[𝑅𝑅𝑖𝑖𝐴𝐴2𝑖𝑖
+𝑇𝑇𝜑𝜑𝑅𝑅+ (1 −𝑅𝑅𝑖𝑖)𝐴𝐴2𝑖𝑖
+𝑇𝑇𝜑𝜑𝑁𝑁𝑁𝑁] + 𝑍𝑍(𝑡𝑡−1)𝑖𝑖
+𝑇𝑇𝛾𝛾, 
+ 
+and we apply Ridge and adaptive Lasso penalties to the main effects and treatment interactions of 
+the additional predictors. That is, we estimate model parameters by minimizing the sum of squared 
+errors subject to the constraint (1 −𝛼𝛼) ∑𝑤𝑤𝚥𝚥
+ෞ∙|𝛾𝛾(𝑗𝑗)|
+𝑗𝑗
++  𝛼𝛼∑𝛾𝛾(𝑗𝑗)2
+𝑗𝑗
+≤𝑡𝑡, where 𝛾𝛾(𝑗𝑗) denotes the 𝑗𝑗𝑡𝑡ℎ 
+element of 𝛾𝛾. We estimate the tuning parameters 𝛼𝛼 and 𝑡𝑡 using 5-fold cross-validation to minimize 
+prediction error and estimate  𝑤𝑤𝚥𝚥
+ෞ= |𝛾𝛾𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸
+ෟ(𝑗𝑗) + 
+1
+𝑛𝑛|, where 𝑛𝑛 is the total number of T3 and T4 
+observations and 𝛾𝛾𝐸𝐸𝐸𝐸𝐸𝐸𝐸𝐸
+ෟ(𝑗𝑗) represents the corresponding estimate of 𝛾𝛾(𝑗𝑗) from a standard elastic 
+net model. Lastly, we obtain AENET parameter estimates using the R package gcdnet. 
+ 
+For any treatment-phenotype interactions selected into the fitted model, we will conduct null 
+hypothesis testing. We will use two-sided Wald tests based on standard error estimates from AENET. 
+Using the fitted model, we will also obtain predicted outcomes under each of the four treatment 
+options for all individuals. We will identify the treatment option which maximizes the predicted 
+outcome for each individual and then form up to four subgroups of patients with the same optimal 
+treatment. We will conduct descriptive analyses to compare the characteristics of these subgroups 
+and generate hypotheses for future research based on any baseline patient phenotypes which may 
+be useful for determining optimal initial treatment.  
+ 
+9.3 
+Objective 3 Analysis Plan 
+ 
+Objective 3: Identify the mechanisms that explain the causal treatment effects. 
+ 
+The primary analysis for the exploratory objective 3 (specific aim 2) will involve a series of mediation 
+analyses in order to identify the mechanisms that underlie the differential treatment responses. This 
+analysis will use light phenotyping data from T2 and the interim assessment conducted at the 
+midpoint of the first-stage treatment period. Second-treatment stage data will not be used for this 
+analysis. Investigators did not propose a light phenotyping-based mediator for the Duloxetine 
+treatment. Thus, a mediation analysis based on light-phenotyping data will not be carried out for this 
+study arm. 
+ 
+The study does not include a control group since each of the four therapies have been previously 
+shown to be effective for treating cLBP. As a result, the mediation analyses will be conducted by 
+treatment group. Within each treatment group, the proposed treatment modifier will play the role 
+of the exposure in the mediation analysis. Hypothesized mediators were determined by the study 
+investigators and are listed in Table 6 by treatment arm. 
+
+
+--- Page 33 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 9 of 42 
+ 
+ 
+For example, consider the PT/Exercise treatment group. Investigators expect that individuals who 
+both receive the PT/Exercise treatment and have lower self-perception of their own efficacy will 
+respond better to the PT/Exercise intervention and have lower PROMIS Pain Interference scores at 
+follow up. They believe that this effect is attributable in part to changes in the patients fear 
+avoidance beliefs and avoidance behaviors. The mediation analysis will assess whether greater pain 
+catastrophizing is associated with a greater reduction in fear avoidance beliefs, which leads to 
+greater improvement in pain interference scores.  
+ 
+The outcome measure for each mediation analysis will be the PROMIS Pain Interference score 
+measured at T3. The exposures and mediators will be measured at T2 and the first treatment-stage 
+midpoint, respectively. 
+ 
+Table 6 Hypothesized Mediation Analyses by Treatment. 
+Treatment 
+Mediation Analysis Exposure (X) 
+Expected treatment mediator 
+(M) 
+MBSR 
+PROMIS Pain Catastrophizing 
+Experiences Questionnaire Score 
+PT/Exercise 
+Pain Self-Efficacy Score 
+Fear Avoidance Beliefs 
+Questionnaire 
+Acupressure 
+Fibromyalgia Screening Score 
+GSS-8 
+ 
+Here we present the generic model that will be used in each mediation analysis. Figure 3 shows a 
+graphical representation of the model. Let 𝑌𝑌𝑖𝑖 denote the T3 PROMIS pain interference score for the 
+𝑖𝑖𝑡𝑡ℎ subject in a single treatment arm. Let 𝑋𝑋𝑖𝑖 and 𝑀𝑀𝑖𝑖 denote the 𝑖𝑖𝑡𝑡ℎ subject’s measurements of 
+corresponding exposure and mediator, measured at T2 and the first treatment stage midpoint, 
+respectively. Note that both 𝑋𝑋𝑖𝑖 and 𝑀𝑀𝑖𝑖 depend on the treatment arm. The vector 𝑊𝑊𝑖𝑖 contains the 
+baseline covariates: sex, age, BMI, race, and education. 
+ 
+We propose the following linear models for 𝑀𝑀𝑖𝑖 and 𝑌𝑌𝑖𝑖 for all 𝑖𝑖= 1, … , 𝑛𝑛: 
+ 
+ 
+𝑀𝑀𝑖𝑖= 𝛼𝛼0 + 𝛼𝛼1𝑋𝑋𝑖𝑖+ 𝜙𝜙1
+𝑇𝑇𝑊𝑊𝑖𝑖+ 𝜖𝜖1𝑖𝑖 
+ 
+𝑌𝑌𝑖𝑖= 𝛽𝛽0 + 𝛽𝛽1𝑋𝑋𝑖𝑖+ 𝛽𝛽2𝑀𝑀𝑖𝑖+ 𝜙𝜙2
+𝑇𝑇𝑊𝑊𝑖𝑖+ 𝜖𝜖2𝑖𝑖, 
+ 
+and 𝐶𝐶𝐶𝐶𝐶𝐶((𝜖𝜖𝑖𝑖1, 𝜖𝜖2𝑖𝑖)𝑇𝑇|𝑋𝑋𝑖𝑖, 𝑀𝑀𝑖𝑖, 𝑊𝑊𝑖𝑖) = 𝜎𝜎2𝐼𝐼. 
+ 
+For this model, the so-called indirect and direct effects of 𝑋𝑋𝑖𝑖 on 𝑌𝑌𝑖𝑖 are equal to 𝜏𝜏𝐼𝐼= 𝛼𝛼1𝛽𝛽2 and 𝜏𝜏𝐷𝐷=
+ 𝛽𝛽1. The “total effect” equals the sum of the indirect and direct effects: 𝜏𝜏= 𝜏𝜏𝐼𝐼+ 𝜏𝜏𝐷𝐷. Whether the 
+intermediary variable 𝑀𝑀 mediates the association between 𝑋𝑋 and 𝑌𝑌 is determined by assessing the 
+evidence against the null hypothesis that the indirect effect 𝜏𝜏 equals 0. The mediation models will be 
+fit in R using the mediation package 55.Inference for the indirect effect will be performed by creating 
+a 95% confidence interval for both the direct and indirect effects56 using bias-corrected and 
+accelerated bootstrapping. Confidence intervals for the proportion of the total effect mediated by 𝑀𝑀 
+will also be produced.  
+ 
+
+
+--- Page 34 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 10 of 42 
+ 
+Figure 3 Graphical representation of the mediation models. In all analyses Y represents a patients PROMIS Pain 
+Interference Score, while X and M depend on treatment arm. 
+ 
+10 Safety Analyses 
+Even though no serious side effects are expected from the treatments, in addition to the safeguards 
+in the SMART trial of the Research Project, the Core will monitor safety periodically with 3 interim 
+analyses and one final analysis, using the Fleming design 57. The analysis will occur after each 
+consecutive recruitment group of another 102 patients has completed their treatments (408 
+planned patients total under active treatments after drop-out).  
+ 
+Although it is highly unlikely that there will be extensive adverse events related to the study 
+treatment that is any grade 2 or higher because these are all commonly used treatments for cLBP, 
+we have established an alarm procedure. The alarm procedure is designed to give early warning if 
+the rate of any related AEs, grade 2 or reaches 15% or above. The standard rate is assumed to be 
+10%. We will consider an alarm when more than 21, 31, 41, and 51 patients show adverse events 
+and classify as related events and are a grade 2 or higher at the 3 interim tests and the final analysis, 
+respectively. If the rate of adverse events is indeed at 15% or higher, the suggestion to stop the trial 
+will be generated by this procedure at 253 treated patients or less on average. Errors of both types 
+are set at 5%. A decision that the rate is safe will be suggested after 265 patients on average. 
+ 
+Events that may require the study to be discontinued or participant to be withdrawn from the study 
+are described in the Protocol Section 18.1.6 and Section 22. 
+ 
+10.1 Adverse Events 
+An AE will be defined as any unfavorable or unintended change in structure, function, signs, or 
+symptoms temporally associated with the conduct of this study whether or not a causal relationship 
+with the study has been established. The participants will be asked to spontaneously report any AE 
+Date of onset and resolution (if applicable) of the AE will be documented. The PIs will monitor all AEs 
+to the termination of subject involvement in the study or to a satisfactory resolution if the AE is 
+ongoing. 
+Events will be considered study-related if classified by the PIs as definitely not, probably not, 
+possibly, probably, or definitely related according to the definitions in Table 7. 
+ 
+Table 7 Defining Relatedness for Adverse Events 
+Relatedness 
+Definition 
+Definitely 
+The event is definitely not associated with study. 
+𝛽𝛽1 
+𝛽𝛽2 
+𝛼𝛼1 
+X 
+M
+Y 
+T2 
+T3 
+Treatment 1 Midpoint 
+
+
+--- Page 35 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 11 of 42 
+ 
+Not 
+Probably 
+Not 
+The temporal association, patient history, or clinical condition is such that the 
+study is not likely to have had an association with the observed event. 
+Possibly 
+The event: a) follows a reasonable temporal association with the study procedures, 
+but b) could have been produced by the patient’s clinical condition or other 
+therapy. 
+Probably 
+The event: a) follows a reasonable temporal association with the study conduct, b) 
+abates upon discontinuation of study procedures, and c) cannot be reasonably 
+explained by the patient’s clinical condition or other therapy. 
+Definitely 
+The event: a) follows a reasonable temporal association with the study, b) abates 
+upon discontinuation of study procedures, c) cannot be reasonably explained by 
+the patient’s clinical condition or other therapy, and d) reappears on re-exposure 
+to the study intervention/procedures. 
+Unknown 
+Not enough information exists for the assessment of causality at the time of 
+occurrence. 
+ 
+Signs and symptoms will be graded by the PIs as mild, moderate, severe, or life threatening 
+according to the definitions below (Table 8).  
+ 
+Table 8 Defining symptom severity for adverse events 
+Grade 
+Definition 
+Mild 
+Causing no limitation of usual activity 
+Moderate 
+Causing some limitations of usual activities 
+Severe 
+Causing inability to carry out usual activities 
+Life-Threatening 
+Patient was at immediate risk of death from the event  
+10.1.1 Serious Adverse Events (SAE)  
+A serious adverse event (SAE) is defined as any adverse event that results in one or more of the 
+following outcomes: 
+• 
+Death 
+• 
+A life-threatening event 
+• 
+Inpatient hospitalization or prolongation of existing hospitalization relating to study 
+treatment 
+• 
+A persistent or significant disability/incapacity hospitalization relating to study treatment 
+• 
+An important medical event based upon appropriate medical judgment 
+10.1.2 Unanticipated Problem (UaP) Definition 
+An unanticipated problem may be either an actual harmful or unfavorable occurrence or any 
+development that potentially increased the likelihood of harm occurring in the future. Assessment 
+Criteria:                  
+• 
+Unanticipated Severity: The nature, severity, or frequency of the event(s) or information 
+was NOT expected, given descriptions in the study documents or the characteristics of 
+the subject population being studied. 
+• 
+Related: There is a reasonable possibility that the procedures involved in the research 
+caused the problem. 
+• 
+Increased Risk: The event(s) or information suggests that the research places subjects or 
+others at a greater risk of harm than was previously known or recognized (including 
+physical, psychological, economic, or social harm). 
+
+
+--- Page 36 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 12 of 42 
+ 
+10.1.3 Protocol Deviation (PD) 
+An accidental or unintentional change to, or non-compliance with the research protocol that does 
+not increase risk or decrease benefit or; does not have a significant effect on the subject's rights, 
+safety or welfare; and/or on the integrity of the data. Deviations may result from the action of the 
+subject, researcher, or research staff. Departure from the IRB approved research protocol without 
+prior IRB approval for the variation. 
+10.1.4 Expected Adverse Events 
+The following table describes expected adverse events in for this study (Table 9). Participant safety 
+monitoring and the process of halting the study is further described in the Protocol Section 23.  
+ 
+Table 9 Management of expected study adverse events 
+Expected Adverse Event  
+Criteria for 
+Management 
+Intervention Modification, if any 
+Biospecimen Collection 
+Bruising/Hematoma at site 
+of draw 
+Participant may 
+verbally report this. 
+Participant can apply ice to the area.  
+Discomfort with Physical Therapy 
+Muscle soreness 
+Back Pain 
+Fatigue 
+Bruising 
+Psychological distress 
+Participant reports 
+symptoms lasting 
+more than 2 hours. 
+ 
+Participant verbalizes 
+this. 
+Participants can stop as needed. 
+Modification may be made to the PT 
+program. Modification to be determined 
+by Physical Therapist. 
+Mindfulness-based Stress Reduction (MBSR) 
+Feelings of de-realization, 
+exacerbation of psychiatric 
+symptoms or clinical 
+deterioration. 
+Muscle soreness or injury 
+Clinical worsening of 
+depression and other 
+psychiatric symptom. 
+ 
+Participant verbalizes.  
+Will be evaluated by clinical psychologist 
+on the study team who may refer the 
+participant for appropriate treatment 
+including emergency service if required. 
+All reports of higher symptoms will be 
+discussed to determine if modifications to 
+the program need to be made. 
+Acupressure 
+Mild bruising at 
+acupressure sites 
+Participant verbalizes 
+bruising. 
+The participant is free to withdraw from 
+the intervention if the self-acupressure 
+intervention becomes uncomfortable.  
+Duloxetine 
+Nausea, vomiting, dry 
+mouth, constipation, 
+diarrhea, fatigue, and 
+difficulty sleeping. 
+ 
+Thoughts of self-harm or 
+suicidal ideation 
+ 
+Participant verbalizes 
+experiencing.  
+Study doctors will evaluate the participant. 
+Participants have the option to stay on 
+lower dose or stopping the medications. 
+ 
+Participants may be referred for 
+appropriate treatment including 
+emergency services if required. 
+Participation can also be discontinued if 
+there is active suicidal ideation. 
+Quantitative Sensory Testing 
+
+
+--- Page 37 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 13 of 42 
+ 
+Residual Soreness at testing 
+site 
+Headache, nausea 
+ 
+Participants displaying 
+sustained pain over 
+48 hours post testing. 
+Participant verbalizes 
+residual headache, or 
+nausea. 
+Participants will be allowed to take 
+NSAIDs. Stimuli duration and timing may 
+be reduced.  
+Follow up visual stimulation may be 
+omitted or reduced at the follow up visit. 
+Autonomic Nervous System Monitoring (BIOPAC) 
+Irritation to the skin 
+Anxiety or general unease  
+Participant verbalizes 
+Participant verbalizes 
+Participants will be instructed they can 
+stop participating at any time. Follow up 
+autonomic nervous system monitoring 
+may be omitted. 
+MRI 
+Claustrophobic 
+Discomfort from noise 
+ 
+Participants may stop the session at any 
+time. The follow up visit may omit the MRI 
+session. 
+10.1.5 Study Events Reporting Requirements 
+A timeline for reporting AEs, SAEs, UaPs and Protocol deviations to the NIAMS Executive Secretary 
+and the Institutional Review Board of the University of Michigan are described in Table 10.  
+ 
+Table 10 Timeline for Reporting Study Events to NIAMS and the IRB 
+Event 
+NIAMS Executive Secretary who 
+will report to the DSMB and 
+NIAMS 
+UM IRB 
+Serious Adverse 
+Event (Related) 
+Within 48 hours of the 
+investigator becoming aware of 
+the event  
+Within 7 days of occurrence 
+notification 
+Serious Adverse 
+Event (Unrelated or 
+Anticipated) 
+Within 48 hours of the 
+investigator becoming aware of 
+the event  
+Annual report to IRB prior to 
+scheduled continuing review 
+Non-serious adverse 
+events grade 2 or 
+higher (moderate or 
+greater) 
+All non-serious adverse events 
+(even those graded as “mild”) 
+should be reported in aggregate 
+as part of the routine DSMP 
+report 
+Annual report to IRB prior to 
+scheduled continuing review 
+Any unanticipated 
+problems that are 
+related to the study 
+and indicate risks to 
+subjects 
+Within 48 hours of the 
+investigator becoming aware of 
+the event  
+Serious problems within 7 days of 
+occurrence 
+ 
+Non-serious problems within 14 days 
+Privacy violation or 
+breach of 
+confidentiality  
+If impacting participant safety, 
+report within 48 hours of being 
+notified of the occurrence; all 
+other violations or breaches of 
+confidentiality that do not impact 
+participant safety can be 
+reported as part of the routine 
+DSMP report.  
+Report to IRB within 7 days 
+Within 24 hours to the UMHS Privacy 
+Office 
+Protocol deviations 
+If impacting participant safety, 
+report within 48 hours of being 
+Annual report to IRB prior to 
+scheduled continuing review 
+
+
+--- Page 38 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 14 of 42 
+ 
+notified of the occurrence; all 
+other deviations that do not 
+impact participant safety can be 
+reported as part of the routine 
+DSMP report 
+ 
+10.1.6 Informing Participants of AEs and SAEs  
+Participants will be informed of any adverse events or serious adverse events if risk-benefit profile is 
+impacted. Events significantly impacting the study integrity that will require a change in protocol and 
+additionally require re-consenting of participants. All active study participants would then be 
+notified. Furthermore, any participant incidental findings will be shared with the PI and conveyed 
+with participant’s health care provider. 
+11 Other Analyses 
+Exploratory, we will analyze the 12 embedded dynamic treatment regimens within the SMART 
+design using the joint model described in section 10.1.1. Additionally, we will consider further 
+tailoring of the embedded dynamic treatment regimens using augmented outcome-weighted 
+learning. 
+12 References 
+ 
+1.  
+Shmagel A, Foley R, Ibrahim H. Epidemiology of Chronic Low Back Pain in US Adults: Data From 
+the 2009-2010 National Health and Nutrition Examination Survey. Arthritis Care Res (Hoboken). 
+2016;68(11):1688-1694. doi:10.1002/acr.22890 
+2.  
+Baer RA. Mindfulness training as a clinical intervention: A conceptual and empirical review. 
+Clinical Psychology: Science & Practice. Published online 2003:125-143. 
+3.  
+Kabat-Zinn J. Wherever You Go, There You Are: Mindfulness Meditation in Everyday Life. 
+Hyperion; 1994. 
+4.  
+Anheyer D, Haller H, Barth J, Lauche R, Dobos G, Cramer H. Mindfulness-Based Stress 
+Reduction for Treating Low Back Pain: A Systematic Review and Meta-analysis. Ann Intern Med. 
+2017;166(11):799-807. doi:10.7326/M16-1997 
+5.  
+Bawa FLM, Mercer SW, Atherton RJ, et al. Does mindfulness improve outcomes in patients 
+with chronic pain? Systematic review and meta-analysis. Br J Gen Pract. 2015;65(635):e387-
+400. doi:10.3399/bjgp15X685297 
+6.  
+Nascimento PRC do, Costa LOP, Araujo AC, Poitras S, Bilodeau M. Effectiveness of interventions 
+for non-specific low back pain in older adults. A systematic review and meta-analysis. 
+Physiotherapy. 2019;105(2):147-162. doi:10.1016/j.physio.2018.11.004 
+7.  
+Hilton L, Hempel S, Ewing BA, et al. Mindfulness Meditation for Chronic Pain: Systematic 
+Review and Meta-analysis. Ann Behav Med. 2017;51(2):199-213. doi:10.1007/s12160-016-
+9844-2 
+8.  
+Goldberg SB, Tucker RP, Greene PA, et al. Mindfulness-based interventions for psychiatric 
+disorders: A systematic review and meta-analysis. Clin Psychol Rev. 2018;59:52-60. 
+doi:10.1016/j.cpr.2017.10.011 
+
+
+--- Page 39 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 15 of 42 
+ 
+9.  
+Goyal M, Singh S, Sibinga EMS, et al. Meditation programs for psychological stress and well-
+being: a systematic review and meta-analysis. JAMA Intern Med. 2014;174(3):357-368. 
+doi:10.1001/jamainternmed.2013.13018 
+10.  Kuyken W, Warren FC, Taylor RS, et al. Efficacy of Mindfulness-Based Cognitive Therapy in 
+Prevention of Depressive Relapse: An Individual Patient Data Meta-analysis From Randomized 
+Trials. JAMA Psychiatry. 2016;73(6):565-574. doi:10.1001/jamapsychiatry.2016.0076 
+11.  Eccleston C, Fisher E, Thomas KH, et al. Interventions for the reduction of prescribed opioid use 
+in chronic non-cancer pain. Cochrane Database Syst Rev. 2017;11:CD010323. 
+doi:10.1002/14651858.CD010323.pub3 
+12.  Garland EL, Howard MO. Mindfulness-based treatment of addiction: current state of the field 
+and envisioning the next wave of research. Addict Sci Clin Pract. 2018;13(1):14. 
+doi:10.1186/s13722-018-0115-3 
+13.  Garland EL, Thomas E, Howard MO. Mindfulness-oriented recovery enhancement ameliorates 
+the impact of pain on self-reported psychological and physical function among opioid-using 
+chronic pain patients. J Pain Symptom Manage. 2014;48(6):1091-1099. 
+doi:10.1016/j.jpainsymman.2014.03.006 
+14.  Tracey I. Finding the Hurt in Pain. Cerebrum. 2016;2016. Accessed May 17, 2021. 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5501013/ 
+15.  Wiech K, Ploner M, Tracey I. Neurocognitive aspects of pain perception. Trends Cogn Sci. 
+2008;12(8):306-313. doi:10.1016/j.tics.2008.05.005 
+16.  Fairhurst M, Wiech K, Dunckley P, Tracey I. Anticipatory brainstem activity predicts neural 
+processing of pain in humans. Pain. 2007;128(1-2):101-110. doi:10.1016/j.pain.2006.09.001 
+17.  Zeidan F, Vago D. Mindfulness meditation–based pain relief: a mechanistic account. Ann N Y 
+Acad Sci. 2016;1373(1):114-127. doi:10.1111/nyas.13153 
+18.  Bernstein A, Hadash Y, Lichtash Y, Tanay G, Shepherd K, Fresco DM. Decentering and Related 
+Constructs: A Critical Review and Metacognitive Processes Model. Perspect Psychol Sci. 
+2015;10(5):599-617. doi:10.1177/1745691615594577 
+19.  King AP, Fresco DM. A neurobehavioral account for decentering as the salve for the distressed 
+mind. Curr Opin Psychol. 2019;28:285-293. doi:10.1016/j.copsyc.2019.02.009 
+20.  Gu J, Strauss C, Bond R, Cavanagh K. How do mindfulness-based cognitive therapy and 
+mindfulness-based stress reduction improve mental health and wellbeing? A systematic review 
+and meta-analysis of mediation studies. Clin Psychol Rev. 2015;37:1-12. 
+doi:10.1016/j.cpr.2015.01.006 
+21.  Nathan HJ, Poulin P, Wozny D, et al. Randomized Trial of the Effect of Mindfulness-Based Stress 
+Reduction on Pain-Related Disability, Pain Intensity, Health-Related Quality of Life, and A1C in 
+Patients With Painful Diabetic Peripheral Neuropathy. Clin Diabetes. 2017;35(5):294-304. 
+doi:10.2337/cd17-0077 
+22.  Turner JA, Anderson ML, Balderson BH, Cook AJ, Sherman KJ, Cherkin DC. Mindfulness-based 
+
+
+--- Page 40 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 16 of 42 
+ 
+stress reduction and cognitive behavioral therapy for chronic low back pain: similar effects on 
+mindfulness, catastrophizing, self-efficacy, and acceptance in a randomized controlled trial. 
+Pain. 2016;157(11):2434-2444. doi:10.1097/j.pain.0000000000000635 
+23.  Garland EL, Hanley AW, Goldin PR, Gross JJ. Testing the mindfulness-to-meaning theory: 
+Evidence for mindful positive emotion regulation from a reanalysis of longitudinal data. PLoS 
+One. 2017;12(12). doi:10.1371/journal.pone.0187727 
+24.  Gard T, Hölzel BK, Sack AT, et al. Pain attenuation through mindfulness is associated with 
+decreased cognitive control and increased sensory processing in the brain. Cereb Cortex. 
+2012;22(11):2692-2702. doi:10.1093/cercor/bhr352 
+25.  Grant JA, Courtemanche J, Rainville P. A non-elaborative mental stance and decoupling of 
+executive and pain-related cortices predicts low pain sensitivity in Zen meditators. Pain. 
+2011;152(1):150-156. doi:10.1016/j.pain.2010.10.006 
+26.  Zeidan F, Martucci KT, Kraft RA, Gordon NS, McHaffie JG, Coghill RC. Brain Mechanisms 
+Supporting the Modulation of Pain by Mindfulness Meditation. J Neurosci. 2011;31(14):5540-
+5548. doi:10.1523/JNEUROSCI.5791-10.2011 
+27.  Tang Y-Y, Hölzel BK, Posner MI. The neuroscience of mindfulness meditation. Nat Rev Neurosci. 
+2015;16(4):213-225. doi:10.1038/nrn3916 
+28.  Vago DR, Zeidan F. The brain on silent: mind wandering, mindful awareness, and states of 
+mental tranquility. Ann N Y Acad Sci. 2016;1373(1):96-113. doi:10.1111/nyas.13171 
+29.  Fox KCR, Dixon ML, Nijeboer S, et al. Functional neuroanatomy of meditation: A review and 
+meta-analysis of 78 functional neuroimaging investigations. Neurosci Biobehav Rev. 
+2016;65:208-228. doi:10.1016/j.neubiorev.2016.03.021 
+30.  Gotink RA, Meijboom R, Vernooij MW, Smits M, Hunink MGM. 8-week Mindfulness Based 
+Stress Reduction induces brain changes similar to traditional long-term meditation practice - A 
+systematic review. Brain Cogn. 2016;108:32-41. doi:10.1016/j.bandc.2016.07.001 
+31.  Zeidan F. No, Mindfulness Meditation-Based Analgesia Is Not Mediated by Endogenous 
+Opioids. Am J Med. 2016;129(11):e297. doi:10.1016/j.amjmed.2016.04.027 
+32.  Zeidan F, Emerson NM, Farris SR, et al. Mindfulness Meditation-Based Pain Relief Employs 
+Different Neural Mechanisms Than Placebo and Sham Mindfulness Meditation-Induced 
+Analgesia. J Neurosci. 2015;35(46):15307-15325. doi:10.1523/JNEUROSCI.2542-15.2015 
+33.  Delitto A, George SZ, Van Dillen L, et al. Low back pain. J Orthop Sports Phys Ther. 
+2012;42(4):A1-57. doi:10.2519/jospt.2012.42.4.A1 
+34.  Pedersen BK, Saltin B. Exercise as medicine – evidence for prescribing exercise as therapy in 26 
+different chronic diseases. Scandinavian Journal of Medicine & Science in Sports. 2015;25(S3):1-
+72. doi:https://doi.org/10.1111/sms.12581 
+35.  Savage RA, Whitehouse GH, Roberts N. The relationship between the magnetic resonance 
+imaging appearance of the lumbar spine and low back pain, age and occupation in males. Eur 
+Spine J. 1997;6(2):106-114. doi:10.1007/BF01358742 
+
+
+--- Page 41 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 17 of 42 
+ 
+36.  Meng X-G, Yue S-W. Efficacy of aerobic exercise for treatment of chronic low back pain: a 
+meta-analysis. Am J Phys Med Rehabil. 2015;94(5):358-365. 
+doi:10.1097/PHM.0000000000000188 
+37.  Vickers AJ, Vertosick EA, Lewith G, et al. Acupuncture for Chronic Pain: Update of an Individual 
+Patient Data Meta-Analysis. J Pain. 2018;19(5):455-474. doi:10.1016/j.jpain.2017.11.005 
+38.  Kwon C-Y, Lee B. Clinical effects of acupressure on neck pain syndrome (nakchim): a systematic 
+review. Integr Med Res. 2018;7(3):219-230. doi:10.1016/j.imr.2018.01.002 
+39.  You E, Kim D, Harris R, D’Alonzo K. Effects of Auricular Acupressure on Pain Management: 
+A Systematic Review. Pain Manag Nurs. 2019;20(1):17-24. doi:10.1016/j.pmn.2018.07.010 
+40.  Hsieh LL-C, Kuo C-H, Yen M-F, Chen TH-H. A randomized controlled clinical trial for low back 
+pain treated by acupressure and physical therapy. Prev Med. 2004;39(1):168-176. 
+doi:10.1016/j.ypmed.2004.01.036 
+41.  Hsieh LL-C, Kuo C-H, Lee LH, Yen AM-F, Chien K-L, Chen TH-H. Treatment of low back pain by 
+acupressure and physical therapy: randomised controlled trial. BMJ. 2006;332(7543):696-700. 
+doi:10.1136/bmj.38744.672616.AE 
+42.  Yeh CH, Kwai-Ping Suen L, Chien L-C, et al. Day-to-Day Changes of Auricular Point Acupressure 
+to Manage Chronic Low Back Pain: A 29-day Randomized Controlled Study. Pain Med. 
+2015;16(10):1857-1869. doi:10.1111/pme.12789 
+43.  Yeh CH, Morone NE, Chien L-C, et al. Auricular point acupressure to manage chronic low back 
+pain in older adults: a randomized controlled pilot study. Evid Based Complement Alternat 
+Med. 2014;2014:375173. doi:10.1155/2014/375173 
+44.  Zick SM, Sen A, Wyatt GK, Murphy SL, Arnedt JT, Harris RE. Investigation of 2 Types of Self-
+administered Acupressure for Persistent Cancer-Related Fatigue in Breast Cancer Survivors: A 
+Randomized Clinical Trial. JAMA Oncol. 2016;2(11):1470-1476. 
+doi:10.1001/jamaoncol.2016.1867 
+45.  Zick SM, Sen A, Hassett AL, et al. Impact of Self-Acupressure on Co-Occurring Symptoms in 
+Cancer Survivors. JNCI Cancer Spectrum. 2018;2(pky064). doi:10.1093/jncics/pky064 
+46.  Skljarevski V, Ossanna M, Liu-Seifert H, et al. A double-blind, randomized trial of duloxetine 
+versus placebo in the management of chronic low back pain. Eur J Neurol. 2009;16(9):1041-
+1048. doi:10.1111/j.1468-1331.2009.02648.x 
+47.  Konno S, Oda N, Ochiai T, Alev L. Randomized, Double-blind, Placebo-controlled Phase III Trial 
+of Duloxetine Monotherapy in Japanese Patients With Chronic Low Back Pain. Spine (Phila Pa 
+1976). 2016;41(22):1709-1717. doi:10.1097/BRS.0000000000001707 
+48.  Cawston H, Davie A, Paget M-A, Skljarevski V, Happich M. Efficacy of duloxetine versus 
+alternative oral therapies: an indirect comparison of randomised clinical trials in chronic low 
+back pain. Eur Spine J. 2013;22(9):1996-2009. doi:10.1007/s00586-013-2804-7 
+49.  Schmidt-Wilcke T, Clauw DJ. Fibromyalgia: from pathophysiology to therapy. Nat Rev 
+Rheumatol. 2011;7(9):518-527. doi:10.1038/nrrheum.2011.98 
+
+
+--- Page 42 ---
+Statistical Analysis Plan 
+  
+SAP version 1.9: BACPAC Study 
+09 October 2025 
+Page 18 of 42 
+ 
+50.  Deyo RA, Dworkin SF, Amtmann D, et al. Report of the NIH Task Force on Research Standards 
+for Chronic Low Back Pain. Phys Ther. 2015;95(2):e1-e18. doi:10.2522/ptj.2015.95.2.e1 
+51.  Williams DA, Kuper D, Segar M, Mohan N, Sheth M, Clauw DJ. Internet-enhanced management 
+of fibromyalgia: a randomized controlled trial. Pain. 2010;151(3):694-702. 
+doi:10.1016/j.pain.2010.08.034 
+52.  Kratz AL, Alschuler KN, Williams DA, Ehde DM. Development and pilot testing of a web-based 
+symptom management program for multiple sclerosis: My MS toolkit. Rehabil Psychol. 
+Published online February 4, 2021. doi:10.1037/rep0000375 
+53.  Henry NL, Kidwell KM, Alsamarraie C, et al. Pilot Study of an Internet-Based Self-Management 
+Program for Symptom Control in Patients With Early-Stage Breast Cancer. JCO Clin Cancer 
+Inform. 2018;2:1-12. doi:10.1200/CCI.17.00106 
+54.  Shortreed SM, Laber E, Scott Stroup T, Pineau J, Murphy SA. A multiple imputation strategy for 
+sequential multiple assignment randomized trials. Stat Med. 2014;33(24):4202-4214. 
+doi:10.1002/sim.6223 
+55.  Tingley D, Yamamoto T, Hirose K, Keele L, Imai K. mediation: R Package for Causal Mediation 
+Analysis. Journal of Statistical Software. 2014;59(1):1-38. doi:10.18637/jss.v059.i05 
+56.  Imai K, Keele L, Tingley D. A general approach to causal mediation analysis. Psychological 
+Methods. 2010;15(4):309-334. doi:10.1037/a0020761 
+57.  Fleming TR. One-sample multiple testing procedure for phase II clinical trials. Biometrics. 
+1982;38(1):143-151. 
+ 
+ 
+13 Appendix A 
+BACPAC_SAP_Appe
+ndixA_Consort_8-19 

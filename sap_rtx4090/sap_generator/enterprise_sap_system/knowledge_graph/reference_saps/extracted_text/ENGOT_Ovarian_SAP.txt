@@ -1,0 +1,3726 @@
+
+--- Page 1 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 1 of 79 
+STATISTICAL ANALYSIS PLAN 
+The FIRST (First-line ovarian cancer treatment with Niraparib plus TSR-042) 
+Study: 
+A RANDOMIZED, DOUBLE-BLIND, PHASE 3 COMPARISON OF 
+PLATINUM-BASED THERAPY WITH TSR-042 AND NIRAPARIB 
+VERSUS STANDARD OF CARE PLATINUM-BASED THERAPY AS 
+FIRST-LINE TREATMENT OF STAGE III OR IV NONMUCINOUS 
+EPITHELIAL OVARIAN CANCER 
+Protocol 3000-03-005/ENGOT-OV44/GSK 213350 (FIRST) 
+ 
+Protocol Number: 
+3000-03-005/ENGOT-OV44/GSK 213350 (FIRST) 
+Protocol Version and Date: 
+Version 10.0: 24 October 2024 (Amendment 8) 
+Version 9.0: 07 June 2024 (Amendment 7) 
+Version 8.0: 01 February 2022 (Amendment 6) 
+Version 7.0: 19 August 2020 (Amendment 5)                              
+Version 6.0: 14 January 2020 (Amendment 4)                              
+Version 5.0: 17 July 2019 (Amendment 3)                                   
+Version 4.0: 01 November 2018 (Amendment 2)                         
+Version 3.0: 11 July 2018 (Amendment 1)                          
+Version 2.0: 07 May 2018 (Original) 
+Version 1.0: 27 April 2018  
+Name of Test Drug: 
+Niraparib (GSK3985771); Dostarlimab (TSR-042) 
+Phase: 
+Phase 3 
+Methodology: 
+Double-Blind, Placebo-Controlled 
+Sponsor: 
+GSK 
+Sponsor Representatives: 
+MD 
+ 
+SAP Version and Date: 
+Version 6.0: 06 Nov 2024 (Amendment 5) 
+Version 5.0: 13 AUG2024 (Amendment 4) 
+Version 4.0: 28 JUN 2024 (Amendment 3) 
+Version 3.0: 29 MAY 2024 (Amendment 2) 
+Version 2.0: 18 OCT 2022 (Amendment 1) 
+Version 1.0: 16 AUG 2022 
+ 
+Copyright 2024 the GSK group of companies. All rights reserved.  Unauthorized copying or use of this 
+information is prohibited. 
+PPD
+PPD
+
+
+--- Page 2 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 2 of 79 
+SAP Author(s) 
+Author 
+Date 
+ 
+Lead Statistician  
+Senior Statistician, Dev Biostats 
+Stats Onc 
+29OCT2024 
+ 
+SAP Biostatistics Line Approval (TMF eSignature): 
+Date 
+06 Nov 2024  
+ 
+SAP Team Review Confirmations (E-mail 
+Confirmation) 
+Reviewer 
+Date 
+ 
+Programming Leader, Dev Biostats 
+Prog Onc 
+30OCT2024 
+Oncology 
+Clinical Development 
+31OCT2024 
+Pharma 
+Safety 
+30OCT2024 
+Patient Centered Outcomes 
+31OCT2024 
+Clinical Pharmacologist Consultant 
+30OCT2024 
+ Immunogenicity   
+01NOV2024 
+ 
+Approver 
+ 
+Project Statistician  
+, Dev Biostats 
+Stats Onc 
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+
+
+--- Page 3 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 3 of 79 
+TABLE OF CONTENTS 
+TABLE OF CONTENTS ............................................................................................................3 
+1. 
+INFORMATION FROM THE STUDY PROTOCOL .................................................14 
+1.1. 
+Objectives ..........................................................................................................14 
+1.2. 
+Study Design .....................................................................................................15 
+1.2.1. 
+Synopsis of Study Design ..................................................................15 
+1.2.1.1. Design Features ...................................................................15 
+1.2.1.2. Study Periods ......................................................................17 
+1.2.2. 
+Randomization Methodology .............................................................19 
+1.2.3. 
+Stopping Rules and Unblinding .........................................................19 
+1.2.4. 
+Study Procedures ...............................................................................20 
+1.2.5. 
+Study Treatments ...............................................................................20 
+1.2.6. 
+Study Endpoints .................................................................................20 
+1.2.6.1. Efficacy Endpoints ..............................................................20 
+1.2.6.2. HRQoL Endpoints ...............................................................21 
+1.2.6.3. Biomarker Endpoints ..........................................................21 
+1.2.6.4. Immunogenicity Endpoints .................................................22 
+1.2.6.5. Pharmacokinetic Endpoints .................................................22 
+1.2.6.6. Safety Parameters ................................................................22 
+2. 
+PARTICIPANT POPULATION ...................................................................................23 
+2.1. 
+Population Definitions ......................................................................................23 
+2.2. 
+Protocol Deviations ...........................................................................................24 
+3. 
+GENERAL STATISTICAL METHODS .....................................................................24 
+3.1. 
+Sample Size Determination ...............................................................................24 
+3.2. 
+General Methods ...............................................................................................25 
+3.3. 
+Computing Environment ...................................................................................26 
+3.4. 
+Analysis Periods ................................................................................................26 
+3.5. 
+Baseline Definitions ..........................................................................................28 
+3.6. 
+Adjustments for Covariates/Stratification Factors ............................................28 
+3.7. 
+Subgroups ..........................................................................................................28 
+3.8. 
+Multiplicity ........................................................................................................30 
+3.8.1. 
+Multiple Comparisons ........................................................................30 
+
+
+--- Page 4 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 4 of 79 
+3.8.2. 
+Interim Analyses ................................................................................31 
+3.9. 
+Missing Data .....................................................................................................31 
+3.10. Handling of Partial Dates ..................................................................................31 
+3.11. Visit Windows ...................................................................................................34 
+4. 
+STUDY ANALYSES ...................................................................................................35 
+4.1. 
+Participant Disposition ......................................................................................35 
+4.2. 
+Demographics, Baseline Characteristics, and Medical History ........................36 
+4.2.1. 
+Demographic and Baseline Characteristics .......................................36 
+4.2.2. 
+Medical Conditions ............................................................................38 
+4.3. 
+Efficacy Analyses..............................................................................................38 
+4.3.1. 
+Primary Efficacy Endpoint ................................................................38 
+4.3.1.1. Sensitivity Analyses ............................................................42 
+4.3.1.1.1. No censoring at follow-up therapy (SA1) ................................. 42 
+4.3.1.1.2. Initiation of follow-up therapy treated as an event (SA2) ......... 43 
+4.3.1.1.3. Clinical disease progression treated as an event (SA3) ............. 44 
+4.3.1.1.4. Based on actual stratification levels (SA4) ............................... 45 
+4.3.1.1.5. PD-L1 status as stratification factor (SA5) ............................... 45 
+4.3.1.1.6. Unstratified log-rank test (SA6) ................................................ 45 
+4.3.1.1.7. Non-proportional hazards (SA7) ............................................... 45 
+4.3.1.2. Subgroup Analyses .............................................................46 
+4.3.1.2.1. Supportive Subgroup Analyses ................................................. 46 
+4.3.2. 
+Secondary Efficacy Endpoints ...........................................................47 
+4.3.2.1. OS ........................................................................................47 
+4.3.2.2. PFS
+by BICR assessment .......................48 
+4.3.2.3. TFST ...................................................................................48 
+4.3.2.4. TSST ...................................................................................49 
+4.3.2.5. PFS2 ....................................................................................49 
+4.3.2.6. ORR/DCR
+without confirmation by 
+Investigator assessment .......................................................50 
+4.3.2.7. DOR
+.......................................................51 
+4.3.2.8. HRQoL ................................................................................51 
+4.3.2.8.1. Analysis population ................................................................... 52 
+CCI
+CCI
+CCI
+
+
+--- Page 5 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 5 of 79 
+4.3.2.8.2. Description and Scoring of the EQ-5D-5L ................................ 52 
+4.3.2.8.3. EORTC QLQ-C30 and OV28 ................................................... 54 
+4.3.2.8.4. Statistical Methods for the PRO Analyses ................................ 57 
+4.3.3. 
+PD-L1 Positive Participants ...............................................................60 
+4.3.4. 
+Comparisons to Arm 1 .......................................................................60 
+4.4. 
+Safety Analyses .................................................................................................61 
+4.4.1. 
+Treatment Exposure ...........................................................................61 
+4.4.1.1. Niraparib/placebo Treatment Exposure ..............................61 
+4.4.1.2. Dostarlimab/placebo Treatment Exposure ..........................62 
+4.4.1.3. Chemotherapy/Bevacizumab Treatment Exposure .............62 
+4.4.1.4. Overall Treatment Exposure ...............................................63 
+4.4.1.5. Dose/infusion Interruptions .................................................64 
+4.4.1.6. Dose Reductions .................................................................64 
+4.4.1.7. Infusion Delays ...................................................................64 
+4.4.2. 
+Adverse Events ..................................................................................64 
+4.4.2.1. Overview .............................................................................64 
+4.4.2.2. Adverse Events of Special Interest .....................................68 
+4.4.2.3. Adverse Events of Medical Interest ....................................69 
+4.4.2.4. Immune-Related Adverse Events ........................................69 
+4.4.2.5. IRRs ....................................................................................70 
+4.4.3. 
+Deaths ................................................................................................70 
+4.4.4. 
+COVID-19 ..........................................................................................71 
+4.4.5. 
+Laboratory Data .................................................................................71 
+4.4.6. 
+Vital Signs ..........................................................................................72 
+4.4.7. 
+ECOG Performance Status ................................................................72 
+4.4.8. 
+Pregnancy ...........................................................................................72 
+4.4.9. 
+Prior and Concomitant Medications and Surgical Procedures...........73 
+4.4.10. 
+Follow-Up Anticancer Therapies .......................................................73 
+4.5. 
+Pharmacokinetic Analysis .................................................................................74 
+4.6. 
+Immunogenicity Analysis .................................................................................75 
+4.7. 
+Interim Analyses ...............................................................................................76 
+4.8. 
+Changes to Protocol Defined Analyses .............................................................76 
+
+
+--- Page 6 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 6 of 79 
+5. 
+REFERENCES ..............................................................................................................77 
+6. 
+SAP AMENDMENT SUMMARY OF CHANGES .....................................................78 
+ 
+ 
+ 
+ 
+
+
+--- Page 7 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 7 of 79 
+TABLES INCLUDED IN THE TEXT 
+Table 1 
+Handling of Partial Dates ................................................................................................ 31 
+Table 2 
+Windows (Inclusive) for HRQoL Assessments after EOT ............................................. 35 
+Table 3 
+Censoring Rules for Primary Analysis of PFS ................................................................ 39 
+Table 4  
+Tumor Assessment Windowing ...................................................................................... 40 
+Table 5  
+PFS SA1 Censoring Rules ............................................................................................... 43 
+Table 6   
+PFS SA2 Censoring Rules ............................................................................................... 44 
+Table 7  
+TFST Censoring Rules .................................................................................................... 48 
+Table 8  
+TSST Censoring Rules .................................................................................................... 49 
+Table 9  
+PFS2 Censoring Rules ..................................................................................................... 50 
+Table 10  
+Scores of EQ-5D-5L Descriptive System........................................................................ 52 
+Table 11  
+US Weighted Scores of EQ-5D-5L Descriptive System ................................................. 53 
+Table 12  
+QLQ-C30 v3.0 Scoring ................................................................................................... 54 
+Table 13  
+QLQ-OV28 Scoring ........................................................................................................ 56 
+Table 14  
+Definition of Change from Baseline for EORTC QLQ-C30 and QLQ-OV28 
+Scales Based on Minimum Clinically Important Difference (MCID) 
+Threshold ......................................................................................................................... 60 
+Table 15  
+Adverse Events of Special Interest .................................................................................. 68 
+Table 16 
+Adverse Events of Medical Interest ................................................................................ 69 
+Table 17 
+irAE GSKMQ TOI Codes ............................................................................................... 70 
+Table 18 
+IRR CMQ TOI Code ....................................................................................................... 70 
+ 
+ 
+
+
+--- Page 8 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 8 of 79 
+FIGURES INCLUDED IN THE TEXT 
+Figure 1 
+Study Design ................................................................................................................... 16 
+Figure 2 
+Testing Strategy ............................................................................................................... 30 
+ 
+
+
+--- Page 9 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 9 of 79 
+LIST OF ABBREVIATIONS AND DEFINITION OF TERMS 
+Abbreviation 
+Definition 
+ADP 
+Adenosine diphosphate 
+AE 
+Adverse event 
+AEMI 
+Adverse event of medical interest  
+AESI 
+Adverse event of special interest 
+ALP 
+Alkaline phosphatase 
+ALT 
+Alanine aminotransferase 
+AML 
+Acute myeloid leukemia 
+ANC 
+Absolute neutrophil count 
+aPTT 
+Activated partial thromboplastin time 
+AST 
+Aspartate aminotransferase 
+ATC 
+Anatomical Therapeutic Chemical 
+AUC 
+Area under curve 
+BICR 
+Blinded Independent Central Review 
+BMI 
+Body mass index 
+BOR 
+Best overall response 
+BRCA 
+Breast cancer susceptibility gene 
+BRCAmut 
+BRCA mutated 
+BRCAwt 
+BRCA wild-type  
+BUN 
+Blood urea nitrogen 
+CxDx 
+Cycle x/Day x 
+CA-125 
+Cancer antigen 125 
+CBC 
+Complete blood count 
+CC0 
+Complete cytoreduction score of zero 
+CDx 
+Companion diagnostic  
+CI 
+Confidence interval 
+COVID-19 
+Coronavirus disease 2019 
+CPMS 
+Clinical Pharmacology Modeling & Simulation 
+CCI
+
+
+--- Page 10 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 10 of 79 
+Abbreviation 
+Definition 
+CR 
+Complete response 
+CREAT 
+Creatinine 
+CSR 
+Clinical study report 
+CTCAE 
+Common Terminology Criteria for Adverse Events 
+DBP 
+Diastolic blood pressure 
+DCO 
+Data cut off 
+DCR 
+Disease control rate 
+DNA 
+Deoxyribonucleic acid 
+DOR 
+Duration of response 
+ECG 
+Electrocardiogram 
+ECOG 
+Eastern Cooperative Oncology Group 
+eCRF 
+Electronic case report form 
+EORTC-QLQ-C30 
+European Organization for Research and Treatment of Cancer Quality of 
+Life Questionnaire C30 
+EORTC-QLQ-OV28 
+European Organization for Research and Treatment of Cancer Quality of 
+Life Questionnaire Ovarian Cancer Module OV28 
+EQ-5D-5L 
+European Quality of Life scale, 5-Dimensions 
+E-R 
+Exposure-response 
+EOT 
+End of treatment 
+FH 
+Fleming-Harrington 
+FIGO 
+International Federation of Gynecology and Obstetrics 
+FUACT 
+Follow-up anticancer therapy 
+G-CSF 
+Granulocyte colony stimulating factor 
+GI 
+Gastrointestinal 
+GSK 
+Glaxo Smith Kline 
+GSKMQ 
+GSK MedDRA query 
+HLT 
+High level terms 
+CCI
+CCI
+CCI
+
+
+--- Page 11 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 11 of 79 
+Abbreviation 
+Definition 
+HR 
+Hazard ratio 
+HRD 
+Homologous recombination deficiency 
+HRd 
+Homologous recombination deficient 
+HRp 
+Homologous recombination proficient 
+HRQoL 
+Health-related quality of life 
+HRR 
+Homologous recombinant repair 
+HRRneg 
+HRR negative 
+HRRpos 
+HRR positive  
+HUI 
+Health Utility Index 
+ICF 
+Informed consent form 
+ID 
+Identifier 
+IDMC 
+Independent Data Monitoring Committee 
+IDS 
+Interval debulking surgery 
+IHC 
+ImmunoHistoChemistry 
+INR 
+International normalized ratio 
+IPCW 
+Inverse Probability of Censoring Weighting 
+irAE 
+Immune-related adverse event 
+IRB 
+Institutional review board 
+IRR 
+Infusion-related reaction 
+ITT 
+Intent-to-treat 
+IV 
+Intravenous 
+KM 
+Kaplan-Meier 
+LATA 
+Last adequate tumor assessment 
+LC/MS/MS 
+Liquid chromatography with tandem mass spectroscopy 
+MCT 
+Meaningful change threshold 
+MDS 
+Myelodysplastic syndrome 
+MedDRA 
+Medical Dictionary for Regulatory Activities 
+MH 
+Mantel Haenszel 
+MMRM 
+Mixed-effects model for repeated measures 
+
+
+--- Page 12 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 12 of 79 
+Abbreviation 
+Definition 
+MPFS 
+Maintenance progression-free survival 
+MSAF 
+Maintenance safety analysis population 
+NA 
+Not applicable 
+NCI 
+National Cancer Institute 
+NACT 
+Neoadjuvant chemotherapy 
+ND 
+No disease 
+NE 
+Not evaluable 
+OPS 
+Output and programming specification 
+ORR 
+Objective response rate 
+OS 
+Overall survival 
+PARP 
+Poly(ADP-ribose) polymerase 
+PD 
+Progressive disease / disease progression 
+PD-L1 
+Programmed death-ligand 1 
+PD-1 
+Programmed cell death protein 1 
+PDMS 
+Protocol Deviation Management System 
+PDS 
+Primary debulking surgery 
+PFS 
+Progression-free survival 
+PK 
+Pharmacokinetic 
+PR 
+Partial response 
+PRO 
+Patient-Reported Outcome 
+PT 
+Preferred term 
+QoL 
+Quality of life 
+Q1 
+First quartile 
+Q3 
+Third quartile 
+RAPIDO DV 
+Reporting and analysis plan improving design and delivery of outputs 
+data viewer 
+RDI 
+Relative dose intensity 
+RECIST 
+Response Evaluation Criteria in Solid Tumors 
+REML 
+Restricted maximum likelihood 
+
+
+--- Page 13 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 13 of 79 
+Abbreviation 
+Definition 
+ResBio 
+Resolution Biosciences 
+RMST 
+Restricted mean survival time 
+RoW 
+Rest of world 
+RS 
+Raw score  
+RTSM 
+Randomization and Trial Supply Management 
+SAC 
+Statistical analysis complete 
+SAE 
+Serious adverse event 
+SAF 
+Safety analysis  
+SAP 
+Statistical analysis plan 
+SAS 
+Statistical Analysis System 
+SBP 
+Systolic blood pressure 
+SD 
+Stable disease 
+SDTM 
+Study Data Tabulation Model 
+SMQ 
+Standardized MedDRA queries 
+SoA 
+Schedule of assessments 
+SoC 
+Standard of care 
+SOC 
+System organ class  
+TAP 
+Tumor area positivity 
+TEAE 
+Treatment-emergent adverse event 
+TESAE 
+Treatment-emergent serious adverse event 
+TFST 
+Time to first subsequent therapy 
+TOEP 
+Toeplitz 
+TOEPH 
+Toeplitz with heterogeneity 
+TOI 
+Term of interest 
+TSH 
+Thyroid stimulating hormone 
+TSST 
+Time to second subsequent therapy 
+US 
+United States 
+VAS 
+Visual Analogue Score 
+WHO 
+World Health Organization 
+
+
+--- Page 14 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 14 of 79 
+1. 
+INFORMATION FROM THE STUDY PROTOCOL 
+1.1. 
+Objectives 
+Primary Objective 
+The primary objective is to compare the progression free survival (PFS) of platinum-based 
+combination therapy, dostarlimab, and niraparib treatment (Arm 3) to platinum-based 
+combination therapy and niraparib treatment (Arm 2) in participants with Stage III or IV high 
+grade nonmucinous epithelial ovarian cancer. 
+Secondary Objectives 
+• Overall survival (OS, 
+ 
+• Blinded Independent Central Review (BICR) determined PFS per RECIST v1.1 criteria 
+• Health-related quality of life (HRQoL) 
+• Time to first subsequent therapy (TFST) 
+• Time to second subsequent therapy (TSST) 
+• Time from randomization to the earliest date of assessment of progression after initiation 
+of subsequent anticancer therapy following study treatment or death by any cause 
+(PFS2) 
+• Objective response rate (ORR) per 
+ 
+ 
+• Duration of response (DOR) per 
+ 
+ 
+• Disease control rate (DCR) per 
+ 
+ 
+• Pharmacokinetics (PK) and immunogenicity of dostarlimab 
+• PK of niraparib 
+Secondary objectives for platinum-based combination therapy (Arm 1), platinum-based 
+combination therapy and niraparib (Arm 2) and platinum-based combination therapy, 
+dostarlimab, and niraparib (Arm 3) for all participants will evaluate: 
+• Safety and tolerability 
+ 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 15 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 15 of 79 
+Exploratory Objectives 
+ 
+1.2. 
+Study Design 
+1.2.1. 
+Synopsis of Study Design 
+1.2.1.1. 
+Design Features  
+This is a global, multicenter, randomized, double-blind, controlled Phase 3 study in participants 
+with newly diagnosed, Stage III or IV high-grade nonmucinous epithelial ovarian, fallopian 
+tube, or peritoneal cancer (collectively referred to as “ovarian cancer”). The currently 
+recommended SoC for the first-line treatment of Stage III or IV ovarian cancer is a combination 
+of paclitaxel-carboplatin, with or without concurrent and maintenance bevacizumab. The use 
+and schedule of bevacizumab is optional and must be determined prior to randomization. 
+The study is open to participants with inoperable ovarian cancer, participants who have 
+macroscopic residual disease at the end of the primary debulking surgery (PDS) and have 
+recovered from PDS and participants for whom platinum-based combination neoadjuvant 
+chemotherapy (NACT) is planned. Participants with Stage IIIC disease that has been completely 
+resected (also known as complete cytoreduction score of 0 [CC0]) are eligible if the following 
+criteria is present: aggregate ≥5 cm extra-pelvic disease assessed by the Investigator during 
+PDS. 
+Treatment Arm 1 consists of SoC and intravenous (IV) dostarlimab placebo followed by oral 
+niraparib placebo and IV dostarlimab placebo in the maintenance phase of treatment. Arm 2 
+consists of SoC and IV dostarlimab placebo followed by oral niraparib and IV dostarlimab 
+placebo maintenance therapy. Arm 3 consists of SoC and IV dostarlimab followed by oral 
+niraparib and IV dostarlimab maintenance therapy. 
+CCI
+CCI
+
+
+--- Page 16 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 16 of 79 
+This study was designed to enable rapid adaptation to evolving treatment paradigms and provide 
+Investigators with the current SoC for participants with advanced ovarian cancer. This ensures 
+that study participants will have access to contemporaneous SoC with or without investigational 
+treatment while maintaining the integrity of the study. Full details on adaptations to the study 
+design are located in the protocol. 
+In total, 
+ 
+ 
+ 
+ 
+ 
+ 
+b All participants previously randomized to placebo and not receiving bevacizumab will be unblinded and provided 
+the option to receive niraparib maintenance if they have received chemotherapy or discontinued chemotherapy 
+≤12 weeks. 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 17 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 17 of 79 
+1.2.1.2. 
+Study Periods 
+The study consists of the following periods: 
+Pre-Screening Period 
+During the Pre-Screening Period, participants may sign a pre-Screening informed consent form 
+consenting to collection of the required tumor tissue sample 
+ 
+ 
+ 
+. The Pre-Screening Period can take place 
+within the 14 days prior to the Screening Period, defined as the date of signing the main 
+informed consent, but does not have to encompass the full period. A participant can move to the 
+Screening Period once deemed able. 
+Screening Period 
+During the Screening Period, participants will sign the main consent form and complete all 
+assessments required to determine eligibility into the study. The Screening Period is within 
+28 days prior to Cycle 1 Day 1 (C1D1) of the Chemotherapy Run-In Period. 
+Chemotherapy Run-In Period (Cycle 1) 
+Prior to randomization, all participants will receive 1 cycle of paclitaxel-carboplatin during a 
+Chemotherapy Run-In Period. Participants may also receive bevacizumab with paclitaxel-
+carboplatin as part of SoC per local practice. However, bevacizumab must not be administered 
+less than 28 days before or 28 days following major surgery, and post-operative incisions must 
+be fully healed. The determination to use bevacizumab must be made prior to randomization. 
+Participants will be randomized following Cycle 1, prior to treatment in Cycle 2 during the 
+Chemotherapy Treatment Period. Randomization may occur up to one week prior to Cycle 2 
+Day 1. Intraperitoneal chemotherapy and weekly paclitaxel will not be allowed. 
+Chemotherapy Treatment Period (Cycles 2 to 6) 
+Prior to chemotherapy administration of Cycle 2, all of the following criteria must be met: 
+• Absolute neutrophil count (ANC) ≥1500 cells/μL, or ≥1000 cells μL if granulocyte 
+colony stimulating factor (G-CSF) is to be administered 
+• Platelet count ≥100 000 cells/μL 
+Hemoglobin ≥8 g/dL 
+Thereafter, retreatment criteria for remaining chemotherapy Cycles 3 to 6 should be in 
+accordance with treatment guidelines per local practice. 
+Following randomization, participants who have inoperable disease or who have undergone 
+PDS will receive Cycles 2 to 6 of paclitaxel-carboplatin, for a total of 6 cycles of chemotherapy 
+inclusive of Cycle 1. Participants will also receive dostarlimab/placebo in combination with 
+paclitaxel-carboplatin started with Cycle 2 of chemotherapy, for a total 5 cycles. Bevacizumab 
+may continue per local practice. 
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 18 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 18 of 79 
+Participants for whom NACT is planned will receive 3 to 4 cycles of paclitaxel-carboplatin prior 
+to interval debulking surgery (IDS) (inclusive of Cycle 1) and 2 to 3 additional cycles of 
+paclitaxel-carboplatin following surgery for a maximum of 6 cycles of chemotherapy that 
+cannot be extended. Interval debulking surgery planned after 6 cycles of chemotherapy should 
+be discussed with the Sponsor. These participants will also receive dostarlimab/placebo, which 
+will be started with Cycle 2 of chemotherapy, for a total of 5 cycles. Chemotherapy and 
+dostarlimab/placebo will resume upon recovery of surgery. Participants for whom NACT is 
+planned may receive bevacizumab with paclitaxel/carboplatin per local practice; however, 
+bevacizumab must not be administered less than 28 days before or 28 days following major 
+surgery, and post-operative incisions must be fully healed. Intraperitoneal chemotherapy and 
+weekly paclitaxel will not be allowed. 
+Maintenance Treatment Period  
+Participants who complete the Chemotherapy Treatment Period without progressive disease 
+(PD) will start the Maintenance Treatment Period 3 weeks after Cycle 6 Day 1. 
+Dostarlimab/placebo ± bevacizumab will also continue in the Maintenance Treatment Period in 
+combination with oral maintenance treatment, per study schedule. However, the start of 
+niraparib/placebo will be delayed at least 6 weeks after Cycle 6 Day 1 and up to 9 weeks after to 
+allow for adequate recovery of hematologic toxicity. 
+Prior to starting the first dose of oral niraparib/placebo maintenance treatment, participants must 
+have a complete blood count (CBC) that demonstrates adequate recovery from hematologic 
+toxicity due to chemotherapy and blood pressure within the following limits: 
+• Absolute neutrophil count ≥1500 cells/μL 
+• Platelet count ≥100 000/μL 
+• Hemoglobin ≥9 g/dL 
+• Blood pressure <150/100 mmHg 
+Weekly CBC is to be performed for the first 4 weeks from the start of niraparib/placebo in the 
+Maintenance Treatment Period as follows: 
+1. Week 1 (Day of first dose): Cycle X Maintenance Day 1 (-3 day window)  
+2. Week 2: Cycle X Day 8 (no window, 7 days from First Dose)  
+3. Week 3: Unscheduled Visit (no window, 14 days from First Dose)  
+4. Week 4: Cycle X+1 Maintenance Day 1 (-3 day window) 
+The recommended order of administration is provided below, unless local clinical practice or 
+institutional policies differ: 
+During the Chemotherapy Treatment Period, 
+ 
+ 
+During the Maintenance Treatment Period, 
+ 
+ 
+ 
+ 
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 19 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 19 of 79 
+Follow-up Period (not defined in protocol) 
+After treatment discontinuation, participants will be followed for safety, follow-up anticancer 
+therapy, progression free survival, overall survival among other parameters as outlined in the 
+study protocol, APPENDIX 1. 
+1.2.3. 
+Stopping Rules and Unblinding 
+There are no pre-specified stopping rules for the study. 
+ An 
+unblinded study team consisting of, at a minimum, a site Pharmacist, back-up Pharmacist, and 
+Sponsor Monitor will keep confidential the treatment assignment of each participant and will 
+dispense the study medication, retain, and monitor the drug accountability records for the trial. 
+Participants who require unblinding of treatment assignment will be permanently discontinued 
+from study treatment but will continue to be followed unless the participant withdraws consent. 
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 20 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 20 of 79 
+Following implementation of Amendment 4, Arm 1 participants receiving bevacizumab will 
+remain blinded. Arm 1 participants not receiving bevacizumab will be unblinded centrally by 
+the Sponsor and a communication will be sent to the investigative site unblinding the 
+participants and indicating the treatment groups as outlined in the study protocol, APPENDIX 
+11. 
+Further details on unblinding are included in the study protocol Section 5.4.3 and the Study 
+Blinding Plan Version 3.0. 
+1.2.4. 
+Study Procedures 
+The schedule of assessments is outlined in the study protocol APPENDIX 1. 
+1.2.5. 
+Study Treatments  
+For analysis purposes and variable derivations, the chemotherapy run-in cycle received prior to 
+randomization is not considered part of study treatment. Any study protocol treatment received 
+post-randomization, including SoC (carboplatin+paclitaxel±bevacizumab), study drug (niraparib 
+and dostarlimab) and placebo, is considered study treatment. The first dose in the chemotherapy 
+period from randomization onwards, is considered first dose of study treatment. Randomization 
+is expected at C2D1.  
+Analyses will be presented by treatment arm per the following naming conventions: 
+Arm 1: carboplatin+paclitaxel±bevacizumab + IV dostarlimab placebo in the chemotherapy 
+period followed by oral niraparib placebo + IV dostarlimab placebo ±bevacizumab in the 
+maintenance treatment period 
+Arm 2: carboplatin+paclitaxel±bevacizumab + IV dostarlimab placebo in the chemotherapy 
+period followed by oral niraparib + IV dostarlimab placebo ±bevacizumab in the maintenance 
+treatment period 
+Arm 3: carboplatin+paclitaxel±bevacizumab + IV dostarlimab in the chemotherapy period 
+followed by oral niraparib + IV dostarlimab ±bevacizumab in the maintenance treatment period. 
+ 
+1.2.6. 
+Study Endpoints 
+1.2.6.1. 
+Efficacy Endpoints 
+The primary efficacy endpoint is PFS 
+ defined as the time from the date of 
+randomization to the date of first documented PD 
+, 
+or death by any cause, whichever occurs first.  
+Secondary efficacy endpoints are: 
+• OS, defined as the time from randomization to the date of death by any cause.  
+• BICR 
+ 
+• TFST, defined as the time from randomization until the start date of the first subsequent 
+anticancer therapy or death by any cause, whichever occurs first. 
+CCI
+CCI
+CCI
+
+
+--- Page 21 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 21 of 79 
+• TSST, defined as the time from randomization until the start date of the second 
+subsequent anticancer therapy or death by any cause, whichever occurs first. 
+• PFS2, defined as the time from randomization until the date of first PD per Investigator’s 
+assessment after initiation of subsequent anticancer therapy or death by any cause, 
+whichever occurs first. 
+• ORR 
+ 
+ 
+ 
+  
+• DOR 
+ 
+ 
+ 
+ 
+• DCR 
+ 
+ 
+ 
+ 
+1.2.6.2. 
+HRQoL Endpoints 
+ 
+1.2.6.3. 
+Biomarker Endpoints 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 22 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 22 of 79 
+ 
+1.2.6.4. 
+Immunogenicity Endpoints 
+ 
+1.2.6.5. 
+Pharmacokinetic Endpoints 
+CCI
+CCI
+CCI
+
+
+--- Page 23 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 23 of 79 
+2. 
+PARTICIPANT POPULATION 
+2.1. 
+Population Definitions 
+In general, analyses will focus on the following analysis populations: 
+• The Screened population consists of all participants who signed the Pre-screening or 
+Screening Informed Consent Form (ICF). 
+• The Enrolled population consists of all screened participants who received at least one 
+cycle of SoC chemotherapy prior to randomization.  
+• The Intent-to-Treat (ITT) population consists of all randomized participants. These 
+participants will be analyzed “as randomized”. Any deceased participants randomized in 
+error with death prior to randomization will be excluded from the population. 
+• The Safety Analysis (SAF) population consists of all randomized participants who were 
+treated with at least one dose of study treatment. These participants will be analyzed “as 
+treated”, according to the treatment they actually received. This will differ from the 
+randomized treatment if another arm’s planned treatment was administered for more 
+than ≥50% of cycles.  
+CCI
+
+
+--- Page 24 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 24 of 79 
+• The Maintenance Safety Analysis (MSAF) population consists of all participants within 
+the Safety Analysis population that have received at least one dose of maintenance study 
+treatment. First dose of study treatment in the maintenance period is defined as the first 
+dose after maintenance enrollment. 
+• The PK analysis population consists of all participants in Arm 2 and Arm 3 who have 
+received at least 1 dose of dostarlimab and/or niraparib and have at least one measurable 
+post dose PK result. These participants will be analyzed “as treated”, according to the 
+treatment they actually received.  
+ 
+2.2. 
+Protocol Deviations 
+A protocol deviation is any failure to comply with the study protocol as approved by the 
+relevant regulatory authority, ethics committee and/or institutional review board (IRB), whether 
+planned or unplanned. 
+Protocol deviations will be tracked by the study team throughout the conduct of the study and 
+captured through Glaxo Smith Kline (GSK) Protocol Deviation Management System (PDMS) 
+or as a TESARO PDs.  
+These protocol deviations will be reviewed as follows. 
+• Data will be reviewed prior to database lock to ensure all important protocol deviations 
+are captured and categorized in the protocol deviations dataset. All protocol deviations 
+will be identified and finalized prior to database lock. 
+Protocol deviations that have been identified as due to coronavirus disease 2019 (COVID-19) 
+have a prefix “COVID-19”, protocol deviations that have been identified due to the war in 
+Ukraine contain “CONFLICT”. They will be assessed for importance following the same 
+criteria as any other protocol deviations. 
+A summary and listing of important protocol deviations will be provided. 
+ 
+3. 
+GENERAL STATISTICAL METHODS 
+3.1. 
+Sample Size Determination 
+CCI
+CCI
+CCI
+
+
+--- Page 25 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 25 of 79 
+ 
+3.2. 
+General Methods 
+Unless otherwise specified, all summaries and reporting will follow GSK Core Data Standards. 
+The ITT population will be used for all participant disposition and efficacy analyses unless 
+otherwise specified (e.g., screening status will be based on the screened population, treatment 
+status will be based on the safety population). The SAF population will be used for all safety 
+analyses unless otherwise specified (e.g., certain safety listings will be based on the Enrolled 
+population, maintenance period analyses will be based on the MSAF population). 
+Tabulations will be produced for appropriate demographic, baseline, efficacy, and safety 
+parameters.  
+Participant-level data will be available interactively via Reporting and Analysis Plan Improving 
+Design and Delivery of Outputs Data Viewer (RAPIDO DV) at the time of statistical analysis 
+complete (SAC). 
+For categorical variables, summary tabulations of the number and percentage of participants 
+within each category of the parameter will be presented.  
+For continuous variables, unless otherwise specified, the number of participants, mean, standard 
+deviation, median, first quartile (Q1), third quartile (Q3), minimum, and maximum values will be 
+presented. 
+Summaries will include all data collected per the schedule of assessments (SoA), listings will 
+include all data collected per SoA and any unscheduled assessments unless otherwise specified. 
+confidence intervals (CIs) will use 95% confidence level unless otherwise specified.  
+CCI
+
+
+--- Page 26 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 26 of 79 
+In addition: 
+• P-values greater than or equal to 0.0001, in general, will be presented to 4 decimal 
+places; p-values less than 0.0001 will be presented as “<0.0001” 
+• Weeks will be calculated as Number of days divided by 7 
+• Months will be calculated as Number of days divided by 30.4375 
+• Years will be calculated as Number of days divided by 365.25 
+• All tables, figures, and listings will include footers at the bottom of the page reflecting 
+the path of the programs used to generate the tables, figures, and listings, and date and 
+time of the generation of the output. 
+ 
+3.3. 
+Computing Environment 
+All statistical analyses will be performed using Statistical Analysis System (SAS) statistical 
+software v9.4 or later, unless otherwise noted. Medical history and AEs will be coded using the 
+current MedDRA version. Laboratory parameter changes will be described using shift tables, 
+relative to version 4.03 of the National Cancer Institute (NCI) Common Terminology Criteria 
+for Adverse Events (CTCAE). Prior and concomitant medications will be coded using the latest 
+version of the World Health Organization (WHO) Anatomical Therapeutic Chemical (ATC) 
+Classification. 
+ 
+3.4. 
+Analysis Periods 
+Unless otherwise specified: 
+• Efficacy measures will begin at “date of randomization” 
+o Analysis day for efficacy variables will use the date of randomization as 
+reference date. 
+• Safety measures will begin at “date of first dose of study treatment” after randomization. 
+o Analysis day for safety variables will use the date of first dose of study treatment 
+as reference date. 
+The following study periods will be defined for the calculation of flags, concomitant 
+medications and safety assessments. 
+ 
+Study Periods for Exposure/Laboratory/Vital Signs Calculations  
+• Study treatment start date is defined as the date of first dose of study treatment after 
+randomization. 
+• Study treatment stop date is defined as the latest dose of all study treatment. 
+• Chemotherapy treatment period: study treatment start date ≤ date ≤ min(chemotherapy 
+study treatment stop date + 90 days, maintenance study treatment start date-1 day) 
+
+
+--- Page 27 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 27 of 79 
+o For participants who do not start maintenance treatment, set maintenance study 
+treatment start date to Infimum. 
+o Chemotherapy study treatment stop date is defined as the latest date from 
+chemotherapy dosing of SoC, dostarlimab/placebo and bevacizumab.  
+• Maintenance treatment period: maintenance study treatment start date ≤ date ≤study 
+treatment stop date + 90 days 
+o Maintenance study treatment start date is defined as the earliest date from the 
+maintenance dosing of niraparib/placebo and dostarlimab/placebo and 
+bevacizumab.  
+• Overall treatment period: study treatment start date ≤ date ≤ study treatment stop date + 
+90 days 
+ 
+Study Periods for Prior/Concomitant Medications 
+• Prior: stop date < study treatment start date (post-randomization) 
+• Concomitant: study treatment start date ≤ date ≤ min (study treatment stop date + 90 
+days, date of initiation of first subsequent anticancer therapy) 
+If start date < study treatment start date and stop date is on or after the treatment start date or 
+missing, then the medication is considered to be concomitant.  
+If start date is missing and stop date is missing, on or after the treatment start date, then the 
+medication is considered to be concomitant. Details on handling of partial dates can be found in 
+Section 3.10. 
+ 
+Period of Occurrence for Treatment Emergent Adverse Events  
+As per protocol, AEs are required to be captured through 30 days after cessation of study 
+treatment and SAEs are required to be captured through 90 days after the last dose of study 
+treatment (or a minimum of 30 days post-treatment discontinuation if the participant starts 
+alternative anticancer therapy), for the period of occurrence for treatment emergent AEs, 90 
+days will be used to cover both AEs and SAEs.  
+• Chemotherapy period: study treatment start date ≤ AE start date ≤ min(chemotherapy 
+study treatment stop date + 90 days, maintenance study treatment start date-1, date of 
+initiation of first subsequent anticancer therapy) 
+o For participants who do not start maintenance treatment, set maintenance study 
+treatment start date to Infimum 
+• Maintenance period: maintenance study treatment start date ≤ AE start date ≤ min(study 
+treatment stop date + 90 days, date of initiation of first subsequent anticancer therapy) 
+• Overall period: study treatment start date ≤ AE start date ≤ min(study treatment stop date 
++ 90 days, date of initiation of first subsequent anticancer therapy) 
+
+
+--- Page 28 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 28 of 79 
+AEs with a missing start date and either a missing stop date, or a stop date on or after the 
+initiation of study treatment are considered to be treatment emergent with start dates falling in 
+the chemotherapy and overall treatment periods.  
+ 
+3.5. 
+Baseline Definitions 
+Unless otherwise specified, baseline is defined as the most recent measurement prior to first 
+dose of study treatment. If time is not collected, any measurements on the date of first dose of 
+study treatment are assumed to be prior to first dose and used as the baseline. For HRQoL 
+assessments, for participants who did not receive study treatment during the study, baseline will 
+be defined as the latest, non-missing collected value, excluding end of treatment, safety follow-
+up, long term follow-up visit records and unscheduled visits after end of treatment. 
+ 
+CCI
+CCI
+
+
+--- Page 29 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 29 of 79 
+CCI
+CCI
+
+
+--- Page 30 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 30 of 79 
+3.8. 
+Multiplicity 
+3.8.1. 
+Multiple Comparisons 
+To control the overall Type I error, a hierarchical testing procedure will be used. First, PFS in 
+Arm 2 vs Arm 3 will be tested at 2-sided significance level of 0.05. If the test is statistically 
+significant and favoring Arm 3, OS in Arm 2 vs Arm 3 will be tested at 2-sided significance 
+level. 
+For the interim OS analysis that will be performed at the primary PFS analysis, the Haybittle-
+Peto stopping boundary will be used. This assigns a significance level of 0.0001 for the interim 
+analysis and 0.05 for the final OS analysis (2-sided test). Figure 2 outlines the testing procedure. 
+Starting with PFS, if a test is successful (meaning statistically significant and favoring Arm 3), 
+100% of the alpha will be carried over to the subsequent test. If at any point a test fails, 
+inferential testing will stop as there will be no more alpha to test the remaining endpoints. 
+Figure 2 
+Testing Strategy 
+ 
+PFS in ITT
+OS in ITT
+α=0.05 
+α=0 
+1 
+CCI
+
+
+--- Page 31 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 31 of 79 
+3.8.2. 
+Interim Analyses 
+No interim analyses will be performed for PFS. An interim analysis of OS will be performed at 
+the time of the primary PFS analysis, and a final OS analysis will be performed once survival 
+data reach approximately 60% maturity in Arms 2 and 3. 
+ 
+3.9. 
+Missing Data 
+Unless otherwise specified, there will be no substitutions made to accommodate missing data 
+points. Methods for handling incomplete Patient-Reported Outcomes (PRO) instruments are 
+performed according to their scoring manuals. 
+ 
+3.10. 
+Handling of Partial Dates 
+Table 1 provides details on the handling of and imputation for partial dates. 
+Table 1 
+Handling of Partial Dates 
+Element 
+Reporting Detail 
+General 
+• Partial dates will be displayed as captured in participant listing 
+displays. 
+• However, where necessary, display macros may impute dates as 
+temporary variables for sorting data in listings only. In addition, 
+partial dates may be imputed for ‘slotting’ data to study phases or for 
+specific analysis purposes as outlined below. 
+• Imputed partial dates will not be used to derive study day, time to 
+onset or duration (e.g., time to onset or duration of AEs), elapsed time 
+variables (e.g., time since diagnosis). In addition, imputed dates are 
+not used for deriving the last known alive date in OS analysis dataset. 
+• Imputations will only be performed for: adverse event dates, COVID-
+19 test dates, concomitant medications, follow-up anticancer therapy 
+and death dates as described in this table. 
+Adverse 
+Events/COVID-
+19 test dates 
+• Partial dates for AE recorded in the CRF will be imputed using the 
+following conventions: 
+Missing start 
+day 
+• If study treatment start date is missing (i.e., 
+participant did not start study treatment), then set 
+start date = 1st of month. 
+• Else if study treatment start date is not missing: 
+o If month and year of start date = month and 
+year of study treatment start date, then 
+▪ If stop date contains a full date and 
+stop date is earlier than study 
+
+
+--- Page 32 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 32 of 79 
+Element 
+Reporting Detail 
+treatment start date, then set start 
+date= 1st of month. 
+▪ Else set start date = study 
+treatment start date. 
+o Else set start date = 1st of month. 
+Missing start 
+day and 
+month 
+• If study treatment start date is missing (i.e., 
+participant did not start study treatment), then set 
+start date = January 1. 
+• Else if study treatment start date is not missing: 
+o If year of start date = year of study 
+treatment start date, then 
+▪ If non-missing AE stop date is 
+unequivocally earlier than study 
+treatment start date, then set start 
+date = January 1. 
+▪ Else set start date = study 
+treatment start date. 
+o Else set start date = January 1. 
+Missing end 
+day  
+A ‘28/29/30/31’ will be used for the day (dependent on 
+the month and year). 
+Missing end 
+day and 
+month 
+No Imputation 
+Completely 
+missing 
+start/end date 
+No imputation 
+Concomitant 
+Medications 
+• Partial dates for any concomitant medications recorded in the CRF 
+will be imputed using the following convention: 
+Missing start 
+day 
+• If study treatment start date is missing (i.e., 
+participant did not start study treatment), then 
+set start date = 1st of month. 
+• Else if study treatment start date is not missing: 
+o If month and year of start date = month 
+and year of study treatment start date, then 
+▪ If stop date contains a full date 
+and stop date is earlier than study 
+treatment start date, then set start 
+date= 1st of month. 
+▪ Else set start date = study treatment 
+start date. 
+o Else set start date = 1st of month. 
+
+
+--- Page 33 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 33 of 79 
+Element 
+Reporting Detail 
+Missing start 
+day and 
+month 
+• 
+If study treatment start date is missing (i.e., 
+participant did not start study treatment), then set 
+start date = January 1. 
+• 
+Else if study treatment start date is not missing: 
+o If year of start date = year of study 
+treatment start date, then 
+▪ 
+If stop date contains a full date 
+and stop date is earlier than study 
+treatment start date, then set start 
+date = January 1. 
+▪ 
+Else set start date = study 
+treatment start date. 
+o Else set start date = January 1. 
+Missing end 
+day 
+A ‘28/29/30/31’ will be used for the day (dependent on 
+the month and year).  
+Missing end 
+day and 
+month 
+A ‘31’ will be used for the day and ‘Dec’ will be used 
+for the month. 
+  
+Completely 
+missing 
+start/end date 
+No imputation 
+ 
+ 
+Follow-up 
+Anticancer 
+Therapy for 
+Efficacy 
+Evaluation  
+• Completely missing start dates will remain missing, with no 
+imputation applied; 
+• Partial start dates will be imputed using the following convention:  
+o If both month and day are missing, no imputation will be 
+applied;  
+o If only day is missing: 
+o If the month of partial date is the same as the month of last 
+dosing date, minimum of (last dosing date + 1, last day of 
+the month) will be used for the day;  
+o If the month of partial date is the same as the month of last 
+disease assessment and the last 
+ disease 
+assessment is PD, minimum of (last date of disease 
+assessment + 1, last day of the month) will be used for the 
+day;  
+o If both conditions above are met, the later date will be used 
+for the day;  
+CCI
+
+
+--- Page 34 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 34 of 79 
+Element 
+Reporting Detail 
+o Otherwise, a ‘01’ will be used for the day;  
+• Completely or partially missing end dates will remain missing, with 
+no imputation applied;  
+Note: If end date is earlier than the imputed start date, then the start date 
+will be considered as the therapy end date. 
+Death 
+• If a participant is known to have died where only a partial death date 
+is available, then the date of death will be imputed as the latest of the 
+last complete known to be alive date + 1 from the database and the 
+death date using the available information provided: 
+o For missing day only – use the 1st of the month 
+o For missing day and month- use the 1st of January  
+ 
+3.11. 
+Visit Windows 
+It is expected that all visits should occur according to the protocol schedule. By-visit summaries 
+and analyses will be by nominal visit (all data will be tabulated per the evaluation visit as 
+recorded on the eCRF even if the assessment is outside of the visit window for analysis). In data 
+listings, the relative day of all dates will be presented. 
+For HRQoL endpoints, visit windows will be applied to HRQoL assessments after Safety 
+Follow-up as shown in Table 2 when applicable. If multiple assessments are observed in a 
+window, the visit closest to the scheduled assessment date will be used. If equally close, the 
+earlier visit will be used. If multiple assessments are on the same date a worst-case approach 
+will be used to select the worst HRQoL assessments per domain score.  
+HRQoL assessments should be collected at the EOT Visit, 30-day (±7 days) Safety Follow-up 
+Visit, 90-day (±14 days) Long-Term Follow-up Visit, and every 180 days (±14 days) thereafter, 
+which will continue until death or the end of study data collection. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 35 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 35 of 79 
+Table 2 
+Windows (Inclusive) for HRQoL Assessments after EOT 
+Visit after EOT 
+Scheduled Day after EOT 
+Window (Days) 
+3 months 
+90 
+64 to 180 
+9 months 
+270 
+181 to 360 
+15 months 
+450 
+361 to 540 
+21 months 
+630 
+541 to 720 
+27 months 
+810 
+721 to 900 
+33 months 
+990 
+901 to 1080 
+39 months 
+1170 
+1081 to 1260 
+45 months 
+1350 
+1261 to 1440 
+51 months 
+1530 
+1441 to 1620 
+ 
+4. 
+STUDY ANALYSES 
+Unless otherwise specified, the study population analyses will be based on the ITT analysis 
+population (e.g., screening status will be based on the Screened population, treatment status will 
+be based on the SAF population).  
+Study analyses will be conducted in all participants and PD-L1 positive participants (identified 
+as a clinically plausible subgroup).  
+4.1. 
+Participant Disposition 
+The following participant disposition summaries will be provided by treatment arm and overall 
+(Arm 1, Arm 2, Arm 3, Overall), unless otherwise specified: 
+• Screening status, number and percentage of participants who were: 
+o Screened (i.e., signed the pre-screening or screening ICF) 
+o Screen failures (with reason for screen failure) 
+o Enrolled (i.e., received the chemotherapy run-in cycle) 
+• Run-in status, number and percentage of participants who: 
+o Received the chemotherapy run-in cycle and were subsequently randomized  
+o Received the chemotherapy run-in cycle and were not randomized (with reason for 
+run-in failure) 
+Subject status, number and percentage of participants who are: 
+o Ongoing (on any study treatment, in follow-up) 
+
+
+--- Page 36 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 36 of 79 
+o Withdrawn from study (with reason for study withdrawal as captured in the eCRF on 
+the discontinuation of study page) 
+• Treatment status, number and percentage of participants who are: 
+o Ongoing (on any study treatment) 
+o Withdrawn from all study treatment (with reason for study treatment withdrawal as 
+captured in the eCRF on the discontinuation of treatment page) 
+• Subject disposition at each treatment period, number and percentage of participants who: 
+o Entered the treatment period  
+o Completed the treatment period  
+o Withdrawn from all treatment in the treatment period (with reasons for withdrawal) 
+o Are ongoing in the treatment period (receiving any treatment in the treatment period) 
+• Study population, number and percentage of participants within each study population 
+Subject status will be presented on the screened population and summarized by each country 
+and site identifier (ID). Treatment status and subject disposition at each treatment period will be 
+presented on the SAF population.  
+The number and percentage of participants in the ITT population will be summarized by each 
+country and site ID. 
+A listing of reasons for study withdrawal and subjects excluded from any population will also be 
+provided.  
+ 
+4.2. 
+Demographics, Baseline Characteristics, and Medical History 
+4.2.1. 
+Demographic and Baseline Characteristics 
+Demographics, baseline characteristics, and medical history information will be summarized by 
+treatment arm (Arm 1, Arm 2, Arm 3, Overall) for the ITT population.  
+Demographic and baseline data for each participant will be provided in a data listing. 
+The demographic tables will include the following information: 
+• Age at time of screening (years) as reported on the eCRF 
+• Age ranges (18 to <65, ≥65 to <75, ≥75 years and ≥65 to <85, ≥85 years) 
+• Race (White, Black or African American, Asian, American Indian or Alaska Native, 
+Native Hawaiian or Other Pacific Islander, mixed, unknown, and not reported)  
+• Race group (White, Other) 
+• Ethnicity (Hispanic or Latino, Non-Hispanic or Latino, unknown, and not reported) 
+• Geographic region (United States [US]/Canada, Europe, rest of world [RoW]) 
+• Baseline weight (kg) 
+
+
+--- Page 37 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 37 of 79 
+• Baseline height (cm) 
+• 
+Baseline body mass index (BMI) kg/m2 
+• ECOG performance status at screening 
+• ECOG performance status at baseline 
+• PD-L1 status (positive or negative, not to be presented for PD-L1 positive output) 
+• Planned starting dose of niraparib/placebo 
+ mg vs 
+ mg) 
+• Bevacizumab use in chemotherapy run-in period (yes or no) 
+• Measurable disease at baseline (yes or no) 
+o Based on Investigator
+ assessment obtained from the
+ 
+evaluation eCRF form. 
+• HRD Myriad status (HRd, Homologous recombination proficient [HRp], unknown)  
+• BRCA Myriad Status (BRCAmut, BRCAwt, BRCAwt HRd, unknown) 
+o In database: BRCAmut = positive for clinically significant mutation, BRCAwt = 
+positive for wild- type BRCA, HRd = positive for HRD status. Unknown 
+includes inconclusive, missing and failed test results. 
+The following disease characteristic information will be provided based on the eCRF: 
+• Primary tumor site (ovarian, primary peritoneal, or fallopian tube) 
+• Time from initial diagnosis to randomization (days) 
+• Cancer stage International Federation of Gynecology and Obstetrics (FIGO) at time of 
+initial diagnosis 
+• Site of metastatic disease and number of metastatic sites (<3, >=3) 
+• Residual disease following PDS (yes vs no vs N/A) 
+• Surgical status at the time of screening (PDS, IDS, non-surgical (inoperable))  
+• Histological and cytological ovarian cancer pathology at diagnosis 
+o Histological subtype (serous, endometrioid, carcinosarcoma, non-mucinous, 
+other) 
+o Tumor grade (grade 2, grade 3, not assessable) 
+The following stratification information will also be provided:  
+• Stratification variables according to the RTSM values as randomized: 
+o Concurrent bevacizumab use (yes or no) 
+o HRR mutation status (BRCAmut, BRCAwt HRRpos, BRCAwt HRRneg/not 
+determined) 
+o Disease burden as defined by Stage III cancer with residual disease <1 cm (i.e., 
+yes or no) 
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 38 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 38 of 79 
+• Stratification variables according to the actual values*: 
+o Concurrent bevacizumab use (yes or no) 
+▪ This information will be obtained from the bevacizumab study treatment 
+eCRF form (bevacizumab use = yes for participants with any exposure to 
+bevacizumab after randomization). 
+o HRR mutation status (BRCAmut, BRCAwt HRRpos, BRCAwt HRRneg/not 
+determined) 
+▪ This information will be obtained from the ResBio results. 
+*Not relevant for disease burden for which the only data source is the RTSM 
+• A cross-tabulation of the RTSM stratification and the actual stratification for concurrent 
+bevacizumab and HRR mutation status.  
+ 
+4.2.2. 
+Medical Conditions 
+Medical conditions will be coded for the ITT population using the current MedDRA version, 
+and the number and percentage of participants experiencing at least 1 such diagnosis by System 
+Organ Class (SOC) and preferred term (PT) will be reported. Prior hematologic toxicity will be 
+summarized for participants with any prior hematologic toxicity greater than or equal to CTCAE 
+grade 3, graded using NCI CTCAE v4.03. 
+ 
+4.3. 
+Efficacy Analyses 
+All efficacy analyses will be performed in the ITT analysis population (Arm 2, Arm 3) unless 
+otherwise specified. 
+ 
+4.3.1. 
+Primary Efficacy Endpoint 
+PFS 
+ 
+. In other words, for each participant:  
+PFS (months) = (date of PD/death/censor – date of randomization +1)/30.4375 
+The PFS comparison between Arm 2 and Arm 3 will be performed using a stratified log-rank 
+test with a 2-sided type I error rate of α=0.05. A stratified Cox proportional hazards model will 
+be used to estimate the treatment effect by HR and its 95% CI. The strata as defined in Section 
+3.6 will be used.  
+The stratified log-rank test will be performed using SAS PROC LIFETEST. The HR with 2-
+sided 95% CI will be estimated using SAS PHREG procedure with ties=EXACT option in the 
+model. In this analysis the baseline hazard function will be allowed to vary across strata; i.e., the 
+MODEL statement will include treatment group variable as the only covariate and the STRATA 
+statement will include the stratification factors. 
+CCI
+CCI
+CCI
+
+
+--- Page 39 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 39 of 79 
+Kaplan-Meier (KM) methodology will be used to estimate the distribution of PFS, including the 
+quartiles (i.e., 25th percentile, median, 75th percentile) and associated 95% CIs using the 
+Brookmeyer-Crowley method [Brookmeyer, 1982]. KM plots will be presented and will include 
+the number of participants at risk over time by treatment group.  
+Summaries of the number and percentage of participants experiencing a PFS event vs those who 
+were censored, and the reason for event (PD or death) or censoring (see possible reasons in 
+censoring table) will also be provided. 
+The KM PFS rates at 6, 12, 24 and 36 months and their 95% CIs will be presented by treatment 
+arm.  
+For the primary PFS analysis, the censoring rules described in Table 3 will apply. Adequate 
+assessments are assessments that are not NE or missing.  
+In addition, a listing of efficacy data will be produced, presenting the primary PFS.  
+ 
+Table 3 
+Censoring Rules for Primary Analysis of PFS  
+Scenario 
+Event/Censor 
+Date of Event/Censor 
+No adequate baseline or 
+post-baseline radiological 
+tumor assessments1 and no 
+death 
+Censored 
+Date of randomization 
+No PD and no death 
+Censored 
+Date of last adequate 
+radiological disease assessment 
+Start of subsequent 
+anticancer therapy prior to 
+PD/death2 
+Censored 
+Date of last adequate 
+radiological disease assessment 
+prior to start of subsequent 
+anticancer therapy2 
+PD or death after ≤ 1 
+missed/inadequate 
+radiological disease 
+assessment 
+Event 
+Date of PD or death (whichever 
+occurs first) 
+PD/death after ≥2 
+missed/inadequate 
+consecutive radiological 
+disease assessments 
+(see section on extended time 
+without a PFS assessment for 
+calculation) 
+Censored 
+Date of last adequate 
+radiological disease assessment 
+prior to the consecutive missing 
+assessments3 
+1 Censoring for this scenario is done at randomization irrespective of receipt of new anticancer therapy. 
+
+
+--- Page 40 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 40 of 79 
+2 Any radiological disease assessments taking place on the same day as anticancer therapy, will be 
+considered prior to the start of anticancer therapy.  
+3 If no adequate radiological disease assessment prior to PD/death, censoring will occur at the date of 
+randomization. 
+Note: Only anticancer therapy recorded on the follow-up anticancer therapy form is considered. 
+ 
+Extended time without a PFS assessment 
+Tumor assessments for all participants are required at Screening, C1D1 maintenance (+/-14 
+days), every 4 months (+/-7 days) for 24 months and every 6 months (+/-7 days) for 12 months 
+and every 12 months thereafter. For IDS participants, an extra tumor assessment is required 
+during the chemotherapy period and prior to IDS. If death or PD follow 2 missed consecutive 
+visits, then PFS is censored at the time of the last adequate tumor assessment (LATA). 
+The definition of 2 missed/inadequate consecutive visits varies according to the scan schedule 
+and is defined by matching the LATA prior to an event (PD/death) to a scheduled visit using the 
+midpoint as described in Table 4. LATA before the midpoint is assigned to the scheduled visit 
+prior to it. LATA after the midpoint is assigned to the scheduled visit after it.  
+Table 4  
+Tumor Assessment Windowing 
+Assessment 
+Schedule 
+(excludes extra 
+scan for IDS 
+participants) 
+Scheduled visit 
+-1-2 weeks (7-14 
+days) 
+Scheduled visit 
+(from 
+randomization) 
+Scheduled visit 
++1-2 weeks (7-14 
+days) 
+Midpoint (floor 
+for non-integers) 
+C1D1 
+maintenance 
+C1D1*-14 days 
+C1D1 
+C1D1+14 days 
+C1D1+2 months – 
+3 days 
+Every 4 
+months from 
+C1D1 
+maintenance 
+  
+  
+  
+  
+C1D1+4 
+months-7 days 
+C1D1+4 months C1D1+4 
+months+7 days 
+C1D1+6 months 
+C1D1+8 
+months-7 days 
+C1D1+8 months C1D1+8 
+months+7 days 
+C1D1+10 months 
+C1D1+12 
+months-7 days 
+C1D1+12 
+months 
+C1D1+12 
+months+7 days 
+C1D1+14 months 
+C1D1+16 
+months-7 days 
+C1D1+16 
+months 
+C1D1+16 
+months+7 days 
+C1D1+18 months 
+
+
+--- Page 41 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 41 of 79 
+Assessment 
+Schedule 
+(excludes extra 
+scan for IDS 
+participants) 
+Scheduled visit 
+-1-2 weeks (7-14 
+days) 
+Scheduled visit 
+(from 
+randomization) 
+Scheduled visit 
++1-2 weeks (7-14 
+days) 
+Midpoint (floor 
+for non-integers) 
+  
+C1D1+20 
+months-7 days 
+C1D1+20 
+months 
+C1D1+20 
+months+7 days 
+C1D1+22 months 
+C1D1+24 
+months-7 days 
+C1D1+24 
+months 
+C1D1+24 
+months+7 days 
+C1D1+27 months 
+Every 6 
+months from 
+C1D1 
+maintenance 
++24 months 
+until C1D1 
+maintenance + 
+36 months  
+C1D1+30 
+months-7 days 
+C1D1+30 
+months 
+C1D1+30 
+months+7 days 
+C1D1+33 months 
+  
+C1D1+36 
+months-7 days 
+C1D1+36 
+months 
+C1D1+36 
+months+7 days 
+C1D1+42 months 
+Every 12 
+months from 
+C1D1 
+maintenance + 
+36 months 
+C1D1+48 
+months-7 days 
+C1D1+48 
+months 
+C1D1+48 
+months+7 days 
+C1D1+54 months 
+ 
+C1D1+60 
+months-7 days 
+C1D1+60 
+months 
+C1D1+60 
+months+7 days 
+C1D1+66 months 
+*C1D1 = C1D1 maintenance (first maintenance dose date) 
+  
+For cases where the LATA occurs on or after the maintenance treatment start date, an event 
+occurring after LATA + T2 is considered to have occurred after 2 consecutive missed 
+assessments, where T2 is defined as follows: 
+• 
+If LATA prior to event is on or before C1D1 maintenance + 18 months, T2 = 4 
+months*2+21 days = 264 days 
+
+
+--- Page 42 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 42 of 79 
+• 
+If LATA prior to event is after C1D1 maintenance+18 months and on or before C1D1 
+maintenance +22 months, T2 = 4 months+6 months + 14 days= 318 days 
+• 
+If LATA prior to event is after C1D1 maintenance +22 months, and on or before C1D1 
+maintenance +27 months, T2 = 6 months*2 +14 days= 379 days 
+• 
+If LATA prior to event is after C1D1 maintenance +27 months, and on or before C1D1 
+maintenance +33 months, T2 = 6 months+12 months+14 days = 561 days 
+• 
+If LATA prior to event is after C1D1 maintenance +33 months, T2 = 12 months*2 + 14 
+days = 744 days 
+For cases where the LATA occurs prior to the maintenance treatment start date or in the case 
+where maintenance treatment start date is missing, the event occurring after LATA + 264 days 
+is considered to have occurred after 2 consecutive missed assessments. 
+Duration of follow-up 
+PFS duration of follow-up will be estimated using the reverse Kaplan-Meier methodology, 
+performed by reversing the censoring indicator used in the primary PFS analysis, i.e., 
+“censored” becomes an “event” and vice versa. The distribution of duration of follow-up will be 
+presented through quartiles (i.e. 25th percentile, median, 75th percentile), minimum and 
+maximum.  
+ 
+4.3.1.1. 
+Sensitivity Analyses 
+In addition to the primary PFS analysis, several sensitivity analyses will be performed. For each 
+of the following sensitivity analyses, a PFS summary table will be produced with a stratified 
+log-rank test (nominal p-value), HR and 95% CI with the same stratification factors as the 
+primary analysis, unless indicated otherwise. The HRs and 95% CIs will be presented on a 
+forest plot.  
+ 
+4.3.1.1.1. No censoring at follow-up therapy (SA1) 
+For the analysis, subsequent anticancer therapy will be ignored, i.e., PD or death after initiation 
+will count as events. The censoring rules described in Table 5 will apply. Only 
+ 
+PDs that are recorded in the 
+ evaluation eCRF form will be considered. 
+ 
+ 
+ 
+ 
+ 
+CCI
+CCI
+
+
+--- Page 43 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 43 of 79 
+Table 5  
+PFS SA1 Censoring Rules 
+Scenario 
+Event/Censor 
+Date of Event/Censor 
+No adequate baseline or post-
+baseline radiological tumor 
+assessments and no death 
+Censored 
+Date of randomization 
+No PD and no death 
+Censored 
+Date of last adequate 
+radiological disease 
+assessment 
+PD or death after ≤ 1 
+missed/inadequate radiological 
+disease assessment 
+Event 
+Date of PD or death 
+(whichever occurs first) 
+PD/death ≥ 2 
+missed/inadequate consecutive 
+radiological disease 
+assessments 
+(see section on extended time 
+without a PFS assessment for 
+calculation) 
+Censored 
+Date of last adequate 
+radiological disease 
+assessment prior to the 
+consecutive missing 
+assessments 
+ 
+4.3.1.1.2. Initiation of follow-up therapy treated as an event (SA2) 
+For the analysis, initiation of first subsequent anticancer therapy will be considered as an event, 
+the censoring rules described in Table 6 will apply. Only PDs recorded from 
+ 
+evaluation eCRF form will be considered. The PFS event date will be the earliest of the 
+following event dates: PD per 
+, initiation of first subsequent anticancer therapy or 
+death by any cause.  
+ 
+ 
+ 
+ 
+ 
+ 
+CCI
+CCI
+
+
+--- Page 44 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 44 of 79 
+Table 6   
+PFS SA2 Censoring Rules 
+Scenario 
+Event/Censor 
+Date of Event/Censor 
+No baseline or post-baseline 
+radiological tumor 
+assessments, no death and 
+no subsequent anticancer 
+therapy  
+Censored 
+Date of randomization 
+No PD, no death, and no 
+subsequent anticancer 
+therapy 
+Censored 
+Date of last adequate 
+radiological disease assessment 
+PD, death, or start of 
+subsequent anticancer 
+therapy1 ≤ 1 
+missed/inadequate 
+radiological assessment 
+Event 
+Date of PD, death or start of 
+subsequent anticancer therapy 
+(whichever occurs first) 
+PD/death/start of 
+subsequent anticancer 
+therapy ≥ 2 
+missed/inadequate 
+consecutive radiological 
+disease assessments 
+(see section on extended time 
+without a PFS assessment for 
+calculation) 
+Censored 
+Date of last adequate 
+radiological disease assessment 
+prior to the consecutive missing 
+assessments 
+1 Any radiological disease assessments taking place on the same day as anticancer therapy, will be 
+considered prior to the start of anticancer therapy.  
+Note: Only anticancer therapy recorded on the follow-up anticancer therapy form is considered. 
+ 
+4.3.1.1.3. Clinical disease progression treated as an event (SA3) 
+For this analysis, PD will include PD per 
+ by Investigator’s assessment and disease 
+progression per clinical criteria taken from the discontinuation of treatment eCRF page under 
+reason for discontinuation = “disease progression per clinical criteria by Investigator”.  
+ 
+The PFS event date will be the earliest of the following event dates: PD
+ 
+disease progression per clinical criteria or death by any cause. 
+ 
+The censoring rules used in the primary analysis will be applied. 
+ 
+CCI
+CCI
+
+
+--- Page 45 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 45 of 79 
+4.3.1.1.4. Based on actual stratification levels (SA4) 
+The analysis will be conducted if there is >5% discordance between the RTSM and actual data 
+for concurrent bevacizumab use or HRR mutation status. The censoring rules used in the 
+primary analysis will be applied. The pooling strategy defined in Section 3.6 will be applied 
+regardless of the resulting number of events per stratum in the actual strata.  
+The information for disease burden as defined by stage III cancer with residual disease <1cm 
+(yes/no) can only be obtained from the RTSM and will be used in this analysis. For concurrent 
+bevacizumab use, the actual values will be obtained from the bevacizumab study treatment 
+eCRF form (bevacizumab use = yes for participants with any exposure to bevacizumab after 
+randomization). For HRR mutation status, the actual values will be obtained from the ResBio 
+results. 
+4.3.1.1.5. PD-L1 status as stratification factor (SA5) 
+PD-L1 status will be included within the strata for the stratified log-rank test and stratified Cox 
+proportional hazards model (which will follow the pooling strategy defined in Section 3.6). The 
+censoring rules used in the primary analysis will be applied.  
+4.3.1.1.6. Unstratified log-rank test (SA6) 
+An unstratified analysis will be conducted. The censoring rules used in the primary analysis will 
+be applied. 
+4.3.1.1.7. Non-proportional hazards (SA7) 
+The proportional hazards assumption on which the previous analyses are based will be assessed 
+by visual inspection of the KM curves and of a plot of log-log survival vs log time. If non-
+proportionality is indicated (possible due to e.g., dostarlimab exhibiting delayed effect), the 
+time-dependency of the treatment effect will be further assessed by adding an interaction term 
+of treatment by time in the Cox model. If the p-value for the interaction term is < 0.10, then the 
+proportional hazards assumption is considered to not have been met and the methods outlined 
+below will be applied to analyze the PFS data. These are applicable regardless of whether the 
+hazards are proportional.  
+Restricted Mean Survival Time (RMST) 
+The treatment effect will be assessed through the RMST difference. The RMST [Royston, 2013] 
+is a measure of average survival time within a specified time frame. It is estimated as the area 
+under the survival curve for each treatment arm, from time 0 to a pre-defined time τ = τ0, here 
+defined as the minimum of the largest observed survival times between the treatment arms. The 
+RMST can be interpreted as the expected survival time restricted to the common follow-up time  
+τ = τ0 among all participants. The estimated RMST for each treatment arm at time τ0, the 
+
+
+--- Page 46 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 46 of 79 
+difference in RMST and its 95% CI, together with the one-sided (nominal) p-value will be 
+reported.  
+MaxCombo Test 
+The treatment effect will be assessed using the stratified MaxCombo test statistic and p-value. 
+The stratified MaxCombo test statistic (Zmin) is the minimum of 4 correlated, stratified, 
+Fleming-Harrington (FH) weighted log-rank test statistics. The FH statistics (G(0,0), G(1,0), 
+G(0,1), G(1,1)) correspond to no event weighting (~log-rank test), early event weighting, late 
+event weighting and middle event weighting. The p-value (nominal) for the MaxCombo test is 
+obtained by integrating the 4-dimensional multivariate normal distribution with mean (0,0,0,0) 
+and covariance matrix equal to V(G(0,0), G(1,0), G(0,1), G(1,1)) with respect to Zmin.  
+ 
+4.3.1.2. 
+Subgroup Analyses 
+Subgroup analyses will be performed separately for the subgroups defined in Section 3.7. If 
+there are <10 events for a particular subgroup level, then the subgroup level analysis will not be 
+performed. Subgroup analyses controlling for or involving stratification factors will be based on 
+the actual strata levels.  
+ 
+For each subgroup, HR and associated CI will be calculated from a stratified Cox proportional 
+hazard model with treatment as the only covariate. When the subgroup is a stratification factor, 
+the corresponding stratification factor will not be included in the stratified Cox proportional 
+hazards model. The HRs and 95% CIs for each subgroup for both stratified (main) and 
+unstratified (sensitivity) analyses will be presented on a forest plot including the HR and 95% 
+CI for the overall group. If stratified analyses are not applicable for a subgroup level (per the 
+pooling strategy defined in Section 3.6), then unstratified analyses will be conducted for all 
+subgroup levels. Summaries of the number and percentage of participants experiencing a PFS 
+event for each subgroup will be provided along with the median PFS by treatment group. 
+ 
+In addition, for the HRR ResBio test status and HRD Myriad test status subgroups KM 
+descriptive statistics and plots may be presented for each subgroup level. 
+ 
+4.3.1.2.1. Supportive Subgroup Analyses 
+Shrinkage estimation 
+A supportive subgroup analysis using shrinkage estimation may be conducted to further assess 
+the treatment effect across subgroups.  
+ 
+A Bayesian hierarchical model that assumes a universal treatment effect and accounts for both 
+the within and between subgroup variability is used for the estimation. This is defined as: 
+  
+1. Prior on between subgroup variance 𝜏2: 𝜏 ~ half-normal with parameter 1  
+2. Prior on treatment effect: 𝜇~𝑁𝑜𝑟𝑚𝑎𝑙(𝑚𝑒𝑎𝑛= 0, 𝑣𝑎𝑟= 14) 
+3. Random subgroup treatment effect: 𝜇𝑖~𝑁𝑜𝑟𝑚𝑎𝑙(𝑚𝑒𝑎𝑛= 𝜇, 𝑣𝑎𝑟= 𝜏2) 
+
+
+--- Page 47 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 47 of 79 
+4. Likelihood for data 𝑦𝑖(𝑙𝑜𝑔𝐻𝑅𝑖) ~𝑁𝑜𝑟𝑚𝑎𝑙(𝑚𝑒𝑎𝑛= 𝜇𝑖, 𝑣𝑎𝑟= 𝜎𝑖
+2) where 𝑙𝑜𝑔𝐻𝑅𝑖 and 
+𝜎𝑖 are the treatment effect and standard deviation estimated from the main frequentist 
+model and 𝑖 is the subgroup level indicator.  
+  
+The median logHR and 95% credible intervals for each subgroup will be calculated from the 
+resulting posterior distributions for 𝜇𝑖 and transformed to the HR scale to obtain the final 
+estimates. 
+ 
+4.3.2. 
+Secondary Efficacy Endpoints 
+4.3.2.1. 
+OS 
+OS is defined as the time from the date of randomization to the date of death by any cause, i.e.: 
+OS (months) = (date of death/censor – date of randomization +1)/30.4375 
+Participants with no death will be censored at their last known alive date. The last known alive 
+(LKA) date is calculated as the latest date available per participant within selected Study Data 
+Tabulation Model (SDTM) data. The survival times for participants whose last known alive date 
+or death date is after DCO will be censored at the date of DCO. Survival information captured 
+while on study and retrieved post study discontinuation will be included in the calculation of 
+OS.  
+ 
+Partial dates are to be excluded from the calculation of LKA date. Dates of data collection that 
+may have been added to the database without a participant’s presence, as well as dates related to 
+medical disease history will be excluded. Further details can be found in the OPS. 
+ 
+OS will be analyzed using the same methodology as PFS, as described in Section 4.3.1. The KM 
+OS rates at 6, 12, 24 and 36 months will be provided. In addition, OS will be presented in a 
+listing of efficacy data. 
+ 
+Duration of follow-up 
+Time to OS follow-up will be estimated using reverse KM methodology, 
+performed by reversing the censoring indicator, used in the OS analysis, i.e., “censored” 
+becomes an “event” and vice versa. However, survival information retrieved post study 
+discontinuation will be excluded. The distribution of time to OS follow-up will be presented 
+through quartiles (i.e., 25th percentile, median, 75th percentile), minimum and maximum.  
+ 
+Subgroup/Sensitivity analyses 
+At the time of final OS analysis (approximately 60% maturity), the subgroup analyses detailed 
+for PFS in Section 4.3.1.2 (including the supportive) will be repeated for OS. These analyses 
+may also be conducted at the primary PFS analysis, if PFS statistical significance is met at that 
+point. 
+ 
+
+
+--- Page 48 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 48 of 79 
+A sensitivity analysis for non-proportional hazards will also be conducted if needed, per the 
+criteria and methodology described in Section 4.3.1.1.7. 
+ 
+If there is imbalance in the first/second subsequent anticancer therapy types/regimens received 
+between treatment arms, a sensitivity analysis using the Inverse Probability of Censoring 
+Weighting (IPCW) or other appropriate methodology may be conducted. Details will be 
+described in a separate document. 
+ 
+4.3.2.2. 
+ by BICR assessment 
+An analysis as described in Section 4.3.1 (primary only) but based on 
+ by 
+BICR will be conducted. Reported p-values are nominal.  
+ 
+4.3.2.3. 
+TFST 
+TFST is defined as the time from randomization until the start date of the first subsequent 
+anticancer therapy or death by any cause, whichever occurs first, i.e.: 
+TFST (months) = (date of first subsequent anticancer therapy/death/censor–date of 
+randomization+1)/30.4375 
+First subsequent anticancer therapy is defined as the earliest anticancer therapy on the follow-up 
+anticancer therapy form.  
+TFST will be analyzed using the same methodology as described in Section 4.3.1 but following 
+the event/censoring rules in Table 7. Reported p-values are nominal. 
+ 
+Table 7  
+TFST Censoring Rules 
+Scenario 
+Event/Censor 
+Date of Event/Censor 
+Death or initiation of first 
+subsequent anticancer 
+therapy 
+Event 
+Date of first dose of 
+subsequent anticancer 
+therapy or death (whichever 
+occurs first) 
+No death, no initiation of first 
+subsequent anticancer 
+therapy 
+Censored 
+Last date known not to have 
+received first subsequent 
+anticancer therapy assumed 
+to be the last known alive 
+date if there is no evidence of 
+initiation of first subsequent 
+anticancer therapy up to that 
+point 
+ 
+CCI
+CCI
+
+
+--- Page 49 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 49 of 79 
+4.3.2.4. 
+TSST 
+TSST is defined as the time from the date of randomization until the start date of the second 
+subsequent anticancer therapy or death by any cause, whichever occurs first, i.e.: 
+TSST (months) = (date of second subsequent anticancer therapy/death/censor–date of 
+randomization+1)/30.4375 
+Initiation of second subsequent anticancer therapy is defined as an anticancer therapy with a 
+start date after the first subsequent anticancer therapy and a recorded PD on first subsequent 
+anticancer therapy, as captured on the follow-up anticancer therapy eCRF form. 
+TSST will be analyzed using the same methodology as described in Section 4.3.1 but following 
+the event/censoring rules in Table 8. Reported p-values are nominal. 
+ 
+Table 8  
+TSST Censoring Rules 
+Scenario 
+Event/Censor 
+Date of Event/Censor 
+Death or initiation of second 
+subsequent anticancer 
+therapy1 
+Event 
+Date of first dose of second 
+subsequent anticancer 
+therapy or death (whichever 
+occurs first) 
+No death, no initiation of 
+second subsequent anticancer 
+therapy 
+Censored 
+Last date known not to have 
+received second subsequent 
+anticancer therapy assumed 
+to be the last known alive 
+date if there is no evidence of 
+initiation of second 
+subsequent anticancer 
+therapy up to that point 
+1After a recorded PD on first subsequent anticancer therapy. Participants with multiple subsequent 
+therapy start dates but without a PD on first subsequent anticancer therapy will be censored.  
+ 
+4.3.2.5. 
+PFS2 
+PFS2 is defined as the time from the date of randomization until the date of PD per 
+Investigator’s assessment after starting follow-up anticancer therapy or death due to any cause, 
+whichever occurs first, i.e.: 
+PFS2 (months) = (date of PD after initiating first subsequent anticancer therapy/death/censor–
+date of randomization+1)/30.4375 
+ 
+
+
+--- Page 50 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 50 of 79 
+PFS2 will be analyzed using the same methodology as described in Section 4.3.1 but following 
+the event/censoring rules in Table 9. Reported p-values are nominal. PD dates after initiation of 
+first subsequent anticancer therapy will be obtained from the follow-up anticancer therapy eCRF 
+form.  
+Table 9  
+PFS2 Censoring Rules 
+Scenario 
+Event/Censor 
+Date of Event/Censor 
+Death or PD after 
+initiation of first 
+subsequent anticancer 
+therapy 
+Event 
+Date of PD after initiation of first 
+subsequent therapy or death 
+(whichever occurs first) 
+No initiation of first 
+subsequent anticancer 
+therapy, no PD after 
+initiation of first 
+subsequent anticancer 
+therapy, no death  
+Censored 
+Last known alive date 
+ 
+4.3.2.6. 
+ORR/DCR per RECIST v1.1 without confirmation by Investigator assessment 
+ORR per 
+ by Investigator assessment is defined as the proportion of participants 
+with measurable disease at baseline achieving a BOR of CR or PR 
+ by 
+Investigator assessment.  
+DCR per 
+ by Investigator assessment is defined as the proportion of participants 
+with measurable disease at baseline achieving a BOR of CR, PR or SD per 
+ by 
+Investigator assessment.  
+ORR and DCR without response (CR/PR) confirmation will be presented. ORR and DCR will 
+be analyzed for participants with measurable disease at baseline. Analyses will also be presented 
+by debulking surgery status at screening (IDS vs PDS vs non-surgical). 
+BOR is the best response recorded from the start of study treatment until PD per 
+ 
+or initiation of subsequent anticancer therapy (as recorded on the follow-up anticancer therapy 
+form), whichever occurs first. The number and percentage of participants achieving a BOR of 
+each of the following 
+ categories will be summarized: 
+• CR  
+• PR  
+• SD 
+• PD 
+• Not Evaluable (NE)  
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 51 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 51 of 79 
+• Not Applicable (NA)  
+o For participants with no baseline/post-baseline assessments 
+Assessments of “No Disease (ND)” will be assigned as “CR” for the purposes of response 
+evaluations. For SD to be assigned BOR, assessments must have met the SD criteria for a 
+minimum interval of 12 weeks following randomization. If the minimum time for SD is not met, 
+BOR will depend on the subsequent assessments. For example, if an assessment of PD follows 
+the assessment of SD and SD does not meet the minimum time requirement, the best response 
+will be PD. Alternatively, participants lost to follow-up after an SD assessment not meeting the 
+minimum time criterion will be considered NE. 
+Participants included in the analysis with NE as BOR (including missing) will be assumed to be 
+non-responders.  
+The point estimate and 95% exact CI for ORR and DCR will be summarized by treatment group 
+using the Clopper-Pearson method. The stratified Mantel Haenzel (MH) method [Mantel, 1959] 
+with Sato’s variance estimator [Sato, 1989] will be used for a comparison of the ORR between 
+the 2 treatment groups. The difference in ORR and its 2-sided 95% CI will be calculated using 
+SAS PROC FREQ using the COMMONRISKDIFF(TEST=MH) option. The same approach 
+will be used to compare DCR.  
+In addition, the overall response for each visit and the BOR will be included in the listing of 
+efficacy data. 
+ 
+4.3.2.7. 
+DOR 
+ 
+DOR is defined as the time from the first documented response (PR/CR) to the first documented 
+disease progression per Investigator assessed 
+ or death by any cause in participants 
+with measurable disease at baseline who responded to treatment, i.e., 
+DOR (months) = (date of PD/death/censor–date of first documented response+1)/30.4375 
+The same censoring rules as those defined in Section 4.3.1 for PFS will be applied.  
+ 
+4.3.2.8. 
+HRQoL 
+HRQoL assessments will be collected on the day of study treatment administration, prior to 
+dosing and clinical procedures, during the chemotherapy treatment period at C1D1, Cycle 2/Day 
+1, and every 2 cycles thereafter (Cycle 4/Day 1, Cycle 6/Day 1) and during the Maintenance 
+Treatment Period at Day 1 of every cycle (i.e., every 21 days ± 7 days) for the first 3 cycles, 
+Day 1 of every 3 cycles (i.e., every 9 weeks ± 7 days) through 15 cycles, Cycle 17 and every 6 
+cycles thereafter until PD or end of study treatment. For participant who discontinue treatment, 
+HRQoL assessments will be collected at the EOT Visit, 30 days (±7 days) Safety Follow-up 
+Visit, 90-days (±14 days) Long-Term Follow-up Visit, and every 180 days (±14 days) 
+thereafter, which continued until death or the end of study data collection. HRQoL assessments 
+may occur remotely if the participant is no longer actively returning to the clinic. 
+CCI
+CCI
+
+
+--- Page 52 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 52 of 79 
+ 
+4.3.2.8.1. Analysis population  
+All HRQoL analyses will be based on the ITT analysis population unless otherwise specified.  
+  
+4.3.2.8.2. Description and Scoring of the EQ-5D-5L 
+EQ-5D was first developed to include three levels of severity in each of five dimensions (EQ-
+5D-3L) by EuroQol Group. This study used an updated version of the EQ-5D including five 
+levels of severity in each of the existing five dimensions (EQ-5D-5L).  
+The five dimensions asking participant to rate their perceived health state today include: 
+mobility, self-care, usual activities, pain/discomfort, and anxiety/depression. Each item is 
+reported on a Likert-type scale ranging from 1 to 5 with increasing levels of severity (no 
+problems, slight problems, moderate problems, severe problems, and unable to/extreme 
+problems). Table 10 details the response levels of the EQ-5D-5L descriptive system. 
+Table 10  
+Scores of EQ-5D-5L Descriptive System 
+Original Response Category 
+Score 
+No problems 
+1 
+Slight problems 
+2 
+Moderate problems 
+3 
+Severe problems 
+4 
+Unable to/Extreme problems 
+5 
+Note: Missing values is to be coded as 9. Ambiguous values (e.g., two boxes are ticked for a single 
+dimension) should be treated as missing values.  
+A unique health state, the EQ-5D-5L profile, based on the five dimension is reported as a five-
+digit code with a possible total of 3,125 health states. For example, state 11111 indicates no 
+problems on any of the five dimensions; versus, state 55555 indicates extreme problems on all 
+five dimensions. Any missing items will be coded as “9” in creating participant profiles.  
+Generally, the EQ-5D-5L profile is converted into a weighted health state utility value, the EQ-
+5D HUI, by applying a country-specific valuation set to the profile that represents the 
+comparative value of health states. The HUI values summarize how good or bad each health 
+state is on a scale from 1 (full health) to <0 (worse health/dead). High HUI value indicates a 
+good HRQoL, and low HUI indicates poor HRQoL. The EQ-5D index value is regarded as 
+missing when responses are missing for one or more of the five dimensions. For the purposes of 
+this analysis, the US Pickard value set will be used to calculate the HUI. [Pickard, 2019]. 
+Using the weighted US scores in Table 11 [EuroQol, 2022], the following calculation is used for 
+the HUI score: 
+HUI Score = 1 – (CS1 + CS2  + CS3 + CS4 + CS5) 
+
+
+--- Page 53 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 53 of 79 
+where CS1 to CS5 are the converted weighted US values for each of the 5 domains included in 
+the HUI. 
+A VAS is collected separately and records the respondent’s self-rated health on a vertical, visual 
+analogue scale from 0 (‘Worst imaginable health state’) to 100 (‘Best imaginable health state’). 
+Table 11  
+US Weighted Scores of EQ-5D-5L Descriptive System 
+Dimension 
+Original Score 
+Weighted Score 
+ 
+CBI
+
+
+--- Page 54 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 54 of 79 
+CBI
+CCI
+CCI
+
+
+--- Page 55 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 55 of 79 
+ 
+ 
+ 
+CCI
+
+
+--- Page 56 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 56 of 79 
+ 
+CBI
+CCI
+CCI
+CCI
+
+
+--- Page 57 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 57 of 79 
+4.3.2.8.4. Statistical Methods for the PRO Analyses 
+General considerations  
+For continuous variables, summary statistics (the number of available observations, means, 
+standard deviations, medians, minimums, maximums, first quartile Q1, and third quartile Q3) 
+will be reported. For categorical variables, the frequency and percentage in each category will 
+be displayed. Analyses will be summarized by treatment arm, unless otherwise specified. 
+Statistical tests and 95% CIs will be 2-sided and have an associated alpha level of 0.05 unless 
+otherwise specified. No adjustments for multiple testing or estimation will be used, so all p-
+values and 95% CIs will be considered nominal.  
+Only scheduled visits per protocol before EOT will be used in the by-visit analyses; 
+unscheduled visit data collected after EOT will be included in the by-visit analysis after visit 
+windowing in Section 3.11 has been applied. Only responses collected on the same visit and 
+date will be used for deriving scale scores at each visit. If there are multiple assessments on the 
+same visit a worst-case approach per domain will be used to select the worst questionnaire 
+assessments for that domain.  
+HRQoL Compliance  
+Summary measures of the overall participant compliance rate, and the participant compliance 
+rate over time will be derived for each HRQoL questionnaire. These will be based upon the 
+following definitions: 
+• Expected forms: number of participants expected to complete a HRQoL form. Date of 
+study discontinuation and/or date of death will be used to determine the last visit at 
+which a participant is still expected under HRQoL follow-up. 
+• Received forms: number of participants with at least one PRO form received. 
+• Evaluable forms: number of forms with at least one non-missing scale or item, 
+depending on the corresponding questionnaire’s scoring instruction as defined in the 
+SAP.  
+• All questions completed: number of participants with a post-baseline form fully 
+completed (not completion rates for individual items).  
+CCI
+
+
+--- Page 58 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 58 of 79 
+• Compliance rate by visit: number of participants with an evaluable form at that visit, 
+divided by the number of participants expected to complete the form at that visit, 
+multiplied by 100.   
+• Overall compliance rate: number of participants with an evaluable baseline form and at 
+least one evaluable post-baseline form, divided by the number of participants expected to 
+complete the baseline form, multiplied by 100. The target for compliance for each 
+HRQoL questionnaire is 90%. 
+The distribution of forms expected and the reasons for forms not expected will be reported at 
+each visit. The following estimates will be provided to characterize the number of expected and 
+not expected forms:  
+• PRO assessment forms expected 
+• PRO assessment forms not expected – due to death (while on study) 
+• PRO assessment forms not expected – due to study discontinuation (with reason other 
+than death) 
+• PRO assessment forms not expected – time point not reached 
+Missing Data 
+PROs will be scored per their respective scoring manuals, with missing data handled as 
+described in said manual. No other imputations will be performed. Analyses will include 
+available observed data. 
+Absolute Scores and Changes from Baseline (descriptive) 
+For domains and scales, absolute scores and their changes from baseline will be summarized 
+and plotted at each time point for: 
+• EQ-5D-5L: VAS and HUI scores 
+• EORTC-QLQ-C30: global health status/QoL scale, 5 functioning multi-scale scores 
+(physical, role, cognitive, emotional and social), 3 multi-item symptom scales (fatigue, 
+pain, and nausea and vomiting) and 6 single symptom scales (dyspnea, appetite loss, 
+insomnia, constipation, diarrhea and financial difficulties). 
+• EORTC-QLQ-OV28 scale scores: 3 functional scales (body image, sexuality, and 
+attitude to disease/treatment) and 5 symptom scales (abdominal/GI, peripheral 
+neuropathy, hormonal/menopausal symptoms, other chemotherapy side effects, and hair 
+loss). 
+Longitudinal Analysis for Change from Baseline 
+A mixed-effects model for repeated measures (MMRM) will be performed on change from 
+baseline to compare treatment arms adjusting for correlations across multiple time points within 
+a participant. MMRM will be presented for global health status/QoL, physical functioning, role 
+functioning, fatigue, pain and appetite loss domains in EORTC-QLQ-C30 and the 
+abdominal/gastrointestinal domain in EORTC-QLQ-OV28. The model will include treatment 
+arm, scheduled visit, treatment arm-by-scheduled visit interaction, concurrent bevacizumab use 
+(actual, yes or no), HRR mutation status (actual, BRCAmut or BRCAwt), surgical status (at the 
+time of screening, PDS, planned IDS or inoperable) as explanatory variables, and baseline, 
+
+
+--- Page 59 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 59 of 79 
+baseline-by-visit as covariates. Treatment, visit, treatment-by-visit interactions, planned IDS, 
+bevacizumab use and HRR mutation status will be fixed effects in the model. All scheduled 
+visits will be included apart from those with <25% data out of the total number of subjects 
+within the population.   
+An unstructured covariance matrix will be used to model the between and within participant 
+variance and the Kenward-Roger approximation will be used to estimate the degrees of 
+freedom. Restricted maximum likelihood (REML) estimation will be used. If the fit of the 
+unstructured covariance structure fails to converge, the following covariance structures with 
+participant as random effect in the model will be used in order until convergence is reached: 
+Toeplitz with heterogeneity (TOEPH) and Toeplitz (TOEP). If there are still issues with the fit 
+of the model or the estimation of the treatment effects, no covariance structure will be specified, 
+participant will be treated as a random effect. 
+Least square means by treatment arm and least square mean differences, together with their 95% 
+CIs will be summarized and plotted over time. Overall, least square mean estimates and 
+estimates of the treatment difference will be derived, representing the average treatment effect 
+over visits, giving each visit equal weight.  
+Change from Baseline based on Minimal Clinically Important Threshold for the EORTC QLQ-
+C30 and the QLQ-OV28 
+The number and percentage of participants that have improved, remained stable or worsened 
+with respect to a clinically meaningful change in EORTC QLQ-C30 and EORTC QLQ-OV28 
+will be reported by treatment arm and scheduled visit. [Osoba, 1998], estimated a change of 10 
+points as a meaningful change threshold (MCT) in QLQ-C30 scale scores. Therefore, for the 
+QLQ-C30 scales, as well as the QLQ-OV28 functional symptom scales a 10-point change will 
+be considered a clinically meaningful change as described in Table 14. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+--- Page 60 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 60 of 79 
+Table 14  
+Definition of Change from Baseline for EORTC QLQ-C30 and QLQ-OV28 
+Scales Based on Minimum Clinically Important Difference (MCID) 
+Threshold 
+Definition  
+Description  
+For Global Health Status/QoL & function scales: 
+• Improved  
+change from baseline ≥ 10 points  
+• Stable  
+-10 points < change from baseline < 10 points  
+• Worsened  
+change from baseline ≤ -10 points  
+For symptom scales  
+• Improved  
+change from baseline ≤ -10 points  
+• Stable  
+-10 points < change from baseline < 10 points  
+• Worsened  
+change from baseline ≥ 10 points  
+ 
+4.3.3. 
+PD-L1 Positive Participants  
+The following efficacy analyses, as described in the Sections above, will be conducted in the 
+PD-L1 positive subgroup:  
+• PFS per 
+ by Investigator assessment 
+o Forest plot of selected primary sensitivity analyses (SA1, SA4, SA7 RMST only)  
+o Subgroup analyses (standard and shrinkage) 
+• PFS per 
+ by BICR assessment 
+• OS 
+• TFST 
+• TSST 
+• PFS2  
+4.3.4. 
+Comparisons to Arm 1  
+Efficacy analyses (e.g., PFS, OS) comparing Arm 1 to Arm 2 and/or Arm3 may be conducted in 
+appropriate populations (where data quality is not compromised by Arm 1 data collection 
+limitations, e.g., BRCAwt participants who received bevacizumab). Stratified analyses will be 
+controlled for applicable stratification factors depending on the populations analyzed.  
+ 
+CCI
+CCI
+
+
+--- Page 61 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 61 of 79 
+4.4. 
+Safety Analyses 
+The safety analyses will focus on the SAF population (Arm 1, Arm 2, Arm 3), maintenance 
+period analyses will be based on the MSAF population, unless otherwise specified. 
+ 
+4.4.1. 
+Treatment Exposure 
+Exposure data will be summarized by treatment arm and the Overall population, and study 
+period as defined in Section 3.4.  
+All treatment exposure will be presented in a data listing, including any treatment deviations. 
+4.4.1.1. 
+Niraparib/placebo Treatment Exposure 
+During the maintenance treatment period, starting at C2D1, niraparib/placebo is administered 
+daily in 21-day cycles as 
+ mg 
+ for up to 3 years. Dose is based on the participant’s 
+actual body weight and platelet count. Participants with an actual body weight of ≥ 77 kg and 
+platelet count ≥ 150,000 /µL will take 
+ mg/day. Those with an actual body weight < 77 kg 
+and/or a platelet count of < 150,000 /µL will take 
+ mg/day. 
+The following parameters for niraparib/placebo treatment exposure will be summarized as 
+continuous variables (only relevant to the maintenance period):  
+• Duration of exposure (months), defined as the [last dose date – first dose date + 1] / 
+30.4375. Last dose date equals last dose date for participants who have discontinued 
+treatment but accounts for the last dispensation cycle for ongoing participants.  
+• Number of cycles is based on the last available exposure visit assigned and will be 
+summarized as a continuous variable. 
+• Cumulative dose (mg) is the total number of 
+ consumed multiplied by the 
+dosage (mg). Total number of
+ consumed is the sum of the number of 
+dispensed minus the sum of the number of 
+ returned by the participant during 
+the study. 
+• Dose intensity (mg/day), defined as sum of the daily doses consumed divided by 
+duration of exposure (converted to days). 
+• Relative dose intensity (RDI; %), defined as dose intensity (mg/day) divided by 
+intended dose intensity (mg/day) multiplied by 100, where intended dose intensity is the 
+first intended starting dose 
+ mg/day or
+ mg/day). 
+ 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CBI
+
+
+--- Page 62 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 62 of 79 
+4.4.1.2. 
+Dostarlimab/placebo Treatment Exposure 
+During the chemotherapy treatment period, dostarlimab/placebo is dosed at 
+ mg on D1 of a 
+21-day cycle starting with C2, via a 
+. Administration will continue 
+throughout the chemotherapy treatment period to the maintenance treatment period. 
+During the maintenance treatment period, dostarlimab/placebo is dosed at 
+ mg on D1 of a 
+42-day cycle (i.e. every 6 weeks) beginning with the C1 of the maintenance period, via a 
+ 
+The following parameters for dostarlimab/placebo treatment exposure will be summarized as 
+continuous variables:  
+• Duration of exposure (months) will be summarized as follows: 
+o Chemotherapy period: (date of last dose of treatment in the chemotherapy period 
+– date of first dose of treatment + 21)/30.4375 
+o Maintenance period: (date of last dose of treatment in the maintenance period – 
+date of first dose treatment in the maintenance period + 42)/30.4375 
+o Overall period: 
+▪ For participants who did not receive maintenance treatment: (date of last 
+dose of treatment – date of first dose of treatment + 21)/30.4375 
+▪ For participants who received maintenance treatment: (date of last dose of 
+treatment – date of first dose of treatment + 42)/30.4375 
+• Number of cycles is based on the last available exposure visit assigned and will be 
+summarized as a continuous variable. 
+• Cumulative dose (mg) is calculated as the sum of all doses actually infused. 
+• Dose intensity (mg/wk) is calculated as the cumulative dose divided by duration of 
+exposure (converted to weeks). 
+• RDI (%) is calculated as dose intensity (mg/wk) divided by intended dose intensity 
+(mg/wk) multiplied by 100, where intended dose intensity is 
+ mg/wk during the 
+chemotherapy treatment period, and 
+ mg/wk during the maintenance period. 
+ 
+4.4.1.3. 
+Chemotherapy/Bevacizumab Treatment Exposure 
+The chemotherapy/bevacizumab treatment exposure will be summarized as follows: 
+• Duration of exposure (months), defined as (date of last dose of any 
+chemotherapy/bevacizumab treatment – date of first dose of any 
+chemotherapy/bevacizumab treatment + 21)/30.4375, summarized as a continuous 
+variable (for bevacizumab both chemotherapy and maintenance periods are relevant) 
+• Number of cycles will be summarized as a continuous variable 
+o For paclitaxel and carboplatin number of cycles reached is based on the last 
+available exposure visit assigned 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 63 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 63 of 79 
+o For bevacizumab, docetaxel and cisplatin number of cycles is based on the 
+number of exposure visits with valid dosage. 
+• Cumulative dose (mg/m2 for paclitaxel/docetaxel/cisplatin, mg for carboplatin, mg/kg 
+for bevacizumab) is calculated as the sum of all doses actually infused.  
+• Dose intensity (mg/m2/wk for paclitaxel/docetaxel/cisplatin, mg/wk for carboplatin, 
+mg/kg/wk for bevacizumab) is calculated as the cumulative dose divided by duration of 
+exposure (converted to weeks) 
+• RDI (%) is calculated as dose intensity divided by intended dose intensity multiplied by 
+100. 
+o For paclitaxel, cisplatin, docetaxel intended dose intensity (mg/m2/wk) is 
+calculated as (intended starting dose level/3)/body surface area. Body surface 
+area is taken as collected in the study treatment eCRF pages at first dose of the 
+study treatment. Intended starting dose level is taken as the first intended dose on 
+or after randomization. Further details on intended dose level may be found in 
+the study protocol.  
+o For carboplatin, intended dose intensity (mg/wk) is calculated by converting the 
+intended dose unit from area under curve (AUC) to mg using Calvert’s formula 
+[van Warmerdam, 1995] then dividing by 3: 
+▪ Intended dose (mg) = Intended dose (AUC) * (GFR + 25), where GFR = 
+0.85 * (140 – age in years) * weight in kg / (72 * serum creatinine 
+(mg/dL)) [Stevens, 2006] 
+▪ Intended dose intensity (mg/week) = Intended dose (mg)/3 
+o For bevacizumab, intended dose intensity is (7.5/3) mg/kg/wk or (15/3) 
+mg/kg/wk (intended dose level as collected in the bevacizumab study treatment 
+eCRF page at first dose of the study treatment) 
+Bevacizumab treatment exposure will be presented in a summary table for the chemotherapy, 
+maintenance, and overall period. Carboplatin and paclitaxel treatment exposure will be 
+presented in a summary table for the chemotherapy period. Cisplatin and docetaxel treatment 
+exposure will be presented in a data listing.  
+ 
+4.4.1.4. 
+Overall Treatment Exposure 
+The overall treatment exposure will be summarized for the overall period only as follows: 
+• Duration of exposure (months), defined as maximum exposure, i.e., from the first dose 
+of any study treatment to the max(last dose date + 1 cycle of any study treatment), 
+summarized as a continuous variable. 
+• Number of cycles will be summarized as a continuous variable. 
+ 
+
+
+--- Page 64 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 64 of 79 
+4.4.1.5. 
+Dose/infusion Interruptions 
+Dose interruption refers to temporarily halting niraparib/placebo treatment to manage adverse 
+events during oral study drug administration. 
+Infusion interruption refers to halting treatment (dostarlimab/placebo, carboplatin, paclitaxel or 
+bevacizumab) to manage reactions occurring during IV administration. 
+For both dose (niraparib/placebo) and infusion (dostarlimab/placebo, carboplatin, paclitaxel, 
+bevacizumab) interruptions the number and percentage of participants with an interruption will 
+be summarized alongside the categories for interruptions (0, 1, 2 and 3 or more). In addition, the 
+number and percentage of reason for interruption will be presented, participants may be present 
+in multiple categories. 
+Infusion interruptions will be presented for the chemotherapy, maintenance and overall period. 
+Any infusion interruptions for cisplatin and docetaxel will be presented in a data listing. 
+4.4.1.6. 
+Dose Reductions 
+The number and percentage of participants with a niraparib/placebo dose reduction will be 
+summarized, alongside the categories (1, 2 and 3 or more) for reductions. In addition, the 
+number and percentage of reason for reductions will be presented, participants may be present in 
+multiple categories. 
+4.4.1.7. 
+Infusion Delays 
+Infusion delay refers to delay in IV administration greater than 3 days (of dostarlimab/placebo, 
+carboplatin, paclitaxel or bevacizumab). The number and percentage of participants with an 
+infusion delay (dostarlimab/placebo, carboplatin, paclitaxel, bevacizumab), the number and 
+percentage with 0, 1, 2 and 3 or more infusion delays, number and percentage of delays 
+categorized by delay duration in days (<21, 21-42, >42) and reasons for infusion delay will be 
+summarized. 
+Infusion delays will be presented for the chemotherapy, maintenance and overall period. 
+Any infusion delays for cisplatin and docetaxel will be presented in a data listing. 
+4.4.2. 
+Adverse Events 
+4.4.2.1. 
+Overview 
+All AEs will be coded using the current MedDRA version. The severity of toxicity will be 
+graded according to NCI CTCAE v4.03. The relationship of each AE to study treatment 
+component will be assessed by the Investigator. All AEs for which the relationship to study 
+treatment is missing will be considered as related.  
+
+
+--- Page 65 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 65 of 79 
+If the “seriousness” flag is missing from the AE eCRF page, but “reason for considering event 
+as serious” is provided, the AE will be assumed to be serious. 
+AE summaries will be sorted by descending overall frequency, by SOC and PT unless otherwise 
+specified. For by-maximum grade summaries, participants experiencing the same AE multiple 
+times with different grades will only be counted once under the maximum recorded. 
+AE summaries will only consider TEAEs, unless clearly indicated otherwise. TEAEs are 
+defined as AEs with start date on or after the initiation of study treatment and within 90 days 
+after the last dose of study treatment or initiation of subsequent anticancer therapy, whichever 
+occurs first. AEs with a missing start date and either a missing stop date, or a stop date on or 
+after the initiation of study treatment are considered to be TEAEs with start dates falling in the 
+overall and chemotherapy treatment periods. For analysis purposes, TEAEs will be further 
+classified into periods of occurrence, per the flag definition in Section 3.4.  
+The data will be summarized by treatment arm (Arm 1, Arm 2, Arm 3, Overall), period of 
+occurrence and for the overall treatment regimen, unless otherwise specified. For any summary 
+tables presented by bevacizumab use (Overall, Received Bevacizumab, Did Not Receive 
+Bevacizumab), the bevacizumab categories will be determined from exposure data with 
+participants classed as having received bevacizumab if they have received at least one dose of 
+bevacizumab on the study after randomization.  
+The following summary tables will be provided: 
+• Overview of TEAEs for the overall treatment regimen only 
+• Presented by bevacizumab use  
+• Including the number and percentages of participants with the following:  
+▪ TEAEs 
+▪ TEAEs grade ≥ 3 
+▪ TEAEs related to any treatment 
+▪ TEAEs related to dostarlimab/placebo 
+▪ TEAEs related to niraparib/placebo 
+▪ TEAEs related to any treatment grade ≥ 3 
+▪ TEAEs related to dostarlimab/placebo grade ≥ 3 
+▪ TEAEs related to niraparib/placebo grade ≥ 3 
+▪ Treatment-emergent serious adverse events (TESAEs) 
+▪ TESAEs related to any treatment 
+▪ TESAEs related to dostarlimab/placebo 
+▪ TESAEs related to niraparib/placebo 
+▪ TEAEs leading to any infusion interruption 
+▪ TEAEs leading to dostarlimab/placebo infusion interruption 
+▪ TEAEs leading to niraparib/placebo dose interruption 
+
+
+--- Page 66 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 66 of 79 
+▪ TEAEs leading to any infusion delay 
+▪ TEAEs leading to dostarlimab/placebo infusion delay 
+▪ TEAEs leading to any treatment discontinuation 
+▪ TEAEs leading to dostarlimab/placebo treatment discontinuation 
+▪ TEAEs leading to niraparib/placebo treatment discontinuation 
+▪ TEAEs leading to any treatment dose reduction 
+▪ TEAEs leading to niraparib/placebo dose reduction 
+▪ TEAEs leading to death 
+▪ Treatment-related TEAEs leading to death 
+▪ Treatment-emergent immune-related AEs  
+▪ Treatment-emergent AESIs related to niraparib/placebo  
+• TEAEs by SOC, PT and maximum grade 
+o Presented by bevacizumab use  
+• TEAEs related to any treatment by SOC, PT and maximum grade 
+o Presented by bevacizumab use  
+o Related to any treatment includes any drug that can be taken throughout the 
+treatment period, including: carboplatin, paclitaxel, bevacizumab, docetaxel, 
+cisplatin, dostarlimab/placebo and niraparib/placebo.  
+• TEAEs related to dostarlimab/placebo by SOC, PT, and maximum grade 
+• TEAEs related to niraparib/placebo by SOC, PT, and maximum grade (relevant to the 
+maintenance treatment period only) 
+• TEAEs related to chemotherapy/bevacizumab by SOC, PT, and maximum grade in the 
+chemotherapy period  
+o Chemotherapy includes any of the following drugs: carboplatin, paclitaxel, 
+docetaxel and cisplatin  
+• TEAEs leading to discontinuation of any treatment by SOC and PT 
+o Presented by bevacizumab use  
+• TEAEs leading to dostarlimab/placebo discontinuation by SOC and PT  
+• TEAEs leading to niraparib/placebo discontinuation by SOC and PT (relevant to the 
+maintenance treatment period only) 
+• Treatment related TEAEs leading to discontinuation of any treatment by SOC and PT  
+o Presented by bevacizumab use  
+• Dostarlimab/placebo related TEAEs leading to dostarlimab/placebo discontinuation by 
+SOC and PT 
+
+
+--- Page 67 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 67 of 79 
+• Niraparib/placebo related TEAEs leading to niraparib/placebo discontinuation by SOC 
+and PT (relevant to the maintenance treatment period only) 
+• TEAEs leading to any infusion interruption by SOC and PT 
+• TEAEs leading to dostarlimab/placebo infusion interruption by SOC and PT 
+• TEAEs leading to niraparib/placebo dose interruption by SOC and PT (relevant to the 
+maintenance treatment period only) 
+• TEAEs leading to any treatment dose reduction by SOC and PT (relevant to the overall 
+and chemotherapy period only) 
+• TEAEs leading to niraparib/placebo dose reduction by SOC and PT (relevant to the 
+maintenance treatment period only) 
+• TEAEs leading to any infusion delay by SOC and PT 
+• TEAEs leading to dostarlimab/placebo infusion delay by SOC and PT 
+• Common (≥5% overall) TEAEs by PT in the overall treatment period 
+• Common (≥5% in either treatment arm) non-serious TEAEs by SOC and PT (number of 
+participants and occurrences) in the overall treatment period 
+• Non-Serious TEAEs related to any treatment by PT in the overall treatment period 
+• TESAEs by SOC, PT, and maximum grade 
+o Presented by bevacizumab use  
+• TESAEs by SOC, PT (number of participants and occurrences) in the overall treatment 
+period  
+o Presented by bevacizumab use  
+• TESAEs related to any treatment by SOC, PT and maximum grade 
+o Presented by bevacizumab use  
+• TESAEs related to dostarlimab/placebo by SOC, PT and maximum grade 
+o Presented by bevacizumab use  
+• TESAEs related to niraparib/placebo by SOC, PT and maximum grade (relevant to the 
+maintenance treatment period only) 
+• Fatal and non-fatal TESAEs related to any treatment by PT in the overall treatment 
+period 
+o Presented by bevacizumab use  
+o Related fatal AEs are recorded on the AE eCRF page as a serious AE due to 
+death and recorded as an AE related to treatment. 
+• Fatal and non-fatal TESAEs related to dostarlimab/placebo by PT in the overall 
+treatment period  
+• Fatal and non-fatal TESAEs related to niraparib/placebo by PT (relevant to the 
+maintenance treatment period only) 
+
+
+--- Page 68 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 68 of 79 
+• irTEAEs by group category, PT and maximum grade 
+• The following will be presented in the maintenance treatment period  
+o TEAESIs by group category, PT and maximum grade 
+o TEAEMIs by group category, PT and maximum grade 
+▪ Presented by bevacizumab use  
+• Infusion-related reactions (IRRs) by PT and maximum grade  
+• Dostarlimab-related IRRs by PT and maximum grade 
+• All AESIs by group category, PT and maximum grade (SAF analysis population, 
+includes all AEs, not just TEAEs) 
+In addition, an AE listing containing all AEs and a death subject profile on the enrolled 
+population will be provided.  
+Additional adverse event summaries may be provided for the purposes of disclosure summaries 
+and will be described in a separate document. 
+ 
+4.4.2.2. 
+Adverse Events of Special Interest 
+Table 15 outlines the AESIs for the study, with the criteria of mapping MedDRA PTs for each 
+AESI using Standardized MedDRA Queries (SMQs), High Level Terms (HLTs) and/or PTs. 
+The associated SMQs will be obtained from the latest MedDRA dictionary, these will then be 
+reviewed by the safety team before being used in the analysis.  
+ 
+Table 15  
+Adverse Events of Special Interest 
+Group Term 
+MedDRA Criteria for Selection of Preferred Terms 
+MDS/AML 
+Myelodysplastic syndrome (SMQ Narrow) 
+Leukemias acute myeloid (HLT) 
+Second primary 
+malignancies other than 
+MDS/AML 
+• Hematological malignant tumor (SMQ Narrow) 
+• Non-haematological malignant tumors (SMQ Narrow) 
+Selected PTs not considered a second primary malignancy will 
+be flagged and removed upon clinical/safety team review. 
+Abbreviations: AML = acute myelogenous leukemia; HLT = high level terms; MDS = myelodysplastic syndrome; 
+MedDRA = Medical Dictionary for Regulatory Activities; PT = preferred term; SMQ = Standardized MedDRA 
+Query. 
+ 
+
+
+--- Page 69 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 69 of 79 
+4.4.2.3. 
+Adverse Events of Medical Interest 
+The AEMIs will be summarized in a similar manner as the AESIs.  Table 16 outlines the AEMIs 
+with their associated SMQs and/or PTs. The associated SMQs will be obtained from the latest 
+MedDRA dictionary, these will then be reviewed by the safety team before being used in 
+analysis.  
+Table 16 
+Adverse Events of Medical Interest 
+Group Term 
+MedDRA Criteria for Selection of Preferred Terms 
+Thrombocytopenia 
+events 
+Haematopoietic thrombocytopenia (SMQ Broad) 
+Anemia events 
+Haematopoietic erythropenia (SMQ Broad) 
+Leukopenia events 
+Haematopoietic leukopenia (SMQ Narrow) 
+Neutropenia events 
+Selected PTs considered in clinical/safety team review as related to 
+neutropenia in the Haematopoietic leukopenia (SMQ Narrow) 
+Pancytopenia events 
+Haematopoietic cytopenias affecting more than one type of blood 
+cell (SMQ Broad) 
+Hypertension events 
+Hypertension (SMQ Narrow) 
+ 
+Abbreviations: MedDRA = Medical Dictionary for Regulatory Activities; PT = preferred term; 
+SMQ = Standardized MedDRA Query. 
+ 
+4.4.2.4. 
+Immune-Related Adverse Events 
+The irAEs include any Grade≥2 TEAEs related to dostarlimab/placebo identified by a GSK 
+MedDRA query (GSKMQ) using the GSK Terms of Interest (TOI) codes outlined in Table 17. 
+
+
+--- Page 70 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 70 of 79 
+Table 17 
+irAE GSKMQ TOI Codes 
+TOI Code 
+TOI Category Name 
+322658 
+Hypersensitivity 
+322659 
+Immune-mediated cardiovascular 
+322660 
+Immune-mediated endocrinopathies 
+322661 
+Immune-mediated Gastrointestinal 
+322662 
+Immune-mediated hematologic 
+322663 
+Immune-mediated hepatic 
+322664 
+Immune-mediated musculoskeletal 
+322665 
+Immune-mediated nervous system 
+322666 
+Immune-mediated ocular 
+322667 
+Immune-mediated Others 
+322668 
+Immune-mediated pancreatitis 
+322669 
+Immune-mediated Pulmonary 
+322670 
+Immune-mediated renal 
+322671 
+Immune-mediated skin adverse reactions 
+ 
+4.4.2.5. 
+IRRs 
+IRRs include AEs related to any infusion which occurred on the same or the day after infusion 
+and are identified by a CMQ using the TOI code outlined in Table 18. 
+ 
+Table 18 
+IRR CMQ TOI Code 
+TOI Code 
+TOI Category Name 
+323695 
+Infusion-related reactions 
+ 
+4.4.3. 
+Deaths 
+All deaths will be summarized. The summary will include status (death, alive at last contact, 
+follow-up ended, follow-up ongoing), primary cause of death and number of deaths relative to 
+the last dose of study treatment (>30 days or ≤ 30 days). Both deaths captured while on study 
+and those retrieved post study withdrawal will be included in the output.  
+ 
+
+
+--- Page 71 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 71 of 79 
+4.4.4. 
+COVID-19  
+COVID-19 data will be summarized by treatment arm (Arm 1, Arm 2, Arm 3, Overall) unless 
+otherwise specified within the overall study treatment period as defined in Section 3.4.  
+COVID-19 assessments will be presented for any participant with a suspected, probable, or 
+confirmed COVID-19 case diagnosis from the COVID-19 eCRF. Data will be presented in a 
+summary table providing the number of participants with a COVID-19 case diagnosis, the 
+number of events, the worst case COVID-19 case diagnosis, whether a COVID-19 test was 
+performed and the results from the test. 
+ 
+4.4.5. 
+Laboratory Data 
+Laboratory data will be summarized by treatment arm (Arm 1, Arm 2, Arm 3, Overall) for 
+chemotherapy and overall treatment periods, as defined in Section 3.4 unless otherwise 
+specified. This will include the analyses of chemistry, hematology, coagulation and urinalysis 
+and other screening laboratory tests. Hematology tests will also be presented for the 
+maintenance period and by bevacizumab use. Descriptive statistics (mean, standard deviation, 
+median, Q1, Q3, min and max) will be used to summarize change from baseline in observed 
+value according to the largest increase, decrease, and at EOT. 
+Summaries of worst-case grade increase from baseline grade will be provided for all the 
+laboratory tests that are gradable by CTCAE v4.03. These summaries will display the number 
+and percentage of participants with a maximum post-baseline grade increasing from their 
+baseline grade (e.g., Increase to Grade 1, Increase to Grade 2, Increase to Grade 3, Increase to 
+Grade 4) and maximum grade increase subtotals (e.g., Increase to Grades 1 to 4, Increase to 
+Grades 2 to 4, Increase to Grades 3 to 4). Missing baseline grade is assumed to be grade 0. For 
+laboratory tests that are graded for both low and high values, summaries will be done separately 
+and labelled by direction, e.g., sodium will be summarized as hyponatremia and hypernatremia 
+separately. 
+Shifts from baseline CTCAE grade to the worst-case post-baseline CTCAE grade will also be 
+provided for chemistry and hematology.  
+For laboratory tests that are not gradable by CTCAE v4.03, summaries of worst-case changes 
+from baseline with respect to normal range will be generated as required as per collected data. 
+Decreases to low, changes to normal or no changes from baseline, and increases to high will be 
+summarized for the worst-case post-baseline. If a participant has a decrease to low and an 
+increase to high during the same time interval, then the participant is counted in both the “To 
+Low” categories and the “To High” categories. Missing baseline value is assumed to be normal. 
+The calculation of worst-case will use both scheduled and unscheduled visits. 
+A summary of hepatobiliary laboratory assessments will be provided, as alkaline phosphatase 
+(ALP) is not collected, ALP criteria will not be included in the summary.  
+
+
+--- Page 72 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 72 of 79 
+In addition, scatter plots will be produced for the following in the overall treatment period: 
+• Maximum post-baseline vs baseline for ALT  
+• Maximum total bilirubin post-baseline vs maximum ALT post-baseline. 
+A listing of all laboratory values on the safety population will be provided. 
+ 
+4.4.6. 
+Vital Signs  
+Vital signs data will be summarized by treatment arm (Arm 1, Arm 2, Arm 3, Overall) for the 
+chemotherapy, maintenance and overall treatment periods, as defined in Section 3.4 unless 
+otherwise specified. Change from baseline for vital signs parameters (systolic and diastolic 
+blood pressure, pulse rate, temperature and weight) will be summarized and analyzed according 
+to the largest increase, decrease, and at the EOT, irrespective of scheduled or unscheduled visit. 
+A worst-case post-baseline blood pressure summary table of the number and percent of 
+participants categorized as low or high according to the below criteria will be presented. If a 
+participant has a decrease to low and an increase to high during the same time interval, then the 
+participant is counted in both the “To Low” categories and the “To High” categories. 
+• Systolic blood pressure (SBP) (mmHg): 
+o Low: <90 and decrease from baseline ≥20 
+o High: >160 and increase from baseline ≥20 
+• Diastolic blood pressure (DBP) (mmHg): 
+o Low: <50 and decrease from baseline ≥10 
+o High: >100 and increase from baseline ≥10 
+The calculation of worst-case will use both scheduled and unscheduled visits. 
+A listing of all vital sign measurements on the safety population will be provided. 
+ 
+4.4.7. 
+ECOG Performance Status 
+ECOG performance status data will be summarized by treatment arm (Arm 1, Arm 2, Arm 3, 
+Overall) for the overall treatment period, as defined in Section 3.4 unless otherwise specified. 
+A summary of change from baseline for worst-case post baseline for ECOG performance status 
+will be performed. The calculation of worst-case will use both scheduled and unscheduled visits. 
+Change categories will be presented as improved (any decrease in ECOG performance grade), 
+no change and deteriorated (any increase in ECOG performance grade).  
+4.4.8. 
+Pregnancy 
+Participant level data of participants who became pregnant during the study may be explored in 
+the RAPIDO DV. 
+
+
+--- Page 73 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 73 of 79 
+4.4.9. 
+Prior and Concomitant Medications and Surgical Procedures 
+All medications will be coded using the WHO Drug dictionary.  
+Medication start and stop dates will be compared to the date of first dose of study drug to allow 
+medications to be classified as either prior or concomitant medications. 
+Prior, concomitant medications and surgical procedures will be summarized by treatment arm 
+(Arm 1, Arm 2, Arm 3, Overall). 
+Prior medications are defined as medications other than study treatment with end date prior to 
+the first dose of study treatment.  
+Concomitant medications are defined as medications other than study treatment with at least one 
+dosing date on or after the date of first dose of study treatment, but not more than 90 days after 
+the last dose of study treatment or initiation of subsequent anticancer therapy, whichever occurs 
+first. 
+If start date is prior to study treatment start date and stop date is either missing or after initiation 
+of study treatment then the medication is assumed to be “concomitant”. If both start and stop 
+dates are missing for a medication, it will be assumed to be “concomitant”. 
+The following will be provided: 
+• Summary of Prior Medications by ingredient 
+• Summary of Concomitant Medications by ingredient 
+Concomitant surgical procedures are defined as all procedures reported on the concomitant 
+procedure eCRF. These will be coded using the current MedDRA version, and the number and 
+percentage of participants with at least one such procedure will be reported by indication and 
+PT. 
+In addition, a listing of concomitant medications (including prior medications) will be produced. 
+ 
+4.4.10. 
+Follow-Up Anticancer Therapies 
+The following data are collected in the eCRF for follow-up anticancer therapy (FUACT): name 
+of drug (and/or class), start and stop date, PD date, and best response.  
+Lines of FUACT are determined for each participant based on the reported start date(s) 
+therapies and the reported PD date(s) after the start of any FUACT.  
+If there are one or more PD dates, all the reported FUACT will be grouped into lines of 
+therapies by comparing their reported start dates to the reported PD dates. FUACT starting prior 
+to the first PD date and following the start of any FUACT are grouped as the “first-line” of 
+FUACT. FUACT starting after the first PD date and prior to the second PD date are grouped as 
+the “second line” of FUACT, and so forth. If no PD date is reported after initiating FUACT, all 
+reported FUACT will be grouped as the “first-line” of FUACT.  
+Any radiological disease assessments taking place on the same day as anticancer therapy, will 
+be considered to have occurred prior to the start of the line of FUACT. 
+
+
+--- Page 74 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 74 of 79 
+For each line of FUACT, the start date of the line is the earliest start date of any reported 
+FUACT in the line and the stop date of the line is the latest stop date of any FUACT in the line. 
+Reported follow-up anticancer therapy will be summarized by the following for all participants 
+and PD-L1 positive participants: 
+• Any follow-up anticancer therapy 
+o Number and percentage of participants receiving any follow-up anticancer 
+therapy 
+• Any follow-up radiotherapy (yes or no) 
+• Number of lines of follow-up anticancer therapies (1, 2 or ≥3 lines) 
+• Follow-up anticancer therapies 
+o Number and percentage of participants reported by type and PT 
+The follow-up anticancer therapies will be summarized for first line of follow-up anticancer 
+therapy and any line of follow-up anticancer therapy, according to a categorization list that will 
+be provided in a separate document. 
+ 
+4.5. 
+Pharmacokinetic Analysis 
+CCI
+
+
+--- Page 75 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 75 of 79 
+4.6. 
+Immunogenicity Analysis 
+CCI
+CCI
+
+
+--- Page 76 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 76 of 79 
+4.7. 
+Interim Analyses 
+Planned periodic safety analyses will be conducted by the Independent Data Monitoring 
+Committee (IDMC) 
+ 
+ 
+4.8. 
+Changes to Protocol Defined Analyses 
+There were no changes or deviations to the planned statistical analysis specified in FIRST 
+Protocol V9.0 (Amendment 7). 
+CCI
+CCI
+CCI
+CCI
+
+
+--- Page 77 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 77 of 79 
+5. 
+REFERENCES 
+Brookmeyer, R., Crowley, J. (1982). A Confidence Interval for the Median Survival Time. Biometrics, 38, 
+29-41. 
+EORTC (2018), EORTC QLQ-C30 Scoring Manual. Available at: 
+https://www.eortc.org/app/uploads/sites/2/2018/02/SCmanual.pdf 
+EuroQol (2022), Computing EQ-5D-5L index values with SAS using the United States (US) Pickard value 
+set. Available at: https://euroqol.org/wp-content/uploads/2024/01/US_valueset_SAS.txt  
+Greimel, E. et al. (2003). An International Field Study of the Reliability and Validity of a Disease-Specific 
+Questionnaire Module (the QLQ-OV28) in assessing the quality of life of patients with ovarian cancer. 
+European Journal of Cancer, 39 (10), 1402-1408. 
+Mantel, N., and Haenszel, W. (1959). Statistical Aspects of Analysis of Data from Retrospective Studies 
+of Disease. Journal of the National Cancer Institute, 22, 719-748.  
+Osoba, D., Rodrigues, G., Myles, J., Zee, B., & Pater, J. (1998). Interpreting the significance of changes 
+in health-related quality-of-life scores. Journal of clinical oncology, 16(1), 139-144. 
+Pickard A.S et al. (2019). United States Valuation of EQ-5D-5L Health States Using an International 
+Protocol. Value in Health; 22 (8), 931-941. 
+Royston, P., Parmar, M. K. B (2013). Restricted mean survival time: an alternative to the hazard ratio for 
+the design and analysis of randomized trials with a time-to-event outcome. BMC Med Res Methodol, 13, 
+152. 
+Sato, T. (1989). On the Variance Estimator of the Mantel-Haenszel Risk Difference Biometrics 45 1323-
+1324 
+Stevens, L. A., Coresh, J., Greene, T., Levey, A. S. (2006). Assessing Kidney Function – Measured and 
+Estimated Glomerular Filtration Rate, New England Journal of Medicine, 245, 2473-2483.  
+van Warmerdam, L. J., Rodenhuis, S., ten Bokkel Huinink, W. W.,  Maes, R. A. and Beijnen, J. H. 
+(1995). The use of the Calvert formula to determine the optimal carboplatin dosage. Journal Cancer 
+Research Clinical Oncology, 121 (8), 478-86. 
+ 
+
+
+--- Page 78 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 78 of 79 
+6. 
+SAP AMENDMENT SUMMARY OF CHANGES 
+Version 6.0 (Amendment 5): 
+• Updates to address dry run comments including: 
+o Removal of unknown PD-L1 category in PD-L1 subgroup analyses and 
+identification of 1% cut-off as exploratory 
+o Removal of NA category in residual disease following PDS according to the 
+ovarian cancer history eCRF subgroup analyses 
+• Correction of SAP amendment summary of changes for completeness 
+ 
+Version 5.0 (Amendment 4): 
+• Updates consistent with protocol amendment 7.0 including: 
+o Removal of PFS per 
+ in PD-L1 positive participants for the primary 
+objective  
+o Update to the hierarchical testing strategy to follow PFS per 
+ in all 
+participants followed by OS in all participants. 
+o Update to sample size determination and power, the number of events has 
+changed from 278 PFS events in the PD-L1 positive population to 692 PFS 
+events in Arms 2 and 3. 
+o Update to the exploratory objective to include all Arm 1 vs Arm 2 participants. 
+o Update to adjustments for covariates/stratification factors to use a pooling 
+strategy focused on the ITT population 
+• Various updates to clarify which outputs will be produced on ITT and PD-L1 positive 
+populations. 
+• Editorial, administrative and formatting revisions as needed throughout. 
+ 
+Version 4.0 (Amendment 3) 
+• Update to HRQoL Compliance to reflect latest guidance that target compliance for each 
+instrument is 90% 
+ 
+Version 3.0 (Amendment 2): 
+• Multiple analysis clarified and re-reviewed by the team throughout the SAP 
+• Additional statements and/or sections added throughout the document, including:  
+o Addition of PD-L1 TAP≥1% subgroup 
+o Additional statement on ITT population to ensure participants with death prior to 
+randomization are not included 
+CCI
+CCI
+
+
+--- Page 79 ---
+GSK 
+Statistical Analysis Plan, 300003005/ENGOTOV44/GSK 213350 (FIRST) 
+06 Nov 2024 Version 6.0  
+CONFIDENTIAL 
+ 
+Page 79 of 79 
+o Addition of mSAF population 
+o Additional section on analysis periods, for additional clarity for different 
+analyses such as lab, vital signs, concomitant medications  
+o Addition of DOR 
+o Section 3.6 added for adjustments for covariates/stratification factors 
+o Section added for sensitivity analysis non-proportional hazards including the 
+MaxCombo and RMST 
+o Section added for supportive analysis, shrinkage estimation 
+o Sections added for chemotherapy and bevacizumab treatment exposure, 
+dose/infusion interruptions, dose reductions and infusion delays 
+o Sections added for further detail on COVID-19 and pregnancy 
+o Update to primary analysis PFS censoring rules, particularly around missed 
+assessments, with further details added on tumor assessment windowing. 
+• Removal of statements and/or sections, including: 
+o Maintenance progression free survival (mPFS)  
+o Electrocardiograms (ECGs) 
+o Removal of PD-L1 safety outputs, no current assumption the safety profile is to 
+change between the ITT and PD-L1 populations 
+o Removal of PP population 
+o Removal of clinical PDs as an event in the primary analysis and inclusion in the 
+sensitivity analysis to include clinical PDs  
+Version 2.0 (Amendment 1): 
+• Scope of safety analysis expanded to provide a more comprehensive summary (by 
+treatment arm, population (PD-L1 vs Overall), bevacizumab use, and treatment period) 
+• Minor language updates and corrections for clarity 
+• Electrocardiogram (ECG) listing removed as this data is only collected at screening 
+• mPFS and DOR added as secondary endpoints, and PFS of Arm 1 vs Arm 2 BRCAwt 
+participants who receive bevacizumab added as exploratory endpoint to align w/ 
+protocol 
+• Statement about TAP cutoff for determination of PD-L1 status added 
+• Common AE cutoff changed from 10% to 5% to reflect current disclosure conventions 
+• Scope of PRO analysis expanded to reflect regulatory expectations 

@@ -1,0 +1,1609 @@
+
+--- Page 1 ---
+ 
+49539091dft 
+Considerations for the Design 
+and Conduct of Externally 
+Controlled Trials for Drug and 
+Biological Products  
+Guidance for Industry 
+ 
+ 
+ 
+ 
+ 
+DRAFT GUIDANCE 
+ 
+ 
+This guidance document is being distributed for comment purposes only. 
+ 
+Comments and suggestions regarding this draft document should be submitted within 90 days of 
+publication in the Federal Register of the notice announcing the availability of the draft 
+guidance.  Submit electronic comments to https://www.regulations.gov.  Submit written 
+comments to the Dockets Management Staff (HFA-305), Food and Drug Administration, 5630 
+Fishers Lane, Rm. 1061, Rockville, MD 20852.  All comments should be identified with the 
+docket number listed in the notice of availability that publishes in the Federal Register. 
+ 
+For questions regarding this draft document, contact (CDER) Dianne Paraoan, 301-796-2500, or 
+(CBER) Office of Communication, Outreach and Development, 800-835-4709 or 240-402-8010.  
+ 
+ 
+U.S. Department of Health and Human Services 
+Food and Drug Administration 
+Center for Drug Evaluation and Research (CDER) 
+Center for Biologics Evaluation and Research (CBER)  
+Oncology Center of Excellence (OCE) 
+ 
+February 2023 
+Real-World Data/Real-World Evidence (RWD/RWE) 
+
+
+--- Page 2 ---
+ 
+ 
+Considerations for the Design 
+and Conduct of Externally 
+Controlled Trials for Drug and 
+Biological Products  
+Guidance for Industry 
+ 
+ 
+Additional copies are available from: 
+ 
+Office of Communications, Division of Drug Information  
+Center for Drug Evaluation and Research 
+Food and Drug Administration 
+10001 New Hampshire Ave., Hillandale Bldg., 4th Floor  
+Silver Spring, MD 20993-0002  
+Phone: 855-543-3784 or 301-796-3400; Fax: 301-431-6353 
+Email: druginfo@fda.hhs.gov  
+https://www.fda.gov/drugs/guidance-compliance-regulatory-information/guidances-drugs  
+ 
+and/or 
+ 
+Office of Communication, Outreach and Development  
+Center for Biologics Evaluation and Research 
+ Food and Drug Administration 
+10903 New Hampshire Ave., Bldg. 71, Room 3128 
+Silver Spring, MD 20993-0002 
+Phone: 800-835-4709 or 240-402-8010 
+Email: ocod@fda.hhs.gov 
+https://www.fda.gov/vaccines-blood-biologics/guidance-compliance-regulatory-information-biologics/biologics-guidances  
+ 
+U.S. Department of Health and Human Services 
+Food and Drug Administration 
+Center for Drug Evaluation and Research (CDER) 
+Center for Biologics Evaluation and Research (CBER)  
+Oncology Center of Excellence (OCE) 
+ 
+ 
+February 2023 
+Real-World Data/Real-World Evidence (RWD/RWE) 
+ 
+
+
+--- Page 3 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+TABLE OF CONTENTS 
+ 
+ 
+I. 
+INTRODUCTION............................................................................................................. 1 
+II. 
+BACKGROUND ............................................................................................................... 2 
+III. 
+DESIGN AND ANALYSIS OF EXTERNALLY CONTROLLED TRIALS .............. 4 
+A. 
+Design Considerations ................................................................................................................... 4 
+1. Overview .......................................................................................................................................... 4 
+2. Characteristics of Study Populations ............................................................................................... 6 
+3. Attributes of Treatment .................................................................................................................... 6 
+4. Designation of Index Date (Time Zero) ........................................................................................... 7 
+5. Assessment of Outcomes .................................................................................................................. 8 
+B. 
+Data Considerations for the External Control Arm ................................................................. 10 
+1. Data from Clinical Trials............................................................................................................... 10 
+2. Data from RWD Sources ................................................................................................................ 11 
+3. Considerations for Assessing Comparability of Data Across Trial Arms ..................................... 11 
+C. 
+Analysis Considerations .............................................................................................................. 13 
+1. General Considerations ................................................................................................................. 13 
+2. Missing Data .................................................................................................................................. 14 
+3. Misclassification of Available Data ............................................................................................... 15 
+4. Additional Analyses ....................................................................................................................... 16 
+IV. 
+CONSIDERATIONS TO SUPPORT REGULATORY REVIEW ............................ 16 
+A. 
+Communication with FDA .......................................................................................................... 16 
+B. 
+Access to Data and Documents ................................................................................................... 16 
+GLOSSARY................................................................................................................................. 17 
+
+
+--- Page 4 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+1 
+Considerations for the Design and Conduct of Externally Controlled 
+1 
+Trials for Drug and Biological Products1 
+2 
+ 
+3 
+ 
+4 
+This draft guidance, when finalized, will represent the current thinking of the Food and Drug 
+5 
+Administration (FDA or Agency) on this topic.  It does not establish any rights for any person 
+6 
+and is not binding on FDA or the public.  You can use an alternative approach if it satisfies the 
+7 
+requirements of the applicable statutes and regulations.  To discuss an alternative approach, 
+8 
+contact the FDA staff responsible for this guidance as listed on the title page.  
+9 
+ 
+10 
+ 
+11 
+ 
+12 
+ 
+13 
+I. 
+INTRODUCTION  
+14 
+ 
+15 
+This guidance provides recommendations to sponsors and investigators considering the use of 
+16 
+externally controlled clinical trials2 to provide evidence of the safety and effectiveness of a drug 
+17 
+product.3  In an externally controlled trial, outcomes in participants receiving the test treatment 
+18 
+according to a protocol are compared to outcomes in a group of people external to the trial who 
+19 
+had not received the same treatment.  The external control arm can be a group of people, treated 
+20 
+or untreated, from an earlier time (historical control), or it can be a group of people, treated or 
+21 
+untreated, during the same time period (concurrent control) but in another setting.4,5  
+22 
+ 
+23 
+The guidance addresses considerations for the design and analysis of externally controlled trials 
+24 
+to study the effectiveness and safety of drugs, including discussion of threats to the validity of 
+25 
+ 
+1 This guidance has been prepared by the Office of Medical Policy in the Center for Drug Evaluation and Research 
+in cooperation with the Center for Biologics Evaluation and Research and the Oncology Center of Excellence at the 
+Food and Drug Administration.  
+ 
+2 In this guidance, the terms clinical trials, clinical studies, and clinical investigations are interchangeable.  
+ 
+3 In this guidance, the term drug product includes both human drugs and biological products. 
+ 
+4 FDA regulations under 21 CFR 314.126 outline the characteristics of adequate and well-controlled studies, and 
+recognize various controls, including a historical control, which FDA considers to be a subset of a broader category 
+of potential external controls.  FDA has accepted various types of external controls, when appropriate, for a specific 
+drug development program.  See also the International Council for Harmonisation (ICH) guidance for industry E10 
+Choice of Control Group and Related Issues in Clinical Trials (May 2001).  We update guidances periodically.  For 
+the most recent version of a guidance, check the FDA guidance web page at https://www.fda.gov/regulatory-
+information/search-fda-guidance-documents.  
+ 
+5 Although multiple arms may be part of the overall trial design, this guidance discusses externally controlled trials 
+involving analysis of a single treatment arm and a single control arm. 
+ 
+
+
+--- Page 5 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+2 
+trial results from potential bias.6  Although various sources of data can serve as the control arm 
+26 
+in an externally controlled trial, this guidance focuses on the use of patient-level data from other 
+27 
+clinical trials or from real-world data (RWD) sources, such as registries as well as electronic 
+28 
+health records (EHRs) and medical claims.7  The guidance also describes considerations related 
+29 
+to communicating with FDA and ensuring access by FDA to data from an externally controlled 
+30 
+trial. 
+31 
+ 
+32 
+This guidance does not address other types of external controls, such as using summary-level 
+33 
+estimates instead of patient-level data.  This guidance does not discuss details of the design and 
+34 
+analysis of a natural history study8 nor the reliability and relevance of various sources of RWD9 
+35 
+that could be used in an externally controlled trial.  Finally, this guidance also does not discuss 
+36 
+considerations for using external control data to supplement a control arm in a traditional 
+37 
+randomized controlled clinical trial. 
+38 
+ 
+39 
+In general, FDA’s guidance documents do not establish legally enforceable responsibilities.  
+40 
+Instead, guidances describe the Agency’s current thinking on a topic and should be viewed only 
+41 
+as recommendations, unless specific regulatory or statutory requirements are cited.  The use of 
+42 
+the word should in Agency guidances means that something is suggested or recommended, but 
+43 
+not required. 
+44 
+ 
+45 
+ 
+46 
+II. 
+BACKGROUND 
+47 
+ 
+48 
+The purpose of conducting clinical investigations of a drug product is to distinguish the effect of 
+49 
+a drug on the target condition from other influences, such as spontaneous change in the course of 
+50 
+the disease, placebo effect, or biased observation.10  When properly conducted, a clinical trial—
+51 
+with random assignment of participants either to a treatment arm or to a placebo (or other 
+52 
+ 
+6 Words and phrases in bold italics are defined in the Glossary. 
+ 
+7 Given that an external control arm can involve the use of RWD, FDA is issuing this guidance to satisfy, in part, the 
+requirements of the 21st Century Cures Act to issue guidance on the use of real-world evidence (RWE) in 
+regulatory decision-making, specifically to evaluate the potential use of RWE to help support the approval of a new 
+indication for a drug already approved under section 505(c) of the FD&C Act or to help support or satisfy 
+postapproval study requirements. 
+ 
+8 See the draft guidance for industry Rare Diseases:  Natural History Studies for Drug Development (March 2019).  
+When final, this guidance will represent FDA’s current thinking on this topic.  Natural history studies can be used 
+for purposes such as identifying a study population, developing clinical outcome assessments or biomarkers, and 
+serving as a comparator group in an externally controlled trial.  
+ 
+9 See the following draft guidances for industry:  Real-World Data:  Assessing Electronic Health Records and 
+Medical Claims Data to Support Regulatory Decision-Making for Drug and Biological Products (September 2021); 
+Real-World Data: Assessing Registries to Support Regulatory Decision-Making for Drug and Biological Products 
+(November 2021); and Data Standards for Drug and Biological Product Submissions Containing Real-World Data 
+(October 2021).  When final, these guidances will represent FDA’s current thinking on these topics. 
+ 
+10 See 21 CFR 314.126(a).  
+ 
+
+
+--- Page 6 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+3 
+control) arm—optimally promotes the similarity of compared groups regarding such influences, 
+53 
+such that a conclusion can be made as to whether differences in outcomes observed between 
+54 
+groups can be attributed to the treatment of interest.  Nevertheless, for decades FDA has 
+55 
+recognized the potential value of other types of controls, including historical controls as a type of 
+56 
+external control.11  Clinical trials using these other types of controls can, when appropriate, serve 
+57 
+as the adequate and well-controlled clinical investigations generally required to provide 
+58 
+substantial evidence of effectiveness under section 505(d) of the Federal Food, Drug, and 
+59 
+Cosmetic Act (FD&C Act).12 
+60 
+ 
+61 
+Given that externally controlled trials do not involve randomization of the study population to 
+62 
+the treatments being compared, the treatment and control arm populations should be as similar as 
+63 
+possible regarding known factors that can affect the outcome being measured.  These factors, 
+64 
+discussed in more detail in section III, include important baseline characteristics (e.g., 
+65 
+demographic factors, comorbidities), disease attributes (e.g., severity, symptoms, duration of 
+66 
+illness), start of follow-up for the treatment of interest, concomitant therapies, and the clinical 
+67 
+observations collected.  Importantly, before choosing to conduct a clinical trial using an external 
+68 
+control arm as a comparator, sponsors and investigators should consider the likelihood that such 
+69 
+a trial design would be able to distinguish the effect of a drug from other factors that impact the 
+70 
+outcome of interest and meet regulatory requirements.13   
+71 
+ 
+72 
+The suitability of an externally controlled trial design warrants a case-by-case assessment, 
+73 
+informed by issues including heterogeneity of the disease (e.g., clinical presentation, severity, 
+74 
+prognosis), preliminary evidence regarding the drug product under investigation, the approach to 
+75 
+ascertaining the outcome of interest, and whether the goal of the trial is to show superiority or 
+76 
+non-inferiority.14  Of note, if the natural history of a disease is well-defined and the disease is 
+77 
+known not to improve in the absence of an intervention or with available therapies, historical 
+78 
+information can potentially serve as the control group.  For example, objective response rate is 
+79 
+often used as a single-arm trial endpoint in oncology given the established understanding that 
+80 
+tumor shrinkage rarely occurs without an intervention.15,16   
+81 
+ 
+82 
+In many situations, however, the likelihood of credibly demonstrating the effectiveness of a drug 
+83 
+of interest with an external control is low, and sponsors should choose a more suitable design, 
+84 
+ 
+11 See 21 CFR 314.126(b)(2)(v).  
+ 
+12 See section 505(d) of the FD&C Act (21 U.S.C. 355(d)).  
+ 
+13 See 21 CFR 314.126. 
+ 
+14 A non-inferiority approach is not recommended using an externally controlled trial design.  See the guidance for 
+industry Non-Inferiority Clinical Trials to Establish Effectiveness (November 2016). 
+ 
+15 See the ICH guidance for industry E10 Choice of Control Group and Related Issues in Clinical Trials (May 
+2001).  
+ 
+16 See the guidance for industry Clinical Trial Endpoints for the Approval of Cancer Drugs and Biologics 
+(December 2018). 
+ 
+
+
+--- Page 7 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+4 
+regardless of the prevalence of disease.  For example, when considering whether to use an 
+85 
+externally controlled trial design, sponsors should decide whether it is possible to generate 
+86 
+evidence capable of distinguishing the effect of the drug from outcomes attributable to the 
+87 
+disease’s natural history,17 prognostic differences in the study populations, knowledge of 
+88 
+treatment assignment (lack of blinding), or other factors such as differences in concomitant 
+89 
+therapies.  
+90 
+ 
+91 
+The remainder of this guidance is intended to assist sponsors in identifying and addressing 
+92 
+commonly encountered challenges when considering the conduct of an externally controlled 
+93 
+trial.  
+94 
+ 
+95 
+ 
+96 
+III. 
+DESIGN AND ANALYSIS OF EXTERNALLY CONTROLLED TRIALS  
+97 
+ 
+98 
+A. 
+Design Considerations 
+99 
+ 
+100 
+1. 
+Overview 
+101 
+ 
+102 
+Reducing the potential for bias in externally controlled trials is best addressed in the design 
+103 
+phase, in that well-chosen design elements increase confidence in the interpretability of study 
+104 
+results when appropriate analytic methods are applied to estimate treatment effects.  Sponsors 
+105 
+should finalize a study protocol before initiating the externally controlled trial, including 
+106 
+selection of the external control arm and analytic approach, rather than selecting an external 
+107 
+control arm after the completion of a single-arm trial.  Specific design elements to prespecify in 
+108 
+the protocol (i.e., before conducting an externally controlled trial) include suitable study data 
+109 
+sources,18 baseline eligibility (inclusion and exclusion) criteria,19 appropriate exposure 
+110 
+definitions and windows, well-defined and clinically meaningful endpoints, cogent analytic 
+111 
+plans, and approaches to minimize missing data and sources of bias. 
+112 
+ 
+17 Scenarios that would not be suitable for externally controlled trials include when the natural history of the disease 
+of interest is not understood sufficiently or when the disease course is considered well-understood but is variable. 
+ 
+18 FDA recognizes that access to and evaluation of relevant data sources or databases are important steps in 
+designing a control arm for externally controlled trials and in evaluating the trial’s feasibility.  Sponsors should 
+document and describe in the trial protocol all data sources accessed when designing the control arm of the trial and 
+the results of any feasibility evaluations or exploratory analyses.  Sponsors should provide a justification for 
+selecting or excluding relevant data sources and demonstrate that the choice of a final analytic dataset for the control 
+arm aligns with the research question of interest and was not chosen to favor particular study results.  FDA 
+recommends that sponsors generate audit trails in their datasets that can track access to and analyses performed on 
+relevant data sources.  See the draft guidance for industry Considerations for the Use of Real-World Data and Real-
+World Evidence to Support Regulatory Decision-Making for Drug and Biological Products (December 2021).  
+When final, this guidance will represent the FDA’s current thinking on this topic.  
+ 
+19 In this guidance, the term eligibility criteria refers to the requirements for entry into a clinical trial (i.e., the 
+characteristics the participants must or must not have to be able to participate in the trial).  See the guidance for 
+industry Enhancing the Diversity of Clinical Trial Populations — Eligibility Criteria, Enrollment Practices, and 
+Trial Designs (November 2020). 
+ 
+
+
+--- Page 8 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+5 
+  
+113 
+The estimand framework20—involving a precise description of the treatment effect reflecting the 
+114 
+clinical question posed by the study objective—can be used to help design an externally 
+115 
+controlled trial.  An estimand is comprised conceptually of the study population, treatment of 
+116 
+interest and comparator, outcome of interest, handling of intercurrent events, and summary 
+117 
+measures.  Many of the elements of the estimand framework are described individually in the 
+118 
+subsections below, and considering the elements together promotes alignment of trial objectives, 
+119 
+conduct, analysis, and interpretation of results.  
+120 
+ 
+121 
+A specific design consideration for externally controlled trials involves prespecifying plans 
+122 
+regarding how to measure and analyze data on important confounding factors and sources of 
+123 
+bias.  The ability to identify confounding factors in an externally controlled trial is limited by 
+124 
+both conceptual and practical concerns.  Conceptually, when seeking to provide evidence of 
+125 
+effectiveness using an externally controlled trial design, a thorough understanding is needed—
+126 
+but is often difficult to verify—regarding the natural history21 of the disease involved and 
+127 
+relevant prognostic factors influencing outcomes.  For example, important prognostic factors for 
+128 
+an outcome may not be known and therefore cannot be used in the process of developing the 
+129 
+external control arm to match, as closely as possible, such factors in the treatment arm.   
+130 
+ 
+131 
+From a practical perspective, fit-for-use data on suspected confounding factors (e.g., history of 
+132 
+cigarette smoking, performance status) may be missing for some patients or participants or may 
+133 
+be measured differently in the external control arm compared to the treatment arm.  Accordingly, 
+134 
+before deciding whether an externally controlled trial is a suitable design to answer the research 
+135 
+question of interest, sponsors should confirm that recognized, important prognostic 
+136 
+characteristics can be assessed in the data sources that will be used in an externally controlled 
+137 
+trial.  Specifically, the source population for the external control arm should be as comparable as 
+138 
+possible to the treatment arm population, given that controlling for differences between the two 
+139 
+study arms (see section III.C) becomes more challenging with increasingly dissimilar 
+140 
+populations.    
+141 
+ 
+142 
+Although unmeasured confounding, lack of blinding, and other sources of bias cannot be 
+143 
+eliminated in externally controlled trials, an assessment of the extent of confounding and bias, 
+144 
+along with analytic methods to reduce the impact of such bias, are critically important in the 
+145 
+conduct of such trials.  Given the challenges outlined, externally controlled trials are more likely 
+146 
+ 
+20 For further information, see the ICH guidance for industry E9(R1) Statistical Principles for Clinical Trials: 
+Addendum: Estimands and Sensitivity Analysis in Clinical Trials (May 2021).  
+ 
+21 Changes over time in the understanding of the natural history of a disease can also introduce bias in an externally 
+controlled trial.  For example, diagnosis of patients with a genetic disorder may have been based historically on the 
+development of signs and symptoms, whereas the development and increased use of genetic testing in clinical trials 
+can diagnose patients at earlier stages of disease (see, for example, EA Nannenberg, IAW van Rijsingen, PA van der 
+Zwaag, MP van den Berg, JP van Tintelen, MWT Tanck, MJ Ackerman, AAM Wilde, and I Christiaans, 2018, 
+Effect of Ascertainment Bias on Estimates of Patient Mortality in Inherited Cardiac Diseases, Circ Genom Precis 
+Med, 11(10):e001797).  In such situations, a historical control arm would have shorter diagnosis-to-death intervals 
+than a treatment arm, even if the drug of interest has no impact on survival. 
+ 
+
+
+--- Page 9 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+6 
+to provide convincing results when the effect size on a well-characterized outcome of interest is 
+147 
+anticipated to be large.22  
+148 
+ 
+149 
+2. 
+Characteristics of Study Populations  
+150 
+ 
+151 
+In the absence of randomization, a major concern for externally controlled trials is that attributes 
+152 
+of patients23 likely to influence outcomes in an external control arm will differ from 
+153 
+corresponding attributes of participants in a treatment arm of the trial.  Examples of baseline 
+154 
+attributes of participants or patients in treatment and control groups that can be dissimilar include 
+155 
+demographic and related factors (e.g., age, sex, race, socioeconomic status, geographic region).  
+156 
+Additional attributes that could be dissimilar but often are more challenging to address include 
+157 
+disease characteristics (e.g., severity, duration, specific signs and symptoms, performance 
+158 
+status), prognostic or predictive biomarkers,24 comorbidities, and prior and current treatments 
+159 
+received.  When accounting for baseline characteristics, specific challenges can include (1) 
+160 
+whether relevant confounding factors are known and well-characterized; (2) whether such 
+161 
+confounding factors are captured; (3) whether these factors have been assessed with appropriate 
+162 
+methods and measured similarly across compared groups; and (4) whether the study’s analytic 
+163 
+methods sufficiently address the differences in clinical characteristics between the compared 
+164 
+groups.   
+165 
+ 
+166 
+A specific consideration involves how well the eligibility criteria can be applied to the external 
+167 
+control arm in order to obtain a population comparable to the treatment arm.  In addition, unless 
+168 
+a concurrent control group is being used, sponsors should consider whether diagnostic criteria for 
+169 
+the condition of interest and other relevant baseline factors, or the approaches used to ascertain 
+170 
+data on such factors, have changed during the time of data collection.  Accordingly, the protocol 
+171 
+for an externally controlled trial should include specific plans for evaluating eligibility criteria to 
+172 
+determine if the criteria can be applied in a manner that allows for selection of similar patients in 
+173 
+the treatment and external control groups, recognizing the limitations of information available in 
+174 
+many RWD sources.  
+175 
+ 
+176 
+3. 
+Attributes of Treatment 
+177 
+ 
+178 
+In properly designed and conducted randomized trials, observed differences in efficacy and 
+179 
+safety outcomes can generally be attributed to the investigational drug, but confidence in such 
+180 
+attribution is diminished in externally controlled trials because of concerns over potentially 
+181 
+ 
+22 See the ICH guidance for industry E10 Choice of Control Group and Related Issues in Clinical Trials (May 2001) 
+and 21 CFR 314.126(b)(v). 
+ 
+23 In this guidance, the term patient refers to a person whose health care information (e.g., regarding a disease) is 
+included in a study, whereas the term participant refers to a healthy person or a person with a disease who 
+participates in a study. 
+ 
+24 Prognostic and predictive biomarkers are used to assess the rate of disease progression or response to therapy, 
+respectively.  For additional discussion, see BEST (Biomarkers, EndpointS, and other Tools) Resource, available at 
+https://www.ncbi.nlm.nih.gov/books/NBK338448, as well as the guidance for industry Enrichment Strategies for 
+Clinical Trials to Support Approval of Human Drugs and Biological Products (March 2019).  
+
+
+--- Page 10 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+7 
+important imbalances with respect to treatment between the treatment arm and the external 
+182 
+control arm that are either not documented or cannot be accounted for.  Such imbalances can 
+183 
+involve factors related to the treatment of interest (e.g., adherence, dose, timing of initiation, and 
+184 
+duration of treatment) and receipt of additional treatments.  These concerns are expected when 
+185 
+the data in the external control arm are from an RWD source, and although the remainder of this 
+186 
+section focuses on such data sources, potential imbalances can also exist when the data come 
+187 
+from other clinical trials.  
+188 
+ 
+189 
+Clinical trial protocols typically include a plan for collecting data on use of concomitant or 
+190 
+supportive therapies (including non-prescription products) that could affect the outcomes of 
+191 
+interest, along with detailed data on the characteristics and administration of such therapies.  
+192 
+Examples include drug formulation, dose, strength, route, timing, frequency, and duration—and 
+193 
+for certain medications, specific rules for dose modifications, interruptions, or discontinuations 
+194 
+are specified in the protocol.  In contrast, documentation of such data in routine clinical care may 
+195 
+not be complete or accurate, and RWD may therefore lack comprehensive details describing the 
+196 
+administration of a treatment or information on the use of concomitant or supportive therapies.  
+197 
+For example, suitable data on additional treatment modalities (e.g., radiotherapy and surgical 
+198 
+interventions when treating patients with cancer) may not be available in certain data sources.  In 
+199 
+addition, management of treatment- or disease-related adverse events may not be predefined or 
+200 
+described consistently compared to a trial protocol.    
+201 
+ 
+202 
+Additional factors can influence the treatment and delivery of care that patients receive as well as 
+203 
+the assessment of outcomes related to those treatments when data from clinical care are 
+204 
+analyzed.  Examples include differences in health-seeking behaviors, insurance coverage 
+205 
+(including prescription drug plans), adoption of clinical practice guidelines, availability of novel 
+206 
+treatments, and use of companion diagnostic testing (e.g., a genetic test used in conjunction with 
+207 
+a corresponding therapeutic product).  Access to emergency department or intensive care, 
+208 
+availability and coordination of subspecialty care, and academic versus community health care 
+209 
+settings can also be markedly different within or across health care systems or geographic areas.  
+210 
+These and other health care delivery factors—at the level of the patient, provider, or health 
+211 
+system—can influence treatment selection.  Such factors should be identified and accounted for 
+212 
+adequately in externally controlled trials; otherwise, a different design approach (e.g., 
+213 
+randomized controlled trial) should be considered.  
+214 
+ 
+215 
+4. 
+Designation of Index Date (Time Zero)  
+216 
+ 
+217 
+A specific and difficult challenge when designing externally controlled trials is specifying the 
+218 
+index date (also called time zero or zero time), which is the start of the observation period for 
+219 
+assessing endpoints.  Given the lack of randomization in externally controlled trials, differences 
+220 
+in the way the index date is determined across trial arms may lead to biased effect estimates.  
+221 
+The index date for the treatment and control arms in a randomized trial is usually designated as 
+222 
+the time when eligibility criteria are determined to have been met and a decision was made 
+223 
+regarding the intended treatment strategy for each participant.  For an externally controlled trial 
+224 
+that relies on RWD, however, the index date for the control arm can be assigned in various ways.  
+225 
+
+
+--- Page 11 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+8 
+If there are temporal differences in this date relative to treatment initiation or other important 
+226 
+landmark times by treatment arm, any observed treatment effects may be biased.   
+227 
+ 
+228 
+Determination of the index date in the treatment arm and the external control arm should avoid 
+229 
+analyses that include a period of time (immortal time) during which the outcome of interest 
+230 
+could not have occurred in one of the two arms.  If the index date is not established appropriately 
+231 
+across compared arms in an externally controlled trial, bias due to immortal time can occur.  For 
+232 
+example, consider an externally controlled trial that involves a time-to-event mortality endpoint 
+233 
+and an index date established as the time of having failed prior therapy.  If analyses of 
+234 
+participants in the treatment arm include only those who actually receive the drug of interest, 
+235 
+then any period of time between eligibility determination (i.e., failed prior therapy) and treatment 
+236 
+initiation is immortal time; that is, the person must survive the period to receive the drug and be 
+237 
+accounted for in the analysis.  In contrast, if patients in the external control arm do not receive 
+238 
+subsequent therapy after determination of eligibility (i.e., failed prior therapy), these patients 
+239 
+would be included in the analysis regardless of survival.  Accordingly, patients with very short 
+240 
+survival times would be included in the control arm but not in the treatment arm, introducing a 
+241 
+bias that makes the drug seem more effective than it actually is.25    
+242 
+ 
+243 
+When assessing bias that may be introduced related to immortal time in an externally controlled 
+244 
+trial, the clinical circumstances related to assigning the index date should be considered.  
+245 
+Specifically, if a treatment strategy is assigned immediately after a discrete and identifiable 
+246 
+clinical event, the index date for the compared groups may be reasonably determined by the time 
+247 
+of occurrence of that event.  For example, if treatment is started after an acute myocardial 
+248 
+infarction, stroke, or heart failure hospitalization, these events may be more suitable to identify 
+249 
+the index date for both the treatment arm and external control arm.  In contrast, when the event 
+250 
+that prompts the treatment of interest is not discrete and readily identifiable, such as worsening 
+251 
+of heart failure symptoms or poor control of hypertension, determining a suitable index date can 
+252 
+be difficult or may not be possible.  Identifying an index date can also be especially challenging 
+253 
+in situations in which no treatment is the treatment strategy for the external control arm. 
+254 
+ 
+255 
+5. 
+Assessment of Outcomes 
+256 
+ 
+257 
+The lack of blinding to treatments in externally controlled trials can pose challenges when 
+258 
+considering certain outcomes, in that knowledge of the particular treatment by patients, 
+259 
+caregivers, clinicians, or investigators can potentially lead to a biased estimate of the effect of 
+260 
+treatment.  Accordingly, whenever possible and for suitable endpoints, the outcome should be 
+261 
+assessed blinded to treatment status.  In some cases, this activity may require re-adjudication of 
+262 
+the externally controlled data, such as by blinded independent central review.  Bias can also be 
+263 
+introduced if outcome assessments in the treatment arm and the external control arm differ based 
+264 
+on the sources of data involved or the criteria used to establish outcomes.  Sponsors should seek 
+265 
+to assess outcomes consistently across the treatment arm and the external control arm for the 
+266 
+results of an externally controlled trial to be credible. 
+267 
+ 
+268 
+ 
+25 In a randomized trial, potential periods of immortal time are expected to be balanced across treatment groups. 
+
+
+--- Page 12 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+9 
+Well-defined, reliable, and clinically meaningful outcomes that are typically used in randomized 
+269 
+trials may be particularly difficult to ascertain and evaluate in an RWD source that is being 
+270 
+considered for an externally controlled trial.  For example, radiologic endpoints in controlled 
+271 
+oncology trials (e.g., objective response rate and progression-free survival) are based on 
+272 
+prespecified imaging assessment frequency and standardized measurement criteria for response 
+273 
+evaluation criteria in solid tumors (RECIST).  In routine clinical care, however, radiologic 
+274 
+assessment frequency is variable, and formal tumor measurement may not routinely be 
+275 
+performed or documented, making a valid assessment of progression-free survival or objective 
+276 
+response rate using external control data, such as data from EHRs, challenging.26  A similar 
+277 
+consideration applies to the assessment of motor milestones, such as the ability to sit or walk, 
+278 
+which are usually not recorded with the same rigor during routine clinical care compared to 
+279 
+approaches used in clinical trials.  As another example, a randomized trial may include specific 
+280 
+testing to detect or confirm a particular clinical entity (e.g., severe inflammatory bowel disease 
+281 
+activity confirmed by endoscopy), whereas various strategies may be used in clinical care to 
+282 
+identify and confirm the same event.  In some cases, and depending on the outcome, the 
+283 
+occurrence of an event (e.g., worsening heart failure status according to a specific classification 
+284 
+system) may not have been evaluated in clinical care or, if evaluated, may not have been 
+285 
+recorded.  As a general consideration, outcomes of interest are more likely to be recorded in 
+286 
+clinical records when events are objective and/or require immediate medical attention (e.g., 
+287 
+stroke or myocardial infarction).   
+288 
+ 
+289 
+When considering outcomes in externally controlled trials, sponsors should also evaluate the 
+290 
+consistency of timing of outcome assessments in the treatment arm compared to the external 
+291 
+control arm.  In general, the timing and frequency of outcome assessments in RWD will have 
+292 
+been determined during clinical care27 and may have been influenced by the patient’s clinical 
+293 
+status, whereas outcome assessments in the treatment arm are protocol-specified.  In addition, 
+294 
+even when external control arm data are from another clinical trial rather than from an RWD 
+295 
+source, the approach to outcome ascertainment may differ from the treatment arm.  Accordingly, 
+296 
+sponsors should first establish for what total duration of time and at what intervals the outcome 
+297 
+of interest should be assessed in the analysis of data from an externally controlled trial.  Based on 
+298 
+such determinations, sponsors can then evaluate whether the availability and timing of outcome 
+299 
+assessments are sufficient and comparable across both arms of the externally controlled trial for 
+300 
+the research hypothesis being tested. 
+301 
+ 
+302 
+Additional challenges when considering the selection of outcomes to be assessed in an externally 
+303 
+controlled trial include changing diagnostic criteria over time for what constitutes abnormal 
+304 
+clinical, radiographic, serologic, or other outcomes.  Whereas both trial arms would be similarly 
+305 
+affected in a traditional randomized trial, extensive heterogeneity or substantial changes in 
+306 
+ 
+26 See EA Eisenhauer, P Therasse, J Bogaerts, LH Schwartz, D Sargent, R Ford, J Dancey, S Arbuck, S Gwyther, M 
+Mooney, L Rubinstein, L Shankar, L Dodd, R Kaplan, D Lacombe, and J Verweij, 2009, New Response Evaluation 
+Criteria in Solid Tumours: Revised RECIST Guideline (version 1.1), Eur J Cancer, 45(2):228–247.   
+ 
+27 Registries (one type of RWD) may collect data at predetermined and regular intervals, whereas EHRs and medical 
+claims data would usually not.  
+ 
+
+
+--- Page 13 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+10 
+diagnostic criteria can introduce bias when analyzing outcomes using a non-contemporaneous 
+307 
+external control arm (or when using a reasonably contemporaneous external control arm that 
+308 
+reflects a different diagnostic standard of care).  As another challenge that can introduce bias, 
+309 
+biomarkers used as surrogate outcomes in clinical trials may be used for different purposes in 
+310 
+clinical care, or biomarkers used in clinical care may not be well-characterized in terms of 
+311 
+comparability to assays used in clinical trials. 
+312 
+  
+313 
+Further challenges may arise from differential capture of intercurrent events that may preclude 
+314 
+the measurement of or impair the interpretability of the treatment effect on the outcome of 
+315 
+interest.  For example, initiation of ancillary therapy after treatment with the drug of interest is 
+316 
+started may be protocol-determined and recorded during study visits in a clinical trial, whereas 
+317 
+data from routine clinical care may not accurately capture additional therapies, which may 
+318 
+confound interpretation of the effect of treatment on the study outcome.  
+319 
+ 
+320 
+Other considerations apply when an outcome in an externally controlled trial is based on certain 
+321 
+clinical outcome assessments.28  For example, the potential lack of standardization and training 
+322 
+in the definitions and use of such assessments in routine clinical care settings—if the assessments 
+323 
+are used at all—compared to what occurs in clinical trial settings, can lead to higher variability 
+324 
+or bias in the measurements from an external control arm.  Accordingly, clinical outcome 
+325 
+assessments that are acceptable in randomized trials may not be fit for use in externally 
+326 
+controlled trials.  
+327 
+ 
+328 
+B. 
+Data Considerations for the External Control Arm 
+329 
+ 
+330 
+1. 
+Data from Clinical Trials 
+331 
+ 
+332 
+Using data from another clinical trial for an external control arm can have advantages compared 
+333 
+to using data collected during routine clinical care, based in part on the rigor of protocol-based 
+334 
+(and therefore more consistent) data collection.  Such use would only be appropriate, however, 
+335 
+when comparability exists between the two trial arms regarding participant eligibility criteria, 
+336 
+treatment administration, patterns of care (e.g., location of treatment sites), recording of 
+337 
+concomitant medications, and assessments of adverse events and outcomes.  A particular concern 
+338 
+for bias would be the selection of an external control arm from a completed trial whose outcomes 
+339 
+are already known.  This would be especially problematic if the results of the external control 
+340 
+arm are inconsistent with prior experience.  Furthermore, when using data from other clinical 
+341 
+trials as an external control arm, sponsors should consider the extent of and reason for any 
+342 
+missing data and how the interpretability of study results may be affected. 
+343 
+ 
+344 
+In many situations, data for the treatment and control arms in an externally controlled trial will 
+345 
+have been collected during different time periods.  Lack of concurrent data collection may be of 
+346 
+ 
+28 A clinical outcome assessment is a measure that describes or reflects how a patient feels, functions, or survives.  
+Types of such assessments include measures of patient-reported outcomes, observer-reported outcomes, clinician-
+reported outcomes, and performance outcomes.  See BEST (Biomarkers, EndpointS, and other Tools) Resource, 
+available at https://www.ncbi.nlm.nih.gov/books/NBK338448. 
+ 
+
+
+--- Page 14 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+11 
+particular concern when the assessment and management of a disease (including supportive care) 
+347 
+changes over time, such as use of predictive or prognostic biomarkers in the patient population.  
+348 
+For example, prior trials involving certain cancers may not have information regarding newer 
+349 
+biomarkers or specific gene alterations of interest or tumor mutational burden.  Accordingly, 
+350 
+sponsors should assess whether use of data from a specific clinical trial is justified as an external 
+351 
+control arm when planning an externally controlled trial.  
+352 
+ 
+353 
+2. 
+Data from RWD Sources 
+354 
+ 
+355 
+The concerns described in the preceding section regarding comparability of participant 
+356 
+characteristics, timing and frequency of data collection, and patterns of care should be addressed 
+357 
+when using RWD collected on patients for non-research purposes as external control arms.  In 
+358 
+addition, specific concerns regarding missing data from RWD sources obtained as part of routine 
+359 
+clinical practice can threaten the validity of the results of an externally controlled trial.  For 
+360 
+example, patients who initially met eligibility criteria may be lost to follow-up (e.g., due to 
+361 
+changing their health care provider) from the external control arm.  Furthermore, availability of a 
+362 
+dataset containing patients with the disease of interest does not guarantee that there is sufficient 
+363 
+information on relevant clinical characteristics (e.g., prognostic factors for the outcome of 
+364 
+interest) to permit an appropriate comparison.  
+365 
+ 
+366 
+3. 
+Considerations for Assessing Comparability of Data Across Trial Arms 
+367 
+ 
+368 
+The table below summarizes important considerations, discussed above, regarding the 
+369 
+comparability of data between the treatment arm and the external control arm.  The relevance of 
+370 
+each consideration can vary on a case-by-case basis, depending on attributes of the treatment 
+371 
+arm, the selected data source for the external control arm, and the stage of the trial (design, 
+372 
+conduct, or analysis).  
+ 
+373 
+
+
+--- Page 15 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+12 
+Table.  Summary of Considerations for Assessing Comparability of Data29 
+374 
+ 
+375 
+Focus of 
+Comparison 
+Considerations for Data Comparability 
+Time periods 
+Various aspects of clinical care may change over time, such as the standard of care 
+for the condition of interest, types of treatments, supportive care regimens, and 
+criteria for determining disease response or progression.  Such temporal differences 
+are difficult to address using statistical analyses alone.  It is important to consider 
+whether and how different time frames in the treatment arm and the external control 
+arm impact the interpretability of study findings. 
+Geographic 
+region 
+Standards of care and other factors (e.g., access to care) that affect health-related 
+outcomes can vary across geographic regions and health care systems.  A balance of 
+participants or patients across geographic regions and health care systems in an 
+externally controlled trial, when possible, can help reduce the impact of confounding 
+based on such differences. 
+Diagnosis 
+The criteria used to establish a diagnosis may differ based on practice variation or 
+may have changed in the interval between when the treatment arm of the trial was 
+conducted and when the data for the external control arm were collected.  Sponsors 
+should consider the diagnostic standards used and whether relevant clinical tests to 
+establish a diagnosis were conducted and reported equally across the compared arms. 
+Prognosis 
+Based on demographic and clinical characteristics—and if sufficient knowledge of 
+relevant prognostic factors is available—prognostic indicators for the participants or 
+patients in each arm of the trial should be evaluated and shown to be of sufficient 
+similarity to permit an unbiased assessment of the treatment-outcome association.   
+Treatments  
+Attributes of the treatment of interest—including drug formulation, dose, route of 
+administration, timing, frequency, and duration as well as specific rules for dose 
+modifications, interruptions, discontinuations, and adherence—will have been 
+prespecified or measured in the treatment arm.  In contrast, specific aspects of a 
+comparator treatment (as applicable) in the external control arm may not have been 
+protocol-driven depending on the data source.  Accordingly, sponsors should assess 
+whether the external control arm data can be meaningfully compared to the treatment 
+arm data. 
+Other 
+treatment-
+related factors 
+Various treatment-related considerations, when relevant, include (1) previous 
+treatments received (e.g., lines of therapy in patients with cancer), (2) medications 
+received concomitantly that can affect the outcome of interest, or (3) predictive 
+biomarkers (e.g., genomic testing) related to the treatment of interest.  When 
+differentially distributed across groups being compared, such factors can threaten an 
+assessment of the drug-outcome association. 
+Follow-up 
+periods 
+Designation of the index date should be consistent between the treatment arm and the 
+external control arm, and the duration of follow-up periods should be comparable 
+across compared arms. 
+Intercurrent 
+events 
+The relevance of intercurrent events across treatment arms should be assessed, 
+including differential use of additional therapies after initiation of the treatment of 
+interest.   
+Outcome  
+Whether endpoints used in an externally controlled trial can be reliably and 
+consistently measured across the external control arm and the treatment arm will be 
+influenced by several factors, including the definitions of the endpoints, the data 
+ 
+29 Some of the considerations will be relevant to multiple rows. 
+
+
+--- Page 16 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+13 
+Focus of 
+Comparison 
+Considerations for Data Comparability 
+source for the external control arm, and the potential for the outcome to be influenced 
+by knowledge of treatment received.  In addition, sponsors should be able to apply 
+the same criteria for the evaluation and timing of outcome assessments across both 
+arms of the externally controlled trial. 
+Missing data 
+The extent of missing data in the external control arm should be assessed before 
+conducting an externally controlled trial to evaluate feasibility (when such data are 
+available).  When analyzing results from such a trial, the extent of missing data in 
+both the treatment and external control arms should be assessed to examine the 
+potential impact of missing data. 
+ 
+376 
+The considerations listed in the table above are directed at understanding and managing potential 
+377 
+threats to the validity of externally controlled trials.  Additional considerations regarding the 
+378 
+comparability of trial arms may be relevant for a specific externally controlled trial.  
+379 
+ 
+380 
+C. 
+Analysis Considerations  
+381 
+ 
+382 
+1. 
+General Considerations  
+383 
+ 
+384 
+Before conducting an externally controlled trial, sponsors should develop a statistical analysis 
+385 
+plan that prespecifies analyses of interest, such as analyses of primary and secondary endpoints, 
+386 
+calculations of statistical power and sample size, and plans to control the chance of erroneous 
+387 
+conclusions (e.g., to control the overall type I error probability).  The statistical analysis plan 
+388 
+should be submitted along with the protocol to the relevant review division before initiation of 
+389 
+enrollment in the clinical trial for the experimental treatment.  In addition, decisions regarding 
+390 
+the study design and statistical analysis plan for an externally controlled trial should be blinded 
+391 
+to any observed external control data (e.g., from an existing RWD source), with the exception of 
+392 
+planned feasibility analyses, such as evaluating the availability of key variables or missing data.  
+393 
+During the conduct of an externally controlled trial, and specifically when analyzing data already 
+394 
+collected, changes to the statistical analysis plan are discouraged.  If such changes are 
+395 
+nonetheless implemented, any revisions should be date-stamped and the corresponding rationale 
+396 
+provided and discussed with the relevant FDA review division. 
+397 
+ 
+398 
+FDA does not recommend a particular approach to analyzing data from externally controlled 
+399 
+trials.  No single statistical or analytical method will be suitable for all trials involving external 
+400 
+control arms, and potential approaches should be discussed with the appropriate FDA review 
+401 
+division.  Sponsors should provide a justification for the analytic methods selected as well as a 
+402 
+description of the strengths and limitations of the methods used to assess the effect of treatment.  
+403 
+In general, the analytic method used should identify and manage sources of confounding and 
+404 
+bias, including a strategy to account for differences in baseline factors and confounding variables 
+405 
+between trial arms. 
+406 
+ 
+407 
+Various statistical methodologies may be appropriate for these types of comparisons, each with a 
+408 
+corresponding level of complexity regarding approaches to account for bias.  The assumptions 
+409 
+involved should be made explicit, and sensitivity analyses as well as model diagnostics should be 
+410 
+
+
+--- Page 17 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+14 
+conducted to examine such assumptions.  Importantly, however, adding complexity to an 
+411 
+analytical framework usually requires making additional assumptions, which often cannot be 
+412 
+substantiated and may impair the interpretability of results.  
+413 
+ 
+414 
+Even when employing analytic methods to balance the trial arm populations, sponsors should 
+415 
+propose additional analyses to evaluate the actual comparability between the external control and 
+416 
+treatment arms for important covariates.  Determining similarity across trial arms will require 
+417 
+selection of specific population characteristics to compare, a method for the comparison, and 
+418 
+criteria to demonstrate similarity.  For example, an a priori threshold30 could be set to determine 
+419 
+whether the external control population has a statistical distribution of covariates that is similar 
+420 
+to the treatment arm population after a balancing method, such as weighting, has been applied.  
+421 
+ 
+422 
+Consideration should also be given, based on available scientific data, to the anticipated effect 
+423 
+size for analyses of the primary endpoint.  Especially when the anticipated effect size is modest, 
+424 
+an externally controlled trial may not be an appropriate study design because of concerns for bias 
+425 
+affecting the results.  In addition, sponsors should develop a priori plans for assessing the impact 
+426 
+of confounding factors and sources of bias, with quantitative or qualitative bias analyses used to 
+427 
+evaluate these concerns.  Such prespecified analyses can assist in the interpretation of study 
+428 
+results.  
+429 
+ 
+430 
+2. 
+Missing Data 
+431 
+ 
+432 
+The proposed analytical methods should include a strategy for dealing with missing data, 
+433 
+including data that may not be available in a chosen data source based on the type and frequency 
+434 
+of assessments conducted during the patient encounter, patients no longer being followed, or 
+435 
+other reasons.  Analytical methods (such as strategies for imputing missing data) may be used in 
+436 
+such situations, but these methods require assumptions regarding the pattern of missing 
+437 
+information.31  Assumptions about missing data can be unverifiable and may be difficult to 
+438 
+justify, in addition to other assumptions required for estimation of treatment effect in a non-
+439 
+randomized setting.  
+440 
+ 
+441 
+ 
+30 FDA does not endorse a single approach for determining thresholds.  As one example, a threshold value could be 
+selected for standardized mean differences as a metric that summarizes the statistical distribution of important 
+prognostic covariates. 
+ 
+31 The terms missing completely at random, missing at random, and missing not at random describe assumptions 
+about why data are missing.  When observations of a variable are missing completely at random, the missing 
+observations are a random subset of all observations, such that the missing and observed values have the same 
+underlying distributions, and bias from missing data is not a threat to the study.  Missing at random indicates 
+systematic differences may exist between the observed and unobserved values of a variable, but other observed 
+variables could be used to address such differences and mitigate bias.  Missing not at random indicates that the 
+missing data are directly related to the treatment or outcome under investigation, and bias can be introduced.  See 
+AR Donders, GJ van der Heijden, T Stijnen, and KG Moons, 2006, Review: A Gentle Introduction to Imputation of 
+Missing Values, J Clin Epidemiol, 59(10):1087–1091. 
+ 
+
+
+--- Page 18 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+15 
+To understand the potential impact of missing data, externally controlled trials should be 
+442 
+designed to capture and analyze information relevant to the missing data (e.g., available 
+443 
+characteristics of patients with and without missing data).  Analytical methods may be used, as 
+444 
+mentioned above, to address potential bias caused by the missing data in the primary analysis.  In 
+445 
+addition, sensitivity analyses should be used to evaluate the potential impact of plausible 
+446 
+violations in missing data assumptions on the results of the primary and other key analyses.  
+447 
+ 
+448 
+In some cases, data may be missing because of an intercurrent event, which may interfere with 
+449 
+the measurement of outcomes and estimation of the treatment effect.  The study analysis plan 
+450 
+and an appropriate estimand should account for any intercurrent event that can be considered 
+451 
+potentially related to both the treatment and outcome of interest, recognizing that certain 
+452 
+intercurrent events may be difficult to detect in external control datasets.  For example, in 
+453 
+contrast to data collected according to a research protocol, RWD sources may not capture the 
+454 
+time of occurrence of an intercurrent event, precluding accurate assessment of time-to-event 
+455 
+endpoints such as progression-free survival.  
+456 
+ 
+457 
+3. 
+Misclassification of Available Data 
+458 
+ 
+459 
+Misclassification32 (mischaracterization) of data in externally controlled trials, especially in an 
+460 
+external control arm using RWD sources, can occur when the value of a measurement is assigned 
+461 
+to an incorrect category for subsequent analysis, potentially affecting estimates of the observed 
+462 
+drug-outcome association.  For example, EHR data collected during routine clinical care may 
+463 
+include information on lifestyle characteristics, such as alcohol use.  Beyond concerns about 
+464 
+potentially inaccurate reporting by patients about their alcohol intake because of stigma or other 
+465 
+factors, differences in the approach used to classify alcohol use within or across various sources 
+466 
+of data can lead to misclassification.  In routine clinical practice, for example, different health 
+467 
+care providers may use different quantitative or qualitative descriptions of alcohol use, such that 
+468 
+two patients with the same actual intake may be assigned to two different categories in the RWD 
+469 
+source.  
+470 
+ 
+471 
+If misclassification is extensive—especially when information on treatments, outcomes, or 
+472 
+confounding factors are involved—a biased assessment of the drug-outcome association may 
+473 
+occur.  For example, the scenario described above regarding misclassification of alcohol intake 
+474 
+would be relevant when alcohol use is a potentially important confounding factor (covariate) in 
+475 
+an analysis of an externally controlled trial.  Although analytical modeling methods could be 
+476 
+used to assess the potential impact of misclassification, the best strategy to avoid bias is to use 
+477 
+objective and reliable measurements for the data of interest.  For example, RWD sources that 
+478 
+include information on alcohol intake collected using structured questionnaires are generally 
+479 
+more reliable than patient-reported and clinician-documented values obtained during routine 
+480 
+patient care.  
+481 
+ 
+32 Misclassification errors can be non-differential when the probability of misclassification is equal across study 
+arms or differential when the probability of misclassification differs across study arms.  Misclassification can 
+introduce bias regarding the drug-outcome association when involving the drug of interest, covariates, or outcomes 
+of interest. 
+ 
+
+
+--- Page 19 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+16 
+ 
+482 
+4. 
+Additional Analyses 
+483 
+ 
+484 
+Sponsors can also use specific sensitivity analyses to test the vulnerability of trial results to 
+485 
+assumptions in the analysis plan.  For example, if the primary analysis of a time-to-event 
+486 
+endpoint assumes proportional hazards, an appropriate sensitivity analysis could be estimation by 
+487 
+a statistical method that does not assume proportional hazards.  Finally, prespecified 
+488 
+supplementary analyses can provide further understanding of the treatment effect.  An example 
+489 
+would be supplementary analyses in prespecified subgroups based on prognostic factors for the 
+490 
+outcome.  
+491 
+ 
+492 
+ 
+493 
+IV. 
+CONSIDERATIONS TO SUPPORT REGULATORY REVIEW 
+494 
+ 
+495 
+A. 
+Communication with FDA 
+496 
+  
+497 
+Sponsors should consult with the relevant FDA review division early in a drug development 
+498 
+program about whether it is reasonable to conduct an externally controlled trial instead of a 
+499 
+randomized controlled trial.  As part of these discussions, sponsors should provide a detailed 
+500 
+description of the (1) reasons why the proposed study design is appropriate, (2) proposed data 
+501 
+sources for the external control arm and an explanation of why they are fit for use, (3) planned 
+502 
+statistical analyses, and (4) plans to address FDA’s expectations for the submission of data. 
+503 
+ 
+504 
+B. 
+Access to Data and Documents 
+505 
+  
+506 
+Sponsors must include in their marketing applications relevant patient-level data (i.e., data on 
+507 
+each participant and patient in the externally controlled trial), as required under FDA 
+508 
+regulations,33 for both the treatment and external control arms.  If sponsors do not own the data 
+509 
+used for the external control arm, they should structure their agreements with the data owners to 
+510 
+ensure that patient-level data can be provided to FDA in support of the marketing application. 
+511 
+Sponsors should also ensure that FDA has access to source documents and source data for the 
+512 
+external control arm as part of an FDA inspection or upon request.34 
+ 
+513 
+ 
+33 See 21 CFR 314.50(f) and 601.2.  
+ 
+34 See the guidances for industry Use of Electronic Health Record Data in Clinical Investigations (July 2018) and 
+Electronic Source Data in Clinical Investigations (September 2013). 
+
+
+--- Page 20 ---
+Contains Nonbinding Recommendations 
+Draft — Not for Implementation 
+ 
+ 
+ 
+17 
+GLOSSARY 
+514 
+ 
+515 
+Bias:  Any systematic error in the design, conduct, analysis, or interpretation of a study that 
+516 
+results in an erroneous estimate of a treatment’s effect on the outcome of interest.  
+517 
+ 
+518 
+Confounding:  Distortion of the measure of the effect of a treatment on an outcome due to 
+519 
+another factor that is associated with both the treatment and the outcome.  
+520 
+ 
+521 
+Intercurrent Event:  An event occurring after treatment initiation that affects either the 
+522 
+interpretation or the existence of the measurements associated with the clinical question of 
+523 
+interest.  Examples include switching or discontinuing treatment, using rescue medications, or 
+524 
+experiencing terminal events such as death.    
+525 
+ 
+526 
+Real-World Data (RWD):  Data relating to patient health status and/or the delivery of health 
+527 
+care routinely collected from a variety of sources.  
+528 
+ 
+529 
+Real-World Evidence (RWE):  Clinical evidence about the usage and potential benefits or risks 
+530 
+of a medical product derived from analysis of RWD. 
+531 
+ 
+532 
+Source Data:  All information in original records and certified copies of original records of 
+533 
+clinical findings, observations, or other activities (in a clinical investigation) used for the 
+534 
+reconstruction and evaluation of the study.  Source data are contained in source documents (i.e., 
+535 
+original records or certified copies).35 
+536 
+ 
+537 
+Source Documents:  Original documents, data, and records (e.g., hospital records; clinical and 
+538 
+office charts; laboratory notes; memoranda; subjects’ diaries or evaluation checklists; pharmacy 
+539 
+dispensing records; recorded data from automated instruments; copies or transcriptions certified 
+540 
+after verification as being accurate copies; microfiches; photographic negatives; microfilm or 
+541 
+magnetic media; x-rays; subject files; and records kept at the pharmacy, at the laboratories, and 
+542 
+at the medico-technical departments involved in the clinical trial).36 
+543 
+ 
+35 See the guidance for industry Electronic Source Data in Clinical Investigations (September 2013). 
+ 
+36 See the guidance for industry E6(R2) Good Clinical Practice:  Integrated Addendum to ICH E6(R1) (March 
+2018). 
