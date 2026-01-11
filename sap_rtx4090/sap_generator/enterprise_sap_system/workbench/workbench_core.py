@@ -153,99 +153,108 @@ class StudyWorkspace:
     protocol_versions: List[Dict] = field(default_factory=list)
 
 
-# Standard SAP sections
-SAP_SECTIONS = [
-    ("study_info", "Study Information"),
-    ("objectives", "Study Objectives"),
-    ("endpoints", "Study Endpoints"),
-    ("estimands", "Estimands"),
-    ("populations", "Analysis Populations"),
-    ("definitions", "Definitions"),  # Added - critical section
-    ("statistical_methods", "Statistical Methods"),
-    ("sample_size", "Sample Size"),
-    ("primary_analysis", "Primary Efficacy Analysis"),
-    ("secondary_analysis", "Secondary Efficacy Analysis"),
-    ("safety_analysis", "Safety Analysis"),
-    ("missing_data", "Missing Data Handling"),
-    ("interim_analysis", "Interim Analysis"),
-    ("multiplicity", "Multiplicity Adjustment"),
-    ("table_shells", "Table/Figure Shells"),
-    ("references", "References"),  # Added - critical section
-]
+# =============================================================================
+# USE MASTER_SAP_SECTIONS FROM sap_structure_config.py (Single Source of Truth)
+# =============================================================================
+# No more duplicate SAP_SECTIONS list - use MASTER_SAP_SECTIONS directly
+# This ensures workbench always stays in sync with the authoritative structure
 
-# =============================================================================
-# SECTION TO KB TOOLS MAPPING
-# Maps workbench section IDs to sap_structure_config section numbers and KB tools
-# =============================================================================
-SECTION_KB_MAPPING = {
-    "study_info": {
-        "config_sections": ["1", "2", "3"],
-        "kb_tools": ["get_study_design_specs", "get_study_type_template"]
-    },
-    "objectives": {
-        "config_sections": ["2"],
-        "kb_tools": ["get_oncology_tfl_templates"]
-    },
-    "endpoints": {
-        "config_sections": ["6"],
-        "kb_tools": ["get_estimand_framework", "get_tumor_response_specs", "get_response_criteria", "get_all_response_criteria"]
-    },
-    "estimands": {
-        "config_sections": ["6.4"],
-        "kb_tools": ["get_estimand_specifications", "get_estimand_framework"]
-    },
-    "populations": {
-        "config_sections": ["5", "5A"],
-        "kb_tools": ["get_population_definitions", "get_cart_specifications", "get_demographics_baseline_specs"]
-    },
-    "definitions": {
-        "config_sections": ["16"],
-        "kb_tools": ["get_study_definitions"]
-    },
-    "statistical_methods": {
-        "config_sections": ["7"],
-        "kb_tools": ["get_statistical_method", "get_time_to_event_analysis", "get_confidence_interval_methods"]
-    },
-    "sample_size": {
-        "config_sections": ["4"],
-        "kb_tools": ["get_statistical_method"]
-    },
-    "primary_analysis": {
-        "config_sections": ["7", "8"],
-        "kb_tools": ["get_time_to_event_analysis", "get_censoring_rules", "get_sensitivity_analysis_catalog"]
-    },
-    "secondary_analysis": {
-        "config_sections": ["7"],
-        "kb_tools": ["get_time_to_event_analysis", "get_confidence_interval_methods"]
-    },
-    "safety_analysis": {
-        "config_sections": ["12"],
-        "kb_tools": ["get_safety_analysis_specs", "get_safety_tables", "get_cart_specifications",
-                     "get_cart_tables", "get_ae_period_specifications", "get_death_analysis_specs"]
-    },
-    "missing_data": {
-        "config_sections": ["9"],
-        "kb_tools": ["get_missing_data_method", "get_data_handling_rules", "get_date_imputation_rules"]
-    },
-    "interim_analysis": {
-        "config_sections": ["13"],
-        "kb_tools": ["get_interim_analysis", "get_interim_analysis_specs", "get_multiplicity_methods"]
-    },
-    "multiplicity": {
-        "config_sections": ["7.5"],
-        "kb_tools": ["get_multiplicity_adjustment", "get_multiplicity_methods"]
-    },
-    "table_shells": {
-        "config_sections": ["18", "A"],
-        "kb_tools": ["get_disposition_tables", "get_efficacy_tables", "get_safety_tables",
-                     "get_single_arm_tables", "get_cart_tables", "get_all_figures",
-                     "get_listings", "get_tte_derivation_tables"]
-    },
-    "references": {
-        "config_sections": ["22"],
-        "kb_tools": ["get_required_references"]
-    }
-}
+def get_workbench_sections(conditions: Dict[str, bool] = None) -> List[tuple]:
+    """
+    Get SAP sections for workbench from MASTER_SAP_SECTIONS.
+
+    Args:
+        conditions: Dict of condition_name -> bool for filtering conditional sections
+
+    Returns:
+        List of (section_number, section_title) tuples
+    """
+    if not MASTER_SAP_SECTIONS:
+        # Fallback if import failed
+        return [
+            ("1", "Title Page"),
+            ("2", "Introduction"),
+            ("3", "Study Design"),
+            ("4", "Sample Size"),
+            ("5", "Analysis Populations"),
+            ("6", "Endpoints"),
+            ("7", "Statistical Methods"),
+            ("12", "Safety Analysis"),
+            ("16", "Definitions"),
+            ("18", "TFL Shells"),
+            ("22", "References"),
+        ]
+
+    conditions = conditions or {}
+    sections = []
+
+    def add_section(sec):
+        """Recursively add section and subsections."""
+        # Check if section should be included based on condition
+        if sec.condition and not conditions.get(sec.condition, False):
+            # For conditional sections, still include if condition not evaluated
+            # This allows manual generation
+            if sec.condition not in conditions:
+                pass  # Include anyway
+            else:
+                return  # Skip - condition explicitly False
+
+        sections.append((sec.number, sec.title))
+
+        # Add subsections
+        for sub in sec.subsections:
+            add_section(sub)
+
+    for sec in MASTER_SAP_SECTIONS:
+        add_section(sec)
+
+    return sections
+
+
+def get_section_kb_tools(section_number: str) -> List[str]:
+    """
+    Get KB tools for a section from MASTER_SAP_SECTIONS.
+
+    Args:
+        section_number: The section number (e.g., "12", "5A", "A.2")
+
+    Returns:
+        List of KB tool names to call for this section
+    """
+    if not MASTER_SAP_SECTIONS:
+        return []
+
+    def find_section(sections, number):
+        for sec in sections:
+            if sec.number == number:
+                return sec
+            # Search subsections
+            found = find_section(sec.subsections, number)
+            if found:
+                return found
+        return None
+
+    section = find_section(MASTER_SAP_SECTIONS, section_number)
+    if section:
+        return section.kb_tools
+    return []
+
+
+def get_section_by_number(section_number: str):
+    """Get a SAPSection object by its number."""
+    if not MASTER_SAP_SECTIONS:
+        return None
+
+    def find_section(sections, number):
+        for sec in sections:
+            if sec.number == number:
+                return sec
+            found = find_section(sec.subsections, number)
+            if found:
+                return found
+        return None
+
+    return find_section(MASTER_SAP_SECTIONS, section_number)
 
 
 class SAPWorkbench:
@@ -303,13 +312,18 @@ class SAPWorkbench:
         """
         Get KB content for a section by calling the appropriate KB tools.
 
-        This connects workbench sections to the sap_structure_config kb_tools.
+        Uses MASTER_SAP_SECTIONS from sap_structure_config.py as single source of truth.
         """
-        if not self.kb_tools or section_id not in SECTION_KB_MAPPING:
+        if not self.kb_tools:
             return ""
 
-        mapping = SECTION_KB_MAPPING[section_id]
-        kb_tool_names = mapping.get("kb_tools", [])
+        # Get KB tools from MASTER_SAP_SECTIONS (single source of truth)
+        kb_tool_names = get_section_kb_tools(section_id)
+
+        # Also check parent section (e.g., "12" for "12.8")
+        if not kb_tool_names and "." in section_id:
+            parent = section_id.split(".")[0]
+            kb_tool_names = get_section_kb_tools(parent)
 
         if not kb_tool_names:
             return ""
@@ -389,13 +403,13 @@ class SAPWorkbench:
         now = datetime.now().isoformat()
         protocol_hash = hashlib.md5(protocol_content.encode()).hexdigest()
 
-        # Initialize sections
+        # Initialize sections from MASTER_SAP_SECTIONS (single source of truth)
         sections = {}
-        for section_id, display_name in SAP_SECTIONS:
-            sections[section_id] = SAPSection(
-                id=section_id,
-                name=section_id,
-                display_name=display_name,
+        for section_number, section_title in get_workbench_sections():
+            sections[section_number] = SAPSection(
+                id=section_number,
+                name=section_number,
+                display_name=section_title,
                 status=SectionStatus.NOT_STARTED
             )
 
@@ -730,12 +744,12 @@ Return ONLY valid JSON."""
             raise ValueError(f"Workspace {workspace_id} not found")
 
         outline = []
-        for section_id, display_name in SAP_SECTIONS:
-            section = workspace.sections.get(section_id)
+        for section_number, section_title in get_workbench_sections():
+            section = workspace.sections.get(section_number)
             if section:
                 outline.append({
-                    "id": section_id,
-                    "name": display_name,
+                    "id": section_number,
+                    "name": section_title,
                     "status": section.status.value,
                     "has_content": bool(section.content),
                     "version": section.version,
@@ -1312,11 +1326,11 @@ Format as numbered list with full citations.
             ""
         ]
 
-        # Add each section
-        for section_id, display_name in SAP_SECTIONS:
-            section = workspace.sections.get(section_id)
+        # Add each section from MASTER_SAP_SECTIONS
+        for section_number, section_title in get_workbench_sections():
+            section = workspace.sections.get(section_number)
             if section and section.content:
-                lines.append(f"## {display_name}")
+                lines.append(f"## {section_number}. {section_title}")
                 lines.append("")
                 lines.append(section.content)
                 lines.append("")
