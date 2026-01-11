@@ -2893,6 +2893,24 @@ BAD (missing source_quote or source_section):
     }}
   ],
 
+  "prior_therapy_details": {{
+    "description": "Detailed prior therapy breakdown for baseline/subgroup tables",
+    "number_of_prior_lines": {{"value": "", "categories": [], "source_quote": "", "source_section": ""}},
+    "prior_anti_cd20": {{"collected": false, "categories": ["rituximab", "obinutuzumab"], "source_quote": "", "source_section": ""}},
+    "prior_alkylating": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_anti_cd20_plus_alkylating": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_lenalidomide": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_pi3k_inhibitor": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_asct": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_allo_sct": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_car_t": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "prior_bcma_therapy": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "bone_marrow_involvement": {{"collected": false, "source_quote": "", "source_section": ""}},
+    "response_to_last_therapy": {{"collected": false, "categories": ["PD", "SD", "PR", "CR"], "source_quote": "", "source_section": ""}},
+    "refractory_status": {{"collected": false, "categories": ["primary_refractory", "secondary_refractory", "relapsed"], "source_quote": "", "source_section": ""}},
+    "double_refractory": {{"collected": false, "definition": "", "source_quote": "", "source_section": ""}}
+  }},
+
   "performance_status": {{
     "scale": {{"value": "[ECOG/Karnofsky/ASA/Lansky/other]", "source_quote": "", "source_section": ""}},
     "required_range": {{"value": "", "source_quote": "", "source_section": ""}}

@@ -384,6 +384,74 @@ MASTER_SAP_SECTIONS = [
     ),
 
     # -------------------------------------------------------------------------
+    # DATA SCREENING AND ACCEPTANCE
+    # -------------------------------------------------------------------------
+    SAPSection(
+        number="18",
+        title="DATA SCREENING AND ACCEPTANCE",
+        required=True,
+        description="Data quality, edit checks, outliers, validation procedures",
+        subsections=[
+            SAPSection("18.1", "General Data Handling Principles", required=True),
+            SAPSection("18.2", "Electronic Data Transfer", required=True,
+                      description="CRO to sponsor data transfer procedures"),
+            SAPSection("18.3", "Detection of Bias and Protocol Deviations", required=True),
+            SAPSection("18.4", "Outlier Detection and Handling", required=True),
+            SAPSection("18.5", "Distributional Characteristics Assessment", required=True),
+        ]
+    ),
+
+    # -------------------------------------------------------------------------
+    # FOLLOW-UP ANALYSIS
+    # -------------------------------------------------------------------------
+    SAPSection(
+        number="19",
+        title="FOLLOW-UP ANALYSIS",
+        required=False,
+        condition="has_follow_up_analyses",
+        description="Planned descriptive analyses at specified timepoints after primary analysis",
+        kb_tools=["get_similar_trials"],
+        subsections=[
+            SAPSection("19.1", "Follow-up Analysis Schedule", required=True,
+                      description="Timing of follow-up analyses (e.g., 18 months, 24 months)"),
+            SAPSection("19.2", "Follow-up Analysis Objectives", required=True,
+                      description="Safety and efficacy updates - descriptive only"),
+        ]
+    ),
+
+    # -------------------------------------------------------------------------
+    # CHANGES FROM PROTOCOL-SPECIFIED ANALYSES
+    # -------------------------------------------------------------------------
+    SAPSection(
+        number="20",
+        title="CHANGES FROM PROTOCOL-SPECIFIED ANALYSES",
+        required=True,
+        description="Documentation of any deviations from protocol-specified statistical methods",
+        subsections=[
+            SAPSection("20.1", "Summary of Changes", required=True,
+                      description="List changes or state 'No changes from protocol-specified analyses'"),
+        ]
+    ),
+
+    # -------------------------------------------------------------------------
+    # REFERENCES
+    # -------------------------------------------------------------------------
+    SAPSection(
+        number="21",
+        title="REFERENCES",
+        required=True,
+        description="Citations for statistical methods, response criteria, grading scales",
+        kb_tools=["get_required_references"],
+        subsections=[
+            SAPSection("21.1", "Response Criteria References", required=False,
+                      condition="has_response_endpoint"),
+            SAPSection("21.2", "Statistical Methodology References", required=True),
+            SAPSection("21.3", "Safety Grading References", required=True,
+                      description="CTCAE version, CRS grading, etc."),
+        ]
+    ),
+
+    # -------------------------------------------------------------------------
     # APPENDICES
     # -------------------------------------------------------------------------
     SAPSection(
@@ -392,14 +460,16 @@ MASTER_SAP_SECTIONS = [
         required=True,
         description="Reference tables and detailed specifications",
         subsections=[
-            SAPSection("A.1", "Date Imputation Algorithm", required=True),
+            SAPSection("A.1", "Date Imputation Algorithm", required=True,
+                      kb_tools=["get_date_imputation_rules"]),
             SAPSection("A.2", "Time-to-Event Derivation Rules", required=False,
                       condition="has_tte_endpoints",
-                      description="Circumstance tables for each TTE endpoint"),
+                      description="Circumstance tables for each TTE endpoint (DOR, PFS, OS)",
+                      kb_tools=["get_tte_derivation_tables"]),
             SAPSection("A.3", "MedDRA Search Strategies", required=False,
                       condition="is_cart",
-                      description="SMQ, MST for CRS, ICANS, infections",
-                      kb_tools=["get_cart_specifications"]),
+                      description="SMQ, MST for CRS, ICANS, cytopenias, infections",
+                      kb_tools=["get_meddra_search_strategies"]),
             SAPSection("A.4", "Response Criteria Reference", required=False,
                       condition="has_response_endpoint",
                       kb_tools=["get_response_criteria", "get_recist_specifications"]),
@@ -524,6 +594,12 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     # Other study features
     conditions["has_ecg_monitoring"] = True  # Assume yes for most oncology trials
     conditions["has_missing_data_concerns"] = True  # Always include sensitivity analyses
+
+    # Follow-up analysis detection (from discovery)
+    discovered = protocol_extraction.get("discovered_structure", {})
+    protocol_sections = discovered.get("protocol_specific_sections", {}) if discovered else {}
+    follow_ups = protocol_sections.get("follow_up_analyses", [])
+    conditions["has_follow_up_analyses"] = bool(follow_ups and any(f.get("name") or f.get("timing") for f in follow_ups))
 
     # Phase detection for logging
     conditions["is_phase_2"] = "2" in phase_value or "ii" in phase_value

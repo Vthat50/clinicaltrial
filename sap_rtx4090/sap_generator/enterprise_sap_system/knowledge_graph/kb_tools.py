@@ -1384,6 +1384,286 @@ class KnowledgeBaseTools:
         )
 
     # =========================================================================
+    # TTE DERIVATION & APPENDIX TOOLS
+    # =========================================================================
+
+    def get_tte_derivation_tables(self, endpoint: str = "all") -> KBRetrievalResult:
+        """
+        Get time-to-event derivation circumstance tables.
+
+        Returns detailed circumstance tables for DOR, DORR, PFS, OS showing
+        when subjects are events vs censored. Essential for Appendix A.2.
+
+        Args:
+            endpoint: "DOR", "DORR", "PFS", "OS", or "all"
+
+        Returns:
+            Circumstance tables with columns: situation, event (0/1), date
+        """
+        self._log_retrieval("get_tte_derivation_tables", endpoint, "oncology_reference_data.py")
+
+        tte_rules = self.CAR_T_MODULE.get("tte_derivation_rules", {})
+
+        if endpoint.upper() == "ALL":
+            content = tte_rules
+        else:
+            content = tte_rules.get(endpoint.upper(), {})
+            if not content:
+                content = {"error": f"Unknown endpoint: {endpoint}", "available": list(tte_rules.keys())}
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="oncology_reference_data.py",
+            source_key=f"CAR_T_MODULE['tte_derivation_rules']['{endpoint}']"
+        )
+
+    def get_meddra_search_strategies(self, category: str = "all") -> KBRetrievalResult:
+        """
+        Get MedDRA search strategies (SMQ, MST, HLGT) for safety analyses.
+
+        Returns SMQ/MST specifications for AE categories like cytopenias,
+        infections, CRS, ICANS, cardiac events, TLS. Essential for Appendix A.3.
+
+        Args:
+            category: "CRS", "thrombocytopenia", "neutropenia", "anemia",
+                     "infections", "GVHD", "immunogenicity", "tumor_lysis_syndrome",
+                     "cardiac_events", or "all"
+
+        Returns:
+            MedDRA search specifications including SMQ names, scopes, HLGTs
+        """
+        self._log_retrieval("get_meddra_search_strategies", category, "oncology_reference_data.py")
+
+        meddra = self.CAR_T_MODULE.get("meddra_search_strategies", {})
+
+        if category.lower() == "all":
+            content = meddra
+        else:
+            content = meddra.get(category.lower(), meddra.get(category, {}))
+            if not content:
+                content = {"error": f"Unknown category: {category}", "available": list(meddra.keys())}
+
+        # Add standard cardiac SMQs if requested
+        if category.lower() in ["all", "cardiac", "cardiac_events"]:
+            cardiac_smqs = {
+                "cardiac_failure": {
+                    "search_type": "SMQ",
+                    "smq_name": "Cardiac failure",
+                    "scope": "narrow"
+                },
+                "cardiac_arrhythmias": {
+                    "search_type": "SMQ",
+                    "smq_name": "Cardiac arrhythmias",
+                    "scope": "narrow + broad"
+                }
+            }
+            if category.lower() == "all":
+                content.update(cardiac_smqs)
+            else:
+                content = cardiac_smqs
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="oncology_reference_data.py",
+            source_key=f"CAR_T_MODULE['meddra_search_strategies']"
+        )
+
+    def get_concordance_analysis(self) -> KBRetrievalResult:
+        """
+        Get concordance analysis methodology (IRC vs Investigator agreement).
+
+        Returns specifications for kappa statistics, percent agreement,
+        and discordance analysis. Essential for blinded review comparison.
+
+        Returns:
+            Concordance analysis methods including kappa coefficient calculation
+        """
+        self._log_retrieval("get_concordance_analysis", "all", "kb_tools.py")
+
+        concordance_specs = {
+            "description": "Concordance analysis between IRC and Investigator assessments",
+            "metrics": {
+                "overall_percent_agreement": {
+                    "formula": "(Number of concordant assessments / Total assessments) × 100",
+                    "interpretation": "Proportion of cases where IRC and Investigator agree"
+                },
+                "kappa_coefficient": {
+                    "formula": "κ = (Po - Pe) / (1 - Pe)",
+                    "where": {
+                        "Po": "Observed agreement proportion",
+                        "Pe": "Expected agreement by chance"
+                    },
+                    "interpretation": {
+                        "0.81-1.00": "Almost perfect agreement",
+                        "0.61-0.80": "Substantial agreement",
+                        "0.41-0.60": "Moderate agreement",
+                        "0.21-0.40": "Fair agreement",
+                        "0.00-0.20": "Slight agreement",
+                        "<0.00": "Poor agreement (worse than chance)"
+                    },
+                    "ci_method": "95% CI using asymptotic variance"
+                }
+            },
+            "output_tables": {
+                "cross_tabulation": "2x2 table of IRC vs Investigator response categories",
+                "discordance_summary": "Summary of discordant cases by category (e.g., IRC=CR vs Inv=PR)",
+                "by_endpoint": "Separate concordance for ORR, BOR, CR rate"
+            },
+            "reference": "Cohen J. A coefficient of agreement for nominal scales. Educ Psychol Meas. 1960;20:37-46"
+        }
+
+        return KBRetrievalResult(
+            content=concordance_specs,
+            source_file="kb_tools.py",
+            source_key="concordance_analysis"
+        )
+
+    def get_required_references(self, study_type: str = "oncology") -> KBRetrievalResult:
+        """
+        Get required references for SAP based on study type.
+
+        Returns standard citations for response criteria, statistical methods,
+        grading scales, and regulatory guidance. Essential for References section.
+
+        Args:
+            study_type: "oncology", "cart", "lymphoma", "solid_tumor", "hematologic"
+
+        Returns:
+            List of required references with full citations
+        """
+        self._log_retrieval("get_required_references", study_type, "kb_tools.py")
+
+        # Core references for all oncology trials
+        core_refs = {
+            "statistical_methods": [
+                {
+                    "citation": "Kaplan EL, Meier P. Nonparametric estimation from incomplete observations. J Am Stat Assoc. 1958;53:457-481.",
+                    "use_for": "Time-to-event analysis, survival curves"
+                },
+                {
+                    "citation": "Cox DR. Regression models and life-tables. J R Stat Soc Ser B. 1972;34:187-220.",
+                    "use_for": "Hazard ratio estimation"
+                },
+                {
+                    "citation": "Clopper CJ, Pearson ES. The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika. 1934;26:404-413.",
+                    "use_for": "Exact confidence intervals for response rates"
+                },
+                {
+                    "citation": "Schemper M, Smith TL. A note on quantifying follow-up in studies of failure time. Control Clin Trials. 1996;17:343-346.",
+                    "use_for": "Reverse Kaplan-Meier for follow-up time"
+                }
+            ],
+            "regulatory": [
+                {
+                    "citation": "ICH E9 Statistical Principles for Clinical Trials. 1998.",
+                    "use_for": "General statistical methodology"
+                },
+                {
+                    "citation": "ICH E9(R1) Addendum on Estimands and Sensitivity Analysis. 2019.",
+                    "use_for": "Estimand framework"
+                }
+            ],
+            "safety_grading": [
+                {
+                    "citation": "National Cancer Institute. Common Terminology Criteria for Adverse Events (CTCAE) v5.0. 2017.",
+                    "use_for": "Adverse event grading"
+                }
+            ]
+        }
+
+        # Solid tumor specific
+        solid_tumor_refs = {
+            "response_criteria": [
+                {
+                    "citation": "Eisenhauer EA, et al. New response evaluation criteria in solid tumours: Revised RECIST guideline (version 1.1). Eur J Cancer. 2009;45:228-247.",
+                    "use_for": "RECIST 1.1 tumor response assessment"
+                }
+            ]
+        }
+
+        # Lymphoma specific
+        lymphoma_refs = {
+            "response_criteria": [
+                {
+                    "citation": "Cheson BD, et al. Recommendations for initial evaluation, staging, and response assessment of Hodgkin and non-Hodgkin lymphoma: The Lugano Classification. J Clin Oncol. 2014;32:3059-3068.",
+                    "use_for": "Lugano 2014 response criteria for lymphoma"
+                }
+            ]
+        }
+
+        # CAR-T specific
+        cart_refs = {
+            "crs_grading": [
+                {
+                    "citation": "Lee DW, et al. Current concepts in the diagnosis and management of cytokine release syndrome. Blood. 2014;124:188-195.",
+                    "use_for": "Lee 2014 CRS grading criteria"
+                },
+                {
+                    "citation": "Lee DW, et al. ASTCT Consensus Grading for Cytokine Release Syndrome and Neurologic Toxicity Associated with Immune Effector Cells. Biol Blood Marrow Transplant. 2019;25:625-638.",
+                    "use_for": "ASTCT 2019 CRS grading consensus"
+                }
+            ],
+            "neurotoxicity": [
+                {
+                    "citation": "Topp MS, et al. Safety and activity of blinatumomab for adult patients with relapsed or refractory B-precursor acute lymphoblastic leukaemia. Lancet Oncol. 2015;16:57-66.",
+                    "use_for": "Neurologic toxicity assessment (Topp 2015)"
+                }
+            ]
+        }
+
+        # Multiple myeloma
+        myeloma_refs = {
+            "response_criteria": [
+                {
+                    "citation": "Kumar S, et al. International Myeloma Working Group consensus criteria for response and minimal residual disease assessment in multiple myeloma. Lancet Oncol. 2016;17:e328-e346.",
+                    "use_for": "IMWG response criteria"
+                }
+            ]
+        }
+
+        # Assemble based on study type
+        content = {"core": core_refs}
+
+        if study_type.lower() in ["solid_tumor", "oncology"]:
+            content["response_criteria"] = solid_tumor_refs["response_criteria"]
+        elif study_type.lower() in ["lymphoma", "dlbcl", "nhl"]:
+            content["response_criteria"] = lymphoma_refs["response_criteria"]
+        elif study_type.lower() in ["cart", "car-t", "cell_therapy"]:
+            content["response_criteria"] = lymphoma_refs["response_criteria"]
+            content["crs_grading"] = cart_refs["crs_grading"]
+            content["neurotoxicity"] = cart_refs["neurotoxicity"]
+        elif study_type.lower() in ["myeloma", "multiple_myeloma", "mm"]:
+            content["response_criteria"] = myeloma_refs["response_criteria"]
+        elif study_type.lower() in ["hematologic", "leukemia"]:
+            content["response_criteria"] = []  # Varies by specific disease
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="kb_tools.py",
+            source_key=f"required_references[{study_type}]"
+        )
+
+    def get_date_imputation_rules(self) -> KBRetrievalResult:
+        """
+        Get date imputation algorithm specifications.
+
+        Returns detailed rules for imputing partial dates for AE start/stop,
+        death dates, concomitant medications. Essential for Appendix A.1.
+
+        Returns:
+            Date imputation matrix with scenarios and rules
+        """
+        self._log_retrieval("get_date_imputation_rules", "all", "oncology_reference_data.py")
+
+        date_rules = self.CAR_T_MODULE.get("date_imputation_rules", {})
+
+        return KBRetrievalResult(
+            content=date_rules,
+            source_file="oncology_reference_data.py",
+            source_key="CAR_T_MODULE['date_imputation_rules']"
+        )
+
+    # =========================================================================
     # TRIAL PRECEDENT TOOLS (queries factual_kg_merged.json)
     # =========================================================================
 
@@ -2283,6 +2563,70 @@ def get_claude_tool_definitions() -> List[Dict]:
                 },
                 "required": []
             }
+        },
+        # =====================================================================
+        # v75: TTE DERIVATION, MEDDRA, CONCORDANCE, REFERENCES
+        # =====================================================================
+        {
+            "name": "get_tte_derivation_tables",
+            "description": "Get time-to-event derivation circumstance tables for DOR, DORR, PFS, OS. Shows when subjects are events vs censored for each circumstance. ESSENTIAL for Appendix A.2.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "endpoint": {
+                        "type": "string",
+                        "description": "Endpoint type: 'DOR', 'DORR', 'PFS', 'OS', or 'all' (default)",
+                        "enum": ["DOR", "DORR", "PFS", "OS", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_meddra_search_strategies",
+            "description": "Get MedDRA search strategies (SMQ, MST, HLGT) for safety analyses. Includes SMQ specifications for cytopenias, infections, CRS, ICANS, cardiac events, TLS, GVHD. ESSENTIAL for Appendix A.3 (MedDRA Search Strategies).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "type": "string",
+                        "description": "AE category: 'CRS', 'thrombocytopenia', 'neutropenia', 'anemia', 'infections', 'GVHD', 'immunogenicity', 'tumor_lysis_syndrome', 'cardiac_events', or 'all' (default)"
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_concordance_analysis",
+            "description": "Get concordance analysis methodology for IRC vs Investigator agreement. Includes kappa statistics, percent agreement, and discordance analysis methods. Use for blinded review comparison sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_required_references",
+            "description": "Get required references for SAP based on study type. Includes standard citations for response criteria (RECIST, Lugano, IMWG), statistical methods (Kaplan-Meier, Cox), grading scales (CTCAE, CRS). ESSENTIAL for References section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "study_type": {
+                        "type": "string",
+                        "description": "Study type: 'oncology', 'cart', 'lymphoma', 'solid_tumor', 'hematologic', 'myeloma'"
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_date_imputation_rules",
+            "description": "Get date imputation algorithm specifications. Includes rules for imputing partial AE dates, death dates, concomitant medication dates. ESSENTIAL for Appendix A.1.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
         }
     ]
 
@@ -2362,6 +2706,12 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_safety_analysis_specs": lambda: kb.get_safety_analysis_specs(tool_input.get("analysis_type", "all")),
         "get_tfl_shells": lambda: kb.get_tfl_shells(tool_input.get("shell_type", "all")),
         "get_programming_specifications": lambda: kb.get_programming_specifications(),
+        # v75: TTE derivation, MedDRA, concordance, references
+        "get_tte_derivation_tables": lambda: kb.get_tte_derivation_tables(tool_input.get("endpoint", "all")),
+        "get_meddra_search_strategies": lambda: kb.get_meddra_search_strategies(tool_input.get("category", "all")),
+        "get_concordance_analysis": lambda: kb.get_concordance_analysis(),
+        "get_required_references": lambda: kb.get_required_references(tool_input.get("study_type", "oncology")),
+        "get_date_imputation_rules": lambda: kb.get_date_imputation_rules(),
     }
 
     if tool_name in tool_map:
