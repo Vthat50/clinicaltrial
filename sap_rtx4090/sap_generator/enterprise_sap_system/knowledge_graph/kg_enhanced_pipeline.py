@@ -104,6 +104,12 @@ except ImportError:
         detect_sap_conditions
     )
 
+# Import LLMParser for robust JSON parsing (v92)
+try:
+    from .llm_parser import LLMParser, parse_llm_json
+except ImportError:
+    from llm_parser import LLMParser, parse_llm_json
+
 # Protocol-specific extractor REMOVED - using simple protocol-driven approach
 # Claude reads the protocol directly and determines what to include/exclude
 
@@ -2976,15 +2982,20 @@ Return ONLY the discovery JSON, no other text."""
 
             discovery_text = discovery_response.content[0].text.strip()
 
-            # Clean up response
-            if discovery_text.startswith("```json"):
-                discovery_text = discovery_text[7:]
-            if discovery_text.startswith("```"):
-                discovery_text = discovery_text[3:]
-            if discovery_text.endswith("```"):
-                discovery_text = discovery_text[:-3]
+            # v92: Use LLMParser for robust JSON parsing
+            parser = LLMParser(client=self.client, model=self.model)
+            result = parser.parse(
+                discovery_text,
+                retry_with_llm=True,
+                context="Stage 1 Discovery - extracting protocol structure"
+            )
 
-            discovered_structure = json.loads(discovery_text)
+            if not result.success:
+                raise ValueError(f"Discovery parse failed: {result.error}")
+
+            discovered_structure = result.data
+            if result.repairs_applied:
+                print(f"    [LLMParser] Applied repairs: {', '.join(result.repairs_applied)}")
 
             print(f"    ✓ Found {len(discovered_structure.get('populations', []))} populations")
             print(f"    ✓ Found {len(discovered_structure.get('hypotheses', []))} hypotheses")
@@ -3014,15 +3025,20 @@ Return ONLY the discovery JSON, no other text."""
 
             response_text = response.content[0].text.strip()
 
-            # Clean up response
-            if response_text.startswith("```json"):
-                response_text = response_text[7:]
-            if response_text.startswith("```"):
-                response_text = response_text[3:]
-            if response_text.endswith("```"):
-                response_text = response_text[:-3]
+            # v92: Use LLMParser for robust JSON parsing
+            parser = LLMParser(client=self.client, model=self.model)
+            result = parser.parse(
+                response_text,
+                retry_with_llm=True,
+                context="Stage 2 Extraction - extracting protocol values"
+            )
 
-            extracted_obj = json.loads(response_text)
+            if not result.success:
+                raise ValueError(f"Extraction parse failed: {result.error}")
+
+            extracted_obj = result.data
+            if result.repairs_applied:
+                print(f"    [LLMParser] Applied repairs: {', '.join(result.repairs_applied)}")
 
             # Merge discovered structure into extraction
             if discovered_structure:

@@ -37,6 +37,7 @@ try:
         MASTER_SAP_SECTIONS,
         detect_sap_conditions
     )
+    from enterprise_sap_system.knowledge_graph.llm_parser import LLMParser
     KG_AVAILABLE = True
 except ImportError:
     try:
@@ -50,10 +51,12 @@ except ImportError:
             MASTER_SAP_SECTIONS,
             detect_sap_conditions
         )
+        from ..knowledge_graph.llm_parser import LLMParser
         KG_AVAILABLE = True
     except ImportError:
         KG_AVAILABLE = False
         MASTER_SAP_SECTIONS = []
+        LLMParser = None
         print("Warning: KG pipeline not available, using basic extraction")
 
 
@@ -779,14 +782,29 @@ Return ONLY valid JSON."""
             )
 
             response_text = response.content[0].text.strip()
-            if response_text.startswith("```json"):
-                response_text = response_text[7:]
-            if response_text.startswith("```"):
-                response_text = response_text[3:]
-            if response_text.endswith("```"):
-                response_text = response_text[:-3]
 
-            data = json.loads(response_text)
+            # v92: Use LLMParser for robust JSON parsing
+            if LLMParser:
+                parser = LLMParser(client=self.client, model=self.model)
+                result = parser.parse(
+                    response_text,
+                    retry_with_llm=True,
+                    context="Basic metadata extraction from protocol"
+                )
+                if not result.success:
+                    raise ValueError(f"Parse failed: {result.error}")
+                data = result.data
+                if result.repairs_applied:
+                    print(f"[Workbench] LLMParser applied repairs: {', '.join(result.repairs_applied)}")
+            else:
+                # Fallback if LLMParser not available
+                if response_text.startswith("```json"):
+                    response_text = response_text[7:]
+                if response_text.startswith("```"):
+                    response_text = response_text[3:]
+                if response_text.endswith("```"):
+                    response_text = response_text[:-3]
+                data = json.loads(response_text)
 
             metadata = ProtocolMetadata(
                 study_id=data.get("study_id", ""),
