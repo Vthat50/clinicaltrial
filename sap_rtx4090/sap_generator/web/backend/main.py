@@ -170,12 +170,13 @@ try:
     from enterprise_sap_system.workbench.workbench_core import (
         SAPWorkbench,
         SectionStatus,
-        SAP_SECTIONS
+        get_workbench_sections  # v82: SAP_SECTIONS removed, use function instead
     )
     WORKBENCH_AVAILABLE = True
 except ImportError as e:
     WORKBENCH_AVAILABLE = False
     SAPWorkbench = None
+    get_workbench_sections = None
     print(f"Warning: SAP Workbench not available: {e}")
 
 # NEW: Enhanced KG Pipeline - 55-category extraction with prohibition rules
