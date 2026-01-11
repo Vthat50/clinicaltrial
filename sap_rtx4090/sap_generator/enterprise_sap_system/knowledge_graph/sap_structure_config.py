@@ -446,11 +446,20 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     exploratory = endpoints.get("exploratory", []) if endpoints else []
 
     all_endpoints = primary + secondary + exploratory
-    endpoint_str = " ".join([str(e) for e in all_endpoints]).lower()
+
+    # Extract endpoint names/text for searching
+    def extract_endpoint_text(ep):
+        if isinstance(ep, dict):
+            return ep.get("name", "") or ep.get("value", "") or str(ep)
+        return str(ep)
+
+    endpoint_names = [extract_endpoint_text(e).lower() for e in all_endpoints]
+    endpoint_str = " ".join(endpoint_names)
 
     conditions["has_tte_endpoints"] = any(x in endpoint_str for x in ["survival", "pfs", "efs", "dfs", "rfs", "ttp", "duration"])
     conditions["has_pfs_endpoint"] = "pfs" in endpoint_str or "progression-free" in endpoint_str
-    conditions["has_os_endpoint"] = " os " in endpoint_str or "overall survival" in endpoint_str
+    # Check for OS as standalone or in "overall survival"
+    conditions["has_os_endpoint"] = any(n.strip() == "os" or "overall survival" in n for n in endpoint_names)
     conditions["has_dor_endpoint"] = "dor" in endpoint_str or "duration of response" in endpoint_str
     conditions["has_efs_endpoint"] = "efs" in endpoint_str or "event-free" in endpoint_str
     conditions["has_response_endpoint"] = any(x in endpoint_str for x in ["orr", "response rate", "cr", "pr", "objective response"])
