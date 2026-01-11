@@ -86,6 +86,24 @@ except ImportError:
         execute_tool
     )
 
+# Import dynamic SAP structure configuration
+try:
+    from .sap_structure_config import (
+        get_required_sections,
+        format_section_outline,
+        get_all_kb_tools_for_sections,
+        get_section_summary,
+        detect_sap_conditions
+    )
+except ImportError:
+    from sap_structure_config import (
+        get_required_sections,
+        format_section_outline,
+        get_all_kb_tools_for_sections,
+        get_section_summary,
+        detect_sap_conditions
+    )
+
 # Protocol-specific extractor REMOVED - using simple protocol-driven approach
 # Claude reads the protocol directly and determines what to include/exclude
 
@@ -1295,6 +1313,21 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         # Build tool routing based on discovered structure
         tool_routing = self._build_tool_routing_instructions(full_extraction)
 
+        # === v69: DYNAMIC SAP STRUCTURE ===
+        # Get required sections based on protocol extraction
+        required_sections = get_required_sections(full_extraction or {})
+        section_outline = format_section_outline(required_sections, include_tools=False)
+        section_summary = get_section_summary(full_extraction or {})
+        required_tools = get_all_kb_tools_for_sections(required_sections)
+
+        # Count sections for prompt
+        num_main_sections = section_summary['main_sections']
+        special_sections = section_summary.get('special_sections', [])
+
+        print(f"[SAP Structure] Generating {num_main_sections} main sections")
+        if special_sections:
+            print(f"[SAP Structure] Special sections: {', '.join(special_sections)}")
+
         # Initial prompt
         system_prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
@@ -1340,6 +1373,33 @@ CRITICAL - TOOL CALL EFFICIENCY:
 
 Generate a production-quality SAP with full provenance tracking."""
 
+        # Build special section notes
+        special_notes = ""
+        if special_sections:
+            special_notes = "\n**PROTOCOL-SPECIFIC SECTIONS DETECTED:**\n" + "\n".join([f"- {s}" for s in special_sections])
+
+        # Build study type description
+        conditions = section_summary.get('conditions_detected', {})
+        study_type_desc = "Standard"
+        if conditions.get('is_single_arm'):
+            study_type_desc = "Single-Arm"
+        elif conditions.get('is_randomized'):
+            study_type_desc = "Randomized"
+
+        therapy_type_desc = "Standard"
+        if conditions.get('is_cart'):
+            therapy_type_desc = "CAR-T Cell Therapy"
+        elif conditions.get('is_bispecific'):
+            therapy_type_desc = "Bispecific Antibody"
+        elif conditions.get('is_adc'):
+            therapy_type_desc = "ADC"
+
+        disease_desc = "Solid Tumor"
+        if conditions.get('is_lymphoma'):
+            disease_desc = "Lymphoma"
+        elif conditions.get('is_hematologic'):
+            disease_desc = "Hematologic Malignancy"
+
         user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
 ```json
 {extraction_json}
@@ -1350,27 +1410,25 @@ Generate a production-quality SAP with full provenance tracking."""
 
 ---
 
-Generate a COMPLETE SAP with ALL 12 sections. Each section MUST be included.
+## DYNAMIC SAP STRUCTURE (Based on Protocol Analysis - v69)
 
-MANDATORY OUTPUT FORMAT - Use these EXACT section headers:
+This protocol requires **{num_main_sections} main sections** (structure determined by protocol characteristics).
 
-## 1. TITLE PAGE & ADMINISTRATIVE INFORMATION
-## 2. STUDY OBJECTIVES & ENDPOINTS
-## 3. STUDY DESIGN
-## 4. ANALYSIS POPULATIONS
-## 5. STATISTICAL METHODS
-## 6. SAMPLE SIZE & POWER
-## 7. MISSING DATA HANDLING
-## 8. SENSITIVITY ANALYSES
-## 9. SUBGROUP ANALYSES
-## 10. SAFETY ANALYSIS
-## 11. INTERIM ANALYSIS
-## 12. TABLE/FIGURE SHELLS
+**Protocol Classification:**
+- Study Design: {study_type_desc}
+- Therapy Type: {therapy_type_desc}
+- Disease Area: {disease_desc}
+{special_notes}
+
+**MANDATORY SECTION OUTLINE (use these EXACT headers):**
+
+{section_outline}
 
 CRITICAL REQUIREMENTS:
-- You MUST generate ALL 12 sections, even if brief
-- Use the EXACT "## N." format for section headers
-- ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements. Include these in appropriate SAP sections.
+- You MUST generate ALL sections shown above
+- Use the EXACT "## N." format for main section headers (e.g., "## 1. TITLE PAGE...")
+- Subsections use "### N.N" format (e.g., "### 5.1 Intent-to-Treat Population")
+- ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements
 
 ## SOURCE CITATION FORMAT (MANDATORY):
 Every fact MUST have a specific source citation. Use these formats:
@@ -1388,17 +1446,10 @@ Every fact MUST have a specific source citation. Use these formats:
    - ✅ CORRECT: [Protocol: "The primary endpoint is progression-free survival..."]
    - ❌ WRONG: [Protocol] (no section specified!)
 
-When you retrieve tool results, the JSON includes "provenance": {"source_file": "...", "source_key": "..."} - USE THESE EXACT VALUES in your citations.
+When you retrieve tool results, the JSON includes "provenance": {{"source_file": "...", "source_key": "..."}} - USE THESE EXACT VALUES in your citations.
 
-MANDATORY TOOL CALLS BY SECTION:
-- Section 4 (Populations): MUST call get_population_definitions() for standard ITT/Safety/PP definitions
-- Section 5 (Statistical Methods): MUST call get_statistical_method() for KM, Cox, log-rank, etc.
-- Section 7 (Missing Data): MUST call get_missing_data_method() for LOCF, MI, MMRM, etc.
-- Section 8 (Censoring): MUST call get_censoring_rules() for PFS/OS/DOR censoring rules
-- Section 9 (Subgroups): MUST call get_subgroup_analysis_specs() for forest plot specs
-- Section 10 (Safety): MUST call get_safety_tables() and get_safety_specifications()
-- Section 11 (Interim): MUST call get_interim_analysis() for alpha spending, DMC charter
-- Section 12 (TFL Shells): MUST call get_disposition_tables(), get_efficacy_tables(), get_safety_tables()
+## RECOMMENDED KB TOOLS FOR THIS PROTOCOL:
+{chr(10).join([f"- {tool}()" for tool in sorted(required_tools)])}
 
 ## SECTION 12 TABLE/FIGURE SHELLS - CRITICAL FORMATTING:
 
@@ -1445,7 +1496,7 @@ RECOMMENDED TOOL ORDER:
 2. THEN: Use the similar trials' censoring rules, multiplicity, and methods as a starting point
 3. FINALLY: Call get_statistical_method, get_disposition_tables, get_efficacy_tables, get_safety_tables for templates
 
-Start by calling get_similar_trials to find precedent, then generate the COMPLETE 12-section SAP."""
+Start by calling get_similar_trials to find precedent, then generate the COMPLETE SAP with ALL sections shown above."""
 
         messages = [{"role": "user", "content": user_prompt}]
         knowledge_used = []
@@ -1515,23 +1566,13 @@ Start by calling get_similar_trials to find precedent, then generate the COMPLET
                         print("[DEBUG] Sending continuation prompt to generate SAP...")
 
                         # Add a continuation message to generate the SAP
-                        continuation_prompt = """Now generate the COMPLETE Statistical Analysis Plan with ALL 12 sections.
+                        continuation_prompt = """Now generate the COMPLETE Statistical Analysis Plan.
 
-MANDATORY: Use these EXACT section headers:
-## 1. TITLE PAGE & ADMINISTRATIVE INFORMATION
-## 2. STUDY OBJECTIVES & ENDPOINTS
-## 3. STUDY DESIGN
-## 4. ANALYSIS POPULATIONS
-## 5. STATISTICAL METHODS
-## 6. SAMPLE SIZE & POWER
-## 7. MISSING DATA HANDLING
-## 8. SENSITIVITY ANALYSES
-## 9. SUBGROUP ANALYSES
-## 10. SAFETY ANALYSIS
-## 11. INTERIM ANALYSIS
-## 12. TABLE/FIGURE SHELLS
+MANDATORY: Use the EXACT section headers from the MANDATORY SECTION OUTLINE provided earlier.
+The structure is DYNAMIC based on this protocol's characteristics (study design, therapy type, disease area).
 
-Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then include ALL 12 sections."""
+Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then include ALL sections from the outline.
+Each section uses "## N." format, subsections use "### N.N" format."""
 
                         # Serialize current response and add continuation
                         assistant_content = []
@@ -1646,7 +1687,7 @@ Output ONLY the SAP document. Start with "# STATISTICAL ANALYSIS PLAN" then incl
 
 NOW GENERATE THE COMPLETE SAP. Do not call any more tools.
 
-Output the COMPLETE 12-section SAP document starting with "# STATISTICAL ANALYSIS PLAN" and including ALL sections through Section 12 TABLE/FIGURE SHELLS with actual markdown tables."""
+Output the COMPLETE SAP document starting with "# STATISTICAL ANALYSIS PLAN" and including ALL sections from the MANDATORY SECTION OUTLINE provided earlier. Include TFL shells with actual markdown tables."""
 
                     messages.append({"role": "user", "content": force_sap_prompt})
                     print(f"[DEBUG] Injected force-SAP prompt after {len(called_tools_cache)} unique tool calls")
@@ -1669,22 +1710,12 @@ Output the COMPLETE 12-section SAP document starting with "# STATISTICAL ANALYSI
             try:
                 final_prompt = f"""You have gathered knowledge from {len(knowledge_used)} tool calls.
 
-Now generate the COMPLETE SAP with ALL 12 sections using these EXACT headers:
+Now generate the COMPLETE SAP using the EXACT section headers from the MANDATORY SECTION OUTLINE provided earlier.
+The structure is DYNAMIC based on this protocol's characteristics (study design, therapy type, disease area).
 
-## 1. TITLE PAGE & ADMINISTRATIVE INFORMATION
-## 2. STUDY OBJECTIVES & ENDPOINTS
-## 3. STUDY DESIGN
-## 4. ANALYSIS POPULATIONS
-## 5. STATISTICAL METHODS
-## 6. SAMPLE SIZE & POWER
-## 7. MISSING DATA HANDLING
-## 8. SENSITIVITY ANALYSES
-## 9. SUBGROUP ANALYSES
-## 10. SAFETY ANALYSIS
-## 11. INTERIM ANALYSIS
-## 12. TABLE/FIGURE SHELLS
-
-Start with "# STATISTICAL ANALYSIS PLAN" then include ALL 12 sections. Each section is MANDATORY."""
+Start with "# STATISTICAL ANALYSIS PLAN" then include ALL sections from the outline.
+Each section uses "## N." format, subsections use "### N.N" format.
+All sections are MANDATORY."""
 
                 messages.append({"role": "user", "content": final_prompt})
 
