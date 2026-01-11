@@ -1298,6 +1298,231 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
                 if m.get("site"):
                     requirements.append(f"  - {m.get('site')}: {m.get('analysis_type', '')} (Section {m.get('section', 'N/A')})")
 
+        # RECIST analyses
+        recist = protocol_sections.get("recist_analyses", [])
+        if recist and any(r.get("type") for r in recist):
+            requirements.append("")
+            requirements.append("RECIST ANALYSES (MUST INCLUDE):")
+            for r in recist:
+                if r.get("type"):
+                    requirements.append(f"  - {r.get('type')}: {r.get('details', '')}")
+
+        # Tumor burden analyses
+        tumor_burden = protocol_sections.get("tumor_burden_analyses", [])
+        if tumor_burden and any(t.get("metric") for t in tumor_burden):
+            requirements.append("")
+            requirements.append("TUMOR BURDEN ANALYSES:")
+            for t in tumor_burden:
+                if t.get("metric"):
+                    requirements.append(f"  - {t.get('metric')}: categories = {t.get('baseline_categories', [])}")
+
+        # Depth of response
+        dor_analysis = protocol_sections.get("depth_of_response", [])
+        if dor_analysis and any(d.get("metric") for d in dor_analysis):
+            requirements.append("")
+            requirements.append("DEPTH OF RESPONSE ANALYSES:")
+            for d in dor_analysis:
+                if d.get("metric"):
+                    requirements.append(f"  - {d.get('metric')}: thresholds = {d.get('thresholds', [])}")
+
+        # Companion diagnostics
+        companion_dx = protocol_sections.get("companion_diagnostic", [])
+        if companion_dx and any(c.get("test_name") for c in companion_dx):
+            requirements.append("")
+            requirements.append("COMPANION DIAGNOSTIC ANALYSES:")
+            for c in companion_dx:
+                if c.get("test_name"):
+                    requirements.append(f"  - {c.get('test_name')} ({c.get('manufacturer', '')}): threshold = {c.get('threshold', '')}")
+
+        # ctDNA analyses
+        ctdna = protocol_sections.get("ctdna_analyses", [])
+        if ctdna and any(c.get("metric") for c in ctdna):
+            requirements.append("")
+            requirements.append("ctDNA ANALYSES:")
+            for c in ctdna:
+                if c.get("metric"):
+                    requirements.append(f"  - {c.get('metric')} at {c.get('timepoint', '')}")
+
+        # Hematologic response criteria
+        heme_criteria = protocol_sections.get("response_criteria_heme", [])
+        if heme_criteria and any(h.get("criteria") for h in heme_criteria):
+            requirements.append("")
+            requirements.append("HEMATOLOGIC RESPONSE CRITERIA (MUST INCLUDE):")
+            for h in heme_criteria:
+                if h.get("criteria"):
+                    requirements.append(f"  - {h.get('criteria')}: categories = {h.get('categories', [])}")
+
+        # MRD assessment
+        mrd = protocol_sections.get("mrd_assessment", [])
+        if mrd and any(m.get("method") for m in mrd):
+            requirements.append("")
+            requirements.append("MRD ASSESSMENT (MUST INCLUDE):")
+            for m in mrd:
+                if m.get("method"):
+                    requirements.append(f"  - Method: {m.get('method')}, Sensitivity: {m.get('sensitivity', '')}, Timepoints: {m.get('timepoints', [])}")
+
+        # Cytogenetic analyses
+        cytogenetics = protocol_sections.get("cytogenetic_analyses", [])
+        if cytogenetics and any(c.get("risk_group") for c in cytogenetics):
+            requirements.append("")
+            requirements.append("CYTOGENETIC RISK ANALYSES:")
+            for c in cytogenetics:
+                if c.get("risk_group"):
+                    requirements.append(f"  - Risk group: {c.get('risk_group')}, Abnormalities: {c.get('specific_abnormalities', [])}")
+
+        # Bone marrow analyses
+        bm = protocol_sections.get("bone_marrow_analyses", [])
+        if bm and any(b.get("type") for b in bm):
+            requirements.append("")
+            requirements.append("BONE MARROW ANALYSES:")
+            for b in bm:
+                if b.get("type"):
+                    requirements.append(f"  - {b.get('type')} at timepoints: {b.get('timepoints', [])}")
+
+        # Transfusion independence
+        transfusion = protocol_sections.get("transfusion_independence", [])
+        if transfusion and any(t.get("blood_product") for t in transfusion):
+            requirements.append("")
+            requirements.append("TRANSFUSION INDEPENDENCE ANALYSES:")
+            for t in transfusion:
+                if t.get("blood_product"):
+                    requirements.append(f"  - {t.get('blood_product')}: duration required = {t.get('duration_required', '')}")
+
+        # CRS grading (CAR-T)
+        crs = protocol_sections.get("crs_grading", [])
+        if crs and any(c.get("scale") for c in crs):
+            requirements.append("")
+            requirements.append("CRS GRADING (MUST INCLUDE):")
+            for c in crs:
+                if c.get("scale"):
+                    requirements.append(f"  - Scale: {c.get('scale')}")
+
+        # ICANS grading (CAR-T)
+        icans = protocol_sections.get("icans_grading", [])
+        if icans and any(i.get("scale") for i in icans):
+            requirements.append("")
+            requirements.append("ICANS GRADING (MUST INCLUDE):")
+            for i in icans:
+                if i.get("scale"):
+                    requirements.append(f"  - Scale: {i.get('scale')}, Tool: {i.get('assessment_tool', '')}")
+
+        # Cellular kinetics (CAR-T)
+        kinetics = protocol_sections.get("cellular_kinetics", [])
+        if kinetics and any(k.get("metric") for k in kinetics):
+            requirements.append("")
+            requirements.append("CELLULAR KINETICS ANALYSES:")
+            for k in kinetics:
+                if k.get("metric"):
+                    requirements.append(f"  - {k.get('metric')} at timepoints: {k.get('timepoints', [])}")
+
+        # Cytokine analyses (CAR-T)
+        cytokines = protocol_sections.get("cytokine_analyses", [])
+        if cytokines and any(c.get("cytokines") for c in cytokines):
+            requirements.append("")
+            requirements.append("CYTOKINE ANALYSES:")
+            for c in cytokines:
+                if c.get("cytokines"):
+                    requirements.append(f"  - Cytokines: {c.get('cytokines')} at {c.get('timepoints', [])}")
+
+        # irAE analyses (Immunotherapy)
+        irae = protocol_sections.get("irae_analyses", [])
+        if irae and any(i.get("category") for i in irae):
+            requirements.append("")
+            requirements.append("IMMUNE-RELATED ADVERSE EVENT ANALYSES (MUST INCLUDE):")
+            for i in irae:
+                if i.get("category"):
+                    requirements.append(f"  - {i.get('category')}: grading = {i.get('grading', '')}")
+
+        # DLT analyses (Phase 1)
+        dlt = protocol_sections.get("dlt_analyses", [])
+        if dlt and any(d.get("definition") for d in dlt):
+            requirements.append("")
+            requirements.append("DLT ANALYSES (MUST INCLUDE):")
+            for d in dlt:
+                if d.get("definition"):
+                    requirements.append(f"  - Definition: {d.get('definition')[:100]}, Window: {d.get('evaluation_window', '')}")
+
+        # MTD determination (Phase 1)
+        mtd = protocol_sections.get("mtd_determination", [])
+        if mtd and any(m.get("method") for m in mtd):
+            requirements.append("")
+            requirements.append("MTD DETERMINATION:")
+            for m in mtd:
+                if m.get("method"):
+                    requirements.append(f"  - Method: {m.get('method')}, Target toxicity: {m.get('target_toxicity', '')}")
+
+        # PK analyses (Phase 1)
+        pk = protocol_sections.get("pk_analyses", [])
+        if pk and any(p.get("parameters") for p in pk):
+            requirements.append("")
+            requirements.append("PK ANALYSES:")
+            for p in pk:
+                if p.get("parameters"):
+                    requirements.append(f"  - Parameters: {p.get('parameters')}")
+
+        # PSA analyses (Prostate)
+        psa = protocol_sections.get("psa_analyses", [])
+        if psa and any(p.get("metric") for p in psa):
+            requirements.append("")
+            requirements.append("PSA ANALYSES (MUST INCLUDE):")
+            for p in psa:
+                if p.get("metric"):
+                    requirements.append(f"  - {p.get('metric')}: {p.get('definition', '')}")
+
+        # RANO criteria (Brain)
+        rano = protocol_sections.get("rano_criteria", [])
+        if rano and any(r.get("type") for r in rano):
+            requirements.append("")
+            requirements.append("RANO CRITERIA (MUST INCLUDE):")
+            for r in rano:
+                if r.get("type"):
+                    requirements.append(f"  - {r.get('type')}: {r.get('measurable_definition', '')}")
+
+        # CA-125 analyses (Ovarian)
+        ca125 = protocol_sections.get("ca125_analyses", [])
+        if ca125 and any(c.get("criteria") for c in ca125):
+            requirements.append("")
+            requirements.append("CA-125 ANALYSES (MUST INCLUDE):")
+            for c in ca125:
+                if c.get("criteria"):
+                    requirements.append(f"  - Criteria: {c.get('criteria')}, Response: {c.get('response_definition', '')}")
+
+        # Ocular toxicity (ADC)
+        ocular = protocol_sections.get("ocular_toxicity", [])
+        if ocular and any(o.get("type") for o in ocular):
+            requirements.append("")
+            requirements.append("OCULAR TOXICITY MONITORING (ADC):")
+            for o in ocular:
+                if o.get("type"):
+                    requirements.append(f"  - {o.get('type')}: prophylaxis = {o.get('prophylaxis', '')}")
+
+        # Basket trial cohorts
+        basket = protocol_sections.get("basket_trial_cohorts", [])
+        if basket and any(b.get("tumor_type") for b in basket):
+            requirements.append("")
+            requirements.append("BASKET TRIAL COHORTS:")
+            for b in basket:
+                if b.get("tumor_type"):
+                    requirements.append(f"  - {b.get('tumor_type')}: biomarker = {b.get('biomarker_required', '')}, N = {b.get('sample_size', '')}")
+
+        # Catch-all: other disease-specific
+        other_disease = protocol_sections.get("other_disease_specific", [])
+        if other_disease and any(o.get("disease") for o in other_disease):
+            requirements.append("")
+            requirements.append("OTHER DISEASE-SPECIFIC ANALYSES:")
+            for o in other_disease:
+                if o.get("disease"):
+                    requirements.append(f"  - {o.get('disease')}: {o.get('analysis_type', '')} - {o.get('details', '')}")
+
+        # Catch-all: protocol unique elements
+        unique = protocol_sections.get("protocol_unique_elements", [])
+        if unique and any(u.get("name") for u in unique):
+            requirements.append("")
+            requirements.append("PROTOCOL-UNIQUE ELEMENTS (MUST INCLUDE):")
+            for u in unique:
+                if u.get("name"):
+                    requirements.append(f"  - {u.get('name')}: {u.get('description', '')}")
+
         # Appendices
         appendices = protocol_sections.get("appendices", [])
         if appendices and any(a.get("name") for a in appendices):
@@ -2461,6 +2686,8 @@ Return a JSON object with ONLY discovered structure:
   "interim_count": 0,
 
   "protocol_specific_sections": {{
+
+    "___UNIVERSAL_ALL_TRIALS___": "===========================================",
     "follow_up_analyses": [
       {{"name": "", "timing": "", "trigger": "", "section": ""}}
     ],
@@ -2474,13 +2701,10 @@ Return a JSON object with ONLY discovered structure:
       {{"breakdown_by": "", "section": ""}}
     ],
     "prior_therapy_details": [
-      {{"category": "", "section": ""}}
+      {{"category": "", "specific_agents": [], "section": ""}}
     ],
     "additional_subgroups": [
-      {{"factor": "", "section": ""}}
-    ],
-    "cart_manufacturing_metrics": [
-      {{"metric": "", "section": ""}}
+      {{"factor": "", "categories": [], "section": ""}}
     ],
     "healthcare_utilization": [
       {{"metric": "", "section": ""}}
@@ -2489,7 +2713,7 @@ Return a JSON object with ONLY discovered structure:
       {{"category": "", "section": ""}}
     ],
     "laboratory_analyses": [
-      {{"type": "", "section": ""}}
+      {{"type": "", "parameters": [], "section": ""}}
     ],
     "landmark_analyses": [
       {{"timepoint": "", "endpoints": [], "section": ""}}
@@ -2503,17 +2727,188 @@ Return a JSON object with ONLY discovered structure:
     "appendices": [
       {{"name": "", "content": "", "section": ""}}
     ],
+
+    "___SOLID_TUMOR_SPECIFIC___": "===========================================",
+    "recist_analyses": [
+      {{"type": "target_lesion|non_target|new_lesion|overall", "details": "", "section": ""}}
+    ],
     "immune_response_criteria": [
-      {{"name": "irRECIST/iRECIST", "pseudoprogression_handling": "", "confirmation_required": true/false}}
+      {{"name": "irRECIST|iRECIST|irRC", "pseudoprogression_handling": "", "confirmation_required": true/false, "confirmation_window": ""}}
     ],
     "subsequent_therapy_endpoints": [
-      {{"name": "TFST/TSST", "definition": "", "section": ""}}
-    ],
-    "biomarker_subgroups": [
-      {{"biomarker": "", "cutoffs": [], "analysis_type": "", "section": ""}}
+      {{"name": "TFST|TSST|PFS2", "definition": "", "section": ""}}
     ],
     "metastatic_site_analyses": [
-      {{"site": "", "analysis_type": "", "section": ""}}
+      {{"site": "CNS|liver|bone|lung|visceral|non_visceral", "analysis_type": "", "section": ""}}
+    ],
+    "tumor_burden_analyses": [
+      {{"metric": "sum_of_diameters|tumor_volume|ctDNA", "baseline_categories": [], "section": ""}}
+    ],
+    "depth_of_response": [
+      {{"metric": "", "thresholds": [], "section": ""}}
+    ],
+
+    "___BIOMARKER_COMPANION_DX___": "===========================================",
+    "biomarker_subgroups": [
+      {{"biomarker": "PD-L1|TMB|MSI|HER2|EGFR|ALK|KRAS|BRAF|BRCA|HR|other", "cutoffs": [], "assay": "", "analysis_type": "", "section": ""}}
+    ],
+    "companion_diagnostic": [
+      {{"test_name": "", "manufacturer": "", "threshold": "", "section": ""}}
+    ],
+    "ctdna_analyses": [
+      {{"timepoint": "", "metric": "detection|clearance|dynamics", "section": ""}}
+    ],
+    "tissue_vs_liquid_biopsy": [
+      {{"comparison": "", "concordance_method": "", "section": ""}}
+    ],
+
+    "___HEMATOLOGIC_MALIGNANCY___": "===========================================",
+    "response_criteria_heme": [
+      {{"criteria": "Lugano|IMWG|ELN|iwCLL|IWG_MDS", "categories": [], "section": ""}}
+    ],
+    "mrd_assessment": [
+      {{"method": "flow_cytometry|NGS|PCR", "sensitivity": "", "timepoints": [], "section": ""}}
+    ],
+    "cytogenetic_analyses": [
+      {{"risk_group": "favorable|intermediate|adverse", "specific_abnormalities": [], "section": ""}}
+    ],
+    "bone_marrow_analyses": [
+      {{"type": "aspirate|biopsy|involvement_percent", "timepoints": [], "section": ""}}
+    ],
+    "extramedullary_disease": [
+      {{"sites": [], "assessment_method": "", "section": ""}}
+    ],
+    "transfusion_independence": [
+      {{"blood_product": "RBC|platelet", "duration_required": "", "section": ""}}
+    ],
+
+    "___CELL_THERAPY_CART___": "===========================================",
+    "cart_manufacturing_metrics": [
+      {{"metric": "leukapheresis_to_infusion|vein_to_vein|manufacturing_success", "section": ""}}
+    ],
+    "crs_grading": [
+      {{"scale": "Lee|ASTCT|Penn", "grade_definitions": [], "section": ""}}
+    ],
+    "icans_grading": [
+      {{"scale": "ASTCT|CTCAE", "assessment_tool": "ICE|CAPD", "section": ""}}
+    ],
+    "cellular_kinetics": [
+      {{"metric": "Cmax|Tmax|AUC|persistence", "timepoints": [], "section": ""}}
+    ],
+    "b_cell_aplasia": [
+      {{"definition": "", "recovery_criteria": "", "section": ""}}
+    ],
+    "cytokine_analyses": [
+      {{"cytokines": ["IL-6", "IFN-gamma", "ferritin", "CRP"], "timepoints": [], "section": ""}}
+    ],
+    "bridging_therapy": [
+      {{"allowed": true/false, "types": [], "section": ""}}
+    ],
+    "retreatment_analyses": [
+      {{"eligibility": "", "endpoints": [], "section": ""}}
+    ],
+
+    "___IMMUNOTHERAPY_IO___": "===========================================",
+    "irae_analyses": [
+      {{"category": "colitis|pneumonitis|hepatitis|endocrinopathy|dermatologic|neurologic", "grading": "", "section": ""}}
+    ],
+    "steroid_use_analyses": [
+      {{"indication": "", "dose_threshold": "", "duration": "", "section": ""}}
+    ],
+    "immune_related_discontinuation": [
+      {{"reasons": [], "outcomes": [], "section": ""}}
+    ],
+    "rechallenge_analyses": [
+      {{"after_irae": true/false, "criteria": "", "section": ""}}
+    ],
+
+    "___PHASE1_DOSE_FINDING___": "===========================================",
+    "dlt_analyses": [
+      {{"definition": "", "evaluation_window": "", "section": ""}}
+    ],
+    "mtd_determination": [
+      {{"method": "3+3|CRM|BOIN|mTPI", "target_toxicity": "", "section": ""}}
+    ],
+    "rp2d_selection": [
+      {{"criteria": [], "section": ""}}
+    ],
+    "dose_escalation_schema": [
+      {{"levels": [], "increment": "", "section": ""}}
+    ],
+    "pk_analyses": [
+      {{"parameters": ["Cmax", "Tmax", "AUC", "t1/2", "clearance"], "sampling_schedule": [], "section": ""}}
+    ],
+    "exposure_response": [
+      {{"efficacy_metric": "", "safety_metric": "", "section": ""}}
+    ],
+
+    "___SPECIAL_DESIGNS___": "===========================================",
+    "basket_trial_cohorts": [
+      {{"tumor_type": "", "biomarker_required": "", "sample_size": "", "section": ""}}
+    ],
+    "umbrella_trial_arms": [
+      {{"biomarker": "", "treatment": "", "section": ""}}
+    ],
+    "platform_trial_adaptations": [
+      {{"adaptation_type": "arm_adding|arm_dropping|sample_size", "trigger": "", "section": ""}}
+    ],
+    "seamless_design": [
+      {{"phase2_endpoint": "", "phase3_endpoint": "", "transition_criteria": "", "section": ""}}
+    ],
+    "adaptive_randomization": [
+      {{"method": "response_adaptive|covariate_adaptive", "section": ""}}
+    ],
+
+    "___PROSTATE_CANCER___": "===========================================",
+    "psa_analyses": [
+      {{"metric": "PSA50|PSA90|PSA_response|PSA_progression", "definition": "", "section": ""}}
+    ],
+    "pcwg3_endpoints": [
+      {{"endpoint": "rPFS|bone_scan|soft_tissue", "section": ""}}
+    ],
+    "bone_scan_analyses": [
+      {{"method": "", "progression_definition": "", "section": ""}}
+    ],
+
+    "___BRAIN_TUMOR_CNS___": "===========================================",
+    "rano_criteria": [
+      {{"type": "RANO|RANO_BM|RANO_LM|iRANO", "measurable_definition": "", "section": ""}}
+    ],
+    "neurological_assessments": [
+      {{"scale": "NANO|KPS|MMSE", "timepoints": [], "section": ""}}
+    ],
+    "steroid_dose_tracking": [
+      {{"threshold": "", "tapering_rules": "", "section": ""}}
+    ],
+
+    "___OVARIAN_GYN___": "===========================================",
+    "ca125_analyses": [
+      {{"criteria": "GCIG", "response_definition": "", "progression_definition": "", "section": ""}}
+    ],
+    "brca_analyses": [
+      {{"mutation_type": "germline|somatic", "hrd_status": "", "section": ""}}
+    ],
+
+    "___ADC_SPECIFIC___": "===========================================",
+    "ocular_toxicity": [
+      {{"type": "keratopathy|dry_eye|blurred_vision", "grading": "", "prophylaxis": "", "section": ""}}
+    ],
+    "neuropathy_monitoring": [
+      {{"scale": "", "dose_modification_triggers": [], "section": ""}}
+    ],
+    "ilд_monitoring": [
+      {{"definition": "", "management": "", "section": ""}}
+    ],
+
+    "___CATCH_ALL___": "===========================================",
+    "other_disease_specific": [
+      {{"disease": "", "analysis_type": "", "details": "", "section": ""}}
+    ],
+    "other_therapy_specific": [
+      {{"therapy_class": "", "analysis_type": "", "details": "", "section": ""}}
+    ],
+    "protocol_unique_elements": [
+      {{"name": "", "description": "", "section": ""}}
     ]
   }}
 }}

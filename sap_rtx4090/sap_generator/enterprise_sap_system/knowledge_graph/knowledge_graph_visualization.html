@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Knowledge Graph - Comprehensive Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0f1f3f 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #2a2a4c;
+        }
+
+        .header h1 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header h1::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #00d4ff, #0088ff);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #00d4ff;
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* View Tabs */
+        .view-tabs {
+            display: flex;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .view-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .view-tab:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .view-tab.active {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+
+        /* Views */
+        .view {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .view.active {
+            display: flex;
+        }
+
+        /* Left Panel */
+        .left-panel {
+            width: 350px;
+            background: rgba(0, 0, 0, 0.3);
+            border-right: 1px solid #2a2a4c;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .left-panel h2 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Center Panel */
+        .center-panel {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Right Panel */
+        .right-panel {
+            width: 400px;
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 1px solid #2a2a4c;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .right-panel h2 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .right-panel h3 {
+            color: #ffd93d;
+            margin: 15px 0 10px 0;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #2a2a4c;
+            padding-bottom: 5px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #2a2a4c;
+        }
+
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Search */
+        .search-box {
+            margin-bottom: 15px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #2a2a4c;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #e0e0e0;
+            font-size: 13px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Tree View */
+        .tree-item {
+            margin: 2px 0;
+        }
+
+        .tree-node {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            gap: 8px;
+        }
+
+        .tree-node:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .tree-node.selected {
+            background: rgba(0, 212, 255, 0.2);
+            border-left: 3px solid #00d4ff;
+        }
+
+        .tree-node .icon { width: 18px; text-align: center; }
+        .tree-node .toggle {
+            width: 14px;
+            font-size: 10px;
+            color: #666;
+            transition: transform 0.2s ease;
+        }
+        .tree-node .toggle.expanded { transform: rotate(90deg); }
+        .tree-node .name { flex: 1; font-size: 13px; }
+        .tree-node .badge {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+        }
+
+        .tree-children {
+            margin-left: 20px;
+            display: none;
+        }
+        .tree-children.expanded { display: block; }
+
+        /* Detail Items */
+        .detail-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 8px 0;
+            border-left: 3px solid #2a2a4c;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .detail-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(3px);
+        }
+
+        .detail-item.class { border-left-color: #ff6b6b; }
+        .detail-item.function { border-left-color: #4ade80; }
+        .detail-item.constant { border-left-color: #c084fc; }
+        .detail-item.enum { border-left-color: #fb923c; }
+
+        .detail-item .name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .detail-item .line {
+            color: #666;
+            font-size: 11px;
+            margin-left: 8px;
+        }
+
+        .detail-item .description {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Pipeline Architecture View */
+        .pipeline-container {
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            overflow: auto;
+        }
+
+        .pipeline-stage {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #2a2a4c;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pipeline-stage h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pipeline-stage h3 .stage-num {
+            background: linear-gradient(135deg, #00d4ff, #0088ff);
+            color: #000;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .pipeline-flow {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-node {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #3a3a5c;
+            border-radius: 8px;
+            padding: 12px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 150px;
+        }
+
+        .pipeline-node:hover {
+            border-color: #00d4ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .pipeline-node.active {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .pipeline-node .node-title {
+            font-weight: 600;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .pipeline-node .node-desc {
+            color: #888;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .pipeline-arrow {
+            color: #00d4ff;
+            font-size: 20px;
+        }
+
+        /* Import Chain View */
+        .import-tree {
+            padding: 30px;
+        }
+
+        .import-node {
+            position: relative;
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        .import-node::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #2a2a4c;
+        }
+
+        .import-node::after {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 18px;
+            width: 15px;
+            height: 2px;
+            background: #2a2a4c;
+        }
+
+        .import-node:last-child::before {
+            bottom: 50%;
+        }
+
+        .import-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #2a2a4c;
+            border-radius: 8px;
+            padding: 15px;
+            display: inline-block;
+            min-width: 280px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .import-card:hover {
+            border-color: #00d4ff;
+            transform: translateX(5px);
+        }
+
+        .import-card .file-name {
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 14px;
+        }
+
+        .import-card .file-desc {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .import-card .import-count {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-left: 10px;
+        }
+
+        /* Factual KG View */
+        .factual-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        #factual-graph {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Legend */
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid #2a2a4c;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 350px;
+            border: 1px solid #2a2a4c;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            border: 1px solid #2a2a4c;
+        }
+
+        .code-block .keyword { color: #c084fc; }
+        .code-block .string { color: #4ade80; }
+        .code-block .function { color: #00d4ff; }
+        .code-block .comment { color: #666; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        ::-webkit-scrollbar-thumb { background: #3a3a5c; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4a4a6c; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .left-panel { width: 280px; }
+            .right-panel { width: 320px; }
+        }
+
+        /* Node colors */
+        .node-folder .icon { color: #ffd93d; }
+        .node-file .icon { color: #00d4ff; }
+        .node-class .icon { color: #ff6b6b; }
+        .node-function .icon { color: #4ade80; }
+        .node-constant .icon { color: #c084fc; }
+        .node-enum .icon { color: #fb923c; }
+
+        /* Graph node styles */
+        .graph-node {
+            cursor: pointer;
+        }
+
+        .graph-node circle {
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .graph-node:hover circle {
+            stroke-width: 4px;
+            filter: brightness(1.2);
+        }
+
+        .graph-node text {
+            font-size: 11px;
+            fill: #e0e0e0;
+            pointer-events: none;
+        }
+
+        .graph-link {
+            fill: none;
+            stroke: #2a2a4c;
+            stroke-width: 1.5px;
+        }
+
+        /* Mini map */
+        .mini-map {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 180px;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #2a2a4c;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            color: #666;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb span {
+            cursor: pointer;
+            color: #00d4ff;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb span:hover {
+            text-decoration: underline;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>SAP Knowledge Graph Visualization</h1>
+        <div class="view-tabs">
+            <button class="view-tab active" onclick="switchView('tree')">File Tree</button>
+            <button class="view-tab" onclick="switchView('pipeline')">Pipeline Architecture</button>
+            <button class="view-tab" onclick="switchView('imports')">Import Chain</button>
+            <button class="view-tab" onclick="switchView('factual')">Factual KG</button>
+        </div>
+        <span class="version-badge">v84</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- View 1: File Tree -->
+        <div class="view active" id="view-tree">
+            <div class="left-panel">
+                <h2>Knowledge Graph Files</h2>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search files, classes, functions...">
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">18</div>
+                        <div class="label">Python Files</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">83</div>
+                        <div class="label">KB Tools</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">49</div>
+                        <div class="label">Data Structures</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">42</div>
+                        <div class="label">Classes</div>
+                    </div>
+                </div>
+                <div id="tree-view"></div>
+            </div>
+            <div class="center-panel">
+                <div id="graph-container"></div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background: #ffd93d;"></div><span>Folder</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #00d4ff;"></div><span>File</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #ff6b6b;"></div><span>Class</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #4ade80;"></div><span>Function</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #c084fc;"></div><span>Constant</span></div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <div class="breadcrumb" id="breadcrumb">
+                    <span onclick="selectNode('root')">knowledge_graph</span>
+                </div>
+                <div id="detail-content">
+                    <div class="empty-state">
+                        <div class="icon">📊</div>
+                        <p>Select a file or component to view details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 2: Pipeline Architecture -->
+        <div class="view" id="view-pipeline">
+            <div class="pipeline-container">
+                <h2 style="color: #00d4ff; margin-bottom: 30px;">SAP Generation Pipeline Architecture</h2>
+
+                <!-- Stage 1: Input -->
+                <div class="pipeline-stage">
+                    <h3><span class="stage-num">1</span> Protocol Input</h3>
+                    <div class="pipeline-flow">
+                        <div class="pipeline-node" onclick="showPipelineDetail('protocol')">
+                            <div class="node-title">Protocol PDF</div>
+                            <div class="node-desc">Clinical trial protocol document</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('extractor')">
+                            <div class="node-title">protocol_specific_extractor.py</div>
+                            <div class="node-desc">Extract study details, endpoints, populations</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('extraction')">
+                            <div class="node-title">ProtocolExtraction</div>
+                            <div class="node-desc">Structured protocol data</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2: Condition Detection -->
+                <div class="pipeline-stage">
+                    <h3><span class="stage-num">2</span> SAP Structure Configuration</h3>
+                    <div class="pipeline-flow">
+                        <div class="pipeline-node" onclick="showPipelineDetail('conditions')">
+                            <div class="node-title">sap_structure_config.py</div>
+                            <div class="node-desc">Detect SAP conditions from protocol</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('sections')">
+                            <div class="node-title">SAPSection[]</div>
+                            <div class="node-desc">Required sections with KB tools</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3: Knowledge Base -->
+                <div class="pipeline-stage">
+                    <h3><span class="stage-num">3</span> Knowledge Base Retrieval</h3>
+                    <div class="pipeline-flow">
+                        <div class="pipeline-node" onclick="showPipelineDetail('kb_tools')">
+                            <div class="node-title">kb_tools.py</div>
+                            <div class="node-desc">83 Claude retrieval tools</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('kb_sources')">
+                            <div class="node-title">Knowledge Sources</div>
+                            <div class="node-desc">8 specialized KB modules</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('methodology')">
+                            <div class="node-title" style="font-size: 11px;">methodology_knowledge_base.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('tfl')">
+                            <div class="node-title" style="font-size: 11px;">complete_tfl_inventory.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('adam')">
+                            <div class="node-title" style="font-size: 11px;">adam_specifications.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('disease')">
+                            <div class="node-title" style="font-size: 11px;">disease_specific_criteria.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('oncology')">
+                            <div class="node-title" style="font-size: 11px;">oncology_reference_data.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('comprehensive')">
+                            <div class="node-title" style="font-size: 11px;">comprehensive_sap_elements.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('production')">
+                            <div class="node-title" style="font-size: 11px;">production_sap_specifications.py</div>
+                        </div>
+                        <div class="pipeline-node" style="min-width: auto; padding: 8px 12px;" onclick="showPipelineDetail('regulatory')">
+                            <div class="node-title" style="font-size: 11px;">regulatory_standards.py</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4: Generation -->
+                <div class="pipeline-stage">
+                    <h3><span class="stage-num">4</span> SAP Generation</h3>
+                    <div class="pipeline-flow">
+                        <div class="pipeline-node" onclick="showPipelineDetail('pipeline')">
+                            <div class="node-title">kg_enhanced_pipeline.py</div>
+                            <div class="node-desc">EnhancedClaudeSAPGenerator</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('verifier')">
+                            <div class="node-title">SelfRAGVerifier</div>
+                            <div class="node-desc">Verify against protocol & KB</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('output')">
+                            <div class="node-title">Generated SAP</div>
+                            <div class="node-desc">Complete statistical analysis plan</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 5: Traceability -->
+                <div class="pipeline-stage">
+                    <h3><span class="stage-num">5</span> Source Traceability</h3>
+                    <div class="pipeline-flow">
+                        <div class="pipeline-node" onclick="showPipelineDetail('mapping')">
+                            <div class="node-title">kb_source_mapping.py</div>
+                            <div class="node-desc">49 structures → SAP titles</div>
+                        </div>
+                        <span class="pipeline-arrow">→</span>
+                        <div class="pipeline-node" onclick="showPipelineDetail('sources')">
+                            <div class="node-title">Source SAP Documents</div>
+                            <div class="node-desc">Full title traceability (v84)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pipeline Detail Panel -->
+                <div id="pipeline-detail" style="margin-top: 30px; display: none;">
+                    <div class="pipeline-stage">
+                        <h3 id="pipeline-detail-title">Details</h3>
+                        <div id="pipeline-detail-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 3: Import Chain -->
+        <div class="view" id="view-imports">
+            <div class="left-panel">
+                <h2>Import Dependencies</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">3</div>
+                        <div class="label">Depth Levels</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">12</div>
+                        <div class="label">Core Files</div>
+                    </div>
+                </div>
+                <div style="color: #888; font-size: 12px; margin-top: 10px;">
+                    <p>Click on any file to see its dependencies and what imports it.</p>
+                </div>
+            </div>
+            <div class="center-panel" style="padding: 30px; overflow: auto;">
+                <h2 style="color: #00d4ff; margin-bottom: 20px;">Import Chain Visualization</h2>
+                <div id="import-chain-viz"></div>
+            </div>
+            <div class="right-panel">
+                <h2>File Details</h2>
+                <div id="import-detail-content">
+                    <div class="empty-state">
+                        <div class="icon">📦</div>
+                        <p>Select a file to see import details</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 4: Factual Knowledge Graph -->
+        <div class="view" id="view-factual">
+            <div class="left-panel">
+                <h2>Factual KG Nodes</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="value">13</div>
+                        <div class="label">Node Types</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">17</div>
+                        <div class="label">Edge Types</div>
+                    </div>
+                </div>
+                <div id="factual-node-list"></div>
+            </div>
+            <div class="center-panel">
+                <div id="factual-graph"></div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background: #ff6b6b;"></div><span>Trial</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #00d4ff;"></div><span>Document</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #4ade80;"></div><span>Endpoint</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #ffd93d;"></div><span>Method</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #c084fc;"></div><span>Population</span></div>
+                    <div class="legend-item"><div class="legend-color" style="background: #fb923c;"></div><span>Table</span></div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <h2>Node Details</h2>
+                <div id="factual-detail-content">
+                    <div class="empty-state">
+                        <div class="icon">🔗</div>
+                        <p>Select a node to see its relationships</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip" style="display: none;"></div>
+
+    <script>
+        // ============================================
+        // KNOWLEDGE GRAPH DATA
+        // ============================================
+        const knowledgeGraphData = {
+            name: "knowledge_graph",
+            type: "folder",
+            description: "Enterprise SAP Generation System - Knowledge Graph Module",
+            children: [
+                {
+                    name: "__init__.py",
+                    type: "file",
+                    description: "Module exports and initialization",
+                    exports: ["BiostatisticsKnowledgeGraph", "BiostatisticsGraphRAG", "KnowledgeEntity", "KnowledgeRelationship", "RetrievedPath", "create_graph_rag", "GRAPH_RAG_AVAILABLE"],
+                    children: []
+                },
+                {
+                    name: "kb_tools.py",
+                    type: "file",
+                    description: "Claude tool definitions - 83 KB retrieval tools",
+                    children: [
+                        { name: "Classes", type: "folder", children: [
+                            { name: "TrialPrecedentKG", type: "class", line: 34, description: "Trial precedent knowledge graph" },
+                            { name: "KBRetrievalResult", type: "class", line: 245, description: "Tool return type" },
+                            { name: "KnowledgeBaseTools", type: "class", line: 282, description: "Main KB interface (83 methods)" }
+                        ]},
+                        { name: "Methods (83 tools)", type: "folder", children: [
+                            { name: "get_statistical_method()", type: "function", line: 674 },
+                            { name: "get_censoring_rules()", type: "function", line: 788 },
+                            { name: "get_disposition_tables()", type: "function", line: 1063 },
+                            { name: "get_efficacy_tables()", type: "function", line: 1073 },
+                            { name: "get_safety_tables()", type: "function", line: 1083 },
+                            { name: "get_adam_dataset_spec()", type: "function", line: 1242 },
+                            { name: "get_response_criteria()", type: "function", line: 2572 },
+                            { name: "get_cart_specifications()", type: "function", line: 2642 },
+                            { name: "get_baseline_covariates()", type: "function", line: 2198 },
+                            { name: "... (74 more methods)", type: "function", line: 0 }
+                        ]},
+                        { name: "Functions", type: "folder", children: [
+                            { name: "get_claude_tool_definitions()", type: "function", line: 2832 },
+                            { name: "execute_tool()", type: "function", line: 3818 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "kb_source_mapping.py",
+                    type: "file",
+                    description: "SAP title traceability - 49 KB structures mapped to source SAPs (v84)",
+                    children: [
+                        { name: "Constants", type: "folder", children: [
+                            { name: "KB_SOURCES", type: "constant", line: 21, description: "49 structures → full SAP titles" }
+                        ]},
+                        { name: "Functions", type: "folder", children: [
+                            { name: "get_sources()", type: "function", line: 600 },
+                            { name: "get_all_sources_for_file()", type: "function", line: 684 },
+                            { name: "get_source_summary()", type: "function", line: 737 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "methodology_knowledge_base.py",
+                    type: "file",
+                    description: "Statistical methodology - 15 specification dictionaries",
+                    children: [
+                        { name: "Constants (15 specs)", type: "folder", children: [
+                            { name: "STRATIFICATION_SPECIFICATIONS", type: "constant", line: 36 },
+                            { name: "DERIVED_VARIABLE_SPECIFICATIONS", type: "constant", line: 294 },
+                            { name: "TIME_TO_EVENT_ANALYSIS", type: "constant", line: 506 },
+                            { name: "CENSORING_RULES", type: "constant", line: 611 },
+                            { name: "STATISTICAL_METHODS", type: "constant", line: 779 },
+                            { name: "CONFIDENCE_INTERVAL_METHODS", type: "constant", line: 976 },
+                            { name: "MISSING_DATA_HANDLING", type: "constant", line: 1064 },
+                            { name: "SENSITIVITY_ANALYSES", type: "constant", line: 1156 },
+                            { name: "MULTIPLICITY_ADJUSTMENT", type: "constant", line: 1259 },
+                            { name: "SUBGROUP_ANALYSIS_SPECIFICATIONS", type: "constant", line: 1360 },
+                            { name: "SAFETY_ANALYSIS_SPECIFICATIONS", type: "constant", line: 1429 },
+                            { name: "PRO_QOL_ANALYSIS", type: "constant", line: 1528 },
+                            { name: "ANALYSIS_WINDOWS", type: "constant", line: 1618 },
+                            { name: "INTERIM_ANALYSIS_SPECIFICATIONS", type: "constant", line: 1660 },
+                            { name: "DATA_CUTOFF_SPECIFICATIONS", type: "constant", line: 1700 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "complete_tfl_inventory.py",
+                    type: "file",
+                    description: "TFL templates - 10 template dictionaries",
+                    children: [
+                        { name: "Constants (10 templates)", type: "folder", children: [
+                            { name: "DISPOSITION_TABLES", type: "constant", line: 29 },
+                            { name: "EFFICACY_TABLES", type: "constant", line: 289 },
+                            { name: "SAFETY_TABLES", type: "constant", line: 681 },
+                            { name: "FIGURES", type: "constant", line: 1017 },
+                            { name: "LISTINGS", type: "constant", line: 1179 },
+                            { name: "SINGLE_ARM_DISPOSITION_TABLES", type: "constant", line: 1316 },
+                            { name: "LYMPHOMA_BASELINE_TABLES", type: "constant", line: 1387 },
+                            { name: "LYMPHOMA_EFFICACY_TABLES", type: "constant", line: 1432 },
+                            { name: "CAR_T_SAFETY_TABLES", type: "constant", line: 1473 },
+                            { name: "CAR_T_RETREATMENT_TABLES", type: "constant", line: 1579 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "production_sap_specifications.py",
+                    type: "file",
+                    description: "Production SAP specs - 8 specification dictionaries",
+                    children: [
+                        { name: "Constants (8 specs)", type: "folder", children: [
+                            { name: "TFL_SHELLS", type: "constant", line: 31 },
+                            { name: "ADAM_SPECIFICATIONS", type: "constant", line: 363 },
+                            { name: "ESTIMANDS_FRAMEWORK", type: "constant", line: 649 },
+                            { name: "PROGRAMMING_SPECIFICATIONS", type: "constant", line: 738 },
+                            { name: "STUDY_DESIGN", type: "constant", line: 864 },
+                            { name: "RECIST_SPECIFICATIONS", type: "constant", line: 944 },
+                            { name: "SAFETY_SPECIFICATIONS", type: "constant", line: 1067 },
+                            { name: "DATA_HANDLING", type: "constant", line: 1186 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "adam_specifications.py",
+                    type: "file",
+                    description: "ADaM dataset specs - 11 standard datasets",
+                    children: [
+                        { name: "Constants (11 ADaM)", type: "folder", children: [
+                            { name: "ADSL_SPECIFICATION", type: "constant", line: 36 },
+                            { name: "ADAE_SPECIFICATION", type: "constant", line: 167 },
+                            { name: "ADTTE_SPECIFICATION", type: "constant", line: 261 },
+                            { name: "ADRS_SPECIFICATION", type: "constant", line: 371 },
+                            { name: "ADLB_SPECIFICATION", type: "constant", line: 427 },
+                            { name: "ADEX_SPECIFICATION", type: "constant", line: 538 },
+                            { name: "ADVS_SPECIFICATION", type: "constant", line: 581 },
+                            { name: "ADEG_SPECIFICATION", type: "constant", line: 589 },
+                            { name: "ADPR_SPECIFICATION", type: "constant", line: 597 },
+                            { name: "ADCM_SPECIFICATION", type: "constant", line: 605 },
+                            { name: "ADMH_SPECIFICATION", type: "constant", line: 612 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "disease_specific_criteria.py",
+                    type: "file",
+                    description: "Response criteria - RANO, Lugano, IMWG",
+                    children: [
+                        { name: "Constants (4 criteria)", type: "folder", children: [
+                            { name: "RANO_CRITERIA", type: "constant", line: 29 },
+                            { name: "LUGANO_CRITERIA", type: "constant", line: 115 },
+                            { name: "IMWG_CRITERIA", type: "constant", line: 438 },
+                            { name: "RANO_BM_CRITERIA", type: "constant", line: 573 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "oncology_reference_data.py",
+                    type: "file",
+                    description: "Oncology modules - CAR-T, bispecific, ADC",
+                    children: [
+                        { name: "Response Criteria", type: "folder", children: [
+                            { name: "IMWG_CRITERIA", type: "constant", line: 62 },
+                            { name: "CML_CRITERIA", type: "constant", line: 174 },
+                            { name: "IWCLL_CRITERIA", type: "constant", line: 237 }
+                        ]},
+                        { name: "Study Templates", type: "folder", children: [
+                            { name: "ADJUVANT_TRIAL_TEMPLATE", type: "constant", line: 307 },
+                            { name: "NEOADJUVANT_TRIAL_TEMPLATE", type: "constant", line: 340 },
+                            { name: "BASKET_TRIAL_TEMPLATE", type: "constant", line: 377 },
+                            { name: "UMBRELLA_TRIAL_TEMPLATE", type: "constant", line: 397 }
+                        ]},
+                        { name: "Therapy Modules", type: "folder", children: [
+                            { name: "CAR_T_MODULE", type: "constant", line: 464 },
+                            { name: "BISPECIFIC_ANTIBODY_MODULE", type: "constant", line: 820 },
+                            { name: "ADC_MODULE", type: "constant", line: 841 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "comprehensive_sap_elements.py",
+                    type: "file",
+                    description: "42 specification dictionaries + disease baselines (v83)",
+                    children: [
+                        { name: "Study Elements", type: "folder", children: [
+                            { name: "STUDY_DEFINITIONS", type: "constant", line: 17 },
+                            { name: "EXPOSURE_ANALYSIS", type: "constant", line: 117 },
+                            { name: "CART_MANUFACTURING_METRICS", type: "constant", line: 181 }
+                        ]},
+                        { name: "Disease-Specific Baselines", type: "folder", children: [
+                            { name: "BASELINE_COVARIATES_SOLID_TUMOR", type: "constant", line: 1320 },
+                            { name: "BASELINE_COVARIATES_BREAST", type: "constant", line: 1465 },
+                            { name: "BASELINE_COVARIATES_LUNG", type: "constant", line: 1598 },
+                            { name: "BASELINE_COVARIATES_GI", type: "constant", line: 1753 },
+                            { name: "BASELINE_COVARIATES_PROSTATE", type: "constant", line: 1909 },
+                            { name: "BASELINE_COVARIATES_OVARIAN", type: "constant", line: 2043 },
+                            { name: "BASELINE_COVARIATES_LYMPHOMA", type: "constant", line: 2166 },
+                            { name: "BASELINE_COVARIATES_MYELOMA", type: "constant", line: 2356 },
+                            { name: "BASELINE_COVARIATES_LEUKEMIA", type: "constant", line: 2550 },
+                            { name: "BASELINE_COVARIATES_CLL", type: "constant", line: 2776 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "sap_structure_config.py",
+                    type: "file",
+                    description: "Dynamic section routing",
+                    children: [
+                        { name: "Classes", type: "folder", children: [
+                            { name: "SAPSection", type: "class", line: 24 }
+                        ]},
+                        { name: "Functions", type: "folder", children: [
+                            { name: "detect_sap_conditions()", type: "function", line: 617 },
+                            { name: "get_required_sections()", type: "function", line: 762 },
+                            { name: "format_section_outline()", type: "function", line: 807 },
+                            { name: "get_all_kb_tools_for_sections()", type: "function", line: 837 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "regulatory_standards.py",
+                    type: "file",
+                    description: "ICH E9, FDA guidance - 7 standards classes",
+                    children: [
+                        { name: "Classes (7 standards)", type: "folder", children: [
+                            { name: "CodingStandards", type: "class", line: 29 },
+                            { name: "TEAESummaryTypes", type: "class", line: 78 },
+                            { name: "EstimandFramework", type: "class", line: 210 },
+                            { name: "OncologyStandards", type: "class", line: 277 },
+                            { name: "Phase1Standards", type: "class", line: 379 },
+                            { name: "LaboratoryStandards", type: "class", line: 428 },
+                            { name: "RegulatoryKnowledgeBase", type: "class", line: 493 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "kg_enhanced_pipeline.py",
+                    type: "file",
+                    description: "Main pipeline - extraction + generation",
+                    children: [
+                        { name: "Classes (8 pipeline)", type: "folder", children: [
+                            { name: "VerificationError", type: "class", line: 116 },
+                            { name: "VerificationResult", type: "class", line: 126 },
+                            { name: "PowerCalculation", type: "class", line: 135 },
+                            { name: "SelfRAGVerifier", type: "class", line: 150 },
+                            { name: "SimplePowerCalculator", type: "class", line: 361 },
+                            { name: "SimpleRAGRetriever", type: "class", line: 569 },
+                            { name: "EnhancedClaudeSAPGenerator", type: "class", line: 705 },
+                            { name: "EnhancedKGPipeline", type: "class", line: 1926 }
+                        ]}
+                    ]
+                },
+                {
+                    name: "factual_knowledge_graph.py",
+                    type: "file",
+                    description: "Factual graph from SAP documents",
+                    children: [
+                        { name: "Enums", type: "folder", children: [
+                            { name: "NodeType", type: "enum", line: 43 },
+                            { name: "EdgeType", type: "enum", line: 275 }
+                        ]},
+                        { name: "Node Classes (13)", type: "folder", children: [
+                            { name: "Node", type: "class", line: 60 },
+                            { name: "TrialNode", type: "class", line: 75 },
+                            { name: "DocumentNode", type: "class", line: 91 },
+                            { name: "EndpointNode", type: "class", line: 107 },
+                            { name: "MethodNode", type: "class", line: 123 },
+                            { name: "TableNode", type: "class", line: 138 },
+                            { name: "QuoteNode", type: "class", line: 153 },
+                            { name: "PopulationNode", type: "class", line: 169 },
+                            { name: "StratumNode", type: "class", line: 184 },
+                            { name: "CensoringRuleNode", type: "class", line: 199 },
+                            { name: "MultiplicityNode", type: "class", line: 216 },
+                            { name: "VisitNode", type: "class", line: 235 },
+                            { name: "EstimandNode", type: "class", line: 252 }
+                        ]},
+                        { name: "Graph Classes", type: "folder", children: [
+                            { name: "Edge", type: "class", line: 307 },
+                            { name: "FactualKnowledgeGraph", type: "class", line: 327 },
+                            { name: "FactExtractor", type: "class", line: 481 }
+                        ]}
+                    ]
+                }
+            ]
+        };
+
+        // Import chain data
+        const importChainData = {
+            "main.py": {
+                imports: ["kg_enhanced_pipeline.py"],
+                description: "Application entry point",
+                level: 0
+            },
+            "kg_enhanced_pipeline.py": {
+                imports: ["kb_tools.py", "sap_structure_config.py", "regulatory_standards.py"],
+                description: "Main pipeline with extraction and generation",
+                level: 1
+            },
+            "kb_tools.py": {
+                imports: ["kb_source_mapping.py", "methodology_knowledge_base.py", "complete_tfl_inventory.py",
+                         "production_sap_specifications.py", "adam_specifications.py", "disease_specific_criteria.py",
+                         "oncology_reference_data.py", "comprehensive_sap_elements.py"],
+                description: "83 Claude retrieval tools",
+                level: 2
+            },
+            "sap_structure_config.py": {
+                imports: [],
+                description: "Dynamic SAP section routing",
+                level: 2
+            },
+            "regulatory_standards.py": {
+                imports: [],
+                description: "ICH E9, FDA guidance standards",
+                level: 2
+            },
+            "kb_source_mapping.py": {
+                imports: [],
+                description: "SAP title traceability (49 structures)",
+                level: 3
+            },
+            "methodology_knowledge_base.py": {
+                imports: [],
+                description: "Statistical methodology (15 specs)",
+                level: 3
+            },
+            "complete_tfl_inventory.py": {
+                imports: [],
+                description: "TFL templates (10 dicts)",
+                level: 3
+            },
+            "production_sap_specifications.py": {
+                imports: [],
+                description: "Production SAP specs (8 dicts)",
+                level: 3
+            },
+            "adam_specifications.py": {
+                imports: [],
+                description: "ADaM dataset specs (11 datasets)",
+                level: 3
+            },
+            "disease_specific_criteria.py": {
+                imports: [],
+                description: "Response criteria (RANO, Lugano, IMWG)",
+                level: 3
+            },
+            "oncology_reference_data.py": {
+                imports: [],
+                description: "CAR-T, bispecific, ADC modules",
+                level: 3
+            },
+            "comprehensive_sap_elements.py": {
+                imports: [],
+                description: "42 specs + disease baselines",
+                level: 3
+            }
+        };
+
+        // Factual KG data
+        const factualKGData = {
+            nodes: [
+                { id: "trial", type: "Trial", description: "Clinical trial entity" },
+                { id: "document", type: "Document", description: "SAP document" },
+                { id: "endpoint", type: "Endpoint", description: "Primary/Secondary endpoints" },
+                { id: "method", type: "Method", description: "Statistical method" },
+                { id: "table", type: "Table", description: "TFL specification" },
+                { id: "population", type: "Population", description: "Analysis population" },
+                { id: "stratum", type: "Stratum", description: "Stratification factor" },
+                { id: "censoring", type: "Censoring", description: "Censoring rule" },
+                { id: "multiplicity", type: "Multiplicity", description: "Multiplicity adjustment" },
+                { id: "visit", type: "Visit", description: "Visit/timepoint" },
+                { id: "estimand", type: "Estimand", description: "ICH E9(R1) estimand" },
+                { id: "quote", type: "Quote", description: "Direct protocol quote" }
+            ],
+            edges: [
+                { source: "trial", target: "document", type: "HAS_DOCUMENT" },
+                { source: "document", target: "endpoint", type: "DEFINES_ENDPOINT" },
+                { source: "endpoint", target: "method", type: "ANALYZED_BY" },
+                { source: "method", target: "table", type: "PRODUCES" },
+                { source: "trial", target: "population", type: "HAS_POPULATION" },
+                { source: "endpoint", target: "stratum", type: "STRATIFIED_BY" },
+                { source: "endpoint", target: "censoring", type: "USES_CENSORING" },
+                { source: "trial", target: "multiplicity", type: "APPLIES" },
+                { source: "endpoint", target: "visit", type: "ASSESSED_AT" },
+                { source: "endpoint", target: "estimand", type: "HAS_ESTIMAND" },
+                { source: "document", target: "quote", type: "CONTAINS_QUOTE" }
+            ]
+        };
+
+        // Pipeline detail content
+        const pipelineDetails = {
+            protocol: {
+                title: "Protocol PDF Input",
+                content: `<p style="color: #aaa; margin-bottom: 15px;">The clinical trial protocol document containing study design, endpoints, and analysis requirements.</p>
+                <h4 style="color: #ffd93d; margin-bottom: 10px;">Key Elements Extracted:</h4>
+                <ul style="color: #888; margin-left: 20px;">
+                    <li>Study objectives and design</li>
+                    <li>Primary and secondary endpoints</li>
+                    <li>Analysis populations</li>
+                    <li>Statistical hypotheses</li>
+                    <li>Sample size justification</li>
+                </ul>`
+            },
+            extractor: {
+                title: "protocol_specific_extractor.py",
+                content: `<p style="color: #aaa; margin-bottom: 15px;">Extracts structured data from protocol documents using Claude.</p>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">ProtocolSpecificExtractor</span>:
+    <span class="comment"># Extract study variables, endpoints, populations</span>
+    <span class="keyword">def</span> <span class="function">extract</span>(self, protocol_text: str) -> ProtocolExtraction
+                </div>
+                <h4 style="color: #ffd93d; margin: 15px 0 10px 0;">Classes:</h4>
+                <div class="detail-item class"><span class="name">ProtocolVariable</span> <span class="line">:60</span></div>
+                <div class="detail-item class"><span class="name">ProtocolEndpoint</span> <span class="line">:74</span></div>
+                <div class="detail-item class"><span class="name">ProtocolPopulation</span> <span class="line">:86</span></div>
+                <div class="detail-item class"><span class="name">ProtocolExtraction</span> <span class="line">:95</span></div>`
+            },
+            kb_tools: {
+                title: "kb_tools.py - 83 Claude Tools",
+                content: `<p style="color: #aaa; margin-bottom: 15px;">The central knowledge base interface with 83 retrieval tools for SAP generation.</p>
+                <h4 style="color: #ffd93d; margin-bottom: 10px;">Tool Categories:</h4>
+                <div class="detail-item function"><span class="name">Statistical Methods</span><div class="description">get_statistical_method(), get_censoring_rules(), get_sensitivity_analysis()</div></div>
+                <div class="detail-item function"><span class="name">TFL Templates</span><div class="description">get_disposition_tables(), get_efficacy_tables(), get_safety_tables()</div></div>
+                <div class="detail-item function"><span class="name">ADaM Specs</span><div class="description">get_adam_dataset_spec() for ADSL, ADAE, ADTTE, etc.</div></div>
+                <div class="detail-item function"><span class="name">Response Criteria</span><div class="description">get_response_criteria() for RECIST, Lugano, IMWG, etc.</div></div>
+                <div class="detail-item function"><span class="name">Therapy Modules</span><div class="description">get_cart_specifications(), get_bispecific_specifications()</div></div>`
+            },
+            pipeline: {
+                title: "kg_enhanced_pipeline.py",
+                content: `<p style="color: #aaa; margin-bottom: 15px;">The main SAP generation pipeline with protocol extraction, KB retrieval, and self-verification.</p>
+                <h4 style="color: #ffd93d; margin-bottom: 10px;">Key Classes:</h4>
+                <div class="detail-item class"><span class="name">EnhancedClaudeSAPGenerator</span> <span class="line">:705</span><div class="description">Claude-based SAP generator with KB tool use</div></div>
+                <div class="detail-item class"><span class="name">SelfRAGVerifier</span> <span class="line">:150</span><div class="description">Self-verification against protocol and KB</div></div>
+                <div class="detail-item class"><span class="name">EnhancedKGPipeline</span> <span class="line">:1926</span><div class="description">Full pipeline orchestration</div></div>`
+            },
+            mapping: {
+                title: "kb_source_mapping.py - v84",
+                content: `<p style="color: #aaa; margin-bottom: 15px;">Full SAP title traceability - maps 49 KB structures to their source SAP documents.</p>
+                <div class="code-block">
+KB_SOURCES = {
+    <span class="string">"STRATIFICATION_SPECIFICATIONS"</span>: {
+        <span class="string">"source_saps"</span>: [
+            <span class="string">"Statistical Analysis Plan for Protocol ABC-123..."</span>
+        ],
+        <span class="string">"trials"</span>: [<span class="string">"ABC-123"</span>, <span class="string">"XYZ-456"</span>]
+    }
+    <span class="comment"># ... 48 more structures</span>
+}
+                </div>`
+            }
+        };
+
+        // ============================================
+        // STATE
+        // ============================================
+        let currentView = 'tree';
+        let selectedNode = null;
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTreeView();
+            renderGraph();
+            renderImportChain();
+            renderFactualKG();
+            setupSearch();
+        });
+
+        // ============================================
+        // VIEW SWITCHING
+        // ============================================
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`view-${view}`).classList.add('active');
+            document.querySelector(`.view-tab[onclick="switchView('${view}')"]`).classList.add('active');
+
+            // Re-render graphs when switching
+            if (view === 'factual') {
+                setTimeout(() => renderFactualKG(), 100);
+            }
+        }
+
+        // ============================================
+        // TREE VIEW
+        // ============================================
+        function renderTreeView() {
+            const container = document.getElementById('tree-view');
+            container.innerHTML = renderTreeNode(knowledgeGraphData, true);
+        }
+
+        function renderTreeNode(node, expanded = false) {
+            const hasChildren = node.children && node.children.length > 0;
+            const icon = getIcon(node.type);
+            const badge = getBadge(node);
+
+            let html = `<div class="tree-item">
+                <div class="tree-node node-${node.type}" onclick="handleNodeClick(event, '${node.name}')" data-name="${node.name}">
+                    ${hasChildren ? `<span class="toggle ${expanded ? 'expanded' : ''}" onclick="toggleExpand(event, this)">▶</span>` : '<span class="toggle"></span>'}
+                    <span class="icon">${icon}</span>
+                    <span class="name">${node.name}</span>
+                    ${badge ? `<span class="badge">${badge}</span>` : ''}
+                </div>`;
+
+            if (hasChildren) {
+                html += `<div class="tree-children ${expanded ? 'expanded' : ''}">`;
+                for (const child of node.children) {
+                    html += renderTreeNode(child, false);
+                }
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function getIcon(type) {
+            const icons = { 'folder': '📁', 'file': '📄', 'class': '🔷', 'function': '⚡', 'constant': '📊', 'enum': '🔶' };
+            return icons[type] || '📄';
+        }
+
+        function getBadge(node) {
+            if (node.name === 'kb_tools.py') return '83 tools';
+            if (node.name === 'comprehensive_sap_elements.py') return '42 specs';
+            if (node.name === 'methodology_knowledge_base.py') return '15 specs';
+            if (node.name === 'kb_source_mapping.py') return '49 sources';
+            return null;
+        }
+
+        function toggleExpand(event, element) {
+            event.stopPropagation();
+            element.classList.toggle('expanded');
+            const children = element.parentElement.nextElementSibling;
+            if (children && children.classList.contains('tree-children')) {
+                children.classList.toggle('expanded');
+            }
+        }
+
+        function handleNodeClick(event, nodeName) {
+            event.stopPropagation();
+            document.querySelectorAll('.tree-node').forEach(n => n.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+
+            const nodeData = findNode(knowledgeGraphData, nodeName);
+            if (nodeData) {
+                selectedNode = nodeData;
+                updateDetailPanel(nodeData);
+                updateBreadcrumb(nodeData);
+            }
+        }
+
+        function findNode(root, name, path = []) {
+            if (root.name === name) return { ...root, path: [...path, root.name] };
+            if (root.children) {
+                for (const child of root.children) {
+                    const found = findNode(child, name, [...path, root.name]);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        function updateDetailPanel(node) {
+            const container = document.getElementById('detail-content');
+            let html = `<h2>${node.name}</h2>`;
+
+            if (node.description) {
+                html += `<p style="color: #888; margin-bottom: 20px;">${node.description}</p>`;
+            }
+
+            if (node.line) {
+                html += `<p style="color: #666; font-size: 11px; margin-bottom: 15px;">Line: ${node.line}</p>`;
+            }
+
+            if (node.children && node.children.length > 0) {
+                for (const child of node.children) {
+                    if (child.type === 'folder') {
+                        html += `<h3>${child.name}</h3>`;
+                        if (child.children) {
+                            for (const item of child.children) {
+                                html += `<div class="detail-item ${item.type}" onclick="handleNodeClick(event, '${item.name}')">
+                                    <span class="name">${getIcon(item.type)} ${item.name}</span>
+                                    ${item.line ? `<span class="line">:${item.line}</span>` : ''}
+                                    ${item.description ? `<div class="description">${item.description}</div>` : ''}
+                                </div>`;
+                            }
+                        }
+                    }
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
+        function updateBreadcrumb(node) {
+            const container = document.getElementById('breadcrumb');
+            if (node.path) {
+                container.innerHTML = node.path.map((p, i) =>
+                    `<span onclick="selectNodeByName('${p}')">${p}</span>${i < node.path.length - 1 ? ' › ' : ''}`
+                ).join('');
+            }
+        }
+
+        function selectNodeByName(name) {
+            const nodeData = findNode(knowledgeGraphData, name);
+            if (nodeData) {
+                selectedNode = nodeData;
+                updateDetailPanel(nodeData);
+                updateBreadcrumb(nodeData);
+            }
+        }
+
+        // ============================================
+        // D3 GRAPH
+        // ============================================
+        function renderGraph() {
+            const container = document.getElementById('graph-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            const svg = d3.select(container).append('svg').attr('width', width).attr('height', height);
+            const root = d3.hierarchy(knowledgeGraphData);
+
+            const treeLayout = d3.tree()
+                .size([2 * Math.PI, Math.min(width, height) / 2 - 100])
+                .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
+
+            treeLayout(root);
+
+            const g = svg.append('g').attr('transform', `translate(${width/2},${height/2})`);
+
+            const zoom = d3.zoom().scaleExtent([0.3, 3]).on('zoom', (event) => {
+                g.attr('transform', `translate(${width/2 + event.transform.x},${height/2 + event.transform.y}) scale(${event.transform.k})`);
+            });
+
+            svg.call(zoom);
+
+            g.selectAll('.graph-link').data(root.links()).enter().append('path')
+                .attr('class', 'graph-link')
+                .attr('d', d3.linkRadial().angle(d => d.x).radius(d => d.y));
+
+            const nodes = g.selectAll('.graph-node').data(root.descendants()).enter().append('g')
+                .attr('class', 'graph-node')
+                .attr('transform', d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
+                .on('click', (event, d) => selectNodeByName(d.data.name))
+                .on('mouseover', (event, d) => showTooltip(event, d.data))
+                .on('mouseout', hideTooltip);
+
+            nodes.append('circle')
+                .attr('r', d => d.depth === 0 ? 15 : d.depth === 1 ? 10 : d.children ? 8 : 5)
+                .attr('fill', d => getNodeColor(d.data.type))
+                .attr('stroke', d => d3.color(getNodeColor(d.data.type)).darker(0.5));
+
+            nodes.append('text')
+                .attr('dy', '0.31em')
+                .attr('x', d => d.x < Math.PI === !d.children ? 10 : -10)
+                .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+                .attr('transform', d => d.x >= Math.PI ? 'rotate(180)' : null)
+                .text(d => d.depth < 3 ? d.data.name : '')
+                .style('font-size', d => d.depth === 0 ? '14px' : '10px');
+        }
+
+        function getNodeColor(type) {
+            const colors = { 'folder': '#ffd93d', 'file': '#00d4ff', 'class': '#ff6b6b', 'function': '#4ade80', 'constant': '#c084fc', 'enum': '#fb923c' };
+            return colors[type] || '#888';
+        }
+
+        // ============================================
+        // IMPORT CHAIN
+        // ============================================
+        function renderImportChain() {
+            const container = document.getElementById('import-chain-viz');
+
+            const html = `
+                <div style="font-family: monospace;">
+                    <div class="import-card" style="margin-bottom: 20px;" onclick="showImportDetail('main.py')">
+                        <div class="file-name">main.py</div>
+                        <div class="file-desc">Application entry point</div>
+                    </div>
+
+                    <div class="import-node">
+                        <div class="import-card" onclick="showImportDetail('kg_enhanced_pipeline.py')">
+                            <div class="file-name">kg_enhanced_pipeline.py</div>
+                            <div class="file-desc">Main pipeline - extraction + generation</div>
+                            <span class="import-count">8 classes</span>
+                        </div>
+
+                        <div class="import-node">
+                            <div class="import-card" onclick="showImportDetail('kb_tools.py')">
+                                <div class="file-name">kb_tools.py</div>
+                                <div class="file-desc">83 Claude retrieval tools</div>
+                                <span class="import-count">83 tools</span>
+                            </div>
+
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('methodology_knowledge_base.py')">
+                                    <div class="file-name">methodology_knowledge_base.py</div>
+                                    <div class="file-desc">Statistical methodology (15 specs)</div>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('complete_tfl_inventory.py')">
+                                    <div class="file-name">complete_tfl_inventory.py</div>
+                                    <div class="file-desc">TFL templates (10 dicts)</div>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('production_sap_specifications.py')">
+                                    <div class="file-name">production_sap_specifications.py</div>
+                                    <div class="file-desc">Production SAP specs (8 dicts)</div>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('adam_specifications.py')">
+                                    <div class="file-name">adam_specifications.py</div>
+                                    <div class="file-desc">ADaM dataset specs (11 datasets)</div>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('disease_specific_criteria.py')">
+                                    <div class="file-name">disease_specific_criteria.py</div>
+                                    <div class="file-desc">Response criteria (RANO, Lugano, IMWG)</div>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('oncology_reference_data.py')">
+                                    <div class="file-name">oncology_reference_data.py</div>
+                                    <div class="file-desc">CAR-T, bispecific, ADC modules</div>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('comprehensive_sap_elements.py')">
+                                    <div class="file-name">comprehensive_sap_elements.py</div>
+                                    <div class="file-desc">42 specs + disease baselines (v83)</div>
+                                    <span class="import-count">42 specs</span>
+                                </div>
+                            </div>
+                            <div class="import-node">
+                                <div class="import-card" onclick="showImportDetail('kb_source_mapping.py')">
+                                    <div class="file-name">kb_source_mapping.py</div>
+                                    <div class="file-desc">SAP title traceability (v84)</div>
+                                    <span class="import-count">49 sources</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="import-node">
+                            <div class="import-card" onclick="showImportDetail('sap_structure_config.py')">
+                                <div class="file-name">sap_structure_config.py</div>
+                                <div class="file-desc">Dynamic SAP section routing</div>
+                            </div>
+                        </div>
+
+                        <div class="import-node">
+                            <div class="import-card" onclick="showImportDetail('regulatory_standards.py')">
+                                <div class="file-name">regulatory_standards.py</div>
+                                <div class="file-desc">ICH E9, FDA guidance (7 classes)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function showImportDetail(filename) {
+            const data = importChainData[filename];
+            const container = document.getElementById('import-detail-content');
+
+            if (data) {
+                let html = `<h2 style="font-size: 1rem;">${filename}</h2>`;
+                html += `<p style="color: #888; margin-bottom: 15px;">${data.description}</p>`;
+
+                if (data.imports.length > 0) {
+                    html += `<h3>Imports (${data.imports.length})</h3>`;
+                    for (const imp of data.imports) {
+                        html += `<div class="detail-item function" onclick="showImportDetail('${imp}')">
+                            <span class="name">📦 ${imp}</span>
+                        </div>`;
+                    }
+                }
+
+                // Find what imports this file
+                const importedBy = [];
+                for (const [file, fileData] of Object.entries(importChainData)) {
+                    if (fileData.imports.includes(filename)) {
+                        importedBy.push(file);
+                    }
+                }
+
+                if (importedBy.length > 0) {
+                    html += `<h3>Imported By (${importedBy.length})</h3>`;
+                    for (const imp of importedBy) {
+                        html += `<div class="detail-item class" onclick="showImportDetail('${imp}')">
+                            <span class="name">⬅️ ${imp}</span>
+                        </div>`;
+                    }
+                }
+
+                container.innerHTML = html;
+            }
+        }
+
+        // ============================================
+        // FACTUAL KG
+        // ============================================
+        function renderFactualKG() {
+            const container = document.getElementById('factual-graph');
+            container.innerHTML = '';
+
+            const width = container.clientWidth || 800;
+            const height = container.clientHeight || 600;
+
+            const svg = d3.select(container).append('svg').attr('width', width).attr('height', height);
+
+            const simulation = d3.forceSimulation(factualKGData.nodes)
+                .force('link', d3.forceLink(factualKGData.edges).id(d => d.id).distance(120))
+                .force('charge', d3.forceManyBody().strength(-400))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+
+            const g = svg.append('g');
+
+            const zoom = d3.zoom().scaleExtent([0.3, 3]).on('zoom', (event) => {
+                g.attr('transform', event.transform);
+            });
+            svg.call(zoom);
+
+            const link = g.selectAll('.link').data(factualKGData.edges).enter().append('line')
+                .attr('class', 'graph-link')
+                .attr('stroke-width', 2);
+
+            const linkLabel = g.selectAll('.link-label').data(factualKGData.edges).enter().append('text')
+                .attr('font-size', '9px')
+                .attr('fill', '#666')
+                .text(d => d.type);
+
+            const node = g.selectAll('.node').data(factualKGData.nodes).enter().append('g')
+                .attr('class', 'graph-node')
+                .call(d3.drag()
+                    .on('start', (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+                    .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
+                    .on('end', (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }))
+                .on('click', (event, d) => showFactualNodeDetail(d))
+                .on('mouseover', (event, d) => showTooltip(event, d))
+                .on('mouseout', hideTooltip);
+
+            node.append('circle')
+                .attr('r', 25)
+                .attr('fill', d => getFactualNodeColor(d.type))
+                .attr('stroke', d => d3.color(getFactualNodeColor(d.type)).darker(0.5))
+                .attr('stroke-width', 2);
+
+            node.append('text')
+                .attr('dy', 4)
+                .attr('text-anchor', 'middle')
+                .attr('fill', '#fff')
+                .attr('font-size', '10px')
+                .attr('font-weight', 'bold')
+                .text(d => d.type.substring(0, 3));
+
+            simulation.on('tick', () => {
+                link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+
+                linkLabel.attr('x', d => (d.source.x + d.target.x) / 2)
+                    .attr('y', d => (d.source.y + d.target.y) / 2);
+
+                node.attr('transform', d => `translate(${d.x},${d.y})`);
+            });
+
+            // Render node list
+            const nodeList = document.getElementById('factual-node-list');
+            nodeList.innerHTML = factualKGData.nodes.map(n => `
+                <div class="detail-item" onclick="showFactualNodeDetail({id: '${n.id}', type: '${n.type}', description: '${n.description}'})">
+                    <span class="name" style="color: ${getFactualNodeColor(n.type)};">${n.type}</span>
+                    <div class="description">${n.description}</div>
+                </div>
+            `).join('');
+        }
+
+        function getFactualNodeColor(type) {
+            const colors = {
+                'Trial': '#ff6b6b', 'Document': '#00d4ff', 'Endpoint': '#4ade80', 'Method': '#ffd93d',
+                'Table': '#fb923c', 'Population': '#c084fc', 'Stratum': '#f472b6', 'Censoring': '#a78bfa',
+                'Multiplicity': '#34d399', 'Visit': '#60a5fa', 'Estimand': '#f87171', 'Quote': '#818cf8'
+            };
+            return colors[type] || '#888';
+        }
+
+        function showFactualNodeDetail(node) {
+            const container = document.getElementById('factual-detail-content');
+
+            // Find edges for this node
+            const outgoing = factualKGData.edges.filter(e => e.source.id === node.id || e.source === node.id);
+            const incoming = factualKGData.edges.filter(e => e.target.id === node.id || e.target === node.id);
+
+            let html = `<h2 style="color: ${getFactualNodeColor(node.type)};">${node.type}</h2>`;
+            html += `<p style="color: #888; margin-bottom: 15px;">${node.description}</p>`;
+
+            if (outgoing.length > 0) {
+                html += `<h3>Outgoing Edges</h3>`;
+                for (const edge of outgoing) {
+                    const targetId = edge.target.id || edge.target;
+                    const targetNode = factualKGData.nodes.find(n => n.id === targetId);
+                    html += `<div class="detail-item function">
+                        <span class="name">${edge.type}</span>
+                        <div class="description">→ ${targetNode ? targetNode.type : targetId}</div>
+                    </div>`;
+                }
+            }
+
+            if (incoming.length > 0) {
+                html += `<h3>Incoming Edges</h3>`;
+                for (const edge of incoming) {
+                    const sourceId = edge.source.id || edge.source;
+                    const sourceNode = factualKGData.nodes.find(n => n.id === sourceId);
+                    html += `<div class="detail-item class">
+                        <span class="name">${edge.type}</span>
+                        <div class="description">← ${sourceNode ? sourceNode.type : sourceId}</div>
+                    </div>`;
+                }
+            }
+
+            container.innerHTML = html;
+        }
+
+        // ============================================
+        // PIPELINE DETAILS
+        // ============================================
+        function showPipelineDetail(key) {
+            const detail = pipelineDetails[key];
+            const panel = document.getElementById('pipeline-detail');
+            const title = document.getElementById('pipeline-detail-title');
+            const content = document.getElementById('pipeline-detail-content');
+
+            if (detail) {
+                title.innerHTML = detail.title;
+                content.innerHTML = detail.content;
+                panel.style.display = 'block';
+                panel.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ============================================
+        // SEARCH
+        // ============================================
+        function setupSearch() {
+            const input = document.getElementById('search-input');
+            input.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                document.querySelectorAll('.tree-node').forEach(node => {
+                    const name = node.dataset.name?.toLowerCase() || '';
+                    const match = name.includes(query);
+                    node.style.display = query === '' || match ? 'flex' : 'none';
+
+                    if (match && query !== '') {
+                        let parent = node.parentElement;
+                        while (parent) {
+                            if (parent.classList.contains('tree-children')) {
+                                parent.classList.add('expanded');
+                                const toggle = parent.previousElementSibling?.querySelector('.toggle');
+                                if (toggle) toggle.classList.add('expanded');
+                            }
+                            parent = parent.parentElement;
+                        }
+                    }
+                });
+            });
+        }
+
+        // ============================================
+        // TOOLTIP
+        // ============================================
+        function showTooltip(event, data) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.innerHTML = `<strong>${data.name || data.type}</strong>${data.description ? '<br>' + data.description : ''}`;
+            tooltip.style.display = 'block';
+            tooltip.style.left = (event.pageX + 10) + 'px';
+            tooltip.style.top = (event.pageY + 10) + 'px';
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
