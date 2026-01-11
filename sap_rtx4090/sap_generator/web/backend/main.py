@@ -95,15 +95,10 @@ except ImportError:
     HybridSAPPipeline = None
     create_hybrid_pipeline = None
 
-# NEW: Direct SAP Generation (V2) - No information loss
-# Uses discovery as checklist, generates SAP directly from full protocol text
-try:
-    from enterprise_sap_system.core.two_pass_extractor import TwoPassExtractor
-    DIRECT_GENERATION_AVAILABLE = True
-except ImportError as e:
-    DIRECT_GENERATION_AVAILABLE = False
-    TwoPassExtractor = None
-    print(f"Warning: TwoPassExtractor (direct generation) not available: {e}")
+# v69: Direct SAP Generation now uses EnhancedKGPipeline (dynamic SAP structure)
+# TwoPassExtractor is DEPRECATED - use EnhancedKGPipeline via get_pipeline()
+DIRECT_GENERATION_AVAILABLE = True  # Always available via get_pipeline()
+TwoPassExtractor = None  # Deprecated - keeping variable for compatibility
 
 # NEW: 3-Collection RAG System (structure, content, TLF)
 # Uses RAG for style/format guidance + TLF appendix generation
@@ -719,12 +714,12 @@ async def create_job(request: GenerateRequest):
 
 
 # =============================================================================
-# KG PIPELINE WRAPPER - Adapts EnhancedKGPipeline to TwoPassExtractor interface
+# KG PIPELINE WRAPPER - Production SAP generation with dynamic structure (v69)
 # =============================================================================
 
 class KGPipelineWrapper:
     """
-    Wrapper that adapts EnhancedKGPipeline to the TwoPassExtractor interface.
+    Wrapper that provides EnhancedKGPipeline with a consistent interface.
 
     This enables the new 55-category KG extraction with prohibition rules
     to be used by the existing worker code without modification.
@@ -887,8 +882,10 @@ class KGPipelineWrapper:
             verification = result.get('verification')
             provenance = result.get('provenance', {})
 
-            # Build discovered_elements from extracted data
+            # Build discovered_elements from extracted data AND full_extraction
             discovered_elements = []
+
+            # Add facts from extracted list
             for fact in extracted:
                 discovered_elements.append({
                     'name': fact.get('name', ''),
@@ -897,6 +894,39 @@ class KGPipelineWrapper:
                     'source_quote': fact.get('source_quote', ''),
                     'confidence': fact.get('confidence', 0.8)
                 })
+
+            # v70: Add primary_endpoints from full_extraction (KG format)
+            if full_extraction:
+                primary_eps = full_extraction.get('primary_endpoints', [])
+                for ep in (primary_eps if isinstance(primary_eps, list) else [primary_eps] if primary_eps else []):
+                    if isinstance(ep, dict):
+                        ep_name = ep.get('name') or ep.get('value') or str(ep)
+                    else:
+                        ep_name = str(ep) if ep else None
+                    if ep_name:
+                        discovered_elements.append({
+                            'name': 'primary_endpoint',
+                            'category': 'endpoints',
+                            'description': ep_name,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
+
+                # Also add secondary_endpoints
+                secondary_eps = full_extraction.get('secondary_endpoints', [])
+                for ep in (secondary_eps if isinstance(secondary_eps, list) else [secondary_eps] if secondary_eps else []):
+                    if isinstance(ep, dict):
+                        ep_name = ep.get('name') or ep.get('value') or str(ep)
+                    else:
+                        ep_name = str(ep) if ep else None
+                    if ep_name:
+                        discovered_elements.append({
+                            'name': 'secondary_endpoint',
+                            'category': 'endpoints',
+                            'description': ep_name,
+                            'source_quote': '',
+                            'confidence': 0.9
+                        })
 
             # Build validation dict
             validation_dict = {
@@ -1350,17 +1380,11 @@ async def generate_regulatory_sap(request: GenerateRequest):
 # DIRECT SAP GENERATION (V2) - No information loss
 # =============================================================================
 
-# Global instance for direct SAP generator
-_direct_generator: TwoPassExtractor = None
-
-
+# v69: Direct generation now uses EnhancedKGPipeline (same as get_pipeline())
+# This maintains the /generate-direct endpoint but uses the new dynamic SAP structure
 def get_direct_generator():
-    """Get or create the direct SAP generator (TwoPassExtractor V2)."""
-    global _direct_generator
-    if _direct_generator is None and DIRECT_GENERATION_AVAILABLE:
-        _direct_generator = TwoPassExtractor()
-        logger.info("TwoPassExtractor V2 initialized (direct generation, no info loss)")
-    return _direct_generator
+    """Get the SAP generator - v69 uses EnhancedKGPipeline via get_pipeline()."""
+    return get_pipeline()  # Returns KGPipelineWrapper with EnhancedKGPipeline
 
 
 # Global instance for integrated pipeline (with LLM extraction + RAG)
@@ -1448,7 +1472,7 @@ async def generate_direct_sap(request: GenerateRequest):
         if not DIRECT_GENERATION_AVAILABLE:
             raise HTTPException(
                 status_code=503,
-                detail="Direct generation not available - TwoPassExtractor import failed"
+                detail="Direct generation not available - KGPipeline import failed"
             )
 
         generator = get_direct_generator()
@@ -1751,7 +1775,7 @@ async def generate_rag_sap(request: GenerateRequest):
         if not DIRECT_GENERATION_AVAILABLE:
             raise HTTPException(
                 status_code=503,
-                detail="Direct generation not available - TwoPassExtractor import failed"
+                detail="Direct generation not available - KGPipeline import failed"
             )
 
         if not RAG_SYSTEM_AVAILABLE:
@@ -4124,7 +4148,7 @@ async def process_jobs_worker():
                         print(f"  [PDF] Download failed, using text: {e}")
                         pdf_path = None
 
-                # Call pipeline (KGPipelineWrapper or TwoPassExtractor)
+                # Call pipeline (KGPipelineWrapper with EnhancedKGPipeline - v69 dynamic SAP)
                 pipeline_name = type(pipeline).__name__
                 if pdf_path:
                     # Use LlamaParse for PDF extraction
@@ -4208,7 +4232,7 @@ async def process_jobs_worker():
                     print(f"  [DEBUG] Section 12 preview: {sec12_preview[:200]}...")
 
                 if sap_text:
-                    # Pipeline result format (both KGPipelineWrapper and TwoPassExtractor)
+                    # Pipeline result format (KGPipelineWrapper)
                     validation = result.get("validation", {})
                     discovered_elements = result.get("discovered_elements", [])
 
@@ -4217,7 +4241,6 @@ async def process_jobs_worker():
                     quality_score = validation_score * 100
 
                     # Extract info from discovered elements
-                    # Works with both KG extraction format and TwoPassExtractor format
                     drug_name = ""
                     phase_str = ""
                     therapeutic_area = ""
@@ -4498,44 +4521,40 @@ async def process_jobs_worker():
                             sap_text = sap_text.replace(placeholder, '')
                             print(f"  [MAIN.PY] Removed generic placeholder '{placeholder}'")
 
-                    # Check if PROPER TLF MOCK DATA TABLES exist IN SECTION 12
-                    # Detect new format: TABLE 14.x.x with xxx placeholders
-                    # Also accept old markdown format for backwards compatibility
-                    section_12_start = -1
-                    for marker in ['## 12.', '# 12.', '12. APPENDICES', '12. Appendices']:
+                    # v69: Dynamic SAP structure - Section 17 is TABLE/FIGURE SHELLS
+                    # Section 12 is now SAFETY ANALYSIS in the new structure
+                    # TFLs are generated by KG Pipeline directly
+                    section_17_start = -1
+                    for marker in ['## 17.', '# 17.', '17. TABLE', '17. Table']:
                         if marker in sap_text:
-                            section_12_start = sap_text.find(marker)
+                            section_17_start = sap_text.find(marker)
                             break
 
-                    if section_12_start >= 0:
-                        section_12_text = sap_text[section_12_start:]
-                        # ONLY accept our mock data format - NOT Claude's markdown tables
-                        # Note: Don't check for (N=XXX) because sample sizes get extracted and replaced with actual numbers
-                        has_proper_tables = 'TABLE 14.1.1' in section_12_text and 'DEMOGRAPHIC AND BASELINE' in section_12_text
+                    if section_17_start >= 0:
+                        section_17_text = sap_text[section_17_start:]
+                        # Check for proper TFL tables in Section 17 (TABLE/FIGURE SHELLS)
+                        has_proper_tables = 'TABLE 14.1.1' in section_17_text or 'TABLE 14.' in section_17_text
                     else:
                         has_proper_tables = False
 
-                    print(f"  [MAIN.PY] Section 12 at pos {section_12_start}, has proper mock data TLF tables: {has_proper_tables}", flush=True)
+                    print(f"  [MAIN.PY] v69 Dynamic SAP: Section 17 (TFLs) at pos {section_17_start}, has tables: {has_proper_tables}", flush=True)
 
-                    # v57: TLF injection removed - KG Pipeline generates TFLs
-                    # The contamination was caused by this code overwriting correct SAP output
-                    if not has_proper_tables:
-                        print(f"  [MAIN.PY] NOTE: Section 12 TFLs will be generated by KG Pipeline")
+                    # TFL tables are generated by KG Pipeline - no injection needed
+                    if not has_proper_tables and section_17_start == -1:
+                        print(f"  [MAIN.PY] NOTE: TFLs handled by KG Pipeline (Section 17 may be in appendices)")
 
-                        pass  # TFL injection removed in v57
-
-                    # DEBUG: Final check before saving to database
+                    # DEBUG: Final check before saving to database (v69 dynamic structure)
                     print(f"  [DEBUG] FINAL SAP length: {len(sap_text)} chars")
                     print(f"  [DEBUG] FINAL contains 'TABLE 14.1.1': {'TABLE 14.1.1' in sap_text}")
-                    print(f"  [DEBUG] FINAL contains 'DEMOGRAPHIC AND BASELINE': {'DEMOGRAPHIC AND BASELINE' in sap_text}")
+                    # Check for key sections in dynamic structure
                     if '## 12.' in sap_text:
                         final_sec12_pos = sap_text.find('## 12.')
-                        final_preview = sap_text[final_sec12_pos:final_sec12_pos+300]
-                        print(f"  [DEBUG] FINAL Section 12: {final_preview[:150]}...")
-                    else:
-                        print(f"  [DEBUG] FINAL SAP has NO Section 12!")
-                        # Print last 500 chars to see what's at the end
-                        print(f"  [DEBUG] FINAL SAP ending: ...{sap_text[-300:]}")
+                        final_preview = sap_text[final_sec12_pos:final_sec12_pos+150]
+                        print(f"  [DEBUG] Section 12 (SAFETY): {final_preview[:100]}...")
+                    if '## 17.' in sap_text:
+                        final_sec17_pos = sap_text.find('## 17.')
+                        final_preview = sap_text[final_sec17_pos:final_sec17_pos+150]
+                        print(f"  [DEBUG] Section 17 (TFLs): {final_preview[:100]}...")
 
                     update_data = {
                         "status": "completed",
@@ -4563,7 +4582,7 @@ async def process_jobs_worker():
 
                     db.table("sap_jobs").update(update_data).eq("id", job_id).execute()
 
-                    # Detailed logging for TwoPassExtractor
+                    # Detailed logging for KGPipeline
                     print(f"Job {job_id} completed in {processing_time:.1f}s ({pipeline_type} pipeline)")
                     print(f"  DISCOVERY:")
                     print(f"    Elements found: {result.get('discovered_count', 0)}")
@@ -4573,7 +4592,7 @@ async def process_jobs_worker():
                     print(f"    Quality: {quality_score:.1f}/100")
 
                 else:
-                    raise Exception("TwoPassExtractor returned no SAP text")
+                    raise Exception("KGPipeline returned no SAP text")
 
             except Exception as e:
                 # Print FULL traceback to find exact error location
