@@ -1331,7 +1331,7 @@ Start by calling get_similar_trials to find precedent, then generate the COMPLET
         accumulated_text = ""  # Accumulate ALL text across iterations
 
         # Tool-use loop
-        max_iterations = 15  # Reasonable limit for tool calls
+        max_iterations = 25  # Increased from 15 for complex protocols
         iteration = 0
 
         print(f"[KG Generator] Starting tool-use loop (max {max_iterations} iterations)")
