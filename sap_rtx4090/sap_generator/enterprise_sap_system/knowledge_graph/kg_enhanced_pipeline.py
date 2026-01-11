@@ -1277,6 +1277,7 @@ CRITICAL REQUIREMENTS:
 - Use the EXACT "## N." format for section headers
 - For sections 5, 7, 8, 9, 10, 12: USE THE TOOLS to get standard specifications
 - Section 11 (Interim Analysis): Include even if "Not applicable" for this study
+- ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements that don't fit standard categories. Include these in the appropriate SAP sections (e.g., unique populations in Section 4, unique endpoints in Section 2, special definitions in a Definitions subsection)
 
 ## SECTION 12 TABLE/FIGURE SHELLS - CRITICAL FORMATTING:
 
@@ -2478,7 +2479,18 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
     "required": false,
     "for_endpoints": [],
     "blinded": false
-  }}
+  }},
+
+  "additional_discoveries": [
+    {{
+      "category": "Name of the discovered element (e.g., 'Safety Re-treatment Analysis Set', 'COVID-19 Protocol Variations', 'DORR Endpoint')",
+      "element_type": "[population/endpoint/analysis/procedure/definition/other]",
+      "name": "Exact name from protocol",
+      "full_definition": "Complete definition/description from protocol",
+      "relevant_sections": "Which SAP sections this should appear in",
+      "source_quote": "Verbatim text from protocol"
+    }}
+  ]
 }}
 
 ## CRITICAL INSTRUCTIONS:
@@ -2490,6 +2502,13 @@ Return a JSON object with these sections. For EVERY field, include source_quote 
 5. **SOURCE QUOTES**: Include verbatim text for every extracted value
 6. **NULL FOR MISSING**: Use null for fields not found - DO NOT guess or assume
 7. **STUDY-TYPE SECTIONS**: Only populate cart_specific/hematologic_specific/immunotherapy_specific if applicable
+8. **ADDITIONAL DISCOVERIES**: For ANY protocol elements that don't fit the standard categories above, add them to "additional_discoveries". Examples:
+   - Unique populations (e.g., "Safety Re-treatment Analysis Set")
+   - Protocol-specific endpoints (e.g., "DORR - Duration of Response to Retreatment")
+   - Special sections (e.g., "COVID-19 Protocol Variations", "Date Imputation Rules")
+   - Unique definitions (e.g., "Study Day 0", "Baseline", "On-study period")
+   - Concordance analyses, shift tables, special grading scales not in standard categories
+   DO NOT LOSE any protocol-specific elements - if it doesn't fit above, put it in additional_discoveries
 
 PROTOCOL DOCUMENT:
 {content}
