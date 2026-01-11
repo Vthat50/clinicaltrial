@@ -2423,13 +2423,13 @@ Return a JSON object with these sections. For EVERY field, you MUST include:
 
 GOOD (includes source_quote AND source_section):
 ```json
-"phase": {"value": "Phase 2", "source_quote": "This is a Phase 2, open-label, multicenter study", "source_section": "Section 3.1"}
-"primary_endpoints": [{"name": "ORR", "definition": "Overall response rate per Lugano criteria", "source_quote": "The primary endpoint is ORR defined as...", "source_section": "Section 6.1"}]
+"phase": {{"value": "Phase 2", "source_quote": "This is a Phase 2, open-label, multicenter study", "source_section": "Section 3.1"}}
+"primary_endpoints": [{{"name": "ORR", "definition": "Overall response rate per Lugano criteria", "source_quote": "The primary endpoint is ORR defined as...", "source_section": "Section 6.1"}}]
 ```
 
 BAD (missing source_quote or source_section):
 ```json
-"phase": {"value": "Phase 2", "source_quote": "", "source_section": ""}  ← WRONG! Must have source
+"phase": {{"value": "Phase 2", "source_quote": "", "source_section": ""}}  ← WRONG! Must have source
 ```
 
 ### FINDING SECTION NUMBERS:
