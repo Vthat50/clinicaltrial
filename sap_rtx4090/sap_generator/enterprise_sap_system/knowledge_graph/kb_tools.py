@@ -288,7 +288,12 @@ class KnowledgeBaseTools:
                 TIME_TO_EVENT_ANALYSIS,
                 SAFETY_ANALYSIS_SPECIFICATIONS,
                 CENSORING_RULES,
-                INTERIM_ANALYSIS_SPECIFICATIONS
+                INTERIM_ANALYSIS_SPECIFICATIONS,
+                DERIVED_VARIABLE_SPECIFICATIONS,
+                CONFIDENCE_INTERVAL_METHODS,
+                PRO_QOL_ANALYSIS,
+                ANALYSIS_WINDOWS,
+                DATA_CUTOFF_SPECIFICATIONS
             )
             self.STATISTICAL_METHODS = STATISTICAL_METHODS
             self.MISSING_DATA_HANDLING = MISSING_DATA_HANDLING
@@ -300,6 +305,11 @@ class KnowledgeBaseTools:
             self.SAFETY_ANALYSIS_SPECIFICATIONS = SAFETY_ANALYSIS_SPECIFICATIONS
             self.CENSORING_RULES = CENSORING_RULES
             self.INTERIM_ANALYSIS = INTERIM_ANALYSIS_SPECIFICATIONS
+            self.DERIVED_VARIABLES = DERIVED_VARIABLE_SPECIFICATIONS
+            self.CONFIDENCE_INTERVALS = CONFIDENCE_INTERVAL_METHODS
+            self.PRO_QOL = PRO_QOL_ANALYSIS
+            self.ANALYSIS_WINDOWS = ANALYSIS_WINDOWS
+            self.DATA_CUTOFF = DATA_CUTOFF_SPECIFICATIONS
         except ImportError:
             from methodology_knowledge_base import (
                 STATISTICAL_METHODS,
@@ -311,7 +321,12 @@ class KnowledgeBaseTools:
                 TIME_TO_EVENT_ANALYSIS,
                 SAFETY_ANALYSIS_SPECIFICATIONS,
                 CENSORING_RULES,
-                INTERIM_ANALYSIS_SPECIFICATIONS
+                INTERIM_ANALYSIS_SPECIFICATIONS,
+                DERIVED_VARIABLE_SPECIFICATIONS,
+                CONFIDENCE_INTERVAL_METHODS,
+                PRO_QOL_ANALYSIS,
+                ANALYSIS_WINDOWS,
+                DATA_CUTOFF_SPECIFICATIONS
             )
             self.STATISTICAL_METHODS = STATISTICAL_METHODS
             self.MISSING_DATA_HANDLING = MISSING_DATA_HANDLING
@@ -323,6 +338,11 @@ class KnowledgeBaseTools:
             self.SAFETY_ANALYSIS_SPECIFICATIONS = SAFETY_ANALYSIS_SPECIFICATIONS
             self.CENSORING_RULES = CENSORING_RULES
             self.INTERIM_ANALYSIS = INTERIM_ANALYSIS_SPECIFICATIONS
+            self.DERIVED_VARIABLES = DERIVED_VARIABLE_SPECIFICATIONS
+            self.CONFIDENCE_INTERVALS = CONFIDENCE_INTERVAL_METHODS
+            self.PRO_QOL = PRO_QOL_ANALYSIS
+            self.ANALYSIS_WINDOWS = ANALYSIS_WINDOWS
+            self.DATA_CUTOFF = DATA_CUTOFF_SPECIFICATIONS
 
         # Standard population definitions (not in external file - defined here)
         self.POPULATION_DEFINITIONS = {
@@ -494,7 +514,10 @@ class KnowledgeBaseTools:
                 PERFORMANCE_STATUS_SCALES,
                 PROGNOSTIC_SCORES,
                 EFFICACY_TFL_TEMPLATES,
-                SAFETY_TFL_TEMPLATES
+                SAFETY_TFL_TEMPLATES,
+                CML_CRITERIA,
+                IWCLL_CRITERIA,
+                ORGAN_FUNCTION_SCORES
             )
             self.CAR_T_MODULE = CAR_T_MODULE
             self.BISPECIFIC_MODULE = BISPECIFIC_ANTIBODY_MODULE
@@ -508,6 +531,9 @@ class KnowledgeBaseTools:
             self.BIOMARKER_ENDPOINTS = BIOMARKER_ENDPOINTS
             self.PERFORMANCE_STATUS_SCALES = PERFORMANCE_STATUS_SCALES
             self.PROGNOSTIC_SCORES = PROGNOSTIC_SCORES
+            self.CML_CRITERIA = CML_CRITERIA
+            self.IWCLL_CRITERIA = IWCLL_CRITERIA
+            self.ORGAN_FUNCTION_SCORES = ORGAN_FUNCTION_SCORES
             self.ONCOLOGY_TFL_TEMPLATES = {
                 "efficacy": EFFICACY_TFL_TEMPLATES,
                 "safety": SAFETY_TFL_TEMPLATES
@@ -525,7 +551,10 @@ class KnowledgeBaseTools:
                 PERFORMANCE_STATUS_SCALES,
                 PROGNOSTIC_SCORES,
                 EFFICACY_TFL_TEMPLATES,
-                SAFETY_TFL_TEMPLATES
+                SAFETY_TFL_TEMPLATES,
+                CML_CRITERIA,
+                IWCLL_CRITERIA,
+                ORGAN_FUNCTION_SCORES
             )
             self.CAR_T_MODULE = CAR_T_MODULE
             self.BISPECIFIC_MODULE = BISPECIFIC_ANTIBODY_MODULE
@@ -539,6 +568,9 @@ class KnowledgeBaseTools:
             self.BIOMARKER_ENDPOINTS = BIOMARKER_ENDPOINTS
             self.PERFORMANCE_STATUS_SCALES = PERFORMANCE_STATUS_SCALES
             self.PROGNOSTIC_SCORES = PROGNOSTIC_SCORES
+            self.CML_CRITERIA = CML_CRITERIA
+            self.IWCLL_CRITERIA = IWCLL_CRITERIA
+            self.ORGAN_FUNCTION_SCORES = ORGAN_FUNCTION_SCORES
             self.ONCOLOGY_TFL_TEMPLATES = {
                 "efficacy": EFFICACY_TFL_TEMPLATES,
                 "safety": SAFETY_TFL_TEMPLATES
@@ -745,6 +777,150 @@ class KnowledgeBaseTools:
             content=content,
             source_file="kb_tools.py",
             source_key=f"POPULATION_DEFINITIONS['{population_type}']"
+        )
+
+    def get_derived_variables(self, variable_type: str = "all") -> KBRetrievalResult:
+        """
+        Get derived variable specifications for ADaM datasets.
+
+        Args:
+            variable_type: One of:
+                - "baseline_flags" (baseline value derivation)
+                - "treatment_flags" (on-treatment definitions)
+                - "time_variables" (study day, relative day)
+                - "all" (returns all specifications)
+        """
+        if variable_type == "all":
+            content = self.DERIVED_VARIABLES
+        else:
+            content = self.DERIVED_VARIABLES.get(variable_type, {})
+
+        self._log_retrieval("get_derived_variables", variable_type, "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="methodology_knowledge_base.py",
+            source_key=f"DERIVED_VARIABLES['{variable_type}']"
+        )
+
+    def get_time_to_event_analysis(self) -> KBRetrievalResult:
+        """Get time-to-event analysis specifications (Kaplan-Meier, Cox, competing risks)."""
+        self._log_retrieval("get_time_to_event_analysis", "all", "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=self.TIME_TO_EVENT_ANALYSIS,
+            source_file="methodology_knowledge_base.py",
+            source_key="TIME_TO_EVENT_ANALYSIS"
+        )
+
+    def get_confidence_interval_methods(self, method_type: str = "all") -> KBRetrievalResult:
+        """
+        Get confidence interval calculation methods.
+
+        Args:
+            method_type: One of:
+                - "clopper_pearson" (exact binomial CI)
+                - "wilson" (Wilson score CI)
+                - "brookmeyer_crowley" (median survival CI)
+                - "greenwood" (KM survival CI)
+                - "all" (returns all methods)
+        """
+        if method_type == "all":
+            content = self.CONFIDENCE_INTERVALS
+        else:
+            content = self.CONFIDENCE_INTERVALS.get(method_type, {})
+
+        self._log_retrieval("get_confidence_interval_methods", method_type, "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="methodology_knowledge_base.py",
+            source_key=f"CONFIDENCE_INTERVALS['{method_type}']"
+        )
+
+    def get_pro_qol_analysis(self) -> KBRetrievalResult:
+        """Get PRO/QoL (Patient-Reported Outcomes / Quality of Life) analysis specifications."""
+        self._log_retrieval("get_pro_qol_analysis", "all", "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=self.PRO_QOL,
+            source_file="methodology_knowledge_base.py",
+            source_key="PRO_QOL_ANALYSIS"
+        )
+
+    def get_analysis_windows(self) -> KBRetrievalResult:
+        """Get analysis window specifications (visit windows, on-treatment period definitions)."""
+        self._log_retrieval("get_analysis_windows", "all", "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=self.ANALYSIS_WINDOWS,
+            source_file="methodology_knowledge_base.py",
+            source_key="ANALYSIS_WINDOWS"
+        )
+
+    def get_data_cutoff_specs(self) -> KBRetrievalResult:
+        """Get data cutoff specifications (clinical cutoff date rules, database lock procedures)."""
+        self._log_retrieval("get_data_cutoff_specs", "all", "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=self.DATA_CUTOFF,
+            source_file="methodology_knowledge_base.py",
+            source_key="DATA_CUTOFF_SPECIFICATIONS"
+        )
+
+    def get_cml_criteria(self) -> KBRetrievalResult:
+        """Get CML (Chronic Myeloid Leukemia) response criteria per ELN recommendations."""
+        self._log_retrieval("get_cml_criteria", "all", "oncology_reference_data.py")
+
+        return KBRetrievalResult(
+            content=self.CML_CRITERIA,
+            source_file="oncology_reference_data.py",
+            source_key="CML_CRITERIA"
+        )
+
+    def get_iwcll_criteria(self) -> KBRetrievalResult:
+        """Get iwCLL (International Workshop on CLL) response criteria for CLL trials."""
+        self._log_retrieval("get_iwcll_criteria", "all", "oncology_reference_data.py")
+
+        return KBRetrievalResult(
+            content=self.IWCLL_CRITERIA,
+            source_file="oncology_reference_data.py",
+            source_key="IWCLL_CRITERIA"
+        )
+
+    def get_organ_function_scores(self, score_type: str = "all") -> KBRetrievalResult:
+        """
+        Get organ function scoring systems.
+
+        Args:
+            score_type: One of:
+                - "child_pugh" (hepatic function)
+                - "meld" (hepatic function - Model for End-Stage Liver Disease)
+                - "ckd_epi" (renal function - CKD-EPI eGFR)
+                - "cockcroft_gault" (renal function - creatinine clearance)
+                - "all" (returns all scoring systems)
+        """
+        if score_type == "all":
+            content = self.ORGAN_FUNCTION_SCORES
+        else:
+            content = self.ORGAN_FUNCTION_SCORES.get(score_type, {})
+
+        self._log_retrieval("get_organ_function_scores", score_type, "oncology_reference_data.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="oncology_reference_data.py",
+            source_key=f"ORGAN_FUNCTION_SCORES['{score_type}']"
+        )
+
+    def get_listings(self) -> KBRetrievalResult:
+        """Get patient listing templates (subject-level data listings)."""
+        self._log_retrieval("get_listings", "all", "complete_tfl_inventory.py")
+
+        return KBRetrievalResult(
+            content=self.LISTINGS,
+            source_file="complete_tfl_inventory.py",
+            source_key="LISTINGS"
         )
 
     # =========================================================================
@@ -1479,6 +1655,114 @@ def get_claude_tool_definitions() -> List[Dict]:
             }
         },
         {
+            "name": "get_derived_variables",
+            "description": "Get derived variable specifications for ADaM datasets (baseline flags, treatment flags, time variables).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "variable_type": {
+                        "type": "string",
+                        "description": "The variable type",
+                        "enum": ["baseline_flags", "treatment_flags", "time_variables", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_time_to_event_analysis",
+            "description": "Get time-to-event analysis specifications (Kaplan-Meier, Cox PH, competing risks, landmark analysis).",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_confidence_interval_methods",
+            "description": "Get confidence interval calculation methods (Clopper-Pearson, Wilson, Brookmeyer-Crowley, Greenwood).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "method_type": {
+                        "type": "string",
+                        "description": "The CI method type",
+                        "enum": ["clopper_pearson", "wilson", "brookmeyer_crowley", "greenwood", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_pro_qol_analysis",
+            "description": "Get PRO/QoL (Patient-Reported Outcomes / Quality of Life) analysis specifications.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_analysis_windows",
+            "description": "Get analysis window specifications (visit windows, on-treatment period definitions, baseline windows).",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_data_cutoff_specs",
+            "description": "Get data cutoff specifications (clinical cutoff date rules, database lock procedures, interim data cuts).",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_cml_criteria",
+            "description": "Get CML (Chronic Myeloid Leukemia) response criteria per ELN 2020 recommendations.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_iwcll_criteria",
+            "description": "Get iwCLL (International Workshop on CLL) response criteria for chronic lymphocytic leukemia trials.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_organ_function_scores",
+            "description": "Get organ function scoring systems (Child-Pugh, MELD, CKD-EPI eGFR, Cockcroft-Gault).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "score_type": {
+                        "type": "string",
+                        "description": "The organ function score type",
+                        "enum": ["child_pugh", "meld", "ckd_epi", "cockcroft_gault", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_listings",
+            "description": "Get patient listing templates (subject-level data listings for appendices).",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
             "name": "get_data_handling_rules",
             "description": "Get data handling conventions including treatment assignment rules, visit windowing, and censoring rules.",
             "input_schema": {
@@ -1676,6 +1960,17 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_biomarker_endpoints": lambda: kb.get_biomarker_endpoints(),
         "get_performance_status_scales": lambda: kb.get_performance_status_scales(),
         "get_prognostic_scores": lambda: kb.get_prognostic_scores(),
+        # Complete KB Coverage (v64)
+        "get_derived_variables": lambda: kb.get_derived_variables(tool_input.get("variable_type", "all")),
+        "get_time_to_event_analysis": lambda: kb.get_time_to_event_analysis(tool_input.get("analysis_type", "all")),
+        "get_confidence_interval_methods": lambda: kb.get_confidence_interval_methods(tool_input.get("ci_type", "all")),
+        "get_pro_qol_analysis": lambda: kb.get_pro_qol_analysis(tool_input.get("instrument", "all")),
+        "get_analysis_windows": lambda: kb.get_analysis_windows(tool_input.get("window_type", "all")),
+        "get_data_cutoff_specs": lambda: kb.get_data_cutoff_specs(),
+        "get_cml_criteria": lambda: kb.get_cml_criteria(),
+        "get_iwcll_criteria": lambda: kb.get_iwcll_criteria(),
+        "get_organ_function_scores": lambda: kb.get_organ_function_scores(tool_input.get("score_type", "all")),
+        "get_listings": lambda: kb.get_listings(tool_input.get("listing_type", "all")),
     }
 
     if tool_name in tool_map:
