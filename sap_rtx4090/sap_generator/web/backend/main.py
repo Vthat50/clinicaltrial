@@ -15,16 +15,13 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v50-DYNAMIC-TLF-TEMPLATES-2026-01-10")
-print("FEATURE: Fully dynamic TLF templates based on protocol extraction")
-print("  • NEW: Disease-specific baseline variables (CRC: tumor location/stage/mutations/CEA)")
-print("  • NEW: Dynamic geographic regions from protocol (not hardcoded)")
-print("  • NEW: CONSORT flowchart template")
-print("  • NEW: Additional KM figures for all secondary endpoints")
-print("  • NEW: Cumulative incidence plot (Aalen-Johansen)")
-print("  • NEW: Disease-specific subgroups in forest plot (CRC: PIK3CA, breast: HR/HER2)")
-print("  • KEPT: Streaming API + timeout=None for long operations")
-print("If you don't see v50 in Render logs, Render has OLD code!")
+print("BUILD: v59-2026-01-11")
+print("FEATURE: KG Pipeline generates TFLs with explicit formatting")
+print("  • v57: Removed TLF injection (was causing melanoma/BRAF contamination)")
+print("  • v58: Added explicit TFL formatting instructions")
+print("  • v59: Stronger TFL formatting with DO NOT examples")
+print("  • FIX: Lymphoma detection moved before melanoma (order bug fix)")
+print("If you don't see v59 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -4321,6 +4318,16 @@ async def process_jobs_worker():
                             ('PD-L1 EXPRESSION - N (%)', ['≥50%', '1-49%', '<1%', 'Unknown']),
                             ('SMOKING HISTORY - N (%)', ['Never', 'Former', 'Current']),
                         ]
+                    elif any(term in protocol_lower for term in ['lymphoma', 'hodgkin', 'non-hodgkin', 'dlbcl', 'follicular', 'mantle cell', 'car-t', 'cart', 'axicabtagene', 'tisagenlecleucel']):
+                        # MOVED BEFORE MELANOMA: lymphoma protocols may mention melanoma in references
+                        cancer_type = 'lymphoma'
+                        disease_baseline_vars = [
+                            ('LYMPHOMA TYPE - N (%)', ['DLBCL', 'Follicular', 'Mantle cell', 'Marginal zone', 'Other']),
+                            ('ANN ARBOR STAGE - N (%)', ['Stage I', 'Stage II', 'Stage III', 'Stage IV']),
+                            ('IPI/FLIPI SCORE - N (%)', ['Low (0-1)', 'Low-intermediate (2)', 'High-intermediate (3)', 'High (4-5)']),
+                            ('PRIOR LINES OF THERAPY', ['N', 'Median', 'Min, Max']),
+                            ('RELAPSED VS REFRACTORY - N (%)', ['Relapsed', 'Refractory']),
+                        ]
                     elif any(term in protocol_lower for term in ['melanoma', 'skin cancer']):
                         cancer_type = 'melanoma'
                         disease_baseline_vars = [
@@ -4328,14 +4335,6 @@ async def process_jobs_worker():
                             ('TUMOR STAGE - N (%)', ['Stage III', 'Stage IV M1a', 'Stage IV M1b', 'Stage IV M1c']),
                             ('LDH - N (%)', ['Normal', 'Elevated']),
                             ('PRIOR IMMUNOTHERAPY - N (%)', ['Yes', 'No']),
-                        ]
-                    elif any(term in protocol_lower for term in ['lymphoma', 'hodgkin', 'non-hodgkin', 'dlbcl']):
-                        cancer_type = 'lymphoma'
-                        disease_baseline_vars = [
-                            ('LYMPHOMA TYPE - N (%)', ['DLBCL', 'Follicular', 'Mantle cell', 'Other']),
-                            ('ANN ARBOR STAGE - N (%)', ['Stage I', 'Stage II', 'Stage III', 'Stage IV']),
-                            ('IPI SCORE - N (%)', ['Low (0-1)', 'Low-intermediate (2)', 'High-intermediate (3)', 'High (4-5)']),
-                            ('PRIOR LINES OF THERAPY', ['N', 'Median', 'Min, Max']),
                         ]
                     elif therapeutic_area == 'oncology':
                         # Generic oncology baseline vars
@@ -4432,7 +4431,7 @@ async def process_jobs_worker():
                     # Requires "primary" keyword (enforced by discovery prompt)
                     # MUST match logic in two_pass_extractor.py replace_placeholders()
                     # =========================================================
-                    print(f"  [MAIN.PY] v28 - Placeholder replacement (synced with local)...")
+                    print(f"  [MAIN.PY] v59 - Placeholder replacement...")
 
                     primary_endpoint_name = None
                     for elem in discovered_elements:
