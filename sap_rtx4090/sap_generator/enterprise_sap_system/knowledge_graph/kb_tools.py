@@ -1664,6 +1664,719 @@ class KnowledgeBaseTools:
         )
 
     # =========================================================================
+    # COMPREHENSIVE SAP ELEMENTS (v76)
+    # =========================================================================
+
+    def get_study_definitions(self, definition_type: str = "all") -> KBRetrievalResult:
+        """
+        Get standard study definitions required for every SAP.
+
+        Returns definitions for Study Day 0/baseline, on-study period, end of study,
+        TEAE, follow-up time calculations - essential for Section 5 (DEFINITIONS).
+
+        Args:
+            definition_type: "time", "safety", "events", or "all"
+
+        Returns:
+            Standard study definitions with variants for different trial types
+        """
+        from comprehensive_sap_elements import STUDY_DEFINITIONS
+        self._log_retrieval("get_study_definitions", definition_type, "comprehensive_sap_elements.py")
+
+        if definition_type == "all":
+            content = STUDY_DEFINITIONS
+        elif definition_type == "time":
+            content = STUDY_DEFINITIONS.get("time_definitions", {})
+        elif definition_type == "safety":
+            content = STUDY_DEFINITIONS.get("safety_definitions", {})
+        elif definition_type == "events":
+            content = STUDY_DEFINITIONS.get("event_derivations", {})
+        elif definition_type == "followup":
+            content = STUDY_DEFINITIONS.get("follow_up_definitions", {})
+        else:
+            content = STUDY_DEFINITIONS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"STUDY_DEFINITIONS['{definition_type}']"
+        )
+
+    def get_exposure_specifications(self, exposure_type: str = "all") -> KBRetrievalResult:
+        """
+        Get drug exposure analysis specifications.
+
+        Returns specifications for BSA-adjusted dosing, weight-based dosing,
+        relative dose intensity, CAR-T specific exposure metrics.
+
+        Args:
+            exposure_type: "dose", "bsa", "weight", "cart", or "all"
+
+        Returns:
+            Exposure analysis specifications with formulas and statistics
+        """
+        from comprehensive_sap_elements import EXPOSURE_ANALYSIS
+        self._log_retrieval("get_exposure_specifications", exposure_type, "comprehensive_sap_elements.py")
+
+        if exposure_type == "all":
+            content = EXPOSURE_ANALYSIS
+        elif exposure_type == "dose":
+            content = EXPOSURE_ANALYSIS.get("dose_summaries", {})
+        elif exposure_type == "bsa":
+            content = EXPOSURE_ANALYSIS.get("bsa_adjusted_dosing", {})
+        elif exposure_type == "weight":
+            content = EXPOSURE_ANALYSIS.get("weight_adjusted_dosing", {})
+        elif exposure_type == "cart":
+            content = EXPOSURE_ANALYSIS.get("cart_specific_exposure", {})
+        else:
+            content = EXPOSURE_ANALYSIS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"EXPOSURE_ANALYSIS['{exposure_type}']"
+        )
+
+    def get_cart_manufacturing_specs(self) -> KBRetrievalResult:
+        """
+        Get CAR-T manufacturing and logistics metrics specifications.
+
+        Returns specifications for leukapheresis timing, vein-to-vein time,
+        manufacturing success rates, bridging therapy summaries.
+
+        Returns:
+            CAR-T manufacturing metrics with statistics and definitions
+        """
+        from comprehensive_sap_elements import CART_MANUFACTURING_METRICS
+        self._log_retrieval("get_cart_manufacturing_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=CART_MANUFACTURING_METRICS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="CART_MANUFACTURING_METRICS"
+        )
+
+    def get_subsequent_therapy_specs(self) -> KBRetrievalResult:
+        """
+        Get subsequent anti-cancer therapy tracking specifications.
+
+        Returns specifications for subsequent therapy summaries,
+        subsequent SCT (autologous/allogeneic), time to next therapy.
+
+        Returns:
+            Subsequent therapy tracking specifications
+        """
+        from comprehensive_sap_elements import SUBSEQUENT_THERAPY
+        self._log_retrieval("get_subsequent_therapy_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=SUBSEQUENT_THERAPY,
+            source_file="comprehensive_sap_elements.py",
+            source_key="SUBSEQUENT_THERAPY"
+        )
+
+    def get_enrollment_specifications(self) -> KBRetrievalResult:
+        """
+        Get enrollment summary specifications.
+
+        Returns specifications for enrollment by country, site, region,
+        and enrollment over time displays.
+
+        Returns:
+            Enrollment summary specifications
+        """
+        from comprehensive_sap_elements import ENROLLMENT_SUMMARIES
+        self._log_retrieval("get_enrollment_specifications", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=ENROLLMENT_SUMMARIES,
+            source_file="comprehensive_sap_elements.py",
+            source_key="ENROLLMENT_SUMMARIES"
+        )
+
+    def get_ae_period_specifications(self) -> KBRetrievalResult:
+        """
+        Get adverse event period analysis specifications.
+
+        Returns CAR-T specific periods (Day 0-30, 31-92, 93+) and
+        standard on-treatment/post-treatment periods for AE analysis.
+
+        Returns:
+            AE period analysis specifications with time windows
+        """
+        from comprehensive_sap_elements import AE_PERIOD_ANALYSIS
+        self._log_retrieval("get_ae_period_specifications", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=AE_PERIOD_ANALYSIS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="AE_PERIOD_ANALYSIS"
+        )
+
+    def get_sensitivity_analysis_catalog(self, analysis_type: str = "all") -> KBRetrievalResult:
+        """
+        Get comprehensive catalog of standard sensitivity analyses.
+
+        Returns TTE sensitivity analyses (censoring alternatives, population alternatives),
+        response sensitivity analyses, and missing data sensitivity analyses.
+
+        Args:
+            analysis_type: "tte", "response", "missing_data", or "all"
+
+        Returns:
+            Sensitivity analysis catalog with methods and descriptions
+        """
+        from comprehensive_sap_elements import SENSITIVITY_ANALYSES
+        self._log_retrieval("get_sensitivity_analysis_catalog", analysis_type, "comprehensive_sap_elements.py")
+
+        if analysis_type == "all":
+            content = SENSITIVITY_ANALYSES
+        elif analysis_type == "tte":
+            content = SENSITIVITY_ANALYSES.get("tte_sensitivity", {})
+        elif analysis_type == "response":
+            content = SENSITIVITY_ANALYSES.get("response_sensitivity", {})
+        elif analysis_type == "missing_data":
+            content = SENSITIVITY_ANALYSES.get("missing_data_sensitivity", [])
+        else:
+            content = SENSITIVITY_ANALYSES
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"SENSITIVITY_ANALYSES['{analysis_type}']"
+        )
+
+    def get_multiplicity_methods(self, method_type: str = "all") -> KBRetrievalResult:
+        """
+        Get multiplicity adjustment methods specifications.
+
+        Returns hierarchical testing procedures, alpha splitting methods
+        (Bonferroni, Holm, Hochberg), graphical approaches, gatekeeping.
+
+        Args:
+            method_type: "hierarchical", "alpha_splitting", "gatekeeping",
+                        "graphical", "group_sequential", or "all"
+
+        Returns:
+            Multiplicity adjustment specifications with procedures
+        """
+        from comprehensive_sap_elements import MULTIPLICITY_ADJUSTMENTS
+        self._log_retrieval("get_multiplicity_methods", method_type, "comprehensive_sap_elements.py")
+
+        if method_type == "all":
+            content = MULTIPLICITY_ADJUSTMENTS
+        elif method_type in MULTIPLICITY_ADJUSTMENTS:
+            content = MULTIPLICITY_ADJUSTMENTS.get(method_type, {})
+        else:
+            content = MULTIPLICITY_ADJUSTMENTS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"MULTIPLICITY_ADJUSTMENTS['{method_type}']"
+        )
+
+    def get_interim_analysis_specs(self, spec_type: str = "all") -> KBRetrievalResult:
+        """
+        Get interim analysis and DSMB specifications.
+
+        Returns timing specifications (event-driven, calendar-driven),
+        futility assessment (binding/non-binding), DSMB charter elements.
+
+        Args:
+            spec_type: "timing", "futility", "dsmb", or "all"
+
+        Returns:
+            Interim analysis specifications
+        """
+        from comprehensive_sap_elements import INTERIM_ANALYSIS
+        self._log_retrieval("get_interim_analysis_specs", spec_type, "comprehensive_sap_elements.py")
+
+        if spec_type == "all":
+            content = INTERIM_ANALYSIS
+        elif spec_type == "timing":
+            content = INTERIM_ANALYSIS.get("timing", {})
+        elif spec_type == "futility":
+            content = INTERIM_ANALYSIS.get("futility", {})
+        elif spec_type == "dsmb":
+            content = {"dsmb_charter_elements": INTERIM_ANALYSIS.get("dsmb_charter_elements", [])}
+        else:
+            content = INTERIM_ANALYSIS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"INTERIM_ANALYSIS['{spec_type}']"
+        )
+
+    def get_qol_analysis_specs(self, instrument: str = "all") -> KBRetrievalResult:
+        """
+        Get Quality of Life and PRO analysis specifications.
+
+        Returns analysis methods for EORTC QLQ-C30, FACT-G, EQ-5D,
+        disease-specific modules, time-to-deterioration analysis.
+
+        Args:
+            instrument: "EORTC", "FACT", "EQ5D", "methods", or "all"
+
+        Returns:
+            QoL/PRO analysis specifications with instruments and methods
+        """
+        from comprehensive_sap_elements import QOL_PRO_ANALYSIS
+        self._log_retrieval("get_qol_analysis_specs", instrument, "comprehensive_sap_elements.py")
+
+        if instrument == "all":
+            content = QOL_PRO_ANALYSIS
+        elif instrument.upper() in ["EORTC", "FACT"]:
+            content = QOL_PRO_ANALYSIS.get("common_instruments", {}).get("oncology_general", {})
+        elif instrument.upper() == "EQ5D":
+            content = QOL_PRO_ANALYSIS.get("common_instruments", {}).get("utility", {})
+        elif instrument == "methods":
+            content = QOL_PRO_ANALYSIS.get("analysis_methods", {})
+        else:
+            content = QOL_PRO_ANALYSIS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"QOL_PRO_ANALYSIS['{instrument}']"
+        )
+
+    def get_estimand_specifications(self) -> KBRetrievalResult:
+        """
+        Get ICH E9(R1) estimand framework specifications.
+
+        Returns estimand components (population, treatment, endpoint,
+        intercurrent events, summary measure) and strategies for
+        handling intercurrent events.
+
+        Returns:
+            Estimand framework specifications per ICH E9(R1)
+        """
+        from comprehensive_sap_elements import ESTIMAND_FRAMEWORK
+        self._log_retrieval("get_estimand_specifications", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=ESTIMAND_FRAMEWORK,
+            source_file="comprehensive_sap_elements.py",
+            source_key="ESTIMAND_FRAMEWORK"
+        )
+
+    def get_covid19_variations(self) -> KBRetrievalResult:
+        """
+        Get COVID-19 protocol variation specifications.
+
+        Returns guidance for handling COVID-related assessment modifications,
+        treatment delays, sensitivity analyses, and AE reporting.
+
+        Returns:
+            COVID-19 protocol variation specifications
+        """
+        from comprehensive_sap_elements import COVID19_VARIATIONS
+        self._log_retrieval("get_covid19_variations", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=COVID19_VARIATIONS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="COVID19_VARIATIONS"
+        )
+
+    def get_subgroup_specifications(self) -> KBRetrievalResult:
+        """
+        Get subgroup analysis specifications.
+
+        Returns pre-specified subgroups (demographic, disease-related),
+        forest plot specifications, and interaction testing guidance.
+
+        Returns:
+            Subgroup analysis specifications
+        """
+        from comprehensive_sap_elements import SUBGROUP_ANALYSIS_SPECS
+        self._log_retrieval("get_subgroup_specifications", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=SUBGROUP_ANALYSIS_SPECS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="SUBGROUP_ANALYSIS_SPECS"
+        )
+
+    def get_protocol_deviation_specs(self) -> KBRetrievalResult:
+        """
+        Get protocol deviation tracking specifications.
+
+        Returns major/minor deviation categories and analysis specifications.
+
+        Returns:
+            Protocol deviation specifications
+        """
+        from comprehensive_sap_elements import PROTOCOL_DEVIATIONS
+        self._log_retrieval("get_protocol_deviation_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=PROTOCOL_DEVIATIONS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="PROTOCOL_DEVIATIONS"
+        )
+
+    def get_healthcare_utilization_specs(self) -> KBRetrievalResult:
+        """
+        Get healthcare resource utilization specifications.
+
+        Returns hospitalization, ED visits, outpatient visit tracking,
+        and CAR-T specific utilization (CRS/ICANS hospitalization,
+        tocilizumab use, corticosteroid use).
+
+        Returns:
+            Healthcare utilization analysis specifications
+        """
+        from comprehensive_sap_elements import HEALTHCARE_UTILIZATION
+        self._log_retrieval("get_healthcare_utilization_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=HEALTHCARE_UTILIZATION,
+            source_file="comprehensive_sap_elements.py",
+            source_key="HEALTHCARE_UTILIZATION"
+        )
+
+    def get_phase2_design_specs(self) -> KBRetrievalResult:
+        """
+        Get Phase 2 specific design specifications.
+
+        Returns Simon two-stage design, Fleming's single-stage,
+        Gehan two-stage, and Bayesian phase 2 design specifications.
+
+        Returns:
+            Phase 2 design specifications with parameters
+        """
+        from comprehensive_sap_elements import PHASE2_DESIGNS
+        self._log_retrieval("get_phase2_design_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=PHASE2_DESIGNS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="PHASE2_DESIGNS"
+        )
+
+    def get_blinding_specifications(self) -> KBRetrievalResult:
+        """
+        Get blinding and unblinding specifications.
+
+        Returns IRC assessment, endpoint adjudication, unblinding triggers,
+        and open-label study considerations.
+
+        Returns:
+            Blinding specifications
+        """
+        from comprehensive_sap_elements import BLINDING_CONSIDERATIONS
+        self._log_retrieval("get_blinding_specifications", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=BLINDING_CONSIDERATIONS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="BLINDING_CONSIDERATIONS"
+        )
+
+    def get_pkpd_analysis_specs(self, spec_type: str = "all") -> KBRetrievalResult:
+        """
+        Get PK/PD analysis specifications.
+
+        Returns PK parameters (Cmax, AUC, etc.), exposure-response analysis,
+        and CAR-T specific PK (transgene levels, expansion kinetics).
+
+        Args:
+            spec_type: "parameters", "exposure_response", "cart", or "all"
+
+        Returns:
+            PK/PD analysis specifications
+        """
+        from comprehensive_sap_elements import PK_PD_ANALYSIS
+        self._log_retrieval("get_pkpd_analysis_specs", spec_type, "comprehensive_sap_elements.py")
+
+        if spec_type == "all":
+            content = PK_PD_ANALYSIS
+        elif spec_type == "parameters":
+            content = PK_PD_ANALYSIS.get("pk_parameters", {})
+        elif spec_type == "exposure_response":
+            content = PK_PD_ANALYSIS.get("exposure_response", {})
+        elif spec_type == "cart":
+            content = PK_PD_ANALYSIS.get("cart_specific_pk", {})
+        else:
+            content = PK_PD_ANALYSIS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"PK_PD_ANALYSIS['{spec_type}']"
+        )
+
+    def get_mrd_assessment_specs(self) -> KBRetrievalResult:
+        """
+        Get MRD (Minimal Residual Disease) assessment specifications.
+
+        Returns MRD methods (flow cytometry, NGS, PCR), endpoints
+        (MRD negativity rate, MRD in responders), and assessment timing.
+
+        Returns:
+            MRD assessment specifications for hematologic malignancies
+        """
+        from comprehensive_sap_elements import MRD_ASSESSMENT
+        self._log_retrieval("get_mrd_assessment_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=MRD_ASSESSMENT,
+            source_file="comprehensive_sap_elements.py",
+            source_key="MRD_ASSESSMENT"
+        )
+
+    def get_demographics_baseline_specs(self) -> KBRetrievalResult:
+        """
+        Get demographics and baseline characteristics specifications.
+
+        Returns demographic variables (age, sex, race), baseline disease
+        characteristics (ECOG, stage, target lesions), statistics to present.
+
+        Returns:
+            Demographics and baseline specs for SAP section
+        """
+        from comprehensive_sap_elements import DEMOGRAPHICS_BASELINE
+        self._log_retrieval("get_demographics_baseline_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=DEMOGRAPHICS_BASELINE,
+            source_file="comprehensive_sap_elements.py",
+            source_key="DEMOGRAPHICS_BASELINE"
+        )
+
+    def get_prior_therapy_specs(self) -> KBRetrievalResult:
+        """
+        Get prior anti-cancer therapy analysis specifications.
+
+        Returns prior therapy summaries (number of lines, types),
+        hematologic-specific (anti-CD20, alkylating, SCT, refractory status),
+        solid tumor-specific (surgery, radiation, targeted therapy).
+
+        Returns:
+            Prior therapy analysis specifications
+        """
+        from comprehensive_sap_elements import PRIOR_THERAPY_ANALYSIS
+        self._log_retrieval("get_prior_therapy_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=PRIOR_THERAPY_ANALYSIS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="PRIOR_THERAPY_ANALYSIS"
+        )
+
+    def get_concomitant_medication_specs(self) -> KBRetrievalResult:
+        """
+        Get concomitant medication analysis specifications.
+
+        Returns coding (WHO Drug, ATC), summary tables, special categories
+        (supportive care, CAR-T specific), prohibited medications handling.
+
+        Returns:
+            Concomitant medication analysis specifications
+        """
+        from comprehensive_sap_elements import CONCOMITANT_MEDICATIONS
+        self._log_retrieval("get_concomitant_medication_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=CONCOMITANT_MEDICATIONS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="CONCOMITANT_MEDICATIONS"
+        )
+
+    def get_medical_history_specs(self) -> KBRetrievalResult:
+        """
+        Get medical history analysis specifications.
+
+        Returns MedDRA coding, summary tables by SOC/PT, relevant conditions.
+
+        Returns:
+            Medical history analysis specifications
+        """
+        from comprehensive_sap_elements import MEDICAL_HISTORY
+        self._log_retrieval("get_medical_history_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=MEDICAL_HISTORY,
+            source_file="comprehensive_sap_elements.py",
+            source_key="MEDICAL_HISTORY"
+        )
+
+    def get_death_analysis_specs(self) -> KBRetrievalResult:
+        """
+        Get death and survival analysis specifications.
+
+        Returns death summary, primary cause of death categories,
+        survival analysis methods, cause of death adjudication.
+
+        Returns:
+            Death and survival analysis specifications
+        """
+        from comprehensive_sap_elements import DEATH_ANALYSIS
+        self._log_retrieval("get_death_analysis_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=DEATH_ANALYSIS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="DEATH_ANALYSIS"
+        )
+
+    def get_tumor_response_specs(self) -> KBRetrievalResult:
+        """
+        Get tumor response assessment specifications.
+
+        Returns RECIST 1.1, Lugano 2014, IWCLL 2018, IMWG criteria,
+        IRC assessment, assessment schedule, imaging modality.
+
+        Returns:
+            Tumor response assessment specifications
+        """
+        from comprehensive_sap_elements import TUMOR_RESPONSE_ASSESSMENT
+        self._log_retrieval("get_tumor_response_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=TUMOR_RESPONSE_ASSESSMENT,
+            source_file="comprehensive_sap_elements.py",
+            source_key="TUMOR_RESPONSE_ASSESSMENT"
+        )
+
+    def get_treatment_compliance_specs(self) -> KBRetrievalResult:
+        """
+        Get treatment compliance and adherence specifications.
+
+        Returns dose compliance, treatment duration, dose modifications,
+        reasons for discontinuation categories.
+
+        Returns:
+            Treatment compliance specifications
+        """
+        from comprehensive_sap_elements import TREATMENT_COMPLIANCE
+        self._log_retrieval("get_treatment_compliance_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=TREATMENT_COMPLIANCE,
+            source_file="comprehensive_sap_elements.py",
+            source_key="TREATMENT_COMPLIANCE"
+        )
+
+    def get_concordance_specs(self) -> KBRetrievalResult:
+        """
+        Get IRC vs Investigator concordance analysis specifications.
+
+        Returns overall concordance, response matrix, discordance analysis,
+        timing concordance for TTR and TTP.
+
+        Returns:
+            Concordance analysis specifications
+        """
+        from comprehensive_sap_elements import CONCORDANCE_ANALYSIS
+        self._log_retrieval("get_concordance_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=CONCORDANCE_ANALYSIS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="CONCORDANCE_ANALYSIS"
+        )
+
+    def get_immunogenicity_specs(self) -> KBRetrievalResult:
+        """
+        Get immunogenicity (ADA) analysis specifications.
+
+        Returns ADA testing methodology, analysis populations,
+        ADA summaries, impact analysis on PK/efficacy/safety.
+
+        Returns:
+            Immunogenicity analysis specifications
+        """
+        from comprehensive_sap_elements import IMMUNOGENICITY_ANALYSIS
+        self._log_retrieval("get_immunogenicity_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=IMMUNOGENICITY_ANALYSIS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="IMMUNOGENICITY_ANALYSIS"
+        )
+
+    def get_organ_function_specs(self) -> KBRetrievalResult:
+        """
+        Get organ function requirements specifications.
+
+        Returns hepatic (AST, ALT, bilirubin, Child-Pugh), renal (CrCl, eGFR),
+        hematologic (ANC, platelet, Hgb), cardiac (LVEF, QTcF) specifications.
+
+        Returns:
+            Organ function specifications
+        """
+        from comprehensive_sap_elements import ORGAN_FUNCTION_SPECS
+        self._log_retrieval("get_organ_function_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=ORGAN_FUNCTION_SPECS,
+            source_file="comprehensive_sap_elements.py",
+            source_key="ORGAN_FUNCTION_SPECS"
+        )
+
+    def get_analysis_timing_specs(self) -> KBRetrievalResult:
+        """
+        Get analysis timing and visit window specifications.
+
+        Returns visit windows, analysis windows, scheduled assessment windows.
+
+        Returns:
+            Analysis timing specifications
+        """
+        from comprehensive_sap_elements import ANALYSIS_TIMING
+        self._log_retrieval("get_analysis_timing_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=ANALYSIS_TIMING,
+            source_file="comprehensive_sap_elements.py",
+            source_key="ANALYSIS_TIMING"
+        )
+
+    def get_stratification_balance_specs(self) -> KBRetrievalResult:
+        """
+        Get stratification factor balance specifications.
+
+        Returns balance assessment method, stratified vs unstratified analysis.
+
+        Returns:
+            Stratification balance specifications
+        """
+        from comprehensive_sap_elements import STRATIFICATION_BALANCE
+        self._log_retrieval("get_stratification_balance_specs", "all", "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=STRATIFICATION_BALANCE,
+            source_file="comprehensive_sap_elements.py",
+            source_key="STRATIFICATION_BALANCE"
+        )
+
+    def get_comprehensive_sap_elements(self, study_type: str = "oncology") -> KBRetrievalResult:
+        """
+        Get ALL comprehensive SAP elements for a study type.
+
+        Master function returning all SAP element specifications based on
+        study type (oncology, cart, solid_tumor, hematologic).
+
+        Args:
+            study_type: "oncology", "cart", "solid_tumor", "hematologic"
+
+        Returns:
+            Complete dictionary of all applicable SAP specifications
+        """
+        from comprehensive_sap_elements import get_comprehensive_sap_elements as get_elements
+        self._log_retrieval("get_comprehensive_sap_elements", study_type, "comprehensive_sap_elements.py")
+
+        return KBRetrievalResult(
+            content=get_elements(study_type),
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"get_comprehensive_sap_elements('{study_type}')"
+        )
+
+    # =========================================================================
     # TRIAL PRECEDENT TOOLS (queries factual_kg_merged.json)
     # =========================================================================
 
@@ -2627,6 +3340,330 @@ def get_claude_tool_definitions() -> List[Dict]:
                 "properties": {},
                 "required": []
             }
+        },
+        # v76: Comprehensive SAP Elements
+        {
+            "name": "get_study_definitions",
+            "description": "Get standard study definitions required for every SAP (Section 5). Returns Study Day 0/baseline definitions, on-study period, end of study, TEAE definition, follow-up time calculations. ESSENTIAL for DEFINITIONS section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "definition_type": {
+                        "type": "string",
+                        "description": "Type of definition",
+                        "enum": ["time", "safety", "events", "followup", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_exposure_specifications",
+            "description": "Get drug exposure analysis specifications. Returns BSA-adjusted dosing, weight-based dosing, relative dose intensity, CAR-T cell dose specifications. Use for exposure/drug administration sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "exposure_type": {
+                        "type": "string",
+                        "description": "Type of exposure specification",
+                        "enum": ["dose", "bsa", "weight", "cart", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_cart_manufacturing_specs",
+            "description": "Get CAR-T manufacturing and logistics metrics. Returns leukapheresis timing, vein-to-vein time, manufacturing success rates, bridging therapy specifications. Use for CAR-T specific sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_subsequent_therapy_specs",
+            "description": "Get subsequent anti-cancer therapy tracking specifications. Returns subsequent therapy summaries, subsequent SCT (autologous/allogeneic), time to next therapy. Use for post-treatment sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_enrollment_specifications",
+            "description": "Get enrollment summary specifications. Returns enrollment by country, site, region, and enrollment over time displays. Use for Subject Disposition section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_ae_period_specifications",
+            "description": "Get AE period analysis specifications. Returns CAR-T specific periods (Day 0-30, 31-92, 93+) and standard on-treatment/post-treatment periods. Use for safety analysis sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_sensitivity_analysis_catalog",
+            "description": "Get comprehensive catalog of standard sensitivity analyses. Returns TTE sensitivity (censoring, population, model alternatives), response sensitivity, missing data sensitivity. Use for Sensitivity Analyses section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "analysis_type": {
+                        "type": "string",
+                        "description": "Type of sensitivity analysis",
+                        "enum": ["tte", "response", "missing_data", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_multiplicity_methods",
+            "description": "Get multiplicity adjustment methods. Returns hierarchical testing, alpha splitting (Bonferroni, Holm, Hochberg), graphical approaches, gatekeeping procedures. Use for Multiple Comparisons section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "method_type": {
+                        "type": "string",
+                        "description": "Type of multiplicity method",
+                        "enum": ["hierarchical_testing", "alpha_splitting", "gatekeeping", "graphical_approaches", "group_sequential", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_interim_analysis_specs",
+            "description": "Get interim analysis and DSMB specifications. Returns timing specifications (event-driven, calendar-driven), futility assessment (binding/non-binding), DSMB charter elements. Use for Interim Analysis section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "spec_type": {
+                        "type": "string",
+                        "description": "Type of interim analysis spec",
+                        "enum": ["timing", "futility", "dsmb", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_qol_analysis_specs",
+            "description": "Get Quality of Life and PRO analysis specifications. Returns EORTC QLQ-C30, FACT-G, EQ-5D specifications, time-to-deterioration analysis, responder analysis methods. Use for PRO/QoL sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "instrument": {
+                        "type": "string",
+                        "description": "QoL instrument",
+                        "enum": ["EORTC", "FACT", "EQ5D", "methods", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_estimand_specifications",
+            "description": "Get ICH E9(R1) estimand framework specifications. Returns estimand components (population, treatment, endpoint, intercurrent events, summary measure) and strategies for handling intercurrent events.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_covid19_variations",
+            "description": "Get COVID-19 protocol variation specifications. Returns guidance for COVID-related assessment modifications, treatment delays, sensitivity analyses, AE reporting. Use if study had COVID-era enrollment.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_subgroup_specifications",
+            "description": "Get subgroup analysis specifications. Returns pre-specified subgroups (demographic, disease-related), forest plot specifications, interaction testing guidance. Use for Subgroup Analyses section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_protocol_deviation_specs",
+            "description": "Get protocol deviation tracking specifications. Returns major/minor deviation categories and analysis specifications. Use for Protocol Deviations section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_healthcare_utilization_specs",
+            "description": "Get healthcare resource utilization specifications. Returns hospitalization, ED visits, CAR-T specific utilization (CRS/ICANS hospitalization, tocilizumab use). Use for HRU sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_phase2_design_specs",
+            "description": "Get Phase 2 specific design specifications. Returns Simon two-stage design, Fleming's single-stage, Gehan two-stage, Bayesian phase 2 designs. Use for Phase 2 study SAPs.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_blinding_specifications",
+            "description": "Get blinding and unblinding specifications. Returns IRC assessment, endpoint adjudication, unblinding triggers, open-label considerations. Use for Blinding section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_pkpd_analysis_specs",
+            "description": "Get PK/PD analysis specifications. Returns PK parameters (Cmax, AUC), exposure-response analysis, CAR-T specific PK (transgene levels, expansion kinetics). Use for PK/PD sections.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "spec_type": {
+                        "type": "string",
+                        "description": "Type of PK/PD spec",
+                        "enum": ["parameters", "exposure_response", "cart", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_mrd_assessment_specs",
+            "description": "Get MRD (Minimal Residual Disease) assessment specifications. Returns MRD methods (flow cytometry, NGS, PCR), endpoints, assessment timing. Use for hematologic malignancy SAPs.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_comprehensive_sap_elements",
+            "description": "Get ALL comprehensive SAP elements for a study type. Master function returning complete SAP specifications based on study type. Use when you need comprehensive coverage.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "study_type": {
+                        "type": "string",
+                        "description": "Type of study",
+                        "enum": ["oncology", "cart", "solid_tumor", "hematologic"]
+                    }
+                },
+                "required": []
+            }
+        },
+        # v77: Additional comprehensive SAP element tools
+        {
+            "name": "get_demographics_baseline_specs",
+            "description": "Get demographics and baseline characteristics specs. Returns demographic variables (age, sex, race), disease characteristics (ECOG, stage), statistics. Use for Demographics/Baseline section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_prior_therapy_specs",
+            "description": "Get prior anti-cancer therapy analysis specs. Returns prior therapy summaries, hematologic-specific (anti-CD20, SCT, refractory status), solid tumor-specific. Use for Prior Therapy section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_concomitant_medication_specs",
+            "description": "Get concomitant medication analysis specs. Returns coding (WHO Drug, ATC), special categories (supportive care, CAR-T specific). Use for Concomitant Medications section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_medical_history_specs",
+            "description": "Get medical history analysis specs. Returns MedDRA coding, summary tables by SOC/PT. Use for Medical History section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_death_analysis_specs",
+            "description": "Get death and survival analysis specs. Returns death summary, cause of death categories, survival analysis, adjudication. Use for Death/Survival section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_tumor_response_specs",
+            "description": "Get tumor response assessment specs. Returns RECIST 1.1, Lugano 2014, IWCLL 2018, IMWG criteria, IRC assessment. Use for Response Assessment section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_treatment_compliance_specs",
+            "description": "Get treatment compliance specs. Returns dose compliance, treatment duration, dose modifications, discontinuation reasons. Use for Exposure/Compliance section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_concordance_specs",
+            "description": "Get IRC vs Investigator concordance analysis specs. Returns concordance matrix, discordance analysis. Use when study has IRC assessment.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_immunogenicity_specs",
+            "description": "Get immunogenicity (ADA) analysis specs. Returns ADA testing, populations, summaries, impact analysis. Use for biologic/antibody studies.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_organ_function_specs",
+            "description": "Get organ function specs. Returns hepatic, renal, hematologic, cardiac function parameters and thresholds. Use for eligibility/subgroup sections.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_analysis_timing_specs",
+            "description": "Get analysis timing and visit window specs. Returns visit windows, analysis windows, scheduled assessment windows. Use for Programming Specs section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_stratification_balance_specs",
+            "description": "Get stratification factor balance specs. Returns balance assessment method, stratified vs unstratified analysis. Use for randomized studies.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_figure_template",
+            "description": "Get specific figure template by type (kaplan_meier, forest_plot, waterfall, swimmer, spider). Use for Figures section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "figure_type": {
+                        "type": "string",
+                        "description": "Type of figure",
+                        "enum": ["kaplan_meier", "forest_plot", "waterfall", "swimmer", "spider"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_study_design_specs",
+            "description": "Get study design specifications (randomized, single-arm, crossover, adaptive, basket, umbrella). Use for Study Design section.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "design_type": {
+                        "type": "string",
+                        "description": "Type of study design"
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_programming_specifications",
+            "description": "Get programming specifications (analysis windows, baseline definitions, derived variables). Use for Programming Specifications section.",
+            "input_schema": {"type": "object", "properties": {}, "required": []}
         }
     ]
 
@@ -2712,6 +3749,42 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_concordance_analysis": lambda: kb.get_concordance_analysis(),
         "get_required_references": lambda: kb.get_required_references(tool_input.get("study_type", "oncology")),
         "get_date_imputation_rules": lambda: kb.get_date_imputation_rules(),
+        # v76: Comprehensive SAP Elements
+        "get_study_definitions": lambda: kb.get_study_definitions(tool_input.get("definition_type", "all")),
+        "get_exposure_specifications": lambda: kb.get_exposure_specifications(tool_input.get("exposure_type", "all")),
+        "get_cart_manufacturing_specs": lambda: kb.get_cart_manufacturing_specs(),
+        "get_subsequent_therapy_specs": lambda: kb.get_subsequent_therapy_specs(),
+        "get_enrollment_specifications": lambda: kb.get_enrollment_specifications(),
+        "get_ae_period_specifications": lambda: kb.get_ae_period_specifications(),
+        "get_sensitivity_analysis_catalog": lambda: kb.get_sensitivity_analysis_catalog(tool_input.get("analysis_type", "all")),
+        "get_multiplicity_methods": lambda: kb.get_multiplicity_methods(tool_input.get("method_type", "all")),
+        "get_interim_analysis_specs": lambda: kb.get_interim_analysis_specs(tool_input.get("spec_type", "all")),
+        "get_qol_analysis_specs": lambda: kb.get_qol_analysis_specs(tool_input.get("instrument", "all")),
+        "get_estimand_specifications": lambda: kb.get_estimand_specifications(),
+        "get_covid19_variations": lambda: kb.get_covid19_variations(),
+        "get_subgroup_specifications": lambda: kb.get_subgroup_specifications(),
+        "get_protocol_deviation_specs": lambda: kb.get_protocol_deviation_specs(),
+        "get_healthcare_utilization_specs": lambda: kb.get_healthcare_utilization_specs(),
+        "get_phase2_design_specs": lambda: kb.get_phase2_design_specs(),
+        "get_blinding_specifications": lambda: kb.get_blinding_specifications(),
+        "get_pkpd_analysis_specs": lambda: kb.get_pkpd_analysis_specs(tool_input.get("spec_type", "all")),
+        "get_mrd_assessment_specs": lambda: kb.get_mrd_assessment_specs(),
+        "get_comprehensive_sap_elements": lambda: kb.get_comprehensive_sap_elements(tool_input.get("study_type", "oncology")),
+        # v77: Additional comprehensive SAP elements
+        "get_demographics_baseline_specs": lambda: kb.get_demographics_baseline_specs(),
+        "get_prior_therapy_specs": lambda: kb.get_prior_therapy_specs(),
+        "get_concomitant_medication_specs": lambda: kb.get_concomitant_medication_specs(),
+        "get_medical_history_specs": lambda: kb.get_medical_history_specs(),
+        "get_death_analysis_specs": lambda: kb.get_death_analysis_specs(),
+        "get_tumor_response_specs": lambda: kb.get_tumor_response_specs(),
+        "get_treatment_compliance_specs": lambda: kb.get_treatment_compliance_specs(),
+        "get_concordance_specs": lambda: kb.get_concordance_specs(),
+        "get_immunogenicity_specs": lambda: kb.get_immunogenicity_specs(),
+        "get_organ_function_specs": lambda: kb.get_organ_function_specs(),
+        "get_analysis_timing_specs": lambda: kb.get_analysis_timing_specs(),
+        "get_stratification_balance_specs": lambda: kb.get_stratification_balance_specs(),
+        "get_figure_template": lambda: kb.get_figure_template(tool_input.get("figure_type", "kaplan_meier")),
+        "get_study_design_specs": lambda: kb.get_study_design_specs(tool_input.get("design_type")),
     }
 
     if tool_name in tool_map:

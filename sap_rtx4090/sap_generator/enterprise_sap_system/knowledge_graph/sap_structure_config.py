@@ -72,18 +72,21 @@ MASTER_SAP_SECTIONS = [
         title="STUDY DESIGN",
         required=True,
         description="Design type, treatment arms, stratification, blinding",
+        kb_tools=["get_study_design_specs", "get_study_type_template"],
         subsections=[
-            SAPSection("3.1", "Overall Design", required=True),
+            SAPSection("3.1", "Overall Design", required=True,
+                      kb_tools=["get_study_design_specs", "get_study_type_template"]),
             SAPSection("3.2", "Treatment Arms", required=True,
                       condition="has_multiple_arms"),
             SAPSection("3.3", "Randomization", required=False,
                       condition="is_randomized",
-                      kb_tools=["get_stratification_specs"]),
+                      kb_tools=["get_stratification_specs", "get_stratification_balance_specs"]),
             SAPSection("3.4", "Blinding", required=False,
-                      condition="is_blinded"),
+                      condition="is_blinded",
+                      kb_tools=["get_blinding_specifications"]),
             SAPSection("3.5", "Stratification Factors", required=False,
                       condition="has_stratification",
-                      kb_tools=["get_stratification_specs"]),
+                      kb_tools=["get_stratification_specs", "get_stratification_balance_specs"]),
         ]
     ),
 
@@ -131,6 +134,37 @@ MASTER_SAP_SECTIONS = [
     ),
 
     # -------------------------------------------------------------------------
+    # BASELINE CHARACTERISTICS (v77 - comprehensive coverage)
+    # -------------------------------------------------------------------------
+    SAPSection(
+        number="5A",
+        title="BASELINE CHARACTERISTICS AND DISEASE HISTORY",
+        required=True,
+        description="Demographics, baseline disease, prior therapy, medical history, concomitant medications",
+        kb_tools=["get_demographics_baseline_specs", "get_prior_therapy_specs", "get_performance_status_scales", "get_prognostic_scores", "get_comprehensive_sap_elements"],
+        subsections=[
+            SAPSection("5A.1", "Demographics", required=True,
+                      description="Age, sex, race, ethnicity, weight, height, BSA, BMI",
+                      kb_tools=["get_demographics_baseline_specs"]),
+            SAPSection("5A.2", "Baseline Disease Characteristics", required=True,
+                      description="ECOG PS, disease stage, time since diagnosis, measurable disease",
+                      kb_tools=["get_demographics_baseline_specs", "get_organ_function_specs", "get_performance_status_scales", "get_organ_function_scores"]),
+            SAPSection("5A.3", "Prognostic Scores", required=False,
+                      description="IPI, FLIPI, ISS, IMDC and other disease-specific scores",
+                      kb_tools=["get_prognostic_scores"]),
+            SAPSection("5A.4", "Prior Anti-Cancer Therapy", required=True,
+                      description="Number of prior lines, types, specific agents, refractory status",
+                      kb_tools=["get_prior_therapy_specs"]),
+            SAPSection("5A.5", "Medical History", required=True,
+                      description="By MedDRA SOC and PT",
+                      kb_tools=["get_medical_history_specs"]),
+            SAPSection("5A.6", "Prior and Concomitant Medications", required=True,
+                      description="By WHO Drug/ATC classification",
+                      kb_tools=["get_concomitant_medication_specs"]),
+        ]
+    ),
+
+    # -------------------------------------------------------------------------
     # ENDPOINTS & ESTIMANDS
     # -------------------------------------------------------------------------
     SAPSection(
@@ -138,16 +172,26 @@ MASTER_SAP_SECTIONS = [
         title="ENDPOINTS & ESTIMANDS",
         required=True,
         description="Primary, secondary, exploratory endpoints with ICH E9(R1) estimands",
-        kb_tools=["get_estimand_framework", "get_oncology_tfl_templates"],
+        kb_tools=["get_estimand_framework", "get_oncology_tfl_templates", "get_tumor_response_specs", "get_comprehensive_sap_elements"],
         subsections=[
-            SAPSection("6.1", "Primary Endpoint(s)", required=True),
+            SAPSection("6.1", "Primary Endpoint(s)", required=True,
+                      kb_tools=["get_tumor_response_specs"]),
             SAPSection("6.2", "Secondary Endpoint(s)", required=True),
             SAPSection("6.3", "Exploratory Endpoint(s)", required=False,
                       condition="has_exploratory_endpoints"),
             SAPSection("6.4", "Estimand Framework", required=True,
-                      description="ICH E9(R1) estimands for each endpoint"),
+                      description="ICH E9(R1) estimands for each endpoint",
+                      kb_tools=["get_estimand_specifications"]),
+            SAPSection("6.5", "Response Assessment Methodology", required=False,
+                      condition="has_response_endpoint",
+                      description="RECIST 1.1, Lugano, IWCLL, IMWG criteria",
+                      kb_tools=["get_tumor_response_specs", "get_response_criteria", "get_all_response_criteria"]),
+            SAPSection("6.6", "IRC vs Investigator Concordance", required=False,
+                      condition="is_randomized",
+                      description="Kappa statistic, concordance matrix, discordance analysis",
+                      kb_tools=["get_concordance_specs", "get_concordance_analysis"]),
             # CAR-T specific endpoints
-            SAPSection("6.5", "Retreatment Endpoints (DORR)", required=False,
+            SAPSection("6.7", "Retreatment Endpoints (DORR)", required=False,
                       condition="is_cart_with_retreatment",
                       kb_tools=["get_cart_specifications"]),
         ]
@@ -163,7 +207,8 @@ MASTER_SAP_SECTIONS = [
         description="Analysis methods for each endpoint type",
         kb_tools=["get_statistical_method", "get_time_to_event_analysis"],
         subsections=[
-            SAPSection("7.1", "General Considerations", required=True),
+            SAPSection("7.1", "General Considerations", required=True,
+                      kb_tools=["get_blinding_specifications"]),
             SAPSection("7.2", "Time-to-Event Analyses", required=False,
                       condition="has_tte_endpoints",
                       kb_tools=["get_time_to_event_analysis", "get_censoring_rules"]),
@@ -174,12 +219,17 @@ MASTER_SAP_SECTIONS = [
                       condition="has_continuous_endpoints"),
             SAPSection("7.5", "Multiplicity Adjustment", required=False,
                       condition="has_multiple_primary_endpoints",
-                      kb_tools=["get_multiplicity_adjustment"]),
+                      kb_tools=["get_multiplicity_adjustment", "get_multiplicity_methods"]),
             # Single-arm specific
             SAPSection("7.6", "Single-Arm Response Rate Analysis", required=False,
                       condition="is_single_arm",
                       description="Clopper-Pearson CI, Simon two-stage",
-                      kb_tools=["get_single_arm_tables"]),
+                      kb_tools=["get_single_arm_tables", "get_phase2_design_specs"]),
+            # MRD for hematologic malignancies
+            SAPSection("7.7", "MRD Assessment", required=False,
+                      condition="has_mrd_endpoint",
+                      description="Minimal residual disease analysis",
+                      kb_tools=["get_mrd_assessment_specs"]),
         ]
     ),
 
@@ -227,12 +277,16 @@ MASTER_SAP_SECTIONS = [
         title="SENSITIVITY ANALYSES",
         required=True,
         description="Robustness analyses for primary conclusions",
-        kb_tools=["get_sensitivity_analysis"],
+        kb_tools=["get_sensitivity_analysis", "get_sensitivity_analysis_catalog"],
         subsections=[
-            SAPSection("10.1", "Primary Endpoint Sensitivity Analyses", required=True),
+            SAPSection("10.1", "Primary Endpoint Sensitivity Analyses", required=True,
+                      kb_tools=["get_sensitivity_analysis_catalog"]),
             SAPSection("10.2", "Per-Protocol Analysis", required=True),
             SAPSection("10.3", "Tipping Point Analysis", required=False,
                       condition="has_missing_data_concerns"),
+            SAPSection("10.4", "COVID-19 Sensitivity Analyses", required=False,
+                      condition="has_covid_impact",
+                      kb_tools=["get_covid19_variations"]),
         ]
     ),
 
@@ -244,12 +298,15 @@ MASTER_SAP_SECTIONS = [
         title="SUBGROUP ANALYSES",
         required=True,
         description="Pre-specified subgroup analyses",
-        kb_tools=["get_subgroup_analysis_specs"],
+        kb_tools=["get_subgroup_analysis_specs", "get_subgroup_specifications"],
         subsections=[
-            SAPSection("11.1", "Pre-specified Subgroups", required=True),
-            SAPSection("11.2", "Subgroup Analysis Methods", required=True),
+            SAPSection("11.1", "Pre-specified Subgroups", required=True,
+                      kb_tools=["get_subgroup_specifications"]),
+            SAPSection("11.2", "Subgroup Analysis Methods", required=True,
+                      kb_tools=["get_subgroup_specifications"]),
             SAPSection("11.3", "Forest Plot Specifications", required=False,
-                      condition="is_randomized"),
+                      condition="is_randomized",
+                      kb_tools=["get_subgroup_specifications"]),
         ]
     ),
 
@@ -261,28 +318,57 @@ MASTER_SAP_SECTIONS = [
         title="SAFETY ANALYSIS",
         required=True,
         description="Adverse events, laboratory, vital signs, ECG analyses",
-        kb_tools=["get_safety_analysis_specs", "get_safety_tables", "get_safety_specifications"],
+        kb_tools=["get_safety_analysis_specs", "get_safety_tables", "get_safety_specifications", "get_ae_period_specifications", "get_comprehensive_sap_elements"],
         subsections=[
-            SAPSection("12.1", "Adverse Events", required=True),
-            SAPSection("12.2", "Laboratory Parameters", required=True),
-            SAPSection("12.3", "Vital Signs", required=True),
-            SAPSection("12.4", "ECG Parameters", required=False,
+            SAPSection("12.1", "Adverse Events", required=True,
+                      kb_tools=["get_ae_period_specifications"]),
+            SAPSection("12.2", "Deaths and Survival", required=True,
+                      description="Death summary, cause of death, last known alive derivation",
+                      kb_tools=["get_death_analysis_specs"]),
+            SAPSection("12.3", "Laboratory Parameters", required=True),
+            SAPSection("12.4", "Vital Signs", required=True),
+            SAPSection("12.5", "ECG Parameters", required=False,
                       condition="has_ecg_monitoring"),
-            SAPSection("12.5", "Exposure Analysis", required=True),
+            SAPSection("12.6", "Exposure and Treatment Compliance", required=True,
+                      description="Dose compliance, treatment duration, dose modifications",
+                      kb_tools=["get_exposure_specifications", "get_treatment_compliance_specs"]),
+            SAPSection("12.7", "Subsequent Therapy", required=True,
+                      kb_tools=["get_subsequent_therapy_specs"]),
             # CAR-T specific safety
-            SAPSection("12.6", "Cytokine Release Syndrome (CRS)", required=False,
+            SAPSection("12.8", "Cytokine Release Syndrome (CRS)", required=False,
+                      condition="is_cart",
+                      kb_tools=["get_cart_specifications", "get_cart_tables", "get_ae_period_specifications"]),
+            SAPSection("12.9", "Immune Effector Cell-Associated Neurotoxicity (ICANS)", required=False,
                       condition="is_cart",
                       kb_tools=["get_cart_specifications", "get_cart_tables"]),
-            SAPSection("12.7", "Immune Effector Cell-Associated Neurotoxicity (ICANS)", required=False,
+            SAPSection("12.10", "CAR-T Cellular Kinetics", required=False,
                       condition="is_cart",
-                      kb_tools=["get_cart_specifications", "get_cart_tables"]),
-            SAPSection("12.8", "CAR-T Cellular Kinetics", required=False,
+                      kb_tools=["get_cart_specifications", "get_pkpd_analysis_specs"]),
+            SAPSection("12.11", "CAR-T Manufacturing Metrics", required=False,
                       condition="is_cart",
-                      kb_tools=["get_cart_specifications"]),
-            SAPSection("12.9", "Prolonged Cytopenias", required=False,
+                      description="Leukapheresis timing, vein-to-vein time, bridging therapy",
+                      kb_tools=["get_cart_manufacturing_specs"]),
+            SAPSection("12.12", "Prolonged Cytopenias", required=False,
                       condition="is_cart"),
-            SAPSection("12.10", "B-Cell Aplasia & Hypogammaglobulinemia", required=False,
+            SAPSection("12.13", "B-Cell Aplasia & Hypogammaglobulinemia", required=False,
                       condition="is_cart"),
+            SAPSection("12.14", "Healthcare Resource Utilization", required=False,
+                      condition="has_hru_endpoints",
+                      kb_tools=["get_healthcare_utilization_specs"]),
+            SAPSection("12.15", "Immunogenicity", required=False,
+                      condition="is_biologic",
+                      description="ADA incidence, neutralizing antibodies, impact on PK/efficacy",
+                      kb_tools=["get_immunogenicity_specs"]),
+            # ADC-specific safety
+            SAPSection("12.16", "ADC-Specific Toxicities", required=False,
+                      condition="is_adc",
+                      description="Payload-related toxicities, ocular toxicity, peripheral neuropathy",
+                      kb_tools=["get_adc_specifications", "get_safety_specifications"]),
+            # Bispecific-specific safety
+            SAPSection("12.17", "Bispecific Antibody Safety", required=False,
+                      condition="is_bispecific",
+                      description="CRS grading for bispecifics, step-up dosing safety",
+                      kb_tools=["get_bispecific_specifications", "get_safety_specifications"]),
         ]
     ),
 
@@ -295,12 +381,18 @@ MASTER_SAP_SECTIONS = [
         required=False,
         condition="has_interim_analysis",
         description="Interim analysis timing, stopping boundaries, alpha spending",
-        kb_tools=["get_interim_analysis"],
+        kb_tools=["get_interim_analysis", "get_interim_analysis_specs"],
         subsections=[
-            SAPSection("13.1", "Timing and Information Fractions", required=True),
-            SAPSection("13.2", "Alpha Spending Function", required=True),
-            SAPSection("13.3", "Stopping Boundaries", required=True),
-            SAPSection("13.4", "DMC Charter Reference", required=True),
+            SAPSection("13.1", "Timing and Information Fractions", required=True,
+                      kb_tools=["get_interim_analysis_specs"]),
+            SAPSection("13.2", "Alpha Spending Function", required=True,
+                      kb_tools=["get_interim_analysis_specs", "get_multiplicity_methods"]),
+            SAPSection("13.3", "Stopping Boundaries", required=True,
+                      kb_tools=["get_interim_analysis_specs"]),
+            SAPSection("13.4", "Futility Assessment", required=True,
+                      kb_tools=["get_interim_analysis_specs"]),
+            SAPSection("13.5", "DMC/DSMB Charter Reference", required=True,
+                      kb_tools=["get_interim_analysis_specs"]),
         ]
     ),
 
@@ -330,12 +422,42 @@ MASTER_SAP_SECTIONS = [
         required=False,
         condition="has_pro_endpoints",
         description="PRO instruments, scoring, analysis methods",
-        kb_tools=["get_pro_qol_analysis"],
+        kb_tools=["get_pro_qol_analysis", "get_qol_analysis_specs"],
         subsections=[
-            SAPSection("15.1", "PRO Instruments", required=True),
-            SAPSection("15.2", "Scoring Algorithms", required=True),
-            SAPSection("15.3", "Missing PRO Data Handling", required=True),
-            SAPSection("15.4", "PRO Analysis Methods", required=True),
+            SAPSection("15.1", "PRO Instruments", required=True,
+                      kb_tools=["get_qol_analysis_specs"]),
+            SAPSection("15.2", "Scoring Algorithms", required=True,
+                      kb_tools=["get_qol_analysis_specs"]),
+            SAPSection("15.3", "Missing PRO Data Handling", required=True,
+                      kb_tools=["get_qol_analysis_specs"]),
+            SAPSection("15.4", "PRO Analysis Methods", required=True,
+                      description="MMRM, time-to-deterioration, responder analysis",
+                      kb_tools=["get_qol_analysis_specs"]),
+        ]
+    ),
+
+    # -------------------------------------------------------------------------
+    # DEFINITIONS (Required for all SAPs)
+    # -------------------------------------------------------------------------
+    SAPSection(
+        number="16",
+        title="DEFINITIONS",
+        required=True,
+        description="Standard study definitions - Study Day, baseline, TEAE, follow-up time",
+        kb_tools=["get_study_definitions"],
+        subsections=[
+            SAPSection("16.1", "Time Point Definitions", required=True,
+                      description="Study Day 0, baseline, on-study period, end of study",
+                      kb_tools=["get_study_definitions"]),
+            SAPSection("16.2", "Safety Event Definitions", required=True,
+                      description="TEAE, treatment-related AE, SAE, AESI definitions",
+                      kb_tools=["get_study_definitions"]),
+            SAPSection("16.3", "Follow-up Time Definitions", required=True,
+                      description="Actual vs potential follow-up, reverse K-M method",
+                      kb_tools=["get_study_definitions"]),
+            SAPSection("16.4", "Enrollment Definition", required=True,
+                      description="Date of enrollment (consent, randomization, or leukapheresis)",
+                      kb_tools=["get_study_definitions"]),
         ]
     ),
 
@@ -343,16 +465,16 @@ MASTER_SAP_SECTIONS = [
     # PROGRAMMING SPECIFICATIONS
     # -------------------------------------------------------------------------
     SAPSection(
-        number="16",
+        number="17",
         title="PROGRAMMING SPECIFICATIONS",
         required=True,
         description="Analysis windows, visit definitions, derived variables",
-        kb_tools=["get_programming_specifications", "get_derived_variables", "get_analysis_windows"],
+        kb_tools=["get_programming_specifications", "get_derived_variables", "get_analysis_windows", "get_analysis_timing_specs", "get_comprehensive_sap_elements"],
         subsections=[
-            SAPSection("16.1", "Analysis Windows", required=True),
-            SAPSection("16.2", "Baseline Definitions", required=True),
-            SAPSection("16.3", "Derived Variable Specifications", required=True),
-            SAPSection("16.4", "Data Cutoff Rules", required=True,
+            SAPSection("17.1", "Analysis Windows", required=True),
+            SAPSection("17.2", "Baseline Value Derivations", required=True),
+            SAPSection("17.3", "Derived Variable Specifications", required=True),
+            SAPSection("17.4", "Data Cutoff Rules", required=True,
                       kb_tools=["get_data_cutoff_specs"]),
         ]
     ),
@@ -361,24 +483,24 @@ MASTER_SAP_SECTIONS = [
     # TFL SHELLS
     # -------------------------------------------------------------------------
     SAPSection(
-        number="17",
+        number="18",
         title="TABLE, FIGURE, AND LISTING SHELLS",
         required=True,
         description="Complete TFL inventory with shells",
         kb_tools=["get_disposition_tables", "get_efficacy_tables", "get_safety_tables",
-                  "get_tfl_shells", "get_all_figures", "get_listings"],
+                  "get_tfl_shells", "get_all_figures", "get_listings", "get_figure_template", "get_table_template"],
         subsections=[
-            SAPSection("17.1", "Disposition Tables", required=True,
-                      kb_tools=["get_disposition_tables", "get_single_arm_tables"]),
-            SAPSection("17.2", "Demographics and Baseline Tables", required=True,
+            SAPSection("18.1", "Disposition Tables", required=True,
+                      kb_tools=["get_disposition_tables", "get_single_arm_tables", "get_enrollment_specifications"]),
+            SAPSection("18.2", "Demographics and Baseline Tables", required=True,
                       kb_tools=["get_lymphoma_tables"]),
-            SAPSection("17.3", "Efficacy Tables", required=True,
+            SAPSection("18.3", "Efficacy Tables", required=True,
                       kb_tools=["get_efficacy_tables"]),
-            SAPSection("17.4", "Safety Tables", required=True,
+            SAPSection("18.4", "Safety Tables", required=True,
                       kb_tools=["get_safety_tables", "get_cart_tables"]),
-            SAPSection("17.5", "Figures", required=True,
+            SAPSection("18.5", "Figures", required=True,
                       kb_tools=["get_all_figures"]),
-            SAPSection("17.6", "Listings", required=True,
+            SAPSection("18.6", "Listings", required=True,
                       kb_tools=["get_listings"]),
         ]
     ),
@@ -387,17 +509,19 @@ MASTER_SAP_SECTIONS = [
     # DATA SCREENING AND ACCEPTANCE
     # -------------------------------------------------------------------------
     SAPSection(
-        number="18",
+        number="19",
         title="DATA SCREENING AND ACCEPTANCE",
         required=True,
         description="Data quality, edit checks, outliers, validation procedures",
+        kb_tools=["get_protocol_deviation_specs"],
         subsections=[
-            SAPSection("18.1", "General Data Handling Principles", required=True),
-            SAPSection("18.2", "Electronic Data Transfer", required=True,
+            SAPSection("19.1", "General Data Handling Principles", required=True),
+            SAPSection("19.2", "Electronic Data Transfer", required=True,
                       description="CRO to sponsor data transfer procedures"),
-            SAPSection("18.3", "Detection of Bias and Protocol Deviations", required=True),
-            SAPSection("18.4", "Outlier Detection and Handling", required=True),
-            SAPSection("18.5", "Distributional Characteristics Assessment", required=True),
+            SAPSection("19.3", "Detection of Bias and Protocol Deviations", required=True,
+                      kb_tools=["get_protocol_deviation_specs"]),
+            SAPSection("19.4", "Outlier Detection and Handling", required=True),
+            SAPSection("19.5", "Distributional Characteristics Assessment", required=True),
         ]
     ),
 
@@ -405,16 +529,16 @@ MASTER_SAP_SECTIONS = [
     # FOLLOW-UP ANALYSIS
     # -------------------------------------------------------------------------
     SAPSection(
-        number="19",
+        number="20",
         title="FOLLOW-UP ANALYSIS",
         required=False,
         condition="has_follow_up_analyses",
         description="Planned descriptive analyses at specified timepoints after primary analysis",
         kb_tools=["get_similar_trials"],
         subsections=[
-            SAPSection("19.1", "Follow-up Analysis Schedule", required=True,
+            SAPSection("20.1", "Follow-up Analysis Schedule", required=True,
                       description="Timing of follow-up analyses (e.g., 18 months, 24 months)"),
-            SAPSection("19.2", "Follow-up Analysis Objectives", required=True,
+            SAPSection("20.2", "Follow-up Analysis Objectives", required=True,
                       description="Safety and efficacy updates - descriptive only"),
         ]
     ),
@@ -423,12 +547,12 @@ MASTER_SAP_SECTIONS = [
     # CHANGES FROM PROTOCOL-SPECIFIED ANALYSES
     # -------------------------------------------------------------------------
     SAPSection(
-        number="20",
+        number="21",
         title="CHANGES FROM PROTOCOL-SPECIFIED ANALYSES",
         required=True,
         description="Documentation of any deviations from protocol-specified statistical methods",
         subsections=[
-            SAPSection("20.1", "Summary of Changes", required=True,
+            SAPSection("21.1", "Summary of Changes", required=True,
                       description="List changes or state 'No changes from protocol-specified analyses'"),
         ]
     ),
@@ -437,16 +561,16 @@ MASTER_SAP_SECTIONS = [
     # REFERENCES
     # -------------------------------------------------------------------------
     SAPSection(
-        number="21",
+        number="22",
         title="REFERENCES",
         required=True,
         description="Citations for statistical methods, response criteria, grading scales",
         kb_tools=["get_required_references"],
         subsections=[
-            SAPSection("21.1", "Response Criteria References", required=False,
+            SAPSection("22.1", "Response Criteria References", required=False,
                       condition="has_response_endpoint"),
-            SAPSection("21.2", "Statistical Methodology References", required=True),
-            SAPSection("21.3", "Safety Grading References", required=True,
+            SAPSection("22.2", "Statistical Methodology References", required=True),
+            SAPSection("22.3", "Safety Grading References", required=True,
                       description="CTCAE version, CRS grading, etc."),
         ]
     ),
@@ -472,7 +596,7 @@ MASTER_SAP_SECTIONS = [
                       kb_tools=["get_meddra_search_strategies"]),
             SAPSection("A.4", "Response Criteria Reference", required=False,
                       condition="has_response_endpoint",
-                      kb_tools=["get_response_criteria", "get_recist_specifications"]),
+                      kb_tools=["get_response_criteria", "get_recist_specifications", "get_all_response_criteria", "get_cml_criteria", "get_iwcll_criteria"]),
             SAPSection("A.5", "ADaM Dataset Specifications", required=True,
                       kb_tools=["get_adam_dataset_spec"]),
         ]
@@ -551,6 +675,10 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     conditions["is_bispecific"] = "bispecific" in product_type or "bite" in product_type
     conditions["is_adc"] = "adc" in product_type or "antibody-drug conjugate" in product_type
     conditions["is_immunotherapy"] = any(x in product_type + product_name for x in ["checkpoint", "pd-1", "pd-l1", "ctla-4", "immunotherapy"])
+    conditions["is_biologic"] = any(x in product_type + product_name for x in [
+        "antibody", "mab", "monoclonal", "biologic", "biosimilar",
+        "car-t", "cell therapy", "bispecific", "adc"
+    ]) or conditions["is_cart"] or conditions["is_bispecific"] or conditions["is_adc"]
 
     # Disease Conditions
     disease = protocol_extraction.get("disease_classification", {})
@@ -604,6 +732,23 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     # Phase detection for logging
     conditions["is_phase_2"] = "2" in phase_value or "ii" in phase_value
     conditions["is_phase_3"] = is_phase_3
+
+    # MRD endpoint detection (hematologic malignancies)
+    conditions["has_mrd_endpoint"] = any(x in endpoint_str for x in ["mrd", "minimal residual", "measurable residual"])
+
+    # Healthcare resource utilization endpoint detection
+    conditions["has_hru_endpoints"] = any(x in endpoint_str for x in [
+        "hospitalization", "healthcare utilization", "resource utilization",
+        "hospital", "icu", "length of stay", "healthcare resource"
+    ])
+
+    # COVID-19 impact detection (studies with enrollment during pandemic era)
+    # Check for COVID-related keywords in protocol or note that 2020-2023 enrollment likely had COVID impact
+    all_text = json.dumps(protocol_extraction, default=str).lower()
+    conditions["has_covid_impact"] = any(x in all_text for x in [
+        "covid", "pandemic", "sars-cov", "coronavirus",
+        "remote assessment", "telemedicine", "virtual visit"
+    ])
 
     return conditions
 

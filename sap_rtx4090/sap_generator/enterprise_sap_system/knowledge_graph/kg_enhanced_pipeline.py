@@ -2227,9 +2227,25 @@ List the EXACT names of ALL analysis populations defined in the protocol.
 - List other SECONDARY endpoints
 - For time-to-event endpoints, note if detailed censoring rules are specified
 
-### D. SUBGROUPS
+### D. SUBGROUPS AND BASELINE COVARIATES
 - What are the PRE-SPECIFIED subgroup factors from the protocol?
 - Only include factors explicitly listed in the protocol
+- Look specifically for these PRIOR THERAPY variables (common in oncology):
+  * Number of prior lines of therapy (categories?)
+  * Prior anti-CD20 therapy (rituximab, obinutuzumab)
+  * Prior alkylating agent
+  * Prior anti-CD20 + alkylating combination
+  * Prior lenalidomide
+  * Prior PI3K inhibitor
+  * Prior autologous SCT
+  * Prior allogeneic SCT
+  * Prior CAR-T therapy
+  * Prior BCMA-directed therapy
+  * Bone marrow involvement
+  * Response to last therapy (PD vs SD vs PR/CR)
+  * Refractory status (primary vs secondary refractory vs relapsed)
+  * Double refractory status
+- Also look for: Gender, Race/Ethnicity (if collected), Performance status, Disease stage
 
 ### E. DISEASE SETTING (Critical for correct analysis approach)
 Identify the disease setting:
@@ -2317,6 +2333,22 @@ Return a JSON object with ONLY discovered structure:
   "subgroups": [
     {{"factor": "", "categories": []}}
   ],
+  "prior_therapy_covariates": {{
+    "number_of_prior_lines": {{"collected": false, "categories": []}},
+    "prior_anti_cd20": {{"collected": false}},
+    "prior_alkylating": {{"collected": false}},
+    "prior_anti_cd20_plus_alkylating": {{"collected": false}},
+    "prior_lenalidomide": {{"collected": false}},
+    "prior_pi3k_inhibitor": {{"collected": false}},
+    "prior_asct": {{"collected": false}},
+    "prior_allo_sct": {{"collected": false}},
+    "prior_car_t": {{"collected": false}},
+    "prior_bcma": {{"collected": false}},
+    "bone_marrow_involvement": {{"collected": false}},
+    "response_to_last_therapy": {{"collected": false, "categories": []}},
+    "refractory_status": {{"collected": false}},
+    "double_refractory": {{"collected": false}}
+  }},
   "stratification_factors": [
     {{"factor": "", "categories": []}}
   ],
