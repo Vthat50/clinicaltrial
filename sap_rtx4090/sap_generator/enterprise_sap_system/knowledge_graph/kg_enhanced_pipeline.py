@@ -1168,6 +1168,10 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         instructions.append("CALL get_similar_trials() to find precedent for censoring rules and methods")
         instructions.append("CALL get_disposition_tables(), get_efficacy_tables(), get_safety_tables() for TFL shells")
         instructions.append("CALL get_oncology_tfl_templates() for endpoint specifications, OS tables, AE tables")
+        instructions.append("CALL get_safety_analysis_specs() for AE analysis methods, CTCAE grading, exposure-adjusted rates")
+        instructions.append("CALL get_tfl_shells() for complete TFL structure templates with column headers and footnotes")
+        instructions.append("CALL get_programming_specifications() for visit windowing, baseline definition, derivation rules")
+        instructions.append("CALL get_adam_dataset_spec() for ADaM dataset specs (adsl/adae/adtte/adrs/adlb/adex/advs/adeg/adpr/adcm/admh)")
 
         # 5. Prognostic scores if applicable
         if flags.get("is_hematologic"):

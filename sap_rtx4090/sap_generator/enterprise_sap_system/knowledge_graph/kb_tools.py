@@ -480,6 +480,45 @@ class KnowledgeBaseTools:
             self.SAFETY_SPECIFICATIONS = SAFETY_SPECIFICATIONS
             self.DATA_HANDLING = DATA_HANDLING
 
+        # Load extended ADaM specifications (ADEX, ADVS, ADEG, ADPR, ADCM, ADMH)
+        try:
+            from .adam_specifications import (
+                ADEX_SPECIFICATION,
+                ADVS_SPECIFICATION,
+                ADEG_SPECIFICATION,
+                ADPR_SPECIFICATION,
+                ADCM_SPECIFICATION,
+                ADMH_SPECIFICATION
+            )
+            self.EXTENDED_ADAM_SPECS = {
+                "adex": ADEX_SPECIFICATION,
+                "advs": ADVS_SPECIFICATION,
+                "adeg": ADEG_SPECIFICATION,
+                "adpr": ADPR_SPECIFICATION,
+                "adcm": ADCM_SPECIFICATION,
+                "admh": ADMH_SPECIFICATION
+            }
+        except ImportError:
+            try:
+                from adam_specifications import (
+                    ADEX_SPECIFICATION,
+                    ADVS_SPECIFICATION,
+                    ADEG_SPECIFICATION,
+                    ADPR_SPECIFICATION,
+                    ADCM_SPECIFICATION,
+                    ADMH_SPECIFICATION
+                )
+                self.EXTENDED_ADAM_SPECS = {
+                    "adex": ADEX_SPECIFICATION,
+                    "advs": ADVS_SPECIFICATION,
+                    "adeg": ADEG_SPECIFICATION,
+                    "adpr": ADPR_SPECIFICATION,
+                    "adcm": ADCM_SPECIFICATION,
+                    "admh": ADMH_SPECIFICATION
+                }
+            except ImportError:
+                self.EXTENDED_ADAM_SPECS = {}
+
         # Load disease-specific response criteria (Lugano, IMWG, irRECIST, etc.)
         try:
             from .disease_specific_criteria import (
@@ -1166,14 +1205,26 @@ class KnowledgeBaseTools:
         Get ADaM dataset specification.
 
         Args:
-            dataset_name: One of "adsl", "adae", "adtte", "adrs", "adlb"
+            dataset_name: One of:
+                - Core: "adsl", "adae", "adtte", "adrs", "adlb"
+                - Extended: "adex", "advs", "adeg", "adpr", "adcm", "admh"
         """
-        content = self.ADAM_SPECIFICATIONS.get(dataset_name.lower(), {})
-        self._log_retrieval("get_adam_dataset_spec", dataset_name, "production_sap_specifications.py")
+        ds_lower = dataset_name.lower()
+
+        # Check core specifications first
+        content = self.ADAM_SPECIFICATIONS.get(ds_lower, {})
+        source_file = "production_sap_specifications.py"
+
+        # If not found, check extended specifications
+        if not content and hasattr(self, 'EXTENDED_ADAM_SPECS'):
+            content = self.EXTENDED_ADAM_SPECS.get(ds_lower, {})
+            source_file = "adam_specifications.py"
+
+        self._log_retrieval("get_adam_dataset_spec", dataset_name, source_file)
 
         return KBRetrievalResult(
             content=content,
-            source_file="production_sap_specifications.py",
+            source_file=source_file,
             source_key=f"ADAM_SPECIFICATIONS['{dataset_name}']"
         )
 
@@ -1195,6 +1246,77 @@ class KnowledgeBaseTools:
             content=self.PROGRAMMING_SPECIFICATIONS,
             source_file="production_sap_specifications.py",
             source_key="PROGRAMMING_SPECIFICATIONS"
+        )
+
+    def get_safety_analysis_specs(self, analysis_type: str = "all") -> KBRetrievalResult:
+        """
+        Get safety analysis specifications from methodology KB.
+
+        Args:
+            analysis_type: One of:
+                - "adverse_events": AE analysis methods (TEAE, SAE, related AEs)
+                - "exposure": Drug exposure analysis (duration, dose intensity)
+                - "laboratory": Lab shift analysis, toxicity grading
+                - "vital_signs": VS change from baseline methods
+                - "ecg": ECG analysis (QTc prolongation, outliers)
+                - "all": All safety analysis specifications (default)
+
+        Returns:
+            Safety analysis specifications including:
+            - AE incidence calculations
+            - MedDRA coding conventions
+            - Exposure-adjusted rates
+            - Lab toxicity grading (CTCAE)
+            - Shift tables methodology
+        """
+        if analysis_type == "all":
+            content = self.SAFETY_ANALYSIS_SPECIFICATIONS
+            source_key = "SAFETY_ANALYSIS_SPECIFICATIONS"
+        else:
+            content = self.SAFETY_ANALYSIS_SPECIFICATIONS.get(analysis_type, {})
+            source_key = f"SAFETY_ANALYSIS_SPECIFICATIONS['{analysis_type}']"
+
+        self._log_retrieval("get_safety_analysis_specs", analysis_type, "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="methodology_knowledge_base.py",
+            source_key=source_key
+        )
+
+    def get_tfl_shells(self, shell_type: str = "all") -> KBRetrievalResult:
+        """
+        Get TFL shell templates from production SAP specifications.
+
+        Args:
+            shell_type: One of:
+                - "disposition": Subject disposition shells
+                - "demographics": Demographics and baseline shells
+                - "efficacy": Efficacy analysis shells
+                - "safety": Safety analysis shells
+                - "pk": Pharmacokinetic shells
+                - "all": All TFL shells (default)
+
+        Returns:
+            TFL shell templates with:
+            - Table/Figure/Listing structure
+            - Column headers and row labels
+            - Statistical presentation formats
+            - Footnote conventions
+        """
+        if shell_type == "all":
+            content = self.TFL_SHELLS
+            source_key = "TFL_SHELLS"
+        else:
+            content = self.TFL_SHELLS.get(shell_type, {})
+            source_key = f"TFL_SHELLS['{shell_type}']"
+
+        self._log_retrieval("get_tfl_shells", shell_type, "production_sap_specifications.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="production_sap_specifications.py",
+            source_key=source_key
         )
 
     # =========================================================================
@@ -2086,6 +2208,39 @@ def get_claude_tool_definitions() -> List[Dict]:
                 },
                 "required": []
             }
+        },
+        # =====================================================================
+        # v68: PREVIOUSLY UNEXPOSED KB CONTENT
+        # =====================================================================
+        {
+            "name": "get_safety_analysis_specs",
+            "description": "Get safety analysis specifications: AE incidence calculations, MedDRA coding conventions, exposure-adjusted rates, CTCAE toxicity grading, shift tables methodology, lab/VS/ECG analysis methods.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "analysis_type": {
+                        "type": "string",
+                        "description": "Type of safety analysis: 'adverse_events', 'exposure', 'laboratory', 'vital_signs', 'ecg', or 'all' (default)",
+                        "enum": ["adverse_events", "exposure", "laboratory", "vital_signs", "ecg", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_tfl_shells",
+            "description": "Get TFL shell templates with complete structure: table/figure/listing layouts, column headers, row labels, statistical presentation formats, and footnote conventions. Separate from complete_tfl_inventory.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "shell_type": {
+                        "type": "string",
+                        "description": "Type of shells: 'disposition', 'demographics', 'efficacy', 'safety', 'pk', or 'all' (default)",
+                        "enum": ["disposition", "demographics", "efficacy", "safety", "pk", "all"]
+                    }
+                },
+                "required": []
+            }
         }
     ]
 
@@ -2161,6 +2316,10 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_lymphoma_tables": lambda: kb.get_lymphoma_tables(),
         "get_cart_tables": lambda: kb.get_cart_tables(),
         "get_oncology_tfl_templates": lambda: kb.get_oncology_tfl_templates(tool_input.get("template_type", "all")),
+        # v68: Previously unexposed KB content
+        "get_safety_analysis_specs": lambda: kb.get_safety_analysis_specs(tool_input.get("analysis_type", "all")),
+        "get_tfl_shells": lambda: kb.get_tfl_shells(tool_input.get("shell_type", "all")),
+        "get_programming_specifications": lambda: kb.get_programming_specifications(),
     }
 
     if tool_name in tool_map:
