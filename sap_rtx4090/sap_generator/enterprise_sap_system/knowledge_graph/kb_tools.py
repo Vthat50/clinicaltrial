@@ -2336,6 +2336,38 @@ class KnowledgeBaseTools:
             source_key="ANALYSIS_TIMING"
         )
 
+    def get_follow_up_analysis_specs(self, timepoint: str = "all") -> KBRetrievalResult:
+        """
+        Get follow-up analysis specifications for planned descriptive analyses.
+
+        Returns specifications for 18-month, 24-month, 36-month follow-up analyses
+        including endpoints, analysis content, and CAR-T specific long-term follow-up.
+        Essential for Section 20 (FOLLOW-UP ANALYSIS).
+
+        Args:
+            timepoint: "18_month", "24_month", "36_month", "cart", or "all"
+
+        Returns:
+            Follow-up analysis specifications with timepoints, analyses, and reporting format
+        """
+        from comprehensive_sap_elements import FOLLOW_UP_ANALYSIS_SPECS
+        self._log_retrieval("get_follow_up_analysis_specs", timepoint, "comprehensive_sap_elements.py")
+
+        if timepoint.lower() == "all":
+            content = FOLLOW_UP_ANALYSIS_SPECS
+        elif timepoint.lower() == "cart":
+            content = FOLLOW_UP_ANALYSIS_SPECS.get("cart_specific_follow_up", {})
+        elif timepoint.lower() in ["18_month", "24_month", "36_month"]:
+            content = FOLLOW_UP_ANALYSIS_SPECS.get("standard_timepoints", {}).get(timepoint.lower(), {})
+        else:
+            content = FOLLOW_UP_ANALYSIS_SPECS
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="comprehensive_sap_elements.py",
+            source_key=f"FOLLOW_UP_ANALYSIS_SPECS['{timepoint}']"
+        )
+
     def get_stratification_balance_specs(self) -> KBRetrievalResult:
         """
         Get stratification factor balance specifications.
@@ -3627,6 +3659,21 @@ def get_claude_tool_definitions() -> List[Dict]:
             "input_schema": {"type": "object", "properties": {}, "required": []}
         },
         {
+            "name": "get_follow_up_analysis_specs",
+            "description": "Get follow-up analysis specifications for planned descriptive analyses at 18-month, 24-month, 36-month timepoints. Returns timepoints, analysis content, CAR-T long-term follow-up. ESSENTIAL for Section 20 (FOLLOW-UP ANALYSIS).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "timepoint": {
+                        "type": "string",
+                        "description": "Follow-up timepoint",
+                        "enum": ["all", "18_month", "24_month", "36_month", "cart"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
             "name": "get_stratification_balance_specs",
             "description": "Get stratification factor balance specs. Returns balance assessment method, stratified vs unstratified analysis. Use for randomized studies.",
             "input_schema": {"type": "object", "properties": {}, "required": []}
@@ -3782,6 +3829,7 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_immunogenicity_specs": lambda: kb.get_immunogenicity_specs(),
         "get_organ_function_specs": lambda: kb.get_organ_function_specs(),
         "get_analysis_timing_specs": lambda: kb.get_analysis_timing_specs(),
+        "get_follow_up_analysis_specs": lambda: kb.get_follow_up_analysis_specs(tool_input.get("timepoint", "all")),
         "get_stratification_balance_specs": lambda: kb.get_stratification_balance_specs(),
         "get_figure_template": lambda: kb.get_figure_template(tool_input.get("figure_type", "kaplan_meier")),
         "get_study_design_specs": lambda: kb.get_study_design_specs(tool_input.get("design_type")),

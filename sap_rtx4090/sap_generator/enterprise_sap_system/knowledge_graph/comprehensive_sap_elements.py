@@ -1629,6 +1629,106 @@ DATA_CUTOFF_SPECS = {
 }
 
 # =============================================================================
+# FOLLOW-UP ANALYSIS SPECIFICATIONS
+# =============================================================================
+FOLLOW_UP_ANALYSIS_SPECS = {
+    "description": "Planned descriptive analyses at specified timepoints after primary analysis",
+
+    "purpose": {
+        "primary": "Provide updated efficacy and safety data with longer follow-up",
+        "regulatory": "Support regulatory submissions with mature data",
+        "note": "All follow-up analyses are DESCRIPTIVE only - no formal hypothesis testing"
+    },
+
+    "standard_timepoints": {
+        "18_month": {
+            "timing": "When all subjects have minimum 18 months follow-up from first dose/infusion",
+            "typical_endpoints": ["Updated DOR", "Updated PFS", "Updated OS", "Long-term safety"],
+            "analyses": [
+                "Kaplan-Meier estimates with updated follow-up",
+                "Landmark survival rates (12-month, 18-month)",
+                "Updated response duration for responders",
+                "Long-term AE summary (onset >6 months)"
+            ]
+        },
+        "24_month": {
+            "timing": "When all subjects have minimum 24 months follow-up from first dose/infusion",
+            "typical_endpoints": ["Updated DOR", "Updated PFS", "Updated OS", "2-year landmark rates"],
+            "analyses": [
+                "Kaplan-Meier estimates with 24-month minimum follow-up",
+                "Landmark survival rates (12-month, 24-month)",
+                "Median follow-up time (reverse Kaplan-Meier)",
+                "Long-term safety including delayed AEs"
+            ]
+        },
+        "36_month": {
+            "timing": "When all subjects have minimum 36 months follow-up",
+            "typical_endpoints": ["Long-term OS", "Long-term DOR", "3-year landmark rates"],
+            "analyses": [
+                "3-year landmark rates for OS, PFS, DOR",
+                "Long-term safety summary",
+                "Plateau analysis for response durability"
+            ]
+        }
+    },
+
+    "cart_specific_follow_up": {
+        "description": "CAR-T trials require extended follow-up per FDA guidance",
+        "minimum_follow_up": "15 years recommended for gene therapy products",
+        "key_analyses": [
+            "Long-term B-cell recovery",
+            "Persistent CAR-T cell detection",
+            "Secondary malignancy monitoring",
+            "Long-term hypogammaglobulinemia",
+            "Delayed neurotoxicity assessment"
+        ],
+        "timepoints": ["Year 1", "Year 2", "Year 3", "Year 5", "Year 10", "Year 15"]
+    },
+
+    "analysis_content": {
+        "efficacy_updates": {
+            "tte_endpoints": [
+                "Updated Kaplan-Meier curves",
+                "Updated median (if not reached at primary)",
+                "Landmark rates at specified timepoints",
+                "Number of events / Number at risk"
+            ],
+            "response_updates": [
+                "Updated DOR for responders",
+                "Conversion rates (PR to CR)",
+                "Loss of response summary"
+            ]
+        },
+        "safety_updates": {
+            "long_term_aes": "AEs with onset >6 months after treatment",
+            "delayed_toxicities": "Focus on treatment-specific delayed effects",
+            "deaths": "Updated death summary with causes",
+            "subsequent_therapy": "Summary of subsequent anti-cancer therapies"
+        }
+    },
+
+    "reporting_format": {
+        "tables": [
+            "Table X.1: Summary of Efficacy at [X] Months Follow-up",
+            "Table X.2: Kaplan-Meier Estimates of DOR at [X] Months",
+            "Table X.3: Kaplan-Meier Estimates of OS at [X] Months",
+            "Table X.4: Long-term Safety Summary"
+        ],
+        "figures": [
+            "Figure X.1: Updated Kaplan-Meier Plot of DOR",
+            "Figure X.2: Updated Kaplan-Meier Plot of OS",
+            "Figure X.3: Updated Swimmer Plot (responders)"
+        ]
+    },
+
+    "statistical_notes": {
+        "no_hypothesis_testing": "Follow-up analyses are descriptive; no p-values or formal comparisons",
+        "confidence_intervals": "95% CI for all point estimates",
+        "follow_up_time": "Report median follow-up using reverse Kaplan-Meier method {Schemper 1996}"
+    }
+}
+
+# =============================================================================
 # ORGAN FUNCTION REQUIREMENTS
 # =============================================================================
 ORGAN_FUNCTION_SPECS = {
@@ -1778,6 +1878,7 @@ def get_comprehensive_sap_elements(study_type: str = "oncology") -> dict:
         "blinding_considerations": BLINDING_CONSIDERATIONS,
         "data_cutoff_specs": DATA_CUTOFF_SPECS,
         "analysis_timing": ANALYSIS_TIMING,
+        "follow_up_analysis": FOLLOW_UP_ANALYSIS_SPECS,
         "stratification_balance": STRATIFICATION_BALANCE,
         "organ_function_specs": ORGAN_FUNCTION_SPECS,
         # Special Topics
@@ -1838,6 +1939,7 @@ def get_element_category(category: str) -> dict:
         "blinding": BLINDING_CONSIDERATIONS,
         "data_cutoff": DATA_CUTOFF_SPECS,
         "analysis_timing": ANALYSIS_TIMING,
+        "follow_up": FOLLOW_UP_ANALYSIS_SPECS,
         "stratification": STRATIFICATION_BALANCE,
         # Special
         "biomarkers": BIOMARKER_SUBGROUPS,
