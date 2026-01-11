@@ -243,11 +243,27 @@ class TrialPrecedentKG:
 
 @dataclass
 class KBRetrievalResult:
-    """Result from knowledge base retrieval with provenance."""
+    """Result from knowledge base retrieval with provenance and source traceability."""
     content: Any
     source_file: str
     source_key: str
     retrieved_at: str = field(default_factory=lambda: datetime.now().isoformat())
+    source_trials: List[str] = field(default_factory=list)
+    regulatory_sources: List[str] = field(default_factory=list)
+    source_note: str = ""
+
+    def __post_init__(self):
+        """Auto-populate source information from kb_source_mapping if not provided."""
+        if not self.source_trials and not self.regulatory_sources:
+            try:
+                from kb_source_mapping import get_sources
+                # Try to get sources for the source_key
+                sources = get_sources(self.source_key)
+                self.source_trials = sources.get("trials", [])
+                self.regulatory_sources = sources.get("regulatory", [])
+                self.source_note = sources.get("note", "")
+            except ImportError:
+                pass  # Source mapping not available
 
     def to_dict(self) -> Dict:
         return {
@@ -255,7 +271,10 @@ class KBRetrievalResult:
             "provenance": {
                 "source_file": self.source_file,
                 "source_key": self.source_key,
-                "retrieved_at": self.retrieved_at
+                "retrieved_at": self.retrieved_at,
+                "source_trials": self.source_trials,
+                "regulatory_sources": self.regulatory_sources,
+                "source_note": self.source_note
             }
         }
 
