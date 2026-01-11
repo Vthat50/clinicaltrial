@@ -1123,9 +1123,15 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         # Initial prompt
         system_prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
 
-You have access to a knowledge base of standard statistical methods, table templates, and regulatory specifications.
+You have access to TWO types of knowledge:
+1. METHODOLOGY KB: Standard statistical methods, table templates, and regulatory specifications
+2. TRIAL PRECEDENT KB: 354 real trial SAPs showing what approaches were accepted in similar studies
+
 When you need a standard specification (like Cox model formula, table template, missing data method),
 USE THE TOOLS PROVIDED to retrieve it. Do not make up formulas or templates.
+
+IMPORTANT: For censoring rules, multiplicity adjustments, and interim analysis designs, FIRST call
+get_similar_trials() to see how similar trials handled these - then adapt to your protocol.
 
 ## PROHIBITED CONTENT (Protocol-Specific):
 {prohibition_rules}
@@ -1181,7 +1187,12 @@ CRITICAL REQUIREMENTS:
 - Section 11 (Interim Analysis): Include even if "Not applicable" for this study
 - Section 12 (Table/Figure Shells): MUST call get_disposition_tables, get_safety_tables tools
 
-Start by calling the tools to get standard specifications, then generate the COMPLETE 12-section SAP."""
+RECOMMENDED TOOL ORDER:
+1. FIRST: Call get_similar_trials() with the protocol's phase, indication, and primary endpoint to find precedent
+2. THEN: Use the similar trials' censoring rules, multiplicity, and methods as a starting point
+3. FINALLY: Call get_statistical_method, get_disposition_tables, etc. for standard templates
+
+Start by calling get_similar_trials to find precedent, then generate the COMPLETE 12-section SAP."""
 
         messages = [{"role": "user", "content": user_prompt}]
         knowledge_used = []
@@ -1450,7 +1461,8 @@ class EnhancedKGPipeline:
 
     def _load_existing_kg(self):
         """Load existing Claude-extracted KG."""
-        kg_path = Path(__file__).parent / "output" / "factual_kg_claude.json"
+        # Use merged KG (354 trials from original + 151 PDF extractions)
+        kg_path = Path(__file__).parent / "output" / "factual_kg_merged.json"
 
         if kg_path.exists():
             with open(kg_path) as f:

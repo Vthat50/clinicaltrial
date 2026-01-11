@@ -20,10 +20,225 @@ Usage:
 """
 
 import json
+import re
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
+
+
+# =============================================================================
+# TRIAL PRECEDENT KNOWLEDGE GRAPH
+# =============================================================================
+
+class TrialPrecedentKG:
+    """
+    Queries the factual knowledge graph (354 trials) for similar trial precedents.
+
+    This provides real-world examples of how similar trials handled:
+    - Censoring rules for specific endpoints
+    - Multiplicity adjustments for co-primary endpoints
+    - Interim analysis designs
+    - Statistical methods for specific indications
+    """
+
+    def __init__(self):
+        self.nodes: Dict[str, Dict] = {}
+        self.edges: List[Dict] = []
+        self.trials: Dict[str, Dict] = {}  # trial_id -> full trial data with connections
+        self._loaded = False
+
+    def _load_kg(self):
+        """Load the factual knowledge graph."""
+        if self._loaded:
+            return
+
+        kg_path = Path(__file__).parent / "output" / "factual_kg_merged.json"
+        if not kg_path.exists():
+            print(f"[TrialPrecedentKG] Warning: {kg_path} not found")
+            self._loaded = True
+            return
+
+        with open(kg_path) as f:
+            data = json.load(f)
+
+        # Index nodes by ID
+        for node in data.get("nodes", []):
+            self.nodes[node["id"]] = node
+
+        self.edges = data.get("edges", [])
+
+        # Build trial index with all connections
+        self._build_trial_index()
+        self._loaded = True
+        print(f"[TrialPrecedentKG] Loaded {len(self.trials)} trials with precedent data")
+
+    def _build_trial_index(self):
+        """Build an index of trials with their connected components."""
+        # Find all trial nodes
+        for node_id, node in self.nodes.items():
+            if node.get("type") == "trial":
+                attrs = node.get("attributes", {})
+                # Only include trials with rich metadata (from PDF extraction)
+                if attrs.get("phase") or attrs.get("indication"):
+                    trial_data = {
+                        "trial_id": attrs.get("trial_id", node_id),
+                        "phase": attrs.get("phase", ""),
+                        "indication": attrs.get("indication", ""),
+                        "design": attrs.get("design", ""),
+                        "source_file": attrs.get("source_file", ""),
+                        "endpoints": [],
+                        "censoring_rules": [],
+                        "methods": [],
+                        "multiplicity": [],
+                        "interim_analyses": [],
+                        "populations": []
+                    }
+                    self.trials[node_id] = trial_data
+
+        # Connect components to trials via edges
+        for edge in self.edges:
+            source = edge.get("source")
+            target = edge.get("target")
+            edge_type = edge.get("type", "").lower()
+
+            # Check if source is a trial we're tracking
+            if source in self.trials:
+                target_node = self.nodes.get(target, {})
+                target_type = target_node.get("type", "")
+                target_attrs = target_node.get("attributes", {})
+
+                if target_type == "endpoint" or edge_type == "has_endpoint":
+                    self.trials[source]["endpoints"].append(target_attrs)
+                elif target_type == "censoring_rule" or edge_type == "has_censoring_rule":
+                    self.trials[source]["censoring_rules"].append(target_attrs)
+                elif target_type == "method" or edge_type == "uses_method":
+                    self.trials[source]["methods"].append(target_attrs)
+                elif target_type == "multiplicity" or edge_type == "has_multiplicity":
+                    self.trials[source]["multiplicity"].append(target_attrs)
+                elif target_type == "interim_analysis" or edge_type == "has_interim_analysis":
+                    self.trials[source]["interim_analyses"].append(target_attrs)
+                elif target_type == "population" or edge_type == "has_population":
+                    self.trials[source]["populations"].append(target_attrs)
+
+    def find_similar_trials(
+        self,
+        phase: Optional[str] = None,
+        indication: Optional[str] = None,
+        endpoint_type: Optional[str] = None,
+        design_type: Optional[str] = None,
+        max_results: int = 5
+    ) -> List[Dict]:
+        """
+        Find similar trials based on matching criteria.
+
+        Args:
+            phase: Trial phase (e.g., "III", "Phase 3", "2/3")
+            indication: Disease/indication keywords (e.g., "NSCLC", "breast cancer", "AML")
+            endpoint_type: Primary endpoint type (e.g., "PFS", "OS", "ORR", "DFS")
+            design_type: Study design (e.g., "randomized", "single-arm", "open-label")
+            max_results: Maximum number of results to return
+
+        Returns:
+            List of matching trials with their full precedent data
+        """
+        self._load_kg()
+
+        if not self.trials:
+            return []
+
+        # Normalize search terms
+        phase_pattern = self._normalize_phase(phase) if phase else None
+        indication_terms = self._extract_keywords(indication) if indication else []
+        endpoint_terms = self._extract_keywords(endpoint_type) if endpoint_type else []
+        design_terms = self._extract_keywords(design_type) if design_type else []
+
+        scored_trials = []
+
+        for trial_id, trial in self.trials.items():
+            score = 0
+
+            # Phase matching (exact or partial)
+            if phase_pattern:
+                trial_phase = self._normalize_phase(trial.get("phase", ""))
+                if trial_phase and phase_pattern in trial_phase:
+                    score += 30
+
+            # Indication matching (keyword overlap)
+            if indication_terms:
+                trial_indication = trial.get("indication", "").lower()
+                matches = sum(1 for term in indication_terms if term in trial_indication)
+                score += matches * 25
+
+            # Endpoint type matching
+            if endpoint_terms:
+                for ep in trial.get("endpoints", []):
+                    ep_name = ep.get("name", "").lower()
+                    ep_type = ep.get("endpoint_type", "").lower()
+                    for term in endpoint_terms:
+                        if term in ep_name or term in ep_type:
+                            score += 20
+                            break
+
+            # Design type matching
+            if design_terms:
+                trial_design = trial.get("design", "").lower()
+                matches = sum(1 for term in design_terms if term in trial_design)
+                score += matches * 15
+
+            # Bonus for trials with rich data
+            if trial.get("censoring_rules"):
+                score += 5
+            if trial.get("multiplicity"):
+                score += 5
+            if trial.get("interim_analyses"):
+                score += 3
+
+            if score > 0:
+                scored_trials.append((score, trial_id, trial))
+
+        # Sort by score and return top results
+        scored_trials.sort(key=lambda x: -x[0])
+
+        results = []
+        for score, trial_id, trial in scored_trials[:max_results]:
+            results.append({
+                "trial_id": trial.get("trial_id", trial_id),
+                "phase": trial.get("phase"),
+                "indication": trial.get("indication"),
+                "design": trial.get("design"),
+                "source_sap": trial.get("source_file"),
+                "relevance_score": score,
+                "precedent_data": {
+                    "endpoints": trial.get("endpoints", [])[:5],  # Limit for context
+                    "censoring_rules": trial.get("censoring_rules", []),
+                    "methods": trial.get("methods", [])[:5],
+                    "multiplicity": trial.get("multiplicity", []),
+                    "interim_analyses": trial.get("interim_analyses", [])
+                }
+            })
+
+        return results
+
+    def _normalize_phase(self, phase: str) -> str:
+        """Normalize phase string for matching."""
+        if not phase:
+            return ""
+        phase = phase.lower().replace("phase", "").strip()
+        # Convert roman numerals
+        phase = phase.replace("iii", "3").replace("ii", "2").replace("i", "1")
+        return phase
+
+    def _extract_keywords(self, text: str) -> List[str]:
+        """Extract searchable keywords from text."""
+        if not text:
+            return []
+        # Common medical abbreviations and terms
+        text = text.lower()
+        # Split on non-alphanumeric
+        words = re.split(r'[^a-z0-9]+', text)
+        # Filter short words but keep abbreviations
+        return [w for w in words if len(w) >= 2]
 
 
 @dataclass
@@ -54,6 +269,8 @@ class KnowledgeBaseTools:
     def __init__(self):
         self._load_knowledge_bases()
         self.retrieval_log: List[Dict] = []  # Audit trail
+        # Initialize trial precedent KG for similar trial lookup
+        self.trial_kg = TrialPrecedentKG()
 
     def _load_knowledge_bases(self):
         """Load all knowledge base modules."""
@@ -469,6 +686,63 @@ class KnowledgeBaseTools:
         )
 
     # =========================================================================
+    # TRIAL PRECEDENT TOOLS (queries factual_kg_merged.json)
+    # =========================================================================
+
+    def get_similar_trials(
+        self,
+        phase: Optional[str] = None,
+        indication: Optional[str] = None,
+        endpoint_type: Optional[str] = None,
+        design_type: Optional[str] = None
+    ) -> KBRetrievalResult:
+        """
+        Find similar trials from the knowledge graph to use as precedent.
+
+        This queries 354 real trial SAPs to find examples of how similar trials
+        handled censoring rules, multiplicity, interim analyses, and endpoints.
+
+        Args:
+            phase: Trial phase (e.g., "III", "Phase 3", "2/3")
+            indication: Disease/indication (e.g., "NSCLC", "breast cancer", "AML", "lymphoma")
+            endpoint_type: Primary endpoint (e.g., "PFS", "OS", "ORR", "DFS", "EFS")
+            design_type: Study design (e.g., "randomized", "single-arm", "open-label")
+
+        Returns:
+            Similar trials with their precedent data including:
+            - Endpoint definitions used
+            - Censoring rules applied
+            - Statistical methods selected
+            - Multiplicity adjustments
+            - Interim analysis designs
+        """
+        search_key = f"phase={phase}, indication={indication}, endpoint={endpoint_type}, design={design_type}"
+        self._log_retrieval("get_similar_trials", search_key, "factual_kg_merged.json")
+
+        results = self.trial_kg.find_similar_trials(
+            phase=phase,
+            indication=indication,
+            endpoint_type=endpoint_type,
+            design_type=design_type,
+            max_results=5
+        )
+
+        return KBRetrievalResult(
+            content={
+                "query": {
+                    "phase": phase,
+                    "indication": indication,
+                    "endpoint_type": endpoint_type,
+                    "design_type": design_type
+                },
+                "num_matches": len(results),
+                "similar_trials": results
+            },
+            source_file="factual_kg_merged.json",
+            source_key="TrialPrecedentKG.find_similar_trials"
+        )
+
+    # =========================================================================
     # UTILITY METHODS
     # =========================================================================
 
@@ -498,6 +772,7 @@ class KnowledgeBaseTools:
             {"name": "get_recist_specifications", "description": "Get RECIST 1.1 specifications"},
             {"name": "get_safety_specifications", "description": "Get safety analysis specifications"},
             {"name": "get_study_design_specs", "description": "Get study design specifications"},
+            {"name": "get_similar_trials", "description": "Find similar trials from 354-trial KG for precedent (censoring, multiplicity, methods)"},
         ]
 
 
@@ -707,6 +982,32 @@ def get_claude_tool_definitions() -> List[Dict]:
                 "properties": {},
                 "required": []
             }
+        },
+        {
+            "name": "get_similar_trials",
+            "description": "Find similar trials from the 354-trial knowledge graph for precedent. Returns real examples of censoring rules, multiplicity adjustments, interim analysis designs, and statistical methods used in similar trials. Use this to see what approaches were accepted in similar regulatory submissions.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "phase": {
+                        "type": "string",
+                        "description": "Trial phase (e.g., 'III', 'Phase 3', '2/3', '1b/2')"
+                    },
+                    "indication": {
+                        "type": "string",
+                        "description": "Disease/indication keywords (e.g., 'NSCLC', 'breast cancer', 'AML', 'lymphoma', 'melanoma')"
+                    },
+                    "endpoint_type": {
+                        "type": "string",
+                        "description": "Primary endpoint type (e.g., 'PFS', 'OS', 'ORR', 'DFS', 'EFS', 'CR rate')"
+                    },
+                    "design_type": {
+                        "type": "string",
+                        "description": "Study design (e.g., 'randomized', 'single-arm', 'open-label', 'double-blind')"
+                    }
+                },
+                "required": []
+            }
         }
     ]
 
@@ -740,6 +1041,12 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_stratification_specs": lambda: kb.get_stratification_specs(),
         "get_subgroup_analysis_specs": lambda: kb.get_subgroup_analysis_specs(),
         "get_data_handling_rules": lambda: kb.get_data_handling_rules(),
+        "get_similar_trials": lambda: kb.get_similar_trials(
+            phase=tool_input.get("phase"),
+            indication=tool_input.get("indication"),
+            endpoint_type=tool_input.get("endpoint_type"),
+            design_type=tool_input.get("design_type")
+        ),
     }
 
     if tool_name in tool_map:
