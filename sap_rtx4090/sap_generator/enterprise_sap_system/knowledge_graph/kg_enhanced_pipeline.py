@@ -730,6 +730,7 @@ class EnhancedClaudeSAPGenerator:
         Generate SAP using comprehensive protocol extraction.
 
         Uses the 55-category extraction to generate accurate, protocol-specific SAP.
+        Now uses DYNAMIC section structure from MASTER_SAP_SECTIONS (same as generate_sap_with_tools).
 
         Returns:
             Tuple of (generated_sap, warnings)
@@ -749,6 +750,15 @@ class EnhancedClaudeSAPGenerator:
 
         # Build protocol-specific required sections from discovery
         protocol_requirements = self._build_protocol_specific_requirements(full_extraction)
+
+        # === DYNAMIC SAP STRUCTURE (same as generate_sap_with_tools) ===
+        # Get required sections based on protocol extraction from MASTER_SAP_SECTIONS
+        required_sections = get_required_sections(full_extraction or {})
+        section_outline = format_section_outline(required_sections, include_tools=False)
+        section_summary = get_section_summary(full_extraction or {})
+        num_main_sections = section_summary['main_sections']
+
+        print(f"[generate_sap] Using dynamic structure: {num_main_sections} sections from MASTER_SAP_SECTIONS")
 
         # Build the comprehensive SAP generation prompt
         prompt = f"""You are a senior biostatistician creating a Statistical Analysis Plan (SAP).
@@ -878,22 +888,16 @@ DO NOT add any content not present in the extraction.
 
 ---
 
-## OUTPUT FORMAT:
-Generate a complete SAP with these sections:
-1. Title Page & Administrative Information
-2. Introduction & Study Objectives
-3. Study Design
-4. Study Endpoints
-5. Analysis Populations
-6. Statistical Methods
-7. Sample Size
-8. Interim Analysis (if applicable)
-9. Baseline & Demographics Analysis
-10. Efficacy Analysis
-11. Safety Analysis
-12. Table/Figure Shells
+## MANDATORY SECTION OUTLINE (DYNAMIC - {num_main_sections} sections based on protocol):
 
-For any element not in extraction, write: [NOT EXTRACTED - VERIFY IN PROTOCOL]
+{section_outline}
+
+## OUTPUT FORMAT:
+- Generate ALL sections shown in the MANDATORY SECTION OUTLINE above
+- Use EXACT section numbers and headers as shown
+- Main sections use "## N." format (e.g., "## 1. TITLE PAGE")
+- Subsections use "### N.N" format (e.g., "### 5.1 Intent-to-Treat Population")
+- For any element not in extraction, write: [NOT EXTRACTED - VERIFY IN PROTOCOL]
 
 Generate the comprehensive SAP now:"""
 
