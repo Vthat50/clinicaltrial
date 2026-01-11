@@ -59,6 +59,28 @@ except ImportError:
         LLMParser = None
         print("Warning: KG pipeline not available, using basic extraction")
 
+# v93: Import SDTM generator for SAP → SDTM mapping
+try:
+    from enterprise_sap_system.specs.sdtm_specs import (
+        SDTMSpecGenerator,
+        SDTMSpecification,
+        create_sdtm_spec_generator
+    )
+    SDTM_AVAILABLE = True
+except ImportError:
+    try:
+        from ..specs.sdtm_specs import (
+            SDTMSpecGenerator,
+            SDTMSpecification,
+            create_sdtm_spec_generator
+        )
+        SDTM_AVAILABLE = True
+    except ImportError:
+        SDTM_AVAILABLE = False
+        SDTMSpecGenerator = None
+        SDTMSpecification = None
+        print("Warning: SDTM generator not available")
+
 
 class SectionStatus(Enum):
     """Status of each SAP section."""
@@ -157,6 +179,10 @@ class StudyWorkspace:
 
     # Protocol conditions for dynamic section filtering (v90)
     protocol_conditions: Dict[str, bool] = field(default_factory=dict)
+
+    # v93: SDTM specification generated from SAP
+    sdtm_spec: Optional[Dict] = None
+    sdtm_generated_at: Optional[str] = None
 
 
 # =============================================================================
@@ -1439,6 +1465,181 @@ Format as numbered list with full citations.
                 lines.append("")
                 lines.append("---")
                 lines.append("")
+
+        return "\n".join(lines)
+
+    # =========================================================================
+    # v93: SDTM SPECIFICATION GENERATION
+    # =========================================================================
+
+    def generate_sdtm_spec(self, workspace_id: str) -> Dict:
+        """
+        Generate SDTM specification from the completed SAP.
+
+        Uses Claude + LLMParser for accurate SAP parsing and SDTM domain mapping.
+
+        Args:
+            workspace_id: The workspace ID
+
+        Returns:
+            Dictionary with SDTM specification including domains and traceability
+        """
+        if not SDTM_AVAILABLE:
+            raise ValueError("SDTM generator not available")
+
+        workspace = self.get_workspace(workspace_id)
+        if not workspace:
+            raise ValueError(f"Workspace {workspace_id} not found")
+
+        # Get the full SAP content
+        sap_content = self.export_sap(workspace_id, format="markdown")
+        if not sap_content or len(sap_content) < 100:
+            raise ValueError("SAP content is empty or too short. Generate SAP sections first.")
+
+        print(f"[Workbench] Generating SDTM spec from SAP ({len(sap_content):,} chars)")
+
+        # Create SDTM generator with same client
+        generator = create_sdtm_spec_generator(client=self.client, model=self.model)
+
+        # Get protocol facts from extraction if available
+        protocol_facts = {}
+        if workspace.metadata and workspace.metadata.full_extraction:
+            protocol_facts = workspace.metadata.full_extraction
+        else:
+            # Parse from SAP text
+            parsed = generator.parser.parse(sap_content)
+            protocol_facts = parsed
+
+        # Generate SDTM specification
+        spec = generator.generate(protocol_facts)
+
+        # Convert to dictionary for storage
+        sdtm_dict = {
+            "study_id": spec.study_id,
+            "study_name": spec.study_name,
+            "generated_at": datetime.now().isoformat(),
+            "domains": [
+                {
+                    "code": d.code,
+                    "name": d.name,
+                    "label": d.label,
+                    "domain_class": d.domain_class.value,
+                    "structure": d.structure,
+                    "description": d.description,
+                    "purpose": d.purpose,
+                    "variables": [
+                        {
+                            "name": v.name,
+                            "label": v.label,
+                            "type": v.type,
+                            "length": v.length,
+                            "core": v.core.value,
+                            "codelist": v.codelist,
+                            "description": v.description,
+                            "source": v.source
+                        }
+                        for v in d.variables
+                    ],
+                    "notes": d.notes
+                }
+                for d in spec.domains
+            ],
+            "traceability": [
+                {
+                    "sap_section": t.sap_section,
+                    "sap_text": t.sap_text[:200],  # Truncate for storage
+                    "sdtm_element": t.sdtm_element,
+                    "rationale": t.rationale
+                }
+                for t in spec.traceability
+            ],
+            "validation_notes": spec.validation_notes
+        }
+
+        # Store in workspace
+        workspace.sdtm_spec = sdtm_dict
+        workspace.sdtm_generated_at = datetime.now().isoformat()
+        workspace.updated_at = datetime.now().isoformat()
+        self._save_workspace(workspace)
+
+        print(f"[Workbench] Generated SDTM spec with {len(sdtm_dict['domains'])} domains")
+
+        return sdtm_dict
+
+    def export_sdtm(self, workspace_id: str, format: str = "markdown") -> str:
+        """
+        Export SDTM specification as markdown or JSON.
+
+        Args:
+            workspace_id: The workspace ID
+            format: "markdown" or "json"
+
+        Returns:
+            Formatted SDTM specification
+        """
+        workspace = self.get_workspace(workspace_id)
+        if not workspace:
+            raise ValueError(f"Workspace {workspace_id} not found")
+
+        if not workspace.sdtm_spec:
+            raise ValueError("No SDTM specification generated. Call generate_sdtm_spec first.")
+
+        spec = workspace.sdtm_spec
+
+        if format == "json":
+            return json.dumps(spec, indent=2)
+
+        # Markdown format
+        lines = [
+            "# SDTM Specification",
+            "",
+            f"**Study:** {spec.get('study_id', 'Unknown')}",
+            f"**Generated:** {spec.get('generated_at', '')}",
+            "",
+            "---",
+            "",
+            "## Domains Required",
+            ""
+        ]
+
+        for domain in spec.get('domains', []):
+            lines.append(f"### {domain['code']} - {domain['name']}")
+            lines.append("")
+            lines.append(f"**Class:** {domain['domain_class']}")
+            lines.append(f"**Structure:** {domain['structure']}")
+            lines.append(f"**Purpose:** {domain.get('purpose', '')}")
+            lines.append("")
+
+            if domain.get('notes'):
+                lines.append("**Notes:**")
+                for note in domain['notes']:
+                    lines.append(f"- {note}")
+                lines.append("")
+
+            lines.append("**Variables:**")
+            lines.append("")
+            lines.append("| Variable | Label | Type | Core |")
+            lines.append("|----------|-------|------|------|")
+
+            for var in domain.get('variables', [])[:20]:  # Limit to first 20
+                lines.append(
+                    f"| {var['name']} | {var['label'][:40]} | {var['type']} | {var['core']} |"
+                )
+
+            lines.append("")
+            lines.append("---")
+            lines.append("")
+
+        # Traceability section
+        lines.append("## SAP to SDTM Traceability")
+        lines.append("")
+        lines.append("| SAP Section | SDTM Element | Rationale |")
+        lines.append("|-------------|--------------|-----------|")
+
+        for trace in spec.get('traceability', [])[:30]:  # Limit
+            lines.append(
+                f"| {trace['sap_section']} | {trace['sdtm_element']} | {trace['rationale'][:50]} |"
+            )
 
         return "\n".join(lines)
 

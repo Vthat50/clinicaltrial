@@ -23,6 +23,25 @@ from dataclasses import dataclass, field
 from enum import Enum
 from datetime import datetime
 import re
+import os
+import json
+
+# v93: Add Claude + LLMParser for SAP parsing (replaces regex)
+try:
+    import anthropic
+except ImportError:
+    print("Installing anthropic...")
+    os.system("pip install anthropic")
+    import anthropic
+
+try:
+    from ..knowledge_graph.llm_parser import LLMParser
+except ImportError:
+    try:
+        from knowledge_graph.llm_parser import LLMParser
+    except ImportError:
+        LLMParser = None
+        print("Warning: LLMParser not available, using regex fallback")
 
 
 class VariableCore(Enum):
@@ -515,13 +534,35 @@ class SAPParser:
         'mucosal': ('FA', 'Mucosal assessment'),
     }
 
-    def __init__(self):
+    def __init__(self, client=None, model: str = "claude-sonnet-4-20250514"):
+        """
+        Initialize SAP Parser.
+
+        Args:
+            client: Anthropic client for Claude-based parsing (optional)
+            model: Claude model to use for parsing
+        """
         self.extracted_elements: List[ExtractedSAPElement] = []
         self.domain_requirements: Dict[str, List[SAPTraceability]] = {}
+        self.client = client
+        self.model = model
 
-    def parse(self, sap_text: str) -> Dict[str, Any]:
+        # Initialize client if not provided
+        if self.client is None:
+            try:
+                api_key = os.environ.get("ANTHROPIC_API_KEY")
+                if api_key:
+                    self.client = anthropic.Anthropic(api_key=api_key)
+            except Exception as e:
+                print(f"[SAPParser] Could not initialize Claude client: {e}")
+
+    def parse(self, sap_text: str, use_claude: bool = True) -> Dict[str, Any]:
         """
         Parse SAP text and extract study-specific requirements.
+
+        Args:
+            sap_text: The SAP document text
+            use_claude: If True, use Claude for parsing (more accurate). Falls back to regex.
 
         Returns dictionary with:
         - study_id: str (extracted from SAP)
@@ -532,6 +573,214 @@ class SAPParser:
         - assessments: List[Dict] with domain mappings
         - variables_mentioned: List[str]
         - traceability: Dict[domain_code -> List[SAPTraceability]]
+        """
+        # v93: Try Claude-based parsing first for better accuracy
+        if use_claude and self.client and LLMParser:
+            try:
+                result = self._parse_with_claude(sap_text)
+                if result:
+                    print("[SAPParser] Successfully parsed with Claude")
+                    return result
+            except Exception as e:
+                print(f"[SAPParser] Claude parsing failed: {e}, falling back to regex")
+
+        # Fallback to regex-based parsing
+        return self._parse_with_regex(sap_text)
+
+    def _parse_with_claude(self, sap_text: str) -> Optional[Dict[str, Any]]:
+        """
+        Parse SAP using Claude for better accuracy.
+
+        Returns structured extraction or None if failed.
+        """
+        prompt = f"""Analyze this Statistical Analysis Plan (SAP) document and extract structured information for SDTM domain mapping.
+
+## SAP DOCUMENT:
+{sap_text[:50000]}
+
+## EXTRACTION REQUIRED:
+Return a JSON object with these fields:
+
+{{
+    "study_id": "Protocol/NCT number (e.g., NCT12345678 or ABC-123-456)",
+    "drug_name": "Investigational product name",
+    "primary_endpoint": "Primary efficacy endpoint description",
+    "primary_timepoint": "Primary endpoint assessment timepoint (e.g., Week 12)",
+    "secondary_endpoints": ["List of secondary endpoints"],
+    "populations": ["Analysis populations (e.g., ITT, mITT, PP, Safety)"],
+    "treatment_arms": ["List of treatment arms with doses"],
+    "sample_size": 100,
+    "assessments": [
+        {{
+            "name": "Assessment name",
+            "domain": "SDTM domain code (DM, AE, LB, VS, QS, EX, CM, etc.)",
+            "description": "What this measures",
+            "sap_section": "Which SAP section mentions this"
+        }}
+    ],
+    "laboratory_tests": ["List of lab tests mentioned"],
+    "vital_signs": ["List of vital signs"],
+    "questionnaires": ["PRO/QoL instruments mentioned"],
+    "safety_endpoints": ["Safety endpoints and AE categories"],
+    "pk_parameters": ["PK parameters if applicable"],
+    "biomarkers": ["Biomarkers mentioned"]
+}}
+
+## SDTM DOMAIN MAPPING GUIDE:
+- DM: Demographics, baseline characteristics
+- AE: Adverse events, TEAEs, SAEs
+- DS: Disposition, discontinuation
+- EX: Drug exposure, dosing
+- CM: Concomitant medications
+- MH: Medical history
+- LB: Laboratory tests (hematology, chemistry, urinalysis, biomarkers)
+- VS: Vital signs (BP, HR, temp, weight, height)
+- QS: Questionnaires, PRO, QoL (Mayo score, SF-36, EQ-5D, etc.)
+- RS: Disease response (RECIST, tumor response)
+- TU: Tumor measurements
+- TR: Tumor results
+- FA: Findings about (endoscopy, biopsy)
+- EG: ECG parameters
+- PC: Pharmacokinetic concentrations
+- PP: Pharmacokinetic parameters
+
+Return ONLY valid JSON, no explanation."""
+
+        response = self.client.messages.create(
+            model=self.model,
+            max_tokens=8192,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        response_text = response.content[0].text.strip()
+
+        # Use LLMParser for robust JSON parsing
+        parser = LLMParser(client=self.client, model=self.model)
+        parse_result = parser.parse(
+            response_text,
+            retry_with_llm=True,
+            context="SDTM SAP parsing"
+        )
+
+        if not parse_result.success:
+            print(f"[SAPParser] LLMParser failed: {parse_result.error}")
+            return None
+
+        if parse_result.repairs_applied:
+            print(f"[SAPParser] LLMParser applied repairs: {', '.join(parse_result.repairs_applied)}")
+
+        data = parse_result.data
+
+        # Convert to standard format with domain_requirements
+        self.extracted_elements = []
+        self.domain_requirements = {}
+
+        # Process assessments into domain requirements
+        for assessment in data.get('assessments', []):
+            domain = assessment.get('domain', 'XX')
+            if domain not in self.domain_requirements:
+                self.domain_requirements[domain] = []
+
+            self.domain_requirements[domain].append(SAPTraceability(
+                sap_section=assessment.get('sap_section', 'SAP'),
+                sap_text=assessment.get('description', ''),
+                sdtm_element=f"{domain} - {assessment.get('name', '')}",
+                rationale=f"Extracted by Claude: {assessment.get('description', '')}"
+            ))
+
+        # Add lab tests to LB domain
+        for lab in data.get('laboratory_tests', []):
+            if 'LB' not in self.domain_requirements:
+                self.domain_requirements['LB'] = []
+            self.domain_requirements['LB'].append(SAPTraceability(
+                sap_section='Laboratory',
+                sap_text=lab,
+                sdtm_element=f"LB - {lab}",
+                rationale="Laboratory test from SAP"
+            ))
+
+        # Add vital signs to VS domain
+        for vs in data.get('vital_signs', []):
+            if 'VS' not in self.domain_requirements:
+                self.domain_requirements['VS'] = []
+            self.domain_requirements['VS'].append(SAPTraceability(
+                sap_section='Vital Signs',
+                sap_text=vs,
+                sdtm_element=f"VS - {vs}",
+                rationale="Vital sign from SAP"
+            ))
+
+        # Add questionnaires to QS domain
+        for qs in data.get('questionnaires', []):
+            if 'QS' not in self.domain_requirements:
+                self.domain_requirements['QS'] = []
+            self.domain_requirements['QS'].append(SAPTraceability(
+                sap_section='PRO/Questionnaires',
+                sap_text=qs,
+                sdtm_element=f"QS - {qs}",
+                rationale="Questionnaire/PRO from SAP"
+            ))
+
+        # Add safety endpoints to AE domain
+        for safety in data.get('safety_endpoints', []):
+            if 'AE' not in self.domain_requirements:
+                self.domain_requirements['AE'] = []
+            self.domain_requirements['AE'].append(SAPTraceability(
+                sap_section='Safety',
+                sap_text=safety,
+                sdtm_element=f"AE - {safety}",
+                rationale="Safety endpoint from SAP"
+            ))
+
+        # Add PK parameters to PC/PP domains
+        for pk in data.get('pk_parameters', []):
+            if 'PP' not in self.domain_requirements:
+                self.domain_requirements['PP'] = []
+            self.domain_requirements['PP'].append(SAPTraceability(
+                sap_section='Pharmacokinetics',
+                sap_text=pk,
+                sdtm_element=f"PP - {pk}",
+                rationale="PK parameter from SAP"
+            ))
+
+        # Add biomarkers to LB domain
+        for biomarker in data.get('biomarkers', []):
+            if 'LB' not in self.domain_requirements:
+                self.domain_requirements['LB'] = []
+            self.domain_requirements['LB'].append(SAPTraceability(
+                sap_section='Biomarkers',
+                sap_text=biomarker,
+                sdtm_element=f"LB - {biomarker}",
+                rationale="Biomarker from SAP"
+            ))
+
+        # Build result in standard format
+        result = {
+            'study_id': data.get('study_id'),
+            'drug_name': data.get('drug_name'),
+            'primary_endpoint': data.get('primary_endpoint'),
+            'primary_timepoint': data.get('primary_timepoint'),
+            'secondary_endpoints': data.get('secondary_endpoints', []),
+            'populations': data.get('populations', []),
+            'assessments': data.get('assessments', []),
+            'variables_mentioned': (
+                data.get('laboratory_tests', []) +
+                data.get('vital_signs', []) +
+                data.get('questionnaires', []) +
+                data.get('biomarkers', [])
+            ),
+            'treatment_arms': data.get('treatment_arms', []),
+            'sample_size': data.get('sample_size'),
+            'extracted_elements': self.extracted_elements,
+            'domain_requirements': self.domain_requirements,
+            'extraction_method': 'claude'
+        }
+
+        return result
+
+    def _parse_with_regex(self, sap_text: str) -> Dict[str, Any]:
+        """
+        Parse SAP using regex patterns (fallback method).
         """
         self.extracted_elements = []
         self.domain_requirements = {}
@@ -549,6 +798,7 @@ class SAPParser:
             'sample_size': self._extract_sample_size(sap_text),
             'extracted_elements': self.extracted_elements,
             'domain_requirements': self.domain_requirements,
+            'extraction_method': 'regex'
         }
 
         # Consolidate redundant traceability entries
@@ -943,10 +1193,29 @@ class SDTMSpecGenerator:
     # Standard domain templates with CDISC-compliant variables
     DOMAIN_TEMPLATES: Dict[str, SDTMDomain] = {}
 
-    def __init__(self):
-        """Initialize with standard domain templates."""
+    def __init__(self, client=None, model: str = "claude-sonnet-4-20250514"):
+        """
+        Initialize with standard domain templates.
+
+        Args:
+            client: Anthropic client for Claude-based SAP parsing (optional)
+            model: Claude model to use for parsing
+        """
         self._init_domain_templates()
-        self.parser = SAPParser()
+        self.client = client
+        self.model = model
+
+        # Initialize client if not provided
+        if self.client is None:
+            try:
+                api_key = os.environ.get("ANTHROPIC_API_KEY")
+                if api_key:
+                    self.client = anthropic.Anthropic(api_key=api_key)
+            except Exception as e:
+                print(f"[SDTMSpecGenerator] Could not initialize Claude client: {e}")
+
+        # v93: Pass client to SAPParser for Claude-based parsing
+        self.parser = SAPParser(client=self.client, model=self.model)
 
     def _init_domain_templates(self):
         """Initialize all standard SDTM domain templates."""
@@ -1881,6 +2150,15 @@ class SDTMSpecGenerator:
 
 
 # Factory function
-def create_sdtm_spec_generator() -> SDTMSpecGenerator:
-    """Create an SDTM specification generator."""
-    return SDTMSpecGenerator()
+def create_sdtm_spec_generator(client=None, model: str = "claude-sonnet-4-20250514") -> SDTMSpecGenerator:
+    """
+    Create an SDTM specification generator.
+
+    Args:
+        client: Anthropic client for Claude-based parsing (optional)
+        model: Claude model to use
+
+    Returns:
+        SDTMSpecGenerator with Claude parsing enabled
+    """
+    return SDTMSpecGenerator(client=client, model=model)
