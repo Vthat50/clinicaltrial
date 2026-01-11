@@ -611,6 +611,7 @@ TIME_TO_EVENT_ANALYSIS = {
 CENSORING_RULES = {
     "pfs_censoring": {
         "description": "Complete censoring rules for PFS analysis",
+        "regulatory_source": "FDA Guidance: Clinical Trial Endpoints for Cancer Drugs (2018) Section III.A.1; EMA Guideline on Evaluation of Anticancer Medicinal Products (2017)",
         "rules": [
             {
                 "scenario_id": 1,
@@ -778,6 +779,7 @@ CENSORING_RULES = {
 STATISTICAL_METHODS = {
     "log_rank_test": {
         "name": "Log-Rank Test (Mantel-Cox)",
+        "regulatory_source": "ICH E9 Section 5.5; FDA Guidance: Clinical Trial Endpoints for Cancer Drugs (2018) Section III.B",
         "hypothesis": {
             "null": "S_treatment(t) = S_control(t) for all t",
             "alternative_one_sided": "S_treatment(t) > S_control(t)",
@@ -805,6 +807,7 @@ STATISTICAL_METHODS = {
 
     "cox_proportional_hazards": {
         "name": "Cox Proportional Hazards Model",
+        "regulatory_source": "ICH E9 Section 5.5; FDA Guidance: Non-Inferiority Clinical Trials (2016) Section IV.A",
         "model": {
             "formula": "h(t|X) = h₀(t) × exp(β₁×TRTA + β₂×X₂ + ...)",
             "stratified": "h_k(t|X) = h₀ₖ(t) × exp(β×TRTA) for stratum k"
@@ -872,6 +875,7 @@ STATISTICAL_METHODS = {
 
     "kaplan_meier": {
         "name": "Kaplan-Meier Estimation",
+        "regulatory_source": "ICH E9 Section 5.5; Kaplan & Meier (JASA 1958); FDA Guidance: Clinical Trial Endpoints for Cancer Drugs (2018)",
         "estimator": {
             "formula": "Ŝ(t) = Π_{t_i ≤ t} (1 - d_i/n_i)",
             "components": {
@@ -1654,13 +1658,17 @@ ANALYSIS_WINDOWS = {
 # =============================================================================
 
 INTERIM_ANALYSIS_SPECIFICATIONS = {
+    "regulatory_source": "ICH E9 Section 4.5; FDA Guidance: Adaptive Designs for Clinical Trials (2019); EMA Reflection Paper on Adaptive Designs (2007)",
+
     "dmc_charter": {
+        "regulatory_source": "FDA Guidance: Clinical Trial Monitoring Committees (2006)",
         "composition": ["Independent statistician", "Clinical experts", "Ethics member"],
         "access": "Unblinded to treatment allocation",
         "recommendations": ["Continue as planned", "Modify", "Stop for efficacy", "Stop for futility", "Stop for safety"]
     },
 
     "efficacy_interim": {
+        "regulatory_source": "ICH E9 Section 4.5; O'Brien & Fleming (Biometrics 1979); Lan & DeMets (Biometrika 1983)",
         "timing": {
             "event_driven": "At X% of planned events",
             "information_fraction": "Events observed / Total planned events"

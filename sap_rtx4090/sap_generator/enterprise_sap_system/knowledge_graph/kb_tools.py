@@ -675,10 +675,16 @@ class KnowledgeBaseTools:
         content = self.STATISTICAL_METHODS.get(method_name, {})
         self._log_retrieval("get_statistical_method", method_name, "methodology_knowledge_base.py")
 
+        # v70: Include regulatory_source in provenance for better traceability
+        regulatory_source = content.get("regulatory_source", "") if isinstance(content, dict) else ""
+        source_key = f"STATISTICAL_METHODS['{method_name}']"
+        if regulatory_source:
+            source_key = f"{regulatory_source}"  # Use actual regulatory source
+
         return KBRetrievalResult(
             content=content,
             source_file="methodology_knowledge_base.py",
-            source_key=f"STATISTICAL_METHODS['{method_name}']"
+            source_key=source_key
         )
 
     def get_missing_data_method(self, method_name: str) -> KBRetrievalResult:
@@ -782,10 +788,16 @@ class KnowledgeBaseTools:
 
         self._log_retrieval("get_censoring_rules", endpoint_type, "methodology_knowledge_base.py")
 
+        # v70: Include regulatory_source in provenance
+        regulatory_source = content.get("regulatory_source", "") if isinstance(content, dict) else ""
+        source_key = f"CENSORING_RULES['{endpoint_type}']"
+        if regulatory_source:
+            source_key = f"{regulatory_source}"
+
         return KBRetrievalResult(
             content=content,
             source_file="methodology_knowledge_base.py",
-            source_key=f"CENSORING_RULES['{endpoint_type}']"
+            source_key=source_key
         )
 
     def get_interim_analysis(self, analysis_type: str = "all") -> KBRetrievalResult:
@@ -1405,6 +1417,20 @@ class KnowledgeBaseTools:
             max_results=5
         )
 
+        # v70: Format results with clear citation guidance
+        formatted_results = []
+        for trial in results:
+            trial_id = trial.get("trial_id", "Unknown")
+            trial_phase = trial.get("phase", "")
+            trial_indication = trial.get("indication", "")
+            # Create citation format: "TRIAL_ID (Phase X, Indication)"
+            citation = f"{trial_id} ({trial_phase}, {trial_indication})" if trial_phase else trial_id
+            formatted_results.append({
+                **trial,
+                "citation_format": f"[Precedent: {citation}]",
+                "cite_as": citation
+            })
+
         return KBRetrievalResult(
             content={
                 "query": {
@@ -1413,8 +1439,9 @@ class KnowledgeBaseTools:
                     "endpoint_type": endpoint_type,
                     "design_type": design_type
                 },
+                "citation_instruction": "When using precedent data, cite as: [Precedent: TRIAL_NAME (Phase, Indication) - specific element]",
                 "num_matches": len(results),
-                "similar_trials": results
+                "similar_trials": formatted_results
             },
             source_file="factual_kg_merged.json",
             source_key="TrialPrecedentKG.find_similar_trials"

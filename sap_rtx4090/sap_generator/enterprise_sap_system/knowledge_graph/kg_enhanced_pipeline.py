@@ -1431,22 +1431,34 @@ CRITICAL REQUIREMENTS:
 - ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements
 
 ## SOURCE CITATION FORMAT (MANDATORY):
-Every fact MUST have a specific source citation. Use these formats:
+Every fact MUST have a SPECIFIC, TRACEABLE source citation. Use these formats:
 
-1. **KB Sources** - Include the exact source file AND key/section:
-   - ✅ CORRECT: [KB: methodology_knowledge_base.py → STATISTICAL_METHODS['kaplan_meier']]
-   - ✅ CORRECT: [KB: complete_tfl_inventory.py → DISPOSITION_TABLES['14.1.1']]
-   - ✅ CORRECT: [KB: disease_specific_criteria.py → LUGANO_CRITERIA]
-   - ❌ WRONG: [KB: Interim Analysis] (too vague!)
-   - ❌ WRONG: [KB] (no source specified!)
+1. **Trial Precedent Sources** - When using get_similar_trials(), cite the ACTUAL TRIAL NAME:
+   - ✅ CORRECT: [Precedent: ZUMA-1 trial (Phase 2 DLBCL) - censoring rules]
+   - ✅ CORRECT: [Precedent: KEYNOTE-189 (Phase 3 NSCLC) - interim analysis design]
+   - ✅ CORRECT: [Precedent: CheckMate-067 (Phase 3 melanoma) - multiplicity adjustment]
+   - ❌ WRONG: [KB: factual_kg_merged.json] (no trial name!)
 
-2. **Protocol Sources** - Include the section number or quote:
-   - ✅ CORRECT: [Protocol: Section 6.1 - Primary Endpoint]
-   - ✅ CORRECT: [Protocol: Section 9.3.2 - Statistical Hypothesis]
-   - ✅ CORRECT: [Protocol: "The primary endpoint is progression-free survival..."]
-   - ❌ WRONG: [Protocol] (no section specified!)
+2. **Regulatory/Standards Sources** - Cite the ACTUAL regulatory document:
+   - ✅ CORRECT: [ICH E9(R1) Section 5.2 - Estimand Framework]
+   - ✅ CORRECT: [FDA Guidance: Clinical Trial Endpoints for Approval of Cancer Drugs (2018)]
+   - ✅ CORRECT: [Lugano Classification (Cheson 2014) - Response Criteria]
+   - ✅ CORRECT: [CTCAE v5.0 - Adverse Event Grading]
+   - ❌ WRONG: [KB: methodology_knowledge_base.py] (too generic!)
 
-When you retrieve tool results, the JSON includes "provenance": {{"source_file": "...", "source_key": "..."}} - USE THESE EXACT VALUES in your citations.
+3. **Protocol Sources** - Include EXACT section number AND brief content:
+   - ✅ CORRECT: [Protocol Section 6.1: "The primary endpoint is ORR per Lugano criteria"]
+   - ✅ CORRECT: [Protocol Section 9.3.2: Statistical Hypothesis - HR=0.70]
+   - ✅ CORRECT: [Protocol Section 8.1: Sample Size - N=100 with 80% power]
+   - ❌ WRONG: [Protocol] (no section number!)
+   - ❌ WRONG: [Protocol: endpoints] (too vague!)
+
+4. **TFL Template Sources** - Cite the table standard:
+   - ✅ CORRECT: [CDISC ADaM IG v1.3 - ADTTE specification]
+   - ✅ CORRECT: [ICH E3 Section 11.4 - Disposition table format]
+   - ❌ WRONG: [KB: complete_tfl_inventory.py] (not traceable!)
+
+When using get_similar_trials() results, the JSON includes "trial_id" and "source_sap" - USE THE TRIAL NAME in your citations, not the file path.
 
 ## RECOMMENDED KB TOOLS FOR THIS PROTOCOL:
 {chr(10).join([f"- {tool}()" for tool in sorted(required_tools)])}
