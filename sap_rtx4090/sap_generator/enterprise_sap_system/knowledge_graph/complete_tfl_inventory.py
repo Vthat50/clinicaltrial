@@ -1310,6 +1310,305 @@ LISTINGS = {
 
 
 # =============================================================================
+# SINGLE-ARM STUDY TEMPLATES (No Randomization, Single Treatment Column)
+# =============================================================================
+
+SINGLE_ARM_DISPOSITION_TABLES = {
+    "14.1.1_SA": {
+        "title": "Subject Disposition (Single-Arm)",
+        "population": "All Enrolled",
+        "columns": ["Category", "N", "n (%)", "Notes"],
+        "rows": [
+            "Enrolled",
+            "  Received Study Treatment",
+            "  Did Not Receive Treatment",
+            "    Manufacturing Failure",
+            "    Adverse Event Before Treatment",
+            "    Disease Progression Before Treatment",
+            "    Subject Withdrawal",
+            "    Other",
+            "Treated (Safety Population)",
+            "Completed Treatment Phase",
+            "Discontinued Treatment",
+            "  Adverse Event",
+            "  Disease Progression",
+            "  Physician Decision",
+            "  Subject Withdrawal",
+            "  Death",
+            "  Lost to Follow-up",
+            "  Other"
+        ],
+        "notes": "Single-arm study - no randomization or comparator arm",
+        "statistics": ["n (%)"]
+    },
+    "14.1.2_SA": {
+        "title": "Demographics (Single-Arm)",
+        "population": "Safety Analysis Set",
+        "columns": ["Parameter", "Statistic", "Treated Subjects (N=XXX)"],
+        "rows": [
+            "Age (years)|n|xxx",
+            "|Mean (SD)|xxx (xxx)",
+            "|Median|xxx",
+            "|Min, Max|xxx, xxx",
+            "Age Group, n (%)|<65 years|xxx (xx.x)",
+            "|≥65 years|xxx (xx.x)",
+            "Sex, n (%)|Male|xxx (xx.x)",
+            "|Female|xxx (xx.x)",
+            "Race, n (%)|White|xxx (xx.x)",
+            "|Black|xxx (xx.x)",
+            "|Asian|xxx (xx.x)",
+            "|Other|xxx (xx.x)",
+            "ECOG PS, n (%)|0|xxx (xx.x)",
+            "|1|xxx (xx.x)"
+        ],
+        "statistics": ["n (%)", "Mean (SD)", "Median", "Min, Max"]
+    },
+    "14.2.1_SA": {
+        "title": "Best Overall Response (Single-Arm)",
+        "population": "Inferential Analysis Set",
+        "columns": ["Response Category", "n", "% (95% CI)"],
+        "rows": [
+            "Objective Response Rate (CR+PR)|xxx|xx.x (xx.x, xx.x)",
+            "  Complete Response (CR)|xxx|xx.x (xx.x, xx.x)",
+            "  Partial Response (PR)|xxx|xx.x (xx.x, xx.x)",
+            "Stable Disease (SD)|xxx|xx.x",
+            "Progressive Disease (PD)|xxx|xx.x",
+            "Not Evaluable (NE)|xxx|xx.x"
+        ],
+        "notes": "95% CI calculated using Clopper-Pearson exact method",
+        "statistics": ["n", "% with 95% CI"]
+    }
+}
+
+# =============================================================================
+# LYMPHOMA-SPECIFIC TEMPLATES (Ann Arbor Staging, Lugano Criteria)
+# =============================================================================
+
+LYMPHOMA_BASELINE_TABLES = {
+    "14.1.3_LYM": {
+        "title": "Baseline Disease Characteristics - Lymphoma",
+        "population": "Safety Analysis Set",
+        "columns": ["Parameter", "Statistic", "Treated Subjects (N=XXX)"],
+        "rows": [
+            "Ann Arbor Stage, n (%)|Stage I|xxx (xx.x)",
+            "|Stage II|xxx (xx.x)",
+            "|Stage III|xxx (xx.x)",
+            "|Stage IV|xxx (xx.x)",
+            "B Symptoms Present, n (%)|Yes|xxx (xx.x)",
+            "|No|xxx (xx.x)",
+            "Bulky Disease (≥7 cm), n (%)|Yes|xxx (xx.x)",
+            "|No|xxx (xx.x)",
+            "Extranodal Sites, n (%)|0|xxx (xx.x)",
+            "|1|xxx (xx.x)",
+            "|≥2|xxx (xx.x)",
+            "Bone Marrow Involvement, n (%)|Yes|xxx (xx.x)",
+            "|No|xxx (xx.x)",
+            "LDH > ULN, n (%)|Yes|xxx (xx.x)",
+            "|No|xxx (xx.x)"
+        ],
+        "notes": "Ann Arbor staging per Lugano Classification {Cheson 2014}",
+        "not_applicable": ["M1a/M1b/M1c staging", "BRAF mutation", "TNM staging"]
+    },
+    "14.1.4_LYM": {
+        "title": "Prognostic Index Scores - Lymphoma",
+        "population": "Safety Analysis Set",
+        "columns": ["Parameter", "Statistic", "Treated Subjects (N=XXX)"],
+        "rows": [
+            "FLIPI Score, n (%)|Low Risk (0-1)|xxx (xx.x)",
+            "|Intermediate Risk (2)|xxx (xx.x)",
+            "|High Risk (≥3)|xxx (xx.x)",
+            "FLIPI-2 Score, n (%)|Low Risk (0)|xxx (xx.x)",
+            "|Intermediate Risk (1-2)|xxx (xx.x)",
+            "|High Risk (≥3)|xxx (xx.x)",
+            "IPI Score (if applicable), n (%)|Low (0-1)|xxx (xx.x)",
+            "|Low-Intermediate (2)|xxx (xx.x)",
+            "|High-Intermediate (3)|xxx (xx.x)",
+            "|High (4-5)|xxx (xx.x)"
+        ],
+        "notes": "FLIPI = Follicular Lymphoma International Prognostic Index"
+    }
+}
+
+LYMPHOMA_EFFICACY_TABLES = {
+    "14.2.1_LYM": {
+        "title": "Best Overall Response per Lugano Classification",
+        "population": "Inferential Analysis Set",
+        "columns": ["Response Category", "n", "% (95% CI)"],
+        "rows": [
+            "Objective Response Rate (CR+PR)|xxx|xx.x (xx.x, xx.x)",
+            "  Complete Response (CR)|xxx|xx.x (xx.x, xx.x)",
+            "    Complete Metabolic Response|xxx|xx.x",
+            "  Partial Response (PR)|xxx|xx.x (xx.x, xx.x)",
+            "    Partial Metabolic Response|xxx|xx.x",
+            "Stable Disease (SD)|xxx|xx.x",
+            "  No Metabolic Response|xxx|xx.x",
+            "Progressive Disease (PD)|xxx|xx.x",
+            "  Progressive Metabolic Disease|xxx|xx.x",
+            "Not Evaluable (NE)|xxx|xx.x"
+        ],
+        "response_criteria": "Lugano Classification {Cheson 2014}",
+        "notes": "95% CI using Clopper-Pearson exact method. Response based on PET-CT.",
+        "not_applicable": ["RECIST 1.1", "Target lesion sum", "CR/PR/SD/PD per RECIST"]
+    },
+    "14.2.2_LYM": {
+        "title": "Response by Deauville Score (PET Assessment)",
+        "population": "Inferential Analysis Set",
+        "columns": ["Deauville Score", "n", "%"],
+        "rows": [
+            "Score 1 (No uptake)|xxx|xx.x",
+            "Score 2 (Uptake ≤ mediastinum)|xxx|xx.x",
+            "Score 3 (Uptake > mediastinum, ≤ liver)|xxx|xx.x",
+            "Score 4 (Uptake moderately > liver)|xxx|xx.x",
+            "Score 5 (Uptake markedly > liver and/or new lesions)|xxx|xx.x",
+            "Complete Metabolic Response (Score 1-3)|xxx|xx.x (xx.x, xx.x)"
+        ],
+        "notes": "Deauville 5-point scale per Lugano Classification"
+    }
+}
+
+# =============================================================================
+# CAR-T SPECIFIC SAFETY TABLES
+# =============================================================================
+
+CAR_T_SAFETY_TABLES = {
+    "14.3.1_CART": {
+        "title": "Summary of Cytokine Release Syndrome (CRS)",
+        "population": "Safety Analysis Set",
+        "columns": ["CRS Parameter", "n", "%"],
+        "rows": [
+            "Any CRS|xxx|xx.x",
+            "CRS by Maximum Grade:",
+            "  Grade 1|xxx|xx.x",
+            "  Grade 2|xxx|xx.x",
+            "  Grade 3|xxx|xx.x",
+            "  Grade 4|xxx|xx.x",
+            "Grade ≥3 CRS|xxx|xx.x",
+            "Time to CRS Onset (days):",
+            "  Median (range)|x (x-x)|",
+            "CRS Duration (days):",
+            "  Median (range)|x (x-x)|",
+            "CRS Management:",
+            "  Tocilizumab|xxx|xx.x",
+            "  Corticosteroids|xxx|xx.x",
+            "  Vasopressors|xxx|xx.x",
+            "  ICU Admission|xxx|xx.x"
+        ],
+        "grading": "ASTCT 2019 Consensus Grading {Lee 2019}",
+        "notes": "CRS collected via specific CRF"
+    },
+    "14.3.2_CART": {
+        "title": "Summary of ICANS (Neurotoxicity)",
+        "population": "Safety Analysis Set",
+        "columns": ["ICANS Parameter", "n", "%"],
+        "rows": [
+            "Any ICANS|xxx|xx.x",
+            "ICANS by Maximum Grade:",
+            "  Grade 1 (ICE 7-9)|xxx|xx.x",
+            "  Grade 2 (ICE 3-6)|xxx|xx.x",
+            "  Grade 3 (ICE 0-2)|xxx|xx.x",
+            "  Grade 4 (ICE 0 + cerebral edema)|xxx|xx.x",
+            "Grade ≥3 ICANS|xxx|xx.x",
+            "Time to ICANS Onset (days):",
+            "  Median (range)|x (x-x)|",
+            "ICANS Duration (days):",
+            "  Median (range)|x (x-x)|",
+            "ICANS Management:",
+            "  Corticosteroids|xxx|xx.x",
+            "  Anti-seizure medication|xxx|xx.x",
+            "  ICU Admission|xxx|xx.x"
+        ],
+        "grading": "ICE Score (ASTCT 2019)",
+        "notes": "ICANS = Immune Effector Cell-Associated Neurotoxicity Syndrome"
+    },
+    "14.3.3_CART": {
+        "title": "CAR-T Cell Kinetics Summary",
+        "population": "Safety Analysis Set",
+        "columns": ["Parameter", "n", "Mean (SD)", "Median", "Min, Max"],
+        "rows": [
+            "Cmax (cells/μL)|xxx|xxx (xxx)|xxx|xxx, xxx",
+            "Tmax (days)|xxx|xxx (xxx)|xxx|xxx, xxx",
+            "AUC Day 0-28 (cells*day/μL)|xxx|xxx (xxx)|xxx|xxx, xxx",
+            "Time to Undetectable (months)|xxx|xxx (xxx)|xxx|xxx, xxx"
+        ],
+        "timepoints": ["Day 7", "Week 2", "Week 4", "Month 3", "Month 6", "Month 12", "Month 24"],
+        "notes": "CAR-T cells measured by qPCR"
+    },
+    "14.3.4_CART": {
+        "title": "Prolonged Cytopenias",
+        "population": "Safety Analysis Set",
+        "columns": ["Cytopenia", "Day 30, n (%)", "Day 60, n (%)", "Day 90, n (%)"],
+        "rows": [
+            "Neutropenia (ANC <1000/μL)|xxx (xx.x)|xxx (xx.x)|xxx (xx.x)",
+            "Thrombocytopenia (<50,000/μL)|xxx (xx.x)|xxx (xx.x)|xxx (xx.x)",
+            "Anemia (Hgb <8 g/dL)|xxx (xx.x)|xxx (xx.x)|xxx (xx.x)"
+        ],
+        "notes": "Cytopenias persisting beyond Day 28 after CAR-T infusion"
+    },
+    "14.3.5_CART": {
+        "title": "Infections Summary",
+        "population": "Safety Analysis Set",
+        "columns": ["Infection Type", "Any Grade, n (%)", "Grade ≥3, n (%)"],
+        "rows": [
+            "Any Infection|xxx (xx.x)|xxx (xx.x)",
+            "Bacterial|xxx (xx.x)|xxx (xx.x)",
+            "Viral|xxx (xx.x)|xxx (xx.x)",
+            "Fungal|xxx (xx.x)|xxx (xx.x)",
+            "Opportunistic|xxx (xx.x)|xxx (xx.x)"
+        ],
+        "notes": "Infections identified using MedDRA HLGTs"
+    },
+    "14.3.6_CART": {
+        "title": "Hypogammaglobulinemia and B-Cell Aplasia",
+        "population": "Safety Analysis Set",
+        "columns": ["Parameter", "n", "%"],
+        "rows": [
+            "B-Cell Aplasia (CD19+ <1%)|xxx|xx.x",
+            "B-Cell Aplasia Duration (months):",
+            "  Median (range)|x (x-x)|",
+            "Hypogammaglobulinemia (IgG <400 mg/dL)|xxx|xx.x",
+            "  Requiring IVIG replacement|xxx|xx.x"
+        ],
+        "notes": "B-cell aplasia expected with CD19-targeted CAR-T"
+    }
+}
+
+# =============================================================================
+# RETREATMENT TABLES (CAR-T)
+# =============================================================================
+
+CAR_T_RETREATMENT_TABLES = {
+    "14.2.10_CART_RT": {
+        "title": "Response to Retreatment",
+        "population": "Safety Re-treatment Analysis Set",
+        "columns": ["Response Category", "n", "% (95% CI)"],
+        "rows": [
+            "Subjects Receiving Retreatment|xxx|",
+            "ORR to Retreatment (CR+PR)|xxx|xx.x (xx.x, xx.x)",
+            "  Complete Response (CR)|xxx|xx.x",
+            "  Partial Response (PR)|xxx|xx.x",
+            "Stable Disease (SD)|xxx|xx.x",
+            "Progressive Disease (PD)|xxx|xx.x",
+            "Not Evaluable (NE)|xxx|xx.x"
+        ],
+        "notes": "Response in subjects who received retreatment after initial progression"
+    },
+    "14.2.11_CART_RT": {
+        "title": "Duration of Response to Retreatment (DORR)",
+        "population": "Safety Re-treatment Analysis Set (Responders)",
+        "columns": ["DORR Parameter", "Statistic", "Value"],
+        "rows": [
+            "Responders to Retreatment|n|xxx",
+            "DORR (months)|Median (95% CI)|xxx (xxx, xxx)",
+            "|Range|xxx - xxx",
+            "Events|n (%)|xxx (xx.x)",
+            "Censored|n (%)|xxx (xx.x)"
+        ],
+        "notes": "DORR = Duration of Response to Retreatment. Kaplan-Meier method."
+    }
+}
+
+
+# =============================================================================
 # EXPORT FUNCTION
 # =============================================================================
 

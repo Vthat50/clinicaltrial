@@ -464,49 +464,333 @@ PHASE1_DOSE_FINDING_TEMPLATE = {
 CAR_T_MODULE = {
     "therapy_type": "CAR-T Cell Therapy",
     "description": "Chimeric Antigen Receptor T-cell therapy",
+
+    # ==========================================================================
+    # TOXICITY GRADING
+    # ==========================================================================
     "unique_toxicities": {
         "CRS": {
             "name": "Cytokine Release Syndrome",
             "grading": "ASTCT 2019 Consensus",
+            "reference": "{Lee 2019}",
             "grades": {
                 "1": "Fever only (≥38°C)",
                 "2": "Fever + hypotension not requiring vasopressors and/or hypoxia requiring low-flow O2",
                 "3": "Fever + hypotension requiring 1 vasopressor ± vasopressin and/or hypoxia requiring high-flow O2",
                 "4": "Fever + hypotension requiring multiple vasopressors and/or hypoxia requiring positive pressure"
             },
-            "management": ["Tocilizumab", "Corticosteroids"]
+            "management": ["Tocilizumab", "Corticosteroids"],
+            "collection_method": "Collected via specific CRF, neurologic AEs reported separately on AE log"
         },
         "ICANS": {
             "name": "Immune Effector Cell-Associated Neurotoxicity Syndrome",
             "grading": "ICE score (Immune Effector Cell-Associated Encephalopathy)",
+            "reference": "{Topp 2015}",
             "grades": {
                 "1": "ICE 7-9",
                 "2": "ICE 3-6",
                 "3": "ICE 0-2",
                 "4": "ICE 0 + cerebral edema/seizure/motor weakness"
-            }
+            },
+            "pediatric_grading": "CAPD (Cornell Assessment of Pediatric Delirium) for age <12 years"
         }
     },
+
+    # ==========================================================================
+    # ANALYSIS POPULATIONS (Including Re-treatment)
+    # ==========================================================================
+    "analysis_populations": {
+        "safety_analysis_set": {
+            "name": "Safety Analysis Set",
+            "definition": "All subjects treated with any dose of CAR-T product",
+            "use_for": "All safety analyses"
+        },
+        "full_analysis_set": {
+            "name": "Full Analysis Set (FAS)",
+            "definition": "All enrolled patients",
+            "use_for": "Subject disposition summaries"
+        },
+        "inferential_analysis_set": {
+            "name": "Inferential Analysis Set",
+            "definition": "Enrolled subjects meeting pivotal cohort eligibility criteria and treated with CAR-T product",
+            "use_for": "Primary efficacy analyses"
+        },
+        "safety_retreatment_analysis_set": {
+            "name": "Safety Re-treatment Analysis Set",
+            "definition": "All subjects who undergo retreatment with CAR-T product. This set will be used for all retreatment safety and efficacy analyses.",
+            "use_for": "Retreatment safety and efficacy analyses",
+            "note": "Only applicable if protocol allows retreatment"
+        }
+    },
+
+    # ==========================================================================
+    # EFFICACY ENDPOINTS (Including DORR)
+    # ==========================================================================
     "efficacy_endpoints": [
         {"name": "ORR", "definition": "CR + CRi + PR (varies by indication)"},
         {"name": "CR/CRi rate", "definition": "Complete response with/without count recovery"},
-        {"name": "DOR", "definition": "Duration of response"},
+        {"name": "DOR", "definition": "Duration of response from first response to progression or death"},
         {"name": "PFS", "definition": "Progression-free survival"},
         {"name": "OS", "definition": "Overall survival"},
         {"name": "MRD negativity", "definition": "Minimal residual disease negativity rate"}
     ],
+    "retreatment_endpoints": {
+        "DORR": {
+            "name": "Duration of Response to Retreatment (DORR)",
+            "definition": "DORR is defined only for subjects who receive retreatment following progression of disease per Investigator Read and then go on to experience an objective response to retreatment.",
+            "start": "Date of first response to retreatment",
+            "end": "Date of progression or death after retreatment response",
+            "censoring": "Subjects without progression censored at last disease assessment"
+        },
+        "ORR_retreatment": {
+            "name": "ORR to Retreatment",
+            "definition": "Objective response rate among subjects who received retreatment"
+        }
+    },
+
+    # ==========================================================================
+    # CELLULAR KINETICS ENDPOINTS
+    # ==========================================================================
+    "cellular_kinetics": {
+        "parameters": [
+            {"name": "Cmax", "definition": "Maximum CAR-T cell level attained"},
+            {"name": "Tmax", "definition": "Time at which maximum level was attained"},
+            {"name": "AUC_0_28", "definition": "AUC of CAR-T cell levels from Day 0 to Day 28"},
+            {"name": "Peak_0_28", "definition": "Peak value from Day 0 to Day 28"},
+            {"name": "Time_to_undetectable", "definition": "Time at which no detectable CAR-T cells in blood"},
+            {"name": "Persistence", "definition": "Duration of detectable CAR-T cells"}
+        ],
+        "measurement_timepoints": [
+            "Day 7", "Week 2", "Week 4", "Month 3", "Month 6", "Month 12", "Month 24"
+        ],
+        "summary_statistics": [
+            "n, Mean, SD, Median, Min, Max for each parameter",
+            "Geometric mean and CV% for Cmax and AUC"
+        ]
+    },
     "special_endpoints": [
-        {"name": "CAR-T expansion", "definition": "Peak CAR-T cell levels (Cmax)"},
-        {"name": "CAR-T persistence", "definition": "Duration of detectable CAR-T cells"},
-        {"name": "B-cell aplasia duration", "definition": "Time without B-cells (CD19 CAR-T)"}
+        {"name": "B-cell aplasia duration", "definition": "Time without B-cells (CD19 CAR-T)"},
+        {"name": "Immunoglobulin levels", "definition": "IgG, IgA, IgM over time"}
     ],
+
+    # ==========================================================================
+    # SAFETY MONITORING & MedDRA STRATEGIES
+    # ==========================================================================
     "safety_monitoring": [
         "CRS grade and timing",
         "ICANS grade and timing",
         "Cytopenias (prolonged)",
         "Infections (hypogammaglobulinemia)",
         "Secondary malignancies"
-    ]
+    ],
+    "meddra_search_strategies": {
+        "neurological_toxicity": {
+            "description": "Search strategy based on {Topp 2015}, focused on CNS toxicity",
+            "meddra_socs": ["Psychiatric Disorders", "Nervous System Disorders"],
+            "search_type": "MST (MedDRA Search Terms)"
+        },
+        "CRS": {
+            "description": "Collected via specific CRF, graded per ASTCT 2019",
+            "collection": "Specific CRF for CRS events",
+            "note": "Neurologic AEs reported separately on AE log"
+        },
+        "thrombocytopenia": {
+            "search_type": "SMQ",
+            "smq_name": "Haematopoietic thrombocytopenia",
+            "scope": "narrow"
+        },
+        "neutropenia": {
+            "search_type": "MST",
+            "description": "Sponsor-specified MedDRA search terms"
+        },
+        "anemia": {
+            "search_type": "SMQ",
+            "smq_name": "Haematopoietic erythropenia",
+            "scope": "broad"
+        },
+        "hypogammaglobulinemia": {
+            "search_type": "MST",
+            "description": "Sponsor-specified search strategy"
+        },
+        "infections": {
+            "search_type": "HLGT",
+            "hltgs": ["Bacterial infectious disorders", "Viral infectious disorders",
+                      "Fungal infectious disorders", "Infections - pathogen unspecified"]
+        },
+        "secondary_malignancy": {
+            "search_type": "SOC",
+            "soc": "Neoplasms benign, malignant and unspecified"
+        },
+        "tumor_lysis_syndrome": {
+            "search_type": "SMQ",
+            "smq_name": "Tumour lysis syndrome",
+            "scope": "narrow"
+        },
+        "GVHD": {
+            "search_type": "MST",
+            "description": "Using subsets of PT from HLGT and HLT for graft versus host disease"
+        },
+        "immunogenicity": {
+            "search_type": "SMQ",
+            "smq_names": ["Anaphylactic reaction", "Hypersensitivity"],
+            "scope": "narrow"
+        }
+    },
+
+    # ==========================================================================
+    # TIME-TO-EVENT DERIVATION RULES
+    # ==========================================================================
+    "tte_derivation_rules": {
+        "DOR": {
+            "description": "Duration of Response derivation circumstances",
+            "circumstances": [
+                {"situation": "Responder with subsequent PD", "event": 1, "date": "Date of PD"},
+                {"situation": "Responder dies without PD", "event": 1, "date": "Date of death"},
+                {"situation": "Responder with no PD, still on study", "event": 0, "date": "Date of last adequate disease assessment"},
+                {"situation": "Responder starts new anticancer therapy without PD", "event": 0, "date": "Date of last adequate disease assessment before new therapy"},
+                {"situation": "Responder has SCT without prior PD", "event": 0, "date": "Date of last adequate disease assessment before SCT"},
+                {"situation": "Responder lost to follow-up", "event": 0, "date": "Date of last adequate disease assessment"}
+            ],
+            "sensitivity_analysis": "Include disease assessments after SCT"
+        },
+        "DORR": {
+            "description": "Duration of Response to Retreatment derivation",
+            "circumstances": [
+                {"situation": "Retreatment responder with subsequent PD", "event": 1, "date": "Date of PD after retreatment response"},
+                {"situation": "Retreatment responder dies without PD", "event": 1, "date": "Date of death"},
+                {"situation": "Retreatment responder with no PD", "event": 0, "date": "Date of last adequate disease assessment"},
+                {"situation": "Retreatment responder starts new therapy without PD", "event": 0, "date": "Date of last adequate assessment before new therapy"},
+                {"situation": "Retreatment responder has SCT without PD", "event": 0, "date": "Date of last adequate assessment before SCT"},
+                {"situation": "Retreatment responder lost to follow-up", "event": 0, "date": "Date of last adequate disease assessment"}
+            ]
+        },
+        "PFS": {
+            "description": "Progression-Free Survival derivation",
+            "circumstances": [
+                {"situation": "Subject has PD", "event": 1, "date": "Date of PD"},
+                {"situation": "Subject dies without PD", "event": 1, "date": "Date of death"},
+                {"situation": "Subject alive without PD, on study", "event": 0, "date": "Date of last adequate disease assessment"},
+                {"situation": "Subject starts new anticancer therapy without PD", "event": 0, "date": "Date of last adequate assessment before new therapy"},
+                {"situation": "Subject has SCT without prior PD", "event": 0, "date": "Date of last adequate assessment before SCT"},
+                {"situation": "Subject lost to follow-up without PD", "event": 0, "date": "Date of last adequate disease assessment"},
+                {"situation": "Subject withdraws consent without PD", "event": 0, "date": "Date of last adequate disease assessment"}
+            ]
+        },
+        "OS": {
+            "description": "Overall Survival derivation",
+            "circumstances": [
+                {"situation": "Subject dies", "event": 1, "date": "Date of death"},
+                {"situation": "Subject alive at data cutoff", "event": 0, "date": "Last date known to be alive"},
+                {"situation": "Subject lost to follow-up", "event": 0, "date": "Last date known to be alive"},
+                {"situation": "Subject withdraws consent", "event": 0, "date": "Last date known to be alive"},
+                {"situation": "Death date unknown (partial)", "event": 0, "date": "Last date known to be alive (do not impute)"}
+            ]
+        },
+        "last_known_alive_sources": [
+            "Subject visit dates", "AE dates", "Concomitant medication dates",
+            "Laboratory dates", "Tumor assessment dates", "Survival follow-up contact dates",
+            "Study drug administration dates", "Vital signs dates", "ECG dates"
+        ]
+    },
+
+    # ==========================================================================
+    # DATE IMPUTATION RULES
+    # ==========================================================================
+    "date_imputation_rules": {
+        "description": "Standard date imputation algorithms for partial dates",
+        "ae_start_date": [
+            {
+                "scenario": "Partial (yyyymm) = Study Day 0 month",
+                "stop_date": "Complete/Partial/Missing",
+                "rule": "Impute date of Study Day 0"
+            },
+            {
+                "scenario": "Partial (yyyymm) ≠ Study Day 0 month",
+                "stop_date": "Any",
+                "rule": "Impute first day of month"
+            },
+            {
+                "scenario": "Partial (yyyy) = Study Day 0 year, month missing",
+                "stop_date": "Complete stop date in same year",
+                "rule": "Impute Study Day 0 if ≤ stop month, else impute first of stop month"
+            },
+            {
+                "scenario": "Partial (yyyy) = Study Day 0 year, month missing",
+                "stop_date": "Partial/Missing",
+                "rule": "Impute Study Day 0"
+            },
+            {
+                "scenario": "Missing start date",
+                "stop_date": "Complete",
+                "rule": "Impute Study Day 0 or January 1 of stop year (whichever is later)"
+            },
+            {
+                "scenario": "Missing start date",
+                "stop_date": "Missing",
+                "rule": "Impute Study Day 0"
+            }
+        ],
+        "death_date": [
+            {
+                "scenario": "Year and month available, day missing",
+                "condition": "mmyyyy for last contact = mmyyyy for death",
+                "rule": "Set to day after last known alive date"
+            },
+            {
+                "scenario": "Year and month available, day missing",
+                "condition": "mmyyyy last known alive < mmyyyy death",
+                "rule": "Set to first day of death month"
+            },
+            {
+                "scenario": "Month and day missing (only year known)",
+                "rule": "Do NOT impute - censor at last known alive date"
+            }
+        ],
+        "conmed_start_date": [
+            {
+                "scenario": "Partial (yyyymm)",
+                "rule": "Impute first day of month"
+            },
+            {
+                "scenario": "Partial (yyyy)",
+                "rule": "Impute January 1 of year"
+            },
+            {
+                "scenario": "Missing",
+                "rule": "Impute Study Day 0"
+            }
+        ]
+    },
+
+    # ==========================================================================
+    # OPERATIONAL DEFINITIONS
+    # ==========================================================================
+    "operational_definitions": {
+        "study_enrollment": "Occurs at commencement of leukapheresis",
+        "study_day_0": "Day subject received first CAR-T infusion",
+        "baseline": "Last value taken prior to first dose of conditioning chemotherapy",
+        "study_therapy": "Conditioning chemotherapy or CAR-T product",
+        "on_study": "Time from enrollment to last date of contact",
+        "end_of_study": "After all subjects followed for 15 years post-infusion",
+        "actual_follow_up_time": "Time from first dose to death/last known alive/LTFU/withdrawal",
+        "potential_follow_up_time": "Time from infusion to data cutoff date",
+        "follow_up_time_for_response": "Calculated using reverse Kaplan-Meier approach {Schemper 1996}",
+        "TEAE": "Any AE with onset on or after CAR-T infusion",
+        "deaths_reporting": "All deaths after leukapheresis through end of study"
+    },
+
+    # ==========================================================================
+    # SINGLE-ARM STUDY CONSIDERATIONS
+    # ==========================================================================
+    "single_arm_considerations": {
+        "primary_analysis": "Exact binomial test comparing observed rate to historical control",
+        "confidence_interval": "Clopper-Pearson 95% CI (2-sided)",
+        "hypothesis_testing": "One-sided test at α = 0.025",
+        "no_randomization": True,
+        "no_hazard_ratios": True,
+        "no_treatment_comparison": True,
+        "table_format": "Single column for treated subjects (no comparator)"
+    }
 }
 
 BISPECIFIC_ANTIBODY_MODULE = {

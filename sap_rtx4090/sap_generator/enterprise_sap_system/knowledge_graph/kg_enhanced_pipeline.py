@@ -1016,6 +1016,24 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
             if arm_names:
                 rules.append(f"- Table column headers MUST be: {', '.join(arm_names)}")
 
+        # 7. SINGLE-ARM STUDY DESIGN RULES (CRITICAL)
+        study_design = full_extraction.get("study_design", {})
+        design_type = (study_design.get("design_type", {}).get("value") or "").lower() if study_design else ""
+
+        if design_type == "single_arm" or len(arms) == 1:
+            rules.append("")
+            rules.append("**SINGLE-ARM STUDY - CRITICAL PROHIBITIONS:**")
+            rules.append("- DO NOT include randomization in CONSORT diagram (no randomization exists)")
+            rules.append("- DO NOT include treatment comparison columns (only ONE arm exists)")
+            rules.append("- DO NOT calculate Hazard Ratios (no comparator arm for HRs)")
+            rules.append("- DO NOT include forest plots comparing treatment arms (single-arm)")
+            rules.append("- DO NOT include p-values for treatment comparisons (no comparison possible)")
+            rules.append("- DO NOT include 'Placebo' or 'Control' columns in ANY table")
+            rules.append("- USE exact binomial test vs historical control for primary analysis")
+            rules.append("- USE Clopper-Pearson CI for response rates")
+            rules.append("- Tables should have columns: Category | N | n (%) or Mean (SD)")
+            rules.append("")
+
         # 7. Stratification for subgroup analysis
         strat = full_extraction.get("randomization", {})
         strat_factors = strat.get("stratification_factors", []) if strat else []
@@ -1025,12 +1043,59 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
             if factor_names:
                 rules.append(f"- Forest plot subgroups MUST use only: {', '.join(factor_names)}")
 
-        # 8. Check for specific baseline variables
+        # 9. Check for specific baseline variables
         if var_names:
             has_bmi = any("bmi" in v for v in var_names)
             has_weight = any("weight" in v for v in var_names)
             if has_bmi and not has_weight:
                 rules.append("- Use BMI (kg/m²), not Weight (kg) for body composition variable")
+
+        # 10. CAR-T SPECIFIC REQUIRED SECTIONS
+        discovered = full_extraction.get("discovered_structure", {})
+        flags = discovered.get("study_type_flags", {}) if discovered else {}
+
+        if flags.get("is_cart"):
+            rules.append("")
+            rules.append("**CAR-T STUDY - REQUIRED SECTIONS:**")
+            rules.append("- MUST include Safety Re-treatment Analysis Set definition")
+            rules.append("- MUST include CRS grading (ASTCT 2019 or Lee 2014 modified)")
+            rules.append("- MUST include ICANS grading (ICE score for ≥12 years)")
+            rules.append("- MUST include CAR T cell kinetics analysis (Cmax, AUC, persistence)")
+            rules.append("- MUST include DORR (Duration of Response to Retreatment) if retreatment allowed")
+            rules.append("- MUST include Appendix 1: Date Imputation Rules")
+            rules.append("- MUST include Appendix 2: Time-to-Event Derivation Tables")
+            rules.append("- MUST include manufacturing failure handling")
+            rules.append("- DO NOT include dose modification tables (CAR-T is single infusion)")
+            rules.append("")
+
+        # 11. LYMPHOMA STAGING (Ann Arbor vs TNM)
+        response_criteria = discovered.get("response_criteria", "") if discovered else ""
+        disease = full_extraction.get("disease_classification", {})
+        tumor_type = (disease.get("tumor_type", {}).get("value") or "").lower() if disease else ""
+
+        is_lymphoma = "lymphoma" in tumor_type or response_criteria == "Lugano" or flags.get("is_hematologic")
+        is_solid_tumor = any(x in tumor_type for x in ["melanoma", "lung", "breast", "colon", "ovarian", "prostate"])
+
+        if is_lymphoma:
+            rules.append("")
+            rules.append("**LYMPHOMA - STAGING PROHIBITIONS:**")
+            rules.append("- DO NOT use TNM staging (M1a, M1b, M1c) - that's for solid tumors")
+            rules.append("- DO NOT use BRAF mutation status - that's for melanoma")
+            rules.append("- DO NOT include solid tumor staging tables")
+            rules.append("- USE Ann Arbor staging (I, II, III, IV) with A/B modifiers")
+            rules.append("- USE Lugano classification for response assessment")
+            rules.append("- USE Deauville score (1-5) for PET response if applicable")
+            rules.append("- USE FLIPI/IPI prognostic scores as appropriate")
+            rules.append("")
+
+        if is_solid_tumor and not is_lymphoma:
+            rules.append("")
+            rules.append("**SOLID TUMOR - Do not use lymphoma-specific staging:**")
+            rules.append("- DO NOT use Ann Arbor staging (that's for lymphoma)")
+            rules.append("- DO NOT use Deauville score (that's for lymphoma)")
+            rules.append("- USE TNM/AJCC staging as appropriate")
+            rules.append("- USE RECIST 1.1 for response assessment")
+            rules.append("")
 
         return "\n".join(rules) if rules else "No specific prohibitions identified."
 
@@ -1064,11 +1129,28 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         # 2. Therapy type routing
         if flags.get("is_cart"):
-            instructions.append("CALL get_cart_specifications() for CRS grading (ASTCT), ICANS grading, cellular kinetics")
+            instructions.append("CALL get_cart_specifications() for CRS grading (ASTCT), ICANS grading, cellular kinetics, DORR, re-treatment")
+            instructions.append("CALL get_cart_tables() for CAR-T specific TFL templates (CRS/ICANS summary, kinetics, no dose mods)")
         if flags.get("is_bispecific"):
             instructions.append("CALL get_bispecific_specifications() for CRS monitoring and step-up dosing")
         if flags.get("is_adc"):
             instructions.append("CALL get_adc_specifications() for ocular toxicity and neuropathy monitoring")
+
+        # 2b. Lymphoma-specific routing
+        disease = full_extraction.get("disease_classification", {})
+        tumor_type = (disease.get("tumor_type", {}).get("value") or "").lower() if disease else ""
+        is_lymphoma = "lymphoma" in tumor_type or response_criteria == "Lugano" or flags.get("is_hematologic")
+
+        if is_lymphoma:
+            instructions.append("CALL get_lymphoma_tables() for Ann Arbor staging, FLIPI/IPI scores, Lugano response (NOT RECIST)")
+
+        # 2c. Single-arm study routing
+        study_design = full_extraction.get("study_design", {})
+        design_type = (study_design.get("design_type", {}).get("value") or "").lower() if study_design else ""
+        arms = full_extraction.get("treatment_arms", [])
+
+        if design_type == "single_arm" or len(arms) == 1:
+            instructions.append("CALL get_single_arm_tables() for single-arm TFL templates (no randomization, single column, Clopper-Pearson CI)")
 
         # 3. Study type routing
         if disease_setting == "adjuvant":
@@ -1085,6 +1167,7 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         instructions.append("CALL get_multiplicity_adjustment() if multiple hypotheses")
         instructions.append("CALL get_similar_trials() to find precedent for censoring rules and methods")
         instructions.append("CALL get_disposition_tables(), get_efficacy_tables(), get_safety_tables() for TFL shells")
+        instructions.append("CALL get_oncology_tfl_templates() for endpoint specifications, OS tables, AE tables")
 
         # 5. Prognostic scores if applicable
         if flags.get("is_hematologic"):

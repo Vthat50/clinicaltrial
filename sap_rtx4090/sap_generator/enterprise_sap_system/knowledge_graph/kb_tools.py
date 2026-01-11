@@ -401,13 +401,31 @@ class KnowledgeBaseTools:
             self.BIOMARKER_TABLES = {}  # Not in current KB
             self.FIGURES = FIGURES
             self.LISTINGS = LISTINGS
+            # v67: Design-specific templates
+            from .complete_tfl_inventory import (
+                SINGLE_ARM_DISPOSITION_TABLES,
+                LYMPHOMA_BASELINE_TABLES,
+                LYMPHOMA_EFFICACY_TABLES,
+                CAR_T_SAFETY_TABLES,
+                CAR_T_RETREATMENT_TABLES
+            )
+            self.SINGLE_ARM_TABLES = SINGLE_ARM_DISPOSITION_TABLES
+            self.LYMPHOMA_BASELINE_TABLES = LYMPHOMA_BASELINE_TABLES
+            self.LYMPHOMA_EFFICACY_TABLES = LYMPHOMA_EFFICACY_TABLES
+            self.CAR_T_SAFETY_TABLES = CAR_T_SAFETY_TABLES
+            self.CAR_T_RETREATMENT_TABLES = CAR_T_RETREATMENT_TABLES
         except ImportError:
             from complete_tfl_inventory import (
                 DISPOSITION_TABLES,
                 EFFICACY_TABLES,
                 SAFETY_TABLES,
                 FIGURES,
-                LISTINGS
+                LISTINGS,
+                SINGLE_ARM_DISPOSITION_TABLES,
+                LYMPHOMA_BASELINE_TABLES,
+                LYMPHOMA_EFFICACY_TABLES,
+                CAR_T_SAFETY_TABLES,
+                CAR_T_RETREATMENT_TABLES
             )
             self.DISPOSITION_TABLES = DISPOSITION_TABLES
             self.EFFICACY_TABLES = EFFICACY_TABLES
@@ -416,6 +434,12 @@ class KnowledgeBaseTools:
             self.BIOMARKER_TABLES = {}  # Not in current KB
             self.FIGURES = FIGURES
             self.LISTINGS = LISTINGS
+            # v67: Design-specific templates
+            self.SINGLE_ARM_TABLES = SINGLE_ARM_DISPOSITION_TABLES
+            self.LYMPHOMA_BASELINE_TABLES = LYMPHOMA_BASELINE_TABLES
+            self.LYMPHOMA_EFFICACY_TABLES = LYMPHOMA_EFFICACY_TABLES
+            self.CAR_T_SAFETY_TABLES = CAR_T_SAFETY_TABLES
+            self.CAR_T_RETREATMENT_TABLES = CAR_T_RETREATMENT_TABLES
 
         try:
             from .production_sap_specifications import (
@@ -1015,6 +1039,122 @@ class KnowledgeBaseTools:
             content=self.FIGURES,
             source_file="complete_tfl_inventory.py",
             source_key="FIGURES"
+        )
+
+    # =========================================================================
+    # v67: DESIGN-SPECIFIC TFL TOOLS
+    # =========================================================================
+
+    def get_single_arm_tables(self) -> KBRetrievalResult:
+        """
+        Get TFL templates for SINGLE-ARM studies.
+
+        These templates have:
+        - No randomization in CONSORT diagram
+        - Single treatment column (no comparator)
+        - Clopper-Pearson CI for response rates
+        - No hazard ratios or treatment comparisons
+
+        Call this for Phase 2 single-arm studies, CAR-T studies, etc.
+        """
+        self._log_retrieval("get_single_arm_tables", "all", "complete_tfl_inventory.py")
+
+        return KBRetrievalResult(
+            content=self.SINGLE_ARM_TABLES,
+            source_file="complete_tfl_inventory.py",
+            source_key="SINGLE_ARM_DISPOSITION_TABLES"
+        )
+
+    def get_lymphoma_tables(self) -> KBRetrievalResult:
+        """
+        Get TFL templates for LYMPHOMA studies (NHL, HL, CLL, etc.).
+
+        These templates have:
+        - Ann Arbor staging (I, II, III, IV) - NOT M1a/M1b/M1c
+        - Lugano Classification response (NOT RECIST)
+        - FLIPI/IPI prognostic scores
+        - Deauville score for PET response
+        - NO BRAF mutation, NO solid tumor staging
+
+        Call this for any hematologic/lymphoma trial.
+        """
+        self._log_retrieval("get_lymphoma_tables", "all", "complete_tfl_inventory.py")
+
+        content = {
+            "baseline_tables": self.LYMPHOMA_BASELINE_TABLES,
+            "efficacy_tables": self.LYMPHOMA_EFFICACY_TABLES,
+            "notes": {
+                "staging": "Use Ann Arbor staging (I, II, III, IV with A/B modifiers)",
+                "response_criteria": "Use Lugano Classification {Cheson 2014}",
+                "not_applicable": ["M1a/M1b/M1c staging", "BRAF mutation", "TNM staging", "RECIST 1.1"]
+            }
+        }
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="complete_tfl_inventory.py",
+            source_key="LYMPHOMA_BASELINE_TABLES + LYMPHOMA_EFFICACY_TABLES"
+        )
+
+    def get_cart_tables(self) -> KBRetrievalResult:
+        """
+        Get TFL templates for CAR-T CELL THERAPY studies.
+
+        These templates include:
+        - CRS (Cytokine Release Syndrome) summary tables with ASTCT grading
+        - ICANS (neurotoxicity) summary tables with ICE score
+        - CAR-T cellular kinetics (Cmax, AUC, persistence)
+        - Prolonged cytopenias, infections, hypogammaglobulinemia
+        - Retreatment response and DORR (if applicable)
+        - NO dose modification tables (single infusion)
+
+        Call this for any CAR-T or cell therapy trial.
+        """
+        self._log_retrieval("get_cart_tables", "all", "complete_tfl_inventory.py")
+
+        content = {
+            "safety_tables": self.CAR_T_SAFETY_TABLES,
+            "retreatment_tables": self.CAR_T_RETREATMENT_TABLES,
+            "notes": {
+                "crs_grading": "ASTCT 2019 Consensus {Lee 2019}",
+                "icans_grading": "ICE Score (ASTCT 2019)",
+                "not_applicable": ["Dose modification tables", "Dose reduction tables"]
+            }
+        }
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="complete_tfl_inventory.py",
+            source_key="CAR_T_SAFETY_TABLES + CAR_T_RETREATMENT_TABLES"
+        )
+
+    def get_oncology_tfl_templates(self, template_type: str = "all") -> KBRetrievalResult:
+        """
+        Get oncology-specific TFL templates for efficacy and safety.
+
+        Args:
+            template_type: One of "efficacy", "safety", or "all" (default)
+
+        Contains:
+            - EFFICACY_TFL_TEMPLATES: OS tables, exploratory endpoints, endpoint specifications
+            - SAFETY_TFL_TEMPLATES: AE by visit, AE leading to modification
+        """
+        if template_type == "efficacy":
+            content = self.ONCOLOGY_TFL_TEMPLATES.get("efficacy", {})
+            source_key = "EFFICACY_TFL_TEMPLATES"
+        elif template_type == "safety":
+            content = self.ONCOLOGY_TFL_TEMPLATES.get("safety", {})
+            source_key = "SAFETY_TFL_TEMPLATES"
+        else:
+            content = self.ONCOLOGY_TFL_TEMPLATES
+            source_key = "EFFICACY_TFL_TEMPLATES + SAFETY_TFL_TEMPLATES"
+
+        self._log_retrieval("get_oncology_tfl_templates", template_type, "oncology_reference_data.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="oncology_reference_data.py",
+            source_key=source_key
         )
 
     # =========================================================================
@@ -1901,6 +2041,51 @@ def get_claude_tool_definitions() -> List[Dict]:
                 "properties": {},
                 "required": []
             }
+        },
+        # =====================================================================
+        # v67: DESIGN-SPECIFIC TFL TEMPLATES (NEW)
+        # =====================================================================
+        {
+            "name": "get_single_arm_tables",
+            "description": "Get TFL templates for SINGLE-ARM studies. These have NO randomization, NO comparator columns, and use Clopper-Pearson CI. Use for Phase 2 single-arm or CAR-T trials.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_lymphoma_tables",
+            "description": "Get TFL templates for LYMPHOMA studies (NHL, HL, CLL). These use Ann Arbor staging (I-IV), Lugano response criteria, FLIPI/IPI scores, and Deauville PET scoring. NO BRAF, NO TNM staging, NO RECIST.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_cart_tables",
+            "description": "Get TFL templates specifically for CAR-T studies. Includes CRS summary (ASTCT grading), ICANS summary (ICE score), cellular kinetics tables, prolonged cytopenias, infections, B-cell aplasia, and retreatment/DORR tables. NO dose modification tables.",
+            "input_schema": {
+                "type": "object",
+                "properties": {},
+                "required": []
+            }
+        },
+        {
+            "name": "get_oncology_tfl_templates",
+            "description": "Get oncology-specific TFL templates for efficacy and safety. Includes OS tables at 5 years, exploratory endpoint specifications, endpoint variable specifications (PFS/OS/ORR/DOR definitions with events and censoring), AE by visit tables, and AE leading to dose modification.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "template_type": {
+                        "type": "string",
+                        "description": "Type of templates: 'efficacy', 'safety', or 'all' (default)",
+                        "enum": ["efficacy", "safety", "all"]
+                    }
+                },
+                "required": []
+            }
         }
     ]
 
@@ -1971,6 +2156,11 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_iwcll_criteria": lambda: kb.get_iwcll_criteria(),
         "get_organ_function_scores": lambda: kb.get_organ_function_scores(tool_input.get("score_type", "all")),
         "get_listings": lambda: kb.get_listings(tool_input.get("listing_type", "all")),
+        # v67: Design-specific TFL templates
+        "get_single_arm_tables": lambda: kb.get_single_arm_tables(),
+        "get_lymphoma_tables": lambda: kb.get_lymphoma_tables(),
+        "get_cart_tables": lambda: kb.get_cart_tables(),
+        "get_oncology_tfl_templates": lambda: kb.get_oncology_tfl_templates(tool_input.get("template_type", "all")),
     }
 
     if tool_name in tool_map:
