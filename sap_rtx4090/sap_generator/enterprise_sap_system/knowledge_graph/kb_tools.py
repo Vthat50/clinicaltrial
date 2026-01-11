@@ -2134,18 +2134,84 @@ class KnowledgeBaseTools:
 
         Returns demographic variables (age, sex, race), baseline disease
         characteristics (ECOG, stage, target lesions), statistics to present.
+        Also returns disease-specific baseline covariates for all oncology types.
 
         Returns:
             Demographics and baseline specs for SAP section
         """
-        from comprehensive_sap_elements import DEMOGRAPHICS_BASELINE
+        from comprehensive_sap_elements import (
+            DEMOGRAPHICS_BASELINE,
+            BASELINE_COVARIATES_CORE,
+            BASELINE_COVARIATES_SOLID_TUMOR,
+            BASELINE_COVARIATES_BREAST,
+            BASELINE_COVARIATES_LUNG,
+            BASELINE_COVARIATES_GI,
+            BASELINE_COVARIATES_PROSTATE,
+            BASELINE_COVARIATES_OVARIAN,
+            BASELINE_COVARIATES_LYMPHOMA,
+            BASELINE_COVARIATES_MYELOMA,
+            BASELINE_COVARIATES_LEUKEMIA,
+            BASELINE_COVARIATES_CLL
+        )
         self._log_retrieval("get_demographics_baseline_specs", "all", "comprehensive_sap_elements.py")
 
         return KBRetrievalResult(
-            content=DEMOGRAPHICS_BASELINE,
+            content={
+                "demographics_baseline": DEMOGRAPHICS_BASELINE,
+                "baseline_covariates_core": BASELINE_COVARIATES_CORE,
+                "disease_specific_covariates": {
+                    "solid_tumor": BASELINE_COVARIATES_SOLID_TUMOR,
+                    "breast": BASELINE_COVARIATES_BREAST,
+                    "lung": BASELINE_COVARIATES_LUNG,
+                    "gi": BASELINE_COVARIATES_GI,
+                    "prostate": BASELINE_COVARIATES_PROSTATE,
+                    "ovarian": BASELINE_COVARIATES_OVARIAN,
+                    "lymphoma": BASELINE_COVARIATES_LYMPHOMA,
+                    "myeloma": BASELINE_COVARIATES_MYELOMA,
+                    "leukemia": BASELINE_COVARIATES_LEUKEMIA,
+                    "cll": BASELINE_COVARIATES_CLL
+                }
+            },
             source_file="comprehensive_sap_elements.py",
-            source_key="DEMOGRAPHICS_BASELINE"
+            source_key="DEMOGRAPHICS_BASELINE + BASELINE_COVARIATES_*"
         )
+
+    def get_baseline_covariates(self, disease_type: str = None) -> KBRetrievalResult:
+        """
+        Get baseline covariates for a specific disease type.
+
+        Args:
+            disease_type: One of 'breast', 'lung', 'gi', 'prostate', 'ovarian',
+                         'lymphoma', 'myeloma', 'leukemia', 'cll', 'solid_tumor'
+                         If None, returns all covariates for all disease types.
+
+        Returns:
+            Core baseline covariates + disease-specific covariates with source_trials
+        """
+        from comprehensive_sap_elements import (
+            BASELINE_COVARIATES_CORE,
+            get_disease_specific_baseline_covariates,
+            get_all_baseline_covariates
+        )
+        self._log_retrieval("get_baseline_covariates", disease_type or "all", "comprehensive_sap_elements.py")
+
+        if disease_type:
+            disease_specific = get_disease_specific_baseline_covariates(disease_type)
+            return KBRetrievalResult(
+                content={
+                    "core": BASELINE_COVARIATES_CORE,
+                    "disease_specific": disease_specific,
+                    "disease_type": disease_type
+                },
+                source_file="comprehensive_sap_elements.py",
+                source_key=f"BASELINE_COVARIATES_CORE + BASELINE_COVARIATES_{disease_type.upper()}"
+            )
+        else:
+            return KBRetrievalResult(
+                content=get_all_baseline_covariates(),
+                source_file="comprehensive_sap_elements.py",
+                source_key="BASELINE_COVARIATES_*"
+            )
 
     def get_prior_therapy_specs(self) -> KBRetrievalResult:
         """
@@ -3605,8 +3671,23 @@ def get_claude_tool_definitions() -> List[Dict]:
         # v77: Additional comprehensive SAP element tools
         {
             "name": "get_demographics_baseline_specs",
-            "description": "Get demographics and baseline characteristics specs. Returns demographic variables (age, sex, race), disease characteristics (ECOG, stage), statistics. Use for Demographics/Baseline section.",
+            "description": "Get demographics and baseline characteristics specs. Returns demographic variables (age, sex, race), disease characteristics (ECOG, stage), statistics, plus ALL disease-specific baseline covariates (breast, lung, GI, prostate, ovarian, lymphoma, myeloma, leukemia, CLL). Use for Demographics/Baseline section.",
             "input_schema": {"type": "object", "properties": {}, "required": []}
+        },
+        {
+            "name": "get_baseline_covariates",
+            "description": "Get disease-specific baseline covariates with source trial documentation. Returns core covariates (demographics, labs, performance status) plus disease-specific covariates for: breast (ER/PR/HER2, Ki-67, prior CDK4/6i), lung (histology, smoking, EGFR/ALK/ROS1/KRAS, PD-L1), GI (Lauren, sidedness, MSI), prostate (Gleason, PSA, mHSPC/mCRPC), ovarian (platinum status, BRCA/HRD), lymphoma (IPI/FLIPI, prior lenalidomide, bone marrow), myeloma (ISS/R-ISS, cytogenetics), leukemia (ELN risk, FLT3/NPM1), CLL (IGHV, del17p). Each covariate includes source_trials showing which reference SAPs it came from.",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "disease_type": {
+                        "type": "string",
+                        "description": "Disease type for specific covariates",
+                        "enum": ["breast", "lung", "nsclc", "gi", "gastric", "colorectal", "crc", "hcc", "prostate", "ovarian", "lymphoma", "dlbcl", "follicular", "mcl", "myeloma", "mm", "leukemia", "aml", "all", "cll", "solid_tumor"]
+                    }
+                },
+                "required": []
+            }
         },
         {
             "name": "get_prior_therapy_specs",
@@ -3819,6 +3900,7 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_comprehensive_sap_elements": lambda: kb.get_comprehensive_sap_elements(tool_input.get("study_type", "oncology")),
         # v77: Additional comprehensive SAP elements
         "get_demographics_baseline_specs": lambda: kb.get_demographics_baseline_specs(),
+        "get_baseline_covariates": lambda: kb.get_baseline_covariates(tool_input.get("disease_type")),
         "get_prior_therapy_specs": lambda: kb.get_prior_therapy_specs(),
         "get_concomitant_medication_specs": lambda: kb.get_concomitant_medication_specs(),
         "get_medical_history_specs": lambda: kb.get_medical_history_specs(),

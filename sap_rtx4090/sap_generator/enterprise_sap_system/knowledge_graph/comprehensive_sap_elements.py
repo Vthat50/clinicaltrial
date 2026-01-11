@@ -1155,6 +1155,1865 @@ DEMOGRAPHICS_BASELINE = {
 }
 
 # =============================================================================
+# BASELINE COVARIATES - CORE (All Oncology Trials)
+# =============================================================================
+BASELINE_COVARIATES_CORE = {
+    "description": "Core baseline covariates required for ALL oncology Phase 2/3 trials",
+
+    "source_trials": [
+        "KEYNOTE-024", "KEYNOTE-042", "KEYNOTE-054", "KEYNOTE-426", "KEYNOTE-590",
+        "KEYNOTE-775", "KEYNOTE-826", "KEYNOTE-087",
+        "CheckMate-214", "CheckMate-649", "CheckMate-743", "CheckMate-901",
+        "ZUMA-3", "ELIANA", "ELARA",
+        "MONALEESA-3", "MONALEESA-7",
+        "DESTINY-Breast03",
+        "IMpower133",
+        "CASSIOPEIA",
+        "EV-301",
+        "ADAURA"
+    ],
+    "source_note": "These covariates are standard across all Phase 2/3 oncology SAPs per ICH E9, FDA guidance, and industry practice",
+
+    "demographics": {
+        "age": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "categories": ["<65", ">=65", "<75", ">=75"],
+            "required": True
+        },
+        "sex": {
+            "categories": ["Male", "Female"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "race": {
+            "categories": ["White", "Black or African American", "Asian",
+                          "American Indian/Alaska Native", "Native Hawaiian/Pacific Islander",
+                          "Multiple", "Other", "Not reported"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "ethnicity": {
+            "categories": ["Hispanic or Latino", "Not Hispanic or Latino", "Not reported"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "geographic_region": {
+            "categories": ["North America", "Europe", "Asia-Pacific", "Rest of World"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "weight": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "kg",
+            "required": True
+        },
+        "height": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "cm",
+            "required": True
+        },
+        "bsa": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "m^2",
+            "formula": "Mosteller: sqrt(height_cm * weight_kg / 3600)",
+            "required": True
+        },
+        "bmi": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "kg/m^2",
+            "required": True
+        }
+    },
+
+    "performance_status": {
+        "ecog_ps": {
+            "categories": ["0", "1", "2"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "karnofsky": {
+            "categories": ["100", "90", "80", "70", "60", "50"],
+            "statistics": ["N", "%"],
+            "required": False,
+            "note": "Alternative to ECOG"
+        }
+    },
+
+    "baseline_labs": {
+        "ldh": {
+            "categories": ["<=ULN", ">ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "U/L",
+            "required": True
+        },
+        "albumin": {
+            "categories": ["<LLN", ">=LLN", "<3.5 g/dL", ">=3.5 g/dL"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "g/dL",
+            "required": True
+        },
+        "hemoglobin": {
+            "categories": ["<10 g/dL", ">=10 g/dL", "<LLN", ">=LLN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "g/dL",
+            "required": True
+        },
+        "anc": {
+            "categories": ["<1500/mm3", ">=1500/mm3"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "cells/mm3",
+            "required": True
+        },
+        "platelets": {
+            "categories": ["<100,000/mm3", ">=100,000/mm3"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "cells/mm3",
+            "required": True
+        },
+        "creatinine": {
+            "categories": ["<=1.5x ULN", ">1.5x ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "mg/dL",
+            "required": True
+        },
+        "egfr": {
+            "categories": ["<30", "30-59", "60-89", ">=90"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "mL/min/1.73m2",
+            "formula": "CKD-EPI or MDRD",
+            "required": True
+        },
+        "bilirubin": {
+            "categories": ["<=ULN", ">ULN to 1.5x ULN", ">1.5x ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "mg/dL",
+            "required": True
+        },
+        "ast": {
+            "categories": ["<=ULN", ">ULN to 3x ULN", ">3x ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "U/L",
+            "required": True
+        },
+        "alt": {
+            "categories": ["<=ULN", ">ULN to 3x ULN", ">3x ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "U/L",
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - SOLID TUMOR (Common to all solid tumors)
+# =============================================================================
+BASELINE_COVARIATES_SOLID_TUMOR = {
+    "description": "Baseline covariates for solid tumor trials",
+
+    "source_trials": [
+        "KEYNOTE-024", "KEYNOTE-042", "KEYNOTE-054", "KEYNOTE-426", "KEYNOTE-590",
+        "KEYNOTE-775", "KEYNOTE-826",
+        "CheckMate-214", "CheckMate-649", "CheckMate-743", "CheckMate-901", "CheckMate-8HW",
+        "DESTINY-Breast03",
+        "IMpower133",
+        "EV-301",
+        "ADAURA",
+        "ALEX",
+        "BEACON_Colorectal",
+        "INDIGO"
+    ],
+    "source_note": "Common solid tumor covariates from Phase 3 IO, targeted therapy, and chemotherapy trials",
+
+    "disease_characteristics": {
+        "histology": {
+            "description": "Tumor histology/pathology",
+            "statistics": ["N", "%"],
+            "required": True,
+            "note": "Categories are disease-specific"
+        },
+        "disease_stage": {
+            "categories": ["Locally advanced", "Metastatic"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "primary_tumor_site": {
+            "description": "Site of primary tumor",
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "time_since_initial_diagnosis": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "months",
+            "required": True
+        },
+        "time_since_metastatic_diagnosis": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "months",
+            "required": True,
+            "applicable": "Metastatic disease only"
+        }
+    },
+
+    "tumor_burden": {
+        "measurable_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "number_of_target_lesions": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "required": True
+        },
+        "sum_of_target_lesion_diameters": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "mm",
+            "required": True
+        },
+        "number_of_metastatic_sites": {
+            "categories": ["1", "2", ">=3"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "metastatic_sites": {
+        "liver_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "lung_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "brain_metastases": {
+            "categories": ["Yes", "No", "Treated stable", "Untreated"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "bone_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "lymph_node_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "peritoneal_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": False,
+            "applicable": "GI, ovarian cancers"
+        }
+    },
+
+    "prior_therapy": {
+        "number_of_prior_lines": {
+            "categories": ["0", "1", "2", ">=3"],
+            "statistics": ["N", "%", "Median", "Range"],
+            "required": True
+        },
+        "prior_chemotherapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_immunotherapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_targeted_therapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_radiation": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_surgery": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "best_response_to_last_therapy": {
+            "categories": ["CR", "PR", "SD", "PD", "Not evaluable"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - BREAST CANCER
+# =============================================================================
+BASELINE_COVARIATES_BREAST = {
+    "description": "Breast cancer-specific baseline covariates",
+
+    "source_trials": [
+        "MONALEESA-3", "MONALEESA-7",
+        "DESTINY-Breast03",
+        "KATHERINE",
+        "monarchE"
+    ],
+    "source_note": "Breast cancer covariates from CDK4/6 inhibitor, ADC, and neoadjuvant/adjuvant trials",
+
+    "receptor_status": {
+        "er_status": {
+            "categories": ["Positive (>=1%)", "Negative (<1%)"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "pr_status": {
+            "categories": ["Positive (>=1%)", "Negative (<1%)"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "her2_status": {
+            "categories": ["Positive (IHC 3+ or FISH+)", "Negative", "Low (IHC 1+ or IHC 2+/FISH-)"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "triple_negative": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "ER-, PR-, HER2-",
+            "required": True
+        },
+        "hr_positive_her2_negative": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "ER+ and/or PR+, HER2-",
+            "required": True
+        }
+    },
+
+    "tumor_characteristics": {
+        "ki67": {
+            "categories": ["<20%", ">=20%"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "required": False
+        },
+        "tumor_grade": {
+            "categories": ["Grade 1", "Grade 2", "Grade 3"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "histology": {
+            "categories": ["Invasive ductal", "Invasive lobular", "Mixed", "Other"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "disease_setting": {
+        "de_novo_metastatic": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Metastatic at initial diagnosis",
+            "required": True
+        },
+        "disease_free_interval": {
+            "categories": ["<12 months", "12-24 months", ">24 months"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "months",
+            "applicable": "Recurrent disease only",
+            "required": True
+        },
+        "visceral_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Liver, lung, or other visceral metastases",
+            "required": True
+        }
+    },
+
+    "prior_therapy_breast": {
+        "prior_adjuvant_chemotherapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_neoadjuvant_chemotherapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_endocrine_therapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "HR+ disease",
+            "required": True
+        },
+        "prior_cdk4_6_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Palbociclib", "Ribociclib", "Abemaciclib"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_anti_her2_therapy": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Trastuzumab", "Pertuzumab", "T-DM1", "T-DXd", "Lapatinib", "Tucatinib", "Neratinib"],
+            "statistics": ["N", "%"],
+            "applicable": "HER2+ disease",
+            "required": True
+        }
+    },
+
+    "biomarkers": {
+        "brca_status": {
+            "categories": ["BRCA1 mutation", "BRCA2 mutation", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        },
+        "pik3ca_mutation": {
+            "categories": ["Mutant", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "applicable": "HR+ disease",
+            "required": False
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - LUNG CANCER (NSCLC)
+# =============================================================================
+BASELINE_COVARIATES_LUNG = {
+    "description": "Lung cancer (NSCLC)-specific baseline covariates",
+
+    "source_trials": [
+        "KEYNOTE-024", "KEYNOTE-042",
+        "CheckMate-227", "CheckMate-9LA",
+        "IMpower110", "IMpower130", "IMpower133", "IMpower150",
+        "ADAURA",
+        "ALEX",
+        "LIBRETTO-431", "LIBRETTO-531",
+        "Lung-MAP"
+    ],
+    "source_note": "NSCLC covariates from IO, TKI, and biomarker-selected trials",
+
+    "tumor_characteristics": {
+        "histology": {
+            "categories": ["Adenocarcinoma", "Squamous cell", "Large cell", "NSCLC NOS", "Other"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "stage": {
+            "categories": ["IIIA", "IIIB", "IIIC", "IVA", "IVB"],
+            "statistics": ["N", "%"],
+            "staging_system": "AJCC 8th edition",
+            "required": True
+        }
+    },
+
+    "smoking_status": {
+        "smoking_history": {
+            "categories": ["Never smoker", "Former smoker", "Current smoker"],
+            "statistics": ["N", "%"],
+            "definition": {
+                "never": "<100 cigarettes lifetime",
+                "former": "Quit >1 year before enrollment",
+                "current": "Smoking within 1 year of enrollment"
+            },
+            "required": True
+        },
+        "pack_years": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "applicable": "Ever smokers only",
+            "required": False
+        }
+    },
+
+    "molecular_markers": {
+        "egfr_mutation": {
+            "categories": ["Exon 19 deletion", "L858R", "T790M", "Exon 20 insertion", "Other", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "alk_status": {
+            "categories": ["ALK-positive", "ALK-negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "detection_method": ["IHC", "FISH", "NGS"],
+            "required": True
+        },
+        "ros1_status": {
+            "categories": ["ROS1-positive", "ROS1-negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "kras_mutation": {
+            "categories": ["KRAS G12C", "Other KRAS mutation", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "braf_mutation": {
+            "categories": ["BRAF V600E", "Other BRAF mutation", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        },
+        "met_status": {
+            "categories": ["MET exon 14 skipping", "MET amplification", "Negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        },
+        "ret_fusion": {
+            "categories": ["RET fusion-positive", "Negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        },
+        "ntrk_fusion": {
+            "categories": ["NTRK fusion-positive", "Negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        },
+        "her2_mutation": {
+            "categories": ["HER2 mutation-positive", "Negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        }
+    },
+
+    "immunotherapy_biomarkers": {
+        "pd_l1_expression": {
+            "categories": ["<1%", "1-49%", ">=50%"],
+            "statistics": ["N", "%"],
+            "assay": ["22C3", "28-8", "SP142", "SP263"],
+            "scoring": ["TPS", "CPS"],
+            "required": True
+        },
+        "tmb": {
+            "categories": ["<10 mut/Mb", ">=10 mut/Mb"],
+            "statistics": ["N", "%"],
+            "required": False
+        }
+    },
+
+    "cns_disease": {
+        "brain_metastases_at_baseline": {
+            "categories": ["Yes - treated stable", "Yes - untreated", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "leptomeningeal_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": False
+        }
+    },
+
+    "prior_therapy_lung": {
+        "prior_egfr_tki": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Osimertinib", "Erlotinib", "Gefitinib", "Afatinib", "Dacomitinib"],
+            "statistics": ["N", "%"],
+            "applicable": "EGFR-mutant only",
+            "required": True
+        },
+        "prior_alk_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Alectinib", "Brigatinib", "Lorlatinib", "Crizotinib", "Ceritinib"],
+            "statistics": ["N", "%"],
+            "applicable": "ALK-positive only",
+            "required": True
+        },
+        "prior_platinum_based_chemotherapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_immunotherapy": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Pembrolizumab", "Nivolumab", "Atezolizumab", "Durvalumab"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - GI CANCERS (Gastric, Colorectal, Pancreatic, HCC)
+# =============================================================================
+BASELINE_COVARIATES_GI = {
+    "description": "GI cancer-specific baseline covariates",
+
+    "source_trials": [
+        "CheckMate-649", "CheckMate-142",
+        "KEYNOTE-590", "KEYNOTE-181",
+        "BEACON_Colorectal",
+        "Atezolizumab_Bevacizumab",
+        "ClarIDHy",
+        "IMbrave150"
+    ],
+    "source_note": "GI cancer covariates from gastric, esophageal, CRC, HCC, and cholangiocarcinoma trials",
+
+    "gastric_gej": {
+        "lauren_classification": {
+            "categories": ["Intestinal", "Diffuse", "Mixed", "Unknown"],
+            "statistics": ["N", "%"],
+            "applicable": "Gastric/GEJ cancer",
+            "required": True
+        },
+        "signet_ring_cell": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "Gastric/GEJ cancer",
+            "required": True
+        },
+        "primary_tumor_location": {
+            "categories": ["Gastric", "GEJ (Siewert I/II/III)", "Esophageal"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "her2_status_gastric": {
+            "categories": ["Positive (IHC 3+ or IHC 2+/FISH+)", "Negative"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "msi_status": {
+            "categories": ["MSI-H", "MSS", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "pd_l1_cps": {
+            "categories": ["CPS <1", "CPS 1-9", "CPS >=10"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "colorectal": {
+        "primary_tumor_sidedness": {
+            "categories": ["Left-sided", "Right-sided"],
+            "statistics": ["N", "%"],
+            "definition": {
+                "left": "Splenic flexure, descending colon, sigmoid, rectum",
+                "right": "Cecum, ascending colon, hepatic flexure, transverse colon"
+            },
+            "required": True
+        },
+        "ras_status": {
+            "categories": ["KRAS/NRAS mutant", "RAS wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "braf_v600e": {
+            "categories": ["BRAF V600E mutant", "BRAF wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "msi_mmr_status": {
+            "categories": ["MSI-H/dMMR", "MSS/pMMR", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "cea_baseline": {
+            "categories": ["<=ULN", ">ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "ng/mL",
+            "required": True
+        },
+        "prior_adjuvant_chemotherapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "hepatocellular": {
+        "etiology": {
+            "categories": ["HBV", "HCV", "Alcohol", "NASH", "Other", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "child_pugh_class": {
+            "categories": ["A5", "A6", "B7", "B8", "B9"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "bclc_stage": {
+            "categories": ["A", "B", "C"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "afp_baseline": {
+            "categories": ["<400 ng/mL", ">=400 ng/mL"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "required": True
+        },
+        "portal_vein_invasion": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "extrahepatic_spread": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_locoregional_therapy": {
+            "categories": ["Yes", "No"],
+            "specific_types": ["TACE", "TARE/Y90", "Ablation", "Resection"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "pancreatic": {
+        "tumor_location": {
+            "categories": ["Head", "Body", "Tail", "Multiple"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "ca19_9_baseline": {
+            "categories": ["<=ULN", ">ULN", ">=59x ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "U/mL",
+            "required": True
+        },
+        "prior_whipple": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "biliary_stent": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": False
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - PROSTATE CANCER
+# =============================================================================
+BASELINE_COVARIATES_PROSTATE = {
+    "description": "Prostate cancer-specific baseline covariates",
+
+    "source_trials": [
+        "Apalutamide_FDA",
+        "SPARTAN",
+        "PROSPER",
+        "TITAN",
+        "ARCHES",
+        "PREVAIL",
+        "COU-AA-301", "COU-AA-302",
+        "PROfound"
+    ],
+    "source_note": "Prostate cancer covariates from mHSPC, nmCRPC, mCRPC, and HRR-mutated trials",
+
+    "disease_characteristics": {
+        "gleason_score": {
+            "categories": ["<=6", "7 (3+4)", "7 (4+3)", "8", "9-10"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "isup_grade_group": {
+            "categories": ["1", "2", "3", "4", "5"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "disease_state": {
+            "categories": ["mHSPC", "nmCRPC", "mCRPC"],
+            "statistics": ["N", "%"],
+            "definitions": {
+                "mHSPC": "Metastatic hormone-sensitive prostate cancer",
+                "nmCRPC": "Non-metastatic castration-resistant prostate cancer",
+                "mCRPC": "Metastatic castration-resistant prostate cancer"
+            },
+            "required": True
+        },
+        "de_novo_metastatic": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "high_volume_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": ">=4 bone mets with >=1 beyond pelvis/spine OR visceral mets (CHAARTED criteria)",
+            "required": True
+        },
+        "low_volume_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "baseline_psa": {
+        "psa": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "ng/mL",
+            "required": True
+        },
+        "psa_doubling_time": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "months",
+            "applicable": "CRPC",
+            "required": True
+        }
+    },
+
+    "metastatic_sites_prostate": {
+        "bone_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "visceral_metastases": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Liver, lung, or other visceral sites",
+            "required": True
+        },
+        "lymph_node_only": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "biomarkers_prostate": {
+        "brca_status": {
+            "categories": ["BRCA1 mutation", "BRCA2 mutation", "ATM mutation", "Other HRR mutation", "No HRR mutation", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "msi_status": {
+            "categories": ["MSI-H", "MSS", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        }
+    },
+
+    "prior_therapy_prostate": {
+        "prior_docetaxel": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_abiraterone": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_enzalutamide": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_novel_hormonal_agent": {
+            "categories": ["0", "1", ">=2"],
+            "statistics": ["N", "%"],
+            "agents": ["Abiraterone", "Enzalutamide", "Apalutamide", "Darolutamide"],
+            "required": True
+        },
+        "prior_parp_inhibitor": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "HRR-mutated",
+            "required": False
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - OVARIAN CANCER
+# =============================================================================
+BASELINE_COVARIATES_OVARIAN = {
+    "description": "Ovarian cancer-specific baseline covariates",
+
+    "source_trials": [
+        "ENGOT_Ovarian",
+        "Cediranib-Olaparib",
+        "Durva-Olaparib",
+        "SOLO-1", "SOLO-2", "SOLO-3",
+        "PRIMA", "NOVA",
+        "PAOLA-1",
+        "ARIEL-3"
+    ],
+    "source_note": "Ovarian cancer covariates from PARP inhibitor, bevacizumab combination, and maintenance trials",
+
+    "disease_characteristics": {
+        "histology": {
+            "categories": ["High-grade serous", "Low-grade serous", "Endometrioid", "Clear cell", "Mucinous", "Carcinosarcoma", "Other"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "figo_stage": {
+            "categories": ["IC", "II", "IIIA", "IIIB", "IIIC", "IV"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "primary_peritoneal": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "fallopian_tube": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "disease_status": {
+        "platinum_status": {
+            "categories": ["Platinum-sensitive", "Platinum-resistant", "Platinum-refractory"],
+            "statistics": ["N", "%"],
+            "definitions": {
+                "sensitive": "Relapse >6 months after last platinum",
+                "resistant": "Relapse <=6 months after last platinum",
+                "refractory": "Progression during or within 4 weeks of platinum"
+            },
+            "required": True
+        },
+        "platinum_free_interval": {
+            "categories": ["<6 months", "6-12 months", ">12 months"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "months",
+            "required": True
+        }
+    },
+
+    "tumor_markers": {
+        "ca125_baseline": {
+            "categories": ["<=ULN", ">ULN"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "U/mL",
+            "required": True
+        },
+        "ascites": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "biomarkers_ovarian": {
+        "brca_status": {
+            "categories": ["BRCA1 mutation", "BRCA2 mutation", "Wild-type", "Unknown"],
+            "mutation_type": ["Germline", "Somatic"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "hrd_status": {
+            "categories": ["HRD-positive", "HRD-negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "assay": "Myriad myChoice or similar",
+            "required": True
+        }
+    },
+
+    "surgical_status": {
+        "prior_debulking_surgery": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "residual_disease": {
+            "categories": ["R0 (no visible)", "<1 cm", ">=1 cm"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "prior_therapy_ovarian": {
+        "number_of_prior_lines": {
+            "categories": ["1", "2", "3", ">=4"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_bevacizumab": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_parp_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Olaparib", "Niraparib", "Rucaparib"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - LYMPHOMA (NHL and HL)
+# =============================================================================
+BASELINE_COVARIATES_LYMPHOMA = {
+    "description": "Lymphoma-specific baseline covariates",
+
+    "source_trials": [
+        "ELARA",
+        "L-MIND",
+        "Lugano_Lymphoma",
+        "Deauville_Lymphoma",
+        "KEYNOTE-087",
+        "ZUMA-1", "ZUMA-5", "ZUMA-7",
+        "TRANSFORM",
+        "TRANSCEND NHL 001",
+        "JULIET"
+    ],
+    "source_note": "Lymphoma covariates from DLBCL, FL, MCL, and Hodgkin trials including CAR-T and bispecific studies",
+
+    "disease_characteristics": {
+        "histology": {
+            "categories": ["DLBCL", "Follicular", "Marginal zone", "Mantle cell", "Burkitt",
+                          "T-cell lymphoma", "Hodgkin lymphoma", "Other"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "dlbcl_subtype": {
+            "categories": ["GCB", "Non-GCB/ABC", "Unclassified"],
+            "statistics": ["N", "%"],
+            "applicable": "DLBCL only",
+            "required": True
+        },
+        "double_hit": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "definition": "MYC rearrangement + BCL2 and/or BCL6 rearrangement",
+            "applicable": "DLBCL",
+            "required": True
+        },
+        "triple_hit": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "definition": "MYC + BCL2 + BCL6 rearrangement",
+            "applicable": "DLBCL",
+            "required": True
+        },
+        "transformed_lymphoma": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Transformation from indolent lymphoma",
+            "required": True
+        }
+    },
+
+    "staging": {
+        "ann_arbor_stage": {
+            "categories": ["I", "II", "III", "IV"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "b_symptoms": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Fever >38C, night sweats, weight loss >10%",
+            "required": True
+        },
+        "bulky_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": ">=7.5 cm or >=10 cm (varies by protocol)",
+            "required": True
+        },
+        "extranodal_sites": {
+            "categories": ["0", "1", ">=2"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "prognostic_scores": {
+        "ipi_score": {
+            "categories": ["Low (0-1)", "Low-intermediate (2)", "High-intermediate (3)", "High (4-5)"],
+            "statistics": ["N", "%"],
+            "applicable": "Aggressive NHL",
+            "components": ["Age >60", "Stage III/IV", "LDH >ULN", "ECOG >=2", "Extranodal sites >1"],
+            "required": True
+        },
+        "flipi_score": {
+            "categories": ["Low (0-1)", "Intermediate (2)", "High (>=3)"],
+            "statistics": ["N", "%"],
+            "applicable": "Follicular lymphoma",
+            "required": True
+        },
+        "mipi_score": {
+            "categories": ["Low", "Intermediate", "High"],
+            "statistics": ["N", "%"],
+            "applicable": "Mantle cell lymphoma",
+            "required": True
+        }
+    },
+
+    "bone_marrow": {
+        "bone_marrow_involvement": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "prior_therapy_lymphoma": {
+        "number_of_prior_lines": {
+            "categories": ["1", "2", "3", ">=4"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_anti_cd20": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Rituximab", "Obinutuzumab"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_alkylating_agent": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Bendamustine", "Cyclophosphamide"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_anthracycline": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Doxorubicin"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_asct": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_allo_sct": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_cart": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_lenalidomide": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_pi3k_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Idelalisib", "Copanlisib", "Duvelisib"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_btk_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Ibrutinib", "Acalabrutinib", "Zanubrutinib"],
+            "statistics": ["N", "%"],
+            "applicable": "MCL, CLL",
+            "required": True
+        },
+        "refractory_status": {
+            "categories": ["Primary refractory", "Refractory to last therapy", "Relapsed"],
+            "statistics": ["N", "%"],
+            "definitions": {
+                "primary_refractory": "SD/PD to first-line or relapse <6 months",
+                "refractory_to_last": "SD/PD or relapse <6 months from last therapy",
+                "relapsed": "CR/PR to last therapy then progression"
+            },
+            "required": True
+        },
+        "double_refractory": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Refractory to anti-CD20 AND alkylating agent",
+            "required": True
+        },
+        "response_to_last_therapy": {
+            "categories": ["CR", "PR", "SD", "PD"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - MULTIPLE MYELOMA
+# =============================================================================
+BASELINE_COVARIATES_MYELOMA = {
+    "description": "Multiple myeloma-specific baseline covariates",
+
+    "source_trials": [
+        "CASSIOPEIA",
+        "EAA171_MRD_MM",
+        "Elo_KRd_MRD",
+        "FDA_Elranatamab_Bispecific_Review",
+        "FDA_Teclistamab_Bispecific_Review",
+        "CARTITUDE-1", "CARTITUDE-4",
+        "KarMMa",
+        "MAIA",
+        "POLLUX", "CASTOR",
+        "ICARIA-MM"
+    ],
+    "source_note": "Multiple myeloma covariates from transplant, maintenance, relapsed/refractory, CAR-T, and bispecific trials",
+
+    "staging": {
+        "iss_stage": {
+            "categories": ["I", "II", "III"],
+            "statistics": ["N", "%"],
+            "criteria": {
+                "I": "Beta-2M <3.5, Albumin >=3.5",
+                "II": "Neither I nor III",
+                "III": "Beta-2M >=5.5"
+            },
+            "required": True
+        },
+        "r_iss_stage": {
+            "categories": ["I", "II", "III"],
+            "statistics": ["N", "%"],
+            "criteria": {
+                "I": "ISS I + standard-risk cytogenetics + normal LDH",
+                "II": "Neither I nor III",
+                "III": "ISS III + high-risk cytogenetics or elevated LDH"
+            },
+            "required": True
+        }
+    },
+
+    "disease_characteristics": {
+        "myeloma_type": {
+            "categories": ["IgG", "IgA", "IgD", "IgE", "Light chain only", "Non-secretory"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "light_chain_type": {
+            "categories": ["Kappa", "Lambda"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "extramedullary_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "plasmacytomas": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "lab_values": {
+        "beta_2_microglobulin": {
+            "categories": ["<3.5 mg/L", "3.5-5.5 mg/L", ">5.5 mg/L"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "required": True
+        },
+        "serum_albumin": {
+            "categories": ["<3.5 g/dL", ">=3.5 g/dL"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "ldh": {
+            "categories": ["<=ULN", ">ULN"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "serum_m_protein": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "g/dL",
+            "required": True
+        },
+        "urine_m_protein": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "mg/24hr",
+            "required": True
+        },
+        "serum_free_light_chains": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "ratio": "kappa/lambda or lambda/kappa",
+            "required": True
+        }
+    },
+
+    "cytogenetics": {
+        "high_risk_cytogenetics": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "del(17p), t(4;14), t(14;16), t(14;20), gain(1q)",
+            "required": True
+        },
+        "del_17p": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "t_4_14": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "t_14_16": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "gain_1q": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "del_1p": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": False
+        }
+    },
+
+    "prior_therapy_myeloma": {
+        "number_of_prior_lines": {
+            "categories": ["1", "2", "3", "4", ">=5"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_proteasome_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Bortezomib", "Carfilzomib", "Ixazomib"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_imid": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Lenalidomide", "Pomalidomide", "Thalidomide"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_anti_cd38": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Daratumumab", "Isatuximab"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_anti_bcma": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Belantamab mafodotin", "Idecabtagene vicleucel", "Ciltacabtagene autoleucel"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_asct": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_allo_sct": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "triple_class_refractory": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Refractory to PI, IMiD, and anti-CD38",
+            "required": True
+        },
+        "penta_refractory": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Refractory to 2 PIs, 2 IMiDs, and anti-CD38",
+            "required": True
+        },
+        "refractory_to_last_therapy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - LEUKEMIA (AML and ALL)
+# =============================================================================
+BASELINE_COVARIATES_LEUKEMIA = {
+    "description": "Acute leukemia (AML/ALL)-specific baseline covariates",
+
+    "source_trials": [
+        "ZUMA-3",
+        "ELIANA",
+        "AAML1031_Bayesian",
+        "BMT_CTN_0901_MDS_AML",
+        "CD19_CD22_BiCART",
+        "NCI_AntiCD19_CART",
+        "NCT02206035_Transplant",
+        "VIALE-A", "VIALE-C",
+        "QUAZAR AML-001",
+        "AGILE"
+    ],
+    "source_note": "AML/ALL covariates from CAR-T, transplant, and targeted therapy trials including venetoclax combinations",
+
+    "aml_characteristics": {
+        "aml_type": {
+            "categories": ["De novo", "Secondary (from MDS/MPN)", "Therapy-related"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "fab_classification": {
+            "categories": ["M0", "M1", "M2", "M3", "M4", "M5", "M6", "M7"],
+            "statistics": ["N", "%"],
+            "required": False
+        },
+        "who_classification": {
+            "description": "WHO 2016/2022 classification",
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "bone_marrow_blasts": {
+            "categories": ["<30%", "30-50%", ">50%"],
+            "statistics": ["N", "%"],
+            "continuous_stats": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "required": True
+        },
+        "peripheral_blasts": {
+            "categories": ["0", ">0 to 1000/mm3", ">1000/mm3"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "extramedullary_disease": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "aml_molecular": {
+        "eln_risk_2022": {
+            "categories": ["Favorable", "Intermediate", "Adverse"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "flt3_status": {
+            "categories": ["FLT3-ITD", "FLT3-TKD", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "flt3_itd_allelic_ratio": {
+            "categories": ["<0.5", ">=0.5"],
+            "statistics": ["N", "%"],
+            "applicable": "FLT3-ITD positive",
+            "required": True
+        },
+        "npm1_status": {
+            "categories": ["Mutated", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "idh1_status": {
+            "categories": ["Mutated", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "idh2_status": {
+            "categories": ["Mutated", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "tp53_status": {
+            "categories": ["Mutated", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "cebpa_status": {
+            "categories": ["bZIP in-frame mutation", "Other mutation", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "aml_cytogenetics": {
+        "karyotype": {
+            "categories": ["Normal", "Abnormal"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "complex_karyotype": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": ">=3 unrelated abnormalities",
+            "required": True
+        },
+        "favorable_cytogenetics": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "examples": ["t(8;21)", "inv(16)/t(16;16)", "t(15;17)"],
+            "required": True
+        },
+        "adverse_cytogenetics": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "examples": ["del(5q)/-5", "del(7q)/-7", "t(6;9)", "t(9;22)"],
+            "required": True
+        }
+    },
+
+    "all_characteristics": {
+        "all_subtype": {
+            "categories": ["B-ALL", "T-ALL"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "philadelphia_chromosome": {
+            "categories": ["Ph-positive", "Ph-negative"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "mll_rearrangement": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "includes": ["t(4;11)", "t(11;19)", "other MLL"],
+            "required": True
+        },
+        "cd19_expression": {
+            "categories": ["Positive", "Negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "applicable": "B-ALL, CAR-T trials",
+            "required": True
+        },
+        "cd22_expression": {
+            "categories": ["Positive", "Negative", "Unknown"],
+            "statistics": ["N", "%"],
+            "applicable": "B-ALL",
+            "required": True
+        },
+        "cns_involvement": {
+            "categories": ["CNS-1", "CNS-2", "CNS-3"],
+            "statistics": ["N", "%"],
+            "definitions": {
+                "CNS-1": "No blasts in CSF",
+                "CNS-2": "<5 WBC/uL with blasts",
+                "CNS-3": ">=5 WBC/uL with blasts or cranial nerve palsy"
+            },
+            "required": True
+        },
+        "testicular_involvement": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "Male patients",
+            "required": True
+        }
+    },
+
+    "prior_therapy_leukemia": {
+        "number_of_prior_lines": {
+            "categories": ["0 (newly diagnosed)", "1", "2", ">=3"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_asct": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_allo_sct": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_blinatumomab": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "B-ALL",
+            "required": True
+        },
+        "prior_inotuzumab": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "B-ALL",
+            "required": True
+        },
+        "prior_cart": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "B-ALL",
+            "required": True
+        },
+        "prior_venetoclax": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "applicable": "AML",
+            "required": True
+        },
+        "prior_flt3_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Midostaurin", "Gilteritinib", "Quizartinib"],
+            "statistics": ["N", "%"],
+            "applicable": "FLT3-mutated AML",
+            "required": True
+        },
+        "refractory_status": {
+            "categories": ["Primary refractory", "Relapsed", "Relapsed/refractory"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# BASELINE COVARIATES - CLL
+# =============================================================================
+BASELINE_COVARIATES_CLL = {
+    "description": "CLL-specific baseline covariates",
+
+    "source_trials": [
+        "CLL_MRD",
+        "CLL14",
+        "RESONATE", "RESONATE-2",
+        "MURANO",
+        "SEQUOIA",
+        "ELEVATE-TN",
+        "ALPINE",
+        "CAPTIVATE"
+    ],
+    "source_note": "CLL covariates from BTK inhibitor, BCL2 inhibitor, and chemoimmunotherapy trials",
+
+    "staging": {
+        "rai_stage": {
+            "categories": ["0", "I", "II", "III", "IV"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "binet_stage": {
+            "categories": ["A", "B", "C"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "disease_characteristics": {
+        "bulky_lymphadenopathy": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": ">=5 cm or >=10 cm (varies by protocol)",
+            "required": True
+        },
+        "splenomegaly": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "b_symptoms": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "autoimmune_cytopenias": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "includes": ["AIHA", "ITP"],
+            "required": True
+        },
+        "richter_transformation": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "molecular_markers": {
+        "del_17p": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "threshold": ">=7% of cells by FISH",
+            "required": True
+        },
+        "tp53_mutation": {
+            "categories": ["Mutated", "Wild-type", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "del_11q": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "del_13q": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "trisomy_12": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "ighv_mutation_status": {
+            "categories": ["Mutated (>=2% deviation)", "Unmutated (<2% deviation)", "Unknown"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "complex_karyotype": {
+            "categories": ["Yes", "No", "Unknown"],
+            "statistics": ["N", "%"],
+            "definition": ">=3 unrelated abnormalities",
+            "required": True
+        }
+    },
+
+    "lab_values_cll": {
+        "absolute_lymphocyte_count": {
+            "statistics": ["N", "Mean", "SD", "Median", "Min", "Max"],
+            "units": "cells/uL",
+            "required": True
+        },
+        "beta_2_microglobulin": {
+            "categories": ["<=3.5 mg/L", ">3.5 mg/L"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "ldh": {
+            "categories": ["<=ULN", ">ULN"],
+            "statistics": ["N", "%"],
+            "required": True
+        }
+    },
+
+    "prior_therapy_cll": {
+        "number_of_prior_lines": {
+            "categories": ["0 (treatment-naive)", "1", "2", ">=3"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_btk_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Ibrutinib", "Acalabrutinib", "Zanubrutinib"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_bcl2_inhibitor": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Venetoclax"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_anti_cd20": {
+            "categories": ["Yes", "No"],
+            "specific_agents": ["Rituximab", "Obinutuzumab", "Ofatumumab"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "prior_chemoimmunotherapy": {
+            "categories": ["Yes", "No"],
+            "regimens": ["FCR", "BR", "Chlorambucil-based"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "refractory_to_btk_inhibitor": {
+            "categories": ["Yes", "No", "N/A"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "refractory_to_venetoclax": {
+            "categories": ["Yes", "No", "N/A"],
+            "statistics": ["N", "%"],
+            "required": True
+        },
+        "double_refractory": {
+            "categories": ["Yes", "No"],
+            "statistics": ["N", "%"],
+            "definition": "Refractory to both BTKi and venetoclax",
+            "required": True
+        }
+    }
+}
+
+# =============================================================================
+# HELPER FUNCTION: Get disease-specific baseline covariates
+# =============================================================================
+def get_disease_specific_baseline_covariates(disease_type: str) -> dict:
+    """
+    Return baseline covariates specific to a disease type.
+
+    Args:
+        disease_type: One of 'breast', 'lung', 'gi', 'prostate', 'ovarian',
+                      'lymphoma', 'myeloma', 'leukemia', 'cll', 'solid_tumor'
+
+    Returns:
+        Dictionary containing disease-specific baseline covariates
+    """
+    disease_map = {
+        "breast": BASELINE_COVARIATES_BREAST,
+        "lung": BASELINE_COVARIATES_LUNG,
+        "nsclc": BASELINE_COVARIATES_LUNG,
+        "gi": BASELINE_COVARIATES_GI,
+        "gastric": BASELINE_COVARIATES_GI,
+        "colorectal": BASELINE_COVARIATES_GI,
+        "crc": BASELINE_COVARIATES_GI,
+        "hcc": BASELINE_COVARIATES_GI,
+        "pancreatic": BASELINE_COVARIATES_GI,
+        "prostate": BASELINE_COVARIATES_PROSTATE,
+        "ovarian": BASELINE_COVARIATES_OVARIAN,
+        "lymphoma": BASELINE_COVARIATES_LYMPHOMA,
+        "dlbcl": BASELINE_COVARIATES_LYMPHOMA,
+        "follicular": BASELINE_COVARIATES_LYMPHOMA,
+        "mcl": BASELINE_COVARIATES_LYMPHOMA,
+        "hodgkin": BASELINE_COVARIATES_LYMPHOMA,
+        "myeloma": BASELINE_COVARIATES_MYELOMA,
+        "mm": BASELINE_COVARIATES_MYELOMA,
+        "multiple_myeloma": BASELINE_COVARIATES_MYELOMA,
+        "leukemia": BASELINE_COVARIATES_LEUKEMIA,
+        "aml": BASELINE_COVARIATES_LEUKEMIA,
+        "all": BASELINE_COVARIATES_LEUKEMIA,
+        "cll": BASELINE_COVARIATES_CLL,
+        "solid_tumor": BASELINE_COVARIATES_SOLID_TUMOR,
+    }
+
+    return disease_map.get(disease_type.lower(), {})
+
+
+def get_all_baseline_covariates(disease_type: str = None) -> dict:
+    """
+    Return all applicable baseline covariates for a study.
+
+    Args:
+        disease_type: Optional disease type for disease-specific covariates
+
+    Returns:
+        Dictionary containing core + disease-specific baseline covariates
+    """
+    result = {
+        "core": BASELINE_COVARIATES_CORE,
+    }
+
+    if disease_type:
+        disease_lower = disease_type.lower()
+
+        # Add solid tumor covariates for all solid tumors
+        solid_tumors = ["breast", "lung", "nsclc", "gi", "gastric", "colorectal",
+                       "crc", "hcc", "pancreatic", "prostate", "ovarian", "melanoma",
+                       "renal", "bladder", "head_neck", "solid_tumor"]
+        if disease_lower in solid_tumors:
+            result["solid_tumor"] = BASELINE_COVARIATES_SOLID_TUMOR
+
+        # Add disease-specific covariates
+        disease_specific = get_disease_specific_baseline_covariates(disease_type)
+        if disease_specific:
+            result["disease_specific"] = disease_specific
+
+    return result
+
+# =============================================================================
 # PRIOR THERAPY ANALYSIS
 # =============================================================================
 PRIOR_THERAPY_ANALYSIS = {
