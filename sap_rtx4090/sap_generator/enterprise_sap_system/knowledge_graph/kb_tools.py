@@ -286,7 +286,9 @@ class KnowledgeBaseTools:
                 SUBGROUP_ANALYSIS_SPECIFICATIONS,
                 MULTIPLICITY_ADJUSTMENT,
                 TIME_TO_EVENT_ANALYSIS,
-                SAFETY_ANALYSIS_SPECIFICATIONS
+                SAFETY_ANALYSIS_SPECIFICATIONS,
+                CENSORING_RULES,
+                INTERIM_ANALYSIS_SPECIFICATIONS
             )
             self.STATISTICAL_METHODS = STATISTICAL_METHODS
             self.MISSING_DATA_HANDLING = MISSING_DATA_HANDLING
@@ -296,6 +298,8 @@ class KnowledgeBaseTools:
             self.MULTIPLICITY_ADJUSTMENTS = MULTIPLICITY_ADJUSTMENT
             self.TIME_TO_EVENT_ANALYSIS = TIME_TO_EVENT_ANALYSIS
             self.SAFETY_ANALYSIS_SPECIFICATIONS = SAFETY_ANALYSIS_SPECIFICATIONS
+            self.CENSORING_RULES = CENSORING_RULES
+            self.INTERIM_ANALYSIS = INTERIM_ANALYSIS_SPECIFICATIONS
         except ImportError:
             from methodology_knowledge_base import (
                 STATISTICAL_METHODS,
@@ -305,7 +309,9 @@ class KnowledgeBaseTools:
                 SUBGROUP_ANALYSIS_SPECIFICATIONS,
                 MULTIPLICITY_ADJUSTMENT,
                 TIME_TO_EVENT_ANALYSIS,
-                SAFETY_ANALYSIS_SPECIFICATIONS
+                SAFETY_ANALYSIS_SPECIFICATIONS,
+                CENSORING_RULES,
+                INTERIM_ANALYSIS_SPECIFICATIONS
             )
             self.STATISTICAL_METHODS = STATISTICAL_METHODS
             self.MISSING_DATA_HANDLING = MISSING_DATA_HANDLING
@@ -315,6 +321,50 @@ class KnowledgeBaseTools:
             self.MULTIPLICITY_ADJUSTMENTS = MULTIPLICITY_ADJUSTMENT
             self.TIME_TO_EVENT_ANALYSIS = TIME_TO_EVENT_ANALYSIS
             self.SAFETY_ANALYSIS_SPECIFICATIONS = SAFETY_ANALYSIS_SPECIFICATIONS
+            self.CENSORING_RULES = CENSORING_RULES
+            self.INTERIM_ANALYSIS = INTERIM_ANALYSIS_SPECIFICATIONS
+
+        # Standard population definitions (not in external file - defined here)
+        self.POPULATION_DEFINITIONS = {
+            "itt": {
+                "name": "Intent-to-Treat (ITT) Population",
+                "definition": "All randomized subjects, analyzed according to randomized treatment assignment regardless of actual treatment received.",
+                "use_for": ["Primary efficacy analysis", "Regulatory submission"],
+                "source": "ICH E9"
+            },
+            "mitt": {
+                "name": "Modified Intent-to-Treat (mITT) Population",
+                "definition": "All randomized subjects who received at least one dose of study treatment and had at least one post-baseline efficacy assessment.",
+                "use_for": ["Supportive efficacy analysis"],
+                "exclusions": ["No study drug received", "No post-baseline assessment"]
+            },
+            "safety": {
+                "name": "Safety Population",
+                "definition": "All subjects who received at least one dose (or partial dose) of study treatment, analyzed according to treatment actually received.",
+                "use_for": ["All safety analyses", "AE summaries", "Laboratory analyses"]
+            },
+            "per_protocol": {
+                "name": "Per-Protocol (PP) Population",
+                "definition": "All subjects in the ITT population who completed the study without major protocol deviations that could affect efficacy assessment.",
+                "use_for": ["Supportive/sensitivity efficacy analysis"],
+                "exclusions": ["Major protocol deviations", "Inadequate treatment exposure", "Wrong diagnosis"]
+            },
+            "evaluable": {
+                "name": "Evaluable Population",
+                "definition": "All subjects who received study treatment and had adequate baseline and post-baseline tumor assessments for response evaluation.",
+                "use_for": ["Response rate analyses (ORR, CR, PR)"]
+            },
+            "pharmacokinetic": {
+                "name": "Pharmacokinetic (PK) Population",
+                "definition": "All subjects who received study treatment and had at least one evaluable PK sample.",
+                "use_for": ["PK analyses", "Exposure-response analyses"]
+            },
+            "dlt_evaluable": {
+                "name": "DLT-Evaluable Population",
+                "definition": "All subjects who received the full planned dose during the DLT evaluation period or experienced a DLT.",
+                "use_for": ["Phase 1 dose-escalation", "MTD determination"]
+            }
+        }
 
         try:
             from .complete_tfl_inventory import (
@@ -613,6 +663,88 @@ class KnowledgeBaseTools:
             content=self.SUBGROUP_ANALYSES,
             source_file="methodology_knowledge_base.py",
             source_key="SUBGROUP_ANALYSES"
+        )
+
+    def get_censoring_rules(self, endpoint_type: str = "pfs") -> KBRetrievalResult:
+        """
+        Get censoring rules for time-to-event endpoints.
+
+        Args:
+            endpoint_type: One of:
+                - "pfs" (progression-free survival)
+                - "os" (overall survival)
+                - "dfs" (disease-free survival)
+                - "efs" (event-free survival)
+                - "dor" (duration of response)
+                - "ttf" (time to treatment failure)
+                - "all" (returns all censoring rules)
+        """
+        if endpoint_type == "all":
+            content = self.CENSORING_RULES
+        else:
+            content = self.CENSORING_RULES.get(f"{endpoint_type}_censoring",
+                      self.CENSORING_RULES.get(endpoint_type, {}))
+
+        self._log_retrieval("get_censoring_rules", endpoint_type, "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="methodology_knowledge_base.py",
+            source_key=f"CENSORING_RULES['{endpoint_type}']"
+        )
+
+    def get_interim_analysis(self, analysis_type: str = "all") -> KBRetrievalResult:
+        """
+        Get interim analysis specifications.
+
+        Args:
+            analysis_type: One of:
+                - "dmc_charter" (DMC composition and recommendations)
+                - "efficacy_interim" (efficacy boundaries, alpha spending)
+                - "os_interim_at_pfs_final" (OS interim at PFS final)
+                - "sample_size_re_estimation" (blinded/unblinded re-estimation)
+                - "alpha_spending" (spending functions: OBF, Lan-DeMets)
+                - "all" (returns all specifications)
+        """
+        if analysis_type == "all":
+            content = self.INTERIM_ANALYSIS
+        else:
+            content = self.INTERIM_ANALYSIS.get(analysis_type, {})
+
+        self._log_retrieval("get_interim_analysis", analysis_type, "methodology_knowledge_base.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="methodology_knowledge_base.py",
+            source_key=f"INTERIM_ANALYSIS['{analysis_type}']"
+        )
+
+    def get_population_definitions(self, population_type: str = "all") -> KBRetrievalResult:
+        """
+        Get standard analysis population definitions.
+
+        Args:
+            population_type: One of:
+                - "itt" (Intent-to-Treat)
+                - "mitt" (Modified Intent-to-Treat)
+                - "safety" (Safety Population)
+                - "per_protocol" (Per-Protocol)
+                - "evaluable" (Evaluable/Response-Evaluable)
+                - "pharmacokinetic" (PK Population)
+                - "dlt_evaluable" (DLT-Evaluable for Phase 1)
+                - "all" (returns all population definitions)
+        """
+        if population_type == "all":
+            content = self.POPULATION_DEFINITIONS
+        else:
+            content = self.POPULATION_DEFINITIONS.get(population_type, {})
+
+        self._log_retrieval("get_population_definitions", population_type, "kb_tools.py")
+
+        return KBRetrievalResult(
+            content=content,
+            source_file="kb_tools.py",
+            source_key=f"POPULATION_DEFINITIONS['{population_type}']"
         )
 
     # =========================================================================
@@ -1302,6 +1434,51 @@ def get_claude_tool_definitions() -> List[Dict]:
             }
         },
         {
+            "name": "get_censoring_rules",
+            "description": "Get censoring rules for time-to-event endpoints (PFS, OS, DFS, DOR). Specifies when patients are censored vs counted as events. ESSENTIAL for Section 8 (Censoring Rules).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "endpoint_type": {
+                        "type": "string",
+                        "description": "The time-to-event endpoint type",
+                        "enum": ["pfs", "os", "dfs", "efs", "dor", "ttf", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_interim_analysis",
+            "description": "Get interim analysis specifications including DMC charter, alpha spending functions (O'Brien-Fleming, Lan-DeMets), efficacy/futility boundaries. ESSENTIAL for Section 11 (Interim Analysis).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "analysis_type": {
+                        "type": "string",
+                        "description": "The type of interim analysis specification",
+                        "enum": ["dmc_charter", "efficacy_interim", "os_interim_at_pfs_final", "sample_size_re_estimation", "alpha_spending", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
+            "name": "get_population_definitions",
+            "description": "Get standard analysis population definitions (ITT, mITT, Safety, Per-Protocol, Evaluable, PK, DLT-Evaluable). ESSENTIAL for Section 4 (Analysis Populations).",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "population_type": {
+                        "type": "string",
+                        "description": "The population type",
+                        "enum": ["itt", "mitt", "safety", "per_protocol", "evaluable", "pharmacokinetic", "dlt_evaluable", "all"]
+                    }
+                },
+                "required": []
+            }
+        },
+        {
             "name": "get_data_handling_rules",
             "description": "Get data handling conventions including treatment assignment rules, visit windowing, and censoring rules.",
             "input_schema": {
@@ -1464,6 +1641,9 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_multiplicity_adjustment": lambda: kb.get_multiplicity_adjustment(tool_input.get("method_name", "")),
         "get_stratification_specs": lambda: kb.get_stratification_specs(),
         "get_subgroup_analysis_specs": lambda: kb.get_subgroup_analysis_specs(),
+        "get_censoring_rules": lambda: kb.get_censoring_rules(tool_input.get("endpoint_type", "all")),
+        "get_interim_analysis": lambda: kb.get_interim_analysis(tool_input.get("analysis_type", "all")),
+        "get_population_definitions": lambda: kb.get_population_definitions(tool_input.get("population_type", "all")),
         # TFL Templates
         "get_table_template": lambda: kb.get_table_template(tool_input.get("table_id", "")),
         "get_disposition_tables": lambda: kb.get_disposition_tables(),

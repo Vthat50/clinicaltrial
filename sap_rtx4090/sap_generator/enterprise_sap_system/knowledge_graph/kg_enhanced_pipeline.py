@@ -1275,9 +1275,17 @@ MANDATORY OUTPUT FORMAT - Use these EXACT section headers:
 CRITICAL REQUIREMENTS:
 - You MUST generate ALL 12 sections, even if brief
 - Use the EXACT "## N." format for section headers
-- For sections 5, 7, 8, 9, 10, 12: USE THE TOOLS to get standard specifications
-- Section 11 (Interim Analysis): Include even if "Not applicable" for this study
-- ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements that don't fit standard categories. Include these in the appropriate SAP sections (e.g., unique populations in Section 4, unique endpoints in Section 2, special definitions in a Definitions subsection)
+- ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements. Include these in appropriate SAP sections.
+
+MANDATORY TOOL CALLS BY SECTION:
+- Section 4 (Populations): MUST call get_population_definitions() for standard ITT/Safety/PP definitions
+- Section 5 (Statistical Methods): MUST call get_statistical_method() for KM, Cox, log-rank, etc.
+- Section 7 (Missing Data): MUST call get_missing_data_method() for LOCF, MI, MMRM, etc.
+- Section 8 (Censoring): MUST call get_censoring_rules() for PFS/OS/DOR censoring rules
+- Section 9 (Subgroups): MUST call get_subgroup_analysis_specs() for forest plot specs
+- Section 10 (Safety): MUST call get_safety_tables() and get_safety_specifications()
+- Section 11 (Interim): MUST call get_interim_analysis() for alpha spending, DMC charter
+- Section 12 (TFL Shells): MUST call get_disposition_tables(), get_efficacy_tables(), get_safety_tables()
 
 ## SECTION 12 TABLE/FIGURE SHELLS - CRITICAL FORMATTING:
 
