@@ -1279,8 +1279,11 @@ CRITICAL REQUIREMENTS:
 - Section 11 (Interim Analysis): Include even if "Not applicable" for this study
 
 ## SECTION 12 TABLE/FIGURE SHELLS - CRITICAL FORMATTING:
-You MUST call get_disposition_tables, get_efficacy_tables, get_safety_tables tools.
-Then FORMAT the JSON responses into TEXT TABLE SHELLS like this:
+
+⚠️ DO NOT write prose descriptions like "Table 14.1.1: Subject Disposition - Column headers: X, Y, Z - Key rows: A, B, C"
+⚠️ YOU MUST output ACTUAL MARKDOWN TABLES with | separators and xxx placeholders
+
+CORRECT FORMAT (you MUST use this exact structure):
 
 **TABLE 14.1.1: Subject Disposition**
 |Category|Treatment A (N=xxx)|Treatment B (N=xxx)|Total (N=xxx)|
@@ -1304,11 +1307,16 @@ Then FORMAT the JSON responses into TEXT TABLE SHELLS like this:
 |Sex, n (%)|Male|xxx (xx.x)|xxx (xx.x)|
 ||Female|xxx (xx.x)|xxx (xx.x)|
 
-IMPORTANT: The KB tools return JSON with 'title', 'columns', 'rows'. YOU must convert this to formatted text tables with:
-- TABLE 14.x.x numbering
-- Markdown table format with | separators
-- xxx placeholders for values
-- Include ALL tables returned by the tools
+WRONG FORMAT (DO NOT DO THIS):
+"Table 14.1.1: Subject Disposition - Column headers: Category | Treatment A - Key rows: Screened, Randomized..."
+
+Call get_disposition_tables, get_efficacy_tables, get_safety_tables tools.
+Convert their JSON output to ACTUAL markdown tables with:
+- TABLE 14.x.x numbering as **bold header**
+- Markdown table with | column | separators |
+- |------|------| separator row after header
+- xxx placeholders for all numeric values
+- Every row on its own line
 
 RECOMMENDED TOOL ORDER:
 1. FIRST: Call get_similar_trials() with the protocol's phase, indication, and primary endpoint to find precedent
