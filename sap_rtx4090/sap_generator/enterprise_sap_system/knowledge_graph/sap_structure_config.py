@@ -667,8 +667,23 @@ def detect_sap_conditions(protocol_extraction: Dict) -> Dict[str, bool]:
     conditions["has_exploratory_endpoints"] = len(exploratory) > 0
     conditions["has_multiple_primary_endpoints"] = len(primary) > 1
     conditions["has_biomarker_endpoints"] = any(x in endpoint_str for x in ["biomarker", "pd-l1", "tmb", "msi", "ctdna", "mrd"])
-    # Note: Use word boundaries to avoid "pro" matching "progression"
-    conditions["has_pro_endpoints"] = any(x in endpoint_str for x in ["qol", "quality of life", "patient-reported", "eortc", "fact-", "sf-36", "eq-5d", "eortc qlq"])
+
+    # PRO Detection - Multi-source check for Patient-Reported Outcomes
+    # 1. Check endpoint names for PRO instruments
+    pro_instruments = ["qol", "quality of life", "patient-reported", "eortc", "fact-", "sf-36", "eq-5d",
+                       "qlq-c30", "qlq-lc13", "qlq-br23", "qlq-ov28", "facit", "fosi", "fact-g",
+                       "promis", "hads", "bfi", "mdasi", "euroqol", "pro ", "pros "]
+    has_pro_in_endpoints = any(x in endpoint_str for x in pro_instruments)
+
+    # 2. Check discovery output for pro_endpoints (new schema field)
+    pro_endpoints_discovered = protocol_extraction.get("pro_endpoints", [])
+    has_pro_discovered = len(pro_endpoints_discovered) > 0 if isinstance(pro_endpoints_discovered, list) else False
+
+    # 3. Check exploratory endpoints for PRO
+    exploratory_str = " ".join([extract_endpoint_text(e).lower() for e in exploratory])
+    has_pro_in_exploratory = any(x in exploratory_str for x in pro_instruments)
+
+    conditions["has_pro_endpoints"] = has_pro_in_endpoints or has_pro_discovered or has_pro_in_exploratory
     conditions["has_pk_endpoints"] = any(x in endpoint_str for x in ["pharmacokinetic", "pk", "auc", "cmax", "tmax"])
 
     # Therapy Type Conditions

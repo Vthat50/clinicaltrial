@@ -1261,6 +1261,43 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
                 if r.get("citation"):
                     requirements.append(f"  - {r.get('citation')} (for {r.get('for_what', '')})")
 
+        # Immune-related response criteria (irRECIST/iRECIST)
+        immune_criteria = protocol_sections.get("immune_response_criteria", [])
+        if immune_criteria and any(c.get("name") for c in immune_criteria):
+            requirements.append("")
+            requirements.append("IMMUNE-RELATED RESPONSE CRITERIA (MUST INCLUDE):")
+            for c in immune_criteria:
+                if c.get("name"):
+                    requirements.append(f"  - {c.get('name')}: pseudoprogression handling = {c.get('pseudoprogression_handling', 'N/A')}")
+
+        # Subsequent therapy endpoints (TFST/TSST)
+        subsequent_therapy = protocol_sections.get("subsequent_therapy_endpoints", [])
+        if subsequent_therapy and any(s.get("name") for s in subsequent_therapy):
+            requirements.append("")
+            requirements.append("SUBSEQUENT THERAPY ENDPOINTS (MUST INCLUDE):")
+            for s in subsequent_therapy:
+                if s.get("name"):
+                    requirements.append(f"  - {s.get('name')}: {s.get('definition', '')} (Section {s.get('section', 'N/A')})")
+
+        # Biomarker-defined subgroups
+        biomarker_subgroups = protocol_sections.get("biomarker_subgroups", [])
+        if biomarker_subgroups and any(b.get("biomarker") for b in biomarker_subgroups):
+            requirements.append("")
+            requirements.append("BIOMARKER-DEFINED SUBGROUP ANALYSES (MUST INCLUDE):")
+            for b in biomarker_subgroups:
+                if b.get("biomarker"):
+                    cutoffs = ", ".join(b.get("cutoffs", [])) if b.get("cutoffs") else "N/A"
+                    requirements.append(f"  - {b.get('biomarker')} (cutoffs: {cutoffs}) - {b.get('analysis_type', '')}")
+
+        # Metastatic site analyses
+        metastatic_sites = protocol_sections.get("metastatic_site_analyses", [])
+        if metastatic_sites and any(m.get("site") for m in metastatic_sites):
+            requirements.append("")
+            requirements.append("METASTATIC SITE ANALYSES (MUST INCLUDE):")
+            for m in metastatic_sites:
+                if m.get("site"):
+                    requirements.append(f"  - {m.get('site')}: {m.get('analysis_type', '')} (Section {m.get('section', 'N/A')})")
+
         # Appendices
         appendices = protocol_sections.get("appendices", [])
         if appendices and any(a.get("name") for a in appendices):
@@ -1269,6 +1306,42 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
             for a in appendices:
                 if a.get("name"):
                     requirements.append(f"  - {a.get('name')}: {a.get('content', '')} (Section {a.get('section', 'N/A')})")
+
+        # Process additional_discoveries from Stage 2 extraction (CATCH-ALL)
+        structured_extraction = full_extraction.get("structured_extraction", {})
+        additional_discoveries = structured_extraction.get("additional_discoveries", [])
+        if additional_discoveries and any(d.get("name") for d in additional_discoveries):
+            requirements.append("")
+            requirements.append("ADDITIONAL PROTOCOL-SPECIFIC ELEMENTS (from extraction - MUST INCLUDE):")
+            for d in additional_discoveries:
+                if d.get("name"):
+                    element_type = d.get("element_type", "element")
+                    relevant_sections = d.get("relevant_sections", "")
+                    requirements.append(f"  - [{element_type.upper()}] {d.get('name')}: {d.get('full_definition', '')[:200]}")
+                    if relevant_sections:
+                        requirements.append(f"    (Include in sections: {relevant_sections})")
+
+        # Process PRO endpoints from discovery (NEW)
+        pro_endpoints = discovered.get("pro_endpoints", [])
+        if pro_endpoints and any(p.get("name") for p in pro_endpoints):
+            requirements.append("")
+            requirements.append("PATIENT-REPORTED OUTCOME ENDPOINTS (MUST INCLUDE):")
+            for p in pro_endpoints:
+                if p.get("name"):
+                    instrument = p.get("instrument", "")
+                    domains = ", ".join(p.get("domains", [])) if p.get("domains") else ""
+                    requirements.append(f"  - {p.get('name')} ({instrument})")
+                    if domains:
+                        requirements.append(f"    Domains: {domains}")
+
+        # Process exploratory endpoints from discovery (NEW)
+        exploratory_endpoints = discovered.get("exploratory_endpoints", [])
+        if exploratory_endpoints and any(e.get("name") for e in exploratory_endpoints):
+            requirements.append("")
+            requirements.append("EXPLORATORY ENDPOINTS (MUST INCLUDE):")
+            for e in exploratory_endpoints:
+                if e.get("name"):
+                    requirements.append(f"  - {e.get('name')}: {e.get('description', '')}")
 
         return "\n".join(requirements) if len(requirements) > 2 else ""
 
@@ -1564,7 +1637,7 @@ Generate a production-quality SAP with full provenance tracking."""
 ```
 
 ## FULL PROTOCOL (for reference):
-{protocol_content[:10000]}
+{protocol_content[:50000]}
 
 ---
 
@@ -2228,24 +2301,23 @@ List the EXACT names of ALL analysis populations defined in the protocol.
 - For time-to-event endpoints, note if detailed censoring rules are specified
 
 ### D. SUBGROUPS AND BASELINE COVARIATES
-- What are the PRE-SPECIFIED subgroup factors from the protocol?
-- Only include factors explicitly listed in the protocol
-- Look specifically for these PRIOR THERAPY variables (common in oncology):
-  * Number of prior lines of therapy (categories?)
-  * Prior anti-CD20 therapy (rituximab, obinutuzumab)
-  * Prior alkylating agent
-  * Prior anti-CD20 + alkylating combination
-  * Prior lenalidomide
-  * Prior PI3K inhibitor
-  * Prior autologous SCT
-  * Prior allogeneic SCT
-  * Prior CAR-T therapy
-  * Prior BCMA-directed therapy
-  * Bone marrow involvement
-  * Response to last therapy (PD vs SD vs PR/CR)
-  * Refractory status (primary vs secondary refractory vs relapsed)
-  * Double refractory status
-- Also look for: Gender, Race/Ethnicity (if collected), Performance status, Disease stage
+Extract ALL pre-specified subgroup factors from the protocol. DO NOT limit to any predefined list.
+
+**UNIVERSAL CATEGORIES (extract any that apply):**
+- Demographics: Age, Sex/Gender, Race/Ethnicity, Geographic Region
+- Performance Status: ECOG, Karnofsky
+- Disease Characteristics: Stage, Grade, Histology, Biomarker status
+- Prior Treatment History: ALL prior therapies mentioned (systemic, radiation, surgery, targeted, immunotherapy, etc.)
+- Baseline Disease Status: Measurable/non-measurable, site of disease, tumor burden
+- Stratification Factors: Any factors used for randomization stratification
+
+**DISEASE-SPECIFIC SUBGROUPS (extract ALL mentioned in protocol):**
+- For SOLID TUMORS: PD-L1 expression, TMB, MSI status, visceral vs non-visceral metastases, number of metastatic sites, prior IO therapy, smoking status, brain metastases status
+- For HEMATOLOGIC: Prior lines of therapy, refractory status, cytogenetic risk, bone marrow involvement, prior SCT, prior specific agents
+- For IMMUNOTHERAPY: Prior IO exposure, autoimmune history, concurrent steroids
+- Any other disease-specific subgroups mentioned in the protocol
+
+**CRITICAL**: Extract the EXACT factor names and categories as written in the protocol. Do not skip any subgroups.
 
 ### E. DISEASE SETTING (Critical for correct analysis approach)
 Identify the disease setting:
@@ -2291,22 +2363,36 @@ Identify which applies:
 - MRD assessment (for hematologic)
 - Biomarker requirements (PD-L1, TMB, MSI, HER2, etc.)
 
-### J. PROTOCOL-SPECIFIC ANALYSIS SECTIONS (SCAN ALL SECTIONS)
-Scan the entire protocol/SAP for ANY analysis sections not covered above. Look for:
-- **Follow-up Analyses**: Planned analyses at specific timepoints (e.g., "at 18 months", "at 24 months", "at X events")
-- **Protocol Amendments/Variations**: COVID-19 variations, changes from protocol-specified analyses
-- **Concordance Analyses**: IRC vs investigator agreement, kappa statistics
-- **Enrollment Summaries**: By country, by site, by region
-- **Prior Therapy Details**: Anti-CD20, alkylating agents, prior lines, specific regimens
-- **Subgroup Analyses Not Listed Above**: Bone marrow involvement, bulky disease, etc.
-- **CAR-T Manufacturing**: Days from leukapheresis to administration/receipt/release
-- **Healthcare Utilization**: Duration of hospitalization, ICU days
-- **Supportive Care**: Concomitant medications by category, IVIG usage, growth factors
+### J. PROTOCOL-SPECIFIC ANALYSIS SECTIONS (UNIVERSAL CATCH-ALL)
+**CRITICAL**: Scan the ENTIRE protocol/SAP and capture ANY analysis sections not covered above.
+
+**UNIVERSAL ELEMENTS (extract ALL that apply):**
+- **Follow-up Analyses**: Planned analyses at specific timepoints or events
+- **Protocol Amendments/Variations**: COVID-19 variations, changes from original protocol
+- **Concordance Analyses**: IRC vs investigator agreement, central vs local assessment
+- **Enrollment Summaries**: By country, site, region, or any other breakdown
+
+**SOLID TUMOR SPECIFIC (if applicable):**
+- **irRECIST/iRECIST Analyses**: Immune-related response criteria, pseudoprogression handling
+- **TFST/TSST Endpoints**: Time to First/Second Subsequent Therapy
+- **Metastatic Site Analyses**: By site of disease, CNS involvement, visceral vs non-visceral
+- **Biomarker-Defined Subgroups**: PD-L1 cutoffs, TMB high/low, MSI status, HER2, EGFR mutation status
+
+**HEMATOLOGIC SPECIFIC (if applicable):**
+- **Prior Therapy Details**: Prior lines, specific regimens, refractory status
+- **CAR-T/Cell Therapy**: Manufacturing metrics, CRS/ICANS grading, cellular kinetics
+- **MRD Assessment**: Minimal residual disease analysis
+
+**GENERAL ONCOLOGY:**
+- **Healthcare Utilization**: Hospitalization, ICU days, resource use
+- **Supportive Care**: Concomitant medications, growth factors, blood products
 - **Laboratory Analyses**: Shift tables, chemistry/hematology panels
-- **Landmark Analyses**: 9-month, 12-month survival rates, forest plots
-- **Special TTE Methods**: Reverse Kaplan-Meier for follow-up time
-- **References Section**: Required citations (Cheson, Lee, CTCAE version, etc.)
-- **Appendices**: Date imputation rules, time-to-event derivation tables, AESI definitions
+- **Landmark Analyses**: Survival rates at specific timepoints, forest plots
+- **Special TTE Methods**: Competing risks, cure models, Reverse Kaplan-Meier
+- **References Section**: Required citations (RECIST, Lugano, CTCAE version, etc.)
+- **Appendices**: Date imputation rules, endpoint derivation tables, AESI definitions
+
+**CATCH-ALL INSTRUCTION**: If you find ANY analysis element in the protocol that doesn't fit the categories above, extract it anyway and include it in protocol_specific_sections. DO NOT skip anything.
 
 Return a JSON object with ONLY discovered structure:
 
@@ -2331,24 +2417,20 @@ Return a JSON object with ONLY discovered structure:
   "censoring_rules_detailed": true/false,
   "censoring_endpoints": [],
   "subgroups": [
-    {{"factor": "", "categories": []}}
+    {{"factor": "exact factor name from protocol", "categories": ["category1", "category2"], "is_primary": true/false}}
   ],
-  "prior_therapy_covariates": {{
-    "number_of_prior_lines": {{"collected": false, "categories": []}},
-    "prior_anti_cd20": {{"collected": false}},
-    "prior_alkylating": {{"collected": false}},
-    "prior_anti_cd20_plus_alkylating": {{"collected": false}},
-    "prior_lenalidomide": {{"collected": false}},
-    "prior_pi3k_inhibitor": {{"collected": false}},
-    "prior_asct": {{"collected": false}},
-    "prior_allo_sct": {{"collected": false}},
-    "prior_car_t": {{"collected": false}},
-    "prior_bcma": {{"collected": false}},
-    "bone_marrow_involvement": {{"collected": false}},
-    "response_to_last_therapy": {{"collected": false, "categories": []}},
-    "refractory_status": {{"collected": false}},
-    "double_refractory": {{"collected": false}}
-  }},
+  "baseline_covariates": [
+    {{"name": "exact covariate name", "type": "demographic|disease|treatment_history|biomarker|other", "categories": []}}
+  ],
+  "prior_therapy_factors": [
+    {{"name": "exact prior therapy factor from protocol", "categories": [], "is_subgroup": true/false}}
+  ],
+  "exploratory_endpoints": [
+    {{"name": "", "type": "binary|time_to_event|continuous|pro", "description": ""}}
+  ],
+  "pro_endpoints": [
+    {{"name": "", "instrument": "", "domains": [], "timepoints": []}}
+  ],
   "stratification_factors": [
     {{"factor": "", "categories": []}}
   ],
@@ -2420,6 +2502,18 @@ Return a JSON object with ONLY discovered structure:
     ],
     "appendices": [
       {{"name": "", "content": "", "section": ""}}
+    ],
+    "immune_response_criteria": [
+      {{"name": "irRECIST/iRECIST", "pseudoprogression_handling": "", "confirmation_required": true/false}}
+    ],
+    "subsequent_therapy_endpoints": [
+      {{"name": "TFST/TSST", "definition": "", "section": ""}}
+    ],
+    "biomarker_subgroups": [
+      {{"biomarker": "", "cutoffs": [], "analysis_type": "", "section": ""}}
+    ],
+    "metastatic_site_analyses": [
+      {{"site": "", "analysis_type": "", "section": ""}}
     ]
   }}
 }}
@@ -3217,6 +3311,73 @@ Return ONLY the JSON object, no other text."""
                 "source_quote": countries[0].get("source_quote", "") if countries else "",
                 "source_section": countries[0].get("source_section", "") if countries else ""
             })
+
+        # Extract PRO endpoints (NEW: dedicated PRO handling)
+        for pro in extracted_obj.get("pro_endpoints", []):
+            if pro.get("name"):
+                items.append({
+                    "type": "pro_endpoint",
+                    "name": pro.get("name", ""),
+                    "instrument": pro.get("instrument", ""),
+                    "domains": pro.get("domains", []),
+                    "timepoints": pro.get("timepoints", []),
+                    "confidence": 0.90,
+                    "source_quote": pro.get("source_quote", ""),
+                    "source_section": pro.get("source_section", "")
+                })
+
+        # Extract exploratory endpoints (NEW: dedicated handling)
+        for exp in extracted_obj.get("exploratory_endpoints", []):
+            if exp.get("name"):
+                items.append({
+                    "type": "endpoint",
+                    "name": exp.get("name", ""),
+                    "endpoint_type": "exploratory",
+                    "definition": exp.get("description", ""),
+                    "confidence": 0.85,
+                    "source_quote": exp.get("source_quote", ""),
+                    "source_section": exp.get("source_section", "")
+                })
+
+        # Extract baseline covariates (NEW: dynamic list)
+        for cov in extracted_obj.get("baseline_covariates", []):
+            if cov.get("name"):
+                items.append({
+                    "type": "baseline_covariate",
+                    "name": cov.get("name", ""),
+                    "covariate_type": cov.get("type", ""),
+                    "categories": cov.get("categories", []),
+                    "confidence": 0.90,
+                    "source_quote": cov.get("source_quote", ""),
+                    "source_section": cov.get("source_section", "")
+                })
+
+        # Extract prior therapy factors (NEW: dynamic list)
+        for ptf in extracted_obj.get("prior_therapy_factors", []):
+            if ptf.get("name"):
+                items.append({
+                    "type": "prior_therapy_factor",
+                    "name": ptf.get("name", ""),
+                    "categories": ptf.get("categories", []),
+                    "is_subgroup": ptf.get("is_subgroup", False),
+                    "confidence": 0.90,
+                    "source_quote": ptf.get("source_quote", ""),
+                    "source_section": ptf.get("source_section", "")
+                })
+
+        # Extract additional_discoveries overflow (NEW: catch-all processing)
+        for disc in extracted_obj.get("additional_discoveries", []):
+            if disc.get("name"):
+                items.append({
+                    "type": disc.get("element_type", "discovery"),
+                    "name": disc.get("name", ""),
+                    "category": disc.get("category", ""),
+                    "definition": disc.get("full_definition", ""),
+                    "relevant_sections": disc.get("relevant_sections", ""),
+                    "confidence": 0.85,
+                    "source_quote": disc.get("source_quote", ""),
+                    "source_section": disc.get("source_section", "")
+                })
 
         return items
 
