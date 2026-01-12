@@ -10,6 +10,7 @@ Author: SAP Generation System
 
 import json
 import os
+import re
 import hashlib
 from pathlib import Path
 from datetime import datetime
