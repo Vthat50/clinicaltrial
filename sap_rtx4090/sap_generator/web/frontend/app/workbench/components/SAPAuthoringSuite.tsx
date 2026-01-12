@@ -132,13 +132,17 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
 
   const handleGenerate = async (regenerate = false) => {
     if (!selectedSectionId) return
+    await generateSectionById(selectedSectionId, regenerate)
+  }
 
+  // Generate a specific section by ID (used by "Generate All Remaining")
+  const generateSectionById = async (sectionId: string, regenerate = false): Promise<void> => {
     setGenerating(true)
     setError(null)
-    updateSectionStatus(selectedSectionId, 'generating')
+    updateSectionStatus(sectionId, 'generating')
 
     try {
-      const url = `${API_URL}/workbench/${workspaceId}/generate/${selectedSectionId}${regenerate ? '?regenerate=true' : ''}`
+      const url = `${API_URL}/workbench/${workspaceId}/generate/${sectionId}${regenerate ? '?regenerate=true' : ''}`
       const res = await fetch(url, { method: 'POST' })
 
       if (!res.ok) {
@@ -147,13 +151,17 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
       }
 
       const data = await res.json()
-      setSectionContent(data)
-      setEditContent(data.content)
-      updateSectionStatus(selectedSectionId, 'draft')
+      // Only update UI if this is the currently selected section
+      if (sectionId === selectedSectionId) {
+        setSectionContent(data)
+        setEditContent(data.content)
+      }
+      updateSectionStatus(sectionId, 'draft')
       await fetchOutline()
     } catch (e: any) {
       setError(e.message)
-      updateSectionStatus(selectedSectionId, 'not_started')
+      updateSectionStatus(sectionId, 'not_started')
+      throw e  // Re-throw so caller knows it failed
     } finally {
       setGenerating(false)
     }
@@ -220,9 +228,9 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
       <SAPOutlineTree
         isCollapsed={ui.outlineCollapsed}
         onToggleCollapse={toggleOutline}
-        onGenerateSection={(id) => {
+        onGenerateSection={async (id) => {
           selectSection(id)
-          handleGenerate(false)
+          await generateSectionById(id, false)
         }}
       />
 

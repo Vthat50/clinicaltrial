@@ -50,7 +50,7 @@ interface SectionItemProps {
   depth: number
   isSelected: boolean
   onSelect: (id: string) => void
-  onGenerate: (id: string) => void
+  onGenerate: (id: string) => Promise<void>
 }
 
 function SectionItem({ section, depth, isSelected, onSelect, onGenerate }: SectionItemProps) {
@@ -150,7 +150,7 @@ function SectionItem({ section, depth, isSelected, onSelect, onGenerate }: Secti
 interface SAPOutlineTreeProps {
   isCollapsed: boolean
   onToggleCollapse: () => void
-  onGenerateSection: (sectionId: string) => void
+  onGenerateSection: (sectionId: string) => Promise<void>
 }
 
 export default function SAPOutlineTree({
@@ -189,12 +189,14 @@ export default function SAPOutlineTree({
     return filterTree(outline)
   }, [outline, searchQuery])
 
+  // Flatten sections helper
+  const flattenSections = (sections: SAPSection[]): SAPSection[] => {
+    return sections.flatMap((s) => [s, ...(s.children ? flattenSections(s.children) : [])])
+  }
+
   // Calculate progress stats
   const stats = useMemo(() => {
-    const flatten = (sections: SAPSection[]): SAPSection[] => {
-      return sections.flatMap((s) => [s, ...(s.children ? flatten(s.children) : [])])
-    }
-    const allSections = flatten(outline)
+    const allSections = flattenSections(outline)
     return {
       total: allSections.length,
       approved: allSections.filter((s) => s.status === 'approved').length,
@@ -202,6 +204,32 @@ export default function SAPOutlineTree({
       notStarted: allSections.filter((s) => s.status === 'not_started').length,
     }
   }, [outline])
+
+  // Generate all remaining sections
+  const [isGeneratingAll, setIsGeneratingAll] = useState(false)
+
+  const handleGenerateAllRemaining = async () => {
+    const allSections = flattenSections(outline)
+    const remainingSections = allSections.filter((s) => s.status === 'not_started')
+
+    if (remainingSections.length === 0) {
+      alert('No remaining sections to generate!')
+      return
+    }
+
+    setIsGeneratingAll(true)
+
+    // Generate sections sequentially to avoid overwhelming the API
+    for (const section of remainingSections) {
+      try {
+        await onGenerateSection(section.id)
+      } catch (error) {
+        console.error(`Failed to generate section ${section.id}:`, error)
+      }
+    }
+
+    setIsGeneratingAll(false)
+  }
 
   if (isCollapsed) {
     return (
@@ -311,9 +339,26 @@ export default function SAPOutlineTree({
 
       {/* Footer Actions */}
       <div className="px-3 py-2 border-t bg-gray-50 shrink-0">
-        <button className="w-full py-2 text-sm font-medium text-indigo-600 border border-indigo-200 rounded-md hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2">
-          <Play className="w-4 h-4" />
-          Generate All Remaining
+        <button
+          onClick={handleGenerateAllRemaining}
+          disabled={isGeneratingAll || stats.notStarted === 0}
+          className={`w-full py-2 text-sm font-medium border rounded-md transition-colors flex items-center justify-center gap-2 ${
+            isGeneratingAll || stats.notStarted === 0
+              ? 'text-gray-400 border-gray-200 bg-gray-100 cursor-not-allowed'
+              : 'text-indigo-600 border-indigo-200 hover:bg-indigo-50'
+          }`}
+        >
+          {isGeneratingAll ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Generating ({stats.notStarted} remaining)...
+            </>
+          ) : (
+            <>
+              <Play className="w-4 h-4" />
+              Generate All Remaining ({stats.notStarted})
+            </>
+          )}
         </button>
       </div>
     </div>
