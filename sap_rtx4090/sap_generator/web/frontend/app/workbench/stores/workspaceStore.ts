@@ -122,7 +122,7 @@ interface WorkspaceState {
   updateFact: (factId: string, updates: Partial<ExtractionFact>) => void
   updateFactStatus: (factId: string, status: FactStatus, message?: string) => void
   setOutline: (outline: SAPSection[]) => void
-  updateSectionStatus: (sectionId: string, status: SAPSection['status']) => void
+  updateSectionStatus: (sectionId: string, status: SAPSection['status'], hasContent?: boolean) => void
 
   // Teleport actions
   teleportToProtocol: (sourceQuote: string | null, sourceSection: string | null, searchText?: string) => void
@@ -240,9 +240,12 @@ export const useWorkspaceStore = create<WorkspaceState>()(
 
       setOutline: (outline) => set({ outline }),
 
-      updateSectionStatus: (sectionId, status) =>
+      updateSectionStatus: (sectionId, status, hasContent?: boolean) =>
         set((state) => ({
-          outline: updateSectionInTree(state.outline, sectionId, { status }),
+          outline: updateSectionInTree(state.outline, sectionId, {
+            status,
+            ...(hasContent !== undefined && { has_content: hasContent })
+          }),
         })),
 
       // Teleport actions - for seamless context switching

@@ -156,7 +156,8 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
         setSectionContent(data)
         setEditContent(data.content)
       }
-      updateSectionStatus(sectionId, 'draft')
+      // Update status AND has_content locally so clicking the section works immediately
+      updateSectionStatus(sectionId, 'draft', true)
       await fetchOutline()
     } catch (e: any) {
       setError(e.message)
