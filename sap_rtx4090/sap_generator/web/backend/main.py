@@ -15,13 +15,13 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.5-2026-01-12")
+print("BUILD: v100.6-2026-01-12")
 print("FEATURE: Reference SAP accuracy comparison (optional)")
+print("  • v100.6: Fix PDF upload - use PyPDF2 (already installed)")
 print("  • v100.5: Fix Supabase error - reference SAP in memory only")
 print("  • v100.4: Semantic section matching via Claude")
 print("  • v100.3: Reference SAP upload + accuracy checking")
-print("  • v98: AUTO-PREFETCH censoring, PRO, subgroups from 151 SAPs")
-print("If you don't see v100.5 in Render logs, Render has OLD code!")
+print("If you don't see v100.6 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
