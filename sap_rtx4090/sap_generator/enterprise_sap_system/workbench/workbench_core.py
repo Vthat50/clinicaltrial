@@ -146,9 +146,10 @@ class SAPSection:
     status: SectionStatus = SectionStatus.NOT_STARTED
     content: str = ""
 
-    # Provenance
-    protocol_excerpts_used: List[str] = field(default_factory=list)
-    metadata_used: List[str] = field(default_factory=list)
+    # Provenance - track all sources
+    protocol_excerpts_used: List[str] = field(default_factory=list)  # Protocol sections referenced
+    metadata_used: List[str] = field(default_factory=list)  # Extraction fields used
+    kb_tools_used: List[Dict] = field(default_factory=list)  # KB tools called with source info
     generated_at: str = ""
     edited_at: str = ""
     user_comments: str = ""
@@ -425,14 +426,17 @@ class SAPWorkbench:
     # KB TOOLS INTEGRATION
     # =========================================================================
 
-    def _get_kb_content_for_section(self, section_id: str, metadata: Optional[Any] = None) -> str:
+    def _get_kb_content_for_section(self, section_id: str, metadata: Optional[Any] = None) -> tuple:
         """
         Get KB content for a section by calling the appropriate KB tools.
 
         Uses MASTER_SAP_SECTIONS from sap_structure_config.py as single source of truth.
+
+        Returns:
+            tuple: (kb_content_string, list_of_kb_tools_used)
         """
         if not self.kb_tools:
-            return ""
+            return "", []
 
         # Get KB tools from MASTER_SAP_SECTIONS (single source of truth)
         kb_tool_names = get_section_kb_tools(section_id)
@@ -443,7 +447,7 @@ class SAPWorkbench:
             kb_tool_names = get_section_kb_tools(parent)
 
         if not kb_tool_names:
-            return ""
+            return "", []
 
         # Detect conditions from metadata to determine which tools to call
         conditions = {}
@@ -470,6 +474,7 @@ class SAPWorkbench:
                     conditions["is_single_arm"] = True
 
         kb_content_parts = []
+        kb_tools_used = []  # Track which tools were called
 
         for tool_name in kb_tool_names:
             try:
@@ -493,14 +498,22 @@ class SAPWorkbench:
                         if len(content_str) > 8000:
                             content_str = content_str[:8000] + "\n... [truncated]"
                         kb_content_parts.append(f"### {tool_name}\n{content_str}")
+
+                        # Track provenance
+                        kb_tools_used.append({
+                            "tool_name": tool_name,
+                            "source_file": getattr(result, 'source_file', 'methodology_knowledge_base.py'),
+                            "source_key": getattr(result, 'source_key', tool_name.upper()),
+                            "description": f"KB: {tool_name.replace('get_', '').replace('_', ' ').title()}"
+                        })
             except Exception as e:
                 print(f"[KB] Warning: Failed to call {tool_name}: {e}")
                 continue
 
         if not kb_content_parts:
-            return ""
+            return "", []
 
-        return "\n\n".join(kb_content_parts)
+        return "\n\n".join(kb_content_parts), kb_tools_used
 
     # =========================================================================
     # WORKSPACE MANAGEMENT
@@ -1054,8 +1067,13 @@ Return ONLY valid JSON."""
         # Update status
         section.status = SectionStatus.GENERATING
 
+        # Get KB content and track which tools were used for provenance
+        kb_content, kb_tools_used = self._get_kb_content_for_section(section_id, workspace.metadata)
+        if kb_content:
+            print(f"[WORKBENCH] KB content added for section {section_id}: {len(kb_content):,} chars from {len(kb_tools_used)} tools")
+
         # Get section-specific prompt
-        prompt = self._build_section_prompt(workspace, section_id)
+        prompt = self._build_section_prompt(workspace, section_id, kb_content)
         print(f"[WORKBENCH] Prompt length: {len(prompt):,} chars")
 
         try:
@@ -1103,6 +1121,7 @@ Return ONLY valid JSON."""
                 workspace.protocol_content, section_id
             )
             section.metadata_used = self._get_metadata_used(workspace.metadata, section_id)
+            section.kb_tools_used = kb_tools_used  # Track KB sources
 
             workspace.updated_at = datetime.now().isoformat()
             self._save_workspace(workspace)
@@ -1113,7 +1132,7 @@ Return ONLY valid JSON."""
             section.status = SectionStatus.NOT_STARTED
             raise e
 
-    def _build_section_prompt(self, workspace: StudyWorkspace, section_id: str) -> str:
+    def _build_section_prompt(self, workspace: StudyWorkspace, section_id: str, kb_content: str = "") -> str:
         """Build prompt for generating a specific section with prohibition rules."""
 
         metadata = workspace.metadata
@@ -1182,8 +1201,7 @@ Sample Size: {metadata.sample_size}
         # Section-specific instructions
         section_instructions = self._get_section_instructions(section_id)
 
-        # Get KB content for this section (NEW: connects to sap_structure_config kb_tools)
-        kb_content = self._get_kb_content_for_section(section_id, metadata)
+        # Build KB section from passed content
         kb_section = ""
         if kb_content:
             kb_section = f"""
@@ -1195,7 +1213,6 @@ appropriate table shells.
 
 {kb_content}
 """
-            print(f"[WORKBENCH] KB content added for section {section_id}: {len(kb_content):,} chars")
 
         prompt = f"""Generate the "{workspace.sections[section_id].display_name}" section of a Statistical Analysis Plan.
 
@@ -1589,7 +1606,7 @@ Format as numbered list with full citations.
     # =========================================================================
 
     def export_sap(self, workspace_id: str, format: str = "markdown") -> str:
-        """Export complete SAP."""
+        """Export complete SAP with full provenance/sources for each section."""
 
         workspace = self.get_workspace(workspace_id)
         if not workspace:
@@ -1613,6 +1630,50 @@ Format as numbered list with full citations.
                 lines.append(f"## {section_number}. {section_title}")
                 lines.append("")
                 lines.append(section.content)
+                lines.append("")
+
+                # Add provenance/sources section
+                sources = []
+
+                # Protocol sources
+                if section.protocol_excerpts_used:
+                    sources.append("**Protocol Sources:**")
+                    for i, excerpt in enumerate(section.protocol_excerpts_used[:3], 1):
+                        # Truncate long excerpts
+                        excerpt_preview = excerpt[:150].replace('\n', ' ') + "..." if len(excerpt) > 150 else excerpt.replace('\n', ' ')
+                        sources.append(f"  - Protocol excerpt {i}: \"{excerpt_preview}\"")
+
+                # Metadata extraction sources
+                if section.metadata_used:
+                    sources.append("**Extracted Metadata Used:**")
+                    for field in section.metadata_used:
+                        sources.append(f"  - {field}")
+
+                # Knowledge Base sources
+                if section.kb_tools_used:
+                    sources.append("**Knowledge Base Sources:**")
+                    for kb_tool in section.kb_tools_used:
+                        tool_name = kb_tool.get("tool_name", "unknown")
+                        source_file = kb_tool.get("source_file", "methodology_knowledge_base.py")
+                        source_key = kb_tool.get("source_key", "")
+                        description = kb_tool.get("description", tool_name)
+                        sources.append(f"  - {description}")
+                        sources.append(f"    - File: `{source_file}`")
+                        sources.append(f"    - Key: `{source_key}`")
+
+                # Add generation timestamp
+                if section.generated_at:
+                    sources.append(f"**Generated:** {section.generated_at}")
+
+                if sources:
+                    lines.append("")
+                    lines.append("<details>")
+                    lines.append("<summary>📚 Section Sources & Provenance</summary>")
+                    lines.append("")
+                    lines.extend(sources)
+                    lines.append("")
+                    lines.append("</details>")
+
                 lines.append("")
                 lines.append("---")
                 lines.append("")
@@ -1817,6 +1878,7 @@ Format as numbered list with full citations.
                     "edited_at": section.edited_at,
                     "protocol_excerpts_used": section.protocol_excerpts_used,
                     "metadata_used": section.metadata_used,
+                    "kb_tools_used": section.kb_tools_used,
                     "history_count": len(section.history)
                 }
 
@@ -1838,6 +1900,7 @@ Format as numbered list with full citations.
                 "content": v.content,
                 "protocol_excerpts_used": v.protocol_excerpts_used,
                 "metadata_used": v.metadata_used,
+                "kb_tools_used": v.kb_tools_used,
                 "generated_at": v.generated_at,
                 "edited_at": v.edited_at,
                 "user_comments": v.user_comments,
@@ -1936,6 +1999,7 @@ Format as numbered list with full citations.
                 content=v.get("content", ""),
                 protocol_excerpts_used=v.get("protocol_excerpts_used", []),
                 metadata_used=v.get("metadata_used", []),
+                kb_tools_used=v.get("kb_tools_used", []),
                 generated_at=v.get("generated_at", ""),
                 edited_at=v.get("edited_at", ""),
                 user_comments=v.get("user_comments", ""),
