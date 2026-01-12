@@ -1873,35 +1873,23 @@ Be specific - extract exact terms, not generic descriptions. These will be used 
                 "error": f"Section {section_id} not generated yet"
             }
 
-        # Find matching reference section
-        # Try exact match first, then fuzzy match
-        ref_section = None
-        ref_section_id = None
+        # Find matching reference section using semantic matching
+        # This uses Claude to understand section content, not just numbers
+        ref_section_id = self._find_best_matching_reference_section(
+            generated_section_id=section_id,
+            generated_section_name=generated_section.display_name,
+            generated_content_preview=generated_section.content[:500],
+            reference_sections=workspace.reference_sections
+        )
 
-        # Normalize section_id for matching
-        normalized_id = section_id.replace(".", "").replace(" ", "")
-
-        for ref_id, ref_data in workspace.reference_sections.items():
-            ref_normalized = ref_id.replace(".", "").replace(" ", "")
-            if ref_normalized == normalized_id or ref_id == section_id:
-                ref_section = ref_data
-                ref_section_id = ref_id
-                break
-
-        # Try partial match (e.g., "7" matches "7.1", "7.2")
-        if not ref_section:
-            for ref_id, ref_data in workspace.reference_sections.items():
-                if ref_id.startswith(section_id) or section_id.startswith(ref_id):
-                    ref_section = ref_data
-                    ref_section_id = ref_id
-                    break
-
-        if not ref_section:
+        if not ref_section_id:
             return {
                 "has_reference": True,
                 "section_found": False,
-                "message": f"Section {section_id} not found in reference SAP. Available: {list(workspace.reference_sections.keys())[:10]}"
+                "message": f"Could not find matching section for '{section_id}' in reference SAP. Available: {list(workspace.reference_sections.keys())[:10]}"
             }
+
+        ref_section = workspace.reference_sections[ref_section_id]
 
         # Extract key elements from reference if not already done
         if not ref_section.get("key_elements"):
@@ -1921,8 +1909,92 @@ Be specific - extract exact terms, not generic descriptions. These will be used 
             "has_reference": True,
             "section_found": True,
             "reference_section_id": ref_section_id,
+            "reference_section_title": ref_section.get("title", ref_section_id),
+            "matched_via": "semantic",  # Indicates Claude-based matching was used
             "comparison": comparison
         }
+
+    def _find_best_matching_reference_section(
+        self,
+        generated_section_id: str,
+        generated_section_name: str,
+        generated_content_preview: str,
+        reference_sections: Dict[str, Dict]
+    ) -> Optional[str]:
+        """
+        Use Claude to semantically match a generated section to the best reference section.
+
+        This handles cases where section numbering differs between templates
+        (e.g., "7.1 Analysis Populations" in generated vs "8.1 Study Populations" in reference).
+
+        Returns the best matching reference section ID, or None if no good match.
+        """
+        # Build list of reference sections with previews
+        ref_options = []
+        for ref_id, ref_data in reference_sections.items():
+            title = ref_data.get("title", ref_id)
+            content_preview = ref_data.get("content", "")[:300]
+            ref_options.append(f"- {ref_id}: {title}\n  Preview: {content_preview[:200]}...")
+
+        if not ref_options:
+            return None
+
+        prompt = f"""You are matching SAP (Statistical Analysis Plan) sections.
+
+GENERATED SECTION TO MATCH:
+- ID: {generated_section_id}
+- Name: {generated_section_name}
+- Content preview: {generated_content_preview}
+
+AVAILABLE REFERENCE SECTIONS:
+{chr(10).join(ref_options)}
+
+Which reference section is the BEST semantic match for the generated section?
+Consider the actual content and purpose, not just the section numbers (they may differ between templates).
+
+Examples of equivalent sections:
+- "Analysis Populations" = "Study Populations" = "Population Definitions"
+- "Primary Efficacy Analysis" = "Primary Endpoint Analysis"
+- "Handling of Missing Data" = "Missing Data Imputation"
+
+Return ONLY the reference section ID (e.g., "8.1" or "7.2.1") that best matches.
+If there is NO good match at all, return "NO_MATCH".
+
+Your answer (just the ID):"""
+
+        try:
+            response = self.client.messages.create(
+                model="claude-sonnet-4-20250514",  # Use faster model for matching
+                max_tokens=50,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            result = response.content[0].text.strip()
+
+            # Clean up the response
+            result = result.replace('"', '').replace("'", "").strip()
+
+            if result == "NO_MATCH" or result not in reference_sections:
+                # Try to extract a valid ID from the response
+                for ref_id in reference_sections.keys():
+                    if ref_id in result:
+                        print(f"[WORKBENCH] Semantic match: '{generated_section_id}' -> '{ref_id}'")
+                        return ref_id
+                print(f"[WORKBENCH] No semantic match found for '{generated_section_id}'")
+                return None
+
+            print(f"[WORKBENCH] Semantic match: '{generated_section_id}' ({generated_section_name}) -> '{result}'")
+            return result
+
+        except Exception as e:
+            print(f"[WORKBENCH] Semantic matching error: {e}")
+            # Fall back to simple matching
+            normalized_id = generated_section_id.replace(".", "").replace(" ", "")
+            for ref_id in reference_sections.keys():
+                ref_normalized = ref_id.replace(".", "").replace(" ", "")
+                if ref_normalized == normalized_id:
+                    return ref_id
+            return None
 
     def _detailed_section_comparison(
         self,

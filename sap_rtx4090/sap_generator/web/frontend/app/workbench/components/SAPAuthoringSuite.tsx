@@ -618,6 +618,20 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
               </button>
             </div>
 
+            {/* Show matched reference section */}
+            {comparisonResult.reference_section_id && (
+              <div className="mb-3 text-sm text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+                Compared against: <span className="font-medium text-gray-800">
+                  {comparisonResult.reference_section_id}
+                  {comparisonResult.reference_section_title && comparisonResult.reference_section_title !== comparisonResult.reference_section_id &&
+                    ` - ${comparisonResult.reference_section_title}`}
+                </span>
+                {comparisonResult.matched_via === 'semantic' && (
+                  <span className="ml-2 text-xs text-indigo-600">(auto-matched)</span>
+                )}
+              </div>
+            )}
+
             {!comparisonResult.has_reference ? (
               <div className="text-gray-500 text-sm">
                 No reference SAP uploaded. Upload a reference SAP to enable accuracy checking.
