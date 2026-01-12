@@ -319,6 +319,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
         "https://clinicaltrial.vercel.app",
         "https://clinicaltrial-eta.vercel.app",  # Production
         "https://clinicaltrial-79wn9cxxk-vthatte1-5467s-projects.vercel.app",  # Preview
@@ -4582,6 +4584,7 @@ async def workbench_upload_reference_sap(workspace_id: str, file: UploadFile = F
 async def workbench_reference_sap_status(workspace_id: str):
     """
     Check if a reference SAP has been uploaded for this workspace.
+    Returns sections list for manual mapping UI.
     """
     if not WORKBENCH_AVAILABLE:
         raise HTTPException(503, "SAP Workbench not available")
@@ -4596,6 +4599,31 @@ async def workbench_reference_sap_status(workspace_id: str):
         raise HTTPException(404, str(e))
     except Exception as e:
         logger.error(f"Get reference SAP status failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/{workspace_id}/reference-sap/mapping")
+async def workbench_save_section_mapping(workspace_id: str, data: dict):
+    """
+    Save manual section mapping from user.
+
+    Body: { "mapping": { "section_1_title_page": "1", "section_2_study_details": "2.1", ... } }
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        mapping = data.get("mapping", {})
+        result = workbench.save_section_mapping(workspace_id, mapping)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Save section mapping failed: {e}")
         raise HTTPException(500, str(e))
 
 

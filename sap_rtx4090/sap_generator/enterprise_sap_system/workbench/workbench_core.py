@@ -198,6 +198,7 @@ class StudyWorkspace:
     reference_sap_content: str = ""
     reference_sap_filename: str = ""
     reference_sections: Dict[str, Dict] = field(default_factory=dict)  # Parsed sections with key elements
+    manual_section_mapping: Dict[str, str] = field(default_factory=dict)  # User's manual mapping: generated_id -> ref_id
 
 
 # =============================================================================
@@ -1263,15 +1264,20 @@ Then write comprehensive, regulatory-grade content for this section."""
                         try:
                             result = execute_tool(tool_name, tool_input, kb)
                             tool_content = result.content if hasattr(result, 'content') else str(result)
+                            # Ensure it's a string before slicing
+                            if not isinstance(tool_content, str):
+                                tool_content = str(tool_content)
                             kb_tools_used.append(tool_name)
                         except Exception as e:
                             tool_content = f"Error: {str(e)}"
                             print(f"[WORKBENCH-TOOLS] Tool error: {e}")
 
+                        # Limit content size (ensure string)
+                        content_str = str(tool_content) if tool_content else ""
                         tool_results.append({
                             "type": "tool_result",
                             "tool_use_id": tool_id,
-                            "content": tool_content[:4000]  # Limit size
+                            "content": content_str[:4000]
                         })
 
                 # Add assistant message with tool use
@@ -2002,6 +2008,8 @@ Be specific - extract exact terms, not generic descriptions. These will be used 
         """
         Compare a generated section against the reference SAP section.
 
+        Uses MANUAL mapping if user has set one, otherwise falls back to semantic matching.
+
         Returns detailed accuracy report with:
         - Percentage match
         - Missing elements
@@ -2028,23 +2036,61 @@ Be specific - extract exact terms, not generic descriptions. These will be used 
                 "error": f"Section {section_id} not generated yet"
             }
 
-        # Find matching reference section using semantic matching
-        # This uses Claude to understand section content, not just numbers
-        ref_section_id = self._find_best_matching_reference_section(
-            generated_section_id=section_id,
-            generated_section_name=generated_section.display_name,
-            generated_content_preview=generated_section.content[:500],
-            reference_sections=workspace.reference_sections
-        )
+        # FIRST: Check for manual mapping (user-selected)
+        ref_section_id = None
+        matched_via = "manual"
+
+        if workspace.manual_section_mapping:
+            ref_section_id = workspace.manual_section_mapping.get(section_id)
+            if ref_section_id:
+                print(f"[WORKBENCH] Using manual mapping: '{section_id}' -> '{ref_section_id}'")
+
+        # FALLBACK: Use semantic matching if no manual mapping
+        if not ref_section_id:
+            matched_via = "semantic"
+            ref_section_id = self._find_best_matching_reference_section(
+                generated_section_id=section_id,
+                generated_section_name=generated_section.display_name,
+                generated_content_preview=generated_section.content[:500],
+                reference_sections=workspace.reference_sections
+            )
 
         if not ref_section_id:
             return {
                 "has_reference": True,
                 "section_found": False,
-                "message": f"Could not find matching section for '{section_id}' in reference SAP. Available: {list(workspace.reference_sections.keys())[:10]}"
+                "message": f"No mapping found for '{section_id}'. Please use the Section Mapping UI to manually link this section to a reference section.",
+                "available_sections": list(workspace.reference_sections.keys())[:10]
+            }
+
+        # Verify the reference section exists
+        if ref_section_id not in workspace.reference_sections:
+            return {
+                "has_reference": True,
+                "section_found": False,
+                "message": f"Mapped reference section '{ref_section_id}' not found. Please update the mapping."
             }
 
         ref_section = workspace.reference_sections[ref_section_id]
+
+        # Check if reference section has content
+        if not ref_section.get("content") or len(ref_section.get("content", "").strip()) < 10:
+            return {
+                "has_reference": True,
+                "section_found": True,
+                "reference_section_id": ref_section_id,
+                "reference_section_title": ref_section.get("title", ref_section_id),
+                "matched_via": matched_via,
+                "comparison": {
+                    "accuracy_percentage": 0,
+                    "summary": "Reference section has no content. The reference SAP may not have been parsed correctly.",
+                    "missing_content": [{
+                        "original": "Reference content not available",
+                        "suggestion": "Re-upload the reference SAP or manually select a different section",
+                        "severity": "critical"
+                    }]
+                }
+            }
 
         # Extract key elements from reference if not already done
         if not ref_section.get("key_elements"):
@@ -2065,7 +2111,7 @@ Be specific - extract exact terms, not generic descriptions. These will be used 
             "section_found": True,
             "reference_section_id": ref_section_id,
             "reference_section_title": ref_section.get("title", ref_section_id),
-            "matched_via": "semantic",  # Indicates Claude-based matching was used
+            "matched_via": matched_via,
             "comparison": comparison
         }
 
@@ -2234,7 +2280,7 @@ Be specific - quote exact text, give concrete feedback."""
             }
 
     def get_reference_sap_status(self, workspace_id: str) -> Dict:
-        """Get status of reference SAP for a workspace."""
+        """Get status of reference SAP for a workspace, including sections for manual mapping UI."""
         workspace = self.get_workspace(workspace_id)
         if not workspace:
             raise ValueError(f"Workspace {workspace_id} not found")
@@ -2244,11 +2290,52 @@ Be specific - quote exact text, give concrete feedback."""
                 "has_reference": False
             }
 
+        # Build sections list for the mapping UI
+        sections = []
+        for sec_id, sec_data in workspace.reference_sections.items():
+            sections.append({
+                "id": sec_id,
+                "title": sec_data.get("title", sec_id),
+                "content_preview": sec_data.get("content", "")[:200]
+            })
+
+        # Sort by section ID (numeric order)
+        sections.sort(key=lambda x: [int(p) if p.isdigit() else p for p in x["id"].split(".")])
+
         return {
             "has_reference": True,
             "filename": workspace.reference_sap_filename,
             "sections_count": len(workspace.reference_sections),
-            "section_ids": list(workspace.reference_sections.keys())
+            "section_ids": list(workspace.reference_sections.keys()),
+            "sections": sections,
+            "mapping": workspace.manual_section_mapping or {}
+        }
+
+    def save_section_mapping(self, workspace_id: str, mapping: Dict[str, str]) -> Dict:
+        """
+        Save user's manual section mapping.
+
+        Args:
+            workspace_id: The workspace ID
+            mapping: Dict mapping generated section IDs to reference section IDs
+                     e.g., {"section_1_title_page": "1", "section_2_study_details": "2.1"}
+        """
+        workspace = self.get_workspace(workspace_id)
+        if not workspace:
+            raise ValueError(f"Workspace {workspace_id} not found")
+
+        # Filter out empty mappings
+        clean_mapping = {k: v for k, v in mapping.items() if v}
+
+        workspace.manual_section_mapping = clean_mapping
+        workspace.updated_at = datetime.now().isoformat()
+        self._save_workspace(workspace)
+
+        print(f"[WORKBENCH] Saved manual section mapping: {len(clean_mapping)} mappings")
+
+        return {
+            "success": True,
+            "mappings_saved": len(clean_mapping)
         }
 
     # =========================================================================
@@ -2599,7 +2686,8 @@ Be specific - quote exact text, give concrete feedback."""
             # v100.3: Reference SAP for accuracy comparison
             reference_sap_content=data.get("reference_sap_content", ""),
             reference_sap_filename=data.get("reference_sap_filename", ""),
-            reference_sections=data.get("reference_sections") or {}
+            reference_sections=data.get("reference_sections") or {},
+            manual_section_mapping=data.get("manual_section_mapping") or {}
         )
 
         self.workspaces[workspace_id] = workspace
