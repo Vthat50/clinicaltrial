@@ -79,6 +79,9 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
   const [checkingAccuracy, setCheckingAccuracy] = useState(false)
   const [showComparison, setShowComparison] = useState(false)
 
+  // v100.7: Tool-calling mode (like Quick Protocol)
+  const [useTools, setUseTools] = useState(false)
+
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
 
@@ -150,7 +153,12 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
     updateSectionStatus(sectionId, 'generating')
 
     try {
-      const url = `${API_URL}/workbench/${workspaceId}/generate/${sectionId}${regenerate ? '?regenerate=true' : ''}`
+      // Build URL with query params
+      const params = new URLSearchParams()
+      if (regenerate) params.append('regenerate', 'true')
+      if (useTools) params.append('use_tools', 'true')
+      const queryString = params.toString()
+      const url = `${API_URL}/workbench/${workspaceId}/generate/${sectionId}${queryString ? `?${queryString}` : ''}`
       const res = await fetch(url, { method: 'POST' })
 
       if (!res.ok) {
@@ -325,6 +333,19 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                 >
                   <BookOpen className="w-4 h-4" />
                   Protocol Reference
+                </button>
+
+                {/* Tool Mode Toggle */}
+                <button
+                  onClick={() => setUseTools(!useTools)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
+                    useTools
+                      ? 'bg-purple-600 text-white'
+                      : 'border border-gray-300 text-gray-600 hover:bg-gray-50'
+                  }`}
+                  title={useTools ? 'Using dynamic tool-calling (like Quick Protocol)' : 'Using pre-fetched KB (faster)'}
+                >
+                  {useTools ? '⚡ Tools Mode' : '📦 Standard'}
                 </button>
 
                 {/* View Mode Toggle */}

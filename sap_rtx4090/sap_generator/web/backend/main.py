@@ -4326,11 +4326,16 @@ async def workbench_get_outline(workspace_id: str):
 async def workbench_generate_section(
     workspace_id: str,
     section_id: str,
-    regenerate: bool = False
+    regenerate: bool = False,
+    use_tools: bool = False  # NEW: Use tool-calling like Quick Protocol
 ):
     """
     Step 4: Generate a single SAP section.
     Shows protocol excerpts used and allows regeneration.
+
+    Args:
+        use_tools: If True, use dynamic tool-calling (like Quick Protocol).
+                   If False (default), use pre-fetched KB content (faster).
     """
     if not WORKBENCH_AVAILABLE:
         raise HTTPException(503, "SAP Workbench not available")
@@ -4340,7 +4345,7 @@ async def workbench_generate_section(
         raise HTTPException(503, "SAP Workbench not initialized")
 
     try:
-        section = workbench.generate_section(workspace_id, section_id, regenerate)
+        section = workbench.generate_section(workspace_id, section_id, regenerate, use_tools)
 
         return SectionContent(
             id=section.id,

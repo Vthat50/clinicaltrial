@@ -1042,9 +1042,17 @@ Return ONLY valid JSON."""
         self,
         workspace_id: str,
         section_id: str,
-        regenerate: bool = False
+        regenerate: bool = False,
+        use_tools: bool = False  # NEW: Use tool-calling like Quick Protocol
     ) -> SAPSection:
-        """Generate a single SAP section."""
+        """Generate a single SAP section.
+
+        Args:
+            workspace_id: The workspace ID
+            section_id: The section to generate
+            regenerate: Force regeneration even if approved
+            use_tools: Use dynamic tool-calling (like Quick Protocol) instead of pre-fetched KB
+        """
 
         workspace = self.get_workspace(workspace_id)
         if not workspace:
@@ -1073,24 +1081,41 @@ Return ONLY valid JSON."""
         # Update status
         section.status = SectionStatus.GENERATING
 
-        # Get KB content and track which tools were used for provenance
-        kb_content, kb_tools_used = self._get_kb_content_for_section(section_id, workspace.metadata)
-        if kb_content:
-            print(f"[WORKBENCH] KB content added for section {section_id}: {len(kb_content):,} chars from {len(kb_tools_used)} tools")
+        # =====================================================================
+        # TOOL-CALLING MODE (like Quick Protocol)
+        # =====================================================================
+        if use_tools:
+            print(f"[WORKBENCH] Using TOOL-CALLING mode for section {section_id}")
+            content, kb_tools_used = self._generate_section_with_tools(workspace, section_id)
+        else:
+            # =====================================================================
+            # PRE-FETCH MODE (current behavior - faster)
+            # =====================================================================
+            # Get KB content and track which tools were used for provenance
+            kb_content, kb_tools_used = self._get_kb_content_for_section(section_id, workspace.metadata)
+            if kb_content:
+                print(f"[WORKBENCH] KB content added for section {section_id}: {len(kb_content):,} chars from {len(kb_tools_used)} tools")
 
-        # Get section-specific prompt
-        prompt = self._build_section_prompt(workspace, section_id, kb_content)
-        print(f"[WORKBENCH] Prompt length: {len(prompt):,} chars")
+            # Get section-specific prompt
+            prompt = self._build_section_prompt(workspace, section_id, kb_content)
+            print(f"[WORKBENCH] Prompt length: {len(prompt):,} chars")
 
+            try:
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=4096,
+                    messages=[{"role": "user", "content": prompt}]
+                )
+
+                content = response.content[0].text.strip()
+            except Exception as e:
+                section.status = SectionStatus.NOT_STARTED
+                raise e
+
+        # =====================================================================
+        # COMMON POST-PROCESSING (both modes)
+        # =====================================================================
         try:
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=4096,
-                messages=[{"role": "user", "content": prompt}]
-            )
-
-            content = response.content[0].text.strip()
-
             # v99.6: Validate and auto-fix critical elements
             validation = self._validate_section(section_id, content)
             if not validation["passed"]:
@@ -1137,6 +1162,135 @@ Return ONLY valid JSON."""
         except Exception as e:
             section.status = SectionStatus.NOT_STARTED
             raise e
+
+    def _generate_section_with_tools(
+        self,
+        workspace: StudyWorkspace,
+        section_id: str,
+        max_tool_calls: int = 10
+    ) -> tuple:
+        """
+        Generate a section using dynamic tool-calling (like Quick Protocol).
+
+        Claude decides which KB tools to call, getting real-time information
+        instead of pre-fetched content.
+
+        Args:
+            workspace: The study workspace
+            section_id: Section to generate
+            max_tool_calls: Maximum tool calls to prevent infinite loops
+
+        Returns:
+            tuple: (content, kb_tools_used)
+        """
+        # Get section info
+        section = workspace.sections.get(section_id)
+        if not section:
+            raise ValueError(f"Section {section_id} not found")
+
+        # Get tool definitions
+        tools = get_claude_tool_definitions()
+        print(f"[WORKBENCH-TOOLS] Loaded {len(tools)} KB tools for Claude")
+
+        # Initialize KB tools instance
+        kb = KnowledgeBaseTools()
+
+        # Build the prompt (without pre-fetched KB content)
+        system_prompt = f"""You are an expert biostatistician writing section "{section.display_name}" of a Statistical Analysis Plan (SAP).
+
+You have access to tools that provide regulatory-grade statistical methodology templates, table shells, and best practices.
+USE THESE TOOLS to get accurate, standards-compliant content. Do not guess - call the appropriate tool.
+
+PROTOCOL INFORMATION:
+- Study: {workspace.metadata.study_title if workspace.metadata else 'Unknown'}
+- Phase: {workspace.metadata.phase if workspace.metadata else 'Unknown'}
+- Indication: {workspace.metadata.indication if workspace.metadata else 'Unknown'}
+- Primary Endpoints: {workspace.metadata.endpoints if workspace.metadata else []}
+- Treatment Arms: {workspace.metadata.treatment_arms if workspace.metadata else []}
+
+PROTOCOL EXCERPT:
+{workspace.protocol_content[:8000] if workspace.protocol_content else 'No protocol content'}
+
+INSTRUCTIONS:
+1. Use the tools to get relevant methodology, templates, and specifications
+2. Write professional SAP content based on the protocol and tool results
+3. Include specific statistical methods, formulas, and table references
+4. Output in markdown format"""
+
+        user_prompt = f"""Generate the content for SAP section: {section.display_name}
+
+Use the available tools to retrieve appropriate statistical methods, table templates, and specifications.
+Then write comprehensive, regulatory-grade content for this section."""
+
+        messages = [{"role": "user", "content": user_prompt}]
+        kb_tools_used = []
+        tool_call_count = 0
+
+        # Multi-turn conversation with tool calls
+        while tool_call_count < max_tool_calls:
+            print(f"[WORKBENCH-TOOLS] API call #{tool_call_count + 1}")
+
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=4096,
+                system=system_prompt,
+                tools=tools,
+                messages=messages
+            )
+
+            # Check stop reason
+            if response.stop_reason == "end_turn":
+                # Claude finished - extract text content
+                for block in response.content:
+                    if hasattr(block, 'text'):
+                        print(f"[WORKBENCH-TOOLS] Generation complete. Used {len(kb_tools_used)} tools: {kb_tools_used}")
+                        return block.text.strip(), kb_tools_used
+                break
+
+            elif response.stop_reason == "tool_use":
+                # Claude wants to use tools
+                tool_results = []
+
+                for block in response.content:
+                    if block.type == "tool_use":
+                        tool_name = block.name
+                        tool_input = block.input
+                        tool_id = block.id
+
+                        print(f"[WORKBENCH-TOOLS] Tool call: {tool_name}({tool_input})")
+
+                        # Execute the tool
+                        try:
+                            result = execute_tool(tool_name, tool_input, kb)
+                            tool_content = result.content if hasattr(result, 'content') else str(result)
+                            kb_tools_used.append(tool_name)
+                        except Exception as e:
+                            tool_content = f"Error: {str(e)}"
+                            print(f"[WORKBENCH-TOOLS] Tool error: {e}")
+
+                        tool_results.append({
+                            "type": "tool_result",
+                            "tool_use_id": tool_id,
+                            "content": tool_content[:4000]  # Limit size
+                        })
+
+                # Add assistant message with tool use
+                messages.append({"role": "assistant", "content": response.content})
+                # Add tool results
+                messages.append({"role": "user", "content": tool_results})
+
+                tool_call_count += 1
+            else:
+                # Unexpected stop reason
+                print(f"[WORKBENCH-TOOLS] Unexpected stop_reason: {response.stop_reason}")
+                break
+
+        # Fallback: return whatever content we have
+        for block in response.content:
+            if hasattr(block, 'text'):
+                return block.text.strip(), kb_tools_used
+
+        return f"Section generation incomplete after {max_tool_calls} tool calls", kb_tools_used
 
     def _build_section_prompt(self, workspace: StudyWorkspace, section_id: str, kb_content: str = "") -> str:
         """Build prompt for generating a specific section with prohibition rules."""
