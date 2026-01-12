@@ -1782,8 +1782,7 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         Returns:
             Dict mapping section types to their pre-fetched content
         """
-        from kb_tools import KnowledgeBaseTools
-
+        # KnowledgeBaseTools already imported at top of file
         kb = KnowledgeBaseTools()
         prefetched = {}
 
