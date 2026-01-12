@@ -25,6 +25,14 @@ except ImportError:
     os.system("pip install anthropic")
     import anthropic
 
+# Supabase for persistent storage
+try:
+    from supabase import create_client, Client
+    SUPABASE_AVAILABLE = True
+except ImportError:
+    SUPABASE_AVAILABLE = False
+    print("Warning: supabase-py not installed. Run: pip install supabase")
+
 # Import KG extraction and KB tools
 try:
     from enterprise_sap_system.knowledge_graph.kg_enhanced_pipeline import EnhancedKGPipeline
@@ -366,17 +374,30 @@ class SAPWorkbench:
     6. Export final SAP
     """
 
-    def __init__(self, api_key: str, storage_dir: str = None, use_kg: bool = True):
+    def __init__(
+        self,
+        api_key: str,
+        supabase_url: str = None,
+        supabase_key: str = None,
+        use_kg: bool = True
+    ):
         self.api_key = api_key
         self.client = anthropic.Anthropic(api_key=api_key)
         self.model = "claude-sonnet-4-20250514"
 
-        # Storage for workspaces
-        if storage_dir:
-            self.storage_dir = Path(storage_dir)
+        # Supabase storage (required for persistence)
+        self.supabase: Optional[Client] = None
+        if supabase_url and supabase_key and SUPABASE_AVAILABLE:
+            try:
+                self.supabase = create_client(supabase_url, supabase_key)
+                print(f"✅ Supabase storage initialized")
+            except Exception as e:
+                print(f"❌ Supabase init failed: {e}")
+                raise RuntimeError(f"Supabase connection failed: {e}")
         else:
-            self.storage_dir = Path(__file__).parent / "workspaces"
-        self.storage_dir.mkdir(exist_ok=True)
+            if not SUPABASE_AVAILABLE:
+                raise RuntimeError("supabase-py not installed. Run: pip install supabase")
+            raise RuntimeError("SUPABASE_URL and SUPABASE_KEY are required for workspace storage")
 
         # In-memory cache
         self.workspaces: Dict[str, StudyWorkspace] = {}
@@ -398,7 +419,7 @@ class SAPWorkbench:
         if not self.use_kg:
             print(f"✅ SAP Workbench initialized (basic extraction)")
 
-        print(f"   Storage: {self.storage_dir}")
+        print(f"   Storage: Supabase (workspaces table)")
 
     # =========================================================================
     # KB TOOLS INTEGRATION
@@ -549,26 +570,30 @@ class SAPWorkbench:
         if workspace_id in self.workspaces:
             return self.workspaces[workspace_id]
 
-        # Try loading from disk
+        # Try loading from Supabase
         return self._load_workspace(workspace_id)
 
     def list_workspaces(self) -> List[Dict]:
-        """List all workspaces."""
-        workspaces = []
-        for ws_file in self.storage_dir.glob("*.json"):
-            try:
-                with open(ws_file) as f:
-                    data = json.load(f)
+        """List all workspaces from Supabase."""
+        try:
+            result = self.supabase.table("workspaces").select(
+                "id, created_at, updated_at, protocol_filename, metadata"
+            ).order("updated_at", desc=True).execute()
+
+            workspaces = []
+            for row in result.data:
+                metadata = row.get("metadata") or {}
                 workspaces.append({
-                    "id": data["id"],
-                    "name": data["name"],
-                    "created_at": data["created_at"],
-                    "phase": data.get("phase", ""),
-                    "therapeutic_area": data.get("therapeutic_area", "")
+                    "id": row["id"],
+                    "name": metadata.get("study_title", row.get("protocol_filename", "Untitled")),
+                    "created_at": row["created_at"],
+                    "phase": metadata.get("phase", ""),
+                    "therapeutic_area": metadata.get("therapeutic_area", "")
                 })
-            except Exception:
-                pass
-        return workspaces
+            return workspaces
+        except Exception as e:
+            print(f"Error listing workspaces: {e}")
+            return []
 
     # =========================================================================
     # METADATA EXTRACTION
@@ -607,6 +632,54 @@ class SAPWorkbench:
             # Get the full extraction object
             full_extraction = getattr(self.kg_pipeline, '_last_full_extraction', {}) or {}
 
+            # === DETAILED EXTRACTION LOGGING ===
+            print("\n" + "="*70)
+            print("FULL EXTRACTION DEBUG - All Fields (with values)")
+            print("="*70)
+
+            # Helper to extract display value from nested structures
+            def get_display_value(item, keys_to_try):
+                for k in keys_to_try:
+                    if isinstance(item, dict):
+                        val = item.get(k)
+                        if isinstance(val, dict):
+                            val = val.get("value", val)
+                        if val:
+                            return str(val)[:60]
+                return str(item)[:60] if item else "[empty]"
+
+            for key, value in full_extraction.items():
+                val_type = type(value).__name__
+                if isinstance(value, list):
+                    print(f"  {key}: [{val_type}] {len(value)} items")
+                    for i, item in enumerate(value[:3]):  # Show first 3
+                        if isinstance(item, dict):
+                            # Show actual values for common keys
+                            display = get_display_value(item, ["name", "factor", "factor_name", "endpoint", "variable_name", "country", "region", "category"])
+                            print(f"    [{i}]: {display}")
+                        else:
+                            print(f"    [{i}]: {str(item)[:60]}")
+                    if len(value) > 3:
+                        print(f"    ... and {len(value) - 3} more")
+                elif isinstance(value, dict):
+                    # Show nested values for important fields
+                    if key in ["sample_size", "trial_identification", "study_phase", "geographic", "randomization"]:
+                        print(f"  {key}: [{val_type}]")
+                        for k, v in list(value.items())[:5]:
+                            if isinstance(v, dict) and "value" in v:
+                                print(f"    {k}: {v.get('value', '[no value]')}")
+                            elif isinstance(v, list):
+                                print(f"    {k}: {len(v)} items")
+                            else:
+                                print(f"    {k}: {str(v)[:50]}")
+                    else:
+                        print(f"  {key}: [{val_type}] keys={list(value.keys())[:5]}")
+                elif value is None:
+                    print(f"  {key}: [None]")
+                else:
+                    print(f"  {key}: [{val_type}] {str(value)[:60]}")
+            print("="*70 + "\n")
+
             # Build prohibition rules
             prohibition_rules = self._build_prohibition_rules(full_extraction)
 
@@ -617,11 +690,22 @@ class SAPWorkbench:
             rc = full_extraction.get("response_criteria_details", {})
             geo = full_extraction.get("geographic", {})
 
-            # Get countries
+            # Get countries and regions
             countries = []
-            for c in geo.get("countries", []):
-                if c.get("country"):
+            geo_data = geo if isinstance(geo, dict) else {}
+            # Try countries list first
+            for c in geo_data.get("countries", []):
+                if isinstance(c, dict) and c.get("country"):
                     countries.append(c.get("country"))
+                elif isinstance(c, str) and c:
+                    countries.append(c)
+            # Also include regions if no countries found
+            if not countries:
+                for r in geo_data.get("regions", []):
+                    if isinstance(r, dict) and r.get("region"):
+                        countries.append(r.get("region"))
+                    elif isinstance(r, str) and r:
+                        countries.append(r)
 
             # Convert endpoints
             endpoints = []
@@ -642,17 +726,28 @@ class SAPWorkbench:
                         "definition": ep.get("definition", "")
                     })
 
-            # Convert populations
+            # Convert populations (handles both list and dict formats)
             populations = []
-            pops = full_extraction.get("populations", {})
-            for pop_key in ["itt_definition", "mitt_definition", "pp_definition", "safety_definition"]:
-                pop = pops.get(pop_key, {})
-                if pop and pop.get("value"):
-                    populations.append({
-                        "name": pop_key.replace("_definition", "").upper(),
-                        "abbreviation": pop_key.replace("_definition", "").upper(),
-                        "definition": pop.get("value")
-                    })
+            pops = full_extraction.get("populations", [])
+            if isinstance(pops, list):
+                # New dynamic list format
+                for pop in pops:
+                    if pop.get("name"):
+                        populations.append({
+                            "name": pop.get("name", ""),
+                            "abbreviation": pop.get("abbreviation", pop.get("name", "")).upper(),
+                            "definition": pop.get("definition", "")
+                        })
+            elif isinstance(pops, dict):
+                # Legacy dict format (backward compatibility)
+                for pop_key in ["itt_definition", "mitt_definition", "pp_definition", "safety_definition"]:
+                    pop = pops.get(pop_key, {})
+                    if pop and pop.get("value"):
+                        populations.append({
+                            "name": pop_key.replace("_definition", "").upper(),
+                            "abbreviation": pop_key.replace("_definition", "").upper(),
+                            "definition": pop.get("value")
+                        })
 
             # Convert treatment arms
             treatment_arms = []
@@ -663,21 +758,59 @@ class SAPWorkbench:
                         "description": f"{arm.get('drug_name', '')} {arm.get('dose', '')} {arm.get('schedule', '')}".strip()
                     })
 
-            # Get stratification factors
+            # Get stratification factors (handles both "factor_name" and "factor" keys)
             strat_factors = []
             rand = full_extraction.get("randomization", {})
-            for sf in rand.get("stratification_factors", []):
-                if sf.get("factor_name"):
-                    strat_factors.append(sf.get("factor_name"))
+            rand_strat = rand.get("stratification_factors", []) if isinstance(rand, dict) else []
+            for sf in rand_strat:
+                # Try factor_name first (Stage 2 schema), then factor (Stage 1 schema)
+                factor = sf.get("factor_name") or sf.get("factor")
+                if factor:
+                    strat_factors.append(factor)
 
-            # Get sample size
+            # Fallback: check subgroups with is_stratification_factor=True
+            if not strat_factors:
+                for sg in full_extraction.get("subgroups", []):
+                    if sg.get("is_stratification_factor") and sg.get("factor"):
+                        strat_factors.append(sg.get("factor"))
+
+            # Fallback: check top-level stratification_factors (Stage 1 output)
+            if not strat_factors:
+                for sf in full_extraction.get("stratification_factors", []):
+                    factor = sf.get("factor_name") or sf.get("factor")
+                    if factor:
+                        strat_factors.append(factor)
+
+            # Get sample size (handles list, dict with total_n, or dict with n)
             ss = full_extraction.get("sample_size", {})
-            sample_size_val = ss.get("total_n", {}).get("value") if ss else None
+            sample_size_val = None
+            if isinstance(ss, list) and ss:
+                # List format: use first entry's n value
+                sample_size_val = ss[0].get("n") if ss[0] else None
+            elif isinstance(ss, dict):
+                # Dict format: try total_n.value first, then n directly
+                if ss.get("total_n"):
+                    sample_size_val = ss.get("total_n", {}).get("value")
+                elif ss.get("n"):
+                    sample_size_val = ss.get("n")
             if sample_size_val:
                 try:
                     sample_size_val = int(sample_size_val)
                 except:
                     sample_size_val = None
+
+            # === LOG CONVERTED VALUES ===
+            print("\n" + "-"*70)
+            print("CONVERTED METADATA VALUES")
+            print("-"*70)
+            print(f"  endpoints: {len(endpoints)} items")
+            print(f"  populations: {len(populations)} items -> {[p.get('name') for p in populations]}")
+            print(f"  treatment_arms: {len(treatment_arms)} items")
+            print(f"  strat_factors: {strat_factors}")
+            print(f"  sample_size: {sample_size_val} (raw type: {type(ss).__name__})")
+            print(f"  countries: {countries}")
+            print(f"  prohibition_rules: {prohibition_rules}")
+            print("-"*70 + "\n")
 
             metadata = ProtocolMetadata(
                 study_id=trial_id.get("nct_id", {}).get("value", "") or trial_id.get("protocol_number", {}).get("value", ""),
@@ -1676,59 +1809,73 @@ Format as numbered list with full citations.
     # =========================================================================
 
     def _save_workspace(self, workspace: StudyWorkspace):
-        """Save workspace to disk."""
-        filepath = self.storage_dir / f"{workspace.id}.json"
+        """Save workspace to Supabase."""
+        # Convert sections to serializable dict
+        sections_data = {
+            k: {
+                "id": v.id,
+                "name": v.name,
+                "display_name": v.display_name,
+                "status": v.status.value,
+                "content": v.content,
+                "protocol_excerpts_used": v.protocol_excerpts_used,
+                "metadata_used": v.metadata_used,
+                "generated_at": v.generated_at,
+                "edited_at": v.edited_at,
+                "user_comments": v.user_comments,
+                "version": v.version,
+                "history": v.history
+            }
+            for k, v in workspace.sections.items()
+        }
 
-        # Convert to dict
+        # Convert metadata to dict (includes full_extraction)
+        metadata_dict = asdict(workspace.metadata) if workspace.metadata else {}
+        # Add workspace-level fields to metadata for backwards compat
+        metadata_dict["phase"] = workspace.phase
+        metadata_dict["therapeutic_area"] = workspace.therapeutic_area
+        metadata_dict["indication"] = workspace.indication
+        metadata_dict["name"] = workspace.name
+        metadata_dict["protocol_versions"] = workspace.protocol_versions
+
+        # Upsert to Supabase
         data = {
             "id": workspace.id,
-            "name": workspace.name,
             "created_at": workspace.created_at,
-            "updated_at": workspace.updated_at,
+            "updated_at": datetime.now().isoformat(),
             "protocol_content": workspace.protocol_content,
             "protocol_filename": workspace.protocol_filename,
             "protocol_hash": workspace.protocol_hash,
-            "phase": workspace.phase,
-            "therapeutic_area": workspace.therapeutic_area,
-            "indication": workspace.indication,
-            "metadata": asdict(workspace.metadata) if workspace.metadata else None,
-            "sections": {
-                k: {
-                    "id": v.id,
-                    "name": v.name,
-                    "display_name": v.display_name,
-                    "status": v.status.value,
-                    "content": v.content,
-                    "protocol_excerpts_used": v.protocol_excerpts_used,
-                    "metadata_used": v.metadata_used,
-                    "generated_at": v.generated_at,
-                    "edited_at": v.edited_at,
-                    "user_comments": v.user_comments,
-                    "version": v.version,
-                    "history": v.history
-                }
-                for k, v in workspace.sections.items()
-            },
-            "protocol_versions": workspace.protocol_versions
+            "metadata": metadata_dict,
+            "sections": sections_data,
+            "protocol_conditions": workspace.protocol_conditions
         }
 
-        with open(filepath, 'w') as f:
-            json.dump(data, f, indent=2)
+        try:
+            self.supabase.table("workspaces").upsert(data).execute()
+        except Exception as e:
+            print(f"Error saving workspace {workspace.id}: {e}")
+            raise
 
     def _load_workspace(self, workspace_id: str) -> Optional[StudyWorkspace]:
-        """Load workspace from disk."""
-        filepath = self.storage_dir / f"{workspace_id}.json"
+        """Load workspace from Supabase."""
+        try:
+            result = self.supabase.table("workspaces").select("*").eq("id", workspace_id).execute()
 
-        if not filepath.exists():
+            if not result.data:
+                return None
+
+            data = result.data[0]
+        except Exception as e:
+            print(f"Error loading workspace {workspace_id}: {e}")
             return None
 
-        with open(filepath) as f:
-            data = json.load(f)
+        # Get metadata from JSONB column
+        m = data.get("metadata") or {}
 
-        # Reconstruct metadata
+        # Reconstruct metadata (including full_extraction for reuse)
         metadata = None
-        if data.get("metadata"):
-            m = data["metadata"]
+        if m:
             metadata = ProtocolMetadata(
                 study_id=m.get("study_id", ""),
                 study_title=m.get("study_title", ""),
@@ -1743,13 +1890,26 @@ Format as numbered list with full citations.
                 sample_size=m.get("sample_size"),
                 statistical_methods=m.get("statistical_methods", []),
                 visit_schedule=m.get("visit_schedule", []),
+                # FULL 55-category extraction (critical for section generation)
+                full_extraction=m.get("full_extraction", {}),
+                # Disease-specific info
+                disease_setting=m.get("disease_setting", ""),
+                performance_status_scale=m.get("performance_status_scale", ""),
+                response_criteria=m.get("response_criteria", ""),
+                geographic_countries=m.get("geographic_countries", []),
+                baseline_variables=m.get("baseline_variables", []),
+                # Prohibition rules
+                prohibition_rules=m.get("prohibition_rules", []),
+                # Source tracking
                 extraction_timestamp=m.get("extraction_timestamp", ""),
-                protocol_hash=m.get("protocol_hash", "")
+                protocol_hash=m.get("protocol_hash", ""),
+                extraction_method=m.get("extraction_method", "basic")
             )
 
-        # Reconstruct sections
+        # Reconstruct sections from JSONB column
         sections = {}
-        for k, v in data.get("sections", {}).items():
+        sections_data = data.get("sections") or {}
+        for k, v in sections_data.items():
             sections[k] = SAPSection(
                 id=v["id"],
                 name=v["name"],
@@ -1767,18 +1927,20 @@ Format as numbered list with full citations.
 
         workspace = StudyWorkspace(
             id=data["id"],
-            name=data["name"],
+            name=m.get("name", data.get("protocol_filename", "Untitled")),
             created_at=data["created_at"],
             updated_at=data["updated_at"],
             protocol_content=data.get("protocol_content", ""),
             protocol_filename=data.get("protocol_filename", ""),
             protocol_hash=data.get("protocol_hash", ""),
-            phase=data.get("phase", ""),
-            therapeutic_area=data.get("therapeutic_area", ""),
-            indication=data.get("indication", ""),
+            phase=m.get("phase", ""),
+            therapeutic_area=m.get("therapeutic_area", ""),
+            indication=m.get("indication", ""),
             metadata=metadata,
             sections=sections,
-            protocol_versions=data.get("protocol_versions", [])
+            protocol_versions=m.get("protocol_versions", []),
+            # Protocol conditions for section filtering
+            protocol_conditions=data.get("protocol_conditions") or {}
         )
 
         self.workspaces[workspace_id] = workspace

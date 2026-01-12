@@ -81,3 +81,48 @@ BEGIN
     RETURNING id, protocol_text, nct_id;
 END;
 $$;
+
+
+-- ============================================
+-- SAP Workbench: Persistent Workspace Storage
+-- ============================================
+
+-- Workspaces table: stores complete workspace state for the SAP Workbench
+CREATE TABLE workspaces (
+    id TEXT PRIMARY KEY,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+
+    -- Protocol document
+    protocol_content TEXT,
+    protocol_filename TEXT,
+    protocol_hash TEXT,
+
+    -- Study metadata (extracted facts, study info, full extraction)
+    metadata JSONB DEFAULT '{}',
+
+    -- All SAP sections with content, status, version history
+    sections JSONB DEFAULT '{}',
+
+    -- Protocol conditions for dynamic section filtering
+    protocol_conditions JSONB DEFAULT '{}'
+);
+
+-- Index for listing workspaces by most recent
+CREATE INDEX idx_workspaces_updated ON workspaces(updated_at DESC);
+
+-- RLS for workspaces
+ALTER TABLE workspaces ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Allow public access (adjust for production with auth)
+CREATE POLICY "Allow public workspace insert" ON workspaces
+    FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow public workspace read" ON workspaces
+    FOR SELECT USING (true);
+
+CREATE POLICY "Allow public workspace update" ON workspaces
+    FOR UPDATE USING (true);
+
+CREATE POLICY "Allow public workspace delete" ON workspaces
+    FOR DELETE USING (true);

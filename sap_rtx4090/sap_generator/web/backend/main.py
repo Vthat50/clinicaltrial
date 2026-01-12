@@ -26,6 +26,11 @@ print("If you don't see v95 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
+from dotenv import load_dotenv
+
+# Load .env file for local development
+load_dotenv()
+
 import time
 import asyncio
 import tempfile
@@ -3796,9 +3801,23 @@ def get_workbench():
     global _workbench
     if _workbench is None and WORKBENCH_AVAILABLE:
         api_key = os.environ.get("ANTHROPIC_API_KEY")
-        if api_key:
-            _workbench = SAPWorkbench(api_key, use_kg=True)
-            logger.info("SAP Workbench initialized with 55-category KG extraction")
+        if not api_key:
+            logger.error("ANTHROPIC_API_KEY not set")
+            return None
+        if not SUPABASE_URL or not SUPABASE_KEY:
+            logger.error("SUPABASE_URL and SUPABASE_SERVICE_KEY required for workbench storage")
+            return None
+        try:
+            _workbench = SAPWorkbench(
+                api_key=api_key,
+                supabase_url=SUPABASE_URL,
+                supabase_key=SUPABASE_KEY,
+                use_kg=True
+            )
+            logger.info("SAP Workbench initialized with Supabase storage + 55-category KG extraction")
+        except Exception as e:
+            logger.error(f"Failed to initialize workbench: {e}")
+            return None
     return _workbench
 
 
@@ -4006,6 +4025,278 @@ async def workbench_get_metadata(workspace_id: str):
         raise
     except Exception as e:
         logger.error(f"Metadata extraction failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/extraction")
+async def workbench_get_extraction(workspace_id: str):
+    """
+    Get full 55-category extraction data for UI display.
+    Returns the complete extraction with all fields organized for the frontend.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        workspace = workbench.get_workspace(workspace_id)
+        if not workspace:
+            raise HTTPException(404, f"Workspace {workspace_id} not found")
+
+        # Extract metadata if not done
+        if not workspace.metadata:
+            workbench.extract_metadata(workspace_id)
+            workspace = workbench.get_workspace(workspace_id)
+
+        metadata = workspace.metadata
+        if not metadata:
+            raise HTTPException(500, "Failed to extract metadata")
+
+        fe = metadata.full_extraction or {}
+
+        # Build structured response for UI
+        def safe_get(d, *keys, default=None):
+            """Safely navigate nested dicts"""
+            for key in keys:
+                if isinstance(d, dict):
+                    d = d.get(key, {})
+                else:
+                    return default
+            return d if d != {} else default
+
+        def get_value(d, key):
+            """Get value from nested {value: x} structure"""
+            if isinstance(d, dict):
+                if "value" in d:
+                    return d["value"]
+                return d.get(key)
+            return d
+
+        # Helper to extract source info (defined early for use below)
+        def get_source_info_early(obj):
+            """Extract source_quote and source_section from an object."""
+            if isinstance(obj, dict):
+                return {
+                    "source_quote": obj.get("source_quote", ""),
+                    "source_section": obj.get("source_section", ""),
+                }
+            return {"source_quote": "", "source_section": ""}
+
+        # Study info with source references
+        trial_id = fe.get("trial_identification", {})
+        study_info = {
+            "nct_id": get_value(trial_id.get("nct_id", {}), "value") or "",
+            "nct_id_source": get_source_info_early(trial_id.get("nct_id", {})),
+            "protocol_number": get_value(trial_id.get("protocol_number", {}), "value") or "",
+            "protocol_number_source": get_source_info_early(trial_id.get("protocol_number", {})),
+            "sponsor": get_value(trial_id.get("sponsor", {}), "value") or "",
+            "sponsor_source": get_source_info_early(trial_id.get("sponsor", {})),
+            "title": get_value(trial_id.get("study_title", {}), "value") or metadata.study_title,
+            "title_source": get_source_info_early(trial_id.get("study_title", {})),
+            "phase": metadata.phase,
+        }
+
+        # Design with source references
+        design = fe.get("study_design", {})
+        design_info = {
+            "type": get_value(design.get("design_type", {}), "value") or "",
+            "type_source": get_source_info_early(design.get("design_type", {})),
+            "blinding": get_value(design.get("blinding", {}), "value") or "",
+            "blinding_source": get_source_info_early(design.get("blinding", {})),
+            "randomization_ratio": get_value(design.get("randomization_ratio", {}), "value") or "",
+            "randomization_ratio_source": get_source_info_early(design.get("randomization_ratio", {})),
+            "control_type": get_value(design.get("control_type", {}), "value") or "",
+            "control_type_source": get_source_info_early(design.get("control_type", {})),
+        }
+
+        # Study type flags
+        cart_specific = fe.get("cart_specific", {})
+        heme_specific = fe.get("hematologic_specific", {})
+        immuno_specific = fe.get("immunotherapy_specific", {})
+        study_types = {
+            "is_cart": cart_specific.get("is_cart", False),
+            "is_hematologic": heme_specific.get("is_hematologic", False),
+            "is_immunotherapy": immuno_specific.get("is_immunotherapy", False),
+        }
+
+        # Endpoints with source references
+        # (using get_source_info_early defined above)
+        primary_eps = fe.get("primary_endpoints", [])
+        secondary_eps = fe.get("secondary_endpoints", [])
+        endpoints = {
+            "primary": [
+                {
+                    "name": ep.get("name", ""),
+                    "definition": ep.get("definition", ""),
+                    "type": ep.get("type", ""),
+                    "response_criteria": ep.get("response_criteria", ""),
+                    **get_source_info_early(ep),
+                }
+                for ep in primary_eps if ep.get("name")
+            ],
+            "secondary": [
+                {
+                    "name": ep.get("name", ""),
+                    "definition": ep.get("definition", ""),
+                    "type": ep.get("type", ""),
+                    **get_source_info_early(ep),
+                }
+                for ep in secondary_eps if ep.get("name")
+            ],
+        }
+
+        # Populations with source references
+        pops = fe.get("populations", [])
+        populations = [
+            {
+                "name": p.get("name", ""),
+                "definition": p.get("definition", ""),
+                "is_primary_efficacy": p.get("is_primary_efficacy", False),
+                "is_primary_safety": p.get("is_primary_safety", False),
+                **get_source_info_early(p),
+            }
+            for p in pops if p.get("name")
+        ]
+
+        # Sample size with source references
+        ss = fe.get("sample_size", {})
+        sample_size_info = {
+            "total_n": get_value(ss.get("total_n", {}), "value") or metadata.sample_size,
+            "total_n_source": get_source_info_early(ss.get("total_n", {})),
+            "power": get_value(ss.get("power", {}), "value"),
+            "power_source": get_source_info_early(ss.get("power", {})),
+            "alpha": get_value(ss.get("alpha", {}), "value"),
+            "alpha_source": get_source_info_early(ss.get("alpha", {})),
+            "effect_size": get_value(ss.get("effect_size", {}), "value"),
+            "effect_size_source": get_source_info_early(ss.get("effect_size", {})),
+        }
+
+        # CAR-T specific
+        cart_info = None
+        if study_types["is_cart"]:
+            crs = cart_specific.get("crs_grading", {})
+            icans = cart_specific.get("icans_grading", {})
+            cart_info = {
+                "crs_scale": crs.get("scale", ""),
+                "icans_scale": icans.get("scale", ""),
+                "bridging_therapy": cart_specific.get("bridging_therapy", {}).get("allowed", False),
+                "cellular_kinetics": cart_specific.get("cellular_kinetics", {}).get("parameters", []),
+            }
+
+        # Subgroups with source references
+        subgroups = [
+            {
+                "factor": sg.get("factor", ""),
+                "categories": sg.get("categories", []),
+                "is_stratification_factor": sg.get("is_stratification_factor", False),
+                **get_source_info_early(sg),
+            }
+            for sg in fe.get("subgroups", []) if sg.get("factor")
+        ]
+
+        # Censoring rules with source references
+        censoring = [
+            {
+                "endpoint": cr.get("endpoint", ""),
+                "scenario": cr.get("scenario", ""),
+                "event_flag": cr.get("event_flag", ""),
+                "date_used": cr.get("date_used", ""),
+                **get_source_info_early(cr),
+            }
+            for cr in fe.get("censoring_rules", []) if cr.get("endpoint")
+        ]
+
+        # Validation/warnings
+        validation = fe.get("_validation_report", {})
+        warnings = []
+        if validation.get("status") == "needs_review":
+            warnings.extend(validation.get("potential_gaps", []))
+        if validation.get("warnings"):
+            warnings.extend(validation.get("warnings", []))
+
+        # Completeness check
+        completeness = fe.get("extraction_completeness_check", {})
+
+        return {
+            "workspace_id": workspace_id,
+            "extraction_method": metadata.extraction_method,
+            "extraction_timestamp": metadata.extraction_timestamp,
+
+            # Organized data
+            "study_info": study_info,
+            "design": design_info,
+            "study_types": study_types,
+            "endpoints": endpoints,
+            "populations": populations,
+            "sample_size": sample_size_info,
+            "subgroups": subgroups,
+            "censoring_rules": censoring,
+            "prohibition_rules": metadata.prohibition_rules,
+
+            # Special sections
+            "cart_specific": cart_info,
+            "hematologic_specific": heme_specific if study_types["is_hematologic"] else None,
+            "immunotherapy_specific": immuno_specific if study_types["is_immunotherapy"] else None,
+
+            # Validation
+            "warnings": warnings,
+            "completeness": {
+                "total_endpoints": completeness.get("total_endpoints_found", len(primary_eps) + len(secondary_eps)),
+                "total_populations": completeness.get("total_populations_found", len(populations)),
+                "total_subgroups": completeness.get("total_subgroups_found", len(subgroups)),
+                "confidence": completeness.get("confidence_level", "unknown"),
+                "all_captured": completeness.get("all_elements_captured", True),
+            },
+
+            # Raw data for advanced view
+            "raw_field_count": len(fe),
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Extraction fetch failed: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/protocol")
+async def workbench_get_protocol_content(workspace_id: str):
+    """
+    Get the full protocol content for viewing in the Protocol Audit Suite.
+    Returns the extracted text content of the uploaded protocol.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        workspace = workbench.get_workspace(workspace_id)
+        if not workspace:
+            raise HTTPException(404, f"Workspace {workspace_id} not found")
+
+        protocol_content = workspace.protocol_content or ""
+        protocol_filename = workspace.protocol_filename or "protocol.txt"
+
+        return {
+            "workspace_id": workspace_id,
+            "filename": protocol_filename,
+            "content": protocol_content,
+            "char_count": len(protocol_content),
+            "has_content": bool(protocol_content.strip()),
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Protocol content fetch failed: {e}")
         raise HTTPException(500, str(e))
 
 

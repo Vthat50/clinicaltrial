@@ -1,11 +1,26 @@
-# Knowledge Graph System Structure (v78)
+# Knowledge Graph System Structure (v96)
 ## Complete File Inventory with All Named Elements
+
+---
+
+## WHAT'S NEW IN v96
+
+### New Files Since v78
+- **`llm_parser.py`** (393 lines) - Robust JSON parsing for LLM responses with auto-repair
+- **`kb_source_mapping.py`** (783 lines) - Maps KB structures to 151 actual SAP document sources
+
+### Key Feature Additions
+- **`get_reference_sap_section()`** - Retrieves actual SAP section text from 151 reference SAPs
+- **`get_baseline_covariates()`** - Disease-specific baseline covariates (11 disease categories)
+- **Indication-based routing** - Replaced `tumor_type` with `indication` for broader oncology support
+- **LLMParser** - Handles JSON repair, truncation recovery, and markdown stripping
+- **Source traceability** - Every KB element traceable to actual SAP documents
 
 ---
 
 ## 1. COMPREHENSIVE SAP ELEMENTS (35 Categories)
 
-**File:** `comprehensive_sap_elements.py` (1,851 lines)
+**File:** `comprehensive_sap_elements.py` (3,812 lines)
 
 ### Study Framework (4)
 ```
@@ -24,6 +39,21 @@ MEDICAL_HISTORY            → MedDRA SOC/PT coding, relevant vs non-relevant
 ORGAN_FUNCTION_SPECS       → Hepatic (Child-Pugh A/B/C), renal (CrCl), cardiac (LVEF)
 BIOMARKER_SUBGROUPS        → PD-L1, TMB, MSI, HER2, BRCA status
 STRATIFICATION_BALANCE     → Balance assessment, re-stratification
+```
+
+### Disease-Specific Baseline Covariates (11 categories) [NEW in v83+]
+```
+BASELINE_COVARIATES_SOLID_TUMOR   → ECOG PS, stage, metastatic sites, biomarker status
+BASELINE_COVARIATES_HEMATOLOGIC   → Cytogenetics, blast counts, transfusion dependence
+BASELINE_COVARIATES_LYMPHOMA      → Ann Arbor stage, IPI/FLIPI/MIPI, B-symptoms
+BASELINE_COVARIATES_MYELOMA       → ISS/R-ISS stage, cytogenetics, renal function
+BASELINE_COVARIATES_AML           → ELN risk, cytogenetics, FLT3/NPM1, MRD
+BASELINE_COVARIATES_CLL           → Rai stage, del(17p), TP53, IGHV mutation
+BASELINE_COVARIATES_BREAST        → HR/HER2 status, visceral disease, prior therapy
+BASELINE_COVARIATES_LUNG          → Histology, EGFR/ALK status, PD-L1, brain mets
+BASELINE_COVARIATES_GI            → Primary tumor location, MSI, BRAF/KRAS status
+BASELINE_COVARIATES_GU            → IMDC risk, HRR mutation, PSMA status
+BASELINE_COVARIATES_GYN           → BRCA status, HRD, platinum sensitivity
 ```
 
 ### Efficacy Analysis (5)
@@ -642,7 +672,7 @@ LaboratoryStandards:
 
 ## 8. SAP STRUCTURE CONFIG (24 Main Sections)
 
-**File:** `sap_structure_config.py` (1,031 lines)
+**File:** `sap_structure_config.py` (1,053 lines)
 
 ### Main Sections
 ```
@@ -724,9 +754,9 @@ Study Features:
 
 ---
 
-## 9. KB TOOLS (83 Tools by Category)
+## 9. KB TOOLS (87 Tools by Category)
 
-**File:** `kb_tools.py` (3,844 lines)
+**File:** `kb_tools.py` (4,174 lines)
 
 ### Statistical Methods (15)
 ```
@@ -747,10 +777,11 @@ get_stratification_balance_specs() → Balance assessment
 get_phase2_design_specs()          → Simon two-stage, Fleming
 ```
 
-### Population & Baseline (10)
+### Population & Baseline (12)
 ```
 get_population_definitions()       → ITT, mITT, Safety, PP definitions
 get_demographics_baseline_specs()  → Age, sex, race, ECOG specs
+get_baseline_covariates()          → Disease-specific covariates (11 disease types) [NEW]
 get_prior_therapy_specs()          → Prior lines, refractory status
 get_concomitant_medication_specs() → WHO Drug, ATC classification
 get_medical_history_specs()        → MedDRA coding specs
@@ -759,6 +790,7 @@ get_organ_function_scores()        → Child-Pugh, CrCl, LVEF
 get_performance_status_scales()    → ECOG, Karnofsky definitions
 get_prognostic_scores()            → IPI, FLIPI, ISS, IMDC
 get_enrollment_specifications()    → Enrollment summaries
+get_comprehensive_sap_elements()   → All SAP elements by study type
 ```
 
 ### Endpoint & Response (12)
@@ -843,40 +875,194 @@ get_qol_analysis_specs()           → PRO/QoL instruments
 get_pro_qol_analysis()             → PRO analysis methods
 ```
 
+### Reference SAP Retrieval (2) [NEW in v95+]
+```
+get_similar_trials()               → Find similar trials from 354 trial KG
+get_reference_sap_section()        → Retrieve actual SAP section text from 151 SAPs [NEW]
+```
+
 ---
 
-## 10. IMPORT CHAIN
+## 10. LLM PARSER (v92+)
+
+**File:** `llm_parser.py` (393 lines)
+
+### Features
+```
+LLMParser:
+├── parse()                        → Main parsing method with auto-repair
+├── _strip_markdown()              → Remove ```json blocks
+├── _apply_repairs()               → Fix common JSON errors
+│   ├── Remove trailing commas
+│   ├── Convert single quotes to double
+│   ├── Quote unquoted keys
+│   ├── Remove JavaScript comments
+│   ├── Replace NaN/Infinity/undefined with null
+│   └── Remove control characters
+├── _is_truncated()                → Detect truncated JSON
+├── _attempt_truncation_recovery() → Close unbalanced brackets
+└── _retry_with_llm()              → Use Claude to fix malformed JSON
+
+ParseResult:
+├── success: bool
+├── data: Optional[Dict]
+├── error: Optional[str]
+├── repairs_applied: List[str]
+└── retried_with_llm: bool
+```
+
+---
+
+## 11. KB SOURCE MAPPING (v84+)
+
+**File:** `kb_source_mapping.py` (783 lines)
+
+### Source Categories (45 mapped structures)
+```
+Methodology Sources:
+├── CENSORING_RULES              → 16 Phase 2/3 oncology SAPs
+├── TIME_TO_EVENT_ANALYSIS       → 14 Phase 2/3 TTE trials
+├── STATISTICAL_METHODS          → 10 Phase 3 trials + ICH E9
+├── STRATIFICATION_SPECS         → 9 Phase 3 trials
+├── MISSING_DATA_HANDLING        → 7 Phase 3 SAPs + EMA guideline
+├── SENSITIVITY_ANALYSES         → 7 Phase 3 SAPs + ICH E9(R1)
+├── MULTIPLICITY_ADJUSTMENT      → 9 sources
+├── SUBGROUP_ANALYSIS_SPECS      → 8 sources
+└── INTERIM_ANALYSIS_SPECS       → 8 sources + FDA guidance
+
+Response Criteria Sources:
+├── RECIST_1_1                   → 11 solid tumor SAPs
+├── LUGANO_CRITERIA              → 4 lymphoma SAPs
+├── IMWG_CRITERIA                → 3 multiple myeloma SAPs
+├── PCWG3_CRITERIA               → 2 mCRPC SAPs
+├── GCIG_CA125_CRITERIA          → 3 ovarian cancer SAPs
+└── irRECIST                     → 4 immunotherapy SAPs
+
+Therapy Module Sources:
+├── CAR_T_MODULE                 → 5 CAR-T SAPs
+├── BISPECIFIC_MODULE            → 3 bispecific sources
+├── ADC_MODULE                   → 4 ADC SAPs
+├── CHECKPOINT_INHIBITOR_MODULE  → 7 IO SAPs
+├── PARP_INHIBITOR_MODULE        → 5 PARP SAPs
+└── CDK4_6_INHIBITOR_MODULE      → 3 CDK4/6 SAPs
+
+Baseline Covariate Sources:
+├── BASELINE_COVARIATES_SOLID_TUMOR   → 7 Phase 3 SAPs
+├── BASELINE_COVARIATES_HEMATOLOGIC   → 5 SAPs
+├── BASELINE_COVARIATES_LYMPHOMA      → 4 lymphoma SAPs
+├── BASELINE_COVARIATES_MYELOMA       → 2 MM SAPs
+├── BASELINE_COVARIATES_AML           → 3 AML SAPs
+├── BASELINE_COVARIATES_CLL           → 1 CLL SAP
+├── BASELINE_COVARIATES_BREAST        → 4 SAPs
+├── BASELINE_COVARIATES_LUNG          → 5 SAPs
+├── BASELINE_COVARIATES_GI            → 5 SAPs
+├── BASELINE_COVARIATES_GU            → 4 SAPs
+└── BASELINE_COVARIATES_GYN           → 3 SAPs
+```
+
+### Helper Functions
+```
+get_sources(source_key)           → Get source info for KB structure
+get_all_sources_for_file(filename) → Get all sources for a KB file
+get_source_summary()              → Summary statistics of coverage
+```
+
+---
+
+## 12. KG ENHANCED PIPELINE
+
+**File:** `kg_enhanced_pipeline.py` (4,115 lines)
+
+### Main Classes
+```
+ProtocolFactVerifier:
+├── verify()                       → Verify SAP text against protocol facts
+├── _verify_endpoints()            → Check endpoint accuracy
+├── _verify_methods()              → Check statistical methods
+├── _verify_populations()          → Check population definitions
+├── _verify_power_calculations()   → Check sample size accuracy
+├── _check_hallucinations()        → Detect fabricated numbers
+└── generate_correction_prompt()   → Generate fix instructions
+
+PowerCalculator:
+├── calculate_from_protocol()      → Calculate power from extraction
+├── _extract_parameters()          → Get power calculation parameters
+├── _detect_trial_type()           → Determine trial type
+├── _calculate_phase1()            → Phase 1 calculations
+├── _calculate_phase2_simon()      → Simon two-stage design
+├── _calculate_phase3_survival()   → Survival endpoint power
+└── _calculate_generic()           → Generic power calculation
+
+ReferenceSAPRetriever:
+├── retrieve_similar()             → Find similar SAPs from library
+├── _extract_key_terms()           → Extract protocol keywords
+├── _score_relevance()             → Score SAP relevance
+├── _extract_sections()            → Extract sections from SAP
+└── get_prose_examples()           → Get prose examples for section type
+
+KGEnhancedSAPGenerator:
+├── generate_sap()                 → Main SAP generation method
+├── generate_sap_with_tools()      → Tool-based generation
+├── regenerate_with_corrections()  → Fix errors and regenerate
+├── _format_facts_with_provenance() → Format extracted facts
+├── _build_prohibition_rules()     → Build hallucination prevention rules
+├── _build_protocol_specific_requirements() → Build protocol requirements
+└── _build_tool_routing_instructions() → Build KB tool routing
+
+EnhancedKGPipeline:
+├── process_protocol()             → Main entry point
+├── _load_existing_kg()            → Load knowledge graph
+├── _extract_entities()            → Extract from protocol
+├── _build_extraction_prompt()     → Build Claude extraction prompt
+├── _validate_extraction_completeness() → Validate extraction
+├── _convert_extraction_to_list()  → Convert to fact list
+└── _query_kg_context()            → Query KG for context
+```
+
+---
+
+## 13. IMPORT CHAIN
 
 ```
 main.py
-└── kg_enhanced_pipeline.py
+└── kg_enhanced_pipeline.py (4,115 lines)
     │
-    ├── kb_tools.py (83 tools)
-    │   ├── methodology_knowledge_base.py
+    ├── llm_parser.py (393 lines) [NEW]
+    │   └── LLMParser: JSON repair, truncation recovery
+    │
+    ├── kb_tools.py (4,174 lines)
+    │   ├── TrialPrecedentKG: Query 354 trials
+    │   ├── KnowledgeBaseTools: 87 tools
+    │   │
+    │   ├── methodology_knowledge_base.py (1,813 lines)
     │   │   └── 15 categories: STATISTICAL_METHODS, CENSORING_RULES, etc.
     │   │
-    │   ├── complete_tfl_inventory.py
+    │   ├── complete_tfl_inventory.py (1,686 lines)
     │   │   └── 80+ TFL shells: Disposition, Efficacy, Safety, Figures, Listings
     │   │
-    │   ├── production_sap_specifications.py
+    │   ├── production_sap_specifications.py (1,375 lines)
     │   │   └── 8 categories: TFL_SHELLS, ADAM_SPECIFICATIONS, etc.
     │   │
-    │   ├── adam_specifications.py
+    │   ├── adam_specifications.py (668 lines)
     │   │   └── 11 datasets: ADSL, ADAE, ADTTE, ADRS, ADLB, ADEX, ADVS, ADEG, ADPR, ADCM, ADMH
     │   │
-    │   ├── disease_specific_criteria.py
+    │   ├── disease_specific_criteria.py (679 lines)
     │   │   └── 4 criteria: RANO, LUGANO, IMWG, RANO_BM
     │   │
-    │   ├── oncology_reference_data.py
+    │   ├── oncology_reference_data.py (1,265 lines)
     │   │   └── 16 modules: IMWG, CML, IWCLL, CAR_T_MODULE, BISPECIFIC, ADC, etc.
     │   │
-    │   └── comprehensive_sap_elements.py
-    │       └── 35 categories: STUDY_DEFINITIONS, DEMOGRAPHICS, DEATH_ANALYSIS, etc.
+    │   ├── comprehensive_sap_elements.py (3,812 lines)
+    │   │   └── 35+ categories: STUDY_DEFINITIONS, DEMOGRAPHICS, DEATH_ANALYSIS, etc.
+    │   │   └── 11 disease-specific baseline covariate sets [NEW]
+    │   │
+    │   └── kb_source_mapping.py (783 lines) [NEW]
+    │       └── 45 mapped structures → 151 actual SAP sources
     │
-    ├── sap_structure_config.py
+    ├── sap_structure_config.py (1,053 lines)
     │   └── 24 main sections, 30+ conditions
     │
-    └── regulatory_standards.py
+    └── regulatory_standards.py (691 lines)
         └── 7 classes: CodingStandards, EstimandFramework, OncologyStandards, etc.
 ```
 
@@ -886,15 +1072,38 @@ main.py
 
 | Component | Count |
 |-----------|-------|
-| Total Python files | 26 |
-| Total lines of code | 25,886 |
-| KB Tools | 83 |
+| Total Python files | 28 |
+| Total lines of code | 30,171 |
+| KB Tools | 87 |
 | SAP Main Sections | 24 |
 | SAP Subsections | 70+ |
-| Comprehensive SAP Categories | 35 |
+| Comprehensive SAP Categories | 35+ |
+| Disease-Specific Covariate Sets | 11 |
 | Methodology Categories | 15 |
 | TFL Shells | 80+ |
 | Disease Modules | 16 |
 | Response Criteria | 4 |
 | ADaM Datasets | 11 |
 | Condition Detections | 30+ |
+| Reference SAP Sources | 151 |
+| Trial Precedent KG Trials | 354 |
+| KB Source Mappings | 45 |
+
+---
+
+## CHANGELOG FROM v78 TO v96
+
+| Version | Key Changes |
+|---------|-------------|
+| v79 | Fixed Section 20 tool linkage, added `get_follow_up_analysis_specs` |
+| v80 | Removed generic tool from section routing |
+| v83 | Added disease-specific baseline covariates with source documentation |
+| v84 | Added full SAP title traceability (`kb_source_mapping.py`) |
+| v86 | Universal oncology coverage, fixed discovery bias |
+| v87 | Comprehensive `protocol_specific_sections` |
+| v88 | Zero-tolerance extraction (3 safety nets) |
+| v89 | Unified `generate_sap()` with dynamic MASTER_SAP_SECTIONS |
+| v92 | Added `LLMParser` for robust JSON parsing |
+| v94 | Fixed 35 broken KB tool imports |
+| v95 | Added `get_reference_sap_section()` (151 SAPs) |
+| v96 | Renamed `tumor_type` to `indication` for all oncology types |
