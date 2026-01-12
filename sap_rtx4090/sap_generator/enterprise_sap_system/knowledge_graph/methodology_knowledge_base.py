@@ -1571,6 +1571,25 @@ PRO_QOL_ANALYSIS = {
             "mid": "3-7 points for total score"
         },
 
+        "eortc_qlq_lc13": {
+            "name": "EORTC QLQ-LC13 (Lung Cancer Module)",
+            "items": 13,
+            "symptom_scales": {
+                "dyspnoea": {"items": [3, 4, 5], "direction": "higher=worse"},
+                "coughing": {"items": [1], "direction": "higher=worse"},
+                "haemoptysis": {"items": [2], "direction": "higher=worse"},
+                "sore_mouth": {"items": [6], "direction": "higher=worse"},
+                "dysphagia": {"items": [7], "direction": "higher=worse"},
+                "peripheral_neuropathy": {"items": [8], "direction": "higher=worse"},
+                "alopecia": {"items": [9], "direction": "higher=worse"},
+                "pain_in_chest": {"items": [10], "direction": "higher=worse"},
+                "pain_in_arm_shoulder": {"items": [11], "direction": "higher=worse"},
+                "pain_other": {"items": [12], "direction": "higher=worse"}
+            },
+            "single_items": ["Medication for pain (item 13)"],
+            "mid": "10 points"
+        },
+
         "tumor_specific": {
             "fact_l": "Lung cancer (FACT-G + lung subscale)",
             "fact_b": "Breast cancer",
