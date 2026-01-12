@@ -3208,29 +3208,6 @@ def get_claude_tool_definitions() -> List[Dict]:
             }
         },
         {
-            "name": "get_reference_sap_section",
-            "description": "CRITICAL: Retrieve ACTUAL SAP sections from 151 reference SAPs. Use this for censoring rules, PRO scoring, subgroups, multiplicity. Returns real tables and specifications, not just metadata.",
-            "input_schema": {
-                "type": "object",
-                "properties": {
-                    "section_type": {
-                        "type": "string",
-                        "description": "The type of SAP section to retrieve",
-                        "enum": ["censoring", "pro_scoring", "subgroups", "multiplicity", "sensitivity", "interim_analysis", "recist_derivation"]
-                    },
-                    "indication": {
-                        "type": "string",
-                        "description": "Disease indication to filter relevant SAPs (e.g., 'NSCLC', 'DLBCL', 'melanoma')"
-                    },
-                    "trial_name": {
-                        "type": "string",
-                        "description": "Optional: specific trial name to retrieve (e.g., 'PACIFIC', 'KEYNOTE-189')"
-                    }
-                },
-                "required": ["section_type"]
-            }
-        },
-        {
             "name": "get_censoring_rules",
             "description": "Get censoring rules for time-to-event endpoints (PFS, OS, DFS, DOR). Specifies when patients are censored vs counted as events. ESSENTIAL for Section 8 (Censoring Rules).",
             "input_schema": {
@@ -4042,12 +4019,6 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_multiplicity_adjustment": lambda: kb.get_multiplicity_adjustment(tool_input.get("method_name", "")),
         "get_stratification_specs": lambda: kb.get_stratification_specs(),
         "get_subgroup_analysis_specs": lambda: kb.get_subgroup_analysis_specs(),
-        # v99: CRITICAL - This was missing! Tool existed but was never connected
-        "get_reference_sap_section": lambda: kb.get_reference_sap_section(
-            section_type=tool_input.get("section_type", ""),
-            indication=tool_input.get("indication"),
-            trial_name=tool_input.get("trial_name")
-        ),
         "get_censoring_rules": lambda: kb.get_censoring_rules(tool_input.get("endpoint_type", "all")),
         "get_interim_analysis": lambda: kb.get_interim_analysis(tool_input.get("analysis_type", "all")),
         "get_population_definitions": lambda: kb.get_population_definitions(tool_input.get("population_type", "all")),

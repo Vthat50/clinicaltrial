@@ -2038,16 +2038,10 @@ CRITICAL REQUIREMENTS:
 
 {protocol_requirements}
 
-## MANDATORY: CALL get_reference_sap_section() FOR THESE SECTIONS:
-**You MUST call this tool to retrieve actual SAP content for:**
-- Section 8 (Censoring): get_reference_sap_section(section_type="censoring", indication="{indication_hint}")
-- Section 11 (Subgroups): get_reference_sap_section(section_type="subgroups", indication="{indication_hint}")
-- Section 15 (PRO): get_reference_sap_section(section_type="pro_scoring", indication="{indication_hint}")
-
-**REQUIRED OUTPUT:**
-- Censoring: Generate COMPLETE Table A.2.1 (PFS) and Table A.2.2 (OS) with all scenarios and CNSR flags
-- PRO: List ALL symptoms from QLQ-C30 (8 symptoms) + disease-specific module + EQ-5D-5L (5 domains)
-- Subgroups: Include ALL pre-specified subgroups (typically 8-14), not just stratification factors (3)
+## REQUIRED OUTPUT FOR CRITICAL SECTIONS:
+**Section 8 (Censoring):** Generate COMPLETE Table A.2.1 (PFS) and Table A.2.2 (OS) with ALL scenarios and CNSR flags
+**Section 11 (Subgroups):** Include ALL pre-specified subgroups (typically 8-14), not just stratification factors (3)
+**Section 15 (PRO):** List ALL symptoms from QLQ-C30 (8 symptoms) + disease-specific module + EQ-5D-5L (5 domains)
 
 ## SOURCE CITATION FORMAT (MANDATORY):
 Every fact MUST have a SPECIFIC, TRACEABLE source citation. Use these formats:
