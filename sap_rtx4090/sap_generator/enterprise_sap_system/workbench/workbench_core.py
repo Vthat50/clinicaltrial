@@ -1067,6 +1067,24 @@ Return ONLY valid JSON."""
 
             content = response.content[0].text.strip()
 
+            # v99.6: Validate and auto-fix critical elements
+            validation = self._validate_section(section_id, content)
+            if not validation["passed"]:
+                print(f"[WORKBENCH] Section {section_id} missing: {validation['missing']}")
+                print(f"[WORKBENCH] Auto-fixing...")
+                content = self._regenerate_section_fix(
+                    section_id,
+                    content,
+                    validation["missing"],
+                    workspace.protocol_content
+                )
+                # Verify fix worked
+                recheck = self._validate_section(section_id, content)
+                if recheck["passed"]:
+                    print(f"[WORKBENCH] ✅ Section {section_id} fixed successfully")
+                else:
+                    print(f"[WORKBENCH] ⚠️ Section {section_id} still missing: {recheck['missing']}")
+
             # Save history if editing
             if section.content:
                 section.history.append({
@@ -1945,6 +1963,286 @@ Format as numbered list with full citations.
 
         self.workspaces[workspace_id] = workspace
         return workspace
+
+    # =========================================================================
+    # SECTION VALIDATION & AUTO-FIX (v99.6)
+    # =========================================================================
+
+    # Define which sections need validation and what to check
+    SECTION_VALIDATION_RULES = {
+        "5A.2": {
+            "name": "Baseline Disease Characteristics",
+            "checks": ["stage_substages"],
+            "required_content": {
+                "stage_substages": ["iiia", "iiib", "iiic"]  # At least one
+            }
+        },
+        "11.1": {
+            "name": "Pre-specified Subgroups",
+            "checks": ["subgroups_adequate"],
+            "min_subgroups": 6,
+            "subgroup_keywords": ["age", "sex", "smoking", "ecog", "histology", "region", "pd-l1", "stage"]
+        },
+        "15.1": {
+            "name": "PRO Instruments",
+            "checks": ["pro_symptoms", "eq5d_domains"],
+            "required_content": {
+                "pro_symptoms": ["fatigue", "pain", "nausea"],
+                "eq5d_domains": ["mobility", "self-care", "anxiety"]
+            }
+        },
+        "18.3": {
+            "name": "Efficacy Tables",
+            "checks": ["dcr_present"],
+            "required_content": {
+                "dcr_present": ["dcr", "disease control"]  # Either one
+            }
+        },
+        "18.5": {
+            "name": "Figures",
+            "checks": ["waterfall_plot"],
+            "required_content": {
+                "waterfall_plot": ["waterfall"]
+            }
+        },
+        "A.2": {
+            "name": "Censoring Rules",
+            "checks": ["censoring_tables"],
+            "required_content": {
+                "censoring_tables": ["cnsr", "censored"]
+            },
+            "required_scenarios": ["death", "progression", "lost to follow", "withdrew"]
+        }
+    }
+
+    SECTION_REGENERATION_PROMPTS = {
+        "stage_substages": """Add the following disease stage breakdown to this section:
+
+**Disease Stage at Diagnosis:**
+| Stage | n (%) |
+|-------|-------|
+| Stage IIIA | |
+| Stage IIIB | |
+| Stage IIIC | |
+| Stage IVA | |
+| Stage IVB | |
+
+Note: Stage classification per AJCC 8th edition.""",
+
+        "subgroups_adequate": """The subgroup section needs MORE subgroups. Add ALL of these:
+
+Pre-specified Subgroups:
+1. Age (<65 years vs ≥65 years)
+2. Sex (Male vs Female)
+3. Race (White vs Asian vs Other)
+4. ECOG Performance Status (0 vs 1)
+5. Smoking status (Current/Former vs Never)
+6. Histology (Squamous vs Non-squamous)
+7. Geographic region (North America vs Europe vs Asia vs Rest of World)
+8. Disease stage (Stage III vs Stage IV)
+9. PD-L1 expression (<1% vs 1-49% vs ≥50%)
+10. Prior therapy (Yes vs No)
+11. Response to prior CRT (CR/PR vs SD)
+12. Number of metastatic sites (≤2 vs >2)
+13. Brain metastases at baseline (Yes vs No)
+14. Liver metastases at baseline (Yes vs No)
+
+For each subgroup, primary endpoint will be analyzed using same methods as overall analysis.""",
+
+        "pro_symptoms": """Add explicit symptom listings for each PRO instrument:
+
+**EORTC QLQ-C30 Symptom Scales:**
+- Fatigue (items 10, 12, 18)
+- Nausea and vomiting (items 14, 15)
+- Pain (items 9, 19)
+- Dyspnoea (item 8)
+- Insomnia (item 11)
+- Appetite loss (item 13)
+- Constipation (item 16)
+- Diarrhoea (item 17)
+- Financial difficulties (item 28)
+
+**EORTC QLQ-LC13 Symptom Scales (for lung cancer):**
+- Dyspnoea (items 3-5)
+- Coughing (item 1)
+- Haemoptysis (item 2)
+- Sore mouth (item 6)
+- Dysphagia (item 7)
+- Peripheral neuropathy (item 8)
+- Alopecia (item 9)
+- Pain in chest (item 10)
+- Pain in arm/shoulder (item 11)
+
+**EQ-5D-5L Dimensions:**
+- Mobility
+- Self-Care
+- Usual Activities
+- Pain/Discomfort
+- Anxiety/Depression""",
+
+        "eq5d_domains": """Add the EQ-5D-5L dimensions explicitly:
+
+**EQ-5D-5L Health State Assessment:**
+The EQ-5D-5L descriptive system comprises five dimensions:
+1. Mobility
+2. Self-Care
+3. Usual Activities
+4. Pain/Discomfort
+5. Anxiety/Depression
+
+Each dimension has 5 levels: no problems, slight problems, moderate problems, severe problems, and extreme problems.""",
+
+        "dcr_present": """Add DCR (Disease Control Rate) to the response table:
+
+**Table 14.2.X: Best Overall Response (ITT Population)**
+
+| Response Category | N | % | 95% CI |
+|-------------------|---|---|--------|
+| Complete Response (CR) | | | |
+| Partial Response (PR) | | | |
+| Stable Disease (SD) | | | |
+| Progressive Disease (PD) | | | |
+| Not Evaluable (NE) | | | |
+| **Objective Response Rate (ORR = CR + PR)** | | | |
+| **Disease Control Rate (DCR = CR + PR + SD)** | | | |
+
+95% confidence intervals calculated using Clopper-Pearson exact method.""",
+
+        "waterfall_plot": """Add waterfall plot specification:
+
+**Figure 14.4.X: Waterfall Plot of Best Percentage Change from Baseline in Sum of Target Lesions**
+
+**Purpose:** Display individual patient tumor responses showing best percentage change from baseline in sum of target lesion diameters.
+
+**Specifications:**
+- X-axis: Individual patients (sorted by best % change, largest reduction on left)
+- Y-axis: Best percentage change from baseline (%)
+- Reference lines: +20% (progression threshold per RECIST), -30% (response threshold)
+- Bar colors: By best overall response (CR=dark blue, PR=light blue, SD=yellow, PD=red)
+- Include dashed horizontal lines at +20% and -30%
+
+**Population:** ITT population with measurable disease at baseline and at least one post-baseline tumor assessment.
+
+**Data source:** ADRS dataset, PARAMCD='SUMDIAM', select minimum (best) percentage change per subject.""",
+
+        "censoring_tables": """Add detailed censoring rules tables:
+
+**Table A.2.1: PFS Event and Censoring Rules**
+
+| Situation | Outcome | Date Used | CNSR |
+|-----------|---------|-----------|------|
+| Disease progression documented | Event | Date of progression | 0 |
+| Death without prior progression | Event | Date of death | 0 |
+| No progression, still on study | Censored | Date of last adequate assessment | 1 |
+| Lost to follow-up | Censored | Date of last adequate assessment | 1 |
+| Withdrew consent | Censored | Date of last adequate assessment | 1 |
+| Started new anti-cancer therapy | Censored | Date prior to start of new therapy | 1 |
+| Missed ≥2 assessments then progressed | Censored | Date of last assessment before gap | 1 |
+
+**Table A.2.2: OS Event and Censoring Rules**
+
+| Situation | Outcome | Date Used | CNSR |
+|-----------|---------|-----------|------|
+| Death from any cause | Event | Date of death | 0 |
+| Alive at data cutoff | Censored | Date of last known alive | 1 |
+| Lost to follow-up | Censored | Date of last contact | 1 |
+| Withdrew consent | Censored | Date of withdrawal | 1 |"""
+    }
+
+    def _validate_section(self, section_id: str, content: str) -> Dict[str, Any]:
+        """
+        Validate a section for required elements.
+        Returns dict with 'passed', 'missing', and 'checks' details.
+        """
+        # Normalize section_id (handle "Appendix A.2" -> "A.2")
+        normalized_id = section_id.replace("Appendix ", "").strip()
+
+        rules = self.SECTION_VALIDATION_RULES.get(normalized_id)
+        if not rules:
+            # No validation rules for this section
+            return {"passed": True, "missing": [], "checks": {}}
+
+        content_lower = content.lower()
+        checks = {}
+        missing = []
+
+        for check_name in rules.get("checks", []):
+            passed = False
+
+            if check_name == "subgroups_adequate":
+                # Count subgroup keywords
+                keywords = rules.get("subgroup_keywords", [])
+                count = sum(1 for kw in keywords if kw in content_lower)
+                min_required = rules.get("min_subgroups", 6)
+                passed = count >= min_required
+                checks[check_name] = {"count": count, "required": min_required, "passed": passed}
+
+            elif check_name in rules.get("required_content", {}):
+                # Check if ANY of the required terms are present
+                required_terms = rules["required_content"][check_name]
+                found = any(term in content_lower for term in required_terms)
+                passed = found
+                checks[check_name] = {"required_any": required_terms, "found": found, "passed": passed}
+
+            if not passed:
+                missing.append(check_name)
+
+        # Special check for censoring tables - need scenarios too
+        if normalized_id == "A.2" and "censoring_tables" not in missing:
+            scenarios = rules.get("required_scenarios", [])
+            scenario_count = sum(1 for s in scenarios if s in content_lower)
+            if scenario_count < 3:  # Need at least 3 scenarios
+                missing.append("censoring_tables")
+                checks["censoring_scenarios"] = {"found": scenario_count, "required": 3, "passed": False}
+
+        return {
+            "passed": len(missing) == 0,
+            "missing": missing,
+            "checks": checks
+        }
+
+    def _regenerate_section_fix(self, section_id: str, original_content: str, missing_elements: List[str], protocol_content: str) -> str:
+        """
+        Regenerate/fix a section by adding missing elements.
+        """
+        if not missing_elements:
+            return original_content
+
+        # Build fix prompt
+        fixes_to_add = []
+        for element in missing_elements:
+            if element in self.SECTION_REGENERATION_PROMPTS:
+                fixes_to_add.append(self.SECTION_REGENERATION_PROMPTS[element])
+
+        if not fixes_to_add:
+            return original_content
+
+        prompt = f"""You are fixing a SAP section that is missing required elements.
+
+ORIGINAL SECTION CONTENT:
+{original_content}
+
+MISSING ELEMENTS TO ADD:
+{chr(10).join(fixes_to_add)}
+
+INSTRUCTIONS:
+1. Keep ALL the original content
+2. ADD the missing elements at appropriate locations
+3. Maintain consistent formatting with the original
+4. Output the COMPLETE fixed section
+
+Output the fixed section now:"""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=4096,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response.content[0].text.strip()
+        except Exception as e:
+            print(f"[WORKBENCH] Fix regeneration failed: {e}")
+            return original_content
 
 
 # =============================================================================
