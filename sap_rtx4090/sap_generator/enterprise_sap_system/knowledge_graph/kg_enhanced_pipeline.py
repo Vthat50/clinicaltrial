@@ -1985,11 +1985,17 @@ Generate a production-quality SAP with full provenance tracking."""
             disease_desc = "Hematologic Malignancy"
 
         # Extract indication for reference SAP filtering (works for all oncology: solid tumors AND hematologic)
+        # v98.1: Check both "indication" and legacy "tumor_type" fields for backwards compatibility
         disease_info = full_extraction.get("disease_classification", {}) if full_extraction else {}
         indication = (disease_info.get("indication", {}).get("value") or "").strip()
         if not indication:
-            indication = disease_desc  # fallback to detected disease type
+            # Fallback 1: Check legacy "tumor_type" field (from v95.1 and earlier extractions)
+            indication = (disease_info.get("tumor_type", {}).get("value") or "").strip()
+        if not indication:
+            # Fallback 2: Use detected disease type
+            indication = disease_desc
         indication_hint = indication
+        print(f"[v98.1] Indication for reference SAP lookup: '{indication_hint}'")
 
         # === v98: AUTO-PREFETCH REFERENCE SAP CONTENT ===
         # Pre-fetch critical sections so Claude doesn't have to call tools for them

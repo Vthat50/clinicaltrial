@@ -15,14 +15,14 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v98-2026-01-12")
+print("BUILD: v98.1-2026-01-12")
 print("FEATURE: AUTO-PREFETCH reference SAP content (no more relying on Claude to call tools)")
+print("  • v98.1: Fallback to 'tumor_type' if 'indication' empty (backwards compat)")
 print("  • v98: AUTO-PREFETCH censoring, PRO, subgroups, multiplicity from 151 SAPs")
 print("  • v98: Content injected DIRECTLY into prompt - Claude MUST use it")
 print("  • v97: Supabase storage + Workbench UI")
-print("  • v96: Renamed tumor_type to indication")
 print("  • v95: get_reference_sap_section() retrieves from 151 actual SAPs")
-print("If you don't see v98 in Render logs, Render has OLD code!")
+print("If you don't see v98.1 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os

@@ -1,0 +1,44 @@
+{
+  "found": true,
+  "sections": [
+    {
+      "source_sap": "KEYNOTE-024_SAP",
+      "section_title": "12.7 Response Evaluation Criteria in Solid Tumors (RECIST) 1.1 Criteria for Evaluating Response in Solid Tumors",
+      "content": "The KEYNOTE-024 SAP references RECIST 1.1 criteria in section 12.7 but the actual RECIST derivation tables are not included in the provided pages. The document mentions this section exists but the content was not provided in the extract.",
+      "key_numbers": []
+    },
+    {
+      "source_sap": "PACIFIC_SAP",
+      "section_title": "Table 4: Overall Visit Responses - RECIST 1.1 Response Derivation",
+      "content": "Table 4 defines how Target Lesions (TL), Non-target lesions (NTL), and New Lesions are combined to give an overall visit response:\n\nTarget Lesions | Non-target lesions | New Lesions | Overall Response\nCR | CR | No | CR\nCR | NA | No | CR\nNA | CR | No | CR\nCR | Non CR/Non PD | No | PR\nCR | NE | No | PR\nPR | Non PD or NE | No | PR\nSD | Non PD or NE | No | SD\nNA | Non CR/Non PD | No | SD (Non CR/Non PD)\nNE | Non PD or NE | No | NE\nNA | NE | No | NE\nPD | Any | Yes or No | PD\nAny | PD | Yes or No | PD\nAny | Any | Yes | PD\nNA | NA | No | NED\n\nWhere CR = complete response, PR = partial response, SD = stable disease, PD = progressive disease, NE = not evaluable, NED = no evidence of disease, NA = not applicable (only relevant if there were no TL/NTL at baseline).",
+      "key_numbers": [
+        "30% decrease for PR",
+        "20% increase for PD",
+        "5 mm absolute increase for PD",
+        "10 mm minimum for measurable lesions",
+        "15 mm short axis for lymph nodes"
+      ]
+    },
+    {
+      "source_sap": "PACIFIC_SAP",
+      "section_title": "Table 2: TL Visit Responses and Table 3: NTL Visit Responses",
+      "content": "Table 2 - TL Visit Responses:\nComplete Response (CR): Disappearance of all TLs since baseline. Any pathological lymph nodes selected as TLs must have a reduction in short axis to <10 mm\nPartial Response (PR): At least a 30% decrease in the sum of diameters of TL, taking as reference the baseline sum of diameters as long as criteria for PD are not met.\nProgressive Disease (PD): At least a 20% increase in the sum of diameters of TLs taking as reference the smallest sum on study. In addition to the relative increase of 20%, the sum must also indicate an absolute increase of at least 5 mm\nStable Disease (SD): Neither sufficient shrinkage to qualify for PR nor sufficient increase to qualify for PD\n\nTable 3 - NTL Visit Responses:\nComplete Response (CR): Disappearance of all NTLs present at baseline with all lymph nodes non-pathological in size (<10 mm short axis).\nProgression (PD): Unequivocal progression of existing NTLs.\nNon-CR/Non-PD: Persistence of one or more NTLs with no evidence of progression.",
+      "key_numbers": [
+        "30% decrease threshold for PR",
+        "20% increase threshold for PD",
+        "5 mm absolute increase threshold",
+        "10 mm threshold for lymph nodes"
+      ]
+    }
+  ],
+  "summary": "Found comprehensive RECIST response derivation tables in PACIFIC SAP. Table 4 provides the complete Target Lesion + Non-Target Lesion + New Lesion \u2192 Overall Response mapping with all CR/PR/SD/PD combinations. Tables 2 and 3 provide the detailed criteria for individual target lesion and non-target lesion responses with specific numerical thresholds (30% decrease for PR, 20% increase + 5mm absolute increase for PD). KEYNOTE-024 and KEYNOTE-042 reference RECIST 1.1 criteria but the actual derivation tables were not included in the provided pages. Lung-MAP SAP did not contain RECIST derivation tables.",
+  "section_type": "recist_derivation",
+  "indication": "nsclc",
+  "query": null,
+  "saps_searched": [
+    "KEYNOTE-024_SAP",
+    "KEYNOTE-042_SAP",
+    "Lung-MAP_SAP",
+    "PACIFIC_SAP"
+  ]
+}
