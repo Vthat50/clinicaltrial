@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'next/navigation'
-import { Loader2, AlertCircle, Download, X } from 'lucide-react'
+import { Loader2, AlertCircle, Download, X, Upload, CheckCircle } from 'lucide-react'
 import { useWorkspaceStore, ExtractionFact, selectFlaggedFacts } from '../stores/workspaceStore'
 import ContextRail from '../components/ContextRail'
 import ProtocolAuditSuite from '../components/ProtocolAuditSuite'
@@ -132,10 +132,68 @@ export default function WorkspacePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  // v100.3: Reference SAP state
+  const [referenceSapStatus, setReferenceSapStatus] = useState<{
+    has_reference: boolean
+    filename?: string
+    sections_count?: number
+  } | null>(null)
+  const [uploadingReference, setUploadingReference] = useState(false)
+
+  // Check reference SAP status
+  const checkReferenceSapStatus = async () => {
+    try {
+      const res = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap/status`)
+      if (res.ok) {
+        const data = await res.json()
+        setReferenceSapStatus(data)
+      }
+    } catch (e) {
+      console.error('Failed to check reference SAP status:', e)
+    }
+  }
+
+  // Upload reference SAP
+  const handleUploadReferenceSap = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploadingReference(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const res = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap`, {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        setReferenceSapStatus({
+          has_reference: true,
+          filename: data.filename,
+          sections_count: data.sections_parsed,
+        })
+        alert(`Reference SAP uploaded! Parsed ${data.sections_parsed} sections.`)
+      } else {
+        const err = await res.json()
+        alert(`Failed to upload: ${err.detail || 'Unknown error'}`)
+      }
+    } catch (e: any) {
+      alert(`Upload failed: ${e.message}`)
+    } finally {
+      setUploadingReference(false)
+      // Reset file input
+      e.target.value = ''
+    }
+  }
+
   // Initialize workspace
   useEffect(() => {
     setWorkspaceId(workspaceId)
     loadWorkspaceData()
+    checkReferenceSapStatus()
 
     return () => {
       // Don't reset on unmount to preserve state across navigation
@@ -273,6 +331,42 @@ export default function WorkspacePage() {
               <span className="text-xs text-gray-500 uppercase tracking-wide">
                 {viewMode === 'protocol-audit' ? 'Protocol Audit' : 'SAP Authoring'}
               </span>
+            </div>
+
+            {/* Upload Reference SAP (Optional) */}
+            <div className="relative">
+              <input
+                type="file"
+                accept=".pdf,.txt,.md"
+                onChange={handleUploadReferenceSap}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                disabled={uploadingReference}
+              />
+              <button
+                className={`flex items-center gap-2 px-3 py-1.5 text-sm border rounded-lg transition-colors ${
+                  referenceSapStatus?.has_reference
+                    ? 'border-green-300 bg-green-50 text-green-700'
+                    : 'border-gray-300 hover:bg-gray-50'
+                }`}
+                disabled={uploadingReference}
+              >
+                {uploadingReference ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Uploading...
+                  </>
+                ) : referenceSapStatus?.has_reference ? (
+                  <>
+                    <CheckCircle className="w-4 h-4" />
+                    Reference SAP ({referenceSapStatus.sections_count} sections)
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-4 h-4" />
+                    Upload Reference SAP
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Export */}

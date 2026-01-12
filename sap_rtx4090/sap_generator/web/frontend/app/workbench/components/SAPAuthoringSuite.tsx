@@ -18,6 +18,9 @@ import {
   Code,
   ChevronRight,
   Download,
+  BarChart3,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -70,6 +73,11 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<'preview' | 'edit' | 'split'>('preview')
+
+  // v100.3: Accuracy comparison state
+  const [comparisonResult, setComparisonResult] = useState<any>(null)
+  const [checkingAccuracy, setCheckingAccuracy] = useState(false)
+  const [showComparison, setShowComparison] = useState(false)
 
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
@@ -208,6 +216,33 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
       await fetchOutline()
     } catch (e) {
       console.error('Failed to approve:', e)
+    }
+  }
+
+  // v100.3: Check accuracy against reference SAP
+  const handleCheckAccuracy = async () => {
+    if (!selectedSectionId) return
+
+    setCheckingAccuracy(true)
+    setComparisonResult(null)
+
+    try {
+      const res = await fetch(`${API_URL}/workbench/${workspaceId}/compare/${selectedSectionId}`, {
+        method: 'POST',
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        setComparisonResult(data)
+        setShowComparison(true)
+      } else {
+        const err = await res.json()
+        setError(err.detail || 'Failed to check accuracy')
+      }
+    } catch (e: any) {
+      setError(e.message)
+    } finally {
+      setCheckingAccuracy(false)
     }
   }
 
@@ -379,6 +414,24 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                       <RefreshCw className={`w-4 h-4 ${generating ? 'animate-spin' : ''}`} />
                       Regenerate
                     </button>
+                    {/* Check Accuracy Button */}
+                    <button
+                      onClick={handleCheckAccuracy}
+                      disabled={checkingAccuracy}
+                      className="flex items-center gap-2 px-3 py-1.5 border border-indigo-300 text-indigo-600 rounded-lg hover:bg-indigo-50 disabled:opacity-50 transition-colors"
+                    >
+                      {checkingAccuracy ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Checking...
+                        </>
+                      ) : (
+                        <>
+                          <BarChart3 className="w-4 h-4" />
+                          Check Accuracy
+                        </>
+                      )}
+                    </button>
                     {sectionContent.status !== 'approved' && (
                       <button
                         onClick={handleApprove}
@@ -536,6 +589,154 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
         onClose={closeProtocolOverlay}
         protocolUrl={protocolUrl}
       />
+
+      {/* Accuracy Comparison Panel */}
+      {showComparison && comparisonResult && (
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-40 max-h-[50vh] overflow-y-auto">
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <BarChart3 className="w-5 h-5 text-indigo-600" />
+                <h3 className="font-semibold text-gray-900">Accuracy Report</h3>
+                {comparisonResult.comparison?.accuracy_percentage !== undefined && (
+                  <span className={`px-2 py-1 text-sm font-medium rounded-full ${
+                    comparisonResult.comparison.accuracy_percentage >= 80
+                      ? 'bg-green-100 text-green-700'
+                      : comparisonResult.comparison.accuracy_percentage >= 60
+                      ? 'bg-yellow-100 text-yellow-700'
+                      : 'bg-red-100 text-red-700'
+                  }`}>
+                    {comparisonResult.comparison.accuracy_percentage}% Match
+                  </span>
+                )}
+              </div>
+              <button
+                onClick={() => setShowComparison(false)}
+                className="p-1 hover:bg-gray-100 rounded"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            {!comparisonResult.has_reference ? (
+              <div className="text-gray-500 text-sm">
+                No reference SAP uploaded. Upload a reference SAP to enable accuracy checking.
+              </div>
+            ) : !comparisonResult.section_found ? (
+              <div className="text-yellow-600 text-sm">
+                {comparisonResult.message}
+              </div>
+            ) : comparisonResult.comparison ? (
+              <div className="space-y-4">
+                {/* Summary */}
+                {comparisonResult.comparison.summary && (
+                  <div className="text-sm text-gray-700 bg-gray-50 p-3 rounded-lg">
+                    {comparisonResult.comparison.summary}
+                  </div>
+                )}
+
+                {/* Missing Content */}
+                {comparisonResult.comparison.missing_content?.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-red-700 mb-2 flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4" />
+                      Missing Content ({comparisonResult.comparison.missing_content.length})
+                    </h4>
+                    <div className="space-y-2">
+                      {comparisonResult.comparison.missing_content.map((item: any, i: number) => (
+                        <div key={i} className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm">
+                          <div className="font-medium text-red-800">{item.element}</div>
+                          {item.original_text && (
+                            <div className="text-red-600 mt-1 text-xs italic">
+                              Original: "{item.original_text}"
+                            </div>
+                          )}
+                          {item.suggestion && (
+                            <div className="text-gray-700 mt-1 text-xs">
+                              Suggestion: {item.suggestion}
+                            </div>
+                          )}
+                          {item.importance && (
+                            <span className={`inline-block mt-1 px-2 py-0.5 text-xs rounded ${
+                              item.importance === 'critical' ? 'bg-red-200 text-red-800' :
+                              item.importance === 'important' ? 'bg-yellow-200 text-yellow-800' :
+                              'bg-gray-200 text-gray-800'
+                            }`}>
+                              {item.importance}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Incorrect Content */}
+                {comparisonResult.comparison.incorrect_content?.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-orange-700 mb-2">
+                      Incorrect Content ({comparisonResult.comparison.incorrect_content.length})
+                    </h4>
+                    <div className="space-y-2">
+                      {comparisonResult.comparison.incorrect_content.map((item: any, i: number) => (
+                        <div key={i} className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-sm">
+                          <div className="font-medium text-orange-800">{item.element}</div>
+                          {item.original && (
+                            <div className="text-green-600 mt-1 text-xs">
+                              Should be: "{item.original}"
+                            </div>
+                          )}
+                          {item.generated && (
+                            <div className="text-red-600 mt-1 text-xs">
+                              Generated: "{item.generated}"
+                            </div>
+                          )}
+                          {item.suggestion && (
+                            <div className="text-gray-700 mt-1 text-xs">
+                              Fix: {item.suggestion}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Correct Content */}
+                {comparisonResult.comparison.correct_content?.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-green-700 mb-2 flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" />
+                      Correct ({comparisonResult.comparison.correct_content.length})
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {comparisonResult.comparison.correct_content.map((item: string, i: number) => (
+                        <span key={i} className="bg-green-50 border border-green-200 text-green-700 px-2 py-1 rounded text-xs">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Suggestions */}
+                {comparisonResult.comparison.overall_suggestions?.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-blue-700 mb-2">
+                      Suggestions
+                    </h4>
+                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                      {comparisonResult.comparison.overall_suggestions.map((s: string, i: number) => (
+                        <li key={i}>{s}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ) : null}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
