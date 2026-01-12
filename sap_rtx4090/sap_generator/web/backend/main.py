@@ -15,14 +15,13 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v98.1-2026-01-12")
-print("FEATURE: AUTO-PREFETCH reference SAP content (no more relying on Claude to call tools)")
-print("  • v98.1: Fallback to 'tumor_type' if 'indication' empty (backwards compat)")
-print("  • v98: AUTO-PREFETCH censoring, PRO, subgroups, multiplicity from 151 SAPs")
-print("  • v98: Content injected DIRECTLY into prompt - Claude MUST use it")
-print("  • v97: Supabase storage + Workbench UI")
-print("  • v95: get_reference_sap_section() retrieves from 151 actual SAPs")
-print("If you don't see v98.1 in Render logs, Render has OLD code!")
+print("BUILD: v100.5-2026-01-12")
+print("FEATURE: Reference SAP accuracy comparison (optional)")
+print("  • v100.5: Fix Supabase error - reference SAP in memory only")
+print("  • v100.4: Semantic section matching via Claude")
+print("  • v100.3: Reference SAP upload + accuracy checking")
+print("  • v98: AUTO-PREFETCH censoring, PRO, subgroups from 151 SAPs")
+print("If you don't see v100.5 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -4556,20 +4555,11 @@ async def workbench_upload_reference_sap(workspace_id: str, file: UploadFile = F
     try:
         content = await file.read()
 
-        # Handle PDF files
+        # Handle PDF files - use PyPDF2 (already installed for protocol upload)
         filename = file.filename or "reference_sap.txt"
         if filename.lower().endswith('.pdf'):
-            # Extract text from PDF
-            import io
-            try:
-                import pdfplumber
-                pdf_bytes = io.BytesIO(content)
-                with pdfplumber.open(pdf_bytes) as pdf:
-                    sap_content = "\n\n".join(
-                        page.extract_text() or "" for page in pdf.pages
-                    )
-            except ImportError:
-                raise HTTPException(500, "PDF parsing not available. Install pdfplumber.")
+            # Extract text from PDF using PyPDF2
+            sap_content = extract_text_from_pdf(content)
         else:
             sap_content = content.decode('utf-8', errors='ignore')
 
