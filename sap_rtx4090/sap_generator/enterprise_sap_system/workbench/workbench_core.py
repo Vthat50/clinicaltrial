@@ -2346,10 +2346,8 @@ Be specific - quote exact text, give concrete feedback."""
             "metadata": metadata_dict,
             "sections": sections_data,
             "protocol_conditions": workspace.protocol_conditions,
-            # v100.3: Reference SAP for accuracy comparison
-            "reference_sap_content": workspace.reference_sap_content,
-            "reference_sap_filename": workspace.reference_sap_filename,
-            "reference_sections": workspace.reference_sections
+            # NOTE: reference_sap fields stored in memory only (not in Supabase)
+            # to avoid schema changes. Reference SAP is optional comparison data.
         }
 
         try:
