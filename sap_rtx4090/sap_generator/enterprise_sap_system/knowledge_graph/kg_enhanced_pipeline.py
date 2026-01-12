@@ -2594,6 +2594,11 @@ class EnhancedKGPipeline:
         else:
             print(f"\n⚠️  Verification not fully passed - NO regeneration (fallback removed)")
 
+        # Step 8: Critical element validation and targeted regeneration (v99.6)
+        sap_content, validation_report = self.validate_and_fix_sap(
+            sap_content, protocol_content, extracted
+        )
+
         # Build result
         provenance = {
             "document": doc_id,
@@ -2629,7 +2634,8 @@ class EnhancedKGPipeline:
                 "warnings": verification.warnings
             },
             "regeneration_count": regeneration_count,
-            "model": self.model
+            "model": self.model,
+            "critical_element_validation": validation_report
         }
 
         return {
@@ -4149,6 +4155,370 @@ Return ONLY the JSON object, no other text."""
                             break
 
         return context[:5]
+
+    # =========================================================================
+    # STEP 8: CRITICAL ELEMENT VALIDATION & REGENERATION (v99.6)
+    # =========================================================================
+
+    def _check_critical_elements(self, sap_content: str, extracted: List[Dict]) -> Dict[str, bool]:
+        """
+        Check if critical elements are present in the generated SAP.
+        Returns dict of element_name -> is_present.
+        """
+        sap_lower = sap_content.lower()
+
+        # Detect what endpoints are in the protocol
+        has_pfs = any("pfs" in str(e).lower() or "progression-free" in str(e).lower() for e in extracted)
+        has_os = any(" os " in str(e).lower() or "overall survival" in str(e).lower() for e in extracted)
+        has_pro = any("pro" in str(e).lower() or "qol" in str(e).lower() or "qlq" in str(e).lower() for e in extracted)
+
+        checks = {}
+
+        # 1. Censoring tables (critical for TTE endpoints)
+        if has_pfs or has_os:
+            # Check for detailed censoring scenarios (not just mentions)
+            has_censoring_table = (
+                ("table a.2.1" in sap_lower or "pfs censoring" in sap_lower or "pfs event" in sap_lower) and
+                ("cnsr" in sap_lower or "censored" in sap_lower) and
+                any(scenario in sap_lower for scenario in ["death", "progression", "lost to follow", "new anti-cancer", "withdrew"])
+            )
+            checks["censoring_tables"] = has_censoring_table
+
+        # 2. PRO symptoms (must list actual symptoms, not just instrument names)
+        if has_pro:
+            pro_symptoms_listed = (
+                # QLQ-C30 symptoms
+                ("fatigue" in sap_lower and "pain" in sap_lower and "nausea" in sap_lower) or
+                ("dyspnea" in sap_lower or "dyspnoea" in sap_lower) and "insomnia" in sap_lower
+            )
+            checks["pro_symptoms"] = pro_symptoms_listed
+
+            # EQ-5D-5L domains
+            eq5d_domains = (
+                "mobility" in sap_lower and
+                "self-care" in sap_lower and
+                "anxiety" in sap_lower
+            )
+            checks["eq5d_domains"] = eq5d_domains
+
+        # 3. Subgroups (should have at least 6)
+        subgroup_keywords = ["age", "sex", "smoking", "ecog", "ps ", "histology", "region", "pd-l1", "stage"]
+        subgroup_count = sum(1 for kw in subgroup_keywords if kw in sap_lower)
+        checks["subgroups_adequate"] = subgroup_count >= 6
+
+        # 4. DCR in response table
+        if "response" in sap_lower or "orr" in sap_lower:
+            checks["dcr_present"] = "dcr" in sap_lower or "disease control" in sap_lower
+
+        # 5. Waterfall plot (for solid tumors)
+        if "tumor" in sap_lower or "lesion" in sap_lower or "recist" in sap_lower:
+            checks["waterfall_plot"] = "waterfall" in sap_lower
+
+        # 6. Disease stage substages
+        checks["stage_substages"] = any(s in sap_lower for s in ["iiia", "iiib", "iiic", "iva", "ivb"])
+
+        return checks
+
+    def _regenerate_missing_section(self, section_type: str, protocol_content: str, existing_sap: str, extracted: List[Dict]) -> str:
+        """
+        Regenerate a specific missing section with focused prompt.
+        Returns the generated section content.
+        """
+        prompts = {
+            "censoring_tables": """Generate ONLY the censoring rules tables for this SAP.
+
+You MUST create two detailed tables:
+
+**Table A.2.1: PFS Event and Censoring Rules**
+Create a table with columns: Situation | Outcome | Date | CNSR Flag
+Include AT LEAST these scenarios:
+1. Disease progression documented → Event (CNSR=0)
+2. Death without progression → Event (CNSR=0)
+3. No progression, still on study → Censored at last assessment (CNSR=1)
+4. Lost to follow-up → Censored at last assessment (CNSR=1)
+5. Withdrew consent → Censored at last assessment (CNSR=1)
+6. Started new anti-cancer therapy → Censored at start of new therapy (CNSR=1)
+7. Missed ≥2 assessments then progressed → Censored at last assessment before gap (CNSR=1)
+
+**Table A.2.2: OS Event and Censoring Rules**
+Create a table with columns: Situation | Outcome | Date | CNSR Flag
+Include AT LEAST these scenarios:
+1. Death from any cause → Event (CNSR=0)
+2. Alive at analysis cutoff → Censored at last known alive (CNSR=1)
+3. Lost to follow-up → Censored at last contact (CNSR=1)
+4. Withdrew consent → Censored at withdrawal date (CNSR=1)
+
+Output ONLY these tables in markdown format. Do not include any other content.""",
+
+            "pro_symptoms": """Generate ONLY the PRO instruments section listing ALL symptoms.
+
+You MUST list every symptom/domain for each instrument:
+
+**EORTC QLQ-C30 Symptom Scales:**
+- Fatigue (items 10, 12, 18)
+- Nausea and vomiting (items 14, 15)
+- Pain (items 9, 19)
+- Dyspnoea (item 8)
+- Insomnia (item 11)
+- Appetite loss (item 13)
+- Constipation (item 16)
+- Diarrhoea (item 17)
+- Financial difficulties (item 28)
+
+**EORTC QLQ-LC13 Symptom Scales (for lung cancer):**
+- Dyspnoea (items 3-5)
+- Coughing (item 1)
+- Haemoptysis (item 2)
+- Sore mouth (item 6)
+- Dysphagia (item 7)
+- Peripheral neuropathy (item 8)
+- Alopecia (item 9)
+- Pain in chest (item 10)
+- Pain in arm/shoulder (item 11)
+
+**EQ-5D-5L Dimensions:**
+- Mobility
+- Self-Care
+- Usual Activities
+- Pain/Discomfort
+- Anxiety/Depression
+
+Output ONLY the PRO instruments section with all symptoms listed. Use markdown format.""",
+
+            "subgroups": """Generate ONLY the pre-specified subgroups section.
+
+You MUST include ALL of these subgroups:
+1. Age (<65 years vs ≥65 years)
+2. Sex (Male vs Female)
+3. Race (White vs Asian vs Other)
+4. ECOG Performance Status (0 vs 1)
+5. Smoking status (Current/Former vs Never)
+6. Histology (Squamous vs Non-squamous)
+7. Geographic region (North America vs Europe vs Asia vs Rest of World)
+8. Disease stage (Stage III vs Stage IV)
+9. PD-L1 expression (<1% vs 1-49% vs ≥50%)
+10. Prior therapy (Yes vs No)
+11. Response to prior CRT (CR/PR vs SD)
+12. Number of metastatic sites (≤2 vs >2)
+13. Brain metastases at baseline (Yes vs No)
+14. Liver metastases at baseline (Yes vs No)
+
+For each subgroup, the primary endpoint will be analyzed using the same methods as the overall analysis. Forest plots will display hazard ratios with 95% CIs.
+
+Output ONLY the subgroups section in markdown format.""",
+
+            "dcr_response": """Generate ONLY the Best Overall Response table shell.
+
+The table MUST include DCR (Disease Control Rate).
+
+**Table 14.2.X: Best Overall Response (ITT Population)**
+
+| Response Category | N | % | 95% CI |
+|-------------------|---|---|--------|
+| Complete Response (CR) | | | |
+| Partial Response (PR) | | | |
+| Stable Disease (SD) | | | |
+| Progressive Disease (PD) | | | |
+| Not Evaluable (NE) | | | |
+| **Objective Response Rate (ORR = CR + PR)** | | | |
+| **Disease Control Rate (DCR = CR + PR + SD)** | | | |
+
+95% confidence intervals calculated using Clopper-Pearson exact method.
+
+Output ONLY this table shell in markdown format.""",
+
+            "waterfall_plot": """Generate ONLY the waterfall plot specification.
+
+**Figure 14.4.X: Waterfall Plot of Best Percentage Change from Baseline in Sum of Target Lesions**
+
+**Purpose:** Display individual patient tumor responses showing best percentage change from baseline in sum of target lesion diameters.
+
+**Specifications:**
+- X-axis: Individual patients (sorted by best % change)
+- Y-axis: Best percentage change from baseline (%)
+- Reference lines: +20% (progression threshold), -30% (response threshold)
+- Bar colors: By best overall response (CR=dark blue, PR=light blue, SD=yellow, PD=red)
+- Include: Horizontal lines at ±20% and -30%
+
+**Population:** ITT population with measurable disease at baseline and at least one post-baseline assessment.
+
+**Data source:** ADRS dataset, PARAMCD='SUMDIAM', select minimum (best) percentage change per subject.
+
+Output ONLY this figure specification in markdown format.""",
+
+            "stage_substages": """Generate ONLY the disease stage categories for the baseline table.
+
+Disease stage MUST include substages:
+
+**Disease Stage at Diagnosis:**
+| Stage | n (%) |
+|-------|-------|
+| Stage IIIA | |
+| Stage IIIB | |
+| Stage IIIC | |
+| Stage IVA | |
+| Stage IVB | |
+
+Note: Stage classification per AJCC 8th edition.
+
+Output ONLY this table section in markdown format."""
+        }
+
+        if section_type not in prompts:
+            return ""
+
+        prompt = f"""You are regenerating a MISSING section for a Statistical Analysis Plan (SAP).
+
+CONTEXT FROM PROTOCOL (first 5000 chars):
+{protocol_content[:5000]}
+
+INSTRUCTION:
+{prompts[section_type]}
+
+Generate ONLY the requested content. Be specific and detailed."""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response.content[0].text
+        except Exception as e:
+            print(f"   ⚠️ Regeneration failed for {section_type}: {e}")
+            return ""
+
+    def _merge_regenerated_sections(self, sap_content: str, regenerated: Dict[str, str]) -> str:
+        """
+        Merge regenerated sections into the SAP at appropriate locations.
+        """
+        import re
+
+        for section_type, content in regenerated.items():
+            if not content:
+                continue
+
+            # Find insertion points based on section type
+            if section_type == "censoring_tables":
+                # Insert before "## Appendix" or at end of document
+                if "## Appendix" in sap_content or "## APPENDIX" in sap_content:
+                    # Find Appendix A.2 or create it
+                    pattern = r'(## Appendix.*?)(## Appendix [AB]\.[3-9]|## [A-Z]|\Z)'
+                    match = re.search(pattern, sap_content, re.IGNORECASE | re.DOTALL)
+                    if match:
+                        insert_pos = match.end(1)
+                        sap_content = sap_content[:insert_pos] + "\n\n### A.2 Censoring Rules\n\n" + content + "\n\n" + sap_content[insert_pos:]
+                    else:
+                        sap_content += "\n\n## Appendix A.2: Censoring Rules\n\n" + content
+                else:
+                    sap_content += "\n\n## Appendix A.2: Censoring Rules\n\n" + content
+
+            elif section_type == "pro_symptoms":
+                # Insert in PRO section or Section 15
+                if "## 15" in sap_content or "PRO" in sap_content.upper():
+                    pattern = r'(##\s*15\.?1?[^#]*?)(##\s*15\.[2-9]|##\s*16|$)'
+                    match = re.search(pattern, sap_content, re.IGNORECASE | re.DOTALL)
+                    if match:
+                        insert_pos = match.end(1)
+                        sap_content = sap_content[:insert_pos] + "\n\n" + content + "\n\n" + sap_content[insert_pos:]
+                    else:
+                        sap_content += "\n\n## 15.1 PRO Instruments\n\n" + content
+
+            elif section_type == "subgroups":
+                # Insert in Section 11
+                if "## 11" in sap_content:
+                    pattern = r'(##\s*11\.?1?[^#]*?)(##\s*11\.[2-9]|##\s*12|$)'
+                    match = re.search(pattern, sap_content, re.IGNORECASE | re.DOTALL)
+                    if match:
+                        # Replace the subgroup section
+                        sap_content = sap_content[:match.start(1)] + "## 11.1 Pre-specified Subgroups\n\n" + content + "\n\n" + sap_content[match.end(1):]
+                else:
+                    sap_content += "\n\n## 11.1 Pre-specified Subgroups\n\n" + content
+
+            elif section_type in ["dcr_response", "waterfall_plot", "stage_substages"]:
+                # Append to Tables/Figures section or end
+                if "## 18" in sap_content or "Tables" in sap_content:
+                    sap_content = sap_content.rstrip() + "\n\n" + content + "\n"
+                else:
+                    sap_content += "\n\n" + content
+
+        return sap_content
+
+    def validate_and_fix_sap(self, sap_content: str, protocol_content: str, extracted: List[Dict]) -> Tuple[str, Dict]:
+        """
+        Validate SAP for critical elements and regenerate missing sections.
+
+        Returns:
+            Tuple of (fixed_sap_content, validation_report)
+        """
+        print("\n" + "-"*50)
+        print("STEP 8: CRITICAL ELEMENT VALIDATION")
+        print("-"*50)
+
+        # Check what's missing
+        checks = self._check_critical_elements(sap_content, extracted)
+
+        missing = [k for k, v in checks.items() if not v]
+        present = [k for k, v in checks.items() if v]
+
+        print(f"   ✅ Present: {', '.join(present) if present else 'None'}")
+        print(f"   ❌ Missing: {', '.join(missing) if missing else 'None'}")
+
+        if not missing:
+            print("   ✅ All critical elements present - no regeneration needed")
+            return sap_content, {"checks": checks, "regenerated": [], "fixed": True}
+
+        # Regenerate missing sections
+        print(f"\n   🔄 Regenerating {len(missing)} missing sections...")
+        regenerated = {}
+
+        # Map check names to regeneration keys
+        regen_key_map = {
+            "dcr_present": "dcr_response",
+            "eq5d_domains": "pro_symptoms",  # Include EQ-5D in PRO symptoms regen
+            "subgroups_adequate": "subgroups"
+        }
+
+        for section_type in missing:
+            # Map to regeneration key
+            regen_key = regen_key_map.get(section_type, section_type)
+
+            # Skip if we already regenerated this section (e.g., pro_symptoms covers eq5d_domains)
+            if regen_key in regenerated:
+                print(f"      • Skipping {section_type} (covered by {regen_key})")
+                continue
+
+            print(f"      • Regenerating: {section_type} (using {regen_key})...")
+            content = self._regenerate_missing_section(regen_key, protocol_content, sap_content, extracted)
+            if content:
+                regenerated[regen_key] = content
+                print(f"        ✅ Generated {len(content)} chars")
+            else:
+                print(f"        ⚠️ Failed to regenerate")
+
+        # Merge regenerated sections
+        if regenerated:
+            print(f"\n   📝 Merging {len(regenerated)} sections into SAP...")
+            fixed_sap = self._merge_regenerated_sections(sap_content, regenerated)
+            print(f"   ✅ SAP expanded from {len(sap_content)} to {len(fixed_sap)} chars")
+        else:
+            fixed_sap = sap_content
+
+        # Verify fix worked
+        final_checks = self._check_critical_elements(fixed_sap, extracted)
+        still_missing = [k for k, v in final_checks.items() if not v]
+
+        if still_missing:
+            print(f"   ⚠️ Still missing after fix: {', '.join(still_missing)}")
+        else:
+            print(f"   ✅ All critical elements now present!")
+
+        return fixed_sap, {
+            "initial_checks": checks,
+            "regenerated": list(regenerated.keys()),
+            "final_checks": final_checks,
+            "fixed": len(still_missing) == 0
+        }
 
 
 # =============================================================================
