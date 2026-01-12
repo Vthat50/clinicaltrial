@@ -846,6 +846,10 @@ def format_section_outline(sections: List[SAPSection], include_tools: bool = Fal
             sub_line = f"   ### {sub.number} {sub.title}"
             lines.append(sub_line)
 
+            # Include subsection description (contains critical instructions like "LIST ALL SUBGROUPS")
+            if sub.description:
+                lines.append(f"      _{sub.description}_")
+
             if include_tools and sub.kb_tools:
                 tools_str = ", ".join(sub.kb_tools)
                 lines.append(f"      **KB Tools:** {tools_str}")
