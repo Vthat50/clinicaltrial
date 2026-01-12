@@ -193,6 +193,11 @@ class StudyWorkspace:
     sdtm_spec: Optional[Dict] = None
     sdtm_generated_at: Optional[str] = None
 
+    # v100.3: Reference SAP for accuracy comparison (optional)
+    reference_sap_content: str = ""
+    reference_sap_filename: str = ""
+    reference_sections: Dict[str, Dict] = field(default_factory=dict)  # Parsed sections with key elements
+
 
 # =============================================================================
 # USE MASTER_SAP_SECTIONS FROM sap_structure_config.py (Single Source of Truth)
@@ -1681,6 +1686,345 @@ Format as numbered list with full citations.
         return "\n".join(lines)
 
     # =========================================================================
+    # v100.3: REFERENCE SAP COMPARISON (Optional Accuracy Checking)
+    # =========================================================================
+
+    def upload_reference_sap(self, workspace_id: str, sap_content: str, filename: str) -> Dict:
+        """
+        Upload a reference SAP for accuracy comparison.
+
+        This parses the reference SAP into sections and extracts key elements
+        that will be used to compare against generated sections.
+        """
+        workspace = self.get_workspace(workspace_id)
+        if not workspace:
+            raise ValueError(f"Workspace {workspace_id} not found")
+
+        workspace.reference_sap_content = sap_content
+        workspace.reference_sap_filename = filename
+
+        # Parse reference SAP into sections
+        print(f"[WORKBENCH] Parsing reference SAP: {filename} ({len(sap_content):,} chars)")
+        workspace.reference_sections = self._parse_reference_sap_sections(sap_content)
+
+        workspace.updated_at = datetime.now().isoformat()
+        self._save_workspace(workspace)
+
+        return {
+            "success": True,
+            "filename": filename,
+            "sections_parsed": len(workspace.reference_sections),
+            "section_ids": list(workspace.reference_sections.keys())
+        }
+
+    def _parse_reference_sap_sections(self, sap_content: str) -> Dict[str, Dict]:
+        """
+        Parse reference SAP into sections by detecting headers.
+
+        Returns dict of section_id -> {title, content, key_elements}
+        """
+        import re
+
+        sections = {}
+
+        # Common SAP section header patterns
+        # Matches: "1. INTRODUCTION", "1.1 Background", "## 2. STUDY OBJECTIVES", "SECTION 3:", etc.
+        header_pattern = r'^(?:#{1,3}\s*)?(?:SECTION\s+)?(\d+(?:\.\d+)*\.?)\s*[:\.\s]+\s*([A-Z][A-Za-z\s\-&/,]+?)(?:\s*$|\n)'
+
+        # Split by headers
+        parts = re.split(header_pattern, sap_content, flags=re.MULTILINE)
+
+        # parts will be: [preamble, section_num, title, content, section_num, title, content, ...]
+        i = 1
+        while i < len(parts) - 2:
+            section_num = parts[i].strip().rstrip('.')
+            title = parts[i + 1].strip()
+            content = parts[i + 2] if i + 2 < len(parts) else ""
+
+            # Normalize section number (remove trailing dots, etc.)
+            section_id = section_num
+
+            sections[section_id] = {
+                "title": title,
+                "content": content[:15000],  # Limit content size
+                "key_elements": None  # Will be extracted on-demand
+            }
+
+            i += 3
+
+        # If regex parsing fails, try simpler line-by-line approach
+        if len(sections) < 5:
+            print("[WORKBENCH] Regex parsing found few sections, trying line-by-line...")
+            sections = self._parse_sections_line_by_line(sap_content)
+
+        print(f"[WORKBENCH] Parsed {len(sections)} sections from reference SAP")
+        return sections
+
+    def _parse_sections_line_by_line(self, sap_content: str) -> Dict[str, Dict]:
+        """Fallback parser that looks for section headers line by line."""
+        import re
+
+        sections = {}
+        current_section = None
+        current_content = []
+
+        for line in sap_content.split('\n'):
+            # Check if line looks like a section header
+            match = re.match(r'^(?:#{1,3}\s*)?(\d+(?:\.\d+)*)\s*[:\.\s]+\s*(.+)$', line.strip())
+            if match:
+                # Save previous section
+                if current_section:
+                    sections[current_section["id"]] = {
+                        "title": current_section["title"],
+                        "content": '\n'.join(current_content)[:15000],
+                        "key_elements": None
+                    }
+
+                # Start new section
+                current_section = {
+                    "id": match.group(1).strip().rstrip('.'),
+                    "title": match.group(2).strip()
+                }
+                current_content = []
+            elif current_section:
+                current_content.append(line)
+
+        # Save last section
+        if current_section:
+            sections[current_section["id"]] = {
+                "title": current_section["title"],
+                "content": '\n'.join(current_content)[:15000],
+                "key_elements": None
+            }
+
+        return sections
+
+    def _extract_key_elements(self, section_id: str, section_content: str) -> Dict:
+        """
+        Use Claude to extract key elements from a reference SAP section.
+        These elements become the "answer key" for comparison.
+        """
+        prompt = f"""Extract the key elements from this SAP section that should be verified in any generated version.
+
+SECTION {section_id}:
+{section_content[:8000]}
+
+Return a JSON object with:
+{{
+    "required_elements": ["list of specific items that MUST be present"],
+    "tables": ["list of table names/numbers mentioned"],
+    "key_terms": ["important technical terms, methods, criteria names"],
+    "numeric_values": ["any specific numbers, percentages, thresholds"],
+    "definitions": ["key definitions provided"],
+    "methodology": ["statistical methods, analysis approaches mentioned"]
+}}
+
+Be specific - extract exact terms, not generic descriptions. These will be used to verify accuracy."""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=2000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            result_text = response.content[0].text
+
+            # Parse JSON from response
+            import json
+            # Try to extract JSON from the response
+            json_match = re.search(r'\{[\s\S]*\}', result_text)
+            if json_match:
+                return json.loads(json_match.group())
+
+            return {"required_elements": [], "error": "Could not parse response"}
+
+        except Exception as e:
+            print(f"[WORKBENCH] Error extracting key elements: {e}")
+            return {"required_elements": [], "error": str(e)}
+
+    def compare_section_with_reference(self, workspace_id: str, section_id: str) -> Dict:
+        """
+        Compare a generated section against the reference SAP section.
+
+        Returns detailed accuracy report with:
+        - Percentage match
+        - Missing elements
+        - Incorrect elements
+        - Extra elements
+        - Specific suggestions
+        """
+        workspace = self.get_workspace(workspace_id)
+        if not workspace:
+            raise ValueError(f"Workspace {workspace_id} not found")
+
+        # Check if reference SAP exists
+        if not workspace.reference_sections:
+            return {
+                "has_reference": False,
+                "message": "No reference SAP uploaded for comparison"
+            }
+
+        # Get generated section
+        generated_section = workspace.sections.get(section_id)
+        if not generated_section or not generated_section.content:
+            return {
+                "has_reference": True,
+                "error": f"Section {section_id} not generated yet"
+            }
+
+        # Find matching reference section
+        # Try exact match first, then fuzzy match
+        ref_section = None
+        ref_section_id = None
+
+        # Normalize section_id for matching
+        normalized_id = section_id.replace(".", "").replace(" ", "")
+
+        for ref_id, ref_data in workspace.reference_sections.items():
+            ref_normalized = ref_id.replace(".", "").replace(" ", "")
+            if ref_normalized == normalized_id or ref_id == section_id:
+                ref_section = ref_data
+                ref_section_id = ref_id
+                break
+
+        # Try partial match (e.g., "7" matches "7.1", "7.2")
+        if not ref_section:
+            for ref_id, ref_data in workspace.reference_sections.items():
+                if ref_id.startswith(section_id) or section_id.startswith(ref_id):
+                    ref_section = ref_data
+                    ref_section_id = ref_id
+                    break
+
+        if not ref_section:
+            return {
+                "has_reference": True,
+                "section_found": False,
+                "message": f"Section {section_id} not found in reference SAP. Available: {list(workspace.reference_sections.keys())[:10]}"
+            }
+
+        # Extract key elements from reference if not already done
+        if not ref_section.get("key_elements"):
+            ref_section["key_elements"] = self._extract_key_elements(ref_section_id, ref_section["content"])
+            workspace.reference_sections[ref_section_id] = ref_section
+            self._save_workspace(workspace)
+
+        # Now do detailed comparison using Claude
+        comparison = self._detailed_section_comparison(
+            section_id=section_id,
+            generated_content=generated_section.content,
+            reference_content=ref_section["content"],
+            reference_elements=ref_section.get("key_elements", {})
+        )
+
+        return {
+            "has_reference": True,
+            "section_found": True,
+            "reference_section_id": ref_section_id,
+            "comparison": comparison
+        }
+
+    def _detailed_section_comparison(
+        self,
+        section_id: str,
+        generated_content: str,
+        reference_content: str,
+        reference_elements: Dict
+    ) -> Dict:
+        """
+        Use Claude to do detailed comparison between generated and reference.
+        Returns actionable feedback.
+        """
+        prompt = f"""Compare these two SAP sections and provide detailed accuracy feedback.
+
+REFERENCE (Original/Correct):
+{reference_content[:6000]}
+
+GENERATED (To Verify):
+{generated_content[:6000]}
+
+KEY ELEMENTS THAT SHOULD BE PRESENT:
+{json.dumps(reference_elements, indent=2)}
+
+Analyze and return a JSON object:
+{{
+    "accuracy_percentage": <0-100>,
+    "summary": "<one sentence overall assessment>",
+    "missing_content": [
+        {{
+            "element": "<what's missing>",
+            "original_text": "<quote from reference>",
+            "importance": "critical|important|minor",
+            "suggestion": "<how to fix>"
+        }}
+    ],
+    "incorrect_content": [
+        {{
+            "element": "<what's wrong>",
+            "original": "<what reference says>",
+            "generated": "<what was generated>",
+            "suggestion": "<how to fix>"
+        }}
+    ],
+    "extra_content": [
+        {{
+            "element": "<what's extra>",
+            "assessment": "<is it acceptable or should be removed>"
+        }}
+    ],
+    "correct_content": ["<list of things that match correctly>"],
+    "overall_suggestions": ["<actionable recommendations>"]
+}}
+
+Be specific - quote exact text, give concrete feedback."""
+
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=4000,
+                messages=[{"role": "user", "content": prompt}]
+            )
+
+            result_text = response.content[0].text
+
+            # Parse JSON from response
+            json_match = re.search(r'\{[\s\S]*\}', result_text)
+            if json_match:
+                return json.loads(json_match.group())
+
+            return {
+                "accuracy_percentage": 0,
+                "summary": "Could not parse comparison result",
+                "raw_response": result_text[:500]
+            }
+
+        except Exception as e:
+            print(f"[WORKBENCH] Error comparing sections: {e}")
+            return {
+                "accuracy_percentage": 0,
+                "summary": f"Comparison error: {str(e)}",
+                "error": str(e)
+            }
+
+    def get_reference_sap_status(self, workspace_id: str) -> Dict:
+        """Get status of reference SAP for a workspace."""
+        workspace = self.get_workspace(workspace_id)
+        if not workspace:
+            raise ValueError(f"Workspace {workspace_id} not found")
+
+        if not workspace.reference_sap_filename:
+            return {
+                "has_reference": False
+            }
+
+        return {
+            "has_reference": True,
+            "filename": workspace.reference_sap_filename,
+            "sections_count": len(workspace.reference_sections),
+            "section_ids": list(workspace.reference_sections.keys())
+        }
+
+    # =========================================================================
     # v93: SDTM SPECIFICATION GENERATION
     # =========================================================================
 
@@ -1929,7 +2273,11 @@ Format as numbered list with full citations.
             "protocol_hash": workspace.protocol_hash,
             "metadata": metadata_dict,
             "sections": sections_data,
-            "protocol_conditions": workspace.protocol_conditions
+            "protocol_conditions": workspace.protocol_conditions,
+            # v100.3: Reference SAP for accuracy comparison
+            "reference_sap_content": workspace.reference_sap_content,
+            "reference_sap_filename": workspace.reference_sap_filename,
+            "reference_sections": workspace.reference_sections
         }
 
         try:
@@ -2022,7 +2370,11 @@ Format as numbered list with full citations.
             sections=sections,
             protocol_versions=m.get("protocol_versions", []),
             # Protocol conditions for section filtering
-            protocol_conditions=data.get("protocol_conditions") or {}
+            protocol_conditions=data.get("protocol_conditions") or {},
+            # v100.3: Reference SAP for accuracy comparison
+            reference_sap_content=data.get("reference_sap_content", ""),
+            reference_sap_filename=data.get("reference_sap_filename", ""),
+            reference_sections=data.get("reference_sections") or {}
         )
 
         self.workspaces[workspace_id] = workspace

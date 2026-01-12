@@ -4534,6 +4534,104 @@ async def workbench_export_sap(workspace_id: str, format: str = "markdown"):
         raise HTTPException(500, str(e))
 
 
+# =============================================================================
+# v100.3: REFERENCE SAP COMPARISON ENDPOINTS
+# =============================================================================
+
+@app.post("/workbench/{workspace_id}/reference-sap")
+async def workbench_upload_reference_sap(workspace_id: str, file: UploadFile = File(...)):
+    """
+    Upload a reference SAP for accuracy comparison (optional).
+
+    This parses the reference SAP into sections that will be used
+    to compare against generated sections.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        content = await file.read()
+
+        # Handle PDF files
+        filename = file.filename or "reference_sap.txt"
+        if filename.lower().endswith('.pdf'):
+            # Extract text from PDF
+            import io
+            try:
+                import pdfplumber
+                pdf_bytes = io.BytesIO(content)
+                with pdfplumber.open(pdf_bytes) as pdf:
+                    sap_content = "\n\n".join(
+                        page.extract_text() or "" for page in pdf.pages
+                    )
+            except ImportError:
+                raise HTTPException(500, "PDF parsing not available. Install pdfplumber.")
+        else:
+            sap_content = content.decode('utf-8', errors='ignore')
+
+        result = workbench.upload_reference_sap(workspace_id, sap_content, filename)
+        return result
+
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Upload reference SAP failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/reference-sap/status")
+async def workbench_reference_sap_status(workspace_id: str):
+    """
+    Check if a reference SAP has been uploaded for this workspace.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        return workbench.get_reference_sap_status(workspace_id)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Get reference SAP status failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/{workspace_id}/compare/{section_id}")
+async def workbench_compare_section(workspace_id: str, section_id: str):
+    """
+    Compare a generated section against the reference SAP section.
+
+    Returns detailed accuracy report with:
+    - Percentage match
+    - Missing elements (with quotes from original)
+    - Incorrect elements
+    - Suggestions for fixing
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        result = workbench.compare_section_with_reference(workspace_id, section_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Compare section failed: {e}")
+        raise HTTPException(500, str(e))
+
+
 @app.get("/workbench/list")
 async def workbench_list_workspaces():
     """
