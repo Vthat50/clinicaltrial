@@ -88,12 +88,26 @@ export default function ProtocolAuditSuite({
 
   // Handle teleport - search for text when coming from fact drawer
   useEffect(() => {
-    if (teleportTarget?.sourceQuote || teleportTarget?.sourceSection) {
-      const searchTerm = teleportTarget.sourceSection || teleportTarget.sourceQuote?.slice(0, 50) || ''
-      setSearchQuery(searchTerm)
-      clearTeleport()
-    } else if (teleportTarget?.sourceId) {
-      // Legacy support
+    if (teleportTarget) {
+      let searchTerm = ''
+
+      // Priority 1: Use source_quote if available (the actual text from protocol)
+      if (teleportTarget.sourceQuote && teleportTarget.sourceQuote.trim()) {
+        const quote = teleportTarget.sourceQuote.trim()
+        // Take first sentence or first 100 chars, whichever is shorter
+        const firstSentence = quote.split('.')[0]
+        searchTerm = firstSentence.length > 20 ? firstSentence : quote.slice(0, 100)
+      }
+      // Priority 2: Use searchText fallback (fact value/definition)
+      else if (teleportTarget.searchText && teleportTarget.searchText.trim()) {
+        searchTerm = teleportTarget.searchText.trim().slice(0, 100)
+      }
+      // Note: sourceSection (e.g., "Section 6.1") is NOT used for search
+      // as it doesn't exist as literal text in the protocol
+
+      if (searchTerm) {
+        setSearchQuery(searchTerm)
+      }
       clearTeleport()
     }
   }, [teleportTarget, clearTeleport])

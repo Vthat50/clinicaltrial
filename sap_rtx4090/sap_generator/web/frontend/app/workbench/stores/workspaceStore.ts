@@ -60,7 +60,8 @@ interface UIState {
 interface TeleportTarget {
   sourceId: string | null // Legacy: Protocol page/section to scroll to
   sourceQuote: string | null // Verbatim text to search for and highlight
-  sourceSection: string | null // Section number to navigate to (e.g., "Section 6.1")
+  sourceSection: string | null // Section number (for display only, NOT for search)
+  searchText: string | null // Fallback search text (fact value/definition)
   sectionId: string | null // SAP section to focus
   timestamp: number
 }
@@ -118,12 +119,13 @@ interface WorkspaceState {
 
   // Data setters
   setFacts: (facts: ExtractionFact[]) => void
+  updateFact: (factId: string, updates: Partial<ExtractionFact>) => void
   updateFactStatus: (factId: string, status: FactStatus, message?: string) => void
   setOutline: (outline: SAPSection[]) => void
   updateSectionStatus: (sectionId: string, status: SAPSection['status']) => void
 
   // Teleport actions
-  teleportToProtocol: (sourceQuote: string | null, sourceSection: string | null) => void
+  teleportToProtocol: (sourceQuote: string | null, sourceSection: string | null, searchText?: string) => void
   teleportToSection: (sectionId: string) => void
   clearTeleport: () => void
 
@@ -220,6 +222,13 @@ export const useWorkspaceStore = create<WorkspaceState>()(
       // Data setters
       setFacts: (facts) => set({ facts }),
 
+      updateFact: (factId, updates) =>
+        set((state) => ({
+          facts: state.facts.map((f) =>
+            f.id === factId ? { ...f, ...updates } : f
+          ),
+        })),
+
       updateFactStatus: (factId, status, message) =>
         set((state) => ({
           facts: state.facts.map((f) =>
@@ -237,13 +246,14 @@ export const useWorkspaceStore = create<WorkspaceState>()(
         })),
 
       // Teleport actions - for seamless context switching
-      teleportToProtocol: (sourceQuote, sourceSection) =>
+      teleportToProtocol: (sourceQuote, sourceSection, searchText) =>
         set({
           viewMode: 'protocol-audit',
           teleportTarget: {
             sourceId: null,
             sourceQuote,
             sourceSection,
+            searchText: searchText || null,
             sectionId: null,
             timestamp: Date.now(),
           },
@@ -257,6 +267,7 @@ export const useWorkspaceStore = create<WorkspaceState>()(
             sourceId: null,
             sourceQuote: null,
             sourceSection: null,
+            searchText: null,
             sectionId,
             timestamp: Date.now(),
           },

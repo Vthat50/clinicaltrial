@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import {
   X,
   AlertTriangle,
@@ -49,12 +49,99 @@ interface FactCardProps {
   fact: ExtractionFact
   onViewInProtocol: (fact: ExtractionFact) => void
   onEdit: (factId: string) => void
+  isEditing: boolean
+  onSave: (fact: ExtractionFact) => void
+  onCancel: () => void
 }
 
-function FactCard({ fact, onViewInProtocol, onEdit }: FactCardProps) {
+function FactCard({ fact, onViewInProtocol, onEdit, isEditing, onSave, onCancel }: FactCardProps) {
   const statusConfig = STATUS_CONFIG[fact.status]
-  const hasProvenanceLink = fact.source_quote || fact.source_section
+  const [editedValue, setEditedValue] = useState(
+    typeof fact.value === 'boolean' ? (fact.value ? 'Yes' : 'No') : (fact.value?.toString() || '')
+  )
+  const [editedStatus, setEditedStatus] = useState<FactStatus>(fact.status)
 
+  // Reset form when editing starts
+  useEffect(() => {
+    if (isEditing) {
+      setEditedValue(typeof fact.value === 'boolean' ? (fact.value ? 'Yes' : 'No') : (fact.value?.toString() || ''))
+      setEditedStatus(fact.status)
+    }
+  }, [isEditing, fact])
+
+  // Build tooltip for the View in Protocol button
+  const getTooltip = () => {
+    if (fact.source_section) return `View in Protocol (${fact.source_section})`
+    if (fact.source_quote) return 'View in Protocol (has quote)'
+    return 'Search in Protocol'
+  }
+
+  const handleSave = () => {
+    onSave({
+      ...fact,
+      value: editedValue,
+      status: editedStatus,
+      warning_message: editedStatus === 'verified' ? undefined : fact.warning_message,
+    })
+  }
+
+  // Edit mode UI
+  if (isEditing) {
+    return (
+      <div className="p-3 rounded-lg border bg-blue-50 border-blue-300">
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Edit3 className="w-4 h-4 text-blue-600" />
+            <span className="font-medium text-sm text-gray-900">{fact.name}</span>
+          </div>
+
+          {/* Value editor */}
+          <div>
+            <label className="text-xs text-gray-600 mb-1 block">Value</label>
+            <input
+              type="text"
+              value={editedValue}
+              onChange={(e) => setEditedValue(e.target.value)}
+              className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Status selector */}
+          <div>
+            <label className="text-xs text-gray-600 mb-1 block">Status</label>
+            <select
+              value={editedStatus}
+              onChange={(e) => setEditedStatus(e.target.value as FactStatus)}
+              className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="verified">Verified</option>
+              <option value="flagged">Flagged</option>
+              <option value="warning">Warning</option>
+              <option value="unverified">Unverified</option>
+            </select>
+          </div>
+
+          {/* Save/Cancel buttons */}
+          <div className="flex gap-2 pt-1">
+            <button
+              onClick={handleSave}
+              className="flex-1 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors"
+            >
+              Save
+            </button>
+            <button
+              onClick={onCancel}
+              className="flex-1 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Normal display mode
   return (
     <div className={`p-3 rounded-lg border ${statusConfig.bg} border-gray-200`}>
       <div className="flex items-start justify-between gap-2">
@@ -82,15 +169,14 @@ function FactCard({ fact, onViewInProtocol, onEdit }: FactCardProps) {
           )}
         </div>
         <div className="flex flex-col gap-1">
-          {hasProvenanceLink && (
-            <button
-              onClick={() => onViewInProtocol(fact)}
-              className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
-              title={fact.source_section ? `View in Protocol (${fact.source_section})` : 'View in Protocol'}
-            >
-              <ExternalLink className="w-4 h-4" />
-            </button>
-          )}
+          {/* Always show View in Protocol button - uses smart fallback search */}
+          <button
+            onClick={() => onViewInProtocol(fact)}
+            className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
+            title={getTooltip()}
+          >
+            <ExternalLink className="w-4 h-4" />
+          </button>
           <button
             onClick={() => onEdit(fact.id)}
             className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded transition-colors"
@@ -110,9 +196,12 @@ interface CategorySectionProps {
   defaultOpen?: boolean
   onViewInProtocol: (fact: ExtractionFact) => void
   onEditFact: (factId: string) => void
+  editingFactId: string | null
+  onSaveFact: (fact: ExtractionFact) => void
+  onCancelEdit: () => void
 }
 
-function CategorySection({ category, facts, defaultOpen = false, onViewInProtocol, onEditFact }: CategorySectionProps) {
+function CategorySection({ category, facts, defaultOpen = false, onViewInProtocol, onEditFact, editingFactId, onSaveFact, onCancelEdit }: CategorySectionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen)
   const config = CATEGORY_CONFIG[category] || { icon: <FileText className="w-4 h-4" />, color: 'text-gray-600', label: category }
 
@@ -150,6 +239,9 @@ function CategorySection({ category, facts, defaultOpen = false, onViewInProtoco
               fact={fact}
               onViewInProtocol={onViewInProtocol}
               onEdit={onEditFact}
+              isEditing={editingFactId === fact.id}
+              onSave={onSaveFact}
+              onCancel={onCancelEdit}
             />
           ))}
         </div>
@@ -164,11 +256,12 @@ interface FloatingFactDrawerProps {
 }
 
 export default function FloatingFactDrawer({ isOpen, onClose }: FloatingFactDrawerProps) {
-  const { facts, teleportToProtocol, selectFact, openFactDrawer } = useWorkspaceStore()
+  const { facts, teleportToProtocol, selectFact, openFactDrawer, updateFact } = useWorkspaceStore()
   const flaggedFacts = useWorkspaceStore(selectFlaggedFacts)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<FactStatus | 'all'>('all')
+  const [editingFactId, setEditingFactId] = useState<string | null>(null)
 
   // Group facts by category
   const groupedFacts = useMemo(() => {
@@ -193,12 +286,33 @@ export default function FloatingFactDrawer({ isOpen, onClose }: FloatingFactDraw
   }, [facts, searchQuery, statusFilter])
 
   const handleViewInProtocol = (fact: ExtractionFact) => {
-    teleportToProtocol(fact.source_quote || null, fact.source_section || null)
+    // Build smart fallback search text from available data
+    const searchText = fact.definition
+      || (typeof fact.value === 'string' ? fact.value : fact.value?.toString())
+      || fact.name
+
+    teleportToProtocol(
+      fact.source_quote || null,
+      fact.source_section || null,
+      searchText
+    )
   }
 
   const handleEditFact = (factId: string) => {
-    selectFact(factId)
-    openFactDrawer()
+    setEditingFactId(factId)
+  }
+
+  const handleSaveFact = (fact: ExtractionFact) => {
+    updateFact(fact.id, {
+      value: fact.value,
+      status: fact.status,
+      warning_message: fact.warning_message,
+    })
+    setEditingFactId(null)
+  }
+
+  const handleCancelEdit = () => {
+    setEditingFactId(null)
   }
 
   // Categories in display order
@@ -329,6 +443,9 @@ export default function FloatingFactDrawer({ isOpen, onClose }: FloatingFactDraw
               defaultOpen={groupedFacts[category].some(f => f.status === 'flagged' || f.status === 'warning')}
               onViewInProtocol={handleViewInProtocol}
               onEditFact={handleEditFact}
+              editingFactId={editingFactId}
+              onSaveFact={handleSaveFact}
+              onCancelEdit={handleCancelEdit}
             />
           ))}
           {otherCategories.map((category) => (
@@ -338,6 +455,9 @@ export default function FloatingFactDrawer({ isOpen, onClose }: FloatingFactDraw
               facts={groupedFacts[category]}
               onViewInProtocol={handleViewInProtocol}
               onEditFact={handleEditFact}
+              editingFactId={editingFactId}
+              onSaveFact={handleSaveFact}
+              onCancelEdit={handleCancelEdit}
             />
           ))}
 
