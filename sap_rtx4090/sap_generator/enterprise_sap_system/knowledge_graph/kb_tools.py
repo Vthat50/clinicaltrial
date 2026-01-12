@@ -2600,11 +2600,14 @@ class KnowledgeBaseTools:
         import re
 
         self._log_retrieval("get_reference_sap_section", f"{section_type}, {indication}, {trial_name}", "reference_saps/")
+        print(f"[KB] get_reference_sap_section CALLED: section_type={section_type}, indication={indication}")
 
         # Path to reference SAPs
         ref_sap_dir = Path(__file__).parent / "reference_saps" / "extracted_text"
+        print(f"[KB] Looking for reference SAPs in: {ref_sap_dir}")
 
         if not ref_sap_dir.exists():
+            print(f"[KB] ERROR: Reference SAPs directory NOT FOUND at {ref_sap_dir}")
             return KBRetrievalResult(
                 content={"error": "Reference SAPs directory not found"},
                 source_file="reference_saps/extracted_text/",

@@ -1769,6 +1769,90 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
 
         return text
 
+    def _prefetch_reference_sap_content(self, indication: str) -> Dict[str, str]:
+        """
+        Pre-fetch reference SAP content for critical sections.
+
+        This ensures Claude has access to actual SAP content without
+        relying on it to call get_reference_sap_section().
+
+        Args:
+            indication: Disease indication to filter reference SAPs
+
+        Returns:
+            Dict mapping section types to their pre-fetched content
+        """
+        from kb_tools import KnowledgeBaseTools
+
+        kb = KnowledgeBaseTools()
+        prefetched = {}
+
+        # Critical sections to pre-fetch
+        section_types = [
+            "censoring",      # Censoring tables A.2.1/A.2.2
+            "pro_scoring",    # PRO symptoms, EQ-5D-5L, MID thresholds
+            "subgroups",      # Subgroup analysis specs
+            "multiplicity",   # Alpha spending, GSHf boundaries
+            "sensitivity",    # Sensitivity analysis methods
+        ]
+
+        print(f"[KB Prefetch] Pre-fetching reference SAP content for indication: {indication}")
+
+        for section_type in section_types:
+            try:
+                result = kb.get_reference_sap_section(
+                    section_type=section_type,
+                    indication=indication
+                )
+
+                if result.content and "sections" in result.content:
+                    sections = result.content.get("sections", [])
+                    if sections:
+                        # Format the content for injection
+                        formatted_content = []
+                        for sec in sections[:3]:  # Limit to 3 best matches per type
+                            source = sec.get("source_sap", "Unknown")
+                            content = sec.get("content", "")
+                            if content:
+                                formatted_content.append(f"[From {source}]:\n{content[:2000]}")
+
+                        if formatted_content:
+                            prefetched[section_type] = "\n\n".join(formatted_content)
+                            print(f"[KB Prefetch] ✓ {section_type}: {len(formatted_content)} examples")
+                        else:
+                            print(f"[KB Prefetch] ✗ {section_type}: no content found")
+                    else:
+                        print(f"[KB Prefetch] ✗ {section_type}: no sections returned")
+                else:
+                    print(f"[KB Prefetch] ✗ {section_type}: empty result")
+
+            except Exception as e:
+                print(f"[KB Prefetch] ✗ {section_type}: error - {str(e)[:100]}")
+
+        print(f"[KB Prefetch] Completed: {len(prefetched)}/{len(section_types)} sections pre-fetched")
+        return prefetched
+
+    def _format_prefetched_content(self, prefetched: Dict[str, str]) -> str:
+        """Format pre-fetched content for injection into prompt."""
+        if not prefetched:
+            return ""
+
+        sections = []
+
+        section_titles = {
+            "censoring": "CENSORING RULES (from actual SAPs - USE THESE AS TEMPLATES)",
+            "pro_scoring": "PRO/QoL SCORING & ANALYSIS (from actual SAPs - INCLUDE ALL SYMPTOMS LISTED)",
+            "subgroups": "SUBGROUP ANALYSIS SPECIFICATIONS (from actual SAPs)",
+            "multiplicity": "MULTIPLICITY ADJUSTMENT (from actual SAPs - USE EXACT BOUNDARIES)",
+            "sensitivity": "SENSITIVITY ANALYSIS METHODS (from actual SAPs)",
+        }
+
+        for section_type, content in prefetched.items():
+            title = section_titles.get(section_type, section_type.upper())
+            sections.append(f"### {title}\n{content}")
+
+        return "\n\n---\n\n".join(sections)
+
     def generate_sap_with_tools(
         self,
         extracted_facts: List[Dict],
@@ -1907,6 +1991,11 @@ Generate a production-quality SAP with full provenance tracking."""
             indication = disease_desc  # fallback to detected disease type
         indication_hint = indication
 
+        # === v98: AUTO-PREFETCH REFERENCE SAP CONTENT ===
+        # Pre-fetch critical sections so Claude doesn't have to call tools for them
+        prefetched_content = self._prefetch_reference_sap_content(indication_hint)
+        prefetched_formatted = self._format_prefetched_content(prefetched_content)
+
         user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
 ```json
 {extraction_json}
@@ -1941,6 +2030,13 @@ CRITICAL REQUIREMENTS:
 - ADDITIONAL DISCOVERIES: Check "additional_discoveries" in extraction for protocol-specific elements
 
 {protocol_requirements}
+
+## PRE-FETCHED REFERENCE SAP CONTENT (USE THIS - DO NOT SKIP):
+**CRITICAL**: The following content was retrieved from 151 actual reference SAPs.
+You MUST use this content when generating the corresponding sections.
+DO NOT generate these sections without incorporating this reference material.
+
+{prefetched_formatted if prefetched_formatted else "No reference content available for this indication."}
 
 ## SOURCE CITATION FORMAT (MANDATORY):
 Every fact MUST have a SPECIFIC, TRACEABLE source citation. Use these formats:
