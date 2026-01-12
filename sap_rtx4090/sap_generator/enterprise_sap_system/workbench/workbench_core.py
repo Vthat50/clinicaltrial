@@ -1985,11 +1985,13 @@ Format as numbered list with full citations.
         },
         "15.1": {
             "name": "PRO Instruments",
-            "checks": ["pro_symptoms", "eq5d_domains"],
+            "checks": ["pro_symptoms", "eq5d_domains", "lc13_symptoms"],
             "required_content": {
                 "pro_symptoms": ["fatigue", "pain", "nausea"],
-                "eq5d_domains": ["mobility", "self-care", "anxiety"]
-            }
+                "eq5d_domains": ["mobility", "self-care", "anxiety"],
+                "lc13_symptoms": ["dyspnoea", "dyspnea", "coughing", "cough", "haemoptysis"]  # Any 2 of these for lung
+            },
+            "lc13_min_matches": 2  # Need at least 2 LC13 symptoms for lung cancer
         },
         "18.3": {
             "name": "Efficacy Tables",
@@ -2092,6 +2094,32 @@ The EQ-5D-5L descriptive system comprises five dimensions:
 
 Each dimension has 5 levels: no problems, slight problems, moderate problems, severe problems, and extreme problems.""",
 
+        "lc13_symptoms": """Add the EORTC QLQ-LC13 lung cancer-specific symptoms:
+
+**EORTC QLQ-LC13 (Lung Cancer Module)**
+
+The QLQ-LC13 is a 13-item lung cancer-specific questionnaire supplement assessing:
+
+**Symptom Scales:**
+- Dyspnoea (items 3, 4, 5) - shortness of breath at rest, walking, climbing stairs
+- Coughing (item 1)
+- Haemoptysis (item 2) - coughing up blood
+- Sore mouth (item 6)
+- Dysphagia (item 7) - difficulty swallowing
+- Peripheral neuropathy (item 8) - tingling hands/feet
+- Alopecia (item 9) - hair loss
+
+**Pain Items:**
+- Pain in chest (item 10)
+- Pain in arm or shoulder (item 11)
+- Pain in other parts (item 12)
+
+**Single Item:**
+- Use of pain medication (item 13)
+
+**Scoring:** Linear transformation to 0-100 scale. Higher scores = worse symptoms.
+**MID:** 10 points change considered clinically meaningful.""",
+
         "dcr_present": """Add DCR (Disease Control Rate) to the response table:
 
 **Table 14.2.X: Best Overall Response (ITT Population)**
@@ -2176,6 +2204,14 @@ Each dimension has 5 levels: no problems, slight problems, moderate problems, se
                 min_required = rules.get("min_subgroups", 6)
                 passed = count >= min_required
                 checks[check_name] = {"count": count, "required": min_required, "passed": passed}
+
+            elif check_name == "lc13_symptoms":
+                # Special case: LC13 needs at least N matches (for lung cancer)
+                required_terms = rules["required_content"].get(check_name, [])
+                min_matches = rules.get("lc13_min_matches", 2)
+                match_count = sum(1 for term in required_terms if term in content_lower)
+                passed = match_count >= min_matches
+                checks[check_name] = {"terms": required_terms, "found": match_count, "required": min_matches, "passed": passed}
 
             elif check_name in rules.get("required_content", {}):
                 # Check if ANY of the required terms are present
