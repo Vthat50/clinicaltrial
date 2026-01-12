@@ -1996,10 +1996,12 @@ Generate a production-quality SAP with full provenance tracking."""
         indication_hint = indication
         print(f"[v98.1] Indication for reference SAP lookup: '{indication_hint}'")
 
-        # === v98: AUTO-PREFETCH REFERENCE SAP CONTENT ===
-        # Pre-fetch critical sections so Claude doesn't have to call tools for them
-        prefetched_content = self._prefetch_reference_sap_content(indication_hint)
-        prefetched_formatted = self._format_prefetched_content(prefetched_content)
+        # === v98 DISABLED: Auto-prefetch was causing regressions ===
+        # The "DO NOT generate without reference" instruction caused Claude to SKIP
+        # censoring tables, PRO content, and subgroups when prefetch returned empty.
+        # Reverting to v96 behavior where Claude calls tools dynamically.
+        # prefetched_content = self._prefetch_reference_sap_content(indication_hint)
+        # prefetched_formatted = self._format_prefetched_content(prefetched_content)
 
         user_prompt = f"""## PROTOCOL EXTRACTION (Study-Specific Facts):
 ```json
@@ -2036,12 +2038,16 @@ CRITICAL REQUIREMENTS:
 
 {protocol_requirements}
 
-## PRE-FETCHED REFERENCE SAP CONTENT (USE THIS - DO NOT SKIP):
-**CRITICAL**: The following content was retrieved from 151 actual reference SAPs.
-You MUST use this content when generating the corresponding sections.
-DO NOT generate these sections without incorporating this reference material.
+## MANDATORY: CALL get_reference_sap_section() FOR THESE SECTIONS:
+**You MUST call this tool to retrieve actual SAP content for:**
+- Section 8 (Censoring): get_reference_sap_section(section_type="censoring", indication="{indication_hint}")
+- Section 11 (Subgroups): get_reference_sap_section(section_type="subgroups", indication="{indication_hint}")
+- Section 15 (PRO): get_reference_sap_section(section_type="pro_scoring", indication="{indication_hint}")
 
-{prefetched_formatted if prefetched_formatted else "No reference content available for this indication."}
+**REQUIRED OUTPUT:**
+- Censoring: Generate COMPLETE Table A.2.1 (PFS) and Table A.2.2 (OS) with all scenarios and CNSR flags
+- PRO: List ALL symptoms from QLQ-C30 (8 symptoms) + disease-specific module + EQ-5D-5L (5 domains)
+- Subgroups: Include ALL pre-specified subgroups (typically 8-14), not just stratification factors (3)
 
 ## SOURCE CITATION FORMAT (MANDATORY):
 Every fact MUST have a SPECIFIC, TRACEABLE source citation. Use these formats:
