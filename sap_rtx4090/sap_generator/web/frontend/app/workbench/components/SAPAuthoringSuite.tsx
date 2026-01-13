@@ -21,14 +21,23 @@ import {
   BarChart3,
   ChevronDown,
   ChevronUp,
+  Database,
 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useWorkspaceStore, SAPSection, selectFlatOutline } from '../stores/workspaceStore'
 import SAPOutlineTree from './SAPOutlineTree'
 import ProtocolOverlay from './ProtocolOverlay'
+import SectionSourcesPanel from './SectionSourcesPanel'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
+interface KBToolUsed {
+  tool_name: string
+  source_file: string
+  source_key: string
+  description: string
+}
 
 interface SectionContent {
   id: string
@@ -38,7 +47,9 @@ interface SectionContent {
   content: string
   protocol_excerpts_used: string[]
   metadata_used: string[]
+  kb_tools_used: KBToolUsed[]
   version: number
+  generated_at: string
 }
 
 interface SAPAuthoringSuiteProps {
@@ -78,6 +89,9 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
   const [comparisonResult, setComparisonResult] = useState<any>(null)
   const [checkingAccuracy, setCheckingAccuracy] = useState(false)
   const [showComparison, setShowComparison] = useState(false)
+
+  // v101: Section sources panel
+  const [showSources, setShowSources] = useState(false)
 
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
@@ -123,7 +137,13 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
       return
     }
 
-    setLoading(true)
+    // Only show loading spinner if we're switching to a different section
+    // Don't show loading if we already have content for this section
+    const isNewSection = sectionContent?.id !== sectionId
+    if (isNewSection) {
+      setLoading(true)
+    }
+
     try {
       const res = await fetch(`${API_URL}/workbench/${workspaceId}/section/${sectionId}`)
       if (res.ok) {
@@ -134,7 +154,9 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
     } catch (e) {
       console.error('Failed to fetch section:', e)
     } finally {
-      setLoading(false)
+      if (isNewSection) {
+        setLoading(false)
+      }
     }
   }
 
@@ -325,6 +347,26 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                 >
                   <BookOpen className="w-4 h-4" />
                   Protocol Reference
+                </button>
+
+                {/* Section Sources Toggle */}
+                <button
+                  onClick={() => setShowSources(!showSources)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
+                    showSources
+                      ? 'bg-blue-600 text-white'
+                      : 'border border-gray-300 text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <Database className="w-4 h-4" />
+                  Sources
+                  {sectionContent?.kb_tools_used && sectionContent.kb_tools_used.length > 0 && (
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                      showSources ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-700'
+                    }`}>
+                      {sectionContent.kb_tools_used.length}
+                    </span>
+                  )}
                 </button>
 
                 {/* View Mode Toggle */}
@@ -569,6 +611,29 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                   </div>
                 </div>
               )}
+
+              {/* Section Sources Panel */}
+              <SectionSourcesPanel
+                section={sectionContent ? {
+                  ...sectionContent,
+                  id: sectionContent.id,
+                  name: sectionContent.name,
+                  display_name: sectionContent.display_name,
+                  order: 0,
+                  status: sectionContent.status as any,
+                  has_content: !!sectionContent.content,
+                  content: sectionContent.content,
+                  version: sectionContent.version,
+                  needs_update: false,
+                  impacted_by_change: false,
+                  protocol_excerpts_used: sectionContent.protocol_excerpts_used || [],
+                  metadata_used: sectionContent.metadata_used || [],
+                  kb_tools_used: sectionContent.kb_tools_used || [],
+                  generated_at: sectionContent.generated_at,
+                } : null}
+                isOpen={showSources}
+                onClose={() => setShowSources(false)}
+              />
             </div>
           </>
         ) : (

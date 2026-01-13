@@ -3867,6 +3867,14 @@ class SectionOutline(BaseModel):
     version: int
 
 
+class KBToolUsed(BaseModel):
+    """KB tool usage tracking for provenance."""
+    tool_name: str
+    source_file: str
+    source_key: str
+    description: str = ""
+
+
 class SectionContent(BaseModel):
     """Full section content with provenance."""
     id: str
@@ -3876,7 +3884,9 @@ class SectionContent(BaseModel):
     content: str
     protocol_excerpts_used: List[str] = []
     metadata_used: List[str] = []
+    kb_tools_used: List[KBToolUsed] = []
     version: int
+    generated_at: str = ""
 
 
 class SectionUpdate(BaseModel):
@@ -4350,7 +4360,9 @@ async def workbench_generate_section(
             content=section.content,
             protocol_excerpts_used=section.protocol_excerpts_used,
             metadata_used=section.metadata_used,
-            version=section.version
+            kb_tools_used=[KBToolUsed(**t) for t in section.kb_tools_used],
+            version=section.version,
+            generated_at=section.generated_at or ""
         )
     except ValueError as e:
         raise HTTPException(404, str(e))
@@ -4388,7 +4400,9 @@ async def workbench_get_section(workspace_id: str, section_id: str):
             content=section.content,
             protocol_excerpts_used=section.protocol_excerpts_used,
             metadata_used=section.metadata_used,
-            version=section.version
+            kb_tools_used=[KBToolUsed(**t) for t in section.kb_tools_used],
+            version=section.version,
+            generated_at=section.generated_at or ""
         )
     except HTTPException:
         raise
@@ -4426,7 +4440,9 @@ async def workbench_update_section(
             content=section.content,
             protocol_excerpts_used=section.protocol_excerpts_used,
             metadata_used=section.metadata_used,
-            version=section.version
+            kb_tools_used=[KBToolUsed(**t) for t in section.kb_tools_used],
+            version=section.version,
+            generated_at=section.generated_at or ""
         )
     except ValueError as e:
         raise HTTPException(404, str(e))

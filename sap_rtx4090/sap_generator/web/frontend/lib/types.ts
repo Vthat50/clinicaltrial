@@ -126,6 +126,13 @@ export interface ProtocolMetadata {
 
 export type SectionStatus = 'not_started' | 'generating' | 'draft' | 'edited' | 'in_review' | 'approved'
 
+export interface KBToolUsed {
+  tool_name: string
+  source_file: string
+  source_key: string
+  description: string
+}
+
 export interface SAPSection {
   id: string
   name: string
@@ -142,6 +149,7 @@ export interface SAPSection {
   impacted_by_change: boolean
   protocol_excerpts_used: string[]
   metadata_used: string[]
+  kb_tools_used: KBToolUsed[]
   generated_at?: string
   approved_at?: string
   approved_by?: string
@@ -382,7 +390,9 @@ export interface SectionContentResponse {
   content: string
   protocol_excerpts_used: string[]
   metadata_used: string[]
+  kb_tools_used: KBToolUsed[]
   version: number
+  generated_at: string
 }
 
 export interface ExportResponse {
