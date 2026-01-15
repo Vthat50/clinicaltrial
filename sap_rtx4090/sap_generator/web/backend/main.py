@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.15-2026-01-15")
-print("FEATURE: LlamaParse with table preservation instructions")
-print("  • v100.15: LlamaParse parsing_instruction for accurate SOA table columns")
+print("BUILD: v100.16-2026-01-15")
+print("FEATURE: LlamaParse with detailed SOA table instructions")
+print("  • v100.16: Better parsing_instruction - separate tables, preserve columns, keep X marks")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -62,12 +62,26 @@ try:
             verbose=False,
             # Critical: Preserve table structure accurately
             parsing_instruction="""
-            IMPORTANT: For tables (especially Schedule of Assessments / Schedule of Events):
-            1. Preserve EVERY column header exactly as shown - do NOT merge columns
-            2. Keep individual day/week columns separate (Day 15, Day 29, Day 43, Day 57 are SEPARATE from 'Every 2 Weeks')
-            3. Preserve all X marks and checkboxes exactly as they appear
-            4. Maintain the exact column alignment - each visit timepoint is its own column
-            5. Do NOT summarize or simplify table structure
+            CRITICAL TABLE EXTRACTION RULES:
+
+            1. EXTRACT EVERY TABLE SEPARATELY - Do not merge or mix tables together
+            2. For Schedule of Assessments (SOA) tables:
+               - Table 1 typically has: Weight, Height, ECG, Adverse events, Vital signs, Labs, etc.
+               - Keep each table's content EXACTLY as shown
+
+            3. COLUMN PRESERVATION:
+               - Columns like "Day 15", "Day 29", "Day 43", "Day 57" are INDIVIDUAL columns
+               - These are SEPARATE from "Every 2 Weeks" or "Every 4 Weeks" columns
+               - Do NOT merge day-specific columns into frequency columns
+
+            4. CELL CONTENT:
+               - Preserve "X" marks exactly where they appear
+               - Keep empty cells as empty
+               - Maintain row/column alignment
+
+            5. OUTPUT FORMAT:
+               - Use markdown table format with | separators
+               - Include ALL rows and ALL columns from original
             """
         )
         LLAMAPARSE_AVAILABLE = True
