@@ -10,6 +10,7 @@ This benchmark:
 
 import os
 import json
+import time
 import argparse
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -75,13 +76,24 @@ VALIDATION_TRIALS = [
     }
 ]
 
-# Sections to evaluate
+# Sections to evaluate (6 core sections - always present)
+# Excluded conditional sections that may not be present:
+#   - Section 8 (Censoring): requires has_tte_endpoints
+#   - Section 13 (Interim): requires has_interim_analysis
 SECTIONS_TO_EVALUATE = [
     ("analysis_populations", "5", ["analysis population", "study population", "full analysis", "intent to treat", "per protocol"]),
     ("sample_size", "4", ["sample size", "power calculation", "power analysis", "number of patients", "enrollment"]),
+    ("endpoints_estimands", "6", ["endpoint", "estimand", "primary endpoint", "secondary endpoint", "intercurrent event", "treatment policy"]),
     ("statistical_methods", "7", ["statistical method", "statistical analysis", "primary analysis", "efficacy analysis"]),
     ("missing_data", "9", ["missing data", "missing value", "imputation"]),
     ("safety_analysis", "12", ["safety analysis", "adverse event", "safety endpoint"]),
+]
+
+# Optional sections (conditional - may return 404 if condition not met)
+OPTIONAL_SECTIONS = [
+    ("censoring_rules", "8", ["censoring", "censored", "event", "time to event", "survival", "follow-up"]),
+    ("sensitivity_analyses", "10", ["sensitivity analysis", "sensitivity analyses", "robustness", "alternative assumption"]),
+    ("subgroup_analyses", "11", ["subgroup", "subgroup analysis", "subset", "pre-specified subgroup", "exploratory subgroup"]),
     ("interim_analysis", "13", ["interim analysis", "interim look", "data monitoring", "dmc", "dsmb"]),
 ]
 
@@ -128,20 +140,39 @@ def extract_section_from_sap(sap_text: str, section_keywords: List[str]) -> str:
     return section_text[:5000].strip()
 
 
-def generate_sap_section(api_url: str, workspace_id: str, section_id: str) -> str:
-    """Generate a single section using the workbench API."""
+def generate_sap_section(api_url: str, workspace_id: str, section_id: str) -> Tuple[str, str]:
+    """Generate a single section using the workbench API.
+
+    Returns:
+        Tuple of (status, content) where status is one of:
+        - "success": Section generated successfully
+        - "not_applicable": Section not applicable (404 - conditional section)
+        - "timeout": Request timed out
+        - "error": Other error
+    """
     try:
         resp = requests.post(
             f"{api_url}/workbench/{workspace_id}/generate/{section_id}",
-            timeout=180
+            timeout=300  # Increased timeout to 5 minutes
         )
         if resp.status_code == 200:
-            return resp.json().get("content", "")
+            return ("success", resp.json().get("content", ""))
+        elif resp.status_code == 404:
+            # Section not applicable (conditional section not enabled)
+            print(f"  Section not applicable (404)")
+            return ("not_applicable", "")
         else:
             print(f"  API error: {resp.status_code} - {resp.text[:200]}")
+            return ("error", "")
+    except requests.exceptions.Timeout:
+        print(f"  Request timed out (5min)")
+        return ("timeout", "")
+    except requests.exceptions.ConnectionError as e:
+        print(f"  Connection error: {e}")
+        return ("connection_error", "")
     except Exception as e:
         print(f"  Error generating section: {e}")
-    return ""
+        return ("error", "")
 
 
 def compare_sections_with_llm(
@@ -265,13 +296,41 @@ def run_trial_benchmark(
     # Step 4: Generate and compare each section
     print("\n[4/5] Generating and comparing sections...")
     results = {}
+    connection_errors = 0
 
-    for section_name, section_id, keywords in SECTIONS_TO_EVALUATE:
+    def check_server_health():
+        """Check if server is still responding."""
+        try:
+            resp = requests.get(f"{api_url}/health", timeout=10)
+            return resp.status_code == 200
+        except:
+            return False
+
+    # Process core sections (required)
+    all_sections = list(SECTIONS_TO_EVALUATE) + list(OPTIONAL_SECTIONS)
+
+    for section_name, section_id, keywords in all_sections:
         print(f"\n  --- {section_name.upper().replace('_', ' ')} ---")
 
+        # Check server health if we've had connection errors
+        if connection_errors > 0:
+            if not check_server_health():
+                print(f"  Server unavailable - skipping remaining sections")
+                break
+
         # Generate section
-        generated = generate_sap_section(api_url, workspace_id, section_id)
-        print(f"  Generated: {len(generated):,} chars")
+        status, generated = generate_sap_section(api_url, workspace_id, section_id)
+
+        if status == "connection_error":
+            connection_errors += 1
+            print(f"  Skipping due to connection error")
+            continue
+
+        if status == "not_applicable":
+            print(f"  Section not applicable for this trial - skipping")
+            continue
+
+        print(f"  Generated: {len(generated):,} chars (status: {status})")
 
         # Extract reference section
         reference = extract_section_from_sap(reference_sap, keywords)
@@ -285,15 +344,21 @@ def run_trial_benchmark(
         results[section_name] = {
             "generated_chars": len(generated),
             "reference_chars": len(reference),
+            "status": status,
             **comparison
         }
 
     # Step 5: Calculate overall scores
     print("\n[5/5] Calculating overall scores...")
 
-    accuracies = [r.get("accuracy", 0) for r in results.values()]
-    completeness = [r.get("completeness", 0) for r in results.values()]
-    qualities = [r.get("quality", 0) for r in results.values()]
+    # Only count sections that were successfully generated
+    valid_results = [r for r in results.values() if r.get("status") == "success" and r.get("accuracy", 0) > 1]
+
+    accuracies = [r.get("accuracy", 0) for r in valid_results]
+    completeness = [r.get("completeness", 0) for r in valid_results]
+    qualities = [r.get("quality", 0) for r in valid_results]
+
+    print(f"  Scored {len(valid_results)} sections (excluded {len(results) - len(valid_results)} skipped/failed)")
 
     overall = {
         "trial": trial['name'],
@@ -374,10 +439,26 @@ def main():
     print(f"\nRunning benchmark on {len(trials_to_run)} trials...")
 
     results = []
-    for trial in trials_to_run:
+    for i, trial in enumerate(trials_to_run):
+        # Check backend health before each trial
+        try:
+            resp = requests.get(f"{args.api_url}/health", timeout=10)
+            if resp.status_code != 200:
+                print(f"\n*** Backend unhealthy (status {resp.status_code}) - waiting 30s ***")
+                time.sleep(30)
+        except Exception as e:
+            print(f"\n*** Backend not responding: {e} ***")
+            print(f"*** Please restart the backend and press Enter to continue ***")
+            input()
+
         result = run_trial_benchmark(trial, args.api_url, client)
         result["trial"] = trial["name"]
         results.append(result)
+
+        # Add a small delay between trials to let server recover
+        if i < len(trials_to_run) - 1:
+            print("\n  [Waiting 10s between trials...]")
+            time.sleep(10)
 
     # Print results
     print_results(results)

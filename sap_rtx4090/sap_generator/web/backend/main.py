@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.16-2026-01-15")
-print("FEATURE: LlamaParse with detailed SOA table instructions")
-print("  • v100.16: Better parsing_instruction - separate tables, preserve columns, keep X marks")
+print("BUILD: v100.17-2026-01-15")
+print("FEATURE: LlamaParse - preserve ALL 10 SOA columns")
+print("  • v100.17: Explicit instruction - Day 15/29/43/57 are COLUMN HEADERS not data")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -62,26 +62,17 @@ try:
             verbose=False,
             # Critical: Preserve table structure accurately
             parsing_instruction="""
-            CRITICAL TABLE EXTRACTION RULES:
+            CRITICAL: PRESERVE ALL TABLE COLUMNS EXACTLY
 
-            1. EXTRACT EVERY TABLE SEPARATELY - Do not merge or mix tables together
-            2. For Schedule of Assessments (SOA) tables:
-               - Table 1 typically has: Weight, Height, ECG, Adverse events, Vital signs, Labs, etc.
-               - Keep each table's content EXACTLY as shown
+            The Schedule of Assessments table has these EXACT columns (preserve ALL of them):
+            | Visit | Screening | Randomisation | Day 15 | Day 29 | Day 43 | Day 57 | Every 2 Weeks | Every 4 Weeks | Every 8 Weeks |
 
-            3. COLUMN PRESERVATION:
-               - Columns like "Day 15", "Day 29", "Day 43", "Day 57" are INDIVIDUAL columns
-               - These are SEPARATE from "Every 2 Weeks" or "Every 4 Weeks" columns
-               - Do NOT merge day-specific columns into frequency columns
+            DO NOT remove or merge columns. The table has 10 columns, output must have 10 columns.
 
-            4. CELL CONTENT:
-               - Preserve "X" marks exactly where they appear
-               - Keep empty cells as empty
-               - Maintain row/column alignment
+            "Day 15", "Day 29", "Day 43", "Day 57" are SEPARATE COLUMN HEADERS - not data values.
+            These 4 columns must appear BETWEEN "Randomisation" and "Every 2 Weeks".
 
-            5. OUTPUT FORMAT:
-               - Use markdown table format with | separators
-               - Include ALL rows and ALL columns from original
+            Output the COMPLETE table with ALL column headers preserved.
             """
         )
         LLAMAPARSE_AVAILABLE = True
