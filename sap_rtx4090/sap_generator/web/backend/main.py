@@ -15,11 +15,11 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.20-2026-01-15")
-print("FEATURE: LlamaParse + LINE-BY-LINE encoding fix for MIXED encoding PDFs")
-print("  • v100.20: Process each line separately - only decode garbled lines, preserve normal")
-print("  • v100.19: Apply encoding fix to LlamaParse (but broke mixed-encoding PDFs)")
-print("  • v100.18: Extract COMPLETE document, special care for SOA table columns")
+print("BUILD: v100.21-2026-01-15")
+print("FEATURE: LlamaParse instruction to extract TABLE ROW CONTENT with X marks")
+print("  • v100.21: Explicit instruction to extract assessment rows (Weight, ECG, etc.) with X marks")
+print("  • v100.20: Line-by-line encoding fix for mixed-encoding PDFs")
+print("  • v100.19: Apply encoding fix to LlamaParse output")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -65,14 +65,15 @@ try:
             parsing_instruction="""
             Extract the COMPLETE document including all text, sections, and tables.
 
-            For Schedule of Assessments tables:
-            - There are individual visit columns BETWEEN "Randomisation" and "Every 2 Weeks"
-            - These columns show Day values (15, 29, 43, 57) and Week values (2, 4, 6, 8)
-            - Do NOT collapse these into the "Every X Weeks" columns
-            - The table structure is:
-              Screening | Randomisation | [col] | [col] | [col] | [col] | Every 2 Weeks | Every 4 Weeks | Every 8 Weeks
-              Where [col] are the individual visit day columns (Days 15, 29, 43, 57)
-            - Preserve the exact number of columns as in the original PDF
+            CRITICAL for Schedule of Assessments tables:
+            - These tables have ROWS for each assessment (Weight, Height, ECG, Vital Signs, etc.)
+            - Each row has X marks indicating when that assessment is performed
+            - EXTRACT ALL ROW CONTENT including the assessment names and X marks
+            - Column headers: Screening | Randomisation | Day 15 | Day 29 | Day 43 | Day 57 | Every 2 Weeks | Every 4 Weeks | Every 8 Weeks
+            - Row example: "Weight | X | X | | | | X | X | X"
+            - Do NOT skip table rows - extract every single row with its X marks
+            - Do NOT replace X marks with placeholder text
+            - Preserve exact table structure as markdown table format
             """
         )
         LLAMAPARSE_AVAILABLE = True
