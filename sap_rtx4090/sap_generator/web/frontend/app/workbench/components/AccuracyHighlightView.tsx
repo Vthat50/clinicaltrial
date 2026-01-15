@@ -316,7 +316,7 @@ export default function AccuracyHighlightView({
     }
 
     // Dedupe and return
-    return [...new Set(commonPhrases)].slice(0, 100) // Limit to avoid performance issues
+    return Array.from(new Set(commonPhrases)).slice(0, 100) // Limit to avoid performance issues
   }, [])
 
   // Common phrases between reference and generated (direct text match)

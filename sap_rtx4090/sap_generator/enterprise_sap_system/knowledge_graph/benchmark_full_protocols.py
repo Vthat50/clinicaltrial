@@ -21,42 +21,57 @@ import PyPDF2
 CT_DOWNLOADS = Path("/mnt/c/Users/vijay/Desktop/sap_data/ct_downloads")
 REFERENCE_SAPS = Path("/mnt/c/Users/vijay/OneDrive/Documents/Github/clinicaltrial/sap_rtx4090/sap_generator/enterprise_sap_system/knowledge_graph/reference_saps")
 
-# 5 selected trials for validation
+# 7 non-overlapping trials for VALID benchmarking (NOT in system KB)
+# These trials have matching protocol+SAP pairs and are NOT in extracted_text/
 VALIDATION_TRIALS = [
     {
-        "name": "ADAURA",
-        "protocol": REFERENCE_SAPS / "protocols" / "ADAURA_Protocol.pdf",
-        "sap": REFERENCE_SAPS / "full_saps" / "ADAURA_SAP.pdf",
+        "name": "NCT01784848",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT01784848_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT01784848_SAP.pdf",
+        "indication": "Gastric",
+        "phase": "Phase 3"
+    },
+    {
+        "name": "NCT02129205",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT02129205_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT02129205_SAP.pdf",
+        "indication": "Lung Cancer",
+        "phase": "Phase 2"
+    },
+    {
+        "name": "NCT02756364",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT02756364_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT02756364_SAP.pdf",
+        "indication": "Breast",
+        "phase": "Phase 2"
+    },
+    {
+        "name": "NCT02998528",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT02998528_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT02998528_SAP.pdf",
         "indication": "NSCLC",
         "phase": "Phase 3"
     },
     {
-        "name": "KEYNOTE-042",
-        "protocol": REFERENCE_SAPS / "protocols" / "KEYNOTE-042_ProtSAP.pdf",
-        "sap": REFERENCE_SAPS / "full_saps" / "KEYNOTE-042_SAP.pdf",
-        "indication": "NSCLC",
-        "phase": "Phase 3"
-    },
-    {
-        "name": "NCT01515748",
-        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT01515748_Protocol.pdf",
-        "sap": CT_DOWNLOADS / "all_saps" / "NCT01515748_SAP.pdf",
-        "indication": "Gastric Cancer",
-        "phase": "Phase 3"
-    },
-    {
-        "name": "CheckMate-901",
-        "protocol": REFERENCE_SAPS / "protocols" / "CheckMate-901_ProtSAP.pdf",
-        "sap": REFERENCE_SAPS / "full_saps" / "CheckMate-901_SAP.pdf",
+        "name": "NCT04003610",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT04003610_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT04003610_SAP.pdf",
         "indication": "Urothelial",
+        "phase": "Phase 2"
+    },
+    {
+        "name": "NCT04865289",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT04865289_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT04865289_SAP.pdf",
+        "indication": "Endometrial",
         "phase": "Phase 3"
     },
     {
-        "name": "VISION",
-        "protocol": REFERENCE_SAPS / "protocols" / "VISION_Protocol.pdf",
-        "sap": REFERENCE_SAPS / "full_saps" / "VISION_SAP.pdf",
-        "indication": "Prostate",
-        "phase": "Phase 3"
+        "name": "NCT05126433",
+        "protocol": CT_DOWNLOADS / "all_protocols" / "NCT05126433_Protocol.pdf",
+        "sap": CT_DOWNLOADS / "all_saps" / "NCT05126433_SAP.pdf",
+        "indication": "Solid Tumor",
+        "phase": "Phase 2"
     }
 ]
 
