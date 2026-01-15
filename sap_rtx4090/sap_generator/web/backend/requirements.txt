@@ -15,8 +15,7 @@ python-docx>=1.1.0
 llama-cloud-services>=0.6.0  # LlamaParse for accurate PDF section extraction
 PyMuPDF>=1.24.0  # Required by LlamaExtract for structured extraction
 
-# Docling by IBM - excellent table extraction with TableFormer model
-docling>=2.0.0  # Converts PDFs to structured data, preserves table structure
+# Table extraction handled by LlamaParse with parsing instructions
 
 # SAP Generator dependencies
 groq>=0.4.0

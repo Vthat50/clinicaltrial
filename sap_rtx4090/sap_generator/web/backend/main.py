@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.14-2026-01-15")
-print("FEATURE: IBM Docling for accurate table extraction")
-print("  • v100.14: Docling TableFormer model for SOA tables (preserves column structure)")
+print("BUILD: v100.15-2026-01-15")
+print("FEATURE: LlamaParse with table preservation instructions")
+print("  • v100.15: LlamaParse parsing_instruction for accurate SOA table columns")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -84,25 +84,8 @@ except ImportError:
     PYMUPDF_AVAILABLE = False
     print("WARNING: PyMuPDF not available")
 
-# Docling by IBM - excellent table extraction with TableFormer model
-# Lazy-loaded to avoid startup overhead (Docling is slow to initialize)
-DOCLING_AVAILABLE = False
-_docling_converter = None
-
-def get_docling_converter():
-    """Lazy-load Docling DocumentConverter to avoid startup overhead."""
-    global DOCLING_AVAILABLE, _docling_converter
-    if _docling_converter is not None:
-        return _docling_converter
-    try:
-        from docling.document_converter import DocumentConverter
-        _docling_converter = DocumentConverter()
-        DOCLING_AVAILABLE = True
-        print("[Docling] DocumentConverter loaded successfully")
-        return _docling_converter
-    except Exception as e:
-        print(f"[Docling] Not available: {e}")
-        return None
+# LlamaParse handles table extraction via parsing_instruction parameter
+# No additional table extraction library needed
 
 # Import SAP generator (add parent to path)
 import sys
@@ -318,75 +301,6 @@ def fix_pdf_font_encoding(text: str) -> str:
     return text
 
 
-def extract_tables_with_docling(file_content: bytes) -> str:
-    """
-    Extract ALL tables from PDF using IBM Docling.
-    Docling uses TableFormer model for accurate table structure extraction.
-    Returns formatted table text with [TABLE] markers.
-    """
-    import tempfile
-
-    converter = get_docling_converter()
-    if converter is None:
-        print("[Docling] Converter not available, skipping table extraction")
-        return ""
-
-    try:
-        # Docling needs a file path
-        with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
-            tmp.write(file_content)
-            tmp_path = tmp.name
-
-        try:
-            print("[Docling] Extracting tables with TableFormer model...")
-            conv_result = converter.convert(tmp_path)
-
-            all_tables = []
-            for table_idx, table in enumerate(conv_result.document.tables):
-                try:
-                    # Export table to pandas DataFrame
-                    table_df = table.export_to_dataframe(doc=conv_result.document)
-
-                    if table_df is not None and not table_df.empty:
-                        # Convert DataFrame to pipe-separated format for frontend rendering
-                        # Header row
-                        header = " | ".join(str(col) for col in table_df.columns)
-                        # Data rows
-                        rows = []
-                        for _, row in table_df.iterrows():
-                            row_text = " | ".join(str(val) if val is not None else "" for val in row)
-                            rows.append(row_text)
-
-                        table_content = header + "\n" + "\n".join(rows)
-                        all_tables.append(f"\n[TABLE {table_idx + 1}]\n{table_content}\n[/TABLE]\n")
-                        print(f"[Docling] Table {table_idx + 1}: {len(table_df)} rows x {len(table_df.columns)} cols")
-
-                except Exception as table_err:
-                    print(f"[Docling] Error exporting table {table_idx + 1}: {table_err}")
-                    continue
-
-            os.unlink(tmp_path)
-
-            if all_tables:
-                print(f"[Docling] Successfully extracted {len(all_tables)} tables")
-                return "\n".join(all_tables)
-            else:
-                print("[Docling] No tables found in document")
-            return ""
-
-        except Exception as e:
-            print(f"[Docling] Conversion failed: {e}")
-            try:
-                os.unlink(tmp_path)
-            except:
-                pass
-            return ""
-
-    except Exception as e:
-        print(f"[Docling] Table extraction failed: {e}")
-        return ""
-
-
 def wrap_markdown_tables(text: str) -> str:
     """
     Detect markdown tables in text and wrap them with [TABLE] markers.
@@ -444,9 +358,9 @@ def wrap_markdown_tables(text: str) -> str:
 
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
-    HYBRID extraction: LlamaParse for text + Docling for tables.
-    This ensures both regular text and tables are properly extracted.
-    Docling's TableFormer model preserves complex table structure (SOA tables).
+    Extract text from PDF using LlamaParse with table preservation instructions.
+    LlamaParse is configured to preserve exact column structure in tables.
+    Falls back to PyMuPDF if LlamaParse fails.
     """
     import tempfile
     import asyncio
@@ -487,12 +401,6 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                     if text and len(text.strip()) > 100:
                         # Wrap markdown tables in [TABLE] markers for frontend rendering
                         text = wrap_markdown_tables(text)
-
-                        # HYBRID: Extract tables with IBM Docling for accurate structure
-                        tables_text = extract_tables_with_docling(file_content)
-                        if tables_text:
-                            print(f"[PDF Parser] Adding {len(tables_text):,} chars of Docling table content")
-                            text = text + "\n\n=== TABLES (DOCLING EXTRACTED - ACCURATE STRUCTURE) ===\n" + tables_text
                         return text
                     else:
                         print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")
