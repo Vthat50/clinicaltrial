@@ -196,9 +196,60 @@ export default function ProtocolAuditSuite({
     setViewMode('sap-authoring')
   }
 
-  // Render a table from pipe-separated rows
+  // Render a table - supports both HTML tables (from Reducto) and pipe-separated rows (from LlamaParse)
   const renderTable = (tableContent: string, tableIndex: number) => {
-    const rows = tableContent.trim().split('\n').filter(row => row.trim())
+    const trimmedContent = tableContent.trim()
+    if (!trimmedContent) return null
+
+    // Check if this is an HTML table (from Reducto)
+    if (trimmedContent.includes('<table')) {
+      // Extract page info if present (e.g., "(Page 44)" before the table)
+      const pageMatch = trimmedContent.match(/^\s*\(Page\s+(\d+)\)\s*/i)
+      const pageInfo = pageMatch ? pageMatch[1] : null
+      const htmlContent = pageMatch ? trimmedContent.slice(pageMatch[0].length) : trimmedContent
+
+      return (
+        <div key={`table-${tableIndex}`} className="my-4">
+          {pageInfo && (
+            <div className="text-xs text-blue-600 mb-1 font-medium">
+              📄 Page {pageInfo}
+            </div>
+          )}
+          <div
+            className="overflow-x-auto reducto-table"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+          <style jsx>{`
+            .reducto-table table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 0.875rem;
+              margin: 0;
+            }
+            .reducto-table th,
+            .reducto-table td {
+              border: 1px solid #d1d5db;
+              padding: 0.5rem 0.75rem;
+              text-align: left;
+            }
+            .reducto-table th {
+              background-color: #f3f4f6;
+              font-weight: 600;
+              color: #374151;
+            }
+            .reducto-table tr:nth-child(even) {
+              background-color: #f9fafb;
+            }
+            .reducto-table tr:hover {
+              background-color: #f3f4f6;
+            }
+          `}</style>
+        </div>
+      )
+    }
+
+    // Fallback: pipe-separated markdown table (from LlamaParse)
+    const rows = trimmedContent.split('\n').filter(row => row.trim())
     if (rows.length === 0) return null
 
     return (
