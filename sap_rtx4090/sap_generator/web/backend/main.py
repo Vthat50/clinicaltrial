@@ -15,14 +15,14 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.7-2026-01-14")
-print("FEATURE: Better PDF table extraction with PyMuPDF")
+print("BUILD: v100.8-2026-01-15")
+print("FEATURE: Fix PDF font encoding (+29 ASCII shift)")
+print("  • v100.8: Fix garbled PDF text - decode +29 ASCII shift fonts")
 print("  • v100.7: Use PyMuPDF for PDF parsing - preserves tables")
 print("  • v100.6: Fix PDF upload - use PyPDF2 (already installed)")
 print("  • v100.5: Fix Supabase error - reference SAP in memory only")
 print("  • v100.4: Semantic section matching via Claude")
-print("  • v100.3: Reference SAP upload + accuracy checking")
-print("If you don't see v100.6 in Render logs, Render has OLD code!")
+print("If you don't see v100.8 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -230,6 +230,47 @@ def get_supabase() -> Client:
 
 
 # Document parsing functions
+def fix_pdf_font_encoding(text: str) -> str:
+    """
+    Fix garbled PDF text caused by custom font encoding.
+    Some PDFs use fonts where characters are mapped 29 positions lower than Unicode.
+    Detects this pattern and decodes: 'UXJ6XEVWDQFH → DrugSubstance
+    """
+    if not text or len(text) < 20:
+        return text
+
+    # Sample the first 500 chars to check for encoding issues
+    sample = text[:500]
+
+    # Check for telltale signs of +29 shift encoding:
+    # - Lots of lowercase where uppercase expected in headers
+    # - Common patterns like 'UXJ (Drug), 0(', (MEDI), 6WXG\ (Study)
+    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ"]
+
+    matches = sum(1 for p in garbled_patterns if p in sample)
+
+    if matches >= 2:
+        # Detected garbled encoding - apply +29 shift
+        print(f"[PDF Parser] Detected garbled font encoding (+29 shift), decoding...")
+
+        decoded_chars = []
+        for c in text:
+            code = ord(c)
+            # Only shift printable ASCII range that would result in printable output
+            if 32 <= code <= 96:  # Shifted chars that map to printable range
+                decoded_chars.append(chr(code + 29))
+            elif c in '\n\r\t':  # Preserve whitespace
+                decoded_chars.append(c)
+            else:
+                decoded_chars.append(c)
+
+        decoded = ''.join(decoded_chars)
+        print(f"[PDF Parser] Decoded {len(text):,} chars")
+        return decoded
+
+    return text
+
+
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
     Extract text from PDF file with table preservation.
@@ -283,6 +324,8 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             doc.close()
             result = "\n\n".join(text_parts)
             print(f"[PDF Parser] PyMuPDF extracted {len(result):,} chars, {total_tables} tables from {len(doc)} pages")
+            # Fix garbled font encoding if detected
+            result = fix_pdf_font_encoding(result)
             return result
 
         except Exception as e:
@@ -298,6 +341,8 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                 text_parts.append(text)
         result = "\n\n".join(text_parts)
         print(f"[PDF Parser] PyPDF2 extracted {len(result):,} chars")
+        # Fix garbled font encoding if detected
+        result = fix_pdf_font_encoding(result)
         return result
     except Exception as e:
         raise ValueError(f"Failed to parse PDF: {str(e)}")
