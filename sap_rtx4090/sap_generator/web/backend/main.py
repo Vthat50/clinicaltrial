@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.10-2026-01-15")
-print("FEATURE: LlamaParse + PaddleOCR for tables")
-print("  • v100.10: PaddleOCR for tables (pure pip, no torch conflicts)")
+print("BUILD: v100.11-2026-01-15")
+print("FEATURE: Hybrid extraction - LlamaParse text + PaddleOCR tables")
+print("  • v100.11: HYBRID approach - run PaddleOCR on tables AFTER LlamaParse")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -356,11 +356,60 @@ def ocr_table_region(page, table_bbox) -> str:
         return ""
 
 
+def extract_all_tables_with_ocr(file_content: bytes) -> str:
+    """
+    Extract ALL tables from PDF using PaddleOCR.
+    This runs SEPARATELY from text extraction to ensure tables are captured.
+    Returns formatted table text with [TABLE] markers.
+    """
+    if not PYMUPDF_AVAILABLE:
+        return ""
+
+    try:
+        doc = fitz.open(stream=file_content, filetype="pdf")
+        all_tables = []
+
+        for page_num, page in enumerate(doc):
+            # Find tables on this page
+            table_finder = page.find_tables()
+
+            for table_idx, table in enumerate(table_finder.tables):
+                table_bbox = table.bbox
+
+                # Try PaddleOCR first (handles font encoding)
+                ocr_text = ocr_table_region(page, table_bbox)
+
+                if ocr_text and len(ocr_text.strip()) > 10:
+                    all_tables.append(f"\n[TABLE Page {page_num + 1}, Table {table_idx + 1}]\n{ocr_text}\n[/TABLE]\n")
+                else:
+                    # Fallback: extract table structure with PyMuPDF
+                    table_md = []
+                    for row in table.extract():
+                        row_text = " | ".join(str(cell) if cell else "" for cell in row)
+                        if row_text.strip():
+                            table_md.append(row_text)
+                    if table_md:
+                        # Apply encoding fix to table content
+                        table_content = "\n".join(table_md)
+                        table_content = fix_pdf_font_encoding(table_content)
+                        all_tables.append(f"\n[TABLE Page {page_num + 1}, Table {table_idx + 1}]\n{table_content}\n[/TABLE]\n")
+
+        doc.close()
+
+        if all_tables:
+            print(f"[Tables] Extracted {len(all_tables)} tables with OCR")
+            return "\n".join(all_tables)
+        return ""
+
+    except Exception as e:
+        print(f"[Tables] Table extraction failed: {e}")
+        return ""
+
+
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
-    Extract text from PDF file with proper font encoding support.
-    Uses LlamaParse (cloud service) for accurate extraction,
-    falls back to PyMuPDF, then PyPDF2.
+    HYBRID extraction: LlamaParse for text + PaddleOCR for tables.
+    This ensures both regular text and tables are properly extracted.
     """
     import tempfile
     import asyncio
@@ -399,6 +448,11 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                     text = "\n\n".join([doc.text for doc in documents if doc.text])
                     print(f"[PDF Parser] LlamaParse extracted {len(text):,} chars")
                     if text and len(text.strip()) > 100:
+                        # HYBRID: Also extract tables with PaddleOCR
+                        tables_text = extract_all_tables_with_ocr(file_content)
+                        if tables_text:
+                            print(f"[PDF Parser] Adding {len(tables_text):,} chars of table content")
+                            text = text + "\n\n=== TABLES (OCR EXTRACTED) ===\n" + tables_text
                         return text
                     else:
                         print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")

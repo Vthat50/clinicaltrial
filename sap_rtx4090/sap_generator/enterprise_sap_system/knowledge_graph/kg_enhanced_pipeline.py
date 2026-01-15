@@ -3912,8 +3912,14 @@ Return ONLY the JSON object, no other text."""
                     f"Extraction self-reported {completeness.get('confidence_level')} confidence"
                 )
             missed = completeness.get("potentially_missed_elements", "")
+            # Only add as warning if it's actually reporting gaps (not positive confirmations)
+            positive_indicators = ["all captured", "all major", "comprehensive", "well-structured",
+                                   "complete", "fully captured", "no gaps", "nothing missed"]
             if missed and len(missed) > 10:
-                validation_report["warnings"].append(f"Extraction flagged potential gaps: {missed[:200]}")
+                missed_lower = missed.lower()
+                is_positive = any(indicator in missed_lower for indicator in positive_indicators)
+                if not is_positive:
+                    validation_report["warnings"].append(f"Extraction flagged potential gaps: {missed[:200]}")
 
         # Set overall status
         if len(validation_report["potential_gaps"]) > 3:
