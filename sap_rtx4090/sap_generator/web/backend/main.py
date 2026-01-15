@@ -15,11 +15,11 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.19-2026-01-15")
-print("FEATURE: LlamaParse + font encoding fix for all extraction paths")
-print("  • v100.19: Apply +29 ASCII encoding fix to LlamaParse output (was missing!)")
+print("BUILD: v100.20-2026-01-15")
+print("FEATURE: LlamaParse + LINE-BY-LINE encoding fix for MIXED encoding PDFs")
+print("  • v100.20: Process each line separately - only decode garbled lines, preserve normal")
+print("  • v100.19: Apply encoding fix to LlamaParse (but broke mixed-encoding PDFs)")
 print("  • v100.18: Extract COMPLETE document, special care for SOA table columns")
-print("  • v100.8: Character shift fix (fallback - now also applied to LlamaParse)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -269,40 +269,54 @@ def fix_pdf_font_encoding(text: str) -> str:
     Fix garbled PDF text caused by custom font encoding.
     Some PDFs use fonts where characters are mapped 29 positions lower than Unicode.
     Detects this pattern and decodes: 'UXJ6XEVWDQFH → DrugSubstance
+
+    IMPORTANT: PDFs may have MIXED encoding - some sections normal, some garbled.
+    This function processes line-by-line to only decode garbled sections.
     """
     if not text or len(text) < 20:
         return text
 
-    # Sample the first 500 chars to check for encoding issues
-    sample = text[:500]
+    # Patterns that indicate garbled +29 shift encoding
+    # These are common clinical trial terms that appear garbled
+    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ",
+                       "$SSHQGL[", "6XEVWDQFH", "$VWUD=HQHFD", "7DEOH", "6HFWLRQ"]
 
-    # Check for telltale signs of +29 shift encoding:
-    # - Lots of lowercase where uppercase expected in headers
-    # - Common patterns like 'UXJ (Drug), 0(', (MEDI), 6WXG\ (Study)
-    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ"]
+    def is_line_garbled(line: str) -> bool:
+        """Check if a line contains garbled patterns"""
+        if len(line) < 10:
+            return False
+        # Count matches - if 1+ pattern found, line is likely garbled
+        matches = sum(1 for p in garbled_patterns if p in line)
+        return matches >= 1
 
-    matches = sum(1 for p in garbled_patterns if p in sample)
-
-    if matches >= 2:
-        # Detected garbled encoding - apply +29 shift
-        print(f"[PDF Parser] Detected garbled font encoding (+29 shift), decoding...")
-
+    def decode_line(line: str) -> str:
+        """Apply +29 shift to decode a garbled line"""
         decoded_chars = []
-        for c in text:
+        for c in line:
             code = ord(c)
             # Only shift printable ASCII range that would result in printable output
             if 32 <= code <= 96:  # Shifted chars that map to printable range
                 decoded_chars.append(chr(code + 29))
-            elif c in '\n\r\t':  # Preserve whitespace
-                decoded_chars.append(c)
             else:
                 decoded_chars.append(c)
+        return ''.join(decoded_chars)
 
-        decoded = ''.join(decoded_chars)
-        print(f"[PDF Parser] Decoded {len(text):,} chars")
-        return decoded
+    # Process line by line to handle mixed encoding
+    lines = text.split('\n')
+    result_lines = []
+    garbled_count = 0
 
-    return text
+    for line in lines:
+        if is_line_garbled(line):
+            result_lines.append(decode_line(line))
+            garbled_count += 1
+        else:
+            result_lines.append(line)
+
+    if garbled_count > 0:
+        print(f"[PDF Parser] Fixed {garbled_count} garbled lines (mixed encoding PDF)")
+
+    return '\n'.join(result_lines)
 
 
 def wrap_markdown_tables(text: str) -> str:
