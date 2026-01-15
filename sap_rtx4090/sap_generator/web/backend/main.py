@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.17-2026-01-15")
-print("FEATURE: LlamaParse - preserve ALL 10 SOA columns")
-print("  • v100.17: Explicit instruction - Day 15/29/43/57 are COLUMN HEADERS not data")
+print("BUILD: v100.18-2026-01-15")
+print("FEATURE: LlamaParse - full document + table column preservation")
+print("  • v100.18: Extract COMPLETE document, special care for SOA table columns")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -60,19 +60,18 @@ try:
             api_key=llamaparse_key,
             result_type="markdown",
             verbose=False,
-            # Critical: Preserve table structure accurately
+            # Extract full document with special care for tables
             parsing_instruction="""
-            CRITICAL: PRESERVE ALL TABLE COLUMNS EXACTLY
+            Extract the COMPLETE document including all text, sections, and tables.
 
-            The Schedule of Assessments table has these EXACT columns (preserve ALL of them):
-            | Visit | Screening | Randomisation | Day 15 | Day 29 | Day 43 | Day 57 | Every 2 Weeks | Every 4 Weeks | Every 8 Weeks |
-
-            DO NOT remove or merge columns. The table has 10 columns, output must have 10 columns.
-
-            "Day 15", "Day 29", "Day 43", "Day 57" are SEPARATE COLUMN HEADERS - not data values.
-            These 4 columns must appear BETWEEN "Randomisation" and "Every 2 Weeks".
-
-            Output the COMPLETE table with ALL column headers preserved.
+            For Schedule of Assessments tables:
+            - There are individual visit columns BETWEEN "Randomisation" and "Every 2 Weeks"
+            - These columns show Day values (15, 29, 43, 57) and Week values (2, 4, 6, 8)
+            - Do NOT collapse these into the "Every X Weeks" columns
+            - The table structure is:
+              Screening | Randomisation | [col] | [col] | [col] | [col] | Every 2 Weeks | Every 4 Weeks | Every 8 Weeks
+              Where [col] are the individual visit day columns (Days 15, 29, 43, 57)
+            - Preserve the exact number of columns as in the original PDF
             """
         )
         LLAMAPARSE_AVAILABLE = True
