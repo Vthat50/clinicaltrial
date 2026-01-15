@@ -1,0 +1,863 @@
+ 
+ 
+ 
+Part or all of the information in this statistical analysis plan may be unpublished material. Accordingly, this 
+document is to be treated as confidential and restricted to its intended use. This material is the property of 
+Seattle Genetics, Inc. and must not be disclosed or used except as authorized in writing by Seattle Genetics, Inc.  
+STATISTICAL ANALYSIS PLAN 
+ 
+Protocol Number:  SGN35 -014 
+Version:  Version 5; 15 May 2018  
+Protocol Title:  A randomized, double-blind, placebo-controlled, phase 3 study 
+of brentuximab vedotin and CHP (A+CHP) versus CHOP in the frontline treatment of patients with CD30 -positive mature T -cell 
+lymphomas  
+Sponsor:  Seattle Genetics, Inc.  
+21823 30th Drive SE 
+Bothell, WA 98021, USA  
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 3 of 29 TABLE OF CONTENTS 
+LIST OF ABBREVIATION S ................................................................................................................................ 5  
+1 INTRODUCTION  ...........................................................................................................................................  6 
+2 STUDY OBJECT IVES  ...................................................................................................................................  6 
+2.1 Primary Objectives  ................................................................................................................................ 6  
+2.2 Secondary Objectives  ............................................................................................................................ 6  
+2.3 Additional Objectives  ............................................................................................................................ 6  
+3 STUDY ENDPOINTS ....................................................................................................................................  6 
+3.1 Primary Endpoint ..................................................................................................................................  6 
+3.2 Seco ndary Endpoints  .............................................................................................................................  6 
+3.2.1  Key Secondary Endpoints  ........................................................................................................  6 
+3.2.2  Safety Endpoints  .......................................................................................................................  7 
+3.3 Additional Endpoints  .............................................................................................................................  7 
+4 STUDY DESIGN  ............................................................................................................................................  7 
+5 ANALYSIS SETS  ...........................................................................................................................................  8 
+5.1 Intent -to-Treat (ITT) Analysis Set  .........................................................................................................  8 
+5.2 Safety Analysis Set  ................................................................................................................................ 8  
+6 STATISTICAL CONSIDER ATIONS ............................................................................................................  8 
+6.1 General Principles  ................................................................................................................................. 8  
+6.2 Determination of Sample Size ...............................................................................................................  9 
+6.3 Randomization and Blinding  .................................................................................................................  9 
+6.4 Data Transformations and Derivations  ..................................................................................................  9 
+6.5 Handling of Dropouts and Missing D ata .............................................................................................  10 
+6.6 Pooling Strategy for Strata  ..................................................................................................................  10 
+6.7 Multicenter Studies .............................................................................................................................  11 
+6.8 Multiple Comparison/Multiplicity  .......................................................................................................  11 
+6.9 Examination of Subgroups  ..................................................................................................................  11 
+6.10 Covariates  ............................................................................................................................................  12 
+6.11 Timing of Analyses  .............................................................................................................................  12 
+7 PLANNED ANALYSES  .............................................................................................................................. 13 
+7.1 Disposition  ..........................................................................................................................................  13 
+7.2 Demograp hic and Baseline Characteristics  .........................................................................................  13 
+7.3 Protocol Deviations  .............................................................................................................................  13 
+7.4 Treatment Administration  ...................................................................................................................  13 
+7.5 Efficacy Analyses  ................................................................................................................................ 16 
+7.5.1  Primary Endpoint ...................................................................................................................  16 
+7.5.2  Secondary Efficacy Endpoints  ................................................................................................ 19 
+7.6 Safety Analyses  ...................................................................................................................................  20 
+7.6.1  Adverse Events  .......................................................................................................................  20 
+7.6.2  Clinical Laboratory Parameters  ..............................................................................................  21 
+7.6.3  ECOG Performance Status  .....................................................................................................  22 
+7.6.4  Concomitant Medications  .......................................................................................................  22 
+7.6.5  Deaths  .....................................................................................................................................  22 
+7.7 Additional Endpoints  ...........................................................................................................................  22 
+7.7.1  Antitherapeutic Antibody (ATA) Incidence Rate ...................................................................  22 
+7.7.2  Medical Resource Utilization (MRU)  ....................................................................................  22 
+7.7.3  Quality of Life (QoL)  .............................................................................................................  22 
+7.7.4  Pharmacokinetics  ....................................................................................................................  23 
+7.7.5  Biomarkers  .............................................................................................................................  23 
+7.8 Exploratory Analyses  ..........................................................................................................................  23 
+8 INTERIM ANALYSIS ..................................................................................................................................  24 
+9 CHANGES FROM PLANNED  ANALYSES  .............................................................................................. 24 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 4 of 29 9.1 Changes from the Original Protocol ....................................................................................................  24 
+9.2 Changes from the Original SAP  ..........................................................................................................  24 
+9.2.1  Version 2 Changes  ..................................................................................................................  24 
+9.2.2 Version 3 Changes  ..................................................................................................................  24 
+9.2.3  Version 4 Changes  ..................................................................................................................  25 
+9.2.4  Version 5 Changes  ..................................................................................................................  25 
+10 REFERENCES .............................................................................................................................................. 26 
+APPENDIX A : IMPUTATION OF PARTIALLY UNKNOWN ADVERSE EVENT DATES  .........................  27 
+ 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 5 of 29 LIST OF ABBREVIATIONS 
+A+CHP  brentuximab vedotin (ADCETRIS®), cyclophosphamide, doxorubicin, and prednisone  
+AE adverse event  
+ATA  antitherapeutic antibodies  
+ALK  anaplastic lymphoma kinase  
+CHOP  cyclophosphamide, doxorubicin (hydrodoxorubicin), vincristine (Oncovin®), and 
+prednisone  
+CHP  cyclophosphamide, doxorubicin (hydrodoxorubicin), and prednisone  
+CI confidence interval  
+CMH  Cochran -Mantel -Haenszel  
+CR complete remission  
+CRF  case report form  
+CT computed tomography  
+ECOG  Eastern Cooperative Oncology Group  
+EQ-5D European Quality of Life 5 -Dimensional  
+EMA  European Medicines Agency  
+FACT/GOG -NTX  Functional Assessment of Cancer Therapy/Gynecologic Oncology Group – Neurotoxicity  
+HR hazard  ratio  
+IDMC  Independent Data Monitoring Committee  
+IRF independent review facility  
+IPI International Prognostic Index  
+ITT intent -to-treat 
+MedDRA  Medical Dictionary for Regulatory Activities  
+MRU  medical resource utilization  
+NCI CTCAE  National Cancer Institute Common Terminology Criteria for Adverse Events  
+ORR  objective response rate  
+OS overall survival  
+PD progressive disease  
+PET positron emission tomography  
+PFS progression -free survival  
+PR partial remission  
+PRO  patient reported outcomes  
+QLQ -C30 EORTC core quality of life questionnaire  
+QoL quality of life  
+SAE  serious adverse event  
+sALCL  systemic anaplastic large cell lymphoma  
+SCT stem cell transplant  
+SPD sum of the products of diameters  
+SUV  standard uptake value  
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 6 of 29 1 INTRODUCTION 
+This document outlines the statistical methods to be implemented  within the scope of Protocol 
+SGN35 -014, entitled “A randomized, double -blind, placebo- controlled, phase  3 study of 
+brentuximab vedotin and CHP (A+CHP) versus CHOP in the frontline treatment of patients with 
+CD30 -positive mature T -cell lymphomas” . Results of the proposed analyses will become the 
+basis of the clinical study report (CSR) for this protocol.  
+The purpose of this plan is to provide specific guidelines from which the analysis will proceed . All planned analyses specified in this document will be pe rformed . Any changes to 
+this plan, in the form of “post hoc” or “data driven” analyses will be identified as such in the final clinical study report . Any changes will either be reflected in amendments to this plan 
+before the database lock or specifically d ocumented in the clinical study report. 
+2 STUDY OBJECTIVES 
+2.1 Primary Objectives 
+● To compare the progression-free survival (PFS) as determined by an independent review facility (IRF) between the 2 treatment arms  
+2.2 Secondary Objectives 
+● To compare the PFS per IRF be tween the 2 treatment arms for patients with systemic 
+anaplastic large cell lymphoma (sALCL) 
+● To compare the remission rates per IRF following the completion of study treatment between the 2 treatment arms  
+● To compare overall survival (OS) between the 2 treatment arms  
+● To evaluate the safety and tolerability of the 2 treatment arms  
+2.3 Additional Objectives 
+● To evaluate medical resource utilization (MRU) and calculate utility values 
+● To characterize the incidence of antitherapeutic antibodies (ATA) to brentuximab 
+vedotin 
+3 STUDY ENDPOINTS  
+3.1 Primary Endpoint  
+● PFS per IRF 
+3.2 Secondary Endpoints 
+3.2.1 Key Secondary Endpoints 
+● PFS per IRF for patients with sALCL  
+● Complete remission (CR ) rate per IRF following the completion of study treatment 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 7 of 29 ● OS  
+● Objective response rate (O RR) per IRF following the completion of study treatment 
+3.2.2 Safety Endpoints 
+● Type, incidence, severity, seriousness, and relatedness of adverse events  
+● Type, incidence, and severi ty of laboratory abnormalities  
+3.3 Additional Endpoints 
+● Incidence of ATA to brentuximab vedotin 
+● MRU based on the number of medical care encounters  
+● Quality of Life (QoL) measured by the European Organisation for Research and 
+Treatment of Cancer (EORTC) core quality of life questionnaire (QLQ -C30) and 
+European Quality of Life 5- Dimensional (E Q-5D) score  
+4 STUDY DESIGN 
+This is a randomized, double-blind, placebo-controlled, multicenter, phase 3 clinical trial designed to evaluate the efficacy and safety of including brentuximab vedotin in the 
+treatment of newly -diagnosed, CD30- positive mature T -cell lymphomas . The standard of 
+care in this patient population consists of 6 to 8 cycles of CHOP chemotherapy (cyclophosphamide, doxorubicin [hydrodoxorubicin], vincristine [Oncovin
+®], prednisone). 
+Patients will be randomized in a 1:1 manner to receive 21 -day cycles of treatment  in 1 of the 
+following 2 treatment groups: 
+1. Standard-of- care arm: 6–8 cycles of CHOP;  or 
+2. Experimental arm: 6–8 cycles of brentuximab vedotin plus CHP (A+CHP) 
+A target of 8 cycles of study treatment will be administered, per investig ator decision, based 
+on patient- specific characteristics, including stage of disease and IPI risk score. For patients 
+tolerating study treatment, at least 6 cycles of study treatment should be completed prior to 
+initiating post treatment consolidative stem  cell transplant (SCT). Consolidative SCT is 
+defined as SCT following completion of study treatment in the absence of any new anticancer treatment other than stem cell mobilization or conditioning.  
+Brentuximab vedotin or vincristine will be administered as a placebo -controlled double-
+dummy and administered to patients  in a blinded manner. Placebo replacements for 
+brentuximab vedotin/vincristine  will be prepared by the pharmacist at each study site and a 
+pharmacy blind will be enforced. 
+Approximately 450 pat ients (~ 225 patients per treatment arm) will be randomized in this 
+study. 
+Radiographic disease evaluations, including CT scans of neck, chest, abdomen and pelvis, 
+will be assessed at baseline, after completion of Cycle 4 of study treatment, after completion 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 8 of 29 of study treatment, at 9, 12, 15, 18, 21, and 24 months after initiation of study treatment, and 
+every 6 months thereafter until disease progression, patient death, or analysis of the primary endpoint, whichever comes first. Patients will be followed for survival until death or study closure , whichever comes first . 
+Safety assessments will include the incidence and severity of adverse events and changes in clinical laboratory values . Serum concentrations of ATA to brentuximab vedotin will also be 
+measured.  
+ 
+ 
+ 
+5 ANALYSIS SETS  
+This section defines each of the analysis sets that will be utilized . The use of each analysis set 
+will be discussed in Section 7. 
+5.1 Intent -to-Treat (ITT) Analysis Set  
+The ITT analysis set will include all randomized patients. Patients will be included in the treatment group assigned at randomization regardless of  the actual treatment received.  
+5.2 Safety Analysis Set  
+The safety analysis set will include all patients who receive any amount of brentuximab vedotin or any component of CHOP . Treatment group will be determined using the actual 
+treatment received, regardless of the randomization treatment assignment. Patients receiving any dose of brentuximab vedotin will be grouped into the experimental group. Patients who do not receive brentuximab vedotin but any dose of any component of CHOP will be grouped into the standard-of- care group.  
+6 STATISTICAL CONSIDER ATIONS 
+6.1 General Principles 
+Descriptive statistics (m ean, median, standard deviation, minimum and maximum) will be 
+used to summarize continuous variables. Frequencies and percentages will be used to summarize categorical variables.  
+Unless otherwise specified, all statistical tests will be performed using a t wo-sided alpha of 
+0.05. Confidence intervals will be calculated at two -sided 95% level. Multiplicity adjustment 
+for alpha level is discussed in Section 6.8. 
+Any analysis not described in this plan will be considered exploratory, and will be documented in the CSR as a post hoc analysis or a change to the planned analysis. 
+To comply with regulatory electronic submission guidelines , listings of all clinical data will 
+be submitted as electronic data sets. To facilitate data review for the study report, only 
+pertinent data listings will be created and attached to the appendix of the CSR. 
+
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 10 of 29 Study Day will be calculated as Date – First Dose Date + 1 for dates on or after the first dose 
+date. For dates prior to the first dose date, Study Day will be calculated as Date – First Dose  
+Date . For all calculations of Study Day, the First Dose Date will be the earliest date of 
+treatment administration for brentuximab vedotin or any component of multiagent 
+chemotherapy (CHOP or CHP).  
+Other time variables based on 2 dates, e.g., Start Date and End Date, will be calculated as 
+(End Date – Start Date + 1) (in days) unless otherwise specified in the planned analysis 
+section.  
+The following unit conversion will be implemented unless otherwise specified: 
+Months = Days/ 30.4375 
+Years =Days/ 365.25 
+Baseline values used in all analyses will be the most recent measurement prior to the first 
+dose of study drug (brentuximab vedotin or any component of multiagent chemotherapy (CHOP or CHP) . 
+The end-of- treatment (EOT) date will be the  date the EOT visit is performed, or 30 days after 
+the last dose of study drug (other than prednisone) if an EOT visit is not performed. 
+The date of progression will be the earliest of all radiologic scan dates for the given disease 
+assessment, unless otherwise specified by the IRF Charter.  
+The date of progression per Investigator will be the earliest of all radiological scan dates or date of biopsy confirming malignancy for the given disease assessment.  
+6.5 Handling of Dropouts and Missing Data 
+Missing data w ill not be imputed , with the exception of AE dates (see Appendix A ). Patients 
+with missing values of a variable  other than the time- to-event endpoints (PFS a nd OS) will 
+be excluded from the analysis of that endpoint. Censoring rules will be applied to the 
+estimation of the distribution of the time -to-event endpoints (Section 7.5 ). 
+ 
+ 
+ 
+ 
+  
+ 
+
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 11 of 29  
+ 
+ 
+6.7 Multi
+center Studies 
+There are multiple centers in this study, however it is not anticipated that any center will 
+accrue enough patients to warrant an analysis by center.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+6.9 Examination of Subgroups  
+As exploratory analyses, subgroup analyses may be conducted for selected endpoints (s ee 
+Section 7 ). Subgroups may include but are not limited to the following: 
+● Age (18–64 years, ≥65 years old) 
+● Age (<60 years, ≥60 years old) 
+● Gender (Male, Female)  
+● Race 
+● Geographic region 
+● Categorized weight at baseline (<70, 70 –<100, and 100+ kg) 
+● Prior cutaneous ALCL (yes, no) 
+● Baseline Eastern Cooperative Oncology Group (ECOG) performance status (0, 1, or 2) 
+● Disease indication  (histologic subtype)  
+● Anaplastic lymphoma kinase (ALK) status (positive, negative) in sALCL patients 
+● Disease stage (Stage I, Stage II, Stage III, Stage IV)  
+● International prognostic index (IPI) Score (0, 1, 2, 3, 4, 5); 
+
+
+S t udy  SGN 35- 01 4  S t a t i s t i c a l  An a l y s i s  P l a n V e r s i on  5 ; 1 5  M a y  20 1 8  
+Br e n t u x im a b  v e do t i n  S e a t t l e  G e n e t i c s ,  I n c .  -  C o n f i d e n t i a l   P a g e  1 2 o f  2 9  ○ Fo r  a l l  p a t i e n t s  
+○ F o r ALK+  sALCL  p a t i en t s 
+○ F o r  ALK-  sALCL  p a t i en t s  
+●  
+  
+  
+  
+  
+  
+● M a l ig n an t  c u t an eo u s  l e s io n s  a t  b a s e l in e  (y e s ,  n o ) 
+● B o n e  m a r row  in v o lv em en t  a t  b a s e l i n e  (y e s ,  n o )  
+● P a t i en t s  w i t h  c en t r a l p a t h o lo g y - co n f i rm ed  h i s to l o g i c  su b ty p e  
+● P a t i en t s  w i t h  c en t r a l p a t h o lo g y - co n f i rm ed  CD 3 0  ex p r e s s io n  
+● P a t i en t s  w i t h  an d  w i th o u t  co n so l id a t iv e  au to lo g o u s  o r  a l lo g en e i c  SCT  
+● C y c l e s  o f  s t u d y  t r e a tm en t  r e c e iv ed  (≤6  cy c l e s ,  > 6  cy c l e s )  
+ 
+6 .10 Cova r ia tes 
+T h i s  i s  a  p h a s e  3  s tu d y.  S t r a t i f i ed  an a l y s e s  sp e c i f i e d  in  S e c t io n  7  w i l l  in c lu d e  ad ju s tm en t  f o r  
+th e  s t r a t i f i c a t io n  f a c to r s  a s  r e co rd ed  a t  r an d om i z a t io n .  C o v a r i a t e s  m ay  b e  co n s id e r ed  f o r  ad ju s tm en t  i n  ex p lo r a to r y  r eg r e s s io n  an a ly s e s .  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+  
+ 
+  
+ 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 13 of 29  
+ 
+7 PLANNED ANAL
+YSES 
+7.1 Disposition 
+Patient enrollment and disposition will be summarized by treatment group and total using the 
+ITT analysis set . The table will present the number and percentage of patients who were 
+randomized, received study drug, received treatment per randomization assignment, and 
+participated in follow -up visits. The number and percentage of patients who discontinued 
+treatment will be summarized by the reason for treatment discontinuation. The number and percentage of patients who discontinued the study will be summarized by the primary re ason 
+for study discontinuation. 
+Number of patients who signed informed consent and number of patients in each analysis set 
+will be summarized by treatment group and total. 
+The number of patients enrolled in each country and at each site will be summarized by treatment group and total. 
+7.2 Demographic and Baseline Characteristics 
+Demographics and baseline characteristics, including age, gender, ethnicity, race, baseline 
+height, weight, body mass index, and ECOG score will be summarized by treatment group and total using the ITT analysis set. Disease- specific characteristics, including time from 
+diagnosis, ALK status, and IPI score will be summarized by treatment group and total using the ITT analysis set . Demographics, baseline characteristics and disease -specific 
+characteristics will also be summarized by treatment group within the subgroup of patients receiving ≤6 cycles of study treatment and the subgroup of patients receiving >6 cycles of study treatment. Previous cancer -related treatments for prima ry cutaneous ALCL patients 
+who transformed to sALCL will be summarized by treatment group and total. A comparison of the stratification factors as recorded at randomization and as recorded in the CRF at baseline will be presented.  
+7.3 Protocol Deviations 
+Important protocol deviations (defined as protocol violations by Seattle Genetics) are those that represent a divergence from the protocol that could have a significant effect on the integrity of the study data, or on the subject’s rights, safety, or welfare. Important protocol deviations also include exemptions to the study inclusion/exclusion criteria and will be summarized by category by treatment group and total. A list of patients with important 
+protocol deviations will be presented.  
+7.4 Treatment Administration 
+Treatment administration will be summarized by treatment agent, treatment group and total using the safety analysis set . Summary statistics for duration of therapy (weeks) and the number of 
+
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 14 of 29 cycles per patient will be presented, as well as the number and percentage of patients who were 
+treated at each cycle and completed each cycle. Cumulative dose (mg), intended dose intensity 
+(IDI), absolute dose intensity (ADI) and relative dose intensity (RDI) will be described . The 
+number and percentage of patients whose dose was ever modified will be summarized by modification type, cycle and overall (i.e. overall drug administrations for a patient).  
+Duration of treatment for IV -administered treatments is defined as time from the first study 
+dose to 21 days after the last study dose [( last dose date +21 ) – first dose date]. If death 
+occurs less than 21 days after the last study dose, duration of treatment is defined as [date of death – first dose date +1].  
+Duration of treatment for prednisone is defined as the time from first study dose to 21 days after the Day 1 dose date of the last cycle [(last cycle Day 1 date +21) – first dose date] . If 
+death occurs less than 21 days after the Day 1 dose date of the last cycle, duration of treatment for prednisone is defined as [date o f death – first dose date +1].  
+IDI is defined as is the intended dose of drug (e.g. mg/kg) per unit of time. For example, for brentuximab vedotin this is (1.8 mg/kg)/3 weeks=0.6. For vincristine only, IDI is defined  as 
+2 mg per 3 weeks=0.667 mg per week. For prednisone, IDI is defined as 500 mg/3 weeks=166.67 mg/week . 
+ADI is defined as the actual dose (e.g. mg/kg) per unit of time that the patient received over the entire treatment period . For vincristine and prednisone , ADI is defined as the total actual 
+dose in mg per unit of time that the patient received over the entire treatment period. 
+RDI is defined as the percent of the intended dose intensity over the entire treatment period: 
+RDI= ADI/IDI * 100  
+Example 1: 
+For brentuximab vedotin, consider a patient treated for three cycles. The second dose was 
+delayed for one week, and for the third cycle the infusion was not completed and the patient 
+received less than the full dose, as repr esented in the following table: 
+Visit  Intended Dose 
+Regimen (mg/kg)  Intended Dose 
+(mg)  Actual Dose 
+(mg)  Cycle Length  
+C1D1  1.8 38 38 3 weeks + 1 week delay  
+C2D1  1.8 38 38 3 weeks  
+C3D1  1.8 38 19 3 weeks  
+ 
+ADI (per week) : 
+ =(1.8 + 1.8 + (1.8*[19/38])) / (3 wks + 1 wk delay + 3 wks + 3 wks) mg/kg per week  =0.45 mg/kg per week 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 15 of 29 RDI:  
+ =0.45/0.6 * 100 
+ =75% 
+Example 2: 
+For vincristine, c onsider a patient  in the standard-of- care arm,  treated for 6 cycles. The 
+second dose was delayed for 1 week, and for the third cycle and beyond the dose was 
+reduced, as represented in the following table: 
+Visit Intended Dose  
+(mg)  Cycle Length  
+C1D1  2 3 weeks + 1 week delay  
+C2D1  2 3 weeks  
+C3D1  1 3 weeks  
+C4D1  1 3 weeks  
+C5D1  1 3 weeks  
+C6D1  1 3 weeks  
+ 
+ADI (per week) : 
+=(2 + 2 + 1 + 1 + 1 + 1) / (3 wks + 1 wk delay + 3 wks + 3 wks + 3 wks + 3 wks + 
+3 wks) mg per week  
+=0.421 mg per week 
+RDI:  
+=0.421/0.667 * 100  = 63% 
+Example 3: 
+For prednisone, consider a patient treated with CHOP or CHP for six cycles. The second 
+cycle was delayed for one week, and for the fourth  cycle and beyond the patient took only 4 
+of the 5 doses of prednisone, as repr esented in the following table: 
+Visit Intended Dose  
+(mg)  Cycle Length  
+C1D1  500 3 weeks + 1 week delay  
+C2D1  500 3 weeks  
+C3D1  500 3 weeks  
+C4D1  400 3 weeks  
+C5D1  400 3 weeks  
+C6D1  400 3 weeks  
+ 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 16 of 29 ADI (per week) : 
+=(500 + 500 + 500 + 400 + 400 + 400) / (3 wks + 1 wk delay + 3 wks + 3 wks + 3 wks + 
+3 wks + 3 wks) mg per week  
+=142 mg per week  
+RDI:  
+=142/166.67 * 100  
+= 85%   
+7.5 Efficacy Analyses  
+All efficacy analyses will be presented using the ITT  analysis set . All stratified analyses will 
+utilize the stratification factors as entered at the time of randomization . Analyses may also be 
+performed using the subgroups listed in Section 6.9. 
+7.5.1 Primary  Endpoint  
+7.5.1.1 Progression Free Survival  (PFS) per IRF  
+PFS is defined  as the time from the date of randomization to the date of first documentation 
+of PD, death due to any cause, or receipt of subsequent anticancer chemotherapy to treat residual or progressive disease, whichever occurs first . Note that receipt of post -treatment 
+consolidative radiotherapy, post-treatment chemotherapy for the purpose of mobilizing 
+peripheral blood stem cells, or consolidative autologous or allogeneic SCT will not be considered as disease progression or as having started new ant icancer therapy . Specifically,  
+PFS = The earliest of the dates of first documented PD, receipt of subsequent 
+anticancer chemotherapy to treat residual  or progressive disease or death – 
+Date of randomization + 1.  
+If PD is not documented, no subsequent anticancer chemotherapy to treat residual or progressive disease has been initiated , and the patient is alive at the time of the data cutoff or 
+study withdrawal,  PFS will be censored as follows:  
+● If there is no radiographic post- baseline tumor assessment, PFS will be censored at 
+the date of randomization. 
+● If there are radiographic post- baseline tumor assessments, PFS will be censored at the 
+most recent tumor assessment before the data cutoff or study withdrawal, whichever occurs first.  
+Specifically,  
+ Censored PFS = max(1, last scan date – date of randomization + 1), 
+where the last scan is the last CT or PET scan obtained during study.  
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 17 of 29 Full censoring rules for the primary endpoint a re detailed in the table below.  
+Situation  Date of Progression or Censoring  Outcome  
+No baseline and/or post baseline tumor 
+assessment  Day following date of randomization  Censored  
+No documented progression  Date of last radiographic tumor assessment (or  
+the date of randomization  in the absence of a 
+post-baseline radiographic tumor assessment)  Censored  
+PD documented between scheduled 
+visits  Date of radiologic  tumor assessment 
+demonstrating PD  Event  
+Treatment discontinuation for 
+undocumented progression after the last 
+radiograph ic tumor assessment  Date of last radiographic tumor assessment or  
+the date of randomization  in the absence of a 
+post-baseline radiographic tumor assessment  Censored  
+New anticancer therapy to treat residual  
+or progressive  disease initiated prior to 
+docum ented progression , including 
+palliative radiotherapy  (excludes post -
+treatment chemotherapy given for stem 
+cell mobilizations, excludes 
+consolidative autologous or allogeneic 
+SCT and excludes post -treatment 
+consolidative radiotherapy)  Start date of new ant icancer therapy  Event  
+Post-treatment  consolidative  
+radiotherapy, post -treatment 
+chemotherapy given for stem cell mobilizations, consolidative autologous 
+or allogeneic SCT  Date of last radiographic tumor assessment or 
+the date of randomization   in the absence of a 
+post-baseline radiographic tumor assessment  Censored  
+Death before first PD assessment  Date of death  Event  
+Death between radiographic tumor 
+assessment visits  Date of death  Event  
+Death or progression after more than one consecutively missed radiographic 
+tumor assessment  Date of last radiologic tumor assessment  prior 
+to missed visits or the date of randomization in 
+the absence of a post -baseline radiographic 
+tumor assessment prior to missed visits  Censored  
+ 
+The primary statistical hypothesis  can be expressed in terms of the hazard ratio 
+λExperimental arm/λStandard- of-Care arm  where λ Experimental arm  represents the hazard of progression on 
+the e xperimental arm (A+CHP  ) and λ Standard- of-Care arm   represents the hazard of progression on 
+the standard-of-c are arm (CHOP) . A hazard ratio <1 indicates that the duration of PFS is 
+prolonged for patients on the experimental arm compared with patients on the standard -of-
+care arm. 
+The null and alternative hypotheses can be written respectively as:  
+H0 = λExperimental arm /λStandard- of-Care arm  ≥1 
+HA = λExperimental arm /λStandard- of-Care arm  <1 
+Kaplan -Meier methods will be used to assess PFS . The stratified log -rank test without 
+adjustments for covariates will be used in the primary evaluation of PFS differences between 
+the experimental arm and the standard -of-care arm in the ITT analysis set using an overall 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 18 of 29 one-sided, α=0.025 level test. All events entered in the database at the time of analysis that 
+have been source- data-verified will be included in  the analysis of PFS,  
+ 
+Kaplan -Meier Curves depicting PFS in the 2 arms will be generated . Additionally, median 
+PFS and probability of PFS from 3 months to the end of the follow-up period will be reported at 3 month intervals . The two -sided 95% confidence intervals (CI) for the median and 
+3-month intervals will be calculated  using the complementary log-log transformation method 
+(Collett 1994 ). 
+The primary analysis of PFS may be performed for each of the subgroups specified in Section 6.9. An analysis may also be perf ormed on the subgroup of patients without 
+consolidative radiotherapy, consolidative autologous or allogeneic SCT. An analysis of PFS 
+per Investigator will also be performed  and an evaluation of the agreement between PFS per 
+IRF and PFS per Investigator will be provided. 
+Descriptive statistics of PFS will be presented for each individual histologic subtype where 
+possible. 
+Cox regression of PFS may be used to estimate the hazard ratio of the experimental arm to 
+the standard -of-care arm . Baseline covariates may be included in the model in addition to 
+centrally determined CD30 expression level as a continuous variable. The treatment group variable will always be included in the m odel. Interaction effects may be considered 
+whenever possible.  
+Sensitivity Analyses  
+Sensitivity analyses of PFS per IRF will be performed . Sensitivity analyses will include, but 
+will not be limited to, the following:  
+1. A stratified log -rank analysis using th e stratification factors as recorded in the CRF at 
+baseline  
+2. An analysis where patients receiving SCT or consolidative radiotherapy are censored  
+3. An analysis where patients receiving new anticancer therapy are censored rather than 
+considered to have had an event 
+4. An a nalysis assessing the impact of missing data/assessments where patients who missed 
+one or more of the most recent scheduled assessments are treated as events at the time of the next scheduled assessment on the experimental arm  
+5. An analysis where in itiation of consolidative  radiotherapy and undocumented 
+progression (e.g. progression identified by the Investigator on the basis of symptomatic deterioration) are considered events  
+6. An analysis where, for patients with a CR at EOT, initiation of consolida tive radiotherapy 
+or recei pt of SCT are considered events 
+
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 19 of 29 7. An analysis where patients  who discontinue treatment for undocumented progression 
+after the last radiographic tumor assessment are considered to have had an event at the 
+time of treatment discontin uation; and where patients who die or progress after more than 
+one consecutively missed radiographic tumor assessment  are considered to have had an 
+event on the date of death or progression 
+8. An analysis following EMA censoring guidelines where receipt of new anticancer 
+therapy is not considered an event nor a reason for censoring and where patients who die or progress after more than one consecutively missed radiographic tumor assessment  are 
+considered to have had an event on the date of death or progression   
+No p-values will be calculated and no formal adjustments for multiplicity will be made when 
+performing the above sensitivity analyses. 
+7.5.2 Secondary Efficacy Endpoints 
+7.5.2.1 PFS per IRF in Patients with sALCL  
+PFS per IRF in patients with sALCL is defined in the same manner as PFS per IRF (see 
+Section 7.5.1.1). For this endpoint, PFS per IRF will be analyzed in the subset of patients 
+with a central pathology confirmed diagnosis of sALCL. 
+7.5.2.2 Complete Remission Rate (CR rate)  
+CR rate is defined as the proportion of patients with CR per IRF following the completion of 
+study treatment (at EOT  or the first assessment after the last dose of study treatment and prior 
+to long- term follow -up) according to the Revised Response Criteria for Malignant 
+Lymphoma (Cheson 2007). Patients whose disease response cannot be assessed will be 
+scored as non -responders for calculating the CR rate.  
+The CR rate between the experimental arm and the standard -of-care arm will be tested using 
+the Cochran- Mantel -Haenszel  (CMH), stratified by the randomization stratification factors 
+(see Section 6.3). The absolute CR rate and exact two-sided 95% confidence interval using 
+the Clopper-Pearson method ( Clopper 1934) will also be summarized by treatment group. 
+7.5.2.3 O bjective Response Rate ( ORR rate)  
+ORR is defined as the proportion of patients with CR or partial remission (PR ) per IRF 
+following the completion of study treatment (at EOT  or the first assessment after the last 
+dose of study treatment and prior to long- term follow -up) according to the Revised Response 
+Criteria for Malignant Lymphoma (Cheson 2007). Patients whose disease response cannot be 
+assessed will be scored as non -responders for calculating the ORR. 
+The ORR between the experimental arm and the standard -of-care arm will be tested using the 
+Cochran- Mantel -Haenszel (CMH), stratified by the randomization stratification factors (see 
+Section 6.3 ). The absolute ORR and exact two-sided 95% confidence interval using the 
+Clopper-Pearson method ( Clopper 1934) will also be summarized by treatment group. 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 20 of 29 7.5.2.4 Overall Survival (OS)  
+OS is defined as the time from randomization to death due to any cause. Specifically,  
+ OS=Date of death – Date of randomization + 1 
+For a patient who is not known to have died by the end of study follow-up, observation of OS 
+is censored on the date the patient was last known to be alive (i.e., date of last contact). Patients lacking data beyond the day of randomization will have their survival time censored 
+on the date of randomization (i.e., OS duration of 1 day). 
+The stratified log -rank test without adjustments for covariates will be used in the evaluation 
+of OS differences between the experimental arm and the standard -of-care arm . OS will be 
+analyzed using Kaplan -Meier methodology and Kaplan-Meier plots will be provided by 
+treatment group . Additionally, median PFS and probability of PFS from 3 months to the end 
+of the follow-up period will be reported at 3-month intervals by treatment group. The 
+two-sided 95% confidence intervals (CI) for the median and 3- month intervals will be 
+calculated  using the complementary log -log transformation method ( Colle tt 1994). 
+7.6 Safety Analyses  
+The safety analysis set will be used to summarize all safety endpoints.  
+Adverse events will be coded using Medical Dictionary for Regulatory Activities (MedDRA, 
+Version 15.1 or higher). 
+Laboratory values will be graded  according to the National Cancer Institute (NCI) Common 
+Terminology Criteria for Adverse Events (CTCAE version 4.03 or higher). 
+Concomitant medications will be coded using WHO Drug (version: June 2012 or more 
+recent).  
+7.6.1 Adverse Events 
+Adverse events (AEs) will be summarized by descending MedDRA preferred term  unless 
+otherwise specified . For incidence reporting, if a patient reports more than one AE that was 
+coded to the same system organ class or preferred term, the patient will be counted only once for that specific system organ class or preferred term.  
+A treatment -emergent AE is defined as a newly occurring or worsening AE after the first 
+dose of any study drug component. Unless documented as a pre- existing condition, AE s with 
+unknown start date will be counted as treatment emergent . Summary of AEs will be provided 
+by treatment group and total for the following: 
+● Pre-existing Adverse Events,  
+● All treatment- emergent AEs,  
+● AEs related to blinded study treatment, 
+● AEs related to CHP,  
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 21 of 29 ● Serious Adverse Events (SAEs),  
+● SAEs related to blinded study treatment,  
+● SAEs related to CHP,  
+● AEs leading to dose reduction of blinded study treatment, 
+● AEs leading to dose reduction of cyclophosphamide or doxorubicin, 
+● AEs leading to dose delay of blinded study treatment, 
+● AEs leading to dose delay of cyclophosphamide or doxorubicin, 
+● AEs leading to dose interruption of blinded study treatment (full dose received), 
+● AEs leading to dose interruption of cyclophosphamide or doxorubicin (full dose 
+received),  
+● AEs leading to the dose of blinded study treatment being stopped early (full dose not received),  
+● AEs leading to the dose of cyclophosphamide or doxorubicin being stopped early (full dose not received),  
+● AEs leading to discontinuation of blinded study treatment, 
+● AEs leading to discontinuation of cyclophosphamide, doxorubicin, or prednisone 
+● Treatment -emergent AEs by system organ class, preferred term and maximum 
+severity . At each system organ class or preferred term, multiple occurrences of events 
+within a patient are counted only once at the highest severity,  
+● Grade 3 - 5 treatment -emergent AEs,  
+● Treatment -emergent AEs by system organ class and preferred term,  
+● AEs of peripheral neuropathy identified by the broad search MedDRA SMQ “Peripheral neuropathy”  
+Additional analyses of peripheral neuropathy may also be presented.  
+7.6.2 Clinical Laboratory Parameters 
+Clinical laboratory data (hematology, serum chemistry and coagulation panel) will be summarized by treatment group . All laboratory results through the end of treatment visit will 
+be presented in standar dized units by treatment group. Both observed data and changes from 
+baseline for chemistry and hematology will be summarized with descriptive statistics . In 
+addition, laboratory data will be summarized by the worst post- baseline NCI CTCAE grade 
+for each pa rameter.  
+Laboratory results and NCI CTCAE grades for hematology, and serum chemistry will be presented in data listings . Normal ranges will be documented and out-of-range values will be 
+flagged. 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 22 of 29 7.6.3 ECOG Performance Status 
+ECOG status will be summarized for each visit by treatment group. Shifts from baseline to 
+the best and worst post- baseline score will be tabulated by treatment group.  
+7.6.4 Concomitant Medications 
+Concomitant medications will be summarized by the WHO Drug substance name by 
+treatment group and total and listed by patient. 
+7.6.5 Deaths  
+The total number of deaths, deaths that occur within 30 days of last study treatment, deaths 
+that occur more than 30 days after last study treatment , primary cause of death and 
+relationship to disease  will be summarized by treatment group and total. 
+7.7 Additional Endpoints 
+The ITT analysis set will be used to summarize all additional endpoints. 
+7.7.1 Antitherapeutic Antibody (ATA) Incidence Rate 
+The ATA incidence rate is defined  as the proportion of patients that develop ATA at any time 
+during the study. ATA incidence will be summarized by treatment group. 
+7.7.2 Medical Resource Utilization (MRU)  
+Medical resource utilization data include medical care encounters (e.g., hospital admissions 
+or major diagnostic procedures) related to study treatment or treatment for lymphoma. 
+Medical resource utilization (MRU) data will be summarized using descriptive statistics by 
+treatment group . Additional statistical modeling may be performed separately in post hoc 
+analyses.  
+7.7.3 Quality of Life (QoL)  
+Quality of life is measured using the QLQ -C30, FACT/GOG- NTX, and EQ- 5D scores 
+patient -repor ted outcome (PRO) instruments.  
+The FACT/GOG-NTX assesses changes in quality of life, and includes an additional concerns subscale for assessing treatment -induced neurologic symptoms (sensory, hearing, 
+motor, dysfunction). The neurotoxicity subscale of this tool consists of 11 questions. The FACT/GOG -NTX manual for scoring and handling missing data will be used for scoring and 
+handling of missing data. 
+The QLQ -C30 consists of 5 subscales on functioning (physical, role cognitive, emotional, 
+social), 3 symptom scales (fatigue, pain, nausea/vomiting), and a global quality of life scale 
+as well as questions on symptoms and the financial impact of cancer and treatment. The EORTC QLC-C30 manual will be used for scoring and handling of missing data. 
+PRO instrument total and subscale scores will be summarized with descriptive statistics by 
+treatment group and visit. In addition, change from baseline will be tabulated by treatment 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 23 of 29 group and visit. Descriptive summaries of individual items may also be presented . Additional 
+statistical modeling may b e performed separately in post hoc analyses. 
+7.7.4 Pharmacokinetics 
+Antibody drug-conjugate (brentuximab vedotin), total antibody, and unconjugated drug 
+(MMAE) levels in serum or plasma will be summarized with descriptive statistics at each PK sampling time point. Any additional PK and PK/PD analyses may be performed and presented in a separate report.  
+7.7.5 Biomarkers 
+Exploratory correlative studies will be defined in a separate analysis plan and reported in a separate report.  
+7.8 Exploratory Analyse s 
+The following explor atory analyses may also be presented using the ITT analysis set.  
+● Duration of response per IRF 
+● Duration of response per Investigator 
+● PFS per Investigator  
+● CR rate  at EOT  per Investigator 
+● ORR at EOT per Investigator 
+● Clinical response at EOT per IRF  
+● Clinical response at EOT per Investigator  
+● Evaluation of agreement between IRF and Investigator for clinical response, CR and ORR at EOT 
+● Change from baseline to EOT of the sum of the products of diameters of nodes or 
+nodal masses (SPD)  
+● Maximum SPD reduction  at EOT  
+● Failure -free survival  
+● B-symptom resolution  
+● Cutaneous lesion resolution 
+● Proportion of patients PET negative per IRF at Cycle 4  
+● Proportion of patients PET negative per IRF at EOT  
+● Proportion of patients PET negative per Investigator at Cycle 4  
+● Proportion of patients PET negative per Investigator at EOT  
+● Onset , resolution and characterization of neuropathy based on the Total Neuropathy 
+Score -nurse assessment  
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 24 of 29 ● Summary Deauville Scale PET assessments per IRF  at Cycle 4  
+● Summary of PET Standard Uptake Values (SUV)  per IRF at Baseline, Cycle 4 and 
+EOT  and change in maximum  SUV from Baseline 
+8 INTERIM ANALYSIS  
+An Independent Data Monitoring Committee (IDMC) will periodically monitor the trial for 
+safety . After each periodic safety review, the IDMC will make a recommendation to the 
+sponsor to continue the study as planned or stop the study for safety concerns. The IDMC will review expedited SAEs as they arise
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+In addition, an ongoing, real -time review of serious adverse events will be conducted by 
+Seattle Genetics Pharmacovigilance.  
+9 CHANGES FROM PLANNED ANALYSES  
+9.1 Changes from the Original Protocol  
+There are no chan ges from the current version of the protocol. 
+9.2 Changes from the Original SAP  
+Changes from the original Statistical Analysis Plan are as follows : 
+9.2.1 Version 2 Changes  
+●  
+●  
+9.2.2 Version 
+3 Changes  
+● Elevated ORR per IRF from Exploratory analysis to Secondary Objective/Secondary Endpoint  
+● ORR per IRF removed from Exploratory Analyses 
+● Clarified type of radiotherapy in PFS censoring rules  and Exploratory Analyses 
+
+
+S t udy  SGN 35- 01 4  S t a t i s t i c a l  An a l y s i s  P l a n V e r s i on  5 ; 1 5  M a y  20 1 8  
+Br e n t u x im a b  v e do t i n  S e a t t l e  G e n e t i c s ,  I n c .  -  C o n f i d e n t i a l   P a g e  2 5 o f  2 9  ● A d d ed  E x p lo r a to ry  A n a l y s e s  to  summ a r i z e  ad d i t io n a l  a s s e s sm en t  o f  PET  s c an s  b y  th e  
+IRF  (D e au v i l l e  S c a l e  an d  SUV )  
+● S p e c i f i ed an  ad d i t io n a l  s en s i t iv i ty  an a ly s i s  f o r  th e  p r im a ry  en d p o in t  
+9 .2 .3 Ve rs ion  4 Changes 
+● D e f in i t io n  o f  C o n so l id a t iv e  SCT  ad d ed  to  s tu d y  d e s ig n  f o r  c l a r i f i c a t io n  
+●  
+● U p d a t ed  d e f in i t io n  o f  AE  im p u t a t io n  ru l e s  to  m a t ch  th e  cu r r en t  S e a t t l e  G en e t i c s  s t an d a rd s  
+● S p e c i f i ed  u s e  o f  CRF  ag e  w h en  av a i l ab l e  d u e  to  c h an g e s  in  ab i l i ty  to  co l l e c t  f u l l  b i r th  d a t e  in  a l l  c o u n t r i e s  
+● D e f in i t io n  f o r  th e  da t e  o f  p ro g r e s s io n  p e r  in v e s t i g a to r  h a s  b e en  ad d ed  f o r  c l a r i f i c a t io n   
+● P o o l in g  s t r a t eg y  f o r  s t r a t i f ied  an a ly s e s  c l a r i f i ed  to  ad d r e s s  s c e n a r io  w h e r e  n o  f u r th e r  p o o l in g  c an  b e  d o n e  
+●  
+● PFS  c en so r i n g  d a t e s   h a v e  b e en  u p d a t ed  f rom  s tu d y  d ay  1  o r  f i r s t  d os e  d a t e   to  th e  d a t e  o f  r an d om i z a t io n  f o r  co n s i s t en c y  
+● P o s t- t r e a tm en t  r ad io th e r a p y  th a t  t r ig g e r s  PFS  c en s o r in g  in  th e  ab s en c e  o f  p ro g r e s s io n  in  th e  PFS  c en so r in g  t ab l e  c l a r i f i ed  a s  co n so l id a t i v e  f o r  co n s i s t en cy  
+● S t a t em en t  r e g a rd in g  d e s c r ip t iv e  s t a t i s t i c s  o f  PFS  fo r  e a ch  su b t y p e  w a s  ad d ed  p e r  r eq u e s t  f rom  CDRH  
+● PFS  s en s i t iv i ty  an a ly s i s  f o l low in g  EMA  c en so r i n g  g u id e l in e s  ad d ed  to  s u p p o r t  su bm i s s io n  to  EMA  
+● C l a r i f i c a t io n  th a t  n o  p- v a lu e s  w i l l  b e  c a l cu l a t ed  f o r  PFS  s en s i t iv i ty  an a ly s e s   
+● D e f in i t io n  o f  th e  com p l e t io n o f  s tu d y  t r e a tm en t  h a s  b e en  c l a r i f i ed  f o r  an a l y s i s  o f  CR  an d  ORR  r a t e s  
+● A p p ro x im a t e ly  ad d ed  to  t im in g  o f  f u t i l i ty  an a ly s i s  f o r  c l a r i f i c a t io n 
+9 .2 .4 Ve rs ion  5  Changes 
+•  
+•  C l a r i f i ed  th a t  n ew  an t i c a n c e r  th e r ap y  f o r  p ro g r e s s iv e  d i s e a s e  w i l l  a l so  b e  co n s id e r ed  a  
+PFS  ev en t . 
+ 
+ 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 26 of 29 10 REFERENCES  
+Cheson BD, Pfistner B, Juweid ME, Gascoyne RD, Specht L, Horning SJ, Coiffier B, Fisher RI, Hagenbeek A, 
+Zucca E, Rosen ST, Stroobants S, Lister TA, Hoppe RT, Dreyling M, Tobinai K, Vose JM, Connors JM, 
+Federico M and Diehl V (2007). Revised response criteria for malignant lymphoma. J Clin Oncol 25: 579- 86. 
+Clopper CJ and Pearson ES (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika 26: 404 -413. 
+Collett D (1994). Interval- censored survival data. Modelling survival data in medical research. B oca Raton, 
+Fla., Chapman & Hall/CRC: 237 -251. 
+Westfall PH and Krishen A (2001). Optimally weighted, fixed sequence and gatekeeper multiple testing procedures. Journal of Statistical Planning and Inference 99: 25 -40. 
+ 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 27 of 29 APPENDIX A: IMPUTATION OF PARTIA LLY UNKNOWN ADVERSE EVEN T 
+DATES  
+The algorithm below should be used to impute pre- existing condition and adverse event (AE) 
+start dates for which only partial information is known. For ease of reading, both pre-existing 
+conditions and AEs will be referred to as AE for the remainder of this document. The algorithm should be applied to every AE record on a record by record basis. AE start dates should be imputed before imputation of AE condition end date in all cases. The AE condition end date should only be used in the imputation of the AE start date if it a full known date.  
+● AE day and month are missing: 
+○ If the year is the same as the year of first dose of investigational agent and the onset period and/or onset time indicate that the start of the AE was pre -dose:  
+● AE start date will be imputed as the minimum of (AE condition end date*, day prior to first dose of investigational agent) 
+○ If the year is the same as the year of first dose of investigational agent and the onset period and/or onset time indicate that the s tart of the AE was post -dose: 
+● AE start date will be imputed as the minimum of (AE condition end date*, first dose date of investigational agent) 
+○ If the year is before the year of first dose of investigational agent:  
+● AE start date will be imputed as the min imum of (AE condition end date*, December 
+31st see example 2 below)  
+○ If the year is after the year of first dose of investigational agent:  
+● AE start date will be imputed as the minimum of (AE condition end date*, January 31st see example 2 below)  
+● AE month only is missing: 
+○ Treat day as missing and replace both month and day according to the above procedure 
+● AE day only is missing: 
+○ If the month/year is the same as the month/year of first dose of investigational agent and the onset period and/or onset time indica te that the start of the AE was 
+pre-dose: 
+● AE start date will be imputed as the minimum of (AE condition end date*, day prior to first dose of investigational agent) 
+○ If the month/year is the same as the month/year of first dose of investigational agent and the onset period and/or onset time indicate that the start of the AE was 
+post-dose: 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 28 of 29 ● AE start date will be imputed as the minimum of (AE condition end date*, first dose 
+date of investigational agent) 
+○ If the month/year is before the month/year of first dose of investigational agent:  
+● AE start date will be imputed as the minimum of (AE condition end date*, last day of the month) 
+○ If the month/year is after the month/year of first dose of investigational agent:  
+● AE start date will be imputed as the minimum of (AE condition end date*, last day of 
+the month) 
+*only use condition end date if known and full end date is available. 
+The following algorithm should be used to impute AE condition end dates. The AE records 
+for a condition/event should be sorted by the imputed start dates then record position (order of entry into the eCRF). After sorting , if any condition end date month/year is greater than 
+any subsequent record end date month/year, then change the imputed start day only to end of month. Repeat as necessary.  
+For all records excluding the last chronological record for a condition/event: 
+● AE condition end date will be imputed as the start date of the subsequent record 
+For the last chronological record for a condition/event: 
+● If ou tcome is “recovered/resolved”, “recovered/resolved with sequelae”, or “fatal” 
+apply the following:  
+○ If only year is provided for the end date and year is equal to the year of the last dose date: 
+■ AE condition end date will be imputed as the minimum of (last dose date + 30, death date, dat a extraction date, December 31st of the end date year ) 
+○ If only year is provided for the end date and year is not equal to the year of the last dose date: 
+■ AE condition end date will be imputed as the minimum of (death date, data extraction date, December 31
+st of the end date year) 
+○ If month and year are provided for the end date: 
+■ AE condition end date will be imputed as the minimum of (death date, data extraction date, last day of the end date month/year) 
+● If outcome is “recovering/resolving”, “not recovered/resolved”,  “unknown”, or blank: 
+○ AE condition end date will not be imputed. 
+
+Study SGN35 -014  Statistical Analysis Plan  Version 5;  15 May 2018 
+Brentuximab vedotin  Seattle Genetics, Inc. - Confidential  Page 29 of 29 Example 1 
+AESPID 1: Condition/Event HEADACHE  
+First dose date 01JAN2012 
+Prior to imputation  
+Start date  Condition end date  Severity  Outcome  Onset  
+UNUNK2011  15APR2012  1 not recovered/resolved  pre-ICF 
+15APR2012  UNMAY2012  2 recovering/resolving  post 1 st dose 
+UNMAY2012  UNJUN2012  1 not recovered/resolved  post 1 st dose 
+UNJUN2012  UNJUN2012  3 recovering/resolving  post 1 st dose 
+UNJUN2012  10JUL2012  2 recovering/resolving  post 1 st dose 
+10JUL2012  -- 1 not recovered/resolved  post 1 st dose 
+Post imputation  
+Start date  Condition end date  Severity  Outcome  
+31DEC2011  15APR2012  1 not recovered/resolved  
+15APR2012  31MAY2012  2 recovering/resolving  
+31MAY2012  30JUN2012  1 not recovered/resolved  
+30JUN2012  30JUN2012  3 recovering/resolving  
+30JUN2012  10JUL2012  2 recovering/resolving  
+10JUL2012  -- 1 not recovered/resolved  
+Example 2 (highlights choice of last day of the month as opposed to the 1st or the 15th) 
+AESPID 4 : Condition/Event NAUSEA  
+First dose date 01APR2012 
+Prior to imputation  
+Start date  Condition end date  Severity  Outcome  Onset  
+UNUNK2011  25APR2012  1 not recovered/resolved  pre-ICF 
+25APR2012  UNAPR2012  2 recovering/resolving  post 1 st dose 
+UNAPR2012  04MAY2012  1 recovered/resolved  post 1 st dose 
+Post imputation  
+Start date  Condition end date  Severity  Outcome  
+31DEC2011  25APR2012  1 not recovered/resolved  
+25APR2012  31APR2012  2 recovering/resolving  
+31APR2012  04MAY2012  1 recovered/resolved  
+ 

@@ -1,0 +1,1502 @@
+Cover Page 1 
+Xeris Pharmaceuticals, Inc.  
+Confidential and Proprietary  Statistical Analysis Plan  for: 
+Study No. XSGP-304 
+Title: G-Pen (glucagon injection) compared to Glucagen® HypoKit® (glucagon) for induced 
+hypoglycemia rescue in adults with T1D : a Phase 3 multi-center, randomized, controlled, single 
+blind, 2- way crossover study to evaluate efficacy and safety 
+NCT03738865 
+Document Date: 4 April 2019 
+
+ 
+Protocol Number: XSGP -304 
+ 
+ 
+ 
+ 
+STATISTICAL ANALYSIS PLAN  
+ 
+Prepared for:  
+Xeris Pharmaceutical s 
+ 
+Version 1.0 
+Date: 04 April 2019 
+ 
+ Study Biostati stician  
+EmpiriStat, Inc.   ___________________________________ Date: __________ 
+  Medical  
+Xeris P harmaceuticals  ___________________________________ Date: __________ 
+ Clinical  
+Xeris Pharmaceuticals  ___________________________________ Date: __________ 
+ Regulatory Xeris Pharmaceuticals  ___________________________________ Date: __________ 
+ Biostatistics  
+Xeris Pharm aceuticals  ___________________________________ Date: __________ 
+    
+  
+G-PEN ( GLUCAGON INJECTION) COMPARED TO GLUCAGEN® HYPOKI T® 
+(GLUCAGON) FOR INDUCED HYPOGLYCEMIA RESCUE IN ADULTS WITH T1D: 
+A PHASE 3 MULTI -CENTER, RANDOMIZED, CONTROLLED, SINGLE BLIND, 2 -
+WAY CROSSOVER STUD Y TO EVALUATE EFFICACY AND SAFETY  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 2 of 34 
+  
+TABLE OF CONTENTS  PAGE  
+ 
+TABLE OF CONTENTS  ......................................................................................................... 2 
+1 LIST OF  ABBREVIATIONS  ................................................................................. 4 
+2 INTRODUCTION  ................................................................................................... 5 
+3 STUDY OBJECTIVES AND ENDPOINTS  .......................................................... 5 
+3.1 Primary Objective .................................................................................................... 5 
+3.2 Secondary Objectives  .............................................................................................. 5 
+3.3 Endpoints ................................................................................................................. 5 
+3.3.1  Primary Endpoint .................................................................................................... 5 
+3.3.2  Secondary Endpoints ............................................................................................... 5 
+4 STUDY DESIGN  .................................................................................................... 6 
+4.1 General Design  ........................................................................................................ 6 
+4.2 Sample Size Determination  ..................................................................................... 8 
+4.3 Randomization......................................................................................................... 8 
+4.4 Unblinding ............................................................................................................... 8 
+4.5 Changes in the Conduct of the Study ...................................................................... 9 
+5 STATISTICAL AND ANALYTICAL PR OCEDURE S ........................................ 9 
+5.1 Analysis Populations and Treatment Groups .......................................................... 9 
+5.1.1  Intent- to-Treat Population (ITT) ............................................................................. 9 
+5.1.2  Modified Intent -to-Treat Population (mITT) .......................................................... 9 
+5.1.3  Per-Protocol Population (PP) .................................................................................. 9 
+5.1.4  Safety Population .................................................................................................... 9 
+5.1.5  Treatment groups  ..................................................................................................... 9 
+5.2 Reference Dates, Analysis Periods, Analysis Visits, and Baseli ne ....................... 10 
+5.3 Analysis Variables  ................................................................................................. 14 
+5.3.1  Subject’s Disposition and Analysis Sets ............................................................... 14 
+5.3.2  Demographics and Baseline Characteristics  ......................................................... 14 
+5.3.3  Medical  History  ..................................................................................................... 14 
+5.3.4  Pregnancy and Childbearing Potential .................................................................. 15 
+5.3.5  Prior and Concomitant Medications ...................................................................... 15 
+5.3.6  Efficacy Variables  ................................................................................................. 16 
+5.3.6.1  Primary  Endpoint .................................................................................................. 16 
+5.3.6.2  Secondary Endpoints ............................................................................................. 16 
+5.3.6.3  Safety  Variables  .................................................................................................... 19 
+6 STATISTICAL  METHODS  ................................................................................. 22 
+6.1 General Considerations ......................................................................................... 22 
+6.1.1  General guideline for descriptive summaries  ........................................................ 22 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 3 of 34 
+ 6.2 Euglycemic Baseline  ............................................................................................. 23 
+6.3 Hypoglycemic Baseline  ......................................................................................... 23 
+6.4 General guideline for define the protocol time ..................................................... 23 
+6.5 Analysis of Primary Endpoints ............................................................................. 24 
+6.6 Secondary  Endpoints ............................................................................................. 24 
+6.6.1  Binary  Responses .................................................................................................. 24 
+6.6.2  Pharmacodynamics Analyses  ................................................................................ 24 
+6.6.3  Neuroglycopenic, Autonomic, and Total Symptom scores  ................................... 25 
+6.6.4  Time -to-Event Analyses  ........................................................................................ 25 
+6.6.5  Study Drug Assignment Questionnaire  ................................................................. 25 
+6.7 Subgroup Analysis  ................................................................................................ 25 
+6.8 Interim Analysis  .................................................................................................... 26 
+7 DATA HANDLING CONVENTIONS  ................................................................ 26 
+7.1 Missing Data .......................................................................................................... 26 
+7.2 Repeated and Unscheduled Visits ......................................................................... 26 
+7.3 Conversion of Plasma Glucose Values  ................................................................. 26 
+8 PLANNED LISTINGS, TABLES AND FIGURES  ............................................. 26 
+9 SOFTWARE REQUIREMENT S.......................................................................... 26 
+10 DEVIATIONS FROM PLANNED ANALYSIS  .................................................. 26 
+APPENDIX 1: LIST OF TABLES, LISTINGS AND FIGURES  ......................................... 27 
+APPENDIX 2: CODE FRAGMENTS ................................................................................... 34 
+Risk difference test for binary response................................................................................. 34 
+Mixed model .......................................................................................................................... 34 
+Time -to-Even t ........................................................................................................................ 34 
+Study Drug Assignment ......................................................................................................... 34 
+ 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 4 of 34 
+  
+1 LIST OF ABBREVIATIONS  
+Abbreviation or special 
+term  Explanation 
+AE Adverse Event  
+ALT  Alanine Aminotransferase  
+AST  Aspartate Aminotransferase  
+AUC  Area Under th e Cur ve 
+BP Blood Pressure  
+Cmax Maximum Plasma Concentration  
+ECG  Electrocardiogram  
+GCP Good Cli nical Practice  
+CRO  Contract Research Organization  
+HbA1c  Glycated hemoglobin  
+HBV  Hepatitis B virus  
+HCV  Hepatitis C virus  
+HIV Human immunodeficiency virus  
+HR Heart Rate  
+ICF Informed Consent Form  
+IB Investigator’s Brochure  
+MedDRA  Medical D ictionary f or Regulatory Activities  
+QTN  Quartesian LLC  
+PD Pharmacodynamics  
+PGR  Positive Glucose Response  
+SAE  Serious Adverse Event  
+Tmax  Time to Maximum Plasma Conce ntration 
+T1D Type 1 Diabetes Mellitus  
+VAS Visual Analog  Scale  
+WHO  World Health  Organization  
+ 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 5 of 34 
+  
+2 INTRODUCTION 
+This documentation describes the plann ed data analyses for clinical trial XSGP -304 
+sponsored by Xeris Pharma ceuti cals, Inc.  
+This SAP supersedes the statistical considerations identified in the protocol; w here 
+considerations are substantially different  these differences will be identified. If additional 
+analyses are required to supplement objectives described in the S AP, they may be performed 
+and will be identified in the Clinical Study Report (C SR). 
+3 STUDY OBJECTIVES AND ENDPOINTS  
+3.1 Primary Objective  
+The primary objective of this study is to demonstrate that G -Pen 1 mg (test) is not inferior to 
+GlucaGen Hypokit 1 mg (reference), in Type 1 diabetic (T1D) subjects in a state of insulin -
+induced hypogly cemia . 
+3.2 Secondary Objective 
+The secondary objective of this study is to evaluate the safety and tolerability of G-Pen 1 mg 
+versus GlucaGen Hypokit 1 mg in the study population. 
+3.3 Endpoints  
+3.3.1 Primary Endpoint  
+For the primary endpoint, groups will be compared f or rates of achieving a positive plasma 
+glucose response  (PGR), defined as either a plasma glucose concentration > 70 mg/dL (> 
+3.88 mmol/L) or an increase in plasma glucose concentration > 20 mg/dL ( > 1.11 mmol/L), 
+within  30 minutes of study drug injection. 
+3.3.2 Secondary Endpoints  
+For the secondary endpoints, treatment groups will be compared based on each of the 
+following:  
+1. Rate of achieving a plasma glucose concentration > 70 m g/dL (>  3.88 mmol/L) within 
+30 minutes from injection of study drug.  
+2. Rate of achieving an increase in plasma glucose concentration > 20 mg/dL 
+(> 1.11 mmol/L)  within 30 minutes from injection of study drug.  
+3. Rates of positive symptomatic response, defined as re lief of neuroglycopenic 
+symptoms within 30 minutes from a decision to dose.  
+4. Rates of positive treatment response, defined as exhibiting either a positive plasma glucose response (within 30 minutes from injection of study drug) or  a positive 
+symptoma tic response (within 30 minutes from a decision to dose).  
+5. Time to  a positive plasma glucose response fr om injection of study drug.  
+6. Time to administer study drug from a d ecision to dose.  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 6 of 34 
+ 7. Pharmacodynamic (PD) characteristics of mean plasma glucose concentration  (0 to 90 
+minutes post-dose), maximum observed concentration (C max), time to maximum 
+observed concentration (Tmax), area under the concentration versus time curve from 
+time 0 to 90 minutes (AUC 0-90), and area under the concentration versus ti me curve 
+from time 0 to 180 minutes (AUC 0-180).  
+8. Time to (a) initial relief and (b) complete resolution of a utonomic and 
+neuroglycopenic symptoms of hypoglycemia from a decision to dose.  
+9. Time to resolution of the overall feeling of hypoglycemia from a decision to dose.  
+10. Safety endpoints, including adverse event (AE)/serious adverse event (SAE) rates, 
+and chang es in vital signs, laboratory variables, and physical exam /electrocardiogram 
+(ECG) findings.  
+11. Tolerability endpoints, including: Drai ze scale scores for injection site erythema and 
+edema as assessed by the investigator, and injection site discomfort and duration as assessed by subject questionnaire responses.  
+4 STUDY DESIGN 
+4.1 General Design  
+This is a non- inferiority, multi- center, randomized, active -controlled, single-blind, two- way 
+crossover effi cacy and safety in -patient study in subjects with Type 1 diabetes mellitus . 
+Subjects will be randomized to one of two treatment sequences  below and will receive one 
+dose within each treatment per iod separated by a  washout per iod. 
+Table 1:  Randomized T reatment  Sequence  
+ 
+Treatment 
+Sequence  Treatment  1 Treatment  2 
+1 G-Pen 1 mg GlucaGen Hypokit 1 mg 
+2 GlucaGen Hypokit 1 mg G-Pen 1 mg 
+In each period s ubjects will be confined to clinic at Day - 1 before  dosing, will undergo the  
+following procedures and will be discharged at Day 1 . 
+Day -1: Clinic a rrival , assessments specified by protocol, evening meal in clinic. 
+Day 1:  
+• Overnight monitoring (starting approximately at midnight ) and Morning 
+Procedures (st arting at approximately 6 AM) .  
+Subjects will be monitored by glucose and will be given glucose and/or insulin to 
+optimize plasma glucose levels.  In the morning, plasma glucose (via YSI) will be 
+assessed, and if >  270.0 mg/dL (> 15.0 mmol/L), the visit w ill be reschedul ed after a 
+minimu m 3-day wait. Otherwise, the subject will be administered IV insulin to induce a 
+baseline euglycemic steady state.  
+• Baseline Euglycemic Steady State (early morning).   
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 7 of 34 
+ Prior to starting the hypoglycemia induction procedure, the subject must have stable 
+plasm a glucose for at least 30 minutes at 95±20 mg/dL (75 to 115 mg/dL [4.17 to 6.38 
+mmol/L]) at a stable IV insulin infusion rate varying no more than ±20% during which 
+plasma glucose must be measured at least every 15±2 minutes (i.e., at least 
+3 consecutive v alues in the target range at 0, 15, and 30 minutes).  
+The starting plasma glucose level (SG) will be determined as the average of the last 
+3 measurements taken over the final 30 minutes of the baseline euglycemic steady sta te 
+period. 
+• Hypoglycemia Induc tion Procedure (following baseli ne euglycemic steady state).  
+Hypoglycemia will be induced by adding an initial IV bolus push dose of regular 
+insulin diluted in normal sal ine until and further insulin dose adjustments  specifi ed in 
+the protocol. 
+Initial IV bolus push dose will be calculated as 75% of the dose estimated to reduce 
+plasma glucose from the subject’s starting plasma glucose level (SG) to desired glucose 
+level 54 mg/dL (3.0 mmol/L) based on the subject’s self -reported gluc ose correction 
+factor. This dose will be referred to as “ first bolus (full bolus dose)” (BD1) 
+subsequently: 
+BD1 (mg/dL) = [ (SG – 54 mg/dL) / Correction factor)] x 0.75. 
+• Randomization. Once the initial bolus dose of insulin has had time to take eff ect and 
+the subject  is observed to be in a controlled rate of glucose decline, the subject will be 
+randomly assigned to one of the treatment sequences shown in Table 1. 
+• Confirmation of Hypoglycemic Steady State. Once the initial plasma glucose 
+measurement < 54.0 mg /dL (< 3 mmol/L) is achie ved, the IV insulin infusion will be 
+returned to the rate established at the end of the baseline euglycemia steady state period. After 5 minutes, the IV insulin infusion will be stopped, and up to 3 confirmatory plasma glu cose read ings will be taken at sub seque nt 5-minute intervals to 
+determine whether a hypoglycemic steady state has been reached.  
+A hypoglycemic steady state is defined as a conf irmatory plasma glucose value ≥  42 
+m g / d L  ( ≥  2 . 3 3  m m o l / L )  a n d  <  5 4  m g / d L  ( <  3  m m ol/L), and an 8- minute linearly 
+extrapolated fu ture plasma glucose value ≥ 42 mg/dL (≥ 2.33 mmol/L).  
+• Decision to Dose. Once the hypoglycemic steady state is confirmed, the Investigator 
+will confirm that it is appropriate to adminis ter study drug to the subject. The clock 
+time of this “Decision to Dose” will be captured in the source documents.  Decision to 
+dose time is entered on the I nduction CRF for each visit and will be used in the 
+analysis.  
+• Preparat ion and Administration of Study Drug . Following a decision to dose, 
+subjects were administered a subcutaneous injection around the umbilicus  with either 1 
+mg GlucaGen Hypokit or 1 mg G -Pen. 
+• Post-dose assessments. Blood glucose levels will be monitored for up to 180 minutes 
+post- dosing. Subjects will also complete a questionnaire about symptoms  of 
+hypoglycemia during the hypoglycemia induction phase and for up to 180 minutes after treatment with glucagon.  
+Plasma glucose levels and as sessments of neuroglycope nic symptoms will be censored 
+after the time of drug administration.   This censoring is  applicable only if the insulin is 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 8 of 34 
+ restarted prior to the 180 minutes timepoint as per the following language in the 
+protocol:  
+“After study drug administration and before 180 minutes post -dosing, if rising glucose 
+levels are observed and if deemed medically necessary, insulin therapy or other medical 
+intervention may be initiated by the Investigator.  
+a. Such intervention is not recommended to occur before 90 minutes post -dosing of 
+study drug. 
+b. Plasma glucose data and assessments of neuroglycopenic symptoms will be censored 
+after the time of intervention, per the statistical analysis plan.  
+c These in terventions (such as insulin, carbohydrates, or a meal) prior to 180 minutes 
+post study drug administration should be captured in the source documents, and further glucose measurements may be performed at the discretion of the Investigator. ” 
+The specific hyp oglycemia induction procedures and justification, and rules for interruption 
+and terminatio n of dosing are specified in the protocol. 
+4.2 Sample Size Determination  
+For the primary objective, a failure is recorded if the subject’s plasma glucose fails to rise above 70.0 mg/dL (3.88 mmol/L) and fails to increase by at least 20.0 mg/dL (1.11 mmol/L) 
+within 30 minutes of the decision to administer the dose of glucagon.  
+In this study, it is expected that the recovery (cure rate) will be high and approaching 100%. Since this is a cross -over design and each subject will serve as his/her control, power is 
+improved. 
+The sample size was derived for 80% power of de tecting non -inferiority with respect to the 
+Odds Ratio of subject recovery rates at an alpha of 0.025 under a cross -over design. Based on 
+an underlying Odds Ratio of 1.0, and rates of 0.20 versus 0.25, 111 subjects are required for 
+the study. With an antic ipated 10% drop- out rate, the total sample size for the study is 122 
+randomized subjects. If there are subject s who are enrolled, but fail to be randomized, compensatory enrollment 
+may be utilized to a chieve at least 122 subjects who are randomized for the  study. Once a 
+subject is randomized, the subject will be analyzed for the study. 
+4.3 Randomization  
+Subjects who m eet all eligibility criteria, who reach the baseline euglycemia steady state, and 
+who the Investigator deems appropriate to begin the induction procedure at the first treatment 
+visit will be randomized for the study.  The randomization schedule will be produced by the Study statistician a priori for loading 
+and implementing i n the Interactive W eb-based Randomization System (IWRS). Using a 
+permuted random block assignment, stratified by site, subjects will be randomly assigned to 
+receive eit her Treatment Seq uence 1 (G -Pen → GlucaGen Hypokit) or Treatment Sequence 2 
+(GlucaGen Hy pokit → G -Pen).   
+4.4 Unblinding  
+This is a single -blind study. Only the subjects are blinded for treatment. The investigator and 
+clinical staff will be aware of the treatme nt. Thus, there is no unblinding requirements needed  
+for the study. 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 9 of 34 
+ In the event that a subject is inadvertently unblinded during one or both of the treatment 
+sequences, the investigator will note the event as a protocol violation, and the subject will be  
+allowed to continue further  study treatments as per the protocol.  
+At the end of the study, the subject s will be asked to guess what their first treatment was, and 
+what their second treatment was from the choices of “Xeris Glucagon, G -Pen, administered 
+by auto -injector” or “Comparator Glucagon, GlucaGen Hypokit, administered by needle and 
+syringe”.  The subject’s responses  will be recorded in the electronic Case Report Form 
+(eCRF) for the Subject  Study Drug Assignment Questionnaire. 
+4.5 Changes in the Conduct of the St udy 
+There were no changes in  the conduct of the study at the time of preparing this statistical 
+analysis plan.  
+5 STATISTICAL AND ANALYTICAL PROCEDURES  
+5.1 Analysis Populations and Treatment Groups  
+The following populations will be considered for the study: 
+5.1.1 Inten t-to-Treat  Population (ITT)  
+The Intent- to-Treat (ITT) population is defined as all subjects randomized. A subject’s 
+randomized treatment will be used for analysis regardless of the actual treatment received.  
+ITT population will be used for all summaries ex cept safet y/tolerability  and disposition 
+(where Enrolled population will be used) . Primary  endpoint comparison and secondary 
+efficacy analysis will be performed for ITT, mITT  and PP populations. 
+5.1.2 Modified Intent -to-Treat Population (mITT) 
+The Modified Intent- to-Treat  (mITT) population is defined as all ITT subjec ts and r eceived at 
+least one do se of study drug. The actual treatment received will be used for analysis.  
+5.1.3 Per-Protocol Population (PP) 
+The Per -Protocol (PP) population is defined as all randomized pa tients who  during both study 
+periods successfully receive a dose of both study drugs (G -Pen followed by GlucaGen 
+Hypokit or GlucaGen Hypokit followed by  G-Pen) and have no any major protocol 
+deviations. The actual treatment received will be used for analys is. 
+Primar y endpoint comparison and secondary  efficacy analyses  will be performed for ITT , 
+mITT  and PP populations. 
+5.1.4 Safety Population 
+The safety population is defined as all subjects randomized that received at least one dose of 
+study drug . The actual treatmen t received will be used for analysis. The s afety population will 
+be used for all safety analyses and endpoints. 5.1.5 Treatment groups  
+For summary statistics , subjects will b e presented in two different ways, as applic able to the 
+type of analys is: 
+• by planned treatment  sequence of randomized subjects (GlucaGen Hypokit – G- Pen 
+and G -Pen – GlucaGen Hypokit) . This pres entation and a nalysis will be used optionally 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 10 of 34 
+ for descriptive  outputs, but generally will not be used for analysis of the primary 
+objective . 
+• by pla nned/actua l treatment of subject in each treatment period (GlucaGen Hypokit and 
+G-Pen). This presentation  and analysis  will be used for all primary  and secondary 
+endpoints, and optionally for descriptive outputs (disposition, demographics, etc.).  
+Planned  treatme nt will be used for ITT population analyses  and actual treatment  recei ved (by 
+Period) will be used for mITT , PP and Safety  population analyses . 
+5.2 Reference Dates , Analysis Periods , Analysis Visits,  and Baseline  
+There will be two treatment perio ds defined and an alyzed , which starts from study drug 
+administration and the associated clinical phases associated , related with the pre-dose study 
+procedure :  
+SCREENING /BASELINE , RUN- IN (1 and 2), TREATMENT PERIOD (1 and 2).  
+• SCREENING/ BASELINE : analysis phase starts with Informed Consent , includes 
+Day -1 check -in before first drug admin istration.  
+Baseline  will be def ined as the last assessment within this phase  and used as  the 
+reference point for safety assessment s across the study to each of the visits 
+(laboratory d ata, ECG, physical examination , weight, temperature and respiratory 
+rate). 
+• PRE-TREATMENT PERIOD 1 : analysis phase will be assigned  only if subject 
+failed to achieve hypoglycemic steady state and study drug was not administer ed at 
+the first trea tment visit.  It will start from first overnight monitoring to last check -in 
+before first drug administration  inclusively. 
+Baseline 1  will be defined as last assessment at Day -1 of Treatment 1 and will be 
+used as the reference point for safety assessments  within Treatment Period 1( HR 
+and BP). 
+• RUN- IN 1: analysis phase start s from Day 1 of Treatment 1 study procedures prior 
+to first drug administration and continues until the  first drug administration or study 
+discontinuation, wh ichever comes first.  
+• TREATMENT PER IOD 1: a nalys is phase/period starts from first drug 
+administration to check -in of the next treatment visit  or study discontinuation, 
+whicheve r comes first.  
+• PRE-TREATMENT PERIOD 2 : analysis phase will be assigned only if subject 
+failed to achieve hypo glycemic ste ady s tate and the subject ’s second study drug was 
+not injected at the first treatment visit after the end of Treatment Period 1. The 
+period will start from f irst overnight monitoring after the end of Treatment Period 1 
+to last check -in before s econ d drug admini stration  inclusively. 
+Baseline 2  will be defined as last assessment at Day -1 before Treatment 2 and used 
+as reference point for safety assessments within T reatment Period 2 (HR and BP). 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 11 of 34 
+ • RUN- IN 2: analysis phase start s from Day 1 of Treatm ent 2 study procedures prior 
+to second drug admi nistration and continues until the  second drug administration or 
+study discontinuation, whichever comes first. 
+• TREATMENT PERIOD  2: analysis period/phase starts from second dose 
+administration to the end of st udy.  
+RUN- IN 1 an d RUN- IN 2 analysis  phases will include all interventions before dose 
+injections, thereof: 
+- EUGLYCEMIC  BASELINE  1 / 2.  
+The Euglycemic Baseline phase will be determined as time interval which starts 
+from last 30 minutes of the basel ine eugl ycem ic stead y sta te period, covering at 
+least 3 scheduled consecutive plasma measurements in the target range at 0, 15, and 
+30 minutes used to confirm euglycemic steady state; and stops just before 
+hypoglycemia induction with  IV bolus push dose.  
+Euglycemic Baseline  (1 and 2): to determine for the Hypoglycemia Symptom s 
+Assessment  scheduled at the end of this phase  just before the IV bolus push dose of 
+insulin, will serve as baseline to determine hypoglycemia symptoms relief  and/or 
+resolution within Treatmen t Period (1 and 2).  If more than one assessment  is  
+performed in this time interval, th en the last  assessment of each hypoglycemia 
+symptom or score will be selected for use as the baseline.  
+- HYPOGLYC EMIA  INDUCTION  (1 and 2). During the induction procedure  the 
+subject w ill enter a state of hypoglycemia through the administration  of regular 
+insulin diluted in normal saline  within a controlled and monitored setting. 
+Hypoglycemic steady state (1 and 2):  for  Treatment Period (1 and 2)  is confirmed  
+if: 
+• penultimate pl asma glu cose measurement  during hypoglycemia induction is 
+< 54.0 mg/dL (< 2.78 mmol/L); 
+• last plasma glucose measurement  during hypoglycemia induction is ≥ 42 
+mg/dL (≥2.33 mmol/L) and < 54 mg/dL (< 2.78 mmol/L) ; and  
+• 8-minute linearly e xtrapolated value from two last measurement s of plasma 
+glucose is ≥  42 mg/dL (≥ 2.33 mmol/L).  
+Hypoglycemic Baseline  (1 and 2). If the subject achieved hypoglycemic  steady  
+state then from the  last of the  last two plasma glucose readings during 
+hypoglyce mia induction  to time of study drug administration will be defined as 
+Hypoglycemic Baseline for the corresponding treatment perio d and will serve as 
+baseline for the Primary Endpoint and Secondary Endpoints related to 
+pharmacokinetic and pharmacodynamic characteri stics within Treatment Period (1 
+and 2). 
+Assessments and Adverse Events with onset in  TREATMENT PERIOD 1 or TREATMENT 
+PERIOD 2 wil l be attributed to the actual treatment and analyzed respectively. Adverse 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 12 of 34 
+ Events which started at RUN -IN (1 and 2) phase, will be treated as TEAE, but not attributed 
+to forthcoming treatment. T hey wil l be attribute d to the previous treat ment peri od (or prior to 
+first treatment admin istration and not categorized  as treatment emergent).  
+Visit 2 and Visit 3 will be differentiated to Day -1 and Day 1 according to protocol and 
+schedule of assessments. Analysis periods, visits , and baseline are summariz ed in the table 
+below. 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 13 of 34 
+ Table 3 - Analysis Periods and Visits  
+Analysis Phase / 
+Period  Analysis Subper iod 
+(optional)  Analysis Visit  Protocol Visit/ 
+Period  Baseline for 
+period ? 
+SCREENING  - 
+BASELINE  Screening  Screening , 
+Baseline*  Visit 1  Overall  
+Check -In 1  
+(CRC Admission) Treatment  1 Day -1, 
+Baseline 1* /Baseline*  Visit 2  Period 1, 
+Overall  
+RUN -IN 1 Overnight monitoring  Treatment  1 Day 1  Visit 2   
+Euglycemic Baseline 1  Treatment  1 Day 1 , 
+Euglycemic Baseline 1*  Visit 2  Period 1 
+Hypoglycemia Induction 1  
+ Treatment  1 Day 1   
+(pre-dose measurements) , 
+Hypogly cemic Baseline 1*  Visit 2  
+ Period 1  
+ 
+TREATMENT  
+PERIOD 1 / 
+TREATMENT 
+PERIOD 1 Post treatment 1 
+measurements/  
+CRC discharge  Treatment  1 Day 1   
+(post -dose measurements)  Visit 2   
+Outclinic 1     
+Follow -Up (optionally)  Follow -Up (optionally)    
+Check -In 2  
+(CRC Admission) Treatment 2 Day -1, 
+Baseline 2*  Visit 3  Period 2  
+RUN -IN 2 Overni ght monitoring  Treatment 2 Day 1  Visit 3  
+Euglycemic Baseline 2  Treatment 2 Day 1,  
+Euglycemic Baseline 2 * Visit 3 Period 2 
+Hypoglycemia Induction 2  
+ Treatment 2 Day 1   
+(pre-dose  measurements),  
+Hypoglycemic Baseline 2*  Visit 3 
+ Period 2  
+TREATMENT 
+PERIOD 2 / 
+TREATMENT PERIOD 2 Post treatment 2 
+measurements/  
+CRC discharge  Treatment 2 Day 1  
+(post -dose measurements)  Visit 3  
+Outclinic 2     
+Follow -Up Follow -Up  Visit 4   
+* Derived visit.  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 14 of 34 
+ 5.3 Analysis Variables  
+5.3.1 Subject’s  Disposition  and Analysis Sets  
+Disposition will be summarized descriptively using counts and percentages for Enrolled 
+Population by treat ment sequence, and for the ITT Population by planned treatment. 
+The number and percent age of subjects screened, screen failures , entered the study, 
+randomized, and completed the study will be presented, together with number and percentage 
+of subjects who prematurely discontinue d from the stud y along with reasons for study 
+discontinuation by treatment sequence and overall .  
+A listing of the subject’s disposition status  will be provided. The number of subjects in each 
+analysis set will be summa rized descriptivel y by treatment with  counts and percent ages. A 
+listing of subject’s inclusion to analysis sets will be provided. A subject ’s eligibility with 
+inclusion/exclusion criteria completions or dev iations  will be listed .  
+5.3.2 Demographics and Baselin e Characteristics  
+Demogr aphic data wi ll include gender (male, female), age, age group (>=18 to <65 and >=65 
+years), race, ethnic origin and treatment  group. 
+Baseline characteristics will include : 
+• body weight, height, BMI;  
+• Gold Scale of Hypo glycemia  Unawareness ; 
+• average corre ction  factor per uni t of insulin (mg/dL);  
+• duration of Type 1 diabetes calculated in years.  
+Subjects who: 
+• were diagnosed with Type 1 diabetes by a h ealth c are practitioner ; 
+• were taking d aily insulin  treatment ;  
+• has assigned correction for managing their hyp oglyc emia , and avera ge correction factor 
+per unit of insulin (mg/dL) for subjects with assigned correction factor.  
+Demographics and baseline characteristics will be summarized for all subjects overall and by 
+treatment . Summary statistics (e.g., number of s ubject s, mean and standard deviation, median 
+and range) will be generated for all continuous variables (i.e., age and weight,) and the number and percentage of subjects within each category will be presented for all ca tegorical 
+variables (i.e., gender, race, et hnicity,). The summary results will be based on the ITT 
+population. 
+5.3.3 Medical History  
+Medical history will consist of two parts: 
+1) General Medical History.  This data will be coded using the Medical Dictionary for 
+Regulatory Activities (MedDRA, latest vers ion), listed and sum marized with 
+descriptive statistics by System Organ Class (SOC) and Preferred Term (PT).  
+2) Diabetes History  will include information about date of diagnosis of Type 1 Diabetes 
+diagnosis, current daily insulin treatment and correction fact or fo r managing 
+hypo glycemia. This data will be listed separately  as part of demographics and baseline 
+characteristics . 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 15 of 34 
+ Duration of T1D in years  will be calculated using date of informed consent and date of 
+diagnosis as integer part of  
+[<Date of Informed Conse nt> - <Date of Diagnosis> + 1]/365.25. 
+If day of diagnosis is unknown, then day will be imputed as '01' (first day of the month). 
+If month of diagnosis is unknown, then month will be imputed as '0 1' (Jan of year of 
+diagnosis).  Durati on of T1D will be  listed and analyzed  with descriptive statistics as Baseline 
+characteristics.  
+5.3.4 Pregnancy and Childbearing Potential 
+For female subjects, pregnancy test and/or childbearing potential will be listed. 5.3.5 Prior  and Concomitant Medications  
+Medications will be coded  with the latest ver sion of the WHO drug dictionary, listed and 
+presented by ATC Class 2 and Preferred Term.  
+If a medication cannot be coded by  WHO dictionary, it will be coded as “W HO Code Not 
+Defined”. 
+Each medication will be c lassified as prior, concomi tant, or both. 
+Any m edication taken within 4 weeks before Day 1 will be considered as prior.  
+Any medication taken on or after the drug administration (Day 1) will be considered as 
+conco mitant.  
+In case when start/stop date is inco mplete, or medication is o ngoing , the followin g 
+assumption will be made for Prior/Concomitant classification: 
+- If there is reasonable possibility that medication was taken within 4 weeks (28 
+days) before study dru g administration, the medication will be con sidered as 
+prior;  
+- If there  is no evidence that  medication was taken before the drug administration, 
+medication will not be classified as prior;  
+- If there is reasonable possibility that medication was taken on or  after study drug 
+administration  and there i s no evidence that medicatio n intake was stopped 
+before first drug administration , then the medication will be classified as 
+concomitant. 
+If dates of medications are incomplete, missing, or medication is ongoing , the medication will 
+be considered as concomitant if there is no evidenc e that  the medicatio n intake stopped 
+before study treatment. The medication will be considered as prior if there is a n evidence that 
+medication intake started before the study treatme nt, and there is a possibility that medication 
+intak e started not earlier  than 6 months befor e screening.  
+Prior and Concomitant medication will be summarized and listed with ATC C lass 2  and 
+preferred term  (PT) by treatment sequence and overall for the Safe ty population. 
+Concomitant medication which star ted or changed with dosi ng/regi men after stud y drug 
+administration, will be attributed to Treatment Period 1 or 2 by start date  and analyzed 
+descriptively by treatment received for the Safety  population. 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 16 of 34 
+ Patients may have more than one medication per ATC category and PT. At each level o f 
+patient summarization, a patient will be counted only once. 
+5.3.6 Efficacy Variables  
+The following efficacy variables will be uti lized  in the efficacy analyses . 
+5.3.6.1 Primary Endpoint  
+Positive Plasma G lucose Respon se 1 (PGR1) 
+Positive Plasma Glucose Response 1 (PGR1 ) is defined a s reaching a plasma glucose 
+concentration ≥70 mg/dL ( ≥ 3.88 mmol/L ) within 30 minutes of study drug injection (actual 
+time) .(The baseline plasma glucose is th e blood glucose reading immediately before study 
+drug dosing.) 
+Positive Plas ma Glucose Response 2 (PGR2) 
+Positive Plasma Glucose Response 2 (PGR2) is defined as reaching an increase in plasma 
+glucose concentration ≥  20 mg/dL ( ≥ 1.11 m mol/L ) within 30 minutes of study drug injection 
+(actual time) . 
+Positi ve Plasma G lucose R esponse (PGR ) 
+For the primary endpoint, Positive Plasma Glucose Response (PGR) is defined as reaching 
+Positive Plasma Glucose Response 1 (PGR1) or Posi tive Plasma Gluco se Response 2 
+(PGR2).  
+For the primary endpoint, treat ment groups will be compared for rates of achieving a positive 
+plasma glucose response . The comparison will  be performed using Intent ion to Treat (ITT) , 
+Modified Intent -to-Treat  (mITT)  and the Per -Protocol (PP) populations . Risk difference in 
+rates  of failing to achieve Posi tive Plasma Glucose Response (PGR) will be assessed for G-
+Pen versus GlucaGen Hypokit us ed as reference and the associated 95% CI s presented .  
+5.3.6.2 Secondary Endpoints  
+5.3.6.2.1 Pharmacodynamic (PD) Parameters  
+The PD endpoints will be derived from the individual glucose profiles. Pharmacodynamic 
+characteristics, incl uding:  
+• AUC 0-90 and AUC 0-180 : plasma glu cose area under the concentration versus 
+time curve for 90 and 180 mins from glucagon administration; 
+• Cmax: Maximum concentration of glucose in plasma;  
+• Tmax:  time (in min s) when Glucose C max is reached;  
+The following rules will be used for incomplete data : 
+• AUC: If there are missing data points before the last observed value, they will 
+be extrapolat ed using the last two data points; 
+• AUC: If there are missing data points after the last observed value, they will 
+not be imputed , and the AUC will be treated as not defined; 
+• If insulin starts after receiving glucagon, the glucose values post insulin start 
+will be censored out and considered as missing.  This is al so considered a major 
+protocol deviation. 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 17 of 34 
+ Compari son between the treatment s will be performed  using a mixed model with treatment, 
+period and treatment*period as fixed factors and subject as a random factor .  
+5.3.6.2.2 Hypoglycemia Symptom Mean Scores  
+Symptoms  of hypoglycemia are captured using the follo wing questionnaire: 
+Neuroglycopenic Symptoms Severity Score (1 -6) 
+Dizziness  
+Blurred vision  
+Difficulty in thinking   
+Faintness   
+Autonomic Symptoms Severity Score (1 -6) 
+Sweating   
+Tremor   
+Palpitations   
+Feeling of nervousness  
+Overall Assessment of Hypo glycemia  Yes/No  
+Do you currently feel hypoglycemic?  
+The f ollowing three mean scores  will be calculated for each subject at each of the 
+measurement time points: 
+1. Average Neuroglycopenic Symptom S core (ANS)  : 
+                           Dizziness + Blurred vision + Difficulty in thinking + Faintness  
+4 
+ 
+2. Average Auto nomic Symptom Score  (AAS):  
+                              Sweating + Tremor + Palpitations + Feeling of nervousness  
+4 
+ 
+3. Average Tot al Symptom Score  (ATS):  
+                                                                   Sum of all symptoms  
+8 
+Overall Ass essment of Hypoglycemia: 
+• this will be treated as a categorical variable and analyzed with descriptive statistics by 
+timepoints ; 
+• additional descript ive summary will be done for overall assessment of hypoglycemia as 
+number and percentage of subjects who: answered “Yes” at baseline, answered “Yes” 
+at baseline and never answered “No” post -baseline, answered  “No” at b aseline, 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 18 of 34 
+ answered “No” at baseline and  at least once answered “Yes” post -baseline.  
+This parameter will be analyzed from a decision to dose.  
+5.3.6.2.3 Time -to-Event Efficacy Endpoints  
+Symptom relief will be anal yzed as aggregate scores for the four autonomic symptoms, four 
+neuroglycopenic symptoms, and 8 total (autonomic and neuroglycopenic) symptoms. 
+Symptom relief  of hypoglycemia is defined as a return to a score (ANS, AAS , and ATS) no 
+more than one unit abov e euglycemic baseline (1 / 2 ). Only subjects with baseline score at 
+least 2 or more (for ANS, A AS, or ATS) will be e valuable for this analysis.  
+Complete resol ution  of hypoglycemia symptoms is defined as all symptoms in the domain 
+(ANS, AAS , or ATS) have a score of 1 after receiving glucagon.  
+The time to resolution of the overall feeling of hypoglyce mia is defined as fir st reporting 
+of “No” for the global hypog lycemia question. This will be calculated as th e difference (in 
+mins) between the actual time when the first “No” for “Overall Assessment of 
+Hypoglycemia” is observed and the time to decision of glucagon dosing.  
+Glucagon Preparation Time  is defined as t ime to administer stud y drug from a decision to 
+dose.  
+The following timing parameters will be calculated  for analysis:   
+1. Time to a P ositive P lasma G lucose Response (PGR) from injection of study dru g. 
+2. Glucagon Preparati on Time. 
+3. Time to symptom relief of autono mic and neuroglycopenic symptoms of 
+hypogl ycemi a from a decision to dose. That include: 
+• time to symptom relief of neuroglycopenic symptoms (ANS) from a decision 
+to dose; 
+• time to symptom relief o f autonomic symptoms (AAS) from a decision to 
+dose; 
+• time to sy mptom relief of autonomic and neuroglycopenic s ymptoms ( ATS ) 
+from a decision to dose; 
+4. Time to complete resolution of autonomic and neuroglycopenic symptoms of 
+hypogl ycemia from a decision to dos e. That include: 
+• time to complete resolution of neuroglycopeni c symptoms (ANS) from a 
+decision to dose; 
+• time to complete resolution of autonomic symptoms (AAS) from a decision 
+to dose; 
+• time to complete resolution of autonomic and neuroglycopenic symptoms 
+(ATS) from a decision to dose;  
+5. Time to minimal sco re of autonomic and neuroglycopenic symptoms of 
+hypogl ycemi a from a decision to dose. That includes: 
+• time to minimal score of neuroglycopenic symptoms (ANS) from a decision 
+to dose; 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 19 of 34 
+ • time to minimal score  of a utonomic symptoms (AAS) from a decision to 
+dose; 
+• time to min imal score  of autonomic and neuroglycopenic symptoms ( ATS ) 
+from a decision to dose;  
+6. Time to resolution of the overall feeling of hypoglycemia from a decision to dose. 
+The following rules will b e applied: 
+• only subjec ts who answered “Yes” at baseline will be evaluable for this analysis ; 
+•    in very rare cases, if subject answers “ Yes” all the way to the last time point, 
+the total time to the last assessment will be recorded.  
+Actual Time will be use d for calculations.  
+5.3.6.2.4 Binary Responses  
+For secondary response endpoints the following parameters will be define d: 
+Positive Symptomatic Response  
+Positive Symptomatic Response is defined as relief of neuroglycopenic symptoms 
+(ANS) wit hin 30 minutes from a deci sion to dose. 
+Positive Treatment Response 
+Positive Treatment Response is defined as exhibiting either a posit ive plasma glucose 
+response (PGR) or a positive symptomatic response. 
+The following secondary response endpoints will be assessed.  
+1. Rate of failing  to achiev e a Positive Plasma Glucose Response 1 (PGR1). 
+2. Rate of failing to achieve  a Positive Plasma Glucose  Response 2 (PGR2). 
+3. Rate of failing to achieve a Positive Symptomatic Response.  
+4. Rate of failing to achieve a Positive Tre atment Response. 
+For these s econdary end points, analysis will be the same that for primary endpoint (PGR) 
+described above in section 5.3.6.1 . Actual time will be used for calculations.  
+5.3.6.3 Safety  Variables  
+All Safety and Tolerability assessments w ill be performed using the Safety Population.  
+5.3.6.3.1.1 Adverse Events  (AE)  
+All verbatim AE terms will be coded using the Medical Dictionary for Regulatory Activities 
+(MedDRA , latest vers ion) and summarized by System Organ Class  (SOC) and P refer red 
+Term (PT). AE c ollection will begin from the time of informed consent.  
+Time periods for Adverse Events  
+Adverse Events  will b e attributed to  analysis phases and periods by time of onset. 
+Treatment Emergent Adverse Events (TEAEs) will be defined as AEs not present prior to the 
+start of study procedures , or AE s present before study medication that worsened after starting 
+of study procedures at Day 1 prior to first dose administration.  If a partially mis sing date or 
+time of onset allows the possibility that an AE may be a TEAE it will be assumed that it is a 
+TEAE.   
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 20 of 34 
+ TEAEs will be analyzed by treatment and in overall. TEAEs will be attributed to study 
+treatment which wa s administered before the AE onset within the respective Treatment 
+Period 1 or 2. 
+Each TEAE will be attributed  to Treatment Period 1 or 2. If TEAE s tarted at the time of 
+Day 1 Pre -dosing procedures of second dose, it will  not be attributed to Treatment Pe riod 1, 
+but will be counted in th e Ove rall TEAE summary.  
+AEs will be summarized by treatment, period and in ove rall by the number and percentage of 
+subjects who experienced at least one AE of the following categories in each treatment group: 
+any AE, any AE fro m CRC admission to the time of ind uction, any AE from time of 
+induction to treatment, any TEAE, any drug re lated TEAE, any severe or life- threatening 
+TEAE, any serious TEAEs, any drug -related SAE, any SAE leading to death, any TEAE 
+leading to study discontinuation, and any SAE leading to study discontinuation.  
+AEs will be tabulated  by SOC and PT in each catego ry.  
+TEAEs will be summarized by highe st relationship to study drug (Not Related, Related) and 
+maximum severity  (Mild, Moderate, Severe).  If severit y of AE is missing, then the AE wi ll 
+be analyzed as 'Severe'. If relationship to study drug for the AE is unknown, then t he TEAE s 
+will be classified  as Related, and non- TEAE s will be classified as Not R elated.  
+AEs will be analyzed for safety according to the study  treatment received  in co rresponding 
+treatment period and overall. All AEs will be summarized by ac tual treatment sequence, 
+treatment per iod (Treatment Period 1 / Treatment Period 2) and overall.  Subjects will  be 
+counted only once in the Overall  analysis . 
+Listings of all AEs , SAE s, and TEAEs leading to study drug discontinuation will be provided 
+with treatment group, site, subject,  then in c hronological order displaying treatment period, 
+verbatim term, MedDRA S OC and PT, start and end dates, seriousness flag  and category , 
+severity , relationship to study drug, action taken, contributing factors, and outc ome.  
+5.3.6.3.2 Laboratory safety assessments 
+Laboratory values ( chemistry and hematology) will be flagged if outside the normal range 
+and a listing of clinically significant abno rmal value s will be presented.   
+Normality ranges and evaluation should be consistent across the study. 
+Laboratory measurements  will be summarized  with descriptive statistics for actual value and 
+change from baseline.  
+Baseline will be defined as last assessment before the  first dose administration. Summaries 
+will be presented by actual treatment received.  
+5.3.6.3.3 Physical Examination 
+Subjects with any findings in the physical examination eva luation at Screening will be listed.   
+5.3.6.3.4 Body Weight  
+Body weight and change from baseline to end of study will be summarized with descriptive 
+statistics. Baseline is defined as last assessm ent before first drug administration. 
+5.3.6.3.5 Vital signs  
+Vital s igns (temperature, respiratio n, heart rate and BP after >5 mins seated rest) will be 
+summarized for actual values and change from baseline with descriptive statistics  by 
+scheduled timepoints.  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 21 of 34 
+ Temperature and respiration will b e analysed  by treatment sequence  and by actual treatment 
+received  with baseline defined as last assessment before first drug administration.   
+Change from baseline  will be assessed within period only. Summaries will be p resented by 
+treatment sequence and  by ac tual treatment received.  
+5.3.6.3.6 Electrocardiogram (ECG)  
+ECG as sessment and Investigator’s evalu ations will be displayed in a data listing.   
+5.3.6.3.7 Local Tolerability  
+Summa ries for tolerability will be presented by treatment and tabulated by scheduled 
+timepoints. Worst p ost-baseli ne cases or scores will be determined for each subject  and 
+analyzed, which will include all scheduled and unscheduled assessments, if a ny. 
+5.3.6.3.7.1 Injection Site  Discomfort  
+The incidence o f any injection site disco mfort  reported  by the subject will be anal ysed 
+descriptively  with counts  and percentages  for al l scheduled time points. 
+- None  
+- Any injection site discomfort (including ‘Other’) ;  
+- Pain;  
+- Itching;  
+- Tingling, twitching or numbness;  
+- Irritation.   
+The following  descriptive statistics will be provided  for all timing variables  for subjects  
+reporting  at leas t one injection site discomfor t: 
+- Counts and percentages of time of onset from study drug  injection  (0-<1 min, 1-2 mins, 
+3-5 mins, 6-9 mins, >=10 mins); 
+- Total duration of discomfort will be analysed  with descript ive statistics for continuous 
+variables . 
+ 
+5.3.6.3.7.2 Draize Scale (Erythema and Edema)  
+The incidence  of erythema and edema will be analysed  descriptively with counts and 
+percentages by scheduled timepoints, worst post -baseline sco re, and by the categories 
+indicated  below:  
+Erythema Formation  Edema Formation  
+Description  Score  Description  Score  
+No erythema 0 No edema 0 
+Erythema  1-4 Edema  1-4 
+Very slight erythema: Barely perceptible 1 Very slight edema: Barely percepti ble 1 
+Well defined erythema 2 Well defi ned edema 2 
+Moderate erythema 3 Moderate edema: raised  approx. 1mm 3 
+Severe erythema: Beet redness to slight 
+eschar formation  4 Seve re edema: raised more than 1mm and 
+beyond exposure area  4 
+Subject will be counted only once per actual treatment and time point and once for worst 
+post- baseline score or e rythem a/edema occurrence. 
+ 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 22 of 34 
+ 5.3.6.3.7.3 VAS  
+VAS is reported using a 100- mm scale.  
+ 
+ 
+VAS scores will be summarized by all timepoints and worst post- baseline score.  
+Mean VAS scores wi ll be compared between the treatments . Compar ison between the 
+treatment s will be performed us ing a mixed model with treatment, period and 
+treatment*period as fixed factors and subject as a random factor . This analysis will be 
+performed on the Safety  population.  
+6 STATISTICAL  METHODS 
+6.1 General Consid erations   
+The statistical analyses will be performed using SAS Version 9.4 (or higher) . All tables, 
+figures and listings will be produced in landscape format. 
+Data will be pres ented at each scheduled timepoint (nom inal time), where applicable . 
+However, t ime-related e ndpoints (time to event) will be summarized using actual time.  
+For actual time , two reference points will be used: (a) decision to dose and/or (b) injection of 
+study drug , which are specified in the pri mary  and secondary endpoint  analyses .  
+The total n umber of subjects in the study group (N) under the stated population will be 
+displayed in the header of summary tables.  
+All study data will be included in the study data listings. Listings will be displayed  by subject 
+in chronological order, if not stated otherwise.  
+For tabulated safety summaries, on ly the scheduled timepoints will be included in the 
+summary tables.  Unscheduled assessments will be listed and used for evaluation of worst 
+post- baseline value in categorical assessments, where applicabl e. 
+Sampl e codes and calculation s for the efficacy analysis are provided in Appendix 2: Code 
+Fragments. Actual code or procedure usage can differ from these samples, ba sed on the  
+model and conditions that correspond to those p re-specified in the SAP. Addi tional ana lysis 
+may be performed for the c ases not specified in SAP and will be described in CSR. 
+6.1.1 General guideline for descriptive summaries  
+For continuous variables, mean, median, standard deviation, minimum and maximum will 
+be presented for each treatmen t group and cat egory.   
+Additionally, coefficient of variation , geometric mean and geometric coefficient of 
+variation  will be calculated for: C max,, AUC 0-90  and A UC 0-180. 
+For categorical variables, count and percen t of subjects/counts in each treatment g roup 
+and c ategory will be presented. Percentages will be  based on number of subjects with non-
+missing values, if not specified otherwise.  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 23 of 34 
+ 6.2 Euglycemic Baseline  
+Prior to starting the hypoglycemia induction pr ocedure, th e subject must have stable plasma 
+glucos e for at l east 30 minutes at 95 ± 20 mg/dL (75 to 115 mg/dL [4.17 to 6.38 mmol/L]) at 
+a stable IV insulin infusion rate varying no more than ±20% during which plasma glucose 
+must be measured at least every  15 ± 2 min utes (i.e., at least 3 consecutive value s in the 
+target range at 0, 15, and 30 minutes).   
+For H ypoglycemi a Symptoms Assessment scheduled at the end of the Euglycemic Baseline  
+phase just before the IV bolus push dose of insulin, will serve as ba seline to d etermine 
+hypoglycemia symptoms relief an d/or resolution. If more than one assessment performed i n 
+this time interval, then the last assessment of each hypoglycemia symptom or score will be 
+selected for baseline.  
+6.3 Hypoglycemic Baseline  
+Hypoglycemi c steady state is defined as a confirmatory plasma gl ucose va lue ≥ 42 mg/dL 
+(≥ 2.33 mmol/L) and < 54 mg/dL (< 3 mmol/L), and an 8- minute linearly extrapolated future 
+plasma glucose value ≥ 42 mg/dL (≥ 2.33 mmol/L). 
+To determine whether a hypoglycemic steady state has  been achieved, confirmatory plasma 
+glucose measurements will be taken as necessary at 5, 10 and  15 minutes after an initial 
+plasma glucose < 54 mg/dL (<  3 mmol/L). Depending on the outcome, the following 
+procedures will be followed. 
+1. If any of the confirma tory measurements meets the criteria for  hypoglyce mic steady 
+state, the subject will be eligible  to receive study glucagon, and further confirmatory 
+plasma glucose measurement are not required.  
+2. If the final confirmatory plasma glucose value is < 42 mg/dL ( < 2.33 mmol/L), the 
+procedure will be te rminated, study glucagon will NOT be administered, and the visit 
+will be rescheduled after a minimum 3 -day wait. At the Investigator’s discretion, the 
+subject should be treated with IV glucose or oral carbohydrates,  it should be verified 
+that the subject a chieved a euglycemic state and is medially stable prior to discharge.  
+3. If any of the confirmatory plasma glucose measurements are > 54 mg/dL 
+(> 3 mmol/L), then the IV insulin infusion will be re -started, and insul in adjustments 
+will be made as per the induc tion proce dure. Once another initial plasma <  54 mg/dL 
+(< 3 mmol/L) is obtained, the sequence of up to 3 confirmatory plasma glucose readings will repeated . 
+If the subject achieved hypoglycemic  steady  state their linearly extrapolated plasma glucose 
+value from the l ast two readings of hypoglycemia induction to time of study drug 
+administration will be defined as Hypoglycemic Baseline for corresponding treatment period 
+and will serve as baseline for the Primary Endpoint and Secondary Endpoints related to 
+pharmacokinet ic and pharmacodynamic characteristics within T reatment Period 1 / 2. 
+6.4 
+General guideline for define the protocol  time  
+Protocol time is needed to find the 30- minute glucose value as well as to generate most 
+of the glucose or hypoglycemia score curves . 
+Protocol time will be developed based on the following procedures: 
+• Protocol time zero will be based on either receiving glucagon or decision to dose: 
+o Receiving glucagon: T0 = actual time stamp of glucagon  injection 
+o Decision to dose: T0 = actual time stam p when dose decision is made  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 24 of 34 
+ • Subsequent protocol times are calculated by the following minutes plus  T0 
+(receiving glucagon) : 
+o 5, 10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90; 
+o 120,150, and 180. 
+• For a ny conti nuous (num ber) variable, the value at the protocol time will be 
+determined by linear interpolation between the two adjacent time points. 
+• For any categorical (text) variable, the value at the protocol time will be 
+determined using the nearest value:  
+o Protocol time 5 – 85: -2 minute to +3 minute ; 
+o Protocol time 90: -2 minute to 15 minute ; 
+o Protocol time 1 20, 150, 180: -15 minute to +15 minute ; 
+o If multiple values are attributed to a single protocol time, then the  last 
+value will be  used . 
+Several  analys es will be conducted using both the protocol time bas ed on st udy drug 
+administration  and the one based on decision to dose. These analyses will be noted in 
+each of the corresponding sections. 
+6.5 Analysis of Primary Endpoint  
+The primary end point analysis will b e based on the risk difference in rates  of failin g to 
+achieve Positive Plasma Glucose Response (PGR)  of G-Pen versus GlucaGen Hypokit and  
+a 95% CI will be calculated . Non-inferiority will be de clared if the upper limit of the 95% 
+confidence interval for the differe nce in failure rates is ≤ 5%; where the absolute f ailure 
+rate of G -Pen treatment is ≤ 5%.  This an alysis will be repeated for ITT , mITT  and PP 
+populations. 
+Subjects who are missing the primary endpoint  for a study trea tment will be cons idered as 
+having a fa ilure in the primary analysis for that tre atment administration.  This imputation 
+will be conduct ed fo r both the ITT and the mITT populations. If a subject received  the 
+same two  treatment administrations for both periods ( Period 1 and Period 2) , only the visit 
+with the planned treatment received  will be included in the primary analysis and the subject  
+will be considered a failure in the primary analysis for the for unreceived treatment 
+administration (ITT, mITT).  For all other analyses , data will be in clude d for only the 
+planned tr eatment received in those analyses . 
+A sensi tivity analysis will be perfo rmed for where all  missing data will be considered  a 
+success  and the same analysis as above completed . 
+6.6 Secondary  Endpoints  
+6.6.1 Binary  Resp onses 
+The same test as described in the previous section 6.5, will be applied to each of the binary 
+responses (no sensitivity  analyses will be performed ). 
+Note that all these analyses will be repeated for ITT , mITT  and PP population.  
+6.6.2 Pharmacodynamics Analy ses 
+All PD parameters will be presented descriptively.  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 25 of 34 
+ A mixed model with treatment, period a nd treatment*period as fixed  factors and subject as 
+a random factor will be applied to compare the least square mean diff erences. Log 
+transformation will be applie d if skewness is observed. Unstructured covariance matrix will 
+be used for the covariance matrix unless the model failed. In such case, structured 
+covariance matrix will be selected based on the one given the small est AIC (Akaike  
+Information).  
+P-value fo r the difference test and 95% confidence for non- inferior test will be reported.  
+Additionally, mean  glucose curve from 0 to 180 minutes post receiving glucagon will be 
+presented graphically for each treatment. For th is group of figures, the protocol define d 
+time will be used.  The mean glucose curve during hypoglycemia induction time wi ll also 
+be presented for each treatment. S ince there is no protocol time for hypoglycemia induction 
+stage, the mean glucose will be summarized for every 5 minutes based on the  glucagon 
+injection time.  
+This will be conducted based on the mITT population only.  
+6.6.3 Neuroglycopenic, Autonomic, and Total S ymptom scores  
+The average Neuroglycopenic, Autonomic and Total Symptom scores (ANS, AAS, and 
+ATS) will be summarized descriptively at ea ch of the protocol defined time points for each 
+treatment  group. A LOCF imputation will be used for post -baseline assessments to 90 
+minutes inclusively . Additionally, this will also be presented graphically.  
+Analy sis will be conducted  for the mITT popul ation only and will use time from decision to 
+dose. 
+6.6.4 Time -to-Event Analyses  
+All the Time -to-Event E fficacy parameters will be presented descriptively.  
+A survival analysis will be conducted for comparing the differenc e between treatment s. 
+Survival curves wi ll be provided to compare both treatments graphically. Two -sided log-rank 
+p-value for the differenc e will be reported.  
+This analysis will be repeated for ITT , mITT  and PP population. 
+6.6.5 Study Drug Assignment Questionna ire 
+After study procedures at Visit 3, the subject will be asked to guess what their first treatment 
+was, and what  their second treatment was from the choices of “Xeris Glucagon, G-Pen, 
+administered by auto -injector”, and “Comparator Glucagon, GlucaGen Hypokit, administered 
+by needle and syringe ”.  
+This data will be analyzed descriptively with counts and percentages b y treatment. 
+Percentage o f guessing will be compa red against 50% using binomial proportion for each 
+treatment . 
+This will be conducted based on the PP population only. 
+6.7 Subgroup  Analysis 
+Analysis of subgroups will not be performed in this study. 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 26 of 34 
+ 6.8 Interim Analysis  
+Interim analysis will not be performed in this study. 
+7 DATA HANDLING  CONVENTIONS  
+7.1 Missing Data  
+Unless specified in any of the previ ous sections, no other missing data will be impute d. 
+7.2 Repeated and Unscheduled Visits  
+Unless specified in any of the previous sections, the principle of ‘last observation priority’ 
+will be used to handle the situation of a repeated visit. Worst post- baseline as sessments will 
+be defined using all visits, in cluding unscheduled.  
+7.3 Conversion of P lasma Glucose Values  
+For measurement s of plasma glucose standard units will be consi dered  as mg/dL . All 
+measurements  in mmol/L will be converted into mg/dL  with next rule a pplied: 
+ 
+1 mmol/L = 18.0182 mg /dL 
+8 PLANNED LIS TINGS, TABLES AND FIGURES  
+Please see the Appendix 1.   
+Note: this is the planned Table of Contents. Based on the actual data, table numbers, table 
+names and structures may change. 
+9 SOFTWARE REQUIREMENTS  
+SAS – Version 9.4 or higher.  
+WinNonlin - Professional Ve rsion 5.2 or higher. 
+Excel - Microsoft Excel 2007 or higher. 
+10 DEVIAT IONS FROM PLANNED ANALYSIS  
+For timin g parameters mixed  model analysis  was replaced by time- to-event analysis.  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 27 of 34 
+  
+APPENDIX 1: LIST OF TABLES , LISTINGS AND FIGURES  
+Tables  
+Number  Title  
+14.1.1.1 Summary of Pati ent Disposition (All Enrolled Patient s) 
+14.1.1.2  Summary of Patient Disposition by T reatment (Intent -to-Treat Population)  
+14.1.1.3  Summary of Analysis Populations (All Randomized Patients)  
+14.1.2 Summary of Demographic and Baseline C haracteristics (Inte nt-to-Treat 
+Population)  
+14.1.3.1.1  Summary of Vital Signs – Blood Pressure and Heart  Rate by Treatment  
+(Safety Population)  
+14.1.3.1.2  Summary of Vital Signs – Blood Pressure and Heart Rate by Tr eatment 
+Sequence (Safety Population)  
+14.1.3.2.1  Summary of Vital Signs – Weight, Respiratory Rat e and Temperature by 
+Treatment (Safety Populatio n) 
+14.1.3.2.2  Summary of Vital Signs – Weight, Respiratory Rate and Temperature by 
+Treatment Sequence (Safety Population)  
+14.1.4  Summary of Treatment  Exposure (Intent -to-Treat Population)  
+14.1.5  Summary of  Medical History (All Randomized Patients)  
+14.2.1.1.1.1  Summary o f Patients Having Positive Plasma Glucose Response by 
+Treatment (Intent -to-Treat Population)  
+14.2.1.1.1.2  Summary of Patients Having  Positive Plasma Glu cose Response by 
+Treatment (Modified Intent -to-Treat Population)  
+14.2.1.1.1.3  Summar y of Patients Havi ng Positive Plasma Glucose Response by 
+Treatment (Per -Protocol Population)  
+14.2.1.1.2.1  Summ ary of Patients Having Positive Plasma G lucose Response 1 by  
+Treatment (Intent -to-Treat Populatio n) 
+14.2.1.1.2.2  Summary of Patients Having Posi tive Plasma Glucos e Response 1 by 
+Treatment (Modified Intent -to-Treat Population)  
+14.2.1.1.2.3  Summary of Pati ents Having Positive Plasma Glucose Resp onse 1 by 
+Treatment (Per-Protocol Population)  
+14.2.1.1.3.1  Summary of Patients Having Positive Plasma Gl ucose Response 2 b y 
+Treatment (Intent -to-Treat Population)  
+14.2.1.1.3.2  Summary of Patients Having Positive Pl asma Glucose Response 2 by 
+Treatment (Mo dified Intent -to-Treat Population)  
+14.2.1.1.3.3  Summary of Patients Having Positive Plasma Glucose Respo nse 2 by 
+Treatment  (Per-Protocol Population)  
+14.2.1.1.4.1  Summary of Patients Having Positive Symptomatic Resp onse by 
+Treatment (Intent -to-Treat Popul ation) 
+14.2.1.1.4.2  Summary of Patients Having Positive Symptomatic Response by 
+Treatment (Modified Inte nt-to-Treat Popula tion)  
+14.2.1.1.4.3  Summary of Patients Having Positive Symptomatic Response by 
+Treatment (Pe r-Protocol Population)  
+14.2.1.1.5.1  Summary of Patients Hav ing Positive Treatment Response  by Treatment 
+(Intent -to-Treat Population)  
+ 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 28 of 34 
+ Tables  
+Number  Title  
+14.2. 1.1.5.2  Summary of Patients Having Positive Treatment Response  by Treatment 
+(Modified Intent -to-Treat Population)  
+14.2.1.1.5.3  Summa ry of Patients Havin g Positive Treatment Response  by Treatment 
+(Per-Protocol Population)  
+14.2.1.2.1  Summ ary of Plasma Gluc ose Cmax (mg/dL) by Treatment ( Modified 
+Intent -to-Treat Population)  
+14.2.1.2.2  Summary of P lasma Glucose Tmax (min) by Treatment (M odified Intent -
+to-Treat Population)  
+14.2.1.2.3  Summary of Plasma Glucose AUC0 -90 (min*mg/dL) by Treatme nt 
+(Modified Inten t-to-Treat Population)  
+14.2.1.2.4  Summary of Plasma Glucose AUC0 -180 (min*mg/dL) by Treatme nt 
+(Modified Intent -to-Treat Population)   
+14.2.1.2.5.1  Summ ary of Time (minutes) to First Positi ve Plasma Glucose Response 
+After Study Drug Inje ction by Treatment  (Intent -to-Treat Population)  
+14.2.1.2.5.2  Summary of Time (minutes) to First Positive Plasm a Glucose Response 
+After Study Drug Inje ction by Treatment ( Modified Intent -to-Treat 
+Population)  
+14.2.1.2.5.3  Summary of Time (minutes) to First  Positive Plasma G lucose Response 
+After Study Drug Injection by Treatment (Per -Protocol Population)  
+14.2.1.3.1  Summary of Average Neuroglycopenic Scor es, Average Autonomi c 
+Scores and Average Total Scores by Treatment and Time Point (Modified 
+Intent -to-Treat Population)  
+14.2.1.3.2.1  Summary of Time (min) to Symptom Relief (Neuroglycopenic, 
+Autonomic and Total) Aft er Decision to Dose by Treatment (Intent -to-
+Treat Population ) 
+14.2.1.3.2.2  Summary of Time (min)  to Symptom Relief (Neuroglycopenic, 
+Autonomic and Total) After Decision to Dose by Treatment (Modified 
+Intent -to-Treat Population)  
+14.2.1.3.2.3  Summary of Ti me (min) to Symptom Relief (Neuroglycope nic, 
+Autonomic and T otal) After Decision to Dose by  Treatment (Per -Protocol 
+Population)  
+14.2.1.3.3.1  Summary of Time (min)  to Complete Resolution (Neuroglycopenic, 
+Autonomic and Total) After Decision to Dose by Trea tment (Intent- to-
+Treat Population)  
+14.2.1.3.3.2  Summary of Time (min) to Complete Resolution (Ne uroglycopenic, 
+Autonomic and Total) After Decision to Dose by Trea tment (Modified 
+Intent -to-Treat Population)  
+14.2.1.3.3.3  Summary of Time (min) to Complete R esolution (Neuroglycopenic, 
+Autonomic and Total) After Decis ion to Dose by Treatment (Per-Protocol 
+Population)  
+14.2.1.3.4.1  Summary of Time (min ) to Resolution of  the Overall Feeling of 
+Hypoglycemia After Decision to Dose by Treatment (Intent- to-Treat 
+Population)  
+14.2.1.3.4.2  Summary of Time ( min) to Resolution o f the Overall Feeling of 
+Hypoglycemia  After Decision to Dose by Treatment (Modified I ntent- to-
+Treat Pop ulation)  
+ 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 29 of 34 
+ Tables  
+Number  Title  
+14.2.1.3.4.3  Summary of Time (min) to Resolution of the Over all Feeling of 
+Hypoglycemia After Decision to Dose by Treatment (Per -Protocol 
+Population)  
+14.2.1.3.5.1  Summary of Time (min) to the Minimal Scor e Post Baseline 
+(Neuroglycopenic, Autonomic and Total) After Decision to Dose by 
+Treatment (Intent -to-Treat Pop ulation)  
+14.2.1.3.5.2  Summary of Time ( min) to the Minimal Score Post Baseline 
+(Neuroglycopenic,  Autonomic and Total) After Decision to Dose by 
+Treatment (Modifie d Intent -to-Treat Population)  
+14.2.1.3.5.3  Summary of Time (min) to the Minimal Score Post B aseline 
+(Neuroglycopenic, Autonomic and To tal) After Decisio n to Dose by 
+Treatment (Per -Protocol Population)  
+14.2.1.4.1  Summary of Glucagon Prep aration Time (min)  by Treatment (Intent -to-
+Treat Population)  
+14.2.1.4.2  Summary of Glucagon Preparation Time ( min) by Treatment (Modified 
+Intent -to-Treat Population)  
+14.2.1.4.3  Summary of Glucagon Preparati on Time (min) by Treatment (Per -Protocol 
+Populat ion) 
+14.2.1.5  Summary of Study Drug Assignment Questionnaire by Period and by 
+Treatment (Per -Protocol Populati on) 
+14.2.2.1.1  Non-inferiority  Analysis  of Positive Plasma Gluc ose Response by 
+Treatment (All Enroll ed Patients)  
+14.2.2.1.2  Non-inferiority  Analysis of Positive Plasma Glucose Response 1 by 
+Treatment (All Enrolled Patients)  
+14.2.2.1.3  Non-inferiority  Analysis of Positive Plasma Glucose Respon se 2 by 
+Treatment (A ll Enrolled Patients)  
+14.2.2.1.4  Non-inferiority  Analysis of Positive Symptomatic Re sponse by Treatmen t 
+(All Enrolled Patients)  
+14.2.2.1.5  Non-inferiority  Analysis of Positive Treatment Response  by Treatment 
+(All Enrolled Patients)  
+14.2.2.2.1  Non-inferi ority  Analysis of Plasma  Glucose Cmax (mg/dL) by Treatment 
+(Intent -to-Treat Populatio n) 
+14.2.2.2.2  Non-inferiority  Analysis of Plasma Glucose Tmax (min) by Treatment 
+(Intent -to-Treat Population)  
+14.2.2.2.3  Non-inferiority  Analysis of Plasma Glucose AUC0 -90 (min*mg/dL) by 
+Treatment (Int ent-to-Treat Population)  
+14.2.2.2.4  Non-inferiority  Analysis of Plasma  Glucose AUC0 -180 (min*mg/dL) by 
+Treatment (Intent -to-Treat Population)  
+14.2.2.2.5  Non-infer iority  Analysis of Time (min) to First P ositive Plasma Gluco se 
+Response After Study Drug Injection by Population and by Treatment (All 
+Enrolled P atients)  
+14.2.2.3 .1 Non-inferiority  Analysis of Time (min) to Symptom Relief 
+(Neuroglycopenic, Autonomic and T otal) After Decision to Dose by 
+Populati on and by Treatment (All Enrolled Patients)  
+14.2.2.3.2  Non-inferiority  Analysis of Time (min) to Complet e Resolution 
+(Neur oglycopenic, Autonomic and Total) After Decision to Dose by 
+Population and by Treatment (All Enrolled Patients)  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 30 of 34 
+ Tables  
+Number  Title  
+14.2.2.3.3  Non-inferiority  Analysis of Time (min) to Resolution of the Overall 
+Feeling of Hypoglycemia Aft er Decision to Dose by Population and by 
+Treatment (All Enrolled Patients)  
+14.2.2.3.4  Non-inferiority  Analy sis of Time (min) to the Minimal Post Ba seline 
+Score A fter Decision to Dose by Population and by Treatment (Al l 
+Enrolled Patients)  
+14.2.2.4  Non-inferiority  Analys is of Glucagon Preparation Time (min) by 
+Population and by Treatment (All Enrolled Patients)  
+14.2.2.5.1  Non-inferiority  Analysis of Study Drug Ass ignment Questionnaire  by 
+Treatment (Per -Protocol Population)  
+14.2.2.5.2  Non-inferiority  Analysis of Mean Vis ual Analog Scale (VAS) (Intent -to-
+Treat Population)  
+14.3.1.1  Overview of Adverse Events (Saf ety Population)  
+14.3.1.2.1  Summary of T reatment -Emerg ent Adverse Events by System Organ Class, 
+Preferred Term and by Trea tment (Safety Populatio n) 
+14.3.1.2.2  Summary of Treatment -Emergent Adverse Events by System Organ Class, 
+Preferred Term, Period and b y Treatment Sequence (Safety Population)  
+14.3.1.3.1  Summary of Treatment -Emergent Adverse Events by System Organ Class, 
+Preferred Term, Severity  and by Treatment (Safety Population)  
+14.3.1.3.2  Summary of Treatment -Emergent Adverse Events by System Organ Class, 
+Preferred Term, Severity, Period an d by Treatme nt Sequence (Safety 
+Population)  
+14.3.1.4.1  Summary of Treatment -Emergent Adverse Events by  System Organ Clas s, 
+Preferred Term, Relationship to Study Drug and by Treatment (Safety 
+Population)  
+14.3.1.4. 2 Summary of Treatment -Emergent Adverse Events by Syst em Organ Class, 
+Preferred Term, Relationship, Period to Study Drug and by Treatment 
+Sequenc e (Safety Populati on) 
+14.3.1.5.1  Summary of Serious Adverse Events Leading to Study Discontinuation by 
+System Organ Class, Preferred Term and by Treat ment (Safety 
+Population)  
+14.3.1.5.2  Summary of Serious Adverse Events Leading to Study Discontinuation b y 
+System Organ Cla ss, Preferred Term, Period and by Treatment Sequence 
+(Safety Population)  
+14.3.1.6.1  Summary of Treatment -Emergent Adverse Events Lea ding to Study 
+Discontinuation by System Organ Class, Preferred Term and by Treatment 
+(Safety Population)  
+14.3.1.6.2  Summar y of Treatment -Emergent Adverse Events Leading to Study 
+Discontinuation by System Organ Class , Preferred Term, Period and by 
+Treatmen t Sequence (Sa fety Population)  
+14.3.2.1  Listing of Deaths (Safety Population)  
+14.3.2.2  Listing of Serio us Adverse Events (Safety Population)  
+14.3.2.3  Listing of Treatment -Emergent Adverse Events Leading to Study 
+Discontinuation (Safety Population)  
+14.3.4.1.1 Summary  of Clinical Chemistry Results  (Safety Population)  
+14.3.4.1.2  Summa ry of Clinical Hematolo gy Results  (Safety  Population)  
+ 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 31 of 34 
+ Tables  
+Number  Title  
+14.3.4.3  Incid ence of Abnormal La boratory Findings (Safety Population)  
+14.3.5.1  Summary of Local Tolerability – Subjective I njection Site Discomfort 
+from VAS (Safet y Population)  
+14.3.5.2  Summary of Local Tolerability – Subjective Injection Site Discomfort 
+from Ordinal  Pain Scales (Safet y Population)  
+14.3.5.3  Summary of Local Tolerability – Draize Scale (Safety Population)  
+14.3.6.1.1  Summary of Prior Medications by  Treatment (Sa fety Population)  
+14.3.6.1.2  Summary of Prior Medications by Treatme nt Sequence (Safety 
+Population)  
+14.3.6.2.1  Summary of Concomitant Medications by Treatment (Safety Population)  
+14.3.6.2.2  Summary of  Concomitant Medications by Treatment Se quence (Safety  
+Population)  
+Listings  
+Number  Title  
+16.1.7 Listing of Randomizatio n (Intent -to-Treat Popu lation)  
+16.2.1.1  Listing of Patient Disposition (All Patients)  
+16.2.1.2  Listing of Screen Failure and Inclusi on / Exclusion Criteria Assessment 
+(All Patients)  
+16.2.2.1  Listing of Protocol Deviations (Al l Patients)  
+16.2.2.2  Listin g of Major Protocol Deviations  (All Patien ts) 
+16.2.4.1  Listing of Patient Demographic and Baseline Characteristics (Safety 
+Population ) 
+16.2.4.2  Listing of Medical History ( Safety Populat ion) 
+16.2.4.3.1  Listing of Prior Medica tions (Safety Population)  
+16.2.4.3.2  Listing of Co ncomitant Medicatio ns (Intent -to-Treat Population)  
+16.2.5.1  Listing of Study Drug Administration (Intent -to-Treat Population)  
+16.2.5.2  Listing of Eug lycemic Baseli ne and Hypoglycemia Induction (All 
+Rando mized Patients)  
+16.2.6.1.1  Listing of Dose Monitor ing – Plasma Glucos e (Intent -to-Treat Population)  
+16.2.6.1.2  Listing of Dose Monitoring – Pharmacodynamic Para meters (Intent -to-
+Treat Population)  
+16.2.6.2.1  Listin g of Hypoglycemia Symptom Questionnaire (Intent -to-Treat 
+Population)  
+16.2.6.2.2  Listing of  Average Neuroglyco penic Scores, Average Autonomic Scores 
+and Average Total Scores (Intent -to-Treat Population)  
+16.2.6.3.1  Listing of Time to Symptom Relief (Intent -to-Treat Population)  
+16.2.6.3.2  Listin g of Time to Complete Resolu tion (Intent -to-Treat P opulation)  
+16.2.6.3.3  Listing of Time to Resolution of the Overall Feeling of Hypoglycemia 
+(Intent -to-Treat Po pulation)  
+16.2.6.3.4  Listing of Time to  the Minimal P ost Baseline Score (Intent -to-Treat 
+Popu lation)  
+16.2.6.4.1  Listing of Positive Plasma Gluc ose Response (Inten t-to-Treat Population)  
+16.2.6.4.2  Listing of Positive Plasma Gluco se Response 1 (Intent -to-Treat 
+Populatio n) 
+16.2.6.4.3  Listing of Positive Plasma Glucose Response 2 (Intent -to-Treat 
+Population)  
+16.2.6.4.4  Listing of Positive Sy mptomatic Response (Intent -to-Treat Population)  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 32 of 34 
+ Listings  
+Title  
+16.2.6.4.5  Listing of Positive Treatment Re sponse (Intent -to-Treat Population)  
+16.2.6.4.6  Listin g of Glucagon Preparation Time (Intent -to-Treat Population)  
+16.2.6. 5 Listing of Study Drug  Assignment Questionnaire  (Intent -to-Treat 
+Population)  
+16.2.7  Listing of Adverse Events (All Patients)  
+16.2.8 .1 Listing of Laboratory Results: Chemis try (Safety Po pulation)  
+16.2.8.2  Listing of Laboratory Result s: Hematology (Safet y Population)  
+16.2.8.3  Listing of Urine P regnancy Test Results (Safety Population)  
+16.2.8.4  Listing of Urine Drug Screen Results (Sa fety Population)  
+16.2.9.1  Listing of In jection Site D iscomfort – Visual Analog Scale (VAS)  (Intent -
+to-Treat Population)  
+16.2.9.2  Listing of Inj ection Site Discomf ort – Injection Site Discomfort 
+Description and Duration Questionnaire (Intent -to-Treat Popu lation)  
+16.2.9.3  Listing of Injection S ite Discomfort  – Draize Scale (Intent -to-Treat 
+Population)  
+16.2.10.1  Listing of V ital Signs - Blood Pressure and Heart Rate  (Safety Population)  
+16.2.10.2  Listing of Vital Signs - Height, Weight, Respiratory Rate an d Temperature 
+(Safety Population)  
+16.2. 11 Listing of Physical Examinations (Safety Population)  
+16.2. 12 Listing of ECG Fi ndings (Safety Populati on) 
+16.2.13  Commen ts (All Patients)  
+Figures  
+Number  Title  
+14.2.1.1  Individual Plasma Glucose Concentration b y Time and Treatment – Linear 
+Scale (Int ent-to-Treat P opulation)  
+14.2.1.2  Individual Plasma Glucose C oncentration by Time  and Treatment – Semi -
+Log Scale (Intent -to-Treat Population)  
+14.2.2.1  Mean (+/ - SE) Plasma Glucose Concentration by Time and Treatmen t – 
+Linear Scale (Intent -to-Treat Popula tion) 
+14.2.2. 2 Mean (+/ - SE) Plasma Glucose Concentration by Time and Treatment – 
+Semi -Log Scale (Intent -to-Treat Populatio n) 
+14.2.3.1.1  Individual Average Autonomic Score, Average Neuroglycopenic Score 
+and Average Total Score by Time and Treatment – Linear Scale (Intent -to-
+Treat Population)  
+14.2.3.1.2  Individual Average Autonomic Sc ore, Average Neuroglyco penic Score 
+and Ave rage Total Score by Time and Treatment – Semi -Log Scale 
+(Intent -to-Treat Population)  
+14.2.3 .2.1 Mean (+/ - SE) Average Autonomic Sco re, Average Ne uroglycopenic 
+Score and Average Total Score by Time and Treatment – Linear Scale 
+(Intent -to-Treat Population)  
+14.2.3.2.2  Mean (+/ - SE) Average Autonomic Score, Average Neurogly copenic 
+Score and Average Total Score by  Time and Treatment – Semi -Log Scale 
+(Intent -to-Treat Population)  
+14.2.4.1  Indivi dual Subject Plasma Glu cose Concentration and Insulin Induction 
+Profile by Time and Treatment (Intent -to-Treat Population)  
+14.2.4.2  Mean Plasma Glucose Concentration and Hyp oglycemia Symp tom Score 
+Profiles by Time and Treatment (Intent -to-Treat Population ) 
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 33 of 34 
+ Figures  
+Number  Title  
+14.2.5.1.1  Survival Curves of Time (min ) to First Positive Plasma Glucose Response 
+After Study Drug Injection by Period and by Treatment (Intent- to-Treat 
+Population)  
+14.2.5.1.2 Surviva l Curves of Time (min) to First Positive Plasma Gl ucose Response 
+After Study Drug Injection  by Period and by T reatment (Per -Protocol 
+Population)  
+14.2.5.2.1  Survival Curves of Time (min) to Symptom Reli ef (Neuroglycopenic, 
+Autonomic and Total ) After Decisi on to Dose by Period and by Treatment 
+(Intent -to-Treat Population)  
+14.2.5.2.2  Survival Cur ves of Time (min) t o Symptom Relief (Neuroglycopenic, 
+Autonomic and Total) After Decision to Dose by Period and by Treatment 
+(Per-Protocol Population)  
+14.2.5.3.1  Survival Curves of Time (min) to Complete Resolution  (Neuroglycopenic,  
+Autonomic and Total) A fter Decision to Do se by Period and by Treatment 
+(Intent -to-Treat Population)  
+14.2.5.3.2  Survival Curves of Ti me (min) to Complete Resolution (Neurogl ycopenic, 
+Auto nomic and Total) After Decision to Dose by Period and by Treatment 
+(Per-Protocol Population ) 
+14.2.5.4.1  Survi val Curves of Time (min) to Resolution of the Overall Feeling of 
+Hypoglycemia After Decision  to Dose by Period and by Treatment (Int ent-
+to-Treat P opulation)  
+14.2.5.4.2  Survival Curves of Time (min) to Resolution o f the Overall Feeling o f 
+Hypoglycemia Afte r Decision to Dose by Period and by Treatment (Per-
+Protocol Population)  
+14.2.5.5.1  Survival  Curves of Time (min) to the Minimal Sco re Post Baseli ne 
+(Neuroglycopenic, Au tonomic and Total) After Decision to Dose by 
+Period and by Treatment  (Intent -to-Treat P opulation)  
+14.2.5.5.2  Survival Curves of Time (min) to the Minimal Score Post Baseline 
+(Neu roglycopenic, Autonomic and Total) After Decision to D ose by 
+Period and by Tr eatment (Per -Protocol Population)  
+14.2.5.6.1  Survival Curves of Glu cagon Preparation T ime (min) by Period and by 
+Treatment (Intent -to-Treat Population)  
+14.2.5.6.2  Survival Curve s of Glucagon Preparation Time (min) by Period and by 
+Treatment (Per -Protocol  Population)  
+
+Xeris Pharmaceuticals, Inc.                                                                                                                                              Private and Confidential  
+Statistical Analysis Plan                                                                                                                                                     X SGP-304 
+Version 1.0                                                                                                                                                                          04  April  2019 
+ 
+Page 34 of 34 
+ APPENDIX 2: CODE FRAGMENTS  
+Risk difference  test for b inary response  
+Proc Freq data = <Data> order=data; 
+      weight Count / ZEROS; 
+      tables <Treatment>*<Response> / riskdiff; 
+      output out = <Out> r iskdiff; 
+run; 
+Mixed model  
+ods output lsmeans(match_all) = <Out_LSmean>  
+           Diffs(match_all) = <Out_Diffs>;  
+Proc Mixed data=<Data>; 
+      class <Treatment> <Period> <Subject>; 
+      model <Value> = <Treatment> <Period> <Treatment>*<Period>; 
+      random <Subject> / Type = un; 
+      lsmeans <Treatment> / cl DIFF; run;  
+Time -to-Event  
+ods output means=<Out_Means> HomTests=<Out_Test>; 
+proc lifetest data=<Data>; 
+      time <Time>; 
+      strata <Treatment>; 
+run; 
+Study Drug Assignment  
+proc freq data=<Data>;       tables <Treatment>/ BINOMIAL (p=0.50) alpha=0.05; 
+      output out=<Out> Binominal; 
+      weight count; run; 
+ 

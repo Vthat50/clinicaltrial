@@ -1,0 +1,1110 @@
+1 
+Approved , Date: 9 August 2017    
+Janssen Research & Development  
+ 
+ 
+Statistical Analysis Plan  
+ 
+A Phase 1/2a Study to Evaluate the Safety, Pharmacokinetics, Pharmacodynamics, and 
+Preliminary Efficacy of the Combination of Ibrutinib with Nivolumab in Subjects with 
+Hematologic Malignancies  
+ 
+Protocol  PCI-32765LYM1002 ; Phase 1/2a 
+ 
+JNJ54179060 (ibrutinib ) 
+ 
+ 
+  
+Status:  Approved   v0.20 
+Date:  9 August 2017  
+Prepared by:  Janssen Research & Development, LLC    
+ 
+Compliance:  The study described in this report was performed according to the principles of Good Clinical Practice  (GCP) .  
+Confidentiality Statement  
+The information in this document contains trade secrets and commercial information that are privileged or confidential and may 
+not be disclosed unless such disclosure is required by applicable law or regulations. In any event, persons to whom the infor mation 
+is disclosed must be informed that the information is privileged or confidential and may not be further disclosed by them. These 
+restrictions on disclosure will apply equally to all future information supplied to you that is indicated as privileged or co nfidential.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+2 
+Approved , Date: 9 August 2017   TABLE OF CONTENTS  
+TABLE OF CONTENTS  ................................ ................................ ................................ ...............................  2 
+1. INTRODUCTION ................................ ................................ ................................ ................................ .. 5 
+1.1. Trial Objectives  ................................ ................................ ................................ ................................  5 
+1.2. Trial Design  ................................ ................................ ................................ ................................ ...... 5 
+1.3. Statistical Hypotheses for Trial Objectives  ................................ ................................ .......................  6 
+1.4. Sample Size Justification  ................................ ................................ ................................ .................  6 
+2. GENERAL ANALYSIS DEF INITIONS  ................................ ................................ ................................  7 
+2.1. Analysis Cohorts  ................................ ................................ ................................ ..............................  7 
+2.2. Visit Windows  ................................ ................................ ................................ ................................ ... 7 
+2.3. Pooling Algorithm for Analysis Centers  ................................ ................................ ............................  8 
+2.4. Analysis Sets  ................................ ................................ ................................ ................................ .... 8 
+2.4.1.  Efficacy Analysis Set(s)  ................................ ................................ ................................ ................  8 
+2.4.2.  Safety Analysis Set  ................................ ................................ ................................ .......................  8 
+2.4.3.  Pharmacokinetics/Pharmacodynamic (PK/PD) Analysis Set  ................................ .......................  8 
+2.5. Definition of Subgroups  ................................ ................................ ................................ ....................  8 
+2.6. Imputation of Missing Dates  ................................ ................................ ................................ .........  9 
+2.7. Other General Definitions  ................................ ................................ ................................ ...........  10 
+3. SUBJECT INFORMATION  ................................ ................................ ................................ ................  11 
+3.1. Demographics and Baseline Characteristics  ................................ ................................ .................  11 
+3.2. Disposition Information ................................ ................................ ................................ ...................  11 
+3.3. Medical History  ................................ ................................ ................................ ...............................  11 
+3.4. Extent of Exposure  ................................ ................................ ................................ .........................  12 
+3.5. Protocol Deviations  ................................ ................................ ................................ ........................  12 
+3.6. Prior and Concomitant Medications  ................................ ................................ ...............................  13 
+4. EFFICACY  ................................ ................................ ................................ ................................ .........  13 
+4.1. Analysis Specifications ................................ ................................ ................................ ...................  13 
+4.1.1.  Level of Significance  ................................ ................................ ................................ ...................  13 
+4.1.2.  Data Handling Rules  ................................ ................................ ................................ ...................  13 
+4.1.3.  General Analysis Considerations  ................................ ................................ ...............................  13 
+4.2. Primary Efficacy Endpoint(s)  ................................ ................................ ................................ ..........  13 
+4.2.1.  Definition  ................................ ................................ ................................ ................................ ..... 13 
+4.2.2.  Analysis Methods  ................................ ................................ ................................ ........................  14 
+4.3. Exploratory Secondary Endpoints  ................................ ................................ ................................ .. 14 
+4.3.1.  Duration of Response  ................................ ................................ ................................ .................  14 
+4.3.2.  Duration of Stable Disease or Better  ................................ ................................ ..........................  14 
+4.3.3.  Progression -free Survival and Overall Surv ival ................................ ................................ ..........  14 
+4.3.4.  Resolution of Lymphoma -related symptoms  ................................ ................................ ..............  15 
+5. SAFETY  ................................ ................................ ................................ ................................ .............  16 
+5.1. Adverse Events  ................................ ................................ ................................ ..............................  16 
+5.2. Adverse Events of Special  ................................ ................................ ................................ .............  16 
+5.3. Adverse Events of Clinical Interest  ................................ ................................ ................................  16 
+5.4. Death  ................................ ................................ ................................ ................................ ..............  20 
+5.5. Clinical Laboratory Tests ................................ ................................ ................................ ................  20 
+5.5.1.  Creatinine Clearance  ................................ ................................ ................................ ..................  21 
+5.6. Other Safety Parameters  ................................ ................................ ................................ ...............  21 
+6. PHARMACOKINETICS  ................................ ................................ ................................ .....................  21 
+7. BIOMARKER  ................................ ................................ ................................ ................................ ..... 22 
+7.1. Biomarker Objectives  ................................ ................................ ................................ .....................  22 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+3 
+Approved , Date: 9 August 2017   7.2. Biomarker Analysis Sets  ................................ ................................ ................................ ................  22 
+7.3. Biomarker Stratification Groups  ................................ ................................ ................................ ..... 22 
+7.4. Biomarker  Tested  ................................ ................................ ................................ ............................  23 
+7.5. Association Analysis of Biomarkers with Clinical Efficacy Endpoints  ................................ .........  24 
+7.5.1.  Level of Significance  ................................ ................................ ................................ ...................  24 
+7.5.2.  Missing Data Handling  ................................ ................................ ................................ ................  24 
+7.5.3.  Data Transform ation and imputation  ................................ ................................ ..........................  25 
+7.5.4.  Outlier Detection and Handling  ................................ ................................ ................................ ... 25 
+7.5.5 . Biomarker Data Analysis Methods  ................................ ................................ .............................  25 
+REFERENCES  ................................ ................................ ................................ ................................ ............  26 
+APPENDICES  ................................ ................................ ................................ ................................ .............  26 
+1. APPENDIX A  ................................ ................................ ................................ ................................ ..... 26 
+ 
+Document No.:  EDM S-ERI-149261409  
+ 
+  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+4 
+Approved , Date: 9 August 2017   ABBREVIATIONS  
+AE adverse e vent 
+ALC  absolute lymphocyte count  
+ALT  alanine aminotransferase  
+ANC  absolute neutrophil count  
+AST  aspartate aminotransferase  
+DLBCL  Diffuse large B -cell lymphoma  
+CI confidence interval  
+CR(s)  complete response(s)  
+CRI(s)  complete response(s) with incomplete marrow recovery  
+CRF  case report form  
+CSR  clinical study report  
+DOR  duration of response  
+DOSD  duration of stable disease  
+ECOG  Eastern Cooperative  Oncology Group  
+FL follicular lymphoma  
+HCV  hepatitis C virus  
+Ig immunoglobulin  
+IV intravenous  
+IWCLL  International Workshop on Chronic Lymphocytic Leukemia  
+LDH  lactic acid dehydrogenase  
+MedDRA  Medical Dictionary for Regulatory Activities  
+NCI-CTCAE  National Cancer Institute Common Terminology Criteria for Adverse Events  
+NCI-ODWG  National Cancer Institute Organ Dysfunction Working G roup 
+NPR  Nodular partial response  
+ORR  overall response rate  
+OS overall survival  
+PD progressive disease  
+PET positron emission tomography  
+PFS progression -free survival  
+PK pharmacokinetics  
+PR(s)  partial response(s)  
+PRL(s)  partial response(s)  with lymphocytosis  
+PT Preferred Term  
+RP2D  recommended phase 2 dose  
+SAP statistical analysis plan  
+SCT stem cell transplant  
+SD stable disease  
+SLL Small lymphocyte lymphoma  
+SOC  System Organ Class  
+TB total bilirubin  
+transformed 
+DLBCL  FL transformed to DLBCL  
+ULN  Upper Limit of Normal  
+WBC  white blood cell (count)  
+WHODD  World Health Organization Drug Dictionary  
+ 
+  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+5 
+Approved , Date: 9 August 2017   1. INTRODUCTION  
+This is a Phase 1/2a Study to Evaluate the Safety, Pharmacokinetics, Pharmacodynamics, and 
+Preliminary Efficacy of the Combination of Ibrutinib with Nivolumab in Subjects with 
+Hematologic Malignancies . There are two parts of thi s study. Part A (Dos e Optimization Cohorts) 
+is to determine whether ibrutinib and nivolumab can be safely combined and to establish the 
+recommended Phase 2 dose (RP2D) for this combination in subject s with hematological disorders. 
+Part B (Expa nsion Cohorts ) is to determine the preliminary activity of the ibrutinib/nivolumab 
+combination regimen in subjects with CLL/SLL with del 17p or 11q (Cohort B1), FL (Coh ort B2), 
+DLBCL (Cohort B3), and Richter syndrome (Cohort B4) in comparison  to historical results.  
+This statistical analysis plan (SAP)  contains definitions of an alysis sets, derived variables, and data 
+handling rules , and statistical approaches for the evaluation of safety , preliminary  efficacy  
+activities , and  pharmacokinetics . Biomarker analysis will be included and described in this 
+document . 
+1.1. Trial Objectives   
+The preliminary clinical activity of ibrutinib in combination with nivolumab in each disease type 
+of part A and B  in the all-treated population will be explored  via the followi ng endpoints  unless 
+otherwise stated:  objective response rate [PR(+L) or better ], progression -Free Survival  (PFS)  
+and overall survival  (OS) , duration of response (DOR) and duration of stable disease  (DOSD)  
+will be evaluated if there are sufficient data for responders for each dis ease-specific  cohort A1, 
+A2, B1, B2, B3 and B4  on the all -treated population. Furthe rmore, objective response rate 
+[PR(+L) or better]  will also be explored  on the response -evaluable population , if deemed 
+necessary . In addition, the safety profi le of the ibrutinib and nivolumab combination regimen  
+will be evaluated and the pharmacokinetic profile of ibrutinib and nivolumab  compared with 
+existing single -agent treatment data; and the potential relationships between ibrutinib and 
+nivolumab  metrics o f exposure with relevant clinical or biomarker information  will be 
+characterized and explored.  
+1.2. Trial Design   
+This is an open -label Phase 1/2a study, which consists of Part A (Dose Optimization Cohorts  A1 
+and A2 ) and Part B (Expansion Cohorts  B1, B2, B3 and B4 ). In the context of this study, a 
+treatment ‘cycle’ is defined as a course of treatment of 14 days starting with the intravenous 
+administration of nivolumab on Day 1 of each cycle along with once daily oral intake of ibrutinib 
+on all days.  
+It is a nticipa ted that approximately 158 subjects  for both Parts A and B  would be enrolled . 
+Part B (Dose Expansion Cohorts) will be open for enrollment after the RP2D is determined in 
+Part A. In Part B, further assessment o f the RP2D will be explored in 4  subject popula tions to 
+further evaluate the safety and clinical activity of ibrutinib in combination with nivolumab. 
+During the expansion period, subjects with CLL /SLL  with del 17p or 11q ( Cohort B1), FL 
+(Cohort B2), DLBCL  including FL transformed into  DLBCL  (transforme d DLBCL)  (Cohort 
+B3), and  Richter syndrome (Cohort B4) will be enrolled. Approximately 35 subjects will be 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+6 
+Approved , Date: 9 August 2017   enrolled in each of the expansion cohorts. The subjects will be treated at the RP2D level selected 
+to further assess the safety, pharmacokinetics, ph armacodynamics, pharmacogenomics, and 
+activity of the combination.  
+The median duration of study therapy i s expected to be approximately from 2 (DLBCL) to 15 
+(CLL)  months.  
+The End -of-Treatment Visit will occur within 30 days after the last dose of ibrutinib  or 
+nivolumab, whichever treatment occurred last.  
+During the Follow -up Period, long -term safety, survival status, disease progression, subsequent 
+aniticancer therapy, and occurrence of other primary malignancy data will be collected. During 
+the Follow -up Period, subjects should be followed for safety up to 30 days after the last dose of 
+ibrutinib or 100 days after the last nivolumab infusion, whichever is later. The safety includes 
+adverse event reporting and laboratory assessments (at the first follow up).  Thereafter Follow -
+up visits will be completed approximately every 3 months until death or the end of study. 
+Subjects who have developed treatment -related Grade 3 or higher toxicity at the end of treatment 
+will be assessed until recovery to Grade ≤1 or bas eline, deemed irreversible, or until end of study. 
+Adverse events leading to discontinuation will be followed up until resolution or return to 
+baseline, or end of study, whichever occur first.  
+The primary analysis of the study will be performed 6 months af ter the last subject has received 
+the first dose of study medication, or earlier if that subject discontinues study therapy. After the 
+cut off for primary analysis, subjects who are receiving study treatment can continue treatment 
+per protocol until progre ssion, unacceptable toxicity, withdrawal of consent, or othe r reason as 
+listed in protocol Section 11 .2. End of study will be defined as the time when all subjects have 
+completed the End -of-Treatment Visit and have been followed for safety up to 100 days p ost 
+nivolumab as the last study assessment . 
+1.3. Statistical Hypotheses for Trial Objectives   
+This study will evaluate and describe whether ibrutinib combined with nivolumab can result in 
+an overall  response rate of more than 20%  in each  cohort  of part B (i.e., dose expansion , cohorts 
+B1, B2 , B3 and B4 ), respectively.    
+1.4. Sample Size Justification   
+The sample size is calculated based on the following assumptions:  
+•The overall response rate  under null hypothesis is 20%  
+•The overall  response rate u nder alternative hypothesis is at least 38%  
+•The probability to mistakenly rejecting the null hypothesis when it is actually true is 0.1 
+(one-sided).  
+•The probability to correctly rejecting null hypothesis when alternative hypothesis is true 
+is at least 0.8 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+7 
+Approved , Date: 9 August 2017   Under the above assumptions, the study will enroll approximately 35 subjects to get at least 32 
+response evaluable subjects in each cohort of Part B (Cohorts B1, B2, B3, and B4 ). 
+2. GENERAL ANALYSIS DEFINITIONS  
+2.1. Analysis Cohorts  
+Disease type cohort is defi ned as: cohort of patients grouped by disease type of CLL, SLL, 
+DLBCL, t ransformed DLBCL , (i.e., FL transformed to DLBCL),  DLBCL overall (include both 
+DLBCL and transformed DLBCL)  Richter Syndrome  from  both Part A and B , unless otherwise 
+stated .  Study cohort is referring to cohorts A1, A2, B1, B2, B3 and B4 .  
+2.2. Visit Windows  
+Visit window will be based on phases and cycles:  
+(For the purposes of this study, ‘study drug’ or ‘study therapy’  or “study treatment”  refers to  both 
+ibrutinib  and/or  nivolumab ). 
+Screening:  Up to 28 days b efore the start of any study treatment . 
+Treatment:  Between the date of first administration of study therapy  and the date of the last 
+dose of study drug . The treatment stage will be subdivided by cycles. Each cycle is 14 days, 
+starting from the first dose  of study drug .  The end date of the last cycle is the date of the last 
+dose of study drug received during the study .  
+End of treatment:  within  30 days after the last dose of ibrutinib or 100 days after the last 
+nivolum ab. The assessments performed during the ‘End of treatment visit’ will be included in 
+this End of treatment  phase.  
+Follow -up: After the end of treatment  till the last assessment for the last subject in the study 
+(e.g. the last follow -up visit or death) .  
+Baseline assessment is defined as the last non -missing results on or before the first dose of study 
+therapy . 
+1. Cycle -based analysis may be performed for safety parameters during the treatment up to 
+date of last dose of ibrutinib + 30 days , and last dose of nivolumab +100 days . For the analysis 
+of laboratory measurement by cycle, the mean values within each cycle will be used. For the 
+analysis of laboratory grade by cycle, the worst grade within each cycle will be used.  
+Assessments will be presented chronologically by cycle day or study day, which are defined as 
+the follows:  
+Day 1 = date of first dose of study drug  / Cycle 1 day -7 (subjects with run -in) 
+Study Day (if on or after date of first dose) = assessment date – date of first dose +1  
+Study Day  (if before date of first dose) = assessment date – date of first dose   
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+8 
+Approved , Date: 9 August 2017   Cycle Day = assessment date – date of first dose for the cycle +1  
+2.3. Pooling Algorithm for Analysis Centers  
+The data from all investigative sites will be pooled for all analyses.  
+2.4. Analysis  Sets  
+2.4.1.  Efficacy Analysis Set(s)  
+The all-treated population  is defined as all subjects who have received at least 1 dose of study 
+drugs (either ibrutinib or nivolumab ). 
+The response -evaluable p opulation  is defined as all subjects who receive at least 1 dose of both 
+study drugs (ibrutinib and nivolumab), and have a pretreatment, and at least 1 posttreatment 
+disease assessment; unless no post -baseline scan was performed due to AE possibly related to 
+treatment  or clinical progression  or death .  
+ORR , DOR,  DOSD , PFS and OS will be analyzed using the all-treated  population.  In addition , 
+ORR  will also be analyzed based on response -evaluable , if deemed necessary .  
+DOR will be analyzed for subjects who achieve a partial response [ PR (+L)] or better .  DOSD 
+will be analyzed for subjects who achieve a stable disease (SD)  or better . 
+ 
+2.4.2.  Safety Analysis Set  
+The safety population  is defined as all subjects who receive at least 1 dose of study drug, which 
+is same definition as the all-treated population.  
+2.4.3.  Pharma cokinetics /Pharmacodynamic  (PK/PD) Analysis  Set 
+This population consists  of all subjects who receive at least 1 dose of study drug (either 
+ibrutinib or nivolumab) and have at least 1 posttreatment sample collected during treatment to 
+determine the concentr ation or pharmacodynamic biomarker response.   
+2.5. Definition of Subgroups  
+Exploratory subgroup analyses will be performed for the primary efficacy endpoint.   
+•         Age (< 65 vs. 65 years)  
+• Sex (male  vs. female)  
+• Race (Caucasian  vs. Other ) 
+• Prior lines of therapy ( 1 vs 2 to 4 vs >4 )  
+• Baseline E astern Cooperative Oncology Group (ECOG)  performance status (0 and 
+1 vs  2 ) 
+• Region ( United States vs. Non-United States ) 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+9 
+Approved , Date: 9 August 2017   • SLL vs Non-SLL 
+• Transformed DLBCL  vs Non-transformed DLBCL  
+ 
+2.6. Imputation of Missing Dates  
+In general, missing date of initial diagnosis, date of death and start and end dates of AE, prior, 
+concomitant and subsequent therapies will be imputed according to the following rules:  
+• General rules  
+o If date is completely missing or year is missing, no im putation will be made.  
+o If only year is present but month and day are missing, then June 30th will be used.  
+o If only day is missing but year and month are available, then the 15th of the month 
+will be used  
+• Start and end dates rules  
+o Start date will be impu ted before end date    
+o If end date is not missing (i.e., not imputed) and before the imputed start date, then  
+end date will be used  
+o If end month and year are not missing and before imputed start month and year, 
+then  end month and year will be used  
+o If impu ted end date is before start date, then start date will be used  
+However, the above imputation will be modified by the following rules sequentially:  
+• For death: if the imputed date is before the last date that the subject is known to be alive, 
+the latter dat e + 1 day will be used.  
+• If any imputed date is after date of death, then date of death will be used  
+• For initial diagnosis and prior therapies: if imputed date is on or after the first dose date, 
+then first dose  date - 1 will be used.   
+• For AE and concomitant medications: The imputed start date  will be adjusted sequentially 
+using the following steps  
+o If it is in the same month and year but before the first dose date, then the first dose 
+date will be used, or if it is in the same month and year but after the last dose date + 
+30 days, then the last dose date + 30 days will be used  
+o If the end date is not missing and the imputed start date is after the end date, then 
+the end date will be used.   
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+10 
+Approved , Date: 9 August 2017   o If the imputed start date and is after date of death, then date of death will be used.  
+o If it is in the same month and year but after the 1st subsequent systemic the rapy start 
+date, then the 1st subsequent therapy start date  will be used.  
+o For subsequent therapies: if imputed date is before the treatment  discontinuation 
+date, then the treatment discontinuation date will be used.  
+ 
+ 
+2.7. Other General Definitions  
+Year and Month  
+1 year = 365.25 days and 1 month = 30.4375 days.  
+Age 
+Use A ge (year) collected in the case report form ( CRF ), which is  the number of int eger year s from 
+the date of birth to the date of informed consent.  
+Date of overall response for each time  point  
+Date of assessment at that time point. When different assessments for the time point are performed 
+on different dates, the date of overall response is the date of the last assessment performed when 
+the response s PR(+L) or better [except for biopsies  - biopsies of tumor or suspect ed tumors (such 
+as lymph nodes/ noda l masses) or extranodal masses ( such as GI biopsy, skin lesions,  etc.), 
+cytology assessments ], or the date of earliest assessment showing progression when the response 
+is PD or relapse from CR.   
+Date of response  
+Date of  first observed response [ PR(+L) or better ]. For CLL patients, time to response is calculated 
+from on set of PRL.  
+Date of best response  
+Date of firs t observed best response [ PR(+L) or better ].  For instance, for subjects who achieved 
+PR followed by CR, PR will be the initial response and CR will be the best response (the date of 
+evaluation with first time CR is reported is the date of best response).  Use the ranking below to 
+choose  the best response.  The response  corresponds to the lowest rank of number is the best 
+response : 
+Rank  Response  
+1 CR 
+2 CRI 
+3 PR 
+4 NPR 
+5 PR WITH LYMPH  (PRL)  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+11 
+Approved , Date: 9 August 2017   6 SD or no response  
+7 PD 
+8 NE 
+10 UNK  
+11 (missing)  
+ 
+Date of progression   
+Date of first observed progression.  
+3. SUBJECT INFORMATION  
+3.1. Demographics and Baseline Characteristics  
+All demographics and baseline characteristic variables will be summarized for the all-treated 
+population  by disease type and study cohorts.  
+ 
+No formal statistical hypothesis testing is planned.  
+• Demographic and base line characteristics data, including age (continuous and grouped as  
+<65, or 65 years), sex , race, ethnicity, weight, height, and ECOG performance status  will be 
+summarized.  
+• Disease characteristics at baseline including  time from initial diagnosis to first dose, 
+lymphoma -related symptoms , lactic acid dehydrogenase (LDH), number of lines of prior 
+therapies (continuous and grouped as 1 and  2 to 4 and >4 ) and lymphocyte count (at baseline ).  
+• Chemistry: creatinine, AST, ALT,  total bilirubin , lipase and amylase   
+• Hematology: hemoglobin, white blood cell, absolute neutrophils , absolute lymphocyte 
+count , and platelet count  
+• Beta2 -microglobulin, serum immunoglobulin levels (IgG, IgM, IgA) . For continuous 
+variables, mean, standard deviation, median, minimum, and maximum will be provided. For 
+categorical variables, the number and percentage of subjects in each category will be 
+summarized.  
+3.2. Disposition Information  
+Disposition will be summarized for the all-treated p opulation  by disease type and study cohorts , 
+including the number and percent age of subjects who are treated and discontinued treatment as 
+well as their reason for discontinuation . Similarly, number of subjects undergoing and 
+discontin uing the study as well as their reasons for study discontinuation will be summarized.  
+3.3. Medical History  
+Abnormal medical history findings reported by the investigator will be summarized by body 
+system.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+12 
+Approved , Date: 9 August 2017   3.4. Extent of Exposure  
+Extent of exposure  for ibrutinib  will be summarized for the safety  population  by disease type 
+and study cohorts .  Descriptive statistics (n, mean, standard deviation , median, and range) will 
+be provided for total number of cycles, treatment duration (the interval between date of first dose 
+and date of last dose), and ibrutinib  dosing informa tion including total dose received (the sum of 
+administered dose s), dose inten sity (the ratio of tot al dose and treatment duration) .  
+Dose reduction for ibrutinib is defined as administered planned lower dose level. There is a one  
+applicable dose level reduction for CLL/SLL cohort: 280 mg/day (level 1 reduction).  There are 
+two appl icable dose level reductions in FL, DLBCL or Richter syndrome disease cohorts: 420 
+mg/day (level 1 reduction) or 280 mg/day (level 2 reduction). Dose reduction information will 
+be summarized for the number of subjects with any dose reduction (at least 1 re ported dose 
+reduction), as well as the frequency and reason of dose reduction.  Number and percentage of 
+subjects with cycle delays will also be presented.  
+Dose interruption for ibrutinib is defined as missing/skipped dose for ≥ 7 day . The consecutive 
+days of dose interruption are considered as 1 dose interruption.   The number and percentage of 
+subjects with dose reduction and dose interruption will be summarized. In addition, subjects with 
+dose modifications  (i.e., reductions or interruptions)  and reasons  for dose modifications will be 
+summarized.  
+Extent of exposure for nivolumab  will be summarized for the safety  population  by disease type 
+and study cohorts .  Descriptive statistics (n, mean, standard deviation , median, and range) will 
+be pro vided for total number of infusion , infusion  duration (the int erval between the start time 
+of infusion and the end time of infusion ), infusion rate interruption duration (the interval between 
+the start time of infusion interruption and the end time of infu sion interruption),  and nivolumab  
+dosing information including, total dose  administered/ received (the sum of actual dose 
+administe red), total number of infusions interrupted, total number of infusions  skipped,  total 
+number of infusions discontinued  and tot al number of infusion rate reductions , interval between 
+2 consecutive infusions of nivolumab which is defined as end date of prior cycle to first day of 
+following cycle .   
+Dose modification is define d as at least 1 dose skipped or events occurred during in fusion .  The 
+frequency and reason of dose  skipped or events occurred during infusion will be summarized.    
+ 
+3.5. Protocol Deviations  
+Subjects with eligibility and major protocol deviations will be  summarized and  listed , as 
+appropriate.  Protocol deviations will be based on clinical review for the following aspects , but 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+13 
+Approved , Date: 9 August 2017   not limited to : (1) eligibility, (2) treatment compliance, ( 3) patient safety , and (4) efficacy 
+assessment deviation. Protocol deviations will be closely monitored during the execution of the 
+study and the final set of protocol deviation criteria will be finalized before database lock.  
+3.6. Prior and Concomitant Medications  
+Prior and concomitant medications will be summarized by the World Health Organization Drug 
+Dictionary  (WHO -DD) therapeutic class, pharmacological class, and preferred term.   
+4. EFFICACY  
+The primary population for the primary efficacy endpoint , ORR,  is the all-treated. Sensitivity 
+analysis will be performed on the response -evaluable population , if deemed necessary . Unless 
+otherwise specified efficacy analyses will be based on the all-treated p opulation .  
+4.1. Analysis Specifications  
+4.1.1.  Level of Significance  
+If deemed applicable , all tests will be 1 -sided. The primary efficacy endpoint will be tested at 
+the overall  significance level of 0.025.  For result presentation purpose, a 2 -sided 95% 
+confidence interval will be used.  
+4.1.2.  Data Handling Rules  
+Unless otherwise  specified , missing values will not be imputed.  
+4.1.3.  General Analysis Considerations  
+For this study  and its CSR , analyses of disease response and disease progression are based on  
+investigator assessments.  These assessments are based on  IWCLL [International Workshop 
+on Chronic Lymphocytic Leu kemia (Hal lek 2008) ] for CLL patients  and the Lugano 
+Classification by Cheson  (2014) for SLL, FL, DLBCL  and Richter syndrome  and using  data 
+collected at the clinical cutoff.  Detailed criteria for response category can be found in Section 
+10.1 of the protocol.  All the additional data collected  after the clinical cutoff will be 
+summarized in the CSR addendum.  
+4.2. Primary Efficacy Endpoint(s)  
+4.2.1.  Definition  
+The primary endpoint is ORR, defined as the proportion of subjects who  achieve par tial 
+response or  better [ PR(+L) or better ], as assessed by the inve stigators  at or prior to initiation 
+of subsequent anti -cancer therapy .  The primary efficacy analysis of ORR  will be conducted 
+at performed 6 months after the last  subject has received the first dose of study medication, or 
+earlier if that sub ject disconti nues study therapy . The analysis will be based on the all-treated 
+population .  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+14 
+Approved , Date: 9 August 2017   4.2.2.  Analysis Methods  
+The response rate and its 95% exact (Clopper -Pearson) CI will be calculated . Subgroup 
+analysis will be provided.  Sensitivity analysis will be performed using  the response -evaluable  
+population . 
+A listing of tumor response by assessment visit will be provided.  
+4.3. Exploratory Secondary Endpoints  
+4.3.1.  Duration of Response  
+Definition  
+Duration of response  is defined as the interval between  the date of initial doc umentation of a 
+response [ PR(+L) or better ] and the date of first documented evidence of PD (or relapse for 
+subjects who experience CR during the study) or death , whichever occurs first . Subjects who 
+are progression -free and alive , or have unknown status will be censored at the last adequate 
+disease  assessment.   
+Analysis method  
+Duration of response will b e analyzed for subjects with PR(+L) or better . The distribution of 
+duration of response will be estimated using the Kaplan -Meier m ethod. The primary analysis 
+will be based on response data by investigator  assessment.    
+ 
+4.3.2.  Duration of Stable Disease  or Better  
+Definition  
+Duration of s table disease  or better  is measured from the start of the treatment until the cr iteria 
+for progression are met.   
+Analysis method  
+Duration of SD  or better  will be ana lyzed using descriptive summary statistics . Subjects whose 
+progression criteria are not met at clinical cut -off will be censored at the last adequate disease 
+assessment.  
+ 
+4.3.3.  Progression -free Survival and Overall Survival  
+Definition  
+PFS is defined as the interval between the date of first dose of study drug and the date of first 
+documented evidence of PD (or relapse for subjects who experience CR during the study) or 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+15 
+Approved , Date: 9 August 2017   death, wh ichever  come s first. Subjects who are progression -free and alive , or have unknown 
+status will be censored at the last adequate disease assessment . 
+OS is defined as the interval between  the date of the first dose of study drug and the date of the 
+subject’s death  from any cause . If the subject is alive at the time of the cut -off, it will be 
+censored at the last known alive date (the last date among visit date, AE start and end dates, 
+treatment date, disease  assessment date, and survival follow up date, and if available, survival 
+sweep date , etc. ). 
+Analysis method  
+Similar analyses will be applied to OS and PFS as those us ed for duration of response. The 
+distribution of PFS and OS  will be estimated using the K aplan -Meier method.  
+The primary analysis of PFS will be based on assessment s by investigator . The reason of 
+censoring will be summarized for OS and PFS.  The median follow -up duration  will be 
+provided.  Follow -up duration  is defined as OS with reversed cens oring, i.e., subject who died 
+will be censored.    The Kaplan -Meier method will be used to estimate the median follow -up. 
+4.3.4.  Resolution of Lymphoma -related symptoms  
+Frequency and percentage of subjects with lymphoma -related symptoms will be summarized 
+by cycl e. All -treated population will be used .  
+For subjects who have reported symptoms at baseline and had at least one time point of 
+assessment post baseline (before the start of subsequent therapy), the following summaries will 
+be provided for the resolution o f symptoms:  
+• Frequency and percentage of subjects who have no symptoms reported at least one post 
+baseline time point (before the start of subsequent therapy)  
+▪ Duration of resolution is defined as the interval between the initial time 
+point of assessment whe n no symptoms was reported and the subsequent 
+time point of assessment when symptoms re -occurred before symptoms re -
+occurred. Subjects who have no B -symptoms and alive will be censored at 
+the last B -symptom assessment prior to subsequent therapy initiated.  This 
+will be summarized descriptively.   
+▪ Time to resolutio n (applicable to subject with symptom at baseline) is 
+defined as the duration from baseline to the first time point when no 
+symptom was reported. It will be summarized descriptively for those 
+subje cts who experienced resolution.  
+▪ As an exploratory analysis, subject’s best response , will be summarized for 
+those who experienced resolution.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+16 
+Approved , Date: 9 August 2017   5. SAFETY  
+Safety will be analyzed using the incidence, intensity, and type of adverse events, laboratory tests . 
+All safety analyses will be based on the safety analysis set.  
+5.1. Adverse Events  
+The verbatim terms used in the CRF by investigators to identify adverse events will be coded 
+using the current Medical Dictionary for Regulatory Activities (MedDRA). The severity of 
+adverse events is assessed in NCI common toxicity criteria for adverse events (CTCAE) Version 
+4.03.  
+Treatment -emergent adverse events are 1) adverse events that occur after the first dose of study 
+treatment , and  up to + 30 days after last ibrutinib or up to  100 days after last dose of nivolumab 
+whichever is last , or the start date of a subsequent systemic anticancer therapy, whichever is 
+earlier (including both dates),  2) any adverse event that is considered study treatment - related 
+(at least relationship t o one drug of combination will be considered related) (i.e., possibly, 
+probably, or very likely related to study drug) regardless of the start date of the event, 3) any 
+adverse event that is present at baseline but worsens in severity and is subsequently c onsidered 
+drug-related by the investigator .  
+Treatment -emergent adverse events will be summarized by system organ class  (SOC)  and 
+preferred term  (PT), by severity, by relationship to study treatment , and  by action taken. For each 
+adverse event, the percent age of subjects who experience at least 1 occurrence of the given event 
+will be summarized. Tables will be sorted by frequency in incidence ( from the highest to lowest 
+incidence). The same summary will be provided for drug -related adverse events, serious a dverse 
+events, and drug -related serious adverse events, immune -related events  as well as  adverse events 
+leading to treatment discontinuation , and death.  
+5.2. Adverse Events of Special   
+Adverse events of special interest to be summarized include the following:  
+Major Hemorrhage  
+Hemorrhage SMQ without labs will be used to identify bleeding events. Any grade ≥3 
+hemorrhage events, any SAE or all grade s of CNS hemorrhage (preferred terms are listed in 
+Appendix A ). Events will be summarized by preferred terms.  
+ 
+5.3. Adverse Events of Clinical Interest  
+Other Malignancies  
+New malignant tumors including solid tumors, skin malignancies and hematologic malignancies 
+that occ ur after study treatment initiated will be identified and summarized by preferred terms 
+and toxicity grade. Terms to be extracted are determined through cumulative AE term reviews.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+17 
+Approved , Date: 9 August 2017   Atrial Fibrillation  
+Cardiac events – Atrial fibrillation will be extracted  by preferred terms. The number and 
+percentage of subjects who had events will be summarized by preferred terms.   
+Ocular Events  
+Ocular events will be extracted and summarized separately by preferred terms.  
+Immune -related AEs (irAEs ): Endocrine, Gastrointestinal, Hepatic , 
+Hypersensitivity/Infusion Reaction,  Pulmonary,  Renal, Skin, and Visual  Events  
+Imm une-related events  will be extracted  (as below) and summarized separately by preferred 
+terms.  
+CATEGORY  SUBCATEGORY  PREFERRED TERMS  
+ENDOCRINE ADVERSE EVENT  ADRENAL DISORDER  ADRENAL UNSUFFICIENCY  
+  ADRENAL SUPPRESSION  
+  BLOOD CORTICOTROPHIN DECREASED  
+  BLOOD CORTICOTROPHIN INCREASED  
+  HYPOTHALAMIC PITUITARY ADRENAL AXIS SUPPRESSION              
+  SECONDARY ADRENOCORTICAL INSUFFICIENCY  
+ DIABETES  DIABETES MELLITUS  
+  DIABETIC KETOACIDOSIS  
+  FULMINANT TYPE 1 DIABETES MELLITUS                           
+  LATENT AUTOIMMUNE DIABETES IN ADULTS                         
+  TYPE 1 DIABETES MELLITUS                                     
+ PITUITARY DISORDER  HYPOPHYSITIS   
+ THYROID DISORDER  AUTOIMMUNE THYROIDITIS                                       
+  BLOOD THYROID STIMULATING HORMONE DECREASED          
+  BLOOD THYROID STIMULATING HORMONE INCREASED                  
+  HYPERTHYROIDISM  
+  HYPOTHYROIDISM   
+  PRIMARY HYPERTHYROIDISM                                      
+  PRIMARY HYPOTHYROIDISM   
+  THYROID FUNCTION TEST ABNORMAL      
+  THYROID HORMONES DECREASED                                   
+  THYROID HORMONES INCREASED                                   
+  THYROIDITIS   
+  THYROIDITIS ACUTE                                            
+  THYROXINE DECREASED                                          
+  THYROXINE FREE DECREASED  
+  THYROXINE FREE INCREASED                                     
+  THYROXINE INCREASED                                          
+  TRI-IODOTHYRONINE UPTAKE INCREASED                           
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+18 
+Approved , Date: 9 August 2017   GASTROINTESTINAL 
+ADVERSE EVENT   AUTOIMMUNE COLITIS                                           
+  COLITIS  
+  COLITIS ULCERATIVE  
+  DIARRHOEA   
+  ENTERITIS  
+  ENTEROCOLITIS  
+  FREQUENT BOWEL MOVEMENTS  
+  GASTROINTESTINAL PERFORATION  
+HEPATIC ADVERSE EVENT   ACUTE HEPATIC FAILURE  
+  ALANINE AMINOTRANSFERASE INCREASED  
+  ASPARTATE AMINOTRANSFERASE INCREASED  
+  AUTOIMMUNE HEPATITIS  
+  BILIRUBIN CONJUGATED INCREASED  
+  BLOOD ALKALINE PHOPHATASE INCREASED  
+  BLOOD BILIRUBIN INCREASED  
+  DRUG -INDUCED LIVER INJURY  
+  GAMMA -GLUTAMYLTRANSFERASE INCREASED                          
+  HEPATIC ENZYME INCREASED  
+  HEPATIC FAILURE  
+  HEPATITIS  
+  HEPATITIS ACUTE  
+  HEPATOTOXICITY  
+  HYPERBILIRUBINAEMIA  
+  LIVER DISORDER  
+  LIVER FUNCTION TEST ABNORMAL  
+  LIVER INJURY  
+  TRANSAMINASES INCREASED  
+HYPERSENSITIVITY/INFUSION 
+REACTION   ANAPHYLACTIC REACTION  
+  ANAPHYLACTIC SHOCK  
+  BRONCHOSPASM  
+  HYPERSENSITIVITY  
+  INFUSION RELATED REACTION  
+PULMONARY ADVERSER 
+EVENT   ACUTE RESPIRATORY DISTRESS SYNDROME  
+  ACUTE RESPIRATORY FAILURE  
+  INTERSTITIAL LUNG DISEASE  
+  LUNG INFILTRATION  
+  PNEUMONITIS  
+RENAL ADVERSER EVENT   ACUTE KIDNEY INJURY  
+  BLOOD CREATININE INCREASED                                   
+  BLOOD UREA INCREASED  
+  CREATININE RENAL CLEARANCE DECREASED                         
+  HYPERCREATININAEMIA  
+  NEPHRITIS  
+  NEPHRITIS ALLERGIC   
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+19 
+Approved , Date: 9 August 2017     NEPHRITIS AUTOIMMUNE                                         
+  RENAL FAILURE                                                
+  RENAL TUBULAR NECROSIS                                       
+  TUBULOINTERSTITIAL NEPHRITIS                                 
+  URINE OUTPUT DECREASED                                       
+SKIN ADVERSE EVENT   AUTOIMMUNE DERMATITIS                                        
+  BLISTER  
+  DERMATITIS  
+  DERMATITIS EXFOLIATIVE  
+  DRUG ERUPTION  
+  ECZEMA  
+  ERYTHEMA  
+  ERYTHEMA MULTIFORME  
+  EXFOLIATIVE RASH  
+  PALMAR -PLANTAR ERYTHRODYSAESTHESIA SYNDROME  
+  PHOTOSENSITIVITY REACTION  
+  PRURITUS  
+  PRURITUS ALLERGIC                                            
+  PRURITUS GENERALISED  
+  PSORIASIS  
+  RASH  
+  RASH ERYTHEMATOUS                                            
+  RASH GENERALISED                                             
+  RASH MACULAR  
+  RASH MACULO -PAPULAR  
+  RASH PAPULAR                                                 
+  RASH PRURITIC                                                
+  SKIN EXFOLIATION                                             
+  SKIN HYPOPIGMENTATION  
+  SKIN IRRITATION  
+  STEVENS -JOHNSON SYNDROME  
+  TOXIC EPIDERMAL NECROLYSIS  
+  URTICARIA  
+  VITILIGO  
+VISUAL AE   UVEITIS  
+  VISION BLURRED  
+  ENDOPHTHALMITIS  
+  PHOTOSENSITIVITY REACTION  
+  VISUAL IMPAIRMENT  
+  PHOTOPSIA  
+  VISUAL FLOATERS  
+  PHOTOPHOBIA  
+  DIPLOPIA  
+ 
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+20 
+Approved , Date: 9 August 2017   Adverse events of interest and other safety observations will be summarized by disease type and 
+study cohorts . 
+5.4. Death  
+A summary of the number of deaths since first administration of study agent up to + 30 days 
+after last i brutinib or up to 100 days after last d ose of n ivolumab  whichever is last,  will be 
+provided, along with the primary cause of death. A death is a study drug-related death  if the 
+primary cause is a drug -related adverse event .  
+5.5. Clinical Laboratory Tests  
+Laboratory data for hematology and serum chemistry tests , up to the later of the End of Treatment 
+visit or up to + 30 days after last ibrutinib or up to 100  days after last dose of nivolumab 
+whichever is last , will be reported in SI units. Applicable laboratory results will be graded 
+according to NCI -CTCAE Version 4.0 3. Toxicity grading for creatinine increase is based on the 
+NCI-CTC AE v4.03 criteria but limi ted only to the part based on the ULN, the other part that is 
+based on change from baseline is not used for toxicity grading. Toxicity grading for all other lab 
+parameters are based on the NCI -CTC AE v4.03 criteria as is.  
+The following laboratory tests will  be analyzed:  
+• Hematology: hemoglobin, white blood cell count ( WBC ), absolute neutrophil count 
+(ANC ), absolute lymphocyte count ( ALC ), and platelet  count  
+• Chemistry: sodium, potassium, magnesium, creatinine, creatinine clearance (CrCl),  AST, 
+ALT, alkaline phosph atase, LDH, total bilirubin , albumin , amylase and lipase.  
+• Beta2 -microglobulin, serum immunoglobulin levels (IgG, IgM, IgA) : only for FL and 
+CLL/SL L disease cohorts.  
+• Coagulation panel: PT APTT and INR  
+• Thyroid function: T3 free T4 and TSH  
+Descriptive statistics (mean, standard deviation, median , and range) will be calculated for the 
+raw data and for change from baseline at each time point of assessment , as well as for change 
+from baseline to the last value. Worst t oxicity grade will be summarized for a ll hematology and 
+chem istry parameters except for LDH , which will be summarized by abnormal/normal using 
+normal ranges. Change from baseline to the worst grade during the treatment will be provided 
+as shift tables for selected parameters.  
+Lymphocytosis is  defined as ALC increasing ≥ 50% from baseline and achieving level ≥ 5x109 
+/L. Descriptive statistics will be provided for time to first lymphocytosis, i.e., time from first 
+dose to date of first lymphocytosis. Similar to duration of response, Kaplan -Meier method will 
+be used to estimate duration of first lymphocytosis as the time from first lymphocytosis to the 
+earliest date of its resolution (i.e., when ALC decreased to the baseline level or lower or 
+achieving level of < 5x109 /L) or date of censoring (i.e ., date of last non -missing ALC).  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+21 
+Approved , Date: 9 August 2017   5.5.1.  Creatinine Clearance  
+Creatinine clearance (CrCl) is calculated using the Cockroft -Gault formula:  
+             
+   for males, the factor is 1 instead of 0.85  
+ 
+5.6. Other Safety Parameters  
+Change in ECOG  scores  from baseline to t he worst score during the treatment will be provided 
+as shift tables.  
+Subjects with more than 10% weight loss from baseline will be summarized.  
+• Change in ECG  (QTcF only) from baseline to the worst score during the treatment will be 
+provided as shift tables  
+• Listing of t ransfusion dependency  by subject  
+• Listing of r equirement of gCSF  by subject  
+6. Pharmacokinetics  
+The plasma concentration data for ibrutinib  and, if possible and judged relevant, PCI -45227 and 
+other metabolite s, if possible , will be summarized at each time point using descriptive statistics.  
+Population pharmacokinetic analysis of plasma concentration -time data will be performed using 
+nonlinear mixed -effects modeling. Data may be combined with data from other studies to supp ort 
+a relevant structural population -based pharmacokinetic model. Available subject characteristics 
+(demographics, laboratory variables, genotypes, etc.) will be tested as potential covariates 
+affecting pharmacokinetic parameters. Details will be given in a population pharmacokinetic 
+analysis plan and the results of the population pharmacokinetic analysis will be presented in a 
+separate report.  
+Data will be listed for all subjects with available plasma concentrations. Subjects will be excluded 
+from the phar macokinetic analysis if their data do not allow for accurate assessment of the 
+pharmacokinetic (e .g., incomplete administration of the study agent; concentration data not 
+sufficient for pharmacokinetic parameter calculation due to missing pharmacokinetic d raws at 
+multiple visits; or early discontinuation from the study).  
+All concentrations below the lowest quantifiable concentration or missing data will be labeled as 
+such in the concentration data presentation. Concentrations below the lowest quantifiable 
+concentration will be treated as zero in the summary statistics. All subjects and samples excluded 
+from the analysis will be clearly documented in the study report.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+22 
+Approved , Date: 9 August 2017   For each dosage, descriptive statistics, including arithmetic mean, standard deviation, coef ficient 
+of variation, geometric mean, median, minimum, and maximum will be calculated for the ibrutinib  
+and PCI -45227 plasma concentrations at each sampling time and for all pharmacokinetic 
+parameters of ibrutinib . 
+7. Biomarker  
+7.1. Biomarker Objectives  
+Inhibition  of BTK tyrosine phosphorylation by ibrutinib has be en shown to abrogate downstream 
+survival pathways (eg, ERK1/2, PI3K, NF -kB, and MAPK ). Inhibition by ibrutinib also interferes 
+with activation of integrins and chemokine networ ks leading to interference w ith adhesion, 
+migration, and homing of malignant cells. It is  anticipated that subjects with alterations in BCR -
+signaling components or activation of alternative signaling pat hways may have differential 
+response to treatment.   
+7.2. Biomarker Analysis Sets  
+This population consists of all subjects who receive at least 1 dose of study drug (either ibrutinib 
+or nivolumab). Subjects from this population will be analyzed if they received the treatment, have 
+data from at least one of the clinical endpoints and also have data from any biomarkers. Th e 
+biomarker population is defined as having at least one assay among all the results.  
+7.3. Biomarker Stratification Groups  
+Biomarker analysis will be performed with no patient stratification (all patients) and with 
+stratification by dose expansion cohort by indication  (i.e., biomarker stratification cohort ) as 
+shown:  
+A. CLL  
+B. CLL only del 17p  
+C. CLL only del 11q  
+D. FL 
+E. DLBCL  
+F. ABC -DLBCL  (if available)  
+G. GCB -DLBCL  (if available)  
+H. Richter  Syndrome   
+I. ABC -like Richter’s (if available)  
+J. GCB -like Richter’s  (if available)  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+23 
+Approved , Date: 9 August 2017    
+7.4. Biomarker  Tested  
+• IHC of PDL1 , NGS and GEP  (if available)  
+PDL1 protein levels will be examined on tumor cells by Immunohistochemistry (IHC).  
+FFPE slides from screening will be examined by IHC for PDL1 Staining. Cut points are 
+listed  
+Biomar ker 
+Type  Biomarker  Description  Levels 
+(Cutpoints)  Data column  
+IHC PDL1  PDL1 option 1  Not elevated <5%  
+Elevated ≥5%  PERCENT OF VIABLE TUMOR CELLS 
+THAT EXHIBIT PD -L1 MEMBRANE 
+STAINING  
+IHC PDL1  PDL1 option 2  Negative = 0  
+Positive >0  PERCENT OF VIABLE TUMOR  CELLS 
+THAT EXHIBIT PD -L1 MEMBRANE 
+STAINING  
+NGS  CARD11  Mutation  Positive  
+Negative   
+NGS  Additional 
+genes ~5  Mutations  Positive  
+Negative   
+GEP  (if 
+available)  Genes ~10  Expression  >Median  
+<=Median 
+calculated within 
+disease group   
+ 
+• T cell Panel  
+The following flow cytometry T -cell panel will determine a percentage and absolute 
+numbers of each cell type at multiple time points (C1D1, C1D7, C3D1 and End of 
+Treatment (EOT) or Progression (PRO):  
+1. Absolute lymphocyte counts  
+2. Viable CD3+, % of Single Lymphocy tes  
+3. Variable CD3+, Counts  
+4. CD4% of CD3  
+5. CD8% of CD3  
+6. TH17, % of CD4+  
+7. Treg, % of CD4+  
+8. CD4+ICOS+, % of CD4+  
+9. CD4+OX40+, % of CD4+  
+10. CD4+PD -1+, % of CD4+  
+11. CD8+ICOS+, % of CD8+  
+12. CD8+OX40+, % of CD8+  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+24 
+Approved , Date: 9 August 2017   13. CD8+PD -1+, % of CD8+  
+ 
+These values  need to be calculated:  
+14. CD4 Counts  
+15. Treg Counts  
+16. TH17 Counts  
+17. CD4/OX40  Counts  
+18. CD4/PD -1 Counts  
+19. CD4/ICOS  Counts  
+20. CD8 Counts  
+21. CD*/OX40 Counts   
+22. CD8/PD -1 Counts  
+23. CD8/ICOS  Counts  
+ 
+7.5. Association Analysis of Biomarkers with Clinical Efficacy Endpoints  
+The primary endpoint is ORR, defined as the proportion of subjects who achieve partial response 
+or better [PR(+L) or better], as assessed by the investigators at or prior to initiation of subsequent 
+anti-cancer therapy.  The primary efficacy analysis of ORR will be conducted at performed 6 
+month s after the last subject has received the first dose of study medication, or earlier if that subject 
+discontinues study therap y.  The analysis will be based on the response -evaluable  or biomarker 
+populations , as see appropriate .  
+In addition, the  following  secondary endpoints will be evaluated  if there are sufficient events to 
+warrant the analysis:  
+• Duration of Response.  
+• Time to Response.  
+• Progression -free Survival and Overall Survival.  
+• Best overall Response . 
+ 
+7.5.1.  Level of Significance  
+All tests will be 1 -sided. The primary efficacy endpoint will be tested at the overall significance 
+level of 0.025.  Nominal p -values will be presented for all statistical analyses , if applicable . 
+7.5.2.  Missing Data Handling  
+If >90% of subjects have missing value for a particular biomarke r, or if all subjects have the same 
+value for a biomarker, then only the frequencies will be summarized and that biomarker will be 
+removed from further analysis . 
+If a subject has missing data for a clinically defined endpoint, that subject will be excluded  from 
+that particular association analysis but included in other a nalyses where data is available.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+25 
+Approved , Date: 9 August 2017   7.5.3.  Data Transformation and imputation  
+No transformation will be performed on any of the clinical data other than what was transformed 
+as part of the clinical st atistical analysis.  If deemed applicable, b iomarker data may be log (base 
+2 or 10) transformed if the data distribution is not normal or otherwise skewed.  Shapiro -Wilk’s 
+test will be used to determine normality for baseline only . 
+7.5.4.  Outlier Detection and Ha ndling  
+No outlier handling will be performed  
+7.5.5.  Biomarker Data Analysis Methods  for PDL1, and NGS and GEP  (if 
+available)  
+• Median, mean (SD), and range for continuous variable or N and frequency (%) for 
+categorical variables will be reported for all -treated ver sus the biomarker population s for 
+selected demographic  and baseline  characteristic variables including the biomarker 
+stratification cohorts .  
+• The number of subjects  (N) and the associated percentage  (%) will be present ed to facilitate 
+the evaluation  of the response rate . The median  duration of response  (arising from Kaplan 
+-Meier estimate) between 1) PDL1 IHC option 1/2 subgroups  (i.e., not elevated/negative 
+vs. elevated/positive); 2) NGS subgroups (i.e., negative vs. positive); 3) GEP subgroups 
+(i.e., >median vs. <=median)  will also be reported .  
+ The relationship between 1) PDL1 not elevated  (or negative)  vs. elevated  (or positive)  
+subgroups ; 2) NGS n egative vs. positive subgroups; 3) GEP subgroups >median vs. 
+<=median subgroup for  duration of response , progression -free survival and overall survival  
+will be evaluated  by the K aplan-Meier method . If the number of subjec ts is ≤7 then Kaplan -
+Meier analyses  are unnecessary.  
+• For each of the biomarker stratification cohort, Fisher exact  test will be used to te st the 
+association on the response between  1) PDL1 subgroups (not elevated and elevated  for 
+option 1; negative and positive for option 2 ); 2) NGS  subgroups (negative vs. positive) ; 3) 
+GEP subgroups (>median vs. <=median )  
+• Descriptive summary statistics [i.e., mean (SD), median an d range] will be used to  evaluate  
+time to  initial  response and best response of the PDL1 , NGS and GEP  subgroups  for each 
+of the biomarker stratification cohort .  
+7.5.6.  Biomarker Data Analysis Methods for Flow Cytometry T -cell Type 
+Pane l Data  
+• Data arisng from T-cell type panel collected over time  will be  descriptively summarized  
+for each biomarker stratification cohorts .  The corresponding mean (± se) over t ime line 
+plot for each biomarker stratification cohorts will be generated.  In Addition, m ean change 
+and p ercent change from baseline will also be descriptively summarized.  The 
+corresponding mean change and percent change from baseline values will be plotted.  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+26 
+Approved , Date: 9 August 2017   • Mean  values for  each T- cell type over times by response group (i.e., non -responder and 
+responder) will be reported for the biomarker stratification group s − CLL, FL,  DLBCL, 
+ABC -DLBCL, GCB -DLBCL and Richter’s . For each cell type, t he corresponding m ean (± 
+se) line and box plots over time  by response group for each  selected bioma rker stratification 
+group  will be generated. Similarly, the mean (± se) line plot over time by progression group 
+(i.e., progressor and non -progressor) for each cell type for selected biomarker stratification 
+group will  also be generated.    
+• Paired t-test will be performed to compare the mean at baseline v s the mean at each  post 
+baseline  time point  for each cell type and for each selected biomarker stratification group 
+by respond group and progression group , respectively.    
+ 
+REFERENCES  
+1. Cheson BD, P fistner B, Juweid ME, et al. Revised response criteria for malignant lymphoma. J Clin Oncol . 
+2007;25(5):579 -586. 
+2. Hallek  M, Cheson  BD, Catovsky  D, et al. Guidelines  for the diagnosis  and treatment  of chronic  lymphocytic 
+leukemia:  a report  from  the International  Workshop  on Chronic  Lymphocytic  Leukemia  updating  the National 
+Cancer  Institut e-Working  Group  1996  guidelines.  Blood.  2008;111(12):544 6-5456.  
+APPENDICE S 
+1. Appendix A  
+Preferred terms for CNS hemorrhage are as follows:  
+▪ Acute haemorrhagic  leukoencephalitis    
+▪ Basal ganglia haemorrhage  
+▪ Brain stem haemorrhage  
+▪ Brain stem haematoma  
+▪ Central nervous system haemorrhage  
+▪ Cerebellar haematoma  
+▪ Cerebellar haemorrhage  
+▪ Cerebral arteriovenous malformation haemorrhagic  
+▪ Cerebral haematoma  
+▪ Cerebral haemorrhage  
+▪ Cerebral microhaemorrhage  
+▪ Encephalitis haemorr hagic 
+▪ Epidural haemorrhage  
+▪ Extradural haematoma  
+▪ Haemorrhag e intracranial  
+▪ Haemorrhagic cerebral infarction  
+▪ Haemorrhag ic stroke  
+▪ Haemorrhagic transformation stroke  
+NCT02329847
+
+JNJ54179060  (ibrutinib )   
+  Statistical Analysis Plan  PCI-32765LYM1002   
+ 
+27 
+Approved , Date: 9 August 2017   ▪ Intracerebral haematoma evacuation  
+▪ Intracranial haematoma  
+▪ Intracranial tumour h aemorrhage  
+▪ Intraventricular haemorrhage  
+▪ Pituitary haemorrhage  
+▪ Putamen haemorrhage  
+▪ Ruptured cerebral aneurysm   
+▪ Spinal cord haemorrhage  
+▪ Spinal epidural haematoma  
+▪ Spinal epidural haemorrhage  
+▪ Spinal subarachnoid haemor rhage  
+▪ Spinal haematoma  
+▪ Spinal subdural haematoma  
+▪ Spinal subdural haemorrhage  
+▪ Subarachnoid haemorrhage  
+▪ Subdural haematoma  
+▪ Subdural haemorrhage  
+▪ Subgaleal haematoma  
+▪ Thalamus haemorrhage  
+ 
+NCT02329847

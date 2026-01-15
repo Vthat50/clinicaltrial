@@ -1,0 +1,1665 @@
+SAP version: 0.9 Page 1of 54
+Date: 15SEP 2022 Confident ialSTATISTICAL  ANAL YSIS PLAN FOR INTERIM ANAL YSES
+(SAP FOR IA  #1 & IA  #2)
+A Pivotal Phase 3 Trial to Evaluate the Safet y and Efficacy of Clazakizumab for the 
+Treatment of Chronic Act ive Ant ibody -Mediated Reject ion in Kidney Transplant 
+Recipients
+Study Number: CSL300_3001
+Study Pr oduct: Clazakizumab
+Development Phase: Phase 3
+Sponsor: CSL Behring, LLC
+1020 Fi rst Avenue
+King of Prussia, P A 19406
+Version: 1.0
+Version Date: 16August 2023
+Compliance: This study  will be conducted in accordance with standards of 
+Good Clinical Pract ice (as defined by the Internati onal Council 
+for Harm onizat ion) and all applicable national and local 
+regul ations. 
+COMMERCIAL IN CONFIDENCE
+This document and the information contained herein are proprietary and confidential. This document 
+and the contained information are intended for disclosure to and use by those personnel who are under 
+an obligation of confidentiali ty by a signed agreement with the Sponsor CSL Behring. This document 
+and the contained information may be disclosed and used only to the extent necessary to conduct the 
+clinical study. Reproduction or disclosure of this document or its contained informatio n is forbidden 
+unless at the express request or with the written consent of CSL Behring .
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+2TABLE OF CONTENTS
+1. MODIFICATION HISTORY ................................ ................................ ................... 6
+2. LIST OF ABBREVIATION S................................ ................................ ................... 7
+3. PURPOSE ................................ ................................ ................................ ................ 8
+4. STUDY DESIGN ................................ ................................ ................................ .....9
+4.1. Object ives and Endpo ints................................ ................................ ....................... 10
+4.1.1. Hypothesis for Efficacy  Analysis at IA #2 ................................ .............................. 11
+4.2. Study  Treatm ents................................ ................................ ................................ ....11
+4.3. Randomization Procedures and Blinding ................................ ................................ .11
+4.4. Planned Sam ple Size ................................ ................................ ............................... 12
+4.5. Planned Interim Analyses and Reviews ................................ ................................ ...12
+4.5.1. Subject Tri gger for Interim Analyses ................................ ................................ ......13
+4.5.2. Sample size Re -estimation in IA #1 ................................ ................................ ........ 13
+4.5.2.1. Operating Characterist ics of Sample Si ze Re -Estimat ion at IA#1 ............................ 14
+4.5.2.2. Efficacy Results Presentation t o DSMB at IA #1 ................................ .................... 17
+4.5.3. Efficacy Results Presentation to DSMB at IA #2 ................................ .................... 17
+4.5.4. DSMB Safet y Reviews ................................ ................................ ........................... 18
+5. CHANGES FROM THE PRO TOCOL PLANNED ANALYS ES........................... 19
+6. STUDY ANALYSIS SETS ................................ ................................ .................... 20
+6.1. Screened Analysis Set ................................ ................................ ............................. 20
+6.2. Intention -to-Treat (ITT) Analysis Set ................................ ................................ ......20
+6.2.1. Efficacy Analysis Set ................................ ................................ .............................. 20
+6.3. Per-protocol (PP) Analysis Set ................................ ................................ ................ 20
+6.4. Safety Analysis Set ................................ ................................ ................................ .20
+6.5. Pharmacokinet ic (PK) Analysis Set ................................ ................................ ........ 21
+6.6. Pharmacodynamic (PD) Analysis Set ................................ ................................ ......21
+6.7. PK/PD Substudy  Analysis Set ................................ ................................ ................. 21
+7. GENERAL CONSIDERATIO NS................................ ................................ ........... 22
+8. DAT A HANDLING CONVEN TIONS ................................ ................................ ...23
+8.1. Database Lock (DBL) ................................ ................................ ............................. 23
+8.1.1. Data Incl uded in the Analysis ................................ ................................ ................. 23
+8.2. Missing Data ................................ ................................ ................................ .......... 24
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+38.3. General Derived Variables ................................ ................................ ...................... 24
+8.3.1. Reference Dates and Study  Days ................................ ................................ ............ 24
+8.3.2. Durati ons and Time to Event Data ................................ ................................ .......... 25
+8.3.3. Baseline Definit ion................................ ................................ ................................ .25
+8.3.4. Change from Baseline ................................ ................................ ............................. 25
+8.3.5. Multiple Assessments ................................ ................................ ............................. 25
+8.3.6. Actual  Treatm ent................................ ................................ ................................ ....26
+9. STUDY POPULATION ................................ ................................ ......................... 27
+9.1. Subject Disposit ion................................ ................................ ................................ .27
+9.2. Dem ographic and Baseline Characteristics ................................ .............................. 27
+9.3. Prior/Concomi tant Medi cations................................ ................................ .............. 28
+9.4. Study  Popul ation -Derived Variables ................................ ................................ .....28
+10. INTERIM EFFICACY ANA LYSES ................................ ................................ ......29
+10.1. Primary Estimand ................................ ................................ ................................ ...29
+10.1.1 . Primary Analysis o f the Primary  Estimand ................................ .............................. 29
+10.2. Sensit ivity Analyses for IA #2 ................................ ................................ ................ 31
+10.2.1. Analysis Based on Imputation of Missing Data ................................ ....................... 31
+10.2.2. Nonparam etric Analysis ................................ ................................ .......................... 32
+10.3. Suppl ementary  Analyses for IA #2 ................................ ................................ ......... 32
+10.4. Exploratory  analysis of Primary Endpo int of All -Cause Allograft Loss or 
+Irreversible loss of allograft funct ion at IA #2 ................................ ......................... 33
+10.5. Addit ional Efficacy  Analyses ................................ ................................ .................. 34
+10.5.1. Subgroup Analysis for IA #2 ................................ ................................ .................. 35
+10.6. Multiple Com parisons and Mult iplicit y................................ ................................ ...35
+11. SAFETY ANALYSES ................................ ................................ ........................... 36
+11.1. Adverse Events (AEs) ................................ ................................ ............................. 36
+11.2. OVERVIEW OF COVID -19 IMPACT ................................ ................................ ...38
+11.3. Clinical Laboratory  Evaluat ions................................ ................................ .............. 38
+11.3.1. Analysis of Immunoglobulin G (IgG) ................................ ................................ .....40
+11.4. Other Safet y Measures ................................ ................................ ............................ 40
+11.4.1. Viral PCR Assay ................................ ................................ ................................ .....40
+11.4.2. Calcineurin Inhibitor (CNI) levels ................................ ................................ ........... 41
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+412. ADDITIONAL ANALYSIS TO SUPPORT REGULATOR Y 
+SUBMISSION FOR EXPED ITED MARKETING APPROVAL ............................ 42
+13. REFERENCES ................................ ................................ ................................ ....... 46
+14. APPENDICES ................................ ................................ ................................ ........ 47
+14.1. Figures for DSMB at IA #1 ................................ ................................ ..................... 47
+14.2. R Code for Simulated Overall Power at IA #2 Using rpact R Package .................... 50
+14.3. SAS Code for MMRM Analysis Using PROC MIXED ................................ .......... 50
+14.4. Tipping Point Analysis Usi ng Del ta Adjust ment Method ................................ ........ 50
+14.5. Analysis Under Each Analysis Set ................................ ................................ .......... 54
+LIST OF TABLES
+Table 1: Interim Analyses Efficacy  Endpoints ................................ ................................ ......10
+Table 2: Safety Endpo ints for DSMB Safet y Reviews ................................ .......................... 11
+Table 3: Operating Characterist ics for Overall Power at IA #2 ................................ .............. 16
+Table 4: Data to be included for each inte rim analysis and DSMB ................................ ........ 24
+Table 5: TEAE Assignment in Case of Missing AE Start Date Elements .............................. 36
+Table 6: List of laboratory  tests summarized for DSMB Safety  Reviews .............................. 38
+Table 7: Laboratory  Values of Potenti al Clinical  Importance ................................ ................ 40
+Table 8: Categories for BK V, CMV and EBV viral PCR assays ................................ ........... 41
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+5LIST OF FIGURES
+Figure 1: Study  Flow Chart ................................ ................................ ................................ ....10
+Figure 2: Number of Addit ional Subjects Needed ................................ ................................ ..15
+Figure 3: Sample figure for DSMB based on hypothetical observed effect size 0.45 at 
+IA #1 ................................ ................................ ................................ ...................... 47
+Figure 4: Sample figure for DSMB based on hypothetical observed effect size 0.35 at 
+stage 1 (IA #1) and assumed effect size of 0.30 to 0.54 in stage 2 ........................... 48
+Figure 5: Sample figure for DSMB based on hypothetical observed effect size 0.25 at 
+stage 1 (IA #1) and assumed effect size of 0.30 to 0.54 in stage 2 ........................... 49
+
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+61. MODIFICATION HISTORY
+Version Effective Date Author of 
+ModificationSummary of Change
+1.0 16August 2023 First Version
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+72. LIST OF ABBREVIATION S
+Abbreviation Term
+AE Adverse event
+AESI Adverse event of special interest
+ANCOVA Analysis of covariance
+CABMR chronic active antibody mediated rejection
+CP Conditional power
+CSR Clinical study report
+DSA Donor-specific antibodies
+DSMB Data Safety Monitoring Board
+EOS End of study
+eCRF Electronic case report form
+GBM Glomerular basement membrane
+IP Investigational product
+ITT Intention -to-Treat
+LLN Lower limit of normal
+LLOQ Lower limit of quantification
+MAR Missing at random
+MedDRA Medical Dictionary for Regulatory Activities
+MFI Mean fluorescence intensity
+MI Multiple imputations
+MMRM Mixed model repeated measures
+MNAR Missing not at random
+SAE Serious adverse event
+SAP Statistical analysis plan
+SAP for IA Statistical Analysis Plan for interim analyses
+SAS Statistical Analysis System
+SD Standard deviation
+SE Standard error
+SOC System organ class
+TEAE Treatment -emer gent adverse event
+ULN Upper limit of normal
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+83. PURPOSE
+This Statistical Analysis Plan for interim analyses (SAP for IA) provi des a detailed descript ion of 
+the stati stical methods to be used for the efficacy  data  and data derivat ions to be conducted at the 
+first and the second interim analyses (IA #1 and IA #2) for study  CSL300_3001 for review by 
+DSMB . The analyses to be performed in case of regulatory  submissio n based on IA #2 are also 
+described here.
+This SAP for IA complies wi th the Internati onal Council for Harm onizat ion(ICH) E9 ‘Stati stical 
+Principles for Clinical Trials’ and E9(R1) ‘Statistical Principles for Clinical Trials: Addendum on 
+Estimands and Sensi tivity Analysis in Clinical Trials’, and is based upon the following study 
+docum ents:
+Clinical Study  Protocol  Amen dment 9 dated 3 July 2023
+electroni c Case Report Form (eCRF), Version 12dated 26April 2023
+A separate statistical analysis plan (SAP) will be prepared for the final analysis.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+94. STUDY DESIGN
+This study  is a Phase 3, interventional, multi-site, rando mized, double-blind, placebo -controlled, 
+parallel -group study , consist ing of 3 periods:
+Screening period (up to 6 weeks; Day -42 to Day  -1)
+Doubl e-blind treatment period ( approximately  5 years on average ;from Day 1 unt ilthe 
+subject permanent ly discont inues treatment with IP, withdraws from the study ,
+experiences allograft loss, dies, or reaches the common treatment end date, whichever
+occurs first) . The commo n treatm ent end date is the date when the primary efficacy 
+endpo int (all-cause composite allograft loss) is achieved, ie, the date the prescribed 
+target number of primary allograft loss events (221) has been reached.
+Follow-up period for safet y (monthly  telephone calls for 5 months after last dose of 
+investigat ional drug)
+The average study duration for an ind ividual subject will not be expected to be more than 5.5 years.
+Adult kidney transplant recipients with chronic act ive ant ibody mediated rejection (CABMR) will 
+be enrolled in this study .Across sites in North America, South Amer ica, Europe, Asia and 
+Australia, approximately 350 subjects (175per treatm ent group) will be randomized into the 
+doubl e-blind treatment period.
+The Study Flow Chart
+
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+10Figure 1: Study Flow Chart
+4.1. Objectives and Endpoints
+The obj ective o f IA #1 i s:
+1.To re -estimate the sample size for IA #2 based on the observed effect size for the change 
+from baseline to Week 52 in eGFR
+The obj ectivesof IA #2 are:
+1.To evaluate the efficacy  of clazakizumab in slowing/prevent ing the progressiv e loss of 
+kidney  function (as measured by  eGFR using the Modificat ion of Diet in Renal  Disease 4 
+[MDRD4] equation)
+2.To summarize the incidence of all-cause allograft loss or irreversible loss of allograft  
+funct iondue to chronic active a ntibody -mediated rej ection(CABMR, defined as return to 
+dialysis*, allograft nephrectomy, re-transplantation, estimated glomerular filtrat ion rate
+[eGFR] <15 mL/min/1.73 m2*, 40% decline in eGFR fro m Baseline that is sustained for at 
+least 60 days, or death from any cause [*total cumulat ive durati on of eGFR < 15 
+mL/min/1.73 m2AND / OR dialysis ≥ 60 day s])
+Table 1: Interim Analyses Efficacy Endpoints
+Interim Analysis Endpoints Summary Measure(s)
+IA #1 and 
+IA# 2Change f rom Baseline to Week 52 
+in eGFR (in mL/min/1.73 m2) Mean change from Baseline to 
+Week 52 in eGFR (in 
+mL/min/1.73 m2)
+Effect size for the change from 
+Baseline to Week 52 in eGFR
+IA #2 only All-cause allograft loss or 
+irreversible loss of allograft 
+function (defined as r eturn to 
+dialysis*, allograft nephrectomy, 
+re-transplantation, estimated 
+glomerular filtration rate [eGFR] 
+<15 mL/min/1.73 m2*,40% 
+decline in eGFR from Baseline 
+that is sustained for at least 60 
+days, or death from any cause 
+[*total cumulative duration of 
+eGFR < 15 mL/min/1.73 m2AND 
+/ OR dialysis ≥ 60 day s])Proportio n of subjects who met 
+the primary composite endpoint of 
+All-cause Allograft Loss or 
+irreversible loss of allograft 
+function.
+Proportio n of subjects with 40% 
+decline in eGFR from Baseline 
+sustained for at least 60 days .
+Proportio n of subjects with 40% 
+decline in eGFR from Baseline 
+that is sustained for at least 60 
+days and accompanied by 
+investigator’s decision to 
+supplement the therapy by 
+additional treatment .
+Proportio n of subjects who 
+retur ned to dialysis .
+Proportio n of subjects with 
+allograft nephrectomy
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+11Interim Analysis Endpoints Summary Measure(s)
+Proportio n of subjects who had re -
+transplantation .
+Proportio n of subjects with eGFR 
+<15 mL/min/1.73 m2
+Proportio n of subjects who died
+Table 2: Safety Endpoints for DSMB Safety Reviews
+Endpoints Summary Measure(s)
+Treatment -emergent adverse events (TEAEs), 
+serious TEAEsProportio n of subjects with TEAEs and serious 
+TEAEs and the number of events
+Adverse Events of Special Interest (AESIs) Proportio n of subjects with Adverse Events of 
+Special Interest (AESIs) and the number of events
+Viral infection monitoring (BKV, CMV, and EBV 
+by PCR)Proportio n of subjects tested positive for BKV, 
+CMV, and EBV
+Clinical laboratory data (serum chemistry, urine 
+chemistry , lipids and hematology )Mean change from baseline in laboratory parameters 
+by visit
+4.1.1. Hypothesis for Efficacy Analysis at IA #2
+The study  is designed to test the null (H0) versus the alternative (HA) hypothesis for the mean 
+change from baseline in eGFR at week 52 .
+H0:µclaza -µplacebo = 0
+HA:µclaza -µplacebo ≠ 0
+Where µclaza is the mean change from baseline to week 52 in eGFR (in mL/min/1.73 m2)in the 
+clazakizumab group and µplacebo is the mean change from baseline to week 52 in eGFR (in 
+mL/min/1.73 m2)in the placebo group.
+4.2. Study Treatments
+All subjects eligible for study participation will be rando mized to treatment with either 1 mL (12.5 
+mg) cl azakizumab or 1 m L placebo administered by  SC inject ion, Q4W.
+4.3. Randomization Procedure s and Blinding
+Eligible subjects will be rando mized by means of Interactive Response Technol ogy (IRT). The 
+IRT will assign the invest igational product (IP) to each subject. Rando mizat ion will be done 
+centrally . Rando mization will be stratified by 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+12dichotomized screening eGFR (25–45 mL/min/1.73 m2 versus >45–65 mL/min/1.73 
+m2) 
+baseline proteinuria (urine albumin creat inine ratio (UACR) <300 mg/g (<30 
+mg/mmo l) or UACR ≥300 m g/g (≥30 m g/mmo l))
+treatm ent for early (within 6 months of transpl ant) antibo dy-mediated reject ion 
+(ABMR) rej ection episodes (y es/no)
+treatm ent for late (greater than 6 months post -transpl ant) ABMR reject ion episodes 
+(yes/no).
+Two formal unblinded interim analyses (IA #1 and IA #2) will be perform ed by the Unblinded 
+Independent Statistician for the Data Safet y Monitori ng Board (DSMB ) review .DSMB charter 
+describes the roles and responsibilit ies of the Unblinded Independent Statist ician and the DSMB .
+Unless there is a medical emergency, study  unblinding for the final composite primar y endpo int
+(all-cause allograf t loss)analysis will be done after the final database lock. The study  blindmay 
+only be broken for an individual pat ient in the case of  an emergency  and when the knowl edge of 
+the invest igational product is essent ial for the c linical management of the patient. A record will be 
+kept at each study  center (and in the electronic case report form [eCRF]) of all broken treatm ent 
+codes, of the person who broke the treatm ent code, and of  the reasons for breakin g the treatm ent 
+code.
+4.4. Planned Sample Size
+IA #1
+The IA #1 is planned to be performed when 100 subjects have been rando mized and co mpleted 52 
+weeks of study  parti cipat ion(refer to Section 4.5.1 for subject trigger for interim analysis ).
+The planned sample size for IA#1 maybe higher than 100 rando mized subjects to allow for 
+withdrawals such that approximately 100 randomized subjects with 52 weeks of follow-up are 
+included in the analysis.
+IA #2
+The fixed sample size for IA #2 was determined to be 180 randomized subjects (90 per group)
+based on a fixed design wit h90% power, a two -sided al pha of 0.05, a commo n standard 
+deviat ion (SD)of 9.252mL/min/1.73 m2for the mean eGFR ch ange fro m Baseline to Week 52 , 
+a minimum difference of 4.515 mL/min/1.73 m2between the treatment groups (assuming eGFR 
+declines at a rate of 0.753 mL/min/1.73 m2/month in the placebo group and that clazakizumab 
+reduces the rate of decline by 50%; effect s ize = 4.5 15/9.252= 0.4 88).
+The pl anned sam ple size has been increased to approximately 200 rando mized subjects to allow 
+for 10% wi thdrawals such that at least180 randomized subjects with 52 weeks of fo llow-up are 
+included in the analysis.
+4.5. Planned Interi m Analyses and Reviews
+The tri gger for the two interim analyses (IA #1 and IA #2) is defined in the sect ion below. 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+13The resul ts from IA #2 may be used for a regulatory  submissio n. At the IA #2, the DSMB will, 
+following a review of the int erim data, make reco mmendat ions fo r continuing or stopping the study 
+based on the observed risk -benefit of clazakizumab , and for increasing the sample size if required. 
+Detailed procedures for main taining the blind will be specified in the Data Access Plan (DAP) to 
+ensure that the interim data remain blinded to maintain clinical trial integrit y until trial co mpletion.
+4.5.1. Subject Trigger for Interim Analyses
+IA #1 will be based on 100 randomized subject s completing 52 weeks of study  participat ion and 
+IA #2 will be based on at least 180 randomized subjects (or more as per the re-estimated sample 
+size determined at IA #1) complet ing 52 weeks of study participat ion. Addit ional subjects may  be 
+included in IA #1 and IA #2 to account for the discontinuat ions prior to week 52. 
+Randomization will continue untilthe targe tnumber of subjects are rando mized in the study . At 
+IA#1 and IA#2, subjects randomized bey ond the requi red number of subjects ( i.e., 100 f or IA#1, 
+180 for IA#2) will not be included with an except ion for BLA submissio n package and 
+confirmation from regulatory  agencies at pre -submissio n meetings following IA#2 (details are in 
+Secti on 8.1) .
+4.5.2. Sample size Re -estimation in IA #1
+The primary  analysis of change from baseline to week 52 in eGFR has been based on a 2-stage 
+design where the subjects included in the 2 stages are defined as fo llows:
+Stage 1 consists of rando mized subjects who are included in IA#1
+Stage 2 consists of randomized subjects who a re rando mized post the randomizat ion of 
+the subjects included in IA#1.
+Sample size re-estimation has been planned to estimate the number of additional subjects to be 
+rando mized and fo llowed up for 52 weeks (stage 2) for IA#2.
+Sample size re -estimat ion will be conducted using the inverse normal method for a 2-stage design 
+with pre-specified cumulative informat ion fractions of [0.5556, 1] to control the type I error rate
+where 0.5556 = 100/180 is the rat io of the planned size of stage 1 t o the total planned s ample size . 
+Following steps will be implemented to re -estimate the sample size for IA #2 :
+Set a pair of weights to the square root of the information fract ion at each stage. In this case,  _1=
+√(100 /180 )=0.7454 is based on the number of subjects planned for stage 1 and  _2=
+√(80/180 )=0.6667 is based on the number of subjects planned for stage 2 . These weights are 
+based on the originally  planned design.
+The est imate of sample size at stage 2 (  ̃_2)is derived as per equati on (1), derivat ion is based on
+Bauer and Koenig(2006) . For a general discussion on condi tional power and sample size re-
+estimat ion, see Lanand Wittes(1988), Proschan et al. (2006, Chapters 3, 11), and Wassmer and 
+Brannath (2016, Chapter 7) .Estimate of sample size at stage 2 (  ̃_2)is,
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+14   = 
+∆     / √    √  
+√  +     
+(1)
+where,
+Z1= Estimated treatment difference at Week 52 divided by its standard error
+ 1= observed effect size at Stage 1 
+ 2= assumed effect size at Stage 2 
+ _1= planned total  sample size at Stage 1 i.e. 100
+ _2= planned total  increment in sample size at Stage 2 i.e. 80
+ = planned total sample size at IA #2 i.e. 180 (  _1+ _2)
+CP=target conditional power
+Total  sample size for IA #2 will be selected as fo llows:
+If  _1+ ̃_2≤180 then sample size for IA #2 will remain as planned sample size 
+of 180 rando mized subjects with 52 weeks of study participati on. DSMB is 
+expected to recommend thatthe IA #2 should be conducted with 180 randomized 
+subjects wi th 52 weeks of study  participati on as planned.
+If 180 < _1+ ̃_2≤250 thensample size for IA #2 should be close to  _1+
+ ̃_2such that the sample size of IA #2 could be amaximum of 250 rando mized 
+subjects with 52 weeks of study  partici pation. DSMB is expected to make a 
+recommendat ionabout the number of rando mized subjects with 52 weeks of study 
+participat ion requi red for IA #2 (a maximum of 250 randomized subjects with 52 
+weeks of fo llow-up).
+If  _1+ ̃_2>250 then sample size for IA #2 could increase to a maximum of 
+250 randomized subjects wi th 52 weeks of  study  parti cipat ion.DSMB is expected 
+to make a recommendat ion about IA #2 based on the review ofthe data package.
+The sample size for the interim efficacy  analysis surrogate endpoint (IA #2) will 
+not exceed a total of 250 subjec ts with 52 weeks of study  participat ion
+(approximately 280 subjects will be rando mized to account for 10% withdrawal 
+before week 52).
+4.5.2.1. Operating Characteristics of Sample Size Re -Estimation at IA#1
+Effect Size at Stage 1 and Stage 2
+The fo llowing figure is an example that shows the number of subjects needed at stage 2 to ensure 
+90% conditional power for five different scenarios of observed effect size at IA #1 and various 
+assumed effect size for the stage 2.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+15The black open circles in each line represents the number of subjects needed at stage 2 when the 
+assumed effect size at stage 2 is ident ical to the observed effect size at stage 1. 
+Figure 2: Number of Additional Subjects Needed 
+The green line represents the observed effect si ze of 0.488 at IA #1 (effect si ze assumed in study 
+design). Fewer than 50 subjects would need to be rando mized in stage 2 to ensure 90% condit ional 
+power f or analysis at IA #2 (black open circle on the green line) assuming effect si ze of  0.488 at 
+stage 1 will remain unchanged in stage 2. In this case, the sample size at IA #2 would remain at 
+the planned sample size of 180 randomized subjects as i t cannot decrease bel ow 180 randomized 
+subjects wi th 52 weeks of study  participati on.
+If the ob served effect size at IA #1 is 0.36 (represented by blue line) then the sample size at IA #2 
+woul d need to be at the maximum o f 250 rando mized subjects (150 addit ional subjects required at 
+stage 2) to ensure 90% conditional power (black open circle on the blue line) assuming same effect 
+size will be seen at stage 2.
+If the observed effect size at IA #1 is 0.30 (represented by solid purple line) then the total sample 
+size at IA #2 would need to be close to 400 randomized subjects (approximately  300 additional 
+rando mized subjects at IA #2 if the same effect size is assumed for stage 2). In this case, as the 
+maximum sample size cannot exceed 250 randomized subjects, the DSMB recommendat ion to 
+continue the study  at IA #2 implies DSMB assumes an increase of effect size of at least 0.42 at 
+stage 2 at 90% condit ional power.
+Overall Power at IA #2
+Overall power for the IA #2 is summarized in Table 3for a range of hypotheti cal scenari osof 
+effect size, condit ional power and maximum total sample size at IA #2. Overall power is obtained 
+from simulations with 100randomized subjects in Stage 1 and informat ion rates [0.5556, 1]. 
+Simulations were performed using rpact R package ( rpact 2021 ). The R codes are provided in the 
+Appendix 0including the seed used for simulation. 
+
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+16Table 3: Operating Characteristics for Overall Power at IA #2
+eGFR Effect 
+SizeConditional 
+PowerMaximum T otal 
+Sample Size at IA  
+#2Expected T otal 
+Sample Size at IA  
+#2Overall 
+Power
+0.488 90%180 180 90%
+250 202 96%
+0.46 90%180 180 87%
+250 205 93%
+0.43 90% 250 209 90%
+0.4085% 250 210 85%
+90% 250 213 85%
+0.3785% 250 214 79%
+90% 250 218 80%
+0.3385% 250 220 70%
+90% 250 223 71%
+0.3085% 250 224 62%
+90% 250 227 63%
+If the effect size is 0.488 (the assumed effect size used for the original study design), then there is 
+no increase in sample size requi red for IA #2, (ie, the maximum sample size for IA #2 was specified 
+as 180 randomized subjects). In this case, the expected total sample size of 180 randomized 
+subjects will ensure overall 90% power. When simulat ion is per formed with the maximum allowed 
+samples size of 250 rando mized, overall power increased to 96% with the expected total sample 
+size of 202 rando mized subjects.
+Overall power is around 85% when the effect si ze is 0.40, wi th expected total  sample si ze of  210 
+rando mized subjects for condi tional power of 85% and expected total sample size of 213 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+17rando mized subjects for condi tional power of 90%. These simulat ions were done with the 
+maximum allowed samples size of 250 rando mized subjects at IA #2.
+Overall power drops below 80% with the maximum  allowed samples size of 250 rando mized 
+subjects when the effect size is less than 0.37. 
+Simulation resul ts show that the study  design with the sample size re-estimation procedure 
+provi des 80% or hi gher overal l power f or vari ous pl ausible scenarios.
+4.5.2.2. Efficacy Results Presentation to DSMB at IA #1
+The observed effect size ( 1)based on the 100 rando mized subjects with 52 weeks of study 
+participat ionwill be presented to the DSMB. The effect size is calculated asthe ratio of the 
+difference in mean change fro m baseline to Week 52 in eGFR between clazakizumab and placebo 
+to the SD. The difference in mean change from baseline to Week 52 in eGFR between 
+clazakizumab and placebo and the SD will be est imated fro m the MMRM model (refer to Section 
+10.1.1 ). 
+Estimate sof sample sizes at stage 2 (  ̃_2) will  be calcul ated based on the observed effect si ze at 
+IA #1 using equat ion (1) for a range of assumed effect sizes at stage 2 ( 2), for e.g. 2could be 
+five values ranging approximately fro m  1 –0.12 to  1 + 0.12 ,with one value same as  1.
+A figure o f  ̃_2vs  2for the above range will be also presented to DSMB. This figure will include 
+lines corresponding to conditional power of 90%, 85% and 80% (refer to Appendix 14.1 for sample 
+figures). A table may also be created to present the numbers in the figure along with the condit ional 
+power for the minimum and the maximum allowed sample size increase at stage 2 i.e. 80 and 150, 
+respectively .
+Any decisi on to stop the study  in the event of unacceptable effect si ze of  eGFR or to increase the 
+sample size for the IA #2 beyo nd the protocol  specified maximum of 280 randomized subjects 
+woul d be m ade by  CSL Behring based on the recommendat ion of the DSMB.
+4.5.3. Efficacy Result s Presentation to DSMB at IA #2
+The number of subjects requi red for IA#2 is approximately  180 randomized subjects with 52 
+weeks of study  participat ion(if the sample size re-estimat ion at IA #1 remains at this planned 
+number). If the sample size re -estimation at IA #2 increases the sample size for IA #2 then the IA 
+# will be done when the re-estimated number of subjects are rando mized and followed for 52 
+weeks. Since the re -estimated sample size for IA #2 is unknown, this document will refer to IA #2 
+to be based on 200 rando mized subjects (to have approximately  180 randomized subjects with 52 
+weeks of study  parti cipat ion). 
+Change from baseline to Week 52 in eGFR will be analyzed at IA #2. The details of efficac y 
+analyses o f change from baseline in eGFR is described in Section10. 
+Any decisio n to stop the study  in the event of non-significant effect on eGFR or to increase the 
+sample size for the primary efficacy endpo int (time to all-cause composite allograft lossor 
+irreversible loss of allograft function) woul d be made by CSL Behrin g based on the 
+recommendat ion of the DSMB after review o f the totalit y of the data, ie, observed effect on eGFR , 
+updated predicted all -cause allograft survival based on the model using data observed in the study, 
+and safet y data.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+184.5.4. DSMB Safety Reviews
+DSMB will receive the safet y outputs outlined in the charter which are delivered to DSMB for 
+each safet y review (approximately every  9 months as specified in the DSMB Charter) including 
+those during IA #1 and IA #2.The DSMB can recommend stopping the study  for saf ety reasons 
+at any  time.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+195. CHANGES FROM THE PRO TOCOL PLANNED ANALYS ES
+There are no changes to the analyses planned in the study  protocol .
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+206. STUDY ANALYSIS SETS
+6.1. Screened Analysis Set
+The Screened analysis set consists of all subjects who provided written informed consent. 
+6.2. Intention -to-Treat (ITT) Analysis Set
+The ITT setwill consist of all randomized subjects who took at least one dose of  investigational 
+drug andwho had a b aseline a ssessment and at least one post -baseline assessment of eGFR .Refer 
+to Section 8.1.1 for details on data to be included in the analysis.
+Subjects will be analy zedaccording to the treatment to which they  were randomized.
+6.2.1. Efficacy Analysis Set
+Efficacy analysis set for IA #1: This will be a subset of ITT analysis set .This subset will include 
+first 100 randomized subjects who meet the subject trigger definit ion (refer to Section 4.5.1 ).
+Subjects who discontinue the study prior to the subject trigger will also be included in this analysis 
+set.
+Efficacy analysis set for IA #2: This will be a subset of ITT analysis set .Thissubset will include 
+number of subjects as per the re-estimated sample size who meet the trigger defini tion (refer to 
+Secti on4.5.1 ).
+Subjects who discontinue the study prior to the subject trigger will also be included in this analysis 
+set. 
+Efficacy analysis set for Stage 2 :This set will include subjects in the Efficacy analysis set for IA 
+#2 but not in the Efficacy analysis set for IA #1. 
+6.3. Per-protocol (PP) Analysis Set
+The PPsetwill consist of all randomized subjects who satisfy the ITT analysis set criteria and who  
+complied with the protocol requi rements (i.e., no major protocol deviat ions that impact the primar y 
+efficacy endpo int for the interim or the final analysis). PP analysis set will be used for IA #2 only. 
+Protocol  deviat ions resul ting in exclusio n from the PP set will be docum ented inthe data revi ew 
+meet ing (DRM) minutes before the study data unblinding for IA #2.
+Subjects will be analy zedaccording to the treatment to which they  were randomized.
+6.4. Safety Analysis Set
+The Safet y setwill consist of all randomized subjects who took at le ast one dose of invest igational 
+drug.
+Refer to Section 8.1.1 for details on data to be included in the IA#1 and IA#2 interim analysis.
+Subjects will be included in the analysis according to the actual treatm ent received ie, in cases 
+where informat ion is available indicat ingthat a subject received a different treatment for the ent ire 
+course of his/her participat ion in the study ,the subject will be analyzed according to the treatment  
+actually received rather than the treatm ent to whi ch he/she was randomized .If a subject receives 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+21both clazakizumab and placebo, thesafet y information of the subject will be summarized under 
+the clazakizumab arm.
+6.5. Pharmacokinetic (PK) Analysis Set
+The pharmacokinetic analysis set consists of all subjects in the safet y analysis set with at least one 
+quant ifiable PK concentration after invest igational drug administration.
+6.6. Pharmacodynamic (PD) Analysis Set
+The pharm acodyn amic analysis set consists of all subjects in the Safet y Analysis Set with at least 
+one PD m easurement obtained after invest igational drug administration.
+6.7. PK/PD Sub-study Analysis Set
+The PK/PD sub -study  analys is set consists of all subjects in the Safety Analysis Set who consented 
+to be part of the PK/PD Sub-study  and have at least 1 quantifiable PK concentrati on of 
+investigat ional drug after administrati on.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+227. GENERAL CONSIDERATIO NS
+Datasets will be created according to Clinical Data Interchange Standards Consorti um (CDISC) 
+standards. S tudy data will be provided in Study Data Tabulat ion Model (SDTM) format. Analysis 
+data will be provided in Analysis Data Model (ADaM) format.
+SAS versio n 9.4 or hi gher will be used to perform all data analyses. 
+Summaries of continuous variables will be in terms of the number of observat ions, mean, standard 
+deviat ion, median, first quartile (Q1), third quartile (Q3), minimum and maximum. Other 
+descript ive statistics (eg, standard error, coefficient of variation) may be reporte d when 
+appropriate. Categorical variables will be summarized using frequency counts and percentages. 
+Analyses that use other descri ptive statistics will have the specific descript ive statistics identified 
+with the analysis in the applicable SAP for IA section.
+Unless otherwise stated, all statistical testing will be two-sided and will be performed using a 
+significance (alpha) level of 0.05. Two-sided 95%confidence intervals will be provi ded when 
+relevant.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+238. DATA HANDLING CONVEN TIONS
+8.1. Database Lock (DBL)
+There will be a DBL for each interim analysis . BLA submissi on following IA#2 will be based on 
+the analysis datasets generated from the locked database for IA#2. The analysis datasets will 
+include the target number of subjects in IA#2.
+DBL for IA #1 will occur when the 100 randomiz ed subjects meet the subject trigger definit ion 
+(see Secti on4.5.1 Subjects rando mized beyo nd the last rando mized subject requir ed for IA#1 will 
+not be included in the IA#1 analysis. 
+DBL for IA #2 will occur when 180 rando mized subjects or m ore (as re -estimated during IA #1) 
+meet the subject trigger definit ion (see Section4.5.1 ). 
+The trigger definit ion (see Secti on4.5.1 ) will be used to include data forall additional subjects 
+rando mized beyo nd the target number of subjects required for IA#2.   
+8.1.1. Data Included in the Analysis
+The study  willcontinue to randomize subjects after the DBLs for IA #1 and IA #2 untilthe target 
+number of subjects required in thestudy are randomized . Rando mizat ion will continue during the 
+interim analyses. Therefore, number of subjects required for each IA will be selected 
+programmat ically fro m the source data as per the subject trigger defined in Section4.5.1 .
+At the time of IA #1, subjects who discont inue the study  prior to the subject trigger will also be 
+included in the respect ive IA. These subjects will have less than 5 2 weeks of fo llow-up.
+All available data from the DBLs will be included in the regul ar DSMB safet y reviews 
+(Secti on4.5.4 ). 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+24Table 4: Data to be included for each interim analysis and DSMB Safety Reviews
+Analysis Study Milestones
+IA #1 IA #2 DSMB Safety Rev iews BLA Submission
+Primary analysis of 
+eGFR using MMRMSubjects in Efficacy analysis 
+set for IA #1 with data up to 
+52 weeks. Visits beyond 52 
+weeks will be excluded Subjects in Efficacy analysis set 
+for IA #2 with data up to 52 
+weeks. Visits beyond 52 weeks 
+will be excludedNA Same as IA #2
+Sensitivity analysis of 
+eGFRNA Subjects in Efficacy analysis set 
+for IA #2 with data up to 52 
+weeks. Visits beyond 52 weeks 
+will be excludedNA Same as IA #2 
+Supplementary 
+analysis of eGFR 
+using ANCOVA and 
+MMRMNA Subjects in Efficacy analysis set 
+for IA #2 with da ta up to 52 
+weeks. Visits beyond 52 weeks 
+will be excludedNA Same as IA #2 
+Summary of eGFR over time 
+based on all subjects included 
+in the DBL for IA #2
+Summary statistics of 
+eGFRSubjects in Efficacy analysis 
+set for IA #1 with visits up to 
+52 weeksSubjects in Efficacy analysis set 
+for IA #2 with all visitsAll subjects and all visits 
+from the DSMB data cutSame as IA #2
+Summary of 
+proportions of subjects 
+with all -cause allograft 
+loss or irreversible loss 
+of allograft functionNA Subjects in Efficac y analysis set
+for IA#2All subjects from the 
+DSMB data cutSubjects in Efficacy analysis 
+setfor IA#2
+All randomized subjects from 
+the DBL for IA#2
+Safety analyses NA Subjects in Efficacy analysis set 
+for IA #2 with all visitsAll subjects and all visits 
+from the DSMB data cutSame as IA #2
+Safety package based on all 
+randomized subjects included 
+in the DBL for IA#2
+HRQoL NA NA NA Subjects in Efficacy analysis 
+set for IA #2 with all visits
+PK and PD NA NA NA Subjects in respective PK or 
+PD or PK/PD analysis sets
+8.2. Missing Data
+Missing data occurs when any requested data arenot provided, leading to blank fields on the 
+collect ion instrument. T hese data will be indicated by the use o f a “blank” (empty field) in subject 
+listing displays. Answers such as “Not applicable” and “Not evaluable” are not considered to be 
+missing data and should be displayed as such.
+The details of handling missing data are presented in the corresponding sections of this SAP for 
+IA fo r respecti ve analyses (eg, primary and secondary efficacy analyses, safety analyses).
+8.3. General Derived Variables
+8.3.1. Reference Dates and Study Days
+Reference dates are used to assign study  periods relat ive to treatment.
+The safet y reference date is the treatm ent start date and will be used to calculate study 
+day for saf ety measures.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+25The efficacy reference date is the date of  rando mization and will be used to calculate 
+study  day f or efficacy measures.
+The respect ivestudy  day will be calculated as (date of interest -reference date) + 1 if the date of 
+interest occurs on or after the reference date. If the date of interest occurs before the reference date ,
+then the study  day will be calculated as (date of interest –reference date). There will be no study 
+day zero . Study  week will  be calculated by  dividing study  day by 7.
+8.3.2. Durations and Time to Event Data
+Durati ons ( eg, the durati on of  an adverse event [AE] ) are calculated in days as:
+event end date –event start date + 1 ;if end time or start time not available .
+event end date / time –event start date / time ;if both end time and start time available .
+Thus, there will be no duration of 0 if end time or start time are not available. If an AE has missing 
+or parti ally missing start or end date, no duration will be calculated.
+For el apsed time (eg, the time to event), use:
+event date / time –reference date /time, (if t ime available).
+Thus, an event which happens on the same date as the reference date will have an elapsed time of 
+0, ifevent time or reference time are not available.
+To transform durati onsor elapsed times, which are calculated in days intoweek s, divide the 
+number of days by 7; to report in months,divide the number of days by 30.4375; to report in years ,
+divide the number of days by 365.25. These algori thms return decimal numbers and ignore the 
+actual numbers of days in the months or years (the calendar days) between start date and stop date. 
+The "year" used in these algori thms is 365.25 days long, and the "month" is one twelfth of that 
+year.
+8.3.3. Baseline Definition
+Baseline isdefined as the most recent, non-missing value before the first IPadministratio n 
+(including unscheduled visits) for all assessments unless otherwise stated.
+Baseline eGFR is defined as an average of 2 pre -treatment measurements up to 8 weeks apart.
+8.3.4. Change from Baseline
+Change from baseline is calculated as:
+visit value –baseline value.
+If eit her the baseline or visit value is missing whic h, will result in missing change fro m baseline.
+8.3.5. Multiple Assess ments
+All data will be reported accordi ng to the nominal visit date for which theywerereported . If the 
+actual visit date deviates from the planned date according to the visit schedule in the protocol (i.e., 
+outsi de the visit window) then no visit re-allocation will be done. Unscheduled data will not be 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+26included in by -visit summaries but may contribute to the End of Study (EOS) value, or best/worst 
+case value (eg, shift tables) and will appear in list ings. 
+If mult iple assessments are reported on the same date for the same scheduled t ime, then the worst -
+case result will be analyzed. 
+Data from all assessments (scheduled and unschedul ed), including multiple assessments, will be 
+included in list ings.
+8.3.6. Actual Treatment
+The subjects’ actual treatment will be der ived by reconciling the kit numbers . The actual treatment 
+may be different fro m the rando mized treatment assigned to the subject.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+279. STUDY POPULATION
+Unless otherwise stated, all tables and list ings in t his section will be based on the Efficacy orSafet y 
+analysis set . Analysis sets to be used for each analysis are summarized in Section14.5.
+9.1. Subject Disposition
+The following summaries will be provided by treatm ent group and total populati on using the 
+Screened Analysis Set :
+Subjects in each of the analysis sets are described in Secti on6.
+Subject study  status, including subjects screened, screen failures, subjects rando mized, 
+completed the study , completed Week 52 visi t, and di scont inuat ion from the study  by 
+primary  reasons for study  discont inuat ion.
+Study  treatm ent status, including completed stud y treatm ent, ongoing study  treatm ent, 
+treatment withheld, or dose reduced ,discont inued subjects by primary  reasons for 
+discontinuat ion.
+Com pleted study  treatm ent and di scont inued subjects at each dosing visit .
+Reasons for study withdrawal  and study  treatm ent discont inuat ion will be presented in the order 
+they are displayed in the eCRF. The number of subjects randomized will be used as the 
+deno minator for the percentage calculat ion.
+The fo llowing list ings will be provided:
+Reasons for study  withdrawal including the date of withdrawal .
+Reasons for study treatment discont inuat ion. The listing will include last dose date, and 
+reasons for study  treatm ent discont inuat ion.
+9.2. Demographic and Baseline Characteristics
+The following summaries will be provided by treatment group and total populati on using the 
+Efficacy Analysis Set s:
+Dem ographic characteri stics (age, race, ethnicit y, sex, baseline height, baseline body 
+weight and Body  Mass Index (BMI)). In addit ion to summarizat ion as a continuous 
+variable, age will also be categori zed and summarized by  18-64 and > 64 .
+Randomization stratification factors (dichotomized screening eGFR [25–45 
+mL/min/1.73 m2versus >45–65 mL/min/1.73 m2], baseline proteinuria (UACR <300 
+mg/g [<30 mg/mmo l] or UACR ≥300 mg/g [≥30mg/mmo l]), treatm ent for early 
+ABMR reject ion episodes [yes/no], and treatm ent for late ABMR reject ion episodes 
+[yes/no] ).
+Baseline disease characterist ics (time since ki dney transpl ant in months, eGFR, eGFR 
+categori es UACR, DSA titers and DSA MFI scores and Renal Biopsy parameters).
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+289.3. Prior/Concomitant Medications
+Prior/concomi tant m edicat ions will not be summarized at the time of interim analyses (IA #1 an d
+IA #2) .
+9.4. Study Population -Derived Variables
+Derivation of Body Mass Index (BMI)
+BMI will be calculated using the following form ula:
+BMI (kg/m2) = Weight (kg) / [Height (m)]2
+using the height measured at Screening and the weight measured at Day 1(if available). If weight 
+at Day 1 is not available, the assessment at Screening will be used.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+2910. INTERIM EFFICACY ANALYS ES
+All efficacy analyses will be based on Efficacy  Analysis Sets as defined in Sect ion 6.2.1.
+Baseline eGFR is defined as an average of 2 pre -treatment measurements up to 8 weeks apart.
+For IA #1and IA #2, databeyond nominal Week 52 visit will be excluded from the primary  and 
+sensit ivity analyses of change from baseline in eGFR, unless specified otherwise .However, eGFR 
+data bey ond 52 weeks of fo llow-up will be included in the descript ive summary statistics.
+The rando mized treatment will be used for the in terim  efficacy  analyses described in this sect ion.
+10.1. Primary Estimand
+The estimand quant ifies the treatm ent effect of clazakizumab vs placebo in adult patients with 
+CABMR on the difference in mean change from baseline to Week 52 in eGFR (in mL/min/1.73 
+m2)regardless of the missed doses or discont inuation of study treatm ent, as if the allograft loss 
+events did not occur. 
+Specific elements of the est imand are as fo llows:
+Popul ation: adult pati ents wi th CABMR
+Variable: change from  baseline to Week 52 in eGFR (in mL/min/1.73 m2)
+Intercurrent event s: eGFR data collected after the following allograft loss events is not relevant to 
+the clinical quest ion of interest:
+Onset of allograft nephrectomy or re -transpl antati on
+Date of confirmed eGFR < 15 ml/min/1.73m2
+Onset of perm anent return to di alysis
+Popul ation level summary : Difference in mean change fro m baseline
+10.1.1. Primary Analysis of the Primary Estimand 
+A Mixed Model  for Repeated Measures (MMRM) will be used to test the difference between 
+clazakizumab and placebo for change from baseline to week 52 in eGFR .eGFR data collected 
+after the occurrence of the intercurrent events will be excluded from  the analysis. The SAS 
+procedure PROC MIXED will be used. Missing data will not be imputed. Under the assumpt ion 
+of missing at random (MAR ), the missing data will be accounted for through correl ation of 
+repeated measures in the model.The model will include a response variable of change from 
+baseline in eGFR (in mL/min/1.73 m2) with the following terms:
+Treatment (categorical variable for clazakizumab or placebo)
+Visit (nominal visi ts through Week 52, categorical variable)
+Treatment by  visit interacti on term
+baseline eGFR 
+Randomization stratificat ion factor of dichotomized baseline eGFR (25–45 
+mL/min/1.7 3 m2versus >45–65 m L/min/1.73 m2)
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+30Randomization stratificat ion factor of baseline proteinuria (UACR <300 mg/g
+[<30mg/mmo l]or UACR ≥300mg/g [≥30mg/mmo l])
+Randomization stratification factor of treatment for early (within 6 months of 
+transpl ant) ABMR re jection episodes (y es/no)
+Randomization stratificat ion factor of treatment for late (within 6 months o f transplant) 
+ABMR reject ion episodes ( yes/no )
+An unstructured covariance structure will be used to model the within-subject errors. If this 
+analysis fails to converge, the following covariance structures will be tested and the one 
+converging to the best fit, as determined by Akaike’s information c riterion (AIC), will be used as 
+the primary  analysis:
+compound symmetry  
+Toeplitz, 
+The Kenward -Roger approximation will be used to estimate denominator degrees of freedo mif 
+the unstructured covariance structure is used; otherwi se,the default method of the between -within 
+(in SAS Proc Mixed) will be used to estimate denominator degrees of freedo m.
+Analysi s for IA #1
+Primary analysis of change fro m baseline in eGFR at IA #1 will be based on the Efficacy Analysis 
+Set for IA #1 and will only include nominal visits up to 52 weeks. Treatment effect size will be 
+estimated from the MMRM model.
+Details o f sample s ize re -estimat ion for IA #2 are included in Section4.5.2 .
+Also, the guidance for the outputs for DSMB are provided in Section14.1.
+Analysis for IA #2
+At IA #2, primary analysis of change fro m baseline in eGFR is based on the combinat ion statist ics 
+from stage 1 and stage 2 and will only  include nominal visits up to 52 weeks. Therefore, MMRM 
+analysis will be performed separately for change from  baseline in eGFR for stage 1 subjects (ie, 
+Efficacy Analysis Set for IA #1) and stage 2 subj ects (i e, Efficacy  Analysis Set for Stage 2). The 
+number of sub jects in the Efficacy Analysis Set for Stage 2 will be,
+at least 80randomized subjects if thesample size re-estimat ion at IA #1 does not 
+requi re any increase in sample size for IA #2, or
+if the sample size re -estimat ion increases the sample size for IA #2 then the number of 
+subjects for stage 2 will include all the subjects eligible for IA #2 except those who 
+were al ready  included in IA #1.
+The effect size and test statist ics will be obtained from MMRM. The inverse normal combinatio n 
+test will be used fo r testing the hypothesis at IA #2 as fo llows:
+ _1and  _2are z -statistics, at stage 1 (based on Efficacy  Analysis Set for IA #1) and 
+at stage 2 (based on Efficacy Analysis Set for Stage 2) , respectively and corresponding 
+one-sided p -values  _1and  _2will be estimated from the MMRM. The  statistic for 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+31the primary analysis for change from baseline to week 52 in eGFR is a combinat ion 
+test-statistic based on the test statist ics at stage 1 and stage 2: 
+ _1=Φ^(−1)(1− _1)and  _2=Φ^(−1)(1− _2)
+The overall co mbination test statistic (  )will be:
+ =├ _1 _1+ _2 _2┤
+Note that  _1=√(100 /180 )=0.7454 and  _2=√(80/180 )=0.6667 have been specified 
+in the design o f the study . 
+Two-sided p -value for the combinat ion test will be:  =2∗(1−Φ( ))
+Reject  _0at a 2 -sided level  if < 
+P-value for the combinat ion test will be provided to the DSMB, along wit h the effect size at stage 
+1 and stage 2.
+The details o f SAS codes are provided in the Section14.3.
+10.2. Sensitivity Analyses for IA #2
+To assess the robustness of the analysis o f change from baseline to week 52 in eGFR, the primar y 
+analysis will be repeated using the PP Analysis S et.
+Addit ional sensit ivity analyses will be conducted as described in the following subsecti ons. All 
+sensit ivity analyses described below will be based on the Efficacy Analysis Set for IA #2. 
+10.2.1. Analysis Based on Imputation of Missing Data
+Missing data will be imputed using fo llowing approaches:
+Single Imputati on will be performed as follows and analyzed using the MMRM model specified 
+in Section 10.1.1:
+1.Missing values at all vis itsthrough week 52 that are not preceded by an all-cause composite 
+allograft event will be imputed by the mean o f the observed values at that time po int within 
+the sam e treatm ent group .
+2.Missing values at all visits through week 52 following an all-cause composite allograf t
+event will be imputed by an eGFR value o f 15 mL/min/1.73m2. 
+Multiple Imputati on:
+The delta adjust ment method, assuming missingness not at random (MNAR) , will be used to 
+estimate the tipping po int beyond which the active treatment would have an unfavorable effect. 
+The delta adjustm ent method, based on multiple imputations (MI) under the MNAR assumption 
+assumes that subjects from the act ive treatm ent group who discont inue at a given time po int would 
+have, on average, an eGFR value that is worse by a specific amount δ compared with the observed 
+values fro m subjects in the active treatm ent group who continue to the next time point. This general 
+model can be est imated with a progression of values of δ unt il the treatment difference mo ves to a 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+32significant ly worse outcom e for active subjects than for controls. This analysis is cond ucted to 
+show the value of delta that woul d reverse the study  conclusio n in favor of the control arm. The 
+values of δ that lead to a negat ive study  conclusi on can then be evaluated from a clinical 
+perspective as to their plausibilit y. 
+Regressio n imputatio n for monotone missing data patterns will be implemented using SAS PROC 
+MI. Analysis resul ts from the multiple imputed datasets will be combined using SAS PROC 
+MIANALYZE. A forest plot will be provi ded to summarize the point estimates and confidence 
+intervals for the treatment effect under each value of δ.
+The details of SAS codes including number of imputati ons and seed are provi ded in 
+Appendix 14.4.
+10.2.2. Nonparametric Analysis 
+Anonparametri c rank -based analysis will be conducted based on the Efficacy Analysis Set for IA 
+#2 without complex multiple imputation methodology .Wilcoxon rank sum test will be used for 
+the treatm ent comparison (Ouyanget al., 2017 ) using the change from baseline eGFR value at 
+Week 52 or at last visit prior to Week 52 if subjec t discont inued .
+In the rank-based analysis ,subjects will first be ranked on the t ime po int when they last provi ded
+data and then by the value of eGFR change from baseline atthat visit (with lower ranks for l arger 
+eGFR decline ). The ranking of change from baseline in eGFR will be from smallest to largest, so 
+that the smallest change fro m baseline in eGFR values will appear first within the subset of subjects 
+with the same discontinuation visit.
+Once all the rankings are assigned, the change from baseline in eGFR data are converted to a set 
+of ranks in which the lower the rank is, the worse the outcom e is. In this approach, subjects 
+completing Week 52 will be assigned higher ranking than subjects who discont inued the study  at 
+earlie r visit. For example, a subject with a change from baseline at Week 44 visit (last visit before 
+discontinuat ion) which shows improvement in eGFR from baseline will be assigned lower rank 
+than subjects who completed Week 52 with a decline in eGFR.
+A Wilcoxo n rank sum test will then be applied to compare treatment groups using the ranks. If the 
+treatm ent compar ison in this rank-based analysis supports the resul ts obtained based on the 
+primary  analysis of the surrogate efficacy endpoint described in Section10.1.1 , then the 
+interpretati on is that earlier discont inuat ion did not introduce substantial bias into the primar y 
+analysis of the efficacy surrogate endpoint of change fro m baseline to week 52 in eGFR.
+10.3. Supplementary Analyses for IA #2
+The Analysis of covari ance (ANCOVA) approach will be used to explore a model with linear 
+decline in the slope of eGFR over time as a fixed effect, rather than a categori cal mean at each 
+visit. This model will replace the categori cal no minal visit with the cont inuous numeric study week 
+as defined in Secti on8.3.1 . Response variable in the model will be eGFR (instead of change from 
+baseline in eGFR as in the primary analysis). This analysis will be based on the Efficacy Analysis 
+Set for IA #2 and will only include nominal visits up to 52 weeks. In addition to study  week, 
+following other terms will be included in the model:
+Treatment (categorical variable for clazakizumab or placebo)
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+33Treatment by  study  week interacti on term
+baseline eGFR 
+Randomization stratificat ion factor of dichotomized baseli ne eGFR (25–45 
+mL/min/1.73 m2versus >45–65 m L/min/1.73 m2)
+Randomization stratificat ion factor of baseline proteinuria (UACR <300 mg/g
+[<30mg/mmo l]or UACR ≥300mg/g [≥30mg/mmo l])
+Randomization stratification factor of treatm ent for early (within 6 months of 
+transpl ant) ABMR rej ection episodes ( yes/no )
+Randomization stratificat ion factor of treatment for late (within 6 months o f transplant) 
+ABMR reject ion episodes ( yes/no )
+The estimated slopes for each treatm ent, difference of slopes between the treatm ents and 
+corresponding CIs will be presented.
+In addition, an analysis will also be conducted using the MMRM (model specified in 
+Secti on10.1.1 ) based on the Efficacy  Analysis Set for IA #2 (combinat ion of subjects from  stage 
+1 and stage 2) and will only include nominal visits up to 52 weeks. Missing data will not be 
+imputed .
+Summary  stati stics for the mean difference between the treatment groups for change fro m baseline 
+to Week 52 based on the mixed model will be presented along with two-sided 95% confidence 
+intervals .Estimated effect size from the model will be also presented.
+10.4. Exploratory analysis of Primary Endpoint of All -Cause Allograft 
+Loss or Irreversible loss of allograft function at IA #2
+The relationship between eGFR and long-term allograft survival will be further explored by 
+extending the resul ts of the joint modelling study  to data from the current study . These data will 
+be provided to the DSMB at the time of the IA #2 a nd help inform recommendat ions for continuing 
+or stopping the study  and increasing the sample size for the final analysis of all-cause composite 
+allogr aft loss.
+Param eter estimates from the joint modeling study will be applied to predict the hazard function 
+for all-cause composite allograft loss or irreversible loss of allograft function based on the serial 
+eGFR measurements and other independent variabl es collected during the present study. To reflect 
+the uncertaint y inherent in the modeling process, several sets of  predi ctions can be generated and 
+combined to create an empirical distribution of the hazard ratio.
+For a given pat ient, the survival sub -model from the j oint modeling study  has the following form:
+ℎ_ ( )=ℎ_0( )exp[  +  ]
+where    and    are linear predictors based on baseline characterist ics and eGFR trajectory 
+features, respectively, and ℎ_0( )is a piecewise constant baseline hazard function as described 
+by Rizopoul os(2012) .
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+34For each predi ction set, a random draw from the distribut ion of param eter estimates in  and  
+from the jo int modeling study  will be taken. The rando mly drawn parameter vector will be used to 
+calculate the projected hazard rate for each subject as a function of their baseline characterist ics 
+and observed trajectory  of eGFR values. Survival times based on the param eters from the joint 
+modeling study  can then be compared to the observed t ime to all -cause composite allograft loss in 
+an exploratory  manner. 
+Using the actual treatment group assignments, the estimates of the log ha zard rate will be averaged 
+across subjects within a treatm ent group. Then an estimate of the hazard ratio for clazakizumab 
+versus controls will be co mputed as
+ℎ̂( )=ℎ_0( )exp[ ̅_  ̂+ ̅_  ̂−( ̅_  ̂+ ̅_  ̂)]
+where  ̅_ and  ̅_ are averages for the cl azakizumab group and  ̅_ and  ̅_ are m eans from 
+the control  group. An estimated confidence interval for the hazard rati o using thi s method can be 
+constructed from the empirical distribut ion of hazard ratios across the set of predict ions.
+10.5. Additional Efficacy Analyses
+Analysis of eGFR bey ond week 52:
+Change from baseline to week 52 and week 104 in eGFR, will be conducted using the available 
+data at the time of the IA # 2.
+A Mixed Model  for Repeated Measures (MMRM) analys is will be conducted based on the subjects 
+who completed 2 years (104 weeks) in the study . Change from baseline in eGFR through week 
+104 will be included. T he difference between clazaki zumab and placebo for change from baseline 
+to week 52 in eGFR will be e stimated. The MMRM will include terms specified in Sect ion 10.1.1.
+All available eGFR data (through week 52 and beyond) fro m the subjects in the Efficacy Analysis 
+Sets will be summarized by  using descri ptive statistics at IA #1 and IA #2
+Addit ional Analyse s:
+In addi tion, proporti on of  subjects for individual  com ponents of the all-cause com posite all ograf t 
+loss will be presented for IA #2 based on all data from Efficacy  Analysis Set for IA #2, 
+40% decline in eGFR from Baseline that is sustained for at least 60 day s.
+40% decline in eGFR from Baseline that is sustained for at least 60 days and 
+accompanied by invest igator’s decision to supplement the therapy  by additional 
+treatm ent.
+Proporti on of  subjects who returned to dialysis for at least 60 days .
+Proporti on of subjects with allograft nephrectomy .
+Proporti on of  subjects who had re -transplantation .
+Proporti on of  subjects wi th eGFR <15 m L/min/1.73 m2for at least 60 day s.
+Proporti on of  subjects who di ed.
+Proporti on of subjects who received any prohibit ed therapy and medicati ons(Protocol  section 
+7.6.1 ) will also be presented.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+3510.5.1. Subgroup Analysis for IA #2
+Addit ional subgroup analyses will be performed for Change from Baseline to W eek 52 in eGFR 
+to determine whether significant differences exist between subgro ups.
+These subgroup analyses will be carried out using the subjects from the Efficacy Analysis Set for 
+IA #2.
+Summary  of observed change from Baseline to Week 52 in eGFR will be presented for the 
+subgroups. The list of potenti al subgroups (with applicable definit ions in parentheses) includes, 
+but is not necessarily  limited to, the following:
+Age (<65 y ears vs. ≥65 years)
+Sex (Female vs. Male)
+Race (white vs.non-white)
+Geographi c regi on (North America vs.rest of the world )
+eGFR category  at Baseline (l ow [<45 mL/min/1.73 m2] vs. high [ ≥45 m L/min/1.73 
+m2])
+Baseline proteinuria (UACR < 300 mg/g [< 30 m g/mm ol] or UACR ≥300 m g/g [ ≥30 
+mg/mmo l])
+Treatment for early  (within 6 months of transplant) ABMR reject ion episodes 
+(yes/no)
+Treatment for late (greater than 6 months post -transplant) ABMR reject ion episodes 
+(yes/no)
+Biopsy  score categori es and DSA will be summarized if the data is available at the 
+time of IA # 1 and IA # 2
+10.6. Multiple Comparisons and Multiplicity
+The overall type 1 error of 5% for hypothesis testing of change from  baseline to week 52 is 
+preserved by the two -stage weighted inverse normal test. Test statist ics will be calculated from the 
+subjects in each of the two s tages and combined using the weig hted inverse normal method in a 
+prespecified way for the testing at IA #2 (refer to Section 4.5for details on combinat ion test).
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+3611. SAFETY ANALYSES
+Allsafet y analyses will be based on the safety  analysis set as defined in Section6.4and summaries 
+will include safet y assessments specified below.
+For by-visit summaries of events, the deno minator in percentage calculat ion at each scheduled 
+visit will be based on the number of subjects wi th non-missing value at each visit.For worst post 
+baseline summaries of events, the denominator in percentage calculat ion will be based on the 
+number of subjects with at least one non -missing value post baseline.
+No formal statistical test on the treatment difference will be performed for any  safet y analyses .
+11.1. Adverse Events (AEs)
+AEs will be coded using the MedDRA dictionary version 25.0 or higher and will be presented 
+according to SOC and PT. Treatment -emergent AEs (TEAEs), defined as AEs starting on or after 
+the date of the first dose of IP,will be summarized. All AEs regardl ess of whether they were 
+treatm ent-emergent or not will be listed.
+Where AE start dates are missing or partially missing, AEs will be assumed to be treatm ent-
+emergent, except if the partial start dates or the AE end date indicate that the AE started before the 
+first administration of IP(Table 5).
+Table 5: TEAE Assignment in Case of Missing AE Start Date Elements
+Missing elements of 
+AE startRule
+Regardless of any missing information for AE start:
+AE end date < IP start datenon-TEAE
+Otherwise (ie, if AE end date ≥ IP start date)
+All TEAE
+day and month AE start year ≥ IP start year TEAE
+AE start year < IP start year non-TEAE
+Day AE start month /year ≥ IP start month /year TEAE
+AE start month /year < IP start month /year non-TEAE
+If AE start dates or end dates are missing or partially missing for an AE, no duration will be 
+calculated. If for a TEAE the relationship to study treatm entis missing the worst case will be 
+assumed for summarizing analysis (ie,the relationship to study treatm entwill be assumed to be 
+“Yes” ). No imputation will be done in case of missing study  treatm entrelationship for non-
+treatm ent emergent AEs. No other imputations for missing AE informat ion will be done.
+The Adverse events of special interest (AESIs) a re defined in sect ion 10.1.4 of the protocol.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+37An overview summary  of all AEs, including number and percentages of subjects as well as the 
+number of events wi ll be provided including the following :
+Any AE
+SAE
+Fatal  AEs
+AEs leading to discont inuat ion of study  treatm ent
+Similarly, a n overview summary o f TEAEs, including number and percentages of subjects as well 
+as the number of events wi ll be provi ded incl uding the foll owing :
+Any TEAE
+TEAEs related to study  treatm ent
+TEAEs l eading to di scont inuat ion of study  treatm ent
+TEAEs l eading to dose interruptions
+TEAEs l eading to m odificat ion to background immunosuppressio n
+TEAE of Severit y Grade 3 or Hi gher
+Serious TEAEs
+Fatal  TEAEs
+Following descript ive tables will be generated for AEs including number and perce ntages of 
+subjects andthe number of events : 
+TEAEs by  PT
+TEAEs by  SOC and PT
+Related TEAEs by  SOC and PT
+AESIs by SOC and PT
+Serious TEAEs by  PT
+Serious TEAEs by  SOC and PT
+SAEs by SOC and PT
+Addit ionally , number of subjects, exposure -adjusted subject incidence rateper 100 subject -years 
+and the number of events will be summarized for TEAEs by PT and Serious TEAEs by  PT. 
+The exposure -adjusted subject incidence rate per 100 subject -years is calculated as
+(Total number ofsubjects with AE)/(Total treatment exposure inyears )* 100
+Total  treatment exposure in years is the sum o f treatment exposure for all subjects where treatment  
+exposure is the difference between last dose date and first dose date + 1.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+38The fo llowing list ings will be provided:
+All AEs
+SAEs
+AESIs
+11.2. OVERVIEW OF COVID -19 IMPACT
+Number and percentages of subjects with at least one of the fo llowing due to COVID -19 will be 
+summarized in an overview table:
+Subjects with Any COVID -19 Im pact,
+Protocol  Deviat ions,
+Missing Visit,
+Alternate Visit Modalit y,
+Study  Treatm ent Discontinuation,
+Study  Discont inuat ion,
+Any TEAEs,
+Any Serious TEAEs.
+11.3. Clinical Laboratory Evaluations
+Laboratory  data will be presented in SI units. Laboratory values and changes from baseline will 
+be summarized descri ptively by visit using only values from scheduled visitsforfollowing 
+laboratory  tests (Table 6). Box pl ots will be produced for change from baseline at each scheduled 
+visit. Definit ion of the baseline assessment is in Secti on 8.3.3 .
+Table 6: List of laboratory tests summarized for DSMB Safety Reviews
+HematologyHb
+Hem atocri t
+White blood cell count
+White blood cell different ial (absol ute)
+Platelet coun t
+RBC
+Clinical ChemistryBUN
+Creatinine
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+39HematologyHb
+Hem atocri t
+White blood cell count
+White blood cell different ial (absol ute)
+Platelet coun t
+RBC
+Liver function tests (AST, ALT, alkaline 
+phosphatase, total bilirubin, indirect bilirubin, 
+direct bilirubin , GGT, INR )
+Potassi um
+Sodium
+Fasting glucose
+UrinalysisUACR spot urine test
+Albumin / Creat inine Rat io
+Lipids (serum)Cholesterol  (total , HDL, and LDL)
+Triglycerides
+Number and percentage of subjects with post baseline laboratory  abnormalit ies (defined in 
+Table 7) will be summarized. 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+40Table 7: Laboratory Values of Potential Clinical Importance
+Laboratory Parameter Abnormality Unit
+Alanine aminotransferase (ALT) >ULN to 3xULN
+>3xULN to 5xULN
+>5xULNU/L
+Aspartate aminotransferase (AST) >ULN to 3xULN
+>3xULN to 5xULN
+>5xULNU/L
+Bilirubin >ULN to 2xULN
+>2xULNumol/L
+Neutrophils <2.5to 1.5
+<1.5 to 1
+<110^9/L
+Platelets <LLN to 75
+<75to 50
+<5010^9/L
+11.3.1. Analysis of Immunoglobulin G (IgG)
+Number and percentage of subjects with worst post baseline IgG (400 mg/dl) levels will be 
+summarized for fo llowing categori es. 
+< 4.0
+≥ 4.0
+The deno minator in percentage calculation will be based on the number of subjects with at least 
+one non -missing value post baseline.
+11.4. Other Safety Measures
+11.4.1. Viral PCR Assay
+Subjects with post baseline viral PCR assays for BKV, CMV and EBV greater than the lower limit  
+of quant ificat ion (LLOQ) will be considered to have an active infect ion and counted as “posit ive”.  
+The number and percentage of subjects posit ive for each virus by  visit will  be summarized.
+Number and percentage of subjects with worst post baseline resul ts for following viral load 
+categori es (
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+41Table 8) will be summarized.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+42Table 8: Categories for BKV, CMV and EBV viral PCR assays
+Parameter Category
+BKV (IU/mL) >LLOQ to <320
+≥320 to <3,200
+≥3,200*
+CMV (IU/mL) >LLOQ to <1,000
+≥1,000 to <5,000
+≥5,000
+EBV (IU/mL) >LLOQ to < 10,200
+≥10,200 to < 20,400
+≥20,400
+* This is ≥ 10,000 copies/mL
+11.4.2. Calcineurin Inhibitor (CNI)levels
+CNI trough levels above detectable thresho ld (>=20 ng/mL for Cyclosporine and >=2 ng/mL for 
+Tacrolimus) will be summarized for baseline and post-baseline assessments for Tacrolimus and 
+Cyclosporine using descript ive statistics.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+4312. ADDITIONAL ANALYSIS TO SUPPORT REGULATOR Y 
+SUBMISSION FOR EXPED ITED MARKETING APPRO VAL
+DSMB may reco mmend for submissio n to regul atory aut horities for expedited market ing approval 
+based on the review o f resul ts of efficacy analysis at IA #2.
+In such a scenario, CSLB regulatory  submissi on team  (RST) will initiate submissio n related 
+activit ieswhich include sproducti on of planned tables, figures, listings to support regulatory 
+submissio n.
+Analyses based on all randomized subjects in DBL for IA #2 
+Only summary tables will be provided for the fo llowing analyses. No subject level list ings will be 
+provi ded for the fo llowing summaries.  
+Summary  (table and figure )ofeGFR over time (and change from baseline )for all 
+rando mized subjects in the DBL for IA#2.
+Summary  of proporti ons of subjects with all-cause allograft loss or irreversible loss of 
+allograft function (and com ponents) for all ra ndomized subjects in DBL f or IA#2.
+Safety package based on all randomized subjects included in the DBL f or IA#2.
+Addit ional analysis requested by  regulatory  agencies at pre -submissio n meet ings.
+Following analysis will be performed to support submissio n based on the appropriate analysis set.   
+Subject level list ings will be provided.
+Medical History will be coded using MedDRA dicti onary versi on 25.0 or hi gher and 
+will be summarized by SOC and PT. Summary o f medical history  will be based on the 
+Efficacy Analysis Set for IA #2. 
+Prior and Concomitant Medications will be coded using WHO Drug Dictionary 
+(March 2022 or later). Prior medicat ions are defined as any th erapy  used before the day 
+of first dose (parti al or complete) of IP. Concomit ant medicat ions are defined as any 
+therapy  used on or after the same day as the first dose of IP, including those that started 
+before and continue after the first dose of IP. Pri or and Concomi tant m edicat ions will 
+be summarized by Anatomical Therapeut ic Chemical (ATC) classificat ion level 4 and 
+PT. If  the ATC level 4 coding is not available for a PT, the next available lower level 
+ATC code will be used. Summary of prior and concomi tant m edicat ions will be based 
+on the Efficacy Analysis Set for IA #2.
+Exposure to IPwill be calculated in months as (last dose date –first dose date + 1 + 
+150 day s)/30.4375. Exposure will be summarized by treatment group . The total  actual 
+dose and the total planned dose of IP will be calculated for each subject and 
+summarized by treatm ent group . Treatment compliance will be calculated as (the total 
+number of doses received/number of planned doses) x 100% and summarized by 
+treatm ent group. Exposure summar ies will be based on the Safet y Analysis Set. 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+44Change in Banff lesion grading score of pre-treatm ent to post-treatm ent (Week 52) 
+kidney  biopsies will be summarized by treatm ent group and will be based on the 
+Efficacy Analysis Set for IA #2.
+AEsummaries in addition to those specified in Secti on11.1 may be generated based 
+on Safet y Analysis Set.
+Laboratory parameters in addition to those s pecified in Table 6may be summarized . 
+Laboratory  abnormalit ies in addit ion to those specified in Table 7may be summarized. 
+All laboratory  data summaries will be based on the Safet y Analysis Set.
+Health Related Quality of Life (HRQoL) data will be summarized for the following 
+scales based on the Efficacy  Analysis Set for IA #2: 
+EuroQol  5 dimensio ns questionnaire (EQ-5D-5L): Number and proporti on of 
+subjects at each response level for each of the 5 domains will be presented by 
+treatm ent group and visit. Mean visual analogue scale (VAS) scores at each time 
+point and change from baseline will be summarized by treatment group and visit. 
+A co mpar ison of change fro m ba seline in mean VAS scores will be conducted using 
+mixed model repeated measures as described in Secti on 10.1. 1with contrasts for 
+the mean change from baseline to Week 24 and from baseline to Week 52. A graph 
+shoul d also be provi ded wi th a frequency distributi on of the percent improvement 
+in VAS scores to week 24 and week 52. Health states in the EQ-5D-5L will be 
+converted into a single index value using EQ -5D-5L values based on the crosswalk 
+[van Hout, 2012] for the UK value set. Index values can also be converted to e 
+country  specific ut ility scores using other value sets. The same analy ses conducted 
+for the VAS scores shoul d also be conducted for the mean utility scores. Mean 
+utilit y scores at each time point and change from baseline will be summarized by 
+treatm ent group and visit. A comparison of change from baseline in mean Index 
+score s will be conducted using mixed model repeated measures as described in 
+Secti on 10.1.1 with contrasts for the mean change from baseline to Week 24 and 
+from baseline to Week 52. A graph shoul d also be provi ded with a frequency 
+distribut ion of the percent im provement in Index scores to week 24 and week 52.
+Kidney Disease Qualit y of Life 36 (KDQoL -36): Change fro m baseline in KDQoL -
+36 subscale scores at all visits will be summarized descript ively by treatment group 
+and visit. KDQoL -36 Summary Score (KSS), whic h is a composite of items from 
+the KDQoL -36’s kidney targeted scales will also be derived and summarized 
+descript ively by treatment group and visit (Peipert et al. 2019 ). A compar ison of 
+change from baseline in mean KSS and domain scores will be conducted using 
+mixed model repeated measures as described in Secti on 10.1.1 with contrasts for 
+the mean change from baseline to Week 24 and from baseline to Week 52. A graph
+shoul d also be provi ded wi th a frequency distributi on of the percent improvement 
+in KSS and domain scores to week 24 and week 52. The domain scores for the 
+KDQoL -36 include the physical component score, the mental health component  
+score, the burden of kidney disease, symptom s/probl ems of kidney disease, and 
+effects of kidney disease.
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+45Funct ional Assessment of Chronic Illness Therapy (FACIT) –Fatigue Scale: Change 
+from baseline in FACIT Fat igue score at all visits will be summarized descriptively by 
+treatm ent group and visit. Number and proporti on of subjects achieving a minimum 
+clinically important difference (MCID) of 3 will be presented by treatm ent group and 
+visit (Cella D. et al 2002 ) Subject achieves MCID of  3 if the change from baseline in 
+the FACIT Fat igue score is ≥ 3. A co mpar ison of change fro m baseline in mean FACIT 
+Fatigue scores as well as a compar ison of the proporti on of subjects achieving an 
+improvement ofat least 3 points will be conducted using mixed model repeated 
+measures as described in Secti on 10.1.1 with contrasts for the mean change from 
+baseline to Week 24 and from baseline to Week 52.In addit ion, please provide the 
+number of subjects with any HRQ oL data and the mean as well as the range of EQ -5D-
+5L VAS scores, EQ -5D-5L Index scores, FACIT Fatigue scores, KSS and KDQoL -36 
+domain scores at baseline for each of the following GFR categori es G2 (60-89), G3a 
+(45-59), and G3b (30 -44).
+PK Concentrations of clazakizumab in serum  will be listed and summarized by 
+treatm ent group and nominal timepo ints. Standard summary statistics will be 
+calculated, including n, arithmet ic mean, SD, CV%, median, geom etric mean, 
+minimum, and maximum. The lower limit of quantification of the clazakizumab PK 
+assay is 20 ng/mL. Any pre -dose BLQ and/ or BLQ occurring post -dose but before the 
+first quantifiable value will be set to zero. Any BLQ present in the profile or at the end 
+of the profile will be treated as missing. If two or more BLQs occur in successio n,then 
+the profile will be considered to have been terminated at the previous quant ifiable 
+concentration andall further values will be treated as missing. The mean concentrati ons 
+at any individual time point will be calculated if at least 50% of the individual values 
+are available (i.e. are quant ifiable and not missing) at given time point otherwise the 
+mean value will be report edas ’not calculated (NC). All P K concentration analysis will 
+be based on the PK Analysis Set. 
+PK Parameters will be determined for subjects in the clazakizumab treatm ent group 
+participat ing in the PK/PD Substudy . For all derived parameters, except Tmax, the 
+following summary  stati stics will  be calculated for the clazakizumab treatm ent group: 
+n, mean, standard deviat ion [SD], coefficient of variat ion (CV) defined as STD / 
+mean*100%, median, minimum, and maximum, along with geometri c mean, geometric 
+mean SD, geometric percent coefficient of variat ion [%CV], and 95% CIs around t he 
+geom etric mean. For T max, only n, m edian, minimum and maximum will be presented.
+All PK parameter analysis will be based on the PK/PD Sub -study  Analysis Set. The PK 
+param eters will be calculated by standard noncom partmental analysis, using 
+WinNonlin® ve rsions 5.2 or hi gher.
+PD markers to be evaluated include IL-6 (both total and free levels) and hsCRP. These 
+param eters will be summarized by treatm ent group and visit based on the 
+Pharmacodynamic Analysis Set . Additional Bio markers may be evaluated and reported 
+separately .
+PK/PD modelling will be explored, as feasible, for further time-dependent 
+characterizat ion of PK versus PD endpoints and/or safet y/efficacy  and reported 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+46separately . Addi tional information on PK/PD analyses will be provided separately i n a 
+modeling and simulat ion analysis plan.
+Immunogenicity data will be summarized and listed based on the PK analysis set. 
+Anti-drug ant ibody  incidence will be calculated and summarized . 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+4713. REFERENCES
+Bauer P, Koeni g F. The reassessment of tri al perspectiv es from interim data --a critical view. Stat 
+Med. 2006; 25(1): 23 -36
+Cella D, Eton DT, Lai  JS, Peterm an AH, Merkel  DE. Combining Anchor and Di stribut ion-Based 
+Methods to Derive Minimal Clinically Important Differences on the Funct ional Assessment of 
+Cancer Therapy  (FACT) Anemia and Fat igue Scales; JPSM, 2002; 24:6: 547 -561
+Lan K K, Wi ttes J. The B -value: a tool for monitoring data. Bio metrics, 1988; 44(2):579 –585
+OuyangJ, Carroll KJ, Koch G, Li J. Coping with missing data in phase III pivotal registrati on 
+trials: Tolvaptan in subjects with kidney  disease, a case study . Pharm  Stat. 2017; 16(4):250 -266
+Peipert J, Nair D, Klicko K, Schatell D, Hays R. Kidney Disease Quali ty of Life 36-ItemShort 
+Form  Survey (KDQOL -36) norm ative values for the United States dialysis popul ation and new 
+single summary score. J Am Soc Nephrol. 2019;30(4):654 -663
+Proschan MA, Lan KK, Wittes JT. Statist ical Moni toring of  Clinical  Trials. A Unified Approach. 
+New York: Springer, 2006
+Ratitch B, O'Kelly M, Tosiello R. Missing data in clinical trials: from clinical assumpt ions to 
+statist ical analysis using pattern mixture models. Pharmaceut ical Statisit ics, 2013; 12:337
+Rizopoulos D. Joint Models for Longitudinal and Time -to-Event Data with Applications in R. Boca 
+Raton, FL: CRC Press, 2012.
+rpact (2021), “rpact: Confirmatory  Adaptive Clinical Trial Design and Analysis,” available at 
+https://www.rpact.org/
+van Hout B, Janssen MF, Feng YS, Kohlmann T, Bu sschbach J, Golicki D, Lloyd A, Scalone L, Kind 
+P, Pickard AS. Interim scoring for the EQ-5D-5L: mapping the EQ-5D-5L to EQ-5D-3L value sets. 
+Value Health. 2012 Jul -Aug;15(5):708 -15. 
+Wassmer G, Brannath W. Group Sequent ial and Confirmatory Adapt ive Design s in Clinical Trials. 
+Switzerland: Springer Series in Biopharmaceut ical Statistics, 2016
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+4814. APPENDICES
+14.1. Figures for DSMB at IA #1
+The following figures show examples of figures for DSMB review based on observed effect si ze 
+at stage 1 (IA #1) and a range of possible effect size at stage 2. The two horizontal reference lines 
+have been provi ded corresponding to the planned (N2= 80) and the maximum number of 
+rando mized subjects (N 2= 250, as stated in protocol) required from stage 2
+Example 1: 
+Figure 3 shows the proposed figure if the observed effect size estimated from the MMRM at IA 
+#1 is 0.45. The foll owing figure has been generated using this observed effect si ze at stage 1 and 
+assumed effect size in stage 2 (range 0.30 to 0.54). The three lines represent a dditional subjects to 
+be rando mized at stage 2 for conditional powers 90%, 85% and 80% for testing the efficac y 
+endpo int at IA #2.
+Figure 3: Sample figure for DSMB based on hypothetical observed effect size 0.45 at 
+IA #1
+Please note that if effect size at stage 2 is similar to the effect size observed at stage 1 (0.45), then 
+there is no need to increase from planned sam ple size of  180 randomized subjects wi th 52weeks 
+of follow-up at IA #2. All three curves corresp onding to the condi tional powers are below the 
+horizontal  line of N 2= 80 around the effect size of 0.45.
+
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+49In this case, DSMB is expected to recommend continuing the study as planned without increasing 
+the sam ple size for IA #2.
+Example 2:
+Figure 4: Sample figure for DSMB based on hypothetical observed effect size 0.35 at 
+stage 1 (IA #1) and assumed effect size of 0.30 to 0.54 in stage 2 
+In this case, it appears from the figure that m ore than 150 addi tional randomi zed subjects will be 
+needed at stage 2 if the effect si ze at s tage 2 rem ains similar to the observed effect si ze at s tage 1 
+with condit ional power of 90%. DSMB recommendation of whether to continue the study is based 
+on the review of totalit y of informat ion presented at IA #1. It appears from the figure that the study 
+could cont inue with the planned maximum number of rando mizations (150) at stage 2, assuming
+similar effect size at stage 1 and stage 2 and conditio nal power is approximately 85% 
+more optimist ic effect size from the subjects at stage 2 and condit ional power remains at 90%.
+In this case, if DSMB is making a recommendat ion to continue the study  based on the totali ty of 
+data then a recommendat ion about the sample size for IA #2 is also needed. The recommended 
+sample size for IA #2 coul d be the maximum allo wed sam ple size of 250 randomized subjects or 
+lower.
+
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+50Example 3:
+Figure 5: Sample figure for DSMB based on hypothetical observed effect size 0.25 at 
+stage 1 (IA #1) and assumed effect size of 0.30 to 0.54 in stage 2
+In this case, it appears that IA #2 with the planned maximum sample size of 250 rando mized 
+subjects with 52 weeks of follow-up is not adequate with reasonable condi tional power or 
+assumpt ion ofeffect size at stage 2 (all the curves corresponding to conditional power are above 
+the reference line of N2= 150, even for the assumed effect size of 0.35 for IA #2). DSMB is 
+expected to recommend stopping further rando mization. The final decisio n to stop the study will 
+be confirmed by  CSLB seni or m anagement.
+
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+5114.2. R Code for Simulated Overall Power at IA #2 Using rpact R Package
+# Specify inverse normal design
+designIN < -getDesignInverseNormal(typeOfDesign = "asUser", beta=0.1, 
+informationRates = c(0.5556, 1), userAlphaSpending = c(0.00, 0.025))
+# Simulat ion for overall power
+n1 = 100    # Size of Stage 1, both arms
+n2 = 80     # Size of Stage 2, planned, both arms
+N = n1 + n2 # Total planned sample size
+Nmax = 250  # Total maximum sample size
+simCpower <-getSimulationMeans(designIN, thetaH0 = 0, 
+             alternative = 0.488, # "True" value used for simulating data
+             plannedSubjects = c(n1, N), # Cumulative overall sample size
+             conditionalPower = 0.9,
+             minNumberOf SubjectsPerStage = c(n1, n2), #stage -wise min overall 
+sample size
+             maxNumberOfSubjectsPerStage = c(n1, Nmax -n1), # stage -wise max 
+overall sample size
+                maxNumberOfIterations = 10000,   # Number of simulations
+                                seed = 12347)    # Random seed
+14.3. SAS Code for MMRM Analysis Using PROC MIXED
+procmixeddata=egfr2 order=data;
+  wherevisit ne 'Visit 2' ; *remove baseline visit;
+  classsubjid treatdesc visit randbegfr randbprot randearlytrt    
+  randlatetrt;
+  modelchange = treatdesc visit randbegfr randbprot randearlytrt   
+  randlatetrt treatdesc*visit base/ s DDFM=KR;
+  repeated visit / type= UN subject=subjid;
+  lsmeans treatdesc*visit / diff cl;
+  odsoutputEstimates=est;
+run;
+Where, response variable ‘change’ is change fro m baseline in eGFR; treatdesc = Clazakizumab or 
+Placebo; visit=no minal post baseline visits; ‘randbegfr’, ‘randbprot’, ‘randearlytrt’, ‘randlatetrt’ 
+are the stratificat ion factors; DDFM=KR requests the Kenward -Roger method for the covari ance 
+matri x if unstructured covariance structure is used. 
+DDFM opti onshoul d not be specified if othe r covari ance structure is used.
+14.4. Tipping Point Analysis Using Delta Adjustment Method
+The delta adjustment method described by Ratitchet al (2013) will be implemented using the 
+following steps:
+1.Create a dataset with one record per subject, containing values of AVAL for all weeks 
+(Baseline and Weeks 4–52) on one record, where AVAL x represents the analysis value o f 
+eGFR at month X (where mo nth = week/4, ranging fro m 1 to 13). 
+2.Run 25 Markov Chain Monte Carlo (MCMC) imputati ons to make the missing values in 
+the dataset have a monotone missingness pattern. This will produce a dataset with an index 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+52variable _Imputation_ and otherwise the same variables as the input dataset. It will 
+have one record per imputation per subject. 
+3.Run a pattern mixture model regressio n imputation using MNAR statement in SAS on each 
+imputed dataset from step 2. Apply delta penal ty (by subtracting eGFR values) using 
+SHIFT opti on to all post baseline visi ts in clazakizum ab arm . This will  generate a dataset 
+with the same structure as the input dataset for each delta but will have the missing values 
+filled in and delta penal ty applied . 
+4.Transpose data in longitudinal format.
+5.Run the primary  MMRM analysis on the imputed datasets, once for each imputation. This 
+will create 25 estimates of the output statist ics. 
+6.Combin e the 25 estimates to generate the test statistic and p -value . 
+7.Repeat steps 1–6 for a range of eGFR values. eGFR values will start from 0 in t he increment 
+of -0.5 until the p -value is >=0.05. For example, from 0 to –4 by –0.5. 
+Steps 2 –7 may be implemented using SAS code similar to the following. 
+%macromiparms( data=, smin=, smax=, sinc=, outparms=);
+data &outparms;
+  set _null_;
+run;
+/*# of shift values*/
+%letncase= %sysevalf ( (&smax -&smin)/&sinc, ceil );
+/*Multiple imputation analysis for each shift*/
+%dojc=0%to&ncase;
+%letsj= %sysevalf (&smin + &jc * &sinc);
+/* step 2: Impute intermitent missing variables to create monotone 
+missingness with MCMC */
+proc mi data=&data seed= 81431864 nimpute= 25out=outdata1; 
+  by trtp; 
+  mcmc impute=monotone; 
+  var AVAL1 -AVAL4; 
+run;
+proc sort data= outdata1;
+  by _Imputation_; 
+run;  
+/* step 3: Impute all visits under MNAR first, then apply delta adjustments 
+at each visit */
+proc mi data=outdata1 seed= 74358221 nimpute= 1out=outdata2; 
+  by _Imputation_; 
+  class treatdesc; 
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+53  monotone reg( AVAL2-AVAL4 / details); 
+  mnar ADJUST(AVAL2 / SHIFT= -&sj ADJUSTOBS=(TREATDESC = 'Clazakizumab ')); 
+  mnar ADJUST(AVAL3 / SHIFT= -&sj ADJUSTOBS=(TREATDESC = 'Clazakizumab ')); 
+  mnar ADJUST(AVAL4 / SHIFT= -&sj ADJUSTOBS=(TREATDESC = 'Clazakizumab ')); 
+  var treatdesc AVAL2 -AVAL4; 
+run;
+/* step 4: convert data in log and skinny format, calculate change from 
+baseline */
+proc sort data=outdata2;
+  by _Imputation_ subjid treatdesc;
+run;
+proc transpose data=outdata2 out=outdata3;
+  by _Imputation_ subjid treatdesc;
+  var AVAL1 -AVAL4;
+run; 
+data outdata4;
+  set outdata3;
+  visit=input(compress(_name_, "y"),best.);
+  aval=col1;
+  drop _name_ col1;
+run;
+data base;
+set outdata4;
+where visit= 1;
+base=aval;
+keep _Imputation_ subjid base;
+run;
+proc sort data=base;
+by _Imputation_ subjid;
+proc sort data=outdata4;
+by _Imputation_ subjid;
+run;
+data outdata5;
+merge outdata4 base;
+by _Imputation_ subjid;
+change=aval -base;
+run;
+proc sort data=outdata5;
+  by _Imputation treatdesc visit subjid;
+run;
+/* step 4: Analyze data for imputation using MMRM */
+proc mixed data=outdata5 order=data;
+  by _Imputation_;
+  wherevisit ne 'Visit 2' ; *remove baseline visit;
+  classsubjid treatdesc visit randbegfr randbprot randearlytrt    
+  randlatetrt;
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+54  modelchange = treatdesc visit randbegfr randbprot randearlytrt   
+  randlatetrt treatdesc*visit base/ s DDFM=KR;
+  repeated visit / type= UN subject=subjid;
+  lsmeans treatdesc*visit / diff cl;
+  estimate 'Visit 6 (Claza -pbo)' treatdesc -1 1 treatdesc *visit 0 0 -1 0 0 
+  1/cl;
+  odsoutputEstimates=est;
+run;
+/* step 5: Combine estimates for inference */
+proc mianalyze data=est;
+  modeleffects estimate;
+  stderr;
+  ods output parameterestimates=miparm;
+run;
+data miparm;
+  set miparm;
+  shift= -&sj;
+run;
+/*Output multiple imputation results*/
+data &outparms;
+  set &outparms miparm;
+run;
+%end;
+%mendmiparms;
+/*Assume that the tipping point for the shift parameter that reverses the
+study conclusion is between 0 and 4. The following statement performs
+multiple imputation analysis for each of the shift parameters 0, -0.5, -1,  -
+1.5,…,-4*/
+odslisting close;
+%miparms(data=pr_trans, smin= 0, smax=4, sinc=0.5, outparms=parms1);
+
+CSL Study Number:             CSL300_3001       
+Study Product: CSL300, clazakizumab
+5514.5. Analysis Under Each Analysis Set
+Analysis Set Baseline and 
+DemographyAll 
+Interim 
+EffiacySafety 
+AnalysesPK 
+ConcentrationPK 
+ParametersPD
+Efficacy X X
+Per-protocol X*
+Safety X
+PK X
+PD X
+PK/PD Sub -
+studyX X
+*Sensitivity analy sis only
+
+Version: 2.0
+Signature Page 1 of 1
+--- Do Not Detach This Signature Page ---
+glbdctmp Print Date: 09-Sep-2024 11:58:26 GMT-04:00Signature Page
+CSL300_3001 - Statistical Analysis Plan -
+Statistical Analysis Plan for Interim Analysis
+Signed By Date (GMT)
+Approved-  Approval16-Aug-2023 18:16:03
+Approved-  Approval17-Aug-2023 10:44:59
+PPD
+PPD
+PPD
+PPD

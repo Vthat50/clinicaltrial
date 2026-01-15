@@ -1,0 +1,1649 @@
+       
+ 
+ 
+  
+EORTC protocol 1307  
+(EudraCT number 2013-000684-85) 
+ 
+A phase III, randomized, open- label, multicenter, controlled trial of 
+niraparib versus physician’s choice in previously treated, HER2-negative, 
+germline BRCA mutation -positive breast cancer patients 
+ 
+ 
+ Study Coordinator:  
+  , United Kingdom , 
+Breast Internation al Group (BIG) 
+ 
+ 
+Statistical Analysis Plan  
+Ve rsion 1.0 
+Date  
+24 01 2017 
+ 
+ 
+ prepared by:  
+  biostatis tic ia n  EORTC  
+ with the collaboration of : 
+ biostatistician EORT C  
+ clinical research physician  E ORTC  
+ r eview ed by : 
+ He ad of statistics department  EORTC  
+ medical director  
+ Director of Biostatistics ,  
+ 
+The contents of this Statistical Analysis Plan  are confidential.  
+ 
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+PPD
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 2 of 40 Table of Contents  
+1 List of abbreviations  ........................................................................................................... 4 
+time to HRQoL deterioration  ...................................................................................................... 5 
+upper limit of normal .................................................................................................................. 5 
+white blood cell .......................................................................................................................... 5 
+2 Background  ........................................................................................................................ 6 
+2.1 Scope  ........................................................................................................................... 6 
+2.2 Trial design [as  in protocol version 6, January 13, 2017]  ................................................ 6 
+2.3 Sample size [as in protocol version 6, January 13, 2017]  ................................................ 7 
+2.4 Objectives of the trial [as in protocol version 6, January 13, 2017]  .................................  8 
+2.4.1  Primary object ive  .................................................................................................... 8 
+2.4.2  Secondary objectives  ............................................................................................... 8 
+3 Study conduct  ................................................................................................................... 10 
+4 Quality assurance .............................................................................................................. 10 
+5 Conventions  ..................................................................................................................... 10 
+5.1 Data Display  .............................................................................................................. 10 
+5.2 Data cleaning  ............................................................................................................. 11 
+5.3 Notations in this SAP .................................................................................................. 11 
+6 Statistical analyses  ............................................................................................................ 11 
+6.1 Imple mentat ion of c linica l cut -off date and data selection  ............................................ 11 
+6.2 Patient availability  ...................................................................................................... 12 
+6.2.1  Accrual  ................................................................................................................. 12 
+6.2.2  Follow -up ............................................................................................................. 13 
+6.2.3  Eligibility  .............................................................................................................. 13 
+6.2.4  Patient populations  ................................................................................................ 13 
+6.4 Study Flow Chart  ....................................................................................................... 15 
+6.5 Baseline characteristics  ............................................................................................... 16 
+6.5.1  Baseline patient and tumor characteristics  .............................................................. 16 
+6.5.2  Stratification factors  .............................................................................................. 16 
+6.5.3  Medical his tor y  ..................................................................................................... 17 
+6.5.4  Disease history  ...................................................................................................... 17 
+6.6 Compliance to the protocol  ......................................................................................... 18 
+6.6.1  Central medical review of compliance to protocol ................................................... 18 
+6.6.2  Compliance to treatment allocation  ........................................................................ 18 
+6.6.3  Other compliance measures  ................................................................................... 19 
+6.7 Exposure to treatment  .................................................................................................  19 
+6.7.1  Protocol therapy  .................................................................................................... 19 
+6.7.2  Further anti -tumor treatment (after stop of protocol treatment)  ................................ 21 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 3 of 40 6.8 Safety evaluations ................................ ................................ ................................ ....... 21 
+6.8.1  Hematology ........................................................................................................... 21 
+6.8.2  Biochemistry  ......................................................................................................... 22 
+6.8.3  Adverse Events  ..................................................................................................... 22 
+6.8.4  Serious Adverse Events  ......................................................................................... 22 
+6.9 Reasons for stopping treatment  ................................................................................... 25 
+6.10  Disease status ............................................................................................................. 25 
+6.11  Statistical inference on efficacy endpoints  ................................................................... 26 
+6.11.1  Definit ions  ............................................................................................................ 26 
+6.11.2  Primary endpoint: Progression-free Survival by independent central review  ............ 27 
+6.11.3  Secondary efficacy endpoints  ................................................................................. 29 
+6.12  Interim analysis for futility for progression free survival  .............................................. 32 
+6.13  Interim analysis for overall survival  ............................................................................ 32 
+6.14  Quality of Life ............................................................................................................ 32 
+7 Overview table for the 4 analysis reports  ........................................................................... 35 
+8 Bibliography ..................................................................................................................... 37 
+9 Appendix 1: List of case report forms (CRFs)  .................................................................... 38 
+10 Appendix 2: Tables and listing to be provided to IDMC for safety review ........................... 39 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 4 of 40 1 List of abbreviations  
+AE adverse event                                                                                  
+ALP alkaline phosphatase  
+ALT  alanine aminotransferase  
+AST  aspartate aminotransferase  
+BUN  blood urea nitrogen  
+CCD  clinical cut -off date                                                                          
+CI confidence interval  
+CR complete response  
+CRF(s)  case report form(s)                                                                            
+CT contrast -enhanced computed tomography (CT)                                                     
+CTC common terminology criteria  
+CTCAE  common terminology cri teria for adverse events  
+ECG electrocardiography  
+ECOG  Eastern Cooperative Oncology G roup  
+eCRF  electronic case report form  
+EORTC  European Organisation for Research and Treatment of Cancer  
+ER estrogen receptor                                                                              
+FAR  final analysis report                                                                      
+FDA  Food and Drug Administration  
+FU follow -up 
+GGT gamma glutam yltransferase  
+HR hormone receptor                                                                               
+HRQoL  Health -related quality of life  
+HER-2 human epidermal growth factor receptor 2                                                       
+IDMC -PFS Independent Data Monitoring Committee report for the interim analysis for futility for PFS  
+IDMC -OS IDMC report for the interim analysis for OS                                                
+INR international normalized ratio  
+ITT Intent -to-treat 
+IQR interquartile range                                                                        
+IV intravenous(ly)                                                                                
+LDH  lactate dehydrogenase  
+LLN lower limit of normal 
+MedDRA  medical dictionary for regulatory activities  
+MRI magnetic resonance imaging                                                                     
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 5 of 40 MRP  medical review plan                                                                            
+ORR overal l response rate  
+OS overall survival                                                                               
+OS-AR analysis report for the final analysis of the overall survival endpoint (OS -AR)                
+PD progressive disease                                                                            
+PT preferred term (AE term)                                                                       
+aPTT  activated partial thromboplastin time  
+PTT partial throm boplastin time  
+PR progesterone receptor                                                                          
+PRO patient -reported outcomes                                                                      
+PFS progression -free survival                                                                      
+QD quaque die (once daily)  
+QLQ -C30 quality of life questionnaire C30  
+QoL quality of life  
+RECIST  Response Evaluation Criteria in Solid Tumors                                               
+SAE serious adverse event                                                                          
+SAP statistical analysis plan  
+SAR  serious adverse reaction                                                                     
+SD stable disease  
+SGOT  serum glutamic ox aloacetic transaminase  
+SGPT  serum glutamic pyruvic transaminase  
+SOC System Organ Class                                                                             
+SUSAR  suspected unex pected serious adverse reaction                                                  
+TTQ  time to HRQoL deterioration  
+ULN  upper limit of normal  
+WBC white blood cell  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 6 of 40 2 Background  
+2.1 Scope  
+This Statistical Analysis Plan (SAP) describes the statistical analyses that will be performed for : 
+- the Independent Data Monitoring Committee ( IDMC ) report for the interim analysis on futility for 
+progression- free survival (IDMC -PFS)  
+- the final analysis report  (FAR)  
+- the IDMC report for the interim analysis for overall survival (IDMC -OS) 
+- the analysis report  for the final analysis of  the overall survival endpoint (OS -AR)  
+of the  intergroup European Organization for the Research and Treatment of Cancer ( EORTC )-1307- BCG,  
+BIG5 -13, TESARO PR -30-5010- C protocol , titled  “A phase III, randomized, open- label, multicenter, 
+controlled trial of niraparib versus physician’s choice in previously treated, HER2 -negative, germline BRCA 
+mutation -positive breast cancer patients .” Section 7 provides an overview table  documenting which of the 
+analyses described in S ection 6 w ill be perfo rmed for which report.  
+ 
+The reports  will be prepared by the EORTC  according to EORTC standard operating procedures and 
+Policies . The FAR  w ill include all results  needed to prepa re publication of the primary results.  A separate 
+SAP will be made for the translational research analyses.  
+ 
+The FAR and OS -AR will be programmed and prepared by the EORTC study statistician and statistical 
+analyst (if applicable) . The IDMC -PFS and IDMC -OS will be prepared and presented to the IDMC by the 
+reporting statistician.  The IDMC -PFS and IDMC -OS reports are  confidential document s, the contents of 
+which will only be accessible to the I DMC, IDMC administrator , and the EORTC reporting statistician, until 
+the end of the trial .  
+The specifications detailed in th e present analyses plan will supplement but never supersede  the key 
+specifications in the protocol , (namely  the sections on “ analysis of primary or key secondary endpoint s” 
+“analysis population”  and “method” ). Any change with respect to the specifications in the protocol  w ill be 
+explicitly mentioned and justified.  
+2.2 Trial design  [as in protocol version 6, January 13, 2017]  
+This is  a Phase III, randomized , two-arm, open- label, multicenter , superiority study to compare niraparib 
+w ith physician’s  treatment  choice  in patients with HER2- negative gBRCAmu t breast cancer. After registrati on, 
+eligible patients will be randomized 2:1 to:  
+Arm 1: niraparib orally at a dose of 300 mg daily ( QD) on a continuous dosing regimen 
+Arm 2: physician’s choice amongst one of the following 4 single agents ( intravenous [IV] eribulin, IV or oral 
+vinorelbine, IV gemcitabine , or oral capecitabine) , according to the national ly available and approved 
+treatment (Gemcitabine will be administered as single agent as per National Comprehensive Cancer Network 
+[NCCN ] guidelines. In France, gemcitabine is not allowed as a treatment in the physician's choice arm.)  
+Patients will continue on study medication until disease progression, as long as, in the investigator’s opinion, 
+they are benefitting from treatment and do not meet any other treatment discontinuation criteria.  
+See also the trial scheme in Figure 1.  
+Clinic visits will be conducted at the beginning of every cycle (ie, every 3 weeks ± 3 days). 
+Contrast -enhanced computed tomography (CT ), or magnetic resonance imag ing (MRI) if CT is not feasible , 
+will be required at screening and every 6 weeks ± 7 days  for the first 12 months, then every 9 weeks ± 7 days  
+until disease progression. Patients will continue on their assigned treatment until disease progression 
+(determin ed by Response Evaluation Criteria in Solid Tumors [RECIST] v.1.1), unacceptable toxicity, death, 
+withdrawal of consent, or they are lost to follow -up.  
+Evaluation of CT scans and MRI, including determination of response to treatment and date of progressio n 
+based on RECIST v.1.1, will be conducted by a central blinded review committee comprised of 
+2 radiologists, with an arbiter as necessary. Results of the central blinded assessment will be used to 
+determine the primary efficacy endpoint of PFS and will be  conducted retrospectively. The study 
+investigators also will assess response to treatment and date of progression,  based on RECIST  v.1.1 , during 
+the conduct of the study.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 7 of 40 Patient -reported outcomes (PROs) will be evaluated at screening, during the treatment period,  and after 
+treatment discontinuation,  for a maximum period of up to 12 months after randomization.  
+Safety will be evaluated throughout the study by AE monitoring and clinical laboratory assessments, 
+(hematology, chemistry), vital signs, electroca rdiograms (ECGs), physical examinations, and use of 
+concomitant medications.  
+After treatment discontinuation, information on subsequent anticancer therapy and survival (including new 
+malignancy information) will be collected. If the patient discontinues pr ior to disease progression, tumor 
+imaging and assessment of PROs will continue during the post -treatment phase at specified time intervals 
+until disease progression or until the patient starts his/her subsequent anticancer therapy. No crossover to 
+nirapari b is permitted following discontinuation from physician’s choice treatment.  
+The IDMC was established to provide independent review and assessment of the efficacy and safety data in a 
+systematic manner and to safeguard the interest and safety of patients  participating in the study. The 
+membership, key responsibilities of the IDMC, and the corresponding procedures were defined in an IDMC 
+charter.  
+2.3 Sample size  [as in protocol version 6, January 13, 2017]  
+At least 306 gBRCAmu t patients, confirmed by the centralized test, will need to be  randomized .  
+The primary analysis population for efficacy ( including primary PFS and OS analyses) constitutes all 
+randomized patients who have a germline BRCA mutation per central laboratory res ults (Myriad Genetics, 
+Inc.,  USA, hereafter referred to as “Myriad”)  
+The overall sample size for this study is based on the overall survival endpoint , and is determined based on 
+the assumption that niraparib will result in an improvement of 4 months in median overall survival , from 9 to 
+13 months (corresponding to a hazard ratio= 0.69). For a true hazard ratio of 0.69, 265 deaths will provide 
+80% power at a 1- sided alpha of 0.025. Assuming 10 patients who are eligible for the primary analysis 
+population for  efficacy are enrolled per month, with 306 such patients, 265 deaths are expected to occur 
+approximately 54 months after the first patient enrolled. At the time of the final PFS analysis (primary 
+endpoint ), an interim analysis will be performed on OS, using an O'Brien -Fleming alpha spending function 
+(protocol Section  8.3).  
+Assuming 40% of patients will be randomized on the basis of a local BRCA test , and assuming that 15% of 
+those patients will be BRCA -negative by the central test, it is estimated that 324 patients will need to be 
+randomized  to obtain the required 306 patients in the analysis population. If the average enrollment rate is 
+greater than 11 patients per month during the second year of enroll ment, the sample size to achieve the 
+required 265 events may be increased up to 350 gBRCAmu t patients in the primary efficacy  analysis 
+population.  
+The PFS analysis is designed to give 80% power to detect an HR 0.6 (equivalent to 3 to 5 months) with a 
+one-sided alpha of 0.025, which will require approximately 137 PFS events to perform the final analysis. All 
+patients should be recruited before the final PFS analysis is conducted, and therefore the final PFS analysis is 
+to be conducted at approximately 137 e vents or end of recruitment, whichever occurs later. If final analysis is 
+done by the end of enrollment, all PFS events occurred by the end of enrollment will be included in the 
+analysis. Patients should be continued to be followed until death even after t he final analysis of PFS to assess 
+long- term effects of niraparib.  
+A gate -keeping strategy (i.e. sequential testing procedure) will be used to test PFS and OS. OS will be tested 
+at a 1 -sided alpha of 0.025 only if the final test on PFS is significant at a 1-sided alpha of 0.025. This is 
+motivated by the fact that OS is defined as a key secondary endpoint and such approach allows control of the 
+overall Type I error rate. One futility interim analysis on the primary endpoint of PFS is planned. This 
+futility a nalysis will be performed after approximately 93 (68%) of the minimum required total number of 
+PFS events have been recorded. A gamma family beta spending function with a non- binding gamma (γ = -5) 
+stopping boundary will be used for the futility analysis.   
+An interim analysis of overall survival is planned at the time of the final PFS analysis. The interim analysis 
+w ill utilize O’Brien -Fleming type boundaries derived from the Lan DeMets alpha spending function based 
+on the actual number of deaths observed a t the time of the interim analysis.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 8 of 40 Overall survival (accounting for interim analysis performed at the time of final PFS analysis) and PFS 
+(including futility analysis) sample size calculations were performed using PROC SEQDESIGN in SAS and 
+confirmed with East software.  
+2.4 Objectives of the trial  [as in protocol version 6, January 13, 2017]  
+2.4.1 Primary objective  
+The primary objective of this study is to compare progression- free survival (PFS), as assessed by blinded 
+central review, of patients with advanced/metastatic HER2 -negative gBRCAmu t breast cancer when treated 
+with niraparib as compared to those treated wit h physician’s choice single agent chemotherapy standards 
+(eribulin, vinorelbine, gemcitabine or capecitabine).  
+2.4.2 Secondary objectives  
+2.4.2.1  Key secondary objective  
+To compare overall survival of patients with advanced/metastatic HER2- negative gBRCAm ut breast cance r 
+when treated with niraparib as compared to those treated with physician’s choice single agent chemotherapy 
+standards (eribulin, vinorelbine, gemcitabine or capecitabine).  
+2.4.2.2  Other secondary objectives  
+1. To establish germline BRCA mutation status of screene d patients using a centrally provided, validated test 
+as well as future tests, and determine concordance between tests for the purpose of developing a commercial 
+companion diagnostic test  
+2. To evaluate safety and tolerability as measured by all AEs.  
+3. To compare PFS using investigator assessment of progression 
+4. To evaluate time to treatment failure (discontinuation of treatment for any reason)  
+5. To compare response rate and duration of response  
+6. To compare time to deterioration of health- related qual ity of life (HRQoL): European Organization for 
+Research and Treatment of Cancer Quality of Life Questionnaire (EORTC QLQ -C30) and EuroQol 5 
+Dimension 5 Level (EQ -5D-5L) (Appendices D, F, I )  
+7. To describe subsequent therapies and potential relationships w ith outcomes  
+8. To assess genetic and non- genetic biomarkers relating to treatment efficacy. Germline and tumor 
+mutations may be explored including somatic BRCA1 and 2 mutations, reversion mutations, loss of 
+heterozygosity as well as genome landscape and t ranscriptional or functional measures of homologous 
+recombination (HR) deficiency.  
+9. To assess outcomes by germline mutation BRCA1 vs BRCA 2. 
+10. Descriptive summary statistics will be used to summarize post - treatment data (i.e subsequent anticancer 
+therapies and any new malignancy).  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 9 of 40 Figure 1: S tudy Scheme 
+ 
+NCCN:  National Comprehensive Cancer Network, QD:  quaque die (once daily),  PD: Progressive disease, gBRCAmut, germline BRCA mutation.
+
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 10 of 40 3 Study conduct  
+Safety data will be reviewed on a regular basis  by the medical review team , as documented in the m edical 
+review plan (version 1.1, June 4, 2015) .  
+The medical review team includes EORTC representatives ( clinical research physician,  pharmacovigilance 
+manager ), as well as a clinical representative from the sponsor (TESARO) and the study coordinator . The 
+medical review plan (MRP) describes the procedures and practices to be conducted by the medical team for 
+this study, to ensure that the medical data generated from the trial are valid and reliable and that early 
+recognition, identification,  and reporting of events that affect  patient safety are maintained during the trial.  
+Additionally, an IDMC w ill process a systematic , periodic  revie w of all the safety data in the study. This 
+process is documented in the study’s  IDMC charter  (version 1.0, February 17, 2015) . The medical review 
+team can also request an additional IDMC review in the event that  safety problems are identified for w hic h 
+independent advice is sought.  
+No outcome data is included in any of the  safety reviews , apart from an overview of the secondary 
+malignancies and deaths and their causes.  See Appendix 2 for an overview of the information provided to  
+IDMC for the safety review .  
+No efficacy results will be presented before the  data are mature for the primary analysis  according to 
+EORTC policy 009 (version 4.2, March 3, 2015) .  
+The FAR will contain a summary of all important amendments, a summary of the first interim analysis for 
+futility , as well as any  important  issues related to the study conduct .   
+ 
+4 Quality assurance  
+The primary analysis of the FAR will undergo an independent valida tion by a statistician from EORTC . 
+He/she will independently program the primary efficacy endpoint and the centrally confirmed intent -to-treat 
+(ITT) population, based on the information provided in this SAP . The calculated variables are compared on 
+the bas is of a one-to-one comparison,  and discrepancies are resolved.  
+The following analyses will undergo an independent EORTC  validation:  
+- IDMC -PFS: PFS per central review assessment and the centrally confirmed ITT population 
+- IDMC -OS: the OS endpoint and the centrally confirmed ITT population 
+- OS-AR: the OS endpoint and the centrally confirmed ITT population 
+5 Conventions  
+5.1 Data Display 
+Unless explicitly mentioned otherwise, the follow ing  data display settings will be applied.  
+- Listings w ill alw ays include: the patient id, the patient’s institution , and the randomized treatment 
+arm. Additional variables will be added on a case-by-case basis.  
+- Frequency tables will be tabulated by the randomized treatment arm. For all categorical 
+variables , the levels of the variables as they appear on the case report form ( CRF ) will be 
+reported  (with %). Categories with a text field specification will be tabulated as categories and then 
+supplemented by a listing with the following information for patients fulfilling the specific 
+condition:  value of the item and text field contents).  
+- Delays: Dates relating to events prior to study enrollment  will be presented as the delay in days (or 
+weeks, months, or years) between the past event and the date of entry (date of randomization – date 
+of past event + 1) , and w ill be  presented using the median, interquartile range (IQR ), and range. For 
+example, on the randomization checklist, the date of first cancer diagnosis will be presented as the 
+time elapsed (in days, weeks, months , or years, as appropriate) since the day of the first diagnosis  
+and the date of entry on study (date of randomization – last administration/diagnosis +1).  Other 
+delays (eg ,. retreatment delays) are presented as continuous variables using the median , IQR , and 
+range.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 11 of 40 - Continuous variables for which a coding system exists (such as for laboratory data) will be recoded 
+into categories (for AEs , the grading scale specified in the protocol will be used).  
+- Other continuous variables (for example age  or dose) will be presented using the median, IQR , and 
+range (minimum, maximum).   
+- If appropriate, continuous data may also be presented in categories (for example, age may also be 
+grouped in decades) . 
+- To convert a time interval from days to months, the inter val will be divided by 30.5. To convert a 
+time interval from days to years, the interval will be divided by 365.25.  
+- When the value of a variable is missing on formcrg1 or formcrg2, but is provided on formrg1 or 
+formrg2, the corresponding data entry on the rg1 or  rg2 form will be reported. For each variable, the 
+applicable cases  w ill be listed.  
+- When for some patients the value of a variable is unknown or missing, these patients will be 
+classified in a separate category , “missing ,” for that variable.  
+- To facilitate the reading process, long listings may be included in the appendix of the FAR. They 
+will then be referred to in the corresponding section of the FAR.  
+ 
+5.2 Data cleaning 
+- Patients who had a positive test by both Myriad (central  laboratory) and another laboratory w ill be 
+coded as  having a BRCA mutation  by Myriad on formrg2 and formcr g2. 
+- In the event of  an unknown date , where a timeframe is known between for the event , the date in the 
+middle of that timeframe will be entered . If the timeframe is not kn own,  a query will be issued.  
+ 
+See the Conventions List for EORTC study 1307- BCG (version 1.0, May 26,  2014) for additional data 
+cleaning conventions.   
+ 
+5.3 Notations in this SAP  
+- Variable names on the case report forms ( CRFs) w ill be displayed in italic . 
+- The study CRFs will be referred to by either their SAS form code or the form name. See Appendix 1  
+for an overview of the SAS form codes and form names of the CRFs  that are used in this SAP.  
+- Variables names containing a “- ” refer to a sequence of variables , e.g., dtsptrtn1- 6 refers to 
+dtsptrtn1, dtsptrtn 2, dtsptrtn 3, dtsptrtn 4, dtsptrtn 5 and dtsptrtn 6. 
+6 Statistical analys es  
+6.1 Implementation of clinical cut -off date and data selection  
+For the IDMC -AR and the FAR , the clinical cut -off date (CCD) will be determined as the date when the 
+number of required events is estimated to be reached,  using the frequency of the events for PFS per c entral 
+review .  
+ 
+For the OS -AR, the CCD  w ill be determined as the date when the number of required events is estimated to 
+be reached , on the basis of  events of overall survival in the centrally confirmed ITT population.  
+ 
+A CCD  w ill be applied  removing forms containing patient visit data after the CCD . This w ill be 
+implemente d as follows:  
+ 
+- Screening failure form:  
+The form is removed when “date of screening failure  (dtsf) > CCD .” 
+ 
+- The following forms are removed when the patient was randomized after the CCD : 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 12 of 40 formrg2, form crg2, disease history form, medical history form, medical review  form, initial 
+measurements form,  physical examination form at screening, myelosuppression history form.  
+These forms are removed when “ dor2 > CCD”.  
+ 
+- Previous and concomitant medication form:  
+The form is removed when “date of visit ( dtvisitpcm ) > CCD”.  
+ 
+- Biochemistry form:  
+The form is removed when “date of visit  (dtbio)  > CCD .” 
+ 
+- Hematology form:  
+The form is removed when “date of visit  (dthem ) > CCD .” 
+ 
+- Follow -up measurements form:  
+The form is removed when “date of visit  (dtassfm ) > CCD .” 
+ 
+- Protocol Treatment forms:  
+The form is removed when the last treatment -related date > CCD  
+The last treatment -related date for formtrtc  = dtsptrtc  
+The last treatment -related date for formtrte  = the maximum of dtadme1- 2 
+The last treatment -related date for formtrtg  = the maximum of dtadmg1- 3 
+The last treatment -related date for formtrtn  = the maximum of dtsptrt and dtsptrtn 1-6 
+The last treatment -related date for formtrtviv  = the maximum of dtadmv1- 3 
+The last treatment -related date f or formtrtvo  = dtsptrtv  
+ 
+- Adverse events form:  
+The form is removed when “ start date ( aestdtc ) > CCD .” 
+ 
+- End of treatment form:  
+The form is removed when “ date of last treatment administration  (dtlast ) > CCD .” 
+ 
+- Follow -up form:  
+The form is removed when “ date of visit  (dtassfu ) > CCD ,” except for the survival section.   
+The survival section is removed when “date last known to be alive/date of death (dtssfu ) > CCD .” 
+ 
+- Quality of life form: 
+The form is removed when “today’s date  (Q331)  > CCD .” 
+ 
+- Health economics questionnaire:  
+The form is removed when “date completed by patient  (Q527)  > CCD .” 
+ 
+- Independent central review:  
+The records in the rs dataset from the central review data export are removed when “ Date/Time of 
+Response Assessment ( RSDTC ) > CCD. ” 
+ 
+6.2 Patient availability  
+6.2.1 Accrual  
+The following information concerning accrual w ill b e reported : 
+- Recruitment rate ( accrual over time ): A graph displaying the cumulative accrual over time and the 
+expected accrual will be presented. A separate graph will be produced to report the number of 
+patients regist ered and the  number randomized in the study.   
+- A table with the total number of patient s and percent age of patients recruited , by institution and by 
+group,  will be presented, ordered  by descending volume of accrual . 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 13 of 40 6.2.2 Follow -up 
+The following information on the duration of follow -up (FU)  in the full ITT population (Section  6.2.4)  w ill 
+be reported . The follow -up reporting will be repeated in the centrally confirmed ITT population ( Section  
+6.2.4) in the appendix of the analysis report.  
+- FU duration by treatment arm and overall estimated by the inverse Kaplan- Meier method  (Schemper 
+& Smith, 1996) : patients who died a re censored on their death date  (Section  6.11.1)  and other 
+patients have an event on their last follow -up date  as defined below:  
+The last follow -up date is calculated as the maximum of the follow ing  dates  (if available) : 
+- End of treatment form: date of last treatment administration  (dtlast ), date last known to be 
+alive/death  (dtssof )  
+- Follow -up form: date of visit  (dtassfu ), date last known to be alive/death (dtssfu ) 
+- Follow -up measurements form: date of visit  (dtassfm ) 
+- Initial measurements form: date of visit  (dtassim ) 
+- Treatment forms: last treatment -related date (Section  6.1) 
+- AE forms: start date  of event  (aestdtc ), stop date  of event  (aeendtc ) if available  
+- ECG form: date of visit ( dtecg ) if number of ECG performed at this visit ( nrecg ) > 0 
+- Biochemistry form: date of visit ( dtbio) if analysis was performed ( nybio =1) 
+- Hematology form: date of visit ( dthem ) if analysis was performed ( nyhem  =1) 
+- Physical examination form: date of physical examination ( dtpe) if performed (nype  =1) 
+- Date of randomization  (dor2)  
+- Date of screening  (dor) 
+ 
+6.2.3 Eligibility  
+The following information on eligibility in the full ITT population ( Section  6.2.4) w ill be reported . The 
+eligibility reporting will be repeated in the centrally confirmed ITT population ( Section  6.2.4) in the 
+appendix of the analysis report.  
+- Table w ith eligibility status  (formDM01 : nyeligteam ) and main reason for ineligibility (formDM01 
+eligr, for nyeli gteam =0) by randomized treatment arm , as assessed by the medical review team  
+- Listing  of ineligible patients  together with main reason for ineligibility  (formDM01 : eligr, txeligr, 
+for patients with  nyeli gteam =0) 
+- Listing of patients  who entered w ith a w aiver on some eligibility criteria (formDM01 : eligr, txeligr, 
+nyeli gteam , for patients with  nyeligdev =1 ) 
+- Listing or table of patients with deviation( s) to some eligibility criteria that are declared as eligible 
+by the medical review team  (formDM01 : eligr, txeligr,  for patients with  nyelig =1 and 
+nyeli gteam =1) 
+6.2.4 Patient populations  
+The following patient populations  will be used in the analyses:  
+- Screening population: all screened/registered patients . Tables for the screening population will 
+contain 4 columns:  
+- column 1:  patients who were screened , not randomized,  and declared a screening failure 
+- column 2:  patients who were screened,  not (yet) randomized,  and not (yet) declared a 
+screening failure  
+- column 3: patients who were randomized to physician choice  
+- column 4: patients who were randomized to niraparib.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 14 of 40 - Centrally confirmed ITT population: all randomized patients  with a centrally confirmed germline 
+BRCA m utation. Analyses involving the ITT population will group patients by the randomized 
+treatment arm, which does not necessarily correspond to the treatment they received.  
+Patients are considered to have a centrally confirmed germline BRCA mutation when on the 
+CENBRCA form either   
+o a “Variant in BRCA 1 ( NYBRCA1CEN  = 1)” is reported which is either “Positive for a 
+deleterious mutation” or “Genetic variant, suspected deleterious” ( INTER1CEN in  (1,2) ),  
+o a “Variant in BRCA 2 ( NYBRCA 2CEN = 1)” is reported which is either “Positive for a 
+deleterious mutation” or “Genetic variant, suspected deleterious” ( INTER 2CEN in  (1,2)), or  
+o a “BRCA1 and/or BRCA2 rearrangement found ( BRCAREARRCEN  = 1)” is reported whic h 
+is either “Positive for a deleterious mutation” or “ Genetic variant, s uspected deleterious” 
+(INTERREARRCEN  in (1,2) ). 
+Note that this  population corresponds to the ITT population specified in the protocol, which is the 
+primary analysis population for all efficacy analyses.  
+- Full ITT population: all randomized  patients . Analyses involving the ITT population will group 
+patients by the randomized treatment arm, which does not necessarily correspond to the treatment 
+they received.  
+Note that the distinction is made between full and centrally confirmed ITT population to ensure that 
+those patients who were randomized, but were not confirmed centrally to have a germline BRCA 
+mutation after randomization, are still accounted for in this report.  
+- Per-protocol population: all patients in the centrally confirmed IT T population w ho are eligible 
+according to medical review ( Section  6.2.3) and started on their randomized  treatment (received at 
+least 1 dose of the  allocated  drug) . Analyses involving the per-protocol population will group 
+patients by the randomized treatment arm, which corresponds  to the treatment they actually received.  
+- Safety population: all randomized patients who started on their allocated treat ment (received at leas t 
+1 dose of the allocated drug).  Analyses involving the safety protocol population will group patients 
+by the randomized treatment arm, which corresponds to the treatment they actually received.  
+A table will document the number of patients included/excluded in each of the analysis populations (by 
+treatment arm , if applicable). Also , the main reason for exclusion from each analysis population will be 
+documented, eg,  for the full ITT population,  the reason for exclusion is the main re ason for screening failure  
+(formsf: sf1, txsf1).  
+  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 15 of 40 6.4 Study Flow Chart 
+The follow ing  study flow chart will be completed in the FAR.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Safety Population  
+ 
+                                  
+Screening  population  
+ 
+ 
+ 
+ 
+Centrally confirmed ITT population  
+ 
+ 
+ 
+ 
+ 
+ 
+Full ITT population  
+Screened patients  
+(N=) 
+Screening Failures (N=)  
+Main reason for screening 
+failure  
+Median follow -up duration  
+Main efficacy results  
+Niraparib  
+N= (% )  
+Distribution of stratification factors  
+Randomized based on:  
+- Myriad BRCA test N= (%)  
+- other BRCA test N= (%)  
+Ineligibe patients N= (%)  
+Main reason for ineligibility  
+ 
+Physician’s treatment choice  
+N= (% )  
+Distribution of stratification factors  
+Randomized based on:  
+- Myriad BRCA test N= (%)  
+- other BRCA test N= (%)  
+Ineligibe patients N= (%)  
+Main reason for ineligibility  
+ 
+Median follow -up duration  
+Main e fficacy results  
+ 
+Treatment  
+Allocation  
+Randomized patients  
+(N=) 
+Registration/  
+Screening  
+Started on 
+Physician’s 
+treatment choice  
+  Randomization  
+Central 
+BRCA 
+testing  Centrally 
+confirmed  
+N= (%)  Centrally 
+confirmed  
+N = (%)  
+Compliance to 
+treatment 
+allocation  Started on  
+Niraparib  
+N= (%)  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 16 of 40 6.5 Baseline characteristics  
+All baseline characteristics  will be reported in the full ITT popula tion unless explicitly specified otherwise . 
+The baseline characteristics reporting will be repeated in the centrally confirmed ITT population, the safety 
+population and the  per protocol population in the appendix of the analysis report.  
+6.5.1 Baseline patient and tumor characteristics   
+6.5.1.1  Baseline patient and tumor characteristics at screening/registration  
+The following characteristics will be reported in the screening population:  
+- Gender ( sex, formcrg1)  
+- Age at screening (median, IQR, range, by decades) . dor1 (on formcrg1) – dob (on patient form))  
+- Patient meets one of the criteria for further genetic assessment according NCCN guidelines 
+(formcrg1 : nygenass ) 
+- Previously detected (prior to screening/registration) germline BRCA mutation? ( formcrg1: 
+nyprevmut ) 
+- HER2 status (formcrg1: nyhistbc ) 
+- Physician's choice of intended treatment for control arm (formrg1 : physchoicerg1)  
+6.5.1.2  Baseline patient and tumor characteristics at randomization  
+- Ethnicity (form mh: eth) 
+- Race ( formmh: race) 
+- Gender ( sex, formcrg1)  
+- Age at randomization (median, IQR, range, by decades). dor1 (on formcrg1) – dob (on patient form)  
+- Germline BRCA1 or BRCA2 mutation (at randomization)? (formcrg2: nybrcamut )  
+- Estrogen receptor ( ER) status (formcrg2 : er) 
+- Progesterone receptor ( PR) status (formcrg2 : pr) 
+- HER2 status (formcrg1: nyhistbc ) 
+- Hormone receptor  (HR) status . The HR status is calculated from the ER and PR status. It will be 
+reported as positive when the ER status and/or the PR status is positive. It will reported as negative 
+when both the ER and PR status are negative.  
+- Visceral disease? (formcrg2 : nyviscel ) 
+- Presence of bone metastases? (formim: boneinvim=1,  2 or 3)  
+- Presence of brain mets ? (formim: braininvim =1, 2 or 3) 
+- Eastern Cooperative Oncology Group ( ECOG ) performance status ( formph : ecog for visitpe  = 0) 
+6.5.2 Stratification factors  
+- A table with the value of the stratification factors as entered at time of randomization  
+o visceral disease: yes vs no (formrg2: qval211)   
+o histology: triple negative versus ER/PR positive  ( formrg2: the maximum of qval23 and 
+qval24)  
+o number of lines of prior cytotoxic chemotherapy for advanced/metastatic disease : 0-1 or 2  
+(formrg2: qval212)  
+- Listing of patients (and corresponding stratification factors) for whom there are inconsistencies 
+between the values declared during randomization versus those updated prior to the database lock 
+date for the report.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 17 of 40 6.5.3 Medical history  
+- History of myelosuppression ( formmh: nymyh ). In t he event that a patient has a history of 
+myelosuppresion, the information on the myelosuppression history form will be listed (formmyh: 
+myhevent , myhgrade , dtstmyh , dtspmyh, txregimpyh , txtrtmyh ).  
+6.5.4 Disease history  
+Related to the initial diagnosis and prima ry/adjuvant treatment  of the current breast cancer (per disease 
+history form):  
+- Time interval between first pathological diagnosis of breast cancer and date of randomization 
+(median , IQR , range)  
+- Stage at initial diagnosis  (formdh: stageinit ) 
+- T status at initial diagnosis  (formdh: tstage ) 
+- N status at initial diagnosis  (formdh: nstage ) 
+- M status at initial diagnosis  (formdh: mstage ) 
+- Histology at initial diagnosis  (formdh: thist, txthist)  
+- Grade at initial diagnosis  (formdh: tgrad)  
+- Additional biopsy performed for metastatic/recurrent disease (for patients who were M0 at 
+diagnosis)?  (formdh: nyaddbx ) If yes, histology and grade after biopsy (formdh: thistbx , txthistbx , 
+tgradbx ) 
+- Surgery performed for primary tumor? (formdh: nysurgproc )   
+- (Neo -)adjuvant chemotherapy received?  (formdh: setadj )  If yes, the regimen, time interval betw een 
+initial diagnosis and first progression (formdh: regimadj , txregimadj , dtrecadj - dtdiag)  
+- Endocrine therapy given? (formdh: nyendoadj ) If yes, the regimen (formdh: txendoadj ) 
+- Radiotherapy given?  (formdh:  nyrxadj ) 
+ 
+Related to treatment  of the current breast cancer in the metastatic setting : 
+- Number of chemotherapy regimens given for the current breast cancer in the metastatic setting 
+(formdh: nrregimmet ) 
+For patients who received at least 1 regimen: the type of first regimen, the duration of treatment , and 
+the response to this treatment  (formdh: regim1 , txregim1 , dtspregim1- dtstregim1 , respregim1 ) 
+For patients who received at least 2 regimens: the type of second regimen, t he duration of treatment , 
+and the response to this treatment (formdh: regim2 , txregim2 , dtspregim2- dtstregim2 , respregim2 ) 
+- Total duration of chemotherapy given for the current breast cancer in the metastatic setting (formdh: 
+the sum of [ dtspregim2- dtstregi m2] and [dtspregim1- dtstregim1 ]) 
+- Endocrine therapy given?  (formdh: nyendomet ) If yes, the regimen (formdh: txendomet ) 
+- Radiotherapy given? (formdh: nyrtmet ) If yes, a listing of the type (formdh: txrtmet ) 
+- Other systemic therapy (not entered above)? If yes, a listing of the type, the response to this 
+treatment, the last administration date , and the date of randomization (in the current study)  
+ 
+Related to ovarian cancer, for female patients only:  
+- Prior diagnosis of ovarian cancer ? (formdh: nypriorovdh)  If yes, stage  (formdh: stageovdh)  
+ 
+Related to other invasive malignancies:  
+- Cancer history other than metastatic breast cancer or ovarian cancer?  (formdh: nycanchist ) If 
+yes, a listing of the type, the date of diagnosis of the malignancy, last treatment for the 
+malignancy (formdh: txcanc,  dtdiagcanc, dtsptrtcanc ). 
+6.5.4.1  BRCA testing  
+The follow ing  variables w ill be tabulated  3 times, in 3 different populations :  
+- the screening  population  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 18 of 40 - the full ITT population  
+- the centrally confirmed ITT population,  restricted to those patients who were randomized after a 
+germline BRCA mutation detected at a different lab  than Myriad (formcrg2: nybrcamut not=2): 
+BRCA testing before screening:  
+- Previously detected germline BRCA mutation (formcrg1 : nyprevmut ) 
+BRCA testin g before randomization:  
+- germline BRCA1 or BRCA 2 mutation? (formcrg2: nybrcamutnot ) 
+Central BRCA testing results:  
+Were results from central BRCA mutation testing received? (yes, if formcenbrca is received). If yes:  
+- Variant in BRCA  1 or 2? (1, 2, both 1 and 2, neither 1 nor 2)  (formcenbrca: nybrca1cen and 
+nybrca2cen ) 
+- If variant in BRCA 1 or both: specify the interpretation (formcenbrca: inter1cen ) 
+- If variant in BRCA 2 or both: specify the interpretation (formcenbrca: inter2cen ) 
+Previous BRCA testing results:  
+Was a second BRCA mutation test perfo rmed outside the context of this protocol? (yes, if   
+formothbrca is received). If yes:  
+- Location of BRCA mutation test? (formothbrca: locbrca ) 
+- Variant in BRCA 1 or 2? (1, 2, both 1 and 2, neither 1 nor 2) (formothbrca: nybrca1loc  and 
+nybrca2loc ) 
+- If variant in BRCA 1 or both: specify the interpretation (formothbrca: inter1 loc) 
+- If variant in BRCA 2 or both: specify the interpretation (formothbrca: inter2 loc) 
+ 
+6.6 Compliance to the protocol  
+Compliance  will be reported in the full ITT population, and repeated in the centrally confirmed ITT 
+population in the appendix of the analysis report.  
+6.6.1 Central medical review of compliance to protocol  
+- Were there protoc ol treatment deviations as described in the MRP? ( formdm01: devia ) If yes, the 
+type of violation (formdm01: violev ) 
+- Were there protocol treatment  deviations as described in the MRP  that were judged as severe 
+violations by the medical review team? ( formdm01: nydeviateam ) If yes, the type of violation 
+(formdm01: violev ) 
+6.6.2 Compliance to treatment allocation  
+Definitions: 
+- A patient is defined  to have started  on niraparib if at least 1 dose is  reported  on the niraparib 
+treatment form during cycle 1 (formtrt n: max( dosen, dose1n, dose2n, dose3n, dose4n, dose5n, 
+dose6n)  > 0 for cycletrn =1 ) 
+- A patient is defined  to have started on capecitabine if at least 1 dose is reported on the capec itabine 
+treatment form during cycle 1 (formtrtc: max( dosec , dose1c , dose2c, dose3c, dose4c, dose5c ) > 0 for 
+cycletrc =1 ) 
+- A patient is defined  to have started on eribulin  if at least 1 dose is reported on the eribulin  treatment 
+form during cycle 1 (formtrt e: max( dosee1, dosee2) > 0 for cycletr e =1) 
+- A patient is defined to have started on gemcitabine  if at least 1 dose is reported on the gemcitabine  
+treatment form during cycle 1 (formtrt g: max( doseg1, doseg2, doseg3) > 0 for cycletr g =1) 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 19 of 40 - A patient is defined to have started on intravenous (IV)  vinorelbine if at least 1 dose i s reported on 
+the IV vinorelbine treatment form during cycle 1 (formtrtviv: max( dosev1, dosev2, dosev 3 ) > 0 for 
+cycletrv =1 ) 
+- A patient is defined to have started on oral vinorelbine if at least 1 dose is reported on the oral 
+vinorelbine treatment form during cycle 1 (formtrtvo: max( dosev , dose1v, dose 2v, dose3v, dose4v, 
+dose5v ) > 0 for cycletrv o =1) 
+- A patient is defined to have started on physician’s treatment choice if he/she started on capecitabine, 
+eribulin, gemcitabine, IV vinorelbine , or oral vinor elbine.  
+The following information regarding treatment compliance will be reported:  
+- Treatment actually started  (niraparib, physician’s treatment choice, other , no information  available)  
+(using the definition above) . If the patient did not start the allocated treatment, the reason why  
+(formdm01: txdevia ).  
+- For patients who started on another treatment or  for whom no treatment information  is available in 
+the database, a listing w ill be  provided,  including any additional information concerning the 
+treatment actually received  (stored in the medical review form textboxes ). (formdm01:  txdevia , 
+txdmisrev  ) 
+6.6.3 Other compliance measures  
+Related to the timing of the tumor measurements:  
+- average difference between 2 successive tumor measurement o f the same patient (median, IQR, 
+range)  (formfum: dtassfm  – dtassfm [-1], where the formfum forms are sorted  by patient  in 
+ascending order on dtassfm , and with dtassfm [-1] being the previous value of  dtassfm for the same 
+patient )  
+- Histogram of the difference between 2 successive tumor measurement of the same patient (all 
+patients, all time  points). Bar width will be 3 days. (formfum: dtassfm  – dtassfm [-1]) 
+- Histogram of the timing of all the tumor measurements (all patients, all time  points) relative  to the 
+theoretical measurement  dates  as set from start of treatment (per protocol). Bar width will be 5 
+days. (formfum: dtassfm  – [closest theoretical date of per protocol schedule ]) 
+Related to the assessment of the hematologic toxicity:  
+- Did the patient r eceive weekly blood tests during first month from start of treatment? (yes/no).  
+Availability of a hematology form (formlbhem: nyhem=1, dthem ) for the following 4 dates: start of 
+treatment + 7 days (± 3 days), start of treatment + 14 (± 3 days), start of treatment + 21 (± 3 days), 
+start of treatment + 28 (± 3 days)  
+ 
+- Did the patient receive weekly blood tests for 1 month following the first dose reduction for 
+hematologic toxicity? (yes/no).  
+For patients with a dose reduction due to a hematologic toxicity ( investigator  reported on the 
+treatment form), availability of a hematology form (formlbhem: nyhem=1, dthem ) for the follow ing 
+4 dates: date of first dose reduction due to hematological toxicity + 7 days (± 3 days), date of first 
+dose reduction due to hemat ological toxicity + 14 (± 3 days), date of first dose reduction due to 
+hematological toxicity + 21 (± 3 days), date of first dose reduction due to hematological toxicity + 28 
+(± 3 days).  
+ 
+6.7 Exposure to treatment  
+The exposure will be reported in the safety population.  
+6.7.1 Protocol therapy 
+Protocol therapy consists of niraparib or physician’s treatment choice among IV  eribulin , IV or oral  
+vinorelbine,  IV gemcitabine, or oral capecitabine. Dose modifications for physicia n’s choice drugs will be  
+done  according to the respective product package insert or local practice. Therefore , calculated dose 
+reductions /interruptions  and dose intensities will not be reported for the physician’s choice arm.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 20 of 40 Niraparib, capecitabine,  and oral vinorelbine are oral drugs with a daily administration schedule. The c ycles 
+for these drugs were defined as 3 week time -intervals, irrespective of interruptions. The other drugs have an 
+IV administration route , with normal cycle duration of 3 weeks. C ycle duration w ill be longer in the event 
+that the next cycle needs to be delayed,  eg, due to toxicity.  
+For IV. drugs, the treatment duration (in days) w ill be calculated as:  
+(first dose of last cycle +21 -  first dose of first cycle) + 1  
+For oral drugs , the treatment duration  (in days) w ill be calculated  as:  
+(last dose administration - first dose administration) + 1 
+6.7.1.1  Treatment received   
+- The frequency of patients who received at least 1 dose of niraparib will be presented.  
+- The frequency of patients who received at least 1 dose of physician’s treatment choice w ill be 
+presented , including the  type of regimen.  
+- A table showing the planned versus received regimen for patients randomized to the physician’s 
+treatment choice arm  will be presented . 
+6.7.1.2  Duration of treatment 
+The following data w ill be displayed : 
+- Number of patients who have stopped protocol treatment and who are s till on protocol treatment.  
+- Number of cycles of protocol therapy received (until database lock) (t he maximum of: totcyc  
+[formeot ], cycletrc  [formtrtc ], cycletre  [formtrte ], cycletrn  [formtrtn ], cycletrg  [formtrtg ], cycletrvo  
+[formtrtvo ] and cycletrv  [formtrtviv ]). This will be reported separately for patient s who have stopped 
+protocol treatment  and who are still on protocol treatment.   
+- Duration of protocol therapy (until database lock, in months)  (Section 6.7.1) . Thi s wi ll be reported 
+separately for patient s who have stopped protocol treatment and who are still on protocol  treatment.  
+Average cycle durat ion in weeks (median, IQR, range , and in categories: <2, 2 -  <2.5, 2.5 -  3.5, >3.5 
+- 4, >4 weeks). Cycle duration calculated as the difference between the start dates of 2 subsequent 
+treatment cycles  
+- Maximum cycle duration in weeks  - (median, IQR, range , and in categories:  <2, 2 - <2.5, 2.5 - 3.5, 
+>3.5 - 4, >4 weeks ). Cycle duration as calculated above.  
+6.7.1.3  Relative dose intensity  for the Niraparib arm  
+The observed dose intensity is calculated as the total dose received divided by the duration of protocol 
+therapy  in days . For the definition of the duration of protocol therapy,  see Section 6.7.1.  
+The relative dose intensity  is calculated as the observed dose intensity (in days) divided by the theoretical 
+dose intensity (in days ), eg, for niraparib , the theoretical daily dose intensity equals 100 mg.  
+Relative dose intensity will be reported as median, IQR , and range , and in the following categories: ≤70%, 
+>70- 90%, >90- 110%, >110- 120%, >120%  
+6.7.1.4  Dose reductions and interruptions  (calculated)  for the n iraparib arm  
+A dose reduction is  defined as any dose administration of ≤ 90% of the theoretical dose for any of the 
+protocol drugs.  Dose interruptions are not reported as dose r eductions, but are reported sepa rately.  
+A dose interruption is  defined as any dose administration of 0 for any of the protocol drugs prior to stopping  
+protocol treatment . In the event that  a dose of 0 is reported in the last cycle and there is no end treatment 
+form available for this patient  (at time of database lock) , this case will count as a dose interruption and the 
+patient is assumed to still be on treatment.  
+- Frequency of patients with a  dose reduction of niraparib . In the event  of dose reduction, the cycle 
+and reason of first dose reduction 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 21 of 40 - Frequency of patients w ith a  dose interruption of niraparib . In the event  of an interruption, the cycle 
+and reason of first dose interruption 
+6.7.2 Further anti -tumor  treatment (after stop of protocol treatment)  
+The follow ing  variables will be reported in the group of patients who st op protocol treatment and for whom 
+follow -up information  is avai lable for at least 2 months  after stopping protocol treatment (to allow for 
+sufficient survival/follow -up to have started a new treatment) .  
+Additionally, the analyses  w ill include  the next line of treatment following disease progression. This will be 
+reported in a subgroup, specifi cally those patients with progressive disease on protocol treatment.  
+- Any chemotherapy administration? (formfu: maximum of nyctxfu ) 
+- Any radiotherapy? (formfu: maximum of nyrtfu ) 
+- Any surgery? (formfu: maximum of nysurgfu)  
+- Any hormonal therapy? (formfu: maxi mum of nyhorfu)  
+- Any t argeted agents? (formfu: maximum of nytarfu) If yes, specification of the first new targeted 
+therapy given following the end of protocol treatment  (formfu: txtarfu ) 
+- Any other  treatment ? (formfu: maximum of nyothfu) If yes, specificatio n of the first new other 
+therapy given following the end of protocol treatment  (formfu: txothfu)   
+- Niraparib given in compassionate use program?  (formfu: the maximum of nircompuse ) 
+The molecularly targeted treatments and other treatment might be further categorized into meaningful drug 
+classes based  on medical review.  
+6.8 Safety evaluations  
+All safety and tolerability evaluations based on the clinical database will be reported in the safety population. 
+AE grading will  be described according to CTC version 4.0.  
+For the reporting in this section, “during protocol treatment” is defined as:  
+- The Adverse Events: The time period from start of treatment up to (and including) 30 days after the 
+last pr otocol treatment administration date , as reported on the end of treatment form  (formeot: 
+dtlast ). In the event that  there is no end of treatment form  received at time of database lock , all 
+AEs/laboratory result s from start of treatment will be reported.   
+- For hematology and biochemistry: The time period from start of treatment up to the study 
+medication termination visit (formlbhem: visithem=1,2,3 or 4,  formlbbio: visitbio=1  or 2).  
+6.8.1 Hematology  
+The category “ missin g” means that the corresponding lab oratory test was never performed during treatment. 
+When the laboratory test was performed at least once, but the required normal ranges were not provided,  this  
+is reported as “upper limit of normal [ ULN ] not reported” or “ low er limit of normal [ LLN] not reported. ” 
+Certain laboratory result s are reported both on the hematology form  and on the AE form. These variables 
+w ill be reconciled during database cleaning.   
+- The worst grade during protocol treatment will be tabulated for the following lab oratory tests/ 
+preferred  terms : 
+Hematology form:  white blood cell ( WBC ) count, neutropenia, lymphopenia, thrombocytopenia, 
+anemia 
+AE form: febrile neutropenia , anemia,  neutrophil count decreased, lymphocyte count decreased, 
+neutrophil count decreased, platelet count decreased , white blood cell decreased  
+- Listing of the grade ≥ 3 AEs that meet these criteria.  This listing w ill include the baseline laboratory  
+value and corresponding grade.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 22 of 40 6.8.2 Biochemistry  
+The category “ missing ” means that the corresponding lab oratory test was never performed during treatment. 
+When the laboratory test was performed at least once, but the required normal ranges were not provided,  this  
+is reported as “ULN not reported” or “LLN not reported” .  
+Certain laboratory result s are reported both on the biochemistry form  and on the AE form. These variables 
+will be reconciled during database cleaning.  
+- The worst grade during protocol treatment will be tabulated for the following laboratory tests/ 
+preferred  terms:  
+Biochemistry form: hypoalbuminemia, alkaline phosphatase, SGPT, amylase, SGOT, 
+hyperbilirubinemia, blood urea nitrogen ( BUN ) abnormality, hypercalcemia, hypocalcemia, serum 
+creatinine, gamma glutamyltransferase ( GGT ), hyperglycemia, hypoglycemia, hyperkalemia, 
+hypokalemia, lactate dehydrogenase ( LDH ) abnormality, lymphopenia, hypermagnesemia, 
+hypomagnese mia, hypernatremia, hyponatremia , hyperbilirubinemia.  
+AE form: hypercalcemia, hyperglycemia, hyperkalemia, hypermagnesemia, hypernatremia, 
+hypoalbuminemia, hypocalcemia, hypoglycemia, hypokalemia, hypomagnesemia, hyponatremia , 
+serum amylase increased, GGT  increased, alanine aminotransferase (ALT) increased , alkaline 
+phosphatase (ALP) increased , aspartate aminotransferase (AST)  increased , blood bilirubin increased , 
+creatinine increased . 
+- Listing of the grade ≥ 3 AEs that meet these criteria.  This listing w ill include the baseline laboratory  
+value and corresponding grade.  
+6.8.3 Adverse E vents  
+Adverse events will be tabulated by preferred term within the S ystem Organ Class (SOC ); however , for the 
+following SOCs, AEs w ill be pooled across the preferred terms : Eye disorders (EYE), Hepatobiliary 
+disorders (HEP), Immune system disorders (IMM), Injury, poisoning and procedural complic ations (INJ), 
+Musculoskeletal and connective tissue disorders (MUS), Pregnancy, puerperium and perinatal conditions 
+(PRE), Skin and subcutaneous tissue disorders (SKI), Social circumstances, Surgical and medical procedures 
+(SUR).  
+The preferred term  w ill always be included in the listings.  The report w ill include:  
+- Table containing the w orst grade of all reported AEs classified under the spec ific SOC /preferred  
+during protocol treatment . 
+- Listing of all AEs during protocol treatment . The listing w ill include  the preferred term , the date of 
+randomization, the date of event onset , the stop date of the event,  whether this event is serious, the 
+relationship to protocol treatment , and the action that was taken with respect to  the protocol 
+treatment. This listing w ill be organized  by the treatment received and the SOC. Within those 
+sections, the items will be sorted by the grade and preferred term .    
+- Table containing the w orst grade of all reported AEs  classified under the specific SOC/ preferred 
+term during protocol treatment that are reported to be  related or likely related to the protocol 
+treatment.  
+6.8.4 Serious Adverse Eve nts  
+Tables of the serious adverse events (SAEs) will be provided by the EORTC pharmacovigilance  department. 
+Unlike the data presented in other sections of the report, SAE data  are based on the safety database . The 
+safety database will  be reconciled with the clinical database prior to database lock.  
+The following tables will be reported:  
+- Study safety overview per treatment arm  
+Randomized Treatment arm #  S AE 
+terms  # SAR 
+terms  # SUSAR 
+terms  # Deaths  # Toxic 
+deaths  
+Niraparib       
+Physician’s choice       
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 23 of 40 SAE = serious adverse event; SAR = serious adverse reaction; SUSAR = suspected, unex pected, serious 
+adverse reaction ; Tox ic death  = cases  with at least one S AR term with fatal outcome, ie,  a death judged by 
+either the reporting investigator or the sponsor as having a reasonable causal relationship to the study 
+treatment.  The study safety overview table lists the number of reported SAE terms , SAR terms  and 
+SUSAR terms  per treatment received  and the number of reported death and toxic death cases . There 
+can be multiple reported terms within one case, but as a patient can only die  once, it is t h e number s 
+of deaths and toxic death cases  which are listed (instead of terms).  
+The column # SAE terms displays a count of all SAEs ; all events which are reported as ‘serious’ 
+(ie,1 seriousness criterion) regardless of relationship to the study treatment. This implies that the 
+number of SAE terms also includes the number of SAR terms (and SUSAR, deaths , and toxic deaths 
+terms).  
+The column # SAR terms displays a count of all SARs ; all SAE s judged by either the reporting 
+investigator or the sponsor as having a reasonable causal relationship to the study treatment. This 
+implies that the number of SAR s also includes the number of SUSAR and toxic deaths terms.  
+The column # SUSAR terms displays a count of all SUSARs ; all SAR s which are considered as 
+unexpected.  
+The column # Deaths displays a count of all cases  with at least 1 SAE term with fatal outcome, 
+regardless of relationship to study treatment. This implies that the number of death cases also 
+includes the number of toxic death cases.  
+The column # Toxic deaths displays a count of all cases  with at least one SAR term with fatal 
+outcome, ie,. a death ju dged by either the reporting investigator or the sponsor as having a reasonabl e 
+causal relationship to the study treatment. Note , a toxic death can also be a SUSAR and vic e vers a, 
+but this is not always the case.  
+- Suspected Unexpected Serious Adverse Reactions (SUSARs) by SOC and preferred term  
+Identification  
+Number  Randomized 
+Treatment  arm SOC  Preferred term  Count by 
+Preferred term  
+     
+ 
+- Toxic deaths by SOC and preferred term  
+ 
+Identification 
+Number  Randomized 
+Treatment  arm SOC  Preferred term  Count by 
+Preferred term  
+     
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 24 of 40 - Line Listings of Serious Adverse Reactions (SAR)  
+Randomized 
+Treatment  
+arm Ins titution 
+identifier  
+ Patient 
+ID case ID  
+(for internal 
+reference)  Seriousness 
+Criteria  Reported 
+Term  
+(verbatim 
+term)  Grade  
+(CTCv4.0)  Event Start Date  
+ Event Stop Date  Outcome  Treatment  Relationship  
+to Treatment  
+Niraparib             
+Physician’s 
+choice             
+ 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 25 of 40 - Cumulative Summary Tabulation of Serious Adverse Events (SAE)  
+SOC Preferred term  Events in 
+Nirap arib 
+arm Events in 
+Physicia n’ s 
+choice  arm Total  number of events  
+Blood and lymphatic system disorders  Febrile bone marrow 
+aplasia     
+Febrile neutropenia     
+Neutropenia     
+Blood and lymphatic system disorders Total     
+Gastrointestinal disorders  Abdominal pain     
+Diarrhoea     
+Nausea     
+Vomiting     
+G astrointestinal disorders Total     
+…    
+G rand Total     
+ 
+- Cumulative Summary Tabulations of Serious Adverse Reactions (SAR)  
+SOC  Preferred term  Events in 
+Nirap arib 
+arm Events in 
+Physicia n’ s 
+choice  arm Total number of events  
+Blood and lymphatic system 
+disorders  Febrile bone marrow 
+aplasia     
+Febrile neutropenia     
+Neutropenia     
+Blood and lymphatic system disorders Total     
+…    
+G rand Total     
+ 
+6.9 Reasons for stopping treatment  
+Reasons for stopping treatment will be reported in the full ITT population. The reporting will be repeated in 
+the centrally confirmed ITT population in the appendix of the analysis report.  
+- Is patient still on protocol treatment? (end of treatment form)  
+If not:  
+- Reason for stopping protocol therapy (end of treatment form)  
+6.10 Disease status   
+Disease status will be reported in the full ITT population,  and entails the t abulation of  the following event  
+frequency. The reporting will be repeated in the centrally confirmed ITT population, the safety population 
+and the per protocol population in the appendix of the analysis report.  
+- Disease p rogression, type of first event . This variable w ill be categorized as follows:  
+1. Progressive disease ( PD) both per investigator assessment and central independent review  
+2. PD per investigator assessment, not confirmed by review  
+3. PD per central independent review, not reported by the investigators  
+4. Start of new anti cancer treatment in absence of PD (by central review or investigator 
+reported)  
+5. No PD 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 26 of 40 Patients w ill be classified  in one of these 5 categories based on their status at the time of 
+evaluation . For the definitions of the aforementioned dates , see Section  6.11.1.  When dates do not 
+differ by more than 7 days, the corresponding events are considered to have happened 
+instantaneously for the above classification.  
+ 
+For patients classified as “Start of new anticancer treatment,” # 4 above, the frequency of patients for 
+whom clinical progression (not radiologi cally confirmed) was reported by the investigator prior to 
+the start of new anticancer therapy, will be reported . 
+ 
+- Death . The patient is reported to have died if ssof =2 (formeot) or ssfu =2 (formfu); otherwise the 
+patient is considered alive . In the event that  the patient died , the main cause of death  w ill be 
+provided:  rdeadfof, txrdeadof in case  ssof=2 (formeot) or rdeadfu txrdeadfu in case  ssfu=2 (formfu)   
+- Listing of e arly death , defined as death occurring within 90 days from randomization.  
+- Listin g of patients who die on treatment (= up to 30 days post protocol treatment  stop). Second 
+primary malignancy.  The patient is reported to have a second primary malignancy if nynew=1  
+(formfu) or dtnewof  is reported (formeot) . If yes, a listing of the site /type: txnew  in case nynew=1  
+(formfu) or txnewof in case  dtnewof  is reported (formeot).  
+ 
+6.11 Statistical inference on efficacy endpoints  
+Efficacy analyses will be reported i n the centrally confirmed ITT  population, unless explicitly mentioned 
+otherwise.  The follow ing  analyses will be provided as supplementary statistics to the primary test for each 
+efficacy endpoint. The primary test itself will be covered in the subsection for each endpoint . 
+- Kaplan -Meie r curves by randomized treatment arm will be shown. Medians -  if reached -  w ill be 
+presented with a 2 -sided 95% confidence interval (CI) based on the nonparametric method 
+(Brookmeyer & Crowley, 1982) .  
+- A univariate Cox proportional hazards model with the randomized treatment as a factor  and stratified 
+by the randomization factors  will be used to estimate the treatment hazard ratio and its 2 -sided 95% 
+CI. The proportional hazards assumption will be assesse d by means of the graphical and numeric al 
+method based on cumulative sums of martingale -based residuals   (Lin, Wei, & Ying, 1993) . The 
+method will be implemented using the ‘asses’ statement in the ‘phreg’ procedure of SAS, usin g the 
+default settings. In the event that  the proportional hazards assumption does not hold, how the hazard 
+ratio changes over time will be explored by means of models involving treatment interaction with (a 
+function of) time. The results will be displayed graphically.  
+6.11.1  Definitions  
+The follow ing  definitions for the death date, disease progression date by independent central review , and 
+disease progression date per investigator assessment will be applied throughout the report:  
+- Death date 
+If the patient died (according to the definition in Section 6.10), the death date is calculate d as the 
+minimum of: dtssof  if ssof=2 (formeot) and dtssfu for follow -up forms with ssfu=2 (formfu); 
+otherwise the date of death is empty . 
+ 
+- Disease progression da te by independent central review  
+The progression date is calculated from the independent central review data export, in the form  rs, as 
+the minimum of RSDTC  for those patients for whom RSACPTFL  = "Y" and RSTEST ="Overall 
+Response" and RSORRES ="PD". If the date is missing, the patient is considered to not have a 
+disease progression by independent central review  
+ 
+- Disease progression date per investigator assessment  
+The progression date is calculate d as the minimum of: dtprfm  (formfum), dtpdof  (formeot) and 
+dtpdradfu (formfu).  If the date is missing, the patient is considered to not have a disease progression 
+per investigator assessment. Note that this  definition implies that if the patient stops protocol 
+treatment due to a non- radiologic (clinical) progre ssion, this will not count as a disease progression.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 27 of 40  
+- Clinical disease progression (non- radiologic) date per investigator assessment  
+The clinical progression date is calculate d as the minimum of: dtcpdof  (form eot) and  dtpdclinfu 
+(formfu).  
+ 
+- Date of start of new anticancer treatment  
+The minimum of dtctxfu,  dtrtfu,  dtsurgfu, dthorfu, dttarfu, dtothfu (formfu). If the date is missing , 
+the patient is considered to not have started a  new anticancer treatment . 
+Any date relating to an  anticancer treatment i dentified by medical review on the concomitant 
+medication form will be taken into account in the calculation of this date.  
+6.11.2  Primary endpoint: Progression -free Survival  by independent central review  
+This endpoint is defined as the time from randomization unt il the minimum of the date of death ( Section  
+6.11.1) and the date of disease progression per independent central review. The independent central review  
+process is documented in the Independent Review Charter (version 1.0, November 27, 2013)  
+For the primary analysis, PFS will be censored according to Food and Drug Administration ( FDA ) guidanc e 
+on Clinical Trial Endpoints for the Approval of Cancer Drugs and Biologics, appendix table A. The 
+application of the guidance will be detailed below:  
+This endpoint considers the following as events:  
+- death ( Section  6.10)  
+- disease progression per independent central review   
+If the patient did not experie nce an event, he/she will be censored. See table 1 below for more detailed 
+censoring and event rules for this endpoint.  
+A documented central independent radiologic assessment  is defined as the independent central radiologic 
+review for a radiologic (CT or MRI) disease assessment , taking place before the start of the new anti cancer  
+treatment ( Section  6.11.1 ), if applicable.  
+Table 1: Censoring rules for the endpoint of progression -free survival by independent central review  
+Condition  Date of ev ent /censoring  Censoring  Eve nt  
+No baseline tumor assessments Date of randomization  Yes No 
+Documented Progression  Date of radiological assessment showing 
+disease progression  No  Yes   
+No documented progression, no death  Date of last documented  central 
+independent  radiologic assessment  
+In the event that  only baseline tumor 
+assessments are available,  the date of 
+randomization  Yes No 
+Treatment discontinuation for undocumented 
+progression, or t oxicity , or any other reason 
+(apart from documented progression)  Date of last documented central 
+independent  radiologic assessment  
+ Yes No 
+New anticancer treatment started  Date of last documented central 
+independent  radiologic assessment  before 
+initiat ion of new anti -cancer treatment  Yes No 
+Death before first PD assessment  Date of death  No Yes 
+Death in between 2 adequate assessment 
+visits * Date of death  No Yes 
+Death or progression after more than 1  m isse d 
+adequate assessment visit * Date of last documented central 
+independent  radiologic assessment  
+before  the missed visits  Yes No 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 28 of 40 * Adequate on -protocol imaging requires an  assessment  every 6 weeks (± 7 days) until M onth 12, and every 9 weeks  
+(± 7 days) thereafter, f rom start of protocol treatment until progression or start o f subsequent anticancer treatment . 
+The primary test will be performed at the 1 -sided 0.025 significance level. The primary PFS analysis w ill be 
+performed using a stratified log- rank test  for the difference in the distribution of PFS between the niraparib 
+group and the control group (one -sided α -level of 0.025). The r andomization factors will be used as the strata 
+for this  test. The following hypothesis will be tested:  
+H0: PFS(t)physician choice = PFS(t)niraparib  
+Ha: PFS(t)physician choice < PFS(t)niraparib 
+where PFS(t) represents the progression- free survivorship function at any time ( t). 
+The aforementioned analys is on the primary endpoint will undergo an  independent validation by an EORTC  
+statistician . The independent EORTC  statistician will independently program the analys is, based on the 
+information provided in this SAP . The output  of this  analys is w ill be compared  and discrepancies w ill be  
+resolved.  
+Sensitivity analyses  
+- The analysis mentioned above  will be repeated in the per  protocol population, to assess the 
+robustness of the primary result .  
+- The analysis mentioned above  will be repeated in the full ITT population, to assess the robustness of 
+the primary result when including patients who were not centrally confirmed to be BRCA -positive .  
+- A non-stratified log -rank test  will also be performed to assess the robustness of the primary result.  
+- A multivaria te Cox model  will be fitted to assess the robustness of the treatment effect when 
+adjusting for (potential) prognostic factors and (potential ) imbalances therein. The Cox model  (w ith 
+Breslow  ties) will be constructed based on a backward stepwise selection method, with a tw o -sided 
+0.10 cutoff for selection, and forcing treatment arm to stay in the model. The following fac tors will 
+be considered for inclusion in the model:  
+- Age (< 55,55- 70,>70)  
+- ECOG performance status (0 vs 1- 2) 
+- visceral disease (yes, no)  
+- histology (ductal, lobular, other)  
+- number of lines of prior cytotoxic chemotherapy (not including hormonal therapy) for 
+advanced/metastatic disease (0, 1 -2)  
+- prior platinum treatment (no vs yes)  
+- germline mutation ( BRCA -1 vs BRCA -2 vs both)  
+Cases with missing values for 1 of the above factors are excluded from the model (when the factor is 
+included in that model).  
+The reporting of this analysis will contain in 1 table:  
+- the fitted univariate Cox models for each of the factors (Hazard ratio for each factor and 95% 
+2-sided Wald CI) 
+- the fitted full multivariate Cox model (Hazard ratio for each factors and 95% 2- sided Wald 
+CI) 
+- the multivariate Cox model after model selection as described above ( hazard ratio for each 
+factor and 95% 2- sided Wald CI , Type III test p -value for each factor)  
+Homogeneity of results across subgroups  
+Subgroup analyses will be performed for the following baseline factors by means of Cox models (w ith 
+Breslow  ties) including the factor of  interest and the  randomized treatment  if the subgroup contains at least 
+10% of the patients of the centrally confirmed ITT population:   
+- Age (< 55,55- 70,>70)  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 29 of 40 - Race  (Ashkenazi Jewish descendant, White or Caucasian, Black, Native Hawaiian or Other Pacific 
+Islander, Asian, American Indian or Alaska Native, Other ) 
+- geographic region (US, Europe, I srael)  
+- ECOG performance status  (0 vs 1- 2) 
+- visceral disease (yes, no)  
+- histology (ductal, lobular, other)  
+- number of lines of prior cytotoxic chemotherapy (not including hormonal therapy) for 
+advanced/metastatic disease, (0, 1 -2) 
+- prior platinum treatment  (no vs yes)  
+- germline mutation ( BRCA-1 vs BRCA -2 vs both)  
+These subgroup analyses will be reported as  forest plot s containing the  treatment effect hazard ratios  and 
+95% 2-sided Wald CIs in each subgroup originating from the Cox model.  
+Two key subgroup analyse s are defined : those by prior platinum treatment and the subgroups by BRCA 
+mutation type. These two subgroup analyses will be supplemented with Kaplan- Meier curves  by randomized 
+treatment in each subgroup separately, as well as a  stratified logrank test  (97.5% 1- sided significan c e level)  
+within each subgroup.  
+The subgroup analysis by BRCA mutation was already identified as a secondary endpoint in the protocol 
+(Section  2.2.2).  The key subgroup analysis for prior platinum treatment is added in this SAP , after the 
+eligibility criteria related to prior platinum treatment have been weakened in amendment 4.0.  
+6.11.3  Secondary efficacy endpoints  
+6.11.3.1  Overall survival  (OS)  (key secondary endpoint)  
+This endpoint considers the following as events:  
+- death ( Section  6.10)  
+This endpoint is defined as the time from randomization until the  date of death  (Section  6.11.1), if the patient 
+died. If the patient did  not experience an event, he/she will be censored at the last follow -up date ( Section 
+6.2.2) .  
+The primary  analysis of this endpoint  w ill be perfor med using a stratified log- rank test, performed at the 1 -
+sided 0.025 significance level , in the OS -AR. The r andomization factors will be used as the strata for this  
+test. 
+Sensitivity analyses  
+- The analys is mentioned above  will be repeated in the per protocol population, to assess the 
+robustness of the primary result  
+- The analysis mentioned above  will be repeated in the full ITT population, to assess the robustness of 
+the primary result when including patients who were not c entrally confirmed to be BRCA positive.  
+- A non-stratified log -rank test  will also be performed to assess the robustness of the primary result.  
+- A multivariate Cox model will be fitted to assess the robustness of the treatment effect when 
+adjusting for (potential) prognostic factors and (potential ) imbalances therein. The Cox model (w ith 
+Breslow ties) will be constructed based on a backward stepwise selection method, with a tw o -sided 
+0.10 cutoff for selection, and forcing treatment arm to stay in the model. The following fac tors will 
+be considered for inclusion in the model:  
+- Age (< 55,55- 70,>70)  
+- ECOG performance status (0 vs 1- 2) 
+- visceral disease (yes, no)  
+- histology (ductal, lobular, other)  
+- number of lines of prior cytotoxic chemotherapy (not including hormonal therapy) for 
+advanced/metastatic disease (0, 1 -2)  
+- prior platinum treatment (no vs yes)  
+- germline mutation ( BRCA -1 vs BRCA -2 vs both)  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 30 of 40 Cases with missing values for 1 of the above factors are excluded from the model (when the factor is 
+included in that m odel).  
+The reporting of this analysis will contain in 1 table:  
+- the fitted univariate Cox models for each of the factors (Hazard ratio for each factor and 95% 
+2-sided Wald CI) 
+- the fitted full multivariate Cox model (Hazard ratio for each factors and 95% 2- sided Wald 
+CI) 
+- the multivariate Cox model after model selection as described above ( hazard ratio for each 
+factors and 95% 2- sided Wald CI , Type III test p -value for each factor)  
+6.11.3.2  Progression -free Survival  (PFS)  per investigator assessment of progression  
+This endpoint is defined as the time from randomization until the minimum of the date of death ( Section  
+6.11.1) and the date of disease progression,  as reported by the investigator.  
+For the primary analysis, per protocol, the definition for investigator reported PFS is the same as for PFS per 
+central review, using investigator -reported PD dates instead of c entrally reviewed PD dates. This is detailed 
+below:  
+This endpoint considers the following as events:  
+- death ( Section  6.10)  
+- disease progression as reported by the investigator ( Section  6.11.1)   
+If the patient did not experience an event, he/she will be censored. See table 2 below for more detailed 
+censoring and event rules for this endpoint.  
+A documented radiological assessment  is defined as the radiologic (CT or MRI) disease assessment taking 
+place before the start of the new anticancer treatment ( Section  6.11.1 ), if applicable.  
+Table 2: Censoring rules for the endpoint of progression -free survival per investigator assessment  
+Condition  Date of ev ent /censoring  Censoring  Eve nt  
+No baseline tumor assessments  Date of randomization  Yes No 
+No documented progression, no death  Date of last documented  radiologic assessment  
+In the event that  only baseline tumor 
+assessments are available,  the date of 
+randomization  Yes No 
+Documented Progression  Date of radiological assessment showing 
+disease progression  No  Yes   
+Treatment discontinuation for 
+undocumented progression, or Tox icity 
+or any other  reason (apart from 
+documented progression)  Date of last documented radiologic assessment  Yes No 
+New anti -cancer treatment started  Date of last documented radiologic  assessment  
+before initiation of new anti -cancer treatment  Yes No 
+Death before first PD assessment  Date of death  No Yes 
+Death in between 2 adequate assessment 
+visits *  Date of death  No Yes 
+Death or progression after more than one 
+m issed  adequate assessment  visits * Date of last documented radiologic assessment 
+before the missed visits  Yes No 
+* Adequate on -protocol imaging requires an assessment every 6 weeks (± 7 days) until M onth 12 and every 9 weeks  (± 
+7 days) thereafter, from start of protocol treatment until progression or start of subsequent anticancer treatment.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 31 of 40 The main analysis of this endpoint will be performed using a stratified log- rank test, performed at the 1 -sided 
+0.025 significance level. The r andomization factors will be used as the strata for this  test. 
+Sensitivity analyses  
+- The analys is mentioned above  will be repeated in the per protocol population, to assess the 
+robustness of the primary result .  
+- The analysis mentioned above  will be repeated  in the full ITT population, to assess the robustness of 
+the primary result when including patients who were not centrally confirmed to be BRCA positive.  
+- A non-stratified log -rank test  will also be performed to assess the robustness of the primary result.   
+6.11.3.3  Response to treatment  
+Response to treatment will be reported for all patients in the centrally confirmed ITT population by 
+randomized treatment arm :  
+- Tabulation of the best overall response to treatment ( complete response [ CR], partial response , stable 
+disease [ SD], disease progression [ PD], early death, not assessable/evaluable) by medical review 
+(formdm01: respev ). 
+- Tabulation of overall response rate (CR or partial response ) by medical review ( formdm01: 
+respev=1,2 versus  respev=3,4,5,8) ; for each treatment arm, the response rate if supplemented by a 2 -
+sided 95% CI  (Pearson -Clopper method). The Pearson’s chi-square test for association w ill be 
+performed to compare the overall response rate (ORR) between treatment arm s and the 
+corresponding p- value will be displayed.  
+Duration of response to treatment will be reported in the efficacy population, restricted to those patients who 
+obtained a response (CR or partial response ) by medical review ( formdm01: respev=1,2 ), by randomized 
+treatment arm . 
+- The duration of response is calculated as the time from response until the first event of 
+investigator -reported disease progression or death whichever occurs earlier  (Section  6.11.3.2) .  
+The same censoring rules as for investigator -reported disease progression apply ( Section  
+6.11.3.2).  The duration of response will be reported using the Kaplan- Meier method. Kaplan -
+Meier curves by randomized treatment arm will be shown. Medians -  if reached -  w ill be 
+presented with a 2 -sided 95% CI,  based on the nonparametric method (Brookmeyer & Crowley, 
+1982) .  
+6.11.3.4  Time to treatment failure  
+Time to treatment failure  considers the following as events:  
+- End of protocol treatment  for any reason (incl uding death)  (formeot: dtlast ) 
+- Disease progression as reported by the investigator ( Section  6.11.1)  
+Time to treatment failure  is defined as the time from randomization until the date of the first event (date of 
+last treatment administration on end of treatment form). If the patient does not experience an event, he/s he 
+will be censored at the last dose  date or last tumor assessment date whichever occurs later ( Section 6.2.2).   
+Patients that never star ted any protocol treatment will be censored at time of randomization.  
+The main analysis of this endpoint will be performed using a stratified log- rank test, performed at the 1 -sided 
+0.025 significance level. The r andomization factors will be used as the s trata for this  test. 
+Sensitivity analyses  
+- The analys is mentioned above  will be repeated in the per -protocol population, to assess the 
+robustness of the primary result  
+- The analysis mentioned above  will be repeated in the full ITT population, to assess the robustness of 
+the primary result when including patients who were not centrally confirmed to be BRCA -positive.  
+- A non-stratified log -rank test will also be performed to assess the robustness of the primary result.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 32 of 40 6.12 Interim an alysis for futility for progression free survival  
+This interim analysis will be reported in the centrally confirmed ITT population.  
+PFS by central independent review  will be analyzed as specified in Section  6.11.2.  
+A CCD  for the interim analysis w ill be  determined based on an estimate of when the required 93 events w ill 
+be reached. At time of database lo ck, the true number of observed events can be slightly more or less than 
+93. A gamma family beta- spending function with a non- binding gamma (γ= -5) stopping boundary based on 
+the actual number of PFS events at the time of interim analysis data cutoff and the minimum total target 
+number of events of 137 will be used for the interim futility analysis of PFS  (i.e. the information fraction for 
+futility analysis is equal to the number of events observed at the interim analysis divided by 137) . The futility  
+bounda ry will be assessed by the EAST 6 software ).  
+Based on the accrual rate and PFS median assumptions, the enrollment will be done after 137th event  and the 
+final PFS analysis will be done at the end of enrollment . The information fraction calculated based on 137 
+events will be larger than the information fraction calculated based on the total number of events at the end 
+of enrollment. This larger information fraction will yield a smaller hazard ratio futility boundary which 
+allow s the trial to be  stopped more  easily if the experiment drug is not efficacious.  
+In order to fully evaluate the interim data, the projected numbers of PFS and OS events by the end of 
+enrollment will be provided in the IDMC reports. The projections will be done using the interim data ba sed 
+on the following:  
+1. Past accrual and projected future accrual  
+2. Observed PFS rates and assumptions going forward 
+3. Observed death rates and assumptions going forward.  
+ 
+6.13 Interim analysis for overall survival  
+An interim analysis for overall survival will be reported in the centrally confirmed ITT population at the time 
+of the final PFS analysis . 
+This interim analysis will be performed using the locked database for the FAR.  OS will be analyzed as 
+specified in Section 6.11.3.1.  
+The interim analysis rule  for early efficacy will be assessed using the EAST 6 software, using the original 
+design (i.e. target number of events)  as implemented in the protocol (version 6, January 13, 2017).  The 
+interim analysis w ill utilize O’Brien -Fleming type boundaries derived from the Lan DeMets alpha spending 
+function based on the actual number of events  observed at the time of the interim analysis . 
+6.14 Quality of Life  
+Before the database lock for the  FAR, the database will be checked for compliance to the HRQoL sc hedule 
+detailed in Section 10.4.1 of the protocol (version 6, January 13, 2017).  The following considerations are 
+subject to the outcome of this compliance review and will be detailed in a se parate SAP w hich w ill be 
+finalized before the database lock.  
+Statistical considerations  
+Data from the EORTC  quality of life questionaire -C30 (QLQ -C30) will be scored according to the algorithm 
+described in the EORTC scoring manual. All scales and single items are scored on categorical scales , and are 
+linearly converted to 0- 100 scales.  
+The primary  health -related quality of life ( HRQoL ) endpoint consider ed relevant for this study is time to 
+HRQoL deterioration (TTQ). TTQ is defined as the time from randomization to the first observed of the 
+following events:  
+- death (Section 6.10)  
+- disease p rogression (Section  6.11.1)  
+- deterioration  in any of the following QLQ -C30 scales: fatigue, nausea/vomiting, pain, dyspnea, 
+insomnia, appetite loss, constipation, diarrhea, physical functioning, role functioning, social 
+functioning and emotional functioning or global health/ quality -of-life ( QoL) scale. Patients are 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 33 of 40 considered to have deteriorated for a given sc ale if a worsening of 10 points at any time point 
+after baseline is observed. A change of 10 points or more is considered to be clinically relevant.  
+Patients who have not experienced an event at the time of analysis will be censored at the time of the last  
+completed HRQoL assessment. All patients who have a baseline and at least one follow - up HRQoL 
+assessment will be included in the TTQ analysis.  
+TTQ w ill be calculated using Kaplan –Meier method and compared using the two- sided log- rank test across 
+the ran domized arms. TTQ will be described using medians and hazard ratio with 95% CIs.  
+To assess the robustness of the results , the following sensitivity variants to the TTQ endpoint will be 
+investigated:  
+- TTQ1 – time from randomization to death, treatment discontinuation,  or deterioration in any of 
+the selected QLQ -C30 scores (treatment discontinuation instead of progression)  
+- TTQ2 – time from randomization to death or deterioration in any of the selected QLQ -C30 
+scores (excluding progression as event)  
+- TTQ3 – time from randomization to deterioration in any of the selected QLQ -C30 scores 
+(excluding both death and progression)  
+- TTQ4 – time from randomization to death, disease progression,  or deterioration in any of the 
+following QLQ -C30 scores: fatigue, nausea/vomiting, pain, dyspnea, insomnia, appetite loss, 
+constipation, diarrhea (limit only to symptom deterioration).  
+These alternative formulations serve only to investigate the robustnes s of the main results. They do not 
+replace the primary endpoint. In the event that  a significant difference is found in TTQ, the endpoint will be 
+split up by its various events (death, disease progression,  and the selected scales) to investigate the treatm ent 
+effect on each of these components.  
+In addition,  the following summary statistics per -patient will be calculated for the secondary objectives as 
+sensitivity analyses and to complement the interpretation of the time -to-event model:  
+- average change from b aseline during the on- protocol treatment period 
+- average change from baseline during the off -protocol treatment period 
+- 10-point worsening from baseline during the on- protocol treatment period (y/n)  
+- 10-point worsening from baseline during the off -protocol tr eatment period (y/n)  
+These statistics will be compared between the 2 groups using non- parametric Wilcoxon rank test (for the 
+summary statistics based on average change) or Fisher exact test (for the summary statistics based on 
+10-point worsening). Results will be summarized by the appropriate statistic al estimation and corresponding 
+95% CI. For the 2 binary summary statistics, missing data due to attrition will be imputed as worsening for 
+sensitivity purposes.  
+All available scales from the QLQ -C30 w ill be s ummarized per treatment arm on an exploratory basis.  
+Missing data  
+Missing data is a potential major source of bias in HRQoL assessment.  
+To check the potential impact  of missing HRQoL data  in the study, the compliance mechanism will be 
+investigated prior to initiating the HRQoL analysis. HRQoL compliance at a certain assessment time ( Ti) will 
+be defined as the ratio of the number of valid forms received over the number of forms expected at that time : 
+[]
+ii i
+iTat expected QoLUL within forms QoL validT Compliance,)(=
+  
+where L i and U i are the lower and upper bound of the time windows associated with T i. HRQoL forms will 
+be considered as invalid if no validated completion date was provided, the completion date falls outside of 
+the time windows, mult iple HRQoL forms were received during the time window (the form closest to the 
+assessment date will be kept), a wrong version or wrong translation of questionnaire was used,  or the form 
+was filled out by an unauthorized person. QoL forms are expected at T i for each patient who was within the 
+QoL assessment schedule,  ie, alive at time T i. Reasons for non- completion if an assessment was missed will 
+be collected via the CRFs. Characteristics of patients with and without valid HRQoL data will be compared,  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 34 of 40 and trends over time per dropout pattern wi ll be investigated. Model building will be used to investigate 
+whether the compliance mechanism is linked to selected prognostic variables.  
+Once the main analysis is completed, sensitivity analyses will be undertaken to verify the robustness of the 
+results  vis-à-vis the missing data.  
+In the event that  overall compliance is deemed too low (< 50%), only an exploratory analysis will be 
+performed in lieu of the main analysis.  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 35 of 40 7 Overview table for the 4 analysis reports  
+Section  Section title  I DMC -PFS FAR  I DMC -OS* OS-AR 
+6.2 Patient availability  X X  X 
+(only sections 6.2.2 and 6.2.4)  
+6.5 Baseline characteristics  X X   
+6.6 Compliance to the protocol  X X   
+6.7 Exposure to treatment  X X  X 
+(limited to relative dose intensity and 
+number of cycles received )  
+6.8 Safety evaluations  X X  X 
+6.9 Reasons for stopping treatment  X X  X 
+6.10 Disease status  X X 
+(excluding deaths not pertaining 
+to the primary endpoint)  X 
+(limited to 
+deaths)  X 
+6.11.2 Primary endpoint: PFS by independent 
+central review   X  X 
+6.11.3.1 Overall survival  X 
+(excluding sensitivity 
+analyses)    
+X 
+6.11.3.2 PFS per investigator assessment   X  X 
+6.11.3.3 Response to treatment   X  X 
+6.11.3.4 Time to treatment failure   X  X 
+6.12 Interim analysis for futility for PFS X    
+6.13 Interim analysis for overall survival    X  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 36 of 40 6.14 Quality of Life   X  X 
+* In addition , the IDMC is supplied with the FAR
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 37 of 40 8 Bibliography 
+Brookmeyer, R., & Crowley, J. (1982). A confidence interval for the median survival time. Biometrics , 29-
+41. 
+Lin, D., Wei, L., & Ying, Z. (1993). D.Y. Lin, L.J. Wei et al (1993). Checking the Cox model with 
+cumulative sums of martingale -based residuals. Bi ometrika , 557- 572. 
+Schemper, M., & Smith, T. (1996). A note on quantifying follow -up in studies of failure time. Controlled 
+clinical trials , 343- 346. 
+ 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 38 of 40 9 Appendix 1: List of case report forms ( CRFs ) 
+ 
+SAS Form code  Form name  
+form905  health economics questionnaire  
+form930  QoL C -30 
+formae  adverse events form  
+formcenbrca  central BCRA mutation test form  
+formdm01  medical review form  
+formdh  disease history form  
+formmh  medical history form  
+formeot  end of treatment form  
+formfu  follow -up form  
+formfum  follow -up measurements form (RECIST 1.1) 
+formim  initial measurements form (RECIST 1.1) 
+formlbbio  biochemistry form  
+formlbhem  hematology form  
+formmyh  myelosuppresion history form  
+formnllab  normal ranges lab form  
+formothbrca  previous brca mutation test form  
+formpe  physical ex amination form  
+formsf screening failure form  
+formtrtc  capecitabine treatment form  
+formtrte  eribulin treatment form  
+formtrtg  gemcitabine treatment form  
+formtrtn  niraparib treatment form  
+formtrtviv  IV  vinorelbine treatment form  
+formtrtvo  oral vinorelbine treatment form  
+formrg1  screening -registration form (values provided at time of screening)  
+formrg2  eligibility checklist form (values provided at time of randomization)  
+formcrg1  screening -registration form (potentially corrected values)  
+formcrg2  eligibility checklist form (potentially corrected values)  
+patient  patient identifier form  
+ 
+ 
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 39 of 40 10 Appendix 2: Tables and listing to be provided to IDMC for safety review  
+Output Type 
+(T/L/F)  Number  Title  Analysis Set  
+Accrual information  
+T I.1 Cumulative Proportion of Subjects Randomized by 
+Calendar Time Full ITT population  
+F F.1 Subject Accrual over time  Screening population  
+T I.2 Subject Accrual by site  Screening population  
+T I.3 Number of patients registered per site  Screening population  
+F F.2 Number of patients registered per site  Screening population  
+T I.4 Accrual by country  Screening population  
+Study Conduct and Patient Disposition  
+T C1 Eligibility status  Full ITT population  
+L C.2 Listing of ineligible patients  Full ITT population  
+T C.3 Compliance to treatment allocation  Full ITT population  
+T C.4 Patient disposition and reason for discontinuation  Full ITT population  
+L C.5 Listing of patients who are not treated as 
+randomized  Full ITT population  
+Kaplan -Meier  C.6 Time to protocol treatment discontinuation  Full ITT population  
+T C.7 Distribution of stratification factors  Full ITT population  
+L C.8 Listing of patients who are lost -to-follow -
+up/withdrew from study  Full ITT population  
+Baseline data  
+T B.1 Demographic characteristics  Full ITT population  
+T B.2 Primary Diagnoses and time since diagnosis  Full ITT population  
+T B.3 Baseline Characteristics (incl. ECOG Performance 
+Status)  Full ITT population  
+Study Treatment Exposure  
+T T.1 Number of cycles received  Safety population  
+T T.2 Dose Interruptions, Reductions -  overall  Safety population  
+T T.3 Dose Interruptions, Reductions –  by cycle  Safety population  
+T T.4 Reason for first dose interruption/reduction  Safety population  
+T T.5 Reason for stopping protocol treatment  Safety population  
+Adv erse E v ents Data  
+T A.1 Discontinuations Due to tox icity  Safety population  
+T A.2 Temporary Discontinuations or Dose Reductions 
+Due to tox icity  Safety population  
+
+Study 1307    Statistical analysis plan  –version  1.0 24/02/2016  
+Page 40 of 40 T A.3 Overall Summary of Adverse Events (worst grade 
+during treatment)  Safety population  
+Kaplan -Meier  F.3 Kaplan -Meier Plots of Time to First Occurrence of 
+Most Common Treatment Related grade 3 -4 
+Adverse Events   Safety population  
+T A.4 Cause of Death  Safety population  
+L A.5 Listing of Deaths and the cause  Safety population  
+L A.6 Listing of serious Adverse Events  Safety database  
+L A.7 Listing of (likely) treatment related adverse events 
+that led to drug discontinuation  Safety population  
+L A.8 Listing of  grade ≥ 3 Adverse events  Safety population  
+Laboratory Data  
+T L.1 Laboratory Results Summary by Maximum CTC 
+Grade (Hematology, Cycle 1)  Safety population  
+T L.2 Laboratory Results Summary by Max imum CTC 
+Grade (Hematology, By Cycle, All cycles)  Safety population  
+T L.3 Laboratory Results Summary by Max imum CTC 
+Grade (Chemistries, All Cycles)  Safety po pulation  
+T L.4 Laboratory Results Summary by Max imum CTC 
+Grade (Chemistries, Cycle 1)  Safety population  
+L L.5 Listing of  CTC grade ≥ 3 (chemistries/hematology)  Safety population  
+ 
+ 

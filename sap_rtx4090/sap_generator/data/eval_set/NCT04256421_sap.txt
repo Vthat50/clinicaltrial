@@ -1,0 +1,764 @@
+STATISTICAL ANALYSIS PLAN APPROVAL
+SPONSOR:
+LEGAL REGISTERED ADDRESS:F. Hoffmann-La Roche LtdGrenzacherstrasse 1244070 Basel, Switzerland
+DATE FINAL: See electronic date stamp above
+CONFIDENTIAL
+This is F. Hoffmann-La Roche Ltd document that contains confidential information.  Nothing 
+herein is to be disclosed without written consent from F. Hoffmann-La Roche Ltd.
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767STATISTICAL ANALYSIS PLAN
+STUDY TITLE:A PHASE III, RANDOMIZED, DOUBLE-BLIND, 
+PLACEBO
+!!CONTROLLED STUDY OF ATEZOLIZUMAB PLUS 
+CARBOPLATIN AND ETOPOSIDE WITH OR WITHOUT 
+TIRAGOLUMAB (ANTI-TIGIT ANTIBO DY) IN PATIENTS WITH 
+UNTREATED EXTENSIVE STAGE SMALL CELL LUNG CANCER
+STUDY NUMBER: GO41767
+STUDY NAME: SKYSCRAPER-02
+VERSION NUMBER: 1
+ROCHE COMPOUND(S): Tiragolumab (RO7092284)
+Atezolizumab (RO5541267)
+EUDRACT NUMBER: 2019-003301-97
+IND NUMBER: 129258
+NCT NUMBER: NCT04256421
+PLAN PREPARED BY: , Ph.D. 
+'DWHDQG7LPH87&5HDVRQIRU6LJQLQJ1DPH
+Company Signatory 08-Sep-2021 07:10:46
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 2STATISTICAL ANALYSIS PLAN VERSION HISTORY
+This Statistical Analysis Plan (SAP) was developed based on Roche SAP model 
+document Version 2, 26 October 2020.
+SAP Version Approval DateBased on Protocol
+(Version, Approval Date)
+1 see electronic date stamp 
+on title pageVersion 4, 9 June 2021
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 3TABLE OF CONTENTS
+1. INTRODUCTION .......................................................................................... 8
+1.1 Objectives, Endpoi nts and Estimands ..................................... 8
+1.1.1 Expression of Objectives and Endpoint Using the 
+Estimand Framework............................................................. 10
+1.2 Study Design ......................................................................... 13
+1.2.1 Treatment Assignment and Blinding...................................... 151.2.2 Independent Review Facility.................................................. 16
+1.2.3 Data Monitoring ..................................................................... 16
+2. STATISTICAL HYPOTHESES.................................................................... 16
+3. SAMPLE SIZE DETERMINATION.............................................................. 17
+3.1 Type I Error Control ............................................................... 17
+3.2 Co-Primary Endpoint: Progression-Free Survival 
+in the Primary Analysis Set.................................................... 18
+3.3 Co-Primary Endpoint: Overall Survival in the 
+Primary Analysis Set ............................................................. 18
+4. ANALYSIS SETS ........................................................................................ 19
+5. STATISTICAL ANALYSES ......................................................................... 20
+5.1 General Consideration........................................................... 20
+5.2 Patient Disposition................................................................. 20
+5.3 Primary Endpoints Analysis................................................... 20
+5.3.1 Definition of Co-P rimary Endpoints........................................ 20
+5.3.1.1 Progression-F ree Survival ..................................................... 20
+5.3.1.2 Overall Survival ..................................................................... 215.3.2 Main Analytical Approac h for Primary Endpoints................... 22
+5.3.3 Handling of Missing Data....................................................... 22
+5.3.4 Sensitivity Analyses for Primary Endpoints............................ 22
+5.3.5 Supplementary Analyses for Primary Endpoint(s) ................. 23
+5.3.5.1 Subgroup Analyses fo r Co-Primary Endpoints ...................... 23
+5.4 Secondary Endpoints Analyses............................................. 23
+5.4.1 Key Seconda ry Endpoints ..................................................... 23
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 5LIST OF FIGURES
+Figure 1 Study Schema............................................................................. 14
+Figure 2 Progression Free Survival and Overall Survival Analysis 
+Hierarchy, !-Allocation, and !-Recycling.................................... 17
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 6LIST OF ABBREVIATIONS AND DEFINITIONS OF TERMS
+Abbreviation or Term Description
+ACE atezolizumab and carboplatin and etoposide
+ADA anti-drug antibody
+AE adverse event
+AESI adverse event of special interest
+ASTCT American Society for Transplantation and Cellular Therapy
+CE carboplatin and etoposide
+CI confidence interval
+CR complete response
+CRS cytokine-release syndrome
+CSR Clinical Study Report
+CTCAE Common Terminology Criteria for Adverse Events
+DOR duration of response
+ECOG Eastern Cooperative Oncology Group
+EC Ethics Committee
+EORTC European Organization for the Research and Treatment of Cancer
+ES-SCLC extensive-stage small cell lung cancer
+FAS full analysis set
+GHS global health status
+HR hazard ratio
+ICH International Council on Harmonization
+iDMC independent Data Monitoring Committee
+iDCC independent Data Coordinating Center
+IL46 item list 46
+IRB Institutional Review Board
+IRF Independent Review Facility
+ITT intent to treat
+IxRS interactive voice/web-based response system
+LDH lactate dehydrogenase
+MDD minimally detectable difference
+MedDRA Medical Dictionary for Regulatory Activities
+NCI National Cancer Institute
+NPT non -protocol anti -cancer therapy
+ORR overall response rate
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 7Abbreviation or Term Description
+OS overall survival
+PAS primary analysis set
+Pbo placebo
+PFS progression-free survival
+PK pharmacokinetic
+PR partial response
+PRO patient-reported outcomes
+QLQ-C30 Quality-of-Life Questionnaire Core 30
+QoL Quality of Life
+RECIST Response Evaluation Criteria in Solid Tumors
+RPSFT Rank-preserving structural failure time
+SAE serious adverse events
+SAP Statistical Analysis Plan
+SMQs standardized MedDRA queries
+TIGIT T-cell immunoreceptor with Ig and ITIM domains
+Tira tiragolumab
+ULN upper limit of normal
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 81. INTRODUCTION
+This Statistical Analysis Plan (SAP) provides details of the planned analyses and 
+statistical methods for Study GO41767 (SKYSCRAPER-02), a Phase III, randomized, double-blind, placebo-controlled study of atezolizumab plus carboplatin and etoposide (CE) with or without tiragolumab (anti-TIGIT antibody) in patients with untreated extensive-stage small cell lung cancer (ES-SCLC). The background for the study can be found in the study protocol.
+1.1 OBJECTIVES, ENDPOINTS AND ESTIMANDS
+The Study GO41767 evaluates the efficacy, safety, and pharmacokinetics (PK) of tiragolumab plus atezolizumab and CE (hereinafter referred to as Tira+ACE) compared with placebo plus atezolizumab and CE (hereinafter referred to as Pbo+ACE) in patients with untreated ES-SCLC.  Specific objectives and corresponding endpoints for the study are outlined in Table 1 . 
+The term "study treatment" refers to all protocol-mandated treatments assigned to patients as part of this study and includes tiragolumab/placebo, atezolizumab and CEduring the induction phase; tiragolumab/placebo and atezolizumab during the maintenance phase. 
+Table 1 Objectives and Corresponding Endpoints
+Primary Objective(s) Corresponding Endpoint(s)
+∀To evaluate the efficacy of 
+tiragolumab plus atezolizumaband CE compared with placebo 
+plus atezolizumab and CE in 
+patients with previously untreated ES-SCLC without 
+presence or history of brain 
+metastases at baseline (defined as PAS, see Section 4)∀PFS: defined as the time from randomization to the first occurrence of disease progression as determined by the 
+investigator according to RECIST v1.1 or 
+death from any cause, whichever occurs first
+∀OS: defined as the time from randomization to death from any cause
+Secondary Objective(s) Corresponding Endpoints
+∀To evaluate the efficacy of tiragolumab plus atezolizumab
+and CE compared with placebo 
+plus atezolizumab and CE ∀PFS in patients with untreated ES-SCLC(defined as FAS, see Section 4)
+∀OS in the FAS
+∀Confirmed ORR: defined as the proportion of patients with a confirmed objective response (i.e., CR or PR on two consecutive 
+occasions #4 weeks apart), as determined 
+by the investigator according to 
+RECIST v1.1 in patients with measurable 
+disease at baseline
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 9∀DOR for patients with confirmed objective 
+response, defined as the time from the first 
+occurrence of a documented, confirmed 
+objective response to disease progression, as determined by the investigator according 
+to RECIST v1.1, or death from any cause, 
+whichever occurs first 
+∀PFS rates at 6 months and at 12 months, defined as the proportion of patients who have not experienced disease progression 
+as determined by the investigator according 
+to RECIST v1.1or death from any cause at 6 months and 12 months after 
+randomization
+∀OS rates at 12 months and at 24 months, defined as the proportion of patients who 
+have not experienced death from any cause at 12 months and 24 months after 
+randomization
+∀To evaluate the safety of 
+tiragolumab plus atezolizumab 
+and CE compared with placebo 
+plus atezolizumab and CE ∀Incidence and severity of adverse events, 
+with severity determined according to NCI 
+CTCAE, v 5.0
+oSeverity for CRS will also be 
+determined according to the ASTCT CRS consensus grading scale
+∀To characterize the tiragolumab 
+and atezolizumab PK profile∀Serum concentrations of tiragolumab and atezolizumab at specified timepoints
+∀To evaluate the immune 
+response to tiragolumab and 
+atezolizumab∀Prevalence of ADAs to tiragolumab and to 
+atezolizumab at baseline and incidence of 
+ADAs to tiragolumab and to atezolizumab 
+during the study
+∀To evaluate the quality of life of 
+patients treated with 
+tiragolumab plus atezolizumab and CE compared with placebo 
+plus atezolizumab and CE∀TTCD in patient-reported physical 
+functioning and GHS/QoL, as measured by 
+the EORTC QLQ-C30
+Exploratory Objective(s) Corresponding Endpoints
+∀To determine the impact of 
+tiragolumab plus atezolizumab 
+and CE compared with placebo plus atezolizumab and CE ∀Change from baseline in PROs of symptoms 
+and their impact on functioning,
+ 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 10∀To evaluate the safety of 
+tiragolumab plus atezolizumab 
+and CE compared with placebo 
+plus atezolizumab and CE from the patient’s perspective∀Frequency, severity, interference, and/or presence of selected symptomatic treatment 
+toxicities, as determined by the NCI 
+PRO-CTCAE
+∀Change from baseline in symptomatic treatment toxicities, as assessed through use of the PRO-CTCAE
+∀Frequency of patients’ response of the degree they are troubled with treatment 
+symptoms, as assessed through use of the 
+single-item EORTC IL46
+∀To characterize the carboplatin 
+and etoposide PK profile when 
+administered in combination with tiragolumab and 
+atezolizumab∀Plasma concentration of CE at specified timepoints in a subset of approximately 
+40 patients (approximately 20 per arm)
+  
+ADA∃anti-drug antibody; ASTCT ∃American Society for Transplantation and Cellular Therapy; 
+CE∃carboplatin and etoposide; CTCAE ∃Common Terminology Criteria for Adverse Events; 
+CR∃complete response; CRS = cytokine-release syndrome; DOR = duration of response;
+EORTC ∃European Organisation for the Research and Treatment of Cancer; ES-
+SCLC∃extensive-stage small cell lung cancer; FAS = full analysis set; GHS ∃Global Health 
+Status; IL46 ∃Item List 46; NCI ∃National Cancer Institute; ORR = objective response rate; 
+OS = overall survival; PAS = primary analysis set; PFS = progression-free survival; PR ∃partial 
+response; PRO-CTCAE ∃Patient-Reported Outcomes Common Terminology Criteria for 
+Adverse Events; PK ∃pharmacokinetic; QLQ-C30 ∃Quality-of-Life Questionnaire Core 30;
+RECIST ∃Response Evaluation Criteria in Solid Tumors; TTCD ∃Time to confirmed 
+deterioration.
+1.1.1 Expression of Objectives and Endpoint Using the Estimand 
+Framework
+Primary endpoints and key secondary endpoints are expressed using the estimand 
+framework in Table 2 , following the International Conference on Harmonization E9 (R1) 
+statistical principles for clinical trials (ICH 2020).
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 11Table 2 Objectives and Estimands
+Primary Objective(s) Estimand Definition
+∀To evaluate the efficacy of 
+tiragolumab plus atezolizumaband CE compared with placebo 
+plus atezolizumab and CE in 
+patients with previously untreated ES-SCLC without 
+presence or history of brain 
+metastases at baseline∀Population: Patients with previously 
+untreated ES-SCLC without presence or history of brain metastases at baseline
+∀Variable: Time from randomization to the 
+first occurrence of the respective event of 
+interest (as defined in Table 1 ).
+∀Treatments:
+oExperimental: tiragolumab + 
+atezolizumab + CE (induction phase; four 
+21-day cycles) followed by tiragolumab+ 
+atezolizumab (maintenance phase; 21%day cycles) 
+oControl: placebo + atezolizumab + CE(induction phase; four 21-day cycles) 
+followed by placebo+ atezolizumab 
+(maintenance phase; 21-day cycles) 
+∀Intercurrent events:
+oStart of NPT prior to the respective event 
+of interest 
+oEarly discontinuation from study treatment for any reason prior to the 
+respective event of interest
+∀Handling of intercurrent events: A treatment-
+policy with regards to the intercurrent events listed above will be applied for the primary 
+analysis
+∀Summary measure:  Hazard ratio for the 
+respective variable
+Selected Secondary 
+Objective(s)Estimand Definition
+∀Evaluate the efficacy of tiragolumab plus atezolizumab 
+and CE compared with placebo plus atezolizumab and CEThe estimands for OS and PFS as secondary 
+endpoints are defined similarly as for the primary 
+endpoints except the following: 
+∀Population: Patients with previously 
+untreated ES-SCLC
+The estimand for secondary endpoint of 
+confirmed ORR is defined similarly as for the 
+primary endpoints in terms of population and 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 12treatments; the other attributes are defined as 
+follows:
+∀Variable: 
+oWhether patients achieved a confirmed objective response (i.e., CR or PR on two consecutive occasions ≥4 weeks apart), 
+as determined by the investigator according to RECIST v1.1
+∀Intercurrent events:
+oStart of NPT prior to the variable of 
+interest is observed
+oEarly discontinuation from study treatment for any reason prior to the 
+variable of interest is observed
+∀Handling of intercurrent events: A treatment-
+policy with regards to the intercurrent events listed above will be applied for the analysis
+of confirmed ORR
+∀Summary measure: 
+oDifference in proportions
+∀To evaluate the quality of life of patients treated with 
+tiragolumab plus atezolizumab and CE compared with placebo 
+plus atezolizumab and CEThe estimand for secondary endpoint of TTCD is 
+defined similarly as for the primary endpoints in 
+terms of population and treatments; the other attributes are defined as follows:
+∀Variable: Time from randomization until the 
+first confirmed clinically meaningful 
+deterioration on physical functioning and 
+GHS/QoL EORTC QLQ-C30 select scales; confirmed clinically meaningful deterioration 
+is defined as a clinically meaningful 
+decrease from baseline that must be held for at least two consecutive assessments or 
+an initial clinically meaningful decrease from
+baseline followed by death from any cause within 3 weeks.  
+∀Intercurrent events:
+oStart of NPT prior to a confirmed clinical meaningful deterioration
+oEarly discontinuation from study treatment for any reason prior to a 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 13confirmed clinical meaningful 
+deterioration
+oDeath that occurs before patients report any clinically meaningful deterioration
+∀Handling of intercurrent events: A treatment
+policy strategy with regards to the start of 
+NPT and early discontinuation; and while-
+on-treatment/while-alive strategy for deathwill be applied for the TTCD analysis.  
+∀Summary measure: Hazard Ratio for TTCD
+CE∃carboplatin and etoposide; CR ∃complete response; ES-SCLC ∃extensive-stage small cell 
+lung cancer; EORTC ∃European Organization for Research and Treatment of Cancer; 
+GHS∃global health status; NPT = non %protocol anti-cancer therapy; ORR ∃objective response 
+rate; OS ∃overall survival; PFS ∃progression-free survival; PR ∃partial response;
+QLQ-C30 ∃Quality-of-Life Questionnaire Core 30; QoL ∃Quality of Life; TTCD ∃time to confirmed 
+deterioration.
+1.2 STUDY DESIGN
+This is a randomized, Phase III, global, multicenter, double-blinded, placebo-controlled 
+study designed to evaluate the safety and efficacy of tiragolumab in combination with atezolizumab and CE compared with treatment with placebo in combination with atezolizumab and CE in patients who are chemotherapy-naive for their ES-SCLC.
+Eligible patients were stratified by Eastern Cooperative Oncology Group (ECOG)
+Performance Status (0 vs. 1), lactate dehydrogenase (LDH) ( &upper limit of normal 
+[ULN] vs. ∋ULN), and presence or history of brain metastasis (yes vs. no) and randomly 
+assigned in a 1:1 ratio to receive one of the following treatment regimens:
+∀Arm A: tiragolumab + atezolizumab + CE (induction phase; four 21-day cycles) 
+followed by tiragolumab+ atezolizumab (maintenance phase; 21-day cycles) 
+∀Arm B: placebo + atezolizumab + CE (induction phase; four 21-day cycles)followed by placebo+ atezolizumab (maintenance phase; 21-day cycles) 
+The study schema is shown in Figure 1 .
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 15Response Evaluation Criteria in Solid Tumors (RECIST) version (v)1.1, or as long as 
+patients are experiencing clinical benefit, as assessed by the investigator, in the absence of unacceptable toxicity or symptomatic deterioration attributed to disease progression after an integrated assessment of radiographic data, biopsy results (if available), and clinical status.  Patients who meet the criteria for disease progression per RECIST v1.1 will be permitted to continue study treatment (atezolizumab plus tiragolumab or atezolizumab plus placebo) if they meet all of the criteria specified in study protocol (see Section 3.1.2 of the study protocol
+) and provide written consent.
+Patients will undergo tumor assessments at baseline and every 6 weeks ( )7 days) for 
+48 weeks following Cycle 1, Day 1, regardless of treatment dose delays.  After completion of the Week 48 tumor assessment, tumor assessments will be required every 9 weeks ( )7 days) thereafter, regardless of treatment dose delays.  Patients will 
+undergo tumor assessments until radiographic disease progression per RECIST v1.1, withdrawal of consent, study termination by the Sponsor, or death, whichever occurs first.  Patients who are treated beyond disease progression per RECIST v1.1 will undergo tumor assessments at the frequency described above until study treatment is discontinued.  Patients who discontinue treatment for reasons other than radiographic disease progression per RECIST v1.1 (e.g., toxicity, symptomatic deterioration) will continue scheduled tumor assessments at the frequency described above until radiographic disease progression per RECIST v1.1, withdrawal of consent, study termination by the Sponsor, or death, whichever occurs first), regardless of whether the patient starts a new anti-cancer therapy.  
+1.2.1 Treatment Assignment and Blinding
+This is a randomized, double-blind, placebo-controlled study.  After written informed consent has been obtained, all screening procedures and assessments have been completed, and eligibility has been established, the study site will obtain the patient’s identification number and treatment assignment from the interactive voice or web-based response system (IxRS). 
+Randomization will occur in a 1:1 ratio through use of a permuted-block randomization 
+method.  Patients will be randomly assigned to one of two treatment arms: Tira+ACE(Arm A) or Pbo+ACE (Arm B).  The randomization scheme is designed to ensure that an approximately equal number of patients will be enrolled in each treatment arm within the 
+baseline characteristics of the following stratification factors:
+∀ECOG Performance Status (0 vs. 1)
+∀LDH ( &ULN vs. ∋ULN)
+∀Presence or history of brain metastasis (yes vs. no)
+Patients should receive their first dose of study drug on the day of randomization if 
+possible.  If this is not possible, the first dose should occur within 5 days after randomization.
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 16Study site personnel and patients will be blinded to treatment assignment during the 
+study.  The Sponsor and its agents will also be blinded to treatment assignment, with the exception of individuals who require access to patients’ treatment assignments to fulfill their job roles during a clinical trial. These roles include the unblinding group responsible, clinical supply chain managers, sample handling staff, operational assay group personnel, IxRS service provider, and independent Data Monitoring Committee(iDMC) members.
+1.2.2 Independent Review Facility
+All primary imaging data used for tumor assessments will be collected by the Sponsor; centralized, blinded, independent review of response endpoints by an independent review facility (IRF) may be conducted. 
+1.2.3 Data Monitoring
+An iDMC will be used to evaluate safety during the study.   
+ 
+ 
+ 
+ 
+The safety data will include disposition, demographic data, adverse events, serious adverse events, and relevant laboratory data.
+  
+ 
+ 
+ 
+ 
+ 
+Members of the iDMC will be external to the Sponsor and will follow a separate iDMC Charter that outlines their roles and responsibilities, as well as a detailed monitoring plan.
+Any outcomes of these safety reviews that affect study conduct will be communicated in 
+a timely manner to the investigators for notification of the sites’ Institutional Review Boards/Ethics Committees (IRBs/ECs).
+2. STATISTICAL HYPOTHESES
+The purpose of this study is hypothesis testing and estimation regarding the effect of tiragolumab in combination with atezolizumab and CE on the duration of 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 183.2 CO-PRIMARY ENDPOINT: PROGRESSION-FREE SURVIVAL IN 
+THE PRIMARY ANALYSIS SET
+The primary analysis of the co-primary endpoint of PFS will be conducted at the time of 
+the OS interim analysis when approximately 202 deaths in the PAS have been 
+observed.  
+ 
+  At the time of the primary analysis of PFS, it is estimated that approximately 
+300 PFS events ( ) would have been observed in the PAS; the exact 
+number of PFS events will be determined at the time of OS interim analysis. The estimated PFS event number provides 96% power to detect a target HR of 0.56 for PFS 
+at a two-sided significance level of 0.001, based on the following assumptions:
+ 
+∀Median PFS of 5.2 months in the Pbo+ACE arm and 9.2 months in the 
+Tira+ACE arm (corresponding to a target HR of 0.56) 
+∀Dropout rate of 5% over 12 months for PFS 
+∀No interim analysis for PFS 
+ 
+ 
+ 
+ 
+3.3 CO-PRIMARY ENDPOINT: OVERALL SURVIVAL IN THE 
+PRIMARY ANALYSIS SET
+The final analysis of the co-primary endpoint of OS will occur when approximately 
+288 deaths ( ) have been observed in the PAS. This provides 85% power to detect a target HR of 0.70 for OS at a two-sided significance level of 0.049, based on the 
+following assumptions:
+ 
+∀Median OS of 12.3 months in the Pbo+ACE arm and 17.6 months in the 
+Tira+ACE arm (corresponding to a target HR of 0.70) 
+∀Dropout rate of 5% over 24 months for OS 
+∀One planned interim analysis for OS at approximately 70% of the information 
+fraction, with the interim boundary for statistical significance determined based 
+on the Lan-DeMets approximation of the O’Brien-Fleming function
+ 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 19The timing of the interim analysis and the final analysis for OS in the PAS are 
+summarized in Table 3 below, with the additional assumption on accrual.  
+Table 3 Analysis Timing for Overall Survival 
+Type of AnalysisAnalysis Timing PAS
+Percentage 
+InformationNo. of Events (Event 
+Patient Ratio) Power, %a
+OS interim analysis 70% 202 (51%) 53
+OS final analysis 100% 288 (72%) 85
+FPI∃first patient in; OS ∃overall survival; PAS ∃primary analysis set.
+aPower is calculated using two-sided !of 0.049.
+The OS interim analysis is planned to be conducted by the Sponsor when approximately 202 deaths in the PAS have been observed. The stopping boundaries for the OS interim and final analyses are to be computed using the Lan-DeMets approximation to the O’Brien-Fleming function based on the actual observed events (see Section 5.8Interim
+Analyses).  
+4. ANALYSIS SETS
+The analysis sets used for the analyses are defined in the Table 4 below:
+Table 4 Analysis Sets
+Analysis set Definition
+Full analysis set (FAS)1All randomized patients, whether or not the patient received the 
+assigned treatment
+Primary analysis set(PAS)
+2All randomized patients without presence or history of brain metastases at baseline
+3
+Safety evaluable set All randomized patients who received at least one dose of study 
+treatment  
+Pharmacokinetic (PK)-evaluable setAll patients who received at least one dose of study treatment and who have at least one post-baseline PK sample available
+Atezolizumab anti-drug 
+antibody (ADA)-
+evaluable setAll patients who received at least one dose of atezolizumab 
+treatment and with an ADA assay result from at least one sample 
+result
+Tiragolumab ADA-
+evaluable setAll patients who received at least one dose of tiragolumab 
+treatment and with an ADA assay result from at least one sample 
+result
+1FAS is referred to as the Intent-to-treat (ITT) population in the study protocol v4. 
+2PAS is referred to as the Primary analysis population (PP) in the study protocol v4.
+3Patients without presence or history of brain metastases at baseline are identified through 
+data collected on electronic Case Report Form (eCRF). 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 205. STATISTICAL ANALYSES
+The analyses described in this SAP will supersede those specified in the protocol for the 
+purposes of a regulatory filing.
+5.1 GENERAL CONSIDERATION
+All efficacy analyses will be performed on the PAS and the FAS, unless otherwise specified.  Patients will be analyzed according to the treatment assigned at randomization by IxRS, regardless of whether they receive any assigned study drug.
+Safety analyses will be conducted on the safety evaluable set, and will be performed 
+based on the actual treatment patients received. Specifically, a patient will be included in the Tira+ACE arm in the safety analyses if the patient receives any amount of tiragolumab, regardless of the initial treatment assignment at randomization.
+Unless otherwise stated, baseline values are the last available data obtained prior to the 
+patient receiving the first dose of study treatment on Cycle 1, Day 1 (or at screening, for patients who were not treated).
+5.2 PATIENT DISPOSITION
+Study enrollment and reasons for discontinuation from the study will be summarized by treatment arm for the FAS. Study treatment disposition and reasons for discontinuation from study treatment will be summarized for the safety evaluable set.
+5.3 PRIMARY ENDPOINTS ANALYSIS
+5.3.1 Definition of Co-Primary Endpoints
+The co-primary efficacy endpoints are PFS as assessed by the investigator according to
+RECIST v1.1 and OS in the PAS. 
+The hypothesis testing for PFS in the PAS will be conducted at a two-sided !of 0.001. 
+If PFS is not statistically significant in the PAS, the hypothesis testing for OS in the PAS
+will be conducted at a two-sided !of 0.049; if PFS is statistically significant in the PAS, 
+OS in the PAS will be tested at a two-sided !level of 0.05.
+5.3.1.1 Progression-Free Survival
+The estimand is defined as follows:
+∀Population: Patients with previously untreated extensive-stage small cell lung
+cancer without presence or history of brain metastases at baseline
+∀Variable: Time from randomization to the first documented disease progression as 
+determined by the investigator with the use of RECIST v1.1 or death from any 
+cause, whichever occurs first.
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 21∀Treatments:
+oExperimental: tiragolumab + atezolizumab + CE (induction phase; four 21-day 
+cycles) followed by tiragolumab + atezolizumab (maintenance phase; 21-day cycles) 
+oControl: placebo + atezolizumab + CE (induction phase; four 21-day cycles) followed by placebo + atezolizumab (maintenance phase; 21-day cycles) 
+∀Intercurrent events:
+oStart of non -protocol anti -cancer therapy (NPT) prior to a PFS event
+oEarly discontinuation from study treatment for any reason prior to a PFS event
+∀Handling of intercurrent events: A treatment-policy with regards to the intercurrent 
+events listed above will be applied for the primary analysis of PFS
+∀Summary measure: HR for PFS
+Patients who have not experienced disease progression and have not died by the data 
+cutoff date will be censored at the date of the last tumor assessment. Patients with no post-baseline tumor assessment will be censored at the date of randomization.
+5.3.1.2 Overall Survival
+The estimand is defined as the follows:
+∀Population: Patients with previously untreated extensive-stage small cell lung 
+cancer without presence or history of brain metastases at baseline
+∀Variable: Time from randomization to death from any cause
+∀Treatments:
+oExperimental:  tiragolumab + atezolizumab + CE (induction phase; four 21-day 
+cycles) followed by tiragolumab + atezolizumab (maintenance phase; 21-day 
+cycles)
+oControl: placebo + atezolizumab + CE (induction phase; four 21-day cycles) followed by placebo + atezolizumab (maintenance phase; 21-day cycles)
+∀ Intercurrent events:
+oStart of NPT
+oEarly discontinuation from study treatment for any reason 
+∀Handling of intercurrent events: A treatment-policy with regards to the intercurrent 
+events listed above will be applied for the primary analysis of OS
+∀Summary measure: Hazard ratio for OS
+Patients who are not reported as having died by the data cutoff date will be censored at 
+the date when they were last known to be alive. Patients with no post-baseline information will be censored at the date of randomization.
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 225.3.2 Main Analytical Approach for Primary Endpoints
+The stratified log -rank test will be used to compare PFS and OS between the treatment 
+arms, according to the protocol -defined stratification factors as entered in IxRS for the 
+PAS. 
+Due to the potential risk of over-stratification ( Akazawa et al. 1997 ), if at least one
+stratum (i.e., a combination of stratification factor levels across ECOG performance 
+status [0 vs 1] and LDH [ &ULN vs. ∋ULN] per IxRS) has less than 10 OS events, the 
+stratification factor which contains the level with the smallest number of patients will be removed from the stratified analyses. The removal of the stratification factor will continue until there is no stratum with less than 10 OS events. The final set of stratification factors used in stratified analyses will be applied to all endpoints where stratified analyses are planned.
+Cox proportional hazards model, stratified by the protocol -defined stratification factors as 
+entered in IxRS, will be used to estimate the HR between the two treatment arms and its 
+95% confidence interval (CI). Kaplan-Meier methodology will be used to estimate median PFS and OS and to construct survival curves for each treatment arm for a visual description of the difference among arms. The Brookmeyer-Crowley methodology will be used to construct the 95% CI for the median PFS and OS (Brookmeyer and Crowley 1982 ).
+5.3.3 Handling of Missing Data
+Patients who are lost to follow-up will be censored at the last date they were known to be alive for the primary analysis of OS.  If >5% of patients are lost to follow-up for OS in either treatment arm, a sensitivity analysis will be performed for the comparisons between two treatment arms in which patients who are lost to follow-up will be considered as having died at the last date they were known to be alive.
+5.3.4 Sensitivity Analyses for Primary Endpoints
+Sensitivity analyses of the primary endpoints will be performed to assess the impact of stratification. These analyses will follow the same analyses method as the primary endpoints with the exception that treatment effects will be compared using an unstratified log -rank test and the HR will be estimated from unstratified Cox regression 
+hazard model (see also Section 5.3.2 ).
+When the clinical effect is delayed by >20% of the median OS of the control group, asensitivity analysis of OS may be performed using the weighted log-rank test based on the Rho-Gamma weight function family ( Fleming and Harrington 1991 ) or piece-wise 
+linear weight functions ( Lin and Leon 2017 ) that weight more heavily on late events to 
+account for the delayed clinical effect ( Fine 2007 ). In addition, hazard ratio estimates 
+based on the corresponding Cox model ( Lin and Leon 2017 ) using the piece-wise linear 
+weight functions may also be provided to enhance clinical interpretation of the treatment effect that varies over time.
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 235.3.5 Supplementary Analyses for Primary Endpoint(s)
+The following supplementary analyses will be performed for the co-primary efficacy 
+endpoints of PFS and OS in which a different handling rule of intercurrent events is implemented to provide further understanding of the treatment effect. 
+To assess the impact of the intercurrent event of starting an NPT prior to a PFS event, 
+the primary analysis of PFS will be repeated with such intercurrent event handled using a hypothetical strategy, if >5% of patients received NPT prior to a PFS event in either treatment arm.  To estimate the estimand that implements this strategy, patients who start an NPT before a PFS event will be censored at the time of the last tumor
+assessment before the initiation of NPT. 
+To assess the impact of the intercurrent event of starting an NPT on OS, the primary 
+analysis of OS will be repeated with such intercurrent event handled using a hypothetical strategy, if >10% of patients received NPT in either treatment arm. Rank-preserving structural failure time (RPSFT) method will be used to provide an estimate of the OS time for the treatment arms had NPT not occurred ( Robins and Tsiatis 1991 ). This 
+method estimates OS measured from the time of NPT by applying an estimate of the benefit of the NPT. The total overall survival time (sum of time to NPT and the estimated survival time after NPT started) will then be analyzed using the same methodology as for 
+the primary analysis of OS. 
+5.3.5.1 Subgroup Analyses for Co-Primary Endpoints
+The generalizability of OS and PFS results when comparing the Tira+ACE arm to the 
+Pbo+ACE arm will be investigated by estimating the treatment effect in subgroups defined by demographics (e.g., age, sex, and race/ethnicity) and baseline prognostic characteristics (e.g., ECOG Performance Status, smoking status, LDH). Summaries of OS and PFS, including unstratified HRs estimated from Cox proportional hazards models and Kaplan-Meier estimates of median PFS and OS will be provided separately for each level of the subgroups for the comparisons between treatment arms.
+5.4 SECONDARY ENDPOINTS ANALYSES
+5.4.1 Key Secondary Endpoints
+5.4.1.1 Progression-Free Survival and Overall Survival in the Full 
+Analysis Set
+The estimand is defined similarly as for the co-primary endpoints of PFS and OS in 
+Section 5.3.1 with the exception of the following:
+Population: Patients with previously untreated extensive-stage small cell lung cancer.
+Same analytical approaches for primary analysis of PFS and OS specified in Section 5.3
+will be used to analyze PFS and OS on the FAS, with the exception that the stratification 
+factors used for the stratified analyses are the following three as entered in IxRS:
+∀ECOG Performance Status (0 vs. 1)
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 24#LDH ( &ULN vs. ∋ULN)
+#Presence or history of brain metastasis (yes vs. no)
+Subgroup analyses of PFS and OS on the FAS will also be provided by the baseline 
+prognostic factor of presence or history of brain metastases.  
+5.4.1.2 Confirmed Overall Response Rate
+The estimand for confirmed overall response rate (ORR) is defined as follows:
+#Population: Patients with previously untreated extensive-stage small cell lung 
+cancer without presence or history of brain metastases at baseline 
+#Variable: Whether patients achieved a confirmed objective response (i.e., complete 
+response [CR] or partial response [PR] on two consecutive occasions ≥4 weeks 
+apart), as determined by the investigator according to RECIST v1.1
+#Treatments:
+oExperimental:  tiragolumab + atezolizumab + CE (induction phase; four 21-day 
+cycles) followed by tiragolumab + atezolizumab (maintenance phase; 21-day 
+cycles)
+oControl: placebo + atezolizumab + CE (induction phase; four 21-day cycles) followed by placebo + atezolizumab (maintenance phase; 21-day cycles
+#Intercurrent events:
+oStart of non -protocol anti -cancer therapy prior to a confirmed objective 
+response is observed
+oEarly discontinuation from study treatment for any reason prior to a confirmed
+objective response is observed
+#Handling of intercurrent events: a treatment-policy with regards to the intercurrent 
+events listed above will be applied 
+#Summary measure: difference in proportions of patients achieved confirmed 
+objective response between treatments
+An alternative estimand for confirmed ORR is defined similarly as above with the 
+exception of the following: 
+#Population: patients with previously untreated extensive-stage small cell lung cancer
+Confirmed ORR will be analyzed in patients with measurable disease at baselineand
+compared between treatment arms using the stratified Cochran Mantel-Haenszel test. The 95% CI for the difference in confirmed ORRs between the two treatment arms will be computed using the Newcombe method.  The 95% CI of the confirmed ORR will be calculated for each treatment arm using the Wilson score method.  
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 255.4.2 Supportive Secondary Endpoints
+5.4.2.1 Duration of Response
+Duration of response (DOR) will be assessed in the PAS and the FAS for patients who 
+achieved a confirmed objective response, as determined by the investigator according to RECIST v1.1. DOR is defined as time from the date of the first occurrence of a confirmed objective response until the first date of progressive disease as determined by the investigator according to RECIST v1.1 or death from any cause, whichever occurs first. Patients who have not progressed and who have not died at the time of analysis will be censored at the time of the last tumor assessment date. DOR will be based on a non-randomized subset of patients (specifically, patients who achieve a confirmed objective response); therefore, hypothesis testing will not be performed for this endpoint. Comparisons between treatment arms will be made for descriptive purposes. Median DOR and corresponding 95% CIs will be estimated using Kaplan-Meier methodology for each treatment arm. 
+5.4.2.2 PFS and OS Rates at Selected Time Points
+The PFS rates at 6 months and at 12 months are defined as the proportion of patients who have not experienced disease progression as determined by the investigator according to RECIST v1.1 or death from any cause at 6 months and 12 months after randomization. The PFS rates will be estimated using Kaplan-Meier methodology for each treatment arm, along with 95% CIs calculated using the standard error derived from Greenwood’s formula. The 95% CI for the difference in PFS rates between the two treatment arms will be estimated using the normal approximation method, with standard errors computed using Greenwood’s method.
+Similar analyses will be performed for the OS rates at 1 and 2 years, defined as the 
+proportion of patients who have not died from any cause at 12 months and 24 months after randomization. 
+ 
+ 
+ 
+ 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 26 
+ 
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 27 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+5.6 SAFETY ANALYSES
+Unless specified otherwise, safety analyses described below will be conducted for the 
+safety evaluable set (see Section 4), with participants grouped according to whether any 
+tiragolumab was received.
+5.6.1 Extent of Exposure
+Study drug exposure, including treatment duration, dosage, and dose intensity, will be summarized by treatment arm and for each study drug with descriptive statistics.
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 285.6.2 Adverse Events
+Verbatim description of adverse events will be mapped to the Medical Dictionary for 
+Regulatory Activities (MedDRA) thesaurus terms.  Severity for all adverse events will be graded by the investigator according to the National Cancer Institute Common Terminology Criteria for Adverse Events (NCI CTCAE) v5.0, and severity for cytokine-release syndrome (CRS) will also be graded by the investigator according to the American Society for Transplantation and Cellular Therapy (ASTCT) consensus grading scale.
+All treatment-emergent adve rse events will be summarized by treatment arm and NCI 
+CTCAE grade. CRS will also be summarized by treatment arm and the ASTCT 
+consensus grade. In addition, common adverse events (defined as adverse events that 
+occur in ≥ 10% of patients), treatment-related AEs, serious adverse events (SAEs), 
+adverse events leading to study treatment discontinuation or interruption, Grade 3-4AEs ,and fatal AE (Grade 5) will be summarized accordingly. For the purpose of analyses, adverse events of special interest (AESI) are identified by a set of comprehensive definitions using standardized MedDRA queries (SMQs), High-Level Terms (HLTs) and Sponsor-defined adverse event grouped terms (AEGTs) from the AE clinical database by medical concept. The AESI will be summarized by treatment arm and CTCAE grade. 
+Multiple occurrence of the same event will be counted once at the maximum severity. For the safety analyses, “treatment-emergent” is defined as adverse events occurring on 
+or after the first dose of study drug treatment or pre-existing condition that worsened on or after the first dose of the study treatment up to the data cutoff date.
+Key adverse events that occurred during the induction and maintenance therapy phases 
+may also be summarized separately.
+Listings of adverse events will include all treatment emergent adverse events up to the 
+data cutoff date. 
+Deaths during the study treatment period and those reported during the follow-up period 
+after treatment completion or discontinuation and causes of death will be summarized by treatment arm.
+5.6.3 Laboratory Data
+Laboratory data will be summarized by treatment arm.  Selected laboratory data will be graded according to NCI CTCAE v5.0 and will be summarized descriptively.  Shift tables from baseline to worst post-baseline values will also be presented.  
+5.6.4 Vital Signs
+Vital signs will be summarized by treatment arm and visit. 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 295.7 OTHER ANALYSES
+5.7.1 Summaries of Conduct of Study
+Study enrollment and major protocol deviations including major deviations of 
+inclusion/exclusion criteria will be summarized by treatment arm for the FAS.  
+5.7.2 Summaries of Treatment Group Comparability
+Demographic characteristics (age, sex, race/ethnicity), baseline prognosticcharacteristics (e.g., smoking status) and stratification factors (ECOG Performance Status, LDH, and presence or history of brain) will be summarized by treatment arm for the FAS and the PAS.  
+Descriptive statistics (mean, median, standard deviation, and range) will be presented 
+for continuous variables, and frequencies and percentages will be presented for categorical variables.
+5.7.3 Pharmacokinetic Analyses
+Tiragolumab and atezolizumab serum concentration data (minimum serum concentration [C
+min] and maximum serum concentration [C max]) will be tabulated and summarized. 
+Descriptive statistics will include arithmetic and geometric means, medians, ranges, and standard deviations, as appropriate.
+The sparse concentrations of carboplatin and etoposide will be summarized using 
+descriptive statistics as described above, in a subset of approximately 40 patients (approximately 20 per arm).
+Additional PK analyses may be conducted, as appropriate, based on the availability of 
+data.
+All PK analyses will be conducted on the PK-evaluable set.
+5.7.4 Immunogenicity Analyses
+The immunogenicity analyses will include patients with any tiragolumab and/or
+atezolizumab anti-drug antibody (ADA) assessments, with patients grouped according to the treatment received.
+The number and proportion of treatment-emergent tiragolumab ADA-positive patients
+will be summarized for the Tira+ACE arm. The number and proportion of treatment-emergent atezolizumab ADA-positive patients will be summarized by treatment arm.
+ 
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 305.8 INTERIM ANALYSES
+5.8.1 Planned Interim Analyses
+There are no planned interim analyses of the co-primary endpoint of PFS.
+One interim analysis of the co-primary endpoint of OS is planned when approximately 
+202 OS events have been observed in the PAS, which corresponds to approximately 70% of the deaths required for the final analysis of OS in the PAS.  
+The final OS 
+analysis will be conducted when approximately 288 OS events in the PAS have been observed.  
+  The exact timing of these analyses will depend on the actual 
+number of OS events.  
+To control the type I error for OS, the stopping boundaries for OS interim and final 
+analyses are to be computed with use of the Lan-DeMets approximation to the O’Brien-Fleming boundary ( DeMets and Lan 1994 ) as shown in Table 5 . The p-value 
+boundary for statistical significance is based on the number of projected events; actual p-values will be calculated at the time of analysis based on the actual number of events observed in the PAS.
+Table 5 Analysis Timing and Stopping Boundary of Overall Survival in 
+the Primary Analysis Set
+Analysis TimingInformation 
+Fraction
+(Number of 
+Events)Stopping Boundary in HR (p-value*)
+PFS is Not 
+Statistically 
+SignificantPFS is 
+Statistically 
+Significant
+OS interim analysis 70.1% (202) HR&0.708
+(p&0.0144)HR&0.709
+(p&0.0148)
+OS final analysis 100% (288) HR&0.789
+(p&0.0446)HR&0.790
+(p&0.0455)
+HR∃hazard ratio; OS ∃overall survival; PFS ∃progression-free survival.
+* p-value is two-sided. 
+6. SUPPORTING DOCUMENTATION
+This section is not applicable, since there is no additional supporting document.
+7. REFERENCES
+Akazawa KO, Nakamura T, Palesch Y. Power of logrank test and Cox regression model 
+in clinical trials with heterogeneous samples. Stat Med. 1997;16:583-97. 
+Basch E, Reeve BB, Mitchell SA, et al. Development of the National Cancer Institute’s 
+patient-reported outcomes version of the common terminology criteria for adverse 
+events (PRO-CTCAE). J Natl Cancer Inst 2014;106:1-11.
+
+Tiragolumab and Atezolizumab —F. Hoffmann-La Roche Ltd
+Statistical Analysis Plan GO41767 31Brookmeyer R, Crowley J. A confidence interval for the median survival time. Biometrics 
+1982;38:29-41.
+Burman CF, Sonesson C, Guilbaud O, et al. A recycling framework for the construction 
+of Bonferroni-based multiple tests. Stat Med 2009;28:739-61.
+Demets DL, Lan KG. Interim analysis: the alpha spending function approach. Stat Med. 
+1994;13:1341-52.
+Fine GD. Consequences of delayed treatment effects on analysis of time-to-event 
+endpoints. Ther Innov Regul Sci 2007;41:535 −9.
+Fleming TR, Harrington DP. Counting processes and survival analysis. New York: John 
+Wiley Sons, 1991.
+Lin RS, León LF. Estimation of treatment effects in weighted log-rank tests. 
+Contemporary clinical trials communications. 2017;8:147-55.
+Osoba D, Rodrigues G, Myles J, et al. Interpreting the significance of changes in health-
+related quality-of-life scores. J Clin Oncol 1998;16:139 −44.
+Robins JM, Tsiatis AA. Correcting for non-compliance in randomized trials using rank 
+preserving structural failure time models. Commun Stat Theory Methods 
+1991;20:2609 −31.

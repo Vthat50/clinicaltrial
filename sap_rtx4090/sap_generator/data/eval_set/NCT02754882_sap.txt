@@ -1,0 +1,1868 @@
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 1 of 68 
+ 
+ 
+ 
+ 
+Statistical Analysis Plan  
+A Phase III, Randomised, Double -blind, Multicentre Study  
+to Compare the Efficacy, Safety, Pharmacokinetics and  
+Immunogenicity between SB8 (proposed bevacizumab biosimilar) and  
+Avastin® in Subjects with Meta  static or Recurrent  
+Non-squamous Non -small Cell Lung Cancer  
+ 
+ 
+ 
+ 
+  
+ 
+ 
+Product  SB8 (proposed bevacizumab biosimilar)  
+Protocol Number SB8-G31-NSCLC Amendment 2 
+Study Phase  Phase III  
+Authors  , Samsung Bioepis Co., Ltd.  
+,  PAREXEL  
+ 
+Version and Effective Date Amendment 1 Apr. 18, 2018 
+ 
+ 
+This document contains confidential information belonging to Samsung Bioepis Co., Ltd. Your 
+acceptance or review of this document constitutes agreement that you will not copy or disclose the 
+information contained herein to others or use it for unauthorised purposes without written 
+authorization from the Sponsor.  
+ 
+PPD
+PPD
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 3 of 68 
+ 
+overall response and no 
+central imaging data will not 
+considered as non-responder 
+in PPS. ” 
+2. Added a subgroup analysis  
+by ADA status for primary endpoint and secondary 
+endpoints 
+3. Added analyses of Nab and 
+overall ADA 
+4. Added  the definition of the 
+overall ADA 
+5. Following Changes are made 
+to appendix 6. TOC of results for CSR: Figure deleted ( i.e., 
+Figure 14.2-3.1~14.2-4.2, 
+Figure 14.2-6.1~14.2-6.2);  
+Table added (i.e. Table 14.3-
+3.1~14.3- 3.3; Table14.2-
+3.3.1~14.2-3.5.2; Table 
+14.3.1-1.15 ) 
+Draft 0. 6 July 11, 2017    
+ 1. Inserted section 11.3. Efficacy 
+analysis by overall ADA 
+result  
+2. Updated the definition  of PFS 
+censors in Table 11 -1 
+3. Updated the definitions of the 
+algorithm of partial date 
+handling in Appendix 1 
+4. Added SAS syntax for Chi -
+square test and Fisher ’s exact 
+test in Appendix 5. 
+Draft 0. 7 July 17, 2017    
+ 1. In “List of Abbreviation ”: 
+Add “PD: Progressive 
+Disease” and Modify “PD: Protocol deviation” to “PD s: 
+Protocol deviation s” 
+PPD
+PPD
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 4 of 68 
+ 
+Draft 0.8  Nov 01, 2017    
+ 1. Updated the SAS syntax of 
+Cox regression model 
+2. Updated TOC listing  
+3. Changed version of WHO-
+DDE from 01March, 2017 to 
+01 March, 2015  
+ 
+Final 1.0  Dec 21, 2017   
+ 1. SAP Finalization  
+Amendment 1  Apr 17, 2018   
+ 1. Updated the  formula for 
+calculating best ORR  
+2. Updated the handling  of 
+subjects without follow-up 
+tumour assessment in the 
+overall response and best overall responses summaries in section 11.1 
+3. Specified the handling of Not reportable” (N/R) or “Quantity Not S ufficient” PK results in 
+secion 13 
+ 
+ 
+PPD
+PPD
+PPD
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 5 of 68 
+ 
+TABLE OF CONTENTS  
+MODIFICATION HISTORY .................................................................................................... 2 
+TABLE OF CONTENTS  ........................................................................................................... 5 
+1. INTRODUCTION ................................................................................................................ 10 
+2. STUDY OBJECTIVES  ........................................................................................................ 10 
+2.1. Primary Objective  .......................................................................................................... 10 
+2.2. Secondary Objectives  .................................................................................................... 10 
+2.3. Exploratory Objective  ................................................................................................... 11 
+3. STATISTICAL METHO DS ................................................................................................ 11 
+3.1. Analysis Sets  ................................................................................................................. 11 
+3.2. Protocol D eviations  ....................................................................................................... 12 
+4. GENERAL CONSIDERATIONS  ....................................................................................... 13 
+4.1. Study Day  ...................................................................................................................... 13 
+4.2. Baseline  ......................................................................................................................... 13 
+4.3. Retests, Unscheduled Visits and Early Termination Data  ............................................. 13 
+4.4. Common Calculations  ................................................................................................... 13 
+4.5. Software Version  ........................................................................................................... 14 
+5. STATISTICAL CONSI DERATIONS  ................................................................................. 14 
+5.1. Missing D ata .................................................................................................................. 14 
+5.2. Multiple Comparisons/Multiplicity  ............................................................................... 14 
+6. DISPOSITION AND WITHDRAWALS  ............................................................................ 14 
+7. DEMOGRAPHIC AND B ASELINE CHARACTERIST ICS ............................................. 15 
+8. MEDICAL  AND SURGICAL HISTORY ........................................................................... 16 
+9. MEDICATIONS AND P ROCEDURES  .............................................................................. 16 
+10. STUDY MEDICATION EX POSURE ............................................................................... 17 
+11. EFFICACY OUTCOMES  ................................................................................................. 18 
+11.1. Primary Efficacy Analysis  ........................................................................................... 18 
+11.2. Secondary Efficacy analyses  ....................................................................................... 20 
+11.2.1. Progression Free Survival (PFS)  .............................................................................. 20 
+11.2.2. Overall Survival (OS)  ............................................................................................... 22 
+11.2.3. Duration of Response (DOR)  ................................................................................... 23 
+11.2.4. Best ORR, P FS and DOR  evaluated by Investigator  ................................................ 23 
+11.3. Efficacy analysis by overall ADA result  ..................................................................... 24 
+11.4. Exploratory Efficacy analysis  ...................................................................................... 25 
+12. SAFETY OUTCOMES  ...................................................................................................... 25 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 6 of 68 
+ 
+12.1. Adverse Events  ............................................................................................................ 25 
+12.2. Laboratory Evaluations  ............................................................................................... 28 
+12.3. Vital Signs  ................................................................................................................... 29 
+12.4. Other  Observations Related to Safety  ......................................................................... 30 
+12.5. Immun ogenicity  ........................................................................................................... 30 
+13. PHARMACOKINETICS  ................................................................................................... 32 
+14. DETERMINATION OF SAM PLE SIZE  .......................................................................... 33 
+APPENDIX 1. Partial Date Conventions  ............................................................................. 35 
+APPENDIX 2. CTCAE  GRADING FOR LABORATORY PARAM ETERS ..................... 40 
+APPENDIX 3. Prohibited Medications and Therapies of NSCLC  ...................................... 43 
+APPENDIX 4. VISIT NAME  .............................................................................................. 55 
+APPENDIX 5.  Statistical model and SAS syntax  ................................................................ 56 
+APPENDIX 6. TOC of Results for CSR  .............................................................................. 60 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 7 of 68 
+ 
+List of Tables  
+Table 11-1 Outcome and event/censor dates for PFS analysis  ................................................................ 22 
+Table 12-2 Clinically Significant Abnormal Criteria of Vital Signs  ....................................................... 30 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 8 of 68 
+ 
+List of Abbreviations  
+ 
+ADA  Anti-drug Antibodies  
+AE Adverse Event 
+AESI  Adverse Event of Special Interest  
+ATC  Anatomical Therapeutic Chemistry  
+BLQ  Below the Lower limit of Quantification  
+BSA  Body Surface Area  
+CCr Creatinine Clearance  
+CR Complete Response  
+CSR  Clinical Study Report  
+DOB  Date of Birth  
+DOR  Duration of Response  
+DSMB  Data and Safety Monitoring Board  
+ECG  Electrocardiogram  
+ ECOG  Eastern Cooperative Oncology Group  
+eCRF  Electronic Case Report Form  
+EGFR  Epidermal Growth Factor Receptor  
+ENR  Enrolled Set  
+EOT  End of Treatment  
+FAS Full Analysis Set  
+IP Investigational Product  
+NAb  Neutralising Antibody  
+NCI-CTCAE  National Cancer Institute -Common Terminology Criteria for Adverse 
+Events  
+NSCLC  Non-small  Cell Lung Cancer  
+ORR  Overall Response Rate  
+OS Overall Survival  
+PDs Protocol Deviation s 
+PD Progressive Disease  
+PFS Progression Free Survival  
+PK population  Pharmacokinetic population  
+PPS Per-Protocol Set  
+PR Partial Response  
+PT Preferred Term  
+RAN  Randomised Set  
+RDI Relative Dose Intensity  
+SAE  Serious Adverse Event  
+SAF Safety Set  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 9 of 68 
+ 
+SAP Statistical analysis plan  
+SD Standard Deviation  
+SOC  System Organ Class  
+TEAE  Treatment -emergent Adverse Event  
+ULQ  Upper limit of quantification  
+  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 10 of 68 
+ 
+1. INTRODUCTION 
+This document describes the planned analyses as well as the rules and conventions to be used 
+in the presentation and analyses of efficacy, safety, pharmacokinetics and immunogenicity 
+data for the first database lock  for reporting the 24- week clinical study report (CSR) and final 
+database lock for reporting the 52- week CSR. This statistical analysis plan (SAP) has been 
+based upon the Clinical Study Protocol SB8 -G31-NSCLC  Amendment 2 (Aug. 18, 2016) and 
+the electronic Case Report Form (eCRF), Version 6.0 (Mar. 17, 2017 ).  
+The following analyses will be performed for this study. 
+• Interim safety analysis for the 1st Data and Safety Monitoring Board (DSMB) 
+meeting:  
+The SAP for the 1st DSMB meeting describing  the methodology and presentation of 
+results will be prepared as a separate document and included in the DSMB Charter.  The 
+statistical analyse s will be performed by an independent statistical reporting team and the 
+results will be communicated with  the DSM B board by an unblinded statistician.  
+• Main analysis for 24-week CSR:  
+The primary analysis for the 24 -week CSR data will take place when at least 24 weeks has 
+elapsed since the last subject is randomised.  The results will be provided based on the 
+unblinded treatment groups for reporting purpose.  
+• Final analysis for 5 2-week CSR:  
+The final analysis for the 52 -week CSR will take place when the last subject completes 
+the study  or after the corresponding visit . All efficacy, safety, pharmacokinetics and 
+immunogenicity  data will be analysed  and reported for the 52- week CSR and submitted 
+again to health authority in terms of complements .  
+ 
+2. STUDY OBJECTIVES  
+2.1. Primary Objective  
+The primary objective is to demonstrate the equivalence of SB8 to Avastin®, in terms of the 
+best overall response rate (ORR ) during  induction treatment period by 24 weeks of 
+chemotherapy in subjects with metastatic or recurrent non- squamous non-small cell lung 
+cancer ( NSCLC ).  
+2.2. Secondary Objectives  
+The secondary objectives are:  
+• To evaluate the efficacy of SB8 compared to Avastin® by  
+- Progression free survival (PFS)  
+- Overall survival (OS)  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 11 of 68 
+ 
+- Duration of response (DOR)  
+• To evaluate the safety and tolerability of SB8 compared to Avastin®  
+• To evaluate the pharmacokinetics of SB8 compared to Avastin®  
+• To evaluate the immunogenicity of SB8 compared to Avastin®  
+2.3. Exploratory Objective  
+The exploratory objective is:  
+• To evaluate the best ORR during induction treatment period by 11 and 17 weeks  
+ 
+3. STATISTICAL METHODS  
+3.1. Analysis Sets 
+Enrolled  Set [ ENR]: The Enrolled  Set will consist of all subjects who provide i nformed 
+consent for this study.  
+Randomi sed Set [RAN] : The Randomised Set will consist of all subjects who receive a 
+randomisation number at the Randomisation. For analyses and displays based on RAN, 
+subjects will be classified according to the treatment they are assigned at randomisation.  
+Full Analysis Set [FAS]: The Full Analysis Set will consist of all  randomised subjects.  The 
+subjects will be  analysed  based on the treatment they were randomised  to by intention -to-treat 
+principle.  However, subjects who do not qualify for  randomisation and are inadvertently  
+randomised into the study will be excluded from FAS, provided these subjects do not receive 
+any investigational product (IP) during the s tudy.  
+Per-protocol set [PPS]: The Per -Protocol Set  will consist of all FAS subjects who complete 
+at least first two cycles of combination chemotherapy with a tumour assessment and do not 
+have any major protocol deviations that impact the primary efficacy assessment. Major 
+protocol deviations that will lead to the exclusion from the PPS will be pre -specified, and the 
+PPS will be determined prior to unblinding treatment codes.  
+Safety Set [SAF]: The Safety Set  will consist of all subjects who received the stu dy drug at 
+least once.  This analysis set will be used for the safety analyses. The subjects will be analysed 
+based on the treatment they received.  
+Pharmacokinetic population [PK population] : This set will consist of subjects allocated to 
+PK sub -study who have at least one measured serum concentration of bevacizumab.  
+The number of subjects in the analysis sets will be summarised by treatment group and overall 
+for the RAN. A by- subject listing of analysis population details will be provided for the RAN 
+by tr eatment group and will include: country, centre, subject, age, sex, race, 
+inclusion/exclusion flag for each population, and reason for exclusion from PPS . 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 12 of 68 
+ 
+3.2. Protocol D eviations  
+All Protocol D eviations  (PDs) will be defined, classified and reported per a separate Protocol 
+Deviation Specification document . PDs will be classified as major and  minor. PDs will not 
+lead to subject withdrawal unless they indicate a significant risk to the subject's safety.  
+ 
+PDs an d analysis sets will be reviewed and confirmed through the blind data review meeting 
+to decide which subjects and/or subject data will be excluded from certain analyses prior to 
+database lock. Decisions regarding the exclusion of subjects and/or subject da ta from the 
+specific analysis set (see  3.1) will be made prior to treatment code unblinding and will be 
+documented and approved.  
+ 
+A summary of the number and percentage of subjects with PD s by PD s severity (major and 
+minor), PD s classification will be presented by treatment group  and overall. Percentages will 
+be based on the number of subjects randomised.  
+ 
+A by -subject listing of major and minor PDs will be provided including subject identifier, PD s 
+classification, PD s description, PD s severity and exclusion from specific analysis sets.  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 13 of 68 
+ 
+4. GENERAL CONSIDERATIO NS 
+4.1. Study Day  
+Study Day (in days) will be calculated from date of randomisation  and it will be used to show 
+start and stop day of assessments or event s.   
+ 
+For visit (or event) prior to randomisation,  
+Study day = Date of assessment (or event) – (Date of randomisation).  
+ 
+For visit (or event) at or after randomisation,  
+Study day = D ate of assessment  (or event)  – (Date of randomi sation) + 1.  
+ 
+In case that the event date is partial or missing, the date will appear partial or missing in the 
+listings.  And study day will be calculated after proper imputation has been carried out as 
+described in APPENDIX 1 . 
+4.2. Baseline 
+The Baseline value will be defined as the last available measurement value prior to  or on  the 
+date of first IP administration . 
+ 
+4.3. Retests, Unscheduled Visits and Early Termination Data  
+In general,  unscheduled and retest safety measurements will not be included in the by -visit 
+summaries, but will contribute to the incidence of abnormalities and  across visit summary.  
+Measurement at the end of treatment (EOT) visit will be mapped to the nex t scheduled visit 
+since last IP administration, such as anti -drug antibodies (ADA), vital signs, and weight, etc .  
+Listings will include all scheduled, unscheduled, retest and early discontinuation data with the 
+nominal visit originally recorded on the eCR F. 
+4.4. Common Calculations  
+For quantitative measurements, changes from baseline at Visit (as defined in APPENDIX 4 ) 
+will be calculated as :  
+Change at Visit = Measurement value at Visit  – Baseline V alue (Baseline)  
+Changes from baseline in categorical data will be summarised using shift tables, where 
+appropriate.  
+Duration is calculated as (excluding treatment duration):  
+Duration (days) = (End D ate – Start Date + 1)  
+Duration (weeks) = (End Date – Start Date + 1) / 7  
+Duration (months) = (End Date – Start Date + 1) / 30.44  
+Duration (years) = (End Date – Start Date + 1) / 365.24 
+Duration of treatment is defined in S ection 10 .  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 14 of 68 
+ 
+4.5. Software Version  
+All analyses will be conducted using SAS version 9.2 or a higher version.  
+5. STATISTICAL CONSIDERATIONS  
+5.1. Missing D ata 
+In the primary efficacy analysis for FAS, the response of the subje cts without any post -
+baseline tumour assessment will be imputed as following:  
+ Missing data from subjects who withdrew from the study due to Progressive Disease 
+(PD) , lack of efficacy and a dverse e vents  (AEs) without any tumour assessment will be 
+considered as non- responder. The PD  (i.e., lack of efficacy) and AE were collected as 
+“Disease Progression (Non -fatal)” and “Adverse Event”, respectively,  from the item 
+“primary reason for treatment discontinuation” on the Discontinuation of Treatment page 
+of the eCRF . 
+ Missing data from subjects who withdrew from the study with reasons other than PD, 
+lack of efficacy and AEs without any tumour assessment will be imputed using multiple 
+imputation method.  
+ Missing data fr om subjects who remained in the study but do not have any valid tumour 
+assessment will be imputed using multiple imputation method. 
+In the primary efficacy analysis for the PPS, missing data will not be imputed.  
+All safety  analysis and descriptive summaries will be based on the observed data.  Missing 
+safety data will not be imputed.   
+5.2. Multiple Comparisons/Multiplicity  
+No adjustments for multiplicity are required.  
+6. DISPOSITION AND WITH DRAWALS  
+A clear accounting of the disposition of a ll subjects who enter the study will be provided, 
+from enrolment  to study completion. The subject disposition summaries include the following: 
+• The number of subjects enrolled, the number and percentage of screen failures and 
+reasons  for screen failure, using the ENR. 
+• Subjects completed induction treatment period, ongoing maintenance treatment period, 
+subjects discontinued from induction/maintenance treatment period, the reasons of 
+discontinuation of treatment period will be summarised by treatment  group, using the 
+ENR .  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 15 of 68 
+ 
+• A by -subject listing of subject disposition will be generated using the ENR , including 
+start/end date of induction/maintenance treatment period, primary reasons of withdrawal 
+or screening failure .  
+The similar summary statistics for subject disposition  will be performed by centre and 
+treatment group, using the RAN . 
+7. DEMOGRAPHIC AND BASE LINE CHARACTERISTICS  
+Subject demographics and baseline characteristics will be summarised  by treatment group for 
+the RAN and PK population. The following demographics and baseline characteristics will be  
+summarised : 
+Demographics  Characteristics  
+• Age (years)  – calculated relative to date of randomisation.  
+Compute the difference in years between date of birth (DOB) and date  of randomisation.  
+If the month of randomisation is earlier than the month of DOB or if the month is the 
+same but the day of randomisation is earlier than the day of DOB, then subtract 1 year 
+from the calculated age.  
+If DOB is partial date (missing day and month), a ge will be derived as ( year of 
+randomisation) – (year of birth) – 1, to apply conservative age for unknown day and 
+month cases.   
+• Age group (< 65 and ≥ 65,  < 70 and ≥ 70)  
+• Gender –  Male, Female  
+• Race – White, American Indian or Alaska Native, Asian, Black or African American, 
+Nativ e Hawaiian or Other Pacific Islander, Other  
+• Ethnicity – Hispanic or Latino, Chinese, Indian (Indian subcontinent), Japanese, Mixed 
+Ethnicity, Other  
+• Country  
+• Region (EU vs. non- EU) 
+• Weight (kg) at baseline   
+• Height (cm) at baseline   
+• BMI (kg/m2) – derived as  𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤ℎ𝑡𝑡(𝑘𝑘𝑤𝑤)
+ℎ𝑤𝑤𝑤𝑤𝑤𝑤ℎ𝑡𝑡(𝑚𝑚)2 
+• BSA(m2) – derive as  �(ℎ𝑤𝑤𝑤𝑤𝑤𝑤ℎ𝑡𝑡(𝑐𝑐𝑚𝑚)×𝑤𝑤𝑤𝑤𝑤𝑤𝑤𝑤ℎ𝑡𝑡(𝑘𝑘𝑤𝑤))
+3600 
+Other Baseline C haracteristics  
+• Epidermal g rowth f actor r eceptor (EGFR ) gene status  
+• ALK gene status  
+• Cancer type (dominant histological classification)  
+• Stage of disease, based on TNM classification  
+• Duration of disease (months , from first NSCLC diagnosis date to study day 1)  
+• Eastern cooperative oncology g roup ( ECOG)  performance status (0, 1, ≥ 2) 
+• Smoking status  (never smoked, former smoker, and current smoker)  
+ 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 16 of 68 
+ 
+8. MEDICAL  AND SURGICAL HISTORY  
+Medical  and surgical  history excluding NSCLC will be  summarised  by treatment group for 
+the RAN. Frequency table will be provided by System Organ Class (SOC) an d Preferred Term 
+(PT), coded by  the latest version  of Medical Dictionary for Regulatory Activities  (MedDRA 
+version 20.0) . NSCLC medical and surgical history will be summarised similarly.  
+A by -subject listing of medical and surgical history excluding NSCLC will include SOC, PT, 
+verbatim term, start date, end date and current status.  The by -subject listing of NSCLC 
+medical and surgical history will include first NSCLC pathologic diagnosed date, SOC, PT, 
+verbatim term, start date, end date, anatomical location  (if surgery) and current status.  
+9. MEDICATIONS AND PROCEDURES   
+Prior and Concomitant Medications  
+Prior medication will be defined as medication which started and ended prior to the first dose 
+of the IP . Concomitant medication will be defined as medications which ended on or after the 
+first dose of IP or are on -going at the end of the study. Imputation of partial dates for 
+prior/concomitant medication is described in APPENDIX 1 . Prior and concomitant 
+medications will be summarised by treatment group for the SAF. Frequency table will be 
+provided by a natomical therapeutic chemistry  (ATC ) term, PT by World Health Organization-
+Drug Dictionary Enhanced (WHO- DDE version 01 March , 2015) .  
+Prohibited Medications  
+Prohibited medications will be summarised similarly  by treatment group for the SAF . 
+Prohibited medications with MedDRA codes or ATC codes and prohibited duration are 
+defined in APPENDIX 3 . 
+Prior and Concomitant Radiotherapy for NSCLC  
+Prior radiotherapy for NSCLC  will be defined as radiotherapy  which started and ended prior 
+to the first dose of  the IP . Concomitant radiotherapy  will be defined  as radiotherapy  which 
+ended on or after the first dose of IP or are on- going at the end of the study. Imputation of 
+partial dates for prior/concomitant radiotherapy  is described in APPENDIX 1 . Prior and 
+concomitant radiotherapy for NSCLC will be summarised by treatment group, respectively , 
+for the SAF. Frequency table will be p rovided by site and reason for use for the SAF.  
+By subject listings of prior  and concomitant medications, prohibited medications , prior  and 
+concomitant radiotherapy for NSCLC will be provided for the SAF.  
+Significant Non -Drug Therapy  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 17 of 68 
+ 
+The significant non- drug therap ies include any of following s: 
+•  Prior or Concomitant Radiotherapy for NSCLC and reason for use is primary lesion 
+control  
+•  Prior systemic anti -cancer therapy for NSCLC  
+ 
+Significant non- drug therapies will be summarised by treatment group,  respectively , for the 
+SAF.  
+By subject listing of prior systemic anti- cancer therapy for NSCLC  will be provided for the 
+SAF. 
+10. STUDY MEDICATION EXPOSURE  
+Investigation al product (IP) refers to SB8 (proposed bevacizumab biosimilar) or EU sourced 
+Avastin®. Non- Investigation product (non- IP) refers to Paclitaxel and Carboplatin. Exposure 
+to study medication will be provided for IP and non- IP, respectively, using the SAF. Exposure 
+summary will be based on the actual dose administered (mg) collecting in the eCRF. 
+If IP and non -IP is discontinued or completed at least 21 days prior to the cut -off date,  
+ Duration of exposure (weeks) = ( Last administration date – First administration date + 21)/7  
+If study medication is continued at cut -off date,  
+  Duration of exposure (weeks) = (Cut -off date  – First administration date + 1)/7  
+The summaries of study medication will be presented for IP and non- IP, respectively. The 
+summaries of study medication exposure include following analysis:  
+• Duration of expos ure to study medication using descriptive statistics.  
+• Number of subjects received infusion by cycle .   
+• Number of infusion ( cycle) received per subject by treatment period  (induction, 
+maintenance, overall).  
+• Dose modification (delay, interruption, reduction)  and reason for modification by 
+treatment period (induction, maintenance, overall) .  
+• Cumulative actual dose by treatment period (induction, maintenance, overall).  
+• Cumulative planned dose  by treatmen t period (induction, maintenance, overall).  
+• Relative Dose Intensity ( RDI) will be presented by treatment period (induction, 
+maintenance, overall). RDI is based on the cumulative actual dose and the cumulative 
+planned dose and will be calculated as follows:  
+ 
+RDI (%)= Cumulative  actual dose
+Cumulative  plannded  dose   ×100 
+ 
+• Cumulative p lanned dose of IP  (mg)  = Sum of (actual body weight (kg) at every cycle 
+× 15 mg/kg)  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 18 of 68 
+ 
+• Cumulative p lanned dose of Paclitaxel  (mg)  = Sum of (actual Body Surface Area 
+(BSA) at every cycle × 200 mg/m2)  
+• Cumulative p lanned dose of Carboplatin (mg) = Sum of ([AUC 6] × (CCr at every 
+visit + 25) )  
+• Carboplatin will be administered by Calvert formula (AUC 6) every 3 weeks during 
+the induction treatment period.  Creatinine clearance (CCr) must be calculated prior 
+to every dos age of carboplatin using below the formula (Cockcroft -Gault equation) 
+and it should NOT exceed 125 ml/min:  
+Male:  
+ CCr = (140−Age  [y]) × body  weight  [kg]
+72 × serum  creatinine  [mg/dL] 
+Female:  
+ CCr = (140−Age  [y]) × body  weight  [kg]
+72 × serum  creatinine  [mg/dL] ×0.85 
+The actual body weight is subject’s body weight measured and documented at baseline and at 
+every cycle.  Actual body weights should be used in calculating BSA at each cycle.  
+Listing of IP administration will be provided, including infusion start date/time , end  date/time, 
+medication kit ID, actual administration dose, dose delay, reason of delay, infusion 
+interruption, reason of interruption, not done, reason of not done and infusion related reaction.  
+Listing of non- IPs administration will include infusion  start date/time, end  date/time, actual 
+administration dose, dose reduction, reason of reduction, not done, reason of not done and 
+infusion related reaction . 
+11. EFFICACY OUTCOMES  
+11.1. Primary Efficacy A nalysis  
+The primary efficacy endpoint is the best ORR  during  induction treatment period by  24 weeks 
+of chemotherapy. The best ORR is defined as the proportion of subjects  whose best overall 
+response is either complete response (CR) or partial response  (PR) according to RECIST v1.1 
+during the induction treatment per iod. The mathematical formula is  
+Best ORR=  # of subjects with best overall response of CR or PR during induction treatment period by 24 weeks
+# of subjects  in the analysis set 
+If a subject has either CR or PR at least once during induction treatment period  by 24 weeks  
+the subject will be considered as the responder. The primary efficacy analysis will be based on 
+the data from the independent central review.  
+The overall response  will be summarised using descriptive statistics (N, %) by treatment 
+group and cycle in FAS based on the data from the independent central review  and 
+investigator review.  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 19 of 68 
+ 
+In addition, t he best overall response during induction treatment period by 24 weeks  will be 
+summarised using descriptive statistics (N, %) by treatment group in FAS based on the data 
+from the independent central review  and investigator review.  
+The s ubject without any post -baseline tumour assessment based on the data fr om the 
+independent central review will be categorized as ‘NE’ in the overall response and best overall 
+responses summaries. These subjects based on the data from the investigator review will be 
+categorised in a  similar manner .  
+The overall  response of ‘Non- CR/Non -PD’ based on the data from  the independent central 
+review will be  categorized  as ‘NE’ in the overall response and best overall responses 
+summaries.  
+Hypothesis, s tatistical model, and method of analysis  
+The null hypothesis tested for the primary efficacy analysis will be either (1) SB8 is inferior to 
+Avastin® or (2) SB8 is superior to Avastin® based on a pre -defined equivalence margin.  
+For US Food and Drug Administration or other regulatory agency submissions for those who 
+are in favour of risk ratio, the primary efficacy analysis wi ll be performed in the FAS for the 
+ratio of best ORR (best ORR of SB8/ best ORR of Avastin®) by 24 weeks, and the equivalence 
+will be declared if the 90% confidence interval (CI) of the best ORR ratio is contained within 
+the pre -defined equivalence margin o f [0.737, 1.357].  
+The primary efficacy analysis for the ratio will be performed using the log binomial model  
+(implemented via SAS procedure GENMOD) with treatment  as an explanatory variable and 
+best ORR as a response. The response is assumed to be Binomial  distributed with the log link 
+function  (f(𝑥𝑥)=log(𝑥𝑥)). This link can be used with any distribution.  
+In the primary efficacy analysis for the FAS, response of the patients without any post -
+baseline tumour assessment will be imputed. The method of imputation is defined in 5.1.  
+For EMA, MFDS or other regulatory agency submissions for those who are in favour of risk  
+difference, the primary efficacy analysis wi ll be performed in the PPS for the difference of the  
+best ORR (best ORR of SB8 – best ORR of Avastin®) by 24 weeks, and the equivalence 
+between the two treatment groups will be declared if the 95% CI of the difference is entirely  
+contained within the pre -defined equivalence margin of [ -12.5%, 12.5%].  
+The primary efficacy analysis for the difference of the best ORR will be performed using the 
+binomial model (implemented via SAS procedure GENMOD)  with treatment  as an 
+explanatory  variable and best ORR as a response. The response is assumed to be Binomial 
+distributed with the link function ( f(𝑥𝑥)=𝑥𝑥). This link can be used with any distribution. The 
+dependent variable is not transformed.  
+In the primary efficacy analysis for the PPS, missing data will not be imputed.  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 20 of 68 
+ 
+The SAS syntaxes of the log  binomial model and the binomial model for primary endpoint 
+analyses are specified in APPENDIX 5 . 
+In addition, t he best ORR will be summarised using descriptive statistics (N, %) by SB8 and 
+Avastin® along with two- sided exact binomial 95% CIs. 
+Sensitive Analysis of Primary Efficacy Endpoint  
+The following sensitivity analysis will be performed to explore the robustness of the primary 
+efficacy result.  
+1. The primary efficacy analysis for the ratio and the difference of the best ORR , 
+respectively, will be performed for the PPS and FAS.  
+2. The sensitivity analysis will be performed using the log binomial model and bino mial 
+model with the covariates of age (< 70, ≥ 70 years), sex ( Male, Female), region ( EU, 
+non-EU) and treatment .  
+The SAS syntaxes of the log  binomial model and the binomial model for sensitivity analyse of 
+primary endpoint are specified in APPENDIX 5 . 
+Subgroup analysis  
+The above analyses will also be carried out in the subgroup categories:  
+ Age group (<65 years vs.  ≥ 65 years and < 70 years vs.  ≥ 70 years)  
+ Gender (Male vs. Female)  
+ Race (White vs. Other ) 
+ Country (Russia vs. Ukraine vs . Georgia, Hungary, Spain, Germany vs . Belarus, 
+Romania, Serbia, Poland vs . Korea, Thailand, Taiwan)   
+ Region (EU vs.  non- EU) 
+ ECOG  Performance Status (0 vs. 1) 
+ Smoking Status (Never smoked vs.  Former smoker vs.  Current smoker)  
+ Cancer type ( Adenocarcinoma  vs. Other)  
+11.2. Secondary Efficacy analyses  
+The secondary efficacy endpoints of PFS, OS and DOR will be analysed for PPS and FAS.  
+11.2.1.  Progression Free Survival  (PFS)  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 21 of 68 
+ 
+Progression free survival (PFS) is defined as the time in month from the date of r andomisation 
+to the date of PD  or death regardless of the cause of death. Subjects who are not progressed at 
+the time of analysis will be censored at the last tumour assessment date.  
+The mathematical formula is  
+ PFS (months )=(date  of PD or death  – date  of randomisation  + 1)
+365 .24×12 
+The d istribution of PFS will be estimated using the Kaplan- Meier method.  PFS will be  
+analy sed using Kaplan -Meier method and will be summari sed as follows:  
+ Number and percentage of patients with PFS events (i.e., deaths or PD)   
+ Number and percentage of censored patients  
+ Kaplan -Meier estimates of 2, 4, 6, 8, 10, 12 months  PFS rate, including the 
+corresponding 95% CIs  
+ Kaplan -Meier estimates of median  including corresponding 95% CI, 25th and 75th  
+percentile , minimum and maximum   
+ 
+The sensitivity analysis will be performed in FAS and PPS, using the Cox proportional hazard 
+model with the covariates of age (< 70, ≥ 70 years ), sex ( Male , Female), region  (EU, non- EU), 
+and treatment to explore the robustness of the PFS analysis results.  
+PFS analysis will be  based on the FAS and PPS, with tumour response assessed by 
+independent c entral  review . 
+The SAS syntaxes of the Cox proportional hazard model for PFS analyses are specified in 
+APPENDIX 5 . 
+Handling of censoring  
+If a patient has no PD  or is not known to have died at the date of analysis cut -off, PFS will be 
+censored at the dat e of the last radiological tumour assessment before data cut -off or patient 
+withdrawal from the study. The date of the last radiological tumour assessment is the date of 
+the last tumour assessment with overall lesion response of CR, PR or Stable Disease before an 
+event or a censoring reason occurred. If there is no available post-baseline tumour assessments 
+are available (before an event or a censoring reason occurred) then the date of randomisation 
+will be used  as a censoring  point . 
+In particular, PFS will be censored at the date of the last radiologi cal tumour assessment  if one 
+of the following occurs: No  PD; the event  (PD or death)  occurring after more than one  
+missing assessments; treatment discontinuation for un documented PD, toxicity or other reason . 
+Refer to Table 11- 1 for censoring and event date options and outcomes for PFS.  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 23 of 68 
+ 
+The distribution of O S will be estimated using the Kaplan -Meier method.  OS will be analy sed 
+using Kaplan- Meier method and  will be summari sed as follows:  
+ Number and percentage of patients with event  
+ Number and percentage of censored patients  
+ Kaplan -Meier estimates of 2, 4, 6, 8, 10, 12 months OS  rate, including the corresponding 
+95% CIs  
+ Kaplan -Meier estimates of median  including corresponding 95% CI,  25th and 75th 
+percentile , minimum and maximum   
+ 
+The sensitivity analysis will be performed in FAS and PPS, using the Cox proportional hazard 
+model with the covariates of age (< 70, ≥ 70 years), sex ( Male, Fe male), region  (EU, non-
+EU), and treatment to explore the robustness of the PFS analysis results.  
+OS analysis will be  based on the FAS and PPS . 
+Handling of censoring  
+If a patient is not known to have died at the time of analysis cut -off, OS will be censored at 
+the date of  last contact.  
+A listing of OS  will be  provided, including date of randomisation, date of event, endpoint  
+description  for OS  and OS.   
+11.2.3.  Duration of Response (DOR)  
+Duration of response (DOR) only applies to the subjects who achieve an initial tumour 
+response.  The start date is the date of first documented response of CR or PR  and the end date 
+is defined as the date of the first documented PD  or death. Subjects continuing without PD  or 
+death due to underlying cancer will be censored at the date of their last adequate tumour 
+assessment using the censoring rule described for PFS analysis.  
+The mathematical formula is DOR (months )= 
+(date  of the first   PD or death  − date  of first   response  of CR or PR + 1)
+365 .24×12 
+DOR will be analysed based on the FAS and PPS, with tumour response assessed by 
+independent central review . 
+DOR  will be summarised using descriptive statistics by treatment group . A listing of DOR 
+will be provided , including  date of first documented response, date of event, endpoint  
+description  for DOR and DOR . 
+11.2.4.  Best ORR, PFS  and DOR  evaluated by Investigator  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 24 of 68 
+ 
+The following analyses of best ORR , PFS and DOR results evaluated by Investigators will be 
+performed:  
+ The ratio of best ORR  (best ORR of SB8/best ORR of Avastin®) during induction 
+treatment period  by 24 weeks  will be analysed in FAS and PPS using t he log binomial 
+model with treatment.  
+ The ratio of best ORR (best ORR of SB8/best ORR of Avastin®) during induction 
+treatment perio d by 24 weeks will be analysed in FAS and PPS using the log binomial 
+model with covariates of age (< 70, ≥ 70 years), sex (Male, Female), region (EU, non-
+EU), and treatment.  
+ The difference  of best ORR (best ORR of SB 8-best ORR of Avastin®) during induction  
+treatment period  by 24 weeks  will be analysed in FAS and PPS using t he binomial 
+model with treatment.  
+ The difference  of best ORR (best ORR of SB8 -best ORR of Avastin®) during induction 
+treatment period  by 24 weeks will be analysed in FAS and PPS using the binomial 
+model with covariates of age (< 70, ≥ 70 years), sex (Male, Female), region  (EU, non-
+EU), and treatment . 
+ The PFS will be analy sed in FAS and PPS using Kaplan- Meier method . 
+ The sensitivity analysis of PFS will be performed in FAS and PPS, using the Cox 
+proportional hazard model with the covariate s of age (< 70, ≥ 70 years ), sex (Male, 
+Female), region ( EU, non- EU), and treatment . 
+ A listing of PFS evaluated by Investigators will be provided, including date of 
+randomisation, date of event, endpoint  description for PFS and PFS.  
+ DOR will be summarised using descriptive statistics in both FAS and PPS by treatment 
+group.  
+ A listing of DOR will be provided, including date of first  documented response, date of 
+event, endpoint for DOR and DOR . 
+In addition, a  concordance summary of best overall response during induction treatment 
+period by 24 week  (Response  vs. No response ) to assess the level of agreement between 
+independent central review and investigator review  will be produced.  
+A by -subject listing of tumour response (i.e., response of target lesions, non- target lesions, 
+new l esions, and overall response) will be provide d.  
+11.3. Efficacy analysis  by overall ADA result  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 25 of 68 
+ 
+The following analyses of best ORR, PFS , OS and DOR results by overall ADA result up to 
+Cycle 7 (Positive, Negative, Inconclusive ) and PFS and OS results by overall ADA result up 
+to EOT  (Positive, Negative, Inconclusive ) will be performed  for exploratory purpose. The best 
+ORR, PFS and DOR  analysis will be based on the FAS and PPS, with tumour response 
+assessed by independent central review.  The OS analysis w ill be based on the FAS and PPS : 
+ The ratio of best OR R (best ORR of SB8/best ORR of Avastin®) during induction 
+treatment period by 24 weeks  by overall ADA result up to Cycle 7 will be analysed in 
+FAS and PPS by using t he log binomial model with treatment . 
+ The difference  of best ORR (best ORR of SB 8-best ORR of Avastin®) during induction 
+treatment period by 24 weeks  by overall ADA result up to Cycle 7 will be analysed in 
+FAS and PPS using t he binomial model with treatment. 
+ The PFS by o verall ADA result up to Cycle 7 and EOT will be analysed  in FAS and PPS 
+using Kaplan -Meier method . 
+ The OS by overall ADA result up to Cycle 7 and EOT will be analysed in FAS and PPS 
+using Kaplan- Meier method.  
+ DOR by overall ADA result up to Cycle 7 will be summarised using descriptive statistics 
+in both FAS and PPS by treatment gr oup 
+11.4. Exploratory Efficacy analysis  
+The exploratory efficacy endpoint is the best ORR  during the induction treatment period by 11 
+and 17 weeks and will be analysed in a similar manner to the primary endpoint analysis.  
+12. SAFETY OUTCOMES  
+All safety analyses will be performed using the SAF.  
+12.1. Adverse Events  
+All reported terms for AEs will be coded using  the latest  version of MedDRA  version 20.0. 
+National Cancer Institute- Common Terminology Criteria for Adverse Events version 4.03  
+(NCI -CTCAE version 4.03) will be  used by investigator to assess the severity grade of all AEs.  
+For all AE tables, subjects will be counted once for each PT and each SOC. Unless specified  
+otherwise, AE s will be summarised in the alphabetical order  of SOC  and then decreasing 
+frequency of PT within the SOC for the treatment group. If the frequency of PT within the 
+SOC is tied, PT will be sorted alphabetically.  
+All AEs  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 26 of 68 
+ 
+All pre -treatment  AEs and t reatment -emergent adverse events (TEAEs ) will be summarised 
+by SOC, PT and CTCAE grade, including the number and percentage of subjects experiencing 
+events.  
+A Pre-treatment  AE will be defined as any AE with an onset date before the date of first 
+administration of IP .  
+A TEAE will be defined as a ny AE with an onset date on or after the date of the first 
+administration of IP.  AEs which are already present before the first IP and increase in 
+severity after the first IP will be considered as TEAEs. Pre- existing AEs before the first IP 
+with no increa se in severity after the first IP will not be considered as TEAEs.  
+An overview of AEs by treatment group will be provided, including number of subjects 
+experiencing TEAEs, drug related TEAEs, serious TEAEs, serious drug related TEAE, 
+TEAEs leading to disc ontinuation of study medication, drug related TEAE leading to 
+discontinuation of study medication, and deaths.  
+Imputation of partial dates of AE record is described in APPENDIX 1 . 
+Listing of all AEs will be provided by treatment group and will include AE  term (SOC, PT, 
+and Verbatim term), start date/time and corresponding study day , end date/time and 
+corresponding study day , severity, infusion related reaction, relationship, action taken, 
+outcome, flag of adverse events of special interest (AESI) , seriousness including criteria of 
+serious adverse e vent (SAE ).  
+Pre-treatment AE   
+Pre-treatment  AEs will be summarised  by SOC , PT and CTCAE grade, including the number 
+and percentage of subjects experiencing events .  
+Treatment -emergent Adverse Event  
+TEAEs will be summarised  by SOC  and PT  and by SOC , PT and CTCAE grade, including the 
+number and percentage of subjects experiencing eve nts, separately . TEAEs with incidence  by 
+PT > 5% will be additionally summarised by SOC, PT  and CTCAE  grade . 
+Other  Adverse Event s 
+An Other  AEs will be defined as all AE excluding SAEs . Other AEs  with incidence  by PT  > 5% 
+will be additionally summarised by SOC, PT  and CTCAE  grade . 
+Severity  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 27 of 68 
+ 
+TEAEs with Grade  3 - 5 will be summarised by SOC , PT and CTCAE grade, including the 
+number and percentage of subjects experiencing events. If same event occurred more than 
+once in the same subject, the highest  severity gra de will be used for the analysis.  
+Relationship  (Causality)  
+Drug related TEAE will be summarised by SOC, PT and CTCAE grade, including the number 
+and percentage of subjects experiencing events. Relationship to IP and non -IPs will be 
+tabulated respectively. If a subject reports the same TEAE more than once within that SOC 
+and PT, the TEAE with the worst case relationship to study medication will be used in the 
+corresponding relationship summaries.  
+Infusion Related Reaction Ass essment  
+Infusion related  reactions of AEs will be summarised by SOC, PT and CTCAE grade, 
+including the number and percentage of subjects experiencing events. Listing of Infusion  
+related  reactions will be provided, including both AEs and non- AEs.  
+Outcome   
+TEAE outcome will be summarised into “Recovered/Resolved”, “Recovered/Resolved with 
+sequelae”, “Not recovered/Not resolved  (Ongoing) ”, “Fatal”, and “Unknown” categories for 
+number of events by treatment group. TEAE with outcome of “Recovering/Resolving” wi ll be 
+considered as “Not recovered/Not resolved  (Ongoing) ”. A similar summary of Serious TEAE 
+outcome will be presented . 
+TEAEs Leading to Discontinuation of Study Medication  
+TEAEs leading to discontinuation of study medication will be summarised by SOC, PT  and 
+CTCAE grade, including the number and percentage of subjects experiencing events. TEAEs 
+leading to discontinuation of IP and non- IPs will be tabulated separately. TEAEs leading to 
+dose reduction will be summarised similarly.  
+Listing of TEAEs leading to discontinuation of study medication will be provided. 
+TEAEs Leading to Dose Modification  
+TEAEs leading to dose Modification will be summarised by SOC, PT and CTCAE grade, 
+including the number and percentage of subjects experiencing events . Listing of TEAEs 
+leading to dose modification  will be provided.   
+TEAEs  Leading to Death  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 28 of 68 
+ 
+AEs leading to death will be summarised by SOC, PT and CTCAE grade, including the 
+number and percentage of subjects experiencing events.  Listing o f AEs leading to death will 
+be provided. Drug related AEs leading to death will be summarised similarly.  
+Serious Adverse Events  
+SAEs will be summarised by SOC, PT and CTCAE grade, including the number and 
+percentage of subjects experiencing events. Listing  of SAEs will be provided. IP and non- IPs 
+related SAE will be summarised similarly , respectively.  
+Adverse Events o f Special Interest  
+The following AEs will be classified as AESI s in this study:  
+ 
+• Hypertension NCI -CTCAE v4.03 grade ≥ 3 
+• Proteinuria  ≥ 2+ proteinuria on urine dipstick (or other ways of urinalysis)  and 24 
+hours urine protein excretion ≥ 1 g or protein/creatinine ratio in spot urine ≥ 1 g/g 
+creatinine (or ≥ 226.0 mg/mmol creatinine)  
+ 
+AESI will be summarised by SOC, PT and CTCAE grade, inc luding the number and 
+percentage of subjects experiencing events. Listing of AESI will be provided.  
+Deaths  
+Death and primary cause of death will be summarised by the number and percentage of 
+subjects experiencing events. Listing of death will be provided.  
+TEAEs by overall ADA result  
+All TEAE  based on categories of overall ADA result up to EOT (Positive, Negati ve, 
+Inconclusive ) will be summarised by SOC, PT , including the number and percentage of 
+subjects experiencing events.  
+12.2. Laboratory Evaluations  
+Clinical laboratory assessments will include haematology, biochemistry, coagulation, serology, 
+urine protein and pregnancy test . A list of laboratory assessments to be included in the outputs 
+is referred to APPENDIX 2 . Lab value will be converted to standard unit, as reference in the 
+NCI-CTCAE.  
+Quantitative laboratory measurements reported as ‘< X’, i.e. below the lower limit of 
+quantification (BLQ), or ‘>  X’, i.e. above the upper limit of quantification (ULQ), will be 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 29 of 68 
+ 
+converted to X for the purpose of quantitat ive summaries, but will be presented as recorded, 
+i.e. as ‘< X’ or ‘> X’ in the listings.  
+The following summaries will be provided for laboratory data:  
+• Summary Statistics for Haematology Parameters  
+• Summary Statistics for Biochemistry Parameters  
+• Summary Statistics for Coagulation  
+• Summary Statistics for Urine Protein  
+• Number and percentage of subjects experiencing abnormal laboratory AEs by CTCAE 
+grade  
+ 
+A by -subject listing of all laboratory data will be provided by treatment group, with indicator 
+of CTCAE grade if applicable. A list of laboratory assessments  will be provided by treatment 
+group.  
+Retest results will be reported in the listings as well as the original results, even if performed 
+at a different laboratory or by a different method. The original lab values will be used in the 
+summaries.  
+CTCAE Grading of Laboratory Data  
+Laboratory measurements will be graded using the NCI -CTCAE v4.03 (see APPENDIX 2 ). In 
+case of overlapped range between local normal range and abnormal criteria in CTCAE 
+grading, local normal range will be considered preferen tially.  
+Laboratory Reference Ranges  
+Abnormal values will be graded in Grade 1 to 5 according the CTCAE criteria  in APPENDIX 
+2 and normal values will be presented as Grade 0.   
+12.3. Vital Signs  
+Vital signs will include blood pressure, pulse rate, and body temperature.  Both raw values 
+and changes from baseline will be anal ysed using descriptive statistics at each scheduled time 
+point.  
+Vital Signs Clinically Significant Abnormal Criteria  
+Clinically significant abnormal quantitative vital signs measurements will be identified in 
+accordance with the following predefined clinically significant abnormal criteria:  
+ 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 31 of 68 
+ 
+The immunogenicity analyses will be performed using the SAF.  
+The number and percent age of subjects with ADA results (i.e., Positive, Negative  and 
+Inconclusive ) will be presented by treatment groups in each cycle (i.e., pre-dose of Cycle 1, 3, 
+5, 7, and the EOT visit ).  
+The number and percentage of subjects with neutralising antibodies ( NAbs) results (i.e., 
+Positive, Negative, Inconclusive ) will be presented by treatment groups in each cycle (i.e., 
+pre-dose of Cycle 1, 3, 5, 7, and the  EOT visit ). 
+In addition, the number of percent of subject with ADA positive will be summarised by t itre 
+and treatment in each cycle .   
+The incidence of  overall ADA results (i.e., Positive, Negative, Inconclusive) will be presented 
+by treatment group at  Cycle 7 and EOT. Overall ADA result is defined as  below:   
+ “Positive” for a subject with treatment- induced or treatment -boosted ADA , where 
+treatment -induced ADA indicates at least one positive result after pre -dose of Cycle 1 for 
+subjects with negative ADA at pre- dose of Cycle 1, and treatment -boosted ADA 
+indicates at least one positive result with higher titre level compared to pre- dose of Cycle 
+1 after pre -dose of Cycle 1 for subjects with positive ADA at pre- dose of Cycle 1.   
+ “Negative” for a  subject without  positive ADA until Cycle  7 and EOT .  
+ “Inconclusive ” for a subject with positive ADA at Cycle 1  and without  positive result 
+with higher titre level observed after pre-dose of Cycle 1  up to Cycle  7 and EOT . 
+Overall ADA result up to Cycle 7 will summary for subjects with at least one ADA result up 
+to  Cycle 7 and EOT if the subject withdrawal  prior to Cycle 7. O verall ADA result up to 
+EOT will summary for subjects with at least one ADA result up to EOT. Subjects with no 
+ADA result after pre -dose of Cycle 1 or missing baseline result will be excluded.  
+For exploratory purposes, the summary for immunogenicity result s will be provided by cycle 
+with the following statistics:   
+ The association between ADA result and treatment will be assessed using Chi -square test 
+or Fisher’s exact test   
+A by -subject l isting of i mmunogenicity assessment at pre-dose of Cycle 1, 3, 5, 7, and at the 
+EOT visit (at least 21 days after last IP administration and prior to subsequent therapy)  will be 
+provided.  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 32 of 68 
+ 
+13. PHARMACOKINETICS  
+The pharmacokinetic analysis will be performed for the PK population.  
+The PK parameters ( pre-dose, Ctrough and post-dose, Cmax) of pre-dose of Cycle 1, 3, 5, and 7 
+will be summarised  descriptive statistics by treatment group and cycle, such as n (number of 
+subjects with non- missing values or without PDs  for PK blood sampling  at the cycle) , 
+arithmetic mean,  standard  deviation  (SD), coefficient variation (CV%), geometric mean, 
+geometric SD, geometric CV%, median, minimum, and maximum . And, n’  (number of 
+subjects contributing to the calculation of geometric statistics)  will be also presented . Below 
+the lower limit of q uantitation (BLQ) concentrations at pre -dose will be set to zero for the 
+computation of descriptive statistics, except for geometric mean, geometric standard deviation, 
+and geometric CV%, for which they will be excluded. BLQ concentrations at post -dose and  
+quantifiable concentration s at pre-dose of Cycle 1 will be excluded for summary of 
+descriptive statistics.  Those samples will be documented in the CSR. “Not reportable ” (N/R) 
+or “Quantity Not Sufficient”  samples will be treated as missing and excluded for summary of 
+descriptive statistics.  
+In addition, individual serum concentration  (Ctrough  and  Cmax) and PK blood sampling time will 
+be listed.    
+The arithmetic mean ( ±SD) serum concentration- time profiles will be plotted by treatment 
+group (overlaid in the same graph) on a linear scale , where BLQ concentrations at post -dose 
+and quantifiable concentration at pre-dose of Cycle 1 is treated in the same way as summary 
+of descriptive statistics mentioned above. “Not reportable ” (N/R) or “ Quantity Not Sufficient”  
+samples are also treated in the same way as summary of descriptive statistics mentioned above.  
+Individual serum concentration- time profiles will be presented by treatment group on linear 
+scale, where actual concentration will be presented . All BLQ concentrations will be set to zero 
+for individual concentration -time profile  regardless of BLQ at post -dose and q uantifiable 
+concentration s at pre -dose of Cycle 1 will be presented as it is.  “Not reportable ” (N/R) or 
+“Quantity Not Sufficient”  samples will be treated as missing and excluded from individual 
+concentration -time profile.  
+PK parameters  by overall ADA result  
+The PK parameters (pre- dose, C trough and post -dose, C max) of pre -dose of Cycle 1, 3, 5, and 7 
+based on categories of overall ADA result up to Cycle 7  (Positive, Negative, I nconclusiv e) 
+will be summarised descriptive statistics by treatment group and cycle.  
+ 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 33 of 68 
+ 
+14. DETERMINATION OF SAMPLE SIZE 
+Regarding the calculation of the equivalence margin for the r atio of the best ORR by 24 weeks, 
+a meta- analysis published by Botrel et al. using all of the four published comparative trials 
+that evaluated bevacizumab in combination with chemotherapy (i.e. E4599 [ Sandler , 2006] , 
+AVAiL (BO17704) [Reck , 2009], AVF0757 [ Johnson , 2004 ], JO19907 [Niho , 2012] was 
+considered. The ORR  for Avastin® was reported as 34.9% (133 of 381 patients), 34.7% (114 
+of 329 patients), 32.4% (11 of 34 patients) and 56.2% (68 of 121 patients) compared to the 
+ORR  of 15.1% (59 of 392 patients), 21.7% (71 of 327 patients), 18.8% (6 of 32 patients) and 
+33.9% (20 of 59 patients) for chemotherapy, in E4599, AVAiL, AVF0757 and JO19907 
+respectively.  
+The overall ratio of the best ORR and the 70% CI from above four studies are calculated to be 
+ using the fixed effect method from meta- analysis. Retaining  the % 
+of the effect of Avastin® over the placebo in the lower margin, the equivalence margin of 
+[0.737, 1.357] will be used for the primary analysis with the ratio of the best ORR by 24 weeks.  
+For the primary analysis with the difference of the best ORR  by 24 weeks, the equivalence 
+margin of [-12.5%, 12.5%] will be used due to the similar derivation. 
+For the calculation of the equivalence margin for the difference of the best ORR by 24 weeks, 
+E4599 [ Sandler , 2006] and AVAiL [Reck , 2009]  studies were considered. The ORR  for 
+Avastin
+® was reported as 34.9% (133 of 381 patients) and 37.8% (130 of 344 patients), 
+compared to the ORR  of 15.1% (59 of 392 patients) and 21.6% (75 of 347 patients) for 
+chemotherapy, in E4599 and AVAiL, respectively. 
+The overall difference in the best ORR and its 95% CI from these two studies are calculated to 
+be % [ %, %] using the fixed- effect method from meta -analysis, or for 80% 
+CI to be [ %, %]. The equivalence margin of [ -12.5%, 12.5%] will ensure the 
+superiority of SB8 over placebo w ith a small safety margin retaining % for 95% CI 
+and % for 80% CI of the effect over the placebo in the difference of best ORR.  
+With 305 completers in each treatment group, the two- sided 90% CI of the best ORR ratio is 
+expected to lie within [0.737, 1.357] with approximately 80% power, and the two- sided 95% 
+CI of the best ORR difference between Avastin® and SB8 is expected to lie within [ -12.5%, 
+12.5%] with 80% power when the expected best ORR is assumed to be 35%. Assuming a 10% 
+drop-out rate, a total of 678 subjects (339 subjects per treatment group) will be randomised. 
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+CCI
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr. 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 34 of 68 
+ 
+1. References Botrel TEA, Clark O, Clark L, et al. Efficacy of bevacizumab (Bev) plus 
+chemotherapy (CT) compared to CT alone in previously untreated locally advanced or 
+metastatic non -small cell lung cancer (NSCLC): Systematic review and meta- analysis. 
+Lung Cancer . 2011; 74:89-97 
+2. Brookmeyer R and Crowley J (1982). A Confidence Interval for the Median Survival 
+Time. Biometrics,  38, 29 – 41 
+3. Clinical Trial End points for the Approval of Non-Small Cell Lung Cancer Drugs and 
+Biologics Guidance for Industry (FDA/CDER, 2015) from http://www.fdanews.com/ext/resources/files/04 -15/04-22-15-NSCLC.pdf
+ 
+4. Clopper CJ and Pearson ES (1934).  The use of confidence or fiducial limits illustrated in the case of the binomial.  Biometrical, 26, 404-413. 
+5. Common Terminology Criteria for Adverse Events (CTCAE) Version 4.03. NCI. from  
+http://evs.nci.nih.gov/ftp1/CTCAE/CTCAE 4.03 2010-06-14 QuickReference 8.5x  
+11.pdf . 
+6. Johnson DH, Fehrenbacher L, Novotny WF, et al. Randomized Phase I I Trial Comparing 
+Bevacizumab Plus Carboplatin and Paclitaxel With Carboplatin and Paclitaxel Alone in 
+Previously Untreated Locally Advanced or Metastatic Non –Small -Cell Lung Cancer. J 
+Clin Oncol. 2004 Jun 1; 22: 2184-2191. 
+7. Niho S, Kunitoh H, Nokihara H, et al. Randomized phase II study of first-line carboplatin-
+paclitaxel with or without bevacizumab in Japanese patients with advanced non -squamous 
+non-small -cell lung cancer. Lung Cancer. 2012; 362-367 
+8. Reck M, von Pawel J, Zatloukal P, et al. Phase III trial  of cisplatin plus gemcitabine with 
+either placebo or bevacizumab as first-line therapy for nonsquamous non- small cell lung 
+cancer: AVAiL. J Clin Oncol. 2009; 27: 1227–1234. 
+9. Sandler AB, Gray R, Michael C. et al. Paclitaxel –Carboplatin Alone or with Bevacizumab 
+for Non–Small -Cell Lung Cancer. N Engl J Med. 2006; 355: 2542-2550. 
+ 
+  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 56 of 68 
+ 
+APPENDIX 5.  STATISTICAL MODEL AND SAS SYNTAX  
+Analysis of ratio for response rates of two treatments  
+Risk ratio analysis will be performed using the log binomial model (implemented via SAS 
+procedure GENMOD) with treatment  as an explanatory variable and best ORR  as a response. 
+The response (i.e., best ORR ) is assumed to be Binomial distributed with the log link 
+function. The risk  ratio will be presented with 9 0% Wald confidence limits.  
+The SAS syntax is specified as follows: 
+ 
+PROC GENMOD  DATA = <input_dataset>; 
+  CLASS <treat_var>( REF=<Avastin>)/ PARAM =ref;  
+  MODEL  <response> = <treat var>   / DIST = bin   
+                                  LINK = log    
+              TYPE3    
+                                  ; 
+  ESTIMATE ' SB8 vs. Avastin ' <treat_var> 1 / EXP ALPHA = 0.1 ; 
+RUN; QUIT;  
+where  treat_var  = treatment group 
+       response  = 1 for response, 2 for non-response 
+ 
+The sensitivity analysis of the risk ratio  will be performed using the log binomial model with 
+age group (< 70 , ≥ 70 years ), sex ( Male , Female), region ( EU, non- EU), and treatment  as 
+explanatory variable s and best ORR  as a response. The response (i.e., best ORR ) is assumed 
+to be B inomial distributed with the log link function. The risk ratio will be presented with 9 0% 
+Wald confidence limits.  
+The SAS syntax is specified as follows: 
+ 
+PROC GENMOD  DATA = <input_dataset>; 
+  CLASS <treat_var>( REF=<Avastin> ) <agegrp_var> <sex_var> <reg_var> / PARAM =ref;  
+  MODEL  <response> = <treat_var>  <agegrp_var> <sex_var> <reg_var>   
+                                       / DIST  = bin   
+                                        LINK = log     
+                                        TYPE3   
+                                        ; 
+  ESTIMATE ' SB8 vs. Avastin ' <treat_var> 1 / EXP ALPHA = 0.1 ; 
+RUN; QUIT;  
+where  treat_var   = treatment group 
+       response        = 1 for response, 2 for non- response  
+ agegrp_var  = age group  (< 70 , ≥ 70 y ears)  
+ sex_var   = sex ( Male, F emale)  
+ reg_var   = region  (EU, non- EU) 
+            
+ 
+ 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis – Confidential  
+Page 57 of 68 
+ 
+Analysis of the difference for response rates of two treatments  
+Analysis of the difference will be performed using the binomial model (implemented via 
+SAS procedure GENMOD) with treatment as an explanatory variable  and best ORR  as a 
+response. The response (i.e., best ORR ) is assumed to be B inomial distributed. The difference 
+will be p resented with 95% Wald confidence limits.  
+The SAS syntax is specified as follows: 
+ 
+PROC GENMOD  DATA = <input_dataset>; 
+  CLASS <treat_var>( REF=<Avastin>)/ PARAM =ref;  
+  MODEL  <response> = <treat_var> / DIST  = bin   
+                               LINK = ID     
+           TYPE3    
+                               ; 
+  ESTIMATE ' SB8 vs. Avastin ' <treat_var> 1 -1/ ALPHA = 0.05 ; 
+RUN; QUIT;  
+where  treat_var   = treatment group 
+       response        = 1 for response, 2 for non- response  
+ 
+The sensitivity analysis of the difference of response rates will be performed using the 
+binomial model with age  group (< 70, ≥ 70 years), sex ( Male, Female), region ( EU, non- EU),  
+and treatment  as explanatory variable s and best ORR  as a response. The response (i.e., best 
+ORR ) is assumed  to be B inomial distributed. The difference of response rates  will be 
+presented with 95% Wald confidence limits. 
+The SAS syntax is specified as follows: 
+ 
+PROC GENMOD  DATA = <input dataset> ; 
+  CLASS <treat_var>( REF=<Avastin> ) <agegrp_var> <sex_var> < reg_var>  
+/PARAM =ref;  
+  MODEL  <response> = <treat_var>  <agegrp_var> <sex_var> <reg_var>   
+                     /DIST = bin   
+                      LINK = ID   
+                      TYPE3    
+                      ; 
+  ESTIMATE ' SB8 vs. Avastin ' <treat_var> 1 -1/ ALPHA = 0.05 ; 
+RUN; QUIT;  
+where  treat_var   = treatment group 
+response         = 1 for response, 2 for non-response 
+agegrp_var  = age  group (< 70, ≥ 70 years)  
+sex_var   = sex ( Male, F emale)  
+reg_var   = region  (EU, non- EU) 
+              
+ 
+Confidence interval for response rate  
+Response rate is defined as the percentage of subjects who have a specific event (e.g., Best 
+ORR). The 100(1 − α)% confidence interval of a response rate will be estimated by using 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 58 of 68 
+ 
+exact binomial confidence interval (implemented using SAS pr ocedure FREQ with EXACT 
+statement for one- way table [Clopper and Pearson 1934].  
+The SAS syntax is specified as follows:  
+PROC FREQ  DATA = <input_dataset>;  
+  BY <treat_var>;   
+  TABLES <response>/ BINOMIAL(EXACT);  
+RUN;  
+where  treat_v ar = treatment group 
+       response  = response (e.g., best ORR)  
+ 
+Analysis the association between ADA result and treatment  response rate  
+The association between ADA result and treatment will be assessed using Chi -square test or 
+Fisher’s exact test  as implemented in PROC  FREQ with  option CHISQ.  
+The SAS syntax is specified as follows:  
+PROC FREQ  DATA = <input_dataset>;  
+  TABLES <treat_var> *<ada_var >/CHISQ ; 
+RUN;  
+where  treat_var  = treatment group 
+       ada_var  = ADA results  
+ 
+Analysis of time to events data  
+ Kaplan -Meier Method  
+An estimate of the survival function in each treatment group will be constructed using Kaplan-
+Meier  (product -limit) method as implemented in PROC LIFETEST with METHOD=KM 
+option. The PROC LIFETEST statement will use the option CONFTYPE=LOGLOG. 
+25th, 50th, and 75th percentile survival s for each treatment group will be obtained along with 95% 
+confidence intervals calculated from PROC LIFETEST output using the method of 
+[Brookmeyer and Crowley 1982] . Kaplan -Meier estimates of the survival function with 95% 
+confide nce intervals at specific time points will be summari sed. The STRATA statement in 
+LIFETEST procedure will be used to analy se time to event data with ties.  
+The SAS syntax is specified as follows : 
+ 
+ODS GRAPHICS ON;  
+PROC LIFETEST DATA = <input_dataset> METHOD=KM CONFTYPE=LOGLOG 
+PLOTS = SURVIVAL  (ATRISK=0 to 
+12 by 2) ; 
+  TIME   <sur_time_var>*<censor_var>(<list>);  
+  STRATA  <treat_var>;  
+RUN;  
+ODS GRAPHICS OFF;  
+where  treat_var  = treatment group 
+       sur_time_var  = survival time  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 59 of 68 
+ 
+       censor_var      =  censoring variable  
+       list             = a list of values of censor_var which were indicated as a censor  
+ 
+ 
+ Cox proportional hazards model  
+The Cox proportional hazards model using SAS procedure PHREG (with TIES=EXACT 
+option in the MODEL statement) . A Cox proportional hazard model will be , i.e. the MODE L 
+statement will include  the treatment group variable , age group(< 70, ≥ 70 years) , sex group  
+(Male, Female) , and region group (EU, non- EU) as  covar iates. Survival probability with 95% 
+confidence interval at specific time points will be performed by using BASELINE statement.  
+Hazard ratio with two -sided 95% confidence interval will be based on Wald test.   
+The SAS syntax  is specified as follows : 
+ 
+ODS GRAPHICS ON;  
+PROC PHREG  DATA = <input_dataset>   PLOTS = SURVIVAL;  
+  CLASS <treat_var  (ref= ’x’)> <agegrp_var  (ref= ’x’)> <sex_var (ref= ’x’)> 
+<reg_var (ref= ’x’)>;  
+  MODEL  <sur_time_var>*<censor_var>(<list>) = <treat_var>  <agegrp_var> <sex_var> 
+<reg_var> / TIES=EXACT ; 
+  
+  BASELINE   <OUT=output_dataset> <SURVIVAL=_ALL_>  ;  
+HAZRDRATIO  <treat_var>  / CL=wald ;   
+RUN;  
+ODS GRAPHICS OFF;  
+where  treat_var  = treatment group 
+      sur_time_var   = survival time  
+      censor_var     = censoring variable  
+      list          = a list of values of censor_var which were indicated as a censor  
+ agegrp_var  = age group(< 70, ≥ 70 years ) 
+ sex_var  = sex ( Male, F emale)  
+ reg_var  = region  (EU, non- EU) 
+ 
+ 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 60 of 68 
+ 
+APPENDIX 6.  TOC OF RESULTS FOR CSR  
+14.1 Demographic Data  
+Table  14.1-1.1 Subject Disposition by Treatment Group (Enrolled Set)  
+Table  14.1-1.2 Subject Disposition by Centre and Treatment Group (Randomised 
+Set) 
+Table  14.1-1.3  Summary of Protocol Deviations by Treatment Group (Randomised 
+Set)  
+Table  14.1-2.1 Number (%) of Subjects in the Analysis Sets by Treatment Group  
+Table  14.1-3.1 Demographic Characteristics by Treatment Group (Randomised Set)  
+Table  14.1-3.2 Demographic Characteristics by Treatment Group (Pharmacokinetic 
+Population)  
+Table  14.1-4.1 Baseline Characteristics by Treatment Group (Randomised Set)  
+Table  14.1-4.2 Baseline Characteristics by Treatment Group (Pharmacokinetic 
+Population)  
+Table  14.1-5.1 Medical/Surgical History (Excluding NSCLC) by System Organ 
+Class, Preferred Terms and Treatment Group (Randomised Set)  
+Table  14.1-5.2 NSCLC Medical/Surgical History by System Organ Class, Preferred 
+Terms and Treatment Group (Randomised Set)  
+ 
+14.2 Efficacy Data  
+Table  14.2-1.1 Overall Response by Treatment Group and Cycle (RECIST 1.1)  - 
+Central Review (Full Analysis Set)  
+Table  14.2-1.2 Overall Response by Treatment Group and Cycle (RECIST 1.1) - 
+Investigator (Full Analysis Set)  
+Table  14.2-1.3 Best Overall Response  during induction treatment period by 24 
+week s (RECIST 1.1) - Central Review (Full Analysis Set)  
+Table  14.2-1.4 Best Overall Response  during induction treatment period by 24 
+week s (RECIST 1.1)  - Investigator  (Full Analysis Set)  
+Table  14.2-2.1.1  Analysis of Ratio in Best Overall Response Rate   during induction 
+treatment period  by 24 weeks (RECIST 1.1) -  Central Review (Full 
+Analysis Set)  
+Table  14.2-2.1.2  Analysis of Ratio in Best Overall Response Rate  during induction 
+treatment period  by 24 weeks (RECIST 1.1) -  Central Review (Per -
+Protocol Set)  
+Table  14.2-2.2.1  Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 24 weeks (RECIST 1.1) -  Central 
+Review (Full Analys is Set)  
+Table  14.2-2.2.2  Analysis of Difference in Best Overall Response Rate  during 
+induction treatment period by 24 weeks (RECIST 1.1) -  Central 
+Review (Per -Protocol Set)  
+Table  14.2-2.3.1  Sensitivity Analysis of Ratio in Best Overall Response Rate  during 
+induction treatment period by 24 weeks (RECIST 1.1) -  Central 
+Review (Full Analysis Set)  
+Table  14.2-2.3.2  Sensitivity Analysis of Ratio in Best Overall Response Rate  during 
+induction treatment period by 24 weeks (RECIST 1.1) -  Central 
+Review (Per -Protocol Set)  
+Table  14.2-2.4.1  Sensitivity Analysis of Difference in Best Overall Response Rate  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 61 of 68 
+ 
+during induction treatment period by 24 weeks (RECIST 1.1) - 
+Central Review (Full Analysis Set)  
+Table  14.2-2.4.2  Sensitivity Analysis of Difference in Best Overall Response Rate  
+during induction treatment period by 24 weeks (RECIST 1.1) -  
+Central Review (Per -Protocol Set)  
+Table  14.2-2.5.1  Analysis of Progression -Free Survival - Central Review (Full 
+Analysis Set)  
+Table  14.2-2.5.2  Analysis of Progression -Free Survival - Central Review (Per -
+Protocol Set)  
+Table  14.2-2.6.1  Sensitivity Analysis of Progression -Free Survival - Central Review 
+(Full Analysis Set)  
+Table  14.2-2.6.2  Sensitivity Analysis of Progression -Free Survival - Central Review 
+(Per-Protocol Set)  
+Table  14.2-2.7.1  Analysis of Overall Survival (Full Analysis Set)  
+Table  14.2-2.7.2  Analysis of Overall Survival (Per -Protocol Set)  
+Table  14.2-2.8.1  Sensitivity Analysis of Overall Survival (Full Analysis Set)  
+Table  14.2-2.8.2  Sensitivity Analysis of Overall Survival (Per -Protocol Set)  
+Table  14.2-2.9.1  Analysis of Duration of Response - Central Review (Full Analysis 
+Set) 
+Table  14.2-2.9.2  Analysis of Duration of Response - Central Review (Per -Protocol 
+Set) 
+Table  14.2-3.1.1  Subgroup Analysis of Ratio in Best Overall Response Rate  during 
+induction treatment period by 24 weeks (RECIST 1.1) -  Central 
+Review (Full Analysis Set)  
+Table  14.2-3.1.2  Subgroup Analysis of Ratio in Best Overall Response Rate during 
+induction treatment period by 24 weeks (RECIST 1.1) - Central 
+Review (Per -Protocol Set)  
+Table  14.2-3.2.1  Subgroup Analysis of Difference in Best Overall Response Rate  
+during induction treatment period by 24 weeks (RECIST 1.1) -  
+Central Review (Full Analysis Set)  
+Table  14.2-3.2.2  Subgroup Analysis of Difference in Best Overall Response Rate  
+during induction treatment period by 24 weeks (RECIST 1.1) -  
+Central Review (Per -Protocol Set)  
+Table  14.2-3.3.1 Subgroup Analysis of Ratio in Best Overall Response Rate during 
+induction treatment period by 24 weeks (RECIST 1.1)  by overall ADA 
+result up to Cycle 7 - Central Review ( Full Analysis  Set) 
+Table  14.2-3.3.2 Subgroup Analysis of Ratio in Best Overall Response Rate during 
+induction treatment period by 24 weeks  (RECIST 1.1)  by overall ADA 
+result up to Cycle 7 - Central Review (Per -Protocol Set)  
+Table  14.2-3.4.1 Subgroup Analysis of Difference in Best Overall Response Rate  
+during induction treatment period by 24 weeks  (RECIST 1.1)  by 
+overall ADA result up to Cycle 7 - Central Review ( Full Analysis  Set) 
+Table  14.2-3.4.2 Subgroup Analysis of Difference in Best Overall Response Rate  
+during induction treatment period  by 24 weeks  (RECIST 1.1)  by 
+overall ADA result up to Cycle 7 - Central Review (Per -Protocol Set)  
+Table  14.2-3.5.1 Subgroup Analysis of Progression -Free Survival by  overall ADA 
+result up to Cycle 7  and EOT  - Central Review ( Full Analysis  Set) 
+Table  14.2-3.5.2 Subgroup Analysis of Progression -Free Survival by overall ADA 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 62 of 68 
+ 
+result up to Cycle 7  and EOT  - Central Review (Per -Protocol Set)  
+Table  14.2-3.6.1 Subgroup Analysis of Overall Survival by  overall ADA result up to 
+Cycle 7  and EOT (Full Analysis  Set) 
+Table  14.2-3.6.2 Subgroup Analysis of Overall Survival by  overall ADA result up to 
+Cycle 7  and EOT (Per-Protocol Set)  
+Table  14.2-3.7.1 Subgroup Analysis of Duration of Response by  overall ADA result up 
+to Cycle 7  - Central Review ( Full Analysis  Set) 
+Table  14.2-3.7.2 Subgroup Analysis of Duration of Response by overall ADA result up 
+to Cycle 7  - Central Review (Per -Protocol Set)  
+Table  14.2-4.1.1  Analysis of Ratio in Best Overall Response Rate  during induction 
+treatment period  by 24 weeks (RECIST 1.1) - Investigator (Full 
+Analysis Set)  
+Table  14.2-4.1.2  Analysis of Ratio in Best Overall Response Rate during induction 
+treatment period by 24 weeks (RECIST 1.1) -  Investigator (Per -
+Protocol Set)  
+Table  14.2-4.2.1  Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 24 week s (RECIST 1.1) - Investigator 
+(Full Analysis Set)  
+Table  14.2-4.2.2  Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 24 weeks (RECIST 1.1) - Investigator 
+(Per-Protocol Set)  
+Table  14.2-4.3.1  Sensitivity Analysis of Ratio in Best Overall Response Rate during 
+induction treatment period by 24 weeks (RECIST 1.1) - Investigator 
+(Full Analysis Set)  
+Table  14.2-4.3.2  Sensitivity Analysis of Ratio in Best Overall Response Rate during 
+induction treatment period by 24 weeks (RECIST 1.1) - Investigator 
+(Per-Protocol Set)  
+Table  14.2-4.4.1  Sensitivity Analysis of Difference in Best Overall Response Rate  
+during induction treatment period by 24 weeks (RECIST 1.1) -  
+Investigator (Full  Analysis Set)  
+Table  14.2-4.4.2  Sensitivity Analysis of Difference in Best Overall Response Rate  
+during induction treatment period  by 24 weeks (RECIST 1.1) -  
+Investigator (Per -Protocol Set)  
+Table  14.2-4.5.1  Analysis of Progression -Free Survival - Invest igator (Full Analysis 
+Set) 
+Table  14.2-4.5.2  Analysis of Progression -Free Survival - Investigator (Per -Protocol 
+Set) 
+Table  14.2-4.6.1  Sensitivity Analysis of Progression -Free Survival - Investigator (Full 
+Analysis Set)  
+Table  14.2-4.6.2  Sensitivity Analysis of Progression -Free Survival - Investigator (Per -
+Protocol Set)  
+Table  14.2-4.7.1  Analysis of Duration of Response - Investigator (Full Analysis Set)  
+Table  14.2-4.7.2  Analysis of Duration of Response - Investigator (Per -Protocol Set)  
+Table  14.2-4.8.1  Summary of Concordance between Central Review and Investigator  
+Review  for Best Overall Response  during induction treatment period 
+by 24 week s  (Full Analysis Set)  
+Table  14.2-5.1.1  Analysis of Ratio in Best Overall Response Rate during induction  
+treatment period  by 11 weeks (RECIST 1.1) - Central Review (Full 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 63 of 68 
+ 
+Analysis Set)  
+Table  14.2-5.1.2  Analysis of Ratio in Best Overall Response Rate during induction 
+treatment period  by 11 weeks (RECIST 1.1) -  Central Review (Per -
+Protocol Set)  
+Table  14.2-5.2.1 Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 11 weeks (RECIST 1.1) -  Central 
+Review (Full Analysis Set)  
+Table  14.2-5.2.2  Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 11 weeks (RECIST 1.1) -  Central 
+Review (Per -Protocol Set)  
+Table  14.2-5.3.1  Analysis of Ratio in Best Overall Response Rate during induction 
+treatment period  by 17 weeks (RECIST 1.1) -  Central Review (Full 
+Analysis Set)  
+Table  14.2-5.3.2  Analysis of Ratio in Best Overall Response Rate during induction 
+treatment period  by 17 weeks (RECIST 1.1) -  Central Review (Per -
+Protocol Set)  
+Table  14.2-5.4.1  Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 17 we eks (RECIST 1.1) -  Central 
+Review (Full Analysis Set)  
+Table  14.2-5.4.2  Analysis of Difference in Best Overall Response Rate during 
+induction treatment period by 17 weeks (RECIST 1.1) -  Central 
+Review (Per -Protocol Set)  
+Table  14.2-6.1 Summary Statistics of Pharmacokinetic Parameters  by Treatment  
+Group  and Cycle (Pharmacokinetic Population)  
+Table  14.2-6.2 Summary Statistics of Pharmacokinetic Parameters by Treatment  
+Group, Cycle  and overall ADA result up to Cycle 7  (Pharmacokinetic 
+Population)  
+Figure  14.2-1.1 Kaplan -Meier Plot for Progression -Free Survival - Central Review 
+(Full Analysis Set)  
+Figure  14.2-1.2 Kaplan -Meier Plot for Progression -Free Survival - Central Review 
+(Per-Protocol Set)  
+Figure  14.2-2.1 Kaplan -Meier Plot for Overall Survival (Full Analysis Set)  
+Figure  14.2-2.2 Kaplan -Meier Plot for Overall Survival (Per -Protocol Set)  
+Figure  14.2-3.1 Kaplan -Meier Plot for Progression -Free Survival - Investigator (Full 
+Analysis Set)  
+Figure  14.2-3.2 Kaplan -Meier Plot for Progression -Free Survival - Investigator (Per -
+Protocol Set)  
+Figure  14.2-4.1 Arithmetic  Mean ( ±SD) Serum Concentration Profiles 
+(Pharmacokinetic Population)  
+Figure  14.2-4.2 Individual Serum Concentration Profiles (Pharmacokinetic 
+Population)  
+ 
+14.3  Safety Data  
+Table  14.3-1.1 Summary Statistics for  Exposure to Investigational Product (Safety 
+Set) 
+Table  14.3-1.2 Summary  Statistics for Exposure to Paclitaxel (Safety Set)  
+Table  14.3-1.3 Summary  Statistics for Exposure to Carboplatin (Safety Set)  
+Table  14.3-1.4 Number (%) of Subjects with Dose Modification (Safety Set)  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 64 of 68 
+ 
+Table  14.3-1.5 Relative Dose Intensity of Investigational Product, Paclitaxel and 
+Carboplatin (Safety Set)  
+Table  14.3-1.6 Incidence of Prior Medications by ATC Drug Class and Preferred 
+Term (Safety Set)  
+Table  14.3-1.7 Incidence of Concomitant Medications by ATC Drug Class and 
+Preferred Term (Safety Set)  
+Table  14.3-1.8 Incidence of Prohibited Concomitant Medications by ATC Drug 
+Class and Preferred Term (Safety Set)  
+Table  14.3-1.9 Incidence of Prior Radiotherapy for NSCLC (Safety Set)  
+Table  14.3-1.10 Incidence of Concomitant Radiotherapy for NSCLC (Safety Set)  
+Table  14.3-1.11 Incidence of Significant Non -Drug Therapy – Prior Systemic Anti-
+Cancer Therapy (Safety Set)  
+Table  14.3-1.12 Incidence of Significant Non -Drug Therapy – Radiotherapy (Safety 
+Set) 
+Table  14.3-2.1 Incidence of Laboratory ( Haematology ) Abnormalities by highest 
+CTCAE grade  and Cycle  (Safety Set)  
+Table  14.3-2.2 Incidence of Laboratory ( Biochemistry ) Abnormalities by highest 
+CTCAE grade and Cycle  (Safety Set)  
+Table  14.3-2.3 Incidence of Laboratory (Urine Protein) Abnormalities by highest 
+CTCAE grade and Cycle  (Safety Set)  
+Table  14.3-2.4 Incidence of Clinically Significant Abnormalities for Vital Signs  by 
+Treatment Group and Cycle  (Safety Set)  
+Table  14.3-2.5 Incidence of Infusion Related Reactions for IP by Cycle (Safety Set)  
+Table  14.3-2.6 Incidence of Infusion Related Reactions for Non -IP by Cycle (Safety 
+Set) 
+Table  14.3-2.7 Summary Statistics for Haematology Parameters by Treatment  Group  
+and Cycle (Safety Set)  
+Table  14.3-2.8 Summary Statistics for Biochemistry Parameters by Treatment Group 
+and Cycle (Safety Set)  
+Table  14.3-2.9 Summary Statistics for Coagulation by Treatment  Group  and Cycle 
+(Safety Set)  
+Table  14.3-2.10 Summary Statistics for Urine Protein by Treatment  Group  and Cycle 
+(Safety Set)  
+Table  14.3-2.11 Summary Statistics for Vital Signs by Treatment  Group  and Cycle 
+(Safety Set)  
+Table  14.3-2.12 Summary Statistics for Physical Examination by Treatment Group 
+and Cycle (Safety Set)  
+Table  14.3-2.13 Shift Table of 12 -lead Electrocardiogram by Treatment  Group 
+(Safety Set)  
+Table  14.3-2.14 Shift Table of ECOG Performance Status by Treatment Group and 
+Cycle (Safety Set)  
+Table  14.3-3.1 Incidence of Anti -drug Antibody  (ADA) and Neutralising Antibody 
+(NAb)  by Treatment Group and Cycle  (Safety Set)  
+Table  14.3-3.2 Incidence of Anti -drug Antibody  (ADA)  Positive by Titre , Treatment 
+Group and Cycle  (Safety Set)  
+Table  14.3-3.3 Incidence of Overall Anti-drug Antibody  (ADA)   by Treatment Group 
+and Cycle  (Safety Set)  
+Table  14.3-3.4 Analysis of Association between Anti -drug Antibody (ADA) and 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 65 of 68 
+ 
+Treatment Group (Safety Set)  
+ 
+14.3.1 Display of Adverse Events and Deaths  
+Table  14.3.1 -1.1 Summary of Adverse Events (Safety Set)  
+Table  14.3.1 -1.2 Pre-treatment Adverse Events by System Organ Class, Preferred 
+Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.3 Treatment -Emergent Adverse Events by System Organ  Class and 
+Preferred Term (Safety Set)  
+Table  14.3.1 -1.4 Treatment -Emergent Adverse Events by System Organ Class, 
+Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.5 Treatment -Emergent Adverse Events with Incidence ≥ 5% of Patients 
+by System Orga n Class, Preferred Term and CTCAE Grade (Safety 
+Set) 
+Table  14.3.1 -1.6 Other Adverse Events  with Incidence ≥ 5% of Patients by System 
+Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.7 Treatment -Emergent Adverse Events with Grade 3 -5 by System 
+Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.8 Treatment -Emergent Adverse Events Related to IP by System Organ 
+Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.9 Treatment -Emergent Adverse Events Related to Paclitaxel by System 
+Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.10 Treatment -Emergent Adverse Events Related to Carboplatin by 
+System Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.11 Treatment -Emergent Adverse Events Leading to Discontinuation of 
+IP by System Organ Class, Preferred Term and CTCAE Grade  
+(Safety Set)  
+Table  14.3.1 -1.12 Treatment -Emergent Adverse Events Leadi ng to Discontinuation of 
+Paclitaxel by System Organ Class, Preferred Term and CTCAE 
+Grade (Safety Set)  
+Table  14.3.1 -1.13 Treatment -Emergent Adverse Events Leading to Discontinuation of 
+Carboplatin by System Organ Class, Preferred Term and CTCAE 
+Grade (Safety Set)  
+Table  14.3.1 -1.14 Treatment -Emergent Adverse Events Leading to Death by System 
+Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -1.15 Treatment -Emergent Adverse Events by System Organ Class, 
+Preferred Term and overall ADA result up to EOT (Safety Set)  
+Table  14.3.1 -2.1 All Serious Adverse Events by System Organ Class, Preferred Term 
+and CTCAE Grade (Safety Set)  
+Table  14.3.1 -2.2 Serious Treatment -Emergent Adverse Events by System Organ Class, 
+Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -2.3 Serious Treatment -Emergent Adverse Events Related to IP by 
+System Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -2.4 Serious Treatment -Emergent Adverse Events Related to Paclitaxel by 
+System Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -2.5 Serious Treatment -Emergent Adverse Events Related to Carboplatin 
+by System Organ Class, Preferred Term and CTCAE  Grade (Safety 
+Set) 
+Table  14.3.1 -2.6 Treatment -Emergent Adverse Events of Special Interest (AESI) by 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 66 of 68 
+ 
+System Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+Table  14.3.1 -3 Summary of Death (Safety Set)  
+Table  14.3.1 -4 Infusion Related Reaction of Treatment -Emergent Adverse Events by 
+System Organ Class, Preferred Term and CTCAE Grade (Safety Set)  
+ 
+14.3.2 Listings of Deaths, Other Serious and Significant Adverse Events  
+Listing  14.3.2- 1 Treatment -Emergent Adverse Events  Leading to Dose Modification 
+(Safety Set)  
+Listing  14.3.2 -2 Treatment -Emergent Adverse Events Leading to Death (Safety Set)  
+Listing  14.3.2 -3 Serious Treatment -Emergent Adverse Events (Safety Set)  
+Listing  14.3.2- 4 Serious Treatment -Emergent Adverse Events of Special Interest 
+(Safety Set)  
+Listing  14.3.2- 5 Treatment -Emergent Adverse Events Leading to IP Discontinuation 
+(Safety Set)  
+Listing  14.3.2 -6 Death and Primary Cause (Safety Set)  
+Listing  14.3.2 -7 Infusion Related Reaction (Safety Set)  
+ 
+14.3.4  Abnormal Laboratory Value Listing (Each Subject)  
+Listing  14.3.4 -1.1 Subjects with Abnormal Haematology Values (Safety Set)  
+Listing  14.3.4 -1.2 Subjects with Abnormal Biochemistry Values (Safety Set)  
+Listing  14.3.4 -1.3 Subjects with Abnormal Urinalysis Values (Safety Set)  
+Listing  14.3.4 -1.4 Subjects with Clinically Significant Abnormal Vital Signs Values 
+(Safety Set)  
+ 
+16.1.7 Randomisation Scheme and Codes  
+Listing  16.1.7 -1.1 Radomised Allocation to Treatment  Group  (Randomised Set)  
+Listing  16.1.7 -1.2 Radomised Allocation to Treatment Group by Centre (Randomised 
+Set) 
+ 
+16.1.9 Documentation of Statistical Methods  
+Table  16.1.9 -1.1 Baseline Comparability of Demographic and Baseline 
+Characteristics between Treatment Groups (Randomised Set)  
+Table  16.1.9 -2.1.1  SAS output for Analysis of Ratio in Best Overall Response Rate  
+during induction treatment period by 24 weeks (RECIST 1.1) - 
+Central Review (Full Analysis Set)  
+Table  16.1.9 -2.1.2  SAS output for Analysis of Ratio in Best Overall Response Rate  
+during induction treatment period by 24 weeks (RECIST 1.1) - 
+Central Review (Per -Protocol Set)  
+Table  16.1.9 -2.2.1  SAS output for Analysis of Difference in Best Overall Response 
+Rate during induction treatment period by 24 weeks (RECIST 1.1) - 
+Central Review (Full Analysis Set)  
+Table  16.1.9 -2.2.2  SAS output for Analysis of Difference in Best Overall Response 
+Rate during induction treatment period   by 24 weeks (RECIST 1.1) 
+- Central Review (Per -Protocol Set)  
+Table  16.1.9-2.3.1  SAS output for Sensitivity Analysis of Ratio in Best Overall 
+Response Rate during induction treatment period by 24 weeks 
+(RECIST 1.1) - Central Review (Full Analysis Set)  
+Table  16.1.9 -2.3.2  SAS output for Sensitivity Analysis of Ratio in Best O verall 
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 67 of 68 
+ 
+Response Rate  during induction treatment period  by 24 weeks 
+(RECIST 1.1) - Central Review (Per -Protocol Set)  
+Table  16.1.9 -2.4.1  SAS output for Sensitivity Analysis of Difference in Best Overall 
+Response Rate during induction treatment period by 24 weeks 
+(RECIST 1.1) - Central Review (Full Analysis Set)  
+Table  16.1.9 -2.4.2  SAS output for Sensitivity Analysis of Difference in Best Overall 
+Response Rate during induction treatment period by 24 weeks 
+(RECIST 1.1) - Central Review (Per -Protocol Set)  
+Table  16.1.9 -2.5.1  SAS output for Analysis of Progression -Free Survival - Central 
+Review (Full Analysis Set)  
+Table  16.1.9 -2.5.2  SAS output for Analysis of Progression -Free Survival - Central 
+Review (Per -Protocol Set)  
+Table  16.1.9 -2.6.1  SAS output for Analysis of Overall Survival (Full Analysis Set)  
+Table  16.1.9 -2.6.2  SAS output for Analysis of Overall Survival (Per -Protocol Set)  
+Table  16.1.9 -2.7.1  SAS output for Sensitivity Analysis of Progression -Free Survival - 
+Central Review (Full Analysis Set)  
+Table  16.1.9 -2.7.2  SAS output for Sensitivity Analysis of Progression -Free Survival - 
+Central Review (Per -Protocol Set)  
+Table  16.1.9 -2.8.1 SAS output for Sensitivity Analysis of Overall  Survival (Full 
+Analysis Set)  
+Table  16.1.9 -2.8.2 SAS output for Sensitivity Analysis of Overall  Survival (Per -
+Protocol Set)  
+ 
+16.2.1 Discontinued Subjects  
+Listing  16.2.1 -1  Subject Disposition (Enrolled Set)  
+ 
+16.2.2 Protocol Deviations  
+Listing  16.2.2 -1 Protocol Deviations (Randomised Set)  
+ 
+16.2.3 Subjects excluded from the efficacy analysis  
+Listing  16.2.3 -1 Subjects for Analysis Set (Randomised Set)  
+ 
+16.2.4 Demographic Data  
+Listing  16.2.4 -1 Demographic Characteristics (Randomised Set)  
+Listing  16.2.4 -2 Baseline Characteristics (Randomised Set)  
+Listing  16.2.4 -3 Medical/Surgical History Excluding NSCLC (Randomised Set)  
+Listing  16.2.4 -4 NSCLC Medical/Surgical History (Randomised Set)  
+ 
+16.2.5 Compliance and/or Drug Concentration Data  
+Listing  16.2.5 -1 Investigational Products (IP) Administration (Safety Set)  
+Listing  16.2.5 -2 Paclitaxel Administration (Safety Set)  
+Listing  16.2.5 -3 Carboplatin Administration (Safety Set)  
+Listing  16.2.5 -4 Prior and Concomitant Medications  (Safety Set)  
+Listing  16.2.5 -5 Prohibited Medications  (Safety Set)  
+Listing  16.2.5 -6 Prior or Concomitant Radiotherapy for NSCLC (Safety Set)  
+Listing  16.2.5 -7 Prior Systemic Anti -Cancer Therapy for NSCLC (Safety Set)  
+Listing  16.2.5 -8 Individual Serum Concentrations (ug/mL) and Scheduled Time 
+(Pharmacokinetic Population)  
+
+SB8 (proposed bevacizumab biosimilar ) 
+SB8-G31-NSCLC  CSR SAP 
+Amendment 1 ,  Apr 18, 2018 
+ 
+Samsung Bioepis –  Confidential  
+Page 68 of 68 
+ 
+ 
+ 
+ 
+  
+16.2.6 Individual Efficacy Response Data  
+Listing  16.2.6 -1 Tumour Response Evaluation (RECIST 1.1) - Central Review (Full 
+Analysis Set)  
+Listing  16.2.6 -2 Progression -Free Survival - Central Review (Full Analysis Set)  
+Listing  16.2.6 -3 Overall Survival (Full Analysis Set)  
+Listing  16.2.6 -4 Duration of Response - Central Review (Full Analysis Set)  
+Listing  16.2.6 -5 Tumour Response Evaluation (RECIST 1.1) - Investigator (Full 
+Analysis Set)  
+Listing  16.2.6 -6 Progression -Free Survival -  Investigator (Full Analysis Set)  
+Listing  16.2.6 -7 Duration of Response - Investigator (Full Analysis Set)  
+ 
+16.2.7 Adverse Event Listings (Each Subject)  
+Listing  16.2.7 -1  Adverse Events (Safety Set)  
+ 
+16.2.8 Listing of Individual Laboratory Measurements by Subject  
+Listing  16.2.8 -1.1 Laboratory Normal Ranges by Laboratory Identification Number and 
+Laboratory Group  
+Listing  16.2.8 -1.2 Clinical Laboratory Measurement: Haematology Ⅰ(Safety Set)  
+Listing  16.2.8 -1.3 Clinical Laboratory Measurement: Haematology Ⅱ  (Safety Set)  
+Listing  16.2.8 -1.4 Clinical Laboratory Measurement: Biochemistry (Safety Set)  
+Listing  16.2.8 -1.5 Clinical Laboratory Measurement: Urine Protein (Safety Set)  
+Listing  16.2.8 -1.6 Laboratory Measurement: Serology (Safety Set)  
+Listing  16.2.8 -1.7 Laboratory Measurement: Pregnancy Test (Safety Set)  
+Listing  16.2.8 -1.8 Laboratory Measurement: Coagulation Test (Safety Set)  
+ 
+16.2.9 Vital Signs, Physical Findings and Other Observations Related to Safety Listings  
+Listing  16.2.9 -1 Vital Signs (Safety Set)  
+Listing  16.2.9 -2 Physical Examination (Safety Set)  
+Listing  16.2.9 -3 12-Lead Electrocardiogram (Safety Set)  
+Listing  16.2.9 -4 ECOG Performance Status (Safety Set)  
+Listing  16.2.9 -5 Immunogenicity Assessment  (Safety Set)  

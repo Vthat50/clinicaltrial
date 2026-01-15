@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.12-2026-01-15")
-print("FEATURE: Table rendering + deduplication fixes")
-print("  • v100.12: Wrap markdown tables in [TABLE] markers for frontend rendering")
+print("BUILD: v100.14-2026-01-15")
+print("FEATURE: IBM Docling for accurate table extraction")
+print("  • v100.14: Docling TableFormer model for SOA tables (preserves column structure)")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -59,10 +59,19 @@ try:
         _llamaparse_instance = LlamaParse(
             api_key=llamaparse_key,
             result_type="markdown",
-            verbose=False
+            verbose=False,
+            # Critical: Preserve table structure accurately
+            parsing_instruction="""
+            IMPORTANT: For tables (especially Schedule of Assessments / Schedule of Events):
+            1. Preserve EVERY column header exactly as shown - do NOT merge columns
+            2. Keep individual day/week columns separate (Day 15, Day 29, Day 43, Day 57 are SEPARATE from 'Every 2 Weeks')
+            3. Preserve all X marks and checkboxes exactly as they appear
+            4. Maintain the exact column alignment - each visit timepoint is its own column
+            5. Do NOT summarize or simplify table structure
+            """
         )
         LLAMAPARSE_AVAILABLE = True
-        print("[PDF Parser] LlamaParse available - for text extraction")
+        print("[PDF Parser] LlamaParse available - with table preservation instructions")
     else:
         print("[PDF Parser] WARNING: LLAMAPARSE_API_KEY not set")
 except ImportError:
@@ -75,25 +84,24 @@ except ImportError:
     PYMUPDF_AVAILABLE = False
     print("WARNING: PyMuPDF not available")
 
-# PaddleOCR - for table extraction (uses PaddlePaddle, no torch conflicts)
-# Lazy-loaded to avoid startup overhead
-PADDLEOCR_AVAILABLE = False
-_paddleocr_instance = None
+# Docling by IBM - excellent table extraction with TableFormer model
+# Lazy-loaded to avoid startup overhead (Docling is slow to initialize)
+DOCLING_AVAILABLE = False
+_docling_converter = None
 
-def get_paddleocr():
-    """Lazy-load PaddleOCR to avoid startup overhead."""
-    global PADDLEOCR_AVAILABLE, _paddleocr_instance
-    if _paddleocr_instance is not None:
-        return _paddleocr_instance
+def get_docling_converter():
+    """Lazy-load Docling DocumentConverter to avoid startup overhead."""
+    global DOCLING_AVAILABLE, _docling_converter
+    if _docling_converter is not None:
+        return _docling_converter
     try:
-        from paddleocr import PaddleOCR
-        # use_angle_cls=True for rotated text, lang='en' for English
-        _paddleocr_instance = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
-        PADDLEOCR_AVAILABLE = True
-        print("[OCR] PaddleOCR loaded successfully")
-        return _paddleocr_instance
+        from docling.document_converter import DocumentConverter
+        _docling_converter = DocumentConverter()
+        DOCLING_AVAILABLE = True
+        print("[Docling] DocumentConverter loaded successfully")
+        return _docling_converter
     except Exception as e:
-        print(f"[OCR] PaddleOCR not available: {e}")
+        print(f"[Docling] Not available: {e}")
         return None
 
 # Import SAP generator (add parent to path)
@@ -310,99 +318,72 @@ def fix_pdf_font_encoding(text: str) -> str:
     return text
 
 
-def ocr_table_region(page, table_bbox) -> str:
+def extract_tables_with_docling(file_content: bytes) -> str:
     """
-    OCR a table region using PaddleOCR.
-    Renders the table area as an image and extracts text via OCR.
-    This bypasses font encoding issues by reading visual content.
-    """
-    ocr = get_paddleocr()
-    if ocr is None:
-        return ""
-
-    try:
-        import numpy as np
-        from PIL import Image
-
-        # Get table bounding box (x0, y0, x1, y1)
-        x0, y0, x1, y1 = table_bbox
-        clip_rect = fitz.Rect(x0, y0, x1, y1)
-
-        # Render table region at higher DPI for better OCR
-        mat = fitz.Matrix(2.0, 2.0)  # 2x zoom for better resolution
-        pix = page.get_pixmap(matrix=mat, clip=clip_rect)
-
-        # Convert to numpy array for PaddleOCR
-        img_data = pix.tobytes("png")
-        img = Image.open(io.BytesIO(img_data))
-        img_array = np.array(img)
-
-        # Run PaddleOCR - returns list of [bbox, (text, confidence)]
-        results = ocr.ocr(img_array, cls=True)
-
-        if results and results[0]:
-            # Extract text from results - PaddleOCR returns [[bbox, (text, conf)], ...]
-            lines = []
-            for line in results[0]:
-                if len(line) >= 2:
-                    text, confidence = line[1]
-                    if confidence > 0.5:  # Filter low confidence
-                        lines.append(text)
-            return "\n".join(lines)
-        return ""
-
-    except Exception as e:
-        print(f"[OCR] Table OCR failed: {e}")
-        return ""
-
-
-def extract_all_tables_with_ocr(file_content: bytes) -> str:
-    """
-    Extract ALL tables from PDF using PaddleOCR.
-    This runs SEPARATELY from text extraction to ensure tables are captured.
+    Extract ALL tables from PDF using IBM Docling.
+    Docling uses TableFormer model for accurate table structure extraction.
     Returns formatted table text with [TABLE] markers.
     """
-    if not PYMUPDF_AVAILABLE:
+    import tempfile
+
+    converter = get_docling_converter()
+    if converter is None:
+        print("[Docling] Converter not available, skipping table extraction")
         return ""
 
     try:
-        doc = fitz.open(stream=file_content, filetype="pdf")
-        all_tables = []
+        # Docling needs a file path
+        with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
+            tmp.write(file_content)
+            tmp_path = tmp.name
 
-        for page_num, page in enumerate(doc):
-            # Find tables on this page
-            table_finder = page.find_tables()
+        try:
+            print("[Docling] Extracting tables with TableFormer model...")
+            conv_result = converter.convert(tmp_path)
 
-            for table_idx, table in enumerate(table_finder.tables):
-                table_bbox = table.bbox
+            all_tables = []
+            for table_idx, table in enumerate(conv_result.document.tables):
+                try:
+                    # Export table to pandas DataFrame
+                    table_df = table.export_to_dataframe(doc=conv_result.document)
 
-                # Try PaddleOCR first (handles font encoding)
-                ocr_text = ocr_table_region(page, table_bbox)
+                    if table_df is not None and not table_df.empty:
+                        # Convert DataFrame to pipe-separated format for frontend rendering
+                        # Header row
+                        header = " | ".join(str(col) for col in table_df.columns)
+                        # Data rows
+                        rows = []
+                        for _, row in table_df.iterrows():
+                            row_text = " | ".join(str(val) if val is not None else "" for val in row)
+                            rows.append(row_text)
 
-                if ocr_text and len(ocr_text.strip()) > 10:
-                    all_tables.append(f"\n[TABLE Page {page_num + 1}, Table {table_idx + 1}]\n{ocr_text}\n[/TABLE]\n")
-                else:
-                    # Fallback: extract table structure with PyMuPDF
-                    table_md = []
-                    for row in table.extract():
-                        row_text = " | ".join(str(cell) if cell else "" for cell in row)
-                        if row_text.strip():
-                            table_md.append(row_text)
-                    if table_md:
-                        # Apply encoding fix to table content
-                        table_content = "\n".join(table_md)
-                        table_content = fix_pdf_font_encoding(table_content)
-                        all_tables.append(f"\n[TABLE Page {page_num + 1}, Table {table_idx + 1}]\n{table_content}\n[/TABLE]\n")
+                        table_content = header + "\n" + "\n".join(rows)
+                        all_tables.append(f"\n[TABLE {table_idx + 1}]\n{table_content}\n[/TABLE]\n")
+                        print(f"[Docling] Table {table_idx + 1}: {len(table_df)} rows x {len(table_df.columns)} cols")
 
-        doc.close()
+                except Exception as table_err:
+                    print(f"[Docling] Error exporting table {table_idx + 1}: {table_err}")
+                    continue
 
-        if all_tables:
-            print(f"[Tables] Extracted {len(all_tables)} tables with OCR")
-            return "\n".join(all_tables)
-        return ""
+            os.unlink(tmp_path)
+
+            if all_tables:
+                print(f"[Docling] Successfully extracted {len(all_tables)} tables")
+                return "\n".join(all_tables)
+            else:
+                print("[Docling] No tables found in document")
+            return ""
+
+        except Exception as e:
+            print(f"[Docling] Conversion failed: {e}")
+            try:
+                os.unlink(tmp_path)
+            except:
+                pass
+            return ""
 
     except Exception as e:
-        print(f"[Tables] Table extraction failed: {e}")
+        print(f"[Docling] Table extraction failed: {e}")
         return ""
 
 
@@ -463,8 +444,9 @@ def wrap_markdown_tables(text: str) -> str:
 
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
-    HYBRID extraction: LlamaParse for text + PaddleOCR for tables.
+    HYBRID extraction: LlamaParse for text + Docling for tables.
     This ensures both regular text and tables are properly extracted.
+    Docling's TableFormer model preserves complex table structure (SOA tables).
     """
     import tempfile
     import asyncio
@@ -506,11 +488,11 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                         # Wrap markdown tables in [TABLE] markers for frontend rendering
                         text = wrap_markdown_tables(text)
 
-                        # HYBRID: Also extract tables with PaddleOCR for PDFs with encoding issues
-                        tables_text = extract_all_tables_with_ocr(file_content)
+                        # HYBRID: Extract tables with IBM Docling for accurate structure
+                        tables_text = extract_tables_with_docling(file_content)
                         if tables_text:
-                            print(f"[PDF Parser] Adding {len(tables_text):,} chars of table content")
-                            text = text + "\n\n=== TABLES (OCR EXTRACTED) ===\n" + tables_text
+                            print(f"[PDF Parser] Adding {len(tables_text):,} chars of Docling table content")
+                            text = text + "\n\n=== TABLES (DOCLING EXTRACTED - ACCURATE STRUCTURE) ===\n" + tables_text
                         return text
                     else:
                         print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")
@@ -536,22 +518,14 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             for page_num, page in enumerate(doc):
                 page_text = []
 
-                # Extract tables using PaddleOCR (bypasses font encoding issues)
+                # Extract tables using PyMuPDF (basic fallback - Docling used at higher level)
                 table_finder = page.find_tables()
                 table_texts = set()  # Track table regions to avoid duplication
 
                 for table in table_finder.tables:
                     total_tables += 1
-                    table_bbox = table.bbox  # (x0, y0, x1, y1)
 
-                    # Try PaddleOCR for table extraction (handles font encoding)
-                    ocr_text = ocr_table_region(page, table_bbox)
-                    if ocr_text and len(ocr_text.strip()) > 10:
-                        page_text.append(f"\n[TABLE]\n{ocr_text}\n[/TABLE]\n")
-                        table_texts.add(f"{table_bbox}")  # Track this region
-                        continue
-
-                    # Fallback to PyMuPDF extraction (may have encoding issues)
+                    # Extract table using PyMuPDF (may have encoding issues)
                     table_md = []
                     for row in table.extract():
                         row_text = " | ".join(str(cell) if cell else "" for cell in row)

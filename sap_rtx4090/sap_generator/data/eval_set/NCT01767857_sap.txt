@@ -1,0 +1,156 @@
+2012-PT023 SAP Addendum v1.0............................................................................................................... 2
+PT023V3 SAP V1.1 ...................................................................................................................................... 6PT023 Documentation of Statistical Methods and Interim Analysis Plans
+TABLE OF CONTENTS
+1
+NCT01767857
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+2
+
+Version 1. 0 Statistical Analysis Plan  Addendum   Page 2 of 4 
+ 2012- PT023  V3.7  Document History Version Reason(s) for change Date V1.0 Original document  August 18th 2017                         PT023 Documentation of Statistical Methods and Interim Analysis Plans
+3
+
+Version 1. 0 Statistical Analysis Plan  Addendum   Page 3 of 4 
+ 2012- PT023  V3.7  This statistical analysis plan (SAP) addendum describes hard-coding decisions for protocol 2012-PT023, A Phase III Double-blinded, Placebo Controlled Study of Xilonix™ for Improving Survival in Metastatic Colorectal Cancer.   This addendum was finalized after the SAP was finalized.   The date of death for the following patients need to be hard-coded in SAS program to derive the overall survival endpoint. The detailed rationales for these decisions are described below, and these decisions were made while the database was still blinded.   In general, the issues were isolated into three categories:  Partial Dates, Missing Date of Death, and Randomization in Error.   
+• For partial dates, ie those that contain month and year, a conservative approach was taken and the 1
+st of the month was imputed in these cases.   
+• For missing date of death, the last date of contact with the patient was used as the date of death. 
+• The EDC assigns a randomization number whenever the randomization option is selected on that page.  There were few of these data entry errors (N=6) in the study, and in each case the site confirmed the error.  These patients are considered to be screen failures. 
+The following cases have confirmed death, but the date of death is missing (unknown): 
+• Patient 3301233005, this patient died based on the survival data sheet, but the date of death is missing. In study discontinuation data sheet, this patient had an adverse event on 08Apr2016, which was used as the date of death in the interim analysis dataset.  In the survival data sheet, the last available assessment date is 13Jun2016.  As the patient was known to be alive at this time, the last available contact date should be used. 
+• Patient 3903233019, this patient died based on the survival data sheet, but the date of death is missing. In study discontinuation data sheet, this patient had date for "Other" on 05-09-2016, which was used as the date of death in the interim analysis dataset.  In the survival data sheet, the last available assessment date is 29Jun2016 for ECOG assessment.  As the patient was known to be alive at this time, the last available contact date should be used. 
+• Patient 3802233004, this patient died based on the survival data sheet, but the date of death is missing. In study discontinuation data sheet, this patient had date for "Removed from Study by PI" on 22-Nov-2016.  In the survival data sheet, the last available assessment date is 21Mar2017 for ECOG assessment.  As the patient was known to be alive at this time, the last available contact date should be used. 
+  PT023 Documentation of Statistical Methods and Interim Analysis Plans
+4
+
+Version 1. 0 Statistical Analysis Plan  Addendum   Page 4 of 4 
+ 2012- PT023  V3.7  The following cases do not need hard-coding, but imputations will be done for partial date of death: 
+• Patient 3905233015, the death date has missing day part, Mar-2017, this date will be imputed as 01-Mar -2017. 
+• Patient 3909233001, the death date has missing day part, Feb-2017, this date will be imputed as 01-Feb -2017. 
+• Patient 3905233011, the death date has missing day part, Jun-2016. In the interim analysis dataset, the death date was set as 06-Jun-2016.  After further clarification, this is the date that the site completed the discontinuation page in the EDC.  In a query response, the site noted that they did not know the exact date of death, but they knew the patient died in June of 2016.  As the June 6th date is not the last available contact date with the patient, rather the date the site entered discontinuation information, this date should not be used.  This case is being classified as a partial date, therefore the date of 01-Jun-2016 will be imputed. 
+• Patient 3909233003, the death date has missing day part, Dec-2016. In the interim analysis dataset, the date of death was set as 01-DEC -2016.  This is consistent with the 
+decision to use the 1st of the month and therefore 01-DEC -2016 will be used as the date of death. 
+The following patients were screen failures, however the site erroneously clicked on the randomization button in the EDC.  Once this happens, a randomization number is assigned and this can’t be undone.  Because these patients did not meet eligibility criteria and the site confirmed the error, these patients are not included in the data analysis. 
+• 1027233009 
+• 3909233006 
+• 1025233003 
+• 1029233008 
+• 1069233002 
+• 3301233002 
+     PT023 Documentation of Statistical Methods and Interim Analysis Plans
+5
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+6
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+7
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+8
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+9
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+10
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+11
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+12
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+13
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+14
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+15
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+16
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+17
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+18
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+19
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+20
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+21
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+22
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+23
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+24
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+25
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+26
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+27
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+28
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+29
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+30
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+31
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+32
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+33
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+34
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+35
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+36
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+37
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+38
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+39
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+40
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+41
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+42
+
+PT023 Documentation of Statistical Methods and Interim Analysis Plans
+43

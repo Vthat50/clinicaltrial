@@ -1,0 +1,1970 @@
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 1of 59Statistical Analysis Plan
+Study Code D8220C00007
+Edition Number 3.0
+Date 24 June 2022
+A Phase 1/2 Open Label, Multi -center Study to Assess the Safety , 
+Tolerability , Pharmacok inetics and Clinical Efficacy of 
+Acalabrutinib in Chinese Adult Subjects with Relapsed or 
+Refractory Mantle Cell L ymphom a, Chronic L ymphocytic 
+Leuk emia orother B -cell Malignancies
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 2of 59TABLE OF CONTENTS
+TITLE PAGE ........................................................................................................................ 1
+TABLE OF CONTENTS ...................................................................................................... 2
+LIST OF ABBREVIATIONS ............................................................................................... 5
+AMENDMENT HISTORY ................................................................................................... 9
+1. STUDY DETAILS ........................................................................................... 10
+1.1. Study  objectives................................................................................................ 10
+1.2. Study  design ..................................................................................................... 11
+1.3. Number of subjects ........................................................................................... 14
+2. ANALYSI S SETS ............................................................................................ 14
+2.1. Definit ion of analysis sets ................................................................................. 14
+2.2. Protocol  deviat ions........................................................................................... 14
+3. PRIMARY AND SECONDARY VAR IABLES ............................................... 15
+3.1. Response assessment of NHL (MCL, DLBCL, FL, SLL) and CLL ................... 15
+3.1.1. Response assessment criteria for NHL .............................................................. 16
+3.1.2. Response assessment criteria for CLL ............................................................... 19
+3.1.2.1. Addit ional requirement for CLL response Assessment ...................................... 21
+3.1.3. Blinded independent central review (BICR) ...................................................... 22
+3.2. Phase 1 ............................................................................................................. 22
+3.2.1. Efficacy variables ............................................................................................. 22
+3.2.1.1. Best overall response (BOR) ............................................................................. 23
+3.2.2. Safety variables ................................................................................................ 23
+3.2.2.1. Adverse events .................................................................................................. 23
+3.2.2.2. Exposure and dose interruptions/delay .............................................................. 24
+3.2.2.3. Dose intensit y................................................................................................... 25
+3.2.2.4. Laboratory  data ................................................................................................. 25
+3.2.2.5. Physical examinat ions....................................................................................... 27
+3.2.2.6. Vital signs ......................................................................................................... 27
+3.2.2.7. ECG ................................................................................................................. 27
+3.2.2.8. ECOG performance status ................................................................................. 27
+3.2.3. Pharmacokinet ic variables ................................................................................ 28
+3.3. Phase 2 ............................................................................................................. 29
+3.3.1. Efficacy variables ............................................................................................. 29
+3.3.1.1. Best overall response (BOR) ............................................................................. 29
+3.3.1.2. Overall response rate (ORR) as assessed by BIRC ............................................ 30
+3.3.1.3. Durati on of  Response (DoR) as assessed by BIRC ............................................ 30
+3.3.1.4. Progression -free survival (PFS) as assessed by BIRC ........................................ 31
+3.3.1.5. Time to response (TTR) as assessed by BIRC ................................................... 32
+3.3.1.6. Invest igator -assessed endpo ints (ORR, DoR , PFS and TTR) ............................. 33
+3.3.1.7. Overall survival (OS) ........................................................................................ 33
+3.3.1.8. Time to Next Treatment (TTNT, for R/R CLL only) ......................................... 33
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 3of 593.3.1.9. Minimum Residual Disease Rate (for Phase 2 R/R CLL only) .......................... 34
+3.3.2. Safety variables ................................................................................................ 34
+3.3.3. Pharmacokinet ic variables ................................................................................ 34
+4. ANALYSIS METHODS ................................................................................... 34
+4.1. General principles ............................................................................................. 34
+4.2. Analysis methods .............................................................................................. 36
+4.2.1. Data cut -offs..................................................................................................... 36
+4.2.2. Efficacy analyses .............................................................................................. 37
+4.2.2.1. Best overall response (BOR) ............................................................................. 37
+4.2.2.2. Overall response rate (ORR) ............................................................................. 37
+4.2.2.3. Tumor response by  visit.................................................................................... 38
+4.2.2.4. Durati on of  response (DoR) .............................................................................. 39
+4.2.2.5. Progression -free survival (PFS) ........................................................................ 39
+4.2.2.6. Time to response (TTR) .................................................................................... 39
+4.2.2.7. Invest igator -assessed endpo ints (DoR, PFS and TTR) ....................................... 39
+4.2.2.8. Overall survival (OS) ........................................................................................ 39
+4.2.2.9. Time to Next Treatment (TTNT, cohort B only) ............................................... 39
+4.2.2.10. Minimum Residual Disease Rate (MRD, cohort B only) ................................... 39
+4.2.3. Safety analyses ................................................................................................. 40
+4.2.3.1. General considerat ions for safet y...................................................................... 40
+4.2.3.2. Exposure and Compliance ................................................................................. 42
+4.2.3.3. Adverse events .................................................................................................. 42
+4.2.3.4. Laboratory  variables ......................................................................................... 44
+4.2.3.5. Vital signs ......................................................................................................... 46
+4.2.3.6. ECOG performance status ................................................................................. 46
+4.2.3.7. ECGs ................................................................................................................ 46
+4.2.4. Dem ographics and Baseline Characterist ics...................................................... 46
+4.2.4.1. Disposi tion....................................................................................................... 48
+4.2.4.2. Protocol  deviat ions........................................................................................... 48
+4.2.4.3. Medical and surgical histories ........................................................................... 48
+4.2.5. Concomitant and other treatments ..................................................................... 48
+4.2.6. Pharmacokinet ic analyses ................................................................................. 49
+5. INTERIM ANALYSES .................................................................................... 52
+6. CHANGES OF ANALYSIS FROM PROTOC OL............................................ 52
+7. REFERENCES ................................................................................................. 52
+8. APPENDIX ...................................................................................................... 53
+8.1. Definit ion of Adverse Events of Special Interest and Events of Clinical Interest 
+(MedDRA versio n 24.0) ................................................................................... 53
+8.1.1. Adverse Event of Special Interest (AE SI)......................................................... 53
+8.1.2. Events of Clinical Interest ................................................................................. 53
+8.1.3. Major Hem orrhage ............................................................................................ 54
+8.2. Searc h Strategy  for Narratives .......................................................................... 56
+8.3. Example of patient who permanently discont inued during a dose interruption ...57
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 4of 598.4. Example of dose intensit y: Note, the example also refer to PID (Percentage 
+Intended Dose) as well as RDI .......................................................................... 58
+8.5. Imputati on Rules for Parti al or Mi ssing Death Dates ......................................... 59
+LIST OF TABLES
+Table 1 Study  objectives....................................................................................... 10
+Table 2 Response asse ssment cri teria for NHL (Cheson 2014) ............................. 17
+Table 3 Response Assessment Criteria for CLL (modified from Hallek 2018) –
+iwCLL Criteria ** ................................................................................... 20
+Table 4 Laboratory  variables ................................................................................ 25
+Table 5 Censoring rules for DoR .......................................................................... 31
+Table 6 Censoring rules for PFS ........................................................................... 32
+Table 7 Censoring rules for OS ............................................................................. 33
+Table 8 Censoring rules for TTNT ........................................................................ 33
+LIST OF FIGURES
+Figure 1 Study  design ............................................................................................ 12
+LIST OF APPENDICES
+8.1 Search strategy  for adverse events of interest ........................................... 53
+8.2 Search strategy  for Narratives .................................................................. 56
+8.3 Example of patient who permanently discont inued during a dose 
+interrupti on.............................................................................................. 57
+8.4 Example of dose intensit y: Note, the example also refer to PID 
+(Percentage Intended Dose) as well as RDI .............................................. 58
+8.5 Imputati on Rules for Parti al or Mi ssing Death Dates ................................ 59
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 5of 59LIST OF ABBREVIATION S
+Abbreviation or special 
+termExplanation
+5PS 5-point scale
+AE Adverse event
+ALC Absolute lymphocyte count
+ALP Alkaline phosphatase
+ALT Alanine aminotransferase
+ANC Absolute neutrophil count
+AST Aspartate aminotransferase
+AUCinf Area under the plasma concentration -time curve (from zero to infinity)
+AUC0 -12 Area under the plasma concentration -time curve (from zero to 12 hours)
+AUClast Area under the plasma concentration -time curve (from zero to the time of the last 
+quantifiable concentration)
+AUCτ Area under the plasma concentration -time curve across the dosing interval; e.g. For 
+BID dosing, AUC0 -12is the AUC τ after single dose 
+BICR Blinded Independent Central Review
+BID Twice daily
+BOR Best overall response
+BTK Bruton's tyrosine kinase
+CBC Complete blood count
+CLL Chro nic ly mphocy tic leukemia
+CL/F Apparent total body clearance of drug from plasma after extravascular 
+administration
+Cmax Maximum observed plasma drug concentration
+CR Complete response
+CRi CR with incomplete marrow recover y
+CSP Clinical Study Protocol
+CT Computed tomography
+CTCAE Common Terminology Criteria for Adverse Events
+DLBCL Diffuse large B -cell ly mphoma
+DNA Deoxyribonucleic acid
+DoR Duration of response
+ECG Electrocardiogram
+ECOG Eastern Co -operative Oncology group
+eCRF Electronic Case Report Form
+EoT End of Treatment
+
+Statistical Analysis Plan AstraZeneca
+D8220C000 073.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 6of 59Abbreviation or special 
+termExplanation
+FDG [18F] fluorodeoxyglucose
+FL Follicular lymphoma
+GI Gastrointestinal
+anti-HBc Hepatitis B core antibody
+HBsAb Hepatitis B surface antibody
+HBsAg Hepatitis B surface antigen
+HBV Hepatitis B virus
+HCV Hepatitis C virus
+HIV Human immunodeficiency virus
+IHC Immuno histochemistry
+IP Investigational product
+IPD Important protocol deviation
+iwCLL International Workshop on Chronic Lymphocytic Leukaemia
+LDH Lactate dehydrogenase
+LDi Longest transverse diameter of a lesion
+λz Terminal elimination rate constant
+λzN Number of data points used for λz determination
+MCL Mantle Cell Lymphoma
+MedDRA Medical Dictionary for Regulatory Activities
+MIPI MCL international prognostic index
+MRI Magnetic resonance imaging
+MRD Minimal residual disease
+Metabolite: Parent ratio 
+(AUC)Metabolite -to-pare nt ratio;
+AUC(metabolite)/AUC(parent)
+Metabolite: Parent ratio 
+(Cmax)Metabolite -to-pare nt ratio; 
+Cmax,(metabolite)/Cmax(parent)
+NA Not applicable
+NE Non-evaluable
+NHL Non-Hodgkin lymphoma
+nPR Nodular partial response
+ORR Overall response rate
+OS Overall survival
+PCR Polymerase chain reaction
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 7of 59Abbreviation or special 
+termExplanation
+PD Progression of disease
+PE Physical exam
+PET Positron -emission tomography
+PFS Progression free survival
+PK Pharmacokinetics
+PPD Cross product of the LDi and perpendicular diameter
+PR Partial response
+PR Partial remission (response)
+PRL Partial response with lymphocytosis
+QD Once per day (dosing)
+QT ECG interval measured from the onset of the QRS complex to the end of the T 
+wave
+QTc QT interval corrected for heart rate
+RacAUC Accumulation ratio calculated as AUCτ(steady state)/AUCτ(first dose)
+Rac Cmax Accumulation ratio calculated as Cmax(steady state)/Cmax(first dose)
+RR The time between corresponding points on 2 consecutive R waves on ECG
+R/R Relapsed/refractory
+Rsq Statistical measure of fit for the regression used for λz determination
+Rsq adj Statistical measure of fit for the regression used for λz determination adjusted for 
+the number of used data points
+SAE Serious adverse event
+SAP Statistical Analysis Plan
+SD Stable disease
+SDi Shortest axis perpendicular to the LDi
+SoA Schedule of Activities
+SLL Small Lymphocytic Lymphoma
+SRC Safety Review Committee
+SPD Sum of the product of the perpendicular diameters for multiple lesions
+t½λz Half-life associated with terminal slope (λz) of a semilogarithmic
+concentration -time curve
+T/B/NK cells T-lymphocy te/B-lymphocy te/natural killer cells
+TCP Temporal change parameter in systemic exposure (also known as: time 
+dependency, temporal parameter change, linearity index); calculated as 
+AUC τ(steady  state)/AUCinf(first dose)
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 8of 59Abbreviation or special 
+termExplanation
+TEAE(s) Treatment -emergent adverse events
+tmax Time to reach maximum observed concentration
+TTR Time to response
+TTNT Time to next treatment
+ULN Upper limit of normal
+Vz/F Volume of distribution (apparent) following extravascular administration (based on 
+terminal phase)
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 9of 59AMENDMENT HISTORY
+Date Brief description of change
+14June 2022 Updates based on CSP amendment (v6.0)
+IPD list update per Non -compliance Handling Plan V6.0.
+Update from AstraZeneca Drug dictionary to WHODRUG dictionary
+Added output for hematological parameters of clinical interest
+Updated ECI definitions and narrative search criteria per updated MedDRA 
+version.
+23Aug2021 Updates based on CSP amendment (v 5.0)
+Added clarifications and reformulations in sections 3 and 4. 
+Added outputs in sections 4 to be consistent with TLF shells and sponsor 
+requirements.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 10of 591. STUDY DETAILS
+1.1. Study objectives
+Table 1 Study objectives
+Phase 1 Portion -Primary Objective: Endpoint/Variable:
+To assess the safety and tolerability of 
+acalabrutinib in Chinese subjects with 
+Relapsed/Refractory (R/R) B-cell malignanciesAdverse events (AEs), laboratory data, vital signs, 
+and Electrocardiograms (ECGs)
+To characterize pharmacokinetics of 
+acalabrutinib and its major metabolite (ACP -
+5862) in Chinese subjects with R/R B -cell 
+malignanciesAUCinf, AUC0 -12, AUC last, Cmax, tmax, CL/F 
+(acalabrutininb only), Vz/F (acalabrutininb only), 
+λz, t½λz, Metabolite: Parent ratio (Cmax), and 
+Metabolite: Parent ratio (AUC) after single dose; 
+AUCτ, Cmax, Cmin, tmax, CL/F (acalabrutinib 
+only), Metabolite: Parent ratio (Cmax) , 
+Metabolite: Parent ratio (AUCτ), TCP, Rac AUC 
+and Rac Cmax after multiple doses
+Phase 1 Portion -Secondary Objective: Endpoint/Variable:
+To assess the efficacy of acalabrutinib in 
+Chinese subjects with R/R B -cell malignanciesFor R/R chronic lymphocytic leukemia ( CLL):
+Tumor response (number of subjects with CR, 
+CRi, PR, nPR, PRL, SD, PD)
+For other R/R B -cell malignancies:
+Tumor response (number of subjects with CR, PR, 
+SD, PD)
+Phase 2 Portion Cohort A -Primary 
+Objective:Endpoint/Variable:
+To assess the efficacy of acalabrutinib in 
+Chinese subjects with R/R mantle cell 
+lymphoma (MCL)ORR as assessed by Blinded Independent Central 
+Review (BICR) per Lugano classification for Non -
+Hodgkin Lymphoma (NHL)
+Phase 2 Portion Cohort A -Secondary 
+Obje ctive:Endpoint/Variable:
+To further assess the efficacy of acalabrutinib 
+in Chinese subjects with R/R MCLDoR, PFS and TTR as assessed by BICR per 
+Lugano classification for NHL;
+ORR, DoR, PFS and TTR as assessed by 
+investigators per Lugano classification for NHL;
+OS
+To assess the safety profile of acalabrutinib in 
+Chinese subjects with R/R MCLAEs, laboratory parameters, vital signs, and ECGs
+To assess pharmacokinetics of acalabrutinib in 
+Chinese subjects with R/R MCLPlasma concentration of acalabrutinib (sparse 
+sampling)
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 11of 59Table 1 Study objectives
+Phase 2 Portion Cohort B -Primary 
+Objective:Endpoint/Variable:
+To assess the efficacy of acalabrutinib in 
+Chinese subjects with R/R CLLORR as assessed by BICR per iwCLL 2018 
+criteria
+Phase 2 Portion Cohort B -Secondary
+Objective:Endpoint/Variable:
+To further assess the efficacy of acalabrutinib 
+in Chinese subjects with R/R CLLDoR, PFS and TTR as assessed by BICR per 
+iwCLL 2018 criteria;
+ORR, DoR, PFS and TTR as assessed by 
+investigators per iwCLL 2018 criteria;
+TTNT;
+Minima l residual disease negative rate (defined as 
+the proportion of subjects with MRD -negativity) 
+measured in the peripheral blood by flow 
+cytometry;
+OS
+To assess the safety profile of acalabrutinib in 
+Chinese subjects with R/R CLLAEs, laboratory parameters, vital signs, and ECGs
+To assess pharmacokinetics of acalabrutinib in 
+Chinese subjects with R/R CLLPlasma concentration of acalabrutinib (sparse 
+sampling)
+Safety Objectives are contained within the primary and secondary objectives.
+Data from R/R MCL subjects in both Phase 1 and Phase 2 will be combined for analysis.
+1.2. Study design
+This is an open -label, two -part study to assess the safet y, tolerabili ty, pharmacokinet ics and 
+clinical efficacy  of acalabrutinib in Chinese adult subjects with R/R MCL, R/R CLL and other 
+B-cell malignancies. The study  is divided into 2 parts: Phase 1 port ion and Phase 2 portion. 
+The general study  design is summarized in Figure 1.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 13of 59R/R MCL subjects who have disease progression will be fo llowed f or survival (see CSP 
+Secti on 7.1.2) unless they  withdraw consent or are lost to fo llow-up.
+Phase 2 portion
+Phase 2 portion is to further evaluate clinical efficacy , safet y andtolerabilit y in subjects with 
+R/R MCL and R/R CLL. The enro lment of Phase 2 portion will be init iated per Sa fety Review 
+Committee (SRC) recommendat ion based on preliminary  safety  data from  Phase 1 porti on. 
+Detailed informat ion will be provided in SRC charter. Evaluation of efficacy and safety  will 
+be perform ed independent ly for each cohort. 
+Cohort A
+Cohort A is to eval uate clinical efficacy , safet y and tol erabili ty in subjects wi th pathol ogically  
+docum ented MCL who have relapsed after or were refractory  to ≥1 (but not >5) prior 
+treatm ent regimens. Approximately 33 R/R MCL subjects will be enrolled to receive 100 mg 
+of acalabrutinib BID in repeated 28 -day cycles.
+Cohort B
+Cohort B is to evaluate clinical efficacy, safet y and tol erabili ty in subjects wi th CLL who have 
+failed from ≥ 1 pri or sy stemic therapies. Approximately 60 R/R CLL subjects will be enrolled 
+to receive 100 mg of acalabrutinib BID in repeated 28 -day cycles.
+Treatment with acalabrutinib may be cont inued until disease progression or any other 
+treatm ent discont inuat ion criterion is met.   Dose modificat ion provi sions are outlined in CSP 
+Secti on 6.6.2. Note: Temporary  withhol ding of study  drug for as litt le as 7 days can cause a 
+transi ent worsening of disease and/or of constitutional symptoms. Refer to CSP Section 7.1 
+for more inform ation on assessing disease progressio n under these circumstances. An early  
+termination visit is required for any  subjects who perm anent ly discont inue study  drug for any  
+reason (except for death, lost to follow up or withdrawal of consent), including disease 
+progression.  In addit ion to the early terminat ion visit, all subject s who di scont inue study  drug 
+will have a safet y follow-up visi t 30(+7)days after his or her last dose of study drug. 
+All subjects will have hematol ogy, clinical chemistry , and urinalysis safet y panels done at 
+screening.  Once dosing commences (Cycle 1 Day 1), all subjects will be evaluated for safet y, 
+including hematology  and clinical  chemistry at regul ar basis.
+Tumor assessments for R/R MCL subjects will be performed at 8 -to 12 -week intervals 
+throughout the study . Tum or assessments for R/R CLL subject s will be performed at 12 -to 
+24-week intervals throughout the study . Ref er to CSP Section 1.1 for a com prehensive list of 
+study  assessments and their t iming. The end of trial is defined as the 3rdanalyses for R/R CLL 
+subjects of Phase 2 cohort B, which will occur approximately  24 m onths after the l ast R/R 
+CLL subject enrolled into Phase 2.
+The primary  efficacy  analyses (R/R MCL and R/R CLL subjects) will be based on BICR 
+assessment 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 14of 591.3. Number of subj ects
+The primary  object ives of Phase 1 portion are to evaluate the safet y, tolerabilit y and 
+pharmacokinet ics (PK) of acalabrutinib. Hence approximately  12 pati ents will be enrolled in 
+Phase 1 to obtain adequate pharmacokinet ic and safet y data. Addit ional p atients may be 
+enrolled to ensure at least 8 eligible patients with evaluable single -and m ultiple-dose PK 
+profiles based on China regulatory  consi derati ons.
+For Phase 2 of the study , approximately 33 R/R MCL subjects (Cohort A) and 60 R/R CLL 
+subjects (Co hort B) will be enro lled in order to evaluate the efficacy in R/R MCL and R/R 
+CLL subjects. For Cohort A, a sample size of 33 subjects will provide a 95% two -sided 
+confidence interval centered around an expected ORR of 80% that excludes an ORR of 60% 
+as a lower bound. With 60 subjects fro m Cohort B, an exact bino mial test with a no minal one -
+sided 2.5% si gnificance level will have 90% power to detect the difference between a null 
+hypothesis ORR of 70% and an alternat ive ORR of 88%. 
+2. ANALYSIS SETS
+2.1. Definition of analysis sets
+For purposes of analysis, the following populat ions are defined: 
+Analysis set Description
+Safety analysis set All subjects who received at least one dose of acalabrut inib.  
+Pharmacokinetics analysis 
+setAll subjects who received at lea st one dose of acalabrut inib, for 
+whom with reportabl e acalabrutinib plasma concentration and 
+PK parameter data with no important protocol deviations that 
+may impact PK. 
+Tumor response analysis set All subjects who received at least one dose of acalabrut inib 
+and for whom baseline tumor assessment is available.
+2.2. Protocol deviations
+For thi s study , the fo llowing general  categori es will  be considered important protocol 
+deviat ions (IPDs) and most of them (programmable IPDs) will be programmat ically derived 
+from the electroni c case report form (eCRF) data. Few observable IPDs may only  be ident ified 
+by site monitoring activit ies as the data is not captured in any clinical data base.
+Inclusio n criteria deviat ions
+Exclusio n Cri teria Deviat ions 
+Discontinuati on Cri teria f or study product m et but parti cipant not wi thdrawn fro m study  
+treatm ent 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 15of 59Discontinuati on Cri teria f or overall study  withdrawal  met but pati ent not withdrawn fro m 
+study  
+Invest igational Product (IP) deviat ion 
+Excluded medications taken
+Deviat ions to study  procedure 
+Other Important Devi ations
+IPD categories are defined and managed by  the study  team  during the IPD reviews throughout 
+the study  before database l ock. These d efinit ions of IPD categories, sub -category  codes, and 
+descript ions will be used during the course of the study.  The final IPD list is used to produce 
+the Summary o f IPDs output and the Listing of Subjects with IPDs. No deviat ions will lead to 
+patients bei ng excluded from  the analysis sets described in Sect ion 2.1 (with the except ion of 
+the pharmacokinet icsanalysis set, if the deviation is considered to impact upon PK) . 
+A per -protocol  efficacy analysis excluding pat ients with significant protocol deviat ions is not 
+planned. However, a ‘deviat ion bias’ sensit ivity analysis may be performed on the ORR 
+endpo int excluding patients with deviations that may  affect the efficacy of the trial therapy  if 
+>10% of patients in eit her cohort of Phase 2 portion: Did not h ave the intended disease or 
+indicat ion.
+The need for such a sensit ivity analysis will be determined fo llowing review of the protocol 
+deviat ions ahead of database lock and will be documented prior to the primary analysis being 
+conducted.
+3. PRIMARY AND SECONDA RY VARIABLES
+3.1. Response assessment of NHL (MCL, DLBCL, FL, SLL) and CLL
+The efficacy analyses (R/R MCL and R/R CLL subjects) will be based on Blinded 
+Independent Central Review (BICR) assessment and invest igator assessment according to 
+relevant response assessment criteria mentioned as below. 
+Results of this independent revie w will  not be communicated to investigators and the 
+management of patients will be based so lely upon the resul ts of the response assessment 
+conducted by  the investi gator. Pl ease refer sect ion 3.1.3 for more informat ion about BICR 
+assessment. The invest igator-assessed visit responses will be used direct ly for efficacy 
+analyses. The programmat ically derived visit responses using invest igator assessment may be 
+used for reconciliat ion purpose only if applicable.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 16of 593.1.1. Response assessment criteria for NHL
+The Lugano criteria for NHL (Cheson 2014) (see CSP Table 7)   will be used to determine 
+each patient’s response at each visit.  It will also be used to determine if and when a patient 
+has progressed  
+A baseline pretreatment CT scan wit h contrast (unless contraindicat ed) is requi red for the 
+neck,chest, abdomen, and pelvis and any  other disease si tes wi thin 28 days before the first 
+dose of study  drug. Addi tionally, a baseline PET -CT scan will be performed within 60 days 
+before first dose of study  drug. Bone m arrow aspi rate/bi opsy  (including IHC) wi thin 60 days 
+before first dose of study  drug is also required per clinical guidelines. Informat ion on 
+extranodal invo lvement will also be recorded. No ant i-cancer treatment other than study  
+treatm ent can be implemented between the earliest date of pretreatment scans or bone marrow 
+biopsy and the treatment of study  drug.
+Tumor assessments include physical exam, radiographic examinat ion, endoscopy , and bone 
+marrow assessment. Bone marrow assessments are required for confirmat ion of CR for 
+subjects who have disease invo lvement at screening per clinical guidelines (see CSP Section 
+1.1). Li kewise, endoscopy  is requi red to confi rm CR for any  subjects wi th a docum ented 
+history  of gastrointestinal invo lvement. During treatment, CT scans with contrast (unl ess 
+contraindicated) of the neck, chest, abdomen, and pelvis and any other disease sites will be 
+perform ed for tum or assessments at the end of Cycle 2 (± 7 days), Cy cle 4 (± 7 days), and 
+Cycle 6; and then every  3 cycles (12 weeks) therea fter or m ore frequent ly at invest igator 
+discreti on, unt il disease progression, regardless of whether the subject receives a new 
+anticancer therapy . During treatm ent, PET -CT scans will be performed at the end of Cycle 2 
+(± 7 days) and Cycle 6 and are requir ed to confirm CR or as clinically  indicated. Subjects wi th 
+confirmed CR are not required to undergo further PET- CT scans on study unless there is 
+suspicio n of progressive disease in CT but cannot be proven, PET -CT may be used at the 
+investigator’s discret ion.
+From  the invest igator’s review of the tumour assessment, the tumour response data will be 
+used to determine each pat ient’s visit response according to Lugano criteria (Cheson 2014). At 
+each visit, patients will be assigned a Lugano criteria visit respo nse of CR, PR, SD or PD, 
+according to PET -CT-Based Response or CT -Based Response. If a pat ient has had a tumour 
+assessment that cannot be evaluated then the patient will be assigned a visit response of not 
+applicable (NA), (unless there is evidence o f progressio n in which case the response will be 
+assigned as PD).
+Please refer to Table 2 for the definit ions of CR, PR, SD and PD. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 17of 59Table 2 Response assessment criteria for NHL (Cheson 2014)
+Response and Site PET -CT-Based Response CT-Based Response
+Complete Complete metabolic response Complete radiologic response (all of the 
+following)
+Lymph nodes and extra 
+lymphatic sitesScore 1, 2, or 3awith or without a 
+residual mass on 5PSbTarget nodes/nodal masses must regress to 
+≤1.5 cm in LDi
+It is recognized that in Waldeyer’s 
+ring o r extranodal sites with high 
+physiologic uptake or with 
+activatio n within spleen or marrow 
+(e.g., with chemotherapy or 
+myeloid colony -stimulating 
+factors), uptake may be greater than 
+normal mediastinum and/or liver. In 
+this circums tance, complete 
+metabolic response may be inferred 
+if uptake at sites of initial 
+involvement is no greater than 
+surrounding normal tissue even if 
+the tissue has high physiologic 
+uptakeNo extralymphatic sites of disease
+Nonmeasured lesion Not applicable Absent
+Organ enlargement Not applicable Regress to normal
+New lesions None None
+Bone marrow No evidence of FDG -avid disease 
+in the marrowNormal by morphology; if indeterminate, 
+IHC negative
+Partial Partial metabolic response Partial remission (all of the following)
+Lymph nodes and extra 
+lymphatic sitesScore 4 or 5bwith reduced uptake 
+compared with baseline and 
+residual mass(es) of any size≥50% decrease in SPD of up to 6 target 
+measurable nodes and extranodal sites
+At interim, these findings suggest 
+responding diseaseWhen a lesion is too small to measure on 
+CT, assign 5 x 5 mm as the default value
+When no lo nger visible, 0 x 0 mm
+At end of treatment, these findings 
+indicate residual diseaseFor a node >5 x 5 mm, but smaller than the 
+normal, use actual measurement for 
+calculation
+Nonmeasured lesions Not applicable Absent/no rmal, regressed, but no increase
+Organ enlargement Not applicable Spleen must have regressed by >50% in 
+length beyond normal
+New lesions None None
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 18of 59Table 2 Response assessment criteria for NHL (Cheson 2014)
+Response and Site PET -CT-Based Response CT-Based Response
+Bone marrow Residual uptake higher than uptake 
+in no rmal marrow but reduced 
+compared with baseline (diffuse 
+uptake compatible with reactive 
+changes from chemotherapy 
+allowed). If there are persistent 
+focal changes in the marrow in the 
+context of a nodal response, 
+consideratio n should be given to 
+further evaluation with MRI or 
+biopsy or an interval scanNot applicable
+No response or stable 
+diseaseNo metabolic response Stable disease
+Target nodes/nodal 
+masses, extranodal 
+lesionsScore 4 or 5 with no significant 
+change in FDG uptake from 
+baseline at interim or end of 
+treatment<50% decrease from baseline in SPD of up 
+to 6 dominant, measurable nodes and 
+extranodal sites; no criteria for progressive 
+disease are met
+Nonmeasured lesions Not applicable No increase consistent with progression
+Organ enlargement Not applicable No increase consistent with progression
+New lesions None None
+Bone marrow No change from baseline Not applicable
+Progressive disease Progressive metabolic disease Progressive disease requires at least 1 of 
+the following
+Individual target 
+nodes/nodal massesScore 4 or 5 with increase in 
+intensity  of uptake from baseline 
+and/o rPPD progression:
+Extranodal lesions New FDG -avid foci consistent with 
+lymphoma at interim or end -of-
+treatment assessm entAn individual node/lesion must be 
+abnormal with:
+LDi > 1.5 cm and
+Increase by  ≥ 50% from PPD nadir and
+An increase in LDi or SDi from nadir
+0.5 cm for lesions ≤ 2 cm
+1.0 cm for lesions > 2 cm
+In the setting of splenomegaly, the splenic 
+length must incr ease by > 50% of the 
+extent of its prior increase beyond baseline 
+(e.g., a 15 -cm spleen must increase to > 16 
+cm). If no prior splenomegaly, must 
+increase by at least 2 cm from baseline
+New or recurrent splenomegaly
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 19of 59Table 2 Response assessment criteria for NHL (Cheson 2014)
+Response and Site PET -CT-Based Response CT-Based Response
+Nonmeasured lesions None New or clear progression of preexisting 
+nonmeasured lesions
+New lesions New FDG -avid foci consistent with 
+lymphoma rather than another 
+etiology (e.g., infection, 
+inflammation). If uncertain 
+regarding etiology of new lesions, 
+biopsy or interval scan may be 
+consideredRegrowth of previously resolved lesions
+A new node >1.5 cm in any axis
+A new extranodal site >1.0 cm in any axis; 
+if <1.0 cm in any axis, its presence must be 
+unequivocal and must be attributable to 
+lymphoma
+Assessable disease of any size 
+unequivocally attr ibutable to lymphoma
+Bone marrow New or recurrent FDG -avid foci New or recurrent involvement
+Abbreviations: 5PS = 5 -point scale; CT = computed tomography; FDG = [18F] fluorodeoxyglucose; IHC = 
+immunohistochemistry; GI = gastrointestinal; LDi = longest tr ansverse diameter of a lesion; MRI = magnetic resonance 
+imaging; PET = positron emission tomography; PPD = cross product of the LDi and perpendicular diameter; SDi = shortest 
+axis perpendicular to the LDi; SPD = sum of the product of the perpendicular diam eters for multiple lesions.
+a. A score of 3 in many patients indicates a good prognosis with standard treatment, especially if at the time of 
+an interim scan. However, in trials involving PET where de -escalation is investigated, it may be preferable to 
+consider a score of 3 as inadequate response (to avoid undertreatment). Measured dominant lesions: Up to six of 
+the largest dominant nodes, nodal masses, and extranodal lesions selected to be clearly measurable in two 
+diameters. Nodes should preferably be fro m disparate regions of the body and should include, where applicable, 
+mediastinal and retroperitoneal areas. Non -nodal lesions include those in solid organs (e.g., liver, spleen, 
+kidneys, and lungs), GI involvement, cutaneous lesions, or those noted on pal pation. Nonmeasured lesions: Any 
+disease not selected as measured, dominant disease and truly assessable disease should be considered not 
+measured. These sites include any nodes, nodal masses, and extranodal sites not selected as dominant or 
+measureable or that do not meet the requirements for measurability but are still considered abnormal, as well as 
+truly assessable disease, which is any site of suspected disease that would be difficult to follow quantitatively 
+with measurement, including pleural effusio ns, ascites, bone lesions, leptomeningeal disease, abdominal masses, 
+and other lesions that cannot be confirmed and followed by imaging. In Waldeyer’s ring or in extranodal sites 
+(e.g., GI tract, liver, bone marrow), FDG uptake may be greater than in the m ediastinum with complete metabolic 
+response, but should be no higher than surrounding normal physiologic uptake (e.g., with marrow activation as a 
+result of chemotherapy or myeloid growth factors).
+b. PET 5PS: 1, no uptake above background; 2. Uptake ≤ mediastinum; 3, uptake > mediastinum but ≤ liver; 
+4, uptake moderately > liver; 5, uptake markedly higher than liver and/or new lesions; X, new areas of uptake 
+unlikely  to be related to lymphoma.
+3.1.2. Response assessment criteria for CLL
+The i wCLL cri teria (m odified fro m Hallek 2018) (see CSP Table 8) will be used to determine 
+each CLL pat ient’s  response at each visit.  It will also be used to determine if and when a 
+patient has progressed.  
+For baseline, a CT scan with contrast (MRI should be used if contrai ndicated) i s requi red to 
+cover the neck, chest, abdomen, and pelvis and any other disease sites (e.g. brain), within 28 
+days before the first dose of study  drug. Spleen and liver size should be recorded in CT 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 20of 59measurement. Addit ionally, bone marrow aspirat ion and biopsy  within 3 mo nths before first 
+dose of study  drug is requi red. Physical exam (especially lymph node and organomegaly), B 
+symptoms, blood counts with differential and other clinical informat ion shoul d be recorded in 
+the eCRF at the baseline. PET -CT is not requi red, but if performed within 60 days before the 
+study  treatm ent, shoul d be recorded in eCRF.
+Radiologic tum our assessment will be performed every  12 weeks (± 7 day s) wi th the fi rst on -
+treatm ent radi ologic assessment occurring on Cy cle 4 Day 1, the second on treatment scan on 
+Cycle 7 Day  1, and so on through Cy cle 25, and then every  24 weeks (± 7 days) thereafter. 
+For subjects who achieve a response (CR, CRi, PR, or n PR), CT must be performed for 
+response confirmat ion in 12 weeks (±7 days) af ter the init ial response imaging assessment, 
+and then every  24 weeks (±7 days) thereafter.
+From  the invest igator’s review of the tumour assessment, the tumour response data will be 
+used to determine each pat ient’s visit response according to iwCLL criteria (Hallek 2018). At 
+each visit, patients will be assigned a iwCLL criteria visit response of CR, CRi, nPR , PR, 
+PRL, SD or PD. If a patient has had a tumour assessment that cannot be evaluated then the 
+patient will be assigned a visit response of not applic able (NA), (unl ess there i s evidence of 
+progression in which case the response will be assigned as PD).
+Please refer to Table 3 for the definit ions of CR, CRi, nPR, PR, PRL, SD or PD. 
+Table 3 Response Assessment Criteria for CLL (modified from Hallek 2018 ) –
+iwCLL Criteria ** 
+Group Parameter CR * PR #PD SD
+A Lymph nodes None ≥1.5 cm Decrease 
+≥50% (from
+baseline)aIncrease ≥50% 
+from baseline or
+from responseChange of-49% to 
++49%
+Liver and/or 
+spleen sizebSpleen size <13 
+cm; liver size 
+normalDecrease 
+≥50% (f rom 
+baseline)Increase ≥50% 
+from baseline or 
+from responseChange of -49% to 
++49%
+Constitutional 
+symptomsNone Any Any Any
+Circulating 
+lymphocy te 
+countNormal Decrease 
+≥50% f rom 
+baselineIncrease ≥50% over 
+baselineChange of -49% to 
++49%
+B Platelet count ≥100,000/µL ≥100,000/µL 
+or increase 
+≥50% over 
+baselineDecrease of ≥50% 
+from baseline 
+secondary to CLChange of -49% to 
++49%
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 21of 59Hemoglobin ≥11.0 g/dL 
+(untransfused 
+and without 
+erythropoietin)≥11 g/dL or 
+increase ≥50% 
+over baselineDecrease of ≥2 
+g/dL from baseline 
+secondary to CLLIncrease 
+<11.0 g/dL or 
+<50% over 
+baseline, or 
+decrease >2 g/dL
+Marrow Normocelluar, no 
+CLL cells, no B -
+lymphoid 
+nodulesPresence of 
+CLL cells, or 
+of B-lymphoid 
+nodules, or not 
+doneIncrease of CLL 
+cells by ≥50% on 
+successive biopsiesNo change in 
+marrow infiltrate
+Abbreviations:  CLL=chronic lymphocytic leukemia; CR=complete response; CT=computed tomography; 
+PD=progressive disease; PR=partial response; SD=stable disease.
+Note:  CR, complete remission:  a ll of the criteria have to be met; PR, partial response: for a PR at least 2 of the 
+parameters of group A and 1 parameter of group B need to improve if previously abnormal.  If only one parameter 
+of both groups A and B is abnormal prior to therapy, only 1 needs to improve. PD, progressive disease: at least one 
+of the above criteria of group A or group B has to be met; SD, stable disease:  all of the above criteria have to be 
+met.  Constitutional symptoms alone do not define PD.
+a. Sum of the products of 6 o r less lymph nodes (as evaluated by CT scans and physical examination in clinical 
+trials, or by physical examination in general practice).
+b. Spleen size is considered normal if <13 cm. There is not firmly established, international consensus of the size o f 
+a normal liver; therefore, liver size should be evaluated by imaging and manual palpation in clinical trials and be 
+recorded according to the definition used in a study protocol.
+*CRi (CR with incomplete bone marrow recovery) refers to subjects who fulfill all the criteria for a CR (including 
+the bone marrow examinations), but have a persistent anemia, thrombocytopenia, or neutropenia apparently 
+unrelated to CLL, but related to drug toxicity. Subjects who are otherwise in a complete remission, but bo ne 
+marrow nodules can be identified histologically, should be considered to have “nodular PR” (nPR).  
+Immunohistochemistry should be performed to define whether these nodules are composed of primarily T cells, 
+lymphocytes other than CLL cells, or CLL cells . If the nodules are not composed of CLL cells, a CR can be 
+documented provided all other criteria are met.
+#PRL (partial response with lymphocytosis): presence of lymphocytosis, plus ≥ 50% reduction in lymphadenopathy 
+and/or in spleen or liver enlargemen t, plus one of the PR criteria for platelets or hemoglobin have to be met.
+**patients who previously assessed based on Hallek 2008 per initial protocol should be re -evaluated based on 
+Hallek 2018 if possible.
+For a detailed description of the response par ameters see Hallek 2018.
+3.1.2.1. Additional requirement for CLL response Assessment
+Laboratory tests
+Hem atology will be evaluated at the central laboratory  and will  include a com plete bl ood 
+count (CBC) with different ial including, but not limited to white blood ce ll count, 
+hemoglo bin, hematocrit, platelet count, ANC, and ALC. Any missing central laboratory  blood 
+samples should be redrawn as soon as possible. In the event that the missing central laboratory  
+sample i s unrecoverable, local laboratory  resul ts will  be collected, if available, and entered in 
+the clinical database. 
+B-Symptoms
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 22of 59B-symptoms is part of tumor response assessment for CLL subjects per Hallek 2018. B-
+symptoms should not be reported as AEs. Worsening is generally considered a symptom (but 
+not an objective criterion) of progression.
+B-symptoms are constitutional symptoms defined as any one or more of the fo llowing disease -
+related symptom s or si gns:
+Unintent ional weight l oss of 10% or m ore wi thin the previous 6 months
+Significant fatigue (i.e., ECOG performance status 2 or worse; inabilit y to work or 
+perform  usual act ivities)
+Fevers >100.5°F or 38.0°C for ≥2 weeks without other evidence of infect ion
+Night sweats for >1 m onth wi thout evi dence of infecti on
+3.1.3. Blinded independent central review (BICR)
+A central imaging service (BICR) provided by a third -party  vendor com pany will be used to 
+provi de independent radio logic assessments for the purposes of the efficacy endpo int. The 
+assessment results fro m BICR will not be reported back to the site. D e-ident ified copies of all 
+radiology resul ts may be requested by  the sponsor. Subjects who have signs and symptoms o f 
+progression outside of the scheduled assessment should be evaluated by  the investi gator wi th a 
+physical exam and laboratory  assessments to determine if disease progression is present. Any 
+suspected case of disease progression should be confirmed wit h a CT and should be reported 
+to the sponsor or designee.  Subjects may  cont inue study  treatm ent until progression is 
+confirmed by a serial exam at least 2 weeks later.  In addit ion, when clinically  appropri ate, 
+based on invest igator -perceived risk/benefit assessment, a subject may continue treatment 
+until object ive progression is confirmed. New ant icancer therapy  shoul d be wi thheld if 
+clinically appropriate in the absence of objectively confirmed progressive disease.
+The CT portion of a PET -CT may be submitted in lieu of a dedicated CT; however, certain 
+radiologic requi rements are needed for acceptance, provided it is of diagnostic qualit y. 
+Magnet ic resonance imaging (MRI) may be used for subjects who are either allerg ic to CT 
+contrast m edia or have renal insufficiency  that per inst itutional guidelines restri cts the use of 
+CT con trast m edia. 
+Further details of the BICR will be documented in the BICR Charter.
+3.2. Phase 1
+3.2.1. Efficacy variables
+Efficacy will be assessed in terms of tumor response by best overall response (BOR). For R/R 
+NHL patients, these will be described by number of pat ients with tumor response (CR, PR, 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 23of 59SD, PD) according to the Lugano classification for R/R NHL (Cheson 2014). For R/R CLL 
+patients these will be the number of patients with tumor response (CR, CRi, nPR, PR, PRL, 
+SD, PD) according to the iwCLL 2018 cri teria (Hallek 2018) .  Appropriate descript ive 
+summaries of these data will be presented as described in Sect ion 3.2.2.
+3.2.1.1. Best overall response (BOR)
+Best overall response is the best visit response a patient has had fo llowing fi rst dose date, but 
+prior to starting any  subsequent ant icancer therapy  up to and including progression or the last 
+evaluable assessment in the a bsence of progression. To determine the BOR, the fo llowing 
+order i s used: 
+For R/R NHL patients: CR > PR > SD > PD > NE. 
+For R/R CLL patients: CR > CRi > nPR > PR > PRL > SD > PD > NE.
+Patients will  be assigned a BOR of NE (Non -Evaluable) if all post- baseline responses are 
+either missing (not documented) or documented as NA (Not Applicable) or Unknown.    
+3.2.2. Safety variables
+Safety and tol erabilit y will  be assessed in term s of AEs, l aboratory  data, physical 
+examinat ions, vital signs, ECG and ECOG performance status.  These will be collected for all 
+subjects.  Appropriate descript ive summaries of these data will be presented as described in 
+Secti on 4.2.3. All summaries will be presented by  the safet y analysis set.
+3.2.2.1. Adverse events
+Adverse Events and SAEs will be collected fro m time of signature of informed consent form 
+until 30 days after the last dose of study treatment or the start of new ant icancer therapy  
+(whichever comes first). 
+The Medical Dictionary  for Regul atory  Activit ies (MedDRA) (MedDRA versio n 24.0 or later) 
+will be used to code the AEs. AEs will be graded according to the National Cancer Inst itute 
+Commo n Termino logy Criteria f or AEs (NCI CTCAE, latest available versio n). 
+Treatment -emergent AEs are defined as those events that occur or worsen on or after the first 
+dose of study  drug, through the treatment phase, and unt il 30 days after the last dose of study 
+treatm ent or the start of new anticancer therapy  (whichever occurs first). AEs occurring before 
+the first administration o f IP but increase in s everi ty or frequency on or after administration of 
+IP will be considered as treatment -emergent as well. In the case where it is not possible to 
+define an AE as treatment emergent or not, the AE will be classified by the worst case; i.e. 
+treatm ent-emergent.
+AEs of special interest (AESIs)
+The fo llowing events are adverse events of special interest (AESIs) for all subjects in this 
+study  and m ust be reported to the sponsor expedit iously irrespect ive of regulatory seriousness 
+criteria or causalit y:
+Ventri cular arrhy thmias (e.g., ventri cular extrasystol es, ventri cular tachycardia, ventricular 
+arrhy thmia, ventri cular fibrillat ion, etc.) as defined in Appendix 8.1.1..
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 24of 59Events of Clinical Interest
+Some clinical  concepts (including som e selected individual preferred terms and higher -level 
+terms) have been considered “Events of Clinical Interest” (ECIs) to the acalabrut inib program. 
+ECIs include cardiac events, cy topeni as (anemian, leukopenia and thrombocy topeni a), 
+hemorrhage, hepatotoxicit y, hypertensio n, infect ions,intestinal lung disease/pneumo nitis, 
+tumor lysis syndrome, and secondary  primary  malignancies.  
+These ECIs have been ident ified as a list of categories provided by the pat ient safet y team . 
+ECIs are defined in Appendix 8.1 and search strategy  for narrativ es are defined in Appendix 
+8.2.
+Other categories may  be added as necessary or existing terms may be merged.  An 
+AstraZeneca medically qualified expert after consultat ion with the Gl obal Pat ient Safet y 
+Physician has reviewed the AEs o f clinical interest and ident ified which higher -level term s 
+and which preferred terms contribute to each ECI. Further reviews may  take pl ace pri or to 
+database lock (DBL) to ensure any further terms not already included are captured within the 
+categori es.
+3.2.2.2. Exposure and dose interruptions/delay
+Total  exposure (i.e. duration of treatment or intended exposure), actual exposure, dose 
+withhol ding and dose reduction will be defined as fo llows:
+Total  (or intended) exposure = min(last dose date where dose > 0 [units], date of death, 
+date of DCO)  –first dose date +1 
+Actual  exposure = intended exposure –number of days where the patient has not taken 
+any study  treatm ent
+Dose withho lding is defined as missing doses for ≥ 7 consecut ive days. 
+Dose reduction is defined as taking a lower dose (100 mg daily) for ≥ 3 consecut ive 
+days.
+The calculat ion of actual exposure considers only full days where the patient did not take any 
+study  treatm ent as defined above. It makes no adjustment for reduced dosing frequency , 
+taking lower doses, or any other dose modifications that may have occurred.
+Patients who permanently discontinue during a dose interruption
+If a patient permanent ly discont inues study treatment during a dose interruption, then the date 
+of last administrati on of  study  medicati on rec orded on DOSDISC will be used in the 
+programming. See further Appendix 8.2. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 25of 593.2.2.3. Dose intensity
+See Appendix 8.3 for example RDI calculations.
+Relative dose intensit y (RDI) i s the percentage of the actual dose delivered relat ive to the 
+intended dose through to treatment discont inuat ion.  Rel ative dose intensit y (RDI) will be 
+defined as fo llows:
+RDI = 100% * d/D, where d is the actual cumulat ive dose delivered up to the actual 
+last day  of dosing and D i s the intended cumulat ive dose up to the or the actual las t day  
+of dosing. D i s the total  dose that woul d be delivered, if there were no modificat ion to 
+dose or schedule. 
+The average daily dose is defined as the ratio of actual cumulative dose (d) and the 
+actual duration o f exposure.
+3.2.2.4. Laboratory data
+Clinical saf ety laboratory  assessment is included in Table 4 and specified into the CSP SoA 
+for the timing and frequency .
+The clinical chemistry , hematol ogy (see paragraphs below for specific requirements for CLL 
+subjects in Phase 2 –cohort B), pregnancy test, coagul ation, urinalysis, hepat itis, HIV and 
+serum  immunogl obulin levels analyses will be perform ed locally at the visits as indicated in 
+the CSP SoA (see Table 1, Table 2 and Table 3), therefore sample vo lumes m ay vary  
+according to local practice . If screening a ssessment clinical chemistry , hematol ogy, 
+coagul ation and urinalysis are performed within 5 days prior to the baseline visit (i.e. first 
+dose day : Phase 1 porti on-at Cy cle 0 Day  1; Phase 2 porti on-at Cycle 1 Day  1), they  do not 
+need to be repeated at the baseline visit. T/B/NK cell count (ie, CD3, CD4, CD8, CD19, 
+CD16/56) will be performed at the central laboratory , sam ples will  be collected , labelled, 
+stored, and shipped as detailed in the Laboratory  Manual. 
+Table 4 Laboratory variables
+Clinical Chemistry a
+Calcium Urea or blood urea nitrogen 
+Chloride Uric acid
+Magnesium Creatinine
+Phosphate/Phosphorus Total bilirubin
+Potassium Glucose
+Sodium Albumin
+AST Total protein
+ALT Triglycerides
+Alkaline phosphatase (ALP) Cholesterol
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 26of 59Gamma glutamyl transferase (GGT) Lactatedehydrogenase (LDH)
+Hematology b
+White blood cell (WBC) count with differential Platelet count
+Red blood cell (RBC) count Absolute neutrophil count (ANC)
+Hematocrit Absolute lymphocyte count (ALC)
+Hemoglobin
+Urinalysis
+pH Bilirubin
+Specific gravity Protein
+Glucose Ketones
+Blood
+Pregnancy Test (females of childbearing potential only)
+Urine human chorionic gonadotropin (hCG) or Serum 
+βhCG
+Hepatitis B and C Testing c
+HBsAg Hepatitis B surface antibody (HBsAb)
+Anti-HBc Hepatitis C ( hepatitis C virus [HCV]) antibody
+Hepatitis B PCR (clinically indicated) Hepatitis C PCR (clinically indicated)
+Coagulation
+Coagulation tests: prothrombin time (PT) Activated partial thromboplastin time (aPTT)
+Fibrinogen
+Other Tests
+T/B/NK Cell Count Serum immunoglobulin levels
+HIV antibody β2-microglobulin d
+Cytogenetics and FISH Panel d,eGenetic and molecular prognostic moleculesd,f
+a.   In case a subject shows an AST or ALT ≥3xULN together with total bilirubin ≥2xULN please refer to CSP 
+Appendix D. ‘Actions required in cases of increases in liver biochemistry and evaluation of Hy’s Law’, for 
+further instructions.
+b.  Hematology will be evaluated at the central laboratory for CLL subjects in Phase 2 –cohort B.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 27of 59c.   Hepatitis serology testing must include HBsAg, HBsAb, anti -HBc and hepatitis C (HCV) antibody. In 
+addition, any subjects testing positive for anti -HBc must have quantitative PCR testing for HBV DNA during 
+screen ing and monthly basis from Cycle 2 through 19. After Cycle 19, monitoring will occur every 3 months. 
+HBV monitor should continue until 12 months after last dose of study drug (see CSP Table 1, Table 2, Table 3 
+and exclusion criterion #7). Any subject with a rising viral load (above lower limit of detection) should 
+discontinue study drug and have antiviral therapy instituted and a consultation with a physician with expertise in 
+managing hepatitis B. Since IVIG may cause false positive hepatitis serology, mon thly PCR testing is not 
+required in subjects who are currently receiving or received prophylactic IVIG within 3 months before study 
+enrollment and have a documented negative anti -HBc test before the initiation of IVIG therapy. PCR testing 
+should be performed when clinically indicated (eg, in the setting of rising transaminase levels). Refer to CSP 
+Table 1, Table 2 and Table 3 regarding monitoring of subjects who are anti -HBc positive or who have a known 
+history  of HBV.
+Subjects with a known history of hepat itis C or who are hepatitis C antibody positive should have quantitative 
+PCR testing for HCV RNA performed during screening. No further testing is necessary if the PCR results are 
+negative at screening.
+d. These tests will be performed at the central labor atory  and for CLL subjects in cohort B only.
+e. Cy togenetics and FISH Panel include 17p del, 13q del, trisomy 12, 11q del by FISH and stimulated 
+karyotyping. 
+f. Genetic and molecular prognostic molecules panel include, but is not limited to, sequencing of p53 mutations, 
+immunoglobulin heavy -chain variable (IGHV) mutational status.
+3.2.2.5. Physical examinations
+The physical examinat ion includes height (Screening only) and weight, and examinat ion of 
+the skin, ey es, ears, nose, throat, lungs, heart, abdomen, extremi ties, muscul oskeletal , nervous, 
+lymphat ic system, and general appearance.  The lymphat ic system examinat ion will include 
+examinat ion of palpable lymph nodes and spleen and liver below the costal margin on the 
+respective side. Physical examinat ion will be perf ormed at timelines as specified in the SoA. 
+3.2.2.6. Vital signs
+Vital signs (Bl ood pressure, pul se rate, and body  temperature) will be assessed after at least 5 
+minutes of rest for the subject in a quiet setting without distractions (eg, televisio n, cell 
+phone s).
+3.2.2.7. ECG
+Twelve -lead ECG will be obtained as outlined in the SoA (see CSP Section 1.1) using an ECG 
+machine that automat ically calculates the heart rate and measures PR, QRS, QT, and QTc 
+intervals.
+3.2.2.8. ECOG performance status
+ECOG performance status will be assessed at screening , prior to the first dose of study  
+treatm entand at all visit s thereafter according to ECOG criteria as fo llows:
+Grade ECOG
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 28of 590 Fully  active, able to carry  on all pre -disease performance wit hout restrict ion
+1 Restricted in physically s trenuous activit y but ambul atory  and able to carry  out 
+work of a light or sedentary nature, eg, light house work, office work
+2 Ambulatory  and capable o f all self- care but unable to carry  out any  work 
+activit ies. Up and about more than 50% of waking hours
+3 Capable of only limited self -care, confined to bed or chair more than 50% of 
+waking hours
+4 Com pletely disabled. Cannot carry  on any self -care. Totally  confined to bed or 
+chair
+5 Dead
+3.2.3. Pharmacokinetic variables
+Pharmacokinet ic ana lysis of the plasma concentratio n data for acalabrutinib and a metabo lite 
+(ACP-5862) will be performed by Covance (Contract Research Organiz ation) on behalf o f 
+AstraZeneca. 
+In Phase 1 portion, venous blood samples for determinat ion of concentrations of 
+acalabrutinib and it s metabo lite (ACP -5862) in pl asma will be taken at the times presented 
+in Table 11 and Table 12 of CSP. 
+Where possible, the fo llowing PK parameters will be est imated using non -compartmental 
+method with plasma conce ntration data of acalabrutinib and a met abolite (ACP -5862) on
+Cycle 0 Day1 and Cycle 1 Day  8 of Phase 1:
+Maximum observed plasma drug concentration (Cmax)
+Time to reach maximum observed drug concentratio n (tmax)
+Terminal eliminat ion rate constant ( λz) 
+Half-life associ ated wi th terminal slope (λz) of a semilogarithmic concentration -time 
+curve (t½λz) 
+Area under the plasma concentration -time curve from zero to 12 hours (AUC0-12) 
+Area under the plasma concentration -time curve from zero to the time of the last 
+measurable concentration (AUClast) 
+Area under the plasma concentration -time curve from zero to i nfini ty(AUCinf)
+Apparent total body  clearance of drug fro m plasma after extravascular administration 
+(CL/F)
+Volume of distribut ion (apparent) following extravascular administration (based on 
+terminal phase) (V z/F)
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 29of 59Accumulat ion rati o for AUC calculated as AUCτ (steady  state)/AUCτ (first dose) and 
+denoted by  Rac AUC
+Accumulat ion rati o cal culated as Cm ax (steady  state)/Cm ax (fi rst dose) and denoted by  
+Rac Cmax
+Temporal  change parameter (TCP) calculated as AUCτ (steady  state)/AUCinf (first 
+dose)
+Metabo lite: Parent ratio for AUC calculated as AUC (metabo lite)/AUC (parent)
+Metabo lite: Parent ratio for Cm ax calculated as Cmax (metabolite)/Cmax (parent)
+Diagnostic param eters: 
+oλzN: number of data point s used for λz determinat ion
+oλz lower: l ower (earlier) t used for λz determinat ion
+oλz upper: upper (later) t used for λz determinat ion
+oλz span ratio: time period over which λz was determined as ratio of t½λz
+oRsq: stati stical measure of fit for the regressio n used for λz determinat ion
+oRsq adj.: statist ical measure of fit for the regressio n used for λz determinat ion 
+adjusted for the number of used data points
+oAUCextr: extrapolated area under the curve fro m tlast to infinit y, expressed as 
+percentage of AUCinf
+oTlast: time of last observed (quantifiable) concentration
+The Cmax and tm axwill be determined by inspectio n of the concentratio n-time profiles.  
+Where possible the λz will becalculated bylog-linear regression of the terminal portion of 
+the concentration -time profiles where there are sufficient data, and the t½λz will be 
+calculated as ln2/λz.  The AUC 0-12, and AUClast will be calculated using the linear/log 
+trapezoi dal rul e (i.e. “linear -up-log-down”: the linear trapezoidal rule is used any t ime that 
+the concentration data is increasing, and the logarithmic trapezoidal rule is used any t ime 
+that the concentration data is decreasing). Where appropriate, the AUClast will be 
+extrapol ated to infinit yusing λz to obtain AUCinf.  The CL/F will be determined from the 
+ratio of dose/AUC.  The Vz/F will be determined from the ratio of CL /F/λz. The Rac AUC  
+and Rac Cmax will be calculated as the ratio of the AUCτ or Cmax onCycle 1 Da y8 and 
+Cycle 0 Day1, respect ively.  The TCP will be assessed by the calculat ion of the rati o of 
+AUCτ o nCycle 1 Day8 and AUCinf on Cycle 0 Day 1. The Metabolite: Parent ratio 
+param eters will  be calculated after molar conversion.
+3.3. Phase 2
+3.3.1. Efficacy variables
+3.3.1.1. Best overall response (BOR)
+Best overall response is the best visit response a patient has had fo llowing fi rst dose date, but 
+prior to starting any  subsequent ant icancer therapy  up to and including progression or the last 
+evaluable assessment in the absence of progression, assessed b y BICR. To determine the 
+BOR, the fo llowing order is used: 
+For R/R MCL patients: CR > PR > SD > PD > NE. 
+For R/R CLL patients: CR > CRi > nPR > PR > PRL > SD > PD > NE.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 30of 59Patients will  be assigned a BOR of NE (Non -Evaluable) if all post- baseline responses are 
+either missing (not documented) or documented as NA (Not Applicable) or Unknown.   
+3.3.1.2. Overall response rate (ORR) as assessed by BIRC
+For R/R MCL subjects, ORR will be d efined as the proportion of subjects who achieve eit her 
+a CR or PR as BOR in the tumor response analysis set, according to the Lugano Classificat ion 
+for NHL (Cheson 2014), as assessed by  BICR. 
+For R/R CLL subjects, ORR will be defined as the proportion of subjects who achieve a
+CR, CRi, nPR, PR, as BOR in the tumor response analysis set, according to iwCLL 2018 
+criteria (Hallek 2018) as assessed by  BICR.
+Data obtained up unt il progression, or last evaluable assessment in the absence of progression, 
+will be included in the assessment of ORR.  Patients who discont inue treatment without 
+progression, receive a subsequent anti -cancer therapy  and then respond will not be included as 
+responders in the ORR.
+ORR pl us pati ents wi th a best overall response of PRL wi ll also be assessed, denoted as 
+ORR+PRL. 
+3.3.1.3. Duration of Response (DoR) as assessed by BIRC
+DoR i s defined as the interval fro m the first documentation of object ive response (PR or 
+better) m entioned above to the earlier of the first documentation of object ivedisease 
+progression by  the BICR or death from any  cause. 
+Subjects who withdraw fro m the study  or are considered lost to follow -up wi thout pri or 
+docum entati on of  disease progressi on will be censored on the date of the last adequate disease 
+assessment. Sub jects who start new ant icancer therapy  before docum entati on of  disease 
+progression will be censored on the date of the last adequate disease assessment that is on or 
+before the start date of the new ant icancer therapy. 
+For BICR assessments, the date of progression will be determined based on the 
+earliest of the scan dates of the component that triggered the progression for the 
+adjudicated reviewer select ing PD or of the reviewer who read baseline first if there is 
+no adj udicat ion for BICR data.
+For invest igator assessments, the date of progression will be determined based on the 
+earliest of the dates of the component that triggered the progression.
+For both BICR and investigator assessments, when censoring a patient for DoR the 
+patient will be censored at t he latest of the dates contri buting to a particular overall 
+visit assessment. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 31of 59Table 5 Censoring rules for DoR
+Assessment Outcome Date of progression or censoring
+Documented PD between scheduled visits on or before 
+receiving subsequent anticancer therapy or data cutoff, 
+whichever occurred first Event Earliest date of disease 
+assessment documenting progression 
+Death without documented PD and not receiving 
+subsequent anticancer therapy on or before data cutoff Event Date of death 
+Documented PD or death after subsequent anticancer 
+therapy  and the subsequent anticancer started before data 
+cutoff date Censored Date of last adequate disease 
+assessment prior to subsequent 
+anticancer treatment 
+No documented PD or death at the time of data cutoff and 
+subsequent anticancer therapy started before the data cutoff Censored Date of last adequate disease 
+assessment p rior to subsequent 
+anticancer treatment 
+Documented PD or death after subsequent anticancer 
+therapy  and the subsequent anticancer started after data 
+cutoff date Censored Date of last adequate disease 
+assessment on or before data cutoff 
+No documented PD or death at the time of data cutoff and 
+subject not received subsequent anticancer therapy or 
+subsequent anticancer therapy started after the data cutoff Censored Date of last adequate disease 
+assessment on or before data cutoff 
+Withdr ew consent without documented PD or death Censored Date of last adequate disease 
+assessment 
+Lost to follow -up without documented PD or death Censored Date of last adequate disease 
+assessment 
+Documented PD or death after 2 or more
+consecutively missed visits following the first 
+documentation of objective responseCensored Date of last adequate disease
+assessment before the consecutively 
+missed visits
+PD = progressive disease
+3.3.1.4. Progression -free survival (PFS) as assessed by BIRC
+PFS i s defined as the interval fro m the start of acalabrut inib therapy to the earlier of the first 
+docum entati on of  object ive disease progression by the BICR or death from any cause. 
+Subjects who withdraw fro m the study  or are considered lost to follow -upwithout pri or 
+docum entati on of  disease progressi on will be censored on the date of the last adequate disease 
+assessment. Subjects who start new ant icancer therapy  before docum entati on of  disease 
+progression will be censored on the date of the last adequat e disease assessment that is on or 
+before the start date of the new anticancer therapy. For patients without an adequate post -
+baseline disease assessment or no baseline assessments, PFS will be censored on the date of 
+rando mizat ion unless they die wit hin 2 visits of baseline.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 32of 59Table 6 Censoring rules for PFS
+Assessment Outcome Date of progression or censoring
+Death before first disease assessment Event Date of death
+Documented PD between scheduled visits on or before 
+receiving subsequent anticancer therapy or data cutoff, 
+whichever occurred first Event Earliest date of disease 
+assessment documenting progression 
+Death without documented PD and not receiving 
+subsequent anticancer therapy on or before data cutoff Event Date of death 
+No baseline tumor assessments and it's not known to have died 
+in 2 consecutive visits of baselineCensored Date of first dose 
+No adequate post -baseline assessment and it's not known to 
+have died in 2 consecutive visits of baselineCensored Date of first dose 
+Documented PD or death after subsequent anticancer 
+therapy  and the subsequent anticancer started before data 
+cutoff date Censored Date of last adequate disease 
+assessment prior to subsequent 
+anticancer treatment 
+No documented PD or death at the time of data cutoff and 
+subsequent anticancer therapy started before the data cutoff Censored Date of last adequate disease 
+assessment prior to subsequent 
+anticancer treatment 
+Documented PD or death after subsequent anticancer 
+therapy  and the subsequent anticancer started after data 
+cutoff date Censored Date of last adequate disease 
+assessment on or before data cutoff 
+No documented PD or death at the time of data cutoff and 
+subject not received subsequent anticancer therapy or 
+subsequent anticancer therapy started after the data cutoff Censored Date of last adequate disease 
+assessment on or before data cutoff 
+Withdrew consent without documented PD or death Censored Date of last adequate disease 
+assessment 
+Lost to follow -up without documented PD or death Censored Date of last adequate disease 
+assessment 
+Documented PD or death after 2 or more
+consecutively missed visitsCensored Date of last adequate disease
+assessment before the consecutively 
+missed visits
+PD = progressive disease
+3.3.1.5. Time to response (TTR) as assessed by BIRC
+TTR will be analyzed for subjects with object ive response (PR or better) and is defined as the 
+interval  between the date of first dose and the date of init ial documentation o f a response. 
+Time to init ial response as well as t ime to best response (in the or der of CR > PR for r/r MCL 
+and CR > CRi > nPR > PR for r/r CLL) will be derived. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 33of 593.3.1.6. Investigator -assessed endpoints (ORR, DoR, PFS and TTR)
+Definit ion of ORR, DoR, PFS and TTR by  the investi gator assessment will follow BICR 
+assessed endpo ints as above. 
+3.3.1.7. Over all survival (OS)
+OS is defined as the interval fro m the start of acalabrutinib therapy  to death from  any cause. 
+Subjects who are known to be alive as of their last known status will be censored at their last 
+date known to be alive. 
+Table 7 Censoring rule s for OS
+Assessment Outcome Date of progression or censoring
+Death on or before data cutoff Event Date of death 
+Alive before data cutoff Censored Date subject last known to be alive
+Death after data cutoff Censored Date of data cutoff
+Alive on or after data cutoff Censored Date of data cutoff
+Withdrew consent prior to data cutoff Censored Date of discontinuation
+from study
+participation as
+reported on study exit CRF
+Lost to follow -up prior to data cutoff Censored Date subject last known to be alive
+3.3.1.8. Time to Next Treatment (TTNT, for R/R CLL only)
+TTNT is defined as the interval fro m the start of acalabrut inib therapy to inst itution of  non-
+protocol  specified ant i-cancer treatment for CLL or death due to any  cause, whichever comes 
+first. Data from surviving subjects who do not receive any  non-protocol  specified treatment 
+will be censored at the last time that lack of non- protocol  specified treatment was object ively 
+docum ented.
+Table 8 Censoring rules for TTNT
+Assessment Outcome Date of progres sion or censoring
+Next treatment or death on or before data cutoff Event Earliest date of next treatment or 
+death
+Do not receive next treatment and alive on or before data 
+cutoffCensored Last time that lack of non -protocol 
+specified treatment
+Next treatment and alive after data cutoff Censored Date of data cutoff
+Next treatment and death after data cutoff Censored Date of data cutoff
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 34of 59Table 8 Censoring rules for TTNT
+Assessment Outcome Date of progres sion or censoring
+Do not receive next treatment at any time and death after 
+data cutoffCensored Date of data cutoff
+Do not receive next treatment at any time and alive after 
+data cutoffCensored Date of data cutoff
+Withdrew consent without next treatment prior to data 
+cutoffCensored Date of discontinuation
+from study
+participation as
+reported on study exit CRF
+Lost to follow -up without next treatment prior to data 
+cutoffCensored Last time that lack of non -protocol 
+specified treatment
+3.3.1.9. Minimum Residual Disease Rate (for Phase 2 R/R CLL only)
+Minimal residual disease negative rate is defined as the proportion of subjects wi th MRD-
+negat ivity measured in the peripheral blood by  flow cy tometry (defined as <1 CLL cell per 
+10,000 l eukocy tes) by  central  lab.
+If the subject’s physical examinat ion findings, laboratory evaluat ions, and radiographic 
+evaluat ions suggest that PR, CR or CRi has been achieved, a peripheral blood by flow 
+cytometry sample to eval uate MRD should be done between 8 -12 weeks from the time o f 
+supportive clinical assessments including CT imaging of suspected PR, CR or CRi. 
+A peripheral blood sample tes ting for minimal residual disease (MRD) will be done at 
+screening and end of treatment visit or if not taken at the EoT visit, then it can be drawn at 
+SFU visit. 
+3.3.2. Safety variables
+Please refer sect ion 3.2.2 as same safet y variables will be applied for Phas e 2.  As for clinical 
+laboratory  assessments, som e addi tional laboratory tests will be required for CLL subjects in 
+phase 2 –cohort B only, more detailed informat ion please refer Table 4.
+3.3.3. Pharmacokinetic variables
+In Phase 2 portion, the schedule of sparse PK sampling for determinat ion of acalabrutinib 
+plasma concentration is presented in Table 13 of CSP.  
+4. ANALYSIS METHODS
+4.1. General principles
+The below ment ioned general principles will be fo llowed throughout the study:
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 35of 59Descript ive statistics will be used for all variables, as appropriate.  Continuous 
+variables will be summarized by  the number of observat ions, m ean, standard 
+deviat ion, median, upper and lower quartiles minimum, and maximum.  For log -
+transformed dat a it is more appropri ate to present geometric mean, coefficient of 
+variat ion (CV), median, minimum and maximum.  Categorical variables will be 
+summarized by  frequency counts and percentages for each category . 
+Unless otherwise stated, percentages will be c alculated out of the populat ion total for 
+the corresponding treatment group. 
+For continuous data, the mean and median will be rounded to 1 addit ional decimal 
+place compared to the original data.  The standard deviat ion will be rounded to 2 
+additional deci mal places co mpared to the original data.  Minimum and maximum will 
+be displayed wit h the same accuracy  as the ori ginal  data. While p lease refer sect ion 
+4.2.6 for precisio n and rounding rules for pharmacokinet ic data.
+For categorical data, percentages will be rounded to 1 decimal place.
+SAS® versio n 9.1 (as a minimum) will be used for all analyses.
+In general, for all endpo ints the last observat ion before the first dose of study  treatment will be 
+considered the baseline measurement unless otherwise specifie d. For assessments on the day  
+of first dose where time is not captured, a nominal pre -dose indicator, if available, will serve 
+as sufficient evidence that the assessment occurred prior to first dose.
+Assessments on the day  of the first dose where neither t ime nor a n ominal pre- dose indicator 
+are captured will be considered prior to the first dose if such procedures are required by the 
+protocol  to be conducted before the first dose.
+In all summaries change fro m baseline variables will be calculated as the po st-treatment value 
+minus the value at baseline. The percentage change fro m baseline will be calculated as (post-
+baseline value -baseline value) / baseline value x 100. (If applicable add: For any variable 
+subjected to log transformation, the change fro m baseline calculated and summarized on the 
+log scale will be back -transform ed and presented as a ‘baseline scaled rat io’ (BSR). 
+Percentage change will then be calculated as (BSR - 1) x 100.)
+Data will be presented separately for three cohorts: 
+Phase 1 pati ents
+R/R MCL pat ients (Phase 1 and Phase 2 co mbined)
+R/R CLL pat ients (Phase 2 only) 
+Dem ographic data, exposure and safet y data will be analyzed based on safet y analysis set. 
+Pharmacokinet ics will be analyzed based on PK analysis set. Efficacy analyses wil l be 
+analyzed on tumor response analysis set. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 36of 59The m ethod for handling missing data is described in the definit ion for each of the endpo ints. 
+Every  effort will be m ade to obtain com plete dates for deaths. In the event of a partial or 
+missing death date, th e algorithm in Appendix 8.4 will be used.
+4.2. Analysis methods
+4.2.1. Data cut -offs
+There are two planned analyses for all subjects of Phase 1 portion and cohort A of Phase 
+2 portion.
+The data cut -off for the 1stanalysis will take pl ace when both of the following tw o condit ions 
+are met
+Approximately  1 month after cycle 1 day 1 of the last subject in Phase 1 to allow required 
+PK samplings at cycle 0 and cycle 1 are collected. 
+Approximately  6 months after last R/R MCL subjects across both Phase 1 and Phase 2 to 
+allow a minimum o f two tum or assessments after first dose.
+A Clinical Study  Report will be prepared to summarize PK, safet y and efficacy  data f or Phase 
+1 porti on and/or cohort A of Phase 2 portion. R/R MCL subjects in Phase 1, if applicable, will 
+be co mbined tog ether with the subjects in cohort A of Phase 2 portion for MCL analysis.
+The data cut -off for the 2ndanalysis will take place approximately 14 months after last subject 
+enrolled in both Phase 1 and cohort A of Phase 2. A Clinical Study Report Addendum 
+including all subjects of Phase 1 portion and/or cohort A of Phase 2 portion will be prepared at 
+that time.
+Selected safet y summaries might be generated for R/R MCL subjects across Phase 1 and 
+Phase 2. 
+There are three planned analyses for R/R CLL subjects of cohort B of Phase 2 portion. 
+The data cut -off for the 1stanalysis will take place when approximat ely 6 months after l ast 
+R/R CLL subjects enrolled in Phase 2. A Clinical Study  Report will be prepared to summarize 
+efficacy , safety and PK data for cohort B of Phase 2 portion.  Efficacy  analysis of tum or 
+response in R/R CLL will only be applied for R/R C LL subjects in Phase 2. Tumor response 
+of R/R CLL subjects in Phase 1 may  be listed separately . 
+The data cut -off for 2ndanalysis will take place when approximately 12 months after last R/R 
+CLL subject enrolled in Phase 2. A Clinical Study  Report Addendum including R/R CLL 
+subjects of cohort B of Phase 2 portion will be prepared at that time.
+The data cut -off for 3rdanalys is will take place approximately  24 m onths after l ast R/R CLL 
+subject enrolled in Phase 2. A Clinical Study  Report Addendum including R/R CLL subjects 
+of cohort B of Phase 2 portion will be prepared at that time. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 37of 594.2.2. Efficacy analyses
+4.2.2.1. Best overall response (BOR)
+Number and percentage of patients within a particular best overall response (BOR) category  
+will be provided for the fo llowing patients in separate tables: R/R NHL phase 1 patients, R/R 
+CLL phase 1 patients, R/R MCL patients (phase 1 and phase 2 combine d) and R/R CLL 
+patients (phase 2 only). In addit ion, numbers and percentages of BOR by disease group (MCL, 
+non-GCB DLBCL, FL, SLL) for phase 1 R/R NHL patients as well as for phase 2 R/R CLL 
+patients wi th del 17p will be presented in separate addit ional ta bles.
+For R/R NHL(MCL,non -GCB DLBCL, FL, SLL) patients, the response categories are  (CR, 
+PR, SD, PD) and assessments are based on the Lugano criteria. For R/R CLL patients, these  
+are (CR, CRi, nPR, PR, PRL, SD, PD) and assessments are based on iwCLL 2018 criteria. For 
+R/R NHL phase 1 and R/R CLL phase 1, tables with responses based on investigator 
+assessments will be presented. For R/R MCL patients (phase 1 and phase 2 combined) and 
+R/R CLL pat ients (phase 2) separate tables for assessments by invest igato r and BICR will be 
+created.
+For R/R NHL phase 1 and R/R CLL phase 1, investigator -assessed BOR will be listed 
+separately . For R/R MCL patients (phase 1 and phase 2 combined) and R/R CLL pat ients 
+(phase 2) separate list ings with invest igator -assessed BOR an d BICR -assessed BOR will be 
+presented.
+The analysis will be based on the tumor response set.
+4.2.2.2. Overall response rate (ORR)
+Primary analysis o f BICR -assessed ORR will be conducted on the tumor response analysis set 
+for MCL pat ients (phase 1 and phase 2 combi ned) and R/R CLL pat ients (phase 2) separately . 
+ORR and the corresponding 95% two -sided CI of ORR will be presented based on Clopper -
+Pearson exact method. BICR –assessed ORR+PRL and the corresponding 95% two -sided 
+Clopper -Peason CI will also be presented.
+.For MCL patients (phase 1 and phase 2 combined) , maximum percentage changes fro m 
+baseline in the sum o f product diameters (SPD) will be presented using waterfall plots (tumor 
+response marked wit h different colors) based on BICR assessments. 
+Analysis of in vestigator -assessed ORR, ORR+PRL and SPD will be conducted on the tumor 
+response analysis set using same statist ical methods. The concordance between invest igator -
+assessed and BIRC -assessed ORR as well as CR and PR rates  will be summarized for MCL 
+cohort. The concordance between investigator -assessed and BIRC -assessed ORR, CR  or CRi 
+rate and ORR+PRL rate  will be summarized for CLL cohort.
+Subgroup analysis
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 38of 59Addit ionally, subgroup analysis following the categories as below will be performed where 
+deem ed ap propri ate, these will  be summarized and presented on a forest plot including the 
+BICR -assessed ORR and 95% CI. 
+Age at enrolment (<65 versus >=65; <75 versus >=75 )
+Sex (m ale versus female)
+ECOG (0 versus 1 versus >=2)
+Bulky disease (l ongest di ameter of ly mph node <5 cm vs. >=5 cm and <10 cm vs >=10 
+cm at baseline)
+Number of previous lines (1 versus 2 versus >=3)
+Extranodal disease (yes versus no) –MCL only
+Bone m arrow involvement (y es versus no) –MCL only
+Gastrointestinal disease (yes versus no) –MCL only
+Simplified MCL internat ional prognosti c index (MIPI) (low risk [0- 3] vs
+intermediate ri sk [4 -5] vs high risk [6 -11]) –MCL only
+Refractory  disease at baseline (yes versus no)
+Ann Arbor lympho ma staging (1 -3 versus 4) -MCL only
+Rai staging at baseline (0 -II versus III -IV) -Phase 2 cohort B only
+β2-microglobulin at baseline ( ≤3.5 m g/L vs. >3.5 mg/L) –Phase 2 cohort B only
+IGHV mutation (mutated versus unmutated) – Phase 2 cohort B only
+17p del etion (yes versus no) –Phase 2 coho rt B only
+11q del etion (yes versus no) –Phase 2 cohort B only
+TP53 m utation (m utated versus unmutated) -Phase 2 cohort B only
+In addit ion, same the subgroup analysis will be presented for the invest igator assessed ORR. 
+4.2.2.3. Tumor response by visit
+Time win dows will  be used to ensure tumor response data recorded at any  time point has the 
+potenti al to be summarized, for details refer to section 4.2.3.1.
+Both BICR and invest igator tumor response data will be summarized by visit using time 
+windows for the phase 2 R/R CLL cohort only. Investigator -assessed tumor response for R/R 
+NHL phase 1 patients, R/R CLL phase 1 patients, R/R MCL pat ients (phase 1 and phase 2 
+combined) and phase 2 R/R CLL pat ients  at each timepo int will be presented  in list ings and 
+swimmer plots. BICR -assessed tumor response by timepo int will be presented in list ings and 
+swimmer plots for R/R MCL patients (phase 1 and phase 2 combined) and phase 2 R/R CLL 
+patients.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 39of 594.2.2.4. Duration of response (DoR)
+The analysis of BICR -assessed DoR will be estimate d using the Kaplan -Meier (KM) m ethods 
+will be performed on R/R MCL patients (phase 1 and phase 2 combined) and phase 2 R/R 
+CLL pat ients separately . KM est imates will be calculated for event time quartiles (including 
+median, Q1 and Q3), and event -free rates will be calculated at selected time points (i.e. 6 
+months, 12 m onths, 18 m onths). 
+In addit ion, type of event (i .e. death, PD) and the reason for censoring (i.e. data cutoff, lost to 
+follow-up, subsequent ant icancer therapy ) will be summarized in the same table. Please refer 
+Table 5 for censoring rules.
+Kaplan -Meier pl ot for durati on of  response will be created accordingly. In addit ion, Kaplan -
+Meier pl ot for durati on of  response by  best overall response (PR and CR) will be developed in 
+a separated plot.
+The analysis will be performed on the tumor response set.
+4.2.2.5. Progression -free survival (PFS)
+The analysis of BICR -assessed PFS will be performed for R/R MCL patients (phase 1 and 
+phase 2 combined) and phase 2 R/R CLL pat ients separately  and in the same way as D oR. 
+Please refer Table 6 for censoring rules.
+4.2.2.6. Time to response (TTR)
+BICR -assessed time to init ial response and time to best response will be summarized 
+separately  using descri ptive statistics for R/R MCL patients (phase 1 and phase 2 combined) 
+and phase 2 R/R CLL patients on the tumor response set
+4.2.2.7. Investigator -assessed endpoints (DoR, PFS and TTR)
+The same analysis methods for BICR -assessed endpoints (DoR, PFS, and TTR) will be 
+applied to investigator -assessed endpo ints. 
+4.2.2.8. Overall survival (OS)
+The analysis of OS will be performed in the same way  as DoR. Pl ease refer Table 7 for 
+censoring rules.
+4.2.2.9. Time to Next Treatment (TTNT, cohort B only)
+Time to next treatment (for R/R CLL only ) will be perform ed in the same way  as DoR. Pl ease 
+refer Table 8 for censoring rules.
+4.2.2.10. Minimum Residual Disease Rate (MRD, cohort B only)
+MRD negat ivity rate will be summarized for phase 2 R/R CLL subjects only. 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 40of 594.2.3. Safety analyses    
+4.2.3.1. General considerations for safety
+The analysis will be performed separately for all three c ohorts: all phase 1 patients, R/R MCL 
+patients (phase 1 and phase 2 combined) and phase 2 R/R CLL patients except where it is 
+ment ioned otherwise.
+Time windows will be defined for any  presentati ons that summarize values by visit.  The 
+following convent ionswillapply: 
+The time windows will be exhaust ive so that data recorded at any t ime point has the 
+potenti al to be summarized.   Inclusion within the time window will be based on the 
+actual date and not the intended date of the visit.
+All unscheduled visit data have the potential to be included in the summaries.
+The window for the visit s following baseline will be constructed in such a way  that the 
+upper limit of the interval falls half way between the two visits (the lower limit of the 
+first post -baseline v isit will be Day 2). If an even number of days exists between two 
+consecut ive visits then the upper limit will be taken as the midpo int value minus 1 day .  
+For example, the visit windows for vital signs data (with 1 weeks between scheduled 
+assessments) are :
+-Day 8, visi t window 2 – 11
+-Day 15, visi t window 12 – 18
+-Day 22, visi t window 19 – 25
+-Day 28, visi t window 26 – 32
+For summaries showing the maximum or minimum values, the maximum/minimum 
+value recorded on treatment will be used (regardless of where it falls in an interval).
+Listings should display all values contributing to a time point for a patient.
+For vi sit based summaries
+If there is more than one value per patient within a time window then the 
+closest value to the scheduled visit date will be summ arized, or the earlier, in 
+the event the values are equidistant fro m the nominal visit date.  The list ings 
+will highlight the value for the patient that contributed to the summary  table, 
+wherever feasible.  Note: in summaries of extreme values all post bas eline 
+values collected are used including those collected at unscheduled visit s 
+regardl ess of whether or not the value is closest to the scheduled visit date  
+For summaries at a patient level, all values will be included, regardless of whether they  
+appear in a corresponding visit based summary, when deriving a patient level statist ic 
+such as a maximum.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 41of 59Baseline for safet y assessments will generally  be the last value obtained prior to the 
+first dose of study  medicat ion. Alternatively, if two visits are equ ally eligible to assess 
+patient status at baseline (e.g., screening and baseline assessments both on the sam e 
+date prior to first dose with no washout or other intervent ion in the screening period), 
+the average can be taken as a baseline value .  For non -numeric laboratory  tests (i .e. 
+some of the urinalysis parameters) where taking an average is not possible then the 
+best value would be taken as baseline as this is the most conservat ive.  In the scenario 
+where there are two assessments on day  1, one wi th time recorded and the other 
+without time recorded, the one with time recorded would be selected as baseline. 
+Where safet y data are summarized over time, study  day will be calculated in relation to 
+date of first treatment.
+Missing safet y data will generally  not be imputed.  However, safet y assessment values of the 
+form of “< x” (i .e. bel ow the l ower limit of quant ificat ion) or > x (i.e. above the upper limit of 
+quant ificat ion) will be imputed as “x” in the calculation of summary statist ics but displayed as 
+“< x” or “> x” in the list ings.  Addit ionally , adverse events that have missing causalit y (after 
+data querying) will be assumed to be related to study  drug.
+For missing date of init ial diagnosis and start dates for AEs, medical history and concomitant 
+medicat ions/procedures, the following will be applied:
+Missing day: Impute the 1st of the month unless month is the same as month of the 
+first dose of study  drug then impute first dose date.
+Missing day  and m onth: Impute 1st January  unless year i s the same as firs t dose date 
+then impute first dose date.
+Com pletely missing date: Impute first dose date unless the end date suggests it could 
+have started prior to this in which case impute the 1st January  of the same year as the 
+end date.
+When imputing a start date, ensure that the new imputed date is sensible e.g., prior to the end 
+date of the AE.
+For missing stop dates of AEs, medical history  and concomi tant m edicat ions/procedures, the 
+following will be applied:
+Missing day: Impute the last day  of the m onth unless month is the same as month of 
+last dose of study  drug then impute last dose date.
+Missing day  and m onth: Impute 31st December unless year is the same as last dose 
+date then impute last dose date.
+Com pletely missing: If an AE, MH/medication has a completely missing end date then 
+it will be treated as ongoing. Flags will be retained in the database indicat ing where 
+any programmat ic imputation has been applied, and in such cases, any durat ions woul d 
+not be calculated.
+For parti al subsequent ant i-cancer therapy  dates, the fo llowing will be applied:
+Missing day: If the month is the same as treatment end date then impute to the day  
+after treatm ent, otherwi se first day  of the m onth.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 42of 59Missing day  and m onth: If year is the same as treatment end date then impute to the 
+day after treatm ent, otherwise 1st January  of the same year as ant i-cancer therapy  date.
+4.2.3.2. Exposure and Compliance
+Descript ive statistics will be produced to describe the exposure to acalabrutinib specified in 
+section 3.2.2.2 for the safet y analysis set:
+Total treatment duration (months)
+Number (%) of patients with total treatment duration
+o≤ 3 m onths 
+o> 3 m onths to ≤ 6 m onths
+o> 6 to ≤ 12 months
+o>12 to ≤ 24 months
+o>24 m onths
+Actual  treatm ent durati on (m onths)
+Actual  cumulat ive dose
+Average daily  dose
+Relative dose intensit ies (%)
+Number of dose withho ldings and number (%) of patients with dose withho ldings
+Number of dose reductions and number of (%) of patients with dose reductions
+4.2.3.3. Adverse events
+Treatment -emergent AEs as defined in sect ion 3.2.2.1 will be used for the reporting of the AE 
+summary tables. Any events that occur after a patient has received further therapy  for cancer 
+(following discont inuat ion of study  treatm ent) will be flagged in the data list ings. Moreover, 
+AEs occurring more than 30 days after discontinuation of study  treatm ent and any AE 
+occurring before giving the study  treatm ent will be included in the data list ings as well.
+An overall summary o f the number and percentage of pat ients in each of the aforementioned 
+categori es will  be presented for the fo llowing:
+All TEAEs
+All drug -related TEAEs 
+All TEAEs with CTCAE grade ≥3 
+All drug -related TEAEs with CTCAE grade ≥3
+All serious TEAEs
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 43of 59All drug -related serious TEAEs 
+TEAEs l eading to treatment discont inuat ion
+Drug -related TEAEs leadi ng to treatment discont inuation
+TEAEs l eading to dose interruption and modification
+TEAEs l eading to death
+Drug -related TEAEs leading to death
+All AEs will be listed. 
+A separate list ing for adverse events for enrolled but not assigned to treatment patients and for 
+patients who were not exposed to treatment will be created. 
+4.2.3.3.1. TEAEs and drug -related TEAEs
+Treatment -emergent AEs are defined in sect ion 3.2.2.1.TEAEs and drug- related TEAEs will 
+be summarized by system organ class and preferred terms, by CTCAE toxicit y grade 
+separately . In addi tion, TEAEs with CTCAE grade ≥3 and drug- related TEAEs with CTCAE 
+grade ≥3 will be summarized separately in same manner. Summaries of th e TEAEs m entioned 
+above will also be provided by preferred term alone. 
+4.2.3.3.2. Serious TEAEs and drug -related serious TEAEs
+Serious TEAEs and drug-related serious TEAEs will be summarized by system organ class 
+and preferred terms and by  CTCAE toxi city grade separ ately . In addi tion, summaries of 
+serious TEAEs by  preferred term  alone will  be provided.
+4.2.3.3.3. TEAEs and drug -related TEAEs leading to treatment discontinuation
+TEAEs and drug- related TEAEs leading to treatment discont inuat ion will be summarized by 
+system  organ class and preferred terms and by  CTCAE toxi city grade separately . In addi tion, 
+summaries of TEAEs and drug- related TAEs leading to discont inuat ion by preferred term 
+alone will  be provi ded.
+4.2.3.3.4. TEAEs leading to dose interruption and modification
+TEAEs l eading t o dose interruption and dose modificat ion (reduced) will be summarized by 
+system  organ cl ass and preferred terms and by  CTCAE toxi city grade. In addi tion, summaries 
+of TEAEs l eading to dose interruption and modification by preferred term alo ne will be 
+provided.
+4.2.3.3.5. TEAEs leading to death and drug -related TEAEs leading to death
+TEAEs l eading to death and drug -related TEAEs leading to death will be summarized  by 
+system  organ cl ass, preferred terms and CTCAE toxicit y grade separately. In addit ion, 
+summaries of TE AEs leading to death and drug -related TEAEs leading to death by preferred 
+term alone will  be provi ded.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 44of 594.2.3.3.6. Adverse events of special interest (AESI)
+AESIs are defined in sect ions 3.2.2.1. and 8.1.1.
+Summaries of the below -ment ioned grouped AE categories will include number (%) of 
+patients who have:
+At least one drug-related AESI
+At least one AESI leading to discont inuat ion of study  medicat ion
+AESI, drug -related AESI and AESI leading to discontinuat ion of study  medicati onwill be 
+summarized by  grouped term  and preferred term s in descending order of frequency  and by 
+CTCAE toxicit y grade separately .
+4.2.3.3.7. Events of Clinical Interest (ECI)
+ECIs are defined in sections 3.2.2.1 and 8.1.2.
+A summary  of the number and percentage of patients with treatm ent-emergent ECIs will be 
+provi ded by ECI category  and ECI subcategory . In addi tion, for each ECI category , a separate 
+summary table will be displayed with number and percentage of treatment -emergent ECIs by  
+ECI subcategory  and Preferred Term.
+4.2.3.3.8. Deaths
+All deaths and deaths on -treatment or wi thin 30 days o f last dose will be summarized. Details 
+of any deaths will be listed for all pat ients.
+4.2.3.4. Laboratory variables
+Project -specific reference ranges will be applied for laboratory  variables (hematolog y, clinical 
+chemistr y).
+Hem atology, clinical chemistr y, urinalysis, coagulation, T/B/NK Cell Count, Serum
+Immunoglobulin will be listed individually bypatient and suitably summarized.  For all 
+laboratory variables, which are i ncluded in the version 5.0 of CTCAE, the CTCAE grade will 
+be calc ulated. 
+Num erical  laboratory  data (absolute and change from  baseline) will be summarized  by  
+scheduled study  day using standard summary  stati stics (mean, standard deviat ion, minimum, 
+median, maximum, and number of observat ions) except for urinalysis.
+For hematology and clinical chemistry data shift tables will summarize the change fro m 
+baseline to maximum on- treatm ent CTCAE grade, the change from baseline to maximum 
+value, and the change fro m baseline to minimum value .
+Number and percentage of patients wi th treatm ent-emergent abnorm al hematol ogy and 
+clinical chemistry  will be presented by  parameter and direct ion (increased/decreased) for 
+grades >= 3 and all grades. To ident ify potential Hy’s Law (see CSP Appendix D for further 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 45of 59details) cases, subjects who have ALT or AST ≥ 3 x ULN together with total bilirubin ≥ 2 x 
+ULN at any  time during the study   will  be flagged in the list ings. 
+Hem atological parameters of clinical interest, such as abso lute neutrophil count (ANC), 
+hemoglo bin, platelets, leukocy tes, abs olute lymphocy te count (ALC), over time will be 
+plotted for CLL cohort.
+A summary  of liver funct ion test abnormalit ies will be provided as fo llows: 
+Number (%) of patients with ALT ≥ 3x to ≤ 5x ULN, > 5x to ≤ 8x ULN, > 8x to ≤ 10x 
+ULN, > 10x to ≤ 20x ULN a nd > 20x ULN
+Number (%) of patients with AST ≥ 3x to ≤ 5x ULN, > 5x to ≤ 8x ULN, > 8x to ≤ 10x 
+ULN, > 10x to ≤ 20x ULN and > 20x ULN
+Number (%) of patients with ALT or AST ≥ 3x to ≤ 5x ULN, > 5x to ≤ 8x ULN, > 8x 
+to ≤ 10x ULN, > 10x to ≤ 20x ULN and > 20x ULN
+Number (%) of patients with total bilirubin ≥ 2x to ≤ 3x ULN, > 3x to ≤ 5x ULN, > 5x 
+ULN
+Number (%) of patients with potential Hy’s Law: (ALT or AST ≥ 3x ULN) and Total 
+bilirubin ≥ 2x ULN.
+Figures of liver biochemistry  test results over time for pati ents wi th elevated ALT or AST, 
+and elevated total bilirubin will be provided. 
+Scatter plots for maximum treatment -emergent ALT (xULN) vs. maximum treatment -
+emergent total  bilirubun (xULN) and sc atter pl ots for maximum  treatm ent-emergent AST 
+(xULN) vs. maximum treatment -emergent total  bilirubun (xULN) will be presented.
+For uri nalysis a shift table co mpar ing baseline to the maximum value will be presented.
+Analysis of Lymphocytosis (rrCLL cohort only) 
+For all subjects with baseline and any post -baseline ALC measurements, ALC at peak 
+summary will be provided. 
+Lymphocy tosis is defined as an ALC > 5000 cells per microliter and an increase above 
+baseline. The number of subjects with at least one occurrence of lymphocy tosis will  be 
+summarized. For subjects with lymphocy tosis, resol ution of lymphocy tosis is defined as 1) a 
+decrease of ALC value to the baseline level or lower, or 2) an achievement of ALC value tha t 
+is below 5,000/μL, whichever occurs first. The fo llowing analyses will be conducted for 
+subjects wi th lymphocy tosis in RR CLL cohort: ALC at peak and time to peak ALC for 
+subjects who have lymphocy tosis will be summarized with descriptive statist ics. 
+Duration of  lymphocy tosis is defined as the duration of time fro m the earliest date on which 
+the ALC value met the lymphocy tosis criteria at a post -baseline assessment to the earliest date 
+on which a subsequent ALC value met the resolut ion criteria.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 46of 594.2.3.5. Vital si gns
+Pulse rate, systolic and diastolic blood pressure, b ody temperature and wei ght will be listed by  
+patient and summarized using standard summary  statistics for the abso lute value and change 
+from baseline at each scheduled study  visits.
+4.2.3.6. ECOG performance s tatus
+ECOG performance status specified in sect ion 3.2.2.8 will be summarized by visit s.
+4.2.3.7. ECGs
+Electrocardiogram details will be listed individually by pat ient.The only ECG data available 
+will be the QTcF, QT and RR results and the overall evaluat ions, cla ssified as normal, 
+abnorm al not clinically  significant and abnormal clinically  significant. The actual and change 
+from baseline and assessment time (for QTcF, QT and RR measurements) data will be 
+summarized and the overall evaluat ions will be using shift t ables summarising the change 
+from baseline to last on -treatm ent observation. Graphical presentations o f safety data m aybe 
+presented as is deemed appropriate.  This may  include, but i s not restri cted to, presentation of 
+param eters against time, concentrati on or shift plots.  Appropriate scatter plots may also be 
+considered to investigate trends in parameters compared to baseline.
+4.2.4. Demographics and Baseline Characteristics
+The analysis will be performed separately for all three cohorts: all phase 1 patients, R/R MCL 
+patients (phase 1 and phase 2 combined) and phase 2 R/R CLL patients except where it is 
+ment ioned otherwise.
+Descript ive summaries of demographics, baseline characterist ics, and baseline disease 
+characterist ics will be presented for subjects in th e safet y analysis set. The fo llowing will be 
+summarized for all pat ients:
+Patient disposi tion (including screening failures and reason for screening failure)
+Important protocol deviat ions
+Inclusio n in analysis sets
+Dem ographics (age, age group [< 65, ≥ 65, < 75 and ≥ 75 y ears], sex, country , race)
+Patient characterist ics (Height, Weight, Body Mass Index)
+Medical and surgical histories
+Other baseline characterist ics
+Simplified MCL internat ional prognosti c index (MIPI) (low risk [0- 3] vs
+intermediate ri sk [4 -5] vs high risk [6 -11]) –MCL only
+Ann Arbor staging for lympho ma (1 -3 versus 4) - non- CLL only
+RAI staging –CLL only
+Patient disease group (MCL, CLL, non -GCB DLBCL, FL, SLL)
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 47of 59Previous lines of anti-cancer therapi esprior to thi s study  (median, 1, 2, >=3)
+ECOG performance status(0, 1, 2, >=3)
+Alcoho l use, categorised (never, current, former)
+Nicotine use, categorised (never, current, former)
+Bulky disease (l ongest di ameter of lymph node >=5 cm, >=10 cm at baseline)
+Extranodal disease (yes versus no) –MCL o nly
+Bone m arrow involvement (y es versus no) –MCL only
+Gastrointestinal disease (yes versus no) –MCL only
+β2-microglobulin at baseline (median, ≤3.5 m g/L, >3.5 m g/L) –Phase 2 cohort B only
+IGHV mutation (mutated versus unmutated) – Phase 2 cohort B only
+17p del etion (yes versus no) –Phase 2 cohort B only
+11q del etion (yes versus no) –Phase 2 cohort B only
+TP53 m utation (m utated versus unmutated) -Phase 2 cohort B only
+Refractory  disease at baseline
+The simplified MIPI score will be derived based on baseline values o f 4 prognostic factors: age, 
+and ECOG, lactate dehy drogenase (LDH), whi te blood cell (WBC). Points will be assigned to 
+each of these factors as presented below and the score will be derived by adding the points for 
+all 4 factors. A sco re of 0-3 indicates low risk, 4-5 indicates intermediate risk, and 6-11 indicates 
+high ri sk (Hoster 2008) .
+Points Age (year) ECOG LDH ULN* WBC,109/L
+0 < 50 0-1 <0.67 <6.7
+1 50-59 - 0.67-0.99 6.7-9.9
+2 60-69 2-4 1.0 –1.49 1.0-14.9
+3 >=70 - >=1.5 >=15
+*LDH relative to upper limit of normal.
+Refractory  disease i s defined as a l ack of  at least a parti al response to the last therapy  before 
+study  entry  (Wang 2013). Refractory  disease will be assessed based on the response to the last 
+MCL treatm ent regimen a s ubject received prior to study  entry  and will  be categori zed as Yes, 
+No. Subj ect wi thout achi eving at l east PR or wi th unknown response to the last treatment 
+regimen prior to study  entry  will have a value Yes.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 48of 594.2.4.1. Disposition
+Patient disposi tion will be summarized and will include the fo llowing inform ation:
+Number of patients   enrolled to the study  (inform ed consent received), number of patients 
+assigned to treatment, number of patients not assigned to treatment by  reason and in total . 
+Number and percen tage of  patients who received treatment and number and percentage of 
+patients who di d not receive treatm ent by  reason and in total . 
+Number and percentage of pat ients ongoi ng treatment (at data cutoff), number and 
+percentage of patients who discont inued t reatment (at data cutoff) by reason and in total.
+Number and percentage of pat ients ongoi ng study , number and percentage of patients 
+who terminated study  by reason and in total .
+Patients who discont inued treatment and patients who patients who discontin ued study  will be 
+listed.The number and percentage of subjects excluded fro m each analysis set will be 
+presented in a summary table.
+4.2.4.2. Protocol deviations
+All the important protocol deviat ions will be summarized and listed for all pat ients in the 
+safet y analysis set. All protocol deviations, including non -important protocol deviat ions, will 
+be listed.
+4.2.4.3. Medical and surgical histories
+Medical and surgical histories will be recorded using the medical dict ionary for regulatory  
+activit ies (MedDRA, versio n 24.0 or later) Preferred Term (PT) within the System Organ 
+Class (SOC) l evel of MedDRA, and will be summarized descript ively.
+4.2.5. Concomitant and other treatm ents
+Inform ation on any treatment within the four weeks prior to init iation of study drug and all 
+concomit ant treatm ents, or obj ective disease progressio n (whichever is later), with reasons for 
+the treatment, will be recorded in the eCRF. Thereafter, only subsequent regimens of anti -
+cancer therapy  will be recorded i n eCRF.
+Other anti -cancer therapi es, invest igational agents, and radiotherapy  shoul d not be given while 
+the pati ent is on study  drug.
+Medicat ions received prior to, concomitant ly, or post -treatm ent will be coded using the 
+WHODRUG Dict ionary Anatomical Therapeut ic Chemical (ATC) Classificat ion codes. 
+Concomitant medicat ions will be summarized for the safet y analysis set by  ATC cl assificat ion 
+codes.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 49of 59Prior medicat ions, concomitant and post- randomized treatment medicat ions are defined based 
+on imputed start and stop dates as fo llows:
+Prior medicat ions are those taken prior to study  treatm ent wi th a start date or stop date 
+prior to the first dose of study  treatm ent.
+Concomitant medicat ions are those with a stop date on or after the first dose date of study 
+treatm ent,and for 30 days following the last dose of study treatment (and could have started 
+prior to or during treatment).
+Post-treatm ent m edicat ions are those with a start date after the last dose date of study  
+treatm ent.
+The fo llowing summaries will be produced:
+Summary  of prior anti -cancer therapies
+Summaries of prior medications and prior radiotherapies
+Summaries of conco mitant m edicati ons Summary  of post study  treatm ent anti -cancer 
+therapi es
+Summary  of post study  treatm ent radi otherapies
+All conco mitant and other treatment data will be listed.
+Missing coding terms should be listed and summarized as "Not coded".
+4.2.6. Pharmacokinetic analyses
+All PK analyses will be summarized based on the PK analysis set.  The data excluded fro m 
+the PK analysis set will be flagged in subject list ing only.
+Precision an d rounding rules for pharmacokinetic data
+For PK concentration data, the list ings will be presented to the same number of significant 
+figures as the data received fro m the bioanaly tical laboratory; for PK parameters, the list ings 
+will be presented accordin g to the fo llowing rul es: 
+ Cmax, Cmin – will be presented to the same number of significant figures as received 
+from the bioanaly tical laboratory . 
+ tmax,λz lower and upper time limit –will be presented as received in the data, usually to 
+2 decimal places 
+ AUCinf, AUClast, AUC0 -12, AUCτ, t½λz , CL/F, Vz/F, Rac ratios, metabo lite to parent 
+ratios, Rsq, Rsq adj, λz span ratios  –will be presented to 3 significant figures 
+ λz –will be pr esented to 4 significant figures
+ λz, N –will be presented as an integer (no decimals) 
+ Tlast -will be presented as received in the data, usually to 2 decimal places
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 50of 59 AUCextr –will be presented to 3 significant figures 
+For PK concentration data all descript ive statistics will be presented to 4 significant figures 
+with the excepti on of  the minimum  and maximum  which will be presented to 3 significant 
+figures. 
+For PK parameter data the descript ive statistics will be presen ted according to the fo llowing 
+rules: 
+ Cmax, Cmin, AUCinf, AUClast, AUC0 -12, AUCτ, t½λz, CL/F, Vz/F, Rac ratios and 
+metabo lite to parent rati os descri ptive statist ics will be presented to 4 significant figures 
+with the excepti on of  the minimum  and maximum  which will be presented to 3 
+significant figures 
+ tmax–all descriptive statist ics will be presented as received in the data, usually to 2 
+decimal places 
+ λz –all descript ive statist ics will be presented to 5 significant figures wit h the except ion 
+of theminimum and maximum which will be presented to 3 significant figures 
+Source data shall be used in all derived PK parameter calculat ions without prior rounding.
+Phase 1 portion
+Plasma concentrations o f acalabrutinib and a metabo lite (AC P-5862) will be sum marized by 
+nominal sample time. Plasma concentrations at each time p oint will be summarized by the 
+following summary statistics:
+The geometric mean (gmean, calculated as exp [μ], where μ is the mean of the data on a 
+logarithmic scale)
+Coefficient of variat ion (CV, calculated as 100  exp(  )− 1, where s is the standard 
+deviat ion of the data on a log scale)
+Gmean */÷ standard deviat ion (calculated as exp[ μ±s])
+Arithmetic mean
+Standard Deviation (SD)
+Median
+Minimum
+Maximum
+Number of observat ions
+Individual plasma concentrations will be listed by analyte wit h actual  elapsed time (i .e. actual  
+sampling t ime relat ive to dosing), actual sampling time (24 hour clock), nominal sampling 
+time (24 hour clock), and the difference between actual and no minal t ime. 
+The pl asma concentration -time profiles for individual and mean concentrations of 
+acalabrutinib and a metabo lite (AC P-5862) will be presented on the linear (linear/linear) scale 
+and on the semi -log (linear/l og-linear) scale. Nominal sampling time po ints rel ative to dosing 
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 51of 59will be used for all mean plots. Actual sampling t ime points will be used for all individual 
+plots.
+Plasma concentrations, that are below the Lower Limit of Quant ificat ion (<LLOQ) or if there 
+are missing values (e.g., no result [NR]), will be handled as fo llows:
+Where there is NR, there will be set to missing.
+If, at a gi ven time point, 50% or less o f the plasma concentrations are <LLOQ, all values 
+<LLOQ will be set to the LLOQ/2, and all descriptive statist ics will be calculated.
+At atime point where more than half o f the values are <LLOQ, the mean, SD, geometric 
+mean and CV% will be set to Not Determined (ND). The maximum value will be reported 
+from the individual data, and the minimum and median will be set to <LLOQ.
+If all the conc entrati ons are <LLOQ, no descriptive statist ics will be calculated for that 
+time point. Not Applicable (NA) will be written in the field for SD and CV% and <LLOQ 
+will be written in fields for mean, geometric mean, minimum, median and maximum.
+The number of <LLOQ values (n below LLOQ) will be reported for each time point along 
+with the total  number of co llected values
+Three observations ≥ LLOQ are required as a minimum for a plasma concentration to be 
+summarized. Two values are presented as a minimum and max imum wit h the other 
+summary statist ics as Not Calculated (NC).
+For m ean pl ots, < LLOQ val ues will be handled as described for the summary  tabulati ons. 
+For individual plots concentrations, which are <LLOQ prior to the first quantifiable 
+concentration, will be set to a value o f zero (linear plots only). After the first quant ifiable 
+concentration, any <LLOQ concentrations will be regarded as missing. Likewise, 
+concentrations ND and NA will be set to missing.
+If concentration data at a scheduled visit is missi ng or i ts actual  sampling time is out of the 
+time window, these data will be excluded from summary table and mean plots, and these data 
+will be flagged in subject list ing and included in the individual plots.
+PK parameters will be summarized and listed. Pa rameters fo llowing single and m ultiple 
+dosing will be summarized separate ly.PK parameters that cannot be determined due to lack of 
+PK concentrati ons will be presented as “NC” (Not calculated).
+The following summary statistics will be presented for all the PK parameters (except tmax ) ) 
+listed in CSP Section 3 Table 2 :
+The geometric mean (gmean, calculated as exp [μ], where μ is the mean of the data on a 
+logarithmic scale)
+Geom etric standard deviation (GSD)
+Coefficient of variat ion (CV, calculated as 100  exp(  )− 1, where s is the standard 
+deviat ion of the data on a log scale)
+Arithmetic mean calculated using untransformed data
+Standard Deviation calculated using untransformed data
+Median
+Minimum
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 52of 59Maximum
+Number of observat ions
+The fo llowing summary statistics will be presented for tmax:
+Arithmetic mean
+Standard Deviation
+Median
+Minimum
+Maximum
+Number of observat ions
+Phase 2 portion
+For Phase 2 portion, plasma concentrations of acalabrut inib and acalabrut inib metabo lite 
+(ACP -5862) will be summarized a nd listed.
+5. INTERIM ANALYSES
+There i s no interim analysis for fut ility or superi ority  planned f or thi s study . There will be five 
+planned DCOs, for details, please refer to Section 4.
+6. CHANGES OF ANALYSIS FROM PROTOCOL
+None.
+7. REFERENCES
+Cheson, B. (2014). Reco mmendat ions for init ial evaluat ion, staging, and response assessment 
+of Hodgkin and non -Hodgkin lympho ma: the Lugano classificat ion. J Clin Onco l, 3059 -3067.
+Hoster E, Dreyling M, Klapper W, et al. A new prognostic index (MIPI) for patients with 
+advanced -stage mantle cell lymphoma. Blood 2008;111(2):558-565.
+Michael Hallek, Bruce D. Cheson, Daniel Catovsky, et al. iwCLL guidelines for diagnosis, 
+indicat ions for treatment, response assessment, and supportive management of CLL. Blood. 
+2018;131(25):2 745-2760.
+Wang ML, Rule S, Martin P, et al. Targeting BTK with ibrutinib in relapsed or refractory mantle -cell 
+lymphoma. N Engl J Med 2013 Aug 8;369(6):507 -516.
+
+Statistical Analysis Plan AstraZeneca
+D8220C00007 3.0 24 June 2022
+CONFIDENTIAL AND PROPRIET ARY 59of 59 
+ 
+ 
+CCI
+
+SIGNATURE PAGE
+This is a representation of an electronic record that was signed
+electronically and this page is the manifestation of the electronic signature
+Document Name: d8220c00007-sap-ed-3
+Document Title: Statistical Analysis Plan Edition 3
+Document ID:
+Version Label: 2.0 CURRENT LATEST APPROVED
+Server Date
+(dd-MMM-yyyy HH:mm ‘UTC’Z)Signed by Meaning of Signature
+26-Jun-2022 19:00 UTC Management Approval
+24-Jun-2022 06:14 UTC Author Approval
+Notes: (1) Document details as stored in ANGEL, an AstraZeneca document management system.
+PPD
+PPD
+PPD

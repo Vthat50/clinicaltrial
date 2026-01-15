@@ -1,0 +1,1404 @@
+STATISTICAL ANALYSIS PLAN  
+ 
+ 
+ 
+A Phase  2, Open -Label, Randomized, Non -Comparative Study with 
+Preliminary Dose -Finding to Evaluate eFT508 Monotherapy or eFT508 in 
+Combination With Avelumab in Subjects With Microsatellite Stable 
+Relapsed or Refractory Colorect al Cancer  
+ 
+Protocol Number:  eFT508 -0006  
+Development Phase:  2 
+Sponsor:  eFFECTOR Therapeutics, Inc  
+11180 Roselle Street, Suite A  
+San Diego, CA 92121  
+United States  
+Protocol Version Number:  4.0 
+Protocol Date:  17 December  2018 
+  
+  
+SAP Version:  V1.0  
+SAP  Date:  7 March  2019 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Confidentiality Statement  
+This document contains information that is confidential and proprietary to eFFECTOR 
+Therapeutics, Inc. (eFFECTOR) and is provided for the purpose of conducting a clinical trial 
+for eFFECTOR. The co ntents of this document may be disclosed only to study personnel, the 
+Institutional Review Board/Independent Ethics Committee, or duly authorized 
+representatives of regulatory agencies for this purpose under the condition that they maintain 
+confidentiality . The contents of this document may not be used in any other clinical trial, 
+disclosed to any other person or entity, or published without prior written permission from 
+eFFECTOR .   
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 2 
+ 
+Protocol : A Phase 2, Open -Label, Randomized, Non -Comparative Study 
+with Pre liminary Dose -Finding to Evaluate eFT508 Monotherapy or 
+eFT508 in Combination With Avelumab in Subjects With Microsatellite 
+Stable Relapsed or Refractory Colorectal Cancer  
+ 
+ 
+Protocol Number:  eFT508 -0006  
+Protocol  Version : 4.0 
+SAP Version:  Version 1.0 
+ 
+This Statistical Analysis Plan has been reviewed and approved by:  
+ 
+ 
+    
+Mark Burch , Ph.D.  Date  
+Biostatistic ian 
+Medpace , Inc.  
+ 
+ 
+    
+Lyon  Gleich , MD   Date  
+Vice President, Medical Affairs  
+Medpace Inc.  
+ 
+ 
+    
+Mark Densel   Date  
+Vice President , Program  Management  
+eFFE CTOR  Therapeutics , Inc.  
+  
+  
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 3 
+ 
+TABLE OF CONTENTS  
+1 INTRODUCTION  ................................ ................................ ................................ ...........................  8 
+2 STUDY OBJECTIVES  ................................ ................................ ................................ ....................  8 
+2.1 Part 1  ................................ ................................ ................................ ................................ ...... 8 
+2.2 Part 2  ................................ ................................ ................................ ................................ ...... 9 
+3 STUDY OVERVIEW  ................................ ................................ ................................ ......................  9 
+3.1 Study Design  ................................ ................................ ................................ ..........................  9 
+3.1.1  Dose Escalation in Part 1  ................................ ................................ ........................  10 
+3.1.1.1  Dose -Escalation Guidelines  ................................ ................................ ................  10 
+3.1.1.2  Maximum Tolerabl e Dose  ................................ ................................ ..................  11 
+3.2 Study Centers  ................................ ................................ ................................ .......................  11 
+3.3 Randomization and Blinding  ................................ ................................ ................................  11 
+3.4 Sample Siz e Determination  ................................ ................................ ................................ .. 12 
+3.5 Duration of Study  ................................ ................................ ................................ .................  12 
+3.6 Schedule of Events  ................................ ................................ ................................ ...............  12 
+4 ANALYSI S POPULATIONS  ................................ ................................ ................................ ....... 16 
+4.1 Enrolled Population  ................................ ................................ ................................ ..............  16 
+4.2 Safety Population  ................................ ................................ ................................ .................  16 
+4.3 DLT Ev aluable Population  ................................ ................................ ................................ ... 16 
+5 STUDY ASSESSMENTS  ................................ ................................ ................................ .............  17 
+5.1 Efficacy Assessments  ................................ ................................ ................................ ...........  17 
+5.1.1  Clinical Response Assessment (RECIST)  ................................ ...............................  17 
+5.1.2  Clinical Response Assessment (iRECIST) ................................ ..............................  17 
+5.1.3  Pharmacodynamic Assessments  ................................ ................................ ..............  18 
+5.2 Safety Assessments  ................................ ................................ ................................ ..............  18 
+5.2.1  Adverse Events  ................................ ................................ ................................ ........  18 
+5.2.2  Clinical Laboratory Evaluations  ................................ ................................ ..............  19 
+5.2.3  Weight and Height  ................................ ................................ ................................ .. 20 
+5.2.4  Vital Signs  ................................ ................................ ................................ ...............  20 
+5.2.5  Electrocardiograms (ECGs)  ................................ ................................ ....................  20 
+5.2.6  Physical Examinations  ................................ ................................ ............................  20 
+5.2.7  Eastern Cooperative Oncology Group  ................................ ................................ .... 21 
+5.2.8  Prior and Concomitant Medications  ................................ ................................ ........  21 
+5.2.9  Immunogenicity  ................................ ................................ ................................ ...... 21 
+5.3 Pharmacokinetic Assessments  ................................ ................................ .............................  21 
+6 CLINICAL OUTCOME VAR IABLES  ................................ ................................ .........................  21 
+6.1 Primary Efficacy Endpoint  ................................ ................................ ................................ ... 22 
+6.1.1  Objective Response Rate  ................................ ................................ .........................  22 
+6.2 Secondary Efficacy Endpoints  ................................ ................................ .............................  25 
+6.2.1  Progression Free Survival  ................................ ................................ .......................  25 
+6.2.1.1  Censoring Rules f or Progression Free Survival  ................................ ..................  26 
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 4 
+ 
+6.2.2  Duration of Stable Disease  ................................ ................................ ......................  26 
+6.3 Safety Endpoints  ................................ ................................ ................................ ..................  27 
+6.3.1  Adverse Events  ................................ ................................ ................................ ........  27 
+6.3.2  Dose Limiting Toxicities  ................................ ................................ .........................  27 
+6.3.3  Total Exposure to eFT508  ................................ ................................ .......................  28 
+6.4 Pharmacokinetics  ................................ ................................ ................................ .................  28 
+7 STATISTICAL ANALYSES  ................................ ................................ ................................ ........  28 
+7.1 General Statistical Considerations  ................................ ................................ .......................  28 
+7.1.1  Baseline Definition  ................................ ................................ ................................ .. 29 
+7.1.2  Covariate Adjustment  ................................ ................................ ..............................  29 
+7.1.3  Multicenter Studies  ................................ ................................ ................................ . 29 
+7.1.4  Multiple Comparisons  ................................ ................................ .............................  29 
+7.1.5  Handling of Dropouts or Missing Data  ................................ ................................ ... 29 
+7.1.6  Examinat ion of Subgroups  ................................ ................................ ......................  30 
+7.1.7  Crossover Subjects  ................................ ................................ ................................ .. 30 
+7.1.8  Interim Analysis  ................................ ................................ ................................ ...... 30 
+7.2 Study Population Data ................................ ................................ ................................ ..........  31 
+7.2.1  Subject Disposition  ................................ ................................ ................................ . 31 
+7.2.2  Protocol Deviations  ................................ ................................ ................................ . 31 
+7.2.3  Demographics and Baseline Characteristics  ................................ ...........................  31 
+7.2.4  Medical History  ................................ ................................ ................................ ....... 32 
+7.2.5  Prior and Concomitant Medications  ................................ ................................ ........  32 
+7.2.6  Prior Cancer Therapies, Surgeries, and Radiation  ................................ ..................  32 
+7.3 Efficacy Analyses  ................................ ................................ ................................ ................  32 
+7.3.1  Primar y Efficacy Analyses  ................................ ................................ ......................  33 
+7.3.2  Secondary Efficacy Analyses  ................................ ................................ ..................  33 
+7.3.2.1  Progression Free Survival  ................................ ................................ ...................  33 
+7.3.2.2  Duration of Stable Disease  ................................ ................................ .................  33 
+7.3.3  Immunohistochemistry of Tumor -Infiltrating Lymphocytes  ................................ .. 34 
+7.3.4  Molecular Pr ofiling of Tumor -Infiltrating Lymphocytes  ................................ ........  34 
+7.3.5  Biomarkers of Immune Activation  ................................ ................................ ..........  34 
+7.3.6  PD-L1 ................................ ................................ ................................ ......................  34 
+7.3.7  eIF4E Measurements  ................................ ................................ ...............................  34 
+7.3.8  Genetic Mutations  ................................ ................................ ................................ ... 34 
+7.4 Safety Analyses  ................................ ................................ ................................ ....................  34 
+7.4.1  Extent of Exposure  ................................ ................................ ................................ .. 34 
+7.4.2  Adverse Events  ................................ ................................ ................................ ........  35 
+7.4.3  Clinical Laboratory Evaluations  ................................ ................................ ..............  36 
+7.4.4  Vital Signs  ................................ ................................ ................................ ...............  36 
+7.4.5  Electrocardiograms ................................ ................................ ................................ .. 36 
+7.4.6  Performance Status  ................................ ................................ ................................ .. 37 
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 5 
+ 
+7.4.7  Other Safety Analyses  ................................ ................................ .............................  37 
+7.5 Pharmacokinetic Analysis  ................................ ................................ ................................ .... 37 
+8 GENERAL INFORMATION  ................................ ................................ ................................ ........  37 
+8.1 Statistical Software ................................ ................................ ................................ ...............  37 
+8.2 Format of Tables, Listings, and Figures  ................................ ................................ ...............  38 
+9 CHANGES FROM PROTOC OL-SPECIFIED ANALYSIS ................................ .........................  38 
+10 REFERENCES  ................................ ................................ ................................ ..............................  40 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 6 
+ 
+List of Abbreviations and Definitions of Terms  
+ 
+ABBREVIATION  DEFINITION  
+AE adverse event  
+aPTT  Activated partial thromboplastin time  
+ATC  Anatomical therapeutic c hemical  
+BID Bis in die  
+BMI  Body mass i ndex  
+BOR/iBOR  Best objective response  
+CI  Confidence interval  
+CR/iCR  Complete response  
+CT Computed tomography  
+CTCAE  Common Terminolo gy Criteria for Adverse Events  
+DCR  Disease control rate  
+DLT  Dose limiting toxicity  
+DR/iDR  Duration of response  
+DSD/iDSD  Duration of stable disease  
+ECOG  Eastern Cooperative Oncology Group  
+ECG  Electrocardiogram  
+eCRF  Electronic Case Report Form  
+iCPD  Confirmed disease progression assigned using 
+iRECIST  
+iUPD  Unconfirmed disease progressoin assigned using 
+iRECIST  
+iRECIST  Modified Response Evaluation Criteria in Solid 
+Tumor in cancer immunotherapy trials  
+MedDRA  Medical Dictionary for Regulatory Activit ies 
+MRI  Magnetic resonance imaging  
+MTD  Maximum tolerable dose  
+NE Not e valuable  
+ORR /iORR  Objective response r ate 
+OS Overall survival  
+PBMC  Peripheral blood mononuclear cells  
+PD Progressive D isease  
+PET Positron emission tomography  
+PFS/iPFS  Progressio n free survival  
+PK Pharmacokinetics  
+PO Per os  
+PR/iPR Partial r esponse  
+PT Preferred Term  
+RECIST  Response Evaluation Criteria in Solid Tumors  
+SAE  Serious adverse advent  
+SAP Statistical Analysis Plan  
+SD/iSD Stable  disease    
+SOC  System Organ Class  
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 7 
+ 
+ABBREVIATION  DEFINITION  
+TEAE  Treatment -emergent adverse event  
+TESAE  Treatment -emergent serious adverse event  
+WHO  World Health Organization  
+  
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 8 
+ 
+1 INTRODUCTION   
+This Statistical Analysis Plan (SAP)  describe s the statistical method ology  and analyses to be 
+conducted  for eFFECTOR Therap eutics, Inc . protocol eFT508 -0006  (Version 4.0; 17 
+December  2018).  Any deviations from this analysis plan will be substantiated by sound 
+statistical rationale and will be documented in the final clinical study report.  
+2 STUDY OBJECTIVES  
+2.1 Part 1  
+Primary Objec tive: 
+• To determine the MTD and select a recommended dose of eFT508 in  
+combination with avelumab for Part 2 in subjects with microsatellite  
+stable relapsed or refractory colorectal cancer.  
+Secondary Objectives:  
+• To characterize the safety and tolerability pr ofile of eFT508 in  
+combination with avelumab in this study population.  
+• To evaluate the PK of eFT508 and avelumab when used in  
+combination in this study population.  
+• To assess the antitumor activity of eFT508 in combination with  
+avelumab in this study popula tion using  Response Evaluation Criteria in Solid 
+Tumors  (RECIST ) 1.1 and iRECIST.  
+• To evaluate the immunogenicity of the eFT508 in combination with  
+avelumab.  
+Exploratory Objectives:  
+• To assess target engagement of eFT508 in peripheral blood mononuclear cel ls 
+(PMBCs) and tumor tissue.  
+• To assess the mechanism of action of eFT508.  
+• To assess predictive markers for sensitivity and resistance to eFT508.  
+ 
+ 
+ 
+ 
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 9 
+ 
+2.2 Part  2 
+Primary Objective:  
+• To assess the antitumor activity of eFT508 in combination with avelumab in subj ects 
+with microsatellite stable relapsed or refractory colorectal cancer using RECIST 1.1 
+and iRECIST.  
+• To assess the antitumor activity of eFT508 monotherapy in subjects with 
+microsatellite stable relapsed or refractory colorectal cancer using RECIST 1.1 a nd 
+iRECIST.  
+Secondary Objectives:  
+• To assess safety and tolerability of eFT508 monotherapy and combination therapy 
+with avelumab in this study population.  
+• To further characterize the PK of eFT508 and avelumab when used in combination in 
+this study populati on.  
+• To evaluate the immunogenicity of eFT508 in combination with avelumab.  
+Exploratory Objectives:  
+• To assess target engagement of eFT508 in PBMC and tumor tissue.  
+• To assess the mechanism of action of eFT508.  
+• To assess predictive markers for sensitivity  and resistance to eFT508.  
+• To assess the antitumor activity of e FT508 in combination with avelumab in subjects 
+who fail to achieve an objective response to eFT508 monotherapy using RECIST 1.1 
+and iRECIST.  
+3 STUDY OVERVIEW  
+3.1 Study Design  
+This Phase 2, open -label, 2 -part, multicenter study will evaluate the safety, efficacy, PK, and 
+pharmacodynamics of eFT508 in combination with avelumab in subjects with microsatellite 
+stable relapsed or refractory colorectal cancer.  
+The primary objective of Part 1 is to evalu ate the safety and tolerability of escalating doses of 
+eFT508 in combination with a fixed dose of avelumab to determine the MTD of eFT508 and 
+to select a recommended dose of eFT508 in combination with avelumab for Part 2. The 
+primary objective of Part 2 is  to evaluate the efficacy of eFT508 at the recommended dose in 
+combination with avelumab or eFT508 monotherapy. Parts 1 and 2 will also evaluate PK and 
+pharmacodynamics.  
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 10 
+ 
+Study therapy will be administered in 4 -week treatment cycles. eFT508 will be taken o rally 
+(PO) bid. Avelumab 10 mg/kg will be administered IV on Day 1 and q2wk thereafter. Study 
+therapy will be administered until documented disease progression by iRECIST, 
+unacceptable toxicity, the subject withdraws consent, the Investigator or Sponsor di scontinue 
+the subject, or the study is terminated. Subjects who discontinue study therapy permanently 
+will remain on study for the acquisition of safety information for up to 30 days after the last 
+dose of study therapy. Thereafter, subjects will be follow ed at 3 - to 6-month intervals, at the 
+Sponsor’s discretion, for up to 3 years to collect information on the initiation of first 
+subsequent anticancer therapy and survival.  
+Safety assessments will include  adverse event  (AE) recording, physical examinations , vital 
+sign measurements, ECGs, Eastern Cooperative Oncology Group (ECOG) performance 
+status, and clinical safety laboratory tests (hematology, serum chemistry, thyroid function, 
+coagulation, and urinalysis).  
+Efficacy assessments will include radiographi c examinations (and physical examinations if 
+needed) every 8 weeks. Radiology examinations include CT (and may include positron 
+emission tomography [PET], if relevant) or magnetic resonance imaging (MRI) imaging of 
+all sites of measurable disease. For subj ects with bone metastases, a bone scan (MRI allowed 
+as alternative) should be performed every 16 weeks. Disease response will be evaluated using 
+RECIST 1.1 and iRECIST.  
+This study will also analyze eFT508 and avelumab PK and pharmacodynamics. 
+Pharmacodyna mic analyses will explore target engagement of eFT508, the mechanism of 
+action of eFT508, and predictive markers for sensitivity and resistance to eFT508.  
+ Note: All subjects will undergo a fresh pre -treatment tumor biopsy and a post -treatment 
+biopsy for p harmacodynamic analysis. Genetic analysis may also be performed on blood and 
+biopsy tissue samples. Genetic testing is optional. Genetic analysis will include T -cell 
+clonality and the analysis of relevant oncogenic mutations including, but not limited to, 
+KRAS and p53.  
+3.1.1 Dose Escalation in Part 1  
+In Part 1, a Dose Limiting Toxicity (DLT) is defined as an AE  meeting specific criteria and 
+not primarily related to the underlying malignancy, a comorbid condition, or an intercurrent 
+illness. The full list of crite ria for determination of DLTs is given in Protocol Section 3.2.3 . 
+3.1.1.1  Dose -Escalation Guidelines  
+A standard 3+3 dose -escalation design will be used in Part 1. Dose escalation will be guided 
+by the safety data from the first treatment cycle (Day 1 through Day 2 8) in each cohort.  
+In each cohort, 3 subjects will be treated with eFT508 and avelumab.  
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 11 
+ 
+If 0 of 3 subjects experiences a DLT during Cycle 1, then enrollment in the next higher dose 
+cohort will begin.  
+If 1 of 3 subjects experiences a DLT, then 3 addition al subjects will be treated in that dose 
+cohort. If 0 of the next 3 subjects experiences a DLT, enrollment in the next higher dose 
+cohort will begin.  
+If ≥2 of 3 or ≥2 of 6 subjects experience a DLT, that cohort will be declared intolerable, and 
+no further  dose escalation will occur. If this occurs in the first cohort, an alternative qd 
+schedule will be considered.  
+The following dose escalation progression will be utilized in Part 1.  
+Table 1: Dose Cohorts in Part 1  
+ 
+An End -of-Cohort safety review will be conducted by the Investigators and Medical Monitor 
+after the last subject has completed the first treatment cycle in each cohort to determine of 
+dose escalation may proceed.  
+3.1.1.2  Maximum Tolerable Dose  
+In Part 1, the maximum tolerable dose (MTD) will be the hi ghest eFT508 dose level 
+evaluated at which 1 or fewer of 6 subjects experienced a DLT in Cycle 1.  
+The recommended dose for Part 2 may be the MTD or may be a lower dose. Selection of the 
+recommended dose will be based on consideration of short - and long -term safety information 
+together with the available PK, pharmacodynamics, and efficacy data.  
+3.2 Study Centers  
+This study will be conducted at 6 to 10 study sites in the United States.   
+3.3 Randomization and Blinding  
+In Part 2, eligible subjects will be randomized  in a ratio of approximately 2:1 to receive 
+either eFT508 in combination with avelumab or eFT508 monotherapy. Randomization will 
+be implemented centrally through an interactive voice response/inte ractive web response . 
+Subjects will be directly assigned a t reatment arm as this is an open -label study . 
+
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan                                                                                              Page 12 
+ 
+This is an open -label study; therefore the Sponsor, Investigator, and subject will know the 
+study therapy being administered . 
+3.4 Sample Size Determination  
+In Part 1, up to approximately 30 DLT -evaluable subjects wi ll be enrolled. The total number 
+of subjects will depend upon the number of dose cohorts evaluated and the number of 
+subjects treated in each cohort.  
+ In Part 2, up to approximately 40 efficacy evaluable subjects will be enrolled and 
+randomized in approxim ately a 2:1 ratio to receive eFT508 in combination with avelumab 
+(27 subjects) or eFT508 monotherapy (13 subjects). In the combination arm, the Simon 2 -
+stage mini -max design to test the null hypothesis that the ORR  is ≤5% against the one -sided 
+alternative hypothesis that it is ≥20% will be used.  
+Under this design, 13 subjects will be accrued in the first stage. If 0 of 13 subjects have an 
+objective tumor response per iRECIST, then randomization to both treatment ar ms will cease 
+and the study will stop. If one or more objective tumor responses per iRECIST are seen in 
+Stage 1, 14 additional subjects would be accrued in Stage 2 for a total of 27 subjects. The 
+null hypothesis will be rejected if ≥4 objective responses a re observed in the total of 27 
+subjects (15% ORR) by iRECIST. This design yields a type I error rate of 0.0416 and a 
+power of 0.8011 when the true ORR is 20%.  
+3.5 Duration of Study  
+The overall duration of the study is anticipated to be approximately 2 years fr om the first 
+subject’s first visit until the last subject’s last visit. For regulatory reporting purposes, the end 
+of the study is defined as the date the last subject completes their End of Therapy Visit or the 
+last subject completes 6 months of therapy, whichever occurs first.  
+3.6 Schedule of Events  
+The Schedule of Events is presented in Table 2 . 
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006 Statistical Analysis Plan       Page 13 
+ 
+Table 2 : Schedule of Events   
+ 
+ 
+  
+
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006 Statistical Analysis Plan                                                                                                                                                         Page 14 
+ 
+Abbreviations: ACTH, adrenocorticotropic hormone; AE, adverse event; d, day; D, day; ECG, electrocardiogram; ECOG, Eastern 
+Coopera tive OncologyGroup; iCPD, confirmed progression assigned using iRECIST; iUPD, unconfirmed progression assigned using 
+iRECIST; TTNT, time to next therapy; WOCBP, women of childbearing potential.  
+ 
+[a] Physical exam : Height will also be measured at this visit . 
+[b] Weight : Subjects on combination therapy should be weighed on the day of each avelumab dosing, prior to the infusion. If the subject  experiences either a  
+weight loss or gain >10% compared to the weight used for the last dose calculation, the amount of  avelumab must be recalculated using the most recent weight  
+obtained.  
+[c] Vital signs : Vital signs should be taken with the subject resting in a supine position and before study therapy is administered.  
+[d] ECG : ECGs should be performed with the subject re sting in a supine position.  
+[e] AE assessment : AEs should be recorded from the date of first dosing until 30 days after the last dose of study therapy. After discontinuin g study therapy,  
+subjects will be followed until the later of either 30 days after the  last dose of study therapy or until resolution/stabilization of any ongoing drug -related AEs.  
+This follow -up may be obtained in person or by telephone contact.  
+[f] Concomitant medications : Only medications to treat AEs will be recorded for the Post -Therap y Follow -Up. 
+[g] eFT508 dosing : Subjects will take their morning dose of eFT508 at the site at each study visit. The time of the dose must be recorded. All  other eFT508  
+doses will be taken at home. Subjects will also record the time they take their last eF T508 dose the day before each study visit on the Instructions to Patient  
+Sheet through Cycle 8. For subjects on combination therapy, the morning dose of eFT508 should be taken 30 minutes (±5 minutes ) before avelumab  
+premedication on avelumab infusion days.  If premedication is no longer required, eFT508 will be administered 30 to 60 minutes before the avelumab  
+infusion.  
+[h] eFT508 compliance : Empty, partially used, or full bottles of eFT508 will be retrieved from the subject. Sites will review the Instructio ns to Patient Sheet  
+for eFT508 compliance.  
+[i] Avelumab infusion (subjects on combination therapy) : In order to mitigate infusion -related reactions, premedication should be administered 30 to 60  
+minutes prior to each avelumab infusion. The avelumab infusio n will be 50 to 80 minutes. The start and stop time of the infusion should be recorded.  
+Subjects should remain at the site for at least 2 hours after each infusion of avelumab. If, following the 4th dose of avelum ab, no infusion -related reactions  
+are obser ved, no further premedication will be required for subsequent administrations and subjects will require only 1 hour of observ ation following the  
+infusion.  
+[j] Pregnancy testing : Serum pregnancy testing is required during screening; serum or urine pregnancy  testing is permitted thereafter. Investigators must  
+confirm that the pregnancy test results are negative before study therapy is administered.  
+[k] Sample collection : During the Treatment Period, blood and urine samples should be taken ≤48 hours before stu dy therapy is administered.  
+[l] Hematology results : For subjects on combination therapy, Investigators must confirm that the hematology results are acceptable (ANC ≥1.0 × 109/L and  
+platelet count ≥50 × 109/L) before initiating the avelumab infusion.  
+[m] Thyroid function and ACTH tests : Cycle 3 and every 8 weeks thereafter (ie, Cycles 5, 7, 9, etc.)  
+[n] eFT508 PK : Blood samples will be collected before the eFT508 morning dose and at 3 ±1 hours after the eFT508 morning dose.  
+[o] eFT508 PK, eFT508 pharmacodyna mics and optional genetic testing : A blood sample will be collected at 6 ±2 hours after the eFT508 morning dose to  
+coincide with biopsy collection time.  
+[p] eFT508 and avelumab PK and eFT508 pharmacodynamics : Cycles 4 and 8 only.  
+ 
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006 Statistical Analysis Plan                                                                                                                                                         Page 15 
+ 
+[q] Avelumab PK (subjects  on combination therapy) and pharmacodynamics (all subjects) : Blood samples will be collected before the eFT508 morning  
+dose.  
+[r] Optional genetic testing (blood) : Subjects will be asked to consent to provide blood samples for optional genetic testing. Gen etic testing will include T -cell 
+clonality and the analysis of relevant oncogenic mutations including, but not limited to, KRAS and p53. [s] Anti -avelumab antibodies (subjects on combination 
+therapy): Blood samples will be collected before eFT508 dosing. S amples that are positive for anti -avelumab antibodies will undergo characterization for 
+neutralizing antibodies. [t] Fresh tissue biopsy: All subjects will undergo a fresh pre -treatment tissue biopsy for pharmacodynamic assessments (by contract 
+laboratorie s). Note: existing material may be used to determine study eligibility. A post -treatment biopsy will be taken 6 ±2 hours after the eFT508 morning dose 
+on Cycle 2, Day 1 for pharmacodynamic analysis. The post -treatment biopsy should be taken from the same l esion as the pretreatment biopsy (preferred) or from 
+the same organ. See Study Laboratory Manual for tissue sample requirements. Subjects will be asked to consent to optional gen etic analysis of biopsy tissue.  
+[u] Disease assessment on study : The preferre d radiology imaging methods are CT,CT/PET, or MRI o f all sites of measurable disease. During the Treatment 
+Period, radiology imaging should be performed ≤7 days before initiating Cycles 3, 5, 7, 9, etc. (ie, 8 -week intervals). For subjects with bone metastases, a bone 
+scan (MRI allowed as alternative) shou ld be performed every 16 weeks. Subjects who do not have iCPD, as defined by iRECIST, will be eligible to continue 
+study therapy. Any partial or complete response must be confirmed ≥4 weeks after the response is first documented. If iUPD is  observed, a con firmatory scan 
+should be done within 4 -8 weeks per iRECIST.  
+[v] Disease assessment at the End of Therapy Visit : This assessment should be performed unless the subject had iCPD documented. See Study Protocol 
+Appendix 13.6 and Appendix 13.7 for RECIST and i RECIST guidelines.  
+[w] Long -term follow -up: Information about survival status and the first subsequent anticancer therapy will be collected at approximately 3 - to 6-month 
+intervals at the Sponsor’s discretion through 3 years. This information will be gath ered during routine clinic visits, other study site contact with the subjects, or 
+via telephone or e -mail with the subjects/caregivers or referring physician offices.  
+
+eFFECTOR Therapeutics Inc.  
+eFT508 -0006  Statistical Analysis Plan  Page 16 
+ 
+4 ANALYSIS POPULATIONS  
+This section defines the analysis populations to be used for the pl anned statistical analyses.  
+4.1 Enrolled  Population  
+All enrolled subjects in Part 1 and Part 2  will be included in the Enrolled Population .  
+In Part 2 , randomized subjects will be considered enrolled .   
+The Enrolled Population will be used for select study population summaries and disposition 
+summaries.  
+4.2 Safety Population  
+The Safety Population in Part 1 and Part 2 includes all subjects w ho receive at least one dose 
+of study therapy (i.e. at least one dose of eFT508 or avelumab) .  
+The Safety Population will be used for all demographics and baseline characteristics, safety 
+and efficacy analyses , as well as all analyses of pharmacodynamic en dpoints .  
+4.3 DLT Evaluable Population  
+The Dose Limiting Toxicity ( DLT ) Evaluable Population includes all subjects in Part 1 who 
+meet the definition of DLT Evaluable.  
+Subjects will not be considered evaluable for DLT if they meet an y of the following criteria:  
+• Had a major deviation including failure to satisfy major entry criteria (eg, confirmation of  
+disease, signed informed consent).  
+• Received < 44 of 56 eFT508 doses or less than 2 doses of avelumab in Cycle 1 for reasons  
+other than the occurrence of a DLT or drug intolerability.  
+• Received other antitumor treatments during Cycle 1 . 
+The DLT Evaluable Population will be used in the determination of the MTD in Part 1.   
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 17 
+ 
+5 STUDY ASSESSMENTS  
+5.1 Efficacy Assessments  
+5.1.1 Clinical Response Assessment  (RECIST)  
+The treatment response for each subject will be determined at the timepoints in the Schedule 
+of Events using RECIST v1.1 guidelines . At each assessment, subjects will be assigned a 
+treatment response by the Investigator from among the following RECIST categories : 
+ Comple te Response (CR)  
+ Partial Response (PR)  
+ Stable Disease (SD)  
+ Prog essive Disease (PD)  
+ Not Evaluable (NE)  
+Definitions for the above categories are described  in Protocol Section 13.6.4.  
+5.1.2 Clinical Response Assessment (iRECIST)  
+The treatment response for each sub ject will also be determined at the timepoints in the 
+Schedule of Events using iRECIST  guidelines. At each assessment, subjects will be assigned 
+a treatment response by the Investigator from among the following iRECIST  categories:  
+ Complete Response ( iCR) 
+ Partial Response ( iPR) 
+ Stable Disease ( iSD) 
+ Unconfirmed Progressive  Disease ( iUPD) 
+ Confirmed Progressive Disease (iCPD  
+ Not Evaluable (NE)  
+In addition, if the iR ECIST assessment is considered i CPD, then the confirmed progressive 
+disease will be classified ac cording to one of the following subcategories  
+ Further increase in sum of target lesions >=5mm  
+ Further increase in sum of new target lesions >= 5mm  
+ Another new lesion  
+ Significant further increase in non -target lesions  
+Further details regarding iRECIST respo nse assessments are given in Protocol Section 13.7.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 18 
+ 
+5.1.3 Pharmacodynamic Assessments  
+Blood samples for pharmacodynamics (PD) will be obtained at the times indicated in the 
+Schedule of Events.  
+All enrolled subjects will have a pre - and post -treatment biopsy col lected. Note: pre -existing 
+biopsy tissue may be used to determine study eligibility. In the event a pre -existing biopsy 
+tissue is not available, microsatellite instability (MSI) expression will be analyzed on the pre -
+treatment biopsy tissue by immunohistoc hemistry (IHC) or polymerase chain reaction 
+(PCR) -based tests and the results must be available prior to enrollment.  
+As in the Schedule of Events the tumor biopsy will be taken during the Screening Period and 
+on Cycle 2 Day 1.  
+5.2 Safety Assessments  
+Safety ass essm ents will include adverse event reporting , clinical laboratory evaluations  
+(including chemistry and hematology ), vital signs , Electrocardiograms (ECGs), physical 
+examinations , ECOG performance status evaluation, and prior and concomitant medication 
+reporting.   
+5.2.1 Adverse Events  
+An adverse event  (AE)  is defined as any untoward medical occurrence in a clinical 
+investigation subject administered  a study drug; the event does not necessarily have a causal 
+relationship with study drug or usage.  
+All AEs regardle ss of causality or seriousness will be recorded from the date of first dosing 
+until the later of either 30 days after the last dose of study therapy or until 
+resolution/stabilization of any ongoing drug -related AEs.  
+AEs that start during or after initiati ng study therapy, or AEs with an onset prior to initiating 
+study therapy  that worsen after study therapy initiation will be considered treatment -emergent 
+adverse events ( TEAEs ). Initiation of study therapy will be the first dose date of eFT508 and/or 
+avelu mab. AEs that occur between the time the subject signs the informed consent form and 
+the start of study therapy will be considered pre -treatment AEs.  
+AEs will be coded using the Medical Dictionary fo r Regulatory Activities ( MedDRA  Version 
+21.0). The sever ity of all adverse events will be graded accor ding to NCI CTCAE version 4.03.  
+If an AE is not given a severity grade it will not be imputed.  
+The relationship of an AE to the administration  of eFT508 and/or avelumab will be classified 
+as possibly related o r unlikely related as follows.  
+ 
+ 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 19 
+ 
+ 
+Table 3: Relationship of an Adverse Event to Study Drug  
+Relationship  Description  
+Possibly Related  The AE is known to occur with the study drug, there is a 
+reasonable possibility that the study drug caused the AE, or 
+there is a temporal relationship between the study drug and 
+event. Reasonable possibility means that there is evidence to 
+suggest a causal relationship between the study drug and the 
+AE.  
+Unlikely Related  There is not a reasonable possibility that the adminis tration of 
+the study draug caused the event, there is no temporal 
+relationship between the study drug and event onset, or an 
+alternate etiology has been established.  
+5.2.2 Clinical Laboratory Evaluations  
+Clinical laboratory assessments will be performed at the  visits and times specified in the 
+Schedule of Events  (Table 2).  
+The following clinical laboratory parameters will be evaluated  during the study .  
+Table 4: Diagnostic and Safety Laboratory Assessments and Parameters  
+Laboratory Test  Parameters   
+Pregnancy Test • β-HCG (serum test required during screening; serum or urine tests 
+permitted thereafter)  
+Virology  • Serum HIV antibody  
+• Serum HbsAg antibody, HBc antibody (if positive, then serum 
+HBV DNA by PCR)  
+• Serum HCV antibody (if positive, then serum HCV RNA b y PCR)  
+Serum Chemistry  • Sodium, potassium, chloride, bicarbonate, BUN, creatinine, uric 
+acid, glucose, calcium, phosphorus, magnesium, total protein, 
+albumin, ALT, AST, ALP, CK, LDH, total bilirubin  
+Hematology  • Hematocrit, hemoglobin, erythrocyte count   
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 20 
+ 
+• Absolute counts of leukocytes, neutrophils, lymphocytes, 
+monocytes, eosinophils, basophils  
+• Platelet count  
+Coagulation  • Prothrombin time , Activated partial thromboplastin time ( aPTT ) 
+Thyroid function 
+and ACTH  • TSH, T3, Free T4, and ACTH tests  
+Urinalysis  • Dipstick: specific gravity, pH, protein, glucose, ketones, bilirubin, 
+urobilinogen, blood, nitrite, leukocyte esterase  
+• Microscopy: white blood cells, red blood cells, epithelial cells, 
+bacteria, casts, crystals  
+ 
+5.2.3 Weight and Height  
+Weight (kg or lb) and Height (cm or inches)  will be assessed at Screening .  
+Weight will also be assessed after Screening at the times indicated in the Schedule of Events.  
+5.2.4 Vital Signs  
+Vital signs will be assessed at the times indicated in the Schedule of Events.  
+Vital signs measurements including systolic and diastolic blood pressure (mmHg), pulse rate 
+(beats/min), respiratory rate (breaths/min), and temperature (ºC or ºF).  
+5.2.5 Electrocardiograms  (ECGs)  
+A 12 -lead Electrocardiogram  will be completed  at the times indicate d in the Schedule of 
+Events.  The ventricular rate (beats/min) , QRS interval (msec), QT interval (msec), QTc 
+interval (msec), PR interval (msec), RR interval (msec), and overall interpretation  (Normal, 
+abnormal clinically significant, abnormal not clinical ly significant)  will be recorded .   
+5.2.6 Physical Examinations  
+Physical Examinations will be performed at the times indicated in the Schedule of Events . 
+Any abnormalities will be noted as AEs and corresponding information will be recorded in 
+the eCRF.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 21 
+ 
+5.2.7 Eastern Cooperative Oncology Group  
+Eastern Cooperative Oncology Group  (ECOG)  performance sttaus will be assessed  at the 
+times indicated in the Schedule of Events . The ECOG performance status on a scale from 0 -4 
+will be recorded . 
+5.2.8 Prior and Concomitant Medications  
+All medications taken by  subjects between signing the  informed consent form and the End of 
+Therapy Visit will be recorded. Thereafter, only concomitant medications taken for the 
+treatment of an AE will be recorded for up to 30 days after the last dose of s tudy therapy. 
+Concomitant medications include all prescription, over -the-counter, IV infusions, 
+transfusions, and alternative medications (including herbal products and vitamins).  
+ All medications will be recorded  on the electronic case report for m (eCRF) and will be 
+coded using the most current version of the World Health Organization Drug Dictionary 
+(WHO -DDE B2, March 2017  or later ).   
+Prior medications are defined as medications that were started  prior to the first dose  date of 
+study drug (eFT508 and/or avelumab).  Concomitant medications are medications that were 
+taken on or after the first dose  date of study drug. A medication can be both prior and 
+concomitant if it was started prior to the first dose  date of study drug and continued during 
+treatment wit h eFT508 or avelumab . 
+The medic ation administered, indication, dose, route, frequency, and start and stop dates will 
+be recorded in the eCRF.  
+5.2.9 Immunogenicity  
+Blood samples will be collected to evaluable anti -avelumab antibody development.  
+5.3 Pharmacokinetic  Assessments  
+Blood samples for Pharmacokinetic (PK) assessments of eFT508 and avelumab will be 
+obtained at the times indicated in the Schedule of Events.  
+6 CLINICAL OUTCOME  VARIABLES  
+This section describes the clinical outcomes  and derivation of variables considered for this 
+study.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 22 
+ 
+6.1 Primary Efficacy Endpoint  
+6.1.1 Objective Response Rate  
+In Part 2 , the primary efficacy endpoint will be the Objective Response Rate (ORR /iORR ) 
+using RECIST v1.1 and iRECIST based on the Safety  Population.  
+BOR will be determined based  on the overall visit responses from each RECIST /iRECIST  
+assessment by the Investigator. BOR/iBOR is defined as the best response (in the order of 
+CR, PR, SD, PD for RECIST and iCR, iPR, iSD, iUPD , and iCPD  using iRECIST) a subject 
+has experienced  followin g the first dose of study treatment, but prior to and including 
+progression or the last evaluable assessment in the absence of disease progression. PR/CR (or 
+iPR/iCR using iRECIST) must be confirmed . Subjects with no evaluable RECIST/iRECIST 
+assessments af ter first dose of eFT508 will be assigned to the NE category, unless the reason 
+for discontinuation is clinical progression. If a subject has no evaluable RECIST/iRECIST 
+assessments after first dose of eFT508 and discontinues due to clinical progress ion, t he BOR 
+will be assigned to the PD/iUPD category . 
+Using RECIST v1.1, the ORR is defined as the proportion of subjects whose BOR is a CR or 
+PR. The CR or PR must be confirmed at least 4 weeks after the response is first documented 
+to be included.  
+Using iREC IST, the iORR is defined as the proportion of subjects whose iBOR is a n iCR or 
+iPR. The iCR or iPR must be confirmed at least 4 weeks after the response is first 
+documented to be included.   
+The determination of the best overall response by RECIST  v1.1 is summarized in the table 
+below : 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 23 
+ 
+ 
+Table 5: Best Overall Response  RECIST  Assessment Considering Requirement for 
+Confirmation  
+ 
+ 
+ 
+ 
+ 
+
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 24 
+ 
+ 
+Table 6: Best Overall IRECIST Response Assessment Considering Requirement for 
+Confirmation  
+ 
+Response Category at 
+First Timepoint  Response Category at 
+Subsequent 
+Timepoint  Best Overall Response  
+iCR iCR iCR 
+iCR iPR iUPD unless minimum criteria for iSD met [a], in 
+which case iSD (possible iPR [b]) 
+iCR iSD  iSD if minimum criteria for iSD met [a], otherwise 
+iUPD if no fur ther assessment  
+iCR iUPD  iSD if minimum criteria for iSD met [a], otherwise 
+iUPD if no further assessment  
+iCR NE iSD if minimum criteria for iSD met [a], otherwise 
+NE 
+iPR iCR iPR 
+iPR iPR iPR 
+iPR iSD iSD 
+iPR iUPD  iSD if minimum criteria for iSD met [a], otherwise 
+iUPD if no further assessment  
+iPR NE iSD if minimum criteria for iSD met [a], otherwise 
+NE 
+NE NE NE 
+iSD iCR iSD 
+iSD iPR iSD 
+iSD iSD iSD 
+iSD iUPD  iSD if minimum criteria for iSD met [a], otherwise 
+iUPD if no further assessment  
+iSD  NE iSD if minimum criteria for iSD met [a], otherwise 
+NE 
+iUPD  iCR, iPR, iSD  iSD if minimum criteria for iSD met [a,c], otherwise 
+iUPD if no further assessment  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 25 
+ 
+iUPD  iCPD  iCPD  
+iUPD  NE iUPD if no further assessment  
+NE iCR iSD 
+NE iPR iSD 
+NE iSD iSD 
+NE iUPD  iUPD if no further assessment  
+NE NE NE  
+ 
+Abbreviations:  iBOR, best overall response; iCR, complete response; NE, not evaluable; iUPD, unconfirmed progressive 
+disease; iCPD, confirmed progressive disease; PR, partial response; SD, stable disease.  
+[a] Ass ignment of iSD requires that at least one post -baseline scan was obtained at least 4 weeks from start of study therapy  
+      and met criteria for iSD or better response.  
+[b] If a true iCR occurs at the first timepoint, then any disease seen at a subsequen t timepoint (e ven disease meeting PR    
+      criteria relative to baseline) results in a iBOR of iUPD (because the disease must have reappeared after the iCR). The     
+      BOR assessment would depend on whether the minimum duration for iSD was met. For a subject who retrospectively    
+      had only an apparent iCR (with small lesions still present, i.e. the subject had iPR, not iCR) at the first timepoint, the  
+      original iCR should be converted to an iPR and the iBOR should be assessed as iPR.  
+[c] Transient worsening of disease early in therapy or during temporary interruption of study therapy  (eg, for drug -related      
+     toxicity or intercurrent illness) may not indicate true PD if followed by an iSD, iPR, or iCR  
+ 
+6.2 Secondary Efficacy Endpoints  
+6.2.1 Progression Free Survival  
+PFS is defined as the interval from the start of study therapy until the first documentation of 
+disease progression or death from any cause  (whichever occurs first) . Disease progression 
+may be radiological progression  or clinical pr ogression. The start of study therapy is the first 
+dose date of eFT508.  
+Using RECIST v1.1, PFS will be calculated as:  
+ PFS (days) = Date of PD  (radiological pro gression) , clinical progression,  or death 
+(whichever occurs first ) – first dose date of eFT508 + 1 
+Using iRECIST, iPFS will be calculated as:  
+ iPFS (days) = Date of iU PD (radiological progression) , clinical progression,  or death 
+(whichever occurs first ) – first dose date of eFT508 + 1  
+Radiological progression will be based on the Investigator assess ment using RECIST 
+v1.1/iRECIST.  
+The date of clinical progression will be defined as the date of study discontinuation due to 
+clinical progression in the absence of radiological progression.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 26 
+ 
+To be counted as radiological disease progression  using iRECIST , the iUPD assessment must 
+be confirmed as iCPD at the next iRECIST assessment. If an iUPD response is assessed but 
+the p rogression is not confirmed (e.g . a later assessment of iSD, iPR, or iCR is recorded ) then 
+the initial iUPD will not be counted as an eve nt for determination of iPFS.  To be as 
+conservative as possible, in the the case that an assessment of iUPD is recorded and no 
+subsequent  evaluable  iRECI ST assessments are recorded then the iUPD event will be treated 
+as confirmed  in the calculation of iPF S. 
+6.2.1.1  Censoring Rules for Progression Free Survival  
+The following rules will be applied for both PFS and iPFS.  
+Subjects who have n ot had radiological progression  (i.e. an assessment of PD using RECIST 
+or a previous response of iUPD using iRECIST that is con firmed iCPD  at the next iRECIST 
+assessment ), have not experienced clinical progression , or died at the time of analysis will be 
+censored at the time of the last response assessment.  However, if the subject experiences 
+progression (either clinical or radio logical) or dies after 2 or more missed visits, the subject 
+will be censored at the time of the latest response  assessment  prior to the two missed visits . 
+In addition, subjects that do not have documented disease progression but begin subsequent 
+anticancer  therapy will be censored on the date the subsequent anticancer therapy is started.   
+If the subject has no evaluable visits or does not have a baseline assessment, they will be 
+censored at Day 1.  
+The PFS time will be derived based on scan/assessment dates  and not visit dates  to determine 
+radiological progression .  Assessments/scans contributing towards a particular visit may be 
+performed on different dates.  The following rules will be applied  for this calculation : 
+ Date of radiological progression will be determined based on the earliest of the 
+assessment/scan dates of the component that triggered the progression  (PD using 
+RECIST or iUPD using iRECIST that is confirmed iCPD at the next assessment) .   
+ When censoring a subject for PFS , the subject will be cen sored at the latest of the 
+assessment/scan dates contributing to a particular overall visit assessment.  
+Overall visit assessments will be determined for each assessment (scheduled or unscheduled) 
+and will contribute to the derivation of PFS . 
+6.2.2 Duration of St able Disease  
+Duration of Stable Disease (DSD) will be calculated for a ll subjects achieving a BOR of SD 
+or better ( iBOR of iSD or better using iRECIST). DSD  is defined as the interval l from the 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 27 
+ 
+start of study therapy until the first documentation of diseas e progression  or death from any 
+cause (whichever occurs first) . Disease progression may be radiological progression or 
+clinical progression . The start of study therapy is the first dose date of eFT508.   
+Using RECIST v1.1, DSD will be calculated as:  
+ DSD (d ays) = Date of PD (radiological progression), clinical progression, or death 
+(whichever occurs first ) – first dose date of eFT508  + 1 
+Using iRECIST, iDSD will be calculated as:  
+ iDSD (days) = Date of iU PD (radiological progression), clinical progression, or death 
+(whichever occurs first ) – first dose date of eFT508 + 1 
+To be counted as radiological disease progression, the iUPD assessment must be confirmed 
+as iCPD at the next iRECIST assessment. In the event that an iUPD response is assessed but 
+the progres sion is not confirmed (e.g. a later assessment of iSD, iPR, or iCR is observed) 
+then the initial iUPD will not be counted as an event for determination of iDSD . To be as 
+conservative as possible, in the the case that an assessment of iUPD is recorded and n o 
+subsequent iRECIST assessments are recorded (or are considered NE) then the iUPD event 
+will be treated as confirmed .  
+The same censoring rules for PFS will be applied.  
+6.3 Safety Endpoints  
+6.3.1 Adverse Events  
+Adverse Events (AE s) will be coded using the Medical Dictionary for Regulatory Act ivities 
+MedDRA  (v21.0 or later) . The severity of all adverse events will be graded according to NCI 
+CTCAE version 4.03. All AEs regardless of causality or seriousness will be recorded from the 
+date of first dosing until the lat er of either 30 days after the last dose of study therapy or until 
+resolution/stabilization of any ongoing drug -related AEs.   
+In Part 2, the crossover period for subjects randomized to monotherapy and crossing over to 
+the combination therapy arm following  disease progression is defined as the day of the first 
+dose of avelumab until the end of the AE follow -up period. The monotherapy period for these 
+subjects will be defined as the date of first eFT508 dose  until the day prior to the first dose of 
+avelumab.   
+6.3.2 Dose Limiting Toxicities  
+In Part 1, a Dose Limiting Toxicity (DLT) is defined as an AE meeting specific criteria and 
+not primarily related to the underlying malignancy, a comordbid condition, or an intercurrent 
+illness. The full list of criteria for dete rmination of DLTs is given in Protocol Section 3.2.3 . 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 28 
+ 
+The incidence of DLTs will be monitored throughout Cycle 1 in order to help determine the 
+MTD in Part 2.  
+6.3.3 Total Exposure to eFT508  
+The total exposure to eFT508 will be calculated as:  
+ Total exposure to e FT508 (days) = last dose date of eFT508 – first dose date of 
+eFT508 + 1  – cumulative days of dosing interruptions  
+The duration of each dose interruption is defined as:  
+ Duration of dose interruption = End date of interruption – Start date of interruption + 
+1 
+The cumulative days of dosing interruptions is defined as the sum of the duration of dose 
+interruptions.  
+If start/stop dates of dosing are missing after querying, the duration of treatment interruption 
+will be treated as 1 day.  
+6.4 Pharmacokinetics  
+The pha rmacokinetics of eFT508 and avelumab will be assessed from blood samples taken at 
+time indicated in the Schedule of Events. Additional details regarding the PK parameters for 
+eFT508 and avelumab will be described in a standalone PK analysis  plan.  
+7 STATISTI CAL ANALYSES  
+This section describes the statistical analyses to be conducted in relation to the primary, 
+secondary, and exploratory  objectives of the study.  
+7.1 General Statistical Considerations  
+All analyses will be performed using SAS® Version 9.3 or higher .  
+Unless specified otherwise, the analyses of data collected will be descriptive and summaries 
+will be presented separately for each treatment arm  and study part . As applicable, summaries 
+may be also be presented in total for select analyses. Statistical analyses will be purely 
+descriptive and no formal hypothesis testing or comparative analyses between treatment arms 
+will be performed. Confidence intervals (CIs) will be constructed at the 95% confidence level 
+where appropriate.  
+For continuous variables, the number of observations (n), mean, standard deviation, median, 
+minimum, and maximum will be provided  as summary statistics . For categorical variables, 
+the frequency and percentage in each category will be displayed.   
+All Part 1 summary tables will disp lay two treatment groups:   
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 29 
+ 
+ eFT508 100mg BID and avelumab  
+ eFT508 200mg BID and avelumab   
+Part 2 summary tables will in general display  three treatment groups:   
+ eFT508 200mg BID  
+ eFT508 200mg BID and avelumab  
+ eFT508 200mg BID crossover to  eFT508 200mg BID plus avelumab   
+In the above Part 2 summaries, eFT508 200mg BID crossover subjects will be presented in 
+the eFT508 200mg BID column for all safety assessments and AEs occurring prior to the 
+first avelumab dose date.  Any  safety  assessments and AEs occurring  on or after the first 
+avelumab dose date will be summarized in a separate column for crossover subjects. For 
+analysis of efficacy data in Part 2, the analysis will be based on the randomized treatment 
+arm (e.g. crossover subjects will be summarized in the  monotherapy group).   
+Comprehensive data listings of all data will be generated.  By-subject data listings of all 
+clinical trial data will include all enrolled subjects .  
+7.1.1 Baseline  Definition  
+Unless stated otherwise, the baseline value is defined as the la st non -missing measurement 
+prior to the first dose of eFT508 . If a subject received avelumab but not eFT508 then the 
+baseline value is defined as the last non -missing measurement prior to the first dose of eFT508.  
+Study Day 1 will be considered as the dat e of the first dose of eFT508 .  
+7.1.2 Covariate Adjustment  
+No adjustment for other covariates is planned.  
+7.1.3 Multicenter Studies  
+The center effect will not be considered for this study.  
+7.1.4 Multiple Comparisons  
+No multiple comparisons adjustment will be applied to the  efficacy analysis .  
+7.1.5 Handling of Dropouts or Missing Data  
+Unrecorded data values will be recorded as missing. Only recorded (i.e. complete) data values 
+will be used for statistical analyses. In general, invalid or missing values will not be imputed 
+unless stated otherwise.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 30 
+ 
+In cases of missing or incomplete dates (e.g. AE s and concomitant medications), the missing 
+component(s) will be assumed as the most conservative value possible. For example, AEs with 
+missing start dates, but with stop dates either overl apping into the treatment period or missing, 
+will be counted as treatment -emergent, taking the worst -case approach. When partial dates are 
+present in the data, both a partial start date and/or a partial stop date will be evaluated to 
+determine whether it c an be conclusively established that the AE started prior to the start of 
+study drug or ended prior to the start of study drug. If the above cannot be conclusively 
+established based on the partial and/or present dates, then the AE will be considered as 
+treatment -emergent. Actual data values as they appear in the original eCRFs  will be presented 
+in the data listings.  
+To be conservative in the case of missing causality assessment for AEs after data querying, 
+AEs will be assumed to be related to eFT508 .  
+In Par t 2, for subjects that cross over from eFT508 monotherapy to combination therapy, if the 
+AE cannot be conclusively determined to have occurred during the cross over period it will be 
+assumed to have occurred  during the monotherapy dosing period.  
+7.1.6 Examinati on of Subgroups  
+There is no planned subgroup analysis.  
+7.1.7 Crossover Subjects  
+Subjects randomized to eFT508 monotherapy in Part 2 may be eligible to crossover to the 
+combination therapy treatment arm after 8 weeks of treatment and after radiographic disease 
+progression (PD/ iUPD) or who are no longer clinically stable .  
+7.1.8 Interim Analysis  
+No formal interim analysis is planned for Part 1.    
+Part 2 utilizes  a Simon 2 -stage mini -max approach to evaluate antitumor response in the 
+combination arm (Simon 1989). The numb er of responses in the combination arm will be 
+evaluated using iRECIST after the first subjects have been treated. If no responses are seen, 
+randomization and enrollment in Part 2 will cease.  
+In the combination arm, the Simon 2 -stage mini -max design to te st the null hypothesis that 
+the ORR is ≤5% against the one -sided alternative hypothesis that it is ≥20% will be used.  
+Under this design, 13 subjects will be accrued in the first stage. If 0 of 13 subjects have an 
+objective tumor response per iRECIST, then  randomization to both treatment arms will cease 
+and the study will stop. If one or more objective tumor responses per iRECIST are seen in 
+Stage 1, 14 additional subjects would be accrued in Stage 2 for a total of 27 subjects  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 31 
+ 
+7.2 Study Population Data  
+7.2.1 Subject Disposition  
+Subject disposi tion will be summarized for the Enrolled Population in each study part.  
+The following subject disposition categories will be summ arized for Part 1 : 
+ Subjects who enrolled;  
+ Subjects who received assigned treatment ; 
+ Subjects discon tinued from study treatment;  
+ Subject follow -up status at last follow -up visit; and  
+ Subjects who terminated the study . 
+The following subject disposition categories will be summarized for Part 2 : 
+ Subjects who were randomized ; 
+ Subjects who received randomized  treatment;  
+ Subjects who crossed over from eFT508 monotherapy ar m to combination treatment;  
+ Subjects discontinued from study treatment ;  
+ Subject follow -up status at last follow -up visit ; and 
+ Subjects who terminated  from the study . 
+For subjects who disconti nued study treatment and subjects who terminated the study , a 
+summary will be provide d by reason for discontinuation or termination.   
+The total number of subjects in each defined analysis population  will be tabulated  for each 
+study part . 
+Subject dispositi on data will be listed by subject  and study part .  
+7.2.2 Protocol Deviations  
+Protocol deviations deemed reportable in the  the clinical study report (CSR) will be listed by 
+subject for Part 1 and Part 2 .  
+7.2.3 Demographics and Baseline Characteristics  
+Descriptive summ aries of demographic and baseline characteristics will be presented  using the 
+Safety  Population .  
+Demographic characteristics in clude, but are not limited to: age, sex, childbearing potential, 
+race, ethnicity , body weight, height, and body mass index ( BMI ).  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 32 
+ 
+Cancer history will be collected during the Screening Period  and summarized for the Enrolled 
+Population . Continuous variables including time from original colorectal cancer diagnosis 
+(months) and time from current colorectal cancer will be summarized wi th descriptive 
+statistics. Categorical variables including original stage, current stage (overall, tumor, node, 
+and metastasis), grade, primary tumor location, and colorectal adenocarcinoma type will be 
+summarized.  
+7.2.4 Medical History  
+Medical history will be collected during the Screening Period . The reported medical history 
+terms will be coded using the MedDRA  v21.0 and presented in a summary table by System 
+Organ Class (SOC) and Preferred Term  for the Safety  Population . Subject s may have  more 
+than one medic al history  for each SOC and Preferred Term.  Subject s will be  counted once 
+within each SOC and Preferred Term classification.  
+7.2.5 Prior and Concomitant Medications  
+All medications taken by subjects between signing the informed consent form and the End of 
+Therapy Visit will be recorded. Only concomitant medications taken for the treatment of an 
+AE will be recorded for up to 30 days after the last dose of study therapy.  
+All concomitant medication s will be summarized  by Anatomical Therapeutic Chemical (ATC) 
+and preferred term by treatment group and overall  for the  Safety  Population  in each study part .  
+Although a subject may have taken two or more medications, the subject is counted only once 
+within an ATC classification. The same subject may contribute to two o r more preferred terms 
+in the same classification.   
+7.2.6 Prior Cancer Therapies, Surgeries , and Radiation  
+The number and percentage of patients with previous cancer therapy/medications will be 
+summarized by line of treatment and best overall response to all pr ior treatments  for the Safety  
+Population . The reported cancer therapy/medicatio n terms will be coded using WHO Drug 
+Dictionary ( WHO -DDE B2, Version March 2017  or later ). Prior cancer therapies/medications 
+will be summarized  by Anatomical Therapeutic Chemic al (ATC) and preferred term by 
+treatment arm (if applicable) in each study part. A subject will be counted only once within an 
+ATC classification but may contribute to two or more preferred terms in the same 
+classification.  
+7.3 Efficacy Analyses  
+Efficacy anal yses described in this section will performed using the Safety Population  in Part 
+2.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 33 
+ 
+7.3.1 Primary  Efficacy Analyses  
+The primary analysis will involve analysis of the ORR /iORR  by treatment arm . The point 
+estimate of the ORR and iORR along with the exact Clopper -Pearson 95% CI will be 
+presented.  Subjects who do not have sufficient baseline and on -study tumor assessments to 
+characterize response (i.e. who have a BOR of NE) will be included in the calculation of the 
+ORR/iORR.  
+The best objective response ( BOR /iBOR ) will also be tabulated  by treatment arm  to show the 
+number and percentage of subjec ts in each response category.  
+In addition, for subjects that have confirmed disease progression  (iCPD)  using iRECIST the 
+type of disease progression will be tabulated.  The following categories for disease 
+progression will be summarized:  
+ Further increase in sum of target lesions >=5mm  
+ Further increase in sum of new target lesions >=5mm  
+ Another new lesion  
+ Significant further increase  in non -target lesions  –unequivocal increa se 
+ Clinical Progression (as determined by the Investigator)  
+7.3.2 Secondary Efficacy Analyses  
+7.3.2.1  Progression Free Survival  
+PFS/iPFS will be estimated using the Kaplan -Meier method  for each treatment arm in Part 2 .  
+The number and percentage of subjects experiencing  a PFS/iPF S event and the type of event 
+(clinical progression, radiological progression , or death) and subjects censored will be 
+summarized. The Kaplan -Meier estimate of the  median PFS/iPFS and Brookmeyer -Crowley 
+95% CI will be presented  (Brookmeyer and Cr owley 1982)  
+Kaplan -Meier plots of PFS/ iPFS will be presented by treatment arm in Part 2.  
+The analysis of PFS/iPFS will be based on the Investigator overall assessment and using all 
+assessments, including unscheduled assessments.  
+7.3.2.2  Duration of Stable Diseas e 
+DSD/iDSD will be estimated using the Kaplan -Meier method for each treatment arm in Part 
+2.  
+The number and percentage of subjects experiencing a DSD/iDSD event and the type of 
+event ( clinical progression, radiological progression, or death ) and subjects censored will be 
+summarized. The Kaplan -Meier estimate of the median DSD/iDSD and Brookmeyer -
+Crowley 95% CI will be presented  (Brookmeyer and Crowley 1982) . 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 34 
+ 
+Kaplan -Meier plots of DSD/iDSD will be presented by treatment arm in Part 2.  
+The analysis of DSD/i DSD will be based on the Investigator overall assessment and using all 
+assessments, including unscheduled assessments.  
+7.3.3 Immunohistochemistry of Tumor -Infiltrating Lymphocytes  
+All immunohistochemistry data will be listed .  
+7.3.4 Molecular Profiling of Tumor -Infiltrating Lymphocytes  
+All molecular profiling data will be listed .  
+7.3.5 Biomarkers of Immune Activation  
+All immune activation data will be listed .  
+7.3.6 PD-L1  
+All PD -L1 assessments data be listed .  
+7.3.7 eIF4E  Measurements  
+All EIF4E assessments data be listed .  
+7.3.8 Genetic Mu tations  
+All other genetic mutation data will be listed .  
+7.4 Safety Analyses  
+The assessment of the incidence of adverse events  during the course of the study will consist 
+of the surveillance and recording of adverse events (AEs) , including  serious adverse even ts 
+(SAE s).  Safety will also be assessed through clinical laboratory evaluations, vital signs, 
+ECGs, physical examinations, ECO G performance status , and prior and concomitant 
+medication reporting.   
+No formal statistical analysis of the safety data will be  conducted.  Summaries will be presented 
+separately for Part 1 and Part 2.  In each study part, a ll summaries  will be tabulated by treatment 
+arm for the Safety Population .  
+7.4.1 Extent of Exposure   
+Descriptive statistics will be provided for the total exposure to eFT508. The number and 
+percentage of subjects administered  1, 2, 3, 4, 5, and 6 or more treatment cycles of eFT508 
+will be summarized. A cycle is defined as 28 days. In addition, the number of subjects with a 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 35 
+ 
+dose modification, missed dose, and dose int erruption will be summarized including the 
+reason for dose modification, missed dose, and dose interruption .  
+7.4.2 Adverse Events  
+In each study part, summaries of adverse events will be presented by treatment arm  using the 
+Safety Population with the exception o f the DLT summary . Summaries of drug -related adverse 
+events will be presented separately for eFT508 and avelumab as applicable.  
+An overvi ew of treatment -emergent adverse events will be provided which summarizes the 
+subject incidence of the following for t he Safety Population  in each study part :  
+ Any TEAEs,  
+ Any SAEs  
+ DLTs (Part 1 only , utilizing the DLT Evaluable Population ) 
+ Drug -related  TEAEs  (related to eFT508, related to Avelumab, related to both) ,  
+ CTCAE grade 3/4/5  TEAEs,  
+ Drug -related  CTCAE grade 3/4/5  TEAEs,  
+ Deaths,  
+ Treatment -emergent SAEs  (TESAEs) ,  
+ Drug -related  TESAEs ,  
+ AEs leading to dose reduction or interruption of eFT508  
+ AEs leading to discontinuation of eFT508  
+The number and percentage of subjects with TEAEs during the AE reporting  period will be 
+tabulated by the highest  CTCAE Grade, System Organ Class (SOC), and Preferred Term (PT) . 
+DLTs (part 1 only  for the DLT Evaluable Population ) and TEAEs related to eFT508 will be 
+summarized in the same manner.  
+TEAEs will be summarized by SOC and PT. SAE s, CTCAE Grade 3/4/5 TEAEs, drug -related 
+CTCAE Grade 3/4/5 TEAEs, Deaths, TESAEs, drug -related TESAEs, AEs leading to dose 
+reduction or interruption of eFT508, and AEs leading to discontinuation of eFT508  will be 
+summarized in the same manner.  
+TEAEs occur ring during the crossover period will be summarized in the crossover treatment 
+column  in Part 2. If it cannot be conclusively determined that the AE occurred during the 
+crossover period from the available data the AE will be summarized in the monotherapy 
+column. AEs for crossover subjects will not be double counted between the monotherapy and 
+crossover columns (i.e. each AE will be assigned to only one period) and will be counted only 
+once for purpose of the total column.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 36 
+ 
+For all above summaries, subjects with multiple adverse events will be counted only once per 
+SOC and preferred term.   
+Listings will also be provided of deaths, SAEs, and AEs leading to discontinuation of eFT508.  
+7.4.3 Clinical Laboratory Evaluations  
+Clinical laboratory evaluations will be summa rized using descriptive  statistics for selected 
+laboratory parameters ( creatinine clearance, clinical chemistry, hematology, thyroid, 
+coagulation, and urinalysis) including absolute measurements and changes from baseline by 
+scheduled time of evaluation. Ch anges from baseline by scheduled time of evaluation will 
+include last visit on -study  (End of Therapy Visit ), maximum post -treatment value, and 
+minimum post -treatment value. Both scheduled and unscheduled post -treatment visits will be 
+considered for the sum maries of the maximum and minimum post -treatment values.  
+Abnormal laboratory results  (hematology, chemistry, and coagulation)  will be graded 
+according to NCI -CTCAE version 4.03 as applicable. A shift table, presenting the 2 -way 
+frequency tabulation for ba seline and the worst post -treatment value according to the NCI -
+CTCAE grade, will be provided for selected clinical laboratory tests. For select parameters  
+(e.g. glucose), separate shift tables indi cating hyper – and hypo -directionality of change may 
+be produced .  For laboratory parameters with no CTCAE grading, shift tables (with categories 
+of low, normal, high) from baseline to post -treatment  maximum and from baseline to post -
+treatment  minimum may be produced if warranted after data review. Both scheduled a nd 
+unscheduled post -treatment visits will be considered in tabulation of the worst post -treatment 
+value.  
+In each study part, c linical laboratory summaries will be presented by treatment arm .  
+All clinical laboratory evaluations will be listed by subject  and abnormal values will be 
+flagged .    
+7.4.4 Vital Signs  
+In each study part, d escriptive statistics will be provided by treatment group and time point for 
+vital signs measurements  (systolic and diastolic blood pressure, pulse rate, respiratory rate, 
+body temperat ure, and weight ). Changes from baseline by scheduled evaluation, and maximum 
+and minimum post -baseline values  will be presented . Both scheduled and unscheduled post -
+treatment values will be considered for summaries of the minimum and maximum.  
+7.4.5 Electrocardi ograms  
+Electrocardiogram p arameters (PR, RR, QRS, QT, QTcF ) will be summarized using 
+descriptive statistics for actual values and for changes from baseline by scheduled time of 
+evaluation, including the Final Visit and the maximum post -treatment value. Bot h scheduled 
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 37 
+ 
+and unscheduled post -treatment values will be considered for summaries of the maximum post -
+treatment values . 
+The Fridericia -corrected QT interval (QTcF) will be calculated as QTcF = QT/(RR)^1/3 for 
+the above summaries.  
+In addition, subjects ex periencing QTcF elevation or change from baseline will be tabulated 
+by visit for each post -baseline evaluation and at any time post -baseline for the following 
+categories:  
+ QTcF > 450 ms  
+ QTcF > 480 ms  
+ QTcF > 500 ms  
+ Increase from baseline QTcF > 30 ms  
+ Increas e from baseline QTcF > 60 ms  
+ECG readings will be judged for overall clinical significance  and tabulated by treatment group . 
+Shift tables from baseline to the worst post -baseline result will be presented  by treatment arm 
+for each study part . The following categories will be used: Normal, Abnormal not clinically 
+significant, Abnormal clinically significant.  
+7.4.6 Performance Status  
+For subjects with ECOG performance evaluation, the performance status at each visit on 
+study will be tabulated by treatment group .  
+7.4.7 Other Safety Analyses  
+All other safety assessments (e.g. physical examination) will be listed.  
+7.5 Pharmacokinetic  Analysis  
+Additional details regarding the PK parameters and methods of PK analysis for eFT508 and 
+avelumab will be described in a standalone PK analysis  plan.  
+8 GENERAL INFORMATION  
+8.1 Statistical Software  
+The creation of analysis datasets and statistical analyses will be done using SAS® version 9.3  
+or higher. The Medpace standard operating procedures (Medpace documents GL-DS-02-S3 
+and GL -DS-03-S2) will be followed for the validation of all SAS programs and outputs.    
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 38 
+ 
+8.2 Format of Tables, Listings, and Figures  
+The format of tables, listings, and figures will be described in a stand -alone programming 
+specifications document and will be prepared before databas e lock for the study.  
+9 CHANGES FROM PROTOCO L-SPECIFIED ANALYSIS  
+Table 6: Summary of Changes from Protocol -Specified Analysis  
+Protocol Section  Change  Rationale  
+Section 10.2.2: Part 2  Simon 2 -stage design not 
+utilized . The study was fully 
+enrolled in Part 2  with no 
+interim analysis.  Rapid study enrollment caused 
+the study to be fully enrolled with 
+no interim analysis.  
+Section 7.3.7: 
+Immunogenicity  Immunogenicity assessment  If analyzed in the future, it will be 
+presented separately as a 
+standalone document .  
+Section 3.2.2: 
+Definition of DLT 
+Evaluable  Language added to clarify  
+that subjects wil l not be 
+included in the DLT 
+Evaluable population  if <44 
+of 56 doses of eFT508 were 
+received during Cycle 1 in 
+Part 1 due to bid dosing 
+schedule of eFT508.  The plann ed administration of 
+eFT508 was bid for 28 days 
+during Cycle 1, resulting in 56 
+planned eFT508  doses  during this 
+period.  
+Section 10.4.4.3: 
+Laboratory 
+Evaluations  Language added to clarify  
+that shift tables will be 
+presented for select 
+laboratory paramete rs based 
+on CTCAE grade (if 
+applicable, including 
+possible bi -directionality) or 
+normal ranges (if applicable).  Additional detail  was provided 
+for the safety analysis.   
+Section 10.4.5.1: 
+Definition of Efficacy 
+Endpoints  Removed analysis of Disease 
+Contro l Rate.  Analysis removed due to lack  of 
+subjects demonstrating efficacy.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 39 
+ 
+Section 10.4.5.1: 
+Definition of Efficacy 
+Endpoints  Removed analysis of 
+Duration of Response.  Analysis removed due to lack  of 
+subjects demonstrating efficacy . 
+Section 10.4.5.1: 
+Definition of Efficacy 
+Endpoints  Removed analysis of Overall 
+Survival.  Analysis removed due to lack  of 
+subjects demonstrating efficacy .  
+Section 10.4.5.1:  
+Definition of Efficacy 
+Endpoints  The definition  of Progression 
+Free Survival (PFS/iPFS) 
+and Duration of Stable 
+Disease (DSD/iDSD) was 
+clarified to include clinical 
+progression.  Clinical progression added t o 
+capture discontinuation of study 
+due to clinical progression in the 
+calculation of PFS/iPFS and 
+DSD/iDSD.  
+Section 10.4.5.2:  
+Analysis of Efficacy 
+Endpoints  Sum of tumor measurements 
+and change from baseline 
+analysis removed.  
+Efficacy analysis will be 
+conducted by randomized 
+treatment arm. Crossover 
+subjects in Part 2 will be 
+analyzed together with the 
+monotherapy arm.  Analysis removed due to lack  of 
+subjects demonstrating efficacy .  
+Section 10.3: 
+Analysis Populations  The Efficacy Evaluable 
+Population was not defined 
+in SAP.  
+Efficacy analyses in Part 2 
+will be based on the Safety 
+Population where applicable  Analysis removed due to lack  of 
+subjects demonstrating efficacy .  
+Section 10.4.2: Study 
+Drug Exposure and 
+Compliance  The study drug compliance 
+analysis was clarified.  
+Removed number (%) of 
+cycles completed (%), 
+number (%) of cycles 
+delayed, number of doses of 
+study drug take n, cumulative 
+number of days of dosing, Analysis removed due to lack  of 
+subjects with long -term exposure 
+to study medication.  
+
+eFFECTOR Therapeutics Inc . 
+eFT508 -0006  Statistical Analysis Plan                                                                                   Page 40 
+ 
+cumulative dose in milligram 
+analyses, number (%) of 
+days study drug reported 
+taken relative to the number 
+of days study drug was 
+expected to be taken over a 
+specified period of time.  
+The total exposure to 
+eFT508, number of cycles 
+intitiated, and listings will be 
+used to summarize study 
+drug exposure and 
+compliance.  
+Section 10.4.7:  
+Pharmacodynamic 
+Analyses  Pharmacodynamic data wil l 
+be presented in listings only. 
+Table summaries were 
+removed.  Analysis removed due to lack  of 
+subjects demonstrating efficacy .  
+ 
+ 
+10 REFERENCES  
+Brookmeyer, R., & Crowley, J. (1982). A confidence interval for the median survival 
+time.  Biometrics , 29-41. 
+Simon, R. (1989). Optimal two -stage designs for phase II clinical trials.  Contemporary 
+Clinical Trials , 10(1), 1 -10. 

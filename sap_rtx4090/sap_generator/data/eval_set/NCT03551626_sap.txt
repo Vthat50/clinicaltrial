@@ -1,0 +1,1775 @@
+Novartis  For business use only  Page 2 
+SAP  CDRB436F2410  
+ 
+ 
+Document History – Changes compared to previous final version of SAP  
+ 
+Date  Time 
+point Reason for update  Outcome for update  
+Section and 
+title impacted 
+(Current)  
+ Prior to 
+database 
+lock   Incorporate 
+changes as 
+per protocol 
+amendment 1 
+and 2  First version  NA 
+22 September 2020 Prior to 
+database 
+lock of 
+primary analysis  Addition of 
+analyses to 
+describe and 
+adjust for 
+impact of 
+COVID -19  Additional outputs added for 
+analysis to describe and adjust for impact of COVID -19  
+22 September 2020 Prior to 
+database 
+lock of 
+primary 
+analysis  Addition of 
+analyses to 
+support the 
+pyrexia label 
+update  Addition of analyses to support the pyrexia label update   
+20 July 
+2021 Prior to 
+the final database 
+lock Final output 
+specifications    
+ 
+
+Novartis  For business use only  Page 3 
+SAP  CDRB436F2410  
+ 
+Table of contents 
+Table of contents ................................................................................................................. 3 
+List of abbreviations ............................................................................................................ 5 
+1 Introduction ......................................................................................................................... 6 
+1.1 Study design............................................................................................................. 8 
+1.2 Study objectives and endpoints ............................................................................... 9 
+2 Statistical methods  ............................................................................................................. 10 
+2.1 Data analysis general information  ......................................................................... 10 
+2.1.1  General definitions ................................................................................ 11 
+2.2 Analysis sets .......................................................................................................... 15 
+2.2.1  Subgroup of interest .............................................................................. 16 
+2.3 Patient disposition, demographics and other baseline characteristics ................... 16 
+2.3.1  Patient disposition  ................................................................................. 16 
+2.4 Treatments (study treatment, concomitant therapies, compliance) ....................... 17 
+2.4.1  Study treatment/compliance  .................................................................. 17 
+2.4.2  Prior, concomitant and post therapies ................................................... 21 
+2.5 Analysis of the primary objective .......................................................................... 22 
+2.5.1  Primary endpoint ................................................................................... 22 
+2.5.2  Statistical hypothesis, model and method of analysis ........................... 22 
+2.5.3  Handling of missing values/censoring/discontinuations ....................... 24 
+2.5.4  Supportive analyses ............................................................................... 24 
+2.6 Analysis of the key secondary objective ............................................................... 24 
+2.7 Analysis of the secondary objective(s) .................................................................. 24 
+2.7.1  Secondary endpoints ............................................................................. 25 
+2.7.2  Statistical hypothesis, model and method of analysis ........................... 25 
+2.7.3  Handling of missing values/censoring/discontinuations ....................... 26 
+2.8 Safety analyses  ....................................................................................................... 27 
+2.8.1  Adverse events (AEs)  ............................................................................ 27 
+2.8.2  Deaths  .................................................................................................... 30 
+2.8.3  Laboratory data ..................................................................................... 30 
+2.8.4  Other safety data  ................................................................................... 31 
+2.8.5  Additional analyses ............................................................................... 34 
+2.9 Pharmacokinetic endpoints .................................................................................... 34 
+2.10  PD and PK/PD analyses ......................................................................................... 34 
+2.11  Patient reported outcomes (PRO) .......................................................................... 35 
+2.11.1  General PRO analysis  ........................................................................... 35 
+
+Novartis  For business use only  Page 4 
+SAP  CDRB436F2410  
+ 
+2.12  Biomarkers  ............................................................................................................. 35 
+2.13  Other exploratory analysis ..................................................................................... 35 
+2.14  Interim analysis  ...................................................................................................... 35 
+3 Sample size calculation  ..................................................................................................... 35 
+4 Changed to protocol specified analyses ............................................................................ 37 
+4.1 Impact of COVID -19 ............................................................................................. 37 
+4.2 Analyses to support label update ........................................................................... 38 
+5 Appendix ........................................................................................................................... 40 
+5.1 Imputation rules ..................................................................................................... 40 
+5.1.1  Study drug ............................................................................................. 40 
+5.1.1  AE, ConMeds and safety assessment date imputation .......................... 41 
+5.2 AEs coding/grading ............................................................................................... 44 
+5.3 Laboratory parameters derivations  ........................................................................ 44 
+5.4 Statistical models  ................................................................................................... 45 
+5.4.1  Primary analysis of binary data ............................................................. 45 
+5.4.2  Secondary analysis  ................................................................................ 45 
+6 Appendix for identification of corticosteroids .................................................................. 45 
+7 Reference  ........................................................................................................................... 49 
+
+Novartis  For business use only  Page 5 
+SAP  CDRB436F2410  
+ 
+List of abbreviations 
+  
+AEs Adverse Events  
+AESIs  Adverse Events of Special Interest  
+ATC 
+AJCC  Anatomical Therapeutic Classification  
+American Joint Committee on Cancer  
+BID 
+CRS  bis in diem/twice a day  
+Case Retrieval Strategy  
+CSR  Clinical Study report  
+CTC Common Toxicity Criteria  
+CTCAE  Common Terminology Criteria for Adverse Events  
+DMC  
+ECOG PS  
+ECG  Data Monitoring Committee  
+Eastern Cooperative Oncology Group Performance Status  
+Electrocardiogram  
+EoT End of Treatment visit  
+EoS 
+FACT -M End of Study visit  
+Functional Assessment of Cancer Therapy –Melanoma  
+FAS 
+IA Full Analysis Set  
+Interim analysis  
+eCRF  Electronic Case Report Form  
+MedDRA  Medical Dictionary for Regulatory Activities  
+NCI National Cancer Institute  
+o.d. Once Daily  
+OS Overall Survival  
+RFS Relapse -Free Survival  
+PK Pharmacokinetics  
+PRO  Patient -reported Outcomes  
+QD Qua’que di’e / once a day  
+QoL Quality of Life  
+RAP Report and Analysis P rocess  
+RECIST  Response Evaluation Criteria in Solid Tumors  
+SAP Statistical Analysis Plan  
+SOC  System Organ Class  
+TFLs  Tables, Figures, Listings  
+WHO  World Health Organization  
+ 
+  
+
+Novartis  For business use only  Page 6 
+SAP  CDRB436F2410  
+ 
+2 Addendum details:  
+The purpose of this Statistical Analysis Plan (SAP) is to outline the statistical methods and 
+document the outputs needed for the clinical study report (CSR) of the final analysis of study CDRB436F2410, a open -label, phase IIIb study of dabrafenib in combi nation with trametinib 
+in the adjuvant treatment of stage III BRAF V600 mutation- positive melanoma after complete 
+resection to evaluate the impact on pyrexia related outcomes of an adapted pyrexia AE -
+management algorothim.  
+The final analysis was planned to be performed at the end of the study defined as 24 months 
+after last patient last visit.   
+The final analysis will be a re -run of all the analyses described in the primary analysis SAP, 
+dated on Nov 4, 2020 ( /CREDI Projects/D/DRB436F/CREDI 
+Studies/DRB436F2410/Administrative Files (study level)/RAP or RAMP Meeting - 
+SAP_CDRB2410_CSR_Primary_Analysis_SAP.docx
+ 
+https://we bedi02.na.novartis.net:8443/webEDI02_non_SSO/drl/objectId/090095af8e1016b1 ).  
+All the analyses, data rules will follow the rules described in the above SAP. The final analysis will not include the analyses described in section 2 to support label update (Section 4.2 in the primary analysis SAP). The content of this SAP is based on protocol CDRB436F2410 version 02 (Amendment 2).  
+ The tables/listings/figures will follow the shells described in COMBI_Aplus_Final reported in  
+ 
+/CREDI Projects/D/DRB436F/CREDI Studies/DRB436F2410/Administrative Files (study 
+level)/RAP or RAMP Meeting - SAP_CDRB436F2410_COMBI_Aplus_Final.docx
+ 
+https://webedi02.na.novartis.net:8443/webEDI02_non_SSO/drl/objectId/090095af8b2267b8  
+For any occurrence , the following rules will be followed. 
+ 
+
+Novartis  For business use only  Page 7 
+SAP  CDRB436F2410  
+ 
+ 
+Specifically, t he occurrence of AESI will follow the following rules.  
+To calculate the duration of AESI, the rule will be [max(end date of all below  bullets) -[min(start 
+date of all below bullets]+1. 
+For the first occurrence of AESI, when subsequent records AE start date is same as  first 
+occurrence start date or end date is earlier than first occurrence end date  
+For the first occurrence of  AESI, whe n subsequent records start date is after first occurrence 
+start date, but is earlier than first occurrence end date  
+For the first occurrence of  AESI, when subsequent records start date is after first occurrence start date, but is earlier than (previous l atest occurrence end date+7)   
+3 The changes from primary analysis to final analysis 
+ 
+The changes in the final analysis will be as of below: 
+1)  Listing number changes  
+Previous Listing Number  Listing Name  New Listing Number  
+Listing 14.3.3-1.7 Adverse events of special 
+interest (Safety set)  Listing 14.3.2-1.7 
+  
+2) The tables not needed  
+Table Number  Table Name   
+ 
+Table 14.3.1 -12.2 Summary of Concomitant Oral or IV Corticosteroids 
+
+
+Novartis  For business use only  Page 8 
+SAP  CDRB436F2410  
+ 
+Table 14.3.1-12.1 Summary of Pyrexia (Single Preferred Term) 
+Complicated by Severe Chills, 
+Hypotension, Dehydration, S yncope, or Renal 
+Dysfunction  
+Table 14.3.1-12.3 Summary of Serious Pyrexia AES Is Requiring 
+Hospitalization  
+Table 14.3.1-12.4 Summary of Occurrences and percentage of time for 
+Pyrexia AESIs  
+Table 14.3.1-12.6 Event level Summary of Action Taken with Pyrexia 
+AESI  
+ 
+ 
+4 Study design  
+ 
+This is an open- label Phase IIIb study of dabrafenib in combination with trametinib in the 
+adjuvant treatment of melanoma after complete resection. Patients with completely resected, 
+histologically confirmed, BRAF V600E/K mutation- positive, high- risk [AJCC ed. 8 Stage IIIA 
+(lymph node metastasis >1 mm), IIIB, IIIC or IIID] cutaneous melanoma will be  screened for 
+eligibility.  The main purpose of the study is to assess whether an adapted AE -management 
+algorithm for  pyrexia (Fever (> 38 °C)), will reduce the incidence of Grade 3/4 pyrexia, 
+hospitalization due to pyrexia and permanent treatment discontinuation due to pyrexia. The effectiveness of dabrafenib and trametinib therapy in this setting will also be assessed based on RFS and OS. 
+As per  the protocol amendent version dated 09- May-2019, approximately 600 subjects were 
+planned to be enrolled to receive dabrafenib (150 mg BID) and tramatinib (2 mg once daily) 
+combination therapy for 12 months. Due to global drug supply availibility, the enrollment of 
+patients was slower than anticipated,resulting in the final sample of 556 enrolled patients in the study by the end of anticipated recruitment period. The final sample size i s reasonably close to 
+the planned target.  
+At enrollment, subjects will be  instructed on the pyrexia management algorithm (refer to 
+protocol Section 6.5.1.1). Doses of study treatment may be modified and/or interrupted for management of toxicities associated with study treatment.  
+Three analyses are  planned for this study.  
+• The interim analysis (IA) based on primary endpoint and secondary endpoint conducted 
+when 203 subjects were dosed for 6 months (either completed 6 months of treatment or discontinued earlier). The data cut -off date was 16 August, 2019. 
+• The primary analysis is planned to be performed at 12 months after the last patient first visit (LPFV). The data cut-off is planned on 26
+th September, 2020. 
+
+Novartis  For business use only  Page 9 
+SAP  CDRB436F2410  
+ 
+• The final analysis will be performed at the end of the study defined as 24 months after 
+LPFV.  
+At the time of IA, an independent data monitoring committee (IDMC) recommended to 
+continue the trial without any changes.  
+ 
+  
+This study consists of two Periods for Enrolled subjects: 
+• Treatment Period – subjects will receive up to 12 months of treatment (refer to the 
+schedule as noted in protocol Table 8- 1). 
+• Follow-up Period – subjects will be followed from treatment discontinuation through 24 months from their first dose date for relapse; and will be followed for overall survival through withdrawal, lost to follow-up, death, or the end of study (see definition in protocol Section 9.2), whichever occurs first. Follow- up will start once: 1) treatment is completed; 
+or 2) is prematurely discontinued and continue until withdrawal, lost to follow-up, death, or the end of study even if disease recurs. Follow- up contact prior to disease recurrence 
+and through the 24 month assessment will include clinic visits (refer to the schedule as noted in protocol Table 8-2). Follow-up after disease recurrence and until EoS should follow the schedule as noted in protocol Table 8-3. 
+ 
+Figure 1 .1  Study design 
+ 
+ 
+ 
+ 
+4.1 Study objectives and endpoints 
+Objectives and related endpoints are described in Table 1 -1 below. 
+Table 1 -1 Objectives and related endpoints  
+Objective(s)  Endpoint(s)  
+Primary objective(s)  Endpoint(s) for primary objective(s)  
+
+
+Novartis  For business use only  Page 10  
+SAP  CDRB436F2410  
+ 
+• To assess whether an adapted AE - 
+management algorithm for pyrexia will 
+reduce the incidence of grade 3/4 pyrexia, hospitalization due to pyrexia, or permanent treatment discontinuation due to pyrexia compared to historical control • The composite rate of grade 3/4 pyrexia, hospitalization due to pyrexia, or permanent treatment discontinuation due to pyrexia by 12 months in overall treated subjects 
+ 
+Secondary objective(s)  Endpoint(s) for secondary objective(s)  
+ 
+Secondary Objectives  
+• RFS rate at 12 and 24 months   
+• RFS is defined  as the time from the 
+first dose of the study medication to 
+disease recurrence or death from any cause (whichever occurs first) 
+at 12 and 24 months  
+• OS rate at 12 and 24 months • OS is defined  as the time from the 
+first dose of study medication to date of death due to any cause at 12 
+and 24 months  
+Other Secondary Objectives  
+• To evaluate the life quality: Health -Related  
+Quality Of Life (HRQOL) measures assessed using FACT-M  
+• Changes in the HRQOL from baseline will be assessed using by 
+FACT -M questionnaire  
+• To evaluate the overall AE rate leading to permanent treatment discontinuation by 12 months • The proportion of subjects in the study who permanently discontinued treatment due to any 
+adverse event by 12 months  
+• To evaluate pyrexia  • Frequency, number of episodes, duration, AE management (including concomitant medications and study treatment modifications) 
+due to pyrexia  
+• To evaluate safety (AEs and SAEs)  • Safety will be assessed  by the 
+frequency and severity of adverse events (AEs), serious AEs (SAEs) 
+and laboratory abnormalities  
+ 
+5 Statistical methods 
+5.1 Data analysis  general information 
+All analysis will be performed by Novartis and/or a designated CRO.  SAS version 9.4 or later software will be used to perform all data analyses and to generate tables, figures and listings.  
+
+Novartis  For business use only  Page 11  
+SAP  CDRB436F2410  
+ 
+Data included in the analys is 
+The analysis cut -off date for the primary analysis will be September 26, 2020. This date will 
+be changed based on whether  all enrolled 556 patients will complete 12 months of treatmen t 
+or will discontinued from the study.  
+All statistical analysis will be performed using all data collected in the database up to the data 
+cut-off date. All data with an assessment  date or event start date (e.g. start date of an adverse  
+event)  prior to or on the cut-off date will be included in the analys is. Any data  collected  
+beyond the cut-off date will not be included in the  analy sis and will not be used for a ny 
+derivations. 
+All events with start date  before or on the cut -off date and end date  after the cut -off date will 
+be reported as ‘ongoing’. The same rule will be applied to events starting before or on the cut -
+off date and not having documented end date. This approach applies, in particular, to adverse 
+event and concomitant medication reports. For these events, the end date will not be imputed 
+and therefore will not appear in the listings.  
+The analysis cut -off date for the final analysis of study data will be established at the end of 
+the study.  
+General analysis conventions  
+Pooling of center s: Unless specified otherwise, data from all study centers will be pooled for 
+the analysis. Due to expected small number of patients enrolled at  centers, no center eff ect 
+will be assessed.  
+Qualitative data (e.g., gender, race, etc.) will be summarized by means of contingency tables; 
+a missing category will be included as applicable. Percentages will be  calculated using the 
+number of patients in the relevant population as the denominator. 
+Quantitative data  (e.g., age, body weight, etc.) will be summarized by appropriate 
+descriptive statistics (i.e. mean, standard deviation, median, minimum, and maximum) . 
+5.1.1  General d efinition s  
+Study treatment  
+The study treatment, used throughout the protocol and SAP, will refer to the combination of 
+dabrafenib 150 mg twice a day (BID) and trametinib 2 mg once a day (QD). Study drug will 
+refer to the each component (either dabrafenib or trametinib) of the study treatment.  
+Date of first/last administration of study drug 
+The date of first administration of study drug is defined as the first date when a non- zero dose 
+of study drug was administered and recorded on the Dosage Administration Record (DAR) 
+eCRF. For the sake of simplicity, the date of first administration of study drug will also be referred to as start date of study drug. 
+The date of last administration of study drug is defined as the last date when a non- zero dose of 
+study drug was administered and recorded on DAR eCRF. This date will also be referred to as 
+last date of  study drug. 
+
+Novartis  For business use only  Page 12  
+SAP  CDRB436F2410  
+ 
+Date of first administration of study treatment  
+The date of first administration of study treatment is derived as the first date when a nonzero 
+dose of any component of study treatment was administered as per the (e)CRF . (Example: if 1st 
+dose of Dabrafenib  is administered on 13-Jul-2013, and 1st dose of Trametinib  is administered 
+on 11-Jul-2013, then the date of first administration of study treatment is on 11-Jul-2013).   The 
+date of first administration of study treatment will also be referred as start of study treatment.  
+Date of last administration of study treatment  
+The date of last administration of study treatment is derived as the last date when a nonzero 
+dose of any component of study treatment was administered as per  the (e)CRF. (Example: if 
+the last dabrafenib  dose is administered on 13-Jul-2014, and the last dose of t rametinib  is 
+administered on 15-Jul-2014, then the date of last administration of study treatment  is on 15-
+Jul-2014).   
+Study day  
+The study day, describes the day of the event or assessment date, relative to the reference start 
+date.  
+The study day is defined as: 
+• The date of the event (visit date, onset date of an event, assessment date, etc.) − 
+reference start date + 1 if event is on or after the reference start dat e; 
+• The date of the event (visit date, onset date of an event, assessment date, etc.) − 
+reference start date if event precedes the reference start dat e. 
+The reference start date for safet y assessments (e.g. adverse  event  onset, laboratory abnormality 
+occurrence,  vital sign measurement,  dose interruption, pk, etc.) is the start of study treatment.  
+The reference start date for all other, non- safety assessments (e.g. ECOG performance status 
+and patient reported outcomes (PRO)) is the start of study treatment.  
+Time unit s 
+A year length is defined as 365.25 days. A month length is 30.4375 days (365.25/12). If duration 
+is reporte d in months, duration in days will be  divided by 30.4375.  If duration is reported in 
+years, duration in days will be divided by 365.25. Baseline  
+For safety and efficacy evaluations, the last available  assessment on or before the date of start 
+of study treatment is defined as “baseline” assessment.   
+For cases where time of assessment and time of treatment start is captured (e.g. pre -dose ECG, 
+labora tory assessments), the last available assessment before the treatment start date/time is 
+used for baseline.  
+In rare cases where multiple measurements meet the baseline definition, with no further flag or 
+label that can identify the chronological order,  t hen the following rule should be applied: For  
+ECGs or vital signs, the last value will be considered as baseline.  
+
+Novartis  For business use only  Page 13  
+SAP  CDRB436F2410  
+ 
+If patients have no value defined above, the baseline result will be missing.  
+On-treatment assessment/event and observation periods  
+For adv erse event reporting t he overall observation period will be divided into three mutually 
+exclusive segments:  
+1. pre-treatment period : from day of patient’s sign informed consent to the day before first 
+administration of study treatment. 
+2. on-treatment period : from date of first administration of study treatment  to 30 days after 
+date of last actual administration of  any study treatment : dabrafenib or trametinib   
+(including start and stop date). 
+3. post- treatment period : starting at day  31 after last administration of  study treatment. 
+ For cases where time of assessment and time of treatment start/stop is captured (e.g. ECG’s 
+laboratory assessments), the last available assessment before the treatment period start/stop date/time will be used.  
+If dates are incomplete in a way that clear assignment to pre- , on- , and post -treatment period 
+cannot be made, then the respective data will be assigned to the on- treatment period. Refer to 
+section 5.1.1
+ for imputation rules concerning AE start and stop dates.  
+Safety summaries (tables, figures) include only data from the on- treatment period with the 
+exception of baseline data which will also be summarized where appropriate (e.g. change from 
+baseline summaries). In addition, a separate summary for death including on treatment and post treatment deaths will be provided.  In particular, summary tables for adverse events (AEs)  will 
+summarize only on- treatment events , with a start date during the on- treatment period 
+(treatment- emergent  AEs ).   
+However, a ll safety data  (including those from the post -treatment period)  will be listed and 
+those collected during the pre-treatment and post- treatment period will be flagged. 
+Windows for multiple assessments  
+In order to summarize PRO measures, performance status (ECOG), physical exam, vital sign,  
+ECG, ECHO, laboratory  collected  over time (including unscheduled visits), the assessments 
+will be time slotted. The following general rule will be applied in creating the assessment windows: I f more than one assessment is done within the same time window, the assessment 
+performed closest to the target date will be used. If 2 assessments within a time window are equidistant from the target date, then the earlier of the 2  assessments  will be us ed. 
+If multiple assessmentson the same date then the worst case result will be used. Data from all assessments (scheduled and unscheduled), including multiple assessments, will be listed. Data 
+obtained at the end of treatment will be classified as other as sessment in the corresponding time 
+window. 
+
+Novartis  For business use only  Page 14  
+SAP  CDRB436F2410  
+ 
+Time windows for PRO, ECOG assessments  
+Time window  Planned Visit 
+Timing /Target date  Time Window Definition 
+On treatment    
+Baseline  -28 <Day 1  
+Day 1 1 Day 1  
+Month 1  29 Day 2 to day 42 
+Month 2 ( 57 Day 43 to day 70 
+Month 3  85 Day 71 to day  98 
+Month 4  113 Day 99 to day 126 
+Month k  (k≥5)  d=k*28+1  Day d -14 to day d+13  
+End of Treatment   Assessment taken at the end of 
+treatment visit  
+Post treatment    
+Follow -up Month 3  85 Day 2 to day 112  
+Follow -up Month k  d=k*28+1  d±28 
+Study Day 1 = drug administration date;  
+ 
+Time windows for laboratory assessments  
+Time window  Planned Visit 
+Timing /Target date  Time Window Definition 
+On treatment    
+Baseline  -28 < Day 1  
+Day 1  1 Day 1  
+Month 1 29 Day 2 to day 42 
+Month 2  57 Day 43 to day 70 
+Month 3 85 Day 71 to day  98 
+Month 4  113 Day 99 to day 126 
+Month k  (k≥5)  d=k*28+1  Day d -14 to day d+13  
+End of Treatment   Assessment taken at the end of 
+treatment visit  
+Post treatment    
+30 day  safety follow -up Post treatment study day 30 Assessment taken at the  
+30-day safety follow -up visit  
+   
+Study Day 1 = drug administration date;  
+ 
+ 
+Last contact date  
+The last contact date will be derived for patients not known to have died at the analysis cut -off 
+using the last complete date among the following: 
+
+Novartis  For business use only  Page 15  
+SAP  CDRB436F2410  
+ 
+Table 2-1 Last contact date data sources  
+Source data  Conditions  
+Last contact date/last date patient was known to 
+be alive  from Survival Follow -up page  
+ Patient status is reported to be alive, lost to follow -up or unknown.  
+Start/End dates from further antineoplastic 
+therapy  Non- missing medication/procedure term.  
+Start/End* dates from drug administration record  
+ Non- missing dose. Doses of 0 are allowed.  
+End of treatment date  from end of treatment page  
+ No condition.  
+Tumor (CT or MRI scan) assessment date  Evaluation is marked as ‘done’.  
+Laboratory  
+ Sample collection marked as ‘done’.  
+Vital signs date  
+ At least one non-missing parameter value  
+Performance Status date  
+ Non- missing performance status  
+Start/End dates of AE  Non- missing verbatim term  
+The last contact date is  defined as the latest complete date from the above list on or before the 
+data cut -off date . The cut -off date will not be used for last contact date, unless th e patient was 
+seen or contacted  on that date. No date post cut -off date will be used. Completely imputed  
+dates  (e.g. the analysis cut- off date programmaticall y imputed to replace the missing  end date  
+of a dose administration  record)  will not b e used  to derive the last contact dat e. Partial date 
+imputation is allowed for event (death)/censoring is coming from ‘Survival information’ eCRF.  
+The last contact date will be  used for censoring of patient s in the analysis of overall survival. 
+5.2 Analysis sets  
+Full analysis set and safety set  
+The full analysis set (FAS) as well as safety set includes same subjects. They comprise all 
+subjecs who received at least one dose of any study treatment.  
+Patient classification  
+The patients who signed inform ed consents and received at least one dose of the study drug will 
+be included in the analysis.  Withdrawal of informed consent  
+Any data collected in the clinical database after a patient  withdraws informed consent from all 
+further participation in the trial, will not be included in the analysis.  The date on which a patient 
+withdraws full consent is recorded in the eCRF . 
+ 
+
+Novartis  For business use only  Page 16  
+SAP  CDRB436F2410  
+ 
+5.2.1  Subgroup of interest  
+Not applicable.  
+ 
+5.3 Patient disposition, demographics and other baseline 
+characteristics  
+The FAS will be used for all baseline and demographic summaries and listings unless otherwise 
+specified. No inferential statistics will be provided.  
+Basic demographic and background data  
+All demographic and baseline disease characteristics data will summarized and listed. 
+Categorical data (e.g. gender, age groups: <65 and ≥ 65 years, race, ethnicity) will be 
+summarized by frequency counts and percentages ; the number and percentage of patients with 
+missing data will be provided. Continuous data (e.g. age, w eight, height, body mass index) will 
+be summarized by descriptive statistics ( N, mean, median, standard deviation, 25th and 75th 
+percentiles, minimum and maximum). BMI (kg/m2) will be calculated as weight[kg] / 
+(height[m2]) using weight at Baseline.  
+Diagnosis and extent of cancer  
+Summary statistics  will be tabulated  for diagnosis and extent  of cancer.  This analysis will 
+include the following: primary tumor ulceration, stage at initial diagnosis, time since initial 
+diagnosis of melanoma (in months) , stage at time of study entry  (AJCC version 8) etc.  
+Medical history  
+Medical history and ongoing conditions, including cancer -related conditions and symptoms 
+entered on (e) CRF will be summarized and listed. Separate summaries will be  presented for 
+ongoing and historical medical conditions.  The summaries will be presented by primary system organ class (SOC)  and preferred term (PT). Medical history and current medical conditions will 
+be coded using the Medical Dictionary for Regulatory Activities (MedDRA) terminology.  The 
+MedDRA version 24.1.0 used for reporting will be specified in the CSR and as a footnote in the applicable tables/listings.  
+Other  
+All data collected at baseline including will be listed as appropriate.  
+ 
+5.3.1  Patient disposit ion 
+Enrollment by country and center will be summarized for all screened patients. The number and 
+percentage of patients included in the FAS will be presented. The number (%) of screened and 
+not-treated patient s and the reasons for screening failure will also be displayed . The number (%)  
+of patient s in the FAS who are still on treatment, who discontinued the study phases and the 
+reason for discontinuation will be presented. 
+
+Novartis  For business use only  Page 17  
+SAP  CDRB436F2410  
+ 
+The following summaries will be provided (with % based on the total number of FAS patients): 
+• Number (%) of patients who were treated (based on ‘DAR’ eCRF pages of each 
+study treatment component completed with non- zero dose administered ) 
+• Number (%) of patient s who are still on -treatment ( based on the ‘Treatment 
+Disposition ’ page not completed);  
+• Number (%) of patient s who discontinued the study treatment phase (based on the 
+‘Treatment Disposition ’ page)  
+• Primary reason for study treatment phase discontinuation (based on the ‘Treatment Disposition’ page)  
+• Number (%) of patient s who have entered the post- treatment follow-up (based on 
+the ‘Treatment Disposition’ page);  
+• Number (%) of patient s who have discontinued from the post- treatment follow-up 
+(based on ‘Subject Status ’ page);  
+• Reasons for discontinuation from the post- treatment follow-up (based on  ‘ Subject 
+Status   page) ; 
+• Number (%) of patient s who have entered the survival follow-up (based on the 
+‘Subject Status ’ page).  
+Protocol deviations  
+The number (%) of patients in the FAS with any protocol deviation will be tabulated by deviation category overall for the FAS. All protocol deviations will be listed.  
+Analysis sets  
+The number (%) of patients in each analysis set (defined in section 2.2
+) will be summarized.  
+5.4 Treatments (study treatment, concomitant therapies, 
+compliance) 
+5.4.1  Study treatment/compliance  
+Duration of exposure, actual cumulative dose, dose intensity (DI) and relative dose intensity  
+(RDI)  will be summarized  separately for each component of study treatment ( dabrafenib  and 
+trametinib) . The duration of exposure will also be presented for the study treatment  of 
+dabrafenib  and trametinib  combination therapy.  Duration of exposure  will be categorized into 
+time intervals; frequency counts and percentages will be presented for the number (%) of 
+subject s in each interval . The number (%) of subject s who have dose reductions , escalations  or 
+interruptions, and the reasons, will be summarized by dabrafenib  and trametinib .  
+Patient level listings of all doses administered on treatment along with dose change reasons will 
+be produced.  
+The safety set will be used for all summaries and listings of study treatment.  
+
+Novartis  For business use only  Page 18  
+SAP  CDRB436F2410  
+ 
+Duration of exposure to study treatment  
+Duratio n of exposure to study treatment  is considered by taking into account the duration of 
+exposure to dabrafenib and trametinib: 
+Duration of exposure to study treatment ( days) = (last date of exposure to study treatment ) – 
+(date of first administration of study treatment) + 1.   
+The last date of exposure to study treatment is the latest of the last dates of exposure to 
+dabrafenib or trametinib. 
+Summary of duration of exposure of study treatment in appropriate time units will include 
+categorical summaries and con tinuous summaries (i.e. mean, standard deviation etc.). 
+Duration of exposure to dabrafenib and trametinib 
+Duration of exposure to dabrafenib ( days) = (last date of exposure to dabrafenib ) – (date of first 
+administration of dabrafenib) + 1 . 
+Duration of exposure to trametinib (days ) = (last date of exposure to trametinib ) – (date of first 
+administration of trametinib ) + 1 . 
+ 
+Table 2-2 Definition of last date of exposure of study drug 
+Scenario  Definition of last date of exposure 
+of study drug  Example 
+Daily 
+administration of 
+the study drug  Date of last administration of a non -
+zero dose of the study drug.  Example : A patient had a 
+permanent discontinuation of 
+the study drug 06Jan2013 after being 
+put on a temporary 
+interruption since 01Jan2013. 
+In this case the last date of 
+exposure is - 31Dec201 2.  
+ 
+Cumulative dose  
+Cumulative dose  of a study treatment  is defined as the total dose given during the study 
+treatment exposure and will be summarized for each of the study treatment components.  
+The planned cumulative dose  for a study treatment component refers to the total planned dose 
+as per the protocol up to the last date of study drug administration. The planned cumulative 
+dose will not be summarized/listed. It will be u sed for relative dose intensity calculations.  
+The actual  cumulative dose   refers to the total actual dose administe red, over the duration for 
+which the subject  is on the study treatment as documented in the Dose Administration eCRF .  
+For patients  who did not take any drug the cumulative dose is by definition equal to zero. 
+
+Novartis  For business use only  Page 19  
+SAP  CDRB436F2410  
+ 
+For continuous dosing, the actual cumulative dose is the sum of the non -zero doses recorded 
+over the dosing period and the planned cumulative dose is the planned starting dose summed 
+over the same dosing period. 
+Dose intensity and relative dose intensity  
+Dose intensity  (DI) for patients with non- zero duration of exposure is  defined as follows:  
+DI (mg / day) = Actual Cumulative dose (mg) / Duration of exposure to study treatment (day). 
+For patients who did not take any drug the DI is by definition equal to zero.  
+Planned dose intensity (P DI) is defined as follows: 
+PDI (mg / day)  = Planned Cumulative dose (mg) /  Duration of exposure (day).  
+Relative dose intensity  (RDI) is defined as follows:  
+RDI = DI ( mg / day )  / PDI (mg / day).   
+DI and RDI  will be summarized separately for each of the study treatment components, but 
+using the duration of exposure of each of the components. 
+Table 2-3 Examples of dabrafenib dose administration and exposure  
+DAR 
+record number  Start/End date 
+Dose prescribed (mg), 
+frequency  Dose  
+administered 
+(mg) [ total 
+daily]  Dose changes, dose 
+interruption  Dose permanently discontinued  Reason  
+1 01Jan2016 
+/05Jan 2016  150mg BID  300  No No AE 
+2 6Jan2016/03
+Feb 2016  150mg BID  200 Yes No 
+3 04Feb2016/
+25Feb2016  150mg BID  300 No No 
+ 
+Duration of exposure (days) = 25Feb2016 – 01Jan2016 + 1 = 56 days Planned cumulative dose (for 56 days) = 300*56 days = 16800 mg Actual cumulative dose = 300*5 + 200*29 + 300*22 = 13900 mg Dose intensity = 13900 mg / 56 days = 248.21 mg/day Planned dose intensity = 16800 mg / 56 days = 300 mg/day Relative dose intensity = DI / PDI = (248.21 mg/day) / (300 mg/day) = 83%  
+
+Novartis  For business use only  Page 20  
+SAP  CDRB436F2410  
+ 
+Table 2-4 Examples of trametinib dose administration and exposure  
+DAR 
+record number  Start/End date 
+Dose prescribe
+d (mg), 
+frequency  Dose administered 
+(mg) [ total 
+daily]  Dose changes, dose 
+interruption  Dose permanently discontinued  Reason  
+1 01Jan2016 
+/10Jan 2016  2 QD 2 No No AE 
+2 11Jan2016/15
+Jan 2016  2 QD 0 Yes No 
+3 16Jan2016/25
+Feb2016  1 QD 1 No No 
+Duration of exposure = 25Feb2016 – 01Jan2016 + 1 = 56 days 
+Planned cumulative dose (for 56 days) = 2*56 days = 112 mg Actual cumulative dose = 2*10 + 0*5 + 1*41 = 61 mg Dose intensity = 61 mg / 56 days = 1.09 mg/day Planned dose intensity = 112 mg / 56 days = 2 mg/day Relative dose intensity = DI / PDI = (1.09 mg/day) / (2 mg/day) = 54% 
+Dose reductions, interruptions or permanent discontinuation 
+The number of patients  who have dose reductions, permanent discontinuations or interruptions, 
+and the reasons, will be summarized  separately for each of the study treatment components .  
+‘Dose interrupted’  and ‘Dose permanently discontinued’ fields  from the Dosage Administration 
+CRF  pages  (DAR)   will be used to determine the dose reductions, dose interruptions, a nd 
+permanent discontinuations, respectively. 
+The corresponding fields ‘Reason for dose change/dose interrupted’ and ‘Reason for permanent 
+discontinuation’ will be used to summarize the reasons. 
+A dose change is either ‘change in prescribed dose level’ or ‘dosing error’ where actual dose 
+administered/total daily dose is different from the prescribed dose. 
+For the purpose of summarizing interruptions and reasons, in case multiple entries for interr uption that are entered on consecutive days with different reasons will be counted as 
+separate interruptions. However, if the reason is the same in this mentioned multiple entries on consecutive days, then it will be counted as one interruption.  
+Reduction  is defined as a dose change where the prescribed dose level is lower than the 
+previous prescribed dose level or where the actual dose administered/total daily dose is lower 
+than the calculated dose amount based on the  prescribed dose. Therefore any dose change to 
+correct a dosing error will not be considered a dose reduction.  Only  dose change is collected 
+in the CRF, number of reductions will be derived programmatically  based on the change and the  direction of the change. 
+ 
+
+Novartis  For business use only  Page 21  
+SAP  CDRB436F2410  
+ 
+5.4.2  Prior, concomitant and post therapies  
+Prior anti -cancer thera py 
+The number and percentage of patients who received any prior anti -neoplastic surgery will be 
+summarized . For prior surgery, time since last surgery, procedure and residual disease of last 
+therapy will be summarized.   
+Separat e listings  will be produced for  prior anti-neoplastic surgery.  
+Anti-neoplastic medications will be coded using the WHO Drug Dictionary (WHO -DD);  anti-
+neoplastic surgery will be coded using MedDRA. Details regarding MedDRA and WHO -DD 
+version will be included in the footnote in the tables/listings.  
+The above analyses will be performed using the FAS.  
+Post treatment anti -cancer therapy  
+Anti-neoplastic therapies since discontinuation of study treatment will be list ed and summarized 
+by ATC class, preferred term  and by means of frequency counts and percentages using FAS. 
+Note that biopsies will not be regarded as an anti -neoplastic surgery for the purpose of this 
+analysis.  
+The number and percentage of patients who reported taki ng at least one anti -neoplastic therapy 
+since discontinuation of study treatment by category ( e.g immunotherapy, targeted therapy, 
+chemotherapy, radio therapy, etc.), the duration of treatment and the best response will be 
+summarized . 
+Concomitant medications  
+Concomitant therapy is defined as all interventions (therapeutic treatments and procedures) 
+other than the study treatment administered to a patient  coinciding with the study treatment 
+period. Concomitant therapy include m edications (other than study drugs) starting on or after 
+the start date of study treatment or medications starting prior to the start date of study treatment and continuing after the start date of study treatment.  
+Concomitant medications will be coded using the World Health Or ganization (WHO) Drug 
+Reference  Listing  (DRL)  dictionary  that  employs  the  WHO  Anatomical  Therapeutic 
+Chemical (ATC) classification system and summarized by lowest ATC class and preferred term  
+using frequency counts and percentages. Surgical and medical procedures will be coded using MedDRA and summarized by SOC and preferred term. These summaries will includ e: 
+1. Medications starting on or after the start of study treatment  but no later than 30 days 
+after start of last dose of study treatment  and 
+2. Medi cations starting prior to start of study treatment  and continuing after the start of 
+study treatment . 
+All concomitant therapies  will be listed.  Any concomitant therapies  starting  and ending prior 
+to the start of study treatment  or starting  more than 30 days after the last date of study treatment 
+will be flagged in the listin g. The  safety se t will be used for all concomitant medication tables 
+and listings. 
+
+Novartis  For business use only  Page 22  
+SAP  CDRB436F2410  
+ 
+ 
+5.5 Analysis of the primary objective 
+The primary objective of the study is to assess whether an adapted AE -management  algorithm 
+for pyrexia will reduce the incidence of grade 3/4 pyrexia, hospitalization due  to pyrexia, or 
+permanent treatment discontinuation due to  pyrexia compared to historical control from 
+COMBI -AD study. 
+ 
+5.5.1  Primary endpoint  
+The primary endpoint is defined as the composite rate of grade 3/4 pyrexia  (single preferred 
+term) , hospitalizations  due to pyrexia or permanent treatment discontinuation due to pyrexia up 
+to 12 months of therap y among overall treated patients. 
+The rate of this composite primary endpoint is calculated as  the total number of patients 
+experiencing at least one of the three components of the composite endpoint (i.e., Grade 3/4 
+pyrexia, hospitalization due to pyrexia, or permanent treatment discontinuation due to pyrexia), 
+divided by the total number of patients  in the FAS. The composite endpoint is assessed over a 
+treatment period of 12 months; that is, any patient who experiences at least one of the components of the composite endpoint anytime within 12 month on- treatment will be included 
+in the numerator for the calculation of the composite rate. 
+ 
+5.5.2  Statistical hypothesis, model and method of analysis  
+ 
+The primary analysis will be based on the calculat ion of the observed pyrexia event rate up to12 
+months of therapy (primary endpoint) using the FAS. The observed pyrexia event rate will be summarized using descriptive statistics (N, %) along with its two -sided exact 95% confidence 
+interval (Clopper and Pearson 1934).  In the COMBI -AD study, 87 out of 435 subjects in the treatment arm (20%) developed either 
+grade 3/4 pyrexia or hospitalization due to pyrexia or discontinued due to pyrexia. This rate of 20% will be used as the historical control rate for the  assessment of pyrexia management 
+algorithm in this study.  Evidence of treatment effect (improvement in pyrexia event rate using the AE -management 
+algorithm) will be concluded, if the upper bound of the two- sided 95% confidence interval is 
+less than 20%.  
+The exact 95% confidence intervals for various observed event rates at the primary analysis are 
+shown in Table 2-5
+. This table has been updated from the protocol for the new sample size = 
+556 subjects.  
+  
+
+Novartis  For business use only  Page 23  
+SAP  CDRB436F2410  
+ 
+If 92 (16.5%) out of 556 subjects are observed with pyrexia event,  then the upper bound of the 
+95% confidence interval will be less than 20%. 
+Table 2-5 Exact 95% CI for different observed event rates at primary analysis  
+ 
+N 
+r 95% exact CI 
+using n=600  N r Pyrexia event 
+rate (%)  95% exact CI (%)*  
+using n=556  
+600 92 12.5 - 18.5 556 92 16.5%  13.6 - 19.9 
+600 93 12.7 - 18.6 556 93 16.7%  13.7 - 20.1 
+600 100 13.8 – 19.9 556 100 18% 14.9 - 21.4 
+600 101 13.9 – 20.1 556 101 18.2%  15.0 - 21.6 
+600 102 14.1 – 20.2 556 102 18.3%  15.2 - 21.8 
+600 103 14.2 – 20.4 556 103 18.5%  15.4 - 22.0 
+600 104 14.4 – 20.6 556 104 18.7%  15.5 - 22.2 
+600 105 14.5 – 20.8 556 105 18.9%  15.7 - 22.4 
+N: Total numbers of subjects;  
+r: Number of subjects with pyrexia events at primary analysis  
+* Clopper and Pearson (1934)  
+ 
+In addition, the probability that the pyrexia event rate is below the threshold of 20% will be 
+calculated from the posterior distribution. The pyrexia event rate will be  assumed to be binary 
+and the number of subjects with pyrexia events will be  assumed to follow a binomial 
+distribution. If Y represent s the number of patients with composite pyrexia events  then 
+predictive distribution of Y conditional on the observed data at the primary is a beta-binomial 
+distribution . A diffuse (highly non- informative) prior distribution of the composite rate with a 
+skeptic al expectation of 20%, namely Beta (0.25, 1) will be  assumed.  For illustration, as shown 
+in Table 2-6, if 96 out of 556 subjects are observed with pyrexia events at primary analysis, 
+then the posterior probability of observing an event rate of < 20% is 0.952 (probability ≥ 0.95).  
+This table has been modified for sample size = 556 from the protocol.  
+ 
+Table 2-6 Posterior probability for a positive effect at primary analysis  
+r Posterior*  
+Pr (event rate<20% |data) 
+N= 600  Posterior*  
+Pr (event rate<20%|data)  
+N= 556  
+92 0.999  0.982  
+96 0.994  0.952  
+100 0.983  0.890  
+101 0.977  0.868  
+102 0.971  0.843  
+103 0.963  0.816  
+104 0.954  0.786  
+105 0.943  0.753  
+110 0.854  0.559  
+
+Novartis  For business use only  Page 24  
+SAP  CDRB436F2410  
+ 
+r Posterior*  
+Pr (event rate<20% |data) 
+N= 600  Posterior*  
+Pr (event rate<20%|data)  
+N= 556  
+115 0.703  0.352  
+120 0.508  0.183  
+125 0.313  0.078  
+130 0.161  0.027  
+135 0.068  0.007  
+N: Total numbers of subjects;  
+r: Number of subjects with pyrexia events at primary analysis  
+* A diffuse (highly non- informative) prior distribution of the composite rate with a skeptical expectation of 20%, 
+namely Beta (0.25, 1) is assumed.  
+ 
+ 
+5.5.3  Handling of missing values/censoring/discontinuations  
+ Only observed events will be summarized in the analysis; incomplete dates of events may be 
+appropriately imputed. For the primary endpoint, patients who discontinued prematurely prior 
+to 12 months without pyrexia will be counted as no event.  
+5.5.4  Supportive ana lyses  
+Time to first occurrence of pyrexia will be analysed using the Kaplan -Meier (KM) method. If 
+a patient has not experienced an event by the time of analysis cut -off, the time will be censored 
+at the lastest date of study treatment in which the patient is known to be at risk.  
+The components of the composite primary endpoint (grade ¾ pyrexia, hospitalizations due to 
+pyrexia or permanent treatment discontinuation due to pyrexia) will also be analyzed individually by frequency counts in order to evaluate their contributions to the overall treatment effect.  
+ 
+5.6 Analysis of the key secondary objective  
+Not applicable.  
+5.7 Analysis of the secondary objective(s)  
+The secondary efficacy objectives are to  
+• Evaluate the relapse free survival (RFS) at 12 and 24 months. 
+• Evaluate overall survival (OS) rate at 12 and 24 months. 
+• Evaluate patients’ quality of life with respect to patient reported outcomes (PROs) of functional assessment of cancer therapy –melanoma ( FACT -M) melanoma subscales.  
+ 
+
+Novartis  For business use only  Page 25  
+SAP  CDRB436F2410  
+ 
+5.7.1  Secondary  endpoint s 
+ 
+Relapse free su rvival  
+RFS is defined as the time from the date of first dose of the study treatment  to the date of  the 
+first documented disease recurrence or death due to any cause whichever comes first. Treatment 
+emergent malignancies other than  second melanomas will no t be considered as events. The 
+analysis will be based on FAS and will include all data observed up-to the cut- off date . 
+RFS will be censored if no RFS event is observed before the first to occur between: (i ) the 
+analysis cut -off date, and (ii) the date when a new anti -cancer therapy is started. The censoring 
+date will be the date of the last adequate tumor assessment prior to data cut -off date/start of new 
+anti-cancer therapy  date (see Section 2.7.3  for additional details regarding censoring rules and 
+determination of date of last adequate tumor assessment).  
+Overall survival  
+OS is defined as the time from start date of study treatment  to date of death due to any cause. 
+All deaths occurring on or before the cut-off date in the FAS will be used in the OS analysis. 
+If a patient is not known to have died, then OS will be censored at the l ast contact date when 
+the patient  was known to be alive (on or before the cut -off date)  (see Section 2.1.1  for the 
+derivation of the last contact date) . 
+Functional assessment of cancer therapy- melanoma (FACT -M) 
+FACT -M will be used to evaluate patient -reported outcome measures of health -related quality -
+of-life, functioning, disease symptoms, treatment -related side effects, and global health status. 
+The Melanoma Subscale of the FACT -M are recognized as reliable and valid measures 
+(Cormier 2008 ) frequently used in c linical trials of patients with advanced or metastatic cancer.  
+The FACT -M quality of life questionnaire consists of the FACT -General (FACT -G) plus the 
+Melanoma Subscale and the Melanoma Surgery Subscale, which complement the general scale 
+with items specific to health -related quality of life ( HRQOL ) in melanoma.  For t he purpose of  
+this study the 16 items that comprise the Melanoma Subscale (MS) of the FACT -M are used . 
+ 
+5.7.2  Statistical hypothesis, model and method of analysis  
+RFS and OS will be analyzed descriptively in the FAS population. The RFS and OS distribution 
+will be  estimated using the Kaplan -Meier method . The Kaplan -Meier  estimates  will be plotted 
+graphically . The median , 25th  and 75th  percentiles  of RFS and OS  along with 95% confidence 
+intervals [Brookmeyer and Crowley 1982] will be presented.  
+The survival probabilities at 12 and 24 months, and the associated 95% confidence intervals 
+will be summarized . The percentage of surviving subjects who are alive and disease free 1 year 
+intervals from the time of first treatment  will be estimated from the Kaplan -Meier curves for 
+the RFS. The probabilities will be calculated at  1 year and at 2 years. Approximate 95% 
+
+Novartis  For business use only  Page 26  
+SAP  CDRB436F2410  
+ 
+confidence intervals  will be calculated, based on Greenwood's formula for the standard error 
+(SE) of the Kaplan -Meier estimate.  The similar  analysis will be presented for the OS as well.  
+ 
+5.7.3  Handling of missing values/censoring/discontinuations  
+Censoring of RFS  
+If no event has occurred by the primary analysis cutoff, then RFS will be censored as the 
+date of the last efficacy assessment (i.e. ei ther radiological or non-radiological) prior to 
+the analysis cutoff that shows no disease recurrence. Patient  will be censored for RFS at 
+the date of first treatment  for any of the following situation: 
+• The censoring algorithm calls for the patient  to be censored at the date of the las t adequate 
+assessment meeting a certain set of criteria (e.g. prior to subsequent anticancertherapy), but no such assessment exists. 
+RFS will be censored for extended loss to follow-up to account for missed efficacy assessments prior to relapse or death. Specifically, if there are two or more scheduled 
+efficacy assessments which are missing during the first 12 months of the treatment period, two or more missing during the follow up period followed by an assessment of re lapse or  
+death (due to any cause), RFS will be censored at the last adequate assessment prior to  
+relapse or death.  If the time interval between the last adequate efficacy assessment date and 
+the RFS event date is larger than the interval of 2 missing effic acy assessments (7 days for 
+treatment phase and 14 days for follow-up phase, protocol-specified time window ) then the patient will be censored and the censoring reason will be ‘Event documented after two or more missing tumor assessments.  For this type of censoring, the ‘last adequate assessment’ is defined as  the date of the last MRI or CT  assessment prior to the missing assessments that 
+shows no disease recurrence.  
+ For patient s who receive subsequent anti-cancer therapy the following rules will apply. 
+• If such therapy is started without evidence of documented disease recurrence, then  
+RFS will be censored at the date of the last efficacy ) assessment before the date of initiation of anti- cancer therapy.  
+• If a patient has only a baseline visit or does not have an efficacy assessment before the date of initiation of anti- cancer therapy, RFS will be censored at the date of first treatment. 
+ 
+Table 2 -7
+ below further describes the algorithm to determine whether a patient should be 
+classified as RFS event or censored.  
+ 
+Table 2-7 Outcome and event/censor dates  for RFS analysi s 
+ 
+Situation  Date  Outcome  
+   
+Recurrence documented 
+between scheduled visits  Date of assessment of 
+Recurrence  Event  
+
+Novartis  For business use only  Page 27  
+SAP  CDRB436F2410  
+ 
+Situation  Date  Outcome  
+No recurrence (or death)  Date of last efficacy 
+assessment  Censored  
+New anti -cancer therapy 
+(including surgery for 
+melanoma) started prior to documented disease 
+recurrence * Date of last efficacy 
+assessment on or prior to starting anti- cancer 
+therapy  Censored  
+Death before recurrence assessment  Date of death  Event 
+ 
+Death between adequate 
+assessment visits  Date of death  Event 
+Death or  recurrence after two 
+or more missed scheduled 
+efficacy assessments during 
+study t reatment period or after 
+two or more missing during 
+the follow up period  Date of la st adequate 
+assessment prior to missed assessments Censored  
+*If relapse and new anti -cancer therapy occur on the same day then the relapse will be counted as event. If 
+anticancer therapy is started prior to any adequate assessments, censoring date should be the date of first 
+treatment . 
+ 
+Censoring of OS  
+If a patient  is not known to have died at the time of analysis cut -off, then OS will be censored 
+at the date of last known date when patient was alive, i.e., last contact date.  
+5.8 Safety analyses  
+All safety analyses will be based on safety set.  
+5.8.1  Adverse events (AEs)  
+Adver se events are coded using MedDRA terminology. The MedDRA  24.1 version used for 
+reporting will be  specified in the CSR and as a footnote in the applicable tables/listings. AEs 
+will be assessed according to the Common Terminology Criteria for Adverse Events (CTCAE) 
+version 4.03. 
+AE summaries will include all AEs occurring during on-t reatment period. All AEs collected in 
+the AE (e)CRF page will be listed along with the information collected on those AEs e.g. AE 
+relationship to study drug, AE outcome etc. AEs with start date outside of on- treatment period 
+will be flagged in the listings.  
+AEs will be summarized by number and percentage of subjects having at least one AE, having 
+at least one AE in each primary system organ class  (SOC) and for each preferre d term  (PT) 
+using MedDRA coding. A patient  with multiple occurrences of an AE will be counted only 
+
+Novartis  For business use only  Page 28  
+SAP  CDRB436F2410  
+ 
+once in the respective AE category. A subject with multiple CTCAE grades for the same 
+preferred term will be summarized under the maximum CTCAE grade recorded for the event. 
+AE with missing CTCAE grade will be included in the ‘All grades’ column of the summary 
+tables.  
+In AE summaries , the primary SOC  will be presented alphabetically and the preferred terms 
+will be sorted within primary SOC in descending frequency. The sort order for the preferred term will be based on their frequency.  
+The following adverse event summaries will be produced: overview of adverse events and  
+deaths , AEs  by PT, SOC and PT, summarized by relationship to study treatment, seriousness, 
+leading to treatment discontinuation, leading to dose interruption/adjustment, requiring 
+additional therapy and leading to fatal outcome. In addition, a summary of  serious adverse events with number of occurrences will be produced (an occurrence is defined as >1 day between start and prior end date of record of same preferred term) . Note  that Adverse events 
+leading to fatal outcomes with relatio nship is a EudraCT requirement. 
+The proportion of subjects in the study, who have permanently discontinued treatment due to any AE  PT, will be estimated along with 95% confidence interv als using Clopper Pearson exact 
+method. 
+ 
+5.8.1.1  Pyrexia  
+For pyrexia, other characteristics like number of episodes, duration, and AE management 
+(including concomitant medications and study treatment modifications) due to pyrexia will be 
+summarized. . 
+The number (%) of patients who received medications for treatment of pyrexia will be summarized along with the type of medications. 
+5.8.1.2  Adve rse events of special interest (AESI)/grouping of AEs  
+All AESI  definitions or AE grouping for the clinical program need to be specified in the 
+Compound Case Retrieval Strategy sheet (CRS) with one exception of pyrexia AESI with clear 
+versioning and reference to the MedDRA version used. The CRS version will be included in a footnote of the AESI tables. 
+Pyrexia AESIs will be defined using the following list of PTs :   
+ 
+Pyrexia PT  PT Code  
+Body temperature increased  10005911  
+Cytokine release syndrome  10052015  
+Hyperpyrexia  10020741  
+Hyperthermia  10020843  
+Influenza like illness  10022004  
+Pyrexia  10037660  
+Sweating fever  10042666  
+Systemic inflammatory response syndrome  10051379  
+Tumour associated fever  10052243  
+
+Novartis  For business use only  Page 29  
+SAP  CDRB436F2410  
+ 
+ 
+Table 2-6 Adverse events of special interest by study treatment  
+ trametinib  dabrafenib  dabrafenib and 
+trametinib 
+combination  
+Hepatic disorders  x  x 
+Pneumonitis/Interstitial lung disease  x  x 
+Skin toxicities (e.g., rash, dermatitis acneiform)  x  x 
+Bleeding events  x  x 
+Hypersensitivity  x x x 
+Pancreatitis   x x 
+Neutropenia    x 
+Pulmonary embolism, deep vein thrombosis  x  x 
+Pre-renal and intrinsic renal failure   x x 
+New primary melanoma   x x 
+Non-Cutaneous Treatment -Emergent Malignancies   x x 
+Hyperglycemia   x x 
+Cardiac related  events  x  x 
+Complicated pyrexia and/or Grade 3 and Grade 4 
+pyrexia   x x 
+Uveitis   x x 
+Ocular events (e.g., retinal vein occlusion, retinal 
+pigment epithelial detachment and uveitis)  x  x 
+Cutaneous squamous cell carcinoma including 
+keratocanthoma   x x 
+Hypertension  x  x 
+ 
+Data analysis of AESIs  
+An adverse event of special interest is a grouping of adverse events that are of scientific and 
+medical concern specific to each components of study treatment, i.e. dabrafenib and trametinib. These groupings are defined using MedDRA terms, SMQs (standardiz ed MedDRA queries), 
+HGLTs (high level group terms), HLT (high level terms) and PTs (preferred terms). Customized SMQs ( Novartis MedDRA queries , NMQ)  may also be used . A NMQ is a customized group of 
+search terms which defines a medical concept for which there is no official SMQ available or the available SMQ does not completely fit the need. It may include a combination of single terms and/or an existing SMQ, narrow or broad. For each specified AESI, number and percentage of patients with at least one event of the AESI occurring during on treatment period will be summarized.  
+A listing of all grouping levels down to the MedDRA preferred terms used to define each AESI will be generated.  
+
+Novartis  For business use only  Page 30  
+SAP  CDRB436F2410  
+ 
+Summaries of these AESIs will be provided, ( specifying PTs, grade, serious adverse event 
+(SAE ), relationship, leading to treatment discontinuation, leading to dose 
+adjustment/interruption, hospitalization, death etc.).  
+5.8.2  Deaths  
+Separate summaries for on -treatment and all deaths  will be produced by SOC  and PT .  
+All deaths  will be listed  for the Safety set , post treatment deaths will be flagged. A separate 
+listing of deaths prior to starting treatment will be provided for all screened patients.  
+5.8.3  Laboratory data  
+On analyzing laboratory, data from all sources will be combined. The summaries will include 
+all assessments available for the lab paramete r collected no later th an 30 days after the last study 
+treatment administration  date.  
+The following summaries will be produced for hematology and biochemistry laboratory data (by laboratory parameter  and treatment ): 
+• Worst post- baseline CTC grade (regardless of the baseline status). Each subject  will be 
+counted only for the worst grade observed post- baseline.  
+• Shift tables using CTC grades to compare baseline to the worst on- treatment  value  
+• For laboratory tests where CTC grades are not defined, shift tables using the low/normal/high/(low and high) classification to compare baseline to the worst on-treatment   value.  
+• Trends of chemistry and hematology lab parameter values over time should be displayed 
+via boxplots based on time windows and corresponding tables displaying the statistics  
+used for the box plots by the selected time points. 
+The following listings will be produced for the laboratory data: 
+• Listing s of all laboratory data, with CTC grades and classification relative to the 
+laboratory normal range. L ab data collected during the post- treatment period will be 
+flagged .   
+• Listing  of all  CTC grade 3 or 4 laboratory toxicities. 
+ 
+Liver parameters  
+Liver parameters of interest are total bilirubin (TBL), ALT, AST and alkaline phosphatase 
+(ALP). The number (%) of patients with worst post -baseline values as per Novartis Liver 
+Toxicity guidelines will be summarized:  
+The following summaries will be produced: 
+• ALT or AST > 3xULN  
+• ALT or AST > 5xULN  
+• ALT or AST > 8xULN  
+
+Novartis  For business use only  Page 31  
+SAP  CDRB436F2410  
+ 
+• ALT or AST > 10xULN 
+• ALT or AST > 20xULN 
+• TBL > 2xULN  
+• TBL > 3xULN  
+• ALT or AST > 3xULN & TBL > 2xULN  
+• ALT or AST > 3xULN & TBL > 2xULN & ALP < 2xULN (potential Hy’s law)  
+Potential Hy’s Law events are defined as those patients with occurrence of AST or ALT > 
+3xULN and TBL > 2xULN, and ALP < 2xULN at initial presentation during the on- treatment 
+period. Note that the criteria relating to combined elevations of AST (or ALT) and TBL are based on the peak values at any post- baseline time for a patient.  
+For patients with abnormal ALT or AST baseline values, a clinically significant liver safety 
+signal corresponding to Hy’s law is defined by : [ALT or AST > 3*baseline] OR [ALT or AST >8*ULN], whichever is lower, combined with [TBIL >2*baseline AND >2*ULN]. 
+ 
+5.8.4  Other safety data  
+ 5.8.4.1  Electrocardiogram (ECG)  and cardiac imaging data  
+Single standard 12- lead ECGs will be obtained using an ECG machine that automatically 
+calculates heart rate (HR) and measures RR, PR, QRS, QT, and QTcF interva ls. All ECG 
+assessments will be performed in the supine position. All E CG assessments will be read and 
+interpreted locally.  
+ECHO/MUGAs will be performed to assess cardiac ejection fraction. The same procedure 
+(either ECHO or MUGA) should be performed at baseline and follow -up visits. All 
+ECHO/MUGA assessments will be read and  interpreted locally.  
+Data handling  
+In case of ECG replicates at any assessment, the average of the ECG parameters at that assessment should be used in the analyses. 
+Data analysis  
+The number and percentage of subjects with notable ECG values will be presented.  
+• QT, QTcF  
+- New value of > 450 and ≤ 480 ms  
+- New value of > 480 and ≤ 500 ms  
+- New value of > 500 ms 
+- Increase from Baseline of > 30 ms to ≤  60ms  
+- Increase from Baseline of > 60 ms  
+
+Novartis  For business use only  Page 32  
+SAP  CDRB436F2410  
+ 
+• HR 
+- Increase from baseline >25% and to a value > 100 bpm 
+- Decrease from baseli ne >25% and to a value < 50 bpm 
+• PR 
+- Increase from baseline >25% and  to a value > 200 ms 
+- New value of > 200 ms 
+• QRS  
+- Increase from baseline >25% and  to a value > 120 ms  
+- New values of QRS > 120 ms  
+The summaries will include all ECG assessments performed no later tha n 30 days after the 
+last study treatment date . 
+A listing of all ECG  assessments will be produced and notable values will be flagged. In the 
+listing, the assessments collected during the post-treatment period will be flagged . 
+For each of the ECG parameters , descriptive statistics at baseline, at each post -baseline time 
+point and changes from baseline at each post- baseline time point will be summarized.  
+Patients with notable ECG interval values will be listed and the corresponding notabl e values 
+and abnormality findings wi ll be included in the listings.  
+Unscheduled ECG measurements will not be used in computing  the descriptive statistics for 
+change from baseline at each post -baseline time point. Ho wever, they will be used in the 
+analysis of notable ECG values. 
+For left ventricular ejection fraction (LVEF), descriptive statistics at baseline, at each 
+postbaseline time point and changes from baseline at each p ost-baseline time point will be 
+summarized . Only the post -baseline assessments that  used the sa me method (ECHO or MUGA) 
+as the baseline assessments will be used to derive the change from baseline To identify LVEF values of potential clinical importance, the following table will be used to 
+assign categories that align with the grades for ‘Ejection fraction decreased’.  
+ 
+LVEF Parameter Potential Clinical Importance (PCI) 
+Range Unit  Potential Clinical Importance (PCI) Range Unit  
+Absolute change from 
+baseline LVEF  • No change or any 
+increase  
+• Any decrease  
+• >0-<10 decrease  
+• 10-19 decrease  
+• >=20 decrease  
+• >=10 decrease 
+and >= LLN  % 
+
+Novartis  For business use only  Page 33  
+SAP  CDRB436F2410  
+ 
+• >=10 decrease and < 
+LLN  
+• >10 decrease and < LLN  
+• >=20 decrease and >= LLN  
+• o >=20 decrease and 
+< LLN  
+ 
+5.8.4.2  Vital signs  
+Vital sign assessments are performed in order to characterize basic body function. The 
+following parameters were collected: height (cm), weight (kg), body temperature (°C), heart rate (beats per minute), systolic and diastolic blood pressure (mmHg).  
+Data handling  
+Vital signs collected on treatment will be summarized. Values measured outside of on treatment 
+period will be flagged in the listings. 
+Data analysis  
+For analysis of vital signs the clinically notable vital sign criteria  are provided in Table 2-7 
+below.  
+Table 2-7 Clinically notable changes in vital signs  
+Vital sign 
+(unit)  Clinically notable criteria  
+ above normal value  below normal value  
+Weight (kg)  increase > =10 % from Baseline  decrease  > 10 % from Baseline  
+Systolic blood 
+pressure (mmHg)  >=180 with increase from baseline of >=20  <=90 with decrease from baseline of >=20  
+ 
+Diastolic blood pressure (mmHg)  >=105 with increase from baseline of >=15  <=50 with decrease from baseline of >=15  
+ 
+Pulse  rate 
+(bpm)  >=10 0 with increase from baseline 
+of >25% <=50 with decrease from baseline of  
+> 25% 
+ 
+Body 
+temperature  >= 39. 1  - 
+The number and percentage of subjects with notable vital sign values (high/low) will be 
+presented.   Descriptive statistics will be tabulated for  baseline, at each post -baseline time point 
+and changes from baseline at each post -baseline time point for each vital sign measure.         
+
+Novartis  For business use only  Page 34  
+SAP  CDRB436F2410  
+ 
+A listing of all vital sign assessments will be produced and notable values will be flagged. In 
+the listing, the assessments collected outside of on-treatment period will be flagged.  
+The ECOG p erformance status scale will be used to assess physical health of subjects and as 
+described  in Table 8 -6 in the protocol. The scale ranges from 0 (f ully active ) to 5 (dead). 
+ECOG performance status will be summarized for each assessment time. Frequency counts and 
+percentages of subjects  in each sco re category will be provided by time point based on the 
+windows defined in Section 2.1.1 . 
+A supporting listing will also be provided. 
+5.8.4.3  Opthalmic examination  
+A listing of ophthalmic examinations at screening will be produced. 
+5.8.5  Additional analyses  
+Time to first occurrence  
+Time to first occurrence of an event  is defined as time from start of study treatment  to the date 
+of first occurrence of this event (or first event within an AE grouping), i.e. time in days is 
+calculated as (start date of first occurrence of event ) – (start of study treatment ) +1. 
+ 
+For Kaplan -Meier analyses of time to occurrence, i n the absence of an event  during the on-
+treatment period , the censoring date applied will be the earliest  of the following dates:  
+• death date  
+• new anticancer antineoplastic therapy start  date  
+• end date of on- treatment period  
+• data cut -off date 
+• withdrawal of informed consent date. 
+Failure curves (ascending Kaplan -Meier curves) will be constructed. Median together with 95% 
+confidence interval as well as 25th percentile and 75th percentile will be presented.  In addition, the median time to occurrence for the subset of patients  who experienced the event 
+of interest will be calculated. Simple descriptive statistics, median, min and max as well as 25th 
+percentile and 75th percentile, will be presented. 
+5.9 Pharmacokinetic endpoints 
+Not applicable.  
+5.10 PD and PK/PD analyses  
+Not applicable.  
+
+Novartis  For business use only  Page 35  
+SAP  CDRB436F2410  
+ 
+5.11 Patient reported outcomes (PRO) 
+5.11.1  General P RO analysis 
+The FAS will be used for analyzing PRO data  
+In this study, the Functional Assess ment of Cancer Therapy -Melanoma (FACT -M) 
+questionnaire will be used to evaluate the quality of life in patients with melanoma. This 
+questionnaire consists of “phys ical well -being (PWB)”, “social/family well being (SWB)”, 
+“emotional well- being (EWB)”, “functional well -being (FWB)”, “Melanoma subscale (MS)”.  
+The total FACT -M score is calculated as PWB score+ SWB score+EWB score+FWB 
+score+MS score.  In this study, the 16 items that comprise MS of the FACT -M will be used.  
+The variables analysed will be by the summary score. The summary score  will be summarized 
+descriptively in tables and graphs for baseline, post -baseline on treatment assessments 
+(including the EoT asse ssment, if collected within 30 days of last non- zero dose intake) and 
+scheduled post -treatment time points, and change from baseline to visit for total FACT -M score. 
+The time windows as described in Section 2.1.1  will be used . 
+The FACT -M is planned to be administered during baseline and at each scheduled post -baseline 
+visit as per protocol through 24 months. The FACT -M will continue to be collected during the 
+follow- up after the end of treatment. The baseline is defin ed as the last PRO assessment on or 
+prior to first day of treatment.  
+No imputation procedures will be applied for missing items or missing assessments.  
+ 
+5.12 Biomarkers 
+Not applicable.  
+5.13 Other exploratory analysis 
+Not applicable.  
+5.14 Interim analysis  
+There was an interim analyses planned for this study when 203 patients completed 6 months of 
+treatment or discontined earlier. The details of statistical analysis can be found in the SAP of interim analysis. DMC recommended to continue the trial based on i nterim analysis.   
+ 
+6 Sample size calculation 
+ 
+As per  the protocol amendent version dated 09- May-2019, approximately 600 subjects were 
+planned to be enrolled to receive dabrafenib (150 mg BID) and tramatinib (2 mg once daily) 
+combination therapy for 12 months. Due to global drug supply availibility, the enrollment of patients was slower than anticipated,resulting in the final sample of 556 enrolled patients in the study by the end of anticipated recruitment period. The final sample size is reasonably close t o 
+
+Novartis  For business use only  Page 36  
+SAP  CDRB436F2410  
+ 
+the planned target. The impact of the reduced sample size for the interim analyses has been 
+discussed in detail in the Interim SAP (dated 21- Nov-2019) and DMC charter ( 17-Jan-2020 ). 
+See Section 2.8 and Appendix B respectively for details.  
+ The sample size calculation was based on the primary variable. The protocol amendement dated  
+provided justification for the planned sample size of 600.  However the current sample size of 556 demonstartes that the  study operating characteristics comply with the requirement to have a highprobability (e.g. > 95%) for futility at IA if the true 12 -month pyrexia event rate is > 20%,  
+e.g., when the true pyrexia event rate is 27%, the probability is 95.5% for futility at interim 
+analysis .  
+ Detailed Operating characteristics are described below (see Table 2 -8
+). For illustration, if the 
+true 12- months pyrexia event rate is 30%, then there is a high chance (99.6%) of futility at the 
+time of  the interim, and the probability to continue the study and conclude success is lower than 
+0.001.  
+ If the true pyrexia event rate is 20%, then the probability of observing a pyrexia event rate <  
+20% (i.e., study success for primary analysis) is 46.3%. If the true pyrexia event rate is lowe r 
+(for example 18%), then there is 84.6% probability of declaring study success for primary analysis.  
+Table 2-8 Operating Characteristics  
+True 6 -month 
+event rate  Probability to stop the 
+study at IA  Probability of success at primary  analysis 
+(i.e., not stop at the IA and observe event 
+rate < 20% at primary analysis) * 
+16% 0.016  0.980 
+17% 0.040  0.940 
+18% 0.086   0.846 
+19% 0.161   0.679 
+20% 0.265  0.463  
+21% 0.391  0.258 
+22% 0.528  0.115 
+25% 0.856  0.002 
+26% 0.917  <0.001  
+27% 0.955  <0.001  
+28% 0.978  <0.001  
+30% 0.996  <0.001  
+* Probabilities are calculated based on the exact binomial distribution.   
+  
+
+Novartis  For business use only  Page 37  
+SAP  CDRB436F2410  
+ 
+7 Changed to protocol specified analyses  
+7.1 Impact of COVID-19  
+Due to pandemic COVID in year 2020, some extra analyses will be performed outside protocol 
+specified.  
+Oprational impact : Specified protocol deviation categories will be assigned to important 
+deviations related to COVID -19 (e.g., missing efficacy assessments and treatment interruptions) 
+and these will be summarized and listed separately. A summary table of the COVID -19 related 
+deviations by relationship category will be provided.  
+Safety : To help to evaluate the impact of the pandamic on safety, the incidence of COVID -19 
+related adverse event preferred terms will be presented incorporating (a) COVID -19 related 
+adverse events with an onset date prior to the start of the outbreak (i.e., pre -2020, please refer 
+the following paragraph for the definition) and (b) all COVID -19 related adverse events 
+occuring before data cut- off. A listing of all COVID -related AEs will also be provided.  
+The Pre- COVID period is defined as before March 1, 2020 for Rest of the World and before 
+Feb 23, 2020 for Italy patients. That mea ns March 1 will play a data- cut off role. All the data 
+before March 1 will be considered as pre-Covid period. The data from March 2, 2020 onwards 
+will be considered as Post-Covid period.  
+The Post -COVID period is defined as after March 1, 2020 for Rest of the World and after Feb 
+23, 2020 for Italy patients.  Primary endpoint :  
+To help to evaluate the impact of the COVID -19 on the primary endpoint and on overall pyrexia, 
+the following sensitivity analyses will be performed. The summary analyses will be performed 
+if we have 10% total sample size in each of the caterogies. The KM plot will be performed only if we have more than 30 patients have pyrexia event in each of the categories.  
+1) Composit e rate of grade ¾ pyrexia, hospitalization or permanent discontinue due to 
+pyrexia by 12 months for Rest of the Wor ld (Full analysis set) Pre -Covid and post -
+Covid-period. 
+2) Composite rate of grade ¾ pyrexia, hospitalization or permanent discontinue to pyrexi a 
+by 12 months for  Italy (Full analysis set) with data cut- off Feb 23, 2020 vs data after 
+February 23, 2020. 
+3) Composite rate of grade ¾ pyrexia, hospitalization or permanent discontinue to pyrexia by 12 months with suspected and confirmed covid subjects using full analysis set.   
+4) Summary of pyrexia – Pre and post COVID period for rest of the world 
+5) Summary of pyrexia– Pre and post COVID period for Italy (Full analysis set) 
+6) Summary of pyrexia – confirmed and suspected covid subjects (Full analysis set)  
+7) Time to first pyrexia event - Pre and post COVID period for Rest of the World. 
+
+Novartis  For business use only  Page 38  
+SAP  CDRB436F2410  
+ 
+8) Time to first pyrexia event – Pre and post COVID period for Italy (Full analysis set).  
+9) Time to first pyrexia event – confirmed and suspected covid subjects (Full analysis set)  
+10)  Kaplan -Meier plot time to first pyrexia event - Pre and post COVID period for Rest of 
+the World. 
+11) Kaplan -Meier plot time to first pyrexia event – Pre and post COVID period for Italy 
+(Full analysis set).  
+12) Kaplan -Meier plot time to first pyrexia event – confirmed  and suspected covid subjects 
+(Full analysis set)  
+ 
+7.2 Analyses to support label update 
+This section outlines additional safety analyses  needed to evaluate the impact of the 
+implementation of the new pyrexia management guideline used in COMBI-A+ study. 
+The cu rrent dabrafenib  and trametinib  labels reflect the pyrexia management guidance in 
+COMBI -d/v and COMBI -AD protocols; to interrupt dabrafenib  if the patients temperature is 
+≥38.5ºC and continue trametinib  at the same dose. However, the increased incidence of  pyrexia 
+with combination compared to dabrafenib  monotherapy, suggests that trametinib  influences the 
+dabrafenib  -driven pyrexia process. Therefore, optimal guidance per current clinical consensus 
+is to interrupt both dabrafenib  + trametinib  at the very fi rst symptom of pyrexia or its associated 
+prodrome (chills, rigors, night sweats or flu- like symptoms), as used in COMBI -i/COMBI -A+ 
+protocols. With a more proactive intervention for pyrexia, it is hypothesized that a cross -study comparison 
+of pyrexia -related safety outcomes (e.g. incidence of grade ≥3 pyrexia, incidence of permanent 
+discontinuations) in the metastatic melanoma setting (COMBI -d/v versus COMBI -i) and the 
+adjuvant s etting (COMBI -AD vs COMBI -A+) may support of a change to the dose modification 
+section of the dabrafenib  and trametinib  labels.  If warranted, the safety outputs defined in this 
+SAP will be used to support the label update. For the analyses  related to complicated pyrexia and time spent in pyrexia, the following 
+definitions will be used.  
+Complicated pyrexia events  
+Subjects who have pyrexia (single preferred term (PT)) and any of the following terms at any 
+time while on -treatment will be cons idered as having complicated pyrexia: severe (≥ Grade 3) 
+chills , hypotension, dehydration, syncope, or renal dysfunction.  
+Percentage of time spent in pyrexia  
+Percentage of time spent in pyrexia AESI will be calculated for each subject who experienced a pyrexia AESI as follows: 
+Total numbers of days in pyrexia AESI/ total duration of exposure in days *100.  
+The maximum duration of exposure to dabrefinb or trametinib will be used in the calculation.  
+
+Novartis  For business use only  Page 39  
+SAP  CDRB436F2410  
+ 
+ 
+The following tables  will be required from this study. T he tables generated outside protocol 
+defined analyses,  are flagged with (*) in the below list. 
+1) Demographics and disease characteristics  
+2) Disease History  
+3) Summary of exposure and dose of study drug received for dabrafenib and trametinib 
+4) Dose interruptions of trametinib  
+5) Dose interruptions of dabrafenib 
+6) Summary of Concomitant Oral or IV Corticosteroids (*)  
+7) Pyrexia AESIs leading to dose interruptions of trametinib (*) 
+8) Pyrexia AESIs leading to dose interruptions of dabrafenib (*)  
+9) Pyrexia AESIs leading to dose interruptions of both trametinib and dabrafenib (*) 
+10) Pyrexia AESIs leading to dose reductions of trametinib (*) 
+11) Pyrexia AESIs leading to dose reductions of dabrafenib (*)  
+12) Pyrexia AESIs leading to dose reductions of both trametinib and dabrafenib (*)  
+13) Summary of Pyrexia AESIs by maximum grade (*) 
+14) Summary of Characteristics of Pyrexia AESIs  (*) 
+15) Time to onset and duration of first pyrexia AESI (*) 
+16) AE leading to treatment discontinuation of trametinib  
+17) AE leading to treatment discontinuation of dabrafenib 
+18) AE leading to treatment discontinuation of both trametinib and dabrafenib 
+19) Pyrexia AESI leading to treatment discontinuation of trametinib (*) 
+20) Pyrexia AESI leading to treatment discontinuation of dabrafenib (*) 
+21) Pyrexia AESI leading to treatment discontinuation of both dabrafenib and trametinib (*)  
+22) Summary of Pyrexia (Single Preferred Term) Complicated by Severe Chills, 
+Hypotension, Dehydration, Syncope, or Renal Dysfunction (*) 
+23) Summary of Skin- toxicity  AESIs by Maximum Grade 
+24) Summary of Serious Pyrexia AESIs Requiring Hospitalization  (*) 
+25) Summary of Occurrences and percentage of time for Pyrexia AESIs  (*) 
+26) Event level Summary of Action Taken with Pyrexia AESI (*) 
+27) Composite rate of grade 3/4 pyrexia, hospitalization or permanent treatment 
+discontinuation due to pyrexia by 12 months 
+ 
+
+Novartis  For business use only  Page 40  
+SAP  CDRB436F2410  
+ 
+For all of the analyses mentioned in this SAP, pyrexia AESIs will be defined using the fol lowing 
+list of PTs:   
+ 
+Pyrexia PT  PT Code  
+Body temperature increased  10005911  
+Cytokine release syndrome  10052015  
+Hyperpyrexia  10020741  
+Hyperthermia  10020843  
+Influenza like illness  10022004  
+Pyrexia  10037660  
+Sweating fever  10042666  
+Systemic inflammatory response syndrome  10051379  
+Tumour associated fever  10052243  
+ 
+For complicated pyrexia analyses, renal dysfunction will be defined using the following list of 
+PTs:  
+ 
+Renal Dysfunction PT  PT Code  
+Prerenal failure  10072370  
+Acute kidney injury*  10069339  
+*PT Acute renal failure was replaced by A cute kidney injury in 
+MedDRA 2 4.1  They are equivalent terms.  
+ 
+ 
+ 
+8 Appendix  
+8.1 Imputation rules 
+8.1.1  Study drug 
+The following rule should be used for the imputation of the dose end date for a given study 
+treatment component: 
+Scenario 1 : If the dose end date is completely missing and there is no EOT page, and no 
+death date, the patient is considered as on -going:  
+The patient should be treated as on -going and the cut -off date should be used as the dose end 
+date. Scenario 1 should not  be applicable for final CSR . All patients should have EOT page 
+complete before the Database lock for Final CSR . 
+ 
+Scenario 2 : If the dose end date is completely or partially missing and the EOT page  is 
+available:  
+
+Novartis  For business use only  Page 41  
+SAP  CDRB436F2410  
+ 
+Case 1: The dose end date is completely missing , and the EOT  completion date is complete, 
+then this latter date should be used.   
+Case 2: Only Year (yyyy) of the dose end date is a vailable and yyyy < the year of EOT date:   
+            Use Dec31yyyy Case 3: Only Year (yyyy) of the dose end date is a vailable and yyyy  = the year of EOT date:  
+            Use EOT date  
+Case 4: Both Year (yyyy) and Month (mm) are available for dose end date, and yyyy  = the 
+year of EOT date and mm  < the mo nth of  EOT date:  
+            Use last day of the Month (mm)  
+All other cases should be considered as a data issue and the statistician should contact the data 
+manager of the study. 
+After imputation,  compare the imputed date with start date of treatment, if the imputed da te is 
+< start date of treatment:   
+Use the treatment start date  
+Patients with missing start dates are to be considered missing for all study treatment component related calculations an d no imputation will be made.  If start date is missing then end- date should 
+not be imputed. 
+   
+8.1.1  AE, ConMeds and safety assessment date imputation  
+ 
+Table 5 -1 Imputation of start dates (AE, CM) and assessments (LB, EG, VS)  
+Missing 
+Element  Rule  
+day, month, 
+and year  • No imputation will be done for completely missing dates  
+day, month • If available year = year of study treatment start date then  
+o If stop date contains a full date and stop date is earlier than study treatment start date then set start date = 01JanYYYY  
+o Else set start date = study treatment start date.  
+• If available year > year of study treatment start date then 01JanYYYY  
+• If availabl e year < year of study treatment start date then 01JulYYYY  
+
+Novartis  For business use only  Page 42  
+SAP  CDRB436F2410  
+ 
+Missing 
+Element  Rule  
+day • If available month and year = month and year of study treatment start 
+date then  
+o If stop date contains a full date and stop date is earlier than 
+study treatment start date then set start date= 01MONYYYY.  
+o Else set start date = study treatment start date.  
+• If available month and year > month and year of study treatment start date then 01MONYYYY   
+• If available month and year < month year of study treatment start date 
+then 15MONYYYY   
+
+Novartis  For business use only  Page 43  
+SAP  CDRB436F2410  
+ 
+Table 5 -2 Imputation of end dates (AE, CM)  
+Missing 
+Element  Rule   
+(*=last treatment date plus 30 day s not > (death date, cut-off date, 
+withdrawl of consent date))  
+day, month, 
+and year  • Completely missing end dates  (incl. ongoing events) will be imputed 
+by the end date of the on-treatment period*  
+day, month • If partial end date contains year only, set end date = earliest of 
+31DecYYYY or end date of the on -treatment period  *  
+day • If partial end date contains month and year, set end date = earliest of 
+last day of the month or end date of the on -treatment period * 
+Any AEs and ConMeds with partial/missing dates will be displayed as such in the data listings . 
+Any AEs and ConMeds which are continuing as per data cut -off will be shown as ‘ongoing’ 
+rather than the end date provided.  
+The above imputations are only used for analyses of time to and duration of AEs and 
+concomitant medications.   
+8.1.1.1  Other imputations  
+Incomplete date of initial diagnosis of cancer and  date of most recent 
+recurrence  
+Missing day is defaulted to the 15th of the month and missing month and day is defaulted to 01-
+Jan.  
+Incomplete assessment dates for tumor  assessment  
+All investigation dates (e.g. MRI scan, CT scan ) must be completed with day, month and year. 
+If one or more assessment dates are incomplete but other investigation dates are available, 
+this/these incomplete date(s) are not considered for calculation of the assessment date and assessment date is calculated as the latest of all investigation dates (e.g. MRI scan,  CT scan ) if 
+the overall response at that assessment is CR/PR/SD/UNK. Otherwise – if overall response is 
+progression – the assessment date is calculated as the earliest date of all investigation dates at 
+that evaluation number.  If all measurement dates have no day recorded, the 1
+st of the month is 
+used. If the month is not completed, for any of the investigations, the respective assessment will be considered to be at the date which is exactly between previous and following assessment. If a previous and following assessment is not av ailable, this assessment will not be used for any 
+calculation.  
+Applying the cut -off to tumor assessment  
+For tumor related assessments, if an evaluation has some assessments done prior to  cut-off date 
+and  others after the cut -off date , then the evaluation is considered post -cut- off date and will 
+be excluded from analysis. 
+
+Novartis  For business use only  Page 44  
+SAP  CDRB436F2410  
+ 
+8.2 AEs coding/grading 
+Adverse events are coded using the Medical dictionary for regulatory activities (MedDRA) 
+terminology. The latest available MedDRA version at the time of the analyses s hould be used.  
+AEs will be assessed according to the Common Terminology Criteria for Adverse Events (CTCAE) version 4.03.  
+The CTCAE represents a comprehensive grading system for reporting the acute and late effects 
+of cancer treatments. CTCAE grading is by definition a 5- point scale generally corresponding 
+to mild, moderate, severe, life threatening, and death. This grading system inherently places a value on the importance of an event, although there is not necessarily proportionality among grades (a grade 2 is not necessarily twice as bad as a grade 1).  
+ 
+8.3 Laboratory parameters derivations 
+Grade categorization of lab values will be assigned programmatically as per NCI Common Terminology Criteria for Adverse Events (CTCAE) version 4.03. The calculation of CTCAE 
+grades will be based on the observed laboratory values  only, clinical assessments will not be 
+taken into account. The criteria to assign CTCAE grades are given in  Novartis internal criteria 
+for CTCAE grading of laboratory parameters. The latest available version of the document based on the underlying CTCAE version 4.03 at the time of analysis will be used  (refer to Table 
+5-3 in the Novartis internal criteria for CTC grading of laboratory parameters) . For laboratory 
+tests where grades are not defined by CTCAE  v4.03, results will be graded by the 
+low/normal/high  classifications based on laboratory normal ranges.  
+A severity grade of 0 will be assigned for all non- missing lab values not graded as 1 or higher. 
+Grade 5 will not be used. For laboratory tests that are graded for both low and high values, summaries will be done separately and labelled by direction, e.g., sodium will be summarized as hyponatremia and hypernatremia.  
+Imputation Rules   
+CTC grading for blood differentials is based on absolute values. However,  this data may not be reported as absolute counts but rather as percentage of WBC.  
+If laboratory values are provided as ‘<X’ (i.e. below limit of detection) or ‘>X’, prior to 
+conversion of laboratory values to SI unit , these numeric values are set to X.   
+The following rules will be applied to derive the WBC differential counts when only percentages  are available  for a xxx differential 
+xxx count = (WBC count) * (xxx %value / 100) 
+Further derivation of laboratory parameters might be required for CTCAE grading. For 
+instance, corrected calcium can be derived using the reported total calcium value and al bumin 
+at the same assessment using the following formula: 
+Corrected Calcium (mg/dL) = Calcium (mg/dL) – 0.8 [Albumin (g/dL)-4] 
+
+Novartis  For business use only  Page 45  
+SAP  CDRB436F2410  
+ 
+In order to apply the above formula, albumin values in g/L will be converted to g/dL by  
+multiplying by 0.1), calcium values in mmol/L will be converted to mg/dL by dividing by 0.2495. For calculation of laboratory CTC grades 0 and 1, the normal range for  derived 
+corrected calcium is set to the same limits (in mg/dL) as for calcium.  
+CTC grades for the derived absolute WBC differential counts (neutrophils, lymphocytes) and corrected calcium will be assigned as described  above for grading  
+8.4 Statistical models 
+ 
+8.4.1  Primary analysis of binary data  
+ 
+Pyrexia events  will be summarized in terms of percentage rates with 95% CIs. An exact 
+binomial confidence interval (implemented using SAS procedure FREQ with EXACT 
+statement for one- way tables) will be calculated [Clopper and Pearson 1934]   
+SAS procedure FREQ will be used to estimate the proportion of  subjects with  pyrexia events  
+(binary outcome = 1 or “Yes”), along with the associated 95% (=100 × (1 – two-sided alpha 
+level )) two -sided Pearson -Clopper CI. 
+ 
+8.4.2  Secondary analysis  
+ 
+ 
+Kaplan -Meier estimates  
+ An estimate  of the survival function w ill be constructed  using Kaplan -Meier  (product- limit) 
+method as implemented  in PROC  LIFETEST with METH OD=KM  option. The  PROC  
+LIFETEST statement  will use the option CONF TYP E=LOGL OG. 
+Median survival  will be obt ained  along wi th 95% confiden ce intervals calculated from PRO C 
+LIFE TEST output  using the method of [Brookmeye r and Crowl ey 1982] . Kap lan-Mei er 
+estimat es of the survival function w ith 95% confidence inte rvals at specific time points 
+will be summarized. The standard error of the Kaplan-Me ier estimate will be calculated  
+using Gr eenwood’s formula  [Collett 1994]. 
+ 
+9 Appendix  for identification of corticosteroids  
+ 
+ 
+ 
+CMDECOD  
+
+Novartis  For business use only  Page 46  
+SAP  CDRB436F2410  
+ 
+ABIRATERONE ACETATE W/PREDNISOLONE  
+ADRENAL CORTICAL EXTRACT  
+BECLOMETASONE  
+BECLOMETASONE DIPROPIONATE  
+BECLOMETASONE DIPROPIONATE MONOHYDRATE  
+BETAMETHASONE  
+BETAMETHASONE ACETATE  
+BETAMETHASONE BENZOATE  
+BETAMETHASONE DIPROPIONATE  
+BETAMETHASONE PHOSPHATE  
+BETAMETHASONE SODIUM PHOSPHATE  
+BETAMETHASONE VALERATE  
+BETAPRON  
+BUDESONIDE  
+CELESTONA BIFAS  
+CLOPREDNOL  
+CORTIPAN  
+CORTISONE  
+CORTISONE ACETATE  
+CORTIVAZOL  
+DEFLAZACORT  
+DEHYDROCORTICOSTERON  
+DEXAMETHASONE  
+DEXAMETHASONE ACETATE  
+DEXAMETHASONE ACETATE MONOHYDRATE  
+DEXAMETHASONE BELOXIL  
+DEXAMETHASONE DIPROPIONATE  
+DEXAMETHASONE ISONICOTINATE  
+DEXAMETHASONE PALMITATE  
+DEXAMETHASONE PHOSPHATE  
+DEXAMETHASONE SODIUM METASULFOBENZOATE  
+DEXAMETHASONE SODIUM PHOSPHATE  
+DEXAMETHASONE SODIUM SUCCINATE  
+DEXAMETHASONE SODIUM SULFATE  
+DEXAMETHASONE TEBUTATE  
+
+Novartis  For business use only  Page 47  
+SAP  CDRB436F2410  
+ 
+DEXAMETHASONE VALERATE  
+DI-HYDROCORTISONE  
+DI-HYDROCORTISONE PHOSPHATE  
+DI-HYDROCORTISONE SODIUM PHOSPHATE  
+DIPROSPAN                          /00582101/  
+DUO DECADRON  
+EMORRIL                            /01757601/  
+FLUOCORTOLONE  
+FLUOCORTOLONE CAPROATE  
+FLUOCORTOLONE PIVALATE  
+FLUPAMESONE  
+FLUPREDNISOLONE  
+FLUPREDNISOLONE ACETATE  
+FLUPREDNISOLONE VALERATE  
+GLUCOCORTICOIDS  
+HALOPREDONE  
+HALOPREDONE ACETATE  
+HYDROCORTISONE  
+HYDROCORTISONE ACETATE  
+HYDROCORTISONE BUTYRATE  
+HYDROCORTISONE CIPIONATE  
+HYDROCORTISONE HYDROGEN SUCCINATE  
+HYDROCORTISONE IN EURAX  
+HYDROCORTISONE PROBUTAT  
+HYDROCORTISONE SODIUM PHOSPHATE  
+HYDROCORTISONE SODIUM SUCCINATE  
+HYDROCORTISONE VALERATE  
+LEDERSPAN CUM LIDOKAIN  
+MAZIPREDONE  
+MAZIPREDONE HYDROCHLORIDE  
+MEPREDNISONE  
+MEPREDNISONE SUCCINATE  
+METHYLPREDNISOLONE  
+METHYLPREDNISOLONE ACETATE  
+METHYLPREDNISOLONE HEMISUCCINATE  
+
+Novartis  For business use only  Page 48  
+SAP  CDRB436F2410  
+ 
+METHYLPREDNISOLONE SODIUM SUCCINATE  
+METHYLPREDNISOLONE SULEPTANATE  
+PARAMETHASONE  
+PARAMETHASONE ACETATE  
+PARAMETHASONE DISODIUM PHOSPHATE  
+PELONINE R  
+PREDNISOLON STREULI                /06304501/  
+PREDNISOLONE  
+PREDNISOLONE ACETATE  
+PREDNISOLONE BUTYLACETATE  
+PREDNISOLONE FARNESYLATE  
+PREDNISOLONE HEMISUCCINATE  
+PREDNISOLONE METASULFOBENZOATE SODIUM  
+PREDNISOLONE PALMITATE  
+PREDNISOLONE PHOSPHATE  
+PREDNISOLONE PIVALATE  
+PREDNISOLONE SODIUM PHOSPHATE  
+PREDNISOLONE SODIUM SUCCINATE  
+PREDNISOLONE SODIUM SULFATE  
+PREDNISOLONE SODIUM TETRAHYDROPHTALATE  
+PREDNISOLONE STEAGLATE  
+PREDNISOLONE VALEROACETATE  
+PREDNISONE  
+PREDNISONE ACETATE  
+PREDNYLIDENE  
+PREGNENOLONE  
+PREGNENOLONE ACETATE 
+PREGNENOLONE SUCCINATE  
+RIMEXOLONE  
+SURELEN                            /00817601/  
+TRIAMCINOLONE  
+TRIAMCINOLONE ACETONIDE  
+TRIAMCINOLONE ACETONIDE DIPOTASSIUM PHOSPHATE  
+TRIAMCINOLONE ACETONIDE SODIUM PHOSPHATE  
+TRIAMCINOLONE DIACETATE  
+
+Novartis  For business use only  Page 49  
+SAP  CDRB436F2410  
+ 
+TRIAMCINOLONE HEXACETONIDE  
+TRINIOL  
+WACODEX  
+WACOMETASONA                       /03018901/  
+BETAMETHASONE W/CHLORPHENAMINE  
+ 
+ 
+10 Reference 
+1. Brookmeyer R and Crowley J (1982). A Confidence Interval for the Median Survival 
+Time . Biometrics,  38, 29 - 41.    
+2. Clopper CJ and Pearson ES (1934).  The use of confidence or fiducial limits illustrated in 
+the case of the binomial.  Biometrical, 26, 404-413. 
+3. Collet D (1994). Modelling survival data in medical research. London, Chapman & Hall. 
+4. Neuenschwander B, Branson M and Gsponer T (2008). Critical aspects of the Bayesian 
+approach to Phase I cancer  trials. Statistics in Medicine,  27, 2420-2439 
+ 
+         

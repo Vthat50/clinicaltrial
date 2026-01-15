@@ -1,0 +1,2383 @@
+Statistical Analysis Plan  
+ 
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 1 of 73 
+Document Type:  Templat e Document ID:  03.007A.03  
+Document Type:  02 MAY 2016  Effective Date:       30 MAY 2016  
+ 
+Sponsor Name:  Alkermes, Inc.  
+Protocol Number  
+and Title:  
+ ALK4230 -A101 
+A Phase 1/2 Study of ALKS 4230 Administered Intravenously 
+as Monotherapy and in Combination With Pembrolizumab in 
+Subjects With Advanced Solid Tumors - ARTISTRY -1 
+Protocol Version  
+and Date:  Version 13.0: 08 Sep 2022  
+Version 12.2 ( Amendment 11.2 – EU only): 18 May 20  
+Version 12.1 ( Amendment 11.1 - AUS only): 28 Feb  20 
+Version 12.0 (Amendment 11.0 – US, Canada and Korea): 10  
+Feb 20 
+Version 1 1.2 (Amendment 10.2- AUS only): 14  Oct 2019 
+Version 11.1 (Amendment 10.1 - CAN only): 17 Jun 2019  
+Version 1 1.0 (Amendment 10- US, EU and Korea): 01 May 
+2019 
+Version 10.0 (Amendment 9): 09 Aug 2018  
+Version 9.0 (Amendment 8): 22 May 2018  
+Version 8.0 (Amendment 7): 12 Jan 2018  
+Version 7.0 (Amendment 6): 20 Dec2017  
+Version 6.0 (Amendment 5): 06 Oct 2017  
+Version 5.0 (Amendment 4): 08 Jun 2017  
+Version 4.0 (Amendment 3): 11 Oct 2016  
+Version 3.0 (Amendment 2): 10 Feb 2016  
+Version 2.0 (Amendment 1): 13 Oct 2015  
+Original Protocol: 07 Jul 2015  
+ClinicalTrials.gov 
+Identifier:   
+ NCT02799095  
+Syneos Health 
+Project Code:  1006212  
+Author(s):    Supporting Biostatistician (V3.0)    
+  Shuhong Zhao, P hD, Sr. Principal 
+ (V2.0)     PhD, Sr. Principal Biostatistician (V2.0)  
+ Senior Biostatistician (V1.7)  
+SAP Version:    V3.0 
+SAP Version 
+Date:  03 Mar 2023 
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 2 of 73  
+Notice of Confidential and Proprietary Information:  
+The information contained in this document is confidential belonging to  Alkermes, Inc . 
+Acceptance of this document constitutes agreement by the recipient that no information 
+contained herein will be published or disclosed without prior written authorization from 
+an official of Alkermes, Inc . However, this document may be disclosed to appropriate 
+Institutional Review Board and Ethics Committees or duly authorized representatives of a 
+national regulatory authority under the condition that they are requested to keep it 
+confidential. In the even t of an actual or suspected breach of this obligat ion, Syneos 
+Health should be notified promptly.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 3 of 73 Revision History  
+ 
+Version 
+# Date 
+(dd-mmm -
+yyyy)  Document 
+Owner  Revision Summary  
+V.0.1  30-Nov-2016 Initial Release Version  
+V.0.2  07-Feb-2017 2nd Draft SAP  
+V.1.0  25-Apr-2017 Final SAP  
+V1.1 07-Sep-2017 Add PK/PD parameter derivation 
+sections  
+V1.2 25-Sep-2017 Address Alkermes comments and send 
+2nd draft revision SAP  
+V1.3 14-Dec-2018 Update SAP and shells per protocol 
+amendment #9  
+V1.4 19-Nov-2019 Update SAP and shells per protocol 
+amendment #10  
+V1.5 15-Jan-2020 Update SAP and shells per protocol 
+amendment #11 . Shared with Alkermes 
+on 04 Feb 2020.  
+V1.6 22-Oct-2020 Update SAP and shells after iRECIST  
+implementation in the database and 
+request of additional specific outputs 
+for publications , according to Protocol 
+V12.2  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 4 of 73 Version 
+# Date 
+(dd-mmm -
+yyyy)  Document 
+Owner  Revision Summary  
+V1.7  08-Jan-2021 Update SAP following Sponsor’s 
+comments. PK, PD and ADA part 
+removed on Sponsor ’s request.  
+V1.8 12-Feb-2021 Update SAP per Sponsor’s review 
+comments  and discussions  on V1.7 and 
+updated shells from V1.6  accordingly  
+V1.9 02-Mar-2021 Update SAP per Sponsor’s review 
+comments on V1. 8 and updated 
+signature pages  
+V1.10  12-May-2021 Update SAP per Sponsor’s review 
+comments on V1. 9 
+V1.11  31-May-2021 Update SAP per Sponsor’s review 
+comments on V1. 10 
+• Added clarif ication about PK and 
+PD related responsibilities.   
+• Removed scheduled event and 
+referred  to protocol related 
+sections.  
+• Added deviation from protocol   
+V2.0 11-Jun-2021 Same as V1.11 but signed version  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 5 of 73 Version 
+# Date 
+(dd-mmm -
+yyyy)  Document 
+Owner  Revision Summary  
+V3.0 03-Mar-2023 Update SAP and shells per protocol 
+amendment #1 3. 
+• Added e xtension phase.  
+• Updated exposure analysis of 
+ALKS 4230 . 
+• Removed exposure analysis of 
+Pembrolizumab.  
+• Changed laboratory data  unit 
+used in summary table from 
+conventional unit to SI unit. 
+Removed all iRECIST listings .  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 6 of 73 I confirm that I have reviewed this document and agree with the content.  
+ 
+APPROVALS  
+Syneos Health  
+   
+  
+Supporting  Biostatistician  
+  Date ( dd-mmm-yyyy) 
+      Lead and Senior Reviewing Biostatistician  
+, PhD 
+Senior Principal Biostatistician  
+  Date (dd -mmm-yyyy)  
+    
+  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 7 of 73 TABLE OF CONTENTS  
+Contents  
+1. GLOSSARY OF ABBREVIATIONS  ................................ ...............................  11 
+2. PURPOSE  ................................ ................................ ................................ ...... 16 
+2.1. Responsibilities  ................................ ................................ ................................ .................  16 
+2.2. Timings of Analyses  ................................ ................................ ................................ ..........  16 
+3. STUDY DESIGN  ................................ ................................ ............................  17 
+3.1. Primary Objective  ................................ ................................ ................................ ..............  17 
+3.2. Secondary Objectives  ................................ ................................ ................................ ....... 17 
+3.3. Exploratory Objectives  ................................ ................................ ................................ ...... 17 
+3.4. Brief Description  ................................ ................................ ................................ ................  18 
+3.5. Subject Selection  ................................ ................................ ................................ ...............  24 
+3.5.1.  Inclusion Criteria  ................................ ................................ ................................ .........  24 
+3.5.2.  Exclusion Criteria  ................................ ................................ ................................ ........  28 
+3.6. Determination of Sample Size  ................................ ................................ ..........................  30 
+3.7. Treatment Assignment & Blinding  ................................ ................................ ...................  31 
+3.8. Administration of Study Drug  ................................ ................................ ...........................  32 
+3.8.1.  ALKS 4230 Dosing and Administration  ................................ ................................ ....... 32 
+3.8.2.  Pembrolizumab Dosing and Administration  ................................ ................................  32 
+3.9. Study Procedures and Flowchart  ................................ ................................ .....................  34 
+4. ENDPOINTS  ................................ ................................ ................................ .. 35 
+4.1. Primary endpoint  ................................ ................................ ................................ ...............  35 
+4.2. Secondary Endpoints  ................................ ................................ ................................ ........  35 
+4.3. Exploratory Endpoints  ................................ ................................ ................................ ...... 35 
+4.4. Antitumor Activity Endpoints  ................................ ................................ ...........................  36 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 8 of 73 4.5. Safety Endpoints  ................................ ................................ ................................ ................  36 
+4.6. Tissue Biomarkers enDPOINTS  ................................ ................................ .......................  36 
+5. ANALYSIS SETS  ................................ ................................ ...........................  38 
+5.1. Safety Population  ................................ ................................ ................................ ...............  38 
+5.2. Antitumor Evaluable Population  ................................ ................................ ......................  38 
+5.3. Protocol Deviations  ................................ ................................ ................................ ...........  38 
+5.4. Pharmacodynamic Population  ................................ ................................ .........................  38 
+6. GENERAL ASPECTS FOR STATISTICAL ANALYSIS  ................................  39 
+6.1. General Methods  ................................ ................................ ................................ ................  39 
+6.2. Key Definitions  ................................ ................................ ................................ ...................  40 
+6.2.1.  Cycle 1 Day 1  ................................ ................................ ................................ ..............  40 
+6.2.2.  Enrollment  ................................ ................................ ................................ ...................  40 
+6.2.3.  Treatment Period  ................................ ................................ ................................ ........  40 
+6.2.4.  Study Day  ................................ ................................ ................................ ....................  40 
+6.2.5.  Cycle Start/End Day  ................................ ................................ ................................ .... 40 
+6.2.6.  Cut-Off Date of Final Analysis  ................................ ................................ .....................  41 
+6.2.7.  Baseline and Change from Baseline  ................................ ................................ ...........  41 
+6.3. Missing Data  ................................ ................................ ................................ .......................  42 
+6.3.1.  Imputation of Missing Adverse Events/Prior or Concomitant Medications  .................  42 
+6.4. Visit Windows  ................................ ................................ ................................ .....................  44 
+6.5. Pooling of Centers  ................................ ................................ ................................ .............  44 
+6.6. Subgroups  ................................ ................................ ................................ ..........................  44 
+6.7. Handling Pharmacodynamics Data Below the Lower Limit of Quantification or 
+missing ................................ ................................ ................................ ................................ .............  44 
+7. DEMOGRAPHIC, OTHER BASELINE CHARACTERISTICS AND 
+MEDICATION ................................ ................................ ................................ . 46 
+7.1. Subject Disposition and Withdrawals  ................................ ................................ ..............  46 
+7.2. Demographic and Other Baseline Characteristics  ................................ .........................  47 
+7.3. Cancer Disease History  ................................ ................................ ................................ ..... 47 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 9 of 73 7.4. Medical History  ................................ ................................ ................................ ..................  47 
+7.5. Prior Surgeries and Therapies  ................................ ................................ .........................  47 
+7.6. Prior and Concomitant Medication  ................................ ................................ ..................  48 
+8. EFFICACY  ................................ ................................ ................................ ..... 49 
+8.1. Overall Response Rate (ORR)  ................................ ................................ ..........................  50 
+8.2. Disease Control Rate (DCR)  ................................ ................................ .............................  51 
+8.3. Duration of Response (DOR) (Part B AND Part C)  ................................ .........................  51 
+8.4. Durable Response Rate (Part B and Part C)  ................................ ................................ ... 52 
+8.5. Progression -free Survival (PFS) (Part B and Part C Cohorts C5, C6, C7 only)  ...........  52 
+8.6. Time to Response (TTR) (Part B AND Part C)  ................................ ................................ . 54 
+9. SAFETY ANALYSES  ................................ ................................ .....................  55 
+9.1. Extent of Exposure  ................................ ................................ ................................ ............  55 
+9.2. Dose -Limiting Toxicities  ................................ ................................ ................................ ... 56 
+9.3. Adverse Events  ................................ ................................ ................................ ..................  57 
+9.4. Laboratory Evaluations  ................................ ................................ ................................ ..... 59 
+9.5. Vital Signs  ................................ ................................ ................................ ...........................  61 
+9.6. ECG  ................................ ................................ ................................ ................................ ..... 62 
+9.7. Eastern Cooperative Oncology Group (ECOG) Performance Status  ...........................  62 
+9.8. Physical Examination  ................................ ................................ ................................ ........  62 
+10. INTERIM ANALYSES  ................................ ................................ ....................  63 
+11. CHANGE FROM ANALYSIS PLANNED IN PROTOCOL  .............................  64 
+12. REFERENCE LIST  ................................ ................................ ........................  65 
+13. PROGRAMMING CONSIDERATIONS  ................................ ..........................  66 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 10 of 73 13.1.  General Considerations  ................................ ................................ ................................ .... 66 
+13.2.  Table, Listing, and Figure Format  ................................ ................................ ....................  66 
+13.2.1.  General  ................................ ................................ ................................ ........................  66 
+13.2.2.  Headers  ................................ ................................ ................................ .......................  67 
+13.2.3.  Display Titles  ................................ ................................ ................................ ...............  67 
+13.2.4.  Column Headers  ................................ ................................ ................................ .........  67 
+13.2.5.  Body of the Data Display  ................................ ................................ .............................  68 
+13.2.6.  Footnotes  ................................ ................................ ................................ ....................  70 
+14. QUALITY CONTROL  ................................ ................................ .....................  72 
+15. MOCK SHELLS OF TABLES, FIGURES, AND LISTINGS  ...........................  73 
+ 
+ 
+  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 11 of 73 1. GLOSSARY OF ABBREVIATIONS  
+Abbreviation  Description  
+AC absolute counts  
+ADA anti-drug antibodies  
+AE adverse event  
+ALC absolute lymphocyte count  
+ALT alanine transaminase  
+ANC absolute neutrophil count  
+AST aspartate transaminase  
+ATC anatomical therapeutic chemical  
+BLQ below the limit of quantification  
+BMI body mass index  
+BUN blood urea nitrogen  
+C1D1  cycle 1, day 1  
+C#D#  cycle #, day #  
+CBC complete blood count  
+CD cluster of differentiation  
+CI confidence interval  
+CL serum drug clearance  
+Clast the last observed quantifiable concentration  
+CM concomitant medication  
+Cmax maximum observed concentration  
+CR complete response  
+CSR Clinical study report  
+CTCAE  common terminology criteria for adverse events  
+Ctrough trough concentrations  
+DLT dose-limiting toxicity  
+DCR disease control rate  
+DOR duration of response  
+ECG standard 12 -lead electrocardiogram  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 12 of 73 Abbreviation  Description  
+ECOG  Eastern Cooperative Oncology Group  
+eCRF  electronic case report form  
+EDC electronic data capture  
+EOT end of treatment  
+ET early termination  
+ECG electrocardiogram  
+F fold expansion of circulating CD8 T cells, Tregs, and NK cells  
+(day 1 pre -infusion as baseline levels)  
+FCB max maximum observed fold change from baseline in serum 
+concentration (Day 1 pre -infusion as baseline levels)  
+GCP Good Clinical Practice  
+iORR immune overall response rate  
+i- immune - 
+iAE immune adverse event  
+ICF informed consent form  
+ICH International Council for Harmonisation  
+iCR immune complete response  
+iDCR immune disease control rate  
+IDMC Independent Data Monitoring Committee  
+iDOR immune duration of response  
+IFN interferon  
+IL-2 interleukin -2 
+IL-2R interleukin -2 receptor  
+iORR immune overall response rate  
+iPD immune progressive disease  
+iPFS immune progression -free survival  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 13 of 73 Abbreviation  Description  
+iPR immune partial response  
+IRB Institutional Review Board  
+iRECIST  Immune Response Evaluation Criteria in Solid Tumors  
+iSD immune stable disease  
+IV intravenous or intravenously  
+L1 Ligand -1 
+LDH lactate dehydrogenase  
+LLOQ  lower limit of quantification  
+λz terminal elimination rate constant  
+Max maximum  
+MedDRA  Medical Dictionary for Regulatory Activities  
+Min minimum  
+MRI magnetic resonance imaging  
+MTD maximum tolerated dose  
+NCI National Cancer Institute  
+NK natural killer [cells]  
+N/A not applicable  
+NSCLC  non–small -cell lung cancer  
+ORR overall response rate  
+PCS potentially clinically significant  
+PD progressive disease  
+PD-1 programmed death receptor -1 
+PD-L1 programmed death ligand -1 
+PDNC  protocol deviation and non -compliance  
+PFS progression -free survival  
+PK pharmacokinetic  
+PR partial response  
+PT preferred term  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 14 of 73 Abbreviation  Description  
+PTT partial thromboplastin time  
+QTcF  QT interval corrected by the Fridericia Correction Formula  
+RCC renal cell carcinoma  
+RCD8 ratio of CD8 cells to T regs (day 1 pre -infusion as baseline levels)  
+RCD8, max  maximum RCD8 
+RECIST  Response Evaluation Criteria in Solid Tumors  
+RNK Ratio of NK cells to T regs (day 1 pre -infusion as baseline levels)  
+RNK, max  maximum RNK 
+RP relative percentage  
+RP2D  recommended Phase 2 dose  
+SAE serious adverse event  
+SAP statistical analysis plan  
+SCCHN  squamous cell carcinoma of the head and neck  
+SD stable disease  
+SE standard error  
+SI standard international system of units  
+SOC system organ class  
+SOP standard operating procedure  
+SRC safety review committee  
+t1/2 terminal elimination half-life 
+TBD To be determined  
+TEAE treatment -emergent adverse event  
+TIL Density of tumor -infiltrating lymphocytes  
+TLF table, listing and figure  
+tmax time to Cmax 
+TME tumor microenvironment  
+TNF tumor necrosis factor  
+tCD8, max  time to maximum R CD8 
+tNK, max  time to maximum R NK 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 15 of 73 Abbreviation  Description  
+TTR time to response  
+Tregs regulatory T cells  
+TSH thyroid -stimulating hormone  
+ULN upper limit of normal  
+US United States  
+vs versus  
+WHO World Health Organization  
+WOCBP  Women of childbearing potential  
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 16 of 73 2. PURPOSE  
+The purpose of this statistical analysis plan (SAP) is to ensure that the summary tables, 
+data listings and figures (TLFs) which will be produced, and the statistical methodologies 
+that will be used, are complete and appropriate to allow valid conclusions regarding the 
+study objectives described in the latest study protocol.  
+2.1. RESPONSIBILITIES  
+Syneos Health will perform the statistical analyses and is responsible for the production 
+and quality control of tables, figures and listings  (TLFs)  detailed in this SAP text/Mock 
+tables for safety  and anti -tumor endpoints .  
+Alkermes will be responsible for pharmacokinetic (PK), blood-related pharmacodynamics 
+and immunogenicity  analyses and reporting. Syneos will be responsible for tumor -related 
+pharmacodynamics  (PD) listing .  
+STDM and A DaM data files for tumor -related PD datasets that contain tissue biomarker 
+end points will be produced by Syneos Health .  Only STDM data files for PC, blood -related 
+PD, and ADA datasets will be produced by Syneos Health . All the PK, ADA and blood -
+related PD analyses will be specified in a separate analysis plan . 
+2.2. TIMINGS OF ANALYSES  
+The study will be conducted in 3  parts: Part A, a dose -escalation monotherapy part; Part 
+B, a dose -expansion monotherapy part; and Part  C, a combination therapy part with 
+pembrolizumab . An Extension Phase is planned for subjects completing or who have 
+completed 1 year of treatment in Part B or in Part C.  There is one electronic data capture 
+(EDC) database for Part A , Part B, and Part C together . All analysis specified in this SAP , 
+including  antitumor activity  and safety, will be conduct ed.  
+No formal interim analysis is planned with respect to stopping the study early or for lack 
+of antitumor activity purposes. Interim data cut s and analysis will be conducted to support 
+abstract submissions, conference presentations, and/or manuscript(s).  
+The cut -off date of final analysis will be determined by the sponsor when more than 90% 
+enrolled patients discontinued the treatment and all responders have been followed at 
+least 6 months.  A full set of SAP defined TLFs will be produced and used for preparing the 
+clinical study report (CSR).   
+Responses in each N1 stage will be assessed to determine whether progression to the N2 
+stage is warranted . 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 17 of 73 3. STUDY DESIGN  
+3.1. PRIMARY OBJECTIVE  
+• To investigate the safety and tolerability of ALKS 4230 and to determine the 
+MTD and the RP2D of ALKS 4230 in subjects with advanced solid tumors who 
+are refractory or intolerant to therapies known to provide clinical benefit (Part 
+A) 
+• To assess the safety profile and characterize antitumor activity by overall 
+response rate (ORR) of ALKS 4230 at the RP2D in subjects with melanoma or 
+renal cell carcinoma (RCC) (Part B)  
+• To characterize the safety profile and antitumor activity by  ORR of ALKS 4230 
+administered IV in combination with pembrolizumab in subjects with advanced 
+solid tumors (Part  C) 
+• To describe the dose -limiting toxicity (DLT) of ALKS 4230 (Part A)  
+ 
+3.2. SECONDARY OBJECTIVES  
+• To characterize the clinical PK profile and immunogenicity of ALKS 4230 alone 
+(Part A and Part B) and in combination with pembrolizumab (Part C)  
+• To investigate the clinical pharmacodynamic effects of ALKS 4230 alone (Part 
+A and Part B) and in combination with pembrolizumab (Part C)  
+• To describe any antitumor activity and responses observed with ALKS 4230 
+(Part A)  
+• To evaluate duration of response (DOR), durable response rate (DRR), and time 
+to response for subjects treated with ALKS 4230 in each of the expansion 
+cohorts (Part  B) and in combination with pembrolizumab (Part C)  
+ 
+3.3. EXPLORATORY  OBJECTIVES  
+• To describe changes in post -treatment subject blood and/or tumor tissue 
+samples as compared to baseline/pre -treatment samples (Part B)  
+•  
+ 
+ 
+  
+  
+
+
+Statistical Analysis Plan Alkermes Protocol # ALK4230 -A101
+Version V3.0 Syneos Health # 1006212
+This document is proprietary and confidential to Syneos Health
+03.007A.03   Syneos Health Page 18 of 733.4. BRIEF DESCRIPTION
+This is a global, multicenter, open -label, Phase 1/2 study. The study will be conducted in 
+3parts: Part A, a dose -escalation monotherapy part; Part B, a dose -expansion 
+monotherapy part; and Part C, a combination therapy part with pembrolizumab, as seen 
+in the figure and table below. An Extension Phase is planned for subjects completing or 
+who have completed 1 year of treatment in Part B or in Part C.
+Figure 1: Overall Study Design Schematic
+A)
+
+
+Statistical Analysis Plan Alkermes Protocol # ALK4230 -A101
+Version V3.0 Syneos Health # 1006212
+This document is proprietary and confidential to Syneos Health
+03.007A.03   Syneos Health Page 19 of 73B)
+Abbreviations: L1=ligand -1;,EOT=End of Treatment;, NSCLC=non –small- cell lung cancer;, PD 1=programmed death 
+receptor-1;, RCC=renal cell carcinoma;, SCCHN=squamous cell carcinoma of the head and neck;, TBD=to be determined.
+aRollover subjects from Part A or Part B to Part C need to complete 1 year of treatment in Part C before entering the 
+Extension Phase. 
+b Subjects in Part C are eligible to receive combination treatment for a maximum of 2 years of treatment in total (the 
+initial phase plus the Extension Phase of Part C). Subjects may continue ALKS 4230 as a monotherapy beyond the maximum 
+of 2 years of treatment —both in Part B by continuing treatment or in Part C by switching to monotherapy.
+Note: (Figure 1A): If a dose higher than 6 μg/kg of ALKS 4230 is found to be tolerable for Part A, that dose may be used in 
+Part B or Part C.
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 20 of 73 Study Design Overview  
+Portion of the Study  Cohort  ALKS  4230  
+Dose 
+(µg/kg/day)  
+Dose Escalation (Part A)a 1 0.1 
+2 0.3 
+3 1 
+4 3 
+5 6 
+6 8 
+7 10 
+8 12 
+9 14 
+Dose Expansion (Part B)  
+(+ Extension Phaseb) Melanomaa RP2D  
+RCC RP2D  
+Combination Therapy 
+(Part  C) 
+(+ Extension Phaseb) ALKS 4230 1 μg/kg/day safety run -in 1 
+ALKS 4230 3 μg/kg/day safety run -in 3 
+C1: PD -1/L1 unapproved tumor types  3c 
+C2: PD -1/L1 approved tumor types (PD -1/L1 
+pretreated)  3c 
+C3: PD -1/L1 approved tumor types (PD -1/L1 
+treatment naive)  3c 
+C4: Rollover  3c 
+C5: Melanoma  6c 
+C6: NSCLC  6c 
+C7: SCCHN  6c 
+Abbreviations: DLT=dose -limiting toxicity, NSCLC=non –small -cell lung cancer, PD -1=programmed death receptor -1, PD -
+L1=programmed death ligand -1, RCC=renal cell carcinoma, RP2D=recommended Phase 2 dose, SCCHN=squamous cell 
+carcinoma of the head and neck, TBD=to be determined.  
+a No more than 5 ocular melanoma subjects may be enrolled into this cohort.  
+b For subjects receiving clinical benefit from the treatment who are completing or have completed 1 year of treatment 
+in Part B or Part C. Rollover subjects from Part A or Part B to Part C need to complete 1 year of treatment in Part C 
+before entering the Ex tension Phase. 
+c A subject’s ALKS 4230 doses  may be reduced by one dose level as needed at the discretion of the Investigator.   
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 21 of 73 Dose Escalation – Part A  
+In the dose -escalation part of the study, subjects with advanced solid tumors will receive 
+ALKS 4230 by IV administration daily for 5 days, followed by a period off treatment in 
+repeating cycles. During Cycle 1, the period off treatment will be 9 days, resulting in a 
+cycle length of 14 days (2  weeks). Cycle 2 and subsequent cycles will have a period off 
+treatment of 16 days, resulting in a cycle length of 21 days (3  weeks) for each cycle. For 
+the first 2 treatment cycles, subjects will receive ALKS 4230 as inpatients at a medical 
+facility with access to medical support measures and to the intensive care unit, if needed. 
+In the absence of DLTs, subjects who remain in t he study may receive subsequent doses 
+of ALKS 4230 on an outpatient basis.  
+In dose escalation, cohorts in the study will use a standard 3+3 study design with 3 to 6 
+subjects per cohort to receive ALKS 4230 at specific dose levels  described in Figure 1 . The 
+starting dose of 0.1 µg/kg/day was selected based on the minimal anticipated biologic 
+effect level. Doses in subsequent cohorts will be increased until the optimal biologic dose 
+is identified,  or the maximum tolerated dose is reached. Additional dose levels will be 
+considered if the RP2D or maximum tolerated dose (MTD) has not b een reached within 
+the proposed dose range.  
+During dose escalation, each cohort will be evaluated for safety and tolerability using a 
+3+3 study design with allowance for over -enrollment with 4 to 7 subjects and a minimum 
+of 3 evaluable subjects per cohort to receive IV ALKS 4230 at the specified dos e and 
+schedule. If none of the 3 subjects experiences a DLT, then the next dose level will open 
+for enrollment. If 1 of the 3 subjects experiences a DLT, then 3 additional subjects will 
+be enrolled at the same dose level. If no additional DLTs are observed , then the next dose 
+level will open for enrollment.  
+If 2 or more subjects experience DLTs at a dose level, no further dose escalations will 
+occur. One or more lower dose level(s) may be tested in search of the maximum tolerated 
+dose, defined as the dose level immediately below that in which ≥2 of 6 subjects 
+experience DLTs. Prior to any dose escalation, a teleconference of the  Safety Review 
+Committee (SRC), to include at a minimum the study investigators who have enrolled 
+subjects and the Sponsor’s Medical Monitor, will be convened to review the safety data 
+from the current cohort and to decide if dose escalation is warranted.  An interim review 
+of the safety data to guide the selection of the RP2D is planned prior to the start of Part  B 
+of the study using data from subjects enrolled in Part A.  RP2D was determined to be  6 
+ug/kg. 
+ 
+Dose Expansion – Part B  
+After the RP2D is determined, the second part of the study ( i.e., Part B) will begin. In 
+this part of the study, up to 41 subjects with melanoma (including no more than 5 ocular 
+melanoma subjects) and up to 41 subjects with RCC may be enrolled to receive ALKS 4230 
+at the RP2D. Enrollment to these cohorts will follow a PR (unconfirmed) Simon’s two -
+stage design enrollment as outlined below . Response assessments will be based on the 
+RECIST guidelines.   
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 22 of 73 Simon’s Two -stage Design Enrollment for Subjects in Part B  
+  Undesirable 
+Rate Desirable 
+Rate N1 Enroll More if  N2 Total  
+Expansion Cohort B1: 
+Refractory RCC  5% 20% 21 ≥2 PR/CR  20 41 
+Expansion Cohort B2: 
+Refractory Melanomaa 5% 20% 21 ≥2 PR/CR  20 41 
+Abbreviations: CR=complete response; PR=partial response; RCC=renal cell carcinoma  
+a No more than 5 ocular melanoma subjects may be enrolled into this cohort.  
+ 
+Combination Therapy - Part C  
+In the third part of the study (Part C), subjects will receive ALKS 4230 in combination 
+with pembrolizumab. Part C will run independently of and concurrently with monotherapy 
+Part A and Part  B.  
+A 3- to 6-subject run -in phase will be utilized to assess the safety of ALKS 4230 in 
+combination with pembrolizumab. During the safety run -in phase, subjects may be 
+enrolled with any tumor type as described in the nonrollover cohorts. Rollover subjects 
+(Cohort 4) are not eligible to participate in the safety run -in phase of Part C.  
+During the safety run -in phase, the first 3 subjects will receive ALKS 4230 at the dose 
+level of 1  µg/kg/day. The first subject enrolled at the 1 µg/kg/day dose level will be 
+monitored as a sentinel subject. This sentinel subject will be observed for safety for a 
+period of 7 days (the sentinel period) from first dose of ALKS 4230. If the sentinel subjec t 
+tolerates treatment adequately during this period, then up to 2 additional subjects may 
+be enrolled into the 1 µg/kg/day dose level. If all 3 subjects tole rate therapy adequately 
+through their first 21 -day cycle as assessed by the Safety Review Committee, then the 
+study will progress to the 3 µg/kg/day dose level. At the discretion of the Safety Review 
+Committee, an additional 3 subjects may be enrolled at t he 1 μg/kg/day dose level to 
+further assess safety prior to opening enrollment at the 3  μg/kg/day dose level.  
+Once the safety run -in phase at the 1 µg/kg/day dose level is complete and the Safety 
+Review Committee has agreed to proceed to the 3 µg/kg/day dose level, the first subject 
+will be enrolled at the 3 µg/kg/day dose level and will be observed for 7 days as a sentinel 
+subject. If this subject tolerates treatment adequately for 7 days, then up to 2 additional 
+subjects may be enrolled in the following week. If the second and third subjects tolerate 
+the 3 µg/kg/day dose level adequately for 7 days, then 3  additi onal subjects can be 
+enrolled beginning the following week.  
+If the first 6 subjects tolerate therapy adequately for their first 21 -day cycle as assessed 
+by the Safety Review Committee, then enrollment into expansion Cohorts C1, C2, C3, and 
+C4 will be open without restriction in the rate of enrollment at the dose de termined by 
+the Safety Review Committee.  
+Up to 20 subjects will be enrolled into each of Cohorts C1, C2, and C3 based on their 
+tumor type and prior treatment with programmed death receptor -1/programmed death 
+ligand -1 (PD -L1) pathway inhibitors as described in the inclusion criteria. Subjects with  
+RCC or melanoma will not be eligible for enrollment in Cohorts C1, C2, or C3. Subjects on 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 23 of 73 ALKS 4230 monotherapy in Part A or Part B who have experienced disease progression 
+after a minimum of 2 cycles or SD after a minimum of 4 cycles and who are able to tolerate 
+treatment with combination therapy are eligible for treatment in Part C, Cohort C4 . 
+Patients who have PR or CR on monotherapy are ineligible to rollover unless 
+demonstrating progressive disease.  
+Subjects will receive 200 mg of pembrolizumab every 3 weeks in combination with 
+ALKS 4230 by IV administration daily for 5 days, followed by a period off treatment of 
+16 days, resulting in a cycle length of 21 days (3  weeks) for each cycle.  
+Once a RP2D is determined for monotherapy, enrollment into Cohorts C5, C6, and C7 will 
+open. Should monotherapy doses above 6 µg/kg/day ALKS 4230 be shown to be tolerated, 
+then combination dose escalation may continue for all subjects. In Cohorts C5, C6, a nd 
+C7, up to 31  subjects with melanoma, up to 50 subjects with non –small -cell lung cancer 
+(NSCLC), and up to 47 subjects with squamous cell carcinoma of the head and neck may 
+be enrolled to receive ALKS 4230 in combination with pembrolizumab at the ALKS 42 30 
+RP2D. Enrollment to these cohorts will follow a partial response (unconfirmed) Simon’s 
+two-stage enrollment as outlined below. Response assessments will be based on the 
+RECIST and iRECIST guidelines.  
+ 
+Simon’s Two -stage Design Enrollment for Subjects in Part C  
+  Undesirable 
+Rate Desirable 
+Rate N1 Enroll More if  N2 Total  
+C5: Melanoma  40% 55% 27 ≥12 PR/CR  26 53 
+C6: NSCLC  13% 27% 18 ≥3 PR/CR  24 42 
+C7: SCCHN  15% 30% 17 ≥3 PR/CR  19 36 
+Abbreviations: CR=complete response; NSCLC=non –small -cell lung cancer; PR=partial response; SCCHN=squamous cell 
+carcinoma of the head and neck  
+ 
+If the RP2D for the combination subjects in Cohorts C5, C6, and C7 is determined by the 
+Safety Review Committee to be 6 μg/kg/day or above, intrapatient dose escalation may 
+be considered for subjects in Cohorts C1, C2, C3, and C4 who had been assigned to t he 
+1 μg/kg/day or 3  μg/kg/day dose levels and had adequately tolerated the combination 
+therapy.  
+ 
+Planned Number of Subjects for Part C  
+Expansion Cohort: Tumor (Setting)  Number of Subjects  
+C1: PD -1/L1 unapproved tumor typesa Up to 20  
+C2: PD -1/L1 approved tumor types (PD -1/L1 treatment 
+pretreated)a Up to 20  
+C3: PD -1/L1 approved tumor types (PD -1/L1 treatment naive)a Up to 20  
+C4: Monotherapy Rollover  Not applicable  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 24 of 73 Expansion Cohort: Tumor (Setting)  Number of Subjects  
+C5: Melanoma  Up to 53 
+C6: NSCLC  Up to 42 
+C7: SCCHN  Up to 36 
+Abbreviations: C=Cohort; NSCLC=non –small -cell lung cancer; PD -1/L1=programmed death receptor -1/programmed death 
+ligand -1; RCC=renal cell carcinoma; SCCHN=squamous cell carcinoma of the head and neck  
+a Subjects with RCC or melanoma are not eligible for enrollment in Cohorts C1, C2, and C3.  
+ 
+Extension Phase (Part B and Part C only)  
+An Extension Phase is planned for subjects receiving clinical benefit from the treatment 
+who are completing or have completed 1 year of treatment in Part B or in Part C. The 
+Extension Phase will allow for assessment of long -term effectiveness, immunogenicity, 
+and safety information in subjects receiving ALKS 4230 monotherapy or ALKS 4230 in 
+combination with pembrolizumab, while minimizing the burden of repeated assessments 
+for subjects and investigators.  
+Subjects completing 1 year of treatment will enter the Extension Phase after Cycle 18. 
+The subjects who are already beyond 1 year of treatment will enter the Extension Phase 
+immediately and will start following the Schedule of Assessments of the Extension Phase. 
+The 1 -year treatment period before the Extension Phase is non -cumulative, ie, in case of 
+rollover from Part A or Part B to Part C, subjects need to complete 1 year of treatment 
+in Part C before entering the Extension Phase.  
+Subjects in Part C are eligible to receive combination treatment for a maximum of 2 years 
+of treatment in total (the initial phase plus the Extension Phase of Part C). Subjects may 
+continue ALKS 4230 as a monotherapy beyond the maximum of 2 years of treatment — 
+both in Part B by continuing treatment or in Part C by switching to monotherapy. Subjects 
+will remain on the same dose and schedule when entering the Extension Phase.  
+ 
+3.5. SUBJECT SELECTION  
+The dose -escalation portion of the study (Part A) will enroll subjects with advanced solid 
+tumors. In the monotherapy dose -expansion portion of the study (Part B), subjects with 
+melanoma or RCC will be enrolled. In the combination therapy part of the study  (Part C ), 
+subjects will be enrolled in to 1 of the 7 predefined cohorts, and some subjects may be 
+enrolled in the rollover cohort from Part A or Part B. Each subject must meet all of the 
+inclusion and none of the exclusion criteria to participate in this s tudy.  
+ 
+3.5.1.  Inclusion Criteria  
+Each subject must meet all of the following inclusion criteria to participate in this study.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 25 of 73 1. The subject or the subject’s legal representative is willing and able to provide 
+written informed consent.  
+2. The subject is aged ≥18 years.  
+3. For the dose -escalation portion of the study, the subject has a diagnosis of an 
+advanced solid tumor; for the dose -expansion portion of the study (Part B), the 
+subject has a diagnosis of melanoma or RCC.  
+4. In Part A, all subjects must have an advanced solid tumor (including lymphomas) 
+that is refractory or, in the judgment of their physician, intolerant to established 
+therapies known to provide clinical benefit for the malignancy in question. In Parts 
+B and C, all subjects must have an advanced solid tumor and have had the 
+minimum prior lines of therapy as defined by the specific cohort into which the 
+subject will enroll.  Treatment with prior immunotherapy is permitted, with the 
+exception of subjects enrolli ng into C3, the PD -1/L1 approved tumor types (PD -
+1/L1 treatment naive) cohort; C5, the Melanoma cohort; and C7, the Squamous 
+Cell Carcinoma of the Head and Neck cohort who are not permitted to have 
+received prior treatment with an anti -PD-1/L1 therapy.   
+5. Subjects enrolled in the dose -expansion monotherapy part (Part B) or combination 
+therapy part (Part C) of the study must have at least 1 lesion that qualifies as a 
+target lesion based on RECIST.  
+6. Subjects enrolled in the dose -expansion monotherapy part (Part B) or combination 
+therapy part (Part C) of the study must agree to provide archival tumor tissue 
+biopsy sample(s). The archival tumor tissue sample does not have to be obtained 
+prior to enrollm ent into the study, however every effort should be made to submit 
+the archived tissue within 30  days of study enrollment.  
+7. Subjects enrolled in the combination therapy part (Part C) of the study must have 
+completed the last dose of any broad -spectrum  antibiotic at least 30 days prior to 
+first dose (Cycle 1, Day 1).  
+8. Subject is ambulatory with an Eastern Cooperative Oncology Group (ECOG) 
+performance status of 0 or 1 and an estimated life expectancy of at least 3 months.  
+9. Subjects must have adequate hematologic reserve as evidenced by:  
+• Absolute neutrophil count (ANC) of ≥1000/µL,  
+• Absolute lymphocyte count of ≥500/µL,  
+• Platelet count of ≥75,000/µL, and  
+• Hemoglobin of ≥9 g/dL (subjects may be transfused to this level if necessary).  
+10. Subjects must have adequate hepatic function as evidenced by aspartate 
+transaminase and alanine transaminase values ≤3 × the upper limit of normal (ULN) 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 26 of 73 (≤5 × the ULN if the liver is known to be involved by metastatic disease) and serum 
+total bilirubin values of ≤1.5 × ULN (≤2 × ULN for subjects with known Gilbert’s 
+syndrome) for the reference laboratory.  
+11. Subjects must have adequate renal function as evidenced by a serum creatinine 
+≤1.5 × the ULN for the reference laboratory or a calculated creatinine clearance 
+of ≥60  mL/min by the Cockroft -Gault equation.  
+12. For patients with underlying chronic lung disease, and/or lung primary or 
+metastatic disease, and/or pleural effusions, room air oxygen saturation must be 
+≥92%.  
+13. Subjects must be recovered from the effects of any previous chemotherapy, 
+immunotherapy, other prior systemic anticancer therapy, radiotherapy, or surgery 
+(i.e., toxicity no worse than Grade 1 [Grade 2 alopecia and treatment -associated 
+peripheral neuropathy are acceptable]).  
+14. Subjects who have received standard or investigational agents must wait at least 
+5 half-lives or 4 weeks (whichever is shorter) following prior therapy before 
+enrollment into the study, or 4  weeks if the half -life of the investigational agent 
+is not known. Shorter wait periods may be permitted after discussion with the 
+Medical Monitor.  
+15. Women of childbearing potential (WOCBP) must have a negative pregnancy test 
+(serum or urine) within 7 days of the start of treatment, and on Day 1 before the 
+first dose is administered. A woman is considered as a WOCBP (fertile) following 
+menarche and unti l becoming postmenopausal unless permanently sterile. A 
+postmenopausal state is defined as no menses for 12 months without an alternative 
+medical cause.  
+16. Meets contraceptive requirements defined in the protocol. Women of childbearing 
+potential and men (if their sexual partners are WOCBP) must use at least 2 highly 
+effective forms of birth control, at least 1 of which is considered highly effective, 
+througho ut the study if they are heterosexually active.  
+In addition to the criteria listed above, to participate in Part B or Part C of the study, 
+subjects must meet the following Part B or Part C tumor types of  inclusion criteria to 
+enroll into the cohorts identified below.  
+Additional Inclusion Criteria for Part B Melanoma Expansion Cohort  
+Subjects must have advanced melanoma. Subjects must have received an immune 
+checkpoint inhibitor ( e.g., anti-PD-(L)1 with or without anti -CTLA -4) and, if appropriate, 
+a molecularly targeted agent ( e.g., BRAF inhibitor if BRAF -mut), and no more than one 
+prior cytotoxic chemotherapy. Patients previously treated with checkpoint inhibitor 
+either as single -agent or in a combination regimen must have experienced objective 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 27 of 73 response or stable disease (by RECIST or iRECIST as best overall response); patients with 
+progressive disease as best response are excluded.  
+Additional Inclusion Criteria for Part B Renal Cell Carcinoma Expansion Cohort  
+Subjects must have advanced RCC. Subjects may have received an PD -1 or PD -L1-immune 
+checkpoint inhibitor, either given as a monotherapy or in combination with a CTLA -4 
+inhibitor or in combination with a VEGFR -TKI and no more than two prior systemic 
+therapi es, including the checkpoint inhibitor -based regimen. Patients previously treated 
+with checkpoint inhibitor either as single -agent or in a combination regimen must have 
+experienced objective response or stable disease (by RECIST or iRECIST as best overall 
+response); patients with progressive disease as best response are excluded.  
+Additional Inclusion Criteria for Expansion Cohort C1: PD -1/L1 Unapproved Tumor 
+Types 
+Subjects who have tumors (excluding RCC and melanoma) that have progressed following 
+chemotherapy, and whose tumor types are not approved for treatment with 
+pembrolizumab, may be entered in Part C, Cohort C1, if they meet the 
+inclusion/exclusion criteria s pecified.  
+Additional Inclusion Criteria for Expansion Cohort C2: PD -1/L1 Approved Tumor Types 
+(PD-1/L1 Pretreated): Approved Tumor Types are Based on US FDA Label 
+Subjects who have tumor types (other than melanoma and NSCLC, see Cohorts C5 and C6; 
+subjects with RCC are not eligible) that are approved for treatment with pembrolizumab 
+and have progressed on anti -PD-1/PD-L1 treatment may be entered in Part C, Cohort C2 , 
+if they meet the other inclusion/exclusion criteria specified.  
+Additional Inclusion Criteria for Expansion Cohort C3: PD -1/L1 Approved Tumor Types 
+Cohort (PD -1/L1 Treatment Naive): Approved Tumor Types are Based on US FDA Label 
+Subjects who have tumors (excluding RCC and melanoma) that have progressed following 
+chemotherapy and whose tumor types are approved for treatment with pembrolizumab 
+may be entered in Part C, Cohort C3, if they have not received treatment with an anti -
+PD-1/PD-L1 antibody and if they meet the other inclusion/exclusion criteria specified.  
+Additional Inclusion Criteria for Expansion Cohort C4: Monotherapy Rollover ( Rollover 
+Subjects from Part A or Part B)  
+Subjects on ALKS 4230 monotherapy in Part A or Part B who have experienced disease 
+progression after a minimum of 2 cycles or SD after a minimum of 4 cycles and who are 
+able to tolerate treatment with combination therapy are eligible for treatment in Part C, 
+Cohort C4. Patients who have PR or CR on monotherapy are ineligible to rollover unless 
+demonstrating progressive disease.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 28 of 73 Additional Inclusion Criteria for Expansion Cohort C5: Melanoma  
+Subjects with unresectable locally advanced (Stages IIIB, IIIC, and IIID) or distantly 
+metastatic (recurrent or de  novo Stage IV) invasive cutaneous or mucosal melanoma that 
+is measurable and who have not received prior treatment for advanced disease and who 
+meet the other inclusion/exclusion criteria may be considered for Part C, Cohort C5. BRAF 
+mutation -positive pati ents are eligible without prior treatment or after failure of BRAF -
+directed inhibitor therapy. Patients treated with prior adjuvant therapy with approved 
+agents are also eligible, provided they did not have a recurrence within the 6 months  of 
+completing adjuvant treatment.  
+Additional Inclusion Criteria for Expansion Cohort C6: Non –Small -Cell Lung Cancer  
+Subjects with Stage IIIB or IV NSCLC who have been treated with anti -PD-1/PD-L1 therapy 
+either as single -agent or in combination with a chemotherapy regimen who responded to 
+therapy or who had stable disease (SD) before progression after a minimum of 120 days 
+of treatment and who meet the other inclusion/exclusion criteria may be considered for 
+Part C, Cohort C6.  
+Additional Inclusion Criteria for Expansion Cohort C7: Squamous Cell Carcinoma of the 
+Head and Neck  
+Subjects with recurrent and/or distantly metastatic squamous cell carcinoma of the head 
+and neck who have not received anti -PD-1/PD-L1 therapy and who meet the other 
+inclusion/exclusion criteria specified may be considered for Part C, Cohort C7.  
+ 
+3.5.2.  Exclusion Criteria  
+Each subject must not have any of the following conditions to be qualified to participate 
+in this study.  
+1. Subject is currently pregnant or breastfeeding or is planning to become pregnant 
+during the study period.  
+2. Subjects with an active infection or with a fever ≥38.5°C (≥101.3°F) within 3 days 
+of the first scheduled day of dosing  
+3. Subjects with active or symptomatic central nervous system metastases unless the 
+metastases have been treated by surgery and/or radiation therapy and/or gamma 
+knife, the subject has been tapered to a dose of 10 mg of prednisone (or 
+equivalent) or less of c orticosteroids for at least 2 weeks before the first dose, 
+and the subject is neurologically stable.  
+4. Subjects with known hypersensitivity to any components of ALKS 4230  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 29 of 73 5. Subjects who require pharmacologic doses of corticosteroids (greater than 10  mg 
+of prednisone daily, or equivalent); however, topical, ophthalmologic, and 
+inhalational steroids are permitted.  
+6. Subjects with mean QT interval corrected by the Fridericia Correction Formula 
+values of >470 msec (in females) or >450 msec (in males) at screening; subjects 
+who are known to have congenital prolonged QT syndromes; or subjects who are 
+on medications known to cause prolonged QT interval on ECG.  
+7. Subjects who developed Grade ≥3 autoimmune disorders while on prior 
+immunotherapy (e.g., pneumonitis, nephritis, neuropathy). Subjects who have 
+immune -mediated endocrinopathies and are stable on hormone replacement 
+therapy are not excluded. Subjects who de veloped autoimmune disorders of Grade 
+≤2 may enroll if the disorder has resolved and the subject is off systemic steroids 
+for ≥28 days. Subjects who experienced autoimmune colitis as a toxicity of prior 
+immunotherapy must undergo screening colonoscopy to r ule out ongoing 
+inflammation. Vitiligo is not exclusionary.  
+8. Subjects with any other concurrent uncontrolled illness, including mental illness 
+or substance abuse, which may interfere with the ability of the subject to 
+cooperate and participate in the study; other examples of such conditions would 
+include unstable or  poorly controlled hypertension; unstable angina; myocardial 
+infarction, or cerebrovascular accident within 6 months of study entry; New York 
+Heart Association Grade 3 or 4 congestive heart failure; chronic obstructive 
+pulmonary disease or diabetes mellitu s that has required 2 or more 
+hospitalizations in the last year; severe peripheral vascular disease; or recent 
+serious trauma.  
+9. Subjects known to be positive for human immunodeficiency virus, hepatitis  B or 
+hepatitis C, or active tuberculosis or has a known history of tuberculosis.  
+10. Subjects who are employed by Alkermes, Syneos Health, the Investigator, the 
+study center (included permanent or temporary contract workers and designees 
+responsible for the conduct of the study), or other affiliate of this study or is 
+immediate family of a n employee of Alkermes, Syneos Health, the Investigator, 
+the study center, or other affiliate. Immediate family is defined as a spouse, 
+parent, child, or sibling, whether biological or legally adopted.  
+11. Subjects with known hypersensitivity to any components of pembrolizumab (Part 
+C subjects only)  
+12. Subjects who have had a second malignancy within the previous 3 years. This 
+criterion does not apply to subjects with an adequately treated basal cell or 
+squamous cell skin cancer, carcinoma in situ of the cervix, prostate cancer Gleason 
+score <6 with unde tectable prostate -specific antigen over the previous 12 months, 
+or ductal breast carcinoma in situ with full surgical resection.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 30 of 73 13. Subjects with dyspnea at rest or requiring oxygen therapy.  
+14. Subjects with active autoimmune disease requiring systemic treatment within the 
+past 3 months or documented history of clinically severe autoimmune disease that 
+requires systemic steroids or immunosuppressive agents.  
+15. Subjects who have received systemic immunomodulatory agents within 28 days 
+prior to C1D1. Exceptions may be granted on a case -by-case basis by the Medical 
+Monitor  
+16. Subjects who have received radiotherapy within the last 4 weeks before start of 
+study treatment administration, with the exception of limited field palliative 
+radiotherapy.  
+17. Subjects who have received administration of a live, attenuated vaccine within 
+4 weeks  before Cycle 1 Day 1.  
+18. Prior solid organ and/or non -autologous hematopoietic stem cell or bone marrow 
+transplant recipients.  
+19. Subjects who have received prior IL -2-based or IL -15-based cytokine therapy.  
+ 
+3.6. DETERMINATION OF SAMPLE SIZE  
+The number of subjects planned to be enrolled in this study is expected to be 
+approximately 140 to 327. This is based on an assumption of approximately 36 to 54 
+subjects to be enrolled in Part A, 42 to 82 subjects to be enrolled in Part B, and up to 191 
+subjects to be enrolled in Part C . 
+Number of Subjects Expected in Each Study Period  
+ 
+Note: Part C rollover subjects do not contribute the total number of subjects exposed to ALKS  4230.  
+ 
+In Part A of the study, the number of subjects per dose level is illustrated in  Overall Study 
+Design Schematic . The number of subjects to be enrolled in Part A will depend upon the 
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 31 of 73 number of dose escalations, which in turn will depend upon the safety profile of ALKS 
+4230. If 6 or 7 dose levels are enrolled, then the number of subjects participating in Part 
+A is expected to be approximately 36 to 54.  
+Part B is designed to enroll subjects in each of 2 cohorts based on tumor type and prior 
+therapy. The sample size of each cohort was chosen based on methodology described by 
+Simon regarding optimal 2 -stage designs for Phase 2 studies ( Simon 1989 ). The intention 
+in this study is to enroll cohorts that correspond to the first stage of such a design. The 
+assumed alpha is 0. 05 and power is 90%. Enrollment to these cohorts will follow a PR 
+(unconfirmed) Simon’s two -stage design enrollment as outlined in section 3.4 for Part B . 
+Response assessments will be based on the RECIST and iRECIST guidelines.  
+ 
+The sample size of each cohort was chosen based on methodology described by Simon 
+regarding optimal 2 -stage designs for Phase 2 studies ( Simon 1989 ). The intention in 
+this study is to enroll cohorts that correspond to the first stage of such a design. The 
+assumed alpha is 0.15 and power is 85%. Any of the following Part C cohorts may be 
+stopped early if inadequate activity is observed:  
+• PD-1/L1 unapproved tumor types  cohort (zero responses in the first 15 
+subjects)  
+• PD-1/L1 approved tumor types (PD -1/L1 pretreated) cohort (zero responses in 
+the first 15  subjects)  
+• PD-1/L1 approved tumor types (PD -1/L1 treatment naive) cohort (≤3 objective 
+responses in the first 20  subjects)  
+The Part C rollover cohort (Cohort 4) is designed to provide access to ALKS 4230 in 
+combination with pembrolizumab for subjects initially enrolled into study Part A and Part 
+B. It is estimated that between 0 and 54 subjects may potentially enter this cohor t. 
+Participation in the rollover cohort does not contribute to the overall number of subjects 
+exposed to ALKS 4230. The rollover cohort will close to enrollment if the other 3 Part C 
+cohorts have closed early due to insufficient antitumor activity . Enrollm ent to these 
+cohorts will follow a partial response (unconfirmed) Simon’s two -stage enrollment  as 
+outlined in section 3.4 for Part C.  
+ 
+3.7. TREATMENT ASSIGNMENT & BLINDING  
+Randomization is not planned for this open -label study.  
+Blinding is n ot applicable for this open -label study.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 32 of 73 3.8. ADMINISTRATION OF STUDY DRUG  
+3.8.1.  ALKS 4230 Dosing and Administration  
+ALKS 4230 will be administered IV as a 30 -minute infusion  
+for 5 consecutive days, followed by a period off treatment in repeating cycles. During 
+Cycle 1 of Parts A and B, the period off treatment will be 9 days, resulting in a cycle 
+length of 14 days (2  weeks). Cycle 2 and subsequent cycles will have a period off 
+treatment of 16 days, resulting in a cycle length of 21  days (3 weeks) for each cycle. 
+Infusion for each dosing day of each cycle should begin within 2  hours (plus or minus) of 
+the infusion start time for Day 1 of that cycle. Emergency resuscitation equipment should 
+be available. For the first 2 treatment cycles of Part A, ALKS  4230 will be administered 
+inpatient in a medical facility with access to medical support measures and to the 
+intensive care unit, if needed. Subjects may be discharged on Day  6 of each of the first 
+2 treatment cycles if medically stable. In the absence of DLTs, subsequent treatment 
+cycles may be administered on an outpatient basis. For Part B and Part C of the study, 
+administration of ALKS 4230 may be done in an outpatient setting . 
+In Part C, on days where ALKS 4230 is administered in combination with pembrolizumab, 
+ALKS 4230 should be administered as an infusion 60 ( ±30) minutes after the completion 
+of pembrolizumab infusion. For Part C, a subject’s ALKS 4230 doses  may be reduced by 1 
+dose level as needed at the discretion of the Investigator.  
+Sites should make every effort to target infusion timing to be as close to 30 minutes as 
+possible. However, given the variability of infusion pumps from site to site, a window 
+between -5 minutes and +10 minutes is permitted ( i.e., infusion time is 30 minutes [ -5 
+minutes/+10 minutes]).  
+ALKS 4230 may be infused using peripheral or central venous access per local standards 
+of care and the treating investigator’s judgement. All patients should have adequate 
+intravenous access to allow the immediate management of toxicities. Subjects who do 
+not have adequate peripheral venous access should have a central venous access device 
+placed per local standards of care.  
+The a mount of drug administered is based on subjects’  body weight as measured at Day 1 
+(72 hours) of each cycle.  
+Sites must have written procedures in place detailing the healthcare personnel required 
+to be on site during subject dosing, the availability of equipment and medications 
+necessary to treat an emergency (should it occur) and the process for transferring a 
+subject to a medical facility if necessary.  
+3.8.2.  Pembrolizumab Dosing and Administration  
+Pembrolizumab is to be administered as an IV infusion over 30 minutes in a dose of 200  mg 
+every 3  weeks, in  accordance with the prescribing information ( Keytruda 
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 33 of 73 [pembrolizumab] USPI ). Subjects will be monitored for at least 1  hour for potential acute 
+reactions to pembrolizumab prior to administration of ALKS  4230. 
+Sites should make every effort to target infusion timing to be as close to 30 minutes as 
+possible for either drug. However, given the variability of infusion pumps from site to 
+site, a window between -5 minutes and +10 minutes is permitted for ALKS 4230 and 
+pembrolizumab ( i.e., infusion time is 30 minutes [ -5 minutes/+10 minutes]).  
+Pembrolizumab is to be obtained from the study sites’ pharmacies, from commercial 
+supplies , or provided by Sponsor in countries where pembrolizumab is not yet approved. 
+ 
+ 
+ 
+  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 34 of 73 3.9. STUDY PROCEDURES AND FLOWCHART  
+The schedules of visits and assessments for Part A, Part B, Part C , and Extension Phase of 
+Part B and C  can be found in section 8.2 of protocol .  
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 35 of 73 4. ENDPOINTS  
+4.1. PRIMARY ENDPOINT  
+• The incidence of DLTs from the first dose through the end of the DLT 
+observation period (Part A)  
+• The incidence and severity of treatment -emergent AEs according to the 
+National Cancer Institute (NCI) Common Terminology Criteria for Adverse 
+Events (CTCAE) version 4.03 or higher (Parts A, B, and C)  
+• ORR based on Response Evaluation Criteria in Solid Tumors (RECIST) guidelines 
+version 1.1 (Eisenhauer et al 2009) (Part B and Part C)  
+ 
+4.2. SECONDARY ENDPOINTS  
+• Serum concentrations of ALKS 4230 and descriptive PK parameters  
+• Presence of anti -ALKS 4230 antibodies in serum  
+• Immune (i -) ORR (iORR) based on Immune RECIST (iRECIST) guidelines ( Seymour 
+et al 2017 )  
+• Disease control rate (DCR) based on RECIST guidelines and immune DCR (iDCR) 
+based on iRECIST guidelines  
+• DOR based on RECIST guidelines and immune DOR (iDOR) based on iRECIST 
+guidelines  
+• DRR for Part B and Part C Cohorts C5, C6, C7 only  
+• Progression -free Survival (PFS) and immune PFS (iPFS) for Part B and Part C 
+Cohorts C5, C6, C7 only  
+• Numbers of circulating CD8 T cells, Tregs, and NK cells in peripheral blood  
+• Serum concentrations of IL -6 and other cytokines  
+ 
+4.3. EXPLORATORY  ENDPOINTS  
+•  
+ 
+  
+  
+  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 36 of 73 •  
+  
+ 
+4.4. ANTITUMOR ACTIVITY  ENDPOINT S 
+• Objective response rate (ORR) based on Response Evaluation Criteria in Solid 
+Tumors (RECIST) guidelines version 1.1 and Immune (i -) ORR (iORR) based on 
+Immune RECIST (iRECIST) guidelines ( Seymour et al 2017 ) 
+• Disease control rate (DCR) based on RECIST guidelines and immune DCR (iDCR) 
+based on iRECIST guidelines  
+• Duration of response ( DOR) based on RECIST guidelines and immune DOR (iDOR) 
+based on iRECIST guidelines  
+• Progression -free Survival (PFS)  based on RECIST and immune PFS (iPFS) based on 
+iRECIST for Part B and Part C Cohorts C5, C6, C7 only  
+• Time to response (TTR) based on RECIST guidelines  and immune TTR (iTTR) based 
+on iRECIST guidelines  
+4.5. SAFETY ENDPOINTS  
+Safety will be assessed using the following:  
+• DLTs 
+• Treatment -emergent adverse events ( TEAEs ) 
+• Laboratory Evaluations  (hematology , coagulation, chemistry , urinalysis tests)  
+• Vital Signs  (systolic and diastolic blood pressure, pulse, respiratory rate, and oral 
+body temperature ) 
+• ECG parameters ( overall assessment; heart rate; RR, PR, QRS, and QTc intervals)  
+• ECOG Performance Status  
+4.6. TISSUE BIOMARKERS  ENDPOINTS   
+Collection of fresh tumor samples via biopsy is optional during the study. Subjects with 
+accessible tumors who are willing to undergo biopsy should provide samples at baseline 
+and while on treatment around C2D8. A punch biopsy is preferred for tissue colle ction 
+from melanoma patients.  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 37 of 73 These samples will be analyzed by immunohistochemistry and/or immunofluorescence for 
+markers of immune activation. They can also be used for gene expression analysis using  
+method such as NanoString. The tissue biomarker data will be presented in data listings  and 
+done separately for PART A, B and C respectively .   
+ 
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 38 of 73 5. ANALYSIS SETS  
+5.1. SAFETY POPULATION  
+In Part A and Part B, the Safety Population will include all subjects who receive at least 
+1 dose of ALKS  4230. In Part C, the Safety Population will include all subjects who receive 
+at least 1 dose of ALKS  4230 or pembrolizumab. The Safety Population  will be used for all 
+safety analyses.  
+5.2. ANTITUMOR EVALUABLE POPULATION  
+The Antitumor Evaluable Population consists of all subjects who complete two cycles of 
+therapy and have at least one follow -up scan.  
+The Antitumor Evaluable Population  will be used for the antitumor activity analyses.  
+5.3. PROTOCOL DEVIATIONS  
+All protocol deviations related to study inclusion or exclusion criteria, conduct of the 
+trial, subject management , or subject assessment will be listed. The list of protocol 
+deviations  will be finalized  per the protocol deviation  and non -compliance ( PDNC ) 
+management plan  and will be reviewed by the Sponsor, the principal investigator, the 
+study statistician , and the study medical monitor  and finalized before database lock.  Only 
+major protocol deviations will be summarized.  
+5.4. PHARMACODYNAMIC POPULATION  
+The Pharmacodynamic Population consists of all subjects who received at least 1 dose of 
+ALKS 4230 and have at least 1 available post -baseline pharmacodynamics measurement.  
+Subjects who may have had any AEs or protocol deviations that are deemed to impact the 
+pharmacodynamics measurements may be excluded from the pharmacodynamics analysis 
+and summary statistics, which will be documented in the clinical study report.   
+The Pharmacodynamic Population will be used for the pharmacodynamic parameter 
+calculations, graphical displays of individual data, and the listings of cytokine 
+concentrations and pharmacodynamic parameters.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 39 of 73 6. GENERAL ASPECTS FOR STATISTICAL  ANALYSIS  
+6.1. GENERAL METHODS  
+• Data will be summarized for Part A , Part B,  and Part C separately  when analysis is 
+applicable for the part . For Part A, the summary tables will be presented by dose 
+cohorts  (0.1 µg/kg, 0.3 µg/kg, 1 µg/kg, 3 µg/kg, 6 µg/kg, 8 µg/kg,  and 10 µg/kg  ALKS 
+4230) and overall, and data listings will be ordered by dose cohorts  and subject  ID. 
+For Part B, the summary tables will be presented by expansion cohorts with specified 
+tumor types  (RCC and Melanoma)  and overall, and data listings will be ordered by 
+expansion cohorts and subject  ID. For Part C, the summary tables will be presented 
+by cohorts based on subject’s tumor type  and prior treatment with PD -1 or rollover 
+from Part A or B ( Safety Run -in 1 ug/kg,  Cohort 1 : PD-1/L1 unapproved tumor types  
+plus Safety Run -in 3 ug/kg , Cohort 2: PD -1/L1 approved tumor types (PD -1/L1 
+pretreated), Cohort 3: PD -1/L1 approved tumor types (PD -1/L1 treatment naïve ), 
+Cohort 4: Monotherapy  Rollover , Cohort 5: Melanoma, Cohort 6: NSCLC, C ohort 7: 
+SCCHN ), and overall, and data listings will be ordered by cohorts and subject ID.   
+• The continuous variables will be summarized using number of observation s (n), mean, 
+standard deviation (SD), median, minimum , and maximum unless otherwise specified. 
+All estimation s will include a point estimate and the corresponding 95% confidence 
+interval. All mean  (arithmetic and geometric)  and median values will be formatted to 
+1 more decimal place than the measured value. SD values will be formatted to 2 more 
+decimal places than the measured value. Minimum and maximum values will be 
+presented to the same number of decimal places as the measured value.  The 
+coefficient of variation (CV) % will be formatted to 1 decimal point.  
+• The categorical variables will be summarized using frequency counts and percentages 
+of subjects. All percentages will be rounded to 1 decimal place. Number and 
+percentage values will be presented as xx (xx.x%).  
+• P-values will be output in the format: “0.xxx”, where xxx is the value rounded to 3 
+decimal places. Any p -value less than 0.001 will be presented as <0.001. If the p -value 
+is returned as >0.999 , then it will be present ed as >0.999.  
+• Confidence intervals (CIs) will be presented as 2 -sided 95% CIs , unless specified 
+differently in specific analyses.  
+• For concomitant medications and AEs, which are not associated to a visit,  the cycles 
+are determined based on their start dates. For other collected data, the cycles are 
+determined based on their visit dates. When there are multiple laboratory records for 
+a scheduled visit, the one closest to the target date (relative to the Day  1 in that 
+cycle) will be used for analysis. If there are 2 or more records  (for repeated test, for 
+example) with the same time period to the target date, the later one will be used for 
+analysis unless specified differently in specific analyses.   
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 40 of 73 • Partial AEs/concomitant medications start/end dates will be imputed on the rules 
+specified in Section 6. 3.1. 
+• The cumulative tumor response and AE data will be summarized for subjects who 
+enter into the Extension Phase . 
+• All laboratory data will be reported using international system of units.  
+• All analyses will be performed using SAS® statistical software package, version 9. 4 or 
+higher .  
+6.2. KEY DEFINITIONS  
+6.2.1.  Cycle 1 Day 1  
+Cycle 1 Day 1 (C1D1) is defined as the date of the first dose of ALKS 4230 in the first 
+dosing cycle. For rollover patients, C1D1 is the date of first ALKS 4230 dosing for each 
+part respectively.    
+6.2.2.  Enrollment  
+A subject is considered enrolled onto the study if  a patient signed a  consent form . The 
+enrollment date is set to consent date . 
+Screen failures will not be recorded in the database.  
+6.2.3.  Treatment Period  
+The treatment period starts on C1D1 and lasts until the end of the  treatment  date 
+collected in the database  
+6.2.4.  Study Day  
+The study day is determined relative to C1D1  in the study, while the cycle day is the day 
+relative to the first dose date in that cycle. The day of the first dose of study medication 
+in Cycle 1 will be defined as Study Day 1. The day prior to the first dose of study 
+medication is Study Day -1. There is no Study Day 0. 
+6.2.5.  Cycle  Start/End Day 
+The start date of each treatment cycle will be calculated based on study drug exposure 
+records for each subject. The start date of the cycle will be the date when the subject 
+receives the first study drug of the cycle, noted as S1, S2, S3, etc.  For the Lead -In 
+Monotherapy cycle, the start date will be the first date when the subject receives ALK 
+4230 Monotherapy.  For the combination cycles, the start date will be the first date the 
+subject receives the ALK 4230 + Pembrolizumab combination therap y. 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 41 of 73 The end date of each cycle is calculated as the day before the start date of the following 
+cycle : ie, E i = Si+1 - 1. For the last cycle, the end date will be calculated based on  the last 
+study dose date. The cycle end date is the last dose date +  16 except when cycle 1 is the 
+last cycle in Parts A and B, for which the cycle end date is the last dose date +  9. 
+6.2.6.  Cut-Off Date of Final Analysis  
+This study has no t specifi ed the treatment duration . For the purpose of final analysis, 
+the cut -off date of final analysis will be  determined by the sponsor when more than 90% 
+enrolled patients discontinued the treatment and all responders have been followed at 
+least 6 months .  This will be considered as the main analyses. A full set of SAP defined 
+TLFs will be produced and used for preparing the clinical study report (CSR).   
+6.2.7.  Baseline and Change from Baseline  
+Study Baseline  
+Baseline value is defined as the last value prior to  the first dose of study treatment 
+administ ration.  This value could be the pre-infusion  assessment on the first dose date or 
+the assessment at the screening visit. I f multiple values are present for the same date, 
+the values from the last assessment will be used as the baseline unless specified. The 
+standard 12 -lead ECGs will be performed in triplicate 5 minutes apart at all  time points 
+outlined in the protocol. The median value of the last tripl icate ECGs prior to the first 
+dose of study treatment will be used for summary purposes.  
+Part C Baseline  for Rollovers  
+Baseline value is defined as the last value prior to the first dose of study treatment 
+administration in Part C. This value could be the pre -infusion assessment on the first dose 
+date. If multiple values are present for the same date, the values from the l ast assessment 
+will be used as the Part C baseline unless specified. The standard 12 -lead ECGs will be 
+performed in triplicate 5 minutes apart at all time points outlined in the protocol. The 
+median value of the last triplicate ECGs prior to the first dose  of study treatment will be 
+used for summary purposes.  
+The rollover subjects have two baseline values. The study baseline values are used for 
+Part A and Part B analysis, and Part C baseline values are used for Part C analysis.  
+Absolute c hange from baseline (CFB) = (post-baseline  value – baseline value).  
+Fold change from baseline (FCB) = post -baseline value/ baseline value.  
+For the purpose of tabulations  for lab, ECG and vital sign , the unscheduled post-baseline  
+values generally will be excluded  from summary tables, but will be included in the listing . 
+Unscheduled visits will be considered for analyses of worst CTCAE lab oratory  grades.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 42 of 73 6.3. MISSING DATA  
+All available data of the subjects who withdraw from the study for any reasons will be 
+analyzed. There will be no imputation of missing data for the analysis, except for partial 
+dates specified below.  
+If the date and/or time that an AE started  is incomplete , the event will be considered a 
+TEAE unless the partial dates/times give sufficient detail in order to prove that the AE 
+started prior to the first dose in the study. In such cases the event will not be considered 
+a TEAE.   
+For rollover subjects, if the date and/or time that an AE started is incomplete, the event 
+will not be considered a Part C TEAE unless the partial dates/times give sufficient detail 
+to prove that the AE started on or after  the first dose of Part C in the study.  
+If the date that a medication started  is incomplete , the medication will be considered as 
+concomitant unless the partial date(s) give sufficient detail in order to prove that the 
+medication was started and stopped prior to the day of first dose in the study. In such a 
+case, the medication will be considere d as prior medication.  
+For rollover subjects, if the date that a medication started is incomplete, the medication 
+will be considered as Part C concomitant unless the partial date(s) give sufficient detail 
+in order to prove that the medication was started and stopped prior to the  day of first 
+dose of Part C in the study.  
+6.3.1.  Imputation of Missing Adverse Events/Prior or Concomitant 
+Medications  
+Incomplete Start Date:  
+Missing day and month  
+• If the year is the same as the year of the first dosing date, then the day and month 
+of the first do sing date will be assigned to the missing fields.  
+• If the year is prior to the year of first dosing date, then December 31 will be 
+assigned to the missing fields.  
+• If the year is after the year of first dosing, then January 1 will be assigned to the 
+missing fields.  
+Missing day only  
+• If the month and year are the same as the year and month of first dosing date, 
+then the first dosing date will be assigned to the missing day.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 43 of 73 • If either the year of the partial date is before the year of the first dosing date or 
+the year of the partial date and the first dosing date are the same but the month 
+of partial date is before the month of the first dosing date, then the last day of 
+the m onth will be assigned to the missing day.  
+• If either the year of the partial date is after the year of the first dosing date or 
+the year of the partial date and the first dose date are the same but the month of 
+partial date is after the month of the first dosing date, then the first day of the 
+mont h will be assigned to the missing day.  
+• If the stop date is not missing, and the imputed start date is after the stop date, 
+the start date will be imputed by the stop date.  
+Missing day, month, and year  
+• No imputation is needed, and the corresponding AE will be included as a TEAE of 
+all study part s to which it is applicable.  
+Incomplete Stop Date:   
+If the imputed stop date is before the start date, then the imputed stop date will be equal 
+to the start date.  
+Missing day and month  
+• If the year of the incomplete stop date is the same as the year of the last dosing 
+date, then the day and month of the last dosing date will be assigned to the missing 
+fields.  
+• If the year of the incomplete stop date is prior to the year of the last dosing date 
+or prior to the year of the first dosing date, then December 31 will be assigned to 
+the missing fields.  
+• If the year of the incomplete stop date is prior to the year of the last dosing date 
+but is the same as the year of the first dosing date, then the first dosing date will 
+be assigned to the missing date.  
+• If the year of the incomplete stop date is after the year of the last dosing date, 
+then January 1 will be assigned to the missing fields.  
+Missing day only  
+• If the month and year of the incomplete stop date are the same as the month and 
+year of the last dosing date, then the day of the last dosing date will be assigned 
+to the missing day.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 44 of 73 • If either the year of the partial date is not equal to the year of the last dosing 
+date or the year of the partial date and the last dosing date are the same but the 
+month of partial date is not equal to the month of the last dosing date, then the 
+last day  of the month will be assigned to the missing day.  
+6.4. VISIT WINDOWS  
+Data collected at unscheduled visits that occurred outside the time windows specified in 
+the protocol ( e.g., postdose laboratory tests done on days not specified in the protocol) 
+will be included in the data listings but will not be included in analyses summarized by 
+timepoint unless otherwise stated.  
+For summaries by time  point, if data is collected at multiple time  points within a protocol 
+specified time  window  (protocol section 8.2) , the result taken at the closest time to the 
+planned nominal time  point will be used, unless specified otherwise. If this time is equal 
+to either side of the nominal time -point for 2 measures, the earlier measure will be taken.  
+6.5. POOLING OF C ENTERS  
+Data from all study centers will be combined for analysis.  
+6.6. SUBGROUPS  
+Some analyses by subgroups  are planned , for example subgroup analysis based on the 
+tumor type . 
+6.7. HANDLING PHARMACODYNAMICS DATA BELOW THE LOWER LIMIT OF 
+QUANTIFICATION OR MISSING  
+For pharmacodynamic immunophenotype results, serum cytokine concentration 
+summary, individual serum cytokine concentration versus time curves, and mean 
+concentration versus time graphs, the following rules will apply:  
+• Serum cytokine concentration values below the assay’s lower limit of 
+quantification (LLOQ) for all time points will be treated as ½ of the LLOQ.  
+• For baseline with missing values, the fold change from baseline for relevant 
+pharmacodynamic parameters will not be calculated. The sampling time of pre -
+infusion samples relative to dosing will be treated as zero.  
+• If the actual time of sampling is missing, the nominal time will be used.  
+• No further imputation will be applied to any missing values.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 45 of 73 • If one or both AC values are missing at a time point for NK and T reg cells or for CD8 
+T and T reg cells, then no ratios (R NK/Treg or RCD8/Treg ) will be calculated for the time 
+point.  
+ 
+ 
+ 
+ 
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 46 of 73 7. DEMOGRAPHIC , OTHER BASELINE  CHARACTERISTICS  AND 
+MEDICATION  
+7.1. SUBJECT DISPOSITION AND WITHDRAWALS  
+The total number of subject s enrolled to each study part will be summarized  separately 
+for Part A, Part B, and Part C . A summary of subject disposition will be presented for  the 
+Safety Population , Antitumor Evaluable Population and subject s who discontinued from  
+the treatment and discontinued from the study.   
+Reasons for treatment discontinuation and study discontinuation will be summarized  for 
+all subjects with the following categories:  
+• Adverse event  
+• Lost to follow -up 
+• Pregnancy  
+• Noncompliance resulting in a p rotocol deviation  
+• Study terminated by sponsor  
+• Withdrawal by subject  
+• Progressive disease  
+• Clinical progression  
+• Physician decision  
+• Rollover from monotherapy to combination therapy (Part C)  (this is only applied  to 
+part A and Part B disposition tables)  
+• Other  
+Subjects’ completion/discontinuation status will be listed, including subject identifier, 
+inform ed consent date, date of completion/early discontinuation and, for those who 
+discontinued early, the specific reason(s) for discontinuation.  
+Inclusion/exclusion criteria definitions and violations will be listed. If no 
+inclusion/exclusion violations are reported, this will be noted in place of the listing.  
+Major protocol deviation s will be summarized by categories for all subjects. All protocol 
+deviations related to study inclusion or exclusion criteria, conduct of the trial, subject 
+management , or subject assessment will be listed.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 47 of 73 7.2. DEMOGRAPHIC AND OTHER  BASELINE CHARACTERISTICS  
+Age (years), height (cm), weight (kg), and BMI (kg/m2) at baseline will be summarized 
+descriptively. Sex, race, ethnicity, BMI category  (underweight: < 18.5 kg/m2, normal : 
+18.5 - <25 kg/m2, overweight : 25 - <30 kg/m2, and obesity : ≥30 kg/m2), and ECOG 
+performance status  (0, 1, >1)  will be summarized by frequency counts.  Body mass index  
+is calculated based on weight and height at baseline.  
+Demographic data and baseline characteristics (as detailed above) as well as informed 
+consent data will be listed . 
+Descriptive statistics for prior line of therapy will be summarized.  
+7.3. CANCER DISEASE HISTORY  
+Cancer disease history will be summarized. The number and percentage of subjects in 
+each of the following categories will be presented.  
+• Method of Initial Diagnosis  
+• Primary Origin of Tumor Type  
+The time from initial diagnosis to first dose  (years)  and time from most recent disease 
+progression to first dose  (weeks)  will be summarized descriptively.  
+Cancer disease history will be listed for the Safety Population . 
+7.4. MEDICAL HISTORY  
+Reported medical history terms will be coded using Medical Dictionary for Regulatory 
+Activities (MedDRA) version 25.0 or higher . General medical history information will be 
+summarized by category of medical history being collected. Medical history will be listed  
+for the Safety Population . 
+7.5. PRIOR SURGERIES AND THERAPIES  
+A frequency tabulation of the number of subjects with previous cancer -related surgery, 
+radiation therapy, and systemic therapy will be given. In addition, tabulation will be 
+provided by location of radiation therapy and type of previous systemic therapy.  
+Prior cancer -related surgery, prior radiation therapy, and prior systemic therapy will be 
+listed.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 48 of 73 7.6. PRIOR AND CONCOMITANT MEDICATION  
+Prior medications will be defined as any medications taken prior to the C1D1 . 
+Concomitant medications will be defined as medications ongoing or stopped on or after 
+the date of the first dose of ALKS 4230.  
+Prior and concomitant medications will be coded with World Health Organization (WHO) 
+Drug Dictionary version March 2016  or higher . 
+The number and percentage of subject s using each concomitant medication will be 
+displayed together with the number and percentage of subject s using at least 1 
+medication within each medication group and subgroup.  Prior medications will be 
+presented in a data listing only.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 49 of 73 8. EFFICACY  
+Antitumor activity will be determined by the measurement of extent of known  disease at 
+baseline and approximately  every 5 to 6 weeks, following  each even -numbered treatment 
+cycle. Appropriate radiological procedures (computed tomography  (CT) scanning, 
+magnetic resonance imaging  (MRI) , radionuclide imaging) should be conducted to 
+evaluate areas of disease. Superficial skin tumors will be measured with calipers and 
+photographed for evaluation. It is requested that the initial method of measurement be 
+maintained throughout the course of the study. The determination of response will be 
+conducted according to the standard RECIST 1.1 criteria as well as the i RECIST  for part A, 
+B, and C.   
+According  to the guidelines for RECIST 1.1, t umors are assessed as complete response 
+(CR), partial response (PR), stable disease (SD), or progressive disease (PD).  
+Responses assigned using iRECIST  have a prefix of “i” e.g., “immune” complete response 
+(iCR) or partial response (iPR), stable disease (iSD), and unconfirmed progressive disease 
+(iUPD) or confirmed progressive disease (iCPD) to differentiate them from responses 
+assigned using RECIST 1.1.  
+RECIST 1.1 and iRECIST  have the same overall response until RECIST 1.1 progressive 
+disease (PD) is reached.  The iRECIST CRF will be used if patient has a RECIST disease 
+progression and clinical stable, and continues on treatment . The principles used to 
+establish objective tumour response are largely unchanged from RECIST 1.1, but the 
+major change for iRECIST is the concept of resetting the bar if RECIST 1.1 progression is 
+followed at the next assessment by tumour shrinkage. iRECIST  defines iUPD on the basis 
+of RECIST 1.1 principles; howe ver, iUPD requires confirmation.  
+As the iRECIST CRF page is only triggered after patients has iUPD and clinical stable. In 
+the process to create iRECIST analysis dataset, the tumor response data before iUPD will 
+be copied from RECIST 1.1  
+To note, determination of response is conducted according to iRECIST beginning with 
+Amendment 10. Prior to Amendment 10 it was conducted by IrRC.  
+In studies with immunotherapeutic agents, CR, PR, or SD have been shown to occur after 
+an increase in tumor burden characterized as PD by RECIST criteria. The conventional 
+response criteria such as RECIST may not adequately assess the activity of 
+immunothe rapeutic agents. PD evaluated radiologically may not mean therapeutic 
+failure, as responses to immune therapies may occur after conventional PD. The 
+appearance of measureable antitumor activity may take longer for immune therapies than 
+for cytotoxic therap ies. With immunotherapeutic agents, there should be allowance for 
+clinically insignificant PD, defined as small new lesions in the presence of other responsive 
+lesions, which may occur even though the subject is responding to the immunotherapy. 
+Stable dise ase may also represent antitumor activity with iRECIST. Therefore, RECIST and 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 50 of 73 iRECIST will be used to ensure a more comprehensive evaluation of tumor response for 
+ALKS 4230.  
+Efficacy endpoints  based on irRC and iRECIST will not be  derived and associated analyses 
+will not be  performed as the iRECIST  was implemented during the middle of the study 
+conduct to replace irRC. The sites have not consistently record the iRECIST data which 
+could provide misleading information.  
+8.1. OVERALL RESPONSE RATE (ORR)   
+ORR is defined as the proportion of subjects with objective evidence of complete response 
+(CR) or partial response (PR) among the number of subjects evaluable for antitumor 
+activity based on RECIST.  
+At the analysis stage, the best overall response (BOR) will be assigned for each subject as 
+the best response recorded after initiation of study treatment , where the confirmation 
+of CR or PR is required.  The BOR assignment will follow the table below.  
+ 
+If applicable, responses recorded after initiation of new anticancer treatment will be 
+excluded.   
+The BOR will be calculated separately for those subjects in the dose -escalation portion 
+of the study (Part A), in the dose -expansion portion of the study (Part B), and in the 
+combination therapy part of the study (Part C).  The BOR will be summarized by  cohorts 
+for Part A, Part B, and Part C. In addition, the subjects who have SD more than 6 months 
+will be summarized.  
+Summarization of ORR will be presented by frequency counts , percent age, and 95%  CI. 
+The CI will be obtained using an exact approach given the small sample size .  
+
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 51 of 73 The sum of the diameters of all target lesions reported at each visit will be graphed by 
+spider plot (%  change in target lesion over time) and waterfall plot (best % change in 
+target lesion). A swimmer plot will be used to display the characteristics of the overall 
+responses over time .  
+In addition, listings of RECIST overall evaluation, target lesions , non-target  lesions , and 
+new lesion  will be provided.  
+8.2. DISEASE C ONTROL RATE (DCR)  
+DCR is defined as the proportion of subjects with objective evidence of CR, PR  (where CR 
+or PR requires confirmation) , or SD  (where the SD  requires to occur  at Cycle 4 or later ).  
+The DCR will be calculated separately for those subjects in the dose -escalation portion of 
+the study  (Part A) , in the dose -expansion portion of the study  (Part B) , and in the 
+combination therapy part of the study  (Part C) . 
+Summarization of DCR will be presented by frequency counts, percentage, and 95%  CI. 
+The CI will be obtained using an exact approach given the small sample size . 
+8.3. DURATION OF R ESPONSE  (DOR)  (PART B AND PART C ) 
+DOR is defined as the time from the first documentation of response (CR or PR) to the 
+first documentation of objective tumor progression or death due to any cause based on 
+RECIST.  
+The DOR will be calculated for RECIST respond ers.  
+Censored subjects:  
+• Subjects who are alive and progression free as of the analysis cut -off date will be 
+censored at their last evaluable tumor response assessment before initiation of 
+any new anticancer treatment.  
+• Subjects with two or more consecutive missing response assessments prior to 
+death or a visit with documented progression will be censored at the last date of 
+tumor assessment when the subject was documented to be progression free.  
+ 
+Subjects who never achieve CR or PR prior to starting any new anti -cancer treatment at 
+a lesion site will be excluded from the analysis.  
+ 
+If no CR/PR prior to starting any new anti -
+cancer treatment  excluded from the analysis  
+If respon der (CR/PR) and then PD/death  
+Without start of new anticancer  no censor  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 52 of 73 If responder (CR/PR) and then 
+start of new anticancer  
+(with PD/death or not , after this start of 
+new anticancer)  date of last evaluable tumor response 
+assessment before new anticancer is 
+censor date  
+If respon der (CR/PR) and then PD/death  
+Without start of new anticancer  
+But with two or more consecutive missing 
+response assessments prior to PD/death  date of tumor assessment when the 
+subject was documented to be progression 
+free is censor date  
+ 
+For Part B, t he DOR will be calculated as follows (in weeks):  
+(date of PD /death  in Part B  – date of first response (CR  or PR) in Part B + 1)/7  
+For Part C, the DOR will be calculated as follows (in weeks):  
+(date of PD/death in Part C – date of first response (CR or PR) in Part C + 1)/7  
+The distribution  of DOR will be estimated for Part B and Part C  using Kaplan -Meier 
+methodology. The median  point estimate DOR will be provided along with the two -sided 
+95% CI s for the antitumor evaluable  population. Kaplan -Meier curves will be provided . 
+Part A DOR information will be listed only.  
+To help in interpretation of the response data, a table with change on the frequency of 
+scans may be provided . 
+8.4. DURABLE RESPONSE RATE (PART B AND PART C)  
+Durable response rate is defined as the percentage of patients with an objective response 
+(complete or partial response per RECIST1.1) lasting continuously for 6 months and 
+starting any time within 12 months of initiating the study drug. The DRR will be 
+summarized by each tumor type.   
+Summarization of DRR will be presented by frequency counts, percentage, and 95% CI. 
+The CI will be obtained using an exact approach given the small sample size.  
+Analysis of Durable Response Rate will only be conducted as needed as the data allows . 
+8.5. PROGRESSION -FREE SURVIVAL (PFS) (PART B AND PART C  COHORTS C5, 
+C6, C7 ONLY ) 
+PFS is defined as the time from the first dose  of ALKS 4230 to the first documentation of 
+objective tumor progression  based on RECIST  or death due to any cause.   
+The protocol stated that the PFS analysis will be only performed for Part B and Part C 
+(Cohorts 5 -7). The additional PFS analysis in ovarian patients from the PD -L1 unapproved 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 53 of 73 cohort will be conducted as ovarian is identified as one of tumor types to advance further 
+clinical development in ALKS 4230 in combination with Pembrolizumab.  
+Subjects who do not have disease progression or have not died will be censored at the 
+last known time that the subject was progression -free.  
+Censored subjects:  
+• If a subject begins a new anticancer treatment (either systemic or local) prior to 
+documented progression or death, or a subject is removed from the study due to 
+undocumented clinical disease progression, then the subject will be censored at 
+the last asses sment where the subject was documented as progression -free prior 
+to the intervention.   
+• Subjects with two or more consecutive missing response assessments prior to a 
+visit with documented progression (or death) will be censored at the last date of 
+tumor assessment when the subject was documented to be progression free.  
+ 
+If no PD/death  
+Without start of new anticancer  the last known time that the subject was 
+progression -free is censor date  
+If start of new anticancer prior to  
+PD/death  or a subject is removed from 
+the study due to undocumented clinical 
+disease progression  
+ date of last assessment where the subject 
+was documented as progression -free prior 
+to the intervention  is censor date  
+If two or more consecutive missing 
+response assessments prior to PD/death   
+ date of the last date of tumor assessment 
+when the subject was documented to be 
+progression free  is censor date  
+ 
+ 
+For Part B, t he PFS will be calculated as follows (in weeks):  
+(date of PD /death in Part B  – first dose date  in Part B  + 1)/7  
+For Part C, the PFS will be calculated as follows (in weeks):  
+(date of PD /death in Part C – first dose date in Part C + 1)/7  
+The survival distribution of PFS will be estimated using Kaplan -Meier methodology. The 
+median RECIST PFS will be provided along with the two -sided 95% CI s based on the 
+antitumor evaluable  population. In addition, Kaplan -Meier curves will be provided. The 
+6-month and one-year PFS rate will be estimated using the Kaplan -Meier estimate.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 54 of 73 8.6. TIME TO RESPONSE (TTR)  (PART B  AND PART C ) 
+TTR is defined as the time from the date of first dose of study drug to the first 
+documentation of response (CR or PR)  based on the RECIST.  
+The TTR  will be ca lculated for RECIST  responders.  
+For Par t B, the TTR  will be calculated as follows (in weeks):  
+(date of first response (CR  or PR ) in Part B  – date of first study drug in  Part B + 1)/7  
+For Part C, the TTR  will be calculated as follows (in weeks):  
+(date of first response (CR  or PR ) in Part C – date of first study drug ) in Part C + 1)/7  
+The TTR will be summarized with descriptive statistics by cohort s for Part B and Part C.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 55 of 73 9. SAFETY  ANALYSES  
+The population used for safety analyses will be the Safety Population . Safety will be 
+assessed on the basis of AE s, clinical laboratory data, ECG parameters, phys ical 
+examinations, and vital signs . 
+9.1. EXTENT OF EXPOSURE  
+The ALKS 4230 administration profile will be summarized  by each part and cohort for the 
+safety population  with respect to duration  of exposure , number of doses by cycle, 
+cumulative doses received, number of cycles, average number of ALKS 4230 per cycle, 
+relative dose intensity, duration of treatment and duration of study follow -up time .  
+Number of patients who missed the dose will also be summarized by planned dosing day 
+and by cycle. Data will also be summarized for subject s with any infusion  interruptions  
+and reason for interruption , and subject s with dose adjustments . 
+For rollover subjects from P art A or Part B, subjects  will start  with 3ug/kg as per protocol. 
+However, some subjects might start wit h 6ug/kg as Part C C1D1  dosing. Therefore, the 
+6ug/kg should be used in relative dose intensity  calculation in the denomina tor as planned 
+dose.  
+In addition, the dose might be adjusted (either increase or decrease the dose) due to 
+tolerability or other reasons  after C1D1. In the relative dose intensity calculation, C1D1 
+dose is carried forward to the end of treatment as planned  dose regardless dose changes 
+during the treatment period.  
+Duration of exposure (days) = last dose date – first dose date + 1.  
+Treatment duration (days) = end of treatment (EOT)  date – first dose date + 1, in which 
+the last cycle end date will replace EOT date if the latter is missing .  
+In case of missing last cycle end date for rollover subjects in Part A or Part B, treatment 
+duration (days) will be calculated as Part C cycle 1 day 1 date – Part B cycle 1 day 1 date 
++ 1. If rollover subjects missing last cycle end date in Part C, take th e last dose date in 
+Part C + 16 days as the last cycle end date.  
+Relative dose intensity (%) = 100 × [total dose received ( ug/kg ) / total protocol planned 
+dose ( ug/kg )].  
+Duration of study (days) = end  of study (EOS)  date – first dose date + 1.  
+For those subjects with infusion interruptions, the reason for interruption will be 
+summarized. If the subject has multipl e interruptions caused by the same reason , the 
+subject is only counted once per reason category.   
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 56 of 73 Dose reductions and treatment  discontinuations will be recorded on the eCRF, along with 
+the AE/SAE or DLT that was associated with the change in dosing.  
+ALKS 4230 and pembrolizumab will be administered at a medical facility or study center 
+by study staff; therefore, compliance is ensured. The treatment compliance will not be 
+analyzed.  
+9.2. DOSE-LIMITING TOXICITIES  
+A DLT  is defined by any of the following events possibly, probably, or definitely related 
+to ALKS 4230 that are observed during the interval from C1D1 through C2D15:  
+• Grade 4 neutrophil count decreased (neutropenia) that has not recovered to Grade 
+2 (≥1,000 cells/mm3) within 15 days of the start of the cycle or requires an urgent 
+intervention ( e.g., use of hematopoietic colony -stimulating factors) or is 
+associated with clinically significant infection. Dosing with ALKS 4230 in the 
+current cycle will not be stopped due to neutropenia in the absence of urgent 
+intervention or clinically significant inf ection  
+• Febrile neutropenia (ANC <1,000 cells/mm3 with temperature >38.3 °C [101°F]) 
+that persists for more than 48 hours or requires an urgent intervention (eg, use of 
+hematopoietic colony -stimulating factors) or is associated with clinically 
+significant infection  
+• Grade 4 thrombocytopenia that does not recover to Grade ≤2 within 15 days of 
+the start of the treatment cycle  
+• Thrombocytopenia with a platelet count <30,000 with clinically significant 
+bleeding  
+• Any Grade 3 cardiac or central nervous system toxicity  
+• Liver transaminase elevation higher than 8 × ULN or total bilirubin higher than 
+6 × ULN that does not recover to Grade ≤2 or baseline within 1 week  
+• Grade 4 hypoalbuminemia  
+• Fever >40 °C sustained for >24 hours  
+• Hypotension requiring the use of pressors (eg, phenylephrine or dopamine, 
+administered for the purpose of increasing blood pressure) or prolonged 
+hospitalization (>48 hours) for hypotension requiring medical intervention  
+• Grade 3 or higher electrolyte abnormalities that do not recover to Grade ≤1 within 
+48 hours following medical management  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 57 of 73 • Increase in amylase or lipase that meets 1 of the following criteria:  
+o Asymptomatic Grade 4 elevation  
+o Asymptomatic Grade 3 elevation that does not resolve within 14 days  
+o >3 × ULN with acute severe abdominal pain (other mild symptoms at Grade 
+3 will not be considered as DLTs)  
+• Grade 3 or higher nausea, vomiting, or diarrhea lasting longer than 48 hours 
+despite maximum supportive care is a DLT.  
+• Any other Grade 4 non -hematologic toxicity or any other Grade 3 non -hematologic 
+toxicity that does not resolve to Grade ≤2 within 96 hours, other than fatigue or 
+anorexia. Fatigue and anorexia will not be considered DLTs.  
+• Any other toxicity or AE not defined above that results in subject removal from 
+the study or discontinuation of dosing by the Investigator (dose delays during Cycle 
+2 or later are not considered DLTs)  
+Any laboratory value that meets the DLT criteria as described above must be confirmed 
+with a second laboratory test for DLT criteria to be met.  
+Subjects without a DLT who receive fewer than 10 doses through C2D15 will be replaced 
+at the same dose level if the minimum number of evaluable subjects has not been reached 
+for the cohort. However, the subject may remain in the study if the Investigator f eels the 
+risk/benefit ratio is acceptable.   
+All DLTs will be summarized by system organ class and preferred term, and by cohort  for 
+Part A, and a corresponding listing of DLTs -like will be provided  for Part A.  
+9.3. ADVERSE EVENTS  
+Adverse events will be analyzed in terms of TEAEs , which are defined as AEs that are 
+newly occurring or worsening from the time of the first dose of study drug. Reported AE 
+terms will be coded using MedDRA version 25.0 or higher . The severity of the toxicities of 
+AEs will be graded according to the NCI CTCAE version 4.03  or higher .  
+The severity of toxicities of AE is graded  as mild (grade 1), moderate (grade 2), severe 
+(grade 3), life -threatening (grade 4) , or fatal (grade 5).  
+The relationship to study treatment is evaluated as definitely related, probably related, 
+possibly related, probably not related, and definitely not related. Events will be classified 
+as related vs non -related. A related AE is an event with a relationship to treatment as 
+definitely related, probably related, or possibly related to study drug; a non-related AE 
+is an event with relationship to treatment as probably not related, or definitely not 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 58 of 73 related. If the relationship to the study treatment is missing, the TEAE will be considered 
+to be treatment -related for table summary purposes.  
+TEAEs will be summarized by SOC and PT and by cohort . Some outputs with TEAEs based 
+on tumor type may be produced  for submission purpose . TEAEs with onset after the last 
+dose of the study treatment period are attributed to the treatment received during the 
+treatment period. Both event and subject  counts will be summarized. Subject  counts will 
+be complemented by percentages calculated using the number of  subject s exposed to 
+study drug as the denominator . 
+The following summaries will be provided:  
+• An overall summary of the number and percentage of subject s reporting TEAEs , 
+serious TEAEs, grade 3 or higher AEs,  death,  treatment -related TEAEs, and TEAEs 
+leading to study discontinuation , leading to treatment discontinuation, leading to 
+dose reduction, leading to dose interruption  
+• TEAEs by SOC and PT (including all severity grades)  
+• Most common (>= 10%) TEAEs by SOC and PT  
+• TEAEs by SOC, PT , and worst  severity  grade  
+• TEAEs by SOC, PT , and highest  relationship  (Related, Not Related) , for Part C the 
+highest relationship to ALKS and Pembrolizumab  will be summarize d in separate 
+table s 
+• ALKS 4230 -related  TEAEs by SOC and PT  
+• Pembr olizumab -related TEAEs by SOC and PT  
+• Serious TEAEs by SOC and PT 
+• Treatment -related  Serious TEAEs by SOC and PT  
+• Grade 3 or higher related TEAEs by SOC and PT 
+• TEAE leading to treatment discontinuation by SOC and PT  
+• TEAE leading to dose reduction  by SOC and PT  
+• TEAE leading to dose interruption  by SOC and PT  
+• Treatment -related TEAE leading to dose interruption  
+• TEAEs leading to study discontinuation by  SOC and PT 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 59 of 73 • Related TEAEs leading to study discontinuation by SOC and PT  
+• TEAEs meeting DLT  leading to study discontinuation by SOC and PT  
+The tables will be sorted by overall SOC  alphabetically  and then, within a SOC, by overall 
+descending frequency of PT based on the subject  count for the overall column.  
+5 PTs including Neutrophil count decreased, Haemoglobin decreased, Platelet count 
+decreased, Supraventricular tachycardia, and Lymphocyte count decreased will be 
+grouped into new PTs  as Neutropenia , Anaemia , Thrombocytopenia , Supraventricular 
+extrasystoles , and Lymphopenia  respectively. The new grouped SOCs will be Cardiac 
+disorders for the original PT of Supraventricular tachycardia, and Blood and lymphatic 
+system disorders  for the rest of 4 original PTs.  
+For summaries by SOC, PT, and intensity, subject is counted only once at the highest 
+grade for which the event oc curred in the SOC  and the highest grad e for each unique PT 
+within that SOC .  
+In addition , AEs reported post 30 days of safety follow -up period may be summarized by 
+SOC and PT and/or listed  separately . 
+The original date and time will be shown on all listings of AEs. Listings will be provided 
+for all TEAEs, AEs result ing in death, serious TEAEs, AESIs, DLTs and AEs leading to dose 
+reduction , dose interruption  and discontinuation .  
+9.4. LABORATORY EVALUATIONS  
+Clinical laboratory data are collected at the time points specified in  study procedures and 
+flow chart . The assessments are presented in the table on next page.  
+  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 60 of 73 Hematology  Biochemistry  Urinalysis  
+• Hematocrit  
+• Hemoglobin  
+• Red blood cell count  
+• Total and differential 
+(absolute) white blood 
+cell count  
+• Platelets  General Chemistry  
+• Albumin  
+• Bicarbonate  
+• Calcium  
+• Chloride  
+• Creatine phosphokinase  
+• Glucose  
+• Magnesium  
+• Phosphorus  
+• Potassium  
+• Sodium  
+• Total protein  
+• Uric acid  
+Liver Function Tests  
+• Alanine transferase  
+• Alkaline phosphatase  
+• Aspartate transferase  
+• Lactic dehydrogenase  
+• Total bilirubin  
+Renal Function Tests  
+• Blood urea nitrogen  
+• Creatinine  
+• Thyroid Test  
+• Thyroid -stimulating 
+hormone  
+• Serum Tumor Marker  
+• CA125 (ovarian 
+cancer subjects only)  
+• CA19-9 (gastric and 
+pancreatic cancer 
+subjects only)  
+• PSA (prostate cancer 
+subjects only)  
+• CEA (colorectal 
+cancer subjects only)  • Bilirubin  
+• Color and appearance  
+• Glucose  
+• Ketones  
+• Leukocytes  
+• Nitrite  
+• Occult blood  
+• pH 
+• Protein  
+• Specific gravity  
+• Urobilinogen  
+Microscopic examination of 
+sediment, only if urinalysis 
+dipstick results are 
+abnormal . Microscopic 
+examination is not needed if 
+urinalysis is abnormal for 
+bilirubin, glucose, or 
+ketones.  Coagulation  
+• International normalized 
+ratio 
+• Partial thromboplastin 
+time / Activated partial 
+thromboplastin time  
+Microbiology (as Applicable)  
+• Blood  
+• Urine  
+• Other  
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 61 of 73 A serum or urine pregnancy test will be administered to all women of childbearing 
+potential. At the screening visit, results must be negative for the subject to be eligible 
+for the study.  
+Separate analysis table for CA125 for ovarian pts will be displayed.  
+In addition, the hematology, coagulation, and chemistry laboratory parameters will be 
+graded according to NCI CTCAE  (version 5.0 or higher ) where applicable.  
+Subjects who meet the potentially clinically significant (PCS) criteria in selected lab 
+parameters  will be summarized by treatment cohort , the PCS is defined as Grade 3 or 
+above per CTCAE.  
+Lab shift table of CTCAE grade (1 to 5) will be summarized from baseline grade to 
+minimum, maximum, and final grade .  
+Number of subjects who meet the following liver function test  criteria will be 
+summarized and corresponding listing will be presented:  
+ 
+• An elevated aspartate aminotransferase (AST) or alanine aminotransferase (ALT) 
+laboratory value that is ≥3× the upper limit of normal (ULN) and an elevated 
+total bilirubin laboratory value that is ≥2× ULN and an alkaline phosphatase 
+laboratory value that i s <2× ULN  within 3 days . 
+ 
+The corresponding listing will present all AST, ALT, total bilirubin, and alkaline 
+phosphatase laboratory data for any subject meeting the aforementioned criteria at 
+least one time.  
+Listing s will be provided for the hematology, coagulation, chemistry, urinalysis, and 
+pregnancy tests results.  
+9.5. VITAL SIGNS  
+Vital signs assessments include  respiratory rate, temperature, blood pressure , body 
+weight, and heart rate .  
+The vital signs assessments  will be graded according to NCI CTCAE (version 5.0 or higher ) 
+where applicable.  
+Subjects who meet the  potentially clinically significant ( PCS) criteria in vital sign will be 
+summarized by treatment cohort , the PCS is defined as Grade 3 or above per CTCAE . 
+Vital signs shift table of CTCAE grade (1 to 5) will be summarized from baseline grade to 
+minimum, maximum, and final grade.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 62 of 73 9.6. ECG  
+The standard 12 -lead ECG s will be performed in triplicate 5 minutes apart at all  time 
+points outlined in the protocol. The mean  value will be used for summary purposes.  
+The QTcF Intervals  fulfilling grade 3 or above per CTCAE  will be tabulated separately .  
+Subjects who meet the potentially clinically significant (PCS) criteria in the QTcF  will be 
+summarized by treatment cohort, the PCS is defined as QTcF >=501 msec or >60 msec 
+change from baseline.  
+The QTcF shift table of CTCAE grade (1 to 5) will be summarized from baseline grade to 
+minimum, maximum, and final grade.  
+9.7. EASTERN COOPERATIVE ONCOLOGY GROUP (ECOG) PERFORMANCE 
+STATUS  
+The ECOG performance status assesses the subjects’ activity status and will be assessed 
+at the time points specified in Table 3, Table 4, Table 5, Table 6, and Table 7. Possible 
+scores are 0 to 5. Descriptions of activity status are presented in Table 12. The data will 
+be listed.  
+Table 12: Eastern Cooperative Oncology Group Performance Status  
+Grade  Description  
+0  Fully active, able to carry on all predisease performance without restriction  
+1  Restricted in physically strenuous activity but ambulatory and able to carry out 
+work of a light or sedentary nature  (eg, light house work, office work )  
+2  Ambulatory and capable of all self -care but unable to carry out any work 
+activities; up and about more than 50% of waking hours  
+3  Capable of only limited self -care; confined to bed or chair more than 50% of 
+waking hours  
+4  Completely disabled; cannot carry on any self -care; totally confined to bed or 
+chair  
+5  Dead  
+Source: Oken et al, 1982.  
+9.8. PHYSICAL EXAMINATION  
+A full physical examination will be performed at screening and end -of–treatment visits. If 
+possible, a  brief physical examination focused on areas of disease or AE  will be assessed 
+at Day 1 of each cycle . The se data will be available for reference . 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 63 of 73 10. INTERIM ANALYSES  
+No formal interim analysis is planned with respect to stopping the study early or for lack 
+of antitumor activity purposes. Interim data cut s will be conducted to support abstract 
+submissions, conference presentations, and/or manuscript(s).   
+Responses in each N1 stage will be assessed to determine whether progression to the N2 
+stage is warranted, based on criteria defined in Section 3.6. 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 64 of 73 11. CHANGE FROM ANALYSIS PLANNED IN PROTOCOL  
+ 
+Durable response rate is listed as secondary endpoint but no summaries  are planned . 
+Analysis based on irRC and iRECIST will not be performed as the iRECIST was implemented 
+during the middle of the study conduct to replace irRC. The sites have not consistently 
+record the iRECIST data which could provide misleading information.  
+The protocol stated that the PFS analysis would  be only performed for Part B and Part C 
+(Cohorts 5 -7). The additional PFS analysis in ovarian patients from the PD -L1 unapproved 
+cohort will be conducted as ovarian is identified as one of tumor types to advance further 
+clinical development in Nemvaleukin  in combination with Pembrolizumab.  
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 65 of 73 12. REFERENCE LIST  
+Eisenhauer EA, Therasse P, Bogaerts J, Schwartz LH, Sargent D, Ford R, et al. New 
+response evaluation criteria in solid tumours: Revised RECIST guideline (version 1.1). Eur 
+J Cancer. 2009;45(2):228 -47. 
+Gough K, Hutchinson M, Keene O, et al. Assessment of Dose Proportionality: Report from 
+the Statisticians in The Pharmaceutical Industry/Pharmacokinetics UK joint working 
+party. Drug Inf J. 1995; 29(3):1039 -1048.  
+Hummel J, McKendrick S, Brindley C and French, R. Exploratory assessment of dose 
+proportionality: review of current approaches and proposal for a practical criterion. 
+Pharmaceut. Statist. 2009;8(1):38 -49. 
+International Conference on Harmonisation of Technical Requirements for Registration of 
+Pharmaceuticals for Human Use. ICH Harmonised Tripartate Guideline: Nonclinical 
+evaluation for anticancer pharmaceuticals. S9. 
+http://www.ich.org/fileadmin/Public_Web_S ite/ICH_Products/Guidelines/Safety/S9/St
+ep4/S9_Step4_Guideline.pdf.  
+Published October 29, 2009. Accessed 01 February 2016.  
+Oken MM, Creech RH, Tormey DC, Horton J, Davis TE, McFadden ET, et al. Toxicity and 
+response criteria of the Eastern Cooperative Oncology Group. Am J Clin Oncol. 
+1982:5(6):649 -55. 
+Smith BP, Vandenhende FR, DeSante KA  et al. Confidence interval criteria for assessment 
+of dose proportionality. Pharm Res. 2000; 17(10):1278 -1283.  
+US Department of Health and Human Services, National Institutes of Health, National 
+Cancer Institute. Common Terminology Criteria for Adverse Events (CTCAE) Version 4.0. 
+http://evs.nci.nih.gov/ftp1/CTCAE/CTCAE_4.03_2010 -06-
+14_QuickReference_8.5x11.pdf. Pub lished 28 May 2009 (v4.03 14 June 2010). Accessed 
+01 February 2016.  
+Wolchok JD, Hoos A, O’Day S, Weber JS, Hamid O, Lebbé  C, et al. Guidelines for the 
+evaluation of immune therapy activity in solid tumors: immune -related response criteria. 
+Clin Cancer Res. 2009;15(23):7412 -20. 
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 66 of 73 13. PROGRAMMING CONSIDERATIONS  
+All tables, data listings, figures (TLFs), statistical analyses , and non -PK parameter related 
+derivations will be generated using SAS® for Windows, Release 9. 4 (SAS® Institute Inc., 
+Cary, NC, USA). Computer -generated table, listing , and figure output s will adhere to the 
+following specifications below.  
+PK parameters will be derived using  Phoenix WinNonlin ver 6.4 (Certara, Princeton, NJ, 
+USA) by Alkermes who will also be responsible for quality control of the derived 
+parameters . 
+13.1.  GENERAL CONSIDERATIONS  
+• A separate SAS program will be created for each output.  
+• Each output will be stored in a separate file.  
+• Output files will be delivered in Word format.  
+• Numbering of TFLs will follow International Council for Harmonization of Technical 
+Requirements for Pharmaceuticals for Human Use (ICH) E3 guidance .  
+13.2.  TABLE, LISTING, AND FIGURE FORMAT  
+13.2.1.  General  
+• All TLFs will be produced in landscape format , unless otherwise specified . 
+• All TLFs will be produced using the Courier New font, size 8.  
+• The data displays for all TLFs will have a minimum 1 -inch margin on all 4 sides.  
+• Headers and footers for figures will be in Courier New font, size 8. 
+• Legends will be used for all figures with more than 1 variable, group, or item 
+displayed.  
+• TLFs will be in black and white (no color) , unless otherwise specified . 
+• Specialized text styles, such as bolding, italics, borders, shading, and superscripted 
+and subscripted text, will not be used in the TLFs , unless otherwise specified . On 
+some occasions, superscripts 1, 2, or 3 may be used (see below).  
+• Only standard keyboard characters will be used in the TLFs. Special characters, such 
+as non -printable control characters, printer -specific, or font -specific characters, will 
+not be used. Hexadecimal -derived characters will be used, where possible, if they are 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 67 of 73 appropriate to help display math symbols (eg, μ). Certain subscripts and superscripts 
+(eg, cm2, Cmax) will be employed on a case -by-case basis.  
+• Mixed case will be used for all titles, footnotes, column headers, and programmer -
+supplied formats , as appropriate . 
+13.2.2.  Headers  
+• All output should have the following header at the top left of each page:  
+Alkermes, Inc.   
+Protocol ALK4230 -A101 
+• All output should have Page n of N at the top  or bottom  right corner of each page. 
+TLFs should be internally paginated in relation to the total length (ie, the page number 
+should appear sequentially as page n of N, where N is the total number of pages in 
+the table).  
+• The date output was generated  should appear along with  the program name  as a 
+footer on each page.  
+13.2.3.  Display Titles  
+• The title will be centered. The analysis set will be identified on the line immediately 
+following the title. The title and table designation will be single spaced. A solid line 
+spanning the margins will separate the display titles from the column headers. There 
+will be 1 blank line between the last title and the solid line as per the example below.  
+Table x.y.z  
+First Line of Title  
+Second Line of Title if Needed  
+ITT Analysis Set  
+_______________________________  
+ 
+13.2.4.  Column Headers  
+• Column headings will be displayed immediately below the solid line described above 
+in initial upper -case characters.  
+• In the case of efficacy tables, t he variable (or characteristic) column will be on the 
+far left followed by columns  for cohorts and total column (if applicable) .  
+• For numeric variables, include “unit” in column or row heading when appropriate.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 68 of 73 • Analysis set sizes will be presented for each cohort  in the column heading as (N=xx) 
+(or in the row headings if applicable). This is distinct from the ‘n’ used for the 
+descriptive statistics representing the number of non-missing subjects in the analysis 
+set. 
+• The order of cohorts  in the Part A tables and listings will be  by the order of dose 
+escalation, as dose l evel: 0.1 μg/kg, 0.3 μg/kg, 1 μg/kg, 3 μg/kg, 6 μg/kg, 10 μg/kg, 
+15 μg/kg , overall (if applicable) . The order of cohorts  in the Part B tables and listings 
+will be: Melanoma, RCC , overall (if applicable) . The order of cohorts in the Part C 
+tables and listings will be: PD -1 unapproved tumor types, PD -1 approved tumor types 
+(PD-1/L1 pretreated), PD -1 approved tumor types (PD -1/L1 treatment na ïve), 
+Rollover, overall (if applicable).  
+13.2.5.  Body of the Data Display  
+13.2.5.1.  General Conventions  
+Data in columns of a table or listing should be formatted as follows:  
+• alphanumeric values are left -justified;  
+• whole numbers (eg, counts) are right -justified; and  
+• numbers containing fractional portions are decimal aligned.  
+13.2.5.2.  Table Conventions  
+• Units will be included where available  
+• If the categories of a parameter are ordered, then all categories between the 
+maximum and minimum category should be presented in the table, even if n=0 for all 
+cohorts  in a given category that is between the minimum and maximum level for that 
+parameter. For example, the frequency distribution for symptom severity would 
+appear as:  
+Severity 
+Rating  N 
+severe  0 
+moderate  8 
+mild 3 
+• Where percentages are presented in these tables, zero percentages will not be 
+presented and so any counts of 0 will be presented as 0 and not as 0 (0%).  
+• If the categories are not ordered ( e.g., Medical History, Reasons for Discontinuation 
+from the Study, etc.), then only those categories for which there is at least 1 subject 
+represented in 1 or more groups should be included.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 69 of 73 • An Unknown or Missing category should be added to any parameter for which 
+information is not available for 1 or more subjects.   
+• Unless otherwise specified, the estimated mean and median for a set of values should 
+be printed out to 1 more significant digit than the original values, and standard 
+deviations should be printed out to 2 more significant digits than the original values. 
+The minimum and maximum should report the same significant digits as the original 
+values. For example, for systolic blood pressure:  
+N   XX 
+Mean  XXX.X  
+Std Dev       X.XX  
+Median  XXX.X  
+Minimum  XXX 
+Maximum  XXX 
+• P-values should be output in the format: “0.xxx”, where xxx is the value rounded to 
+3 decimal places. Any p -value less than 0.001 will be presented as <0.001. If the p -
+value should be less than 0.0001 then present as <0.0001. If the p -value is returned 
+as >0.999 then present as >0.999 .  
+• Percentage values should be printed to one decimal place, in parentheses with no 
+spaces, one space after the count ( e.g., 7 (12.8%), 13 (5.4%)).  Unless otherwise noted, 
+for all percentages, the number of subjects in the analysis set for the cohort  who have 
+an observation will be the denominator. Percentages after zero counts should not be 
+displayed and percentages equating to 100% should be presented as 100%, without any 
+decimal places.  
+• All tabular displays of AE data should be presented by SOC with the highest occurrence 
+in the Overall  group in decreasing order, assuming all terms are coded. Within SOC, 
+AEs should be displayed in decreasing order  of preferred term . If incidence for more 
+than 1 term is identical, they should then be sorted alphabetically.   
+• Tabular display of data for concomitant medications should be presented by ATC4 
+Code with the highest occurrence in the Overall group in decreasing order, assuming 
+all terms are coded. Within the ATC4 drug class, concomitant medications should be 
+displayed in decreasing order of Preferred Term . If medications for more than 1 term 
+are identical, they should then be sorted alphabetically.  
+• Tabular display of data for medical history should be presented by the medical history 
+category with the highest occurrence in the Overall group in decreasing order. If 
+incidence for more than 1 term is identical, they should then be sorted alphabetically.  
+• Missing descriptive statistics or p -values which cannot be estimated should be 
+reported as “ -”. 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 70 of 73 • The percentage of subjects is normally calculated as a proportion of the number of 
+subjects assessed in the relevant cohort  (or overall) for the analysis set presented. 
+However, careful consideration is required in many instances due to the complicated 
+nature of selecting the denominator, usually the appropriate number of subjects 
+exposed. Describe details of this in footnotes  or programming notes.  
+• For categorical summaries (number and percentage of subjects) where a subject can 
+be included in more than one category, describe in a footnote or programming note 
+if the subject should be included in the summary statistics for all relevant categories 
+or just 1 category and the criteria for selecting the criteria.  
+• Where a category with a subheading (such as system organ class) has to be split over 
+more than one page, output the subheading followed by “(cont)” at the top of each 
+subsequent page. The overall summary statistics for the subheading should only be 
+output on the first relevant page.  
+13.2.5.3.  Listing Conventions  
+• Listings will be sorted for presentation in order of cohorts  as above, subject number, 
+visit/collection day, and visit/collection time.  
+• Missing data should be represented on subject listings as either a hyphen (“ -”) with a 
+corresponding footnote ( “- = unknown or not evaluated”), or as “N/A”, with the 
+footnote “N/A = not applicable”, whichever is appropriate.  
+• Dates should be printed in SAS® DATE9.format (“ ddMMMyyyy”: 01JUL2000). Missing 
+portions of dates should be represented on subject listings as dashes (--JUL2000). 
+Dates that are missing because they are not applicable for the subject are output as 
+“N/A”, unless otherwise specified.  
+• All observed time values must be presented using a 24 -hour clock HH:MM or HH:MM:SS 
+format (e.g., 11:26:45, or 11:26). Time will only be reported if it was measured as 
+part of the study.  
+• Units will be included where available . 
+13.2.5.4.  Figure Conventions  
+• Unless otherwise specified, for all figures, study visits will be displayed on the X -axis 
+and endpoint ( e.g., the mean change from Baseline) values will be displayed on the 
+Y-axis. 
+13.2.6.  Footnotes  
+• A solid line spanning the margins will separate the body of the data display from the 
+footnotes.  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 71 of 73 • All footnotes will be left justified with single -line spacing immediately below the solid 
+line underneath the data display.  
+• Footnotes should always begin with “Note:” if an informational footnote, or 1, 2, 3, 
+etc. if a reference  footnote. Each new footnote should start on a new line  where 
+possible . 
+• Subject specific footnotes should be avoided , where possible . 
+• Footnotes will be used sparingly and must add value to the table, figure, or data 
+listing. If more than six lines of  footnotes are planned, then a cover page may be used 
+to display footnotes, and only those essential to comprehension of the data will be 
+repeated on each page.  
+• The last line of the footnote section will be a standard source line that indicates the 
+name of the program us ed to produce the data display, date the program was run, 
+and the listing source (i.e., ‘ Program:  myprogram.sas       Listing source: 16.x.y.z’).  
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 72 of 73 14. QUALITY CONTROL  
+SAS programs are developed to produce output such as analysis data sets, summary tables, 
+data listings, figures or statistical analyses. An overview of the development of programs 
+is detailed in Syneos Health SOP Developing Statistical Programs (3907).  
+Syneos Health SOPs Developing Statistical Programs (3907) and Quality Deliveries (SDTM, 
+ADaM, TLF) (3908) describes the quality control procedures that are performed for all SAS 
+programs and output. Quality control is defined here as the operational techni ques and 
+activities undertaken to verify that the SAS programs produce the output by checking for 
+their logic, efficiency and commenting and by review of the produced output.  
+Syneos Health SOP Pharmacokinetic and Related Data Analyses and Reporting  (03.016) 
+describes the procedure for the generation and reporting of PK and pharmacodynamics 
+data.  
+ 
+
+Statistical Analysis Plan  Alkermes  Protocol #  ALK4230 -A101  
+Version V3.0   Syneos Health # 1006212  
+ 
+This document is proprietary and confidential to Syneos Health  
+03.007A.0 3     Syneos Health  Page 73 of 73 15. MOCK SHELL S OF TABLES , FIGURES, AND LISTINGS  
+Templates of the TLFs are provided in a separate document.   
+ 

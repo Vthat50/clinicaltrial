@@ -1,0 +1,133 @@
+{
+  "nct_id": "NCT01515748",
+  "sections_evaluated": 6,
+  "avg_accuracy": 2.8333333333333335,
+  "avg_completeness": 2.6666666666666665,
+  "avg_quality": 6.5,
+  "section_results": {
+    "analysis_populations": {
+      "generated_chars": 3421,
+      "reference_chars": 2942,
+      "accuracy": 4,
+      "completeness": 5,
+      "quality": 8,
+      "key_matches": [
+        "Defines ITT population correctly",
+        "Includes Safety Population definition",
+        "Per-Protocol population concept present",
+        "Well-structured format and clear definitions"
+      ],
+      "key_gaps": [
+        "Missing Full Analysis Set (FAS) as main efficacy population",
+        "Incorrect primary endpoint (3-year PFS vs tumor assessment)",
+        "Missing specific PP criteria for CSC and SC arms",
+        "Missing critical protocol violation definitions",
+        "Added populations not in reference (mITT, Evaluable for Response, Surgical)",
+        "Wrong primary analysis population designation"
+      ],
+      "summary": "The generated section is well-written but contains significant inaccuracies regarding the primary analysis population and study-specific details, while missing key reference content like FAS definition and protocol violation criteria."
+    },
+    "sample_size": {
+      "generated_chars": 2390,
+      "reference_chars": 947,
+      "accuracy": 3,
+      "completeness": 2,
+      "quality": 7,
+      "key_matches": [
+        "Mentions CSC vs SC treatment arms",
+        "References PFS as primary endpoint",
+        "Acknowledges interim analysis considerations"
+      ],
+      "key_gaps": [
+        "Missing specific event-based analysis (244 total events, 122 interim events)",
+        "No mention of O'Brien-Fleming alpha-spending function",
+        "Missing interim efficacy boundary (0.0031 significance level)",
+        "No reference to nQuery Advisor 6 or PASS 11 software",
+        "Incorrect focus on 3-year PFS rate instead of event-driven analysis",
+        "Missing 50% information rate specification"
+      ],
+      "summary": "The generated section is well-structured but fundamentally misses the event-based design and specific interim analysis details that are central to the reference methodology."
+    },
+    "statistical_methods": {
+      "generated_chars": 4659,
+      "reference_chars": 5000,
+      "accuracy": 4,
+      "completeness": 3,
+      "quality": 7,
+      "key_matches": [
+        "Well-structured format and professional presentation",
+        "Appropriate statistical methods for time-to-event analyses",
+        "Good coverage of safety analysis principles",
+        "Proper censoring rules for survival endpoints"
+      ],
+      "key_gaps": [
+        "Wrong study population (lung cancer vs gastric cancer)",
+        "Incorrect treatment arms (CSC vs SC instead of DOS+surgery+adjuvant vs surgery+adjuvant)",
+        "Wrong primary endpoint assessment method (RECIST v1.1 instead of gastric cancer-specific criteria)",
+        "Missing study-specific details like EFC13833 identifier",
+        "Incomplete sections with placeholder text",
+        "Missing key gastric cancer treatment considerations"
+      ],
+      "summary": "The generated section is well-written but contains significant factual errors about the study population and treatment arms, suggesting it's based on a different clinical trial entirely."
+    },
+    "missing_data": {
+      "generated_chars": 4991,
+      "reference_chars": 4998,
+      "accuracy": 3,
+      "completeness": 4,
+      "quality": 8,
+      "key_matches": [
+        "No imputation approach for missing data",
+        "Time-to-event data follows censoring rules",
+        "Professional structure and formatting"
+      ],
+      "key_gaps": [
+        "Missing baseline definitions",
+        "No mention of incomplete date handling rules",
+        "Missing laboratory character values handling",
+        "No decimal presentation rules",
+        "Added oncology-specific content not in reference",
+        "Missing specific date imputation rules (month/day as January/1st)"
+      ],
+      "summary": "Well-written section with professional quality but contains significant oncology-specific content not present in the reference and misses key data handling conventions from the original."
+    },
+    "safety_analysis": {
+      "generated_chars": 5942,
+      "reference_chars": 1292,
+      "accuracy": 2,
+      "completeness": 1,
+      "quality": 8,
+      "key_matches": [
+        "Uses NCI-CTCAE terminology which is referenced",
+        "Well-structured professional format"
+      ],
+      "key_gaps": [
+        "Reference is actually a title page/overview section, not safety analysis content",
+        "Generated content has no basis in the provided reference",
+        "Reference discusses statistical software (SAS) and general analysis approach, not safety specifics",
+        "No actual safety analysis methodology in reference to compare against"
+      ],
+      "summary": "The generated section is well-written but cannot be evaluated for accuracy or completeness as the reference contains no actual safety analysis content to compare against."
+    },
+    "interim_analysis": {
+      "generated_chars": 0,
+      "reference_chars": 1531,
+      "accuracy": 1,
+      "completeness": 1,
+      "quality": 1,
+      "key_matches": [],
+      "key_gaps": [
+        "Complete absence of content",
+        "Missing abbreviations and definitions section",
+        "Missing overview of statistical analysis process",
+        "Missing mention of SAS software usage",
+        "Missing protocol compliance information",
+        "Missing version control and documentation standards",
+        "Missing study identification details",
+        "Missing all structural elements of a SAP"
+      ],
+      "summary": "No section was generated, resulting in complete absence of all required content compared to the comprehensive reference material."
+    }
+  },
+  "overall_score": 4.0
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import {
   Play,
   RefreshCw,
@@ -93,6 +93,12 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
   // v101: Section sources panel
   const [showSources, setShowSources] = useState(false)
 
+  // Side-by-side reference comparison state
+  const [showSideBySide, setShowSideBySide] = useState(false)
+  const [referenceContent, setReferenceContent] = useState<string>('')
+  const [referenceSectionId, setReferenceSectionId] = useState<string>('')
+  const [loadingReference, setLoadingReference] = useState(false)
+
   const editorRef = useRef<HTMLTextAreaElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
 
@@ -109,6 +115,8 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
       setSectionContent(null)
     }
   }, [selectedSectionId])
+
+  // Note: useEffect for refetching reference section is below, after fetchReferenceSection is defined
 
   // Restore scroll position
   useEffect(() => {
@@ -274,6 +282,166 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
     }
   }
 
+  // Fetch reference section for side-by-side comparison
+  const fetchReferenceSection = useCallback(async (genSectionId: string) => {
+    setLoadingReference(true)
+    setReferenceContent('')
+    setReferenceSectionId('')
+
+    try {
+      // First get the mapping for this section
+      const mappingRes = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap/mapping/${genSectionId}`)
+
+      if (mappingRes.status === 404) {
+        // No mapping exists - try to auto-map
+        console.log('No mapping found, attempting auto-map...')
+        const autoMapRes = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap/auto-map`, {
+          method: 'POST'
+        })
+        if (autoMapRes.ok) {
+          // Retry getting the mapping
+          const retryRes = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap/mapping/${genSectionId}`)
+          if (retryRes.ok) {
+            const retryData = await retryRes.json()
+            if (retryData.reference_section_ids && retryData.reference_section_ids.length > 0) {
+              // Fetch the reference content
+              const refId = retryData.reference_section_ids[0]
+              const contentRes = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap/section/${encodeURIComponent(refId)}`)
+              if (contentRes.ok) {
+                const contentData = await contentRes.json()
+                setReferenceContent(contentData.content || '')
+                setReferenceSectionId(refId)
+              }
+            }
+          }
+        }
+        return
+      }
+
+      if (!mappingRes.ok) {
+        console.error('Failed to get mapping:', mappingRes.status)
+        return
+      }
+
+      const mappingData = await mappingRes.json()
+      const refSectionIds = mappingData.reference_section_ids || []
+
+      if (refSectionIds.length === 0) {
+        console.log(`No reference section mapped for '${genSectionId}'`)
+        return
+      }
+
+      // Fetch content from all mapped sections
+      let combinedContent = ''
+      for (const refId of refSectionIds) {
+        const contentRes = await fetch(`${API_URL}/workbench/${workspaceId}/reference-sap/section/${encodeURIComponent(refId)}`)
+        if (contentRes.ok) {
+          const contentData = await contentRes.json()
+          if (contentData.content) {
+            combinedContent += (combinedContent ? '\n\n---\n\n' : '') + contentData.content
+          }
+        }
+      }
+
+      setReferenceContent(combinedContent)
+      setReferenceSectionId(refSectionIds.join(', '))
+
+    } catch (e) {
+      console.error('Failed to fetch reference section:', e)
+    } finally {
+      setLoadingReference(false)
+    }
+  }, [workspaceId])
+
+  // Refetch reference content when section changes (if side-by-side is open)
+  // This useEffect must be after fetchReferenceSection is defined
+  useEffect(() => {
+    if (showSideBySide && selectedSectionId) {
+      fetchReferenceSection(selectedSectionId)
+    }
+  }, [selectedSectionId, showSideBySide, fetchReferenceSection])
+
+  // N-gram matching for highlighting common phrases
+  const findCommonPhrases = useCallback((text1: string, text2: string, minWords = 3, maxWords = 10): string[] => {
+    if (!text1 || !text2) return []
+
+    const normalize = (t: string) => t.toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim()
+    const norm1 = normalize(text1)
+    const norm2 = normalize(text2)
+
+    const words1 = norm1.split(' ')
+    const words2Set = new Set<string>()
+
+    // Build set of all n-grams from text2
+    const words2 = norm2.split(' ')
+    for (let n = minWords; n <= maxWords; n++) {
+      for (let i = 0; i <= words2.length - n; i++) {
+        words2Set.add(words2.slice(i, i + n).join(' '))
+      }
+    }
+
+    // Find matching n-grams from text1
+    const matches = new Set<string>()
+    for (let n = maxWords; n >= minWords; n--) {
+      for (let i = 0; i <= words1.length - n; i++) {
+        const phrase = words1.slice(i, i + n).join(' ')
+        if (words2Set.has(phrase)) {
+          // Check if this is not a substring of an already found longer match
+          let isSubstring = false
+          for (const existing of matches) {
+            if (existing.includes(phrase)) {
+              isSubstring = true
+              break
+            }
+          }
+          if (!isSubstring) {
+            matches.add(phrase)
+          }
+        }
+      }
+    }
+
+    return Array.from(matches)
+  }, [])
+
+  // Apply highlights to text
+  const applyHighlights = useCallback((text: string, phrases: string[]): React.ReactNode => {
+    if (!text || phrases.length === 0) return text
+
+    // Sort phrases by length descending to match longer phrases first
+    const sortedPhrases = [...phrases].sort((a, b) => b.length - a.length)
+
+    // Create a regex pattern for all phrases
+    const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const pattern = new RegExp(
+      `(${sortedPhrases.map(p => escapeRegex(p)).join('|')})`,
+      'gi'
+    )
+
+    const parts = text.split(pattern)
+
+    return parts.map((part, i) => {
+      const isMatch = sortedPhrases.some(p =>
+        part.toLowerCase() === p.toLowerCase() ||
+        part.toLowerCase().replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim() === p
+      )
+      if (isMatch) {
+        return (
+          <span key={i} className="bg-yellow-200 text-yellow-900 px-0.5 rounded">
+            {part}
+          </span>
+        )
+      }
+      return part
+    })
+  }, [])
+
+  // Memoize common phrases calculation
+  const commonPhrases = useMemo(() => {
+    if (!sectionContent?.content || !referenceContent) return []
+    return findCommonPhrases(sectionContent.content, referenceContent, 2, 10)
+  }, [sectionContent?.content, referenceContent, findCommonPhrases])
+
   const handleViewInProtocol = (sourceQuote: string) => {
     teleportToProtocol(sourceQuote, null)
   }
@@ -365,6 +533,32 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                       showSources ? 'bg-blue-500 text-white' : 'bg-blue-100 text-blue-700'
                     }`}>
                       {sectionContent.kb_tools_used.length}
+                    </span>
+                  )}
+                </button>
+
+                {/* Reference SAP Toggle for side-by-side comparison */}
+                <button
+                  onClick={() => {
+                    const newState = !showSideBySide
+                    setShowSideBySide(newState)
+                    if (newState && selectedSectionId && !referenceContent) {
+                      fetchReferenceSection(selectedSectionId)
+                    }
+                  }}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
+                    showSideBySide
+                      ? 'bg-purple-600 text-white'
+                      : 'border border-purple-300 text-purple-600 hover:bg-purple-50'
+                  }`}
+                >
+                  <FileText className="w-4 h-4" />
+                  Reference
+                  {commonPhrases.length > 0 && (
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${
+                      showSideBySide ? 'bg-purple-500 text-white' : 'bg-purple-100 text-purple-700'
+                    }`}>
+                      {commonPhrases.length}
                     </span>
                   )}
                 </button>
@@ -506,12 +700,17 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                 </div>
               )}
 
-              {/* Preview Panel */}
+              {/* Preview Panel - Generated Content */}
               {(viewMode === 'preview' || viewMode === 'split') && (
-                <div className={`${viewMode === 'split' ? 'w-1/2' : 'flex-1'} flex flex-col`}>
-                  {viewMode === 'split' && (
-                    <div className="px-3 py-2 bg-gray-50 border-b text-xs text-gray-500 font-medium">
-                      PREVIEW
+                <div className={`${viewMode === 'split' ? 'w-1/2' : showSideBySide ? 'w-1/2' : 'flex-1'} flex flex-col ${showSideBySide ? 'border-r' : ''}`}>
+                  {(viewMode === 'split' || showSideBySide) && (
+                    <div className="px-3 py-2 bg-gray-50 border-b text-xs text-gray-500 font-medium flex items-center justify-between">
+                      <span>{showSideBySide ? 'GENERATED SAP' : 'PREVIEW'}</span>
+                      {showSideBySide && commonPhrases.length > 0 && (
+                        <span className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded text-xs">
+                          {commonPhrases.length} matches found
+                        </span>
+                      )}
                     </div>
                   )}
                   <div
@@ -525,14 +724,21 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                       </div>
                     ) : sectionContent ? (
                       <div className="p-6">
-                        <div className="prose prose-sm max-w-none">
-                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                            {viewMode === 'split' ? editContent : sectionContent.content}
-                          </ReactMarkdown>
-                        </div>
+                        {/* Show highlighted content when in side-by-side mode */}
+                        {showSideBySide && commonPhrases.length > 0 ? (
+                          <div className="prose prose-sm max-w-none whitespace-pre-wrap">
+                            {applyHighlights(sectionContent.content, commonPhrases)}
+                          </div>
+                        ) : (
+                          <div className="prose prose-sm max-w-none">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                              {viewMode === 'split' ? editContent : sectionContent.content}
+                            </ReactMarkdown>
+                          </div>
+                        )}
 
-                        {/* Provenance Section */}
-                        {(sectionContent.protocol_excerpts_used.length > 0 ||
+                        {/* Provenance Section - hide when side-by-side is open */}
+                        {!showSideBySide && (sectionContent.protocol_excerpts_used.length > 0 ||
                           sectionContent.metadata_used.length > 0) && (
                           <div className="mt-8 pt-6 border-t">
                             <h4 className="text-sm font-medium text-gray-900 mb-4">Sources & Provenance</h4>
@@ -606,6 +812,36 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
                             </>
                           )}
                         </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Reference SAP Panel - Side by Side */}
+              {showSideBySide && (viewMode === 'preview' || viewMode === 'split') && (
+                <div className="w-1/2 flex flex-col bg-purple-50/30">
+                  <div className="px-3 py-2 bg-purple-100 border-b text-xs text-purple-700 font-medium flex items-center justify-between">
+                    <span>REFERENCE SAP {referenceSectionId && `(${referenceSectionId})`}</span>
+                    {loadingReference && <Loader2 className="w-3 h-3 animate-spin" />}
+                  </div>
+                  <div className="flex-1 overflow-y-auto p-6">
+                    {loadingReference ? (
+                      <div className="flex items-center justify-center h-full">
+                        <Loader2 className="w-6 h-6 animate-spin text-purple-600" />
+                      </div>
+                    ) : referenceContent ? (
+                      <div className="prose prose-sm max-w-none whitespace-pre-wrap">
+                        {applyHighlights(referenceContent, commonPhrases)}
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full text-gray-500">
+                        <FileText className="w-12 h-12 text-gray-300 mb-4" />
+                        <p className="text-sm text-center text-gray-500">
+                          {referenceSectionId
+                            ? 'No content found in reference section'
+                            : 'No reference section mapped for this section. Upload a reference SAP to enable comparison.'}
+                        </p>
                       </div>
                     )}
                   </div>

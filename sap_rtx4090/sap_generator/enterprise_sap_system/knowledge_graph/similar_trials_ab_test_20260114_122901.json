@@ -1,0 +1,2162 @@
+[
+  {
+    "section_id": "7",
+    "section_title": "STATISTICAL METHODS",
+    "without_similar_trials": "",
+    "with_similar_trials": "",
+    "similar_trials_data": {
+      "query": {
+        "phase": "III",
+        "indication": "lung cancer",
+        "endpoint_type": "OS",
+        "design_type": null
+      },
+      "citation_instruction": "When using precedent data, cite as: [Precedent: TRIAL_NAME (Phase, Indication) - specific element]",
+      "num_matches": 5,
+      "similar_trials": [
+        {
+          "trial_id": "NCT02220894",
+          "phase": "Phase III",
+          "indication": "PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC)",
+          "design": "Randomized, open-label, controlled trial comparing pembrolizumab vs standard of care platinum-based chemotherapy",
+          "source_sap": "KEYNOTE-042_SAP",
+          "relevance_score": 153,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226550%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226520%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226520%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u22651%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u22651%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226550%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226520%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226520%"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Progression-Free Survival (PFS)",
+                "event": "Disease progression per RECIST 1.1 or death from any cause",
+                "censoring": "Censored at date of last adequate tumor assessment for subjects alive without progression; subjects with no post-baseline assessment censored at randomization date + 1 day"
+              },
+              {
+                "endpoint": "Overall Survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Censored at date of last known alive status for subjects alive at data cutoff"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "To estimate survival distributions and medians"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified by ECOG status, histology, geographic region, and PD-L1 expression status to estimate hazard ratios"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified for hypothesis testing"
+              },
+              {
+                "name": "Miettinen and Nurminen method",
+                "applied_to": "Objective response rate",
+                "details": "To calculate confidence intervals for difference in response rates"
+              },
+              {
+                "name": "Fisher's exact test",
+                "applied_to": "Objective response rate",
+                "details": "For hypothesis testing of response rate differences"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Sequential testing strategy",
+                "details": "Testing performed sequentially at 2.5% one-sided alpha in order: OS in TPS\u226550%, OS in TPS\u226520%, OS in TPS\u22651%, PFS in TPS\u226550%, PFS in TPS\u226520%, PFS in TPS\u22651%, ORR in TPS\u226550%, ORR in TPS\u226520%, ORR in TPS\u22651%",
+                "alpha_allocation": "Alpha spending function (Hwang-Shih-DeCani with gamma=-0.9023) applied based on calendar time"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Hwang-Shih-DeCani alpha spending function with gamma parameter -0.9023",
+                "details": "IA1 after \u2265250 deaths in TPS\u226550% subjects and \u22656 months after last enrollment; IA2 at ~38 months after study start; Final analysis at ~45 months after study start"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))]",
+          "cite_as": "NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))"
+        },
+        {
+          "trial_id": "NCT02362594",
+          "phase": "Phase 3",
+          "indication": "high-risk Stage III melanoma",
+          "design": "randomized, double-blind, placebo-controlled",
+          "source_sap": "KEYNOTE-054_Melanoma_SAP",
+          "relevance_score": 143,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Recurrence-free survival (RFS)",
+                "endpoint_type": "primary",
+                "definition": "Time from randomization to disease recurrence or death from any cause"
+              },
+              {
+                "name": "RFS in PD-L1-positive subgroup",
+                "endpoint_type": "primary",
+                "definition": "RFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Distant metastases-free survival (DMFS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to distant metastases or death"
+              },
+              {
+                "name": "DMFS in PD-L1-positive subgroup",
+                "endpoint_type": "secondary",
+                "definition": "DMFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to death from any cause"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Recurrence-free survival (RFS)",
+                "event": "Disease recurrence (loco-regional or distant) or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no recurrence or death observed"
+              },
+              {
+                "endpoint": "Distant metastases-free survival (DMFS)",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no distant metastases or death observed"
+              },
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Patients censored at last known alive date if death not observed"
+              },
+              {
+                "endpoint": "RFS",
+                "event": "Recurrence or death from any cause",
+                "censoring": "Patients alive without recurrence censored at last assessment"
+              },
+              {
+                "endpoint": "DMFS",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients alive without distant metastases censored at last assessment"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients alive censored at last known alive date"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier technique",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "To obtain estimates of survival-type distributions with standard error computed using Greenwood formula"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Stratified by stage (IIIA >1mm vs IIIB vs IIIC 1-3 nodes vs IIIC \u22654 nodes) for comparison between treatment arms"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Using Efron's tie-handling method, stratified by stage, with treatment as single covariate to estimate HR with confidence interval"
+              },
+              {
+                "name": "Forest plot techniques",
+                "applied_to": "Subgroup analyses",
+                "details": "To investigate consistency of treatment comparisons among subgroups"
+              },
+              {
+                "name": "O'Brien-Fleming spending function",
+                "applied_to": "Interim analysis",
+                "details": "For stopping boundaries at interim analysis after 330 RFS events"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Graphical approach with sequential testing",
+                "details": "Initial 1-sided alpha allocation: RFS=0.025, DMFS=0, OS=0. Both overall population and PD-L1+ subgroup hypotheses must be rejected to proceed to next endpoint. For overall population: 1-sided alpha=0.014. For PD-L1+ subgroup: allocated alpha calculated as function of event ratio using Spiessens and Debois method",
+                "alpha_allocation": "Overall 1-sided significance level of 0.025 for study as whole"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "O'Brien-Fleming spending function",
+                "details": "One interim analysis planned after approximately 330 RFS events to assess superiority of pembrolizumab vs placebo for RFS in overall population"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02362594 (Phase 3, high-risk Stage III melanoma)]",
+          "cite_as": "NCT02362594 (Phase 3, high-risk Stage III melanoma)"
+        },
+        {
+          "trial_id": "GO30081/NCT02763579",
+          "phase": "I/III",
+          "indication": "Extensive-stage small cell lung cancer (ES-SCLC)",
+          "design": "Randomized, double-blind, placebo-controlled",
+          "source_sap": "IMpower133_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to the first occurrence of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever occurs first"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of patients who had an objective response by the investigator using RECIST v1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time interval from first occurrence of a documented objective response to the time of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever comes first"
+              },
+              {
+                "name": "Time to deterioration (TTD) in lung cancer symptoms",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to deterioration (10-point change) on EORTC QLQ-C30 and EORTC QLQ-LC13 symptom subscales for cough, dyspnea, chest pain, arm/shoulder pain, or fatigue maintained for two assessments or one assessment followed by death from any cause within 3 weeks"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients who have not experienced disease progression or death censored at time of last tumor assessment; patients with no post-baseline tumor assessment censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients who are not reported as having died censored at the date when they were last known to be alive; patients with no post-baseline information censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients whose disease has not progressed and who have not died censored at time of last tumor assessment; if no assessments after first CR/PR, censored at date of first CR/PR plus 1 day"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS and OS analyses",
+                "details": "Stratified by sex, ECOG performance status, and presence of brain metastases"
+              },
+              {
+                "name": "Kaplan-Meier methodology",
+                "applied_to": "PFS and OS survival estimation",
+                "details": "Used to estimate median PFS and OS for each treatment arm"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Hazard ratio estimation",
+                "details": "Stratified Cox model to estimate HR and 95% CI for PFS and OS"
+              },
+              {
+                "name": "Brookmeyer-Crowley methodology",
+                "applied_to": "Confidence intervals",
+                "details": "Used to construct 95% CI for median PFS and OS"
+              },
+              {
+                "name": "Clopper-Pearson method",
+                "applied_to": "Objective response rate",
+                "details": "For calculating ORR and its 95% CI"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Group sequential weighted Holm procedure",
+                "details": "Two-sided significance levels of 0.005 allocated to PFS and 0.045 to OS initially. If PFS significant at 0.005, OS tested at 0.05. If OS significant at 0.045, PFS tested at 0.05",
+                "alpha_allocation": "0.005 for PFS, 0.045 for OS, with alpha recycling between endpoints"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "Lan-DeMets alpha spending function to approximate O'Brien-Fleming boundary",
+                "details": "One interim OS analysis at 240 OS events (~78% information fraction). Primary PFS analysis conducted at same time as OS interim analysis at ~295 PFS events"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))]",
+          "cite_as": "GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))"
+        },
+        {
+          "trial_id": "D4191C00001",
+          "phase": "Phase III",
+          "indication": "Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III)",
+          "design": "Randomised, Double-blind, Placebo-controlled, Multi-centre",
+          "source_sap": "PACIFIC_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until death due to any cause"
+              },
+              {
+                "name": "Progression free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until the date of the first objective disease progression or death (by any cause in the absence of progression) using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Proportion of patients alive at 24 months (OS24)",
+                "endpoint_type": "Secondary",
+                "definition": "Kaplan-Meier estimate of OS at 24 months"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Duration of response (DoR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death due to any cause",
+                "censoring": "Censored at last recorded date patient was known to be alive (SUR_DAT)"
+              },
+              {
+                "endpoint": "Progression free survival (PFS)",
+                "event": "First objective disease progression or death",
+                "censoring": "Censored at time of latest RECIST 1.1 assessment if no progression/death. If progression/death after 2+ missed visits, censored at latest assessment prior to two missed visits"
+              },
+              {
+                "endpoint": "Time to death or distant metastasis (TTDM)",
+                "event": "Death or distant metastasis",
+                "censoring": "Censored at last RECIST assessment if no event occurred"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "OS and PFS co-primary analysis",
+                "details": "Adjusting for age at randomisation (<65 vs \u226565 years), sex (male vs female), and smoking history (smoker vs non-smoker), using Breslow approach for handling ties"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "OS and PFS subgroup analyses and covariate effects",
+                "details": "To determine effect of covariates on HR estimate and consistency of treatment effect between subgroups"
+              },
+              {
+                "name": "Fisher's exact test with mid p-values",
+                "applied_to": "Objective response rate",
+                "details": "Binary response variable for ORR (CR and PR vs SD, PD and NE)"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Survival analysis and time-to-event endpoints",
+                "details": "For survival curves, median estimates, and confidence intervals"
+              },
+              {
+                "name": "Logistic regression model",
+                "applied_to": "Symptom improvement rate and HR QoL/function improvement rate",
+                "details": "Adjusting for same factors as co-primary endpoints"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Alpha allocation between co-primary endpoints",
+                "details": "2.5% alpha allocated to PFS and 2.5% alpha allocated to OS. Study considered positive if either PFS or OS analysis is statistically significant",
+                "alpha_allocation": {
+                  "PFS": "2.5%",
+                  "OS": "2.5%"
+                }
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 3,
+                "spending_function": "Lan DeMets spending function that approximates O'Brien Fleming approach",
+                "details": [
+                  {
+                    "analysis": "PFS interim",
+                    "events": "367 PFS events (52% maturity)",
+                    "timing": "~30 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "First OS interim",
+                    "events": "285 OS events (41% maturity), 458 PFS events (65% maturity)",
+                    "timing": "~36 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "Second OS interim",
+                    "events": "393 OS events (56% maturity)",
+                    "timing": "~47 months after first patient randomised"
+                  }
+                ]
+              }
+            ]
+          },
+          "citation_format": "[Precedent: D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))]",
+          "cite_as": "D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))"
+        },
+        {
+          "trial_id": "I4T-MC-JVCY",
+          "phase": "1b/3",
+          "indication": "EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer",
+          "design": "Multicenter, Randomized, Double-Blind Study",
+          "source_sap": "RELAY_Ramucirumab_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Primary",
+                "definition": "Time from the date of randomization until the date of radiographic documentation of progression (as defined by RECIST v. 1.1) or the date of death due to any cause, whichever is earlier"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of randomization to the date of death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of PR or CR per RECIST v.1.1"
+              },
+              {
+                "name": "Disease control rate (DCR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of complete response (CR), partial response (PR), or stable disease (SD) per RECIST v.1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of first documented CR or PR (responder) to the date of objective progression or the date of death due to any cause, whichever is earlier"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Radiographic documentation of progression per RECIST v.1.1 or death due to any cause",
+                "censoring": "If no baseline disease assessment, censor at randomization date; if no progression or death by data cutoff, censor at date of last postbaseline adequate radiological tumor assessment; censor for missing \u22652 consecutive tumor assessments; censor if new anticancer treatment started without progression/death within 14 days"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "For patients not known to have died as of data cutoff, censor at last date known to be alive"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Objective progression or death due to any cause",
+                "censoring": "If responder not known to have died or progressed, censor at date of last evaluable tumor assessment"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS analysis",
+                "details": "Alpha level of 0.04998 (2-sided), stratified by IWRS stratification values"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "PFS and OS analyses",
+                "details": "Stratified identically to the primary log-rank test with assigned treatment as the only covariate"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Time-to-event endpoints",
+                "details": "For survival curve estimation, medians, quartiles, and percentages"
+              },
+              {
+                "name": "Cochran-Mantel-Haenszel test",
+                "applied_to": "ORR and DCR comparisons",
+                "details": "Adjusting for stratification variables"
+              },
+              {
+                "name": "MMRM regression",
+                "applied_to": "Patient-reported outcomes",
+                "details": "Mixed effect Model Repeat Measurement including treatment, visit, treatment*visit, and baseline"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Hierarchical testing/gatekeeping approach",
+                "details": "OS will be tested only if PFS is significant. Haybittle Peto type spending function for OS interim analysis with p-value bound 0.0001",
+                "alpha_allocation": "1-sided type I error rate controlled at 2.5% for OS using spending function"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Haybittle Peto type spending function",
+                "details": "Safety interim after first 50 patients completed 3 cycles; futility and safety interim after ~107 PFS events with futility boundary p-value >0.39"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)]",
+          "cite_as": "I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)"
+        }
+      ]
+    },
+    "comparison": {
+      "has_precedent_a": false,
+      "has_precedent_b": false,
+      "trial_mentions_a": [],
+      "trial_mentions_b": [],
+      "length_difference": 0,
+      "improved": false
+    }
+  },
+  {
+    "section_id": "8",
+    "section_title": "CENSORING RULES",
+    "without_similar_trials": "",
+    "with_similar_trials": "",
+    "similar_trials_data": {
+      "query": {
+        "phase": "III",
+        "indication": "lung cancer",
+        "endpoint_type": "OS",
+        "design_type": null
+      },
+      "citation_instruction": "When using precedent data, cite as: [Precedent: TRIAL_NAME (Phase, Indication) - specific element]",
+      "num_matches": 5,
+      "similar_trials": [
+        {
+          "trial_id": "NCT02220894",
+          "phase": "Phase III",
+          "indication": "PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC)",
+          "design": "Randomized, open-label, controlled trial comparing pembrolizumab vs standard of care platinum-based chemotherapy",
+          "source_sap": "KEYNOTE-042_SAP",
+          "relevance_score": 153,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226550%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226520%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226520%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u22651%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u22651%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226550%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226520%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226520%"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Progression-Free Survival (PFS)",
+                "event": "Disease progression per RECIST 1.1 or death from any cause",
+                "censoring": "Censored at date of last adequate tumor assessment for subjects alive without progression; subjects with no post-baseline assessment censored at randomization date + 1 day"
+              },
+              {
+                "endpoint": "Overall Survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Censored at date of last known alive status for subjects alive at data cutoff"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "To estimate survival distributions and medians"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified by ECOG status, histology, geographic region, and PD-L1 expression status to estimate hazard ratios"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified for hypothesis testing"
+              },
+              {
+                "name": "Miettinen and Nurminen method",
+                "applied_to": "Objective response rate",
+                "details": "To calculate confidence intervals for difference in response rates"
+              },
+              {
+                "name": "Fisher's exact test",
+                "applied_to": "Objective response rate",
+                "details": "For hypothesis testing of response rate differences"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Sequential testing strategy",
+                "details": "Testing performed sequentially at 2.5% one-sided alpha in order: OS in TPS\u226550%, OS in TPS\u226520%, OS in TPS\u22651%, PFS in TPS\u226550%, PFS in TPS\u226520%, PFS in TPS\u22651%, ORR in TPS\u226550%, ORR in TPS\u226520%, ORR in TPS\u22651%",
+                "alpha_allocation": "Alpha spending function (Hwang-Shih-DeCani with gamma=-0.9023) applied based on calendar time"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Hwang-Shih-DeCani alpha spending function with gamma parameter -0.9023",
+                "details": "IA1 after \u2265250 deaths in TPS\u226550% subjects and \u22656 months after last enrollment; IA2 at ~38 months after study start; Final analysis at ~45 months after study start"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))]",
+          "cite_as": "NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))"
+        },
+        {
+          "trial_id": "NCT02362594",
+          "phase": "Phase 3",
+          "indication": "high-risk Stage III melanoma",
+          "design": "randomized, double-blind, placebo-controlled",
+          "source_sap": "KEYNOTE-054_Melanoma_SAP",
+          "relevance_score": 143,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Recurrence-free survival (RFS)",
+                "endpoint_type": "primary",
+                "definition": "Time from randomization to disease recurrence or death from any cause"
+              },
+              {
+                "name": "RFS in PD-L1-positive subgroup",
+                "endpoint_type": "primary",
+                "definition": "RFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Distant metastases-free survival (DMFS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to distant metastases or death"
+              },
+              {
+                "name": "DMFS in PD-L1-positive subgroup",
+                "endpoint_type": "secondary",
+                "definition": "DMFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to death from any cause"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Recurrence-free survival (RFS)",
+                "event": "Disease recurrence (loco-regional or distant) or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no recurrence or death observed"
+              },
+              {
+                "endpoint": "Distant metastases-free survival (DMFS)",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no distant metastases or death observed"
+              },
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Patients censored at last known alive date if death not observed"
+              },
+              {
+                "endpoint": "RFS",
+                "event": "Recurrence or death from any cause",
+                "censoring": "Patients alive without recurrence censored at last assessment"
+              },
+              {
+                "endpoint": "DMFS",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients alive without distant metastases censored at last assessment"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients alive censored at last known alive date"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier technique",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "To obtain estimates of survival-type distributions with standard error computed using Greenwood formula"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Stratified by stage (IIIA >1mm vs IIIB vs IIIC 1-3 nodes vs IIIC \u22654 nodes) for comparison between treatment arms"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Using Efron's tie-handling method, stratified by stage, with treatment as single covariate to estimate HR with confidence interval"
+              },
+              {
+                "name": "Forest plot techniques",
+                "applied_to": "Subgroup analyses",
+                "details": "To investigate consistency of treatment comparisons among subgroups"
+              },
+              {
+                "name": "O'Brien-Fleming spending function",
+                "applied_to": "Interim analysis",
+                "details": "For stopping boundaries at interim analysis after 330 RFS events"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Graphical approach with sequential testing",
+                "details": "Initial 1-sided alpha allocation: RFS=0.025, DMFS=0, OS=0. Both overall population and PD-L1+ subgroup hypotheses must be rejected to proceed to next endpoint. For overall population: 1-sided alpha=0.014. For PD-L1+ subgroup: allocated alpha calculated as function of event ratio using Spiessens and Debois method",
+                "alpha_allocation": "Overall 1-sided significance level of 0.025 for study as whole"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "O'Brien-Fleming spending function",
+                "details": "One interim analysis planned after approximately 330 RFS events to assess superiority of pembrolizumab vs placebo for RFS in overall population"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02362594 (Phase 3, high-risk Stage III melanoma)]",
+          "cite_as": "NCT02362594 (Phase 3, high-risk Stage III melanoma)"
+        },
+        {
+          "trial_id": "GO30081/NCT02763579",
+          "phase": "I/III",
+          "indication": "Extensive-stage small cell lung cancer (ES-SCLC)",
+          "design": "Randomized, double-blind, placebo-controlled",
+          "source_sap": "IMpower133_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to the first occurrence of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever occurs first"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of patients who had an objective response by the investigator using RECIST v1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time interval from first occurrence of a documented objective response to the time of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever comes first"
+              },
+              {
+                "name": "Time to deterioration (TTD) in lung cancer symptoms",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to deterioration (10-point change) on EORTC QLQ-C30 and EORTC QLQ-LC13 symptom subscales for cough, dyspnea, chest pain, arm/shoulder pain, or fatigue maintained for two assessments or one assessment followed by death from any cause within 3 weeks"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients who have not experienced disease progression or death censored at time of last tumor assessment; patients with no post-baseline tumor assessment censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients who are not reported as having died censored at the date when they were last known to be alive; patients with no post-baseline information censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients whose disease has not progressed and who have not died censored at time of last tumor assessment; if no assessments after first CR/PR, censored at date of first CR/PR plus 1 day"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS and OS analyses",
+                "details": "Stratified by sex, ECOG performance status, and presence of brain metastases"
+              },
+              {
+                "name": "Kaplan-Meier methodology",
+                "applied_to": "PFS and OS survival estimation",
+                "details": "Used to estimate median PFS and OS for each treatment arm"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Hazard ratio estimation",
+                "details": "Stratified Cox model to estimate HR and 95% CI for PFS and OS"
+              },
+              {
+                "name": "Brookmeyer-Crowley methodology",
+                "applied_to": "Confidence intervals",
+                "details": "Used to construct 95% CI for median PFS and OS"
+              },
+              {
+                "name": "Clopper-Pearson method",
+                "applied_to": "Objective response rate",
+                "details": "For calculating ORR and its 95% CI"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Group sequential weighted Holm procedure",
+                "details": "Two-sided significance levels of 0.005 allocated to PFS and 0.045 to OS initially. If PFS significant at 0.005, OS tested at 0.05. If OS significant at 0.045, PFS tested at 0.05",
+                "alpha_allocation": "0.005 for PFS, 0.045 for OS, with alpha recycling between endpoints"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "Lan-DeMets alpha spending function to approximate O'Brien-Fleming boundary",
+                "details": "One interim OS analysis at 240 OS events (~78% information fraction). Primary PFS analysis conducted at same time as OS interim analysis at ~295 PFS events"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))]",
+          "cite_as": "GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))"
+        },
+        {
+          "trial_id": "D4191C00001",
+          "phase": "Phase III",
+          "indication": "Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III)",
+          "design": "Randomised, Double-blind, Placebo-controlled, Multi-centre",
+          "source_sap": "PACIFIC_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until death due to any cause"
+              },
+              {
+                "name": "Progression free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until the date of the first objective disease progression or death (by any cause in the absence of progression) using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Proportion of patients alive at 24 months (OS24)",
+                "endpoint_type": "Secondary",
+                "definition": "Kaplan-Meier estimate of OS at 24 months"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Duration of response (DoR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death due to any cause",
+                "censoring": "Censored at last recorded date patient was known to be alive (SUR_DAT)"
+              },
+              {
+                "endpoint": "Progression free survival (PFS)",
+                "event": "First objective disease progression or death",
+                "censoring": "Censored at time of latest RECIST 1.1 assessment if no progression/death. If progression/death after 2+ missed visits, censored at latest assessment prior to two missed visits"
+              },
+              {
+                "endpoint": "Time to death or distant metastasis (TTDM)",
+                "event": "Death or distant metastasis",
+                "censoring": "Censored at last RECIST assessment if no event occurred"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "OS and PFS co-primary analysis",
+                "details": "Adjusting for age at randomisation (<65 vs \u226565 years), sex (male vs female), and smoking history (smoker vs non-smoker), using Breslow approach for handling ties"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "OS and PFS subgroup analyses and covariate effects",
+                "details": "To determine effect of covariates on HR estimate and consistency of treatment effect between subgroups"
+              },
+              {
+                "name": "Fisher's exact test with mid p-values",
+                "applied_to": "Objective response rate",
+                "details": "Binary response variable for ORR (CR and PR vs SD, PD and NE)"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Survival analysis and time-to-event endpoints",
+                "details": "For survival curves, median estimates, and confidence intervals"
+              },
+              {
+                "name": "Logistic regression model",
+                "applied_to": "Symptom improvement rate and HR QoL/function improvement rate",
+                "details": "Adjusting for same factors as co-primary endpoints"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Alpha allocation between co-primary endpoints",
+                "details": "2.5% alpha allocated to PFS and 2.5% alpha allocated to OS. Study considered positive if either PFS or OS analysis is statistically significant",
+                "alpha_allocation": {
+                  "PFS": "2.5%",
+                  "OS": "2.5%"
+                }
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 3,
+                "spending_function": "Lan DeMets spending function that approximates O'Brien Fleming approach",
+                "details": [
+                  {
+                    "analysis": "PFS interim",
+                    "events": "367 PFS events (52% maturity)",
+                    "timing": "~30 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "First OS interim",
+                    "events": "285 OS events (41% maturity), 458 PFS events (65% maturity)",
+                    "timing": "~36 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "Second OS interim",
+                    "events": "393 OS events (56% maturity)",
+                    "timing": "~47 months after first patient randomised"
+                  }
+                ]
+              }
+            ]
+          },
+          "citation_format": "[Precedent: D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))]",
+          "cite_as": "D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))"
+        },
+        {
+          "trial_id": "I4T-MC-JVCY",
+          "phase": "1b/3",
+          "indication": "EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer",
+          "design": "Multicenter, Randomized, Double-Blind Study",
+          "source_sap": "RELAY_Ramucirumab_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Primary",
+                "definition": "Time from the date of randomization until the date of radiographic documentation of progression (as defined by RECIST v. 1.1) or the date of death due to any cause, whichever is earlier"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of randomization to the date of death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of PR or CR per RECIST v.1.1"
+              },
+              {
+                "name": "Disease control rate (DCR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of complete response (CR), partial response (PR), or stable disease (SD) per RECIST v.1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of first documented CR or PR (responder) to the date of objective progression or the date of death due to any cause, whichever is earlier"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Radiographic documentation of progression per RECIST v.1.1 or death due to any cause",
+                "censoring": "If no baseline disease assessment, censor at randomization date; if no progression or death by data cutoff, censor at date of last postbaseline adequate radiological tumor assessment; censor for missing \u22652 consecutive tumor assessments; censor if new anticancer treatment started without progression/death within 14 days"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "For patients not known to have died as of data cutoff, censor at last date known to be alive"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Objective progression or death due to any cause",
+                "censoring": "If responder not known to have died or progressed, censor at date of last evaluable tumor assessment"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS analysis",
+                "details": "Alpha level of 0.04998 (2-sided), stratified by IWRS stratification values"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "PFS and OS analyses",
+                "details": "Stratified identically to the primary log-rank test with assigned treatment as the only covariate"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Time-to-event endpoints",
+                "details": "For survival curve estimation, medians, quartiles, and percentages"
+              },
+              {
+                "name": "Cochran-Mantel-Haenszel test",
+                "applied_to": "ORR and DCR comparisons",
+                "details": "Adjusting for stratification variables"
+              },
+              {
+                "name": "MMRM regression",
+                "applied_to": "Patient-reported outcomes",
+                "details": "Mixed effect Model Repeat Measurement including treatment, visit, treatment*visit, and baseline"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Hierarchical testing/gatekeeping approach",
+                "details": "OS will be tested only if PFS is significant. Haybittle Peto type spending function for OS interim analysis with p-value bound 0.0001",
+                "alpha_allocation": "1-sided type I error rate controlled at 2.5% for OS using spending function"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Haybittle Peto type spending function",
+                "details": "Safety interim after first 50 patients completed 3 cycles; futility and safety interim after ~107 PFS events with futility boundary p-value >0.39"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)]",
+          "cite_as": "I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)"
+        }
+      ]
+    },
+    "comparison": {
+      "has_precedent_a": false,
+      "has_precedent_b": false,
+      "trial_mentions_a": [],
+      "trial_mentions_b": [],
+      "length_difference": 0,
+      "improved": false
+    }
+  },
+  {
+    "section_id": "10",
+    "section_title": "SENSITIVITY ANALYSES",
+    "without_similar_trials": "",
+    "with_similar_trials": "",
+    "similar_trials_data": {
+      "query": {
+        "phase": "III",
+        "indication": "lung cancer",
+        "endpoint_type": "OS",
+        "design_type": null
+      },
+      "citation_instruction": "When using precedent data, cite as: [Precedent: TRIAL_NAME (Phase, Indication) - specific element]",
+      "num_matches": 5,
+      "similar_trials": [
+        {
+          "trial_id": "NCT02220894",
+          "phase": "Phase III",
+          "indication": "PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC)",
+          "design": "Randomized, open-label, controlled trial comparing pembrolizumab vs standard of care platinum-based chemotherapy",
+          "source_sap": "KEYNOTE-042_SAP",
+          "relevance_score": 153,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226550%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226520%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226520%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u22651%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u22651%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226550%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226520%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226520%"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Progression-Free Survival (PFS)",
+                "event": "Disease progression per RECIST 1.1 or death from any cause",
+                "censoring": "Censored at date of last adequate tumor assessment for subjects alive without progression; subjects with no post-baseline assessment censored at randomization date + 1 day"
+              },
+              {
+                "endpoint": "Overall Survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Censored at date of last known alive status for subjects alive at data cutoff"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "To estimate survival distributions and medians"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified by ECOG status, histology, geographic region, and PD-L1 expression status to estimate hazard ratios"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified for hypothesis testing"
+              },
+              {
+                "name": "Miettinen and Nurminen method",
+                "applied_to": "Objective response rate",
+                "details": "To calculate confidence intervals for difference in response rates"
+              },
+              {
+                "name": "Fisher's exact test",
+                "applied_to": "Objective response rate",
+                "details": "For hypothesis testing of response rate differences"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Sequential testing strategy",
+                "details": "Testing performed sequentially at 2.5% one-sided alpha in order: OS in TPS\u226550%, OS in TPS\u226520%, OS in TPS\u22651%, PFS in TPS\u226550%, PFS in TPS\u226520%, PFS in TPS\u22651%, ORR in TPS\u226550%, ORR in TPS\u226520%, ORR in TPS\u22651%",
+                "alpha_allocation": "Alpha spending function (Hwang-Shih-DeCani with gamma=-0.9023) applied based on calendar time"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Hwang-Shih-DeCani alpha spending function with gamma parameter -0.9023",
+                "details": "IA1 after \u2265250 deaths in TPS\u226550% subjects and \u22656 months after last enrollment; IA2 at ~38 months after study start; Final analysis at ~45 months after study start"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))]",
+          "cite_as": "NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))"
+        },
+        {
+          "trial_id": "NCT02362594",
+          "phase": "Phase 3",
+          "indication": "high-risk Stage III melanoma",
+          "design": "randomized, double-blind, placebo-controlled",
+          "source_sap": "KEYNOTE-054_Melanoma_SAP",
+          "relevance_score": 143,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Recurrence-free survival (RFS)",
+                "endpoint_type": "primary",
+                "definition": "Time from randomization to disease recurrence or death from any cause"
+              },
+              {
+                "name": "RFS in PD-L1-positive subgroup",
+                "endpoint_type": "primary",
+                "definition": "RFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Distant metastases-free survival (DMFS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to distant metastases or death"
+              },
+              {
+                "name": "DMFS in PD-L1-positive subgroup",
+                "endpoint_type": "secondary",
+                "definition": "DMFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to death from any cause"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Recurrence-free survival (RFS)",
+                "event": "Disease recurrence (loco-regional or distant) or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no recurrence or death observed"
+              },
+              {
+                "endpoint": "Distant metastases-free survival (DMFS)",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no distant metastases or death observed"
+              },
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Patients censored at last known alive date if death not observed"
+              },
+              {
+                "endpoint": "RFS",
+                "event": "Recurrence or death from any cause",
+                "censoring": "Patients alive without recurrence censored at last assessment"
+              },
+              {
+                "endpoint": "DMFS",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients alive without distant metastases censored at last assessment"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients alive censored at last known alive date"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier technique",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "To obtain estimates of survival-type distributions with standard error computed using Greenwood formula"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Stratified by stage (IIIA >1mm vs IIIB vs IIIC 1-3 nodes vs IIIC \u22654 nodes) for comparison between treatment arms"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Using Efron's tie-handling method, stratified by stage, with treatment as single covariate to estimate HR with confidence interval"
+              },
+              {
+                "name": "Forest plot techniques",
+                "applied_to": "Subgroup analyses",
+                "details": "To investigate consistency of treatment comparisons among subgroups"
+              },
+              {
+                "name": "O'Brien-Fleming spending function",
+                "applied_to": "Interim analysis",
+                "details": "For stopping boundaries at interim analysis after 330 RFS events"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Graphical approach with sequential testing",
+                "details": "Initial 1-sided alpha allocation: RFS=0.025, DMFS=0, OS=0. Both overall population and PD-L1+ subgroup hypotheses must be rejected to proceed to next endpoint. For overall population: 1-sided alpha=0.014. For PD-L1+ subgroup: allocated alpha calculated as function of event ratio using Spiessens and Debois method",
+                "alpha_allocation": "Overall 1-sided significance level of 0.025 for study as whole"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "O'Brien-Fleming spending function",
+                "details": "One interim analysis planned after approximately 330 RFS events to assess superiority of pembrolizumab vs placebo for RFS in overall population"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02362594 (Phase 3, high-risk Stage III melanoma)]",
+          "cite_as": "NCT02362594 (Phase 3, high-risk Stage III melanoma)"
+        },
+        {
+          "trial_id": "GO30081/NCT02763579",
+          "phase": "I/III",
+          "indication": "Extensive-stage small cell lung cancer (ES-SCLC)",
+          "design": "Randomized, double-blind, placebo-controlled",
+          "source_sap": "IMpower133_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to the first occurrence of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever occurs first"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of patients who had an objective response by the investigator using RECIST v1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time interval from first occurrence of a documented objective response to the time of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever comes first"
+              },
+              {
+                "name": "Time to deterioration (TTD) in lung cancer symptoms",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to deterioration (10-point change) on EORTC QLQ-C30 and EORTC QLQ-LC13 symptom subscales for cough, dyspnea, chest pain, arm/shoulder pain, or fatigue maintained for two assessments or one assessment followed by death from any cause within 3 weeks"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients who have not experienced disease progression or death censored at time of last tumor assessment; patients with no post-baseline tumor assessment censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients who are not reported as having died censored at the date when they were last known to be alive; patients with no post-baseline information censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients whose disease has not progressed and who have not died censored at time of last tumor assessment; if no assessments after first CR/PR, censored at date of first CR/PR plus 1 day"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS and OS analyses",
+                "details": "Stratified by sex, ECOG performance status, and presence of brain metastases"
+              },
+              {
+                "name": "Kaplan-Meier methodology",
+                "applied_to": "PFS and OS survival estimation",
+                "details": "Used to estimate median PFS and OS for each treatment arm"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Hazard ratio estimation",
+                "details": "Stratified Cox model to estimate HR and 95% CI for PFS and OS"
+              },
+              {
+                "name": "Brookmeyer-Crowley methodology",
+                "applied_to": "Confidence intervals",
+                "details": "Used to construct 95% CI for median PFS and OS"
+              },
+              {
+                "name": "Clopper-Pearson method",
+                "applied_to": "Objective response rate",
+                "details": "For calculating ORR and its 95% CI"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Group sequential weighted Holm procedure",
+                "details": "Two-sided significance levels of 0.005 allocated to PFS and 0.045 to OS initially. If PFS significant at 0.005, OS tested at 0.05. If OS significant at 0.045, PFS tested at 0.05",
+                "alpha_allocation": "0.005 for PFS, 0.045 for OS, with alpha recycling between endpoints"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "Lan-DeMets alpha spending function to approximate O'Brien-Fleming boundary",
+                "details": "One interim OS analysis at 240 OS events (~78% information fraction). Primary PFS analysis conducted at same time as OS interim analysis at ~295 PFS events"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))]",
+          "cite_as": "GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))"
+        },
+        {
+          "trial_id": "D4191C00001",
+          "phase": "Phase III",
+          "indication": "Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III)",
+          "design": "Randomised, Double-blind, Placebo-controlled, Multi-centre",
+          "source_sap": "PACIFIC_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until death due to any cause"
+              },
+              {
+                "name": "Progression free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until the date of the first objective disease progression or death (by any cause in the absence of progression) using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Proportion of patients alive at 24 months (OS24)",
+                "endpoint_type": "Secondary",
+                "definition": "Kaplan-Meier estimate of OS at 24 months"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Duration of response (DoR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death due to any cause",
+                "censoring": "Censored at last recorded date patient was known to be alive (SUR_DAT)"
+              },
+              {
+                "endpoint": "Progression free survival (PFS)",
+                "event": "First objective disease progression or death",
+                "censoring": "Censored at time of latest RECIST 1.1 assessment if no progression/death. If progression/death after 2+ missed visits, censored at latest assessment prior to two missed visits"
+              },
+              {
+                "endpoint": "Time to death or distant metastasis (TTDM)",
+                "event": "Death or distant metastasis",
+                "censoring": "Censored at last RECIST assessment if no event occurred"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "OS and PFS co-primary analysis",
+                "details": "Adjusting for age at randomisation (<65 vs \u226565 years), sex (male vs female), and smoking history (smoker vs non-smoker), using Breslow approach for handling ties"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "OS and PFS subgroup analyses and covariate effects",
+                "details": "To determine effect of covariates on HR estimate and consistency of treatment effect between subgroups"
+              },
+              {
+                "name": "Fisher's exact test with mid p-values",
+                "applied_to": "Objective response rate",
+                "details": "Binary response variable for ORR (CR and PR vs SD, PD and NE)"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Survival analysis and time-to-event endpoints",
+                "details": "For survival curves, median estimates, and confidence intervals"
+              },
+              {
+                "name": "Logistic regression model",
+                "applied_to": "Symptom improvement rate and HR QoL/function improvement rate",
+                "details": "Adjusting for same factors as co-primary endpoints"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Alpha allocation between co-primary endpoints",
+                "details": "2.5% alpha allocated to PFS and 2.5% alpha allocated to OS. Study considered positive if either PFS or OS analysis is statistically significant",
+                "alpha_allocation": {
+                  "PFS": "2.5%",
+                  "OS": "2.5%"
+                }
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 3,
+                "spending_function": "Lan DeMets spending function that approximates O'Brien Fleming approach",
+                "details": [
+                  {
+                    "analysis": "PFS interim",
+                    "events": "367 PFS events (52% maturity)",
+                    "timing": "~30 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "First OS interim",
+                    "events": "285 OS events (41% maturity), 458 PFS events (65% maturity)",
+                    "timing": "~36 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "Second OS interim",
+                    "events": "393 OS events (56% maturity)",
+                    "timing": "~47 months after first patient randomised"
+                  }
+                ]
+              }
+            ]
+          },
+          "citation_format": "[Precedent: D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))]",
+          "cite_as": "D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))"
+        },
+        {
+          "trial_id": "I4T-MC-JVCY",
+          "phase": "1b/3",
+          "indication": "EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer",
+          "design": "Multicenter, Randomized, Double-Blind Study",
+          "source_sap": "RELAY_Ramucirumab_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Primary",
+                "definition": "Time from the date of randomization until the date of radiographic documentation of progression (as defined by RECIST v. 1.1) or the date of death due to any cause, whichever is earlier"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of randomization to the date of death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of PR or CR per RECIST v.1.1"
+              },
+              {
+                "name": "Disease control rate (DCR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of complete response (CR), partial response (PR), or stable disease (SD) per RECIST v.1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of first documented CR or PR (responder) to the date of objective progression or the date of death due to any cause, whichever is earlier"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Radiographic documentation of progression per RECIST v.1.1 or death due to any cause",
+                "censoring": "If no baseline disease assessment, censor at randomization date; if no progression or death by data cutoff, censor at date of last postbaseline adequate radiological tumor assessment; censor for missing \u22652 consecutive tumor assessments; censor if new anticancer treatment started without progression/death within 14 days"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "For patients not known to have died as of data cutoff, censor at last date known to be alive"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Objective progression or death due to any cause",
+                "censoring": "If responder not known to have died or progressed, censor at date of last evaluable tumor assessment"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS analysis",
+                "details": "Alpha level of 0.04998 (2-sided), stratified by IWRS stratification values"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "PFS and OS analyses",
+                "details": "Stratified identically to the primary log-rank test with assigned treatment as the only covariate"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Time-to-event endpoints",
+                "details": "For survival curve estimation, medians, quartiles, and percentages"
+              },
+              {
+                "name": "Cochran-Mantel-Haenszel test",
+                "applied_to": "ORR and DCR comparisons",
+                "details": "Adjusting for stratification variables"
+              },
+              {
+                "name": "MMRM regression",
+                "applied_to": "Patient-reported outcomes",
+                "details": "Mixed effect Model Repeat Measurement including treatment, visit, treatment*visit, and baseline"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Hierarchical testing/gatekeeping approach",
+                "details": "OS will be tested only if PFS is significant. Haybittle Peto type spending function for OS interim analysis with p-value bound 0.0001",
+                "alpha_allocation": "1-sided type I error rate controlled at 2.5% for OS using spending function"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Haybittle Peto type spending function",
+                "details": "Safety interim after first 50 patients completed 3 cycles; futility and safety interim after ~107 PFS events with futility boundary p-value >0.39"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)]",
+          "cite_as": "I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)"
+        }
+      ]
+    },
+    "comparison": {
+      "has_precedent_a": false,
+      "has_precedent_b": false,
+      "trial_mentions_a": [],
+      "trial_mentions_b": [],
+      "length_difference": 0,
+      "improved": false
+    }
+  },
+  {
+    "section_id": "13",
+    "section_title": "INTERIM ANALYSIS",
+    "without_similar_trials": "",
+    "with_similar_trials": "",
+    "similar_trials_data": {
+      "query": {
+        "phase": "III",
+        "indication": "lung cancer",
+        "endpoint_type": "OS",
+        "design_type": null
+      },
+      "citation_instruction": "When using precedent data, cite as: [Precedent: TRIAL_NAME (Phase, Indication) - specific element]",
+      "num_matches": 5,
+      "similar_trials": [
+        {
+          "trial_id": "NCT02220894",
+          "phase": "Phase III",
+          "indication": "PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC)",
+          "design": "Randomized, open-label, controlled trial comparing pembrolizumab vs standard of care platinum-based chemotherapy",
+          "source_sap": "KEYNOTE-042_SAP",
+          "relevance_score": 153,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226550%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u226520%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u226520%"
+              },
+              {
+                "name": "Overall Survival (OS) in subjects with TPS\u22651%",
+                "endpoint_type": "Primary",
+                "definition": "Time from randomization to death from any cause in subjects with TPS\u22651%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226550%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226550%"
+              },
+              {
+                "name": "Progression-Free Survival (PFS) by RECIST 1.1 in subjects with TPS\u226520%",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to disease progression or death by central independent radiologists' review in subjects with TPS\u226520%"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Progression-Free Survival (PFS)",
+                "event": "Disease progression per RECIST 1.1 or death from any cause",
+                "censoring": "Censored at date of last adequate tumor assessment for subjects alive without progression; subjects with no post-baseline assessment censored at randomization date + 1 day"
+              },
+              {
+                "endpoint": "Overall Survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Censored at date of last known alive status for subjects alive at data cutoff"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "To estimate survival distributions and medians"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified by ECOG status, histology, geographic region, and PD-L1 expression status to estimate hazard ratios"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "Overall survival and progression-free survival",
+                "details": "Stratified for hypothesis testing"
+              },
+              {
+                "name": "Miettinen and Nurminen method",
+                "applied_to": "Objective response rate",
+                "details": "To calculate confidence intervals for difference in response rates"
+              },
+              {
+                "name": "Fisher's exact test",
+                "applied_to": "Objective response rate",
+                "details": "For hypothesis testing of response rate differences"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Sequential testing strategy",
+                "details": "Testing performed sequentially at 2.5% one-sided alpha in order: OS in TPS\u226550%, OS in TPS\u226520%, OS in TPS\u22651%, PFS in TPS\u226550%, PFS in TPS\u226520%, PFS in TPS\u22651%, ORR in TPS\u226550%, ORR in TPS\u226520%, ORR in TPS\u22651%",
+                "alpha_allocation": "Alpha spending function (Hwang-Shih-DeCani with gamma=-0.9023) applied based on calendar time"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Hwang-Shih-DeCani alpha spending function with gamma parameter -0.9023",
+                "details": "IA1 after \u2265250 deaths in TPS\u226550% subjects and \u22656 months after last enrollment; IA2 at ~38 months after study start; Final analysis at ~45 months after study start"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))]",
+          "cite_as": "NCT02220894 (Phase III, PD-L1 positive (TPS\u22651%) advanced or metastatic non-small cell lung cancer (NSCLC))"
+        },
+        {
+          "trial_id": "NCT02362594",
+          "phase": "Phase 3",
+          "indication": "high-risk Stage III melanoma",
+          "design": "randomized, double-blind, placebo-controlled",
+          "source_sap": "KEYNOTE-054_Melanoma_SAP",
+          "relevance_score": 143,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Recurrence-free survival (RFS)",
+                "endpoint_type": "primary",
+                "definition": "Time from randomization to disease recurrence or death from any cause"
+              },
+              {
+                "name": "RFS in PD-L1-positive subgroup",
+                "endpoint_type": "primary",
+                "definition": "RFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Distant metastases-free survival (DMFS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to distant metastases or death"
+              },
+              {
+                "name": "DMFS in PD-L1-positive subgroup",
+                "endpoint_type": "secondary",
+                "definition": "DMFS specifically in patients with PD-L1-positive tumor expression"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "secondary",
+                "definition": "Time from randomization to death from any cause"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Recurrence-free survival (RFS)",
+                "event": "Disease recurrence (loco-regional or distant) or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no recurrence or death observed"
+              },
+              {
+                "endpoint": "Distant metastases-free survival (DMFS)",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients censored at last disease assessment if no distant metastases or death observed"
+              },
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death from any cause",
+                "censoring": "Patients censored at last known alive date if death not observed"
+              },
+              {
+                "endpoint": "RFS",
+                "event": "Recurrence or death from any cause",
+                "censoring": "Patients alive without recurrence censored at last assessment"
+              },
+              {
+                "endpoint": "DMFS",
+                "event": "Distant metastases or death from any cause",
+                "censoring": "Patients alive without distant metastases censored at last assessment"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients alive censored at last known alive date"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Kaplan-Meier technique",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "To obtain estimates of survival-type distributions with standard error computed using Greenwood formula"
+              },
+              {
+                "name": "Log-rank test",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Stratified by stage (IIIA >1mm vs IIIB vs IIIC 1-3 nodes vs IIIC \u22654 nodes) for comparison between treatment arms"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "RFS, DMFS, OS",
+                "details": "Using Efron's tie-handling method, stratified by stage, with treatment as single covariate to estimate HR with confidence interval"
+              },
+              {
+                "name": "Forest plot techniques",
+                "applied_to": "Subgroup analyses",
+                "details": "To investigate consistency of treatment comparisons among subgroups"
+              },
+              {
+                "name": "O'Brien-Fleming spending function",
+                "applied_to": "Interim analysis",
+                "details": "For stopping boundaries at interim analysis after 330 RFS events"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Graphical approach with sequential testing",
+                "details": "Initial 1-sided alpha allocation: RFS=0.025, DMFS=0, OS=0. Both overall population and PD-L1+ subgroup hypotheses must be rejected to proceed to next endpoint. For overall population: 1-sided alpha=0.014. For PD-L1+ subgroup: allocated alpha calculated as function of event ratio using Spiessens and Debois method",
+                "alpha_allocation": "Overall 1-sided significance level of 0.025 for study as whole"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "O'Brien-Fleming spending function",
+                "details": "One interim analysis planned after approximately 330 RFS events to assess superiority of pembrolizumab vs placebo for RFS in overall population"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: NCT02362594 (Phase 3, high-risk Stage III melanoma)]",
+          "cite_as": "NCT02362594 (Phase 3, high-risk Stage III melanoma)"
+        },
+        {
+          "trial_id": "GO30081/NCT02763579",
+          "phase": "I/III",
+          "indication": "Extensive-stage small cell lung cancer (ES-SCLC)",
+          "design": "Randomized, double-blind, placebo-controlled",
+          "source_sap": "IMpower133_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to the first occurrence of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever occurs first"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from randomization to death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of patients who had an objective response by the investigator using RECIST v1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time interval from first occurrence of a documented objective response to the time of disease progression as determined by the investigator using RECIST v1.1 or death from any cause, whichever comes first"
+              },
+              {
+                "name": "Time to deterioration (TTD) in lung cancer symptoms",
+                "endpoint_type": "Secondary",
+                "definition": "Time from randomization to deterioration (10-point change) on EORTC QLQ-C30 and EORTC QLQ-LC13 symptom subscales for cough, dyspnea, chest pain, arm/shoulder pain, or fatigue maintained for two assessments or one assessment followed by death from any cause within 3 weeks"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients who have not experienced disease progression or death censored at time of last tumor assessment; patients with no post-baseline tumor assessment censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "Patients who are not reported as having died censored at the date when they were last known to be alive; patients with no post-baseline information censored at randomization plus 1 day"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Disease progression per RECIST v1.1 or death from any cause",
+                "censoring": "Patients whose disease has not progressed and who have not died censored at time of last tumor assessment; if no assessments after first CR/PR, censored at date of first CR/PR plus 1 day"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS and OS analyses",
+                "details": "Stratified by sex, ECOG performance status, and presence of brain metastases"
+              },
+              {
+                "name": "Kaplan-Meier methodology",
+                "applied_to": "PFS and OS survival estimation",
+                "details": "Used to estimate median PFS and OS for each treatment arm"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "Hazard ratio estimation",
+                "details": "Stratified Cox model to estimate HR and 95% CI for PFS and OS"
+              },
+              {
+                "name": "Brookmeyer-Crowley methodology",
+                "applied_to": "Confidence intervals",
+                "details": "Used to construct 95% CI for median PFS and OS"
+              },
+              {
+                "name": "Clopper-Pearson method",
+                "applied_to": "Objective response rate",
+                "details": "For calculating ORR and its 95% CI"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Group sequential weighted Holm procedure",
+                "details": "Two-sided significance levels of 0.005 allocated to PFS and 0.045 to OS initially. If PFS significant at 0.005, OS tested at 0.05. If OS significant at 0.045, PFS tested at 0.05",
+                "alpha_allocation": "0.005 for PFS, 0.045 for OS, with alpha recycling between endpoints"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 1,
+                "spending_function": "Lan-DeMets alpha spending function to approximate O'Brien-Fleming boundary",
+                "details": "One interim OS analysis at 240 OS events (~78% information fraction). Primary PFS analysis conducted at same time as OS interim analysis at ~295 PFS events"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))]",
+          "cite_as": "GO30081/NCT02763579 (I/III, Extensive-stage small cell lung cancer (ES-SCLC))"
+        },
+        {
+          "trial_id": "D4191C00001",
+          "phase": "Phase III",
+          "indication": "Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III)",
+          "design": "Randomised, Double-blind, Placebo-controlled, Multi-centre",
+          "source_sap": "PACIFIC_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until death due to any cause"
+              },
+              {
+                "name": "Progression free survival (PFS)",
+                "endpoint_type": "Co-primary",
+                "definition": "Time from the date of randomisation until the date of the first objective disease progression or death (by any cause in the absence of progression) using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Proportion of patients alive at 24 months (OS24)",
+                "endpoint_type": "Secondary",
+                "definition": "Kaplan-Meier estimate of OS at 24 months"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              },
+              {
+                "name": "Duration of response (DoR)",
+                "endpoint_type": "Secondary",
+                "definition": "Using BICR assessments according to RECIST 1.1"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "Overall survival (OS)",
+                "event": "Death due to any cause",
+                "censoring": "Censored at last recorded date patient was known to be alive (SUR_DAT)"
+              },
+              {
+                "endpoint": "Progression free survival (PFS)",
+                "event": "First objective disease progression or death",
+                "censoring": "Censored at time of latest RECIST 1.1 assessment if no progression/death. If progression/death after 2+ missed visits, censored at latest assessment prior to two missed visits"
+              },
+              {
+                "endpoint": "Time to death or distant metastasis (TTDM)",
+                "event": "Death or distant metastasis",
+                "censoring": "Censored at last RECIST assessment if no event occurred"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "OS and PFS co-primary analysis",
+                "details": "Adjusting for age at randomisation (<65 vs \u226565 years), sex (male vs female), and smoking history (smoker vs non-smoker), using Breslow approach for handling ties"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "OS and PFS subgroup analyses and covariate effects",
+                "details": "To determine effect of covariates on HR estimate and consistency of treatment effect between subgroups"
+              },
+              {
+                "name": "Fisher's exact test with mid p-values",
+                "applied_to": "Objective response rate",
+                "details": "Binary response variable for ORR (CR and PR vs SD, PD and NE)"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Survival analysis and time-to-event endpoints",
+                "details": "For survival curves, median estimates, and confidence intervals"
+              },
+              {
+                "name": "Logistic regression model",
+                "applied_to": "Symptom improvement rate and HR QoL/function improvement rate",
+                "details": "Adjusting for same factors as co-primary endpoints"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Alpha allocation between co-primary endpoints",
+                "details": "2.5% alpha allocated to PFS and 2.5% alpha allocated to OS. Study considered positive if either PFS or OS analysis is statistically significant",
+                "alpha_allocation": {
+                  "PFS": "2.5%",
+                  "OS": "2.5%"
+                }
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 3,
+                "spending_function": "Lan DeMets spending function that approximates O'Brien Fleming approach",
+                "details": [
+                  {
+                    "analysis": "PFS interim",
+                    "events": "367 PFS events (52% maturity)",
+                    "timing": "~30 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "First OS interim",
+                    "events": "285 OS events (41% maturity), 458 PFS events (65% maturity)",
+                    "timing": "~36 months after first patient randomised"
+                  },
+                  {
+                    "analysis": "Second OS interim",
+                    "events": "393 OS events (56% maturity)",
+                    "timing": "~47 months after first patient randomised"
+                  }
+                ]
+              }
+            ]
+          },
+          "citation_format": "[Precedent: D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))]",
+          "cite_as": "D4191C00001 (Phase III, Locally Advanced, Unresectable Non-Small Cell Lung Cancer (Stage III))"
+        },
+        {
+          "trial_id": "I4T-MC-JVCY",
+          "phase": "1b/3",
+          "indication": "EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer",
+          "design": "Multicenter, Randomized, Double-Blind Study",
+          "source_sap": "RELAY_Ramucirumab_SAP",
+          "relevance_score": 133,
+          "precedent_data": {
+            "endpoints": [
+              {
+                "name": "Progression-free survival (PFS)",
+                "endpoint_type": "Primary",
+                "definition": "Time from the date of randomization until the date of radiographic documentation of progression (as defined by RECIST v. 1.1) or the date of death due to any cause, whichever is earlier"
+              },
+              {
+                "name": "Overall survival (OS)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of randomization to the date of death from any cause"
+              },
+              {
+                "name": "Objective response rate (ORR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of PR or CR per RECIST v.1.1"
+              },
+              {
+                "name": "Disease control rate (DCR)",
+                "endpoint_type": "Secondary",
+                "definition": "Proportion of randomized patients achieving a best overall response of complete response (CR), partial response (PR), or stable disease (SD) per RECIST v.1.1"
+              },
+              {
+                "name": "Duration of response (DOR)",
+                "endpoint_type": "Secondary",
+                "definition": "Time from the date of first documented CR or PR (responder) to the date of objective progression or the date of death due to any cause, whichever is earlier"
+              }
+            ],
+            "censoring_rules": [
+              {
+                "endpoint": "PFS",
+                "event": "Radiographic documentation of progression per RECIST v.1.1 or death due to any cause",
+                "censoring": "If no baseline disease assessment, censor at randomization date; if no progression or death by data cutoff, censor at date of last postbaseline adequate radiological tumor assessment; censor for missing \u22652 consecutive tumor assessments; censor if new anticancer treatment started without progression/death within 14 days"
+              },
+              {
+                "endpoint": "OS",
+                "event": "Death from any cause",
+                "censoring": "For patients not known to have died as of data cutoff, censor at last date known to be alive"
+              },
+              {
+                "endpoint": "DOR",
+                "event": "Objective progression or death due to any cause",
+                "censoring": "If responder not known to have died or progressed, censor at date of last evaluable tumor assessment"
+              }
+            ],
+            "methods": [
+              {
+                "name": "Stratified log-rank test",
+                "applied_to": "Primary PFS analysis",
+                "details": "Alpha level of 0.04998 (2-sided), stratified by IWRS stratification values"
+              },
+              {
+                "name": "Cox proportional hazards model",
+                "applied_to": "PFS and OS analyses",
+                "details": "Stratified identically to the primary log-rank test with assigned treatment as the only covariate"
+              },
+              {
+                "name": "Kaplan-Meier method",
+                "applied_to": "Time-to-event endpoints",
+                "details": "For survival curve estimation, medians, quartiles, and percentages"
+              },
+              {
+                "name": "Cochran-Mantel-Haenszel test",
+                "applied_to": "ORR and DCR comparisons",
+                "details": "Adjusting for stratification variables"
+              },
+              {
+                "name": "MMRM regression",
+                "applied_to": "Patient-reported outcomes",
+                "details": "Mixed effect Model Repeat Measurement including treatment, visit, treatment*visit, and baseline"
+              }
+            ],
+            "multiplicity": [
+              {
+                "method": "Hierarchical testing/gatekeeping approach",
+                "details": "OS will be tested only if PFS is significant. Haybittle Peto type spending function for OS interim analysis with p-value bound 0.0001",
+                "alpha_allocation": "1-sided type I error rate controlled at 2.5% for OS using spending function"
+              }
+            ],
+            "interim_analyses": [
+              {
+                "n_analyses": 2,
+                "spending_function": "Haybittle Peto type spending function",
+                "details": "Safety interim after first 50 patients completed 3 cycles; futility and safety interim after ~107 PFS events with futility boundary p-value >0.39"
+              }
+            ]
+          },
+          "citation_format": "[Precedent: I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)]",
+          "cite_as": "I4T-MC-JVCY (1b/3, EGFR Mutation-Positive Metastatic Non-Small Cell Lung Cancer)"
+        }
+      ]
+    },
+    "comparison": {
+      "has_precedent_a": false,
+      "has_precedent_b": false,
+      "trial_mentions_a": [],
+      "trial_mentions_b": [],
+      "length_difference": 0,
+      "improved": false
+    }
+  }
+]

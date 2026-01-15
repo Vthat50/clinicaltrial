@@ -1,0 +1,499 @@
+[
+  {
+    "error": "Failed to create workspace: {\"detail\":\"[SSL: SSLV3_ALERT_BAD_RECORD_MAC] sslv3 alert bad record mac (_ssl.c:2658)\"}",
+    "trial": "ADAURA"
+  },
+  {
+    "trial": "KEYNOTE-042",
+    "indication": "NSCLC",
+    "phase": "Phase 3",
+    "protocol_chars": 355240,
+    "reference_sap_chars": 355240,
+    "accuracy": 7.666666666666667,
+    "completeness": 4.0,
+    "quality": 7.5,
+    "sections": {
+      "analysis_populations": {
+        "generated_chars": 2842,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 3,
+        "quality": 8,
+        "summary": "The generated content provides accurate and well-written analysis population definitions but is severely incomplete compared to the reference which covers the entire statistical analysis section including methods, multiplicity, sample size calculations, and interim analyses.",
+        "gaps": [
+          "Statistical methods for efficacy analyses (OS, PFS, ORR)",
+          "Statistical methods for safety analyses",
+          "Multiplicity adjustments and control procedures",
+          "Sample size and power calculations",
+          "Subgroup analyses methodology",
+          "Interim analyses procedures",
+          "Baseline characteristics analysis methods",
+          "Compliance and exposure analysis methods"
+        ]
+      },
+      "sample_size": {
+        "generated_chars": 1909,
+        "reference_chars": 5000,
+        "accuracy": 7,
+        "completeness": 3,
+        "quality": 6,
+        "summary": "The generated section correctly identifies appropriate statistical methods for an oncology trial but is mostly placeholder content, while the reference shows a comprehensive SAP table of contents with detailed methodology sections.",
+        "gaps": [
+          "All specific numerical values and statistical assumptions are placeholders marked as 'TO BE CONFIRMED'",
+          "Reference contains detailed statistical methodology sections (8.2.5.1-8.2.5.3) that are completely missing from generated content",
+          "Missing specific interim analysis procedures and stopping boundaries detailed in reference section 8.2.8",
+          "No multiplicity adjustment procedures which are present in reference section 8.2.6",
+          "Missing subgroup analysis methodology referenced in section 8.2.8",
+          "No medication adherence/compliance analysis methods shown in reference",
+          "Generated content lacks the detailed procedural depth and specificity shown in the reference table of contents"
+        ]
+      },
+      "statistical_methods": {
+        "generated_chars": 5589,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 5,
+        "quality": 7,
+        "summary": "The generated content provides accurate statistical methods for key efficacy endpoints but lacks critical SAP components like safety analyses, sample size calculations, interim analyses, and multiplicity adjustments that are present in the reference.",
+        "gaps": [
+          "Safety analysis methods and endpoints completely missing",
+          "Sample size and power calculations not included",
+          "Interim analysis procedures absent",
+          "Multiplicity adjustment strategies not specified",
+          "Analysis populations not fully defined",
+          "Baseline characteristics and demographics analysis missing",
+          "Compliance and extent of exposure analyses not covered",
+          "Specific stratification factors marked as 'TO BE CONFIRMED' rather than specified"
+        ]
+      },
+      "missing_data": {
+        "generated_chars": 6380,
+        "reference_chars": 5000,
+        "accuracy": 7,
+        "completeness": 4,
+        "quality": 8,
+        "summary": "The generated section provides well-written general missing data principles but lacks the specific statistical methods, population definitions, and multiplicity adjustments detailed in the reference.",
+        "gaps": [
+          "Missing specific statistical methods (stratified log-rank test, Cox models with Efron's tie handling)",
+          "No mention of TPS biomarker subgroups (\u226550%, \u226520%, \u22651%)",
+          "Missing multiplicity adjustment strategy and sequential testing approach",
+          "No specification of All Subjects as Treated (ASaT) population for safety",
+          "Missing blinded central independent radiologist assessment details",
+          "No interim analysis plan or alpha spending functions",
+          "Missing stratified Miettinen and Nurminen method for ORR testing",
+          "No mention of Events of Clinical Interest or tiered safety approach"
+        ]
+      },
+      "safety_analysis": {
+        "generated_chars": 7033,
+        "reference_chars": 4999,
+        "accuracy": 8,
+        "completeness": 3,
+        "quality": 8,
+        "summary": "The generated content provides accurate safety analysis methods but covers only a small fraction of the comprehensive safety monitoring framework shown in the reference.",
+        "gaps": [
+          "Physical examination procedures (full and directed)",
+          "Vital signs monitoring protocols",
+          "ECG assessments and monitoring",
+          "ECOG performance status evaluations",
+          "Tumor assessments and imaging procedures",
+          "Laboratory safety evaluations (hematology, chemistry, urinalysis)",
+          "Pharmacokinetic/pharmacodynamic evaluations",
+          "Molecular testing and biomarker assessments",
+          "Future biomedical research procedures",
+          "Withdrawal/discontinuation procedures",
+          "Blinding/unblinding protocols",
+          "Equipment calibration requirements",
+          "Detailed visit schedules (screening, treatment, follow-up)",
+          "End of treatment visit procedures",
+          "Safety follow-up visit protocols",
+          "Second course phase procedures",
+          "Survival follow-up procedures",
+          "Overdose definition and reporting",
+          "Pregnancy and lactation reporting",
+          "Immediate AE reporting procedures"
+        ]
+      },
+      "interim_analysis": {
+        "generated_chars": 4127,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 6,
+        "quality": 8,
+        "summary": "The generated section provides accurate statistical methods and professional structure but lacks specific details and numerical parameters that would be present in a real SAP.",
+        "gaps": [
+          "Missing specific alpha spending function parameters and numerical boundaries",
+          "No specific timing details (information fractions, event numbers)",
+          "Lacks detailed statistical methodology for boundary calculations",
+          "Missing compliance and extent of exposure monitoring details",
+          "No specific subgroup analysis plans for interim reviews",
+          "Incomplete confidentiality section (text cuts off)",
+          "Missing detailed procedures for emergency unblinding",
+          "No specification of multiplicity adjustment methods for interim analyses"
+        ]
+      }
+    },
+    "overall_score": 6.388888888888889
+  },
+  {
+    "trial": "NCT01515748",
+    "indication": "Gastric Cancer",
+    "phase": "Phase 3",
+    "protocol_chars": 223178,
+    "reference_sap_chars": 58339,
+    "accuracy": 6.833333333333333,
+    "completeness": 3.8333333333333335,
+    "quality": 7.166666666666667,
+    "sections": {
+      "analysis_populations": {
+        "generated_chars": 2934,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 6,
+        "quality": 8,
+        "summary": "The generated section provides accurate and well-structured analysis population definitions but lacks some completeness compared to the comprehensive reference structure that includes statistical methods and data handling conventions.",
+        "gaps": [
+          "Missing statistical methods section that follows analysis populations in reference",
+          "Lacks data handling conventions and baseline definitions detail",
+          "Missing discontinuations and dropouts analysis section",
+          "No extent of exposure and compliance methodology",
+          "Missing concomitant treatment analysis approach",
+          "Lacks specific efficacy and safety analysis methodologies that typically follow population definitions"
+        ]
+      },
+      "sample_size": {
+        "generated_chars": 784,
+        "reference_chars": 5000,
+        "accuracy": 2,
+        "completeness": 1,
+        "quality": 3,
+        "summary": "The generated section contains no actual statistical content and only placeholder text, while the reference shows a comprehensive SAP with detailed statistical methodology.",
+        "gaps": [
+          "No actual sample size calculation methodology provided",
+          "Missing power analysis with specific assumptions and parameters",
+          "No statistical justification for chosen sample size",
+          "Lacks integration with overall statistical analysis framework",
+          "Missing connection to primary and secondary endpoints",
+          "No consideration of analysis populations in sample size planning",
+          "Absent statistical assumptions and effect size specifications"
+        ]
+      },
+      "statistical_methods": {
+        "generated_chars": 4097,
+        "reference_chars": 5000,
+        "accuracy": 7,
+        "completeness": 3,
+        "quality": 8,
+        "summary": "The generated SAP provides appropriate general statistical frameworks but lacks all the specific details, endpoints, and analysis populations that would be present in the complete reference document.",
+        "gaps": [
+          "Missing primary and secondary efficacy variables/endpoints",
+          "No analysis populations defined (ITT, PP, Safety, etc.)",
+          "Missing sample size justification and power calculations",
+          "No specific randomization methodology or stratification factors",
+          "Missing detailed censoring rules for time-to-event analyses",
+          "No multiplicity adjustment procedures",
+          "Missing interim analysis plans and stopping rules",
+          "No sensitivity analyses specified",
+          "Missing laboratory safety variable definitions",
+          "No baseline demographic analysis methods"
+        ]
+      },
+      "missing_data": {
+        "generated_chars": 4631,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 4,
+        "quality": 8,
+        "summary": "The generated section provides statistically sound missing data principles but lacks the specific details and structure present in the reference SAP.",
+        "gaps": [
+          "Missing specific efficacy variable missing data handling procedures",
+          "No handling of incomplete data section as referenced",
+          "Missing character values of clinical laboratory evaluation procedures",
+          "No decimals handling section",
+          "Missing pooling of centers for statistical analyses",
+          "No statistical technical issues section",
+          "Lacks specific study context and endpoint definitions",
+          "No concrete imputation methods specified",
+          "Missing laboratory-specific missing data procedures"
+        ]
+      },
+      "safety_analysis": {
+        "generated_chars": 8431,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 6,
+        "quality": 9,
+        "summary": "The generated safety analysis section is well-written and methodologically sound but appears incomplete compared to the reference which covers broader statistical methods including efficacy analyses, demographics, and exposure measures.",
+        "gaps": [
+          "Missing laboratory safety variables and vital signs analysis",
+          "No coverage of extent of exposure and compliance analyses",
+          "Lacks concomitant medication and medical history analysis sections",
+          "Missing efficacy analysis methods that appear in reference",
+          "Incomplete counting rules section (cuts off mid-sentence)",
+          "No statistical methodology for safety comparisons between treatment groups"
+        ]
+      },
+      "interim_analysis": {
+        "generated_chars": 3599,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 3,
+        "quality": 7,
+        "summary": "The generated section provides accurate interim analysis framework concepts but lacks the specific content and details present in the reference SAP.",
+        "gaps": [
+          "Missing specific interim analysis timing and statistical boundaries",
+          "No actual interim analysis plan details from the protocol",
+          "Missing software documentation section that follows interim analysis",
+          "Lacks appendices and references structure",
+          "No specific alpha spending function or stopping rules",
+          "Missing actual IDMC charter details",
+          "No specific interim analysis report content or distribution procedures"
+        ]
+      }
+    },
+    "overall_score": 5.944444444444444
+  },
+  {
+    "trial": "CheckMate-901",
+    "indication": "Urothelial",
+    "phase": "Phase 3",
+    "protocol_chars": 471327,
+    "reference_sap_chars": 471327,
+    "accuracy": 7.333333333333333,
+    "completeness": 4.0,
+    "quality": 7.5,
+    "sections": {
+      "analysis_populations": {
+        "generated_chars": 4064,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 3,
+        "quality": 8,
+        "summary": "The generated section provides well-written, accurate population definitions but completely misses the reference content which focuses on study design rationale, background, and objectives rather than analysis populations.",
+        "gaps": [
+          "Missing rationale for PD-L1 positive subpopulation as primary analysis population",
+          "Missing rationale for gemcitabine-cisplatin/carboplatin combination chemotherapy",
+          "Missing rationale for ECOG performance status exclusion criteria",
+          "Missing rationale for nivolumab and ipilimumab infusion times and dosing",
+          "Missing background sections on bladder cancer and drug mechanisms of action",
+          "Missing benefit/risk assessments for primary study and substudy",
+          "Missing objectives and endpoints section",
+          "Missing overall study design details and scientific rationale",
+          "Missing inclusion/exclusion criteria details",
+          "Missing data monitoring committee information"
+        ]
+      },
+      "sample_size": {
+        "generated_chars": 2541,
+        "reference_chars": 5000,
+        "accuracy": 7,
+        "completeness": 4,
+        "quality": 6,
+        "summary": "The generated section covers substudy sample size considerations accurately but lacks the comprehensive structure and detailed calculations expected for a complete SAP sample size section.",
+        "gaps": [
+          "Missing primary study sample size justification and calculations",
+          "No sample size determination for cisplatin-ineligible participants",
+          "Missing PD-L1 positive participants sample size rationale",
+          "No secondary OS endpoint sample size justification",
+          "Lacks specific power calculations with hazard ratios and alpha levels",
+          "Missing detailed statistical assumptions and parameters",
+          "No populations for analyses section",
+          "Missing statistical analyses methodology sections",
+          "Lacks interim analyses specifications",
+          "No safety analyses sample size considerations"
+        ]
+      },
+      "statistical_methods": {
+        "generated_chars": 5602,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 3,
+        "quality": 7,
+        "summary": "The generated statistical methods section provides technically sound oncology trial methods but completely misses the mark as the reference is actually background/rationale content, not statistical methods.",
+        "gaps": [
+          "Generated content doesn't match reference scope - reference covers study rationale, background, objectives, and design rather than statistical methods",
+          "Missing all background content on bladder cancer, nivolumab/ipilimumab mechanisms, and benefit/risk assessment",
+          "No coverage of study objectives, endpoints, design rationale, or population criteria as shown in reference",
+          "Generated focuses on analysis methods while reference focuses on scientific justification and study setup",
+          "Completely different sections being compared - generated is analysis-focused while reference is design/background-focused"
+        ]
+      },
+      "missing_data": {
+        "generated_chars": 5256,
+        "reference_chars": 0,
+        "accuracy": 5,
+        "completeness": 5,
+        "quality": 7,
+        "summary": "No reference section found for comparison",
+        "gaps": [
+          "Cannot compare - reference section not found"
+        ]
+      },
+      "safety_analysis": {
+        "generated_chars": 6502,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 3,
+        "quality": 8,
+        "summary": "The generated section provides well-structured adverse event analysis methodology but covers only a small fraction of the comprehensive safety analysis scope shown in the reference.",
+        "gaps": [
+          "Missing electrocardiogram safety assessments",
+          "Missing clinical safety laboratory assessments",
+          "Missing imaging safety assessments",
+          "Missing pharmacokinetic analysis section",
+          "Missing pharmacodynamics analysis section",
+          "Missing pharmacogenomics analysis section",
+          "Missing biomarker analysis sections",
+          "Missing immunogenicity assessments",
+          "Missing overdose analysis section",
+          "Missing pregnancy reporting procedures",
+          "Missing laboratory abnormality criteria",
+          "Missing drug-induced liver injury assessment",
+          "Missing health economics analysis",
+          "Missing sample size determination section",
+          "Missing regulatory reporting requirements for SAEs",
+          "Missing follow-up procedures for AEs and SAEs"
+        ]
+      },
+      "interim_analysis": {
+        "generated_chars": 3891,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 6,
+        "quality": 9,
+        "summary": "The generated section is well-structured and professionally written with appropriate statistical methods, but lacks specific timing details and event counts that appear to be available in the reference protocol amendments.",
+        "gaps": [
+          "Missing specific timing and event counts for interim analyses mentioned in Protocol Amendment 03",
+          "Lacks details about the 300 additional cisplatin-eligible participants added to substudy",
+          "Missing specific interim analysis timing revisions described in the reference",
+          "No mention of PD-L1 positive (\u22651%) as primary population addition",
+          "Incomplete integration of specific changes from multiple protocol amendments"
+        ]
+      }
+    },
+    "overall_score": 6.277777777777778
+  },
+  {
+    "trial": "VISION",
+    "indication": "Prostate",
+    "phase": "Phase 3",
+    "protocol_chars": 228204,
+    "reference_sap_chars": 180166,
+    "accuracy": 7.833333333333333,
+    "completeness": 3.5,
+    "quality": 7.333333333333333,
+    "sections": {
+      "analysis_populations": {
+        "generated_chars": 3490,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 4,
+        "quality": 8,
+        "summary": "The generated section provides well-written analysis population definitions but is missing most content areas covered in the reference SAP including efficacy analyses, safety evaluation, and baseline characteristics sections.",
+        "gaps": [
+          "Missing efficacy variable definitions and analyses methodology",
+          "Missing safety evaluation framework and extent of exposure analysis",
+          "Missing baseline characteristics and demographics analysis plan",
+          "Missing patient disposition and protocol deviation handling",
+          "Missing quality of life and health economics analysis sections",
+          "Missing subgroup analysis definitions and methodology",
+          "Missing stratification information analysis approach"
+        ]
+      },
+      "sample_size": {
+        "generated_chars": 1183,
+        "reference_chars": 5000,
+        "accuracy": 7,
+        "completeness": 2,
+        "quality": 6,
+        "summary": "The generated section correctly identifies the study design but lacks all actual sample size content while the reference shows this should contain detailed analysis populations, variable definitions, and baseline characteristics rather than sample size calculations.",
+        "gaps": [
+          "Missing analysis population definitions (efficacy, safety, sub-study)",
+          "Missing baseline characteristics and demographics section",
+          "Missing efficacy variable definitions and endpoints",
+          "Missing patient disposition and protocol deviation sections",
+          "Missing treatment arms and subgroup definitions",
+          "Missing prior/concurrent therapy analysis plans",
+          "Missing study periods and visit window definitions",
+          "Missing stratification information details"
+        ]
+      },
+      "statistical_methods": {
+        "generated_chars": 5046,
+        "reference_chars": 4999,
+        "accuracy": 8,
+        "completeness": 4,
+        "quality": 7,
+        "summary": "The generated SAP section contains appropriate statistical methods for oncology trials but lacks critical structural elements and detailed specifications present in professional pharmaceutical SAPs.",
+        "gaps": [
+          "Missing comprehensive table of contents and document structure",
+          "Lacks detailed population definitions (ITT, Per Protocol, Safety populations)",
+          "Missing visit windows and study period definitions",
+          "No stratification factor specifications",
+          "Absent interim analysis and IDMC oversight details",
+          "Missing baseline characteristics and demographics section",
+          "Lacks protocol deviations handling procedures",
+          "No subgroup analysis specifications",
+          "Missing partial/missing dates handling procedures",
+          "Absent sample size justification section",
+          "No treatment arm definitions",
+          "Missing sub-study analysis plans"
+        ]
+      },
+      "missing_data": {
+        "generated_chars": 5280,
+        "reference_chars": 4999,
+        "accuracy": 8,
+        "completeness": 4,
+        "quality": 8,
+        "summary": "The generated section provides high-quality missing data handling methodology but covers completely different content than the reference, which focuses on general statistical conventions and definitions rather than missing data procedures.",
+        "gaps": [
+          "Missing general statistical reporting conventions (n, mean, SD, median, min, max)",
+          "Missing treatment arm comparison methodology and two-sided testing specifications",
+          "Missing randomized treatment definitions for main study vs sub-study",
+          "Missing BSC/BSoC definitions and coding specifications",
+          "Missing reference date definitions and calculation methods",
+          "Missing study day calculation formulas",
+          "Missing concomitant medication coding specifications",
+          "Missing concurrent procedure coding methodology"
+        ]
+      },
+      "safety_analysis": {
+        "generated_chars": 8666,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 4,
+        "quality": 7,
+        "summary": "Generated content provides accurate adverse event analysis methods but covers only a fraction of the safety analysis scope shown in the reference SAP table of contents.",
+        "gaps": [
+          "Missing clinical laboratory determination analysis section",
+          "Missing vital signs, physical findings, and ECG analysis",
+          "Missing prior and concurrent surgical/therapeutic procedures",
+          "Missing radiotherapy analysis section",
+          "Missing prior and concomitant medications analysis",
+          "Missing post-treatment cancer-related therapy analysis",
+          "Missing deaths analysis subsection",
+          "Missing long-term follow up adverse events",
+          "Missing safety topics of interest",
+          "Missing sub-study analyses throughout all sections"
+        ]
+      },
+      "interim_analysis": {
+        "generated_chars": 3551,
+        "reference_chars": 5000,
+        "accuracy": 8,
+        "completeness": 3,
+        "completeness_note": "The reference only shows a table of contents snippet mentioning interim analyses at section 4.1, making direct comparison impossible",
+        "quality": 8,
+        "summary": "The generated content provides comprehensive interim analysis methodology but cannot be properly evaluated for completeness since the reference only contains a table of contents fragment.",
+        "gaps": [
+          "Reference provides no actual interim analysis content for comparison",
+          "Cannot assess if generated timing aligns with protocol requirements",
+          "Unable to verify if statistical boundaries match study design",
+          "Cannot confirm if DSMB structure matches actual study setup"
+        ]
+      }
+    },
+    "overall_score": 6.222222222222221
+  }
+]

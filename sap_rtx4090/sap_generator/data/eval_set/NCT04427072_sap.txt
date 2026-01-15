@@ -1,0 +1,1119 @@
+INC280A/capmatinib/Tabrecta®
+CINC280A2301  / NCT04427072
+A phase III, randomized, controlled, open-label, multicenter, global 
+study of capmatinib versus SoC docetaxel chemotherapy in 
+previously treated patients with EGFR wt, ALK negative, locally 
+advanced or metastatic (stage IIIB/IIIC or IV) NSCLC harboring MET 
+exon 14 skipping mutation (METΔex14)
+Statistical Analysis Plan (SAP)
+Final analys is
+Addendum 1
+Author: Trial statistician
+Document type: SAP Documentation
+Document status: Final 
+Release date: 30-Jan-2024
+Number of pages: 31
+Property of Novartis
+Confidential
+May not be used, divulged, published, or otherwise disclosed
+without the consent of Novartis
+Template Version 6.0, Effective from 23-Nov-2022
+
+Novartis Confidential Page 2 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Document history – Changes compared to previous final version of SAP
+Date Time 
+pointReason for update Outcome for update Section and title 
+impacted (Current)
+06-Oct-2023 Prior to 
+DB lock 
+for final 
+analysisCreation of final 
+versionN/A - First version NA
+29-Nov-2023 Prior to 
+DB lock 
+for final 
+analysisAmendment 1:
+Need for update of 
+the derivation of 
+censoring reasons 
+for duration of 
+responseParticipants who 
+move to capmatinib 
+treatment outside of 
+the trial are 
+presented with the 
+correct reason for 
+censoring2.6.1 Secondary 
+efficacy endpoint
+5.1 Determination of 
+missing adequate 
+tumor assessments
+Abbreviations not 
+used in the document 
+were removedList of abbreviations
+Addition of 
+analyses for 3 
+efficacy endpoints 
+because late 
+updated data have 
+an impact on these 
+endpointsAnalyses for 
+secondary endpoints 
+overall response rate, 
+disease control rate, 
+and time to response 
+by investigator 
+assessment were 
+added back.
+Paragraphs for 
+ORR/DCR and TTR 
+were added to the 
+subsection 2.7.1.2.6 Analysis 
+supporting secondary 
+objectives
+2.7.1 Secondary 
+efficacy endpoints
+dd-Jan-2024 After DB 
+lockAddendum 1:
+Addition of outputs 
+to fulfill a HA 
+requestAnalyses for main 
+efficacy endpoints 
+performed in the 
+primary analysis (not 
+planned for re-
+analysis with the final 
+data (PFS, ORR, 
+DCR, TTR, OS, 
+) were added 
+(excluding sensitivity 
+and supportive 
+analyses). Estimand-
+related text parts 
+were removed as 
+they are related to 
+the primary analysis.1 Introduction
+1.2.1 Primary 
+estimand
+1.2.2 Secondary 
+estimand
+2.5 Analysis 
+supporting primary 
+objective(s)
+2.6 Analysis of the 
+key secondary 
+objective
+2.7 Analysis 
+supporting secondary 
+objectives
+ 
+5 Appendix
+5.2 Statistical models
+6.1 Published 
+
+
+Novartis Confidential Page 3 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Date Time 
+pointReason for update Outcome for update Section and title 
+impacted (Current)
+literature
+General: correction of 
+typos and minor 
+wording updates
+
+Novartis Confidential Page 4 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Table of contents
+Table of contents..................................................................................................................4
+List of tables.........................................................................................................................5
+List of abbreviations ............................................................................................................6
+1 Introduction ..........................................................................................................................8
+1.1 Study design.............................................................................................................8
+1.2 Study objectives, endpoints and estimands..............................................................9
+2Statistical methods .............................................................................................................10
+2.1 Data analysis general information..........................................................................10
+2.1.1 General definitions ................................................................................10
+2.2 Analysis sets...........................................................................................................11
+2.3 Patient disposition, demographics, and other baseline characteristics...................11
+2.3.1 Patient disposition .................................................................................11
+2.3.2 Demographics and other baseline characteristics..................................12
+2.4 Treatments (study treatment, concomitant therapies, compliance)........................13
+2.4.1 Study treatment / compliance ................................................................13
+2.4.2 Prior, concomitant and post therapies ...................................................13
+2.5 Analysis supporting primary objective(s)..............................................................14
+2.5.1 Primary endpoint ...................................................................................14
+2.5.2 Statistical hypothesis, model, and method of analysis ..........................15
+2.5.3 Handling of missing values ...................................................................15
+2.6 Analysis of the key secondary objective................................................................17
+2.6.1 Key secondary endpoint ........................................................................17
+2.6.2 Statistical hypothesis, model, and method of analysis ..........................18
+2.6.3 Handling of missing values ...................................................................18
+2.7 Analysis supporting secondary objectives .............................................................19
+2.7.1 Secondary efficacy endpoints................................................................19
+2.8 Safety analyses.......................................................................................................21
+2.8.1 Adverse events (AEs)............................................................................22
+2.8.2 Deaths ....................................................................................................23
+2.8.3 Laboratory data......................................................................................24
+2.8.4 Other safety data....................................................................................24
+2.9 Pharmacokinetic endpoints ....................................................................................25
+2.10 PD and PK/PD analyses.........................................................................................25
+2.11 Patient-reported outcomes......................................................................................26
+
+Novartis Confidential Page 5 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2.12 Biomarkers .............................................................................................................26
+26
+26
+2.14 Interim analysis......................................................................................................27
+3Sample size calculation......................................................................................................27
+4Change to protocol specified analyses...............................................................................27
+5 Appendix ............................................................................................................................27
+5.1 Determination of missing adequate tumor assessments.........................................28
+5.2 Statistical models ...................................................................................................29
+5.2.1 Primary analysis ....................................................................................29
+5.2.2 Secondary  analysis ......................................................30
+6 References ..........................................................................................................................30
+6.1 Published literature ................................................................................................30
+6.2 Health authority guidance ......................................................................................31
+List of tables
+Table 1-1 Objectives and related endpoints.............................................................9
+Table 2-1 Outcome and event/censor dates for PFS analysis................................16
+Table 2-2 Outcome and event/censor dates for DOR analysis ..............................20
+27
+
+
+Novartis Confidential Page 6 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+List of abbreviations
+AE Adverse Event
+AESI Adverse Event of Special Interest
+ALT Alanine aminotransferase/glutamic pyruvic transaminase/GPT
+AST Aspartate aminotransferase/glutamic oxaloacetic transaminase/GOT
+BILI Total Bilirubin
+BIRC Blinded Independent Review Committee
+BOR Best Overall Response
+CI Confidence Interval
+CNS Central Nervous System
+COVID-19 Coronavirus Disease 2019
+CSR Clinical Study Report
+CTCAE Common Terminology Criteria for Adverse Events
+DCR Disease Control Rate
+DNA Deoxyribonucleic Acid
+DOIR Duration Of Intracranial Response
+DOR Duration Of Response
+ECG Electrocardiogram
+ECOG Eastern Cooperative Oncology Group
+eCRF Electronic Case Report Form
+EGFR Epidermal Growth Factor Receptor; also known as ErbB1
+EORTC European Organization for Research and Treatment of Cancer
+EOT End of Treatment
+EQ-5D-5L EuroQoL-5 Dimension-5 Level
+ET Extension Treatment
+FAS Full Analysis Set
+HR Hazard Ratio
+HRQoL Health-Related Quality of Life
+IDCR Intracranial disease control rate
+MedDRA Medical Dictionary for Drug Regulatory Affairs
+METΔex14 MET exon 14 skipping
+NCI National Cancer Institute
+NSCLC Non-Small Cell Lung Cancer
+OIRR Overall intracranial response rate
+ORR Overall Response Rate
+OS Overall Survival
+PD Progressive Disease
+PFS Progression-Free Survival
+PK Pharmacokinetics
+
+
+Novartis Confidential Page 7 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+PT Preferred Term
+QLQ Quality of Life Questionnaire
+QoL Quality of Life
+QTcF Corrected QT interval using Fridericia correction
+RANO-BM Response Assessment in Neuro-Oncology Brain Metastases
+RECIST Response Evaluation Criteria in Solid Tumors
+SAE Serious Adverse Event
+SAP Statistical Analysis Plan
+SAS Statistical Analysis System
+TTIR Time to Intracranial Response
+TTR Time to Response
+WHO World Health Organization
+wt Wild type
+
+Novartis Confidential Page 8 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+1 Introduction
+This statistical analysis plan (SAP) describes the planned analyses for the final Clinical Study 
+Report (CSR) of the study CINC280A2301, a randomized, controlled, open-label, multicenter, 
+global phase III study of capmatinib versus SoC docetaxel chemotherapy in previously treated 
+patients with EGFR wt, ALK negative, locally advanced or metastatic (stage IIIB/IIIC or IV) 
+NSCLC harboring MET exon 14 skipping mutation (METΔex14).
+The content of this SAP is based on the protocol version 02 and the statistical analysis plan 
+for the primary analysis, amendment 2, referred to as “primary analysis SAP” 
+(CINC280A2301_SAP_CSR_1_primary_amendment2, dated 22-Mar-2023). All decisions 
+regarding the final analysis, as defined in the SAP, have been made prior to database lock.
+Due to changes in the treatment landscape which have heavily impacted the enrollment of 
+new participants into the study, Novartis has taken the decision to permanently halt 
+recruitment of participants in September 2022. Based on the primary analysis results of all 
+randomized participants available in April 2023 (cut-off date 15-Feb-2023), the decision to 
+stop the study prematurely was taken in May 2023. Last participant last visit was achieved on 
+31-Oct-2023.
+This abbreviated SAP describes the planned analyses for the final CSR and the posting of 
+results in registries.
+Baseline data will not be summarized again unless data changes after the interim database 
+lock necessitate an update. Based on a Heath Authority request to provide the updated results 
+for the main efficacy endpoints, the corresponding analyses were added in this SAP 
+addendum 1. They had not been planned before because no significant changes were expected.
+1.1 Study design
+This is a multicenter, open-label, randomized, active-controlled, global phase III study that 
+will enroll adult participants with EGFR wt, ALK rearrangement negative, NSCLC harboring 
+METΔex14 skipping mutations who have progressed on one or two prior lines of systemic 
+therapy for locally advanced or metastatic stage and are candidates for docetaxel.
+The study will randomize approximately 90 participants globally. Participants eligible for the 
+study will be randomized in a 2:1 ratio to one of the two treatment arms: capmatinib 
+(investigational therapy) or docetaxel. The randomization will be stratified by prior lines of 
+systemic therapy received for advanced/metastatic disease (one line vs. two lines).
+Participants randomized to docetaxel treatment will be eligible to crossover to receive 
+capmatinib treatment after BIRC-confirmed, RECIST 1.1-defined progressive disease (PD) 
+and after meeting the eligibility criteria outlined in the study protocol.
+For all participants, the respective treatment (either with capmatinib or docetaxel) may be 
+continued beyond initial disease progression as per RECIST 1.1 (as assessed by the 
+investigator and confirmed by BIRC) if, in the judgment of the investigator, there is evidence 
+of clinical benefit, and the participant wishes to continue on the study treatment.
+
+Novartis Confidential Page 9 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+After treatment discontinuation, all participants will be followed for safety evaluations during 
+the safety follow-up period, and the participant’s status will be collected every 12 weeks as 
+part of the survival follow-up.
+The primary analysis was performed after enrollment had been closed with 22 randomized 
+participants.
+1.2 Study objectives, endpoints and estimands
+For all detailed objectives and endpoints as well as the primary and secondary estimands of 
+the study refer to primary analysis SAP. The following Table 1-1 shows the objectives and 
+related endpoints in scope for this final SAP.
+Table 1-1 Objectives and related endpoints
+Objectives Endpoints
+Primary Objective Endpoint for primary objective
+To compare the efficacy of capmatinib versus 
+docetaxelProgression-free survival (PFS) by BIRC as per 
+RECIST 1.1
+Key secondary objective
+To compare the overall response rate (ORR) of 
+capmatinib and docetaxelEndpoints for key secondary objective
+ORR calculated per RECIST 1.1 by BIRC
+Secondary Objectives Endpoints for secondary objectives
+To assess the antitumor activity of capmatinib 
+versus docetaxelAll calculated per RECIST 1.1, both by BIRC and 
+investigator:
+•Duration of response (DOR)
+•Time to response (TTR)
+•Disease control rate (DCR)
+All calculated per RECIST 1.1, by investigator:
+•ORR
+•PFS
+To evaluate overall survival (OS) in participants 
+treated with capmatinib versus docetaxelOverall survival
+To evaluate the safety profile of capmatinib 
+versus docetaxelIncidence of adverse events and serious adverse 
+events, change in vital signs, laboratory results 
+and ECG
+
+
+Novartis Confidential Page 10 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2 Statistical methods
+2.1 Data analysis general information
+The final analysis will be performed by Novartis. SAS version 9.4 or later will be used to 
+perform all data analyses and to generate tables, figures, and listings.
+Data included in the analysis
+Data from all participants who signed the main informed consent for this study will be used in 
+the analysis. Data collected after participants’ withdrawal of informed consent for further 
+participation in the study will not be reported (except for death date, if it is obtained from 
+public records).
+The analysis cut-off date for the final analysis of study data will be established at the end of 
+the study. All statistical analyses will be performed using all data collected in the database up 
+to the data cut-off date. All data with an assessment date or event start date (e.g., vital sign 
+assessment date or start date of an adverse event) prior to or on the cut-off date will, be 
+included in the analysis. Any data collected beyond the cut-off date will not be included in the 
+analysis and will not be used for any derivations.
+All events with start date before or on the cut-off date and end date after the cut-off date will 
+be reported as ‘ongoing.’ The same rule will be applied to events starting before or on the cut-
+off date and not having documented end date. This approach applies, in particular, to adverse 
+event and concomitant medication reports. For these cases, the end date will not be imputed 
+and therefore will not appear in the listings.
+General analysis conventions
+Pooling of centers: Unless specified otherwise, data from all study centers will be pooled for 
+the analysis. Due to the expected small number of participants enrolled at each center, no 
+center effect will be assessed.
+Qualitative data (e.g., gender, race, etc.) will be summarized by means of contingency tables 
+by treatment arm; a missing category will be included as applicable. Percentages will be 
+calculated using the number of participants in the relevant population or subgroup as the 
+denominator.
+Quantitative data (e.g., age, body weight, etc.) will be summarized by appropriate 
+descriptive statistics (e.g., mean, standard deviation, median, percentiles, minimum, and 
+maximum) by treatment arm.
+2.1.1 General definitions
+For general definitions regarding investigational drug and study treatment, date of first/last 
+administration of study treatment, last date of exposure to study treatment, baseline, on-
+treatment assessments/events and observation period, windows for multiple assessments, last 
+contact date, and other specifications please refer to the primary analysis SAP.
+
+Novartis Confidential Page 11 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2.2 Analysis sets
+Participants are considered to be enrolled into the study if they have signed the main informed 
+consent. Only participants who have signed the main informed consent will be included in the 
+analysis data sets.
+Participants who signed a molecular pre-screening informed consent form but failed to meet 
+pre-screening criteria, as well as participants who signed the main informed consent form and 
+were subsequently found to be ineligible prior to randomization will be considered screen 
+failures. The set of All Screened Participants comprises all those who have signed the main 
+informed consent.
+Analysis sets will be summarized by treatment arm and stratum.
+Full analysis set
+The Full Analysis Set (FAS) comprises all participants to whom study treatment has been 
+assigned by randomization, regardless of whether or not the treatment was administered. 
+According to the intent to treat principle, participants will be analyzed according to the 
+treatment and strata they have been assigned to during the randomization procedure.
+Unless otherwise specified the FAS will be the default analysis set used for all efficacy 
+analyses.
+Safety set
+The Safety Set includes all participants who received at least one dose of study treatment. 
+Participants will be analyzed according to the study treatment received, where treatment 
+received is defined as the randomized treatment, if the participant took at least one dose of 
+that treatment, or the first treatment received if the randomized treatment was never received.
+All safety data will be analyzed using the Safety Set.
+Crossover analysis set
+The crossover analysis set (CAS) consists of participants randomized to the docetaxel arm 
+who crossed over to receive at least one dose of capmatinib. This analysis set will be used for 
+all analyses pertaining to safety evaluations collected after participants crossed over in the 
+extension treatment phase.
+2.3 Patient disposition, demographics, and other baseline 
+characteristics
+The FAS will be used for all participant demographic and baseline characteristic summaries 
+and listings.
+2.3.1 Patient disposition
+The following information will be presented by treatment arm:
+Participants randomized:
+
+Novartis Confidential Page 12 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+•Number (%) of participants treated
+•Number (%) of participants not treated
+•Reasons for not being treated
+Related to the treatment phase (participants randomized):
+•Number (%) of participants who are still on-treatment;
+•Number (%) of participants who discontinued treatment;
+•Reasons for study treatment discontinuation;
+Related to the post-treatment follow-up phase (participants who discontinued from 
+randomized treatment):
+•Number (%) of participants who did not enter the post-treatment follow-up phase;
+•Number (%) of participants who entered the post-treatment follow-up phase and 
+discontinued;
+•Reasons for discontinuation from the post-treatment follow-up phase;
+Related to the extension treatment (ET) phase (participants who crossed over to capmatinib):
+•Number (%) of participants who entered the ET phase;
+•Number (%) of participants who discontinued from the ET phase;
+•Reasons for discontinuation from the ET phase;
+Related to the ET safety follow-up (participants who discontinued from the ET phase):
+•Number (%) of participants who entered ET safety follow-up and discontinued;
+•Reasons for discontinuation from the ET safety follow-up;
+The information will be derived from the applicable ‘Subject status’ and ‘Disposition’ eCRFs.
+2.3.2 Demographics and other baseline characteristics
+Demographic and other baseline data including disease characteristics will be listed and 
+summarized descriptively by treatment arm.
+The following age categories will be presented: 18–< 65, ≥ 65–< 85, ≥ 85 years. Categories 
+with zero counts will not be included.
+Diagnosis and extent of cancer
+Summary statistics were prepared in the primary analysis. Data on diagnosis and extent of 
+cancer will be listed.
+Protocol deviations
+Frequency counts and percentages of participants in the FAS with any important protocol 
+deviations (eligibility, withdrawal, concomitant medication, study treatment, other) will be 
+tabulated by the deviation category by treatment arm. All protocol deviations will be listed.
+In addition to the study PD terms, Novartis has defined 6 new protocol deviations related to 
+the COVID-19 pandemic and the corresponding relationship (health status related vs. site 
+lockdown, patient concerns, drug supply issue, etc.) in line with “FDA Guidance on Conduct 
+
+Novartis Confidential Page 13 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+of Clinical Trials of Medical Products during COVID-19 Public Health Emergency” 
+(FDA 2021) and “Guidance on the management of clinical trials during the COVID-19 
+(coronavirus) pandemic” (EMA 2022). One additional study specific PD is also defined to 
+capture treatment delay/interruption due to COVID-19. The deviations related to the COVID-
+19 pandemic were summarized separately in the primary analysis. Any potential new PDs will 
+be included in the main PD summary and listing.
+2.4 Treatments (study treatment, concomitant therapies, compliance)
+The safety set will be used for all medication data summaries and listings unless otherwise 
+specified.
+2.4.1 Study treatment / compliance
+The exposure related analyses will be presented separately for the investigational drug and the 
+control drug, if applicable.
+Duration of exposure to study treatment, actual cumulative dose, dose intensity (DI), and 
+relative dose intensity (RDI) will be summarized. In addition, a categorical summary of RDI 
+will be presented in the respective summaries. The duration of exposure will be categorized 
+into time intervals (< 6, ≥ 6–< 12, ≥ 12–< 18, ≥ 18–< 24, ≥ 24–< 36, ≥ 36–< 48, ≥ 48–< 60, 
+≥ 60–< 72, ≥ 72–< 84, ≥ 84–< 96, ≥ 96 weeks, or as appropriate); frequency counts and 
+percentages will be presented for the number (%) of participants in each interval. The number 
+(%) of participants who have dose reductions or interruptions, and the reasons, will be 
+summarized.
+Participant level listings of all doses administered on treatment along with dose change 
+reasons will be produced. Participants who continue treatment beyond disease progression 
+will be listed.
+Definitions related to the duration of exposure and dose intensity for investigational drug as 
+well as for the control drug are specified in the primary analysis SAP.
+2.4.2 Prior, concomitant and post therapies
+Prior anticancer therapy and concomitant antineoplastic radiotherapy
+Prior antineoplastic medications, and radiotherapies were summarized in the primary analysis 
+and did not change. Prior antineoplastic surgeries will be listed based on the FAS.
+There was no additional data collected on concomitant radiotherapy, therefore no new 
+analysis will be done.
+Concomitant therapy
+Concomitant therapies are defined as any medications (excluding study treatment, prior 
+antineoplastic treatments, and blood transfusions), surgeries or procedures (including physical 
+therapy) administered in the study and are recorded on the eCRFs for Concomitant 
+Medications and Prior or Concomitant non-drug therapies/procedures, respectively.
+
+Novartis Confidential Page 14 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Concomitant medications will be coded using the WHO Drug Reference Listing (WHO DRL) 
+dictionary that employs the WHO Anatomical Therapeutic Chemical (WHO ATC) 
+classification system. Surgeries or procedures will be coded using the Medical Dictionary for 
+Regulatory Activities (MedDRA) terminology. All summaries will be tabulated using 
+frequency counts and percentages.
+Concomitant therapies will be summarized by ATC class, preferred term, and treatment arm. 
+Surgical and medical procedures will be coded using MedDRA and summarized by SOC and 
+preferred term. These summaries during the on-treatment period will include: 1) medications 
+starting on or after the start of study treatment but starting no later than 30 days after last dose 
+of study treatment and 2) medications starting prior to the start of study treatment but 
+continuing after the start of study treatment.
+All concomitant therapies will be listed by treatment arm. Any concomitant therapies starting 
+more than 30 days after the last date of study treatment and collected in the extension-
+treatment phase will be flagged in the listings. The safety set will be used for all concomitant 
+medication tables and listings.
+Antineoplastic therapy after discontinuation of study treatment
+The FAS will be used for listings and summaries of antineoplastic therapies initiated after 
+discontinuation of study treatment. Summaries will be tabulated using frequency counts and 
+percentages by treatment arm.
+Antineoplastic medications initiated after discontinuation of study treatment will be 
+summarized and listed by Anatomical Therapeutic Chemical (ATC) class, preferred term, and 
+treatment arm.
+Antineoplastic radiotherapy since discontinuation of study treatment will be listed. 
+Antineoplastic surgeries since discontinuation of study treatment did not change, therefore no 
+new analysis will be performed.
+2.5 Analysis supporting primary objective(s)
+The primary objective is to evaluate whether capmatinib prolongs PFS by BIRC according to 
+RECIST 1.1 compared to docetaxel. This objective was evaluated in the primary analysis as 
+planned in the study protocol and median PFS was reached. No significant change is expected. 
+However, to fulfill a HA request, a descriptive summary of the PFS endpoint will be provided 
+in the final analysis.
+2.5.1 Primary endpoint
+Progression-free survival (PFS) based on BIRC assessment as per RECIST 1.1 is the primary 
+efficacy endpoint. The analysis will be based on the FAS and will include all data observed 
+up-to the cut-off date. Censoring conventions are defined in Section 2.5.3.
+PFS is defined as the time from the date of randomization to the date of the first documented 
+disease progression based on BIRC assessment as per RECIST 1.1 or date of death due to any 
+cause, whichever occurs first.
+
+Novartis Confidential Page 15 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+The analysis of PFS will be based on the central radiological assessments done until the cut-
+off date defined in Section 2.1. The analysis will use the default censoring and event date 
+options from table 16-5 of the [Study Protocol Appendix 16.1] based on options A(1), B(1), 
+C1(1), C2(1), D(1), E(1), and F(1); option G is not applicable. In particular, PFS will not be 
+censored if a new antineoplastic therapy is started; instead, an Intent to treat (ITT) approach 
+will be used and this new antineoplastic therapy will be ignored for the purposes of PFS 
+derivation (and tumor assessments will continue), i.e., option F(1) in Table 16-5 of the [Study 
+Protocol Appendix 16.1] will be used. Discontinuation of study treatment (for any reason 
+before a PFS event [radiological progression or death]) will not be considered as a reason for 
+censoring. Tumor assessment data collected after discontinuation of study treatment or 
+occurrence of any unforeseen intercurrent event (e.g., due to COVID-19 pandemic) but before 
+the PFS event will be used for PFS.
+2.5.2 Statistical hypothesis, model, and method of analysis 
+The confirmatory part of the objective was evaluated in the primary analysis. For the update 
+based on final data, the hypothesis test as well as the supportive and sensitivity analyses will 
+not be repeated.
+The distribution of PFS will be estimated using the Kaplan-Meier method. The results will be 
+depicted graphically by treatment arm. The median PFS, 25th and 75th percentiles, and PFS 
+rate at different timepoints (e.g., 3, 6, 9, 12, 15 months) along with 95% confidence intervals 
+(CIs) will be presented by treatment arm. A Cox regression model stratified by the 
+randomization stratification factor will be used to estimate the hazard ratio (HR) of PFS, 
+along with 95% CI based on the Wald test.
+2.5.3 Handling of missing values
+In the primary analysis, PFS will be censored at the date of the last adequate tumor 
+assessment performed on or before the cut-off date, if no PFS event (radiological progression 
+or death) is observed prior to the analysis cut-off date. Clinical deterioration will not be 
+considered as documented disease progression. PFS events will be included in the analysis if 
+they occur after one missing assessment.
+Radiological progression or death observed after 2 or more missing tumor assessments 
+(including missed assessments due to the COVID-19 pandemic) will not be included in the 
+derivation of the time to event for PFS, and the observation will be censored at the time of the 
+last adequate tumor assessment prior to the first missing assessment. Participants without a 
+post-baseline tumor assessment (and without death) will be censored at the time of 
+randomization.
+The date of last adequate tumor assessment is the date of the last tumor assessment with 
+overall lesion response of CR, PR or SD or non-CR/non-PD before an event or a censoring 
+reason occurred. In this case the last tumor evaluation date at that assessment will be used. If 
+no post-baseline assessments are available (before an event or a censoring reason occurred) 
+then the date of randomization will be used.
+
+Novartis Confidential Page 16 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+In particular, PFS will be censored at the last adequate tumor assessment if one of the 
+following occurs: absence of event; the event occurred after two or more missing tumor 
+assessments. The term “missing adequate tumor assessment” is defined as a tumor assessment 
+(TA) not performed or tumor assessment with overall lesion response of “not evaluable (NE).” 
+The rule to determine the number of missing TAs is based on the time interval between the 
+date of last adequate tumor assessment and the date of an event. If the interval is greater than 
+twice the protocol-specified interval between the TAs and 2 times the protocol-allowed time 
+window around assessments, then the number of missing assessments will be 2 or more.
+Refer to Table 2-1 for censoring and event date options and outcomes for PFS and Section 5.1  
+for details regarding missing adequate tumor assessments.
+Table 2-1 Outcome and event/censor dates for PFS analysis
+Situation Date Outcome
+No baseline assessment Date of randomization1Censored
+Progression or death at or before next 
+scheduled assessmentDate of progression (or death) Progressed
+Progression or death after exactly one 
+missing assessmentDate of progression (or death) Progressed
+Progression or death after two or more 
+missing assessmentsDate of last adequate assessment 
+prior to missed assessmentCensored
+No progression (or death) Date of last adequate assessment Censored
+Treatment discontinuation due to 
+“Disease progression” without 
+documented progression, i.e., clinical 
+progression based on investigator claimDate of last adequate assessment Censored
+New anticancer therapy given prior to 
+protocol defined progressionIgnore the new anticancer therapy and 
+follow situations aboveAs per above 
+situations
+Death before first PD assessment Date of death Progressed
+1 The rare exceptions to this are
+(1) if the participant dies no later than the time of the second scheduled assessment as defined in 
+the protocol, in which case this is a PFS event at the date of death,
+(2) if baseline target or non-target lesion assessments are unknown or missing, but a new lesion is 
+identified post-baseline with overall response of PD, this is a PFS event at the date of PD 
+assessment.
+Other supportive analyses
+Censoring pattern of PFS
+The number of participants with a PFS event and number of participants censored for the PFS 
+analysis will be summarized. In addition, a summary of reasons for PFS censoring will be 
+provided by treatment arm based on the following reasons:
+•Ongoing without event
+•Lost to follow-up
+•Withdrew consent
+•Adequate assessment no longer available
+
+Novartis Confidential Page 17 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+•Event after ≥ 2 missing tumor assessments
+The PFS censoring reasons are defined in the following way.
+If the time interval between the last adequate tumor assessment date and the earliest of the 
+following dates is smaller or equal to the interval of 2 missing tumor assessments
+1.Analysis cut-off date,
+2.Date of consent withdrawal,
+3.Visit date of study treatment discontinuation or end of post-treatment follow-up 
+discontinuation due to lost to follow-up,
+then the PFS censoring reason will be
+1.“Ongoing” 
+2.“Withdrew consent” 
+3.“Lost to follow-up”, respectively
+If the time interval is larger than the interval of 2 missing tumor assessments with no event 
+observed, then the PFS censoring reason will always default to “Adequate assessment no 
+longer available”. If the time interval between the last adequate tumor assessment date and the 
+PFS event date is larger than the interval of 2 missing tumor assessments, then the censoring 
+reason will be “Event documented after two or more missing tumor assessments”.
+These summaries on censoring reasons will be produced for PFS by investigator assessment 
+and by BIRC assessment.
+2.6 Analysis of the key secondary objective
+The key secondary objective is to compare the ORR of capmatinib and docetaxel. This 
+objective was evaluated in the primary analysis as planned in the study protocol. No 
+significant change in the ORR is expected. However, to fulfill a HA request, a descriptive 
+summary of the ORR endpoint will be provided in the final analysis.
+2.6.1 Key secondary endpoint
+ORR based on BIRC assessment as per RECIST 1.1 is the key secondary efficacy endpoint. 
+The analysis will be based on the FAS.
+The BOR will be determined from response assessments undertaken while on treatment. In 
+addition, only tumor assessments performed before the start of any further anti-neoplastic 
+therapy will be considered in the assessment of BOR. Localized palliative radiotherapy for 
+pre-existing, painful bone and/or liver metastases is permitted. Local bone radiotherapy for 
+analgesic purposes or for lytic lesions at risk of fracture is permitted when not delivered to a 
+target lesion. Tumor assessment data collected after occurrence of any unforeseen intercurrent 
+event (e.g., due to COVID-19 pandemic) will be included in the BOR assessment.
+BOR for each participant is determined from the sequence of overall (lesion) responses 
+according to the following rules:
+•CR = at least two determinations of CR at least 4 weeks apart before progression.
+
+Novartis Confidential Page 18 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+•PR = at least two determinations of PR or better at least 4 weeks apart before progression 
+(and not qualifying for a CR).
+•SD = at  least one SD assessment (or better) > 5 weeks after randomization (and not 
+qualifying for CR or PR).
+•Non-CR/non-PD* = at least one Non-CR/non-PD assessment > 5 weeks after start of 
+treatment (and not qualifying for CR).
+•PD = progression ≤ 13 weeks after randomization (and not qualifying for CR, PR, or SD)
+•NE = all other cases (i.e., not qualifying for confirmed CR or PR and without SD after 
+more than 5 weeks or early progression within the first 13 weeks).
+* For participants with only non-measurable disease present at baseline. A non-CR/non-PD 
+response is considered equivalent to an SD response for the ORR determination and 
+participants will be considered “non-responders.”
+Complete and partial responses must be confirmed by repeat assessments that should be 
+performed not less than 4 weeks after the criteria for response are first met.
+The NE BOR status can be due to the following reasons (and was presented in the primary 
+CSR):
+• No valid post-baseline assessment
+• All post-baseline assessments have overall lesion response NE
+• New anti-neoplastic therapy started before first post-baseline assessment
+• SD too early (≤ 5 weeks after randomization date)
+• PD too late (> 13 weeks after randomization date)
+Note 1: An SD is considered as “SD too early”’ if the SD is documented within the first 
+5 weeks after randomization date.
+Note 2: A PD is considered as “PD too late” if the first documentation of PD is recorded more 
+than 13 weeks after the randomization date with no qualifying CR, PR, or SD in between.
+Note 3: Special (and rare) cases where BOR is “NE” due to both too early SD and too late PD 
+will be classified as “SD too early”.
+2.6.2 Statistical hypothesis, model, and method of analysis
+A descriptive summary of the ORR by treatment arm will be provided in the final analysis 
+(including 2-sided exact 95% confidence intervals (Clopper and Pearson 1934)).
+2.6.3 Handling of missing values
+The determination of the BOR incorporates missing values including cases of participants 
+with no valid post-baseline assessments.
+
+Novartis Confidential Page 19 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2.7 Analysis supporting secondary objectives
+Further secondary efficacy objectives, see Table 1-1, were evaluated in the primary analysis. 
+There were only 4 participants ongoing on treatment at that time (including 1 participant 
+ongoing post BIRC-confirmed progression). Based on the additional data from these 
+participants up to the cut-off date (LPLV) at the final database lock, no or only minimal 
+changes in the results were expected, except for duration of response, in which some 
+improvement might be observed. However, to fulfill a HA request, the RECIST-based 
+secondary efficacy analyses, as well as overall survival, will be repeated in the final analysis.
+2.7.1 Secondary efficacy endpoints
+The secondary efficacy endpoints will be assessed using the FAS. The following analyses will 
+be performed based on both local investigator assessment and BIRC per RECIST 1.1 (see 
+[Study Protocol Appendix 16.1]).
+For analyses of the secondary endpoints there will be no multiplicity adjustment. All results 
+will be considered as exploratory.
+Overall response rate
+ORR per local investigator assessment will be analyzed using the same method as for ORR by 
+BIRC, see Section 2.6 .
+Construction of waterfall graphs
+Waterfall graphs will be used to depict the anti-tumor activity based on local investigator or 
+based on BIRC assessment. For details please refer to the primary analysis SAP.
+Disease control rate
+DCR is defined as the proportion of participants with BOR of CR, PR, or SD.
+DCR will be estimated and the 95% exact confidence interval (Clopper and Pearson 1934) 
+will be provided by treatment arm. These analyses will be performed separately based on 
+investigator assessment and based on BIRC assessment.
+Duration of response
+Among participants with a confirmed response (PR or CR), DOR is defined as the time from 
+the first documented response (PR or CR) to the date of the first documented PD or death due 
+to any cause. If a participant has not had an event, DOR is censored at the date of last 
+adequate tumor assessment using the censoring rules described in Table 2-21. Refer to 
+Section 5.1  for details regarding missing adequate tumor assessments.
+Please note that the rules to derive the reason for censoring have been adjusted to the situation 
+in this early terminated study. Participants who were still receiving study treatment and 
+discontinued the study to continue with capmatinib treatment outside of the study could have 
+their last visit much earlier than the LPLV due to different regulations and/or possibilities in 
+their country. When their last imaging assessment is compared to the global LPLV it might 
+
+Novartis Confidential Page 20 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+appear as if there were missing assessments. To avoid this, the cut-off date definition in 
+Section 5.1  was updated to include study discontinuation due to “study terminated by 
+sponsor”.
+Table 2-2 Outcome and event/censor dates for DOR analysis
+Situation Date Outcome
+Progression or death at or before next 
+scheduled assessmentDate of progression (or death) Progressed
+Progression or death after exactly one 
+missing assessmentDate of progression (or death) Progressed
+Progression or death after two or more 
+missing assessmentsDate of last adequate assessment 
+prior to missed assessmentCensored
+No progression (or death) Date of last adequate assessment Censored
+Treatment discontinuation due to 
+“Disease progression” without 
+documented progression, i.e., clinical 
+progression based on investigator claimDate of last adequate assessment Censored
+Death before first PD assessment Date of death Progressed
+The distribution function of DOR will be estimated using the Kaplan-Meier method. The 
+median DOR along with 95% CIs will be presented by treatment arm. The DOR results will 
+also be listed.
+These analyses will be performed separately based on investigator assessment and based on 
+BIRC assessment.
+Time to response
+TTR is defined as the time from the date of randomization to the first documented response of 
+either CR or PR, which must be confirmed subsequently.
+All participants in the FAS will be included in the TTR calculation. Participants without a 
+confirmed PR or CR will be censored at
+•the maximum follow-up time (i.e., FPFV − LPLV) for participants with a PFS event (i.e., 
+disease progression or death due to any cause), or
+•at the date of the last adequate tumor assessment date for participants without a PFS event.
+TTR will be listed and summarized by treatment arm. The distribution function of TTR will 
+be estimated using the Kaplan-Meier method. The median TTR along with 95% CIs will be 
+presented by treatment arm.
+An additional summary of time to response with descriptive statistics based on responders' 
+results only will also be prepared.
+These analyses will be performed separately based on investigator assessment and based on 
+BIRC assessment.
+
+Novartis Confidential Page 21 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Overall survival
+OS is defined as the time from the date of randomization to the date of death due to any cause. 
+If a participant is alive at the date of the analysis cut-off or lost to follow-up, then OS will be 
+censored at the last contact date prior to the data cut-off date.
+The distribution of OS will be estimated using the Kaplan-Meier method. The median OS and 
+25th and 75th percentiles along with 95% CI will be presented by treatment arm. The results 
+will also be presented graphically by treatment arm. The survival probabilities at specific time 
+points and the associated 95% confidence intervals will be summarized by treatment arm.
+Censoring pattern of OS
+The pattern of censored data will be examined regarding reasons for censoring (‘Alive’ or 
+‘Lost to follow-up’). In addition, survival status, reason for censoring, and cause of death will 
+be listed.
+Duration of follow-up
+Study follow-up will be summarized using the following:
+•Summary of duration between randomization and cut-off date, and follow-up times for 
+PFS and OS, which are defined as follows:
+•Duration between randomization and data cut- off date = (cut -off date – date of 
+randomization + 1) / 30.4375 (months). This item will be summarized overall.
+•Follow- up time = (date of event or censoring – date of randomization + 1) / 30.4375 
+(months) regardless of censoring. Date of censoring is defined as the last adequate 
+tumor assessment date for PFS or  last contact date for OS. This item will be 
+summarized by treatment arm.
+All summaries will be reported in months. The calculations for PFS will be based on the 
+BIRC assessment. Date of censoring is the same as defined for the PFS and OS analysis.
+2.8 Safety analyses
+For all safety analyses, the safety set will be used unless otherwise specified. All listings and 
+tables will be presented by treatment arm.
+Safety summaries (tables, figures) include only data from the on-treatment period with the 
+exception of baseline data which will also be summarized where appropriate (e.g., change 
+from baseline summaries). In addition, a separate summary for deaths including on-treatment 
+and post-treatment deaths will be provided. In particular, summary tables for adverse events 
+(AEs) will summarize only on-treatment events, with a start date during the on-treatment 
+period (treatment-emergent AEs). The definition of the pre-treatment, on-treatment, and post-
+treatment period as well as the crossover period is given in the primary analysis SAP 
+(Section 2.1.1.8).
+All data, regardless of observation period, will be listed and assessments collected in the post-
+treatment period will be flagged in all the listings. Data collected in the extension-treatment 
+
+Novartis Confidential Page 22 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+phase (including those during and after crossover period) for participants in the crossover 
+analysis set will be flagged with a different symbol.
+2.8.1 Adverse events (AEs)
+AEs will be coded using MedDRA using the latest version available prior to clinical database 
+lock and will be graded using the Common Terminology Criteria for Adverse Events 
+(CTCAE) version 5.0.
+AE summaries will include all AEs occurring during the on-treatment period. All AEs 
+collected in the AE eCRF page will be listed along with the information collected on those 
+AEs e.g., relationship to study treatment, outcome, etc.
+Treatment-emergent adverse events (events that started after the first administration of study 
+treatment or events present prior to start of study treatment but increased in severity based on 
+preferred term) will be summarized by number and percentage of participants having at least 
+one AE, having at least one AE in each primary system organ class (SOC) and for each 
+preferred term (PT) and maximum grade. A participant with multiple occurrences of an AE 
+will be counted only once in the respective AE category. A participant with multiple CTCAE 
+grades for the same preferred term will be summarized under the maximum CTCAE grade 
+recorded for the event. AE with missing CTCAE grade will be included in the “All grades” 
+column of the summary tables.
+In AE summaries, the primary system organ class will be presented alphabetically, and the 
+preferred terms will be sorted within primary SOC in descending frequency. The sort order 
+for the preferred term will be based on their frequency in the investigational drug arm.
+The following AE summaries will be produced:
+•AEs regardless of study treatment relationship
+•AEs suspected to be study treatment related
+•On-treatment deaths, by primary system organ class and preferred term
+•All deaths, by primary system organ class and preferred term
+•SAEs regardless of study treatment relationship
+•SAEs suspected to be study treatment related
+•AEs leading to permanent discontinuation of study treatment regardless of study treatment 
+relationship
+•AEs leading to permanent discontinuation of study treatment suspected to be study 
+treatment related
+•AEs requiring dose adjustment and/or study treatment interruption regardless of study 
+treatment relationship
+•AEs requiring dose adjustment and/or study treatment interruption suspected to be study 
+treatment related
+•AEs excluding SAEs
+•AEs leading to fatal outcome.
+
+Novartis Confidential Page 23 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Clinical trial safety disclosure
+For the legal requirements of ClinicalTrials.gov and EudraCT, two tables will be provided by 
+SOC and PT based on the safety set for randomized phase and extension treatment phases:
+•On-treatment AEs which are not SAEs with an incidence greater than 5%
+•On-treatment SAEs and SAEs suspected to be related to study treatment
+If for the same participant, several consecutive AEs (irrespective of study treatment causality, 
+seriousness, and severity) occurred with the same SOC and PT,
+•a single occurrence will be counted if there is ≤ 1 day gap between the end date of the 
+preceding AE and the start date of the consecutive AE
+•more than one occurrence will be counted if there is > 1 day gap between the end date of 
+the preceding AE and the start date of the consecutive AE
+For occurrence, the presence of at least one SAE/SAE suspected to be related to study 
+treatment/non-SAE has to be checked in a block, e.g., among AEs in a ≤ 1 day gap block, if at 
+least one SAE is occurring, then one occurrence is calculated for that SAE.
+The number of deaths resulting from SAEs suspected to be related to study treatment and 
+SAEs irrespective of study treatment relationship will be provided by SOC and PT.
+2.8.1.1 Adverse events of special interest / grouping of AEs
+An adverse event of special interest is a grouping of adverse events that are of scientific and 
+medical concern specific to capmatinib. These groupings are defined using MedDRA terms, 
+SMQs (standardized MedDRA queries), HLGTs (high level group terms), HLT (high level 
+terms) and PTs (preferred terms). Customized SMQs (Novartis MedDRA queries, NMQ) may 
+also be used. An NMQ is a customized group of search terms which defines a medical 
+concept for which there is no official SMQ available or the available SMQ does not 
+completely fit the need. It may include a combination of single terms and/or an existing SMQ, 
+narrow or broad.
+All AESI definitions or AE groupings are specified in the electronic Case Retrieval Strategy 
+(eCRS). The latest version of the eCRS available at the time of the analysis will be used.
+For each specified AESI, the number and percentage of participants with at least one event of 
+the AESI occurring during the on-treatment period will be summarized. The summaries will 
+present grade, SAE, relationship to study treatment, leading to treatment discontinuation, 
+leading to dose adjustment/interruption, hospitalization, death, etc. A listing of the MedDRA 
+terms that define the AESIs will be generated.
+2.8.2 Deaths
+Separate summaries for on-treatment deaths and all deaths will be produced by treatment arm, 
+system organ class and preferred term. All deaths will be listed, and post-treatment deaths will 
+be flagged.
+
+Novartis Confidential Page 24 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2.8.3 Laboratory data
+For laboratory data assessments, data from all sources (central and local laboratories) will be 
+combined. The summaries will include all laboratory assessments collected in the pre-
+treatment (for baseline, if applicable) and on-treatment period. All laboratory assessments will 
+be listed and those collected in the post-treatment period will be flagged in the listings.
+Grading of laboratory values will be assigned programmatically as per NCI CTCAE 
+version 5.0. The calculation of CTCAE grades will be based on the observed laboratory 
+values (in SI units) only, clinical assessments will not be taken into account. CTCAE Grade 0 
+will be assigned for all non-missing values not graded as 1 or higher. Grade 5 will not be used. 
+For laboratory tests where grades are not defined by CTCAE version 5.0, results will be 
+categorized as low, normal, or high based on laboratory normal ranges.
+The following summaries will be produced for hematology and biochemistry laboratory data 
+(by laboratory parameter and treatment arm):
+•Worst post-baseline CTC grade (regardless of the baseline status). Each participant will be 
+counted only for the worst grade observed post-baseline.
+•Shift tables using CTC grades to compare baseline to the worst on-treatment value (hypo 
+and hyper worst grade will be summarized separately, if applicable)
+•For laboratory tests where CTC grades are not defined, shift tables using low, normal, 
+high (as well as low and high combined) classification to compare baseline to the worst 
+on-treatment value.
+•Listing of all laboratory data with values flagged to show the corresponding CTCAE 
+version 5.0 grades, if applicable, and the classifications relative to the laboratory normal 
+ranges.
+All laboratory data will be listed by participant and visit/time, and if normal ranges are 
+available, abnormalities will be flagged.
+Liver function parameters
+Liver function parameters of interest are total bilirubin, ALT, AST, and alkaline phosphatase. 
+A listing of these parameters will be prepared and participants with combined post-baseline 
+peak elevations of AST or ALT and Bilirubin (ALT or AST > 3× ULN and BILI > 2 × ULN) 
+will be flagged.
+A summary table and/or graph (eDISH plot) will only be prepared if there are new 
+observations (after primary database lock) which fulfill the lab criteria of potential Hy’s law 
+events. Please refer to the primary analysis SAP for the categories in the summary table.
+2.8.4 Other safety data
+2.8.4.1 ECG and cardiac imaging data
+12-lead ECGs including PR, QRS, QT, and QTcF intervals and heart rate will be obtained for 
+each participant during the study. ECG data will be read and interpreted centrally. The 
+
+Novartis Confidential Page 25 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+average of the ECG parameters at each assessment should be used in the analyses. ECGs 
+collected during the on-treatment period will be summarized.
+The number and percentage of participants with notable ECG values will be presented by 
+treatment arm. Please refer to the primary analysis SAP regarding the categories.
+A listing of all ECG assessments will be produced by treatment arm and notable values will 
+be flagged. In the listing, the assessments collected during the post-treatment period and 
+during the extension treatment period will be flagged.
+2.8.4.2 Vital signs
+Vital sign assessments are performed in order to characterize basic body function. The 
+following parameters were collected: systolic and diastolic blood pressure (mmHg), pulse 
+(beats per minute), body temperature (°C), weight (kg), and height (cm).
+The number and percentage of participants with notable vital signs values will be presented by 
+treatment arm based on the categories described in the primary analysis SAP.
+A listing of all vital sign assessments will be produced, and notable values will be flagged. In 
+the listing, the assessments collected during the post-treatment period and during the 
+extension treatment period will be flagged.
+2.8.4.3 ECOG performance status
+ECOG performance status at each time point will be listed. Participants with brain metastases 
+at baseline will have continued assessments after the end of treatment to assess intracranial 
+response per RANO-BM criteria. Post-treatment assessments will be included in the listing 
+and flagged (also identifying assessments in the extension treatment period).
+The frequency table by timepoint as well as the analysis of definitive deterioration in ECOG 
+performance status will not be repeated in the final analysis. The ECOG performance status 
+scale is specified in the primary analysis SAP.
+2.8.4.4 Safety evaluation after crossover
+All participants who had crossed over from the docetaxel arm and received capmatinib had 
+discontinued prior to the primary analysis. Their safety data has been reported in the primary 
+CSR. No further analysis will be done except including the data in the clinical trial safety 
+disclosure tables.
+2.9 Pharmacokinetic endpoints
+The PK lock at the primary analysis was considered the final lock. No further analysis of 
+pharmacokinetic data will be performed.
+2.10 PD and PK/PD analyses
+No analyses are planned.
+
+Novartis Confidential Page 26 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2.11 Patient-reported outcomes
+To assess the effect of capmatinib versus docetaxel on patient-reported disease-related 
+symptoms, functioning, and health-related quality of life via patient-reported outcomes 
+questionnaires is a secondary objective of the study.
+The objective was evaluated in the primary analysis. Only minimal changes are expected from 
+an analysis based on additional data. A reanalysis will therefore not be performed.
+2.12 Biomarkers
+Any analysis of biomarker data, if performed, will be outlined in a separate biomarker 
+analysis plan with results described in a stand-alone biomarker report.
+
+
+Novartis Confidential Page 27 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+2.14 Interim analysis
+Not applicable.
+3 Sample size calculation
+Please refer to the primary analysis SAP regarding the sample size calculation for the primary 
+and key secondary endpoint.
+4 Change to protocol specified analyses
+Not applicable.
+5 Appendix
+In general, please refer to the primary analysis SAP for the appendices. The following topics 
+are covered in the primary analysis SAP appendices. Determination of missing adequate 
+
+
+Novartis Confidential Page 28 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+tumor assessments and Statistical models (except the subsection for Patient-reported outcomes) 
+are presented again in Section 5.1 and Section 5.2, respectively, below. Not all details in 
+Section 5.2  are applicable to the final CSR analysis.
+•Dose interruptions and dose changes
+•Imputation rules
+•AEs coding/grading
+•Laboratory parameters derivations
+•Determination of missing adequate tumor assessments
+•Statistical models
+•Novartis internal criteria for CTC grading of laboratory parameters (based on CTCAE v5 
+– Nov 2017)
+5.1 Determination of missing adequate tumor assessments
+As detailed in the [Study Protocol Appendix 16.1], the PFS and DOR censoring and event 
+date options depend on the presence and the number of missing tumor assessments. For 
+example, an event occurring after two or more missing assessments is censored in the analysis 
+of PFS/DOR at the last adequate tumor assessment before the event date.
+An exact rule to determine whether there is none, one or two missing assessments is therefore 
+needed. This rule will be based on the distance between the last adequate tumor assessment 
+date and the event date. If the distance is larger than threshold D 1 or D 2 then the analysis will 
+assume one or two missing assessments, respectively. The threshold D 1 will be defined as the 
+protocol- specified interval between the tumor assessments plus the protocol allowed window 
+around the assessments. Similarly, the threshold D 2 is defined as two times the protocol 
+specified interval between the tumor assessments plus the protocol allowed window around 
+the assessments. In this study, the protocol defined schedule of tumor assessment is every 
+6 weeks and each assessment is expected to be performed at the scheduled time point plus or 
+minus 1 week, i.e., the window is 2 weeks, then any distance larger than D 1 = 6 + 2 = 8 weeks 
+means one missing assessment and any distance larger than D 2 = (2×6) + 2 = 14 weeks means 
+two missing assessments.
+The same definition of D 2 will be used to determine the PFS/DOR censoring reason.
+Possible censoring reasons for PFS/DOR are:
+1.Ongoing without event
+2.Lost to follow-up
+3.Withdrew consent
+4.Adequate assessment no longer available
+5. Event after ≥ 2 missing tumor assessments
+The PFS/DOR censoring reason is then derived by the following sequence of rules.
+•If the participant is considered to have a PFS event, then PFS/DOR censoring reason is set 
+to missing.
+
+Novartis Confidential Page 29 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+•Else, if the participant has had no baseline assessment then PFS censoring reason = 4 
+(not applicable for DOR).
+•Else, if the participant has a PFS event after two or more missing assessments [if (PFS 
+event date ≤ censoring date and (PFS event date − date of last adequate tumor 
+assessment (LATA) ≥ D 2)] then PFS/DOR censoring reason = 6.
+•Else, if the participant has no PFS event, and the participant is censored at a date after 
+two or more missing assessments ((censoring date − date of LATA) ≥ D 2) then 
+PFS/DOR censoring reason = 4.
+•Else, if the censoring date equals the date of discontinuation due to consent 
+withdrawal then PFS/DOR censoring reason = 3.
+•Else, if the censoring date equals the date of discontinuation due to loss to follow-up 
+then PFS/DOR censoring reason = 2.
+•Else, if the censoring date equals the analysis cut-off date and the time between 
+LATA and the cut-off date is greater than D 2 days then PFS/DOR censoring 
+reason = 4.
+•Else, if the censoring date equals the analysis cut-off date and the time between 
+LATA and the cut-off date is less than or equal to D 2 days then PFS/DOR censoring 
+reason = 1
+Where censoring date = min (analysis cut-off date, date of discontinuation due to consent 
+withdrawal, date of discontinuation due to loss to follow-up, date of discontinuation due to 
+study terminated by sponsor).
+5.2 Statistical models
+5.2.1 Primary analysis
+The LIFETEST procedure in SAS with the TIME statement including a variable with survival 
+times and a (right) censoring variable, and with a STRATA statement including variables of 
+stratification factors, and with a GROUP option in the STRATA statement will be used for 
+time-to-event endpoints.
+Kaplan-Meier estimates
+To analyze time-to-event variables, an estimate of the survival function in each treatment arm 
+will be constructed using the Kaplan-Meier (product-limit) method as implemented in PROC 
+LIFETEST with the METHOD=KM option. The PROC LIFETEST statement will use the 
+option CONFTYPE=LOGLOG (complementary log-log transformation for derivation of CI).
+Median survival for each treatment arm will be obtained along with 95% confidence intervals 
+calculated from PROC LIFETEST output using the method of Brookmeyer and Crowley 1982. 
+Kaplan-Meier estimates of the survival function with 95% confidence intervals at specific 
+time points will be summarized. The standard error of the Kaplan-Meier estimate will be 
+calculated using Greenwood’s formula (Collett 1994).
+
+Novartis Confidential Page 30 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+Hazard ratio
+The hazard ratio will be estimated by fitting the Cox proportional hazards model using SAS 
+procedure PHREG (with TIES=EXACT option in the MODEL statement).
+A stratified unadjusted Cox model will be used, i.e., the MODEL statement will include the 
+treatment arm variable as the only covariate and the STRATA statement will include the 
+stratification variable.
+The hazard ratio with two-sided 95% confidence interval will be based on the Wald test.
+Treatment of ties
+The STRATA statement in the LIFETEST procedure will be used to analyze time to event 
+data with ties. The PHREG procedure in SAS with option TIES=EXACT will be used to fit 
+the Cox proportional hazards model.
+Checking proportionality of hazard assumption
+Plots (SURVIVAL, LOGSURV, LOGLOGS) generated by the LIFETEST procedure in SAS 
+will be used to provide visual checks of the proportional hazard assumption.
+•SURVIVAL plots the estimated survivor functions. The shape of the curves should be 
+basically the same if hazards are proportional.
+•LOGSURV plots the cumulative hazard functions. The larger cumulative hazard should be 
+a multiple of the smaller if hazards are proportional.
+•LOGLOGS plots (cumulative hazard) will show parallel curves if the hazards are 
+proportional.
+5.2.2 Secondary  analysis
+Confidence interval for response rate
+Responses will be summarized in terms of percentage rates with 100 × (1 − α)% confidence 
+interval using an exact binomial confidence interval (implemented using SAS procedure 
+FREQ with EXACT statement for a one-way table; Clopper and Pearson 1934).
+6 References
+References are available upon request.
+6.1 Published literature
+Brookmeyer R and Crowley J (1982) A Confidence Interval for the Median Survival Time. 
+Biometrics; 38:29-41.
+Clopper C, Pearson ES (1934) The use of confidence or fiducial limits illustrated in the case 
+of the binomial. Biometrika; 26(4):404–413.
+Collet D (1994) Modelling survival data in medical research. London, Chapman & Hall.
+Miettinen O, Nurminen M (1985) Comparative analysis of two rates. Stat Med; 4(2):213-226.
+
+
+Novartis Confidential Page 31 of 31
+SAP final analysis – Addendum 1 Study No. CINC280A2301
+6.2 Health authority guidance
+European Medicines Agency (2022) Guidance on the management of clinical trials during the 
+COVID-19 (coronavirus) pandemic. Version 5.0 February 2022. Amsterdam, The 
+Netherlands.
+Food and Drug Administration (2021) FDA guidance on conduct of clinical trials of medical 
+products during COVID-19 pandemic: Guidance for industry, investigators, and institutional 
+review boards. August 2021. Silver Spring, MD.

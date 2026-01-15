@@ -1,0 +1,645 @@
+ 
+TRIAL STATISTICAL ANALYSIS PLAN
+c10164918-03
+BI Trial No.: 1315.2
+Title: An open-label, Phase I/II trial to determine the maximum tolerated 
+dose and investigate safety, pharmacokinetics and efficacy of BI 836858 in combination with decitabine in patients with acute myeloid leukemia 
+Including:Protocol Amendment 1 [c03377067-02]
+Protocol Amendment 2 [c03377067-03]Protocol Amendment 3 [c03377067-04]Protocol Amendment 4 [c03377067-05]Protocol Amendment 5 [c03377067-06]Protocol Amendment 6 [c03377067-07]
+Investigational
+Product(s):BI 836858
+Responsible trial 
+statistician(s):
+Phone:
+Fax:    
+Date of statistical 
+analysis plan:19NOV 2019 SIGNED
+Version: Final
+Page 1 of  33
+Proprietary confidential information
+!!2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies. All rights reserved.
+This document may not - in full or in part - be passed on, reproduced, published or otherwise used without prior written permissi on.
+
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 3 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+8. REFERENCES....................................................................................................31
+10. HISTORY TABLE..............................................................................................33
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 4 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+LIST OF TABLES
+Table 6.1:1 Definition of analysing treatment periods ................................................................... 13
+Table 6.2:1 Important protocol deviations ..................................................................................... 14
+Table 7.8.1:1 Definition of user-defined AE categories .................................................................... 22
+Table 7.8.1:2 User-defined (sub-) search category of “Cardiac Failure” .......................................... 24
+Table 7.8.1:3 Laboratory Signs of Cell Destruction .......................................................................... 26
+Table 7.8.1:4 Clinical Signs of Cell Destruction ............................................................................... 26
+Table 10: 1 History table ................................................................................................................ 33
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 5 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+2. LIST OF ABBREVIATIONS
+Term Definition / description
+AE Adverse event
+AESI
+ALKPALTASTAdverse events of special interest
+Alkaline phosphataseAlkaline aminotransferaseAspartate aminotransferase
+ATC classification Anatomical, Therapeutic, Chemical classificationAUC Area Under CurveBI Boehringer IngelheimBLRM Bayesian logistic regression modelBSA Body Surface AreaRPM Report planning meetingC
+max Maximum measured plasma concentration of the analyte
+CL Total plasma clearance CR Complete RemissionCRi Complete Remission with incomplete marrow recoveryCT Concomitant therapyCTCAE Common Terminology Criteria for Adverse EventsCTP Clinical Trial ProtocolCTR Clinical Trial ReportDBL Data Base LockDILI Drug Induced Liver InjuryDLT Dose Limiting ToxicityDMS Data Management and StatisticsDOR Duration of RemissionECG ElectrocardiogramECOG
+eDISHEastern Cooperative Oncology Group
+Evaluation of Drug Induced Serious Hepatotoxicity
+EFS Event free survivaleCRF Electronic case report formICH International Conference on Harmonisation
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 6 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Term Definition / description
+iPD Important Protocol Deviation
+IRR Infusion Related  Reaction
+MedDRA Medical Dictionary for Regulatory ActivitiesMQRM Medical and Quality Review MeetingMTD Maximum tolerated doseNE Not evaluableOR Objective responseOS Overall survivalPD Progressive diseasePFS Progression free survivalPK PharmacokineticsPKS Pharmacokinetic setPR Partial remissionPT Preferred termPV Protocol deviationREP Residual effect periodREPd Duration of residual effect period in daysRFS Relapse free survivalRP2D Recommended phase 2 doseRPM Report planning meetingSAE Serious adverse eventSD Standard deviationSOC System organ classSOP Standard Operating ProcedureSS Screened set
+TCM Trial Clinical Monitor
+TF Treatment failuret
+max Time from dosing to the maximum plasma concentration of the 
+analyte
+TOC Table of contentsTS Treated set
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 7 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Term Definition / description
+TTF Time to treatment failure
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 8 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+3. INTRODUCTION
+As per ICH E9( 1), the purpose of this document is to provide a more technical and detailed 
+elaboration of the principal features of the analysis described in the protocol, and to include 
+detailed procedures for executing the statistical analysis of the primary and secondary variables and other data.
+This TSAP assumes familiarity with the Clinical Trial Protocol (CTP), including Protocol 
+Amendments. In particular, the TSAP is based on the planned analysis specification as written in CTP section 7 “Statistical Methods and Determination of Sample Size”. Therefore, TSAP readers may consult the CTP for more background information on the study, e.g., on 
+study objectives, study design and population, treatments, definition of measurements and 
+variables, planning of sample size, randomisation. This TSAP follows the Boehringer Ingelheim (BI) internal reference (2).
+This TSAP is based on the Project SAP wherever possible. Wordings like "randomisation 
+(first administration of study treatment in non-randomised trials)" should therefore be interpreted as applicable. 
+Furthermore, in this combination trial the term investigational medicinal product is used for 
+BI 836858 while combination drug denotes the backbone chemotherapy decitabine. The term trial medication is used for any of the two trial drugs.
+SAS Version 9.4 or later version will be used for all analyses. Due to company decision to stop this project, there is no Phase II subject enrollment so that
+Phase II analyses stated in CTP will be omitted. 
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 9 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+4. CHANGES IN THE PLANNED ANALYSIS OF THE STUDY
+Due to the decision to discontinue  the development of  BI865868, the enrollment was stopped  after 
+Phase I extension and Phase II  part of the trial was cancelled as stated in CTP amendment 7.0. Thus there will be no data collection nor analyses for Phase II part .
+5. ENDPOINTS(S)
+5.1 PRIMARY ENDPOINT(S)
+Phase I 
+The primary endpoints in the Phase I part of the trial are the maximum tolerated dose (MTD) and the 
+number of subjects with of dose limiting toxicity (DLT) during the MTD evaluation period.
+Maximum tolerated dose (MTD):
+The MTD is defined as the highest dose of BI 836858 (in combination with decitabine) with 
+less than 25% risk of the true DLT rate being above 33% during the MTD evaluation period.
+MTD evaluation period:
+The MTD evaluation period is defined as the time from the first administration of study drug 
+to the start of the second treatment cycle or the end of 30-day residual effect period after last administration of study drug, whichever comes first. Subjects who were replaced during the MTD evaluation period will not be considered for MTD determination.  The subjects who are 
+completed the MTD evaluation period without being replaced are considered MTD evaluable.
+In case a subject has not completed the required number of administrations due to BI 836858 related 
+toxicity, he/she will not be replaced and this will be considered as DLT. However, subjects who have 
+not completed the required number of administrations of BI 836858 for reasons other than BI 836858 
+related toxicity will be replaced. Subjects who were replaced during the MTD evaluation period will 
+not be considered for MTD
+5.2 SECONDARY ENDPOINT(S)
+5.2.1 Key secondary endpoint(s)
+No key secondary endpoints are defined in this study. 
+5.2.2 Secondary endpoint(s)
+Phase I
+∀Number of subjects with objective response combining
+- Complete remission (CR)
+- CR with incomplete blood count recovery (CRi)
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 10 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+∀Time frame: From start of treatment until the earliest of progression, death or end of trial 
+(approximately up to 30 months).
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 11 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 12 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+6. GENERAL ANALYSIS DEFINITIONS
+6.1 TREATMENT(S)
+Phase I
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 13 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+In the Phase I Part, treatments are not randomized (open-label, dose escalation). Different 
+dose levels of the investigational medicinal product (BI 836858) can arise while combined with fixed dose of decitabine at 20 mg/m² per day. The data will be presented for all dose cohorts separately, in particular, subjects will be analysed by the dose cohort initially assigned in the first treatment course.
+Table 6.1:1 Definition of analysing treatment periods
+Analysing treatment 
+periodStart date (including) Stop date (excluding)
+Screening Date of informed consent Date of first administration of trial 
+medication
+MTD evaluation period Date of first 
+administration of trial medicationFirst of  start of the second 
+treatment cycle or the end of the 30-day residual effect period
+On-treatment Date of first 
+administration of trial medicationStart date of ‘Follow-up’
+Follow-up Date of end of REP +1 Start date of ‘Post-study’
+Post-study Last date subject status 
+obtained / last date subject known to be alive + 1 (if subject is lost to follow-up) / date of refusal + 1 day / the date subject died + 1During the trial: open / empty; 
+after database lock (DBL): DBL + 1 day
+Data recorded between the first administration of trial medication until up to 30 days (Residual effect period; REP) after the last administration of trial medication will be considered as on-treatment.
+6.2 IMPORTANT PROTOCOL DEVIATIONS
+Even though no per protocol population is defined, subjects with potentially important 
+protocol deviations (iPD) will be identified and documented. Potentially important protocol deviations are defined in Table 6.2:1 . The final list of iPDs will be confirmed at the last 
+report planning meeting (RPM) before the database lock at the time of the CTR.
+If any manual iPDs are identified, they are to be summarized into categories and will be 
+captured in the MQRM/RPM minutes via an accompanying Excel spreadsheet (3).
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 14 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Table 6.2:1 Important protocol deviations
+Category/
+CodeDescription Comment/Example Excluded
+from
+A Inclusion/Exclusion Criteria
+A1 Criteria related to safety
+A1.1 Patient has condition that may 
+cause additional risk from study medicationEX 7, EX 12, EX 19 None
+A1.2 Patient has laboratory 
+assessments that may cause additional risk.EX 8-11 None
+A1.3 Patient is unable to comply 
+with the protocolEX 13, EX 20 None
+A2 Criteria related to efficacy
+A2.1 Patient does not have trial 
+diagnosis or is not part of the target populationIN 1-4, EX 1, EX 2 None
+B Legal criteria
+B1 Informed consent not 
+available/not doneIN 5 All
+B2 Informed consent after visit 1 IN 5 None
+B3 Men or women who are 
+sexually active and not using adequate contraception.EX 16, EX 17 None
+B4 Pregnant or nursing female 
+patientEX 15 None
+B5 Patient’s age < 18 IN 1 None
+C Administration of trial 
+medication not in accordance with the protocol
+C1 Administration of trial 
+medication not in accordance with the protocolAs marked in the eCRF, 
+review and decision at medical and quality review meetings (MQRM) / report planning meetings (RPM)None
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 15 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Table 6.2:1 Important protocol deviations (cont.)
+Category/
+CodeDescription Comment/Example Excluded 
+from
+C2 Continuation of treatment 
+although criteria for re-treatment are not metCreate listing, decision at 
+medical and quality review meetings (MQRM) / report planning meetings (RPM) None
+C3 Unjustified intra-patient dose-
+escalationCreate listing, decision at 
+MQRM / RPMNone
+C4 Withdrawal of patient not 
+performed according to CTPCreate listing, decision at 
+MQRM / RPMNone
+C5 Discontinuation of decitabine 
+not  
+performed according to CTPCreate listing, decision at 
+MQRM / RPMNone
+C6 Discontinuation of BI 836858 
+not  
+performed according to CTPCreate listing, decision at 
+MQRM / RPMNone
+D Restrictions
+D1 Additional experimental anti-
+cancer, chemo-, immuno-, hormone - or radiotherapy during the study or too shortly before the study.Create listing, decision at 
+MQRM / RPM (and EX 6) None
+E Missing data
+E1 Baseline bone marrow 
+assessment not within 14 days prior to first treatmentCreate listing, decision at 
+MQRM / RPMNone
+E2 Missing disease assessment at 
+a time point where disease assessment was requiredCreate listing, decision at 
+MQRM / RPM  None
+6.3 SUBJECT SETS ANALYSED
+Where applicable, the following subject sets will be defined for the Phase I and Phase II part 
+separately.
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 17 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+measurements were taken according to protocol, i.e. prior to first intake of any trial 
+medication. 
+Laboratory values: Baseline is defined as the latest time-point before the very first 
+administration of any trial medication in course 1. For laboratories where not only the examination date but also time are recorded, examination time has to be taken into account when defining baseline. That is, a laboratory value on the same date as the first trial drug administration is considered as baseline value if and only if the time of laboratory value is before or the same as the time of first trial drug administration.
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 18 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+7. PLANNED ANALYSIS
+The labelling and display format of statistical parameters will follow the guideline “Reporting 
+of Clinical Trials and Project Summaries” (7).
+For End-Of-Text (EoT) tables, the set of summary statistics is: N / Mean / Standard deviation 
+(SD) / Min / Median / Max.
+For tables that are provided for endpoints with some extreme data, median, quartiles and 
+percentiles will be preferred to mean, standard deviation, minimum and maximum.
+In general, means, medians, SD and percentiles will be presented to one more decimal place 
+than the raw data Minima and maxima will be presented to the same number of decimal 
+places as the raw data.
+Tabulations of frequencies for categorical data will include all possible categories (even if 
+with no count and also the missing category if there is missing data) and will display the number of observations in a category as well as the percentage (%) relative to the number of subjects in the respective treatment group (unless otherwise specified, all subjects in the respective subject set whether they have non-missing values or not). Percentages will be rounded to one decimal place. The category missing will be displayed only if there are actually missing values.
+If a table presents only categorical data, “N (%)” will be displayed in the column header only.Abbreviations (e.g., Wors.) or acronyms (e.g., PD) will not be displayed in tables and Subject 
+Data Listings (SDLs) without any explanation. They will be either spelled out or explained in footnotes.
+If applicable, conversion from days to weeks, months and years will be as follows:
+∀Weeks = days ÷ 7
+∀Months = 12 × days ÷ 365.25
+∀Years = days ÷ 365.25
+7.1 DEMOGRAPHIC AND OTHER BASELINE CHARACTERISTICS
+Standard descriptive analyses and summary tables are planned for this section of the report. 
+Data will be summarized by treatment group and a “total” column will be included in the summary tables.
+Body Surface Area (BSA):
+BSA[m2] = 0.007184×height[cm]0.725×weight[kg]0.425
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 19 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Time from first diagnosis [months] = (date of informed consent - date of first diagnosis 
++1)[days]×12/365.25 
+7.2 CONCOMITANT DISEASES AND MEDICATION
+Only descriptive statistics are planned for this section of the report. 
+Concomitant diseases will be coded similarly as adverse events based on the most current 
+Medical Dictionary for Regulatory Activities (MedDRA®) version. Concomitant therapies (CTs) will be coded according to WHO DD. CTs will be classified according to the Anatomical, Therapeutic, Chemical (ATC) classification system. The third ATC level will be used to categorize CTs by therapy type. In situations where a medical product may be used 
+for more than one equally important indication, there are often several classification alternatives. As appropriate, subjects receiving CTs with more than one possible ATC level-three category will be counted more than once; footnotes will clarify this possible double counting in tables.
+7.3 TREATMENT COMPLIANCE
+Only descriptive statistics are planned for this section of the report. 
+7.4 PRIMARY ENDPOINT(S)
+Phase I
+The primary endpoints are the MTD and the occurrence of DLT. The MTD is determined 
+from the number of non-replaced subjects with DLT during the MTD evaluation period.
+The MTD evaluation period is defined as the time from the first administration of study 
+treatment to the start of the second treatment cycle or the end of the 30-day residual effect period after the last drug administration, whichever comes first. Subjects who were replaced during the MTD evaluation period are not considered for MTD determination. Those subjects who have completed the MTD evaluation period without having been replaced are referred to as subjects evaluable for MTD.
+An overall summary of subjects with DLT(s) which occurred during the MTD evaluation 
+period and the on-treatment period will be provided for each dose cohort.
+Subjects who were treated but replaced are not considered for the MTD determination.However, all information, including adverse events qualifying for a DLT from later times, 
+will be considered in the final determination of the recommended Phase II dose (RP2D).
+In order to describe the occurred dose escalation steps, a listing of all treated subjects will be 
+provided. This will include the initial dose of the investigational medicinal product, subject number, treatment start date, DLT in MTD evaluation period [y/n], Evaluable for MTD [y/n] and will be sorted by treatment start date.
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 20 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+7.5 SECONDARY ENDPOINT(S)
+Phase I
+The secondary endpoint overall response will be listed only. If considered useful, aggregated 
+tables will be provided where different doses might be grouped.
+7.7 EXTENT OF EXPOSURE
+Standard descriptive analyses over all treatment courses will be performed. This will include 
+a summary of the variables defined in Section 5.4.1 and will comprise a mixture of frequency 
+and percentages, as well as summary statistics.
+The time to treatment discontinuation is defined as (date of last administration of trial 
+medication– date of randomisation + 1). Subjects who have not discontinued treatment will be censored at the earliest of the following: date of last administration of trial medication, or date of data cut-off. Subjects who are randomised, but did never receive study medication will be censored on the day of randomisation
+A Kaplan-Meier plot of time to treatment discontinuation by treatment group will be 
+presented.
+7.8 SAFETY ANALYSIS
+All safety analyses will be performed on the treated set.
+7.8.1 Adverse Events
+The analyses of adverse events (AEs) will be descriptive in nature. All analyses of AEs will 
+be based on the number of subjects with AEs and NOT the number of AEs.
+The analyses will be based on BI standards. Adverse events will be coded with the most 
+recent version of MedDRA. The severity of AEs will be scaled according to CTCAE version 4.03.
+Reporting will be done according to version 6 of the AE guideline ( 8).
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 21 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+For analysis of AE attributes such as duration, severity, etc. multiple AE occurrence data on 
+the CRF, will be collapsed into AE episodes provided that all of the following applies:
+∀The same MedDRA lowest level term was reported for the occurrences.
+∀The occurrences were time-overlapping or time-adjacent (time-adjacency of 
+2 occurrences is given if the second occurrence started on the same day or on the day 
+after the end of the first occurrence).
+∀Treatment did not change between the onset of the occurrences OR treatment changed 
+between the onset of the occurrences, but no deterioration was observed for the later 
+occurrence.
+For each subject, all episodes with the same preferred term (PT) (system organ class, SOC) 
+will be  counted only once using a worst case approach for all AE attributes including CTCAE grading. 
+The analysis of adverse events will be based on the concept of treatment emergent adverse 
+events, where a treatment emergent AE has an onset in the analysing treatment period. All adverse events occurring before first intake of trial medication will be assigned to ‘screening’ and all adverse events occurring after last intake of trial medication + 30 days will be assigned to ‘post-treatment’ (in randomized trials for listings only). For details on the treatment definition, see Section 6.1 . In addition, a listing will be provided, detailing the 
+actual treatment on the day when the adverse event started.
+Adverse events of special interest (AESIs):
+Adverse events of special interest (AESIs) are defined in CTP Section 5.3.8.1 as infusion 
+related reactions (IRRs) of CTCAE grade >= 3, DLTs (occurring during the MTD evaluation period or repeated treatment courses), tumor lysis syndrome and drug induced liver injury (DILI).
+Other significant AEs:
+Other significant AEs are defined as serious and non-serious AEs that lead to dose reduction 
+or permanent discontinuation of study medication. Their incidence will be reported by severity according to CTCAE grades.
+An overall summary of adverse events will be presented. This will include the number of 
+subjects with AEs by worst CTCAE grade. The frequency of subjects with adverse events will be summarized by treatment, primary system organ class and preferred term. The system organ classes will be sorted by default alphabetically; preferred terms will be sorted by frequency (within system organ class).
+AEs leading to dose reduction, AEs leading to overall permanent discontinuation, DLTs and 
+Adverse events of special interest (AESIs) including Infusion Related Reactions (IRRs) will be tabulated.  
+Infusion related reactions (IRRs):
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 22 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+IRRs will be the object of special attention. 
+Subjects with any IRR will be tabulated by treatment and worst CTCAE grade. In addition, 
+the number of infusions and the number of IRRs will be displayed by treatment.
+The duration of IRR [h] and the time since start of the respective infusion [min] together with 
+IRR related symptoms will be tabulated by infusion number and overall.
+∀Duration of IRR [h] = (End time of IRR - Start time of IRR) [seconds] / 3600
+∀Time since start of the respective infusion [min] = (Start time of IRR - Start time of 
+infusion) [seconds] / 60
+The relationship between the occurrence of IRRs and infusion rate as well as the 
+administration of premedication will be examined.
+For IRR summary, time since administration of treatment, duration of IRR, and related 
+symptoms will be summarized descriptively by infusion timepoints. 
+User-defined AE categories (UDAEC)
+User-defined AE categories (UDAEC) are defined in in Table 7.8.1:1 . For UDAECs which 
+contain sub-searches and/or two sensitivity levels (broad and narrow) all possibilities will be 
+displayed on the UDAEC level in tables .  For example for UDAEC “Infusion related infections” the tables will include the UDAEC “Infusion related reactions broad” and “Infusion related reactions narrow”. Similarly for UDAEC “Bleeding”, it will include “Bleeding - SMQ Haemorrhage”, “Bleeding - SMQ Haemorrhage laboratory terms broad”, “Bleeding - SMQ Haemorrhage laboratory terms narrow”, “Bleeding - SMQ Haemorrhage terms (excl. laboratory terms) narrow”.
+Table 7.8.1:1 Definition of user-defined AE categories
+Special Search 
+CategoryDefinition Sensitivity
+Infusion related 
+reactions(hypersensitivity)SMQ 20000021 + infusion related reaction 
+PT 10051792Narrow (Algorithm)
+Bleeding SMQ Haemorrhage  20000038
+SMQ Haemorrhage terms (excl. laboratory 
+terms) 20000039Narrow & broad
+Narrow 
+SMQ Haemorrhage laboratory terms 
+20000040Narrow & broad
+Nausea BIcMQ Nausea  30000078 Narrow & broad
+Vomiting BIcMQ  Vomiting  
+30000091Narrow & broad
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 23 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Table 7.8.1:1 Definition of user-defined AE categories (cont.)
+Special Search 
+CategoryDefinition Sensitivity
+Drug related hepatic 
+disordersSMQ Drug related hepatic disorders  
+20000006Narrow & broad
+SMQ Cholestasis and jaundice of hepatic 
+origin 20000009Narrow & broad
+SMQ Drug related hepatic disorders - severe 
+events only 20000007Narrow & broad
+SMQ Liver related investigations, signs and 
+symptoms 20000008Narrow & broad
+SMQ Liver-related coagulation and bleeding 
+disturbances 20000015Narrow & broad
+ALT BIcMQ Elevated Specific Liver Function 
+Parameters sub-search1    30000022Narrow & broad
+AST BIcMQ Elevated Specific Liver Function 
+Parameters sub-search2    30000023Narrow & broad
+ALKP BIcMQ Elevated Specific Liver Function 
+Parameters sub-search3    30000024Narrow & broad
+gGT BIcMQ Elevated Specific Liver Function 
+Parameters sub-search4    30000025Narrow & broad
+Bilirubin BIcMQ Elevated Specific Liver Function 
+Parameters sub-search5    30000026Narrow & broad
+Neutropenia BIcMQ Neutropenia 30000031 Narrow & broad
+Cardiac disorders1SMQ Ischaemic heart disease 20000043 Narrow & broad
+SMQ Cardiac failure 20000004 Narrow & broad
+SMQ Cardiac arrhythmias 20000049 Narrow & broad
+Tumour Lysis
+SyndromeSMQ Tumour Lysis Syndrome 20000219 All broad
+SMQ Torsade de point/QT prolongation
+Broad (20000001)
+SMQ Cardiac arrhythmia terms broad(incl bradyarrhythmias andtachyarrhythmias) (20000050)
+SMQ Convulsions broad (20000079)
+Fluid accumulation HLT Total fluid volume increased 10044085
+HLT Oedema NEC 10030113
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 24 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Table 7.8.1:1 Definition of user-defined AE categories (cont.)
+Special Search 
+CategoryDefinition Sensitivity
+HLT Pulmonary oedemas 10037424
+HLT Pneumothorax and pleural effusions 
+NEC 10035761
+PT Ascites 10003445
+PT Abnormal weight gain 10000188
+Infections Infections (incl. respiratory infections and 
+sepsis) - SOC 10021881 use label 
+"Infections and infestations"
+Infections (incl. respiratory infections and sepsis) - HLGT 10024970 use label "Respiratory tract infections"
+Infections (incl. respiratory infections and sepsis) - HLT 10040054 use label "Sepsis, bacteraemia, viraemia and fungaemia NEC"
+Inflamed gut PT Enterocolitis 10014893
+PT Enterocolitis bacterial 10065206
+PT Enterocolitis fungal 10065205
+PT Enterocolitis helminthic 10065204
+PT Enterocolitis infectious 10058838
+PT Enterocolitis viral 10061841
+PT Colitis 10009887
+PT Enteritis 10014866
+Acute febrile neutrophilic dermatosisPT Acute febrile neutrophilic dermatosis 
+10000748
+1A BIcMQ has been requested, however, as long as this is not available the terms as defined 
+in Table 7.8.1:2 will be used.
+Table 7.8.1:2 User-defined (sub-) search category of “Cardiac Failure”
+Selected PTs for Cardiac Failure
+Cardiac asthma
+Cardiac failure
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 25 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Table 7.8.1:2 User-defined (sub-) search category of “Cardiac Failure” (cont.)
+Selected PTs for Cardiac Failure
+Cardiac failure acute
+Cardiac failure chronic
+Cardiac failure congestive
+Cardiac failure high output
+Cardiac index decreased
+Cardiac output decreased
+Cardiogenic shock
+Cardiomegaly
+Cardiothoracic ratio increased
+Dilatation ventricular
+Left ventricular failure
+Low cardiac output syndrome
+Right ventricular failure
+Oedema due to cardiac disease
+Left ventricular dysfunction
+Ejection fraction decreased
+Cardiopulmonary failure
+Diastolic dysfunction
+Cardiac ventriculogram right abnormal
+Cardiac ventriculogram abnormal
+Cardiac ventriculogram left abnormal
+Cardiac cirrhosis
+Right ventricular dysfunction
+Ventricular dysfunction
+Cardiac resynchronisation therapy
+Ventricular failure
+Acute left ventricular failure
+Acute right ventricular failure
+Chronic left ventricular failure
+Chronic right ventricular failure
+Myocardial depression
+Ventricular dyssynchrony
+Systolic dysfunction
+Neonatal cardiac failure
+UDAEC will by summarized by dose cohort, search categories and preferred terms, and 
+CTCAE grade. Some events contribute to more than one UDAEC. Patients with such AEs are counted in each of the UDAEC but are counted only once in the overall number of patients with an AE in any UDAEC.
+Tumor Lysis Syndrome  
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 26 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+In patients with a high tumor burden who are exposed to a highly effective therapy, there is a 
+risk of rapid tumor destruction resulting in Tumor Lysis Syndrome (TLS). 
+Patients will be identified as having potential Tumor Lysis Syndrome if they met both of the 
+following two criteria:
+(1) Two or more of the laboratory parameters meet the criteria in Table 7.8.1:3 , 
+a. time window
+i. on the day of BI 836858 infusion or the following 6 days, 
+ii. at least two of the qualifying lab values must have occurred 
+with the same 24 hour period
+(2) Have an adverse event identified by the any of the SMQ in Table 7.8.1:4 or 
+have a qualifying creatinine value 
+a. Time windows: AE onset or creatinine observation at any time during 
+the treatment or residual effect periods 
+Table 7.8.1:3 Laboratory Signs of Cell Destruction
+Laboratory parameter Abnormal value
+Uric acid ≥476 μmol/L AND increase from relative 
+baseline1by ≥25%
+Potassium value ≥ 6.0 mmol/L AND relative baseline < 
+6.0 mmol/L
+Inorganic phosphate ≥1.45 mmol/L AND increase from relative 
+baseline by ≥25%
+Calcium <7 mg/dL2AND decrease from relative 
+baseline by ≥25%
+1Relative baseline is derived separately for each BI 836858 infusion as the last value prior to 
+that BI 836858 infusion. Relative baseline will be derived independently for the four parameters, ie. four baseline values do not necessarily have to be derived from the same laboratory assessment.
+2For calcium, 0.25* mg/dL= mmol/L  
+Table 7.8.1:4 Clinical Signs of Cell Destruction
+Criterion 
+TLS broad SMQ [20000219]
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 27 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+Table 7.8.1:4 Clinical Signs of Cell Destruction (cont.)
+Criterion
+Torsade de point/QT prolongation broad SMQ [20000001]
+Cardiac arrhythmia terms broad SMQ (incl bradyarrhythmias and tachyarrhythmias) 
+[20000050]
+Convulsions broad SMQ [20000079]
+Creatinine 
+Absolute increase from relative baseline by 26.5 μmol/L AND increase from relative 
+baseline by ≥50%
+For AEs during the post-treatment period, only subjects with drug related serious adverse 
+event and protocol-specified AEs of special interest by treatment will be presented in listing.
+7.8.2 Laboratory data
+The analyses of laboratory data will be descriptive in nature and will be based on BI 
+standards (9). It will include a graphical summary highlighting potential cases of Hy’s Law.
+The analysis of laboratory data will use the same 'analysing treatments' as described for the 
+AEs, except for that the baseline laboratory value will be included in the 'on-treatment period'.Subjects having at least one post-baseline laboratory value will be displayed in the descriptive analyses. The following parameters are of particular interest: 
+∀haematology: haemoglobin, white blood cell count, Absolute Neutrophil Counts, 
+platelets
+∀Biochemistry: aspartate transferase, alanine transferase, bilirubin, serum creatinine, 
+urea, sodium, potassium, magnesium
+∀Coagulation: international normalised ratio, partial thromboplastin time
+Laboratory values: Baseline is defined as the latest time-point before the very first 
+administration of study medication. A laboratory value on the same date as the first study 
+drug administration is considered as according to protocol, i.e. as prior to first study drug administration and will therefore be used as baseline value. 
+The following outputs will be presented:
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 28 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+∀Worst CTCAE grade experienced during the on-treatment phase.
+∀Transitions of CTCAE grade from baseline to worst laboratory value, from worst to 
+last laboratory value on treatment and from baseline to last laboratory value during 
+the on-treatment phase.
+Worst laboratory value and its CTCAE grade (highest CTCAE grade) over all courses will be 
+calculated for each laboratory parameter specified above. The last laboratory value on treatment is the laboratory value of the last visit of the last 
+course of each subject. Furthermore, a summary table of possible clinically significant abnormalities will be given.Possible clinically significant abnormal laboratory values are defined as those laboratory 
+values that are of CTCAE grade ≥ 2 and show an increase from baseline value by at least one 
+CTCAE grade. Frequency of subjects with possible clinically significant abnormal laboratory values will be provided whenever applicable. If no baseline value is available but the subject has a post-baseline laboratory value of CTCAE grade ≥ 2 an increase from baseline will be 
+assumed, i.e. the laboratory value considered as possible clinically significant.
+Hepatic injury:
+As defined in the CTP a hepatic injury (DILI) is defined by the following alterations of
+hepatic laboratory parameters:
+∀ an elevation of AST and/or ALT >3 fold ULN combined with an elevation of total
+bilirubin >2 fold ULN measured in the same blood draw sample, and/or
+∀ marked peak aminotransferase (ALT, and/or AST) elevations ≥10 fold ULN
+Potential Hepatic enzyme elevations (potential Hy’s law cases): These are defined as those 
+cases where a combination of all of the following events occurred: any on-treatment value of 
+ALT and/or AST > 3ULN with total bilirubin ≥ 2ULN and ALKP < 2ULN. The events can 
+occur in any order, but must occur within 14 days of the previous event, i.e. the second event must occur within 14 days of the first event, and the third event must occur within 14 days of the second event, etc. Subjects with missing laboratory values for liver enzymes will be excluded from these analyses.
+In addition, eDISH plot will be by plotted to display the maximum on-treatment AST/ALT 
+and maximum bilirubin in terms of ULN. 
+Neutrophil and platelet counts of each patients will be plotted in log scale graphs. 
+7.8.3 Vital signs
+Only descriptive statistics are planned for vital sign report. Observed value and change from 
+baseline values will be summarized. 
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 29 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+7.8.4 ECG
+12-lead resting ECGs are done throughout the study and are assessed for pathological results 
+which are to be recorded as either concomitant disease or AE by the Investigator. ECG    results will be listed.
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 30 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 31 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+8. REFERENCES
+1 CPMP/ICH/363/96 : “Statistical Principal for Clinical Trials”, ICH Guideline 
+Topic E9 Step 5; Note For Guidance on Statistical Principal for Clinical Trials, current version, EMA webpage.
+2 001-MCS-50-415_RD-01 : "TSAP annotations", current version; IDEA for CON.
+3 001-MCS-40-413: “Identify and Manage Important Protocol Deviations (iPD )”, 
+current version; IDEA for CON.
+4 BI-KMED-BDS-HTG-0035 : "Handling of missing and incomplete AE dates", 
+current version;  KMED.
+5 001-MCS-36-472: " Standards and processes for analyses performed within Clinical 
+Pharmacokinetics/Pharmacodynamics ", current version; IDEA for CON.
+6 001-MCS-36-472_RD-01: “ Noncompartmental Pharmacokinetic / 
+Pharmacodynamic Analyses of Clinical Studies ”, current version; IDEA for CON.
+7 001-MCS-50-415 : “Clinical Trial Data Analysis”, current version; IDEA for CON.
+8 BI-KMED-BDS-HTG-410 : “Analysis and Presentation of Adverse Event Data from 
+Clinical Trials ”, KMED.
+9 BI-KMED-BDS-HTG-0042 : “Handling, Display and Analysis of Laboratory Data”, 
+current version; KMED .
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 32 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+
+Boehringer Ingelheim 
+TSAP for BI Trial No: 1315.2 Page 33 of 33
+Proprietary confidential information © 2019 Boehringer Ingelheim International GmbH or one or more of its affiliated companies
+10. HISTORY TABLE
+Table 10: 1 History table
+Version Date
+(DD-MMM-YY)Author Sections 
+changedBrief description of change
+Initial 14-Jul-16 None This is the initial TSAP with 
+necessary information for trial conduct.
+Final 19-Nov-19 None This is the final TSAP.
