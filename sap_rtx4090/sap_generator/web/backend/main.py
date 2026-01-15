@@ -15,14 +15,12 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.8-2026-01-15")
-print("FEATURE: Fix PDF font encoding (+29 ASCII shift)")
-print("  • v100.8: Fix garbled PDF text - decode +29 ASCII shift fonts")
-print("  • v100.7: Use PyMuPDF for PDF parsing - preserves tables")
-print("  • v100.6: Fix PDF upload - use PyPDF2 (already installed)")
-print("  • v100.5: Fix Supabase error - reference SAP in memory only")
-print("  • v100.4: Semantic section matching via Claude")
-print("If you don't see v100.8 in Render logs, Render has OLD code!")
+print("BUILD: v100.10-2026-01-15")
+print("FEATURE: LlamaParse + PaddleOCR for tables")
+print("  • v100.10: PaddleOCR for tables (pure pip, no torch conflicts)")
+print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
+print("  • v100.8: Character shift fix (fallback)")
+print("If you don't see v100.10 in Render logs, Render has OLD code!")
 print("=" * 70)
 
 import os
@@ -50,12 +48,53 @@ from supabase import create_client, Client
 # Document parsing
 import PyPDF2
 from docx import Document as DocxDocument
+
+# LlamaParse - accurate PDF extraction with proper font encoding
+LLAMAPARSE_AVAILABLE = False
+_llamaparse_instance = None
 try:
-    import fitz  # PyMuPDF - better table extraction than PyPDF2
+    from llama_cloud_services import LlamaParse
+    llamaparse_key = os.getenv("LLAMAPARSE_API_KEY", "")
+    if llamaparse_key:
+        _llamaparse_instance = LlamaParse(
+            api_key=llamaparse_key,
+            result_type="markdown",
+            verbose=False
+        )
+        LLAMAPARSE_AVAILABLE = True
+        print("[PDF Parser] LlamaParse available - for text extraction")
+    else:
+        print("[PDF Parser] WARNING: LLAMAPARSE_API_KEY not set")
+except ImportError:
+    print("[PDF Parser] WARNING: LlamaParse not installed")
+
+try:
+    import fitz  # PyMuPDF - for page rendering to images
     PYMUPDF_AVAILABLE = True
 except ImportError:
     PYMUPDF_AVAILABLE = False
-    print("WARNING: PyMuPDF not available, falling back to PyPDF2 for PDF parsing")
+    print("WARNING: PyMuPDF not available")
+
+# PaddleOCR - for table extraction (uses PaddlePaddle, no torch conflicts)
+# Lazy-loaded to avoid startup overhead
+PADDLEOCR_AVAILABLE = False
+_paddleocr_instance = None
+
+def get_paddleocr():
+    """Lazy-load PaddleOCR to avoid startup overhead."""
+    global PADDLEOCR_AVAILABLE, _paddleocr_instance
+    if _paddleocr_instance is not None:
+        return _paddleocr_instance
+    try:
+        from paddleocr import PaddleOCR
+        # use_angle_cls=True for rotated text, lang='en' for English
+        _paddleocr_instance = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
+        PADDLEOCR_AVAILABLE = True
+        print("[OCR] PaddleOCR loaded successfully")
+        return _paddleocr_instance
+    except Exception as e:
+        print(f"[OCR] PaddleOCR not available: {e}")
+        return None
 
 # Import SAP generator (add parent to path)
 import sys
@@ -271,12 +310,111 @@ def fix_pdf_font_encoding(text: str) -> str:
     return text
 
 
+def ocr_table_region(page, table_bbox) -> str:
+    """
+    OCR a table region using PaddleOCR.
+    Renders the table area as an image and extracts text via OCR.
+    This bypasses font encoding issues by reading visual content.
+    """
+    ocr = get_paddleocr()
+    if ocr is None:
+        return ""
+
+    try:
+        import numpy as np
+        from PIL import Image
+
+        # Get table bounding box (x0, y0, x1, y1)
+        x0, y0, x1, y1 = table_bbox
+        clip_rect = fitz.Rect(x0, y0, x1, y1)
+
+        # Render table region at higher DPI for better OCR
+        mat = fitz.Matrix(2.0, 2.0)  # 2x zoom for better resolution
+        pix = page.get_pixmap(matrix=mat, clip=clip_rect)
+
+        # Convert to numpy array for PaddleOCR
+        img_data = pix.tobytes("png")
+        img = Image.open(io.BytesIO(img_data))
+        img_array = np.array(img)
+
+        # Run PaddleOCR - returns list of [bbox, (text, confidence)]
+        results = ocr.ocr(img_array, cls=True)
+
+        if results and results[0]:
+            # Extract text from results - PaddleOCR returns [[bbox, (text, conf)], ...]
+            lines = []
+            for line in results[0]:
+                if len(line) >= 2:
+                    text, confidence = line[1]
+                    if confidence > 0.5:  # Filter low confidence
+                        lines.append(text)
+            return "\n".join(lines)
+        return ""
+
+    except Exception as e:
+        print(f"[OCR] Table OCR failed: {e}")
+        return ""
+
+
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
-    Extract text from PDF file with table preservation.
-    Uses PyMuPDF (fitz) for better table extraction, falls back to PyPDF2.
+    Extract text from PDF file with proper font encoding support.
+    Uses LlamaParse (cloud service) for accurate extraction,
+    falls back to PyMuPDF, then PyPDF2.
     """
-    # Try PyMuPDF first (better table extraction)
+    import tempfile
+    import asyncio
+
+    # Try LlamaParse first (handles custom font encodings properly via OCR/AI)
+    if LLAMAPARSE_AVAILABLE and _llamaparse_instance:
+        try:
+            # LlamaParse needs a file path
+            with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
+                tmp.write(file_content)
+                tmp_path = tmp.name
+
+            try:
+                print(f"[PDF Parser] Using LlamaParse for accurate extraction...")
+
+                # Run async parsing
+                async def parse_pdf():
+                    return await _llamaparse_instance.aload_data(tmp_path)
+
+                # Get or create event loop
+                try:
+                    loop = asyncio.get_event_loop()
+                    if loop.is_running():
+                        import concurrent.futures
+                        with concurrent.futures.ThreadPoolExecutor() as pool:
+                            future = pool.submit(asyncio.run, parse_pdf())
+                            documents = future.result(timeout=120)
+                    else:
+                        documents = loop.run_until_complete(parse_pdf())
+                except RuntimeError:
+                    documents = asyncio.run(parse_pdf())
+
+                os.unlink(tmp_path)
+
+                if documents and len(documents) > 0:
+                    text = "\n\n".join([doc.text for doc in documents if doc.text])
+                    print(f"[PDF Parser] LlamaParse extracted {len(text):,} chars")
+                    if text and len(text.strip()) > 100:
+                        return text
+                    else:
+                        print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")
+                else:
+                    print("[PDF Parser] LlamaParse returned no documents, trying PyMuPDF...")
+
+            except Exception as e:
+                print(f"[PDF Parser] LlamaParse failed: {e}, trying PyMuPDF...")
+                try:
+                    os.unlink(tmp_path)
+                except:
+                    pass
+        except Exception as e:
+            print(f"[PDF Parser] LlamaParse temp file error: {e}")
+
+    # Fallback to PyMuPDF (may have encoding issues with custom fonts)
     if PYMUPDF_AVAILABLE:
         try:
             doc = fitz.open(stream=file_content, filetype="pdf")
@@ -286,19 +424,27 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             for page_num, page in enumerate(doc):
                 page_text = []
 
-                # Extract tables first (if any) - find_tables() returns TableFinder
+                # Extract tables using PaddleOCR (bypasses font encoding issues)
                 table_finder = page.find_tables()
-                table_texts = set()  # Track table text to avoid duplication
+                table_texts = set()  # Track table regions to avoid duplication
 
                 for table in table_finder.tables:
                     total_tables += 1
+                    table_bbox = table.bbox  # (x0, y0, x1, y1)
+
+                    # Try PaddleOCR for table extraction (handles font encoding)
+                    ocr_text = ocr_table_region(page, table_bbox)
+                    if ocr_text and len(ocr_text.strip()) > 10:
+                        page_text.append(f"\n[TABLE]\n{ocr_text}\n[/TABLE]\n")
+                        table_texts.add(f"{table_bbox}")  # Track this region
+                        continue
+
+                    # Fallback to PyMuPDF extraction (may have encoding issues)
                     table_md = []
                     for row in table.extract():
-                        # Filter None values and join cells with pipe
                         row_text = " | ".join(str(cell) if cell else "" for cell in row)
                         if row_text.strip():
                             table_md.append(row_text)
-                            # Track lower-case versions for duplicate detection
                             for cell in row:
                                 if cell:
                                     table_texts.add(str(cell).lower().strip())
@@ -319,13 +465,14 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                             page_text.append(block_text)
 
                 if page_text:
-                    text_parts.append(f"\n--- PAGE {page_num + 1} ---\n" + "\n".join(page_text))
+                    # Fix encoding PER PAGE - different pages may have different encodings
+                    page_content = "\n".join(page_text)
+                    page_content = fix_pdf_font_encoding(page_content)
+                    text_parts.append(f"\n--- PAGE {page_num + 1} ---\n" + page_content)
 
             doc.close()
             result = "\n\n".join(text_parts)
             print(f"[PDF Parser] PyMuPDF extracted {len(result):,} chars, {total_tables} tables from {len(doc)} pages")
-            # Fix garbled font encoding if detected
-            result = fix_pdf_font_encoding(result)
             return result
 
         except Exception as e:
