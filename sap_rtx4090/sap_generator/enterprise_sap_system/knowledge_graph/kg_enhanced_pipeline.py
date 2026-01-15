@@ -2749,6 +2749,36 @@ Identify which applies:
 - MRD assessment (for hematologic)
 - Biomarker requirements (PD-L1, TMB, MSI, HER2, etc.)
 
+### K. SCHEDULE OF ASSESSMENTS (Critical for Analysis Windows)
+Extract the Schedule of Assessments / Schedule of Events / Table of Activities from the protocol.
+This is typically a large table showing ALL visits and what assessments are done at each visit.
+
+**CRITICAL ELEMENTS TO EXTRACT:**
+- **Visit Names**: Screening, Baseline/Day 1, Week 2, Week 4, Week 8, End of Treatment, Follow-up, etc.
+- **Visit Timing**: Day number or week number (e.g., Day 1, Day 15, Day 29, Week 8)
+- **Visit Windows**: Allowable deviation (e.g., ±3 days, ±7 days)
+- **Assessments per Visit**: Which procedures/tests are done at each visit:
+  - Informed Consent
+  - Medical History
+  - Physical Examination
+  - Vital Signs
+  - ECOG/Performance Status
+  - Laboratory Tests (Chemistry, Hematology, Urinalysis)
+  - ECG
+  - Tumor Assessment / Imaging (CT/MRI)
+  - PRO/QoL Questionnaires (EQ-5D, QLQ-C30, etc.)
+  - PK Sampling
+  - Biomarker Sampling
+  - Adverse Event Collection
+  - Concomitant Medications
+  - Study Drug Administration
+
+**WHY THIS MATTERS FOR SAP:**
+- Defines analysis windows (e.g., Week 8 visit = Day 57 ± 7 days)
+- Determines tumor assessment frequency (every 6 weeks, every 8 weeks, etc.)
+- Specifies PRO collection schedule
+- Maps protocol visits to ADaM AVISIT/AVISITN
+
 ### J. PROTOCOL-SPECIFIC ANALYSIS SECTIONS (UNIVERSAL CATCH-ALL)
 **CRITICAL**: Scan the ENTIRE protocol/SAP and capture ANY analysis sections not covered above.
 
@@ -2845,6 +2875,33 @@ Return a JSON object with ONLY discovered structure:
   "has_mrd_assessment": false,
   "has_interim_analysis": false,
   "interim_count": 0,
+
+  "schedule_of_assessments": {{
+    "visits": [
+      {{
+        "visit_name": "Screening",
+        "timing": "Day -28 to -1",
+        "window": "",
+        "assessments": ["Informed Consent", "Medical History", "Physical Exam", "Labs", "ECG", "Tumor Assessment"]
+      }},
+      {{
+        "visit_name": "Baseline/Day 1",
+        "timing": "Day 1",
+        "window": "",
+        "assessments": ["Randomization", "Study Drug", "Vitals", "Labs"]
+      }},
+      {{
+        "visit_name": "Week 4",
+        "timing": "Day 29",
+        "window": "±3 days",
+        "assessments": ["Physical Exam", "Vitals", "Labs", "AE Review"]
+      }}
+    ],
+    "tumor_assessment_frequency": "Every 8 weeks until progression",
+    "pro_collection_visits": ["Baseline", "Week 8", "Week 16", "End of Treatment"],
+    "pk_sampling_visits": [],
+    "follow_up_schedule": "Every 3 months for survival"
+  }},
 
   "protocol_specific_sections": {{
 

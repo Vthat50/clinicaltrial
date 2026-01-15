@@ -818,6 +818,27 @@ class SAPWorkbench:
                 except:
                     sample_size_val = None
 
+            # Extract Schedule of Assessments (SOA)
+            soa = full_extraction.get("schedule_of_assessments", {})
+            visit_schedule = []
+            if isinstance(soa, dict) and soa.get("visits"):
+                for visit in soa.get("visits", []):
+                    visit_schedule.append({
+                        "visit": visit.get("visit_name", ""),
+                        "timing": visit.get("timing", ""),
+                        "window": visit.get("window", ""),
+                        "assessments": visit.get("assessments", [])
+                    })
+            # Also capture key schedule info
+            tumor_assessment_freq = soa.get("tumor_assessment_frequency", "")
+            pro_visits = soa.get("pro_collection_visits", [])
+            follow_up_schedule = soa.get("follow_up_schedule", "")
+
+            if visit_schedule:
+                print(f"[Workbench] Extracted {len(visit_schedule)} visits from Schedule of Assessments")
+                print(f"  Tumor assessment: {tumor_assessment_freq}")
+                print(f"  PRO visits: {pro_visits}")
+
             # === LOG CONVERTED VALUES ===
             print("\n" + "-"*70)
             print("CONVERTED METADATA VALUES")
@@ -829,6 +850,7 @@ class SAPWorkbench:
             print(f"  sample_size: {sample_size_val} (raw type: {type(ss).__name__})")
             print(f"  countries: {countries}")
             print(f"  prohibition_rules: {prohibition_rules}")
+            print(f"  visit_schedule: {len(visit_schedule)} visits")
             print("-"*70 + "\n")
 
             metadata = ProtocolMetadata(
@@ -844,7 +866,7 @@ class SAPWorkbench:
                 stratification_factors=strat_factors,
                 sample_size=sample_size_val,
                 statistical_methods=[],
-                visit_schedule=[],
+                visit_schedule=visit_schedule,
                 full_extraction=full_extraction,
                 disease_setting=disease.get("disease_setting", {}).get("value", ""),
                 performance_status_scale=ps.get("scale", {}).get("value", ""),
@@ -1078,8 +1100,13 @@ Return ONLY valid JSON."""
         if kb_content:
             print(f"[WORKBENCH] KB content added for section {section_id}: {len(kb_content):,} chars from {len(kb_tools_used)} tools")
 
-        # Get section-specific prompt
-        prompt = self._build_section_prompt(workspace, section_id, kb_content)
+        # v100.7: Extract section-relevant protocol excerpts BEFORE building prompt
+        # This ensures we get actual sample size values, methods, etc. from deep in the protocol
+        relevant_excerpts = self._get_relevant_excerpts(workspace.protocol_content, section_id)
+        print(f"[WORKBENCH] Extracted {len(relevant_excerpts)} relevant excerpts for section {section_id}")
+
+        # Get section-specific prompt with relevant excerpts
+        prompt = self._build_section_prompt(workspace, section_id, kb_content, relevant_excerpts)
         print(f"[WORKBENCH] Prompt length: {len(prompt):,} chars")
 
         try:
@@ -1122,10 +1149,8 @@ Return ONLY valid JSON."""
             section.status = SectionStatus.DRAFT
             section.generated_at = datetime.now().isoformat()
 
-            # Track provenance
-            section.protocol_excerpts_used = self._get_relevant_excerpts(
-                workspace.protocol_content, section_id
-            )
+            # Track provenance (reuse excerpts already extracted)
+            section.protocol_excerpts_used = relevant_excerpts
             section.metadata_used = self._get_metadata_used(workspace.metadata, section_id)
             section.kb_tools_used = kb_tools_used  # Track KB sources
 
@@ -1138,8 +1163,15 @@ Return ONLY valid JSON."""
             section.status = SectionStatus.NOT_STARTED
             raise e
 
-    def _build_section_prompt(self, workspace: StudyWorkspace, section_id: str, kb_content: str = "") -> str:
-        """Build prompt for generating a specific section with prohibition rules."""
+    def _build_section_prompt(self, workspace: StudyWorkspace, section_id: str, kb_content: str = "", relevant_excerpts: List[str] = None) -> str:
+        """Build prompt for generating a specific section with prohibition rules.
+
+        Args:
+            workspace: The study workspace
+            section_id: Which section to generate
+            kb_content: Knowledge base content
+            relevant_excerpts: Section-specific protocol excerpts (if None, uses first 12K chars)
+        """
 
         metadata = workspace.metadata
 
@@ -1235,8 +1267,8 @@ appropriate table shells.
 ## PREVIOUSLY GENERATED SECTIONS (for context)
 {prev_sections if prev_sections else "(None yet)"}
 
-## PROTOCOL CONTENT
-{workspace.protocol_content[:12000]}
+## PROTOCOL CONTENT (SECTION-RELEVANT EXCERPTS)
+{self._format_protocol_content(workspace.protocol_content, relevant_excerpts)}
 
 ## SECTION-SPECIFIC INSTRUCTIONS
 {section_instructions}
@@ -1244,14 +1276,44 @@ appropriate table shells.
 ## OUTPUT FORMAT
 Generate ONLY the content for this section.
 Use proper markdown formatting.
-Be specific to this protocol - no generic templates.
-Mark anything not in the protocol as [TO BE CONFIRMED].
+Be specific to this protocol - extract actual values from the protocol excerpts above.
+DO NOT use placeholders like [TO BE CONFIRMED] if the information is in the protocol excerpts.
 For CAR-T studies: Include CRS grading scale (Lee 2014 or ASTCT as per protocol).
 For all studies: Include proper definitions section with Study Day, Baseline, TEAE.
 
 Generate the {workspace.sections[section_id].display_name} section now:"""
 
         return prompt
+
+    def _format_protocol_content(self, protocol_content: str, relevant_excerpts: List[str] = None) -> str:
+        """Format protocol content for the prompt, combining header + relevant excerpts.
+
+        Args:
+            protocol_content: Full protocol text
+            relevant_excerpts: Section-specific excerpts from keyword extraction
+
+        Returns:
+            Formatted protocol content (header + relevant excerpts)
+        """
+        # Always include protocol header/overview (first 5K chars)
+        header = protocol_content[:5000] if protocol_content else ""
+
+        if not relevant_excerpts:
+            # Fallback to original behavior if no excerpts provided
+            return protocol_content[:12000] if protocol_content else ""
+
+        # Combine header with relevant excerpts
+        result = f"=== PROTOCOL OVERVIEW (first 5000 chars) ===\n{header}\n\n"
+
+        result += "=== SECTION-RELEVANT EXCERPTS (keyword-matched) ===\n"
+        for i, excerpt in enumerate(relevant_excerpts[:10], 1):  # Limit to 10 excerpts
+            result += f"\n--- Excerpt {i} ---\n{excerpt}\n"
+
+        # Log what we're providing
+        total_chars = len(result)
+        print(f"[WORKBENCH] Protocol content: {total_chars:,} chars (header: 5K + {len(relevant_excerpts)} excerpts)")
+
+        return result
 
     def _get_section_instructions(self, section_id: str) -> str:
         """Get specific instructions for each section type."""
@@ -1408,28 +1470,89 @@ Format as numbered list with full citations.
 
         return instructions.get(section_id, "Generate appropriate content based on the protocol.")
 
-    def _get_relevant_excerpts(self, protocol: str, section_id: str) -> List[str]:
-        """Get protocol excerpts relevant to this section."""
-        # Simplified - in practice would use semantic search
-        excerpts = []
+    def _get_relevant_excerpts(self, protocol: str, section_id: str, max_chars: int = 15000) -> List[str]:
+        """Get protocol excerpts relevant to this section using keyword-based extraction.
 
+        Extracts context windows around matching keywords to capture the actual
+        protocol-specific content (sample size values, methods, etc.)
+        """
+        excerpts = []
+        seen_positions = set()  # Avoid duplicate overlapping excerpts
+
+        # Comprehensive keywords for each section
         keywords = {
-            "objectives": ["objective", "aim", "purpose"],
-            "endpoints": ["endpoint", "outcome", "primary", "secondary"],
-            "populations": ["population", "analysis set", "ITT", "safety"],
-            "sample_size": ["sample size", "power", "enrollment"],
-            "safety_analysis": ["adverse", "safety", "AE", "SAE"],
+            "objectives": ["objective", "aim", "purpose", "hypothesis", "goal"],
+            "endpoints": ["endpoint", "outcome", "primary", "secondary", "exploratory", "efficacy"],
+            "populations": ["population", "analysis set", "ITT", "intent to treat", "per protocol",
+                          "safety population", "full analysis set", "modified intent"],
+            "sample_size": ["sample size", "power", "enrollment", "number of patients", "n=", "n =",
+                          "statistical power", "alpha", "beta", "hazard ratio", "effect size",
+                          "type i error", "type ii error", "patients will be", "subjects will be",
+                          "patients are planned", "sample size calculation", "power calculation",
+                          "randomized", "planned enrollment"],
+            "statistical_methods": ["statistical method", "analysis method", "log-rank", "cox",
+                                   "kaplan-meier", "stratified", "anova", "ancova", "chi-square",
+                                   "fisher exact", "wilcoxon", "t-test", "confidence interval",
+                                   "multiplicity", "alpha spending", "interim analysis"],
+            "missing_data": ["missing data", "missing value", "imputation", "last observation",
+                            "multiple imputation", "sensitivity analysis", "LOCF", "BOCF", "MMRM"],
+            "safety_analysis": ["adverse event", "safety", "AE", "SAE", "TEAE", "serious adverse",
+                               "drug-related", "treatment-emergent", "toxicity", "laboratory abnormality"],
+            "interim_analysis": ["interim analysis", "interim look", "data monitoring", "DMC", "DSMB",
+                                "stopping rule", "futility", "efficacy boundary", "O'Brien-Fleming",
+                                "alpha spending", "group sequential"],
+            "estimands": ["estimand", "intercurrent event", "treatment policy", "hypothetical",
+                         "principal stratum", "composite", "while on treatment"],
         }
 
         section_keywords = keywords.get(section_id, [])
+        if not section_keywords:
+            return excerpts
 
-        # Find paragraphs containing keywords
-        paragraphs = protocol.split('\n\n')
-        for para in paragraphs:
-            para_lower = para.lower()
-            if any(kw in para_lower for kw in section_keywords):
-                excerpts.append(para[:500])
-                if len(excerpts) >= 3:
+        protocol_lower = protocol.lower()
+        total_chars = 0
+        context_window = 2000  # Characters before and after keyword match
+
+        # Find all keyword matches and extract context windows
+        for keyword in section_keywords:
+            if total_chars >= max_chars:
+                break
+
+            start_pos = 0
+            while start_pos < len(protocol_lower):
+                pos = protocol_lower.find(keyword, start_pos)
+                if pos == -1:
+                    break
+
+                # Check if we already have content from this region
+                region_key = pos // 1000  # Group by 1000-char regions
+                if region_key in seen_positions:
+                    start_pos = pos + len(keyword)
+                    continue
+
+                seen_positions.add(region_key)
+
+                # Extract context window
+                excerpt_start = max(0, pos - context_window)
+                excerpt_end = min(len(protocol), pos + len(keyword) + context_window)
+
+                # Try to start/end at sentence boundaries
+                if excerpt_start > 0:
+                    for boundary in ['. ', '.\n', '\n\n']:
+                        boundary_pos = protocol.find(boundary, excerpt_start)
+                        if boundary_pos != -1 and boundary_pos < pos:
+                            excerpt_start = boundary_pos + len(boundary)
+                            break
+
+                excerpt = protocol[excerpt_start:excerpt_end].strip()
+
+                if len(excerpt) > 100:  # Skip very short excerpts
+                    excerpts.append(excerpt)
+                    total_chars += len(excerpt)
+
+                start_pos = pos + len(keyword)
+
+                if total_chars >= max_chars:
                     break
 
         return excerpts

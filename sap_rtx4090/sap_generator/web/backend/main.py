@@ -3856,6 +3856,11 @@ class MetadataResponse(BaseModel):
     sample_size: Optional[int] = None
     prohibition_rules: List[str] = []
     extraction_method: str = ""
+    # Schedule of Assessments (SOA) - visit schedule from protocol
+    visit_schedule: List[Dict] = []
+    tumor_assessment_frequency: str = ""
+    pro_collection_visits: List[str] = []
+    follow_up_schedule: str = ""
 
 
 class SectionOutline(BaseModel):
@@ -4012,6 +4017,9 @@ async def workbench_get_metadata(workspace_id: str):
         else:
             metadata = workspace.metadata
 
+        # Extract SOA info from full_extraction if available
+        soa = metadata.full_extraction.get("schedule_of_assessments", {}) if metadata.full_extraction else {}
+
         return MetadataResponse(
             study_id=metadata.study_id,
             study_title=metadata.study_title,
@@ -4028,7 +4036,12 @@ async def workbench_get_metadata(workspace_id: str):
             stratification_factors=metadata.stratification_factors,
             sample_size=metadata.sample_size,
             prohibition_rules=metadata.prohibition_rules,
-            extraction_method=metadata.extraction_method
+            extraction_method=metadata.extraction_method,
+            # Schedule of Assessments (SOA)
+            visit_schedule=metadata.visit_schedule if hasattr(metadata, 'visit_schedule') else [],
+            tumor_assessment_frequency=soa.get("tumor_assessment_frequency", ""),
+            pro_collection_visits=soa.get("pro_collection_visits", []),
+            follow_up_schedule=soa.get("follow_up_schedule", "")
         )
     except HTTPException:
         raise
