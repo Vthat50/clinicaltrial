@@ -196,14 +196,121 @@ export default function ProtocolAuditSuite({
     setViewMode('sap-authoring')
   }
 
+  // Render a table from pipe-separated rows
+  const renderTable = (tableContent: string, tableIndex: number) => {
+    const rows = tableContent.trim().split('\n').filter(row => row.trim())
+    if (rows.length === 0) return null
+
+    return (
+      <div key={`table-${tableIndex}`} className="my-4 overflow-x-auto">
+        <table className="min-w-full border-collapse border border-gray-300 text-sm">
+          <tbody>
+            {rows.map((row, rowIndex) => {
+              const cells = row.split('|').map(cell => cell.trim())
+              const isHeader = rowIndex === 0
+              return (
+                <tr key={rowIndex} className={isHeader ? 'bg-gray-100' : rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                  {cells.map((cell, cellIndex) => (
+                    isHeader ? (
+                      <th key={cellIndex} className="border border-gray-300 px-3 py-2 text-left font-semibold text-gray-700">
+                        {cell}
+                      </th>
+                    ) : (
+                      <td key={cellIndex} className="border border-gray-300 px-3 py-2 text-gray-600">
+                        {cell}
+                      </td>
+                    )
+                  ))}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
+  // Render content with proper formatting (tables, pages, sections)
+  const formattedContent = useMemo(() => {
+    if (!protocolContent) return null
+
+    const elements: React.ReactNode[] = []
+    let tableIndex = 0
+
+    // Split by [TABLE] markers
+    const parts = protocolContent.split(/\[TABLE\]|\[\/TABLE\]/)
+
+    parts.forEach((part, index) => {
+      // Even indices are regular text, odd indices are table content
+      const isTable = index % 2 === 1
+
+      if (isTable) {
+        elements.push(renderTable(part, tableIndex++))
+      } else {
+        // Process regular text: handle page markers and section headers
+        const lines = part.split('\n')
+        let currentParagraph: string[] = []
+
+        const flushParagraph = () => {
+          if (currentParagraph.length > 0) {
+            const text = currentParagraph.join('\n')
+            elements.push(
+              <p key={`p-${elements.length}`} className="mb-3 text-gray-700 leading-relaxed">
+                {text}
+              </p>
+            )
+            currentParagraph = []
+          }
+        }
+
+        lines.forEach((line, lineIndex) => {
+          // Page marker
+          if (line.match(/^---\s*PAGE\s*\d+\s*---$/i)) {
+            flushParagraph()
+            elements.push(
+              <div key={`page-${elements.length}`} className="my-6 py-2 border-t-2 border-blue-200 text-center">
+                <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-4 py-1 rounded-full">
+                  {line.replace(/---/g, '').trim()}
+                </span>
+              </div>
+            )
+          }
+          // Section header (numbered like "1.2.3" or "SECTION X")
+          else if (line.match(/^(\d+\.)+\d*\s+[A-Z]/) || line.match(/^[A-Z][A-Z\s]{10,}$/)) {
+            flushParagraph()
+            elements.push(
+              <h3 key={`h-${elements.length}`} className="mt-6 mb-3 text-lg font-bold text-gray-900 border-b pb-2">
+                {line}
+              </h3>
+            )
+          }
+          // Empty line - paragraph break
+          else if (line.trim() === '') {
+            flushParagraph()
+          }
+          // Regular text
+          else {
+            currentParagraph.push(line)
+          }
+        })
+
+        flushParagraph()
+      }
+    })
+
+    return <div className="protocol-content">{elements}</div>
+  }, [protocolContent])
+
   // Render content with search highlighting
   const highlightedContent = useMemo(() => {
     if (!protocolContent) return null
+
+    // If no search, use the formatted content
     if (!searchQuery.trim() || searchMatches.length === 0) {
-      return <pre className="whitespace-pre-wrap font-sans text-gray-800 leading-relaxed">{protocolContent}</pre>
+      return formattedContent
     }
 
-    // Build highlighted content
+    // For search, fall back to simple pre-wrap with highlights
     const parts: React.ReactNode[] = []
     let lastIndex = 0
 
@@ -232,7 +339,7 @@ export default function ProtocolAuditSuite({
     }
 
     return <pre className="whitespace-pre-wrap font-sans text-gray-800 leading-relaxed">{parts}</pre>
-  }, [protocolContent, searchQuery, searchMatches, currentMatchIndex])
+  }, [protocolContent, searchQuery, searchMatches, currentMatchIndex, formattedContent])
 
   // Loading state
   if (loading) {
