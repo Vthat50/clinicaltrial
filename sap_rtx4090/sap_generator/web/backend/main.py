@@ -15,9 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.11-2026-01-15")
-print("FEATURE: Hybrid extraction - LlamaParse text + PaddleOCR tables")
-print("  • v100.11: HYBRID approach - run PaddleOCR on tables AFTER LlamaParse")
+print("BUILD: v100.12-2026-01-15")
+print("FEATURE: Table rendering + deduplication fixes")
+print("  • v100.12: Wrap markdown tables in [TABLE] markers for frontend rendering")
 print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
 print("  • v100.8: Character shift fix (fallback)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
@@ -406,6 +406,61 @@ def extract_all_tables_with_ocr(file_content: bytes) -> str:
         return ""
 
 
+def wrap_markdown_tables(text: str) -> str:
+    """
+    Detect markdown tables in text and wrap them with [TABLE] markers.
+    Markdown tables have rows with | separators and a header separator line with dashes.
+    """
+    import re
+
+    lines = text.split('\n')
+    result = []
+    i = 0
+    tables_found = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Check if this looks like a markdown table row (has multiple | chars)
+        if '|' in line and line.count('|') >= 2:
+            # Look ahead to see if this is a table (has header separator)
+            table_lines = [line]
+            j = i + 1
+
+            # Collect consecutive lines with | separators
+            while j < len(lines) and '|' in lines[j] and lines[j].count('|') >= 2:
+                table_lines.append(lines[j])
+                j += 1
+
+            # Check if it's a real table (at least 2 rows, and has separator line with dashes)
+            has_separator = any(re.match(r'^[\s|:-]+$', tl.replace(' ', '')) for tl in table_lines[:3])
+            if len(table_lines) >= 2 and (has_separator or len(table_lines) >= 3):
+                # It's a table - wrap it
+                tables_found += 1
+                result.append('[TABLE]')
+                # Remove markdown separator line (|---|---|) for cleaner display
+                for tl in table_lines:
+                    if not re.match(r'^[\s|:-]+$', tl.replace(' ', '')):
+                        # Clean up the line: remove leading/trailing pipes and extra spaces
+                        cleaned = tl.strip()
+                        if cleaned.startswith('|'):
+                            cleaned = cleaned[1:]
+                        if cleaned.endswith('|'):
+                            cleaned = cleaned[:-1]
+                        result.append(cleaned)
+                result.append('[/TABLE]')
+                i = j
+                continue
+
+        result.append(line)
+        i += 1
+
+    if tables_found > 0:
+        print(f"[Tables] Wrapped {tables_found} markdown tables with [TABLE] markers")
+
+    return '\n'.join(result)
+
+
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
     HYBRID extraction: LlamaParse for text + PaddleOCR for tables.
@@ -448,7 +503,10 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                     text = "\n\n".join([doc.text for doc in documents if doc.text])
                     print(f"[PDF Parser] LlamaParse extracted {len(text):,} chars")
                     if text and len(text.strip()) > 100:
-                        # HYBRID: Also extract tables with PaddleOCR
+                        # Wrap markdown tables in [TABLE] markers for frontend rendering
+                        text = wrap_markdown_tables(text)
+
+                        # HYBRID: Also extract tables with PaddleOCR for PDFs with encoding issues
                         tables_text = extract_all_tables_with_ocr(file_content)
                         if tables_text:
                             print(f"[PDF Parser] Adding {len(tables_text):,} chars of table content")
@@ -4543,13 +4601,24 @@ async def workbench_get_extraction(workspace_id: str):
             for cr in fe.get("censoring_rules", []) if cr.get("endpoint")
         ]
 
-        # Validation/warnings
+        # Validation/warnings (deduplicated)
         validation = fe.get("_validation_report", {})
         warnings = []
+        seen_warnings = set()
+
         if validation.get("status") == "needs_review":
-            warnings.extend(validation.get("potential_gaps", []))
+            for gap in validation.get("potential_gaps", []):
+                gap_str = str(gap) if isinstance(gap, dict) else gap
+                if gap_str not in seen_warnings:
+                    warnings.append(gap)
+                    seen_warnings.add(gap_str)
+
         if validation.get("warnings"):
-            warnings.extend(validation.get("warnings", []))
+            for warning in validation.get("warnings", []):
+                warning_str = str(warning) if isinstance(warning, dict) else warning
+                if warning_str not in seen_warnings:
+                    warnings.append(warning)
+                    seen_warnings.add(warning_str)
 
         # Completeness check
         completeness = fe.get("extraction_completeness_check", {})

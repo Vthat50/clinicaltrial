@@ -552,5 +552,16 @@ function transformExtractionToFacts(data: ExtractionData): ExtractionFact[] {
     })
   })
 
-  return facts
+  // Deduplicate facts by category+name+value combination
+  const seen = new Set<string>()
+  const dedupedFacts = facts.filter((fact) => {
+    const key = `${fact.category}|${fact.name}|${fact.value}`
+    if (seen.has(key)) {
+      return false
+    }
+    seen.add(key)
+    return true
+  })
+
+  return dedupedFacts
 }
