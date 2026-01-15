@@ -4056,7 +4056,7 @@ def execute_tool(tool_name: str, tool_input: Dict, kb: KnowledgeBaseTools) -> KB
         "get_prognostic_scores": lambda: kb.get_prognostic_scores(),
         # Complete KB Coverage (v64)
         "get_derived_variables": lambda: kb.get_derived_variables(tool_input.get("variable_type", "all")),
-        "get_time_to_event_analysis": lambda: kb.get_time_to_event_analysis(tool_input.get("analysis_type", "all")),
+        "get_time_to_event_analysis": lambda: kb.get_time_to_event_analysis(),
         "get_confidence_interval_methods": lambda: kb.get_confidence_interval_methods(tool_input.get("ci_type", "all")),
         "get_pro_qol_analysis": lambda: kb.get_pro_qol_analysis(tool_input.get("instrument", "all")),
         "get_analysis_windows": lambda: kb.get_analysis_windows(tool_input.get("window_type", "all")),

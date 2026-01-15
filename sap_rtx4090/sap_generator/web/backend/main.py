@@ -1276,6 +1276,12 @@ class KGPipelineWrapper:
             print(f"[KGPipeline] PDF extraction failed: {e}")
             raise RuntimeError(f"Failed to extract PDF: {e}")
 
+    def generate(self, protocol_text: str) -> Dict[str, Any]:
+        """
+        Alias for process_protocol - maintains compatibility with old API.
+        """
+        return self.process_protocol(protocol_text=protocol_text)
+
 
 # Global pipeline instance (reused across requests)
 _production_pipeline = None  # KGPipelineWrapper with prohibition rules
@@ -4329,7 +4335,12 @@ async def workbench_generate_section(
     workspace_id: str,
     section_id: str,
     regenerate: bool = False,
-    use_tools: bool = False  # NEW: Use tool-calling like Quick Protocol
+    use_tools: bool = False,  # NEW: Use tool-calling like Quick Protocol
+    skip_similar_trials: bool = False,  # Test mode: skip get_similar_trials
+    similar_trials_phase: str = "",  # Explicit phase for get_similar_trials
+    similar_trials_indication: str = "",  # Explicit indication
+    similar_trials_endpoint: str = "",  # Explicit endpoint_type (4-arg mode)
+    similar_trials_design: str = ""  # Explicit design_type (4-arg mode)
 ):
     """
     Step 4: Generate a single SAP section.
@@ -4347,7 +4358,21 @@ async def workbench_generate_section(
         raise HTTPException(503, "SAP Workbench not initialized")
 
     try:
-        section = workbench.generate_section(workspace_id, section_id, regenerate, use_tools)
+        # Build similar_trials_args if provided
+        similar_trials_args = None
+        if similar_trials_phase or similar_trials_indication:
+            similar_trials_args = {
+                "phase": similar_trials_phase,
+                "indication": similar_trials_indication,
+                "endpoint_type": similar_trials_endpoint,
+                "design_type": similar_trials_design
+            }
+
+        section = workbench.generate_section(
+            workspace_id, section_id, regenerate, use_tools,
+            skip_similar_trials=skip_similar_trials,
+            similar_trials_args=similar_trials_args
+        )
 
         return SectionContent(
             id=section.id,
@@ -4624,6 +4649,64 @@ async def workbench_save_section_mapping(workspace_id: str, data: dict):
         raise HTTPException(404, str(e))
     except Exception as e:
         logger.error(f"Save section mapping failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.post("/workbench/{workspace_id}/reference-sap/auto-map")
+async def workbench_auto_map_sections(workspace_id: str, data: dict):
+    """
+    Use Claude AI to automatically suggest section mappings between
+    generated SAP sections and reference SAP sections.
+
+    Body: {
+        "generated_sections": [{"id": "...", "name": "...", "display_name": "..."}],
+        "reference_sections": [{"id": "...", "title": "...", "content_preview": "..."}]
+    }
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        generated_sections = data.get("generated_sections", [])
+        reference_sections = data.get("reference_sections", [])
+
+        result = workbench.auto_map_sections(
+            workspace_id,
+            generated_sections,
+            reference_sections
+        )
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Auto-map sections failed: {e}")
+        raise HTTPException(500, str(e))
+
+
+@app.get("/workbench/{workspace_id}/reference-section/{section_id}")
+async def workbench_get_reference_section(workspace_id: str, section_id: str):
+    """
+    Get the reference SAP section content for side-by-side comparison.
+    Uses manual mapping to find the corresponding reference section.
+    """
+    if not WORKBENCH_AVAILABLE:
+        raise HTTPException(503, "SAP Workbench not available")
+
+    workbench = get_workbench()
+    if not workbench:
+        raise HTTPException(503, "SAP Workbench not initialized")
+
+    try:
+        result = workbench.get_reference_section_content(workspace_id, section_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    except Exception as e:
+        logger.error(f"Get reference section failed: {e}")
         raise HTTPException(500, str(e))
 
 
