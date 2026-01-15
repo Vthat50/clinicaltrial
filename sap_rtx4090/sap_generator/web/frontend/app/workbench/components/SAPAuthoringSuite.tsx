@@ -388,7 +388,7 @@ export default function SAPAuthoringSuite({ workspaceId, protocolUrl }: SAPAutho
         if (words2Set.has(phrase)) {
           // Check if this is not a substring of an already found longer match
           let isSubstring = false
-          for (const existing of matches) {
+          for (const existing of Array.from(matches)) {
             if (existing.includes(phrase)) {
               isSubstring = true
               break
