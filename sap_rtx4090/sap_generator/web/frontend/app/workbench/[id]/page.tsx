@@ -28,6 +28,11 @@ interface Metadata {
   sample_size: number | null
   prohibition_rules: string[]
   extraction_method: string
+  // Schedule of Assessments (SOA)
+  visit_schedule?: Array<{ visit: string; timing: string; window: string }>
+  tumor_assessment_frequency?: string
+  pro_collection_visits?: string[]
+  follow_up_schedule?: string
 }
 
 // Warning can be a string or an object
@@ -101,6 +106,13 @@ interface ExtractionData {
     icans_scale: string
     bridging_therapy: boolean
   } | null
+  // Schedule of Assessments (SOA)
+  schedule_of_assessments?: {
+    visits: Array<{ visit: string; timing: string; window: string }>
+    tumor_assessment_frequency: string
+    pro_collection_visits: string[]
+    follow_up_schedule: string
+  }
   warnings: Warning[]
   completeness: {
     total_endpoints: number

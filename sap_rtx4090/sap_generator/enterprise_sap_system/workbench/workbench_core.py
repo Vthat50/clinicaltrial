@@ -91,6 +91,167 @@ except ImportError:
         print("Warning: SDTM generator not available")
 
 
+def extract_soa_from_text(protocol_text: str) -> Dict:
+    """
+    Extract Schedule of Assessments (SOA) from messy PDF text.
+    Uses regex patterns to find visit schedules even when table structure is lost.
+
+    Returns:
+        Dict with visits, tumor_assessment_frequency, pro_collection_visits, follow_up_schedule
+    """
+    text_lower = protocol_text.lower()
+    result = {
+        "visits": [],
+        "tumor_assessment_frequency": "",
+        "pro_collection_visits": [],
+        "follow_up_schedule": ""
+    }
+
+    # === EXTRACT VISIT SCHEDULE ===
+    # Look for common visit patterns
+    visit_patterns = [
+        # Screening (more flexible patterns)
+        (r'screening.*day\s*[-]?\d+\s*to\s*[-]?\d+', 'Screening'),
+        (r'screening.*week\s*[-]?\d+\s*to\s*[-]?\d+', 'Screening'),
+        (r'\bscreening\s+period\b', 'Screening'),
+        (r'screening\s+visit', 'Screening'),
+        (r'day\s*-\d+\s*to\s*-?\d+', 'Screening'),  # Day -42 to -1
+        # Day-based visits
+        (r'day\s*1\b', 'Day 1 / Baseline'),
+        (r'day\s*15\b', 'Day 15 / Week 2'),
+        (r'day\s*29\b', 'Day 29 / Week 4'),
+        (r'day\s*57\b', 'Day 57 / Week 8'),
+        # Week-based visits
+        (r'week\s*2\b[^0-9]', 'Week 2'),
+        (r'week\s*4\b[^0-9]', 'Week 4'),
+        (r'week\s*8\b[^0-9]', 'Week 8'),
+        (r'week\s*12\b[^0-9]', 'Week 12'),
+        (r'week\s*16\b[^0-9]', 'Week 16'),
+        (r'week\s*24\b[^0-9]', 'Week 24'),
+        (r'week\s*48\b[^0-9]', 'Week 48'),
+        (r'week\s*50\b[^0-9]', 'Week 50'),
+        # Every X weeks patterns
+        (r'every\s*2\s*weeks?', 'Every 2 Weeks'),
+        (r'every\s*4\s*weeks?', 'Every 4 Weeks'),
+        (r'every\s*6\s*weeks?', 'Every 6 Weeks'),
+        (r'every\s*8\s*weeks?', 'Every 8 Weeks'),
+        (r'q2w\b', 'Every 2 Weeks (Q2W)'),
+        (r'q4w\b', 'Every 4 Weeks (Q4W)'),
+        (r'q8w\b', 'Every 8 Weeks (Q8W)'),
+        # End of treatment / Follow-up
+        (r'end\s*of\s*treatment', 'End of Treatment'),
+        (r'safety\s*follow[- ]?up', 'Safety Follow-up'),
+        (r'survival\s*follow[- ]?up', 'Survival Follow-up'),
+    ]
+
+    found_visits = set()
+    for pattern, visit_name in visit_patterns:
+        if re.search(pattern, text_lower):
+            found_visits.add(visit_name)
+
+    # Extract visit windows (±X days)
+    window_match = re.search(r'[±\+/-]\s*(\d+)\s*days?', protocol_text)
+    default_window = f"±{window_match.group(1)} days" if window_match else ""
+
+    # Build structured visits
+    visit_order = ['Screening', 'Day 1 / Baseline', 'Day 15 / Week 2', 'Week 2',
+                   'Day 29 / Week 4', 'Week 4', 'Day 57 / Week 8', 'Week 8',
+                   'Week 12', 'Week 16', 'Week 24', 'Week 48', 'Week 50',
+                   'Every 2 Weeks', 'Every 4 Weeks', 'Every 6 Weeks', 'Every 8 Weeks',
+                   'Every 2 Weeks (Q2W)', 'Every 4 Weeks (Q4W)', 'Every 8 Weeks (Q8W)',
+                   'End of Treatment', 'Safety Follow-up', 'Survival Follow-up']
+
+    for visit in visit_order:
+        if visit in found_visits:
+            result["visits"].append({
+                "visit": visit,
+                "timing": visit,
+                "window": default_window if 'Week' in visit and visit not in ['Every 2 Weeks', 'Every 4 Weeks', 'Every 6 Weeks', 'Every 8 Weeks'] else "",
+                "assessments": []  # Would need more parsing to extract
+            })
+
+    # === EXTRACT TUMOR ASSESSMENT FREQUENCY ===
+    # Look for specific "every X weeks" patterns near tumor/imaging keywords
+    tumor_patterns = [
+        r'tumor\s*assessment[s]?\s*(?:will\s+be\s+)?(?:performed\s+)?every\s*(\d+)\s*weeks?',
+        r'tumour\s*assessment[s]?\s*(?:will\s+be\s+)?(?:performed\s+)?every\s*(\d+)\s*weeks?',
+        r'imaging\s*(?:will\s+be\s+)?(?:performed\s+)?every\s*(\d+)\s*weeks?',
+        r'ct.*mri.*every\s*(\d+)\s*weeks?',
+        r'recist.*(?:assessment)?.*every\s*(\d+)\s*weeks?',
+        r'every\s*(\d+)\s*weeks?.*(?:tumor|tumour|ct|mri|recist)',
+        r'follow[- ]?up\s*assessment[s]?\s*(?:will\s+be\s+)?(?:performed\s+)?every\s*(\d+)\s*weeks?',
+    ]
+    for pattern in tumor_patterns:
+        match = re.search(pattern, text_lower)
+        if match:
+            weeks = match.group(1)
+            # Sanity check - tumor assessments are typically 4-12 weeks
+            if 4 <= int(weeks) <= 16:
+                result["tumor_assessment_frequency"] = f"Every {weeks} weeks until progression"
+                break
+
+    # Look for specific mentions if pattern matching failed
+    if not result["tumor_assessment_frequency"]:
+        if 'every 8 weeks' in text_lower and ('tumor' in text_lower or 'tumour' in text_lower or 'recist' in text_lower or 'ct ' in text_lower):
+            result["tumor_assessment_frequency"] = "Every 8 weeks until progression"
+        elif 'every 6 weeks' in text_lower and ('tumor' in text_lower or 'tumour' in text_lower):
+            result["tumor_assessment_frequency"] = "Every 6 weeks until progression"
+        elif 'every 9 weeks' in text_lower and ('tumor' in text_lower or 'tumour' in text_lower):
+            result["tumor_assessment_frequency"] = "Every 9 weeks until progression"
+        elif 'every 12 weeks' in text_lower and ('tumor' in text_lower or 'tumour' in text_lower):
+            result["tumor_assessment_frequency"] = "Every 12 weeks until progression"
+
+    # === EXTRACT PRO COLLECTION VISITS ===
+    pro_patterns = [
+        r'patient.?reported.*outcome|pro\b|eq-?5d|qlq|eortc|fact-',
+    ]
+    if any(re.search(p, text_lower) for p in pro_patterns):
+        # Find which visits have PRO
+        if 'baseline' in text_lower or 'day 1' in text_lower:
+            result["pro_collection_visits"].append("Baseline")
+        if re.search(r'week\s*8.*pro|pro.*week\s*8', text_lower):
+            result["pro_collection_visits"].append("Week 8")
+        if re.search(r'week\s*16.*pro|pro.*week\s*16', text_lower):
+            result["pro_collection_visits"].append("Week 16")
+        if re.search(r'every\s*8\s*weeks?.*questionnaire|questionnaire.*every\s*8\s*weeks?', text_lower):
+            result["pro_collection_visits"].append("Every 8 weeks")
+        if 'end of treatment' in text_lower:
+            result["pro_collection_visits"].append("End of Treatment")
+        # Default if PRO mentioned but visits not clear
+        if not result["pro_collection_visits"]:
+            result["pro_collection_visits"] = ["Baseline", "Week 8", "Every 8 weeks"]
+
+    # === EXTRACT FOLLOW-UP SCHEDULE ===
+    followup_patterns = [
+        r'survival\s*follow[- ]?up.*every\s*(\d+)\s*(weeks?|months?)',
+        r'long[- ]?term\s*follow[- ]?up.*every\s*(\d+)\s*(weeks?|months?)',
+        r'follow[- ]?up.*every\s*(\d+)\s*months?.*survival',
+        r'every\s*(\d+)\s*months?.*survival\s*status',
+    ]
+    for pattern in followup_patterns:
+        match = re.search(pattern, text_lower)
+        if match:
+            num = match.group(1)
+            unit = match.group(2) if len(match.groups()) > 1 else "months"
+            result["follow_up_schedule"] = f"Every {num} {unit} for survival"
+            break
+
+    if not result["follow_up_schedule"]:
+        if 'every 3 months' in text_lower and 'survival' in text_lower:
+            result["follow_up_schedule"] = "Every 3 months for survival"
+        elif 'every 12 weeks' in text_lower and 'survival' in text_lower:
+            result["follow_up_schedule"] = "Every 12 weeks for survival"
+
+    # Log extraction results
+    if result["visits"]:
+        print(f"[SOA Parser] Found {len(result['visits'])} visits from text patterns")
+        print(f"[SOA Parser] Tumor assessment: {result['tumor_assessment_frequency']}")
+        print(f"[SOA Parser] PRO visits: {result['pro_collection_visits']}")
+        print(f"[SOA Parser] Follow-up: {result['follow_up_schedule']}")
+
+    return result
+
+
 class SectionStatus(Enum):
     """Status of each SAP section."""
     NOT_STARTED = "not_started"
@@ -819,6 +980,7 @@ class SAPWorkbench:
                     sample_size_val = None
 
             # Extract Schedule of Assessments (SOA)
+            # First try LLM extraction
             soa = full_extraction.get("schedule_of_assessments", {})
             visit_schedule = []
             if isinstance(soa, dict) and soa.get("visits"):
@@ -829,15 +991,27 @@ class SAPWorkbench:
                         "window": visit.get("window", ""),
                         "assessments": visit.get("assessments", [])
                     })
-            # Also capture key schedule info
-            tumor_assessment_freq = soa.get("tumor_assessment_frequency", "")
-            pro_visits = soa.get("pro_collection_visits", [])
-            follow_up_schedule = soa.get("follow_up_schedule", "")
+                tumor_assessment_freq = soa.get("tumor_assessment_frequency", "")
+                pro_visits = soa.get("pro_collection_visits", [])
+                follow_up_schedule = soa.get("follow_up_schedule", "")
+                print(f"[Workbench] SOA from LLM extraction: {len(visit_schedule)} visits")
+            else:
+                # FALLBACK: Use text-based SOA extraction from protocol content
+                print("[Workbench] LLM didn't extract SOA, using text-based fallback...")
+                soa_fallback = extract_soa_from_text(workspace.protocol_content)
+                visit_schedule = soa_fallback.get("visits", [])
+                tumor_assessment_freq = soa_fallback.get("tumor_assessment_frequency", "")
+                pro_visits = soa_fallback.get("pro_collection_visits", [])
+                follow_up_schedule = soa_fallback.get("follow_up_schedule", "")
+                # Store in full_extraction for API access
+                full_extraction["schedule_of_assessments"] = soa_fallback
+                print(f"[Workbench] SOA from text fallback: {len(visit_schedule)} visits")
 
             if visit_schedule:
-                print(f"[Workbench] Extracted {len(visit_schedule)} visits from Schedule of Assessments")
+                print(f"[Workbench] Final SOA: {len(visit_schedule)} visits")
                 print(f"  Tumor assessment: {tumor_assessment_freq}")
                 print(f"  PRO visits: {pro_visits}")
+                print(f"  Follow-up: {follow_up_schedule}")
 
             # === LOG CONVERTED VALUES ===
             print("\n" + "-"*70)
@@ -1479,6 +1653,27 @@ Format as numbered list with full citations.
         excerpts = []
         seen_positions = set()  # Avoid duplicate overlapping excerpts
 
+        # Map numeric section IDs to keyword categories
+        # Based on MASTER_SAP_SECTIONS from sap_structure_config.py
+        section_id_to_category = {
+            "2": "objectives",       # Introduction/Objectives
+            "3": "study_design",     # Study Design
+            "4": "sample_size",      # Sample Size & Power
+            "5": "populations",      # Analysis Populations
+            "6": "endpoints",        # Endpoints
+            "7": "statistical_methods",  # Statistical Methods
+            "8": "estimands",        # Estimands
+            "9": "missing_data",     # Missing Data
+            "10": "sensitivity",     # Sensitivity Analyses
+            "11": "subgroups",       # Subgroup Analyses
+            "12": "safety_analysis", # Safety Analysis
+            "13": "interim_analysis", # Interim Analysis
+            "14": "table_shells",    # Table Shells
+        }
+
+        # Get keyword category for this section
+        keyword_category = section_id_to_category.get(section_id, section_id)
+
         # Comprehensive keywords for each section
         keywords = {
             "objectives": ["objective", "aim", "purpose", "hypothesis", "goal"],
@@ -1503,9 +1698,14 @@ Format as numbered list with full citations.
                                 "alpha spending", "group sequential"],
             "estimands": ["estimand", "intercurrent event", "treatment policy", "hypothetical",
                          "principal stratum", "composite", "while on treatment"],
+            # Additional categories for subsections
+            "study_design": ["study design", "randomization", "blinding", "stratification", "treatment arm"],
+            "sensitivity": ["sensitivity analysis", "robustness", "alternative assumption"],
+            "subgroups": ["subgroup", "subset analysis", "pre-specified", "exploratory analysis"],
+            "table_shells": ["table", "figure", "listing", "TFL", "display"],
         }
 
-        section_keywords = keywords.get(section_id, [])
+        section_keywords = keywords.get(keyword_category, [])
         if not section_keywords:
             return excerpts
 

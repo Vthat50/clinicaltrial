@@ -15,8 +15,9 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.6-2026-01-12")
-print("FEATURE: Reference SAP accuracy comparison (optional)")
+print("BUILD: v100.7-2026-01-14")
+print("FEATURE: Better PDF table extraction with PyMuPDF")
+print("  • v100.7: Use PyMuPDF for PDF parsing - preserves tables")
 print("  • v100.6: Fix PDF upload - use PyPDF2 (already installed)")
 print("  • v100.5: Fix Supabase error - reference SAP in memory only")
 print("  • v100.4: Semantic section matching via Claude")
@@ -49,6 +50,12 @@ from supabase import create_client, Client
 # Document parsing
 import PyPDF2
 from docx import Document as DocxDocument
+try:
+    import fitz  # PyMuPDF - better table extraction than PyPDF2
+    PYMUPDF_AVAILABLE = True
+except ImportError:
+    PYMUPDF_AVAILABLE = False
+    print("WARNING: PyMuPDF not available, falling back to PyPDF2 for PDF parsing")
 
 # Import SAP generator (add parent to path)
 import sys
@@ -224,7 +231,64 @@ def get_supabase() -> Client:
 
 # Document parsing functions
 def extract_text_from_pdf(file_content: bytes) -> str:
-    """Extract text from PDF file."""
+    """
+    Extract text from PDF file with table preservation.
+    Uses PyMuPDF (fitz) for better table extraction, falls back to PyPDF2.
+    """
+    # Try PyMuPDF first (better table extraction)
+    if PYMUPDF_AVAILABLE:
+        try:
+            doc = fitz.open(stream=file_content, filetype="pdf")
+            text_parts = []
+            total_tables = 0
+
+            for page_num, page in enumerate(doc):
+                page_text = []
+
+                # Extract tables first (if any) - find_tables() returns TableFinder
+                table_finder = page.find_tables()
+                table_texts = set()  # Track table text to avoid duplication
+
+                for table in table_finder.tables:
+                    total_tables += 1
+                    table_md = []
+                    for row in table.extract():
+                        # Filter None values and join cells with pipe
+                        row_text = " | ".join(str(cell) if cell else "" for cell in row)
+                        if row_text.strip():
+                            table_md.append(row_text)
+                            # Track lower-case versions for duplicate detection
+                            for cell in row:
+                                if cell:
+                                    table_texts.add(str(cell).lower().strip())
+                    if table_md:
+                        page_text.append("\n[TABLE]\n" + "\n".join(table_md) + "\n[/TABLE]\n")
+
+                # Extract regular text (excluding table content to avoid duplication)
+                blocks = page.get_text("blocks")
+                for block in blocks:
+                    if block[6] == 0:  # Text block (not image)
+                        block_text = block[4].strip()
+                        # Skip if this text is part of a table (check if any significant portion matches)
+                        if block_text and len(block_text) > 10:
+                            is_table_text = any(cell in block_text.lower() for cell in table_texts if len(cell) > 10)
+                            if not is_table_text:
+                                page_text.append(block_text)
+                        elif block_text:
+                            page_text.append(block_text)
+
+                if page_text:
+                    text_parts.append(f"\n--- PAGE {page_num + 1} ---\n" + "\n".join(page_text))
+
+            doc.close()
+            result = "\n\n".join(text_parts)
+            print(f"[PDF Parser] PyMuPDF extracted {len(result):,} chars, {total_tables} tables from {len(doc)} pages")
+            return result
+
+        except Exception as e:
+            print(f"[PDF Parser] PyMuPDF failed: {e}, falling back to PyPDF2")
+
+    # Fallback to PyPDF2
     try:
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(file_content))
         text_parts = []
@@ -232,7 +296,9 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             text = page.extract_text()
             if text:
                 text_parts.append(text)
-        return "\n\n".join(text_parts)
+        result = "\n\n".join(text_parts)
+        print(f"[PDF Parser] PyPDF2 extracted {len(result):,} chars")
+        return result
     except Exception as e:
         raise ValueError(f"Failed to parse PDF: {str(e)}")
 
