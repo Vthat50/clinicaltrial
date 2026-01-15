@@ -15,11 +15,11 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.18-2026-01-15")
-print("FEATURE: LlamaParse - full document + table column preservation")
+print("BUILD: v100.19-2026-01-15")
+print("FEATURE: LlamaParse + font encoding fix for all extraction paths")
+print("  • v100.19: Apply +29 ASCII encoding fix to LlamaParse output (was missing!)")
 print("  • v100.18: Extract COMPLETE document, special care for SOA table columns")
-print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
-print("  • v100.8: Character shift fix (fallback)")
+print("  • v100.8: Character shift fix (fallback - now also applied to LlamaParse)")
 print("If you don't see v100.10 in Render logs, Render has OLD code!")
 print("=" * 70)
 
@@ -403,6 +403,8 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                     text = "\n\n".join([doc.text for doc in documents if doc.text])
                     print(f"[PDF Parser] LlamaParse extracted {len(text):,} chars")
                     if text and len(text.strip()) > 100:
+                        # Fix garbled font encoding if detected (+29 ASCII shift)
+                        text = fix_pdf_font_encoding(text)
                         # Wrap markdown tables in [TABLE] markers for frontend rendering
                         text = wrap_markdown_tables(text)
                         return text
