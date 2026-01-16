@@ -28,6 +28,7 @@ from dotenv import load_dotenv
 # Load .env file for local development (override=True ensures .env takes precedence)
 load_dotenv(override=True)
 
+import re
 import time
 import asyncio
 import tempfile
@@ -565,6 +566,7 @@ def wrap_markdown_tables(text: str) -> str:
 
 SOA_KEYWORDS = [
     "Schedule of Study Procedures",
+    "Schedule of Study Assessments",
     "Schedule of Assessments",
     "Schedule of Events",
     "Table of Activities",
