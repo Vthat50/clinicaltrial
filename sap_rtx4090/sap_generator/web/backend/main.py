@@ -25,8 +25,8 @@ print("=" * 70)
 import os
 from dotenv import load_dotenv
 
-# Load .env file for local development
-load_dotenv()
+# Load .env file for local development (override=True ensures .env takes precedence)
+load_dotenv(override=True)
 
 import time
 import asyncio
@@ -55,17 +55,27 @@ try:
     from llama_cloud_services import LlamaParse
     llamaparse_key = os.getenv("LLAMAPARSE_API_KEY", "")
     if llamaparse_key:
+        # Regular text extraction for most pages
         _llamaparse_instance = LlamaParse(
             api_key=llamaparse_key,
             result_type="markdown",
             verbose=False
         )
+        # Vision mode for table pages (bypasses font encoding issues)
+        _llamaparse_vision_instance = LlamaParse(
+            api_key=llamaparse_key,
+            result_type="markdown",
+            use_vendor_multimodal_model=True,
+            verbose=False
+        )
         LLAMAPARSE_AVAILABLE = True
-        print("[PDF Parser] LlamaParse available - for text extraction")
+        print("[PDF Parser] LlamaParse available - text + vision mode for tables")
     else:
         print("[PDF Parser] WARNING: LLAMAPARSE_API_KEY not set")
+        _llamaparse_vision_instance = None
 except ImportError:
     print("[PDF Parser] WARNING: LlamaParse not installed")
+    _llamaparse_vision_instance = None
 
 try:
     import fitz  # PyMuPDF - for page rendering to images
@@ -250,59 +260,248 @@ def get_supabase() -> Client:
 def fix_pdf_font_encoding(text: str) -> str:
     """
     Fix garbled PDF text caused by custom font encoding.
-    Some PDFs use fonts where characters are mapped 29 positions lower than Unicode.
-    Detects this pattern and decodes: 'UXJ6XEVWDQFH → DrugSubstance
 
-    IMPORTANT: PDFs may have MIXED encoding - some sections normal, some garbled.
-    This function processes line-by-line to only decode garbled sections.
+    PDFs may use MULTIPLE encoding schemes:
+    1. +29 ASCII shift: 'UXJ → Drug, 0(', → MEDI (main protocol text)
+    2. +3 ASCII shift: fkqolar`qflk → introduction (appendices)
+    3. -3 ASCII shift: Colqlfdo → Clinical, Swxg| → Study (LlamaParse variant)
+    4. -29 ASCII shift: OMNQ → 2014, lctober → October (dates/numbers)
+
+    This function detects and applies the appropriate shift per-segment.
     """
     if not text or len(text) < 20:
         return text
 
-    # Garbled patterns that indicate +29 shift encoding
-    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ",
-                        "7DEOH", "6HFWLRQ", "3DJH", "9LVLW", "6FUHHQLQJ"]
+    import re
 
-    def line_is_garbled(line: str) -> bool:
-        """Check if a single line appears to be garbled."""
-        if len(line) < 5:
-            return False
-        matches = sum(1 for p in garbled_patterns if p in line)
-        if matches >= 1:
-            return True
-        # Also check for high concentration of chars in garbled range
-        garbled_chars = sum(1 for c in line if 32 <= ord(c) <= 96)
-        if len(line) > 10 and garbled_chars / len(line) > 0.7:
-            return True
-        return False
+    # Patterns for +29 shift (main garbled text - chars 32-96 need +29)
+    patterns_29 = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ",
+                   "7DEOH", "6HFWLRQ", "3DJH", "9LVLW", "6FUHHQLQJ", "'DWH",
+                   ")HEUXDU\\", ";UD\\", "&KHVW", "3ODLQ", "8OWUD", "7XPRXU",
+                   "(QGRVFRS", "&\\WRORJ", ",VRWRSLF", ")OXRUR", "6\\PSWRP"]
 
-    def decode_line(line: str) -> str:
-        """Apply +29 shift to decode a garbled line."""
+    # Patterns for +3 shift (appendix text - chars 94-122 need +3)
+    # fkqolar`qflk=introduction, abcfkfqflk=definition, jb^pro^_ib=measurable
+    patterns_3 = ["fkqola", "abcfkf", "jb^pro", "klkJjb", "q^odbq", "ibpflk",
+                  "m^qfbkq", "obpb^o", "zliib`", "pexii", "pexoo", "colj",
+                  "qeb ", "qefp ", "tfqe ", "^ka ", "lc ", "fk ", "ql "]
+
+    # Patterns for -3 shift (LlamaParse encoding - chars need -3)
+    # Colqlfdo=Clinical, Swxg|=Study, Purwrfro=Protocol, Eglwlrq=Edition
+    patterns_neg3 = ["Colqlfdo", "Swxg|", "Purwrfro", "Eglwlrq", "Nxpehu",
+                     "Agplqlvwudwlyh", "Ckdqjh", "Ddwh", "Lrfdo", "Shfrqgdu|",
+                     "Oemhfwlyh", "Oxwfrph", "Mhdvxuh", "hiilfdf|", "frpsduhg",
+                     "sodfher", "dvvhvvphqwv", "dffruglqj", "ghilqhg", "vwdqgdug",
+                     "folqlfdo", "sudfwlfh", "vdihw|", "wrohudelolw|", "suriloh",
+                     "sk|vlfdo", "h{dplqdwlrqv", "ylwdo", "vljqv", "lqfoxglqj",
+                     "eorrg", "suhvvxuh", "sxovh", "hohfwurfduglrjudpv",
+                     "oderudwru|", "ilqglqjv", "fkhplvwu|", "kdhpdwrorj|",
+                     "xulqdo|vlv", "Crqfhqwudwlrq", "sdudphwhuv", "vdpsolqj",
+                     "lqyhvwljdwh", "lppxqrjhqlflw|", "frqilupdwru|", "uhvxowv",
+                     "srvlwlyh", "qhjdwlyh", "wlwuhv", "qhxwudolvlqj", "dqwlerglhv",
+                     "v|pswrpv", "khdowk", "txdolw|", "olih", "sdwlhqwv", "wuhdwhg",
+                     "ghwhulrudwlrq", "idwljxh", "sdlq", "qdxvhd", "yrplwlqj",
+                     "g|vsqrhd", "dsshwlwh", "lqvrpqld", "frqvwlsdwlrq", "glduukrhd",
+                     "ixqfwlrq", "hprwlrqdo", "frjqlwlyh", "vrfldo", "joredo",
+                     "vwdwxv", "frxjk", "kdhprsw|vlv", "fkhvw", "vkrxoghu",
+                     "Ckdqjhv", "Wruog", "Hhdowk", "Oujdql}dwlrq", "Phuirupdqfh",
+                     "Aqdo|vlv", "edvhg", "xsrq", "vwdwlvwlfdo", "phwkrgv",
+                     "vhfwlrq", "ghwdlov", "luudgldwhg", "ohvlrqv", "frqvlghuhg",
+                     "phdvxudeoh", "vhohfwhg", "wdujhw", "surylglqj", "ixoilo",
+                     "fulwhuld", "phdvxudelolw|", "Aqwl", "guxj", "dqwlerg|",
+                     "Agyhuvh", "hyhqw", "Pursruwlrq", "dolyh", "surjuhvvlrq",
+                     "iuhh", "prqwkv", "udqgrplvdwlrq", "Bolqghg", "Iqghshqghqw",
+                     "Chqwudo", "Rhylhz", "Dxudwlrq", "uhvsrqvh", "Exurshdq",
+                     "Oujdqlvdwlrq", "Rhvhdufk", "Tuhdwphqw", "Cdqfhu"]
+
+    # Patterns for -29 shift (dates/numbers - uppercase chars need -29)
+    # OMNQ=2014, lctober=October, MN=01
+    date_month_patterns = ["lctober", "Mprch", "Mpril", "Ndnuary", "Nebruary",
+                           "Lhcember", "Mctober", "Nbvember", "Nhptember"]
+
+    def detect_encoding(segment: str) -> int:
+        """Detect which encoding shift a segment uses. Returns 0, 3, 29, -3, or -29."""
+        if len(segment) < 3:
+            return 0
+
+        # Check for -3 patterns FIRST (LlamaParse encoding - most common now)
+        if any(p in segment for p in patterns_neg3):
+            return -3
+
+        # Check for +29 patterns (main text with different encoding)
+        if any(p in segment for p in patterns_29):
+            return 29
+
+        # Check for +3 patterns (appendix encoding)
+        if any(p in segment for p in patterns_3):
+            return 3
+
+        # Check for -29 patterns (date encoding with uppercase)
+        if any(p in segment for p in date_month_patterns):
+            return -29
+
+        # Check for = surrounded date patterns like =OMNQ= (year) or =MN= (day)
+        if re.search(r'=[A-Z]{2,4}=', segment):
+            return -29
+
+        # Heuristic for -3: text with | character (often Swxg| = Study)
+        # BUT only if it has garbled patterns, not normal text with |
+        if '|' in segment and any(p in segment for p in ["Swxg|", "S|qrsvlv", "txdolw|"]):
+            return -3
+
+        # REMOVED: Heuristic for +3 was CORRUPTING clean text!
+        # The range 94-122 includes lowercase a-z (97-122), so normal text triggers it.
+        # Only use pattern-based detection for +3.
+
+        # Heuristic for +29: high concentration of chars 32-96
+        # Only apply if text has garbled-looking patterns (lots of symbols, no normal words)
+        chars_in_29_range = sum(1 for c in segment if 32 <= ord(c) <= 96)
+        if len(segment) > 10 and chars_in_29_range / len(segment) > 0.7:
+            # Additional check: must not have normal words
+            normal_words = ["the", "and", "for", "with", "from", "study", "drug", "dose"]
+            if not any(w in segment.lower() for w in normal_words):
+                return 29
+
+        return 0
+
+    def decode_segment(segment: str, shift: int) -> str:
+        """Apply specified shift to decode a segment."""
+        if shift == 0:
+            return segment
+
         decoded_chars = []
-        for c in line:
+        for c in segment:
             code = ord(c)
-            if 32 <= code <= 96:
-                decoded_chars.append(chr(code + 29))
-            else:
-                decoded_chars.append(c)
+            if shift == 29:
+                # +29: decode chars 32-96 → 61-125
+                if 32 <= code <= 96:
+                    decoded_chars.append(chr(code + 29))
+                else:
+                    decoded_chars.append(c)
+            elif shift == 3:
+                # +3: decode chars 94-122 → 97-125
+                if 94 <= code <= 122:
+                    decoded_chars.append(chr(code + 3))
+                elif code == 61:  # '=' often represents space
+                    decoded_chars.append(' ')
+                else:
+                    decoded_chars.append(c)
+            elif shift == -3:
+                # -3: decode ONLY lowercase letters and | (LlamaParse encoding)
+                # Colqlfdo → Clinical, Swxg| → Study, Purwrfro → Protocol
+                # Uppercase letters stay unchanged!
+                if (97 <= code <= 122) or code == 124:  # a-z or |
+                    decoded_chars.append(chr(code - 3))
+                else:
+                    decoded_chars.append(c)
+            elif shift == -29:
+                # -29: decode uppercase chars to numbers/symbols
+                if 65 <= code <= 90:  # A-Z
+                    new_code = code - 29
+                    if 32 <= new_code <= 126:  # printable range
+                        decoded_chars.append(chr(new_code))
+                    else:
+                        decoded_chars.append(c)
+                elif code == 108:  # 'l' -> 'O' for lctober -> October
+                    decoded_chars.append('O')
+                elif code == 61:  # '=' -> space
+                    decoded_chars.append(' ')
+                else:
+                    decoded_chars.append(c)
         return ''.join(decoded_chars)
 
-    # Process line by line to handle mixed encoding
+    def fix_line(line: str) -> str:
+        """Fix encoding for a single line, handling mixed segments."""
+        if len(line) < 5:
+            return line
+
+        # First, check if entire line has a detectable encoding
+        line_encoding = detect_encoding(line)
+        if line_encoding != 0:
+            return decode_segment(line, line_encoding)
+
+        # Otherwise, try to fix segments separated by spaces or =
+        # This handles mixed encoding within a line
+        result = line
+
+        # Fix date-like patterns: =WORD= where WORD is uppercase
+        def fix_date_segment(match):
+            segment = match.group(0)
+            return decode_segment(segment, -29)
+
+        result = re.sub(r'=[A-Z]{2,4}=', fix_date_segment, result)
+
+        # Fix month names with encoding
+        for month_pattern in date_month_patterns:
+            if month_pattern in result:
+                result = result.replace(month_pattern, decode_segment(month_pattern, -29))
+
+        # Fix remaining +3 encoded words
+        for pattern in patterns_3:
+            if pattern in result:
+                # Find the full word containing this pattern
+                words = result.split()
+                new_words = []
+                for word in words:
+                    if pattern in word.lower():
+                        new_words.append(decode_segment(word, 3))
+                    else:
+                        new_words.append(word)
+                result = ' '.join(new_words)
+                break
+
+        return result
+
+    # Process line by line
     lines = text.split('\n')
     result_lines = []
-    decoded_count = 0
+    stats = {29: 0, 3: 0, -3: 0, -29: 0}
 
     for line in lines:
-        if line_is_garbled(line):
-            result_lines.append(decode_line(line))
-            decoded_count += 1
-        else:
-            result_lines.append(line)
+        original = line
+        fixed = fix_line(line)
+        if fixed != original:
+            # Track which encoding was used
+            encoding = detect_encoding(original)
+            if encoding in stats:
+                stats[encoding] += 1
+        result_lines.append(fixed)
 
-    if decoded_count > 0:
-        print(f"[PDF Parser] Fixed encoding on {decoded_count} garbled lines")
+    total_fixed = sum(stats.values())
+    if total_fixed > 0:
+        print(f"[PDF Parser] Fixed encoding: {stats[29]} lines (+29), {stats[3]} lines (+3), {stats[-3]} lines (-3), {stats[-29]} lines (-29)")
 
-    return '\n'.join(result_lines)
+    # Final cleanup: remove excessive = signs that may remain
+    result = '\n'.join(result_lines)
+    result = re.sub(r'={3,}', ' ', result)  # Replace 3+ = with space
+    result = re.sub(r'\s{3,}', '  ', result)  # Normalize excessive spaces
+
+    # EXPLICIT fix for date patterns like MN==PM=lctober=OMNQ → 01  30 October 2014
+    # These use -29 shift on uppercase letters and 'l' → 'O'
+    def fix_date_line(match):
+        text = match.group(0)
+        decoded = []
+        for c in text:
+            code = ord(c)
+            if 65 <= code <= 90:  # A-Z → subtract 29
+                new_code = code - 29
+                if 32 <= new_code <= 126:
+                    decoded.append(chr(new_code))
+                else:
+                    decoded.append(c)
+            elif code == 108:  # 'l' → 'O' (for lctober → October)
+                decoded.append('O')
+            elif code == 61:  # '=' → space
+                decoded.append(' ')
+            else:
+                decoded.append(c)
+        return ''.join(decoded)
+
+    # Match date patterns: uppercase letters, =, and 'lctober' variants
+    result = re.sub(r'[A-Z=]+lctober[A-Z=]*', fix_date_line, result)
+    result = re.sub(r'\s{2,}', ' ', result)  # Clean up multiple spaces
+
+    return result
 
 
 def wrap_markdown_tables(text: str) -> str:
@@ -360,30 +559,137 @@ def wrap_markdown_tables(text: str) -> str:
     return '\n'.join(result)
 
 
+def detect_table_pages(file_content: bytes) -> set:
+    """Detect which pages contain tables using PyMuPDF."""
+    if not PYMUPDF_AVAILABLE:
+        return set()
+
+    table_pages = set()
+    try:
+        doc = fitz.open(stream=file_content, filetype="pdf")
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+            tables = page.find_tables()
+            if tables.tables:
+                table_pages.add(page_num + 1)  # 1-indexed
+        doc.close()
+        print(f"[PDF Parser] Detected tables on pages: {sorted(table_pages)}")
+    except Exception as e:
+        print(f"[PDF Parser] Table detection failed: {e}")
+    return table_pages
+
+
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
-    HYBRID extraction: LlamaParse for text + PaddleOCR for tables.
-    This ensures both regular text and tables are properly extracted.
+    HYBRID extraction:
+    - LlamaParse text mode for regular pages (clean, fast)
+    - LlamaParse vision mode for table pages (bypasses font encoding)
     """
     import tempfile
     import asyncio
 
-    # Try LlamaParse first (handles custom font encodings properly via OCR/AI)
+    # Try LlamaParse first
     if LLAMAPARSE_AVAILABLE and _llamaparse_instance:
         try:
+            # Detect table pages
+            table_pages = detect_table_pages(file_content)
+
             # LlamaParse needs a file path
             with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
                 tmp.write(file_content)
                 tmp_path = tmp.name
 
             try:
-                print(f"[PDF Parser] Using LlamaParse for accurate extraction...")
+                # If we have vision mode and table pages, use hybrid extraction
+                if _llamaparse_vision_instance and table_pages:
+                    print(f"[PDF Parser] HYBRID mode: text extraction + vision for {len(table_pages)} table pages")
 
-                # Run async parsing
+                    # Extract ALL pages with regular LlamaParse first
+                    async def parse_all():
+                        return await _llamaparse_instance.aload_data(tmp_path)
+
+                    try:
+                        loop = asyncio.get_event_loop()
+                        if loop.is_running():
+                            import concurrent.futures
+                            with concurrent.futures.ThreadPoolExecutor() as pool:
+                                future = pool.submit(asyncio.run, parse_all())
+                                documents = future.result(timeout=120)
+                        else:
+                            documents = loop.run_until_complete(parse_all())
+                    except RuntimeError:
+                        documents = asyncio.run(parse_all())
+
+                    if documents and len(documents) > 0:
+                        text = "\n\n".join([doc.text for doc in documents if doc.text])
+                        print(f"[PDF Parser] LlamaParse text mode extracted {len(text):,} chars")
+                        print(f"[PDF Parser] Main text RAW sample (first 500 chars):")
+                        print(text[:500] if text else "EMPTY")
+
+                        # NO encoding fix - use raw LlamaParse output
+
+                        # Now extract ONLY table pages with vision mode
+                        # Create a PDF with only table pages
+                        vision_text = ""
+                        try:
+                            doc = fitz.open(stream=file_content, filetype="pdf")
+                            table_doc = fitz.open()  # New empty PDF
+
+                            for page_num in sorted(table_pages):
+                                table_doc.insert_pdf(doc, from_page=page_num-1, to_page=page_num-1)
+
+                            # Save table pages PDF
+                            with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as table_tmp:
+                                table_doc.save(table_tmp.name)
+                                table_tmp_path = table_tmp.name
+
+                            table_doc.close()
+                            doc.close()
+
+                            # Extract table pages with vision mode
+                            async def parse_tables_vision():
+                                return await _llamaparse_vision_instance.aload_data(table_tmp_path)
+
+                            print(f"[PDF Parser] Extracting {len(table_pages)} table pages with VISION mode...")
+                            try:
+                                loop = asyncio.get_event_loop()
+                                if loop.is_running():
+                                    with concurrent.futures.ThreadPoolExecutor() as pool:
+                                        future = pool.submit(asyncio.run, parse_tables_vision())
+                                        table_docs = future.result(timeout=120)
+                                else:
+                                    table_docs = loop.run_until_complete(parse_tables_vision())
+                            except RuntimeError:
+                                table_docs = asyncio.run(parse_tables_vision())
+
+                            os.unlink(table_tmp_path)
+
+                            if table_docs and len(table_docs) > 0:
+                                vision_text = "\n\n".join([doc.text for doc in table_docs if doc.text])
+                                print(f"[PDF Parser] Vision mode extracted {len(vision_text):,} chars from table pages")
+                                print(f"[PDF Parser] Vision text RAW sample (first 500 chars):")
+                                print(vision_text[:500] if vision_text else "EMPTY")
+
+                                # DON'T apply encoding fix to vision text - it should be clean from visual OCR
+                                # Just append it
+                                text = text + "\n\n" + "=" * 60 + "\n"
+                                text = text + "TABLES (Vision-Extracted)\n" + "=" * 60 + "\n\n"
+                                text = text + vision_text
+
+                        except Exception as e:
+                            print(f"[PDF Parser] Vision extraction for tables failed: {e}")
+
+                        os.unlink(tmp_path)
+
+                        text = wrap_markdown_tables(text)
+                        return text
+
+                # Fallback: regular LlamaParse for everything
+                print(f"[PDF Parser] Using LlamaParse text mode for all pages...")
+
                 async def parse_pdf():
                     return await _llamaparse_instance.aload_data(tmp_path)
 
-                # Get or create event loop
                 try:
                     loop = asyncio.get_event_loop()
                     if loop.is_running():
