@@ -1,0 +1,270 @@
+[
+  {
+    "trial_id": "NCT01784848",
+    "indication": "Gastric",
+    "phase": "Phase 3",
+    "overall_score": 5.7,
+    "timestamp": "2026-01-16T02:37:45.029278",
+    "section_scores": {
+      "2_objectives_endpoints_estimands": {
+        "score": 6.6,
+        "elements_present": "6/17",
+        "critical_met": false,
+        "accuracy": 9,
+        "completeness": 8,
+        "specificity": 9,
+        "conciseness": 4,
+        "quality": 8,
+        "gaps": [
+          "More detailed assessment schedule with specific visit windows",
+          "Exploratory endpoints if any exist in protocol",
+          "More specific intercurrent event handling strategies"
+        ],
+        "summary": "Well-executed section with accurate endpoints and estimands but significantly over-elaborated with unnecessary background content."
+      },
+      "3_study_design": {
+        "score": 5.6,
+        "elements_present": "8/21",
+        "critical_met": false,
+        "accuracy": 7,
+        "completeness": 5,
+        "specificity": 8,
+        "conciseness": 4,
+        "quality": 5,
+        "gaps": [
+          "Missing formal hypothesis statements (H0 and H1)",
+          "No alpha level or statistical significance criteria",
+          "Missing analysis trigger and data cutoff definitions",
+          "No success criteria for trial outcome",
+          "Incomplete per-protocol exclusion criteria"
+        ],
+        "summary": "Good population definitions but missing critical statistical framework elements like hypotheses, alpha level, and analysis triggers."
+      },
+      "4_statistical_analyses": {
+        "score": 4.7,
+        "elements_present": "7/41",
+        "critical_met": false,
+        "accuracy": 7,
+        "completeness": 4,
+        "specificity": 6,
+        "conciseness": 4,
+        "quality": 5,
+        "gaps": [
+          "Visit window definitions and target days missing",
+          "Intercurrent events and ICH E9(R1) strategies not addressed",
+          "Subgroup analyses specifications missing",
+          "Rounding and p-value reporting conventions absent",
+          "Missing data handling for covariates and duplicates"
+        ],
+        "summary": "The section provides good statistical methodology but lacks many critical operational elements like visit windows, ICE handling, and detailed conventions required for FDA submissions."
+      },
+      "6_efficacy": {
+        "score": 5.5,
+        "elements_present": "5/30",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 6,
+        "specificity": 8,
+        "conciseness": 4,
+        "quality": 7,
+        "gaps": [
+          "Missing estimand restatement from Section 2",
+          "No endpoint derivation formula or calculation method",
+          "Missing analysis population specification for primary endpoint",
+          "No secondary analyses of primary endpoint described",
+          "Stratification handling in analysis not addressed"
+        ],
+        "summary": "Well-structured efficacy section with comprehensive sensitivity and subgroup analyses but missing critical primary endpoint specifications and over-detailed compared to reference."
+      },
+      "7_safety": {
+        "score": 6.8,
+        "elements_present": "9/16",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 7,
+        "specificity": 9,
+        "conciseness": 6,
+        "quality": 7,
+        "gaps": [
+          "Treatment discontinuation due to adverse events analysis not specified",
+          "MedDRA and CTCAE versions not specified (only placeholder text)",
+          "Normal range handling for laboratory values not addressed",
+          "Dedicated deaths analysis approach missing beyond CTCAE Grade 5 mention"
+        ],
+        "summary": "Well-structured safety analysis plan with comprehensive coverage but missing key elements like discontinuation analysis and specific version numbers."
+      }
+    },
+    "weakest_sections": [
+      "4_statistical_analyses",
+      "6_efficacy"
+    ],
+    "strongest_sections": [
+      "2_objectives_endpoints_estimands",
+      "7_safety"
+    ],
+    "critical_failures": [
+      "4_statistical_analyses",
+      "6_efficacy",
+      "3_study_design",
+      "2_objectives_endpoints_estimands",
+      "7_safety"
+    ],
+    "top_gaps": [
+      "2. Objectives, Endpoints, and Estimands: More detailed assessment schedule with specific visit windows",
+      "2. Objectives, Endpoints, and Estimands: Exploratory endpoints if any exist in protocol",
+      "2. Objectives, Endpoints, and Estimands: More specific intercurrent event handling strategies",
+      "3. Study Design: Missing formal hypothesis statements (H0 and H1)",
+      "3. Study Design: No alpha level or statistical significance criteria",
+      "3. Study Design: Missing analysis trigger and data cutoff definitions",
+      "3. Study Design: No success criteria for trial outcome",
+      "3. Study Design: Incomplete per-protocol exclusion criteria",
+      "4. Statistical Analyses: Visit window definitions and target days missing",
+      "4. Statistical Analyses: Intercurrent events and ICH E9(R1) strategies not addressed"
+    ]
+  },
+  {
+    "trial_id": "NCT02129205",
+    "indication": "Lung Cancer",
+    "phase": "Phase 2",
+    "overall_score": 5.0,
+    "timestamp": "2026-01-16T02:44:18.021254",
+    "section_scores": {
+      "2_objectives_endpoints_estimands": {
+        "score": 6.0,
+        "elements_present": "5/17",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 6,
+        "specificity": 9,
+        "conciseness": 4,
+        "quality": 7,
+        "gaps": [
+          "Response confirmation requirement not specified",
+          "Secondary endpoint definitions incomplete",
+          "Missing exploratory objectives and endpoints",
+          "No inferential testing disclaimer",
+          "Intercurrent events handling needs more detail"
+        ],
+        "summary": "Strong technical content with good estimand framework but significantly over-elaborated with missing key elements like response confirmation and exploratory endpoints."
+      },
+      "3_study_design": {
+        "score": 6.1,
+        "elements_present": "10/21",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 5,
+        "specificity": 8,
+        "conciseness": 4,
+        "quality": 6,
+        "gaps": [
+          "Missing statistical hypotheses (H\u2080 and H\u2081)",
+          "No alpha level or test directionality specified",
+          "Missing data cutoff procedures",
+          "No success criteria defined",
+          "ITT inclusion criteria not specified"
+        ],
+        "summary": "Well-structured population definitions but missing critical statistical framework elements like hypotheses, alpha levels, and success criteria typical for Phase 1 studies."
+      },
+      "4_statistical_analyses": {
+        "score": 4.8,
+        "elements_present": "7/41",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 4,
+        "specificity": 7,
+        "conciseness": 4,
+        "quality": 5,
+        "gaps": [
+          "Statistical software and version not specified",
+          "Rounding conventions and descriptive statistics format missing",
+          "Visit window definitions completely absent",
+          "TEAE definition and on-treatment period not defined",
+          "ICE identification and strategies missing"
+        ],
+        "summary": "Content shows good understanding of Phase 1 methodology but lacks many critical statistical conventions and operational definitions required for a complete SAP."
+      },
+      "6_efficacy": {
+        "score": 4.3,
+        "elements_present": "5/30",
+        "critical_met": false,
+        "accuracy": 6,
+        "completeness": 4,
+        "specificity": 7,
+        "conciseness": 3,
+        "quality": 4,
+        "gaps": [
+          "Missing core efficacy analysis methodology (statistical tests, models, point estimates)",
+          "No estimand restatement or endpoint derivation formulas",
+          "Missing time-to-event analysis details (start dates, censoring rules, KM methods)",
+          "No assessment type specification (BICR vs investigator)",
+          "Missing pre-specification statement and interaction testing methods"
+        ],
+        "summary": "Content provides extensive sensitivity and subgroup analysis detail but critically lacks core efficacy analysis methodology, estimands, and fundamental statistical specifications required for FDA submission."
+      },
+      "7_safety": {
+        "score": 7.1,
+        "elements_present": "9/16",
+        "critical_met": false,
+        "accuracy": 8,
+        "completeness": 7,
+        "specificity": 8,
+        "conciseness": 6,
+        "quality": 7,
+        "gaps": [
+          "Missing MedDRA version specification",
+          "No definition of DLT which is primary endpoint",
+          "Missing normal range handling for labs",
+          "No cycle-specific AE analysis",
+          "No adverse events of special interest handling"
+        ],
+        "summary": "Well-structured safety analysis section with good foundational elements but missing key trial-specific components like DLT definition and some technical specifications."
+      },
+      "11_appendices": {
+        "score": 2.5,
+        "elements_present": "0/16",
+        "critical_met": false,
+        "accuracy": 7,
+        "completeness": 2,
+        "specificity": 6,
+        "conciseness": 7,
+        "quality": 3,
+        "gaps": [
+          "No Schedule of Assessments table showing biomarker collection timepoints",
+          "Missing TFL index with numbered tables, listings, and figures",
+          "No specification of analysis populations for each output",
+          "Missing laboratory source and reference ranges for biomarkers",
+          "No visit windows or detailed timing specifications"
+        ],
+        "summary": "Content appears to be a biomarker analysis plan rather than the required appendices section containing SOA tables and TFL indices."
+      }
+    },
+    "weakest_sections": [
+      "11_appendices",
+      "6_efficacy"
+    ],
+    "strongest_sections": [
+      "3_study_design",
+      "7_safety"
+    ],
+    "critical_failures": [
+      "11_appendices",
+      "6_efficacy",
+      "4_statistical_analyses",
+      "2_objectives_endpoints_estimands",
+      "3_study_design",
+      "7_safety"
+    ],
+    "top_gaps": [
+      "2. Objectives, Endpoints, and Estimands: Response confirmation requirement not specified",
+      "2. Objectives, Endpoints, and Estimands: Secondary endpoint definitions incomplete",
+      "2. Objectives, Endpoints, and Estimands: Missing exploratory objectives and endpoints",
+      "2. Objectives, Endpoints, and Estimands: No inferential testing disclaimer",
+      "2. Objectives, Endpoints, and Estimands: Intercurrent events handling needs more detail",
+      "3. Study Design: Missing statistical hypotheses (H\u2080 and H\u2081)",
+      "3. Study Design: No alpha level or test directionality specified",
+      "3. Study Design: Missing data cutoff procedures",
+      "3. Study Design: No success criteria defined",
+      "3. Study Design: ITT inclusion criteria not specified"
+    ]
+  }
+]

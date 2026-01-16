@@ -15,21 +15,19 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.21-2026-01-15")
-print("FEATURE: LlamaParse instruction to extract TABLE ROW CONTENT with X marks")
-print("  • v100.21: Explicit instruction to extract assessment rows (Weight, ECG, etc.) with X marks")
-print("  • v100.20: Line-by-line encoding fix for mixed-encoding PDFs")
-print("  • v100.19: Apply encoding fix to LlamaParse output")
-print("If you don't see v100.10 in Render logs, Render has OLD code!")
+print("BUILD: v100.22-clean-2026-01-16")
+print("FEATURE: Clean working state - LlamaParse + tables + encoding fix")
+print("  • v100.22: Removed broken OCR, clean LlamaParse extraction")
+print("  • Tables: wrap_markdown_tables() adds [TABLE] markers")
+print("  • Encoding: Line-by-line fix for mixed-encoding PDFs")
 print("=" * 70)
 
 import os
 from dotenv import load_dotenv
 
-# Load .env file for local development
-load_dotenv()
+# Load .env file for local development (override=True ensures .env takes precedence)
+load_dotenv(override=True)
 
-import re
 import time
 import asyncio
 import tempfile
@@ -57,31 +55,27 @@ try:
     from llama_cloud_services import LlamaParse
     llamaparse_key = os.getenv("LLAMAPARSE_API_KEY", "")
     if llamaparse_key:
+        # Regular text extraction for most pages
         _llamaparse_instance = LlamaParse(
             api_key=llamaparse_key,
             result_type="markdown",
-            verbose=False,
-            # Extract full document with special care for tables
-            parsing_instruction="""
-            Extract the COMPLETE document including all text, sections, and tables.
-
-            CRITICAL for Schedule of Assessments tables:
-            - These tables have ROWS for each assessment (Weight, Height, ECG, Vital Signs, etc.)
-            - Each row has X marks indicating when that assessment is performed
-            - EXTRACT ALL ROW CONTENT including the assessment names and X marks
-            - Column headers: Screening | Randomisation | Day 15 | Day 29 | Day 43 | Day 57 | Every 2 Weeks | Every 4 Weeks | Every 8 Weeks
-            - Row example: "Weight | X | X | | | | X | X | X"
-            - Do NOT skip table rows - extract every single row with its X marks
-            - Do NOT replace X marks with placeholder text
-            - Preserve exact table structure as markdown table format
-            """
+            verbose=False
+        )
+        # Vision mode for table pages (bypasses font encoding issues)
+        _llamaparse_vision_instance = LlamaParse(
+            api_key=llamaparse_key,
+            result_type="markdown",
+            use_vendor_multimodal_model=True,
+            verbose=False
         )
         LLAMAPARSE_AVAILABLE = True
-        print("[PDF Parser] LlamaParse available - with table preservation instructions")
+        print("[PDF Parser] LlamaParse available - text + vision mode for tables")
     else:
         print("[PDF Parser] WARNING: LLAMAPARSE_API_KEY not set")
+        _llamaparse_vision_instance = None
 except ImportError:
     print("[PDF Parser] WARNING: LlamaParse not installed")
+    _llamaparse_vision_instance = None
 
 try:
     import fitz  # PyMuPDF - for page rendering to images
@@ -89,9 +83,6 @@ try:
 except ImportError:
     PYMUPDF_AVAILABLE = False
     print("WARNING: PyMuPDF not available")
-
-# LlamaParse handles table extraction via parsing_instruction parameter
-# No additional table extraction library needed
 
 # Import SAP generator (add parent to path)
 import sys
@@ -269,56 +260,248 @@ def get_supabase() -> Client:
 def fix_pdf_font_encoding(text: str) -> str:
     """
     Fix garbled PDF text caused by custom font encoding.
-    Some PDFs use fonts where characters are mapped 29 positions lower than Unicode.
-    Detects this pattern and decodes: 'UXJ6XEVWDQFH → DrugSubstance
 
-    IMPORTANT: PDFs may have MIXED encoding - some sections normal, some garbled.
-    This function processes line-by-line to only decode garbled sections.
+    PDFs may use MULTIPLE encoding schemes:
+    1. +29 ASCII shift: 'UXJ → Drug, 0(', → MEDI (main protocol text)
+    2. +3 ASCII shift: fkqolar`qflk → introduction (appendices)
+    3. -3 ASCII shift: Colqlfdo → Clinical, Swxg| → Study (LlamaParse variant)
+    4. -29 ASCII shift: OMNQ → 2014, lctober → October (dates/numbers)
+
+    This function detects and applies the appropriate shift per-segment.
     """
     if not text or len(text) < 20:
         return text
 
-    # Patterns that indicate garbled +29 shift encoding
-    # These are common clinical trial terms that appear garbled
-    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ",
-                       "$SSHQGL[", "6XEVWDQFH", "$VWUD=HQHFD", "7DEOH", "6HFWLRQ"]
+    import re
 
-    def is_line_garbled(line: str) -> bool:
-        """Check if a line contains garbled patterns"""
-        if len(line) < 10:
-            return False
-        # Count matches - if 1+ pattern found, line is likely garbled
-        matches = sum(1 for p in garbled_patterns if p in line)
-        return matches >= 1
+    # Patterns for +29 shift (main garbled text - chars 32-96 need +29)
+    patterns_29 = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ",
+                   "7DEOH", "6HFWLRQ", "3DJH", "9LVLW", "6FUHHQLQJ", "'DWH",
+                   ")HEUXDU\\", ";UD\\", "&KHVW", "3ODLQ", "8OWUD", "7XPRXU",
+                   "(QGRVFRS", "&\\WRORJ", ",VRWRSLF", ")OXRUR", "6\\PSWRP"]
 
-    def decode_line(line: str) -> str:
-        """Apply +29 shift to decode a garbled line"""
+    # Patterns for +3 shift (appendix text - chars 94-122 need +3)
+    # fkqolar`qflk=introduction, abcfkfqflk=definition, jb^pro^_ib=measurable
+    patterns_3 = ["fkqola", "abcfkf", "jb^pro", "klkJjb", "q^odbq", "ibpflk",
+                  "m^qfbkq", "obpb^o", "zliib`", "pexii", "pexoo", "colj",
+                  "qeb ", "qefp ", "tfqe ", "^ka ", "lc ", "fk ", "ql "]
+
+    # Patterns for -3 shift (LlamaParse encoding - chars need -3)
+    # Colqlfdo=Clinical, Swxg|=Study, Purwrfro=Protocol, Eglwlrq=Edition
+    patterns_neg3 = ["Colqlfdo", "Swxg|", "Purwrfro", "Eglwlrq", "Nxpehu",
+                     "Agplqlvwudwlyh", "Ckdqjh", "Ddwh", "Lrfdo", "Shfrqgdu|",
+                     "Oemhfwlyh", "Oxwfrph", "Mhdvxuh", "hiilfdf|", "frpsduhg",
+                     "sodfher", "dvvhvvphqwv", "dffruglqj", "ghilqhg", "vwdqgdug",
+                     "folqlfdo", "sudfwlfh", "vdihw|", "wrohudelolw|", "suriloh",
+                     "sk|vlfdo", "h{dplqdwlrqv", "ylwdo", "vljqv", "lqfoxglqj",
+                     "eorrg", "suhvvxuh", "sxovh", "hohfwurfduglrjudpv",
+                     "oderudwru|", "ilqglqjv", "fkhplvwu|", "kdhpdwrorj|",
+                     "xulqdo|vlv", "Crqfhqwudwlrq", "sdudphwhuv", "vdpsolqj",
+                     "lqyhvwljdwh", "lppxqrjhqlflw|", "frqilupdwru|", "uhvxowv",
+                     "srvlwlyh", "qhjdwlyh", "wlwuhv", "qhxwudolvlqj", "dqwlerglhv",
+                     "v|pswrpv", "khdowk", "txdolw|", "olih", "sdwlhqwv", "wuhdwhg",
+                     "ghwhulrudwlrq", "idwljxh", "sdlq", "qdxvhd", "yrplwlqj",
+                     "g|vsqrhd", "dsshwlwh", "lqvrpqld", "frqvwlsdwlrq", "glduukrhd",
+                     "ixqfwlrq", "hprwlrqdo", "frjqlwlyh", "vrfldo", "joredo",
+                     "vwdwxv", "frxjk", "kdhprsw|vlv", "fkhvw", "vkrxoghu",
+                     "Ckdqjhv", "Wruog", "Hhdowk", "Oujdql}dwlrq", "Phuirupdqfh",
+                     "Aqdo|vlv", "edvhg", "xsrq", "vwdwlvwlfdo", "phwkrgv",
+                     "vhfwlrq", "ghwdlov", "luudgldwhg", "ohvlrqv", "frqvlghuhg",
+                     "phdvxudeoh", "vhohfwhg", "wdujhw", "surylglqj", "ixoilo",
+                     "fulwhuld", "phdvxudelolw|", "Aqwl", "guxj", "dqwlerg|",
+                     "Agyhuvh", "hyhqw", "Pursruwlrq", "dolyh", "surjuhvvlrq",
+                     "iuhh", "prqwkv", "udqgrplvdwlrq", "Bolqghg", "Iqghshqghqw",
+                     "Chqwudo", "Rhylhz", "Dxudwlrq", "uhvsrqvh", "Exurshdq",
+                     "Oujdqlvdwlrq", "Rhvhdufk", "Tuhdwphqw", "Cdqfhu"]
+
+    # Patterns for -29 shift (dates/numbers - uppercase chars need -29)
+    # OMNQ=2014, lctober=October, MN=01
+    date_month_patterns = ["lctober", "Mprch", "Mpril", "Ndnuary", "Nebruary",
+                           "Lhcember", "Mctober", "Nbvember", "Nhptember"]
+
+    def detect_encoding(segment: str) -> int:
+        """Detect which encoding shift a segment uses. Returns 0, 3, 29, -3, or -29."""
+        if len(segment) < 3:
+            return 0
+
+        # Check for -3 patterns FIRST (LlamaParse encoding - most common now)
+        if any(p in segment for p in patterns_neg3):
+            return -3
+
+        # Check for +29 patterns (main text with different encoding)
+        if any(p in segment for p in patterns_29):
+            return 29
+
+        # Check for +3 patterns (appendix encoding)
+        if any(p in segment for p in patterns_3):
+            return 3
+
+        # Check for -29 patterns (date encoding with uppercase)
+        if any(p in segment for p in date_month_patterns):
+            return -29
+
+        # Check for = surrounded date patterns like =OMNQ= (year) or =MN= (day)
+        if re.search(r'=[A-Z]{2,4}=', segment):
+            return -29
+
+        # Heuristic for -3: text with | character (often Swxg| = Study)
+        # BUT only if it has garbled patterns, not normal text with |
+        if '|' in segment and any(p in segment for p in ["Swxg|", "S|qrsvlv", "txdolw|"]):
+            return -3
+
+        # REMOVED: Heuristic for +3 was CORRUPTING clean text!
+        # The range 94-122 includes lowercase a-z (97-122), so normal text triggers it.
+        # Only use pattern-based detection for +3.
+
+        # Heuristic for +29: high concentration of chars 32-96
+        # Only apply if text has garbled-looking patterns (lots of symbols, no normal words)
+        chars_in_29_range = sum(1 for c in segment if 32 <= ord(c) <= 96)
+        if len(segment) > 10 and chars_in_29_range / len(segment) > 0.7:
+            # Additional check: must not have normal words
+            normal_words = ["the", "and", "for", "with", "from", "study", "drug", "dose"]
+            if not any(w in segment.lower() for w in normal_words):
+                return 29
+
+        return 0
+
+    def decode_segment(segment: str, shift: int) -> str:
+        """Apply specified shift to decode a segment."""
+        if shift == 0:
+            return segment
+
         decoded_chars = []
-        for c in line:
+        for c in segment:
             code = ord(c)
-            # Only shift printable ASCII range that would result in printable output
-            if 32 <= code <= 96:  # Shifted chars that map to printable range
-                decoded_chars.append(chr(code + 29))
-            else:
-                decoded_chars.append(c)
+            if shift == 29:
+                # +29: decode chars 32-96 → 61-125
+                if 32 <= code <= 96:
+                    decoded_chars.append(chr(code + 29))
+                else:
+                    decoded_chars.append(c)
+            elif shift == 3:
+                # +3: decode chars 94-122 → 97-125
+                if 94 <= code <= 122:
+                    decoded_chars.append(chr(code + 3))
+                elif code == 61:  # '=' often represents space
+                    decoded_chars.append(' ')
+                else:
+                    decoded_chars.append(c)
+            elif shift == -3:
+                # -3: decode ONLY lowercase letters and | (LlamaParse encoding)
+                # Colqlfdo → Clinical, Swxg| → Study, Purwrfro → Protocol
+                # Uppercase letters stay unchanged!
+                if (97 <= code <= 122) or code == 124:  # a-z or |
+                    decoded_chars.append(chr(code - 3))
+                else:
+                    decoded_chars.append(c)
+            elif shift == -29:
+                # -29: decode uppercase chars to numbers/symbols
+                if 65 <= code <= 90:  # A-Z
+                    new_code = code - 29
+                    if 32 <= new_code <= 126:  # printable range
+                        decoded_chars.append(chr(new_code))
+                    else:
+                        decoded_chars.append(c)
+                elif code == 108:  # 'l' -> 'O' for lctober -> October
+                    decoded_chars.append('O')
+                elif code == 61:  # '=' -> space
+                    decoded_chars.append(' ')
+                else:
+                    decoded_chars.append(c)
         return ''.join(decoded_chars)
 
-    # Process line by line to handle mixed encoding
+    def fix_line(line: str) -> str:
+        """Fix encoding for a single line, handling mixed segments."""
+        if len(line) < 5:
+            return line
+
+        # First, check if entire line has a detectable encoding
+        line_encoding = detect_encoding(line)
+        if line_encoding != 0:
+            return decode_segment(line, line_encoding)
+
+        # Otherwise, try to fix segments separated by spaces or =
+        # This handles mixed encoding within a line
+        result = line
+
+        # Fix date-like patterns: =WORD= where WORD is uppercase
+        def fix_date_segment(match):
+            segment = match.group(0)
+            return decode_segment(segment, -29)
+
+        result = re.sub(r'=[A-Z]{2,4}=', fix_date_segment, result)
+
+        # Fix month names with encoding
+        for month_pattern in date_month_patterns:
+            if month_pattern in result:
+                result = result.replace(month_pattern, decode_segment(month_pattern, -29))
+
+        # Fix remaining +3 encoded words
+        for pattern in patterns_3:
+            if pattern in result:
+                # Find the full word containing this pattern
+                words = result.split()
+                new_words = []
+                for word in words:
+                    if pattern in word.lower():
+                        new_words.append(decode_segment(word, 3))
+                    else:
+                        new_words.append(word)
+                result = ' '.join(new_words)
+                break
+
+        return result
+
+    # Process line by line
     lines = text.split('\n')
     result_lines = []
-    garbled_count = 0
+    stats = {29: 0, 3: 0, -3: 0, -29: 0}
 
     for line in lines:
-        if is_line_garbled(line):
-            result_lines.append(decode_line(line))
-            garbled_count += 1
-        else:
-            result_lines.append(line)
+        original = line
+        fixed = fix_line(line)
+        if fixed != original:
+            # Track which encoding was used
+            encoding = detect_encoding(original)
+            if encoding in stats:
+                stats[encoding] += 1
+        result_lines.append(fixed)
 
-    if garbled_count > 0:
-        print(f"[PDF Parser] Fixed {garbled_count} garbled lines (mixed encoding PDF)")
+    total_fixed = sum(stats.values())
+    if total_fixed > 0:
+        print(f"[PDF Parser] Fixed encoding: {stats[29]} lines (+29), {stats[3]} lines (+3), {stats[-3]} lines (-3), {stats[-29]} lines (-29)")
 
-    return '\n'.join(result_lines)
+    # Final cleanup: remove excessive = signs that may remain
+    result = '\n'.join(result_lines)
+    result = re.sub(r'={3,}', ' ', result)  # Replace 3+ = with space
+    result = re.sub(r'\s{3,}', '  ', result)  # Normalize excessive spaces
+
+    # EXPLICIT fix for date patterns like MN==PM=lctober=OMNQ → 01  30 October 2014
+    # These use -29 shift on uppercase letters and 'l' → 'O'
+    def fix_date_line(match):
+        text = match.group(0)
+        decoded = []
+        for c in text:
+            code = ord(c)
+            if 65 <= code <= 90:  # A-Z → subtract 29
+                new_code = code - 29
+                if 32 <= new_code <= 126:
+                    decoded.append(chr(new_code))
+                else:
+                    decoded.append(c)
+            elif code == 108:  # 'l' → 'O' (for lctober → October)
+                decoded.append('O')
+            elif code == 61:  # '=' → space
+                decoded.append(' ')
+            else:
+                decoded.append(c)
+        return ''.join(decoded)
+
+    # Match date patterns: uppercase letters, =, and 'lctober' variants
+    result = re.sub(r'[A-Z=]+lctober[A-Z=]*', fix_date_line, result)
+    result = re.sub(r'\s{2,}', ' ', result)  # Clean up multiple spaces
+
+    return result
 
 
 def wrap_markdown_tables(text: str) -> str:
@@ -376,335 +559,137 @@ def wrap_markdown_tables(text: str) -> str:
     return '\n'.join(result)
 
 
-# ============================================================================
-# SOA (Schedule of Assessments) PAGE DETECTION
-# ============================================================================
-
-SOA_KEYWORDS = [
-    "Schedule of Study Procedures",
-    "Schedule of Assessments",
-    "Schedule of Events",
-    "Table of Activities",
-    "Schedule of Activities",
-    "Study Procedures Schedule",
-    "Assessment Schedule",
-    "Time and Events Schedule",
-    "Study Schedule",
-]
-
-
-def detect_soa_pages_from_pdf(file_content: bytes) -> List[int]:
-    """
-    Detect pages containing Schedule of Assessments (SOA) tables directly from PDF.
-
-    Strategy:
-    1. Find pages that have SOA keywords as section headers (not just references)
-    2. Filter to only pages that contain actual table structures
-    3. Include consecutive pages after a header (tables often span multiple pages)
-
-    Args:
-        file_content: PDF file as bytes
-
-    Returns:
-        List of 1-indexed page numbers containing SOA tables.
-    """
+def detect_table_pages(file_content: bytes) -> set:
+    """Detect which pages contain tables using PyMuPDF."""
     if not PYMUPDF_AVAILABLE:
-        print("[SOA Detect] PyMuPDF not available for PDF search")
-        return []
+        return set()
 
+    table_pages = set()
     try:
         doc = fitz.open(stream=file_content, filetype="pdf")
-        total_pages = len(doc)
-
-        # Step 1: Find pages with SOA section headers AND tables
-        header_pages = []  # Pages where SOA keyword appears as a header
-        pages_with_tables = set()  # All pages that have table structures
-
-        for page_num in range(total_pages):
+        for page_num in range(len(doc)):
             page = doc[page_num]
-            page_1idx = page_num + 1
-
-            # Check if page has tables (works for both portrait and landscape)
             tables = page.find_tables()
-            has_tables = len(tables.tables) > 0
-
-            if has_tables:
-                pages_with_tables.add(page_1idx)
-
-            # Get text and check for SOA headers
-            # Use "blocks" to get text with position info for header detection
-            blocks = page.get_text("blocks")
-            page_text_lower = page.get_text().lower()
-
-            for keyword in SOA_KEYWORDS:
-                keyword_lower = keyword.lower()
-                if keyword_lower in page_text_lower:
-                    # Check if this keyword appears as a header (near top of page or standalone line)
-                    is_header = _is_soa_header(blocks, keyword)
-                    if is_header:
-                        header_pages.append(page_1idx)
-                        print(f"[SOA Detect] Found SOA header '{keyword}' on page {page_1idx} (has_tables={has_tables})")
-                        break
-
+            if tables.tables:
+                table_pages.add(page_num + 1)  # 1-indexed
         doc.close()
-
-        if not header_pages:
-            print(f"[SOA Detect] No SOA headers found in {total_pages} pages")
-            return []
-
-        print(f"[SOA Detect] Found {len(pages_with_tables)} pages with tables: {sorted(pages_with_tables)}")
-        print(f"[SOA Detect] Found SOA headers on pages: {header_pages}")
-
-        # Step 2: For each header page, find nearby table clusters
-        # Strategy: Look within 10 pages after header for tables, include only pages with actual tables
-        soa_pages = set()
-        for header_page in header_pages:
-            # Only include header page if it has tables
-            if header_page in pages_with_tables:
-                soa_pages.add(header_page)
-
-            # Look for table pages within 10 pages after the header
-            table_cluster_start = None
-            for offset in range(1, 11):  # Check up to 10 pages after header
-                next_page = header_page + offset
-                if next_page > total_pages:
-                    break
-
-                if next_page in pages_with_tables:
-                    if table_cluster_start is None:
-                        table_cluster_start = next_page
-                        print(f"[SOA Detect] Found table cluster starting at page {next_page} (after header on {header_page})")
-                    soa_pages.add(next_page)
-                elif table_cluster_start is not None:
-                    # We found a table cluster and now hit a non-table page
-                    # Stop extending this cluster
-                    break
-
-        result = sorted(soa_pages)
-        print(f"[SOA Detect] Final SOA pages (tables only): {result}")
-        return result
-
+        print(f"[PDF Parser] Detected tables on pages: {sorted(table_pages)}")
     except Exception as e:
-        print(f"[SOA Detect] Error searching PDF: {e}")
-        import traceback
-        traceback.print_exc()
-        return []
-
-
-def merge_reducto_soa_into_text(original_text: str, reducto_content: str) -> str:
-    """
-    Merge Reducto's SOA extraction into LlamaParse output.
-
-    Strategy:
-    1. Find SOA section headers in original text
-    2. Find the end of the SOA section (next major section or reasonable boundary)
-    3. Replace the SOA section with Reducto's better extraction
-
-    If SOA section can't be reliably identified, append Reducto content at end.
-
-    Args:
-        original_text: Full protocol text from LlamaParse
-        reducto_content: Extracted SOA tables from Reducto
-
-    Returns:
-        Merged text with Reducto SOA replacing original
-    """
-    if not reducto_content or not reducto_content.strip():
-        return original_text
-
-    # Find SOA section start
-    soa_start_patterns = [
-        r'\n#+\s*Schedule of Study Procedures',
-        r'\n#+\s*Schedule of Assessments',
-        r'\n#+\s*Schedule of Events',
-        r'\n#+\s*Table of Activities',
-        r'\nSchedule of Study Procedures\n',
-        r'\nSchedule of Assessments\n',
-        r'\nSCHEDULE OF STUDY PROCEDURES',
-        r'\nSCHEDULE OF ASSESSMENTS',
-    ]
-
-    soa_start_idx = -1
-    soa_header = ""
-
-    for pattern in soa_start_patterns:
-        match = re.search(pattern, original_text, re.IGNORECASE)
-        if match:
-            soa_start_idx = match.start()
-            soa_header = match.group(0)
-            print(f"[SOA Merge] Found SOA section start at position {soa_start_idx}: '{soa_header.strip()[:50]}...'")
-            break
-
-    if soa_start_idx == -1:
-        # Couldn't find SOA section - append at end
-        print("[SOA Merge] Could not find SOA section in text, appending Reducto content at end")
-        return original_text + "\n\n" + "=" * 60 + "\n" + \
-               "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)\n" + \
-               "=" * 60 + "\n\n" + reducto_content
-
-    # Find SOA section end - look for next major section header
-    # Major sections typically start with # or are in ALL CAPS followed by newline
-    section_end_patterns = [
-        r'\n#+\s*[A-Z][^#\n]+\n',  # Markdown header
-        r'\n\d+\.\s+[A-Z][^\n]+\n',  # Numbered section (e.g., "7. STUDY PROCEDURES")
-        r'\n[A-Z][A-Z\s]{10,}\n',  # ALL CAPS section header
-    ]
-
-    # Start searching after the SOA header
-    search_start = soa_start_idx + len(soa_header)
-
-    # Skip some content (at least 500 chars) to avoid matching subsection headers within SOA
-    min_section_length = 500
-    soa_end_idx = len(original_text)  # Default to end of document
-
-    for pattern in section_end_patterns:
-        for match in re.finditer(pattern, original_text[search_start + min_section_length:]):
-            potential_end = search_start + min_section_length + match.start()
-            # Verify this looks like a new major section, not a table header
-            matched_text = match.group(0).strip()
-            # Skip if it looks like SOA-related content
-            if any(kw in matched_text.lower() for kw in ['schedule', 'assessment', 'visit', 'procedure', 'table']):
-                continue
-            soa_end_idx = potential_end
-            print(f"[SOA Merge] Found section end at position {soa_end_idx}: '{matched_text[:50]}...'")
-            break
-        if soa_end_idx < len(original_text):
-            break
-
-    # Build merged content
-    before_soa = original_text[:soa_start_idx]
-    after_soa = original_text[soa_end_idx:]
-
-    # Create enhanced SOA section
-    enhanced_soa = (
-        "\n\n" + "=" * 60 + "\n"
-        "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)\n"
-        + "=" * 60 + "\n\n"
-        + reducto_content
-        + "\n\n" + "=" * 60 + "\n"
-        "END OF SCHEDULE OF ASSESSMENTS\n"
-        + "=" * 60 + "\n"
-    )
-
-    merged = before_soa + enhanced_soa + after_soa
-    print(f"[SOA Merge] Replaced {soa_end_idx - soa_start_idx:,} chars with {len(enhanced_soa):,} chars of Reducto content")
-
-    return merged
-
-
-def _is_soa_header(blocks: list, keyword: str) -> bool:
-    """
-    Check if a keyword appears as a section header (not just a reference).
-
-    A header is identified by:
-    - Appears on its own line or with minimal surrounding text
-    - Often in larger font or bold (we approximate by checking line length)
-    - Not buried in the middle of a paragraph
-    """
-    keyword_lower = keyword.lower()
-
-    for block in blocks:
-        if len(block) >= 5 and block[6] == 0:  # Text block
-            block_text = block[4].strip()
-            block_text_lower = block_text.lower()
-
-            if keyword_lower in block_text_lower:
-                # Check if keyword is the main content of this block (header-like)
-                # Headers are usually short lines, not paragraphs
-                lines = block_text.split('\n')
-                for line in lines:
-                    line_stripped = line.strip()
-                    line_lower = line_stripped.lower()
-                    if keyword_lower in line_lower:
-                        # Header criteria:
-                        # 1. Line is relatively short (< 150 chars) - not a paragraph
-                        # 2. Keyword is a significant portion of the line
-                        if len(line_stripped) < 150:
-                            keyword_ratio = len(keyword) / max(len(line_stripped), 1)
-                            if keyword_ratio > 0.3:  # Keyword is >30% of the line
-                                return True
-    return False
-
-
-def detect_soa_pages(protocol_text: str) -> List[int]:
-    """
-    Detect pages containing Schedule of Assessments (SOA) tables.
-
-    Uses existing --- PAGE N --- markers from PyMuPDF extraction to identify
-    which pages contain SOA-related keywords.
-
-    Args:
-        protocol_text: Protocol text with page markers (from PyMuPDF fallback)
-
-    Returns:
-        List of 1-indexed page numbers containing SOA content.
-        Includes adjacent pages since SOA tables often span multiple pages.
-    """
-    soa_pages = set()
-    page_pattern = r'--- PAGE (\d+) ---'
-
-    # Split by page markers
-    # Result: ['', '1', 'page1_content', '2', 'page2_content', ...]
-    pages = re.split(page_pattern, protocol_text)
-
-    if len(pages) < 3:
-        # No page markers found - likely LlamaParse output without markers
-        print("[SOA Detect] No page markers found in protocol text")
-        return []
-
-    max_page = (len(pages) - 1) // 2
-
-    for i in range(1, len(pages), 2):
-        try:
-            page_num = int(pages[i])
-            page_content = pages[i + 1] if i + 1 < len(pages) else ""
-
-            content_lower = page_content.lower()
-            for keyword in SOA_KEYWORDS:
-                if keyword.lower() in content_lower:
-                    # Include this page + next 3 (SOA tables typically span 2-4 pages)
-                    soa_pages.update([page_num, page_num + 1, page_num + 2, page_num + 3])
-                    print(f"[SOA Detect] Found '{keyword}' on page {page_num}")
-                    break
-        except (ValueError, IndexError) as e:
-            continue
-
-    # Filter to valid page range
-    valid_pages = sorted([p for p in soa_pages if 1 <= p <= max_page])
-
-    if valid_pages:
-        print(f"[SOA Detect] Detected SOA on pages: {valid_pages}")
-    else:
-        print("[SOA Detect] No SOA pages detected")
-
-    return valid_pages
+        print(f"[PDF Parser] Table detection failed: {e}")
+    return table_pages
 
 
 def extract_text_from_pdf(file_content: bytes) -> str:
     """
-    Extract text from PDF using LlamaParse with table preservation instructions.
-    LlamaParse is configured to preserve exact column structure in tables.
-    Falls back to PyMuPDF if LlamaParse fails.
+    HYBRID extraction:
+    - LlamaParse text mode for regular pages (clean, fast)
+    - LlamaParse vision mode for table pages (bypasses font encoding)
     """
     import tempfile
     import asyncio
 
-    # Try LlamaParse first (handles custom font encodings properly via OCR/AI)
+    # Try LlamaParse first
     if LLAMAPARSE_AVAILABLE and _llamaparse_instance:
         try:
+            # Detect table pages
+            table_pages = detect_table_pages(file_content)
+
             # LlamaParse needs a file path
             with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as tmp:
                 tmp.write(file_content)
                 tmp_path = tmp.name
 
             try:
-                print(f"[PDF Parser] Using LlamaParse for accurate extraction...")
+                # If we have vision mode and table pages, use hybrid extraction
+                if _llamaparse_vision_instance and table_pages:
+                    print(f"[PDF Parser] HYBRID mode: text extraction + vision for {len(table_pages)} table pages")
 
-                # Run async parsing
+                    # Extract ALL pages with regular LlamaParse first
+                    async def parse_all():
+                        return await _llamaparse_instance.aload_data(tmp_path)
+
+                    try:
+                        loop = asyncio.get_event_loop()
+                        if loop.is_running():
+                            import concurrent.futures
+                            with concurrent.futures.ThreadPoolExecutor() as pool:
+                                future = pool.submit(asyncio.run, parse_all())
+                                documents = future.result(timeout=120)
+                        else:
+                            documents = loop.run_until_complete(parse_all())
+                    except RuntimeError:
+                        documents = asyncio.run(parse_all())
+
+                    if documents and len(documents) > 0:
+                        text = "\n\n".join([doc.text for doc in documents if doc.text])
+                        print(f"[PDF Parser] LlamaParse text mode extracted {len(text):,} chars")
+                        print(f"[PDF Parser] Main text RAW sample (first 500 chars):")
+                        print(text[:500] if text else "EMPTY")
+
+                        # NO encoding fix - use raw LlamaParse output
+
+                        # Now extract ONLY table pages with vision mode
+                        # Create a PDF with only table pages
+                        vision_text = ""
+                        try:
+                            doc = fitz.open(stream=file_content, filetype="pdf")
+                            table_doc = fitz.open()  # New empty PDF
+
+                            for page_num in sorted(table_pages):
+                                table_doc.insert_pdf(doc, from_page=page_num-1, to_page=page_num-1)
+
+                            # Save table pages PDF
+                            with tempfile.NamedTemporaryFile(suffix='.pdf', delete=False) as table_tmp:
+                                table_doc.save(table_tmp.name)
+                                table_tmp_path = table_tmp.name
+
+                            table_doc.close()
+                            doc.close()
+
+                            # Extract table pages with vision mode
+                            async def parse_tables_vision():
+                                return await _llamaparse_vision_instance.aload_data(table_tmp_path)
+
+                            print(f"[PDF Parser] Extracting {len(table_pages)} table pages with VISION mode...")
+                            try:
+                                loop = asyncio.get_event_loop()
+                                if loop.is_running():
+                                    with concurrent.futures.ThreadPoolExecutor() as pool:
+                                        future = pool.submit(asyncio.run, parse_tables_vision())
+                                        table_docs = future.result(timeout=120)
+                                else:
+                                    table_docs = loop.run_until_complete(parse_tables_vision())
+                            except RuntimeError:
+                                table_docs = asyncio.run(parse_tables_vision())
+
+                            os.unlink(table_tmp_path)
+
+                            if table_docs and len(table_docs) > 0:
+                                vision_text = "\n\n".join([doc.text for doc in table_docs if doc.text])
+                                print(f"[PDF Parser] Vision mode extracted {len(vision_text):,} chars from table pages")
+                                print(f"[PDF Parser] Vision text RAW sample (first 500 chars):")
+                                print(vision_text[:500] if vision_text else "EMPTY")
+
+                                # DON'T apply encoding fix to vision text - it should be clean from visual OCR
+                                # Just append it
+                                text = text + "\n\n" + "=" * 60 + "\n"
+                                text = text + "TABLES (Vision-Extracted)\n" + "=" * 60 + "\n\n"
+                                text = text + vision_text
+
+                        except Exception as e:
+                            print(f"[PDF Parser] Vision extraction for tables failed: {e}")
+
+                        os.unlink(tmp_path)
+
+                        text = wrap_markdown_tables(text)
+                        return text
+
+                # Fallback: regular LlamaParse for everything
+                print(f"[PDF Parser] Using LlamaParse text mode for all pages...")
+
                 async def parse_pdf():
                     return await _llamaparse_instance.aload_data(tmp_path)
 
-                # Get or create event loop
                 try:
                     loop = asyncio.get_event_loop()
                     if loop.is_running():
@@ -727,33 +712,6 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                         text = fix_pdf_font_encoding(text)
                         # Wrap markdown tables in [TABLE] markers for frontend rendering
                         text = wrap_markdown_tables(text)
-
-                        # === REDUCTO SOA ENHANCEMENT ===
-                        # If Reducto API key is set, extract SOA tables with Reducto
-                        # for better table quality
-                        if os.getenv("REDUCTO_API_KEY"):
-                            try:
-                                from reducto_client import extract_soa_with_reducto
-
-                                # Detect SOA pages from the original PDF
-                                soa_pages = detect_soa_pages_from_pdf(file_content)
-
-                                if soa_pages:
-                                    print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
-                                    reducto_result = extract_soa_with_reducto(file_content, soa_pages)
-
-                                    if reducto_result.success:
-                                        print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
-                                        # Merge Reducto SOA into LlamaParse output
-                                        text = merge_reducto_soa_into_text(text, reducto_result.content)
-                                        print(f"[PDF Parser] Merged Reducto SOA into protocol")
-                                    else:
-                                        print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
-                                else:
-                                    print("[PDF Parser] No SOA pages detected, skipping Reducto")
-                            except Exception as e:
-                                print(f"[PDF Parser] Reducto integration error: {e}, continuing with LlamaParse only")
-
                         return text
                     else:
                         print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")
@@ -779,14 +737,12 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             for page_num, page in enumerate(doc):
                 page_text = []
 
-                # Extract tables using PyMuPDF (basic fallback - Docling used at higher level)
+                # Extract tables with PyMuPDF
                 table_finder = page.find_tables()
-                table_texts = set()  # Track table regions to avoid duplication
+                table_texts = set()  # Track table content to avoid duplication
 
                 for table in table_finder.tables:
                     total_tables += 1
-
-                    # Extract table using PyMuPDF (may have encoding issues)
                     table_md = []
                     for row in table.extract():
                         row_text = " | ".join(str(cell) if cell else "" for cell in row)
@@ -803,7 +759,7 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                 for block in blocks:
                     if block[6] == 0:  # Text block (not image)
                         block_text = block[4].strip()
-                        # Skip if this text is part of a table (check if any significant portion matches)
+                        # Skip if this text is part of a table
                         if block_text and len(block_text) > 10:
                             is_table_text = any(cell in block_text.lower() for cell in table_texts if len(cell) > 10)
                             if not is_table_text:
@@ -820,28 +776,6 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             doc.close()
             result = "\n\n".join(text_parts)
             print(f"[PDF Parser] PyMuPDF extracted {len(result):,} chars, {total_tables} tables from {len(doc)} pages")
-
-            # === REDUCTO SOA ENHANCEMENT (PyMuPDF fallback) ===
-            if os.getenv("REDUCTO_API_KEY"):
-                try:
-                    from reducto_client import extract_soa_with_reducto
-                    soa_pages = detect_soa_pages_from_pdf(file_content)
-
-                    if soa_pages:
-                        print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
-                        reducto_result = extract_soa_with_reducto(file_content, soa_pages)
-
-                        if reducto_result.success:
-                            print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
-                            result = merge_reducto_soa_into_text(result, reducto_result.content)
-                            print(f"[PDF Parser] Merged Reducto SOA into protocol")
-                        else:
-                            print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
-                    else:
-                        print("[PDF Parser] No SOA pages detected, skipping Reducto")
-                except Exception as e:
-                    print(f"[PDF Parser] Reducto integration error: {e}")
-
             return result
 
         except Exception as e:
@@ -859,28 +793,6 @@ def extract_text_from_pdf(file_content: bytes) -> str:
         print(f"[PDF Parser] PyPDF2 extracted {len(result):,} chars")
         # Fix garbled font encoding if detected
         result = fix_pdf_font_encoding(result)
-
-        # === REDUCTO SOA ENHANCEMENT (PyPDF2 fallback) ===
-        if os.getenv("REDUCTO_API_KEY"):
-            try:
-                from reducto_client import extract_soa_with_reducto
-                soa_pages = detect_soa_pages_from_pdf(file_content)
-
-                if soa_pages:
-                    print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
-                    reducto_result = extract_soa_with_reducto(file_content, soa_pages)
-
-                    if reducto_result.success:
-                        print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
-                        result = merge_reducto_soa_into_text(result, reducto_result.content)
-                        print(f"[PDF Parser] Merged Reducto SOA into protocol")
-                    else:
-                        print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
-                else:
-                    print("[PDF Parser] No SOA pages detected, skipping Reducto")
-            except Exception as e:
-                print(f"[PDF Parser] Reducto integration error: {e}")
-
         return result
     except Exception as e:
         raise ValueError(f"Failed to parse PDF: {str(e)}")
@@ -4979,206 +4891,6 @@ async def workbench_get_protocol_content(workspace_id: str):
         raise
     except Exception as e:
         logger.error(f"Protocol content fetch failed: {e}")
-        raise HTTPException(500, str(e))
-
-
-@app.get("/workbench/{workspace_id}/detect-soa-pages")
-async def workbench_detect_soa_pages(workspace_id: str):
-    """
-    Detect which pages contain the Schedule of Assessments (SOA) table.
-
-    This is used to identify pages to send to Reducto for enhanced table extraction.
-    Returns the detected page numbers based on keyword matching.
-    """
-    if not WORKBENCH_AVAILABLE:
-        raise HTTPException(503, "SAP Workbench not available")
-
-    workbench = get_workbench()
-    if not workbench:
-        raise HTTPException(503, "SAP Workbench not initialized")
-
-    try:
-        workspace = workbench.get_workspace(workspace_id)
-        if not workspace:
-            raise HTTPException(404, f"Workspace {workspace_id} not found")
-
-        protocol_content = workspace.protocol_content or ""
-
-        if not protocol_content.strip():
-            return {
-                "workspace_id": workspace_id,
-                "soa_pages": [],
-                "message": "No protocol content found",
-                "has_page_markers": False,
-            }
-
-        # Check if we have page markers
-        has_page_markers = "--- PAGE " in protocol_content
-
-        # Detect SOA pages
-        soa_pages = detect_soa_pages(protocol_content)
-
-        return {
-            "workspace_id": workspace_id,
-            "soa_pages": soa_pages,
-            "page_count": len(soa_pages),
-            "has_page_markers": has_page_markers,
-            "keywords_searched": SOA_KEYWORDS,
-            "message": f"Found SOA content on {len(soa_pages)} pages" if soa_pages else "No SOA pages detected",
-        }
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"SOA page detection failed: {e}")
-        raise HTTPException(500, str(e))
-
-
-@app.post("/detect-soa-pages/upload")
-async def detect_soa_pages_upload(file: UploadFile = File(...)):
-    """
-    Detect SOA pages from an uploaded PDF file.
-
-    This endpoint allows testing SOA page detection directly on a PDF
-    without creating a workspace first.
-
-    Returns the detected page numbers where Schedule of Assessments tables are found.
-    """
-    if not file.filename:
-        raise HTTPException(400, "No file provided")
-
-    if not file.filename.lower().endswith('.pdf'):
-        raise HTTPException(400, "Only PDF files are supported")
-
-    try:
-        content = await file.read()
-        file_size = len(content)
-
-        if file_size == 0:
-            raise HTTPException(400, "Empty file")
-
-        if file_size > 50 * 1024 * 1024:  # 50MB limit
-            raise HTTPException(400, "File too large (max 50MB)")
-
-        # Detect SOA pages using PyMuPDF
-        soa_pages = detect_soa_pages_from_pdf(content)
-
-        # Get total page count
-        total_pages = 0
-        if PYMUPDF_AVAILABLE:
-            try:
-                doc = fitz.open(stream=content, filetype="pdf")
-                total_pages = len(doc)
-                doc.close()
-            except:
-                pass
-
-        return {
-            "filename": file.filename,
-            "file_size_bytes": file_size,
-            "total_pages": total_pages,
-            "soa_pages": soa_pages,
-            "soa_page_count": len(soa_pages),
-            "keywords_searched": SOA_KEYWORDS,
-            "message": f"Found SOA content on pages {soa_pages}" if soa_pages else "No SOA pages detected",
-        }
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"SOA page detection from upload failed: {e}")
-        raise HTTPException(500, str(e))
-
-
-@app.get("/reducto/status")
-async def reducto_status():
-    """
-    Check if Reducto API is configured and available.
-    """
-    try:
-        from reducto_client import check_reducto_available
-        status = check_reducto_available()
-        return status
-    except ImportError:
-        return {
-            "available": False,
-            "has_api_key": bool(os.getenv("REDUCTO_API_KEY")),
-            "can_import": False,
-            "error": "reducto_client module not found"
-        }
-    except Exception as e:
-        return {
-            "available": False,
-            "error": str(e)
-        }
-
-
-@app.post("/reducto/extract-soa/upload")
-async def reducto_extract_soa_upload(file: UploadFile = File(...)):
-    """
-    Test endpoint: Extract SOA tables from uploaded PDF using Reducto.
-
-    This endpoint:
-    1. Detects SOA pages using PyMuPDF
-    2. Sends only those pages to Reducto
-    3. Returns the extracted table content
-
-    Use this to test Reducto extraction before full integration.
-    """
-    if not file.filename:
-        raise HTTPException(400, "No file provided")
-
-    if not file.filename.lower().endswith('.pdf'):
-        raise HTTPException(400, "Only PDF files are supported")
-
-    # Check Reducto availability
-    reducto_key = os.getenv("REDUCTO_API_KEY")
-    if not reducto_key:
-        raise HTTPException(503, "REDUCTO_API_KEY not set. Configure it in environment.")
-
-    try:
-        from reducto_client import extract_soa_with_reducto
-
-        content = await file.read()
-        file_size = len(content)
-
-        if file_size == 0:
-            raise HTTPException(400, "Empty file")
-
-        if file_size > 50 * 1024 * 1024:  # 50MB limit
-            raise HTTPException(400, "File too large (max 50MB)")
-
-        # Step 1: Detect SOA pages
-        soa_pages = detect_soa_pages_from_pdf(content)
-
-        if not soa_pages:
-            return {
-                "success": False,
-                "filename": file.filename,
-                "message": "No SOA pages detected in PDF",
-                "soa_pages": [],
-                "content": "",
-            }
-
-        # Step 2: Extract with Reducto
-        result = extract_soa_with_reducto(content, soa_pages)
-
-        return {
-            "success": result.success,
-            "filename": file.filename,
-            "soa_pages": result.pages_processed,
-            "content": result.content,
-            "content_length": len(result.content),
-            "credits_used": result.credits_used,
-            "error": result.error,
-        }
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Reducto SOA extraction failed: {e}")
-        import traceback
-        traceback.print_exc()
         raise HTTPException(500, str(e))
 
 
