@@ -15,12 +15,11 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.12-2026-01-15")
-print("FEATURE: Table rendering + deduplication fixes")
-print("  • v100.12: Wrap markdown tables in [TABLE] markers for frontend rendering")
-print("  • v100.9: EasyOCR attempt (failed - torch conflicts)")
-print("  • v100.8: Character shift fix (fallback)")
-print("If you don't see v100.10 in Render logs, Render has OLD code!")
+print("BUILD: v100.22-clean-2026-01-16")
+print("FEATURE: Clean working state - LlamaParse + tables + encoding fix")
+print("  • v100.22: Removed broken OCR, clean LlamaParse extraction")
+print("  • Tables: wrap_markdown_tables() adds [TABLE] markers")
+print("  • Encoding: Line-by-line fix for mixed-encoding PDFs")
 print("=" * 70)
 
 import os
@@ -74,27 +73,6 @@ try:
 except ImportError:
     PYMUPDF_AVAILABLE = False
     print("WARNING: PyMuPDF not available")
-
-# PaddleOCR - for table extraction (uses PaddlePaddle, no torch conflicts)
-# Lazy-loaded to avoid startup overhead
-PADDLEOCR_AVAILABLE = False
-_paddleocr_instance = None
-
-def get_paddleocr():
-    """Lazy-load PaddleOCR to avoid startup overhead."""
-    global PADDLEOCR_AVAILABLE, _paddleocr_instance
-    if _paddleocr_instance is not None:
-        return _paddleocr_instance
-    try:
-        from paddleocr import PaddleOCR
-        # use_angle_cls=True for rotated text, lang='en' for English
-        _paddleocr_instance = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
-        PADDLEOCR_AVAILABLE = True
-        print("[OCR] PaddleOCR loaded successfully")
-        return _paddleocr_instance
-    except Exception as e:
-        print(f"[OCR] PaddleOCR not available: {e}")
-        return None
 
 # Import SAP generator (add parent to path)
 import sys
@@ -274,136 +252,57 @@ def fix_pdf_font_encoding(text: str) -> str:
     Fix garbled PDF text caused by custom font encoding.
     Some PDFs use fonts where characters are mapped 29 positions lower than Unicode.
     Detects this pattern and decodes: 'UXJ6XEVWDQFH → DrugSubstance
+
+    IMPORTANT: PDFs may have MIXED encoding - some sections normal, some garbled.
+    This function processes line-by-line to only decode garbled sections.
     """
     if not text or len(text) < 20:
         return text
 
-    # Sample the first 500 chars to check for encoding issues
-    sample = text[:500]
+    # Garbled patterns that indicate +29 shift encoding
+    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ",
+                        "7DEOH", "6HFWLRQ", "3DJH", "9LVLW", "6FUHHQLQJ"]
 
-    # Check for telltale signs of +29 shift encoding:
-    # - Lots of lowercase where uppercase expected in headers
-    # - Common patterns like 'UXJ (Drug), 0(', (MEDI), 6WXG\ (Study)
-    garbled_patterns = ["'UXJ", "0(',", "6WXG\\", "3URWRFRO", "&OLQLFDO", "(GLWLRQ"]
+    def line_is_garbled(line: str) -> bool:
+        """Check if a single line appears to be garbled."""
+        if len(line) < 5:
+            return False
+        matches = sum(1 for p in garbled_patterns if p in line)
+        if matches >= 1:
+            return True
+        # Also check for high concentration of chars in garbled range
+        garbled_chars = sum(1 for c in line if 32 <= ord(c) <= 96)
+        if len(line) > 10 and garbled_chars / len(line) > 0.7:
+            return True
+        return False
 
-    matches = sum(1 for p in garbled_patterns if p in sample)
-
-    if matches >= 2:
-        # Detected garbled encoding - apply +29 shift
-        print(f"[PDF Parser] Detected garbled font encoding (+29 shift), decoding...")
-
+    def decode_line(line: str) -> str:
+        """Apply +29 shift to decode a garbled line."""
         decoded_chars = []
-        for c in text:
+        for c in line:
             code = ord(c)
-            # Only shift printable ASCII range that would result in printable output
-            if 32 <= code <= 96:  # Shifted chars that map to printable range
+            if 32 <= code <= 96:
                 decoded_chars.append(chr(code + 29))
-            elif c in '\n\r\t':  # Preserve whitespace
-                decoded_chars.append(c)
             else:
                 decoded_chars.append(c)
+        return ''.join(decoded_chars)
 
-        decoded = ''.join(decoded_chars)
-        print(f"[PDF Parser] Decoded {len(text):,} chars")
-        return decoded
+    # Process line by line to handle mixed encoding
+    lines = text.split('\n')
+    result_lines = []
+    decoded_count = 0
 
-    return text
+    for line in lines:
+        if line_is_garbled(line):
+            result_lines.append(decode_line(line))
+            decoded_count += 1
+        else:
+            result_lines.append(line)
 
+    if decoded_count > 0:
+        print(f"[PDF Parser] Fixed encoding on {decoded_count} garbled lines")
 
-def ocr_table_region(page, table_bbox) -> str:
-    """
-    OCR a table region using PaddleOCR.
-    Renders the table area as an image and extracts text via OCR.
-    This bypasses font encoding issues by reading visual content.
-    """
-    ocr = get_paddleocr()
-    if ocr is None:
-        return ""
-
-    try:
-        import numpy as np
-        from PIL import Image
-
-        # Get table bounding box (x0, y0, x1, y1)
-        x0, y0, x1, y1 = table_bbox
-        clip_rect = fitz.Rect(x0, y0, x1, y1)
-
-        # Render table region at higher DPI for better OCR
-        mat = fitz.Matrix(2.0, 2.0)  # 2x zoom for better resolution
-        pix = page.get_pixmap(matrix=mat, clip=clip_rect)
-
-        # Convert to numpy array for PaddleOCR
-        img_data = pix.tobytes("png")
-        img = Image.open(io.BytesIO(img_data))
-        img_array = np.array(img)
-
-        # Run PaddleOCR - returns list of [bbox, (text, confidence)]
-        results = ocr.ocr(img_array, cls=True)
-
-        if results and results[0]:
-            # Extract text from results - PaddleOCR returns [[bbox, (text, conf)], ...]
-            lines = []
-            for line in results[0]:
-                if len(line) >= 2:
-                    text, confidence = line[1]
-                    if confidence > 0.5:  # Filter low confidence
-                        lines.append(text)
-            return "\n".join(lines)
-        return ""
-
-    except Exception as e:
-        print(f"[OCR] Table OCR failed: {e}")
-        return ""
-
-
-def extract_all_tables_with_ocr(file_content: bytes) -> str:
-    """
-    Extract ALL tables from PDF using PaddleOCR.
-    This runs SEPARATELY from text extraction to ensure tables are captured.
-    Returns formatted table text with [TABLE] markers.
-    """
-    if not PYMUPDF_AVAILABLE:
-        return ""
-
-    try:
-        doc = fitz.open(stream=file_content, filetype="pdf")
-        all_tables = []
-
-        for page_num, page in enumerate(doc):
-            # Find tables on this page
-            table_finder = page.find_tables()
-
-            for table_idx, table in enumerate(table_finder.tables):
-                table_bbox = table.bbox
-
-                # Try PaddleOCR first (handles font encoding)
-                ocr_text = ocr_table_region(page, table_bbox)
-
-                if ocr_text and len(ocr_text.strip()) > 10:
-                    all_tables.append(f"\n[TABLE Page {page_num + 1}, Table {table_idx + 1}]\n{ocr_text}\n[/TABLE]\n")
-                else:
-                    # Fallback: extract table structure with PyMuPDF
-                    table_md = []
-                    for row in table.extract():
-                        row_text = " | ".join(str(cell) if cell else "" for cell in row)
-                        if row_text.strip():
-                            table_md.append(row_text)
-                    if table_md:
-                        # Apply encoding fix to table content
-                        table_content = "\n".join(table_md)
-                        table_content = fix_pdf_font_encoding(table_content)
-                        all_tables.append(f"\n[TABLE Page {page_num + 1}, Table {table_idx + 1}]\n{table_content}\n[/TABLE]\n")
-
-        doc.close()
-
-        if all_tables:
-            print(f"[Tables] Extracted {len(all_tables)} tables with OCR")
-            return "\n".join(all_tables)
-        return ""
-
-    except Exception as e:
-        print(f"[Tables] Table extraction failed: {e}")
-        return ""
+    return '\n'.join(result_lines)
 
 
 def wrap_markdown_tables(text: str) -> str:
@@ -503,14 +402,10 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                     text = "\n\n".join([doc.text for doc in documents if doc.text])
                     print(f"[PDF Parser] LlamaParse extracted {len(text):,} chars")
                     if text and len(text.strip()) > 100:
+                        # Fix garbled font encoding if detected (+29 ASCII shift)
+                        text = fix_pdf_font_encoding(text)
                         # Wrap markdown tables in [TABLE] markers for frontend rendering
                         text = wrap_markdown_tables(text)
-
-                        # HYBRID: Also extract tables with PaddleOCR for PDFs with encoding issues
-                        tables_text = extract_all_tables_with_ocr(file_content)
-                        if tables_text:
-                            print(f"[PDF Parser] Adding {len(tables_text):,} chars of table content")
-                            text = text + "\n\n=== TABLES (OCR EXTRACTED) ===\n" + tables_text
                         return text
                     else:
                         print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")
@@ -536,22 +431,12 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             for page_num, page in enumerate(doc):
                 page_text = []
 
-                # Extract tables using PaddleOCR (bypasses font encoding issues)
+                # Extract tables with PyMuPDF
                 table_finder = page.find_tables()
-                table_texts = set()  # Track table regions to avoid duplication
+                table_texts = set()  # Track table content to avoid duplication
 
                 for table in table_finder.tables:
                     total_tables += 1
-                    table_bbox = table.bbox  # (x0, y0, x1, y1)
-
-                    # Try PaddleOCR for table extraction (handles font encoding)
-                    ocr_text = ocr_table_region(page, table_bbox)
-                    if ocr_text and len(ocr_text.strip()) > 10:
-                        page_text.append(f"\n[TABLE]\n{ocr_text}\n[/TABLE]\n")
-                        table_texts.add(f"{table_bbox}")  # Track this region
-                        continue
-
-                    # Fallback to PyMuPDF extraction (may have encoding issues)
                     table_md = []
                     for row in table.extract():
                         row_text = " | ".join(str(cell) if cell else "" for cell in row)
@@ -568,7 +453,7 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                 for block in blocks:
                     if block[6] == 0:  # Text block (not image)
                         block_text = block[4].strip()
-                        # Skip if this text is part of a table (check if any significant portion matches)
+                        # Skip if this text is part of a table
                         if block_text and len(block_text) > 10:
                             is_table_text = any(cell in block_text.lower() for cell in table_texts if len(cell) > 10)
                             if not is_table_text:
