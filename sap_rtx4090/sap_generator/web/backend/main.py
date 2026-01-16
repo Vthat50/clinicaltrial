@@ -559,6 +559,256 @@ def wrap_markdown_tables(text: str) -> str:
     return '\n'.join(result)
 
 
+# ============================================================================
+# REDUCTO SOA TABLE EXTRACTION SUPPORT
+# ============================================================================
+
+SOA_KEYWORDS = [
+    "Schedule of Study Procedures",
+    "Schedule of Assessments",
+    "Schedule of Events",
+    "Table of Activities",
+    "Schedule of Activities",
+    "Study Procedures Schedule",
+    "Assessment Schedule",
+    "Time and Events Schedule",
+    "Study Schedule",
+]
+
+
+def _is_soa_header(blocks: list, keyword: str) -> bool:
+    """
+    Check if a keyword appears as a section header (not just a reference).
+
+    A header is identified by:
+    - Appears on its own line or with minimal surrounding text
+    - Often in larger font or bold (we approximate by checking line length)
+    - Not buried in the middle of a paragraph
+    """
+    keyword_lower = keyword.lower()
+
+    for block in blocks:
+        if len(block) >= 5 and block[6] == 0:  # Text block
+            block_text = block[4].strip()
+            block_text_lower = block_text.lower()
+
+            if keyword_lower in block_text_lower:
+                # Check if keyword is the main content of this block (header-like)
+                # Headers are usually short lines, not paragraphs
+                lines = block_text.split('\n')
+                for line in lines:
+                    line_stripped = line.strip()
+                    line_lower = line_stripped.lower()
+                    if keyword_lower in line_lower:
+                        # Header criteria:
+                        # 1. Line is relatively short (< 150 chars) - not a paragraph
+                        # 2. Keyword is a significant portion of the line
+                        if len(line_stripped) < 150:
+                            keyword_ratio = len(keyword) / max(len(line_stripped), 1)
+                            if keyword_ratio > 0.3:  # Keyword is >30% of the line
+                                return True
+    return False
+
+
+def detect_soa_pages_from_pdf(file_content: bytes) -> List[int]:
+    """
+    Detect pages containing Schedule of Assessments (SOA) tables directly from PDF.
+
+    Strategy:
+    1. Find pages that have SOA keywords as section headers (not just references)
+    2. Filter to only pages that contain actual table structures
+    3. Include consecutive pages after a header (tables often span multiple pages)
+
+    Args:
+        file_content: PDF file as bytes
+
+    Returns:
+        List of 1-indexed page numbers containing SOA tables.
+    """
+    if not PYMUPDF_AVAILABLE:
+        print("[SOA Detect] PyMuPDF not available for PDF search")
+        return []
+
+    try:
+        doc = fitz.open(stream=file_content, filetype="pdf")
+        total_pages = len(doc)
+
+        # Step 1: Find pages with SOA section headers AND tables
+        header_pages = []  # Pages where SOA keyword appears as a header
+        pages_with_tables = set()  # All pages that have table structures
+
+        for page_num in range(total_pages):
+            page = doc[page_num]
+            page_1idx = page_num + 1
+
+            # Check if page has tables (works for both portrait and landscape)
+            tables = page.find_tables()
+            has_tables = len(tables.tables) > 0
+
+            if has_tables:
+                pages_with_tables.add(page_1idx)
+
+            # Get text and check for SOA headers
+            # Use "blocks" to get text with position info for header detection
+            blocks = page.get_text("blocks")
+            page_text_lower = page.get_text().lower()
+
+            for keyword in SOA_KEYWORDS:
+                keyword_lower = keyword.lower()
+                if keyword_lower in page_text_lower:
+                    # Check if this keyword appears as a header (near top of page or standalone line)
+                    is_header = _is_soa_header(blocks, keyword)
+                    if is_header:
+                        header_pages.append(page_1idx)
+                        print(f"[SOA Detect] Found SOA header '{keyword}' on page {page_1idx} (has_tables={has_tables})")
+                        break
+
+        doc.close()
+
+        if not header_pages:
+            print(f"[SOA Detect] No SOA headers found in {total_pages} pages")
+            return []
+
+        print(f"[SOA Detect] Found {len(pages_with_tables)} pages with tables: {sorted(pages_with_tables)}")
+        print(f"[SOA Detect] Found SOA headers on pages: {header_pages}")
+
+        # Step 2: For each header page, find nearby table clusters
+        # Strategy: Look within 10 pages after header for tables, include only pages with actual tables
+        soa_pages = set()
+        for header_page in header_pages:
+            # Only include header page if it has tables
+            if header_page in pages_with_tables:
+                soa_pages.add(header_page)
+
+            # Look for table pages within 10 pages after the header
+            table_cluster_start = None
+            for offset in range(1, 11):  # Check up to 10 pages after header
+                next_page = header_page + offset
+                if next_page > total_pages:
+                    break
+
+                if next_page in pages_with_tables:
+                    if table_cluster_start is None:
+                        table_cluster_start = next_page
+                        print(f"[SOA Detect] Found table cluster starting at page {next_page} (after header on {header_page})")
+                    soa_pages.add(next_page)
+                elif table_cluster_start is not None:
+                    # We found a table cluster and now hit a non-table page
+                    # Stop extending this cluster
+                    break
+
+        result = sorted(soa_pages)
+        print(f"[SOA Detect] Final SOA pages (tables only): {result}")
+        return result
+
+    except Exception as e:
+        print(f"[SOA Detect] Error searching PDF: {e}")
+        import traceback
+        traceback.print_exc()
+        return []
+
+
+def merge_reducto_soa_into_text(original_text: str, reducto_content: str) -> str:
+    """
+    Merge Reducto's SOA extraction into LlamaParse output.
+
+    Strategy:
+    1. Find SOA section headers in original text
+    2. Find the end of the SOA section (next major section or reasonable boundary)
+    3. Replace the SOA section with Reducto's better extraction
+
+    If SOA section can't be reliably identified, append Reducto content at end.
+
+    Args:
+        original_text: Full protocol text from LlamaParse
+        reducto_content: Extracted SOA tables from Reducto
+
+    Returns:
+        Merged text with Reducto SOA replacing original
+    """
+    if not reducto_content or not reducto_content.strip():
+        return original_text
+
+    # Find SOA section start
+    soa_start_patterns = [
+        r'\n#+\s*Schedule of Study Procedures',
+        r'\n#+\s*Schedule of Assessments',
+        r'\n#+\s*Schedule of Events',
+        r'\n#+\s*Table of Activities',
+        r'\nSchedule of Study Procedures\n',
+        r'\nSchedule of Assessments\n',
+        r'\nSCHEDULE OF STUDY PROCEDURES',
+        r'\nSCHEDULE OF ASSESSMENTS',
+    ]
+
+    soa_start_idx = -1
+    soa_header = ""
+
+    for pattern in soa_start_patterns:
+        match = re.search(pattern, original_text, re.IGNORECASE)
+        if match:
+            soa_start_idx = match.start()
+            soa_header = match.group(0)
+            print(f"[SOA Merge] Found SOA section start at position {soa_start_idx}: '{soa_header.strip()[:50]}...'")
+            break
+
+    if soa_start_idx == -1:
+        # Couldn't find SOA section - append at end
+        print("[SOA Merge] Could not find SOA section in text, appending Reducto content at end")
+        return original_text + "\n\n" + "=" * 60 + "\n" + \
+               "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)\n" + \
+               "=" * 60 + "\n\n" + reducto_content
+
+    # Find SOA section end - look for next major section header
+    # Major sections typically start with # or are in ALL CAPS followed by newline
+    section_end_patterns = [
+        r'\n#+\s*[A-Z][^#\n]+\n',  # Markdown header
+        r'\n\d+\.\s+[A-Z][^\n]+\n',  # Numbered section (e.g., "7. STUDY PROCEDURES")
+        r'\n[A-Z][A-Z\s]{10,}\n',  # ALL CAPS section header
+    ]
+
+    # Start searching after the SOA header
+    search_start = soa_start_idx + len(soa_header)
+
+    # Skip some content (at least 500 chars) to avoid matching subsection headers within SOA
+    min_section_length = 500
+    soa_end_idx = len(original_text)  # Default to end of document
+
+    for pattern in section_end_patterns:
+        for match in re.finditer(pattern, original_text[search_start + min_section_length:]):
+            potential_end = search_start + min_section_length + match.start()
+            # Verify this looks like a new major section, not a table header
+            matched_text = match.group(0).strip()
+            # Skip if it looks like SOA-related content
+            if any(kw in matched_text.lower() for kw in ['schedule', 'assessment', 'visit', 'procedure', 'table']):
+                continue
+            soa_end_idx = potential_end
+            print(f"[SOA Merge] Found section end at position {soa_end_idx}: '{matched_text[:50]}...'")
+            break
+        if soa_end_idx < len(original_text):
+            break
+
+    # Build merged content
+    before_soa = original_text[:soa_start_idx]
+    after_soa = original_text[soa_end_idx:]
+
+    # Create enhanced SOA section
+    enhanced_soa = (
+        "\n\n" + "=" * 60 + "\n"
+        "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)\n"
+        + "=" * 60 + "\n\n"
+        + reducto_content
+        + "\n\n" + "=" * 60 + "\n"
+        "END OF SCHEDULE OF ASSESSMENTS\n"
+        + "=" * 60 + "\n"
+    )
+
+    merged = before_soa + enhanced_soa + after_soa
+    print(f"[SOA Merge] Replaced {soa_end_idx - soa_start_idx:,} chars with {len(enhanced_soa):,} chars of Reducto content")
+
+    return merged
+
+
 def detect_table_pages(file_content: bytes) -> set:
     """Detect which pages contain tables using PyMuPDF."""
     if not PYMUPDF_AVAILABLE:
@@ -682,6 +932,33 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                         os.unlink(tmp_path)
 
                         text = wrap_markdown_tables(text)
+
+                        # === REDUCTO SOA ENHANCEMENT ===
+                        # If Reducto API key is set, extract SOA tables with Reducto
+                        # for better table quality
+                        if os.getenv("REDUCTO_API_KEY"):
+                            try:
+                                from reducto_client import extract_soa_with_reducto
+
+                                # Detect SOA pages from the original PDF
+                                soa_pages = detect_soa_pages_from_pdf(file_content)
+
+                                if soa_pages:
+                                    print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
+                                    reducto_result = extract_soa_with_reducto(file_content, soa_pages)
+
+                                    if reducto_result.success:
+                                        print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
+                                        # Merge Reducto SOA into LlamaParse output
+                                        text = merge_reducto_soa_into_text(text, reducto_result.content)
+                                        print(f"[PDF Parser] Merged Reducto SOA into protocol")
+                                    else:
+                                        print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
+                                else:
+                                    print("[PDF Parser] No SOA pages detected, skipping Reducto")
+                            except Exception as e:
+                                print(f"[PDF Parser] Reducto integration error: {e}, continuing with LlamaParse only")
+
                         return text
 
                 # Fallback: regular LlamaParse for everything
@@ -712,6 +989,26 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                         text = fix_pdf_font_encoding(text)
                         # Wrap markdown tables in [TABLE] markers for frontend rendering
                         text = wrap_markdown_tables(text)
+
+                        # === REDUCTO SOA ENHANCEMENT ===
+                        if os.getenv("REDUCTO_API_KEY"):
+                            try:
+                                from reducto_client import extract_soa_with_reducto
+                                soa_pages = detect_soa_pages_from_pdf(file_content)
+                                if soa_pages:
+                                    print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
+                                    reducto_result = extract_soa_with_reducto(file_content, soa_pages)
+                                    if reducto_result.success:
+                                        print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
+                                        text = merge_reducto_soa_into_text(text, reducto_result.content)
+                                        print(f"[PDF Parser] Merged Reducto SOA into protocol")
+                                    else:
+                                        print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
+                                else:
+                                    print("[PDF Parser] No SOA pages detected, skipping Reducto")
+                            except Exception as e:
+                                print(f"[PDF Parser] Reducto integration error: {e}, continuing with LlamaParse only")
+
                         return text
                     else:
                         print("[PDF Parser] LlamaParse returned minimal text, trying PyMuPDF...")
@@ -776,6 +1073,26 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             doc.close()
             result = "\n\n".join(text_parts)
             print(f"[PDF Parser] PyMuPDF extracted {len(result):,} chars, {total_tables} tables from {len(doc)} pages")
+
+            # === REDUCTO SOA ENHANCEMENT (PyMuPDF fallback) ===
+            if os.getenv("REDUCTO_API_KEY"):
+                try:
+                    from reducto_client import extract_soa_with_reducto
+                    soa_pages = detect_soa_pages_from_pdf(file_content)
+                    if soa_pages:
+                        print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
+                        reducto_result = extract_soa_with_reducto(file_content, soa_pages)
+                        if reducto_result.success:
+                            print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
+                            result = merge_reducto_soa_into_text(result, reducto_result.content)
+                            print(f"[PDF Parser] Merged Reducto SOA into protocol")
+                        else:
+                            print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
+                    else:
+                        print("[PDF Parser] No SOA pages detected, skipping Reducto")
+                except Exception as e:
+                    print(f"[PDF Parser] Reducto integration error: {e}")
+
             return result
 
         except Exception as e:
@@ -793,6 +1110,26 @@ def extract_text_from_pdf(file_content: bytes) -> str:
         print(f"[PDF Parser] PyPDF2 extracted {len(result):,} chars")
         # Fix garbled font encoding if detected
         result = fix_pdf_font_encoding(result)
+
+        # === REDUCTO SOA ENHANCEMENT (PyPDF2 fallback) ===
+        if os.getenv("REDUCTO_API_KEY"):
+            try:
+                from reducto_client import extract_soa_with_reducto
+                soa_pages = detect_soa_pages_from_pdf(file_content)
+                if soa_pages:
+                    print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
+                    reducto_result = extract_soa_with_reducto(file_content, soa_pages)
+                    if reducto_result.success:
+                        print(f"[PDF Parser] Reducto extracted {len(reducto_result.content):,} chars")
+                        result = merge_reducto_soa_into_text(result, reducto_result.content)
+                        print(f"[PDF Parser] Merged Reducto SOA into protocol")
+                    else:
+                        print(f"[PDF Parser] Reducto failed: {reducto_result.error}")
+                else:
+                    print("[PDF Parser] No SOA pages detected, skipping Reducto")
+            except Exception as e:
+                print(f"[PDF Parser] Reducto integration error: {e}")
+
         return result
     except Exception as e:
         raise ValueError(f"Failed to parse PDF: {str(e)}")
@@ -5806,6 +6143,102 @@ async def process_jobs_worker():
 
         # Small delay between jobs
         await asyncio.sleep(1)
+
+
+# ============================================================================
+# REDUCTO API ENDPOINTS
+# ============================================================================
+
+@app.get("/reducto/status")
+async def reducto_status():
+    """
+    Check if Reducto API is configured and available.
+    """
+    try:
+        from reducto_client import check_reducto_available
+        status = check_reducto_available()
+        return status
+    except ImportError:
+        return {
+            "available": False,
+            "has_api_key": bool(os.getenv("REDUCTO_API_KEY")),
+            "can_import": False,
+            "error": "reducto_client module not found"
+        }
+    except Exception as e:
+        return {
+            "available": False,
+            "error": str(e)
+        }
+
+
+@app.post("/reducto/extract-soa/upload")
+async def reducto_extract_soa_upload(file: UploadFile = File(...)):
+    """
+    Test endpoint: Extract SOA tables from uploaded PDF using Reducto.
+
+    This endpoint:
+    1. Detects SOA pages using PyMuPDF
+    2. Sends only those pages to Reducto
+    3. Returns the extracted table content
+
+    Use this to test Reducto extraction before full integration.
+    """
+    if not file.filename:
+        raise HTTPException(400, "No file provided")
+
+    if not file.filename.lower().endswith('.pdf'):
+        raise HTTPException(400, "Only PDF files are supported")
+
+    # Check Reducto availability
+    reducto_key = os.getenv("REDUCTO_API_KEY")
+    if not reducto_key:
+        raise HTTPException(503, "REDUCTO_API_KEY not set. Configure it in environment.")
+
+    try:
+        from reducto_client import extract_soa_with_reducto
+
+        content = await file.read()
+        file_size = len(content)
+
+        if file_size == 0:
+            raise HTTPException(400, "Empty file")
+
+        if file_size > 50 * 1024 * 1024:  # 50MB limit
+            raise HTTPException(400, "File too large (max 50MB)")
+
+        # Step 1: Detect SOA pages
+        soa_pages = detect_soa_pages_from_pdf(content)
+
+        if not soa_pages:
+            return {
+                "success": False,
+                "filename": file.filename,
+                "message": "No SOA pages detected in PDF",
+                "soa_pages": [],
+                "content": "",
+            }
+
+        # Step 2: Extract with Reducto
+        result = extract_soa_with_reducto(content, soa_pages)
+
+        return {
+            "success": result.success,
+            "filename": file.filename,
+            "soa_pages": result.pages_processed,
+            "content": result.content,
+            "content_length": len(result.content),
+            "credits_used": result.credits_used,
+            "error": result.error,
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Reducto SOA extraction failed: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(500, str(e))
 
 
 if __name__ == "__main__":
