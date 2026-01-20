@@ -940,7 +940,7 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                         # for better table quality
                         if os.getenv("REDUCTO_API_KEY"):
                             try:
-                                from reducto_client import extract_soa_with_reducto
+                                from web.backend.reducto_client import extract_soa_with_reducto
 
                                 # Detect SOA pages from the original PDF
                                 soa_pages = detect_soa_pages_from_pdf(file_content)
@@ -995,7 +995,7 @@ def extract_text_from_pdf(file_content: bytes) -> str:
                         # === REDUCTO SOA ENHANCEMENT ===
                         if os.getenv("REDUCTO_API_KEY"):
                             try:
-                                from reducto_client import extract_soa_with_reducto
+                                from web.backend.reducto_client import extract_soa_with_reducto
                                 soa_pages = detect_soa_pages_from_pdf(file_content)
                                 if soa_pages:
                                     print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
@@ -1079,7 +1079,7 @@ def extract_text_from_pdf(file_content: bytes) -> str:
             # === REDUCTO SOA ENHANCEMENT (PyMuPDF fallback) ===
             if os.getenv("REDUCTO_API_KEY"):
                 try:
-                    from reducto_client import extract_soa_with_reducto
+                    from web.backend.reducto_client import extract_soa_with_reducto
                     soa_pages = detect_soa_pages_from_pdf(file_content)
                     if soa_pages:
                         print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
@@ -1116,7 +1116,7 @@ def extract_text_from_pdf(file_content: bytes) -> str:
         # === REDUCTO SOA ENHANCEMENT (PyPDF2 fallback) ===
         if os.getenv("REDUCTO_API_KEY"):
             try:
-                from reducto_client import extract_soa_with_reducto
+                from web.backend.reducto_client import extract_soa_with_reducto
                 soa_pages = detect_soa_pages_from_pdf(file_content)
                 if soa_pages:
                     print(f"[PDF Parser] Extracting SOA from pages {soa_pages} with Reducto...")
@@ -6265,7 +6265,7 @@ async def reducto_status():
     Check if Reducto API is configured and available.
     """
     try:
-        from reducto_client import check_reducto_available
+        from web.backend.reducto_client import check_reducto_available
         status = check_reducto_available()
         return status
     except ImportError:
@@ -6306,7 +6306,7 @@ async def reducto_extract_soa_upload(file: UploadFile = File(...)):
         raise HTTPException(503, "REDUCTO_API_KEY not set. Configure it in environment.")
 
     try:
-        from reducto_client import extract_soa_with_reducto
+        from web.backend.reducto_client import extract_soa_with_reducto
 
         content = await file.read()
         file_size = len(content)
