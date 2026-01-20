@@ -15,11 +15,11 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v101.0-tlf-integration-2026-01-20")
-print("FEATURE: TLF Shell Integration + Text-based SOA Detection")
+print("BUILD: v101.1-soa-appendix-2026-01-20")
+print("FEATURE: SOA Appendix + TLF Shell Integration")
+print("  • v101.1: Append Reducto SOA as Appendix A in generated SAP")
 print("  • v101.0: TLF shell generator for study-specific table shells")
 print("  • SOA: Text-based detection with exclusion keywords (RECIST filter)")
-print("  • Reducto: Fixed package name (reductoai) for Render deployment")
 print("=" * 70)
 
 import os
@@ -6272,6 +6272,38 @@ async def process_jobs_worker():
                         final_sec17_pos = sap_text.find('## 17.')
                         final_preview = sap_text[final_sec17_pos:final_sec17_pos+150]
                         print(f"  [DEBUG] Section 17 (TFLs): {final_preview[:100]}...")
+
+                    # =========================================================
+                    # v101.1: APPEND REDUCTO SOA AS APPENDIX
+                    # The Reducto-extracted Schedule of Assessments should be
+                    # included in the SAP as an appendix for completeness.
+                    # =========================================================
+                    protocol_text = job.get("protocol_text", "")
+                    reducto_marker = "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)"
+
+                    if reducto_marker in protocol_text:
+                        # Extract Reducto SOA content
+                        marker_pos = protocol_text.find(reducto_marker)
+                        # Skip past the marker line and the equals signs
+                        soa_start = protocol_text.find("\n\n", marker_pos)
+                        if soa_start > 0:
+                            reducto_soa_content = protocol_text[soa_start:].strip()
+
+                            # Only append if we have substantial content
+                            if len(reducto_soa_content) > 500:
+                                # Check if SAP already has Schedule of Assessments
+                                if "Schedule of Assessments" not in sap_text and "SCHEDULE OF ASSESSMENTS" not in sap_text:
+                                    sap_text = sap_text.rstrip() + "\n\n---\n\n"
+                                    sap_text += "## APPENDIX A: SCHEDULE OF ASSESSMENTS\n\n"
+                                    sap_text += "*This schedule was extracted from protocol tables using Reducto vision processing.*\n\n"
+                                    sap_text += reducto_soa_content
+                                    print(f"  [SOA Appendix] Appended {len(reducto_soa_content):,} chars of Schedule of Assessments")
+                                else:
+                                    print(f"  [SOA Appendix] SAP already contains Schedule of Assessments, skipping")
+                            else:
+                                print(f"  [SOA Appendix] Reducto content too short ({len(reducto_soa_content)} chars), skipping")
+                    else:
+                        print(f"  [SOA Appendix] No Reducto SOA marker found in protocol text")
 
                     update_data = {
                         "status": "completed",
