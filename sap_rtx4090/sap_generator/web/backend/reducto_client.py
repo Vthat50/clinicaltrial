@@ -32,7 +32,7 @@ def get_reducto_client():
         return None
 
     try:
-        from reductoai import Reducto
+        from reducto import Reducto
         _reducto_client = Reducto(api_key=api_key)
         REDUCTO_AVAILABLE = True
         print("[Reducto] Client initialized successfully")
@@ -278,7 +278,7 @@ def check_reducto_available() -> Dict[str, Any]:
 
     # Try to import
     try:
-        from reductoai import Reducto
+        from reducto import Reducto
         can_import = True
     except ImportError:
         can_import = False
