@@ -1329,26 +1329,48 @@ class KnowledgeBaseTools:
 
         Args:
             shell_type: One of:
-                - "disposition": Subject disposition shells
-                - "demographics": Demographics and baseline shells
-                - "efficacy": Efficacy analysis shells
-                - "safety": Safety analysis shells
-                - "pk": Pharmacokinetic shells
+                - "disposition": Subject disposition shells (14.1.x)
+                - "demographics": Demographics and baseline shells (14.1.2, 14.1.3)
+                - "efficacy": Efficacy analysis shells (14.2.x)
+                - "safety": Safety analysis shells (14.3.x) with lab thresholds
+                - "pk": Pharmacokinetic shells (14.5.x) with 80-125% bioequivalence
+                - "figures": Figure specifications (14.4.x)
+                - "listings": Data listings (16.x)
                 - "all": All TFL shells (default)
 
         Returns:
             TFL shell templates with:
             - Table/Figure/Listing structure
-            - Column headers and row labels
-            - Statistical presentation formats
+            - Column specifications (header, width in inches, alignment L/C/R, source variable)
+            - Row specifications (level, label, bold, type)
+            - Source dataset and filter conditions
+            - Sort order
+            - Programming notes
             - Footnote conventions
+            - Lab thresholds (Hgb<8, ANC<1.0, Plt<50, ALT/AST>3×ULN, etc.)
+            - PK bioequivalence criteria (80-125% margins)
         """
+        # Map shell_type to TFL_SHELLS keys
+        type_mapping = {
+            "disposition": "disposition_tables",
+            "demographics": "disposition_tables",  # Demographics is in 14.1.2
+            "efficacy": "efficacy_tables",
+            "safety": "safety_tables",
+            "pk": "pk_tables",
+            "figures": "figures",
+            "listings": "listings",
+        }
+
         if shell_type == "all":
             content = self.TFL_SHELLS
             source_key = "TFL_SHELLS"
         else:
-            content = self.TFL_SHELLS.get(shell_type, {})
-            source_key = f"TFL_SHELLS['{shell_type}']"
+            mapped_key = type_mapping.get(shell_type, shell_type)
+            content = self.TFL_SHELLS.get(mapped_key, {})
+            # Also try the original key if mapping not found
+            if not content:
+                content = self.TFL_SHELLS.get(shell_type, {})
+            source_key = f"TFL_SHELLS['{mapped_key}']"
 
         self._log_retrieval("get_tfl_shells", shell_type, "production_sap_specifications.py")
 

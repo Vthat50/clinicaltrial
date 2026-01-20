@@ -929,6 +929,40 @@ PK_PD_ANALYSIS = {
             "definition": "CAR-T cell expansion pattern",
             "metrics": ["Peak expansion", "Time to peak", "Duration of persistence"]
         }
+    },
+
+    "biosimilar_pk": {
+        "description": "Pharmacokinetic similarity analysis for biosimilar studies",
+        "bioequivalence_criteria": {
+            "standard_margins": "80-125%",
+            "definition": "90% CI for geometric mean ratio (GMR) must be entirely within 80-125%",
+            "formula": "GMR = exp(mean(ln(Test)) - mean(ln(Reference)))"
+        },
+        "primary_pk_parameters": {
+            "Ctrough": {
+                "definition": "Trough serum concentration",
+                "timepoints": ["Pre-dose Cycle 1", "Pre-dose Cycle 3", "Pre-dose Cycle 6", "End of Induction"],
+                "statistics": ["n", "Mean (SD)", "Median", "Min-Max", "CV%", "Geometric Mean", "Geometric CV%"]
+            },
+            "AUCtau": {
+                "definition": "Area under concentration-time curve over dosing interval",
+                "equivalence": "GMR with 90% CI within 80-125%"
+            },
+            "Cmax": {
+                "definition": "Maximum observed concentration",
+                "equivalence": "GMR with 90% CI within 80-125%"
+            }
+        },
+        "similarity_analysis_table": {
+            "title": "Trough Serum Concentrations by Cycle - Similarity Analysis (PK Population)",
+            "statistics": ["Geometric mean ratio [90% CI]", "Equivalence margins: 80-125%"],
+            "interpretation": "Similarity demonstrated if 90% CI for GMR lies entirely within 80-125%"
+        },
+        "pk_concentration_figure": {
+            "title": "Mean Trough Concentrations Over Time (PK Population)",
+            "format": "Line plot with error bars (mean ± SE or SD)",
+            "elements": ["Separate lines for test and reference products", "Y-axis: concentration", "X-axis: cycle/visit"]
+        }
     }
 }
 
@@ -3450,6 +3484,34 @@ IMMUNOGENICITY_ANALYSIS = {
         "pk_impact": "Compare PK parameters in ADA+ vs ADA-",
         "efficacy_impact": "Compare efficacy in ADA+ vs ADA-",
         "safety_impact": "Compare AE incidence in ADA+ vs ADA-"
+    },
+
+    "ada_table_shell": {
+        "table_number": "14.3.6",
+        "title": "Anti-Drug Antibodies Summary (Safety Population)",
+        "columns": ["Timepoint", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+        "timepoints": ["Baseline", "Cycle 3 Day 1", "Cycle 6 Day 1", "End of Induction", "Follow-up"],
+        "categories": ["Positive, n (%)", "Negative, n (%)", "Inconclusive, n (%)", "Missing, n (%)"],
+        "additional_rows": [
+            "Treatment-emergent ADA positive, n (%)",
+            "Treatment-boosted ADA positive, n (%)",
+            "Transient ADA positive, n (%)",
+            "Persistent ADA positive, n (%)",
+            "Neutralizing antibody positive among ADA+, n (%)"
+        ],
+        "footnotes": [
+            "Treatment-emergent: Negative at baseline, positive post-baseline",
+            "Treatment-boosted: Positive at baseline with ≥4-fold increase in titer",
+            "Transient: Positive at 1-2 consecutive assessments",
+            "Persistent: Positive at ≥3 consecutive assessments or positive at last assessment"
+        ]
+    },
+
+    "ada_listing": {
+        "listing_number": "16.2.6.1",
+        "title": "Anti-Drug Antibody Results",
+        "columns": ["Subject ID", "Treatment", "Visit", "Timepoint", "Screening Result", "Confirmatory Result", "Titer", "NAb Result"],
+        "sort_order": ["Treatment", "Subject ID", "Visit"]
     }
 }
 

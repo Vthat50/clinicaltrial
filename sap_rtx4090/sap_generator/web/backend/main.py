@@ -2921,6 +2921,22 @@ async def generate_rag_sap(request: GenerateRequest):
             for d in discovered[:40]
         ])
 
+        # Extract SOA/Visit Schedule information from protocol
+        soa_text = ""
+        # Look for SOA in discovered elements
+        soa_elements = [d for d in discovered if any(kw in d.get('name', '').lower()
+                       for kw in ['visit', 'schedule', 'assessment', 'window', 'soa'])]
+        if soa_elements:
+            soa_text = "\n".join([f"- {d.get('name')}: {d.get('description', '')}" for d in soa_elements[:10]])
+
+        # Also extract from protocol text if SOA section exists
+        import re
+        soa_match = re.search(r'(Schedule of (?:Study )?(?:Assessments|Events|Activities|Procedures).*?)(?=\n#|\n\d+\.\s|\Z)',
+                             request.protocol_text, re.IGNORECASE | re.DOTALL)
+        if soa_match:
+            soa_section = soa_match.group(1)[:2000]  # Limit to 2000 chars
+            soa_text += f"\n\nSCHEDULE OF ASSESSMENTS FROM PROTOCOL:\n{soa_section}"
+
         # STEP 2: RAG Queries (0 LLM calls)
         logger.info("[RAG] Step 2: RAG queries...")
 
@@ -2960,6 +2976,9 @@ async def generate_rag_sap(request: GenerateRequest):
 PROTOCOL FACTS (use these exact values):
 {facts_text}
 
+SCHEDULE OF ASSESSMENTS / VISIT WINDOWS:
+{soa_text if soa_text else "Extract visit schedule from protocol text"}
+
 SAP STRUCTURE EXAMPLE (follow this organization):
 {structure_example}
 
@@ -2979,13 +2998,22 @@ Generate complete SAP with ALL sections:
 10. Missing Data Handling
 11. Patient-Reported Outcomes
 12. Regional Considerations (if applicable)
+13. Data Handling Conventions (REQUIRED - include Visit Windows table, Analysis Windows, Baseline Definitions)
+
+SECTION 13 REQUIREMENTS:
+- Include a Visit Windows table with columns: Analysis Visit | Target Day | Window (Days)
+- Define baseline as last non-missing assessment prior to first dose
+- Specify tumor assessment frequency (e.g., every 8 weeks)
+- Include PRO collection schedule if applicable
+- Define analysis windows for each scheduled visit
 
 NOTE: TLF Shell Specifications will be appended automatically - do NOT include placeholder text for TLF appendix.
 
 REQUIREMENTS:
 - Use ALL protocol facts with exact numbers (alpha, sample size, HR, etc.)
 - Include specific statistical methods (log-rank, Cox, Miettinen-Nurminen, etc.)
-- Follow professional SAP formatting with numbered sections"""
+- Follow professional SAP formatting with numbered sections
+- Section 13 MUST include visit windows table derived from Schedule of Assessments"""
 
             response = client.messages.create(
                 model="claude-sonnet-4-20250514",

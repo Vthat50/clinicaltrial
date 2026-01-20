@@ -31,34 +31,48 @@ DISPOSITION_TABLES = {
         "title": "Subject Disposition",
         "population": "All Screened",
         "columns": ["Category", "Treatment A (N=XXX)", "Treatment B (N=XXX)", "Total (N=XXX)"],
+        "column_specs": [
+            {"header": "Category", "width": 2.5, "align": "L", "source": None},
+            {"header": "Treatment A\n(N=XXX)", "width": 1.2, "align": "C", "source": "ADSL"},
+            {"header": "Treatment B\n(N=XXX)", "width": 1.2, "align": "C", "source": "ADSL"},
+            {"header": "Total\n(N=XXX)", "width": 1.2, "align": "C", "source": "ADSL"},
+        ],
         "rows": [
-            "Screened",
-            "Screen Failures",
-            "  Did not meet eligibility criteria",
-            "  Withdrew consent",
-            "  Lost to follow-up",
-            "  Adverse event",
-            "  Other",
-            "Randomized",
-            "Not Treated",
-            "Treated (Safety Population)",
-            "Completed Treatment",
-            "Discontinued Treatment",
-            "  Adverse Event",
-            "  Disease Progression",
-            "  Physician Decision",
-            "  Subject Withdrawal",
-            "  Lost to Follow-up",
-            "  Protocol Deviation",
-            "  Death",
-            "  Other",
-            "Completed Study",
-            "Ongoing"
+            {"level": 0, "label": "Screened", "bold": True, "type": "data"},
+            {"level": 0, "label": "Screen Failures", "bold": False, "type": "data"},
+            {"level": 1, "label": "Did not meet eligibility criteria", "bold": False, "type": "data"},
+            {"level": 1, "label": "Withdrew consent", "bold": False, "type": "data"},
+            {"level": 1, "label": "Lost to follow-up", "bold": False, "type": "data"},
+            {"level": 1, "label": "Adverse event", "bold": False, "type": "data"},
+            {"level": 1, "label": "Other", "bold": False, "type": "data"},
+            {"level": 0, "label": "Randomized", "bold": True, "type": "data"},
+            {"level": 0, "label": "Not Treated", "bold": False, "type": "data"},
+            {"level": 0, "label": "Treated (Safety Population)", "bold": True, "type": "data"},
+            {"level": 0, "label": "Completed Treatment", "bold": False, "type": "data"},
+            {"level": 0, "label": "Discontinued Treatment", "bold": False, "type": "data"},
+            {"level": 1, "label": "Adverse Event", "bold": False, "type": "data"},
+            {"level": 1, "label": "Disease Progression", "bold": False, "type": "data"},
+            {"level": 1, "label": "Physician Decision", "bold": False, "type": "data"},
+            {"level": 1, "label": "Subject Withdrawal", "bold": False, "type": "data"},
+            {"level": 1, "label": "Lost to Follow-up", "bold": False, "type": "data"},
+            {"level": 1, "label": "Protocol Deviation", "bold": False, "type": "data"},
+            {"level": 1, "label": "Death", "bold": False, "type": "data"},
+            {"level": 1, "label": "Other", "bold": False, "type": "data"},
+            {"level": 0, "label": "Completed Study", "bold": True, "type": "data"},
+            {"level": 0, "label": "Ongoing", "bold": False, "type": "data"},
         ],
         "statistics": "n (%)",
+        "source_dataset": "ADSL",
+        "filter": None,
+        "sort_order": ["TRT01PN"],
         "footnotes": [
             "Percentages based on number screened for screening rows, number randomized for disposition rows.",
             "A subject may have multiple reasons for screen failure or discontinuation."
+        ],
+        "programming_notes": [
+            "PROC FREQ for counts and percentages",
+            "Denominator = N randomized per treatment group for post-screening rows",
+            "Subjects counted once per category"
         ]
     },
 
@@ -863,50 +877,130 @@ SAFETY_TABLES = {
     },
 
     "14.3.7.4": {
-        "title": "Potentially Clinically Significant Laboratory Abnormalities (Safety Population)",
+        "title": "Clinically Significant Laboratory Abnormalities (Safety Population)",
         "columns": ["Parameter / Criterion", "Treatment A (N=XXX) n (%)", "Treatment B (N=XXX) n (%)"],
+        "column_specs": [
+            {"header": "Laboratory Parameter / Threshold", "width": 3.0, "align": "L", "source": "ADLB"},
+            {"header": "Treatment A\n(N=XXX)\nn (%)", "width": 1.2, "align": "C", "source": "ADLB"},
+            {"header": "Treatment B\n(N=XXX)\nn (%)", "width": 1.2, "align": "C", "source": "ADLB"},
+        ],
         "criteria": {
-            "liver": [
-                "ALT > 3x ULN",
-                "ALT > 5x ULN",
-                "ALT > 10x ULN",
-                "ALT > 20x ULN",
-                "AST > 3x ULN",
-                "AST > 5x ULN",
-                "Total Bilirubin > 1.5x ULN",
-                "Total Bilirubin > 2x ULN",
-                "ALP > 2.5x ULN"
-            ],
-            "renal": [
-                "Creatinine > 1.5x ULN",
-                "Creatinine > 2x ULN",
-                "Creatinine > 3x ULN"
-            ],
-            "hematology": [
-                "Hemoglobin < 10 g/dL",
-                "Hemoglobin < 8 g/dL",
-                "ANC < 1.5 x 10^9/L",
-                "ANC < 1.0 x 10^9/L",
-                "ANC < 0.5 x 10^9/L",
-                "Platelets < 100 x 10^9/L",
-                "Platelets < 75 x 10^9/L",
-                "Platelets < 50 x 10^9/L",
-                "Platelets < 25 x 10^9/L",
-                "Lymphocytes < 0.5 x 10^9/L"
-            ]
-        }
+            "hematology": {
+                "Hemoglobin": [
+                    {"threshold": "<10 g/dL", "clinical_significance": "Anemia"},
+                    {"threshold": "<8 g/dL", "clinical_significance": "Severe anemia, may require transfusion"}
+                ],
+                "ANC (Absolute Neutrophil Count)": [
+                    {"threshold": "<1.5×10⁹/L", "clinical_significance": "Neutropenia"},
+                    {"threshold": "<1.0×10⁹/L", "clinical_significance": "Moderate neutropenia, infection risk"},
+                    {"threshold": "<0.5×10⁹/L", "clinical_significance": "Severe neutropenia, high infection risk"}
+                ],
+                "Platelets": [
+                    {"threshold": "<100×10⁹/L", "clinical_significance": "Thrombocytopenia"},
+                    {"threshold": "<75×10⁹/L", "clinical_significance": "Moderate thrombocytopenia"},
+                    {"threshold": "<50×10⁹/L", "clinical_significance": "Severe, bleeding risk"},
+                    {"threshold": "<25×10⁹/L", "clinical_significance": "Critical, spontaneous bleeding risk"}
+                ],
+                "Lymphocytes": [
+                    {"threshold": "<0.5×10⁹/L", "clinical_significance": "Lymphopenia"}
+                ]
+            },
+            "liver_function": {
+                "ALT (Alanine Aminotransferase)": [
+                    {"threshold": ">3×ULN", "clinical_significance": "Hepatotoxicity signal"},
+                    {"threshold": ">5×ULN", "clinical_significance": "Moderate hepatotoxicity"},
+                    {"threshold": ">10×ULN", "clinical_significance": "Severe hepatotoxicity"},
+                    {"threshold": ">20×ULN", "clinical_significance": "Critical, possible liver failure"}
+                ],
+                "AST (Aspartate Aminotransferase)": [
+                    {"threshold": ">3×ULN", "clinical_significance": "Hepatotoxicity signal"},
+                    {"threshold": ">5×ULN", "clinical_significance": "Moderate hepatotoxicity"},
+                    {"threshold": ">10×ULN", "clinical_significance": "Severe hepatotoxicity"}
+                ],
+                "Total Bilirubin": [
+                    {"threshold": ">1.5×ULN", "clinical_significance": "Hyperbilirubinemia"},
+                    {"threshold": ">2×ULN", "clinical_significance": "Hepatotoxicity, assess for Hy's Law"}
+                ],
+                "ALP (Alkaline Phosphatase)": [
+                    {"threshold": ">2.5×ULN", "clinical_significance": "Cholestasis"},
+                    {"threshold": ">3×ULN", "clinical_significance": "Possible biliary obstruction"}
+                ]
+            },
+            "renal_function": {
+                "Creatinine": [
+                    {"threshold": ">1.5×ULN", "clinical_significance": "Renal impairment"},
+                    {"threshold": ">2×ULN", "clinical_significance": "Moderate renal impairment"},
+                    {"threshold": ">3×ULN", "clinical_significance": "Severe nephrotoxicity"}
+                ],
+                "eGFR": [
+                    {"threshold": "<60 mL/min/1.73m²", "clinical_significance": "Stage 3 CKD"},
+                    {"threshold": "<30 mL/min/1.73m²", "clinical_significance": "Stage 4 CKD"}
+                ]
+            },
+            "electrolytes": {
+                "Potassium": [
+                    {"threshold": "<3.0 mEq/L", "clinical_significance": "Hypokalemia, cardiac risk"},
+                    {"threshold": ">6.0 mEq/L", "clinical_significance": "Hyperkalemia, cardiac risk"}
+                ],
+                "Sodium": [
+                    {"threshold": "<125 mEq/L", "clinical_significance": "Hyponatremia"},
+                    {"threshold": ">155 mEq/L", "clinical_significance": "Hypernatremia"}
+                ],
+                "Calcium": [
+                    {"threshold": "<7.0 mg/dL", "clinical_significance": "Hypocalcemia"},
+                    {"threshold": ">12.0 mg/dL", "clinical_significance": "Hypercalcemia"}
+                ]
+            }
+        },
+        "source_dataset": "ADLB",
+        "filter": "SAFFL = 'Y'",
+        "programming_notes": [
+            "Flag records where AVAL meets threshold criteria vs ULN or fixed value",
+            "Count subjects with at least one flagged record per criterion",
+            "Use worst post-baseline value for each parameter",
+            "ULN reference values from ADLB.A1HI variable"
+        ],
+        "footnotes": [
+            "Clinically significant criteria based on FDA guidance and standard clinical practice",
+            "Subjects counted once per criterion regardless of number of occurrences",
+            "ULN = Upper Limit of Normal based on central laboratory reference ranges"
+        ]
     },
 
     "14.3.7.5": {
         "title": "Hy's Law Evaluation (Safety Population)",
         "columns": ["Category", "Treatment A (N=XXX) n (%)", "Treatment B (N=XXX) n (%)"],
-        "criteria": [
-            "ALT or AST > 3x ULN",
-            "Total Bilirubin > 2x ULN",
-            "ALT or AST > 3x ULN AND Total Bilirubin > 2x ULN",
-            "Potential Hy's Law Cases (manual adjudication)"
+        "column_specs": [
+            {"header": "Hy's Law Criterion", "width": 3.5, "align": "L", "source": "ADLB"},
+            {"header": "Treatment A\n(N=XXX)\nn (%)", "width": 1.2, "align": "C", "source": "ADLB"},
+            {"header": "Treatment B\n(N=XXX)\nn (%)", "width": 1.2, "align": "C", "source": "ADLB"},
         ],
-        "footnote": "Per FDA Guidance on Drug-Induced Liver Injury"
+        "hys_law_definition": {
+            "criteria": "ALT or AST >3×ULN AND Total Bilirubin >2×ULN AND ALP ≤2×ULN",
+            "clinical_significance": "Potential drug-induced liver injury (DILI)",
+            "note": "ALP criterion excludes cholestatic causes",
+            "reference": "FDA Guidance for Industry: Drug-Induced Liver Injury"
+        },
+        "rows": [
+            {"label": "ALT or AST >3×ULN (any post-baseline)", "type": "data"},
+            {"label": "Total Bilirubin >2×ULN (any post-baseline)", "type": "data"},
+            {"label": "ALT or AST >3×ULN AND Total Bilirubin >2×ULN (concurrent)", "type": "data"},
+            {"label": "Potential Hy's Law cases (ALT/AST >3×ULN AND TBL >2×ULN AND ALP ≤2×ULN)", "type": "highlight"},
+            {"label": "Confirmed Hy's Law cases (after adjudication)", "type": "data"}
+        ],
+        "source_dataset": "ADLB",
+        "filter": "SAFFL = 'Y' and (PARAMCD in ('ALT', 'AST', 'BILI', 'ALP'))",
+        "programming_notes": [
+            "Identify subjects with ALT or AST >3×ULN at any post-baseline visit",
+            "For those subjects, check if TBL >2×ULN within ±7 days (concurrent)",
+            "For concurrent cases, verify ALP ≤2×ULN to exclude cholestasis",
+            "Flag potential Hy's Law cases for medical review/adjudication"
+        ],
+        "footnotes": [
+            "Per FDA Guidance on Drug-Induced Liver Injury (July 2009)",
+            "Concurrent defined as within ±7 days of elevated transaminase",
+            "Potential cases require hepatology review to confirm DILI diagnosis"
+        ]
     },
 
     "14.3.8.1": {

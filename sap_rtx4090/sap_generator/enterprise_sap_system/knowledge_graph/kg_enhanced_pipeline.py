@@ -1667,14 +1667,31 @@ Please regenerate the SAP with these corrections applied. Maintain the same stru
         if flags.get("is_umbrella"):
             instructions.append("CALL get_study_type_template('umbrella') for biomarker-defined cohorts")
 
+        # 3b. Biosimilar/PK study routing
+        pk_endpoints = full_extraction.get("pk_endpoints", []) if full_extraction else []
+        study_objectives = (full_extraction.get("study_objectives", {}) or {}) if full_extraction else {}
+        primary_objective = (study_objectives.get("primary", {}).get("value") or "").lower() if study_objectives else ""
+        title = (full_extraction.get("study_info", {}).get("title", {}).get("value") or "").lower() if full_extraction.get("study_info") else ""
+
+        is_biosimilar = any(kw in title or kw in primary_objective for kw in ["biosimilar", "bioequival", "similarity", "similar to", "compare efficacy"])
+        has_pk_endpoints = bool(pk_endpoints) or "ctrough" in title or "pk" in primary_objective or "trough" in primary_objective
+        has_immunogenicity = any(kw in title or kw in primary_objective for kw in ["immunogen", "antibod", "ada", "anti-drug"])
+
+        if is_biosimilar or has_pk_endpoints:
+            instructions.append("CALL get_pkpd_analysis_specs() for PK parameters (Ctrough, Cmax, AUC), geometric mean ratios, and 80-125% bioequivalence margins")
+
+        if is_biosimilar or has_immunogenicity:
+            instructions.append("CALL get_immunogenicity_specs() for ADA testing methodology, ADA summary tables (baseline, by timepoint, treatment-emergent), and ADA impact analysis on PK/efficacy/safety")
+
         # 4. Standard tools always needed
         instructions.append("CALL get_statistical_method() for Cox, Kaplan-Meier, log-rank formulas")
         instructions.append("CALL get_multiplicity_adjustment() if multiple hypotheses")
         instructions.append("CALL get_similar_trials() to find precedent for censoring rules and methods")
         instructions.append("CALL get_disposition_tables(), get_efficacy_tables(), get_safety_tables() for TFL shells")
         instructions.append("CALL get_oncology_tfl_templates() for endpoint specifications, OS tables, AE tables")
-        instructions.append("CALL get_safety_analysis_specs() for AE analysis methods, CTCAE grading, exposure-adjusted rates")
-        instructions.append("CALL get_tfl_shells() for complete TFL structure templates with column headers and footnotes")
+        instructions.append("CALL get_safety_analysis_specs(analysis_type='all') for AE analysis methods, CTCAE grading, exposure-adjusted rates")
+        instructions.append("CALL get_safety_analysis_specs(analysis_type='laboratory') for lab thresholds: Hemoglobin <8 g/dL, ANC <1.0×10⁹/L, Platelets <50×10⁹/L, ALT/AST >3×ULN, Bilirubin >2×ULN, Creatinine >1.5×ULN, and Hy's Law criteria")
+        instructions.append("CALL get_tfl_shells(shell_type='all') for complete TFL structure templates with column headers, row labels, statistics, and footnotes for disposition, demographics, efficacy, safety, and PK tables")
         instructions.append("CALL get_programming_specifications() for visit windowing, baseline definition, derivation rules")
         instructions.append("CALL get_adam_dataset_spec() for ADaM dataset specs (adsl/adae/adtte/adrs/adlb/adex/advs/adeg/adpr/adcm/admh)")
 

@@ -33,6 +33,12 @@ TFL_SHELLS = {
         "14.1.1": {
             "title": "Subject Disposition",
             "columns": ["Category", "Treatment A (N=XXX)", "Treatment B (N=XXX)", "Total (N=XXX)"],
+            "column_specs": [
+                {"header": "Category", "width": 2.5, "align": "L", "source": None},
+                {"header": "Treatment A\n(N=XXX)", "width": 1.2, "align": "C", "source": "ADSL"},
+                {"header": "Treatment B\n(N=XXX)", "width": 1.2, "align": "C", "source": "ADSL"},
+                {"header": "Total\n(N=XXX)", "width": 1.2, "align": "C", "source": "ADSL"},
+            ],
             "rows": [
                 "Screened",
                 "Screen Failures",
@@ -53,17 +59,32 @@ TFL_SHELLS = {
                 "Ongoing"
             ],
             "statistics": "n (%)",
+            "source_dataset": "ADSL",
+            "filter": None,
+            "sort_order": ["TRT01PN"],
             "footnotes": [
                 "Percentages based on number randomized",
                 "A subject may have multiple reasons for discontinuation"
+            ],
+            "programming_notes": [
+                "PROC FREQ for counts and percentages",
+                "Denominator = N randomized per treatment group",
+                "Subjects counted once per category"
             ]
         },
         "14.1.2": {
             "title": "Demographics and Baseline Characteristics",
             "columns": ["Parameter", "Statistic", "Treatment A (N=XXX)", "Treatment B (N=XXX)", "Total (N=XXX)"],
+            "column_specs": [
+                {"header": "Characteristic", "width": 2.5, "align": "L", "source": None},
+                {"header": "Treatment A\n(N=XXX)", "width": 1.3, "align": "C", "source": "ADSL"},
+                {"header": "Treatment B\n(N=XXX)", "width": 1.3, "align": "C", "source": "ADSL"},
+                {"header": "Total\n(N=XXX)", "width": 1.3, "align": "C", "source": "ADSL"},
+                {"header": "p-value", "width": 0.8, "align": "C", "source": "Statistical test"},
+            ],
             "parameters": {
                 "age": {
-                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "statistics": ["N", "Mean (SD)", "Median (Q1, Q3)", "Min, Max"],
                     "decimals": 1
                 },
                 "age_group": {
@@ -75,23 +96,23 @@ TFL_SHELLS = {
                     "statistics": "n (%)"
                 },
                 "race": {
-                    "categories": ["White", "Black or African American", "Asian", "Other"],
+                    "categories": ["White", "Black or African American", "Asian", "American Indian or Alaska Native", "Native Hawaiian or Pacific Islander", "Other", "Multiple"],
                     "statistics": "n (%)"
                 },
                 "ethnicity": {
-                    "categories": ["Hispanic or Latino", "Not Hispanic or Latino", "Unknown"],
+                    "categories": ["Hispanic or Latino", "Not Hispanic or Latino", "Not Reported", "Unknown"],
                     "statistics": "n (%)"
                 },
                 "weight_kg": {
-                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "statistics": ["N", "Mean (SD)", "Median (Q1, Q3)", "Min, Max"],
                     "decimals": 1
                 },
                 "height_cm": {
-                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "statistics": ["N", "Mean (SD)", "Median (Q1, Q3)", "Min, Max"],
                     "decimals": 1
                 },
                 "bmi": {
-                    "statistics": ["Mean (SD)", "Median", "Min, Max"],
+                    "statistics": ["N", "Mean (SD)", "Median (Q1, Q3)", "Min, Max"],
                     "decimals": 1
                 },
                 "ecog_ps": {
@@ -99,9 +120,20 @@ TFL_SHELLS = {
                     "statistics": "n (%)"
                 }
             },
+            "source_dataset": "ADSL",
+            "filter": "ITTFL = 'Y'",
+            "sort_order": ["TRT01PN"],
             "footnotes": [
+                "Percentages based on the number of subjects in the population column",
+                "p-values: ANOVA for continuous, Chi-square for categorical",
                 "BMI = weight (kg) / height (m)^2",
                 "ECOG = Eastern Cooperative Oncology Group Performance Status"
+            ],
+            "programming_notes": [
+                "Continuous: N, Mean (SD), Median (Q1, Q3), Min-Max",
+                "Categorical: n (%) with % = 100 * n / N",
+                "Use PROC MEANS for continuous, PROC FREQ for categorical",
+                "p-values for descriptive purposes only"
             ]
         },
         "14.1.3": {
@@ -223,21 +255,38 @@ TFL_SHELLS = {
         "14.3.1": {
             "title": "Overview of Treatment-Emergent Adverse Events (Safety Population)",
             "columns": ["Category", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
-            "rows": [
-                "Subjects with at least one TEAE, n (%)",
-                "Subjects with at least one Grade >=3 TEAE, n (%)",
-                "Subjects with at least one Serious TEAE, n (%)",
-                "Subjects with at least one Treatment-Related TEAE, n (%)",
-                "Subjects with at least one Treatment-Related Grade >=3 TEAE, n (%)",
-                "Subjects with TEAE Leading to Treatment Discontinuation, n (%)",
-                "Subjects with TEAE Leading to Dose Reduction, n (%)",
-                "Subjects with TEAE Leading to Dose Interruption, n (%)",
-                "Deaths, n (%)"
+            "column_specs": [
+                {"header": "", "width": 2.5, "align": "L", "source": None},
+                {"header": "Treatment A\n(N=xxx)", "width": 1.2, "align": "C", "source": "ADAE"},
+                {"header": "Treatment B\n(N=xxx)", "width": 1.2, "align": "C", "source": "ADAE"},
+                {"header": "Total\n(N=xxx)", "width": 1.2, "align": "C", "source": "ADAE"},
             ],
+            "rows": [
+                {"level": 0, "label": "Subjects with at least one:", "bold": True, "type": "header"},
+                {"level": 1, "label": "TEAE", "bold": False, "type": "data"},
+                {"level": 1, "label": "Treatment-related TEAE", "bold": False, "type": "data"},
+                {"level": 1, "label": "Serious AE", "bold": False, "type": "data"},
+                {"level": 1, "label": "Treatment-related SAE", "bold": False, "type": "data"},
+                {"level": 1, "label": "AE leading to discontinuation", "bold": False, "type": "data"},
+                {"level": 1, "label": "AE leading to death", "bold": False, "type": "data"},
+                {"level": 0, "label": "", "bold": False, "type": "spacer"},
+                {"level": 0, "label": "Maximum severity of any TEAE:", "bold": True, "type": "header"},
+                {"level": 1, "label": "Mild", "bold": False, "type": "data"},
+                {"level": 1, "label": "Moderate", "bold": False, "type": "data"},
+                {"level": 1, "label": "Severe", "bold": False, "type": "data"},
+            ],
+            "source_dataset": "ADAE",
+            "filter": "SAFFL = 'Y' and TRTEMFL = 'Y'",
+            "sort_order": ["TRT01AN"],
             "footnotes": [
-                "TEAE = Treatment-Emergent Adverse Event",
-                "TEAEs are AEs with onset on or after first dose and up to 28 days after last dose",
-                "A subject with multiple events in a category is counted once"
+                "a. TEAEs defined as AEs with onset on or after first dose and within 30 days of last dose",
+                "b. Treatment-related per investigator assessment",
+                "c. Subjects may be counted in multiple categories"
+            ],
+            "programming_notes": [
+                "Count subjects, not events, for summary",
+                "Subject counted once per category regardless of number of events",
+                "Percentages based on N in column header"
             ]
         },
         "14.3.2": {
@@ -245,17 +294,32 @@ TFL_SHELLS = {
             "columns": ["System Organ Class / Preferred Term",
                        "Treatment A (N=XXX) All Grades n (%)", "Treatment A Grade >=3 n (%)",
                        "Treatment B (N=XXX) All Grades n (%)", "Treatment B Grade >=3 n (%)"],
-            "sorting": "SOC alphabetically, PT by decreasing frequency in Treatment A",
+            "column_specs": [
+                {"header": "System Organ Class\n  Preferred Term", "width": 3.0, "align": "L", "source": "ADAE.AEBODSYS, ADAE.AEDECOD"},
+                {"header": "Treatment A\n(N=xxx)\nn (%)", "width": 1.1, "align": "C", "source": "ADAE"},
+                {"header": "Treatment B\n(N=xxx)\nn (%)", "width": 1.1, "align": "C", "source": "ADAE"},
+                {"header": "Total\n(N=xxx)\nn (%)", "width": 1.1, "align": "C", "source": "ADAE"},
+            ],
+            "source_dataset": "ADAE",
+            "filter": "SAFFL = 'Y' and TRTEMFL = 'Y'",
+            "sorting": "SOC (alphabetical), PT (descending frequency within SOC)",
             "footnotes": [
-                "Adverse events coded using MedDRA version XX.X",
-                "Graded using NCI-CTCAE version X.X",
-                "A subject with multiple events for a PT is counted once at worst grade"
+                "MedDRA version XX.X coding dictionary",
+                "Percentages based on number of subjects in population",
+                "Subjects counted once per PT, may appear in multiple SOCs"
+            ],
+            "programming_notes": [
+                "Count subjects once per preferred term",
+                "Subject with multiple events in same PT counted at worst grade",
+                "Sort SOC alphabetically, PT by descending frequency"
             ]
         },
         "14.3.3": {
             "title": "TEAEs Occurring in >=5% of Subjects in Any Treatment Group (Safety Population)",
             "columns": ["Preferred Term",
                        "Treatment A (N=XXX) n (%)", "Treatment B (N=XXX) n (%)"],
+            "source_dataset": "ADAE",
+            "filter": "SAFFL = 'Y' and TRTEMFL = 'Y' and (PCT_TRTA >= 5 or PCT_TRTB >= 5)",
             "sorting": "By decreasing frequency in Treatment A arm"
         },
         "14.3.4": {
@@ -263,10 +327,57 @@ TFL_SHELLS = {
             "format": "Baseline Grade vs Worst Post-Baseline Grade",
             "columns": ["Baseline Grade", "Grade 0", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Total"],
             "rows": ["Grade 0", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Total"],
+            "source_dataset": "ADLB",
+            "filter": "SAFFL = 'Y' and ABLFL = 'Y' and ANL01FL = 'Y'",
             "footnotes": [
                 "Grades based on NCI-CTCAE version X.X",
                 "Only subjects with both baseline and post-baseline values included",
                 "Numbers represent n (%) within each baseline grade category"
+            ],
+            "programming_notes": [
+                "Create shift tables for each lab parameter",
+                "Use PROC FREQ with CROSSLIST option",
+                "Row percentages based on baseline grade total"
+            ]
+        },
+        "14.3.5": {
+            "title": "Clinically Significant Laboratory Abnormalities (Safety Population)",
+            "description": "Laboratory values meeting pre-defined clinical significance thresholds",
+            "thresholds": {
+                "hematology": {
+                    "Hemoglobin": {"low": "<8 g/dL", "high": None, "clinical_significance": "May require transfusion"},
+                    "ANC": {"low": "<1.0×10⁹/L", "high": None, "clinical_significance": "Neutropenia, infection risk"},
+                    "Platelets": {"low": "<50×10⁹/L", "high": None, "clinical_significance": "Bleeding risk"},
+                    "WBC": {"low": "<2.0×10⁹/L", "high": ">20×10⁹/L", "clinical_significance": "Immune compromise"}
+                },
+                "liver_function": {
+                    "ALT": {"low": None, "high": ">3×ULN", "high_severe": ">5×ULN", "high_critical": ">10×ULN"},
+                    "AST": {"low": None, "high": ">3×ULN", "high_severe": ">5×ULN", "high_critical": ">10×ULN"},
+                    "Bilirubin": {"low": None, "high": ">2×ULN", "clinical_significance": "Hepatotoxicity"},
+                    "ALP": {"low": None, "high": ">3×ULN", "clinical_significance": "Cholestasis"}
+                },
+                "renal_function": {
+                    "Creatinine": {"low": None, "high": ">1.5×ULN", "high_severe": ">3×ULN", "clinical_significance": "Nephrotoxicity"},
+                    "eGFR": {"low": "<60 mL/min/1.73m²", "low_severe": "<30 mL/min/1.73m²", "high": None}
+                },
+                "electrolytes": {
+                    "Potassium": {"low": "<3.0 mEq/L", "high": ">6.0 mEq/L", "clinical_significance": "Cardiac risk"},
+                    "Sodium": {"low": "<125 mEq/L", "high": ">155 mEq/L"},
+                    "Calcium": {"low": "<7.0 mg/dL", "high": ">12.0 mg/dL"}
+                }
+            },
+            "hys_law": {
+                "definition": "ALT or AST >3×ULN AND Total Bilirubin >2×ULN AND ALP ≤2×ULN",
+                "note": "Potential drug-induced liver injury (DILI)",
+                "action": "Requires immediate evaluation per hepatotoxicity monitoring plan"
+            },
+            "columns": ["Laboratory Parameter", "Threshold", "Treatment A n (%)", "Treatment B n (%)"],
+            "source_dataset": "ADLB",
+            "filter": "SAFFL = 'Y'",
+            "programming_notes": [
+                "Flag records where AVAL meets threshold criteria",
+                "Count subjects with at least one flagged record",
+                "Include Hy's Law evaluation as separate table row"
             ]
         }
     },
@@ -317,6 +428,157 @@ TFL_SHELLS = {
                 "Number of Prior Therapies",
                 "Biomarker Status"
             ]
+        }
+    },
+
+    "pk_tables": {
+        "14.5.1": {
+            "title": "Summary of Serum Drug Concentration by Visit (PK Population)",
+            "columns": ["Visit/Timepoint", "Treatment A (N=XXX)", "Treatment B (N=XXX)"],
+            "column_specs": [
+                {"header": "Visit/Timepoint", "width": 2.0, "align": "L", "source": None},
+                {"header": "Treatment A\n(N=XXX)", "width": 2.5, "align": "C", "source": "ADPC"},
+                {"header": "Treatment B\n(N=XXX)", "width": 2.5, "align": "C", "source": "ADPC"},
+            ],
+            "parameters": {
+                "Ctrough": {
+                    "timepoints": ["Pre-dose Cycle 1", "Pre-dose Cycle 3", "Pre-dose Cycle 6", "End of Induction"],
+                    "statistics": ["n", "Mean (SD)", "Median", "Min-Max", "CV%", "Geometric Mean", "Geometric CV%"]
+                },
+                "Cmax": {
+                    "timepoints": ["Post-dose Cycle 1", "Post-dose Cycle 3"],
+                    "statistics": ["n", "Mean (SD)", "Median", "Min-Max", "CV%", "Geometric Mean", "Geometric CV%"]
+                },
+                "AUC": {
+                    "timepoints": ["Cycle 1", "Cycle 3"],
+                    "statistics": ["n", "Mean (SD)", "Median", "Min-Max", "CV%", "Geometric Mean", "Geometric CV%"]
+                }
+            },
+            "source_dataset": "ADPC",
+            "filter": "PKFL = 'Y'",
+            "footnotes": [
+                "CV% = Coefficient of Variation = 100 × SD / Mean",
+                "Geometric CV% = 100 × sqrt(exp(variance of ln-transformed data) - 1)",
+                "Ctrough = pre-dose trough concentration"
+            ],
+            "programming_notes": [
+                "Use PROC MEANS for arithmetic statistics",
+                "Calculate geometric mean as exp(mean(ln(AVAL)))",
+                "Exclude BLQ values or handle per protocol"
+            ]
+        },
+        "14.5.2": {
+            "title": "Statistical Comparison of PK Parameters - Geometric Mean Ratio (PK Population)",
+            "description": "Biosimilar PK similarity assessment with 80-125% equivalence margins",
+            "columns": ["PK Parameter", "Test (N)", "Reference (N)", "GMR", "90% CI", "Within 80-125%"],
+            "column_specs": [
+                {"header": "PK Parameter", "width": 1.5, "align": "L", "source": None},
+                {"header": "Test\nGeo Mean (CV%)", "width": 1.5, "align": "C", "source": "ADPC"},
+                {"header": "Reference\nGeo Mean (CV%)", "width": 1.5, "align": "C", "source": "ADPC"},
+                {"header": "GMR", "width": 0.8, "align": "C", "source": "Derived"},
+                {"header": "90% CI", "width": 1.2, "align": "C", "source": "Derived"},
+                {"header": "Within\n80-125%", "width": 0.8, "align": "C", "source": "Derived"},
+            ],
+            "parameters": ["Ctrough", "Cmax", "AUC0-tau", "AUC0-inf"],
+            "bioequivalence_criteria": {
+                "standard_margins": "80-125%",
+                "definition": "90% CI for geometric mean ratio must be entirely within 80-125%",
+                "formula": "GMR = exp(mean(ln(Test)) - mean(ln(Reference)))",
+                "ci_method": "Two one-sided t-tests (TOST) at α=0.05",
+                "model": "ANOVA on ln-transformed data with treatment and subject effects"
+            },
+            "source_dataset": "ADPC",
+            "filter": "PKFL = 'Y' and ANL01FL = 'Y'",
+            "footnotes": [
+                "GMR = Geometric Mean Ratio (Test/Reference)",
+                "90% CI calculated from ANOVA on ln-transformed data",
+                "Bioequivalence demonstrated if 90% CI entirely within 80-125%",
+                "Based on ln-transformed PK parameters"
+            ],
+            "programming_notes": [
+                "PROC MIXED on ln(AVAL) with treatment, period, sequence, subject(sequence)",
+                "Exponentiate LS means difference for GMR",
+                "Exponentiate CI limits for 90% CI bounds",
+                "Flag 'Yes' if lower bound ≥0.80 AND upper bound ≤1.25"
+            ]
+        }
+    },
+
+    "listings": {
+        "16.1.1": {
+            "title": "Subject Disposition Listing",
+            "columns": [
+                {"header": "Subject ID", "width": 1.0, "align": "L", "source": "ADSL.SUBJID"},
+                {"header": "Site", "width": 0.6, "align": "C", "source": "ADSL.SITEID"},
+                {"header": "Treatment", "width": 1.5, "align": "L", "source": "ADSL.TRT01P"},
+                {"header": "Randomization\nDate", "width": 1.0, "align": "C", "source": "ADSL.RANDDT", "format": "DATE9."},
+                {"header": "First Dose\nDate", "width": 1.0, "align": "C", "source": "ADSL.TRTSDT", "format": "DATE9."},
+                {"header": "Last Dose\nDate", "width": 1.0, "align": "C", "source": "ADSL.TRTEDT", "format": "DATE9."},
+                {"header": "End of Study\nDate", "width": 1.0, "align": "C", "source": "ADSL.EOSDT", "format": "DATE9."},
+                {"header": "Status", "width": 1.2, "align": "L", "source": "ADSL.EOSSTT"},
+                {"header": "Reason for\nDiscontinuation", "width": 2.0, "align": "L", "source": "ADSL.DCSREAS"},
+            ],
+            "source_dataset": "ADSL",
+            "filter": None,
+            "sort_order": ["SITEID", "SUBJID"],
+            "orientation": "Landscape",
+            "footnotes": [
+                "Dates displayed as DDMMMYYYY",
+                "Sorted by Site, Subject ID"
+            ],
+            "programming_notes": [
+                "Include all subjects in trial database",
+                "Display missing dates as blank"
+            ]
+        },
+        "16.2.1": {
+            "title": "Adverse Events Listing",
+            "columns": [
+                {"header": "Subject ID", "width": 0.8, "align": "L", "source": "ADAE.SUBJID"},
+                {"header": "Treatment", "width": 1.2, "align": "L", "source": "ADAE.TRTA"},
+                {"header": "SOC", "width": 2.0, "align": "L", "source": "ADAE.AEBODSYS"},
+                {"header": "PT", "width": 1.5, "align": "L", "source": "ADAE.AEDECOD"},
+                {"header": "Verbatim\nTerm", "width": 1.5, "align": "L", "source": "ADAE.AETERM"},
+                {"header": "Start\nDate", "width": 0.8, "align": "C", "source": "ADAE.ASTDT", "format": "DATE9."},
+                {"header": "End\nDate", "width": 0.8, "align": "C", "source": "ADAE.AENDT", "format": "DATE9."},
+                {"header": "Severity", "width": 0.7, "align": "C", "source": "ADAE.AESEV"},
+                {"header": "Related", "width": 0.6, "align": "C", "source": "ADAE.AEREL"},
+                {"header": "SAE", "width": 0.4, "align": "C", "source": "ADAE.AESER"},
+                {"header": "Action\nTaken", "width": 1.0, "align": "L", "source": "ADAE.AEACN"},
+                {"header": "Outcome", "width": 1.0, "align": "L", "source": "ADAE.AEOUT"},
+            ],
+            "source_dataset": "ADAE",
+            "filter": "SAFFL = 'Y' and TRTEMFL = 'Y'",
+            "sort_order": ["SUBJID", "ASTDT", "AESEQ"],
+            "orientation": "Landscape",
+            "footnotes": [
+                "TEAEs only (onset on or after first dose)",
+                "MedDRA version XX.X; SOC = System Organ Class, PT = Preferred Term",
+                "Related = Related/Possibly Related per investigator"
+            ],
+            "programming_notes": [
+                "One row per adverse event",
+                "Sort by subject, start date, sequence",
+                "Display ongoing events with blank end date"
+            ]
+        },
+        "16.2.2": {
+            "title": "Concomitant Medications Listing",
+            "columns": [
+                {"header": "Subject ID", "width": 0.8, "align": "L", "source": "ADCM.SUBJID"},
+                {"header": "Treatment", "width": 1.0, "align": "L", "source": "ADCM.TRTA"},
+                {"header": "Medication Name", "width": 2.0, "align": "L", "source": "ADCM.CMDECOD"},
+                {"header": "ATC Class", "width": 1.5, "align": "L", "source": "ADCM.CMCLAS"},
+                {"header": "Indication", "width": 1.5, "align": "L", "source": "ADCM.CMINDC"},
+                {"header": "Start Date", "width": 0.9, "align": "C", "source": "ADCM.CMSTDT"},
+                {"header": "End Date", "width": 0.9, "align": "C", "source": "ADCM.CMENDT"},
+                {"header": "Dose", "width": 0.8, "align": "C", "source": "ADCM.CMDOSE"},
+                {"header": "Route", "width": 0.6, "align": "C", "source": "ADCM.CMROUTE"},
+            ],
+            "source_dataset": "ADCM",
+            "filter": "SAFFL = 'Y'",
+            "sort_order": ["SUBJID", "CMSTDT", "CMDECOD"],
+            "orientation": "Landscape"
         }
     },
 
