@@ -15,11 +15,11 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v100.22-clean-2026-01-16")
-print("FEATURE: Clean working state - LlamaParse + tables + encoding fix")
-print("  • v100.22: Removed broken OCR, clean LlamaParse extraction")
-print("  • Tables: wrap_markdown_tables() adds [TABLE] markers")
-print("  • Encoding: Line-by-line fix for mixed-encoding PDFs")
+print("BUILD: v101.0-tlf-integration-2026-01-20")
+print("FEATURE: TLF Shell Integration + Text-based SOA Detection")
+print("  • v101.0: TLF shell generator for study-specific table shells")
+print("  • SOA: Text-based detection with exclusion keywords (RECIST filter)")
+print("  • Reducto: Fixed package name (reductoai) for Render deployment")
 print("=" * 70)
 
 import os
@@ -218,6 +218,20 @@ except ImportError as e:
     SAPWorkbench = None
     get_workbench_sections = None
     print(f"Warning: SAP Workbench not available: {e}")
+
+# TLF Shell Integration - Modular TLF shell generation by study type
+try:
+    from tlf_integration import (
+        generate_tlf_shells_for_protocol,
+        detect_study_type,
+        get_tlf_shell_summary
+    )
+    TLF_INTEGRATION_AVAILABLE = True
+    print("[TLF Integration] TLF shell generator available")
+except ImportError as e:
+    TLF_INTEGRATION_AVAILABLE = False
+    generate_tlf_shells_for_protocol = None
+    print(f"Warning: TLF Integration not available: {e}")
 
 # NEW: Enhanced KG Pipeline - 55-category extraction with prohibition rules
 # This replaces TwoPassExtractor for context-aware SAP generation
@@ -577,15 +591,71 @@ SOA_KEYWORDS = [
     "Study Schedule",
 ]
 
+# Keywords that indicate SOA content (visits, assessments)
+SOA_CONTENT_KEYWORDS = [
+    # Visit/timepoint terms
+    "screening", "baseline", "day 1", "day 8", "day 15", "week", "cycle",
+    "visit", "eot", "end of treatment", "follow-up", "follow up",
+    # Assessment terms
+    "vital signs", "physical exam", "laboratory", "ecg", "electrocardiogram",
+    "imaging", "ct scan", "mri", "informed consent", "randomization",
+    "adverse event", "concomitant", "pregnancy test", "urinalysis",
+    # Table structure indicators
+    "procedure", "assessment", "study drug", "blood sample", "pk sample",
+]
+
+# Keywords that indicate NON-SOA content (should be excluded)
+SOA_EXCLUSION_KEYWORDS = [
+    # RECIST response criteria
+    "recist", "response evaluation criteria", "complete response", "partial response",
+    "progressive disease", "stable disease", "target lesion", "non-target lesion",
+    "sum of diameters", "best overall response",
+    # Staging criteria
+    "tnm", "ajcc", "staging", "tumor category", "nodal category", "metastasis category",
+    # Other non-SOA tables
+    "dose modification", "dose reduction", "dose level", "dlts",
+]
+
+
+def _score_page_for_soa(page_text: str) -> tuple:
+    """
+    Score a page for SOA content likelihood.
+
+    Returns:
+        (score, is_excluded) - score is positive keywords found, is_excluded if exclusion keywords found
+    """
+    text_lower = page_text.lower()
+
+    # Check for exclusion keywords first
+    exclusion_count = 0
+    for keyword in SOA_EXCLUSION_KEYWORDS:
+        if keyword in text_lower:
+            exclusion_count += 1
+
+    # If multiple exclusion keywords found, this is likely NOT an SOA page
+    if exclusion_count >= 3:
+        return (0, True)
+
+    # Count positive SOA keywords
+    positive_score = 0
+    for keyword in SOA_CONTENT_KEYWORDS:
+        if keyword in text_lower:
+            positive_score += 1
+
+    # Bonus for table-like structure (many X marks or pipes)
+    x_count = text_lower.count(' x ') + text_lower.count('|x|') + text_lower.count('\tx\t')
+    pipe_count = text_lower.count('|')
+    if x_count > 5:
+        positive_score += 3
+    if pipe_count > 20:
+        positive_score += 2
+
+    return (positive_score, False)
+
 
 def _is_soa_header(blocks: list, keyword: str) -> bool:
     """
     Check if a keyword appears as a section header (not just a reference).
-
-    A header is identified by:
-    - Appears on its own line or with minimal surrounding text
-    - Often in larger font or bold (we approximate by checking line length)
-    - Not buried in the middle of a paragraph
     """
     keyword_lower = keyword.lower()
 
@@ -595,20 +665,14 @@ def _is_soa_header(blocks: list, keyword: str) -> bool:
             block_text_lower = block_text.lower()
 
             if keyword_lower in block_text_lower:
-                # Check if keyword is the main content of this block (header-like)
-                # Headers are usually short lines, not paragraphs
                 lines = block_text.split('\n')
                 for line in lines:
                     line_stripped = line.strip()
                     line_lower = line_stripped.lower()
-                    if keyword_lower in line_lower:
-                        # Header criteria:
-                        # 1. Line is relatively short (< 150 chars) - not a paragraph
-                        # 2. Keyword is a significant portion of the line
-                        if len(line_stripped) < 150:
-                            keyword_ratio = len(keyword) / max(len(line_stripped), 1)
-                            if keyword_ratio > 0.3:  # Keyword is >30% of the line
-                                return True
+                    if keyword_lower in line_lower and len(line_stripped) < 150:
+                        keyword_ratio = len(keyword) / max(len(line_stripped), 1)
+                        if keyword_ratio > 0.3:
+                            return True
     return False
 
 
@@ -674,33 +738,19 @@ def detect_soa_pages_from_pdf(file_content: bytes) -> List[int]:
         print(f"[SOA Detect] Found {len(pages_with_tables)} pages with tables: {sorted(pages_with_tables)}")
         print(f"[SOA Detect] Found SOA headers on pages: {header_pages}")
 
-        # Step 2: For each header page, find nearby table clusters
-        # Strategy: Look within 10 pages after header for tables, include only pages with actual tables
+        # Step 2: For each header page, include the next 3 pages
+        # SOA tables are often IMAGES (not text tables), so don't rely on find_tables()
         soa_pages = set()
         for header_page in header_pages:
-            # Only include header page if it has tables
-            if header_page in pages_with_tables:
-                soa_pages.add(header_page)
-
-            # Look for table pages within 10 pages after the header
-            table_cluster_start = None
-            for offset in range(1, 11):  # Check up to 10 pages after header
-                next_page = header_page + offset
-                if next_page > total_pages:
-                    break
-
-                if next_page in pages_with_tables:
-                    if table_cluster_start is None:
-                        table_cluster_start = next_page
-                        print(f"[SOA Detect] Found table cluster starting at page {next_page} (after header on {header_page})")
-                    soa_pages.add(next_page)
-                elif table_cluster_start is not None:
-                    # We found a table cluster and now hit a non-table page
-                    # Stop extending this cluster
-                    break
+            # Include header page and next 3 pages (SOA typically spans 2-3 pages)
+            for offset in range(0, 4):
+                page = header_page + offset
+                if page <= total_pages:
+                    soa_pages.add(page)
+            print(f"[SOA Detect] Including pages {header_page} to {min(header_page+3, total_pages)} after header")
 
         result = sorted(soa_pages)
-        print(f"[SOA Detect] Final SOA pages (tables only): {result}")
+        print(f"[SOA Detect] Final SOA pages: {result}")
         return result
 
     except Exception as e:
@@ -1217,15 +1267,9 @@ if frontend_url:
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://clinicaltrial.vercel.app",
-        "https://clinicaltrial-eta.vercel.app",  # Production
-        "https://clinicaltrial-79wn9cxxk-vthatte1-5467s-projects.vercel.app",  # Preview
-    ],
-    allow_origin_regex=r"https://clinicaltrial.*\.vercel\.app$",  # Match ALL Vercel preview URLs
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_origins=["*"],  # Allow all origins for development
+    allow_credentials=False,  # Must be False when using "*"
+    allow_methods=["*"],  # Allow all methods
     allow_headers=["*"],
     expose_headers=["*"],
 )
@@ -6158,7 +6202,7 @@ async def process_jobs_worker():
 
                     # v69: Dynamic SAP structure - Section 17 is TABLE/FIGURE SHELLS
                     # Section 12 is now SAFETY ANALYSIS in the new structure
-                    # TFLs are generated by KG Pipeline directly
+                    # TFLs can be generated by KG Pipeline OR TLF Integration module
                     section_17_start = -1
                     for marker in ['## 17.', '# 17.', '17. TABLE', '17. Table']:
                         if marker in sap_text:
@@ -6174,8 +6218,46 @@ async def process_jobs_worker():
 
                     print(f"  [MAIN.PY] v69 Dynamic SAP: Section 17 (TFLs) at pos {section_17_start}, has tables: {has_proper_tables}", flush=True)
 
-                    # TFL tables are generated by KG Pipeline - no injection needed
-                    if not has_proper_tables and section_17_start == -1:
+                    # v101: TLF Shell Integration - Generate study-specific TLF shells
+                    # If Section 17 is missing or has no proper tables, inject TLF shells
+                    if not has_proper_tables and TLF_INTEGRATION_AVAILABLE:
+                        print(f"  [MAIN.PY] TLF Integration: Generating study-specific TLF shells...")
+                        full_extraction = result.get("full_extraction", {})
+
+                        # Get TLF summary for logging
+                        tlf_summary = get_tlf_shell_summary(full_extraction)
+                        print(f"  [TLF] Study type: {tlf_summary.get('detected_study_type')}")
+                        print(f"  [TLF] Drug classes: {tlf_summary.get('detected_drug_classes')}")
+                        print(f"  [TLF] Study design: {tlf_summary.get('detected_study_design')}")
+
+                        # Generate TLF shells from extraction
+                        tlf_shells = generate_tlf_shells_for_protocol(full_extraction)
+
+                        if tlf_shells:
+                            # Inject TLF shells into SAP
+                            if section_17_start >= 0:
+                                # Replace empty Section 17 with generated shells
+                                # Find end of Section 17 (next section or end)
+                                section_18_start = -1
+                                for marker in ['## 18.', '# 18.', '18. ']:
+                                    pos = sap_text.find(marker, section_17_start + 10)
+                                    if pos > 0:
+                                        section_18_start = pos
+                                        break
+
+                                if section_18_start > 0:
+                                    # Replace Section 17 content
+                                    sap_text = sap_text[:section_17_start] + "## 17. TABLE AND FIGURE SHELLS\n\n" + tlf_shells + "\n\n" + sap_text[section_18_start:]
+                                else:
+                                    # Section 17 is at the end - replace from there
+                                    sap_text = sap_text[:section_17_start] + "## 17. TABLE AND FIGURE SHELLS\n\n" + tlf_shells
+                            else:
+                                # No Section 17 found - append at end
+                                sap_text = sap_text.rstrip() + "\n\n## 17. TABLE AND FIGURE SHELLS\n\n" + tlf_shells
+
+                            print(f"  [TLF] Injected {len(tlf_shells):,} chars of TLF shells into SAP")
+                            has_proper_tables = True  # Update flag
+                    elif not has_proper_tables:
                         print(f"  [MAIN.PY] NOTE: TFLs handled by KG Pipeline (Section 17 may be in appendices)")
 
                     # DEBUG: Final check before saving to database (v69 dynamic structure)
