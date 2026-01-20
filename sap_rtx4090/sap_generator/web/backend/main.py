@@ -2923,19 +2923,99 @@ async def generate_rag_sap(request: GenerateRequest):
 
         # Extract SOA/Visit Schedule information from protocol
         soa_text = ""
-        # Look for SOA in discovered elements
-        soa_elements = [d for d in discovered if any(kw in d.get('name', '').lower()
-                       for kw in ['visit', 'schedule', 'assessment', 'window', 'soa'])]
-        if soa_elements:
-            soa_text = "\n".join([f"- {d.get('name')}: {d.get('description', '')}" for d in soa_elements[:10]])
-
-        # Also extract from protocol text if SOA section exists
         import re
-        soa_match = re.search(r'(Schedule of (?:Study )?(?:Assessments|Events|Activities|Procedures).*?)(?=\n#|\n\d+\.\s|\Z)',
-                             request.protocol_text, re.IGNORECASE | re.DOTALL)
-        if soa_match:
-            soa_section = soa_match.group(1)[:2000]  # Limit to 2000 chars
-            soa_text += f"\n\nSCHEDULE OF ASSESSMENTS FROM PROTOCOL:\n{soa_section}"
+
+        # Look for Reducto-enhanced SOA section (HTML tables)
+        reducto_marker = "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)"
+        if reducto_marker in request.protocol_text:
+            # Extract content between Reducto markers
+            start_idx = request.protocol_text.find(reducto_marker)
+            end_marker = "END OF SCHEDULE OF ASSESSMENTS"
+            end_idx = request.protocol_text.find(end_marker, start_idx)
+            if end_idx == -1:
+                end_idx = start_idx + 15000  # Fallback: take 15000 chars
+
+            reducto_content = request.protocol_text[start_idx:end_idx]
+
+            # Convert HTML tables to markdown pipe format
+            def html_table_to_markdown(html_content):
+                """Convert HTML tables to markdown pipe-separated format."""
+                from html.parser import HTMLParser
+
+                class TableParser(HTMLParser):
+                    def __init__(self):
+                        super().__init__()
+                        self.tables = []
+                        self.current_table = []
+                        self.current_row = []
+                        self.current_cell = ""
+                        self.in_table = False
+                        self.in_row = False
+                        self.in_cell = False
+
+                    def handle_starttag(self, tag, attrs):
+                        if tag == 'table':
+                            self.in_table = True
+                            self.current_table = []
+                        elif tag == 'tr':
+                            self.in_row = True
+                            self.current_row = []
+                        elif tag in ('td', 'th'):
+                            self.in_cell = True
+                            self.current_cell = ""
+
+                    def handle_endtag(self, tag):
+                        if tag == 'table':
+                            self.in_table = False
+                            if self.current_table:
+                                self.tables.append(self.current_table)
+                            self.current_table = []
+                        elif tag == 'tr':
+                            self.in_row = False
+                            if self.current_row:
+                                self.current_table.append(self.current_row)
+                            self.current_row = []
+                        elif tag in ('td', 'th'):
+                            self.in_cell = False
+                            self.current_row.append(self.current_cell.strip())
+                            self.current_cell = ""
+
+                    def handle_data(self, data):
+                        if self.in_cell:
+                            self.current_cell += data
+
+                parser = TableParser()
+                try:
+                    parser.feed(html_content)
+                except:
+                    return html_content  # Return original if parsing fails
+
+                # Convert parsed tables to markdown
+                markdown_tables = []
+                for table in parser.tables:
+                    if not table:
+                        continue
+                    md_lines = []
+                    for i, row in enumerate(table):
+                        md_lines.append("| " + " | ".join(row) + " |")
+                        if i == 0:  # Add separator after header
+                            md_lines.append("|" + "|".join(["---"] * len(row)) + "|")
+                    markdown_tables.append("\n".join(md_lines))
+
+                return "\n\n".join(markdown_tables) if markdown_tables else html_content
+
+            # Convert to markdown
+            soa_markdown = html_table_to_markdown(reducto_content)
+            soa_text = f"SCHEDULE OF ASSESSMENTS (from protocol):\n\n{soa_markdown[:8000]}"
+            logger.info(f"[SAP Gen] Extracted Reducto SOA: {len(soa_markdown)} chars")
+        else:
+            # Fallback: look for SOA in discovered elements
+            soa_elements = [d for d in discovered if any(kw in d.get('name', '').lower()
+                           for kw in ['visit', 'schedule', 'assessment', 'window', 'soa'])]
+            if soa_elements:
+                soa_text = "VISIT SCHEDULE ELEMENTS:\n" + "\n".join([
+                    f"- {d.get('name')}: {d.get('description', '')}" for d in soa_elements[:10]
+                ])
 
         # STEP 2: RAG Queries (0 LLM calls)
         logger.info("[RAG] Step 2: RAG queries...")
