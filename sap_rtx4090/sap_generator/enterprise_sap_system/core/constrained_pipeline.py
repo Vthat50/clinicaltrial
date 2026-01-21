@@ -64,6 +64,21 @@ from .schema_constrained_generator import (
 from .structured_llm import get_structured_client, SAPSectionGenerator
 from enum import Enum
 
+# Operational Rules Integration (Three-Tier System)
+try:
+    from .operational_integration import (
+        OperationalRulesIntegration,
+        integrate_operational_rules,
+        detect_study_type_from_facts
+    )
+    from .ice_sensitivity_generator import (
+        ICEGenerator,
+        SensitivityAnalysisGenerator
+    )
+    OPERATIONAL_RULES_AVAILABLE = True
+except ImportError:
+    OPERATIONAL_RULES_AVAILABLE = False
+
 
 # =============================================================================
 # ADAPTIVE APPENDIX GENERATION - Protocol-Specific Logic
@@ -427,6 +442,44 @@ class ConstrainedSAPPipeline:
                 print(f"[RAG] Warning: Could not initialize RAG: {e}")
                 self.use_rag = False
 
+        # Initialize Operational Rules Integration (Three-Tier System)
+        self.use_operational_rules = OPERATIONAL_RULES_AVAILABLE
+        self.operational_integrator = None  # Initialized per-protocol in generate()
+
+    def _init_operational_rules(self, facts: 'FullProtocolFacts') -> Optional['OperationalRulesIntegration']:
+        """Initialize operational rules integrator for the current protocol."""
+        if not self.use_operational_rules:
+            return None
+
+        try:
+            # Convert FullProtocolFacts to dict for the integrator
+            facts_dict = {
+                'nct_id': getattr(facts, 'nct_id', ''),
+                'drug_name': getattr(facts, 'drug_name', ''),
+                'drug_class': getattr(facts, 'drug_class', ''),
+                'hypothesis_framework': getattr(facts, 'hypothesis_framework', ''),
+                'treatment_setting': getattr(facts, 'treatment_setting', ''),
+                'primary_endpoint': getattr(facts, 'primary_endpoint', ''),
+                'primary_endpoint_type': getattr(facts, 'primary_endpoint_type', ''),
+                'secondary_endpoints': getattr(facts, 'secondary_endpoints', []),
+                'stratification_factors': getattr(facts, 'stratification_factors', []),
+                'stratification_factor_levels': getattr(facts, 'stratification_factor_levels', {}),
+                'num_arms': getattr(facts, 'num_arms', 2),
+                'is_single_arm': getattr(facts, 'is_single_arm', False),
+                'has_interim_analysis': getattr(facts, 'has_interim', False),
+                'num_interim_analyses': getattr(facts, 'num_interim', 0),
+                'has_pk_endpoints': 'pk' in str(getattr(facts, 'secondary_endpoints', [])).lower(),
+                'population': getattr(facts, 'indication', ''),
+                'treatment_description': f"{getattr(facts, 'drug_name', '')} vs {getattr(facts, 'comparator', '')}",
+            }
+
+            integrator = OperationalRulesIntegration(extracted_facts=facts_dict)
+            print(f"[OPERATIONAL] Detected study type: {integrator.study_type}")
+            return integrator
+        except Exception as e:
+            print(f"[OPERATIONAL] Warning: Could not initialize operational rules: {e}")
+            return None
+
     def _get_rag_context(self, facts: 'FullProtocolFacts') -> Dict[str, str]:
         """Get RAG context for generation enhancement"""
         if not self.use_rag or not self.rag:
@@ -499,6 +552,9 @@ class ConstrainedSAPPipeline:
 
         # Print full extraction summary
         print_constraint_summary(facts)
+
+        # Initialize Operational Rules Integration (Three-Tier System)
+        self.operational_integrator = self._init_operational_rules(facts)
 
         # =================================================================
         # STAGE 2: Create Fully Constrained Schemas
@@ -1228,7 +1284,7 @@ Secondary estimands follow the same framework as the primary estimand with appro
 """
 
     def _generate_analysis_populations(self, facts: FullProtocolFacts) -> str:
-        """Generate Section 4: Analysis Populations"""
+        """Generate Section 4: Analysis Populations (with operational rules enhancement)"""
         primary_population = facts.primary_population or "FAS"
         itt_def = facts.itt_definition or "All randomized patients"
         pp_def = facts.pp_definition or "All patients in the ITT population who complete the study without major protocol violations"
@@ -1242,6 +1298,45 @@ Secondary estimands follow the same framework as the primary estimand with appro
 
 The PK population includes all patients in the PK subgroup who received at least one dose of study medication and have at least one measurable post-dose PK sample.
 """
+
+        # Check for enhanced population section from operational rules (biosimilar dual-pop, etc.)
+        dual_population_section = ""
+        enhanced_pk_section = ""
+
+        if self.operational_integrator:
+            try:
+                # Get study type to check for biosimilar
+                if self.operational_integrator.study_type == 'biosimilar':
+                    dual_population_section = """
+### 4.7 Dual Population Requirement (Biosimilar)
+
+**Equivalence must be demonstrated in BOTH the Intent-to-Treat (ITT) and Per-Protocol (PP) populations.**
+
+The study will be considered successful only if the equivalence margins are met in both populations:
+- **ITT Population:** Preserves randomization; provides estimate of treatment policy effect
+- **PP Population:** Evaluates effect in subjects who adhered to the protocol
+
+**Rationale:** Per FDA and EMA biosimilar guidance, demonstration of equivalence in both ITT and PP populations is required to establish biosimilarity.
+"""
+                    print("    [OPERATIONAL] Added dual population requirement for biosimilar")
+
+                # Enhanced PK population for biosimilar
+                if self.operational_integrator.study_type == 'biosimilar':
+                    enhanced_pk_section = """
+### 4.8 PK Population (Biosimilar)
+
+The PK Population includes all subjects in the Safety Population who:
+- Received at least one dose of study drug
+- Have at least one evaluable PK sample at the pre-specified timepoints
+- Have no major protocol deviations affecting PK assessment
+
+**PK Equivalence Criteria:**
+Equivalence of PK parameters (Cmax, AUC0-inf, AUC0-tau) will be concluded if the 90% confidence intervals for the geometric mean ratios (Test/Reference) are contained within 80.00% to 125.00%.
+"""
+                    pk_section = enhanced_pk_section  # Replace with enhanced version
+
+            except Exception as e:
+                print(f"    [OPERATIONAL] Warning: Could not enhance populations: {e}")
 
         return f"""## 4. ANALYSIS POPULATIONS
 
@@ -1268,7 +1363,7 @@ This population will be used for supportive efficacy analyses.
 {safety_def}
 
 This is the primary analysis population for all safety analyses.
-{pk_section}
+{pk_section}{dual_population_section}
 ### 4.6 Population Derivation
 
 | Population | Inclusion Criteria | Exclusion Criteria | Primary Use |
@@ -1497,6 +1592,97 @@ If multiple assessments occur within a window, the assessment closest to the tar
 If multiple assessments occur within a window, the assessment closest to the target day will be used.
 """
 
+        # Build enhanced covariates section using operational rules
+        covariates_section = ""
+        if self.operational_integrator:
+            try:
+                strat_levels = ""
+                if self.operational_integrator.tier1.covariates and \
+                   self.operational_integrator.tier1.covariates.stratification_factor_levels:
+                    levels = self.operational_integrator.tier1.covariates.stratification_factor_levels
+                    strat_level_lines = []
+                    for factor, level_list in levels.items():
+                        strat_level_lines.append(f"  - **{factor}:** {', '.join(level_list)}")
+                    strat_levels = "\n" + "\n".join(strat_level_lines)
+
+                covariates_section = f"""
+**Stratification Factors (from randomization):**
+- {strat_text}
+{strat_levels}
+
+**Model Covariates:**
+- Treatment group (primary factor of interest)
+- All stratification factors used in randomization
+
+**Critical Note:** Both the stratified log-rank test AND the stratified Cox proportional hazards model will include the SAME stratification factors used in randomization. This ensures consistency between hypothesis testing and effect estimation.
+
+**Covariate Handling:**
+- Stratification factors will be included as categorical covariates
+- If any stratum has <5% of patients, it may be pooled with adjacent strata
+- Missing baseline covariates will be imputed using median (continuous) or mode (categorical)
+"""
+            except Exception as e:
+                # Fallback to basic covariates section
+                covariates_section = f"""
+**Stratification Factors:** {strat_text}
+
+The primary analysis will adjust for the stratification factors used in randomization.
+"""
+        else:
+            covariates_section = f"""
+**Stratification Factors:** {strat_text}
+
+The primary analysis will adjust for the stratification factors used in randomization.
+"""
+
+        # Build enhanced sensitivity analyses section
+        sensitivity_section = ""
+        if self.operational_integrator:
+            try:
+                # Use the sensitivity generator for study-type-specific analyses
+                primary_type = 'TTE' if is_tte else 'binary'
+                sensitivity_section = self.operational_integrator.generate_sensitivity_analyses_section()
+            except Exception as e:
+                sensitivity_section = """
+The following sensitivity analyses will be performed for the primary endpoint:
+
+1. **Per-Protocol Analysis:** Analysis in PP population
+2. **Tipping Point Analysis:** Assess robustness to missing data assumptions
+3. **Multiple Imputation:** MICE with treatment group-specific imputation
+4. **As-Observed Analysis:** Excluding patients with missing data
+"""
+        else:
+            sensitivity_section = """
+The following sensitivity analyses will be performed for the primary endpoint:
+
+1. **Per-Protocol Analysis:** Analysis in PP population
+2. **Tipping Point Analysis:** Assess robustness to missing data assumptions
+3. **Multiple Imputation:** MICE with treatment group-specific imputation
+4. **As-Observed Analysis:** Excluding patients with missing data
+"""
+
+        # Build ICE/Estimand section (ICH E9(R1) compliant)
+        ice_estimand_section = ""
+        if self.operational_integrator:
+            try:
+                primary_name = facts.primary_endpoint or "Primary Endpoint"
+                primary_type_tte = 'PFS' if 'pfs' in primary_endpoint.lower() else \
+                                   'OS' if 'survival' in primary_endpoint.lower() else 'TTE'
+                population = facts.indication or "study population"
+                treatment = f"{facts.drug_name} vs {facts.comparator}" if facts.drug_name and facts.comparator \
+                           else "study treatment vs comparator"
+                summary = "Hazard ratio with 95% CI" if is_tte else "Odds ratio with 95% CI"
+
+                ice_estimand_section = self.operational_integrator.ice_generator.generate_estimand_section(
+                    primary_endpoint=primary_name,
+                    primary_endpoint_type=primary_type_tte,
+                    population=population,
+                    treatment=treatment,
+                    summary_measure=summary
+                )
+            except Exception as e:
+                ice_estimand_section = ""  # Don't include if generation fails
+
         return f"""## 7. STATISTICAL METHODS
 
 ### 7.1 General Considerations
@@ -1523,11 +1709,7 @@ The primary endpoint ({primary_endpoint} at {primary_timepoint}) will be analyze
 - H₁: {facts.drug_name or 'Active treatment'} is superior to placebo
 
 ### 7.3 Handling of Covariates
-
-**Stratification Factors:** {strat_text}
-
-The primary analysis will adjust for the stratification factors used in randomization.
-
+{covariates_section}
 ### 7.4 Secondary Efficacy Analyses
 
 Secondary endpoints will be analyzed using appropriate methods based on endpoint type:
@@ -1552,14 +1734,8 @@ To control the family-wise type I error rate, secondary endpoints will be tested
 Testing stops at the first non-significant comparison.
 
 ### 7.6 Sensitivity Analyses
-
-The following sensitivity analyses will be performed for the primary endpoint:
-
-1. **Per-Protocol Analysis:** Analysis in PP population
-2. **Tipping Point Analysis:** Assess robustness to missing data assumptions
-3. **Multiple Imputation:** MICE with treatment group-specific imputation
-4. **As-Observed Analysis:** Excluding patients with missing data
-
+{sensitivity_section}
+{ice_estimand_section}
 ### 7.7 Subgroup Analyses
 
 Subgroup analyses will be performed for the primary endpoint by:
@@ -1570,6 +1746,46 @@ Subgroup analyses will be performed for the primary endpoint by:
     def _generate_missing_data(self, facts: FullProtocolFacts) -> str:
         """Generate Section 8: Missing Data Handling"""
         primary_endpoint = facts.primary_endpoint or "primary endpoint"
+        endpoint_lower = primary_endpoint.lower()
+        is_tte = any(term in endpoint_lower for term in ['survival', 'pfs', 'efs', 'dfs', 'time to', 'duration'])
+
+        # Build censoring rules section for time-to-event endpoints
+        censoring_section = ""
+        if is_tte and self.operational_integrator:
+            try:
+                # Generate comprehensive censoring table from operational rules
+                censoring_section = """
+### 8.7 Censoring Rules for Time-to-Event Endpoints
+
+**PFS Censoring Rules (Primary Endpoint):**
+
+| Situation | PFS Status | Date Used | CNSR |
+|-----------|------------|-----------|------|
+| Documented disease progression | Event | Date of progression | 0 |
+| Death (any cause) without progression | Event | Date of death | 0 |
+| Adequate assessment with no progression | Censored | Date of last adequate assessment | 1 |
+| No baseline tumor assessment | Censored | Date of randomization | 1 |
+| No post-baseline adequate assessment | Censored | Date of randomization | 1 |
+| New anticancer therapy without progression | Censored | Date of last adequate assessment before therapy | 1 |
+| Two or more consecutive missed assessments | Censored | Date of last adequate assessment before missed | 1 |
+| Ongoing without event | Censored | Date of last adequate assessment | 1 |
+| Lost to follow-up | Censored | Date of last adequate assessment | 1 |
+
+**Adequate Assessment Definition:** An imaging assessment that meets the protocol-specified assessment schedule within the allowed visit window.
+
+**OS Censoring Rules (Secondary/Co-Primary):**
+
+| Situation | OS Status | Date Used | CNSR |
+|-----------|-----------|-----------|------|
+| Death from any cause | Event | Date of death | 0 |
+| Alive | Censored | Date of last known alive | 1 |
+| Lost to follow-up | Censored | Date of last known alive | 1 |
+| Consent withdrawn | Censored | Date of withdrawal | 1 |
+
+**Note:** For OS, patients who start new anticancer therapy remain on study for survival follow-up and are NOT censored at the time of new therapy initiation.
+"""
+            except Exception as e:
+                pass  # Fall back to no detailed censoring section
 
         return f"""## 8. MISSING DATA HANDLING
 
@@ -1606,6 +1822,7 @@ Analysis windows for each assessment timepoint are defined in the protocol. If m
 
 - Partial response data: Individual components will be imputed using last observation if available
 - If individual components cannot be derived: Overall response will be set to non-responder
+{censoring_section}
 """
 
     def _generate_pk_analysis(self, facts: FullProtocolFacts) -> str:
@@ -1947,7 +2164,21 @@ Multiple comparisons of dose groups versus placebo will be controlled using a hi
 """
 
     def _generate_appendix_data_handling(self, facts: FullProtocolFacts) -> str:
-        """Generate Appendix C: Data Handling Conventions (prose format per industry SAP standards)"""
+        """Generate Appendix C: Data Handling Conventions using Three-Tier Operational Rules.
+
+        Uses the comprehensive operational appendix generator if available,
+        falling back to basic template if not.
+        """
+        # Try to use the comprehensive operational appendix generator
+        if self.operational_integrator:
+            try:
+                appendix = self.operational_integrator.generate_operational_appendix()
+                print("    [OPERATIONAL] Using comprehensive three-tier operational rules")
+                return appendix
+            except Exception as e:
+                print(f"    [OPERATIONAL] Warning: Falling back to basic template: {e}")
+
+        # Fallback: Basic template (legacy behavior)
         return """## APPENDIX C: DATA HANDLING CONVENTIONS
 
 ### C.1 Date Imputations

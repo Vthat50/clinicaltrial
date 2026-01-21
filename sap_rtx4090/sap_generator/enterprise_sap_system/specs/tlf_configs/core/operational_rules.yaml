@@ -1,0 +1,541 @@
+# =============================================================================
+# OPERATIONAL RULES - TIER 2: INDUSTRY STANDARDS
+# =============================================================================
+# These are universal conventions that protocols typically don't state
+# because they are assumed knowledge. Programmers need these explicit.
+#
+# Source: CDISC ADaM IG, FDA Guidance, ICH E9(R1), Industry Best Practices
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# STUDY DAY CALCULATIONS
+# -----------------------------------------------------------------------------
+# CDISC ADaM Implementation Guide standard formulas
+
+study_day:
+  description: "Study day calculation per CDISC ADaM standards"
+
+  formulas:
+    # Analysis Day (ADY) - relative to first dose
+    ady:
+      post_baseline: "ADY = ADT - TRTSDT + 1"
+      pre_baseline: "ADY = ADT - TRTSDT"  # Negative values, no +1
+      description: |
+        Study Day 1 is the date of first dose of study treatment.
+        - Post-baseline assessments: ADY = ADT - TRTSDT + 1 (Day 1 = first dose)
+        - Pre-baseline assessments: ADY = ADT - TRTSDT (negative values)
+        - There is no Day 0.
+
+    # Analysis Relative Day (ARDY) - relative to reference (e.g., randomization)
+    ardy:
+      formula: "ARDY = ADT - reference_date + 1"
+      description: "Relative day from a reference event (randomization, enrollment)"
+
+    # Duration calculations
+    duration:
+      standard: "ADURN = END_DATE - START_DATE + 1"
+      description: "Duration in days, inclusive of both start and end dates"
+
+    treatment_duration:
+      formula: "TRTDUR = TRTEDT - TRTSDT + 1"
+      description: "Total days on treatment, inclusive"
+
+    exposure_duration:
+      formula: "EXDUR = last_dose_date - first_dose_date + 1"
+      description: "Duration of exposure period"
+
+    follow_up_duration:
+      formula: "FUDY = last_contact_date - RANDDT + 1"
+      description: "Follow-up duration from randomization"
+
+    response_duration:
+      formula: "DORDUR = date_of_progression_or_death - date_of_first_response + 1"
+      description: "Duration of response for responders"
+
+  day_one_definition:
+    standard: "Date of first dose of study treatment (TRTSDT)"
+    alternatives:
+      randomization: "Date of randomization (RANDDT) - for ITT analyses"
+      enrollment: "Date of enrollment - for screening analyses"
+
+# -----------------------------------------------------------------------------
+# BASELINE DEFINITION AND TIE-BREAKING
+# -----------------------------------------------------------------------------
+
+baseline:
+  description: "Baseline value selection and tie-breaking rules"
+
+  definition:
+    standard: |
+      Baseline is defined as the last non-missing assessment obtained
+      prior to the first dose of study treatment.
+    pre_dose_day1: |
+      Pre-dose assessments obtained on Day 1 (prior to first dose)
+      are considered baseline.
+    screening: |
+      If no pre-dose Day 1 assessment is available, the last screening
+      assessment will be used.
+
+  # Tie-breaking when multiple assessments on same day
+  tie_breaking:
+    continuous_variables:
+      rule: "mean"
+      description: "Mean of all assessments on the same day"
+      sas_code: "proc means data=x; by usubjid adt; var aval; output out=y mean=aval;"
+
+    categorical_variables:
+      rule: "last_by_time"
+      description: "Last assessment by collection time; if time unavailable, last by entry sequence"
+      priority: ["collection_time", "entry_sequence", "record_id"]
+
+    laboratory_values:
+      efficacy:
+        rule: "last_by_time"
+        description: "Last value by collection time for efficacy labs"
+      safety:
+        rule: "worst_grade"
+        description: "Worst (highest) CTCAE grade for safety labs"
+
+    tumor_assessments:
+      rule: "last_adequate"
+      description: "Last adequate tumor assessment per RECIST criteria"
+      adequacy_criteria: "All target lesions measured, all non-target lesions assessed"
+
+    vital_signs:
+      rule: "mean"
+      description: "Mean of replicate measurements"
+      exception: "For blood pressure, use mean of 2nd and 3rd readings if 3 taken"
+
+    ecg_parameters:
+      rule: "mean_of_triplicates"
+      description: "Mean of triplicate ECG measurements"
+      derivation: "QTcF = QT / (RR^0.33)"
+
+  # Baseline window
+  window:
+    standard: "Day -28 to Day 1 pre-dose"
+    narrow: "Day -7 to Day 1 pre-dose"
+    extended: "Day -42 to Day 1 pre-dose"
+
+# -----------------------------------------------------------------------------
+# VISIT WINDOWING RULES
+# -----------------------------------------------------------------------------
+
+visit_windowing:
+  description: "Rules for assigning assessments to analysis visits"
+
+  assignment_rules:
+    primary: "closest_to_target"
+    description: |
+      Assessments are assigned to the analysis visit with the closest
+      target day. If equidistant between two visits, assign to the earlier visit.
+
+  multiple_assessments_in_window:
+    continuous:
+      rule: "closest_to_target"
+      description: "Use assessment closest to target day"
+      tie_breaker: "earlier_assessment"
+    categorical:
+      rule: "worst"
+      description: "Use worst value (e.g., highest AE grade, worst response)"
+    tumor:
+      rule: "per_recist"
+      description: "Per RECIST rules for target lesion selection"
+
+  outside_all_windows:
+    rule: "exclude_from_scheduled_analyses"
+    exception: "Include in safety analyses as unscheduled"
+
+  unscheduled_visits:
+    efficacy: "exclude"
+    safety: "include"
+    assignment: "If included, assign to nearest analysis window within range"
+
+  early_termination:
+    rule: "analyze_as_last_scheduled_visit"
+    description: "Early termination assessments mapped to last scheduled visit window"
+
+  period_boundaries:
+    rule: "assign_to_period_of_target_day"
+    description: |
+      If an assessment falls on a period boundary, assign to the period
+      containing the target visit day, not the assessment date.
+    example: |
+      If Maintenance starts Day 85 and Week 12 target is Day 85,
+      a Day 84 assessment within the Week 12 window is assigned to Induction.
+
+  # Standard window sizes by visit frequency
+  standard_windows:
+    weekly:
+      window: "±3 days"
+      description: "For weekly visits (Weeks 1-4)"
+    biweekly:
+      window: "±5 days"
+      description: "For every-2-week visits"
+    monthly:
+      window: "±7 days"
+      description: "For monthly visits (Week 4+)"
+    quarterly:
+      window: "±14 days"
+      description: "For every-3-month visits"
+
+# -----------------------------------------------------------------------------
+# LABORATORY VALUE HANDLING
+# -----------------------------------------------------------------------------
+
+laboratory_handling:
+  description: "Standard rules for laboratory value processing"
+
+  limit_of_quantification:
+    below_lloq:
+      rule: "LLOQ / 2"
+      description: "Values reported as below LLOQ imputed as half the lower limit"
+      sas_code: "if LBSTRESC = '<X' then AVAL = X/2;"
+
+    above_uloq:
+      rule: "ULOQ"
+      description: "Values reported as above ULOQ set to the upper limit value"
+      sas_code: "if LBSTRESC = '>X' then AVAL = X;"
+
+    not_detected:
+      rule: "0"
+      description: "Values reported as 'not detected' or 'negative' set to zero"
+      exception: "For PK, may use LLOQ/2 instead of 0"
+
+  unit_conversion:
+    rule: "Convert all values to standard units before analysis"
+    standard_units:
+      hemoglobin: "g/dL"
+      creatinine: "mg/dL"
+      bilirubin: "mg/dL"
+      alt_ast: "U/L"
+      albumin: "g/dL"
+
+  duplicate_values:
+    same_day:
+      rule: "query_site"
+      description: "Duplicate lab values on same day queried with site for confirmation"
+      if_unresolved: "Use value with latest timestamp; if no time, use last entered"
+
+    unscheduled:
+      efficacy: "exclude_from_scheduled_analyses"
+      safety: "include_in_all_safety_analyses"
+      shift_tables: "Include unscheduled if represents worst post-baseline"
+
+  local_vs_central:
+    preference: "central"
+    description: "Central lab values preferred when both available"
+    exception: "Use local if central not available or if protocol specifies"
+    analysis_note: "Sensitivity analysis using local lab values may be performed"
+
+  grade_derivation:
+    standard: "CTCAE v5.0"
+    baseline_grade: "Derived using same criteria as post-baseline"
+    shift_definition: "Change from baseline grade to worst post-baseline grade"
+
+  reference_ranges:
+    source: "Central laboratory reference ranges"
+    age_sex_adjusted: true
+    flagging: |
+      ANRIND = 'L' if AVAL < ANRLO
+      ANRIND = 'N' if ANRLO <= AVAL <= ANRHI
+      ANRIND = 'H' if AVAL > ANRHI
+
+# -----------------------------------------------------------------------------
+# ANALYSIS DATE DERIVATIONS
+# -----------------------------------------------------------------------------
+
+date_derivations:
+  description: "Standard date derivation rules for analysis datasets"
+
+  incomplete_dates:
+    missing_day:
+      start_date: "Impute as first of month (conservative for duration)"
+      end_date: "Impute as last of month (conservative for duration)"
+
+    missing_month:
+      start_date: "Impute as January 1 (conservative)"
+      end_date: "Impute as December 31 (conservative)"
+      alternative: "Impute as July 1 (mid-year) if protocol specifies"
+
+    missing_year:
+      rule: "Do not impute; set to missing"
+      exception: "May impute based on surrounding dates if clearly determinable"
+
+  adverse_event_dates:
+    ongoing_ae:
+      rule: "End date = data cutoff date or last contact date"
+      cnsr: "Censored if ongoing at cutoff"
+
+    resolution_unknown:
+      rule: "Treat as ongoing; end date = last known date"
+
+  concomitant_medication:
+    ongoing:
+      rule: "End date = last dose date or data cutoff, whichever earlier"
+
+# -----------------------------------------------------------------------------
+# DUPLICATE RECORD RESOLUTION
+# -----------------------------------------------------------------------------
+
+duplicate_handling:
+  description: "Rules for resolving duplicate records"
+
+  crf_duplicates:
+    rule: "most_recent_entry"
+    description: "Use the most recent entry timestamp when duplicates exist"
+
+  laboratory_duplicates:
+    rule: "query_then_last"
+    description: "Query site for confirmation; if unresolved, use last by timestamp"
+
+  adverse_event_duplicates:
+    rule: "clinical_review"
+    description: |
+      Review to determine if records represent same event.
+      True duplicates merged; distinct events retained as separate records.
+    merge_criteria:
+      - "Same verbatim term"
+      - "Overlapping dates"
+      - "Same body system"
+
+  efficacy_duplicates:
+    tumor_assessments:
+      rule: "per_recist_rules"
+      description: "Follow RECIST 1.1 rules for lesion selection and measurement"
+
+# -----------------------------------------------------------------------------
+# TREATMENT EXPOSURE CALCULATIONS
+# -----------------------------------------------------------------------------
+
+exposure:
+  description: "Treatment exposure and dose intensity calculations"
+
+  duration:
+    formula: "TRTEDT - TRTSDT + 1"
+    units: "days"
+
+  total_dose:
+    formula: "Sum of all doses administered"
+    units: "mg or mg/m² as appropriate"
+
+  dose_intensity:
+    actual: "Total dose / Duration"
+    relative: "(Actual dose intensity / Planned dose intensity) × 100"
+    planned: "Per protocol dose / planned duration"
+
+  cycles_completed:
+    definition: "Number of complete treatment cycles received"
+    partial_cycle: "Counted as fraction (e.g., 0.5 for half cycle)"
+
+  dose_modifications:
+    reductions: "Count and percentage of subjects with dose reductions"
+    interruptions: "Count and duration of dose interruptions"
+    discontinuations: "Count and reason for treatment discontinuation"
+
+# -----------------------------------------------------------------------------
+# ROUNDING CONVENTIONS
+# -----------------------------------------------------------------------------
+
+rounding:
+  description: "Standard rounding conventions for analysis outputs"
+
+  general:
+    rule: "Round to nearest; 5 rounds up"
+
+  specific:
+    percentages:
+      decimal_places: 1
+      format: "XX.X%"
+
+    means:
+      decimal_places: "One more than raw data"
+      example: "If raw data has 1 decimal, report mean with 2 decimals"
+
+    standard_deviations:
+      decimal_places: "Two more than raw data"
+
+    medians:
+      decimal_places: "Same as raw data"
+
+    confidence_intervals:
+      decimal_places: "Same as point estimate"
+
+    hazard_ratios:
+      decimal_places: 2
+      format: "X.XX"
+
+    p_values:
+      decimal_places: 4
+      format: "0.XXXX"
+      threshold: "Report as <0.0001 if below"
+
+    event_counts:
+      decimal_places: 0
+      format: "Integer"
+
+# -----------------------------------------------------------------------------
+# SAFETY ANALYSIS CONVENTIONS
+# -----------------------------------------------------------------------------
+
+safety_conventions:
+  description: "Standard safety analysis rules"
+
+  teae_definition:
+    standard: |
+      Treatment-emergent adverse event (TEAE) is defined as an AE that:
+      - Starts on or after the first dose of study treatment, OR
+      - Was present before first dose but worsened in severity after first dose
+    observation_period: "First dose through 30 days after last dose (or as protocol specifies)"
+
+  severity_worsening:
+    rule: "Increase of at least one CTCAE grade from baseline"
+    baseline_missing: "Any post-baseline grade considered worsening if baseline missing"
+
+  relatedness:
+    categories: ["Not related", "Unlikely", "Possibly", "Probably", "Definitely"]
+    related_definition: "Possibly, Probably, or Definitely related"
+
+  counting_convention:
+    subjects: "Each subject counted once at worst severity"
+    events: "All events counted; multiple occurrences of same PT counted separately"
+
+  observation_periods:
+    on_treatment: "First dose to last dose + X days (protocol-specified)"
+    follow_up: "After on-treatment period ends"
+    entire_study: "Informed consent to study completion/withdrawal"
+
+# -----------------------------------------------------------------------------
+# PFS CENSORING RULES - COMPLETE TABLE
+# -----------------------------------------------------------------------------
+# This is the full 12+ row censoring table that should appear in main SAP text
+
+pfs_censoring:
+  description: "Complete PFS censoring rules per FDA/EMA guidance"
+
+  rules:
+    - situation: "Documented progression or death"
+      event_censor: "Event"
+      date: "Date of progression or death"
+      cnsr: 0
+
+    - situation: "No baseline tumor assessment"
+      event_censor: "Censored"
+      date: "Date of randomization"
+      cnsr: 1
+      note: "Subject excluded from primary analysis; included in sensitivity"
+
+    - situation: "No post-baseline tumor assessment"
+      event_censor: "Censored"
+      date: "Date of randomization"
+      cnsr: 1
+
+    - situation: "Alive without progression at data cutoff"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment"
+      cnsr: 1
+
+    - situation: "Lost to follow-up"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment"
+      cnsr: 1
+
+    - situation: "Withdrew consent"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment before withdrawal"
+      cnsr: 1
+
+    - situation: "Started new anticancer therapy before progression"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment before new therapy"
+      cnsr: 1
+      note: "Primary analysis; sensitivity may use date of new therapy"
+
+    - situation: "Death without prior documented progression"
+      event_censor: "Event"
+      date: "Date of death"
+      cnsr: 0
+      note: "Death counted as PFS event (composite strategy)"
+
+    - situation: "Progression after 2+ missed assessments"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment before missed assessments"
+      cnsr: 1
+      note: "Primary analysis; sensitivity may count as event at progression date"
+
+    - situation: "Progression documented only by clinical assessment (no imaging)"
+      event_censor: "Event"
+      date: "Date of clinical progression"
+      cnsr: 0
+      note: "If protocol allows clinical progression; otherwise censor"
+
+    - situation: "Death after 2+ missed assessments"
+      event_censor: "Event"
+      date: "Date of death"
+      cnsr: 0
+      note: "Death always counted as event regardless of missed assessments"
+
+    - situation: "Symptomatic deterioration without radiological confirmation"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment"
+      cnsr: 1
+      note: "Unless protocol defines symptomatic progression as event"
+
+# -----------------------------------------------------------------------------
+# OS CENSORING RULES
+# -----------------------------------------------------------------------------
+
+os_censoring:
+  description: "Overall survival censoring rules"
+
+  rules:
+    - situation: "Death from any cause"
+      event_censor: "Event"
+      date: "Date of death"
+      cnsr: 0
+
+    - situation: "Alive at data cutoff"
+      event_censor: "Censored"
+      date: "Date of last known alive"
+      cnsr: 1
+
+    - situation: "Lost to follow-up"
+      event_censor: "Censored"
+      date: "Date of last contact"
+      cnsr: 1
+
+    - situation: "Withdrew consent for survival follow-up"
+      event_censor: "Censored"
+      date: "Date of last contact before withdrawal"
+      cnsr: 1
+
+# -----------------------------------------------------------------------------
+# DOR CENSORING RULES
+# -----------------------------------------------------------------------------
+
+dor_censoring:
+  description: "Duration of response censoring rules (responders only)"
+
+  population: "Subjects who achieved confirmed CR or PR"
+  start_date: "Date of first documented response"
+
+  rules:
+    - situation: "Progression or death after response"
+      event_censor: "Event"
+      date: "Date of progression or death"
+      cnsr: 0
+
+    - situation: "Ongoing response at data cutoff"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment"
+      cnsr: 1
+
+    - situation: "Started new therapy while still responding"
+      event_censor: "Censored"
+      date: "Date of last adequate assessment before new therapy"
+      cnsr: 1
+
+    - situation: "Lost to follow-up while still responding"
+      event_censor: "Censored"
+      date: "Date of last adequate tumor assessment"
+      cnsr: 1

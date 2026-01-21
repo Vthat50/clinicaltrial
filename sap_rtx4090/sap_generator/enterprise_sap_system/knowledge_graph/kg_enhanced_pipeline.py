@@ -113,6 +113,27 @@ except ImportError:
 # Protocol-specific extractor REMOVED - using simple protocol-driven approach
 # Claude reads the protocol directly and determines what to include/exclude
 
+# Import Operational Rules Integration (Three-Tier System) - v102
+try:
+    from ..core.operational_integration import (
+        OperationalRulesIntegration,
+        integrate_operational_rules,
+        detect_study_type_from_facts
+    )
+    from ..core.operational_appendix_generator import (
+        OperationalAppendixGenerator,
+        generate_operational_appendix
+    )
+    from ..core.ice_sensitivity_generator import (
+        ICEGenerator,
+        SensitivityAnalysisGenerator
+    )
+    OPERATIONAL_RULES_AVAILABLE = True
+    print("[KG Pipeline] ✅ Operational Rules Integration loaded (Three-Tier System)")
+except ImportError as e:
+    OPERATIONAL_RULES_AVAILABLE = False
+    print(f"[KG Pipeline] ⚠️ Operational Rules not available: {e}")
+
 
 # =============================================================================
 # VERIFICATION RESULT CLASSES
@@ -2422,10 +2443,16 @@ class EnhancedKGPipeline:
         # Store for comprehensive extraction (55 categories)
         self._last_full_extraction = None
 
+        # Operational Rules Integration (Three-Tier System)
+        self.use_operational_rules = OPERATIONAL_RULES_AVAILABLE
+        self.operational_integrator = None  # Initialized per-protocol
+
         # Load existing KG
         self._load_existing_kg()
 
         print("✅ Enhanced KG Pipeline initialized (55-CATEGORY EXTRACTION)")
+        if self.use_operational_rules:
+            print("   • Operational Rules: ✅ Three-Tier System available")
         print(f"   • Knowledge Graph: {len(self.kg.nodes)} nodes")
         print(f"   • RAG Examples: {len(self.rag.sap_examples)} SAPs")
         print(f"   • Power Calculator: {'scipy' if self.power_calc.available else 'unavailable'}")
@@ -2458,6 +2485,87 @@ class EnhancedKGPipeline:
                     is_factual=True
                 )
                 self.kg.edges.append(edge)
+
+    def _build_facts_for_operational_rules(
+        self,
+        extracted: List[Dict],
+        full_extraction: Optional[Dict],
+        protocol_content: str
+    ) -> Dict[str, Any]:
+        """
+        Build facts dictionary for operational rules integration.
+        Maps KG extraction format to operational rules format.
+        """
+        facts = {
+            'protocol_text': protocol_content[:50000],  # First 50K for context
+        }
+
+        # Extract from full_extraction if available (55-category format)
+        if full_extraction:
+            # Map common fields
+            facts['drug_name'] = full_extraction.get('drug_name', '')
+            facts['indication'] = full_extraction.get('indication', '')
+            facts['hypothesis_framework'] = full_extraction.get('hypothesis_framework', 'superiority')
+            facts['drug_class'] = full_extraction.get('drug_class', '')
+            facts['treatment_setting'] = full_extraction.get('treatment_setting', '')
+            facts['primary_endpoint'] = full_extraction.get('primary_endpoint', '')
+            facts['primary_endpoint_type'] = full_extraction.get('primary_endpoint_type', 'PFS')
+            facts['secondary_endpoints'] = full_extraction.get('secondary_endpoints', [])
+            facts['stratification_factors'] = full_extraction.get('stratification_factors', [])
+            facts['stratification_factor_levels'] = full_extraction.get('stratification_factor_levels', {})
+            facts['pk_endpoints'] = full_extraction.get('pk_endpoints', [])
+            facts['has_pk_endpoints'] = bool(full_extraction.get('pk_endpoints'))
+            facts['has_interim_analysis'] = full_extraction.get('has_interim_analysis', False)
+            facts['num_interim_analyses'] = full_extraction.get('num_interim_analyses', 0)
+            facts['is_single_arm'] = full_extraction.get('is_single_arm', False)
+            facts['num_arms'] = full_extraction.get('num_arms', 2)
+            facts['population'] = full_extraction.get('population', '')
+            facts['treatment_description'] = full_extraction.get('treatment_description', '')
+            facts['comparator'] = full_extraction.get('comparator', '')
+
+        # Also extract from entity list (legacy format)
+        for entity in extracted:
+            entity_type = entity.get('type', '').lower()
+            value = entity.get('value', '')
+
+            if entity_type == 'drug' and not facts.get('drug_name'):
+                facts['drug_name'] = value
+            elif entity_type == 'indication' and not facts.get('indication'):
+                facts['indication'] = value
+            elif entity_type == 'primary_endpoint' and not facts.get('primary_endpoint'):
+                facts['primary_endpoint'] = value
+            elif entity_type == 'stratification_factor':
+                if 'stratification_factors' not in facts:
+                    facts['stratification_factors'] = []
+                facts['stratification_factors'].append(value)
+
+        # Detect study characteristics from protocol text
+        protocol_lower = protocol_content.lower()
+
+        # Detect biosimilar
+        if 'biosimilar' in protocol_lower or 'equivalence' in protocol_lower:
+            facts['hypothesis_framework'] = 'equivalence'
+            facts['drug_class'] = 'biosimilar'
+
+        # Detect immunotherapy
+        io_keywords = ['pembrolizumab', 'nivolumab', 'atezolizumab', 'durvalumab',
+                       'ipilimumab', 'pd-1', 'pd-l1', 'checkpoint inhibitor', 'immunotherapy']
+        if any(kw in protocol_lower for kw in io_keywords):
+            facts['drug_class'] = 'immunotherapy'
+
+        # Detect maintenance
+        if 'maintenance' in protocol_lower and 'therapy' in protocol_lower:
+            facts['treatment_setting'] = 'maintenance'
+
+        # Detect adjuvant
+        if 'adjuvant' in protocol_lower:
+            facts['treatment_setting'] = 'adjuvant'
+
+        # Detect crossover
+        crossover_keywords = ['crossover', 'cross-over', 'treatment switching']
+        facts['crossover_permitted'] = any(kw in protocol_lower for kw in crossover_keywords)
+
+        return facts
 
     def process_protocol(self, protocol_path: str, use_tools: bool = True) -> Dict:
         """
@@ -2548,6 +2656,44 @@ class EnhancedKGPipeline:
         print(f"   • WHO-DD: {versions['WHO_Drug']}")
         print(f"   • TEAE table types: {self.regulatory_kb.get_teae_table_count()}")
 
+        # Step 5.5: Operational Rules (Three-Tier System)
+        operational_appendix = ""
+        operational_sections = {}
+        if self.use_operational_rules:
+            print("\n" + "-"*50)
+            print("STEP 5.5: OPERATIONAL RULES (THREE-TIER SYSTEM)")
+            print("-"*50)
+            try:
+                # Build facts dict for operational rules
+                facts_dict = self._build_facts_for_operational_rules(extracted, full_extraction, protocol_content)
+
+                # Initialize operational integrator
+                self.operational_integrator = OperationalRulesIntegration(extracted_facts=facts_dict)
+                study_type = self.operational_integrator.study_type
+
+                print(f"✅ Operational Rules initialized")
+                print(f"   • Study type detected: {study_type}")
+                print(f"   • Source attribution: [PROTOCOL], [CDISC], [ICH], [FDA/EMA], [DEFAULT]")
+
+                # Generate all operational sections
+                operational_sections = self.operational_integrator.generate_all_sections()
+                operational_appendix = operational_sections.get('operational_appendix', '')
+
+                print(f"   • Operational appendix: {len(operational_appendix)} chars")
+                print(f"   • Sections generated: {list(operational_sections.keys())}")
+
+                # Add study-type-specific features
+                if study_type == 'biosimilar':
+                    print(f"   • Biosimilar: Dual population (ITT + PP) requirement added")
+                elif study_type == 'immuno_oncology':
+                    print(f"   • Immuno-oncology: Delayed effect sensitivity analyses added")
+                elif study_type == 'maintenance':
+                    print(f"   • Maintenance: Controlled disease definition added")
+
+            except Exception as e:
+                print(f"⚠️ Operational Rules warning: {e}")
+                print("   • Continuing without operational rules")
+
         # Step 6: Generate SAP
         print("\n" + "-"*50)
         print("STEP 6: GENERATE SAP WITH CLAUDE")
@@ -2585,6 +2731,29 @@ class EnhancedKGPipeline:
             )
 
         print(f"✅ Generated SAP ({len(sap_content)} chars)")
+
+        # Step 6.5: Append Operational Rules sections to SAP
+        if operational_appendix and self.use_operational_rules:
+            print("\n" + "-"*50)
+            print("STEP 6.5: APPENDING OPERATIONAL RULES")
+            print("-"*50)
+
+            # Insert operational sections into SAP
+            # 1. Add enhanced sensitivity analyses section if not already comprehensive
+            if 'sensitivity_analyses' in operational_sections:
+                sens_section = operational_sections['sensitivity_analyses']
+                if len(sens_section) > 500:  # Has substantial content
+                    # Find where to insert (before appendices)
+                    if "APPENDIX" in sap_content or "Appendix" in sap_content:
+                        insert_pos = sap_content.lower().find("appendix")
+                        if insert_pos > 0:
+                            sap_content = sap_content[:insert_pos] + sens_section + "\n\n" + sap_content[insert_pos:]
+                            print(f"   • Inserted enhanced sensitivity analyses section")
+
+            # 2. Append operational appendix
+            sap_content = sap_content + "\n\n" + operational_appendix
+            print(f"   • Appended operational appendix ({len(operational_appendix)} chars)")
+            print(f"   • Total SAP length: {len(sap_content)} chars")
 
         # Check if SAP generation failed completely
         if len(sap_content) < 1000:
@@ -2652,7 +2821,14 @@ class EnhancedKGPipeline:
             },
             "regeneration_count": regeneration_count,
             "model": self.model,
-            "critical_element_validation": validation_report
+            "critical_element_validation": validation_report,
+            "operational_rules": {
+                "enabled": self.use_operational_rules,
+                "study_type": self.operational_integrator.study_type if self.operational_integrator else None,
+                "appendix_length": len(operational_appendix) if operational_appendix else 0,
+                "sections_generated": list(operational_sections.keys()) if operational_sections else [],
+                "source_attribution": ["PROTOCOL", "CDISC", "ICH", "FDA/EMA", "DEFAULT"]
+            }
         }
 
         return {
@@ -2660,7 +2836,12 @@ class EnhancedKGPipeline:
             "provenance": provenance,
             "extracted": extracted,
             "verification": verification,
-            "power_calculation": power_result
+            "power_calculation": power_result,
+            "operational_rules": {
+                "enabled": self.use_operational_rules,
+                "study_type": self.operational_integrator.study_type if self.operational_integrator else None,
+                "sections": operational_sections
+            }
         }
 
     def _extract_entities(self, content: str, doc_id: str) -> List[Dict]:
