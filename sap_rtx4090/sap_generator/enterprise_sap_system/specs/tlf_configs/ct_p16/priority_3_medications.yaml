@@ -1,0 +1,769 @@
+# CT-P16 Priority 3 Medications TLF Shells
+# =========================================
+# Prior and Concomitant Medications by Study Period
+# Per SAP Section 10.5: Prior and Concomitant Medications
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 3
+  category: "Medications"
+  sap_sections: ["10.5"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# PRIOR MEDICATIONS
+# =============================================================================
+# Per SAP Section 10.5.1:
+# "Prior medications will be summarized by ATC class and preferred term."
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.3.8.1: Prior Medications
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.1"
+    title: "Summary of Prior Medications (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any Prior Medication"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[ATC Level 2 Class]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[Additional ATC classes as needed]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Prior medications are those with start date before first dose of study drug."
+      - symbol: "b"
+        text: "Medications coded using WHO Drug Dictionary."
+      - symbol: "c"
+        text: "A subject is counted once per ATC class and once per preferred term."
+      - symbol: "d"
+        text: "Sorted by decreasing frequency in Total column."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and CMSTDTC < TRTSDT"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Prior meds: CMSTDTC < TRTSDT (first dose date)"
+      - "Code using WHO Drug Dictionary"
+      - "ATC Level 2 classification"
+      - "Sort by decreasing frequency"
+      - "Subject counted once per ATC class/PT combination"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.2: Concomitant Medications - Whole Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.2"
+    title: "Summary of Concomitant Medications - Whole Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    study_period: Whole
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any Concomitant Medication"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[ATC Level 2 Class]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[Additional ATC classes as needed]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Concomitant medications are those with start date on or after first dose."
+      - symbol: "b"
+        text: "Whole Study Period: From first dose through Safety Follow-up."
+      - symbol: "c"
+        text: "Medications coded using WHO Drug Dictionary."
+      - symbol: "d"
+        text: "A subject is counted once per ATC class and once per preferred term."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and CMSTDTC >= TRTSDT"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Concomitant: CMSTDTC >= TRTSDT"
+      - "Whole study period analysis"
+      - "Sort by decreasing frequency"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.3: Concomitant Medications - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.3"
+    title: "Summary of Concomitant Medications - Induction Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    study_period: Induction
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any Concomitant Medication"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[ATC Level 2 Class]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Induction Period: Cycles 1-6 (bevacizumab + chemotherapy)."
+      - symbol: "b"
+        text: "Concomitant medications started during Induction Period."
+      - symbol: "c"
+        text: "Excludes protocol-specified chemotherapy agents (carboplatin, paclitaxel)."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and APERIOD = 'INDUCTION'"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Induction: Cycles 1-6 with chemotherapy"
+      - "Exclude carboplatin/paclitaxel (protocol treatment)"
+      - "APERIOD = 'INDUCTION'"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.4: Concomitant Medications - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.4"
+    title: "Summary of Concomitant Medications - Maintenance Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    study_period: Maintenance
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any Concomitant Medication"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[ATC Level 2 Class]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Maintenance Period: Cycle 7 onwards (bevacizumab monotherapy)."
+      - symbol: "b"
+        text: "Concomitant medications started during Maintenance Period."
+      - symbol: "c"
+        text: "Includes only subjects who entered Maintenance Period."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and APERIOD = 'MAINTENANCE'"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y' and subject entered maintenance"
+      - "Maintenance: Cycle 7+ monotherapy"
+      - "N denominator = subjects entering maintenance"
+      - "APERIOD = 'MAINTENANCE'"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.5: Concomitant Medications - Follow-up Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.5"
+    title: "Summary of Concomitant Medications - Follow-up Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    study_period: Follow-up
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any Concomitant Medication"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[ATC Level 2 Class]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Follow-up Period: From last dose + 1 day through Safety Follow-up visit."
+      - symbol: "b"
+        text: "Concomitant medications started during Follow-up Period."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and APERIOD = 'FOLLOW-UP'"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Follow-up: TRTEDT + 1 through Safety FU"
+      - "APERIOD = 'FOLLOW-UP'"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.6: Salvage/Subsequent Anti-Cancer Therapy
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.6"
+    title: "Summary of Salvage/Subsequent Anti-Cancer Therapy (ITT Population)"
+    tlf_type: TABLE
+    population: ITT Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category / Therapy"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects Receiving Any Subsequent Anti-Cancer Therapy"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Type of Subsequent Therapy"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Systemic therapy"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Chemotherapy"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Targeted therapy"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Immunotherapy"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "Other systemic therapy"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Radiation therapy"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Surgery"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Specific Subsequent Agents (≥5% in either arm)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Agent name]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Time to Subsequent Therapy (months)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median (Min, Max)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ITT Population."
+      - symbol: "a"
+        text: "Subsequent anti-cancer therapy = any cancer therapy started after discontinuation of study treatment."
+      - symbol: "b"
+        text: "Time to subsequent therapy = date of first subsequent therapy - date of last study drug dose."
+      - symbol: "c"
+        text: "Subjects may be counted in multiple therapy categories."
+
+    source_dataset: "ADCM"
+    filter_condition: "ITTFL = 'Y' and CMCAT = 'SUBSEQUENT ANTICANCER THERAPY'"
+    sort_order: ["TRT01AN", "CMCAT"]
+
+    programming_notes:
+      - "Population: ADSL where ITTFL = 'Y'"
+      - "Subsequent therapy: post-discontinuation anti-cancer treatment"
+      - "Categories: systemic (chemo/targeted/immuno), radiation, surgery"
+      - "List specific agents with ≥5% frequency"
+      - "Time to subsequent therapy in months"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.7: Premedications for Infusion
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.7"
+    title: "Summary of Premedications for Infusion Reactions (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects Receiving Any Premedication"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Antihistamines"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Corticosteroids"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Antipyretics"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Other Premedications"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Premedications given within 24 hours prior to study drug infusion."
+      - symbol: "b"
+        text: "Intended to prevent infusion-related reactions."
+      - symbol: "c"
+        text: "Categories: Antihistamines, Corticosteroids, Antipyretics."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and CMCAT = 'PREMEDICATION'"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Premedications: given within 24h prior to infusion"
+      - "CMCAT = 'PREMEDICATION'"
+      - "Group by: antihistamines, corticosteroids, antipyretics"
+      - "Important for immunogenicity/IRR context"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.8.8: Antihypertensive Medications
+  # ---------------------------------------------------------------------------
+  - number: "14.3.8.8"
+    title: "Summary of Antihypertensive Medications (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "ATC Class / Preferred Term"
+        width: 4.0
+        alignment: L
+        source_variable: "ADCM.ATC2 / CMDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADCM"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects Receiving Any Antihypertensive"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Timing of Initiation"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Prior to study (pre-existing hypertension)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "New during study (treatment-emergent)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "ACE Inhibitors"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Angiotensin II Receptor Blockers"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Beta Blockers"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Calcium Channel Blockers"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Diuretics"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Other Antihypertensives"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Hypertension is an AESI for bevacizumab."
+      - symbol: "b"
+        text: "Prior = start date before first dose; New = start date on/after first dose."
+      - symbol: "c"
+        text: "Antihypertensives identified by ATC class C02, C03, C07, C08, C09."
+
+    source_dataset: "ADCM"
+    filter_condition: "SAFFL = 'Y' and CMCLAS in ('ANTIHYPERTENSIVES', 'DIURETICS', 'BETA BLOCKING AGENTS', 'CALCIUM CHANNEL BLOCKERS', 'ACE INHIBITORS', 'ANGIOTENSIN II ANTAGONISTS')"
+    sort_order: ["ATC2N", "CMDECOD"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Hypertension is bevacizumab AESI - antihypertensive use is key safety indicator"
+      - "Distinguish prior (pre-existing HTN) vs new (treatment-emergent)"
+      - "ATC codes: C02 (antihypertensives), C03 (diuretics), C07 (beta blockers)"
+      - "C08 (CCB), C09 (ACEi/ARB)"
+      - "Cross-reference with hypertension AE incidence"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Medications Tables in this file: 8
+#   - Prior Medications: 1
+#   - Concomitant Medications by Period: 4 (Whole, Induction, Maintenance, Follow-up)
+#   - Salvage/Subsequent Therapy: 1
+#   - Premedications: 1
+#   - Antihypertensives (AESI-related): 1

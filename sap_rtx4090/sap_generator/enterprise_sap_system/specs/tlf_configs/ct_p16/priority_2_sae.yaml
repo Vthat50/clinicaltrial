@@ -1,0 +1,479 @@
+# CT-P16 Priority 2 Serious Adverse Event (SAE) TLF Shells
+# =========================================================
+# SAE Summary by Study Period
+# Per SAP Section 10.1: Safety Analysis
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 2
+  category: "Serious Adverse Events"
+  sap_sections: ["10.1.2", "10.1.3"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# SAE TABLES
+# =============================================================================
+# Per SAP: SAEs will be summarized by study period similar to TEAE tables
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.3.3.1: SAE Summary - Whole Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.3.1"
+    title: "Summary of Serious Adverse Events by System Organ Class and Preferred Term - Whole Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "System Organ Class\n  Preferred Term"
+        width: 3.5
+        alignment: L
+        source_variable: "ADAE.AEBODSYS / AEDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one SAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "BLOOD AND LYMPHATIC SYSTEM DISORDERS"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Febrile neutropenia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Neutropenia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Thrombocytopenia"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "GASTROINTESTINAL DISORDERS"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Intestinal perforation"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Nausea"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Vomiting"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "GENERAL DISORDERS AND ADMINISTRATION SITE CONDITIONS"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Disease progression"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Death"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "INFECTIONS AND INFESTATIONS"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pneumonia"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Sepsis"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "RESPIRATORY, THORACIC AND MEDIASTINAL DISORDERS"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pulmonary embolism"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Dyspnea"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Hemoptysis"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "VASCULAR DISORDERS"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hypertension"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Deep vein thrombosis"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Hemorrhage"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[Additional SOCs as applicable]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: All subjects who received at least one dose of study drug."
+      - symbol: "a"
+        text: "SAE defined per ICH E2A: results in death, is life-threatening, requires hospitalization, results in disability, is a congenital anomaly, or is medically important."
+      - symbol: "b"
+        text: "MedDRA version 24.0 or higher coding dictionary."
+      - symbol: "c"
+        text: "Subjects counted once per SOC and once per PT within SOC."
+      - symbol: "d"
+        text: "SOCs sorted alphabetically; PTs sorted by decreasing frequency in Total column."
+      - symbol: ""
+        text: "Whole Study Period includes Induction, Maintenance, and Follow-up."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESER = 'Y'"
+    sort_order: ["AEBODSYS (alphabetical)", "AEDECOD (descending frequency)"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "SAEs: ADAE where AESER = 'Y' and TRTEMFL = 'Y'"
+      - "Count subjects once per SOC and once per PT"
+      - "Display all SOCs with at least one SAE"
+      - "Display all PTs within each SOC"
+      - "Sort SOCs alphabetically, PTs by descending frequency"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.3.2: SAE Summary - Induction Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.3.2"
+    title: "Summary of Serious Adverse Events by System Organ Class and Preferred Term - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "System Organ Class\n  Preferred Term"
+        width: 3.5
+        alignment: L
+        source_variable: "ADAE.AEBODSYS / AEDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one SAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[SOC / PT as in Whole Study Period table]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Induction Study Period: Cycles 1-6 with chemotherapy."
+      - symbol: "b"
+        text: "SAEs occurring during Induction only."
+      - symbol: "c"
+        text: "Expected higher SAE rate due to chemotherapy combination."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESER = 'Y' and APERIODC = 'INDUCTION'"
+    sort_order: ["AEBODSYS (alphabetical)", "AEDECOD (descending frequency)"]
+
+    programming_notes:
+      - "Induction period SAEs: APERIODC = 'INDUCTION'"
+      - "Higher SAE rate expected (chemotherapy toxicity)"
+      - "Common: febrile neutropenia, infections, GI events"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.3.3: SAE Summary - Maintenance Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.3.3"
+    title: "Summary of Serious Adverse Events by System Organ Class and Preferred Term - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Maintenance)
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "System Organ Class\n  Preferred Term"
+        width: 3.5
+        alignment: L
+        source_variable: "ADAE.AEBODSYS / AEDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects entering Maintenance Period"
+        bold: true
+        row_type: header
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with at least one SAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[SOC / PT as in Whole Study Period table]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects who entered Maintenance Period."
+      - symbol: "a"
+        text: "Maintenance Study Period: Monotherapy bevacizumab."
+      - symbol: "b"
+        text: "N denominator = subjects entering Maintenance."
+      - symbol: "c"
+        text: "Expected lower SAE rate (monotherapy, no chemotherapy)."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and MAINTFL = 'Y' and TRTEMFL = 'Y' and AESER = 'Y' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["AEBODSYS (alphabetical)", "AEDECOD (descending frequency)"]
+
+    programming_notes:
+      - "Maintenance period SAEs: APERIODC = 'MAINTENANCE'"
+      - "Population limited to subjects entering Maintenance"
+      - "N denominator = MAINTFL = 'Y'"
+      - "Lower SAE rate expected (monotherapy)"
+      - "Bevacizumab-specific SAEs: hypertension, hemorrhage, thromboembolism"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.3.4: SAE Summary - Follow-up Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.3.4"
+    title: "Summary of Serious Adverse Events by System Organ Class and Preferred Term - Follow-up Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population (Entered Follow-up)
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "System Organ Class\n  Preferred Term"
+        width: 3.5
+        alignment: L
+        source_variable: "ADAE.AEBODSYS / AEDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects entering Follow-up Period"
+        bold: true
+        row_type: header
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with at least one SAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[SOC / PT as in Whole Study Period table]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects who entered Follow-up Period."
+      - symbol: "a"
+        text: "Follow-up Period: Post-treatment follow-up."
+      - symbol: "b"
+        text: "N denominator = subjects entering Follow-up."
+      - symbol: "c"
+        text: "SAEs occurring after end of treatment."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and FUFL = 'Y' and TRTEMFL = 'Y' and AESER = 'Y' and APERIODC = 'FOLLOW-UP'"
+    sort_order: ["AEBODSYS (alphabetical)", "AEDECOD (descending frequency)"]
+
+    programming_notes:
+      - "Follow-up period SAEs: APERIODC = 'FOLLOW-UP'"
+      - "Population limited to subjects entering Follow-up"
+      - "N denominator = FUFL = 'Y'"
+      - "Common SAEs: disease progression, death"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.3.5: Treatment-Related SAE Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.3.3.5"
+    title: "Summary of Treatment-Related Serious Adverse Events by System Organ Class and Preferred Term (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "System Organ Class\n  Preferred Term"
+        width: 3.5
+        alignment: L
+        source_variable: "ADAE.AEBODSYS / AEDECOD"
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.2
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one treatment-related SAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[SOC / PT hierarchy]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Treatment-related per investigator assessment (related or possibly related to study drug)."
+      - symbol: "b"
+        text: "Includes SAEs related to bevacizumab, paclitaxel, or carboplatin."
+      - symbol: "c"
+        text: "Whole Study Period."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESER = 'Y' and AEREL in ('RELATED', 'POSSIBLY RELATED')"
+    sort_order: ["AEBODSYS (alphabetical)", "AEDECOD (descending frequency)"]
+
+    programming_notes:
+      - "Treatment-related SAEs: AEREL in ('RELATED', 'POSSIBLY RELATED')"
+      - "Includes relationship to any study treatment"
+      - "Key for biosimilar comparison"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total SAE Tables in this file: 5
+#   - SAE by SOC/PT: 4 (Whole, Induction, Maintenance, Follow-up)
+#   - Treatment-Related SAE: 1

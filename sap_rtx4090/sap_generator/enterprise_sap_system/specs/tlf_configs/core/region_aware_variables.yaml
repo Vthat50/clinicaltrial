@@ -1,0 +1,378 @@
+# =============================================================================
+# REGION-AWARE DEMOGRAPHIC & BASELINE VARIABLES
+# =============================================================================
+# Different regulatory regions require different demographic variables.
+# This module configures which variables to include based on study regions.
+#
+# Key Considerations:
+# - Race/Ethnicity: US (FDA) requires; some EU countries restrict
+# - Fertility Status: Required for female subjects in most regions
+# - Smoking History: Oncology-specific, especially lung cancer
+# - Alcohol Use: Hepatology/liver cancer studies
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# CORE DEMOGRAPHIC VARIABLES (Always Required)
+# -----------------------------------------------------------------------------
+
+core_demographics:
+  # These variables are ALWAYS included regardless of region
+
+  age:
+    label: "Age"
+    source_variable: "AGE"
+    source_dataset: "ADSL"
+    statistics:
+      continuous: ["n", "mean", "sd", "median", "min", "max"]
+      categorical:
+        - label: "<65 years"
+          condition: "AGE < 65"
+        - label: "≥65 years"
+          condition: "AGE >= 65"
+        - label: "<75 years"
+          condition: "AGE < 75"
+        - label: "≥75 years"
+          condition: "AGE >= 75"
+    footnotes:
+      - "Age calculated at date of informed consent"
+
+  sex:
+    label: "Sex"
+    source_variable: "SEX"
+    source_dataset: "ADSL"
+    categories:
+      - "Male"
+      - "Female"
+    statistics: ["n", "percent"]
+
+  weight:
+    label: "Weight (kg)"
+    source_variable: "WEIGHTBL"
+    source_dataset: "ADSL"
+    statistics: ["n", "mean", "sd", "median", "min", "max"]
+
+  height:
+    label: "Height (cm)"
+    source_variable: "HEIGHTBL"
+    source_dataset: "ADSL"
+    statistics: ["n", "mean", "sd", "median", "min", "max"]
+
+  bmi:
+    label: "BMI (kg/m²)"
+    source_variable: "BMIBL"
+    source_dataset: "ADSL"
+    derivation: "Weight(kg) / [Height(m)]²"
+    statistics: ["n", "mean", "sd", "median", "min", "max"]
+    categories:
+      - label: "<18.5 (Underweight)"
+        condition: "BMIBL < 18.5"
+      - label: "18.5 to <25 (Normal)"
+        condition: "BMIBL >= 18.5 and BMIBL < 25"
+      - label: "25 to <30 (Overweight)"
+        condition: "BMIBL >= 25 and BMIBL < 30"
+      - label: "≥30 (Obese)"
+        condition: "BMIBL >= 30"
+
+  bsa:
+    label: "Body Surface Area (m²)"
+    source_variable: "BSABL"
+    source_dataset: "ADSL"
+    derivation: "Mosteller formula: √[(Height(cm) × Weight(kg)) / 3600]"
+    statistics: ["n", "mean", "sd", "median", "min", "max"]
+
+# -----------------------------------------------------------------------------
+# REGION-SPECIFIC VARIABLES
+# -----------------------------------------------------------------------------
+
+region_specific_variables:
+
+  # ---------------------------------------------------------------------------
+  # RACE (Required for FDA, Restricted in Some EU Countries)
+  # ---------------------------------------------------------------------------
+  race:
+    label: "Race"
+    source_variable: "RACE"
+    source_dataset: "ADSL"
+    regional_requirements:
+      united_states:
+        required: true
+        rationale: "FDA requires race data for safety and efficacy assessment"
+      european_union:
+        required: "conditional"
+        rationale: "Some EU countries restrict race collection (France, etc.)"
+        handling: "Include 'Not Allowed by Country Regulations' category"
+      japan:
+        required: false
+        rationale: "Generally not collected in Japan-only studies"
+      global:
+        required: true
+        rationale: "Global studies should collect for FDA submission"
+    categories:
+      - "American Indian or Alaska Native"
+      - "Asian"
+      - "Black or African American"
+      - "Native Hawaiian or Other Pacific Islander"
+      - "White or Caucasian"
+      - "Multiple"
+      - "Other"
+      - "Not Allowed by Investigator Country Regulations"
+      - "Unknown"
+    statistics: ["n", "percent"]
+    footnotes:
+      - "Race categories per FDA guidance for industry"
+      - "Some countries do not permit race data collection"
+
+  # ---------------------------------------------------------------------------
+  # ETHNICITY (Required for FDA)
+  # ---------------------------------------------------------------------------
+  ethnicity:
+    label: "Ethnicity"
+    source_variable: "ETHNIC"
+    source_dataset: "ADSL"
+    regional_requirements:
+      united_states:
+        required: true
+        rationale: "FDA requires ethnicity as separate from race"
+      european_union:
+        required: "conditional"
+        handling: "Include 'Not Allowed by Country Regulations' category"
+      japan:
+        required: false
+      global:
+        required: true
+    categories:
+      - "Hispanic or Latino"
+      - "Not Hispanic or Latino"
+      - "Not Allowed by Investigator Country Regulations"
+      - "Unknown"
+    statistics: ["n", "percent"]
+
+  # ---------------------------------------------------------------------------
+  # FERTILITY STATUS (Required for Female Subjects)
+  # ---------------------------------------------------------------------------
+  fertility_status:
+    label: "Fertility Status (Females Only)"
+    source_variable: "FERTILE"
+    source_dataset: "ADSL"
+    applicable_population: "SEX = 'Female'"
+    regional_requirements:
+      all_regions:
+        required: true
+        rationale: "Required for pregnancy prevention and safety monitoring"
+    categories:
+      - "Pre-Menarche"
+      - "Surgically Sterilized"
+      - "Post-Menopausal"
+      - "Potentially Able to Bear Children"
+    statistics: ["n", "percent"]
+    footnotes:
+      - "Post-menopausal defined as ≥12 months amenorrhea"
+      - "Surgically sterilized includes bilateral oophorectomy, hysterectomy, or bilateral tubal ligation"
+
+  # ---------------------------------------------------------------------------
+  # SMOKING HISTORY (Required for Lung Cancer, COPD)
+  # ---------------------------------------------------------------------------
+  smoking_history:
+    label: "Smoking History"
+    source_variable: "SMOKSTAT"
+    source_dataset: "ADSL"
+    indication_requirements:
+      lung_cancer:
+        required: true
+        rationale: "Major prognostic factor in NSCLC"
+      other_cancers:
+        required: false
+        rationale: "May be collected but not primary focus"
+      copd:
+        required: true
+    categories:
+      - "Never Smoker"
+      - "Former Smoker"
+      - "Current Smoker"
+      - "Unknown"
+    additional_variables:
+      - variable: "PACKYRS"
+        label: "Pack-Years"
+        statistics: ["n", "mean", "sd", "median", "min", "max"]
+        note: "For former/current smokers only"
+    statistics: ["n", "percent"]
+    footnotes:
+      - "Never smoker: <100 cigarettes lifetime"
+      - "Former smoker: Quit ≥1 year prior to study entry"
+      - "Pack-years = (cigarettes per day / 20) × years smoked"
+
+  # ---------------------------------------------------------------------------
+  # ALCOHOL USE (Required for Liver Studies)
+  # ---------------------------------------------------------------------------
+  alcohol_use:
+    label: "Alcohol Use"
+    source_variable: "ALCSTAT"
+    source_dataset: "ADSL"
+    indication_requirements:
+      hepatocellular_carcinoma:
+        required: true
+        rationale: "Major etiologic factor"
+      liver_disease:
+        required: true
+      other:
+        required: false
+    categories:
+      - "None"
+      - "Social Drinker"
+      - "Heavy Drinker"
+      - "History of Alcoholism"
+      - "Unknown"
+    statistics: ["n", "percent"]
+
+# -----------------------------------------------------------------------------
+# GEOGRAPHIC REGION VARIABLE
+# -----------------------------------------------------------------------------
+
+geographic_region:
+  label: "Geographic Region"
+  source_variable: "REGION"
+  source_dataset: "ADSL"
+  standard_groupings:
+    global_study:
+      - "North America"
+      - "Europe"
+      - "Asia-Pacific"
+      - "Rest of World"
+    eu_centric:
+      - "Western Europe"
+      - "Eastern Europe"
+      - "Non-EU"
+    asia_pacific:
+      - "East Asia"
+      - "Southeast Asia"
+      - "Non-East Asia"
+    japan_specific:
+      - "Japan"
+      - "Non-Japan"
+  statistics: ["n", "percent"]
+  footnotes:
+    - "Region assigned based on country of enrollment"
+
+# -----------------------------------------------------------------------------
+# COUNTRY VARIABLE
+# -----------------------------------------------------------------------------
+
+country:
+  label: "Country"
+  source_variable: "COUNTRY"
+  source_dataset: "ADSL"
+  display_options:
+    threshold: 10  # Show individual countries with ≥10 subjects
+    grouping: "Other (countries with <10 subjects)"
+  statistics: ["n", "percent"]
+  considerations:
+    - "Useful for multi-regional clinical trials"
+    - "May need grouping if many small countries"
+
+# -----------------------------------------------------------------------------
+# INDICATION-SPECIFIC BASELINE VARIABLES
+# -----------------------------------------------------------------------------
+
+indication_specific:
+
+  # Performance Status (Almost all oncology)
+  ecog_ps:
+    label: "ECOG Performance Status"
+    source_variable: "ECOGBL"
+    source_dataset: "ADSL"
+    indications: ["all_oncology"]
+    categories:
+      - label: "0"
+        description: "Fully active"
+      - label: "1"
+        description: "Restricted in strenuous activity"
+      - label: "2"
+        description: "Ambulatory, capable of self-care"
+      - label: "3"
+        description: "Limited self-care, confined >50% of waking hours"
+      - label: "4"
+        description: "Completely disabled"
+    statistics: ["n", "percent"]
+    exclusion_note: "ECOG PS >2 often excluded in oncology trials"
+
+  # Karnofsky Performance Status (Alternative)
+  kps:
+    label: "Karnofsky Performance Status"
+    source_variable: "KPSBL"
+    source_dataset: "ADSL"
+    indications: ["brain_tumors", "pediatric_oncology"]
+    statistics: ["n", "mean", "sd", "median", "min", "max"]
+    categories:
+      - label: "100"
+        description: "Normal"
+      - label: "90-100"
+      - label: "70-89"
+      - label: "<70"
+
+# -----------------------------------------------------------------------------
+# VARIABLE INCLUSION RULES ENGINE
+# -----------------------------------------------------------------------------
+
+inclusion_rules:
+  # Logic for determining which variables to include
+
+  always_include:
+    - "age"
+    - "sex"
+    - "weight"
+    - "height"
+    - "bmi"
+    - "bsa"
+
+  include_if_region:
+    race:
+      - "united_states"
+      - "global"
+    ethnicity:
+      - "united_states"
+      - "global"
+
+  include_if_indication:
+    smoking_history:
+      - "nsclc"
+      - "lung_cancer"
+      - "sclc"
+      - "head_neck_cancer"
+      - "bladder_cancer"
+    alcohol_use:
+      - "hepatocellular_carcinoma"
+      - "liver_cancer"
+      - "cirrhosis"
+
+  include_if_population_contains:
+    fertility_status:
+      sex: "Female"
+
+  include_if_study_type:
+    ecog_ps:
+      - "all"  # Always include for oncology
+    kps:
+      - "brain_tumors"
+      - "pediatric"
+
+# -----------------------------------------------------------------------------
+# TABLE FOOTNOTES BY REGION
+# -----------------------------------------------------------------------------
+
+regional_footnotes:
+  race_ethnicity:
+    us_only: []
+    global_with_restrictions:
+      - "Race and ethnicity data were not collected in countries where regulations prohibit collection of such data."
+    eu_only:
+      - "Race data collection is restricted in certain EU countries per local regulations."
+
+  fertility:
+    standard:
+      - "Fertility status reported for female subjects only."
+      - "Post-menopausal defined as ≥12 consecutive months of amenorrhea without other cause."
+
+  smoking:
+    lung_cancer:
+      - "Never smoker defined as <100 cigarettes in lifetime."
+      - "Pack-years calculated as (cigarettes/day ÷ 20) × years smoked."

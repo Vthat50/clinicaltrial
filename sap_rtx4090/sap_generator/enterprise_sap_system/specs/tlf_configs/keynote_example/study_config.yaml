@@ -1,0 +1,144 @@
+# =============================================================================
+# EXAMPLE: Immuno-Oncology Study Configuration
+# =============================================================================
+# This demonstrates how to configure an IO study like KEYNOTE-XXX
+# Using the modular TLF shell system
+
+study_config:
+  study_id: "KEYNOTE-EXAMPLE"
+  study_type: "immuno_oncology"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  phase: "III"
+
+  # Reference to AESI library - which drug classes to include
+  drug_class:
+    - "checkpoint_inhibitor"
+    - "cytotoxic_chemotherapy"  # If combination with chemo
+
+  # Reference to study design template
+  study_design: "continuous"
+  design_parameters:
+    max_duration: "24 months"
+    on_treatment_window: 30
+    followup_days: 90
+
+  # Treatment arms
+  treatment_arms:
+    arm1:
+      name: "Pembrolizumab + Chemotherapy"
+      abbrev: "Pembro+Chemo"
+    arm2:
+      name: "Placebo + Chemotherapy"
+      abbrev: "Placebo+Chemo"
+
+  # Stratification factors
+  stratification_factors:
+    - "PD-L1 TPS (<1% vs 1-49% vs ≥50%)"
+    - "Region (East Asia vs Non-East Asia)"
+    - "Histology (Squamous vs Non-squamous)"
+
+  # Populations
+  populations:
+    - code: "ITT"
+      name: "Intent-to-Treat"
+      definition: "All randomized subjects"
+      flag: "ITTFL"
+    - code: "Safety"
+      name: "Safety Population"
+      definition: "All subjects who received at least one dose"
+      flag: "SAFFL"
+    - code: "mITT"
+      name: "Modified ITT"
+      definition: "All randomized subjects with PD-L1 evaluable"
+      flag: "MITTFL"
+
+  # Review types
+  review_types:
+    - code: "BICR"
+      name: "Blinded Independent Central Review"
+      primary: true
+    - code: "INV"
+      name: "Investigator Assessment"
+      primary: false
+
+  # Biomarker configuration
+  biomarkers:
+    pdl1:
+      assay: "22C3 pharmDx"
+      score_type: "TPS"
+      cutoffs: [1, 50]
+      subgroups:
+        - "TPS <1%"
+        - "TPS 1-49%"
+        - "TPS ≥50%"
+        - "TPS ≥1%"
+    tmb:
+      assay: "FoundationOne CDx"
+      cutoff: 10
+      unit: "mut/Mb"
+
+# =============================================================================
+# ENDPOINTS
+# =============================================================================
+endpoints:
+  primary:
+    - code: "PFS"
+      label: "Progression-Free Survival"
+      population: "ITT"
+      review_type: "BICR"
+      analysis: "Stratified log-rank; stratified Cox model"
+
+    - code: "OS"
+      label: "Overall Survival"
+      population: "ITT"
+      analysis: "Stratified log-rank; stratified Cox model"
+
+  secondary:
+    - code: "ORR"
+      label: "Objective Response Rate"
+      population: "ITT"
+      review_type: "BICR"
+
+    - code: "DOR"
+      label: "Duration of Response"
+      population: "Responders"
+      review_type: "BICR"
+
+  exploratory:
+    - code: "PFS_PDL1"
+      label: "PFS by PD-L1 Subgroup"
+      population: "mITT"
+
+    - code: "iORR"
+      label: "Objective Response Rate by iRECIST"
+      population: "ITT"
+
+# =============================================================================
+# TLF PRIORITIES
+# =============================================================================
+tlf_priorities:
+  priority_1:
+    description: "Primary and Key Secondary Endpoints"
+    tables:
+      - "PFS Summary (ITT, BICR)"
+      - "OS Summary (ITT)"
+      - "ORR Summary (ITT, BICR)"
+      - "TEAE Overview"
+      - "irAE Summary"
+
+  priority_2:
+    description: "Secondary and Subgroup Analyses"
+    tables:
+      - "PFS by PD-L1 Subgroup"
+      - "OS by PD-L1 Subgroup"
+      - "DOR Summary"
+      - "SAE Summary"
+      - "AE Leading to Discontinuation"
+
+  priority_3:
+    description: "Supportive Analyses"
+    tables:
+      - "PFS by Investigator"
+      - "ORR by iRECIST"
+      - "Exposure Summary"
+      - "Laboratory Summaries"

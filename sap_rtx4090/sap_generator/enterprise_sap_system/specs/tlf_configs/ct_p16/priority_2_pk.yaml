@@ -1,0 +1,786 @@
+# CT-P16 Priority 2 Pharmacokinetic (PK) TLF Shells
+# ==================================================
+# Serum Concentration and Ctrough Summaries
+# Per SAP Section 9: Pharmacokinetic Analysis
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 2
+  category: "Pharmacokinetics"
+  sap_sections: ["9.1", "9.2"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# PK TABLES
+# =============================================================================
+# Per SAP Section 9.1:
+# "Serum concentration of bevacizumab will be summarized by treatment group
+# at each scheduled visit using descriptive statistics: n, mean, standard
+# deviation, geometric mean, CV%, minimum, median and maximum."
+#
+# Per SAP Section 9.2:
+# "PK parameter is the observed Ctrough following drug administration;
+# calculated from the pre-dose concentration of the next dose."
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.4.1.1: Serum Concentration Summary - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.4.1.1"
+    title: "Summary of Serum Bevacizumab Concentration - Induction Study Period (PK Population)"
+    tlf_type: TABLE
+    population: PK Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Visit / Timepoint"
+        width: 2.0
+        alignment: L
+        source_variable: "ADPC.AVISIT"
+      - header: "Statistic"
+        width: 1.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPC.AVAL"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPC.AVAL"
+
+    stub_rows:
+      - level: 0
+        label: "Cycle 1 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 1 Day 1 (Post-infusion)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 2 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 3 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 4 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 5 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 6 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population: Subjects with at least one evaluable PK sample."
+      - symbol: "a"
+        text: "Serum bevacizumab concentration measured by validated ELISA assay."
+      - symbol: "b"
+        text: "Geometric mean = exp(mean of log-transformed values)."
+      - symbol: "c"
+        text: "CV% = 100 × sqrt(exp(variance of log-transformed) - 1)."
+      - symbol: "d"
+        text: "Induction Study Period: Cycles 1-6 with chemotherapy."
+      - symbol: ""
+        text: "Concentration units: μg/mL."
+
+    source_dataset: "ADPC"
+    filter_condition: "PKFL = 'Y' and PARAMCD = 'CONC' and APERIODC = 'INDUCTION'"
+    sort_order: ["TRT01PN", "AVISITN", "ATPTN"]
+
+    programming_notes:
+      - "Population: ADSL where PKFL = 'Y'"
+      - "Concentration data from ADPC where PARAMCD = 'CONC'"
+      - "Induction period: APERIODC = 'INDUCTION' or Cycles 1-6"
+      - "Statistics: n, Mean (SD), Geometric Mean, CV%, Median, Min, Max"
+      - "Use PROC MEANS with GMEAN option for geometric mean"
+      - "CV% calculated on log-transformed data"
+      - "BLQ values: handle per bioanalytical plan (typically LLOQ/2)"
+
+  # ---------------------------------------------------------------------------
+  # 14.4.1.2: Serum Concentration Summary - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.4.1.2"
+    title: "Summary of Serum Bevacizumab Concentration - Maintenance Study Period (PK Population)"
+    tlf_type: TABLE
+    population: PK Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "Visit / Timepoint"
+        width: 2.0
+        alignment: L
+        source_variable: "ADPC.AVISIT"
+      - header: "Statistic"
+        width: 1.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPC.AVAL"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPC.AVAL"
+
+    stub_rows:
+      - level: 0
+        label: "Cycle 7 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 10 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "End of Treatment"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Mean (SD)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Median"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population: Subjects who entered Maintenance Period with evaluable PK samples."
+      - symbol: "a"
+        text: "Maintenance Study Period: Monotherapy phase (Cycle 7 onwards)."
+      - symbol: "b"
+        text: "N denominator = subjects entering Maintenance with PK data."
+      - symbol: ""
+        text: "Concentration units: μg/mL."
+
+    source_dataset: "ADPC"
+    filter_condition: "PKFL = 'Y' and PARAMCD = 'CONC' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["TRT01PN", "AVISITN", "ATPTN"]
+
+    programming_notes:
+      - "Maintenance period: APERIODC = 'MAINTENANCE' or Cycle >= 7"
+      - "N denominator changes (fewer subjects in Maintenance)"
+      - "Same statistics as Induction table"
+
+  # ---------------------------------------------------------------------------
+  # 14.4.2.1: Ctrough Summary - Induction Period
+  # ---------------------------------------------------------------------------
+  - number: "14.4.2.1"
+    title: "Summary of Trough Concentration (Ctrough) - Induction Study Period (PK Population)"
+    tlf_type: TABLE
+    population: PK Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Cycle"
+        width: 1.5
+        alignment: L
+        source_variable: "ADPP.AVISIT"
+      - header: "Statistic"
+        width: 1.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPP.AVAL"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPP.AVAL"
+      - header: "Ratio\n(90% CI)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "Cycle 2 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 3 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 4 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 5 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 6 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population: Subjects with at least one evaluable Ctrough measurement."
+      - symbol: "a"
+        text: "Ctrough = Pre-dose concentration at Day 1 of each cycle."
+      - symbol: "b"
+        text: "Geometric Mean Ratio = CT-P16 / EU-Approved Avastin."
+      - symbol: "c"
+        text: "90% CI from ANOVA on log-transformed Ctrough values."
+      - symbol: "d"
+        text: "PK similarity supported if 90% CI within 80-125%."
+
+    source_dataset: "ADPP"
+    filter_condition: "PKFL = 'Y' and PARAMCD = 'CTROUGH' and APERIODC = 'INDUCTION'"
+    sort_order: ["TRT01PN", "AVISITN"]
+
+    programming_notes:
+      - "Population: ADSL where PKFL = 'Y'"
+      - "Ctrough from ADPP where PARAMCD = 'CTROUGH'"
+      - "Ctrough = pre-dose concentration of next cycle"
+      - "ANOVA model: log(Ctrough) = Treatment + Cycle + Treatment*Cycle"
+      - "GMR and 90% CI from PROC MIXED or PROC GLM"
+      - "Biosimilar comparison: 90% CI should be within 80-125%"
+      - "Induction: Cycles 2-6 (Cycle 1 has no Ctrough)"
+
+  # ---------------------------------------------------------------------------
+  # 14.4.2.2: Ctrough Summary - Maintenance Period
+  # ---------------------------------------------------------------------------
+  - number: "14.4.2.2"
+    title: "Summary of Trough Concentration (Ctrough) - Maintenance Study Period (PK Population)"
+    tlf_type: TABLE
+    population: PK Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Cycle"
+        width: 1.5
+        alignment: L
+        source_variable: "ADPP.AVISIT"
+      - header: "Statistic"
+        width: 1.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPP.AVAL"
+      - header: "EU-Approved Avastin\n(N=xxx)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: "ADPP.AVAL"
+      - header: "Ratio\n(90% CI)"
+        width: 1.5
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "Cycle 7 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 10 Ctrough"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Steady-State Ctrough (Pooled Maintenance)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean (μg/mL)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Ratio"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "90% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "PK Population: Subjects entering Maintenance with evaluable Ctrough."
+      - symbol: "a"
+        text: "Steady-state Ctrough pooled across all Maintenance cycles."
+      - symbol: "b"
+        text: "N denominator = subjects entering Maintenance Period."
+      - symbol: "c"
+        text: "PK similarity: 90% CI within 80-125%."
+
+    source_dataset: "ADPP"
+    filter_condition: "PKFL = 'Y' and PARAMCD = 'CTROUGH' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["TRT01PN", "AVISITN"]
+
+    programming_notes:
+      - "Maintenance period: Cycle >= 7"
+      - "Steady-state pooled analysis includes all Maintenance Ctrough values"
+      - "Mixed model with repeated measures for pooled analysis"
+      - "N denominator = subjects entering Maintenance"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total PK Tables in this file: 4
+#   - Serum Concentration: 2 (Induction, Maintenance)
+#   - Ctrough: 2 (Induction, Maintenance)

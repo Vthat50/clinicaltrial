@@ -1,0 +1,274 @@
+# =============================================================================
+# TARGETED THERAPY BASE CONFIGURATION
+# =============================================================================
+# Extends: base_oncology.yaml
+# For targeted therapies (TKIs, small molecules with specific targets)
+#
+# Key differentiators:
+# - Biomarker-selected populations
+# - Continuous dosing until progression
+# - Target-specific toxicity profiles
+# - Resistance mechanisms important
+
+version: "2.0"
+config_type: "study_type_base"
+extends: "base_oncology.yaml"
+study_type: "targeted_therapy"
+
+# =============================================================================
+# TARGETED THERAPY CONCEPTS
+# =============================================================================
+targeted_framework:
+  mechanism: "Inhibition of specific molecular target driving tumor growth"
+  patient_selection: "Typically requires biomarker testing for eligibility"
+  dosing: "Usually continuous daily oral dosing"
+  resistance: "Acquired resistance is common; mechanisms often characterized"
+
+# =============================================================================
+# BIOMARKER-SELECTED POPULATIONS
+# =============================================================================
+biomarker_selection:
+  mandatory:
+    description: "Target mutation/alteration required for enrollment"
+    examples:
+      - target: "EGFR mutation"
+        agents: ["Osimertinib", "Erlotinib", "Gefitinib"]
+        testing: "PCR or NGS"
+        common_mutations: ["Exon 19 del", "L858R", "T790M"]
+
+      - target: "ALK rearrangement"
+        agents: ["Alectinib", "Crizotinib", "Brigatinib"]
+        testing: "FISH, IHC, or NGS"
+
+      - target: "ROS1 rearrangement"
+        agents: ["Crizotinib", "Entrectinib"]
+        testing: "FISH or NGS"
+
+      - target: "BRAF V600 mutation"
+        agents: ["Dabrafenib", "Vemurafenib"]
+        testing: "PCR or NGS"
+
+      - target: "HER2 overexpression/amplification"
+        agents: ["Trastuzumab", "Lapatinib"]
+        testing: "IHC, FISH"
+
+      - target: "BRCA mutation"
+        agents: ["Olaparib", "Rucaparib"]
+        testing: "NGS (germline or somatic)"
+
+  populations:
+    biomarker_positive:
+      name: "Biomarker-Positive Population"
+      definition: "Subjects with confirmed target alteration"
+      flag: "BMKRFL"
+
+    all_enrolled:
+      name: "All Enrolled"
+      definition: "All subjects enrolled regardless of biomarker"
+      use_case: "Sensitivity analysis"
+
+# =============================================================================
+# DOSING PATTERNS
+# =============================================================================
+dosing:
+  continuous:
+    description: "Daily dosing without planned breaks"
+    cycle_definition: "Usually 21 or 28 days for reporting purposes"
+    dose_modifications:
+      - "Dose reduction levels (e.g., Level -1, Level -2)"
+      - "Dose interruption"
+      - "Dose discontinuation"
+
+  intermittent:
+    description: "Dosing with planned breaks"
+    example: "3 weeks on, 1 week off"
+
+  exposure_metrics:
+    - "Duration of exposure (days, months)"
+    - "Relative dose intensity (%)"
+    - "Number of dose reductions"
+    - "Number of dose interruptions"
+    - "Cumulative dose"
+
+# =============================================================================
+# RESISTANCE AND PROGRESSION
+# =============================================================================
+resistance:
+  types:
+    primary:
+      name: "Primary/Intrinsic Resistance"
+      definition: "No initial response to therapy"
+
+    acquired:
+      name: "Acquired Resistance"
+      definition: "Progression after initial response"
+      mechanisms:
+        egfr:
+          - "T790M mutation (after 1st/2nd gen EGFR TKI)"
+          - "C797S mutation (after osimertinib)"
+          - "MET amplification"
+          - "Small cell transformation"
+        alk:
+          - "ALK resistance mutations"
+          - "Bypass pathway activation"
+
+  biospy_at_progression:
+    description: "Re-biopsy to characterize resistance mechanism"
+    analyses:
+      - "Mutation analysis at progression"
+      - "Subsequent therapy by resistance mechanism"
+
+# =============================================================================
+# TARGET-SPECIFIC TOXICITY
+# =============================================================================
+toxicity_profiles:
+  egfr_tki:
+    common:
+      - "Rash/Dermatitis acneiform"
+      - "Diarrhea"
+      - "Paronychia"
+      - "Stomatitis"
+    serious:
+      - "Interstitial lung disease"
+      - "Hepatotoxicity"
+      - "QT prolongation"
+    aesi_reference: "egfr_inhibitor"
+
+  alk_tki:
+    common:
+      - "Visual disturbances"
+      - "Edema"
+      - "Nausea"
+      - "Constipation"
+    serious:
+      - "Hepatotoxicity"
+      - "ILD"
+      - "Bradycardia"
+    aesi_reference: "alk_ros1_inhibitor"
+
+  braf_mek:
+    common:
+      - "Pyrexia"
+      - "Fatigue"
+      - "Rash"
+      - "Arthralgia"
+    serious:
+      - "New primary malignancies (cutaneous SCC)"
+      - "Cardiomyopathy"
+      - "Retinal disorders"
+      - "Hemorrhage"
+
+# =============================================================================
+# EFFICACY CONSIDERATIONS
+# =============================================================================
+efficacy_considerations:
+  high_response_rates:
+    description: "Targeted therapies often have high ORR in selected populations"
+    typical_orr: "50-80%"
+
+  depth_of_response:
+    metrics:
+      - "Best percentage change from baseline"
+      - "Waterfall plot"
+      - "Swimmers plot"
+
+  intracranial_efficacy:
+    description: "Important for agents with CNS penetration"
+    endpoints:
+      - "Intracranial ORR"
+      - "Intracranial PFS"
+      - "Time to CNS progression"
+    population: "Subjects with baseline brain metastases"
+    agents: ["Osimertinib", "Alectinib", "Lorlatinib"]
+
+# =============================================================================
+# REQUIRED TABLE SHELLS FOR TARGETED THERAPY
+# =============================================================================
+required_tables:
+  efficacy:
+    - category: "Response"
+      endpoints: ["ORR", "BOR", "DCR", "CBR"]
+      note: "High response rates expected"
+
+    - category: "Depth of Response"
+      outputs:
+        - "Waterfall plot"
+        - "Best % change summary"
+
+    - category: "Time-to-Event"
+      endpoints: ["PFS", "DOR", "OS", "TTR"]
+
+    - category: "Intracranial Efficacy"
+      if_applicable: "Brain metastases cohort"
+      endpoints: ["IC-ORR", "IC-PFS"]
+
+    - category: "Efficacy by Mutation Type"
+      note: "e.g., Exon 19 del vs L858R"
+
+  safety:
+    - category: "TEAE Overview"
+
+    - category: "Target-Specific AESI"
+      note: "Based on drug class"
+
+    - category: "Dose Modifications"
+      outputs:
+        - "Dose reductions"
+        - "Dose interruptions"
+        - "Discontinuations"
+
+    - category: "Exposure"
+      metrics:
+        - "Duration"
+        - "Relative dose intensity"
+        - "Cumulative dose"
+
+  biomarker:
+    - "Efficacy by Mutation Subtype"
+    - "Baseline Tumor Characteristics"
+    - "Resistance Mechanisms (if collected)"
+
+# =============================================================================
+# COLUMN TEMPLATES FOR TARGETED THERAPY
+# =============================================================================
+column_templates:
+  mutation_subgroup:
+    - header: "Mutation Subtype"
+      width: 2.0
+      alignment: L
+    - header: "N"
+      width: 0.6
+      alignment: C
+    - header: "ORR, n (%)\n[95% CI]"
+      width: 1.5
+      alignment: C
+    - header: "Median PFS (mo)\n[95% CI]"
+      width: 1.5
+      alignment: C
+
+  dose_modification:
+    - header: "Category"
+      width: 3.0
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)\nn (%)"
+      width: 1.5
+      alignment: C
+    - header: "{ARM2}\n(N=xxx)\nn (%)"
+      width: 1.5
+      alignment: C
+
+# =============================================================================
+# FOOTNOTE TEMPLATES FOR TARGETED THERAPY
+# =============================================================================
+footnote_templates:
+  biomarker:
+    selection: "All subjects had confirmed {TARGET} by {METHOD}."
+    mutation_specific: "Subgroup analyses by specific mutation type are exploratory."
+
+  efficacy:
+    high_orr: "Response assessed per RECIST 1.1 by investigator."
+    intracranial: "Intracranial response assessed per RANO-BM criteria in subjects with baseline brain metastases."
+
+  dosing:
+    continuous: "Subjects received continuous daily dosing until disease progression or unacceptable toxicity."
+    rdi: "Relative dose intensity = (actual dose received / planned dose) × 100."

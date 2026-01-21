@@ -1,0 +1,1094 @@
+# CT-P16 Priority 1 Safety TLF Shells
+# ====================================
+# TEAE Overview and AESI by Study Period
+# Per SAP Section 10: Safety Analysis
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 1
+  category: "Safety"
+  sap_sections: ["10.1.1", "10.1.5"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# TABLE 14.3.1: OVERVIEW OF TREATMENT-EMERGENT ADVERSE EVENTS
+# =============================================================================
+# Per SAP: "Summaries of TEAEs will be presented by Whole Study Period,
+# Induction Study Period, Maintenance Study Period and Follow-up Period"
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.3.1.1: TEAE Overview - Whole Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.1.1"
+    title: "Overview of Treatment-Emergent Adverse Events - Whole Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 TEAE (Death)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to study drug discontinuation"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to study drug interruption"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to dose reduction"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Maximum CTCAE Grade of any TEAE:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Grade 1 (Mild)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2 (Moderate)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3 (Severe)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 (Life-threatening)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 (Death)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: All subjects who received at least one dose of study drug."
+      - symbol: "a"
+        text: "TEAEs defined as AEs with onset on or after first dose of study drug and within 28 days after the last dose or end of treatment, whichever is later."
+      - symbol: "b"
+        text: "Treatment-related per investigator assessment (related or possibly related)."
+      - symbol: "c"
+        text: "Subjects are counted once per category regardless of the number of events."
+      - symbol: "d"
+        text: "Severity graded per NCI CTCAE version 5.0."
+      - symbol: ""
+        text: "Percentages based on the number of subjects in each treatment group."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "TEAEs: ADAE where TRTEMFL = 'Y'"
+      - "Whole Study Period: All TEAEs regardless of study period"
+      - "Count subjects once per category"
+      - "Use worst grade for maximum severity"
+      - "Treatment-related: AEREL in ('RELATED', 'POSSIBLY RELATED')"
+      - "Serious: AESER = 'Y'"
+      - "Leading to discontinuation: AEACN = 'DRUG WITHDRAWN'"
+      - "Leading to interruption: AEACN = 'DRUG INTERRUPTED'"
+      - "Leading to dose reduction: AEACN = 'DOSE REDUCED'"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.1.2: TEAE Overview - Induction Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.1.2"
+    title: "Overview of Treatment-Emergent Adverse Events - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 TEAE (Death)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to study drug discontinuation"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to study drug interruption"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to dose reduction"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Maximum CTCAE Grade of any TEAE:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Grade 1 (Mild)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2 (Moderate)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3 (Severe)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 (Life-threatening)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 (Death)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: All subjects who received at least one dose of study drug."
+      - symbol: "a"
+        text: "Induction Study Period: TEAEs with onset during Cycles 1-6 (with chemotherapy)."
+      - symbol: "b"
+        text: "For subjects who did not enter Maintenance: TEAEs with onset on or prior to last date of EOT (or last dose date + 28 if EOT missing)."
+      - symbol: "c"
+        text: "For subjects who entered Maintenance: TEAEs with onset prior to first infusion in Maintenance Period."
+      - symbol: "d"
+        text: "Subjects are counted once per category."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and APERIODC = 'INDUCTION'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Induction Period TEAEs: APERIODC = 'INDUCTION' in ADAE"
+      - "Period assignment per SAP Section 10.1.1:"
+      - "  - Did not enter Maintenance: AE onset <= EOT (or last dose + 28)"
+      - "  - Entered Maintenance: AE onset < first Maintenance infusion date"
+      - "N denominator = subjects who received at least one dose in Induction"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.1.3: TEAE Overview - Maintenance Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.1.3"
+    title: "Overview of Treatment-Emergent Adverse Events - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects entering Maintenance Period"
+        bold: true
+        row_type: header
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with at least one:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 TEAE (Death)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to study drug discontinuation"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to study drug interruption"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "TEAE leading to dose reduction"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Maximum CTCAE Grade of any TEAE:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Grade 1 (Mild)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2 (Moderate)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3 (Severe)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 (Life-threatening)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 (Death)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects who entered Maintenance Study Period."
+      - symbol: "a"
+        text: "Maintenance Study Period: Monotherapy phase after completion of Induction (Cycles 1-6)."
+      - symbol: "b"
+        text: "TEAEs with onset on or after first Maintenance infusion and on or prior to EOT (or last dose + 28)."
+      - symbol: "c"
+        text: "N denominator = subjects who entered Maintenance Period."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Maintenance Period TEAEs: APERIODC = 'MAINTENANCE' in ADAE"
+      - "Period assignment per SAP Section 10.1.1:"
+      - "  - AE onset >= first Maintenance infusion date"
+      - "  - AE onset <= EOT (or last dose + 28 if EOT missing)"
+      - "N denominator = subjects who entered Maintenance (MAINTFL = 'Y')"
+      - "Note: Fewer subjects than Induction (some discontinued before Maintenance)"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.1.4: TEAE Overview - Follow-up Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.1.4"
+    title: "Overview of Treatment-Emergent Adverse Events - Follow-up Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Total\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects entering Follow-up Period"
+        bold: true
+        row_type: header
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with at least one:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 TEAE (Death)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related TEAE"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-related Serious TEAE"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Maximum CTCAE Grade of any TEAE:"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Grade 1 (Mild)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2 (Moderate)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3 (Severe)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4 (Life-threatening)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 (Death)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects who entered Follow-up Period."
+      - symbol: "a"
+        text: "Follow-up Period: TEAEs with onset after EOT (or last dose + 28)."
+      - symbol: "b"
+        text: "Only subjects with recorded EOT date are included."
+      - symbol: "c"
+        text: "N denominator = subjects who entered Follow-up Period."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and APERIODC = 'FOLLOW-UP'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "Follow-up Period TEAEs: APERIODC = 'FOLLOW-UP' in ADAE"
+      - "Period assignment per SAP Section 10.1.1:"
+      - "  - Subject has EOT date"
+      - "  - AE onset > EOT (or last dose + 28)"
+      - "N denominator = subjects who entered Follow-up (FUFL = 'Y')"
+
+  # ===========================================================================
+  # TABLE 14.3.2: ADVERSE EVENTS OF SPECIAL INTEREST (AESI)
+  # ===========================================================================
+  # Per SAP Section 10.1.5 and Appendix 14.3
+  # Bevacizumab-specific AESIs
+
+  # ---------------------------------------------------------------------------
+  # 14.3.2.1: AESI - Whole Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.2.1"
+    title: "Adverse Events of Special Interest - Whole Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "AESI Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16 (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one AESI"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hypersensitivity/Infusion-Related Reactions"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hypertension"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Proteinuria"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hemorrhages"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Arterial Thromboembolic Events (ATE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Venous Thromboembolic Events (VTE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Gastrointestinal Perforations and Fistulae"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Wound Healing Complications"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Posterior Reversible Encephalopathy Syndrome (PRES)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Congestive Heart Failure (CHF)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Ovarian Failure/Fertility"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: All subjects who received at least one dose of study drug."
+      - symbol: "a"
+        text: "AESIs identified using standardized MedDRA queries (SMQs) and sponsor-defined search criteria per Appendix 14.3."
+      - symbol: "b"
+        text: "Subjects counted once per AESI category regardless of number of events."
+      - symbol: "c"
+        text: "Severity graded per NCI CTCAE version 5.0."
+      - symbol: ""
+        text: "Whole Study Period: All TEAEs regardless of study period."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESSION = 'Y'"
+    sort_order: ["TRT01AN", "AESSION"]
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "AESIs identified by AESSION = 'Y' flag in ADAE"
+      - "AESI categories mapped from SMQs per Appendix 14.3:"
+      - "  - Hypersensitivity/IRR: SMQ 'Hypersensitivity' + 'Infusion related reactions'"
+      - "  - Hypertension: SMQ 'Hypertension'"
+      - "  - Proteinuria: SMQ 'Proteinuria'"
+      - "  - Hemorrhages: SMQ 'Haemorrhage terms'"
+      - "  - ATE: SMQ 'Embolic and thrombotic events, arterial'"
+      - "  - VTE: SMQ 'Embolic and thrombotic events, venous'"
+      - "  - GI Perforations: SMQ 'Gastrointestinal perforation'"
+      - "  - Wound healing: Sponsor-defined PT list"
+      - "  - PRES: SMQ 'Posterior reversible encephalopathy syndrome'"
+      - "  - CHF: SMQ 'Cardiac failure'"
+      - "  - Ovarian failure: SMQ 'Ovarian failure'"
+      - "Use AESICAT variable for category assignment"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.2.2: AESI - Induction Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.2.2"
+    title: "Adverse Events of Special Interest - Induction Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "AESI Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16 (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one AESI"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hypersensitivity/Infusion-Related Reactions"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hypertension"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Proteinuria"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hemorrhages"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Arterial Thromboembolic Events (ATE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Venous Thromboembolic Events (VTE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Gastrointestinal Perforations and Fistulae"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Wound Healing Complications"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Posterior Reversible Encephalopathy Syndrome (PRES)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Congestive Heart Failure (CHF)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Ovarian Failure/Fertility"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "Induction Study Period: Cycles 1-6 with chemotherapy."
+      - symbol: "b"
+        text: "AESIs identified per Appendix 14.3."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESSION = 'Y' and APERIODC = 'INDUCTION'"
+    sort_order: ["TRT01AN", "AESSION"]
+
+    programming_notes:
+      - "Induction Period AESIs: APERIODC = 'INDUCTION'"
+      - "Same AESI categories as Whole Study Period table"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.2.3: AESI - Maintenance Study Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.2.3"
+    title: "Adverse Events of Special Interest - Maintenance Study Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "AESI Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16 (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects entering Maintenance Period"
+        bold: true
+        row_type: header
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with at least one AESI"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hypersensitivity/Infusion-Related Reactions"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hypertension"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Proteinuria"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hemorrhages"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Arterial Thromboembolic Events (ATE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Venous Thromboembolic Events (VTE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Gastrointestinal Perforations and Fistulae"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Wound Healing Complications"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Posterior Reversible Encephalopathy Syndrome (PRES)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Congestive Heart Failure (CHF)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Ovarian Failure/Fertility"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects who entered Maintenance Period."
+      - symbol: "a"
+        text: "Maintenance Study Period: Monotherapy phase after Induction."
+      - symbol: "b"
+        text: "N denominator = subjects entering Maintenance."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESSION = 'Y' and APERIODC = 'MAINTENANCE'"
+    sort_order: ["TRT01AN", "AESSION"]
+
+    programming_notes:
+      - "Maintenance Period AESIs: APERIODC = 'MAINTENANCE'"
+      - "N denominator = subjects who entered Maintenance (MAINTFL = 'Y')"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.2.4: AESI - Follow-up Period
+  # ---------------------------------------------------------------------------
+  - number: "14.3.2.4"
+    title: "Adverse Events of Special Interest - Follow-up Period (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "AESI Category"
+        width: 2.8
+        alignment: L
+        source_variable: null
+      - header: "CT-P16 (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "EU-Approved Avastin (N=xxx)"
+        width: 0.8
+        alignment: C
+        format: null
+        source_variable: null
+      - header: ""
+        width: 0.1
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "All Grades\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Grade ≥3\nn (%)"
+        width: 1.0
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects entering Follow-up Period"
+        bold: true
+        row_type: header
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with at least one AESI"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hypersensitivity/Infusion-Related Reactions"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hypertension"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Proteinuria"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Hemorrhages"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Arterial Thromboembolic Events (ATE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Venous Thromboembolic Events (VTE)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Gastrointestinal Perforations and Fistulae"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Wound Healing Complications"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Posterior Reversible Encephalopathy Syndrome (PRES)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Congestive Heart Failure (CHF)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "Ovarian Failure/Fertility"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: Subjects who entered Follow-up Period."
+      - symbol: "a"
+        text: "Follow-up Period: Post-treatment follow-up."
+      - symbol: "b"
+        text: "N denominator = subjects entering Follow-up."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and AESSION = 'Y' and APERIODC = 'FOLLOW-UP'"
+    sort_order: ["TRT01AN", "AESSION"]
+
+    programming_notes:
+      - "Follow-up Period AESIs: APERIODC = 'FOLLOW-UP'"
+      - "N denominator = subjects who entered Follow-up (FUFL = 'Y')"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Safety Tables in this file: 8
+#   - TEAE Overview: 4 (Whole, Induction, Maintenance, Follow-up)
+#   - AESI: 4 (Whole, Induction, Maintenance, Follow-up)

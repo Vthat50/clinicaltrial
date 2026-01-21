@@ -1,0 +1,511 @@
+# =============================================================================
+# CORE ONCOLOGY BASE CONFIGURATION
+# =============================================================================
+# Universal elements for all oncology studies
+# This is the foundation - study-type configs inherit from this
+#
+# Inheritance hierarchy:
+#   base_oncology.yaml (this file)
+#   └── base_biosimilar_oncology.yaml
+#   └── base_immuno_oncology.yaml
+#   └── base_targeted_oncology.yaml
+#   └── base_chemotherapy_oncology.yaml
+#   └── base_combination_oncology.yaml
+
+version: "2.0"
+config_type: "core_base"
+
+# =============================================================================
+# STANDARD POPULATIONS
+# =============================================================================
+populations:
+  itt:
+    name: "ITT Population"
+    full_name: "Intent-to-Treat Population"
+    definition: "All randomized subjects"
+    flag: "ITTFL"
+    flag_value: "Y"
+
+  safety:
+    name: "Safety Population"
+    full_name: "Safety Population"
+    definition: "All subjects who received at least one dose of study drug"
+    flag: "SAFFL"
+    flag_value: "Y"
+
+  pp:
+    name: "PP Population"
+    full_name: "Per-Protocol Population"
+    definition: "All ITT subjects without major protocol deviations"
+    flag: "PPROTFL"
+    flag_value: "Y"
+
+  efficacy_evaluable:
+    name: "Efficacy Evaluable Population"
+    full_name: "Efficacy Evaluable Population"
+    definition: "All subjects with at least one post-baseline efficacy assessment"
+    flag: "EFFFL"
+    flag_value: "Y"
+
+  pk_evaluable:
+    name: "PK Evaluable Population"
+    full_name: "Pharmacokinetic Evaluable Population"
+    definition: "All subjects with at least one evaluable PK sample"
+    flag: "PKFL"
+    flag_value: "Y"
+
+  ada_evaluable:
+    name: "ADA Evaluable Population"
+    full_name: "Anti-Drug Antibody Evaluable Population"
+    definition: "All subjects with baseline and at least one post-baseline ADA sample"
+    flag: "ADAFL"
+    flag_value: "Y"
+
+# =============================================================================
+# RESPONSE CRITERIA
+# =============================================================================
+response_criteria:
+  recist_1_1:
+    name: "RECIST 1.1"
+    full_name: "Response Evaluation Criteria In Solid Tumors version 1.1"
+    categories:
+      - code: "CR"
+        label: "Complete Response"
+        definition: "Disappearance of all target lesions"
+      - code: "PR"
+        label: "Partial Response"
+        definition: "≥30% decrease in sum of diameters of target lesions"
+      - code: "SD"
+        label: "Stable Disease"
+        definition: "Neither PR nor PD criteria met"
+      - code: "PD"
+        label: "Progressive Disease"
+        definition: "≥20% increase in sum of diameters or new lesions"
+      - code: "NE"
+        label: "Not Evaluable"
+        definition: "Unable to assess response"
+    derived_endpoints:
+      orr:
+        label: "Objective Response Rate"
+        definition: "CR + PR"
+      dcr:
+        label: "Disease Control Rate"
+        definition: "CR + PR + SD"
+      cbr:
+        label: "Clinical Benefit Rate"
+        definition: "CR + PR + SD ≥24 weeks"
+
+  irrecist:
+    name: "iRECIST"
+    full_name: "immune-related Response Evaluation Criteria In Solid Tumors"
+    categories:
+      - code: "iCR"
+        label: "immune Complete Response"
+      - code: "iPR"
+        label: "immune Partial Response"
+      - code: "iSD"
+        label: "immune Stable Disease"
+      - code: "iUPD"
+        label: "immune Unconfirmed Progressive Disease"
+      - code: "iCPD"
+        label: "immune Confirmed Progressive Disease"
+
+# =============================================================================
+# TIME-TO-EVENT ENDPOINTS
+# =============================================================================
+time_to_event_endpoints:
+  pfs:
+    code: "PFS"
+    label: "Progression-Free Survival"
+    definition: "Time from randomization to first documented progression or death"
+    censoring_rules:
+      - "No progression/death: censored at last tumor assessment"
+      - "New anti-cancer therapy before progression: censored at last assessment before new therapy"
+      - "Lost to follow-up: censored at last known alive date"
+
+  os:
+    code: "OS"
+    label: "Overall Survival"
+    definition: "Time from randomization to death from any cause"
+    censoring_rules:
+      - "Alive: censored at last known alive date"
+      - "Lost to follow-up: censored at last contact date"
+
+  ttp:
+    code: "TTP"
+    label: "Time to Progression"
+    definition: "Time from randomization to first documented progression"
+    censoring_rules:
+      - "Death without progression: censored at death"
+      - "No progression: censored at last tumor assessment"
+
+  dor:
+    code: "DOR"
+    label: "Duration of Response"
+    definition: "Time from first response (CR/PR) to progression or death"
+    population: "Responders only (CR or PR)"
+
+  ttf:
+    code: "TTF"
+    label: "Time to Treatment Failure"
+    definition: "Time from randomization to discontinuation for any reason"
+
+# =============================================================================
+# STATISTICAL METHODS
+# =============================================================================
+statistical_methods:
+  survival_analysis:
+    kaplan_meier:
+      description: "Kaplan-Meier product-limit method"
+      outputs:
+        - "Median survival with 95% CI"
+        - "Survival rates at landmark timepoints"
+        - "25th and 75th percentiles"
+      ci_method: "Brookmeyer-Crowley"
+
+    cox_regression:
+      description: "Cox proportional hazards model"
+      outputs:
+        - "Hazard Ratio with 95% CI"
+      stratification: "Per randomization stratification factors"
+
+    log_rank:
+      description: "Log-rank test"
+      outputs:
+        - "P-value for treatment comparison"
+      variants:
+        - "Stratified log-rank"
+        - "Unstratified log-rank"
+
+  categorical_analysis:
+    response_rate:
+      description: "Binomial proportion with exact 95% CI"
+      ci_method: "Clopper-Pearson exact"
+
+    comparison:
+      description: "Treatment comparison for categorical endpoints"
+      methods:
+        - "Chi-square test"
+        - "Fisher's exact test"
+        - "CMH test (stratified)"
+
+  continuous_analysis:
+    descriptive:
+      statistics:
+        - "n"
+        - "Mean"
+        - "SD"
+        - "Median"
+        - "Min"
+        - "Max"
+        - "Q1, Q3"
+      format: "xx.x (xx.xx)"
+
+    comparison:
+      methods:
+        - "t-test"
+        - "Wilcoxon rank-sum"
+        - "ANCOVA"
+
+# =============================================================================
+# CTCAE GRADING
+# =============================================================================
+ctcae:
+  version: "5.0"
+  grades:
+    - grade: 1
+      label: "Mild"
+      description: "Asymptomatic or mild symptoms"
+    - grade: 2
+      label: "Moderate"
+      description: "Moderate; minimal intervention indicated"
+    - grade: 3
+      label: "Severe"
+      description: "Severe or medically significant but not life-threatening"
+    - grade: 4
+      label: "Life-threatening"
+      description: "Life-threatening consequences; urgent intervention indicated"
+    - grade: 5
+      label: "Death"
+      description: "Death related to adverse event"
+
+  groupings:
+    any_grade: "Grade 1-5"
+    grade_3_plus: "Grade ≥3"
+    grade_3_4: "Grade 3-4"
+    serious: "Grade ≥3 or SAE"
+
+# =============================================================================
+# ADVERSE EVENT CATEGORIES
+# =============================================================================
+ae_categories:
+  teae:
+    code: "TEAE"
+    label: "Treatment-Emergent Adverse Event"
+    definition: "AE with onset on or after first dose through safety follow-up"
+
+  trae:
+    code: "TRAE"
+    label: "Treatment-Related Adverse Event"
+    definition: "TEAE assessed as related to study treatment by investigator"
+
+  sae:
+    code: "SAE"
+    label: "Serious Adverse Event"
+    definition: "AE meeting ICH E2A seriousness criteria"
+    criteria:
+      - "Death"
+      - "Life-threatening"
+      - "Hospitalization or prolongation"
+      - "Disability/incapacity"
+      - "Congenital anomaly"
+      - "Important medical event"
+
+  aesi:
+    code: "AESI"
+    label: "Adverse Event of Special Interest"
+    definition: "Pre-specified AEs requiring enhanced monitoring"
+
+  irr:
+    code: "IRR"
+    label: "Infusion-Related Reaction"
+    definition: "AE occurring during or within 24 hours of infusion"
+
+# =============================================================================
+# STANDARD ADAM DATASETS
+# =============================================================================
+adam_datasets:
+  adsl:
+    name: "ADSL"
+    description: "Subject-Level Analysis Dataset"
+    key_variables:
+      - "USUBJID"
+      - "TRT01P/TRT01A"
+      - "Population flags (ITTFL, SAFFL, etc.)"
+
+  adae:
+    name: "ADAE"
+    description: "Adverse Events Analysis Dataset"
+    key_variables:
+      - "AEDECOD (PT)"
+      - "AEBODSYS (SOC)"
+      - "AETOXGR (CTCAE grade)"
+      - "AESER (Serious flag)"
+      - "AEREL (Relationship)"
+
+  adrs:
+    name: "ADRS"
+    description: "Tumor Response Analysis Dataset"
+    key_variables:
+      - "PARAMCD (BOR, OVRLRESP)"
+      - "AVALC (Response category)"
+      - "AVISIT"
+
+  adtte:
+    name: "ADTTE"
+    description: "Time-to-Event Analysis Dataset"
+    key_variables:
+      - "PARAMCD (PFS, OS, TTP, DOR)"
+      - "AVAL (Time in days)"
+      - "CNSR (Censor flag)"
+      - "EVNTDESC"
+
+  adlb:
+    name: "ADLB"
+    description: "Laboratory Analysis Dataset"
+    key_variables:
+      - "PARAMCD"
+      - "AVAL/BASE/CHG"
+      - "ANRHI/ANRLO"
+      - "ATOXGR"
+
+  advs:
+    name: "ADVS"
+    description: "Vital Signs Analysis Dataset"
+    key_variables:
+      - "PARAMCD"
+      - "AVAL/BASE/CHG"
+      - "AVISIT"
+
+  adex:
+    name: "ADEX"
+    description: "Exposure Analysis Dataset"
+    key_variables:
+      - "PARAMCD"
+      - "AVAL (Dose/Duration)"
+      - "EXDOSE/EXDOSU"
+
+  adpc:
+    name: "ADPC"
+    description: "PK Concentration Analysis Dataset"
+    key_variables:
+      - "PARAMCD"
+      - "AVAL (Concentration)"
+      - "NFRLT (Nominal time)"
+
+  adpp:
+    name: "ADPP"
+    description: "PK Parameters Analysis Dataset"
+    key_variables:
+      - "PARAMCD (CMAX, AUC, etc.)"
+      - "AVAL"
+
+  adab:
+    name: "ADAB"
+    description: "Immunogenicity Analysis Dataset"
+    key_variables:
+      - "PARAMCD (ADA, NAB)"
+      - "AVALC (Positive/Negative)"
+      - "AVAL (Titer)"
+
+  adcm:
+    name: "ADCM"
+    description: "Concomitant Medications Analysis Dataset"
+    key_variables:
+      - "CMDECOD"
+      - "CMCLAS (ATC)"
+
+  adeg:
+    name: "ADEG"
+    description: "ECG Analysis Dataset"
+    key_variables:
+      - "PARAMCD"
+      - "AVAL"
+      - "AVALC (Normal/Abnormal)"
+
+# =============================================================================
+# TABLE NUMBERING CONVENTIONS
+# =============================================================================
+table_numbering:
+  efficacy_prefix: "14.2"
+  safety_prefix: "14.3"
+  pk_prefix: "14.4"
+
+  efficacy_sections:
+    demographics: "14.1"
+    response: "14.2.1"
+    pfs: "14.2.2"
+    ttp: "14.2.3"
+    dor: "14.2.4"
+    os: "14.2.5"
+
+  safety_sections:
+    ae_overview: "14.3.1"
+    aesi: "14.3.2"
+    ae_soc_pt: "14.3.3"
+    sae: "14.3.4"
+    exposure: "14.3.5"
+    laboratory: "14.3.6"
+    vitals: "14.3.7"
+    medications: "14.3.8"
+    immunogenicity: "14.3.9"
+    ecg: "14.3.10"
+
+# =============================================================================
+# COLUMN TEMPLATES
+# =============================================================================
+column_templates:
+  # Two-arm comparison (standard)
+  two_arm:
+    - header: "Parameter"
+      width: 3.0
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)"
+      width: 1.5
+      alignment: C
+    - header: "{ARM2}\n(N=xxx)"
+      width: 1.5
+      alignment: C
+
+  # Two-arm with total
+  two_arm_total:
+    - header: "Parameter"
+      width: 3.0
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "{ARM2}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "Total\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+
+  # Descriptive statistics
+  descriptive_by_arm:
+    - header: "Parameter\nVisit"
+      width: 2.0
+      alignment: L
+    - header: "{ARM1} (N=xxx)"
+      width: 0.5
+      alignment: C
+    - header: "n"
+      width: 0.5
+      alignment: C
+      format: "xxx"
+    - header: "Mean (SD)"
+      width: 1.2
+      alignment: C
+      format: "xx.x (xx.x)"
+    - header: "Median"
+      width: 0.8
+      alignment: C
+      format: "xx.x"
+    - header: "Min, Max"
+      width: 1.0
+      alignment: C
+      format: "xx.x, xx.x"
+    - header: "{ARM2} (N=xxx)"
+      width: 0.5
+      alignment: C
+    - header: "n"
+      width: 0.5
+      alignment: C
+      format: "xxx"
+    - header: "Mean (SD)"
+      width: 1.2
+      alignment: C
+      format: "xx.x (xx.x)"
+    - header: "Median"
+      width: 0.8
+      alignment: C
+      format: "xx.x"
+    - header: "Min, Max"
+      width: 1.0
+      alignment: C
+      format: "xx.x, xx.x"
+
+# =============================================================================
+# FOOTNOTE TEMPLATES
+# =============================================================================
+footnote_templates:
+  population:
+    itt: "ITT Population: All randomized subjects."
+    safety: "Safety Population: All subjects who received at least one dose of study treatment."
+    pp: "Per-Protocol Population: ITT Population excluding subjects with major protocol deviations."
+    pk: "PK Evaluable Population: All subjects with at least one evaluable PK sample."
+    ada: "ADA Evaluable Population: All subjects with baseline and at least one post-baseline ADA sample."
+
+  methods:
+    km: "Kaplan-Meier estimates; 95% CI by Brookmeyer-Crowley method."
+    hr: "Hazard ratio from Cox proportional hazards model."
+    hr_favor: "HR < 1 favors {ARM1}."
+    ci_exact: "95% CI calculated using Clopper-Pearson exact method."
+    stratified: "Stratified by randomization stratification factors."
+
+  definitions:
+    teae: "Treatment-emergent: onset on or after first dose of study drug."
+    orr: "ORR = Complete Response + Partial Response."
+    pfs: "PFS = time from randomization to progression or death."
+    os: "OS = time from randomization to death from any cause."
+
+  coding:
+    meddra: "Adverse events coded using MedDRA version {VERSION}."
+    who_drug: "Medications coded using WHO Drug Dictionary."
+
+  cutoff:
+    data_cutoff: "Data cutoff: {DATE}."

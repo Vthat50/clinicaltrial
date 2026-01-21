@@ -15,11 +15,14 @@ Production Features:
 print("=" * 70)
 print("SAP GENERATOR API - VERSION CHECK")
 print("=" * 70)
-print("BUILD: v101.1-soa-appendix-2026-01-20")
-print("FEATURE: SOA Appendix + TLF Shell Integration")
+print("BUILD: v102.0-universal-tlf-2026-01-20")
+print("FEATURE: Universal TLF Shell Expansion + SOA Appendix")
+print("  • v102.0: Universal TLF expansion - period stratification, population×assessment matrix")
+print("  • v102.0: Region-aware demographics (Race/Ethnicity for FDA)")
+print("  • v102.0: Auto-detected PK/Immunogenicity tables for biologics")
+print("  • v101.2: Clean SOA appendix - HTML→Markdown, remove protocol boilerplate")
 print("  • v101.1: Append Reducto SOA as Appendix A in generated SAP")
 print("  • v101.0: TLF shell generator for study-specific table shells")
-print("  • SOA: Text-based detection with exclusion keywords (RECIST filter)")
 print("=" * 70)
 
 import os
@@ -219,18 +222,22 @@ except ImportError as e:
     get_workbench_sections = None
     print(f"Warning: SAP Workbench not available: {e}")
 
-# TLF Shell Integration - Modular TLF shell generation by study type
+# TLF Shell Integration v2 - Modular TLF shell generation with universal expansion
 try:
     from tlf_integration import (
         generate_tlf_shells_for_protocol,
         detect_study_type,
-        get_tlf_shell_summary
+        get_tlf_shell_summary,
+        calculate_expected_table_count,
+        build_universal_config
     )
     TLF_INTEGRATION_AVAILABLE = True
-    print("[TLF Integration] TLF shell generator available")
+    print("[TLF Integration] TLF shell generator v2 available (universal expansion)")
 except ImportError as e:
     TLF_INTEGRATION_AVAILABLE = False
     generate_tlf_shells_for_protocol = None
+    calculate_expected_table_count = None
+    build_universal_config = None
     print(f"Warning: TLF Integration not available: {e}")
 
 # NEW: Enhanced KG Pipeline - 55-category extraction with prohibition rules
@@ -572,6 +579,180 @@ def wrap_markdown_tables(text: str) -> str:
         print(f"[Tables] Wrapped {tables_found} markdown tables with [TABLE] markers")
 
     return '\n'.join(result)
+
+
+# ============================================================================
+# HTML TO MARKDOWN CONVERSION FOR SOA TABLES
+# ============================================================================
+
+def html_table_to_markdown(html_content: str) -> str:
+    """
+    Convert HTML tables to markdown format.
+
+    Args:
+        html_content: String containing HTML table(s)
+
+    Returns:
+        Markdown-formatted table string
+    """
+    # Check if there's any HTML table content
+    if '<table' not in html_content.lower() and '<tr' not in html_content.lower():
+        return html_content
+
+    result_lines = []
+
+    # Extract all tables
+    table_pattern = re.compile(r'<table[^>]*>(.*?)</table>', re.DOTALL | re.IGNORECASE)
+    non_table_content = html_content
+
+    for table_match in table_pattern.finditer(html_content):
+        table_html = table_match.group(0)
+
+        # Extract rows
+        rows = []
+        row_pattern = re.compile(r'<tr[^>]*>(.*?)</tr>', re.DOTALL | re.IGNORECASE)
+
+        for row_match in row_pattern.finditer(table_html):
+            row_html = row_match.group(1)
+
+            # Extract cells (th or td)
+            cells = []
+            cell_pattern = re.compile(r'<(th|td)[^>]*>(.*?)</\1>', re.DOTALL | re.IGNORECASE)
+
+            for cell_match in cell_pattern.finditer(row_html):
+                cell_content = cell_match.group(2)
+                # Clean HTML tags from cell content
+                cell_content = re.sub(r'<[^>]+>', '', cell_content)
+                # Clean whitespace
+                cell_content = ' '.join(cell_content.split())
+                cells.append(cell_content)
+
+            if cells:
+                rows.append(cells)
+
+        if rows:
+            # Build markdown table
+            md_lines = []
+
+            # First row is header
+            if rows:
+                header = rows[0]
+                md_lines.append('| ' + ' | '.join(header) + ' |')
+                # Separator row
+                md_lines.append('|' + '|'.join(['---' for _ in header]) + '|')
+
+                # Data rows
+                for row in rows[1:]:
+                    # Pad row if needed
+                    while len(row) < len(header):
+                        row.append('')
+                    md_lines.append('| ' + ' | '.join(row[:len(header)]) + ' |')
+
+            result_lines.append('\n'.join(md_lines))
+
+    if result_lines:
+        return '\n\n'.join(result_lines)
+
+    return html_content
+
+
+def clean_soa_content_for_appendix(raw_content: str) -> str:
+    """
+    Clean and filter SOA content for inclusion as an appendix.
+
+    Removes:
+    - Protocol boilerplate (page numbers, headers, footers)
+    - Confidentiality notices
+    - Empty sections
+    - Redundant whitespace
+
+    Converts:
+    - HTML tables to markdown
+
+    Args:
+        raw_content: Raw content from Reducto extraction
+
+    Returns:
+        Cleaned markdown content suitable for SAP appendix
+    """
+    if not raw_content:
+        return ""
+
+    content = raw_content
+
+    # 1. Remove the Reducto marker header section
+    markers_to_remove = [
+        r'={60,}[\s\S]*?SCHEDULE OF ASSESSMENTS \(Enhanced by Reducto\)[\s\S]*?={60,}',
+        r'END OF SCHEDULE OF ASSESSMENTS[\s\S]*?={60,}',
+        r'={60,}',
+    ]
+    for pattern in markers_to_remove:
+        content = re.sub(pattern, '', content)
+
+    # 2. Remove protocol boilerplate patterns
+    boilerplate_patterns = [
+        # Page numbers
+        r'\b\d{1,3}\s+of\s+\d{1,3}\b',
+        r'Page\s+\d+\s+of\s+\d+',
+        r'^\s*\d{1,3}\s*$',
+        # Confidentiality notices - handle various formats
+        r'^.*?(?:Celltrion|CELLTRION).*?(?:CONFIDENTIAL|Confidential).*?$',
+        r'(?:CONFIDENTIAL|Confidential)[\s\-]*(?:Property|Information)?.*?(?:\n|$)',
+        r'^.*?(?:Celltrion|CELLTRION)\s*/\s*$',  # Leftover "Celltrion/" lines
+        # Protocol references
+        r'Protocol\s+(?:No\.|Number|#)?:?\s*CT-P\d+.*?(?:\n|$)',
+        r'Amendment\s+\d+.*?(?:\n|$)',
+        # Document identifiers
+        r'EudraCT\s+(?:No\.|Number)?:?\s*\d{4}-\d+-\d+',
+        r'IND\s+(?:No\.|Number)?:?\s*\d+',
+        # Date stamps that look like document dates
+        r'\b\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b',
+        # Version markers
+        r'Version\s+\d+\.?\d*\s*(?:dated)?.*?(?:\n|$)',
+        # Table references that aren't actual data
+        r'^\s*Table\s+\d+[\.\-]\d+[\.\-]?\d*\s*$',
+    ]
+
+    for pattern in boilerplate_patterns:
+        content = re.sub(pattern, '', content, flags=re.IGNORECASE | re.MULTILINE)
+
+    # 3. Convert HTML tables to markdown
+    content = html_table_to_markdown(content)
+
+    # 4. Remove [TABLE] markers (keep the content)
+    content = re.sub(r'\[TABLE\](?:\s*\(Page \d+\))?', '', content)
+    content = re.sub(r'\[/TABLE\]', '', content)
+
+    # 5. Clean up excessive whitespace while preserving table structure
+    # Replace multiple blank lines with double newline
+    content = re.sub(r'\n{4,}', '\n\n\n', content)
+
+    # 6. Remove lines that are just whitespace or separators
+    lines = content.split('\n')
+    cleaned_lines = []
+    for line in lines:
+        stripped = line.strip()
+        # Skip empty lines at the beginning
+        if not cleaned_lines and not stripped:
+            continue
+        # Skip lines that are just dashes or equals (separators)
+        if stripped and re.match(r'^[-=_\*]{5,}$', stripped):
+            continue
+        # Skip very short lines that look like artifacts
+        if stripped and len(stripped) < 3 and not stripped.isalnum():
+            continue
+        cleaned_lines.append(line)
+
+    # Remove trailing empty lines
+    while cleaned_lines and not cleaned_lines[-1].strip():
+        cleaned_lines.pop()
+
+    content = '\n'.join(cleaned_lines)
+
+    # 7. Ensure tables have proper spacing
+    content = re.sub(r'(\|[^\n]+\|)\n(?!\||\n)', r'\1\n\n', content)
+
+    return content.strip()
 
 
 # ============================================================================
@@ -6218,20 +6399,36 @@ async def process_jobs_worker():
 
                     print(f"  [MAIN.PY] v69 Dynamic SAP: Section 17 (TFLs) at pos {section_17_start}, has tables: {has_proper_tables}", flush=True)
 
-                    # v101: TLF Shell Integration - Generate study-specific TLF shells
+                    # v101.2: TLF Shell Integration v2 - Universal expansion with period/population matrix
                     # If Section 17 is missing or has no proper tables, inject TLF shells
                     if not has_proper_tables and TLF_INTEGRATION_AVAILABLE:
-                        print(f"  [MAIN.PY] TLF Integration: Generating study-specific TLF shells...")
+                        print(f"  [MAIN.PY] TLF Integration v2: Generating study-specific TLF shells with universal expansion...")
                         full_extraction = result.get("full_extraction", {})
+                        protocol_text = job.get("protocol_text", "")
 
-                        # Get TLF summary for logging
-                        tlf_summary = get_tlf_shell_summary(full_extraction)
-                        print(f"  [TLF] Study type: {tlf_summary.get('detected_study_type')}")
-                        print(f"  [TLF] Drug classes: {tlf_summary.get('detected_drug_classes')}")
-                        print(f"  [TLF] Study design: {tlf_summary.get('detected_study_design')}")
+                        # Get TLF summary for logging (with protocol text for better detection)
+                        tlf_summary = get_tlf_shell_summary(full_extraction, protocol_text)
+                        print(f"  [TLF v2] Study type: {tlf_summary.get('detected_study_type')}")
+                        print(f"  [TLF v2] Drug classes: {tlf_summary.get('detected_drug_classes')}")
+                        print(f"  [TLF v2] Study design: {tlf_summary.get('detected_study_design')}")
 
-                        # Generate TLF shells from extraction
-                        tlf_shells = generate_tlf_shells_for_protocol(full_extraction)
+                        # Log universal expansion info
+                        universal = tlf_summary.get('universal_expansion', {})
+                        period_info = universal.get('period_stratification', {})
+                        pop_matrix = universal.get('population_assessment_matrix', {})
+                        print(f"  [TLF v2] Period stratification: {period_info.get('required')} ({period_info.get('config')}, {period_info.get('multiplier')}× mult)")
+                        print(f"  [TLF v2] Populations: {pop_matrix.get('populations')}")
+                        print(f"  [TLF v2] Assessments: {pop_matrix.get('assessments')}")
+                        print(f"  [TLF v2] Regions: {universal.get('regions')}")
+                        print(f"  [TLF v2] PK required: {universal.get('pk_required')}, Immunogenicity: {universal.get('immunogenicity_required')}")
+                        print(f"  [TLF v2] Expected tables: ~{tlf_summary.get('expected_table_count', 'N/A')}")
+
+                        # Generate TLF shells from extraction with universal expansion
+                        tlf_shells = generate_tlf_shells_for_protocol(
+                            full_extraction,
+                            protocol_text=protocol_text,
+                            apply_universal_expansion=True
+                        )
 
                         if tlf_shells:
                             # Inject TLF shells into SAP
@@ -6274,9 +6471,10 @@ async def process_jobs_worker():
                         print(f"  [DEBUG] Section 17 (TFLs): {final_preview[:100]}...")
 
                     # =========================================================
-                    # v101.1: APPEND REDUCTO SOA AS APPENDIX
+                    # v101.2: APPEND REDUCTO SOA AS APPENDIX (CLEANED)
                     # The Reducto-extracted Schedule of Assessments should be
                     # included in the SAP as an appendix for completeness.
+                    # v101.2: Now cleans HTML tables to markdown, removes boilerplate
                     # =========================================================
                     protocol_text = job.get("protocol_text", "")
                     reducto_marker = "SCHEDULE OF ASSESSMENTS (Enhanced by Reducto)"
@@ -6287,21 +6485,25 @@ async def process_jobs_worker():
                         # Skip past the marker line and the equals signs
                         soa_start = protocol_text.find("\n\n", marker_pos)
                         if soa_start > 0:
-                            reducto_soa_content = protocol_text[soa_start:].strip()
+                            raw_soa_content = protocol_text[soa_start:].strip()
 
-                            # Only append if we have substantial content
-                            if len(reducto_soa_content) > 500:
+                            # v101.2: Clean the content - convert HTML to markdown, remove boilerplate
+                            reducto_soa_content = clean_soa_content_for_appendix(raw_soa_content)
+                            print(f"  [SOA Appendix] Cleaned: {len(raw_soa_content):,} -> {len(reducto_soa_content):,} chars")
+
+                            # Only append if we have substantial content after cleaning
+                            if len(reducto_soa_content) > 200:
                                 # Check if SAP already has Schedule of Assessments
                                 if "Schedule of Assessments" not in sap_text and "SCHEDULE OF ASSESSMENTS" not in sap_text:
                                     sap_text = sap_text.rstrip() + "\n\n---\n\n"
                                     sap_text += "## APPENDIX A: SCHEDULE OF ASSESSMENTS\n\n"
                                     sap_text += "*This schedule was extracted from protocol tables using Reducto vision processing.*\n\n"
                                     sap_text += reducto_soa_content
-                                    print(f"  [SOA Appendix] Appended {len(reducto_soa_content):,} chars of Schedule of Assessments")
+                                    print(f"  [SOA Appendix] Appended {len(reducto_soa_content):,} chars of cleaned Schedule of Assessments")
                                 else:
                                     print(f"  [SOA Appendix] SAP already contains Schedule of Assessments, skipping")
                             else:
-                                print(f"  [SOA Appendix] Reducto content too short ({len(reducto_soa_content)} chars), skipping")
+                                print(f"  [SOA Appendix] Cleaned content too short ({len(reducto_soa_content)} chars), skipping")
                     else:
                         print(f"  [SOA Appendix] No Reducto SOA marker found in protocol text")
 

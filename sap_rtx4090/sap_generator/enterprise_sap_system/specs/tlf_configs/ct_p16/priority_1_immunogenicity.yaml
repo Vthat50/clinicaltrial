@@ -1,0 +1,640 @@
+# CT-P16 Priority 1 Immunogenicity TLF Shells
+# ============================================
+# ADA and NAb incidence and titer summaries
+# Per SAP Section 10.9: Immunogenicity Analysis
+
+metadata:
+  study: "CT-P16"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 1
+  category: "Immunogenicity"
+  sap_sections: ["10.9"]
+
+base_config: "../base_biosimilar_oncology.yaml"
+
+# =============================================================================
+# IMMUNOGENICITY TABLES
+# =============================================================================
+# Per SAP Section 10.9:
+# "The results of the final ADA and NAb incidence will be summarized.
+# The total number of patients with at least one result in timepoints
+# (anytime during the study period, baseline and after the first infusion)
+# will be presented."
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.3.9.1: ADA Incidence Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.3.9.1"
+    title: "Summary of Anti-Drug Antibody (ADA) Incidence (ADA Evaluable Population)"
+    tlf_type: TABLE
+    population: ADA Evaluable Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAB"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAB"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with at least one ADA result"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "N"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Baseline ADA Status"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "ADA-negative at baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "ADA-positive at baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Missing baseline"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Post-baseline ADA Status (Any Time Post First Infusion)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "ADA-negative (all post-baseline)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "ADA-positive (at least one post-baseline)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "ADA Classification (Post-baseline Positive)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Treatment-emergent ADA"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "ADA-negative at baseline, positive post-baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-boosted ADA"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "ADA-positive at baseline with ≥4-fold increase"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-unaffected ADA"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "ADA-positive at baseline, no significant increase"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Overall ADA Incidence"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "Treatment-emergent or Treatment-boosted, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "ADA Status by Visit"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Cycle 1 Day 1 (Pre-dose)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 4 Day 1 (Pre-dose)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Cycle 7 Day 1 (Pre-dose)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "End of Treatment"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Follow-up (if applicable)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "ADA Evaluable Population: Subjects with at least one evaluable ADA assessment."
+      - symbol: "a"
+        text: "Baseline defined as last non-missing ADA result prior to first dose of study drug."
+      - symbol: "b"
+        text: "Treatment-emergent ADA: ADA-negative at baseline and ADA-positive at any post-baseline timepoint."
+      - symbol: "c"
+        text: "Treatment-boosted ADA: ADA-positive at baseline with ≥4-fold increase in titer at any post-baseline timepoint."
+      - symbol: "d"
+        text: "Treatment-unaffected ADA: ADA-positive at baseline without significant increase post-baseline."
+      - symbol: "e"
+        text: "Overall ADA incidence = (Treatment-emergent + Treatment-boosted) / N evaluable."
+      - symbol: "f"
+        text: "95% CI computed using Clopper-Pearson exact method."
+
+    source_dataset: "ADAB"
+    filter_condition: "ADAFL = 'Y' and PARAMCD = 'ADA'"
+    sort_order: ["TRT01PN", "AVISITN"]
+
+    programming_notes:
+      - "Population: ADSL where ADAFL = 'Y' (ADA evaluable)"
+      - "ADA results from ADAB dataset"
+      - "Baseline: ABLFL = 'Y'"
+      - "Treatment-emergent: ADTEFFL = 'Y' (negative baseline, positive post)"
+      - "Treatment-boosted: ADTBOFL = 'Y' (positive baseline, ≥4-fold increase)"
+      - "Treatment-unaffected: positive baseline, no significant change"
+      - "Overall incidence: ADAINCFL = 'Y' (TE or TB)"
+      - "95% CI by Clopper-Pearson using PROC FREQ EXACT BINOMIAL"
+      - "Visit-level summary by AVISITN"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.9.2: NAb Incidence Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.3.9.2"
+    title: "Summary of Neutralizing Antibody (NAb) Incidence (ADA-Positive Subjects)"
+    tlf_type: TABLE
+    population: ADA-Positive Subjects
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Parameter"
+        width: 3.5
+        alignment: L
+        source_variable: null
+      - header: "CT-P16\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAB"
+      - header: "EU-Approved Avastin\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAB"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with ADA-positive result (any time)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "N"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "NAb Testing Results"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Subjects tested for NAb"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "NAb Status (Among ADA-Positive)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "NAb-negative (all tested samples)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "NAb-positive (at least one sample)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "NAb Classification"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Treatment-emergent NAb"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "NAb-negative at baseline, positive post-baseline"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Treatment-boosted NAb"
+        bold: false
+        row_type: data
+      - level: 2
+        label: "NAb-positive at baseline with ≥4-fold increase"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Overall NAb Incidence (Among ADA-Positive)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "NAb-positive, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "NAb Incidence (Among All ADA Evaluable)"
+        bold: true
+        row_type: total
+      - level: 1
+        label: "NAb-positive, n (%)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "95% CI"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Analysis conducted in subjects with at least one ADA-positive result."
+      - symbol: "a"
+        text: "NAb testing performed only on ADA-positive samples (tiered approach)."
+      - symbol: "b"
+        text: "NAb-positive defined as confirmed neutralizing activity in functional assay."
+      - symbol: "c"
+        text: "Treatment-emergent NAb: NAb-negative at baseline and NAb-positive at any post-baseline."
+      - symbol: "d"
+        text: "Treatment-boosted NAb: NAb-positive at baseline with ≥4-fold increase."
+      - symbol: "e"
+        text: "95% CI by Clopper-Pearson exact method."
+
+    source_dataset: "ADAB"
+    filter_condition: "ADAFL = 'Y' and PARAMCD = 'NAB' and ADAPOSFL = 'Y'"
+    sort_order: ["TRT01PN"]
+
+    programming_notes:
+      - "Population: ADA-positive subjects (ADAPOSFL = 'Y')"
+      - "NAb results from ADAB where PARAMCD = 'NAB'"
+      - "NAb testing only on ADA-positive samples (tiered approach)"
+      - "Treatment-emergent NAb: NABTEFL = 'Y'"
+      - "Treatment-boosted NAb: NABTBFL = 'Y'"
+      - "Two denominators reported:"
+      - "  1. Among ADA-positive subjects only"
+      - "  2. Among all ADA evaluable subjects"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.9.3: ADA Titer Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.3.9.3"
+    title: "Summary of Anti-Drug Antibody (ADA) Titer (ADA-Positive Subjects)"
+    tlf_type: TABLE
+    population: ADA-Positive Subjects
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Visit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADAB.AVISIT"
+      - header: "CT-P16"
+        width: 2.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "EU-Approved Avastin"
+        width: 2.5
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "Baseline (Cycle 1 Day 1 Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (ADA-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 4 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (ADA-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Cycle 7 Day 1 (Pre-dose)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (ADA-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "End of Treatment"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (ADA-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Maximum Post-baseline Titer"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (ADA-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Analysis conducted in subjects with at least one ADA-positive result."
+      - symbol: "a"
+        text: "Titer reported as reciprocal of highest dilution giving positive result."
+      - symbol: "b"
+        text: "Geometric mean and CV% calculated on log-transformed titer values."
+      - symbol: "c"
+        text: "Only ADA-positive samples included in titer summary (titer = 0 for negative excluded)."
+
+    source_dataset: "ADAB"
+    filter_condition: "ADAFL = 'Y' and PARAMCD = 'ADATITER' and AVAL > 0"
+    sort_order: ["TRT01PN", "AVISITN"]
+
+    programming_notes:
+      - "Population: ADA-positive subjects"
+      - "Titer from ADAB where PARAMCD = 'ADATITER'"
+      - "Only include samples where AVAL > 0 (positive)"
+      - "Log-transform for geometric mean: exp(mean(log(AVAL)))"
+      - "CV% = 100 * sqrt(exp(variance of log-transformed) - 1)"
+      - "Use PROC MEANS with geometric mean option"
+      - "Maximum post-baseline: highest titer across all post-baseline visits"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.9.4: NAb Titer Summary
+  # ---------------------------------------------------------------------------
+  - number: "14.3.9.4"
+    title: "Summary of Neutralizing Antibody (NAb) Titer (NAb-Positive Subjects)"
+    tlf_type: TABLE
+    population: NAb-Positive Subjects
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Visit"
+        width: 2.0
+        alignment: L
+        source_variable: "ADAB.AVISIT"
+      - header: "CT-P16"
+        width: 2.5
+        alignment: C
+        format: null
+        source_variable: null
+      - header: "EU-Approved Avastin"
+        width: 2.5
+        alignment: C
+        format: null
+        source_variable: null
+
+    stub_rows:
+      - level: 0
+        label: "Baseline (if NAb-positive)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (NAb-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Post-baseline (Any NAb-positive Visit)"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (NAb-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Maximum Post-baseline Titer"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "n (NAb-positive)"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Geometric Mean Titer"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "CV%"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Min, Max"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Analysis conducted in subjects with at least one NAb-positive result."
+      - symbol: "a"
+        text: "NAb titer from functional neutralization assay."
+      - symbol: "b"
+        text: "Geometric mean and CV% calculated on log-transformed values."
+      - symbol: "c"
+        text: "Note: NAb-positive subjects are a subset of ADA-positive subjects."
+
+    source_dataset: "ADAB"
+    filter_condition: "ADAFL = 'Y' and PARAMCD = 'NABTITER' and AVAL > 0"
+    sort_order: ["TRT01PN", "AVISITN"]
+
+    programming_notes:
+      - "Population: NAb-positive subjects"
+      - "Titer from ADAB where PARAMCD = 'NABTITER'"
+      - "Only include samples where AVAL > 0 (positive)"
+      - "Log-transform for geometric mean"
+      - "CV% on log-transformed data"
+      - "Note: Smaller N than ADA titer (only NAb-positive subset)"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Immunogenicity Tables in this file: 4
+#   - ADA Incidence Summary: 1
+#   - NAb Incidence Summary: 1
+#   - ADA Titer Summary: 1
+#   - NAb Titer Summary: 1

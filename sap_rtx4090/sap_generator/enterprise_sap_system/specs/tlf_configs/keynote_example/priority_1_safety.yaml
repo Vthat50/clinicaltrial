@@ -1,0 +1,573 @@
+# KEYNOTE-EXAMPLE Priority 1 Safety TLF Shells
+# ==============================================
+# Immuno-Oncology Study Safety Tables
+# Focus on irAE (immune-related Adverse Events)
+
+metadata:
+  study: "KEYNOTE-EXAMPLE"
+  study_type: "immuno_oncology"
+  indication: "Non-Small Cell Lung Cancer (NSCLC)"
+  priority: 1
+  category: "Safety"
+  sap_sections: ["9.1", "9.2", "9.3"]
+
+base_config: "../core/base_immuno_oncology.yaml"
+
+# AESI profile - checkpoint inhibitor irAEs are critical
+aesi_profile:
+  - "checkpoint_inhibitor"
+  - "cytotoxic_chemotherapy"
+
+# =============================================================================
+# SAFETY TABLES
+# =============================================================================
+
+tables:
+  # ---------------------------------------------------------------------------
+  # 14.3.1.1: TEAE Overview
+  # ---------------------------------------------------------------------------
+  - number: "14.3.1.1"
+    title: "Overview of Treatment-Emergent Adverse Events (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "Category"
+        width: 4.0
+        alignment: L
+        source_variable: null
+      - header: "Pembrolizumab + Chemo\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Placebo + Chemo\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any TEAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "By Maximum Severity"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Grade 1"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 2"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 3"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 4"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade 5 (Fatal)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with TEAE Grade ≥3"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Subjects with Treatment-Related TEAE"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Subjects with Treatment-Related TEAE Grade ≥3"
+        bold: true
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Subjects with Serious TEAE"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "Subjects with Treatment-Related Serious TEAE"
+        bold: true
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "TEAE Leading to Any Study Drug Discontinuation"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "Pembrolizumab/Placebo discontinuation"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Chemotherapy discontinuation"
+        bold: false
+        row_type: data
+      - level: 0
+        label: "TEAE Leading to Death"
+        bold: true
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population: All subjects who received at least one dose of study treatment."
+      - symbol: "a"
+        text: "Treatment-emergent: onset on or after first dose through 30 days after last dose (90 days for serious)."
+      - symbol: "b"
+        text: "Severity graded per NCI CTCAE v5.0."
+      - symbol: "c"
+        text: "Treatment-related per investigator assessment."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "TEAE: ASTDT >= TRTSDT and ASTDT <= TRTEDT + 30"
+      - "Serious TEAE window: TRTEDT + 90"
+      - "Count subjects once per category"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.2.1: Immune-Related Adverse Events Summary (CRITICAL FOR IO)
+  # ---------------------------------------------------------------------------
+  - number: "14.3.2.1"
+    title: "Summary of Immune-Related Adverse Events (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "irAE Category"
+        width: 4.0
+        alignment: L
+        source_variable: null
+      - header: "Pembrolizumab + Chemo\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Placebo + Chemo\n(N=xxx)\nn (%)"
+        width: 1.5
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any irAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: "Subjects with irAE Grade ≥3"
+        bold: true
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Pneumonitis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Colitis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hepatitis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Nephritis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Endocrinopathies"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Hypothyroidism"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Hyperthyroidism"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Thyroiditis"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Adrenal Insufficiency"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Hypophysitis"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Type 1 Diabetes Mellitus"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Dermatologic Reactions"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Grade ≥3 (including SJS/TEN)"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Myocarditis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Neurological Events"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Any Grade"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "irAE Leading to Discontinuation"
+        bold: true
+        row_type: data
+      - level: 0
+        label: "irAE Requiring Systemic Corticosteroids"
+        bold: true
+        row_type: data
+      - level: 1
+        label: "High-dose (≥40mg prednisone equivalent)"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "irAE: Adverse events with potential immunologic etiology per sponsor-defined criteria."
+      - symbol: "b"
+        text: "irAE identification based on MedDRA preferred terms and investigator assessment."
+      - symbol: "c"
+        text: "Myocarditis: Can be fatal; requires prompt evaluation if suspected."
+      - symbol: "d"
+        text: "Management per protocol-specified irAE guidelines."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y' and IRAEFL = 'Y'"
+    sort_order: ["TRT01AN"]
+
+    programming_notes:
+      - "CRITICAL TABLE for IO studies"
+      - "irAE identified by sponsor-defined SMQs and PT lists"
+      - "IRAEFL derived in ADAE"
+      - "Track corticosteroid use for management"
+      - "Myocarditis rare but potentially fatal - highlight"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.2.2: irAE Time to Onset and Resolution
+  # ---------------------------------------------------------------------------
+  - number: "14.3.2.2"
+    title: "Time to Onset and Resolution of Immune-Related Adverse Events (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: LANDSCAPE
+
+    columns:
+      - header: "irAE Category"
+        width: 2.0
+        alignment: L
+      - header: "Treatment"
+        width: 1.8
+        alignment: L
+      - header: "n"
+        width: 0.5
+        alignment: C
+      - header: "Time to Onset (weeks)\nMedian (Range)"
+        width: 1.5
+        alignment: C
+      - header: "Duration (weeks)\nMedian (Range)"
+        width: 1.5
+        alignment: C
+      - header: "Resolved\nn (%)"
+        width: 1.0
+        alignment: C
+      - header: "Ongoing\nn (%)"
+        width: 1.0
+        alignment: C
+
+    stub_rows:
+      - level: 0
+        label: "Pneumonitis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Colitis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hepatitis"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hypothyroidism"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Hyperthyroidism"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "Skin Reactions"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "Pembrolizumab + Chemo"
+        bold: false
+        row_type: data
+      - level: 1
+        label: "Placebo + Chemo"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population; subjects with at least one irAE in each category."
+      - symbol: "a"
+        text: "Time to onset: Date of first irAE - First dose date."
+      - symbol: "b"
+        text: "Duration: Resolution date - Onset date (for resolved events)."
+      - symbol: "c"
+        text: "Resolved: irAE with outcome of recovered/resolved."
+      - symbol: "d"
+        text: "Endocrinopathies may not resolve; often require hormone replacement."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and IRAEFL = 'Y'"
+    sort_order: ["IRAECAT", "TRT01AN"]
+
+    programming_notes:
+      - "Time to onset in weeks from first dose"
+      - "Note: Thyroid events often early; pneumonitis later"
+      - "Endocrinopathies often require lifelong replacement"
+
+  # ---------------------------------------------------------------------------
+  # 14.3.3.1: TEAE by SOC and PT (≥10%)
+  # ---------------------------------------------------------------------------
+  - number: "14.3.3.1"
+    title: "Treatment-Emergent Adverse Events by System Organ Class and Preferred Term (≥10% in Either Arm) (Safety Population)"
+    tlf_type: TABLE
+    population: Safety Population
+    orientation: PORTRAIT
+
+    columns:
+      - header: "System Organ Class\n  Preferred Term"
+        width: 4.5
+        alignment: L
+        source_variable: "ADAE.AEBODSYS / AEDECOD"
+      - header: "Pembrolizumab + Chemo\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+      - header: "Placebo + Chemo\n(N=xxx)\nn (%)"
+        width: 1.3
+        alignment: C
+        format: "xxx (xx.x)"
+        source_variable: "ADAE"
+
+    stub_rows:
+      - level: 0
+        label: "Subjects with Any TEAE"
+        bold: true
+        row_type: total
+      - level: 0
+        label: ""
+        bold: false
+        row_type: spacer
+      - level: 0
+        label: "[System Organ Class]"
+        bold: true
+        row_type: header
+      - level: 1
+        label: "[Preferred Term]"
+        bold: false
+        row_type: data
+
+    footnotes:
+      - symbol: ""
+        text: "Safety Population."
+      - symbol: "a"
+        text: "AEs coded using MedDRA version XX.X."
+      - symbol: "b"
+        text: "Table includes PTs reported in ≥10% of subjects in either treatment arm."
+      - symbol: "c"
+        text: "SOCs and PTs sorted by decreasing frequency in Pembrolizumab + Chemo arm."
+
+    source_dataset: "ADAE"
+    filter_condition: "SAFFL = 'Y' and TRTEMFL = 'Y'"
+    sort_order: ["AEBODSYSN desc", "AEDECOD freq desc"]
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+# Total Safety Tables in this file: 4
+#   - TEAE Overview: 1
+#   - irAE Summary: 1
+#   - irAE Time to Onset/Resolution: 1
+#   - TEAE by SOC/PT: 1

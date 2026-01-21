@@ -1,0 +1,281 @@
+# =============================================================================
+# BIOSIMILAR ONCOLOGY BASE CONFIGURATION
+# =============================================================================
+# Extends: base_oncology.yaml
+# For biosimilar studies comparing proposed biosimilar to reference product
+#
+# Key differentiators:
+# - Equivalence/similarity objective (not superiority)
+# - Central + Local review for efficacy
+# - Immunogenicity is critical
+# - PK comparability required
+
+version: "2.0"
+config_type: "study_type_base"
+extends: "base_oncology.yaml"
+study_type: "biosimilar"
+
+# =============================================================================
+# BIOSIMILAR-SPECIFIC CONCEPTS
+# =============================================================================
+biosimilar_framework:
+  objective: "Demonstrate clinical similarity to reference product"
+
+  regulatory_guidance:
+    fda: "FDA Guidance on Biosimilar Development"
+    ema: "EMA Guideline on Similar Biological Medicinal Products"
+
+  totality_of_evidence:
+    - "Analytical similarity"
+    - "Functional similarity"
+    - "PK/PD similarity"
+    - "Clinical similarity (efficacy + safety + immunogenicity)"
+
+# =============================================================================
+# REVIEW TYPES (CRITICAL FOR BIOSIMILARS)
+# =============================================================================
+# Biosimilar studies require both Central and Local review
+review_types:
+  central:
+    code: "CENTRAL"
+    label: "Central Review"
+    full_name: "Independent Central Review"
+    abbreviation: "ICR"
+    description: "Blinded independent review by central radiology committee"
+    use_case: "Primary analysis for regulatory submission"
+    flag_variable: "ICRFL"
+
+  local:
+    code: "LOCAL"
+    label: "Local Review"
+    full_name: "Investigator Assessment"
+    abbreviation: "INV"
+    description: "Assessment by treating investigator"
+    use_case: "Supportive analysis"
+    flag_variable: "INVFL"
+
+review_note: |
+  All efficacy endpoints must be presented by BOTH review types:
+  - Central Review: Primary for regulatory
+  - Local Review: Supportive / sensitivity
+
+# =============================================================================
+# EQUIVALENCE/SIMILARITY MARGINS
+# =============================================================================
+similarity_criteria:
+  orr:
+    endpoint: "Objective Response Rate"
+    analysis: "Risk Ratio with 90% CI"
+    margin_lower: 0.75
+    margin_upper: 1.33
+    note: "90% CI for risk ratio must be within [0.75, 1.33]"
+
+  pfs:
+    endpoint: "Progression-Free Survival"
+    analysis: "Hazard Ratio with 95% CI"
+    margin: "Upper bound of 95% CI < 1.30 or 1.50"
+    note: "Typically not formal equivalence; descriptive comparison"
+
+  pk:
+    endpoint: "Pharmacokinetic Parameters"
+    analysis: "Geometric Mean Ratio with 90% CI"
+    margin_lower: 0.80
+    margin_upper: 1.25
+    parameters:
+      - "AUC"
+      - "Cmax"
+      - "Ctrough"
+    note: "Standard bioequivalence criteria"
+
+# =============================================================================
+# IMMUNOGENICITY REQUIREMENTS
+# =============================================================================
+# Critical for biosimilars
+immunogenicity:
+  importance: "Critical for biosimilar assessment"
+
+  assessments:
+    ada:
+      name: "Anti-Drug Antibody"
+      code: "ADA"
+      tiered_approach:
+        - "Screening assay"
+        - "Confirmatory assay"
+        - "Titer determination"
+      timepoints:
+        - "Baseline (pre-dose Cycle 1)"
+        - "During treatment (every 4-6 weeks)"
+        - "End of treatment"
+        - "Follow-up"
+
+    nab:
+      name: "Neutralizing Antibody"
+      code: "NAb"
+      population: "ADA-positive subjects only"
+      tiered_approach:
+        - "NAb screening in ADA-positive samples"
+        - "NAb confirmation"
+
+  derived_variables:
+    treatment_emergent_ada: "Negative at baseline → Positive post-baseline"
+    treatment_boosted_ada: "Positive at baseline → ≥4-fold increase in titer"
+    transient_ada: "Positive at only 1 timepoint or 2 consecutive"
+    persistent_ada: "Positive at ≥2 timepoints, last ≥16 weeks apart"
+
+  impact_analyses:
+    - "ADA impact on efficacy (ORR, PFS by ADA status)"
+    - "ADA impact on safety (AE incidence by ADA status)"
+    - "ADA impact on PK (clearance, exposure by ADA status)"
+
+# =============================================================================
+# PK REQUIREMENTS
+# =============================================================================
+pk_requirements:
+  population: "PK Evaluable Population"
+
+  sampling_strategy:
+    sparse: "Population PK approach with sparse sampling"
+    intensive: "Selected subjects for intensive PK"
+
+  key_parameters:
+    - code: "CTROUGH"
+      label: "Trough Concentration"
+      timing: "Pre-dose each cycle"
+    - code: "CMAX"
+      label: "Maximum Concentration"
+      timing: "If intensive sampling"
+    - code: "AUC"
+      label: "Area Under Curve"
+      timing: "If intensive sampling"
+
+  analysis:
+    primary: "Geometric Mean Ratio (GMR) with 90% CI"
+    criteria: "90% CI within [0.80, 1.25]"
+
+# =============================================================================
+# TREATMENT ARM NAMING
+# =============================================================================
+arm_naming:
+  test:
+    placeholder: "{BIOSIMILAR}"
+    example: "CT-P16"
+    label_template: "{BIOSIMILAR}\n(N=xxx)"
+
+  reference:
+    placeholder: "{REFERENCE}"
+    example: "EU-Approved Avastin"
+    label_template: "{REFERENCE}\n(N=xxx)"
+    regional_variants:
+      eu: "EU-{REFERENCE}"
+      us: "US-{REFERENCE}"
+
+# =============================================================================
+# REQUIRED TABLE SHELLS FOR BIOSIMILAR
+# =============================================================================
+required_tables:
+  efficacy:
+    # Each endpoint × Central/Local × ITT/PP = 4 versions
+    - category: "Response Rates"
+      endpoints: ["ORR", "BOR"]
+      populations: ["ITT", "PP"]
+      review_types: ["Central", "Local"]
+      note: "ORR is typically primary endpoint"
+
+    - category: "Time-to-Event"
+      endpoints: ["PFS", "TTP", "DOR", "OS"]
+      populations: ["ITT", "PP"]
+      review_types: ["Central", "Local"]
+      note: "Supportive endpoints"
+
+  safety:
+    - category: "TEAE Overview"
+      stratify_by: ["study_period"]
+      note: "By Whole, Induction, Maintenance, Follow-up"
+
+    - category: "AESI"
+      stratify_by: ["study_period"]
+      note: "Drug-specific AESIs"
+
+    - category: "SAE"
+      stratify_by: ["study_period"]
+
+    - category: "Exposure"
+      note: "Study drug + concomitant chemo"
+
+  immunogenicity:
+    - "ADA Incidence"
+    - "ADA Titer"
+    - "NAb Incidence (ADA+ only)"
+    - "NAb Titer (NAb+ only)"
+    - "ADA Impact on Efficacy"
+    - "ADA Impact on Safety"
+    - "ADA Impact on PK"
+
+  pk:
+    - "Serum Concentration by Visit"
+    - "Ctrough Summary"
+    - "PK Parameters (if intensive)"
+    - "GMR Analysis"
+
+# =============================================================================
+# COLUMN TEMPLATES FOR BIOSIMILAR
+# =============================================================================
+column_templates:
+  two_arm_biosimilar:
+    - header: "Parameter"
+      width: 3.0
+      alignment: L
+    - header: "{BIOSIMILAR}\n(N=xxx)"
+      width: 1.5
+      alignment: C
+    - header: "{REFERENCE}\n(N=xxx)"
+      width: 1.5
+      alignment: C
+
+  two_arm_biosimilar_with_total:
+    - header: "Parameter"
+      width: 3.0
+      alignment: L
+    - header: "{BIOSIMILAR}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "{REFERENCE}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "Total\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+
+  response_comparison:
+    - header: "Response Category"
+      width: 2.5
+      alignment: L
+    - header: "{BIOSIMILAR}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+    - header: "{REFERENCE}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+    - header: "Risk Ratio\n[90% CI]"
+      width: 1.5
+      alignment: C
+
+# =============================================================================
+# FOOTNOTE TEMPLATES FOR BIOSIMILAR
+# =============================================================================
+footnote_templates:
+  review_type:
+    central: "Based on Independent Central Review (ICR) assessment."
+    local: "Based on Investigator assessment."
+
+  similarity:
+    orr: "Similarity criterion: 90% CI for risk ratio within [{margin_lower}, {margin_upper}]."
+    pk: "Bioequivalence criterion: 90% CI for GMR within [0.80, 1.25]."
+
+  immunogenicity:
+    ada: "ADA status determined by validated tiered immunogenicity assay."
+    treatment_emergent: "Treatment-emergent ADA: Negative at baseline with positive result post-baseline."
+    treatment_boosted: "Treatment-boosted ADA: Positive at baseline with ≥4-fold increase in titer."

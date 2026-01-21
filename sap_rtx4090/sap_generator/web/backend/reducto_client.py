@@ -9,6 +9,7 @@ This module handles:
 """
 
 import os
+import re
 import tempfile
 from typing import List, Optional, Dict, Any
 from dataclasses import dataclass
@@ -185,9 +186,59 @@ def _pages_to_ranges(pages: List[int]) -> List[Dict[str, int]]:
     return ranges
 
 
+def _is_boilerplate_text(text: str) -> bool:
+    """
+    Check if text block is protocol boilerplate that should be filtered out.
+
+    Returns True for:
+    - Page numbers (e.g., "54 of 213")
+    - Confidentiality notices
+    - Protocol identifiers
+    - Very short fragments
+    """
+    if not text or not text.strip():
+        return True
+
+    text_clean = text.strip()
+    text_lower = text_clean.lower()
+
+    # Very short text is likely noise
+    if len(text_clean) < 5:
+        return True
+
+    # Page number patterns
+    if re.match(r'^\d{1,3}\s+of\s+\d{1,3}$', text_clean):
+        return True
+    if re.match(r'^page\s+\d+', text_lower):
+        return True
+    if re.match(r'^\d{1,3}$', text_clean):
+        return True
+
+    # Confidentiality notices
+    if 'confidential' in text_lower and len(text_clean) < 100:
+        return True
+
+    # Protocol/document identifiers
+    if re.match(r'^(protocol|amendment|version|eudract|ind)\s*(no\.?|#|number)?', text_lower):
+        return True
+
+    # Date-only lines
+    if re.match(r'^\d{1,2}\s+(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{4}$', text_lower):
+        return True
+
+    # Company headers/footers
+    boilerplate_terms = ['celltrion', 'property of', 'all rights reserved', 'draft']
+    if any(term in text_lower for term in boilerplate_terms) and len(text_clean) < 80:
+        return True
+
+    return False
+
+
 def _format_reducto_output(result, page_numbers: List[int]) -> tuple:
     """
     Format Reducto parse result into markdown content with [TABLE] markers.
+
+    v101.2: Now filters out protocol boilerplate from Text/Header blocks.
 
     Args:
         result: Reducto parse result object
@@ -239,8 +290,10 @@ def _format_reducto_output(result, page_numbers: List[int]) -> tuple:
                                 f"\n[TABLE]{page_info}\n{block_content}\n[/TABLE]\n"
                             )
                         elif block_type in ["Text", "Header", "Title"]:
-                            # Include text/headers for context
-                            content_parts.append(block_content)
+                            # v101.2: Filter out protocol boilerplate
+                            if not _is_boilerplate_text(block_content):
+                                # Only include relevant headers (table titles, section headers)
+                                content_parts.append(block_content)
 
         # Alternative structure - direct blocks array
         elif hasattr(result, 'blocks'):
@@ -255,7 +308,7 @@ def _format_reducto_output(result, page_numbers: List[int]) -> tuple:
                     content_parts.append(
                         f"\n[TABLE]\n{block.content}\n[/TABLE]\n"
                     )
-                else:
+                elif not _is_boilerplate_text(getattr(block, 'content', '')):
                     content_parts.append(getattr(block, 'content', ''))
 
     except Exception as e:

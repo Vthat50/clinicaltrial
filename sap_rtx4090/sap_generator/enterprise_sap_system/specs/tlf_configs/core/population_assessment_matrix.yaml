@@ -1,0 +1,337 @@
+# =============================================================================
+# UNIVERSAL POPULATION × ASSESSMENT MATRIX
+# =============================================================================
+# This module defines how efficacy/safety tables should be multiplied
+# across different populations and assessment types.
+#
+# Many oncology studies require tables for:
+# - Multiple populations (ITT, PP, Safety, mITT, Responders)
+# - Multiple assessments (IRC/BICR vs Investigator/Local)
+#
+# This config automates the cross-product generation.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# STANDARD ANALYSIS POPULATIONS
+# -----------------------------------------------------------------------------
+
+populations:
+  # Primary populations
+  itt:
+    full_name: "Intent-to-Treat Population"
+    abbreviation: "ITT"
+    definition: "All randomized subjects"
+    flag: "ITTFL"
+    typical_use:
+      - "Primary efficacy analysis"
+      - "Demographics"
+      - "Disposition"
+    always_include: true
+
+  safety:
+    full_name: "Safety Population"
+    abbreviation: "Safety"
+    definition: "All subjects who received at least one dose of study treatment"
+    flag: "SAFFL"
+    typical_use:
+      - "All safety analyses"
+      - "Exposure"
+      - "Laboratory"
+    always_include: true
+
+  pp:
+    full_name: "Per-Protocol Population"
+    abbreviation: "PP"
+    definition: "ITT subjects without major protocol deviations affecting efficacy"
+    flag: "PPROTFL"
+    typical_use:
+      - "Sensitivity analysis for primary endpoint"
+      - "Confirmatory analysis"
+    sensitivity_for: ["primary_efficacy"]
+
+  # Modified/evaluable populations
+  mitt:
+    full_name: "Modified Intent-to-Treat Population"
+    abbreviation: "mITT"
+    definition: "ITT subjects with at least one post-baseline assessment"
+    flag: "MITTFL"
+    typical_use:
+      - "Response assessment"
+      - "Biomarker evaluable"
+
+  evaluable:
+    full_name: "Evaluable Population"
+    abbreviation: "Eval"
+    definition: "Subjects with evaluable response assessment"
+    flag: "EVALFL"
+    typical_use:
+      - "ORR analysis (alternative to ITT)"
+      - "Response rate in subjects with measurable disease"
+
+  responders:
+    full_name: "Responder Population"
+    abbreviation: "Resp"
+    definition: "Subjects who achieved CR or PR"
+    flag: "RESPFL"
+    typical_use:
+      - "Duration of Response (DOR)"
+      - "Time to Response (TTR)"
+
+  # Biomarker populations
+  biomarker_positive:
+    full_name: "Biomarker-Positive Population"
+    abbreviation: "BM+"
+    definition: "Subjects with positive biomarker status"
+    flag: "BMPOSFL"
+    typical_use:
+      - "Biomarker-selected efficacy"
+      - "Subgroup analysis"
+
+  biomarker_negative:
+    full_name: "Biomarker-Negative Population"
+    abbreviation: "BM-"
+    definition: "Subjects with negative biomarker status"
+    flag: "BMNEGFL"
+    typical_use:
+      - "Biomarker subgroup analysis"
+
+  # PK/Immunogenicity populations
+  pk_population:
+    full_name: "Pharmacokinetic Population"
+    abbreviation: "PK"
+    definition: "Subjects with at least one evaluable PK sample"
+    flag: "PKFL"
+    typical_use:
+      - "PK parameter summaries"
+      - "Concentration-time profiles"
+
+  immunogenicity:
+    full_name: "Immunogenicity Population"
+    abbreviation: "Immuno"
+    definition: "Subjects with at least one post-baseline ADA sample"
+    flag: "ADAFL"
+    typical_use:
+      - "ADA incidence"
+      - "NAb analysis"
+
+# -----------------------------------------------------------------------------
+# ASSESSMENT TYPES (Central vs Local Review)
+# -----------------------------------------------------------------------------
+
+assessment_types:
+  # Independent Central Review
+  irc:
+    full_name: "Independent Review Committee"
+    abbreviations: ["IRC", "BICR", "Central"]
+    description: "Blinded Independent Central Review"
+    typical_use:
+      - "Primary efficacy analysis (regulatory)"
+      - "PFS, ORR, DOR"
+    variable_suffix: "IRC"
+    source_domain: "BICR"
+    is_primary: true
+
+  # Local/Investigator Assessment
+  local:
+    full_name: "Investigator Assessment"
+    abbreviations: ["INV", "Local", "Investigator"]
+    description: "Local investigator assessment per RECIST"
+    typical_use:
+      - "Sensitivity analysis"
+      - "Clinical practice reflection"
+    variable_suffix: "INV"
+    source_domain: "INV"
+    is_primary: false
+
+  # Both assessments combined (for biosimilars)
+  combined:
+    full_name: "Combined Assessment"
+    abbreviations: ["Combined"]
+    description: "Central and Local assessments analyzed together"
+    typical_use:
+      - "Comparative analyses"
+      - "Sensitivity"
+    is_primary: false
+
+# -----------------------------------------------------------------------------
+# MATRIX EXPANSION RULES
+# -----------------------------------------------------------------------------
+
+matrix_rules:
+  # Which tables need population × assessment cross-products
+
+  primary_efficacy:
+    description: "Primary efficacy endpoint tables"
+    tables:
+      - "Best Overall Response"
+      - "Objective Response Rate"
+      - "Progression-Free Survival"
+      - "Overall Survival"
+      - "Disease Control Rate"
+    population_expansion:
+      primary: "itt"
+      sensitivity: ["pp"]
+      subgroups: ["mitt", "biomarker_positive"]
+    assessment_expansion:
+      primary: "irc"
+      sensitivity: ["local"]
+
+  secondary_efficacy:
+    description: "Secondary efficacy endpoint tables"
+    tables:
+      - "Duration of Response"
+      - "Time to Response"
+      - "PFS Rate at Landmark"
+      - "OS Rate at Landmark"
+    population_expansion:
+      primary: "itt"
+      sensitivity: []
+    assessment_expansion:
+      primary: "irc"
+      sensitivity: ["local"]
+
+  exploratory_efficacy:
+    description: "Exploratory/subgroup efficacy tables"
+    tables:
+      - "ORR by Subgroup"
+      - "PFS by Biomarker"
+    population_expansion:
+      primary: "itt"
+      subgroups: ["biomarker_positive", "biomarker_negative"]
+    assessment_expansion:
+      primary: "irc"
+
+  safety:
+    description: "Safety analysis tables"
+    tables:
+      - "TEAE Overview"
+      - "TEAEs by SOC/PT"
+      - "AESIs"
+      - "SAEs"
+      - "Deaths"
+    population_expansion:
+      primary: "safety"
+      # Safety tables don't need ITT/PP variants
+    assessment_expansion: null  # No assessment type for safety
+
+  pk_immunogenicity:
+    description: "PK and immunogenicity tables"
+    tables:
+      - "PK Parameters"
+      - "Serum Concentrations"
+      - "ADA Incidence"
+      - "NAb Analysis"
+    population_expansion:
+      pk: "pk_population"
+      immunogenicity: "immunogenicity"
+    assessment_expansion: null
+
+# -----------------------------------------------------------------------------
+# TABLE NAMING WITH POPULATION/ASSESSMENT
+# -----------------------------------------------------------------------------
+
+naming_conventions:
+  # How to name tables when population/assessment varies
+
+  # Population in title
+  population_in_title:
+    format: "{base_title} ({population_name})"
+    examples:
+      - "Best Overall Response (ITT Population)"
+      - "Best Overall Response (Per-Protocol Population)"
+
+  # Assessment in title
+  assessment_in_title:
+    format: "{base_title} ({assessment_name})"
+    examples:
+      - "Progression-Free Survival (IRC Assessment)"
+      - "Progression-Free Survival (Investigator Assessment)"
+
+  # Combined population + assessment
+  combined_in_title:
+    format: "{base_title} ({population_name}, {assessment_name})"
+    examples:
+      - "Best Overall Response (ITT Population, IRC Assessment)"
+      - "Best Overall Response (PP Population, Investigator Assessment)"
+
+  # Table numbering
+  numbering_convention:
+    population_suffix:
+      itt: ""
+      pp: "_PP"
+      mitt: "_mITT"
+      safety: ""
+    assessment_suffix:
+      irc: ""
+      local: "_INV"
+    # Example: 14.2.1 (ITT/IRC), 14.2.1_PP (PP/IRC), 14.2.1_INV (ITT/Local)
+
+# -----------------------------------------------------------------------------
+# FILTER CONDITIONS
+# -----------------------------------------------------------------------------
+
+filter_templates:
+  # ADaM filter templates by population
+
+  itt:
+    adsl: "ITTFL = 'Y'"
+    adrs: "ITTFL = 'Y'"
+    adtte: "ITTFL = 'Y'"
+
+  pp:
+    adsl: "PPROTFL = 'Y'"
+    adrs: "PPROTFL = 'Y'"
+    adtte: "PPROTFL = 'Y'"
+
+  safety:
+    adsl: "SAFFL = 'Y'"
+    adae: "SAFFL = 'Y'"
+    adlb: "SAFFL = 'Y'"
+
+  # Assessment type filters
+  irc:
+    adrs: "SRCDOM = 'BICR'"
+    adtte: "SRCDOM = 'BICR'"
+
+  local:
+    adrs: "SRCDOM = 'INV'"
+    adtte: "SRCDOM = 'INV'"
+
+# -----------------------------------------------------------------------------
+# STUDY TYPE DEFAULTS
+# -----------------------------------------------------------------------------
+
+study_type_defaults:
+  # Default matrix expansion by study type
+
+  immuno_oncology:
+    populations: ["itt", "safety", "pp"]
+    assessments: ["irc", "local"]
+    efficacy_populations: ["itt", "pp"]
+    efficacy_assessments: ["irc", "local"]
+
+  biosimilar:
+    populations: ["itt", "safety", "pp"]
+    assessments: ["irc", "local"]
+    efficacy_populations: ["itt", "pp"]
+    efficacy_assessments: ["irc", "local"]
+    additional_comparisons:
+      - "Central vs Local reviewer agreement"
+
+  targeted_therapy:
+    populations: ["itt", "safety", "pp", "biomarker_positive"]
+    assessments: ["irc", "local"]
+    efficacy_populations: ["itt", "pp", "biomarker_positive"]
+    efficacy_assessments: ["irc"]
+
+  single_arm:
+    populations: ["itt", "safety", "evaluable"]
+    assessments: ["irc"]
+    efficacy_populations: ["itt", "evaluable"]
+    efficacy_assessments: ["irc"]
+
+  adjuvant:
+    populations: ["itt", "safety", "pp"]
+    assessments: ["irc"]  # Often IRC only for DFS
+    efficacy_populations: ["itt", "pp"]
+    efficacy_assessments: ["irc"]
