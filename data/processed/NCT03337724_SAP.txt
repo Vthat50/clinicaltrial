@@ -1,0 +1,1554 @@
+Source: NCT03337724_SAP.pdf
+Total Pages: 62
+================================================================================
+
+
+--- Page 1 ---
+
+Official Title: A Double-Blind, Placebo-Controlled, Randomized Phase III Study of Ipatasertib in Combination With Paclitaxel as a Treatment for Patients With Pik3ca/Akt1/Pten-Altered, Locally Advanced or Metastatic, TripleNegative Breast Cancer or Hormone Receptor-Positive, HER2Negative Breast Cancer NCT Number: NCT03337724 Document Dates: SAP Version 2: 12-March-2020
+
+--- Page 2 ---
+
+STATISTICAL ANALYSIS PLAN TITLE: ADOUBLE-BLIND,PLACEBO-CONTROLLED, RANDOMIZEDPHASEIIISTUDYOFIPATASERTIBIN COMBINATIONWITHPACLITAXELASATREATMENTFOR PATIENTSWITHPIK3CA/AKT1/PTEN-ALTERED,LOCALLY ADVANCEDORMETASTATIC,TRIPLE-NEGATIVEBREAST CANCERORHORMONERECEPTOR–POSITIVE, HER2-NEGATIVEBREASTCANCER PROTOCOL NUMBER: CO40016 STUDY DRUG: Ipatasertib (RO5532961, GDC-0068) VERSION NUMBER: 2 IND NUMBER: 133823 EUDRACT NUMBER: 2017-001548-36 SPONSOR: F.
+
+Hoffmann-La Roche Ltd PLAN PREPARED BY: , Ph.D.
+
+DATE FINAL: See electronic date stamp below.
+
+DATE AMENDED: Version 1: 6 February 2020 STATISTICAL ANALYSIS PLAN AMENDMENT APPROVAL Date and Time(UTC) Reason for Signing Name 12-Mar-2020 09:25:50 Company Signatory CONFIDENTIAL This is an F.
+
+Hoffmann-La Roche Ltd document that contains confidential information.
+
+Nothing herein is to be disclosed without written consent from F.
+
+Hoffmann-La Roche Ltd.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd StatisticalAnalysisPlanCO40016
+
+--- Page 3 ---
+
+STATISTICAL ANALYSIS PLAN AMENDMENT RATIONALE Study CO40016 Statistical Analysis Plan (SAP) has been amended primarily to incorporate the Health Authority (HA)feedback.
+
+Changes to the SAP, along with the rationales, are summarized below.  Section 4.4.1 To avoid the potential risk of over-stratification (Akazawa et al. 1997), additional wording describing the stratificiation factors to be used in the stratified analysis have been added to allow leaving out stratification factors causing too sparse stratum in the stratified analysis.
+
+The following wording is added“If at least one stratum (i.e., a combination of stratification factor levels across all stratification factors) has fewer than 10 progression free survival (PFS) events across treatment arms, the stratification factor which contains the level with the smallest number of patients will be removed from the stratified analyses.
+
+The removal of the stratification factors will continue until there is no stratum with fewer than 10 PFS events.
+
+The final set of stratification factors used in stratified analyses will be applied to all endpoints where stratified analyses are planned”.  Section 4.4.3.1 Per Food and Drug Administration’s (FDA) recommendation, the method to calculate 95% confidence interval of objective response rate (ORR) has been changed from Blyth-Still-Casella method to the more conservative Clopper Person method.  Section 4.4.6.1 Additional sensitivity analysis on PFS excluding patients who enrolled on the basis of a non-clinical trial assay (CTA) result has been added to support Foundation Medicine, Inc. (FMI) companion diagnostics filing.
+
+This analysis is aimed to further demonstrate the clinical utility of the FMI CTA.  Section 4.4.2 Overall survival has been labeled as a key secondary endpoint per the FDA’s suggestion given that this endpoint is type I error controlled.
+
+The analysis methods for this endpoint remain unchanged.  Section 4.4.5.1.1 The following covariates has been added to the mixed-effects model covariates: prior adjuvant/neoadjuvant chemotherapy, prior therapy with a phosphoinositide 3-kinase (PI3K) or mammalian target of rapamycin (mTOR) inhibitor, and bone metastases, since these factors may correlate with Patient-Reported Outcomes (PROs).
+
+Brain metastases has been removed from the covariates, since it is part of trial exclusion criteria.  Section 4.4.6.4 Text referring to the supplemental PRO analysis document (AnchorBased Method to Assess Within-Patient Meaningful Change in the European Organisation for Research and Treatment of Cancer Quality of Life Questionnaire Core 30[EORTC QLQ-C30] Pain Scale) has been added in this main SAP.
+
+Cumulative distribution function (CDF) curves to support the pain analysis will be produced and reported as part of the supplementary PRO anchoring SAP, therefore reference to CDF curves has been removed from section 4.4.5.1.2.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 2/Statistical Analysis Plan CO40016
+
+--- Page 4 ---
+
+ Section 4.4.5.2Time to first opioid use analysis has been addedper previous HA feedback on PRO pain analysis.  Sections 4.4.5.1.1 and 4.4.5.2.1 Text has been added to clarify that line charts will be provided only for 5 key scales to focus visualizations on key variables, tables for all 15 instrument scale will still remain to be provided.
+
+Additional minor changes have been made to improve clarity and consistency.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 3/Statistical Analysis Plan CO40016
+
+--- Page 5 ---
+
+TABLE OF CONTENTS STATISTICAL ANALYSIS PLAN AMENDMENT RATIONALE.............................2 1.
+
+BACKGROUND............................................................................................7 2.
+
+STUDY DESIGN...........................................................................................7 2.1 Protocol Synopsis..................................................................10 2.2 Outcome Measures...............................................................10 2.3 Determination of Sample Size...............................................14 3.
+
+STUDY CONDUCT.....................................................................................16 3.1 Randomization.......................................................................16 3.2 Independent Review Facility..................................................16 3.3 Data Monitoring.....................................................................17 4.
+
+STATISTICAL METHODS ..........................................................................17 4.1 Analysis Populations .............................................................17 4.1.1 Randomized/ITT Population..................................................17 4.1.2 Pharmacokinetic-Evaluable Population.................................18 4.1.3 Safety Population ..................................................................18 4.1.4 PRO-(cid:40)valuable Population....................................................18 4.2 Analysis of Study Conduct.....................................................18 4.3 Analysis of Treatment Group Comparability..........................18 4.4 Efficacy Analysis....................................................................19 4.4.1 Primary Efficacy Endpoint......................................................19 4.4.2 Key Secondary Efficacy Endpoints........................................19 4.4.3 Other Secondary Efficacy Endpoints.....................................20 4.4.3.1 Objective Response Rate with Duration of Response..............................................................................20 4.4.3.2 Clinical Benefit Rate..............................................................21 4.4.4 Exploratory Efficacy Endpoints..............................................21 4.4.4.1 Progression-Free Survival 2 (PFS2)......................................21 4.4.4.2 Time to First Skeletal-Related Event.....................................21 4.4.4.3 Time to First Objective Response..........................................22 4.4.5 Patient-Reported Outcome Analyses ....................................22 Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 4/Statistical Analysis Plan CO40016
+
+--- Page 6 ---
+
+4.4.5.1 Secondary Patient-Reported Outcome Endpoints.................22 4.4.5.2 Exploratory Patient-Reported Outcome Analyses .................24 4.4.6 Sensitivity Analyses...............................................................24 4.4.6.1 Sensitivity Analyses of Progression-Free Survival.................24 4.4.6.2 Sensitivity Analyses of Objective Response Rate.................25 4.4.6.3 Sensitivity Analyses of Duration of Response.......................26 4.4.6.4 Sensitivity Analyses of Time to Deterioration in Pain.......................................................................................26 4.4.7 Subgroup Analyses ...............................................................26 4.5 Pharmacokinetic Analyses.....................................................27 4.6 Safety Analyses.....................................................................28 4.6.1 Exposure of Study Medication...............................................28 4.6.2 Adverse Events .....................................................................28 4.6.3 Laboratory Data.....................................................................29 4.6.4 ECOG Performance Status...................................................29 4.6.5 Electrocardiograms................................................................29 4.6.6 Exploratory Patient-Reported Safety Outcome Analyses................................................................................29 4.6.6.1 Patient-Reported Outcomes version of the Common Terminology Criteria for Adverse Events (PRO-CTCAE)...........................................................29 4.7 Exploratory Biomarker Analyses............................................31 4.8 Missing Data..........................................................................31 4.9 Interim Analyses....................................................................32 4.9.1 Planned Interim Safety Analysis............................................32 4.9.2 Planned Interim OS Analysis at PFS Primary Analysis.................................................................................32 4.9.3 Optional Interim Analysis.......................................................33 5.
+
+REFERENCES ...........................................................................................34 Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 5/Statistical Analysis Plan CO40016
+
+--- Page 7 ---
+
+LIST OF TABLES Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated).............12 Table 2 Summary of Overall Survival Interim and Final Analysis: Cohort A......................................................................................33 Table 3 Summary of Overall Survival Interim and Final Analysis: Cohort B......................................................................................33 LIST OF FIGURES Figure 1 Study Schema (Cohort A and B).................................................10 LIST OF APPENDICES Appendix 1 Protocol Synopsis.......................................................................35 Appendix 2 Schedule of Assessments...........................................................51 Appendix 3 Schedule of Pharmacokinetic, Immunogenicity, and Biomarker Samples.....................................................................61 Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 6/Statistical Analysis Plan CO40016
+
+--- Page 8 ---
+
+1.
+
+BACKGROUND This Statistical Analysis Plan (SAP) provides details of the planned analyses and statistical methods for Study CO40016 Cohorts A and B, the two double-blind placebo-controlled randomized cohorts.
+
+Cohort C is an open-label single-arm cohort, the analysis for Cohort C is not covered in this SAP, but has been described in the protocol. 2.
+
+STUDY DESIGN Thetwo randomized, double-blind, placebo-controlled cohorts in this Phase III study are designed to evaluate the efficacy of ipatasertibpaclitaxel (IpatPac) versus placebopaclitaxel (PboPac) in patients with histologically confirmed, locally advanced or metastatic triple-negative breast cancer (advanced TNBC; Cohort A) and in patients with locally advanced or metastatic hormone receptor (HR)/human epidermal growth factor receptor 2(HER2)breast adenocarcinoma (advanced HR/HER2-BC; Cohort B) who are not suitable for endocrine therapy.
+
+Each cohort is independent with separate analyses, but with a single screening process to identify, allocate, and subsequently stratify on the basis of histologic and diagnostic status.
+
+Patients must have measurable disease as defined by Response Evaluation Criteria in Solid Tumors, Version 1.1 (RECIST v1.1) and a tumor with alteration of phosphatidylinositol-4,5bisphosphate 3kinase catalytic subunit alpha (PIK3CA) and/orprotein kinase B (AKT1) and/or phosphatase and tensin homolog (PTEN) as determined by any bloodor tissue-based molecular diagnostic assay (using a Clinical Laboratory Improvement Amendments [CLIA] or equivalently accredited diagnostic laboratory).
+
+This alteration status is hereafter referred to as PIK3CA/AKT1/PTEN-altered(see Section 4.1.1of the Study Protocol for Disease-Specific Inclusion Criteria).
+
+Pathological determination of estrogen receptor (ER), progesterone receptor (PgR), and HER2 status based on local assessment according to American Society of Clinical Oncology (ASCO)and College of American Pathologists (CAP) guidelines (see Appendix 3 and Appendix 4 of the Study Protocol) will be applied for cohort assignment by an interactive voice or Web-based response system (IxRS), with subsequent randomization within each cohort based on the appropriate stratification factors for the different cohorts.
+
+Patients who have unknown tumor ER, PgR, HER2, or PIK3CA/AKT1/PTEN-altered status and for whom determination of status is not possible are not eligible for this study.
+
+Treatment benefit in patients with PIK3CA/AKT1/PTEN-altered tumors will be independently compared in patients with advanced TNBC (Cohort A) and in patients with advanced HR/HER2BC.
+
+The study schema is shown in Figure 1.
+
+Approximately 249 patients with advanced TNBC and 201 patients with advanced HR/HER2 BC will be enrolled at approximately 120150 centers worldwide during the global enrollment phase.
+
+Patients will be assigned to either Cohort A (advanced TNBC) or Cohort B (advanced HR/HER2BC) according to the most recent locally assessed Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 7/Statistical Analysis Plan CO40016
+
+--- Page 9 ---
+
+pathologically documented receptor status, in their recurrent or metastatic tumor where applicable (i.e., for patients with locally advanced BC, this would not apply) and if safely accessible, per ASCO/CAP guidelines (see Appendix 3 and Appendix 4 of the Study Protocol for the 2013 guidelines [includes recent HER2 testing update[Wolff et al. 2018]) and randomly assigned in a 2:1 ratio to the experimental arm (Ipat 400mgPac) or control arm (PboPac).
+
+Randomization will be stratified by the following factors: prior adjuvant/neoadjuvant chemotherapy (yes vs. no), region (Asia-Pacific vs.
+
+Europe vs.
+
+North America vs. rest of the world), tumor PIK3CA/AKT1/PTENalteration status (PIK3CA/AKT1-activating mutations vs.
+
+PTEN alterations with no PIK3CA/AKT1-activating mutations; Cohort A only), and prior therapy with a phosphoinositide 3-kinase (PI3K) or mammalian target of rapamycin (mTOR) inhibitor (yes vs. no; Cohort B only).
+
+Given the probability of PIK3CA/AKT1/PTEN-non-altered status (approximately 80%85% for TNBC and 50%60% for HR+/HER2BC by blood-based NGS assay, such as FACT, and 55%65% by tissue-based NGS, such as FMI CTA), it remains an option to use the biomarker-specific ICF/screening process first, prior to other study screening procedures for those patients who require central testing of biomarker status.
+
+Patients will also be given the option of providing a tissue biopsy sample obtained at disease progression for exploratory analyses; this decision will not affect overall study eligibility.
+
+All eligible patients will receive paclitaxel chemotherapy (80 mg/m2IV) on Days 1, 8, and 15 of each 28-day cycle and either ipatasertib at a dose of 400mg administered orally once a day (QD) on Days 121 of each 28-day cycle (experimental arm) or placebo orally QD on Days 121 of each 28-day cycle (control arm).
+
+Study treatment will continue until disease progression, intolerable toxicity, elective withdrawal from the study, or study completion or termination.
+
+Upontreatment discontinuation, patients will be followed every 3 months for survival, patient-reported outcomes(PROs) (see Section 4.5.8 of the Study Protocol), and new anti-cancer therapy and outcome (therapy/procedures, doses, start and stop date, best responses, most recent tumor assessment date, and progression date).
+
+Tumor measurement for disease evaluation will be performed every 8 weeks, regardless of whether patients receive study treatment during the treatment cycle.
+
+For estimation of progression-free survival (PFS), objective response rate (ORR), and duration of response (DOR), tumor response will be based on RECIST v1.1.
+
+For patients who discontinue treatment without evidence of disease progression per RECIST v1.1, in addition to post-treatment follow-up, patients will be followed every 812 weeks for tumor assessments until documented progression per RECIST v1.1, elective withdrawal from the study, or study completion or termination.
+
+Images for tumor assessments for all patients are prospectively collected to enable retrospective blinded independent central review when needed.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 8/Statistical Analysis Plan CO40016
+
+--- Page 10 ---
+
+The pharmacokinetics of ipatasertib and its metabolite G-037720 will be assessed in all patients receiving ipatasertib.
+
+Safety will be evaluated on an ongoing basis in this study through the monitoring of all serious and non-serious adverse events (AEs) and will be graded according to the National Cancer Institute Common Terminology Criteria for Adverse Events, Version 4.0 (NCI CTCAE v4.0).
+
+An independent Data Monitoring Committee (iDMC) will periodically evaluatethe safety of ipatasertib or placebo combined with paclitaxel.
+
+The analysis supporting iDMC review has been conducted by an independent Data Coordinating Center (iDCC) and provided to the iDMC.
+
+Interactions between the iDMC and Sponsor will be carried out as specified in the iDMC Charter.
+
+No interim analysis of the primary efficacy endpoint PFS is planned.
+
+One interim overall survival (OS) analysis (at the time of the primary analysis for PFS)for each cohort is planned as described in Section 6.8.2 of theStudy Protocol.
+
+Analysis of safety and efficacy for each cohort will be performed independently.
+
+Crossover is not allowed.
+
+There is no China Extension phase.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 9/Statistical Analysis Plan CO40016
+
+--- Page 11 ---
+
+Figure 1 Study Schema (Cohort A and B) BCbreast cancer; Dday; EUEurope; HER2humanepidermal growth factor receptor 2; HRhormonereceptor; LAlocallyadvanced; MBCmetastaticbreast cancer; NA= North America; POby mouth; Rrandomization; RoWRest of the World; TNBCtriple-negative breast cancer; Y/Nyes or no.
+
+Note: (1) If allowed locally, prophylaxis loperamide is mandated in Cycle 1, dose adjustment is as necessary, and continuation is per investigator judgment. (2) Study Schema for Cohort C is not included, but can be found in the protocol. a PIK3CA/AKT1 mutantversus PTEN-altered (and non-PIK3CA/AKT1mutant). b If applicable, patients will return to the clinic every 812 weeks for tumor assessments (disease follow-up visit) until disease progression, elective withdrawal from study, or study completion or termination. c The originally planned potential China Extension phase is removed. d A lower number of slides may berequired if FoundationONE CDxis commercially already run and used for biomarker qualification. e Patients with HR+/HER2breast cancer who are not suitable candidates for endocrine therapy and who meet one of the following criteria: the patient has recurrent disease (locoregional or metastatic) during adjuvant endocrine therapy (i.e., ≤5 years of being on therapy), orif the patient has de novo metastatic disease, patient has progressive disease within 6 months of being on first-line endocrine treatmentof metastatic disease. 2.1 PROTOCOL SYNOPSIS The Protocol Synopsis is in Appendix 1.
+
+Detailedschedule of Assessments in Appendix 2 and Appendix 3. 2.2 OUTCOME MEASURES This SAP provides details of the planned analyses and statistical methods for Cohorts A and B that will independently evaluate the safety, efficacy, and pharmacokinetics of IpatPac compared with PboPac in patients with PIK3CA/AKT1/PTEN-altered tumors.
+
+One cohort will be a first-line treatment in patients with advanced TNBC, and the second Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 10/Statistical Analysis Plan CO40016
+
+--- Page 12 ---
+
+will be a first-chemotherapy treatment in patients with advanced HR/HER2BC who are not appropriate candidates for endocrine therapy.
+
+Patients will be enrolled based on central or local/commercial determination of PIK3CA/AKT1/PTEN-altered statusby blood or tissue, with central assessment of PIK3CA/AKT1/PTEN-altered status in tumor tissue performed in any patients enrolled using alternative methods and will be allocated to one of the cohorts based on hormone-receptor status.
+
+Patients with HER2-positive tumors are not eligible.
+
+The reason that the two patient populations will be evaluated separately is that advanced TNBC and advanced HR/HER2BCs have different biologies that manifest clinically with different prognoses and response to treatment, and molecularly with distinctmolecular profiles with dissimilar oncogenic drivers.
+
+The two populations have different prevalence and PFS and OS expectations, and thus different enrollment and analysis timelines.
+
+The two independent target patient populations for this study are premenopausal and postmenopausal female and male patients with measurable, advanced TNBC and HR/HER2BC who have not received chemotherapy in either of these settings.
+
+Patients must be appropriate candidates for taxane monotherapy.
+
+In particular, patients with advanced HR/HER2BC should be suitable for treatment with chemotherapy (e.g., experiencing symptomatic visceral disease or demonstrated insensitivity to endocrine therapy).
+
+Prior neoadjuvant and/or adjuvant chemotherapy is allowed, provided it has been concluded at least 12months before the diagnosis of advanced disease.
+
+Patients with PIK3CA/AKT1/PTEN-altered tumors (as defined in Section 3.1.1 and Section 4.1.1 of the Study Protocol) will be assigned to Cohort A (advanced TNBC) or Cohort B (advanced HR/HER2 BC) based on their hormone receptor status (as evaluated locally, or on study, only if local evaluation is not available, with additional slides submitted for this purpose) and randomized with a 2:1 ratio to the experimental versus control arm.
+
+All primary, secondary, exploratory, and safety objectives will be assessed independently for each cohort (i.e., Cohort A: patients with advanced TNBC with PIK3CA/AKT1/PTEN-altered tumors and Cohort B: patients with advanced HR/HER2BC with PIK3CA/AKT1/PTEN-altered tumors).
+
+The primary endpoint for the Cohort A (advanced TNBC) is PFS.
+
+The primary endpoint for Cohort B (advanced HR/HER2BC) is also PFS.
+
+The primary analysis for each cohort will be independent and triggered by cohort-specific events and will also be independent of the readout of the other cohort (refer to Section 6 of the Study Protocol).
+
+The secondary endpoints for each cohort will be tested if the primary analysis of the respective PFS reaches statistical significance at the level of 5%.
+
+Specific objectives and corresponding endpoints for each cohort will be analyzed independently following cohort-specific statistical analysis plans, and are outlined in Table 1.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 11/Statistical Analysis Plan CO40016
+
+--- Page 13 ---
+
+Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) Objectives Corresponding Endpoints Primary Efficacy Objective:  To evaluate the efficacy of IpatPac  PFS, defined as the time from randomization to compared with PboPac the first occurrence of disease progression, as determined locally by the investigator through the use of RECIST v1.1, or death from any cause, whichever occurs first Secondary Efficacy Objectives:  To evaluate the efficacy of IpatPac Key Secondary Endpoint: compared with PboPac  OS, defined as the time from randomization to death from any cause Other Secondary Endpoints:  Objective response rate, definedas a CR or PR on two consecutive occasions4 weeks apart, as determined locally by the investigator through the use of RECIST v1.1  Duration of response, defined as the time from the first occurrence of a documented objective response to disease progression, as determined locally by the investigator through use of RECIST v1.1, or death from any cause, whichever occurs first  Clinical benefit rate, defined as an objective response (CR or PR), or stable disease for at least 24 weeks, as determined locally by the investigator through the use of RECIST v1.1  To evaluate PROs of GHS/HRQoL associated  Mean and meanchanges from baseline with IpatPaccompared with Pbo+Pac GHS/HRQoL score as measured by the GHS/HRQoL scale (Questions 29 and 30) of the EORTC QLQ-C30, by cycle  To evaluate PROs of disease-related pain of  Time to deterioration in pain, defined as the IpatPaccompared with PboPac(Cohort B first minimally important increase of11points only) from the baseline pain scale score (Questions 9 and 19) of the EORTC QLQ-C30 Exploratory Efficacy Objectives:  To evaluate the efficacy of IpatPac  PFS compared with PboPacin advanced TNBC  Objective response rate (Cohort A only) patients with tumors that have  Duration of response the following:  Clinical benefit rate - PIK3CA/AKT1-activating mutations  OS - PTEN alterations (and no PIK3CA/AKT1-activating mutations) Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 12/Statistical Analysis Plan CO40016
+
+--- Page 14 ---
+
+Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) (cont.) Objectives Corresponding Endpoints Exploratory Efficacy Objectives: (cont.)  To evaluate PROs of function and  Mean and mean changes from baseline scores disease/treatment-related symptoms in functional (i.e., role, physical, cognitive, associated with IpatPaccompared with emotional, and social) and disease/treatmentPboPac related symptoms by cycle as assessed by the functional and symptom scales of the EORTC QLQ-C30  To collect utilities for pharmacoeconomic  Health states for utility assessment and the VAS modeling as measured by the EQ-5D-5L questionnaire for modeling  To evaluate the clinical benefit  PFS2, defined as the time from randomization to first objective disease progression on nextline treatment, or death from any cause, whichever occurs first  Time to first skeletal–related event (SRE), defined as the time from randomization to the occurrence of an SRE.
+
+An SRE is either a pathologic fracture, radiation therapy to the bone, surgery to the bone, or spinal cord compression.  To evaluate analgesic use in IpatPacand  Change in use of opioid analgesics during PboPactreatment arms (Cohort B only) treatment, as measured by the intake of analgesic treatments Safety Objective:  To evaluate the safety of IpatPaccompared  Incidence of adverse events as assessed by the with PboPac investigator, with severity determined through the use of NCICTCAEv4.0  Incidence of prespecified adverse events  Change from baseline in targeted vital signs  Change from baseline in targeted clinical laboratory test results Exploratory Safety Objective:  To collect PROs regarding key symptomatic  Selected items from the PRO-CTCAE capturing adverse events of IpatPaccompared with patients' rating of the presence, severity, PboPac frequency, and/or interferenceof diarrhea, nausea, vomiting, decreased appetite, fatigue, neuropathy, mouth sores, and rash symptoms and an additional item regarding bother due to side effects of treatment Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 13/Statistical Analysis Plan CO40016
+
+--- Page 15 ---
+
+Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) (cont.) Objectives Corresponding Endpoints Pharmacokinetic Objective:  To characterize the pharmacokineticsof  Plasma concentration of ipatasertib and ipatasertib and its metabolite (G-037720) G-037720 at specified timepoints for analysis when administered in combination with using population PK methodology paclitaxel Exploratory Pharmacokinetic Objective:  To evaluate potential relationships between  Relationship between ipatasertib PK and ipatasertib exposure, efficacy, and safety of efficacy endpoints IpatPaccompared with PboPac  Relationship between ipatasertibPK and safety endpoints Exploratory Biomarker Objectives:  To evaluate predictive or prognostic  Relationship between tissue-and blood-based biomarkers (plasma or tissue) associated biomarkers and patient clinical features (e.g., with disease activity status or response to baseline features) and outcome (e.g., duration treatment of PFS)  To identify possible mechanisms of  Change in mutation and copy number in resistance to study treatmentsthrough the oncogenes, tumor suppressors, and/or other comparative analysis of potential biomarkers genes associated with disease progression by in pretreatment and post-progression biopsy DNA sequencing tissue samples and in blood  Change in levels of tumor suppressors,  To evaluate alternative diagnostics testing immune checkpoints, mitotic index, apoptotic methods for PIK3CA/AKT1/PTEN-altered index, and/or immune-cell infiltration by status immunohistochemistry  Associations of BCsubtypes defined by molecular signatures with patient outcomes  Association of BRCA1/2 genetic alterations and homologous repair deficiency with patient outcomes BCbreast cancer; BRCAbreast and ovarian cancer susceptibility gene; CRcomplete response; EORTCQLQ-C30European Organisationfor Research and Treatment of Cancer Quality of Life Questionnaire Core 30; EQ-5D-5LEuropean Quality of Life 5-Dimension, 5-Level questionnaire; GHSglobal health status; HRQoLhealth-related quality of life; IpatPacipatasertib + paclitaxel;NCI CTCAE v4.0National Cancer Institute Common Terminology Criteria for Adverse Events, Version 4.0; OSoverall survival; PKpharmacokinetics; PFSprogression-free survival;PboPacplacebo + paclitaxel; PRpartial response; PROpatient-reported outcome; PRO-CTCAEPatient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events; RECIST v1.1Response Evaluation Criteria in Solid Tumors, Version 1.1; TNBCtriple-negative breast cancer; VASvisual analog scale. 2.3 DETERMINATION OF SAMPLE SIZE As described earlier, Cohort A (patients with advanced TNBC) and Cohort B (patients with advanced HR/HER2BC) are two independent cohorts and will be analyzed separately.
+
+Each cohort will be tested independently with 5% type I error control.
+
+In the Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 14/Statistical Analysis Plan CO40016
+
+--- Page 16 ---
+
+event that the primary PFS analysis timelines for the advanced TNBC and HR/HER2cohorts arefar apart, the treatment codes of the cohort whose PFS data are mature earlier will be sent to the Sponsor to unblind only that cohort for the primary analysis of PFS.
+
+The Sponsor will remain blinded to the treatment assignments of the other cohort.
+
+For Cohort A, approximately 249 patients with advanced TNBC with PIK3CA/AKT1/PTEN-altered tumors will be enrolled and randomized in a 2:1 ratio to the experimental arm (Ipat 400 mgPac) and control arm (PboPac).
+
+The sample size of 249 patients is determined on the basis of the power calculation for the PFS and OS endpoints.
+
+The PFS primary analysis in Cohort A is planned be conducted after approximately 125 PFS events in Cohort A have been observed or last patient in, whichever is later.
+
+This allows for at least 95.5% power to detect an improvement in median PFS from 6 months in the PboPac arm to approximately 12 months in the IpatPac arm (hazard ratio0.5) at the 5% level of significance (two-sided).
+
+The largest hazard ratio deemed to be statistically significant at the 5% level will be approximately 0.69 (with median PFS improvement from 6 months to 8.7months).
+
+For Cohort A, the key secondary endpoint, OS, will be tested only if the PFS result is statistically significant.
+
+The final OS analysis with approximately 188 OS events will provide 80% power to detect a hazard ratio of 0.65 (median OS improvement from 16 to 24.6months), or 64% power to detect a hazard ratio of 0.7 (median OS improvement from 16 to 22.9 months).
+
+The largest detectable OS hazard ratio (with a log-rank test) will be approximately 0.74 (with median OS improvement from 16months to 21.6months).
+
+Assuming a 2-month site ramp-up period and approximately 120150 sites, the enrollment duration is projected to be approximately 16 months (from the first patient enrolled).
+
+The last PFS event (the 125th PFS event) for the PFS analysis in Cohort A is projected to occur approximately 20 months after the first patient is enrolled.
+
+The last death (the 188th OS event) for the final OS analysis in Cohort A is projected to occur approximately 53 months after the first patient is enrolled.
+
+For Cohort B, approximately 201 patients with advanced HR/HER2BC with PIK3CA/AKT1/PTEN-altered tumors will be enrolled and randomized in a 2:1 ratio to the experimental arm (Ipat 400 mgPac) and control arm (PboPac).
+
+The sample size of 201 patients is determined on the basis of the power calculation for the primary endpoint, PFS.
+
+The PFS primary analysis in Cohort B is planned be conducted when approximately 150 PFS events in the Cohort B patients have been observed.
+
+This allows for 80% power to detect an improvement in median PFS from 8.5months in the PboPac arm to Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 15/Statistical Analysis Plan CO40016
+
+--- Page 17 ---
+
+approximately 13.8months in the IpatPac arm (hazard ratio0.62) at the 5% level of significance (two-sided).
+
+The largest hazard ratio deemed to be statistically significant at the 5% level will be approximately 0.71 (with median PFS improvement from 8.5months to 11.93months).
+
+Assuming a 2-month site ramp-up period and approximately 120-150 sites, the enrollment duration is projected to be approximately 10 months (from the first patient enrolled).
+
+The last PFS event (the 150th PFS event) for the PFS analysis in Cohort B (patients with advanced HR/HER2BC) is projectedto occur approximately 30 months after the first patient is enrolled.
+
+For both Cohort A and B, the above timeline estimates are based on an assumption of an annual loss-to-follow-up rate for PFS of 5% and an annual loss-to-follow-up rate for OS of 2%. 3.
+
+STUDY CONDUCT 3.1 RANDOMIZATION Patients will be assigned to either Cohort A (advanced TNBC) or Cohort B (advanced HR/HER2BC) according to the most recent locally assessed pathologically documented receptor status in their recurrent or metastatictumor per ASCO/CAP guidelines and randomly assigned in a 2:1 ratio to the experimental arm (Ipat 400mgPac) or control arm (PboPac).
+
+Randomization will be stratified by the following factors: prior adjuvant/neoadjuvant treatment including chemotherapy (yes vs. no), region (Asia-Pacific vs.
+
+Europe vs.
+
+North America vs. rest of the world), tumor PIK3CA/AKT1/PTEN alteration status (PIK3CA/AKT1-activating mutations vs.
+
+PTEN alterations with no PIK3CA/AKT1-activating mutations; Cohort A only), and prior therapy with a PI3K or mTOR inhibitor (yes vs. no; CohortB only). 3.2 INDEPENDENT REVIEW FACILITY The imaging data used for tumor assessment arecollected by the Sponsor from all patients to enable retrospective independent central review of response endpoints by an Independent Review Committee (IRC).
+
+An independent imaging group will be used to evaluate tumor assessments for determination of progression and objective response according to RECIST v1.1.
+
+Imaging data (computed tomography/Magnetic resonance imaging (MRI)/bone scans) will be acquired according to a standard protocol and will be forwarded to the independent reviewers.
+
+Investigator tumor assessments will not be reconciled with the IRC tumor assessments.
+
+IRC data will be used in the sensitivity analyses to support the findings of the investigator assessed outcomes.
+
+Further details will be included in the IRC Charter.
+
+Details of imaging handling procedures are also described in a separate laboratory manual.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 16/Statistical Analysis Plan CO40016
+
+--- Page 18 ---
+
+3.3 DATA MONITORING An iDMC has been evaluating safety during the study on a regular basis.
+
+Members of the iDMC are external to the Sponsor and follow a separate iDMC Charter that outlines their roles and responsibilities, as well as a detailed monitoring plan.
+
+The iDMC will meet approximately every 6 months from the point of first patient into review unblinded safety and study conduct data prepared by an independent Data Coordinating Center (iDCC).
+
+The safety data will include demographic data, AEs, serious adverse events (SAEs), and relevant laboratory data.
+
+Following each data review, the iDMC will provide recommendations to the Sponsor as to whether the study should continue or be amended, or whether the study should be stopped on the basis of safety (i.e., evidence of harm).
+
+The Sponsor’s Data Review Board (DRB; a group consisting of employees of the Sponsor empowered to make critical decisions) will decide on thebasis of the iDMC’s recommendations.
+
+The final decision will rest with the Sponsor.
+
+Any outcomes of these safety reviews that affect study conduct will be communicated in a timely manner to the investigators for notification of the Institutional Review Boards/Ethics Committees (IRBs/ECs). 4.
+
+STATISTICAL METHODS The analyses outlined in this SAP supersede those specified in the protocol for regulatory filing purposes.
+
+The two cohorts, Cohort A (patients with advanced TNBC) and Cohort B (patients with advanced HR/HER2BC), are two independent cohorts and will be analyzed separately for the following reasons:  The two patient populations are in two different disease settings with different prevalence and different PFS and OS expectations, and thus different enrollment and analysis timelines.  The readout from one cohort is independent of the readout of the other cohort.  Cohorts A and B are essentially two independent trials running under one protocol for operational efficiency.
+
+Therefore, for all analyses described below, these two cohorts will be analyzed separately. 4.1 ANALYSIS POPULATIONS 4.1.1 Randomized/ITT Population The randomized population, which is also referred as the intent-to-treat (ITT) population, is defined as all randomized patients, whether or not the patient received the assigned treatment.
+
+All efficacy analyses will be performed in the ITT population, unless Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 17/Statistical Analysis Plan CO40016
+
+--- Page 19 ---
+
+otherwise specified.
+
+The ITT patients will be analyzed according to the treatment arm assigned at randomization by IxRS. 4.1.2 Pharmacokinetic-Evaluable Population Pharmacokinetic (PK) analyses will be based on PK observations from all patients who received ipatasertib treatment with evaluable PK samples. 4.1.3 Safety Population The safety population is defined as patients who received any amount of study treatment.
+
+All safety analyses will be performed in the safety population, unless otherwise specified.
+
+Patients will be analyzed according to the treatment group associated with the actual regimen received.
+
+Patients who were randomized to the study but who did not receive any study drug will not be included in the safety population. 4.1.4 PRO-evaluable population The patient-reported outcome(PRO)-evaluable population includes all randomized patients who have a baseline and at least 1 post-baseline PRO assessment.
+
+The PRO-evaluable patients will be analyzed according to the treatment arm assigned at randomization by IxRS.
+
+Analyses for PRO efficacy endpoints will be performed in the PRO-evaluable population, unless otherwise specified.
+
+PRO-CTCAE will be analyzed in the safety population by treatment groups according to treatment received. 4.2 ANALYSIS OF STUDY CONDUCT Patient enrollment, treatment discontinuation, treatment discontinuation reasons, study discontinuation, and study discontinuation reasons will be summarized by treatment arm for the two cohorts in the ITT population.
+
+In addition, major protocol violations, including violations of inclusion and/or exclusion criteria, will be summarized by treatment arm for the two cohorts. 4.3 ANALYSIS OF TREATMENT GROUP COMPARABILITY The treatment group comparability will be evaluated in the ITT populationin each cohort.
+
+Demographics summaries, stratification factors, medical history, and other baseline disease characteristics will be compared between thetreatment arms in each cohort.
+
+Baseline values are the last available data obtained prior to the patient receiving the first dose of any study treatments on Cycle 1, Day 1 visits unless otherwise noted.
+
+Descriptive summaries of continuous data will present the group mean, standard deviation, median andranges.
+
+Descriptive summaries of discrete data will present the category counts as frequencies and percentages.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 18/Statistical Analysis Plan CO40016
+
+--- Page 20 ---
+
+Previous and concomitant cancer therapy will also be summarized, including radiotherapy and surgery, as well as subsequent anti-cancer therapy.
+
+Previous and concurrent diseases and medication will also be summarized. 4.4 EFFICACY ANALYSIS All efficacy analyses will be based on the ITT population (i.e., all randomized patients) according to the treatment arm to which patients are randomized, unless otherwise specified.
+
+All primary and secondary RECIST-based endpoints are as per local radiologist or investigator assessment. 4.4.1 Primary Efficacy Endpoint The primary efficacy endpoint is investigator-assessed PFS, defined as the time from randomization to the first occurrence of disease progression, as determined by the investigator using RECIST v1.1, or death from any cause, whichever occurs first.
+
+Data for patients who do not experience disease progression or death will be censored at the last date of evaluable tumor assessment.
+
+For patients who do not have an evaluable tumor assessment after randomization, the data will be censored at the date of randomization plus 1 day.
+
+For each cohort, PFS will be compared between treatment arms using the stratified log-rank test.
+
+The hazard ratio will be estimated using a stratified Cox proportional hazards model.
+
+The 95% CI for the hazard ratio will be provided.
+
+To avoid the potential risk of over-stratification (Akazawa et al. 1997), if at least one stratum (i.e., a combination of stratification factor levels across all stratification factors) has fewer than 10 PFS events across treatment arms, the stratification factor which contains the level with the smallest number of patients will be removed from the stratified analyses.
+
+The removal of the stratification factors will continue until there is no stratum with fewer than 10 PFS events.
+
+The final set of stratification factors used in stratified analyses will be applied to all endpoints where stratified analyses are planned.
+
+Values for the stratification factors will be recorded in the IxRS at the time of randomization.
+
+Results from an unstratified analysis will also be provided.
+
+Kaplan-Meier methodology will be used to estimate the median PFS for each treatment arm, and Kaplan-Meier curves will be produced.
+
+The Brookmeyer-Crowley method will be used to construct the 95% CI for the median PFS for each treatment arm (Brookmeyer and Crowley 1982). 4.4.2 Key Secondary Efficacy Endpoints Overall survival is akey secondary endpoint and will be formally tested with 5% alpha in each cohort only if the primary analysis of respective PFS in the corresponding cohort reaches statistical significance at the level of 5% to maintain the overall type I error of 5% in each cohort.
+
+The alpha spending between interim and final analysis is described in Section 4.9.2.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 19/Statistical Analysis Plan CO40016
+
+--- Page 21 ---
+
+OS is defined as the time from randomization to death from any cause.
+
+Data for patients who are not reported as having died at the time of analysis will be censored at the date when they were last known to be alive.
+
+Data for patients who do not have post-baseline information will be censored at the randomization date plus 1 day.
+
+The analyses will be conducted using the stratified two-sided log-rank test, and the results from the unstratified log-rank test will also be provided.
+
+The stratification factors to be used will be the same as the randomization stratification factors.
+
+For each cohort, the OS curve for each treatment arm will be estimated by the Kaplan-Meier methodology, and the survival rates at landmarks (e.g., 1-year and 2-year OS) will be provided when data allow.
+
+The hazard ratio for OS and its 95% CI will be estimated by the Cox proportional-hazards models. 4.4.3 Other Secondary Efficacy Endpoints Thefollowing secondary endpoints will also be tested only if the primary analysis of respective PFS in the corresponding cohort reaches statistical significance at the level of 5%. 4.4.3.1 Objective Response Rate with Duration of Response ORR analysis will be performed among patients with measurable disease at baseline.
+
+Objective response is defined as a complete response (CR) or partial response (PR) on two consecutive occasions4 weeks apart, as determined by the investigator through the use of RECIST v1.1.
+
+Patients without a post-baseline tumor assessment will be considered as non-responders.
+
+Objective response rate (ORR) is defined as the proportion of patients who have an objective response.
+
+Analysis of ORR will be performed among patients with measurable disease at baseline.
+
+For each cohort, an estimate of ORR will be calculated for each treatment arm, and its 95% CI will be calculated using the Clopper-Pearsonmethod.
+
+ORR will be compared between treatment arms using the stratified Cochran-Mantel-Haenszel test.
+
+The stratification factors to be used will be the same as those described for the analysis of the primary endpoint.
+
+The difference in ORR between treatment arms will be calculated, and its 95% CI will be calculated using the normal approximation to the binomial distribution.
+
+DOR analysis will be performed on all patients with an objective response.
+
+DOR is defined as the time from the first occurrence of a documented objective response to disease progression, as determined by the investigator through the use of RECIST v1.1, or death from any cause, whichever occurs first.
+
+The censoring method for DOR will be the same as that for PFS.
+
+For each cohort, the Kaplan-Meier approach will be used to estimate the median DOR and the corresponding 95% CIs.
+
+Analysis of DOR will include only patients with objective responses.
+
+Because of the non-randomized nature of this analysis population, the analysis of DOR will be considered descriptive without formal hypothesis testing.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 20/Statistical Analysis Plan CO40016
+
+--- Page 22 ---
+
+4.4.3.2 Clinical Benefit Rate Clinical benefit rate is defined as the proportion of patients who have clinical benefit with measurable disease at baseline.
+
+Having clinical benefit is defined as having an objective response (CR or PR), or stable disease for at least 24 weeks, as determined by the investigator through the use of RECIST v1.1.
+
+For each cohort, clinical benefit rate will be analyzed using methods similar to those used for ORR. 4.4.4 Exploratory Efficacy Endpoints 4.4.4.1 Progression-Free Survival 2 (PFS2) PFS2 is defined as the time from randomization to first objective disease progression on next-line treatment, or death from any cause, whichever occurs first.
+
+Specifically, next-line therapy is defined as the treatment received after the first disease progression.
+
+Patients who do not experience disease progression on next-line therapy or death will be censored at the last time known to be alive and without objective disease progression on next-line therapy.
+
+Observations from patients who do not have post-baseline information will be censored at the date of randomization plus 1 day.
+
+PFS2 will be compared between the two treatment arms using the same method as the primary endpoint of PFS.
+
+This analysis will be performed as data allows. 4.4.4.2 Time to First Skeletal-Related Event A skeletal-related event (SRE) is defined as either a pathologic fracture, radiation therapy to the bone, surgery to the bone, or a spinal cord compression.
+
+Any cancer-related radiation or surgery to the bone (on-study treatment and during post-treatment follow-up), or adverse events with diagnosis of pathologic fracture or spinal cord compression, will be assessed according to the SRE criteria.
+
+Descriptive statistics of the number and percentage of patients with SRE will be summarized by treatment arm in each cohort.
+
+Time to first SRE is defined as the time from randomization to the first occurrence of an SRE.
+
+Censoring rules will be applied as follows:  Observations from patients who do not have post-baseline information will be censored at the date of randomization plus 1 day.  Patients for whom an SRE has not been observed will be censored at the last time known to be alive and without an SRE.  Observations from patients who died before having an event will be censored on the date of death.  Observations from patients who discontinued study without experiencing an SRE will be censored on the date of study discontinuation.
+
+The time from randomization to first SRE will be compared between the two treatment arms using a unstratified log-rank test for the ITT population as data allow.
+
+The hazard Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 21/Statistical Analysis Plan CO40016
+
+--- Page 23 ---
+
+ratio, including a 95% CI, of the experimental arm compared with the control arm will be estimated using a unstratified Cox proportional hazards model. 4.4.4.3 Time to First Objective Response Among patients with objective responses, the time from randomization to first objective response will be compared between the two treatment arms.
+
+Objective response is defined in Section 4.4.3.1.
+
+Because of the non-randomized nature of this analysis population, this analysis will be considered descriptive without formal hypothesis testing.
+
+Summary statistics (mean, SD, median, and range) will be calculated for the two treatment arms. 4.4.5 Patient-Reported Outcome Analyses The European Organisation for Research and Treatment of Cancer Quality of Life Questionnaire Core 30(EORTC QLQ-C30) (version 3) data will be scored according to the EORTC scoring manual (Fayers et al. 2001).
+
+Missing data will be assessed and reported by cycle.
+
+In the event of incomplete data, if the scale has more than 50% of the constituent items completed, a pro-rated score will be computed consistent with the scoring manual and validation papers of the measure.
+
+For subscales with less than 50% of the items completed, the subscale will be considered missing.
+
+Completion analysis will be performed for the overall EORTC QLQ-C30 questionnaire by treatment arm for the two cohorts in the ITT population.
+
+Completion rates will be summarized by number and proportion of patients among those expected to complete the QLQ-C30 at each time point.
+
+Reasons for non-completion will be summarized at each time point by treatment arm for the two cohorts. 4.4.5.1 Secondary Patient-Reported Outcome Endpoints 4.4.5.1.1 Patient-Reported Outcomes of Global Health Status/ Quality of Life–EORTC Data A secondary patient-reported endpoint is mean and mean changes from baseline score of global health status/quality of life(GHS/QoL).
+
+Summary statistics (number of patients, mean, SD, median, and range) of linearly transformed absolute scores and mean changes from baseline will be calculated for the GHS/QoL (Q29 and Q30) scale of the EORTC QLQ-C30 at each assessment time point for each arm within each cohort, in the PRO-evaluable population.
+
+Line charts depicting the mean changes (and 95% confidence intervals) of GHS/QoL over time will be provided for thetreatment arm from the baseline assessment.
+
+A 10-point change will be used to identify clinically meaningful change from baseline within each treatment arm on the GHS/QoL scale (Osoba et al. 1998).
+
+A longitudinal analysis will be conducted to estimate the effect difference on PRO repeated responses over a selected period of time and between the treatment arms within each cohort.
+
+Amixed-effectsmodel on a set of covariates (prior adjuvant/neoadjuvant chemotherapy, prior therapy with a phosphoinositide 3-kinase Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 22/Statistical Analysis Plan CO40016
+
+--- Page 24 ---
+
+[PI3K] or mTOR inhibitor, baseline domain score, age group, race group, baseline Eastern CooperativeOncology Group [ECOG] status, bonemetastases, treatment, analysis visit, treatment interaction with analysis visit, and baseline measurement interaction with analysis visit) will be conducted.
+
+This analysis will be conducted in the PRO-evaluable population.
+
+Time points with less than 20% patients who completed GHS/QoL scaleduring the treatment period, where all subsequent time points during the treatment period also have less than 20% completion will be excluded.
+
+Change from baseline at subsequent cycles will be presented by treatment arm and will include least squares mean (LS Mean), difference in LS Mean between the two treatment arms, and 95% CIs for the differences.
+
+The standard error will also be calculated for each LS Mean. 4.4.5.1.2 Patient-Reported Outcomes of disease-related pain-EORTC Data (Cohort B only) A secondary patient-reported endpoint is time to deterioration (TTD) in pain.
+
+A 11-point change in pain scale (items 9 and 19 of the EORTC QLQ-C30) is defined as the minimally important difference (MID) (Cocks et al. 2012).
+
+The time to deterioration (TTD) in pain scale is defined as the time from randomization to the first time the patient’s pain scale score shows a11-point increase from the baseline scale score, confirmed by the following: 1.
+
+The initial score increase of11-points from baseline is followed by a confirmation of a score increase11-points from baseline 2.
+
+The score increase of 11-points from baseline must be held for at least two consecutive assessments Visit summary and change from baseline analyses will be performed for the pain scale of EORTC QLQ-C30 (Q9 and Q19) for each arm within each cohort, in the PRO-evaluable population.
+
+Time to deterioration in pain will be compared between the treatment arms using the same method as the primary endpoint of PFS (Section4.4.1), in the ITT population.
+
+Patients who do not have an observed deterioration at the time of clinical data cut-off will be censored at the last non-missing assessment date.
+
+Patients without a baseline assessment or without a post-baseline assessment will be censored at randomization plus 1 day.
+
+Permanent deterioration is defined as a confirmed 11-point increase from baseline in pain scale of EORTC QLQ-C30 [Q9 and Q19], that is not followed by a score less than an 11-point increase from baseline at any subsequent assessments.
+
+Time to permanent deterioration in pain may also be compared between the treatment armsusing the same method as the primary endpoint of PFS as data allow, in the ITT population.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 23/Statistical Analysis Plan CO40016
+
+--- Page 25 ---
+
+4.4.5.2 Exploratory Patient-Reported Outcome Analyses 4.4.5.2.1 Patient-Reported Outcomes of Functional and Disease/Treatment Symptoms-EORTC Data Summary statistics (mean, SD, median, and range) of linearly transformed absolute scores and mean changes from baseline (and 95% CIs) will be calculated for disease/treatment-related symptom items and scales and all functional (i.e., physical, role, emotional, cognitive, and social) scales of the EORTC QLQ-C30 at each assessment timepoint for each arm within each cohort, in the PRO-evaluable population.
+
+Handling of missing data, and the descriptive analyses for mean change from baseline of these exploratory endpoints (Cocks et al. 2012) will be analogous to the secondary PRO endpoint of GHS/QoL (seeSection4.4.5.1.1for further details).
+
+Additionally, longitudinal analyses will be conducted in the PRO-evaluable population for the physical and role functional scales, and disease/treatment-related symptom items and scales of: pain (Questions 9 and 19), fatigue (Questions 10, 12 and 18), and dyspnea (Question 8), analogous to the secondary PRO endpoint of GHS/QoL (see Section 4.4.5.1.1for further details).
+
+Line charts depicting the mean changes (and 95% confidence intervals) of items and scales over time will be provided for each treatment arm from the baseline assessment for key functional scales and symptom items (i.e., physical functioning, role functioning, diarrhea, and pain).
+
+In support of the secondary patient-reported endpoint TTD in pain, and to further elucidate pain treatment effects, an exploratory analysis for time to first opioid use for cancer related pain may be performed in ITT population as data allows.
+
+Opioid medication intake as per the study medication diary will be analyzed for analgesia producing opioids, coded as per the standardized drug grouping (SDG)for the World Health Organization (WHO) Drug Dictionary.
+
+The use of the SDG will allow for the inclusion of opioids known to produce analgesia, and exclusion of opioids that do not produce analgesia. 4.4.6 Sensitivity Analyses 4.4.6.1 Sensitivity Analyses of Progression-Free Survival PFS censoring for missing visits An analysis of PFS censoring for missing visits will be performed.
+
+Data for patients with a PFS event who missed two or more scheduled assessment immediately prior to the PFS event will be censored at the last tumor assessment prior to the missed visits.
+
+PFS by IRC An analysis of PFS on the basis of the IRC assessments will be performed using the same methodology as specified for primary PFS endpoint on the basis of investigator assessment.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 24/Statistical Analysis Plan CO40016
+
+--- Page 26 ---
+
+PFS censoring for non-protocol therapy Non-protocol therapy (NPT) is defined as any anti-cancer therapy other than study treatment.
+
+The impact of NPT on the primary endpoint of investigator-assessed PFS by RECIST v1.1 will be evaluated.
+
+A sensitivity analysis will be performed where patients who received NPT before a PFS event occurred will be censored at the last tumor assessment date before the patient received NPT.
+
+PFS in tissue-based FMI CTA confirmed patients An analysis of PFS may be performed in the patients with FMI confirmed PIK3CA/AKT1/PTEN-altered tumors.
+
+This analysis will use the same methodology as specified for the analysis of PFS in the ITT population PFS in patients with clinical benefit An analysis of PFS will be performed in patients with clinical benefit using the same methodology as specified for PFS in the ITT population.
+
+Clinical benefit is defined in Section 4.4.5.1.1.
+
+PFS using stratification factors reported on eCRF A stratified analysis will be performed on PFS using the same stratification factors for the primary PFS analysis but based on values collected on the electronic Case Report Form (eCRF) when available.
+
+PFS excluding patients enrolled on the basis of a local test/commercial result demonstrating PIK3CA/AKT1/PTEN-altered status An analysis of PFS result will be performed excluding patients whose biomarker elibility of demonstrating PIK3CA/AKT1/PTEN-altered status was determined by a local test/commercial result at the time of enrollment (regardless of their tissue-based FMI CTA resultsavailable post-enrollment).
+
+This analysis will use the same methodology as specified for the analysis of PFS in the ITT population.
+
+Additional sensitivity analyses may be considered if appropriate. 4.4.6.2 Sensitivity Analyses of Objective Response Rate ORR by IRC An analysis of ORR on the basis of the IRC assessments will be performed among patients with measurable disease at baseline according to the assessment by the IRC and using the same methodology as specified for ORR on thebasis of investigator assessment.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 25/Statistical Analysis Plan CO40016
+
+--- Page 27 ---
+
+4.4.6.3 Sensitivity Analyses of Duration of Response DOR by IRC An analysis of DOR on the basis of the IRC assessments will be performed using the same methodology as specified for DOR on the basis of investigator assessment.
+
+Objective response is according to the assessment by the IRC. 4.4.6.4 Sensitivity Analyses of Time to Deterioration in Pain In addition to the time to deterioration in pain base-case analysis of 11-points, as per Section 4.4.5.1.2, sensitivity analyses using the different thresholds of 10 and 20 points will be performed in order to explore the more conservative value of 20 representing the upper bound of the medium thresholdrange as specified in Cocks et al. (2012), and the value of 10 as cited in Osoba et al. (1998).
+
+Additional supplemental analysis will also be performed using anchor-based methods to assess within-patient meaningful change in the EORTC QLQ-C30 pain scale, by utilizing within trial EQ-5D-5L Pain/Discomfort item datato derive additional EORTC QLQ-C30 clinically meaningful thresholds for use within the TTD analysis ( refer to CO40016 (IPATunity130) Cohort B Supplemental Analyses document). 4.4.7 Subgroup Analyses To assess the consistency of study results in subgroups defined by demographic and baseline characteristics, PFS in these subgroups will be examined.
+
+OS in these subgroups will be examined only if data allows.
+
+Summaries of PFS and OS (the latter if data allows), including unstratified HRs estimated from Cox proportional hazards models and Kaplan-Meier estimates of the median, will be produced separately for each level of the categorical variables.
+
+PFS will be evaluated in the subgroups based on thefollowing characteristics in both Cohort A and B:  Age group at randomization  Prior adjuvant/neoadjuvant chemotherapy  Regions  Race  Number of sites of metastases at baseline  Disease free interval  ECOG at Enrollment  Stage at initial diagnosis For Cohort A (advanced TNBC), PFS will also be explored in the subgroups based on the following characteristics:  PIK3CA/AKT1-activating mutations vs.
+
+PTEN alterations but no PIK3CA/AKT1-activating mutations.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 26/Statistical Analysis Plan CO40016
+
+--- Page 28 ---
+
+ PD-L1 status (PD-L1 stained tumor infiltrating tumor cells [IC]1% of tumor area)  Chemotherapy-free interval For Cohort B (advanced HR/HER2BC), PFS will also be explored in relevant subgroups dependent on selected baseline characteristic  Number of lines of prior endocrine treatment in the advanced setting  Menopausal status at baseline  Prior PI3K/mTOR inhibitor use  Prior CDK4/6 inhibitor use OS in the above subgroups may be explored if data allows.
+
+Additionally, for cohort A (advanced TNBC), ORR will be explored in the following subgroups:  PIK3CA/AKT1-activating mutations vs.
+
+PTEN alterations but no PIK3CA/AKT1-activating mutations. 4.5 PHARMACOKINETIC ANALYSES Ipatasertib and its metabolite (G-037720) levels will be measured on Day 1 and Day 15 of Cycle 1, and on Day 15 of Cycle 3.
+
+Patients who receive at least one dose of ipatasertib with evaluable PK data will be included in the analysis.
+
+Plasma concentrations of ipatasertib will be tabulated and summarized (mean, standard deviation, coefficient of variation, median, range, geometric mean, and geometric mean coefficient of variation) by cycle, as appropriate.
+
+Exploratory analyses including population pharmacokinetics with covariate analysis, exposure-safety and exposure-efficacy analyses will be conducted if appropriate and reported in separate stand-alone reports.
+
+The details of analyses methods will be included in the separate reports.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 27/Statistical Analysis Plan CO40016
+
+--- Page 29 ---
+
+4.6 SAFETY ANALYSES All safety analyses will be based on the safety-evaluable population according to the treatment received.
+
+Safety analyses will be conducted by treatment groups and include incidence, severity, and seriousness of adverse events, deaths, and clinically significant laboratory measurements. 4.6.1 Exposure of Study Medication Study treatment exposure, including treatment duration, dose intensity, and total cumulative dose, will be summarized with descriptive statistics.
+
+Reasons for discontinuation from study treatment will be summarized. 4.6.2 Adverse Events Verbatim description of AEs will be mapped to Medical Dictionary for Regulatory Activities (MedDRA) thesaurus terms and graded according to the NCI CTCAE v4.0.
+
+Adverse events will be summarized by mapped term, appropriate thesaurus level and NCI CTCAE grade.
+
+After informed consent has been obtained but prior to initiation of study drug, only SAEs caused by a protocol-mandated intervention should be reported, e.g., SAEs related to invasive procedures such as biopsies.
+
+After initiation of study drug, all AEs, regardless of relationship to study drug, will be reported until 28 days after the last dose of study.
+
+After this period, investigators should report any SAEs and adverse events of special interest (AESI) that are believed to be related to prior treatment with study drug.
+
+Summary tables of the following will be provided for each cohort independently, including, but not limited to:  SAEs  AEs leading to study treatment discontinuation  AEs leading to dose reduction  AEs leading to dose interruption  Treatment-related AEs  Treatment-related SAEs  Severe adverse events (Grade 3 or higher)  AEs leading to death  AEs by highest NCI CTCAE Grade  Selected AE (including sponsor-defined AESI) Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 28/Statistical Analysis Plan CO40016
+
+--- Page 30 ---
+
+A summary table of common AEs, i.e., those occurring in at least 10% of patients in either treatment group will be provided.
+
+Multiple occurrences of the same event will be counted once at the maximum severity.
+
+All listings of AEs will include all AEs with onset on or after the first study drug treatment up to the data cutoff date.
+
+All deaths and causes of death will be summarized.
+
+Time to the first onset and duration of first AEs of interest (e.g., rash, hyperglycemia, and diarrhea) may be summarized descriptively if data allows. 4.6.3 Laboratory Data Laboratory data will be classified according to NCI CTCAE 4.0 and will be summarized descriptively over time including change from baseline by cohort.
+
+Highest NCI CTCAE grade post-baseline will also be reported and shift tables from baseline to worst value during the study post-baseline will be presented by cohort.
+
+Summary statistics (number of patients, mean, SD, median, and range) of absolute values and mean changes from baseline will be calculated for HbA1c and triglycerides at each assessment time point for eachgroupwithin each cohort.
+
+A Hy’s law analysis will be provided.
+
+The potential Hy’s law quadrant is defined as alanine aminotransferase (ALT) or aspartate aminotransferase (AST) increases above 3-fold the upper limit of normal (ULN) with concomitant total bilirubin increases above 2-fold the ULN. 4.6.4 ECOG Performance Status ECOG performance status will also be summarized over time (shift from baseline to the worst post-baseline value). 4.6.5 Electrocardiograms The ECG of patients will be summarized at baseline and study drug discontinuation visits. 4.6.6 Exploratory Patient-Reported Safety Outcome Analyses 4.6.6.1 Patient-Reported Outcomes version of the Common Terminology Criteria for Adverse Events (PRO-CTCAE) Eight symptomatic adverse events were selected from the PRO-CTCAE item bank (i.e., diarrhea, nausea, vomiting, decreased appetite, fatigue, peripheral numbness and tingling, mouth sores, and rash); a total of 14 items, an additional item providing an overall assessment of the burden of side effects will be collected.
+
+The number and proportion of patients who complete the Patient-Reported Outcomes version of the Common Terminology Criteria for Adverse Events (PRO-CTCAE) will be Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 29/Statistical Analysis Plan CO40016
+
+--- Page 31 ---
+
+summarized by treatment group at each time point in the safety populationwithin each cohort.
+
+The questionnaire is considered completed if at least one attribute is assessed for any patient-reported AE.
+
+The compliance proportion will be based on the total number of patients expected to complete the questionnaire at a particular time pointi.e., those patients who had the opportunity to complete the questionnaire.
+
+For the PRO-CTCAE analysis, for each treatment group, the number (percentage) of patients reporting symptoms by “frequency”, ”severity”, “interference” and “presence” category will be reported at each assessment independently for each cohort.
+
+The following terms are used in the description of PRO-CTCAE data:  SOC (System Organ Class): Reflecting the overall system organ class containing a selected AE, e.g., pain, mood, respiratory  Item: Corresponds to each AE selected from the PRO-CTCAE item library  Attribute: There are four possible attributes for each selected AE, including presence (yes/no), severity, frequency and interference with daily life.
+
+The attributes of frequency, severity and interference with daily life are based on scores of 0-4.
+
+These numeric scores are used interchangeably with the following category labels:  Frequency: – 0: Never – 1: Rarely – 2: Occasionally – 3: Frequently – 4: Almost constantly  Severity: – 0: None – 1: Mild – 2: Moderate – 3: Severe – 4: Very severe  Interference with daily life: – 0: Not at all – 1: A little bit – 2: Somewhat – 3: Quite a bit Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 30/Statistical Analysis Plan CO40016
+
+--- Page 32 ---
+
+– 4: Very much The numeric scores indicate an ordinal, rather than continuous, outcome, therefore analysis will focus on frequency counts and percentages; no other summary statistics will be provided.
+
+Frequency counts and percentages are used to summarize each attribute descriptively, for each symptom item, each attribute is analyzed separately; there is no composite scoring mechanism for PRO-CTCAE.
+
+There will be no imputation for missing data, and all available data will be summarized (i.e., there is no requirement for a minimum number of attributes to be completed at each visit).
+
+Descriptive statistics of the number and percentage of patients with each score will be summarized by attribute, for each visit, by treatment group and cohort.
+
+The worst post-baseline score will be summarized per treatment group within each cohort, for each individual attribute and AE, and shift tables will be provided per treatment group.
+
+A summary table of the percentage of patients reporting severity of symptoms as “severe” or “very severe” over the course of the study by treatment group will also be provided.
+
+Change from baseline in PRO-CTCAE attribute scores will be summarized at each visit, where change from baseline is calculated as the post-baseline score minus the score assigned to the same attribute at the baseline assessment timepoint.
+
+Negative values will be mapped to a category of “Improvement”, zero values will be mapped to “No Change”, and positive values will be mapped to “Worsening”.
+
+The number and percentage of patients within each of these categories will be summarized by attribute, visit and treatment group.
+
+Stacked barplots of the scores for each attribute at each visit will also be provided, per treatment group, as well as stacked bar charts illustrating the change from baseline (as per description above).
+
+PRO-CTCAE scores at baseline and all post-baseline visits will also be listed, by treatment group. 4.7 EXPLORATORY BIOMARKER ANALYSES Exploratory biomarker analyses (in tumor tissues and plasma, whole blood, or serum) will be performed in an effort to understand the association of these markers with study drug response, including efficacy and/or adverse events.
+
+Results will be performed as data allow and will be presented in a separate report. 4.8 MISSING DATA In safety analyses, all deaths are included, from all sources, regardless of completeness of death date; patients who died with only a partial death date available will be included.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 31/Statistical Analysis Plan CO40016
+
+--- Page 33 ---
+
+In efficacy analyses, a death is considered an event if and only if a complete death date is available; patients who died with only a partial death date available will be censored. 4.9 INTERIM ANALYSES 4.9.1 Planned Interim Safety Analysis An external iDMC has been be set up to evaluate safety data on a periodic basis.
+
+All summaries/analyses by treatment groupfor the iDMC's review will be prepared by an external iDCC.
+
+Members of the iDMC will be external to the Sponsor and will follow a charter that outlines their roles and responsibilities.
+
+Any outcomes of these safety reviews that affect study conduct will be communicated in a timely manner to the investigators for notification of the IRB/EC.
+
+A detailed plan will be included in the iDMC Charter.
+
+The iDMC will convene a review of summaries of the safety data by cohort and by treatment group after approximately 50 patients (in total from both cohorts) have competed onetreatment cycle and approximately every 6 months thereafter until the time of the analysis of the primary efficacy endpoint for both cohorts are complete.
+
+In the absence of extenuating circumstances, accrual will not be halted while the safety analysis is conducted.
+
+The iDMCwill review the available data to make a recommendation as to thefollowing: to continue without changes to the protocol, to modify the safety monitoring and/or eligibility criteria, to add additional safety reviews to address emerging safety issues, or to terminate the study.
+
+In addition, the Sponsor may request ad hoc meetings of the iDMC at any time during the study to review ongoing safety summary data. 4.9.2 Planned Interim OS Analysis at PFS Primary Analysis For Cohort A, interim OS will be analyzed at the time of the primary analysis for PFS, and final OS will be analyzed at the time that approximately 188 OS events occur or around 36 months after the last patient has been enrolled, whichever is earlier.
+
+The Lan-DeMets -spending function with an O’Brien-Fleming boundary will be used to control the type I error accounting for OS interim and final analyses.
+
+With a sample size of 249 patients in Cohort A, it is estimated that there will be approximately 75OS events at the time of PFS primary analysis, and approximately 188 OS events at the final OS analysis, with corresponding p-value boundaries of (0.000774, 0.049737).
+
+The corresponding hazard ratio boundaries are 0.44 and 0.74 at interim and final analysis, respectively.
+
+The actual alpha-spending will be adjusted and determined based on the actual information fraction at the interim analysis.
+
+For Cohort B, interim OS will be analyzed at the time of the primary analysis for PFS, and final OS will be at the time that approximately 148 OS events occur, or around 5 years after the last patient has been enrolled, whichever is earlier.
+
+The Lan-DeMets -spending function with an O’Brien-Fleming boundary will be used to control the type I error accounting for OS interim and final analyses.
+
+For cohort B, it is estimated that Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 32/Statistical Analysis Plan CO40016
+
+--- Page 34 ---
+
+there will be approximately 81 OS events at the time of PFS primary analysis, and approximately 148 OS events at the final OS analysis, with corresponding p-value boundaries of (0.004895, 0.048427).
+
+The corresponding hazard ratio boundaries are 0.52 and 0.71 at interim and final analysis, respectively.
+
+The actual alpha-spending will be adjusted and determined based on the actual information fraction at the interim analysis.
+
+Table 2 Summary of Overall Survival Interim and Final Analysis: Cohort A Projected Number of Estimated Analysis of OS Deaths Efficacy Stopping Boundary a Timing b Interim analysis 75 p0.000774 or observed HR0.44 20 months Final analysis 188 p0.049737 or observed HR0.74 53months HRhazard ratio; OSoverall survival. ap-value willbe based on two-sided logrank test. bTime fromrandomizationoffirstpatientto data cutoff.
+
+Table 3 Summary of Overall Survival Interim and Final Analysis: Cohort B Projected Number of Estimated Analysis of OS Deaths Efficacy Stopping Boundary a Timing0b Interim analysis 81 p0.004895or observed HR0.52 30months Final analysis 148 p0.048427or observed HR0.71 63months HRhazard ratio; OSoverall survival. ap-value willbe based on two-sided logrank test. bTime fromrandomizationoffirstpatientto data cutoff. 4.9.3 Optional Interim Analysis Currently, there is no plan for optional interim analysis for this study as described in Protocol Section 6.8.3.
+
+Optional OS interim analyses could be performed per health authority request, and in such a case the p-value boundaries will be adjusted accordingly using Lan-DeMets -spending function with an O’Brien-Fleming boundary to control the overall typeI error at 0.05for each cohort.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 33/Statistical Analysis Plan CO40016
+
+--- Page 35 ---
+
+5.
+
+REFERENCES Akazawa K, Nakamura T, Palesch Y.
+
+Power of logrank test and Cox regression model in clinical trials with heterogeneous samples.
+
+Statistics in medicine. 1997 16(5):583-97 Brookmeyer R and Crowley JA.
+
+Confidence interval for the median survival time.
+
+Biometrics 1982;38:29-41.
+
+Cocks K, King MT, Velikova G, et al.
+
+Evidence-based guidelines for interpreting change scores for the european organisation for the research and treatment of cancer quality of life questionnaire core 30.
+
+Eur J Cancer. 2012;48(11):1713-21.
+
+DeMets DL and Lan KK.
+
+Interim analysis: the alpha spending function approach.
+
+Stat Med 1994;13:1341-52; discussion 1353-6.
+
+Fayers PM, Aaronson NK, Bjordal K, et al.
+
+On behalf of the EORTC Quality of Life Group.
+
+The EORTC QLQ-C30 scoring manual (3rd ed).
+
+Brussels: European Organisation for Research and Treatment of Cancer 2001.
+
+Osoba D, Rodrigues G, Myles J, et al.
+
+Interpreting the significance of changes in healthrelated quality of life score.
+
+J Clin Oncol 1998;16:139-44 Wolff AC, Hale Hammond ME, Allison KH, et al.
+
+Human epidermal growth factor receptor 2 testing in breast cancer: American Society of Clinical Oncology/College of American Pathologists Clinical Practice guidelinefocused update.
+
+J Clin Oncol 2018;36:210522.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 34/Statistical Analysis Plan CO40016
+
+--- Page 36 ---
+
+Appendix 1 Protocol Synopsis TITLE: A DOUBLE-BLIND, PLACEBO-CONTROLLED, RANDOMIZED PHASE III STUDYOF IPATASERTIB IN COMBINATION WITH PACLITAXEL AS A TREATMENT FOR PATIENTS WITH PIK3CA/AKT1/PTEN-ALTERED, LOCALLY ADVANCED OR METASTATIC, TRIPLE-NEGATIVE BREAST CANCER OR HORMONE RECEPTOR–POSITIVE, HER2-NEGATIVEBREAST CANCER PROTOCOL NUMBER: CO40016 VERSION NUMBER: 7 EUDRACT NUMBER: 2017-001548-36 IND NUMBER: 133823 TEST PRODUCT: Ipatasertib (RO5532961, GDC-0068) PHASE: III INDICATION: Locally advanced or metastatic triple-negative breast cancer with PIK3CA/AKT1/PTEN-altered tumor and no prior chemotherapy in the advanced setting Locally advanced or metastatic hormone receptor–positive, HER2-negative breast cancer with PIK3CA/AKT1/PTEN-altered tumor and no prior chemotherapy in the advanced setting SPONSOR: F.
+
+Hoffmann-La Roche Ltd Objectives and Endpoints This protocol encompasses two studies, or cohorts, of different patient populations that will independently evaluate the safety, efficacy, and pharmacokinetics of ipatasertibin combination with paclitaxel (ipatasertib + paclitaxel) compared withplacebo plus paclitaxel (placebo + paclitaxel) in patients with PIK3CA/AKT1/PTEN-altered tumors.
+
+One cohort will be a first-line treatment in patients with locally advanced or metastatic triple-negative breast cancer (TNBC), and the second will be a first-chemotherapy treatment in patients with advanced hormone receptorpositive, human epidermal growth factor receptor 2negative (HR/HER2) breast cancer who are not appropriate candidates for endocrine therapy.
+
+Patients will be screened for PIK3CA/AKT1/PTEN-altered tumors and will be allocated to one of the cohorts based on hormone-receptor status.
+
+HER2-positive patients are not eligible.
+
+The reason that the two patient populations will be evaluated separately is that TNBC and HR/HER2breast cancers have different biologies that manifest clinically in different prognoses and response to treatment, and molecularly with distinctly different molecular profiles with dissimilar oncogenic drivers.
+
+The two populations have different prevalences and progression-free survival (PFS) and overall survival (OS) expectations, and thus different enrollment and analysis timelines.
+
+The two independent target patient populations for this study are premenopausal and postmenopausal female and male patients with measurable, locally advanced or metastatic TNBC and HR/HER2breast cancer who have not received chemotherapy in either of these settings.
+
+Patients must be appropriate candidates for taxane monotherapy.
+
+In particular, Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 35/Statistical Analysis Plan CO40016
+
+--- Page 37 ---
+
+patients with HR/HER2breast cancer should be suitable for treatment with chemotherapy (e.g., demonstrated insensitivity to endocrine therapy).
+
+Prior adjuvant orneoadjuvant chemotherapy is allowed, provided it has been concluded at least 12 months before disease recurrence.
+
+Patients with PIK3CA/AKT1/PTEN-altered tumors will be assigned to Cohort A (TNBC) or Cohort B (HR/HER2breast cancer) based on their hormone receptor status (as evaluated locally, or on study, only if local evaluation is not available, with additional slides submitted for this purpose) and randomized with a 2:1 ratio to the experimental versus control arm.
+
+All primary, secondary, exploratory, and safety objectives will be assessed independently for each cohort (i.e., Cohort A: patients with TNBC with PIK3CA/AKT1/PTEN-altered tumors and Cohort B: patients with HR/HER2breast cancer with PIK3CA/AKT1/PTEN-altered tumors).
+
+The primary endpoint for the Cohort A (TNBC) is PFS.
+
+The primary endpoint for CohortB (HR/HER2breast cancer) is also PFS.
+
+The primary analysis for each cohort will be independent and triggered by cohort-specific events and will also be independent of the readout of theother cohort.
+
+The secondary endpoints for each cohort will be tested if the primary analysis of the respective PFS reaches statistical significance at the level of 5%.
+
+Specific objectives and corresponding endpoints for each cohort will be analyzed independently following cohort-specific statistical analysis plans, and are outlined in the table, below.
+
+Table1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) Objectives Corresponding Endpoints Primary Efficacy Objective:  To evaluate the efficacy of  PFS, defined as the time from randomization to ipatasertib+paclitaxel compared with the first occurrence of disease progression, as placebo + paclitaxel determined locally by the investigator through the use of RECIST v1.1, or death from any cause, whichever occurs first Secondary Efficacy Objectives:  To evaluate the efficacy of  Objective response rate, defined as a CR or ipatasertib+paclitaxel compared with PR on two consecutive occasions 4 weeks placebo + paclitaxel apart, as determined locally by the investigator through the use of RECIST v1.1  Duration of response, defined as the time from the first occurrence of a documented objective response to disease progression, as determined locally by the investigator through use of RECIST v1.1, or death from any cause, whichever occurs first  Clinical benefit rate, defined as an objective response (CR or PR), or stable disease for at least 24 weeks, as determined locally by the investigator through the use of RECIST v1.1  OS, defined as the time from randomization to death from any cause Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 36/Statistical Analysis Plan CO40016
+
+--- Page 38 ---
+
+Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) (cont.) Objectives Corresponding Endpoints Secondary Efficacy Objectives:  To evaluate PROs of GHS/HRQoL associated  Mean and meanchanges from baseline with ipatasertib + paclitaxel compared with GHS/HRQoLscore as measured by the placebo + paclitaxel GHS/HRQoL scale (Questions 29 and 30) of the EORTC QLQ-C30, by cycle  To evaluate PROs of disease-related pain of  Time to deterioration in pain, defined as the ipatasertib + paclitaxel compared with first minimally important increase of ≥11 points placebo + paclitaxel (Cohort B only) from the baseline pain scale score (Questions 9 and 19) of the EORTC QLQ-C30 Exploratory Efficacy Objectives:  To evaluate the efficacy of  PFS ipatasertib+paclitaxel compared with  Objective response rate placebo + paclitaxel in TNBC (Cohort A only)  Duration of response patients with tumors that have the following:  Clinical benefit rate - PIK3CA/AKT1-activating mutations  OS - PTENalterations (and no PIK3CA/AKT1activating mutations)  To evaluate PROs of function and  Mean and mean changes from baseline scores disease/treatment-related symptoms in functional (i.e., role, physical, cognitive, associated with ipatasertib + paclitaxel emotional, and social) and disease/treatmentcompared with placebo + paclitaxel related symptoms by cycle as assessed by the functional and symptom scales of the EORTC QLQ-C30  To collect utilities for pharmacoeconomic  Health states for utility assessment and the VAS modeling as measured by the EQ-5D-5L questionnaire for modeling  To evaluate the clinical benefit  PFS2, defined as the time from randomization to first objective disease progression on nextline treatment, or death from any cause, whichever occurs first  Time to first skeletal–related event (SRE), defined as the time from randomization to the occurrence of an SRE.
+
+An SRE is either a pathologic fracture, radiation therapy to the bone, surgery to the bone, or spinal cord compression.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 37/Statistical Analysis Plan CO40016
+
+--- Page 39 ---
+
+Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) (cont.) Objectives Corresponding Endpoints Exploratory Efficacy Objectives (cont.):  To evaluate analgesic use in ipatasertib +  Change in use of opioid and non-opioid paclitaxel and placebo + paclitaxel treatment analgesics during treatment, as measured by arms (Cohort B only) the intake of analgesic treatments Safety Objective:  To evaluate the safety of  Incidence of adverse events as assessed by the ipatasertib+paclitaxel compared with investigator, with severity determined through placebo + paclitaxel the use of NCICTCAEv4.0  Incidence of prespecified adverse events  Change from baseline in targeted vital signs  Change from baseline in targeted clinical laboratory test results Exploratory Safety Objective  To collect PROs regarding key symptomatic  Selected items from the PRO-CTCAE adverse events of ipatasertib + paclitaxel capturing patients' rating of the presence, compared with placebo + paclitaxel severity, frequency, and/or interference of diarrhea, nausea, vomiting, decreased appetite, fatigue, neuropathy, mouth sores, and rash symptoms and an additional item regarding bother due to side effects of treatment Pharmacokinetic Objective:  To characterize the pharmacokineticsof  Plasma concentration of ipatasertib and ipatasertib and its metabolite (G-037720) G-037720 at specified timepoints for analysis when administered in combination with using population PK methodology paclitaxel Exploratory Pharmacokinetic Objective:  To evaluate potential relationships between  Relationship between ipatasertib PK and ipatasertib exposure, efficacy, and safety of efficacy endpoints ipatasertib + paclitaxel compared with  Relationship between ipatasertib PK and safety placebo + paclitaxel endpoints Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 38/Statistical Analysis Plan CO40016
+
+--- Page 40 ---
+
+Table 1 Objectives and Corresponding Endpoints (Applicable for Both Cohort A and Cohort B, Unless Otherwise Stated) (cont.) Exploratory Biomarker Objectives:  To evaluate predictive or prognostic  Relationship between tissue-and blood-based biomarkers (plasma or tissue) associated biomarkers and patient clinical features (e.g., with disease activity status or response to baseline features) and outcome (e.g., duration treatment of PFS)  To identify possible mechanisms of  Change in mutation and copy number in resistance to study treatmentsthrough the oncogenes, tumor suppressors, and/or other comparative analysis of potential biomarkers genes associated with disease progression by in pretreatment and post-progression biopsy DNA sequencing tissue samples and in blood  Change in levels of tumor suppressors,  To evaluate alternative diagnostics testing immune checkpoints, mitotic index, apoptotic methods for PIK3CA/AKT1/PTEN-altered index, and/or immune-cell infiltration by status immunohistochemistry  Associations of breast cancer subtypes defined by molecular signatures with patient outcomes  Association of BRCA1/2 genetic alterations and homologous repair deficiency with patient outcomes BRCAbreast and ovarian cancer susceptibility gene; CRcomplete response; EORTCQLQ-C30European Organisationfor Research and Treatment of Cancer Quality of Life Questionnaire Core 30; EQ-5D-5LEuropean Quality of Life 5-Dimension, 5-Level questionnaire; GHSglobal health status; HRQoLhealth-related quality of life; NCI CTCAE v4.0National Cancer Institute Common Terminology Criteria for Adverse Events, Version 4.0; OSoverall survival; PKpharmacokinetics; PFSprogression-free survival; PRpartial response; PROpatient-reported outcome; PRO-CTCAEPatient-Reported Outcomes Version of the Common Terminology Criteria for Adverse Events; RECIST v1.1Response Evaluation Criteria in Solid Tumors, Version 1.1; TNBCtriple-negative breast cancer; VASvisual analog scale.
+
+Study Design Description of Study This two-cohort, randomized, double-blind, placebo-controlled PhaseIII study is designed to evaluate the efficacy of ipatasertib + paclitaxel versus placebo + paclitaxel in patients with histologically confirmed, locallyadvanced or metastatic TNBC and in patients with locally advanced or metastatic HR/HER2breast adenocarcinoma who are not suitable for endocrine therapy.
+
+Each cohort will be independent with separate analyses, but with a single screening process to identify, allocate, and subsequently stratify on the basis of histologic and diagnostic status.
+
+Patients must have measurable disease as defined by Response Evaluation Criteria in Solid Tumors, Version 1.1 (RECIST v1.1) and a PIK3CA/AKT1/PTEN-altered tumor as determined either centrally or using local/commercial molecular testing, by a clinical cancer genomic profiling laboratory (e.g., Foundation Medicine, Inc.[FMI])or a CLIA [or equivalently accredited] diagnostic laboratory).
+
+Tumor PIK3CA/AKT1/PTEN-altered status is defined as the presence of PTENalterations or PIK3CA/AKT1-activating mutations as determined by any blood-or tissue-based molecularassay (see Disease-Specific Inclusion Criteriafor further details).
+
+Pathological determination of estrogen receptor (ER), progesterone receptor (PgR), and HER2 status based on local assessment according to American Society of Clinical Oncology (ASCO) and College of American Pathologists (CAP) guidelines will be applied for cohort assignment by an interactive voice or Web-based response system (IxRS), with subsequent randomization within each cohort based on the appropriate stratification factors for the different cohorts.
+
+Patients who have unknown tumor ER, PgR, HER2, or Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 39/Statistical Analysis Plan CO40016
+
+--- Page 41 ---
+
+PIK3CA/AKT1/PTEN-altered status and for whom determination of status is not possible are not eligible for this study.
+
+If a patient will screen for biomarker eligibility with the tissue-based FMI CTA,time for tumor tissue retrieval, shipping, and turnaround of eligibility results should be taken into account when screening patients(and submitted sample should besufficient per protocol requirements to have maximum likelihood that a valid result can be obtained).
+
+As the FACT assay is not able to detect all qualifying alterations that may be identified using the FMI CTA, tissue submission should not be delayed as patients may qualify by the latter, rather than by FACT.
+
+FACT testing at FMI may not necessarily be faster than the FMI CTA and, therefore, should only be performed when it is anticipated that there will be a significant delay to acquisition of existing tumor tissue.
+
+If local/commercial testing is available, demonstrating a qualifying alteration, or if this result is obtained, these results may be used to determine biomarker eligibility.
+
+However, please note, for patients not enrolled on the basis of the FMI tissue-based CTA (e.g.,local/commercial tests or blood-based FACT assay), submission of tumor tissue is still required, but randomization should proceed based on the local result with no requirement to wait for central assessment of biomarker eligibility.
+
+Treatment benefit in patients with PIK3CA/AKT1/PTEN-altered tumorswill be independently compared in patients with triple-negative receptor status and in patients with HR/HER2status.
+
+Approximately 249 patients withTNBC and 201 patients with HR/HER2breast cancer will be enrolled at approximately 120150centers worldwide during the global enrollment phase.
+
+Patients will be assigned to either Cohort A (TNBC) or Cohort B (HR/HER2breast cancer) according to the most recent locally assessed pathologically documented receptor status, in their recurrent or metastatic tumor where applicable (i.e., for patients with locally advanced breast cancer , this would not apply) and if safely accessible, per ASCO/CAP guidelines, and randomly assigned in a 2:1 ratio to the experimental arm (ipatasertib 400mg + paclitaxel) or control arm (placebo+paclitaxel).
+
+Randomization will be stratified by the following factors: prior adjuvant/neoadjuvant chemotherapy (yesvs. no), region (Asia-Pacific vs.
+
+Europe vs.North America vs. rest of the world), tumor PIK3CA/AKT1/PTEN-alteration status (PIK3CA/AKT1activatingmutations vs.
+
+PTENalterations with no PIK3CA/AKT1-activatingmutations; Cohort A only), and prior therapy with a phosphoinositide 3-kinase (PI3K) or mTOR inhibitor (yes vs. no; Cohort B only).
+
+Potential China Extension Phase After completion of the global enrollment phase, as needed, additional patients may be enrolled at China Food and Drug Administration (CFDA)-recognized sites in an extended enrollment phase to ensure a total of up to90 patients withTNBC and up to120 patients with HR/HER2 breast cancer, constituting the analysis population of a China subgroup.
+
+For each of Cohort A and Cohort B, patients from the China extension phase will be randomized in a 2:1 ratio to the two treatment arms, the same as during the global enrollment phase.
+
+Any Chinese patients enrolled in the China extension phase will undergo the same schedule of assessments and will receive study treatment as in the global study cohorts.
+
+The China subgroup includes all Chinese patients enrolled in the global study cohorts and the China extension phase.
+
+The China subgroup analysis will be performedand summarized separately.
+
+The Chinese patients enrolled in the global study cohorts will be analyzed together with all other patients enrolled in the global study, and will be reported in the global study clinical study report.
+
+All patients must consent to provide sufficient archival tissue or newly obtained tumor biopsy tissue for central molecular evaluation as well as have a valid result of PIK3CA/AKT1/PTENaltered status (local result or centrally tested) to be eligible for enrollment.
+
+Given the probability of PIK3CA/AKT1/PTENnon-altered status (approximately 80%85% for TNBC and 50%60% for HRpositiveby blood-based NGS assay such as FACT and 55%65% by tissue-based NGS such as FMI CTA), it remains an option to use the biomarker-specific ICF/screening process first, prior to other study screening procedures for those patients who require central testing of biomarker status.
+
+It is advised that even if the patient will screen for biomarker eligibility on the basis of the FACT (or other blood-based) NGS assay, that tissue be submitted as quickly as possible as it is expected that the blood-based FACT assay will not detect all alterations that Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 40/Statistical Analysis Plan CO40016
+
+--- Page 42 ---
+
+can be identified using tissue-based NGS; i.e.,even if there is biomarker ineligibility based on theblood-based assay, the patient may still qualify on the basis of the tissue-based assay.
+
+Patients will also be given the option of providing a tissue biopsy sample obtained at disease progression for exploratory analyses; this decision will not affect overall study eligibility.
+
+Patients who are not randomized in the study may receive a copy of the FMI NGS(and FACT assay report if performed)research report (if available) for their tumor upon request.
+
+A copy of this report(s) may also be available upon request by the investigator for randomized patients, at the time they are documented to have disease progression (per RECIST v1.1 criteria),or following end of the study, whichever occurs earlier, unless required by law.
+
+The research report(s) may be obtained by the investigator, via the Sponsor study team, and will describe results from investigational tests that are not intended to be used to guide future treatment decisions.
+
+All eligible patients will receive paclitaxel chemotherapy (80 mg/m2IV) on Days1, 8, and15 of each 28-day cycle and either ipatasertib at a dose of 400mgadministered orally once a day (QD) on Days121 of each 28-day cycle (experimental arm) or placebo orally QD on Days121 of each 28-day cycle (control arm).
+
+Study treatment will continue until disease progression, intolerable toxicity, elective withdrawal from the study, or study completion or termination.
+
+Upontreatment discontinuation, patients will be followed every 3months for survival, PROs, and new anti-cancer therapy and outcome (therapy/procedures, doses, start and stop date, best responses, most recent tumor assessment date, and progression date).
+
+Tumor measurement for disease evaluation will be performed every 8weeks, regardless of whether patients receive study treatment during the treatment cycle.
+
+For estimation of PFS, objective response rate (ORR), and duration of response (DOR), tumor response will be based on RECISTv1.1.
+
+For patients who discontinue treatment without evidence of disease progression per RECIST v1.1, in addition to post-treatment follow-up, patients will be followed every 812 weeks for tumor assessments until documented progression per RECIST v1.1, elective withdrawal from the study, or study completion or termination.
+
+Images for tumor assessments for all patients will be prospectively collected to enable retrospective blinded independent central review when needed.
+
+The pharmacokinetics of ipatasertib and its metabolite G-037720will be assessed in all patients receiving ipatasertib.
+
+Safety will be evaluated on an ongoing basis in this study through the monitoring of all serious and non-serious adverse events and will be graded according to the National Cancer Institute Common Terminology Criteria for Adverse Events, Version4.0 (NCICTCAE v4.0).
+
+An independent Data Monitoring Committee (iDMC) will periodically evaluate the safety of ipatasertib or placebo combined with paclitaxel.
+
+The analysis supporting iDMC review will be conducted by an independent Data Coordinating Center (iDCC) and provided to the iDMC.
+
+Interactions between the iDMC and Sponsor will be carried out as specified in the iDMC Charter.
+
+No interim analysis of the primary efficacy endpoint PFS is planned.
+
+One interim OS analysis (at thetime of the primary analysis for PFS) for each cohort is planned.
+
+Analysis of safety and efficacy for each cohort will be performed independently.
+
+Crossover is not allowed.
+
+Number of Patients Approximately 450 patients with PIK3CA/AKT1/PTEN-altered tumors are expected to be enrolled in this study (~249 patients with TNBC in Cohort A and ~201 patients with HR/HER2– breast cancer in Cohort B) during the global enrollment phase.
+
+After the global enrollment phase is completed, additional Chinese patients may be enrolledin the China extension phase for up toa total of 90 Chinese patients with TNBC in Cohort A and up toa total of 120Chinese patients with HR+/HER2breast cancer in CohortB.
+
+Target Population Inclusion Criteria General Inclusion Criteria Patients must meet the following general criteria for study entry:  Signed Informed Consent Form(s) Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 41/Statistical Analysis Plan CO40016
+
+--- Page 43 ---
+
+ Woman or man age18 years at the time of signing the Informed Consent Form  Eastern Cooperative Oncology Group Performance Status of 0or1  Adequate hematologic and organ function within 14days before the first study treatment on Day 1 of Cycle 1, defined by the following: Neutrophils (ANC 1500/L) Hemoglobin 9g/dL Platelet count 100,000/L Serum albumin 3 g/dL Total bilirubin 1.5the upper limit of normal (ULN), with the following exception: – Patients with known Gilbert syndrome who have serum bilirubin 3ULN may be enrolled.
+
+AST and ALT 2.5ULN, with the following exception: – Patientswith documented liver or bone metastases may have AST and ALT 5ULN.
+
+ALP 2ULN, with the following exceptions: – Patients with known liver involvement may have ALP 5ULN – Patientswith known bone involvement may have ALP 7ULN PTT (or aPTT) and INR 1.5ULN (except for patients receiving anticoagulation therapy) – Patients receiving heparin treatment should have a PTT (or aPTT) between 1.5and2.5ULN (or patient value before starting heparin treatment).
+
+Patients receiving coumarin derivatives should have an INR between 2.0and3.0 assessed in two consecutive measurements 1 to 4days apart.
+
+Serum creatinine 1.5ULN or creatinine clearance 50 mL/min based on Cockcroft−Gault glomerular filtration rate estimation: (140 − age) (weight in kg)0.85 (if female) 72 (serum creatinine in mg/dL) Fasting total glucose 150mg/dL and HbA 7.5% 1C  Life expectancy of at least 6 months  For women of childbearing potential: agreement to remain abstinent (refrain from heterosexual intercourse) or use contraceptive methods with a failure rate of 1% per year during the treatment period and for at least 28 days after the last dose of ipatasertib/placebo and 6 months after the last dose of paclitaxel, whichever occurs later, and agreement to refrain from donating eggs during this same period A woman is considered to be of childbearing potential if she is postmenarcheal, has not reached a postmenopausal state (12continuous months of amenorrhea with no identified cause other than menopause), and has not undergone surgical sterilization (removal of ovaries and/or uterus).
+
+The definition of childbearing potential may be adapted for alignment with local guidelines or requirements.
+
+Examples of contraceptive methods with a failure rate of 1%per year, when used consistently and correctly, include combined (estrogen and progestogen containing) hormonal contraception associated with inhibition of ovulation, progestogen-only hormonal contraception associated with inhibition of ovulation, bilateral tubal occlusion, male sterilization, intrauterine hormone-releasing system, copper uterine devices, and sexual abstinence.
+
+Hormonal contraceptive methods may be used in accordance with specific country and local requirements for patients with breast cancer.
+
+The reliability of sexual abstinence should be evaluated in relation to the duration of the clinical trial and the preferred and usual lifestyle of thepatient.
+
+Periodic Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 42/Statistical Analysis Plan CO40016
+
+--- Page 44 ---
+
+abstinence (e.g., calendar, ovulation, symptothermal, or postovulation methods) and withdrawal are not acceptable methods of contraception.  For men: agreement to remain abstinent (refrain from heterosexual intercourse) or use contraceptive measures, and agreement to refrain from donating sperm, as defined below: With female partners of childbearing potential, men must remain abstinent or use a condom plus an additional contraceptive method that together result in a failure rate of 1% per year during the treatment period and for 28 days after the last dose of ipatasertib or 6 months after the last dose of paclitaxel, whichever occurs later.
+
+Men must refrain from donating sperm during this same period.
+
+With pregnant female partners, menmust remain abstinent or use a condom during the treatment period and for 28 days after the last dose of ipatasertib or 6 months after the last dose of paclitaxel, whichever occurs later, to avoid exposing the embryo.
+
+Examples of contraceptive methods with a failure rate of 1%per year, when used consistently and correctly, include combined (estrogen and progestogen containing) hormonal contraception associated with inhibition of ovulation, progestogen-only hormonal contraception associated with inhibition of ovulation, bilateral tubal occlusion, male sterilization, intrauterine hormone-releasing system, copper uterine devices, and sexual abstinence.
+
+The reliability of sexual abstinence should be evaluated in relation to the duration of the clinical trial and the preferred and usual lifestyle of the patient.
+
+Periodic abstinence (e.g., calendar, ovulation, symptothermal, or postovulation methods) and withdrawal are not acceptable methods of contraception.  For any patients enrolled in the extended enrollment phase (i.e., China extension phase): patient is a current resident of mainland China, Hong Kong, or Taiwan, and of Chinese ancestry.
+
+Disease-Specific Inclusion Criteria Patients must meet the following disease-specific criteria for study entry:  Histologically documented TNBC or HR/HER2–adenocarcinoma of the breast that is locally advanced or metastatic and is not amenable to resection with curative intent Receptor status at study entry should correspond to the evaluation of the most recent biopsy (i.e., recurrent or metastatic tissue where applicable and if safely accessible, and nonfine-needle aspiration [FNA] sample), as assessed locally (or on-study, ifnot available locally) according to the ASCO/CAP guidelines: HER2is defined as one of the following: immunohistochemistry 3or insitu hybridization positive ER or PgR positivity is defined as 1% of tumor cell nuclei immunoreactiveto the respective hormonal receptor TNBC is defined as HER2–, ER–, and PgR–(required for eligibility for CohortA) HR/HER2–is defined as HER2–and ERand/or PgR(required for eligibility for Cohort B)  Measurable disease according to RECISTv1.1  Eligible for taxane monotherapy, as per local investigator assessment (e.g., absence of rapid clinical progression, life-threatening visceral metastases, or the need for rapid symptom and/or disease control which may require combination chemotherapy)  HR+/HER2–breast cancer that is not considered appropriate for endocrine-based therapy and that meets one of the following inclusion criteria:  Patient has recurrent disease (locoregional or metastatic) during adjuvant endocrine therapy (i.e., ≤5 years of being on therapy).  If patient has de novo metastatic disease, patient has progressive disease within 6 months of being on first-line endocrine treatment of metastatic disease.
+
+Note that prior treatment with CDK4/6 inhibitors or mTOR inhibitors is allowed.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 43/Statistical Analysis Plan CO40016
+
+--- Page 45 ---
+
+ Submission of a formalin-fixed, paraffin-embedded tumor (FFPE) tissue block or a minimum of 20 freshly cutunstained, serialtumor slidesfrom the most recently collected tumor tissue for central molecular analysis (mandatory NGS testing [PIK3CA/AKT1/PTEN-altered status] and for other protocol-mandated secondary and exploratory assessments).
+
+Cytologic or FNA samples are not acceptable.
+
+Tumor tissue from bone metastases that is subject to decalcification is not acceptable.
+
+If a newer specimen is either insufficient or unavailable, the patient may still be eligible if the patient can provide a tissue block (preferred) or a minimum of 20 unstained serial slides from an older archival tumor tissue or is willing to consent to and undergo an additional pretreatment core or excisional biopsy of the non-target lesion (if it is assessable and the biopsy can be safely obtained).
+
+In general, a minimum of three core biopsies for NGS testing are required.
+
+If the patient already has PIK3CA/AKT1/PTENalteration results available from the FMI commercial tissue-based NGS assay known as FoundationONE CDx, then the FMI clinical trial assay (CTA) does not need to be rerun; in this situation formalin-fixed, paraffin-embedded tumor (FFPE) tissue block or 10 freshly cutunstained, serialtumor slidesfrom the most recently collected tumor tissue is acceptable for other protocol-mandated secondary and exploratory assessments, upon approval by the Medical Monitor.
+
+Please note, this tumor tissue sample is required to be submitted as described above forall patients (i.e.,if local assessment of PIK3CA/AKT1/PTENalteration status or central ctDNA is used to assess biomarker eligibility (see below), tumor tissue is still required to assess alteration status centrally.)  Confirmation ofbiomarker eligibility, i.e.,valid results from either central testing (in tumor tissue as detailed above or blood [using FACT assay]tested at FMI) or local/commercial testing of tumor tissue or blood (using an appropriately validated molecular assay at a diagnostic laboratory[full laboratory report must be available and captured within the patient’s source documents to support eligibility]) demonstrating PIK3CA/AKT1/PTENaltered status defined as the presence of one or more of the following: AKT1missense mutations that result in amino acid substitution at the following residues E17, L52, or Q79 PIK3CAmissense mutations that result in amino acid substitution at the following residues R88, G106, K111, G118, N345, C420, E453, E542, E545, Q546, M1043, H1047, or G1049 PTENalterations that meet any of the following criteria: Homozygous deletion (copy number of 0) Dominant negative short variant (e.g., C124S, G129E, R130X) Loss of heterozygosity (LOH) with copy number of 1 without concomitant singlenucleotide variants One deleterious short variant (including insertions and deletions; classification criteria provided below) with a concomitant loss of the non-mutant PTEN allele defined by LOH with copy numberof1 or LOH with copy number1. o Any protein truncating mutations, including nonsense mutations and frameshift indels o Any mutations in the consensus splice donor and acceptor sequence that disrupts the consensus, including insertions and deletions o Any missense or non-frameshift mutation that has been confirmed somatic as described in the COSMIC database o If there are two or more deleterious short variants under LOH, the patient will not be eligible for the study.
+
+Please note, for local/commercial testing using tumor tissue or blood, a valid result from the most recently collected tumor tissue/blood is preferred, however, the patient Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 44/Statistical Analysis Plan CO40016
+
+--- Page 46 ---
+
+would still be eligible if a valid result is obtained from older archival tissue/blood sample.
+
+Exclusion Criteria General Exclusion Criteria Patients who meet any of the following general criteria will be excluded from study entry:  Inability to comply with study and follow-up procedures  History of malabsorption syndrome or other condition that would interfere with enteral absorption or results in the inability or unwillingness to swallow pills  Active infection requiring systemicanti-microbial treatment (including antibiotics, antifungals, and anti-viral agents)  Known HIV infection  Known clinically significant history of liver disease consistent with Child-Pugh ClassB or C, including active viral or other hepatitis (e.g.,positive for hepatitis B surface antigen [HBsAg] or hepatitis C virus [HCV] antibody at screening), current drug or alcohol abuse, or cirrhosis Patients with past hepatitis B virus (HBV) infection or resolved HBV infection (defined as having a negative HBsAg test and a positive hepatitis B core antibody [HBcAb] test, accompanied by a negative HBV DNA test) are eligible.
+
+Patients positive for HCV antibody are eligible only if polymerase chain reaction (PCR) is negative for HCV RNA.  Major surgical procedure, open biopsy, or significant traumatic injury within 28days prior to Day 1 of Cycle1or anticipation of need for a major surgical procedure during the course of the study Placement of a vascular access device is not considered major surgery.  Pregnant or breastfeeding, or intending to become pregnant during the study or within 28days after the last dose of ipatasertib/placebo and within 6 months after the last dose of paclitaxel, whichever occurs later Women of childbearing potential (who are not postmenopausal with 12months of non-therapy induced amenorrhea nor surgically sterile) must have a negative serum pregnancy test result either within 96hours prior to initiation of study drug, or within 7days of Day 1, Cycle 1 (in this case, confirmed by a negative urine pregnancy test result on Day 1 of Cycle 1prior to dosing).  New York Heart Association ClassII, III, or IV heart failure; left ventricular ejection fraction 50%; or active ventricular arrhythmia requiring medication  Current unstable angina or history of myocardial infarction within 6months prior to Day 1 of Cycle1  Congenital long QT syndrome or screening QTinterval corrected using Fridericia's formula (QTcF) 480milliseconds  History or presence of an abnormal ECG that is clinically significant in the investigator's opinion (including complete left bundle branch block, second-or third-degree heart block, or evidence of prior myocardial infarction)  Need for chronic corticosteroid therapy of 10mgof prednisone per day oranequivalent dose of other anti-inflammatory corticosteroids orimmunosuppressants for a chronic disease  Treatment with approved or investigational cancer therapy within 14 days prior to Day 1 of Cycle1  Any other disease, metabolic dysfunction, physical examination finding, orclinical laboratory finding that, in the investigator's opinion, gives reasonable suspicion of a disease or condition that contraindicates the use of an investigational drug or that may affect the interpretation of the results or render the patient at high risk from treatment complications Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 45/Statistical Analysis Plan CO40016
+
+--- Page 47 ---
+
+Disease-Specific Exclusion Criteria Patients who meet any of the following disease-specific criteria will be excluded from study entry:  History of or known presence of brain or spinal cord metastases, as determined by computed tomography (CT) or magnetic resonance imaging (MRI) evaluation during screening or prior radiographic assessments Patientswith leptomeningeal carcinomatosis will be excluded.  Any previous chemotherapy for inoperable locally advanced or metastatic TNBC or HR/HER2–adenocarcinoma of the breast Patients mayhave received prior neoadjuvant or adjuvant chemotherapy and/or radiation treatment for breast adenocarcinoma, provided all chemotherapy was completed 12 months prior to recurrence.
+
+Patients with TNBC must not have received any previous systemic therapy for inoperable locally advanced or metastatic TNBC, including chemotherapy, immune checkpoint inhibitors, or targeted agents.
+
+Chemotherapy does not include HER2-targeted therapy, such as trastuzumab, pertuzumab, or neratinib (for cases in which patients had early stage HER2+ breast cancer and are entering the study with HER2advanced breast cancer).
+
+The minimum 12-month, disease-free inclusion requirement begins with the last administration of chemotherapyin the early breast cancer setting.  Unresolved, clinically significant toxicity from prior therapy, except for alopecia and Grade1 peripheral neuropathy  Patients who have received palliative radiation treatment to peripheral sites (e.g.,bone metastases) for pain control and whose last treatment was completed 14days prior to Day 1 of Cycle1 may be enrolled in the study if they have recovered from all acute, reversible effects (e.g., to Grade 1 or resolved by enrollment)  Uncontrolled pleural effusion, pericardial effusion, or ascites Patients with indwelling catheters (e.g., PleurX) are allowed.  Uncontrolled tumor-related pain Patients requiring narcotic pain medication must be on a stable regimen at study entry.
+
+Symptomatic lesions (e.g., bone metastases or metastases causing nerve impingement) amenable to palliative radiotherapy should be treated prior to randomization.
+
+Patients should be recovered (e.g., to Grade 1 or resolved) from the effects of radiation prior to study enrollment.
+
+There is no required minimum recovery period beyond the 14 days required for radiation therapy.
+
+Asymptomatic metastatic lesions whose further growth would likely cause functional deficits or intractable pain (e.g., epidural metastasis that is not presently associated with spinal cord compression) should be considered for loco-regional therapy if appropriate prior to randomization.  Uncontrolled hypercalcemia (1.5 mmol/L ionized calcium, 12 mg/dL calcium, or corrected serum calcium ULN) or symptomatic hypercalcemia requiring continued use of bisphosphonate therapy Patients who are receiving bisphosphonate therapy specifically to prevent skeletal events (e.g.,bone metastasis, osteoporosis) and who do not have a history of clinically significant hypercalcemia are eligible.  Malignancies other than breast cancer within 5years prior to Day 1 of Cycle1, except for appropriately treated carcinoma in situ of the cervix, non-melanoma skin carcinoma, or StageIuterine cancer For other cancers considered to have a low risk of recurrence, discussion with the Medical Monitor is required.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 46/Statistical Analysis Plan CO40016
+
+--- Page 48 ---
+
+In cases where there is a history of early-stage breast cancer with ER/PR/HER2 status differing from the advanced breast cancer for which the patient is entering the study, the above language still applies (i.e., any breast cancer within the 5 years prior to consent is permitted, provided there is no controversy as to the current ER/PR/HER2 status.) Ipatasertib-Specific Exclusion Criteria Patients who meet any of the following ipatasertib-specific criteria will be excluded from study entry:  History of TypeI or TypeII diabetes mellitus requiring insulin Patients who are on a stable dose of oral diabetes medication 2weeks prior to initiation of study treatment are eligible for enrollment.  Grade2 uncontrolled or untreated hypercholesterolemia or hypertriglyceridemia  History of or active inflammatory bowel disease (e.g., Crohn's disease and ulcerative colitis) or active bowel inflammation (e.g., diverticulitis)  Lung disease: pneumonitis, interstitial lung disease, idiopathic pulmonary fibrosis, cystic fibrosis, Aspergillosis, active tuberculosis, or history of opportunistic infections (pneumocystis pneumonia or cytomegalovirus pneumonia)  Treatment with strong CYP3A inhibitors or strong CYP3A inducers within 2weeks or 5drug-elimination half-lives, whichever is longer, prior to initiation of study drug  Prior treatment with an Akt inhibitor Note that prior PI3K or mTOR inhibitors are allowed.
+
+Paclitaxel-Specific Exclusion Criteria Patients who meet any of the following paclitaxel-specific criteria will be excluded from study entry:  Known hypersensitivity or contraindication to any component of the study treatments, including the paclitaxel excipient macrogolglycerol ricinoleate  Grade2 peripheral neuropathy End of Study The end of this study is defined as the date when the last patient, last visit occurs or the date at which the last data point required for statistical analysis or safety follow-up is received from the last patient, whichever occurs later.
+
+Length of Study The total length of the study, from screening of the first patient to the end of the study (excluding the potential China extension phase), is expected to be approximately 53months.
+
+Investigational Medicinal Products Test Product (Investigational Drug) The investigational medicinal product (IMP) for this study is ipatasertib, matching placebo,and, dependent on local regulations, paclitaxel.
+
+Paclitaxel is an approved treatment for breast cancer and is considered standard of care in some countries.
+
+Loperamide is a non-IMP in the study.
+
+Each dose of ipatasertib should be taken with a minimum of 3 ounces (90 mL) of fluid.
+
+Ipatasertib may be taken with or without food.
+
+If a dose is missed (not taken within 8hours after the scheduled dosing time), the patient should resume dosing with the next scheduled dose.
+
+Missed or vomited doses will not be made up.
+
+The dose of paclitaxel in this study is 80mg/m2administered by IV infusion on Days1, 8, and15 of each28-day cycle.
+
+Ifthe dose on Day1, 8, or15 is missed, it can be given on Day22.
+
+Calculation of body surface area for the purposes of dosing of paclitaxel should be made according to the prescribing information.
+
+Ifthe patient's weight changes by 10% during the study, the body surface area and drug doses should be recalculated.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 47/Statistical Analysis Plan CO40016
+
+--- Page 49 ---
+
+The paclitaxel infusion will be delivered over at least 60minutes for each dose per institutional guidelines and administered after the oral dose of ipatasertib/placebo.
+
+Because of the known potential for allergic reactions to paclitaxel and/or the Cremophorvehicle, precautions must be taken to decrease the risk of anaphylaxis.
+
+Patients must be premedicatedprior to paclitaxel with dexamethasone, diphenhydramine, and an H -receptor blocker (i.e., ranitidine or famotidine) or per institutional practice.
+
+H -receptor 2 2 antagonists, such as cimetidine, which are known to inhibit cytochrome P450, should be avoided.
+
+Comparator The ipatasertib placebo tablets have been manufactured to match the size, shape, and color of the ipatasertib active tablets (100 and 200 mg) and are indistinguishable in appearance from the active ipatasertib tablets.
+
+Placebo will be administered at the starting dose of 400 mg orally QD, beginning on Cycle 1, on Days 121 of each 28-day cycle until the patient experiences disease progression, intolerable toxicity, or withdraws consent.
+
+Patients will receive placebo prior to the IV infusion of paclitaxel.
+
+Each dose of placebo should be taken with a minimum of 3 ounces (90 mL) of fluid.
+
+Placebo may be taken with or without food.
+
+If a dose is missed (not taken within 8hours after the scheduled dosing time), the patient should resume dosing with the next scheduled dose.
+
+Missed or vomited doses will not be made up.
+
+Non-Investigational Medicinal Products Loperamide is a non-investigational medicinal product (non-IMP) in the study.
+
+All patients should receive loperamide (2 mg oral twice a day or4 mg once a day) as prophylaxis for diarrhea in the first cycle if allowed by local guidance.
+
+Investigators are encouraged to continue this dosing for the remainder of the study, and the prophylaxis dose may be adjusted as necessary, using their discretion based on clinical judgment and per local guidance.
+
+Statistical Methods The two cohorts, Cohort A (patients with TNBC) and Cohort B (patients with HR+/HER2–breast cancer), are two independent cohorts and will be analyzed separately for the following reasons:  The two patient populations are in two different disease settings with different prevalence and different PFS and OS expectations, and thus different enrollment and analysis timelines.  The readout from one cohort is independent of the readout of theother cohort.  This study is essentially two independent trials running under one protocol for operational efficiency.
+
+Therefore, for all analyses described below, these two cohorts will be analyzed separately.
+
+The global population will include all patients enrolled during the global enrollment phase (including patients enrolled at CFDA-recognized sites during that phase), and the China subgroup will include all patients enrolled at CFDA-recognized sites (i.e., during both the global enrollment phase and the extended China enrollment phase).
+
+Separate analyses will be performed for the global population and the China subgroup.
+
+Primary Analysis The primary efficacy endpoint is investigator-assessed PFS, defined as the time from randomization to the first occurrence of disease progression, as determined by the investigator using RECIST v1.1, or death from any cause, whichever occurs first.
+
+Data for patients who do not experience disease progression or death will be censored at the last date of evaluable tumor assessment.
+
+For patients who do not have an evaluable tumor assessment after randomization, the data will be censored at the date of randomization plus 1 day.
+
+For each cohort, PFS will be compared between treatment arms using the stratified log-rank test.
+
+The hazard ratio will be estimated using a stratified Cox proportional hazards model.
+
+The 95%CI for the hazard ratio will be provided.
+
+The stratification factors to be used will be the same as the randomization stratification factors.
+
+Results from an unstratified analysis will also be provided.
+
+Kaplan-Meier methodology will be used to estimate the median PFS for each treatment arm, and Kaplan-Meier curves will be produced.
+
+The Brookmeyer-Crowley method will be used to construct the 95% CI for the median PFS for each treatment arm.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 48/Statistical Analysis Plan CO40016
+
+--- Page 50 ---
+
+For each cohort, sensitivity analyses will be conducted to compare PFS between the treatment arms in patients with PIK3CA/AKT1/PTEN-altered tumors as centrally determined by the FMI CTA.
+
+Determination of Sample Size As described earlier, Cohort A (patients with TNBC) and Cohort B (patients with HR+/HER2– breast cancer) are two independent cohorts and will be analyzed separately.
+
+Each cohort will be tested independently with 5% type I error control.
+
+In the event that the primary PFS analysis timelines for the TNBC and HR+/HER2–cohorts are far apart, the treatment codes of the cohort whose PFS data are mature earlier will be sent to the Sponsor to unblind only that cohort for the primary analysis of PFS.
+
+The Sponsor will remain blinded to the treatment assignments of the other cohort.
+
+Data from any additional patients enrolled within the China extension phase will not be included in the analysis of the globalstudy.
+
+Global Study For Cohort A, approximately 249 patients with TNBC with PIK3CA/AKT1/PTEN-altered tumors will be enrolled and randomized in a 2:1 ratio to the experimental arm (ipatasertib 400 mg + paclitaxel) and control arm (placebo+ paclitaxel).
+
+The sample size of 249 patients is determined on the basis of the power calculation for the PFS and OS endpoints.
+
+For Cohort B,approximately 201 HR+/HER2–patients with PIK3CA/AKT1/PTEN-altered tumors will be enrolled and randomized in a 2:1 ratio to the experimental arm (ipatasertib 400mg + paclitaxel) and control arm (placebo + paclitaxel).
+
+The sample size of 201 patients is determined on the basis of the power calculation for the primary endpoint, PFS.
+
+Potential China Extension For the potential China extension phase, if at least 1 patient is enrolled in mainland China, Hong Kong, or Taiwan during the global enrollment phase, additional patients may be enrolled at CFDA-recognized sites in an extended enrollment phase for up to a total of 90Chinese patients withTNBC with PIK3CA/AKT1/PTEN-altered tumors and up toa total of 120 Chinese patients with HR/HER2breast cancer with PIK3CA/AKT1/PTEN-altered tumors; these patients will constitute an analysis population of a China subgroup.
+
+The sample size of thisChinasubgroup is determined on the basis of showing consistency in the China subgroup for the primary endpoint and PFS with the global cohort.
+
+Planned Interim Safety Analysis An external iDMCwill be set up to evaluate safety data on a periodic basis.
+
+All summaries/analyses by treatment arm for the iDMC's review will be prepared by an external iDCC.
+
+Members of the iDMC will be external to the Sponsor and will follow a charter that outlines their roles and responsibilities.
+
+Any outcomes of these safety reviews that affect study conduct will be communicated in a timely manner to the investigators for notification of the IRB/EC.
+
+A detailed plan will be included in the iDMC Charter.
+
+The iDMC will convene a review of summaries of the safety data by cohort and by treatment arm after approximately 50 patients (in total from both cohorts) have competed 1 treatment cycle and approximately every 6 months thereafter until the time of the analysis of the primary efficacy endpoint for both cohorts are complete.
+
+In the absence of extenuating circumstances, accrual will not be halted while the safety analysis is conducted.
+
+The iDMCwill review the available data to make a recommendation as to the following: to continue without changes to the protocol, to modify the safety monitoring and/or eligibility criteria, to add additional safety reviews to address emerging safety issues, or to terminate the study.
+
+In addition, the Sponsor may request adhoc meetings of the iDMCat any time during the study to review ongoing safety summary data.
+
+Planned Interim OS Analysis at PFS Primary Analysis For Cohort A, interim OS will be analyzed at the time of the primary analysis for PFS, and final OS will be analyzed at the time that approximately 188 OS events occur or around 36 months after the last patient has been enrolled, whichever is earlier.
+
+TheLan-DeMets -spending function with an O’Brien-Fleming boundary will be used to control the type I error accounting for OS interim and final analyses.
+
+With a sample size of 249 patients in Cohort A, it is estimated that there will be approximately 75 OS events at the time of PFS primary analysis, and approximately 188 OS events at the final OS analysis, with corresponding p-value boundaries of (0.000774, 0.049737).
+
+The corresponding hazard ratio boundaries are 0.44 and 0.74 at interim Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 49/Statistical Analysis Plan CO40016
+
+--- Page 51 ---
+
+and final analysis, respectively.
+
+The actual alpha-spending will be adjusted and determined based on the actual information fraction at the interim analysis.
+
+For Cohort B, interim OS will be analyzed at the time of the primary analysis for PFS, and final OS will be at the time that approximately 148 OS events occur, or around 5 years after the last patient has been enrolled, whichever is earlier.
+
+The Lan-DeMets -spending function with an O’Brien-Fleming boundary will be used to control the type I error accounting for OS interim and final analyses.
+
+For Cohort B, it is estimated that there will be approximately 81 OS events at the time of PFS primary analysis, and approximately 148 OS events at the final OS analysis, with corresponding p-value boundaries of (0.00489, 0.04842).
+
+The corresponding hazard ratio boundaries are 0.52 and 0.71 at interim and final analysis, respectively.
+
+The actual alphaspending will be adjusted and determined based on the actual information fraction at the interim analysis.
+
+Further details can be found in the SAP.
+
+Optional Interim Analyses To adapt to information that may emerge during the course of this study, the Sponsor may choose to conduct an optional interim efficacy analysis, prior to the time of the primary analysis for PFS,with each cohort considered independently.
+
+For example, availability of clinical trial results for a specific external competitormolecule during the course of this study might (depending on the data) trigger an interim analysis.
+
+Or, the existence of an internal competitor molecule might necessitate an interim analysis to enable decision-making regarding continued development of the two molecules.
+
+Below are the specifications in place to ensure the study continues to meet the highest standards of integrity when an optional interim analysis is executed.
+
+The interim analysis will be conducted by an iDCC and reviewed by the iDMC.
+
+Interactions between the iDMC and Sponsor will be carried out as specified in the iDMC Charter.
+
+The decision to conduct the optional interim analysis, along with the rationale, timing, and statistical details for the analysis, will be documented in the SAP, and the SAP will be submitted to relevant health authorities at least 2months prior to the conduct of the interim analysis.
+
+The iDMC Charter will be updated to document potential recommendations the iDMC can make to the Sponsor as a result of the analysis (e.g.,stop the study for positive efficacy, stop the study for futility), and the iDMC Charter will also be made available to relevant health authorities.
+
+If there is a potential for the study to be stopped for positive efficacy as a result of the interim analysis, the type I error rate will be controlled to ensure statistical validity is maintained.
+
+Specifically, the Lan-DeMets -spending function that approximates the O'Brien-Fleming boundary will be applied the primary endpoint of PFS to determine the critical value for stopping for positive efficacy at the interim analysis.
+
+Additional criteria for recommending that the study be stopped for positive efficacy may be added to the iDMC Charter.
+
+If the study continues beyond the interim analysis, the critical value at the final analysis would be adjusted accordingly to maintain the protocol-specified overall type I error rate, per standard Lan-DeMets methodology.
+
+After the primary analysis for PFS, additional OS interim analyses may be conducted to provide additional OS data, per the recommendation from health authorities.
+
+If conducted, the LanDeMets -spending function with an O’Brien-Fleming boundary will be used to control the overall type I error for OS accounting for the additional OS interim analyses. .
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 50/Statistical Analysis Plan CO40016
+
+--- Page 52 ---
+
+Appendix 2 Schedule of Assessments Screening a Treatment Cycles (28-Day Cycles) b SDDVc PostTreat.
+
+Biomarker Safety Cycle 1 Cycle 2 Cycle3 Cycle4 Cycles 5 Follow- -Specific Eligibility Up Screening or Baseline D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 Signed informed x consent(s) d Demographics, x medical history, prior cancer treatment Tumor tissue sample xe submission Confirmation of x ii biomarker eligibility (local or central testing) Bloodsample for xf xf xf xf biomarkers f Viral serologyg x Blood sample for x WGS h Completephysical x x examination Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 51/Statistical Analysis Plan CO40016
+
+--- Page 53 ---
+
+Appendix 2 Schedule of Assessments (cont.) Screening a Treatment Cycles (28-Day Cycles) b SDDVc PostTreat.
+
+Biomarker Safety Cycle 1 Cycle 2 Cycle3 Cycle4 Cycles 5 Follow- -Specific Eligibility Up Screening or Baseline D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 Limitedphysical x x x x x x x x x x x examination Weight x x x x x x Height x Vital signsi x x x x x x x x x x x x x x x x x ECOG Performance x x x x x x x Status ECHO or MUGA xj scan 12-Lead x x electrocardiogram k Hematologyl x xm xm xm xm xm xm xm xm xm xm xm x INR and PTT (or x x aPTT) Fasting serum x xm xm xm xm xm xm xm xm xm xm xm x chemistryn Fasting lipid profile, x x o xo x amylase, lipase Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 52/Statistical Analysis Plan CO40016
+
+--- Page 54 ---
+
+Appendix 2 Schedule of Assessments (cont.) Screening a Treatment Cycles (28-Day Cycles) b SDDVc PostTreat.
+
+Biomarker Safety Cycle 1 Cycle 2 Cycle3 Cycle4 Cycles 5 Follow- -Specific Eligibility Up Screening or Baseline D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 HbA x x o xo x 1C Urinalysis x As clinically indicated x Pregnancy testp x x p x x x x x Tumor x xs xt Every 8 weeks based on starting date of C1D1r assessmentsq Bone scan xu Every 16 weeks based on starting date of C1D1 xu xt Head scan (CT or xv MRI scan) Prophylaxis If side effects are not tolerated, doses may be reduced.
+
+After 1cycle without any anti-diarrheal (2mg diarrhea, continuation is at physician's discretion.
+
+If diarrhea occurs, it should be BID loperamide or managed per guidelines inSection5.1.3.5; anti-diarrheal treatment should also equivalent)w be resumed with loperamide prophylaxis as needed.
+
+Ipatasertib/placebo x x x x x x dispension/ accountability Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 53/Statistical Analysis Plan CO40016
+
+--- Page 55 ---
+
+Appendix 2 Schedule of Assessments (cont.) Screening a Treatment Cycles (28-Day Cycles) b SDDVc PostTreat.
+
+Biomarker Safety Cycle 1 Cycle 2 Cycle3 Cycle4 Cycles 5 Follow- -Specific Eligibility Up Screening or Baseline D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 Paclitaxel x x x x x x x x x x x x x x x x administrationy Record cancer-related x x x x x x x x x x x x x x x x x x radiotherapy and surgical proceduresz Concomitant x x x x x x x x x x x x x x x x x medicationsaa Adverse events bb, z x x x x x x x x x x x x x x x x x xcc x cc EORTC QLQ-C30 dd x x x x x x x ee PRO-CTCAEdd x x x x x x EQ-5D-5Ldd x x x x x x x ee PK samples ff x x x Survival and xgg anti-cancer therapy follow-upz Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 54/Statistical Analysis Plan CO40016
+
+--- Page 56 ---
+
+Appendix 2 Schedule of Assessments (cont.) Screening a Treatment Cycles (28-Day Cycles) b SDDVc PostTreat.
+
+Biomarker Safety Cycle 1 Cycle 2 Cycle3 Cycle4 Cycles 5 Follow- -Specific Eligibility Up Screening or Baseline D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 D1 D8 D15 Tumor tissue sample xhh obtained at time of progression (optional)hh Patient diary x x x x x x x x x x x x x x x x (medication, dosing log, Kit ID) BIDtwice a day; CTcomputed tomography; ctDNAcirculating tumor DNA; Dday; ECHOechocardiogram; ECOGEastern Cooperative Oncology Group; EORTC QLQ-C30European Organisation for the Research and Treatment of Cancer Quality of Life Questionnaire Core 30; EQ-5D-5L=European Quality of Life5-Dimension, 5-Level questionnaire; FNAfine-needle aspiration; HER2human epidermal growth factor receptor 2; HRhormone receptor; MUGAmultiple-gated acquisition; MRImagnetic resonance imaging; NGSnext-generation sequencing; PKpharmacokinetic;PROpatient-reported outcome;PRO-CTCAEPatient-Reported Outcomes version of the Common Terminology Criteria for Adverse Events; QDonce a day; RECISTResponse Evaluation Criteria in Solid Tumors; SDDVstudy drug discontinuation visit; TNBCtriplenegative breast cancer; Treat.treatment; WGSwhole genome sequencing.
+
+Notes: Results of standard-of-care tests or examinations performed prior to obtaining informed consent but within the screening safety eligibility/ baseline window specified for each assessment.
+
+Screening assessments are to be performed after informed consent and generally within 28 days preceding Day 1 of Cycle1 unless otherwise noted.
+
+The safety eligibility/baseline window does not apply to the biomarker-specific screening process (i.e., submission of tissue/blood sample for biomarker testing).
+
+In addition, patients must have adequate hematologic and organ function within 14days and have a negative pregnancy test (if applicable) prior to the first study treatment on Day 1 of Cycle 1, as defined inSection4.1.1.
+
+All assessments or procedures are to be performed predose unless otherwise specified. a Screening window per individual assessmentguidelines detailed, generally within 28 days of Cycle 1 Day 1 for time-dependent screening safety eligibility/baseline assessments.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 55/Statistical Analysis Plan CO40016
+
+--- Page 57 ---
+
+Appendix 2 Schedule of Assessments (cont.) b Except for Day 1 of Cycle 1, all other study visits and assessments during the treatment period should be performed within 3 days of the scheduled date or window.
+
+Study assessments may be delayed or moved ahead of the window to accommodate holidays, vacations, and unforeseen delays; however, study cycle day count continues without breaks; i.e., every cycle contains exactly 28 days. c The study drug discontinuation visit should occur approximately 28days after the last administration of ipatasertib/placebo or paclitaxel, whichever is discontinued last, or prior to initiation of another therapeutic regimen. d Patients may be consented for the biomarker-specific process(if enrolling on the basis of central tissue or blood-based FMI testing)using the biomarker-specific ICF, followed by (if an alteration is present) full study consent and remaining screening procedures prior to enrollment in the study; or, patients may consent using the full study ICF prior to screening and enrollment.
+
+Informed consent must be documented before any study-specific screening procedure is performed, and may be obtained more than 28 days before initiation of study treatment. e Archival tissue (either formalin-fixed paraffin-embedded tumor specimens or a minimum of 20unstained serial paraffin slides) and an associated pathology report must be confirmed to be available prior to entry into the study.
+
+This requirement is required for all patients except those enrolled on the basis of PIK3CA/AKT1/PTEN alteration results available from the FMI commercial tissue-based NGS assay known as FoundationONE CDx, when a formalin fixed, paraffin embedded tumor (FFPE) tissue block or 10 freshly cut unstained, serial tumor slides from the most recently collected tumor tissue is acceptable for other protocol-mandated secondary and exploratory assessments, upon approval by the Medical Monitor.
+
+Inthe absence of archival tissue, newly obtained tissue biopsy samples of non-target lesions (excluding cytology, FNA specimens and bone metastasis requiring decalcification) are acceptable (if it is assessable and the biopsy can be safely obtained).
+
+In general, a minimum of three core biopsies for NGS testing are required.
+
+If PIK3CA/AKT1/PTEN-altered status has been determined for a patient during study screening procedures, a repeat biomarker-specific screening is not required. f Blood will be collected for ctDNA analysis at screening (either as part of the biomarker-specific screening process or full screening),at the time of the firsttumor assessment(7 days), and at the study drug discontinuation visit.
+
+For patients who send a blood sample for FACT assay to determine biomarker eligibility, the initial screening blood sample may be used for this purpose, but an additional blood sample taken on Cycle 1, Day 1 willbe required for exploratory biomarker assessment. g HIV, HBsAg, total hepatitis B core antibody (HBcAb), HCV antibody; additional tests for HBV DNA or HCVRNA will be required toconfirm eligibility. h Samples will be collected only at sites with local regulatory authority approval.
+
+Sample collection may occur at the same time as other blood sampling if preferred (i.e., within 48 hours prior to dosing at the same time as laboratory samples or postdose at the same time as the PK sample). i Includes pulse rate, respiratory rate, systolic and diastolic blood pressure while patient is in a seated position after resting for 5minutes, and temperature (oral, axillary, or tympanic).
+
+On paclitaxel dosingdays, vital signs should be recorded prior to dosing and at the end of the infusion.
+
+From Cycle5 onward, if paclitaxel treatment has been discontinued, the patient is not required to return to the clinic for Day8 and Day15 vital sign assessments.
+
+A telephone call for adverse events and concomitant medication assessment may be performed as clinically indicated.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 56/Statistical Analysis Plan CO40016
+
+--- Page 58 ---
+
+Appendix 2 Schedule of Assessments (cont.) j Performed within 12weeks prior to Day1, Cycle1.
+
+Under exceptional circumstances cardiac function assessment by methods other than echocardiogram (ECHO) or multiple-gated acquisition (MUGA) may beacceptable, if this is consistent with local standard practice (e.g.,cardiac MRI), but must be approved by the Medical Monitor. k A single 12-lead ECG measurement at screening and at SDDV visit, and as clinically indicated (refer toSection4.5.7). l Includes WBC count, WBC differential count (including absolute neutrophil counts, lymphocytes), hemoglobin, hematocrit, and platelet count. m Laboratory samples should be drawn within 48 hours prior to study drug administration at the clinic; results should be available to assess dosing; with at least 8-hour fasting for glucose measurement as indicated (refer toSection4.5.6).
+
+Glucose logs for any home glucose monitoring performed should also be reviewed at clinic visits prior to dosing, and only values which result in intervention recorded within the eCRF. n Includes sodium, potassium, bicarbonate, glucose (fasting), BUN/urea, creatinine, calcium, phosphorus, magnesium, total bilirubin, albumin, LDH, ALT, AST, and ALP.
+
+For investigational sites in countries where bicarbonate may not be collected as part of the standard chemistry panel, bicarbonate will not be measured.
+
+For investigational sites where local practice includes measuring only fasting plasma glucose levels, these local assessments may be acceptable to confirm eligibility and should be provided consistently across the study for intra-patient comparability.
+
+Grade 3 non-hematologic toxicity should be monitored at least weekly. o Fasting lipid profile(total cholesterol, high-density lipoprotein, low-density lipoprotein, triglycerides),amylase, lipase, and HbA will be assessed 1c at screening, every 3 cycles starting on Day 1 of Cycle 3, and at SDDV visit. p For women of childbearing potential.
+
+A serum pregnancy test is to be performed at screening.
+
+A negative serum pregnancy test must be obtained either within 96 hours prior toC1D1 study treatment administration, orwithin 7 days of C1D1 (in this case, confirmed by a negative urine pregnancy test prior to C1D1 dosing).
+
+In addition, pregnancy tests (serum or urine) are to be performed within 96hours of Day 1 of each following treatment cycleprior to dosing, and a pregnancy test should be performed when clinically indicated.
+
+If urine pregnancy test is positive, it must be confirmed by a serum pregnancy test.
+
+For all other women, documentation must be present in medical history confirming that patient is not of childbearing potential. q Tumor assessments performed according to RECIST v1.1.
+
+The method used for a patient (CT or MRI scan or photographic measurements) must be the same throughout the study.
+
+An objectiveresponse should be confirmed by repeat assessments4weeks after initial documentation.
+
+Amissed tumor assessment should be rescheduled as soon as possible.
+
+Images for tumor assessments will be prospectively collected to enable retrospective blinded independent central review when needed. r Tumor assessments (TAs) should be calculated from C1D1 (study Day 1) and completed during Week 8 and every 8 weeks thereafter.
+
+Therefore, the window for each scan will be the 7 days of the given week.
+
+Images for tumor assessments will be prospectivelycollected to enable retrospective blinded independent central review when needed.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 57/Statistical Analysis Plan CO40016
+
+--- Page 59 ---
+
+Appendix 2 Schedule of Assessments (cont.) s At SDDV visit, tumor assessments should be performed only if not performed within the previous 6weeks.
+
+Ifa patient discontinues from the study for any reason other than disease progression per RECIST v1.1, every effort should be made to obtain follow-up CT scans to assess disease response approximately every 812weeks until documented progressive disease per RECIST v1.1.
+
+Images for tumor assessments will be collected to enable retrospective blinded independent central review when needed. t Ifa patient discontinues from the study for any reason other than disease progression per RECIST v1.1, a disease follow-up clinical visit approximatelyevery 812 weeks will be required for tumor assessments until documented progressive disease per RECIST v1.1.
+
+Images for tumor assessments will be collected prospectively to enable retrospective blinded independent central review when needed. u An initial technetium bone scan should be performed within 6 weeks prior to Day1 of Cycle1.
+
+In addition, bone disease identified on bone imaging should be evaluated radiographically by CT scan, MRI or X-ray to ascertain the presence of bone destruction versus a healing reaction.
+
+For patients with known or suspected bone metastasis, bone scans should be performedwith every other tumor assessment starting from Week16, adhering to the same 7-day window.
+
+If these patients discontinue from the study treatment for any reason other than disease progression, they should continue to be followed as clinically indicated, or for approximately every 4 months at disease follow-upuntil documented progressive disease per RECIST v1.1.
+
+If it is not possible to acquire a technetium bone scan, NaF-PET scans may be considered an alternative, with approval from the Medical Monitor. v Performed within 6weeks prior to Day1 of Cycle1.
+
+Mandatory for Cohort A (TNBC), and as clinically indicated for Cohort B (HR/HER2). w Administer prophylactic loperamide dose of 2 mg BID or 4 mg QD, if allowed by local guidance.
+
+Refer to Section5.1.3.5.1. for further diarrhea management guidance. x Patients should receive their first dose of study drug on the day of randomization, if possible.
+
+If this is not possible, the first dose should occur no later than 3 days after randomization. y Ifthe patient's weight changes by 10% from baseline during the study, the body surface area and drug doses of paclitaxel should be recalculated. z A skeletal-related event (SRE) is defined as either a pathologic fracture, radiation therapy to the bone, surgery to the bone, or spinalcord compression.
+
+Any cancer-related radiation or surgery to the bone (on–study treatment and during post-treatment follow-up), or adverse events with diagnosis of pathologic fracture or spinal cord compression, should be assessed according to the SRE criteria and reported with this assessment on the relevant eCRF page. aa At screening and Day1 of Cycle1, record all concomitant medications taken between 14days prior toscreening andDay1 of Cycle1; at subsequent time points, record new concomitant medications and any changes to the daily dosing.
+
+Actual intake of anti-diarrheal, pain medication, or pre-medications at each dosage change should be recorded.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 58/Statistical Analysis Plan CO40016
+
+--- Page 60 ---
+
+Appendix 2 Schedule of Assessments (cont.) bb After informed consent has been obtained but prior to initiation of study drug, only serious adverse events caused by a protocol-mandated intervention should be reported.
+
+After initiation of study drug, all adverse events will be reported until 28 days after the last dose of study treatment.
+
+After this period, investigators should report any serious adverse events that are believed to be related to prior treatment withstudy drug.
+
+The investigator should follow each adverse event until the event has resolved to baseline grade or better, the event is assessed as stable by the investigator, the patient is lost to follow-up, or the patient withdraws consent.
+
+Every effortshould be made to follow all serious adverse events considered to be related to study drug or trial-related procedures until a final outcome can be reported. cc Patients with an unresolved adverse event or serious adverse event will be followed until theevent is resolved or stabilized, the patient is lost to follow-up, or it has been determined that the study treatment or participation is not the cause of the event.
+
+Refer to Section5.6for adverse events that occur after the adverse event reporting period (defined as 28days after the last dose of study drug).
+
+An additional adverse event follow-up visit may be scheduled (even after the SDDV); follow-up by telephone for adverse event resolution date as applicable. dd All PRO questionnaires are required to be completed prior to the administration of study treatment and/or prior to any other study assessment(s) that could bias patients’ responses.
+
+The EORTC QLQ-C30, PRO-CTCAE, and EQ-5D-5L should be completed on Day1 of each cycle and at the SDDV visit.
+
+PRO-CTCAE questionnaires will be completed when available in the local language of the investigational site. ee The global health status/HRQoL (which consists of Questions 29 and 30), pain (Questions 9 and 19), fatigue (Questions 10, 12 and 18) and dyspnea (Question 8) from the EORTC QLQ-C30 and the EQ-5D-5L will be administered during post-treatment follow-up calls (or visits).
+
+Questionnaires during the follow-up period do not need to be conducted in person (i.e., do not require an office visit); however, when administered via telephone, they must be conducted by interview assessment (using instructions and telephone scripts for administering the PRO assessmentswhen available in the local language).
+
+These should be conducted prior to the disease follow-up tumor assessment, if applicable. ff SeeAppendix2for schedule of PK assessments. gg Information about survival, subsequent anti-cancer therapies and associated response, progression date, and most recent tumor assessment date will be collected via telephone calls, patient medical records, and/or clinic visits approximately every 3months (1 month) until death, loss to followup, or study termination by the Sponsor, unless the patient requests to be withdrawn from follow-up; this request must be documented in the source documents and signed by the investigator. hh Tumor biopsy collection is optional for study participation.
+
+For patients who sign an Optional Research Biosample Repository Informed Consent Form and if tumor biopsies can be obtained with minimal risk and discomfort to the patient, a tumor biopsy would be collected at the time of progression within 6 weeks of the progression assessment and prior to initiation of a new anti-cancer therapy; tumor biopsy of the growing lesion is preferred.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 59/Statistical Analysis Plan CO40016
+
+--- Page 61 ---
+
+Appendix 2 Schedule of Assessments (cont.) ii Biomarker eligibility (i.e., presence of PIK3CA/AKT1/PTEN alteration) may be determined using central testing at FMI (from tumor tissue sample provided [CTA] or blood samples provided for ctDNA analysis [FACT assay]) or local/commercial testing using an appropriately validated molecular-based assay at an accredited diagnostic laboratory (CLIA accredited or equivalent).
+
+If local/commercial assessment of PIK3CA/AKT1/PTEN alteration status or central ctDNA is used to confirm biomarker eligibility,tumor tissue is still required to confirm alteration status centrally, with the exception of the commercial FoundationONE CDxassay, which would allow for a reduced tissue requirement (SeeSection4.1.1 ), randomization should proceed based on the local result with no requirement to wait for central confirmation of biomarker eligibility.
+
+For all local/commercial molecular testing results used to determine biomarker eligibility a full laboratory report must be available and captured within the patient’s source documents to support enrollment, key details of the test and result used to confirm biomarker eligibility should be entered into the eCRF.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 60/Statistical Analysis Plan CO40016
+
+--- Page 62 ---
+
+Appendix 3 Schedule of Pharmacokinetic, Immunogenicity, and Biomarker Samples Visit Timepoint Sample Type Cycle 1, Day 1 13 hours postPlasma sample for ipatasertib/placebo ipatasertib/placebo and G-037720 Cycle 1, Day 15 a Predose b Plasma sample for ipatasertib/placebo and G-037720 Cycle 1, Day 15 a 13 hours postPlasma sample for ipatasertib/placebo ipatasertib/placebo and G-037720 Cycle 3, Day 15a Predoseb Plasma sample for ipatasertib/placebo and G-037720 Cycle 3, Day 15a 24 hours postPlasma sample for ipatasertib/placebo ipatasertib/placebo and G-037720 PKpharmacokinetic.
+
+Notes: Study assessments may be delayed or moved ahead of the window to accommodate holidays, vacations, and unforeseen delays.  Dose time on the day before and day of PK sampling should be accurately reported.  Any incidence of vomiting within 3 hours post drug administration should also be recorded for the day of PK sampling.
+
+PK sampling timepoint should be accurately reported. a Other than the Cycle 1,Day1 visit, if 3 or more consecutive doses of ipatasertib/placebo were withheld immediately prior to the PK sample collection, the sample collection may be delayed to another day when at least 3consecutive days of ipatasertib/placebo dosing have been administered.
+
+The sampling can be done any day after Day 12 of the relevant cycle corresponding with a planned ipatasertib/placebo dosing day. b Predose0 to 3 hours prior to dosing with ipatasertib/placebo on the day of thevisit.
+
+Ipatasertib—F.
+
+Hoffmann-La Roche Ltd 61/Statistical Analysis Plan CO40016

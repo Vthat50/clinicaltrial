@@ -1,0 +1,899 @@
+# =============================================================================
+# GENERATION RULES CONFIGURATION  (v2.0 — derived from 60 reference SAPs)
+# =============================================================================
+# This file controls WHAT tables, figures, and listings are generated.
+# Edit this file to add/remove/modify TLF generation rules without
+# changing Python code.
+#
+# HOW CONDITIONS WORK:
+#   "always" (no condition field) means the item is always generated.
+#   "condition" uses simple expressions:
+#       facts.assessments_collected.labs == true
+#       facts.treatment_periods | length > 1
+#       facts.study_design.type in [biosimilar, equivalence]
+#       facts.subgroups | length > 0
+#       endpoint.primary == true or endpoint.type == time_to_event
+#       endpoint.censoring_rules is not empty
+#
+# PLACEHOLDERS in titles and footnotes:
+#   {endpoint.name}       - endpoint name from facts
+#   {review}              - review type (e.g. Central, Local)
+#   {population}          - population name
+#   {period}              - treatment period name
+#   {aesi.name}           - AESI category name
+#   {aesi.definition}     - AESI definition text
+#   {therapy.drug_name}   - first word of backbone therapy string
+#   {instrument}          - QoL instrument name
+#   {covariates}          - comma-joined list of endpoint covariates
+#   {margin}              - equivalence margin from study_design
+#   {landmarks}           - comma-joined landmark timepoints as "X-month"
+#   {censoring}           - censoring rules text
+#   {criteria}            - response criteria text
+# =============================================================================
+
+version: "2.0"
+config_type: "generation_rules"
+
+
+# =============================================================================
+# DEFAULT ANALYSIS METHOD MAPPING
+# =============================================================================
+# When the protocol does not specify an analysis method for an endpoint,
+# assign a default based on endpoint type and study design.
+# Rules are evaluated top-to-bottom; first match wins.
+# =============================================================================
+default_analysis_methods:
+  - endpoint_type: binary
+    design_type_in: [biosimilar, equivalence]
+    method: logistic_regression
+
+  - endpoint_type: binary
+    method: exact_binomial
+
+  - endpoint_type: time_to_event
+    method: cox_ph
+
+  - endpoint_type: continuous
+    design_type_in: [superiority, non_inferiority]
+    method: ancova
+
+  - endpoint_type: continuous
+    method: ancova
+
+  - endpoint_type: ordinal
+    method: cmh
+
+  - endpoint_type: count
+    method: negative_binomial
+
+  - endpoint_type: rate
+    method: negative_binomial
+
+  - endpoint_type: _default
+    method: descriptive
+
+
+# =============================================================================
+# TABLE TYPE TO ICH SECTION MAPPING
+# =============================================================================
+table_type_to_section:
+  # 14.1 — Demographics and disposition
+  disposition: "14.1"
+  demographics: "14.1"
+  medical_history: "14.1"
+  baseline: "14.1"
+  disease_characteristics: "14.1"
+  prior_therapy: "14.1"
+  protocol_deviations: "14.1"
+
+  # 14.2 — Efficacy
+  time_to_event: "14.2"
+  binary_response: "14.2"
+  continuous_endpoint: "14.2"
+  pro_qol: "14.2"
+  subgroup_forest: "14.2"
+  responder_analysis: "14.2"
+  sensitivity_analysis: "14.2"
+
+  # 14.3 — Safety
+  ae_overview: "14.3"
+  ae_by_soc_pt: "14.3"
+  ae_special: "14.3"
+  ae_by_severity: "14.3"
+  aesi: "14.3"
+  labs: "14.3"
+  lab_shift: "14.3"
+  labs_hematology: "14.3"
+  labs_chemistry: "14.3"
+  labs_urinalysis: "14.3"
+  labs_liver: "14.3"
+  vitals: "14.3"
+  ecg: "14.3"
+  exposure: "14.3"
+  dose_modification: "14.3"
+  concomitant_medications: "14.3"
+  prior_medications: "14.3"
+
+  # 14.4 — PK and immunogenicity
+  pk_parameters: "14.4"
+  pk_concentration: "14.4"
+  immunogenicity: "14.4"
+
+  # Figures
+  consort_diagram: "14.1"
+  lab_trend_plot: "14.3"
+  qol_line_plot: "14.2"
+
+  # 16.2 — Listings
+  listing: "16.2"
+
+
+# =============================================================================
+# MANDATORY TABLES (generated for every study)
+# =============================================================================
+# These appear in >90% of the 60 reference SAPs analyzed.
+# =============================================================================
+mandatory_tables:
+  # --- 14.1: Demographics and Disposition ---
+  - type: disposition
+    title: "Subject Disposition"
+    population: "All Screened"
+
+  - type: protocol_deviations
+    title: "Protocol Deviations"
+    population: "All Enrolled"
+
+  - type: demographics
+    title: "Demographics and Baseline Characteristics"
+    population: "ITT"
+    extra_rows_from: "facts.disease_specific_baseline"
+
+  - type: medical_history
+    title: "Medical History"
+    population: "ITT"
+
+  - type: prior_therapy
+    title: "Prior and Concomitant Therapies"
+    population: "ITT"
+
+  # --- 14.3: Safety ---
+  - type: exposure
+    title: "Study Drug Exposure"
+    population: "Safety"
+
+  - type: concomitant_medications
+    title: "Concomitant Medications"
+    population: "Safety"
+
+  - type: ae_overview
+    title: "Overview of Treatment-Emergent Adverse Events"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "TEAEs by SOC and PT"
+    population: "Safety"
+
+
+# =============================================================================
+# ADDITIONAL SAFETY TABLES (generated for every study)
+# =============================================================================
+# These AE subset tables appear in >85% of the 60 reference SAPs.
+# =============================================================================
+additional_safety_tables:
+  - type: ae_by_soc_pt
+    title: "Treatment-Related TEAEs by SOC and PT"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "TEAEs Grade \u22653 by SOC and PT"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "Serious TEAEs by SOC and PT"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "TEAEs Leading to Discontinuation of Study Treatment"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "TEAEs Leading to Death"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "TEAEs Leading to Dose Modification"
+    population: "Safety"
+
+  - type: ae_by_soc_pt
+    title: "TEAEs with Incidence \u22655% in Any Treatment Group"
+    population: "Safety"
+
+  - type: ae_by_severity
+    title: "TEAEs by SOC, PT, and Maximum Severity"
+    population: "Safety"
+
+
+# =============================================================================
+# DESIGN-CONDITIONAL SAFETY TABLES
+# =============================================================================
+# Additional safety tables generated based on study design characteristics.
+# =============================================================================
+design_conditional_safety_tables:
+  # Dose modification tables — common in oncology and multi-dose studies
+  - condition: "facts.assessments_collected.dose_modifications == true"
+    tables:
+      - type: dose_modification
+        title: "Dose Reductions"
+        population: "Safety"
+      - type: dose_modification
+        title: "Dose Interruptions"
+        population: "Safety"
+
+  # Drug-related AE subsets for biosimilar / equivalence studies
+  - condition: "facts.study_design.type in [biosimilar, equivalence]"
+    tables:
+      - type: ae_by_soc_pt
+        title: "TEAEs Related to Study Drug"
+        population: "Safety"
+      - type: ae_by_soc_pt
+        title: "TEAEs Related to Study Drug Grade \u22653"
+        population: "Safety"
+
+  # Biosimilar-specific tables (from NCT03676192 gap analysis)
+  - condition: "facts.study_design.type in [biosimilar, equivalence]"
+    tables:
+      - type: sensitivity_analysis
+        title: "Tipping Point Analysis \u2014 Primary Efficacy Endpoint"
+        population: "ITT"
+      - type: other
+        title: "Equivalence / Biosimilarity Margins Summary"
+        population: "ITT"
+      - type: prior_therapy
+        title: "Salvage Treatment by Category"
+        population: "ITT"
+      - type: prior_therapy
+        title: "Salvage Treatment \u2014 Systemic Therapy by Drug Class"
+        population: "ITT"
+      - type: exposure
+        title: "Study Drug Exposure \u2014 Dose Administration by Cycle"
+        population: "Safety"
+      - type: exposure
+        title: "Study Drug Exposure \u2014 Reasons for Non-Administration"
+        population: "Safety"
+      - type: exposure
+        title: "Study Drug Exposure \u2014 Dose Delay and Actions Taken"
+        population: "Safety"
+      - type: exposure
+        title: "Study Drug Exposure \u2014 Dose Summary Statistics"
+        population: "Safety"
+
+  # Biosimilar oncology prior therapy detail
+  - condition: "facts.study_design.type in [biosimilar, equivalence] and facts.therapeutic_area == oncology"
+    tables:
+      - type: prior_therapy
+        title: "Prior Cancer Therapy \u2014 Surgical Procedures"
+        population: "ITT"
+      - type: prior_therapy
+        title: "Prior Cancer Therapy \u2014 Radiotherapy"
+        population: "ITT"
+      - type: prior_therapy
+        title: "Prior Cancer Therapy \u2014 Systemic by Drug Class"
+        population: "ITT"
+
+
+# =============================================================================
+# ENDPOINT TABLES
+# =============================================================================
+# One table per endpoint x population x review combination.
+# =============================================================================
+endpoint_tables:
+  type_mapping:
+    time_to_event: time_to_event
+    binary: binary_response
+    continuous: continuous_endpoint
+    count: continuous_endpoint
+    ordinal: continuous_endpoint
+    rate: continuous_endpoint
+
+  title_pattern: "{endpoint.name} ({population} Population)"
+  title_with_review_pattern: "{endpoint.name} ({review} Review) ({population} Population)"
+
+  generate_footnotes: true
+
+
+# =============================================================================
+# SUBGROUP ANALYSIS TABLES
+# =============================================================================
+# One subgroup table per primary/key-secondary endpoint when subgroups exist.
+# =============================================================================
+subgroup_tables:
+  for_each: "facts.endpoints"
+  condition: "endpoint.primary == true or endpoint.key_secondary == true"
+  global_condition: "facts.subgroups | length > 0"
+  type: subgroup_forest
+  title_pattern: "Subgroup Analysis of {endpoint.name}"
+  population: "ITT"
+
+
+# =============================================================================
+# AESI TABLES
+# =============================================================================
+# One ae_special table per AESI from facts.aesis
+# =============================================================================
+aesi_tables:
+  for_each: "facts.aesis"
+  type: ae_special
+  title_pattern: "AESI - {aesi.name}"
+  population: "Safety"
+  extra_rows_from: "aesi.definition"
+
+
+# =============================================================================
+# ASSESSMENT-CONDITIONAL TABLES
+# =============================================================================
+# Each group is generated only when its condition is true.
+# Split lab tables into hematology / chemistry / urinalysis as seen in
+# >80% of industry-sponsored SAPs (NCT03654755, NCT04871711, NCT05117060,
+# NCT04250363, NCT05791565, NCT03882424, etc.).
+# =============================================================================
+assessment_tables:
+  # --- Laboratory Parameters (split by panel) ---
+  - condition: "facts.assessments_collected.labs == true"
+    tables:
+      - type: labs_hematology
+        title: "Hematology Parameters - Summary Statistics"
+        population: "Safety"
+      - type: labs_chemistry
+        title: "Clinical Chemistry Parameters - Summary Statistics"
+        population: "Safety"
+      - type: labs_urinalysis
+        title: "Urinalysis Parameters - Summary Statistics"
+        population: "Safety"
+      - type: lab_shift
+        title: "Hematology Parameters - Shift Table (Baseline to Worst Post-Baseline)"
+        population: "Safety"
+      - type: lab_shift
+        title: "Clinical Chemistry Parameters - Shift Table (Baseline to Worst Post-Baseline)"
+        population: "Safety"
+      - type: labs
+        title: "Laboratory Parameters - CTCAE Grade Summary"
+        population: "Safety"
+      - type: lab_shift
+        title: "Laboratory Parameters - CTCAE Grade Shift (Baseline to Worst Post-Baseline)"
+        population: "Safety"
+      - type: labs
+        title: "Subjects with Markedly Abnormal Laboratory Values"
+        population: "Safety"
+
+  # --- Liver function / Hy's Law (common in hepatotoxicity monitoring) ---
+  - condition: "facts.assessments_collected.liver_function == true"
+    tables:
+      - type: labs_liver
+        title: "Liver Function Tests - Summary Statistics"
+        population: "Safety"
+      - type: labs_liver
+        title: "Potential Hy's Law Cases"
+        population: "Safety"
+
+  # --- Vital Signs ---
+  - condition: "facts.assessments_collected.vitals == true"
+    tables:
+      - type: vitals
+        title: "Vital Signs - Summary Statistics by Visit"
+        population: "Safety"
+      - type: vitals
+        title: "Vital Signs - Change from Baseline by Visit"
+        population: "Safety"
+      - type: vitals
+        title: "Subjects with Markedly Abnormal Vital Sign Values"
+        population: "Safety"
+
+  # --- ECG ---
+  - condition: "facts.assessments_collected.ecg == true"
+    tables:
+      - type: ecg
+        title: "Electrocardiogram Parameters - Summary by Visit"
+        population: "Safety"
+      - type: ecg
+        title: "Electrocardiogram - Qualitative Results"
+        population: "Safety"
+      - type: ecg
+        title: "QTcF Change from Baseline - Categorical Analysis"
+        population: "Safety"
+
+  # --- PK Parameters ---
+  - condition: "facts.assessments_collected.pk == true"
+    tables:
+      - type: pk_concentration
+        title: "Plasma Drug Concentration by Visit - Summary Statistics"
+        population: "PK"
+      - type: pk_parameters
+        title: "PK Parameters - Summary Statistics"
+        population: "PK"
+
+  # --- Immunogenicity / ADA ---
+  - condition: "facts.assessments_collected.immunogenicity == true"
+    tables:
+      - type: immunogenicity
+        title: "Immunogenicity - Anti-Drug Antibody Incidence"
+        population: "Safety"
+      - type: immunogenicity
+        title: "Immunogenicity - Neutralizing Antibody Status"
+        population: "Safety"
+      - type: ae_by_soc_pt
+        title: "TEAEs by ADA Status"
+        population: "Safety"
+
+  # --- Quality of Life (per instrument) ---
+  - condition: "facts.assessments_collected.qol | is_list_with_items"
+    for_each: "facts.assessments_collected.qol"
+    tables:
+      - type: pro_qol
+        title: "{instrument} - Summary by Visit"
+        population: "ITT"
+      - type: pro_qol
+        title: "{instrument} - Change from Baseline"
+        population: "ITT"
+
+  # --- Physical Examination ---
+  - condition: "facts.assessments_collected.physical_exam == true"
+    tables:
+      - type: labs
+        title: "Physical Examination - Shift Table"
+        population: "Safety"
+
+  # --- ECOG Performance Status ---
+  - condition: "facts.assessments_collected.ecog_ps == true"
+    tables:
+      - type: labs
+        title: "ECOG Performance Status by Visit"
+        population: "Safety"
+      - type: lab_shift
+        title: "ECOG Performance Status - Shift Table (Baseline to Worst Post-Baseline)"
+        population: "Safety"
+
+  # --- Pregnancy Test ---
+  - condition: "facts.assessments_collected.pregnancy_test == true"
+    tables:
+      - type: labs
+        title: "Pregnancy Test Summary"
+        population: "Safety"
+
+  # --- Viral Serology ---
+  - condition: "facts.assessments_collected.viral_serology == true"
+    tables:
+      - type: labs
+        title: "Viral Serology"
+        population: "ITT"
+
+  # --- Gene / Biomarker Screening ---
+  - condition: "facts.assessments_collected.gene_screening == true"
+    tables:
+      - type: demographics
+        title: "Biomarker and Genomic Screening"
+        population: "ITT"
+
+  # --- Coagulation ---
+  - condition: "facts.assessments_collected.coagulation == true"
+    tables:
+      - type: labs
+        title: "Coagulation Parameters - Summary Statistics"
+        population: "Safety"
+
+  # --- Thyroid Function ---
+  - condition: "facts.assessments_collected.thyroid == true"
+    tables:
+      - type: labs
+        title: "Thyroid Function Tests - Summary Statistics"
+        population: "Safety"
+
+
+# =============================================================================
+# BACKBONE THERAPY TABLES
+# =============================================================================
+backbone_therapy_tables:
+  for_each: "facts.backbone_therapies"
+  type: exposure
+  title_pattern: "{therapy.drug_name} Exposure"
+  population: "Safety"
+
+
+# =============================================================================
+# PERIOD-SPLIT TABLES
+# =============================================================================
+# When >1 treatment period, generate per-period versions of these tables.
+# Common in oncology (induction/maintenance), rheumatology (open-label
+# extension), and infectious disease (treatment/follow-up).
+# =============================================================================
+period_split_tables:
+  condition: "facts.treatment_periods | length > 1"
+  for_each: "facts.treatment_periods"
+  tables:
+    - type: ae_overview
+      title_pattern: "Overview of TEAEs - {period}"
+      population: "Safety"
+    - type: ae_by_soc_pt
+      title_pattern: "TEAEs by SOC and PT - {period}"
+      population: "Safety"
+    - type: ae_by_soc_pt
+      title_pattern: "Serious TEAEs - {period}"
+      population: "Safety"
+    - type: concomitant_medications
+      title_pattern: "Concomitant Medications - {period}"
+      population: "Safety"
+    - type: exposure
+      title_pattern: "Study Drug Exposure - {period}"
+      population: "Safety"
+    # Biosimilar additional period-split tables
+    - type: ae_by_soc_pt
+      title_pattern: "TEAEs with Incidence \u22655% in Any Treatment Group - {period}"
+      population: "Safety"
+      condition: "facts.study_design.type in [biosimilar, equivalence]"
+    - type: ae_by_soc_pt
+      title_pattern: "TEAEs Grade \u22653 by SOC and PT - {period}"
+      population: "Safety"
+      condition: "facts.study_design.type in [biosimilar, equivalence]"
+
+
+# =============================================================================
+# FIGURES
+# =============================================================================
+# Patterns derived from 60 reference SAPs:
+#   - KM plots: universal for time-to-event endpoints
+#   - Forest plots: when subgroups defined, for primary + TTE endpoints
+#   - Waterfall plots: oncology tumor response (binary response)
+#   - Swimmer plots: oncology duration of response
+#   - Mean change over time: continuous endpoints with repeated measures
+#   - Concentration-time profiles: when PK data collected
+# =============================================================================
+figure_rules:
+  # Kaplan-Meier plots for every time-to-event endpoint
+  - for_each: "facts.endpoints"
+    condition: "endpoint.type == time_to_event"
+    type: km_plot
+    title_pattern: "Kaplan-Meier Plot of {endpoint.name}"
+    endpoint_field: "endpoint.name"
+
+  # Forest plots for primary and key secondary endpoints (when subgroups exist)
+  - for_each: "facts.endpoints"
+    condition: "endpoint.primary == true or endpoint.key_secondary == true"
+    global_condition: "facts.subgroups | length > 0"
+    type: forest_plot
+    title_pattern: "Forest Plot of {endpoint.name} by Subgroup"
+    endpoint_field: "endpoint.name"
+
+  # Waterfall plot for binary/tumor response endpoints (oncology)
+  - for_each: "facts.endpoints"
+    condition: "endpoint.type == binary"
+    global_condition: "facts.therapeutic_area == oncology"
+    type: waterfall_plot
+    title_pattern: "Waterfall Plot of Best Percentage Change in Tumor Size"
+    endpoint_field: "endpoint.name"
+
+  # Swimmer plot for duration of response (oncology, for key secondary TTE endpoints)
+  - for_each: "facts.endpoints"
+    condition: "endpoint.type == time_to_event and endpoint.key_secondary == true"
+    global_condition: "facts.therapeutic_area == oncology"
+    type: swimmer_plot
+    title_pattern: "Swimmer Plot of {endpoint.name}"
+    endpoint_field: "endpoint.name"
+
+  # Mean change over time for continuous endpoints
+  - for_each: "facts.endpoints"
+    condition: "endpoint.type == continuous and endpoint.primary == true"
+    type: line_plot
+    title_pattern: "Mean Change from Baseline in {endpoint.name} Over Time"
+    endpoint_field: "endpoint.name"
+
+  # PK concentration-time profile
+  - for_each: "facts.endpoints"
+    condition: "endpoint.type == pk_concentration"
+    global_condition: "facts.assessments_collected.pk == true"
+    type: pk_profile
+    title_pattern: "Mean Plasma Concentration-Time Profile"
+    endpoint_field: "endpoint.name"
+
+  # CONSORT flow diagram (6% of SAPs — standard for RCTs)
+  - type: consort_diagram
+    title_pattern: "CONSORT Flow Diagram"
+    global_condition: "facts.study_design.type in [superiority, non_inferiority, equivalence, biosimilar]"
+
+  # Laboratory parameter trend plots (12% of SAPs)
+  - type: lab_trend_plot
+    title_pattern: "Mean Laboratory Values Over Time — Selected Parameters"
+    global_condition: "facts.assessments_collected.labs == true"
+
+  # QoL score over time (6% of SAPs — one per instrument)
+  - for_each: "facts.assessments_collected.qol"
+    global_condition: "facts.assessments_collected.qol | is_list_with_items"
+    type: qol_line_plot
+    title_pattern: "{instrument} Score Over Time"
+
+  # Tipping point analysis plot (biosimilar / equivalence studies)
+  - type: tipping_point_plot
+    title_pattern: "Tipping Point Analysis Plot \u2014 Primary Efficacy Endpoint"
+    global_condition: "facts.study_design.type in [biosimilar, equivalence]"
+
+
+# =============================================================================
+# MANDATORY LISTINGS (generated for every study)
+# =============================================================================
+# Core ICH E3 Section 16.2 listings found in >85% of reference SAPs.
+# =============================================================================
+mandatory_listings:
+  # --- Disposition ---
+  - title: "Subject Disposition"
+    population: "ITT"
+    columns: ["Subject ID", "Treatment", "Date of Randomization", "Status", "Reason for Discontinuation", "Date of Last Dose", "Date of Last Contact"]
+
+  - title: "Screening Failures"
+    population: "All Screened"
+    columns: ["Subject ID", "Screening Date", "Reason for Screen Failure"]
+
+  - title: "Protocol Deviations"
+    population: "All Enrolled"
+    columns: ["Subject ID", "Treatment", "Category", "Description", "Date", "Major/Minor"]
+
+  # --- Demographics and baseline ---
+  - title: "Demographics"
+    population: "ITT"
+    columns: ["Subject ID", "Age", "Sex", "Race", "Ethnicity", "Weight (kg)", "Height (cm)", "BMI (kg/m\u00b2)"]
+
+  - title: "Medical History"
+    population: "ITT"
+    columns: ["Subject ID", "SOC", "PT", "Ongoing", "Start Date"]
+
+  - title: "Disease Characteristics"
+    population: "ITT"
+    columns: ["Subject ID", "Treatment", "Diagnosis", "Disease Stage", "Histology", "Prior Lines of Therapy"]
+
+  # --- Prior and concomitant treatments ---
+  - title: "Prior Medications"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "ATC Class", "Drug Name", "Route", "Start Date", "Stop Date", "Indication"]
+
+  - title: "Concomitant Medications"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "ATC Class", "Drug Name", "Route", "Start Date", "Stop Date", "Indication"]
+
+  # --- Exposure ---
+  - title: "Study Drug Exposure"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "Cycle/Visit", "Planned Dose", "Actual Dose", "Date Administered"]
+
+  # --- Adverse events ---
+  - title: "All Adverse Events"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "SOC", "PT", "Verbatim Term", "Severity/Grade", "Relationship", "Serious", "Action Taken", "Outcome", "Start Date", "End Date", "Duration (days)"]
+
+  - title: "Serious Adverse Events"
+    population: "Safety"
+    columns: ["Subject ID", "Age", "Sex", "Treatment", "SOC", "PT", "Severity/Grade", "Relationship", "Seriousness Criteria", "Outcome", "Start Date", "End Date"]
+
+  - title: "TEAEs Leading to Discontinuation of Study Treatment"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "SOC", "PT", "Severity/Grade", "Relationship", "Action Taken", "Start Date"]
+
+  - title: "TEAEs Leading to Death"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "SOC", "PT", "Relationship", "Date of Death", "Cause of Death"]
+
+  - title: "Deaths"
+    population: "Safety"
+    columns: ["Subject ID", "Age", "Sex", "Treatment", "Date of Death", "Primary Cause of Death", "Relationship to Study Drug", "Days on Study"]
+
+  - title: "Adverse Events of Special Interest"
+    population: "Safety"
+    columns: ["Subject ID", "Treatment", "AESI Category", "PT", "Severity/Grade", "Relationship", "Serious", "Outcome", "Start Date", "End Date"]
+
+  # --- Efficacy ---
+  - title: "Efficacy Data"
+    population: "ITT"
+    columns: ["Subject ID", "Treatment", "Visit", "Assessment", "Response", "Date of Assessment"]
+
+
+# =============================================================================
+# BIOSIMILAR-CONDITIONAL LISTINGS
+# =============================================================================
+biosimilar_listings:
+  condition: "facts.study_design.type in [biosimilar, equivalence]"
+  listings:
+    - title: "Salvage Treatment Details"
+      population: "ITT"
+      columns: ["Subject ID", "Treatment", "Category", "Drug Name/Procedure", "Drug Class", "Start Date", "End Date", "Reason"]
+
+    - title: "Inclusion and Exclusion Criteria"
+      population: "All Screened"
+      columns: ["Subject ID", "Criterion Number", "Criterion Type", "Criterion Text", "Met"]
+
+    - title: "General Comments"
+      population: "All Enrolled"
+      columns: ["Subject ID", "Treatment", "Visit", "Comment", "Date"]
+
+
+# =============================================================================
+# ASSESSMENT-CONDITIONAL LISTINGS
+# =============================================================================
+assessment_listings:
+  # --- Laboratory listings (split by panel) ---
+  - condition: "facts.assessments_collected.labs == true"
+    listings:
+      - title: "Hematology"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Baseline Value", "Result", "Change from Baseline", "Reference Range", "Flag", "CTCAE Grade"]
+      - title: "Clinical Chemistry"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Baseline Value", "Result", "Change from Baseline", "Reference Range", "Flag", "CTCAE Grade"]
+      - title: "Urinalysis"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Result", "Flag"]
+      - title: "Subjects with Markedly Abnormal Laboratory Values"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Result", "Criterion Met"]
+
+  # --- Liver function ---
+  - condition: "facts.assessments_collected.liver_function == true"
+    listings:
+      - title: "Liver Function Tests"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Result", "ULN Multiple", "Flag"]
+      - title: "Potential Hy's Law Cases"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "ALT Peak", "Bilirubin Peak", "ALP Peak", "Date of ALT Peak", "Date of Bilirubin Peak", "Narrative Summary"]
+
+  # --- Vital signs ---
+  - condition: "facts.assessments_collected.vitals == true"
+    listings:
+      - title: "Vital Signs"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Baseline Value", "Result", "Change from Baseline"]
+
+  # --- ECG ---
+  - condition: "facts.assessments_collected.ecg == true"
+    listings:
+      - title: "Electrocardiogram Parameters"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Visit", "HR", "PR", "QRS", "QT", "QTcF", "Interpretation"]
+
+  # --- PK ---
+  - condition: "facts.assessments_collected.pk == true"
+    listings:
+      - title: "PK Concentrations"
+        population: "PK"
+        columns: ["Subject ID", "Treatment", "Visit", "Nominal Time", "Actual Time", "Concentration", "BLQ Flag"]
+      - title: "PK Parameters"
+        population: "PK"
+        columns: ["Subject ID", "Treatment", "Parameter", "Value", "Unit"]
+
+  # --- Immunogenicity ---
+  - condition: "facts.assessments_collected.immunogenicity == true"
+    listings:
+      - title: "Immunogenicity - Anti-Drug Antibody Results"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Visit", "ADA Status", "Titer", "NAb Status"]
+
+  # --- QoL (per instrument) ---
+  - condition: "facts.assessments_collected.qol | is_list_with_items"
+    for_each: "facts.assessments_collected.qol"
+    listings:
+      - title: "{instrument} Responses"
+        population: "ITT"
+        columns: ["Subject ID", "Treatment", "Visit", "Domain/Scale", "Score", "Change from Baseline"]
+
+  # --- Physical Examination ---
+  - condition: "facts.assessments_collected.physical_exam == true"
+    listings:
+      - title: "Physical Examination"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Visit", "Body System", "Finding", "Clinical Significance"]
+
+  # --- Pregnancy Test ---
+  - condition: "facts.assessments_collected.pregnancy_test == true"
+    listings:
+      - title: "Pregnancy Test"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Visit", "Type", "Result"]
+
+  # --- Viral Serology ---
+  - condition: "facts.assessments_collected.viral_serology == true"
+    listings:
+      - title: "Viral Serology"
+        population: "ITT"
+        columns: ["Subject ID", "Treatment", "Visit", "Parameter", "Result"]
+
+  # --- Coagulation ---
+  - condition: "facts.assessments_collected.coagulation == true"
+    listings:
+      - title: "Coagulation Parameters"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Result", "Reference Range", "Flag"]
+
+  # --- Thyroid Function ---
+  - condition: "facts.assessments_collected.thyroid == true"
+    listings:
+      - title: "Thyroid Function Tests"
+        population: "Safety"
+        columns: ["Subject ID", "Treatment", "Parameter", "Visit", "Result", "Reference Range", "Flag"]
+
+
+# =============================================================================
+# BACKBONE THERAPY LISTINGS
+# =============================================================================
+backbone_therapy_listings:
+  for_each: "facts.backbone_therapies"
+  listings:
+    - title: "{therapy.drug_name} Exposure"
+      population: "Safety"
+      columns: ["Subject ID", "Treatment", "Cycle/Visit", "Planned Dose", "Actual Dose", "Date Administered"]
+
+
+# =============================================================================
+# ENDPOINT FOOTNOTE TEMPLATES
+# =============================================================================
+# Selected by analysis_method. Placeholders filled from endpoint and facts.
+# =============================================================================
+endpoint_footnote_templates:
+  logistic_regression:
+    - text: "Logistic regression model"
+      append_if_covariates: " adjusted for {covariates}"
+      suffix: "."
+    - text: "Risk difference and 95% CI estimated by Miettinen-Nurminen method."
+      condition: "facts.study_design.type in [biosimilar, equivalence]"
+      append_if_margin: " Equivalence margin: {margin}."
+    - text: "Response rate and 95% CI calculated using Clopper-Pearson exact method."
+
+  cox_ph:
+    - text: "Hazard ratio from Cox proportional hazards model"
+      append_if_covariates: " stratified by {covariates}"
+      suffix: "."
+    - text: "Two-sided p-value from stratified log-rank test."
+
+  kaplan_meier:
+    - text: "Kaplan-Meier estimates; 95% CI by Brookmeyer-Crowley method."
+    - text: "Median follow-up estimated by reverse Kaplan-Meier method."
+
+  exact_binomial:
+    - text: "95% CI calculated using Clopper-Pearson exact method."
+
+  clopper_pearson:
+    - text: "95% CI calculated using Clopper-Pearson exact method."
+
+  cmh:
+    - text: "P-value from Cochran-Mantel-Haenszel test"
+      append_if_covariates: " stratified by {covariates}"
+      suffix: "."
+
+  ancova:
+    - text: "LS means and p-value from ANCOVA model"
+      append_if_covariates: " with covariates: {covariates}"
+      suffix: "."
+
+  mmrm:
+    - text: "LS means from mixed model for repeated measures (MMRM)"
+      append_if_covariates: " with covariates: {covariates}"
+      suffix: "."
+    - text: "Unstructured covariance matrix used."
+
+  negative_binomial:
+    - text: "Rate ratio from negative binomial regression"
+      append_if_covariates: " adjusted for {covariates}"
+      suffix: "."
+
+  chi_square:
+    - text: "P-value from chi-square test (or Fisher's exact test when expected count <5)."
+
+  wilcoxon:
+    - text: "P-value from Wilcoxon rank-sum test."
+
+  fisher_exact:
+    - text: "P-value from Fisher's exact test."
+
+  # Common footnotes appended for any method when endpoint has these fields
+  _common:
+    - condition: "endpoint.censoring_rules is not empty"
+      text: "Censoring: {censoring}."
+    - condition: "endpoint.response_criteria is not empty"
+      text: "Response assessed per {criteria}."
+    - condition: "endpoint.landmark_timepoints | length > 0"
+      text: "Landmark timepoints: {landmarks}."
+    - text: "All analyses based on the {population} population."

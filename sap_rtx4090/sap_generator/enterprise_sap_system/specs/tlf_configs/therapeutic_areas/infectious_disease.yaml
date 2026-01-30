@@ -1,0 +1,598 @@
+# =============================================================================
+# INFECTIOUS DISEASE THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, and table structures for
+# infectious disease and vaccine clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "infectious_disease"
+display_name: "Infectious Disease / Vaccines"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  viral:
+    - "HIV"
+    - "HIV-1"
+    - "hepatitis B"
+    - "HBV"
+    - "chronic hepatitis B"
+    - "hepatitis C"
+    - "HCV"
+    - "COVID-19"
+    - "SARS-CoV-2"
+    - "influenza"
+    - "respiratory syncytial virus"
+    - "RSV"
+    - "herpes simplex virus"
+    - "HSV"
+    - "cytomegalovirus"
+    - "CMV"
+    - "Epstein-Barr virus"
+    - "EBV"
+    - "human papillomavirus"
+    - "HPV"
+    - "dengue"
+    - "Ebola"
+    - "Zika"
+
+  bacterial:
+    - "urinary tract infection"
+    - "UTI"
+    - "complicated UTI"
+    - "cUTI"
+    - "complicated intra-abdominal infection"
+    - "cIAI"
+    - "hospital-acquired bacterial pneumonia"
+    - "HABP"
+    - "ventilator-associated bacterial pneumonia"
+    - "VABP"
+    - "acute bacterial skin and skin structure infection"
+    - "ABSSSI"
+    - "Clostridioides difficile infection"
+    - "CDI"
+    - "tuberculosis"
+    - "TB"
+    - "MDR-TB"
+    - "XDR-TB"
+    - "sepsis"
+    - "bacteremia"
+    - "bone and joint infection"
+    - "endocarditis"
+
+  fungal:
+    - "invasive aspergillosis"
+    - "invasive candidiasis"
+    - "candidemia"
+    - "cryptococcal meningitis"
+    - "mucormycosis"
+    - "coccidioidomycosis"
+    - "histoplasmosis"
+
+  parasitic:
+    - "malaria"
+    - "Plasmodium falciparum"
+    - "Chagas disease"
+    - "leishmaniasis"
+
+  vaccines:
+    - "vaccine"
+    - "prophylactic vaccine"
+    - "therapeutic vaccine"
+    - "mRNA vaccine"
+    - "adjuvanted vaccine"
+    - "conjugate vaccine"
+    - "live attenuated vaccine"
+    - "inactivated vaccine"
+
+# =============================================================================
+# INFECTIOUS DISEASE ENDPOINTS
+# =============================================================================
+endpoints:
+
+  virology:
+    viral_load:
+      label: "Change from Baseline in Viral Load"
+      definition: "Change from baseline in plasma HIV-1 RNA or HBV DNA"
+      dataset: "ADLB"
+      unit: "log10 copies/mL"
+      analysis_method: "mmrm"
+      note: "Log10-transformed"
+      table_rows:
+        - "n"
+        - "Baseline Mean (SD) log10 copies/mL"
+        - "Week {X} Mean (SD) log10 copies/mL"
+        - "Mean Change from Baseline (SD)"
+        - "LS Mean Difference vs {comparator} [95% CI]"
+
+    virologic_suppression:
+      label: "Virologic Suppression"
+      definition: "Proportion of subjects with viral load below limit of quantification"
+      dataset: "ADLB"
+      thresholds:
+        hiv: ["<50 copies/mL", "<200 copies/mL", "<400 copies/mL"]
+        hbv: ["<29 IU/mL", "<2000 IU/mL"]
+        hcv: ["<LLOQ (15 IU/mL)", "Target Not Detected"]
+      analysis_method: "exact_binomial"
+      note: "FDA Snapshot algorithm for HIV"
+      table_rows:
+        - "Virologic Success (HIV RNA <50 c/mL), n (%)"
+        - "  95% CI"
+        - "  Difference vs {comparator} [95% CI]"
+        - "Virologic Failure, n (%)"
+        - "  With resistance mutations, n (%)"
+        - "No Virologic Data at Window, n (%)"
+        - "  Discontinued due to AE, n (%)"
+        - "  Discontinued for other reasons, n (%)"
+        - "  Missing data during window, n (%)"
+
+    svr:
+      label: "Sustained Virologic Response"
+      definition: "HCV RNA below LLOQ at 12 weeks after end of treatment"
+      dataset: "ADLB"
+      analysis_method: "exact_binomial"
+      note: "SVR12; cure endpoint for HCV"
+      table_rows:
+        - "SVR12, n (%)"
+        - "  95% CI"
+        - "Relapse, n (%)"
+        - "On-treatment virologic failure, n (%)"
+        - "Other, n (%)"
+
+    cd4_count:
+      label: "Change from Baseline in CD4+ T-Cell Count"
+      definition: "Change from baseline in CD4+ count"
+      dataset: "ADLB"
+      unit: "cells/mm3"
+      analysis_method: "ancova"
+      note: "HIV trials"
+
+    hbeag_seroconversion:
+      label: "HBeAg Seroconversion"
+      definition: "Loss of HBeAg and gain of anti-HBe antibody"
+      dataset: "ADLB"
+      analysis_method: "exact_binomial"
+      note: "HBV trials"
+
+    hbsag_loss:
+      label: "HBsAg Loss"
+      definition: "Loss of hepatitis B surface antigen"
+      dataset: "ADLB"
+      analysis_method: "exact_binomial"
+      note: "Functional cure endpoint for HBV"
+
+  antimicrobial:
+    clinical_cure:
+      label: "Clinical Cure / Clinical Response"
+      definition: "Resolution of signs and symptoms of infection at test-of-cure visit"
+      dataset: "ADRS"
+      categories: ["Clinical Cure", "Clinical Failure", "Indeterminate"]
+      analysis_method: "exact_binomial"
+      note: "Assessed at test-of-cure (TOC) visit, typically 7-14 days after end of therapy"
+      table_rows:
+        - "Clinical Response at TOC, n (%)"
+        - "  95% CI"
+        - "  Difference vs {comparator} [95% CI]"
+        - "Clinical Failure, n (%)"
+        - "Indeterminate, n (%)"
+
+    microbiologic_response:
+      label: "Microbiological Response"
+      definition: "Eradication or presumed eradication of baseline pathogen"
+      dataset: "ADRS"
+      categories: ["Eradication", "Presumed Eradication", "Persistence", "Presumed Persistence", "Indeterminate"]
+      analysis_method: "exact_binomial"
+      table_rows:
+        - "Favorable Microbiological Response, n (%)"
+        - "  Eradication, n (%)"
+        - "  Presumed eradication, n (%)"
+        - "Unfavorable Response, n (%)"
+        - "  Persistence, n (%)"
+        - "  Presumed persistence, n (%)"
+        - "Indeterminate, n (%)"
+
+    all_cause_mortality:
+      label: "All-Cause Mortality"
+      definition: "All-cause mortality at Day 28"
+      dataset: "ADTTE"
+      timepoints: ["Day 14", "Day 28"]
+      analysis_method: "cox_proportional_hazards"
+      note: "Primary endpoint in HABP/VABP and sepsis trials"
+
+    recurrence:
+      label: "Recurrence Rate"
+      definition: "Recurrence of infection within specified time period"
+      dataset: "ADTTE"
+      analysis_method: "exact_binomial"
+      note: "Key for CDI and recurrent UTI"
+
+  vaccine:
+    seroconversion:
+      label: "Seroconversion Rate"
+      definition: "Proportion of subjects achieving >=4-fold rise in antibody titer from baseline"
+      dataset: "ADLB"
+      analysis_method: "exact_binomial"
+      table_rows:
+        - "Seroconversion Rate, n (%)"
+        - "  95% CI"
+        - "  Difference vs {comparator} [95% CI]"
+
+    seroprotection:
+      label: "Seroprotection Rate"
+      definition: "Proportion of subjects achieving antibody titer at or above protective threshold"
+      dataset: "ADLB"
+      analysis_method: "exact_binomial"
+      note: "Threshold varies by pathogen"
+
+    gmt:
+      label: "Geometric Mean Titer (GMT)"
+      definition: "Geometric mean of antibody titers at specified timepoint"
+      dataset: "ADLB"
+      analysis_method: "ancova"
+      note: "Log-transformed; analyzed on log scale, back-transformed"
+      table_rows:
+        - "n"
+        - "Day 1 (pre-vaccination) GMT [95% CI]"
+        - "Day {X} GMT [95% CI]"
+        - "Geometric Mean Fold Rise [95% CI]"
+        - "GMT Ratio vs {comparator} [95% CI]"
+        - "Seroconversion (>=4-fold rise), n (%)"
+        - "Seroprotection (titer >={threshold}), n (%)"
+
+    gmfr:
+      label: "Geometric Mean Fold Rise (GMFR)"
+      definition: "Geometric mean of fold-rise in titer from pre-vaccination to post-vaccination"
+      dataset: "ADLB"
+      analysis_method: "ancova"
+
+    vaccine_efficacy:
+      label: "Vaccine Efficacy"
+      definition: "1 - (attack rate in vaccine group / attack rate in placebo group)"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      note: "Exact binomial or Poisson-based CI"
+      table_rows:
+        - "Cases in Vaccine Group, n"
+        - "Person-years in Vaccine Group"
+        - "Cases in Placebo Group, n"
+        - "Person-years in Placebo Group"
+        - "Vaccine Efficacy (%) [95% CI]"
+        - "P-value"
+
+    cell_mediated_immunity:
+      label: "Cell-Mediated Immune Response"
+      definition: "IFN-gamma ELISPOT or intracellular cytokine staining results"
+      dataset: "ADLB"
+      measures: ["IFN-gamma+ T cells", "IL-2+ T cells", "TNF-alpha+ T cells"]
+      analysis_method: "ancova"
+      note: "Exploratory in many vaccine trials"
+
+  resistance:
+    resistance_mutations:
+      label: "Treatment-Emergent Resistance"
+      definition: "Development of resistance-associated mutations during treatment"
+      dataset: "ADLB"
+      analysis_method: "descriptive"
+      table_rows:
+        - "Subjects with genotypic testing, N"
+        - "Subjects with treatment-emergent resistance, n (%)"
+        - "Resistance mutations detected"
+
+# =============================================================================
+# INFECTIOUS DISEASE BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "Baseline Viral Load (log10 copies/mL)"
+    type: "continuous"
+    note: "HIV, HBV, HCV"
+    categories_if_needed: ["<=100,000", ">100,000"]
+
+  - variable: "CD4+ Count (cells/mm3)"
+    type: "continuous"
+    categories_if_needed: ["<200", "200-349", "350-499", ">=500"]
+    note: "HIV"
+
+  - variable: "HIV Subtype"
+    type: "categorical"
+    note: "Clade B, C, etc."
+
+  - variable: "HCV Genotype"
+    type: "categorical"
+    categories: ["1a", "1b", "2", "3", "4", "5", "6"]
+
+  - variable: "Fibrosis Stage"
+    type: "categorical"
+    categories: ["F0-F1", "F2", "F3", "F4 (cirrhosis)"]
+    note: "HCV, HBV"
+
+  - variable: "Cirrhosis Status"
+    type: "categorical"
+    categories: ["Without cirrhosis", "With compensated cirrhosis"]
+
+  - variable: "Treatment History"
+    type: "categorical"
+    categories: ["Treatment-naive", "Treatment-experienced"]
+
+  - variable: "Prior Treatment Regimen"
+    type: "categorical"
+    note: "Protocol-specific"
+
+  - variable: "Baseline Pathogen"
+    type: "categorical"
+    note: "For antibacterial/antifungal trials"
+
+  - variable: "Infection Site"
+    type: "categorical"
+    note: "cUTI, cIAI, ABSSSI"
+
+  - variable: "APACHE II Score"
+    type: "continuous"
+    note: "Severity in ICU/sepsis trials"
+
+  - variable: "Baseline Antibody Titer"
+    type: "continuous"
+    note: "Vaccine trials"
+
+  - variable: "Serostatus at Baseline"
+    type: "categorical"
+    categories: ["Seropositive", "Seronegative"]
+    note: "Vaccine trials"
+
+# =============================================================================
+# INFECTIOUS DISEASE AESIs
+# =============================================================================
+aesi_categories:
+
+  antiretroviral:
+    label: "Antiretroviral AESIs"
+    events:
+      - category: "Renal Toxicity"
+        preferred_terms: ["Renal tubular disorder", "Fanconi syndrome", "Blood creatinine increased", "Renal failure acute", "Proteinuria"]
+        note: "TDF-containing regimens"
+      - category: "Bone Density Loss"
+        preferred_terms: ["Osteoporosis", "Bone density decreased", "Osteopenia"]
+        note: "TDF-containing regimens"
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased", "Hepatotoxicity", "Drug-induced liver injury"]
+      - category: "Lipid Abnormalities"
+        preferred_terms: ["Hypercholesterolaemia", "Hypertriglyceridaemia", "Dyslipidaemia"]
+      - category: "Weight Gain"
+        preferred_terms: ["Weight increased", "Obesity"]
+        note: "INSTI-associated"
+      - category: "Immune Reconstitution Inflammatory Syndrome"
+        preferred_terms: ["Immune reconstitution inflammatory syndrome"]
+      - category: "Hypersensitivity"
+        preferred_terms: ["Drug hypersensitivity", "Rash"]
+        note: "Abacavir requires HLA-B*5701 screening"
+
+  vaccine:
+    label: "Vaccine AESIs"
+    events:
+      - category: "Local Reactions"
+        preferred_terms: ["Injection site pain", "Injection site erythema", "Injection site swelling", "Injection site induration"]
+      - category: "Systemic Reactions"
+        preferred_terms: ["Pyrexia", "Fatigue", "Headache", "Myalgia", "Arthralgia", "Chills", "Nausea"]
+      - category: "Anaphylaxis"
+        preferred_terms: ["Anaphylactic reaction", "Anaphylactic shock"]
+      - category: "Febrile Seizure"
+        preferred_terms: ["Febrile convulsion"]
+        note: "Pediatric populations"
+      - category: "Myocarditis/Pericarditis"
+        preferred_terms: ["Myocarditis", "Pericarditis"]
+        note: "mRNA vaccines"
+      - category: "Thrombosis with Thrombocytopenia"
+        preferred_terms: ["Thrombosis", "Thrombocytopenia"]
+        note: "Adenoviral vector vaccines"
+      - category: "Guillain-Barre Syndrome"
+        preferred_terms: ["Guillain-Barre syndrome"]
+
+  antimicrobial:
+    label: "Antimicrobial AESIs"
+    events:
+      - category: "Clostridioides difficile Infection"
+        preferred_terms: ["Clostridium difficile colitis", "Clostridium difficile infection"]
+      - category: "QT Prolongation"
+        preferred_terms: ["Electrocardiogram QT prolonged"]
+        note: "Fluoroquinolones, macrolides"
+      - category: "Tendon Disorders"
+        preferred_terms: ["Tendon rupture", "Tendonitis", "Tendon disorder"]
+        note: "Fluoroquinolones"
+      - category: "Nephrotoxicity"
+        preferred_terms: ["Acute kidney injury", "Renal failure acute", "Blood creatinine increased"]
+        note: "Aminoglycosides, vancomycin"
+      - category: "Ototoxicity"
+        preferred_terms: ["Deafness", "Hearing impaired", "Tinnitus"]
+        note: "Aminoglycosides"
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased", "Drug-induced liver injury"]
+
+# =============================================================================
+# VACCINE-SPECIFIC TABLE STRUCTURES
+# =============================================================================
+table_structures:
+
+  solicited_reactions:
+    type: "table"
+    title: "Solicited Local and Systemic Reactions Within 7 Days After Vaccination"
+    dataset: "ADAE"
+    rows:
+      - row: "Local Reactions"
+        type: "header"
+      - row: "  Pain"
+        format: "n (%) by grade"
+      - row: "    Mild"
+        format: "n (%)"
+      - row: "    Moderate"
+        format: "n (%)"
+      - row: "    Severe"
+        format: "n (%)"
+      - row: "  Erythema"
+        format: "n (%) by size"
+      - row: "  Swelling"
+        format: "n (%) by size"
+      - row: "  Induration"
+        format: "n (%) by size"
+      - row: "Systemic Reactions"
+        type: "header"
+      - row: "  Fever (>=38.0C)"
+        format: "n (%)"
+      - row: "    38.0-38.4C"
+        format: "n (%)"
+      - row: "    38.5-38.9C"
+        format: "n (%)"
+      - row: "    39.0-40.0C"
+        format: "n (%)"
+      - row: "    >40.0C"
+        format: "n (%)"
+      - row: "  Fatigue"
+        format: "n (%) by grade"
+      - row: "  Headache"
+        format: "n (%) by grade"
+      - row: "  Myalgia"
+        format: "n (%) by grade"
+      - row: "  Arthralgia"
+        format: "n (%) by grade"
+      - row: "  Chills"
+        format: "n (%) by grade"
+      - row: "  Nausea"
+        format: "n (%) by grade"
+    footnote: "Solicited reactions recorded by subjects in diary card for 7 days following each vaccination."
+
+  immunogenicity_summary:
+    type: "table"
+    title: "Summary of Immune Response"
+    dataset: "ADLB"
+    rows:
+      - row: "Pre-vaccination (Day 1)"
+        type: "header"
+      - row: "  n"
+        format: "xxx"
+      - row: "  GMT [95% CI]"
+        format: "xx.x [xx.x, xx.x]"
+      - row: "  Seropositive, n (%)"
+        format: "n (%)"
+      - row: "Post-vaccination (Day {X})"
+        type: "header"
+      - row: "  n"
+        format: "xxx"
+      - row: "  GMT [95% CI]"
+        format: "xx.x [xx.x, xx.x]"
+      - row: "  GMFR [95% CI]"
+        format: "xx.x [xx.x, xx.x]"
+      - row: "  Seroconversion (>=4-fold rise), n (%)"
+        format: "n (%)"
+      - row: "  Seroprotection (>={threshold}), n (%)"
+        format: "n (%)"
+    footnote: "GMT and GMFR calculated on log-transformed titers and back-transformed."
+
+  hiv_snapshot:
+    type: "table"
+    title: "Virologic Outcomes at Week {X} (FDA Snapshot Algorithm)"
+    dataset: "ADLB"
+    rows:
+      - row: "HIV-1 RNA <50 copies/mL"
+        format: "n (%)"
+        bold: true
+      - row: "  Difference [95% CI]"
+        format: "[xx.x, xx.x]"
+      - row: "HIV-1 RNA >=50 copies/mL"
+        format: "n (%)"
+      - row: "  Virologic failure with data in window"
+        format: "n (%)"
+      - row: "  Discontinued for lack of efficacy"
+        format: "n (%)"
+      - row: "  Discontinued for other reasons with last RNA >=50"
+        format: "n (%)"
+      - row: "No virologic data in window"
+        format: "n (%)"
+      - row: "  Discontinued due to AE or death"
+        format: "n (%)"
+      - row: "  Discontinued for other reasons"
+        format: "n (%)"
+      - row: "  Missing data during window but on study"
+        format: "n (%)"
+    footnote: "FDA Snapshot algorithm: virologic response based on last available HIV-1 RNA within the analysis window."
+
+  mic_distribution:
+    type: "table"
+    title: "MIC Distribution of Baseline Pathogens"
+    dataset: "ADLB"
+    note: "Antimicrobial susceptibility table"
+    rows:
+      - row: "Pathogen name"
+        type: "header"
+      - row: "  N isolates"
+      - row: "  MIC50"
+      - row: "  MIC90"
+      - row: "  MIC Range"
+      - row: "  Susceptible, n (%)"
+      - row: "  Intermediate, n (%)"
+      - row: "  Resistant, n (%)"
+
+# =============================================================================
+# ANALYSIS POPULATIONS (disease-specific additions)
+# =============================================================================
+additional_populations:
+  micro_itt:
+    name: "Micro-ITT Population"
+    definition: "All randomized subjects with a qualifying baseline pathogen"
+    note: "Antimicrobial trials"
+  micro_evaluable:
+    name: "Microbiologically Evaluable Population"
+    definition: "Micro-ITT subjects meeting all evaluability criteria and with adequate follow-up"
+  ce:
+    name: "Clinically Evaluable Population"
+    definition: "ITT subjects meeting all evaluability criteria with assessment at TOC"
+  per_protocol_micro:
+    name: "Per-Protocol Microbiological Population"
+    definition: "CE population with confirmed baseline pathogen susceptible to study drug"
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "Baseline viral load (HIV: <=100,000 vs >100,000 copies/mL)"
+  - "Baseline CD4 count (<200 vs >=200)"
+  - "HCV genotype (1a vs 1b vs 2 vs 3)"
+  - "Cirrhosis status (yes vs no)"
+  - "Treatment history (naive vs experienced)"
+  - "Geographic region"
+  - "Infection site"
+  - "Baseline pathogen (Gram-positive vs Gram-negative)"
+  - "Age group (pediatric, adult, elderly)"
+  - "APACHE II score (<=15 vs >15)"
+  - "Baseline serostatus (vaccine trials)"
+
+# =============================================================================
+# INFECTIOUS DISEASE FOOTNOTES
+# =============================================================================
+footnotes:
+  snapshot: "Virologic outcomes analyzed using FDA Snapshot algorithm."
+  resistance: "Genotypic resistance testing performed by central laboratory."
+  mic: "MIC determined by broth microdilution per CLSI M07 guidelines. Susceptibility interpreted per CLSI or EUCAST breakpoints."
+  vaccine_solicited: "Solicited reactions recorded by subjects in an electronic diary for 7 days following each vaccination. Grading per FDA Toxicity Grading Scale."
+  gmt: "GMT calculated as antilog of the mean of log-transformed titers."
+  svr: "SVR12: HCV RNA below lower limit of quantification (LLOQ) at 12 weeks post-treatment."
+  toc: "Test-of-cure (TOC) assessment performed {X} days after last dose of study drug."
+
+# =============================================================================
+# INFECTIOUS DISEASE LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Subjects with Virologic Failure"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Baseline Viral Load", "Time of Failure", "Viral Load at Failure", "Resistance Mutations"]
+
+  - title: "Listing of Baseline Pathogens and Microbiological Response"
+    population: "micro_itt"
+    variables: ["Subject ID", "Treatment", "Pathogen", "Specimen Source", "MIC", "Susceptibility", "Microbiological Response at TOC"]
+
+  - title: "Listing of Vaccine-Related Serious Adverse Events"
+    population: "safety"
+    variables: ["Subject ID", "Vaccine Group", "Dose Number", "AE Term", "Onset Day", "Duration", "Severity", "Outcome", "Causality"]
+
+  - title: "Listing of Treatment-Emergent Resistance"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Baseline Genotype", "Post-Treatment Genotype", "Mutations Detected", "Phenotypic Resistance"]

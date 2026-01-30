@@ -1,0 +1,546 @@
+# =============================================================================
+# BASE FORMATTING CONFIGURATION
+# =============================================================================
+# Universal formatting conventions for ALL clinical trials (any therapeutic area).
+# Nothing in this file is disease-specific or study-specific.
+#
+# Used by the shell assembler to format tables after Claude decides
+# what tables the study needs.
+# =============================================================================
+
+version: "3.0"
+config_type: "base_formatting"
+
+# =============================================================================
+# STANDARD POPULATIONS (universal across all trials)
+# =============================================================================
+populations:
+  itt:
+    name: "ITT Population"
+    full_name: "Intent-to-Treat Population"
+    definition: "All randomized subjects"
+    flag: "ITTFL"
+    flag_value: "Y"
+    footnote: "ITT Population: All randomized subjects."
+
+  safety:
+    name: "Safety Population"
+    full_name: "Safety Population"
+    definition: "All subjects who received at least one dose of study drug"
+    flag: "SAFFL"
+    flag_value: "Y"
+    footnote: "Safety Population: All subjects who received at least one dose of study treatment."
+
+  pp:
+    name: "PP Population"
+    full_name: "Per-Protocol Population"
+    definition: "All ITT subjects without major protocol deviations"
+    flag: "PPROTFL"
+    flag_value: "Y"
+    footnote: "Per-Protocol Population: ITT excluding subjects with major protocol deviations."
+
+  mitt:
+    name: "mITT Population"
+    full_name: "Modified Intent-to-Treat Population"
+    definition: "All randomized subjects who received at least one dose and had baseline assessment"
+    flag: "MITTFL"
+    flag_value: "Y"
+    footnote: "mITT Population: All randomized subjects who received at least one dose and had baseline assessment."
+
+  pk_evaluable:
+    name: "PK Evaluable Population"
+    full_name: "Pharmacokinetic Evaluable Population"
+    definition: "All subjects with at least one evaluable PK sample"
+    flag: "PKFL"
+    flag_value: "Y"
+    footnote: "PK Evaluable Population: All subjects with at least one evaluable PK sample."
+
+  ada_evaluable:
+    name: "ADA Evaluable Population"
+    full_name: "Anti-Drug Antibody Evaluable Population"
+    definition: "All subjects with baseline and at least one post-baseline ADA sample"
+    flag: "ADAFL"
+    flag_value: "Y"
+    footnote: "ADA Evaluable Population: All subjects with baseline and at least one post-baseline ADA sample."
+
+# =============================================================================
+# ADVERSE EVENT CATEGORIES (universal ICH E2A definitions)
+# =============================================================================
+ae_categories:
+  teae:
+    code: "TEAE"
+    label: "Treatment-Emergent Adverse Event"
+    definition: "AE with onset on or after first dose through safety follow-up"
+
+  trae:
+    code: "TRAE"
+    label: "Treatment-Related Adverse Event"
+    definition: "TEAE assessed as related to study treatment by investigator"
+
+  sae:
+    code: "SAE"
+    label: "Serious Adverse Event"
+    definition: "AE meeting ICH E2A seriousness criteria"
+    criteria:
+      - "Death"
+      - "Life-threatening"
+      - "Hospitalization or prolongation"
+      - "Disability/incapacity"
+      - "Congenital anomaly"
+      - "Important medical event"
+
+  aesi:
+    code: "AESI"
+    label: "Adverse Event of Special Interest"
+    definition: "Pre-specified AEs requiring enhanced monitoring"
+
+# =============================================================================
+# CTCAE GRADING (universal)
+# =============================================================================
+ctcae:
+  version: "5.0"
+  grades:
+    - grade: 1
+      label: "Mild"
+    - grade: 2
+      label: "Moderate"
+    - grade: 3
+      label: "Severe"
+    - grade: 4
+      label: "Life-threatening"
+    - grade: 5
+      label: "Death"
+
+  groupings:
+    any_grade: "Grade 1-5"
+    grade_3_plus: "Grade ≥3"
+    grade_3_4: "Grade 3-4"
+
+# =============================================================================
+# STANDARD ADaM DATASETS (CDISC standard, universal)
+# =============================================================================
+adam_datasets:
+  adsl:
+    name: "ADSL"
+    description: "Subject-Level Analysis Dataset"
+    used_for: ["disposition", "demographics", "baseline"]
+  adae:
+    name: "ADAE"
+    description: "Adverse Events Analysis Dataset"
+    used_for: ["ae_overview", "ae_by_soc_pt", "ae_special", "aesi"]
+  adtte:
+    name: "ADTTE"
+    description: "Time-to-Event Analysis Dataset"
+    used_for: ["time_to_event"]
+  adrs:
+    name: "ADRS"
+    description: "Response Analysis Dataset"
+    used_for: ["binary_response"]
+  adlb:
+    name: "ADLB"
+    description: "Laboratory Analysis Dataset"
+    used_for: ["labs", "lab_shift"]
+  advs:
+    name: "ADVS"
+    description: "Vital Signs Analysis Dataset"
+    used_for: ["vitals"]
+  adeg:
+    name: "ADEG"
+    description: "ECG Analysis Dataset"
+    used_for: ["ecg"]
+  adex:
+    name: "ADEX"
+    description: "Exposure Analysis Dataset"
+    used_for: ["exposure"]
+  adcm:
+    name: "ADCM"
+    description: "Concomitant Medications Analysis Dataset"
+    used_for: ["concomitant_medications"]
+  admh:
+    name: "ADMH"
+    description: "Medical History Analysis Dataset"
+    used_for: ["medical_history"]
+  adpc:
+    name: "ADPC"
+    description: "PK Concentration Analysis Dataset"
+    used_for: ["pk_concentration"]
+  adpp:
+    name: "ADPP"
+    description: "PK Parameters Analysis Dataset"
+    used_for: ["pk_parameters"]
+  adab:
+    name: "ADAB"
+    description: "Immunogenicity Analysis Dataset"
+    used_for: ["immunogenicity"]
+  adeff:
+    name: "ADEFF"
+    description: "Efficacy Analysis Dataset"
+    used_for: ["continuous_endpoint"]
+  adqs:
+    name: "ADQS"
+    description: "Questionnaire Analysis Dataset"
+    used_for: ["pro_qol"]
+
+# =============================================================================
+# TABLE NUMBERING CONVENTIONS (ICH standard)
+# =============================================================================
+table_numbering:
+  "14.1":
+    category: "Disposition and Demographics"
+    types: ["disposition", "demographics", "medical_history", "baseline"]
+  "14.2":
+    category: "Efficacy"
+    types: ["time_to_event", "binary_response", "continuous_endpoint", "pro_qol", "subgroup_forest"]
+  "14.3":
+    category: "Safety"
+    types: ["ae_overview", "ae_by_soc_pt", "ae_special", "aesi", "labs", "lab_shift", "vitals", "ecg", "exposure", "concomitant_medications"]
+  "14.4":
+    category: "Pharmacokinetics and Immunogenicity"
+    types: ["pk_parameters", "pk_concentration", "immunogenicity"]
+  "16.2":
+    category: "Listings"
+    types: ["listing"]
+
+# =============================================================================
+# STANDARD TABLE ROWS (rows that are always the same regardless of disease)
+# =============================================================================
+standard_rows:
+
+  disposition:
+    - "Screened"
+    - "Screen Failures"
+    - "Randomized"
+    - "Treated"
+    - "Completed Study Treatment"
+    - "Discontinued Study Treatment"
+    - "  Adverse Event"
+    - "  Withdrawal by Subject"
+    - "  Physician Decision"
+    - "  Protocol Deviation"
+    - "  Lost to Follow-up"
+    - "  Death"
+    - "  Other"
+    - "Completed Study"
+    - "Ongoing"
+
+  demographics_continuous:
+    - "n"
+    - "Mean"
+    - "SD"
+    - "Median"
+    - "Min, Max"
+    - "Q1, Q3"
+
+  demographics_standard_variables:
+    - variable: "Age (years)"
+      type: "continuous"
+    - variable: "Sex"
+      type: "categorical"
+      categories: ["Male", "Female"]
+    - variable: "Race"
+      type: "categorical"
+    - variable: "Ethnicity"
+      type: "categorical"
+      categories: ["Hispanic or Latino", "Not Hispanic or Latino"]
+    - variable: "Weight (kg)"
+      type: "continuous"
+    - variable: "Height (cm)"
+      type: "continuous"
+    - variable: "BMI (kg/m²)"
+      type: "continuous"
+
+  ae_overview:
+    - "Any TEAE"
+    - "Grade ≥3 TEAE"
+    - "Grade 4 TEAE"
+    - "Grade 5 TEAE (Death)"
+    - "Serious TEAE"
+    - "Treatment-related TEAE"
+    - "Treatment-related Serious TEAE"
+    - "TEAE leading to study drug discontinuation"
+    - "TEAE leading to dose modification"
+    - "TEAE leading to dose interruption"
+
+  ae_special:
+    - "Subjects with at least one event, n (%)"
+    - "By System Organ Class"
+    - "  By Preferred Term, n (%)"
+    - "By Severity"
+    - "  Grade 1 (Mild), n (%)"
+    - "  Grade 2 (Moderate), n (%)"
+    - "  Grade 3 (Severe), n (%)"
+    - "  Grade 4 (Life-threatening), n (%)"
+    - "  Grade 5 (Death), n (%)"
+    - "Treatment-related, n (%)"
+    - "Serious, n (%)"
+    - "Leading to study drug discontinuation, n (%)"
+
+  ae_by_soc_pt:
+    - "Subjects with at least one TEAE, n (%)"
+    - "By System Organ Class"
+    - "  By Preferred Term, n (%)"
+
+  time_to_event:
+    - "Number of events, n (%)"
+    - "Number censored, n (%)"
+    - "Median [95% CI]"
+    - "Hazard Ratio [95% CI]"
+    - "P-value (log-rank)"
+    - "6-month rate [95% CI]"
+    - "12-month rate [95% CI]"
+
+  binary_response:
+    - "Responders, n (%)"
+    - "  95% CI"
+    - "Non-responders, n (%)"
+    - "Difference [95% CI]"
+    - "P-value"
+
+  continuous_endpoint:
+    - "n"
+    - "Baseline Mean (SD)"
+    - "Post-baseline Mean (SD)"
+    - "LS Mean Change from Baseline (SE)"
+    - "LS Mean Difference [95% CI]"
+    - "P-value"
+
+  exposure:
+    - "Number of subjects treated"
+    - "Duration of treatment (weeks)"
+    - "  Mean (SD)"
+    - "  Median"
+    - "  Min, Max"
+    - "Number of doses received"
+    - "  Mean (SD)"
+    - "  Median"
+    - "Cumulative dose"
+    - "  Mean (SD)"
+    - "Relative dose intensity (%)"
+    - "  Mean (SD)"
+    - "  Median"
+
+  labs:
+    - "n"
+    - "Mean"
+    - "SD"
+    - "Median"
+    - "Min, Max"
+
+  lab_shift:
+    - "Normal to Normal"
+    - "Normal to Low"
+    - "Normal to High"
+    - "Low to Normal"
+    - "Low to Low"
+    - "Low to High"
+    - "High to Normal"
+    - "High to Low"
+    - "High to High"
+
+  vitals:
+    - "n"
+    - "Mean"
+    - "SD"
+    - "Median"
+    - "Min, Max"
+
+  pk_parameters:
+    - "n"
+    - "Mean"
+    - "SD"
+    - "CV%"
+    - "Median"
+    - "Min, Max"
+    - "Geometric Mean"
+    - "Geometric CV%"
+
+  immunogenicity:
+    - "ADA Evaluable, N"
+    - "ADA Positive, n (%)"
+    - "  Treatment-emergent ADA, n (%)"
+    - "  Treatment-boosted ADA, n (%)"
+    - "ADA Negative, n (%)"
+    - "Neutralizing Antibody Positive, n (%)"
+
+# =============================================================================
+# COLUMN TEMPLATES
+# =============================================================================
+column_templates:
+  two_arm:
+    - header: "Parameter"
+      width: 3.0
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)"
+      width: 1.5
+      alignment: C
+    - header: "{ARM2}\n(N=xxx)"
+      width: 1.5
+      alignment: C
+
+  two_arm_total:
+    - header: "Parameter"
+      width: 3.0
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "{ARM2}\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "Total\n(N=xxx)\nn (%)"
+      width: 1.3
+      alignment: C
+      format: "xxx (xx.x)"
+
+  three_arm_total:
+    - header: "Parameter"
+      width: 2.5
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)\nn (%)"
+      width: 1.1
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "{ARM2}\n(N=xxx)\nn (%)"
+      width: 1.1
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "{ARM3}\n(N=xxx)\nn (%)"
+      width: 1.1
+      alignment: C
+      format: "xxx (xx.x)"
+    - header: "Total\n(N=xxx)\nn (%)"
+      width: 1.1
+      alignment: C
+      format: "xxx (xx.x)"
+
+  single_arm:
+    - header: "Parameter"
+      width: 3.5
+      alignment: L
+    - header: "{ARM1}\n(N=xxx)"
+      width: 2.0
+      alignment: C
+
+  descriptive:
+    - header: "Parameter / Visit"
+      width: 2.5
+      alignment: L
+    - header: "n"
+      width: 0.5
+      alignment: C
+      format: "xxx"
+    - header: "Mean (SD)"
+      width: 1.2
+      alignment: C
+      format: "xx.x (xx.xx)"
+    - header: "Median"
+      width: 0.8
+      alignment: C
+      format: "xx.x"
+    - header: "Min, Max"
+      width: 1.0
+      alignment: C
+      format: "xx.x, xx.x"
+
+  shift_table:
+    - header: "Parameter"
+      width: 2.0
+      alignment: L
+    - header: "Baseline"
+      width: 1.0
+      alignment: C
+    - header: "Post-baseline\nNormal"
+      width: 1.0
+      alignment: C
+      format: "xxx"
+    - header: "Post-baseline\nLow"
+      width: 1.0
+      alignment: C
+      format: "xxx"
+    - header: "Post-baseline\nHigh"
+      width: 1.0
+      alignment: C
+      format: "xxx"
+
+# =============================================================================
+# PLACEHOLDER FORMATS
+# =============================================================================
+placeholder_formats:
+  count: "xxx"
+  percentage: "xx.x"
+  count_pct: "xxx (xx.x%)"
+  mean: "xx.x"
+  mean_sd: "xx.x (xx.xx)"
+  median: "xx.x"
+  min_max: "xx, xx"
+  ci_95: "[xx.x, xx.x]"
+  hazard_ratio: "x.xx"
+  p_value: "x.xxxx"
+  sample_size: "(N=xxx)"
+
+# =============================================================================
+# STANDARD FOOTNOTES (universal)
+# =============================================================================
+footnote_templates:
+  methods:
+    km: "Kaplan-Meier estimates; 95% CI by Brookmeyer-Crowley method."
+    cox: "Hazard ratio from Cox proportional hazards model."
+    cox_favor: "HR < 1 favors {ARM1}."
+    ci_exact: "95% CI calculated using Clopper-Pearson exact method."
+    ci_wald: "95% CI calculated using Wald method."
+    ci_newcombe: "95% CI for risk difference by Newcombe method."
+    stratified: "Stratified by randomization stratification factors."
+    cmh: "P-value from Cochran-Mantel-Haenszel test."
+    fisher: "P-value from Fisher's exact test."
+    ancova: "LS means and p-value from ANCOVA model."
+    mmrm: "LS means from mixed model for repeated measures (MMRM)."
+    logistic: "Odds ratio from logistic regression model."
+
+  definitions:
+    teae: "Treatment-emergent: onset on or after first dose of study drug through safety follow-up."
+    sae: "Serious: meeting ICH E2A seriousness criteria."
+    related: "Related: assessed as possibly, probably, or definitely related by investigator."
+
+  coding:
+    meddra: "Adverse events coded using MedDRA version {VERSION}."
+    who_drug: "Medications coded using WHO Drug Dictionary."
+    atc: "Medications classified by ATC coding system."
+    ctcae: "Severity graded per NCI CTCAE version {VERSION}."
+
+  general:
+    subject_count: "A subject is counted once in each applicable category."
+    date_cutoff: "Data cutoff: {DATE}."
+    percentage_denom: "Percentages based on N in column header."
+
+# =============================================================================
+# TABLE ORIENTATION DEFAULTS
+# =============================================================================
+orientation_defaults:
+  disposition: "PORTRAIT"
+  demographics: "PORTRAIT"
+  ae_overview: "PORTRAIT"
+  ae_by_soc_pt: "LANDSCAPE"
+  labs: "LANDSCAPE"
+  lab_shift: "LANDSCAPE"
+  vitals: "LANDSCAPE"
+  ecg: "LANDSCAPE"
+  time_to_event: "PORTRAIT"
+  binary_response: "PORTRAIT"
+  continuous_endpoint: "PORTRAIT"
+  pk_parameters: "LANDSCAPE"
+  exposure: "PORTRAIT"
+  subgroup_forest: "LANDSCAPE"
+  listing: "LANDSCAPE"
+
+# =============================================================================
+# FILTER CONDITION TEMPLATES
+# =============================================================================
+filter_templates:
+  safety: "SAFFL = 'Y'"
+  itt: "ITTFL = 'Y'"
+  pp: "PPROTFL = 'Y'"
+  teae: "SAFFL = 'Y' and TRTEMFL = 'Y'"
+  sae: "SAFFL = 'Y' and AESER = 'Y'"
+  related_teae: "SAFFL = 'Y' and TRTEMFL = 'Y' and AEREL in ('POSSIBLE', 'PROBABLE', 'DEFINITE')"

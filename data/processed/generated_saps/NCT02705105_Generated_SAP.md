@@ -1,0 +1,1974 @@
+# Statistical Analysis Plan (Abbreviated)
+
+## Study: Open-label, Multicenter Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects with Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 Original Protocol: 13OCT2015 Amendment 1: 08DEC2015 Amendment 2: 05DEC2016 Amendment 3: 28SEP2018 US IND Number: 126,887 Sponsor: Kyowa Kirin Pharmaceutical Development, Inc. 212 Carnegie Center, Suite 400 Princeton, NJ 08540 Sponsor’s Responsible Medical Monitor: Confidentiality Statement The information contained in this document is the property of or under the control of Kyowa Kirin Pharmaceutical Development, Inc, and its affiliated companies.
+## NCT ID: NCT02705105
+## Version: 1.0
+## Date: 2025-12-25
+
+---
+
+
+1. Introduction
+
+[Study identification information not found in protocol]
+
+---
+
+2. Study Objectives and Endpoints
+
+[Study objectives not found in protocol]
+
+[Study endpoints not found in protocol]
+
+---
+
+3. Study Design Summary
+
+Subjects will be screened for entry into this study after signing the informed consent form (ICF).
+
+Subjects who meet study entry criteria will enter the treatment cohort that is open to enrollment.
+
+The study includes a Phase 1 dose finding and a Phase 2 cohort expansion: • Phase 1 dose finding has a 3+3 design that will identify the MTD or the highest protocol-defined dose, in the absence of exceeding the MTD, for the combination regimen and will enroll up to 12 subjects (3 to 6 subjects per cohort). • Phase 2 cohort expansion will explore the safety, pharmacokinetic (PK), PD, and anti-tumor activity of the highest tolerated dose of the combination regimen and will enroll up to 184 subjects (21 to 36 per tumor type) in up to 7 tumor-specific expansion cohorts.
+
+All subjects will receive 240 mg of nivolumab as at least a 30-minute intravenous (iv) infusion on Days 1 and 15 of each 28-day cycle.
+
+Subjects will then receive the cohort-assigned dose of mogamulizumab as at least a CONFIDENTIAL 5
+
+--- Page 6 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 1-hour iv infusion on Days 1, 8, 15, and 22 of the first cycle and on Days 1 and 15 of subsequent cycles.
+
+When both nivolumab and mogamulizumab are administered at the same visit, the infusion of mogamulizumab will be started at least 30 minutes after the end of the infusion of nivolumab.
+
+Subjects should be closely monitored for adverse events (AEs) for at least: • 30 minutes after the completion of the nivolumab infusion; • 4 hours after the completion of the mogamulizumab infusion for the first 2 combination infusions (i.e., Cycle 1, Days 1 and 15); and • 30 minutes after all other mogamulizumab infusions.
+
+Subjects will be monitored for safety throughout the study.
+
+Tumor assessments will be performed during the Screening period, at Week 10, then at least every 12 weeks thereafter until unequivocal disease progression or death.
+
+Tumor biopsies will be required during the Screening period (except for the subjects who present archival tumor tissues) and at Week 10 (unless the tumor is inaccessible for biopsy).
+
+Pharmacokinetic and PD parameters and immunogenicity will be determined for mogamulizumab and nivolumab.
+
+The first post-treatment follow-up visit will be 30 days (± 5 days) after the last dose of investigational medicinal product(s) (IMP[s]).
+
+The second follow-up visit will be 100-110 days after the last dose of IMP.
+
+---
+
+4. Analysis Populations
+
+In addition, subjects participating in Phase 2 must meet all the inclusion criteria and have none of the exclusion criteria for the relevant tumor type. 1) Subject is age 18 years or older; 2) Subject must have histologically or cytologically confirmed solid tumor; CONFIDENTIAL 8
+
+--- Page 9 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 3) Subjects must have locally advanced or metastatic solid tumor; 4) Subject has received appropriate cancer therapy as defined by: a) For subjects in Phase 1: Subject has no additional therapy options available known to prolong survival with the exception of PD-1 blockade (Subjects with tumors for which nivolumab has survival benefit who have not received PD-1 blockade are eligible.) Prior therapy is not required for a subject with a tumor type that has no standard treatment regimen that is considered by the Investigator to be appropriate; OR subject meets prior therapy requirements for their tumor type provided below in the Additional Eligibility Criteria for Subjects in Phase 2; Note: Subjects in Phase 1 with NSCLC of non-squamous histology must be tested for epidermal growth factor receptor (EGFR) mutations and anaplastic lymphoma kinase (ALK) rearrangement.
+
+Subjects with EGFR activating mutations or ALK rearrangement must have progressed during or after, or been intolerant to, at least one prior approved EGFR or ALK targeted therapy; b) For subjects in Phase 2, see prior therapy requirements provided below in the Additional Eligibility Criteria for Subjects in Phase 2; 5) Subject has at least 1 measurable lesion per RECIST v. 1.1.
+
+Note: Lesions located in a previously irradiated field must have subsequent radiographic disease progression in that site in order to be considered measurable; 6) Subject has an Eastern Cooperative Oncology Group (ECOG) performance status (PS) of 0 or 1; 7) If the subject is a woman of child-bearing potential or man who is sexually active with woman of child-bearing potential, the subject agrees to use adequate contraception from signing of the ICF, for the duration of study participation; and for 23 weeks after the last dose of IMP for women or 31 weeks after the last dose of IMP for men. 8) Subject must have adequate hematological, renal, hepatic and respiratory functions defined below: a) White blood cell count ≥ 2.0 × 109/L (2000/ mm3); b) Absolute neutrophil count > 1.5 × 109/L (1500/mm3); c) Platelets > 90 × 109/L (90000/mm3), or >60 × 109/L (60000/mm3) for subjects with hepatocellular carcinoma; d) Hemoglobin ≥ 9.0 g/dL (5.6 mmol/L); e) Serum total bilirubin ≤ 1.5 × ULN (except subjects with hepatocellular carcinoma or Gilbert syndrome, who can have total bilirubin < 3.0 mg/dL); f) AST and ALT ≤ 3 × ULN, or ≤ 5 × ULN for subjects with liver metastases or hepatocellular carcinoma; g) Serum creatinine ≤ 1.5 × ULN OR calculated creatinine clearance (CrCL) ≥ 40 mL/min (using the Cockcroft-Gault formula) – Female CrCL = (140-age in years) × weight in kg × 0.85 72 × serum creatinine in mg/dL CONFIDENTIAL 9
+
+--- Page 10 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 – Male CrCL = (140-age in years) × weight in kg × 1.00 72 × serum creatinine in mg/dL; 9) The subject is willing to undergo tumor biopsy during the Screening period, or, if the tumor is inaccessible for biopsy, archived tumor material must be available for submission; 10) The subject is able to understand and willing to sign a written ICF.
+
+Exclusion Criteria: Subjects will not be eligible to participate in this study if any of the following exclusion criteria is met during the Screening period.
+
+In addition, subjects participating in Phase 2 must meet all the inclusion criteria and have none of the exclusion criteria specified for the relevant tumor type. 1) Female subject who is pregnant or breast-feeding, or any subject expecting to conceive or father a child during his study; 2) Subject has an uncontrolled intercurrent illness that in the opinion of the Investigator would compromise the safety of the subject.
+
+These may include, but not limited to, uncontrolled infection, unstable angina, interstitial lung disease, or clinically significant cardiac arrhythmia; 3) Subject has a psychiatric illness/social situations that in the opinion of the Investigator would limit compliance with study requirements; 4) Subject has a primary central nervous system (CNS) tumor or known CNS metastases and/or history of CNS metastases and/or carcinomatous meningitis; Exception: Subjects are eligible if CNS metastases are adequately treated and subjects are neurologically returned to baseline (except for residual signs or symptoms related to the CNS treatment) for at least 4 weeks prior to enrollment.
+
+In addition, subjects must be off corticosteroids for 4 weeks prior to enrollment 5) Subject has received prior therapy for cancer or major surgery within 28 days, or 42 days for nitrosourea or mitomycin C, prior to Cycle 1 Day 1, or 14 days for tamoxifen; 6) Subject has received radiotherapy or radiosurgery within 14 days prior to Cycle 1 Day 1; 7) Subject has been previously treated with an anti-PD-1, anti-PD-L1, anti-PD-L2, anti CD137, or anticytotoxic T-lymphocyte-associated antigen-4 (CTLA-4) antibody or any other antibody or drug specifically targeting T-cell co-stimulation or checkpoint pathways; 8) Subject has been previously treated with mogamulizumab; 9) Subject has a history of allergy or hypersensitivity to study drug components; 10) Subject has received a live, attenuated vaccine within 28 days prior to Cycle 1 Day 1; 11) Subject has a history of organ transplant or allogeneic bone marrow transplant; 12) Subject has any unresolved toxicity Grade > 1 (defined by Common Terminology Criteria for Adverse Events version 4.03 [CTCAE v. 4.03]) from previous anti-cancer therapy, excluding alopecia, fatigue, and laboratory values listed in the inclusion criteria.
+
+Subjects with irreversible toxicity that is not reasonably expected to be exacerbated by the investigational product may be included (e.g., hearing loss) at the discretion of the Investigator; 13) Subject use of immunosuppressive medication within 14 days before the Cycle 1 Day 1.
+
+Note: Inhaled, CONFIDENTIAL 10
+
+--- Page 11 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 ocular, intranasal, intra-articular, or topical corticosteroids are allowed.
+
+Non-immunosuppressive doses of systemic steroids for adrenal replacement or for contrast allergy are allowed; 14) Subject has an active autoimmune disease or a history of autoimmune disease which may affect vital organ function or require immune suppressive treatment including systemic corticosteroids; these include but are not limited to subjects with a history of immune-related neurologic disease, multiple sclerosis, uveitis, autoimmune (demyelinating) neuropathy, Guillain-Barré syndrome, myasthenia gravis; transverse myelitis; systemic autoimmune disease such as systemic lupus erythematosus, connective tissue diseases, scleroderma, autoimmune hepatitis; a) Exceptions: Subject with vitiligo, alopecia, type I diabetes mellitus, and endocrine deficiencies including hypothyroidism managed with replacement hormones including physiologic corticosteroids are eligible.
+
+Subject with psoriasis controlled with topical medication, or conditions not expected to recur in the absence of an external trigger (precipitating event) are eligible; 15) Subject has a history of toxic epidermal necrolysis or Stevens-Johnson syndrome; 16) Subject has a history of inflammatory bowel disease, Crohn’s disease, ulcerative colitis, or Wegener’s granulomatosis; 17) Subject has primary or acquired immunodeficiency or known history of testing positive for human immunodeficiency virus (HIV) or known acquired immunodeficiency syndrome; 18) Subject who tests positive for hepatitis B surface antigen (HBVsAg) or hepatitis C RNA indicating acute or chronic infection except for subjects with hepatocellular carcinoma; 19) Subject has another active malignancy requiring concurrent intervention; 20) Subject who is receiving any other investigational agents; 21) Subject has another condition that, in the opinion of the Investigator and/or Sponsor, would interfere with evaluation of the IMP or interpretation of subject safety or study results; 22) Subject has a history of pneumonitis or interstitial lung disease.
+
+Additional Eligibility Criteria for Subjects in Phase 2 In addition to having to meet all the above-mentioned inclusion criteria and have none of the exclusion criteria, subjects must meet the following inclusion criteria and have none of the exclusion criteria for the relevant tumor type during the Screening period in order to be eligible for participation in the Phase 2 of the study: NSCLC, Squamous Cell: Inclusion Criteria: 1) Subjects with histologically or cytologically confirmed Stage IIIB or Stage IV (according to version 7 of the International Association for the Study of Lung Cancer Staging Manual in Thoracic Oncology; see Procedure Manual) squamous cell NSCLC; 2) Prior Therapy: Subject experienced disease recurrence or progression during or after platinum doublet-based chemotherapy for advanced or metastatic disease; a) Subject with recurrent or progressive disease within 6 months after completing platinum-based chemotherapy for local disease are eligible; CONFIDENTIAL 11
+
+--- Page 12 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 b) Subject with recurrent or progressive disease > 6 months after platinum-containing adjuvant, neoadjuvant or definitive chemoradiation therapy given for local disease, who also subsequently progressed during or after a platinum doublet-based regimen given to treat the recurrence, are eligible.
+
+NSCLC, Nonsquamous, PD-L1 Non-expressing: Inclusion Criteria: 1) Subject with histologically or cytologically confirmed Stage IIIB or Stage IV (according to version 7 of the International Association for the Study of Lung Cancer Staging Manual in Thoracic Oncology; see Procedure Manual) non-squamous cell NSCLC; 2) Subject’s tumor must be PD-L1 non-expressing on immunohistochemistry (IHC) testing performed by the central laboratory during the Screening period.
+
+Either a formalin-fixed, paraffin-embedded (FFPE) tissue block or tumor tissue sections must be submitted for biomarker evaluation during the Screening period.
+
+The tumor tissue sample may be fresh or archival.
+
+Tissue must be a core needle biopsy, excisional or incisional biopsy.
+
+Fine needle biopsies, drainage of pleural effusions with cytospins, or punch biopsies are not considered adequate for biomarker review.
+
+Biopsies of bone lesions that do not have a soft tissue component or decalcified bone tumor samples are also not acceptable; 3) Prior Therapy: Subject experienced disease recurrence or progression during or after platinum doublet-based chemotherapy regimen for advanced or metastatic disease; a) Subjects with recurrent or progressive disease within 6 months after completing platinum-based chemotherapy for local disease are eligible; b) Subjects with recurrent or progressive disease > 6 months after platinum-containing adjuvant, neoadjuvant or definitive chemoradiation therapy given for local disease, who also subsequently progressed during or after a platinum doublet-based regimen given to treat the recurrence, are eligible; c) Subjects must be tested for EGFR mutations and ALK rearrangement.
+
+Subjects with EGFR activating mutations or ALK rearrangement must have progressed during or after, or been intolerant to, at least one prior approved EGFR or ALK targeted therapy.
+
+Squamous Cell Carcinoma of Head and Neck: Inclusion Criteria: 1) Histologically confirmed squamous cell carcinoma of oral cavity, pharynx, or larynx; Squamous cell carcinoma of unknown primary is allowed only if tumor is HPV16 positive; 2) Stage III or IV and not amenable to local therapy with curative intent (surgery or radiation therapy with or without chemotherapy); 3) Prior Therapy: Tumor progression or recurrence within 6 months of last dose of platinum therapy in the adjuvant (i.e., with radiation after surgery), primary (i.e., with radiation), recurrent, or metastatic setting.
+
+Clinical progression after platinum therapy is an allowable event for entry and is defined as progression of a lesion at least 10 mm in size that is amenable to caliper measurement (e.g., superficial skin lesion as per RECIST v 1.1) or a lesion that has been visualized and photographically recorded with measurements and shown to have progressed.
+
+CONFIDENTIAL 12
+
+--- Page 13 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 Exclusion Criteria: 1) Histologically confirmed recurrent or metastatic carcinoma of the nasopharynx or salivary gland; 2) Subject with base of skull lesion(s) with possible dural or brain parenchymal involvement that may require local therapy, e.g., radiation; 3) Non-squamous histologies (e.g., mucosal melanoma); Colorectal Carcinoma, non-MSI high: Inclusion Criteria: 1) Subject has histologically confirmed metastatic or recurrent colorectal carcinoma; 2) Microsatellite instability status - low (MSI-L) or microsatellite stable (MSS) as detected by an accredited laboratory per local procedures, see Section 9.2.7.1. 3) Prior treatment: Progression during, after, or been intolerant following the last administration of approved standard therapies, which must include at minimum a fluoropyrimidine, oxaliplatin, and irinotecan, as well as at least one of the following agents, if approved or in standard national guidelines, bevacizumab, cetuximab or panitumumab (if KRAS wild type), or regorafenib.
+
+Exclusion Criterion: 1) MSI high (MSI-H) tumor status detected by an accredited laboratory per local procedures.
+
+Ovarian Cancer: Inclusion Criteria: 1) Female subjects with International Federation of Gynecology and Obstetrics Stage Ic, Stage II, Stage III, Stage IV, recurrent, or persistent (unresectable) histologically confirmed epithelial ovarian cancer, primary peritoneal cancer, or fallopian tube carcinoma; 2) Subjects are allowed to have received up to 4 prior cytotoxic regimens for treatment of their epithelial ovarian, fallopian tube, or primary peritoneal cancer; they must have had one prior platinum-based chemotherapeutic regimen for management of primary disease, possibly including intra-peritoneal therapy, consolidation, biologic/targeted (non-cytotoxic) agents (e.g., bevacizumab) or extended therapy administered after surgical or non-surgical assessment; subjects are allowed to have received, but are not required to have received, 1 to 2 cytotoxic regimens for management of recurrent or persistent disease; (for the purposes of this study, poly-adenosine diphosphate (ADP) ribose polymerase (PARP) inhibitors given for recurrent or progressive disease will be considered cytotoxic); if 2 cytotoxic regimens had been received for management of recurrent or persistent disease, one of these regimens would have had to contain either a platinum or taxane agent; Platinum-free IntervalSubjects must have progressed < 6 months after completion of their last platinum-based chemotherapy; 3) Albumin greater than or equal to 2.8 g/dL.
+
+Exclusion Criterion: 1) Subject has mucinous histology.
+
+CONFIDENTIAL 13
+
+--- Page 14 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 Hepatocellular Carcinoma Inclusion Criteria: 1) Histologically confirmed hepatocellular carcinoma not amenable for management with curative intent by surgery or local therapeutic measure; 2) Subject must have received sorafenib treatment and either: • have had documented radiographic or symptomatic progression during or after sorafenib therapy; OR • be intolerant of sorafenib (as defined as Grade 2 drug-related adverse event which 1) persisted in spite of comprehensive supportive therapy according to institutional standards AND 2) persisted or recurred after sorafenib treatment interruption of at least 7 days and dose reduction by one dose level (to 400 mg once daily) AND/OR Grade 3 drug-related adverse event which 1) persisted in spite of comprehensive supportive therapy according to institutional standards OR 2) persisted or recurred after sorafenib treatment interruption of at least 7 days and dose reduction by one dose level (to 400 mg once daily)in Section 1.4.9; OR must have documented refusal of sorafenib; 3) Subject has Child-Pugh score of ≤6, i.e., Child-Pugh A (Appendix 2); 4) INR ≤ 2.3 or Prothrombin time (PT) ≤ 6 seconds above control; 5) Subject has HBV DNA viral load undetectable or < 100 IU/mL at screening.
+
+If subject has detectable HBsAg, HBeAg, or HBV DNA (indicating ongoing viral replication of hepatitis B, he/she must be on antiviral therapy per regional standard of care guidelines prior to initiation of study therapy.
+
+If not on antiviral therapy at screening, then the subject must initiate treatment per regional standard of care guidelines prior to C1D1 and must be willing to continue antiviral therapy while on study treatment.
+
+Exclusion Criterion: 1) Any history of hepatic encephalopathy; 2) Any prior (within 1 year) or current clinically significant ascites as measured by physical examination and that requires paracentesis for control; 3) Active coinfection with both hepatitis B (i.e., HBVsAg and/or hepatitis B DNA) and hepatitis C (i.e., hepatitic C RNA); 4) Hepatitis D infection in subjects with hepatitis B; 5) Any history of clinically meaningful variceal bleeding within the last three months.
+
+Pancreatic Adenocarcinoma Inclusion Criteria: 1) Subject has histologically or cytologically confirmed locally advanced unresectable or metastatic pancreatic ductal adenocarcinoma; 2) Tumor sample available for MSI testing (Note: archived material is sufficient); 3) Prior treatment: Subject must have received at least one prior chemotherapy regimen for their disease CONFIDENTIAL 14
+
+--- Page 15 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 and must have radiological or clinical progression or documented unacceptable toxicity; Exclusion Criterion: 1) Known microsatellite instability-high (MSI-H) tumor status.
+
+---
+
+5. Sample Size
+
+### Sample Size Justification
+
+Four subjects were enrolled. • Phase 2 expansion cohort: Up to 184 subjects (21 to 36 subjects per cohort in up to 8 tumor-specific cohorts).
+
+Treatment of Subjects: Investigational Medicinal Product: • Mogamulizumab: 0.3 or 1.0 mg/kg administered as an iv infusion over at least 1 hour on Days 1, 8, 15, and 22 in Cycle 1 then on Days 1 and 15 of each subsequent 28-day cycle. • Nivolumab: 240 mg of nivolumab administered as an iv infusion over at least 30 minutes on Days 1 and 15 of each 28-day cycle.
+
+Duration of Treatment: Subjects may receive the combination therapy for up to 96 weeks from Cycle 1 Day 1.
+
+Subjects who stop treatment without disease progression and who experience disease progression within 12 months of their last dose of IMP may receive additional IMP for up to 48 weeks, provided that they have not received other systemic therapy for their cancer. (As of Amendment 3, re-treatment of subjects who stop treatment without disease progression will no longer be allowed.) Efficacy, Pharmacokinetic/Pharmacodynamic, and Safety Variables: Efficacy: Anti-tumor activity will be evaluated using both RECIST v. 1.1 and irRECIST v. 1.1.
+
+Anti-tumor activity will be assessed as BOR, TTR, DOR, PFS, and OS.
+
+Pharmacokinetic: The following PK parameters will be measured: • Mogamulizumab: observed minimum serum concentration at the end of a dosing interval (C ) and min observed maximum serum concentration (C ); max • Nivolumab: C min Pharmacodynamic: The biomarkers may include, but are not limited to, immune cell subsets and immune factors such as cytokines and chemokines in tumor and/or blood.
+
+Immunogenicity: Anti-mogamulizumab antibody and anti-nivolumab antibody.
+
+Safety: Adverse events; clinical laboratory tests (serum chemistry, thyroid function testing, hematology, coagulation profile, urinalysis); immunogenicity; vital signs; 12-lead ECGs; physical examination (including body weight, etc.) will be evaluated to determine the safety profile in this combination regimen.
+
+### Key Assumptions
+
+*(Extracted from protocol)*
+
+
+---
+
+6. Statistical Methods
+
+### Primary Analysis
+
+Demographic CONFIDENTIAL 15
+
+--- Page 16 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 and other baseline characteristic information will be summarized for the Safety Analysis and Efficacy Analysis Sets.
+
+### Missing Data Handling
+
+*(As specified in protocol)*
+
+### Sensitivity Analyses
+
+*(As pre-specified)*
+
+
+---
+
+7. Efficacy Analyses
+
+[Study endpoints not found in protocol]
+
+Demographic CONFIDENTIAL 15
+
+--- Page 16 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 and other baseline characteristic information will be summarized for the Safety Analysis and Efficacy Analysis Sets.
+
+---
+
+8. Safety Analyses
+
+Subjects will be contacted at least every 100 days after the last dose for survival follow up and recording of new anti-cancer therapies.
+
+All new treatments for cancer should be recorded, including nivolumab if received after discontinuation from this study.
+
+Subjects who complete or discontinue treatment without progression will have tumor assessments collected until a new anti-cancer therapy is started, unequivocal disease progression is documented, or death.
+
+Procedures to be followed for subjects who are ongoing in the study (i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up) at the time of data cutoff for completion of analyses and preparation of the clinical study report (CSR) are described in Section 9.5.
+
+Phase 1: Dose-finding: The dose levels and schedules are described below.
+
+Dosage of Mogamulizumab Dosage of Nivolumab Cycle 1 Subsequent Cycles All Cycles Dose Level (Days 1, 8, 15, 22) (Days 1, 15) (Days 1, 15) 1 1.0 mg/kg 1.0 mg/kg 240 mg Optionala 0.3 mg/kg 0.3 mg/kg 240 mg a: This dose level may be enrolled if > 1 subject experiences dose-limiting toxicity at Dose Level 1.
+
+CONFIDENTIAL 6
+
+--- Page 7 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 Dose-finding Criteria: A Safety Review Committee (SRC) composed of physician(s) from the Sponsor and/or designee and Investigators will review cumulative safety data from all subjects before deciding whether to change the dose level or open the expansion cohorts.
+
+Dose finding will continue until an MTD has been established or it is determined that the expansion cohorts should open or that dosing should stop.
+
+Further exploration of intermediate doses may take place based on evaluation of emerging safety and PK/PD parameters in the current trial as well as other ongoing trials.
+
+Definition of Dose-limiting Toxicity: A dose-limiting toxicity (DLT) is defined as the occurrence of any of the following toxicities that are considered related to IMP, with onset from the first dose to 14 days after the last dose of IMP in Cycle 1: Hematologic Toxicity: 1) Grade 3 thrombocytopenia with clinically significant bleeding; 2) Grade 4 thrombocytopenia; 3) Febrile neutropenia (absolute neutrophil count < 500/mm3 with a single temperature of > 38.3°C [101°F]; 4) Grade 4 neutropenia of duration > 7 days; Note: Grade ≥ 3 lymphopenia or leukopenia of any duration is not considered a DLT.
+
+Non-hematologic Toxicity: 5) Aspartate transaminase (AST) or alanine transaminase (ALT) elevation > 5 to ≤ 10 times the upper limit of normal (ULN) (Grade 3) that does not downgrade to ≤ Grade 1 (or to baseline grade if > Grade 1 at baseline)within 14 days; 6) AST or ALT elevation > 10 times ULN; 7) Total bilirubin > 5 times ULN; 8) ALT or AST elevation > 3 times ULN AND concomitant total bilirubin > 2 times ULN, without initial findings of cholestasis (elevated serum alkaline phosphatase), AND no other immediately apparent possible causes of ALT/AST elevation and hyperbilirubinemia, including, but not limited to, tumor progression, viral hepatitis, pre-existing chronic or acute liver disease, or the administration of other drug(s) known to be hepatotoxic; 9) A ≥ Grade 3 non-hematologic laboratory AE (other than AST, ALT, or bilirubin) is a DLT only if it requires medical intervention or hospitalization.
+
+Exception: Grade 3 or Grade 4 electrolyte abnormalities that are not associated with clinical signs or symptoms, and either resolve spontaneously or respond to conventional medical intervention are not DLTs; Note: ≥ Grade 3 elevation of amylase and/or lipase of any duration not associated with clinical or radiographic evidence of pancreatitis is not a DLT; 10) Grade 4 non-hematologic non-laboratory AE; CONFIDENTIAL 7
+
+--- Page 8 ---
+
+Clinical Protocol 0761-014, Amendment 3 Name of Sponsor/Company: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Name of Finished Product: NA Name of Active Ingredient: Mogamulizumab Nivolumab Study Title: Open-label, Multicenter, Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects With Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 11) Grade 3 skin rash that does not improve to ≤ Grade 2 within 3 days of initiation of maximal supportive care; 12) Grade 3 uveitis, bronchospasm, or neurologic toxicity of any duration; 13) Any other Grade 3 non-hematologic non-laboratory AE lasting > 7 days, with the following exceptions: a) Grade 3 inflammatory reaction attributed to a local antitumor response (e.g., inflammatory reaction at sites of metastatic disease, lymph nodes, tumor lysis syndrome) is not a DLT; b) Grade 3 fatigue is not a DLT; c) Grade 3 fever not associated with hemodynamic compromise is not a DLT; 14) Grade 2 or higher pneumonitis of any duration; 15) Any Grade 2 uveitis, eye pain, or blurred vision that does not respond to topical therapy and does not improve to Grade 1 within 14 days OR requires systemic treatment.
+
+Phase 2: Cohort expansion To further characterize the safety, tolerability, and anti-tumor activity of the combination, up to 184 subjects (21 to 36 subjects per tumor type) with locally advanced or metastatic disease in the following tumor types will be enrolled: squamous cell non-small cell lung cancer (NSCLC); programmed cell death ligand 1 (PD-L1)-nonexpressing non-squamous cell NSCLC; squamous cell carcinoma of the head and neck (SCCHN); colorectal carcinoma, non-microsatellite instability (non-MSI) high; ovarian cancer, hepatocellular carcinoma (HCC), and pancreatic adenocarcinoma.
+
+PD-L1 expressing is defined as membrane staining observed in ≥ 1% tumor cells among a minimum of 100 evaluable tumor cells.
+
+Subjects will be treated with the highest dose of the combination regimen that was considered tolerable in Phase 1.
+
+The safety and tolerability of the dosing regimen used in each expansion cohort will be monitored.
+
+The SRC will review cumulative safety data from all subjects approximately every 2 months during the enrollment period.
+
+Clinical safety in the expansion cohorts will be monitored continually.
+
+Selection of Subjects: Study populations for this study are: • Phase 1 dose finding: Adult subjects with locally advanced or metastatic solid tumors. • Phase 2 cohort expansion: Adult subjects with locally advanced or metastatic squamous cell NSCLC; PD-L1 non-expressing non-squamous cell NSCLC; SCCHN; colorectal carcinoma non-MSI high; ovarian cancer (including primary peritoneal cancer and fallopian tube carcinoma); HCC; and pancreatic adenocarcinoma.
+
+Similar presentations will be provided for SAEs, AEs leading to discontinuation of IMP and AEs leading to death.
+
+The tabulation of laboratory parameters will indicate the normal range for each parameter.
+
+Each value will be classified as falling above, below, or within the normal range.
+
+Individual serum concentrations at each sampling time point for mogamulizumab and nivolumab will be presented in listings.
+
+Descriptive summary statistics of serum concentrations including means, geometric means, ranges, standard deviations, and coefficient of variation will be presented by dose cohort and by tumor type.
+
+Dose proportionality will be assessed as appropriate.
+
+Population PK analysis will be explored, if appropriate.
+
+Pharmacodynamic data will be summarized.
+
+Changes from baseline in PD parameters may be used as PD markers to explore PK/PD, PD-efficacy, and PD-safety relationships, as appropriate.
+
+The number and percentage of subjects with a positive anti-drug antibody (ADA) test in the screening, confirmatory, or neutralizing assays, if applicable, will be presented at each visit and overall for subjects exposed to mogamulizumab and nivolumab.
+
+Additionally, a summary of subjects who experienced an infusion related reaction and had a positive ADA test in the screening, confirmatory, and neutralizing assays, if applicable, will be presented.
+
+All immunogenicity data will be listed by subject.
+
+Immunogenicity may be reported for ADA positive status (such as persistent positive, neutralizing positive, only last sample positive, baseline positive and other positive) and ADA negative status, relative to baseline.
+
+Effect of immunogenicity on safety, efficacy, biomarkers and PK may be explored.
+
+Subjects will be evaluated for tumor response, TTR, DOR, and PFS.
+
+The ORR will be calculated as the proportion of subjects who are responders, i.e., complete response (CR) and partial response (PR); the 95% exact confidence interval for ORR will be calculated.
+
+The ORR will be derived using both the RECIST v. 1.1 and the irRECIST v. 1.1, based on the efficacy-evaluable subjects in the expansion cohorts for combination therapy, which includes all subjects who receive combination therapy in Cycle 1 Day 1.
+
+Duration of response, OS, and PFS will be estimated using the Kaplan-Meier methodology.
+
+CONFIDENTIAL 16
+
+--- Page 17 ---
+
+Clinical Protocol 0761-014, Amendment 3 2 TABLE OF CONTENTS PRINCIPAL INVESTIGATOR SIGNATURE PAGE ...................................................... 2 PROTOCOL SIGNATURE PAGE ..................................................................................... 3 SUMMARY OF CHANGES ............................................................................................... 4 1 SYNOPSIS ................................................................................................................. 5 2 TABLE OF CONTENTS......................................................................................... 17 LIST OF IN-TEXT TABLES ............................................................................................ 23 LIST OF IN-TEXT FIGURES .......................................................................................... 23 LIST OF APPENDICES.................................................................................................... 23 3 LIST OF ABBREVIATIONS AND DEFINITION OF TERMS ........................... 24 4 INTRODUCTION ................................................................................................... 27 4.1 Medical Background .............................................................................................. 27 4.1.1 Immunotherapy for Cancer ................................................................................. 27 4.2 Investigational Medicinal Products Profile.............................................................. 28 4.2.1 Mogamulizumab ................................................................................................. 28 4.2.1.1 Nonclinical Experience .................................................................................... 29 4.2.1.2 Clinical Pharmacology ..................................................................................... 29 4.2.1.3 Clinical Experience .......................................................................................... 30 4.2.1.4 Post-marketing Experience .............................................................................. 30 4.2.2 Nivolumab .......................................................................................................... 31 4.2.2.1 Nonclinical Experience .................................................................................... 31 4.2.2.2 Clinical Pharmacology ..................................................................................... 32 4.2.2.3 Clinical Experience .......................................................................................... 32 4.2.3 Clinical Experience with the Combination of Mogamulizumab and Nivolumab .......................................................................................................... 33 4.3 Selection of Doses in the Study .............................................................................. 33 4.3.1 Mogamulizumab ................................................................................................. 33 4.3.2 Nivolumab .......................................................................................................... 34 4.4 Rationale for Combination Treatment ..................................................................... 35 4.5 Tumor Types for Expansion Cohorts in Phase 2 ..................................................... 37 4.5.1 NSCLC Squamous Cell....................................................................................... 38 CONFIDENTIAL 17
+
+--- Page 18 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.5.2 NSCLC Nonsquamous Cell................................................................................. 38 4.5.3 Squamous Cell Carcinoma of the Head and Neck ................................................ 39 4.5.4 Colorectal Cancer ............................................................................................... 39 4.5.5 Ovarian Cancer ................................................................................................... 40 4.5.6 Hepatocellular Carcinoma ................................................................................... 40 4.5.7 Pancreatic Adenocarcinoma ................................................................................ 40 4.6 Risks and Benefit to Subjects ................................................................................. 40 5 OBJECTIVES .......................................................................................................... 41 5.1 Primary .................................................................................................................. 41 5.2 Secondary............................................................................................................... 41 5.3 Exploratory ............................................................................................................ 41 6 DESCRIPTION OF STUDY DESIGN AND POPULATION ............................... 41 6.1 Study Overview ...................................................................................................... 41 6.1.1 Phase 1: Dose Finding ......................................................................................... 42 6.1.2 Dose-finding Criteria .......................................................................................... 42 6.1.2.1 Definition of Dose-limiting Toxicity ................................................................ 43 6.1.2.2 Definition of Maximum Tolerated Dose........................................................... 45 6.1.3 Phase 2: Expansion Cohort.................................................................................. 45 6.2 Number of Subjects, and Numbers and Location of Investigative Sites ................... 45 6.3 Study Duration ....................................................................................................... 45 7 SELECTION AND WITHDRAWAL OF SUBJECTS .......................................... 46 7.1 Procedures for Enrollment ...................................................................................... 46 7.2 Inclusion Criteria .................................................................................................... 46 7.3 Exclusion Criteria ................................................................................................... 47 7.4 Additional Eligibility Criteria for Subjects in Phase 2 ............................................. 49 7.4.1 Non-small-cell Lung Cancer ............................................................................... 49 7.4.1.1 Non-small-cell Lung Cancer, Squamous Cell ................................................... 49 7.4.1.2 Non-small-cell Lung Cancer, Nonsquamous, PD-L1 Non-expressing .............. 50 7.4.2 Squamous Cell Carcinoma of Head and Neck ..................................................... 51 7.4.3 Colorectal Carcinoma, non-Microsatellite Instability High .................................. 51 7.4.4 Ovarian Cancer ................................................................................................... 52 CONFIDENTIAL 18
+
+--- Page 19 ---
+
+Clinical Protocol 0761-014, Amendment 3 7.4.5 Hepatocellular Carcinoma ................................................................................... 52 7.4.6 Pancreatic Adenocarcinoma ................................................................................ 53 7.5 Removal of Subjects from Therapy or Assessment ................................................. 53 8 TREATMENTS ....................................................................................................... 55 8.1 Identity of Investigational Medicinal Products ........................................................ 55 8.1.1 Treatments to be Administered............................................................................ 56 8.1.2 Dose Reduction and Dose Delay ......................................................................... 57 8.1.2.1 Dose Reduction ............................................................................................... 57 8.1.2.2 Dose-delay Criteria .......................................................................................... 57 8.1.3 Criteria to Resume Dosing .................................................................................. 58 8.1.4 Criteria for Treatment Discontinuation for Toxicity ............................................ 59 8.1.5 Treatment Beyond Disease Progression............................................................... 60 8.1.6 Re-treatment for Progression during Follow-up ................................................... 61 8.2 Management of Infusion-related Reaction and Other Toxicity ................................ 61 8.2.1 Premedication ..................................................................................................... 61 8.2.2 Treatment of Infusion-related Reactions .............................................................. 61 8.2.3 Immune-associated Select Adverse Events of Interest ......................................... 63 8.2.3.1 Recommended Management of Hepatic Events in Subjects with HCC ................................................................................................................ 64 8.3 Method of Assigning Subjects to Treatment Groups ............................................... 65 8.4 Blinding/Unblinding ............................................................................................... 65 8.5 Concomitant Treatments ......................................................................................... 65 8.5.1 Permitted Concomitant Medications.................................................................... 66 8.5.2 Prohibited and/or Restricted Treatments .............................................................. 66 8.5.3 Contraception...................................................................................................... 67 8.6 Treatment Compliance ........................................................................................... 67 9 STUDY PROCEDURES.......................................................................................... 67 9.1 Screening ............................................................................................................... 70 9.2 Baseline and Treatment .......................................................................................... 71 9.2.1 Demographics, Medical History, Pre-treatment Adverse Events .......................... 71 9.2.2 Assessment of Safety Laboratory Parameters ...................................................... 71 9.2.3 Vital Signs .......................................................................................................... 73 CONFIDENTIAL 19
+
+--- Page 20 ---
+
+Clinical Protocol 0761-014, Amendment 3 9.2.4 Electrocardiograms ............................................................................................. 73 9.2.5 Physical Examination, Eastern Cooperative Oncology Group Performance Status, Height, and Body Weight .................................................... 73 9.2.6 Disease-response Assessments ............................................................................ 74 9.2.7 Tumor Biopsies ................................................................................................... 75 9.2.7.1 Microsatellite Instability Testing ...................................................................... 75 9.2.7.2 PD-L1 Testing ................................................................................................. 76 9.3 End of Treatment .................................................................................................... 76 9.4 Post-treatment Follow-up Period ............................................................................ 76 9.5 Study Procedures for Subjects Ongoing at the Time of Data Cutoff for Completion of Analyses and Preparation of CSR .................................................... 76 10 EFFICACY, PHARMACOKINETIC, SAFETY, AND OTHER VARIABLES............................................................................................................ 78 10.1 Study Endpoints ..................................................................................................... 78 10.2 Pharmacokinetic, Pharmacodynamic, and Immunogenicity Assessments ................ 78 10.3 Safety Assessments ................................................................................................ 80 10.3.1 Definitions .......................................................................................................... 81 10.3.1.1 Adverse Events ................................................................................................ 81 10.3.1.2 Serious Adverse Events ................................................................................... 81 10.3.1.3 Causality.......................................................................................................... 82 10.3.1.4 Severity ........................................................................................................... 82 10.3.2 Adverse Event Reporting .................................................................................... 83 10.3.2.1 Reporting Period .............................................................................................. 83 10.3.2.2 Reporting Instructions ...................................................................................... 83 10.3.3 Other Significant Adverse Events........................................................................ 85 10.3.3.1 Urgent Safety Measures ................................................................................... 85 10.3.3.2 Adverse Events That Qualify as Dose-limiting Toxicity ................................... 85 10.3.3.3 Infusion-related Reactions ............................................................................... 85 10.3.4 Overdose............................................................................................................. 86 10.3.5 Pregnancy Reporting ........................................................................................... 86 11 DATA MANAGEMENT ......................................................................................... 87 11.1 Source Data ............................................................................................................ 87 CONFIDENTIAL 20
+
+--- Page 21 ---
+
+Clinical Protocol 0761-014, Amendment 3 11.2 Access to Data ........................................................................................................ 87 11.3 Electronic Case Report Forms ................................................................................ 87 11.4 Record Keeping and Archiving ............................................................................... 88 11.5 Study Monitoring ................................................................................................... 88 12 STATISTICAL METHODS AND PLANNED ANALYSIS .................................. 88 12.1 General Statistical Considerations .......................................................................... 88 12.2 Populations to be Analyzed .................................................................................... 89 12.2.1 Subject Disposition ............................................................................................. 89 12.2.2 Demographic and Baseline Disease Characteristics ............................................. 89 12.2.3 Prior and Concomitant Medications .................................................................... 90 12.2.4 Investigational Medicinal Product Exposure and Compliance ............................. 90 12.3 Efficacy Analysis ................................................................................................... 90 12.3.1 Sample Size Determination ................................................................................. 90 12.3.2 Significance Level .............................................................................................. 92 12.4 Pharmacokinetic Analyses ...................................................................................... 92 12.5 Pharmacodynamic Analyses ................................................................................... 92 12.6 Analysis of Immunogenicity Data........................................................................... 92 12.7 Analyses of Safety Data.......................................................................................... 93 12.8 Procedures for Missing, Unused and Spurious Data ................................................ 93 12.9 Rules for Excluding Subjects from Analysis ........................................................... 93 12.10 Procedures for Reporting Deviations from Original Statistical Plan ........................ 94 13 ADMINISTRATION, DOCUMENTATION, AND RECORD KEEPING ................................................................................................................ 94 13.1 Ethics Committee or Institutional Review Board .................................................... 94 13.2 Investigator’s Responsibilities ................................................................................ 94 13.2.1 Overall Responsibilities ...................................................................................... 94 13.2.2 Subject Informed Consent ................................................................................... 94 13.2.3 Confidentiality Regarding Study Subjects ........................................................... 95 13.2.4 Record Retention ................................................................................................ 95 13.2.5 Investigator Information ...................................................................................... 95 13.2.6 Compliance with Law, Audit, and Debarment ..................................................... 96 13.3 Financial Disclosure ............................................................................................... 97 CONFIDENTIAL 21
+
+--- Page 22 ---
+
+Clinical Protocol 0761-014, Amendment 3 13.4 Insurance ................................................................................................................ 97 13.5 Publication Policy .................................................................................................. 97 14 QUALITY ASSURANCE ........................................................................................ 98 15 REFERENCES ........................................................................................................ 99 16 APPENDICES ....................................................................................................... 101 CONFIDENTIAL 22
+
+--- Page 23 ---
+
+Clinical Protocol 0761-014, Amendment 3 List of In-text Tables Table 6.1.1-1 Dose Levels ................................................................................42 Table 8.1-1 Identification of Investigational Medicinal Products ....................55 Table 8.1.1-1 Dosing Schedules of Mogamulizumab and Nivolumab During Phase 1 and Phase 2 ....................................................................56 Table 8.2.2-1 Recommended Management of Infusion-related Reaction ...........62 Table 8.2.3-1 Recommended Management of Investigational Medicinal Product-related Dermatologic Toxicity ........................................64 Table 9-1 Schedule of Events: Screening and Treatment Periods ................68 Table 9-2 Schedule of Events: Post-treatment Follow-up ...........................70 Table 9.2.2-1 Clinical Laboratory Assessments .................................................72 Table 10.2-1 Pharmacokinetic, Pharmacodynamic, and Immunogenicity Blood Sampling Schedule ......................................................................80 Table 10.3.1-1 Relationship of Adverse Events ...................................................82 Table 12.3.1-1 Sample Size Estimation by Tumor Type ......................................91 List of In-text Figures Figure 4.4-1 Depletion of CD4+ CD25+ FOXP3+ Cells ..................................37 Figure 6.1-1 Criteria for Dose Finding and Expansion .....................................43 List of Appendices Appendix 1 Response Evaluation Criteria in Solid Tumors, Version 1.1 (RECIST v. 1.1) ........................................................................ 102 Appendix 2 Child-Pugh Score ...................................................................... 112 CONFIDENTIAL 23
+
+--- Page 24 ---
+
+Clinical Protocol 0761-014, Amendment 3 3 LIST OF ABBREVIATIONS AND DEFINITION OF TERMS Abbreviations ACTH adrenocorticotropic hormone ADA anti-drug antibody ADCC antibody-dependent cellular cytotoxicity ADP adenosine diphosphate AE adverse event ALK anaplastic lymphoma kinase ALT alanine transaminase AST aspartate transaminase ATL adult T-cell leukemia/lymphoma BMS Bristol-Myers Squibb BOR best overall response CCR4 chemokine receptor 4 CD cluster of differentiation CDC complement dependent cytotoxic CFR Code of Federal Regulations CI confidence interval CL clearance CNS central nervous system CR complete response CRC colorectal carcinoma CrCL creatinine clearance CSR clinical study report CTCAE Common Terminology Criteria for Adverse Events CTCL cutaneous T-cell lymphoma CTLA-4 cytotoxic T-lymphocyte-associated antigen-4 CT computed tomography DLT dose-limiting toxicity DOR duration of response ECG electrocardiogram ECOG Eastern Cooperative Oncology Group eCRF electronic Case Report Form EDC Electronic Data Capture EGFR epidermal growth factor receptor EOT end of treatment EU European Union Fc fragment crystallizable FDA Food and Drug Administration FDGfluorodeoxyglucose FFPE formalin-fixed, paraffin-embedded GCP Good Clinical Practices HBVsAg Hepatitis B surface antigen HCC hepatocellular carcinoma HIPAA Health Insurance Portability and Accountability Act CONFIDENTIAL 24
+
+--- Page 25 ---
+
+Clinical Protocol 0761-014, Amendment 3 Abbreviations HIV human immunodeficiency virus HPV human papillomavirus HR hazard ratio IB Investigator’s Brochure ICF informed consent form ICH International Conference on Harmonization ICOS inducible T-cell costimulator ID identification IFN-γ interferon-γ IgG immunoglobulin G IHC immunohistochemistry IL interleukin IMP investigational medicinal product irCR irRECIST-defined complete response IRB Institutional Review Board irPD irRECIST-defined progressive disease irRECIST immune-related Response Evaluation Criteria in Solid Tumors IRT interactive response technology iv Intravenous KKD Kyowa Kirin Pharmaceutical Development LFT Liver function test mAb monoclonal antibody MDC macrophage-derived chemokine MRI magnetic resonance imaging MSI microsatellite instability MSI-H microsatellite instability - high MSI-L microsatellite instability -low MSS microsatellite - stable MTD maximum tolerated dose NOEAL no-observed-adverse-effect level NSCLC non-small-cell lung cancer ORR overall response rate OS overall survival PARP poly ADP ribose polymerase PD pharmacodynamic(s) PD-1 programmed death 1 PD-L1 programmed cell death ligand 1 PD-L2 programmed cell death ligand 2 PCR polymerase chain reaction PET positron emission tomography PFS progression-free survival PI Prescribing Information PK pharmacokinetic(s) PR partial response PS performance status CONFIDENTIAL 25
+
+--- Page 26 ---
+
+Clinical Protocol 0761-014, Amendment 3 Abbreviations PTCL peripheral T-cell lymphoma RECIST Response Evaluation Criteria in Solid Tumors RNA ribonucleic acid SAE serious adverse event SCCHN Squamous cell carcinoma of the head and neck SCID severe combined immunodeficiency SRC Safety Review Committee TARC thymus and activation-regulated chemokine TEAE treatment-emergent adverse event Th2 T-helper 2 subset of T-cells TNF-α tumor necrosis factor-alpha TMTB total measured tumor burden T regulatory T-cells reg TTR time to response ULN upper limit of normal US United States (of America) Definitions AUC area under the concentration-time curve from Day 0 to Day 7 0-7 days C observed peak serum concentration max C observed minimum serum concentration at the end of a dosing interval min pH hydrogen ion concentration t terminal half-life 1/2 CONFIDENTIAL 26
+
+--- Page 27 ---
+
+Clinical Protocol 0761-014, Amendment 3 4 INTRODUCTION 4.1 Medical Background 4.1.1 Immunotherapy for Cancer CONFIDENTIAL 27
+
+--- Page 28 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.2 Investigational Medicinal Products Profile 4.2.1 Mogamulizumab CONFIDENTIAL 28
+
+--- Page 29 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.2.1.1 Nonclinical Experience 4.2.1.2 Clinical Pharmacology CONFIDENTIAL 29
+
+--- Page 30 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.2.1.3 Clinical Experience 4.2.1.4 Post-marketing Experience CONFIDENTIAL 30
+
+--- Page 31 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.2.2 Nivolumab 4.2.2.1 Nonclinical Experience CONFIDENTIAL 31
+
+--- Page 32 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.2.2.2 Clinical Pharmacology 4.2.2.3 Clinical Experience CONFIDENTIAL 32
+
+--- Page 33 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.2.3 Clinical Experience with the Combination of Mogamulizumab and Nivolumab 4.3 Selection of Doses in the Study 4.3.1 Mogamulizumab CONFIDENTIAL 33
+
+--- Page 34 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.3.2 Nivolumab CONFIDENTIAL 34
+
+--- Page 35 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.4 Rationale for Combination Treatment CONFIDENTIAL 35
+
+--- Page 36 ---
+
+Clinical Protocol 0761-014, Amendment 3 CONFIDENTIAL 36
+
+--- Page 37 ---
+
+Clinical Protocol 0761-014, Amendment 3 Figure 4.4-1 Depletion of CD4+ CD25+ FOXP3+ Cells Numbers of CD4+ CD25+ FOXP3+ cells from mogamulizumab–treated subjects with adult T-cell leukemia-lymphoma (ATL) in blood samples taken (i) just before the first infusion, (ii) just before the second infusion, (iii) just before the fifth infusion, (iv) 1 week after the eighth infusion, and (v) 4 months after the eighth infusion and those from 10 controls are shown as box and whisker plots indicating minimum, lower quartile, median, upper quartile, and maximum values. 4.5 Tumor Types for Expansion Cohorts in Phase 2 CONFIDENTIAL 37
+
+--- Page 38 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.5.1 NSCLC Squamous Cell 4.5.2 NSCLC Nonsquamous Cell CONFIDENTIAL 38
+
+--- Page 39 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.5.3 Squamous Cell Carcinoma of the Head and Neck 4.5.4 Colorectal Cancer CONFIDENTIAL 39
+
+--- Page 40 ---
+
+Clinical Protocol 0761-014, Amendment 3 4.5.5 Ovarian Cancer 4.5.6 Hepatocellular Carcinoma 4.5.7 Pancreatic Adenocarcinoma 4.6 Risks and Benefit to Subjects .
+
+CONFIDENTIAL 40
+
+--- Page 41 ---
+
+Clinical Protocol 0761-014, Amendment 3 5 OBJECTIVES 5.1 Primary To characterize the safety and tolerability and determine the maximum tolerated dose (MTD), or the highest protocol-defined dose in the absence of exceeding the MTD, of the combination regimen of mogamulizumab and nivolumab in subjects with locally advanced or metastatic solid tumors. 5.2 Secondary 1) To evaluate the anti-tumor activity of the combination of mogamulizumab and nivolumab based on the RECIST v. 1.1.
+
+Anti-tumor activity will be assessed as ORR, time to response (TTR), duration of response (DOR), PFS, and OS. 5.3 Exploratory 1) To assess serum concentrations of mogamulizumab and nivolumab when administered in combination. 2) To evaluate the immunogenicity of mogamulizumab and nivolumab when administered in combination. 3) To evaluate the PD profile of the combination of mogamulizumab and nivolumab and determine which biomarkers may correlate with safety and/or anti-tumor activity. 4) To evaluate the ORR of the combination of mogamulizumab and nivolumab based on the irRECIST v. 1.1. 6 DESCRIPTION OF STUDY DESIGN AND POPULATION 6.1 Study Overview This is a multicenter, Phase 1/2, open-label, dose-finding and cohort-expansion study of the anti-CCR4 antibody mogamulizumab in combination therapy with the anti-PD-1 antibody nivolumab in adult subjects with locally advanced or metastatic solid tumors.
+
+Subjects will be screened for entry into this study after signing the informed consent form (ICF).
+
+Subjects who meet study entry criteria will enter the treatment cohort that is open to enrollment.
+
+The study includes a Phase 1 dose finding and a Phase 2 cohort-expansion: • Phase 1 dose-finding has a 3+3 design that will identify the MTD, or the highest protocol-defined dose in the absence of exceeding the MTD, for the combination regimen and will enroll up to 12 subjects (3 to 6 subjects per cohort). • Phase 2 cohort-expansion will explore the safety, PK, PD, and anti-tumor activity of the highest tolerated dose of the combination regimen and will enroll up to 184 subjects (21 to 36 per cohort) in up to 7 tumor-specific expansion cohorts.
+
+CONFIDENTIAL 41
+
+--- Page 42 ---
+
+Clinical Protocol 0761-014, Amendment 3 6.1.1 Phase 1: Dose Finding A starting dose level and an optional dose level are planned.
+
+The dose-finding phase will enroll up to 12 subjects (3 to 6 subjects per cohort).
+
+The dose levels and schedules are described in Table 6.1.1-1.
+
+The MTD is defined as one dose level below the dose level of the cohort where ≥ one-third of the subjects experience DLT.
+
+The recommended dose regimen for Phase 2 is intended to be either the MTD or the highest dose level tested.
+
+Table 6.1.1-1 Dose Levels Dosage of Mogamulizumab Dosage of Nivolumab Cycle 1 Subsequent Cycles All Cycles Dose Level (Days 1, 8, 15, 22) (Days 1, 15) (Days 1, 15) a: This dose level may be enrolled if > 1 subject experiences DLT at Dose Level 1.
+
+DLT=dose limiting toxicity.
+
+A minimum of 3 subjects will be enrolled and treated in each cohort, and all 3 subjects will be observed for the DLT observation period (see Section 6.1.2.1).
+
+Subjects who are not evaluable for DLT will be replaced.
+
+All cohorts will have a minimum of 3 DLT-evaluable subjects.
+
+Cycle 1 Day 1 dosing of subjects in each cohort should be separated by at least 1 day during Phase 1 of the study. 6.1.2 Dose-finding Criteria A Safety Review Committee (SRC) composed of physicians from the Sponsor and/or designee and Investigators will review cumulative safety data from all subjects before deciding whether to change the dose level or open the expansion cohorts.
+
+The first meeting of the SRC will occur before the study opens to enrollment.
+
+At that meeting the SRC will discuss the role and responsibilities of the SRC and review the safety data from the ongoing 0761-013 Phase 1 study.
+
+In that study, nivolumab is administered at 3.0 mg/kg and mogamulizumab has been administered at 0.3 mg/kg or 1.0 mg/kg.
+
+The SRC may decide to open Phase 1 of this study at the optional dose level if there is concern about the safety of the combination at the higher dose level in the Japanese trial.
+
+Dose finding will continue until an MTD has been established or it is determined that the expansion cohorts should open or that dosing should stop.
+
+Further exploration of intermediate doses may take place based on evaluation of emerging safety and PK/PD parameters in the CONFIDENTIAL 42
+
+--- Page 43 ---
+
+Clinical Protocol 0761-014, Amendment 3 current trial as well as other ongoing trials.
+
+The criteria for dose finding are outlined in Figure 6.1-1.
+
+Figure 6.1-1 Criteria for Dose Finding and Expansion Enter 3 subjects 0 Subjects 1 Subject 2 or 3 Subjects with DLT with DLT with DLT If at Dose Level 1: If at Dose Level 1: Enter 3 subjects at Open cohort expansion at Enter 3 Subjects Optional Dose Level; Dose Level 1; at the If at Optional Dose Level: If at Optional Dose Level: Same Dose STOP Open cohort expansion at Optional Dose Level 1 of 6 Subjects with DLT ≥ 2 of 6 Subjects with DLT If at Dose Level 1: If at Dose Level 1: Open cohort expansion Enter 3 subjects at at Dose Level 1; Optional Dose Level; If at Optional Dose Level: If at Optional Dose Level: Open cohort expansion STOP at Optional Dose Level.
+
+See Table 6.1.1-1 for dose levels.
+
+DLT=dose-limiting toxicity. 6.1.2.1 Definition of Dose-limiting Toxicity A DLT is defined as the occurrence of any of the following toxicities that are considered related to IMP, with onset from the first dose to 14 days after the last dose of IMP in Cycle 1: Hematologic Toxicity 1) Grade 3 thrombocytopenia with clinically significant bleeding; 2) Grade 4 thrombocytopenia; 3) Febrile neutropenia (absolute neutrophil count < 500/mm3 with a single temperature of > 38.3°C [101°F]); CONFIDENTIAL 43
+
+--- Page 44 ---
+
+Clinical Protocol 0761-014, Amendment 3 4) Grade 4 neutropenia of duration > 7 days; Note: Grade > 3 lymphopenia or leukopenia of any duration is not considered a DLT.
+
+Non-hematologic Toxicity 5) Aspartate transaminase (AST) or alanine transaminase (ALT) elevation > 5 to ≤ 10 times the upper limit of normal (ULN) (Grade 3) that does not downgrade to ≤ Grade 1 (or to baseline grade if > Grade 1 at baseline) within 14 days; 6) AST or ALT elevation > 10 times ULN; 7) Total bilirubin > 5 times ULN; 8) ALT or AST elevation > 3 times ULN AND concomitant total bilirubin > 2 times ULN, without initial findings of cholestasis (elevated serum alkaline phosphatase), AND no other immediately apparent possible causes of ALT/AST elevation and hyperbilirubinemia, including, but not limited to, tumor progression, viral hepatitis, pre-existing chronic or acute liver disease, or the administration of other drug(s) known to be hepatotoxic; 9) A ≥ Grade 3 non-hematologic laboratory AE (other than AST, ALT, or bilirubin) is a DLT only if it requires medical intervention or hospitalization.
+
+Exception: Grade 3 or Grade 4 electrolyte abnormalities that are not associated with clinical signs or symptoms, and either resolve spontaneously or respond to conventional medical intervention are not DLTs; Note: ≥ Grade 3 elevation of amylase and/or lipase of any duration not associated with clinical or radiographic evidence of pancreatitis is not a DLT; 10) Grade 4 non-hematologic non-laboratory AE; 11) Grade 3 skin rash that does not improve to ≤ Grade 2 within 3 days of initiation of maximal supportive care; 12) Grade 3 uveitis, bronchospasm, or neurologic toxicity of any duration; 13) Any other Grade 3 non-hematologic non-laboratory AE lasting > 7 days, with the following exceptions: a) Grade 3 inflammatory reaction attributed to a local antitumor response (e.g., inflammatory reaction at sites of metastatic disease, lymph nodes, tumor lysis syndrome) is not a DLT; b) Grade 3 fatigue is not a DLT; c) Grade 3 fever not associated with hemodynamic compromise is not a DLT; 14) Grade 2 or higher pneumonitis of any duration; 15) Any Grade 2 uveitis, eye pain, or blurred vision that does not respond to topical therapy and does not improve to Grade 1 within 14 days OR requires systemic treatment.
+
+CONFIDENTIAL 44
+
+--- Page 45 ---
+
+Clinical Protocol 0761-014, Amendment 3 6.1.2.2 Definition of Maximum Tolerated Dose The MTD is defined as one dose level below the dose level of the cohort where ≥ one-third of the subjects experience DLT. 6.1.3 Phase 2: Expansion Cohort To further characterize the safety, tolerability, and anti-tumor activity of the combination, up to 184 subjects (21 to 36 subjects per tumor type) with locally advanced or metastatic disease in the following tumor types will be enrolled: squamous cell NSCLC; PD-L1-non-expressing non-squamous cell NSCLC; SCCHN; colorectal carcinoma, non-microsatellite instability (non-MSI) high; hepatocellular carcinoma (HCC), pancreatic adenocarcinoma, and ovarian cancer (including primary peritoneal cancer and fallopian tube carcinoma).
+
+Subjects will be treated with the highest dose of the combination regimen that was considered tolerable in Phase 1.
+
+The SRC will review cumulative safety data from all subjects approximately every 2 months during the enrollment period.
+
+Clinical safety in the expansion cohorts will be monitored continually.
+
+If the rate of AEs meeting DLT definitions during the expansion portion of the study is > 1/3 in at least 3 evaluable subjects within a cohort, these findings will be discussed by the SRC, in the context of all available safety information, to determine whether enrollment to that cohort and/or the remaining cohorts should be suspended, whether a lower dose should be examined, or whether any additional monitoring or treatment requirements should be implemented. 6.2 Number of Subjects, and Numbers and Location of Investigative Sites Up to 188 subjects at up to 23 sites in the US will be enrolled in this clinical trial.
+
+Of these, 4 subjects were enrolled in Phase 1 (dose-finding) and up to 184 subjects will be enrolled in Phase 2 (cohort-expansion).
+
+The actual size of the study will depend on the DLTs observed and the resultant number and sizes of the cohorts in Phase 1 of the trial. 6.3 Study Duration The study is composed of up to a 28-day Screening Period followed by a treatment period of up to 96 weeks from Cycle 1 Day 1.
+
+Subjects who stop treatment without disease progression and who experience disease progression within 12 months of their last dose of IMP may receive additional cycles, as described in Section 8.1.6. (NOTE: Upon implementation of Amendment 3, subjects who discontinued IMP without disease progression will not be allowed to receive additional IMP upon disease progression.) Subjects who discontinue IMP CONFIDENTIAL 45
+
+--- Page 46 ---
+
+Clinical Protocol 0761-014, Amendment 3 will enter a follow-up period and will be followed for survival. (Upon implementation of Amendment 3, survival follow-up will be discontinued for all subjects as described in Section 9.5.) 7 SELECTION AND WITHDRAWAL OF SUBJECTS 7.1 Procedures for Enrollment Interactive response technology (IRT) will be used to enroll subjects in the study.
+
+Instructions for using the IRT system will be described in the study procedure manual. 7.2 Inclusion Criteria Study populations for this study are: • Phase 1 dose finding: Adult subjects with locally advanced or metastatic solid tumors. • Phase 2 cohort expansion: Adult subjects with locally advanced or metastatic squamous cell NSCLC; PD-L1 non-expressing non-squamous cell NSCLC; SCCHN; colorectal carcinoma, non-MSI high; ovarian cancer (including primary peritoneal cancer and fallopian tube carcinoma); HCC; or pancreatic adenocarcinoma.
+
+Subjects must meet each one of the following inclusion criteria during the Screening period in order to be eligible for participation in the study.
+
+In addition, subjects participating in Phase 2 must meet all the inclusion criteria and have none of the exclusion criteria specified in Section 7.4. 1) Subject is age 18 years or older; 2) Subject must have histologically or cytologically confirmed solid tumor; 3) Subject must have locally advanced or metastatic solid tumor; 4) Subject has received appropriate cancer therapy as defined by: a) For subjects in Phase 1: Subject has no additional therapy options available known to prolong survival with the exception of PD-1 blockade (Subjects with tumors for which nivolumab has survival benefit who have not received PD-1 blockade are eligible.) Prior therapy is not required for a subject with a tumor type that has no standard treatment regimen that is considered by the Investigator to be appropriate; OR subject meets prior therapy requirements for their tumor type provided below in the Additional Eligibility Criteria for Subjects in Phase 2; Note: Subjects in Phase 1 with NSCLC of non-squamous histology must be tested for epidermal growth factor receptor (EGFR) mutations and anaplastic lymphoma kinase (ALK) rearrangement.
+
+Subjects with EGFR activating mutations or ALK rearrangement must have progressed during or after, or been intolerant to, at least one prior approved EGFR or ALK targeted therapy; CONFIDENTIAL 46
+
+--- Page 47 ---
+
+Clinical Protocol 0761-014, Amendment 3 b) For subjects in Phase 2, see prior therapy requirements provided below in the Additional Eligibility Criteria for Subjects in Phase 2; 5) Subject has at least 1 measurable lesion per RECIST v. 1.1.
+
+Note: Lesions located in a previously irradiated field must have subsequent radiographic disease progression in that site in order to be considered measurable; 6) Subject has an Eastern Cooperative Oncology Group (ECOG) performance status (PS) of 0 or 1; 7) If the subject is a woman of child-bearing potential or man who is sexually active with woman of child-bearing potential, the subject agrees to use adequate contraception from signing of the ICF, for the duration of study participation; and for 23 weeks after the last dose of IMP for women or 31 weeks after the last dose of IMP for men; 8) Subject must have adequate hematological, renal, hepatic and respiratory functions defined below: a) White blood cells ≥ 2.0 × 109/L (2000/mm3); b) Absolute neutrophil count > 1.5 × 109/L (1500/mm3); c) Platelets > 90 × 109/L (90000/mm3), or > 60 × 109/L (60000/mm3) for subjects with hepatocellular carcinoma; d) Hemoglobin ≥ 9.0 g/dL (5.6 mmol/L); e) Serum total bilirubin ≤ 1.5 × ULN (except subjects with Gilbert syndrome or hepatocellular carcinoma, who can have serum total bilirubin < 3.0 mg/dL); f) AST and ALT ≤ 3 × ULN, or ≤ 5 × ULN for subjects with liver metastases or hepatocellular carcinoma; g) Serum creatinine ≤ 1.5 × ULN OR calculated creatinine clearance (CrCL) ≥ 40 mL/min (using the Cockcroft-Gault formula) Female CrCL = (140-age in years) × weight in kg × 0.85 72 × serum creatinine in mg/dL Male CrCL = (140-age in years) × weight in kg × 1.00 72 × serum creatinine in mg/dL; 9) The subject is willing to undergo tumor biopsy during the Screening period, or if the tumor is inaccessible for biopsy, archived tumor material must be available for submission; 10) The subject is able to understand and willing to sign the ICF. 7.3 Exclusion Criteria Subjects will not be eligible to participate in this study if any one of the following exclusion criteria is met during the Screening period.
+
+In addition, subjects participating in Phase 2 must meet all the inclusion criteria and have none of the exclusion criteria specified in Section 7.4.
+
+CONFIDENTIAL 47
+
+--- Page 48 ---
+
+Clinical Protocol 0761-014, Amendment 3 1) Female subject who is pregnant or breast-feeding, or any subject expecting to conceive or father a child during this study; 2) Subject has an uncontrolled intercurrent illness that in the opinion of the Investigator would compromise the safety of the subject.
+
+These may include, but are not limited to, uncontrolled infection, unstable angina, interstitial lung disease, or clinically significant cardiac arrhythmia; 3) Subjects has psychiatric illness/social situations that in the opinion of the investigator would limit compliance with study requirements; 4) Subject has primary central nervous system (CNS) tumor or known CNS metastases and/or history of CNS metastases and/or carcinomatous meningitis; Exception: Subjects are eligible if CNS metastases are adequately treated and subjects are neurologically returned to baseline (except for residual signs or symptoms related to the CNS treatment) for at least 4 weeks prior to enrollment.
+
+In addition, subjects must be off corticosteroids for 4 weeks prior to enrollment; 5) Subject has received prior therapy for cancer or major surgery within 28 days, or 42 days for nitrosourea or mitomycin C, prior to Cycle 1 Day 1, or 14 days for tamoxifen; 6) Subject has received radiotherapy or radiosurgery within 14 days prior to Cycle 1 Day 1; 7) Subject has been previously treated with an anti-PD-1, anti-PD-L1, anti-PD-L2, anti-CD137, or anti-CTLA-4 antibody or any other antibody or drug specifically targeting T-cell co-stimulation or checkpoint pathways; 8) Subject has been previously treated with mogamulizumab; 9) Subject has a history of allergy or hypersensitivity to study drug components; 10) Subject has received a live, attenuated vaccine within 28 days prior to Cycle 1 Day 1; 11) Subject has a history of organ transplant or allogeneic bone marrow transplant; 12) Subject has any unresolved toxicity Grade > 1 (defined by Common Terminology Criteria for Adverse Events version 4.03 [CTCAE v. 4.03]) from previous anti-cancer therapy, excluding alopecia, fatigue, and laboratory values listed in the inclusion criteria.
+
+Subjects with irreversible toxicity that is not reasonably expected to be exacerbated by the investigational product may be included (e.g., hearing loss) at the discretion of the Investigator; 13) Subject use of immunosuppressive medication within 14 days before Cycle 1 Day 1.
+
+Note: Inhaled, ocular, intranasal, intra-articular, or topical corticosteroids are allowed.
+
+Non immunosuppressive doses of systemic steroids for adrenal replacement or for contrast allergy are allowed; 14) Subject has an active autoimmune disease or a history of autoimmune disease which may affect vital organ function or require immune suppressive treatment including systemic corticosteroids; these include but are not limited to subjects with a history of immune-related neurologic disease, multiple sclerosis, uveitis, autoimmune (demyelinating) neuropathy, Guillain-Barré syndrome, myasthenia gravis; transverse CONFIDENTIAL 48
+
+--- Page 49 ---
+
+Clinical Protocol 0761-014, Amendment 3 myelitis; systemic autoimmune disease such as systemic lupus erythematosus, connective tissue diseases, scleroderma, autoimmune hepatitis; a) Exceptions: Subject with vitiligo, alopecia, type I diabetes mellitus, and endocrine deficiencies including hypothyroidism managed with replacement hormones including physiologic corticosteroids are eligible.
+
+Subject with psoriasis controlled with topical medication, or conditions not expected to recur in the absence of an external trigger (precipitating event) are eligible; 15) Subject has a history of toxic epidermal necrolysis or Stevens-Johnson syndrome; 16) Subject has a history of inflammatory bowel disease, Crohn’s disease, ulcerative colitis, or Wegener’s granulomatosis; 17) Subject has primary or acquired immunodeficiency or known history of testing positive for human immunodeficiency virus (HIV) or known acquired immunodeficiency syndrome; 18) Subject who tests positive for hepatitis B surface antigen (HBVsAg) or hepatitis C RNA indicating acute or chronic infection except for subjects with hepatocellular carcinoma; 19) Subject has another active malignancy requiring concurrent intervention; 20) Subject who is receiving any other investigational agents; 21) Subject has another condition that, in the opinion of the Investigator and/or Sponsor, would interfere with evaluation of the IMP or interpretation of subject safety or study results; 22) Subject has a history of pneumonitis or interstitial lung disease. 7.4 Additional Eligibility Criteria for Subjects in Phase 2 In addition to having to meet all the inclusion criteria in Section 7.2 and to have none of the exclusion criteria in Section 7.3, subjects must meet all the following inclusion criteria and have none of the following exclusion criteria for the relevant tumor type during the Screening period in order to be eligible for participation in Phase 2 of the study. 7.4.1 Non-small-cell Lung Cancer 7.4.1.1 Non-small-cell Lung Cancer, Squamous Cell Inclusion Criteria: 1) Subject has histologically or cytologically confirmed Stage IIIB or Stage IV (according to version 7 of the International Association for the Study of Lung Cancer Staging Manual in Thoracic Oncology; see Procedure Manual) squamous cell NSCLC; CONFIDENTIAL 49
+
+--- Page 50 ---
+
+Clinical Protocol 0761-014, Amendment 3 2) Prior Therapy: Subject experienced disease recurrence or progression during or after platinum doublet-based chemotherapy for advanced or metastatic disease; a) Subject with recurrent or progressive disease within 6 months after completing platinum-based chemotherapy for local disease are eligible; b) Subject with recurrent or progressive disease > 6 months after platinum-containing adjuvant, neoadjuvant or definitive chemoradiation therapy given for local disease, who also subsequently progressed during or after a platinum doublet-based regimen given to treat the recurrence, are eligible. 7.4.1.2 Non-small-cell Lung Cancer, Nonsquamous, PD-L1 Non-expressing Inclusion Criteria: 1) Subject has histologically or cytologically confirmed Stage IIIB or Stage IV (according to version 7 of the International Association for the Study of Lung Cancer Staging Manual in Thoracic Oncology; see Procedure Manual) non-squamous cell NSCLC; 2) Subject’s tumor must be PD-L1 non-expressing on immunohistochemistry (IHC) testing performed by the central laboratory during the Screening period.
+
+Either a formalin-fixed, paraffin-embedded (FFPE) tissue block or tumor tissue sections must be submitted for biomarker evaluation during the Screening period.
+
+The tumor tissue sample may be fresh or archival.
+
+Tissue must be a core needle biopsy, excisional or incisional biopsy.
+
+Fine needle biopsies, drainage of pleural effusions with cytospins, or punch biopsies are not considered adequate for biomarker review.
+
+Biopsies of bone lesions that do not have a soft tissue component or decalcified bone tumor samples are also not acceptable; 3) Prior Therapy: Subject experienced disease recurrence or progression during or after platinum doublet-based chemotherapy for advanced or metastatic disease; a) Subject with recurrent or progressive disease within 6 months after completing platinum-based chemotherapy for local disease are eligible; b) Subject with recurrent or progressive disease > 6 months after platinumcontaining adjuvant, neoadjuvant or definitive chemoradiation therapy given for local disease, who also subsequently progressed during or after a platinum doublet-based regimen given to treat the recurrence, are eligible; c) Subjects must be tested for EGFR mutations and ALK rearrangement.
+
+Subjects with EGFR activating mutations or ALK rearrangement must have progressed during or after, or been intolerant to, at least one prior approved EGFR or ALK targeted therapy.
+
+CONFIDENTIAL 50
+
+--- Page 51 ---
+
+Clinical Protocol 0761-014, Amendment 3 7.4.2 Squamous Cell Carcinoma of Head and Neck Inclusion Criteria: 1) Histologically confirmed squamous cell carcinoma of oral cavity, pharynx, or larynx; Squamous cell carcinoma of unknown primary is allowed only if tumor is HPV16 positive; 2) Stage III or IV and not amenable to local therapy with curative intent (surgery or radiation therapy with or without chemotherapy); 3) Prior Therapy: Tumor progression or recurrence within 6 months of last dose of platinum therapy in the adjuvant (i.e., with radiation after surgery), primary (i.e., with radiation), recurrent, or metastatic setting.
+
+Clinical progression after platinum therapy is an allowable event for entry and is defined as progression of a lesion at least 10 mm in size that is amenable to caliper measurement (e.g., superficial skin lesion as per RECIST v 1.1) or a lesion that has been visualized and photographically recorded with measurements and shown to have progressed.
+
+Exclusion Criteria: 1) Histologically confirmed recurrent or metastatic carcinoma of the nasopharynx or salivary gland; 2) Subject with base of skull lesion(s) with possible dural or brain parenchymal involvement that may require local therapy e.g. radiation; 3) Non-squamous histologies (e.g., mucosal melanoma); 7.4.3 Colorectal Carcinoma, non-Microsatellite Instability High Inclusion Criteria: 1) Subject has histologically confirmed metastatic or recurrent colorectal carcinoma; 2) Microsatellite instability status low (MSI-L) or microsatellite stable (MSS) as detected by an accredited laboratory per local procedures see Section 9.2.7.1. 3) Prior treatment: Progression during, after, or been intolerant following the last administration of approved standard therapies, which must include at minimum a fluoropyrimidine, oxaliplatin, and irinotecan, as well as at least one of the following agents, if approved or in standard national guidelines, bevacizumab, cetuximab or panitumumab (if KRAS wild type), or regorafenib.
+
+Exclusion Criterion: 1) Microsatellite instability-high (MSI-H) tumor status detected by an accredited laboratory per local procedures.
+
+CONFIDENTIAL 51
+
+--- Page 52 ---
+
+Clinical Protocol 0761-014, Amendment 3 7.4.4 Ovarian Cancer Inclusion Criteria: 1) Female subjects with International Federation of Gynecology and Obstetrics Stage Ic, Stage II, Stage III, Stage IV, recurrent, or persistent (unresectable) histologically confirmed epithelial ovarian cancer, primary peritoneal cancer, or fallopian tube carcinoma; 2) Subjects are allowed to have received up to 4 prior cytotoxic regimens for treatment of their epithelial ovarian, fallopian tube, or primary peritoneal cancer; they must have had one prior platinum-based chemotherapeutic regimen for management of primary disease, possibly including intra-peritoneal therapy, consolidation, biologic/targeted (non-cytotoxic) agents (e.g., bevacizumab) or extended therapy administered after surgical or non-surgical assessment; subjects are allowed to have received, but are not required to have received, 1 to 2 cytotoxic regimens for management of recurrent or persistent disease; (for the purposes of this study, poly-adenosine diphosphate (ADP) ribose polymerase (PARP) inhibitors given for recurrent or progressive disease will be considered cytotoxic); if 2 cytotoxic regimens had been received for management of recurrent or persistent disease, one of these regimens would have had to contain either a platinum or taxane agent; Platinum-free Interval - subjects must have progressed < 6 months after completion of their last platinum-based chemotherapy; 3) Albumin greater than or equal to 2.8 g/dL.
+
+Exclusion Criterion: 1) Subject has mucinous histology. 7.4.5 Hepatocellular Carcinoma Inclusion Criteria: 1) Histologically confirmed hepatocellular carcinoma not amenable for management with curative intent by surgery or local therapeutic measure; 2) Subject must have received sorafenib treatment and either: • have had documented radiographic or symptomatic progression during or after sorafenib therapy; OR • be intolerant of sorafenib (defined as Grade 2 drug-related adverse event which 1) persisted in spite of comprehensive supportive therapy according to institutional standards AND 2) persisted or recurred after sorafenib treatment interruption of at least 7 days and dose reduction by one dose level (to 400 mg once daily) AND/OR Grade 3 drug-related adverse event which 1) persisted in spite of comprehensive supportive therapy according to institutional standards OR 2) persisted or recurred after sorafenib treatment interruption of at least 7 days and dose reduction by one dose level (to 400 mg once daily); CONFIDENTIAL 52
+
+--- Page 53 ---
+
+Clinical Protocol 0761-014, Amendment 3 OR must have documented refusal of sorafenib; 3) Subject has Child-Pugh score of ≤6, i.e., Child-Pugh A (Appendix 2); 4) INR ≤ 2.3 or Prothrombin time (PT) ≤ 6 seconds above control; 5) Subject has HBV DNA viral load undetectable or < 100 IU/mL at screening.
+
+If subject has detectable HBsAg, HBeAg, or HBV DNA (indicating ongoing viral replication of hepatitis B, he/she must be on antiviral therapy per regional standard of care guidelines prior to initiation of study therapy.
+
+If not on antiviral therapy at screening, then the subject must initiate treatment per regional standard of care guidelines prior to C1D1 and must be willing to continue antiviral therapy while on study treatment.
+
+Exclusion Criterion: 1) Any history of hepatic encephalopathy 2) Any prior (within 1 year) or current clinically significant ascites as measured by physical examination and that requires paracentesis for control; 3) Active coinfection with both hepatitis B (i.e., HBVsAg and/or hepatitis B DNA) and hepatitis C (i.e., hepatitic C RNA) 4) Hepatitis D infection in subjects with hepatitis B 5) Any history of clinically meaningful variceal bleeding within the last three months. 7.4.6 Pancreatic Adenocarcinoma Inclusion Criteria: 1) Subject has histologically or cytologically confirmed locally advanced unresectable or metastatic pancreatic ductal adenocarcinoma; 2) Tumor sample available for MSI testing (Note: archived material is sufficient); 3) Prior treatment: Subject must have received at least one prior chemotherapy regimen for their disease and must have radiological or clinical progression or documented unacceptable toxicity.
+
+Exclusion Criterion: 1) Known microsatellite instability-high (MSI-H) tumor status. 7.5 Removal of Subjects from Therapy or Assessment A subject is free to withdraw his/her consent and discontinue study treatment or participation in the study at any time for any reason.
+
+A subject may also be discontinued from the treatment, at the discretion of the Investigator and/or sponsor, for any of the following reasons: • Withdrawal of consent from further treatment with IMP; CONFIDENTIAL 53
+
+--- Page 54 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Withdrawal of consent from the study; • AEs (see Section 10.3); • Required use of prohibited concomitant medications; • Non-compliance that, in the opinion of the Investigator or Sponsor, warrants withdrawal (e.g., refusal to adhere to scheduled visits); • Major protocol violation; • It is not considered in the best interest of the subject to continue; • Pregnancy; • Subjects who have unequivocal documented disease progression or symptomatic disease progression and are not eligible for continued treatment (see Section 8.1.5); • Lost to follow-up; • Administrative reasons (e.g., termination of the study).
+
+The Investigator must maintain a record of all subjects who discontinue from the study prior to completion; the reason(s) for study discontinuation will be documented.
+
+In the event that a subject chooses to withdraw from the study, the Investigator should make a reasonable attempt to obtain and record the reason(s) for withdrawal, if possible, although the subject is not obligated to provide such a reason.
+
+If treatment is discontinued, both IMPs will be discontinued (e.g., subjects will not be allowed to continue one investigational agent if the other is discontinued).
+
+For any case of treatment discontinuation (whether or not the subject is at the clinical site), the Investigator should ask the subject to complete the End-of-Treatment (EOT) and Follow-up visit procedures, provided that the subject has not withdrawn consent for those procedures (see Table 9-1 and Table 9-2 for the Schedule of Assessments).
+
+Subjects withdrawn from study without unequivocal disease progression or withdrawal of consent for follow up should continue tumor assessments until a new anticancer therapy is started, unequivocal disease progression is documented, withdrawal of consent for the follow-up contacts, or death.
+
+If a subject refuses to complete EOT procedures and/or the Follow-up visit, this refusal will be recorded.
+
+Subjects will be considered lost to follow-up only if no contact has been established by the time the study is completed such that there is insufficient information to determine the subject’s status at that time.
+
+Subjects who refuse continuing participation in the study, including telephone contacts, should be documented as “withdrawal of consent” rather than “lost to follow-up.” Investigators should document attempts to re-establish contact with unresponsive subjects throughout the study period.
+
+If contact with a missing subject is reestablished, the subject should not be considered lost to follow-up and any evaluations should resume according to the protocol.
+
+CONFIDENTIAL 54
+
+--- Page 55 ---
+
+Clinical Protocol 0761-014, Amendment 3 Procedures to be followed for subjects who are ongoing in the study (i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up) at the time of data cutoff for completion of analyses are described in Section 9.5.
+
+The Sponsor reserves the right to terminate the study at any time. 7.5.1 Replacement of Subjects Subjects in Phase 1 will be considered nonevaluable for DLT and will be replaced if they do not experience a DLT and: • they do not receive all infusions of both IMPs in Cycle 1 within 28 days at the doses assigned to the cohort in which they are enrolled, or • they do not complete the safety follow-up through the end of the DLT evaluation period (Section 6.1.2.1).
+
+Subjects enrolled in Phase 2 may be replaced, for these same reasons, at the discretion of the Sponsor. 8 TREATMENTS 8.1 Identity of Investigational Medicinal Products The Sponsor will provide both IMPs (mogamulizumab and nivolumab) to the investigational sites.
+
+Information about the IMPs to be used in the trial is summarized in Table 8.1-1 Table 8.1-1 Identification of Investigational Medicinal Products Investigational Medicinal Product Product Manufacturer Concentration and Formulation as Supplied iv=intravenous; USP=United States Pharmacopeia.
+
+CONFIDENTIAL 55
+
+--- Page 56 ---
+
+Clinical Protocol 0761-014, Amendment 3 All IMPs will be labelled in an open-label fashion.
+
+Labels will bear the appropriate text as required by local regulatory requirements.
+
+Guidance on the dilution procedures and recommended storage conditions for the diluted solutions of the IMPs can be found in the Pharmacy Manual.
+
+Upon completion or termination of the study, all unopened containers of IMP must be destroyed at the site according to applicable regulations, institutional guidelines, and procedures, unless other arrangements have been approved by the Sponsor. 8.1.1 Treatments to be Administered The dose levels of the IMPs during the Phase 1 are described in Table 6.1.1-1.
+
+The dosing schedules of the IMPs during the study are described in Table 8.1.1-1.
+
+Table 8.1.1-1 Dosing Schedules of Mogamulizumab and Nivolumab During Phase 1 and Phase 2 Cycle 1 Cycle ≥2 Day 1 Day 8 Day 15 Day 22 Day 1 Day 15 Nivolumab X X X X Mogamulizumab X X X X X X Treatments will be administered on an outpatient basis.
+
+Each dose of IMP will be prepared by the pharmacy (refer to the Pharmacy Manual for full preparation, administration, and storage requirements).
+
+Mogamulizumab dosing calculations should be based on the body weight assessed at Cycle 1 Day 1 (baseline).
+
+Mogamulizumab dose adjustments for each cycle are required for greater than a 10% change in body weight.
+
+All subjects will receive 240 mg of nivolumab as at least a 30-minute iv infusion on Days 1 and 15 of each 28-day cycle.
+
+When both nivolumab and mogamulizumab are administered at the same visit, the infusion of mogamulizumab will be started at least 30 minutes after the end of infusion of nivolumab. • Nivolumab injection is to be administered as an iv infusion through a 0.2-micron to 1.2-micron pore size, low-protein binding polyethersulfone membrane in-line filter • Subjects may be dosed no less than 12 days from the previous dose of nivolumab. • There are no premedications recommended for nivolumab prior to the first infusion.
+
+CONFIDENTIAL 56
+
+--- Page 57 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Subjects should be carefully monitored for infusion-related reactions during IMP administration.
+
+If an acute infusion-related reaction is noted, subjects should be managed according to Section 8.2.2.
+
+Subjects will then receive the cohort-assigned dose of mogamulizumab as at least a 1-hour iv infusion on Days 1, 8, 15, and 22 of the first cycle and on Days 1 and 15 of subsequent cycles. • Mogamulizumab injection dose is to be administered as an iv infusion through a 0.22or 0.2-μm in-line filter. • Subjects may be dosed no less than 5 days from the previous dose of mogamulizumab. • Premedication with acetaminophen orally and diphenhydramine 50 mg iv (or equivalent) is recommended before the first mogamulizumab infusion (see Section 8.2.1). • Subjects should be carefully monitored for infusion-related reactions during IMP administration.
+
+If an acute infusion-related reaction is noted, subjects should be managed according to Section 8.2.2.
+
+Subjects should be closely monitored for AEs for at least: • 30 minutes after the completion of the nivolumab infusion; • 4 hours after the completion of the mogamulizumab infusion for the first 2 combination infusions (i.e., Cycle 1, Days 1 and 15); and • 30 minutes after all other mogamulizumab infusions. 8.1.2 Dose Reduction and Dose Delay Doses of IMPs may be interrupted, delayed, or discontinued depending on how well the subject tolerates the treatment. 8.1.2.1 Dose Reduction There will be no intra-patient dose reduction of either IMP by the Investigator.
+
+Doses within an assigned cohort may only be changed at the discretion of the SRC. (As of Amendment 3, the SRC will be disbanded.) 8.1.2.2 Dose-delay Criteria IMP administration should be delayed for the following: • Any Grade 2 or 3 IMP-related AE, with the following exceptions: – Grade 2 IMP-related fatigue or laboratory abnormalities do not require a treatment delay. • Any Grade 3 IMP-related laboratory abnormality, with the following exceptions for lymphopenia or leukopenia, AST, ALT or total bilirubin or asymptomatic amylase or lipase: CONFIDENTIAL 57
+
+--- Page 58 ---
+
+Clinical Protocol 0761-014, Amendment 3 – Lymphopenia or leukopenia of any grade does not require dose delay. – If a subject has a baseline AST, ALT or total bilirubin that is within normal limits, delay dosing for drug-related Grade ≥ 2 toxicity. – If a subject has baseline AST, ALT or total bilirubin within the Grade 1 toxicity range, delay dosing for IMP-related Grade ≥ 3 toxicity. – If a subject has baseline AST, ALT, or total bilirubin within the Grade 2 toxicity range, delay dosing for IMP-related toxicity that increase by 2-fold or values > 8 × ULN. – Any Grade ≥ 3 IMP-related amylase or lipase abnormality that is not associated with symptoms or clinical manifestations of pancreatitis does not require dose delay.
+
+The Medical Monitor should be consulted for such Grade ≥ 3 amylase or lipase abnormalities. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) – Any AE, laboratory abnormality, or intercurrent illness which, in the judgment of the Investigator, warrants delaying the dose of study medication.
+
+Subjects who require delay of IMP should be re-evaluated weekly or more frequently if clinically indicated and resume IMP dosing when re-dosing criteria are met. 8.1.3 Criteria to Resume Dosing Subjects may resume treatment with IMP when the drug-related AE(s) resolve(s) to Grade ≤ 1 or baseline, with the following exceptions: • Subjects may resume treatment in the presence of Grade 2 fatigue. • Subjects who have experienced Grade 3 drug-related skin AE must have improvement to Grade ≤ 2 within 3 days.
+
+Treatment may resume once the AE has improved to Grade ≤ 1. • Subjects who have experienced a Grade 2 drug-related skin AE may resume treatment when it has resolved to Grade ≤ 1. • Subjects with baseline Grade 1 AST/ALT or total bilirubin who require dose delays for reasons other than a 2-grade shift in AST/ALT or total bilirubin may resume treatment in the presence of Grade 2 AST/ALT OR total bilirubin. – Subjects with combined Grade 2 AST/ALT AND total bilirubin values meeting discontinuation parameters should have treatment permanently discontinued. • Drug-related pulmonary toxicity must have resolved to baseline before treatment is resumed.
+
+Subjects with persistent Grade 1 pneumonitis (asymptomatic; clinical or diagnostic observations only, intervention not indicated) after completion of a steroid taper over at least 1 month may be eligible for retreatment if discussed with the Medical Monitor. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) • Drug-related endocrinopathies adequately controlled with only physiologic hormone replacement may resume treatment.
+
+CONFIDENTIAL 58
+
+--- Page 59 ---
+
+Clinical Protocol 0761-014, Amendment 3 Dose delay of IMP for drug-related toxicity which results in treatment interruption of > 6 weeks requires treatment discontinuation, with the following exception: • Dosing delays of > 6 weeks for prolonged steroid tapers to manage drug-related AEs are allowed.
+
+Re-initiation of treatment in a subject with a dosing delay lasting > 6 weeks from the previous dose requires consultation with the Medical Monitor. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) Required protocol assessments should continue as per protocol even if dosing is delayed.
+
+Periodic study visits to assess safety and laboratory studies should also continue every 6 weeks or more frequently, if clinically indicated, during such dosing delays. 8.1.4 Criteria for Treatment Discontinuation for Toxicity IMP treatment should be permanently discontinued if one or more of the following drugrelated adverse events occurs: • Any AE occurring at any time during treatment that is related to IMP and that meets the DLT criteria listed in Section 6.1.2.1, with the following exceptions: – Grade 2 pneumonitis which was treated and resolved according to the management guidelines in Section 8.2.3. – Grade 3 or 4 drug-related endocrinopathy AEs, such as adrenal insufficiency, adrenocorticotropic hormone (ACTH) deficiency, hyperor hypothyroidism, or glucose intolerance, which resolve or are adequately controlled with physiologic hormone replacement (corticosteroids, thyroid hormones) or glucose-controlling agents, respectively, may not require discontinuation after discussion with the Medical Monitor. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) • Grade ≥ 3 hypersensitivity reaction or infusion-related reaction • Any drug-related event that leads to delay in dosing lasting > 6 weeks from the previous dose requires discontinuation with the following exception: – Dosing delays of > 6 weeks for prolonged steroid tapers to manage drug-related AEs are allowed. – Re-initiation of treatment in a subject with a dosing delay lasting > 6 weeks from the previous dose requires consultation with the Medical Monitor. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) Required protocol assessments should continue as per protocol even if dosing is delayed.
+
+Periodic study visits to assess safety and laboratory studies should also continue every 6 weeks or more frequently, if clinically indicated, during such dosing delays. • Any AE, laboratory abnormality, or intercurrent illness which, in the judgment of the Investigator, presents a substantial clinical risk to the subject with continued IMP dosing.
+
+CONFIDENTIAL 59
+
+--- Page 60 ---
+
+Clinical Protocol 0761-014, Amendment 3 8.1.5 Treatment Beyond Disease Progression The IMPs used in this trial are meant to induce an immune response against the subject’s tumor and may not have an immediate effect on the tumor.
+
+In addition, the expected mechanism of action involves an infiltration of T-cells and inflammatory cells and local release of inflammatory cytokines.
+
+Therefore it is expected that initial radiographic progression may not be indicative of subsequent lack of response.
+
+Treatment may continue in spite of early radiographic progression, including appearance of new lesions, in the absence of symptomatic progression as long as the subject meets the other criteria in Sections 8.1.2 and 8.1.3 and has not had an AE that meets the criteria for treatment discontinuation in Section 8.1.4.
+
+Treatment past initial RECIST-defined radiographic progression may continue according to Investigator judgment, in consultation with the Medical Monitor, based on the subject’s overall clinical status, overall tumor burden, and rate of progression, taking into account the subject’s other treatment options and need for urgent intervention. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) For example, a subject may continue treatment if a tumor assessment shows improvement or stable disease compared to the previous scan, even if there is progression compared to the baseline scan.
+
+Investigators may schedule an additional tumor assessment within 6 weeks after a scan showing progression, in order to reassess the subject’s response.
+
+Subjects may be treated after progression if they meet these criteria: • Investigator-assessed potential clinical benefit; • No disease-related clinical deterioration; • Absence of progressive tumor at critical anatomical sites (e.g., cord compression) requiring urgent alternative medical intervention; • Subject meets other re-dosing criteria in Section 8.1.3 and has not had an AE that meets the criteria for treatment discontinuation in Section 8.1.4.
+
+If treatment is continued in spite of radiographic progression, the Investigator should record the rationale, and the subject must be informed that treatment beyond initial progression is not standard of care, and the Investigator should discuss potential risks and alternative treatment options.
+
+The sponsor will provide a consent form for re-consent of the subject prior to continuation of dosing, subject to institutional review board (IRB) approval.
+
+Subjects should permanently discontinue study therapy upon evidence of further progression, defined as an additional 20% or greater increase in total measured tumor burden (TMTB) from time of initial progression.
+
+Total measured tumor burden should be determined as described in Section 9.2.6.
+
+The total measured tumor burden from time of initial progression CONFIDENTIAL 60
+
+--- Page 61 ---
+
+Clinical Protocol 0761-014, Amendment 3 should be used as the reference baseline for comparison with the post-progression assessment. 8.1.6 Re-treatment for Progression during Follow-up Subjects who stop IMP without disease progression and who experience disease progression within 12 months of their last dose of IMP may receive additional IMP for up to 48 weeks provided that they meet the criteria in Sections 8.1.2, 8.1.3 and 8.1.4 and have not received other systemic therapy for their cancer.
+
+Biopsy of a progressing lesion should be obtained, if feasible.
+
+The Medical Monitor must be consulted before a subject in follow-up begins retreatment.
+
+Subject must be re-consented prior to restarting IMP. (Upon implementation of Amendment 3, subjects who discontinued IMP without disease progression will not be allowed to receive additional IMP upon disease progression.) The schedule of assessments for Cycle ≥ 3 should be followed, except that PK, PD, and anti-drug antibody (ADA) assessments are not required. 8.2 Management of Infusion-related Reaction and Other Toxicity 8.2.1 Premedication It is recommended that subjects be premedicated with acetaminophen orally and diphenhydramine 50 mg iv (or equivalent), before the first mogamulizumab infusion.
+
+If a subject experiences an infusion-related reaction at any time during the study, pre-medication is recommended prior to subsequent infusions (see Section 8.2.2).
+
+No premedications are recommended for nivolumab prior to first infusion.
+
+If a subject experiences an infusion-related reaction at any time during the study, pre-medication is recommended prior to subsequent infusions (see Section 8.2.2). 8.2.2 Treatment of Infusion-related Reactions As with any antibody, infusion-related reactions are possible.
+
+Appropriate drugs and medical equipment to treat allergic or anaphylactic reactions must be immediately available, and study personnel must be trained to recognize and treat infusion-related reactions.
+
+If a subject experiences an infusion-related reaction at any time during the study, premedication with the following medications is recommended prior to subsequent infusions: diphenhydramine 50 mg (or equivalent) and/or acetaminophen 325 to 1000 mg at least 30 minutes before additional IMP administration.
+
+CONFIDENTIAL 61
+
+--- Page 62 ---
+
+Clinical Protocol 0761-014, Amendment 3 All Grade 3 or 4 infusion-related reaction should be reported within 24 hours to the Sponsor (see Section 10.3.3.3).
+
+Treatment recommendations for infusion-related reactions are provided in Table 8.2.2-1 and may be modified based on local treatment standards or guidelines, as appropriate.
+
+If a subject has an infusion-related reaction, blood samples should be drawn for assessment of cytokines (Table 10.2-1).
+
+Cytokine-release syndrome is not expected with mogamulizumab or nivolumab, but if cytokine-release syndrome is suspected, consider use of cytokine antagonists such as tocilizumab (IL-6 receptor antagonist).
+
+Table 8.2.2-1 Recommended Management of Infusion-related Reaction Grade Symptoms Recommended Management 1/2 • Mild or Moderate (e.g., rash, flushing, • The infusion rate of the IMP(s) should be urticaria, dyspnea, fever, pruritus/ temporarily interrupted until resolution of the event. itching, rigors/chills, sweating • Acetaminophen, NSAIDS, antihistamines, [diaphoresis], tachycardia) narcotics, corticosteroids, bronchodilators, and iv • Moderate reactions may require therapy fluids may be administered at the discretion of the but respond promptly to symptomatic Investigator. treatment (e.g., antihistamines, NSAIDS, • The infusion should not be restarted until symptoms narcotics, corticosteroids, have subsided to Grade 1 or less. bronchodilators, iv fluids) • The infusion may be re-started at half-rate when symptoms resolve.
+
+If no further complications ensue after 30 minutes, the rate may be increased full rate.
+
+If symptoms recur, then no further IMP should be administered at that visit. • Pre-medication prior to subsequent doses are recommended 3/4 • Severe/Life-threatening: Prolonged • Halt infusion immediately. (i.e., not rapidly responsive to • Begin iv infusion of normal saline. symptomatic medication and/or brief • Initiate treatment according to institutional standard interruption of infusion); recurrence of of care including corticosteroids, epinephrine, symptoms following initial cytokine antagonists, bronchodilators, intubation improvement; hospitalization indicated and respiratory support, iv hydration and for other clinical sequelae (e.g., renal vasopressors. impairment, pulmonary infiltrates); • Discontinue IMPs. • Pressor or ventilatory support indicated (i.e., bronchospasm, stridor, hypoxia, angioedema, swelling of lips, tongue, uvula, hypotension, abdominal pain, vomiting, hypoxia, syncope, collapse, incontinence).
+
+IMP=investigational medicinal product; iv=intravenous; NSAIDS=non-steroidal anti-inflammatory drugs.
+
+CONFIDENTIAL 62
+
+--- Page 63 ---
+
+Clinical Protocol 0761-014, Amendment 3 8.2.3 Immune-associated Select Adverse Events of Interest Immuno-oncology agents are associated with AEs that can differ in severity and duration than AEs caused by other therapeutic classes.
+
+Nivolumab and mogamulizumab are considered immuno-oncology agents in this protocol.
+
+Early recognition and management of AEs associated with immuno-oncology agents may mitigate severe toxicity.
+
+Management algorithms have been developed to assist Investigators in assessing and managing the following groups of AEs and are included in the nivolumab IB: • Gastrointestinal • Renal • Pulmonary • Hepatic • Endocrinopathies • Skin • Neurological Recommended guidelines for managing hepatic events in subjects with elevated baseline LFTs are provided in Section 8.2.3.1.
+
+For treatment of skin toxicity, recommended treatment guidelines are provided in Table 8.2.3-1.
+
+CONFIDENTIAL 63
+
+--- Page 64 ---
+
+Clinical Protocol 0761-014, Amendment 3 Table 8.2.3-1 Recommended Management of Investigational Medicinal Product-related Dermatologic Toxicity Grade Dermatologic AE 1 Dosing delay is not required. • Initiate symptomatic therapy, e.g., antihistamines, topical or systemic corticosteroids (0.5 to 1.0 mg/kg/day methylprednisolone iv or oral, or equivalent), as needed.
+
+If persists > 2 weeks, or recurs: • Consider skin biopsya; • Consider 0.5 to 1.0 mg/kg/day methylprednisolone iv or oral, or equivalent. 2 • Hold IMPs. • Initiate symptomatic therapy, e.g., antihistamines, topical or systemic corticosteroids (0.5 to 1.0 mg/kg/day methylprednisolone iv or oral, or equivalent), as needed; If persists > 2 weeks or recurs: • Perform skin biopsya; • Consider 0.5 to 1.0 mg/kg/day methylprednisolone iv or oral, or equivalent.
+
+Once improving, taper steroids over at least 1 month, consider prophylactic antibiotics for opportunistic infections, and resume IMP. 3 • Hold IMPs until resolution to ≤Grade1 or baseline grade. • Discontinue IMP if does not resolve to ≤ Grade 2 within 3 days of the initiation of maximal supportive care. • Perform skin biopsya; • Dermatology consult; • 1.0 to 2.0 mg/kg/day methylprednisolone iv or equivalent iv.
+
+Once improving, taper steroids over at least 1 month, consider prophylactic antibiotics for opportunistic infections, and resume IMP. 4 • Discontinue IMPs; • Perform skin biopsya; • Dermatology consult; • 1.0 to 2.0 mg/kg/day methylprednisolone iv or equivalent iv.
+
+Once improving, taper steroids over at least 1 month, consider prophylactic antibiotics for opportunistic infections. a: Skin biopsy may be submitted to central laboratory.
+
+AE=adverse event; IMP=investigational medicinal product; iv=intravenous. 8.2.3.1 Recommended Management of Hepatic Events in Subjects with HCC Subjects with advanced HCC generally have underlying cirrhosis with decreased hepatic function.
+
+They may also have a concomitant chronic viral infection.
+
+For the HCC cohort of this study, the upper limits for inclusion account for baseline liver dysfunction and allow enrollment of subjects with AST or ALT elevations within the CTCAE Grade 2 range.
+
+For these subjects, the following guidelines are provided: • Dose delay criteria for hepatic events are outlined in Section 8.1.2.2.
+
+If AST or ALT levels do not improve with a dose delay of 3 - 5 days or if the levels worsen, initiate steroid therapy at 0.5 - 2 mg/kg/day methylprednisolone or oral equivalent.
+
+CONFIDENTIAL 64
+
+--- Page 65 ---
+
+Clinical Protocol 0761-014, Amendment 3 • For ALT or AST levels > 8 × ULN, initiate steroid therapy promptly at 1 - 2 mg/kg/day methylprednisolone or oral equivalent. • For all subjects initiating steroids, consult the Medical Monitor within 24 hours after initiation of steroids.
+
+Gastroenterology consult is recommended.
+
+If AST or ALT levels do not improve within 3 - 5 days or the levels worsen after the start of steroid therapy, discuss with the Medical Monitor the possibility of adding mycophenolate mofetil at 1 g BID. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) • Tapering of steroids can start once AST or ALT levels have declined by 1 CTCAE grade.
+
+Taper steroids slowly over no less than 1 month. • IMP may resume when AST or ALT have returned to near baseline unless the criteria for permanent discontinuation are reached (Sections 4.1.19 and 4.2).
+
+The Medical Monitor must be consulted prior to resuming IMP for all subjects who required steroid intervention. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) • Discontinue IMP for any drug-related liver function test (LFT) abnormality that meets the following criteria: – AST or ALT > 10 × ULN for > 2 weeks, – AST or ALT > 15 × ULN irrespective of duration, – T. bilirubin > 8 × ULN irrespective of duration for subjects with elevated bilirubin at study entry or > 5 × ULN for those with normal T bilirubin at entry, – Concurrent AST or ALT > 3 × ULN and T. bilirubin > 5 × ULN for subjects entering treatment with a normal bilirubin and up to 8 × ULN for subjects entering treatment with elevated bilirubin. 8.3 Method of Assigning Subjects to Treatment Groups In Phase 1, subjects who meet the eligibility criteria will be enrolled in the dose level that is open to enrollment by the IRT system.
+
+In Phase 2, subjects will be enrolled into the cohort by tumor type by the IRT system. 8.4 Blinding/Unblinding This study is not blinded. 8.5 Concomitant Treatments Any medication(s), including those taken within 30 days prior to the first dose of IMPs, throughout treatment with IMP, until the 30-day follow-up visit after the last dose of IMP or CONFIDENTIAL 65
+
+--- Page 66 ---
+
+Clinical Protocol 0761-014, Amendment 3 until start of new anticancer therapy (whichever occurs first), and anytime thereafter if used to treat IMP-related SAEs will be recorded. 8.5.1 Permitted Concomitant Medications Subjects may receive medications to treat pre-existing conditions, IMP-related AEs, or IMP-unrelated AEs.
+
+Subjects are permitted the use of topical, ocular, intra-articular, intranasal, and inhalational corticosteroids (with minimal systemic absorption).
+
+Adrenal replacement steroids are permitted.
+
+A brief (less than 3 weeks) course of corticosteroids for prophylaxis (e.g., contrast dye allergy) or for treatment of non-autoimmune conditions (e.g., delayed-type hypersensitivity reaction caused by a contact allergen) is permitted.
+
+Immunosuppressive agents including steroids may be used to treat IMP-related AEs, as described in Section 8.2.
+
+Concomitant palliative and supportive care for disease-related symptoms (including bisphosphonates and RANK-L inhibitors) is allowed if initiated prior to the first dose of study therapy.
+
+The potential for overlapping toxicities with radiotherapy and the IMPs currently is not known.
+
+Therefore, palliative radiotherapy is not recommended while receiving IMPs.
+
+If palliative radiotherapy is required, then IMP should be withheld for at least 1 week before, during and 1 week after radiation.
+
+Subjects should be closely monitored for any potential toxicity during and after receiving radiotherapy, and AEs considered related to radiotherapy should resolve to Grade ≤ 1 prior to resuming IMP.
+
+Only non-target bone lesions without lung tissue included in the planned radiation field or CNS lesions may receive palliative radiotherapy while on study treatment. 8.5.2 Prohibited and/or Restricted Treatments While on study, subjects are not permitted to receive any additional experimental therapy or any therapy to treat the disease under study other than the IMP.
+
+Supportive therapy to manage symptoms or AEs is acceptable as noted in Section 8.5.1.
+
+The following medications are prohibited during the study unless utilized to treat an AE: • Immunosuppressive agents; • Immunosuppressive doses of systemic corticosteroids, except as stated in Section 8.5.1; CONFIDENTIAL 66
+
+--- Page 67 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Any concurrent anti-neoplastic therapy (i.e., chemotherapy, hormonal therapy, immunotherapy, extensive, non-palliative radiation therapy, or standard or investigational agents for treatment of cancer).
+
+Live-attenuated vaccines should not be administered during the treatment period and for at least 3 months after the last dose of IMP unless, according to the judgment of the Investigator in consultation with the Medical Monitor, the benefit of vaccination outweighs the hypothetical increased risk for an AE after vaccination. (As of Amendment 3, decisions regarding subject treatment should be made according to site standard of care as determined by the Principal Investigator.) 8.5.3 Contraception Women of childbearing potential must use method(s) of contraception from the time of signing of the ICF, for the duration of study participation, and for 23 weeks after the last dose of IMP.
+
+This is calculated as 5 half-lives of nivolumab (half-life up to 25 days) plus 30 days (duration of ovulatory cycle).
+
+Men who are sexually active with woman of child-bearing potential must use method(s) of contraception from the time of signing of the ICF, for the duration of study participation, and for 31 weeks after the last dose of IMP.
+
+This is calculated as 5 half-lives of nivolumab plus 90 days (duration of sperm turnover).
+
+During the screening period, the Investigator should review contraception methods and the time period that contraception must be followed with the subject.
+
+The individual methods of contraception for each subject (hormonal or barrier method of birth control; abstinence) should be determined in consultation with the Investigator. 8.6 Treatment Compliance Subjects are administered the IMP(s) under direct supervision of study personnel. 9 STUDY PROCEDURES All efficacy, PK/PD, immunogenicity, and safety measurements obtained during the course of the study are summarized in Table 9-1 and Table 10.2-1.
+
+Procedures to be followed for subjects who are ongoing in the study (i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up) at the time of data cutoff for completion of analyses are described in Section 9.5.
+
+CONFIDENTIAL 67
+
+--- Page 68 ---
+
+Clinical Protocol 0761-014, Amendment 3 Table 9-1 Schedule of Events: Screening and Treatment Periods Cycle 1 Cycle 2 Cycle ≥ 3 Referenced EOT Section(s) (Section Procedureh of Protocol Screening D1 D8 D15 D22 D1 D15 D1 D15 9.3) Visit Window (days) –28 to -1 - ±2 ±2 ±2 - ±3 - ±3 Written Informed Consenta 6.1 / 9.1 X - Inclusion/Exclusion Criteria 7.2 / 7.3 X Medical History/ Demographics 9.2.1 X Height X Physical Examination, ECOG 9.2.5 X X X X X PS, and Body Weight Pulse Oximetry 9.2.3 X X X X X X X Vital Signs 9.2.3 X Xb Xc Xb Xc Xd Xd Xd Xd X 12-lead ECG 9.2.4 X X X X X Hematology Profile 9.2.2 X Xe X X X Xe X Xe X X Serum Chemistry Profile 9.2.2 X Xe X X X Xe X Xe X X Coagulation Profile 9.2.2 X Xe Xe Xe X Thyroid Function Testing 9.2.2 X Xe Xe X Urinalysis 9.2.2 X X Serum Pregnancy Testing 9.2.2 X X (WOCBP) Urine Pregnancy Testing 9.2.2 Xe Xe Xe (WOCBP) Virus Testing 9.2.2 X Tumor Assessment, MRI or CT, 9.2.6 including serum tumor markers, X Xf X as applicable Tumor Biopsy 9.2.7 Xg Xg CONFIDENTIAL 68
+
+--- Page 69 ---
+
+Clinical Protocol 0761-014, Amendment 3 Table 9-1 Schedule of Events: Screening and Treatment Periods Cycle 1 Cycle 2 Cycle ≥ 3 Referenced EOT Section(s) (Section Procedureh of Protocol Screening D1 D8 D15 D22 D1 D15 D1 D15 9.3) Visit Window (days) –28 to -1 - ±2 ±2 ±2 - ±3 - ±3 Pharmacokinetics Anti-drug Antibody 10.2 Refer to Table 10.2-1 Pharmacodynamics Adverse Events 10.3 X X X X X X X X X X Prior/Concomitant Medications 8.5 X X X X X X X X X X Mogamulizumab 8.1.1 X X X X X X X X Administration Nivolumab Administration 8.1.1 X X X X X X a: Informed consent must be obtained prior to undergoing any study specific procedure that is not part of normal care.
+
+Data from procedures that were done as part of normal care may be used once the subject signs the ICF, provided they were done within the screening window. b: Pre-dose (up to 30 minutes before SOI); and EOI (±5 minutes) of nivolumab; predose (up to 30 min before) SOI, every 15 (± 5 minutes) during infusion; and EOI (± 5 minutes) of mogamulizumab; hourly during the 4-hour post-infusion observation period. c: Pre-dose (up to 30 minutes before SOI) of mogamulizumab, every 15 (± 5 minutes) during infusion, and EOI (± 5 minutes) of mogamulizumab, 30 minutes (± 5 minutes) after EOI of mogamulizumab. d: Pre-dose (up to 30 minutes before SOI); and EOI (± 5 minutes) of nivolumab; predose (up to 30 min before) SOI, every 15 (± 5 minutes) during infusion; and EOI (± 5 minutes) of mogamulizumab; 30 minutes (± 5 minutes) after EOI of mogamulizumab. e: Day 1 labs can be done up to 3 days prior to dosing. f: Tumor assessments by RECIST v. 1.1 will be performed at Screening, at Week 10, at least every 12 weeks thereafter until unequivocal disease progression or death. g: Required at Screening (except as indicated in the inclusion criteria) and at Week 10 (unless the tumor is inaccessible for biopsy). h: Procedures to be followed for subjects who are ongoing in the study (i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up) at the time of data cutoff for completion of analyses are described in Section 9.5.
+
+CT=computed tomography; ECG=electrocardiogram; ECOG=Eastern Cooperative Oncology Group; EOI=end of infusion; EOT= End of Treatment; IMP=investigational medicinal product; MRI=magnetic resonance imaging; PS=performance status; RECIST=Response Evaluation Criteria in Solid Tumors; SOI=start of infusion; WOCBP=women of child-bearing potential.
+
+CONFIDENTIAL 69
+
+--- Page 70 ---
+
+Clinical Protocol 0761-014, Amendment 3 Table 9-2 Schedule of Events: Post-treatment Follow-up Post Last Dose of IMPs Follow-up Referenced Day 100-110 and Section(s) at Least Every Procedured of Protocol 30 Days 100 days Thereafter Visit Window (Days) ± 5 Serum Tumor Markers, as applicable 9.2.6 Xa Xa Tumor Assessment, MRI or CT 9.2.7 Xa Xa Adverse Events 10.3 Xb Xb Concomitant Medications 8.5/ 9.2.1 Xc Xc Survival Assessment, including Anticancer 6.3 X X Therapies a: Subjects who complete or discontinue treatment without disease progression will have tumor assessments collected at least every 12 weeks or per institutional standard of care until a new anti-cancer therapy is started, unequivocal disease progression is documented, or death. b: AEs will be collected until 100 days after the last dose of IMP. c: Concomitant medications usage will be collected until the 30-day follow-up visit after the last dose of IMP or until the start of new anticancer therapy (whichever occurs first), and anytime thereafter if used to treat IMP-related SAEs. d: Procedures to be followed for subjects who are ongoing in the study (i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up) at the time of data cutoff for completion of analyses are described in Section 9.5.
+
+AE=adverse event; CT=computed tomography; IMP=investigational medicinal product; MRI=magnetic resonance imaging; SAE=serious adverse event. 9.1 Screening No study-specific procedures that are not part of normal care may be initiated prior to the subject signing the informed consent in compliance with International Committee on Harmonisation-Good Clinical Practices (ICH-GCP) and local legislation.
+
+Screening evaluations used to determine the subject’s study eligibility must be completed within 28 days prior to starting treatment unless otherwise specified.
+
+Data from procedures that were done as part of normal care may be used once the subject signs the ICF, provided they were done within the screening window.
+
+At the Screening Visit, the Investigator will review the written ICF with each subject to ensure the understanding of the study and the study procedures.
+
+The subject, individual obtaining the ICF, will read, sign, and date/time the ICF and any other locally applicable documents.
+
+A photocopy of the signed ICF must be provided to the subject and the original document retained in the subjects source or study file.
+
+The date the screening procedures begin will be collected.
+
+CONFIDENTIAL 70
+
+--- Page 71 ---
+
+Clinical Protocol 0761-014, Amendment 3 During the Screening period, the Investigator should review contraception methods and the time period that contraception must be followed.
+
+The individual methods of contraception for each subject (hormonal or barrier method of birth control; abstinence) should be determined in consultation with the Investigator.
+
+Refer to the study-specific procedure manual for information to be collected for screen failures. 9.2 Baseline and Treatment 9.2.1 Demographics, Medical History, Pre-treatment Adverse Events Subject demographics (race, ethnicity, gender), medical history, and current medical conditions will be recorded during the Screening Period.
+
+All relevant medical history, including currently active conditions and chronic conditions will be documented.
+
+Cancer history should include documentation of HPV or status of tumor for SCCHN.
+
+All pre-treatment AEs after signing ICF will also be documented. 9.2.2 Assessment of Safety Laboratory Parameters The central laboratory will provide the required materials for processing the samples, and will also provide instructions regarding centrifugation, processing, storage and shipment of samples (as outlined in a Laboratory Manual).
+
+The Investigator will receive a laboratory report for information on a per visit basis.
+
+Clinical significance including any related comments will be collected.
+
+As of Amendment 3, central laboratory analysis of samples will no longer be required (see Section 9.5); laboratory samples should be collected and analyzed in accordance with site standard of care procedures for the particular type of cancer.
+
+Clinical laboratory parameters assessed in this study are displayed in Table 9.2.2-1.
+
+Serum samples will be drawn for the determination of ADA as specified in Table 10.2-1.
+
+Any clinically important abnormal laboratory values noted during the Screening period will be recorded as medical history.
+
+If any post-treatment results are judged as being clinically significant by the Investigator, the Investigator should consider whether the result should be recorded as an AE.
+
+If deemed necessary, laboratory parameters may be retested or followed as unscheduled tests.
+
+Unscheduled tests should be performed by the central laboratory unless immediate results are required for the subject’s safety.
+
+At minimum, the following laboratory abnormalities should be collected as an AE. • Any laboratory test result that meets the criteria for a SAE; CONFIDENTIAL 71
+
+--- Page 72 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Any laboratory abnormality that requires the subject to have IMP discontinued or interrupted; • Any laboratory abnormality that requires the subject to receive specific corrective therapy.
+
+All clinically important abnormal laboratory tests occurring during the study will be repeated at appropriate intervals until (1) the value returns to baseline, (2) the value is judged to be clinically acceptable by the Investigator and the Sponsor, or (3) a diagnosis that explains the abnormal laboratory value is made.
+
+When possible, the Investigator should report the clinical diagnosis rather than the laboratory term (e.g., anemia versus low hemoglobin).
+
+Clinical laboratory abnormalities that qualify as AEs and any events that lead to an intervention (including premature discontinuation of IMP or significant additional concomitant therapy), should be reported and evaluated as AEs.
+
+Table 9.2.2-1 Clinical Laboratory Assessments Laboratory Assessment Test to be Performed Alanine aminotransferase Blood urea nitrogen Lipase Aspartate aminotransferase C-reactive protein Sodium Serum Chemistry Albumin Creatinine Total bilirubin Alkaline phosphatase Glucose Total protein Amylase γ-Glutamyl transferase Uric Acid Thyroid Profile Thyroid stimulating hormone Free T4 Free T3 Coagulation Profile Activated partial thromboplastin time Hemoglobin White blood cells Hematology Hematocrit Differential & absolute count Red blood cells Platelet count Protein Occult blood Urinalysis Glucose Urobilinogen To be performed for all women of childbearing potential (minimum sensitivity Serum Pregnancy Test 25 IU/L or equivalent units of β-human chorionic gonadotropin) To be performed for all female subjects of childbearing potential (minimum Urine Pregnancy Test sensitivity 25 IU/L or equivalent units of β-human chorionic gonadotropin) HBs-Ag, HBs-Ab, HBc-Ab, HBV-DNA Hepatitis C Ab and RNA Virus Testing Human immunodeficiency virus Cytomegalovirus serology (immunoglobulin G and M subclasses) Serum Tumor Disease-specific tumor markers Markers, as Applicable HBs-Ag=hepatitis B surface antigen; HBs-Ab=hepatitis B surface antibody; HBc-Ab=hepatitis C surface antibody; HBV-DNA=hepatitis B virus deoxyribonucleic acid; RNA=ribonucleic acid.
+
+CONFIDENTIAL 72
+
+--- Page 73 ---
+
+Clinical Protocol 0761-014, Amendment 3 9.2.3 Vital Signs Blood pressure and pulse rate measurements will be performed at each visit identified in Table 9-1.
+
+Blood pressure and pulse rate will be performed after the subject has been resting for at least 5 minutes.
+
+Pulse oximetry will be performed prior to the infusion of nivolumab at each visit identified in Table 9-1.
+
+Any new clinically relevant findings that are identified will be reported as AEs. 9.2.4 Electrocardiograms The subject will be supine for at least 5 minutes before the 12-lead ECG is performed.
+
+The 12-lead ECGs will be performed during the Screening period, on Days 1, 8, and 15 of Cycle, 1 and at EOT.
+
+All 12-lead ECGs recorded during the study will be obtained in triplicate (all three 12-lead ECGs within a 5-minute time period).
+
+All 12-lead ECGs on dosing days must be performed prior to infusion of first IMP and at the end of infusion (± 10 minutes) of mogamulizumab.
+
+In case of clinically significant 12-lead ECG abnormalities including a non-screening 12-lead ECG that demonstrates a QTc value > 500 msec or QTc interval change of > 60 msec from baseline, 2 additional 12-lead ECGs should be obtained over a brief period (e.g., 30 minutes) to confirm prolongation.
+
+Additional 12-lead ECGs may also be performed as clinically indicated.
+
+The Investigator or designee has the responsibility to read and evaluate the 12-lead ECGs for the timely assessment of subject safety. 9.2.5 Physical Examination, Eastern Cooperative Oncology Group Performance Status, Height, and Body Weight The Investigator will perform a full physical examination during the Screening period and EOT visits.
+
+The complete physical examination requires assessment of the following categories: HEENT, heart, lungs, abdomen, skin, musculoskeletal, extremities, neurological, lymph nodes, and ‘other’.
+
+Brief physical examination will be performed at the other timepoints specified in Table 9-1.
+
+Brief physical examinations will be symptom directed.
+
+All significant abnormal findings during the Screening period will be recorded in the Medical History.
+
+New abnormal findings or worsening of baseline conditions detected at follow-up physical examinations will be recorded as AEs.
+
+A complete physical examination should also be performed when a subject discontinues the trial prematurely.
+
+Height will be documented during the Screening period; body weight and ECOG performance status will be measured as specified in Table 9-1.
+
+CONFIDENTIAL 73
+
+--- Page 74 ---
+
+Clinical Protocol 0761-014, Amendment 3 9.2.6 Disease-response Assessments High-resolution computed tomography (CT) with oral or iv contrast or contrast-enhanced magnetic resonance imaging (MRI) are the preferred imaging modalities for assessing radiographic tumor response.
+
+If a subject has a known allergy to contrast material, please use local prophylaxis standards to obtain the assessment with contrast if at all possible, or use the alternate modality.
+
+In cases where contrast is strictly contraindicated, a non-contrast scan will suffice.
+
+Screening assessments should be performed within 28 days of start of treatment and at other time points as specified in Table 9-1.
+
+In addition to chest, abdomen and pelvis, all known or suspected sites of disease (including CNS) should be assessed during the Screening period and at subsequent assessments using the same imaging method and technique.
+
+If more than one method is used during the Screening period, then the most accurate method according to RECIST v. 1.1 should be used when recording data, and should again be used for all subsequent assessments.
+
+Bone scan, positron emission tomography scan, or ultrasound are not adequate for assessment of RECIST response.
+
+In selected circumstances where such modalities are the sole modality used to assess certain non-target organs, those non-target organs may be evaluated less frequently.
+
+For example, bone scans may need to be repeated only when CR is identified in target disease or when progression in bone is suspected.
+
+Subjects with signs of symptoms suggestive of brain metastasis should have an MRI of the brain.
+
+Anti-tumor activity will be evaluated using RECIST v. 1.1 (See Appendix 1) and irRECIST v. 1.1.
+
+Evaluations will include serum tumor markers as applicable to the subject’s tumor type.
+
+Tumor lesions planned for biopsy should not be used as target lesions for assessment of disease unless, in the opinion of the investigator, the procedure will not interfere with assessment of the subject’s tumor status.
+
+New lesions should be measured and recorded.
+
+For irRECIST v. 1.1 assessments, the following modifications of RECIST v. 1.1 apply: • At each time point, the measurements of baseline-selected target lesions and new measurable lesions should be combined into the Total Measured Tumor Burden (TMTB), and one combined assessment provided. • In order to be considered a new measurable lesion, a lesion must meet the same criteria as target lesions: a minimum 10 mm in the longest diameter for non-nodal lesions, and a minimum 15 mm in short axis for lymph nodes.
+
+Smaller new lesions contribute to the non-target or new nonmeasurable tumor burden, but do not get measured. • Up to 5 new measurable lesions may be selected.
+
+Larger lesions must be preferred as new measurable lesions over smaller lesions.
+
+CONFIDENTIAL 74
+
+--- Page 75 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Non-Target Lesions: In alignment with RECIST v. 1.1, Baseline selected non-target lesions can never convert to measurable lesions, not even if they increase in size at subsequent time points and become measurable.
+
+Only true new lesions can be measured and contribute to the TMTB. • All new lesions not selected as new measurable lesions are considered new non-measurable lesions and are followed qualitatively.
+
+Only a massive and unequivocal progression of new non-measurable lesions leads to an overall assessment of irRECIST-defined progressive disease (irPD) for the time point. • Persisting new nonmeasurable lesions prevent irCR. • In the absence of clinical deterioration, progression should be confirmed no less than 4 weeks after the initial irPD assessment. 9.2.7 Tumor Biopsies Tumor biopsies will be required during the Screening period, except as indicated in the Inclusion Criteria, (Section 7.2) and at Week 10 (unless the tumor is inaccessible for biopsy).
+
+Specific instructions for tumor biopsy and tumor archival sample collection, labeling, storage, packaging, and retention will be provided in the Laboratory Manual. 9.2.7.1 Microsatellite Instability Testing Microsatellite instability high (MSH) in tumors refers to changes in 2 or more of the 5 National Cancer Institute-recommended panels of microsatellite markers in tumor tissue.
+
+The original (1997) Bethesda guidelines proposed a panel of 5 microsatellite markers for the uniform analysis of MSI in HNPCC.
+
+This panel, which is referred to as the Bethesda panel, included 2 mononucleotide (BAT-25 and BAT-26) and 3 dinucleotide (D5S346, D2S123, and D17S250) repeats (Rodriquez-Bigas, 1997).
+
+Individual testing sites may utilize a slightly different panel of markers incorporating alternative mononucleotide or dinucleotide markers.
+
+Regardless of the panel of markers, samples with instability in 2 or more of these markers are defined as MSI-High (MSI-H), whereas those with one unstable marker are designated as MSI-L.
+
+Samples with no detectable alterations are MSS.
+
+Sites should query subject’s medical history for prior MSI testing detected by an accredited laboratory per local regulations to select subjects with CRC for non-MSI-H tumors.
+
+Non-MSI-H status in potential subjects will be done prior to the Screening period as part of standard diagnostic testing by Investigators.
+
+A polymerase chain reaction (PCR) test will be utilized for repeat testing of the non-MSI-H cohort and for testing of responders in other cohorts.
+
+Additional tumor samples must be sent to the Sponsor for future confirmatory testing for confirmatory studies of the in vitro diagnostic.
+
+A lab manual separate from the protocol will provide detailed information regarding MSI testing and sample requirements.
+
+CONFIDENTIAL 75
+
+--- Page 76 ---
+
+Clinical Protocol 0761-014, Amendment 3 9.2.7.2 PD-L1 Testing Archival (or fresh) formalin-fixed, paraffin-embedded tumor tissue must be sent to a third party laboratory for determination of PD-L1 status using the analytically validated IHC assay.
+
+Either a tissue block or a minimum of 10 unstained tumor tissue sections are acceptable.
+
+Submission of fewer than 10 unstained slides may be acceptable in some circumstances following discussion with the Medical Monitor.
+
+An associated pathology report must be submitted with each tumor tissue specimen.
+
+PD-L1 stained tissue samples will be assessed by a pathologist at a central laboratory identified by the Sponsor and scored as PD-L1 expressing if membrane staining is observed in ≥ 1% tumor cells among a minimum of 100 evaluable tumor cells.
+
+PD-L1 results will be available prior to enrollment for Phase 2 subjects with non-squamous NSCLC. 9.3 End of Treatment End-of-Treatment (EOT) evaluations should be performed within 2 weeks after last dosing visit or of the decision to discontinue IMP.
+
+The EOT visit should be performed before the start of new anti-cancer therapy. 9.4 Post-treatment Follow-up Period The first follow-up visit will be 30 days (± 5 days) after the last dose of IMP.
+
+The second follow-up visit will be 100-110 days after the last dose of IMP.
+
+Adverse events and SAEs with onset up to 100 days after the last dose of IMP should be reported, as should any SAEs that occur after that time and are considered potentially related to IMPs or study procedures.
+
+Subjects will be contacted at least every 100 days after the last dose for survival follow up and recording of new anti-cancer therapies.
+
+All new treatments for cancer should be recorded, including nivolumab if received after discontinuation from this study.
+
+Subjects who complete or discontinue treatment without progression will have tumor assessments collected until a new anti-cancer therapy is started, unequivocal disease progression is documented, withdrawal of consent for follow-up contacts, or death. 9.5 Study Procedures for Subjects Ongoing at the Time of Data Cutoff for Completion of Analyses and Preparation of CSR For subjects who are continuing to receive study treatment at the time of data cutoff for completion of analyses and preparation of the CSR, the Sponsor will continue to supply study CONFIDENTIAL 76
+
+--- Page 77 ---
+
+Clinical Protocol 0761-014, Amendment 3 drug (mogamulizumab and nivolumab) until the subject has completed the maximum treatment period of 96 weeks from Cycle 1 Day 1 (Section 6.3) or until the subject meets one of the criteria for removal from therapy as described in Section 7.5.
+
+Procedures to be followed for all ongoing subjects, i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up, at the time of data cutoff are described below.
+
+These procedures should be implemented upon notification by the Sponsor and approval by the appropriate IRB.
+
+Study Drug Administration (Subjects Actively Receiving Study Treatment) Study treatment should continue to be administered according to the protocol (as specified in Section 8.1) and the Pharmacy Manual until a maximum treatment period of 96 weeks from Cycle 1 Day 1 (Section 6.3) or until any of the criteria for removal of subjects from therapy are met (as defined in Section 7.5).
+
+Efficacy and Safety Assessments Investigators should follow study subjects in accordance with the standard of care at their Institution with respect to assessments of disease status and safety/tolerability, including the use of local clinical laboratories.
+
+There will be no further central laboratory requirements.
+
+Blood samples for pharmacokinetic (PK), pharmacodynamic (PD) and anti-drug antibody (ADA) analyses will no longer be collected.
+
+Survival follow-up contacts and procedures will be discontinued for all subjects.
+
+Data Collection Data entry in the electronic data capture system, defined as the clinical database, will be terminated for all subjects and all data (including SAEs and treatment-related AEs), upon written notification by the Sponsor.
+
+Required data collection will be limited to SAEs and treatment-related AEs, which will be reported only to the KKD Drug Safety Surveillance Department using the SAE form (see Section 10.3.2.2.1).
+
+CONFIDENTIAL 77
+
+--- Page 78 ---
+
+Clinical Protocol 0761-014, Amendment 3 10 EFFICACY, PHARMACOKINETIC, SAFETY, AND OTHER VARIABLES 10.1 Study Endpoints Primary Endpoints: • Safety and tolerability will be evaluated by assessing AEs, and changes in physical examination findings, vital sign measurements, 12-lead ECG readings, and clinical laboratory evaluations.
+
+Secondary Endpoints: • Best overall response (BOR) evaluated using RECIST v. 1.1.
+
+BOR is defined as the best response designation recorded between the date of first dose of IMP and the date of subsequent anti-cancer therapy (excluding on-treatment palliative radiotherapy of non-target bone or CNS lesions).
+
+Note: Continuation of nivolumab after discontinuing combination therapy does not count as start of new therapy for this definition.
+
+A BOR of CR or partial response (PR) requires confirmation of the assessment at least 4 weeks later. • Time to response (TTR): Days from Cycle 1 Day 1 through the first assessment date of confirmed CR/PR using RECIST v. 1.1; • Duration of response (DOR): Days from the first assessment date of confirmed CR/PR through the date of death or PD, whichever is earlier using RECIST v. 1.1; • Progression-free survival (PFS): Days from Cycle 1 Day 1 through the date of death or PD, whichever is earlier.
+
+For subjects whose BOR is PR or CR using RECIST v. 1.1, the date of first documentation of objective tumor progression or death which occurs after the last documentation of PR or CR will be used as the event date for PFS; • Overall survival (OS): Days from Cycle 1 Day 1 until the date of death.
+
+Exploratory Endpoints: • Pharmacokinetic parameters: – Mogamulizumab: observed minimum serum concentration at the end of a dosing interval (C ) and C ; and min max – Nivolumab: C min. • Immunogenicity: Anti-mogamulizumab antibody and anti-nivolumab antibody; • Pharmacodynamic parameters: biomarkers may include, but are not limited to, immune cell subsets and factors such as cytokines and chemokines in tumor and/or blood. • Immune-related overall response rate and DOR evaluated using irRECIST. 10.2 Pharmacokinetic, Pharmacodynamic, and Immunogenicity Assessments Blood sample collection for serum concentrations (PK), PD markers, and ADA will occur at baseline and at selected times during the treatment and post-treatment periods (Table 10.2-1).
+
+CONFIDENTIAL 78
+
+--- Page 79 ---
+
+Clinical Protocol 0761-014, Amendment 3 Immunogenicity samples will be analyzed for anti-nivolumab antibodies by a validated immunogenicity assay; samples may also be analyzed for neutralizing antibodies by a validated method.
+
+Serum samples may be analyzed by an exploratory method that measures anti-drug antibodies for technology exploration purposes; exploratory results will not be reported.
+
+Details of the collection, storage, and shipment of samples are described in the Laboratory Manual.
+
+As of Amendment 3, blood samples for PK, PD and ADA analyses will no longer be collected.
+
+CONFIDENTIAL 79
+
+--- Page 80 ---
+
+Clinical Protocol 0761-014, Amendment 3 Table 10.2-1 Pharmacokinetic, Pharmacodynamic, and Immunogenicity Blood Sampling Schedule ADA PD Sampling Timepointg PK Sampling Sampling Samplinga End of Day Mogamulizumab Cycle (Visit Window) Pre-doseb Infusionc Pre-dose Pre-dose 1 1 X X Xd X 15 (± 2) X X - X 2 1 X X Xd X 15 (± 3) X X - X 3 1 X X Xf X 4 1 X X Xd X 8 1 X X Xd 12 1 X X Xd Xe PK Sampling ADA Sampling Timepointg Nivolumab Mogamulizumab Sampling PD Sampling During an Infusion-related Reaction X X Xd Xe Post Last Dose of Day 100-110 X X Xd X IMPs-Follow Up a: Sampling for immune cell subset analyses by FCM pre-dose Cycles 1 to 4 and Cycles 1 and 2, Day 15.
+
+Other exploratory biomarkers including PGx analysis (preand post-treatment) will be considered for future analysis. b: PK Sampling at this timepoint for both nivolumab and mogamulizumab. c: Within 15 minutes after EOI.
+
+Collect from the arm contralateral to where the relevant IMP was administered. d: ADA sampling at this timepoint for both nivolumab and mogamulizumab. e: Only samples for cytokine assay will be drawn at this time point. f: ADA sampling at this timepoint only for mogamulizumab. g: For subjects who are ongoing, i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up, at the time of data cutoff for completion of analyses, blood samples for PK, PD and ADA analyses will no longer be collected (see Section 9.5).
+
+ADA=anti-drug antibody; EOI=end of infusion; FCM=flow cytometry; IMP=investigational medicinal product; PD=pharmacodynamic; PGx=pharmacogenomics; PK=pharmacokinetic. 10.3 Safety Assessments Adverse events; clinical laboratory tests (serum chemistry, thyroid function testing, hematology, coagulation profile, and urinalysis); immunogenicity; vital signs; 12-lead ECGs; and physical examination (including body weight, etc.) will be evaluated to determine the safety profile in this combination regimen. (See Section 9.5 for reporting requirements/procedures for subjects who are ongoing in the study, i.e., subjects who are continuing to receive study treatment or who are in safety or survival follow-up, at the time of data cutoff for completion of analyses.) CONFIDENTIAL 80
+
+--- Page 81 ---
+
+Clinical Protocol 0761-014, Amendment 3 10.3.1 Definitions 10.3.1.1 Adverse Events An AE is defined as any untoward medical occurrence in a patient or clinical investigation subject administered a pharmaceutical product and which does not necessarily have a causal relationship with the treatment.
+
+An AE can therefore be any unfavorable and unintended sign (including an abnormal laboratory finding, for example), symptom or disease temporally associated with the use of an IMP (or biologic) whether or not considered related to the IMP.
+
+An AE includes but is not limited to: • Any clinically significant worsening of a pre-existing condition; • An AE occurring from overdose of an IMP; • An AE occurring from abuse (e.g., use for non-clinical reasons) of an investigational or marketed product.
+
+The Investigator will inquire about AEs at all subject visits by asking the subject a non-leading question such as: “How have you been feeling since your last visit?” All AEs, whether observed by the Investigator or reported by the subject, must be collected.
+
+The collection of AE and SAE information commences following the subject’s written consent to participate in the study.
+
+If a subject experiences an AE or SAE, the subject will receive appropriate treatment and supportive care as necessary, and the Investigator will continue to follow up until there is a return to the subject’s baseline condition, or until a clinically satisfactory resolution is achieved.
+
+Clinical laboratory abnormalities that qualify as AEs (other than those meeting the definition for serious) and any events that lead to an intervention (including premature discontinuation of IMP or additional concomitant therapy), other than those reported as SAEs, will be reported and evaluated as AEs.
+
+Any clinically important changes noted during interim or final physical examinations, 12-lead ECGs, x-rays, or any other potential safety assessments, whether or not these procedures are required by the protocol, must also be recorded.
+
+For this study, disease progression should not be reported as an AE.
+
+Lymphopenia and leukopenia are expected pharmacologic effects of mogamulizumab and should also not be reported as an AE for this study.
+
+Lymphocytes and white blood cell counts will be monitored and evaluated with the laboratory data. 10.3.1.2 Serious Adverse Events An SAE is defined as any AE that: • Results in death; CONFIDENTIAL 81
+
+--- Page 82 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Is immediately life-threatening; – The term “life-threatening” as part of the definition of “serious” refers to an event in which the subject was at risk of immediate death at the time of the event; it does not refer to an event that hypothetically might have caused death if it were more severe; – If an event is Grade 4 by CTCAE v. 4.03, it does not necessarily meet the definition for life-threatening as is required for expedited regulatory reporting of SAEs. • Requires inpatient hospitalization or prolongation of existing hospitalization. – Hospitalizations for pre-planned procedures are not considered SAEs. • Results in persistent or significant disability or incapacity or substantial disruption of the ability to conduct normal life functions; • Is a congenital anomaly or birth defect; • Is another important medical event.
+
+Important medical events are those that may not result in death, be life-threatening, or require hospitalization, but may be considered an SAE when, based upon appropriate medical judgment, they may jeopardize the subject and may require medical intervention to prevent one of the outcomes listed above. – Examples of such medical events include allergic bronchospasm requiring intensive treatment in an emergency room or at home, or blood dyscrasias that do not result in inpatient hospitalization, or the development of drug dependency or drug abuse.
+
+The term “severe” is often used to describe the intensity (severity) of a specific event (as in mild, moderate, or severe myocardial infarction); the event itself, however, may be of relatively minor medical significance (such as severe headache).
+
+This is not the same as “serious,” which is a regulatory definition as outlined above.
+
+Seriousness (not severity) serves as a guide for defining regulatory reporting obligations. 10.3.1.3 Causality The causal relationship of each AE to the trial medication must be determined by a medically qualified individual.
+
+The causal relationship should be assessed as one of the following: Table 10.3.1-1 Relationship of Adverse Events Related: There is a reasonable causal relationship between the study drug administration and the AE Not related: There is not a reasonable causal relationship between study drug administration and the AE The term “reasonable causal relationship” means there is evidence to suggest a causal relationship AE=adverse event. 10.3.1.4 Severity The severity of AEs will be graded using CTCAE v. 4.03.
+
+If a subject is responding to an ongoing steroid taper and no other intervention is required, the steroid taper should not be CONFIDENTIAL 82
+
+--- Page 83 ---
+
+Clinical Protocol 0761-014, Amendment 3 considered an intervention for the purpose of CTCAE grading of AEs that have otherwise resolved to ≤ Grade 1. 10.3.2 Adverse Event Reporting 10.3.2.1 Reporting Period The collection of AE information begins following the subject's written consent to participate in the study.
+
+For screen failures, SAEs should be collected and recorded only until the subject fails screening or withdraws consent to participate in the study, except for SAEs that occur outside of that window which are attributed to screening-specific procedures.
+
+All AEs with onset after signing of the ICF should be collected.
+
+Adverse events which occur prior to first administration of IMP should be identified as occurring pretreatment.
+
+No AE data should be entered on the electronic Case Report Form (eCRF) for screen failures.
+
+All AEs and SAEs with onset up to 100 days after the last dose of IMP should be reported.
+
+The Investigator should report any SAE that occurs after this period if the SAE is believed to be related to IMP or to a protocol-specific procedure. (NOTE: Upon implementation of Amendment 3, any treatment-related AEs and SAEs with onset after the last dose of IMP should be reported at the discretion of the Investigator to KKD Drug Safety Surveillance Department using the SAE form (Section 10.3.2.2.1). 10.3.2.2 Reporting Instructions The description of each AE will identify the subject, date of onset, the date of resolution, the severity of the event, the action taken regarding the IMP, the outcome of the event, and the relationship of the event to the IMP.
+
+Standard medical terminology should be used to document AEs.
+
+In the case of signs and symptoms, the underlying illness or diagnosis will be recorded as the event when known.
+
+For SAEs, a single term for the diagnosis or underlying illness should be recorded on the SAE Report form; in the event this is unknown, the chief sign/symptom making the event serious should be recorded.
+
+The terms “death” (an outcome) and “hospitalization” may be used for initial reports only if no further information is available in order to avoid a delay in expedited reporting; however, an adequate follow-up report must follow in which the term “death” or “hospitalization” is replaced by the cause of death or hospitalization.
+
+All IMP-related serious and non-serious AEs must be followed for a final outcome until resolution or stabilization.
+
+An outcome of “unknown” is not considered to be an acceptable final outcome.
+
+An outcome of not resolved is an acceptable final outcome for non-serious AEs at the end of a subject’s participation in a study, and for SAEs at database lock.
+
+CONFIDENTIAL 83
+
+--- Page 84 ---
+
+Clinical Protocol 0761-014, Amendment 3 10.3.2.2.1 Serious Adverse Event Reporting Instructions Serious adverse events require expeditious handling to comply with regulatory requirements.
+
+Any SAE occurring in a clinical study subject and follow-up SAE documentation must be reported to the Sponsor’s Drug Safety Surveillance Department or designee within 24 hours of the Investigator having knowledge of the SAE.
+
+The Investigator or other qualified individual at the investigative site must complete the SAE form and fax or e-mail it to the Sponsor or designee.
+
+All telephone communication regarding an SAE must be followed by a written report.
+
+The Investigator is obligated to immediately report to the Sponsor or designee any SAE occurring at any time during the reporting period (Section 10.3.2.1), independent of the circumstances or suspected cause.
+
+In addition, the Investigator must promptly report to the Sponsor any SAE occurring at any other time after completion of the study if a causal relationship to IMP is suspected.
+
+For all SAEs, the Investigator is obligated to pursue and provide information as requested by the Sponsor in addition to that requested on the SAE form.
+
+Information must include a description of the AE in sufficient detail to allow for a complete medical assessment of the case and independent determination of causality.
+
+Supporting documentation such as hospital discharge summaries or pertinent laboratory reports should also be sent to the Sponsor.
+
+In the case of a subject death, a summary of available autopsy findings must be submitted as soon as possible to the Sponsor.
+
+The Investigator will ensure that information reported immediately by telephone or other means and information entered on the SAE form is accurate and consistent. 10.3.2.2.2 Notification of Institutional Review Board or Ethics Committee of Serious Adverse Events The Investigator must comply with the applicable regulatory requirements related to the reporting of SAEs to the IRB.
+
+The IRB must be informed in a timely manner by the Investigator of SAEs occurring at their site during the study.
+
+Investigators must also submit safety information provided by the Sponsor to the IRB as per IRB standard operating procedures.
+
+CONFIDENTIAL 84
+
+--- Page 85 ---
+
+Clinical Protocol 0761-014, Amendment 3 10.3.3 Other Significant Adverse Events 10.3.3.1 Urgent Safety Measures In accordance with the principles of GCP as laid out in ICH E6, the Investigator(s) has/have primary responsibility for assuring subject safety throughout the performance of study procedures.
+
+An urgent safety measure is defined as any measure which an Investigator may need to implement which is a deviation from, or a change in, the protocol to eliminate an immediate hazard(s) to trial subjects without prior IRB approval/favorable opinion.
+
+The Investigator may take appropriate urgent safety measures in order to protect the subjects of a clinical trial against any immediate hazards to their health or safety.
+
+However, the Investigator must inform the Sponsor within 24 hours of having taken such measures. 10.3.3.2 Adverse Events That Qualify as Dose-limiting Toxicity Any AE(s) that qualify as DLT(s) and occur within the DLT evaluation period must be reported to the Sponsor’s Medical Monitor via phone contact and also to the Drug Safety Surveillance Department or designee using an SAE form (whether or not the DLT is considered an SAE) within 24 hours of the Investigator having knowledge of the DLT.
+
+The appropriate forms must also be completed within 24 hours.
+
+Refer to the Procedure Manual for reporting instructions. 10.3.3.3 Infusion-related Reactions While all infusion-related reactions should be reported as AEs, and any that additionally meet serious criteria should also be reported to the Sponsor's Drug Safety and Surveillance Department per SAE reporting guidelines, all Grade ≥ 3 infusion-related reaction must be reported to the Sponsor’s Drug Safety Surveillance Department or designee within 24 hours of the Investigator having knowledge of the event using an SAE form (whether or not the infusion-related reaction is considered an SAE).
+
+Refer to the Procedure Manual for reporting instructions.
+
+The Investigator or designee at the investigative site must complete the SAE form and fax or e-mail it to the Sponsor or designee.
+
+Recommendations for the management of infusion-related reactions are provided in Section 8.2.2.
+
+CONFIDENTIAL 85
+
+--- Page 86 ---
+
+Clinical Protocol 0761-014, Amendment 3 10.3.4 Overdose An overdose is defined as the accidental or intentional administration of any dose of an IMP that is > 10% of the appropriate dose.
+
+An overdose should be reported, whether or not associated with an AE/SAE, using an SAE form. 10.3.5 Pregnancy Reporting Pregnancy in a female trial participant or partner of a male trial participant must be avoided.
+
+However, should a pregnancy occur, this process is aimed at ensuring the appropriate monitoring of the potential risk related to IMP exposure of pregnant women and/or fetuses as well as the risks associated with exposure of a father, regarding congenital abnormalities or birth defects in their offspring.
+
+It also ensures compliance with applicable international and local regulations.
+
+The requirements are applicable to all subjects following exposure to IMP.
+
+Female trial subjects: The subject must be advised by the Investigator to inform him/her immediately if she suspects she may be pregnant.
+
+The Investigator is obligated to immediately report to the Sponsor or designee any pregnancy occurring at any time after the subject signs the ICF and within 23 weeks after the last dose of IMP.
+
+Male trial subjects: The subject must be advised by the Investigator to inform him/her immediately if they suspect their partner became pregnant after the subject was administered IMP.
+
+The Investigator is obligated to immediately report to the Sponsor or designee any pregnancy occurring at any time after the subject signs the ICF and within 31 weeks after the last dose of IMP.
+
+When a trial subject reports a pregnancy (post-IMP administration) to the Investigator, IMP should be stopped immediately and a pregnancy test should be arranged for the subject (or their partner) by the Investigator within seven (7) days of the pregnancy being reported.
+
+In the case of pregnancy, The Investigator must immediately notify the Sponsor of this event and report the pregnancy on the Pregnancy Surveillance Form.
+
+This includes a study subject as well as the partner of a study subject who becomes pregnant while the subject was receiving IMP.
+
+Every attempt will be made to follow the pregnancy to conclusion to obtain information regarding the outcome.
+
+CONFIDENTIAL 86
+
+--- Page 87 ---
+
+Clinical Protocol 0761-014, Amendment 3 11 DATA MANAGEMENT 11.1 Source Data Source documents are where data are first recorded, and from which participants’ eCRF data are obtained.
+
+These include, but are not limited to, hospital records (from which medical history and previous and concurrent medication may be summarized), clinical and office charts, laboratory and pharmacy records, diaries, microfiches, radiographs, and correspondence.
+
+All documents will be stored safely in confidential conditions.
+
+The participant will be referred to by the trial participant number/code, not by name, in all data reported to the Sponsor. 11.2 Access to Data Direct access will be granted to authorized representatives from the Sponsor, Contract Research Organization, host institution and the regulatory authorities to permit trial-related monitoring, audits and inspections.
+
+The Investigator(s) must accept that regulatory authorities may conduct an inspection to verify compliance of the study with GCP. 11.3 Electronic Case Report Forms Subject data will be entered into study eCRFs, in a validated Electronic Data Capture (EDC) system.
+
+Management of clinical data will be performed in accordance with applicable industry standards and data cleaning procedures to ensure the integrity of the data.
+
+It is the responsibility of the investigative site to prepare and maintain the adequate and accurate eCRFs that have been designed by the Sponsor to record all observations and other data pertinent to the clinical investigation.
+
+These eCRFs are organized as an ordered series of electronic data entry modules specific for each scheduled and unscheduled study visit.
+
+Only staff listed on the “Delegation of Authority” page in the study file notebook and who have been appropriately trained to use the EDC system will be issued user identification (ID) allowing them to make entries and edits to the EDC system and to respond to queries.
+
+Only the Investigator will be issued a user ID allowing the application of an electronic signature to a completed study subject record signifying the data has been reviewed and verified as complete and accurate.
+
+The Investigator agrees to treat all subject data used and disclosed in connection with this study in accordance with all applicable privacy laws, rules and regulations, including all CONFIDENTIAL 87
+
+--- Page 88 ---
+
+Clinical Protocol 0761-014, Amendment 3 applicable provisions of the Health Insurance Portability and Accountability Act and its implementing regulations (“HIPAA”).
+
+The Sponsor or designee will be responsible for the processing and quality control of the data.
+
+Data management will be carried out by the Sponsor or designee.
+
+The handling of data, including data quality control, will comply with all applicable regulatory guidelines.
+
+Data entry in the electronic data capture system, defined as the clinical database, will be terminated for all subjects and all data (including SAEs and treatment-related AEs), upon written notification by the Sponsor (see Section 9.5). 11.4 Record Keeping and Archiving Electronic CRFs, including queries and audit trails, will be retained by the Sponsor or designee.
+
+Study data and other essential documents should be retained for a minimum of 2 years after the last approval of a marketing application in an ICH region and until there are no pending or contemplated marketing applications in an ICH region or until at least 2 years have elapsed since the formal discontinuation of clinical development of the investigational product.
+
+However, these documents should be retained for a longer period if required by the applicable legal requirements.
+
+Kyowa Kirin Pharmaceutical Development, Inc. or its designee will inform the Investigator, in writing, as to when these documents no longer need to be maintained.
+
+All study documentation at the Investigator’s site and Sponsor’s site will be archived in accordance with ICH E6-GCP. 11.5 Study Monitoring Study monitoring will be performed in accordance with ICH E6-GCP, the protocol, and applicable local regulations. 12 STATISTICAL METHODS AND PLANNED ANALYSIS 12.1 General Statistical Considerations Tabulations of summary statistics, graphical presentations, and statistical analyses will be ® performed using Statistical Analysis System software.
+
+Descriptive statistics (mean, standard deviation, median, minimum, and maximum) for continuous variables and frequency distributions and percentages for discrete variables will be utilized.
+
+All summaries and analyses conducted will be by tumor type, assigned therapy, and combined total subjects.
+
+The specifics for these outputs will be described in detail within the Statistical Analysis Plan.
+
+The CONFIDENTIAL 88
+
+--- Page 89 ---
+
+Clinical Protocol 0761-014, Amendment 3 last pre-administration observation will be used as the baseline value for calculating post-administration changes from baseline.
+
+All data entered into the database will be provided in separate data listings showing individual subject values.
+
+The planning and reporting of statistical analysis will be carried out as described in the Sponsor’s or designee’s Standard Operating Procedures governing clinical studies. 12.2 Populations to be Analyzed The following analysis sets will be used in the study: • Safety Analysis Set: Includes all subjects who receive at least one dose of the investigational product (even a partial dose of either agent). • Efficacy Analysis Set: Includes all subjects who receive combination therapy in Cycle 1 Day 1. • Pharmacokinetic Analysis Set: Includes all subjects who provide at least one post-dose concentration measurement. • Pharmacodynamic Analysis Set: Includes all subjects who provide at least one post-dose sample.
+
+Evaluation of the data for this study will consist primarily of data listings and summary displays.
+
+Demographic and other baseline characteristic information will be summarized for the Safety Analysis and Efficacy Analysis Sets.
+
+Adverse events will be tabulated by body system, severity, and relation to treatment.
+
+Similar presentations will be provided for SAEs, AEs leading to discontinuation of IMP, and AEs leading to death.
+
+The tabulation of laboratory parameters will indicate the normal range for each parameter.
+
+Each value will be classified as falling above, below, or within the normal range. 12.2.1 Subject Disposition The number of subjects enrolled, completed, discontinued, and replaced will be presented by dose cohort including the expansion cohorts.
+
+A summary of reasons for discontinuation will be provided.
+
+The number of subjects in the Safety Analysis and Efficacy Analysis Sets will be summarized as well as the number of subjects in the Safety Analysis Set that were excluded from the Efficacy Analysis Set. 12.2.2 Demographic and Baseline Disease Characteristics Summaries will include demographics (including age, race, ethnicity, sex, height, weight, and body mass index, physical examination results, ECOG PS, and baseline values for disease-specific measurements (i.e., sum of longest diameters for solid tumors).
+
+CONFIDENTIAL 89
+
+--- Page 90 ---
+
+Clinical Protocol 0761-014, Amendment 3 Medical/surgical history, including prior cancer treatments, will be summarized and listed by subject. 12.2.3 Prior and Concomitant Medications The World Health Organization Drug Dictionary will be used to classify prior and concomitant medications by therapeutic class and preferred term. 12.2.4 Investigational Medicinal Product Exposure and Compliance Extent of exposure in weeks for each subject for the entire treatment period will be calculated.
+
+Extent of exposure, total number of cycles initiated, and total number of doses administered for each investigational product during the treatment period will be summarized. 12.3 Efficacy Analysis Subjects will be evaluated for tumor response, TTR, DOR, and PFS.
+
+The ORR will be calculated as the proportion of subjects in the Efficacy Analysis Set who are responders, i.e., BOR=CR and PR; the 95% exact CI for ORR will be calculated.
+
+The ORR will be derived using both the RECIST v. 1.1 and the irRECIST v. 1.1, based on the efficacy evaluable subjects in each expansion cohort for each combination therapy.
+
+The DOR, OS, and PFS will be estimated using the Kaplan-Meier methodology. 12.3.1 Sample Size Determination The sample size for the dose-finding phase of the study is based on a standard 3+3 dose-finding design and depends on observed toxicity.
+
+With 2 doses under consideration, a maximum of 12 subjects will be required.
+
+The Simon’s 2-stage optimal design will be used for the expansion cohorts.
+
+A cohort may be considered for termination due to lack of efficacy if the observed number of tumor responses (either confirmed or unconfirmed) in the first stage is too small.
+
+The characteristics of this design depend on 2 probabilities: the false positive rate (FPR), the probability of declaring the experimental treatment to be superior when in fact it is no better than the historical standard, and the false negative rate (FNR), the probability of concluding the experimental treatment to be no better than the historical standard, when it fact it is superior.
+
+The table below presents operating characteristics of the Simon’s 2-stage design with 15% FPR and 10% FNR for various expansion cohorts and their historical and target objective response CONFIDENTIAL 90
+
+--- Page 91 ---
+
+Clinical Protocol 0761-014, Amendment 3 rates.
+
+For example, an initial evaluation of efficacy may be performed after 16 treated subjects with squamous cell NSCLC have evaluable tumor response data.
+
+Guided by the Futility Boundary as shown, the decision to terminate the cohort or to allow it to continue will be made after taking into consideration other relevant observations such as duration and depth of response and risk/benefit profile.
+
+The number of subjects receiving treatment at the time of the Stage 1 efficacy evaluation may exceed the specified Stage 1 sample size depending on accrual rate, response lag, and other factors.
+
+Upon completion of Stage 1 enrollment for a given cohort, the SRC will review available efficacy and safety data and determine whether enrollment into Stage 2 may continue, even if not all response data are yet available to determine whether the Stage 1 criteria have been met.
+
+The SRC may decide that enrollment may continue if the benefit risk assessment is perceived to be positive.
+
+With FPR or one-sided alpha=15% and FNR or 1-power=10%.
+
+Table 12.3.1-1 Sample Size Estimation by Tumor Type Response Assumptions Simon 2-Stage Sample Sizesa Probability of Lower Stage 1 Response Early Stopping Bound Futility Boundary due to Futility Historical Target (≤): stop if this (%) if true Response Response Stage 1 many responses response rate= Tumor Type Rate (%) Rate (%) (n1)/Total N or fewer Lower Bound NSCLC SQ 20 40 16/32 3 60 NSCLC NSQ PD-L1 10 30 10/21 0 35 non-expressing Ovarian 10 30 10/21 0 35 CRC (non-MSI high) 5 20 12/29 0 54 SCCHN 25 45 14/36 3 52 HCC 16 36 12/28 6 41 Pancreatic 0 15 15/17 0 >99 a: False positive rate (FPR) or one-sided alpha=15% and false negative rate (FNR) or 1-power=10%.
+
+CRC=colorectal carcinoma; n1=sample size in Stage 1; N=sample size; non-MSI high=non-microsatellite instability high; NSCLC=non-small-cell lung cancer; NSQ=non-squamous; PD-L1=programmed cell death-ligand 1; HCC=hepatocellular carcinoma; SOC=Standard of care; SCCHN=squamous cell carcinoma of the head and neck.
+
+SQ=squamous.
+
+A maximum of 188 subjects will participate in the study.
+
+CONFIDENTIAL 91
+
+--- Page 92 ---
+
+Clinical Protocol 0761-014, Amendment 3 12.3.2 Significance Level Statistical tests will use a 0.15 significance level and will be 1-sided unless otherwise noted.
+
+Confidence intervals will be at 95% confidence level unless stated otherwise. 12.4 Pharmacokinetic Analyses The following PK parameters will be estimated using the model-independent analysis: • Mogamulizumab: C , C max min • Nivolumab: C min The PK parameters are defined as follows: • C : observed maximum serum concentration; max • C : observed minimum serum concentration at the end of a dosing interval; min Individual serum concentrations at each sampling time point for mogamulizumab and nivolumab will be presented in listings.
+
+Descriptive summary statistics of serum concentrations including means, geometric means, ranges, standard deviations, and coefficient of variation will be presented by dose cohort and tumor type.
+
+Dose proportionality will be assessed as appropriate.
+
+Population PK analysis will be explored if appropriate.
+
+Additional details of the PK and population PK analyses will be addressed in a separate PK/PD Analysis Plan. 12.5 Pharmacodynamic Analyses Pharmacodynamic data will be summarized.
+
+Changes from baseline in PD parameters may be used as PD markers to explore the PK/PD, PD-efficacy, and PD-safety relationships, as appropriate.
+
+Additional details of the PK/PD analyses will be addressed in a separate PK/PD Analysis Plan. 12.6 Analysis of Immunogenicity Data The number and percentage of subjects with a positive ADA test in the screening, confirmatory, or neutralizing assays, if applicable, will be presented at each visit and overall for subjects exposed to mogamulizumab and nivolumab.
+
+Additionally, a summary of subjects who experienced an infusion-related reaction and had a positive ADA test in the screening, confirmatory, and neutralizing assays, if applicable, will be presented.
+
+All immunogenicity data will be listed by subject.
+
+CONFIDENTIAL 92
+
+--- Page 93 ---
+
+Clinical Protocol 0761-014, Amendment 3 Immunogenicity may be reported for ADA positive status (such as persistent positive, neutralizing positive, only last sample positive, baseline positive and other positive) and ADA negative status, relative to baseline.
+
+Effect of immunogenicity on safety, efficacy, biomarkers and PK may be explored.
+
+Additional details will be described in the Statistical Analysis Plan. 12.7 Analyses of Safety Data The safety and tolerability of the investigational products are determined by reported AEs, physical examinations, ECGs, vital signs, and laboratory tests.
+
+All summaries will be prepared for the entire Safety Analysis Set by tumor type and overall.
+
+All subjects will be assessed regularly for potential occurrence of AEs from the time following the first dose of investigational product until 100 days after the last dose.
+
+The CTCAE v4.03 system will be used to grade AEs.
+
+Treatment-emergent AEs will be grouped and tabulated by Medical Dictionary for Regulatory Activities preferred terms and system organ class.
+
+AEs will be classified by body system, incidence, severity, and causality.
+
+All treatment-emergent AEs will be summarized showing the number and percent of subjects for each outcome.
+
+The results from physical examination will be presented in the subject data listings.
+
+Vital sign measurements will be summarized at each infusion.
+
+The incidence of clinically significant laboratory abnormalities will be presented, and laboratory data will be summarized at each infusion by the CTCAE v. 4.03 toxicity grade.
+
+Laboratory data will be presented for subjects having Grade 3 or 4 changes from baseline. 12.8 Procedures for Missing, Unused and Spurious Data Missing values will not be substituted by estimated values, but treated as missing in the statistical evaluation.
+
+All data from all subjects dosed in the study will be included in all listings, plots, summary tables, and statistical analyses when appropriate. 12.9 Rules for Excluding Subjects from Analysis All dosed subjects will be included in the analyses unless otherwise specified.
+
+The Sponsor will make any decisions regarding whether any subjects or any individual values belonging to a subject will be excluded from the evaluations when the protocol violation is considered to have a negative impact on the scientific aspects and interpretation of the study results.
+
+If the subject has received any investigational product, all available safety data will be used.
+
+The reason(s) for any exclusion will be described in the Clinical Study Report (CSR).
+
+CONFIDENTIAL 93
+
+--- Page 94 ---
+
+Clinical Protocol 0761-014, Amendment 3 12.10 Procedures for Reporting Deviations from Original Statistical Plan Any deviations from the statistical analysis outlined in this protocol will be described, and reasons for the deviations listed, in the final CSR. 13 ADMINISTRATION, DOCUMENTATION, AND RECORD KEEPING 13.1 Ethics Committee or Institutional Review Board Before starting this study, the protocol (authorized by the Sponsor) will be submitted to the regulatory bodies/local health authorities (in accordance with local regulations) and to the IRB for evaluation.
+
+The protocol will also be signed by the Principal Investigator before submission to the IRB.
+
+The study will not start before the IRB gives written approval or a favorable opinion in accordance with ICH E6-GCP and all applicable regulatory bodies/local health authorities give approval or a favorable opinion as required.
+
+No changes from the final approved (authorized) protocol will be initiated without prior written approval from the Sponsor and without the IRB’s favorable opinion of a written amendment, except when necessary to eliminate immediate hazards to the subjects or when the change involves only logistics or administration.
+
+The Sponsor will authorize and the Principal Investigator(s) will sign the protocol amendment prior to submission to the IRB.
+
+Protocol amendments should be submitted to the IRB without delay.
+
+Any significant deviation from the protocol when no approved amendment exists will be regarded as a protocol violation, and will be addressed as such during the reporting of the study. 13.2 Investigator’s Responsibilities 13.2.1 Overall Responsibilities The Investigator(s) is/are responsible for conducting the study in full accordance with the Protocol and the 2013 revision of the Declaration of Helsinki, the GCP: Consolidated Guideline, approved by the ICH, and any applicable national and local laws and regulations. 13.2.2 Subject Informed Consent Written and oral information about the study in a language understandable by the subject will be given to all subjects.
+
+Each subject’s willingness to participate in the study will be documented in a signed and dated ICF before any protocol-specific procedures or assessments are done and after the aims, methods, anticipated benefits, potential hazards, and CONFIDENTIAL 94
+
+--- Page 95 ---
+
+Clinical Protocol 0761-014, Amendment 3 insurance arrangements in force are explained.
+
+It will also be explained to the subjects that they are free to refuse entry into the study and free to withdraw from the study at any time without prejudice to future treatment.
+
+The informed consent process will be documented in the subject's medical record and the Investigator will sign, date, and time the ICF after the subject has signed, dated, and recorded the time of informed consent.
+
+The Investigator(s) will keep the original consent forms and copies will be given to the subjects. 13.2.3 Confidentiality Regarding Study Subjects The Investigator(s) must assure that the privacy of the subjects, including their personal identity and all other personal medical information, will be maintained at all times.
+
+In eCRFs and other documents or image material (including materials from all examinations, e.g., MRI, CT scan) submitted to the Sponsor, subjects will not be identified by their names, but by subject ID numbers.
+
+Personal medical information may be scrutinized for the purpose of verifying data recorded in the eCRF.
+
+This may be done by the monitor(s), properly authorized persons on behalf of the Sponsor and/or designee, the quality assurance unit, or regulatory authorities.
+
+Personal medical information will always be treated as confidential. 13.2.4 Record Retention Study data and other essential documents should be retained for a minimum of 2 years after the last approval of a marketing application in an ICH region and until there are no pending or contemplated marketing applications in an ICH region or until at least 2 years have elapsed since the formal discontinuation of clinical development of the IMP.
+
+However, these documents should be retained for a longer period if required by the applicable legal requirements.
+
+Kyowa Kirin Pharmaceutical Development, Inc. or its designee will inform the Investigator, in writing, as to when these documents no longer need to be maintained. 13.2.5 Investigator Information By signing this protocol, the Investigator recognizes that certain personal identifying information with respect to the Investigator, and all sub-Investigators and study site personnel, may be used and disclosed for study management purposes, as part of a regulatory submissions, and as required by law.
+
+This information may include: • Name, address, telephone number, and email address; • Hospital or clinic address and telephone number; • Curriculum vitae or other summary of qualifications and credentials; CONFIDENTIAL 95
+
+--- Page 96 ---
+
+Clinical Protocol 0761-014, Amendment 3 • Other professional documentation.
+
+Consistent with the purposes described above, this information may be transmitted to the Sponsor, affiliates, and agents of the Sponsor, in your country and other countries, including countries that do not have laws protecting such information.
+
+Additionally, the Investigator’s name and business contact information may be included when reporting certain SAEs to regulatory agencies or to other Investigators.
+
+By signing this protocol, the Investigator expressly consents to these uses and disclosures.
+
+In order to facilitate contact among Investigators, the Sponsor may share an Investigator’s name and contact information with other participating Investigators upon request. 13.2.6 Compliance with Law, Audit, and Debarment By signing this protocol, the Investigator agrees to: 1) Conduct the study in an efficient and diligent manner and in compliance with this protocol, GCP, and all applicable regulatory requirements. a) Complete, and/or update the Food and Drug Administration (FDA) Form 1572 in a timely manner, and conduct the study in accordance with the specifications on Page 2 of FDA Form 1572. 2) Allow monitoring, audits, IRB review, and regulatory agency inspection of trial-related documents and procedures and provide for direct access to all study-related source data and documents. b) Promptly and fully disclose to the Sponsor, and make available at the Investigator’s site upon request for inspection all source documentation by representatives of the Sponsor, IRB, or any regulatory agencies. c) Promptly inform the Sponsor of any regulatory agency inspection conducted for this study. d) The Investigator agrees to promptly take any reasonable steps that are requested by the Sponsor as a result of an audit to cure deficiencies in the study documentation and worksheets/eCRFs. 3) Provide all data, and upon completion or termination of the clinical study submit any other reports to the Sponsor as required by this protocol or as otherwise required pursuant to any agreement with the Sponsor. 4) Immediately disclose in writing to the Sponsor if any person who is involved in conducting the study is debarred or if any proceeding for debarment is pending or, to the best of the Investigator’s knowledge, threatened.
+
+Persons debarred from conducting or working on clinical studies by any court or regulatory agency will not be allowed to conduct or work on this Sponsor’s studies. 5) The Investigator agrees to provide to the Sponsor accurate financial information to allow the Sponsor to submit complete and accurate certification and disclosure statements as required by US FDA regulations (21 Code of Federal Regulations CONFIDENTIAL 96
+
+--- Page 97 ---
+
+Clinical Protocol 0761-014, Amendment 3 [CFR] Part 54), and other financial regulatory agencies.
+
+The Investigator further agrees to provide this information on a Financial Disclosure/Certification Form that is provided.
+
+This requirement extends to sub-Investigators.
+
+This may involve the transmission of information to countries that do not have laws protecting personal data.
+
+The ICH E6-GCP guidelines recommend that the Investigator inform the subject’s primary physician about the subject’s participation in the trial if the subject has a primary physician and if the subject agrees to the primary physician being informed.
+
+In the event the Sponsor prematurely terminates a particular trial site, the Investigator will promptly notify that site’s IRB. 13.3 Financial Disclosure According to 21 CFR, Part 54, the Sponsor is required to completely and accurately disclose or certify information concerning the financial interests of a clinical Investigator (or investigating institution) who is not a full-time or part-time employee of the Sponsor.
+
+Therefore, the Investigator(s) (or investigating institution) must provide the Sponsor with sufficient, accurate financial certification to ensure that any financial arrangements will not introduce potential bias from the Investigator into the interpretation or outcome of the study. 13.4 Insurance A Certificate of Insurance and/or an information leaflet containing essential information about the insurance coverage can be provided upon request. 13.5 Publication Policy The study is part of a multicenter study; accordingly, the Institution and Principal Investigator of the study agree that the first publication of the results of the study shall be made in conjunction with the presentation of a joint, multicenter publication of the study results with the Investigators and the Institutions from all appropriate sites contributing data, analyses and comments.
+
+However, if such a multicenter publication is not submitted within twelve (12) months after the database has been locked, abandonment or termination of the study at all sites, or after Sponsor confirms there will be no multicenter study publication, the Institution and/or such Principal Investigator may publish the results from the institution site individually in accordance with the following requirements.
+
+Prior to submission of any materials for publication or presentation, the Institution will provide such materials or manuscript to the Sponsor for review.
+
+Details of the Sponsor’s publication policy can be found in the Clinical Trial Agreement.
+
+CONFIDENTIAL 97
+
+--- Page 98 ---
+
+Clinical Protocol 0761-014, Amendment 3 14 QUALITY ASSURANCE The trial will be conducted in accordance with the current approved protocol, ICH GCP, relevant regulations and standard operating procedures.
+
+Regular monitoring will be performed according to ICH GCP.
+
+Data will be evaluated for compliance with the protocol and accuracy in relation to source documents.
+
+Following written standard operating procedures, the monitors will verify that the clinical trial is conducted and data are generated, documented and reported in compliance with the protocol, GCP and the applicable regulatory requirements.
+
+CONFIDENTIAL 98
+
+--- Page 99 ---
+
+Clinical Protocol 0761-014, Amendment 3 15 REFERENCES 1.
+
+Dunn GP, Bruce AT, Ikeda H, et al.
+
+Cancer immunoediting: from immunosurveillance to tumor escape.
+
+Nat Immunol. 2002;3:991-8. 2.
+
+Eisenhauer EA, Therasse P, Bogaerts J, et al.
+
+New response evaluation criteria in solid tumours: Revised RECIST guideline (version 1.1).
+
+Eur J Cancer. 2009;45:228-47. 3.
+
+Greenwald RJ, Freeman GH, Sharpe AH.
+
+The B7 family revisited.
+
+Annu Rev Immunol. 2004;23:515-48. 4.
+
+Habicht A, Dada S, Jurewicz M, et al.
+
+A link between PDL1 and T regulatory cells in fetomaternal tolerance.
+
+J Immunol. 2007;179:5211-9. 5.
+
+Ishida T, Joh T, Uike N, et al.
+
+Defucosylated Anti-CCR4 monoclonal antibody (KW-0761) for relapsed adult T-cell leukemia-lymphoma: a multicenter Phase II study.
+
+J Clin Oncol. 2012;30:837-42. 6.
+
+Jemal A, Bray F, Center MM. et al.
+
+Global Cancer Statistics CA Cancer J Clin 2011;61:69–90. 7.
+
+Le DT, Uram JN, Wang H, Bartlett BR, Kemberling H, Eyting AD.
+
+PD-1 blockade in tumors with Mismatch-Repair Deficiency.
+
+N Engl J Med. 2015;372:2509-20. 8.
+
+Opdivo® [package insert].
+
+Princeton, NJ: Bristol-Myers Squibb; 2015. 9.
+
+Pardoll D.
+
+Does the immune system see tumors as foreign or self? Annu Rev Immunol. 2003;21:807-39. 10.
+
+Paz-Ares L, Horn L, Borghaei H, Spigel DR, Steins M, Ready N, et al.
+
+Phase III, randomized trial (CheckMate 057) of nivolumab (NIVO) versus docetaxel (DOC) in advanced non-squamous cell (nonSQ) non-small cell lung cancer (NSCLC).
+
+J Clin Oncol. 2015;33 (suppl; abstr LBA109). 11.
+
+Rizvi NA, Mazières J, Planchard D, et al.
+
+Activity and safety of nivolumab, an anti-PD-1 immune checkpoint inhibitor, for patients with advanced, refractory squamous nonsmall-cell lung cancer (CheckMate 063): a phase 2, single-arm trial.
+
+Lancet Oncol. 2015; Published online February 20, 2015 http://dx.doi.org/10.1016/S1470-2045(15):70054-9. 12.
+
+Rodriquez-Bigas MS, Boland CR, Hamilton DEH, Henson, DE, Jass JR, Khan PM, et al.
+
+Commentary: a national cancer institute workshop on hereditary nonpolyposis colorectal cancer syndrome: meeting highlights and Bethesda guidelines.
+
+J Nat Cancer Institute. 1997;89(23):1758-62.
+
+CONFIDENTIAL 99
+
+--- Page 100 ---
+
+Clinical Protocol 0761-014, Amendment 3 13.
+
+Seiwert T, Haddad R, Gupta S, Mehra R, Tahara M, Berger R, et al.
+
+Anti-tumor activity of the anti-PD-1 antibody pembrolizumab in biomarker-unselected patients with R/M head and neck cancer: preliminary results from the KEYNOTE-012 expansion cohort.
+
+Presented at the ASCO 2015 Annual Meeting; 14.
+
+Sharpe AH, Wherry EJ, Ahmed R, et al.
+
+The function of programmed cell death 1 and its ligands in regulating autoimmunity and infection.
+
+Nature Immunol. 2007;8:237-45. 15.
+
+Spigel DR, Reckamp KL, Rizvi NA, et al.
+
+A phase III study (CheckMate 017) of nivolumab (anti-programmed death-1) vs docetaxel in previously treated advanced or metastatic squamous (SQ) cell non-small cell lung cancer (NSCLC).
+
+J Clin Oncol. 2015;33:5s (suppl; abstr8009). 16.
+
+Sugiyama D, Nishikawa H, Maeda Y, et al.
+
+Anti-CCR4 mAb selectively depletes effector-type Foxp3+CD4+ regulatory T-cells, evoking antitumor immune responses in humans.
+
+PNAS. 2013;110:17945-50. 17.
+
+Svensson H, Olofsson V, Lundin S, et al.
+
+Accumulation of CCR4+ CTLA-4hi Foxp3+CD25aahi regulatory T-cells in colon adenocarcinomas correlate to reduced activation of conventional T-cells.
+
+PLoS One. 2012;7:1-11. 18.
+
+Tobinai K, Takahashi T, Akinaga S.
+
+Targeting chemokine receptor CCR4 in adult T-cell leukemia-lymphoma and other T-cell lymphomas.
+
+Curr Hematol Malig Rep. 2012;7:235-40. 19.
+
+Velu V, Titanji K, Zhu B, et al.
+
+Enhancing SIV-specific immunity in vivo by PD-1 blockade.
+
+Nature. 2009;458:206-10. 20.
+
+Wang C, Thudium KB, Han M, et al.
+
+In vitro characterization of the anit-PD-1 antibody nivolumab, BMS-936558, and in vivo toxicology in non-human primates.
+
+Cancer Immunol Res. 2014;2:846-56. 21.
+
+Zitvogel L, Tesniere A, Kroemer G.
+
+Cancer despite immunosurveillance: immunoselection and immunosubversion.
+
+Nat Rev Immunol. 2006;6:715-27. 22.
+
+Zou W.
+
+Immunosuppressive networks in the tumour environment and their therapeutic relevance.
+
+Nat Rev Cancer. 2005;5:263-74.
+
+CONFIDENTIAL 100
+
+--- Page 101 ---
+
+Clinical Protocol 0761-014, Amendment 3 16 APPENDICES CONFIDENTIAL 101
+
+--- Page 102 ---
+
+Clinical Protocol 0761-014, Amendment 3 Appendix 1 Response Evaluation Criteria in Solid Tumors, Version 1.1 (RECIST v. 1.1) This Appendix has been excerpted from the full RECIST v. 1.1 criteria.
+
+For information pertaining to RECIST v. 1.1 criteria not contained in the study protocol or in this Appendix, please refer to the full publication (Eisenhauer, 2009). 1 ASSESSMENT OF OVERALL TUMOR BURDEN AND MEASURABLE DISEASE To assess objective response or future progression, it is necessary to estimate the overall tumor burden at baseline and use this as a comparator for subsequent measurements.
+
+Measurable disease is defined by the presence of at least one measurable lesion. 1.1 Measurability of Tumor At baseline, tumor lesions/lymph nodes will be categorized measurable or non-measurable as follows.
+
+All baseline evaluations should be performed as close as possible to the treatment start and never more than 4 weeks before the beginning of the treatment.
+
+Measurable lesions must be accurately measured in at least one dimension (longest diameter in the plane of the measurement to be recorded) with a minimum size of: • 10 mm by CT scan - (CT scan slice thickness no greater than 5 mm) • 10 mm caliper measurement by clinical exam (lesions which cannot be accurately measured with calipers should be recorded as non-measurable) • 20 mm by chest x-ray • Malignant lymph nodes: To be considered pathologically enlarged and measurable, a lymph node must be ≥ 15 mm in short axis when assessed by CT scan (CT scan slice thickness recommended to be no greater than 5 mm).
+
+At baseline and in follow-up, only the short axis will be measured and followed.
+
+All measurements should be recorded in metric notation, using calipers if clinically assessed.
+
+Special considerations regarding lesion measurability include: Bone Lesions: • Bone scan, positron emission tomography scan or plain films are not considered adequate imaging techniques to measure bone lesions.
+
+However, these techniques can be used to confirm the presence or disappearance of bone lesions. • Lytic bone lesions or mixed lytic-blastic lesions, with identifiable soft tissue components, that can be evaluated by cross sectional imaging techniques such as CT or MRI can be considered as measurable lesions if the soft tissue component meets the definition of measurability described above. • Blastic bone lesions are non-measurable CONFIDENTIAL 102
+
+--- Page 103 ---
+
+Clinical Protocol 0761-014, Amendment 3 Cystic Lesions: • Lesions that meet the criteria for radiographically defined simple cysts should not be considered as malignant lesions (neither measurable nor non-measurable) since they are, by definition, simple cysts. • ‘Cystic lesions’ thought to represent cystic metastases can be considered as measurable lesions, if they meet the definition of measurability described above.
+
+However, if noncystic lesions are present in the same patient, these are preferred for selection as target lesions.
+
+Lesions With Prior Local Treatment: • Tumor lesions situated in a previously irradiated area, or in an area subjected to other loco-regional therapy, are usually not considered measurable unless there has been demonstrated progression in the lesion.
+
+Non-measurable Lesions are all other lesions, including small lesions (longest diameter < 10 mm or pathological lymph nodes with ≥ 10 to < 15 mm short axis), as well as nonmeasurable lesions.
+
+Lesions considered non-measurable include: leptomeningeal disease, ascites, pleural or pericardial effusion, inflammatory breast disease, lymphangitic involvement of skin or lung, abdominal masses/abdominal organomegaly identified by physical exam that is not measurable by reproducible imaging techniques. 1.2 Method of Assessment The same method of assessment and the same technique should be used to characterize each identified and reported lesion at baseline and during follow-up.
+
+Imaging based evaluation should always be performed rather than clinical examination unless the lesion(s) being followed cannot be imaged but are assessable by clinical examination.
+
+CT, MRI: CT is the best currently available and reproducible method to measure lesions selected for response assessment.
+
+Measurability of lesions on CT scan is based on the assumption that CT slice thickness is 5 mm or less.
+
+When CT scans have slice thickness greater than 5 mm, the minimum size for a measurable lesion should be twice the slice thickness.
+
+Chest x-ray: Chest CT is preferred over chest x-ray, particularly when progression is an important endpoint, since CT is more sensitive than x-ray, particularly in identifying new lesions.
+
+However, lesions on chest x-ray may be considered measurable if they are clearly defined and surrounded by aerated lung.
+
+Clinical lesions: Clinical lesions will only be considered measurable when they are superficial and ≥ 10 mm diameter as assessed using calipers.
+
+For the case of skin lesions, documentation by color photography including a ruler to estimate the size of the lesion is CONFIDENTIAL 103
+
+--- Page 104 ---
+
+Clinical Protocol 0761-014, Amendment 3 suggested.
+
+As noted above, when lesions can be evaluated by both clinical exam and imaging, imaging evaluation should be undertaken since it is more objective and may be reviewed at the end of the study.
+
+Ultrasound: Ultrasound is not useful in assessment of lesion size and should not be used as a method of measurement.
+
+If new lesions are identified by ultrasound in the course of the study, confirmation by CT or MRI is advised.
+
+Endoscopy, laparoscopy: The utilization of these techniques for objective tumor evaluation is not advised.
+
+Tumor markers: Tumor markers alone cannot be used to assess objective tumor response. 2 BASELINE DOCUMENTATION OF ‘TARGET’ AND ‘NON-TARGET’ LESIONS Target lesions: When more than one measurable lesion is present at baseline all lesions up to a maximum of 5 lesions total (and a maximum of 2 lesions per organ) representative of all involved organs should be identified as target lesions and will be recorded and measured at baseline.
+
+Target lesions should be selected on the basis of their size (lesions with the longest diameter), be representative of all involved organs, and should lend themselves to reproducible repeated measurements.
+
+Lymph nodes merit special mention since they are normal anatomical structures which may be visible by imaging even if not involved by tumor.
+
+Pathological nodes which are defined as measurable and may be identified as target lesions must meet the criterion of a short axis of ≥ 15 mm by CT scan.
+
+Only the short axis of these nodes will contribute to the baseline sum.
+
+All other pathological nodes (those with short axis ≥ 10 mm but < 15 mm) should be considered non-target lesions.
+
+Nodes that have a short axis < 10 mm are considered nonpathological and should not be recorded or followed.
+
+A sum of the diameters (longest for non-non-nodal lesions, short axis for nodal lesions) for all target lesions will be calculated and reported as the baseline sum diameters.
+
+The baseline sum diameters will be used as reference to further characterize any objective tumor regression in the measurable dimension of the disease.
+
+Non-target Lesions: All other lesions (or sites of disease) including pathological lymph nodes should be identified as non-target lesions and should also be recorded at baseline.
+
+Measurements are not required and these lesions should be followed as ‘present’, ‘absent’, or ‘unequivocal progression’.
+
+In addition, it is possible to record multiple non-target lesions CONFIDENTIAL 104
+
+--- Page 105 ---
+
+Clinical Protocol 0761-014, Amendment 3 involving the same organ as a single item on the case record form (e.g., ‘multiple enlarged pelvic lymph nodes’ or ‘multiple liver metastases’). 3 TUMOR RESPONSE EVALUATION AND RESPONSE CRITERIA 3.1 Evaluation of Target Lesions Complete Response (CR): Disappearance of all target lesions.
+
+Any pathological lymph nodes (whether target or non-target) must have reduction in short axis to < 10 mm.
+
+Partial Response (PR): At least a 30% decrease in the sum of diameters of target lesions, taking as reference the baseline sum diameters Progressive Disease (PD): At least a 20% increase in the sum of diameters of target lesions, taking as reference the smallest sum on study (this includes the baseline sum if that is the smallest on study).
+
+In addition to the relative increase of 20%, the sum must also demonstrate an absolute increase of at least 5 mm.
+
+Note: the appearance of one or more new lesions is also considered progression.
+
+Stable Disease (SD): Neither sufficient shrinkage from the baseline study to qualify for PR nor sufficient increase to qualify for PD, taking as reference the smallest sum diameters while on study.
+
+Special notes on the assessment of target lesions • Lymph nodes: Lymph nodes identified as target lesions should always have the actual short axis measurement recorded and should be measured in the same anatomical plane as the baseline examination, even if the nodes regress to below 10 mm on study.
+
+This means that when lymph nodes are included as target lesions, the ‘sum’ of lesions may not be zero even if complete response criteria are met, since a normal lymph node is defined as having a short axis of < 10 mm. • Target lesions that become ‘too small to measure’: All lesions (nodal and non-nodal) recorded at baseline should have their actual measurements recorded at each subsequent evaluation, even when very small (e.g., 2 mm).
+
+If the radiologist is able to provide an actual measure, that should be recorded, even if it is below 5 mm.
+
+However, when such a lesion becomes difficult to assign an exact measure to then: (i) if it is the opinion of the radiologist that the lesion has likely disappeared, the measurement should be recorded as 0 mm. (ii) if the lesion is believed to be present and is faintly seen but too small to measure, a default value of 5 mm should be assigned (note: in case of a lymph node believed to be present and faintly seen but too small to measure, a default value of 5 mm should CONFIDENTIAL 105
+
+--- Page 106 ---
+
+Clinical Protocol 0761-014, Amendment 3 be assigned in this circumstance as well).
+
+This default value is derived from the 5 mm CT slice thickness (but should not be changed with varying CT slice thickness).
+
+Lesions That Split or Coalesce on Treatment: When non-nodal lesions ‘fragment’, the longest diameters of the fragmented portions should be added together to calculate the target lesion sum.
+
+Similarly, as lesions coalesce, a plane between them may be maintained that would aid in obtaining maximal diameter measurements of each individual lesion.
+
+If the lesions have coalesced such that they are no longer separable, the vector of the longest diameter in this instance should be the maximal longest diameter for the ‘coalesced lesion’. 3.2 Evaluation of Non-target Lesions While some non-target lesions may actually be measurable, they need not be measured and instead should be assessed only qualitatively at the time points specified in the protocol.
+
+Complete Response (CR): Disappearance of all non-target lesions and normalization of tumor marker level.
+
+All lymph nodes must be non-pathological in size (< 10 mm short axis).
+
+Non-CR/Non-PD: Persistence of one or more non-target lesion(s) and/or maintenance of tumor marker level above the normal limits.
+
+Progressive Disease (PD): Unequivocal progression of existing non-target lesions. (Note: the appearance of one or more new lesions is also considered progression).
+
+The concept of progression of non-target disease requires additional explanation as follows: • When the patient also has measurable disease: To achieve ‘unequivocal progression’ on the basis of the non-target disease, there must be an overall level of substantial worsening in non-target disease such that, even in presence of SD or PR in target disease, the overall tumor burden has increased sufficiently to merit discontinuation of therapy.
+
+A modest ‘increase’ in the size of one or more non-target lesions is usually not sufficient to qualify for unequivocal progression status. • When the patient has only non-measurable disease: To achieve ‘unequivocal progression’ on the basis of the non-target disease, there must be an overall level of substantial worsening such that the overall tumor burden has increased sufficiently to merit discontinuation of therapy.
+
+A modest ‘increase’ in the size of one or more non-target lesions is usually not sufficient to qualify for unequivocal progression status.
+
+Because worsening in non-target disease cannot be easily quantified (by definition: if all lesions are non-measurable) a useful test that can be applied when assessing patients for unequivocal progression is to consider if the increase in overall disease burden based on the change in non-measurable disease is comparable in magnitude to the increase that would be required to declare PD for measurable disease: i.e., an increase in tumor burden representing an additional 73% increase in ‘volume’ (which is equivalent to a 20% increase diameter in a measurable lesion).
+
+Examples include an increase in a pleural CONFIDENTIAL 106
+
+--- Page 107 ---
+
+Clinical Protocol 0761-014, Amendment 3 effusion from ‘trace’ to ‘large’, an increase in lymphangitic disease from localized to widespread, or may be described in protocols as ‘sufficient to require a change in therapy’.
+
+If ‘unequivocal progression’ is seen, the patient should be considered to have had overall PD at that point. 3.3 New Lesions The appearance of new malignant lesions denotes disease progression.
+
+The finding of a new lesion should be unequivocal: i.e., not attributable to differences in scanning technique, change in imaging modality or findings thought to represent something other than tumor (for example, some ‘new’ bone lesions may be simply healing or flare of pre-existing lesions).
+
+This is particularly important when the patient’s baseline lesions show partial or complete response.
+
+For example, necrosis of a liver lesion may be reported on a CT scan report as a ‘new’ cystic lesion, which it is not.
+
+A lesion identified on a follow-up study in an anatomical location that was not scanned at baseline is considered a new lesion and will indicate disease progression.
+
+An example of this is the patient who has visceral disease at baseline and while on study has a CT or MRI brain ordered which reveals metastases.
+
+The patient’s brain metastases are considered to be constitute PD even if he/she did not have brain imaging at baseline.
+
+If a new lesion is equivocal, for example because of its small size, continued therapy and follow-up evaluation will clarify if it represents new disease.
+
+If repeat scans confirm that there is a new lesion, then progression should be declared using the date of the initial scan. 3.4 Tumor Markers Tumor markers alone cannot be used to assess objective tumor responses.
+
+If markers are initially above the upper normal limit, however, they must normalize in order for a patient to be considered as having attained a complete response. 4 EVALUATION OF BEST OVERALL RESPONSE 4.1 Time Point Response A response assessment should occur at each time point specified in the protocol.
+
+For patients who have measurable disease at baseline Appendix Table 1 provides a summary of the overall response status calculation at each time point.
+
+CONFIDENTIAL 107
+
+--- Page 108 ---
+
+Clinical Protocol 0761-014, Amendment 3 Appendix Table 1: Summary of the Overall Response Status Calculation (Time Point Response) - Patient with Target (+/-) Non-target Disease CR=complete response; NE=inevaluable; PD=progressive disease; PR=partial response; SD=stable disease 4.2 Missing Assessments and Inevaluable Designation When no imaging/measurement is done at all at a particular time point, the patient is not evaluable (NE) at that time point.
+
+If only a subset of lesion measurements are made at an assessment, usually the case is also considered NE at that time point, unless a convincing argument can be made that the contribution of the individual missing lesion(s) would not change the assigned time point response.
+
+This would be most likely to happen in the case of PD. 4.3 Best Overall Response: all Timepoints Best response determination in trials where confirmation of complete or partial response IS required: Complete or partial responses may be claimed only if the criteria for each are met at a subsequent time point as specified in the protocol.
+
+In this circumstance, the best overall response can be interpreted as in Appendix Table 2.
+
+CONFIDENTIAL 108
+
+--- Page 109 ---
+
+Clinical Protocol 0761-014, Amendment 3 Appendix Table 2: Best Overall Response When Confirmation of Complete Response and Partial Response Required NE NE NE a: If a CR is truly met at first time point, then any disease seen at a subsequent time point, even disease meeting PR criteria relative to baseline, makes the disease PD at that point (since disease must have reappeared after CR).
+
+Best response would depend on whether minimum duration for SD was met.
+
+However, sometimes ‘CR’ may be claimed when subsequent scans suggest small lesions were likely still present and in fact the patient had PR, not CR at the first time point.
+
+Under these circumstances, the original CR should be changed to PR and the best response is PR.
+
+CR=complete response; NE=inevaluable; PD=progressive disease; PR=partial response; SD=stable disease. 4.4 Special Notes on Response Assessment When nodal disease is included in the sum of target lesions and the nodes decrease to ‘normal’ size (< 10 mm), they may still have a measurement reported on scans.
+
+This measurement should be recorded even though the nodes are normal in order not to overstate progression should it be based on increase in size of the nodes.
+
+As noted earlier, this means that patients with CR may not have a total sum of ‘zero’ on the case report form (CRF).
+
+Patients with a global deterioration of health status requiring discontinuation of treatment without objective evidence of disease progression at that time should be reported as ‘symptomatic deterioration’.
+
+Every effort should be made to document objective progression even after discontinuation of treatment.
+
+Symptomatic deterioration is not a descriptor of an objective response: it is a reason for stopping study therapy.
+
+The objective response status of such patients is to be determined by evaluation of target and non-target disease as shown in Appendix Table 1 and Table 2.
+
+For equivocal findings of progression (e.g., very small and uncertain new lesions; cystic changes or necrosis in existing lesions), treatment may continue until the next scheduled CONFIDENTIAL 109
+
+--- Page 110 ---
+
+Clinical Protocol 0761-014, Amendment 3 assessment.
+
+If at the next scheduled assessment, progression is confirmed, the date of progression should be the earlier date when progression was suspected. 5 ADDITIONAL CONSIDERATIONS 5.1 Duration of Response Duration of overall response: The duration of overall response is measured from the time measurement criteria are first met for CR/PR (whichever is first recorded) until the first date that recurrent or progressive disease is objectively documented (taking as reference for progressive disease the smallest measurements recorded on study).
+
+The duration of overall complete response is measured from the time measurement criteria are first met for CR until the first date that recurrent disease is objectively documented.
+
+Duration of stable disease: Stable disease is measured from the start of the treatment (in randomized trials, from date of randomization) until the criteria for progression are met, taking as reference the smallest sum on study (if the baseline sum is the smallest, this is the reference for calculation of PD). 5.2 Lesions That Disappear and Reappear If a lesion disappears and reappears at a subsequent time point it should continue to be measured.
+
+However, the patient’s response at the point in time when the lesion reappears will depend upon the status of his/her other lesions.
+
+For example, if the patient’s tumour had reached a CR status and the lesion reappeared, then the patient would be considered PD at the time of reappearance.
+
+In contrast, if the tumour status was a PR or SD and one lesion which had disappeared then reappears, its maximal diameter should be added to the sum of the remaining lesions for a calculated response: in other words, the reappearance of an apparently ‘disappeared’ single lesion amongst many which remain is not in itself enough to qualify for PD: that requires the sum of all lesions to meet the PD criteria.
+
+The rationale for such a categorization is based upon the realization that most lesions do not actually ‘disappear’ but are not visualized because they are beyond the resolving power of the imaging modality employed. 5.3 Use of Fluorodeoxyglucose-Positron Emission Tomography While fluorodeoxyglucose-positron emission tomography (FDG-PET) response assessments need additional study, it is sometimes reasonable to incorporate the use of FDG-PET scanning to complement CT scanning in assessment of progression (particularly possible ‘new’ disease).
+
+New lesions on the basis of FDG-PET imaging can be identified according to the following algorithm: CONFIDENTIAL 110
+
+--- Page 111 ---
+
+Clinical Protocol 0761-014, Amendment 3 a) Negative FDG-PET at baseline, with a positive FDG-PET at follow-up is a sign of PD based on a new lesion.
+
+Confirmatory CT is recommended. b) No FDG-PET at baseline and a positive FDG-PET at follow-up: – If the positive FDG-PET at follow-up corresponds to a new site of disease confirmed by CT, this is PD. – If the positive FDG-PET at follow-up is not confirmed as a new site of disease on CT, additional follow-up CT scans are needed to determine if there is progression occurring at that site (if so, the date of PD will be the date of the initial abnormal FDG-PET scan).
+
+If the positive FDG-PET at follow-up corresponds to a pre-existing site of disease on CT that is not progressing on the basis of the anatomic images, this is not PD.
+
+CONFIDENTIAL 111
+
+--- Page 112 ---
+
+Clinical Protocol 0761-014, Amendment 3 Appendix 2 Child-Pugh Score Measure 1 point 2 points 3 points CONFIDENTIAL 112
+
+
+---
+
+## Document History
+
+| Version | Date | Author | Description |
+|---------|------|--------|-------------|
+| 1.0 | 2025-12-25 | Auto-generated | Initial abbreviated SAP |
+
+---
+
+*This is an abbreviated SAP generated from the study protocol. For complete statistical analysis details, refer to the full Statistical Analysis Plan.*

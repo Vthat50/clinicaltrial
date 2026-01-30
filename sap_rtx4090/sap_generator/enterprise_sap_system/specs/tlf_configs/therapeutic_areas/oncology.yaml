@@ -1,0 +1,728 @@
+# =============================================================================
+# ONCOLOGY THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, response criteria, and table
+# structures unique to oncology clinical trials.
+#
+# Used by Claude to recognize oncology-specific concepts in protocols and
+# map them to the correct analysis templates and table structures.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "oncology"
+display_name: "Oncology"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  solid_tumors:
+    - "non-small cell lung cancer"
+    - "NSCLC"
+    - "small cell lung cancer"
+    - "SCLC"
+    - "breast cancer"
+    - "HER2-positive breast cancer"
+    - "triple-negative breast cancer"
+    - "TNBC"
+    - "HR+/HER2- breast cancer"
+    - "colorectal cancer"
+    - "CRC"
+    - "gastric cancer"
+    - "esophageal cancer"
+    - "gastroesophageal junction"
+    - "GEJ"
+    - "hepatocellular carcinoma"
+    - "HCC"
+    - "renal cell carcinoma"
+    - "RCC"
+    - "urothelial carcinoma"
+    - "bladder cancer"
+    - "melanoma"
+    - "head and neck squamous cell carcinoma"
+    - "HNSCC"
+    - "pancreatic cancer"
+    - "ovarian cancer"
+    - "cervical cancer"
+    - "endometrial cancer"
+    - "prostate cancer"
+    - "mCRPC"
+    - "mesothelioma"
+    - "cholangiocarcinoma"
+    - "thyroid cancer"
+    - "sarcoma"
+    - "glioblastoma"
+    - "GBM"
+
+  hematologic_malignancies:
+    - "acute myeloid leukemia"
+    - "AML"
+    - "acute lymphoblastic leukemia"
+    - "ALL"
+    - "chronic lymphocytic leukemia"
+    - "CLL"
+    - "chronic myeloid leukemia"
+    - "CML"
+    - "diffuse large B-cell lymphoma"
+    - "DLBCL"
+    - "follicular lymphoma"
+    - "FL"
+    - "mantle cell lymphoma"
+    - "MCL"
+    - "Hodgkin lymphoma"
+    - "multiple myeloma"
+    - "MM"
+    - "myelodysplastic syndromes"
+    - "MDS"
+    - "myelofibrosis"
+    - "MF"
+    - "Waldenstrom macroglobulinemia"
+
+# =============================================================================
+# RESPONSE CRITERIA
+# =============================================================================
+response_criteria:
+
+  recist_1_1:
+    name: "RECIST 1.1"
+    full_name: "Response Evaluation Criteria in Solid Tumors v1.1"
+    applies_to: "solid_tumors"
+    categories:
+      - code: "CR"
+        label: "Complete Response"
+        definition: "Disappearance of all target lesions; any pathological lymph nodes must have reduction in short axis to <10 mm"
+      - code: "PR"
+        label: "Partial Response"
+        definition: "At least a 30% decrease in the sum of diameters of target lesions, taking as reference the baseline sum diameters"
+      - code: "SD"
+        label: "Stable Disease"
+        definition: "Neither sufficient shrinkage to qualify for PR nor sufficient increase to qualify for PD"
+      - code: "PD"
+        label: "Progressive Disease"
+        definition: "At least a 20% increase in the sum of diameters of target lesions (minimum absolute increase of 5 mm), or appearance of one or more new lesions"
+      - code: "NE"
+        label: "Not Evaluable"
+        definition: "Insufficient data to determine response"
+
+    composite_endpoints:
+      ORR:
+        label: "Objective Response Rate"
+        definition: "Proportion of subjects with CR or PR"
+        components: ["CR", "PR"]
+      DCR:
+        label: "Disease Control Rate"
+        definition: "Proportion of subjects with CR, PR, or SD"
+        components: ["CR", "PR", "SD"]
+      CBR:
+        label: "Clinical Benefit Rate"
+        definition: "Proportion of subjects with CR, PR, or SD >=24 weeks"
+        components: ["CR", "PR", "SD_24wk"]
+
+    footnotes:
+      - "Tumor response assessed per RECIST v1.1 by investigator."
+      - "Confirmed response requires repeat assessment >=4 weeks after initial response."
+
+  irecist:
+    name: "iRECIST"
+    full_name: "Modified RECIST for Immune-Based Therapeutics"
+    applies_to: "solid_tumors"
+    note: "Used for immunotherapy trials where pseudoprogression may occur"
+    categories:
+      - code: "iCR"
+        label: "Immune Complete Response"
+        definition: "Disappearance of all target lesions confirmed at subsequent assessment"
+      - code: "iPR"
+        label: "Immune Partial Response"
+        definition: "At least 30% decrease in sum of diameters confirmed at subsequent assessment"
+      - code: "iSD"
+        label: "Immune Stable Disease"
+        definition: "Neither sufficient shrinkage nor sufficient increase"
+      - code: "iUPD"
+        label: "Immune Unconfirmed Progressive Disease"
+        definition: "Initial increase requiring confirmation at next assessment"
+      - code: "iCPD"
+        label: "Immune Confirmed Progressive Disease"
+        definition: "Confirmed progression at subsequent assessment"
+
+    composite_endpoints:
+      iORR:
+        label: "Immune Objective Response Rate"
+        definition: "Proportion of subjects with iCR or iPR"
+        components: ["iCR", "iPR"]
+      iDCR:
+        label: "Immune Disease Control Rate"
+        definition: "Proportion of subjects with iCR, iPR, or iSD"
+        components: ["iCR", "iPR", "iSD"]
+
+    footnotes:
+      - "Tumor response assessed per iRECIST by investigator."
+      - "Pseudoprogression confirmed by repeat imaging at least 4 weeks after initial iUPD."
+
+  lugano_2014:
+    name: "Lugano 2014"
+    full_name: "Lugano Classification for Lymphoma Response"
+    applies_to: "hematologic_malignancies"
+    categories:
+      - code: "CMR"
+        label: "Complete Metabolic Response"
+        definition: "Score 1, 2, or 3 on 5-point scale with or without residual mass on CT"
+      - code: "PMR"
+        label: "Partial Metabolic Response"
+        definition: "Score 4 or 5 with reduced uptake compared to baseline"
+      - code: "NMR"
+        label: "No Metabolic Response"
+        definition: "Score 4 or 5 with no significant change from baseline"
+      - code: "PMD"
+        label: "Progressive Metabolic Disease"
+        definition: "Score 4 or 5 with increase in uptake or new FDG-avid foci"
+    footnotes:
+      - "Response assessed per Lugano 2014 classification."
+
+  iwcll:
+    name: "iwCLL 2018"
+    full_name: "International Workshop on CLL Response Criteria"
+    applies_to: "hematologic_malignancies"
+    categories:
+      - code: "CR"
+        label: "Complete Remission"
+      - code: "CRi"
+        label: "Complete Remission with Incomplete Marrow Recovery"
+      - code: "nPR"
+        label: "Nodular Partial Remission"
+      - code: "PR"
+        label: "Partial Remission"
+      - code: "PR-L"
+        label: "Partial Remission with Lymphocytosis"
+      - code: "SD"
+        label: "Stable Disease"
+      - code: "PD"
+        label: "Progressive Disease"
+    footnotes:
+      - "Response assessed per iwCLL 2018 criteria."
+
+  imwg:
+    name: "IMWG"
+    full_name: "International Myeloma Working Group Response Criteria"
+    applies_to: "hematologic_malignancies"
+    categories:
+      - code: "sCR"
+        label: "Stringent Complete Response"
+      - code: "CR"
+        label: "Complete Response"
+      - code: "VGPR"
+        label: "Very Good Partial Response"
+      - code: "PR"
+        label: "Partial Response"
+      - code: "MR"
+        label: "Minimal Response"
+      - code: "SD"
+        label: "Stable Disease"
+      - code: "PD"
+        label: "Progressive Disease"
+    composite_endpoints:
+      ORR:
+        label: "Overall Response Rate"
+        components: ["sCR", "CR", "VGPR", "PR"]
+      VGPR_or_better:
+        label: "VGPR or Better Rate"
+        components: ["sCR", "CR", "VGPR"]
+      CR_or_better:
+        label: "CR or Better Rate"
+        components: ["sCR", "CR"]
+    footnotes:
+      - "Response assessed per IMWG uniform response criteria."
+
+# =============================================================================
+# ONCOLOGY-SPECIFIC ENDPOINTS
+# =============================================================================
+endpoints:
+
+  time_to_event:
+    PFS:
+      label: "Progression-Free Survival"
+      definition: "Time from randomization to first documented disease progression or death from any cause"
+      dataset: "ADTTE"
+      censoring_rules:
+        - "Subjects without progression or death censored at last adequate tumor assessment"
+        - "Subjects who start new anticancer therapy censored at last assessment before new therapy"
+        - "Subjects with no post-baseline assessment censored at randomization date"
+      analysis_method: "cox_proportional_hazards"
+      km_timepoints: ["6-month", "12-month", "18-month", "24-month"]
+
+    OS:
+      label: "Overall Survival"
+      definition: "Time from randomization to death from any cause"
+      dataset: "ADTTE"
+      censoring_rules:
+        - "Subjects not known to have died censored at last known alive date"
+      analysis_method: "cox_proportional_hazards"
+      km_timepoints: ["12-month", "24-month", "36-month"]
+
+    DOR:
+      label: "Duration of Response"
+      definition: "Time from first documented response (CR/PR) to first documented disease progression or death"
+      dataset: "ADTTE"
+      population_subset: "Responders only"
+      censoring_rules:
+        - "Responders without progression or death censored at last adequate tumor assessment"
+      analysis_method: "cox_proportional_hazards"
+
+    TTP:
+      label: "Time to Progression"
+      definition: "Time from randomization to first documented disease progression (deaths without progression censored)"
+      dataset: "ADTTE"
+      censoring_rules:
+        - "Deaths without prior progression censored at date of death"
+      analysis_method: "cox_proportional_hazards"
+
+    TTR:
+      label: "Time to Response"
+      definition: "Time from randomization to first documented response (CR/PR)"
+      dataset: "ADTTE"
+      analysis_method: "descriptive"
+
+    EFS:
+      label: "Event-Free Survival"
+      definition: "Time from randomization to disease progression, treatment failure, or death from any cause"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    IDFS:
+      label: "Invasive Disease-Free Survival"
+      definition: "Time from randomization to first invasive disease recurrence (local, regional, distant) or death from any cause"
+      dataset: "ADTTE"
+      note: "Used in adjuvant settings"
+      censoring_rules:
+        - "Subjects without event censored at last disease assessment"
+        - "Second primary non-breast invasive cancers counted as events"
+      analysis_method: "cox_proportional_hazards"
+
+    DRFS:
+      label: "Distant Recurrence-Free Survival"
+      definition: "Time from randomization to first distant recurrence or death from any cause"
+      dataset: "ADTTE"
+      note: "Used in adjuvant settings; excludes local/regional recurrence"
+      analysis_method: "cox_proportional_hazards"
+
+    MRD:
+      label: "Minimal Residual Disease Negativity"
+      definition: "Proportion of subjects achieving MRD-negative status at specified sensitivity threshold"
+      dataset: "ADRS"
+      note: "Used in hematologic malignancies"
+      analysis_method: "exact_binomial"
+
+  binary:
+    ORR:
+      label: "Objective Response Rate"
+      definition: "Proportion of subjects with best overall response of CR or PR"
+      dataset: "ADRS"
+      analysis_method: "exact_binomial"
+
+    DCR:
+      label: "Disease Control Rate"
+      definition: "Proportion of subjects with CR, PR, or SD"
+      dataset: "ADRS"
+      analysis_method: "exact_binomial"
+
+    CBR:
+      label: "Clinical Benefit Rate"
+      definition: "Proportion of subjects with CR, PR, or SD >= 24 weeks"
+      dataset: "ADRS"
+      analysis_method: "exact_binomial"
+
+    pCR:
+      label: "Pathological Complete Response Rate"
+      definition: "Proportion of subjects with no residual invasive cancer in breast and axillary lymph nodes (ypT0/is ypN0)"
+      dataset: "ADRS"
+      note: "Used in neoadjuvant settings"
+      analysis_method: "exact_binomial"
+
+# =============================================================================
+# ONCOLOGY-SPECIFIC BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "ECOG Performance Status"
+    type: "categorical"
+    categories: ["0", "1", "2"]
+    note: "ECOG PS 0-1 vs >=2 commonly used as stratification factor"
+
+  - variable: "Disease Stage"
+    type: "categorical"
+    categories: ["Stage I", "Stage II", "Stage III", "Stage IV"]
+
+  - variable: "Histology"
+    type: "categorical"
+    note: "Categories disease-specific (e.g., adenocarcinoma, squamous for NSCLC)"
+
+  - variable: "Number of Prior Lines of Therapy"
+    type: "categorical"
+    categories: ["0", "1", "2", ">=3"]
+
+  - variable: "Prior Therapy Types"
+    type: "categorical"
+    note: "Categories protocol-specific (e.g., prior immunotherapy, prior targeted therapy)"
+
+  - variable: "Time Since Last Therapy"
+    type: "continuous"
+    unit: "months"
+
+  - variable: "Number of Metastatic Sites"
+    type: "categorical"
+    categories: ["1", "2", ">=3"]
+
+  - variable: "Sites of Metastases"
+    type: "categorical"
+    note: "Categories: liver, lung, bone, brain, lymph node, other"
+
+  - variable: "Measurable Disease"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+# =============================================================================
+# BIOMARKER VARIABLES (common in oncology)
+# =============================================================================
+biomarkers:
+  pdl1:
+    variable: "PD-L1 Expression"
+    type: "categorical"
+    common_cutoffs:
+      - "TPS >=50%"
+      - "TPS >=1%"
+      - "TPS <1%"
+      - "CPS >=10"
+      - "CPS >=1"
+      - "CPS <1"
+    assays: ["22C3", "28-8", "SP142", "SP263", "73-10"]
+    note: "Cutoff and assay specified per protocol"
+
+  her2:
+    variable: "HER2 Status"
+    type: "categorical"
+    categories: ["Positive (IHC 3+ or ISH+)", "Negative", "Low (IHC 1+ or IHC 2+/ISH-)"]
+
+  hormone_receptor:
+    variable: "Hormone Receptor Status"
+    type: "categorical"
+    categories: ["HR-positive", "HR-negative"]
+    note: "ER and/or PgR positive"
+
+  brca:
+    variable: "BRCA Mutation Status"
+    type: "categorical"
+    categories: ["gBRCA mutated", "sBRCA mutated", "BRCA wild-type"]
+
+  msi:
+    variable: "Microsatellite Instability Status"
+    type: "categorical"
+    categories: ["MSI-High", "MSS/MSI-Low"]
+    note: "Also referred to as dMMR/pMMR"
+
+  tmb:
+    variable: "Tumor Mutational Burden"
+    type: "categorical"
+    common_cutoffs:
+      - "TMB-High (>=10 mut/Mb)"
+      - "TMB-Low (<10 mut/Mb)"
+
+  egfr:
+    variable: "EGFR Mutation Status"
+    type: "categorical"
+    categories: ["EGFR mutated", "EGFR wild-type"]
+    common_mutations: ["Exon 19 deletion", "L858R", "T790M", "Exon 20 insertion"]
+
+  alk:
+    variable: "ALK Rearrangement Status"
+    type: "categorical"
+    categories: ["ALK-positive", "ALK-negative"]
+
+  kras:
+    variable: "KRAS Mutation Status"
+    type: "categorical"
+    categories: ["KRAS G12C", "KRAS mutated (other)", "KRAS wild-type"]
+
+  braf:
+    variable: "BRAF Mutation Status"
+    type: "categorical"
+    categories: ["BRAF V600E", "BRAF V600K", "BRAF wild-type"]
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "ECOG performance status (0 vs 1)"
+  - "PD-L1 expression (TPS >=50% vs <50%)"
+  - "Geographic region (Asia vs non-Asia)"
+  - "Prior therapy (yes vs no)"
+  - "Number of prior lines (0-1 vs >=2)"
+  - "Presence of liver metastases (yes vs no)"
+  - "Presence of brain metastases (yes vs no)"
+  - "Disease stage (locally advanced vs metastatic)"
+  - "Histology (squamous vs non-squamous)"
+  - "Hormone receptor status (positive vs negative)"
+  - "Smoking status (never vs ever)"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age (<65 vs >=65)"
+  - "Sex (Male vs Female)"
+  - "Race (White vs Asian vs Black/African American vs Other)"
+  - "Geographic region"
+  - "ECOG performance status (0 vs >=1)"
+  - "PD-L1 expression status"
+  - "Number of metastatic sites (< 3 vs >=3)"
+  - "Presence of liver metastases"
+  - "Presence of brain metastases"
+  - "Prior therapy"
+  - "Histology"
+  - "Biomarker status"
+  - "Smoking status"
+  - "Disease stage"
+
+# =============================================================================
+# ONCOLOGY-SPECIFIC AESIs
+# =============================================================================
+aesi_categories:
+
+  immunotherapy:
+    label: "Immune-Mediated Adverse Events"
+    note: "Common with checkpoint inhibitors (anti-PD-1, anti-PD-L1, anti-CTLA-4)"
+    events:
+      - category: "Pneumonitis"
+        preferred_terms: ["Pneumonitis", "Interstitial lung disease"]
+      - category: "Colitis"
+        preferred_terms: ["Colitis", "Diarrhoea", "Enterocolitis"]
+      - category: "Hepatitis"
+        preferred_terms: ["Hepatitis", "ALT increased", "AST increased", "Transaminases increased", "Hepatotoxicity"]
+      - category: "Nephritis"
+        preferred_terms: ["Nephritis", "Tubulointerstitial nephritis", "Renal failure acute", "Blood creatinine increased"]
+      - category: "Endocrinopathy - Thyroid"
+        preferred_terms: ["Hypothyroidism", "Hyperthyroidism", "Thyroiditis", "TSH increased", "TSH decreased"]
+      - category: "Endocrinopathy - Adrenal"
+        preferred_terms: ["Adrenal insufficiency", "Hypophysitis"]
+      - category: "Endocrinopathy - Pituitary"
+        preferred_terms: ["Hypophysitis", "Pituitary disorder"]
+      - category: "Endocrinopathy - Diabetes"
+        preferred_terms: ["Type 1 diabetes mellitus", "Diabetic ketoacidosis", "Hyperglycaemia"]
+      - category: "Dermatologic"
+        preferred_terms: ["Rash", "Rash maculopapular", "Pruritus", "Dermatitis", "Vitiligo", "Pemphigoid", "Stevens-Johnson syndrome", "Toxic epidermal necrolysis"]
+      - category: "Myocarditis"
+        preferred_terms: ["Myocarditis", "Troponin increased"]
+      - category: "Myositis"
+        preferred_terms: ["Myositis", "Rhabdomyolysis", "CPK increased"]
+      - category: "Neurological"
+        preferred_terms: ["Guillain-Barre syndrome", "Myasthenia gravis", "Encephalitis", "Peripheral neuropathy"]
+      - category: "Infusion Reactions"
+        preferred_terms: ["Infusion related reaction", "Hypersensitivity", "Anaphylactic reaction"]
+
+  cytotoxic_chemotherapy:
+    label: "Chemotherapy-Related AEs"
+    events:
+      - category: "Myelosuppression"
+        preferred_terms: ["Neutropenia", "Febrile neutropenia", "Anaemia", "Thrombocytopenia", "Leukopenia", "Pancytopenia"]
+      - category: "Nausea/Vomiting"
+        preferred_terms: ["Nausea", "Vomiting"]
+      - category: "Peripheral Neuropathy"
+        preferred_terms: ["Peripheral sensory neuropathy", "Peripheral motor neuropathy", "Neuropathy peripheral", "Paraesthesia", "Hypoaesthesia"]
+      - category: "Cardiac Toxicity"
+        preferred_terms: ["Ejection fraction decreased", "Cardiac failure", "Cardiac failure congestive", "Left ventricular dysfunction"]
+      - category: "Mucositis"
+        preferred_terms: ["Stomatitis", "Mucosal inflammation", "Oral mucositis"]
+      - category: "Alopecia"
+        preferred_terms: ["Alopecia"]
+
+  targeted_therapy:
+    label: "Targeted Therapy-Related AEs"
+    events:
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased", "Blood bilirubin increased", "Drug-induced liver injury", "Hepatotoxicity", "Hepatic failure"]
+      - category: "QT Prolongation"
+        preferred_terms: ["Electrocardiogram QT prolonged", "Long QT syndrome", "Torsade de pointes"]
+      - category: "Skin Toxicity"
+        preferred_terms: ["Palmar-plantar erythrodysaesthesia syndrome", "Rash acneiform", "Dry skin", "Dermatitis acneiform"]
+      - category: "Hypertension"
+        preferred_terms: ["Hypertension", "Blood pressure increased", "Hypertensive crisis"]
+      - category: "Proteinuria"
+        preferred_terms: ["Proteinuria", "Protein urine present", "Nephrotic syndrome"]
+      - category: "Bleeding/Hemorrhage"
+        preferred_terms: ["Haemorrhage", "Epistaxis", "Gastrointestinal haemorrhage", "Pulmonary haemorrhage"]
+      - category: "Thromboembolic Events"
+        preferred_terms: ["Pulmonary embolism", "Deep vein thrombosis", "Thrombosis", "Embolism"]
+      - category: "Interstitial Lung Disease"
+        preferred_terms: ["Interstitial lung disease", "Pneumonitis"]
+      - category: "Cytokine Release Syndrome"
+        preferred_terms: ["Cytokine release syndrome", "Cytokine storm"]
+
+  adc:
+    label: "Antibody-Drug Conjugate-Related AEs"
+    note: "Common with ADCs (e.g., T-DXd, T-DM1, enfortumab vedotin)"
+    events:
+      - category: "Interstitial Lung Disease / Pneumonitis"
+        preferred_terms: ["Interstitial lung disease", "Pneumonitis", "Organising pneumonia"]
+        note: "Black box warning for several ADCs"
+      - category: "Ocular Toxicity"
+        preferred_terms: ["Keratitis", "Blurred vision", "Dry eye", "Corneal deposits"]
+      - category: "Peripheral Neuropathy"
+        preferred_terms: ["Peripheral sensory neuropathy", "Peripheral motor neuropathy"]
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased", "Nodular regenerative hyperplasia"]
+
+  car_t:
+    label: "CAR-T Cell Therapy-Related AEs"
+    events:
+      - category: "Cytokine Release Syndrome"
+        preferred_terms: ["Cytokine release syndrome"]
+        grading: "Lee 2014 or ASTCT 2019 grading"
+      - category: "Immune Effector Cell-Associated Neurotoxicity (ICANS)"
+        preferred_terms: ["Neurotoxicity", "Encephalopathy", "Aphasia", "Tremor", "Seizure", "Cerebral oedema"]
+        grading: "ASTCT 2019 ICANS grading"
+      - category: "Prolonged Cytopenias"
+        preferred_terms: ["Neutropenia", "Thrombocytopenia", "Anaemia"]
+      - category: "Infections"
+        preferred_terms: ["Infection", "Sepsis", "Pneumonia"]
+      - category: "Hypogammaglobulinemia"
+        preferred_terms: ["Hypogammaglobulinaemia", "Immunoglobulins decreased"]
+
+# =============================================================================
+# ONCOLOGY-SPECIFIC TABLE STRUCTURES
+# =============================================================================
+table_structures:
+
+  waterfall_plot:
+    type: "figure"
+    title: "Waterfall Plot of Best Percentage Change from Baseline in Target Lesion Sum of Diameters"
+    description: "Bar chart showing best % change from baseline for each subject, ordered from most shrinkage to most growth"
+    dataset: "ADRS"
+    axes:
+      y: "Best % Change from Baseline"
+      x: "Individual Subjects"
+    reference_lines:
+      - value: -30
+        label: "PR threshold (-30%)"
+      - value: 20
+        label: "PD threshold (+20%)"
+
+  spider_plot:
+    type: "figure"
+    title: "Spider Plot of Percentage Change from Baseline in Target Lesion Sum Over Time"
+    description: "Line chart showing tumor burden over time for individual subjects"
+    dataset: "ADRS"
+    axes:
+      y: "% Change from Baseline"
+      x: "Time (weeks)"
+
+  swimmer_plot:
+    type: "figure"
+    title: "Swimmer Plot of Treatment Duration and Response"
+    description: "Horizontal bar chart showing treatment duration with response status for each subject"
+    dataset: "ADRS"
+    elements:
+      - "Treatment duration bar"
+      - "Response onset marker"
+      - "Progression marker"
+      - "Ongoing indicator"
+
+  best_response_table:
+    type: "table"
+    title: "Best Overall Response"
+    dataset: "ADRS"
+    rows:
+      - row: "Complete Response (CR)"
+        format: "n (%)"
+        indent: 0
+      - row: "Partial Response (PR)"
+        format: "n (%)"
+        indent: 0
+      - row: "Stable Disease (SD)"
+        format: "n (%)"
+        indent: 0
+      - row: "Progressive Disease (PD)"
+        format: "n (%)"
+        indent: 0
+      - row: "Not Evaluable (NE)"
+        format: "n (%)"
+        indent: 0
+      - row: "Objective Response Rate (CR+PR)"
+        format: "n (%)"
+        indent: 0
+        bold: true
+      - row: "  95% CI"
+        format: "[xx.x, xx.x]"
+        indent: 1
+      - row: "Disease Control Rate (CR+PR+SD)"
+        format: "n (%)"
+        indent: 0
+      - row: "  95% CI"
+        format: "[xx.x, xx.x]"
+        indent: 1
+
+  prior_anticancer_therapy:
+    type: "table"
+    title: "Prior Anticancer Therapy"
+    dataset: "ADSL"
+    rows:
+      - row: "Number of prior systemic regimens"
+        type: "header"
+      - row: "  1"
+        format: "n (%)"
+      - row: "  2"
+        format: "n (%)"
+      - row: "  >=3"
+        format: "n (%)"
+      - row: "Prior therapy type"
+        type: "header"
+      - row: "  Chemotherapy"
+        format: "n (%)"
+      - row: "  Immunotherapy"
+        format: "n (%)"
+      - row: "  Targeted therapy"
+        format: "n (%)"
+      - row: "  Hormonal therapy"
+        format: "n (%)"
+      - row: "  Radiation therapy"
+        format: "n (%)"
+      - row: "  Surgery"
+        format: "n (%)"
+
+# =============================================================================
+# ONCOLOGY-SPECIFIC FOOTNOTES
+# =============================================================================
+footnotes:
+  response:
+    recist: "Tumor response assessed per RECIST v1.1 by investigator."
+    recist_irc: "Tumor response assessed per RECIST v1.1 by independent central review (BICR)."
+    irecist: "Tumor response assessed per iRECIST by investigator."
+    confirmed: "Confirmed response requires repeat assessment at least 4 weeks after initial response."
+    orr_ci: "95% CI for ORR calculated using Clopper-Pearson exact method."
+
+  survival:
+    pfs_definition: "PFS defined as time from randomization to first documented progression per RECIST v1.1 or death from any cause, whichever occurs first."
+    os_definition: "OS defined as time from randomization to death from any cause."
+    dor_definition: "DOR defined as time from first documented response to progression or death."
+    censoring: "Subjects without event censored at date of last adequate tumor assessment."
+
+  biomarker:
+    pdl1: "PD-L1 expression assessed by {ASSAY} immunohistochemistry assay."
+    her2: "HER2 status determined by IHC and/or ISH per ASCO/CAP guidelines."
+    msi: "MSI status determined by PCR or IHC for mismatch repair proteins."
+
+# =============================================================================
+# ONCOLOGY-SPECIFIC LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Subjects with Death"
+    population: "safety"
+    variables: ["Subject ID", "Age", "Sex", "Treatment", "Date of Death", "Cause of Death", "Relationship to Study Drug", "Days on Study"]
+
+  - title: "Listing of Tumor Response"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Visit", "Target Lesion Sum (mm)", "% Change from Baseline", "Best Overall Response", "Date of Response", "Date of Progression"]
+
+  - title: "Listing of Subjects Who Discontinued Due to AE"
+    population: "safety"
+    variables: ["Subject ID", "Age", "Sex", "Treatment", "AE Preferred Term", "SOC", "Grade", "Onset Date", "Action Taken", "Outcome"]
+
+  - title: "Listing of Subjects with Dose Modifications"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Cycle", "Dose Level", "Modification Type", "Reason", "Duration"]

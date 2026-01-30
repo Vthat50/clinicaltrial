@@ -1,0 +1,606 @@
+# =============================================================================
+# IMMUNOLOGY / RHEUMATOLOGY THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, response criteria, and table
+# structures for autoimmune and inflammatory disease clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "immunology"
+display_name: "Immunology / Rheumatology"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  rheumatic:
+    - "rheumatoid arthritis"
+    - "RA"
+    - "psoriatic arthritis"
+    - "PsA"
+    - "ankylosing spondylitis"
+    - "AS"
+    - "axial spondyloarthritis"
+    - "axSpA"
+    - "non-radiographic axial spondyloarthritis"
+    - "nr-axSpA"
+    - "juvenile idiopathic arthritis"
+    - "JIA"
+    - "systemic lupus erythematosus"
+    - "SLE"
+    - "lupus nephritis"
+    - "LN"
+    - "gout"
+    - "giant cell arteritis"
+    - "GCA"
+
+  dermatologic:
+    - "psoriasis"
+    - "plaque psoriasis"
+    - "moderate-to-severe plaque psoriasis"
+    - "atopic dermatitis"
+    - "AD"
+    - "chronic spontaneous urticaria"
+    - "CSU"
+    - "hidradenitis suppurativa"
+    - "HS"
+    - "vitiligo"
+    - "alopecia areata"
+
+  gastrointestinal:
+    - "Crohn's disease"
+    - "CD"
+    - "ulcerative colitis"
+    - "UC"
+    - "inflammatory bowel disease"
+    - "IBD"
+    - "eosinophilic esophagitis"
+    - "EoE"
+
+  other_autoimmune:
+    - "vasculitis"
+    - "ANCA-associated vasculitis"
+    - "AAV"
+    - "Behcet's disease"
+    - "scleroderma"
+    - "systemic sclerosis"
+    - "SSc"
+    - "Sjogren's syndrome"
+    - "polymyalgia rheumatica"
+    - "PMR"
+    - "IgA nephropathy"
+    - "membranous nephropathy"
+    - "transplant rejection"
+
+# =============================================================================
+# RESPONSE CRITERIA
+# =============================================================================
+response_criteria:
+
+  acr:
+    name: "ACR Response Criteria"
+    full_name: "American College of Rheumatology Response Criteria"
+    applies_to: "rheumatoid_arthritis"
+    levels:
+      ACR20:
+        label: "ACR20 Response"
+        definition: ">=20% improvement in tender and swollen joint counts AND >=20% improvement in >=3 of 5 remaining core measures"
+      ACR50:
+        label: "ACR50 Response"
+        definition: ">=50% improvement in tender and swollen joint counts AND >=50% improvement in >=3 of 5 remaining core measures"
+      ACR70:
+        label: "ACR70 Response"
+        definition: ">=70% improvement in tender and swollen joint counts AND >=70% improvement in >=3 of 5 remaining core measures"
+    core_measures:
+      - "Tender joint count (TJC68)"
+      - "Swollen joint count (SJC66)"
+      - "Patient global assessment (VAS)"
+      - "Physician global assessment (VAS)"
+      - "Patient pain assessment (VAS)"
+      - "HAQ-DI"
+      - "CRP or ESR"
+    table_rows:
+      - "ACR20 Response, n (%)"
+      - "  95% CI"
+      - "  Difference vs {comparator} [95% CI]"
+      - "  P-value"
+      - "ACR50 Response, n (%)"
+      - "  95% CI"
+      - "ACR70 Response, n (%)"
+      - "  95% CI"
+    footnote: "Response assessed per ACR criteria. Non-responder imputation used for missing data."
+
+  das28:
+    name: "DAS28"
+    full_name: "Disease Activity Score 28"
+    applies_to: "rheumatoid_arthritis"
+    variants: ["DAS28-CRP", "DAS28-ESR"]
+    categories:
+      - label: "Remission"
+        cutoff: "<2.6"
+      - label: "Low Disease Activity"
+        cutoff: ">=2.6 and <=3.2"
+      - label: "Moderate Disease Activity"
+        cutoff: ">3.2 and <=5.1"
+      - label: "High Disease Activity"
+        cutoff: ">5.1"
+    table_rows:
+      - "n"
+      - "Baseline Mean (SD)"
+      - "Change from Baseline LS Mean (SE)"
+      - "LS Mean Difference vs {comparator} [95% CI]"
+      - "DAS28-CRP Remission (<2.6), n (%)"
+      - "DAS28-CRP Low Disease Activity (<=3.2), n (%)"
+
+  sdai_cdai:
+    name: "SDAI/CDAI"
+    full_name: "Simplified/Clinical Disease Activity Index"
+    applies_to: "rheumatoid_arthritis"
+    sdai_categories:
+      - label: "Remission"
+        cutoff: "<=3.3"
+      - label: "Low"
+        cutoff: ">3.3 and <=11"
+      - label: "Moderate"
+        cutoff: ">11 and <=26"
+      - label: "High"
+        cutoff: ">26"
+    cdai_categories:
+      - label: "Remission"
+        cutoff: "<=2.8"
+      - label: "Low"
+        cutoff: ">2.8 and <=10"
+      - label: "Moderate"
+        cutoff: ">10 and <=22"
+      - label: "High"
+        cutoff: ">22"
+    boolean_remission: "ACR/EULAR Boolean remission: TJC<=1, SJC<=1, CRP<=1 mg/dL, PtGA<=1 (0-10 scale)"
+
+  pasi:
+    name: "PASI"
+    full_name: "Psoriasis Area and Severity Index"
+    applies_to: "psoriasis"
+    range: "0-72"
+    response_levels:
+      PASI75:
+        label: "PASI 75"
+        definition: ">=75% improvement from baseline PASI"
+      PASI90:
+        label: "PASI 90"
+        definition: ">=90% improvement from baseline PASI"
+      PASI100:
+        label: "PASI 100"
+        definition: "100% improvement (clear skin)"
+    table_rows:
+      - "PASI 75 Response, n (%)"
+      - "  95% CI"
+      - "  Difference vs {comparator} [95% CI]"
+      - "  P-value"
+      - "PASI 90 Response, n (%)"
+      - "  95% CI"
+      - "PASI 100 Response, n (%)"
+      - "  95% CI"
+      - "PASI Score Change from Baseline, LS Mean (SE)"
+      - "PASI % Change from Baseline, LS Mean (SE)"
+    footnote: "PASI response assessed by investigator. Non-responder imputation for missing data."
+
+  iga:
+    name: "IGA"
+    full_name: "Investigator Global Assessment"
+    applies_to: ["psoriasis", "atopic_dermatitis"]
+    scale: "0 (clear) to 4 (severe)"
+    response_definition: "IGA 0 or 1 with >=2 grade improvement from baseline"
+    table_rows:
+      - "IGA 0/1 with >=2 grade improvement, n (%)"
+      - "  95% CI"
+      - "IGA 0 (clear), n (%)"
+      - "IGA 0/1, n (%)"
+
+  easi:
+    name: "EASI"
+    full_name: "Eczema Area and Severity Index"
+    applies_to: "atopic_dermatitis"
+    range: "0-72"
+    response_levels:
+      EASI50:
+        label: "EASI-50"
+        definition: ">=50% improvement from baseline"
+      EASI75:
+        label: "EASI-75"
+        definition: ">=75% improvement from baseline"
+      EASI90:
+        label: "EASI-90"
+        definition: ">=90% improvement from baseline"
+    table_rows:
+      - "EASI-75 Response, n (%)"
+      - "  95% CI"
+      - "EASI-90 Response, n (%)"
+      - "EASI Score Change from Baseline LS Mean (SE)"
+      - "EASI % Change from Baseline LS Mean (SE)"
+
+  mayo_score:
+    name: "Modified Mayo Score"
+    full_name: "Modified Mayo Score for Ulcerative Colitis"
+    applies_to: "ulcerative_colitis"
+    components:
+      - "Stool frequency (0-3)"
+      - "Rectal bleeding (0-3)"
+      - "Endoscopic findings (0-3)"
+    total_range: "0-9"
+    endpoints:
+      clinical_remission:
+        label: "Clinical Remission"
+        definition: "Modified Mayo score <=2 with no subscore >1"
+      clinical_response:
+        label: "Clinical Response"
+        definition: ">=2 point decrease and >=30% decrease from baseline in Modified Mayo score with >=1 point decrease in rectal bleeding subscore or rectal bleeding subscore 0/1"
+      endoscopic_improvement:
+        label: "Endoscopic Improvement"
+        definition: "Mayo endoscopic subscore 0 or 1"
+      endoscopic_remission:
+        label: "Endoscopic Remission"
+        definition: "Mayo endoscopic subscore 0"
+    table_rows:
+      - "Clinical Remission, n (%)"
+      - "  95% CI"
+      - "  Difference vs {comparator} [95% CI]"
+      - "  P-value"
+      - "Clinical Response, n (%)"
+      - "Endoscopic Improvement, n (%)"
+      - "Endoscopic Remission, n (%)"
+      - "Mucosal Healing, n (%)"
+
+  cdai_crohns:
+    name: "CDAI"
+    full_name: "Crohn's Disease Activity Index"
+    applies_to: "crohns_disease"
+    range: "0-600+"
+    endpoints:
+      clinical_remission:
+        label: "Clinical Remission"
+        definition: "CDAI <150"
+      clinical_response:
+        label: "Clinical Response"
+        definition: ">=100 point decrease from baseline in CDAI"
+      enhanced_response:
+        label: "Enhanced Clinical Response"
+        definition: ">=70 point decrease from baseline in CDAI"
+    note: "PRO-2 (abdominal pain + stool frequency) increasingly used as coprimary"
+
+  sle_responder:
+    name: "SRI"
+    full_name: "SLE Responder Index"
+    applies_to: "systemic_lupus_erythematosus"
+    components:
+      - ">=4 point improvement in SLEDAI-2K"
+      - "No new BILAG A or >=2 new BILAG B flares"
+      - "No worsening (>=0.3 points) in PGA"
+    table_rows:
+      - "SRI-4 Response, n (%)"
+      - "  95% CI"
+      - "  Odds Ratio [95% CI]"
+      - "  P-value"
+      - "SLEDAI-2K Change from Baseline, Mean (SD)"
+      - "BILAG Improvement, n (%)"
+      - "Flare Rate"
+      - "Sustained Corticosteroid Reduction (<=7.5 mg/day), n (%)"
+
+# =============================================================================
+# IMMUNOLOGY-SPECIFIC ENDPOINTS
+# =============================================================================
+endpoints:
+
+  joint:
+    HAQ_DI:
+      label: "Change from Baseline in HAQ-DI"
+      definition: "Health Assessment Questionnaire Disability Index"
+      range: "0-3"
+      mcid: 0.22
+      analysis_method: "mmrm"
+
+    sharp_score:
+      label: "Change from Baseline in Modified Total Sharp Score"
+      definition: "Radiographic progression assessed by modified Sharp/van der Heijde score"
+      components: ["Erosion Score", "Joint Space Narrowing Score"]
+      analysis_method: "van_elteren"
+      note: "Non-parametric analysis; commonly analyzed at Week 24 and 52"
+      table_rows:
+        - "n"
+        - "Baseline Mean (SD)"
+        - "Change from Baseline Mean (SD)"
+        - "  Median (Q1, Q3)"
+        - "LS Mean Change (SE)"
+        - "LS Mean Difference vs {comparator} [95% CI]"
+        - "P-value"
+        - "Subjects with no radiographic progression (change <=0), n (%)"
+        - "  Erosion Score Change"
+        - "  Joint Space Narrowing Score Change"
+
+  dermatology:
+    BSA:
+      label: "Body Surface Area"
+      definition: "Percentage of body surface area affected"
+      unit: "%"
+      analysis_method: "ancova"
+
+    DLQI:
+      label: "Dermatology Life Quality Index"
+      range: "0-30"
+      scoring: "Higher = greater impairment"
+      mcid: 4
+      response: "DLQI 0/1 (no effect on quality of life)"
+      analysis_method: "mmrm"
+
+    pruritus_NRS:
+      label: "Peak Pruritus NRS"
+      definition: "Peak pruritus numerical rating scale (0-10)"
+      mcid: 4
+      response: ">=4 point improvement from baseline"
+      analysis_method: "mmrm"
+      note: "Common endpoint in AD trials"
+
+  gi:
+    endoscopic_response:
+      label: "Endoscopic Response/Remission"
+      analysis_method: "exact_binomial"
+      note: "Central reading of endoscopy"
+
+    histologic_remission:
+      label: "Histologic Remission"
+      definition: "Resolution of histologic inflammation on biopsy"
+      analysis_method: "exact_binomial"
+      note: "Increasingly used as endpoint in UC"
+
+    corticosteroid_free_remission:
+      label: "Corticosteroid-Free Clinical Remission"
+      definition: "Clinical remission without corticosteroid use for >=90 days"
+      analysis_method: "exact_binomial"
+
+# =============================================================================
+# IMMUNOLOGY-SPECIFIC BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "Disease Duration (years)"
+    type: "continuous"
+
+  - variable: "Number of Prior Biologic/Targeted Therapies"
+    type: "categorical"
+    categories: ["0 (biologic-naive)", "1", "2", ">=3"]
+
+  - variable: "Prior biologic/targeted therapy class"
+    type: "categorical"
+    note: "TNF, IL-17, IL-23, IL-12/23, JAK, etc."
+
+  - variable: "Biologic-Naive vs Biologic-Experienced"
+    type: "categorical"
+
+  - variable: "Concomitant Methotrexate Use"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Concomitant Corticosteroid Use"
+    type: "categorical"
+
+  - variable: "Baseline Corticosteroid Dose (mg/day prednisone equivalent)"
+    type: "continuous"
+
+  - variable: "RF/Anti-CCP Status"
+    type: "categorical"
+    categories: ["Seropositive", "Seronegative"]
+    note: "RA"
+
+  - variable: "CRP (mg/L)"
+    type: "continuous"
+
+  - variable: "ESR (mm/hr)"
+    type: "continuous"
+
+  - variable: "Tender Joint Count (TJC68)"
+    type: "continuous"
+    note: "RA"
+
+  - variable: "Swollen Joint Count (SJC66)"
+    type: "continuous"
+    note: "RA"
+
+  - variable: "DAS28-CRP"
+    type: "continuous"
+    note: "RA"
+
+  - variable: "Baseline PASI Score"
+    type: "continuous"
+    note: "Psoriasis"
+
+  - variable: "BSA Affected (%)"
+    type: "continuous"
+
+  - variable: "Baseline IGA Score"
+    type: "categorical"
+    categories: ["3 (moderate)", "4 (severe)"]
+
+  - variable: "Baseline EASI Score"
+    type: "continuous"
+    note: "AD"
+
+  - variable: "Modified Mayo Score"
+    type: "continuous"
+    note: "UC"
+
+  - variable: "CDAI Score"
+    type: "continuous"
+    note: "CD"
+
+  - variable: "SLEDAI-2K Score"
+    type: "continuous"
+    note: "SLE"
+
+# =============================================================================
+# BIOMARKERS
+# =============================================================================
+biomarkers:
+  rf:
+    variable: "Rheumatoid Factor"
+    type: "categorical"
+    categories: ["Positive", "Negative"]
+
+  anti_ccp:
+    variable: "Anti-CCP Antibody"
+    type: "categorical"
+    categories: ["Positive", "Negative"]
+
+  crp:
+    variable: "C-Reactive Protein"
+    type: "continuous"
+    unit: "mg/L"
+
+  esr:
+    variable: "Erythrocyte Sedimentation Rate"
+    type: "continuous"
+    unit: "mm/hr"
+
+  anti_dsdna:
+    variable: "Anti-dsDNA Antibody"
+    type: "categorical"
+    categories: ["Positive", "Negative"]
+    note: "SLE"
+
+  complement:
+    variable: "Complement (C3, C4)"
+    type: "continuous"
+    note: "SLE"
+
+  anca:
+    variable: "ANCA Status"
+    type: "categorical"
+    categories: ["PR3-ANCA+", "MPO-ANCA+", "ANCA-negative"]
+    note: "AAV"
+
+  fecal_calprotectin:
+    variable: "Fecal Calprotectin"
+    type: "continuous"
+    unit: "ug/g"
+    note: "IBD inflammation marker"
+
+  hla_b27:
+    variable: "HLA-B27 Status"
+    type: "categorical"
+    categories: ["Positive", "Negative"]
+    note: "Axial spondyloarthritis"
+
+# =============================================================================
+# IMMUNOLOGY-SPECIFIC AESIs
+# =============================================================================
+aesi_categories:
+
+  biologic:
+    label: "Biologic Therapy AESIs"
+    events:
+      - category: "Serious Infections"
+        preferred_terms: ["Pneumonia", "Sepsis", "Cellulitis", "Herpes zoster", "Tuberculosis", "Opportunistic infection"]
+      - category: "Tuberculosis"
+        preferred_terms: ["Tuberculosis", "Tuberculosis latent"]
+        note: "Screening required before anti-TNF and other biologics"
+      - category: "Opportunistic Infections"
+        preferred_terms: ["Opportunistic infection", "Pneumocystis jirovecii pneumonia", "Candidiasis", "Histoplasmosis", "Coccidioidomycosis"]
+      - category: "Malignancy"
+        preferred_terms: ["Neoplasm malignant", "Lymphoma", "Non-melanoma skin cancer", "Melanoma"]
+      - category: "Injection/Infusion Reactions"
+        preferred_terms: ["Injection site reaction", "Infusion related reaction", "Anaphylactic reaction"]
+      - category: "Demyelination"
+        preferred_terms: ["Demyelination", "Multiple sclerosis", "Optic neuritis", "Guillain-Barre syndrome"]
+        note: "Anti-TNF specific"
+      - category: "Lupus-Like Syndrome"
+        preferred_terms: ["Lupus-like syndrome", "Anti-nuclear antibody positive"]
+        note: "Anti-TNF specific"
+      - category: "Inflammatory Bowel Disease"
+        preferred_terms: ["Crohn's disease", "Ulcerative colitis"]
+        note: "IL-17 inhibitor specific"
+
+  jak_inhibitor:
+    label: "JAK Inhibitor AESIs"
+    note: "Per FDA boxed warning requirements"
+    events:
+      - category: "MACE"
+        preferred_terms: ["Myocardial infarction", "Stroke", "Cardiovascular death"]
+      - category: "Malignancy"
+        preferred_terms: ["Neoplasm malignant", "Lymphoma", "Lung cancer"]
+      - category: "Thrombosis"
+        preferred_terms: ["Deep vein thrombosis", "Pulmonary embolism", "Arterial thrombosis"]
+      - category: "Serious Infections"
+        preferred_terms: ["Pneumonia", "Herpes zoster", "Opportunistic infection"]
+      - category: "Herpes Zoster"
+        preferred_terms: ["Herpes zoster", "Herpes zoster disseminated"]
+      - category: "Cytopenias"
+        preferred_terms: ["Neutropenia", "Lymphopenia", "Anaemia", "Thrombocytopenia"]
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased"]
+      - category: "Lipid Elevations"
+        preferred_terms: ["LDL cholesterol increased", "Hypercholesterolaemia"]
+      - category: "Creatine Phosphokinase Elevation"
+        preferred_terms: ["Blood creatine phosphokinase increased"]
+      - category: "GI Perforation"
+        preferred_terms: ["Gastrointestinal perforation", "Intestinal perforation"]
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "Prior biologic use (naive vs experienced)"
+  - "Concomitant methotrexate (yes vs no)"
+  - "Geographic region"
+  - "Baseline disease severity"
+  - "Body weight (<100 kg vs >=100 kg)"
+  - "Concomitant corticosteroid use (yes vs no)"
+  - "RF/Anti-CCP status (RA)"
+  - "Baseline PASI (<20 vs >=20) [psoriasis]"
+  - "Prior anti-TNF use (yes vs no)"
+  - "Extent of disease (UC)"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age (<65 vs >=65)"
+  - "Sex"
+  - "Race"
+  - "Body weight (<median vs >=median)"
+  - "Geographic region"
+  - "Prior biologic use"
+  - "Concomitant methotrexate"
+  - "Concomitant corticosteroid"
+  - "Baseline disease severity"
+  - "Seropositive vs seronegative (RA)"
+  - "Baseline CRP (<=median vs >median)"
+  - "Disease duration (<2 years vs >=2 years)"
+
+# =============================================================================
+# IMMUNOLOGY-SPECIFIC FOOTNOTES
+# =============================================================================
+footnotes:
+  acr: "ACR response assessed per American College of Rheumatology criteria. Non-responder imputation for missing data."
+  pasi: "PASI response assessed by investigator. Non-responder imputation for missing data."
+  easi: "EASI assessed by trained evaluator."
+  das28: "DAS28-CRP calculated using 28 tender and swollen joint counts, patient global VAS, and CRP."
+  sharp: "Modified total Sharp/van der Heijde score assessed by independent central readers."
+  tb_screening: "All subjects screened for latent tuberculosis prior to enrollment per protocol."
+  nri: "Non-responder imputation: subjects with missing data, rescue therapy, or treatment discontinuation classified as non-responders."
+
+# =============================================================================
+# IMMUNOLOGY-SPECIFIC LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Serious Infections"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Infection Type", "Organism", "Date", "Hospitalization (Y/N)", "IV Antibiotics (Y/N)", "Outcome"]
+
+  - title: "Listing of Malignancies"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Malignancy Type", "Histology", "Date of Diagnosis", "Stage", "Treatment Given"]
+
+  - title: "Listing of Injection Site Reactions"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Visit", "Severity", "Duration", "Action Taken"]
+
+  - title: "Listing of Tuberculosis Events"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "TB Type (Active/Latent)", "Diagnosis Date", "Diagnostic Method", "Treatment"]

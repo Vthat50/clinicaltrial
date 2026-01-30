@@ -1,0 +1,102 @@
+{
+  "study_facts": {
+    "therapeutic_area": "dermatology",
+    "phase": "Phase 3",
+    "design_type": "superiority",
+    "has_central_review": false,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": [
+      "DLQI",
+      "EQ-5D-5L",
+      "WPAI:CHE",
+      "HEIS",
+      "HESD",
+      "PGI-S",
+      "PGI-C"
+    ],
+    "treatment_periods": [
+      "screening",
+      "treatment",
+      "follow-up"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Subject disposition",
+      "population": "ITT",
+      "section": "14.3.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and other baseline characteristics",
+      "population": "ITT",
+      "section": "14.3.3",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Exposure and treatment compliance",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Analysis of primary endpoint",
+      "population": "ITT",
+      "section": "14.3.7",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Analysis of key secondary endpoints",
+      "population": "ITT",
+      "section": "14.3.8",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Analysis of exploratory endpoints",
+      "population": "ITT",
+      "section": "14.3.9",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Analysis of patient-reported outcomes",
+      "population": "ITT",
+      "section": "14.3.10",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Analysis of pharmacodynamics",
+      "population": "ITT",
+      "section": "14.3.11",
+      "type": "other",
+      "conditional": true
+    },
+    {
+      "title": "Adverse events",
+      "population": "Safety",
+      "section": "14.3.12.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Other events tabulated and listed",
+      "population": "Safety",
+      "section": "14.3.12.1",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [],
+  "listings": [],
+  "_nct": "NCT04871711",
+  "_area": "Dermatology"
+}

@@ -1,0 +1,524 @@
+# =============================================================================
+# DIABETES / ENDOCRINOLOGY THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, classifications, and table
+# structures for diabetes and metabolic disease clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "diabetes"
+display_name: "Diabetes / Endocrinology"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  diabetes:
+    - "type 1 diabetes"
+    - "T1DM"
+    - "type 2 diabetes"
+    - "T2DM"
+    - "gestational diabetes"
+    - "GDM"
+    - "latent autoimmune diabetes in adults"
+    - "LADA"
+    - "maturity-onset diabetes of the young"
+    - "MODY"
+    - "diabetic kidney disease"
+    - "DKD"
+    - "diabetic retinopathy"
+    - "diabetic neuropathy"
+    - "diabetic foot ulcer"
+
+  obesity:
+    - "obesity"
+    - "overweight"
+    - "non-alcoholic steatohepatitis"
+    - "NASH"
+    - "non-alcoholic fatty liver disease"
+    - "NAFLD"
+    - "metabolic associated steatotic liver disease"
+    - "MASLD"
+
+  endocrine:
+    - "hypothyroidism"
+    - "hyperthyroidism"
+    - "Graves' disease"
+    - "adrenal insufficiency"
+    - "Cushing's syndrome"
+    - "acromegaly"
+    - "growth hormone deficiency"
+    - "hypogonadism"
+    - "hyperparathyroidism"
+    - "osteoporosis"
+
+# =============================================================================
+# DIABETES-SPECIFIC ENDPOINTS
+# =============================================================================
+endpoints:
+
+  glycemic:
+    HbA1c:
+      label: "Change from Baseline in HbA1c"
+      definition: "Change from baseline in glycated hemoglobin at Week {X}"
+      dataset: "ADLB"
+      unit: "%"
+      analysis_method: "mmrm"
+      note: "Primary endpoint in most diabetes trials"
+      table_rows:
+        - "n"
+        - "Baseline Mean (SD)"
+        - "Week {X} Mean (SD)"
+        - "LS Mean Change from Baseline (SE)"
+        - "LS Mean Difference vs {comparator} [95% CI]"
+        - "P-value"
+        - "Subjects achieving HbA1c <7.0%, n (%)"
+        - "Subjects achieving HbA1c <6.5%, n (%)"
+        - "Subjects achieving HbA1c <=6.5% without hypoglycemia, n (%)"
+
+    HbA1c_target:
+      label: "Proportion Achieving HbA1c Target"
+      definition: "Proportion of subjects achieving HbA1c < target at Week {X}"
+      dataset: "ADLB"
+      targets:
+        - "<7.0%"
+        - "<6.5%"
+        - "<=6.5% without weight gain"
+        - "<=6.5% without hypoglycemia"
+      analysis_method: "logistic_regression"
+
+    FPG:
+      label: "Change from Baseline in Fasting Plasma Glucose"
+      definition: "Change from baseline in fasting plasma glucose"
+      dataset: "ADLB"
+      unit: "mg/dL"
+      analysis_method: "mmrm"
+
+    PPG:
+      label: "Change from Baseline in 2-Hour Postprandial Glucose"
+      definition: "Change from baseline in 2-hour post-meal glucose during meal tolerance test"
+      dataset: "ADLB"
+      unit: "mg/dL"
+      analysis_method: "ancova"
+
+    TIR:
+      label: "Time in Range"
+      definition: "Percentage of time glucose is 70-180 mg/dL based on continuous glucose monitoring"
+      dataset: "ADEFF"
+      unit: "%"
+      analysis_method: "ancova"
+      note: "CGM-derived endpoint; increasingly used as primary/key secondary"
+      related_measures:
+        - "Time below range (<70 mg/dL)"
+        - "Time below range (<54 mg/dL)"
+        - "Time above range (>180 mg/dL)"
+        - "Time above range (>250 mg/dL)"
+        - "Glucose CV%"
+        - "Mean sensor glucose"
+
+    HOMA:
+      label: "HOMA-IR / HOMA-B"
+      definition: "Homeostatic model assessment for insulin resistance and beta-cell function"
+      dataset: "ADLB"
+      analysis_method: "ancova"
+      note: "Log-transformed; reported as geometric mean ratio"
+
+  body_weight:
+    weight_change:
+      label: "Percent Change from Baseline in Body Weight"
+      definition: "Percent change from baseline in body weight at Week {X}"
+      dataset: "ADVS"
+      unit: "kg"
+      analysis_method: "mmrm"
+      table_rows:
+        - "n"
+        - "Baseline Mean (SD)"
+        - "Week {X} Mean (SD)"
+        - "LS Mean % Change from Baseline (SE)"
+        - "LS Mean Difference vs {comparator} [95% CI]"
+        - "P-value"
+        - ">=5% weight loss, n (%)"
+        - ">=10% weight loss, n (%)"
+        - ">=15% weight loss, n (%)"
+        - ">=20% weight loss, n (%)"
+
+    waist_circumference:
+      label: "Change from Baseline in Waist Circumference"
+      dataset: "ADVS"
+      unit: "cm"
+      analysis_method: "ancova"
+
+    BMI_change:
+      label: "Change from Baseline in BMI"
+      dataset: "ADVS"
+      unit: "kg/m2"
+      analysis_method: "ancova"
+
+  renal:
+    eGFR_slope:
+      label: "Chronic eGFR Slope"
+      definition: "Slope of eGFR decline over treatment period"
+      dataset: "ADLB"
+      unit: "mL/min/1.73m2/year"
+      analysis_method: "mixed_model"
+      note: "Primary endpoint in DKD trials"
+
+    UACR:
+      label: "Change from Baseline in UACR"
+      definition: "Percent change from baseline in urine albumin-to-creatinine ratio"
+      dataset: "ADLB"
+      unit: "mg/g"
+      analysis_method: "ancova"
+      note: "Log-transformed; reported as geometric mean ratio"
+
+    renal_composite:
+      label: "Renal Composite Endpoint"
+      definition: "Sustained >=40% decline in eGFR, ESKD, or renal death"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+  cardiovascular_outcome:
+    MACE:
+      label: "MACE (CV Outcome)"
+      definition: "3-point MACE for cardiovascular safety assessment"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      note: "FDA-required CVOT for all new diabetes drugs"
+      ni_margin: 1.3
+      table_rows:
+        - "Events, n (%)"
+        - "Incidence rate per 100 PY"
+        - "HR [95% CI]"
+        - "P-value for non-inferiority (margin 1.3)"
+        - "P-value for superiority"
+
+  liver:
+    NAS_change:
+      label: "Change from Baseline in NAS Score"
+      definition: "Change from baseline in NAFLD Activity Score"
+      dataset: "ADEFF"
+      note: "Used in NASH trials"
+      components: ["Steatosis (0-3)", "Lobular Inflammation (0-3)", "Ballooning (0-2)"]
+      analysis_method: "ordinal_logistic"
+
+    fibrosis_improvement:
+      label: "Fibrosis Improvement"
+      definition: "Proportion of subjects with >=1 stage improvement in fibrosis without worsening of NASH"
+      dataset: "ADEFF"
+      analysis_method: "exact_binomial"
+
+    NASH_resolution:
+      label: "NASH Resolution"
+      definition: "Resolution of steatohepatitis (NAS ballooning = 0, inflammation 0-1) without worsening of fibrosis"
+      dataset: "ADEFF"
+      analysis_method: "exact_binomial"
+
+# =============================================================================
+# HYPOGLYCEMIA CLASSIFICATIONS
+# =============================================================================
+hypoglycemia:
+  classification:
+    name: "ADA/EASD Hypoglycemia Classification"
+    levels:
+      - level: "Level 1"
+        label: "Hypoglycemia Alert"
+        definition: "Glucose <70 mg/dL (3.9 mmol/L) and >=54 mg/dL (3.0 mmol/L)"
+      - level: "Level 2"
+        label: "Clinically Significant Hypoglycemia"
+        definition: "Glucose <54 mg/dL (3.0 mmol/L)"
+      - level: "Level 3"
+        label: "Severe Hypoglycemia"
+        definition: "Hypoglycemia associated with severe cognitive impairment requiring external assistance for recovery"
+
+  table_rows:
+    - "Any hypoglycemic event"
+    - "  Events per patient-year"
+    - "Level 1 (glucose <70 and >=54 mg/dL)"
+    - "  Subjects with >=1 event, n (%)"
+    - "  Events per patient-year"
+    - "Level 2 (glucose <54 mg/dL)"
+    - "  Subjects with >=1 event, n (%)"
+    - "  Events per patient-year"
+    - "Level 3 (severe)"
+    - "  Subjects with >=1 event, n (%)"
+    - "  Events per patient-year"
+    - "Nocturnal hypoglycemia"
+    - "  Subjects with >=1 event, n (%)"
+    - "  Events per patient-year"
+    - "Documented symptomatic hypoglycemia"
+    - "  Subjects with >=1 event, n (%)"
+
+  footnotes:
+    - "Hypoglycemia classified per ADA 2024 classification."
+    - "Level 1: glucose <70 and >=54 mg/dL; Level 2: glucose <54 mg/dL; Level 3: severe cognitive impairment requiring external assistance."
+    - "Nocturnal: onset between 00:00 and 06:00."
+
+# =============================================================================
+# DIABETES-SPECIFIC BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "Duration of Diabetes (years)"
+    type: "continuous"
+
+  - variable: "HbA1c (%)"
+    type: "continuous"
+
+  - variable: "Fasting Plasma Glucose (mg/dL)"
+    type: "continuous"
+
+  - variable: "Body Weight (kg)"
+    type: "continuous"
+
+  - variable: "BMI (kg/m2)"
+    type: "continuous"
+
+  - variable: "Waist Circumference (cm)"
+    type: "continuous"
+
+  - variable: "eGFR (mL/min/1.73m2)"
+    type: "continuous"
+    categories_if_needed: [">=90", "60-<90", "45-<60", "30-<45", "<30"]
+
+  - variable: "UACR (mg/g)"
+    type: "categorical"
+    categories: ["<30 (normal)", "30-300 (microalbuminuria)", ">300 (macroalbuminuria)"]
+
+  - variable: "Background Antidiabetic Medication"
+    type: "categorical"
+    categories: ["Metformin", "Sulfonylurea", "DPP-4 inhibitor", "SGLT2 inhibitor", "GLP-1 RA", "Insulin", "TZD", "Other"]
+
+  - variable: "Number of Background OADs"
+    type: "categorical"
+    categories: ["0", "1", "2", ">=3"]
+
+  - variable: "Insulin Use at Baseline"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Daily Insulin Dose (U)"
+    type: "continuous"
+    note: "For insulin trials"
+
+  - variable: "C-peptide (ng/mL)"
+    type: "continuous"
+    note: "Beta-cell function marker; important for T1DM"
+
+  - variable: "History of CV Disease"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Diabetic Retinopathy"
+    type: "categorical"
+    categories: ["None", "Non-proliferative", "Proliferative"]
+
+  - variable: "Diabetic Neuropathy"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Systolic BP (mmHg)"
+    type: "continuous"
+
+  - variable: "LDL-C (mg/dL)"
+    type: "continuous"
+
+  - variable: "Triglycerides (mg/dL)"
+    type: "continuous"
+
+  - variable: "Statin Use"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "ACEi/ARB Use"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+# =============================================================================
+# DIABETES-SPECIFIC AESIs
+# =============================================================================
+aesi_categories:
+
+  metabolic:
+    label: "Metabolic AESIs"
+    events:
+      - category: "Hypoglycemia"
+        preferred_terms: ["Hypoglycaemia", "Blood glucose decreased"]
+        note: "Classified by ADA levels; see hypoglycemia section"
+      - category: "Diabetic Ketoacidosis"
+        preferred_terms: ["Diabetic ketoacidosis", "Ketoacidosis", "Blood ketone body increased"]
+        note: "Especially monitored with SGLT2 inhibitors"
+      - category: "Hyperglycemic Emergency"
+        preferred_terms: ["Hyperglycaemia", "Hyperosmolar state"]
+
+  sglt2_specific:
+    label: "SGLT2 Inhibitor-Specific AESIs"
+    events:
+      - category: "Genital Mycotic Infections"
+        preferred_terms: ["Vulvovaginal mycotic infection", "Balanitis candida", "Genital infection fungal", "Vulvovaginal candidiasis"]
+      - category: "Urinary Tract Infections"
+        preferred_terms: ["Urinary tract infection", "Cystitis", "Pyelonephritis"]
+      - category: "Volume Depletion"
+        preferred_terms: ["Dehydration", "Hypovolaemia", "Hypotension", "Orthostatic hypotension"]
+      - category: "Fournier's Gangrene"
+        preferred_terms: ["Fournier's gangrene", "Necrotising fasciitis perineal"]
+      - category: "Amputation"
+        preferred_terms: ["Amputation", "Toe amputation", "Foot amputation"]
+        note: "Signal with canagliflozin"
+      - category: "Fractures"
+        preferred_terms: ["Bone fracture", "Osteoporotic fracture"]
+
+  glp1_specific:
+    label: "GLP-1 RA-Specific AESIs"
+    events:
+      - category: "Gastrointestinal"
+        preferred_terms: ["Nausea", "Vomiting", "Diarrhoea", "Constipation", "Abdominal pain", "Dyspepsia"]
+      - category: "Pancreatitis"
+        preferred_terms: ["Pancreatitis acute", "Pancreatitis", "Lipase increased", "Amylase increased"]
+      - category: "Gallbladder Events"
+        preferred_terms: ["Cholelithiasis", "Cholecystitis", "Cholecystectomy"]
+      - category: "Thyroid C-Cell"
+        preferred_terms: ["Thyroid C-cell hyperplasia", "Medullary thyroid carcinoma", "Calcitonin increased"]
+        note: "Black box warning for some GLP-1 RAs"
+      - category: "Injection Site Reactions"
+        preferred_terms: ["Injection site reaction", "Injection site nodule", "Injection site erythema"]
+      - category: "Suicidal Ideation"
+        preferred_terms: ["Suicidal ideation", "Depression"]
+        note: "Under FDA review for GLP-1 class"
+
+  insulin_specific:
+    label: "Insulin-Specific AESIs"
+    events:
+      - category: "Hypoglycemia"
+        preferred_terms: ["Hypoglycaemia"]
+      - category: "Weight Gain"
+        preferred_terms: ["Weight increased"]
+      - category: "Injection Site Reactions"
+        preferred_terms: ["Injection site reaction", "Lipodystrophy", "Lipohypertrophy"]
+      - category: "Insulin Antibodies"
+        preferred_terms: ["Anti-insulin antibody positive"]
+
+# =============================================================================
+# DIABETES-SPECIFIC TABLE STRUCTURES
+# =============================================================================
+table_structures:
+
+  glycemic_control:
+    type: "table"
+    title: "Glycemic Control Over Time"
+    dataset: "ADLB"
+    parameters: ["HbA1c (%)", "FPG (mg/dL)"]
+    visits: ["Baseline", "Week 4", "Week 12", "Week 24", "Week 52"]
+    rows_per_visit:
+      - "n"
+      - "Mean (SD)"
+      - "Change from Baseline Mean (SD)"
+      - "LS Mean Change (SE)"
+    summary_rows:
+      - "HbA1c <7.0% at Week {X}, n (%)"
+      - "HbA1c <6.5% at Week {X}, n (%)"
+      - "HbA1c <7.0% without hypoglycemia, n (%)"
+      - "HbA1c <7.0% without weight gain, n (%)"
+
+  insulin_dose:
+    type: "table"
+    title: "Insulin Dose Over Time"
+    dataset: "ADEX"
+    rows:
+      - "n"
+      - "Baseline Daily Dose (U), Mean (SD)"
+      - "Baseline Daily Dose (U/kg), Mean (SD)"
+      - "End-of-Treatment Daily Dose (U), Mean (SD)"
+      - "End-of-Treatment Daily Dose (U/kg), Mean (SD)"
+      - "Change from Baseline in Daily Dose (U), Mean (SD)"
+      - "% Change from Baseline in Daily Dose"
+      - "Basal dose (U), Mean (SD)"
+      - "Bolus dose (U), Mean (SD)"
+      - "Number of injections per day, Mean (SD)"
+
+  cgm_summary:
+    type: "table"
+    title: "Continuous Glucose Monitoring Summary"
+    dataset: "ADEFF"
+    rows:
+      - "n"
+      - "Mean Sensor Glucose (mg/dL), Mean (SD)"
+      - "Time in Range 70-180 mg/dL (%), Mean (SD)"
+      - "Time Below Range <70 mg/dL (%), Mean (SD)"
+      - "Time Below Range <54 mg/dL (%), Mean (SD)"
+      - "Time Above Range >180 mg/dL (%), Mean (SD)"
+      - "Time Above Range >250 mg/dL (%), Mean (SD)"
+      - "Glucose CV (%), Mean (SD)"
+      - "GMI (%), Mean (SD)"
+    note: "Based on >=70% CGM wear time during assessment period"
+
+  rescue_medication:
+    type: "table"
+    title: "Use of Rescue Medication"
+    dataset: "ADCM"
+    rows:
+      - "Subjects requiring rescue medication, n (%)"
+      - "Time to rescue medication (days), Median"
+      - "Type of rescue medication"
+      - "  Metformin, n (%)"
+      - "  Sulfonylurea, n (%)"
+      - "  Insulin, n (%)"
+      - "  Other, n (%)"
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "Baseline HbA1c (<8.5% vs >=8.5%)"
+  - "Background antidiabetic therapy"
+  - "eGFR (<60 vs >=60 mL/min/1.73m2)"
+  - "Geographic region"
+  - "Duration of diabetes (<10 years vs >=10 years)"
+  - "Insulin use at baseline (yes vs no)"
+  - "BMI (<30 vs >=30 kg/m2)"
+  - "CV risk (established CVD vs risk factors only)"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age (<65 vs >=65)"
+  - "Sex (Male vs Female)"
+  - "Race"
+  - "Baseline HbA1c (<8.0% vs 8.0-9.0% vs >9.0%)"
+  - "Duration of diabetes (<5 vs 5-10 vs >10 years)"
+  - "Baseline BMI (<30 vs 30-35 vs >35 kg/m2)"
+  - "Baseline eGFR (<60 vs 60-90 vs >=90)"
+  - "Background therapy"
+  - "Insulin use at baseline"
+  - "History of CV disease"
+  - "Geographic region"
+
+# =============================================================================
+# DIABETES-SPECIFIC FOOTNOTES
+# =============================================================================
+footnotes:
+  glycemic: "HbA1c analyzed using MMRM with baseline HbA1c, treatment, visit, treatment-by-visit interaction, and stratification factors as covariates."
+  hba1c_target: "Missing data at primary endpoint handled using treatment policy estimand (regardless of rescue medication or treatment discontinuation)."
+  hypoglycemia: "Hypoglycemia events classified per ADA 2024 classification."
+  fda_cvot: "Cardiovascular safety assessed per FDA Guidance for Industry: Diabetes Mellitus — Evaluating Cardiovascular Risk in New Antidiabetic Therapies to Treat Type 2 Diabetes (2008)."
+  rescue: "Analyses using treatment policy estimand include data after rescue medication initiation."
+  cgm: "CGM-derived metrics based on periods with >=70% sensor wear time."
+
+# =============================================================================
+# DIABETES-SPECIFIC LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Severe Hypoglycemic Events (Level 3)"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Date", "Time", "Glucose (mg/dL)", "Symptoms", "Treatment Required", "Outcome"]
+
+  - title: "Listing of Diabetic Ketoacidosis Events"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Date", "Blood Ketones", "Blood pH", "Bicarbonate", "Glucose", "Hospitalization (Y/N)", "Outcome"]
+
+  - title: "Listing of Subjects Requiring Rescue Medication"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "HbA1c at Rescue", "Rescue Date", "Rescue Medication", "Reason"]
+
+  - title: "Listing of Pancreatitis Events"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Date", "Lipase (U/L)", "Amylase (U/L)", "Imaging Findings", "Hospitalization (Y/N)", "Outcome"]

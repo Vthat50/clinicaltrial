@@ -1,0 +1,366 @@
+{
+  "study_facts": {
+    "therapeutic_area": "oncology",
+    "phase": "Phase 1",
+    "design_type": "biosimilar",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": true,
+    "has_qol": false,
+    "treatment_periods": [
+      "Single-dose"
+    ],
+    "num_arms": 3
+  },
+  "tables": [
+    {
+      "title": "Subject Disposition",
+      "population": "Safety",
+      "section": "10.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Pharmacokinetic Parameters\u2013 PK Population",
+      "population": "PK",
+      "section": "11.4.2.3",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Ratios (A/B and C/B), 90% Geometric Confidence Intervals, Inter-Subjects CV (%) and P-value \u2013 PK Population",
+      "population": "PK",
+      "section": "11.4.2.3",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Ratios (A/C), 90% Geometric Confidence Intervals, Inter-Subjects CV (%) and P-value \u2013 PK Population",
+      "population": "PK",
+      "section": "11.4.2.3",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Demographic Characteristics of Subjects Included in the Safety Population",
+      "population": "Safety",
+      "section": "14.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Demographic Characteristics of Subjects Included in the Pharmacokinetic Population",
+      "population": "PK",
+      "section": "14.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of Bevacizumab Plasma Concentration over Nominal Time by Treatment - PK Population",
+      "population": "PK",
+      "section": "14.2.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of Bevacizumab Pharmacokinetic Parameters by Treatment - PK Population",
+      "population": "PK",
+      "section": "14.2.1",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Ratios (A/B, A/C and C/B), 90% Geometric Confidence Intervals, Inter-Subjects CV (%) and P-value \u2013 PK Population",
+      "population": "PK",
+      "section": "14.2.1",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects Experiencing Treatment-Emergent Adverse Events and Number of Events Summarized per Treatment \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects Experiencing Treatment-Emergent Adverse Events Summarized per Treatment and Severity \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Number of Treatment-Emergent Adverse Events Summarized per Treatment and Severity \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects Experiencing Treatment-Emergent Adverse Events Summarized per Treatment and Relationship \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Number of Treatment-Emergent Adverse Events Summarized per Treatment and Relationship \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Biochemistry Summary Descriptive Statistics \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects \u2013 Biochemistry Shifts from Baseline \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Hematology Summary Descriptive Statistics \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects \u2013 Hematology Shifts from Baseline \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis (pH and Specific Gravity) Summary Descriptive Statistics \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects \u2013 Urinalysis (pH and Specific Gravity) Shifts from Baseline \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis Frequency Summary \u2013 Categorical Results \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Frequency of Subjects \u2013 Urinalysis Shifts from Baseline \u2013 Categorical Results \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs Summary Descriptive Statistics \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Electrocardiogram Summary Descriptive Statistics \u2013 Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of Immunogenicity - Safety Population",
+      "population": "Safety",
+      "section": "14.3.4",
+      "type": "immunogenicity",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Plasma Concentrations for Subject XX - Linear Scale",
+      "population": "PK",
+      "section": "14.2.2",
+      "type": "pk_concentration",
+      "conditional": true
+    },
+    {
+      "title": "Plasma Concentrations for Subject XX - Semi-Log Scale",
+      "population": "PK",
+      "section": "14.2.2",
+      "type": "pk_concentration",
+      "conditional": true
+    },
+    {
+      "title": "Mean (\u00b1 SD) Plasma Concentrations - Linear Scale",
+      "population": "PK",
+      "section": "14.2.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Mean (\u00b1 SD) Plasma Concentrations - Semi-Log Scale",
+      "population": "PK",
+      "section": "14.2.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Overlay of Individual and Mean Plasma Concentrations by Treatment - Linear Scale",
+      "population": "PK",
+      "section": "14.2.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Overlay of Individual and Mean Plasma Concentrations by Treatment - Semi-Log Scale",
+      "population": "PK",
+      "section": "14.2.2",
+      "type": "pk_concentration",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "ANOVA for Treatment Comparisons (A/B, A/C and B/C) \u2013 PK Population",
+      "population": "PK",
+      "section": "16.1.9",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Wilcoxon Rank Sum Test for T\u2098\u2090\u2093 for Treatment Comparisons (A/B, A/C and B/C) \u2013 PK Population",
+      "population": "PK",
+      "section": "16.1.9",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Subjects Completion and Discontinuation Information",
+      "population": "Safety",
+      "section": "16.2.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Protocol Deviations",
+      "population": "Safety",
+      "section": "16.2.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics",
+      "population": "Safety",
+      "section": "16.2.4",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History Findings at Screening",
+      "population": "Safety",
+      "section": "16.2.4",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Prior and Concomitant Medications",
+      "population": "Safety",
+      "section": "16.2.4",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Study Drug Administration",
+      "population": "Safety",
+      "section": "16.2.4",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Individual Actual Sampling Times and Pharmacokinetic Concentrations",
+      "population": "PK",
+      "section": "16.2.6",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Individual Pharmacokinetic Parameters",
+      "population": "PK",
+      "section": "16.2.6",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Treatment-Emergent Adverse Events",
+      "population": "Safety",
+      "section": "16.2.7",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety",
+      "section": "16.2.7",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory \u2013 Biochemistry",
+      "population": "Safety",
+      "section": "16.2.8",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory \u2013 Hematology",
+      "population": "Safety",
+      "section": "16.2.8",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory \u2013 Urinalysis",
+      "population": "Safety",
+      "section": "16.2.8",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs Result",
+      "population": "Safety",
+      "section": "16.2.8",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Electrocardiogram Result",
+      "population": "Safety",
+      "section": "16.2.8",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Immunogenicity Assessment",
+      "population": "Safety",
+      "section": "16.2.8",
+      "type": "immunogenicity",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03882424",
+  "_area": "PK_Study"
+}

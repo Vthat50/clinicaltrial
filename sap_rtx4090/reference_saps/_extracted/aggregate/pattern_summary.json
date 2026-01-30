@@ -1,0 +1,1153 @@
+{
+  "total_saps_analyzed": 50,
+  "study_facts_summary": {
+    "design_types": {
+      "superiority": 25,
+      "single_arm": 13,
+      "descriptive": 8,
+      "non_inferiority": 3,
+      "biosimilar": 1
+    },
+    "phases": {
+      "Phase 3": 15,
+      "Phase 2": 12,
+      "Pilot Study": 1,
+      "Phase 4": 5,
+      "observational": 3,
+      "null": 3,
+      "Phase 1/2a": 1,
+      "Mechanistic study": 1,
+      "Phase 1b": 1,
+      "Phase 1/2": 1,
+      "Phase 1": 3,
+      "descriptive": 1,
+      "not applicable": 1,
+      "N/A": 1,
+      "Phase 2B/3": 1
+    },
+    "therapeutic_areas": {
+      "endocrinology": 4,
+      "cardiology": 3,
+      "dermatology": 4,
+      "oncology": 12,
+      "infectious_disease": 5,
+      "immunology": 1,
+      "vaccines": 1,
+      "neurology": 5,
+      "ophthalmology": 3,
+      "respiratory": 2,
+      "psychiatry": 2,
+      "pulmonology": 3,
+      "rheumatology": 5
+    }
+  },
+  "table_types": {
+    "mandatory_80pct_plus": [
+      {
+        "type": "other",
+        "count": 91,
+        "pct": 182.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Major Protocol Deviations by Category and Treatment Group",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Proportion of Subjects Withdrawing from Worsening AD by Visit",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03832647",
+            "title": "Overall tolerance comparison",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "ae_by_soc_pt",
+        "count": 47,
+        "pct": 94.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Treatment Emergent Adverse Events by System Organ Class and Preferred Term",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Treatment Emergent Adverse Events by System Organ Class, Preferred Term, and Relationship",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Treatment Emergent Adverse Events by System Organ Class, Preferred Term, and Severity",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "efficacy_binary",
+        "count": 42,
+        "pct": 84.0,
+        "examples": [
+          {
+            "nct": "NCT03936660",
+            "title": "Effects of the Intervention on Guideline Recommended Medications",
+            "population": "ITT"
+          },
+          {
+            "nct": "NCT03936660",
+            "title": "Effects of the Intervention on Achieving Targets at last follow-up",
+            "population": "ITT"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Proportion of Subjects Achieving EASI50 by Visit",
+            "population": "Efficacy Evaluable"
+          }
+        ]
+      }
+    ],
+    "common_40_to_80pct": [
+      {
+        "type": "efficacy_continuous",
+        "count": 34,
+        "pct": 68.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Change from Baseline in Left Ventricular Ejection Fraction by \u03b2-OH-B Dose Group",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03560323",
+            "title": "Change from Baseline in LV Diastolic Function Parameters",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03560323",
+            "title": "Change from Baseline in LV Systolic Function Parameters",
+            "population": "All Subjects"
+          }
+        ]
+      },
+      {
+        "type": "demographics",
+        "count": 33,
+        "pct": 66.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Baseline Demographics and Clinical Characteristics",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03936660",
+            "title": "Patient-level Baseline characteristics by Intervention",
+            "population": "ITT"
+          },
+          {
+            "nct": "NCT05380232",
+            "title": "Table 1. Descriptive characteristics",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "labs_summary",
+        "count": 33,
+        "pct": 66.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Change from Baseline in Metabolic Parameters",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03560323",
+            "title": "Safety Laboratory Values",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Clinical Laboratory - Chemistry Descriptive Statistics",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "ae_overview",
+        "count": 30,
+        "pct": 60.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Adverse Events Overview",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Overall Summary of Adverse Events",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03832647",
+            "title": "Safety analyses - physical and functional signs",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "immunogenicity",
+        "count": 30,
+        "pct": 60.0,
+        "examples": [
+          {
+            "nct": "NCT03667053",
+            "title": "Immunogenicity - occurrence of ADA",
+            "population": "Safety analysis set"
+          },
+          {
+            "nct": "NCT03739112",
+            "title": "HI Antibody GMT",
+            "population": "IPP"
+          },
+          {
+            "nct": "NCT03739112",
+            "title": "HI Antibody Seroconversion Rate",
+            "population": "IPP"
+          }
+        ]
+      },
+      {
+        "type": "disposition",
+        "count": 29,
+        "pct": 58.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Disposition of Subjects",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03832647",
+            "title": "Subject disposition",
+            "population": "All randomized"
+          },
+          {
+            "nct": "NCT04871711",
+            "title": "Subject disposition",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "exposure",
+        "count": 28,
+        "pct": 56.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Study Treatment Exposure and Compliance",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT04871711",
+            "title": "Exposure and treatment compliance",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Insulin administration prior to the hypoglycemia induction procedure",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "qol",
+        "count": 24,
+        "pct": 48.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Change from Baseline in POEM by Visit",
+            "population": "Efficacy Evaluable"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Change from Baseline in DLQI by Visit",
+            "population": "Efficacy Evaluable"
+          },
+          {
+            "nct": "NCT04871711",
+            "title": "Analysis of patient-reported outcomes",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "ae_serious",
+        "count": 22,
+        "pct": 44.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Serious Treatment Emergent Adverse Events by System Organ Class and Preferred Term",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Serious Treatment Emergent Adverse Events by System Organ Class, Preferred Term, and Relationship",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "SAEs by system organ class and preferred term",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "efficacy_tte",
+        "count": 21,
+        "pct": 42.0,
+        "examples": [
+          {
+            "nct": "NCT03936660",
+            "title": "Effects of the Intervention on Clinical time-to-first event endpoints within 12 months",
+            "population": "ITT"
+          },
+          {
+            "nct": "NCT05380232",
+            "title": "Table 2. Leisure Time Physical Activity, all-cause and cardiovascular mortality",
+            "population": "ITT"
+          },
+          {
+            "nct": "NCT05380232",
+            "title": "eTable 3. Leisure Time Physical Activity and risk of major adverse cardiovascular events (MACE)",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "subgroup",
+        "count": 21,
+        "pct": 42.0,
+        "examples": [
+          {
+            "nct": "NCT02625623",
+            "title": "Overall survival subgroup analysis",
+            "population": "FAS"
+          },
+          {
+            "nct": "NCT02625623",
+            "title": "Subgroup analysis of secondary efficacy endpoints",
+            "population": "FAS"
+          },
+          {
+            "nct": "NCT02855944",
+            "title": "Efficacy in BRCA Mutation Subgroups",
+            "population": "Efficacy"
+          }
+        ]
+      }
+    ],
+    "conditional_under_40pct": [
+      {
+        "type": "disease_characteristics",
+        "count": 16,
+        "pct": 32.0,
+        "examples": [
+          {
+            "nct": "NCT01041027",
+            "title": "Disease Characteristics and Stage Distribution",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT02625623",
+            "title": "Disease characteristics",
+            "population": "FAS"
+          },
+          {
+            "nct": "NCT02855944",
+            "title": "Summary of Disease Characteristics",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "baseline",
+        "count": 14,
+        "pct": 28.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Baseline Laboratory Values",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03560323",
+            "title": "Baseline Cardiac Function Parameters by MRI",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03936660",
+            "title": "Site-level baseline characteristics by Intervention",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "ecg",
+        "count": 13,
+        "pct": 26.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "ECG Parameters Descriptive Statistics",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "ECG, overall interpretation",
+            "population": "Safety analysis set"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "ECG, descriptive statistics of all ECG parameters",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "pk_parameters",
+        "count": 13,
+        "pct": 26.0,
+        "examples": [
+          {
+            "nct": "NCT03053271",
+            "title": "Pharmacokinetic Plasma Parameter Listing and Summary",
+            "population": "All Dosed Subjects"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "PK metrics",
+            "population": "Safety analysis set"
+          },
+          {
+            "nct": "NCT04250363",
+            "title": "Individual Estimated PK Parameters with Descriptive Statistics",
+            "population": "PK"
+          }
+        ]
+      },
+      {
+        "type": "ae_death",
+        "count": 13,
+        "pct": 26.0,
+        "examples": [
+          {
+            "nct": "NCT03739112",
+            "title": "AEs Leading to Death",
+            "population": "SAS"
+          },
+          {
+            "nct": "NCT04250363",
+            "title": "TEAEs Leading to Death",
+            "population": "SAF"
+          },
+          {
+            "nct": "NCT04250363",
+            "title": "TEAEs Related to Study Intervention Leading to Death",
+            "population": "SAF"
+          }
+        ]
+      },
+      {
+        "type": "vitals",
+        "count": 12,
+        "pct": 24.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Vital Signs Descriptive Statistics",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Vital signs",
+            "population": "Safety analysis set"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Pulse rate \u2013 categorical analysis",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "medical_history",
+        "count": 11,
+        "pct": 22.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Medical History",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03654755",
+            "title": "Surgical and Medical History by System Organ Class and Preferred Term",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Diabetes history",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "ae_discontinuation",
+        "count": 10,
+        "pct": 20.0,
+        "examples": [
+          {
+            "nct": "NCT03739112",
+            "title": "AEs Leading to Withdrawal",
+            "population": "SAS"
+          },
+          {
+            "nct": "NCT04250363",
+            "title": "TEAEs Leading to Subject Withdrawal",
+            "population": "SAF"
+          },
+          {
+            "nct": "NCT02625623",
+            "title": "TEAEs leading to treatment discontinuation by SOC and PT",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "concomitant_medications",
+        "count": 9,
+        "pct": 18.0,
+        "examples": [
+          {
+            "nct": "NCT03654755",
+            "title": "Prior and Concomitant Medications by ATC Level 2 and Preferred Term",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Concomitant medication/ current diabetes treatment",
+            "population": "Safety analysis set"
+          },
+          {
+            "nct": "NCT03739112",
+            "title": "Concomitant Medications",
+            "population": "SAS"
+          }
+        ]
+      },
+      {
+        "type": "labs_shift",
+        "count": 9,
+        "pct": 18.0,
+        "examples": [
+          {
+            "nct": "NCT03053271",
+            "title": "Shift Table of ALT, AST, Alkaline Phosphatase, and Total Bilirubin",
+            "population": "All Dosed Subjects"
+          },
+          {
+            "nct": "NCT02625623",
+            "title": "Laboratory parameters shift table (baseline vs worst on-treatment)",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT02855944",
+            "title": "Laboratory Shift Tables",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "aesi",
+        "count": 8,
+        "pct": 16.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Hypoglycemic Episodes",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "TEAEs of special interest by system organ class and preferred term",
+            "population": "Safety analysis set"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Special search category TEAEs",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "pk_concentration",
+        "count": 7,
+        "pct": 14.0,
+        "examples": [
+          {
+            "nct": "NCT03560323",
+            "title": "Plasma \u03b2-OH-Butyrate Concentrations Over Time by Dose Group",
+            "population": "All Subjects"
+          },
+          {
+            "nct": "NCT03053271",
+            "title": "Summary of Pharmacokinetic Plasma Concentrations",
+            "population": "All Dosed Subjects"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Summary statistics of plasma dasiglucagon and GlucaGen concentration table",
+            "population": "Safety analysis set"
+          }
+        ]
+      },
+      {
+        "type": "prior_therapy",
+        "count": 7,
+        "pct": 14.0,
+        "examples": [
+          {
+            "nct": "NCT03739112",
+            "title": "Prior Medications",
+            "population": "SAS"
+          },
+          {
+            "nct": "NCT02625623",
+            "title": "Prior anti-cancer therapies",
+            "population": "FAS"
+          },
+          {
+            "nct": "NCT02855944",
+            "title": "Cancer History and Prior Anti-cancer Treatment",
+            "population": "ITT"
+          }
+        ]
+      },
+      {
+        "type": "ae_grade3plus",
+        "count": 6,
+        "pct": 12.0,
+        "examples": [
+          {
+            "nct": "NCT03739112",
+            "title": "Grade 3 and Grade 4 Related Unsolicited TEAEs by SOC and PT",
+            "population": "SAS"
+          },
+          {
+            "nct": "NCT01041027",
+            "title": "Grade 3/4 Hematologic Toxicities by Cycle",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT01041027",
+            "title": "Grade 3/4 Non-hematologic Toxicities by Cycle",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "ecog",
+        "count": 6,
+        "pct": 12.0,
+        "examples": [
+          {
+            "nct": "NCT02625623",
+            "title": "ECOG performance status shift table",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03370770",
+            "title": "ECOG PS at start of afatinib",
+            "population": "FAS"
+          },
+          {
+            "nct": "NCT03370770",
+            "title": "ECOG PS at start of afatinib - Race subgroup",
+            "population": "FAS"
+          }
+        ]
+      },
+      {
+        "type": "km_plot",
+        "count": 5,
+        "pct": 10.0,
+        "examples": [
+          {
+            "nct": "NCT03667053",
+            "title": "Time to plasma glucose recovery - Kaplan Meier survival curve",
+            "population": "FAS"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Time to plasma glucose recovery - Kaplan Meier survival curve",
+            "population": "PP"
+          },
+          {
+            "nct": "NCT03667053",
+            "title": "Sensitivity analysis - Time to plasma glucose recovery without censoring for those subjects who require rescue IV glucose before 45 minutes - Kaplan Meier survival curve",
+            "population": "FAS"
+          }
+        ]
+      },
+      {
+        "type": "physical_exam",
+        "count": 5,
+        "pct": 10.0,
+        "examples": [
+          {
+            "nct": "NCT03019627",
+            "title": "Summary of Slit Lamp Examination (SAF)",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03019627",
+            "title": "Summary of Motility of Extraocular Muscle (SAF)",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03019627",
+            "title": "Summary of Appearance and Function of Eyelid (SAF)",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "ae_common",
+        "count": 4,
+        "pct": 8.0,
+        "examples": [
+          {
+            "nct": "NCT02625623",
+            "title": "TEAEs excluding SAEs, with frequency \u22655% in any treatment arm by SOC and PT",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT03019627",
+            "title": "Summary of TEAEs with a Relative Frequency in the Active Treatment Group of At Least Twice the Relative Frequency in the Vehicle group by System Organ Class and Preferred Term (SAF)",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT05791565",
+            "title": "Summary of Common Non-serious AEs (>=5%) by System Organ Class and Preferred Term",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "labs_ctcae",
+        "count": 2,
+        "pct": 4.0,
+        "examples": [
+          {
+            "nct": "NCT02625623",
+            "title": "Laboratory parameters worst grade during on-treatment period",
+            "population": "Safety"
+          },
+          {
+            "nct": "NCT02573012",
+            "title": "Laboratory Abnormalities by CTCAE Grade",
+            "population": "Safety"
+          }
+        ]
+      },
+      {
+        "type": "pregnancy_test",
+        "count": 1,
+        "pct": 2.0,
+        "examples": [
+          {
+            "nct": "NCT03667053",
+            "title": "Pregnancy test",
+            "population": "Safety analysis set"
+          }
+        ]
+      }
+    ]
+  },
+  "figure_types": {
+    "km_plot": {
+      "count": 33,
+      "pct": 66.0
+    },
+    "other": {
+      "count": 25,
+      "pct": 50.0
+    },
+    "pk_concentration": {
+      "count": 20,
+      "pct": 40.0
+    },
+    "efficacy_continuous": {
+      "count": 8,
+      "pct": 16.0
+    },
+    "labs_summary": {
+      "count": 6,
+      "pct": 12.0
+    },
+    "pk_parameters": {
+      "count": 4,
+      "pct": 8.0
+    },
+    "disposition": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "forest_plot": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "qol": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "waterfall_plot": {
+      "count": 1,
+      "pct": 2.0
+    },
+    "swimmer_plot": {
+      "count": 1,
+      "pct": 2.0
+    }
+  },
+  "listing_types": {
+    "other": {
+      "count": 49,
+      "pct": 98.0
+    },
+    "labs_summary": {
+      "count": 41,
+      "pct": 82.0
+    },
+    "disposition": {
+      "count": 23,
+      "pct": 46.0
+    },
+    "exposure": {
+      "count": 21,
+      "pct": 42.0
+    },
+    "demographics": {
+      "count": 15,
+      "pct": 30.0
+    },
+    "medical_history": {
+      "count": 13,
+      "pct": 26.0
+    },
+    "concomitant_medications": {
+      "count": 13,
+      "pct": 26.0
+    },
+    "ae_by_soc_pt": {
+      "count": 12,
+      "pct": 24.0
+    },
+    "ae_overview": {
+      "count": 11,
+      "pct": 22.0
+    },
+    "vitals": {
+      "count": 10,
+      "pct": 20.0
+    },
+    "ae_serious": {
+      "count": 9,
+      "pct": 18.0
+    },
+    "physical_exam": {
+      "count": 9,
+      "pct": 18.0
+    },
+    "ecg": {
+      "count": 8,
+      "pct": 16.0
+    },
+    "ae_discontinuation": {
+      "count": 7,
+      "pct": 14.0
+    },
+    "pk_parameters": {
+      "count": 7,
+      "pct": 14.0
+    },
+    "efficacy_continuous": {
+      "count": 6,
+      "pct": 12.0
+    },
+    "pk_concentration": {
+      "count": 6,
+      "pct": 12.0
+    },
+    "pregnancy_test": {
+      "count": 5,
+      "pct": 10.0
+    },
+    "aesi": {
+      "count": 5,
+      "pct": 10.0
+    },
+    "efficacy_tte": {
+      "count": 4,
+      "pct": 8.0
+    },
+    "immunogenicity": {
+      "count": 4,
+      "pct": 8.0
+    },
+    "disease_characteristics": {
+      "count": 4,
+      "pct": 8.0
+    },
+    "baseline": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "prior_therapy": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "ae_death": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "efficacy_binary": {
+      "count": 3,
+      "pct": 6.0
+    },
+    "qol": {
+      "count": 2,
+      "pct": 4.0
+    },
+    "ecog": {
+      "count": 1,
+      "pct": 2.0
+    }
+  },
+  "table_types_by_therapeutic_area": {
+    "Cardiovascular_Metabolic": [
+      "ae_overview",
+      "aesi",
+      "baseline",
+      "demographics",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "efficacy_tte",
+      "labs_summary",
+      "medical_history",
+      "pk_concentration"
+    ],
+    "Dermatology": [
+      "ae_by_soc_pt",
+      "ae_overview",
+      "ae_serious",
+      "concomitant_medications",
+      "demographics",
+      "disposition",
+      "ecg",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "exposure",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "qol",
+      "vitals"
+    ],
+    "Endocrinology": [
+      "ae_by_soc_pt",
+      "ae_overview",
+      "ae_serious",
+      "aesi",
+      "baseline",
+      "concomitant_medications",
+      "demographics",
+      "disposition",
+      "ecg",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "efficacy_tte",
+      "exposure",
+      "immunogenicity",
+      "km_plot",
+      "labs_shift",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "pk_concentration",
+      "pk_parameters",
+      "pregnancy_test",
+      "vitals"
+    ],
+    "Infectious_Disease": [
+      "ae_by_soc_pt",
+      "ae_death",
+      "ae_discontinuation",
+      "ae_grade3plus",
+      "ae_overview",
+      "ae_serious",
+      "aesi",
+      "baseline",
+      "concomitant_medications",
+      "demographics",
+      "disposition",
+      "ecg",
+      "efficacy_binary",
+      "efficacy_tte",
+      "exposure",
+      "immunogenicity",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "pk_concentration",
+      "pk_parameters",
+      "prior_therapy",
+      "vitals"
+    ],
+    "Neurology": [
+      "other"
+    ],
+    "Oncology": [
+      "ae_by_soc_pt",
+      "ae_common",
+      "ae_death",
+      "ae_discontinuation",
+      "ae_grade3plus",
+      "ae_overview",
+      "ae_serious",
+      "aesi",
+      "baseline",
+      "concomitant_medications",
+      "demographics",
+      "disease_characteristics",
+      "disposition",
+      "ecg",
+      "ecog",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "efficacy_tte",
+      "exposure",
+      "labs_ctcae",
+      "labs_shift",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "prior_therapy",
+      "qol",
+      "subgroup",
+      "vitals"
+    ],
+    "Ophthalmology": [
+      "ae_by_soc_pt",
+      "ae_common",
+      "ae_discontinuation",
+      "ae_overview",
+      "ae_serious",
+      "baseline",
+      "concomitant_medications",
+      "demographics",
+      "disease_characteristics",
+      "disposition",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "exposure",
+      "immunogenicity",
+      "labs_shift",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "physical_exam",
+      "pk_concentration",
+      "prior_therapy",
+      "qol",
+      "subgroup"
+    ],
+    "PK_Study": [
+      "ae_by_soc_pt",
+      "ae_common",
+      "ae_death",
+      "ae_discontinuation",
+      "ae_overview",
+      "ae_serious",
+      "demographics",
+      "disposition",
+      "ecg",
+      "immunogenicity",
+      "labs_shift",
+      "labs_summary",
+      "other",
+      "pk_concentration",
+      "pk_parameters",
+      "vitals"
+    ],
+    "Psychiatry": [
+      "other"
+    ],
+    "Respiratory": [
+      "baseline",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "other"
+    ],
+    "Rheumatology": [
+      "ae_common",
+      "ae_death",
+      "ae_discontinuation",
+      "ae_overview",
+      "ae_serious",
+      "aesi",
+      "concomitant_medications",
+      "demographics",
+      "disease_characteristics",
+      "disposition",
+      "efficacy_binary",
+      "efficacy_continuous",
+      "efficacy_tte",
+      "exposure",
+      "immunogenicity",
+      "labs_ctcae",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "prior_therapy",
+      "qol",
+      "subgroup",
+      "vitals"
+    ],
+    "Women's_Health": [
+      "ae_by_soc_pt",
+      "ae_death",
+      "ae_discontinuation",
+      "ae_overview",
+      "ae_serious",
+      "concomitant_medications",
+      "demographics",
+      "disposition",
+      "efficacy_binary",
+      "exposure",
+      "labs_summary",
+      "medical_history",
+      "other",
+      "qol",
+      "subgroup"
+    ]
+  }
+}

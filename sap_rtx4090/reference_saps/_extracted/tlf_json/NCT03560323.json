@@ -1,0 +1,206 @@
+{
+  "study_facts": {
+    "therapeutic_area": "cardiology",
+    "phase": "Phase 2",
+    "design_type": "single_arm",
+    "has_central_review": false,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": false,
+    "treatment_periods": [
+      "baseline",
+      "post_infusion"
+    ],
+    "num_arms": 3
+  },
+  "tables": [
+    {
+      "title": "Baseline Demographics and Clinical Characteristics",
+      "population": "All Subjects",
+      "section": "14.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "All Subjects",
+      "section": "14.1",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Baseline Laboratory Values",
+      "population": "All Subjects",
+      "section": "14.1",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Baseline Cardiac Function Parameters by MRI",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in Left Ventricular Ejection Fraction by \u03b2-OH-B Dose Group",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in LV Diastolic Function Parameters",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in LV Systolic Function Parameters",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in Myocardial Glucose Uptake (18F-FDG-PET)",
+      "population": "Group II",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in Myocardial Blood Flow",
+      "population": "Group II",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Plasma \u03b2-OH-Butyrate Concentrations Over Time by Dose Group",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in Metabolic Parameters",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Correlation Analysis: Change in Cardiac Function vs Change in \u03b2-OH-B Uptake",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Safety Laboratory Values",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Overview",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Hypoglycemic Episodes",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "aesi",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Change from Baseline in Left Ventricular Ejection Fraction by \u03b2-OH-B Dose Group",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Plasma \u03b2-OH-Butyrate Concentration-Time Profiles by Dose Group",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Correlation Plot: Change in Ejection Fraction vs Change in \u03b2-OH-B Concentration",
+      "population": "All Subjects",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Change from Baseline in Myocardial Glucose Uptake (Group II)",
+      "population": "Group II",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Subject Disposition",
+      "population": "All Subjects",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Baseline Characteristics",
+      "population": "All Subjects",
+      "section": "16.2",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Individual Cardiac MRI Results",
+      "population": "All Subjects",
+      "section": "16.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Individual PET Scan Results",
+      "population": "Group II",
+      "section": "16.2",
+      "type": "efficacy_continuous",
+      "conditional": true
+    },
+    {
+      "title": "Individual \u03b2-OH-Butyrate Concentrations",
+      "population": "All Subjects",
+      "section": "16.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Values",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "labs_summary",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03560323",
+  "_area": "Cardiovascular_Metabolic"
+}

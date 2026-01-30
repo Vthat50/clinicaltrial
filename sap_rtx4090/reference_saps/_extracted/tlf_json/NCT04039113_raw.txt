@@ -1,0 +1,87 @@
+Looking at this statistical analysis plan, I'll extract all tables, figures, and listings specified, along with the study-level facts.
+
+```json
+{
+  "study_facts": {
+    "therapeutic_area": "pulmonology",
+    "phase": "Phase 2a",
+    "design_type": "superiority", 
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": true,
+    "has_qol": true,
+    "qol_instruments": ["SGRQ", "CAT", "E-RS: COPD", "EXACT-PRO"],
+    "treatment_periods": ["screening", "treatment", "follow-up"],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "category": "table",
+      "title": "Visit windows for assessments",
+      "population": "FAS",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "table", 
+      "title": "Vital signs reference ranges",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Study Plan – Treatment period, and follow-up",
+      "population": "All",
+      "section": null,
+      "type": "other", 
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Timing for assessment of COPDCompEx slope criterion",
+      "population": "FAS",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Reason for withdrawal",
+      "population": "All subjects",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Reason for discontinuation of randomised treatment",
+      "population": "Safety",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Summary of analyses",
+      "population": "FAS",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "category": "figure",
+      "title": "Study Flow Chart",
+      "population": "All",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "listings": []
+}
+```

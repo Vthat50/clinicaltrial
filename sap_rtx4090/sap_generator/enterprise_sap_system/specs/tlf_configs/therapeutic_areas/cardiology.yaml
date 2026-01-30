@@ -1,0 +1,635 @@
+# =============================================================================
+# CARDIOLOGY THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, and table structures for
+# cardiovascular clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "cardiology"
+display_name: "Cardiology / Cardiovascular"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  atherosclerotic:
+    - "acute coronary syndrome"
+    - "ACS"
+    - "myocardial infarction"
+    - "MI"
+    - "STEMI"
+    - "NSTEMI"
+    - "unstable angina"
+    - "stable coronary artery disease"
+    - "CAD"
+    - "peripheral artery disease"
+    - "PAD"
+    - "carotid artery disease"
+
+  heart_failure:
+    - "heart failure"
+    - "HF"
+    - "heart failure with reduced ejection fraction"
+    - "HFrEF"
+    - "heart failure with preserved ejection fraction"
+    - "HFpEF"
+    - "heart failure with mildly reduced ejection fraction"
+    - "HFmrEF"
+    - "acute decompensated heart failure"
+    - "ADHF"
+    - "chronic heart failure"
+
+  arrhythmia:
+    - "atrial fibrillation"
+    - "AF"
+    - "atrial flutter"
+    - "ventricular tachycardia"
+    - "VT"
+    - "supraventricular tachycardia"
+    - "SVT"
+
+  structural:
+    - "aortic stenosis"
+    - "mitral regurgitation"
+    - "hypertrophic cardiomyopathy"
+    - "HCM"
+    - "dilated cardiomyopathy"
+    - "DCM"
+    - "cardiac amyloidosis"
+    - "ATTR"
+
+  vascular:
+    - "pulmonary arterial hypertension"
+    - "PAH"
+    - "pulmonary hypertension"
+    - "PH"
+    - "venous thromboembolism"
+    - "VTE"
+    - "deep vein thrombosis"
+    - "DVT"
+    - "pulmonary embolism"
+    - "PE"
+
+  metabolic:
+    - "dyslipidemia"
+    - "hypercholesterolemia"
+    - "hypertriglyceridemia"
+    - "hypertension"
+
+# =============================================================================
+# CARDIOVASCULAR ENDPOINT DEFINITIONS
+# =============================================================================
+endpoints:
+
+  composite:
+    MACE:
+      label: "Major Adverse Cardiovascular Events (MACE)"
+      definition: "Composite of cardiovascular death, non-fatal myocardial infarction, and non-fatal stroke"
+      components:
+        - "Cardiovascular death"
+        - "Non-fatal myocardial infarction"
+        - "Non-fatal stroke"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      adjudication: "Clinical Events Committee (CEC)"
+      note: "3-point MACE; some protocols use 4-point MACE adding hospitalization for unstable angina"
+
+    MACE_4pt:
+      label: "4-Point MACE"
+      definition: "Composite of CV death, non-fatal MI, non-fatal stroke, and hospitalization for unstable angina"
+      components:
+        - "Cardiovascular death"
+        - "Non-fatal myocardial infarction"
+        - "Non-fatal stroke"
+        - "Hospitalization for unstable angina"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    MACE_plus:
+      label: "Expanded MACE"
+      definition: "3-point MACE plus hospitalization for heart failure"
+      components:
+        - "Cardiovascular death"
+        - "Non-fatal myocardial infarction"
+        - "Non-fatal stroke"
+        - "Hospitalization for heart failure"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    HF_composite:
+      label: "Heart Failure Composite"
+      definition: "Composite of CV death and hospitalization for heart failure"
+      components:
+        - "Cardiovascular death"
+        - "Hospitalization for heart failure"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      note: "Primary endpoint in many HF trials"
+
+    kidney_composite:
+      label: "Cardiorenal Composite"
+      definition: "Composite of sustained decline in eGFR, end-stage kidney disease, or renal death"
+      components:
+        - "Sustained >=40% decline in eGFR"
+        - "End-stage kidney disease"
+        - "Renal death"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      note: "Common in HF and diabetes CV outcome trials"
+
+  time_to_event:
+    CV_death:
+      label: "Cardiovascular Death"
+      definition: "Death adjudicated as cardiovascular in origin"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    all_cause_mortality:
+      label: "All-Cause Mortality"
+      definition: "Death from any cause"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    time_to_first_HF_hosp:
+      label: "Time to First Hospitalization for Heart Failure"
+      definition: "Time from randomization to first hospitalization for heart failure"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    total_HF_hosp:
+      label: "Total Heart Failure Hospitalizations"
+      definition: "Total number of hospitalizations for heart failure (including recurrent events)"
+      dataset: "ADTTE"
+      analysis_method: "negative_binomial"
+      note: "Recurrent event analysis; uses Lin-Wei-Yang-Ying or negative binomial model"
+
+    time_to_first_AF:
+      label: "Time to First Atrial Fibrillation/Flutter Recurrence"
+      definition: "Time from randomization to first documented recurrence of AF/AFL"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+    stroke:
+      label: "Stroke or Systemic Embolism"
+      definition: "Composite of stroke (ischemic, hemorrhagic, or undetermined) and systemic embolism"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      note: "Primary endpoint in AF anticoagulation trials"
+
+    major_bleeding:
+      label: "Major Bleeding"
+      definition: "Bleeding meeting ISTH major bleeding criteria"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+      note: "Key safety endpoint in anticoagulation/antiplatelet trials"
+
+  continuous:
+    LVEF_change:
+      label: "Change from Baseline in LVEF"
+      definition: "Change from baseline in left ventricular ejection fraction at specified timepoint"
+      dataset: "ADEFF"
+      unit: "%"
+      analysis_method: "mmrm"
+
+    NT_proBNP:
+      label: "Change from Baseline in NT-proBNP"
+      definition: "Percent change from baseline in N-terminal pro-B-type natriuretic peptide"
+      dataset: "ADLB"
+      unit: "pg/mL"
+      analysis_method: "ancova"
+      note: "Typically log-transformed; reported as geometric mean ratio"
+
+    six_minute_walk:
+      label: "Change from Baseline in 6-Minute Walk Distance"
+      definition: "Change from baseline in 6-minute walk test distance"
+      dataset: "ADEFF"
+      unit: "meters"
+      analysis_method: "ancova"
+      note: "Common in heart failure and PAH trials"
+
+    LDL_C:
+      label: "Percent Change from Baseline in LDL-C"
+      definition: "Percent change from baseline in low-density lipoprotein cholesterol"
+      dataset: "ADLB"
+      unit: "mg/dL"
+      analysis_method: "mmrm"
+      note: "Primary endpoint in lipid-lowering trials"
+
+    LDL_C_target:
+      label: "Proportion Achieving LDL-C Target"
+      definition: "Proportion of subjects achieving LDL-C < target value"
+      dataset: "ADLB"
+      analysis_method: "exact_binomial"
+
+    BP_change:
+      label: "Change from Baseline in Blood Pressure"
+      definition: "Change from baseline in seated systolic/diastolic blood pressure"
+      dataset: "ADVS"
+      unit: "mmHg"
+      analysis_method: "mmrm"
+
+    KCCQ:
+      label: "Change from Baseline in KCCQ"
+      definition: "Change from baseline in Kansas City Cardiomyopathy Questionnaire"
+      dataset: "ADQS"
+      subscales:
+        - "Total Symptom Score (TSS)"
+        - "Clinical Summary Score (CSS)"
+        - "Overall Summary Score (OSS)"
+        - "Physical Limitation"
+        - "Symptom Frequency"
+        - "Quality of Life"
+        - "Social Limitation"
+      analysis_method: "mmrm"
+      note: "Common PRO in heart failure trials"
+      mcid: 5  # minimal clinically important difference
+
+    PVR:
+      label: "Change from Baseline in Pulmonary Vascular Resistance"
+      definition: "Change from baseline in PVR measured by right heart catheterization"
+      dataset: "ADEFF"
+      unit: "dyn*s/cm5"
+      analysis_method: "ancova"
+      note: "Primary endpoint in some PAH trials"
+
+# =============================================================================
+# CARDIOLOGY-SPECIFIC BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "NYHA Functional Class"
+    type: "categorical"
+    categories: ["Class I", "Class II", "Class III", "Class IV"]
+    note: "Heart failure severity classification"
+
+  - variable: "Left Ventricular Ejection Fraction (%)"
+    type: "continuous"
+    note: "Often categorized as <=40% (HFrEF), 41-49% (HFmrEF), >=50% (HFpEF)"
+
+  - variable: "NT-proBNP (pg/mL)"
+    type: "continuous"
+    note: "Baseline natriuretic peptide level"
+
+  - variable: "BNP (pg/mL)"
+    type: "continuous"
+
+  - variable: "eGFR (mL/min/1.73m2)"
+    type: "continuous"
+    note: "Renal function; CKD-EPI equation"
+
+  - variable: "History of Diabetes"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "History of Hypertension"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "History of Atrial Fibrillation"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Prior Myocardial Infarction"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Prior Stroke/TIA"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Prior PCI or CABG"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Baseline Heart Rate (bpm)"
+    type: "continuous"
+
+  - variable: "Baseline Systolic BP (mmHg)"
+    type: "continuous"
+
+  - variable: "Baseline Diastolic BP (mmHg)"
+    type: "continuous"
+
+  - variable: "BMI (kg/m2)"
+    type: "continuous"
+
+  - variable: "LDL-C (mg/dL)"
+    type: "continuous"
+    note: "Baseline lipid levels"
+
+  - variable: "Total Cholesterol (mg/dL)"
+    type: "continuous"
+
+  - variable: "Triglycerides (mg/dL)"
+    type: "continuous"
+
+  - variable: "HbA1c (%)"
+    type: "continuous"
+    note: "When diabetes is a comorbidity"
+
+  - variable: "CHA2DS2-VASc Score"
+    type: "categorical"
+    note: "Stroke risk score in AF trials"
+
+  - variable: "HAS-BLED Score"
+    type: "categorical"
+    note: "Bleeding risk score in anticoagulation trials"
+
+  - variable: "Ischemic Etiology"
+    type: "categorical"
+    categories: ["Ischemic", "Non-ischemic"]
+    note: "Heart failure etiology"
+
+  - variable: "ICD/CRT Device"
+    type: "categorical"
+    categories: ["ICD", "CRT-D", "CRT-P", "None"]
+
+# =============================================================================
+# CARDIOVASCULAR-SPECIFIC CLASSIFICATIONS
+# =============================================================================
+classifications:
+
+  nyha:
+    name: "NYHA Functional Classification"
+    categories:
+      - class: "I"
+        label: "No limitation of physical activity"
+      - class: "II"
+        label: "Slight limitation of physical activity"
+      - class: "III"
+        label: "Marked limitation of physical activity"
+      - class: "IV"
+        label: "Unable to carry on any physical activity without discomfort"
+    table_rows:
+      - "NYHA Class I, n (%)"
+      - "NYHA Class II, n (%)"
+      - "NYHA Class III, n (%)"
+      - "NYHA Class IV, n (%)"
+      - "NYHA Improvement (>=1 class), n (%)"
+      - "NYHA Worsening (>=1 class), n (%)"
+
+  killip:
+    name: "Killip Classification"
+    note: "Acute MI severity"
+    categories:
+      - class: "I"
+        label: "No heart failure"
+      - class: "II"
+        label: "Mild heart failure (rales, S3)"
+      - class: "III"
+        label: "Pulmonary edema"
+      - class: "IV"
+        label: "Cardiogenic shock"
+
+  timi_bleeding:
+    name: "TIMI Bleeding Classification"
+    categories:
+      - grade: "Major"
+        definition: "Intracranial hemorrhage or >=5 g/dL decrease in hemoglobin"
+      - grade: "Minor"
+        definition: "Observed bleeding with 3-5 g/dL decrease in hemoglobin"
+      - grade: "Minimal"
+        definition: "Any clinically overt bleeding not meeting major/minor criteria"
+
+  isth_bleeding:
+    name: "ISTH Bleeding Classification"
+    categories:
+      - grade: "Major"
+        definition: "Fatal bleeding, or symptomatic bleeding in a critical area/organ, or bleeding causing >=2 g/dL fall in Hgb or leading to transfusion of >=2 units"
+      - grade: "Clinically Relevant Non-Major (CRNM)"
+        definition: "Overt bleeding not meeting major criteria but requiring medical intervention or unscheduled contact"
+      - grade: "Minor"
+        definition: "All other bleeding events"
+
+  mi_classification:
+    name: "Universal Definition of MI"
+    categories:
+      - type: "Type 1"
+        label: "Spontaneous MI"
+      - type: "Type 2"
+        label: "MI due to ischemic imbalance"
+      - type: "Type 3"
+        label: "MI resulting in death"
+      - type: "Type 4a"
+        label: "MI related to PCI"
+      - type: "Type 4b"
+        label: "MI related to stent thrombosis"
+      - type: "Type 5"
+        label: "MI related to CABG"
+
+# =============================================================================
+# CARDIOLOGY-SPECIFIC AESIs
+# =============================================================================
+aesi_categories:
+
+  cardiovascular_safety:
+    label: "Cardiovascular Safety Events"
+    note: "Required for CV outcome trials and FDA CV safety assessment"
+    events:
+      - category: "MACE Components"
+        preferred_terms: ["Myocardial infarction", "Stroke", "Cardiovascular death"]
+      - category: "Heart Failure"
+        preferred_terms: ["Cardiac failure", "Cardiac failure congestive", "Cardiac failure acute", "Pulmonary oedema"]
+      - category: "Arrhythmia"
+        preferred_terms: ["Atrial fibrillation", "Atrial flutter", "Ventricular tachycardia", "Ventricular fibrillation", "Cardiac arrest", "Torsade de pointes"]
+      - category: "Hypotension"
+        preferred_terms: ["Hypotension", "Syncope", "Presyncope", "Orthostatic hypotension"]
+      - category: "Bradycardia"
+        preferred_terms: ["Bradycardia", "Sinus bradycardia", "Atrioventricular block"]
+      - category: "QT Prolongation"
+        preferred_terms: ["Electrocardiogram QT prolonged", "Long QT syndrome"]
+
+  bleeding:
+    label: "Bleeding Events"
+    note: "Critical for anticoagulant/antiplatelet trials"
+    events:
+      - category: "Intracranial Hemorrhage"
+        preferred_terms: ["Intracranial haemorrhage", "Haemorrhagic stroke", "Subdural haematoma", "Subarachnoid haemorrhage"]
+      - category: "Gastrointestinal Bleeding"
+        preferred_terms: ["Gastrointestinal haemorrhage", "Upper gastrointestinal haemorrhage", "Lower gastrointestinal haemorrhage", "Melaena", "Haematemesis"]
+      - category: "Other Major Bleeding"
+        preferred_terms: ["Haemorrhage", "Haematuria", "Epistaxis", "Haemoptysis"]
+
+  renal:
+    label: "Renal Events"
+    events:
+      - category: "Acute Kidney Injury"
+        preferred_terms: ["Acute kidney injury", "Renal failure acute", "Blood creatinine increased", "Renal impairment"]
+      - category: "Hyperkalemia"
+        preferred_terms: ["Hyperkalaemia", "Blood potassium increased"]
+      - category: "Volume Depletion"
+        preferred_terms: ["Dehydration", "Hypovolaemia", "Blood pressure decreased"]
+
+# =============================================================================
+# CARDIOLOGY-SPECIFIC TABLE STRUCTURES
+# =============================================================================
+table_structures:
+
+  mace_component_analysis:
+    type: "table"
+    title: "Analysis of MACE Components"
+    dataset: "ADTTE"
+    rows:
+      - row: "MACE (composite)"
+        format: "events_rate"
+        indent: 0
+        bold: true
+      - row: "  Cardiovascular death"
+        format: "events_rate"
+        indent: 1
+      - row: "  Non-fatal myocardial infarction"
+        format: "events_rate"
+        indent: 1
+      - row: "  Non-fatal stroke"
+        format: "events_rate"
+        indent: 1
+    columns_include:
+      - "Events, n (%)"
+      - "Incidence rate per 100 PY"
+      - "HR [95% CI]"
+      - "P-value"
+
+  nyha_shift_table:
+    type: "table"
+    title: "Shift in NYHA Functional Class from Baseline"
+    dataset: "ADEFF"
+    row_structure: "shift"
+    categories: ["Class I", "Class II", "Class III", "Class IV"]
+    footnote: "Shift from baseline NYHA class to worst post-baseline NYHA class."
+
+  bleeding_summary:
+    type: "table"
+    title: "Summary of Bleeding Events"
+    dataset: "ADAE"
+    rows:
+      - row: "Any bleeding event"
+        format: "n (%)"
+        indent: 0
+      - row: "Major bleeding (ISTH)"
+        format: "n (%)"
+        indent: 0
+      - row: "  Fatal bleeding"
+        format: "n (%)"
+        indent: 1
+      - row: "  Intracranial hemorrhage"
+        format: "n (%)"
+        indent: 1
+      - row: "  Bleeding with >=2 g/dL Hgb drop"
+        format: "n (%)"
+        indent: 1
+      - row: "  Bleeding requiring transfusion"
+        format: "n (%)"
+        indent: 1
+      - row: "Clinically relevant non-major bleeding"
+        format: "n (%)"
+        indent: 0
+      - row: "Minor bleeding"
+        format: "n (%)"
+        indent: 0
+
+  lipid_panel:
+    type: "table"
+    title: "Percent Change from Baseline in Lipid Parameters"
+    dataset: "ADLB"
+    parameters:
+      - "LDL-C"
+      - "Total Cholesterol"
+      - "Non-HDL-C"
+      - "HDL-C"
+      - "Triglycerides"
+      - "ApoB"
+      - "Lp(a)"
+    rows_per_parameter:
+      - "n"
+      - "Baseline Mean (SD)"
+      - "Week {X} Mean (SD)"
+      - "LS Mean % Change (SE)"
+      - "LS Mean Difference vs {comparator} [95% CI]"
+      - "P-value"
+
+  ecg_summary:
+    type: "table"
+    title: "Summary of ECG Parameters"
+    dataset: "ADEG"
+    parameters:
+      - "Heart Rate (bpm)"
+      - "PR Interval (ms)"
+      - "QRS Duration (ms)"
+      - "QT Interval (ms)"
+      - "QTcF (ms)"
+      - "QTcB (ms)"
+    rows_per_parameter:
+      - "n"
+      - "Baseline Mean (SD)"
+      - "Post-baseline Mean (SD)"
+      - "Mean Change from Baseline (SD)"
+    categorical_rows:
+      - "QTcF >450 ms, n (%)"
+      - "QTcF >480 ms, n (%)"
+      - "QTcF >500 ms, n (%)"
+      - "QTcF increase >30 ms from baseline, n (%)"
+      - "QTcF increase >60 ms from baseline, n (%)"
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "NYHA class (II vs III-IV)"
+  - "LVEF (<=median vs >median)"
+  - "eGFR (<60 vs >=60 mL/min/1.73m2)"
+  - "Diabetes (yes vs no)"
+  - "Geographic region"
+  - "Prior MI (yes vs no)"
+  - "Atrial fibrillation at baseline (yes vs no)"
+  - "Type of HF (ischemic vs non-ischemic)"
+  - "Device (ICD/CRT vs none)"
+  - "Background therapy (ACEi/ARB vs ARNI)"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age (<65 vs >=65; <75 vs >=75)"
+  - "Sex (Male vs Female)"
+  - "Race"
+  - "Geographic region"
+  - "NYHA class at baseline (II vs III-IV)"
+  - "LVEF (<=median vs >median)"
+  - "eGFR (<60 vs >=60)"
+  - "Diabetes (yes vs no)"
+  - "Atrial fibrillation (yes vs no)"
+  - "Prior MI (yes vs no)"
+  - "Etiology (ischemic vs non-ischemic)"
+  - "NT-proBNP (<=median vs >median)"
+  - "BMI (<30 vs >=30)"
+  - "Systolic BP (<=median vs >median)"
+  - "Background MRA use (yes vs no)"
+  - "Background beta-blocker use (yes vs no)"
+
+# =============================================================================
+# CARDIOLOGY-SPECIFIC FOOTNOTES
+# =============================================================================
+footnotes:
+  adjudication: "All events adjudicated by an independent Clinical Events Committee (CEC) blinded to treatment assignment."
+  mace: "MACE defined as composite of cardiovascular death, non-fatal myocardial infarction, and non-fatal stroke."
+  bleeding_isth: "Bleeding classified per International Society on Thrombosis and Haemostasis (ISTH) criteria."
+  bleeding_timi: "Bleeding classified per Thrombolysis in Myocardial Infarction (TIMI) criteria."
+  mi_definition: "Myocardial infarction classified per Fourth Universal Definition of Myocardial Infarction."
+  nyha: "NYHA functional class assessed per New York Heart Association classification."
+  cv_death: "Cardiovascular death includes death from MI, HF, stroke, CV procedures, hemorrhage, or other CV causes. Undetermined cause of death classified as CV death."
+
+# =============================================================================
+# CARDIOLOGY-SPECIFIC LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of MACE Events"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Event Type", "Event Date", "Days from Randomization", "CEC Adjudication", "Fatal (Y/N)"]
+
+  - title: "Listing of Bleeding Events"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Bleeding Site", "ISTH Classification", "TIMI Classification", "Hgb Drop (g/dL)", "Transfusion (Y/N)", "Onset Date"]
+
+  - title: "Listing of Heart Failure Hospitalizations"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Admission Date", "Discharge Date", "Duration (days)", "IV Diuretic (Y/N)", "NYHA at Admission"]

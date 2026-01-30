@@ -1,0 +1,528 @@
+{
+  "study_facts": {
+    "therapeutic_area": "infectious_disease",
+    "phase": "Phase 3",
+    "design_type": "non_inferiority",
+    "has_central_review": true,
+    "has_pk": false,
+    "has_immunogenicity": true,
+    "has_qol": false,
+    "treatment_periods": [
+      "Vaccination Period",
+      "Surveillance Period"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "category": "table",
+      "title": "Subject Disposition",
+      "population": "All Screened",
+      "section": "14.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Demographics",
+      "population": "SAS, PP, IPP",
+      "section": "14.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Baseline and Disease Characteristics",
+      "population": "SAS, PP, IPP",
+      "section": "14.1",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Protocol Deviations",
+      "population": "All Randomized",
+      "section": "14.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Medical History",
+      "population": "SAS",
+      "section": "14.1",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Prior Medications",
+      "population": "SAS",
+      "section": "14.1",
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Concomitant Medications",
+      "population": "SAS",
+      "section": "14.1",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Treatment Exposure",
+      "population": "SAS",
+      "section": "14.1",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Vaccine Efficacy - Primary Endpoint",
+      "population": "PP",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Vaccine Efficacy - Secondary Endpoints",
+      "population": "PP",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Vaccine Efficacy - Exploratory Endpoints",
+      "population": "PP",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "HI Antibody GMT",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "HI Antibody Seroconversion Rate",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "HI Antibody Seroprotection Rate",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "HI Antibody GMFR",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "MN Antibody GMT",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "MN Antibody Seroconversion Rate",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "MN Antibody GMFR",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "SRH Antibody GMA",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "SRH Antibody Seroconversion Rate",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "SRH Antibody Seroprotection Rate",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "SRH Antibody GMFR",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "CMI Response",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Overview of Solicited Reactions and TEAEs",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Immediate Complaints by Maximum Severity",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Immediate Complaints by Causality",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Solicited Local Reactions by Maximum Severity",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Solicited Local Reactions by Causality",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Solicited Systemic Reactions by Maximum Severity",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Solicited Systemic Reactions by Causality",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Unsolicited TEAEs by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Unsolicited TEAEs by SOC, PT and Maximum Severity",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Unsolicited TEAEs by SOC, PT and Relationship Status",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Grade 3 and Grade 4 Related Unsolicited TEAEs by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_grade3plus",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Serious TEAEs (Day 0 to Day 21) by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Serious TEAEs (Day 0 to End of Study) by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "AEs Leading to Death",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "AEs Leading to Withdrawal",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "NOCDs (Day 0 to Day 21) by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "NOCDs (Day 0 to End of Study) by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Hypersensitivity Cases by SOC and PT",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "category": "table",
+      "title": "Vital Signs Summary",
+      "population": "SAS",
+      "section": "14.3",
+      "type": "vitals",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "category": "figure",
+      "title": "RCDC for Homologous Strains Measured and Heterologous Strains Measured by HI",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "figure",
+      "title": "RCDC for Homologous Strains Measured by HI",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "figure",
+      "title": "RCDC for Homologous Strains Measured by MN",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "figure",
+      "title": "RCDC for Homologous Strains Measured by SRH",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "figure",
+      "title": "CMI CD4+ T Cell Response Box Plots",
+      "population": "IPP",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "category": "listing",
+      "title": "Subject Disposition and Population Sets",
+      "population": "All Randomized",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Screen Failures",
+      "population": "All Screened",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Demographics",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Protocol Deviations",
+      "population": "All Randomized",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Prior and Concomitant Medications",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Treatment Exposure",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Respiratory Illness and Laboratory Results",
+      "population": "PP",
+      "section": "16.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "HI, MN and SRH Assay Results",
+      "population": "IPP",
+      "section": "16.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "CMI CD4+ T Cell Response",
+      "population": "IPP",
+      "section": "16.2",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Solicited Local and Systemic Reactions",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Unsolicited AEs",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Serious TEAEs",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "NOCDs",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Hypersensitivity Cases",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Vital Signs",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "category": "listing",
+      "title": "Physical Examination",
+      "population": "SAS",
+      "section": "16.2",
+      "type": "physical_exam",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03739112",
+  "_area": "Infectious_Disease"
+}

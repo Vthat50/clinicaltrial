@@ -1,0 +1,537 @@
+{
+  "study_facts": {
+    "therapeutic_area": "ophthalmology",
+    "phase": "Phase 2",
+    "design_type": "superiority",
+    "has_central_review": false,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": [
+      "SANDE"
+    ],
+    "treatment_periods": [
+      "treatment",
+      "follow-up"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Summary of Patient Disposition",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Study Discontinuation (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Protocol Deviations (FAS)",
+      "population": "FAS",
+      "section": "14.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Demographic Data (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of History of Dry Eye Disease (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Medical History (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Prior medications (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Concomitant Medications (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "14.1",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Exposure (SAF)",
+      "population": "Safety",
+      "section": "14.1",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment Compliance (FAS)",
+      "population": "FAS",
+      "section": "14.1",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Sande Scores (LOCF) (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of Sande Scores (LOCF) (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Sande Scores (LOCF) (PPS)",
+      "population": "PPS",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of Sande Scores (LOCF) (PPS)",
+      "population": "PPS",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Sande Scores by Visit (Observed) (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of Sande Scores by Visit (Observed) (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Secondary Efficacy Endpoints by Visit (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of Secondary Efficacy Endpoints by Visit (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Secondary Efficacy Endpoints by Visit (PPS)",
+      "population": "PPS",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of Secondary Efficacy Endpoints by Visit (PPS)",
+      "population": "PPS",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Summary of MMP-9 levels by Visit (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Shift Table of MMP-9 levels (FAS)",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Overall Summary of Adverse Events (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Non-TEAEs by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment Related TEAEs by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Serious TEAEs by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Serious Treatment Related TEAEs by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs with a Relative Frequency in the Active Treatment Group of At Least Twice the Relative Frequency in the Vehicle group by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_common",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs Leading to Premature Withdrawal of the Study Treatment by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs Leading to Study Discontinuation by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs during Treatment Period by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs during Follow-Up Period by System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of TEAEs by Severity, System Organ Class and Preferred Term (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of BCDVA score (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of BCDVA (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of logMAR (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Change from Baseline of LogMAR (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Slit Lamp Examination (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Motility of Extraocular Muscle (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Appearance and Function of Eyelid (SAF)",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "physical_exam",
+      "conditional": false
+    }
+  ],
+  "figures": [],
+  "listings": [
+    {
+      "title": "Randomized Allocation to Treatment and assigned kit numbers (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Screening Failure",
+      "population": "Screen Failure",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Study Completion (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Protocol Deviations (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Inclusion Criteria Deviations at Baseline (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Exclusion Criteria Deviations at Baseline (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Allocation to Analysis Sets (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Demographic Data (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Listing of History of Dry Eye Disease (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Medical History (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Prior and Concomitant Medications (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Artificial Tear Monitoring (Enrolled Set)",
+      "population": "Enrolled Set",
+      "section": "16.2",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Exposure and Treatment Compliance (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Treated Eyes, Self Administration and Diary summary information (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Patient Diary Entries (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Sande Scores (FAS)",
+      "population": "FAS",
+      "section": "16.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Ocular Surface Staining: Corneal Staining (FAS)",
+      "population": "FAS",
+      "section": "16.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Ocular Surface Staining: Conjunctival Staining (FAS)",
+      "population": "FAS",
+      "section": "16.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Listing of TFBUT, Schirmer Tear Test and MMP-9 (FAS)",
+      "population": "FAS",
+      "section": "16.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Adverse Events (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Listing of TEAEs Leading to Premature Withdrawal of Study Treatment (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Listing of TEAEs Leading to Study Treatment Interruption (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Serious AEs (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Action taken due to AEs (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Corrective Procedures Related to AEs (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Urine Pregnancy Test (Females in SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "pregnancy_test",
+      "conditional": true
+    },
+    {
+      "title": "Listing of BCDVA assessments (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Listing of BCDVA score, Snellen Scale and logMAR (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Slit Lamp Examination \u2013 Part I (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Slit Lamp Examination \u2013 Part II (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Motility of Extraocular Muscle (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Appearance and Function of Eyelids (SAF)",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "physical_exam",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03019627",
+  "_area": "Ophthalmology"
+}

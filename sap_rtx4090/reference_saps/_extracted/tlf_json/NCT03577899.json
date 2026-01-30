@@ -1,0 +1,427 @@
+{
+  "study_facts": {
+    "therapeutic_area": "ophthalmology",
+    "phase": "Phase 3",
+    "design_type": "non_inferiority",
+    "has_central_review": true,
+    "has_pk": true,
+    "has_immunogenicity": true,
+    "has_qol": true,
+    "qol_instruments": [
+      "NEI-VFQ-25"
+    ],
+    "treatment_periods": [
+      "Loading Phase",
+      "Fixed Dosing Period",
+      "PRN Period"
+    ],
+    "num_arms": 3
+  },
+  "tables": [
+    {
+      "title": "Demographic and Baseline Characteristics",
+      "population": "FAS",
+      "section": "",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Baseline Ocular Characteristics",
+      "population": "FAS",
+      "section": "",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Medical History by System Organ Class and Preferred Term",
+      "population": "FAS",
+      "section": "",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Subject Disposition at Week 36",
+      "population": "FAS",
+      "section": "",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Subject Disposition at Week 48",
+      "population": "FAS",
+      "section": "",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Subject Disposition at Week 96",
+      "population": "FAS",
+      "section": "",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Exposure - Distribution of Number of Injections Through 36 Weeks",
+      "population": "Safety",
+      "section": "",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Exposure - Distribution of Number of Injections Through 48 Weeks",
+      "population": "Safety",
+      "section": "",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Exposure - Distribution of Number of Injections Through 96 Weeks",
+      "population": "Safety",
+      "section": "",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Exposure - Distribution of Number of Injections During PRN Period",
+      "population": "Safety",
+      "section": "",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Medications by ATC Classification",
+      "population": "Safety",
+      "section": "",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Primary Efficacy Outcome - Mean Change from Baseline in BCVA at Week 36",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Secondary Efficacy - Proportion Maintaining Vision at Week 36",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Secondary Efficacy - Proportion Gaining \u226515 Letters at Week 36",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Secondary Efficacy - Mean Change in Retinal Thickness at Week 36",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Secondary Efficacy - Proportion Maintaining Vision at Week 48",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Secondary Efficacy - Mean Change in BCVA at Week 96",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Emergent Adverse Events - Overall Summary",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Emergent Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Related to Study Medication by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Related to Injection Procedure by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Leading to Study Discontinuation by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Values - Summary Statistics by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Values - Shift from Baseline to Maximum Post-Baseline CTCAE Grade",
+      "population": "Safety",
+      "section": "",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Best Corrected Visual Acuity (BCVA) - Summary by Visit",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Slit Lamp Biomicroscopy Results by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Intraocular Pressure - Summary by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Intraocular Pressure \u226530 mmHg by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Intraocular Pressure Increase \u226510 mmHg from Baseline by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Optical Coherence Tomography - Retinal Thickness Summary by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Dilated Indirect Ophthalmoscopy Results by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Fundus Photography and Fluorescein Angiography Results by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Specular Microscopy Results by Visit",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": true
+    },
+    {
+      "title": "Pharmacokinetics - Descriptive Statistics",
+      "population": "PK",
+      "section": "",
+      "type": "pk_concentration",
+      "conditional": true
+    },
+    {
+      "title": "Immunogenicity - Descriptive Statistics",
+      "population": "Safety",
+      "section": "",
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "NEI-VFQ-25 Visual Function Questionnaire - Mean Change from Baseline",
+      "population": "FAS",
+      "section": "",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Important Protocol Deviations by Category",
+      "population": "FAS",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup Analysis - Primary Efficacy by Lesion Subtype",
+      "population": "FAS",
+      "section": "",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup Analysis - Primary Efficacy by Baseline BCVA",
+      "population": "FAS",
+      "section": "",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup Analysis - Primary Efficacy by Baseline Lens Status",
+      "population": "FAS",
+      "section": "",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup Analysis - Primary Efficacy by Baseline Lesion Size",
+      "population": "FAS",
+      "section": "",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup Analysis - Primary Efficacy by Age Group",
+      "population": "FAS",
+      "section": "",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup Analysis - Primary Efficacy by Geographic Region",
+      "population": "FAS",
+      "section": "",
+      "type": "subgroup",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Mean Change in BCVA Over Time by Treatment Group",
+      "population": "FAS",
+      "section": "",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events as a Function of Time - Kaplan-Meier Plots",
+      "population": "Safety",
+      "section": "",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events as a Function of Number of Injections",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Demographic and Baseline Characteristics",
+      "population": "FAS",
+      "section": "",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "FAS",
+      "section": "",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Subject Disposition",
+      "population": "FAS",
+      "section": "",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Emergent Adverse Events",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety",
+      "section": "",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Values",
+      "population": "Safety",
+      "section": "",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Repeated Baseline Measurements",
+      "population": "FAS",
+      "section": "",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Unscheduled Visit Data",
+      "population": "Safety",
+      "section": "",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Medications",
+      "population": "Safety",
+      "section": "",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Prior Medications",
+      "population": "Safety",
+      "section": "",
+      "type": "prior_therapy",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03577899",
+  "_area": "Ophthalmology"
+}

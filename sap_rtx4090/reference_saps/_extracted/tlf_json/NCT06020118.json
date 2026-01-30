@@ -1,0 +1,150 @@
+{
+  "study_facts": {
+    "therapeutic_area": "vaccines",
+    "phase": "Phase 4",
+    "design_type": "descriptive",
+    "has_central_review": false,
+    "has_pk": false,
+    "has_immunogenicity": true,
+    "has_qol": false,
+    "treatment_periods": [
+      "Visit 1 (day 0)",
+      "Visit 2 (day 28)",
+      "Visit 3 (day 56)",
+      "Visit 4 (day 180)"
+    ],
+    "num_arms": 3
+  },
+  "tables": [
+    {
+      "title": "Participant disposition flow chart by age and randomization group",
+      "population": "ITT",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics by treatment group",
+      "population": "ITT",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Proportion of participants with seroprotective HAI titer (\u22651:40) pre- and post-ccIIV4 immunization for each 2023-24 influenza vaccine antigen",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "Proportion of participants achieving HAI seroconversion following ccIIV4 vaccination for each 2023-24 influenza vaccine antigen",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "HAI GMT for each 2023-24 influenza vaccine antigen pre- and post-ccIIV4 in each vaccination group",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "GMFR in HAI titers for each 2023-24 influenza vaccine antigen in each vaccination group",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "Proportion of participants with seroprotective MN titer (\u22651:40) pre- and post-ccIIV4 immunization for each 2023-24 influenza vaccine antigen",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "Proportion of participants achieving MN seroconversion following ccIIV4 vaccination for each 2023-24 influenza vaccine antigen",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "MN GMT for each 2023-24 influenza vaccine antigen pre- and post-ccIIV4 in each vaccination group",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "GMFR in MN titers for each 2023-24 influenza vaccine antigen in each vaccination group",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "GMT for SARS-CoV-2 binding antibody titer and viral neutralization titer pre- and post-vaccination with mRNA COVID-19 vaccine",
+      "population": "SARS-CoV-2 Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "HAI and MN GMT for each 2023-24 influenza vaccine and circulating influenza virus antigens at visits 1-4 for each vaccination group",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "Geometric mean fold change in HAI and MN titers for each vaccination group from visit 1 to visits 2, 3, and 4",
+      "population": "Influenza Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "SARS-CoV-2 binding antibody and viral neutralization GMT at visits 1-4 for each vaccination group",
+      "population": "SARS-CoV-2 Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "Frequency of antigen-specific T and B cells to influenza and SARS-CoV-2 at study visits",
+      "population": "Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "BCR and TCR diversity and clonal dominance in subset of participants",
+      "population": "Immunogenicity Population",
+      "section": null,
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "Number and percent of participants reporting fever or injection site and systemic reactions during first 3 days following each vaccination",
+      "population": "mITT",
+      "section": null,
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Number and percent of participants reporting change in health status requiring hospital admission during study period",
+      "population": "mITT",
+      "section": null,
+      "type": "ae_serious",
+      "conditional": false
+    }
+  ],
+  "figures": [],
+  "listings": [],
+  "_nct": "NCT06020118",
+  "_area": "Infectious_Disease"
+}

@@ -1,0 +1,131 @@
+{
+  "study_facts": {
+    "therapeutic_area": "oncology",
+    "phase": "Phase 3",
+    "design_type": "superiority",
+    "has_central_review": true,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": [
+      "MDASI-BT",
+      "EQ-5D-5L"
+    ],
+    "treatment_periods": [
+      "Treatment Period (weeks 1-3)",
+      "Follow-up Period (weeks 4-24)"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Patient Demographics and Baseline Characteristics",
+      "population": "ITT",
+      "section": "14.3.2",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Compliance",
+      "population": "Safety",
+      "section": "14.3.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events by Treatment Arm",
+      "population": "Safety",
+      "section": "14.6.2",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Grade 3+ Adverse Events by Treatment Arm",
+      "population": "Safety",
+      "section": "14.6.2",
+      "type": "ae_grade3plus",
+      "conditional": false
+    },
+    {
+      "title": "Neurocognitive Function Results by Test and Time Point",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "MDASI-BT Symptom Burden Results",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "EQ-5D-5L Health Outcomes Results",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Overall Survival by Treatment Arm",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Intracranial Progression by Treatment Arm",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Patient Accrual and Baseline Variables",
+      "population": "ITT",
+      "section": "14.3.2",
+      "type": "disposition",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Time to Neurocognitive Failure (Primary Endpoint)",
+      "population": "ITT",
+      "section": "14.3.2",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Overall Survival Kaplan-Meier Curves",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Time to Intracranial Progression",
+      "population": "ITT",
+      "section": "14.6.2",
+      "type": "km_plot",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Patient Enrollment and Exclusions",
+      "population": "ITT",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Protocol Deviations",
+      "population": "Safety",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT02360215",
+  "_area": "Oncology"
+}

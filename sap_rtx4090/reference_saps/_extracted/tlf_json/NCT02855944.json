@@ -1,0 +1,505 @@
+{
+  "study_facts": {
+    "therapeutic_area": "oncology",
+    "phase": "Phase 3",
+    "design_type": "superiority",
+    "has_central_review": true,
+    "has_pk": true,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": [
+      "EORTC QLQ-C30",
+      "EORTC QLQ-OV28",
+      "EQ-5D"
+    ],
+    "treatment_periods": [
+      "treatment part",
+      "crossover part"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Patient disposition",
+      "population": "ITT",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary of COVID-19 Impact",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics",
+      "population": "ITT",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Demographics",
+      "population": "Efficacy",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Demographics",
+      "population": "Safety",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Disease Characteristics",
+      "population": "ITT",
+      "section": null,
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Disease Characteristics",
+      "population": "Efficacy",
+      "section": null,
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Disease Characteristics",
+      "population": "Safety",
+      "section": null,
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Cancer History and Prior Anti-cancer Treatment",
+      "population": "ITT",
+      "section": null,
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "Cancer History and Prior Anti-cancer Treatment",
+      "population": "Efficacy",
+      "section": null,
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "Cancer History and Prior Anti-cancer Treatment",
+      "population": "Safety",
+      "section": null,
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "Summary of BRCA mutation Status and Type",
+      "population": "ITT",
+      "section": null,
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Summary of BRCA mutation Status and Type",
+      "population": "Efficacy",
+      "section": null,
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Summary of BRCA mutation Status and Type",
+      "population": "Safety",
+      "section": null,
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "Safety",
+      "section": null,
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Study Drug Exposure",
+      "population": "Safety",
+      "section": null,
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Prior and Concomitant Medications",
+      "population": "Safety",
+      "section": null,
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "All TEAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by CTCAE grade",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Grade 3 or greater TEAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_grade3plus",
+      "conditional": false
+    },
+    {
+      "title": "Treatment-related TEAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Serious TEAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs with an outcome of death",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs leading to discontinuation of study medication",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs resulting in reduction study medication",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs resulting in interruption of study medication",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs resulting in reduction or interruption of study medication",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Summary Statistics",
+      "population": "Safety",
+      "section": null,
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Shift Tables",
+      "population": "Safety",
+      "section": null,
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs Summary",
+      "population": "Safety",
+      "section": null,
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "ECG Summary",
+      "population": "Safety",
+      "section": null,
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "QTc Interval Categories",
+      "population": "Safety",
+      "section": null,
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Overall Response Rate by RECIST v1.1",
+      "population": "Efficacy",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Overall Response Rate by RECIST v1.1",
+      "population": "ITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Best Confirmed Response by RECIST v1.1",
+      "population": "Efficacy",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Best Confirmed Response by RECIST v1.1",
+      "population": "ITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "ORR by RECIST v1.1 and/or CA-125 Response",
+      "population": "Efficacy",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "ORR by RECIST v1.1 and/or CA-125 Response",
+      "population": "ITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Disease Control Rate",
+      "population": "Efficacy",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Disease Control Rate",
+      "population": "ITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "EORTC QLQ-C30 Global Health Status Changes from Baseline",
+      "population": "Efficacy",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "EORTC QLQ-C30 Global Health Status Changes from Baseline",
+      "population": "ITT",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "EORTC QLQ-C30 and QLQ-OV28 Changes from Baseline",
+      "population": "Efficacy",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "EORTC QLQ-C30 and QLQ-OV28 Changes from Baseline",
+      "population": "ITT",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "EQ-5D Changes from Baseline",
+      "population": "Efficacy",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "EQ-5D Changes from Baseline",
+      "population": "ITT",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Efficacy in BRCA Mutation Subgroups",
+      "population": "Efficacy",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Efficacy During the Crossover Part",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Efficacy During the Crossover Part",
+      "population": "Efficacy",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Safety in Subgroups",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Kaplan-Meier Plot of Progression-free Survival",
+      "population": "Efficacy",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of Progression-free Survival",
+      "population": "ITT",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of Duration of Response",
+      "population": "Efficacy",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of Duration of Response",
+      "population": "ITT",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of PFS by BICR",
+      "population": "Efficacy",
+      "section": null,
+      "type": "km_plot",
+      "conditional": true
+    },
+    {
+      "title": "Kaplan-Meier Plot of PFS by BICR",
+      "population": "ITT",
+      "section": null,
+      "type": "km_plot",
+      "conditional": true
+    },
+    {
+      "title": "Kaplan-Meier Plot of Interim Overall Survival",
+      "population": "Efficacy",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of Interim Overall Survival",
+      "population": "ITT",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of Progression-free Survival 2",
+      "population": "Efficacy",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Plot of Progression-free Survival 2",
+      "population": "ITT",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Time to First TEAE Resulting in Dose Modification",
+      "population": "Safety",
+      "section": null,
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Forest Plot of Primary Endpoint Subgroup Analysis",
+      "population": "Efficacy",
+      "section": null,
+      "type": "forest_plot",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Major Protocol Deviations",
+      "population": "ITT",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "COVID-19 Impact Listing",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Prior Medications",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Non-Treatment-Emergent Adverse Events",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Data by Patient",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Efficacy Data for Crossover Patients",
+      "population": "Safety",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT02855944",
+  "_area": "Oncology"
+}

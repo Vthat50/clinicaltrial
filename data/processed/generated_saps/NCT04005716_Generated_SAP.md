@@ -1,0 +1,5010 @@
+# Statistical Analysis Plan (Abbreviated)
+
+## Study: A Phase 3, Randomized, Double-Blind, Placebo-Controlled Study of Platinum Plus Etoposide With or Without Tislelizumab (BGB-A317) in Patients With Untreated Extensive-Stage Small Cell Lung Cancer Protocol Identifier: BGB-A317-312 This protocol is a confidential communication of BeiGene (Shanghai) Co., Ltd., and its subsidiaries.
+## NCT ID: NCT04005716
+## Version: 1.0
+## Date: 2025-12-25
+
+---
+
+
+1. Introduction
+
+[Study identification information not found in protocol]
+
+---
+
+2. Study Objectives and Endpoints
+
+Study Objectives .........................................................................................................37 2.1.1.
+
+### Primary Objective .......................................................................................................37 2.1.2.
+
+### Secondary Objectivess .................................................................................................37 2.1.3.
+
+Exploratory Objectives ...............................................................................................37 2.2.
+
+Study Objectives 2.1.1.
+
+### Primary Objective • To evaluate the efficacy of tislelizumab + cisplatin or carboplatin + etoposide compared with placebo + cisplatin or carboplatin + etoposide in the Intent-to-Treat (ITT) Analysis Set as measured by overall survival (OS) 2.1.2.
+
+### Secondary Objectivess • To evaluate the efficacy of tislelizumab + cisplatin or carboplatin + etoposide compared with placebo + cisplatin or carboplatin + etoposide in the ITT Analysis Set as measured by investigator-assessed progression-free survival (PFS) according to RECIST v1.1 • To evaluate the efficacy of tislelizumab + cisplatin or carboplatin + etoposide compared with placebo + cisplatin or carboplatin + etoposide in the ITT Analysis Set as measured by investigator assessed overall response rate (ORR), duration of response (DOR), and disease control rate (DCR) according to RECIST v1.1 • To evaluate the effect of tislelizumab + cisplatin or carboplatin + etoposide compared with placebo + cisplatin or carboplatin + etoposide on patients’ health-related quality of life (HRQoL) according to the EORTC Quality of Life Questionnaire – Core 30 (QLQ-C30) and the supplemental lung cancer module (QLQ-LC13) • To evaluate the safety and tolerability of tislelizumab in combination with cisplatin or carboplatin and etoposide compared with cisplatin or carboplatin and etoposide 2.1.3.
+
+Exploratory Objectives • To assess PFS after next line of treatment (PFS2) • To explore potential predictive biomarkers in archival and/or fresh tumor tissue and/or blood (or blood derivatives), including but not limited to PD-L1 expression by immunohistochemistry (IHC), multiplex IHC (mIHC), gene expression profiling (GEP), tumor mutation burden (TMB), microsatellite instability (MSI), and blood tumor mutation burden (bTMB), to evaluate the association between these biomarkers and response to study treatment or mechanism of resistance • To characterize PK of tislelizumab in patients with small cell lung cancer (SCLC) • To evaluate host immunogenicity to tislelizumab by assessing antidrug antibodies (ADAs) against tislelizumab in patients with SCLC • To examine the patients’ quality of life (QoL) as measured by EQ5D-5L 2.2.
+
+Primary Endpoint ........................................................................................................37 2.2.2.
+
+Secondary Endpoints ..................................................................................................38 2.2.3.
+
+Exploratory Endpoints ................................................................................................38 3.
+
+Primary Endpoint • OS, defined as the time from randomization to death from any cause CONFIDENTIAL Page 37 CONFIDENTIAL Page 178
+
+--- Page 38 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 2.2.2.
+
+Secondary Endpoints • PFS, defined as the time from randomization to the first occurrence of disease progression as determined by investigator using RECIST v1.1 or death from any cause, whichever occurs first • ORR, defined as the proportion of patients with PR or CR as determined by the investigator using RECIST v1.1 • DOR, defined as the time from the first occurrence of a documented objective response to the time of relapse, as determined by the investigator per RECIST v1.1, or death from any cause, whichever comes first • DCR, defined as the proportion of patients whose best overall response (BOR) is CR, PR or stable disease per RECIST v1.1 • Incidence and severity of treatment-emergent adverse events (TEAEs) graded according to National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) v5.0 • Percentage of patients with clinically meaningful changes post baseline, defined as a 10-point improvement or worsening (to be defined in the Statistical Analysis Plan [SAP] if otherwise) in: − Global health status (GHS) and physical function (PF) per the QLQ-C30 − Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 • Time to deterioration, defined as the time from randomization to the first occurrence of worsening scores (10-point change; to be defined in the SAP if otherwise) confirmed at the following visit or death from any cause, in: − GHS and PF per the QLQ-C30 − Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 2.2.3.
+
+Exploratory Endpoints • PFS2, defined as the time from randomization to the objective disease progression after next line of treatment or death from any cause, whichever occurs first • Status of predictive and prognostic biomarkers including but not limited to PD-L1 expression, multiplex immunohistochemistry (mIHC), GEP, TMB, and MSI in archival and/or fresh tumor tissue and bTMB in blood before study treatment and/or at disease progression, and the association between the biomarkers and disease status or response to study treatment • Summary of serum concentrations of tislelizumab • Assessments of immunogenicity of tislelizumab by determining the incidence of ADAs CONFIDENTIAL Page 38 CONFIDENTIAL Page 179
+
+--- Page 39 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • QoL is defined as changes in patients’ general well-being measured by the scores of the EQ5D-5L descriptive 5-dimension scores and the visual analog scale (VAS).
+
+CONFIDENTIAL Page 39 CONFIDENTIAL Page 180
+
+--- Page 40 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 3.
+
+---
+
+3. Study Design Summary
+
+Summary of Study Design ..........................................................................................40 3.2.
+
+Screening Period .........................................................................................................42 3.3.
+
+Treatment Period ........................................................................................................42 3.4.
+
+Safety Follow-up ........................................................................................................43 3.5.
+
+Survival Follow-up .....................................................................................................44 3.6.
+
+Discontinuation From the Study Treatment or From the Study .................................44 3.6.1.
+
+Patient Discontinuation From Study Treatment .........................................................44 3.6.2.
+
+Patient Discontinuation From Study (End of Study for an Individual Patient) ..........45 3.7.
+
+End of Study ...............................................................................................................45 4.
+
+The study consists of a Screening phase, a Treatment phase that includes an Induction treatment period and a Maintenance treatment period, a Safety Follow-up phase, and a Survival Follow-up phase.
+
+Eligible patients will be stratified by Eastern Cooperative Oncology Group (ECOG) Performance Status (0 versus 1), investigator-chosen chemotherapy (carboplatin versus cisplatin), and brain metastasis (yes versus no), and randomized in a 1:1 ratio to receive 1 of the following treatment regimens: • Induction period (administered on a 3-week cycle for 4 cycles): Arm A: tislelizumab + cisplatin or carboplatin + etoposide o Arm B: placebo + cisplatin or carboplatin + etoposide o • Maintenance period (administered once every 3 weeks): Arm A: tislelizumab o Arm B: placebo o Induction treatment will be administered on 21-day cycle for 4 cycles.
+
+The selection of platinum (cisplatin or carboplatin) will be at the investigator’s discretion and documented prior to randomization.
+
+Cycles in which no chemotherapy is given do not count toward the total number of Induction chemotherapy cycles.
+
+Following Induction treatment, patients will enter a Maintenance treatment period to receive either tislelizumab or placebo alone in accordance to the treatment arm to which they are randomized.
+
+During the Maintenance treatment period prophylactic cranial irradiation (PCI) is permitted as per local standard of care.
+
+Treatment may continue until the completion of the scheduled 4 cycles (only for Induction treatment period), disease progression as assessed by the investigator per RECIST v1.1, loss of clinical benefit, unacceptable toxicity, or withdrawal of informed consent, whichever occurs first.
+
+For immune therapies such as tislelizumab, pseudoprogression may occur due to immune cell infiltration and other mechanisms leading to apparent increase of existing tumor masses or appearance of new tumor lesions.
+
+Thus, if radiographic progressive disease is suspected by the investigator to reflect pseudoprogression, patients may continue treatment until progressive disease is confirmed by repeated imaging ≥ 4 weeks later (but not exceeding 6 to 8 weeks from the date of initial documentation of progressive disease).
+
+If at the investigator’s discretion a patient could continue to benefit from study treatment after progressive disease per RECIST v1.1 criteria, the patient may continue study treatment.
+
+Patients who have suspected pseudoprogression or who may continue to CONFIDENTIAL Page 14 CONFIDENTIAL Page 155
+
+--- Page 15 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 benefit from study treatment after progressive disease must meet the following criteria in order to be treated: • Absence of clinical symptoms and signs of disease progression (including clinically significant worsening of laboratory values) • Stable ECOG performance status ≤ 1 • Absence of rapid progression of disease or of progressive tumor at critical anatomical sites (eg, cord compression) that requires urgent alternative medical intervention • Investigators must obtain written informed consent for treatment beyond radiologic disease progression and inform patients that this practice is not considered standard in the treatment of cancer.
+
+Patients who could derive benefit from study drug after progressive disease as assessed by the investigator per RECIST v1.1 criteria may continue treatment until loss of clinical benefit as assessed by the investigator, withdrawal of consent, unacceptable toxicity, study completion by the sponsor, start of a new anticancer therapy, or death, whichever occurs first.
+
+The decision to continue study drug beyond initial investigator-assessed progression must be agreed to by the medical monitor and documented in the study records.
+
+There is no crossover between the 2 arms in this study.
+
+Regular safety monitoring (at least every 6 months) and efficacy monitoring (eg, interim analysis for OS) will be performed by an Independent Data Monitoring Committee (IDMC).
+
+The first IDMC safety review will occur after ≥ 20 patients have been randomized to study treatment (ie, approximately 10 patients per treatment arm) and have been on study treatment for ≥ 1 month in order to confirm if the proposed dosing schedule of tislelizumab or placebo is safe and tolerable.
+
+The IDMC may recommend study modifications including termination of the study due to safety and/or efficacy concerns, or in the event of compelling efficacy at a pre-planned interim analysis.
+
+One interim efficacy analysis of OS is planned for when approximately 282 OS events are observed.
+
+The early stopping rule for the interim analysis will be set for superiority.
+
+The function and membership of the IDMC are described in the IDMC charter (Section 10.1).
+
+In addition to the planned IDMC review(s), ad hoc reviews may be performed based on new information.
+
+Study Assessments: Patients will undergo tumor assessments at baseline and every 6 weeks (± 7 days) for the first 48 weeks following Cycle 1 Day 1, and every 9 weeks (± 7 days) thereafter, regardless of treatment dose delay.
+
+Tumor assessment at baseline must be performed within 28 days prior to randomization.
+
+Tumor assessment will be performed by the investigator and continue until radiographic disease progression per RECIST v1.1.
+
+Patients who discontinue study treatment early for reasons other than disease progression (eg, toxicity) will continue to undergo tumor assessments following the original plan until the patient begins a subsequent anticancer treatment, experiences disease progression, withdraws consent, is lost to follow-up, death, or until the study terminates, whichever occurs first.
+
+Patients who continue treatment beyond disease progression will continue to undergo tumor assessments following the original plan or as clinically indicated until treatment end.
+
+Patient-reported outcomes will be collected using the EORTC QLQ-LC13, EORTC QLQ-C30, and EQ5D-5L at baseline (predose at Day 1 of Cycle 1), at every cycle through Cycle 4, then every other cycle thereafter until the End-of-Treatment Visit, and at the Safety Follow-up Visit.
+
+CONFIDENTIAL Page 15 CONFIDENTIAL Page 156
+
+--- Page 16 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 To determine the pharmacokinetic (PK) properties of tislelizumab and host immunogenic response to tislelizumab, blood samples will be collected at various timepoints as outlined in Appendix 1.
+
+Patients will be evaluated for adverse events (AEs) and immune-mediated adverse events (imAEs) (all grades according to NCI-CTCAE v5.0).
+
+Serious AEs (SAEs) and any AE will be followed and documented until the event resolves, the investigators assess the event as stable, or the patient is lost to follow-up, whichever occurs first.
+
+After initiation of study drug, all AEs and SAEs, regardless of relationship to study drug, will be reported until either 30 days after the last dose of study treatment (including chemotherapy) or initiation of new anticancer therapy, whichever occurs first.
+
+All imAEs (serious or nonserious) should be reported for 90 days after the last dose of tislelizumab or placebo, regardless of whether the patient starts a new anticancer therapy.
+
+The investigator should report any SAEs that are believed to be related to study treatment at any time after treatment discontinuation.
+
+Duration of Patient Participation: The duration of the study from the first enrolled patient to the final analysis for OS is estimated to be approximately 51 months.
+
+Summary of Study Design This is a randomized, double-blind, placebo-controlled, multicenter, Phase 3 study to compare the efficacy of tislelizumab + cisplatin or carboplatin + etoposide (Arm A) and placebo + cisplatin or carboplatin + etoposide (Arm B) as first-line treatment in approximately 455 patients who have previously untreated ES-SCLC.
+
+The choice of platinum (cisplatin or carboplatin) will be at the investigator’s discretion.
+
+The primary endpoint of the study is measured by OS in the ITT Analysis Set.
+
+The study consists of a Screening phase, a Treatment phase that includes an Induction treatment period and a Maintenance treatment period, a Safety Follow-up phase, and a Survival Follow-up phase.
+
+Eligible patients will be stratified by ECOG Performance Status (0 versus 1) (Appendix 2), investigator-chosen chemotherapy (carboplatin versus cisplatin), and brain metastasis (yes versus no), and randomized in a 1:1 ratio to receive 1 of the following treatment regimens: • Induction period (administered on a 3-week cycle for 4 cycles): Arm A: tislelizumab + cisplatin or carboplatin + etoposide o Arm B: placebo + cisplatin or carboplatin + etoposide o • Maintenance period (administered once every 3 weeks): Arm A: tislelizumab o Arm B: placebo o The study design schematic is presented in Figure 1.
+
+CONFIDENTIAL Page 40 CONFIDENTIAL Page 181
+
+--- Page 41 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Figure 1.
+
+Study Schema Abbreviations: AUC, area under the plasma or serum concentration-time curve; ECOG PS, Eastern Cooperative Oncology Group performance status; IV, intravenously; PD, progressive disease; RECIST v1.1, Response Evaluation Criteria in Solid Tumors Version 1.1; vs, versus a.
+
+Treatment may continue until the completion of the scheduled 4 cycles (only for Induction treatment period), disease progression as assessed by the investigator per RECIST v1.1, loss of clinical benefit, unacceptable toxicity, or withdrawal of informed consent, whichever occurs first.
+
+Note: For Induction treatment, cycles in which no chemotherapy is given do not count toward the total number of chemotherapy cycles. b.
+
+Patients with radiographic progressive disease suspected by the investigator to reflect pseudoprogression may continue treatment until progressive disease is confirmed by repeated imaging ≥ 4 weeks later (but not exceeding 6 to 8 weeks from the date of initial documentation of progressive disease); patients who at the discretion of investigator could derive benefit from study drug after investigator-assessed PD per RECIST v1.1 criteria, may continue treatment until any of the conditions as specified above occurs.
+
+For all study procedures, see Section 7 and Appendix 1.
+
+CONFIDENTIAL Page 41 CONFIDENTIAL Page 182
+
+--- Page 42 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 3.2.
+
+Screening Period Screening evaluations will be performed within 28 days prior to randomization.
+
+Patients who agree to participate in this study will sign the informed consent form (ICF) prior to undergoing any screening procedure.
+
+Screening evaluations may be repeated as needed within the screening period; the investigator is to assess preliminary patient eligibility according to the latest screening assessment results.
+
+Archival tumor tissue is required to be collected for the purpose of biomarker analysis.
+
+If no archival samples are available, a fresh tumor biopsy at screening (within 28 days before randomization) is required, if feasible.
+
+See Section 4.1 and Section 7.8 for details. 3.3.
+
+Treatment Period After completing all screening activities, eligible patients will be randomized.
+
+The selection of platinum (cisplatin or carboplatin) will be at the investigator’s discretion and documented prior to randomization.
+
+Induction treatment will be administered on a 21-day cycle basis for 4 cycles.
+
+Following Induction treatment, patients will enter a Maintenance treatment period to receive either tislelizumab or placebo alone in accordance to the treatment arm to which they are randomized.
+
+During the Maintenance treatment period, prophylactic cranial irradiation (PCI) is permitted as per local standard of care.
+
+Treatment may continue until the completion of the scheduled 4 cycles (only for Induction treatment period), disease progression as assessed by the investigator per RECIST v1.1, loss of clinical benefit, unacceptable toxicity, or withdrawal of informed consent, whichever occurs first.
+
+For immune therapies such as tislelizumab, pseudoprogression may occur due to immune cell infiltration and other mechanisms leading to apparent increase of existing tumor masses or appearance of new tumor lesions.
+
+Thus, if radiographic progressive disease is suspected by the investigator to reflect pseudoprogression, patients may continue treatment until progressive disease is confirmed by repeated imaging ≥ 4 weeks later (but not exceeding 6 to 8 weeks from the date of initial documentation of progressive disease).
+
+If at the investigator’s discretion a patient could continue to benefit from study treatment after progressive disease per RECIST v1.1 criteria, the patient may continue study treatment.
+
+Patients who have suspected pseudoprogression or who may continue to benefit from study treatment after progressive disease must meet the following criteria in order to be treated: • Absence of clinical symptoms and signs of disease progression (including clinically significantly worsening of laboratory values) • Stable ECOG Performance Status ≤ 1 • Absence of rapid progression of disease or of progressive tumor at critical anatomical sites (eg, cord compression) that requires urgent alternative medical intervention • Investigators must obtain written informed consent for treatment after radiologic disease progression and inform patients that this practice is not considered standard in the treatment of cancer.
+
+CONFIDENTIAL Page 42 CONFIDENTIAL Page 183
+
+--- Page 43 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Patients who could derive benefit from study drug after progressive disease as assessed by the investigator per RECIST v1.1 criteria, may continue treatment until loss of clinical benefit as assessed by the investigator, withdrawal of consent, unacceptable toxicity, study completion by the sponsor, start of a new anticancer therapy, or death, whichever occurs first.
+
+The decision to continue study drug beyond initial investigator-assessed progression must be agreed to by the medical monitor and documented in the study records.
+
+There is no crossover between the 2 arms in this study.
+
+Patients will undergo tumor assessment by the investigator at baseline and every 6 weeks (± 7 days) for the first 48 weeks following Cycle 1 Day 1, and every 9 weeks (± 7 days) thereafter, regardless of treatment dose delay.
+
+Tumor assessment at baseline must be performed within 28 days before randomization.
+
+Tumor assessment will continue until radiographic disease progression per RECIST v1.1.
+
+Details are provided in Section 7.6 and the Schedule of Assessments (Appendix 1).
+
+Patient-reported outcomes will be collected using the EORTC QLQ-LC13, EORTC QLQ-C30, and EQ5D-5L at baseline (predose at Day 1 of Cycle 1), at every cycle through Cycle 4, every other cycle thereafter until the End-of-Treatment Visit (EOT), and at the Safety Follow-up Visit.
+
+To determine the PK properties of tislelizumab and host immunogenic response to tislelizumab, blood samples will be collected at various timepoints as outlined in Appendix 1.
+
+Safety will be assessed throughout the study by monitoring and recording all AEs graded per NCI-CTCAE v5.0.
+
+Laboratory values (eg, hematology, clinical chemistry, and urinalysis), vital signs, physical examinations, ECOG Performance Status change, electrocardiogram (ECG) results, and other examinations will also be used for safety assessment.
+
+Formulation, Packaging, and Handling ......................................................................51 5.1.1.
+
+Tislelizumab and Placebo ...........................................................................................51 5.1.1.1.
+
+Tislelizumab ...............................................................................................................51 5.1.1.2.
+
+Placebo ........................................................................................................................51 5.1.2.
+
+Chemotherapy .............................................................................................................51 5.2.
+
+Dosage, Administration, and Compliance ..................................................................51 5.2.1.
+
+Tislelizumab or Placebo .............................................................................................53 5.2.2.
+
+Chemotherapy .............................................................................................................54 5.2.3.
+
+Supportive Care ..........................................................................................................55 CONFIDENTIAL Page 5 CONFIDENTIAL Page 146
+
+--- Page 6 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 5.3.
+
+Overdose .....................................................................................................................55 5.4.
+
+Investigational Medicinal Product Accountability .....................................................55 5.5.
+
+Dose Delay or Modification .......................................................................................55 5.5.1.
+
+General Guidance Regarding Dose Modifications .....................................................55 5.5.2.
+
+Dose Delay or Modification for Tislelizumab or Placebo ..........................................56 5.5.3.
+
+Dose Delay, Interruption or Modifications for Chemotherapy ..................................57 5.6.
+
+Blinding ......................................................................................................................58 5.7.
+
+Criteria for Discontinuing Chemotherapy Regimens .................................................59 6.
+
+PRIOR AND CONCOMITANT THERAPY .............................................................61 6.1.
+
+Prior Therapy ..............................................................................................................61 6.2.
+
+Concomitant Therapy .................................................................................................61 6.2.1.
+
+Permitted Concomitant Medications/Procedures .......................................................61 6.2.2.
+
+Prohibited or Restricted Concomitant Medications/Procedures .................................62 6.3.
+
+Potential Interactions Between the Study Drugs and Concomitant Medications .................................................................................................................63 7.
+
+STUDY ASSESSMENTS AND PROCEDURES ......................................................64 7.1.
+
+Screening ....................................................................................................................64 7.1.1.
+
+Demographic Data and Medical History ....................................................................64 7.1.2.
+
+Females of Childbearing Potential and Contraception ...............................................65 7.1.3.
+
+Informed Consent and Screening Log ........................................................................65 7.1.4.
+
+Patient Numbering ......................................................................................................65 7.1.5.
+
+Pulmonary Function Tests ..........................................................................................65 7.2.
+
+Enrollment ..................................................................................................................65 7.2.1.
+
+Confirmation of Eligibility .........................................................................................65 7.2.2.
+
+Enrollment/Randomization .........................................................................................66 7.3.
+
+Tislelizumab, Placebo and Chemotherapy Dispensation ............................................66 7.4.
+
+Crossover ....................................................................................................................66 7.5.
+
+--- Page 13 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • To characterize pharmacokinetics (PK) of tislelizumab in patients with small cell lung cancer (SCLC) • To evaluate host immunogenicity to tislelizumab by assessing antidrug antibodies (ADAs) against tislelizumab in patients with SCLC • To examine the patients’ quality of life (QoL) as measured by EuroQoL 5-Dimension, 5-Level (EQ5D-5L) Study Endpoints: Primary: • OS, defined as the time from randomization to death from any cause Secondary: • PFS, defined as the time from randomization to the first occurrence of disease progression as determined by investigator using RECIST v1.1 or death from any cause, whichever occurs first • ORR, defined as the proportion of patients with partial response (PR) or complete response (CR) as determined by the investigator using RECIST v1.1 • DOR, defined as the time from the first occurrence of a documented objective response to the time of relapse, as determined by the investigator per RECIST v1.1, or death from any cause, whichever comes first • DCR, defined as the proportion of patients whose best overall response (BOR) is CR, PR or stable disease per RECIST v1.1 • Incidence and severity of treatment-emergent adverse events (TEAEs) graded according to National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) v5.0 • Percentage of patients with clinically meaningful changes post baseline, defined as a 10-point improvement or worsening (to be defined in the Statistical Analysis Plan [SAP] if otherwise) in: Global health status (GHS) and physical function (PF) per the QLQ-C30 o Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, o and peripheral neuropathy symptoms of QLQ-LC13 • Time to deterioration, defined as the time from randomization to the first occurrence of worsening scores (10-point change; to be defined in the SAP if otherwise) confirmed at the following visit or death from any cause, in: GHS and PF per the QLQ-C30 o Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, o and peripheral neuropathy symptoms of QLQ-LC13 Exploratory: • PFS2, defined as the time from randomization to the objective disease progression after next line of treatment or death from any cause, whichever occurs first • Status of predictive and prognostic biomarkers including but not limited to programmed cell death protein ligand-1 (PD-L1) expression, mIHC, GEP, TMB, and MSI in archival and/or CONFIDENTIAL Page 13 CONFIDENTIAL Page 154
+
+--- Page 14 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 fresh tumor tissue and bTMB in blood before study treatment and/or at disease progression, and the association between the biomarkers and disease status or response to study treatment • Summary of serum concentrations of tislelizumab • Assessments of immunogenicity of tislelizumab by determining the incidence of ADAs • QoL is defined as changes in patients’ general well-being measured by the scores of the EQ5D5L descriptive 5-dimension scores and the visual analog scale (VAS).
+
+Formulation, Packaging, and Handling 5.1.1.
+
+Tislelizumab and Placebo 5.1.1.1.
+
+Tislelizumab Tislelizumab is a monoclonal antibody formulated for intravenous injection in a single-use vial (20R glass, United States Pharmacopeia [USP] type I), containing a total of 100 mg of antibody in 10 mL of isotonic solution.
+
+Tislelizumab is aseptically filled in single-use vials with a Flurotec-coated butyl rubber stopper and an aluminum cap.
+
+Each vial is packaged into a single-carton box.
+
+The contents of the label will be in accordance with all applicable local regulatory requirements.
+
+The study drug must be kept at the temperature condition as specified on the label.
+
+Refer to the Pharmacy Manual for details regarding intravenous administration, accountability, and disposal.
+
+Please also see the Investigator’s Brochure for other details regarding tislelizumab. 5.1.1.2.
+
+Placebo Placebo is a sterile, preservative-free solution for infusion formulated in the same buffer as tislelizumab.
+
+All excipients used for the manufacture of placebo are of pharmacopeial grade.
+
+No animal-derived components are used in the manufacture of placebo.
+
+Each vial is packaged into a single-carton box.
+
+As with tislelizumab, the contents of the label on placebo will be in accordance with all applicable local regulatory requirements.
+
+The study drug must be kept at the temperature condition as specified on the label.
+
+Refer to the Pharmacy Manual for details regarding intravenous administration, accountability, and disposal. 5.1.2.
+
+Chemotherapy Handling, storage, administration, and disposal of cisplatin, carboplatin, and etoposide will be in accordance with relevant local guidelines, package insert/summary of product characteristics (SmPC).
+
+For further details, see the manufacturer’s prescribing information for the respective chemotherapies. 5.2.
+
+Dosage, Administration, and Compliance Dosing schedules for tislelizumab or placebo and chemotherapy are provided in Table 3 and Table 4.
+
+All patients will be monitored continuously for AEs.
+
+Treatment modifications (eg, dose delay, reduction, interruption or discontinuation) will be based on specific laboratory and AE criteria, as described in Section 5.5.
+
+CONFIDENTIAL Page 51 CONFIDENTIAL Page 192
+
+--- Page 52 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Table 3.
+
+Selection and Timing of Dose Administration of Tislelizumab or Placebo in Combination With Cisplatin and Etoposide Order of Administration Induction Period Maintenance Period on Day 1 Study Drug a Dose (Route) Initial 4 Cycles b Cycle 5 and Beyond First Tislelizumab or 200 mg (IV) Day 1 of each 21-day cycle: Day 1 of each 21-day placebo • Cycle 1: Infuse over cycle; Infuse over 60 minutes (wait ≥ 60 minutes 30 minutes before chemotherapy) • Cycles 2 to 4: Infuse over 30 minutes (wait ≥ 60 minutes before chemotherapy at Cycle 2 and thereafter wait ≥ 30 minutes before chemotherapy) Second Cisplatin 75 mg/m2 (IV) Day 1 of each 21-day cycle: Discontinue treatment • Infuse over 2 hours Third Etoposide 100 mg/m 2 (IV) Day 1 to Day 3 of each 21-day Discontinue treatment cycle: • Infuse over 60 minutes Abbreviations: IV, intravenous(ly); SmPCs, summaries of product characteristics a.
+
+These products should be prepared/stored/administered in accordance with the package inserts or SmPCs. b.
+
+Reduction of tislelizumab or placebo infusion time from 60 minutes to 30 minutes is based on the 60-minute infusion time being well tolerated.
+
+CONFIDENTIAL Page 52 CONFIDENTIAL Page 193
+
+--- Page 53 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Table 4.
+
+Selection and Timing of Dose Administration of Tislelizumab or Placebo in Combination With Carboplatin and Etoposide Order of Administration Induction Period Maintenance Period on Day 1 Study Drug a Dose (Route) Initial 4 Cycles b Cycle 5 and Beyond First Tislelizumab or 200 mg (IV) Day 1 of each 21-day cycle: Day 1 of each 21-day placebo • Cycle 1: Infuse over cycle; Infuse over 60 minutes (wait ≥ 60 minutes 30 minutes before chemotherapy) • Cycles 2 to 4: Infuse over 30 minutes (wait ≥ 60 minutes before chemotherapy at Cycle 2 and thereafter wait ≥ 30 minutes before chemotherapy) Second Carboplatin C AUC 5 (IV) Day 1 of each 21-day cycle: Discontinue treatment • Infuse over 15-60 minutes to achieve an AUC of 5 mg/mL/min (Calvert formula dosing) Third Etoposide 100 mg/m 2 Day 1 to Day 3 of each 21-day Discontinue treatment (IV) cycle • Infuse over 60 minutes Abbreviations: AUC, area under the concentration-time curve; IV, intravenous(ly); SmPCs, summaries of product characteristics a.
+
+These products should be prepared/stored/administered in accordance with the package inserts or SmPCs. b.
+
+Reduction of tislelizumab or placebo infusion time from 60 minutes to 30 minutes is based on the 60-minute infusion time being well tolerated in previous cycles. c.
+
+Calvert formula: Total dose (mg) = (target AUC) × (glomerular filtration rate [GFR] + 25).
+
+GFR estimated by calculated creatinine clearance using Cockcroft-Gault Equation: Men: [(140 - age (y)) x weight (kg)] / [72 x serum creatinine (mg/dL)] Women: [(140 - age (y)) x weight (kg)] x 0.85 / [72 x serum creatinine (mg/dL)]. 5.2.1.
+
+Tislelizumab or Placebo Tislelizumab 200 mg or placebo should be administered on Day 1 of each 21-day cycle (once every 3 weeks).
+
+Tislelizumab or placebo will be administered by intravenous infusion through an intravenous line containing a sterile, nonpyrogenic, low-protein-binding 0.2or 0.22-micron in-line or add-on filter.
+
+Specific instructions for product preparation and administration are provided in the Pharmacy Manual.
+
+As a routine precaution, after infusion of tislelizumab or placebo on Day 1 of Cycle 1 and Cycle 2, patients must be monitored for ≥ 60 minutes afterward in an area with resuscitation equipment and emergency agents before chemotherapy.
+
+From Cycle 3 onward, a ≥ 30-minute monitoring period is required in an area with resuscitation equipment and emergency agents.
+
+The initial infusion (Cycle 1 Day 1) will be delivered over 60 minutes; if this is well tolerated, then the subsequent infusions may be administered over 30 minutes, which is the shortest time CONFIDENTIAL Page 53 CONFIDENTIAL Page 194
+
+--- Page 54 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 period permissible for infusion.
+
+Tislelizumab or placebo must not be concurrently administered with any other drug (see Section 6).
+
+Guidelines for dose modification, treatment interruption, or discontinuation and for the management of imAEs and infusion-related reactions are provided in detail in Section 5.5.2, Section 8.7 and Appendix 6.
+
+Details of tislelizumab or placebo and chemotherapy dose administration are summarized in Table 3 and Table 4.
+
+Refer to the Pharmacy Manual for detailed instructions on drug preparation, storage, and administration. 5.2.2.
+
+Chemotherapy All patients should receive antiemetics and intravenous hydration for cisplatin or carboplatin and etoposide according to the local standard of care and manufacturer’s instruction.
+
+In addition, all patients should receive the appropriate corticosteroid premedications as per the local approved label (Section 6.2.1).
+
+Additional pre-medications should be administered as per standard practice.
+
+All medications must be recorded on the appropriate Concomitant Medications eCRF.
+
+When the cisplatin and etoposide regimen is used as chemotherapy, patients will be treated with tislelizumab 200 mg or placebo intravenously, followed by cisplatin 75 mg/m² intravenously, and then etoposide 100 mg/m² intravenously on Day 1 of each 21-day cycle from Cycle 1 through Cycle 4, as Induction treatment.
+
+Etoposide 100 mg/m² intravenously will also be administered on Days 2 and 3 in each of the 4 cycles.
+
+Similarly, when the carboplatin and etoposide regimen is used as chemotherapy, patients will be treated with tislelizumab 200 mg or placebo intravenously, followed by carboplatin AUC 5, and then etoposide 100 mg/m² intravenously on Day 1 of each 21-day cycle from Cycle 1 through Cycle 4, as Induction treatment.
+
+Etoposide 100 mg/m² intravenously will also be administered on Days 2 and 3 in each of the 4 cycles.
+
+Cycles in which no chemotherapy is given do not count toward the total number of Induction treatment chemotherapy cycles.
+
+Treatment may continue until the completion of the scheduled 4 cycles (only for Induction treatment period), disease progression as assessed by the investigator per RECIST v1.1, loss of clinical benefit, unacceptable toxicity, or withdrawal of informed consent, whichever occurs first.
+
+Drugs in each regimen should be administered sequentially on Day 1 of the first 4 cycles.
+
+Details of tislelizumab or placebo and chemotherapy dose administration, including order of dosing and time interval between doses, are summarized in Table 3 and Table 4.
+
+Patients will be monitored continuously for AEs and will be instructed to notify their physician immediately for any AEs.
+
+Management of suspected adverse drug reactions may require temporary interruption and/or dose reduction of each therapy.
+
+CONFIDENTIAL Page 54 CONFIDENTIAL Page 195
+
+--- Page 55 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 5.2.3.
+
+Supportive Care Patients should receive full supportive care, including epoetin and other hematopoietic growth factors (eg, colony-stimulating factors [CSFs]), transfusions of blood and blood products, antibiotics, anti-emetics, other applicable medications, as needed according to local standard-of-care guidelines or practice. 5.3.
+
+Overdose Any overdose (defined as ≥ 600 mg of tislelizumab in a 24-hour period) or incorrect administration of study drug should be noted in the patient’s chart and on the appropriate eCRF.
+
+AEs associated with an overdose or incorrect administration of study drug will be recorded on the AE eCRF.
+
+Any SAEs associated with an overdose or incorrect administration are required to be reported within 24 hours of awareness via SAE reporting process as described in Section 8.7.
+
+Supportive care measures should be administered as appropriate. 5.4.
+
+Investigational Medicinal Product Accountability The investigational medicinal products (IMPs) required for completion of this study (tislelizumab and placebo) will be provided by the sponsor, as required by local or countryspecific guidance.
+
+The investigational site will acknowledge receipt of tislelizumab and placebo.
+
+Any damaged shipments will be replaced.
+
+IMPs will either be disposed of at the study site according to the study site’s institutional standard operating procedure or will be returned to the sponsor with the appropriate documentation.
+
+The site's method of IMP destruction must be agreed upon by the sponsor.
+
+The site must obtain written authorization from the sponsor before any IMP is destroyed, and IMP destruction must be documented on the appropriate form.
+
+Accurate records of all IMPs received, dispensed, returned, and disposed should be recorded on the site’s Drug Inventory Log.
+
+Refer to the Pharmacy Manual for details of IMP management. 5.5.
+
+Dose Delay or Modification Every effort should be made to administer the study drug(s) according to the planned dose and schedule.
+
+In the event of significant toxicities, dosing may be delayed and/or reduced based on the guidelines provided below.
+
+Reasons for dose modifications or delays, the supportive measures taken, and the outcome will be documented in the patient's chart and recorded in the eCRF.
+
+The dose modification guidelines in this section are not intended to be a substitute for clinical judgment.
+
+Investigators may delay or modify doses in response to other reasons (eg, AEs, declining weight, laboratory findings) as appropriate. 5.5.1.
+
+General Guidance Regarding Dose Modifications The severity of AEs will be graded according to the NCI-CTCAE v5.0 grading system. • Dose modifications for chemotherapy will be performed per local practice and per prescribing information according to the treating physician’s clinical judgment (see Section 5.5.3).
+
+CONFIDENTIAL Page 55 CONFIDENTIAL Page 196
+
+--- Page 56 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • Tislelizumab or placebo might be delayed as defined in Section 5.5.2. • For any events already apparent at baseline, the dose modifications will apply according to the corresponding shift in toxicity grade, if the investigator considers it is appropriate.
+
+For example, if a patient has Grade 1 asthenia at baseline that turns to Grade 2 during treatment, this will be considered a shift of 1 grade and treated as Grade 1 toxicity for dose modification purposes. • When several toxicities with different grades of severity occur at the same time, the dose modifications should be made according to the highest grade observed. • If, in the opinion of the investigator, a toxicity is considered to be solely due to 1 component of the study treatment and the dose of that component is delayed or modified in accordance with the guidelines below, other components may be administered if there is no contraindication.
+
+If 1 component of chemotherapy is discontinued permanently during the first o 4 cycles of treatment for reasons other than progressive disease (PD), the other component of chemotherapy may be continued per the guidelines in the study protocol and as per local practice.
+
+Tislelizumab or placebo may continue as indicated.
+
+If both components of the chemotherapy are withheld because of toxicity for o > 2 cycles, chemotherapy should be discontinued; tislelizumab or placebo may be continued if the toxicity resulting in chemotherapy discontinuation is not considered by the investigator to be related to tislelizumab or placebo.
+
+Exceptions based on clinical benefit require the prior approval of the medical monitor.
+
+If tislelizumab or placebo is discontinued permanently during the first 4 cycles of o chemotherapy treatment, the patient may continue the chemotherapy. • Administration of chemotherapy should ideally remain synchronized with predefined cycles and tislelizumab or placebo infusions (Section 5.2.1 and Section 5.2.2).
+
+If chemotherapy-related toxicities warrant dose delays, chemotherapy o administration should, ideally, be restarted to coincide with the next treatment cycle or may be given during an unscheduled visit and resynchronized at a later cycle, if possible. • Following either completion of or discontinuation from chemotherapy, tislelizumab or placebo should be continued as scheduled, if clinically appropriate (Section 3.3).
+
+Dose modification guidelines for chemotherapy, as described below (Section 5.5.3), will depend on the severity of toxicity and an assessment of the risk versus benefit for the patient, with the goal of maximizing the patient’s compliance and access to supportive care. 5.5.2.
+
+Dose Delay or Modification for Tislelizumab or Placebo There will be no dose reduction for tislelizumab or placebo in this study.
+
+Patients may temporarily suspend study treatment if they experience toxicity that is considered related to tislelizumab or placebo and requires a dose to be withheld.
+
+If a dose of tislelizumab or CONFIDENTIAL Page 56 CONFIDENTIAL Page 197
+
+--- Page 57 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 placebo is delayed for ≤ 10 days for a planned dosing cycle (eg, Cycle 3, Day 1), tislelizumab or placebo should be administered.
+
+If the delay is > 10 days, patients should skip the tislelizumab or placebo dose at this cycle and be dosed on the next planned cycle (see Section 5.5.1).
+
+Patients should resume tislelizumab or placebo treatment as soon as possible after the AEs recover to baseline level or Grade 1 (whichever is more severe) within 12 weeks after last dose of tislelizumab or placebo.
+
+If the patient is unable to resume tislelizumab or placebo within 12 weeks after the last dose of tislelizumab or placebo, then the patient should be discontinued from treatment.
+
+If a patient is benefiting from the study treatment while meeting the discontinuation criteria, resumption of study treatment may occur upon discussion and agreement with the medical monitor.
+
+If a scheduled dose coincides with a holiday that precludes dosing, dosing should commence on the nearest following date and subsequent dosing can continue on a new 21-day schedule based on the infusion date.
+
+If tislelizumab or placebo is discontinued because of tolerability concerns during the first 4 cycles of treatment, the patient may continue on the chemotherapy regimen (cisplatin + etoposide or carboplatin + etoposide) or 1 component of these regimens if agreed upon by the investigator and patient.
+
+Dose modification related to imAEs and infusion-related reactions are described in Appendix 6 and Section 8.7.1, respectively. 5.5.3.
+
+Dose Delay, Interruption or Modifications for Chemotherapy Dose modifications for chemotherapy should be performed per prescribing information and per local practice according to the investigator’s clinical judgment.
+
+Study drug-related toxicities must be resolved to baseline level or Grade 0 or 1 before the next dose is administered.
+
+This does not include alopecia, Grade 2 fatigue, or any other AE that, based on the investigator’s discretion, is not unfavorable to study drug administration nor affect the safety evaluation of the study drug(s).
+
+A maximum of 2 dose reductions for each chemotherapeutic agent except for carboplatin are permitted.
+
+Only 1 dose reduction is permitted for carboplatin.
+
+Once the dose has been decreased, it should remain reduced for all subsequent administrations or further reduced if necessary.
+
+There will be no dose escalations in this study.
+
+If additional reductions are required, that chemotherapeutic agent must be discontinued.
+
+Baseline body weight is used to calculate the required chemotherapy doses.
+
+Dose modifications are required if the patient’s body weight changes by ≥ 10% from baseline (or the new reference body weight).
+
+In case of chemotherapy-related toxicity, if the AE resolves within 10 days after a planned dosing date, chemotherapy will be administered.
+
+The administration of chemotherapy and tislelizumab or placebo will be resynchronized at the subsequent cycle, which will be scheduled according to the chemotherapy dose administration date.
+
+If the AE does not resolve within 10 days, chemotherapy will be omitted.
+
+If the AE resolves within 21 days after a planned dosing date, chemotherapy and tislelizumab or placebo will be administered on Day 1 of the next treatment cycle according to the original schedule.
+
+CONFIDENTIAL Page 57 CONFIDENTIAL Page 198
+
+--- Page 58 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Chemotherapy treatment may be delayed up to 21 days, if the reason for the delay is toxicity/AE.
+
+All subsequent chemotherapy doses must be rescheduled according to the last chemotherapy dose administration date.
+
+SELECTED PRECAUTIONS: • Neutropenia: Fever or other evidence of infection must be assessed promptly and treated aggressively following the local clinical practice and/or the guidelines. • Renal Toxicity: Nephrotoxicity is common with cisplatin.
+
+Encourage oral hydration.
+
+Avoid o nephrotoxic drugs such as aminoglycoside antibiotics.
+
+Patients should not be given cisplatin or carboplatin if their creatinine clearance is o < 60 mL/min or < 45 mL/min, respectively. • Ototoxicity and sensory neural damage should be assessed prior to each cycle.
+
+Cisplatin is contraindicated in patients with a pre-existing hearing deficit.
+
+For toxicities not listed above, dose modifications are permitted per local standards.
+
+Guidance regarding dose modifications for certain toxicities is presented in detail in Appendix 9. 5.6.
+
+Blinding This is a randomized, double-blind, Phase 3 study.
+
+Patients will be randomized to receive tislelizumab or placebo in a double-blind fashion such that neither the investigator, nor the patient, medical or ancillary medical staff, or the blinded sponsor staff or its designees, will know which drug is being administered in addition to chemotherapy. • Emergency unblinding Emergency unblinding for AEs may be performed through an Interactive Web Response System (IWRS).
+
+All AEs should be evaluated, and it should be determined whether they are related to tislelizumab plus chemotherapy or chemotherapy alone; treatment should be provided accordingly.
+
+Therefore, emergency unblinding should not be needed to manage the patient’s care.
+
+If knowledge of the investigational product is critical to the patient's management and the investigator decides that unblinding is required to manage an adverse reaction (eg, ≥ Grade 3 imAE or the event of a medical emergency or pregnancy), the investigator should make every effort to contact the medical monitor prior to unblinding a patient’s treatment assignment unless this could delay emergency treatment of the patient.
+
+If a patient’s treatment assignment is unblinded due to an emergency treatment, the sponsor must be notified immediately. • Inadvertent unblinding Every effort will be made to blind both the patient and the investigator to the identity of tislelizumab or placebo, but the inadvertent unblinding of a patient may occur.
+
+If an investigator, site personnel performing assessments, or patient is unblinded, the CONFIDENTIAL Page 58 CONFIDENTIAL Page 199
+
+--- Page 59 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 unblinding will not be sufficient cause (in and of itself) for that patient to be discontinued from study therapy or excluded from any safety or efficacy analyses. • Unblinding for serious adverse reaction reporting The sponsor will unblind patients who experience an unexpected serious adverse reaction, for the purpose of reporting to the regulatory authorities.
+
+In such a case, the medical monitors will not be informed of the treatment allocation, according to the sponsor’s standard procedures.
+
+Bioanalytical laboratory may remain unblinded as long as there is no means for the investigators or blinded sponsor team to know which samples will be analyzed or not.
+
+Additionally, there may be ethical reasons to have the patient remain on the study treatment.
+
+For patients to continue on study treatment in the event of unblinding, the investigator must obtain specific approval from the medical monitor for the patient to continue in the study. 5.7.
+
+Criteria for Discontinuing Chemotherapy Regimens Except where specified above, chemotherapy drugs should be discontinued for any of the following: • Any Grade 4 peripheral neuropathy requires discontinuation of platinum chemotherapy drugs (cisplatin or carboplatin). • Persistent Grade 3 paraesthesia requires discontinuation of platinum chemotherapy drugs (cisplatin or carboplatin). • Grade 3 or 4 drug-related thrombocytopenia associated with clinically significant bleeding. • Grade 3 or 4 total bilirubin elevation and Grade 4 ALT or AST elevation requires discontinuation of etoposide. • Any drug-related liver function test abnormality value that meets any of the following criteria requires discontinuation: AST or ALT > 5-10 x ULN for > 2 weeks o AST or ALT > 10 x ULN o Total bilirubin > 5 x ULN o Concurrent AST or ALT > 3 x ULN and total bilirubin > 2 x ULN o • Any cisplatin-related decrease in creatinine clearance to < 60 mL/min (using the Cockcroft Gault formula) requires discontinuation of cisplatin or change to carboplatin. • Decrease in creatinine clearance to < 15 mL/min requires discontinuation of etoposide. • Any drug-related AE that recurs after 2 prior dose reductions (or 1 prior reduction for carboplatin) for the same drug-related AE requires discontinuation of the drug(s).
+
+CONFIDENTIAL Page 59 CONFIDENTIAL Page 200
+
+--- Page 60 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • Any Grade 3 or 4 drug-related hypersensitivity reaction or infusion reaction requires discontinuation of the drug(s) thought to be causing the reaction.
+
+The drug not considered to be related to the hypersensitivity reaction or infusion reaction may be continued. • Any Grade 4 AE that the investigator considers related to study drug and inappropriate to be managed by dose reduction(s) requires discontinuation of drug(s).
+
+The drug not considered to be related to the event may be continued. • If any toxicity does not resolve within 21 days, that component will be discontinued.
+
+For toxicities not listed above, the investigator’s medical judgment would determine whether chemotherapy regimen should be discontinued, in accordance with patient’s well-being and local standards.
+
+Refer to Section 3.4 regarding safety follow-up procedures.
+
+CONFIDENTIAL Page 60 CONFIDENTIAL Page 201
+
+--- Page 61 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 6.
+
+PRIOR AND CONCOMITANT THERAPY 6.1.
+
+Prior Therapy The inclusion criteria specify that patients must not have received prior systemic treatment for ES-SCLC (Section 4.1).
+
+All prior cancer treatments and treatments for underlying active medical conditions must be recorded on the appropriate eCRF.
+
+All prior therapy and medications (eg, prescription drugs, over-the-counter drugs, herbal or homeopathic remedies, nutritional supplements) used by the patient within 30 days before randomization must be recorded on the appropriate CRF. 6.2.
+
+Concomitant Therapy 6.2.1.
+
+Permitted Concomitant Medications/Procedures Most concomitant medications and therapies that are in accordance with local standards of medical care and that are deemed necessary by the investigator for supportive care (eg, anti-emetics, antidiarrheals) and in a patient’s interest are allowed.
+
+Systemic corticosteroids given for the control of imAEs must be tapered gradually (see Appendix 6) and be at non-immunosuppressive doses (≤ 10 mg/day of prednisone or equivalent) before the next IMP administration.
+
+Short-term use of steroids as prophylactic treatments (eg, patients with contrast allergies to diagnostic imaging contrast dyes) is permitted.
+
+Patients with active hepatitis B, defined as HBV DNA ≥ 500 IU/mL at screening, must initiate treatment 2 weeks before randomization and continue until 6 months after the last dose of study drug(s).
+
+Patients should continue effective antiviral treatment during the study to decrease potential viral re-activation risk.
+
+Tenofovir and entecavir are recommended in the American Association for the Study of Liver Disease (AASLD) guideline because they lack resistance with long-term use (Terrault et al 2016; AASLD/IDSA HCV Guidance Panel, 2015).
+
+The investigator might use other antiviral agents, if appropriate, following local guidelines.
+
+Management of antiviral therapy is at the discretion of the investigator; however, reason(s) must be provided in the eCRF if a patient with active HBV is not treated with antiviral prophylaxis.
+
+BeiGene does not require that patients with active HCV receive treatment with antiviral therapy.
+
+Patients with detectable HCV RNA and who are receiving treatment at screening should remain on continuous, effective antiviral therapy during the study.
+
+Investigators can consider treatment with sofosbuvir alone or in combination with other antivirals following the AASLD guideline or the local guidelines as appropriate.
+
+However, interferon-based therapy for either HBV or HCV is not permitted on study.
+
+Patients who are given antiviral therapy must initiate treatment at least 2 weeks prior to randomization.
+
+Hematopoietic growth factors (ie, G-CSF or GM-CSF) may be used according to institutional or other specific guidelines (eg, country or regional guidelines or guidelines of oncology organizations, such as the American Society of Clinical Oncology [ASCO]) to treat febrile neutropenia but should not be used as primary prophylaxis.
+
+The use of any growth factor support must be documented in the patient’s record and eCRF.
+
+Growth factors must be discontinued at least 48 hours prior to initiation of the next cycle of chemotherapy.
+
+CONFIDENTIAL Page 61 CONFIDENTIAL Page 202
+
+--- Page 62 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Patients may continue to receive hormone replacement therapy or supportive care if initiated prior to enrollment.
+
+Bisphosphonates are allowed for bone metastases if initiated prior to enrollment and at a stable dose.
+
+Patients receiving bisphosphonates during the trial for a non-malignant indication are permitted for this study.
+
+Whole-brain radiation therapy and stereotactic radiosurgery are permitted for patients with disease progression limited to the CNS.
+
+During the Maintenance treatment period, PCI is permitted as per local standard of care.
+
+Patients in either arm who achieve CR or PR after Cycle 4 may be offered PCI at the discretion of the treating investigator.
+
+Imaging of the brain must occur prior to PCI.
+
+Patients selected to receive PCI may receive up to 25 Gy in 10 fractions (or the biologic equivalent), as tolerated by the patient.
+
+If given, PCI must begin within 6 weeks (preferably within 2 to 4 weeks) after the last dose of study medication in Cycle 4.
+
+Study medication may continue during PCI; however, if it is necessary to suspend study treatment, dosing must be restarted no later than 2 weeks after completion of PCI.
+
+Steroids can be administered, as required, during and after PCI.
+
+Palliative (limited-field) radiation therapy is permitted, but only for pain control or prophylaxis of bone fracture to sites of bone disease present at baseline if the following criteria are met: • Repeat imaging demonstrates no new sites of bone metastases • The lesion being considered for palliative radiation is not a target lesion for RECIST v1.1 • The case is discussed with the medical monitor, and the medical monitor agrees that the conditions required to receive palliative radiation are met Opiates and other medication required for palliative management of patients are allowed.
+
+Patients must notify the investigator of all concurrent medications used during the study.
+
+Additionally, if clinically indicated, palliative radiation or other focally ablative therapy for other nontarget sites of the disease is permitted per investigators’ discretion.
+
+The medical monitor should be informed of the on-study radiotherapy.
+
+These patients should have a tumor assessment of the lesion(s) before receiving the radiotherapy in order to rule out progression of disease.
+
+It is not required to withhold treatment during palliative radiotherapy. 6.2.2.
+
+Prohibited or Restricted Concomitant Medications/Procedures The following medications are prohibited or restricted at the time of screening and during the administration of tislelizumab or placebo: • Immunosuppressive agents (except to treat a drug-related AE). • Systemic corticosteroids > 10 mg daily (prednisone or equivalent), except to treat or control a drug-related AE (per protocol), or as pretreatment for chemotherapy, or for short-term use as prophylactic treatment. • Live vaccines within 28 days before randomization and 60 days following the last dose of tislelizumab or placebo. • Herbal remedies or other agents with immune-stimulating properties (eg, mistletoe extract) or that are known to potentially interfere with liver or other major organ functions (eg, hypericin).
+
+Patients must notify the investigator of all herbal remedies used CONFIDENTIAL Page 62 CONFIDENTIAL Page 203
+
+--- Page 63 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 during the study.
+
+The concomitant use of herbal therapies is not recommended because their pharmacokinetics, safety profiles, and potential drug-drug interactions are generally unknown.
+
+However, their use for patients in the study is allowed at the discretion of the investigator, provided that there are no known interactions with any study treatment.
+
+As noted above, herbal therapies intended for the treatment of cancer are prohibited. • RANK-L inhibitors (eg, denosumab) − Patients who are receiving denosumab prior to enrollment must be willing and eligible to receive a bisphosphonate instead The following medications are prohibited or restricted at the time of screening and during the administration of any component of study treatment: • Any concurrent antineoplastic therapy (ie, chemotherapy except for the defined chemotherapy in the study, hormonal therapy, immunotherapy, or standard or investigational agents [including Chinese herbal medicine and Chinese patent medicines] for treatment of cancer). • Extensive radiation therapy (except for local, palliative radiotherapy provided that it does not compromise tumor assessments of target lesions; or special circumstances such as described in Section 6.2.1).
+
+During the first 4 cycles of study treatment (ie, the Induction treatment period), patients will receive study-defined chemotherapies.
+
+The chemotherapeutic reagent might interfere with the PK of a concomitantly used medication or be impacted by a concomitant medication due to drugdrug interactions, eg, warfarin in combination with etoposide, anticonvulsant agents in combination with cisplatin, or aminoglycosides in combination with carboplatin.
+
+Those medications should be avoided or be replaced.
+
+Refer to the manufacturer’s prescribing information for complete information regarding drug-drug interactions.
+
+The following guideline should also be followed during the study: • With the exception of diagnostic biopsy of tumor tissue or placement of a venous access device, the investigator should discuss with the medical monitor any individual patient requiring surgery during the study. • Patients should not abuse alcohol or other addictive drugs during the study. 6.3.
+
+Potential Interactions Between the Study Drugs and Concomitant Medications The potential for drug-drug interaction between the study drugs (tislelizumab) and smallmolecule drug products is very low, given tislelizumab is therapeutic monoclonal antibody.
+
+Because tislelizumab is expected to be degraded into amino acids and recycled into other proteins, it is unlikely to have an effect on drug metabolizing enzymes or transporters.
+
+Co-administration of etoposide with warfarin may result in elevated international normalized ratio (INR).
+
+If the co-administration occurs, measure INR frequently (Etoposide prescribing information).
+
+CONFIDENTIAL Page 63 CONFIDENTIAL Page 204
+
+--- Page 64 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.
+
+STUDY ASSESSMENTS AND PROCEDURES A table of scheduled study assessments is provided in Appendix 1.
+
+Patients will be closely monitored for safety and tolerability throughout the study.
+
+All assessments must be performed and documented in the medical record for each patient.
+
+Dosing will occur only if the clinical assessment and local laboratory test values (that must be available before any dosing) have been reviewed and found to be acceptable per protocol guidelines. 7.1.
+
+Screening Screening evaluations will be performed within 28 days prior to randomization.
+
+Patients who agree to participate will sign the ICF prior to undergoing any screening procedure.
+
+The screening period begins on the first day that a screening procedure is conducted.
+
+Pulmonary function testing including spirometry and assessment of oxygenation is to be performed for all patients at baseline (Appendix 1).
+
+Screening evaluations may be repeated as needed within the screening period; the investigator is to assess patient eligibility according to the latest screening assessment results.
+
+Results of standard-of-care tests or examinations performed prior to obtaining informed consent and ≤ 28 days prior to randomization may be used for the purposes of screening rather than repeating the standard-of-care tests unless otherwise indicated.
+
+Procedures conducted only during the Screening Visit are described in this section.
+
+For the description of other assessments that are conducted during screening, as well as throughout the study, refer to Safety Assessments (Section 7.5), Tumor and Response Evaluations (Section 7.6), PK and Antidrug Antibody Testing (Section 7.7), and Biomarkers (Section 7.8).
+
+Rescreening under limited conditions may be allowed after consultation with BeiGene (eg, when a patient narrowly misses a laboratory criterion and it is correctable and not due to rapidly deteriorating condition or disease progression).
+
+Rescreening is allowed only once. 7.1.1.
+
+Demographic Data and Medical History Demographic data will include the patient’s year of birth, age, gender, and self-reported race/ethnicity.
+
+Medical history includes any history of clinically significant disease, surgery, or cancer history; reproductive status (ie, of childbearing potential or no childbearing potential); history of alcohol consumption and tobacco (ie, former or current or never).
+
+Cancer history will include an assessment of prior surgery, prior radiotherapy, and prior drug therapy, including start and stop dates, best response and reason for discontinuation.
+
+Radiographic studies performed prior to study entry may be collected for review by the investigator.
+
+CONFIDENTIAL Page 64 CONFIDENTIAL Page 205
+
+--- Page 65 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.1.2.
+
+Females of Childbearing Potential and Contraception Childbearing potential is defined as being physiologically capable of becoming pregnant.
+
+Refer to Appendix 8 for contraception guidelines and definitions of “women of childbearing potential” and “no childbearing potential.” 7.1.3.
+
+Informed Consent and Screening Log Voluntary, written informed consent for participation in the study must be obtained before any study-specific procedures are performed.
+
+ICFs for enrolled patients and for patients who are screened but not enrolled will be maintained at the study site.
+
+All screening evaluations must be completed and reviewed to confirm that patients meet all eligibility criteria before randomization.
+
+The investigator will maintain a screening log to record details of all patients screened and to confirm eligibility or record reasons for screening failure, as applicable. 7.1.4.
+
+Patient Numbering After obtaining informed consent, study site personnel will access the Interactive Response Technology (IRT) system to assign a unique patient number to a potential study participant. 7.1.5.
+
+Pulmonary Function Tests Pulmonary function testing including spirometry and assessment of oxygenation, at a minimum pulse oximetry at rest and with exercise, or alternatively, assessment of diffusion capacity, are to be performed for all patients during screening to help the determine the patient’s suitability for the study.
+
+Respective test results need to be submitted to the sponsor.
+
+For test results indicative of significantly impaired pulmonary function, eg, resting pulse oximetry < 90% on room air and further de-saturation upon exercise, forced expiratory volume (FEV1) < 60% or diffusing capacity for carbon monoxide (DLCO) (if performed) < 60% of age and sex adjusted predicted performance levels (Pellegrino et al 2005), the medical monitor needs to be consulted to confirm eligibility.
+
+Tests may be repeated as clinically indicated during the study (refer to Appendix 1 for details). 7.2.
+
+Enrollment 7.2.1.
+
+Confirmation of Eligibility The investigator will assess and confirm the eligibility of each patient.
+
+All screening procedure results and relevant medical history must be available before eligibility can be determined.
+
+All inclusion criteria must be met and none of the exclusion criteria may apply.
+
+No eligibility waivers will be granted.
+
+After a patient is screened and the investigator determines that the patient is eligible for randomization, study site personnel will complete an Eligibility Authorization Packet and send it to the medical monitor or designee to confirm the patient’s eligibility before enrollment.
+
+Study site personnel should ensure that a medical monitor’s confirmation has been received before randomization.
+
+CONFIDENTIAL Page 65 CONFIDENTIAL Page 206
+
+--- Page 66 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.2.2.
+
+Enrollment/Randomization Site personnel will access the IRT system to randomize patients to treatment assignment and to assign study drug.
+
+Study treatment must commence within 2 business days after randomization/treatment assignment. 7.3.
+
+Tislelizumab, Placebo and Chemotherapy Dispensation Tislelizumab, placebo, and chemotherapy will be dispensed and administered as described in Section 5.2. 7.4.
+
+Crossover There is no crossover between the 2 arms in this study. 7.5.
+
+---
+
+4. Analysis Populations
+
+Inclusion Criteria ........................................................................................................46 4.2.
+
+Exclusion Criteria .......................................................................................................47 5.
+
+Key Eligibility Criteria: Key inclusion criteria: Each patient eligible to participate in this study must meet all of the following criteria: • Age ≥ 18 years on the day of signing the informed consent form (or the legal age of consent in the jurisdiction in which the study is taking place) • ECOG Performance Status of 0 or 1 • Histologically or cytologically confirmed ES-SCLC (defined by the American Joint Committee on Cancer, Seventh Edition, as Stage IV [T any, N any, M 1a/b] or T3-4 due to multiple lung nodules that are too extensive or have tumor/nodal volume that is too large to be encompassed in a tolerable radiation plan.) • No prior systemic treatment for ES-SCLC Patients who have received prior chemoradiotherapy for limited-stage SCLC must o have been treated with curative intent and experienced a treatment-free interval of ≥ 6 months between the completion of chemotherapy, radiotherapy, or chemoradiotherapy and diagnosis of ES-SCLC. • Adequate hematologic and end organ function Key exclusion criteria: Patients who meet any of the following criteria are not eligible to enroll: • Active leptomeningeal disease or uncontrolled, untreated brain metastasis: CONFIDENTIAL Page 16 CONFIDENTIAL Page 157
+
+--- Page 17 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Patients with a history of treated and, at the time of screening, asymptomatic central o nervous system (CNS) metastases are eligible if they meet all the following: - Brain imaging at screening shows no evidence of interim progression between the completion of CNS-directed therapy and randomization - Only supratentorial metastases allowed - No ongoing requirement for corticosteroids as therapy for CNS disease; anticonvulsants at a stable dose allowed - No stereotactic radiation or whole-brain radiation within 14 days prior to randomization Patients with new asymptomatic CNS metastases detected at the screening scan must o receive radiation therapy and/or surgery for CNS metastases. - Following treatment, these patients may then be eligible, provided all other criteria, including those for patients with a history of brain metastases, are met. • Prior therapy with an antibody or drug against immune checkpoint pathways, including but not limited to, anti-programmed cell death protein-1 (anti-PD-1), anti-PD-L1, or anti-cytotoxic T-lymphocyte-associated antigen 4 (anti-CTLA-4) antibody • Was administered a live vaccine ≤ 4 weeks before randomization Note: Seasonal vaccines for influenza are generally inactivated vaccines and are allowed.
+
+Intranasal vaccines are live vaccines, and are not allowed • Any condition that required systemic treatment with either corticosteroids (> 10 mg daily of prednisone or equivalent) or other immunosuppressive medication ≤ 14 days before randomization • Active autoimmune diseases or history of autoimmune diseases that may relapse Note: Patients with the following diseases are not excluded and may proceed to further screening: Controlled type 1 diabetes o Hypothyroidism (provided it is managed with hormone replacement therapy only) o Controlled celiac disease o Skin diseases not requiring systemic treatment (eg, vitiligo, psoriasis, alopecia) o Any other disease that is not expected to recur in the absence of external triggering o factors • With a history of interstitial lung disease, non-infectious pneumonitis, or uncontrolled systemic diseases, including diabetes, hypertension, pulmonary fibrosis, acute lung diseases, etc • Severe chronic or active infections requiring systemic antibacterial, antifungal or antiviral therapy within 2 weeks prior to randomization, including but not limited to tuberculosis infection CONFIDENTIAL Page 17 CONFIDENTIAL Page 158
+
+--- Page 18 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Received therapeutic oral or intravenous antibiotics within 2 weeks prior to o randomization Investigational Product, Dose, and Mode of Administration: Tislelizumab and placebo should be administered at a dose of 200 mg intravenously once every 3 weeks.
+
+Non-Investigational Therapy, Dose, and Mode of Administration: Cisplatin 75 mg/m2 should be administered as an intravenous infusion over 2 hours once every 3 weeks on Day 1 of each cycle for 4 cycles, or Carboplatin area under the plasma or serum concentration-time curve 5 (AUC 5) should be administrated as an intravenous infusion over 15 to 60 minutes once every 3 weeks on Day 1 of each cycle for 4 cycles Etoposide (100 mg/m2) should be administered as an intravenous infusion over 60 minutes on Days 1, 2, and 3 of each 3-week cycle for 4 cycles Statistical Methods: Analysis Sets: The ITT Analysis Set includes all randomized patients.
+
+Patients will be analyzed according to their randomized treatment arms.
+
+This will be the primary Analysis Set for all efficacy analyses.
+
+The Safety Analysis Set includes all randomized patients who received ≥ 1 dose of any component of study treatment; it will be the Analysis Set for the safety analyses.
+
+Patients will be analyzed according to the actual treatment regimen received.
+
+The PK Analysis Set includes all patients who receive ≥ 1 dose of tislelizumab per the protocol, for whom any postdose PK data are available.
+
+The ADA Analysis Set includes all patients who are randomized to the tislelizumab arm and have a baseline and ≥ 1 postbaseline ADA result.
+
+Primary Efficacy Endpoint Analysis: Overall survival OS is defined as the time from randomization to death from any cause.
+
+OS will be analyzed in the ITT Analysis Set.
+
+Data for patients who are not reported as having died at the time of analysis will be censored at the date last known to be alive.
+
+Data for patients who do not have postbaseline information will be censored at the date of randomization.
+
+OS will be compared between tislelizumab + cisplatin or carboplatin + etoposide (Arm A) and placebo + cisplatin or carboplatin + etoposide (Arm B) in a stratified log-rank test using a one-sided significance level of 0.025: The null hypothesis to be tested is: H : OS in Arm A ≤ OS in Arm B 0 against the alternative hypothesis: H : OS in Arm A > OS in Arm B a CONFIDENTIAL Page 18 CONFIDENTIAL Page 159
+
+--- Page 19 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The p-value from a stratified log-rank test will be presented using stratification factors with actual values as recorded in the electronic data capture (EDC) system at randomization.
+
+The OS hazard ratio (HR) between the two arms and its 95% confidence interval (CI) will be estimated using a stratified Cox regression model with treatment arm as a factor and the model will be stratified by the actual value of the stratification factors.
+
+The median OS and the cumulative probability of OS at 1 year and 2 years, if estimable, will be calculated for each treatment arm and presented with two-sided 95% CIs using Kaplan-Meier methodology.
+
+A Kaplan-Meier curve will be constructed to provide a visual description of the difference between arms.
+
+Secondary Efficacy Endpoint Analyses: Progression-free survival (PFS) PFS is defined as the time from randomization to the first documented disease progression by RECIST v1.1 as assessed by the investigator, or death from any cause, whichever occurs first.
+
+PFS will be analyzed in the ITT Analysis Set.
+
+PFS will be calculated based on actual tumor assessment visit dates.
+
+Data for patients without disease progression or death at the time of analysis will be censored at the time of the last valid tumor assessment.
+
+Data for patients without postbaseline tumor assessment will be censored at the time of randomization.
+
+Data for patients who start to receive new anticancer therapy or are lost to follow-up will be censored at the last valid tumor assessment date prior to the introduction of new therapy or loss to follow-up.
+
+Patients who have a clinical determination of progression should undergo a radiographic imaging as required by RECIST v1.1, if possible, to correlate radiographic findings with the clinical findings.
+
+If a clinical determination of progression for a patient is confirmed, the date of the radiographic imaging will be considered as the progression date for that patient.
+
+The HR for PFS will be estimated using a stratified Cox regression model with treatment arm as a factor and stratified by the actual value of the stratification factors.
+
+The 95% CI for the HR will be provided.
+
+Kaplan-Meier methodology will be used to estimate median PFS, cumulative probabilities of PFS at 6 month and 1-year, and a Kaplan-Meier curve will be constructed to provide a visual description of the difference among arms.
+
+Overall response rate (ORR) ORR (confirmation not required according to RECIST v1.1) is the proportion of patients who had CR or PR per RECIST v1.1 in all randomized patients with measurable disease at baseline.
+
+Patients without any postbaseline assessment will be considered non-responders.
+
+The difference in ORR between arms in the ITT Analysis Set will be evaluated using the Cochran-Mantel-Haenszel (CMH) chi-square test with the actual stratification factors as strata for descriptive purpose only.
+
+The two-sided 95% CIs for the odds ratio and the difference in ORR will be calculated, as well as Clopper-Pearson 95% CIs for the ORR within each arm.
+
+Duration of response (DOR) DOR is defined for patients with an objective response as the time from the first documented objective response to documented disease progression as determined using the RECIST v1.1, or death from any cause, whichever occurs first.
+
+Data for patients who are alive and who have not experienced disease progression at the time of analysis will be censored at the date of the last tumor assessment.
+
+If no tumor assessments were performed after the date of the first occurrence of the objective response (CR or PR), DOR will be censored at the date of the first occurrence of the objective response.
+
+DOR will be estimated using Kaplan-Meier methodology.
+
+Comparisons between treatment arms will be made using the stratified log-rank test for descriptive purposes only.
+
+CONFIDENTIAL Page 19 CONFIDENTIAL Page 160
+
+--- Page 20 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Disease control rate (DCR) DCR is defined as the proportion of patients with objective response (CR or PR) or stable disease maintained for ≥ 6 weeks using the RECIST v1.1.
+
+The analysis methods for DCR will be the same as those for ORR.
+
+Health Related Quality of Life (HRQoL) HRQoL is assessed via the EORTC QLQ-C30 GHS/QoL, functional and symptom scales scores, and the single-item scores.
+
+Observed values and changes from baseline will be summarized using descriptive statistics.
+
+Clinically meaningful changes post baseline (percentage of patients with a 10-point improvement or worsening; to be defined in the SAP if otherwise) for GHS and PF per the QLQ-C30 and dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 will be calculated by timepoint and compared between the treatment arms.
+
+Time to deterioration of the aforementioned scales will be analyzed as well.
+
+It is defined as time from randomization to the first occurrence of a worsening score (10-point change; to be defined in the SAP if otherwise) confirmed at the following visit or death from any cause.
+
+Time to deterioration between treatment arms will be compared using log-rank test and its Kaplan-Meier probabilities for each arm will be plotted over time.
+
+Exploratory Efficacy Analyses: PFS after next line of treatment (PFS2) To calculate PFS2, data from patients without disease progression after next line of treatment or death at the time of analysis will be censored at the last time known to be alive.
+
+Kaplan-Meier method as described in the PFS and OS analyses will be used in the analysis of PFS2.
+
+PD-L1 expression as a predictive biomarker for efficacy Distribution of PD-L1 expression will be examined in the ITT Analysis Set.
+
+Any potential association between PD-L1 expression and tislelizumab treatment effect over control (PFS, OS, ORR, DOR, and DCR) may be explored.
+
+Other potential predictive markers, including but not limited to GEP, TMB and MSI in archival and/or fresh tumor tissue and bTMB may be assessed before study treatment and/or at disease progression, and the association with disease status and/or response to tislelizumab in combination with chemotherapy may be also assessed.
+
+Quality of Life (QoL) Summary statistics (mean, standard deviation, median, and range) of the postbaseline scores of the EQ5D-5L descriptive dimension and VAS will be reported.
+
+Summaries will be performed for the ITT Analysis Set only.
+
+Pharmacokinetic Analyses Pharmacokinetic samples will be collected in this study as outlined in Appendix 1.
+
+Tislelizumab lowest concentration before the next dose (C ) data will be tabulated and summarized for each cycle trough at which PK is to be measured in the PK Analysis Set.
+
+Descriptive statistics will include means, medians, ranges, and standard deviations, as appropriate.
+
+Additional PK analyses may be conducted as appropriate.
+
+Immunogenicity Analyses Immunogenicity samples will be collected in this study as outlined in Appendix 1.
+
+CONFIDENTIAL Page 20 CONFIDENTIAL Page 161
+
+--- Page 21 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The immunogenicity results will be summarized using descriptive statistics by the number and percentage of patients who develop detectable antidrug antibodies (ADA).
+
+The incidence of positive ADA and neutralizing ADA will be reported for evaluable patients.
+
+The effect of immunogenicity on PK, efficacy and safety may be evaluated if data allow.
+
+Safety Analyses: Safety will be assessed throughout the study by monitoring and recording all AEs graded by NCICTCAE v5.0.
+
+Laboratory values (eg, hematology, clinical chemistry, and urinalysis), vital signs, physical examinations, ECOG Performance Status change, electrocardiograms (ECGs), and other examinations will also be used in determining safety.
+
+Descriptive statistics will be used to analyze all safety data in the Safety Analysis Set.
+
+The sponsor will not grant any eligibility waivers. 4.1.
+
+Inclusion Criteria Each patient eligible to participate in this study must meet all of the following criteria: 1.
+
+Ability to provide written informed consent and to understand and agree to comply with the requirements of the study and the schedule of assessments 2.
+
+Age ≥ 18 years on the day of signing the ICF (or the legal age of consent in the jurisdiction in which the study is taking place) 3.
+
+Histologically or cytologically confirmed ES-SCLC (defined by the American Joint Committee on Cancer, Seventh Edition, as Stage IV [T any, N any, M 1a/b] or T3-4 due to multiple lung nodules that are too extensive or have tumor/nodal volume that is too large to be encompassed in a tolerable radiation plan.) 4.
+
+No prior systemic treatment for ES-SCLC • Patients who have received prior chemoradiotherapy for limited-stage SCLC (LS-SCLC) must have been treated with curative intent and experienced a treatment-free interval of ≥ 6 months between the completion of chemotherapy, radiotherapy, or chemoradiotherapy and diagnosis of ES-SCLC. 5.
+
+ECOG Performance Status ≤ 1 6.
+
+Adequate organ function as indicated by the following laboratory values obtained ≤ 7 days before randomization • Absolute neutrophil count (ANC) ≥ 1.5 x 109/L, platelets ≥ 100 x 109/L, hemoglobin ≥ 90 g/L.
+
+Note: Patients must not have undergone a blood transfusion or growth factor support ≤ 14 days before sample collection at screening • International normalized ratio (INR) or prothrombin time (PT) ≤ 1.5 x upper limit of normal (ULN) • Activated partial thromboplastin time (aPTT) ≤ 1.5 x ULN • Serum total bilirubin ≤ 1.5 x ULN (total bilirubin must be < 3 x ULN for patients with Gilberts syndrome) • AST and ALT ≤ 2.5 x ULN or AST and ALT ≤ 5 x ULN for patients with liver metastases 7.
+
+Females of childbearing potential must be willing to use a highly effective method of birth control (Appendix 8) through the duration of the study, for ≥ 120 days after the last dose of study treatment with either chemotherapy or tislelizumab (or placebo), whichever is given later, and have a negative urine or serum pregnancy test ≤ 7 days before randomization.
+
+CONFIDENTIAL Page 46 CONFIDENTIAL Page 187
+
+--- Page 47 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 8.
+
+Nonsterile males must be willing to use a highly effective method of birth control (Appendix 8) for the duration of the study and for ≥ 120 days after the last dose of study treatment with either chemotherapy or tislelizumab (or placebo), whichever is given later. • A sterile male is defined as one for whom azoospermia has been previously demonstrated in a semen sample examination as definitive evidence of infertility. • Males with known “low sperm counts” (consistent with “subfertility”) are not to be considered sterile for purpose of this study 9.
+
+Life expectancy ≥ 12 weeks. 4.2.
+
+Exclusion Criteria Patients who meet any of the following criteria are not eligible to enroll: 1.
+
+Received prior therapy with an antibody or drug against immune checkpoint pathways including but not limited to anti-PD-1, anti-PD-L1, or anti-CTLA-4 antibody 2.
+
+Treatment with systemic immune-stimulating agents (including but not limited to interferons, interleukin-2, and tumor necrosis factor) within 4 weeks or 5 half-lives of the drug, whichever is shorter, prior to randomization (prior treatment with cancer vaccines is allowed) 3.
+
+Has received any herbal medicine used to control cancer within 14 days of the first study drug administration 4.
+
+Any condition that requires systemic treatment with either corticosteroids (> 10 mg daily of prednisone or equivalent) or other immunosuppressive medication ≤ 14 days before randomization Note: Patients who are currently or have previously been on any of the following steroid regimens are not excluded: • Adrenal replacement steroid (dose ≤ 10 mg daily of prednisone or equivalent) • Topical, ocular, intra-articular, intranasal, or inhaled corticosteroid with minimal systemic absorption • Short course (≤ 7 days) of corticosteroid prescribed prophylactically (eg, for contrast dye allergy) or for the treatment of a non-autoimmune condition (eg, delayed-type hypersensitivity reaction caused by contact allergen) 5.
+
+Was administered a live vaccine ≤ 4 weeks before randomization Note: Seasonal influenza vaccines are generally inactivated vaccines and are allowed.
+
+Intranasal vaccines are live vaccines and are not allowed 6.
+
+Any major surgical procedure requiring general anesthesia ≤ 28 days before randomization.
+
+Note: Diagnostic surgical procedures are not considered major surgical procedures, including but not limited to, tumor biopsy or endoscopic examinations regardless of the method of anesthesia CONFIDENTIAL Page 47 CONFIDENTIAL Page 188
+
+--- Page 48 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.
+
+Prior allogeneic stem cell transplantation or organ transplantation 8.
+
+Clinically significant pericardial effusion 9.
+
+Clinically uncontrolled pleural effusion or ascites that requires pleurocentesis or abdominal tapping for drainage within 2 weeks before randomization 10.
+
+Active leptomeningeal disease or uncontrolled, untreated brain metastasis: Note: Patients with a history of treated and, at the time of screening, asymptomatic central nervous system (CNS) metastases are eligible if they meet all the following: Brain imaging at screening shows no evidence of interim progression, between the o completion of CNS-directed therapy and randomization Only supratentorial metastases allowed o No ongoing corticosteroids are required as therapy for CNS disease; o anticonvulsants at a stable dose are allowed Patient did not have stereotactic radiation or whole-brain radiation within 14 days o before randomization Note: Patients with new asymptomatic CNS metastases detected at the screening scan must receive radiation therapy and/or surgery for CNS metastases Following treatment, these patients may then be eligible if all other criteria, o including those for patients with a history of brain metastases, are met. 11.
+
+Active autoimmune diseases or history of autoimmune diseases that may relapse (Appendix 4).
+
+Note: Patients with the following diseases are not excluded and may proceed to further screening: • Controlled type 1 diabetes • Hypothyroidism (if it is managed with hormone replacement therapy only) • Controlled celiac disease • Skin diseases not requiring systemic treatment (eg, vitiligo, psoriasis, alopecia) • Any other disease that is not expected to recur in the absence of external triggering factors 12.
+
+With a history of interstitial lung disease, non-infectious pneumonitis, or uncontrolled systemic diseases, including diabetes, hypertension, pulmonary fibrosis, acute lung diseases, etc. 13.
+
+Severe chronic or active infections requiring systemic antibacterial, antifungal, or antiviral therapy within 2 weeks before randomization, including but not limited to tuberculosis infection: a.
+
+Received therapeutic oral or intravenous antibiotics within 2 weeks before randomization CONFIDENTIAL Page 48 CONFIDENTIAL Page 189
+
+--- Page 49 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 14.
+
+Any active malignancy ≤ 2 years before randomization except for the specific cancer under investigation in this study and any locally recurring cancer that has been treated curatively (eg, resected basal or squamous cell skin cancer, superficial bladder cancer, carcinoma in situ of the cervix or breast) 15.
+
+Patients with untreated chronic hepatitis B virus (HBV), or chronic HBV carriers with HBV DNA ≥ 500 IU/mL (or > 2500 copies/mL) at screening, or patients with active hepatitis C virus (HCV): • Patients with inactive hepatitis B surface antigen (HBsAg) or treated and stable hepatitis B (HBV DNA < 500 IU/mL or < 2500 copies/mL) can be enrolled.
+
+The HBV DNA test will be performed for patients who have a positive antibody to hepatitis B core antigen test. • Patients with a negative HCV antibody test at screening or positive HCV antibody followed by a negative HCV RNA test at screening are eligible.
+
+The HCV RNA test will be performed only for patients who test positive for HCV antibody test.
+
+Note: Patients with detectable HBsAg or detectable HBV DNA should be managed per treatment guidelines.
+
+Patients receiving antivirals at Screening should have been treated for > 2 weeks prior to enrollment and should continue treatment for 6 months after study drug treatment discontinues. 16.
+
+A known history of HIV infection 17.
+
+Any of the following cardiovascular risk factors: a.
+
+Cardiac chest pain (defined as moderate pain that limits instrumental activities of daily living) ≤ 28 days before randomization b.
+
+Symptomatic pulmonary embolism ≤ 28 days before randomization c.
+
+Any history of acute myocardial infarction ≤ 6 months before randomization d.
+
+Any history of heart failure meeting New York Heart Association (NYHA) Classification III or IV (Appendix 5) ≤ 6 months before randomization e.
+
+Any event of ventricular arrhythmia ≥ Grade 2 in severity ≤ 6 months before randomization f.
+
+Any history of cerebrovascular accident ≤ 6 months before randomization g.
+
+Uncontrolled hypertension: systolic pressure ≥ 160 mmHg or diastolic pressure ≥ 100 mmHg despite anti-hypertension medications ≤ 28 days before randomization h.
+
+Any episode of syncope or seizure ≤ 28 days before randomization 18.
+
+Patients with toxicities (as a result of prior anticancer therapy) which have not recovered to baseline or stabilized at the time of randomization, except for AEs not considered a likely safety risk (eg, alopecia, neuropathy and specific laboratory abnormalities) 19.
+
+A history of severe hypersensitivity reactions to other monoclonal antibodies 20.
+
+A history of allergic reactions to cisplatin, carboplatin, or etoposide 21. ≥ Grade 2 peripheral neuropathy, as defined by NCI-CTCAE v5.0 criteria (cisplatin) CONFIDENTIAL Page 49 CONFIDENTIAL Page 190
+
+--- Page 50 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 22.
+
+Creatinine clearance < 60 mL/min for cisplatin or < 45 mL/min for carboplatin 23.
+
+Underlying medical conditions (including laboratory abnormalities) or alcohol or drug abuse or dependence that would be unfavorable for the administration of study drug or affect the explanation of drug toxicity or AEs or result in insufficient or might impair compliance with study conduct. 24.
+
+Concurrent participation in another therapeutic clinical study.
+
+Note: Concurrent participation in observational or noninterventional studies is allowed. 25.
+
+Women who are pregnant or are breastfeeding.
+
+CONFIDENTIAL Page 50 CONFIDENTIAL Page 191
+
+--- Page 51 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 5.
+
+Results from the nonclinical toxicology studies and clinical data with tislelizumab, as well as the nonclinical/clinical data from other PD-L1/PD-1 inhibitors, were considered.
+
+Specifically, patients who are at risk for study-emergent active autoimmune diseases or who have a history of autoimmune diseases that may relapse, patients who have undergone allogeneic stem cell or organ transplantation and patients who have received a live viral vaccine ≤ 28 days before randomization are excluded from the study.
+
+Patients with contraindications for comparator drug treatment are also excluded from the study (see Section 4.2 for the full list of exclusion criteria). 8.2.2.
+
+---
+
+5. Sample Size
+
+### Sample Size Justification
+
+Interim Analyses .........................................................................................................90 10.
+
+STUDY COMMITTEES AND COMMUNICATION ..............................................90 10.1.
+
+Independent Data Monitoring Committee ..................................................................90 CONFIDENTIAL Page 8 CONFIDENTIAL Page 149
+
+--- Page 9 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 11.
+
+SOURCE DOCUMENTS AND ACCESS TO SOURCE DATA/DOCUMENTS ...............................................................................................91 11.1.
+
+Access to Information for Monitoring ........................................................................91 11.2.
+
+Access to Information for Auditing or Inspections ....................................................91 12.
+
+QUALITY ASSURANCE AND QUALITY CONTROL .........................................91 12.1.
+
+Regulatory Authority Approval ..................................................................................91 12.2.
+
+Quality Assurance .......................................................................................................92 12.3.
+
+Study Site Inspections .................................................................................................92 12.4.
+
+Drug Accountability ...................................................................................................92 13.
+
+ETHICS/PROTECTION OF HUMAN PATIENTS ..................................................93 13.1.
+
+Ethical Standard ..........................................................................................................93 13.2.
+
+Institutional Review Board/Independent Ethics Committee ......................................93 13.2.1.
+
+Protocol Amendments ................................................................................................93 13.3.
+
+Informed Consent .......................................................................................................94 13.4.
+
+Patient and Data Confidentiality .................................................................................94 13.5.
+
+Financial Disclosure ...................................................................................................95 14.
+
+DATA HANDLING AND RECORD KEEPING ......................................................96 14.1.
+
+Data Collection and Management Responsibilities ....................................................96 14.1.1.
+
+Data Entry in the Electronic Case Report Form .........................................................96 14.1.2.
+
+Data Collection ...........................................................................................................96 14.1.3.
+
+Data Management/Coding ..........................................................................................96 14.2.
+
+Data Integrity and In-house Blinding .........................................................................97 14.3.
+
+Study Records Retention ............................................................................................97 14.4.
+
+Protocol Deviations ....................................................................................................98 14.5.
+
+Publication and Data Sharing Policy ..........................................................................98 14.6.
+
+Study and Study Center Closure .................................................................................99 14.7.
+
+Information Disclosure and Inventions ......................................................................99 15.
+
+REFERENCES .........................................................................................................101 APPENDIX 1.
+
+The estimates of the number of events required to demonstrate efficacy with regard to OS is based on the following assumptions: Overall survival: • Median OS of 12 months in Arm B • At a one-sided α of 0.025, 80% power to detect an OS HR of 0.74 in the ITT Analysis Set. • One OS interim analysis is planned in the ITT Analysis Set when approximately 80% of total OS events occurred, with Lan-DeMets’ approximation to O’Brien-Fleming boundary. • Exponential survival distribution is assumed for both Arm A and Arm B.
+
+In addition, we assumed a randomization ratio of 1:1.
+
+Approximately 455 patients are to be enrolled over a 22-month period at a steady-state enrollment rate of 26 patients per month with enrollment ramp-up duration of 9 months, and assuming a dropout rate of 5% per year for OS endpoint, a total of 353 OS events are required for the ITT Analysis Set for the final OS analysis.
+
+Interim Analyses: There will be 1 interim efficacy analysis of OS performed in the ITT Analysis Set.
+
+The interim efficacy analysis of OS will be performed with at least 282 OS events observed in the ITT Analysis Set.
+
+The analysis timing is projected at approximately 36 months after the first patient randomization.
+
+The final OS analysis will be conducted with 353 OS events at approximately 51 months after the first patient randomization.
+
+The interim boundary for OS is based on the Lan-DeMets approximation to O’Brien-Fleming boundary.
+
+The interim and final analysis timing, and stopping boundaries are summarized in Table a.
+
+Table a.
+
+Analysis Timing and Stopping Boundaries for OS in the ITT Analysis Set One-Sided Testing Boundary Time Type of Analysis # Events (Months) Approx.
+
+HR p-Value Boundary Threshold Interim Analysis 36 282 0.0122 0.765 Final Analysis 51 353 0.0214 0.806 Abbreviations: HR, hazard ratio; ITT, Intent-to-Treat; OS, overall survival CONFIDENTIAL Page 21 CONFIDENTIAL Page 162
+
+--- Page 22 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 LIST OF ABBREVIATIONS AND TERMS Abbreviation Definition ADA antidrug antibody AE adverse event ALT alanine aminotransferase AST aspartate aminotransferase AUC area under the plasma or serum concentration-time curve BGB-A317 tislelizumab BOR best overall response bTMB blood tumor mutation burden CNS central nervous system CR complete response CT computed tomography C lowest concentration before the next dose trough DCR disease control rate DOR duration of response ECG electrocardiogram ECOG Eastern Cooperative Oncology Group eCRF electronic case report form EDC electronic data capture (system) EORTC European Organisation for the Research and Treatment of Cancer EOT End-of-Treatment (Visit) ES-SCLC extensive-stage small cell lung cancer Fc fragment crystallizable region (typically, of immunoglobulin G) FDG fluorodeoxyglucose GEP gene expression profiling HBV hepatitis B virus HCV hepatitis C virus HR hazard ratio ICF informed consent form ICH International Council for Harmonisation IDMC Independent Data Monitoring Committee IEC Independent Ethics Committee IHC immunohistochemistry IMP investigational medicinal products imAE immune-mediated adverse event IRB Institutional Review Board CONFIDENTIAL Page 22 CONFIDENTIAL Page 163
+
+--- Page 23 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Abbreviation Definition ITT Intent-to-Treat (Analysis Set) NCCN National Comprehensive Cancer Network MedDRA Medical Dictionary for Regulatory Activities MRI magnetic resonance imaging NCI-CTCAE National Cancer Institute-Common Terminology Criteria for Adverse Events ORR overall response rate OS overall survival PCI prophylactic cranial irradiation PD-1 programmed cell death protein-1 PD-L1 programmed cell death protein ligand-1 PET positron emission tomography PFS progression-free survival PFS2 PFS after next line of treatment PK pharmacokinetic(s) PR partial response QLQ-C30 Quality of Life Questionnaire – Core 30 QLQ-LC13 Quality of Life Questionnaire supplement lung cancer module RECIST Response Evaluation Criteria in Solid Tumors SAE serious adverse event SAP Statistical Analysis Plan SCLC small cell lung cancer t half-life 1/2 TEAE treatment-emergent adverse event TMB tumor mutation burden ULN upper limit of normal CONFIDENTIAL Page 23 CONFIDENTIAL Page 164
+
+--- Page 24 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 1.
+
+INTRODUCTION 1.1.
+
+Background Information on Small Cell Lung Cancer Lung cancer is the most common cancer worldwide with approximately 1.8 million new diagnoses and 1.59 million deaths worldwide in 2012, which corresponds to the highest incidence among cancers and most common cancer-related mortality (Ferlay et al 2015).
+
+Globally, across all cancer types, lung cancer is more common in men (16.8%) as compared to women (8.8%).
+
+In China, there were estimated 733,300 new cases of lung cancer in 2015.
+
+Lung cancer is the leading cause of cancer-related death in both men and women with an estimated 610,200 deaths in China in 2015 (Chen et al 2016).
+
+Non-small cell lung cancer (NSCLC) accounts for approximately 85% of all cases of lung cancer (Molina et al 2008; Howlader et al 2014).
+
+Small cell lung cancer (SCLC) accounts for approximately 13% of all cases, and it is distinguished from NSCLC by its rapid growth time and early development of metastatic disease (Govindan et al 2006).
+
+Nearly all cases of SCLC are attributable to cigarette smoking (Pesch et al 2012).
+
+Poor prognostic factors for survival in patients with SCLC include extensive-stage disease, poor Eastern Cooperative Oncology Group (ECOG) Performance Status, weight loss, and markers associated with excessive bulk of disease (eg, lactate dehydrogenase) (Yip et al 2000; Foster et al 2009).
+
+Patients with limited-stage SCLC (LS-SCLC) can be treated with chemotherapy and radiation with the potential for long-term survival (Stinchcombe et al 2010).
+
+Unfortunately, the treatment achieves to cure only approximately 20% of patients with LS-SCLC, and those patients still suffer relapse within months of completing initial therapy (Simon et al 2007).
+
+The majority (approximately 70%) of patients with SCLC are diagnosed with extensive-stage disease (ES-SCLC), which has poor survival prospects (median overall survival [OS] approximately 10 months) (Socinski et al 2009).
+
+Chest pain, dyspnea, and cough are among the most frequent disease-related symptoms experienced by patients with lung cancer.
+
+Chemotherapy alone can palliate symptoms and prolong survival for patients with ES-SCLC; however, long-term survival is rare (Johnson et al 2004; Demedts et al 2010). 1.1.1.
+
+Standard Therapy for Extensive-Stage Small Cell Lung Cancer In the United States, the current standard first-line treatment for patients with ES-SCLC is platinum-based chemotherapy (cisplatin or carboplatin) with etoposide, a topoisomerase II inhibitor, for 4 cycles, while in Japan irinotecan is often combined with a platinum agent (NCCN 2019 v1, Fruh et al 2013).
+
+In the mid-1980s, clinical studies with the combination of cisplatin and etoposide as first-line treatment in patients with ES-SCLC showed complete response (CR) rates > 40% and median survival time of approximately 9 months (Evans et al 1985).
+
+Subsequently, small randomized studies have suggested similar efficacy of cisplatin and carboplatin in patients with SCLC (Skarlos et al 1994; Okamoto et al 2007).
+
+A meta-analysis of 4 randomized studies compared cisplatin-based versus carboplatin-based regimens in patients with SCLC (Rossi et al 2012).
+
+Of the 663 patients included in this meta-analysis, 68% had extensive-stage disease.
+
+In patients receiving cisplatinversus carboplatin-containing regimens, there was no significant difference observed in response rate (67% vs. 66%), progression-free survival (PFS) (5.5 vs. 5.3 months; hazard ratio [HR]: 1.10; 95% CI: 0.94, 1.29) or OS (9.6 vs. 9.4 months; HR: 1.08; 95% CI: 0.92, 1.27), suggesting equivalent efficacy in patients with CONFIDENTIAL Page 24 CONFIDENTIAL Page 165
+
+--- Page 25 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 SCLC.
+
+Several studies using cisplatin or carboplatin with etoposide (at various doses) have shown consistent outcomes (see Table 1).
+
+Table 1.
+
+Results From Randomized Studies Using Platinum-Based Chemotherapy for Extensive-Stage Small Cell Lung Cancer Median Median Platinum Etoposide ORR PFS OS Dose* Dose* (%) (months) (months) Roth et al Cisplatin 80 mg/m2 61% 4.3 8.6 1992 20 mg/m2 Days 1-5 Days 1-5 Pujol et al Cisplatin 100 mg/m2 61% 6.3 9.3 2001 100 mg/m2 Days 1-3 Day 2 Noda et al Cisplatin 100 mg/m2 68% 4.8 9.4 2002 80 mg/m2 Day 1 Days 1-3 Eckardt et al Cisplatin 100 mg/m2 69% 6.3 10.1 2006 80 mg/m2 Day 1 Days 1-3 Hanna et al Cisplatin 120 mg/m2 44% 4.6 10.2 2006 60 mg/m2 Day 1 Days 1-3 Okamoto et al Cisplatin 80 mg/m2 73% 4.7 9.9 2007 25 mg/m2 Days 1-3 Days 1-3 Okamoto et al Carboplatin 80 mg/m2 73% 5.2 10.6 2007 AUC 5 Day 1 Days 1-3 Rudin et al Carboplatin 100 mg/m2 52% 5.4 10.6 2008 AUC 5 Day 1 Days 1-3 Socinski et al Carboplatin 80 mg/m2 60% 7.6 10.6 2009 AUC 5 Day 1 Days 1-3 Nagel et al Carboplatin 120 mg/m2 67% 7.0 11.0 2011 AUC 6 Day 1 Days 1-3 Schmittel et Carboplatin 140 mg/m2 52% 6.0 9.0 al 2011 AUC 5 Day 1 Days 1-3 Abbreviations: AUC, area under the concentration-time curve; ORR, overall response rate; OS, overall survival; PFS, progression-free survival *Both platinum and etoposide are administered on a 3-week cycle basis In the second-line setting, single-agent topotecan approved by the US Food and Drug Administration (US FDA) serves as subsequent therapy for patients with SCLC who initially respond to chemotherapy but then progress after 2 3 months.
+
+This treatment is based on a Phase 3 study in which intravenous topotecan was compared with the combination regimen CAV (cyclophosphamide, doxorubicin, and vincristine).- Both arms had similar response rates and survival; however, the proportion of patients who experienced symptom improvement was greater in the topotecan group than in the CAV group for 4 of 8 symptoms evaluated, including CONFIDENTIAL Page 25 CONFIDENTIAL Page 166
+
+--- Page 26 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 dyspnea, anorexia, hoarseness, and fatigue, as well as interference with daily activity (Von Pawel et al 1999).
+
+Subsequently, a Phase 3 study also showed the superiority of oral topotecan versus best supportive care for patients who had relapsed SCLC and were not considered candidates for standard intravenous therapy (O’Brien et al 2006).
+
+In the thirdand further-line setting, anlotinib, a novel multitarget small molecule tyrosine kinase inhibitor (TKI), has been approved by the National Medical Products Administration(NMPA) in China and serves as subsequent therapy for SCLC patients who had previously received at least 2 chemotherapy regimens.
+
+The approval of this treatment is based on a Phase 2 randomized study which was initiated to confirm the efficacy and safety of anlotinib versus placebo in third-line and further-line treatment of SCLC.
+
+Median OS in the anlotinib arm was significantly improved compared with that in the placebo arm (7.3 months versus 4.9 months; HR, 0.53; 95% CI, 0.30 to 0.92).
+
+The safety profile was consistent with what has been observed in patients with other solid tumors receiving anlotinib as single agent and no newly adverse events were identified (Cheng et al 2018).
+
+Despite the impressive initial response rates observed with first-line chemotherapy regimens and improved survival with further-line chemotherapy or novel small molecule, most patients with ES-SCLC develop chemotherapy resistant disease and their prognosis is still poor.
+
+PFS is mostly < 6 months and median survival remains <1 year.
+
+There is a significant need for novel treatment options for patients who have ES-SCLC.
+
+Immunotherapeutic agents, including antibodies that modulate immune cell activity, offer an alternative treatment approach that could potentially improve the prognosis of patients with this disease. 1.1.2.
+
+PD-1 Pathway-Targeting Studies in Patients With Extensive-Stage Small Cell Lung Cancer Strategies targeting programmed cell death protein-1 (PD-1) pathway alone or in combination with anti-cytotoxic T-lymphocyte-associated protein 4 (CTLA-4) agents have shown encouraging efficacy signals in patients with previously treated ES-SCLC.
+
+The Phase I/II CheckMate 032 study explored the efficacy of nivolumab, a human immunoglobulin G4 (IgG4) anti-PD-1 receptor antibody as monotherapy (3 mg/kg), or in combination with ipilimumab, an anti-cytotoxic-T lymphocyte-associated antigen 4 (anti-CTLA-4) monoclonal antibody (1 mg/kg plus 1 mg/kg; 1 mg/kg plus 3 mg/kg or 3 mg/kg plus 1 mg/kg) followed by nivolumab maintenance therapy in patients who had progressed following at least one prior line of a platinum-containing systemic chemotherapy (Antonia et al 2016).
+
+Based on the overall response rate (ORR) and duration of response (DOR) in the monotherapy arm among 109 patients with SCLC data which showed an ORR of 12% (95% confidential interval [CI]: 6.5, 19.5) and a DOR of 13 months per Response Evaluation Criteria in Solid Tumors (RECIST) Version 1.1 (RECIST v1.1) (range: 3.0, 42.1) both assessed by blinded independent central review (BICR), nivolumab has been granted accelerated approval for treating patients with metastatic SCLC whose cancer have progressed after platinum-based chemotherapy and ≥ 1 other line of therapy by US FDA in August 2018 (OPDIVO [nivolumab] package insert).
+
+Confirming the initial efficacy signal, more robust data from approximately 400 patients enrolled on the study displayed a doubling of the response rate in patients treated with the combination versus nivolumab alone (22% vs. 9%) (Hellmann et al 2017).
+
+Based on these data, in August 2018, nivolumab was approved by the US FDA to treat patients with metastatic SCLC whose disease has progressed after platinum-based CONFIDENTIAL Page 26 CONFIDENTIAL Page 167
+
+--- Page 27 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 chemotherapy and ≥ 1 other line of therapy.
+
+The safety profile of nivolumab observed in patients with metastatic SCLC was generally similar to that observed in patients with other solid tumors who received it as a single agent (OPDIVO [nivolumab] package insert).
+
+Pembrolizumab, another monoclonal antibody against PD-1 was tested in the KEYNOTE-028 study.
+
+KEYNOTE-028 is a nonrandomized, multicohort Phase 1b study in patients with programmed cell death protein ligand-1 (PD-L1)-positive advanced solid tumors.
+
+Patients received pembrolizumab 10 mg/kg every 2 weeks for up to 2 years or until confirmed progression or intolerable toxicity, death, withdrawal of consent, or physician decision.
+
+This PD-1 antibody similarly demonstrated a promising response rate of 33% (8/24 patients) with median duration of response of 19.4 months and 1-year survival of 37.7% in previously treated PD-L1 positive (≥ 1% staining) ES-SCLC patients (Ott et al 2017).
+
+PD-1 pathway-targeting antibodies are under active investigation in the first-line treatment setting for ES-SCLC studies, as demonstrated by the list of currently ongoing studies (Table 2).
+
+IMpower133 is a Phase 3 study comparing the efficacy of atezolizumab, an anti-PD-L1 antibody, versus placebo when administered in combination with carboplatin and etoposide in patients with ES-SCLC and is the first frontline pivotal study to read out.
+
+Between 06 June 2016 and 31 May 2017, a total of 403 patients were enrolled, with 201 patients randomly assigned to the atezolizumab group and 202 patients to the placebo group (Horn et al 2018).
+
+At a median follow-up of 13.9 months, the median OS was 12.3 months in the atezolizumab group and 10.3 months in the placebo group (HR for death, 0.70; 95% confidence interval [CI], 0.54 to 0.91; P = 0.007).
+
+The median PFS was 5.2 months and 4.3 months, respectively (HR for disease progression or death, 0.77; 95% CI, 0.62 to 0.96; P = 0.02) (Horn et al 2018).
+
+In the subgroup analysis of Japanese patients, the median OS in the atezolizumab group (n = 20, 14.6 months; 95% CI, 11.8 to 17.8 months) was longer than that in the placebo group (n = 22, 11.9 months; 95% CI, 8.4 to 15.8 months); HR is 0.72 (95% CI, 0.31 to 1.67) (Nishio et al 2019a).
+
+The safety profile of atezolizumab plus carboplatin and etoposide was consistent with the previously reported safety profile of the individual agents, with no new findings observed (Horn et al 2018).
+
+Based on those data, atezolizumab in combination with carboplatin and etoposide is now recommended as one of the treatment regimens for ES-SCLC by National Comprehensive Cancer Network (NCCN) guideline (NCCN 2019 v1).
+
+CASPIAN is a Phase 3 study comparing the efficacy of durvalumab, an anti-PD-L1 antibody, with or without tremelimumab, in combination with platinum (carboplatin or cisplatin)-etoposide in patients with ES-SCLC.
+
+Between 27 March 2017 and 29 May 2018, a total of 537 patients were enrolled; 268 patients were allocated to the durvalumab plus platinum-etoposide group and 269 patients were to the platinum-etoposide group.
+
+At a median follow-up of 14.2 months, the median OS was 13.0 months in the durvalumab plus platinum-etoposide group and 10.3 months in the platinum-etoposide group (HR, 0.73; 95% CI, 0.59 to 0.91; P = 0.0047) (Paz-Ares et al 2019).
+
+In the prespecified exploratory endpoints, OS analysis in the Asian subpopulation was consistent with that in the global population.
+
+The median OS was 14.8 months with durvalumab plus platinum-etoposide versus 11.9 months with platinum-etoposide (HR, 0.87; 95% CI, 0.45 to 1.64) (Nishio et al 2019b).
+
+The safety profile of durvalumab plus platinum-etoposide was consistent with the known safety profiles of all drugs received (Paz-Ares et al 2019).
+
+Based on these data, durvalumab in combination with platinum-etoposide is also recommended as one of the treatment regimens for ES-SCLC by NCCN guideline (NCCN 2020 v2).
+
+CONFIDENTIAL Page 27 CONFIDENTIAL Page 168
+
+--- Page 28 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Keynote604 is another Phase 3 study comparing the efficacy of immunotherapy versus placebo when administered in combination with carboplatin or cisplatin and etoposide in patients with ES-SCLC.
+
+At a median follow-up of 21.6 months, the median OS was 10.8 months (95% CI, 9.2 to 12.9 months) in the pembrolizumab plus platinum-etoposide arm and 9.7 months (95% CI, 8.6 to 10.7 months) in the placebo plus platinum-etoposide arm.
+
+The significance boundary was not reached in the ITT population (HR, 0.80; 95% CI, 0.64 to 0.98; P = 0.0164).
+
+But in a post hoc analysis of OS in the as treated population: nominal P = 0.0124 (HR, 0.78; 95% CI, 0.63 to 0.97) (Rudin et al 2020).
+
+The findings in IMpower133 and CASPIAN, together with efficacy signals from Keynote604 and other studies of monotherapy in later lines of therapy, support the benefit of checkpoint inhibitors as first line treatment in ES-SCLC.
+
+Table 2.
+
+Ongoing First-Line PD-1 Pathway-Targeting Immunotherapy Studies in ESSCLC Name Study arms Phase REACTION Platinum/etoposide +/– pembrolizumab 2 KEYNOTE 604 Platinum/etoposide +/– pembrolizumab 3 IMpower133 Carboplatin/etoposide +/– atezolizumab 3 Caspian Platinum/etoposide+ durvalumab +/– 3 tremelimumab vs. chemotherapy alone MCC-18914 Platinum/etoposide followed by 1/2 thoracic radiation +/– nivolumab +ipilimumab NCT02402920 Platinum/etoposide followed by 1 thoracic radiation +/– pembrolizumab Abbreviations: ES-SCLC, extensive-stage small cell lung cancer; PD-1, programmed cell death protein-1; vs, versus 1.2.
+
+Background Information on Tislelizumab 1.2.1.
+
+Pharmacology Tislelizumab (also known as BGB-A317) is a humanized, IgG4-variant monoclonal antibody against PD-1 under clinical development for the treatment of several human malignancies.
+
+Tislelizumab acts by binding to the extracellular domain of human PD-1 with high specificity as well as high affinity (dissociation constant [KD]=0.15 nM).
+
+It competitively blocks binding efforts by both programmed cell death protein ligand-1 (PD-L1) and programmed cell death protein ligand-2 (PD-L2), thus inhibiting PD-1-mediated negative signaling in T cells.
+
+In in vitro cell-based assays, tislelizumab was observed to consistently and dose-dependently enhance the functional activity of human T cells and pre-activated, primary peripheral blood mononuclear cells.
+
+In addition, tislelizumab has demonstrated antitumor activity in several allogeneic xenograft models, in which peripheral blood mononuclear cells were co-injected with human cancer cells (A431 [epidermoid carcinoma]) or tumor fragments (BCCO-028 [colon cancer]) into immunocompromised mice.
+
+CONFIDENTIAL Page 28 CONFIDENTIAL Page 169
+
+--- Page 29 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 In addition, tislelizumab is an IgG4-variant antibody to gamma fragment crystallizable region (Fc) receptors (FcγR) such as FcγRI and FcγRIIIA.
+
+It has very low binding affinity to Complement 1q (C1q), a subunit of complement 1.
+
+In vitro assays with tislelizumab suggest either low or no antibody-dependent cellular cytotoxicity (ADCC), antibody-dependent cellular phagocytosis (ADCP), or complement-dependent cytotoxicity (CDC) effects in humans (Labrijn et al 2009; Zhang et al 2018).
+
+Please refer to the tislelizumab Investigator’s Brochure for additional details regarding nonclinical studies of tislelizumab. 1.2.2.
+
+Toxicology The toxicity and safety profile of tislelizumab was characterized in single-dose toxicology studies in mice and monkeys and in a 13-week, repeat-dose toxicology study in cynomolgus monkeys.
+
+Tissue cross-reactivity was evaluated in the normal frozen tissues from both humans and monkeys.
+
+The cytokine release assays were also evaluated using fresh human whole blood cells.
+
+The pivotal toxicology studies were conducted following Good Laboratory Practice (GLP) regulations.
+
+The single-dosing regimens spanned from the intended human doses to 10-fold higher than the maximum of the intended human doses, and the repeat-dosing regimens spanned to 3-fold higher than the maximum of the intended human doses.
+
+Cynomolgus monkey was the only relevant species based on the target sequence homology and binding activity.
+
+Overall, no apparent toxicity was noted in mice or monkey toxicity studies.
+
+No tissue cross-reactivity was found in either human or monkey tissues, nor was any effect on cytokine release observed in human whole-blood assay.
+
+The toxicokinetics profile was well characterized, with dose proportional increases in systemic exposure without apparent accumulation or sex difference.
+
+Immunogenicity was observed without apparent immunotoxicity or effect on the systemic exposure.
+
+The No Observed Adverse Effect Level (NOAEL) of tislelizumab in the 13-week monkey toxicity study was considered to be 30 mg/kg.
+
+The safety profile of tislelizumab is considered adequate to support the current Phase 3 study BGB-A317-312.
+
+Please refer to the tislelizumab Investigator’s Brochure for more detailed information on the toxicology of tislelizumab. 1.2.3.
+
+Clinical Pharmacology In the Phase 1 BGB-A317_Study_001 and Study BGB-A317-102, interim pharmacokinetics (PK) analysis (data cutoff date 28 August 2017) was conducted using noncompartmental methods, using serum concentrations from patients who received doses of 0.5, 2.0, 5.0, and 10 mg/kg once every 2 weeks, and 2.0 mg/kg, 5.0 mg/kg, and 200 mg once every 3 weeks (Phase 1a Parts 1, 2, and 3, and Phase 1b in BGB-A317_Study_001), and patients who received doses of 200 mg once every 3 weeks in Phase 1 of Study BGB-A317-102 (n=19).
+
+The maximum observed plasma concentration (C ) and the area under the plasma or serum concentration-time max curve (AUC) increased in a nearly dose-proportional manner from 0.5 mg/kg to 10 mg/kg, both after single-dose administration at steady state.
+
+Preliminary PK data from 27 patients who were administered 1 dose of 200 mg once every 3 weeks (Phase 1a, Part 3 and Study BGB-A317-102) showed tislelizumab concentrations between the range of concentrations observed for patients who were administered 2 mg/kg and 5 mg/kg doses.
+
+CONFIDENTIAL Page 29 CONFIDENTIAL Page 170
+
+--- Page 30 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Preliminary population PK analysis using a 2-compartment model with first-order elimination shows a systemic plasma clearance (CL) of tislelizumab of 0.173 L/day, volume of distribution (V ) in the central and peripheral compartments of 2.89 L and 1.76 L, respectively, and half-life d (t of approximately 19 days.
+
+Race, gender, and body weight were not significant covariates on 1/2) the CL of tislelizumab, which supports fixed-dosing across different ethnic groups. 1.2.4.
+
+Prior Clinical Experience of Tislelizumab As of 28 February 2018, there are 13 ongoing studies with tislelizumab, including monotherapy and combination studies in solid tumors and hematological malignancies.
+
+Of the ongoing monotherapy studies in solid tumors, available data from BGB-A317_Study_001 and BGB-A317-102 are summarized below (with a data cutoff date of 28 August 2017).
+
+Data from one ongoing study, BGB-A317-206, on tislelizumab combined with chemotherapy as first-line treatment in patients with lung cancer including 1 cohort with 17 SCLC patients are also summarized below (Section 1.2.4.4).
+
+Please refer to the tislelizumab Investigator’s Brochure for more detailed information on efficacy and safety of tislelizumab. 1.2.4.1.
+
+BGB-A317_Study_001 (Data Cutoff 28 August 2017) Study BGB-A317_Study_001 is a 2-stage study consisting of a Phase 1a dose-escalation and dose-finding component with 3 parts to establish the maximum tolerated dose (MTD), if any, a recommended Phase 2 dose (RP2D) for the Phase 1b, and a flat dose (fixed dose) followed by a Phase 1b component to investigate efficacy in select tumor types in indication expansion arms and to further evaluate safety and tolerability of tislelizumab.
+
+As of 28 August 2017, in Phase 1a, 116 patients had received tislelizumab at dose regimens including 0.5 mg/kg, 2 mg/kg, 5 mg/kg, or 10 mg/kg once every 2 weeks; 2 mg/kg or 5 mg/kg once every 3 weeks; and 200 mg once every 3 weeks.
+
+In Phase 1b, 323 patients had received tislelizumab in Phase 1b across 9 indication-expansion cohorts.
+
+Overall, for the 439 patients in the study, the median age was 60.0 years, 53.8% of the population was male, and 65.6% of patients were white.
+
+The median number of prior anticancer therapy regimens was 2 (range: 0 to 12).
+
+The median treatment exposure duration was 2.50 months (range: 0 to 23.0), and the median study follow-up duration was 5.56 months (range: 0.0 to 26.9).
+
+As of 28 August 2017, there were 210 patients (47.8%) remaining on study in Study BGB-A317_Study_001.
+
+Preliminary Safety Of the 439 total patients in the Safety Population for BGB-A317_Study_001, 240 (54.7%) experienced at least 1 treatment-emergent adverse event (TEAE) assessed as related to tislelizumab by the investigator and 34 (7.7%) experienced at least 1 ≥ Grade 3 related TEAE.
+
+The most commonly occurring related TEAEs for patients treated with the tislelizumab monotherapy in BGB-A317_Study_001 were fatigue (12.8%), rash (7.7%), nausea (6.8%), diarrhoea (6.6%), and hypothyroidism (4.8%).
+
+The ≥ Grade 3 related TEAEs occurring in ≥ 2 patients were pneumonitis (6 patients, 1.4%); colitis and alanine aminotransferase (ALT) increased (4 patients each, 0.9%); fatigue, type 1 diabetes mellitus, and aspartate CONFIDENTIAL Page 30 CONFIDENTIAL Page 171
+
+--- Page 31 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 aminotransferase (AST) increased (3 patients each, 0.7%); and diarrhoea, gamma-glutamyltransferase (GGT) increased, and diabetic ketoacidosis (2 patients each, 0.5%).
+
+All other events occurred in single patients.
+
+Lastly, 18 patients (4.1%) experienced an infusionrelated reaction; all were mild/moderate in severity.
+
+Preliminary Efficacy • For patients in Phase 1a (n=116, evaluable), there were 20 patients with a confirmed response and 42 patients with a best overall response (BOR) of stable disease. • For patients in Phase 1b (n=286 evaluable), a total of 26 patients had a confirmed response.
+
+Additionally, there were 101 patients with a BOR of stable disease. 1.2.4.2.
+
+Study BGB-A317-102 (Data Cutoff 28 August 2017) This Phase 1/2 study is a dose verification of tislelizumab and an indication-expansion study of tislelizumab conducted in Chinese patients with advanced solid tumors.
+
+Overall, for the 123 patients in Study BGB-A317-102, the median age was 54.0 years, 66.7% of the population was male, and 100% of patients were Asian (Chinese).
+
+The median number of prior anticancer therapy regimens was 2 (range: 0 to 9).
+
+The median treatment exposure duration was 1.78 months (range: 0 to 8.0), and the median study follow-up duration was also 1.78 months (range: 0.0 to 8.0).
+
+As of 28 August 2017, there were 113 patients (91.9%) remaining on study in Study BGB-A317-102.
+
+Preliminary Safety Of the 123 total patients in the Safety Population for Study BGB-A317-102, 69 (56.1%) experienced at least 1 TEAE assessed as related to tislelizumab by the investigator and 10 (8.1%) were ≥ Grade 3 in severity.
+
+The most commonly occurring related TEAEs were AST increased (20 patients, 16.3%), ALT increased (17 patients, 13.8%), and blood bilirubin increased and anaemia (13 patients each, 10.6%).
+
+The ≥ Grade 3 related TEAEs occurring in ≥ 2 patients were AST increased (3 patients, 2.4%) and ALT increased (2 patients, 1.6%).
+
+All other events occurred in single patients, including a case of retinal detachment (Grade 4).
+
+Preliminary efficacy data are not yet available. 1.2.4.3.
+
+Immune-Mediated Reactions In patients treated with tislelizumab monotherapy, the following immune-mediated adverse events (imAEs) were observed: • Acute hepatitis and abnormal liver function have been reported, including 1 patient with fatal hepatitis.
+
+Additionally, 3.2% of patients experienced treatment-related abnormal liver function tests, and 1.4% of patients experienced immune-mediated hepatitis or hyperbilirubinaemia. • Pneumonitis has been reported in 2.1% of patients, including 1 patient with fatal pneumonitis. • Colitis has been reported in approximately 2% of patients treated.
+
+Diarrhoea has been reported in 6.6% of patients.
+
+CONFIDENTIAL Page 31 CONFIDENTIAL Page 172
+
+--- Page 32 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • Endocrinopathies have been reported including diabetes mellitus (hyperglycemia and ketoacidosis).
+
+In addition, thyroiditis, including thyrotoxicosis and hypothyroidism has been reported.
+
+Furthermore, hypophysitis has been reported in < 1% of patients treated. • Other immune-mediated events (< 1% of patients with tislelizumab monotherapy except where noted): skin reactions (20.5%, including rash and pruritus); arthralgia (2.5%); haemolytic anaemia, nephritis, proteinuria (1.8%); encephalitis, neuropathy, arthritis, pancreatitis, stomatitis, uveitis, and dry eye (1.4%).
+
+Beyond patients treated with tislelizumab monotherapy, a case of fatal myocarditis and polymyositis was reported in 1 patient who received a single dose of tislelizumab, in combination with paclitaxel and cisplatin.
+
+The patient’s initial symptoms were dyspnea and tea-colored urine 2 weeks after starting treatment.
+
+Elevated urine and serum cardiac and skeletal muscle enzymes were reported.
+
+The patient died of multi-organ failure 6 days later. 1.2.4.4.
+
+Study BGB-A317-206 (Data Cutoff 05 June 2018) BGB-A317-206 is a multi-arm Phase 2 study, consisting of safety run-in and dose-extension phases, to assess tislelizumab in combination with varying platinum-based chemotherapy (by tumor histology) in 4 cohorts as a potential first-line treatment for Chinese patients with lung cancer.
+
+All patients received tislelizumab at 200 mg once every 3 weeks in combination with 4–6 cycles of platinum-doublet until disease progression.
+
+One cohort enrolled patients with small-cell lung cancer (SCLC) who received tislelizumab in combination with etoposide + platinum on a 3 week cycle basis.
+
+Tumor response per RECIST v1.1 and safety/tolerability were evaluated.
+
+As of 05 June 2018, 54 patients received tislelizumab treatment, 17 of those were patients with SCLC.
+
+In the SCLC cohort, the median durations of tislelizumab and chemotherapy are 18.0 and 16.0 weeks respectively, 10 patients are still on treatment, among the 7 patients who had discontinued treatment, 6 of them discontinued treatment due to disease progression.
+
+In the efficacy analysis, confirmed and unconfirmed partial response (PR) were observed in 8 and 6 patients, respectively, and the median time to initial response is 7.0 weeks, the median duration of response is still not reached as of the data cutoff date.
+
+In the safety analysis, there are 13 patients (76.5%) with at least one ≥ Grade 3 TEAE, 5 patients (29.4%) with ≥ 1 serious adverse event (SAE), which are all treatment related, 12 patients (70.6%) with TEAE leading to discontinuation of tislelizumab treatment.
+
+The most frequent adverse events (AEs) were chemotherapy-related hematologic toxicities.
+
+The most commonly reported ≥ Grade 3 TEAE was neutrophil count decreased (47.1%); there are 4 patients with ≥ 1 immune-mediated TEAE.
+
+The most commonly reported TEAE related to tislelizumab was decreased appetite (17.6%). 1.3.
+
+Study Rationales 1.3.1.
+
+Rationale for Testing Tislelizumab in Combination with Chemotherapy in the Treatment of Extensive-Stage Small Cell Lung Cancer Currently, the standard-of-care first-line treatment for patients with ES-SCLC is platinum-based chemotherapy (cisplatin or carboplatin) plus etoposide for 4 cycles (NCCN 2019 v1; Fruh et al 2013).
+
+Despite the initial response rates observed with the first-line chemotherapy regimens, the prognosis of patients with ES-SCLC remains dismal, with a median OS of approximately 9 11 months.
+
+Multiple targeted agents that have been investigated in the past 2 decades including - CONFIDENTIAL Page 32 CONFIDENTIAL Page 173
+
+--- Page 33 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 those targeting tyrosine kinases (TKIs) such as epidermal growth factor receptor (EGFR) TKIs and BCR-ABL TKIs, mammalian target of rapamycin (mTOR) signaling pathway, and vascular endothelial growth factor (VEGF) signaling pathway have been unsuccessful in showing a survival advantage in this disease (Mamdani et al 2015).
+
+There is a significant unmet clinical need for new agents with novel mechanisms of action and non-overlapping toxicity, which can be combined with established treatments.
+
+Drugs targeting PD-1 and its ligand, PD-L1, have shown a manageable safety profile and promising efficacy including increased response rate, prolongation of median duration of response and OS as firstand second-line treatment in SCLC patients whose disease progressed on platinum-based chemotherapy (Section 1.1.2).
+
+Increasing evidence suggests that the antitumor activity of chemotherapy is mediated not only through cytotoxic effects, but also through immunological effects, including reducing T regulatory cell activity and enhancing cross-presentation of tumor antigens.
+
+Chemotherapy has also been shown to induce PD-L1 expression on tumor cells (Jin and Yoon 2016; Ono Pharmaceutical 2017; Patel and Kurzrock 2015; Van Der Kraak et al 2016; McDaniel et al 2016; Gong et al 2011).
+
+Whole exome sequencing studies have shown that SCLC exhibits a high mutation rate (7.4 mut/Mb) compared with other types of tumors.
+
+Therefore, SCLC may be a highly immunogenic tumor with higher potential to benefit from treatment with immune-checkpoint inhibitors (Rudin et al 2012).
+
+In addition, nearly all cases of SCLC are attributable to cigarette smoking, which has been shown to be associated with benefit from anti-PD-L1/anti-PD-1 antibodies (Borghaei et al 2015; Garon et al 2015).
+
+Multiple studies in SCLC showed that combining immunotherapy with chemotherapy has the potential to improve its anticancer activity.
+
+The manageable safety profile and promising antitumor activities observed with PD-1 or PD-L1 antibodies under investigation in combination with chemotherapy as first-line therapy in patients with SCLC provide justification for this study design (Section 1.1.2).
+
+High levels of FcγR-expressing myeloid derived cells (eg, M2 macrophage, MDSC) in tumor tissues predict a poor survival of tumor-bearing animals after anti-PD-1 monoclonal antibody treatment; this is possibly due to Fc-FcγR-mediated ADCC or antibody-dependent cellular phagocytosis (ADCP) depletion of effector T cells (Gül et al 2015; Prieto et al 2015; MakarovaRusher et al 2015; Beers et al 2016; Dahan et al 2015).
+
+As a noto low-FcγR-binding agent (thus causing minimal ADCC/ADCP effect), tislelizumab may show superior efficacy and lower toxicity in clinical application.
+
+Based on preliminary data with tislelizumab monotherapy in a Phase 1 study (BGB-A317_Study_001), tislelizumab appears comparable to other anti-PD-1 checkpoint inhibitors (CPI) in terms of safety and preliminary activity in patients with advanced solid tumors.
+
+In addition, the ongoing Phase 2 study (BGB-A317-206) which evaluates the combination of tislelizumab and various standard-of-care chemotherapies in first-line lung cancer did not show new safety signals compared to other checkpoint inhibitor plus chemotherapy.
+
+And the combination of tislelizumab with chemotherapy has demonstrated promising efficacy in ES-SCLC first line treatment (Section 1.2.4.4; Zhao et al 2018).
+
+According to data collected from the Phase 1 BGB-A317_Study_001 and the Phase 2 BGB-A317-206, irrespectively of monotherapy or in combination with platinum-based CONFIDENTIAL Page 33 CONFIDENTIAL Page 174
+
+--- Page 34 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 chemotherapy, tislelizumab has established a manageable safety profile, with the most common side effects consistent with known class effects of other anti-PD-1 antibodies (Section 1.4). 1.3.2.
+
+Rationale for Selection of Tislelizumab Dose in Combination With Chemotherapy The PK, safety, and efficacy data obtained from the first-in-human study BGBA317_Study_001, as well as other clinical study data, were analyzed in aggregate to determine the recommended dose for pivotal studies of tislelizumab.
+
+The flat dose of 200 mg intravenously once every 3 weeks was selected for further evaluation.
+
+Rates of treatment-related AEs and SAEs observed in patients receiving 2 mg/kg and 5 mg/kg once every 2 weeks and once every 3 weeks were comparable, suggesting no clear dosedependence across these regimens.
+
+Similarly, confirmed overall response rates (ORRs) in patients treated with tislelizumab 2 mg/kg and 5 mg/kg once every 2 weeks ranged between 10% and 15%, compared to a range of 15% to 38% for patients treated at 2 mg/kg and 5 mg/kg once every 3 weeks.
+
+According to PK data from BGB-A317_Study_001, Phase 1a, the CL of tislelizumab was found to be independent of body weight, ethnicity, and gender, and the observed serum exposure of a 200-mg dose fell between serum exposure observed after 2 mg/kg and 5 mg/kg doses (dose range with comparable safety and efficacy rates).
+
+Additionally, no unexpected treatment-related AEs occurred in the 200-mg fixed dose cohort (BGB-A317_Study_001, Phase 1a, Part 3) when compared to body-weight-based cohorts.
+
+Of the evaluable patients treated (n=13), 3 patients (23%) had a BOR of PR, 4 patients (31%) had a BOR of stable disease, and 6 patients (46%) had a BOR of progressive disease (PD).
+
+Therefore, clinical activity with a manageable and tolerable safety profile is expected to be maintained in patients receiving tislelizumab 200 mg once every 3 weeks.
+
+Further, preliminary data from the ongoing Phase II BGB-A317-206 study which evaluates the combination of tislelizumab at the fixed dose of 200 mg Q3W with etoposide and platinum chemotherapy at the dose of standard of care as treatment for first-line SCLC (see Section 1.2.4.4) supports the dose and schedule.
+
+The doses of all chemotherapy drugs are based on product labelling, literature, and local guidelines.
+
+Several Phase 1 and Phase 2 studies showed that the safety profile of anti-PD-1 antibodies in combination with platinum-based chemotherapy was consistent with that expected in individual agents.
+
+There were no known overlapping, significant toxicities or drug-drug interactions between anti-PD-1 antibodies and platinum or etoposide observed in these studies.
+
+In conclusion, tislelizumab 200 mg once every 3 weeks is the recommended dose for pivotal studies. 1.3.3.
+
+Rationale for Placebo Plus Cisplatin or Carboplatin and Etoposide as the Comparator The current standard-of-care first-line treatment for ES-SCLC is platinum-based chemotherapy plus etoposide.
+
+In this study, patients in the control arm (Arm B) will receive 4 cycles of placebo + platinum (cisplatin or carboplatin) + etoposide in the Induction treatment period, CONFIDENTIAL Page 34 CONFIDENTIAL Page 175
+
+--- Page 35 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 followed by placebo alone in the Maintenance treatment period until radiographic disease progression per RECIST v1.1.
+
+Treatment for Arm B (control arm) has been widely applied as a standard of care for the first-line treatment of ES-SCLC (see Section 1.1.1). 1.3.4.
+
+Rationale for Overall Survival as Primary Endpoint OS is the primary endpoint for this study.
+
+Improvement in OS is generally accepted as the best measure of clinical benefit for patients with advanced/unresectable or metastatic lung cancer.
+
+In addition, immunotherapies are emerging as highly effective regimens that are providing improvements in patient outcomes beyond what has been previously achieved (Ellis et al 2014), and has been demonstrated to be correlated or associated with durable responses, and eventually lead to a prolongation of OS. 1.3.5.
+
+Rationale for Allowing Selected Patients to Continue Treatment Beyond Radiographic Disease Progression per RECIST v1.1 First-line therapy with a platinum agent and etoposide has consistently demonstrated high response rates and significant clinical benefit in patients with ES-SCLC.
+
+However, after disease progression, treatment options are limited and such options have shown limited efficacy and significant toxicity (see Section 1.1.1).
+
+In light of the fact that the second-line therapies have an unfavorable benefit-risk profile manifested by poor efficacy and high toxicity, and the potential for pseudoprogression/tumor-immune infiltration as a result of immunotherapy which may not be reflected without bias in the initial radiographic evaluation, patients may be considered for treatment beyond radiographic disease progression per RECIST v1.1 at the discretion of the investigator and after discussion with the medical monitor.
+
+In addition, the treatment will be started only after appropriate discussion with the patient and informed consent being obtained, and only if the patient meets all of the criteria described in Section 3.3.
+
+Patients who continue treatment beyond radiographic disease progression per RECIST v1.1 should be closely monitored clinically and tumor assessment should continue as scheduled until loss of clinical benefit (see Section 3.3). 1.3.6.
+
+Rationale for Patient-Reported Outcome Assessments Patient-reported outcomes assessments have been shown to provide the most robust descriptions of the treatment experience, with the incorporation of multiple modes of endpoint measurements in clinical studies, and they would supplement the data derived from clinical reported CTCAE (Dajczman et al 2008).
+
+With growing recognition of the importance of patient-centered care, PROs have also been reported to have positive effects on the well-being of patients who have cancer (Basch et al 2016).
+
+In the treatment of lung cancer, it is important to increase survival and palliate symptoms because disease symptoms have negative impacts on health-related quality of life (HRQoL) (Hyde and Hyde 1974; Hopwood and Stephens 1995; Sarna et al 2004).
+
+This is especially true for studies that have PFS as a primary endpoint, where it is important to better understand in what regard the delay in disease progression is meaningful to patients.
+
+Evidence of benefits CONFIDENTIAL Page 35 CONFIDENTIAL Page 176
+
+--- Page 36 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 assessed by PROs in the chemotherapeutic setting, specifically in patients with lung cancer, would further characterize clinical benefit beyond radiographic measures.
+
+The PRO instruments to be used in this study are the European Organisation for Research and Treatment of Cancer (EORTC) Quality of Life Questionnaire - Core 30 (QLQ-C30) that measures cancer patients’ health status and general functionality and symptoms, EORTC supplemental lung cancer module (QLQ-LC13) that measures lung cancer specific symptoms, and the EuroQoL 5-Dimension, 5-Level (EQ5D-5L) that measures general health and wellbeing. 1.4.
+
+Benefit-Risk Assessment Available data from clinical trials of other anti-PD-1 antibodies, such as nivolumab and pembrolizumab, have demonstrated favorable benefit-risk profiles.
+
+Other immunotherapy targeting PD-1 and/or PD-L1, such as atezolizumab and avelumab, showed manageable safety profiles and antitumor activity in patients with advanced lung cancer.
+
+More than 400 patients have been treated with tislelizumab monotherapy at clinically relevant doses (≥ 2 mg/kg) and in combination therapies.
+
+The safety profile is largely consistent with that of other antibodies in its class targeting PD-1 and includes mostly mild or moderate AEs.
+
+Very few Grade 3/4 imAEs have been observed, and they have been generally reversible and manageable with study drug interruption and/or steroid treatment.
+
+In addition, antitumor activity with tislelizumab monotherapy has been observed in a range of tumor types. (For further information on the safety profile of tislelizumab, please refer to tislelizumab Investigator’s Brochure.) Therefore, the clinical development of tislelizumab, an anti-PD-1 antibody, in combination with chemotherapy, may improve the clinical outcomes for Chinese patients who have advanced solid tumors including SCLC.
+
+The present study is a randomized study designed to compare the efficacy of tislelizumab in combination with chemotherapy compared with placebo in combination with chemotherapy as first-line treatment in patients with ES-SCLC.
+
+Tislelizumab monotherapy and combination with chemotherapy have shown meaningful anti-tumor activity and manageable safety profiles in various types of tumors including ES-SCLC (Section 1.2.4).
+
+In addition, immunotherapy studies evaluating other PD-1 pathway-targeting antibodies in combination with chemotherapy also showed clinical benefit and favorable safety profile in the first-line or later line ES-SCLC settings (Section 1.1.2).
+
+Given the limited treatment options and unmet medical need in the treatment of ES-SCLC, and based on available tislelizumab Phase 1 and Phase 2 data, as well as the publication from other immunotherapy studies in ES-SCLC, the benefit-risk assessment is considered favorable; the study design which randomizes patients to tislelizumab combined with chemotherapy versus placebo combined with chemotherapy in a ratio of 1:1 to receive 4 cycles of Induction treatment that is in accordance with standard of care, followed by maintenance treatment is considered justified from clinical practice and benefit-risk prospective.
+
+CONFIDENTIAL Page 36 CONFIDENTIAL Page 177
+
+--- Page 37 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 2.
+
+Driven by external data from studies described in Section 1.1.2 , statistical assumptions were updated in protocol amendment version 1.0 and the number of events required to demonstrate efficacy with regard to OS is estimated based on the following assumptions: Overall survival: • Median OS of 12 months in Arm B. • At a one-sided α of 0.025, 80% power to detect an OS HR of 0.74 in the ITT Analysis Set.
+
+CONFIDENTIAL Page 89 CONFIDENTIAL Page 230
+
+--- Page 90 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • One OS interim analysis is planned in the ITT Analysis Set when approximately 80% of total OS events occurred, with Lan-DeMets approximation to O’Brien-Fleming boundary. • Exponential survival distribution is assumed for both Arm A and Arm B.
+
+In addition, we assumed a randomization ratio of 1:1.
+
+Assuming approximate 455 patients are to be enrolled over a 22-month period at a steady-state enrollment rate of 26 patients per month with enrollment ramp-up duration of 9 months, and assuming a dropout rate of 5% per year for OS endpoints, a total of 353 OS events are required for the ITT Analysis Set for the final OS analysis. 9.7.
+
+Interim Analyses There will be 1 interim efficacy analysis of OS performed in the ITT Analysis Set.
+
+The interim efficacy analysis of OS will be performed with at least 282 OS events observed in the ITT Analysis Set.
+
+The analysis timing is projected at approximately 36 months after the first patient randomization.
+
+The final OS analysis will be conducted with 353 OS events at approximately 51 months after the first patient randomization.
+
+The interim boundary for OS is based on the Lan-DeMets approximation to O’Brien-Fleming boundary.
+
+The interim and final analysis timing, and stopping boundaries are summarized in Table 8.
+
+As the exact timing of the analysis depends on when at least 282 OS events have occurred, the stopping boundaries in Table 8 may be updated based on the actual OS events observed in the ITT Analysis Set at the time of interim analysis.
+
+Table 8.
+
+Analysis Timing and Stopping Boundaries for OS in the ITT Analysis Set One-Sided Testing Boundary Time Type of Analysis # Events (Months) Approx.
+
+HR p-Value Boundary Threshold Interim Analysis 36 282 0.0122 0.765 Final analysis 51 353 0.0214 0.806 Abbreviations: HR, hazard ratio; ITT, Intent-to-Treat; OS, overall survival 10.
+
+STUDY COMMITTEES AND COMMUNICATION 10.1.
+
+Independent Data Monitoring Committee Regular safety monitoring (at least every 6 months), and efficacy monitoring (eg, interim analysis for OS) will be performed by an Independent Data Monitoring Committee (IDMC).
+
+The first IDMC safety review will occur after ≥ 20 patients have been randomized to study treatment (ie, approximately 10 patients per treatment arm) and have been on treatment for ≥ 1 month in order to determine if the proposed dosing schedule of tislelizumab or placebo is safe and tolerable.
+
+The IDMC may recommend study modifications including termination of the study due to safety and/or efficacy concerns, or in the event of compelling efficacy at a preplanned CONFIDENTIAL Page 90 CONFIDENTIAL Page 231
+
+--- Page 91 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 interim analysis.
+
+The function and membership of the IDMC will be described in the IDMC charter.
+
+In addition to the planned IDMC review(s), ad hoc reviews may be performed based on new information.
+
+Following IDMC review and discussion, the sponsor will make all final decisions regarding any changes in study conduct.
+
+Please see the details in the IDMC charter. 11.
+
+SOURCE DOCUMENTS AND ACCESS TO SOURCE DATA/DOCUMENTS The investigator must maintain adequate and accurate records to ensure that the conduct of the study may be fully documented.
+
+Such records include but are not limited to the protocol, protocol amendments, ICFs, and documentation of IRB/IEC and governmental approvals.
+
+In addition, at the end of the study, the investigator will receive patient data, which will include an audit trail containing a complete record of all changes to such data. 11.1.
+
+Access to Information for Monitoring In accordance with International Council for Harmonisation (ICH) GCP guidelines, the study monitor must have direct access to the investigator’s source documentation in order to verify the data recorded in the eCRFs for consistency.
+
+The monitor is responsible for routine review of the eCRFs at regular intervals throughout the study to verify adherence to the protocol and the completeness, consistency, and accuracy of the data being entered on them.
+
+The monitor should have access to any patient records needed to verify the entries on the eCRFs.
+
+The investigator agrees to cooperate with the monitor to ensure that any problems detected during these monitoring visits are resolved. 11.2.
+
+Access to Information for Auditing or Inspections Representatives of regulatory authorities or of BeiGene may conduct inspections or audits any time during or after completion of this clinical study.
+
+If the investigator is notified of an inspection by a regulatory authority, the investigator agrees to notify the sponsor or its designee immediately.
+
+The investigator agrees to provide to representatives of a regulatory agency or BeiGene access to records, facilities, and personnel for the effective conduct of any inspection or audit. 12.
+
+QUALITY ASSURANCE AND QUALITY CONTROL 12.1.
+
+Regulatory Authority Approval The sponsor will obtain approval to conduct the study with the investigational drug from the China regulatory agency in accordance with applicable regulatory requirements in China before the study is initiated at a study center.
+
+CONFIDENTIAL Page 91 CONFIDENTIAL Page 232
+
+--- Page 92 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 12.2.
+
+Quality Assurance To ensure compliance with GCP and all applicable regulatory requirements, the sponsor may conduct a quality assurance audit.
+
+Regulatory agencies may also conduct a regulatory inspection of this study.
+
+Such audits/inspections can occur at any time during or after completion of the study.
+
+If an audit or inspection occurs, the investigator and institution agree to allow the auditor/inspector direct access to all relevant documents and to allocate his/her time and the time of his/her personnel to the auditor/inspector to discuss findings and any relevant issues. 12.3.
+
+Study Site Inspections This study will be organized, performed, and reported in compliance with the protocol, standard operating procedures, working practice documents, and applicable regulations and guidelines.
+
+Site audits may be performed periodically by the sponsor’s or the contract research organization’s qualified compliance auditing team, which is an independent function from the study team responsible for conduct of the study.
+
+Site visits will be conducted by the sponsor or an authorized representative to inspect study data, patients’ medical records, and eCRFs.
+
+The investigator is to permit national and local health authorities; sponsor study monitors, representatives, and collaborators; and IRB/IEC members to inspect all facilities and records relevant to this study. 12.4.
+
+Drug Accountability The investigator or designee (ie, pharmacist) is responsible for ensuring adequate accountability of all used and unused study drug.
+
+This includes acknowledgment of receipt of each shipment of study product (quantity and condition), patient drug dispensation records, and returned or destroyed study product.
+
+Dispensation records will document quantities received from BeiGene’s designated depot or its designee and quantities dispensed to patients, including batch/lot number, date dispensed, patient identifier number, and the initials of the person dispensing the medication.
+
+At study initiation, the monitor will evaluate the site’s standard operating procedure for study drug disposal/destruction to ensure that it complies with BeiGene’ requirements specified in the Pharmacy Manual.
+
+At appropriate times during the conduct of the study or at the end of the study, the study site will dispose of and/or destroy all unused study drug supplies following drug inventory reconciliation by the monitor.
+
+These include empty containers, according to these procedures.
+
+If the site cannot meet BeiGene’s requirements specified in the Pharmacy Manual for disposal, arrangements will be made between the site and BeiGene or its representative for destruction or return of unused study drug supplies.
+
+All drug supplies and associated documentation will be periodically reviewed and verified by the study monitor over the course of the study.
+
+CONFIDENTIAL Page 92 CONFIDENTIAL Page 233
+
+--- Page 93 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 13.
+
+ETHICS/PROTECTION OF HUMAN PATIENTS 13.1.
+
+Ethical Standard This study will be conducted by the principal investigator and the study center in full conformance with the ICH E6 guideline for GCP and the principles of the Declaration of Helsinki or the laws and regulations of the country in which the research is conducted, whichever affords the greater protection to the individual.
+
+The study will comply with the requirements of the ICH E2A guideline (Clinical Safety Data Management: Definitions and Standards for Expedited Reporting). 13.2.
+
+Institutional Review Board/Independent Ethics Committee This protocol, the ICFs, any information to be given to the patient, and relevant supporting information must be submitted, reviewed, and approved by the IRB/IEC before the study is initiated.
+
+In addition, any patient recruitment materials must be approved by the IRB/IEC.
+
+Copies of the IRB/IEC correspondence and approval of the amended ICF/other information and the approved amended ICF/other information must be forwarded to the sponsor promptly.
+
+The principal investigator is responsible for providing written summaries of the status of the study to the IRB/IEC annually or more frequently in accordance with the requirements, policies, and procedures established by the IRB/IEC.
+
+Investigators are also responsible for promptly informing the IRB/IEC of any protocol amendments.
+
+In addition to the requirements for reporting all AEs to the sponsor, investigators must comply with requirements for reporting SAEs to the local health authority (eg, if local health authority has no requirement for reporting SAEs, investigators are not mandated to report SAEs to health authority) and IRB/IEC.
+
+Investigators may receive written investigational new drug (IND) safety reports or other safetyrelated communications from the sponsor.
+
+Investigators are responsible for ensuring that such reports are reviewed and processed in accordance with health authority requirements and the policies and procedures established by their IRB/IEC and archived in the site’s study file. 13.2.1.
+
+Protocol Amendments Any protocol amendments will be prepared by the sponsor.
+
+All protocol modifications must be submitted to competent authorities according to local requirements and to the IRB/IEC together with, if applicable, a revised model ICF in accordance with local requirements.
+
+Written documentation from competent authorities (according to local requirements) and from the IRB/IEC and required site approval must be obtained by the sponsor before changes can be implemented, except for changes necessary to eliminate an immediate hazard to patients or changes that involve logistical or administrative aspects only (eg, change in medical monitor or contact information).
+
+Information on any change in risk and/or change in scope must be provided to patients already actively participating in the study, and they must read, understand, and sign each revised ICF confirming their willingness to remain in the study.
+
+CONFIDENTIAL Page 93 CONFIDENTIAL Page 234
+
+--- Page 94 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 13.3.
+
+Informed Consent The sponsor’s sample ICF will be provided to each site.
+
+If applicable, it will be provided in a certified translation of the local language.
+
+The final IRB/IEC-approved ICFs must be provided to the sponsor for health authority submission purposes according to local requirements.
+
+The ICFs must be signed and dated by the patient or the patient’s legally authorized representative before his or her participation in the study.
+
+The case history or clinical records for each patient shall document the informed consent process and that written informed consent was obtained prior to participation in the study.
+
+The ICFs will be revised whenever there are changes to study procedures or when new information becomes available that may affect the willingness of the patient to participate.
+
+The final revised IRB-/IEC-approved consent forms must be provided to the sponsor for health authority submission purposes.
+
+Patients must be reconsented to the most current version of the ICFs (or to a significant new information/findings addendum in accordance with applicable laws and IRB/IEC policy) during their participation in the study.
+
+For any updated or revised ICFs, the case history or clinical records for each patient shall document the informed consent process and that written informed consent was obtained using the updated/revised ICFs for continued participation in the study.
+
+A copy of each signed ICF must be provided to the patient or the patient’s legally authorized representative.
+
+All signed and dated ICFs must remain in each patient’s study file or in the site file and must be available for verification by study monitors at any time. 13.4.
+
+Patient and Data Confidentiality The principle investigator and sponsor will maintain confidentiality and privacy standards by following applicable data privacy laws covering the collection, storage, transmission, and processing of patients’ personal and medical information.
+
+The principle investigator shall code the medical information obtained during the study with a unique patient identification number assigned to each patient enrolled in the study.
+
+This approach ensures that patients’ names are not included in any data set transmitted to any sponsor location.
+
+Patient medical information obtained during this study is confidential and may be disclosed only to third parties as permitted by the signed ICF (or a separate authorization for the use and disclosure of personal health information that has been signed by the patient), unless permitted or required by law.
+
+In the event of a breach of the confidentiality of a patient’s personal and medical information, the principle investigator and sponsor, as appropriate, shall fulfill all medication steps and reporting obligations under applicable data privacy laws.
+
+Medical information may be given to a patient’s personal physician or other appropriate medical personnel responsible for the patient’s welfare, for treatment purposes.
+
+Data generated during this study must be available for inspection upon request by representatives of the NMPA and all other national and local health authorities; by sponsor monitors, representatives, and collaborators; and by the IRBs/IECs for each study site, as appropriate.
+
+CONFIDENTIAL Page 94 CONFIDENTIAL Page 235
+
+--- Page 95 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The investigator must assure that patients’ anonymity will be strictly maintained and that their identities are protected from unauthorized parties.
+
+The investigator agrees that all information received from the sponsor, including but not limited to the Investigator's Brochure, this protocol, eCRFs, the IND, and any other study information, remain the sole and exclusive property of the sponsor during the conduct of the study and thereafter.
+
+This information is not to be disclosed to any third party (except employees or agents directly involved in the conduct of the study or as required by law) without prior written consent from the sponsor.
+
+The investigator further agrees to take all reasonable precautions to prevent the disclosure by any employee or agent of the study site to any third party or otherwise into the public domain.
+
+If a written contract for the conduct of the study is executed, and that contract includes confidentiality provisions inconsistent with this section, that contract’s provision shall apply to the extent they are inconsistent with this section. 13.5.
+
+Financial Disclosure Investigators are required to provide the sponsor with sufficient accurate financial information in accordance with regulations to allow the sponsor to submit complete disclosure or certification to the absence of certain financial interest of the clinical investigators and/or disclose those financial interests, as required to the appropriate health authorities.
+
+This is intended to ensure financial interests and arrangements of the clinical investigators with BeiGene that could affect reliability of data submitted to health authorities are identified and disclosed by the sponsor.
+
+Investigators are responsible for providing information about their financial interests before participation in the study, and to update this information if any relevant changes occur during the study and for 1 year after completion of the study (ie, last patient, last visit).
+
+CONFIDENTIAL Page 95 CONFIDENTIAL Page 236
+
+--- Page 96 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 14.
+
+DATA HANDLING AND RECORD KEEPING 14.1.
+
+Data Collection and Management Responsibilities 14.1.1.
+
+Data Entry in the Electronic Case Report Form All study-related data collected or received by the investigator or study team shall be promptly entered into the eCRFs.
+
+In no event should the entry of the study data into the eCRF be later than what is stipulated in the site contract after the data is collected or received by the investigator or study team without prior communication with and approval by the sponsor. 14.1.2.
+
+Data Collection Data required by the protocol will be entered into an EDC system.
+
+Data collection in the eCRF should follow the instructions described in the eCRF Completion Guidelines.
+
+The investigator has ultimate responsibility for the collection and reporting of all clinical data entered in the eCRF.
+
+The investigator must provide e-signature in the EDC system to attest to its accuracy, authenticity, and completeness.
+
+Data contained in the eCRFs are the sole property of BeiGene and should not be made available in any form to third parties without written permission from BeiGene, except for authorized representatives of BeiGene or appropriate regulatory authorities. 14.1.3.
+
+Data Management/Coding All final patient data, both eCRF and external data (eg, laboratory data), collected according to the protocol, will be stored by BeiGene at the end of the study.
+
+Standard procedures (including following data review guidelines, computerized validation to produce queries and maintenance of an audit file that includes all database modifications) will be followed to support accurate data collection.
+
+Data will be reviewed for outliers, logic, data inconsistencies and completeness.
+
+During the study, a study monitor (clinical research associate) will make site visits to review protocol compliance, compare eCRFs against individual patient’s medical records, and ensure that the study is being conducted according to pertinent regulatory requirements.
+
+The eCRF entries will be verified with source documentation.
+
+The review of medical records will be performed in a manner to ensure that patient confidentiality is maintained.
+
+Checking the eCRFs for completeness, clarity, and cross-checking with source documents is required to monitor the progress of the study.
+
+Direct access to source data is also required for inspections and audits and will be carried out with due consideration given to data protection and medical confidentiality.
+
+The AE verbatim descriptions (the investigator’s description from the eCRF) will be coded using the MedDRA Version 20.0 or higher.
+
+AEs will be coded to MedDRA by lower level term, preferred term, and primary system organ class (SOC).
+
+Concomitant medications will be coded using the WHO Drug Dictionary.
+
+Concomitant diseases/medical history will be coded using the MedDRA Version 20.0 or higher.
+
+CONFIDENTIAL Page 96 CONFIDENTIAL Page 237
+
+--- Page 97 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 14.2.
+
+Data Integrity and In-house Blinding In this double-blinded, placebo-controlled study, all patients and personnel involved in the conduct and interpretation of the study, including the investigators, BeiGene study team, and site personnel, will be blinded to the treatment assignment.
+
+Randomization data will be kept strictly confidential; filed securely by the appropriate groups for BeiGene, the IRT and the IDMC; and will be accessible only to authorized persons per SOPs until the time of unblinding. 14.3.
+
+Study Records Retention The investigator must maintain adequate and accurate records to enable the conduct of the study to be fully documented and the study data to be subsequently verified.
+
+These documents should be classified into at least 1 of the following 2 categories: 1) investigator’s study file, and/or 2) patient clinical source documents.
+
+The investigator’s study file will contain the protocol/amendments, eCRF and query forms, IRB/IEC and governmental approval with correspondence, ICFs, drug records, staff curriculum vitae and authorization forms, and other appropriate documents and correspondence.
+
+Patient clinical source documents (usually defined by the project in advance to record key efficacy/safety parameters independent of the eCRFs) would include documents such as (although not be limited to) the following: patient hospital/clinic records, physician’s and nurse’s notes, appointment book, original laboratory reports, ECG, electroencephalogram, x-ray, pathology and special assessment reports, consultant letters, screening and enrollment log, etc.
+
+Following closure of the study, the investigator must maintain all study records in a safe and secure location.
+
+The records must be maintained to allow easy and timely retrieval, when needed (eg, audit or inspection), and, whenever feasible, to allow any subsequent review of data in conjunction with assessment of the facility, supporting systems, and personnel.
+
+Where permitted by local laws/regulations or institutional policy, some or all of these records can be maintained in a format other than hard copy (eg, microfiche, scanned, electronic); however, caution needs to be exercised before such action is taken.
+
+The investigator must assure that all reproductions are legible, are a true and accurate copy of the original, and meet accessibility and retrieval standards, including regenerating a hard copy, if required.
+
+Furthermore, the investigator must ensure there is an acceptable backup of these reproductions and that an acceptable quality control process exists for making these reproductions.
+
+The sponsor will inform the investigator of the time period for retaining these records to comply with all applicable regulatory requirements.
+
+The minimum retention time will meet the strictest standard applicable to that study center for the study, as dictated by any institutional requirements, local laws or regulations, or the sponsor’s standards/procedures; otherwise, the retention period will default to 15 years.
+
+The investigator must notify the sponsor of any changes in the archival arrangements, including but not limited to the following: archival at an off-site facility, or transfer of ownership of or responsibility for the records in the event the investigator leaves the study center.
+
+If the investigator cannot guarantee this archiving requirement at the study site for any or all the documents, special arrangements must be made between the investigator and BeiGene to store these in sealed containers outside of the site so that they can be returned sealed to the CONFIDENTIAL Page 97 CONFIDENTIAL Page 238
+
+--- Page 98 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 investigator in case of a regulatory audit.
+
+When source documents are required for the continued care of the patient, appropriate copies should be made for storage outside of the site.
+
+Biological samples at the conclusion of this study may be retained as outlined in the agreement with the CRO managing the biological samples, for the shorter of: a period of up to 5 years or as allowed by your IRB/IEC. 14.4.
+
+Protocol Deviations The investigator is responsible for ensuring that the study is conducted in accordance with the procedures and evaluations described in this protocol.
+
+Investigators assert they will apply due diligence to avoid protocol deviations and shall report all protocol deviations to sponsor.
+
+The investigator is to document and explain any deviations from the approved protocol.
+
+The investigator must promptly report any major deviations that might impact patient safety and/or data integrity to the sponsor and to the IRB/IEC, in accordance with established IRB/IEC policies and procedures. 14.5.
+
+Publication and Data Sharing Policy A clinical study report will be prepared and provided to the regulatory agency(ies).
+
+BeiGene will ensure that the report meets the standards set out in the ICH Guideline for Structure and Content of Clinical Study Reports (ICH E3).
+
+Note that an abbreviated report may be prepared in certain cases.
+
+The results of this study will be published or presented at scientific meetings in a timely, objective, and clinically meaningful manner that is consistent with good science, industry and regulatory guidance and the need to protect the intellectual property of BeiGene (the sponsor), regardless of the outcome of the study.
+
+The data generated in this clinical study are the exclusive property of the sponsor and are confidential.
+
+As this is a multicenter study, the first publication or disclosure of study results shall be a complete, joint multicenter publication or disclosure coordinated by the sponsor.
+
+Thereafter, any secondary publications will reference the original publication(s).
+
+Authorship will be determined by mutual agreement and all authors must meet the criteria for authorship established by the International Committee of Medical Journal Editors Uniform Requirements for Manuscripts or stricter local criteria (International Committee of Medical Journal Editors 2016).
+
+Each investigator agrees to submit all manuscripts, abstracts, posters, publications, and presentations (both oral and written) to the sponsor for review before submission or presentation in accordance with the clinical study agreement.
+
+This allows the sponsors to protect proprietary information, provide comments based on information from other studies that may not yet be available to the investigator, and ensure scientific and clinical accuracy.
+
+The details of the processes of producing and reviewing reports, manuscripts, and presentations based on the data from this trial will be presented in the investigator’s clinical study agreement.
+
+Each investigator agrees that, in accordance with the terms of clinical study agreement, a further delay of the publication/presentation may be requested by the sponsor to allow for patent filings and/or protection in advance of the publication/presentation.
+
+CONFIDENTIAL Page 98 CONFIDENTIAL Page 239
+
+--- Page 99 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 14.6.
+
+Study and Study Center Closure Upon completion of the study, the monitor will conduct the following activities in conjunction with the investigator or study center personnel, as appropriate: • Return of all study data to the sponsor • Resolution and closure of all data queries • Accountability, reconciliation, and arrangements for unused study drug(s) • Review of study records for completeness • Collection of all study documents for the trial master file filing according to GCP and local regulation • Shipment of samples (including, but not limited to, those for PK, ADA, and biomarkers) to assay lab for central lab analysis according to protocol and lab manual requirements In addition, the sponsor reserves the right to suspend the enrollment or prematurely discontinue this study either at a single study center or at all study centers at any time for reason.
+
+Potential reasons for suspension or discontinuation include, but not limited to safety or ethical issues or noncompliance with this protocol, GCP, the sponsor’s written instructions, the clinical study agreement, or applicable laws and regulations.
+
+If the sponsor determines such action is needed, the sponsor will discuss this with the investigator (including the reasons for taking such action) at that time.
+
+When feasible, the sponsor will provide advance notification to the investigator of the impending action before it takes effect.
+
+The sponsor will promptly inform all other investigators and/or institutions conducting the study if the study is suspended or terminated for safety reasons.
+
+The sponsor will also inform the regulatory authorities of the suspension or termination of the study and the reason(s) for the action.
+
+If required by applicable regulations, the investigator must inform the IEC/IRB promptly and provide the reason for the suspension or termination.
+
+If the study is prematurely discontinued, all study data obtained must still be provided to the sponsor.
+
+In addition, arrangements will be made for the return of all unused study drug(s) in accordance with the applicable sponsor procedures for the study.
+
+Financial compensation to the investigators and/or institutions will be in accordance with the clinical study agreement established between the investigator and/or institutions and the sponsor. 14.7.
+
+Information Disclosure and Inventions All rights, title, and interests in any inventions, know-how or other intellectual or industrial property rights which are conceived or reduced to practice by the study center personnel during the course of or as a result of the study are the sole property of the sponsor and are hereby assigned to the sponsor.
+
+If a written contract for the conduct of the study, which includes ownership provisions inconsistent with this statement, is executed between the sponsor and the study center, that contract’s ownership provisions shall apply rather than this statement.
+
+CONFIDENTIAL Page 99 CONFIDENTIAL Page 240
+
+--- Page 100 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 All information provided by the sponsor and all data and information generated by the study center as part of the study (other than a patient’s medical records) are the sole property of the sponsor and will be kept confidential by the investigator and other study center personnel.
+
+This information and data will not be used by the investigator or other study center personnel for any purpose other than conducting the study without the prior written consent of the sponsor.
+
+These restrictions do not apply to: • Information that becomes publicly available through no fault of the investigator or study center personnel • Information that is necessary to disclose in confidence to an IEC/IRB solely for the evaluation of the study • Information that is necessary to disclose to provide appropriate medical care to a patient • Study results that may be published as described in Section 14.5 If a written contract for the conduct of the study which includes provisions inconsistent with this statement is executed, that contract’s provisions shall apply rather than this statement.
+
+CONFIDENTIAL Page 100 CONFIDENTIAL Page 241
+
+--- Page 101 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 15.
+
+REFERENCES AASLD/IDSA HCV Guidance Panel.
+
+Hepatitis C Guidance: AASLD-IDSA Recommendations for Testing, Managing, and Treating Adults Infected With Hepatitis C Virus.
+
+Hepatology, 2015; 62(3), 93254 Antonia SJ, López-Martin JA, Bendell J, et al.
+
+Nivolumab alone and nivolumab plus ipilimumab in recurrent small-cell lung cancer (CheckMate 032): a multicentre, open label, phase 1/2 trial.
+
+Lancet Oncol. 2016; 17:883-95.
+
+Basch E, Wood WA, Schrag D, et al. "Feasibility and clinical impact of sharing patient-reported symptom toxicities and performance status with clinical investigators during a phase 2 cancer treatment trial." Clin Trials. 2016; 13(3): 331-7.
+
+Beers SA, Glennie MJ, White AL.
+
+Influence of immunoglobulin isotype on therapeutic antibody function.
+
+Blood. 2016;127(9):1097-101.
+
+BeiGene Investigator’s Brochure, Tislelizumab (BGB-A317).
+
+Edition 5.0, February 2018.
+
+Borghaei H, Paz-Ares L, Horn L, et al.
+
+Nivolumab versus docetaxel in advanced nonsquamous non-smallcell lung cancer.
+
+N Engl J Med 2015;373:1627-39.
+
+Brahmer JR, Lacchetti C, Schneider BJ, et al.
+
+Management of immune-related adverse events in patients treated with immune checkpoint inhibitor therapy: American Society of Clinical Oncology Clinical Practice Guideline.
+
+J Clin Oncol. 2018. [E-pub ahead of print] Chen W, Zheng R, Baade P, et al.
+
+Cancer statistics in China, 2015.
+
+CA Cancer J Clin 2016;66(2):115-32.
+
+Cheng Y, Wang Q, Li K, et al.
+
+Anlotinib as third-line or further-line treatment in relapsed SCLC: a multicenter, randomized, double-blind phase 2 trial.
+
+IASLC 19th World Conference on Lung Cancer 2018 Book of Abstracts page 145.
+
+Clinical Trials Facilitation Group (CTFG).
+
+Recommendations related to contraception and pregnancy testing in clinical trials.
+
+September 15, 2014. http://www.hma.eu/fileadmin/dateien/Human_Medicines/01About_HMA/Working_Groups/CTFG/2014_09_HMA_CTFG_Contraception.pdf Common Toxicity Criteria for Adverse Events (CTCAE) Version 5.0.
+
+US department of health and human services.
+
+National Institutes of Health. 27 November 2017 Dahan R, Sega E, Engelhardt J, et al.
+
+FcgRs Modulate the Antitumor Activity of Antibodies Targeting the PD-1/PD-L1 Axis.
+
+Cancer Cell. 2015;28(3):285-95.
+
+Dajczman E, Kasymjanova G, Kreisman H, et al.
+
+Should patient-rated performance status affect treatment decisions in advanced lung cancer? J Thorac Oncol. 3.10 (2008): 1133-6.
+
+Demedts IK, Vermaelen KY, van Meerbeeck JP.
+
+Treatment of extensive-stage small cell lung carcinoma: current status and future prospects.
+
+Eur Respir J 2010;35:202-15.
+
+Dolgin M, Association NYH, Fox AC, Gorlin R, et al.
+
+Nomenclature and criteria for diagnosis of diseases of the heart and great vessels. 9th ed.
+
+Boston, MA: Lippincott Williams and Wilkins; March 1, 1994 CONFIDENTIAL Page 101 CONFIDENTIAL Page 242
+
+--- Page 102 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Eckardt JR, von Pawel J, Papai Z, et al.
+
+Open-label, multicenter, randomized, phase III study comparing oral topotecan/cisplatin versus etoposide/cisplatin as treatment for chemotherapy-naive patients with extensive-disease small-cell lung cancer.
+
+J Clin Oncol 2006;24:2044-51.
+
+Eisenhauer EA, Therasse P, Bogaerts J, et al.
+
+New response evaluation criteria in solid tumours: revised RECIST guideline (version 1.1).
+
+Eur J Cancer. 2009;45(2):228-47.
+
+Ellis LM, Bernstein DS, Voest EE, et al.
+
+American Society of Clinical Oncology perspective: raising the bar for clinical trials by defining clinically meaningful outcomes.
+
+J Clin Oncol 2014;32:1277-80.
+
+European Medicines Agency Guideline on the Evaluation of Anticancer Medicinal Products in Man EMA/CHPM/205/95/Rev.4 [Dec 2012].
+
+Available at: http://www.ema.europa.eu/docs/en_GB/document_library/Scientific_guideline/2013/01/WC500137128.p df Evans WK, Shepherd FA, Feld R, et al.
+
+Vp-16 and cisplatin as first-line therapy for small-cell lung cancer.
+
+J Clin Oncol 1985;3:1471-7.
+
+Ferlay J, Soerjomataram I, Dikshit R, et al.
+
+Cancer incidence and mortality worldwide: sources, methods and major patterns in GLOBOCAN 2012.
+
+Int J Cancer. 2015;136(5):E359-86.
+
+Foster NR, Mandrekar SJ, Schild SE, et al.
+
+Prognostic factors differ by tumor stage for small cell lung cancer: a pooled analysis of north central cancer treatment group trials.
+
+Cancer. 2009 Jun 15;115:2721-31.
+
+Fruh M, De Ruysscher D, Popat S, et al.
+
+Small-cell lung cancer (SCLC): ESMO clinical practice guidelines for diagnosis, treatment and follow-up.
+
+Ann Oncol 2013;24(Suppl 6):vi99-105.
+
+Garon EB, Rizvi NA, Hui R, et al.
+
+Pembrolizumab for the treatment of non-small cell lung cancer.
+
+N Engl J Med 2015;372:2018-28.
+
+Gong W, Song Q, Lu X, et al.
+
+Paclitaxel induced B7-H1 expression in cancer cells via the MAPK pathway.
+
+J Chemother. 2011;23(5):295–9.
+
+Govindan R, Page N, Morgensztern D, et al.
+
+Changing epidemiology of small cell lung cancer in the United States over the last 30 years: analysis of the surveillance, epidemiologic, and end results database.
+
+J Clin Oncol. 2006 Oct 1;24:4539-44.
+
+Guidance for Industry: Clinical Trial Endpoints for the Approval of Cancer Drugs and Biologics; May 2007.
+
+Available at: http://www.fda.gov/downloads/Drugs/Guidances/ucm071590.pdf Gül N, van Egmond M.
+
+Antibody-Dependent Phagocytosis of Tumor Cells by Macrophages: A Potent Effector Mechanism of Monoclonal Antibody Therapy of Cancer.
+
+Cancer Res. 2015;75(23):5008-13.
+
+Haanen JBAG, Carbonnel F, Robert C, et al.
+
+Management of toxicities from immunotherapy: ESMO Clinical Practice Guidelines for diagnosis, treatment, and follow-up.
+
+Ann Oncol. 2017:28 (suppl 4):iv119iv142.
+
+Hanna N, Bunn PA Jr, Langer C, et al.
+
+Randomized phase III trial comparing irinotecan/cisplatin with etoposide/cisplatin in patients with previously untreated extensive-stage disease small cell lung cancer.
+
+J Clin Oncol 2006;24:2038-43.
+
+Hellmann MD, Ott PA, Zugazagoitia J, et al.
+
+Nivolumab (nivo) ± ipilimumab (ipi) in advanced small-cell lung cancer (SCLC): First report of a randomized expansion cohort from CheckMate 032.
+
+J Clin Oncol 2017;35:S8503.
+
+CONFIDENTIAL Page 102 CONFIDENTIAL Page 243
+
+--- Page 103 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Hopwood P, Stephens RJ.
+
+Symptoms at presentation for treatment in patients with lung cancer: implications for the evaluation of palliative treatment.
+
+The Medical Research Council (MRC) Lung Cancer Working Party.
+
+Br J Cancer 1995;71:633-6.
+
+Horn L, Mansfield AS, Szczesna A, et al.
+
+First-line atezolizumab plus chemotherapy in extensive-stage small-cell lung cancer.
+
+N Engl J Med, September 25, 2018.
+
+DOI: 10.1056/NEJMoa1809064 Howlader N, Noone AM, Krapcho M, et al.
+
+SEER Cancer Statistics Review, 1975 2012, National Cancer Institute.
+
+Bethesda, MD, http://seer.cancer.gov/csr/1975_2012/, based on November 2014 SEER data - submission, posted to the SEER web site, April 2015.
+
+Hyde L, Hyde CI.
+
+Clinical manifestations of lung cancer.
+
+Chest 1974;65:299-306.
+
+International Committee of Medical Journal Editors.
+
+Recommendations for the Conduct, Reporting, Editing, and Publication of Scholarly Work in Medical Journals. 2016.
+
+Available online: http://www.icmje.org.
+
+Accessed 08 August 2017.
+
+Jin Z, Yoon HH.
+
+The promise of PD-1 inhibitors in gastro-esophageal cancers: microsatellite instability vs.
+
+PD-L1.
+
+J Gastrointest Oncol. 2016;7(5):771-88.
+
+Johnson BE, Janne PA.
+
+Basic treatment considerations using chemotherapy for patients with small cell lung cancer.
+
+Hematol Oncol Clin North Am 2004;18:309-22.
+
+Koren E, Smith HW, Shores E, et al.
+
+Recommendations on risk-based strategies for detection and characterization of antibodies against biotechnology products.
+
+J Immunol Methods. 2008;333(1-2):1-9.
+
+Labrijn AF, Buijsse AO, van den Bremer ET, et al.
+
+Therapeutic IgG4 antibodies engage in Fab-arm exchange with endogenous human IgG4 in vivo.
+
+Nat Biotechnol. 2009;27(8):767-71.
+
+Levey AS, Stevens LA, Schmid CH, et al.
+
+A new equation to estimate glomerular filtration rate.
+
+Ann Intern Med. 2009;150(9):604-12.
+
+Makarova-Rusher OV, Medina-Echervez J, Duffy AG, et al.
+
+The yin and yang of evasion and immune activation in HCC.
+
+J Hepatol. 2015;62(6):1420-9.
+
+Mamdani H, Induru R and Jalal S.
+
+Novel therapies in small cell lung cancer.
+
+Transl Lung Cancer Res. 2015 Oct; 4(5): 533–44.
+
+McDaniel AS, Alva A, Zhan T, et al.
+
+Expression of PD-L1 (B7-H1) before and after neoadjuvant chemotherapy in urothelial carcinoma.
+
+Euro Urol Focus. 2016;1(3):265–8.
+
+Molina JR, Yang P, Cassivi SD, et al.
+
+Non small cell lung cancer: epidemiology, risk factors, treatment, and survivorship.
+
+Mayo Clin Proc 2008;83:584-94. ∀ Nagel S, Kellner O, Engel-Riedel W, et al.
+
+Addition of darbepoetin alfa to dose-dense chemotherapy: results from a randomized phase II trial in small-cell lung cancer patients receiving carboplatin plus etoposide.
+
+Clin Lung Cancer 2011;12:62-9.
+
+National Comprehensive Cancer Network (NCCN) Guidelines for Small Cell Lung Cancer 2018.
+
+Version 2 Available at: https://www.nccn.org/professionals/physician_gls/pdf/sclc_blocks.pdf National Comprehensive Cancer Network (NCCN) Guidelines for Small Cell Lung Cancer 2019.
+
+Version 1 Available at: https://www.nccn.org/professionals/physician_gls/pdf/sclc.pdf CONFIDENTIAL Page 103 CONFIDENTIAL Page 244
+
+--- Page 104 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 National Comprehensive Cancer Network (NCCN) Guidelines for Small Cell Lung Cancer 2020.
+
+Version 2 Available at https://www.nccn.org/professionals/physician_gls/pdf/sclc_blocks.pdf Nishio M, Sugawara S, Atagi S, et al.
+
+Subgroup analysis of Japanese patients in a phase III study of atezolizumab in extensive-stage small-cell lung cancer (Impower133).
+
+Clin Lung Cancer 2019a;20(6):469-476.
+
+Nishio M, Ji JH, Hotta K, et al LBA15: Overall survival with first-line durvalumab plus platinum etoposide in patients with ES-SCLC in CASPIAN: subgroup findings from Asia.
+
+Ann Oncol. 2019b;30(9):ix197-ix198 Noda K, Nishiwaki Y, Kawahara M, et al.
+
+Irinotecan plus cisplatin compared with etoposide plus cisplatin for extensive small cell lung cancer.
+
+N Engl J Med 2002;346:85-91.
+
+O’Brien ME, Ciuleanu TE, Tsekov H, et al.
+
+Phase III trial comparing supportive care alone with supportive care with oral topotecan in patients with relapsed small cell lung cancer.
+
+J Clin Oncol 2006;24:5441-7.
+
+Oken MM, Creech RH, Tormey DC, et al.
+
+Toxicity and Response Criteria of the Eastern Cooperative Oncology Group.
+
+Am J Clin Oncol. 1982;5(6):649-55.
+
+Okamoto H, Watanabe K, Kunikane H, et al.
+
+Randomised phase III trial of carboplatin plus etoposide vs split doses of cisplatin plus etoposide in elderly or poor-risk patients with extensive disease small-cell lung cancer.
+
+JCOG 9702.
+
+Br J Cancer 2007;97:162-9.
+
+Ono Pharmaceutical Co, Ltd.
+
+Available online: https://www.ono.co.jp/eng/news/pdf/sm_cn161227.pdf.
+
+Accessed 01 February 2017 OPDIVO (nivolumab) [package insert].
+
+Princeton, NJ: Bristol-Myers Squibb Company, 2018, https://packageinserts.bms.com/pi/pi_opdivo.pdf Ott P, Felip E, Hiret S, et al.
+
+OA05.01 Pembrolizumab in patients with extensive-stage small cell lung cancer: Updated survival results from KEYNOTE-028.
+
+J Thorac Oncol; 2017; 12:S259.
+
+Patel SP, Kurzrock R.
+
+PD-L1 Expression as a predictive biomarker in cancer immunotherapy.
+
+Mol Cancer Ther. 2015;14(4):847–56.
+
+Paz-Ares L, Dvorkin M, Chen Y, et al.
+
+Durvalumab plus platinum-etoposide versus platinum-etoposide in first-line treatment of extensive-stage small-cell lung cancer (CASPIAN): a randomized, controlled, open-label, phase 3 trial.
+
+Lancet. 2019;394(10212):1929-1939.
+
+Pellegrino R, Viegi G, Brusasco V, et al.
+
+Interpretative strategies for lung function tests.
+
+Eur Respir J 2005; 26: 948–968.
+
+Pesch B, Kendzia B, Gustavsson P, et al.
+
+Cigarette smoking and lung cancer relative risk estimates for the major histological types from a pooled analysis of case-control studies.
+
+Int J Cancer 2012;131:1210-9.
+
+Prieto J, Melero I, Sangro B.
+
+Immunological landscape and immunotherapy of hepatocellular carcinoma.
+
+Nat Rev Gastroenterol Hepatol. 2015;12(12):681-700.
+
+Pujol JL, Daures JP, Riviere A, et al.
+
+Etoposide plus cisplatin with or without the combination of 4'-epidoxorubicin plus cyclophosphamide in treatment of extensive small cell lung cancer: a French Federation of Cancer Institutes multicenter phase III randomized study.
+
+J Natl Cancer Inst 2001;93:300-8.
+
+CONFIDENTIAL Page 104 CONFIDENTIAL Page 245
+
+--- Page 105 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Rossi A, Di Maio M, Chiodini P, et al.
+
+Carboplatinor cisplatin-based chemotherapy in first-line treatment of small cell lung cancer: the COCIS meta-analysis of individual patient data.
+
+J Clin Oncol 2012;30:1692-8.
+
+Roth BJ, Johnson DH, Einhorn LH, et al.
+
+Randomized study of cyclophosphamide, doxorubicin, and vincristine versus etoposide and cisplatin versus alternation of these two regimens in extensive small cell lung cancer: a phase III trial of the Southeastern Cancer Study Group.
+
+J Clin Oncol 1992;10:282-91.
+
+Rudin CM, Salgia R, Wang X, et al.
+
+Randomized phase II study of carboplatin and etoposide with or without the bcl-2 antisense oligonucleotide oblimersen for extensive-stage small cell lung cancer: CALGB 30103.
+
+J Clin Oncol 2008;26:870-6.
+
+Rudin CM, Durinck S, Stawiski EW, et al.
+
+Comprehensive genomic analysis identifies SOX2 as a frequently amplified gene in small cell lung cancer.
+
+Nat Genet 2012;44:1111-6.
+
+Rudin CM, Awad MM, Navarro A, et al.
+
+Pembrolizumab or placebo plus etoposide and platinum as firstline therapy for extensive-stage small-cell lung cancer: randomized, double-blind, phase III KEYNOTE604 study.
+
+J Clin Oncol. 2020;38(21):2369-79.
+
+Sarna L, Evangelista L, Tashkin D, et al.
+
+Impact of respiratory symptoms and pulmonary function on quality of life of long-term survivors of non-small cell lung cancer.
+
+Chest 2004;125:439-45.
+
+Schmittel A, Sebastian M, Fischer von Weikersthal L, et al.
+
+A German multicenter, randomized phase III trial comparing irinotecan-carboplatin with etoposidecarboplatin as first-line therapy for extensive-disease small-cell lung cancer.
+
+Ann Oncol 2011;22:1798-804.
+
+Simon GR, Turrisi A.
+
+Management of small cell lung cancer: ACCP evidencebased clinical practice guidelines (2nd edition).
+
+Chest. 2007 Sep;132(3 Suppl):324S-339S.
+
+Skarlos DV, Samantas E, Kosmidis P, et al.
+
+Randomized comparison of etoposide-cisplatin vs. etoposidecarboplatin and irradiation in small cell lung cancer.
+
+A Hellenic co-operative oncology group study.
+
+Ann Oncol 1994;5:601-7.
+
+Soar J, Pumphrey R, Cant A, et al.
+
+Emergency treatment of anaphylactic reactions--guidelines for healthcare providers.
+
+Resuscitation. 2008;77(2):157-69.
+
+Socinski MA, Smit EF, Lorigan P, et al.
+
+Phase III study of pemetrexed plus carboplatin compared with etoposide plus carboplatin in chemotherapy-naive patients with extensive-stage small cell lung cancer.
+
+J Clin Oncol 2009;27:4787-92.
+
+Stinchcombe TE, Gore EM.
+
+Limited-stage small cell lung cancer: current chemoradiotherapy treatment paradigms.
+
+Oncologist 2010 Feb;15:187-95.
+
+Terrault NA, Bzowej NH, Chang KM, et al.
+
+AASLD guidelines for treatment of chronic hepatitis B.
+
+Hepatology. 2016 Jan;63(1):261-83.
+
+Van Der Kraak L, Goel G, Ramanan K, et al. 5-Fluorouracil upregulates cell surface B7-H1 (PD-L1) expression in gastrointestinal cancers.
+
+J Immunother Cancer. 2016; 4(1):65.
+
+Von Pawel J, Schiller JH, Shepherd FA, et al.
+
+Topotecan versus cyclophosphamide, doxorubicin, and vincristine for the treatment of recurrent small-cell lung cancer.
+
+J Clin Oncol 1999;17:658-67.
+
+Worobec AS and Rosenberg AS.
+
+A Risk-Based Approach to Immunogenicity Concerns of Therapeutic Protein Products, Part 1: Considering Consequences of the Immune Response to a Protein.
+
+BioPharm Intl.
+
+CONFIDENTIAL Page 105 CONFIDENTIAL Page 246
+
+--- Page 106 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 2004a;17(11). http://www.biopharminternational.com/risk-based-approach-immunogenicity-concernstherapeutic-protein-products-part-1-considering-conseque.
+
+Accessed 01 August 2017.
+
+Worobec AS and Rosenberg AS.
+
+A Risk-Based Approach to Immunogenicity Concerns of Therapeutic Protein Products, Part 2: Considering Host-Specific and Product-Specific Factors Impacting Immunogenicity.
+
+BioPharm Intl. 2004b;17(12). http://www.biopharminternational.com/risk-basedapproach-immunogenicity-concerns-therapeutic-protein-products-part-2-considering-host-spe.
+
+Accessed 01 August 2017.
+
+Yip D, Harper PG.
+
+Predictive and prognostic factors in small cell lung cancer: current status.
+
+Lung Cancer. 2000 Jun;28:173-85.
+
+Zhang T, Song X, Xu L, et al.
+
+The binding of an anti-PD-1 antibody to FcγRΙ has a profound impact on its biological functions.
+
+Cancer Immunol Immunother. 2018 Jul;67(7):1079-90 Zhao J, Wang Z, Ma J, et al.
+
+JCSE01.22a - Tislelizumab combined with chemotherapy as first-line treatment in Chinese patients with advanced lung cancer.
+
+WCLC 2018 CONFIDENTIAL Page 106 CONFIDENTIAL Page 247
+
+--- Page 107 ---
+
+
+
+--- Page 108 ---
+
+
+
+--- Page 109 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 RECIST, Response Evaluation Criteria in Solid Tumors; RNA, ribonucleic acid; SAE, serious adverse event; TEAE, treatment-emergent adverse event; TSH, thyroid stimulating hormone; v, version. 1.
+
+Written informed consent is required prior to performing any study-specific tests or procedures.
+
+Results of standard-of-care tests or examinations performed prior to obtaining informed consent and within 28 days prior to randomization may be used for Screening assessments rather than repeating such tests. 2.
+
+The End-of-Treatment Visit is conducted when the investigator determines that study treatment will no longer be used.
+
+If routine laboratory tests (eg, hematology, serum chemistry) are completed within 7 days before the End-of-Treatment Visit, tests need not be repeated.
+
+Tumor assessment is not required at the End-of-Treatment Visit provided that fewer than 6 weeks have passed since the last assessment. 3.
+
+The Safety Follow-up Visit is required to be conducted 30 days (± 7 days) after the last dose of study treatment, or before the initiation of a new anticancer treatment, whichever occurs first. 4.
+
+Survival Follow-up information will be collected via telephone calls, patient medical records, and/or clinic visits approximately every 3 months after the Safety Follow-up Visit until death, loss to follow-up, withdrawal of consent, or study termination by sponsor.
+
+All patients will be followed for survival and subsequent anticancer therapy information unless a patient requests to be withdrawn from follow-up. 5.
+
+Patients will be randomized into either Arm A or Arm B via IRT.
+
+All patients are required to receive study treatment within 2 business days of randomization. 6.
+
+Demographics includes age, year of birth, gender, and self-reported race/ethnicity; Refer to Section 7.1.1 for medical history and cancer history: history of treatment for the primary diagnosis, including prior medication, loco-regional treatment(s), and surgical treatment(s).
+
+Information on radiographic studies performed prior to study entry may be collected for review by the investigator. 7.
+
+Vital signs collected on study include temperature, pulse rate, and blood pressure (systolic and diastolic) while the patient is in a seated position after resting for 10 minutes.
+
+The patient’s vital signs are required to be recorded within 60 minutes before; during; and 30 minutes after the first infusion of tislelizumab or placebo.
+
+For subsequent infusions, vital signs will be collected within 60 minutes before infusion and if clinically indicated, during and 30 minutes after the infusion.
+
+Height should be measured and recorded only during screening. 8.
+
+During Screening Visit, a complete physical examination will be conducted.
+
+At subsequent visits (and as clinically indicated), limited, symptom-directed physical examinations will be performed. 9.
+
+The ECG recordings will be obtained during screening, the Safety Follow-up Visit, and as clinically indicated at other time points.
+
+When coinciding with blood draws at the same timepoint, ECG assessment should be performed prior to blood draws.
+
+Patients should be resting in a semi-recumbent supine position for at least 10 minutes prior to each ECG collection. 10.
+
+The AEs and laboratory abnormalities will be graded per NCI-CTCAE v5.0.
+
+All AEs will also be evaluated for seriousness.
+
+After the informed consent form has been signed, but prior to the administration of study drug, only SAEs should be reported.
+
+After initiation of study drug, all AEs and SAEs, regardless of relationship to study drug, will be reported until either 30 days after last dose of study drug(s) (including chemotherapy) or the initiation of new anticancer therapy, whichever occurs first.
+
+In addition, telephone contacts with patients should be conducted to assess immune-mediated AEs and concomitant medications (if appropriate, ie, associated with an immune-mediated AE or is a new anticancer therapy) at 60 (± 14 days) days, and 90 days (± 14 days) after the last dose of tislelizumab or placebo, regardless of whether the patient starts a new anticancer therapy.
+
+Immune-mediated AEs (serious or nonserious) should be reported until 90 days after the last dose of tislelizumab or placebo, regardless of whether the patient starts a new anticancer therapy. 11.
+
+Local and/or central laboratory assessments on serum chemistry, hematology, coagulation, and urinalysis will be conducted, of which certain elements will be collected as specified in Section 7.5.4.
+
+If laboratory tests at screening are not performed within 7 days of administration of study drug(s) on Cycle 1 Day 1, these tests should be repeated and reviewed before study drug(s) administration.
+
+Hematology, serum chemistry, CK and CK-MB assessment, and coagulation tests should be performed at the beginning of each cycle, and at the End-of-Treatment and Safety Follow-up Visits (Section 7.5.4).
+
+In the event that CK-MB fractionation is not available, troponin I and/or troponin T should be assessed instead.
+
+Urinalysis is to be conducted during the treatment period only if clinically warranted.
+
+Coagulation parameters include international normalized ratio, prothrombin time, and activated partial thromboplastin time.
+
+Refer to Section 8.3.5 for additional information regarding clinical assessment and management of clinical laboratory abnormalities.
+
+CONFIDENTIAL Page 109 CONFIDENTIAL Page 250
+
+--- Page 110 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 12.
+
+Urine or serum pregnancy test (for women of childbearing potential, including women who have had a tubal ligation) must be performed and documented as negative within 7 days prior to randomization.
+
+Urine pregnancy tests will be performed at each visit prior to dosing.
+
+A serum pregnancy test must be performed if the urine pregnancy test is positive or equivocal. 13.
+
+Analysis of FT3, FT4, and TSH will be performed by a central laboratory or the local study site laboratory.
+
+Thyroid function tests will be performed at screening and every 3 cycles (ie, Day 1 of Cycles 4, 7, 10, etc), and at the Safety Follow-up Visit. 14.
+
+Testing will be performed by a central laboratory and/or the local laboratory at screening and will include HBV/HCV serology (HBsAg, HBsAb, HBcAb, and HCV antibody) and viral load assessment (HBV DNA and HCV RNA). 15.
+
+Pulmonary function testing including spirometry and assessment of oxygenation, at a minimum pulse oximetry at rest and with exercise, or alternatively, assessment of diffusion capacity, are to be performed for all patients during the Screening Period to assist the determination of suitability on the study.
+
+Respective test results need to be submitted to the sponsor.
+
+Refer to Section 7.1.5 for further details.
+
+Tests may be repeated as clinically indicated while on study. 16.
+
+Procedures for collection of PK samples are described in the Laboratory Manual.
+
+Predose (within 60 minutes before starting infusion) samples are required to be collected at Day 1 of Cycles 1, 2, 5, 9 and 17; A postdose (within 30 minutes after completing tislelizumab or placebo infusion) sample is required to be collected at Day 1 of Cycles 1 and 5.
+
+An additional PK sample is required to be collected at the Safety Follow-up.
+
+Should a patient present with any ≥ Grade 3 imAE, an additional blood PK sample may be taken to determine the serum concentration of tislelizumab.
+
+These tests are required when it is allowed by local regulations/IRBs/ECs. 17.
+
+Blood used to test for anti-tislelizumab antibodies should be collected within 60 minutes before beginning the Day 1 infusion of Cycles 1, 2, 5, 9, and 17 and at the mandatory Safety Follow-up Visit.
+
+All samples should be drawn at the same time as blood collection for predose PK analysis.
+
+These tests are required when it is allowed by local regulations/IRBs/ECs. 18.
+
+Radiological images captured as standard of care prior to obtaining written informed consent and within 28 days before randomization may be used rather than repeating tests.
+
+All measurable and evaluable lesions are required to be assessed and documented at the Screening Visit.
+
+An MRI (or CT scan if MRI is contraindicated or not readily available) of the head may be required at screening based on clinical judgement; bone scan or PET is required if clinically indicated.
+
+The same radiographic procedure must be used throughout the study for each patient.
+
+The investigator must review radiograph results before dosing at the next cycle.
+
+During the study, tumor imaging will be performed approximately every 6 weeks (± 7 days) for the first 48 weeks following Cycle 1 Day 1 based on RECIST v1.1, and every 9 weeks (± 7 days) thereafter, regardless of treatment dose delay.
+
+The investigator may perform additional scans or more frequent assessments if clinically indicated.
+
+See Section 7.6 for more information.
+
+Patients who discontinue study treatment early for reasons other than disease progression (eg, toxicity) will continue to undergo tumor assessments following the original plan until the patient begins a subsequent anticancer treatment, experiences disease progression, withdraws consent, is lost to follow-up, death, or until the study terminates, whichever occurs first.
+
+Patients who continue study treatment beyond radiographic disease progression (Section 3.3) will be monitored with a follow-up scan as defined in Section 7.6 before discontinuation of study treatment. 19.
+
+Patients are required to provide archival tumor tissues (FFPE blocks or approximately 15 [≥ 6] unstained slides) for biomarker analysis. 20.
+
+Fresh biopsy: In the absence of archival tumor tissues, a fresh biopsy of a tumor lesion at baseline (within 28 days before randomization) is strongly recommended, if feasible.
+
+Optional biopsies will also be taken for the patients who have confirmed disease progression and/or at the time of first tumor response (CR/PR) for the assessment of mechanism of resistance (written informed consent is required prior to fresh tumor biopsies).
+
+See Section 7.8 for more information. 21.
+
+Blood samples will be taken at baseline (predose on Cycle 1 Day 1) and optionally at the time of disease progression and/or at the time of first tumor response (CR/PR) (10 mL each timepoint) for all randomized patients to explore the association with response, resistance, and prognosis to tislelizumab in combination with chemotherapy or chemotherapy alone.
+
+If disease progression is confirmed at the EOT Visit, the blood sample should be collected at the EOT Visit.
+
+If the patient continues study treatment after confirmed disease progression, the blood sample should be collected at the visit when the patient is CONFIDENTIAL Page 110 CONFIDENTIAL Page 251
+
+--- Page 111 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 confirmed to have disease progression.
+
+Written patient consent is required for blood sample collection.
+
+The sampling at baseline will be mandatory after regulatory approval. 22.
+
+If at any time during the study a patient undergoes a medically indicated procedure that has the likelihood of yielding tumor tissue, any remaining sample or a portion of the sample not necessary for medical diagnosis (leftover tumor tissue) may be obtained for exploratory analysis. 23.
+
+Tislelizumab or placebo should be given intravenously once every 3 weeks.
+
+The initial infusion (Cycle 1 Day 1) will be delivered over 60 minutes, and then can be administered over 30 minutes for subsequent infusions if well tolerated.
+
+Patients must be monitored for 1 hour after infusion of tislelizumab or placebo on Day 1 of Cycle 1 and Cycle 2; from Cycle 3 onward, at least a 30-minute monitoring period is required.
+
+The first dose will be given on Cycle 1 Day 1 and subsequent dosing will continue on the scheduled 21-day intervals.
+
+The chemotherapy regimens will be chosen at investigator’s discretion and be given intravenously on 21-day cycle for the first 4 cycles.
+
+On Day 1 of Cycles 1 to 4, chemotherapy drugs will be administered separately after the infusion of tislelizumab or placebo, in a sequential manner.
+
+Platinum (cisplatin or carboplatin) will be administered on Day 1 of each cycle; etoposide will be administered on Days 1, 2 and 3 of each cycle.
+
+Refer to Section 5.2, Table 3 and Table 4 for more details. 24.
+
+To be completed prior to any clinical activities during on-study site visits.
+
+EORTC QLQ-C30, EORTC QLQ-LC13, and EQ5D-5L will be completed at baseline (predose at Day 1 of Cycle 1), at every cycle through Cycle 4, then every other cycle thereafter until End-of-Treatment Visit, and at Safety Follow-up Visit. 25.
+
+Review of AEs and concomitant medications and procedures may be conducted by telephone on Days 8 and 15.
+
+CONFIDENTIAL Page 111 CONFIDENTIAL Page 252
+
+--- Page 112 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 XX August 2020 APPENDIX 2.
+
+ECOG PERFORMANCE STATUS Grade Description 0 Fully active, able to carry on all pre-disease performance without restriction 1 Restricted in physically strenuous activity but ambulatory and able to carry out work of a light or sedentary nature, eg, light house work, office work 2 Ambulatory and capable of all self-care but unable to carry out any work activities.
+
+Up and about more than 50% of waking hours 3 Capable of only limited self-care, confined to bed or chair more than 50% of waking hours 4 Completely disabled.
+
+Cannot carry on any self-care.
+
+Totally confined to bed or chair 5 Dead As published by (Oken et al 1982).
+
+Eastern Cooperative Oncology Group, Robert Comis M.D., Group Chair.
+
+CONFIDENTIAL Page 112 CONFIDENTIAL Page 253
+
+--- Page 113 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 3.
+
+THE RESPONSE EVALUATION CRITERIA IN SOLID TUMORS (RECIST) GUIDELINES, VERSION 1.1 The text below was obtained from the following reference: Eisenhauer EA, Therasse P, Bogaerts J, et al.
+
+New response evaluation criteria in solid tumours: revised RECIST guideline (version 1.1).
+
+Eur J Cancer. 2009;45(2):228-47.
+
+DEFINITIONS Response and progression will be evaluated in this trial using the international criteria proposed by the Response Evaluation Criteria in Solid Tumors (RECIST) Committee (v1.1).
+
+Changes in only the largest diameter (uni-dimensional measurement) of the tumor lesions are used in the RECIST criteria.
+
+Note: Lesions are either measurable or non-measurable using the criteria provided below.
+
+The term “evaluable” in reference to measurability will not be used because it does not provide additional meaning or accuracy.
+
+Measurable Disease Tumor lesions: Must be accurately measured in at least 1 dimension (longest diameter in the plane of measurement is to be recorded) with a minimum size of: • 10 mm by CT and MRI (no less than double the slice thickness and a minimum of 10 mm) • 10 mm caliper measurement by clinical exam (when superficial) • 20 mm by chest X-ray (if clearly defined and surrounded by aerated lung) Malignant lymph nodes: To be considered pathologically enlarged and measurable, a lymph node must be ≥ 15 mm in short axis when assessed by CT scan (CT scan slice thickness recommended to be no greater than 5 mm).
+
+At baseline and in follow-up, only the short axis will be measured and followed.
+
+Nonmeasurable Disease All other lesions (or sites of disease), including small lesions (longest diameter ≥ 10 to < 15 mm with conventional techniques or < 10 mm using spiral CT scan), are considered nonmeasurable disease.
+
+Leptomeningeal disease, ascites, pleural, or pericardial effusion, inflammatory breast disease, lymphangitic involvement of skin or lung, abdominal masses/abdominal organomegaly identified by physical examination that is not measurable by reproducible imaging techniques are all non-measurable.
+
+Bone lesions: • Bone scan, PET scan, or plain films are not considered adequate imaging techniques to measure bone lesions.
+
+However, these techniques can be used to confirm the presence or disappearance of bone lesions. • Lytic bone lesions or mixed lytic-blastic lesions, with identifiable soft tissue components, that can be evaluated by cross sectional imaging techniques such as CT or MRI can be CONFIDENTIAL Page 113 CONFIDENTIAL Page 254
+
+--- Page 114 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 considered as measurable lesions if the soft tissue component meets the definition of measurability described above • Blastic bone lesions are nonmeasurable Cystic lesions: • Lesions that meet the criteria for radiographically defined simple cysts should not be considered as malignant lesions (neither measurable nor non-measurable) since they are, by definition, simple cysts • Cystic lesions thought to represent cystic metastases can be considered as measurable lesions, if they meet the definition of measurability described above.
+
+However, if non-cystic lesions are present in the same patient, these are preferred for selection as target lesions.
+
+Lesions with prior local treatment: • Tumor lesions situated in a previously irradiated area, or in an area subjected to other loco-regional therapy, are usually not considered measurable unless there has been demonstrated progression in the lesion.
+
+Trial protocols should detail the conditions under which such lesions would be considered measurable.
+
+Target Lesions All measurable lesions up to a maximum of 2 lesions per organ and 5 lesions in total, should be identified as target lesions and recorded and measured at baseline.
+
+Target lesions should be selected on the basis of their size (lesions with the longest diameter), be representative of all involved organ, but in addition should be those that lend themselves to reproducible repeated measurements.
+
+Lymph nodes merit special mention since they are normal anatomical structures which may be visible by imaging even if not involved by tumor.
+
+Pathological nodes which are defined as measurable and may be identified as target lesions must meet the criterion of a short axis of ≥ 15 mm by CT scan.
+
+Only the short axis of these nodes will contribute to the baseline sum.
+
+The short axis of the node is the diameter normally used by radiologists to judge if a node is involved by solid tumor.
+
+Nodal size is normally reported as 2 dimensions in the plane in which the image is obtained (for CT scan, this is almost always the axial plane; for MRI the plane of acquisition may be axial, sagittal, or coronal).
+
+The smaller of these measures is the short axis.
+
+For example, an abdominal node which is reported as being 20 mm × 30 mm has a short axis of 20 mm and qualifies as a malignant, measurable node.
+
+In this example, 20 mm should be recorded as the node measurement.
+
+All other pathological nodes (those with short axis ≥10 mm but < 15 mm) should be considered nontarget lesions.
+
+Nodes that have a short axis < 10 mm are considered nonpathological and should not be recorded or followed.
+
+A sum of the diameters (longest for non-nodal lesions, short axis for nodal lesions) for all target lesions will be calculated and reported as the baseline sum diameters.
+
+If lymph nodes are to be included in the sum, then as noted above, only the short axis is added into the sum.
+
+The baseline sum diameters will be used as reference to further characterize any objective tumor regression in the measurable dimension of the disease.
+
+CONFIDENTIAL Page 114 CONFIDENTIAL Page 255
+
+--- Page 115 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Nontarget Lesions All other lesions (or sites of disease) including pathological lymph nodes should be identified as nontarget lesions and should also be recorded at baseline.
+
+Measurements are not required and these lesions should be followed as “present”, “absent”, or in rare cases “unequivocal progression” (more details to follow).
+
+In addition, it is possible to record multiple nontarget lesions involving the same organ as a single item on the case record form (eg, “multiple enlarged pelvic lymph node” or “multiple liver metastases”).
+
+GUIDELINES FOR EVALUATION OF MEASURABLE DISEASE All measurements should be recorded in metric notation, using calipers if clinically assessed.
+
+All baseline evaluations should be performed as close as possible to the treatment start and never more than 4 weeks before the beginning of the treatment.
+
+The same method of assessment and the same technique should be used to characterize each identified and reported lesion at baseline and during follow-up.
+
+Imaging based evaluation should always be done rather than clinical examination unless the lesion(s) being followed cannot be imaged but are accessible by clinical examination.
+
+Clinical lesions: Clinical lesions will only be considered measurable when they are superficial and P10 mm diameter as assessed using calipers (eg, skin nodules).
+
+For the case of skin lesions, documentation by color photography including a ruler to estimate the size of the lesion is suggested.
+
+As noted above, when lesions can be evaluated by both clinical examination and imaging, imaging evaluation should be undertaken since it is more objective and may also be reviewed at the end of the trial. • Chest X-ray: Chest CT is preferred over chest X-ray, particularly when progression is an important endpoint, since CT is more sensitive than X-ray, particularly in identifying new lesions.
+
+However, lesions on chest X-ray may be considered measurable if they are clearly defined and surrounded by aerated lung. • CT, MRI: CT is the best currently available and reproducible method to measure lesions selected for response assessment.
+
+This guideline has defined measurability of lesions on CT scan based on the assumption that CT slice thickness is 5 mm or less.
+
+When CT scans have slice thickness greater than 5 mm, the minimum size for a measurable lesion should be twice the slice thickness.
+
+MRI is also acceptable in certain situations (eg, for body scans). • Ultrasound: Ultrasound is not useful in assessment of lesion size and should not be used as a method of measurement.
+
+Ultrasound examinations cannot be reproduced in their entirety for independent review at a later date and, because they are operator dependent, it cannot be guaranteed that the same technique and measurements will be taken from 1 assessment to the next.
+
+If new lesions are identified by ultrasound in the course of the study, confirmation by CT or MRI is advised.
+
+If there is concern about radiation exposure at CT, MRI may be used instead of CT in selected instances. • Endoscopy, laparoscopy: The utilization of these techniques for objective tumor evaluation is not advised.
+
+However, they can be useful to confirm complete pathological CONFIDENTIAL Page 115 CONFIDENTIAL Page 256
+
+--- Page 116 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 response when biopsies are obtained or to determine relapse in trials where recurrence following complete response (CR) or surgical resection is an endpoint. • Tumor markers: Tumor markers alone cannot be used to assess objective tumor response.
+
+If markers are initially above the upper normal limit, however, they must normalize for a patient to be considered in CR.
+
+Because tumor markers are disease specific, instructions for their measurement should be incorporated into protocols on a disease specific basis.
+
+Specific guidelines for both CA-125 response (in recurrent ovarian cancer) and prostatespecific antigen response (in recurrent prostate cancer), have been published.
+
+In addition, the Gynecologic Cancer Intergroup has developed CA-125 progression criteria which are to be integrated with objective tumor assessment for use in first-line trials in ovarian cancer. • Cytology, histology: These techniques can be used to differentiate between PR and CR in rare cases if required by protocol (for example, residual lesions in tumor types such as germ cell tumors, where known residual benign tumors can remain).
+
+When effusions are known to be a potential adverse effect of treatment (eg, with certain taxane compounds or angiogenesis inhibitors), the cytological confirmation of the neoplastic origin of any effusion that appears or worsens during treatment can be considered if the measurable tumor has met criteria for response or stable disease in order to differentiate between response (or stable disease) and progressive disease.
+
+RESPONSE CRITERIA Evaluation of Target Lesions • Complete Response (CR): Disappearance of all target lesions.
+
+Any pathological lymph nodes (whether target or nontarget) must have reduction in short axis to < 10 mm. • Partial Response (PR): At least a 30% decrease in the sum of diameters of target lesions, taking as reference the baseline sum diameters • Progressive Disease (PD): At least a 20% increase in the sum of diameters of target lesions, taking as reference the smallest sum on study (this includes the baseline sum if that is the smallest on study).
+
+In addition to the relative increase of 20%, the sum must also demonstrate an absolute increase of at least 5 mm. (Note: the appearance of one or more new lesions is also considered progression). • Stable Disease: Neither sufficient shrinkage to qualify for PR nor sufficient increase to qualify for PD, taking as reference the smallest sum diameters while on study • Lymph nodes: Lymph nodes identified as target lesions should always have the actual short axis measurement recorded (measured in the same anatomical plane as the baseline examination), even if the nodes regress to below 10 mm on study.
+
+This means that when lymph nodes are included as target lesions, the “sum” of lesions may not be zero even if CR criteria are met, since a normal lymph node is defined as having a short axis of < 10 mm.
+
+Case report recorded in a separate section where, in order to qualify for CR, each node must achieve a short axis <10 mm.
+
+For PR, SD and PD, the actual short axis measurement of the nodes is to be included in the sum of target lesions.
+
+CONFIDENTIAL Page 116 CONFIDENTIAL Page 257
+
+--- Page 117 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • Target lesions that become “too small to measure”.
+
+While on study, all lesions (nodal and non-nodal) recorded at baseline should have their actual measurements recorded at each subsequent evaluation, even when very small (eg, 2 mm).
+
+However, sometimes lesions or lymph nodes which are recorded as target lesions at baseline become so faint on CT scan that the radiologist may not feel comfortable assigning an exact measure and may report them as being “too small to measure”.
+
+When this occurs, it is important that a value be recorded on the eCRF.
+
+If it is the opinion of the radiologist that the lesion has likely disappeared, the measurement should be recorded as 0 mm.
+
+If the lesion is believed to be present and is faintly seen but too small to measure, a default value of 5 mm should be assigned (Note: It is less likely that this rule will be used for lymph nodes since they usually have a definable size when normal and are frequently surrounded by fat such as in the retroperitoneum; however, if a lymph node is believed to be present and is faintly seen but too small to measure, a default value of 5 mm should be assigned in this circumstance as well).
+
+This default value is derived from the 5 mm CT slice thickness (but should not be changed with varying CT slice thickness).
+
+The measurement of these lesions is potentially non-reproducible, therefore providing this default value will prevent false responses or progressions based upon measurement error.
+
+To reiterate, however, if the radiologist is able to provide an actual measure, that should be recorded, even if it is below 5 mm. • Lesions that split or coalesce on treatment: When non-nodal lesions “fragment”, the longest diameters of the fragmented portions should be added together to calculate the target lesion sum.
+
+Similarly, as lesions coalesce, a plane between them may be maintained that would aid in obtaining maximal diameter measurements of each individual lesion.
+
+If the lesions have truly coalesced such that they are no longer separable, the vector of the longest diameter in this instance should be the maximal longest diameter for the “coalesced lesion”.
+
+Evaluation of Nontarget Lesions While some nontarget lesions may actually be measurable, they need not be measured and instead should be assessed only qualitatively at the time points specified in the protocol. • CR: Disappearance of all nontarget lesions and normalization of tumor marker level.
+
+All lymph nodes must be nonpathological in size (<10 mm short axis). • PD: Unequivocal progression (as detailed below) of existing nontarget lesions. (Note: the appearance of one or more new lesions is also considered progression.) • Non-CR/Non-PD: Persistence of one or more nontarget lesion(s) and/or maintenance of tumor marker level above the normal limits • When the patient also has measurable disease: In this setting, to achieve “unequivocal progression” on the basis of the nontarget disease, there must be an overall level of substantial worsening in nontarget disease such that, even in presence of SD or PR in target disease, the overall tumor burden has increased sufficiently to merit discontinuation of therapy.
+
+A modest “increase” in the size of one or more nontarget lesions is usually not sufficient to qualify for unequivocal progression status.
+
+The CONFIDENTIAL Page 117 CONFIDENTIAL Page 258
+
+--- Page 118 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 designation of overall progression solely on the basis of change in nontarget disease in the face of SD or PR of target disease will therefore be extremely rare. • When the patient has only non-measurable disease: This circumstance arises in some phase 3 trials when it is not a criterion of trial entry to have measurable disease.
+
+The same general concept applies here as noted above, however, in this instance there is no measurable disease assessment to factor into the interpretation of an increase in non-measurable disease burden.
+
+Because worsening in nontarget disease cannot be easily quantified (by definition: if all lesions are truly non-measurable) a useful test that can be applied when assessing patients for unequivocal progression is to consider if the increase in overall disease burden based on the change in non-measurable disease is comparable in magnitude to the increase that would be required to declare PD for measurable disease: ie, an increase in tumor burden representing an additional 73% increase in “volume” (which is equivalent to a 20% increase diameter in a measurable lesion). • Examples include an increase in a pleural effusion from “trace” to “large”, an increase in lymphangitic disease from localized to widespread, or may be described in protocols as “sufficient to require a change in therapy”.
+
+If “unequivocal progression” is seen, the patient should be considered to have had overall PD at that point.
+
+While it would be ideal to have objective criteria to apply to non-measurable disease, the very nature of that disease makes it impossible to do so, therefore the increase must be substantial.
+
+New Lesions The appearance of new malignant lesions denotes disease progression; therefore, some comments on detection of new lesions are important.
+
+There are no specific criteria for the identification of new radiographic lesions; however, the finding of a new lesion should be unequivocal: ie, not attributable to differences in scanning technique, change in imaging modality or findings thought to represent something other than tumor (for example, some “new” bone lesions may be simply healing or flare of pre-existing lesions).
+
+This is particularly important when the patient’s baseline lesions show partial or CR.
+
+For example, necrosis of a liver lesion may be reported on a CT scan report as a “new” cystic lesion, which it is not.
+
+A lesion identified on a follow-up trial in an anatomical location that was not scanned at baseline is considered a new lesion and will indicate disease progression.
+
+An example of this is the patient who has visceral disease at baseline and while on trial has a CT or MRI brain ordered which reveals metastases.
+
+The patient’s brain metastases are considered to be evidence of PD even if he/she did not have brain imaging at baseline.
+
+If a new lesion is equivocal, for example because of its small size, continued therapy and follow-up evaluation will clarify if it represents truly new disease.
+
+If repeat scans confirm there is definitely a new lesion, then progression should be declared using the date of the initial scan.
+
+While fluorodeoxyglucose (FDG)-PET response assessments need additional study, it is sometimes reasonable to incorporate the use of FDG-PET scanning to complement CT scanning in assessment of progression (particularly possible “new” disease).
+
+New lesions on the basis of FDG-PET imaging can be identified according to the following algorithm: Negative FDG-PET at baseline, with a positive FDG-PET at follow-up, is a sign of PD based on a new lesion.
+
+CONFIDENTIAL Page 118 CONFIDENTIAL Page 259
+
+--- Page 119 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • No FDG-PET at baseline and a positive FDG-PET at follow-up: If the positive FDG-PET at follow-up corresponds to a new site of disease confirmed by CT, this is PD.
+
+If the positive FDG-PET at follow-up is not confirmed as a new site of disease on CT, additional follow-up CT scans are needed to determine if there is truly progression occurring at that site (if so, the date of PD will be the date of the initial abnormal FDG-PET scan).
+
+If the positive FDG-PET at follow-up corresponds to a pre-existing site of disease on CT that is not progressing on the basis of the anatomic images, this is not PD.
+
+Evaluation of Best Overall Response The BOR is the best response recorded from the start of the study drug treatment until the end of treatment taking into account any requirement for confirmation.
+
+On occasion a response may not be documented until after the end of therapy so protocols should be clear if post-treatment assessments are to be considered in determination of BOR.
+
+Protocols must specify how any new therapy introduced before progression will affect best response designation.
+
+The patient’s BOR assignment will depend on the findings of both target and nontarget disease and will also take into consideration the appearance of new lesions.
+
+Furthermore, depending on the nature of the trial and the protocol requirements, it may also require confirmatory measurement.
+
+Specifically, in non-randomized trials where response is the primary endpoint, confirmation of PR or CR is needed to deem either one the “best overall response”.
+
+The BOR is determined once all the data for the patient is known.
+
+Best response determination in trials where confirmation of complete or partial response IS NOT required: Best response in these trials is defined as the best response across all time points (for example, a patient who has SD at first assessment, PR at second assessment, and PD on last assessment has a BOR of PR).
+
+When SD is believed to be best response, it must also meet the protocol specified minimum time from baseline.
+
+If the minimum time is not met when SD is otherwise the best time point response, the patient’s best response depends on the subsequent assessments.
+
+For example, a patient who has SD at first assessment, PD at second and does not meet minimum duration for SD, will have a best response of PD.
+
+The same patient lost to follow-up after the first SD assessment would be considered inevaluable.
+
+Target Lesions Nontarget Lesions New Lesions Overall Response CR CR No CR CR Non-CR/non-PD No PR CR Not evaluated No PR PR Non-PD or not all No PR evaluated SD Non-PD or not all No SD evaluated Not all evaluated Non-PD No NE PD Any Yes or No PD Any PD Yes or No PD Any Any Yes PD Abbreviations: CR, complete response; NE, not evaluable; PD, progressive disease; PR, partial response; SD, stable disease.
+
+CONFIDENTIAL Page 119 CONFIDENTIAL Page 260
+
+--- Page 120 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 When nodal disease is included in the sum of target lesions and the nodes decrease to “normal” size (< 10 mm), they may still have a measurement reported on scans.
+
+This measurement should be recorded even though the nodes are normal in order not to overstate progression should it be based on increase in size of the nodes.
+
+As noted earlier, this means that patients with CR may not have a total sum of “zero.” In trials where confirmation of response is required, repeated "NE" time point assessments may complicate best response determination.
+
+The analysis plan for the trial must address how missing data/assessments will be addressed in determination of response and progression.
+
+For example, in most trials it is reasonable to consider a patient with time point responses of PR-NE-PR as a confirmed response.
+
+Patients with a global deterioration of health status requiring discontinuation of treatment without objective evidence of disease progression at that time should be reported as “symptomatic deterioration”.
+
+Every effort should be made to document objective progression even after discontinuation of treatment.
+
+Symptomatic deterioration is not a descriptor of an objective response: it is a reason for stopping trial therapy.
+
+Conditions that define “early progression, early death, and inevaluability” are trial specific and should be clearly described in each protocol (depending on treatment duration, treatment periodicity).
+
+In some circumstances it may be difficult to distinguish residual disease from normal tissue.
+
+When the evaluation of CR depends upon this determination, it is recommended that the residual lesion be investigated (fine needle aspirate/) before assigning a status of CR.
+
+FDG-PET may be used to upgrade a response to a CR in a manner similar to a in cases where a residual radiographic abnormality is thought to represent fibrosis or scarring.
+
+The use of FDG-PET in this circumstance should be prospectively described in the protocol and supported by disease specific medical literature for the indication.
+
+However, it must be acknowledged that both approaches may lead to false positive CR due to limitations of FDG-PET and resolution/ sensitivity.
+
+For equivocal findings of progression (eg, very small and uncertain new lesions; cystic changes, or necrosis in existing lesions), treatment may continue until the next scheduled assessment.
+
+If at the next scheduled assessment, progression is confirmed, the date of progression should be the earlier date when progression was suspected.
+
+CONFIRMATORY MEASUREMENT/DURATION OF RESPONSE Confirmation In nonrandomized trials where response is the primary endpoint, confirmation of PR and CR is required to ensure responses identified are not the result of measurement error.
+
+This will also permit appropriate interpretation of results in the context of historical data where response has traditionally required confirmation in such trials.
+
+However, in all other circumstances, ie, in randomized trials (phase 2 or 3) or trials where stable disease or progression are the primary endpoints, confirmation of response is not required since it will not add value to the interpretation of trial results.
+
+However, elimination of the requirement for response confirmation may increase the importance of central review to protect against bias, in particular in trials which are not blinded.
+
+CONFIDENTIAL Page 120 CONFIDENTIAL Page 261
+
+--- Page 121 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 In the case of SD, measurements must have met the SD criteria at least once after trial entry at a minimum interval (in general not less than 6 weeks).
+
+Duration of Overall Response The duration of overall response is measured from the time measurement criteria are first met for CR/PR (whichever is first recorded) until the first date that recurrent or progressive disease is objectively documented (taking as reference for progressive disease the smallest measurements recorded on study).
+
+The duration of overall CR is measured from the time measurement criteria are first met for CR until the first date that recurrent disease is objectively documented.
+
+Duration of Stable Disease Stable disease is measured from the start of the treatment (in randomized trials, from date of randomization) until the criteria for progression are met, taking as reference the smallest sum on study (if the baseline sum is the smallest, this is the reference for calculation of PD).
+
+The clinical relevance of the duration of stable disease varies in different studies and diseases.
+
+If the proportion of patients achieving stable disease for a minimum period of time is an endpoint of importance in a particular trial, the protocol should specify the minimal time interval required between 2 measurements for determination of stable disease.
+
+Note: The duration of response and stable disease as well as the progression-free survival are influenced by the frequency of follow-up after baseline evaluation.
+
+It is not in the scope of this guideline to define a standard follow-up frequency.
+
+The frequency should take into account many parameters including disease types and stages, treatment periodicity, and standard practice.
+
+However, these limitations of the precision of the measured endpoint should be taken into account if comparisons between trials are to be made.
+
+CONFIDENTIAL Page 121 CONFIDENTIAL Page 262
+
+--- Page 122 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 4.
+
+PRE-EXISTING IMMUNE DEFICIENCIES OR AUTOIMMUNE DISEASES Prospective patients should be carefully questioned to determine whether they have any history of an acquired or congenital immune deficiency or autoimmune disease.
+
+Please contact the medical monitor regarding any uncertainty about immune deficiency/autoimmune disease exclusions.
+
+Acute disseminated encephalomyelitis Addison’s disease Ankylosing spondylitis Antiphospholipid antibody syndrome Aplastic anemia Autoimmune hemolytic anemia Autoimmune hepatitis Autoimmune hypoparathyroidism Autoimmune hypophysitis Autoimmune myocarditis Autoimmune oophoritis Autoimmune orchitis Autoimmune thrombocytopenic purpura Behcet’s disease Chronic inflammatory demyelinating Bullous pemphigoid polyneuropathy Chung-Strauss syndrome Crohn’s disease Dermatomyositis Dysautonomia Epidermolysis bullosa acquisita Gestational pemphigoid Giant cell arteritis Goodpasture’s syndrome Granulomatosis with polyangiitis Graves’ disease Guillain-Barré syndrome Hashimoto’s disease Immunoglobulin A (IgA) neuropathy Inflammatory bowel disease Interstitial cystitis Kawasaki’s disease Lambert-Eaton myasthenia syndrome Lupus erythematosus Lyme disease (chronic) Mooren’s ulcer Morphea Multiple sclerosis Myasthenia gravis Neuromyotonia Opsoclonus myoclonus syndrome Optic neuritis Ord’s thyroiditis Pemphigus Pernicious anemia Polyarteritis nodusa Polyarthritis Polyglandular autoimmune syndrome Primary biliary cirrhosis Psoriasis Reiter’s syndrome Rheumatoid arthritis Sarcoidosis Sjögren’s syndrome Stiff person syndrome Takayasu’s arteritis Ulcerative colitis Vogt-Kovangai-Harada disease CONFIDENTIAL Page 122 CONFIDENTIAL Page 263
+
+--- Page 123 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 5.
+
+NEW YORK HEART ASSOCIATION FUNCTIONAL CLASSIFICATION Class Symptoms I No limitation of physical activity.
+
+Ordinary physical activity does not cause undue fatigue, palpitation, dyspnea (shortness of breath).
+
+II Slight limitation of physical activity.
+
+Comfortable at rest, but ordinary physical activity results in fatigue, palpitation, dyspnea (shortness of breath).
+
+III Marked limitation of physical activity.
+
+Comfortable at rest, but less than ordinary activity causes fatigue, palpitation, or dyspnea.
+
+IV Unable to carry on any physical activity without discomfort.
+
+Symptoms of heart failure at rest.
+
+If any physical activity is undertaken, discomfort increases.
+
+Adapted from Dolgin M, Association NYH, Fox AC, Gorlin R, Levin RI, New York Heart Association.
+
+Criteria Committee.
+
+Nomenclature and criteria for diagnosis of diseases of the heart and great vessels. 9th ed.
+
+Boston, MA: Lippincott Williams and Wilkins; March 1, 1994.
+
+Original source: Criteria Committee, New York Heart Association, Inc.
+
+Diseases of the Heart and Blood Vessels.
+
+Nomenclature and Criteria for diagnosis, 6th edition Boston, Little, Brown and Co. 1964, p 114.
+
+CONFIDENTIAL Page 123 CONFIDENTIAL Page 264
+
+--- Page 124 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 6.
+
+IMMUNE-MEDIATED ADVERSE EVENT EVALUATION AND MANAGEMENT The recommendations below for the diagnosis and management of any immune-mediated AE (imAE) are intended as a guidance.
+
+This document should be used in conjunction with expert clinical judgement (by specialist physicians experienced in the treatment of cancer using immunological agents), and individual institutional guidelines or policies.
+
+Criteria used to diagnose imAEs include blood tests, diagnostic imaging, histopathology, and microbiology assessments to exclude alternative causes such as infection, disease progression, and adverse effects of concomitant drugs.
+
+In addition to the results of these tests, the following factors should be considered when making an imAE diagnosis: • What was the temporal relationship between initiation of tislelizumab and the adverse event? • How did the patient respond to withdrawal tislelizumab? • Did the event recur when tislelizumab was reintroduced? • Was there a clinical response to corticosteroids? • Is the event an autoimmune endocrinopathy? • Is disease progression or an alternative diagnosis a more likely explanation? When alternative explanations to autoimmune toxicity have been excluded, the imAE field associated with the AE in the eCRF should be checked.
+
+Recommended Diagnostic Tests in the Management of Possible Immune-Mediated Adverse Events Immune-mediated Diagnostic Evaluation Guideline Toxicity Thyroid Disorders Scheduled and repeat thyroid function tests (TSH and T4).
+
+Hypophysitis Check visual fields and consider pituitary endocrine axis blood profile.
+
+Perform pituitary and whole brain MRI in patients with headache, visual disturbance, unexplained fatigue, asthenia, weight loss and unexplained constitutional symptoms.
+
+Consider consultation with an endocrinologist if an abnormality is detected.
+
+Pneumonitis All patients presenting with new or worsened pulmonary symptoms or signs, such as an upper respiratory infection, new cough, shortness of breath or hypoxia should be assessed by high-resolution CT.
+
+Consider pulmonary function test including DLCO.
+
+Radiographic appearance is often nonspecific.
+
+Depending on the location of the abnormality, bronchoscopy and bronchoalveolar lavage or lung may be considered.
+
+Consult with a respiratory medicine physician for cases of uncertain cause.
+
+CONFIDENTIAL Page 124 CONFIDENTIAL Page 265
+
+--- Page 125 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Recommended Diagnostic Tests in the Management of Possible Immune-Mediated Adverse Events Immune-mediated Diagnostic Evaluation Guideline Toxicity Neurological Toxicity Perform a comprehensive neurological examination and brain MRI for all CNS symptoms; review alcohol history and other medications.
+
+Conduct a diabetic screen, and assess blood B12/folate, HIV status, TFTs, and consider autoimmune serology.
+
+Consider the need for brain/spine MRI/MRA and nerve conduction study for peripheral neuropathy.
+
+Consult with a neurologist if there are abnormal findings.
+
+Colitis Review dietary intake and exclude steatorrhea.
+
+Consider comprehensive testing, including the following: FBC, UEC, LFTs, CRP, TFTs, stool microscopy and culture, viral PCR, Clostridium difficile toxin, cryptosporidia (drug-resistant organism).
+
+In case of abdominal discomfort, consider imaging, eg, X-ray, CT scan.
+
+If a patient experiences bleeding, pain or distension, consider colonoscopy with and surgical intervention, as appropriate.
+
+Eye Disorders If a patient experiences acute, new onset, or worsening of eye inflammation, blurred vision, or other visual disturbances, refer the patient urgently to an ophthalmologist for evaluation and management.
+
+Hepatitis Check ALT/AST/total bilirubin, INR/albumin; the frequency will depend on severity of the AE (eg, daily if Grade 3-4; every 2-3 days if Grade 2, until recovering).
+
+Review medications (eg, statins, antibiotics) and alcohol history.
+
+Perform liver screen including Hepatitis A/B/C serology, Hepatitis E PCR and assess anti-ANA/SMA/LKM/SLA/LP/LCI, iron studies.
+
+Consider imaging, eg, ultrasound scan for metastases or thromboembolism.
+
+Consult with a hepatologist and consider liver .
+
+Renal toxicity Review hydration status and medication history.
+
+Test and culture urine.
+
+Consider renal ultrasound scan, protein assessment (dipstick/24-hour urine collection), or phase-contrast microscopy.
+
+Refer to nephrology for further management assistance.
+
+Dermatology Consider other causes by conducting a physical examination, consider dermatology referral for skin .
+
+Joint or muscle Conduct musculoskeletal history and perform complete musculoskeletal inflammation examination.
+
+Consider joint X-ray and other imaging as required to exclude metastatic disease.
+
+Perform autoimmune serology and refer to rheumatology for further management assistance.
+
+For suspected myositis/rhabdomyolysis/myasthenia include: CK, ESR, CRP, troponin and consider a muscle .
+
+Myocarditis Perform ECG, echocardiogram, CK/CK-MB, troponin (I and/or T), and refer to a cardiologist.
+
+Abbreviations: AE, adverse event; ALT, alanine aminotransferase; ANA, antinuclear antibody; AST, aspartate aminotransferase; CK, creatinine kinase; CK-MB, creatinine kinase cardiac isoenzyme; CNS, central nervous system; CRP, C-reactive protein; CT, computed tomography; DLCO, diffusing capacity for carbon monoxide; ECG, electrocardiogram; ESR, erythrocyte sedimentation rate; FBC, full blood count; HIV, human immunodeficiency virus; INR, international normalized ratio; LCI, liver cytosolic antigen; LFT, liver function test; LKM, liver kidney microsomal antibody; LP, liver pancreas (antigen); MRA, magnetic resonance angiogram; MRI, magnetic resonance imaging; PCR, polymerase chain reaction; SLA, soluble liver antigen; SMA, smooth muscle antibody; T4, thyroxine; TFT, thyroid function tests; TSH, thyroid-stimulating hormone; UEC, urea electrolytes and creatinine.
+
+CONFIDENTIAL Page 125 CONFIDENTIAL Page 266
+
+--- Page 126 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Treatment of Immune-Mediated Adverse Events • Immune-mediated AEs can escalate quickly; study treatment interruption, close monitoring, timely diagnostic work-up and treatment intervention, as appropriate, with patients is required • Immune-mediated AEs should improve promptly after introduction of immunosuppressive therapy.
+
+If this does not occur, review the diagnosis, seek further specialist advice and contact the study medical monitor • For some Grade 3 toxicities that resolve quickly, rechallenge with study drug may be considered if there is evidence of a clinical response to study treatment, after consultation with the study medical monitor • Steroid dosages in the table below are for oral or intravenous (methyl)prednisolone.
+
+Equivalent dosages of other corticosteroids can be substituted.
+
+For steroid-refractory imAEs, consider use of steroid-sparing agents (eg, mycophenolate mofetil [MMF]) • Consider prophylactic antibiotics for opportunistic infections if the patient is receiving long-term immunosuppressive therapy Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management Thyroid 1-2 Replace thyroxine if hypothyroid, Continue study Disorders Asymptomatic TFT until TSH/T4 levels return to normal treatment or withhold abnormality or mild range. treatment in cases with symptoms Thyrotoxic patients should be systemic symptoms. referred to an endocrinologist.
+
+In cases with systemic symptoms: withhold study treatment, treat with a beta blocker and consider oral prednisolone 0.5 mg/kg/day for thyroid pain.
+
+Taper corticosteroids over 2-4 weeks.
+
+Monitor thyroid function regarding the need for hormone replacement. 3-4 Refer patient to an endocrinologist.
+
+Hold study treatment; Severe symptoms, If hypothyroid, replace with resume when hospitalization required thyroxine 0.5-1.6 µg/kg/day (for the resolved/improved to elderly or those with co-morbidities, Grade 0-1. the suggested starting dose is 0.5 µg/kg/day).
+
+Add oral prednisolone 0.5 mg/kg/day for thyroid pain.
+
+Thyrotoxic patients require treatment with a beta blocker and may require carbimazole until thyroiditis resolves.
+
+CONFIDENTIAL Page 126 CONFIDENTIAL Page 267
+
+--- Page 127 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management Hypophysitis 1-2 Refer patient to an endocrinologist Continue study Mild-moderate for hormone replacement.
+
+Add oral treatment. symptoms prednisolone 0.5-1 mg/kg/day for patients with pituitary inflammation.
+
+Taper corticosteroids over at least 1 month.
+
+If there is no improvement in 48 hours, treat as Grade 3-4.
+
+Taper corticosteroids over at least 1 month. 3-4 Refer patient to an endocrinologist Hold study treatment Severe or lifefor assessment and treatment. for patients with threatening symptoms Initiate pulse IV methylprednisolone headache/visual 1 mg/kg for patients with disturbance due to headache/visual disturbance due to pituitary inflammation pituitary inflammation.
+
+Convert to until resolved/improved oral prednisolone and taper over at to Grade 2 or less. least 1 month.
+
+Maintain hormone Discontinuation is replacement according to usually not necessary. endocrinology advice.
+
+Maintain hormone replacement according to endocrinology advice.
+
+Pneumonitis 1 Monitor symptoms every 2-3 days.
+
+Consider holding study Radiographic changes If appearance worsens, treat as Grade treatment until only 2. appearance improves and cause is determined. 2 Commence antibiotics if infection Hold study treatment.
+
+Symptomatic: exertional suspected.
+
+Add oral prednisolone Retreatment is breathlessness 1 mg/kg/day if symptoms/appearance acceptable if symptoms persist for 48 hours or worsen. resolve completely or Consider Pneumocystis infection are controlled on prophylaxis.
+
+Taper corticosteroids prednisolone over at least 6 weeks. ≤ 10 mg/day.
+
+Consider prophylaxis for adverse Discontinue study steroid effects: eg, blood glucose treatment if symptoms monitoring, vitamin D/calcium persist with supplement. corticosteroid treatment.
+
+CONFIDENTIAL Page 127 CONFIDENTIAL Page 268
+
+--- Page 128 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management 3-4 Admit to a hospital and initiate Discontinue study Severe or treatment with IV treatment. life-threatening methylprednisolone 2-4 mg/kg/day. symptoms If there is no improvement, or worsening after 48 hours, add Breathless at rest infliximab 5 mg/kg (if no hepatic involvement).
+
+Convert to oral prednisolone and taper over at least 2 months.
+
+Cover with empiric antibiotics and consider prophylaxis for Pneumocystis infection and other adverse steroid effects, eg, blood glucose monitoring, vitamin D/calcium supplement.
+
+Neurological 1 Continue study – Toxicity Mild symptoms treatment. 2 Treat with oral prednisolone 0.5-1 Hold study treatment; Moderate symptoms mg/kg/day.
+
+Taper over at least 4 resume when weeks.
+
+Obtain neurology resolved/improved to consultation.
+
+Grade 0-1. 3-4 Initiate treatment with oral Discontinue study Severe/life-threatening prednisolone or IV treatment. methylprednisolone 1-2 mg/kg/day, depending on symptoms.
+
+Taper corticosteroids over at least 4 weeks.
+
+Consider azathioprine, MMF, cyclosporine if no response within 72-96 hours.
+
+Colitis/Diarrhea 1 Symptomatic management: fluids, Continue study Mild symptoms: loperamide, avoid high fiber/lactose treatment. < 3 liquid stools per day diet. over baseline and feeling If Grade 1 persists for > 14 days well manage as a Grade 2 event. 2 Oral prednisolone 0.5 mg/kg/day Hold study treatment; Moderate symptoms: 4-6 (non-enteric coated). resume when liquid stools per day Do not wait for any diagnostic tests resolved/improved to over baseline, or to start treatment.
+
+Taper steroids baseline grade. abdominal pain, or blood over 2-4 weeks, consider endoscopy in stool, or nausea, or if symptoms are recurring. nocturnal episodes 3 Initiate IV methylprednisolone 1-2 Hold study treatment; Severe mg/kg/day. retreatment may be symptoms: > 6 liquid Convert to oral prednisolone and considered when stools per day over taper over at least 4 weeks.
+
+Consider resolved/improved to baseline, or if episodic prophylaxis for adverse steroid baseline grade and after within 1 hour of eating effects, eg, blood glucose discussion with the monitoring, vitamin D/calcium study medical monitor. supplement.
+
+CONFIDENTIAL Page 128 CONFIDENTIAL Page 269
+
+--- Page 129 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management 4 If no improvement in 72 hours or Discontinue study Life-threatening symptoms worsen, consider treatment. infliximab 5 mg/kg if no perforation, symptoms sepsis, TB, hepatitis, NYHA Grade III/IV CHF or other immunosuppressive treatment: MMF or tacrolimus.
+
+Consult gastroenterologist to conduct colonoscopy/ sigmoidoscopy.
+
+Skin reactions 1 Avoid skin irritants and sun Continue study Skin rash, with or exposure; topical emollients treatment. without symptoms, recommended. < 10% BSA 2 Avoid skin irritants and sun Continue study Rash covers 10%-30% exposure; topical emollients treatment. of BSA recommended.
+
+Topical steroids (moderate strength cream once a day or potent cream twice a day) ± oral or topical antihistamines for itch.
+
+Consider a short course of oral steroids. 3 Avoid skin irritants and sun Hold study treatment.
+
+Rash covers > 30% BSA exposure; topical emollients Re-treat when AE is or Grade 2 with recommended. resolved or improved to substantial symptoms Initiate steroids as follows based on mild rash (Grade 1-2) clinical judgement: after discussion with For moderate symptoms: oral the study medical prednisolone 0.5-1 mg/kg/day for 3 monitor. days then taper over 2-4 weeks.
+
+For severe symptoms: IV methylprednisolone 0.5-1 mg/kg/day; convert to oral prednisolone and taper over at least 4 weeks. 4 Initiate IV methylprednisolone 1-2 Discontinue study Skin sloughing > 30% mg/kg/day.
+
+Convert to oral treatment.
+
+BSA with associated prednisolone and taper over at least 4 symptoms (eg, weeks. erythema, purpura, Admit to a hospital and seek urgent epidermal detachment) dermatology consultation.
+
+Hepatitis 1 Check LFTs within 1 week and Continue study ALT or AST > ULN to before the next dose check LFTs to treatment if LFTs are 3X ULN verify that there has been no unchanged or worsening. improving.
+
+If LFTs are worsening, recheck every Hold study treatment if 48-72 hours until improvement is LFTs are worsening seen. until improvement is seen.
+
+CONFIDENTIAL Page 129 CONFIDENTIAL Page 270
+
+--- Page 130 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management 2 Recheck LFTs every 48-72 hours: Hold study treatment; ALT or AST 3-5X ULN For persistent ALT/AST elevation: treatment may be consider oral prednisolone 0.5-1 resumed when mg/kg/day for 3 days then taper over resolved/improved to 2-4 weeks. baseline Grade and prednisolone tapered to For rising ALT/AST: start oral ≤ 10 mg. prednisolone 1 mg/kg/day and taper over 2-4 weeks; re-escalate dose if LFTs worsen, depending on clinical judgement. 3 ALT/AST < 400 IU/L and normal Hold study treatment ALT or AST 5-20X bilirubin/INR/albumin: Initiate oral until improved to ULN prednisolone 1 mg/kg and taper over baseline Grade; at least 4 weeks. reintroduce only after ALT/AST > 400 IU/L or raised discussion with the bilirubin/INR/low albumin: Initiate study medical monitor.
+
+IV (methyl)prednisolone 2 mg/kg/day.
+
+When LFTs improve to Grade 2 or lower, convert to oral prednisolone and taper over at least 4 weeks. 4 Initiate IV methylprednisolone 2 Discontinue study ALT or AST > 20X mg/kg/day.
+
+Convert to oral treatment.
+
+ULN prednisolone and taper over at least 6 weeks.
+
+Worsening LFTs despite steroids: • If on oral prednisolone, change to pulsed IV methylprednisolone • If on IV, add MMF 500-1000 mg twice a day • If worsens on MMF, consider addition of tacrolimus Duration and dose of steroid required will depend on severity of event Nephritis 1 Repeat creatinine weekly.
+
+Continue study Creatinine 1.5X baseline If symptoms worsen, manage as per treatment. or > ULN to 1.5X ULN criteria below. 2 Ensure hydration and review Hold study treatment.
+
+Creatinine > 1.5X-3X creatinine in 48-72 hours; if not If not attributed to drug baseline or > 1.5X-3X improving, consider creatinine toxicity, restart ULN clearance measurement by 24-hour treatment. urine collection.
+
+Discuss with If attributed to study nephrologist the need for kidney. drug and If attributed to study drug, initiate resolved/improved to oral prednisolone 0.5-1 mg/kg and baseline grade: Restart taper over at least 2 weeks. study drug if tapered to Repeat creatinine/U&E every 48-72 < 10 mg prednisolone. hours. 3 Hospitalize patient for monitoring Hold study treatment Creatinine > 3X baseline and fluid balance; repeat creatinine until the cause is or > 3X-6X ULN every 24 hours; refer to a investigated.
+
+CONFIDENTIAL Page 130 CONFIDENTIAL Page 271
+
+--- Page 131 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management nephrologist and discuss need for .
+
+If If study drug suspected: worsening, initiate IV Discontinue study (methyl)prednisolone 1-2 mg/kg. treatment.
+
+Taper corticosteroids over at least 4 weeks. 4 As per Grade 3, patient should be Discontinue study Creatinine > 6X ULN managed in a hospital where renal treatment. replacement therapy is available.
+
+Diabetes/ 1 Monitor closely and treat according Continue study Hyperglycemia Fasting glucose value to local guideline.
+
+Check for treatment.
+
+ULN to 160 mg/dL; C-peptide and antibodies against ULN to 8.9 mmol/L glutamic acid decarboxylase and islet cells are recommended 2 Obtain a repeat blood glucose level Continue study Fasting glucose value at least every week.
+
+Manage treatment or hold 160-250 mg/dL; 8.9a c c o r d i n g t o l o c a l g u i d e l i n e . t r e a t m e n t i f 13.9 mmol/L hyperglycemia is worsening.
+
+Resume treatment when blood glucose is stabilized at baseline or Grade 0-1. 3 Admit patient to hospital and refer to Fasting glucose value a diabetologist for hyperglycemia 250-500 mg/dL; 13.9management.
+
+Corticosteroids may Hold study treatment 27.8 mmol/L exacerbate hyperglycemia and should until patient is hyperglycemia be avoided. symptom-free, and 4 Admit patient to hospital and blood glucose has been Fasting glucose institute local emergency diabetes stabilized at baseline or value > 500 management.
+
+Refer the patient to a Grade 0-1. mg/dL; > 27.8 mmol/L diabetologist for insulin maintenance and monitoring.
+
+Ocular Toxicity 1 Consider alternative causes and Continue study Asymptomatic eye prescribe topical treatment as treatment. exam/test abnormality required. 2 Refer patient to an ophthalmologist Continue study Anterior uveitis or mild for assessment and topical treatment or hold symptoms corticosteroid treatment.
+
+Consider a treatment if symptoms course of oral steroids. worsen or if there are symptoms of visual disturbance. 3 Refer patient urgently to an Hold study treatment Posterior uveitis/ ophthalmologist.
+
+Initiate oral until improved to Grade panuveitis or significant prednisolone 1-2 mg/kg and taper 0-1; reintroduce only symptoms over at least 4 weeks. after discussion with the study medical monitor. 4 Initiate IV (methyl)prednisolone Discontinue study Blindness (at least 2 mg/kg/day.
+
+Convert to oral treatment. prednisolone and taper over at least CONFIDENTIAL Page 131 CONFIDENTIAL Page 272
+
+--- Page 132 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management 20/200) in the affected 4 weeks. eyes Pancreatitis 2 Monitor pancreatic enzymes.
+
+Continue study Asymptomatic, blood treatment. test abnormalities 3 Admit to hospital for urgent Hold study treatment; Abdominal pain, nausea management.
+
+Initiate IV reintroduce only after and vomiting (methyl)prednisolone 1-2 mg/kg/day. discussion with the Convert to oral prednisolone when study medical monitor. amylase/lipase improved to Grade 2, and taper over at least 4 weeks. 4 Admit to hospital for emergency Discontinue study Acute abdominal pain, management and appropriate referral. treatment. surgical emergency Arthritis 1 Management per local guideline.
+
+Continue study Mild pain with treatment. inflammation, swelling 2 Management as per local guideline.
+
+Continue treatment or, Moderate pain with Consider referring patient to a if symptoms continue inflammation, swelling, rheumatologist.
+
+If symptoms worsen worsens, hold study limited instrumental on treatment manage as a Grade 3 treatment until (fine motor) activities event. symptoms improve to baseline or Grade 0-1. 3 Refer patient urgently to a Hold study treatment Severe pain with rheumatologist for assessment and unless improved to inflammation or management.
+
+Initiate oral Grade 0-1; reintroduce permanent joint damage, prednisolone 0.5-1 mg/kg and taper only after discussion daily living activity over at least 4 weeks. with the study medical limited monitor.
+
+Mucositis/ 1 Consider topical treatment or Continue study stomatitis Test findings only or analgesia as per local guideline. treatment. minimal symptoms 2 As per local guidelines, treat with Continue study Moderate pain, reduced analgesics, topical treatments and treatment. oral intake, limited oral hygiene care.
+
+Ensure adequate instrumental activities hydration.
+
+If symptoms worsen or there is sepsis or bleeding, manage as a Grade 3 event. 3 Admit to hospital for appropriate Hold study treatment Severe pain, limited management.
+
+Initiate IV until improved to Grade food and fluid intake, (methyl)prednisolone 1-2 mg/kg/day. 0-1. daily living activity Convert to oral prednisolone when limited symptoms improved to Grade 2 and taper over at least 4 weeks. 4 Admit to hospital for emergency Discontinue study Life-threatening care.
+
+Consider IV corticosteroids if treatment. complications or not contraindicated by infection.
+
+CONFIDENTIAL Page 132 CONFIDENTIAL Page 273
+
+--- Page 133 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Autoimmune Grade Treatment Guidelines (Patient to Study Drug Toxicity Clinical Judgement) Management dehydration Myositis/ 1 Prescribe analgesics.
+
+Continue study Rhabdomyolysis Mild weakness If CK is significantly elevated and treatment. with/without pain patient has symptoms, consider oral steroids and treat as Grade 2 2 If CK is 3X ULN or worse, initiate Hold study treatment Moderate weakness oral prednisolone 0.5-1 mg/kg and until improved to Grade with/without pain taper over at least 4 weeks 0-1 3-4 Admit to hospital and initiate oral Hold study treatment Severe weakness, prednisolone 1 mg/kg.
+
+Consider until improved to Grade limiting self-care bolus IV (methyl)prednisolone and 0-1.
+
+Discontinue if any 1-2 mg/kg/day maintenance for evidence of myocardial severe activity restriction or involvement dysphagia.
+
+If symptoms do not improve add immunosuppressant therapy.
+
+Taper oral steroids over at least 4 weeks Myocarditis < 2 Initiate cardiac evaluation under Asymptomatic but close monitoring with repeat serum Hold study treatment. significantly increased testing; consider referral to a CK-MB or increased cardiologist.
+
+If a diagnosis of troponin OR clinically If diagnosis of myocarditis is myocarditis is significant confirmed, treat as Grade 2 confirmed, permanently intraventricular discontinue study conduction delay treatment in patients 2 Admit to hospital and initiate oral with moderate or severe Symptoms on mildprednisolone or IV symptoms.
+
+Patients moderate exertion (methyl)prednisolone at with no symptoms or 1-2 mg/kg/day.
+
+Consult with a mild symptoms may 3 cardiologist and manage symptoms not restart tislelizumab Severe symptoms with of cardiac failure according to local unless cardiac mild exertion guidelines. parameters have 4 If no immediate response change to returned to baseline and pulsed doses of (methyl)prednisolone after discussion with Life-threatening 1g/day and add MMF, infliximab or the study medical anti-thymocyte globulin monitor.
+
+Abbreviations: AE, adverse event; ALT, alanine aminotransferase; AST, aspartate aminotransferase; BSA, body surface area; CHF, congestive heart failure; CK, creatinine kinase; CK-MB, creatinine kinase cardiac isoenzyme; INR, international normalized ratio; IV, intravenous; LFT, liver function test; MMF, mycophenolate mofetil; NYHA, New York Heart Association; T4, thyroxine; TB, tuberculosis; TFT, thyroid function test; TSH, thyroid-stimulating hormone; U&E, urea and electrolytes; ULN, upper limit of normal.
+
+CONFIDENTIAL Page 133 CONFIDENTIAL Page 274
+
+--- Page 134 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 7.
+
+CHRONIC KIDNEY DISEASE EPIDEMIOLOGY COLLABORATION (CKD-EPI) EQUATION In adults, the most widely-used equations for estimating glomerular filtration rate (GFR) from serum creatinine are the Chronic Kidney Disease Epidemiology Collaboration (CKD-EPI) equation1 and the Modification of Diet in Renal Disease (MDRD) Study equation.
+
+The National Kidney Disease Education Program (NKDEP) calculators rely on creatinine determinations which are isotope dilution mass spectrometry (IDMS) traceable.
+
+All laboratories should be using creatinine methods calibrated to be IDMS traceable.
+
+This CKD-EPI equation calculator should be used when Scr reported in mg/dL.
+
+This equation is recommended when eGFR values above 60 mL/min/1.73 m2 are desired.
+
+GFR = 141 × min (Scr /κ, 1)α × max(Scr /κ, 1)-1.209 × 0.993Age × 1.018 [if female] × 1.159 [if black] where: Scr is serum creatinine in mg/dL, κ is 0.7 for females and 0.9 for males, α is -0.329 for females and -0.411 for males, min indicates the minimum of Scr /κ or 1, and max indicates the maximum of Scr /κ or 1.
+
+The equation does not require weight because the results are reported normalized to 1.73 m2 body surface area, which is an accepted average adult surface area.
+
+The online calculator for CKD-EPI can be found here: https://www.niddk.nih.gov/healthinformation/communication-programs/nkdep/laboratory-evaluation/glomerular-filtration-ratecalculators 1.
+
+Levey AS, Stevens LA, Schmid CH, et al.
+
+A new equation to estimate glomerular filtration rate.
+
+Ann Intern Med. 2009;150(9):604-12.
+
+CONFIDENTIAL Page 134 CONFIDENTIAL Page 275
+
+--- Page 135 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 8.
+
+CONTRACEPTION GUIDELINES AND DEFINITIONS OF “WOMEN OF CHILDBEARING POTENTIAL,” “NO CHILDBEARING POTENTIAL” Contraception Guidelines The Clinical Trials Facilitation Group’s recommendations related to contraception and pregnancy testing in clinical trials include the use of highly effective forms of birth control.
+
+These methods include the following: • Combined (estrogenand progestogen-containing) hormonal contraception associated with the inhibition of ovulation (oral, intravaginal, or transdermal) • Progestogen-only hormonal contraception associated with the inhibition of ovulation (oral, injectable, or implantable) • Intrauterine device (IUD) • Intrauterine hormone-releasing system (IUS) • Bilateral tubal occlusion • Vasectomized male partner, provided that the vasectomized partner is the sole sexual partner of the woman of childbearing potential study participant and that the vasectomized partner has received medical assessment of surgical success. • Sexual abstinence (defined as refraining from heterosexual intercourse during the entire period of exposure associated with the study treatment). − NOTE: Total sexual abstinence should only be used as a contraceptive method if it is in line with the patient’s usual and preferred lifestyle.
+
+Periodic abstinence (eg, calendar, ovulation, symptothermal, postovulation methods), declaration of abstinence for the duration of exposure to study drug, and withdrawal are not acceptable methods of contraception.
+
+Of note, barrier contraception (including male and female condoms with or without spermicide) is not considered a highly effective method of contraception and if used, this method must be combined with a highly effective form of birth control, listed above.
+
+Definitions of “Women of Childbearing Potential,” “Women of No Childbearing Potential” As defined in this protocol, “women of childbearing potential” are female patients who are physiologically capable of becoming pregnant.
+
+Conversely, “women of no childbearing potential” are defined as female patients meeting any of the following criteria: • Surgically sterile (ie, through bilateral salpingectomy, bilateral oophorectomy, or hysterectomy) • Postmenopausal, defined as: − ≥ 55 years of age with no spontaneous menses for ≥ 12 months OR CONFIDENTIAL Page 135 CONFIDENTIAL Page 276
+
+--- Page 136 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 − < 55 years of age with no spontaneous menses for ≥ 12 months AND with postmenopausal follicle-stimulating hormone concentration > 30 IU/mL and all alternative medical causes for the lack of spontaneous menses for ≥ 12 months have been ruled out, such as polycystic ovarian syndrome, hyperprolactinemia, etc.
+
+If an FSH measurement is required to confirm postmenopausal state, concomitant use of hormonal contraception or hormonal replacement therapy should be excluded.
+
+Adapted from Clinical Trials Facilitation Group (CTFG).
+
+Recommendations related to contraception and pregnancy testing in clinical trials.
+
+September 15, 2014. http://www.hma.eu/fileadmin/dateien/Human_Medicines/01About_HMA/Working_Groups/CTFG/2014_09_HMA_CTFG_Contraception.pdf CONFIDENTIAL Page 136 CONFIDENTIAL Page 277
+
+--- Page 137 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 9.
+
+DOSE MODIFICATION OF CHEMOTHERAPY Dose modifications for chemotherapy agents are permitted according to the respective local prescribing information and local standard-of-care.
+
+The following are suggested recommendations for dose modification of chemotherapy for hematologic and non-hematologic toxicities.
+
+Recommended Dose Modifications for Hematologic Toxicity Dose adjustments are based on nadir blood counts since the preceding chemotherapy administration.
+
+Dose level adjustments are relative to that of the preceding administration.
+
+Recommended dose modifications for hematologic toxicity are provided in Table 1.
+
+Table 1.
+
+Chemotherapy Dose Modification* for Hematological Toxicity Adverse Event Treatment Febrile neutropenia; documented 1) The first episode of febrile neutropenia or documented infection will infection result in antibiotic treatment and reduction by 25% of both drugs doses. 2) If there is a second episode despite dose reduction, the patient must receive prophylactic antibiotics during the subsequent cycles. 3) If there is a third episode, the chemotherapy will be discontinued.
+
+Neutropenia Grade 3 Chemotherapy delay until ≤Grade 1 (≥ 1.5 x 109/L); restart with the full dose (0.5-0.99 x 109/L) Grade 4 Chemotherapy delay until recovered to ≤Grade 1; dose reduction of all further doses by 25% (< 0.5 x 109/L) Thrombocytopenia Chemotherapy delay until recovered to normal; restart with the full dose Grade 1 Chemotherapy delay until recovered to normal; dose reduction of all further ≥ Grade 2 doses by 25% * If considered in the best interest of the patient and consistent with local practice, the investigators may decide to use supportive measures/treatment and/or secondary prophylaxis instead of dose reductions for the next cycle.
+
+The provided triggers for dose modifications are recommendations only.
+
+Carboplatin is only permitted to reduce to - 20% doses once (from AUC 5 to AUC 4).
+
+Recommended Dose Modifications for Non-Hematologic Toxicities The dose adjustments of chemotherapy for non-hematologic toxicity are described in Table 2.
+
+All dose modifications should be made based on the worst grade toxicity.
+
+CONFIDENTIAL Page 137 CONFIDENTIAL Page 278
+
+--- Page 138 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Table 2.
+
+Chemotherapy Dose Modifications for Non-Hematological Toxicity Toxicity Grade Treatment ≥ Grade 1 Delay chemotherapy until recovered to Grade 0 or baseline, change cisplatin to Renal toxicity carboplatin, if possible; dose reduction by 25% for other drug; if recur, stop chemotherapy Grade 2 Dose reduction of all further doses of cisplatin by 25% Ototoxicity Grade 3-4 Delay chemotherapy until recovered to ≤ Grade 2, change cisplatin to carboplatin Grade 2 Dose reduction for all further doses of cisplatin by 25% Sensory Grade 3 Stop cisplatin, change cisplatin to carboplatin neuropathy Grade 4 Stop cisplatin/carboplatin Grade 2 Two dose reduction level for all further doses of etoposide (each dose level Total requires a deduction by 25%) bilirubin Grade 3-4 Stop etoposide AST or ALT Grade 3 Dose reduction for all further doses of by 25% Elevation Grade 4 Stop chemotherapy Grade 2 Delay chemotherapy until ≤ Grade 1 or baseline* Other organ Grade 3-4 Delay chemotherapy until recovered to ≤ Grade 1 or baseline*, dose reduction of toxicity all further dose by 25% Note: If considered in the best interest of the patient and consistent with local practice, the investigators may decide to use supportive measures/treatment, and/or secondary prophylaxis instead of dose reductions for the next cycle.
+
+The provided triggers for dose modifications are recommendations only. *Skin reactions, paronychia, alopecia, fatigue, nausea/vomiting which may have resolved to Grade 2 or baseline.
+
+CONFIDENTIAL Page 138 CONFIDENTIAL Page 279
+
+--- Page 139 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 10.
+
+EUROPEAN ORGANISATION FOR RESEARCH AND TREATMENT OF CANCER QUALITY OF LIFE CANCER QUESTIONNAIRE QLQ-C30 CONFIDENTIAL Page 139 CONFIDENTIAL Page 280
+
+--- Page 140 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 CONFIDENTIAL Page 140 CONFIDENTIAL Page 281
+
+--- Page 141 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 11.
+
+EUROPEAN ORGANISATION FOR RESEARCH AND TREATMENT OF CANCER QUALITY OF LIFE QUESTIONNAIRE LUNG CANCER MODULE QLQ-LC13 CONFIDENTIAL Page 141 CONFIDENTIAL Page 282
+
+--- Page 142 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 12.
+
+EUROQOL 5-DIMENSION, 5-LEVEL CONFIDENTIAL Page 142 CONFIDENTIAL Page 283
+
+--- Page 143 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 CONFIDENTIAL Page 143 CONFIDENTIAL Page 284
+
+--- Page 144 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 CONFIDENTIAL Page 144 CONFIDENTIAL Page 285
+
+--- Page 145 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 BGB-A317-312 PROTOCOL AMENDMENT NO. 1.0 SUMMARY OF CHANGES Study Title: A Phase 3, Randomized, Double-Blind, Placebo-Controlled Study of Platinum Plus Etoposide With or Without Tislelizumab (BGB-A317) in Patients With Untreated Extensive-Stage Small Cell Lung Cancer (Original Protocol Version 0.0 to Protocol Amendment 1.0) BeiGene, Ltd., updated the BGB-A317-312 clinical study original protocol version 0.0 (28 January 2019) to protocol amendment 1.0 (02 September 2020).
+
+The main purpose of this update is to: • Remove PFS as assessed by the investigator from the primary objectives/endpoints • Update the overall survival statistical assumptions and sample size In addition, editorial and formatting changes have been made throughout to enhance clarity and readability.
+
+The key changes from original protocol version 0.0 to protocol amendment version 1.0 are summarized by section in the following table.
+
+CONFIDENTIAL Page 1 CONFIDENTIAL Page 286
+
+--- Page 146 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section Key Changes Rationale for the Substantial Potential Impact on Change Change the Safety of (Y/N) Patients, Study Conduct, or Expectedness of Suspected Serious Adverse Effects Synopsis • The number of study centers To be consistent with N NA was increased to about 50. the protocol • The synopsis was updated - NA NA NA to reflect changes made throughout the protocol.
+
+Throughout the protocol • Changed “subject(s)” to For consistency N NA “patient(s)” • “Immune-related” was For consistency among N NA revised to “Immuneall BeiGene studies mediated” • “To evaluate and compare To clarify the syntax.
+
+N NA the efficacy of tislelizumab…” was revised to “to evaluate the efficacy of tislelizumab…” Section 1.1.1 Standard • Thirdand furtherline To update the N NA Therapy for Extensivetherapies were updated. information of standard Stage Small Cell Lung therapy for ES-SCLC in Cancer China CONFIDENTIAL Page 2 CONFIDENTIAL Page 287
+
+--- Page 147 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 1.1.2 PD-1 • New data from Impower133, To further support the N NA Pathway-Targeting CASPIAN, and Keynote604 rationale of combining Studies in Patients With were updated. immune checkpoint Extensive-Stage Small inhibitors to Cell Lung Cancer chemotherapy as treatment option for SCLC Section 1.3.4 Rationale • PFS and rationale of using After having the Y NA for Overall Survival as PFS was removed from the consultation with local Primary Endpoint, primary analyses health authority and Section 2.1.1 Primary taking competitor’s data Objective, Section 2.2.1 as reference, PFS was Primary Endpoint, not proved to be a Section 9.2.1 Primary convincing surrogate Efficacy Analysis endpoint for OS in SCLC and was therefore removed from the primary analysis.
+
+Section 2.1.2 Secondary • PFS was added to secondary PFS is not a convincing N NA Objectives, Section 2.2.2 analyses surrogate endpoint for Secondary Endpoints, OS, but it is still Section 9.2.2 Secondary important for efficacy Efficacy Analyses analysis CONFIDENTIAL Page 3 CONFIDENTIAL Page 288
+
+--- Page 148 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 • The secondary analysis of To clarify the concept of N NA HRQoL was clarified as to HRQoL and the analysis evaluate the effect of study plan drugs by comparing with the control arm using 10-point change of the score from baseline and time to deterioration per the QLQ-C30 and QLQ-LC13.
+
+Global health status and physical function were updated to the scope of QLQ-C30 assessment.
+
+Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms were updated to the scope of QLQ-LC13 assessment.
+
+Section 1.3.6 Rationale • Patients’ Quality of Life was This PRO is essential in Y NA for Patient-Reported added to exploratory all pivotal clinical trials Outcome Assessments, analyses and is suggested to be Section 2.1.3 • Patients’ Quality of Life added to the exploratory Exploratory Objectives, measured by EuroQoL analysis in this pivotal Section 2.2.3 questionnaire was added clinical trial amendment.
+
+Exploratory Endpoints, Section 9.2.3 Exploratory Efficacy Analysis CONFIDENTIAL Page 4 CONFIDENTIAL Page 289
+
+--- Page 149 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 3.1 Summary of • Sample size in both the text To be consistent with Y NA Study Design and Figure 1 was updated; the updates in primary • PFS as primary analysis was analysis. removed.
+
+Section 3.2 Screening • Original: Archival tumor For clarification N NA Period tissue must be collected for the purpose of biomarker analysis Revised: Archival tumor tissue is required to be collected for the purpose of biomarker analysis.
+
+Section 3.3 Treatment • Examples of laboratory For clarification N NA Period values were added to safety assessment; • Collection of EQ5D-5L To be consistent with Y NA questionnaire was added the update in exploratory analysis Section 3.6.1 Patient • The criteria for patient For clarification N NA Discontinuation From discontinuation from study Study Treatment treatment were revised per BeiGene A317 Phase 3 IO protocol template Version 3.0.
+
+Section 3.7 End of Study • The definition of end of For clarification, and to N NA study was updated per be consistent with the BeiGene A317 Phase 3 IO updates in primary protocol template Version analysis. 3.0; • PFS requirement for final analysis was removed.
+
+CONFIDENTIAL Page 5 CONFIDENTIAL Page 290
+
+--- Page 150 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 4.1 Inclusion • Item 4: no prior treatment for The study allows N NA Criteria ES-SCLC was updated to no patients to receive local prior systemic treatment for palliative therapy for ES-SCLC. metastasis lesion before randomization. • Item 8: definition of sterile For clarification and to N NA male and clarification of be consistent with males with known low sperm protocol template counts were added per BeiGene A317 Phase 3 IO protocol template Version 3.0.
+
+Section 4.2 Exclusion • Original: Patients who meet For clarification N NA Criteria any of the following criteria will be excluded from study entry Revised: Patients who meet any of the following criteria are not eligible to enroll. • Item 2: longer duration For clarification and to Y NA between systemic immunebe consistent with stimulating treatment and protocol template randomization of 4 weeks or 5 half-lives was updated to shorter range • Item 6: a clarification of For clarification N NA major surgical procedures was added to Item 6. • Item 10, the requirement of To clarify that the study N NA measurable disease outside does not require patients of the CNS was removed to have measurable disease for assessment.
+
+CONFIDENTIAL Page 6 CONFIDENTIAL Page 291
+
+--- Page 151 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 • Item 13: a clarification of the To be consistent with N NA use of antibiotics was added synopsis to Item 13 • Item 15: the criterion of For clarification and to N NA patients with HBV and HCV be consistent with was revised per BeiGene protocol template A317 Phase 3 IO protocol template Version 3.0 • Item 24: a note was added to For clarification and to N NA the concurrent participation be consistent with in another therapeutic protocol template clinical study • Item 25: the exclusion For clarification and to N NA criterion of “Women who are be consistent with pregnant or are protocol template breastfeeding” was added Section 5.1.1.2 Placebo • Components of placebo were To be consistent with N NA removed supply chain internal reviewing documents Section 5.2 Dosage, • Table 4: the Calvert formula To provide the formula N NA Administration, and and GFR estimation using for clarification Compliance Cockcroft-Gault equation were added Section 5.5.3 Dose Delay, • Clarification was added to For clarification N NA Interruption or determination of AE Modifications for resolution Chemotherapy • The timing of chemotherapyTo clarify the timing N NA related AE resolution was definition specified as after a planned dosing date.
+
+CONFIDENTIAL Page 7 CONFIDENTIAL Page 292
+
+--- Page 152 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 5.7 Criteria for • The speed of any cisplatinTo be consistent with N NA Discontinuing related decrease in creatinine Section 5.5.3 Chemotherapy clearance was updated to be Regimens < 60 mL/min Section 6.1 Prior • Patients with prior treatment To be consistent with N NA Therapy for ES-SCLC was updated to the revision in the patients with prior systemic inclusion criteria treatment for ES-SCLC Section 6.2.1 Permitted • Permitted concomitant For clarification and to N NA Concomitant therapy in patients with be consistent with Medications/Procedures active HBV was updated per protocol template BeiGene A317 Phase 3 IO protocol template Version 3.0 • It was clarified that the For clarification and to N NA medical monitor should be be consistent with informed of the on-study protocol template radiotherapy Section 6.2.2 Prohibited • Other agents with immuneFor clarification N NA or Restricted stimulating properties were Concomitant added Medications/Procedures CONFIDENTIAL Page 8 CONFIDENTIAL Page 293
+
+--- Page 153 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 7.2.1 • The confirmation of For clarification and to N NA Confirmation of eligibility was clarified as: be consistent with Eligibility the sponsor will assess and protocol template confirm the eligibility of each patient, and after a patient is screened and the investigator determines the patient’s eligibility, the medical monitor or designee will then confirm the patient’s eligibility before enrollment.
+
+Section 7.5.4 Laboratory • Coagulation test was added To be consistent with N NA Safety Tests to the running text. the bullets. • 48-hour sample review The visit window is N NA requirement was removed ±3days prior to D1, 48hours is not consistent with protocol requirement.
+
+Section 7.5.7 Hepatitis B • Central laboratory was added To be consistent with N NA and C Testing to perform the tests Appendix 1 Section 7.6 Tumor and • “The investigator may To be consistent with N NA Response Evaluations perform additional scans or Appendix 1 more frequent assessments if clinically indicated” was added. • The statement of “Tumor For clarification and to N NA assessment should not be be consistent with adjusted for delays in cycles” protocol template was added Section 7.8 Biomarkers • Optional biopsy was added at To add 1 more optional N NA CR/PR biopsy collection.
+
+CONFIDENTIAL Page 9 CONFIDENTIAL Page 294
+
+--- Page 154 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 • Optional blood collection To add 1 more optional N NA was added at CR/PR blood collection • To add the statement for the to add 1 more optional N NA leftover samples to be used tissue collection for exploratory analysis timepoint Section 7.9 Health- • Heading was revised For clarification N NA Related Quality of Life • EQ5D-5L was added To be consistent with Y NA the update in the exploratory analyses Section 8.2.2 Safety • Deleted the statement This statement does not N NA Monitoring Plan “Serum samples will be apply to this study and is drawn for determination of redundant.
+
+ADAs to tislelizumab in patients randomized to the tislelizumab arm, if treatment assignment is known.
+
+Otherwise,” Section 8.3.1 Definitions • Examples of AEs were For clarification and to N NA and Reporting rephrased per BeiGene A317 be consistent with Phase 3 IO protocol template protocol template Version 3.0.
+
+Section 8.3.3 Assessment • The phrase of “based on the For clarification and to N NA of Causality information available at the be consistent with time of reporting” was added protocol template per BeiGene A317 Phase 3 IO protocol template Version 3.0 Section 8.6.1 Adverse • SAE reporting was further For clarification and to N NA Event Reporting Period clarified. be consistent with protocol template CONFIDENTIAL Page 10 CONFIDENTIAL Page 295
+
+--- Page 155 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 8.6.8 Assessing • imAE reporting and For clarification N NA and Recording Immuneassessment was further Mediated Adverse clarified Events Section 8.6.9 Recording • A new section of recording To be consistent with N NA Infusion-Related infusion-related reactions protocol template Reactions was added Section 8.7.4 Renal • The statement of steroid For clarification and to N NA Function Abnormalities treatment for patients with be consistent with imAE was specified to protocol template patients with baseline renal insufficiency.
+
+Section 9 Statistical • “After the study is For clarification N NA Methods and Sample completed” was updated to Size Determination “after the data collection is completed.” 9.6 Sample Size • HR assumption was adjusted The analyses of external Y NA Consideration to 0.74 with one-sided α data drove the updates being 0.025; the number of in HR and median OS.
+
+OS events for interim and Considering the delayed final analysis were 282 and treatment effect and 353 respectively; the sample updated HR assumption, size was adjusted to 455 the OS events number at • Median OS of Arm B was both interim and final updated to 12 months analysis were updated. • Enrollment period was updated to 22 months with steady enrollment rate being 26 patients per month, and the enrollment ramp-up period is updated to 9 months CONFIDENTIAL Page 11 CONFIDENTIAL Page 296
+
+--- Page 156 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 9.7 Interim • The interim analysis Interim analysis was Y NA Analyses (including Table 8) was updated based on the updated based on the updated revised assumptions. overall survival analysis Section 13.2 Institutional • Requirement of sending For clarification and to N NA Review amended ICF to the sponsor be consistent with Board/Independent was added. protocol template Ethics Committee • Annotation for the For clarification N NA investigator note being required to report SAEs to local authority per new China GCP was added Section 13.4 Patient and • The policy and conduction of For clarification and to N NA Data Confidentiality patient and data be consistent with confidentiality was updated protocol template and clarified per BeiGene A317 Phase 3 IO protocol template Version 3.0 Section 14.1.1 Data • Instruction of data entry in For clarification and to N NA Entry in the Electronic the electronic case report be consistent with Case Report Form form was added. protocol template Section 14.1.3 Data • Data management/coding of For clarification and to N NA Management/Coding AE was updated with be consistent with clarification per BeiGene protocol template A317 Phase 3 IO protocol template Version 3.0 Section 14.3 Study • Instructions for handling For clarification and to N NA Records Retention biological samples after be consistent with study closure were revised protocol template per protocol template.
+
+CONFIDENTIAL Page 12 CONFIDENTIAL Page 297
+
+--- Page 157 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 Section 14.4 Protocol • Clarification of reporting all For clarification and to N NA Deviations protocol deviations to the be consistent with sponsor was added protocol template Section 14.5 Publication • The requirement for the For clarification and to N NA and Data Sharing Policy processes of producing and be consistent with reviewing reports, protocol template manuscripts, and presentations was added.
+
+Section 14.6 Study and • Requirement of collection of For clarification and to N NA Study Center Closure all study documents after be consistent with study closure was added. protocol template • Text regarding shipment of For clarification and to N NA ADA and biomarkers be consistent with samples was added protocol template • The statement of potential For clarification and to N NA reasons for suspension or be consistent with discontinuation was clarified. protocol template References • Six references were added To support the update in N NA the introduction Appendix 1 Schedule of • The mandatory EORTC To be consistent with N NA Assessment QLQ-C30 and EORTC main text QLQ-LC13 at Screening was removed. • The statements in footnote To be consistent with N NA 11, 20, and 21 were revised main text based on main text in the protocol • EQ5D-5L was added to the To be consistent with Y NA assessment main text CONFIDENTIAL Page 13 CONFIDENTIAL Page 298
+
+--- Page 158 ---
+
+BGB-A317-312 BeiGene Protocol Amendment 1.0 02 September 2020 • Foot 22 was added To add 1 more tissue N NA collection and to be consistent with main text.
+
+Appendix 12 EuroQoL • EQ-5D-5L questionnaire To support the update in Y NA 5-Dimension, 5-Level sample was added the exploratory analyses CONFIDENTIAL Page 14 CONFIDENTIAL Page 299
+
+### Key Assumptions
+
+*(Extracted from protocol)*
+
+
+---
+
+6. Statistical Methods
+
+### Primary Analysis
+
+Statistical Analysis ......................................................................................................84 9.1.1.
+
+Randomization Methods .............................................................................................84 9.1.2.
+
+Analysis Sets ...............................................................................................................84 9.1.3.
+
+Patient Disposition ......................................................................................................84 9.1.4.
+
+Demographic and Other Baseline Characteristics ......................................................85 9.1.5.
+
+Prior and Concomitant Medications ...........................................................................85 9.2.
+
+Efficacy Analyses .......................................................................................................85 9.2.1.
+
+Primary Efficacy Analysis ..........................................................................................85 9.2.2.
+
+Secondary Efficacy Analysis ......................................................................................86 9.2.3.
+
+Exploratory Efficacy Analysis ....................................................................................87 9.3.
+
+Safety Analyses ..........................................................................................................88 9.3.1.
+
+Extent of Exposure .....................................................................................................88 9.3.2.
+
+Data will be listed and summarized per sponsor agreed reporting standards, where applicable.
+
+Details of the statistical analyses will be included in a separate SAP. 9.1.
+
+Statistical Analysis 9.1.1.
+
+Randomization Methods As discussed in Section 7.2.2, patients will be randomized using the IRT system for this study by permuted block stratified randomization with stratification factors of ECOG Performance Status (0 versus 1), investigator-chosen chemotherapy (carboplatin versus cisplatin), and brain metastasis (yes versus no).
+
+The stratified randomization will be produced, reviewed, and approved by an independent statistician. 9.1.2.
+
+Analysis Sets The ITT Analysis Set includes all randomized patients.
+
+Patients will be analyzed according to their randomized treatment arms.
+
+This will be the primary Analysis Set for all efficacy analysis.
+
+The Safety Analysis Set includes all patients who received ≥ 1 dose of any component of study drug; it will be the Analysis Set for the safety analyses.
+
+Patients will be analyzed according to the actual treatment regimen received.
+
+The PK Analysis Set includes all patients who receive ≥ 1 dose of tislelizumab per the protocol, for whom any postdose PK data are available.
+
+The ADA Analysis Set includes all patients who are randomized to the tislelizumab arm and have a baseline and ≥ 1 postbaseline ADA result. 9.1.3.
+
+Patient Disposition The number of patients randomized, treated, and discontinued from study drug and/or the study, and those with major protocol deviations will be counted.
+
+The primary reason for study drug and/or study discontinuation will be summarized according to the categories in the eCRF.
+
+The end-of-study status (alive, dead, withdrew consent, or lost to follow-up) at the data cutoff date will be summarized using the data from the eCRF.
+
+CONFIDENTIAL Page 84 CONFIDENTIAL Page 225
+
+--- Page 85 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Major protocol deviations will be summarized and listed by each category. 9.1.4.
+
+Demographic and Other Baseline Characteristics Demographic and other baseline characteristics of the ITT Analysis Set will be summarized using descriptive statistics.
+
+Continuous variables include age, weight, vital signs, time since initial cancer diagnosis, and time since diagnosis of extensive-stage disease; categorical variables include histology, prior systemic therapy, prior radiation, stage of disease, PD-L1 expression in tumor cells, gender, ECOG Performance Status, race, smoking status, and metastatic site. 9.1.5.
+
+Prior and Concomitant Medications Prior and concomitant medications will be coded using the World Health Organization (WHO) Drug Dictionary drug codes.
+
+Prior and concomitant medications will be further coded to the appropriate Anatomical Therapeutic Chemical (ATC) code indicating therapeutic classification.
+
+Prior and concomitant medications will be summarized and listed by drug and drug class in the clinical study report (CSR) for this protocol.
+
+Prior medications will be defined as medications that were stopped before the day of first dose of study drug.
+
+Concomitant medications will be defined as medications that 1) started before the first dose of study drug and were continuing at the time of the first dose of study drug, or 2) started on or after the day of the first dose of study drug up to 30 days after the patient’s last dose (as of Safety Follow-up Visit).
+
+In addition, telephone contacts with patients should be conducted to assess imAEs and concomitant medications (if appropriate, ie, associated with an imAE or is a new anticancer therapy) at 60 days (± 14 days) and 90 days (± 14 days) after the last dose of tislelizumab or placebo, regardless of whether or not the patient starts a new anticancer therapy.
+
+A listing of prior and concomitant medications will be included in the CSR for this protocol. 9.2.
+
+Efficacy Analyses 9.2.1.
+
+Primary Efficacy Analysis Overall Survival OS is defined as the time from randomization until death from any cause.
+
+OS will be analyzed in the ITT Analysis Set.
+
+Data for patients who are not reported as having died at the time of analysis will be censored at the date last known to be alive.
+
+Data for patients who do not have postbaseline information will be censored at the date of randomization.
+
+OS will be compared between tislelizumab + cisplatin or carboplatin + etoposide (Arm A) and placebo + cisplatin or carboplatin + etoposide (Arm B) in a stratified log-rank test using a onesided significance level of 0.025: The null hypothesis to be tested is: H : OS in Arm A ≤ OS in Arm B 0 against the alternative hypothesis: H : OS in Arm A > OS in Arm B a CONFIDENTIAL Page 85 CONFIDENTIAL Page 226
+
+--- Page 86 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The p-value from a stratified log-rank tests will be presented using stratification factors with actual values as recorded in the electronic data capture (EDC) system at randomization.
+
+The HR for OS between the 2 arms and its 95% CI will be estimated using a stratified Cox regression model with treatment arm as a factor and stratified by the actual value of the stratification factors.
+
+The median OS and the cumulative probability of OS at 1 year and 2 years, if estimable, will be calculated for each treatment arm and presented with two-sided 95% CI using KaplanMeier methodology.
+
+A Kaplan-Meier curve will be constructed to provide a visual description of the difference among arms. 9.2.2.
+
+Secondary Efficacy Analysis Progression-Free Survival PFS is defined as the time from randomization until the first documented disease progression as assessed by the investigator with the use of RECIST v1.1, or death from any cause, whichever occurs first.
+
+PFS will be analyzed in the ITT Analysis Set.
+
+The actual tumor assessment visit date will be used to calculate PFS.
+
+Data for patients without disease progression or death at the time of analysis will be censored at the time of the last valid tumor assessment.
+
+Data for patients without postbaseline tumor assessment will be censored at the time of randomization.
+
+Data for patients who start to receive new anticancer therapy or are lost to follow-up will be censored at the last valid tumor assessment date prior to the introduction of new therapy or loss to follow-up.
+
+Patients who have a clinical determination of progression should undergo radiographic imaging as required by RECIST v1.1, if possible, to correlate radiographic findings with the clinical findings.
+
+If a clinical determination of progression for a patient is confirmed, the date of the radiographic imaging scan will be considered as the progression date for that patient.
+
+The HR for PFS will be estimated using a stratified Cox regression model with treatment arm as a factor and stratified by the actual value of the stratification factors.
+
+The 95% CI for the HR will be provided.
+
+Kaplan-Meier methodology will be used to estimate the median PFS and cumulative probabilities of PFS at 6 months and 1 year, and a Kaplan-Meier curve will be constructed to provide a visual description of the difference among arms.
+
+Overall Response Rate ORR (confirmation not required according to RECIST v1.1) is the proportion of patients who had CR or PR per RECIST v1.1 in all randomized patients with measurable disease at baseline.
+
+Patients without any postbaseline assessment will be considered as non-responders.
+
+The difference in ORR between arms in the ITT Analysis Set will be evaluated using the CochranMantel-Haenszel (CMH) chi-square test with the actual stratification factors as strata for descriptive purpose only.
+
+The two-sided 95% CIs for the odds ratio and the difference in ORR will be calculated, as well as Clopper-Pearson 95% CIs for the ORR within each arm.
+
+Duration of Response DOR is defined for patients with an objective response as the time from the first documented objective response to documented disease progression as determined using the RECIST v1.1, or death from any cause, whichever occurs first.
+
+Data for patients who are alive and who have not experienced disease progression at the time of analysis will be censored at the date of the last CONFIDENTIAL Page 86 CONFIDENTIAL Page 227
+
+--- Page 87 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 tumor assessment.
+
+If no tumor assessments were performed after the date of the first occurrence of the objective response (CR or PR), DOR will be censored at the date of the first occurrence of the objective response.
+
+DOR will be estimated using Kaplan-Meier methodology.
+
+Comparisons between treatment arms will be made using the stratified log-rank test for descriptive purposes only.
+
+Disease Control Rate DCR is defined as the proportion of patients with objective response (CR or PR) or stable disease maintained for ≥ 6 weeks using the RECIST v1.1.
+
+The analysis methods for DCR will be the same as those for ORR.
+
+Health-Related Quality of Life Domain HRQoL is assessed via the EORTC QLQ-C30 GHS/QoL, functional and symptom scales scores, and the single item scores.
+
+Observed values and changes from baseline will be summarized using descriptive statistics.
+
+Clinically meaningful changes post baseline (percentage of patients with a 10-point improvement or worsening; to be defined in the SAP if otherwise) for GHS and PF per the QLQ-C30 and dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 will be calculated by time point and compared between the treatment arms.
+
+Time to deterioration of the aforementioned scales will be analyzed as well.
+
+It is defined as time from randomization to the first occurrence of a worsening score (10-point change; to be defined in the SAP if otherwise) confirmed at the following visit or death from any cause.
+
+Time to deterioration between treatment arms will be compared using log-rank test and its Kaplan-Meier probabilities for each arm will be plotted over time. 9.2.3.
+
+Exploratory Efficacy Analysis PFS after next line of treatment (PFS2) To calculate PFS2, data from patients without disease progression after next line of treatment or death at the time of analysis will be censored at the last time known to be alive.
+
+The KaplanMeier method as described in the PFS and OS analyses will be used in the analysis of PFS2.
+
+PD-L1 expression as a predictive biomarker for efficacy Distribution of PD-L1 expression will be examined in the ITT Analysis Set.
+
+Any potential association between PD-L1 expression and tislelizumab treatment effect over control (PFS, OS, ORR, DOR, and DCR) may be explored.
+
+Other potential predictive markers, including but not limited to GEP, TMB and MSI in archival and/or fresh tumor tissue and bTMB may be assessed before study treatment and/or at disease progression.
+
+The association with disease status and/or response to tislelizumab in combination with chemotherapy may be also assessed.
+
+Quality of Life (QoL) Summary statistics (mean, standard deviation, median, and range) of the postbaseline scores of the EQ5D-5L descriptive dimension and VAS will be reported.
+
+Summaries will be performed for the ITT Analysis Set only.
+
+CONFIDENTIAL Page 87 CONFIDENTIAL Page 228
+
+--- Page 88 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 9.3.
+
+Safety Analyses Safety will be assessed by monitoring and recording all AEs graded by NCI-CTCAE.
+
+Laboratory values (eg, hematology, clinical chemistry, and urinalysis), vital signs, physical examinations, ECOG Performance Status change, ECGs, and other examinations will also be used in determining safety.
+
+Descriptive statistics will be used to analyze all safety data in the Safety Analysis Set. 9.3.1.
+
+Extent of Exposure Extent of exposure to each study drug will be summarized descriptively as the number of cycles received (number and percentage of patients), duration of exposure (days), cumulative total dose received per patient (mg), dose intensity, and relative dose intensity.
+
+The number (percentage) of patients requiring dose reduction, interruption, dose delay, and drug discontinuation due to AEs will be summarized for each study drug.
+
+Frequency of the above dose adjustments and discontinuation will be summarized by category.
+
+Patient data listings will be provided for all dosing records and for calculated summary statistics. 9.3.2.
+
+### Missing Data Handling
+
+*(As specified in protocol)*
+
+### Sensitivity Analyses
+
+*(As pre-specified)*
+
+
+---
+
+7. Efficacy Analyses
+
+Primary Endpoint ........................................................................................................37 2.2.2.
+
+Secondary Endpoints ..................................................................................................38 2.2.3.
+
+Exploratory Endpoints ................................................................................................38 3.
+
+Primary Endpoint • OS, defined as the time from randomization to death from any cause CONFIDENTIAL Page 37 CONFIDENTIAL Page 178
+
+--- Page 38 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 2.2.2.
+
+Secondary Endpoints • PFS, defined as the time from randomization to the first occurrence of disease progression as determined by investigator using RECIST v1.1 or death from any cause, whichever occurs first • ORR, defined as the proportion of patients with PR or CR as determined by the investigator using RECIST v1.1 • DOR, defined as the time from the first occurrence of a documented objective response to the time of relapse, as determined by the investigator per RECIST v1.1, or death from any cause, whichever comes first • DCR, defined as the proportion of patients whose best overall response (BOR) is CR, PR or stable disease per RECIST v1.1 • Incidence and severity of treatment-emergent adverse events (TEAEs) graded according to National Cancer Institute-Common Terminology Criteria for Adverse Events (NCI-CTCAE) v5.0 • Percentage of patients with clinically meaningful changes post baseline, defined as a 10-point improvement or worsening (to be defined in the Statistical Analysis Plan [SAP] if otherwise) in: − Global health status (GHS) and physical function (PF) per the QLQ-C30 − Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 • Time to deterioration, defined as the time from randomization to the first occurrence of worsening scores (10-point change; to be defined in the SAP if otherwise) confirmed at the following visit or death from any cause, in: − GHS and PF per the QLQ-C30 − Dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 2.2.3.
+
+Exploratory Endpoints • PFS2, defined as the time from randomization to the objective disease progression after next line of treatment or death from any cause, whichever occurs first • Status of predictive and prognostic biomarkers including but not limited to PD-L1 expression, multiplex immunohistochemistry (mIHC), GEP, TMB, and MSI in archival and/or fresh tumor tissue and bTMB in blood before study treatment and/or at disease progression, and the association between the biomarkers and disease status or response to study treatment • Summary of serum concentrations of tislelizumab • Assessments of immunogenicity of tislelizumab by determining the incidence of ADAs CONFIDENTIAL Page 38 CONFIDENTIAL Page 179
+
+--- Page 39 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • QoL is defined as changes in patients’ general well-being measured by the scores of the EQ5D-5L descriptive 5-dimension scores and the visual analog scale (VAS).
+
+CONFIDENTIAL Page 39 CONFIDENTIAL Page 180
+
+--- Page 40 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 3.
+
+Statistical Analysis ......................................................................................................84 9.1.1.
+
+Randomization Methods .............................................................................................84 9.1.2.
+
+Analysis Sets ...............................................................................................................84 9.1.3.
+
+Patient Disposition ......................................................................................................84 9.1.4.
+
+Demographic and Other Baseline Characteristics ......................................................85 9.1.5.
+
+Prior and Concomitant Medications ...........................................................................85 9.2.
+
+Efficacy Analyses .......................................................................................................85 9.2.1.
+
+Primary Efficacy Analysis ..........................................................................................85 9.2.2.
+
+Secondary Efficacy Analysis ......................................................................................86 9.2.3.
+
+Exploratory Efficacy Analysis ....................................................................................87 9.3.
+
+Safety Analyses ..........................................................................................................88 9.3.1.
+
+Extent of Exposure .....................................................................................................88 9.3.2.
+
+Data will be listed and summarized per sponsor agreed reporting standards, where applicable.
+
+Details of the statistical analyses will be included in a separate SAP. 9.1.
+
+Statistical Analysis 9.1.1.
+
+Randomization Methods As discussed in Section 7.2.2, patients will be randomized using the IRT system for this study by permuted block stratified randomization with stratification factors of ECOG Performance Status (0 versus 1), investigator-chosen chemotherapy (carboplatin versus cisplatin), and brain metastasis (yes versus no).
+
+The stratified randomization will be produced, reviewed, and approved by an independent statistician. 9.1.2.
+
+Analysis Sets The ITT Analysis Set includes all randomized patients.
+
+Patients will be analyzed according to their randomized treatment arms.
+
+This will be the primary Analysis Set for all efficacy analysis.
+
+The Safety Analysis Set includes all patients who received ≥ 1 dose of any component of study drug; it will be the Analysis Set for the safety analyses.
+
+Patients will be analyzed according to the actual treatment regimen received.
+
+The PK Analysis Set includes all patients who receive ≥ 1 dose of tislelizumab per the protocol, for whom any postdose PK data are available.
+
+The ADA Analysis Set includes all patients who are randomized to the tislelizumab arm and have a baseline and ≥ 1 postbaseline ADA result. 9.1.3.
+
+Patient Disposition The number of patients randomized, treated, and discontinued from study drug and/or the study, and those with major protocol deviations will be counted.
+
+The primary reason for study drug and/or study discontinuation will be summarized according to the categories in the eCRF.
+
+The end-of-study status (alive, dead, withdrew consent, or lost to follow-up) at the data cutoff date will be summarized using the data from the eCRF.
+
+CONFIDENTIAL Page 84 CONFIDENTIAL Page 225
+
+--- Page 85 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Major protocol deviations will be summarized and listed by each category. 9.1.4.
+
+Demographic and Other Baseline Characteristics Demographic and other baseline characteristics of the ITT Analysis Set will be summarized using descriptive statistics.
+
+Continuous variables include age, weight, vital signs, time since initial cancer diagnosis, and time since diagnosis of extensive-stage disease; categorical variables include histology, prior systemic therapy, prior radiation, stage of disease, PD-L1 expression in tumor cells, gender, ECOG Performance Status, race, smoking status, and metastatic site. 9.1.5.
+
+Prior and Concomitant Medications Prior and concomitant medications will be coded using the World Health Organization (WHO) Drug Dictionary drug codes.
+
+Prior and concomitant medications will be further coded to the appropriate Anatomical Therapeutic Chemical (ATC) code indicating therapeutic classification.
+
+Prior and concomitant medications will be summarized and listed by drug and drug class in the clinical study report (CSR) for this protocol.
+
+Prior medications will be defined as medications that were stopped before the day of first dose of study drug.
+
+Concomitant medications will be defined as medications that 1) started before the first dose of study drug and were continuing at the time of the first dose of study drug, or 2) started on or after the day of the first dose of study drug up to 30 days after the patient’s last dose (as of Safety Follow-up Visit).
+
+In addition, telephone contacts with patients should be conducted to assess imAEs and concomitant medications (if appropriate, ie, associated with an imAE or is a new anticancer therapy) at 60 days (± 14 days) and 90 days (± 14 days) after the last dose of tislelizumab or placebo, regardless of whether or not the patient starts a new anticancer therapy.
+
+A listing of prior and concomitant medications will be included in the CSR for this protocol. 9.2.
+
+Efficacy Analyses 9.2.1.
+
+Primary Efficacy Analysis Overall Survival OS is defined as the time from randomization until death from any cause.
+
+OS will be analyzed in the ITT Analysis Set.
+
+Data for patients who are not reported as having died at the time of analysis will be censored at the date last known to be alive.
+
+Data for patients who do not have postbaseline information will be censored at the date of randomization.
+
+OS will be compared between tislelizumab + cisplatin or carboplatin + etoposide (Arm A) and placebo + cisplatin or carboplatin + etoposide (Arm B) in a stratified log-rank test using a onesided significance level of 0.025: The null hypothesis to be tested is: H : OS in Arm A ≤ OS in Arm B 0 against the alternative hypothesis: H : OS in Arm A > OS in Arm B a CONFIDENTIAL Page 85 CONFIDENTIAL Page 226
+
+--- Page 86 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The p-value from a stratified log-rank tests will be presented using stratification factors with actual values as recorded in the electronic data capture (EDC) system at randomization.
+
+The HR for OS between the 2 arms and its 95% CI will be estimated using a stratified Cox regression model with treatment arm as a factor and stratified by the actual value of the stratification factors.
+
+The median OS and the cumulative probability of OS at 1 year and 2 years, if estimable, will be calculated for each treatment arm and presented with two-sided 95% CI using KaplanMeier methodology.
+
+A Kaplan-Meier curve will be constructed to provide a visual description of the difference among arms. 9.2.2.
+
+Secondary Efficacy Analysis Progression-Free Survival PFS is defined as the time from randomization until the first documented disease progression as assessed by the investigator with the use of RECIST v1.1, or death from any cause, whichever occurs first.
+
+PFS will be analyzed in the ITT Analysis Set.
+
+The actual tumor assessment visit date will be used to calculate PFS.
+
+Data for patients without disease progression or death at the time of analysis will be censored at the time of the last valid tumor assessment.
+
+Data for patients without postbaseline tumor assessment will be censored at the time of randomization.
+
+Data for patients who start to receive new anticancer therapy or are lost to follow-up will be censored at the last valid tumor assessment date prior to the introduction of new therapy or loss to follow-up.
+
+Patients who have a clinical determination of progression should undergo radiographic imaging as required by RECIST v1.1, if possible, to correlate radiographic findings with the clinical findings.
+
+If a clinical determination of progression for a patient is confirmed, the date of the radiographic imaging scan will be considered as the progression date for that patient.
+
+The HR for PFS will be estimated using a stratified Cox regression model with treatment arm as a factor and stratified by the actual value of the stratification factors.
+
+The 95% CI for the HR will be provided.
+
+Kaplan-Meier methodology will be used to estimate the median PFS and cumulative probabilities of PFS at 6 months and 1 year, and a Kaplan-Meier curve will be constructed to provide a visual description of the difference among arms.
+
+Overall Response Rate ORR (confirmation not required according to RECIST v1.1) is the proportion of patients who had CR or PR per RECIST v1.1 in all randomized patients with measurable disease at baseline.
+
+Patients without any postbaseline assessment will be considered as non-responders.
+
+The difference in ORR between arms in the ITT Analysis Set will be evaluated using the CochranMantel-Haenszel (CMH) chi-square test with the actual stratification factors as strata for descriptive purpose only.
+
+The two-sided 95% CIs for the odds ratio and the difference in ORR will be calculated, as well as Clopper-Pearson 95% CIs for the ORR within each arm.
+
+Duration of Response DOR is defined for patients with an objective response as the time from the first documented objective response to documented disease progression as determined using the RECIST v1.1, or death from any cause, whichever occurs first.
+
+Data for patients who are alive and who have not experienced disease progression at the time of analysis will be censored at the date of the last CONFIDENTIAL Page 86 CONFIDENTIAL Page 227
+
+--- Page 87 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 tumor assessment.
+
+If no tumor assessments were performed after the date of the first occurrence of the objective response (CR or PR), DOR will be censored at the date of the first occurrence of the objective response.
+
+DOR will be estimated using Kaplan-Meier methodology.
+
+Comparisons between treatment arms will be made using the stratified log-rank test for descriptive purposes only.
+
+Disease Control Rate DCR is defined as the proportion of patients with objective response (CR or PR) or stable disease maintained for ≥ 6 weeks using the RECIST v1.1.
+
+The analysis methods for DCR will be the same as those for ORR.
+
+Health-Related Quality of Life Domain HRQoL is assessed via the EORTC QLQ-C30 GHS/QoL, functional and symptom scales scores, and the single item scores.
+
+Observed values and changes from baseline will be summarized using descriptive statistics.
+
+Clinically meaningful changes post baseline (percentage of patients with a 10-point improvement or worsening; to be defined in the SAP if otherwise) for GHS and PF per the QLQ-C30 and dyspnoea, coughing, haemoptysis, dysphagia, chest pain, pain in arms and shoulders, and peripheral neuropathy symptoms of QLQ-LC13 will be calculated by time point and compared between the treatment arms.
+
+Time to deterioration of the aforementioned scales will be analyzed as well.
+
+It is defined as time from randomization to the first occurrence of a worsening score (10-point change; to be defined in the SAP if otherwise) confirmed at the following visit or death from any cause.
+
+Time to deterioration between treatment arms will be compared using log-rank test and its Kaplan-Meier probabilities for each arm will be plotted over time. 9.2.3.
+
+Exploratory Efficacy Analysis PFS after next line of treatment (PFS2) To calculate PFS2, data from patients without disease progression after next line of treatment or death at the time of analysis will be censored at the last time known to be alive.
+
+The KaplanMeier method as described in the PFS and OS analyses will be used in the analysis of PFS2.
+
+PD-L1 expression as a predictive biomarker for efficacy Distribution of PD-L1 expression will be examined in the ITT Analysis Set.
+
+Any potential association between PD-L1 expression and tislelizumab treatment effect over control (PFS, OS, ORR, DOR, and DCR) may be explored.
+
+Other potential predictive markers, including but not limited to GEP, TMB and MSI in archival and/or fresh tumor tissue and bTMB may be assessed before study treatment and/or at disease progression.
+
+The association with disease status and/or response to tislelizumab in combination with chemotherapy may be also assessed.
+
+Quality of Life (QoL) Summary statistics (mean, standard deviation, median, and range) of the postbaseline scores of the EQ5D-5L descriptive dimension and VAS will be reported.
+
+Summaries will be performed for the ITT Analysis Set only.
+
+CONFIDENTIAL Page 87 CONFIDENTIAL Page 228
+
+--- Page 88 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 9.3.
+
+Safety Analyses Safety will be assessed by monitoring and recording all AEs graded by NCI-CTCAE.
+
+Laboratory values (eg, hematology, clinical chemistry, and urinalysis), vital signs, physical examinations, ECOG Performance Status change, ECGs, and other examinations will also be used in determining safety.
+
+Descriptive statistics will be used to analyze all safety data in the Safety Analysis Set. 9.3.1.
+
+Extent of Exposure Extent of exposure to each study drug will be summarized descriptively as the number of cycles received (number and percentage of patients), duration of exposure (days), cumulative total dose received per patient (mg), dose intensity, and relative dose intensity.
+
+The number (percentage) of patients requiring dose reduction, interruption, dose delay, and drug discontinuation due to AEs will be summarized for each study drug.
+
+Frequency of the above dose adjustments and discontinuation will be summarized by category.
+
+Patient data listings will be provided for all dosing records and for calculated summary statistics. 9.3.2.
+
+---
+
+8. Safety Analyses
+
+Vital Signs ..................................................................................................................66 7.5.2.
+
+Physical Examinations ................................................................................................66 7.5.3.
+
+Eastern Cooperative Oncology Group Performance Status ........................................67 7.5.4.
+
+Laboratory Safety Tests ..............................................................................................67 7.5.5.
+
+Electrocardiograms .....................................................................................................68 CONFIDENTIAL Page 6 CONFIDENTIAL Page 147
+
+--- Page 7 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.5.6.
+
+Adverse Events ...........................................................................................................68 7.5.7.
+
+Hepatitis B and C Testing ...........................................................................................68 7.6.
+
+Tumor and Response Evaluations ..............................................................................68 7.7.
+
+Pharmacokinetic and Antidrug Antibody Testing ......................................................70 7.8.
+
+Biomarkers ..................................................................................................................70 7.9.
+
+Health-Related Quality of Life ...................................................................................71 7.10.
+
+Visit Windows ............................................................................................................71 7.11.
+
+Unscheduled Visits .....................................................................................................71 8.
+
+SAFETY MONITORING AND REPORTING .........................................................72 8.1.
+
+Risks Associated With Study Drug ............................................................................72 8.1.1.
+
+Risks Associated With Tislelizumab ..........................................................................72 8.1.2.
+
+Risks Associated With Chemotherapy .......................................................................72 8.2.
+
+General Plan to Manage Safety Concerns ..................................................................72 8.2.1.
+
+Adverse Events ...........................................................................................................73 8.3.1.
+
+Definitions and Reporting ...........................................................................................73 8.3.2.
+
+Assessment of Severity ...............................................................................................74 8.3.3.
+
+Assessment of Causality .............................................................................................74 8.3.4.
+
+Following Adverse Events ..........................................................................................75 8.3.5.
+
+Laboratory Test Abnormalities ...................................................................................76 8.4.
+
+Definition of a Serious Adverse Event .......................................................................76 8.5.
+
+Suspected Unexpected Serious Adverse Reaction .....................................................77 8.6.
+
+Timing, Frequency, and Method of Capturing Adverse Events and Serious Adverse Events ...........................................................................................................77 8.6.1.
+
+Adverse Event Reporting Period ................................................................................77 8.6.2.
+
+Reporting Serious Adverse Events .............................................................................77 8.6.2.1.
+
+Prompt Reporting of Serious Adverse Events ............................................................77 8.6.2.2.
+
+Completion and Transmission of the Serious Adverse Event Report ........................78 8.6.2.3.
+
+Regulatory Reporting Requirements for Serious Adverse Events .............................78 8.6.3.
+
+Eliciting Adverse Events ............................................................................................78 8.6.4.
+
+Disease Progression ....................................................................................................78 8.6.5.
+
+Deaths .........................................................................................................................79 CONFIDENTIAL Page 7 CONFIDENTIAL Page 148
+
+--- Page 8 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 8.6.6.
+
+Pregnancies .................................................................................................................79 8.6.7.
+
+Expedited Reporting to Health Authorities, Investigators, Institutional Review Boards, and Independent Ethics Committees ................................................79 8.6.8.
+
+Assessing and Recording Immune-Mediated Adverse Events ...................................79 8.6.9.
+
+Recording Infusion-Related Reactions .......................................................................80 8.7.
+
+Management of Adverse Events of Special Interest ...................................................80 8.7.1.
+
+Infusion-Related Reactions .........................................................................................80 8.7.2.
+
+Severe Hypersensitivity Reactions and Flu-Like Symptoms .....................................82 8.7.3.
+
+Immune-Mediated Adverse Events ............................................................................82 8.7.4.
+
+Renal Function Abnormalities ....................................................................................83 9.
+
+Laboratory Analyses ...................................................................................................88 9.3.4.
+
+Vital Signs ..................................................................................................................89 9.4.
+
+Pharmacokinetic Analysis ..........................................................................................89 9.5.
+
+Immunogenicity Analyses ..........................................................................................89 9.6.
+
+The EOT is conducted when the investigator determines that none of the study treatment (tislelizumab, placebo, or chemotherapy) will be used any longer.
+
+If routine laboratory tests (eg, hematology, serum chemistry) are completed within 7 days before the EOT, these tests need not be repeated.
+
+Tumor assessment is not required at the EOT provided that if < 6 weeks have passed since the last assessment. 3.4.
+
+Safety Follow-up Patients who discontinue treatment for any reason will be asked to return to the clinic for the Safety Follow-up Visit within 30 days (± 7 days) after the last dose of study drug (including chemotherapy-only), or before the initiation of a new anticancer treatment, whichever occurs first.
+
+In addition, telephone contacts with patients should be conducted to assess imAEs and concomitant medications if appropriate (ie, associated with an imAE or is a new anticancer therapy) at 60 days (± 14 days), and 90 days (± 14 days) after the last dose of tislelizumab or placebo, regardless of whether or not the patient starts a new anticancer therapy.
+
+If patients report a suspected imAE at a telephone follow-up contact, the investigator should arrange an unscheduled visit if further assessment is indicated.
+
+All AEs, including SAEs, will be collected as described in Section 8.6.
+
+CONFIDENTIAL Page 43 CONFIDENTIAL Page 184
+
+--- Page 44 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 At the EOT Visit, if a response assessment showed progressive disease that resulted in patient discontinuation, the EOT Visit may be used as the Safety Follow-up Visit, if it occurred 30 days (± 7 days) after the last study treatment.
+
+Patients who discontinue study treatment prior to disease progression will have their tumors assessed as outlined in Section 7.6.
+
+See Appendix 1 for assessments to be performed at the Safety Follow-up Visit. 3.5.
+
+Survival Follow-up After discontinuation of study treatment, patients will be followed for survival status and further anticancer therapy information via telephone calls, patient medical records, and/or clinic visits approximately every 3 month (± 14 days) after the Safety Follow-up Visit or as directed by the sponsor until death, loss to follow-up, withdrawal of consent, or study completion by the sponsor. 3.6.
+
+Discontinuation From the Study Treatment or From the Study 3.6.1.
+
+Patient Discontinuation From Study Treatment Patients have the right to discontinue study treatment at any time for any reason.
+
+In addition, the investigator has the right to discontinue a patient from the study treatment at any time.
+
+Patients who discontinue study treatment for reasons other than disease progression, should be followed for assessments of antitumor activity (Section 7.6), safety (Section 7.5), and survival (Section 3.5), if possible.
+
+The primary reason for discontinuation from study treatment should be documented on the appropriate electronic case report form (eCRF).
+
+Patients may discontinue study treatment for reasons that include but are not limited to the following: • Disease progression • Adverse event • Patient decision • Pregnancy • Any medical condition that the investigator or sponsor determines might jeopardize the patient’s safety, if he or she were to continue the study treatment • Use of any concurrent antineoplastic therapy (ie, chemotherapy, hormonal therapy, immunotherapy, or standard or investigational agents [including Chinese or other country herbal medicine or patent medicines] for the treatment of cancer) (Section 6.2.2) • Patient noncompliance Investigative site staff should first counsel patients who are significantly noncompliant (eg, missing 2 treatment cycles) on the importance of study drug compliance and drug accountability.
+
+The investigator may, in consultation with the medical monitor, discontinue patients from treatment who are consistently noncompliant.
+
+CONFIDENTIAL Page 44 CONFIDENTIAL Page 185
+
+--- Page 45 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 3.6.2.
+
+Patient Discontinuation From Study (End of Study for an Individual Patient) Patients may discontinue the study for reasons that include but are not limited to the following: • Patient withdrawal of consent • Death • Loss to follow-up • Patients have completed all study assessments 3.7.
+
+End of Study The end of study is defined as the timepoint when final data point is collected from the last patient in the study.
+
+This is when the last patient dies, withdraws consent, completes all study assessments, or is lost to follow-up.
+
+The final analysis of OS will be conducted at the time when the predefined OS events have been observed (see Section 9.2), for efficacy evaluation.
+
+The study will continue until the last patient has disease progression or confirmed loss of clinical benefit (only for patients who receive treatment beyond disease progression), is lost to follow-up, or withdraws from the study, or until study completion by the sponsor.
+
+The sponsor has the right to terminate this study at any time.
+
+Reasons for terminating the study early include but are not limited to the following: • The incidence or severity of AEs in this or other studies indicates a potential health hazard to patients • Overall patient enrollment is unsatisfactory The sponsor will notify each investigator if a decision is made to terminate the study.
+
+Should this be necessary, prematurely discontinued patients should be seen as soon as possible for an EOT Visit and Safety Follow-up Visit.
+
+The investigators may be informed of additional procedures to be followed to ensure that adequate consideration is given to the protection of the patient’s interests.
+
+The investigator will be responsible for informing Institutional Review Board (IRBs)/Independent Ethics Committees (IECs) of the early termination of the study.
+
+The sponsor has the right to close a site at any time.
+
+The decision will be communicated to the site in advance.
+
+Reasons for closing a site include but are not limited to the following: • Excessively slow recruitment • Poor protocol adherence • Inaccurate or incomplete data recording • Noncompliance with Good Clinical Practice (GCP), applicable laws and regulations • Study activity is completed (ie, all patients have completed and all obligations have been fulfilled)] CONFIDENTIAL Page 45 CONFIDENTIAL Page 186
+
+--- Page 46 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 4.
+
+Vital Signs Vital signs will include measurements of body temperature (˚C), pulse rate and blood pressure (systolic and diastolic) while the patient is in a seated position after resting for 10 minutes.
+
+Height (at baseline only) and weight should be measured and recorded in the eCRF.
+
+For the first 2 infusions of tislelizumab or placebo, the patient’s vital signs should be measured within 60 minutes before the infusion, during and 30 minutes after the infusion.
+
+For subsequent infusions, vital signs will be collected within 60 minutes before infusion and, if clinically indicated, during and 30 minutes after the infusion.
+
+Patients will be informed about the possibility of delayed post-infusion symptoms and instructed to contact their study physician if they develop such symptoms.
+
+Refer to Section 5.2.1 regarding precautionary monitoring of patients after infusion of tislelizumab or placebo. 7.5.2.
+
+Physical Examinations During the Screening Visit, a complete physical examination will be conducted including evaluations of 1) head, eyes, ears, nose, throat, 2) cardiovascular, 3) dermatological, 4) musculoskeletal, 5) respiratory, 6) gastrointestinal, and 7) neurological systems.
+
+Any abnormality identified during screening will be graded according to NCI-CTCAE v5.0 and recorded on the eCRF with appropriate disease/condition terms.
+
+In addition, investigators should solicit patients regarding changes in vision, visual disturbance, or ocular inflammation at each scheduled study visit during study treatment.
+
+For any change in vision, referral to an appropriate specialist will be made for further management guidance (Appendix 6).
+
+At subsequent visits (and as clinically indicated), limited, symptom-directed physical examinations will be performed.
+
+New or worsened clinically significant abnormalities are to be recorded as AEs on eCRF.
+
+Refer to Section 8.3 regarding AE definitions and reporting and follow-up requirements.
+
+CONFIDENTIAL Page 66 CONFIDENTIAL Page 207
+
+--- Page 67 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.5.3.
+
+Eastern Cooperative Oncology Group Performance Status ECOG Performance Status (Appendix 2) will be assessed at screening, Day 1 of each cycle through the study, EOT, and at Safety Follow-Up Visit (Appendix 1). 7.5.4.
+
+Laboratory Safety Tests Local and/or central laboratory assessments of serum chemistry, hematology, coagulation, and urinalysis will be conducted, of which certain elements will be collected as specified below.
+
+If laboratory tests at screening are not performed within 7 days prior to the administration of study drug(s) on Cycle 1 Day 1, these tests should be repeated and reviewed before study drugs administration.
+
+Hematology, serum chemistry, serum creatine kinase (CK) and CK myocardial band (CK-MB) assessment, and coagulation tests as specified below should be performed at the beginning of each cycle, and at the EOT and Safety Follow-up Visits.
+
+Local laboratory assessments will include the following: • Hematology (complete blood count [CBC], including red blood cell [RBC] count, hemoglobin, hematocrit, WBC count with differential [neutrophils], and platelet count) • Serum chemistry (glucose, blood urea nitrogen [BUN] or urea, creatinine, sodium, potassium, magnesium, chloride, calcium, phosphorus, direct bilirubin, total bilirubin, ALT, AST, alkaline phosphatase, lactate dehydrogenase [LDH], total protein, and albumin) • Coagulation test (international normalized ratio, prothrombin time, and activated partial thromboplastin time) • Urine or serum pregnancy test (for women of childbearing potential, including premenopausal women who have had a tubal ligation) within 7 days prior to randomization.
+
+Urine pregnancy tests will be performed at each visit prior to dosing.
+
+A serum pregnancy test must be performed if the urine pregnancy test is positive or equivocal • Urinalysis (complete [including, but not limited to specific gravity, pH, glucose, protein, ketones] and/or microscopic at screening and if clinically indicated) • Thyroid function testing (thyroid stimulating hormone [TSH], free T3, free T4).
+
+Thyroid function tests will be performed at screening and every 3 cycles (ie, Cycles 4, 7, 10, etc), and at the Safety Follow-up Visit. • Total CK and CK-MB assessment (ECG, serum troponins, and other examinations as clinically indicated and as appropriate, if significant abnormalities are detected).
+
+In the event that CK-MB fractionation is not available, troponin I and/or troponin T should be assessed instead.
+
+Details about sample collection and shipment will be provided in a separate instruction manual.
+
+Investigators may use results from local laboratories for assessing eligibility, safety monitoring and dosing decision.
+
+CONFIDENTIAL Page 67 CONFIDENTIAL Page 208
+
+--- Page 68 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 7.5.5.
+
+Electrocardiograms ECG recordings will be obtained at screening, at the Safety Follow-up Visit, and as clinically indicated.
+
+For safety monitoring purposes, the investigator must review, sign, and date all ECG tracings.
+
+Paper or electronic copies of ECG tracings will be kept as part of the patient's permanent study file at the site.
+
+When coinciding with blood draws at the same timepoint, ECG assessment should be performed prior to blood draws.
+
+Patients should rest in semi-recumbent supine position for at least 10 minutes prior to ECG assessment. 7.5.6.
+
+Adverse Events AEs will be graded and recorded throughout the study according to NCI-CTCAE v5.0 (NCI-CTCAE, Nov 2017).
+
+Characterization of toxicities will include severity, duration, and time to onset.
+
+All AEs, including SAEs, will be collected as described in Section 8.6. 7.5.7.
+
+Hepatitis B and C Testing Testing will be performed by the local laboratory or central laboratory at screening and will include HBV/HCV serology (HBsAg, hepatitis B surface antibody [HBsAb], hepatitis B core antibody [HBcAb], and HCV antibody) and viral load assessment (HBV DNA and HCV RNA). 7.6.
+
+Tumor and Response Evaluations Tumor imaging will be performed within 28 days prior to randomization.
+
+During the study, tumor imaging will be performed approximately every 6 weeks (± 7 days) for the first 48 weeks following Cycle 1 Day 1, and every 9 weeks (± 7 days) thereafter, regardless of treatment dose delay.
+
+The investigator may perform additional scans or more frequent assessments if clinically indicated.
+
+Tumor assessment will continue until radiographic disease progression per RECIST v1.1.
+
+Patients who discontinue study treatment early for reasons other than disease progression (eg, toxicity) will continue to undergo tumor assessments following the original plan until the patient begins a subsequent anticancer treatment, experiences disease progression, withdraws consent, is lost to follow-up, death, or until the study terminates, whichever occurs first.
+
+Screening assessments and each subsequent assessment must include computed tomography (CT) scans (with oral/ intravenously contrast, unless contraindicated) or magnetic resonance imaging (MRI) of the chest, abdomen, pelvis and brain.
+
+Other known or suspected sites of disease must be included in the imaging assessments (neck, extremities, etc).
+
+All measurable and evaluable lesions should be assessed and documented at the Screening Visit and reassessed at each subsequent tumor evaluation.
+
+The same radiographic procedure used to assess disease sites at Screening are required to be used throughout the study (eg, the same contrast protocol for CT scans).
+
+CONFIDENTIAL Page 68 CONFIDENTIAL Page 209
+
+--- Page 69 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • Imaging of the brain (preferably MRI, or CT) at baseline (≤ 28 days prior to randomization) is required for all screened patients. • For patients with known and previously treated brain metastases, the scan should be within 14 days of planned Cycle 1 Day 1. • If a patient is known to have a contraindication to CT contrast media or develops a contraindication during the study, a non-contrast CT of the chest plus a contrast-enhanced MRI (if possible) of abdomen and pelvis should be performed. • If a CT scan for tumor assessment is performed on a positron emission tomography (PET)/CT scanner, the CT acquisition must be consistent with the standards of a diagnostic CT scan. • Bone scans (Technetium-99m [TC-99m]) or PET should be performed at screening only if clinically indicated.
+
+If bone metastases are present at screening and cannot be seen on CT or MRI scans, TC-99m or PET bone scans should be repeated when a CR is suspected in target lesion or when progression in bone is suspected. • CT scans of the neck or extremities should be performed at screening only if clinically indicated and followed throughout the study, if there is evidence of metastatic disease in these regions at screening.
+
+At the investigator’s discretion, other methods of assessment of target lesion and nontarget lesions per RECIST v1.1 may be used.
+
+Response will be assessed by the investigator using RECIST v1.1 (see Appendix 3).
+
+The same evaluator should perform assessments, if possible, to ensure internal consistency across visits.
+
+After first documentation of response (CR or PR), confirmation of tumor response should occur at 4 weeks or later after the first response or at the next scheduled assessment time point.
+
+For immune therapies such as tislelizumab, pseudoprogression may occur due to immune cell infiltration and other mechanisms leading to apparent increase of existing tumor masses or appearance of new tumor lesions.
+
+Thus, if radiographic progressive disease is suspected by the investigator to reflect pseudoprogression, patients may continue treatment until progressive disease is confirmed by repeated imaging ≥ 4 weeks later (but not exceeding 6 to 8 weeks from the date of initial documentation of progressive disease).
+
+If at the investigator’s discretion a patient could continue to benefit from study treatment after progressive disease per RECIST v1.1 criteria, the patient may continue study treatment.
+
+Patients who have suspected pseudoprogression or who may continue to benefit from study treatment after progressive disease must meet the following criteria in order to be treated: • Absence of clinical symptoms and signs of disease progression (including clinically significantly worsening of laboratory values) • Stable ECOG Performance Status ≤ 1 • Absence of rapid progression of disease or of progressive tumor at critical anatomical sites (eg, cord compression) that requires urgent alternative medical intervention • Investigators must obtain written informed consent for treatment beyond radiologic disease progression and inform patients that this practice is not considered standard in the treatment of cancer.
+
+CONFIDENTIAL Page 69 CONFIDENTIAL Page 210
+
+--- Page 70 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Patients who continue treatment beyond disease progression will continue to undergo tumor assessments following the original plan or as clinically indicated until treatment end.
+
+The decision to continue study drug(s) beyond initial investigator-assessed progression must be agreed to by the medical monitor and documented in the study records.
+
+Tumor assessments are required to be performed on schedule regardless of whether study treatment has been administered or held.
+
+That is, they should not be adjusted for delays in cycles. 7.7.
+
+Pharmacokinetic and Antidrug Antibody Testing Tislelizumab may elicit an immune response.
+
+Patients with signs of any potential immune response to tislelizumab or placebo will be closely monitored.
+
+Validated screening and confirmatory assays will be employed to detect ADAs at multiple time points throughout the study (see Appendix 1).
+
+The immunogenicity evaluation will utilize a risk-based immunogenicity strategy (Koren et al 2008; Worobec and Rosenberg 2004a; Worobec and Rosenberg 2004b) to characterize ADA responses to tislelizumab in support of the clinical development program.
+
+This tiered strategy will include an assessment of whether ADA responses correlate with relevant clinical endpoints.
+
+Implementation of ADA characterization assays will depend on the safety profile and clinical immunogenicity data.
+
+The following assessments will be performed at a designated bioanalytical laboratory: • ADA assays: serum samples will be tested for the presence of ADAs to tislelizumab using a validated immunoassay • PK assays: serum samples will be assayed for tislelizumab concentration with use of a validated immunoassay PK and ADA samples collected from patients randomized to receive placebo will not be analyzed.
+
+Shipping, storage, and handling of samples for the assessment of tislelizumab PK and ADA assays will be managed through a central laboratory.
+
+Instruction manuals and supply kits will be provided for all central laboratory assessments. 7.8.
+
+Biomarkers Shipping, storage, and handling of blood, archival tumor, fresh tumor, and leftover tumor tissue for the assessment of biomarkers will be managed through a central laboratory.
+
+Refer to the laboratory manual for details of sample handling.
+
+Archival tumor tissues (formalin-fixed paraffin-embedded [FFPE] block or approximately 15 [≥ 6] unstained slides) are required to be sent to central laboratory for central immunohistochemistry assay (IHC) of PD-L1 status.
+
+In addition to PD-L1 expression, other exploratory predictive biomarkers, such as TMB and immune-mediated GEP, biomarkers expression by multiplex IHC, and other immune-mediated markers that are related to response or clinical benefit of tislelizumab may also be evaluated.
+
+If no archival samples are available, a fresh tumor biopsy at screening is strongly recommended, if feasible.
+
+For fresh biopsy specimens, acceptable samples include core needle biopsies for deep tumor tissue or excisional, incisional, punch, or forceps biopsies for cutaneous, subcutaneous, or mucosal lesions.
+
+CONFIDENTIAL Page 70 CONFIDENTIAL Page 211
+
+--- Page 71 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Optional biopsies will also be taken for the patients who have confirmed disease progression and/or at the time of first tumor response (CR/PR) during the study from accessible tumor sites to obtain samples to explore resistance mechanism.
+
+If feasible, any follow-up biopsy should be ideally taken from the same tumor lesion as the baseline biopsy.
+
+Written patient consent is required for fresh tumor biopsies.
+
+Tumor tissue should be of good quality based on total and viable tumor content.
+
+Fine-needle aspiration, brushing, cell pellets from pleural effusion, and lavage samples are not acceptable.
+
+Blood samples will be taken at baseline (predose at Day 1 of Cycle 1) and optionally at the time of disease progression and/or at the time of first tumor response (CR/PR) (10 mL each timepoint) for all randomized patients to explore the association of blood-based biomarkers with response, resistance, and prognosis to tislelizumab in combination with chemotherapy or chemotherapy alone.
+
+Written patient consent is required for blood sample collections.
+
+The sampling at baseline will be mandatory after regulatory approval.
+
+If a patient undergoes a medically indicated procedure any time during the course of the study that has the likelihood of yielding tumor tissue, any remaining samples or a portion of the sample not necessary for medical diagnosis (leftover tumor tissue) may be obtained for exploratory analysis. 7.9.
+
+Health-Related Quality of Life Patients will be asked to complete the EORTC-QLQ-C30 (Appendix 10), EORTC-QLQ-LC13 (Appendix 11), and EQ5D-5L (Appendix 12) questionnaires before any clinical activities are performed during on-study clinic visits according to the schedule in Appendix 1.
+
+The questionnaires will be provided in the patient’s preferred language. 7.10.
+
+Visit Windows All visits must occur within ± 3 days from the scheduled date, unless otherwise noted (see Appendix 1).
+
+All assessments will be performed on the day of the specified visit unless an acceptable time window is specified.
+
+Assessments scheduled on the day of study treatment administration (Day 1) of each cycle should be performed prior to study treatment infusion/dose unless otherwise noted.
+
+Laboratory results are required to be reviewed prior to dosing.
+
+If the timing of a protocol-mandated study visit coincides with a holiday, weekend, or other events, the visit should be scheduled on the nearest feasible date (the visit window is provided in Appendix 1), with subsequent visits conducted according to the planned schedule every 3 weeks from Cycle 1 of Day 1. 7.11.
+
+Unscheduled Visits Unscheduled visits may be performed at any time at the patient’s or the investigator’s request and may include vital signs/focused physical examination; ECOG Performance Status; AE review; concomitant medications and procedures review; radiographic assessments; physical examination of liver, spleen, and lymph nodes; disease-related constitutional symptoms; and hematology and chemistry laboratory assessments.
+
+The date and reason for the unscheduled visit must be recorded in the source documentation.
+
+CONFIDENTIAL Page 71 CONFIDENTIAL Page 212
+
+--- Page 72 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 If an unscheduled visit is necessary to assess toxicity or for suspected disease progression, then diagnostic tests may be performed based on the investigator assessment as appropriate, and the results of these tests should be entered on the unscheduled visit eCRF. 8.
+
+SAFETY MONITORING AND REPORTING The investigator is responsible for the monitoring and documentation of events that meet the criteria of an AE or SAE as defined in this protocol. 8.1.
+
+Risks Associated With Study Drug 8.1.1.
+
+Risks Associated With Tislelizumab Tislelizumab is an investigational agent that is currently in clinical development.
+
+Limited safety data are available in patients and the full safety profile has not been characterized.
+
+The following recommendation is based on results from nonclinical and clinical studies with tislelizumab and published data on other molecules within the same biologic class.
+
+The PD-L1/PD-1 pathway is involved in peripheral immune tolerance; therefore, such therapy may increase the risk of imAEs, specifically the induction or enhancement of autoimmune conditions.
+
+AEs observed with anti-PD-1 therapy are presented in Section 8.7.3.
+
+Although most imAEs known to occur with immunomodulatory agents have been mild and self-limiting, such events should be recognized early and treated promptly to avoid potential major complications.
+
+Suggested workup procedures for suspected imAEs are provided in Appendix 6. 8.1.2.
+
+Risks Associated With Chemotherapy Refer to the most recent, locally approved package insert for information on the risk associated with particular platinum-based (cisplatin or carboplatin) or etoposide-based chemotherapy. 8.2.
+
+General Plan to Manage Safety Concerns 8.2.1.
+
+Patients will be assessed for safety (including laboratory values) CONFIDENTIAL Page 72 CONFIDENTIAL Page 213
+
+--- Page 73 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 according to the schedule in Appendix 1.
+
+Clinical laboratory results must be reviewed prior to the start of each cycle.
+
+In this study, all enrolled patients will be evaluated clinically and with standard laboratory tests before and at regular intervals during their participation in this study.
+
+Safety evaluations will consist of medical interviews, recording of AEs, physical examinations, laboratory measurements (hematology, chemistry, etc) and other assessments.
+
+In addition, patients will be closely monitored for the development of any signs or symptoms of autoimmune conditions and infection.
+
+Samples will be drawn from all randomized patients but will be analyzed only in patients who are treated with tislelizumab.
+
+Administration of tislelizumab or placebo will be performed in a setting where emergency medical equipment and staff who are trained to respond to medical emergencies are available (see Section 5.2.1).
+
+All AEs will be recorded during the study (AE from the time of the first dose and SAEs from the time of signing of informed consent) and for up to 30 days after the last dose of study drug(s) (including chemotherapy drugs) or until the initiation of another anticancer therapy, whichever occurs first.
+
+At the end of treatment, ongoing AEs considered related to study treatment will be followed until the event has resolved to baseline level or ≤ Grade 1, the event is assessed by the investigator as stable, the patient is lost to follow-up, the patient withdraws consent, or it has been determined that study treatment or participation is not the cause of the AE. imAEs will be recorded up to 90 days after the last dose of tislelizumab or placebo, regardless of whether the patient starts a new anticancer therapy.
+
+All drug-related SAEs will be recorded by the investigator after treatment discontinuation until patient death, withdrawal of consent, or loss to follow-up, whichever occurs first.
+
+Investigators are instructed to report all AEs (including pregnancy-related AEs).
+
+The potential safety issues anticipated in this study, as well as measures intended to avoid or minimize such toxicities, are outlined in the following sections. 8.3.
+
+Adverse Events 8.3.1.
+
+Definitions and Reporting An AE is defined as any unfavorable and unintended sign (including an abnormal laboratory finding), symptom, or disease (new or exacerbated) temporally associated with the use of a study drug, whether considered related to study drug or not.
+
+Examples of AEs include: • Worsening of a chronic or intermittent preexisting condition, including an increase in severity, frequency, duration, and/or has an association with a significantly worse outcome • Detection or diagnosis of a new condition after study drug administration, even though the condition may have been present before the start of the study • Signs, symptoms, or the clinical sequelae of a suspected interaction CONFIDENTIAL Page 73 CONFIDENTIAL Page 214
+
+--- Page 74 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • Signs, symptoms, or the clinical sequelae of a suspected overdose of either study drug or a concurrent medication (overdose per se should not be reported as an AE or SAE) When an AE or SAE occurs, it is the responsibility of the investigator to review all documentation (eg, hospital progress notes, laboratory results and diagnostics reports) relative to the AE or SAE.
+
+The investigator will then record all relevant information regarding an AE or SAE in the eCRF.
+
+However, there may be instances when copies of medical records for certain cases are requested by the sponsor.
+
+In this instance, all patient identifiers will be blinded on the copies of the medical records prior to submission to the sponsor. 8.3.2.
+
+Assessment of Severity The investigator will assess the severity for each AE and SAE reported during the study.
+
+AEs and SAEs should be assessed and graded based upon the NCI-CTCAE v5.0.
+
+Toxicities that are not specified in the NCI-CTCAE will be defined as follows: • Grade 1: Mild; asymptomatic or mild symptoms; clinical or diagnostic observations only; intervention not indicated • Grade 2: Moderate; minimal, local or noninvasive intervention indicated; limiting ageappropriate instrumental activities of daily living (ADL) • Grade 3: Severe or medically significant but not immediately life-threatening; hospitalization or prolongation of hospitalization indicated; disabling; limiting self-care ADL • Grade 4: Life-threatening consequences; urgent intervention indicated • Grade 5: Death related to AE Note: The terms “severe” and “serious” are not synonymous.
+
+Severity is a measure of intensity (for example, grade of a specific AE, mild [Grade 1], moderate [Grade 2], severe [Grade 3], or life-threatening [Grade 4]), whereas seriousness is classified by the criteria based on the regulatory definitions.
+
+Seriousness serves as the guide for defining regulatory reporting obligations from the sponsor to applicable regulatory authorities as described in Section 8.6.2 . 8.3.3.
+
+Assessment of Causality The investigator is obligated to assess the relationship between the study drug and the occurrence of each AE or SAE, using best clinical judgment.
+
+Alternative causes, such as natural history of the underlying diseases, concomitant therapy, other risk factors, and the temporal relationship of the AE or SAE to the study drug should be considered and investigated.
+
+The investigator should consult the tislelizumab Investigator’s Brochure in the determination of his/her assessment.
+
+There may be situations when an SAE has occurred, and the investigator has minimal information to include in the initial report to the sponsor.
+
+However, it is very important that the investigator always assess causality for every SAE prior to transmission of the SAE report to the sponsor, because causality assessment is one of the criteria used when determining regulatory reporting requirements.
+
+The investigator may subsequently change his/her opinion of causality considering follow-up information and may amend the SAE report accordingly.
+
+CONFIDENTIAL Page 74 CONFIDENTIAL Page 215
+
+--- Page 75 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The causality of each AE should be assessed and classified by the investigator as “related” or “not related” based on the information available at the time of reporting.
+
+An AE is considered related if there is “a reasonable possibility” that the AE may have been caused by the study drug (ie, there are facts, evidence, or arguments to suggest possible causation).
+
+A number of factors should be considered in making this assessment, including: • Temporal relationship of the AE to the administration of study treatment/study procedure • Whether an alternative etiology has been identified • Mechanism of action of the study drug • Biological plausibility • An AE should be considered "related" to study drug if any of the following criteria are met, otherwise the event should be assessed as “not related” − There is clear evidence to suggest a causal relationship, and other possible contributing factors can be ruled out − There is evidence to suggest a causal relationship, and the influence of other factors is unlikely − There is some evidence to suggest a causal relationship (eg, the AE occurred within a reasonable time after administration of the study drug).
+
+However, the influence of other factors may have contributed to the AE (eg, the patient’s clinical condition or other concomitant AEs). 8.3.4.
+
+Following Adverse Events After the initial AE or SAE report, the investigator is required to proactively follow each patient and provide further information to the sponsor on the patient’s condition.
+
+All AEs and SAEs documented at a previous visit/contact and designated as ongoing will be reviewed at subsequent visits/contacts.
+
+All AEs and SAEs will be followed until resolution, the condition stabilizes or is considered chronic, the AE or SAE is otherwise explained, the patient is lost to follow-up or the patient withdraws consent.
+
+The investigator will ensure that follow-up includes any supplemental investigations as may be indicated to elucidate the nature and/or causality of the AE or SAE.
+
+This may include additional laboratory tests or investigations, histopathological examinations, radiographic imaging, or consultation with other health care professionals.
+
+The sponsor may request that the investigator perform or arrange for the conduct of supplemental measurements and/or evaluations to elucidate as fully as possible the nature and/or causality of the AE or SAE.
+
+The investigator is obligated to assist.
+
+If a patient dies during participation in the study or during a recognized follow-up period, the sponsor will be provided with a copy of any post-mortem findings, including histopathology.
+
+New or updated information should be reported to the sponsor according to the SAE instructions provided by the sponsor within the timeframes outlined in Section 8.6.2 .
+
+CONFIDENTIAL Page 75 CONFIDENTIAL Page 216
+
+--- Page 76 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 8.3.5.
+
+Laboratory Test Abnormalities Abnormal laboratory findings (eg, clinical chemistry, complete blood count [CBC], coagulation, or urinalysis) or other abnormal assessments (eg, ECGs, x-rays, or vital signs) that are judged by the investigator as clinically significant will be recorded as AEs or SAEs.
+
+This includes clinically significant abnormal laboratory findings or other abnormal assessments that are present at baseline and significantly worsen during the study.
+
+The definition of clinically significant is left to the judgment of the investigator.
+
+In general, these are the laboratory test abnormalities or other abnormal assessments that: • are associated with clinical signs or symptoms, or • require active medical intervention, or • lead to dose interruption or discontinuation, or • require close observation, more frequent follow-up assessments, or • further diagnostic investigation. 8.4.
+
+Definition of a Serious Adverse Event An SAE is any untoward medical occurrence that, at any dose: • Results in death • Is life-threatening Note: The term “life-threatening” in the definition of “serious” refers to an AE in which the patient was at risk of death at the time of the AE.
+
+It does not refer to an AE, which hypothetically might have caused death, if it were more severe. • Requires hospitalization or prolongation of existing hospitalization Note: In general, hospitalization signifies that the patient was admitted (usually involving at least an overnight stay) to the hospital or emergency ward for observation and/or treatment that would not have been appropriate in the physician’s office or outpatient setting. • Results in disability/incapacity • Note: The term disability means a substantial disruption of a person’s ability to conduct normal life functions.
+
+This definition is not intended to include experiences of relatively minor medical significance, such as uncomplicated headache, nausea, vomiting, diarrhea, influenza, and accidental trauma (eg, sprained ankle), which may interfere or prevent everyday life functions, but do not constitute a substantial disruption. • Is a congenital anomaly/birth defect • Is considered a significant medical AE by the investigator based on medical judgement (eg, may jeopardize the patient or may require medical/surgical intervention to prevent one of the outcomes listed above) CONFIDENTIAL Page 76 CONFIDENTIAL Page 217
+
+--- Page 77 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 The following are NOT considered SAEs: • Hospitalization for elective treatment of a pre-existing condition that did not worsen from baseline • Hospitalization for social/convenience considerations • Scheduled therapy for the target disease of the study, including admissions for transfusion support or convenience 8.5.
+
+Suspected Unexpected Serious Adverse Reaction A suspected unexpected serious adverse reaction (SUSAR) is a serious adverse reaction that is both unexpected (ie, not present in the product’s Reference Safety Information [RSI]) and meets the definition of a serious adverse drug reaction (SADR), the specificity or severity of which is not consistent with those noted in the Investigator’s Brochure. 8.6.
+
+Timing, Frequency, and Method of Capturing Adverse Events and Serious Adverse Events 8.6.1.
+
+Adverse Event Reporting Period After informed consent has been signed but prior to the administration of the study drug, only SAEs should be reported.
+
+After initiation of study drug, all AEs and SAEs, regardless of relationship to study drug, will be reported until either 30 days after last dose of study drugs including chemotherapy drugs or initiation of new anticancer therapy, whichever occurs first.
+
+ImAEs (serious or nonserious) should be reported until 90 days after the last dose of tislelizumab or placebo, regardless of whether or not the patient starts a new anticancer therapy.
+
+All SAEs considered related to the study drug(s) that are brought to the attention of the investigator should be reported regardless of time since the last dose of treatment. 8.6.2.
+
+Reporting Serious Adverse Events 8.6.2.1.
+
+Prompt Reporting of Serious Adverse Events As soon as the investigator determines that an AE meets the protocol definition of an SAE, the event must be reported promptly (within 24 hours) to the sponsor or designee as described in Table 5.
+
+Table 5.
+
+Timeframes and Documentation Methods for Reporting Serious Adverse Events to the Sponsor or Designee Timeframe for Documentation Timeframe for Documentation Reporting Making Initial Method Making Follow-up Method Method Report Report All Within 24 h of SAE Report As expeditiously as SAE Report Email or fax SAE SAEs first knowledge of possible form or the SAE Pregnancy form Abbreviations: AE, adverse event; h, hours; SAE, serious adverse event.
+
+CONFIDENTIAL Page 77 CONFIDENTIAL Page 218
+
+--- Page 78 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 8.6.2.2.
+
+Completion and Transmission of the Serious Adverse Event Report Once an investigator becomes aware that an SAE has occurred in a patient, he/she is to report the information to the sponsor within 24 hours as outlined above in Section 8.6.2.1.
+
+The SAE Report will always be completed as thoroughly as possible with all available details of the event and forwarded to the sponsor or designee within the designated timeframes.
+
+If the investigator does not have all information regarding an SAE, he/she is not to wait to receive additional information before notifying the sponsor or designee of the SAE and completing the form.
+
+The form will be updated when additional information is received.
+
+The investigator must always provide an assessment of causality for each SAE as described in Section 8.3.3.
+
+The sponsor will provide contact information for SAE receipt. 8.6.2.3.
+
+Regulatory Reporting Requirements for Serious Adverse Events The investigator will promptly report all SAEs to the sponsor in accordance with the procedures detailed in Section 8.6.2.1.
+
+The sponsor has a legal responsibility to notify, as appropriate, both the local regulatory authority and other regulatory agencies about the safety of a product under clinical investigation.
+
+The investigator, or responsible person according to local requirements, will comply with the applicable local regulatory requirements related to the reporting of SAEs to regulatory authorities and the IRB/IEC.
+
+All SUSARs (as defined in Section 8.5), will be submitted to all applicable regulatory authorities and investigators for tislelizumab studies.
+
+When a study center receives an initial or follow-up safety report or other safety information (eg, revised Investigator’s Brochure) from the sponsor, the investigator or designated responsible person is required to promptly notify his/her IRB or IEC.
+
+The investigator should place copies of Safety Reports from the sponsor in the Investigator Site File. 8.6.3.
+
+Eliciting Adverse Events The investigator or designee will ask about AEs by asking the following standard questions: • How are you feeling? • Have you had any medical problems since your last visit? • Have you taken any new medicines since your last visit? 8.6.4.
+
+Disease Progression Disease progression (including fatal disease progression), which is expected in this study population and measured as an efficacy endpoint, should not be reported as an AE term.
+
+Instead, the symptoms, signs or clinical sequelae that result from disease progression should be reported as the AE term(s).
+
+For instance, a patient presents with pleural effusion resulting from disease progression of metastasis to lungs.
+
+The event term should be reported as “pleural effusion” instead of disease CONFIDENTIAL Page 78 CONFIDENTIAL Page 219
+
+--- Page 79 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 progression.
+
+If a patient experienced a fatal multi-organ failure due to disease progression, the term “multi-organ failure” should be reported as the SAE with death as outcome instead of reporting “fatal disease progression” or “death due to disease progression.” 8.6.5.
+
+Deaths Death is an outcome and not usually considered an event.
+
+If the only information available is death and the cause of death is unknown, then the death is reported as an AE, eg, “death,” “death of unknown cause,” or “death unexplained.” 8.6.6.
+
+Pregnancies If a female patient or the partner of a male patient becomes pregnant while receiving investigational therapy or within 120 days after the last dose of tislelizumab or placebo, or chemotherapy drugs, whichever is given later, a pregnancy report form is required to be completed and expeditiously submitted to the sponsor to facilitate outcome follow-up.
+
+Information on the status of the mother and child will be forwarded to the sponsor.
+
+Generally, follow-up will be no longer than 6 to 8 weeks following the estimated delivery date.
+
+Any premature termination of the pregnancy will be reported.
+
+While pregnancy itself is not considered to be an AE, any pregnancy complication or elective termination of a pregnancy for medical reasons will be recorded as an AE or SAE.
+
+An abortion, whether accidental, therapeutic, or spontaneous should be always reported as an SAE.
+
+Similarly, any congenital anomaly/birth defect in a child born to a patient exposed to the study drug should be recorded and reported as an SAE. 8.6.7.
+
+Expedited Reporting to Health Authorities, Investigators, Institutional Review Boards, and Independent Ethics Committees The sponsor will promptly assess all SAEs against cumulative study drug experience to identify and expeditiously communicate new safety findings to regulatory authorities, investigators, IRBs, and IECs based on applicable legislation.
+
+To determine the reporting requirements for individual SAEs, the sponsor will assess the expectedness of the SAEs using the following reference safety information (RSI) documents: • tislelizumab Investigator’s Brochure • The prescribing information of chemotherapy 8.6.8.
+
+Assessing and Recording Immune-Mediated Adverse Events Since treatment with anti-PD-1 therapy can cause autoimmune disorders, AEs considered by the investigator to be immune-mediated (see Section 8.7.3) should be reported as imAEs and ticked as such in the eCRF AE page until Day 90, after treatment discontinuation.
+
+Investigators should consult the guidance on diagnostic evaluation and management of imAEs, which are commonly seen with immune checkpoint inhibitors, in Appendix 6.
+
+CONFIDENTIAL Page 79 CONFIDENTIAL Page 220
+
+--- Page 80 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 An extensive list of potential imAEs appears in Section 8.7.3, Table 7.
+
+All conditions similar to those listed should be carefully evaluated to determine whether they are imAEs, based on a similar diagnostic process to those reactions that are presented in more detail in Appendix 6. 8.6.9.
+
+Recording Infusion-Related Reactions The symptoms of infusion-related reactions may include, but are not limited to, fever, chills/rigor, nausea, pruritus, angioedema, hypotension, headache, bronchospasm, urticaria, rash, vomiting, myalgia, dizziness, or hypertension.
+
+Severe reactions may include acute respiratory distress syndrome, myocardial infarction, ventricular fibrillation, or cardiogenic shock.
+
+AEs should be recorded as “infusion-related reaction” instead of the individual signs and symptoms. 8.7.
+
+Management of Adverse Events of Special Interest As a routine precaution, after infusion of tislelizumab or placebo on Day 1 of Cycle 1 and Cycle 2, patients must be monitored for ≥ 60 minutes afterward in an area with resuscitation equipment and emergency agents before chemotherapy.
+
+From Cycle 3 onward, a minimum of a 30-minute monitoring period is required in an area with resuscitation equipment and emergency agents.
+
+The management of infusion-related reactions, severe hypersensitivity reactions, and imAEs according to the NCI-CTCAE criteria are outlined below. 8.7.1.
+
+Infusion-Related Reactions The symptoms of infusion-related reactions include fever, chills/rigor, nausea, pruritus, angioedema, hypotension, headache, bronchospasm, urticaria, rash, vomiting, myalgia, dizziness, or hypertension.
+
+Severe reactions may include acute respiratory distress syndrome, myocardial infarction, ventricular fibrillation, and cardiogenic shock.
+
+Patients should be closely monitored for such reactions.
+
+Immediate access to an Intensive Care Unit (ICU) or equivalent environment and appropriate medical therapy (including epinephrine, corticosteroids, intravenous antihistamines, bronchodilators, and oxygen) must be available to treat infusion-related reactions.
+
+Treatment modification for symptoms of infusion-related reactions due to study drug(s) is provided in Table 6.
+
+CONFIDENTIAL Page 80 CONFIDENTIAL Page 221
+
+--- Page 81 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Table 6.
+
+Treatment Modification for Symptoms of Infusion-Related Reactions Due to Study Drug(s) NCI-CTCAE Grade Treatment Modification for Tislelizumab or Placebo Grade 1 - mild Decrease infusion rate by 50%.
+
+Any worsening is Mild transient reaction; infusion interruption not closely monitored.
+
+Medical management as needed. indicated; intervention not indicated.
+
+Subsequent infusions should be given after premedication and at the reduced infusion rate.
+
+Grade 2 - moderate Stop infusion.
+
+Infusion may be resumed at 50% of Therapy or infusion interruption indicated but previous rate once infusion-related reactions has responds promptly to symptomatic treatment (eg, resolved or decreased to Grade 1 in severity.
+
+Any antihistamines, NSAIDS, narcotics, IV fluids); worsening is closely monitored.
+
+Proper medical prophylactic medications indicated for ≤ 24 h management should be instituted as described below.
+
+Subsequent infusions should be given after premedication and at the reduced infusion rate.
+
+Grade 3 – severe Immediately stop the infusion.
+
+Proper medical Prolonged (eg, not rapidly responsive to symptomatic management should be instituted as described below. medication and/or brief interruption of infusion); The patient should be withdrawn from study drug(s) recurrence of symptoms following initial treatment. improvement; hospitalization indicated for clinical sequelae.
+
+Grade 4 – life threatening Immediately stop the infusion.
+
+Proper medical Life-threatening consequences; urgent intervention management should be instituted as described below. indicated.
+
+The patient should be withdrawn from study drug(s) treatment.
+
+Hospitalization is recommended.
+
+Abbreviations: h, hours; IV, intravenous; NCI-CTCAE, National Cancer Institute-Common Terminology Criteria for Adverse Event; NSAIDs, nonsteroidal anti-inflammatory drugs.
+
+Once the tislelizumab or placebo infusion rate has been decreased by 50% or suspended due to an infusion-related reaction, it must remain decreased for all subsequent infusions with premedication.
+
+If the patient has a second infusion-related reaction (≥ Grade 2) on the slower infusion rate, infusion should be discontinued and the patient should be withdrawn from tislelizumab or placebo treatment.
+
+NCI-CTCAE Grade 1 or 2 infusion reaction: Proper medical management should be instituted, as indicated per the type of reaction.
+
+This includes but is not limited to an antihistamine (eg, diphenhydramine or equivalent), antipyretic (eg, paracetamol or equivalent), and if considered indicated oral or intravenous glucocorticoids, epinephrine, bronchodilators, and oxygen.
+
+In the next cycle, patients should receive oral premedication with an antihistamine (eg, diphenhydramine or equivalent) and an antipyretic (eg, paracetamol or equivalent), and they should be closely monitored for clinical signs and symptoms of an infusion reaction.
+
+NCI-CTCAE Grade 3 or 4 infusion reaction: Proper medical management should be instituted immediately, as indicated per type and severity of the reaction.
+
+This includes but is not limited to oral or intravenous antihistamine, antipyretic, glucocorticoids, epinephrine, bronchodilators, and oxygen.
+
+CONFIDENTIAL Page 81 CONFIDENTIAL Page 222
+
+--- Page 82 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 8.7.2.
+
+Severe Hypersensitivity Reactions and Flu-Like Symptoms If hypersensitivity reaction occurs, the patient must be treated according to the best available medical practice as described in the complete guideline for emergency treatment of anaphylactic reactions according to the Working Group of the Resuscitation Council (UK) (Soar et al 2008).
+
+Patients should be instructed to report any delayed reactions to the investigator immediately.
+
+In the event of a systemic anaphylactic/anaphylactoid reaction (typically manifested within minutes following administration of the drug/antigen, and characterized by: respiratory distress; laryngeal edema; and/or intense bronchospasm; and often followed by vascular collapse or shock without antecedent respiratory difficulty; cutaneous manifestations such as pruritus and urticaria with/without edema; and gastrointestinal manifestations such as nausea, vomiting, crampy abdominal pain, and diarrhea), the infusion must be immediately stopped and the patient discontinued from the study.
+
+The patients will be administered epinephrine injection and dexamethasone infusion if hypersensitivity reaction is observed and then the patient should be placed on monitor immediately, and ICU should be alerted for possible transfer if needed.
+
+For prophylaxis of flu-like symptoms, a dose of 25 mg indomethacin or a comparable dose of nonsteroidal anti-inflammatory drugs (ie, 600 mg ibuprofen, 500 mg naproxen sodium) may be administered 2 hours before and 8 hours after the start of each dose of study drugs(s) infusion.
+
+Alternative treatments for fever (ie, paracetamol) may be given to patients at the discretion of the investigator. 8.7.3.
+
+Immune-Mediated Adverse Events Immune-mediated AEs are of special interest in this study.
+
+If the events listed below or similar events occur, the investigator should exclude alternative explanations (eg, combination drugs, infectious disease, metabolic, toxin, disease progression, or other neoplastic causes) with appropriate diagnostic tests, which may include, but are not limited to, serologic, immunologic, and histologic (biopsy) data.
+
+If alternative causes have been ruled out; the AE required the use of systemic steroids, other immunosuppressants, or endocrine therapy, and is consistent with an immune-mediated mechanism of action, the imAE indicator in the eCRF AE page should be checked.
+
+A list of potential imAEs is shown below in Table 7.
+
+All conditions similar to those listed should be evaluated in patients receiving tislelizumab or placebo to determine whether they are immune-mediated.
+
+Recommendation for diagnostic evaluation and management of imAEs is based on European Society for Medical Oncology (ESMO) and American Society of Clinical Oncology (ASCO) guidelines (Haanen et al 2017, Brahmer et al 2018) and common immune-mediated toxicities are detailed in Appendix 6.
+
+For any AEs not included in Appendix 6, please refer to the ASCO Clinical Practice Guideline (Brahmer et al 2018) for further guidance on diagnostic evaluation and management of immune-mediated toxicities.
+
+CONFIDENTIAL Page 82 CONFIDENTIAL Page 223
+
+--- Page 83 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 Table 7.
+
+Immune-Mediated Adverse Events Body System Affected Events Skin (mild-common) pruritus or maculopapular rash; vitiligo Skin (moderate) follicular or urticarial dermatitis; erythematous/lichenoid rash; Sweet’s syndrome Skin (severe-rare) full-thickness necrolysis/Stevens-Johnson syndrome Gastrointestinal colitis (includes diarrhea with abdominal pain or endoscopic/radiographic evidence of inflammation); pancreatitis; hepatitis; aminotransferase (ALT/AST) elevation; bowel perforation Endocrine thyroiditis, hypothyroidism, hyperthyroidism; hypophysitis with features of hypopituitarism, eg, fatigue, weakness, weight gain; insulin-dependent diabetes mellitus; diabetic ketoacidosis; adrenal insufficiency Respiratory pneumonitis/diffuse alveolitis Eye episcleritis; conjunctivitis; iritis/uveitis Neuromuscular arthritis; arthralgia; myalgia; neuropathy; Guillain-Barre syndrome; aseptic meningitis; myasthenic syndrome/myasthenia gravis, meningoencephalitis; myositis Blood anemia; leukopenia; thrombocytopenia Renal interstitial nephritis; glomerulonephritis; acute renal failure Cardiac pericarditis; myocarditis; heart failure Abbreviations: ALT, alanine aminotransferase; AST, aspartate aminotransferase.
+
+Recommendations for managing imAEs are detailed in Appendix 6.
+
+If a toxicity does not resolve to ≤ Grade 1 within 12 weeks, study drug(s) should be discontinued after consultation with the sponsor.
+
+Patients who experience a recurrence of any event at the same or higher severity grade with rechallenge should permanently discontinue treatment. 8.7.4.
+
+Renal Function Abnormalities Patients with moderate renal dysfunction (estimated glomerular filtration rate > 30 mL/min/1.73 m2 and < 60 mL/min/1.73 m2 by Chronic Kidney Disease Epidemiology Collaboration equation) may be enrolled into the study.
+
+For patients with baseline renal insufficiency, the following algorithm is proposed for the use of steroid treatment in the management of imAEs: • If the serum creatinine is normal at baseline, please see Section 8.7.3 and refer to Appendix 6 for diagnosis and management of patients with abnormal renal laboratory values. • If the serum creatinine is Grade 1 at baseline and increase in serum creatinine meets criteria for serum creatinine increase ≥ Grade 2 after starting treatment with tislelizumab or placebo, refer to Appendix 6 for diagnosis and management of patients with abnormal renal laboratory values.
+
+Check the estimated glomerular filtration rate (eGFR) using Appendix 7 and the eGFR calculator link.
+
+In the setting of a Grade 2 serum creatinine increase only, study treatment can continue unless the serum creatinine increases by ≥ 50% from the baseline value OR the eGFR falls below 20 mL/min/1.73 m2.
+
+CONFIDENTIAL Page 83 CONFIDENTIAL Page 224
+
+--- Page 84 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 • If the serum creatinine is Grade 2 at baseline and increase in serum creatinine meets criteria for serum creatinine increase ≥ Grade 3 after starting treatment with tislelizumab or placebo, refer to Appendix 6 for diagnosis and management of patients with abnormal renal laboratory values.
+
+In the setting of a Grade 3 serum creatinine increase only, study treatment will be held until serum creatinine improves to baseline and treatment may resume only after discussion with the medical monitor. 9.
+
+AEs will be coded to MedDRA (Version 20.0 or higher) by lower-level term, preferred term and primary system organ class (SOC).
+
+A TEAE is defined as an AE that had an onset date or a worsening in severity from baseline (pretreatment) on or after the first dose of study drug and up to 30 days following study drug discontinuation or initiation of new anticancer therapy, whichever occurs first.
+
+For the tislelizumab arm, the TEAE classification also applies to imAEs that are recorded up to 90 days after discontinuation from tislelizumab, regardless of whether the patient started a new anticancer therapy.
+
+Only those AEs that were treatment-emergent will be included in summary tables.
+
+All AEs, treatment-emergent or otherwise, will be presented in patient data listings.
+
+The incidence of TEAEs will be reported as the number (percentage) of patients with TEAEs by SOC and preferred term.
+
+A patient will be counted only once by the highest severity grade per NCI-CTCAE v5.0 within an SOC and preferred term, even if the patient experienced > 1 TEAE within a specific SOC and preferred term.
+
+The number (percentage) of patients with TEAEs will also be summarized by relationship to the study drug.
+
+Treatment-related AEs include those events considered by the investigator to be related to study treatment or with missing assessment of the causal relationship.
+
+SAEs, deaths, TEAE with ≥ Grade 3 severity, imAE, treatment-related TEAEs and TEAEs that led to treatment discontinuation, dose interruption, dose reduction, or dose delay will be summarized. 9.3.3.
+
+Laboratory Analyses Clinical laboratory (eg, hematology, serum chemistry) values will be evaluated for each laboratory parameter as appropriate.
+
+Abnormal laboratory values will be flagged and identified as those outside (above or below) the normal range.
+
+Reference (normal) ranges for laboratory CONFIDENTIAL Page 88 CONFIDENTIAL Page 229
+
+--- Page 89 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 parameters will be included in the CSR for this protocol.
+
+Descriptive summary statistics (eg, n, mean, standard deviation, median, minimum, maximum for continuous variables; n [%] for categorical variables) for laboratory parameters and their changes from baseline will be calculated.
+
+Laboratory values will be summarized by visit and by worst postbaseline visit.
+
+Laboratory parameters that are graded in NCI-CTCAE v5.0 will be summarized by NCI-CTCAE grade.
+
+In the summary of laboratory parameters by NCI-CTCAE grade, parameters with NCI-CTCAE grading in both high and low directions (eg, glucose, potassium, sodium) will be summarized separately. 9.3.4.
+
+Vital Signs Descriptive statistics for vital sign parameters (systolic and diastolic blood pressure, pulse rate, body temperature, weight) and changes from baseline will be presented by visit for all visits.
+
+Vital signs will be listed by patient and visit. 9.4.
+
+Pharmacokinetic Analysis Pharmacokinetics samples will be collected in this study as outlined in Appendix 1.
+
+Tislelizumab lowest concentration before the next dose (C ) data will be tabulated and trough summarized for each cycle at which PK is to be measured in the PK Analysis Set.
+
+Descriptive statistics will include means, medians, ranges, and standard deviations, as appropriate.
+
+Additional PK analyses may be conducted as appropriate.
+
+The PK Analysis Set includes all patients who receive ≥ 1 dose of tislelizumab per the protocol and for whom any postdose PK data are available. 9.5.
+
+Immunogenicity Analyses Immunogenicity samples will be collected in this study as outlined in Appendix 1.
+
+The immunogenicity results will be summarized using descriptive statistics by the number and percentage of patients who develop detectable antidrug antibodies (ADA).
+
+The incidence of positive ADA and neutralizing ADA will be reported for evaluable patients.
+
+The effect of immunogenicity on PK, efficacy, and safety may be evaluated if data allow. 9.6.
+
+ECOG PERFORMANCE STATUS ................................................................112 APPENDIX 3.
+
+THE RESPONSE EVALUATION CRITERIA IN SOLID TUMORS (RECIST) GUIDELINES, VERSION 1.1 ................................................................113 CONFIDENTIAL Page 9 CONFIDENTIAL Page 150
+
+--- Page 10 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 APPENDIX 4.
+
+PRE-EXISTING IMMUNE DEFICIENCIES OR AUTOIMMUNE DISEASES ................................................................................................................122 APPENDIX 5.
+
+NEW YORK HEART ASSOCIATION FUNCTIONAL CLASSIFICATION ..................................................................................................123 APPENDIX 6.
+
+IMMUNE-MEDIATED ADVERSE EVENT EVALUATION AND MANAGEMENT .....................................................................................................124 APPENDIX 7.
+
+CHRONIC KIDNEY DISEASE EPIDEMIOLOGY COLLABORATION (CKD-EPI) EQUATION .......................................................134 APPENDIX 8.
+
+CONTRACEPTION GUIDELINES AND DEFINITIONS OF “WOMEN OF CHILDBEARING POTENTIAL,” “NO CHILDBEARING POTENTIAL” ...........................................................................................................135 APPENDIX 9.
+
+DOSE MODIFICATION OF CHEMOTHERAPY .........................................137 APPENDIX 10.
+
+EUROPEAN ORGANISATION FOR RESEARCH AND TREATMENT OF CANCER QUALITY OF LIFE CANCER QUESTIONNAIRE QLQ-C30 .................................................................................139 APPENDIX 11.
+
+EUROPEAN ORGANISATION FOR RESEARCH AND TREATMENT OF CANCER QUALITY OF LIFE QUESTIONNAIRE LUNG CANCER MODULE QLQ-LC13 ................................................................141 APPENDIX 12.
+
+EUROQOL 5-DIMENSION, 5-LEVEL ........................................................142 LIST OF TABLES Table 1.
+
+Results From Randomized Studies Using Platinum-Based Chemotherapy for Extensive-Stage Small Cell Lung Cancer ...................................................................25 Table 2.
+
+Ongoing First-Line PD-1 Pathway-Targeting Immunotherapy Studies in ESSCLC ..........................................................................................................................28 Table 3.
+
+Selection and Timing of Dose Administration of Tislelizumab or Placebo in Combination With Cisplatin and Etoposide ...............................................................52 Table 4.
+
+Selection and Timing of Dose Administration of Tislelizumab or Placebo in Combination With Carboplatin and Etoposide ...........................................................53 Table 5.
+
+Timeframes and Documentation Methods for Reporting Serious Adverse Events to the Sponsor or Designee .........................................................................................77 Table 6.
+
+Treatment Modification for Symptoms of Infusion-Related Reactions Due to Study Drug(s) ..............................................................................................................81 Table 7.
+
+Immune-Mediated Adverse Events .................................................................................83 Table 8.
+
+Analysis Timing and Stopping Boundaries for OS in the ITT Analysis Set ...................90 CONFIDENTIAL Page 10 CONFIDENTIAL Page 151
+
+--- Page 11 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 LIST OF FIGURES Figure 1.
+
+Study Schema .............................................................................................................41 CONFIDENTIAL Page 11 CONFIDENTIAL Page 152
+
+--- Page 12 ---
+
+BGB-A317-312 BeiGene Protocol Amendment Version 1.0 02 September 2020 SYNOPSIS Name of Sponsor/Company: BeiGene (Shanghai) Co., Ltd.
+
+
+---
+
+## Document History
+
+| Version | Date | Author | Description |
+|---------|------|--------|-------------|
+| 1.0 | 2025-12-25 | Auto-generated | Initial abbreviated SAP |
+
+---
+
+*This is an abbreviated SAP generated from the study protocol. For complete statistical analysis details, refer to the full Statistical Analysis Plan.*

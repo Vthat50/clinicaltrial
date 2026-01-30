@@ -1,0 +1,611 @@
+# =============================================================================
+# THERAPEUTIC AREA RULES (auto-generated from INSTRUCTIONS.md files)
+# =============================================================================
+# DO NOT EDIT DIRECTLY. Edit the INSTRUCTIONS.md files in skills/
+# and re-run: python skills/convert_to_yaml.py
+# =============================================================================
+
+version: '1.0'
+config_type: therapeutic_area_rules
+description: Therapeutic-area-specific TLF rules derived from INSTRUCTIONS.md files.
+  These supplement the core generation_rules.yaml with area-specific mandatory/common/conditional
+  table types and clinical notes.
+areas:
+  biosimilar:
+    reference_saps: 1
+    notes:
+    - Equivalence margins must be pre-specified and justified — include in table footnotes
+    - 'Risk difference method: Miettinen-Nurminen for binary endpoints'
+    - Tipping point analysis is a regulatory expectation for missing data sensitivity
+    - Both Central and Local review required for tumor endpoints in oncology biosimilars
+    - PK/immunogenicity tables should be split by treatment period when multiple periods
+      exist
+    - Drug-related TEAEs and drug-related Grade ≥3 TEAEs are standard biosimilar safety
+      subsets
+    - ADA status stratification of safety data is expected
+    - Concomitant medications should be reported by study period
+    - Prior cancer therapy should be broken down by modality (surgical, radiation,
+      systemic) with systemic further split by drug class
+    - Salvage/subsequent therapy tracking is important for long-term follow-up
+  cardiovascular_metabolic:
+    reference_saps: 6
+    notes:
+    - MACE composite endpoint analysis is common (MI, stroke, CV death)
+    - QTc analysis tables (absolute values and change from baseline) when ECG collected
+    - Holter monitoring tables when continuous ECG performed
+    - Lipid panel tables are common in metabolic trials
+    - Blood pressure categorization tables (hypertension staging)
+    - Hierarchical testing procedures for multiple primary endpoints
+    common_table_types:
+    - type: demographics
+      frequency: 50%
+    conditional_table_types:
+    - type: baseline
+      frequency: 33%
+    - type: efficacy_continuous
+      frequency: 33%
+    - type: efficacy_tte
+      frequency: 33%
+    - type: labs_summary
+      frequency: 17%
+      condition: facts.assessments_collected.labs == true
+    - type: aesi
+      frequency: 17%
+      condition: facts.aesis | length > 0
+    - type: pk_concentration
+      frequency: 17%
+      condition: facts.assessments_collected.pk == true
+    - type: ae_overview
+      frequency: 17%
+    - type: medical_history
+      frequency: 17%
+    - type: efficacy_binary
+      frequency: 17%
+    figure_types:
+    - type: mean_change_over_time_plot
+      frequency: 33%
+    - type: consort_/_disposition_diagram
+      frequency: 33%
+    - type: pk_concentration-time_profile
+      frequency: 17%
+    - type: other_figures
+      frequency: 17%
+    - type: km_plot
+      frequency: 17%
+    - type: forest_plot
+      frequency: 17%
+  dermatology:
+    reference_saps: 4
+    notes:
+    - EASI, IGA, BSA are standard efficacy endpoints for atopic dermatitis
+    - PASI is standard for psoriasis
+    - PRO instruments are common (POEM, DLQI, itch NRS)
+    - Photo documentation may require additional assessments
+    common_table_types:
+    - type: demographics
+      frequency: 75%
+    - type: disposition
+      frequency: 75%
+    - type: ae_overview
+      frequency: 75%
+    - type: exposure
+      frequency: 50%
+    - type: efficacy_binary
+      frequency: 50%
+    - type: qol
+      frequency: 50%
+      condition: facts.assessments_collected.qol | is_list_with_items
+    - type: efficacy_continuous
+      frequency: 50%
+    conditional_table_types:
+    - type: labs_summary
+      frequency: 25%
+      condition: facts.assessments_collected.labs == true
+    - type: ae_by_soc_pt
+      frequency: 25%
+    - type: ae_serious
+      frequency: 25%
+    - type: vitals
+      frequency: 25%
+      condition: facts.assessments_collected.vitals == true
+    - type: medical_history
+      frequency: 25%
+    - type: ecg
+      frequency: 25%
+      condition: facts.assessments_collected.ecg == true
+    - type: concomitant_medications
+      frequency: 25%
+    figure_types:
+    - type: mean_change_over_time_plot
+      frequency: 25%
+  endocrinology:
+    reference_saps: 2
+    notes:
+    - HbA1c change from baseline is a standard diabetes endpoint
+    - Hypoglycemia event analysis (by severity, time of day)
+    - Body weight and BMI analysis
+    - Fasting plasma glucose tables
+    - Insulin dose adjustment tables
+    mandatory_table_types:
+    - type: ae_by_soc_pt
+      frequency: 100%
+    - type: pk_parameters
+      frequency: 100%
+    - type: pk_concentration
+      frequency: 100%
+    - type: demographics
+      frequency: 100%
+    - type: ae_overview
+      frequency: 100%
+    - type: efficacy_continuous
+      frequency: 100%
+    - type: disposition
+      frequency: 100%
+    common_table_types:
+    - type: labs_shift
+      frequency: 50%
+      condition: facts.assessments_collected.labs == true
+    - type: aesi
+      frequency: 50%
+      condition: facts.aesis | length > 0
+    - type: pregnancy_test
+      frequency: 50%
+      condition: facts.assessments_collected.pregnancy_test == true
+    - type: ae_serious
+      frequency: 50%
+    - type: exposure
+      frequency: 50%
+    - type: vitals
+      frequency: 50%
+      condition: facts.assessments_collected.vitals == true
+    - type: km_plot
+      frequency: 50%
+    - type: immunogenicity
+      frequency: 50%
+      condition: facts.assessments_collected.immunogenicity == true
+    - type: concomitant_medications
+      frequency: 50%
+    - type: labs_summary
+      frequency: 50%
+      condition: facts.assessments_collected.labs == true
+    - type: efficacy_tte
+      frequency: 50%
+    - type: ecg
+      frequency: 50%
+      condition: facts.assessments_collected.ecg == true
+    - type: baseline
+      frequency: 50%
+    - type: efficacy_binary
+      frequency: 50%
+    - type: medical_history
+      frequency: 50%
+    figure_types:
+    - type: pk_concentration-time_profile
+      frequency: 100%
+    - type: other_figures
+      frequency: 50%
+  infectious_disease:
+    reference_saps: 6
+    notes:
+    - Viral load / bacterial clearance endpoints
+    - Seroconversion and seroprotection rates for vaccine trials
+    - Resistance testing tables when applicable
+    - Geographic region subgroup analyses
+    common_table_types:
+    - type: ae_serious
+      frequency: 50%
+    - type: demographics
+      frequency: 50%
+    - type: ae_overview
+      frequency: 50%
+    - type: disposition
+      frequency: 50%
+    conditional_table_types:
+    - type: ae_by_soc_pt
+      frequency: 33%
+    - type: efficacy_binary
+      frequency: 33%
+    - type: ae_death
+      frequency: 33%
+    - type: vitals
+      frequency: 33%
+      condition: facts.assessments_collected.vitals == true
+    - type: ae_discontinuation
+      frequency: 33%
+    - type: immunogenicity
+      frequency: 33%
+      condition: facts.assessments_collected.immunogenicity == true
+    - type: concomitant_medications
+      frequency: 17%
+    - type: aesi
+      frequency: 17%
+      condition: facts.aesis | length > 0
+    - type: prior_therapy
+      frequency: 17%
+    - type: exposure
+      frequency: 17%
+    - type: ae_grade3plus
+      frequency: 17%
+    - type: baseline
+      frequency: 17%
+    - type: medical_history
+      frequency: 17%
+    - type: labs_summary
+      frequency: 17%
+      condition: facts.assessments_collected.labs == true
+    - type: pk_parameters
+      frequency: 17%
+      condition: facts.assessments_collected.pk == true
+    - type: pk_concentration
+      frequency: 17%
+      condition: facts.assessments_collected.pk == true
+    - type: efficacy_tte
+      frequency: 17%
+    - type: ecg
+      frequency: 17%
+      condition: facts.assessments_collected.ecg == true
+    figure_types:
+    - type: other_figures
+      frequency: 33%
+    - type: laboratory_trend_plot
+      frequency: 17%
+    - type: pk_parameter_plot
+      frequency: 17%
+    - type: pk_concentration-time_profile
+      frequency: 17%
+    - type: km_plot
+      frequency: 17%
+  neurology:
+    reference_saps: 5
+    notes:
+    - Disease-specific rating scales (EDSS, UPDRS, ADAS-Cog, etc.)
+    - Cognitive assessment batteries
+    - MRI-based endpoints when imaging collected
+    - Seizure frequency tables for epilepsy
+    conditional_table_types: []
+    figure_types:
+    - type: other_figures
+      frequency: 60%
+  oncology:
+    reference_saps: 10
+    notes:
+    - RECIST v1.1 is the standard response criteria — specify central and/or local
+      review per protocol
+    - CTCAE grading is standard for AE severity and laboratory toxicities
+    - Prior anticancer therapy tables are expected (surgical, radiation, systemic
+      by drug class)
+    - Disease characteristics table should include histology, stage, and biomarker
+      status
+    - Period-split safety tables when Induction/Maintenance or Treatment/Follow-up
+      periods exist
+    - Waterfall plots for tumor response when tumor measurements are collected
+    - Swimmer plots for duration of response in trials with ORR endpoints
+    - Subgroup forest plots for primary and key secondary endpoints
+    - 'Biosimilar oncology trials: add tipping point analysis table + figure, salvage
+      therapy tables'
+    common_table_types:
+    - type: exposure
+      frequency: 50%
+    - type: demographics
+      frequency: 50%
+    - type: disposition
+      frequency: 50%
+    - type: efficacy_tte
+      frequency: 40%
+    - type: ae_grade3plus
+      frequency: 40%
+    - type: disease_characteristics
+      frequency: 40%
+    - type: qol
+      frequency: 40%
+      condition: facts.assessments_collected.qol | is_list_with_items
+    conditional_table_types:
+    - type: ae_overview
+      frequency: 30%
+    - type: ae_by_soc_pt
+      frequency: 30%
+    - type: ae_serious
+      frequency: 20%
+    - type: ecog
+      frequency: 20%
+      condition: facts.assessments_collected.ecog_ps == true
+    - type: vitals
+      frequency: 20%
+      condition: facts.assessments_collected.vitals == true
+    - type: ae_death
+      frequency: 20%
+    - type: concomitant_medications
+      frequency: 20%
+    - type: subgroup
+      frequency: 20%
+      condition: facts.subgroups | length > 0
+    - type: labs_summary
+      frequency: 20%
+      condition: facts.assessments_collected.labs == true
+    - type: ae_discontinuation
+      frequency: 20%
+    - type: ecg
+      frequency: 20%
+      condition: facts.assessments_collected.ecg == true
+    - type: baseline
+      frequency: 20%
+    - type: prior_therapy
+      frequency: 20%
+    - type: efficacy_binary
+      frequency: 20%
+    - type: labs_shift
+      frequency: 20%
+      condition: facts.assessments_collected.labs == true
+    - type: medical_history
+      frequency: 20%
+    - type: aesi
+      frequency: 10%
+      condition: facts.aesis | length > 0
+    - type: labs_ctcae
+      frequency: 10%
+      condition: facts.assessments_collected.labs == true
+    - type: ae_common
+      frequency: 10%
+    - type: efficacy_continuous
+      frequency: 10%
+    figure_types:
+    - type: km_plot
+      frequency: 50%
+    - type: other_figures
+      frequency: 30%
+    - type: forest_plot
+      frequency: 20%
+    - type: laboratory_trend_plot
+      frequency: 10%
+    - type: waterfall_plot
+      frequency: 10%
+    - type: qol_score_over_time
+      frequency: 10%
+    - type: swimmer_plot
+      frequency: 10%
+  ophthalmology:
+    reference_saps: 3
+    notes:
+    - BCVA (Best Corrected Visual Acuity) is a standard endpoint
+    - OCT-based endpoints (central subfield thickness)
+    - Slit lamp and fundoscopy examination tables
+    - Intraocular pressure tables
+    common_table_types:
+    - type: concomitant_medications
+      frequency: 67%
+    - type: exposure
+      frequency: 67%
+    - type: ae_by_soc_pt
+      frequency: 67%
+    - type: ae_serious
+      frequency: 67%
+    - type: qol
+      frequency: 67%
+      condition: facts.assessments_collected.qol | is_list_with_items
+    - type: demographics
+      frequency: 67%
+    - type: labs_shift
+      frequency: 67%
+      condition: facts.assessments_collected.labs == true
+    - type: ae_overview
+      frequency: 67%
+    - type: ae_discontinuation
+      frequency: 67%
+    - type: physical_exam
+      frequency: 67%
+      condition: facts.assessments_collected.physical_exam == true
+    - type: efficacy_continuous
+      frequency: 67%
+    - type: disposition
+      frequency: 67%
+    - type: medical_history
+      frequency: 67%
+    conditional_table_types:
+    - type: prior_therapy
+      frequency: 33%
+    - type: ae_common
+      frequency: 33%
+    - type: disease_characteristics
+      frequency: 33%
+    - type: pk_concentration
+      frequency: 33%
+      condition: facts.assessments_collected.pk == true
+    - type: immunogenicity
+      frequency: 33%
+      condition: facts.assessments_collected.immunogenicity == true
+    - type: subgroup
+      frequency: 33%
+      condition: facts.subgroups | length > 0
+    - type: labs_summary
+      frequency: 33%
+      condition: facts.assessments_collected.labs == true
+    - type: baseline
+      frequency: 33%
+    - type: efficacy_binary
+      frequency: 33%
+    figure_types:
+    - type: other_figures
+      frequency: 33%
+    - type: mean_change_over_time_plot
+      frequency: 33%
+    - type: km_plot
+      frequency: 33%
+  pk_study:
+    reference_saps: 2
+    notes:
+    - PK concentration-time profiles (linear and semi-log scales)
+    - Individual and mean PK parameter summary tables
+    - Bioequivalence ratio tables with 90% CI
+    - ANOVA tables for PK parameter comparisons
+    - Individual subject concentration-time overlay plots
+    mandatory_table_types:
+    - type: labs_summary
+      frequency: 100%
+    - type: ae_by_soc_pt
+      frequency: 100%
+    - type: pk_parameters
+      frequency: 100%
+    - type: pk_concentration
+      frequency: 100%
+    - type: demographics
+      frequency: 100%
+    - type: vitals
+      frequency: 100%
+    - type: ae_overview
+      frequency: 100%
+    - type: disposition
+      frequency: 100%
+    - type: ecg
+      frequency: 100%
+    common_table_types:
+    - type: labs_shift
+      frequency: 50%
+      condition: facts.assessments_collected.labs == true
+    - type: immunogenicity
+      frequency: 50%
+      condition: facts.assessments_collected.immunogenicity == true
+    - type: ae_serious
+      frequency: 50%
+    - type: ae_death
+      frequency: 50%
+    - type: ae_discontinuation
+      frequency: 50%
+    - type: ae_common
+      frequency: 50%
+    figure_types:
+    - type: pk_concentration-time_profile
+      frequency: 100%
+    - type: other_figures
+      frequency: 50%
+    - type: pk_parameter_plot
+      frequency: 50%
+    - type: laboratory_trend_plot
+      frequency: 50%
+  psychiatry:
+    reference_saps: 2
+    notes:
+    - Disease-specific rating scales (MADRS, HAM-D, PANSS, CGI)
+    - Suicidality assessment (C-SSRS) tables
+    - Responder analyses at various thresholds
+    common_table_types: []
+    figure_types:
+    - type: other_figures
+      frequency: 50%
+  respiratory:
+    reference_saps: 4
+    notes:
+    - FEV1, FVC, peak flow are standard pulmonary function endpoints
+    - Exacerbation rate analysis (annualized, time to first)
+    - Rescue medication use tables
+    - Symptom diary / PRO instruments (ACQ, AQLQ)
+    conditional_table_types:
+    - type: efficacy_binary
+      frequency: 25%
+    - type: baseline
+      frequency: 25%
+    - type: efficacy_continuous
+      frequency: 25%
+    figure_types:
+    - type: other_figures
+      frequency: 25%
+  rheumatology:
+    reference_saps: 5
+    notes:
+    - ACR20/50/70 response rates are standard efficacy endpoints
+    - DAS28 score analysis (change from baseline, remission rates)
+    - Immunogenicity is frequently assessed (biologic therapies)
+    - CTCAE grading may apply for laboratory toxicities
+    - Disease activity categories (remission, low, moderate, high) at each visit
+    - Open-label extension period tables are common
+    common_table_types: []
+    conditional_table_types:
+    - type: aesi
+      frequency: 20%
+      condition: facts.aesis | length > 0
+    - type: exposure
+      frequency: 20%
+    - type: ae_serious
+      frequency: 20%
+    - type: vitals
+      frequency: 20%
+      condition: facts.assessments_collected.vitals == true
+    - type: ae_overview
+      frequency: 20%
+    - type: labs_ctcae
+      frequency: 20%
+      condition: facts.assessments_collected.labs == true
+    - type: ae_death
+      frequency: 20%
+    - type: immunogenicity
+      frequency: 20%
+      condition: facts.assessments_collected.immunogenicity == true
+    - type: ae_common
+      frequency: 20%
+    - type: disease_characteristics
+      frequency: 20%
+    - type: concomitant_medications
+      frequency: 20%
+    - type: subgroup
+      frequency: 20%
+      condition: facts.subgroups | length > 0
+    - type: labs_summary
+      frequency: 20%
+      condition: facts.assessments_collected.labs == true
+    - type: efficacy_tte
+      frequency: 20%
+    - type: qol
+      frequency: 20%
+      condition: facts.assessments_collected.qol | is_list_with_items
+    - type: ae_discontinuation
+      frequency: 20%
+    - type: demographics
+      frequency: 20%
+    - type: disposition
+      frequency: 20%
+    - type: prior_therapy
+      frequency: 20%
+    - type: efficacy_binary
+      frequency: 20%
+    - type: efficacy_continuous
+      frequency: 20%
+    - type: medical_history
+      frequency: 20%
+    figure_types:
+    - type: km_plot
+      frequency: 20%
+    - type: consort_/_disposition_diagram
+      frequency: 20%
+    - type: other_figures
+      frequency: 20%
+  women's_health:
+    reference_saps: 1
+    notes: []
+    mandatory_table_types:
+    - type: labs_summary
+      frequency: 100%
+    - type: exposure
+      frequency: 100%
+    - type: ae_by_soc_pt
+      frequency: 100%
+    - type: ae_serious
+      frequency: 100%
+    - type: efficacy_binary
+      frequency: 100%
+    - type: qol
+      frequency: 100%
+    - type: demographics
+      frequency: 100%
+    - type: disposition
+      frequency: 100%
+    - type: ae_death
+      frequency: 100%
+    - type: ae_overview
+      frequency: 100%
+    - type: ae_discontinuation
+      frequency: 100%
+    - type: medical_history
+      frequency: 100%
+    - type: concomitant_medications
+      frequency: 100%
+    - type: subgroup
+      frequency: 100%

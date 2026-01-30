@@ -1,0 +1,2094 @@
+# =============================================================================
+# ANALYSIS TEMPLATES
+# =============================================================================
+# Maps statistical analysis methods to complete TLF shell structures.
+# Each template defines everything needed to render a table shell:
+#   - rows (with hierarchy, formatting, and display type)
+#   - column structure
+#   - associated figures
+#   - footnotes
+#   - source dataset and filter
+#   - programming notes
+#   - sensitivity analysis variants
+#
+# This file is therapeutic-area-agnostic. Disease-specific row labels
+# (e.g., RECIST categories) come from therapeutic_areas/*.yaml configs.
+#
+# Used by the shell assembler after Claude identifies which analyses
+# the study needs.
+# =============================================================================
+
+version: "1.0"
+config_type: "analysis_templates"
+
+
+# =============================================================================
+# TIME-TO-EVENT ANALYSES
+# =============================================================================
+
+time_to_event:
+
+  # ---------------------------------------------------------------------------
+  # Cox Proportional Hazards (primary method for most TTE endpoints)
+  # ---------------------------------------------------------------------------
+  cox_ph:
+    description: "Cox proportional hazards model with KM estimation"
+    applicable_to: ["PFS", "OS", "DFS", "EFS", "DOR", "TTP", "TTF", "TTR", "RFS"]
+    adam_dataset: "ADTTE"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of subjects"
+        type: "data"
+        format: "count"
+        bold: false
+        indent: 0
+      - label: "Number of events, n (%)"
+        type: "data"
+        format: "count_pct"
+        bold: false
+        indent: 0
+      - label: "Number censored, n (%)"
+        type: "data"
+        format: "count_pct"
+        bold: false
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Kaplan-Meier Estimates"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "25th percentile [95% CI]"
+        type: "data"
+        format: "median_ci"
+        indent: 1
+      - label: "Median [95% CI]"
+        type: "data"
+        format: "median_ci"
+        indent: 1
+      - label: "75th percentile [95% CI]"
+        type: "data"
+        format: "median_ci"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Landmark Rates [95% CI]"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "6-month rate [95% CI]"
+        type: "data"
+        format: "rate_ci"
+        indent: 1
+        optional: true
+      - label: "12-month rate [95% CI]"
+        type: "data"
+        format: "rate_ci"
+        indent: 1
+        optional: true
+      - label: "24-month rate [95% CI]"
+        type: "data"
+        format: "rate_ci"
+        indent: 1
+        optional: true
+      - label: ""
+        type: "spacer"
+      - label: "Treatment Comparison"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Hazard Ratio [95% CI]"
+        type: "data"
+        format: "hr_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value (stratified log-rank)"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "km"
+      - "cox"
+      - "cox_favor"
+      - "stratified"
+
+    programming_notes:
+      - "Use PROC LIFETEST for KM estimates"
+      - "Use PROC PHREG for Cox model"
+      - "Stratification factors per randomization"
+      - "Ties handled by Efron method"
+      - "95% CI for median by Brookmeyer-Crowley"
+      - "95% CI for rates by Greenwood formula with log-log transformation"
+
+    figures:
+      - type: "kaplan_meier"
+        title: "Kaplan-Meier Plot of {ENDPOINT}"
+        elements:
+          - "Survival curves by treatment arm"
+          - "Number at risk table below x-axis"
+          - "Median lines (dashed)"
+          - "95% CI shading (optional)"
+          - "Censoring tick marks"
+          - "HR [95% CI] and p-value annotation"
+        programming_notes:
+          - "Use PROC LIFETEST with ODS GRAPHICS"
+          - "X-axis: Time (months), Y-axis: Probability"
+          - "Include number at risk at each tick mark"
+
+      - type: "forest_plot"
+        title: "Subgroup Analysis Forest Plot - {ENDPOINT}"
+        elements:
+          - "Subgroup labels (left)"
+          - "n/N per arm"
+          - "HR [95% CI] per subgroup"
+          - "Graphical CI bars with diamond for overall"
+          - "Vertical reference line at HR=1"
+          - "Interaction p-values"
+          - "Favors labels below plot"
+        programming_notes:
+          - "Use PROC SGPLOT or custom macro"
+          - "Subgroups from protocol pre-specification"
+          - "Unstratified Cox within each subgroup"
+
+    sensitivity_variants:
+      unstratified:
+        description: "Unstratified Cox model"
+        changes:
+          - row: "P-value (stratified log-rank)"
+            new_label: "P-value (unstratified log-rank)"
+          - footnote_remove: "stratified"
+        programming_notes:
+          - "Remove STRATA statement from PROC PHREG"
+
+      per_protocol:
+        description: "Per-protocol population analysis"
+        changes:
+          - filter: "PPROTFL = 'Y'"
+          - footnote_add: "Per-Protocol Population."
+
+      additional_covariates:
+        description: "Cox model with additional covariates"
+        additional_rows:
+          - label: "Adjusted Hazard Ratio [95% CI]"
+            type: "data"
+            format: "hr_ci"
+            indent: 1
+        programming_notes:
+          - "Include pre-specified covariates in MODEL statement"
+
+  # ---------------------------------------------------------------------------
+  # Restricted Mean Survival Time (RMST)
+  # ---------------------------------------------------------------------------
+  rmst:
+    description: "Restricted mean survival time analysis"
+    applicable_to: ["PFS", "OS", "DFS", "EFS"]
+    adam_dataset: "ADTTE"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of subjects"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Number of events, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "RMST at {TAU} months"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "RMST [95% CI]"
+        type: "data"
+        format: "mean_ci"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Treatment Comparison"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Difference in RMST [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+      - label: "Ratio of RMST [95% CI]"
+        type: "data"
+        format: "ratio_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "RMST calculated as area under KM curve up to restriction time {TAU}."
+      - "95% CI based on pseudo-value approach."
+
+    programming_notes:
+      - "Use %RMST macro or PROC RMSTREG (SAS 9.4 TS1M7+)"
+      - "Restriction time tau must be pre-specified"
+      - "Consider when PH assumption is violated"
+
+  # ---------------------------------------------------------------------------
+  # Competing Risks (Fine-Gray / Cumulative Incidence)
+  # ---------------------------------------------------------------------------
+  competing_risks:
+    description: "Competing risks analysis with cumulative incidence"
+    applicable_to: ["disease_recurrence", "cause_specific_mortality", "graft_failure"]
+    adam_dataset: "ADTTE"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of subjects"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Event of interest, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "Competing event, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "Censored, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Cumulative Incidence Estimates"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "6-month CIF [95% CI]"
+        type: "data"
+        format: "rate_ci"
+        indent: 1
+        optional: true
+      - label: "12-month CIF [95% CI]"
+        type: "data"
+        format: "rate_ci"
+        indent: 1
+        optional: true
+      - label: ""
+        type: "spacer"
+      - label: "Treatment Comparison"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Subdistribution HR [95% CI]"
+        type: "data"
+        format: "hr_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value (Gray's test)"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "Cumulative incidence function (CIF) estimated by Aalen-Johansen method."
+      - "Subdistribution hazard ratio from Fine-Gray model."
+      - "Gray's test for equality of CIFs."
+
+    figures:
+      - type: "cumulative_incidence"
+        title: "Cumulative Incidence Plot - {ENDPOINT}"
+        elements:
+          - "CIF curves by treatment arm"
+          - "Number at risk table"
+          - "Competing event indicated"
+
+    programming_notes:
+      - "Use PROC LIFETEST with EVENTCODE option (SAS 9.4M5+)"
+      - "Or use %CIF macro / R cmprsk package"
+      - "Fine-Gray model via PROC PHREG with EVENTCODE"
+
+
+# =============================================================================
+# CATEGORICAL / BINARY RESPONSE ANALYSES
+# =============================================================================
+
+binary_response:
+
+  # ---------------------------------------------------------------------------
+  # Exact Binomial (Clopper-Pearson)
+  # ---------------------------------------------------------------------------
+  clopper_pearson:
+    description: "Exact binomial proportion with Clopper-Pearson CI"
+    applicable_to: ["ORR", "CR_rate", "DCR", "CBR", "responder_rate"]
+    adam_dataset: "ADRS"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "Evaluable subjects, N"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Responders, n (%)"
+        type: "data"
+        format: "count_pct"
+        bold: true
+        indent: 0
+      - label: "[95% CI]"
+        type: "data"
+        format: "ci_95"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Non-responders, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Treatment Comparison"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Difference [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+      - label: "Odds Ratio [95% CI]"
+        type: "data"
+        format: "or_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "ci_exact"
+      - "ci_newcombe"
+      - "fisher"
+
+    programming_notes:
+      - "Use PROC FREQ with EXACT BINOMIAL for CI"
+      - "Newcombe method for risk difference CI"
+      - "Fisher's exact test or CMH for comparison"
+
+    sensitivity_variants:
+      stratified_cmh:
+        description: "CMH test stratified by randomization factors"
+        changes:
+          - row: "P-value"
+            new_label: "P-value (stratified CMH)"
+          - footnote_add: "cmh"
+        programming_notes:
+          - "PROC FREQ with CMH option and STRATA"
+
+  # ---------------------------------------------------------------------------
+  # Logistic Regression
+  # ---------------------------------------------------------------------------
+  logistic_regression:
+    description: "Logistic regression for binary endpoint with covariates"
+    applicable_to: ["ORR", "responder_rate", "clinical_response"]
+    adam_dataset: "ADRS"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Evaluable subjects, N"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Responders, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "[95% CI]"
+        type: "data"
+        format: "ci_95"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Logistic Regression"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Odds Ratio [95% CI]"
+        type: "data"
+        format: "or_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+      - label: ""
+        type: "spacer"
+      - label: "Covariates in Model"
+        type: "header"
+        bold: true
+        indent: 0
+        note: "List covariates from SAP"
+
+    footnotes:
+      - "logistic"
+      - "ci_exact"
+
+    programming_notes:
+      - "Use PROC LOGISTIC"
+      - "Include treatment and pre-specified covariates"
+      - "Profile likelihood CI for OR"
+
+  # ---------------------------------------------------------------------------
+  # Ordinal Response (Proportional Odds)
+  # ---------------------------------------------------------------------------
+  proportional_odds:
+    description: "Proportional odds model for ordinal categorical endpoint"
+    applicable_to: ["ordinal_response", "severity_scale", "CGI_improvement"]
+    adam_dataset: "ADEFF"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Evaluable subjects, N"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Response Distribution"
+        type: "header"
+        bold: true
+        indent: 0
+        note: "Categories from therapeutic area config"
+      - label: ""
+        type: "spacer"
+      - label: "Proportional Odds Model"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Common Odds Ratio [95% CI]"
+        type: "data"
+        format: "or_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "Proportional odds model (cumulative logit)."
+      - "Score test for proportional odds assumption."
+
+    programming_notes:
+      - "Use PROC LOGISTIC with cumulative logit link"
+      - "Test PO assumption with score test"
+
+
+# =============================================================================
+# CONTINUOUS ENDPOINT ANALYSES
+# =============================================================================
+
+continuous:
+
+  # ---------------------------------------------------------------------------
+  # ANCOVA (single timepoint)
+  # ---------------------------------------------------------------------------
+  ancova:
+    description: "Analysis of covariance for change from baseline"
+    applicable_to: ["change_from_baseline", "single_visit_continuous"]
+    adam_dataset: "ADEFF"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Baseline"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Post-baseline (Week {X})"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Change from Baseline"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "ANCOVA Results"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "LS Mean (SE)"
+        type: "data"
+        format: "mean_se"
+        indent: 1
+      - label: "LS Mean Difference [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "ancova"
+      - "ANCOVA model includes treatment, baseline value, and stratification factors as covariates."
+
+    programming_notes:
+      - "Use PROC GLM or PROC MIXED"
+      - "MODEL: change = treatment baseline strat_factors"
+      - "LSMEANS treatment / PDIFF CL"
+
+  # ---------------------------------------------------------------------------
+  # MMRM (repeated measures)
+  # ---------------------------------------------------------------------------
+  mmrm:
+    description: "Mixed model for repeated measures"
+    applicable_to: ["longitudinal_continuous", "repeated_measures", "PRO_over_time"]
+    adam_dataset: "ADEFF"
+    orientation: "LANDSCAPE"
+
+    column_structure: "two_arm"
+    by_visit: true
+
+    rows:
+      - label: "Baseline"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Visit {X}"
+        type: "header"
+        bold: true
+        indent: 0
+        repeating: true
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+        repeating: true
+      - label: "LS Mean Change from Baseline (SE)"
+        type: "data"
+        format: "mean_se"
+        indent: 1
+        repeating: true
+      - label: "LS Mean Difference vs {COMPARATOR} [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+        repeating: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+        repeating: true
+
+    footnotes:
+      - "mmrm"
+      - "MMRM: treatment, visit, treatment×visit interaction, baseline value, stratification factors."
+      - "Unstructured covariance matrix. Kenward-Roger degrees of freedom."
+
+    programming_notes:
+      - "Use PROC MIXED or PROC GLIMMIX"
+      - "MODEL: change = treatment visit treatment*visit baseline strat / DDFM=KR"
+      - "REPEATED visit / SUBJECT=subject TYPE=UN"
+      - "LSMEANS treatment*visit / PDIFF CL SLICE=visit"
+
+    figures:
+      - type: "ls_mean_plot"
+        title: "LS Mean Change from Baseline Over Time - {ENDPOINT}"
+        elements:
+          - "LS mean ± SE by visit and treatment arm"
+          - "Connecting lines between visits"
+          - "X-axis: Study Visit, Y-axis: LS Mean Change"
+          - "Error bars (SE or 95% CI)"
+          - "Significance markers at each visit"
+        programming_notes:
+          - "Use PROC SGPLOT with SERIES and SCATTER"
+
+    sensitivity_variants:
+      pattern_mixture:
+        description: "Pattern mixture model for MNAR sensitivity"
+        additional_rows:
+          - label: "Pattern Mixture Model"
+            type: "header"
+            bold: true
+            indent: 0
+          - label: "LS Mean Difference (delta = {X}) [95% CI]"
+            type: "data"
+            format: "diff_ci"
+            indent: 1
+        programming_notes:
+          - "Multiple imputation under delta-adjusted MAR"
+          - "Vary delta from 0 to protocol-specified maximum"
+
+      tipping_point:
+        description: "Tipping point analysis"
+        additional_rows:
+          - label: "Tipping Point Analysis"
+            type: "header"
+            bold: true
+            indent: 0
+          - label: "Delta at which conclusion changes"
+            type: "data"
+            format: "mean"
+            indent: 1
+        programming_notes:
+          - "Systematically increase delta until p > 0.05"
+
+  # ---------------------------------------------------------------------------
+  # GEE (Generalized Estimating Equations)
+  # ---------------------------------------------------------------------------
+  gee:
+    description: "GEE for correlated/clustered data"
+    applicable_to: ["repeated_binary", "clustered_data", "correlated_outcomes"]
+    adam_dataset: "ADEFF"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of subjects"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Number of observations"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "GEE Results"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Estimated Rate/Mean (SE)"
+        type: "data"
+        format: "mean_se"
+        indent: 1
+      - label: "Treatment Effect [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "GEE with exchangeable (or specified) working correlation structure."
+      - "Robust (sandwich) standard errors."
+
+    programming_notes:
+      - "Use PROC GENMOD with REPEATED statement"
+      - "TYPE=EXCH or TYPE=UN for working correlation"
+
+
+# =============================================================================
+# COUNT / RATE DATA ANALYSES
+# =============================================================================
+
+count_data:
+
+  # ---------------------------------------------------------------------------
+  # Negative Binomial Regression
+  # ---------------------------------------------------------------------------
+  negative_binomial:
+    description: "Negative binomial regression for event count/rate"
+    applicable_to: ["exacerbation_rate", "relapse_rate", "seizure_frequency", "bleeding_episodes"]
+    adam_dataset: "ADEFF"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of subjects"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Total exposure (patient-years)"
+        type: "data"
+        format: "mean"
+        indent: 0
+      - label: "Total number of events"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Adjusted Event Rate"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Adjusted annualized rate"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "[95% CI]"
+        type: "data"
+        format: "ci_95"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Treatment Comparison"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Rate Ratio [95% CI]"
+        type: "data"
+        format: "ratio_ci"
+        indent: 1
+        comparison_only: true
+      - label: "Rate Difference [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+        optional: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "Negative binomial regression model with log(exposure) as offset."
+      - "Model includes treatment and stratification factors."
+
+    programming_notes:
+      - "Use PROC GENMOD with DIST=NEGBIN LINK=LOG"
+      - "OFFSET = log(exposure time)"
+      - "LSMEANS for adjusted rates"
+
+  # ---------------------------------------------------------------------------
+  # Poisson Regression
+  # ---------------------------------------------------------------------------
+  poisson:
+    description: "Poisson regression for event rates"
+    applicable_to: ["event_rate", "incidence_rate"]
+    adam_dataset: "ADEFF"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of subjects"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Total exposure (patient-years)"
+        type: "data"
+        format: "mean"
+        indent: 0
+      - label: "Total events"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Crude rate per patient-year"
+        type: "data"
+        format: "mean"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Poisson Model"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Adjusted Rate [95% CI]"
+        type: "data"
+        format: "mean_ci"
+        indent: 1
+      - label: "Rate Ratio [95% CI]"
+        type: "data"
+        format: "ratio_ci"
+        indent: 1
+        comparison_only: true
+      - label: "P-value"
+        type: "data"
+        format: "p_value"
+        indent: 1
+        comparison_only: true
+
+    footnotes:
+      - "Poisson regression with log(exposure) as offset."
+      - "Check for overdispersion; use negative binomial if present."
+
+    programming_notes:
+      - "PROC GENMOD with DIST=POISSON LINK=LOG"
+      - "SCALE=DEVIANCE if overdispersion detected"
+
+
+# =============================================================================
+# NON-INFERIORITY / EQUIVALENCE ANALYSES
+# =============================================================================
+
+non_inferiority:
+
+  # ---------------------------------------------------------------------------
+  # NI for Binary Endpoint
+  # ---------------------------------------------------------------------------
+  ni_binary:
+    description: "Non-inferiority analysis for binary endpoint"
+    applicable_to: ["ORR_NI", "response_rate_NI", "conversion_rate_NI"]
+    adam_dataset: "ADRS"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Evaluable subjects, N"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Responders, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "[95% CI]"
+        type: "data"
+        format: "ci_95"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Non-Inferiority Assessment"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Risk Difference [95% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+      - label: "Risk Ratio [95% CI]"
+        type: "data"
+        format: "ratio_ci"
+        indent: 1
+        comparison_only: true
+        optional: true
+      - label: "NI margin"
+        type: "data"
+        format: "fixed"
+        indent: 1
+      - label: "NI conclusion"
+        type: "data"
+        format: "text"
+        indent: 1
+        note: "NI demonstrated if lower bound of CI > -margin"
+
+    footnotes:
+      - "ci_exact"
+      - "ci_newcombe"
+      - "Non-inferiority margin: -{MARGIN}."
+      - "NI concluded if lower bound of 95% CI for risk difference > -{MARGIN}."
+
+    programming_notes:
+      - "PROC FREQ with RISKDIFF (NONINF) option"
+      - "Margin from protocol/SAP"
+      - "One-sided alpha = 0.025 equivalent to two-sided 95% CI"
+
+  # ---------------------------------------------------------------------------
+  # NI for Time-to-Event
+  # ---------------------------------------------------------------------------
+  ni_tte:
+    description: "Non-inferiority analysis for time-to-event endpoint"
+    applicable_to: ["PFS_NI", "OS_NI"]
+    adam_dataset: "ADTTE"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Number of events, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "Median [95% CI]"
+        type: "data"
+        format: "median_ci"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Non-Inferiority Assessment"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Hazard Ratio [95% CI]"
+        type: "data"
+        format: "hr_ci"
+        indent: 1
+        comparison_only: true
+      - label: "NI margin (HR)"
+        type: "data"
+        format: "fixed"
+        indent: 1
+      - label: "NI conclusion"
+        type: "data"
+        format: "text"
+        indent: 1
+        note: "NI demonstrated if upper bound of CI < margin"
+
+    footnotes:
+      - "cox"
+      - "Non-inferiority margin: HR = {MARGIN}."
+      - "NI concluded if upper bound of 95% CI for HR < {MARGIN}."
+
+  # ---------------------------------------------------------------------------
+  # Equivalence / Biosimilar
+  # ---------------------------------------------------------------------------
+  equivalence_binary:
+    description: "Equivalence analysis for binary endpoint (biosimilar)"
+    applicable_to: ["ORR_equivalence", "biosimilar_primary"]
+    adam_dataset: "ADRS"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Evaluable subjects, N"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Responders, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "[95% CI]"
+        type: "data"
+        format: "ci_95"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Equivalence Assessment"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Risk Difference [90% CI]"
+        type: "data"
+        format: "diff_ci"
+        indent: 1
+        comparison_only: true
+      - label: "Risk Ratio [90% CI]"
+        type: "data"
+        format: "ratio_ci"
+        indent: 1
+        comparison_only: true
+      - label: "Equivalence margins"
+        type: "data"
+        format: "fixed"
+        indent: 1
+      - label: "Equivalence conclusion"
+        type: "data"
+        format: "text"
+        indent: 1
+
+    footnotes:
+      - "Equivalence concluded if 90% CI for risk difference lies within [{LOWER}, {UPPER}]."
+      - "90% CI corresponds to two one-sided tests at alpha = 0.05."
+
+    programming_notes:
+      - "PROC FREQ with EQUIV option or TOST procedure"
+      - "90% CI = two one-sided alpha 0.05"
+      - "Margins from protocol/regulatory agreement"
+
+
+# =============================================================================
+# EARLY PHASE / DOSE-FINDING ANALYSES
+# =============================================================================
+
+early_phase:
+
+  # ---------------------------------------------------------------------------
+  # 3+3 Dose Escalation
+  # ---------------------------------------------------------------------------
+  three_plus_three:
+    description: "Traditional 3+3 dose escalation design"
+    applicable_to: ["dose_escalation", "phase_1"]
+    adam_dataset: "ADSL"
+    orientation: "LANDSCAPE"
+
+    column_structure: "by_dose_level"
+
+    rows:
+      - label: "Dose Level"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Dose (mg or mg/kg)"
+        type: "data"
+        indent: 0
+      - label: "N enrolled"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "N evaluable for DLT"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "DLTs, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "DLT descriptions"
+        type: "data"
+        format: "text"
+        indent: 1
+      - label: "Escalation decision"
+        type: "data"
+        format: "text"
+        indent: 0
+
+    footnotes:
+      - "DLT = Dose-Limiting Toxicity, assessed during Cycle 1."
+      - "DLT evaluation window: {WINDOW}."
+
+    programming_notes:
+      - "Descriptive summary by dose cohort"
+      - "No formal statistical testing"
+
+  # ---------------------------------------------------------------------------
+  # Simon's Two-Stage
+  # ---------------------------------------------------------------------------
+  simon_two_stage:
+    description: "Simon's two-stage design for single-arm Phase 2"
+    applicable_to: ["phase_2_single_arm", "ORR_single_arm"]
+    adam_dataset: "ADRS"
+    orientation: "PORTRAIT"
+
+    column_structure: "single_arm"
+
+    rows:
+      - label: "Stage 1"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "N enrolled"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Responders, n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Futility boundary"
+        type: "data"
+        format: "fixed"
+        indent: 1
+      - label: "Decision"
+        type: "data"
+        format: "text"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Stage 2 (cumulative)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "N enrolled (total)"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Responders, n (total)"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "ORR [95% CI]"
+        type: "data"
+        format: "rate_ci"
+        indent: 1
+      - label: "Efficacy boundary"
+        type: "data"
+        format: "fixed"
+        indent: 1
+      - label: "Conclusion"
+        type: "data"
+        format: "text"
+        indent: 1
+
+    footnotes:
+      - "Simon's optimal (or minimax) two-stage design."
+      - "H0: response rate ≤ {P0}; H1: response rate ≥ {P1}."
+      - "Alpha = {ALPHA}, Power = {POWER}."
+      - "ci_exact"
+
+    programming_notes:
+      - "Descriptive with exact binomial CI"
+      - "Decision rules from protocol"
+
+  # ---------------------------------------------------------------------------
+  # Bayesian Dose-Finding (CRM / BOIN)
+  # ---------------------------------------------------------------------------
+  bayesian_dose_finding:
+    description: "Bayesian dose-finding (CRM, mTPI, BOIN)"
+    applicable_to: ["CRM", "mTPI", "BOIN", "bayesian_phase_1"]
+    adam_dataset: "ADSL"
+    orientation: "LANDSCAPE"
+
+    column_structure: "by_dose_level"
+
+    rows:
+      - label: "Dose Level"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Dose (mg)"
+        type: "data"
+        indent: 0
+      - label: "N treated"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "DLTs, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: "Posterior P(DLT) [95% CrI]"
+        type: "data"
+        format: "mean_ci"
+        indent: 0
+      - label: "Escalation/de-escalation decision"
+        type: "data"
+        format: "text"
+        indent: 0
+      - label: "MTD probability"
+        type: "data"
+        format: "percentage"
+        indent: 0
+
+    footnotes:
+      - "Posterior probabilities from {MODEL_TYPE} model."
+      - "Target DLT rate: {TARGET}."
+      - "95% credible intervals (CrI)."
+
+    programming_notes:
+      - "R package: dfcrm (CRM), BOIN (BOIN)"
+      - "Document prior specification"
+
+
+# =============================================================================
+# SAFETY-SPECIFIC TABLE STRUCTURES
+# =============================================================================
+
+safety:
+
+  # ---------------------------------------------------------------------------
+  # AE Overview
+  # ---------------------------------------------------------------------------
+  ae_overview:
+    description: "Overview of treatment-emergent adverse events"
+    adam_dataset: "ADAE"
+    orientation: "PORTRAIT"
+    filter: "SAFFL = 'Y' and TRTEMFL = 'Y'"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "Subjects with at least one:"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "TEAE"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade ≥3 TEAE"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade 4 TEAE"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade 5 TEAE (Death)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Serious TEAE"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Treatment-related TEAE"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Treatment-related Serious TEAE"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "TEAE leading to study drug discontinuation"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "TEAE leading to dose modification"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "TEAE leading to dose interruption"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Maximum CTCAE Grade:"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Grade 1 (Mild)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade 2 (Moderate)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade 3 (Severe)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade 4 (Life-threatening)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Grade 5 (Death)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+
+    footnotes:
+      - "Safety Population."
+      - "teae"
+      - "ctcae"
+      - "meddra"
+      - "subject_count"
+
+    programming_notes:
+      - "Population: ADSL where SAFFL = 'Y'"
+      - "Events: ADAE where TRTEMFL = 'Y'"
+      - "Subject counted once per category (worst grade)"
+      - "Use PROC FREQ or custom macro"
+
+  # ---------------------------------------------------------------------------
+  # AE by SOC and Preferred Term
+  # ---------------------------------------------------------------------------
+  ae_by_soc_pt:
+    description: "TEAEs by System Organ Class and Preferred Term"
+    adam_dataset: "ADAE"
+    orientation: "LANDSCAPE"
+    filter: "SAFFL = 'Y' and TRTEMFL = 'Y'"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "System Organ Class"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+        note: "Rows generated from data — one group per SOC"
+      - label: "Preferred Term"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+        dynamic: true
+        note: "PTs within each SOC, sorted by decreasing frequency"
+
+    footnotes:
+      - "Safety Population."
+      - "meddra"
+      - "subject_count"
+      - "Sorted by decreasing frequency of total column within SOC."
+      - "Only PTs with ≥{THRESHOLD}% incidence in any group shown (if applicable)."
+
+    programming_notes:
+      - "PROC FREQ or custom AE macro"
+      - "Sort SOC by international order or frequency"
+      - "Sort PT by decreasing frequency within SOC"
+      - "Apply frequency threshold if specified in SAP"
+
+  # ---------------------------------------------------------------------------
+  # Lab Shift Table
+  # ---------------------------------------------------------------------------
+  lab_shift:
+    description: "Shift table for laboratory parameters"
+    adam_dataset: "ADLB"
+    orientation: "LANDSCAPE"
+    filter: "SAFFL = 'Y'"
+
+    column_structure: "shift_table"
+
+    rows:
+      - label: "Parameter (Unit)"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+        note: "One block per lab parameter"
+      - label: "Baseline Category"
+        type: "subheader"
+        indent: 1
+        dynamic: true
+      - label: "Normal"
+        type: "data"
+        format: "count"
+        indent: 2
+      - label: "Low"
+        type: "data"
+        format: "count"
+        indent: 2
+      - label: "High"
+        type: "data"
+        format: "count"
+        indent: 2
+
+    footnotes:
+      - "Safety Population."
+      - "Baseline: last non-missing value prior to first dose."
+      - "Post-baseline: worst post-baseline value."
+      - "Normal ranges per central laboratory."
+
+    programming_notes:
+      - "PROC FREQ with baseline × post-baseline categories"
+      - "Use ANRIND (Analysis Normal Range Indicator)"
+      - "Baseline = ABLFL = 'Y'"
+
+  # ---------------------------------------------------------------------------
+  # Exposure Summary
+  # ---------------------------------------------------------------------------
+  exposure:
+    description: "Treatment exposure summary"
+    adam_dataset: "ADEX"
+    orientation: "PORTRAIT"
+    filter: "SAFFL = 'Y'"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "Number of subjects treated"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Duration of Treatment (weeks)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Min, Max"
+        type: "data"
+        format: "min_max"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Number of Doses/Cycles Received"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Min, Max"
+        type: "data"
+        format: "min_max"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Cumulative Dose ({unit})"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Relative Dose Intensity (%)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Min, Max"
+        type: "data"
+        format: "min_max"
+        indent: 1
+
+    footnotes:
+      - "Safety Population."
+      - "Relative dose intensity = 100 × (actual cumulative dose / planned cumulative dose)."
+
+  # ---------------------------------------------------------------------------
+  # Concomitant Medications
+  # ---------------------------------------------------------------------------
+  concomitant_medications:
+    description: "Prior and concomitant medications"
+    adam_dataset: "ADCM"
+    orientation: "LANDSCAPE"
+    filter: "SAFFL = 'Y'"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "Subjects with at least one concomitant medication"
+        type: "data"
+        format: "count_pct"
+        bold: true
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "ATC Class"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+        note: "Rows generated from data — one per ATC class"
+      - label: "Generic Drug Name"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+        dynamic: true
+        note: "Drugs within each ATC class, sorted by frequency"
+
+    footnotes:
+      - "Safety Population."
+      - "who_drug"
+      - "atc"
+      - "subject_count"
+
+    programming_notes:
+      - "Classify as prior (start before first dose) or concomitant (overlap with treatment)"
+      - "Use WHO Drug Dictionary for coding"
+
+
+# =============================================================================
+# PK / IMMUNOGENICITY
+# =============================================================================
+
+pharmacokinetics:
+
+  pk_parameters:
+    description: "Summary of PK parameters"
+    adam_dataset: "ADPP"
+    orientation: "LANDSCAPE"
+    filter: "PKFL = 'Y'"
+
+    column_structure: "two_arm"
+
+    rows:
+      - label: "Parameter"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+        note: "One block per PK parameter (Cmax, AUC0-inf, AUC0-tau, Tmax, T1/2, CL, Vd, etc.)"
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "CV%"
+        type: "data"
+        format: "percentage"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Min, Max"
+        type: "data"
+        format: "min_max"
+        indent: 1
+      - label: "Geometric Mean"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Geometric CV%"
+        type: "data"
+        format: "percentage"
+        indent: 1
+
+    footnotes:
+      - "PK Evaluable Population."
+      - "Geometric statistics presented for log-normally distributed parameters."
+      - "Tmax presented as median (min, max)."
+
+    programming_notes:
+      - "Use PROC MEANS / PROC UNIVARIATE"
+      - "Log-transform for geometric statistics"
+      - "Tmax: use median, not mean"
+
+  pk_concentration_time:
+    description: "Serum/plasma concentration over time"
+    adam_dataset: "ADPC"
+    orientation: "LANDSCAPE"
+    filter: "PKFL = 'Y'"
+
+    column_structure: "by_timepoint"
+
+    rows:
+      - label: "Timepoint"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Min, Max"
+        type: "data"
+        format: "min_max"
+        indent: 1
+
+    figures:
+      - type: "concentration_time"
+        title: "Mean (±SD) Serum Concentration-Time Profile"
+        elements:
+          - "Mean ± SD by treatment arm"
+          - "Linear and semi-log scales"
+          - "X-axis: Time, Y-axis: Concentration"
+
+  immunogenicity:
+    description: "Anti-drug antibody (ADA) summary"
+    adam_dataset: "ADAB"
+    orientation: "PORTRAIT"
+    filter: "ADAFL = 'Y'"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "ADA Evaluable, N"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "ADA Status"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "ADA Positive, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "  Treatment-emergent, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 2
+      - label: "  Treatment-boosted, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 2
+      - label: "ADA Negative, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Neutralizing Antibody (NAb)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "NAb Evaluable, N"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "NAb Positive, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "NAb Negative, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "ADA Titer"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Median titer (range)"
+        type: "data"
+        format: "median_range"
+        indent: 1
+
+    footnotes:
+      - "ADA Evaluable Population."
+      - "Treatment-emergent: negative/missing at baseline, positive post-baseline."
+      - "Treatment-boosted: positive at baseline with ≥4-fold increase post-baseline."
+
+
+# =============================================================================
+# DESCRIPTIVE / BASELINE ANALYSES
+# =============================================================================
+
+descriptive:
+
+  demographics:
+    description: "Demographics and baseline characteristics"
+    adam_dataset: "ADSL"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      # Standard continuous variables
+      - label: "Age (years)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: "Min, Max"
+        type: "data"
+        format: "min_max"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Age Group, n (%)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "<65 years"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "≥65 years"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "≥75 years"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+        optional: true
+      - label: ""
+        type: "spacer"
+      - label: "Sex, n (%)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Male"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Female"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Race, n (%)"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+        note: "Categories from data or protocol"
+      - label: ""
+        type: "spacer"
+      - label: "Ethnicity, n (%)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Hispanic or Latino"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Not Hispanic or Latino"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Not Reported"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Weight (kg)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Height (cm)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "BMI (kg/m²)"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "n"
+        type: "data"
+        format: "count"
+        indent: 1
+      - label: "Mean (SD)"
+        type: "data"
+        format: "mean_sd"
+        indent: 1
+      - label: "Median"
+        type: "data"
+        format: "mean"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "DISEASE-SPECIFIC BASELINE"
+        type: "placeholder"
+        note: "Additional disease-specific rows from therapeutic area config or Claude extraction"
+
+    footnotes:
+      - "percentage_denom"
+
+    programming_notes:
+      - "Use PROC MEANS for continuous, PROC FREQ for categorical"
+      - "Percentages based on non-missing N"
+      - "Disease-specific variables appended from TA config"
+
+  disposition:
+    description: "Subject disposition"
+    adam_dataset: "ADSL"
+    orientation: "PORTRAIT"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "Screened"
+        type: "data"
+        format: "count"
+        indent: 0
+      - label: "Screen Failures, n (%)"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Randomized"
+        type: "data"
+        format: "count"
+        bold: true
+        indent: 0
+      - label: "Treated"
+        type: "data"
+        format: "count_pct"
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "Study Treatment Status"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Completed study treatment"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Discontinued study treatment"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Reason for Discontinuation"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Adverse event"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Disease progression"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+        optional: true
+      - label: "Withdrawal by subject"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Physician decision"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Protocol deviation"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Lost to follow-up"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Death"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Other"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: ""
+        type: "spacer"
+      - label: "Study Status"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Completed study"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Ongoing"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+      - label: "Discontinued from study"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+
+    footnotes:
+      - "percentage_denom"
+      - "Percentages for screening based on N screened; all others based on N randomized."
+
+    figures:
+      - type: "consort_flow"
+        title: "CONSORT Flow Diagram"
+        elements:
+          - "Enrollment box"
+          - "Allocation by arm"
+          - "Follow-up with discontinuation reasons"
+          - "Analysis populations"
+
+  medical_history:
+    description: "Medical history by SOC and preferred term"
+    adam_dataset: "ADMH"
+    orientation: "LANDSCAPE"
+
+    column_structure: "two_arm_total"
+
+    rows:
+      - label: "Subjects with at least one medical history"
+        type: "data"
+        format: "count_pct"
+        bold: true
+        indent: 0
+      - label: ""
+        type: "spacer"
+      - label: "System Organ Class"
+        type: "header"
+        bold: true
+        indent: 0
+        dynamic: true
+      - label: "Preferred Term"
+        type: "data"
+        format: "count_pct"
+        indent: 1
+        dynamic: true
+
+    footnotes:
+      - "meddra"
+      - "subject_count"
+
+
+# =============================================================================
+# INTERIM ANALYSIS
+# =============================================================================
+
+interim:
+
+  group_sequential:
+    description: "Group sequential monitoring boundaries"
+    adam_dataset: null
+    orientation: "LANDSCAPE"
+
+    column_structure: "custom"
+
+    rows:
+      - label: "Analysis"
+        type: "header"
+        bold: true
+        indent: 0
+      - label: "Interim Analysis 1"
+        type: "data"
+        indent: 0
+      - label: "Interim Analysis 2"
+        type: "data"
+        indent: 0
+        optional: true
+      - label: "Final Analysis"
+        type: "data"
+        indent: 0
+
+    custom_columns:
+      - header: "Analysis"
+        width: 1.5
+      - header: "Information\nFraction"
+        width: 1.0
+        format: "xx.x%"
+      - header: "Nominal\nAlpha (1-sided)"
+        width: 1.0
+        format: "x.xxxx"
+      - header: "Cumulative\nAlpha"
+        width: 1.0
+        format: "x.xxxx"
+      - header: "Efficacy\nBoundary (Z)"
+        width: 1.0
+        format: "x.xxxx"
+      - header: "Futility\nBoundary (Z)"
+        width: 1.0
+        format: "x.xxxx"
+      - header: "Efficacy\nBoundary (HR)"
+        width: 1.0
+        format: "x.xxx"
+        optional: true
+
+    footnotes:
+      - "Alpha-spending function: Lan-DeMets with O'Brien-Fleming-type boundary."
+      - "Futility boundaries are non-binding."
+      - "Boundaries calculated using EAST {VERSION}."
+
+    programming_notes:
+      - "Use PROC SEQDESIGN / PROC SEQTEST"
+      - "Or EAST software for boundary calculations"
+      - "Document information fraction at each analysis"

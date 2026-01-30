@@ -1,0 +1,535 @@
+{
+  "study_facts": {
+    "therapeutic_area": "infectious_disease",
+    "phase": "Phase 1b",
+    "design_type": "superiority",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": false,
+    "has_qol": false,
+    "treatment_periods": [
+      "Treatment",
+      "Follow-up"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Disposition of Participants and Discontinuations",
+      "population": "SCR",
+      "section": "10.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Important Protocol Deviations",
+      "population": "ITT",
+      "section": "10.2.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Reasons for Exclusion from Analysis Populations",
+      "population": "SAF",
+      "section": "10.2.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Other Baseline Characteristics",
+      "population": "ITT",
+      "section": "11.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Other Baseline Characteristics",
+      "population": "SAF",
+      "section": "11.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Overall Summary of TEAEs",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Overall Summary of AEs related to DVI",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by SOC and PT",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs Related to Study Intervention by SOC and PT",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by Severity",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs Related to Study Intervention by Severity",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs Leading to Subject Withdrawal",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs Leading to Death",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs Related to Study Intervention Leading to Death",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "AEs Related to DVI",
+      "population": "SAF",
+      "section": "15.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Deaths Summary",
+      "population": "SAF",
+      "section": "15.2.1",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Serious TEAEs by SOC and PT",
+      "population": "SAF",
+      "section": "15.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Serious TEAEs by Severity",
+      "population": "SAF",
+      "section": "15.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Serious TEAEs Related to Study Intervention",
+      "population": "SAF",
+      "section": "15.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Serious TEAEs Related to Study Intervention by Severity",
+      "population": "SAF",
+      "section": "15.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Hematology Parameters - Absolute Values by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Hematology Parameters - Change from Baseline by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Biochemistry Parameters - Absolute Values by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Biochemistry Parameters - Change from Baseline by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis Parameters - Absolute Values by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis Parameters - Change from Baseline by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Coagulation Parameters - Absolute Values",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs - Absolute Values by Visit",
+      "population": "SAF",
+      "section": "15.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs - Change from Baseline by Visit",
+      "population": "SAF",
+      "section": "15.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "12-Lead ECG Parameters - Absolute Values by Visit",
+      "population": "SAF",
+      "section": "15.5",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "12-Lead ECG Parameters - Change from Baseline by Visit",
+      "population": "SAF",
+      "section": "15.5",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Individual PK Concentrations with Descriptive Statistics",
+      "population": "PK",
+      "section": "16.1.5.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual Estimated PK Parameters with Descriptive Statistics",
+      "population": "PK",
+      "section": "16.1.5.1",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Individual Dose Normalized PK Parameters with Descriptive Statistics",
+      "population": "PK",
+      "section": "16.1.5.1",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Number of Participants with Positive Parasitemia",
+      "population": "PP",
+      "section": "14.1",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Time to Parasitemia Summary Statistics",
+      "population": "PP",
+      "section": "14.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Number of Participants with Documented Blood Stage Parasite Growth",
+      "population": "PP",
+      "section": "14.1",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Overall Cured/Not Cured Status",
+      "population": "PP",
+      "section": "14.1",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Malaria Clinical Score",
+      "population": "PP",
+      "section": "14.1",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Box-and-Whisker Plots for Laboratory Parameters - Change from Baseline by Visit",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier Curves for Time to Parasitemia",
+      "population": "PP",
+      "section": "14.1",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Spaghetti Plots for qPCR Data",
+      "population": "PP",
+      "section": "14.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Individual Concentration vs Time Plots (Linear and Semi-log)",
+      "population": "PK",
+      "section": "16.1.5.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Overlaid Individual Concentration vs Time Plots (Linear and Semi-log)",
+      "population": "PK",
+      "section": "16.1.5.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Mean Concentration Time Plots (Linear and Semi-log)",
+      "population": "PK",
+      "section": "16.1.5.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Scatter Plots for PK Parameters vs Dose",
+      "population": "PK",
+      "section": "16.1.5.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Boxplots for PK Parameters by Dose",
+      "population": "PK",
+      "section": "16.1.5.2",
+      "type": "pk_parameters",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Participant Disposition and Study Termination Status",
+      "population": "SCR",
+      "section": "10.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Study Entry (Including Screening Failures)",
+      "population": "SCR",
+      "section": "10.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Randomization Status",
+      "population": "ITT",
+      "section": "10.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Discontinued Participants with Reason for Withdrawal",
+      "population": "ITT",
+      "section": "10.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Important Protocol Deviations by Treatment and Participant",
+      "population": "ITT",
+      "section": "10.2.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Reasons for Exclusion from Analysis Populations",
+      "population": "SAF",
+      "section": "10.2.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics Listing",
+      "population": "ITT",
+      "section": "11.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Demographics Listing",
+      "population": "SAF",
+      "section": "11.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "SAF",
+      "section": "11.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Previous and Concomitant Medications",
+      "population": "SAF",
+      "section": "12",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Procedures",
+      "population": "SAF",
+      "section": "12",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Study Drug Administration",
+      "population": "ITT",
+      "section": "13",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Pre-treatment Adverse Events",
+      "population": "SAF",
+      "section": "15.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Emergent Adverse Events",
+      "population": "SAF",
+      "section": "15.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Serious Treatment Emergent Adverse Events",
+      "population": "SAF",
+      "section": "15.1",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "SAF",
+      "section": "15.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Data - All Results",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Abnormal Laboratory Values (Low)",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Abnormal Laboratory Values (High)",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinically Significant Laboratory Values",
+      "population": "SAF",
+      "section": "15.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs Data",
+      "population": "SAF",
+      "section": "15.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "12-Lead ECG Data",
+      "population": "SAF",
+      "section": "15.5",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "COVID-19 Related Protocol Deviations",
+      "population": "ITT",
+      "section": "15.7",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "PK Concentration Data",
+      "population": "PK",
+      "section": "16.1.5.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "PK Parameter Data",
+      "population": "PK",
+      "section": "16.1.5.1",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Phoenix WinNonlin NCA Core Output",
+      "population": "PK",
+      "section": "16.1.5.1",
+      "type": "pk_parameters",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT04250363",
+  "_area": "Infectious_Disease"
+}

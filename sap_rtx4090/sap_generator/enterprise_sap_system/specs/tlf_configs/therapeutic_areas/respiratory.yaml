@@ -1,0 +1,502 @@
+# =============================================================================
+# RESPIRATORY THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, and table structures for
+# respiratory / pulmonology clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "respiratory"
+display_name: "Respiratory / Pulmonology"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  obstructive:
+    - "asthma"
+    - "moderate-to-severe asthma"
+    - "severe eosinophilic asthma"
+    - "allergic asthma"
+    - "chronic obstructive pulmonary disease"
+    - "COPD"
+    - "chronic bronchitis"
+    - "emphysema"
+
+  interstitial:
+    - "idiopathic pulmonary fibrosis"
+    - "IPF"
+    - "progressive fibrosing interstitial lung disease"
+    - "PF-ILD"
+    - "connective tissue disease-associated ILD"
+    - "CTD-ILD"
+    - "hypersensitivity pneumonitis"
+    - "sarcoidosis"
+
+  infectious:
+    - "community-acquired pneumonia"
+    - "CAP"
+    - "hospital-acquired pneumonia"
+    - "HAP"
+    - "ventilator-associated pneumonia"
+    - "VAP"
+    - "tuberculosis"
+    - "TB"
+    - "non-tuberculous mycobacterial infection"
+    - "NTM"
+    - "COVID-19"
+    - "respiratory syncytial virus"
+    - "RSV"
+    - "influenza"
+
+  vascular:
+    - "pulmonary arterial hypertension"
+    - "PAH"
+    - "chronic thromboembolic pulmonary hypertension"
+    - "CTEPH"
+
+  other:
+    - "cystic fibrosis"
+    - "CF"
+    - "bronchiectasis"
+    - "alpha-1 antitrypsin deficiency"
+    - "chronic cough"
+    - "eosinophilic granulomatosis with polyangiitis"
+    - "EGPA"
+
+# =============================================================================
+# RESPIRATORY-SPECIFIC ENDPOINTS
+# =============================================================================
+endpoints:
+
+  lung_function:
+    FEV1:
+      label: "Change from Baseline in FEV1"
+      definition: "Change from baseline in forced expiratory volume in 1 second"
+      dataset: "ADEFF"
+      unit: "mL"
+      analysis_method: "mmrm"
+      note: "Most common primary endpoint in asthma/COPD"
+      variants:
+        - "Pre-bronchodilator FEV1"
+        - "Post-bronchodilator FEV1"
+        - "Trough FEV1 (pre-dose)"
+        - "Peak FEV1"
+      table_rows:
+        - "n"
+        - "Baseline Mean (SD)"
+        - "Week {X} Mean (SD)"
+        - "LS Mean Change from Baseline (SE)"
+        - "LS Mean Difference vs {comparator} [95% CI]"
+        - "P-value"
+
+    FVC:
+      label: "Change from Baseline in FVC"
+      definition: "Change from baseline in forced vital capacity"
+      dataset: "ADEFF"
+      unit: "mL"
+      analysis_method: "mmrm"
+      note: "Primary endpoint in IPF trials"
+
+    FEV1_FVC_ratio:
+      label: "FEV1/FVC Ratio"
+      dataset: "ADEFF"
+      analysis_method: "ancova"
+
+    peak_flow:
+      label: "Change from Baseline in Peak Expiratory Flow"
+      definition: "Change from baseline in morning/evening PEF"
+      dataset: "ADEFF"
+      unit: "L/min"
+      analysis_method: "mmrm"
+      variants: ["Morning PEF", "Evening PEF"]
+
+    DLCO:
+      label: "Change from Baseline in DLCO"
+      definition: "Change from baseline in diffusing capacity of the lung for carbon monoxide"
+      dataset: "ADEFF"
+      unit: "% predicted"
+      analysis_method: "ancova"
+      note: "Used in ILD/IPF trials"
+
+  exacerbation:
+    annual_exacerbation_rate:
+      label: "Annualized Exacerbation Rate"
+      definition: "Rate of moderate-to-severe exacerbations per year"
+      dataset: "ADTTE"
+      analysis_method: "negative_binomial"
+      note: "Negative binomial regression with log(time on study) as offset"
+      exacerbation_definitions:
+        moderate: "Requiring systemic corticosteroids for >=3 days"
+        severe: "Requiring hospitalization or emergency department visit"
+      table_rows:
+        - "Number of subjects"
+        - "Total exacerbations"
+        - "Total patient-years"
+        - "Adjusted annual rate"
+        - "Rate ratio [95% CI]"
+        - "P-value"
+        - "Subjects with >=1 moderate/severe exacerbation, n (%)"
+        - "Time to first exacerbation, Median [95% CI]"
+
+    time_to_first_exacerbation:
+      label: "Time to First Exacerbation"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+  symptoms:
+    ACQ:
+      label: "Change from Baseline in ACQ"
+      definition: "Asthma Control Questionnaire"
+      range: "0-6"
+      scoring: "Higher = worse control"
+      mcid: 0.5
+      responder: ">=0.5 point improvement"
+      well_controlled: "Score <=0.75"
+      analysis_method: "mmrm"
+
+    AQLQ:
+      label: "Change from Baseline in AQLQ"
+      definition: "Asthma Quality of Life Questionnaire"
+      range: "1-7"
+      scoring: "Higher = better quality of life"
+      mcid: 0.5
+      analysis_method: "mmrm"
+
+    SGRQ:
+      label: "Change from Baseline in SGRQ"
+      definition: "St. George's Respiratory Questionnaire"
+      range: "0-100"
+      scoring: "Higher = more limitations"
+      mcid: 4
+      domains: ["Symptoms", "Activity", "Impacts"]
+      note: "Used in COPD trials"
+      analysis_method: "mmrm"
+      table_rows:
+        - "n"
+        - "Baseline Total Score Mean (SD)"
+        - "Change from Baseline LS Mean (SE)"
+        - "LS Mean Difference vs {comparator} [95% CI]"
+        - "P-value"
+        - "Responders (>=4 point decrease), n (%)"
+
+    CAT:
+      label: "Change from Baseline in CAT"
+      definition: "COPD Assessment Test"
+      range: "0-40"
+      scoring: "Higher = greater impact"
+      mcid: 2
+      analysis_method: "mmrm"
+      note: "Used in COPD trials"
+
+    mMRC:
+      label: "Modified Medical Research Council Dyspnea Scale"
+      range: "0-4"
+      scoring: "Higher = more breathless"
+      note: "Often used as inclusion criterion"
+
+    K_BILD:
+      label: "King's Brief Interstitial Lung Disease Questionnaire"
+      definition: "K-BILD"
+      range: "0-100"
+      scoring: "Higher = better health status"
+      note: "Used in ILD trials"
+      analysis_method: "mmrm"
+
+    rescue_medication:
+      label: "Rescue Medication Use"
+      definition: "Number of puffs of rescue SABA per day"
+      dataset: "ADCM"
+      analysis_method: "mmrm"
+      table_rows:
+        - "Baseline puffs/day, Mean (SD)"
+        - "Change from Baseline, LS Mean (SE)"
+        - "Rescue-free days (%), Mean (SD)"
+
+    symptom_free_days:
+      label: "Symptom-Free Days"
+      definition: "Proportion of days without asthma/COPD symptoms"
+      dataset: "ADEFF"
+      unit: "%"
+      analysis_method: "mmrm"
+
+  ipf_specific:
+    FVC_decline:
+      label: "Annual Rate of Decline in FVC"
+      definition: "Rate of decline in FVC (mL/year) over treatment period"
+      dataset: "ADEFF"
+      analysis_method: "random_coefficient_model"
+      note: "Primary endpoint in IPF trials (e.g., INPULSIS, CAPACITY)"
+      table_rows:
+        - "n"
+        - "Baseline FVC (mL), Mean (SD)"
+        - "Baseline FVC % predicted, Mean (SD)"
+        - "Adjusted annual rate of decline (mL/year)"
+        - "Difference [95% CI]"
+        - "P-value"
+        - "Proportion with FVC decline >10%, n (%)"
+
+    composite_progression:
+      label: "Composite Disease Progression"
+      definition: "Time to >=10% absolute decline in FVC % predicted, respiratory hospitalization, or death"
+      dataset: "ADTTE"
+      analysis_method: "cox_proportional_hazards"
+
+# =============================================================================
+# RESPIRATORY-SPECIFIC BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "FEV1 (mL)"
+    type: "continuous"
+
+  - variable: "FEV1 % Predicted"
+    type: "continuous"
+
+  - variable: "FEV1/FVC Ratio"
+    type: "continuous"
+
+  - variable: "FVC (mL)"
+    type: "continuous"
+
+  - variable: "FVC % Predicted"
+    type: "continuous"
+
+  - variable: "Reversibility (%)"
+    type: "continuous"
+    note: "Post-bronchodilator improvement in FEV1"
+
+  - variable: "Duration of Disease (years)"
+    type: "continuous"
+
+  - variable: "Number of Exacerbations in Past 12 Months"
+    type: "categorical"
+    categories: ["0", "1", ">=2"]
+
+  - variable: "Smoking Status"
+    type: "categorical"
+    categories: ["Current smoker", "Former smoker", "Never smoker"]
+
+  - variable: "Pack-Years"
+    type: "continuous"
+
+  - variable: "GOLD Stage"
+    type: "categorical"
+    categories: ["I (Mild)", "II (Moderate)", "III (Severe)", "IV (Very Severe)"]
+    note: "COPD only"
+
+  - variable: "Asthma Severity Step"
+    type: "categorical"
+    categories: ["Step 3", "Step 4", "Step 5"]
+    note: "GINA classification"
+
+  - variable: "Blood Eosinophils (cells/uL)"
+    type: "continuous"
+    categories_if_needed: ["<150", "150-<300", ">=300"]
+    note: "Key biomarker for biologic selection in asthma"
+
+  - variable: "Total IgE (IU/mL)"
+    type: "continuous"
+
+  - variable: "FeNO (ppb)"
+    type: "continuous"
+    note: "Fractional exhaled nitric oxide"
+
+  - variable: "Atopic Status"
+    type: "categorical"
+    categories: ["Atopic", "Non-atopic"]
+
+  - variable: "Background Controller Therapy"
+    type: "categorical"
+    note: "ICS dose level, LABA, LAMA, ICS/LABA, triple therapy"
+
+  - variable: "ICS Dose Level"
+    type: "categorical"
+    categories: ["Medium", "High"]
+
+  - variable: "Oral Corticosteroid Use at Baseline"
+    type: "categorical"
+    categories: ["Yes", "No"]
+
+  - variable: "Oxygen Use"
+    type: "categorical"
+    categories: ["Yes", "No"]
+    note: "IPF/COPD"
+
+  - variable: "IPF Diagnosis Method"
+    type: "categorical"
+    categories: ["UIP pattern on HRCT", "Surgical lung biopsy"]
+    note: "IPF only"
+
+# =============================================================================
+# BIOMARKERS
+# =============================================================================
+biomarkers:
+  eosinophils:
+    variable: "Blood Eosinophils"
+    type: "continuous"
+    unit: "cells/uL"
+    common_cutoffs: ["<150", ">=150", ">=300", ">=500"]
+    note: "Key for anti-IL-5, anti-IL-4/13 biologic selection"
+
+  ige:
+    variable: "Total Serum IgE"
+    type: "continuous"
+    unit: "IU/mL"
+    note: "Key for anti-IgE (omalizumab) selection"
+
+  feno:
+    variable: "Fractional Exhaled Nitric Oxide"
+    type: "continuous"
+    unit: "ppb"
+    common_cutoffs: ["<25", ">=25", ">=50"]
+    note: "Type 2 inflammation marker"
+
+  periostin:
+    variable: "Serum Periostin"
+    type: "continuous"
+    unit: "ng/mL"
+    note: "Type 2 inflammation marker"
+
+  kl6:
+    variable: "KL-6"
+    type: "continuous"
+    unit: "U/mL"
+    note: "Interstitial lung disease biomarker"
+
+  sp_d:
+    variable: "Surfactant Protein D"
+    type: "continuous"
+    unit: "ng/mL"
+    note: "ILD biomarker"
+
+# =============================================================================
+# RESPIRATORY-SPECIFIC AESIs
+# =============================================================================
+aesi_categories:
+
+  biologic:
+    label: "Biologic Therapy AESIs"
+    events:
+      - category: "Anaphylaxis"
+        preferred_terms: ["Anaphylactic reaction", "Anaphylactic shock", "Anaphylactoid reaction"]
+      - category: "Injection Site Reactions"
+        preferred_terms: ["Injection site reaction", "Injection site pain", "Injection site erythema", "Injection site swelling"]
+      - category: "Helminth Infections"
+        preferred_terms: ["Helminth infection"]
+        note: "Theoretical risk with anti-IL-5 and anti-IL-4/13"
+      - category: "Herpes Zoster"
+        preferred_terms: ["Herpes zoster", "Herpes zoster disseminated"]
+      - category: "Malignancy"
+        preferred_terms: ["Neoplasm malignant"]
+        note: "Long-term safety monitoring"
+
+  bronchodilator:
+    label: "Bronchodilator AESIs"
+    events:
+      - category: "Cardiovascular Effects"
+        preferred_terms: ["Tachycardia", "Palpitations", "Atrial fibrillation", "QT prolongation"]
+        note: "Especially with LABA"
+      - category: "Tremor"
+        preferred_terms: ["Tremor"]
+      - category: "Dry Mouth"
+        preferred_terms: ["Dry mouth"]
+        note: "Anticholinergic effect of LAMA"
+      - category: "Urinary Retention"
+        preferred_terms: ["Urinary retention"]
+        note: "Anticholinergic effect of LAMA"
+      - category: "Paradoxical Bronchospasm"
+        preferred_terms: ["Bronchospasm paradoxical"]
+
+  corticosteroid:
+    label: "Inhaled Corticosteroid AESIs"
+    events:
+      - category: "Oral Candidiasis"
+        preferred_terms: ["Oral candidiasis", "Oropharyngeal candidiasis"]
+      - category: "Dysphonia"
+        preferred_terms: ["Dysphonia"]
+      - category: "Pneumonia"
+        preferred_terms: ["Pneumonia", "Lower respiratory tract infection"]
+        note: "Increased risk with ICS in COPD"
+      - category: "Adrenal Suppression"
+        preferred_terms: ["Adrenal suppression", "Cortisol decreased"]
+      - category: "Growth Effects"
+        preferred_terms: ["Growth retardation"]
+        note: "Pediatric populations"
+      - category: "Bone Density"
+        preferred_terms: ["Osteoporosis", "Bone density decreased"]
+
+  antifibrotic:
+    label: "Antifibrotic Therapy AESIs (IPF)"
+    events:
+      - category: "Gastrointestinal"
+        preferred_terms: ["Diarrhoea", "Nausea", "Vomiting", "Abdominal pain"]
+        note: "Common with nintedanib and pirfenidone"
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased", "Drug-induced liver injury"]
+      - category: "Photosensitivity"
+        preferred_terms: ["Photosensitivity reaction", "Sunburn"]
+        note: "Pirfenidone"
+      - category: "Rash"
+        preferred_terms: ["Rash", "Rash maculopapular"]
+        note: "Pirfenidone"
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "Baseline FEV1 % predicted (<60% vs >=60%)"
+  - "Blood eosinophils (<300 vs >=300 cells/uL)"
+  - "Number of exacerbations in prior year (1 vs >=2)"
+  - "Geographic region"
+  - "ICS dose level (medium vs high)"
+  - "Maintenance OCS use (yes vs no)"
+  - "Reversibility (yes vs no)"
+  - "Smoking status (current vs former)"
+  - "GOLD stage (II vs III-IV)"
+  - "Baseline FVC % predicted (<=70% vs >70%) [IPF]"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age (<65 vs >=65)"
+  - "Sex (Male vs Female)"
+  - "Race"
+  - "Baseline FEV1 % predicted (<60% vs >=60%)"
+  - "Blood eosinophils (<150 vs 150-300 vs >=300)"
+  - "FeNO (<25 vs >=25 ppb)"
+  - "Total IgE (<=median vs >median)"
+  - "Number of prior exacerbations (1 vs >=2)"
+  - "Smoking status"
+  - "Background therapy"
+  - "OCS use at baseline"
+  - "Geographic region"
+  - "Atopic status"
+
+# =============================================================================
+# RESPIRATORY-SPECIFIC FOOTNOTES
+# =============================================================================
+footnotes:
+  spirometry: "Spirometry performed per ATS/ERS 2019 standards."
+  exacerbation: "Moderate exacerbation: requiring systemic corticosteroids for >=3 days. Severe exacerbation: requiring hospitalization or ED visit."
+  negative_binomial: "Annualized exacerbation rate estimated using negative binomial regression with log(time on study) as offset."
+  bronchodilator: "Pre-bronchodilator values obtained prior to administration of short-acting bronchodilator. Post-bronchodilator values obtained 15-30 minutes after administration."
+  eosinophils: "Blood eosinophil count from central laboratory at screening."
+  gold: "COPD severity classified per GOLD 2024 criteria."
+  gina: "Asthma severity classified per GINA 2024 guidelines."
+
+# =============================================================================
+# RESPIRATORY-SPECIFIC LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Exacerbation Events"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Onset Date", "Duration (days)", "Severity", "Systemic Corticosteroid Use", "Hospitalization (Y/N)", "Antibiotics (Y/N)"]
+
+  - title: "Listing of Asthma-Related Hospitalizations"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Admission Date", "Discharge Date", "Duration (days)", "ICU (Y/N)", "Intubation (Y/N)"]
+
+  - title: "Listing of Subjects Requiring Oral Corticosteroid Dose Increase"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Baseline OCS Dose", "Max OCS Dose", "Reason", "Duration"]

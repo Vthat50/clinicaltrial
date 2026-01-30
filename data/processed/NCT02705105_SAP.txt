@@ -1,0 +1,1622 @@
+Source: NCT02705105_SAP.pdf
+Total Pages: 149
+================================================================================
+
+
+--- Page 1 ---
+
+Statistical Analysis Plan Open-label, Multicenter Phase 1/2 Study of Mogamulizumab in Combination with Nivolumab in Subjects with Locally Advanced or Metastatic Solid Tumors Protocol Number: 0761-014 US IND Number: 126,887 Date: Final 2018-12-06 Confidentiality Statement The information disclosed in connection with this document is the trade secret, confidential, privileged and/or proprietary financial or commercial information of Kyowa Kirin Pharmaceutical Development, Inc. and is delivered in confidence and reliance that it will not be copied or made available to any third party without the prior written consent of Kyowa Kirin Pharmaceutical Development, Inc. except as may be required by federal, state, or local laws or regulations.
+
+Kyowa Kirin Pharmaceutical Development, Inc. requests that this information be treated as privileged or confidential trade secret, commercial or financial information in accordance with 5 U.S.
+
+Code, sec. 552(b)(4), and that it be provided with prior written notice of any disclosure required by law.
+
+--- Page 2 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Statistical Analysis Plan Signature Page Statistician Mary F.
+
+Johnson, PhD Precision Oncology, Inc. ________________________ 200 Route 31 North, Suite 102 Signature Flemington, NJ 08822 Phone: 732-359-6802 ________________________ mary.johnson@precisionforoncology.com Date Medical Gerry Messerschmidt, MD, FACP ________________________ Monitor Precision Oncology, LLC Signature 200 Route 31 North, Suite 102 Flemington, NJ 08822 ________________________ Phone: 610-613-3882 Date gerry.messerschmidt@precisionforoncology.com VP June (Junfang) Li, PhD ________________________ Biometrics Kyowa Kirin Pharmaceutical Signature Development, Inc. 212 Carnegie Center, Suite 101 Princeton, NJ 08540 ________________________ Phone: 609-580-5711 Date june.li@kyowakirin.com CONFIDENTIAL 1
+
+--- Page 3 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table of Contents STATISTICAL ANALYSIS PLAN SIGNATURE PAGE ...................................................1 TABLE OF CONTENTS .........................................................................................................2 LIST OF IN-TEXT TABLES ..................................................................................................4 LIST OF ABBREVIATIONS ..................................................................................................5 1 INTRODUCTION .........................................................................................................8 2 OBJECTIVES ................................................................................................................8 2.1 Primary Objective .........................................................................................................8 2.2 Secondary Objectives ...................................................................................................8 2.3 Exploratory Objectives .................................................................................................8 3 OVERALL STUDY DESIGN AND TREATMENT PLAN ......................................9 4 STATISTICAL METHODOLOGY ..........................................................................10 4.1 General Statistical Considerations ..............................................................................11 4.2 Determination of Sample Size ....................................................................................12 4.3 Disposition of Subjects ...............................................................................................13 4.4 Data Sets Analyzed .....................................................................................................14 4.5 Protocol Deviations ....................................................................................................14 4.6 Demographic and Other Baseline Characteristics ......................................................15 4.6.1 Medical History ......................................................................................................15 4.7 Prior/Concomitant Cancer and Non-Cancer Therapies/Procedures ...........................15 4.7.1 Prior Cancer Therapy ..............................................................................................15 4.7.2 Prior Cancer Surgery, Radiation Therapy, and Other Therapy ..............................15 4.7.3 Post Treatment Cancer Therapy..............................................................................16 4.7.4 Other Prior/Concomitant Medications ....................................................................16 4.8 Study Drug Exposure and Compliance ......................................................................16 4.9 Efficacy Analysis........................................................................................................17 4.9.1 Analysis of Efficacy Variables ...............................................................................17 4.9.2 Statistical / Analytical Issues ..................................................................................20 4.9.2.1 Handling of Dropouts or Missing Data ...............................................................20 4.9.2.2 Interim Analyses and Data Monitoring ...............................................................20 4.10 Pharmacokinetic Analysis ..........................................................................................20 CONFIDENTIAL 2
+
+--- Page 4 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 4.11 Pharmacodynamic Analysis .......................................................................................20 4.12 Immunogenicity Analysis ...........................................................................................21 4.12.1 Sample Anti-Mogamulizumab Antibody (ADA) Status.........................................21 4.12.2 Sample Anti-Mogamulizumab Neutralizing Antibody (NAb) Status ....................21 4.12.3 Subject ADA Status ................................................................................................21 4.12.4 Subject NAb Status .................................................................................................22 4.12.5 Determination of Anti-Mogamulizumab Antibody Incidence ................................22 4.13 Safety Analysis ...........................................................................................................23 4.13.1 Adverse Events .......................................................................................................23 4.13.2 Clinical Laboratory Evaluation ...............................................................................24 4.13.3 Vital Signs ...............................................................................................................24 4.13.4 12-Lead Electrocardiogram (ECG) .........................................................................25 4.13.5 Physical Examinations ............................................................................................25 4.13.6 ECOG Performance Status .....................................................................................25 5 REFERENCES.............................................................................................................26 6 PROGRAMMING CONSIDERATIONS..................................................................27 6.1 Table, Listing, and Figure Format ..............................................................................27 6.1.1 General ....................................................................................................................27 6.1.2 Headers ...................................................................................................................27 6.1.3 Display Titles ..........................................................................................................28 6.1.4 Column Headers......................................................................................................28 6.1.5 Body of the Data Display ........................................................................................28 6.1.6 Footnotes .................................................................................................................30 6.2 Data-Handling Rules ..................................................................................................31 6.2.1 Unit Conversion to Months .....................................................................................31 6.2.2 Visits .......................................................................................................................31 6.2.3 Demographics and Baseline Characteristics ...........................................................31 6.2.4 Prior and Concomitant Medications .......................................................................31 6.2.5 Safety ......................................................................................................................32 6.2.6 SAS® Procedures ....................................................................................................32 7 LIST OF TABLES, LISTINGS, AND FIGURES .....................................................33 CONFIDENTIAL 3
+
+--- Page 5 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 List of In-text Tables Table 1 Sample Size Estimation by Tumor Type ....................................... 13 Table 2 Best Overall Response When Confirmation of Complete Response and Partial Response is Required .................................. 18 CONFIDENTIAL 4
+
+--- Page 6 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 List of Abbreviations Abbreviations/Acroynms ADA anti-drug antibody AE adverse event ALK anaplastic lymphoma kinase ATC anatomical therapeutic chemical BLQ below the lower limit of quantification BOR best overall response CI confidence interval C observed minimum concentration min C observed peak concentration max CR complete response CRC colorectal carcinoma CSR clinical study report CTCAE Common Terminology Criteria for Adverse Events DLT dose-limiting toxicity DOR duration of response ECG electrocardiogram ECOG Eastern Cooperative Oncology Group eCRF electronic case report forms EGFR epidermal growth factor receptor FNR false negative rate FPR false positive rate HCC hepatocellular carcinoma CONFIDENTIAL 5
+
+--- Page 7 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Abbreviations/Acroynms HPV human papillomavirus ICH international conference on harmonization IMP Investigational medicinal product irRECIST v1.1 immune-related response evaluation criteria in solid tumors version 1.1 IV intravenous KKD(US) Kyowa Kirin Pharmaceutical Development, Inc.
+
+KM Kaplan-Meier Max maximum MedDRA Medical Dictionary for Regulatory Activities Min minimum MSI microsatellite instability MTD maximum tolerated dose NSCLC non-small-cell lung cancer NSQ non-squamous cell ORR overall response rate OS overall survival PD progressive disease PD-L1 programmed cell death-ligand 1 PFS progression-free survival PR partial response PS Performance status PT preferred term QTcB QT interval corrected using Bazett’s formula CONFIDENTIAL 6
+
+--- Page 8 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Abbreviations/Acroynms QTcF QT interval corrected using Fridericia’s formula RECIST v1.1 Response Evaluation Criteria in Solid Tumors version 1.1 SAE serious adverse event SCCHN squamous cell carcinoma of the head and neck SD stable disease Std Dev standard deviation SOC system organ class SQ squamous cell TEAE treatment-emergent adverse event TLF tables, data listings, figures TMTB total measured tumor burden TTR time to response WHO World Health Organization CONFIDENTIAL 7
+
+--- Page 9 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 1 INTRODUCTION This Statistical Analysis Plan (SAP) has been developed after review of Kyowa Kirin Pharmaceutical Development, Inc.
+
+Protocol 0761-014 (Amendment 2, dated 05 Dec 2016), along with the corresponding electronic case report forms (eCRF).
+
+This SAP describes the analysis sets and specific details for the statistical methods to be used for the analysis and reporting of all efficacy, safety, pharmacokinetic parameters, and immunogenicity data collected during the conduct of Protocol 0761-014.
+
+This SAP supersedes the statistical considerations identified in Protocol 0761-014 with regards to details of the analyses; where considerations are substantially different, they will be identified as such in this document.
+
+In the event that the protocol has amendment(s) that do not have an impact on the statistical analysis methodology, this SAP will not require an amendment.
+
+This SAP has been developed and finalized prior to database lock of the clinical database for Protocol 0761-014.
+
+If additional analyses are required to supplement the planned analyses described in this SAP, they may be performed and will be identified in the Clinical Study Report (CSR).
+
+This SAP is being written with consideration of the recommendations outlined in the International Conference on Harmonization (ICH) E9 Guideline entitled “Guidance for Industry: Statistical Principles for Clinical Trials” and the most recent ICH E3 Guideline, entitled “Guidance for Industry: Structure and Content of Clinical Study Reports.” 2 OBJECTIVES The objectives of this study are as follows: 2.1 Primary Objective The primary objective of this study is to characterize the safety and tolerability and determine the maximum tolerated dose (MTD) or the highest protocol-defined dose in the absence of exceeding the MTD, of the combination regimen of mogamulizumab and nivolumab in subjects with locally advanced or metastatic solid tumors 2.2 Secondary Objectives The secondary objective of this study is to evaluate the anti-tumor activity of the combination of mogamulizumab and nivolumab based on the Response Evaluation Criteria in Solid Tumors version 1.1 (RECIST v1.1).
+
+Anti-tumor activity will be assessed as overall response rate (ORR), time to response (TTR), duration of response (DOR), progression-free survival (PFS), and overall survival (OS). 2.3 Exploratory Objectives The exploratory objectives of this study are: CONFIDENTIAL 8
+
+--- Page 10 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 1) To assess serum concentrations of mogamulizumab and nivolumab when administered in combination. 2) To evaluate the immunogenicity of mogamulizumab and nivolumab when administered in combination. 3) To evaluate the pharmacodynamic profile of the combination of mogamulizumab and nivolumab and determine which biomarkers may correlate with safety and/or antitumor activity. 4) To evaluate the ORR of the combination of mogamulizumab and nivolumab based on the immune-related RECIST (irRECIST) v1.1. 3 OVERALL STUDY DESIGN AND TREATMENT PLAN This is a multicenter, Phase 1/2, open-label, dose-finding, cohort-expansion study of the anti-CCR4 antibody mogamulizumab in combination therapy with the anti-programmed death receptor-1 (PD-1) antibody nivolumab in adult subjects with locally advanced or metastatic solid tumors.
+
+The study includes a Phase 1 dose finding and a Phase 2 cohort expansion: • Phase 1 dose finding has a 3+3 design that will identify the MTD or the highest protocol-defined dose, in the absence of exceeding the MTD, for the combination regimen and will enroll up to 12 subjects (3 to 6 subjects per cohort). • Phase 2 cohort expansion will explore the safety, pharmacokinetic (PK), PD, and antitumor activity of the highest tolerated dose of the combination regimen and will enroll up to 184 subjects (21 to 36 per tumor type) in up to 7 tumor-specific expansion cohorts.
+
+Phase 1: Dose-finding: The dose levels and schedules are described below: Dosage of Mogamulizumab Dosage of Nivolumab Cycle 1 Subsequent Cycles All Cycles Dose Level (Days 1, 8, 15, 22) (Days 1, 15) (Days 1, 15) 1 1.0 mg/kg 1.0 mg/kg 240 mg Optionala 0.3 mg/kg 0.3 mg/kg 240 mg a: This dose level may be enrolled if > 1 subject experiences dose-limiting toxicity at Dose Level 1.
+
+Phase 2: Cohort expansion Up to 184 subjects (21 to 36 subjects per tumor type) with locally advanced or metastatic disease in the following tumor types will be enrolled: squamous cell non-small cell lung cancer (NSCLC); programmed cell death ligand 1 (PD-L1)-non-expressing non-squamous cell NSCLC; squamous cell carcinoma of the head and neck (SCCHN); colorectal carcinoma, non-microsatellite instability (non-MSI) high; ovarian cancer, hepatocellular carcinoma (HCC), and pancreatic adenocarcinoma.
+
+PD-L1 expressing is defined as membrane staining CONFIDENTIAL 9
+
+--- Page 11 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 observed in ≥ 1% tumor cells among a minimum of 100 evaluable tumor cells.
+
+Subjects will be treated with the highest dose of the combination regimen that was considered tolerable in Phase 1.
+
+The safety and tolerability of the dosing regimen used in each expansion cohort will be monitored.
+
+The SRC will review cumulative safety data from all subjects approximately every 2 months during the enrollment period.
+
+Clinical safety in the expansion cohorts will be monitored continually. 4 STATISTICAL METHODOLOGY This plan describes methods planned for the analysis and display of efficacy, safety, pharmacokinetic parameters, and immunogenicity endpoints.
+
+Separate plans will document exploratory analyses of pharmacokinetic/pharmacodynamic data, pharmacodynamic relationships with safety and/or efficacy results, and the effects of immunogenicity on safety, efficacy, pharmacokinetic and pharmacodynamic.
+
+The specific endpoints are as follows.
+
+Primary Endpoints: • Safety and tolerability will be evaluated by assessing adverse events (AEs), changes in physical examination findings, vital sign measurements, 12-lead electrocardiogram (ECG) readings, and clinical laboratory evaluations.
+
+Secondary Endpoints: • Overall response will be evaluated using RECIST v1.1.
+
+Overall response rate is calculated based on the best overall response (BOR), defined as the best response designation recorded between the date of first dose of investigational medical product (IMP) and the date of subsequent anti-cancer therapy (excluding on-treatment palliative radiotherapy of non-target bone or CNS lesions).
+
+Note: Continuation of nivolumab after discontinuing combination therapy does not count as start of new therapy for this definition.
+
+A BOR of either complete response (CR) or partial response (PR) requires confirmation of the assessment at least 4 weeks later.
+
+In addition, as a sensitivity analysis, BOR will also be defined as the best response designation recorded between the date of first dose of IMP and the date of first objectively documented progression (i.e. radiographic progression) or the date of subsequent anti-cancer therapy (excluding ontreatment palliative radiotherapy of non-target bone or CNS lesions), whichever occurs first. • Time to response (TTR): Days from Cycle 1 Day 1 to the first assessment date of confirmed CR/PR using RECIST v1.1. • Duration of response (DOR): Days from the first assessment date of confirmed CR/PR to the date of death or progressive disease (PD), whichever is earlier, using RECIST v1.1.
+
+CONFIDENTIAL 10
+
+--- Page 12 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 For subjects who neither progress nor die, the duration of objective response will be censored at the same time they will be censored for the primary definition of PFS.
+
+DOR will be evaluated for responders (i.e. subjects with confirmed CR or PR) only. • Progression-free survival (PFS): Days from Cycle 1 Day 1 to the date of death or PD using RECIST v1.1, whichever is earlier.
+
+Clinical deterioration in the absence of objectively documented progression per RECIST 1.1 is not considered progression for the purpose of determining PFS.
+
+Subjects who die without a reported progression will be considered to have progressed on the date of their death.
+
+Subjects who did not progress or die will be censored on the date of their last evaluable tumor assessment.
+
+Subjects who did not have any on study tumor assessments and did not die will be censored on the date of first dose.
+
+Subjects who started any subsequent anti-cancer therapy, including tumordirected radiotherapy and tumor-directed surgery, without a prior reported progression will be censored at the last evaluable tumor assessment prior to initiation of the subsequent anti-cancer therapy.
+
+For subjects whose BOR is PR or CR using RECIST v1.1, the date of first documented objective tumor progression or death that occurs after the last documented PR or CR will be used as the PFS event date. • Overall survival (OS): Days from Cycle 1 Day 1 to the date of death.
+
+For subjects without documentation of death, OS will be censored on the last date the subject was known to be alive.
+
+Exploratory Endpoints • Pharmacokinetic parameters: – Mogamulizumab: observed minimum serum concentration at the end of a dosing interval (C ) and corresponding C ; and min max – Nivolumab: C . min • Immunogenicity: Anti-mogamulizumab antibody and anti-nivolumab antibody; • Pharmacodynamic parameters: biomarkers may include, but are not limited to, immune cell subsets and factors such as cytokines and chemokines in tumor and/or blood; • Immune-related overall response evaluated using irRECIST v1.1. 4.1 General Statistical Considerations All data collected for the dose finding phase (Phase 1) and the cohort-expansion phase (Phase 2) will be listed.
+
+Phase 2 data will be summarized by tumor type and overall (all subjects) if appropriate.
+
+All subjects from Phase 1 will be summarized as an independent cohort with all cancer types combined.
+
+CONFIDENTIAL 11
+
+--- Page 13 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Descriptive statistics (mean, standard deviation [Std Dev], median, minimum [Min], and maximum [Max]) will be used for continuous variables; number and percentage of subjects will be used for discrete variables.
+
+For change-from-baseline calculations, the last measurement prior to the first dose of IMP will be used as the baseline value.
+
+For summary statistics, the mean and median will be displayed to one decimal place greater than the original values; the standard deviation will be displayed to two decimal places greater than the original values.
+
+All tabulations of summary statistics, graphical presentations, and statistical analyses will be performed using SAS® Version 9.4 or higher. 4.2 Determination of Sample Size The sample size for the dose-finding phase of the study is based on a standard 3+3 dosefinding design and depends on observed toxicity.
+
+With 2 doses under consideration, a maximum of 12 subjects will be required.
+
+The Simon’s 2-stage optimal design is used for the expansion cohorts.
+
+A cohort may be considered for termination due to lack of efficacy if the observed number of tumor responses (either confirmed or unconfirmed) in the first stage is too small.
+
+The characteristics of this design depend on 2 probabilities: the false positive rate (FPR), the probability of declaring the experimental treatment to be superior when in fact it is no better than the historical standard, and the false negative rate (FNR), the probability of concluding the experimental treatment to be no better than the historical standard, when in fact it is superior.
+
+Table 1 below presents operating characteristics of the Simon’s 2-stage design with 15% FPR and 10% FNR for various expansion cohorts and their historical and target objective response rates.
+
+For example, an initial evaluation of efficacy may be performed after 16 treated subjects with squamous cell NSCLC have evaluable tumor response data.
+
+Guided by the Futility Boundary as shown, the decision to terminate the cohort or to allow it to continue will be made after taking into consideration other relevant observations such as duration and depth of response and risk/benefit profile.
+
+The number of subjects receiving treatment at the time of the Stage 1 efficacy evaluation may exceed the specified Stage 1 sample size depending on accrual rate, response lag, and other factors.
+
+Upon completion of Stage 1 enrollment for a given cohort, the safety review committee (SRC) will review available efficacy and safety data and determine whether enrollment into Stage 2 may continue, even if not all response data are yet available to determine whether the Stage 1 criteria have been met.
+
+The SRC may decide that enrollment may continue if the benefit risk assessment is perceived to be positive.
+
+With FPR (or one-sided alpha) being 15% and FNR (or 1-power) being 10%, the following table shows sample size required for each tumor type.
+
+CONFIDENTIAL 12
+
+--- Page 14 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 1 Sample Size Estimation by Tumor Type Simon 2-Stage Sample Response Assumption Sizesa Stage 1 Response Futility Probability of Lower Boundary Early Stopping Bound (≤): Stop if due to Futility Historical Target Stage 1 this many (%) if true Response Response (n1)/ responses or response rate = Tumor Type Rate (%) Rate (%) Total (N) fewer Lower Bound NSCLC SQ 20 40 16/32 3 60 NSCLC NSQ PD-L1 non10 30 10/21 0 35 expressing Ovarian 10 30 10/21 0 35 CRC (non5 20 12/29 0 54 MSI high) SCCHN 25 45 14/36 3 52 HCC 16 36 12/28 1 41 Pancreatic 0 15 15/17 0 >99 a: False positive rate (FPR) or one-sided alpha=15% and false negative rate (FNR) or 1-power=10%.
+
+CRC=colorectal carcinoma; n1=sample size in Stage 1; N=sample size; non-MSI high=non-microsatellite instability high; NSCLC=non-small-cell lung cancer; NSQ=non-squamous; PD-L1=programmed cell death-ligand 1; HCC=hepatocellular carcinoma; SCCHN=squamous cell carcinoma of the head and neck; SQ=squamous.
+
+A maximum of 188 subjects will participate in the study.
+
+This number takes into account a total of 4 subjects that were enrolled in the dose-finding stage and a total of 184 subjects (across all tumor types) calculated for the expansion cohort. 4.3 Disposition of Subjects The numbers of subjects enrolled, treated, discontinued from treatment (by reason), and replaced will be presented by dose cohort, including the expansion cohorts.
+
+CONFIDENTIAL 13
+
+--- Page 15 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Note that subjects in the dose finding Phase 1 will be replaced if they do not experience a dose-limiting toxicity (DLT) and either of the following conditions hold: • They do not receive all infusions of both IMPs in Cycle 1 within 28 days at the doses assigned to the cohort in which they are enrolled. • They do not complete the safety follow-up through the end of the DLT evaluation period (14 days after the last dose of IMP in Cycle 1).
+
+Subjects enrolled in the expansion cohorts may be replaced for these same reasons, at the discretion of the Sponsor. 4.4 Data Sets Analyzed The following analysis sets will be used in the study: • Safety Analysis Set: Includes all subjects who received at least one dose of IMP (even a partial dose). • Efficacy Analysis Set: Includes all subjects who receive combination therapy in Cycle 1 Day 1. • Pharmacokinetic Analysis Set: Includes all subjects who provide at least one post-dose concentration measurement. • Pharmacodynamic Analysis Set: Includes all subjects who provide at least one postdose sample. • ADA Analysis Set: The ADA analysis set for mogamulizumab will include all subjects that have both a baseline subject ADA status and at least one on-treatment subject ADA status.
+
+The number of subjects in the Safety Analysis, Efficacy Analysis, Pharmacokinetic Analysis, Pharmacodynamics Analysis Set, and ADA analysis set will be summarized. 4.5 Protocol Deviations Protocol deviations (PDs) will be identified, logged, and reviewed during the course of the study.
+
+A determination of major versus minor PDs will be made according to the criteria outlined in the study protocol deviation review plan.
+
+A listing of all PDs will be provided.
+
+For purposes of CSR reporting, all important/major protocol deviations will be identified based on the following minimum criteria: • Subjects who entered the study even though they did not satisfy the entry criteria • Subjects who developed withdrawal criteria during the study but were not withdrawn • Subjects who received the wrong treatment or incorrect dose CONFIDENTIAL 14
+
+--- Page 16 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 • Subjects who received an excluded concomitant treatment. 4.6 Demographic and Other Baseline Characteristics Demographic and baseline characteristics will be summarized descriptively for both the Safety Analysis Set and the Efficacy Analysis Set.
+
+Gender, race, ethnicity, tobacco use, and baseline Eastern Cooperative Oncology Group (ECOG) performance status (PS) will be summarized with number and percentage presented for each category.
+
+Age, height, and weight at baseline will be described with summary statistics (n, mean, Std Dev, median, minimum, and maximum).
+
+In addition, subject cancer history will be summarized descriptively.
+
+The characteristics include: • Primary tumor type; • Time from initial diagnosis of tumor to first dose day (in months); • Time from locally advanced/metastatic disease to first dose day (in months); • Stage at enrollment (locally advanced, metastatic); • Metastatic sites (if applicable); • EGFR mutation (positive, negative, other, not done), ALK rearrangement (positive, negative, other, not done), HPV infection (positive, negative, unequivocal, other, not done) and MSI (type of assay, PCR: MSI-high, MSI-low, MSI-stable, other, not done; IHC: positive, negative, other, not done); Oncogene assessment: KRAS, ROS1, BRAF,…etc. 4.6.1 Medical History Medical history data will be presented in data listings for individual subjects. 4.7 Prior/Concomitant Cancer and Non-Cancer Therapies/Procedures 4.7.1 Prior Cancer Therapy The number of cancer therapy regimens that subjects received prior to enrollment will be summarized by frequency counts.
+
+The best response to the most recent line of therapy will be provided.
+
+This will be performed on the Safety Analysis Set. 4.7.2 Prior Cancer Surgery, Radiation Therapy, and Other Therapy The number and percentage of subjects who underwent prior cancer surgery, radiation therapy, and other types of cancer therapy will be summarized separately for each of these categories.
+
+This will be performed on the Safety Analysis Set.
+
+CONFIDENTIAL 15
+
+--- Page 17 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 4.7.3 Post Treatment Cancer Therapy The number and percentage of subjects who received any post-treatment cancer therapy will be summarized for the Safety Analysis Set. 4.7.4 Other Prior/Concomitant Medications Prior and concomitant medications will be coded using the World Health Organization (WHO) Drug Dictionary (version September 2015).
+
+Prior medications include medications that were taken within 30 days prior to the first dose of IMP.
+
+Concomitant medications during the treatment period include medications that started at any time and were taken at any time after the start of IMP until 30 days after the last dose of IMP.
+
+The number and percentage of subjects taking prior medications or concomitant medications during the treatment period will be summarized by anatomical therapeutic chemical (ATC) and preferred term (PT) for the Safety Analysis Set.
+
+If a subject takes more than one medication in the same ATC class, the subject will be counted only once within that classification.
+
+The same subject may contribute to two or more preferred terms within the same ATC classification. 4.8 Study Drug Exposure and Compliance The maximum number of cycles initiated, cycles that a subject initiated, extent of exposure (defined as Last Dose Date – First Dose Date + 1), and the number of infusions administered (mogamulizumab: Days 1, 8, 15, 22 of the first cycle and Days 1 and 15 of each subsequent cycle; nivolumab: Days 1 and 15 of each cycle) per subject will be summarized for each medication.
+
+Infusion time (in minutes) per administration (overall, at 1st – 4th infusion, and later for mogamulizumab; at 1st and 2nd infusions, and later for nivolumab) will also be presented.
+
+These parameters will be summarized for the Safety Analysis Set.
+
+Cumulative dose statistics will be calculated for mogamulizumab as follows. • Cumulative actual dose (mg/kg): Sum of {Actual dose administered (mg)/Body weight (kg)}; • Cumulative assigned dose (mg/kg): Sum of {Planned dose (mg/kg)}; • Relative dose intensity (%): 𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑑𝑜𝑠𝑒𝑠 𝑎𝑑𝑚𝑖𝑛𝑖𝑠𝑡𝑒𝑟𝑒𝑑 𝑖𝑛 𝐶𝑦𝑐𝑙𝑒 1(cid:3397)𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑑𝑜𝑠𝑒𝑠 𝑎𝑑𝑚𝑖𝑛𝑖𝑠𝑡𝑒𝑟𝑒𝑑 𝑖𝑛 𝑆𝑢𝑏𝑠𝑒𝑞𝑢𝑒𝑛𝑡 𝐶𝑦𝑐𝑙𝑒𝑠 𝑥2 (cid:4670)(cid:4666)𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒𝑠 𝑖𝑛𝑖𝑡𝑖𝑎𝑡𝑒𝑑(cid:4667)(cid:3400)4(cid:4671) 𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑦𝑐𝑙𝑒 𝑖𝑛𝑖𝑡𝑖𝑎𝑡𝑒𝑑(cid:3400)28 (cid:3400) (cid:3400)100 𝐿𝑎𝑠𝑡 𝑑𝑜𝑠𝑒 𝑑𝑎𝑡𝑒(cid:3397) 𝑛∗(cid:3398)𝐹𝑖𝑟𝑠𝑡 𝑑𝑜𝑠𝑒 𝑑𝑎𝑡𝑒 where n* = 7 when the patient was only treated for 1 cycle, otherwise, n* = 14.
+
+CONFIDENTIAL 16
+
+--- Page 18 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Note that body weight for each infusion is defined as weight entered at the visit for calculation of the dose level.
+
+Similarly, cumulative actual dose (mg), cumulative assigned dose (mg), and relative dose intensity (%) will be calculated for nivolumab as well.
+
+Note that the assigned dose for nivolumab is 240 mg per administration. • Cumulative actual dose (mg): Sum of {Actual dose administered (mg)}; • Cumulative assigned dose (mg): Sum of {Planned dose (mg)} = (Last nivolumab dose date – First nivolumab dose date) × 240/14; • Relative dose intensity (%): Cumulative actual dose/Cumulative assigned dose × 100. 4.9 Efficacy Analysis The efficacy analysis is based on disease response assessments.
+
+Assessment of disease response will be performed by investigators using both the RECIST v1.1 and the irRECIST v1.1.
+
+Responses for each disease evaluation assessment will be recorded in eCRFs. 4.9.1 Analysis of Efficacy Variables Tumor response is determined by the investigator at each timepoint when tumor imaging is performed.
+
+All response-related endpoints (BOR, TTR, DOR, and PFS) will be based on RECIST v1.1 and derived programmatically using the investigator’s assessments of tumor response at each timepoint.
+
+In addition, BOR of CR/PR will be assessed using irRECIST v1.1 criteria.
+
+The date of response is based on the image dates.
+
+In the event that there are images taken on different days, the latest date among all images taken will be used for the response date if the overall response is non-PD.
+
+If the overall response is PD, then the earliest date of all images taken will be used for the progression date.
+
+All analyses will be conducted for the Efficacy Analysis Set.
+
+Best Overall Response (BOR) The number and percentage of subjects in each BOR category (i.e., CR, PR, SD, PD, and inevaluable) will be summarized.
+
+Subjects who do not meet CR/PR will be classified as stable disease if assessed as SD (or better) at least 9 weeks after first dose of IMP.
+
+The percentage of subjects with BORs of either CR or PR, taking into account any requirement for confirmation, will be calculated.
+
+The rates will be presented along with two-sided 95% exact confidence intervals.
+
+The 95% CIs will be derived using the Clopper-Pearson (Hollander, 1973) exact binomial confidence interval method.
+
+The following Table 2 describes the derivation of BOR from overall response assessments at each visit.
+
+Note that BOR categories referenced in this table can be based on RECIST v1.1 or irRECIST v1.1 overall responses.
+
+For RECIST v1.1, BOR will be derived based on both CONFIDENTIAL 17
+
+--- Page 19 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 definitions as described in Section 4, secondary endpoints.
+
+For irRECIST v1.1 overall response, the analysis focuses on whether the subjects were responding (i.e., CR or PR) or not (i.e., not CR/PR).
+
+Table 2 Best Overall Response When Confirmation of Complete Response and Partial Response is Required Overall Response Overall Response Subsequent First Timepoint Timepoint Best Overall Response CR CR CR CR PR SD, PD or PRa SD provided minimum criteria for SD duration was met, otherwise, CR SD PD SD provided minimum criteria for SD duration was met, otherwise, CR PD PD SD provided minimum criteria for SD duration was met, otherwise, CR NE NE PR CR PR PR PR PR PR SD SD SD provided minimum criteria for SD duration was met, otherwise, PR PD PD SD provided minimum criteria for SD duration was met, otherwise, PR NE NE NE NE NE a: If a CR is truly met at first time point, then any disease seen at a subsequent time point, even disease meeting PR criteria relative to baseline, makes the disease PD at that point (since disease must have reappeared after CR).
+
+Best response would depend on whether minimum duration for SD was met.
+
+However, sometimes ‘CR’ may be claimed when subsequent scans suggest small lesions were likely still present and in fact the patient had PR, not CR at the first time point.
+
+Under these circumstances, the original CR should be changed to PR and the best response is PR.
+
+CR=complete response; NE=not evaluable; PD=progressive disease; PR=partial response; SD=stable disease.
+
+Time to Response (TTR) Time to response will only be summarized descriptively for responders (i.e., CR or PR).
+
+Duration of Response (DOR) Duration of response will be calculated from the first date of confirmed CR/PR to the date of death or the date of first documented tumor progression (PD), whichever is earlier, using RECIST v1.1.
+
+Subjects who remain alive and do not progress will be censored on the date of their last tumor assessment.
+
+Subjects who start subsequent therapy without a prior PD will be censored at the last tumor assessment prior to initiation of the subsequent anticancer therapy.
+
+Response duration will only be evaluated in subjects with a BOR of CR or PR.
+
+CONFIDENTIAL 18
+
+--- Page 20 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The median DOR, along with its two-sided 95% CI (Brookmeyer, 1982), will be estimated using the Kaplan-Meier (KM) method.
+
+Progression-Free Survival (PFS) PFS will be calculated as the number of days from the first dose of IMP to the date of death or PD, whichever is earlier.
+
+For subjects whose BOR is PR or CR using RECIST v1.1, the date of first documented objective tumor progression or death that occurs after the last documented PR or CR, and prior to the start of post-treatment anti-cancer therapy will be used as the PFS event date.
+
+Subjects who die without a reported prior progression will be considered to have progressed on the date of their death.
+
+Subjects who remain alive and do not progress will be censored on the last tumor assessment date.
+
+Subjects who start subsequent therapy without a prior reported progression will be censored on the date of last tumor assessment prior to initiation of subsequent anticancer therapy.
+
+Subjects who have no post-baseline tumor assessments and do not die will be censored on Day 1.
+
+The median PFS time, along with its two-sided 95% CI, will be estimated using the KM method.
+
+In addition, two-sided 95% CIs for the PFS rate will be constructed at pre-specified time intervals (such as 3 months, 6 months, …, etc.), using the log-log transformation methodology of Kalbfleisch and Prentice (Kalbfleisch, 1980) where the estimated variance of  log(–log(S(t)) is:   2 (t)2 [S(t)log(S(t))]2 The 100 x (1-α)% CI for S(t) is given by: exp(z (t)) exp(z (t))   /2   /2  S(t)  S(t)  S(t)      Overall Survival (OS) Overall survival is defined as the time from the first dose of IMP to the date of death due to any cause.
+
+For subjects who do not die, the OS time will be censored on the date when the subject was last known to be alive.
+
+The date “last known to be alive” will be defined as the latest date of contact with the subject based on the following: non-imputed AE start and stop dates, visit/collection dates (including unscheduled visits) of pharmacokinetic/pharmacodynamic/Biomarker/ADA assessments, serum/urine pregnancy tests, safety laboratory collection (i.e., hematology, serum chemistry, coagulation profiles, thyroid function, and urinalysis), vital signs, pulse oximetry, physical exams, ECG assessments, tumor biopsy or tumor assessments, concomitant medication/post treatment CONFIDENTIAL 19
+
+--- Page 21 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 cancer therapy, and extended survival follow-up contact dates where the subject’s status is “alive”.
+
+The analysis methodology for OS will be similar to that used for PFS. 4.9.2 Statistical / Analytical Issues 4.9.2.1 Handling of Dropouts or Missing Data Missing values will not be substituted by estimated values, but treated as missing in the statistical evaluation.
+
+All data from all subjects dosed in the study will be included in all listings, plots, summary tables, and statistical analyses when appropriate. 4.9.2.2 Interim Analyses and Data Monitoring Safety information will be monitored on a continuing basis to support decisions regarding dose finding in Phase 1 and cohort expansion in Phase 2.
+
+Guided by Simon’s 2-stage design, tumor response rates together with other relevant observations such as duration and depth of response will be evaluated after Stage 1 enrollment is complete; these results will be reviewed by the SRC as a basis for benefit risk assessment and decisions regarding Stage 2 enrollment.
+
+The assumed historic and target response rates at the time of protocol finalization may have been changed over time and may need to be adjusted by the time of the data evaluation. 4.10 Pharmacokinetic Analysis Pharmacokinetic parameters of C and C for mogamulizumab and C for nivolumab min max min will be summarized at each infusion for the Pharmacokinetic Analysis Set.
+
+Descriptive summary statistics including mean, standard deviation, coefficient of variation (CV), median, range, geometric mean, and coefficient of variation based on geometric mean will be presented.
+
+Individual serum C or C for mogamulizumab will be shown to one decimal min max place.
+
+If a C or C for mogamulizumab is below the lower limit of quantification (BLQ, min max <12.5 ng/mL), the concentration will be shown as “BLQ” in a listing, and the data will be handled as 0 ng/mL when calculating descriptive statistics.
+
+If the mean, minimum, median, or maximum is calculated to be below the lower limit of quantification, it will be shown as “BLQ” in a table.
+
+If the mean is below the lower limit of quantification, standard deviation will be shown as dash (‘-‘) in the table. 4.11 Pharmacodynamic Analysis Pharmacodynamic data will be summarized in a separate stand alone report according to a dedicated biomarker analytical plan.
+
+CONFIDENTIAL 20
+
+--- Page 22 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 4.12 Immunogenicity Analysis 4.12.1 Sample Anti-Mogamulizumab Antibody (ADA) Status For a given sample, the ADA status for anti-mogamulizumab antibody will be determined using the anti-mogamulizumab antibody assay results (both screening and confirmatory), along with the serum mogamulizumab concentration at the same time point as follows. • ADA-positive: The sample is positive in the confirmatory assay. • ADA-negative: The sample is negative in the screening assay and the serum mogamulizumab concentration at the same time point is equal to or less than the drug tolerance limit (16000 ng/mL), or the sample is positive in the screening assay and negative in the confirmatory assay. • ADA-inconclusive: The sample is negative in the screening assay and the serum KW0761 concentration at the same time point is above the drug tolerance limit (16000 ng/mL). • ADA-unknown: The sample is negative in the screening assay and the serum KW-0761 concentration at the same timepoint is unknown. 4.12.2 Sample Anti-Mogamulizumab Neutralizing Antibody (NAb) Status For a given sample, the anti-mogamulizumab neutralizing antibody (NAb) status will be determined using the NAb assay result as follows. • NAb-positive: The sample is positive in the NAb assay. • NAb-negative: The sample is negative in the NAb assay. 4.12.3 Subject ADA Status Each subject will be assigned a “subject ADA status” at baseline and at each subsequent time point during mogamulizumab administration.
+
+A subject whose baseline (before administration of mogamulizumab) sample ADA status is ADA-positive will be classified as “Baseline-positive”.
+
+During mogamulizumab administration, a subject ADA status will be determined as follows:  ADA-positive: The subject’s samples meet either of the following criteria. o Treatment-induced ADA: The assay result of the sample before administration of KW-0761 is negative and one or more assay results of the samples after administration of mogamulizumab are positive. o Treatment-boosted ADA: The assay result of the sample before administration of mogamulizumab is positive and one or more titer values of the samples CONFIDENTIAL 21
+
+--- Page 23 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 after administration of mogamulizumab are ≥16-fold of the titer value in the sample before administration of mogamulizumab.  ADA-negative: Subject ADA status is not defined as “ADA-positive” at any time point and the sample ADA status at the last time point is not “ADA-inconclusive”.  ADA-inconclusive: Subject ADA status is not defined as “ADA-positive” at any time point and the sample ADA status at the last time point is “ADAinconclusive”. 4.12.4 Subject NAb Status The subject ADA status of a subject who has one or more “NAb-positive” sample ADA statuses as defined in 4.12.2 will be defined as “NAb-positive”. 4.12.5 Determination of Anti-Mogamulizumab Antibody Incidence The ADA analysis set for mogamulizumab will include all subjects that have both a baseline subject ADA status and at least one on-treatment subject ADA status.
+
+The following percentage will be determined using baseline samples: • Pre-existing ADA incidence: The number of the subjects whose ADA status is “Baselinepositive” (as defined in 4.12.3) as a percentage of the total number of subjects in the ADA Analysis Set.
+
+The following percentages will be determined using on-treatment samples: • Overall ADA incidence: The number of subjects whose subject ADA status is “ADApositive” (as defined in 4.12.3) as a percentage of the total number of subjects in the ADA Analysis Set. • Treatment-induced ADA incidence: The number of subjects who have “Treatmentinduced ADA” (as defined in 4.12.3) as a percentage of the number of subjects whose sample ADA status before administration of mogamulizumab is “ADA-negative” (as defined in 4.12.3). • Treatment-boosted ADA incidence: The number of the subjects who have “Treatment-boosted ADA” (as defined in 4.12.3) as a percentage of the number of subjects whose subject ADA status is “Baseline-positive” (as defined in 4.12.3). • Neutralizing ADA incidence: The number of subjects whose subject ADA status is “NAb-positive” (as defined in 4.12.3) as a percentage the number of subjects in the ADA Analysis Set.
+
+CONFIDENTIAL 22
+
+--- Page 24 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 4.13 Safety Analysis The safety and tolerability of the investigational products will be determined by reported AEs, physical examinations, ECGs, vital signs, and laboratory test results.
+
+All safety summaries will be based on the Safety Analysis Set. 4.13.1 Adverse Events All subjects will be assessed regularly for the potential occurrence of adverse events (AEs) from the date of informed consent to 100 days after the last dose of IMP.
+
+The incidence of treatment-emergent AEs (TEAEs) will be summarized and tabulated using MedDRA (version 18.1), by System Organ Class (SOC) and Preferred Term (PT).
+
+A TEAE is defined as an AE that first occurs or worsens in severity on or after the first dose of any IMP and within 100 days after the last dose of IMP.
+
+The National Cancer Institute Common Terminology Criteria for Adverse Events (CTCAE) (Version 4.03) will be used to grade both clinical and laboratory AEs.
+
+A subject with several occurrences of the same AE will be counted once and classified by the most severe occurrence.
+
+AEs with missing severity ratings will be classified as having unknown severity, but will be assigned Grade 3 severity for analysis and summarization.
+
+The relationship of each AE to the IMP will be classified as related or unrelated.
+
+Any AE with an eCRF description of related will be considered related.
+
+A subject with several occurrences of the same AE will be counted once and classified as related if at least one of them is classified as related.
+
+An AE with a missing relationship to IMP will be assumed to be related to IMP for the purpose of analysis and summarization.
+
+Relationship of AEs to mogamulizumab and nivolumab will be separately recorded and analyzed.
+
+An overview of adverse events for the Safety Analysis Set will be provided, summarizing the incidence of the following: • Any TEAEs; Mogamulizumab-related TEAEs; Nivolumab-related TEAEs; • Any NCI/CTCAE Grade 3/4/5 TEAEs; Mogamulizumab-related NCI/CTCAE Grade 3/4/5 TEAEs; Nivolumab-related NCI/CTCAE Grade 3/4/5 TEAEs; • Any Treatment-emergent SAEs; Mogamulizumab-related treatment-emergent SAEs; Nivolumab-related treatment-emergent SAEs; • Any discontinuation of study drug due to TEAEs; discontinuation of Mogamulizumab due to Mogamulizumab-related TEAEs; discontinuation of Nivolumab due to Nivolumab-related TEAEs; • Any NCI/CTCAE Grade 5 TEAEs; Mogamulizumab-related NCI/CTCAE Grade 5 TEAEs; Nivolumab-related NCI/CTCAE Grade 5 TEAEs; CONFIDENTIAL 23
+
+--- Page 25 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The number and percentage of subjects with TEAEs will be summarized by SOC and PT for Cycle 1 and for all cycles.
+
+A TEAE for Cycle 1 is defined as any event new or worsening prior to the Cycle 2 start date.
+
+Mogamulizumab-related TEAEs, nivolumab-related TEAEs, any IMP-related TEAEs, ≥ Grade 3 TEAEs, mogamulizumab-related ≥ Grade 3 TEAEs, nivolumab-related ≥ Grade 3 TEAEs, any IMP-related ≥ Grade 3 TEAEs, TEAEs leading to discontinuation of any IMP, any IMP-related TEAEs leading to any IMP-discontinuation, TEAEs leading to discontinuation of mogamulizumab, mogamulizumab-related TEAEs leading to discontinuation of mogamulizumab, TEAEs leading to discontinuation of nivolumab, nivolumab-related TEAEs leading to discontinuation of nivolumab, treatmentemergent SAEs, mogamulizumab-related treatment-emergent SAEs, nivolumab-related treatment-emergent SAEs, any IMP-related treatment-emergent SAEs, and fatal TEAEs will be summarized in the same manner.
+
+For these summaries, subjects with multiple AEs will be counted only once per SOC and PT.
+
+In addition, summaries will be provided for the number and percentage of subjects with TEAEs, mogamulizumab-related TEAEs, nivolumab-related TEAEs, any IMP-related TEAEs by SOC and preferred term and by the highest NCI CTCAE grade.
+
+For these summaries, subjects with multiple adverse events will be counted only once by the highest NCI CTCAE grade within an SOC and preferred term.
+
+As with any antibody, allergic reactions to dose administration are possible.
+
+Therefore, infusion-related acute reactions will be identified and summarized. 4.13.2 Clinical Laboratory Evaluation For chemistry, coagulation and hematology parameters, laboratory measurements (including actual values at the visit and their changes from baseline during the treatment period) will be summarized.
+
+In addition, the maximum and minimum post-treatment values will be presented.
+
+Shift tables from baseline to the worst post-baseline values during the treatment period will be provided for chemistry parameters and hematology parameters that have NCI-CTCAE v4.03 toxicity grades.
+
+Both scheduled and unscheduled post baseline values during the treatment period will be considered.
+
+Additionally, the number and percentage of subjects with Grade ≥ 3 will be presented for each CTCAE gradable laboratory test.
+
+All clinical laboratory data will be listed by subject.
+
+Values outside the normal ranges will be flagged and toxicity grades will be displayed for relevant parameters. 4.13.3 Vital Signs Vital signs measurements include pulse rate, temperature, systolic blood pressure, and diastolic blood pressure.
+
+Measures at baseline and changes from baseline to the end of CONFIDENTIAL 24
+
+--- Page 26 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 treatment will be summarized.
+
+In addition, the maximum and minimum post-treatment values and their changes from baseline will be summarized. 4.13.4 12-Lead Electrocardiogram (ECG) The QTc intervals are to be determined using the Fridericia correction (QTcF) and the Bazett correction (QTcB).
+
+The QTcF and QTcB intervals of the ECG measurements and changes from baseline to end of treatment will be summarized.
+
+In addition, the maximum and minimum post-treatment values will be summarized.
+
+The mean of triplicate values at the visit will be used for this summary.
+
+The number and percentage of subjects with elevated QTcF or QTcB values (> 450 msec, > 480 msec, and > 500 msec) at baseline and end of treatment will be presented.
+
+In addition, the number and percentage of subjects with QTcF or QTcB values that increase by > 30 msec and > 60 msec from baseline to end of treatment will be presented.
+
+A shift table from baseline to the worst post-baseline values during the treatment period will be provided for QTcF and QTcB intervals.
+
+The following categories will be used: ≤ 450 msec, > 450 and ≤ 480 msec, > 480 and ≤ 500 msec, and > 500 msec. 4.13.5 Physical Examinations Weight collected during physical examinations will be summarized for baseline, end of treatment, minimum and maximum post-treatment values, as well as the changes from baseline.
+
+Physical examination findings will also be listed by subject. 4.13.6 ECOG Performance Status The worst ECOG performance status result during the treatment period will be provided, along with the number and percentage of subjects in each score.
+
+CONFIDENTIAL 25
+
+--- Page 27 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 5 REFERENCES Brookmeyer R, Crowley J.
+
+A confidence interval for the median survival time.
+
+Biometrics. 1982;38:29-41.
+
+Hollander M, Wolfe DA.
+
+Nonparametric statistical methods.
+
+John Wiley & Sons, Inc. 1973.
+
+International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use, ICH Harmonised Tripartite Guideline, Statistical Principles for Clinical Trials (E9), 5 February 1998.
+
+International Conference on Harmonisation of Technical Requirements for Registration of Pharmaceuticals for Human Use, ICH Harmonised Tripartite Guideline, Structure and Content of Clinical Study Reports (E3), 30 November 1995.
+
+Kalbfleisch JD, Prentice RL.
+
+The statistical analysis of failure time data.
+
+John Wiley & Sons, Inc. 1980.
+
+CONFIDENTIAL 26
+
+--- Page 28 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 6 PROGRAMMING CONSIDERATIONS All tables, data listings, figures (TLFs), and statistical analyses will be generated using SAS® Version 9.4 (or higher).
+
+Generated outputs will adhere to the following specifications. 6.1 Table, Listing, and Figure Format 6.1.1 General 1) All TLFs will be produced in landscape format. 2) All TLFs will be produced using the Times New Roman font, size 9. 3) The data displays for all TLFs will have a 1.5-inch binding margin on top of a landscape oriented page and a minimum 1-inch margin on the other 3 sides. 4) Headers and footers for figures will be in Times New Roman font, size 9. 5) Legends will be used for all figures with more than 1 variable, group, or item displayed. 6) TLFs will be in black and white (no color). 7) Specialized text styles, such as bolding, italics, borders, shading, and superscripted and subscripted text, will not be used in the TLFs.
+
+On some occasions, superscripts 1, 2, or 3 may be used (see below). 8) Only standard keyboard characters will be used in the TLFs.
+
+Special characters, such as non-printable control characters, printer-specific, or font-specific characters, will not be used.
+
+Hexadecimal-derived characters will be used, where possible, if they are appropriate to help display math symbols (e.g., μ).
+
+Certain superscripts (e.g., cm2) will be employed on a case-by-case basis. 9) Mixed case will be used for all titles, footnotes, column headers, and programmersupplied formats. 6.1.2 Headers All output will have the following header at the top of the page: Kyowa Kirin Pharmaceutical Development, Inc.
+
+Page n of N Study: 0761-014 All output will have page numbers.
+
+TLFs will be internally paginated in relation to the total length (i.e., the page number will appear sequentially as page n of N, where N is the total number of pages in the table).
+
+CONFIDENTIAL 27
+
+--- Page 29 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 6.1.3 Display Titles Each TLF will be identified by a numeral, and the designation (i.e., Table 1) will be centered above the title.
+
+A decimal system (14.x-y.z, 14.x.y-z, and 16.2.x-y) will be used to identify TLFs with related contents.
+
+The title will be centered in initial capital characters.
+
+The analysis set will be identified on the line immediately following the title.
+
+The title and table designation will be single spaced.
+
+A solid line spanning the margins will separate the titles from the column headers.
+
+There will be 1 blank line between the last title line and the solid line.
+
+Table 14.x.y-z First Line of Title Second Line of Title if Needed Safety Analysis Set 6.1.4 Column Headers 1) Column headings will be displayed immediately below the solid line described above, in initial upper-case characters. 2) For numeric variables, units will be included in column or row heading when appropriate. 3) Analysis set sizes will be provided for each treatment group in the column heading as (N=xx) (or in the row headings if applicable).
+
+This is distinct from the ‘n’ used for the descriptive statistics representing the number of subjects in the analysis set. 4) The treatment in the tables and listings will be: Mogamulizumab 1 mg/kg + Nivolumab 240 mg, Mogamulizumab 0.3 mg/kg + Nivolumab 240 mg (if applicable), and Total (if applicable). 6.1.5 Body of the Data Display 1) Listings will be sorted for presentation in order of cohort (Phase 1, Phase 2: NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, and Pancreatic), subject ID, collection day, and collection time. 2) If the categories of a parameter are ordered, then all categories between the maximum and minimum category will be provided in the table, even if n=0 for all treatment groups in a given category that is between the minimum and maximum level for that parameter.
+
+For example, the frequency distribution for symptom severity would appear as: Severity n CONFIDENTIAL 28
+
+--- Page 30 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Rating severe 0 moderate 8 mild 3 Where percentages are provided in these tables, any counts of 0 will appear as 0, not as 0 (0%). 3) If the categories are not ordered (e.g., Medical History, Reasons for Discontinuation from the Study, etc.), then only those categories for which there is at least 1 subject represented in 1 or more groups will be included. 4) An Unknown or Missing category will be added to the summary of any categorical parameter for which information is not available for 1 or more subjects. 5) Unless otherwise specified, the estimated mean and median for a set of values will be presented to 1 more significant digit than the original values, and standard deviations will be presented to 2 more significant digits than the original values.
+
+The minimum and maximum will be presented with the same number of significant digits as the original values.
+
+For example, for systolic blood pressure: n XX Mean XXX.X Std Dev X.XX Median XXX.X Minimum XXX Maximum XXX 6) Data in columns of a table will be formatted as follows: • alphanumeric values left-justified; • whole numbers (e.g., counts) right-justified; and • numbers containing fractional portions decimal-aligned. 7) Percentage values will be formatted with 1 digit to the right of the decimal point in parentheses, 1 space after the count (e.g., 7 (12.8%), 13 (5.4%)).
+
+Less-than signs (e.g., “< 0.1%”) will appear when values are >0.0% and <0.1% (but not equal to 0.0%).
+
+Unless otherwise noted, for all percentages, the number of subjects in the analysis set for the treatment group who have an observation will be the denominator.
+
+CONFIDENTIAL 29
+
+--- Page 31 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 8) Tabular displays of data for prior/concomitant medications and all tabular displays of adverse event data will be provided by the body system, drug class, or SOC with the highest occurrence in the overall total group, in decreasing order.
+
+Within the body system, drug class and SOC, medical history (by PT), drugs (by ATC code), and adverse events (by PT) will be displayed in decreasing order.
+
+If the incidences for multiple terms are identical, they will be sorted alphabetically. 9) Missing data will be represented on subject listings as either a hyphen (“-”) with a corresponding footnote (“ - = unknown or not evaluated”), or as “N/A” (footnote “N/A = not applicable”), whichever is appropriate.
+
+Missing descriptive statistics or pvalues due to non-estimability will be reported as “-”. 10) Dates will be formatted in SAS®ISO date format yyyy-mm-dd (e.g., “2000-07-01”).
+
+Missing portions of dates will be represented on subject listings as blank (e.g., “2000-07”).
+
+Dates that are missing because they are not applicable for the particular subject will be presented as “N/A”, unless otherwise specified. 11) All observed time values will be presented using a 24-hour clock in hh:mm:ss format (e.g., “01:35:45”, “21:26”).
+
+Time values will be reported only if they were measured as part of the study. 6.1.6 Footnotes 1) A solid line spanning the margins will separate the body of the data display from the footnotes. 2) All footnotes will be left justified with single-line spacing immediately below the solid line underneath the data display. 3) Informational footnote will begin with “Note:”.
+
+Annotation footnotes will begin with an asterisk and other non-numeric symbol.
+
+Each new footnote will start on a new line. 4) Footnotes will appear on each page.
+
+Subject specific footnotes will be avoided. 5) Footnotes will be used sparingly, and only if they add value to the table, figure, or data listing.
+
+If a data display has more than 4 footnotes, they will all appear on a cover page for the data display; only those footnotes essential to comprehension of the data will be repeated on each page.
+
+Footnotes will not repeat definitions already provided in the SAP. 6) The last line of the footnote section will be a standard source line, indicating the data source used by the SAS program that produced the data display, the name of the SAS program, and the listing source (e.g., “Data source: xyzabc.sas7bdat Program source: myprogram.sas Listing source: 16.x.y.z”).
+
+CONFIDENTIAL 30
+
+--- Page 32 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 6.2 Data-Handling Rules This section describes naming conventions and rules for calculations common to all applicable tables.
+
+Some rules specific to a table can be found in the relevant mock-ups. 6.2.1 Unit Conversion to Months If months are calculated for a duration, the following conversion is used. 1) Duration (months): {Duration (days)} / 30.4 6.2.2 Visits 1) Relative Study Day: The first day of any IMP is Day 1.
+
+A minus (-) sign indicates days prior to the start of IMP (e.g., Day -5 represents 5 days before start of therapy.
+
+There is no Day 0.).
+
+The relative study day for a specific visit is calculated as (Visit Date – Date of First Dose +1). 2) Baseline: For all study variables, baseline is defined as the last measurement obtained prior to the first dose of the IMP. 6.2.3 Demographics and Baseline Characteristics 1) Age = (Date of informed consent–Date of birth + 1) / 365.25 and truncated to complete years. 2) Conversion factors and calculations for height, weight and BSA: • Height (in cm) = height (in inches) * 2.54 • Weight (in kg) = weight (in lbs) * 0.4536 6.2.4 Prior and Concomitant Medications 1) Prior and concomitant medications will be coded and classified using the World Health Organization (WHO) Drug Dictionary (version September 2015).
+
+The specific dictionary version will appear in the actual tables/listings. 2) Counting rules for prior/concomitant medications: Prior medications include medications that were taken within 30 days prior to study entry.
+
+Concomitant medications during the treatment period include medications that started at any time and were taken at any time after the start of IMP until 30 days after the last dose of the IMP. 3) Medications missing both start and stop dates, or having a start date prior to 30 days post the last dose of IMP and missing the stop date, or having a stop date after the start of IMP and missing the start date, will be counted as concomitant.
+
+When partial dates are present in the data, both a partial start date and/or a partial stop date will be CONFIDENTIAL 31
+
+--- Page 33 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 evaluated to determine whether it can be conclusively established that the medication either ended prior to the start of IMP or started after 30 days post the last dose of IMP.
+
+If the above cannot be conclusively established based on the partial and/or present dates, then the medication will be counted as concomitant. 6.2.5 Safety 1) Adverse events will be coded and classified using MedDRA 18.1.
+
+The specific dictionary version will appear in the actual tables/listings. 2) Counting rules for AEs: AEs with missing start dates, but with stop dates either overlapping the treatment period or missing, will be counted as treatment-emergent, taking the worst-case approach.
+
+Special care will be taken regarding partial dates, applying similar logic to that of the prior/concomitant medications. 3) For purposes of flagging individual subject data, laboratory test result abnormalities are defined as values above or below the normal range. 6.2.6 SAS® Procedures This section provides sample SAS® code to illustrate statistical analyses specified in the statistical methods section.
+
+All computer output from SAS® statistical procedures serving as a basis for extracted results (e.g., LIFETEST) will be retained for quality control procedures and will be included in CSR appendices. 1) Exact 95% confidence interval on BOR (CR/PR): proc freq; by trt; table resp / binomial; run; 2) Median survival time with 95% confidence interval: proc lifetest outsurv=surv; time tte*censor(0); strata trt; run; Note: 95% confidence intervals for time intervals (e.g., 3 months, 6 months, etc.) will be extracted from data set SURV.
+
+CONFIDENTIAL 32
+
+--- Page 34 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 7 LIST OF TABLES, LISTINGS, AND FIGURES Tables Table 14.1.1.1 Subject Disposition – All Subjects Enrolled in Phase 1 (Dose Finding) Table 14.1.1.2 Subject Disposition – All Subjects Enrolled in Phase 2 (Cohort Expansion) Table 14.1.1.3 Data Sets Analyzed – All Subjects Enrolled Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics - Safety Analysis Set Table 14.1.2.1.2 Demographic and Baseline Disease Characteristics - Efficacy Analysis Set Table 14.1.2.2 Prior Cancer Therapy - Safety Analysis Set Table 14.1.2.3 Post Treatment Cancer Therapy - Safety Analysis Set Table 14.1.2.4.1 Summary of Prior Medications (Excluding Cancer Therapy) - Safety Analysis Set Table 14.1.2.4.2 Summary of Concomitant Medications (Excluding Cancer Therapy) - Safety Analysis Set Table 14.1.2.5.1 Summary of Prior Cancer Therapy – Safety Analysis Set Table 14.1.2.5.2 Summary of Post Treatment Cancer Therapy – Safety Analysis Set Table 14.1.2.6.1 Summary of Prior Steroids and Immune Modulating Medications by Reason for Administration – Safety Analysis Set Table 14.1.2.6.2 Summary of Concomitant Steroids and Immune Modulating Medications by Reason for Administration – Safety Analysis Set Table 14.1.2.6.3 Summary of Prior Steroids and Immune Modulating Medications by Route of Administration – Safety Analysis Set Table 14.1.2.6.4 Summary of Concomitant Steroids and Immune Modulating Medications by Route of Administration – Safety Analysis Set Table 14.1.3.1.1 Summary of Extent of Exposure to Mogamulizumab – Subjects in Phase 1 (Dose Finding) CONFIDENTIAL 33
+
+--- Page 35 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Tables Table 14.1.3.1.2 Summary of Extent of Exposure to Mogamulizumab – Subjects in Phase 2 (Cohort Expansion) Table 14.1.3.2.1 Summary of Extent of Exposure to Nivolumab – Subjects in Phase 1 (Dose Finding) Table 14.1.3.2.2 Summary of Extent of Exposure to Nivolumab – Subjects in Phase 2 (Cohort Expansion) Table 14.1.3.3.1 Summary of Mogamulizumab Infusion Time – Subjects in Phase 1 (Dose Finding) Table 14.1.3.3.2 Summary of Mogamulizumab Infusion Time – Subjects in Phase 2 (Cohort Expansion) Table 14.1.3.4.1 Summary of Nivolumab Infusion Time – Subjects in Phase 1 (Dose Finding) Table 14.1.3.4.2 Summary of Nivolumab Infusion Time – Subjects in Phase 2 (Cohort Expansion) Table 14.2.1.1 Summary of Best Overall Response - Efficacy Analysis Set Table 14.2.1.2 Sensitivity Summary of Best Overall Response – Efficacy Analysis Set Table 14.2.2.1 Summary of Time to Response for Subjects with Best Overall Response of CR or PR - Efficacy Analysis Set Table 14.2.3.1 Summary of Duration of Response for Subjects with Best Overall Response of CR or PR - Efficacy Analysis Set Table 14.2.4.1 Summary of Progression-Free Survival (PFS) - Efficacy Analysis Set Table 14.2.5.1 Summary of Overall Survival (OS) - Efficacy Analysis Set Table 14.3.1.1 Overview of Adverse Events - Safety Analysis Set Table 14.3.1.2 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set CONFIDENTIAL 34
+
+--- Page 36 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Tables Table 14.3.1.3.1 Number (%) of Subjects with Mogamulizumab-Related TreatmentEmergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.3.2 Number (%) of Subjects with Nivolumab-Related TreatmentEmergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.3.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.4 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade - Safety Analysis Set Table 14.3.1.5.1 Number (%) of Subjects with Mogamulizumab-Related TreatmentEmergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade - Safety Analysis Set Table 14.3.1.5.2 Number (%) of Subjects with Nivolumab-Related TreatmentEmergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade - Safety Analysis Set Table 14.3.1.5.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade - Safety Analysis Set Table 14.3.1.6 Number (%) of Subjects with Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.7.1 Number (%) of Subjects with Mogamulizumab-Related Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.7.2 Number (%) of Subjects with Nivolumab-Related Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set CONFIDENTIAL 35
+
+--- Page 37 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Tables Table 14.3.1.7.3 Number (%) of Subjects with Any IMP-Related Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.8 Number (%) of Subjects with Treatment-Emergent Serious Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.9.1 Number (%) of Subjects with Mogamulizumab-Related TreatmentEmergent Serious Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.9.2 Number (%) of Subjects with Nivolumab-Related TreatmentEmergent Serious Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.9.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Serious Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.10.1 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) Leading to Discontinuation of Mogamulizumab By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.10.2 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) Leading to Discontinuation of Nivolumab By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.10.3 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) Leading to Discontinuation of Any IMP By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.11.1 Number (%) of Subjects with Mogamulizumab-Related TreatmentEmergent Adverse Events (TEAEs) Leading to Mogamulizumab Discontinuation By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.11.2 Number (%) of Subjects with Nivolumab-Related TreatmentEmergent Adverse Events (TEAEs) Leading to Nivolumab Discontinuation By System Organ Class and Preferred Term - Safety CONFIDENTIAL 36
+
+--- Page 38 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Tables Analysis Set Table 14.3.1.11.3 Number (%) of Subjects with Any IMP Related Treatment-Emergent Adverse Events (TEAEs) Leading to Any IMP Discontinuation By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.12 Number (%) of Subjects with Treatment-Emergent Fatal Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.13.1 Number (%) of Subjects with Mogamulizumab-Related TreatmentEmergent Fatal Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.13.2 Number (%) of Subjects with Nivolumab-Related TreatmentEmergent Fatal Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.13.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Fatal Adverse Events By System Organ Class and Preferred Term - Safety Analysis Set Table 14.3.1.14 Number (%) of Subjects with Treatment-Emergent Infusion Reaction Adverse Events By Preferred Term - Safety Analysis Set Table 14.3.2.1 Summary of Clinical Laboratory Values and Change from Baseline During Treatment Period - Safety Analysis Set Table 14.3.2.2.1 Shift Table for Laboratory Parameters with Single Direction - Safety Analysis Set Table 14.3.2.2.2 Shift Table for Laboratory Parameters with Both Low and High Directions - Safety Analysis Set Table 14.3.3.1 Summary of Vital Signs and Change from Baseline During Treatment Period - Safety Analysis Set Table 14.3.4.1 Summary of ECG Evaluations and Change from Baseline During Treatment Period - Safety Analysis Set Table 14.3.4.2 Number (%) of Subjects with Abnormal QTcB and QTcF (msec) CONFIDENTIAL 37
+
+--- Page 39 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Tables During Treatment Period - Safety Analysis Set Table 14.3.4.3 Shift Table for QTcB and QTcF (msec) from Baseline During Treatment Period - Safety Analysis Set Table 14.3.5.1 Summary of Weight and Change from Baseline During Treatment Period - Safety Analysis Set Table 14.3.6.1 Worst ECOG Performance Status Result During Treatment Period - Safety Analysis Set Table 14.4.1.1 Summary of PK Parameters (Cmax and Cmin) of Mogamulizumab - Pharmacokinetic Analysis Set Table 14.5.1.1 Number (%) of Subjects with Positive Anti-Drug Antibody Response to Mogamulizumab - ADA Analysis Set Summary of Anti-Mogamulizumab Antibody Incidence - ADA Table 14.5.2.1 Analysis Set Summary of Positive Anti-Mogamulizumab Antibody Response at Table 14.5.3.1 Post-Baseline and Infusion Reaction - Safety Analysis Set Figures Figure 14.2.1 Kaplan-Meier Curve of Progression-Free Survival - Efficacy Analysis Set Figure 14.2.2 Kaplan-Meier Curve of Overall Survival - Efficacy Analysis Set Figure 14.2.3.1 Percent Change in Tumor Burden (RECIST v1.1)– Efficacy Analysis Set Figure 14.2.3.2 Percent Change in Tumor Burden (irRECIST v1.1) – Efficacy Analysis Set Figure 14.2.4.1.1 Maximum Percent Change in Tumor Burden by Best Overall Response (RECIST v1.1)– Efficacy Analysis Set Figure 14.2.4.1.2 Sensitivity Analysis of Maximum Percent Change in Tumor Burden by Best Overall Response(RECIST v1.1) Efficacy Analysis Set Figure 14.2.4.2 Maximum Percent Change in Tumor Burden by Best Overall Response CONFIDENTIAL 38
+
+--- Page 40 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 (irRECIST v1.1)– Efficacy Analysis Set Listings Listing 16.2.1.1 Disposition - End of Treatment Listing 16.2.1.2 Disposition - End of Study Listing 16.2.1.3 Disposition – Screen Failure Listing 16.2.2.1 Protocol Deviations Listing 16.2.2.2 Inclusion/Exclusion Criteria Listing 16.2.3 Analysis Population Listing 16.2.4.1 Demographics Listing 16.2.4.2 Cancer Disease History Listing 16.2.4.3 Oncogene Assessment Listing 16.2.4.4 Medical History Listing 16.2.4.5 Prior Cancer Therapy Listing 16.2.4.6 Prior Cancer Surgery Listing 16.2.4.7 Prior Cancer Radiation Therapy Listing 16.2.4.8 Other Prior Cancer Therapy Listing 16.2.4.9 Post Treatment Discontinuation Cancer Therapy Listing 16.2.4.10 Prior Medication (Excluding Cancer Therapy) Listing 16.2.4.11 Concomitant Medication (Excluding Cancer Therapy) Listing 16.2.4.12 Prior Steroids and Immune Modulating Medications Listing 16.2.4.13 Concomitant Steroids and Immune Modulating Medications Listing 16.2.5.1 Mogamulizumab Administration Listing 16.2.5.2 Nivolumab Administration CONFIDENTIAL 39
+
+--- Page 41 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listings Listing 16.2.5.3 Extent of Exposure, Cumulative Dose and Relative Dose Intensity Listing 16.2.6.1 Tumor Assessment Details Listing 16.2.6.2.1 Progression-Free Survival (PFS) Per RECIST and Overall Survival (OS) Listing 16.2.6.3.1 Time to Response and Duration of Response Per RECIST Listing 16.2.6.3.2 Time to Response and Duration of Response Per RECIST (Excluding Tumor Responses after First Progressive Disease) Listing 16.2.6.4 Tumor Biopsy Listing 16.2.7.1 Adverse Events Listing 16.2.7.2 Mogamulizumab or Nivolumab-related Adverse Events Listing 16.2.7.3 Grade >=3 Adverse Events Listing 16.2.7.4 Serious Adverse Events (SAEs) Listing 16.2.7.5 Adverse Events Leading to Discontinuation of Mogamulizumab or Nivolumab Listing 16.2.7.6 Fatal Adverse Events Listing 16.2.7.7 Infusion Reaction Adverse Events Listing 16.2.8.1 Laboratory Assessment – Chemistry Listing 16.2.8.2 Laboratory Assessment – Hematology Listing 16.2.8.3 Laboratory Assessment – Coagulation Profile Listing 16.2.8.4 Laboratory Assessment – Thyroid Function Test Listing 16.2.8.5 Laboratory Assessment – Urinalysis Listing 16.2.8.6 Laboratory Assessment – Pregnancy Test Listing 16.2.8.7 Laboratory Assessment – Virus Test Listing 16.2.9.1 Vital Signs CONFIDENTIAL 40
+
+--- Page 42 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listings Listing 16.2.10.1 Electrocardiogram Listing 16.2.11.1 Physical Examination Listing 16.2.12.1 ECOG Performance Status Listing 16.2.13.1 PK concentrations of Mogamulizumab Listing 16.2.14.1.1 Anti-drug Antibody Response to Mogamulizumab by Collection time Listing 16.2.14.1.2 Subject Status of Anti-Drug Antibody Response to Mogamulizumab Listing 16.2.14.2.1 Anti-drug Antibody Response for Subjects with Infusion Reactions to Mogamulizumab CONFIDENTIAL 41
+
+--- Page 43 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.1.1 Subject Disposition All Subjects Enrolled in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg n (%) Subjects Enrolled xx (100.0) Subjects Enrolled and Did Not Receive Any Study Drug xx (xx.x) Subjects Enrolled and Treated xx (xx.x) Subjects Who Were Replaced xx (xx.x) Subjects Who Completed Treatment Per Protocol xx (xx.x) Subjects Discontinued from Study Treatment Phase xx (xx.x) Objective disease progression xx (xx.x) Adverse event not related to cancer progression xx (xx.x) Clinical disease progression xx (xx.x) Subject withdrew consent xx (xx.x) Investigator discretion xx (xx.x) Lost to follow-up xx (xx.x) Complete treatment per protocol xx (xx.x) Study terminated xx (xx.x) Subjects with Ongoing Treatment [1] xx (xx.x) Subjects Discontinued from Follow-up xx (xx.x) Subject died xx (xx.x) Subject withdrew consent xx (xx.x) Lost to follow-up xx (xx.x) Study terminated xx (xx.x) Other xx (xx.x) Subjects with Ongoing Follow-up [1] xx (xx.x) Note: Percentage is calculated using the number of enrolled subjects as the denominator. [1] Per Protocol Amendment 4 criteria.
+
+CONFIDENTIAL 42
+
+--- Page 44 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.1.2 Subject Disposition All Subjects Enrolled in Phase 2 (Cohort Expansion) All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg n (%) Subjects Enrolled xx (100.0) Subjects Enrolled and Did Not Receive Any Study Drug xx (xx.x) Subjects Enrolled and Treated xx (xx.x) Subjects Who Were Replaced xx (xx.x) Subjects Who Completed Treatment Per Protocol xx (xx.x) Subjects Discontinued from Study Treatment Phase xx (xx.x) Objective disease progression xx (xx.x) Adverse event not related to cancer progression xx (xx.x) Clinical disease progression xx (xx.x) Subject withdrew consent xx (xx.x) Investigator discretion xx (xx.x) Lost to follow-up xx (xx.x) Study terminated xx (xx.x) Subjects Who are Ongoing with Treatment xx (xx.x) Subjects Discontinued from Follow-up xx (xx.x) Subject died xx (xx.x) Subject withdrew consent xx (xx.x) Lost to follow-up xx (xx.x) Study terminated xx (xx.x) Other xx (xx.x) Subjects Who are Ongoing with the Study xx (xx.x) Note: Percentage is calculated using the number of enrolled subjects as the denominator.
+
+Programming note: First page of this table is for “All Cancer Types; subsequent pages are for NSCLC SQ, NSCLC NSQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately. “Ongoing” rows will be removed after DBL.
+
+CONFIDENTIAL 43
+
+--- Page 45 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.1.3 Data Sets Analyzed All Subjects Enrolled All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg n (%) Subjects Enrolled xx (100.0) Safety Analysis Set xx (xx.x) Reason for Exclusion from Analysis Set Did not receive any study drug xx (xx.x) Efficacy Analysis Set xx (xx.x) Reason for Exclusion from Analysis Set Did not receive combination medication at cycle 1 day 1 xx (xx.x) Did not receive Mogamulizumab at cycle 1 day 1 xx (xx.x) Did not receive Nivolumab at cycle 1 day 1 xx (xx.x) Pharmacokinetic Analysis Set xx (xx.x) Reason for Exclusion from Analysis Set Did not have any post baseline concentration xx (xx.x) ADA Analysis Set for Mogamulizumab antibody xx (xx.x) Reason for Exclusion from Analysis Set Did not have baseline sample xx (xx.x) Did not have any post baseline sample xx (xx.x) Note: Percentage is calculated using the number of enrolled subjects as the denominator.
+
+Programming note: First page of this table is for “All Cancer Types; subsequent pages are for Phase 1 Cohort, NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 44
+
+--- Page 46 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx Age (years) at time of informed consent n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Age Group (n, %) <65 years xx (xx.x) >=65 years xx (xx.x) Gender (n, %) Male xx (xx.x) Female xx (xx.x) Child-bearing potential xx (xx.x) Race (n, %) White xx (xx.x) Asian xx (xx.x) Black or African American xx (xx.x) American Indian or Alaska Native xx (xx.x) Native Hawaiian or Other Pacific Islander xx (xx.x) Not reported xx (xx.x) Other xx (xx.x) Ethnicity (n, %) Hispanic or latino xx (xx.x) Not hispanic or latino xx (xx.x) Not reported xx (xx.x) Unknown xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug.
+
+CONFIDENTIAL 45
+
+--- Page 47 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 [2] Time from initial diagnosis (months) is calculated as (date of the first dose – date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 46
+
+--- Page 48 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx ECOG Performance Status [1] (n, %) 0 xx (xx.x) 1 xx (xx.x) Height (cm) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Weight (kg) [1] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Primary Tumor Type (n, %) NSCLC xx (xx.x) Pancreatic xx (xx.x) SCCHN xx (xx.x) … Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug. [2] Time from initial diagnosis (months) is calculated as (date of the first dose– date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 47
+
+--- Page 49 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx Time from Initial Diagnosis to First Dose Date (months) [2] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Time from First Recurrence or Local Advancement to First Dose Date (months) [2] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Time from First Presentation with Distant Metastatic Disease to First Dose Date (months) [2] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug. [2] Time from initial diagnosis (months) is calculated as (date of the first dose– date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 48
+
+--- Page 50 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx Stage at Enrollment (n, %) Locally Advanced xx (xx.x) Metastatic xx (xx.x) EGFR mutation (n, %) Positive xx (xx.x) Negative xx (xx.x) Other xx (xx.x) Not Done xx (xx.x) ALK rearrangement (n, %) Positive xx (xx.x) Negative xx (xx.x) Other xx (xx.x) Not Done xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug. [2] Time from initial diagnosis (months) is calculated as (date of the first dose– date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 49
+
+--- Page 51 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx HPV infection (n, %) Positive xx (xx.x) Negative xx (xx.x) Unequivocal xx (xx.x) Other xx (xx.x) Not Done xx (xx.x) Oncogene assessment (n, %) KRAS xx (xx.x) ROS1 xx (xx.x) BRAF xx (xx.x) … Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug. [2] Time from initial diagnosis (months) is calculated as (date of the first dose– date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 50
+
+--- Page 52 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx MSI (n, %) PCR Assay MSI H xx (xx.x) MSI L xx (xx.x) MSS xx (xx.x) Other xx (xx.x) Not done xx (xx.x) IHC Assay Positive xx (xx.x) Negative xx (xx.x) Other xx (xx.x) Not done xx (xx.x) Tobacco use (n, %) No xx (xx.x) Yes xx (xx.x) Former xx (xx.x) Current xx (xx.x) Cigarettes only (pack-years) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug. [2] Time from initial diagnosis (months) is calculated as (date of the first dose– date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 51
+
+--- Page 53 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.1.1 Demographic and Baseline Disease Characteristics Safety Analysis Set Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Statistic/Category N=xxx Chewing tobacco only (pack-years) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Both Cigarettes and Chewing tobacco (pack-years) [3] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Baseline is defined as the last measurement obtained prior to the first dose of the study drug. [2] Time from initial diagnosis (months) is calculated as (date of the first dose– date of initial diagnosis + 1)/30.4.
+
+If the month and year of the diagnosis are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation.
+
+Similar calculation and imputation rules are applied for time from local advancement/metastatic disease. [3] Sum of packs for cigarettes and chewing tobacco.
+
+Note: Tobacco use includes number of pack-years that is estimated, such as '>40' being considered as 40 pack-years.
+
+CONFIDENTIAL 52
+
+--- Page 54 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Same template will be used for the following table: Table 14.1.2.1.2 Demographic and Baseline Disease Characteristics Efficacy Analysis Set Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 53
+
+--- Page 55 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.2 Prior Cancer Therapy Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Category N=xxx Number of Prior Cancer Regimens (n, %) No prior cancer therapy xx (xx.x) Has prior cancer therapy [1] xx (xx.x) 1 xx (xx.x) 2 xx (xx.x) 3 xx (xx.x) 4 xx (xx.x) 5 xx (xx.x) ≥ 6 xx (xx.x) Best Response for the most recent cancer regimen (n, %) Has prior cancer therapy [1] xx CR xx (xx.x) PR xx (xx.x) SD xx (xx.x) PD xx (xx.x) Not applicable xx (xx.x) Unknown xx (xx.x) Radiation Therapy (n, %) Yes xx (xx.x) No xx (xx.x) Cancer Surgery (n, %) Yes xx (xx.x) No xx (xx.x) Other Type of Cancer Therapy (n, %) Yes xx (xx.x) Laser Treatment xx (xx.x) Intralesion Injection xx (xx.x) Other xx (xx.x) No xx (xx.x) CONFIDENTIAL 54
+
+--- Page 56 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 [1] Number of subjects with at least one prior cancer therapy is used as the denominator for percentage calculation in the subsequent categories.
+
+Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 55
+
+--- Page 57 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.3 Post Treatment Cancer Therapy Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg Variable + Nivolumab 240 mg Category N=xxx Number of Post Treatment Cancer Regimens (n, %) 1 xx (xx.x) 2 xx (xx.x) 3 xx (xx.x) >3 xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 56
+
+--- Page 58 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.4.1 Summary of Prior Medications (Excluding Cancer Therapy) Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg ATC Classification N=xxx Preferred Term n (%) Any Subjects with Prior Medication, Total xx (xx.x) ATC Classification 1 xx (xx.x) Preferred Term 1 xx (xx.x) Preferred Term 2 xx (xx.x) Preferred Term 3 xx (xx.x) xx (xx.x) ATC Classification 2 Preferred Term 1 xx (xx.x) Preferred Term 2 xx (xx.x) Preferred Term 3 xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+WHO Drug Dictionary (September, 2015) was used for coding.
+
+Medications with start dates within 30 days of the first dose date of the study treatment, and ended prior to the first dose date of the study treatment are presented.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 57
+
+--- Page 59 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.4.2 Summary of Concomitant Medications (Excluding Cancer Therapy) Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg ATC Classification N=xxx Preferred Term n (%) Any Subjects with Concomitant Medication, Total xx (xx.x) ATC Classification 1 xx (xx.x) Preferred Term 1 xx (xx.x) Preferred Term 2 xx (xx.x) Preferred Term 3 xx (xx.x) xx (xx.x) ATC Classification 2 Preferred Term 1 xx (xx.x) Preferred Term 2 xx (xx.x) Preferred Term 3 xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+WHO Drug Dictionary (September, 2015) was used for coding Medications that started at any time until 30 days after the last dose date, and were taken at any time after the first dose date are presented.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Repeat for the following: Table 14.1.2.5.1 Summary of Prior Cancer Therapy Safety Analysis Set Table 14.1.2.5.2 Summary of Post Treatment Cancer Therapy Safety Analysis Set Table 14.1.2.6.1 Summary of Prior Steroids and Immune Modulating Medications by Reason for Administration Safety Analysis Set CONFIDENTIAL 58
+
+--- Page 60 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 [Note: Use Reasons: Medical History Condition, Prophylaxis, Adverse Event] All Cancer Types: Reason for administration = Medical History Condition Mogamulizumab x mg/kg + Nivolumab 240 mg ATC Classification N=xxx Preferred Term n (%) Any Subjects with Prior Steroid and Immune Modulating Medication, Total xx (xx.x) ATC Classification 1 xx (xx.x) Preferred Term 1 xx (xx.x) Preferred Term 2 xx (xx.x) Preferred Term 3 xx (xx.x) Followed by [All Cancer Types: Reason for administration = Prophylaxis] [All Cancer Types: Reason for administration = Adverse Event] Programming note: Add footnote “Medications with start dates within 30 days of the first dose date of the study treatment, and ended prior to the first dose date of the study treatment are presented.”.
+
+Table 14.1.2.6.2 Summary of Concomitant Steroids and Immune Modulating Medications by Reason for Administration Safety Analysis Set [Note: Use Reasons: Medical History Condition, Prophylaxis, Adverse Event.
+
+Add footnote: Medications that started at any time until 30 days after the last dose date, and were taken at any time after the first dose date are presented.] Table 14.1.2.6.3 Summary of Prior Steroids and Immune Modulating Medications by Route of Administration Safety Analysis Set [Note: Use Systemic Use, Topical.
+
+Defined as Systemic = (Oral, Intravenous, Injection, Intrahepatic, Nasogastric, Intramuscular, Intrapleural, INTRAMUSCULAR, Subcutaneous, Epidural) Topical = (Topical, Intraocular, Nasal, Respiratory, Rectal, Vaginal, Transdermal, Sublingual) Add footnote “Medications with start dates within 30 days of the first dose date of the study treatment, and ended prior to the first dose date of the study treatment are presented.”.] CONFIDENTIAL 59
+
+--- Page 61 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.2.6.4 Summary of Concomitant Steroids and Immune Modulating Medications by Route of Administration Safety Analysis Set [Note: Use Systemic Use, Topical.
+
+Defined as Systemic = (Oral, Intravenous, Injection, Intrahepatic, Nasogastric, Intramuscular, Intrapleural, INTRAMUSCULAR, Subcutaneous, Epidural) Topical = (Topical, Intraocular, Nasal, Respiratory, Rectal, Vaginal, Transdermal, Sublingual).
+
+Add footnote: Medications that started at any time until 30 days after the last dose date, and were taken at any time after the first dose date are presented.]] CONFIDENTIAL 60
+
+--- Page 62 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.3.1.1 Summary of Extent of Exposure to Mogamulizumab Subjects in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx Number of Cycles per Subject n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Cycle Initiated (n, %) Cycle 1 Day 1 xx (xx.x) Cycle 1 Day 8 xx (xx.x) Cycle 1 Day 15 xx (xx.x) Cycle 1 Day 22 xx (xx.x) Cycle 2 Day 1 xx (xx.x) Cycle 2 Day 15 xx (xx.x) … xx (xx.x) Maximum Cycle Initiated (n, %) 1 xx (xx.x) 2 xx (xx.x) 3 xx (xx.x) … Number of Infusions n xx Total [1] xxx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx [1] Total number of infusions among all subjects in the treatment group. [2] Last dose infusion – First dose infusion + 1 CONFIDENTIAL 61
+
+--- Page 63 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 [3] {[(Number of doses administered in cycle 1 + (Number of doses administered post cycle 1 x 2))/(Number of cycles initiated x 4)] × [Number of initiated cycles × 28/((Last dose date + n*)-First dose date)]} x 100, where n* = 7 when the patient was only treated for 1 cycle, otherwise, n* = 14.
+
+CONFIDENTIAL 62
+
+--- Page 64 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.3.1.1 Summary of Extent of Exposure to Mogamulizumab Subjects in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx Extent of Exposure (days) [2] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Cumulative Actual Dose (mg/kg) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Cumulative Assigned Dose (mg/kg) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Relative Dose Intensity (%) [3] n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Number of Patients with Dose Intensity of <70% xx (xx.x) >=70% - <90% xx (xx.x) CONFIDENTIAL 63
+
+--- Page 65 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx >=90% - <110% xx (xx.x) >=110% xx (xx.x) [1] Total number of infusions among all subjects in the treatment group. [2] Last dose infusion – First dose infusion + 1 [3] {Number of doses administered/[(Number of cycles initiated-1) ×2 + 4] × [Number of initiated cycles × 28/[(Last dose date + n*)-First dose date]]} x 100, where n* = 7 when the patient was only treated for 1 cycle, otherwise, n* = 14.
+
+CONFIDENTIAL 64
+
+--- Page 66 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Same template will be used for the following table for Phase 2 subjects: Table 14.1.3.1.2 Summary of Extent of Exposure to Mogamulizumab Subjects in Phase 2 (Cohort Expansion) Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 65
+
+--- Page 67 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.3.2.1 Summary of Extent of Exposure to Nivolumab Subjects in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx Number of Cycles per Subject xx n xx.x Mean xx.xx Std Dev xx.x Median xx Minimum xx Maximum Cycle Initiated (n, %) xx (xx.x) Cycle 1 Day 1 xx (xx.x) Cycle 1 Day 15 xx (xx.x) Cycle 2 Day 1 xx (xx.x) Cycle 2 Day 15 xx (xx.x) … xx (xx.x) xx (xx.x) Maximum Cycle Initiated (n, %) 1 2 xx (xx.x) 3 xx (xx.x) … xx (xx.x) Number of Infusions n Total [1] xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx [1] Total number of infusions among all subjects in the treatment group. [2] Last dose infusion – First dose infusion + 1 [3] Cumulative dose (mg) / Cumulative assigned dose (mg) x 100, where cumulative assigned dose = (Last nivolumab dose date – First nivolumab dose date) × 240/14 CONFIDENTIAL 66
+
+--- Page 68 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.3.2.1 Summary of Extent of Exposure to Nivolumab Subjects in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx Extent of Exposure (days) [2] xx N xx.x Mean xx.xx Std Dev xx.x Median xx Minimum xx Maximum Cumulative Actual Dose (mg) xx N xx.x Mean xx.xx Std Dev xx.x Median xx Minimum xx Maximum Cumulative Assigned Dose (mg) xx n xx.x Mean xx.xx Std Dev xx.x Median xx Minimum xx Maximum Relative Dose Intensity (%) [3] xx n xx.x Mean xx.xx Std Dev xx.x Median xx Minimum xx Maximum [1] Total number of infusions among all subjects in the treatment group. [2] Last dose infusion – First dose infusion + 1 CONFIDENTIAL 67
+
+--- Page 69 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 [3] Cumulative dose (mg) / Cumulative assigned dose (mg) x 100, where cumulative assigned dose = (Last nivolumab dose date – First nivolumab dose date) × 240/14 CONFIDENTIAL 68
+
+--- Page 70 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Same template will be used for the following table for Phase 2 subjects: Table 14.1.3.2.2 Summary of Extent of Exposure to Nivolumab Subjects in Phase 2 (Cohort Expansion) Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 69
+
+--- Page 71 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.3.3.1 Summary of Mogamulizumab Infusion Time Subjects in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx Overall (minutes) n (number of infusions) xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx First Infusion (minutes)(Cycle 1, Day 1) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Repeats for Second Infusion (Cycle 1, Day 8), Third Infusion (Cycle 1, Day 15), and Forth Infusion (Cycle 1, Day 22) Fifth Infusion or Later (minute) n (number of infusions) xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Same template will be used for the following table: Table 14.1.3.3.2 Summary of Mogamulizumab Infusion Time Subjects in Phase 2 (Cohort Expansion) Programming note: This table is for all cancer types only.
+
+Display: “All Cancer Types”.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 70
+
+--- Page 72 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.1.3.4.1 Summary of Nivolumab Infusion Time Subjects in Phase 1 (Dose Finding) Mogamulizumab 1 mg/kg + Nivolumab 240 mg N=xxx Overall (minutes) n (number of infusions) xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx First Infusion (minutes) (Cycle 1, Day 1) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Second Infusion (minutes) (Cycle 1, Day 15) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Third Infusion or Later (minutes) n (number of infusions) xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx CONFIDENTIAL 71
+
+--- Page 73 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Same template will be used for the following table: Table 14.1.3.4.2 Summary of Nivolumab Infusion Time Subjects in Phase 2 (Cohort Expansion) Programming note: This table is for all cancer types.
+
+Display: “All Cancer Types”.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 72
+
+--- Page 74 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.2.1.1 Summary of Best Overall Response Efficacy Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx n (%) By RECIST v1.1 Number of Subjects with CR or PR (n, %, 95% CI [1]) xx (xx.x) [xx.x, xx.x] Complete response [CR] xx (xx.x) Partial response [PR] xx (xx.x) Stable disease [SD] xx (xx.x) Progressive disease [PD] xx (xx.x) Inevaluable [NE] xx (xx.x) By irRECIST v1.1 Number of Subjects with CR or PR (n, %, 95% CI [1]) xx (xx.x) [xx.x, xx.x] Complete response [CR] xx (xx.x) Partial response [PR] xx (xx.x) Non-CR/PR xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+Best overall response is defined as the best response designation recorded between the date of first dose of investigational medical product (IMP) and the date of subsequent anti-cancer therapy (excluding on-treatment palliative radiotherapy of non-target bone or CNS lesions).
+
+Subjects who do not meet CR/PR will be classified as stable disease (SD) if assessed as SD (or better) at least 9 weeks after first dose of IMP. [1] Exact 2-sided 95% confidence intervals using Clopper-Pearson method.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 73
+
+--- Page 75 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.2.1.2 Sensitivity Summary of Best Overall Response Efficacy Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx n (%) By RECIST v1.1 Number of Subjects with CR or PR (n, %, 95% CI [1]) xx (xx.x) [xx.x, xx.x] Complete response [CR] xx (xx.x) Partial response [PR] xx (xx.x) Stable disease [SD] xx (xx.x) Progressive disease [PD] xx (xx.x) Inevaluable [NE] xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+Best overall response is defined as the best response designation recorded between the date of first dose of investigational medical product (IMP) to the first radiological disease progression or initiation of subsequent therapy, whichever occurred earlier.
+
+Subjects who do not meet CR/PR will be classified as stable disease (SD) if assessed as SD (or better) at least 9 weeks after first dose of IMP. [1] Exact 2-sided 95% confidence intervals using Clopper-Pearson method.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 74
+
+--- Page 76 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.2.2.1 Summary of Time to Response for Subjects with Best Overall Response of CR or PR Efficacy Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx By RECIST v1.1 (Primary Method [1]) Time to Response (months) N xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx By RECIST v1.1 (Sensitivity Analysis [2]) Time to Response (months) n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx Note: Time to response is calculated from the date of first dose of IMP to the first confirmed Complete Response [CR] or Partial Response [PR] using RECIST v1.1. [1] The primary method is based on all tumor assessments until the start of subsequent anti-cancer therapy, regardless of progressive disease. [2] The sensitivity analysis is based on all tumor assessments until the date of progressive disease or the start of subsequent anti-cancer therapy.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 75
+
+--- Page 77 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.2.3.1 Summary of Duration of Response for Subjects with Best Overall Response of CR or PR Efficacy Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx By RECIST v1.1 (Primary Method [1]) Number of Subjects with CR or PR N’=xx Subjects with Progressive Disease/Died (n, %) xx (xx.x) Subjects Censored (n, %) xx (xx.x) Duration of Response (months) Kaplan-Meier Estimate 25th Quartile (95% CI) xx.x (xx.x, xx.x) Median (95% CI) xx.x (xx.x, xx.x) 75th Quartile (95% CI) xx.x (xx.x, xx.x) By RECIST v1.1 (Sensitivity Analysis [2]) Number of Subjects with CR or PR N’=xx Subjects with Progressive Disease/Died (n, %) xx (xx.x) Subjects Censored (n, %) xx (xx.x) Duration of Response (months) Kaplan-Meier Estimate 25th Quartile (95% CI) xx.x (xx.x, xx.x) Median (95% CI) xx.x (xx.x, xx.x) 75th Quartile (95% CI) xx.x (xx.x, xx.x) Note: Percentage is calculated using N’ as the denominator.
+
+CR = complete response, PR = partial response. - = Not estimable.
+
+Duration of response is calculated from the first date of confirmed CR/PR to the date of death or the date of first documented tumor progression, whichever is earlier, using RECIST v1.1. [1] The primary method is based on all tumor assessments until the start of subsequent anti-cancer therapy, regardless of progressive disease. [2] The sensitivity analysis is based on all tumor assessments until the date of progressive disease or the start of subsequent anti-cancer therapy.
+
+Results for individual cancer types are not presented due to the limited number of subjects with Best Overall Response of CR or PR.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+CONFIDENTIAL 76
+
+--- Page 78 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.2.4.1 Summary of Progression-Free Survival (PFS) Efficacy Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx By RECIST v1.1 Number of Subjects with PFS Event (n, %) xx (xx.x) Earliest Contributing Event: Progressive Disease xx (xx.x) Death xx (xx.x) Number of Subjects Censored (n, %) xx (xx.x) Progression-Free Survival (months) Kaplan-Meier Estimate of PFS 25th Quartile (95% CI) xx.x (xx.x, xx.x) Median (95% CI) xx.x (xx.x, xx.x) 75th Quartile (95% CI) xx.x (xx.x, xx.x) Rate (%) of Being Alive without Progression for at Least [1] 3 months (95% CI) xx.x (xx.x, xx.x) 6 months (95% CI) xx.x (xx.x, xx.x) 9 months (95% CI) xx.x (xx.x, xx.x) 12 months (95% CI) xx.x (xx.x, xx.x) Etc.
+
+Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Kaplan-Meier estimate using Kalbfleisch and Prentice method.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 77
+
+--- Page 79 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.2.5.1 Summary of Overall Survival (OS) Efficacy Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx Subjects Died (n, %) xx (xx.x) Subjects Censored (n, %) xx (xx.x) Overall Survival (months) Kaplan-Meier Estimate of OS 25th Quartile (95% CI) xx.x (xx.x, xx.x) Median (95% CI) xx.x (xx.x, xx.x) 75th Quartile (95% CI) xx.x (xx.x, xx.x) Rate (%) of Being Alive for at Least [1] 3 months (95% CI) xx.x (xx.x, xx.x) 6 months (95% CI) xx.x (xx.x, xx.x) 9 months (95% CI) xx.x (xx.x, xx.x) 12 months (95% CI) xx.x (xx.x, xx.x) Etc.
+
+Note: Percentage is calculated using the number of subjects in the column heading as the denominator. [1] Kaplan-Meier estimate using Kalbfleisch and Prentice method.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 78
+
+--- Page 80 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.1.1 Overview of Adverse Events Safety Analysis Set Mogamulizumab x mg/kg + Nivolumab 240 mg Cycle 1 Any Cycle N=xxx N=xxx Adverse Event Category n (%) n (%) Any TEAEs xx (xx.x) xx (xx.x) Any IMP-related xx (xx.x) xx (xx.x) Mogamulizumab-related xx (xx.x) xx (xx.x) Nivolumab-related xx (xx.x) xx (xx.x) Any Grade >=3 TEAEs xx (xx.x) xx (xx.x) Any IMP-related Grade >=3 xx (xx.x) xx (xx.x) Mogamulizumab-related Grade >=3 xx (xx.x) xx (xx.x) Nivolumab-related Grade >=3 xx (xx.x) xx (xx.x) Any Serious TEAEs xx (xx.x) xx (xx.x) Any Serious Related xx (xx.x) xx (xx.x) Serious Mogamulizumab-related xx (xx.x) xx (xx.x) Serious Nivolumab-related xx (xx.x) xx (xx.x) Discontinuation Due to TEAEs xx (xx.x) xx (xx.x) TEAE led to Mogamulizumab discontinuation xx (xx.x) xx (xx.x) TEAE led to Nivolumab discontinuation xx (xx.x) xx (xx.x) Discontinuation Due to Related TEAEs xx (xx.x) xx (xx.x) Mogamulizumab-related TEAE led to Mogamulizumab xx (xx.x) xx (xx.x) discontinuation Nivolumab-related TEAE led to Nivolumab discontinuation xx (xx.x) xx (xx.x) TEAEs with Fatal Outcome xx (xx.x) xx (xx.x) Any IMP-related xx (xx.x) xx (xx.x) Mogamulizumab-related xx (xx.x) xx (xx.x) Nivolumab-related xx (xx.x) xx (xx.x) Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+CONFIDENTIAL 79
+
+--- Page 81 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 80
+
+--- Page 82 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.1.2 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set Mogamulizumab x mg/kg + Nivolumab 240 mg Cycle 1 Any Cycle System Organ Class N=xxx N=xxx Preferred Term n (%) n (%) Subjects with Any TEAEs xx (xx.x) xx (xx.x) System Organ Class 1 xx (xx.x) xx (xx.x) Preferred Term 1 xx (xx.x) xx (xx.x) Preferred Term 2 xx (xx.x) xx (xx.x) System Organ Class 1 xx (xx.x) xx (xx.x) Preferred Term 1 xx (xx.x) xx (xx.x) Preferred Term 2 xx (xx.x) xx (xx.x) Etc. … Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+MedDRA Version 18.1 was used for coding.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 81
+
+--- Page 83 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Same template as 14.3.1.2 will also be used for the following table: Table 14.3.1.3.1 Number (%) of Subjects with Mogamulizumab-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.3.2 Number (%) of Subjects with Nivolumab-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.3.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set CONFIDENTIAL 82
+
+--- Page 84 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.1.4 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg System Organ Class Cycle 1 Any Cycle Preferred Term N=xxx N=xxx Highest CTCAE Grade n (%) n (%) Subjects with Any TEAE xx (xx.x) xx (xx.x) Grade 1 xx (xx.x) xx (xx.x) Grade 2 xx (xx.x) xx (xx.x) Grade 3 xx (xx.x) xx (xx.x) Grade 4 xx (xx.x) xx (xx.x) Grade 5 xx (xx.x) xx (xx.x) Grade >=3 xx (xx.x) xx (xx.x) System Organ Class 1 xx (xx.x) xx (xx.x) Grade 1 xx (xx.x) xx (xx.x) Grade 2 xx (xx.x) xx (xx.x) Grade 3 xx (xx.x) xx (xx.x) Grade 4 xx (xx.x) xx (xx.x) Grade 5 xx (xx.x) xx (xx.x) Grade >=3 xx (xx.x) xx (xx.x) Preferred Term 1 xx (xx.x) xx (xx.x) Grade 1 xx (xx.x) xx (xx.x) Grade 2 xx (xx.x) xx (xx.x) Grade 3 xx (xx.x) xx (xx.x) Grade 4 xx (xx.x) xx (xx.x) Grade 5 xx (xx.x) xx (xx.x) Grade >=3 xx (xx.x) xx (xx.x) Etc.
+
+Note: Percentage is calculated using the number of subjects in the column heading as the denominator.
+
+If a subject experienced more than one adverse event within a preferred term, the subject will be counted once in that preferred term at the highest CTCAE grade.
+
+If a subject experienced more than one adverse event within an SOC, the subject will be counted once for that SOC at the highest CTCAE grade.
+
+MedDRA Version 18.1 was used for coding.
+
+CONFIDENTIAL 83
+
+--- Page 85 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Only the MTD group will be presented.
+
+CONFIDENTIAL 84
+
+--- Page 86 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The following table will have similar layout as Table 14.3.1.4: Table 14.3.1.5.1 Number (%) of Subjects with Mogamulizumab-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade Safety Analysis Set Table 14.3.1.5.2 Number (%) of Subjects with Nivolumab-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade Safety Analysis Set Table 14.3.1.5.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Adverse Events (TEAEs) By System Organ Class, Preferred Term, and Highest CTCAE Grade Safety Analysis Set The following tables will have similar layout as Table 14.3.1.2: Table 14.3.1.6 Number (%) of Subjects with Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.7.1 Number (%) of Subjects with Mogamulizumab-Related Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.7.2 Number (%) of Subjects with Nivolumab-Related Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.7.3 Number (%) of Subjects with Any IMP-Related Grade >=3 Treatment-Emergent Adverse Events (TEAEs) By System Organ Class and Preferred Term Safety Analysis Set CONFIDENTIAL 85
+
+--- Page 87 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.1.8 Number (%) of Subjects with Treatment-Emergent Serious Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.9.1 Number (%) of Subjects with Mogamulizumab-Related Treatment-Emergent Serious Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.9.2 Number (%) of Subjects with Nivolumab-Related Treatment-Emergent Serious Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.9.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Serious Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.10.1 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) Leading to Discontinuation of Mogamulizumab By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.10.2 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) Leading to Discontinuation of Nivolumab By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.10.3 Number (%) of Subjects with Treatment-Emergent Adverse Events (TEAEs) Leading to Discontinuation of Any IMP By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.11.1 Number (%) of Subjects with Mogamulizumab-Related Treatment-Emergent Adverse Events (TEAEs) Leading to Mogamulizumab Discontinuation By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.11.2 Number (%) of Subjects with Nivolumab-Related Treatment-Emergent Adverse Events (TEAEs) Leading to Nivolumab Discontinuation By System Organ Class and Preferred Term Safety Analysis Set CONFIDENTIAL 86
+
+--- Page 88 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.1.11.3 Number (%) of Subjects with Any IMP Related Treatment-Emergent Adverse Events (TEAEs) Leading to Any IMP Discontinuation By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.12 Number (%) of Subjects with Treatment-Emergent Fatal Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.13.1 Number (%) of Subjects with Mogamulizumab-Related Treatment-Emergent Fatal Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.13.2 Number (%) of Subjects with Nivolumab-Related Treatment-Emergent Fatal Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.13.3 Number (%) of Subjects with Any IMP-Related Treatment-Emergent Fatal Adverse Events By System Organ Class and Preferred Term Safety Analysis Set Table 14.3.1.14 Number (%) of Subjects with Treatment-Emergent Infusion Reaction Adverse Events By Preferred Term Safety Analysis Set CONFIDENTIAL 87
+
+--- Page 89 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.2.1 Summary of Clinical Laboratory Values and Change from Baseline During Treatment Period Safety Analysis Set All Cancer Types Parameter Mogamulizumab x mg/kg + Nivolumab 240 mg (N=xxx) Time Point Statistic Actual Change XXX (Unit) Baseline n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx End of Treatment n xx xx Mean xx.x xx.x Std Dev xx.xx xx.xx Median xx.x xx.x Minimum xx xx Maximum xx xx Minimum Post-baseline Value n xx xx Mean xx.x xx.x Std Dev xx.xx xx.xx Median xx.x xx.x Minimum xx xx Maximum xx xx Maximum Post-baseline Value n xx xx Mean xx.x xx.x Std Dev xx.xx xx.xx Median xx.x xx.x Minimum xx xx Maximum xx xx Continue with other parameters CONFIDENTIAL 88
+
+--- Page 90 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Programming note: This table is for all cancer types.
+
+Display: “All Cancer Types”.
+
+This table will include all laboratory tests, i.e., hematology, coagulation, and chemistry parameters.
+
+CONFIDENTIAL 89
+
+--- Page 91 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.2.2.1 Shift Table for Laboratory Parameters with Single Direction Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg (N=xxx), n (%) Highest CTCAE Grade During Treatment Period Parameter (Unit) N* Baseline Grade 0 Grade 1-2 Grade 3-4 Total XXX (Unit) xx Grade 0 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Grade 1-2 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Grade 3-4 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Total xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Etc.
+
+Note: Percentage is calculated using N* as the denominator, where it is the number of subjects with both baseline and post baseline measurements for the specified parameter.
+
+Grade 0 indicates values that do not satisfy CTC abnormality criteria.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 90
+
+--- Page 92 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.2.2.2 Shift Table for Laboratory Parameters with Both Low and High Directions Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg (N=xxx), n (%) Highest CTCAE Grade During Treatment Period Grade 3-4 Grade 1-2 Grade 0 Grade 1-2 Grade 3-4 Parameter (Unit) N* Baseline (Low) (Low) (High) (High) Total Highest Value XXX (Unit) xx Grade 3-4 (Low) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Grade 1-2 (Low) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Grade 0 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Grade 1-2 (High) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Grade 3-4 (High) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Total xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Lowest Value Etc.
+
+Note: Percentage is calculated using N* as the denominator, where it is the number of subjects with both baseline and post baseline measurements for the specified parameter.
+
+Grade 0 indicates values that do not satisfy CTC abnormality criteria.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 91
+
+--- Page 93 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.3.1 Summary of Vital Signs and Change from Baseline During Treatment Period Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg Parameter + Nivolumab 240 mg Time Point (N=xxx) Statistic Actual Change Pulse Rate (bpm) Baseline n xx Mean xx.x Std Dev xx.xx Median xx.x Minimum xx Maximum xx End of Treatment n xx xx Mean xx.x xx.x Std Dev xx.xx xx.xx Median xx.x xx.x Minimum xx xx Maximum xx xx Minimum Post-baseline Value n xx xx Mean xx.x xx.x Std Dev xx.xx xx.xx Median xx.x xx.x Minimum xx xx Maximum xx xx Maximum Post-baseline Value n xx xx Mean xx.x xx.x Std Dev xx.xx xx.xx Median xx.x xx.x Minimum xx xx Maximum xx xx CONFIDENTIAL 92
+
+--- Page 94 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Mogamulizumab x mg/kg Parameter + Nivolumab 240 mg Time Point (N=xxx) Statistic Actual Change Continue with other parameters CONFIDENTIAL 93
+
+--- Page 95 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Same template as Table 14.3.3.1 will be used for: Table 14.3.4.1 Summary of ECG Evaluations and Change from Baseline During Treatment Period Safety Analysis Set Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 94
+
+--- Page 96 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.4.2 Number (%) of Subjects with Abnormal QTcB and QTcF (msec) During Treatment Period Safety Analysis Set All Cancer Types Parameters Mogamulizumab x mg/kg Visit + Nivolumab 240 mg Criteria n (%) QTcB (msec) Baseline N*=xx >450 msec xx (xx.x) >480 msec xx (xx.x) >500 msec xx (xx.x) End of Treatment Visit N*=xx >450 msec xx (xx.x) >480 msec xx (xx.x) >500 msec xx (xx.x) Increase >30 msec xx (xx.x) Increase >60 msec xx (xx.x) Overall for Post-baseline [1] N*=xx >450 msec xx (xx.x) >480 msec xx (xx.x) >500 msec xx (xx.x) Increase >30 msec xx (xx.x) Increase >60 msec xx (xx.x) Continue for QTcF (msec) Note: Percentage is calculated using N* as the denominator, where N* is the number of subjects with valid ECG measurement at the specified visit (time point). [1] Any post-baseline measurement including both scheduled and unscheduled measurements.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 95
+
+--- Page 97 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.4.3 Shift Table for QTcB and QTcF (msec) from Baseline During Treatment Period Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg (N=xxx), n (%) Most Severe Value During Treatment Period Parameters N* Baseline <=450 >450 and <=480 >480 and <=500 >500 Total QTcB (msec) xxx <=450 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) >450 and <=480 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) >480 and <=500 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) >500 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Total xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) QTcF (msec) xxx <=450 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) >450 and <=480 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) >480 and <=500 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) >500 xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Total xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) xx (xx.x) Note: Percentage is calculated using N* as the denominator, where N* is the number of subjects with both baseline and post baseline QTcB or QTcF measurements.
+
+Programming note: This table is for all cancer type.
+
+Display: “All Cancer Type”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+Same template as Table 14.3.3.1 will be used for: Table 14.3.5.1 Summary of Weight and Change from Baseline During Treatment Period Safety Analysis Set Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 96
+
+--- Page 98 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.3.6.1 Worst ECOG Performance Status Result During Treatment Period Safety Analysis Set All Cancer Types Mogamulizumab x mg/kg + Nivolumab 240 mg N=xxx Worst Post-Baseline ECOG, n (%) N’=xx 0 xx (xx.x) 1 xx (xx.x) 2 xx (xx.x) 3 xx (xx.x) 4 xx (xx.x) Percentage is calculated using N’ as the denominator, where N’ is the number of subjects with valid ECOG performance status measurement during treatment period.
+
+Programming note: This table is for all cancer types.
+
+Display: “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PDL1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 97
+
+--- Page 99 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.4.1.1 Summary of PK Parameters (Cmax and Cmin) of Mogamulizumab Pharmacokinetic Analysis Set All Cancer Types Visit Cmin (ng/mL) Cmax (ng/mL) Statistics N=xxx N=xxx Cycle 1, Day 1 n xx xx Mean (Std Dev) xx.x (xx.xx) xx.x (xx.xx) CV (%) xx.x xx.x Median xx.x xx.x Minimum, Maximum xx, xx xx, xx Geo Mean xx.x xx.x Geo CV (%) xx.x xx.x Cycle 1, Day 15 n xx xx Mean (Std Dev) xx.x (xx.xx) xx.x (xx.xx) CV (%) xx.x xx.x Median xx.x xx.x Minimum, Maximum xx, xx xx, xx Geo Mean xx.x xx.x Geo CV (%) xx.x xx.x Continue with visits of Cycle 2, Day 1; Cycle 2, Day 15; Cycle 3, Day 1; Cycle 4, Day 1; etc.
+
+BLQ=Below the lower limit of quantification.
+
+Programming note: First page of the table is for “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PD-L1 nonexpressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 98
+
+--- Page 100 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.5.1.1 Number (%) of Subjects with Positive Anti-Drug Antibody Response to Mogamulizumab ADA Analysis Set All Cancer Types Mogamulizumab x mg/kg (N=xxx) Visit Anti-Mogamulizumab Antibody Anti-Mogamulizumab Neutralizing Antibody n/N1 (%) n/N2 (%) Cycle 1/Day 1 (Baseline) x/xx (xx.x) x/xx (xx.x) Overall x/xx (xx.x) x/xx (xx.x) Cycle 2/Day 1 x/xx (xx.x) x/xx (xx.x) Cycle 3/Day 1 x/xx (xx.x) x/xx (xx.x) Cycle 4/Day 1 x/xx (xx.x) x/xx (xx.x) Cycle 8/Day 1 x/xx (xx.x) x/xx (xx.x) Cycle 12/Day 1 x/xx (xx.x) x/xx (xx.x) 100-110 Days after Last Dose x/xx (xx.x) x/xx (xx.x) During an Infusion-related Reaction x/xx (xx.x) x/xx (xx.x) N1: Number of subjects with valid measurements for anti-mogamulizumab antibody at the specified visit N2: Number of subjects who were positive for anti-mogamulizumab antibody at the specified visit Overall is positive if at least one post-baseline assessment is positive, including unscheduled ADA assessments.
+
+Programming note: This table is for all cancer types.
+
+Display: “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PDL1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 99
+
+--- Page 101 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.5.2.1 Summary of Anti-Mogamulizumab Antibody Incidence ADA Analysis Set All Cancer Types ADA Incidence Pre-existing Anytime Treatment-induced Treatment-boosted Neutralizing ADA Incidence n/N (%) n/N (%) n/N1 (%) n/N2 (%) n/N (%) x/xx (xx.x) x/xx (xx.x) x/xx (xx.x) x/xx (xx.x) x/xx (xx.x) n: The number of subjects who were categorized at each item.
+
+N1 : Number of subjects whose sample ADA status at pre-infusion in Cycle 1 Day 1 was “ADA-negative”.
+
+N2 : Number of subjects whose sample ADA status at pre-infusion in Cycle 1 Day 1 was “ADA-positive”.
+
+Programming note: This table is for all cancer types.
+
+Display: “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PDL1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 100
+
+--- Page 102 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Table 14.5.3.1 Summary of Positive Anti-Mogamulizumab Antibody Response at Post-Baseline and Infusion Reaction Safety Analysis Set All Cancer Types All Subjects Exposed to Mogamulizumab N = xx n (%) Number of Infusion Reactions (events) xx Number of Subjects who experienced Infusion Reactions xx (xx.x) Subjects who experienced Infusion Reaction and who had a positive overall assay at any time post-baseline xx (xx.x) Anti-Mogamulizumab antibody xx (xx.x) Neutralizing xx (xx.x) Note: Percentage is calculated using the number of subjects exposed to Mogamulizumab as the denominator.
+
+Overall assay is positive if at least one of the two assays (Anti-Mogamulizumab antibody or neutralizing) is positive.
+
+Programming note: This table is for all cancer types.
+
+Display: “All Cancer Types”.
+
+Subsequent pages are for NSCLC SQ, NSCLC NSQ PDL1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types separately.
+
+CONFIDENTIAL 101
+
+--- Page 103 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Figure 14.2.1 Kaplan-Meier Curve of Progression-Free Survival Efficacy Analysis Set All Cancer Types -- -- -- -- -- Mogamulizumab x mg/kg + Nivolumab 240 mg Mogamulizumab x mg/kg + Nivolumab 240 mg ## ## ## ## ## ## ## ## ## CONFIDENTIAL 102
+
+--- Page 104 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Programming note: includes all Phase 2 subjects separated by tumor type: NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types.
+
+An additional category for ‘all cancer types’ will be added to the graph as well.
+
+The “all cancer types” line weight needs to be higher than individual cancer type.
+
+The plot only includes groups that have >10 patients.
+
+Add footnote: “Note: All cancer type includes all patients in the study; for other groups, only groups where number of subjects >10 are included.” The following figures will have similar layout as Figure 14.2.1: Figure 14.2.2 Kaplan-Meier Curve of Overall Survival Efficacy Analysis Set Programming note: includes all Phase 2 subjects separated by tumor types: NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types.
+
+An additional category for ‘all cancer types’ will be added to the graph as well.
+
+The plot only includes groups that have >10 patients.
+
+Add footnote: “Note: All cancer type includes all patients in the study; for other groups, only groups where number of subjects >10 are included.” CONFIDENTIAL 103
+
+--- Page 105 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Figure 14.2.3.1 Percent Change in Tumor Burden (RECIST v1.1) Efficacy Analysis Set Tumor burden is based on the sum of longest diameters in target lesions at each visit. + indicates new lesions.
+
+Treatment discontinuation: AEN=Adverse Event Not Related to Cancer Progression, CDP=Clinical Disease Progression, ODP=Objective Disease Progression, SWC=Subject Withdrew Consent.
+
+Programming note: includes all Phase 2 subjects, separated by tumor types: NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types.
+
+One cancer type is plotted on one page.
+
+CONFIDENTIAL 104
+
+--- Page 106 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The following figures will have similar layout as Figure 14.2.3.1: Figure 14.2.3.2 Percent Change in Tumor Burden (irRECIST v1.1) Efficacy Analysis Set [Note: the first footnote will be changed to Tumor burden is based on the sum of longest diameters in target lesions at each visit.
+
+Target lesions include baseline-selected target lesion measurements and new measurable lesions.] CONFIDENTIAL 105
+
+--- Page 107 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Figure 14.2.4.1.1 Maximum Percent Change in Tumor Burden by Best Overall Response(RECIST v1.1) Efficacy Analysis Set Programming note: includes all Phase 2 subjects, separated by tumor types: NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types.
+
+One cancer type is plotted on one page.
+
+For each cancer type, calculate the maximum % change of tumor burden from baseline, different color bar indicates patient’s best overall response of CR, PR, SD, PD or NE.
+
+Additional symbols may be added to indicate threshold of increase/decrease (e.g., decrease >75%, increase >50%, etc.) if deemed meaningful. [Note that, the BOR is defined the best response from first dose of IMP to the initiation of anti-cancer therapy.] CONFIDENTIAL 106
+
+--- Page 108 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The following figures will have similar layout as Figure 14.2.4.1.1: Figure 14.2.4.1.2 Sensitivity Analysis of Maximum Percent Change in Tumor Burden by Best Overall Response(RECIST v1.1) Efficacy Analysis Set [Note that, this sensitivity analysis considering BOR as from first dose of IMP to the first radiologic progressive disease or initiation of anti-cancer therapy.] Figure 14.2.4.2 Maximum Percent Change in Tumor Burden by Best Overall Response(irRECIST v1.1) Efficacy Analysis Set Programming note: includes all Phase 2 subjects, separated by tumor types: NSCLC SQ, NSCLC NSQ PD-L1 non-expressing, Ovarian, CRC, SCCHN, HCC, Pancreatic cancer types.
+
+One cancer type is plotted on one page.
+
+For each cancer type, calculate the maximum % change of tumor burden from baseline, different color bar indicates patient’s best overall response of CR, PR, or Non CR/PR.
+
+Additional symbols may be added to indicate threshold of increase/decrease (e.g., decrease >75%, increase >50%, etc.) if deemed meaningful.
+
+CONFIDENTIAL 107
+
+--- Page 109 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.1.1 Disposition - End of Treatment Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Informed First Dose Date/ End of Treatment Subject Consent Date Cancer Type Last Dose Date [1] Date Reason for Study Drug Discontinuation xxx-xxx YYYY-MM-DD Liver YYYY-MM-DD/ YYYY-MM-DD Subject withdrawal of consent: YYYY-MM-DD withdrew from study xxx-xxx YYYY-MM-DD Renal Cell YYYY-MM-DD/ YYYY-MM-DD Objective disease progression YYYY-MM-DD xxx-xxx YYYY-MM-DD Sarcoma YYYY-MM-DD/ YYYY-MM-DD Clinical disease progression YYYY-MM-DD xxx-xxx YYYY-MM-DD Other: xxxx YYYY-MM-DD/ YYYY-MM-DD Investigator discretion: Subject was YYYY-MM-DD non-compliant xxx-xxx YYYY-MM-DD Thyroid YYYY-MM-DD/ YYYY-MM-DD YYYY-MM-DD … Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] First dose date/last dose date of the study drug.
+
+CONFIDENTIAL 108
+
+--- Page 110 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.1.2 Disposition - End of Study Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Date of Study Subject Cancer Type Termination Reason for Study Termination Date of Death xxx-xxx Liver YYYY-MM-DD Subject withdrawal of consent xxx-xxx Renal Cell YYYY-MM-DD Lost to Follow-up xxx-xxx Sarcoma YYYY-MM-DD Subject died: [Cause of death] YYYY-MM-DD xxx-xxx Other: xxxx YYYY-MM-DD Lost to Follow-up xxx-xxx Thyroid YYYY-MM-DD Lost to Follow-up Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 109
+
+--- Page 111 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.1.3 Disposition – Screen Failure Subject Reason for Screen Failure [Did not meet inclusion/exclusion criteria] [Withdrew consent] xxx-xxx [Other: xxx] xxx-xxx xxx-xxx xxx-xxx xxx-xxx CONFIDENTIAL 110
+
+--- Page 112 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.2.1 Protocol Deviations Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Cancer Subject Type Category Description Type Occurrence Date Action Taken xxx-xxx Liver xxxxxxxxxxxx xxxxxxxxxxxx Minor YYYY-MM-DD xxxxxxxxxxxxxxxxxxxxxx Renal xxxxxxxxxxxx xxxxxxxxxxxx Major YYYY-MM-DD xxxxxxxxxxxxxxxxxxxxxx xxx-xxx Cell xxx-xxx Sarcoma xxxxxxxxxxxx xxxxxxxxxxxx xxxxx YYYY-MM-DD xxxxxxxxxxxxxxxxxxxxxx Other: xxxxxxxxxxxx xxxxxxxxxxxx YYYY-MM-DD xxxxxxxxxxxxxxxxxxxxxx xxx-xxx xxxx xxx-xxx Thyroid xxxxxxxxxxxx xxxxxxxxxxxx YYYY-MM-DD xxxxxxxxxxxxxxxxxxxxxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 111
+
+--- Page 113 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.2.2 Inclusion/Exclusion Criteria Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Inc.
+
+Criteria Exc.
+
+Criteria Subject Protocol Amendment Not Met Met xxx-xxx aaa xxx-xxx xxx-xxx xx, xx xxx-xxx xxx-xxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+Programming note: Print a cover page for this listing where all inclusion and exclusion criteria (Full text) will be printed.
+
+In the body of the listing, only the numbers for the criteria will be displayed.
+
+The cover page for the listing contains the following information with the following template.
+
+Protocol Additional Additional Criteria Version No.
+
+Description Category No.
+
+Criteria Amendment 1 INCLUSION I01 Subject is age 18 years or older CONFIDENTIAL 112
+
+--- Page 114 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.3 Analysis Population Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Excluded from Reasons for Exclusion from Subject Cancer Type Analysis Set Analysis Set xxx-xxx Liver Safety xxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxx-xxx Renal Cell Efficacy xxxxxxxxxxxxxxxxxxxxxxxxxxxxx xxx-xxx Sarcoma Pharmacokinetic xxxxxxxxxxxxxxxxxxxxxxxxxxxxx Continue Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+Note: all enrolled subjects were treated and included in both safety analysis set and efficacy analysis set.
+
+CONFIDENTIAL 113
+
+--- Page 115 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.1 Demographics Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Baseline Age Child-bearing Height Weight Tobacco # of PackSubject Cancer Type (yrs)[1] Gender potential [2] Race Ethnicity (cm) (kg) [3] Use Years xxx-xxx Liver xx Male xxxxxxxxx xxxxxxx xxx xxx.x Renal Cell xx Female No Other: xxxxxxxx xxx xxx.x xxx-xxx xxxxxxxxx xxx-xxx Sarcoma xx Male xxxxxxxxx xxxxxxx xxx xxx.x xxx-xxx Other: xxxx xx Male xxxxxxxxx xxxxxxx xxx xxx.x Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Age at informed consent. [2] For Female only. [3] Baseline is defined as the last measurement obtained prior to the first dose of the study drug.
+
+CONFIDENTIAL 114
+
+--- Page 116 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.2 Cancer Disease History Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Date of Date of First First Presentation Date of Recurrence with Distant Initial or Local Metastatic ALK MSI Cancer Location of Diagnosis Advancement Disease Stage at EGFR RearrangHPV (Assay: Subject Type Primary Tumor (Months [1]) (Months [1]) (Months [1]) Enrollment ECOG Mutation ement Infection Result) YYYY-MM-DD YYYY-MM-DD xxx-xxx Liver xxx (xx) (xx) Metastatic x xxx xxx xxx xxx Renal YYYY-MM-DD xxx-xxx Cell xxx YYYY-MM (xx*) (xx) Metastatic x xxx xxx xxx xxx YYYY-MM-DD YYYY-MM xxx-xxx Sarcoma xxx (xx) (xx*) Metastatic x xxx xxx xxx xxx Other: YYYY-MM-DD YYYY-MM-DD Locally xxx-xxx xxxx xxxx (xx) (xx) advanced x xxx xxx xxx xxx YYYY-MM-DD YYYY-MM-DD xxx-xxx Thyroid xxxx (xx) (xx) Metastatic xxx xxx xxx xxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Months = (Date of the First Dose – Date of Initial Diagnosis/Date of Local Advancement/Metastatic Disease + 1)/30.4.
+
+If the month and year of the diagnosis date are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, then the missing month and day are imputed as July 1 for the calculation. * Months calculation is based on imputed diagnosis date.
+
+CONFIDENTIAL 115
+
+--- Page 117 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.3 Oncogene Assessment Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Subject Cancer Type Date of Assessment Assessment Type Result xxx-xxx Liver YYYY-MM-DD KRAS xxx-xxx Renal Cell YYYY-MM xxx-xxx Sarcoma YYYY-MM-DD xxx-xxx Other: xxxx YYYY-MM-DD xxx-xxx Thyroid YYYY-MM-DD Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 116
+
+--- Page 118 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.4 Medical History Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Cancer Any Medical Subject Type History? Condition/Diagnosis Start Date Ongoing? xxx-xxx Liver Yes xxxxxxxxxxxxxxxx YYYY-MM No Renal xxx-xxx Cell No xxx-xxx Sarcoma Yes xxxxxxxxxxxxxxxxxxx YYYY No Other: xxx-xxx xxxx Yes xxxxxxxxxxxxxxxx YYYY-MM-DD Yes xxx-xxx Thyroid Yes xxxxxxxxxxxxxxxxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 117
+
+--- Page 119 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.5 Prior Cancer Therapy Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Any Prior Cancer Cancer Start Date/ Reason for Subject Type Therapy? Regimen: Preferred Term (Drug) Stop Date Discontinuation Best Response YYYY-MM/ xxx-xxx Liver Yes A:xxxxxxxxxxxxxxxx YYYY-MM Progression YYYY-MM-DD/ A:xxxxxxxxxxxxxx YYYY-MM-DD Progression Stable Disease xxx-xxx Renal Cell No YYYY/ xxx-xxx Sarcoma Yes A:xxxxxxxxxxxxxxxxxxx - Toxicity Stable Disease Completed Other: YYYY-MM-DD/ Planned xxx-xxx xxxx Yes A:xxxxxxxxxxxxxxxx YYYY-MM-DD Treatment Stable Disease YYYY-MM-DD/ B:xxxxxxxxxxxxxxxxx YYYY-MM-DD Other: xxx Not Applicable Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). - = Not available.
+
+Note: WHO Drug Dictionary (September, 2015) was used for coding.
+
+CONFIDENTIAL 118
+
+--- Page 120 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.6 Prior Cancer Surgery Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Any Prior Subject Cancer Type Cancer Surgery? Surgery Surgery Date xxx-xxx Liver Yes Biopsy YYYY-MM-DD xxx-xxx Renal Cell No xxx-xxx Sarcoma Yes Metastatic Site Resection YYYY-MM xxx-xxx Other: xxxx Yes Other: xxxxxx YYYY-MM-DD xxx-xxx Thyroid Yes Primary Resection YYYY Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 119
+
+--- Page 121 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.7 Prior Cancer Radiation Therapy Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Any Prior Cancer Start Date/ Subject Cancer Type Radiation Therapy? Radiation Site Location Stop Date YYYY-MM/ xxx-xxx Liver Yes Lung YYYY-MM xxx-xxx Renal Cell No YYYY/ xxx-xxx Sarcoma Yes Peritoneal - YYYY-MM-DD/ xxx-xxx Other: xxxx Yes Head and Neck YYYY-MM-DD YYYY-MM-DD/ xxx-xxx Thyroid Yes Lung YYYY-MM-DD Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). - = Not available.
+
+CONFIDENTIAL 120
+
+--- Page 122 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.8 Other Prior Cancer Therapy Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Any Other Prior Other Type of Start Date/ Subject Cancer Type Cancer Therapy? Therapy Therapy Site Location Stop Date YYYY-MM/ xxx-xxx Liver Yes Laser Treatment Lung YYYY-MM xxx-xxx Renal Cell No YYYY/ xxx-xxx Sarcoma Yes Other: xxxxx Peritoneal - YYYY-MM-DD/ xxx-xxx Other: xxxx Yes Other: xxxxx Head and Neck YYYY-MM-DD Intralesion YYYY-MM-DD/ xxx-xxx Thyroid Yes Injection Lung YYYY-MM-DD Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). - = Not available.
+
+CONFIDENTIAL 121
+
+--- Page 123 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.9 Post Treatment Discontinuation Cancer Therapy Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Any Post Treatment Discontinuation Start Date (Days Subject Cancer Type Cancer Therapy? Regimen: Preferred Term (Drug) [1]) xxx-xxx Liver Yes xxxxxxxxxxxxxxxx YYYY-MM-DD (xx) xxx-xxx Renal Cell No xxx-xxx Sarcoma Yes xxxxxxxxxxxxxxxxxxx YYYY-MM (xx*) xxx-xxx Other: xxxx Yes xxxxxxxxxxxxxxxx YYYY-MM-DD (xx) xxx-xxx Thyroid Yes xxxxxxxxxxxxxxxxx YYYY-MM-DD (xx) Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Post treatment discontinuation cancer therapy start date – date of the first dose + 1.
+
+If the month and year of the treatment start are provided but the day is missing, the missing day is imputed as 15.
+
+If only the year is provided, no imputation shall be performed. * Days calculation is based on imputed start date.
+
+Note: WHO Drug Dictionary (September, 2015) was used for coding.
+
+CONFIDENTIAL 122
+
+--- Page 124 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.10 Prior Medication (Excluding Cancer Therapy) Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) VT: Verbatim Term Start Date (Days PT: Preferred Term [1])/ Total Daily Subject Cancer Type ATC: ATC Class Indication Stop Date (Days [1]) Dose (Unit) Frequency/Route VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx [Original: xxxx] YYYY-MM-DD (xx)/ xxx-xxx Liver ATC: xxxxxxxxxxxxxxxxx xxxx YYYY-MM-DD (xx) xxxx (xx) xxxx VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx YYYY-MM (-)/ xxx-xxx Renal Cell ATC: xxxxxxxxxxxxxxxxx xxxx YYYY (-) xxxx (xx) xxxx VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx YYYY-MM-DD (xx)/ xxx-xxx Sarcoma ATC: xxxxxxxxxxxxxxxxx xxx YYYY-MM (-) xxxx (xx) xxxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Date of Start/Stop of Medication - Date of First Dose of the Study Drug (+1 if Start/Stop Date of medication ≥ First Dose Date of the Study Drug). - = Not available. [Original] is in reference to the coded medication preferred terms according to WHO Drug Dictionary without collapsing of terms. [PT] is presenting the collapsed terms, used for summaries. * Medication ended prior to 30 days before the first dose date of the study drug.
+
+Note: WHO Drug Dictionary (September, 2015) was used for coding.
+
+All medications started prior to the first dose date of the study drug are listed.
+
+Medications taken within 30 days of the first dose date of the study drug, and ended prior to the first dose date of the study drug are summarized in the table.
+
+CONFIDENTIAL 123
+
+--- Page 125 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.11 Concomitant Medication (Excluding Cancer Therapy) Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) VT: Verbatim Term PT: Preferred Term Start Date (Days [1])/ Total Daily Subject Cancer Type ATC: ATC Class Stop Date (Days [1]) Dose (Unit) Frequency/Route VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx YYYY-MM-DD (xx)/ xxx-xxx Liver ATC: xxxxxxxxxxxxxxxxx YYYY-MM-DD (xx) xxxx (xx) xxxx VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx YYYY-MM (-)/ xxx-xxx Renal Cell ATC: xxxxxxxxxxxxxxxxx YYYY (-) xxxx (xx) xxxx VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx YYYY-MM-DD (xx)/ xxx-xxx Sarcoma ATC: xxxxxxxxxxxxxxxxx Ongoing xxxx (xx) xxxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Date of Start/Stop of Medication - Date of First Dose of the Study Drug (+1 if Start/Stop Date of medication ≥ First Dose Date of the Study Drug). - = Not available. [Original] is in reference to the coded medication preferred terms according to WHO Drug Dictionary without collapsing of terms. [PT] is presenting the collapsed terms, used for summaries. * Medications started more than 30 days after the last dose date of the study drug.
+
+Note: WHO Drug Dictionary (September, 2015) was used for coding.
+
+All medications that started at any time and were taken at any time after the start of study drug until 30 days after the end of the study drug are summarized in the table.
+
+VT: Verbatim Term PT: Preferred Term Subject Cancer Type ATC: ATC Class Indication Details VT: xxxxxxxxxxxxxx PT: xxxxxxxxxxxxxxxxx Medical History: xxxxxxx xxx-xxx Liver ATC: xxxxxxxxxxxxxxxxx Adverse Events: AE x - xxxxxx CONFIDENTIAL 124
+
+--- Page 126 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.4.12 Prior Steroids and Immune Modulating Medication [Add footnote: * Medication ended prior to 30 days before the first dose date of the study drug.] Listing 16.2.4.13 Concomitant Steroids and Immune Modulating Medication [Add footnote: * Medications started more than 30 days after the last dose date of the study drug.] CONFIDENTIAL 125
+
+--- Page 127 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.5.1 Mogamulizumab Administration Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Infusion Administration Infusion Delay Date/ Interrupt? Interrupt Cancer Start Time - /Pre-vol.
+
+Reason for Time/ Subject Type Cycle Stop Time (mL) Interruption Restart Time Yes/No Reason YYYY-MM-DD/ xxx-xxx Liver xx HH:MM – HH:MM Yes xxxxxxxx HH:MM/HH:MM No YYYY-MM-DD/ xx HH:MM – HH:MM Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). * Subject was not premedicated prior to Mogamulizumab Infusion.
+
+Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Dose Administration Any Infusion Reaction Assigned Reason for not Following the Cancer Weight Level Actual Dose Actual Volume Administering End of This Subject Type Cycle (kg) (mg/kg) Admin (mg) (mL) Planned Dose Infusion? xxx-xxx Liver xx xx.x xx.x xxx.x xxx.x xx xx.x xx.x xxx.x xxx.x xxxxxxxxxxxxxx xx xx.x xx.x xxx.x xxx.x Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). * Subject was not premedicated prior to Mogamulizumab Infusion.
+
+CONFIDENTIAL 126
+
+--- Page 128 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.5.2 Nivolumab Administration Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Infusion Administration Infusion Delay Date/ Interrupt Interrupt Cancer Start Time - /Pre-vol.
+
+Reason for Time/ Subject Type Cycle Stop Time (mL) Interruption Restart Time Yes/No Reason YYYY-MM-DD/ xxx-xxx Liver xx HH:MM – HH:MM Yes xxxxxxxx HH:MM/HH:MM No YYYY-MM-DD/ xx HH:MM – HH:MM Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Dose Administration Any Infusion Actual Reason for not Reaction Following Cancer Weight Actual Dose Volume Administering the End of This Subject Type Cycle (kg) Admin (mg) (mL) Planned Dose Infusion? xxx-xxx Liver xx xx.x xxx.x xxx.x xx xx.x xxx.x xxx.x xxxxxxxxxxxxxx xx xx.x xxx.x xxx.x Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 127
+
+--- Page 129 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.5.3 Extent of Exposure, Cumulative Dose and Relative Dose Intensity Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Relative Extent of Cumulative Dose Cancer First Dose Last Dose Exposure Assigned Cumulative Intensity Subject Type Study Drug Infusion Infusion (days) Dose Actual Dose (%) xxx-xxx Liver Mogamulizumab (mg/kg) YYYY-MM-DD YYYY-MM-DD xxx xx.x xx.x xx.x Nivolumab (mg) YYYY-MM-DD YYYY-MM-DD xxx xx.x xx.x xx.x Renal xxx-xxx Cell xxxxxxxxxxxxx YYYY-MM-DD YYYY-MM-DD xxx xx.x xx.x xx.x xxxxxxxxxxxxx YYYY-MM-DD YYYY-MM-DD xxx xx.x xx.x xx.x ...
+
+Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 128
+
+--- Page 130 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.6.1 Tumor Assessment Details Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Tumor Lesion Lesion Response Length (mm)/ NonCancer Image Date Assessment Target Subject Type Cycle (Days [1]) Lesion Type No.
+
+Site Method Response RECIST[2,3] irRECIST xxx-xxx Liver Baseline YYYY-MM-DD (xx) Target 1 xxxx xxxx xxx 2 xxxx xxxx xxx 3 xxxx xxxx xxx Sum xxx Non-Target 1 xxxx xxxx Cycle 3/ Day 15 YYYY-MM-DD (xx) Target 1 xxxx xxxx xxx 2 xxxx xxxx xxx 3 xxxx xxxx xxx Sum xxx Non-Target 1 xxxx xxxx AAAA New No Overall Response PR PR … Cycle 12/ Day 1 YYYY-MM-DD (xx) Target 1 xxxx xxxx xxx 2 xxxx xxxx xxx 3 xxxx xxxx xxx Sum xxx Non-Target 1 xxxx xxxx AAAA New Yes xxxx xxxx xxx Sum# xxx Overall Response PR PD End of Overall Treatment YYYY-MM-DD (xx) Response PD PD YYYY-MM-DD Progression (xx) First [2]YYYY-MMYYYY-MM-DD CONFIDENTIAL 129
+
+--- Page 131 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Tumor Lesion Lesion Response Length (mm)/ NonCancer Image Date Assessment Target Subject Type Cycle (Days [1]) Lesion Type No.
+
+Site Method Response RECIST[2,3] irRECIST Response DD (xx)/PR (xx)/PR [3]YYYY-MMDD (xx)/PR Best Overall [2]YYYY-MMYYYY-MM-DD Response DD (xx)/PR (xx)/PR [3]YYYY-MMDD (xx)/PR Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Date of Image - Date of the First Dose (+1 if Date of Image ≥ Date of the First Dose). [2] Best overall response is defined as the best response designation recorded between the date of first dose of investigational medical product (IMP) and the date of subsequent anti-cancer therapy (excluding on-treatment palliative radiotherapy of non-target bone or CNS lesions). [3] Sensitivity endpoint of Best overall response is defined as the best response designation recorded between the date of first dose of investigational medical product (IMP) to the first radiological disease progression or initiation of subsequent therapy, whichever occurred earlier. # Sum of existing and new target lesions. - = Not available.
+
+CR = Complete response; PR = Partial response; SD = Stable disease; PD = Progressive disease; UP = Unequivocal progressive disease.
+
+Note: The date of overall response will be determined based on the image dates.
+
+In the event that there are images taken on different days, the latest date among all images taken will be used for the response date if the overall response is non-PD.
+
+If the overall response is PD, then the earliest date of all images taken will be used for the progression date.
+
+CONFIDENTIAL 130
+
+--- Page 132 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.6.2.1 Progression-Free Survival (PFS) Per RECIST and Overall Survival (OS) Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Progressive Disease?/ Death?/ Date of Last Date Last Date of Date of Date of Post Tumor PFS Known OS Cancer Date of Progression Death Treatment AntiAssessment (Days Alive (Days Subject Type First Dose (Days [1]) (Days [1]) Cancer Therapy (Days [1]) [1]) (Days[1]) [1]) Yes/ Yes/ YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD xxx-xxx Liver YYYY-MM-DD (xx) (xx) YYYY-MM-DD (xx) xxx (xx) xxx + Renal YYYY-MM-DD xxx-xxx Cell YYYY-MM-DD No No YYYY-MM-DD xxx + (xx) xxx Yes/ YYYY-MM-DD YYYY-MM-DD xxx-xxx Sarcoma YYYY-MM-DD (xx) No YYYY-MM-DD YYYY-MM-DD xxx (xx) xxx Yes/ YYYY-MM-DD YYYY-MM-DD xxx-xxx Lung YYYY-MM-DD No (xx) YYYY-MM-DD xxx (xx) xxx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). + = censored observation; PFS = Progression Free Survival; OS = Overall Survival. [1] Days = Date of specified event/assessment – Date of first dose + 1.
+
+Note: Date of Last Tumor Assessment is the last tumor assessment prior to the start of post treatment anti-cancer therapy.
+
+Programming note: Column of “Date of Last Tumor Assessment” is only applicable for patients who did not have progressive disease or die; column of “Date Last Known Alive” is only applicable for patients who did not die.
+
+CONFIDENTIAL 131
+
+--- Page 133 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.6.3.1 Time to Response and Duration of Response Per RECIST Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) First Progressive Date of Post Days [1] Response/ Disease?/ Death?/ Treatment Date of Last Cancer Date of Date of Date of Date of Anti-Cancer Tumor Subject Type First Dose Response Progression Death Therapy Assessment TTR DOR CR/ Yes/ Yes/ xxx-xxx Liver YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD xxx xxx Renal SD/ xxx-xxx Cell YYYY-MM-DD YYYY-MM-DD No No YYYY-MM-DD PR/ xxx-xxx Sarcoma YYYY-MM-DD YYYY-MM-DD No No YYYY-MM-DD YYYY-MM-DD xxx xxx+ PD/ Yes/ Yes/ xxx-xxx Lung YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). + = censored observation; TTR = Time to Response; DOR = Duration of Response. [1] Days (TTR) = Date of first response – Date of first dose + 1; or Days (DOR) = Date of PD/Death/Last Tumor Assessment – Date of response + 1.
+
+Note: Date of Last Tumor Assessment is the last tumor assessment prior to the start of post treatment anti-cancer therapy.
+
+Programming note: Column of “Date of Last Tumor Assessment” is only applicable for patients who did not have progressive disease or die.
+
+The following listings will have similar layout as Listing 16.2.6.3.1: Listing 16.2.6.3.2 Time to Response and Duration of Response Per RECIST (Excluding Tumor Responses after First Progressive Disease) CONFIDENTIAL 132
+
+--- Page 134 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.6.4 Tumor Biopsy Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Date of Cancer Date of Collection Accession Biopsy Type of Type of Was Additional Subject Type First Dose Cycle (Days [1]) Number Location Sample Procedure Sample Collected? YYYY-MM-DD xxx-xxx Liver YYYY-MM-DD Screening (xx) xxxxxx aaaa Archive Resection Cycle YYYY-MM-DD 3/Day 15 (xx) xxxxxx aaaa Fresh aaa Yes YYYY-MM-DD … (xx) Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Date of Collection – Date of First Dose of the Study Drug (+1 if Date of Collection ≥ First Dose Date of the Study Drug).
+
+CONFIDENTIAL 133
+
+--- Page 135 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.7.1 Adverse Events Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Start Date Time/Day [1] VT: Verbatim Term Stop Date Start PT: MedDRA Time/Day Cycle/ Preferred Term [1] Cycle Relationship Action Taken Subject Cancer SOC:System Organ Duration Day Time CTCAE Mogamulizumab/ Mogamulizumab/ Outcome/ (Age/Gender) Type Class (days) [2] [1] Point Grade Serious Nivolumab Nivolumab/Treated? DLT? xxx-xxx Lung VT: YYYY-MMxx/xx DMI x No NR/ NN/ REC/ (xx/F) xxxxxxxxxxxxxxxx* DD/xx NR NR/No No PT: xxxxxx YYYY-MMSOC: xxxxxx DD/xx xx VT: YYYY-MMxx/xx PTM x No R/ DR/ NREC/ xxxxxxxxxxxxxxxx DD/xx NR NN/Yes Yes PT: xxxxxx YYYY-MMSOC: xxxxxx DD/xx xx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Day = Start/Stop date of adverse event – First dose date of the study drug (+1 if Start/Stop Date ≥ First dose date of the study drug); Cycle Day = Start date of adverse event – closest prior cycle Day 1 + 1. [2] Duration = Stop date of adverse event – Start date of adverse event + 1.
+
+Time point: NOI = N/A; PNI = Pre-Nivolumab Infusion; DNI = During Nivolumab Infusion; PTN = Post Nivolumab Infusion; PMI = PreMogamulizumab Infusion; DMI = During Mogamulizumab Infusion; PTM = Post Mogamulizumab Infusion; UNK = Unknown.
+
+CTCAE Grade: 1 = Grade 1 (Mild); 2 = Grade 2 (Moderate); 3 = Grade 3 (Severe or Disabling); 4 = Grade 4 (Life-threatening); 5 = Grade 5 (Death).
+
+Relationship: NR = Not Related; R = Related.
+
+Action Taken: NN = None; DW = Drug Withdrawn; DR = Decrease Infusion Rate; DI = Dose Interrupted/Delayed; PA = Prior to Administration of SD/IP.
+
+Outcome: REC = Recovered/Resolved; NREC = Not Recovered/Not Resolved; RECS = Recovered/Resolved with Sequelae; RRC = Recovering/Resolving; FAT = Fatal; UNK = Unknown. * Non-treatment emergent event; Note: MedDRA Version 18.1 was used for coding.
+
+CONFIDENTIAL 134
+
+--- Page 136 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The following listings will have similar layout as Listing 16.2.7.1: Listing 16.2.7.2 Mogamulizumab or Nivolumab-related Adverse Events Listing 16.2.7.3 Grade >=3 Adverse Events Listing 16.2.7.4 Serious Adverse Events (SAEs) Listing 16.2.7.5 Adverse Events Leading to Discontinuation of Mogamulizumab or Nivolumab Listing 16.2.7.6 Fatal Adverse Events Listing 16.2.7.7 Infusion Reaction Adverse Events CONFIDENTIAL 135
+
+--- Page 137 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.8.1 Laboratory Assessment – Chemistry Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Cancer Normal Range Sample Date (Days CTCAE Subject Type Lab Test (Unit) Low-High Cycle [1]) Lab Value Flag Grade xxx-xxx Lung xxxxxxxxxxxxxxxx xx.x – xx.x xx YYYY-MM-DD (xx) xx.x B xx YYYY-MM-DD (xx) xx.x H 2 xx YYYY-MM-DD (xx) xx.x xx YYYY-MM-DD (xx) xx.x H 3 Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+B = Baseline record; H = above upper limit of normal reference range; L = below lower limit of normal reference range. [1] Days = Sample Date – Date of first dose (+ 1 if Sample date >= Date of first dose).
+
+Note: CTCAE grade is assigned for parameters based on NCI CTCAE criteria (version 4.03).
+
+Grade 0 indicates values that do not satisfy CTC abnormality criteria.
+
+Note: For values preceded by a < or > sign, the sign is removed and the value alone is used in the summary tables CONFIDENTIAL 136
+
+--- Page 138 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 The following listings will have similar layout as Listing 16.2.8.1: Listing 16.2.8.2 Laboratory Assessment – Hematology Listing 16.2.8.3 Laboratory Assessment – Coagulation Profile Listing 16.2.8.4 Laboratory Assessment – Thyroid Function Test CONFIDENTIAL 137
+
+--- Page 139 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.8.5 Laboratory Assessment – Urinalysis Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Subject Cancer Type Lab Test Cycle Sample Date (Days [1]) Lab Value xxx-xxx Lung xxxxxxxxxxxxxxxx xx YYYY-MM-DD (xx) xx.x xx YYYY-MM-DD (xx) xx.x xx YYYY-MM-DD (xx) xx.x xx YYYY-MM-DD (xx) xx.x Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Sample Date – First dose date of the study drug (+ 1 if Sample date >= First dose date of the study drug).
+
+CONFIDENTIAL 138
+
+--- Page 140 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.8.6 Laboratory Assessment – Pregnancy Test Treatment = Phase 1 Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Subject Cancer Type Type of Test Cycle Sample Date (Days [1]) Lab Value xxx-xxx Lung Serum xx YYYY-MM-DD (xx) xx.x Urine xx YYYY-MM-DD (xx) xx.x Urine xx YYYY-MM-DD (xx) xx.x Urine xx YYYY-MM-DD (xx) xx.x Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Sample Date – First dose date of the study drug (+ 1 if Sample date >= First dose date of the study drug).
+
+Programming note: Based on the data collection, there are some patients with false positive pregnancy tests.
+
+Add a footnote like “Note: Subjects xxx-xxx, xxx-xxx had positive pregnancy tests which are false positive due to central lab testing being more sensitive and certain tumor types produced higher HCG levels.” CONFIDENTIAL 139
+
+--- Page 141 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.8.7 Laboratory Assessment – Virology Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Subject Cancer Type Lab Test Cycle Sample Date (Days [1]) Lab Value xxx-xxx Lung aaaa xx YYYY-MM-DD (xx) Negative bbb Xx YYYY-MM-DD (xx) cccccc Xx YYYY-MM-DD (xx) ddddd xx YYYY-MM-DD (xx) Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Sample Date – First dose date of the study drug (+ 1 if Sample date >= First dose date of the study drug).
+
+CONFIDENTIAL 140
+
+--- Page 142 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.9.1 Vital Signs Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Start/Stop Start/Stop Date/Time of Pulse Rate Subjec Cancer (Nivolumab (Mogamulizumab Cycle/ Collection TemperSystolic Diastolic (beats/min t Type ) ) Time Point (Days [1]) ature (C) BP (mmHg) BP (mmHg) ) xxxYYYY-MM-DD (xx) xxx Liver Screening HH:MM xxB xx xx xx YYYY-MM-DD YYYY-MM-DD HH:MM/ HH:MM/ YYYY-MM-DD YYYY-MM-DD Cycle 1 Day 1/ YYYY-MM-DD (xx) HH:MM HH:MM POIN HH:MM xx xxB xxB xxB Cycle 1 Day 1/ YYYY-MM-DD (xx) EOIN HH:MM xx xx xx xx Cycle 1 Day 1/ YYYY-MM-DD (xx) POIM HH:MM xx xx xx xx Cycle 1 Day 1/ YYYY-MM-DD (xx) DOIM HH:MM xx xx xx xx Cycle 1 Day 1/ YYYY-MM-DD (xx) EOIM HH:MM xx xx xx xx Cycle 1 Day 1/ YYYY-MM-DD (xx) POIM HH:MM xx xx xx xx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+B = Baseline Record; PNI = Prior to Nivolumab Infusion; ENI = End of Nivolumab Infusion; PMI = Prior to Mogamulizumab Infusion; DMI = During Mogamulizumab Infusion; EMI = End of Mogamulizumab Infusion; PTM = Post Mogamulizumab Infusion. [1] Days = Date of Collection – Date of First Dose of the Study Drug (+1 if Date of Collection ≥ First Dose Date of the Study Drug).
+
+CONFIDENTIAL 141
+
+--- Page 143 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.10.1 Electrocardiogram Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Cycle/ Date/Time of Heart Cancer Start/Stop Time Collection RR Rate QT QTcF QTcB Overall Subject Type Study Drug Point (Days [1]) (msec) (bpm) (msec) (msec) (msec) Interpretation YYYY-MM-DD Screenin (xx) xxx-xxx Liver g HH:MM xx xx xx xx xx Normal YYYY-MM-DD (xx) HH:MM xx xx xx xx xx Normal YYYY-MM-DD (xx) HH:MM xx xx xx xx xx Normal xx xx xx xx xx Average YYYY-MM-DD HH:MM/ YYYY-MM-DD Abnormal, Not YYYY-MM-DD (xx) Clinically HH:MM xx/POI HH:MM xx xx xx xx xx Significant YYYY-MM-DD Abnormal, Not (xx) Clinically HH:MM xx xx xx xx xx Significant YYYY-MM-DD Abnormal, Not (xx) Clinically HH:MM xx xx xx xx xx Significant xxB xxB xxB xxB xxB Average Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+B = Baseline Record; PNI = Prior to Nivolumab Infusion; PMI = Prior to Mogamulizumab Infusion; DI = During or in-between any IMP Infusions; EMI = End of Mogamulizumab Infusion. [1] Days = Date of Collection – Date of First Dose of the Study Drug (+1 if Date of Collection≥ First Dose Date of the Study Drug).
+
+Note: for QTcB and QTcF: * ≥450, ** ≥480, *** ≥500 msec.
+
+CS = clinically significant, NCS = not clinically significant.
+
+CONFIDENTIAL 142
+
+--- Page 144 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.11.1 Physical Examination Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Cancer Date of Date of Exam Weight Subject Type First Dose Cycle (Days [1]) (kg) Findings xxx-xxx Liver YYYY-MM-DD Screening YYYY-MM-DD (xx) xx.x Normal xx YYYY-MM-DD (xx) xx.x Abnormal, Not Clinically Significant:xxxxx xx YYYY-MM-DD (xx) xx.x Abnormal, Clinically Significant: xxxxxx xxx-xxx Lung YYYY-MM-DD Screening YYYY-MM-DD (xx) xx.x Normal Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Date of Exam – Date of First Dose of the Study Drug (+1 if Date of Exam ≥ First Dose Date of the Study Drug).
+
+CONFIDENTIAL 143
+
+--- Page 145 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.12.1 ECOG Performance Status Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Cancer Date of Date of Evaluation Subject Type First Dose Cycle (Days [1]) Performance Status xxx-xxx Liver YYYY-MM-DD Screening YYYY-MM-DD (xx) 1 aaaa YYYY-MM-DD (xx) 2 aaaa YYYY-MM-DD (xx) 2 xxx-xxx Lung YYYY-MM-DD Screening YYYY-MM-DD (xx) 0 Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Days = Date of Evaluation – Date of First Dose of the Study Drug (+1 if Date of Evaluation ≥ First Dose Date of the Study Drug).
+
+Performance status: 0 - Subject is fully active and able to continue with predisease activities without restrictions. 1 - Subject is restricted from physically strenuous activity but is ambulatory and can perform light or sedentary work. 2 - Subject is ambulatory and performs self-care but is unable to work; subject is up and about for more than 50% of waking hours. 3 - Subject can perform only limited self-care; subject is confined to bed or chair for 50% or more of waking hours. 4 - Subject is completely disabled and unable to carry out any self-care; subject is totally confined to bed or chair. 5 – Dead.
+
+CONFIDENTIAL 144
+
+--- Page 146 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.13.1 PK concentrations of Mogamulizumab Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Last Prior Mogamulizumab Dose Mogamulizumab Dose Time from PK Collection PK Cancer Cycle Date and Time Date Last Dose Date/Time Concentration Subject Type Timepoint (Days [1]) (Days [1]) (Days) (Days [1]) (ng/mL) Cycle 1 Day 1 YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD (xx) xx xxx-xxx Liver (Pre) HH:MM – HH:MM HH:MM (xx) BLQ Cycle 1 Day 1 YYYY-MM-DD (Post) HH:MM (xx) xx Cycle 2 Day 1 YYYY-MM-DD YYYY-MM-DD YYYY-MM-DD (xx) xx (Pre) HH:MM – HH:MM HH:MM (xx) NA Cycle 2 Day 1 YYYY-MM-DD (Post) HH:MM (xx) xx Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+BLQ(Below Limit of Quantification): Concentration <12.5 ng/mL NA: Not applicable because of lack of the sample [1] Days = Date of Evaluation – Date of First Dose of the Study Drug (+1 if Date of Evaluation ≥ First Dose Date of the Study Drug).
+
+Time from last dose of study drug is calculated relative to the PK collection date.
+
+CONFIDENTIAL 145
+
+--- Page 147 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.14.1.1 Anti-Drug Antibody Response to Mogamulizumab by Collection Time Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Assay ADA Sample Sample ADA Status PK Cancer Collected? Date/Time [2] Concentration Subject Type Cycle (Days [1]) Screening Confirmatory (Titer) Neutralizing (ng/mL) xxx-xxx Liver Cycle 1 Day 1 Yes YYYY-MM-DD Negative --- Inconclusive --- 17000 HH:MM (xx) Cycle 2 Day 1 No Cycle x Day 1 Yes YYYY-MM-DD Positive Positive Positive Negative xxx HH:MM(xx) (16) . . 100-110 Days Yes YYYY-MM-DD Negative --- Unknown --- xxx Post Last Dose HH:MM (xx) Follow-up Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+BLQ = Below lower limit of quantification. [1] Days = Sample Date – Date of First Dose of the Study Drug (+1 if Sample Date ≥ First Dose Date of the Study Drug). [2] ADA status is positive when the sample is positive in the confirmatory assay.
+
+ADA status is negative when the sample is negative in the screening assay and the serum mogamulizumab concentration at the same time point is equal to or less than the drug tolerance limit (16000 ng/mL), or the sample is positive in the screening assay and negative in the confirmatory assay.
+
+ADA status is “Inconclusive” when screening result is "Negative" and the PK concentration of mogamulizumab at the corresponding timepoint is above the drug tolerance level of the assay (>16000 ng/mL); if screening result is "Positive", the ADA status is the same as confirmatory result regardless of the PK concentration of mogamulizumab at the corresponding timepoint.
+
+ADA status is “Unknown” when screening result is "Negative" and the PK concentration of mogamulizumab at the corresponding timepoint is unknown.
+
+CONFIDENTIAL 146
+
+--- Page 148 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.14.1.2 Subject Status of Anti-Drug Antibody Response to Mogamulizumab Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Subject Cancer Type Time Point ADA/NAb Status xxx-xxx Liver Baseline Negative Overall Post Baseline Positive Neutralizing Negative Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg).
+
+CONFIDENTIAL 147
+
+--- Page 149 ---
+
+Statistical Analysis Plan Protocol 0761-014 6 December 2018 Listing 16.2.14.2.1 Anti-Drug Antibody Response for Subjects with Infusion Reactions to Mogamulizumab Treatment = Phase 1: Dose finding phase (Mogamulizumab 1 mg/kg + Nivolumab 240 mg) Onset Date Duration Discontinued Assay Positive at Any Time Cancer and Time/ (Days or Dose Subject Type Screening Confirmatory Neutralizing Adverse Event Reported Grade Day [1] [2]) Interrupted? xxx-xxx Liver Yes No No Infusion Reaction 1 YYYY-MM-DD 4 No HH:MM/xx xxxxxxxxx 2 YYYY-MM-DD/xx 2 Yes xxx-xxx Infusion Reaction 1 YYYY-MM-DD/xx 1 No Continue with Expansion phase (Mogamulizumab x mg/kg + Nivolumab 240 mg). [1] Day = Start date of adverse event – First dose date of the study drug (+1 if Start ≥ First dose date of the study drug) [2] Duration = Stop date of adverse event – Start date of adverse event + 1.
+
+Note: Infusion reactions are identified by the preferred term infusion related reaction, regardless of the investigator assessment of relationship to study drug.
+
+CONFIDENTIAL 148

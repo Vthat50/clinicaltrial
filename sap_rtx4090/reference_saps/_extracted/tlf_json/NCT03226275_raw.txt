@@ -1,0 +1,373 @@
+Looking at this Statistical Analysis Plan (SAP) for a bioequivalence crossover study, I'll extract the required information:
+
+```json
+{
+  "study_facts": {
+    "therapeutic_area": "cardiology",
+    "phase": "Phase 1",
+    "design_type": "bioequivalence",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": false,
+    "has_qol": false,
+    "treatment_periods": ["Period 1", "Period 2"],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Subject Disposition",
+      "population": "Screening",
+      "section": "12.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics",
+      "population": "Safety",
+      "section": "13.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "Safety",
+      "section": "13.2", 
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Other Baseline Characteristics",
+      "population": "Safety",
+      "section": "13.3",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Previous and Concomitant Medications",
+      "population": "Safety",
+      "section": "14",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Exposure",
+      "population": "Safety",
+      "section": "15",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Primary PK Parameters Summary",
+      "population": "PK",
+      "section": "16.1",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Secondary PK Parameters Summary",
+      "population": "PK", 
+      "section": "16.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "PK Concentration Summary",
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Treatment-Emergent Adverse Events",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "AEs by SOC and PT",
+      "population": "Safety",
+      "section": "17.1.1", 
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "AEs Leading to Discontinuation",
+      "population": "Safety",
+      "section": "17.1.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Deaths",
+      "population": "Safety",
+      "section": "17.1.3",
+      "type": "ae_death",
+      "conditional": true
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety", 
+      "section": "17.1.4",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Summary - Hematology",
+      "population": "Safety",
+      "section": "17.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Summary - Biochemistry",
+      "population": "Safety",
+      "section": "17.2", 
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Summary - Urinalysis",
+      "population": "Safety",
+      "section": "17.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Shift Tables",
+      "population": "Safety",
+      "section": "17.2",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs Summary",
+      "population": "Safety",
+      "section": "17.3",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "ECG Summary",
+      "population": "Safety", 
+      "section": "17.4",
+      "type": "ecg",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Mean Plasma Concentration vs Time - Linear Scale",
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Mean Plasma Concentration vs Time - Semi-log Scale", 
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual Plasma Concentration vs Time - Linear Scale",
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual Plasma Concentration vs Time - Semi-log Scale",
+      "population": "PK", 
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Spaghetti Plots - Linear Scale",
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Spaghetti Plots - Semi-log Scale",
+      "population": "PK",
+      "section": "16.3.1", 
+      "type": "pk_concentration",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Subject Disposition",
+      "population": "Screening",
+      "section": "12.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Protocol Deviations",
+      "population": "Safety",
+      "section": "12.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Baseline Characteristics",
+      "population": "Safety", 
+      "section": "13",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "Safety",
+      "section": "13.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Previous and Concomitant Medications",
+      "population": "Safety",
+      "section": "14",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Drug Administration",
+      "population": "Safety",
+      "section": "15",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "PK Concentrations",
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration", 
+      "conditional": false
+    },
+    {
+      "title": "PK Sample Collection Times",
+      "population": "PK",
+      "section": "16.3.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual PK Parameters",
+      "population": "PK",
+      "section": "16.3.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Phoenix WinNonlin NCA Core Output",
+      "population": "PK",
+      "section": "16.3.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "All Adverse Events",
+      "population": "Safety",
+      "section": "17.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "AEs Leading to Discontinuation", 
+      "population": "Safety",
+      "section": "17.1.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Deaths",
+      "population": "Safety",
+      "section": "17.1.3", 
+      "type": "ae_death",
+      "conditional": true
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety",
+      "section": "17.1.4",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Results",
+      "population": "Safety",
+      "section": "17.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Abnormal Laboratory Values",
+      "population": "Safety", 
+      "section": "17.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs",
+      "population": "Safety",
+      "section": "17.3",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Marked Abnormal Vital Signs",
+      "population": "Safety",
+      "section": "17.3",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "ECG Results",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Marked Abnormal ECG Values",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "ecg", 
+      "conditional": false
+    },
+    {
+      "title": "Physical Examinations",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Chest X-ray Results",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Screening Failures",
+      "population": "Screening",
+      "section": "12.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Visit Dates",
+      "population": "Safety",
+      "section": "12.1",
+      "type": "other",
+      "conditional": false
+    }
+  ]
+}
+```

@@ -1,0 +1,367 @@
+{
+  "study_facts": {
+    "therapeutic_area": "rheumatology",
+    "phase": "Phase 3",
+    "design_type": "superiority",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": true,
+    "has_qol": true,
+    "qol_instruments": [
+      "HAQ-DI",
+      "RAID",
+      "WPAI:RA"
+    ],
+    "treatment_periods": [
+      "Screening",
+      "Lead-in Phase",
+      "24-week Tapering Phase",
+      "Safety Follow-up"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Patient Disposition",
+      "population": "All Enrolled",
+      "section": "14.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Baseline Characteristics",
+      "population": "ITT",
+      "section": "14.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "ITT",
+      "section": "14.1",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Disease Characteristics at Baseline",
+      "population": "ITT",
+      "section": "14.1",
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Prior RA Therapy",
+      "population": "ITT",
+      "section": "14.1",
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Medications",
+      "population": "ITT",
+      "section": "14.1",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Study Drug Exposure",
+      "population": "Safety",
+      "section": "14.1",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Primary Efficacy Analysis - Change in DAS28 ESR from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Key Secondary Efficacy Analysis - Proportion of Patients with LDA without RA Flare and without Confirmed Adrenal Insufficiency at Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Change in CDAI from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Change in SDAI from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "RA Flare Events",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "RA Flare Rescue Medication Administration",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Cumulative Prednisone Exposure",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Maintenance of Low Disease Activity",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Study Treatment Discontinuation due to Insufficient RA Flare Control",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Change in ACR Core Set Components from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Overview of Adverse Events",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Most Common Adverse Events",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_common",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Leading to Treatment Discontinuation",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events of Special Interest",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Deaths",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Values Summary",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Abnormalities by CTCAE Grade",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "labs_ctcae",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs Summary",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Adrenal Insufficiency",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Immunogenicity Assessment",
+      "population": "Safety",
+      "section": "14.3",
+      "type": "immunogenicity",
+      "conditional": true
+    },
+    {
+      "title": "Change in HAQ-DI from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Change in RAID Score from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Change in WPAI:RA from Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Predictors of Successful Prednisone Tapering",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Bone Turnover Biomarkers",
+      "population": "Biomarker Subset",
+      "section": "14.4",
+      "type": "other",
+      "conditional": true
+    },
+    {
+      "title": "RA Biology and TCZ Biology Biomarkers",
+      "population": "Biomarker Subset",
+      "section": "14.4",
+      "type": "other",
+      "conditional": true
+    },
+    {
+      "title": "Change in HOMA1 - Lead-in Phase",
+      "population": "TCZ-Naive Track",
+      "section": "14.4",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Change in HOMA1 - Randomization to Week 24",
+      "population": "ITT",
+      "section": "14.4",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Patient Disposition Flow Chart",
+      "population": "All Enrolled",
+      "section": "14.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Time to First RA Flare - Kaplan-Meier Plot",
+      "population": "ITT",
+      "section": "14.2",
+      "type": "km_plot",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Demographics and Baseline Characteristics",
+      "population": "All Enrolled",
+      "section": "16.2",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "All Enrolled",
+      "section": "16.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Medications",
+      "population": "All Enrolled",
+      "section": "16.2",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Protocol Deviations",
+      "population": "All Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events of Special Interest",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Deaths",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory Data",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "vitals",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT02573012",
+  "_area": "Rheumatology"
+}

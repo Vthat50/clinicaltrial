@@ -1,0 +1,34 @@
+Looking at this NSABP B-47 Statistical Analysis Plan, I need to extract all specified tables, figures, and listings. However, this document appears to be the main protocol rather than the statistical analysis plan, as it contains primarily clinical trial methodology, treatment regimens, and safety monitoring procedures.
+
+Based on my review of the document, I can extract the following information:
+
+```json
+{
+  "study_facts": {
+    "therapeutic_area": "oncology",
+    "phase": "Phase 3",
+    "design_type": "superiority", 
+    "has_central_review": true,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": false,
+    "treatment_periods": ["chemotherapy", "trastuzumab maintenance"],
+    "num_arms": 2
+  },
+  "tables": [],
+  "figures": [],
+  "listings": []
+}
+```
+
+**Explanation**: This document appears to be the main clinical trial protocol (NSABP B-47) rather than a dedicated Statistical Analysis Plan (SAP). While it contains numerous tables and figures describing the study design, treatment regimens, eligibility criteria, and safety monitoring procedures, it does not contain the typical SAP elements such as:
+
+- Disposition tables
+- Demographics and baseline tables  
+- Efficacy analysis tables
+- Safety summary tables
+- Listings specifications
+
+The document includes operational tables (dosing schedules, eligibility criteria, adverse event reporting requirements, etc.) and descriptive figures (schema, biological pathway diagrams, etc.), but these are protocol elements rather than planned statistical outputs.
+
+A true SAP would typically be a separate document that references this protocol and specifies exactly which tables, figures, and listings will be produced for the statistical analysis and regulatory submission. Without access to the actual SAP document, I cannot extract the planned statistical outputs.

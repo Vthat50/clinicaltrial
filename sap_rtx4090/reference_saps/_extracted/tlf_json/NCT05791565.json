@@ -1,0 +1,675 @@
+{
+  "study_facts": {
+    "therapeutic_area": "respiratory",
+    "phase": "Phase 1",
+    "design_type": "descriptive",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": false,
+    "has_qol": false,
+    "treatment_periods": [
+      "Period 1",
+      "Period 2"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Summary of Participant Disposition",
+      "population": "Screened (all participants), and enrolled",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Demographics for Safety Set",
+      "population": "Enrolled",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Summary Statistics of Salbutamol Plasma PK Parameters",
+      "population": "PK",
+      "section": null,
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Statistical Analysis on PK Parameters",
+      "population": "PK",
+      "section": null,
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Summary Statistics of PD Potassium Parameters",
+      "population": "PD",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Statistical Analysis on PD Potassium Parameters",
+      "population": "PD",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary Statistics of PD Heart Rate and QTcF Parameters",
+      "population": "PD",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Statistical Analysis on PD Heart Rate and QTcF Parameters",
+      "population": "PD",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of all TEAEs by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Related TEAEs by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of all TEAEs by Treatment by Relationship to Study Drug",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Summary of all TEAEs by Treatment by Severity",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Participant Treatment Status and Reasons for Discontinuation of Study Treatment",
+      "population": "Safety",
+      "section": "15.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Demographics",
+      "population": "Enrolled",
+      "section": "15.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Major Protocol Deviations",
+      "population": "Safety",
+      "section": "15.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of Salbutamol Plasma Concentrations by Treatment",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of Salbutamol Plasma PK Parameters by Treatment",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Statistical Analysis on Salbutamol PK Parameters",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of Serum Potassium Concentrations by Treatment",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of PD Serum Potassium Parameters by Treatment",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Statistical Analysis on PD Serum Potassium Parameters by Treatment",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Descriptive Statistics of PD Heart Rate and QTcF Parameters by Treatment",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Statistical Analysis on PD Heart Rate and QTcF Parameters",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Overview of Treatment-emergent Adverse Events",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment emergent Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment-emergent Adverse Events by Severity and by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment-emergent Adverse Events Leading to Study Discontinuation by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Related Treatment-emergent Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment-emergent Serious Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Related Treatment-emergent Serious Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Treatment-emergent Serious Adverse Events Leading to Discontinuation from the Study by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Deaths and Other Serious Adverse Events",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Listing of Abnormal Laboratory Values",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Hematology Parameters",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Blood Chemistry Parameters",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Routine Urinalysis Parameters",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Vital Signs (Absolute Values)",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Summary of 12-Lead Electrocardiogram (Absolute Values and Changes from Baseline)",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Subject Disposition at Each Study Period",
+      "population": "Enrolled",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Summary Demographics",
+      "population": "Enrolled",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Site Related Information",
+      "population": "Enrolled",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Adverse Events Overview \u2013 Any AEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Adverse Events Overview \u2013 Any SAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Adverse Events Overview \u2013 Any Drug Related SAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Adverse Events Overview \u2013 Any Fatal SAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Adverse Events Overview \u2013 Any Drug Related Fatal SAEs",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Common Non-serious AEs (>=5%) by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_common",
+      "conditional": false
+    },
+    {
+      "title": "Summary of All-cause Mortality - Occurrence of Death Due to Any Cause",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Summary of Urinary Dipstick Results",
+      "population": "Safety",
+      "section": null,
+      "type": "labs_summary",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Geometric Mean Plasma Salbutamol Concentrations versus Time Profile (Linear and Semi-Logarithmic Scale)",
+      "population": "PK",
+      "section": null,
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Scatterplot of Individual Values and Geometric Mean Salbutamol Plasma PK Parameters",
+      "population": "PK",
+      "section": null,
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Arithmetic Mean PD Potassium versus Time Profile (Linear and Semi-Logarithmic Scale)",
+      "population": "PD",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Arithmetic Mean Heart Rate and QTcF Values versus Time Profile by Parameter (Linear and Semi-Logarithmic Scale)",
+      "population": "PD",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Plot of Arithmetic Mean Salbutamol Plasma Concentrations versus Time (Linear and Semi-Logarithmic Scale)",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Plot of Median Salbutamol Plasma Concentrations versus Time (Linear and Semi-Logarithmic Scale)",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Combined Individual Salbutamol Plasma Concentrations versus Time Profile (Linear and Semi-Logarithmic Scale)",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual Salbutamol Plasma Concentrations versus Time Profile (Linear and Semi-Logarithmic Scale)",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual Salbutamol PK parameters and Geometric Mean versus Treatment",
+      "population": "PK",
+      "section": "15.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Plot of Arithmetic Mean PD Serum Potassium Concentrations versus Time (Linear Scale)",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Combined Individual PD Serum Potassium Concentrations versus Time Profile (Linear Scale)",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Plot of Arithmetic Mean PD Heart Rate and QTcF Values versus Time by Parameter (Linear Scale)",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Combined Individual PD Heart Rate and QTcF Values versus Time Profile by Parameter (Linear Scale)",
+      "population": "PD",
+      "section": "15.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Plot of Arithmetic Mean Glucose Concentrations versus Time (Linear Scale)",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Combined Individual Glucose Concentrations versus Time Profile (Linear Scale)",
+      "population": "Safety",
+      "section": "15.4",
+      "type": "labs_summary",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Participant Disposition",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Protocol Deviations",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Analysis Sets",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Participant Demographics",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Drug and Alcohol Screen Results",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Serology Test Results",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Pregnancy Test and FSH Test Results",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "pregnancy_test",
+      "conditional": false
+    },
+    {
+      "title": "SARS-CoV-2 Results",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Substance Use",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Non-compliance to Inclusion or Exclusion Criteria",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Early Study Intervention /Treatment Unblinding",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Study Dates",
+      "population": "Enrolled",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Study Drug Administration",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Salbutamol Plasma Concentrations, Sampling Time Deviations and Comments",
+      "population": "PK",
+      "section": "16.2",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Salbutamol Plasma PK Parameters",
+      "population": "PK",
+      "section": "16.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Serum Potassium Concentrations, Sampling Time Deviations and Comments",
+      "population": "PD",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Serum Potassium Parameters",
+      "population": "PD",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Heart Rate and QTcF Parameters",
+      "population": "PD",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Leading to Study Discontinuation",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Prior and Concomitant Medications",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Results \u2013 Hematology",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Results \u2013 Chemistry",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Results \u2013 Urinalysis",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Results \u2013 Comments",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital Signs",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "12-Lead Electrocardiogram Results",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Body Weight",
+      "population": "Safety",
+      "section": "16.2",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT05791565",
+  "_area": "PK_Study"
+}

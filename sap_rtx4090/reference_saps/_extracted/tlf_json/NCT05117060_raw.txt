@@ -1,0 +1,278 @@
+Looking at this Statistical Analysis Plan (SAP), I can extract the key information about tables, figures, and listings that need to be produced. However, I notice this document appears to be a Clinical Trial Protocol rather than a dedicated Statistical Analysis Plan, though it contains statistical methodology sections.
+
+```json
+{
+  "study_facts": {
+    "therapeutic_area": "dermatology",
+    "phase": "Phase 2",
+    "design_type": "superiority",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": ["POEM", "DLQI", "EQ-5D-5L", "HADS", "WPAI:AD"],
+    "treatment_periods": ["screening", "run-in", "treatment", "safety follow-up"],
+    "num_arms": 4
+  },
+  "tables": [
+    {
+      "title": "Subject disposition",
+      "population": "All screened",
+      "section": "14.3.4",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and baseline characteristics",
+      "population": "FAS",
+      "section": "14.3.5",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical history",
+      "population": "FAS",
+      "section": "14.3.5",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Baseline disease characteristics",
+      "population": "FAS",
+      "section": "14.3.5",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Exposure and treatment compliance",
+      "population": "Safety",
+      "section": "14.3.6",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Summary of adverse events",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events by system organ class and preferred term",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events of special interest",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory values - summary statistics",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory values - shift tables",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Vital signs",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "ECG parameters",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Physical examination findings",
+      "population": "Safety",
+      "section": "14.3.14",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "EASI score analysis",
+      "population": "FAS",
+      "section": "14.3.8",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "EASI response rates (EASI 50, EASI 75, EASI 90)",
+      "population": "FAS",
+      "section": "14.3.9",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "vIGA-AD response rates",
+      "population": "FAS",
+      "section": "14.3.9",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "SCORAD analysis",
+      "population": "FAS",
+      "section": "14.3.10",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "ADSD analysis",
+      "population": "FAS",
+      "section": "14.3.10",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Patient-reported outcomes analysis",
+      "population": "FAS",
+      "section": "14.3.11",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Pharmacokinetic parameters",
+      "population": "PK",
+      "section": "14.3.15",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Pharmacodynamic biomarkers",
+      "population": "FAS",
+      "section": "14.3.12",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Exposure-response analysis",
+      "population": "FAS",
+      "section": "14.3.13",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Time to EASI 50 response",
+      "population": "FAS",
+      "section": "14.3.9",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Time to ADSD response",
+      "population": "FAS",
+      "section": "14.3.10",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "EASI score over time",
+      "population": "FAS",
+      "section": "14.3.10",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Exposure-response relationship",
+      "population": "FAS",
+      "section": "14.3.13",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Subject demographics",
+      "population": "All screened",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical history",
+      "population": "All screened",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant medications",
+      "population": "Safety",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events",
+      "population": "Safety",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Serious adverse events",
+      "population": "Safety",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory data",
+      "population": "Safety",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital signs data",
+      "population": "Safety",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "ECG data",
+      "population": "Safety",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Pharmacokinetic concentrations",
+      "population": "PK",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Efficacy data",
+      "population": "FAS",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Sleep and actigraphy data",
+      "population": "FAS",
+      "type": "other",
+      "conditional": true
+    },
+    {
+      "title": "Skin biopsy results",
+      "population": "FAS",
+      "type": "other",
+      "conditional": true
+    }
+  ]
+}
+```

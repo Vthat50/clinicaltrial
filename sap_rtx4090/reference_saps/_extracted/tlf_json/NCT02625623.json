@@ -1,0 +1,589 @@
+{
+  "study_facts": {
+    "therapeutic_area": "oncology",
+    "phase": "Phase 3",
+    "design_type": "superiority",
+    "has_central_review": true,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": [
+      "EQ-5D-5L",
+      "EORTC QLQ-C30",
+      "EORTC QLQ-STO22"
+    ],
+    "treatment_periods": [
+      "treatment period",
+      "follow-up period"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Disposition of subjects and discontinuations",
+      "population": "FAS",
+      "section": "12.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Protocol deviations",
+      "population": "FAS",
+      "section": "12.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and baseline characteristics",
+      "population": "FAS",
+      "section": "13.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical history",
+      "population": "FAS",
+      "section": "13.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Disease characteristics",
+      "population": "FAS",
+      "section": "13.3.1",
+      "type": "disease_characteristics",
+      "conditional": false
+    },
+    {
+      "title": "Prior anti-cancer therapies",
+      "population": "FAS",
+      "section": "13.3.2",
+      "type": "prior_therapy",
+      "conditional": false
+    },
+    {
+      "title": "PD-L1 expression status at baseline",
+      "population": "FAS",
+      "section": "13.3.3",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Prior and concomitant medications/procedures",
+      "population": "FAS",
+      "section": "14.1",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Subsequent anti-cancer therapies/procedures",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Treatment compliance and exposure",
+      "population": "Safety",
+      "section": "15",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Overall survival analysis",
+      "population": "FAS",
+      "section": "16.1.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Overall survival subgroup analysis",
+      "population": "FAS",
+      "section": "16.1.3",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Time of follow-up for OS",
+      "population": "FAS",
+      "section": "16.1.4",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Progression-free survival analysis",
+      "population": "FAS",
+      "section": "16.2.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Best overall response analysis",
+      "population": "FAS",
+      "section": "16.2.2",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Time of follow-up for PFS",
+      "population": "FAS",
+      "section": "16.2.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Subgroup analysis of secondary efficacy endpoints",
+      "population": "FAS",
+      "section": "16.2.4",
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Health-related quality of life",
+      "population": "HRQoL",
+      "section": "16.2.5",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Duration of response",
+      "population": "FAS",
+      "section": "16.3.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Time to response",
+      "population": "FAS",
+      "section": "16.3.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Tumor shrinkage",
+      "population": "FAS",
+      "section": "16.3.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Disease control rate",
+      "population": "FAS",
+      "section": "16.3.4",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Overall summary of adverse events",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by SOC and PT and worst grade",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs grade \u22653 by SOC and PT",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_grade3plus",
+      "conditional": false
+    },
+    {
+      "title": "Related TEAEs by SOC and PT and worst grade",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs leading to death by SOC and PT",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs excluding SAEs, with frequency \u22655% in any treatment arm by SOC and PT",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_common",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs leading to treatment discontinuation by SOC and PT",
+      "population": "Safety",
+      "section": "17.1.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Deaths summary",
+      "population": "Safety",
+      "section": "17.2.1",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Serious adverse events by SOC and PT",
+      "population": "Safety",
+      "section": "17.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Immune-related adverse events by cluster and PT",
+      "population": "Safety",
+      "section": "17.2.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Infusion-related reactions by PT",
+      "population": "Safety",
+      "section": "17.2.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory parameters by NCI-CTCAE grade",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory parameters shift table (baseline vs worst on-treatment)",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_shift",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory parameters worst grade during on-treatment period",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_ctcae",
+      "conditional": false
+    },
+    {
+      "title": "Liver function tests summary",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital signs summary statistics by visit",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Maximum vital signs changes from baseline by category",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "ECG parameters summary statistics",
+      "population": "Safety",
+      "section": "17.5.1",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "ECG potentially clinically significant abnormalities",
+      "population": "Safety",
+      "section": "17.5.1",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "ECOG performance status shift table",
+      "population": "Safety",
+      "section": "17.5.2",
+      "type": "ecog",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Kaplan-Meier plot of overall survival",
+      "population": "FAS",
+      "section": "16.1.1",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Forest plot of overall survival subgroup analysis",
+      "population": "FAS",
+      "section": "16.1.3",
+      "type": "forest_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier plot for OS follow-up duration",
+      "population": "FAS",
+      "section": "16.1.4",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier plot of progression-free survival",
+      "population": "FAS",
+      "section": "16.2.1",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier plot for PFS follow-up duration",
+      "population": "FAS",
+      "section": "16.2.3",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "HRQoL compliance rate line plot",
+      "population": "HRQoL",
+      "section": "16.2.5",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "HRQoL change from baseline line plot",
+      "population": "HRQoL",
+      "section": "16.2.5",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "HRQoL empirical cumulative distribution function curves",
+      "population": "HRQoL",
+      "section": "16.2.5",
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Kaplan-Meier plot of duration of response",
+      "population": "FAS",
+      "section": "16.3.1",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Tumor shrinkage line plot over time",
+      "population": "FAS",
+      "section": "16.3.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Waterfall plot of maximum tumor shrinkage",
+      "population": "FAS",
+      "section": "16.3.3",
+      "type": "waterfall_plot",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory parameters boxplot for changes from baseline",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "eDISH plot (ALT vs total bilirubin)",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "eDISH plot (AST vs total bilirubin)",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Demographics and baseline characteristics listing",
+      "population": "FAS",
+      "section": "13.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical history listing",
+      "population": "FAS",
+      "section": "13.2",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant medications listing",
+      "population": "FAS",
+      "section": "14.1",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant procedures listing",
+      "population": "FAS",
+      "section": "14.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Premedications listing",
+      "population": "FAS",
+      "section": "14.1",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Subsequent anti-cancer therapies listing",
+      "population": "FAS",
+      "section": "14.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Treatment exposure and compliance listing",
+      "population": "Safety",
+      "section": "15",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Study drug administration listing",
+      "population": "Safety",
+      "section": "15",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Overall survival times and censoring listing",
+      "population": "FAS",
+      "section": "16.1.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Progression-free survival times and censoring listing",
+      "population": "FAS",
+      "section": "16.2.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "All adverse events listing",
+      "population": "Safety",
+      "section": "17.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events with onset after on-treatment period listing",
+      "population": "Safety",
+      "section": "17.1.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events leading to treatment discontinuation listing",
+      "population": "Safety",
+      "section": "17.1.2",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Deaths listing",
+      "population": "Safety",
+      "section": "17.2.1",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Serious adverse events listing",
+      "population": "Safety",
+      "section": "17.2.2",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Immune-related adverse events listing",
+      "population": "Safety",
+      "section": "17.2.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Infusion-related reactions listing",
+      "population": "Safety",
+      "section": "17.2.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Laboratory results listing",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Abnormal laboratory values listing",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Liver function tests for subjects with elevated values listing",
+      "population": "Safety",
+      "section": "17.3.1",
+      "type": "labs_summary",
+      "conditional": true
+    },
+    {
+      "title": "Other laboratory parameters listing",
+      "population": "Safety",
+      "section": "17.3.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Vital signs listing",
+      "population": "Safety",
+      "section": "17.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Abnormal ECG listing",
+      "population": "Safety",
+      "section": "17.5.1",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "ECOG performance status shift listing",
+      "population": "Safety",
+      "section": "17.5.2",
+      "type": "ecog",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT02625623",
+  "_area": "Oncology"
+}

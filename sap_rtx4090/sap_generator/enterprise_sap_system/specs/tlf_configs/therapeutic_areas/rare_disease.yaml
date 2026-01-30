@@ -1,0 +1,452 @@
+# =============================================================================
+# RARE DISEASE THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, study design considerations,
+# and table structures for rare/orphan disease clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "rare_disease"
+display_name: "Rare Disease / Orphan"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  genetic:
+    - "cystic fibrosis"
+    - "CF"
+    - "spinal muscular atrophy"
+    - "SMA"
+    - "Duchenne muscular dystrophy"
+    - "DMD"
+    - "Becker muscular dystrophy"
+    - "sickle cell disease"
+    - "SCD"
+    - "hemophilia A"
+    - "hemophilia B"
+    - "von Willebrand disease"
+    - "phenylketonuria"
+    - "PKU"
+    - "Fabry disease"
+    - "Gaucher disease"
+    - "Pompe disease"
+    - "Hunter syndrome"
+    - "MPS II"
+    - "Hurler syndrome"
+    - "MPS I"
+    - "hereditary angioedema"
+    - "HAE"
+    - "hereditary transthyretin amyloidosis"
+    - "hATTR"
+    - "Wilson disease"
+    - "homozygous familial hypercholesterolemia"
+    - "HoFH"
+
+  neuromuscular:
+    - "myasthenia gravis"
+    - "MG"
+    - "amyotrophic lateral sclerosis"
+    - "ALS"
+    - "Charcot-Marie-Tooth disease"
+    - "CMT"
+    - "Friedreich's ataxia"
+    - "myotonic dystrophy"
+    - "DM1"
+    - "limb-girdle muscular dystrophy"
+    - "LGMD"
+    - "facioscapulohumeral muscular dystrophy"
+    - "FSHD"
+
+  metabolic:
+    - "lysosomal storage disease"
+    - "LSD"
+    - "glycogen storage disease"
+    - "urea cycle disorder"
+    - "organic acidemia"
+    - "fatty acid oxidation disorder"
+    - "mitochondrial disease"
+    - "mucopolysaccharidosis"
+    - "MPS"
+    - "Niemann-Pick disease"
+    - "Batten disease"
+
+  hematologic:
+    - "paroxysmal nocturnal hemoglobinuria"
+    - "PNH"
+    - "aplastic anemia"
+    - "beta-thalassemia"
+    - "thrombotic thrombocytopenic purpura"
+    - "TTP"
+    - "atypical hemolytic uremic syndrome"
+    - "aHUS"
+    - "cold agglutinin disease"
+    - "CAD"
+    - "immune thrombocytopenia"
+    - "ITP"
+
+  pulmonary:
+    - "pulmonary arterial hypertension"
+    - "PAH"
+    - "idiopathic pulmonary fibrosis"
+    - "IPF"
+    - "lymphangioleiomyomatosis"
+    - "LAM"
+
+  dermatologic:
+    - "epidermolysis bullosa"
+    - "EB"
+    - "ichthyosis"
+    - "tuberous sclerosis complex"
+    - "TSC"
+
+  other:
+    - "achondroplasia"
+    - "fibrodysplasia ossificans progressiva"
+    - "FOP"
+    - "progeria"
+    - "narcolepsy"
+    - "systemic mastocytosis"
+
+# =============================================================================
+# RARE DISEASE STUDY DESIGN CONSIDERATIONS
+# =============================================================================
+study_design:
+  notes:
+    - "Small sample sizes common (N < 100); may use single-arm or crossover designs"
+    - "Natural history comparators or external controls frequently used"
+    - "Bayesian statistical methods may be preferred"
+    - "Clinically meaningful individual-level responses important"
+    - "Surrogate/biomarker endpoints more commonly accepted as primary"
+    - "Real-world evidence and patient registries may supplement trial data"
+    - "Adaptive designs (platform, basket) increasingly used"
+    - "Patient-reported outcomes and caregiver-reported outcomes critical"
+
+  alternative_populations:
+    enrolled:
+      name: "Enrolled Population"
+      definition: "All subjects who received at least one dose of study drug"
+      note: "For single-arm studies without randomization"
+    efficacy_evaluable:
+      name: "Efficacy Evaluable Population"
+      definition: "All treated subjects with at least one post-baseline efficacy assessment"
+
+  alternative_designs:
+    crossover:
+      note: "Common in rare disease; each patient serves as own control"
+      analysis: "Paired analysis; treatment-period interaction; carryover assessment"
+    single_arm:
+      note: "When placebo control not ethical or feasible"
+      analysis: "Comparison to natural history; pre-specified performance goal"
+    external_control:
+      note: "Historical control or registry-based comparator"
+      analysis: "Propensity score matching/weighting; sensitivity analyses for unmeasured confounders"
+    n_of_1:
+      note: "Individual patient trials with multiple crossover periods"
+      analysis: "Within-subject analysis"
+
+# =============================================================================
+# GENE THERAPY / CELL THERAPY ENDPOINTS
+# =============================================================================
+gene_cell_therapy:
+  gene_therapy:
+    endpoints:
+      transgene_expression:
+        label: "Transgene Expression Level"
+        definition: "Level of protein/enzyme produced by gene therapy vector"
+        table_rows:
+          - "n"
+          - "Baseline Mean (SD)"
+          - "Week {X} Mean (SD)"
+          - "Mean Change from Baseline (SD)"
+          - "Subjects achieving normal range, n (%)"
+
+      factor_activity:
+        label: "Factor Activity Level"
+        definition: "Clotting factor activity level after gene therapy"
+        note: "Hemophilia A (Factor VIII) or B (Factor IX)"
+        unit: "IU/dL or % of normal"
+        table_rows:
+          - "n"
+          - "Baseline Factor Activity, Mean (SD)"
+          - "Week {X} Factor Activity, Mean (SD)"
+          - "Subjects achieving >=5 IU/dL, n (%)"
+          - "Subjects achieving >=40 IU/dL, n (%)"
+          - "Annualized Bleeding Rate"
+          - "Annualized Factor Consumption"
+        footnote: "Factor activity measured by one-stage or chromogenic assay."
+
+      annualized_bleeding_rate:
+        label: "Annualized Bleeding Rate (ABR)"
+        definition: "Number of treated bleeds per year"
+        analysis_method: "negative_binomial"
+        table_rows:
+          - "n"
+          - "Model-based ABR [95% CI]"
+          - "Median ABR (IQR)"
+          - "Subjects with 0 bleeds, n (%)"
+          - "ABR Ratio vs pre-treatment [95% CI]"
+
+      vector_shedding:
+        label: "Vector Shedding"
+        definition: "Duration and level of vector DNA in bodily fluids"
+        table_rows:
+          - "Subjects with detectable vector DNA at each timepoint"
+          - "Time to clearance, Median"
+
+    safety_monitoring:
+      - "Liver function tests (weekly initially)"
+      - "AAV antibody titers"
+      - "Immunogenicity to transgene product"
+      - "Integration site analysis"
+      - "Malignancy surveillance"
+
+  enzyme_replacement:
+    endpoints:
+      enzyme_activity:
+        label: "Enzyme Activity Level"
+        definition: "Level of deficient enzyme after ERT"
+        table_rows:
+          - "n"
+          - "Baseline Enzyme Activity, Mean (SD)"
+          - "Trough Enzyme Activity, Mean (SD)"
+          - "Peak Enzyme Activity, Mean (SD)"
+
+      substrate_reduction:
+        label: "Substrate Reduction"
+        definition: "Reduction in accumulated substrate level"
+        note: "Disease-specific (e.g., GL-3 for Fabry, glucosylsphingosine for Gaucher)"
+
+      functional_measures:
+        six_minute_walk:
+          label: "6-Minute Walk Test"
+          unit: "meters"
+        fvc:
+          label: "Forced Vital Capacity"
+          unit: "% predicted"
+        organ_volume:
+          label: "Organ Volume (Liver/Spleen)"
+          unit: "multiples of normal"
+
+# =============================================================================
+# RARE DISEASE BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "Age at Diagnosis (years)"
+    type: "continuous"
+
+  - variable: "Age at Symptom Onset (years)"
+    type: "continuous"
+
+  - variable: "Disease Duration (years)"
+    type: "continuous"
+
+  - variable: "Genotype"
+    type: "categorical"
+    note: "Disease-specific mutation(s)"
+
+  - variable: "Phenotype Severity"
+    type: "categorical"
+    note: "Disease-specific classification"
+
+  - variable: "Prior Disease-Specific Therapy"
+    type: "categorical"
+    categories: ["Treatment-naive", "Treatment-experienced"]
+
+  - variable: "Current Disease-Specific Therapy"
+    type: "categorical"
+    note: "ERT, substrate reduction, gene therapy, etc."
+
+  - variable: "Organ Involvement"
+    type: "categorical"
+    note: "Disease-specific (cardiac, renal, neurological, etc.)"
+
+  - variable: "Functional Status"
+    type: "categorical"
+    note: "Ambulatory status, feeding, ventilation support"
+
+  - variable: "Caregiver Status"
+    type: "categorical"
+    categories: ["Independent", "Requires assistance", "Full-time caregiver"]
+
+  - variable: "Genetic Mutation Type"
+    type: "categorical"
+    note: "Missense, nonsense, frameshift, deletion, splice site"
+
+# =============================================================================
+# RARE DISEASE AESIs
+# =============================================================================
+aesi_categories:
+
+  ert:
+    label: "Enzyme Replacement Therapy AESIs"
+    events:
+      - category: "Infusion-Associated Reactions"
+        preferred_terms: ["Infusion related reaction", "Hypersensitivity", "Anaphylactic reaction", "Pyrexia", "Chills", "Urticaria"]
+      - category: "Anti-Drug Antibodies"
+        preferred_terms: ["Anti-drug antibody positive", "Neutralising antibodies positive"]
+      - category: "Immune Complex Disease"
+        preferred_terms: ["Serum sickness", "Nephrotic syndrome", "Membranous nephropathy"]
+        note: "With some ERTs"
+
+  gene_therapy:
+    label: "Gene Therapy AESIs"
+    events:
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased", "Hepatotoxicity", "Hepatic failure"]
+        note: "Common with AAV-based gene therapies"
+      - category: "Thrombotic Microangiopathy"
+        preferred_terms: ["Thrombotic microangiopathy", "Thrombocytopenia", "Haemolytic anaemia"]
+        note: "Reported with high-dose AAV"
+      - category: "Immune Response to Vector"
+        preferred_terms: ["Immune-mediated reaction", "Complement activation"]
+      - category: "Malignancy"
+        preferred_terms: ["Neoplasm malignant", "Hepatocellular carcinoma"]
+        note: "Long-term insertional mutagenesis monitoring"
+      - category: "Immunogenicity to Transgene"
+        preferred_terms: ["Anti-drug antibody positive", "Factor inhibitor development"]
+
+  antisense_oligonucleotide:
+    label: "ASO/siRNA AESIs"
+    events:
+      - category: "Injection Site Reactions"
+        preferred_terms: ["Injection site reaction", "Injection site erythema", "Injection site pain"]
+      - category: "Thrombocytopenia"
+        preferred_terms: ["Thrombocytopenia", "Platelet count decreased"]
+      - category: "Renal Toxicity"
+        preferred_terms: ["Proteinuria", "Blood creatinine increased", "Glomerulonephritis"]
+      - category: "Hepatotoxicity"
+        preferred_terms: ["ALT increased", "AST increased"]
+
+# =============================================================================
+# RARE DISEASE TABLE STRUCTURES
+# =============================================================================
+table_structures:
+
+  individual_patient_response:
+    type: "table"
+    title: "Individual Patient Response Summary"
+    note: "Common in small N trials to show each patient's data"
+    columns: ["Subject ID", "Age/Sex", "Genotype", "Baseline Value", "Post-Treatment Value", "Change", "Responder (Y/N)"]
+    footnote: "Individual patient data presented due to small sample size."
+
+  natural_history_comparison:
+    type: "table"
+    title: "Comparison to Natural History / External Control"
+    rows:
+      - row: "Study Treatment Group"
+        type: "header"
+      - row: "  N"
+      - row: "  Mean Change from Baseline (SD)"
+      - row: "  Responder Rate, n (%)"
+      - row: "Natural History / External Control"
+        type: "header"
+      - row: "  N"
+      - row: "  Mean Change from Baseline (SD)"
+      - row: "  Responder Rate, n (%)"
+      - row: "Difference [95% CI]"
+      - row: "P-value"
+    footnote: "Natural history data from {registry/study name}. Comparison is exploratory and subject to selection bias."
+
+  anti_drug_antibody:
+    type: "table"
+    title: "Anti-Drug Antibody Summary"
+    dataset: "ADAB"
+    rows:
+      - row: "ADA Evaluable, N"
+        format: "xxx"
+      - row: "Baseline ADA Status"
+        type: "header"
+      - row: "  ADA Positive at Baseline, n (%)"
+        format: "n (%)"
+      - row: "  ADA Negative at Baseline, n (%)"
+        format: "n (%)"
+      - row: "Post-Baseline ADA Status"
+        type: "header"
+      - row: "  Treatment-emergent ADA, n (%)"
+        format: "n (%)"
+      - row: "  Treatment-boosted ADA, n (%)"
+        format: "n (%)"
+      - row: "  ADA Negative (all post-baseline), n (%)"
+        format: "n (%)"
+      - row: "Neutralizing Antibody"
+        type: "header"
+      - row: "  NAb Positive, n (%)"
+        format: "n (%)"
+      - row: "  NAb Negative, n (%)"
+        format: "n (%)"
+      - row: "Impact on Efficacy"
+        type: "header"
+      - row: "  ADA+ responders vs ADA- responders"
+    footnote: "ADA assessed by validated electrochemiluminescence immunoassay using tiered approach (screen, confirm, titer, neutralizing)."
+
+  bleeding_event_summary:
+    type: "table"
+    title: "Summary of Bleeding Events"
+    note: "Hemophilia trials"
+    dataset: "ADEFF"
+    rows:
+      - row: "Model-based ABR [95% CI]"
+      - row: "Median ABR (IQR)"
+      - row: "Subjects with 0 bleeds, n (%)"
+      - row: "By Bleed Type"
+        type: "header"
+      - row: "  Spontaneous bleeds, ABR"
+      - row: "  Joint bleeds, ABR"
+      - row: "  Traumatic bleeds, ABR"
+      - row: "Target Joint Bleeds"
+        type: "header"
+      - row: "  Model-based target joint ABR [95% CI]"
+      - row: "  Subjects with resolved target joints, n (%)"
+    footnote: "ABR modeled using negative binomial regression with log(time) as offset."
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "Age group (pediatric vs adult)"
+  - "Genotype/mutation type"
+  - "Disease severity (mild vs moderate vs severe)"
+  - "Prior treatment (naive vs experienced)"
+  - "Ambulatory status"
+  - "Geographic region"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age group"
+  - "Sex"
+  - "Genotype/mutation type"
+  - "Disease severity at baseline"
+  - "Prior treatment history"
+  - "Baseline functional status"
+  - "Organ involvement"
+  - "Duration of disease"
+
+# =============================================================================
+# RARE DISEASE FOOTNOTES
+# =============================================================================
+footnotes:
+  small_sample: "Due to the small sample size, descriptive statistics are presented. No formal hypothesis testing was performed."
+  natural_history: "Comparison to natural history is exploratory. Results should be interpreted with caution due to potential differences in patient populations."
+  single_arm: "Single-arm study design; no concurrent control group. Pre-specified performance goal based on natural history data."
+  individual_data: "Individual patient data presented due to the rare nature of the disease and small sample size."
+  gene_therapy_follow: "Long-term follow-up for gene therapy extends to {X} years per regulatory guidance."
+  ada_tiered: "ADA assessed using a validated tiered approach: screening, confirmatory, titer, and neutralizing antibody assays."
+
+# =============================================================================
+# RARE DISEASE LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Individual Patient Efficacy Data"
+    population: "efficacy_evaluable"
+    variables: ["Subject ID", "Age", "Sex", "Genotype", "Baseline Value", "Post-Treatment Values by Visit", "Best Response", "Current Status"]
+
+  - title: "Listing of Infusion-Associated Reactions"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Infusion Number", "Symptoms", "Severity", "Time to Onset", "Premedication", "Action Taken", "Outcome"]
+
+  - title: "Listing of Anti-Drug Antibody Results Over Time"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Visit", "ADA Status", "ADA Titer", "NAb Status", "Impact on PK", "Impact on Efficacy"]

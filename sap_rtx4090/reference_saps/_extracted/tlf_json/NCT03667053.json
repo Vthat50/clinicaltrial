@@ -1,0 +1,718 @@
+{
+  "study_facts": {
+    "therapeutic_area": "oncology",
+    "phase": "Phase 3",
+    "design_type": "superiority",
+    "has_central_review": false,
+    "has_pk": true,
+    "has_immunogenicity": true,
+    "has_qol": false,
+    "treatment_periods": [
+      "Screening",
+      "Dosing",
+      "Follow-up"
+    ],
+    "num_arms": 3
+  },
+  "tables": [
+    {
+      "title": "Patient number by country",
+      "population": "All patients",
+      "section": "14.1.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Patient number by country and center",
+      "population": "All patients",
+      "section": "14.1.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Patient disposition",
+      "population": "All patients",
+      "section": "14.1.3",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Trial termination form",
+      "population": "Safety analysis set",
+      "section": "14.1.4",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographic characteristics",
+      "population": "Safety analysis set",
+      "section": "14.1.5",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Demographic characteristics",
+      "population": "FAS",
+      "section": "14.1.6",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Diabetes history",
+      "population": "Safety analysis set",
+      "section": "14.1.7.1",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Body measurements (height, weight, BMI)",
+      "population": "Safety analysis set",
+      "section": "14.1.7.2",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "BMI by country",
+      "population": "Safety analysis set",
+      "section": "14.1.7.3",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Medical history",
+      "population": "Safety analysis set",
+      "section": "14.1.7.4",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant medication/ current diabetes treatment",
+      "population": "Safety analysis set",
+      "section": "14.1.8",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery - summary table",
+      "population": "FAS",
+      "section": "14.2.1.1",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery - Kaplan Meier survival curve",
+      "population": "FAS",
+      "section": "14.2.1.2",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery - summary table",
+      "population": "PP",
+      "section": "14.2.1.3",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery - Kaplan Meier survival curve",
+      "population": "PP",
+      "section": "14.2.1.4",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Sensitivity analysis - time to plasma glucose recovery without censoring for those subjects who require rescue IV glucose before 45 minutes - summary table",
+      "population": "FAS",
+      "section": "14.2.1.5",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Sensitivity analysis - Time to plasma glucose recovery without censoring for those subjects who require rescue IV glucose before 45 minutes - Kaplan Meier survival curve",
+      "population": "FAS",
+      "section": "14.2.1.6",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Sensitivity analysis - time to plasma glucose recovery with censoring data at the actual time when the patients received glucose IV - summary table",
+      "population": "FAS",
+      "section": "14.2.1.7",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Sensitivity analysis - Time to plasma glucose recovery with censoring data at the actual time when the patients received glucose IV - Kaplan Meier survival curve",
+      "population": "FAS",
+      "section": "14.2.1.8",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery - histogram",
+      "population": "FAS",
+      "section": "14.2.1.9",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery \u2013 using linear interpolation of the time to recovery \u2013 summary table",
+      "population": "FAS",
+      "section": "14.2.1.10",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery \u2013 using linear interpolation of the time to recovery \u2013 Kaplan Meier survival curve",
+      "population": "FAS",
+      "section": "14.2.1.11",
+      "type": "km_plot",
+      "conditional": false
+    },
+    {
+      "title": "Plasma glucose recovery within 10, 15, 20 and 30 minutes after trial product injection",
+      "population": "FAS",
+      "section": "14.2.2.1",
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Plasma glucose - untransformed results at 10, 15, 20 and 30 minutes after trial product injection",
+      "population": "FAS",
+      "section": "14.2.2.2",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Plasma glucose - change from baseline results and inferential test statistics at 10, 15, 20 and 30 minutes after trial product injection",
+      "population": "FAS",
+      "section": "14.2.2.3",
+      "type": "efficacy_continuous",
+      "conditional": false
+    },
+    {
+      "title": "Overall summary of adverse events",
+      "population": "Safety analysis set",
+      "section": "14.3.1.1",
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by system organ class and preferred term",
+      "population": "Safety analysis set",
+      "section": "14.3.1.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs of special interest by system organ class and preferred term",
+      "population": "Safety analysis set",
+      "section": "14.3.1.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Other important TEAEs by system organ class and preferred term",
+      "population": "Safety analysis set",
+      "section": "14.3.1.4",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs, which are injection site reactions",
+      "population": "Safety analysis set",
+      "section": "14.3.1.5",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Study drug-related TEAEs by system organ class and preferred term",
+      "population": "Safety analysis set",
+      "section": "14.3.1.6",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by system organ class and preferred term and causal relationship",
+      "population": "Safety analysis set",
+      "section": "14.3.1.7",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "TEAEs by system organ class and preferred term and severity",
+      "population": "Safety analysis set",
+      "section": "14.3.1.8",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "SAEs by system organ class and preferred term",
+      "population": "Safety analysis set",
+      "section": "14.3.1.9",
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Special search category TEAEs",
+      "population": "Safety analysis set",
+      "section": "14.3.1.10",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Insulin administration prior to the hypoglycemia induction procedure",
+      "population": "Safety analysis set",
+      "section": "14.3.4.1",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Hypoglycemia induction procedure",
+      "population": "Safety analysis set",
+      "section": "14.3.4.2",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Trial medication",
+      "population": "Safety analysis set",
+      "section": "14.3.4.3",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Post-treatment rescue glucose infusion",
+      "population": "Safety analysis set",
+      "section": "14.3.4.4",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "ECG, overall interpretation",
+      "population": "Safety analysis set",
+      "section": "14.3.5.1.1",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "ECG, descriptive statistics of all ECG parameters",
+      "population": "Safety analysis set",
+      "section": "14.3.5.1.2",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "ECG, categorical analysis of QTc results",
+      "population": "Safety analysis set",
+      "section": "14.3.5.1.3",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "ECG, categorical analysis of QTc results, change from baseline",
+      "population": "Safety analysis set",
+      "section": "14.3.5.1.4",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Hematology",
+      "population": "Safety analysis set",
+      "section": "14.3.5.2.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Clinical chemistry",
+      "population": "Safety analysis set",
+      "section": "14.3.5.2.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Coagulation",
+      "population": "Safety analysis set",
+      "section": "14.3.5.2.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis - pH",
+      "population": "Safety analysis set",
+      "section": "14.3.5.2.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis - quantitative results, count of abnormal results",
+      "population": "Safety analysis set",
+      "section": "14.3.5.2.5",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Pregnancy test",
+      "population": "Safety analysis set",
+      "section": "14.3.5.2.6",
+      "type": "pregnancy_test",
+      "conditional": false
+    },
+    {
+      "title": "Local tolerability",
+      "population": "Safety analysis set",
+      "section": "14.3.5.3",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Vital signs",
+      "population": "Safety analysis set",
+      "section": "14.3.5.4",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Pulse rate \u2013 categorical analysis",
+      "population": "Safety analysis set",
+      "section": "14.3.5.5",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Immunogenicity - occurrence of ADA",
+      "population": "Safety analysis set",
+      "section": "14.3.5.6",
+      "type": "immunogenicity",
+      "conditional": false
+    },
+    {
+      "title": "Summary statistics of plasma dasiglucagon and GlucaGen concentration table",
+      "population": "Safety analysis set",
+      "section": "14.4.1.1",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "PK metrics",
+      "population": "Safety analysis set",
+      "section": "14.4.1.2",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "PD metrics",
+      "population": "Safety analysis set",
+      "section": "14.4.2.1",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "figures": [
+    {
+      "title": "Mean analyte concentrations versus time - original scale",
+      "population": "Safety analysis set",
+      "section": "14.4.1.3",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Mean analyte concentrations versus time - log scale",
+      "population": "Safety analysis set",
+      "section": "14.4.1.4",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Individual analyte concentrations versus time curves - original scale",
+      "population": "Safety analysis set",
+      "section": "14.4.1.5",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Mean glucose concentrations versus time - original scale",
+      "population": "Safety analysis set",
+      "section": "14.4.2.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Individual glucose concentrations versus time curves - original scale",
+      "population": "Safety analysis set",
+      "section": "14.4.2.3",
+      "type": "other",
+      "conditional": false
+    }
+  ],
+  "listings": [
+    {
+      "title": "Patient disposition",
+      "population": "All patients",
+      "section": "16.2.1.1",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Trial termination",
+      "population": "All patients",
+      "section": "16.2.1.2",
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Patients not fulfilling any inclusion/exclusion criteria",
+      "population": "All patients",
+      "section": "16.2.2.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Patients Excluded from analysis",
+      "population": "All patients",
+      "section": "16.2.3.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Informed consent and demographics",
+      "population": "All patients",
+      "section": "16.2.4.1",
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Baseline characteristics (body measurements)",
+      "population": "All patients",
+      "section": "16.2.4.2",
+      "type": "baseline",
+      "conditional": false
+    },
+    {
+      "title": "Diabetes history",
+      "population": "All patients",
+      "section": "16.2.4.3",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Medical history",
+      "population": "All patients",
+      "section": "16.2.4.4",
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Visit dates",
+      "population": "All patients",
+      "section": "16.2.5.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Randomisation",
+      "population": "All patients",
+      "section": "16.2.5.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Insulin administration prior to the hypoglycemia induction procedure",
+      "population": "All patients",
+      "section": "16.2.5.3",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Hypoglycemia induction procedure",
+      "population": "All patients",
+      "section": "16.2.5.4",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Study drug administration",
+      "population": "All patients",
+      "section": "16.2.5.5",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Post-treatment rescue glucose infusion",
+      "population": "All patients",
+      "section": "16.2.5.6",
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Plasma dasiglucagon/GlucaGen sampling and concentrations",
+      "population": "All patients",
+      "section": "16.2.5.7",
+      "type": "pk_concentration",
+      "conditional": false
+    },
+    {
+      "title": "Plasma dasiglucagon/GlucaGen pharmacokinetic metrics",
+      "population": "All patients",
+      "section": "16.2.5.8",
+      "type": "pk_parameters",
+      "conditional": false
+    },
+    {
+      "title": "Plasma glucose sampling and concentrations",
+      "population": "All patients",
+      "section": "16.2.6.1",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Plasma glucose pharmacodynamic metrics",
+      "population": "All patients",
+      "section": "16.2.6.2",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Time to plasma glucose recovery",
+      "population": "All patients",
+      "section": "16.2.6.3",
+      "type": "efficacy_tte",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events - CRF entries",
+      "population": "All patients",
+      "section": "16.2.7.1",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events - MedDRA coding",
+      "population": "All patients",
+      "section": "16.2.7.2",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Event of Special Interest - additional details",
+      "population": "All patients",
+      "section": "16.2.7.3",
+      "type": "aesi",
+      "conditional": false
+    },
+    {
+      "title": "Death and serious adverse events",
+      "population": "All patients",
+      "section": "16.2.7.4",
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events \u2013 leading to withdrawal from study",
+      "population": "All patients",
+      "section": "16.2.7.5",
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events \u2013 patients with positive ADA result",
+      "population": "All patients",
+      "section": "16.2.7.6",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Adverse events - plasma glucose measurements in case of hypoglycemia",
+      "population": "All patients",
+      "section": "16.2.7.7",
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Hematology",
+      "population": "All patients",
+      "section": "16.2.8.1",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Biochemistry",
+      "population": "All patients",
+      "section": "16.2.8.2",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Coagulation",
+      "population": "All patients",
+      "section": "16.2.8.3",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Urinalysis",
+      "population": "All patients",
+      "section": "16.2.8.4",
+      "type": "labs_summary",
+      "conditional": false
+    },
+    {
+      "title": "Pregnancy test",
+      "population": "All patients",
+      "section": "16.2.8.5",
+      "type": "pregnancy_test",
+      "conditional": false
+    },
+    {
+      "title": "Alcohol breath test",
+      "population": "All patients",
+      "section": "16.2.8.6",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Vital signs",
+      "population": "All patients",
+      "section": "16.2.9.1",
+      "type": "vitals",
+      "conditional": false
+    },
+    {
+      "title": "Physical examination",
+      "population": "All patients",
+      "section": "16.2.9.2",
+      "type": "physical_exam",
+      "conditional": false
+    },
+    {
+      "title": "Electrocardiogram",
+      "population": "All patients",
+      "section": "16.2.9.3",
+      "type": "ecg",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant medication and current diabetes treatment",
+      "population": "All patients",
+      "section": "16.2.9.4",
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Local tolerability",
+      "population": "All patients",
+      "section": "16.2.9.5",
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Immunogenicity results",
+      "population": "All patients",
+      "section": "16.2.9.6",
+      "type": "immunogenicity",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03667053",
+  "_area": "Endocrinology"
+}

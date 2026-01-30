@@ -1,0 +1,32 @@
+Looking at this Statistical Analysis Plan (SAP) for a malaria transmission-blocking vaccine trial, I need to extract all specified tables, figures, and listings. However, after carefully reviewing the document, I notice this appears to be a clinical protocol rather than a traditional SAP, as it lacks the detailed statistical analysis specifications and output tables/figures/listings that would typically be defined in an SAP.
+
+The document contains many figures and tables, but these are primarily:
+1. Background/rationale figures showing previous study results
+2. Protocol design schematics 
+3. Reference data tables
+4. Administrative tables (compensation, schedules, etc.)
+
+A true SAP would specify planned analysis outputs like "Table 14.1.1: Demographic and Baseline Characteristics by Treatment Group" or "Figure 14.2.1: Kaplan-Meier Plot of Time to First Malaria Episode."
+
+Based on my analysis, here is what I can extract:
+
+```json
+{
+  "study_facts": {
+    "therapeutic_area": "infectious_disease_malaria",
+    "phase": "Phase 2",
+    "design_type": "superiority", 
+    "has_central_review": false,
+    "has_pk": false,
+    "has_immunogenicity": true,
+    "has_qol": false,
+    "treatment_periods": ["screening", "vaccination_period", "follow_up"],
+    "num_arms": 8
+  },
+  "tables": [],
+  "figures": [],
+  "listings": []
+}
+```
+
+The document does not contain the typical SAP specifications for analysis outputs. Instead, it focuses on study design, rationale, procedures, and safety considerations. To properly extract tables, figures, and listings, I would need access to the actual Statistical Analysis Plan document that specifies the planned analysis outputs for this study.

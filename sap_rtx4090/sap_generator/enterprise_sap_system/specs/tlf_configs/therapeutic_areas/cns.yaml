@@ -1,0 +1,659 @@
+# =============================================================================
+# CNS / NEUROSCIENCE THERAPEUTIC AREA CONFIGURATION
+# =============================================================================
+# Disease-specific vocabularies, endpoints, rating scales, and table structures
+# for central nervous system / neuroscience clinical trials.
+# =============================================================================
+
+version: "1.0"
+therapeutic_area: "cns"
+display_name: "CNS / Neuroscience"
+
+# =============================================================================
+# DISEASE SUBTYPES
+# =============================================================================
+disease_subtypes:
+  psychiatry:
+    - "major depressive disorder"
+    - "MDD"
+    - "treatment-resistant depression"
+    - "TRD"
+    - "bipolar disorder"
+    - "bipolar I disorder"
+    - "bipolar II disorder"
+    - "schizophrenia"
+    - "schizoaffective disorder"
+    - "generalized anxiety disorder"
+    - "GAD"
+    - "social anxiety disorder"
+    - "panic disorder"
+    - "obsessive-compulsive disorder"
+    - "OCD"
+    - "post-traumatic stress disorder"
+    - "PTSD"
+    - "attention deficit hyperactivity disorder"
+    - "ADHD"
+    - "insomnia"
+    - "anorexia nervosa"
+    - "substance use disorder"
+
+  neurodegenerative:
+    - "Alzheimer's disease"
+    - "AD"
+    - "mild cognitive impairment"
+    - "MCI"
+    - "Parkinson's disease"
+    - "PD"
+    - "amyotrophic lateral sclerosis"
+    - "ALS"
+    - "Huntington's disease"
+    - "HD"
+    - "frontotemporal dementia"
+    - "FTD"
+    - "progressive supranuclear palsy"
+    - "PSP"
+    - "multiple system atrophy"
+    - "MSA"
+    - "dementia with Lewy bodies"
+    - "DLB"
+
+  neuroinflammatory:
+    - "multiple sclerosis"
+    - "MS"
+    - "relapsing-remitting multiple sclerosis"
+    - "RRMS"
+    - "secondary progressive multiple sclerosis"
+    - "SPMS"
+    - "primary progressive multiple sclerosis"
+    - "PPMS"
+    - "neuromyelitis optica spectrum disorder"
+    - "NMOSD"
+    - "myasthenia gravis"
+    - "MG"
+
+  epilepsy:
+    - "epilepsy"
+    - "focal epilepsy"
+    - "generalized epilepsy"
+    - "Lennox-Gastaut syndrome"
+    - "Dravet syndrome"
+    - "status epilepticus"
+
+  pain:
+    - "migraine"
+    - "chronic migraine"
+    - "episodic migraine"
+    - "cluster headache"
+    - "neuropathic pain"
+    - "diabetic peripheral neuropathy"
+    - "postherpetic neuralgia"
+    - "fibromyalgia"
+
+  movement_disorder:
+    - "tardive dyskinesia"
+    - "essential tremor"
+    - "dystonia"
+    - "spasticity"
+
+# =============================================================================
+# RATING SCALES AND INSTRUMENTS
+# =============================================================================
+rating_scales:
+
+  # --- DEPRESSION ---
+  MADRS:
+    name: "Montgomery-Asberg Depression Rating Scale"
+    abbreviation: "MADRS"
+    type: "clinician_rated"
+    range: "0-60"
+    items: 10
+    scoring: "Higher scores = more severe depression"
+    mcid: 2
+    response_definition: ">=50% reduction from baseline"
+    remission_definition: "Total score <=10"
+    severity_cutoffs:
+      - "0-6: Normal/symptom absent"
+      - "7-19: Mild depression"
+      - "20-34: Moderate depression"
+      - ">=35: Severe depression"
+    table_rows:
+      - "n"
+      - "Baseline Mean (SD)"
+      - "Change from Baseline LS Mean (SE)"
+      - "LS Mean Difference vs Placebo [95% CI]"
+      - "P-value"
+      - "Response (>=50% reduction), n (%)"
+      - "Remission (score <=10), n (%)"
+
+  HAMD_17:
+    name: "Hamilton Depression Rating Scale (17-item)"
+    abbreviation: "HAM-D17"
+    type: "clinician_rated"
+    range: "0-52"
+    items: 17
+    scoring: "Higher scores = more severe depression"
+    response_definition: ">=50% reduction from baseline"
+    remission_definition: "Total score <=7"
+    severity_cutoffs:
+      - "0-7: Normal"
+      - "8-13: Mild depression"
+      - "14-18: Moderate depression"
+      - "19-22: Severe depression"
+      - ">=23: Very severe depression"
+
+  PHQ_9:
+    name: "Patient Health Questionnaire-9"
+    abbreviation: "PHQ-9"
+    type: "patient_reported"
+    range: "0-27"
+    items: 9
+    scoring: "Higher scores = more severe depression"
+    response_definition: ">=50% reduction from baseline"
+    remission_definition: "Total score <5"
+
+  # --- SCHIZOPHRENIA ---
+  PANSS:
+    name: "Positive and Negative Syndrome Scale"
+    abbreviation: "PANSS"
+    type: "clinician_rated"
+    range: "30-210"
+    items: 30
+    subscales:
+      - name: "Positive Subscale"
+        items: 7
+        range: "7-49"
+      - name: "Negative Subscale"
+        items: 7
+        range: "7-49"
+      - name: "General Psychopathology"
+        items: 16
+        range: "16-112"
+    scoring: "Higher scores = more severe symptoms"
+    response_definition: ">=30% reduction from baseline in total score"
+    table_rows:
+      - "n"
+      - "Baseline Mean (SD)"
+      - "Change from Baseline LS Mean (SE)"
+      - "LS Mean Difference vs Placebo [95% CI]"
+      - "P-value"
+      - "Response (>=30% reduction), n (%)"
+      - "Positive Subscale Change (SE)"
+      - "Negative Subscale Change (SE)"
+      - "General Psychopathology Change (SE)"
+
+  # --- GENERAL SEVERITY ---
+  CGI:
+    name: "Clinical Global Impression"
+    abbreviation: "CGI"
+    type: "clinician_rated"
+    subscales:
+      - name: "CGI-Severity (CGI-S)"
+        range: "1-7"
+        categories: ["Normal", "Borderline", "Mildly ill", "Moderately ill", "Markedly ill", "Severely ill", "Extremely ill"]
+      - name: "CGI-Improvement (CGI-I)"
+        range: "1-7"
+        categories: ["Very much improved", "Much improved", "Minimally improved", "No change", "Minimally worse", "Much worse", "Very much worse"]
+    response_definition: "CGI-I <=2 (much improved or very much improved)"
+    table_rows:
+      - "CGI-S at Baseline, n (%)"
+      - "  Mildly ill"
+      - "  Moderately ill"
+      - "  Markedly ill"
+      - "  Severely ill"
+      - "CGI-I at Endpoint, n (%)"
+      - "  Very much improved"
+      - "  Much improved"
+      - "  Minimally improved"
+      - "  No change"
+      - "  Worsened"
+      - "CGI-I Response (<=2), n (%)"
+
+  # --- ALZHEIMER'S ---
+  ADAS_Cog:
+    name: "Alzheimer's Disease Assessment Scale - Cognitive Subscale"
+    abbreviation: "ADAS-Cog"
+    type: "clinician_rated"
+    variants:
+      - name: "ADAS-Cog 11"
+        items: 11
+        range: "0-70"
+      - name: "ADAS-Cog 13"
+        items: 13
+        range: "0-85"
+      - name: "ADAS-Cog 14"
+        items: 14
+        range: "0-90"
+    scoring: "Higher scores = greater cognitive impairment"
+    note: "Negative change from baseline = improvement"
+
+  MMSE:
+    name: "Mini-Mental State Examination"
+    abbreviation: "MMSE"
+    type: "clinician_rated"
+    range: "0-30"
+    scoring: "Lower scores = greater cognitive impairment"
+    severity_cutoffs:
+      - "24-30: Normal"
+      - "20-23: Mild cognitive impairment"
+      - "10-19: Moderate cognitive impairment"
+      - "0-9: Severe cognitive impairment"
+
+  CDR_SB:
+    name: "Clinical Dementia Rating - Sum of Boxes"
+    abbreviation: "CDR-SB"
+    type: "clinician_rated"
+    range: "0-18"
+    scoring: "Higher scores = more severe dementia"
+    domains: ["Memory", "Orientation", "Judgment & Problem Solving", "Community Affairs", "Home & Hobbies", "Personal Care"]
+    note: "Primary endpoint in several Alzheimer's trials"
+
+  ADCS_ADL:
+    name: "Alzheimer's Disease Cooperative Study - Activities of Daily Living"
+    abbreviation: "ADCS-ADL"
+    type: "caregiver_reported"
+    range: "0-78"
+    scoring: "Lower scores = greater functional impairment"
+
+  # --- MULTIPLE SCLEROSIS ---
+  EDSS:
+    name: "Expanded Disability Status Scale"
+    abbreviation: "EDSS"
+    type: "clinician_rated"
+    range: "0-10"
+    step: 0.5
+    scoring: "Higher scores = greater disability"
+    milestones:
+      - "0: Normal neurological exam"
+      - "4.0: Fully ambulatory, able to walk >=500m"
+      - "6.0: Requires walking aid"
+      - "7.0: Unable to walk beyond 5m, essentially restricted to wheelchair"
+      - "8.0: Essentially restricted to bed"
+      - "10.0: Death due to MS"
+    endpoints:
+      confirmed_disability_worsening:
+        label: "Confirmed Disability Worsening (CDW)"
+        definition: ">=1.0 point increase if baseline EDSS <=5.5; >=0.5 point increase if baseline EDSS >5.5; confirmed at 12 or 24 weeks"
+      confirmed_disability_improvement:
+        label: "Confirmed Disability Improvement (CDI)"
+        definition: ">=1.0 point decrease confirmed at 12 or 24 weeks"
+
+  ARR:
+    name: "Annualized Relapse Rate"
+    abbreviation: "ARR"
+    type: "clinical_outcome"
+    analysis_method: "negative_binomial"
+    definition: "Number of confirmed relapses per year of follow-up"
+    note: "Negative binomial regression with offset for time on study"
+    table_rows:
+      - "Number of subjects"
+      - "Total number of relapses"
+      - "Total person-years"
+      - "Adjusted ARR"
+      - "Rate ratio [95% CI]"
+      - "P-value"
+      - "Proportion relapse-free, n (%)"
+
+  # --- EPILEPSY ---
+  seizure_frequency:
+    name: "Seizure Frequency"
+    type: "clinical_outcome"
+    measures:
+      - "Seizure frequency per 28 days"
+      - "Percent change from baseline in seizure frequency"
+      - ">=50% responder rate"
+      - ">=75% responder rate"
+      - "Seizure-free rate"
+    analysis_method: "negative_binomial"
+    table_rows:
+      - "Baseline seizure frequency per 28 days, Median (Min, Max)"
+      - "Treatment period seizure frequency per 28 days, Median (Min, Max)"
+      - "Median % reduction from baseline"
+      - ">=50% Responder rate, n (%)"
+      - "  95% CI"
+      - ">=75% Responder rate, n (%)"
+      - "Seizure-free rate, n (%)"
+      - "P-value"
+
+  # --- MIGRAINE ---
+  migraine_measures:
+    name: "Migraine Endpoints"
+    type: "clinical_outcome"
+    measures:
+      - "Monthly migraine days (MMD)"
+      - "Monthly headache days (MHD)"
+      - ">=50% responder rate (reduction in MMD)"
+      - ">=75% responder rate"
+      - "100% responder rate (migraine-free)"
+      - "Monthly acute medication use days"
+    analysis_method: "mmrm"
+    table_rows:
+      - "Baseline monthly migraine days, Mean (SD)"
+      - "Change from baseline in MMD, LS Mean (SE)"
+      - "LS Mean Difference vs Placebo [95% CI]"
+      - "P-value"
+      - ">=50% Responder rate, n (%)"
+      - ">=75% Responder rate, n (%)"
+      - "100% Responder rate, n (%)"
+
+  # --- PARKINSON'S ---
+  MDS_UPDRS:
+    name: "Movement Disorder Society - Unified Parkinson's Disease Rating Scale"
+    abbreviation: "MDS-UPDRS"
+    type: "clinician_rated"
+    parts:
+      - name: "Part I: Non-Motor Aspects of Daily Living"
+        items: 13
+        range: "0-52"
+      - name: "Part II: Motor Aspects of Daily Living"
+        items: 13
+        range: "0-52"
+      - name: "Part III: Motor Examination"
+        items: 33
+        range: "0-132"
+      - name: "Part IV: Motor Complications"
+        items: 6
+        range: "0-24"
+    scoring: "Higher scores = greater impairment"
+    primary_endpoint: "Parts II + III combined"
+
+  # --- ALS ---
+  ALSFRS_R:
+    name: "ALS Functional Rating Scale - Revised"
+    abbreviation: "ALSFRS-R"
+    type: "patient_reported"
+    range: "0-48"
+    items: 12
+    scoring: "Lower scores = greater disability"
+    domains: ["Bulbar", "Fine Motor", "Gross Motor", "Respiratory"]
+    note: "Slope of decline (points/month) commonly analyzed"
+
+  # --- MYASTHENIA GRAVIS ---
+  MG_ADL:
+    name: "Myasthenia Gravis Activities of Daily Living"
+    abbreviation: "MG-ADL"
+    type: "patient_reported"
+    range: "0-24"
+    items: 8
+    scoring: "Higher scores = greater impairment"
+    response_definition: ">=2 point improvement from baseline"
+
+  QMG:
+    name: "Quantitative Myasthenia Gravis Score"
+    abbreviation: "QMG"
+    type: "clinician_rated"
+    range: "0-39"
+    items: 13
+    scoring: "Higher scores = greater impairment"
+
+# =============================================================================
+# CNS-SPECIFIC BASELINE VARIABLES
+# =============================================================================
+baseline_variables:
+  - variable: "Age at Onset (years)"
+    type: "continuous"
+    note: "Age at first symptoms"
+
+  - variable: "Duration of Illness (years)"
+    type: "continuous"
+
+  - variable: "Number of Prior Episodes/Relapses"
+    type: "categorical"
+
+  - variable: "Number of Prior Treatments"
+    type: "categorical"
+    categories: ["0", "1", "2", ">=3"]
+
+  - variable: "Current Episode Duration"
+    type: "continuous"
+    note: "Depression/psychosis trials"
+
+  - variable: "Baseline Severity Score"
+    type: "continuous"
+    note: "Scale-specific (MADRS, PANSS, EDSS, etc.)"
+
+  - variable: "Concurrent Psychotropic Medications"
+    type: "categorical"
+    note: "Antidepressants, antipsychotics, anxiolytics, mood stabilizers"
+
+  - variable: "Suicidal Ideation History"
+    type: "categorical"
+    categories: ["Yes", "No"]
+    note: "C-SSRS lifetime assessment"
+
+# =============================================================================
+# CNS-SPECIFIC SAFETY ASSESSMENTS
+# =============================================================================
+safety_assessments:
+
+  columbia_suicide:
+    name: "Columbia-Suicide Severity Rating Scale"
+    abbreviation: "C-SSRS"
+    type: "clinician_rated"
+    categories:
+      - "Suicidal ideation"
+      - "  Wish to be dead"
+      - "  Non-specific active suicidal thoughts"
+      - "  Active suicidal ideation with any methods"
+      - "  Active suicidal ideation with intent"
+      - "  Active suicidal ideation with plan and intent"
+      - "Suicidal behavior"
+      - "  Preparatory acts"
+      - "  Aborted attempt"
+      - "  Interrupted attempt"
+      - "  Actual attempt"
+      - "  Completed suicide"
+    table_rows:
+      - "Treatment-emergent suicidal ideation, n (%)"
+      - "  New onset (no baseline ideation)"
+      - "  Worsening (increase in severity)"
+      - "Treatment-emergent suicidal behavior, n (%)"
+      - "Completed suicide, n (%)"
+    footnote: "Suicidality assessed using Columbia-Suicide Severity Rating Scale (C-SSRS)."
+    note: "Required by FDA for all CNS trials"
+
+  extrapyramidal:
+    name: "Extrapyramidal Symptoms"
+    scales:
+      - name: "Simpson-Angus Scale (SAS)"
+        range: "0-40"
+        note: "Drug-induced parkinsonism"
+      - name: "Barnes Akathisia Rating Scale (BARS)"
+        range: "0-14"
+        note: "Akathisia"
+      - name: "Abnormal Involuntary Movement Scale (AIMS)"
+        range: "0-40"
+        note: "Tardive dyskinesia"
+    table_rows:
+      - "SAS Total Score, Mean Change from Baseline (SD)"
+      - "BARS Global Score, Mean Change from Baseline (SD)"
+      - "AIMS Total Score, Mean Change from Baseline (SD)"
+      - "Treatment-emergent EPS, n (%)"
+      - "  Parkinsonism"
+      - "  Akathisia"
+      - "  Dystonia"
+      - "  Tardive dyskinesia"
+    footnote: "Extrapyramidal symptoms assessed by SAS, BARS, and AIMS."
+
+  metabolic_monitoring:
+    name: "Metabolic Parameters"
+    note: "Required for antipsychotic trials"
+    parameters:
+      - "Weight change (kg)"
+      - "BMI change"
+      - "Waist circumference change"
+      - "Fasting glucose change"
+      - "HbA1c change"
+      - "Fasting lipid panel change"
+      - "Prolactin change"
+    categorical_thresholds:
+      - "Weight gain >=7% from baseline, n (%)"
+      - "Shift to fasting glucose >=126 mg/dL, n (%)"
+      - "Shift to total cholesterol >=240 mg/dL, n (%)"
+      - "Shift to LDL-C >=160 mg/dL, n (%)"
+      - "Shift to triglycerides >=200 mg/dL, n (%)"
+
+  sedation:
+    name: "Sedation Assessment"
+    scales:
+      - name: "Epworth Sleepiness Scale (ESS)"
+        range: "0-24"
+      - name: "Stanford Sleepiness Scale"
+        range: "1-7"
+
+# =============================================================================
+# CNS-SPECIFIC AESIs
+# =============================================================================
+aesi_categories:
+
+  psychiatric:
+    label: "Psychiatric AESIs"
+    events:
+      - category: "Suicidality"
+        preferred_terms: ["Suicidal ideation", "Suicide attempt", "Completed suicide", "Self-injurious behaviour"]
+      - category: "Psychosis"
+        preferred_terms: ["Hallucination", "Delusion", "Psychotic disorder"]
+      - category: "Mania/Hypomania"
+        preferred_terms: ["Mania", "Hypomania", "Mood swings"]
+      - category: "Sedation/Somnolence"
+        preferred_terms: ["Somnolence", "Sedation", "Hypersomnia", "Lethargy"]
+      - category: "Insomnia"
+        preferred_terms: ["Insomnia", "Initial insomnia", "Middle insomnia", "Terminal insomnia"]
+      - category: "Anxiety"
+        preferred_terms: ["Anxiety", "Agitation", "Restlessness", "Panic attack"]
+      - category: "Aggression"
+        preferred_terms: ["Aggression", "Irritability", "Hostility", "Anger"]
+
+  neurological:
+    label: "Neurological AESIs"
+    events:
+      - category: "Seizures"
+        preferred_terms: ["Seizure", "Generalised tonic-clonic seizure", "Status epilepticus", "Convulsion"]
+      - category: "Extrapyramidal Symptoms"
+        preferred_terms: ["Akathisia", "Tremor", "Dystonia", "Bradykinesia", "Cogwheel rigidity", "Tardive dyskinesia"]
+      - category: "Serotonin Syndrome"
+        preferred_terms: ["Serotonin syndrome", "Neuroleptic malignant syndrome"]
+      - category: "Withdrawal/Discontinuation"
+        preferred_terms: ["Drug withdrawal syndrome", "Discontinuation syndrome", "Drug withdrawal seizure"]
+      - category: "Cognitive Impairment"
+        preferred_terms: ["Cognitive disorder", "Memory impairment", "Disturbance in attention", "Confusional state"]
+
+  ms_specific:
+    label: "MS Treatment-Specific AESIs"
+    events:
+      - category: "PML"
+        preferred_terms: ["Progressive multifocal leukoencephalopathy"]
+        note: "Associated with natalizumab, other immunosuppressants"
+      - category: "Lymphopenia"
+        preferred_terms: ["Lymphopenia", "Lymphocyte count decreased"]
+      - category: "Infections"
+        preferred_terms: ["Herpes zoster", "Opportunistic infection", "Urinary tract infection", "Upper respiratory tract infection"]
+      - category: "Injection/Infusion Reactions"
+        preferred_terms: ["Injection site reaction", "Infusion related reaction"]
+      - category: "Macular Edema"
+        preferred_terms: ["Macular oedema"]
+        note: "Associated with fingolimod"
+      - category: "Cardiac Effects"
+        preferred_terms: ["Bradycardia", "Atrioventricular block"]
+        note: "First-dose effect with S1P modulators"
+
+# =============================================================================
+# BIOMARKERS
+# =============================================================================
+biomarkers:
+  amyloid:
+    variable: "Amyloid Status"
+    type: "categorical"
+    categories: ["Amyloid positive", "Amyloid negative"]
+    assessment: "PET scan or CSF Abeta42"
+    note: "Required for Alzheimer's disease trials"
+
+  tau:
+    variable: "Tau PET Status"
+    type: "continuous"
+    note: "Tau burden by PET imaging"
+
+  neurofilament:
+    variable: "Neurofilament Light Chain (NfL)"
+    type: "continuous"
+    unit: "pg/mL"
+    note: "Marker of neurodegeneration; used in MS, ALS"
+
+  jcv_antibody:
+    variable: "JCV Antibody Status"
+    type: "categorical"
+    categories: ["Positive", "Negative"]
+    note: "Risk factor for PML with natalizumab"
+
+  mri_lesions:
+    variable: "MRI T2 Lesion Volume"
+    type: "continuous"
+    note: "Measure of disease burden in MS"
+
+  gadolinium_lesions:
+    variable: "Number of Gd-Enhancing T1 Lesions"
+    type: "continuous"
+    note: "Active inflammation marker in MS"
+
+# =============================================================================
+# COMMON STRATIFICATION FACTORS
+# =============================================================================
+stratification_factors:
+  - "Baseline severity (mild/moderate vs severe)"
+  - "Number of prior treatments"
+  - "Current use of benzodiazepines (yes vs no)"
+  - "Current use of antidepressant (yes vs no)"
+  - "Geographic region"
+  - "Age group"
+  - "Baseline EDSS (<=3.5 vs >3.5) [MS trials]"
+  - "Relapse in past year (0 vs >=1) [MS trials]"
+  - "ApoE4 status (carrier vs non-carrier) [AD trials]"
+
+# =============================================================================
+# COMMON SUBGROUP ANALYSES
+# =============================================================================
+subgroup_analyses:
+  - "Age (<65 vs >=65)"
+  - "Sex (Male vs Female)"
+  - "Race"
+  - "Baseline severity (mild vs moderate vs severe)"
+  - "Number of prior treatments (<=2 vs >2)"
+  - "Duration of current episode/disease"
+  - "Concomitant CNS medications"
+  - "Geographic region"
+  - "Baseline BMI (<30 vs >=30)"
+
+# =============================================================================
+# CNS-SPECIFIC FOOTNOTES
+# =============================================================================
+footnotes:
+  scales:
+    madrs: "Depression severity assessed by Montgomery-Asberg Depression Rating Scale (MADRS; range 0-60, higher = more severe)."
+    panss: "Symptoms assessed by Positive and Negative Syndrome Scale (PANSS; range 30-210, higher = more severe)."
+    edss: "Disability assessed by Expanded Disability Status Scale (EDSS; range 0-10, higher = greater disability)."
+    adas_cog: "Cognition assessed by ADAS-Cog (higher scores = greater impairment; negative change = improvement)."
+    cdr_sb: "Dementia severity assessed by CDR-Sum of Boxes (range 0-18, higher = more severe)."
+  safety:
+    cssrs: "Suicidality assessed using Columbia-Suicide Severity Rating Scale (C-SSRS)."
+    eps: "Extrapyramidal symptoms assessed by SAS, BARS, and AIMS."
+    metabolic: "Metabolic parameters monitored per FDA guidance for antipsychotic trials."
+
+# =============================================================================
+# CNS-SPECIFIC LISTINGS
+# =============================================================================
+listings:
+  - title: "Listing of Subjects with Suicidal Ideation or Behavior (C-SSRS)"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Visit", "C-SSRS Category", "Severity", "Baseline C-SSRS", "Treatment-Emergent (Y/N)"]
+
+  - title: "Listing of Subjects with Seizures"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Seizure Type", "Date", "Duration", "Relationship to Study Drug", "Action Taken"]
+
+  - title: "Listing of Subjects with Clinically Significant Weight Change (>=7%)"
+    population: "safety"
+    variables: ["Subject ID", "Treatment", "Baseline Weight (kg)", "Max Weight (kg)", "% Change", "Visit at Max Weight"]
+
+  - title: "Listing of MS Relapses"
+    population: "itt"
+    variables: ["Subject ID", "Treatment", "Relapse Date", "Duration (days)", "EDSS at Relapse", "Steroid Treatment (Y/N)", "Recovery Status"]
+    note: "MS trials only"

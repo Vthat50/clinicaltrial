@@ -1,0 +1,316 @@
+{
+  "study_facts": {
+    "therapeutic_area": "infectious_disease",
+    "phase": "Phase 2B/3",
+    "design_type": "superiority",
+    "has_central_review": true,
+    "has_pk": false,
+    "has_immunogenicity": false,
+    "has_qol": true,
+    "qol_instruments": [
+      "Female Sexual Function Index (FSFI)",
+      "Sexual Function Questionnaire",
+      "Subject Satisfaction With Product",
+      "Subject Sexual Satisfaction"
+    ],
+    "treatment_periods": [
+      "Intervention Period",
+      "Post-Intervention Follow-up Period"
+    ],
+    "num_arms": 2
+  },
+  "tables": [
+    {
+      "title": "Subject Disposition",
+      "population": "ITT",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Protocol Deviations",
+      "population": "ITT",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Baseline Characteristics",
+      "population": "ITT",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical/Surgical/Gynecologic/Sexual Health History",
+      "population": "ITT",
+      "section": null,
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Medications",
+      "population": "ITT",
+      "section": null,
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Adherence Summary",
+      "population": "mITT",
+      "section": null,
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "Primary Efficacy Endpoint - CT Infection",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "CT Re-infection by Visit",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Secondary Efficacy Endpoint - GC Infection",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "GC Re-infection by Visit",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "CT Infection by Adherence Rate (\u226520%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "CT Infection by Adherence Rate (\u226540%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "CT Infection by Adherence Rate (\u226560%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "CT Infection by Adherence Rate (\u226580%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "CT Infection by Adherence Rate (100%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "GC Infection by Adherence Rate (\u226520%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "GC Infection by Adherence Rate (\u226540%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "GC Infection by Adherence Rate (\u226560%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "GC Infection by Adherence Rate (\u226580%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "GC Infection by Adherence Rate (100%)",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Re-infection Rate Analysis with Alternative Definition",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Subject Satisfaction and Sexual Function Questionnaires",
+      "population": "Safety",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "Condom Usage Rates",
+      "population": "mITT",
+      "section": null,
+      "type": "other",
+      "conditional": false
+    },
+    {
+      "title": "Re-infection Rates by Condom Usage",
+      "population": "mITT",
+      "section": null,
+      "type": "subgroup",
+      "conditional": false
+    },
+    {
+      "title": "Overall Adverse Events Summary",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events by System Organ Class and Preferred Term",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Serious Adverse Events",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_serious",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events Leading to Discontinuation",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_discontinuation",
+      "conditional": false
+    },
+    {
+      "title": "Deaths",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_death",
+      "conditional": false
+    },
+    {
+      "title": "Adverse Events by Relationship to Study Intervention",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_overview",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Evaluations",
+      "population": "Safety",
+      "section": null,
+      "type": "labs_summary",
+      "conditional": false
+    }
+  ],
+  "figures": [],
+  "listings": [
+    {
+      "title": "Subject Disposition",
+      "population": "ITT",
+      "section": null,
+      "type": "disposition",
+      "conditional": false
+    },
+    {
+      "title": "Demographics and Baseline Characteristics",
+      "population": "ITT",
+      "section": null,
+      "type": "demographics",
+      "conditional": false
+    },
+    {
+      "title": "Medical History",
+      "population": "ITT",
+      "section": null,
+      "type": "medical_history",
+      "conditional": false
+    },
+    {
+      "title": "Concomitant Medications",
+      "population": "ITT",
+      "section": null,
+      "type": "concomitant_medications",
+      "conditional": false
+    },
+    {
+      "title": "Treatment Compliance Data",
+      "population": "mITT",
+      "section": null,
+      "type": "exposure",
+      "conditional": false
+    },
+    {
+      "title": "CT Infection Information",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "GC Infection Information",
+      "population": "mITT",
+      "section": null,
+      "type": "efficacy_binary",
+      "conditional": false
+    },
+    {
+      "title": "Satisfaction and Sexual Function Questionnaires",
+      "population": "Safety",
+      "section": null,
+      "type": "qol",
+      "conditional": false
+    },
+    {
+      "title": "All Adverse Events",
+      "population": "Safety",
+      "section": null,
+      "type": "ae_by_soc_pt",
+      "conditional": false
+    },
+    {
+      "title": "Clinical Laboratory Evaluations",
+      "population": "Safety",
+      "section": null,
+      "type": "labs_summary",
+      "conditional": false
+    }
+  ],
+  "_nct": "NCT03107377",
+  "_area": "Women's_Health"
+}
