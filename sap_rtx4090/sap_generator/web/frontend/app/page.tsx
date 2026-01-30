@@ -436,7 +436,7 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className="prose prose-sm max-w-none overflow-x-auto">
+          <div className="markdown-body max-w-none overflow-x-auto text-sm">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {tlfMarkdown}
             </ReactMarkdown>

@@ -259,11 +259,7 @@ SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # Log startup configuration
-logger.info(
-    "Backend starting supabase_configured=%s groq_configured=%s",
-    bool(SUPABASE_URL and SUPABASE_KEY),
-    bool(GROQ_API_KEY)
-)
+logger.info(f"Backend starting supabase_configured={bool(SUPABASE_URL and SUPABASE_KEY)} groq_configured={bool(GROQ_API_KEY)}")
 
 # Initialize Supabase client
 supabase: Client = None
